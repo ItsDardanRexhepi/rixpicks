@@ -64,9 +64,11 @@ h1 .tick{color:#2f8f7d}
 #rpA2hs .primary{background:#2f8f7d;color:#fff}
 #rpA2hs .ghost{background:#eee;color:#555}
 #rpA2hs .dots{font-size:10px;color:#bbb;margin-top:12px;letter-spacing:3px}
-.ls{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#2f8f7d;white-space:nowrap;margin-left:8px}
-.ls.on{display:inline-flex}
+.ls{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#2f8f7d;white-space:nowrap;margin:5px 0 2px}
+.ls.on{display:flex}
 .ls .dot{width:6px;height:6px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite}
+.ls.won{color:#3ecf6f}
+.ls.lost{color:#e5484d}
 @keyframes rpblink{0%,100%{opacity:1}50%{opacity:.25}}
 #rpPull{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}
 .spin{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}
@@ -103,10 +105,13 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 .chip[data-bk="B365"]{background:#2a2410 !important;border-color:#2a2410 !important;color:#e0cd6a !important}
 .chip[data-bk="FAN"]{background:#232326 !important;border-color:#232326 !important;color:#d8d8dc !important}
 }
+
+@keyframes rpspin{to{transform:rotate(360deg)}}
 </style>
 </head><body>
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
+<div id="rpPtr" style="display:none;text-align:center;font-size:12px;color:#8a8f98;padding:8px 0"><span style="display:inline-block;width:14px;height:14px;border:2px solid #2a4a44;border-top-color:#3aa895;border-radius:50%;animation:rpspin .8s linear infinite;vertical-align:-2px"></span> <span id="rpPtrTxt">refreshing&hellip;</span></div>
 <div class="sect" style="margin-top:18px">Game 1</div>
 <div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 4px;text-align:center"><a href="team-houston-astros.html" style="flex:1;text-decoration:none;color:inherit"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/hou.png" alt="" style="width:54px;height:54px;object-fit:contain" onerror="this.remove()"><div style="font-weight:700;margin-top:4px">HOU</div></a><div style="flex:1.6"><div style="font-size:18px;font-weight:800">Astros vs Athletics</div><div class="sub" style="margin-top:3px">6:41 PM PT</div></div><a href="team-athletics.html" style="flex:1;text-decoration:none;color:inherit"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/ath.png" alt="" style="width:54px;height:54px;object-fit:contain" onerror="this.remove()"><div style="font-weight:700;margin-top:4px">ATH</div></a></div>
 <div class="pick" data-espn="baseball/mlb" data-away="Houston Astros" data-home="Athletics" data-side="away" data-market="ml">
@@ -132,7 +137,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790370269';
+const RP_BUILD='1790370661';
 const RP_FD=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "MD", "MA", "MI", "MO", "NJ", "NY", "NC", "OH", "PA", "TN", "VT", "VA", "WV", "WY", "DC", "PR"];const RP_DK=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MO", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "TN", "VT", "VA", "WV", "WY", "DC"];
 const RP_L={FD:RP_FD,DK:RP_DK,MGM:["AZ", "CO", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "MS", "NJ", "NV", "NY", "NC", "OH", "PA", "TN", "VA", "WV", "WY"],B365:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "NJ", "NC", "OH", "PA", "TN", "VA"],FAN:["AZ", "CO", "CT", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NC", "NJ", "NY", "OH", "PA", "TN", "VT", "VA", "WV", "WY"],ESPN:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NJ", "NC", "OH", "PA", "TN", "VA", "WV"],HR:["AZ", "CO", "FL", "IL", "IN", "MI", "NJ", "OH", "TN", "VA"],BR:["AZ", "CO", "CT", "DE", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "RI", "TN", "VT", "VA", "WV", "WY"]};
 function rpC2ML(c){c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}
@@ -284,7 +289,11 @@ async function rpMlbLive(d){
  if(sline)sline.textContent=(det==='In Progress'?inn:det)+'  |  '+hAb+' '+hR+' - '+aAb+' '+aR;
  const live=det==='In Progress';
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
- h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+det.toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+inn+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
+ const isFinal=det==='Final'||det==='Game Over';
+ let wl='';
+ if(isFinal){const side=d.dataset.side||'away';const win=(side==='away')?(aR>hR):(hR>aR);
+  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}
+ h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+det.toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+inn+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
  h+='<div style="display:flex;align-items:center;gap:12px">';
  h+='<div style="flex:1"><div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div></div>';
@@ -327,7 +336,11 @@ async function rpEspnPanel(d){
  if(st.state==='pre'){box.innerHTML='';return;}
  const live=st.state==='in';
  let h='<div style="margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
- h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':'')+'<span style="font-size:12px;color:#8a8f98">'+(st.shortDetail||'')+'</span></div>';
+ let wl2='';
+ if(st.state==='post'){const side=d.dataset.side||'away';const aw2=(comp.competitors||[]).find(function(c){return c.homeAway==='away';});const hm2=(comp.competitors||[]).find(function(c){return c.homeAway==='home';});
+  if(aw2&&hm2){const win=(side==='away')?(+aw2.score>+hm2.score):(+hm2.score>+aw2.score);
+  wl2='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}
+ h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl2)+'<span style="font-size:12px;color:#8a8f98">'+(st.shortDetail||'')+'</span></div>';
  (comp.competitors||[]).forEach(function(c){
   const ab=(c.team||{}).abbreviation||'';const sc=c.score||'0';
   const ball=live&&comp.situation&&comp.situation.possession===c.team.id?' <span style="color:#e8b93c">&#9679;</span>':'';
@@ -493,6 +506,17 @@ document.addEventListener('click',function(e){
  rpDrawCharts();
 });
 rpDrawCharts();setInterval(rpDrawCharts,60000);
+let rpPtrY=null,rpPtrPull=0;
+document.addEventListener('touchstart',function(e){if(window.scrollY<=0){rpPtrY=e.touches[0].clientY;rpPtrPull=0;}},{passive:true});
+document.addEventListener('touchmove',function(e){if(rpPtrY===null)return;rpPtrPull=e.touches[0].clientY-rpPtrY;
+ if(rpPtrPull>60&&window.scrollY<=0){const el=document.getElementById('rpPtr');if(el){el.style.display='block';document.getElementById('rpPtrTxt').textContent='release to refresh';}}},{passive:true});
+document.addEventListener('touchend',function(){const el=document.getElementById('rpPtr');
+ if(rpPtrPull>60&&window.scrollY<=0){if(el){el.style.display='block';document.getElementById('rpPtrTxt').textContent='refreshing...';}
+  try{rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();rpDrawCharts();}catch(e){}
+  setTimeout(function(){if(el)el.style.display='none';},1200);}
+ else if(el)el.style.display='none';
+ rpPtrY=null;rpPtrPull=0;},{passive:true});
+
 
 rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);setInterval(rpLiveBox,15000);
 setInterval(rpPageRefresh,60000);

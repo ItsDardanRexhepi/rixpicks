@@ -3,10 +3,13 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>__TITLE__ - &rsquo;RixPicks</title>
 <meta name="description" content="Live markets for __TITLE__.">
-<style>__CSS__</style>
+<style>__CSS__
+@keyframes rpspin{to{transform:rotate(360deg)}}
+</style>
 </head><body>
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
+<div id="rpPtr" style="display:none;text-align:center;font-size:12px;color:#8a8f98;padding:8px 0"><span style="display:inline-block;width:14px;height:14px;border:2px solid #2a4a44;border-top-color:#3aa895;border-radius:50%;animation:rpspin .8s linear infinite;vertical-align:-2px"></span> <span id="rpPtrTxt">refreshing&hellip;</span></div>
 <div class="sect" style="margin-top:18px">Game __NUM____INST__</div>
 __MATCHUP__
 <div class="pick" data-espn="__ESPN__" data-away="__AWAY__" data-home="__HOME__" data-side="__SIDE__" data-market="__MKT__">
@@ -183,7 +186,11 @@ async function rpMlbLive(d){
  if(sline)sline.textContent=(det==='In Progress'?inn:det)+'  |  '+hAb+' '+hR+' - '+aAb+' '+aR;
  const live=det==='In Progress';
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
- h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+det.toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+inn+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
+ const isFinal=det==='Final'||det==='Game Over';
+ let wl='';
+ if(isFinal){const side=d.dataset.side||'away';const win=(side==='away')?(aR>hR):(hR>aR);
+  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}
+ h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+det.toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+inn+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
  h+='<div style="display:flex;align-items:center;gap:12px">';
  h+='<div style="flex:1"><div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div></div>';
@@ -226,7 +233,11 @@ async function rpEspnPanel(d){
  if(st.state==='pre'){box.innerHTML='';return;}
  const live=st.state==='in';
  let h='<div style="margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
- h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':'')+'<span style="font-size:12px;color:#8a8f98">'+(st.shortDetail||'')+'</span></div>';
+ let wl2='';
+ if(st.state==='post'){const side=d.dataset.side||'away';const aw2=(comp.competitors||[]).find(function(c){return c.homeAway==='away';});const hm2=(comp.competitors||[]).find(function(c){return c.homeAway==='home';});
+  if(aw2&&hm2){const win=(side==='away')?(+aw2.score>+hm2.score):(+hm2.score>+aw2.score);
+  wl2='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}
+ h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl2)+'<span style="font-size:12px;color:#8a8f98">'+(st.shortDetail||'')+'</span></div>';
  (comp.competitors||[]).forEach(function(c){
   const ab=(c.team||{}).abbreviation||'';const sc=c.score||'0';
   const ball=live&&comp.situation&&comp.situation.possession===c.team.id?' <span style="color:#e8b93c">&#9679;</span>':'';
@@ -392,6 +403,17 @@ document.addEventListener('click',function(e){
  rpDrawCharts();
 });
 rpDrawCharts();setInterval(rpDrawCharts,60000);
+let rpPtrY=null,rpPtrPull=0;
+document.addEventListener('touchstart',function(e){if(window.scrollY<=0){rpPtrY=e.touches[0].clientY;rpPtrPull=0;}},{passive:true});
+document.addEventListener('touchmove',function(e){if(rpPtrY===null)return;rpPtrPull=e.touches[0].clientY-rpPtrY;
+ if(rpPtrPull>60&&window.scrollY<=0){const el=document.getElementById('rpPtr');if(el){el.style.display='block';document.getElementById('rpPtrTxt').textContent='release to refresh';}}},{passive:true});
+document.addEventListener('touchend',function(){const el=document.getElementById('rpPtr');
+ if(rpPtrPull>60&&window.scrollY<=0){if(el){el.style.display='block';document.getElementById('rpPtrTxt').textContent='refreshing...';}
+  try{rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();rpDrawCharts();}catch(e){}
+  setTimeout(function(){if(el)el.style.display='none';},1200);}
+ else if(el)el.style.display='none';
+ rpPtrY=null;rpPtrPull=0;},{passive:true});
+
 
 rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);setInterval(rpLiveBox,15000);
 setInterval(rpPageRefresh,60000);

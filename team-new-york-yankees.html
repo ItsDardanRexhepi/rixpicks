@@ -53,6 +53,23 @@ h1 .tick{color:#2f8f7d}
 #rpState{width:100%;padding:10px;border:1px solid #e4e2de;border-radius:8px;font-size:15px;margin-bottom:12px}
 #rpSave{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
 .rpstate-link{color:#2f8f7d;cursor:pointer;text-decoration:underline}
+#rpA2hs{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:60}
+#rpA2hs .box{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%;text-align:center}
+#rpA2hs h3{font-size:16px;margin-bottom:4px}
+#rpA2hs .plat{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#2f8f7d;font-weight:700;margin-bottom:12px}
+#rpA2hs ol{text-align:left;font-size:13px;color:#3a3a40;margin:0 0 16px 0;padding-left:20px}
+#rpA2hs ol li{margin-bottom:8px}
+#rpA2hs .nav{display:flex;gap:8px}
+#rpA2hs .nav button{flex:1;padding:11px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+#rpA2hs .primary{background:#2f8f7d;color:#fff}
+#rpA2hs .ghost{background:#eee;color:#555}
+#rpA2hs .dots{font-size:10px;color:#bbb;margin-top:12px;letter-spacing:3px}
+.ls{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#2f8f7d;white-space:nowrap;margin:5px 0 2px}
+.ls.on{display:flex}
+.ls .dot{width:6px;height:6px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite}
+.ls.won{color:#3ecf6f}
+.ls.lost{color:#e5484d}
+@keyframes rpblink{0%,100%{opacity:1}50%{opacity:.25}}
 #rpPull{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}
 .spin{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}
 @keyframes rpSpin{to{transform:rotate(360deg)}}
@@ -67,6 +84,13 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 #rpModal .box{background:#1e1e22}
 #rpModal h3{color:#ececf1}
 #rpModal p{color:#9a9aa3}
+#rpA2hs{background:rgba(0,0,0,.6)}
+#rpA2hs .box{background:#1e1e22}
+#rpA2hs h3{color:#ececf1}
+#rpA2hs ol{color:#c8c8d0}
+#rpA2hs .ghost{background:#2a2a30;color:#9a9aa3}
+#rpA2hs .dots{color:#555}
+.ls{color:#3ec9a0}
 #rpState{background:#141416;color:#ececf1;border-color:#2a2a2e}
 #rpGeoNote{color:#3aa895 !important}
 #rpPull{background:#000;color:#3aa895}
@@ -103,7 +127,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790367547';
+const RP_BUILD='1790370661';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){

@@ -239,7 +239,7 @@ for p in man['picks']:
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
     rows.append(f'''<div class="pick" data-espn="{espn}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}">
-  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><span class="ls" data-ls></span><a class="chev" href="game-{p['num']}.html" aria-label="live markets">&rsaquo;</a></div>
+  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="chev" href="game-{p['num']}.html" aria-label="live markets">&rsaquo;</a></div><span class="ls" data-ls></span>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
 </div>''')
@@ -437,9 +437,11 @@ h1 .tick{{color:#2f8f7d}}
 #rpA2hs .primary{{background:#2f8f7d;color:#fff}}
 #rpA2hs .ghost{{background:#eee;color:#555}}
 #rpA2hs .dots{{font-size:10px;color:#bbb;margin-top:12px;letter-spacing:3px}}
-.ls{{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#2f8f7d;white-space:nowrap;margin-left:8px}}
-.ls.on{{display:inline-flex}}
+.ls{{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#2f8f7d;white-space:nowrap;margin:5px 0 2px}}
+.ls.on{{display:flex}}
 .ls .dot{{width:6px;height:6px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite}}
+.ls.won{{color:#3ecf6f}}
+.ls.lost{{color:#e5484d}}
 @keyframes rpblink{{0%,100%{{opacity:1}}50%{{opacity:.25}}}}
 #rpPull{{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}}
 .spin{{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}}
@@ -581,6 +583,10 @@ function rpMaybeA2HS(){{if(RP_STANDALONE||RP_MOB===false)return;if(localStorage.
  rpA2hsRender();document.getElementById('rpA2hs').style.display='flex';}}
 function rpLsRender(pk,g){{const el=pk.querySelector('[data-ls]');if(!el)return;
  if(!g||g.state==='pre'){{el.className='ls';el.innerHTML='';return;}}
+ if(g.state==='post'){{const side=pk.dataset.side||'away';
+  const win=(side==='away')?(g.as>g.hs):(g.hs>g.as);
+  el.className='ls on '+(win?'won':'lost');
+  el.innerHTML='<b>'+(win?'W':'L')+'</b> &middot; '+g.a+' '+g.as+' - '+g.h+' '+g.hs+' Final';return;}}
  el.className='ls on';
  el.innerHTML=(g.state==='in'?'<span class="dot"></span>':'')+g.a+' '+g.as+' - '+g.h+' '+g.hs+' &middot; '+g.st;}}
 async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data-away]')].filter(x=>x.dataset.away);if(!picks.length)return;
