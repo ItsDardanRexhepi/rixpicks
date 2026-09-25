@@ -132,7 +132,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790369785';
+const RP_BUILD='1790370173';
 const RP_FD=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "MD", "MA", "MI", "MO", "NJ", "NY", "NC", "OH", "PA", "TN", "VT", "VA", "WV", "WY", "DC", "PR"];const RP_DK=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MO", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "TN", "VT", "VA", "WV", "WY", "DC"];
 const RP_L={FD:RP_FD,DK:RP_DK,MGM:["AZ", "CO", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "MS", "NJ", "NV", "NY", "NC", "OH", "PA", "TN", "VA", "WV", "WY"],B365:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "NJ", "NC", "OH", "PA", "TN", "VA"],FAN:["AZ", "CO", "CT", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NC", "NJ", "NY", "OH", "PA", "TN", "VT", "VA", "WV", "WY"],ESPN:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NJ", "NC", "OH", "PA", "TN", "VA", "WV"],HR:["AZ", "CO", "FL", "IL", "IN", "MI", "NJ", "OH", "TN", "VA"],BR:["AZ", "CO", "CT", "DE", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "RI", "TN", "VT", "VA", "WV", "WY"]};
 function rpC2ML(c){c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}
@@ -248,33 +248,105 @@ function rpEspnTick(){try{
 }catch(e){}}
 
 function rpLiveBox(){try{
- const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.eid)return;
- fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/summary?event='+d.dataset.eid).then(r=>r.json()).then(function(j){
-  const box=document.getElementById('rpLive');if(!box)return;
-  const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
-  const st=(comp.status||{}).type||{};
-  if(st.state==='pre'){box.innerHTML='';return;}
-  let h='<div style="margin-top:10px;padding:10px 12px;border:1px solid rgba(127,127,127,.2);border-radius:10px">';
-  h+='<div style="font-size:12px;color:#2f8f7d;margin-bottom:6px">'+(st.shortDetail||'')+'</div>';
-  (comp.competitors||[]).forEach(function(c){
-   const ab=(c.team||{}).abbreviation||'';const sc=c.score||'0';
-   h+='<div style="display:flex;justify-content:space-between;font-size:15px;padding:2px 0"><span>'+ab+'</span><span style="font-variant-numeric:tabular-nums;font-weight:600">'+sc+'</span></div>';
-  });
-  const s=j.situation||comp.situation||{};
-  const bits=[];
-  if(typeof s.outs==='number')bits.push(s.outs+' out'+(s.outs===1?'':'s'));
-  if(typeof s.balls==='number'&&typeof s.strikes==='number')bits.push(s.balls+'-'+s.strikes);
-  const base=[];if(s.onFirst)base.push('1B');if(s.onSecond)base.push('2B');if(s.onThird)base.push('3B');
-  if(base.length)bits.push('runners: '+base.join(', '));
-  if(bits.length)h+='<div style="font-size:12px;color:#8a8f98;margin-top:6px">'+bits.join(' · ')+'</div>';
-  const pn=(((s.pitcher||{}).athlete||{}).displayName)||'';const bn=(((s.batter||{}).athlete||{}).displayName)||'';
-  if(pn||bn)h+='<div style="font-size:12px;color:#8a8f98;margin-top:2px">'+(pn?('P: '+pn):'')+(pn&&bn?' · ':'')+(bn?('AB: '+bn):'')+'</div>';
-  const lp=(s.lastPlay||{}).text||'';
-  if(lp)h+='<div style="font-size:12px;margin-top:6px">'+lp+'</div>';
-  h+='</div>';
-  box.innerHTML=h;
- }).catch(function(){});
+ const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
+ if(d.dataset.espn==='baseball/mlb'){rpMlbLive(d);return;}
+ rpEspnPanel(d);
 }catch(e){}}
+function rpLiveSvg(on1,on2,on3){
+ const c1=on1?'#e8b93c':'rgba(127,127,127,.25)',c2=on2?'#e8b93c':'rgba(127,127,127,.25)',c3=on3?'#e8b93c':'rgba(127,127,127,.25)';
+ return '<svg width="34" height="30" viewBox="0 0 34 30" style="flex:none">'+
+ '<rect x="12" y="2" width="10" height="10" rx="1.5" transform="rotate(45 17 7)" fill="'+c2+'"/>'+
+ '<rect x="22" y="12" width="10" height="10" rx="1.5" transform="rotate(45 27 17)" fill="'+c1+'"/>'+
+ '<rect x="2" y="12" width="10" height="10" rx="1.5" transform="rotate(45 7 17)" fill="'+c3+'"/></svg>';}
+function rpPips(n,tot,color){let h='';for(let i=0;i<tot;i++){h+='<span style="display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:3px;background:'+(i<n?color:'rgba(127,127,127,.25)')+'"></span>';}return h;}
+async function rpMlbLive(d){
+ try{
+ if(!d.dataset.gpk){
+  const sched=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team')).json();
+  const games=(sched.dates||[]).flatMap(function(x){return x.games||[];});
+  const g=games.find(function(x){return x.teams.away.team.name===d.dataset.away&&x.teams.home.team.name===d.dataset.home;});
+  if(!g)return;
+  d.dataset.gpk=g.gamePk;
+ }
+ const flds='liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,outs,balls,strikes,offense,first,second,third,plays,currentPlay,matchup,batter,pitcher,fullName,count,result,description,allPlays,about,inning,halfInning,gameData,status,detailedState';
+ const j=await (await fetch('https://statsapi.mlb.com/api/v1.1/game/'+d.dataset.gpk+'/feed/live?fields='+flds)).json();
+ const ls=(j.liveData||{}).linescore||{};const det=((j.gameData||{}).status||{}).detailedState||'';
+ const box=document.getElementById('rpLive');if(!box)return;
+ const sline=document.getElementById('rpScore');
+ const aT=((ls.teams||{}).away||{}),hT=((ls.teams||{}).home||{});
+ const aR=aT.runs||0,hR=hT.runs||0;
+ const aAb=d.dataset.away.split(' ').map(function(w){return w[0];}).join('').slice(0,3).toUpperCase();
+ const hAb=d.dataset.home.split(' ').map(function(w){return w[0];}).join('').slice(0,3).toUpperCase();
+ if(det==='Scheduled'||det==='Pre-Game'){box.innerHTML='';return;}
+ const inn=((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim();
+ if(sline)sline.textContent=(det==='In Progress'?inn:det)+'  |  '+hAb+' '+hR+' - '+aAb+' '+aR;
+ const live=det==='In Progress';
+ let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
+ h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+det.toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+inn+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
+ h+='<div style="display:flex;align-items:center;gap:12px">';
+ h+='<div style="flex:1"><div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
+ h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div></div>';
+ if(live){
+  const off=ls.offense||{};
+  h+='<div style="text-align:center">'+rpLiveSvg(!!off.first,!!off.second,!!off.third)+'</div>';
+ }
+ h+='</div>';
+ if(live){
+  const cp=((j.liveData||{}).plays||{}).currentPlay||{};
+  const cnt=(cp.matchup&&ls)?ls:{};
+  const B=ls.balls||0,S=ls.strikes||0,O=ls.outs||0;
+  h+='<div style="display:flex;align-items:center;gap:14px;margin-top:8px;font-size:12px;color:#8a8f98">';
+  h+='<span>B '+rpPips(B,4,'#3b9eff')+'</span><span>S '+rpPips(S,3,'#e8b93c')+'</span><span>O '+rpPips(O,3,'#e5484d')+'</span></div>';
+  const pn=((((cp.matchup||{}).pitcher||{}).fullName)||''),bn=((((cp.matchup||{}).batter||{}).fullName)||'');
+  if(pn||bn)h+='<div style="font-size:12px;color:#c8cdd5;margin-top:6px">'+(pn?('P: '+pn):'')+(pn&&bn?' &middot; ':'')+(bn?('AB: '+bn):'')+'</div>';
+ }
+ const plays=(((j.liveData||{}).plays||{}).allPlays)||[];
+ let lp='';
+ for(let i=plays.length-1;i>=0;i--){const t=((plays[i].result||{}).description)||'';if(t){const ab=plays[i].about||{};lp=(ab.inning?'['+(ab.halfInning==='top'?'Top':'Bot')+' '+ab.inning+'] ':'')+t;break;}}
+ if(lp)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+lp+'</div>';
+ h+='<div id="rpPbp" style="display:none;margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
+ for(let i=plays.length-1;i>=0&&i>plays.length-16;i--){
+  const pl=plays[i];const abt=pl.about||{};const txt=((pl.result||{}).description)||'';
+  if(!txt)continue;
+  h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)"><span style="color:#8a8f98;font-size:11px">'+(abt.halfInning==='top'?'Top':'Bot')+' '+abt.inning+'</span> &middot; '+txt+'</div>';
+ }
+ h+='</div></div>';
+ box.innerHTML=h;
+ }catch(e){}
+}
+function rpPbpToggle(){const el=document.getElementById('rpPbp');if(el)el.style.display=el.style.display==='none'?'block':'none';}
+async function rpEspnPanel(d){
+ try{
+ if(!d.dataset.eid)return;
+ const j=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/summary?event='+d.dataset.eid)).json();
+ const box=document.getElementById('rpLive');if(!box)return;
+ const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
+ const st=(comp.status||{}).type||{};
+ if(st.state==='pre'){box.innerHTML='';return;}
+ const live=st.state==='in';
+ let h='<div style="margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
+ h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':'')+'<span style="font-size:12px;color:#8a8f98">'+(st.shortDetail||'')+'</span></div>';
+ (comp.competitors||[]).forEach(function(c){
+  const ab=(c.team||{}).abbreviation||'';const sc=c.score||'0';
+  const ball=live&&comp.situation&&comp.situation.possession===c.team.id?' <span style="color:#e8b93c">&#9679;</span>':'';
+  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+ab+ball+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+sc+'</span></div>';
+ });
+ const s=j.situation||comp.situation||{};
+ const bits=[];
+ if(s.downDistanceText)bits.push(s.downDistanceText);
+ if(typeof s.outs==='number')bits.push(s.outs+' out'+(s.outs===1?'':'s'));
+ if(typeof s.balls==='number'&&typeof s.strikes==='number')bits.push(s.balls+'-'+s.strikes);
+ const base=[];if(s.onFirst)base.push('1B');if(s.onSecond)base.push('2B');if(s.onThird)base.push('3B');
+ if(base.length)bits.push('runners: '+base.join(', '));
+ if(bits.length)h+='<div style="font-size:12px;color:#8a8f98;margin-top:6px">'+bits.join(' &middot; ')+'</div>';
+ const pn=(((s.pitcher||{}).athlete||{}).displayName)||'';const bn=(((s.batter||{}).athlete||{}).displayName)||'';
+ if(pn||bn)h+='<div style="font-size:12px;color:#c8cdd5;margin-top:6px">'+(pn?('P: '+pn):'')+(pn&&bn?' &middot; ':'')+(bn?('AB: '+bn):'')+'</div>';
+ const lp=(s.lastPlay||{}).text||'';
+ if(lp)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+lp+'</div>';
+ h+='</div>';
+ box.innerHTML=h;
+ }catch(e){}
+}
 function rpPageRefresh(){try{
  fetch(location.pathname+'?r='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(function(t){
   if(t.indexOf(RP_BUILD)<0){location.replace(location.pathname+'?v='+Date.now());}
@@ -420,7 +492,7 @@ document.addEventListener('click',function(e){
 });
 rpDrawCharts();setInterval(rpDrawCharts,60000);
 
-rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();},60000);
+rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);setInterval(rpLiveBox,15000);
 setInterval(rpPageRefresh,60000);
 </script>
 </body></html>
