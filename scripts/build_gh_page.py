@@ -264,7 +264,7 @@ fut_ids=[f.get('id','') for f in FUT]
 fut_entry=''
 if FUT:
     fut_entry=('<div class="sect" style="margin-top:22px">Futures</div>'
-      '<a href="futures.html" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit">'
+      '<a href="futures.html?v={build_sha}" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit">'
       '<span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span>'
       '<span style="color:#8a8f98;font-size:12px">'+str(len(FUT))+' live &rsaquo;</span></a>')
 fut_badge_js=("try{\n"
@@ -1114,7 +1114,7 @@ open(out,'w').write(page)
 _css=page.split('<style>')[1].split('</style>')[0]
 
 FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RixPicks Futures</title><style>__CSS__</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"></head><body>
+<title>RixPicks Futures</title><style>__CSS__</style><style>body{overscroll-behavior-y:none}.wrap{min-height:101vh}</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"></head><body>
 <div id="rpPull"></div>
 <div class="wrap">
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
@@ -1190,16 +1190,23 @@ window.addEventListener('pageshow',function(){try{
 </script></body></html>'''
 def build_futures_page(css,build_sha):
     if not FUT: return None
+    BALL={'NFL':'&#127944;','MLB':'&#9918;','NBA':'&#127936;','NHL':'&#127954;','WTA':'&#127934;','CFB':'&#127944;'}
     rows=[]
+    seen_lg=set()
     for f in FUT:
+        lg=f.get('league','Other')
+        if lg not in seen_lg:
+            seen_lg.add(lg)
+            rows.append('<div class="sect" style="margin-top:18px">%s %s</div>'%(BALL.get(lg,'&#127937;'),html.escape(lg)))
         rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-entry="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
         '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">'
         '<span style="font-weight:700">%s</span>'
         '<span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div>'
-        '<div style="font-size:12px;color:#8a8f98;margin-top:2px">%s &middot; entry %s &middot; %su</div>'
+        '<div style="font-size:12px;color:#8a8f98;margin-top:2px">%s &middot; entry %s &middot; %su%s</div>'
+        ('<div style="font-size:12px;margin-top:3px;color:#d8a23a">&#8646; pick changed from %s (%s)</div>'%(html.escape(f['changed_from']['team']),html.escape(f['changed_from']['odds'])) if f.get('changed_from') else '')+
         '<div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div>')
         %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(f['odds']),
-          html.escape(f['team']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2)))
+          html.escape(f['team']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else '')))
     pg=FUTURES_TMPL
     for tok,val in [('__CSS__',css),('__ROWS__',''.join(rows)),('__COUNT__',str(len(FUT))),('__BUILD__',build_sha)]:
         pg=pg.replace(tok,val)
