@@ -725,7 +725,15 @@ function rpRecLive(){{const rec=document.getElementById('rpRec');if(!rec)return;
  const pct=document.getElementById('rpWlPct');if(pct&&(w+l)>0)pct.textContent='W/L: '+(100*w/(w+l)).toFixed(1)+'%';
  if(uEl)uEl.textContent='Units: '+(u>=0?'+':'')+u.toFixed(2)+'u';
 }}
-async function rpLsTickAll(){{await rpLsTick();rpCxLive();rpRecLive();}}
+function rpFinalsTop(){{document.querySelectorAll('.pick').forEach(function(pk){{
+ var sp=pk.querySelector('[data-ls]');if(!sp)return;
+ var done=sp.classList.contains('won')||sp.classList.contains('lost');if(!done||pk.dataset.fin)return;
+ pk.dataset.fin='1';
+ var h=pk.previousElementSibling;while(h&&!h.classList.contains('lghead'))h=h.previousElementSibling;
+ if(h&&h.parentNode===pk.parentNode)h.parentNode.insertBefore(pk,h.nextElementSibling);
+ }});
+}}
+async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();}}
 {fut_badge_js}rpLsTickAll();setInterval(rpLsTickAll,30000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
