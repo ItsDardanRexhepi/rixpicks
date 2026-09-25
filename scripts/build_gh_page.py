@@ -352,7 +352,7 @@ function rpFilter(st){{rpTerm(st);let parlayAllHidden=true;
  document.querySelectorAll('a[data-book]').forEach(function(a){{const b=a.dataset.book;
   const inParlay=!!a.closest('#rpParlayChips');
   if(b==='POLY'){{a.style.display='';return;}}
-  if(b==='FD'||b==='DK'){{const L2=b==='FD'?RP_FD:RP_DK;if(inParlay){{a.style.display=L2.includes(st)?'':'none';}}else if(b==='FD'){{a.style.display=(a.dataset.nopm&&!L2.includes(st))?'none':'';}}else{{a.style.display=(a.dataset.nopm&&!L2.includes(st))?'none':'';}}return;}}
+  if(b==='FD'||b==='DK'){{const L2=b==='FD'?RP_FD:RP_DK;if(inParlay){{a.style.display='';}}else if(b==='FD'){{a.style.display=(a.dataset.nopm&&!L2.includes(st))?'none':'';}}else{{a.style.display=(a.dataset.nopm&&!L2.includes(st))?'none':'';}}return;}}
   const L=RP_L[b];if(!L){{return;}}
   if(!L.includes(st)){{a.style.display='none';}}else{{a.style.display='';parlayAllHidden=parlayAllHidden&&!a.closest('#rpParlayChips')?parlayAllHidden:false;}}
  }});
