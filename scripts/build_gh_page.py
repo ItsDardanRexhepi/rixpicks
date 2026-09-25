@@ -9,7 +9,7 @@ Branding: 'RixPicks only. No personal identifiers, ever.
 """
 import json,sys,html
 
-RP_DESIGN='1.1.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme.
+RP_DESIGN='1.2.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme. v1.2.0 (user, Sep 25 8:46 AM): current page shape approved as THE standing daily template - header without FINAL line, tap-any-book intro, per-pick chips + units, combo section, record + unit line, minimal footer (reference commit fbec1c1). Every morning build reproduces this exact shape; changes only on his explicit instruction.
 
 man=json.load(open(sys.argv[1]))
 out=sys.argv[2] if len(sys.argv)>2 else '/home/sandbox/gh_page/index.html'

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 'RixPicks design system v1.1.0 - LOCKED (user, Sep 24 2026). Daily builds change picks content only. -->
+<!-- 'RixPicks design system v1.2.0 - LOCKED (user, Sep 24 2026). Daily builds change picks content only. -->
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>&rsquo;RixPicks</title>
@@ -165,7 +165,7 @@ function rpEdit(){window.__rpChip=null;
  },function(){rpNote('Location off - manual pick below (unverified).');},{timeout:9000});}
  else rpAsk(true);}
 if(!localStorage.getItem('rp_state')){rpAsk(false);}else{rpLabel();}
-const RP_BUILD='1790349979';
+const RP_BUILD='1790351233';
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded'))return;
  fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(t=>{
