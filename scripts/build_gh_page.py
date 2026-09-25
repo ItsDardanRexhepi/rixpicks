@@ -83,6 +83,17 @@ def _load_prefill(path, wrap=False):
 pre=_load_prefill('/tmp/odds_prefill.json')
 pre_sp=_load_prefill('/tmp/odds_prefill_sp.json', wrap=True)
 
+def game_instance(game):
+    # J-092 (user, Sep 25 10:05 AM): when a team plays twice in a day, every chip must NAME
+    # the game instance at tap time so the destination is never ambiguous.
+    if not game: return ''
+    cands=pre.get((game.get('away'),game.get('home')))
+    if not cands or len(cands)<2: return ''
+    ordered=sorted(c for c,_ in cands if c)
+    com=game.get('commence')
+    if com and com in ordered: return f"G{ordered.index(com)+1}"
+    return ''
+
 def sel_books(cands, game):
     # J-090 doubleheader fix (user, Sep 25 9:50 AM): match book data to the exact game
     # instance (commence), never the matchup alone. Same-team doubleheader with a
@@ -100,6 +111,8 @@ def chips(p):
     out=[]
     side=p.get('side','away')
     kw=p['name'].split()[0]
+    inst=game_instance(p.get('game'))
+    inst=f' {inst}' if inst else ''
     for name,short in BOOKS:
         link=None; ml=None
         pr=sel_books(pre.get((p['game']['away'],p['game']['home'])), p.get('game')) if p.get('game') else None
@@ -134,7 +147,7 @@ def chips(p):
                 if name=='BetRivers' and e.get('event'):
                     link=e['event']; ml=e.get(f"{side}_ml")
         if name=='Kalshi' and p.get('kalshi'):
-            link=p['kalshi']['url']; label=f"KAL {c2ml(p['kalshi']['cents'])}"
+            link=p['kalshi']['url']; label=f"KAL {c2ml(p['kalshi']['cents'])}"+inst
             if p.get('best_book')=='Kalshi': label='\u2605 '+label
             tick=p['kalshi']['url'].rstrip('/').split('/')[-1].upper()
             best=(p.get('best_book')=='Kalshi')
@@ -147,14 +160,14 @@ def chips(p):
             slug=poly_event_slug(p['polymarket']['url']) or ''
             sub=poly_sub(p['polymarket']['url']) or ''
             cents=poly_price(p['polymarket']['url'],kw)
-            label=f"POLY {c2ml(cents)}" if cents else "POLY"
+            label=(f"POLY {c2ml(cents)}" if cents else "POLY")+inst
             if p.get('best_book')=='Polymarket': label='\u2605 '+label
             best=(p.get('best_book')=='Polymarket')
             out.append(f'<a class="chip{" best" if best else ""}"{bkstyle("POLY")} href="{html.escape(web)}" data-book="POLY" data-sb="{html.escape(web)}" data-app="{html.escape(app)}" data-polyslug="{html.escape(slug)}" data-polysub="{html.escape(sub)}" data-polykw="{html.escape(kw)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("POLY")}{label}</a>')
             continue
         if not link: continue  # no game-level link -> drop chip
         best=(p.get('best_book')==name)
-        label=f"{short} {ml:+d}" if ml is not None else short
+        label=(f"{short} {ml:+d}" if ml is not None else short)+inst
         if best: label='\u2605 '+label
         if name in ('FanDuel','DraftKings'):
             pm='https://www.fanduel.com/predicts' if name=='FanDuel' else (p.get('dkp',{}).get('url') or 'https://predictions.draftkings.com/')
