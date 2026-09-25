@@ -12,7 +12,7 @@ function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'
 function bookName(k){for(var i=0;i<RP_BOOKS.length;i++){if(RP_BOOKS[i].k===k)return RP_BOOKS[i].n;}return k;}
 var css=document.createElement('style');
 css.textContent=
-'.rp-fab{position:fixed;right:12px;top:10px;z-index:60;background:#16181d;border:1px solid rgba(127,127,127,.35);color:#e8b10a;font-weight:700;border-radius:20px;padding:9px 15px;font-size:13px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.4)}'+
+'.rp-fab{background:#16181d;border:1px solid rgba(127,127,127,.35);color:#e8b10a;font-weight:700;border-radius:14px;padding:4px 10px;font-size:11px;cursor:pointer;white-space:nowrap;margin-left:10px;flex-shrink:0}'+
 '.rp-modal{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}'+
 '.rp-sheet{background:#16181d;border:1px solid rgba(127,127,127,.3);border-bottom:none;border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:82vh;overflow-y:auto;padding:16px;color:#e6e8eb;font-family:inherit}'+
 '.rp-sheet h3{margin:0 0 4px;font-size:16px}.rp-sub{color:#8a8f98;font-size:12px;margin-bottom:12px}'+
@@ -140,7 +140,8 @@ btn.onclick=function(e){e.preventDefault();e.stopPropagation();trackSheet(pick);
 pick.appendChild(btn);});
 personalize();
 var fab=document.createElement('button');fab.className='rp-fab';fab.textContent='My RixPicks';
-fab.onclick=function(){betsSheet();tickSettle(renderBetsInto);};document.body.appendChild(fab);
+fab.onclick=function(){betsSheet();tickSettle(renderBetsInto);};
+var h1=document.querySelector('h1');if(h1){h1.style.position='relative';fab.style.position='absolute';fab.style.right='0';fab.style.top='50%';fab.style.transform='translateY(-50%)';h1.appendChild(fab);}else{fab.style.position='fixed';fab.style.right='12px';fab.style.top='10px';fab.style.zIndex='60';document.body.appendChild(fab);}
 if(!ls('rp_books_asked',null)&&!myBooks().length){setTimeout(function(){booksSheet();},900);}
 tickSettle(null);setInterval(function(){tickSettle(null);},60000);}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
