@@ -23,6 +23,10 @@ def bkimg(short):
 def bkstyle(short):
     bf=BKFILL.get(short)
     return f' data-bk="{short}" style="background:{bf[0]};border-color:{bf[0]};color:{bf[1]}"' if bf else ''
+def c2ml(c):
+    c=int(round(c))
+    if c<=0 or c>=100: return str(c)
+    return ('-' if c>=50 else '+')+str(round(c/(100-c)*100) if c>=50 else round((100-c)/c*100))
 def poly_event_slug(url):
     try: return url.split('/event/')[1].split('/')[0]
     except Exception: return None
@@ -109,7 +113,7 @@ def chips(p):
                 if name=='BetRivers' and e.get('event'):
                     link=e['event']; ml=e.get(f"{side}_ml")
         if name=='Kalshi' and p.get('kalshi'):
-            link=p['kalshi']['url']; label=f"KAL {p['kalshi']['cents']}\u00a2"
+            link=p['kalshi']['url']; label=f"KAL {c2ml(p['kalshi']['cents'])}"
             if p.get('best_book')=='Kalshi': label='\u2605 '+label
             tick=p['kalshi']['url'].rstrip('/').split('/')[-1].upper()
             best=(p.get('best_book')=='Kalshi')
@@ -122,7 +126,7 @@ def chips(p):
             slug=poly_event_slug(p['polymarket']['url']) or ''
             sub=poly_sub(p['polymarket']['url']) or ''
             cents=poly_price(p['polymarket']['url'],kw)
-            label=f"POLY {cents}\u00a2" if cents else "POLY"
+            label=f"POLY {c2ml(cents)}" if cents else "POLY"
             if p.get('best_book')=='Polymarket': label='\u2605 '+label
             best=(p.get('best_book')=='Polymarket')
             out.append(f'<a class="chip{" best" if best else ""}"{bkstyle("POLY")} href="{html.escape(web)}" data-book="POLY" data-sb="{html.escape(web)}" data-app="{html.escape(app)}" data-polyslug="{html.escape(slug)}" data-polysub="{html.escape(sub)}" data-polykw="{html.escape(kw)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("POLY")}{label}</a>')
@@ -182,7 +186,7 @@ if man.get('parlay'):
         if len(kc)==nlegs:
             c=amer_from_cents(kc)
             if c is not None:
-                chips.append(('KAL',f'<a class="chip"{bkstyle("KAL")} href="https://kalshi.com" data-book="KAL" data-sb="https://kalshi.com" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("KAL")}KAL {round(c)}¢</a>'))
+                chips.append(('KAL',f'<a class="chip"{bkstyle("KAL")} href="https://kalshi.com" data-book="KAL" data-sb="https://kalshi.com" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("KAL")}KAL {c2ml(c)}</a>'))
         pc=[]; okp=True; purl='https://polymarket.us'
         for p in lp:
             if not p.get('polymarket'): okp=False; break
@@ -193,7 +197,7 @@ if man.get('parlay'):
         if okp and len(pc)==nlegs:
             c=amer_from_cents(pc)
             if c is not None:
-                chips.append(('POLY',f'<a class="chip"{bkstyle("POLY")} href="{html.escape(purl)}" data-book="POLY" data-sb="{html.escape(purl)}" id="rpCxPOLY" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("POLY")}POLY {round(c)}¢</a>'))
+                chips.append(('POLY',f'<a class="chip"{bkstyle("POLY")} href="{html.escape(purl)}" data-book="POLY" data-sb="{html.escape(purl)}" id="rpCxPOLY" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("POLY")}POLY {c2ml(c)}</a>'))
         BKML=[('DK','draftkings','https://predictions.draftkings.com/'),('FD','fanduel','https://www.fanduel.com/predicts'),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]
         for short,pk,pm in BKML:
             mls=[]; ok=True
@@ -320,6 +324,7 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 <div class="sect">Record</div>
 <div class="rec">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</div>
 {f'<div class="yesrec">Yesterday: {html.escape(man["yesterday"])}</div>' if man.get('yesterday') else ''}
+{f'<div class="yesrec">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else ''}
 <div class="unitmath">1u = $5 per $1,000 in bankroll</div>
 <div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
 <div id="rpModal"><div class="box">
@@ -409,6 +414,8 @@ window.addEventListener('pageshow',function(){{try{{
  window.addEventListener('touchend',function(){{if(y0!==null&&el.dataset.armed==='1'){{el.innerHTML='<span class="spin"></span>Refreshing&hellip;';location.replace(location.pathname+'?r='+Date.now());return;}}el.style.transform='translateY(-100%)';y0=null;}},{{passive:true}});
 }})();
 /* Live odds - POLY chips (public gamma API, ~60s) + headline consensus (ESPN free feed, ~60s). No keys. */
+function rpC2ML(c){{c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}}
+function rpMLF(m){{return (m>0?'+':'')+m;}}
 function rpCxUpdMl(bk){{
  const span=document.querySelector('#rpParlayChips a[data-book="'+bk+'"]');if(!span)return;
  const n=document.querySelectorAll('.legs li').length;if(!n)return;
@@ -426,15 +433,15 @@ function rpCxUpd(bk){{
  const chip=document.getElementById('rpCx'+bk);if(!chip)return;
  const n=parseInt(chip.dataset.n||'0');if(!n)return;
  const sel=bk==='KAL'?'a[data-kalticker]':'a[data-polyslug]';
- const re=bk==='KAL'?/KAL (\d+)\u00a2/:/POLY (\d+)\u00a2/;
- let prod=1,cnt=0;
+ const re=bk==='KAL'?/KAL ([+-]\d+)/:/POLY ([+-]\d+)/;
+ let d=1,cnt=0;
  document.querySelectorAll(sel).forEach(function(a){{
   if(a.id==='rpCxKAL'||a.id==='rpCxPOLY')return;
-  const m=a.innerHTML.match(re);if(m){{prod*=parseInt(m[1]);cnt++;}}
+  const m=a.innerHTML.match(re);if(m){{const ml=parseInt(m[1]);d*=ml>0?1+ml/100:1+100/Math.abs(ml);cnt++;}}
  }});
- if(cnt!==n)return;
- const c=prod/Math.pow(100,n-1);if(!(c>0&&c<100))return;
- chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY) \d+\u00a2/, bk+' '+Math.round(c)+'\u00a2');
+ if(cnt!==n||d<=1)return;
+ const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
+ chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY) [+-]?\d+/, bk+' '+(ml2>0?'+':'')+ml2);
 }}
 function rpPolyTick(){{try{{
  document.querySelectorAll('a[data-polyslug]').forEach(function(a){{
@@ -453,7 +460,7 @@ function rpPolyTick(){{try{{
    let outs=[],pr=[];try{{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}}catch(e){{return;}}
    for(let i=0;i<outs.length;i++){{if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){{
     const c=Math.round(parseFloat(pr[i])*100);
-    if(c>0&&c<100){{a.innerHTML=a.innerHTML.replace(/POLY[^<]*/,'POLY '+c+'\u00a2');rpCxUpd('POLY');}}
+    if(c>0&&c<100){{a.innerHTML=a.innerHTML.replace(/POLY[^<]*/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');}}
     return;
    }}}}
   }}).catch(()=>{{}});
@@ -488,7 +495,7 @@ function rpKalTick(){{try{{
    const m=j&&j.market;if(!m)return;
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
    const c=Math.round(d*100);
-   a.innerHTML=a.innerHTML.replace(/KAL[^<]*/,'KAL '+c+'\u00a2');rpCxUpd('KAL');
+   a.innerHTML=a.innerHTML.replace(/KAL[^<]*/,'KAL '+rpMLF(rpC2ML(c)));rpCxUpd('KAL');
    const pk=a.closest('.pick');
    if(pk&&pk.dataset.market==='ml'){{const s=pk.querySelector('.odds');
     if(s&&c>0&&c<100){{const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
