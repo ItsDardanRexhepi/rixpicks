@@ -1200,11 +1200,11 @@ def build_futures_page(css,build_sha):
             rows.append('<div class="sect" style="margin-top:18px">%s %s</div>'%(BALL.get(lg,'&#127937;'),html.escape(lg)))
         rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-entry="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
         '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">'
-        '<span style="font-weight:700">%s</span>'
+        '<span style="font-weight:700">'+('<img src="https://a.espncdn.com/i/teamlogos/'+f.get('league','nfl').lower()+'/500/'+f.get('abbr','')+'.png" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">' if f.get('abbr') else '')+'%s</span>'
         '<span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div>'
         '<div style="font-size:12px;color:#8a8f98;margin-top:2px">%s &middot; entry %s &middot; %su%s</div>'
-        ('<div style="font-size:12px;margin-top:3px;color:#d8a23a">&#8646; pick changed from %s (%s)</div>'%(html.escape(f['changed_from']['team']),html.escape(f['changed_from']['odds'])) if f.get('changed_from') else '')+
-        '<div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div>')
+        + ('<div style="font-size:12px;margin-top:3px;color:#d8a23a">&#8646; pick changed from %s (%s)</div>'%(html.escape(f['changed_from']['team']),html.escape(f['changed_from']['odds'])) if f.get('changed_from') else '')
+        + '<div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div>')
         %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(f['odds']),
           html.escape(f['team']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else '')))
     pg=FUTURES_TMPL

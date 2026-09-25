@@ -1,8 +1,75 @@
 [
- {"id":"F-SBLXI-SF","league":"NFL","team":"San Francisco 49ers","market":"Super Bowl LXI Champion","odds":"+1400","units":4,"placed":"2026-09-24","note":"2 entries","poly_slug":"pro-football-2027-champion-20260729185915366","poly_kw":"san francisco"},
- {"id":"F-NFLV2-KC-AFCW","league":"NFL","team":"Kansas City Chiefs","market":"AFC West Champion","odds":"+160","units":2,"placed":"2026-09-24","poly_slug":"pro-football-afc-west-champion","poly_kw":"kansas city"},
- {"id":"F-NFLV2-SF-NFCW","league":"NFL","team":"San Francisco 49ers","market":"NFC West Champion","odds":"+305","units":2,"placed":"2026-09-24","poly_slug":"pro-football-nfc-west-champion","poly_kw":"san francisco"},
- {"id":"F-NFLV2-PHI-NFCE","league":"NFL","team":"Philadelphia Eagles","market":"NFC East Champion","odds":"+140","units":2,"placed":"2026-09-24","poly_slug":"pro-football-nfc-east-champion","poly_kw":"philadelphia"},
- {"id":"F-NFLV2-MIN-NFCN","league":"NFL","team":"Minnesota Vikings","market":"NFC North Champion","odds":"+493","units":2,"placed":"2026-09-24","poly_slug":"pro-football-nfc-north-champion","poly_kw":"minnesota"},
- {"id":"F-NFLV2-BUF-AFC","league":"NFL","team":"Buffalo Bills","market":"AFC Champion","odds":"+510","units":2,"placed":"2026-09-24","poly_slug":"pro-football-2027-afc-champion","poly_kw":"buffalo"}
+ {
+  "id": "F-SBLXI-SF",
+  "league": "NFL",
+  "team": "San Francisco 49ers",
+  "market": "Super Bowl LXI Champion",
+  "odds": "+1400",
+  "units": 4,
+  "placed": "2026-09-24",
+  "note": "2 entries",
+  "poly_slug": "pro-football-2027-champion-20260729185915366",
+  "poly_kw": "san francisco",
+  "abbr": "sf"
+ },
+ {
+  "id": "F-NFLV2-KC-AFCW",
+  "league": "NFL",
+  "team": "Kansas City Chiefs",
+  "market": "AFC West Champion",
+  "odds": "+160",
+  "units": 2,
+  "placed": "2026-09-24",
+  "poly_slug": "pro-football-afc-west-champion",
+  "poly_kw": "kansas city",
+  "abbr": "kc"
+ },
+ {
+  "id": "F-NFLV2-SF-NFCW",
+  "league": "NFL",
+  "team": "San Francisco 49ers",
+  "market": "NFC West Champion",
+  "odds": "+305",
+  "units": 2,
+  "placed": "2026-09-24",
+  "poly_slug": "pro-football-nfc-west-champion",
+  "poly_kw": "san francisco",
+  "abbr": "sf"
+ },
+ {
+  "id": "F-NFLV2-PHI-NFCE",
+  "league": "NFL",
+  "team": "Philadelphia Eagles",
+  "market": "NFC East Champion",
+  "odds": "+140",
+  "units": 2,
+  "placed": "2026-09-24",
+  "poly_slug": "pro-football-nfc-east-champion",
+  "poly_kw": "philadelphia",
+  "abbr": "phi"
+ },
+ {
+  "id": "F-NFLV2-MIN-NFCN",
+  "league": "NFL",
+  "team": "Minnesota Vikings",
+  "market": "NFC North Champion",
+  "odds": "+493",
+  "units": 2,
+  "placed": "2026-09-24",
+  "poly_slug": "pro-football-nfc-north-champion",
+  "poly_kw": "minnesota",
+  "abbr": "min"
+ },
+ {
+  "id": "F-NFLV2-BUF-AFC",
+  "league": "NFL",
+  "team": "Buffalo Bills",
+  "market": "AFC Champion",
+  "odds": "+510",
+  "units": 2,
+  "placed": "2026-09-24",
+  "poly_slug": "pro-football-2027-afc-champion",
+  "poly_kw": "buffalo",
+  "abbr": "buf"
+ }
 ]
