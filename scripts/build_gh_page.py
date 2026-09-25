@@ -608,7 +608,7 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
    const inn=(st==='In Progress')?((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim():st;
    rpLsRender(pk,{{a:g.teams.away.team.abbreviation||g.teams.away.team.name.split(' ').pop().slice(0,3).toUpperCase(),h:g.teams.home.team.abbreviation||g.teams.home.team.name.split(' ').pop().slice(0,3).toUpperCase(),
     as:(ls.teams&&ls.teams.away&&ls.teams.away.runs)||0,hs:(ls.teams&&ls.teams.home&&ls.teams.home.runs)||0,
-    bat:st==='In Progress'?(ls.inningState==='Top'?'a':(ls.inningState==='Bottom'?'h':null)):null,
+    bat:st==='In Progress'?((ls.inningState==='Top'||ls.inningState==='End')?'a':'h'):null,
     st:inn,state:st==='In Progress'?'in':(st==='Final'||st==='Game Over')?'post':'pre'}});}});}}catch(e){{}}}}
  const byLg={{}};picks.filter(x=>x.dataset.espn&&(x.dataset.espn!=='baseball/mlb')).forEach(x=>{{(byLg[x.dataset.espn]=byLg[x.dataset.espn]||[]).push(x);}});
  for(const lg of Object.keys(byLg)){{try{{
