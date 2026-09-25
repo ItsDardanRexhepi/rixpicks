@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baltimore Orioles - &rsquo;RixPicks</title>
+<meta name="description" content="Baltimore Orioles stats, form, injuries and schedule.">
+<style>
+*{margin:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f7f6f4;color:#1b1b1f;min-height:100vh;overscroll-behavior-y:contain}
+.wrap{max-width:680px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:26px;font-weight:800;letter-spacing:-0.01em}
+h1 .tick{color:#2f8f7d}
+.status{color:#6b6b72;font-size:14px;margin-top:6px}
+.intro{color:#6b6b72;font-size:14px;margin-top:2px}
+.sect{margin:26px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}
+.pick{padding:18px 0;border-top:1px solid #e4e2de}
+.pick:first-of-type{border-top:none}
+.pick-head{display:flex;align-items:baseline;gap:10px}
+.gamelink{display:flex;align-items:baseline;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}
+.chev{color:#b9b9c0;font-size:20px;font-weight:600;text-decoration:none;padding:0 2px;line-height:1}
+.mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}
+.mrow:first-of-type{border-top:none}
+.mrow .bk{font-weight:700;width:52px;flex:none}
+.mrow .side{flex:1}
+.mrow .pr{font-weight:600;color:#2f8f7d;white-space:nowrap}
+.mrow a{color:inherit;text-decoration:none}
+.back{color:#6b6b72;font-size:14px;text-decoration:none}
+.score{font-size:14px;color:#6b6b72;margin-top:4px}
+@media (prefers-color-scheme: dark){.chev{color:#55555c}.mrow{border-top-color:#2a2a2e}.mrow .pr{color:#3aa895}.back,.score{color:#9a9aa3}}
+.num{color:#6b6b72}
+.name{font-weight:600;font-size:17px;flex:1}
+.odds{color:#2f8f7d;font-weight:600;white-space:nowrap}
+.sub{color:#6b6b72;font-size:14px;margin:6px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}
+.bklogo{width:16px;height:16px;border-radius:3px;flex:none}
+.chip.best{font-weight:800}
+.rec{font-weight:600;font-size:16px;padding:8px 0 1px}
+.units{color:#8a8f98;font-size:13px;font-weight:600;margin-right:8px}
+.unitmath{color:#8a8f98;font-size:13px;margin-top:8px}
+.legs{padding-left:20px;font-size:15px;line-height:1.7}
+.note{color:#6b6b72;font-size:13px;margin-top:6px}
+.yesrec{color:#6b6b72;font-size:13px;margin-top:2px}
+
+.lghead{color:#6b6b72;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:16px 0 4px;display:flex;align-items:center}
+.lghead:first-of-type{margin-top:6px}
+.cpx{margin:8px 0 2px;font-size:13px;color:#9a9aa3}
+.cpx span{margin-right:12px;font-weight:600}
+.foot{margin-top:34px;color:#8a8a91;font-size:12px;line-height:1.6}
+#rpModal{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:50}
+#rpModal .box{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%}
+#rpModal h3{font-size:16px;margin-bottom:6px}
+#rpModal p{font-size:13px;color:#6b6b72;margin-bottom:12px}
+#rpState{width:100%;padding:10px;border:1px solid #e4e2de;border-radius:8px;font-size:15px;margin-bottom:12px}
+#rpSave{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.rpstate-link{color:#2f8f7d;cursor:pointer;text-decoration:underline}
+#rpPull{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}
+.spin{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}
+@keyframes rpSpin{to{transform:rotate(360deg)}}
+@media (prefers-color-scheme: dark){
+body{background:#000;color:#ececf1}
+h1 .tick,.odds,.rpstate-link{color:#3aa895}
+.status,.intro,.sect,.num,.sub,.note{color:#9a9aa3}
+.pick{border-top-color:#2a2a2e}
+.chip{background:#1e1e22;color:#ececf1}
+.foot{color:#6f6f78}
+#rpModal{background:rgba(0,0,0,.6)}
+#rpModal .box{background:#1e1e22}
+#rpModal h3{color:#ececf1}
+#rpModal p{color:#9a9aa3}
+#rpState{background:#141416;color:#ececf1;border-color:#2a2a2e}
+#rpGeoNote{color:#3aa895 !important}
+#rpPull{background:#000;color:#3aa895}
+.spin{border-color:#2a4a44;border-top-color:#3aa895}
+.chip[data-bk="FD"]{background:#12283d !important;border-color:#12283d !important;color:#5aa9e8 !important}
+.chip[data-bk="ESPN"]{background:#0f2e26 !important;border-color:#0f2e26 !important;color:#3ec9a0 !important}
+.chip[data-bk="HR"]{background:#2e2614 !important;border-color:#2e2614 !important;color:#d8b84e !important}
+.chip[data-bk="MGM"]{background:#2b2517 !important;border-color:#2b2517 !important;color:#cdb271 !important}
+.chip[data-bk="BR"]{background:#10262f !important;border-color:#10262f !important;color:#4fc3e8 !important}
+.chip[data-bk="KAL"]{background:#0f2a22 !important;border-color:#0f2a22 !important;color:#3ed0a8 !important}
+.chip[data-bk="POLY"]{background:#122536 !important;border-color:#122536 !important;color:#5aa9e0 !important}
+.chip[data-bk="B365"]{background:#2a2410 !important;border-color:#2a2410 !important;color:#e0cd6a !important}
+.chip[data-bk="FAN"]{background:#232326 !important;border-color:#232326 !important;color:#d8d8dc !important}
+}
+</style>
+</head><body>
+<div class="wrap">
+<a class="back" href="./">&larr; Today&rsquo;s picks</a>
+<div class="sect" style="margin-top:18px">Team</div>
+<div class="pick" data-espn="baseball/mlb" data-team="Baltimore Orioles">
+  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/bal.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Baltimore Orioles</span><span class="odds">78-81</span></div>
+  <div class="sub">Record 78-81 · Streak T5</div>
+  <div class="score" id="rpScore">Today: @ New York Yankees · 1:05 PM PT</div>
+</div>
+
+<div class="sect">Form - last 5</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">T 0-0 vs TOR · 09-23</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">T 0-0 vs TOR · 09-23</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">T 0-0 vs TOR · 09-21</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">T 0-0 vs MIL · 09-20</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">T 0-0 vs MIL · 09-19</div>
+<div class="sect">Scoring - last 10</div>
+<div class="sub" style="padding:7px 0">Scored 0.0 &middot; allowed 0.0 per game over last 159</div>
+<div class="sect">Next up</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs HOU · 04-29</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs DET · 05-23</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ BOS · 07-21</div>
+<div class="sect">Injuries</div>
+<div class="sub">None reported.</div>
+<div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
+</div>
+<script>
+const RP_BUILD='1790365588';
+function rpTick(){try{
+ const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
+ fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
+  (j.events||[]).forEach(function(ev){
+   const comp=(ev.competitions||[])[0]||{};
+   const tok=(d.dataset.team||'').toLowerCase().split(' ').pop();
+   const nm=(ev.name||'').toLowerCase();
+   if(tok&&nm.indexOf(tok)<0)return;
+   const st=(comp.status||{}).type||{};
+   const comps=comp.competitors||[];
+   let sc='';
+   comps.forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
+   const sline=document.getElementById('rpScore');
+   if(sline&&st.state!=='pre'&&sc){sline.textContent=(st.shortDetail||'')+'  |  '+sc;}
+  });
+ }).catch(function(){});
+}catch(e){}}
+function rpPageRefresh(){try{
+ fetch(location.pathname+'?r='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(function(t){
+  if(t.indexOf(RP_BUILD)<0){location.replace(location.pathname+'?v='+Date.now());}
+ }).catch(function(){});
+}catch(e){}}
+rpTick();setInterval(rpTick,60000);setInterval(rpPageRefresh,60000);
+</script>
+</body></html>
