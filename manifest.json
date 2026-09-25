@@ -20,7 +20,10 @@
     "cents": 63
    },
    "best_book": "FanDuel",
-   "espn_league": "baseball/mlb"
+   "espn_league": "baseball/mlb",
+   "dkp": {
+    "url": "https://predictions.draftkings.com/en/event/hou-astros-%40-athletics/34720874"
+   }
   },
   {
    "num": 2,
@@ -38,7 +41,16 @@
     "cents": 46
    },
    "best_book": "Kalshi",
-   "espn_league": "baseball/mlb"
+   "espn_league": "baseball/mlb",
+   "dkp": {
+    "url": "https://predictions.draftkings.com/en/event/bal-orioles-%40-ny-yankees/34725769"
+   },
+   "polymarket": {
+    "url": "https://polymarket.com/event/mlb-bal-nyy-2026-09-25"
+   },
+   "polymarket_us": {
+    "url": "https://polymarket.us/event/mlb-bal-nyy-2026-09-25"
+   }
   },
   {
    "num": 3,
@@ -56,7 +68,16 @@
     "cents": 56
    },
    "best_book": "Kalshi",
-   "espn_league": "baseball/mlb"
+   "espn_league": "baseball/mlb",
+   "dkp": {
+    "url": "https://predictions.draftkings.com/en/event/cle-guardians-%40-kc-royals/34720710"
+   },
+   "polymarket": {
+    "url": "https://polymarket.com/event/mlb-cle-kc-2026-09-25"
+   },
+   "polymarket_us": {
+    "url": "https://polymarket.us/event/mlb-cle-kc-2026-09-25"
+   }
   }
  ],
  "parlay": {
