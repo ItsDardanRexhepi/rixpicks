@@ -2,6 +2,8 @@
 # J-049A-safe DK/FD odds refresh (cadence b, user-approved Sep 25): 15-min cron,
 # rebuild only when a card game is live or starts within 2h, max 16 odds-API calls/day.
 set -e
+git config user.name "RixPicks Bot"
+git config user.email "rixpicks-bot@users.noreply.github.com"
 export TZ=America/Los_Angeles
 TODAY=$(date +%F)
 COUNT_FILE=.odds_refresh_count.json
