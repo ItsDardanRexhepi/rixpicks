@@ -88,22 +88,22 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <div class="sect" style="margin-top:18px">Team</div>
 <div class="pick" data-espn="baseball/mlb" data-team="Kansas City Royals">
   <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/kc.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Kansas City Royals</span><span class="odds">68-91</span></div>
-  <div class="sub">Record 68-91 · Streak T5</div>
+  <div class="sub">Record 68-91 · Streak L1</div>
   <div class="score" id="rpScore">Today: vs Cleveland Guardians · 4:41 PM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">T 0-0 vs CHW · 09-24</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">T 0-0 vs CHW · 09-23</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">T 0-0 vs CHW · 09-22</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">T 0-0 @ PIT · 09-20</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">T 0-0 @ PIT · 09-19</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 1-9 vs CHW · 09-24</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 5-4 vs CHW · 09-23</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 11-14 vs CHW · 09-22</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 3-4 @ PIT · 09-20</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 5-6 @ PIT · 09-19</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 0.0 &middot; allowed 0.0 per game over last 159</div>
+<div class="sub" style="padding:7px 0">Scored 4.2 &middot; allowed 4.9 per game over last 159</div>
 <div class="sect">Next up</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs MIL · 04-03</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs CLE · 09-25</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs CLE · 09-26</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs CLE · 09-25</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs CLE · 09-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs CLE · 09-27</div>
 <div class="sect">Injuries</div>
 <div class="sub">None reported.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790365588';
+const RP_BUILD='1790365691';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
