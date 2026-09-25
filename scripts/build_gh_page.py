@@ -414,6 +414,19 @@ window.addEventListener('pageshow',function(){{try{{
  window.addEventListener('touchend',function(){{if(y0!==null&&el.dataset.armed==='1'){{el.innerHTML='<span class="spin"></span>Refreshing&hellip;';location.replace(location.pathname+'?r='+Date.now());return;}}el.style.transform='translateY(-100%)';y0=null;}},{{passive:true}});
 }})();
 /* Live odds - POLY chips (public gamma API, ~60s) + headline consensus (ESPN free feed, ~60s). No keys. */
+function rpCxUpdMl(bk){{
+ const span=document.querySelector('#rpComboPx span[data-book="'+bk+'"]');if(!span)return;
+ const n=document.querySelectorAll('.legs li').length;if(!n)return;
+ let d=1,cnt=0;
+ document.querySelectorAll('.pick a[data-book="'+bk+'"]').forEach(function(a){{
+  const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
+  const ml=parseInt(m[1]);cnt++;
+  d*=ml>0?1+ml/100:1+100/Math.abs(ml);
+ }});
+ if(cnt!==n||d<=1)return;
+ const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
+ span.textContent=bk+' '+(ml2>0?'+':'')+ml2;
+}}
 function rpCxUpd(bk){{
  const span=document.getElementById('rpCx'+bk);if(!span)return;
  const n=parseInt(span.dataset.n||'0');if(!n)return;
@@ -464,7 +477,9 @@ function rpEspnTick(){{try{{
      const nm=(ev.name||'').toLowerCase();
      if(nm.indexOf(atok)<0||nm.indexOf(htok)<0)return;
      const ml=d.dataset.side==='away'?(o.awayTeamOdds||{{}}).moneyLine:(o.homeTeamOdds||{{}}).moneyLine;
-     if(typeof ml==='number'){{const s=d.querySelector('.odds');if(s)s.textContent=(ml>0?'+':'')+ml;}}
+     if(typeof ml==='number'){{const s=d.querySelector('.odds');if(s)s.textContent=(ml>0?'+':'')+ml;
+      const chip=d.querySelector('a[data-book="ESPN"]');
+      if(chip){{chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);rpCxUpdMl('ESPN');}}}}
     }});
    }});
   }}).catch(()=>{{}});
@@ -509,7 +524,7 @@ function rpPageRefresh(){{try{{
   }});}}
  }}).catch(()=>{{}});
 }}catch(e){{}}}}
-setInterval(rpPageRefresh,900000);
+setInterval(rpPageRefresh,60000);
 </script>
 </div></body></html>'''
 import os
