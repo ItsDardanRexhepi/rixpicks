@@ -587,7 +587,7 @@ function rpA2hsStep(d){{if(d>0&&rpA2hsI===RP_A2HS.length-1){{rpA2hsDone();return
 function rpA2hsDone(){{localStorage.setItem('rp_a2hs_v1','1');document.getElementById('rpA2hs').style.display='none';}}
 function rpMaybeA2HS(){{if(RP_STANDALONE||RP_MOB===false)return;if(localStorage.getItem('rp_a2hs_v1'))return;
  rpA2hsRender();document.getElementById('rpA2hs').style.display='flex';}}
-const RP_BAT='<svg width="11" height="11" viewBox="0 0 16 16" style="vertical-align:-1px;margin:0 2px"><line x1="11.5" y1="1.5" x2="5.5" y2="7.5" stroke="#e8b93c" stroke-width="3" stroke-linecap="round"/><circle cx="4" cy="12" r="2.2" fill="#e8b93c"/></svg>';
+const RP_BAT='<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin:0 3px 0 1px"><g transform="rotate(45 12 12)" fill="#e8b93c"><rect x="10.3" y="1.2" width="3.4" height="12" rx="1.7"/><rect x="11.1" y="12.8" width="1.8" height="7.4" rx="0.9"/><circle cx="12" cy="21.6" r="1.9"/></g></svg>';
 function rpLsRender(pk,g){{const el=pk.querySelector('[data-ls]');if(!el)return;
  if(!g||g.state==='pre'){{el.className='ls';el.innerHTML='';return;}}
  if(g.state==='post'){{const side=pk.dataset.side||'away';
