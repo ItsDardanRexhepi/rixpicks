@@ -164,7 +164,7 @@ if man.get('parlay'):
         c=[]
         for bk,(lab,url) in pl['book_links'].items():
             c.append(f'<a class="chip"{bkstyle(bk)} href="{html.escape(url)}" data-book="{bk}" data-sb="{html.escape(url)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(bk)}{html.escape(lab)}</a>')
-        pchip=f'<div class="chips" id="rpParlayChips" style="margin:10px 0">{"".join(c)}</div><div class="note" id="rpParlayNa" style="display:none">Parlay links are sportsbook-only tonight &mdash; no parlay chip in your state. Singles above work on Kalshi &amp; Polymarket everywhere.</div>'
+        pchip=f'<div class="chips" id="rpParlayChips" style="margin:10px 0">{"".join(c)}</div>'
     elif pl.get('link'):
         # single Playbook FD-passthrough chip: state-gated like book_links (his Sep 25 7:37 AM rule:
         # show ONLY where a real prefill route exists for a platform the state allows; hidden elsewhere
@@ -173,7 +173,7 @@ if man.get('parlay'):
         pchip=(f'<div class="chips" id="rpParlayChips" style="margin:10px 0">'
                f'<a class="chip best"{bkstyle("FD")} href="{u}" data-book="FD" data-sb="{u}" '
                f'onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("FD")}{lab}</a></div>'
-               f'<div class="note" id="rpParlayNa" style="display:none">Parlay links are sportsbook-only tonight &mdash; no parlay chip in your state. Singles above work on Kalshi &amp; Polymarket everywhere.</div>')
+)
     parlay_html=f'<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs">{legs}</ul>{pchip}<div class="note" id="rpParlayNote">{html.escape(pl.get("note",""))}</div>'
 
 RP_STATES=[('AL','Alabama'),('AK','Alaska'),('AZ','Arizona'),('AR','Arkansas'),('CA','California'),('CO','Colorado'),('CT','Connecticut'),('DE','Delaware'),('DC','Washington D.C.'),('FL','Florida'),('GA','Georgia'),('HI','Hawaii'),('ID','Idaho'),('IL','Illinois'),('IN','Indiana'),('IA','Iowa'),('KS','Kansas'),('KY','Kentucky'),('LA','Louisiana'),('ME','Maine'),('MD','Maryland'),('MA','Massachusetts'),('MI','Michigan'),('MN','Minnesota'),('MS','Mississippi'),('MO','Missouri'),('MT','Montana'),('NE','Nebraska'),('NV','Nevada'),('NH','New Hampshire'),('NJ','New Jersey'),('NM','New Mexico'),('NY','New York'),('NC','North Carolina'),('ND','North Dakota'),('OH','Ohio'),('OK','Oklahoma'),('OR','Oregon'),('PA','Pennsylvania'),('PR','Puerto Rico'),('RI','Rhode Island'),('SC','South Carolina'),('SD','South Dakota'),('TN','Tennessee'),('TX','Texas'),('UT','Utah'),('VT','Vermont'),('VA','Virginia'),('WA','Washington'),('WV','West Virginia'),('WI','Wisconsin'),('WY','Wyoming')]
@@ -195,7 +195,7 @@ page=f'''<!DOCTYPE html>
 <meta property="og:description" content="Daily picks. Tap a book, the bet&rsquo;s built.">
 <meta name="twitter:title" content="&rsquo;RixPicks">
 <meta name="twitter:card" content="summary">
-<meta name="description" content="&rsquo;RixPicks picks of the day. Tap any book under a pick to open that game there.">
+<meta name="description" content="&rsquo;RixPicks picks of the day.">
 <style>
 *{{margin:0;box-sizing:border-box}}
 body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f7f6f4;color:#1b1b1f;min-height:100vh;overscroll-behavior-y:contain}}
@@ -261,15 +261,14 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 <div id="rpPull"></div>
 <div class="wrap">
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
-<div class="status">{html.escape(man['date_label'])} &middot; {html.escape(man['status_note'])}</div>
-<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>
+<div class="status">{html.escape(man['date_label'])}</div>
 <div class="sect">Today&rsquo;s picks</div>
 {chr(10).join(rows)}
 {parlay_html}
 <div class="sect">Record</div>
 <div class="rec">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</div>
 <div class="unitmath">1u = $5 per $1,000 in bankroll</div>
-<div class="foot">Lines checked {html.escape(man['updated'])}. POLY prices and headline odds update live on this page; book lines refresh at each build. KAL chips open the exact market (works everywhere). FD/DK chips open the sportsbook where it&rsquo;s live in your state, or prediction markets elsewhere. Nothing is placed from this page &mdash; picks are informational, bets are yours to make. Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
+<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
 <div id="rpModal"><div class="box">
 <h3>One quick thing</h3>
 <p>Pick your state once so taps open the right product &mdash; sportsbook where it&rsquo;s live, prediction markets everywhere else. Saved on this device.</p>
@@ -294,7 +293,6 @@ function rpGo(a,st){{const b=a.dataset.book;
  else rpOpen(a.dataset.sb);}}
 function rpTerm(st){{const sb=RP_FD.includes(st)||RP_DK.includes(st);const T=sb?'Parlay':'Combo';
  const h=document.getElementById('rpParlayTitle');if(h)h.textContent=T;
- const na=document.getElementById('rpParlayNa');if(na)na.innerHTML=sb?'Parlay links are sportsbook-only tonight &mdash; no parlay chip in your state. Singles above work on Kalshi &amp; Polymarket everywhere.':'Combo links are sportsbook-only tonight &mdash; no combo chip in your state. Kalshi lists the games: build the combo in the Kalshi app. Singles above work on Kalshi &amp; Polymarket everywhere.';
  const nt=document.getElementById('rpParlayNote');if(nt&&!sb)nt.textContent='';}}
 function rpFilter(st){{rpTerm(st);let parlayAllHidden=true;
  document.querySelectorAll('a[data-book]').forEach(function(a){{const b=a.dataset.book;
@@ -306,7 +304,7 @@ function rpFilter(st){{rpTerm(st);let parlayAllHidden=true;
  }});
  const pc=document.querySelectorAll('#rpParlayChips a[data-book]');let any=false;
  pc.forEach(function(a){{if(a.style.display!=='none')any=true;}});
- const na=document.getElementById('rpParlayNa');if(na)na.style.display=(pc.length&&!any)?'':'none';}}
+ }}
 function rpRoute(e,a){{e.preventDefault();const st=localStorage.getItem('rp_state');if(!st){{window.__rpChip=a;rpAsk(false);return false;}}rpGo(a,st);return false;}}
 function rpSave(){{const st=document.getElementById('rpState').value;if(!st)return;const gps=localStorage.getItem('rp_state_gps');
  if(gps&&st!==gps){{localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src','preview');}}else{{localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src',gps?'gps':'manual');}}
