@@ -180,6 +180,7 @@ def chips(p):
             out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(short)}{html.escape(label)}</a>')
     return ''.join(out)
 
+_chips_fn=chips
 rows=[]
 last_lg=None
 SEEN=[]
@@ -198,7 +199,7 @@ for p in man['picks']:
     mkt='spread' if p.get('market')=='spread' else 'ml'
     g=p.get('game') or {}
     rows.append(f'''<div class="pick" data-espn="{espn}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}">
-  <div class="pick-head"><span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></div>
+  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html"><span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="chev" href="game-{p['num']}.html" aria-label="live markets">&rsaquo;</a></div>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
 </div>''')
@@ -331,6 +332,17 @@ h1 .tick{{color:#2f8f7d}}
 .pick{{padding:18px 0;border-top:1px solid #e4e2de}}
 .pick:first-of-type{{border-top:none}}
 .pick-head{{display:flex;align-items:baseline;gap:10px}}
+.gamelink{{display:flex;align-items:baseline;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}}
+.chev{{color:#b9b9c0;font-size:20px;font-weight:600;text-decoration:none;padding:0 2px;line-height:1}}
+.mrow{{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}}
+.mrow:first-of-type{{border-top:none}}
+.mrow .bk{{font-weight:700;width:52px;flex:none}}
+.mrow .side{{flex:1}}
+.mrow .pr{{font-weight:600;color:#2f8f7d;white-space:nowrap}}
+.mrow a{{color:inherit;text-decoration:none}}
+.back{{color:#6b6b72;font-size:14px;text-decoration:none}}
+.score{{font-size:14px;color:#6b6b72;margin-top:4px}}
+@media (prefers-color-scheme: dark){{.chev{{color:#55555c}}.mrow{{border-top-color:#2a2a2e}}.mrow .pr{{color:#3aa895}}.back,.score{{color:#9a9aa3}}}}
 .num{{color:#6b6b72}}
 .name{{font-weight:600;font-size:17px;flex:1}}
 .odds{{color:#2f8f7d;font-weight:600;white-space:nowrap}}
@@ -605,10 +617,94 @@ function rpPageRefresh(){{try{{
 setInterval(rpPageRefresh,60000);
 </script>
 </div></body></html>'''
+
+def _pt_label(iso):
+    try:
+        import datetime as _dt
+        d=_dt.datetime.fromisoformat(iso.replace('Z','+00:00'))-_dt.timedelta(hours=7)
+        return d.strftime('%-I:%M %p PT')
+    except Exception: return ''
+
+def build_game_pages(man, css, build_sha):
+    "Per-game live-market pages (user, Sep 25 12:11 PM)."
+    tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'game_page_template.html')).read()
+    pages={}
+    NAME2KEY={'draftkings':'DK','fanduel':'FD','espnbet':'ESPN','hardrockbet':'HR'}
+    for p in man.get('picks',[]):
+        g=p.get('game') or {}
+        if not g: continue
+        away,home=g.get('away',''),g.get('home','')
+        side=p.get('side','away')
+        other='home' if side=='away' else 'away'
+        carded_team=g.get(side,'')
+        rows_html=[]
+        pr=sel_books(pre.get((away,home)), g) or {}
+        for key,short in NAME2KEY.items():
+            rec=pr.get(key) or {}
+            aml,hml=rec.get('away_ml'),rec.get('home_ml')
+            if aml is None and hml is None: continue
+            alink=rec.get('away_link') or rec.get('event') or ('https://www.'+BKDOM[short])
+            hlink=rec.get('home_link') or rec.get('event') or ('https://www.'+BKDOM[short])
+            a_lbl=('%+d'%aml) if aml is not None else '-'
+            h_lbl=('%+d'%hml) if hml is not None else '-'
+            rows_html.append('<div class="mrow">'+bkimg(short)+'<span class="bk">'+short+'</span>'
+                '<span class="side"><a href="'+html.escape(alink)+'" target="_blank" rel="noreferrer">'+html.escape(away)+'</a></span><span class="pr"><a href="'+html.escape(alink)+'" target="_blank" rel="noreferrer">'+a_lbl+'</a></span>'
+                '<span class="side" style="text-align:right"><a href="'+html.escape(hlink)+'" target="_blank" rel="noreferrer">'+html.escape(home)+'</a></span><span class="pr"><a href="'+html.escape(hlink)+'" target="_blank" rel="noreferrer">'+h_lbl+'</a></span></div>')
+        stt=pr.get('state_templates') or {}
+        for key,short in (('betmgm','MGM'),('betrivers','BR')):
+            rec=stt.get(key) or {}
+            aml,hml=rec.get('away_ml'),rec.get('home_ml')
+            if aml is None and hml is None: continue
+            link=rec.get('event') or ('https://www.'+BKDOM[short])
+            a_lbl=('%+d'%aml) if aml is not None else '-'
+            h_lbl=('%+d'%hml) if hml is not None else '-'
+            rows_html.append('<div class="mrow">'+bkimg(short)+'<span class="bk">'+short+'</span>'
+                '<span class="side"><a href="'+html.escape(link)+'" target="_blank" rel="noreferrer">'+html.escape(away)+'</a></span><span class="pr">'+a_lbl+'</span>'
+                '<span class="side" style="text-align:right"><a href="'+html.escape(link)+'" target="_blank" rel="noreferrer">'+html.escape(home)+'</a></span><span class="pr">'+h_lbl+'</span></div>')
+        kal_html=''
+        if p.get('kalshi'):
+            tick=p['kalshi']['url'].rstrip('/').split('/')[-1].upper()
+            kside=html.escape(p['kalshi'].get('team',''))
+            kal_html=('<div class="mrow">'+bkimg('KAL')+'<span class="bk">KAL</span>'
+                '<span class="side"><a href="'+html.escape(p['kalshi']['url'])+'" target="_blank" rel="noreferrer">'+html.escape(carded_team)+'</a></span>'
+                '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+kside+'" href="'+html.escape(p['kalshi']['url'])+'" target="_blank" rel="noreferrer">KAL '+str(c2ml(p['kalshi']['cents']))+'</a></span>'
+                '<span class="side" style="text-align:right;color:#8a8f98">full board on Kalshi</span><span class="pr"></span></div>')
+        poly_html=''
+        if p.get('polymarket'):
+            web=p.get('polymarket_us',{}).get('url') or p['polymarket']['url'].replace('https://polymarket.com/','https://polymarket.us/')
+            slug=poly_event_slug(p['polymarket']['url']) or ''
+            sub=poly_sub(p['polymarket']['url']) or ''
+            kw=p['name'].split()[0]
+            cents=poly_price(p['polymarket']['url'],kw)
+            lbl=('POLY '+str(c2ml(cents))) if cents else 'POLY'
+            poly_html=('<div class="mrow">'+bkimg('POLY')+'<span class="bk">POLY</span>'
+                '<span class="side"><a href="'+html.escape(web)+'" target="_blank" rel="noreferrer">'+html.escape(carded_team)+'</a></span>'
+                '<span class="pr"><a data-polyslug="'+slug+'" data-polysub="'+sub+'" data-polykw="'+html.escape(kw)+'" href="'+html.escape(web)+'" target="_blank" rel="noreferrer">'+lbl+'</a></span>'
+                '<span class="side" style="text-align:right;color:#8a8f98">full board on Polymarket</span><span class="pr"></span></div>')
+        ch=_chips_fn(p)
+        espn=html.escape(p.get('espn_league',''))
+        mkt='spread' if p.get('market')=='spread' else 'ml'
+        when=_pt_label(g.get('commence',''))
+        inst=game_instance(g)
+        inst_lbl=(' ('+inst+')') if inst else ''
+        page_html=tmpl
+        for tok,val in [('__TITLE__',html.escape(away+' at '+home)),('__CSS__',css),('__NUM__',str(p['num'])),
+            ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),
+            ('__SIDE__',side),('__MKT__',mkt),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
+            ('__ODDS__',html.escape(p['odds'])),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
+            ('__CHIPS__',ch),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),('__BUILD__',build_sha)]:
+            page_html=page_html.replace(tok,val)
+        pages['game-%s.html'%p['num']]=page_html
+    return pages
+
 import os
 import time
 build_sha=str(int(time.time()))
 page=page.replace('{build_sha}',build_sha)
 os.makedirs(os.path.dirname(out) or '.',exist_ok=True)
 open(out,'w').write(page)
+_css=page.split('<style>')[1].split('</style>')[0]
+for _fn,_html in build_game_pages(man,_css,build_sha).items():
+    open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(_html)
+    print('written:',_fn,len(_html))
 print('written:',out,len(page),'design v'+RP_DESIGN,'build',build_sha)
