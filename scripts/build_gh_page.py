@@ -500,6 +500,7 @@ function rpFilter(st){{rpTerm(st);let parlayAllHidden=true;
  }});
  const pc=document.querySelectorAll('#rpParlayChips a[data-book]');let any=false;
  pc.forEach(function(a){{if(a.style.display!=='none')any=true;}});
+ if(window.rpCxStar)rpCxStar();
  }}
 function rpRoute(e,a){{e.preventDefault();const st=localStorage.getItem('rp_state');if(!st){{window.__rpChip=a;rpAsk(false);return false;}}rpGo(a,st);return false;}}
 function rpSave(){{const st=document.getElementById('rpState').value;if(!st)return;const gps=localStorage.getItem('rp_state_gps');
@@ -564,7 +565,8 @@ function rpCxUpdMl(bk){{
  }});
  if(cnt!==n||d<=1)return;
  const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
- span.textContent=bk+' '+(ml2>0?'+':'')+ml2;
+ span.innerHTML=span.innerHTML.replace(/([+-]\d+)/,(ml2>0?'+':'')+ml2);
+ rpCxStar();
 }}
 function rpCxUpd(bk){{
  const chip=document.getElementById('rpCx'+bk);if(!chip)return;
@@ -580,7 +582,22 @@ function rpCxUpd(bk){{
  if(cnt!==n||d<=1)return;
  const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
  chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY) [+-]?\d+/, bk+' '+(ml2>0?'+':'')+ml2);
+ rpCxStar();
 }}
+function rpCxStar(){{try{{
+ const wrap=document.getElementById('rpParlayChips');if(!wrap)return;
+ let best=null,bestV=-1e9;
+ wrap.querySelectorAll('a[data-book]').forEach(function(a){{
+  const vis=a.style.display!=='none';
+  a.classList.remove('best');
+  a.innerHTML=a.innerHTML.replace(/^\u2605 /,'');
+  if(!vis)return;
+  const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
+  const v=parseInt(m[1]);
+  if(v>bestV){{bestV=v;best=a;}}
+ }});
+ if(best){{best.classList.add('best');best.innerHTML='\u2605 '+best.innerHTML;}}
+}}catch(e){{}}}}
 function rpPolyTick(){{try{{
  document.querySelectorAll('a[data-polyslug]').forEach(function(a){{
   if(!a.dataset.polyslug)return;
@@ -662,7 +679,7 @@ function rpPageRefresh(){{try{{
    const b=s.dataset.book;if(b==='KAL'||b==='POLY')return;
    const ns=nc.querySelector('a[data-book="'+b+'"]');
    if(ns){{const m=ns.textContent.match(/([+-]\d+)/);if(m)s.innerHTML=s.innerHTML.replace(/([+-]\d+)/,m[1]);}}
-  }});}}
+  }});rpCxStar();}}
  }}).catch(()=>{{}});
 }}catch(e){{}}}}
 setInterval(rpPageRefresh,60000);
