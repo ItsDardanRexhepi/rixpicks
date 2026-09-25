@@ -6,7 +6,8 @@ Only FD + DK produce clean universal prefill links; betmgm/betrivers carry {stat
 Credit discipline: 1 credit per market per region per sport (h2h only). ~16/day max (standing J-049A).
 """
 import json,sys,urllib.request,os
-K=open('/home/sandbox/.odds_api_key') if __import__('os').path.exists('/home/sandbox/.odds_api_key') else type('X',(),{'read':lambda s:__import__('os').environ.get('THE_ODDS_API_KEY','')})().read().strip()
+import os as _os
+K=(_os.environ.get('THE_ODDS_API_KEY') or open('/home/sandbox/.odds_api_key').read()).strip()
 SPORT_MAP={'baseball_mlb':('MLB',)}
 out={}
 for sport in sys.argv[1:]:
