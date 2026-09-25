@@ -212,7 +212,7 @@ for p in man['picks']:
     if lg!=last_lg:
         lbl=LG_LABEL.get(lg) or (lg.split('/')[-1].replace('-',' ').title() if lg else 'Other')
         ball=LG_BALL.get(lg,'\U0001f3c5')
-        rows.append(f'<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(127,127,127,.16);margin-right:8px;font-size:15px">{ball}</span>{html.escape(lbl)}</div>')
+        rows.append(f'<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">{ball}</span>{html.escape(lbl)}</div>')
         last_lg=lg
     ch=chips(p)
     for _mm in re.finditer(r'href="([^"]+)"[^>]*data-book="([A-Z]+)"', ch):
@@ -852,8 +852,8 @@ def build_game_pages(man, css, build_sha):
 
 def _espn_get(url):
     import urllib.request
-    req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
-    with urllib.request.urlopen(req,timeout=12) as r: return json.load(r)
+    # ESPN 403s a bare 'Mozilla/5.0' UA (verified Sep 25); urllib default UA passes.
+    with urllib.request.urlopen(url,timeout=12) as r: return json.load(r)
 
 def team_slug(name):
     return re.sub(r'[^a-z0-9]+','-',name.lower()).strip('-')
