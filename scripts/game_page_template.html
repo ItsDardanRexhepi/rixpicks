@@ -374,7 +374,6 @@ function rpPageRefresh(){try{
 if(!localStorage.getItem('rp_state')){rpAsk(false);}else{rpLabel();}
 
 function rpML2C(ml){ml=parseFloat(ml);if(isNaN(ml))return null;return ml<0?(-ml)/((-ml)+100)*100:100/(ml+100)*100;}
-const RP_RANGE={};
 function rpDrawCharts(){try{
  const d=document.querySelector('.pick[data-away]');if(!d)return;
  const away=d.dataset.away,home=d.dataset.home;
