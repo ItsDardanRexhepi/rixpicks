@@ -27,6 +27,13 @@ def c2ml(c):
     c=int(round(c))
     if c<=0 or c>=100: return str(c)
     return ('-' if c>=50 else '+')+str(round(c/(100-c)*100) if c>=50 else round((100-c)/c*100))
+def wl_pct_line(rec):
+    try:
+        w,l=[int(x) for x in str(rec).split('-')]
+        if w+l<=0: return ''
+        return f'<div class="yesrec">W/L: {100.0*w/(w+l):.1f}%</div>'
+    except Exception:
+        return ''
 def poly_event_slug(url):
     try: return url.split('/event/')[1].split('/')[0]
     except Exception: return None
@@ -329,6 +336,7 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 {parlay_html}
 <div class="sect">Record</div>
 <div class="rec">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</div>
+{wl_pct_line(man['record'])}
 {f'<div class="yesrec">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else ''}
 <div class="unitmath">1u = $5 per $1,000 in bankroll</div>
 <div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
