@@ -187,7 +187,7 @@ function rpEdit(){window.__rpChip=null;
  },function(){rpNote('Location off - manual pick below (unverified).');},{timeout:9000});}
  else rpAsk(true);}
 if(!localStorage.getItem('rp_state')){rpAsk(false);}else{rpLabel();}
-const RP_BUILD='1790367408';
+const RP_BUILD='1790367547';
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded'))return;
  fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(t=>{

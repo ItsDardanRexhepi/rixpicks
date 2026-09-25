@@ -189,7 +189,7 @@ function rpDrawCharts(){try{
  const card=document.querySelector('.chartcard[data-books]');if(!card)return;
  const svg=document.getElementById('chart-main');if(!svg)return;
  const legend=document.getElementById('chartlegend');
- const COLORS={KAL:'#2fd4a7',POLY:'#7a9fff'};
+ const COLORS={DK:'#53d337',FD:'#3b9eff',ESPN:'#e05a4e',HR:'#d4af37',MGM:'#c77dff',BR:'#4fc3e8',KAL:'#2fd4a7',POLY:'#7a9fff'};
  const rng=RP_RANGE['MAIN']||'ALL';
  const now=Date.now();
  const cut=rng==='1D'?now-864e5:rng==='1W'?now-7*864e5:rng==='1M'?now-30*864e5:0;
@@ -201,8 +201,15 @@ function rpDrawCharts(){try{
   const rows=[];
   res[0].split('\n').forEach(function(l){if(!l.trim())return;try{const j=JSON.parse(l);if(j.away===away&&j.home===home&&/Z$/.test(j.ts))rows.push(j);}catch(e){}});
   const hist=res[1]||{};
+  const st=localStorage.getItem('rp_state')||'';
+  const allBooks=(card.dataset.books||'').split(' ').filter(function(x){return x;}).filter(function(b){
+   if(b==='KAL'||b==='POLY')return true;
+   if(b==='DK'||b==='FD')return true;
+   const L=(typeof RP_L!=='undefined'&&RP_L[b])||null;
+   return L&&st?L.includes(st):true;
+  });
   const series={};
-  ['KAL','POLY'].forEach(function(b){
+  allBooks.forEach(function(b){
    const key=b.toLowerCase();const pts=[];
    const hb=hist[key]||[];
    hb.forEach(function(p){if(p[0]*1000>=cut||!cut)pts.push([p[0]*1000,p[1]]);});
@@ -210,6 +217,7 @@ function rpDrawCharts(){try{
    rows.forEach(function(j){
     const ts=Date.parse(j.ts);if(cut&&ts<cut)return;
     let v=j[key+'_'+(side==='away'?'a':'h')];
+    if(b!=='KAL'&&b!=='POLY'){v=rpML2C(v);}
     if(v!==null&&v!==undefined&&!isNaN(v)&&ts>lastH)pts.push([ts,v]);
    });
    if(pts.length)series[b]=pts;
