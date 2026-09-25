@@ -746,7 +746,11 @@ function rpFinalsTop(){{document.querySelectorAll('.pick').forEach(function(pk){
  if(h&&h.parentNode===pk.parentNode)h.parentNode.insertBefore(pk,h.nextElementSibling);
  }});
 }}
-async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();}}
+function rpRenumber(){{try{{
+ let i=0;
+ document.querySelectorAll('.pick').forEach(function(pk){{const n=pk.querySelector('.num');if(!n)return;i++;n.textContent=i+'.';}});
+}}catch(e){{}}}}
+async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpRenumber();rpCxLive();rpRecLive();}}
 {fut_badge_js}rpLsTickAll();setInterval(rpLsTickAll,30000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
