@@ -108,7 +108,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 
 @keyframes rpspin{to{transform:rotate(360deg)}}
 </style>
-</head><body>
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"></head><body>
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div id="rpPtr" style="display:none;text-align:center;font-size:12px;color:#8a8f98;padding:8px 0"><span style="display:inline-block;width:14px;height:14px;border:2px solid #2a4a44;border-top-color:#3aa895;border-radius:50%;animation:rpspin .8s linear infinite;vertical-align:-2px"></span> <span id="rpPtrTxt">refreshing&hellip;</span></div>
@@ -137,7 +137,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790378250';
+const RP_BUILD='1790379496';
 const RP_FD=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "MD", "MA", "MI", "MO", "NJ", "NY", "NC", "OH", "PA", "TN", "VT", "VA", "WV", "WY", "DC", "PR"];const RP_DK=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MO", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "TN", "VT", "VA", "WV", "WY", "DC"];
 const RP_L={FD:RP_FD,DK:RP_DK,MGM:["AZ", "CO", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "MS", "NJ", "NV", "NY", "NC", "OH", "PA", "TN", "VA", "WV", "WY"],B365:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "NJ", "NC", "OH", "PA", "TN", "VA"],FAN:["AZ", "CO", "CT", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NC", "NJ", "NY", "OH", "PA", "TN", "VT", "VA", "WV", "WY"],ESPN:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NJ", "NC", "OH", "PA", "TN", "VA", "WV"],HR:["AZ", "CO", "FL", "IL", "IN", "MI", "NJ", "OH", "TN", "VA"],BR:["AZ", "CO", "CT", "DE", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "RI", "TN", "VT", "VA", "WV", "WY"]};
 function rpC2ML(c){c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}
