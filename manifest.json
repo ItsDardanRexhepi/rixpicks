@@ -103,7 +103,40 @@
     "price": 434,
     "link": "https://playbookbot.com/books/betmgm/passthrough?deeplinkId[0]=ML3002962229&deeplinkId[1]=ML3002169898&deeplinkId[2]=ML3003233626&context=playbook-homepage-quickslip&sport=baseball"
    }
-  }
+  },
+  "kalshi_legs": [
+   {
+    "ticker": "KXMLBGAME-26SEP252140HOUATH",
+    "side": "HOU",
+    "cents": 63
+   },
+   {
+    "ticker": "KXMLBGAME-26SEP251940CLEKC",
+    "side": "CLE",
+    "cents": 57
+   },
+   {
+    "ticker": "KXMLBGAME-26SEP251905BALNYY",
+    "side": "BAL",
+    "cents": 47,
+    "note": "Game 2 - only BAL market Kalshi lists today; matches placed ticket"
+   }
+  ],
+  "poly_legs": [
+   {
+    "url": "https://polymarket.com/event/mlb-hou-oak-2026-09-25",
+    "kw": "Astros"
+   },
+   {
+    "url": "https://polymarket.com/event/mlb-cle-kc-2026-09-25",
+    "kw": "Guardians"
+   },
+   {
+    "url": "https://polymarket.com/event/mlb-bal-nyy-2026-09-25",
+    "kw": "Orioles",
+    "note": "Game 2 per event resolution text (7:05 PM ET)"
+   }
+  ]
  },
  "yesterday": "2-1",
  "units_pl": "-5.77u"

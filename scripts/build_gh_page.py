@@ -226,22 +226,36 @@ if man.get('parlay'):
         if len(lgs)==1 and None not in lgs: DKPM='https://predictions.draftkings.com/en/markets/'+lgs.pop()
     except Exception: pass
     if len(lp)==nlegs:
-        kc=[p['kalshi']['cents'] for p in lp if p.get('kalshi') and p['kalshi'].get('cents')]
-        if len(kc)==nlegs:
+        kc=None
+        if pl.get('kalshi_legs') and len(pl['kalshi_legs'])==nlegs:
+            kc=[l['cents'] for l in pl['kalshi_legs'] if l.get('cents')]
+            hidden=''.join(f'<a data-cxleg="KAL" data-kalticker="{html.escape(l["ticker"])}" data-kalside="{html.escape(l["side"])}" style="display:none">KAL {c2ml(l["cents"])}</a>' for l in pl['kalshi_legs'] if l.get('cents'))
+        else:
+            kc=[p['kalshi']['cents'] for p in lp if p.get('kalshi') and p['kalshi'].get('cents')]
+            hidden=''
+        if kc and len(kc)==nlegs:
             c=amer_from_cents(kc)
             if c is not None:
-                chips.append(('KAL',f'<a class="chip"{bkstyle("KAL")} href="https://kalshi.com/category/sports/all-sports" data-book="KAL" data-sb="https://kalshi.com/category/sports/all-sports" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("KAL")}KAL {c2ml(c)}</a>'))
-        pc=[]; okp=True; purl='https://polymarket.us'
-        for p in lp:
-            if not p.get('polymarket'): okp=False; break
-            cc=poly_price(p['polymarket']['url'], p['name'].split()[0])
-            if not cc: okp=False; break
-            pc.append(cc)
-            if p.get('polymarket_us',{}).get('url'): purl=p['polymarket_us']['url']
+                chips.append(('KAL',f'<a class="chip"{bkstyle("KAL")} href="https://kalshi.com/category/sports/all-sports" data-book="KAL" data-sb="https://kalshi.com/category/sports/all-sports" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("KAL")}KAL {c2ml(c)}</a>{hidden}'))
+        pc=[]; okp=True; purl='https://polymarket.us'; phidden=''
+        if pl.get('poly_legs') and len(pl['poly_legs'])==nlegs:
+            for l in pl['poly_legs']:
+                cc=poly_price(l['url'], l.get('kw',''))
+                if not cc: okp=False; break
+                pc.append(cc)
+                slug=poly_event_slug(l['url']) or ''
+                phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" style="display:none">POLY {c2ml(cc)}</a>'
+        else:
+            for p in lp:
+                if not p.get('polymarket'): okp=False; break
+                cc=poly_price(p['polymarket']['url'], p['name'].split()[0])
+                if not cc: okp=False; break
+                pc.append(cc)
+                if p.get('polymarket_us',{}).get('url'): purl=p['polymarket_us']['url']
         if okp and len(pc)==nlegs:
             c=amer_from_cents(pc)
             if c is not None:
-                chips.append(('POLY',f'<a class="chip"{bkstyle("POLY")} href="{html.escape(purl)}" data-book="POLY" data-sb="{html.escape(purl)}" id="rpCxPOLY" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("POLY")}POLY {c2ml(c)}</a>'))
+                chips.append(('POLY',f'<a class="chip"{bkstyle("POLY")} href="{html.escape(purl)}" data-book="POLY" data-sb="{html.escape(purl)}" id="rpCxPOLY" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("POLY")}POLY {c2ml(c)}</a>{phidden}'))
         BKML=[('DK','draftkings',DKPM),('FD','fanduel','https://www.fanduel.com/predicts'),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]
         for short,pk,pm in BKML:
             mls=[]; ok=True
@@ -479,7 +493,8 @@ function rpCxUpdMl(bk){{
 function rpCxUpd(bk){{
  const chip=document.getElementById('rpCx'+bk);if(!chip)return;
  const n=parseInt(chip.dataset.n||'0');if(!n)return;
- const sel=bk==='KAL'?'a[data-kalticker]':'a[data-polyslug]';
+ const cxsel='a[data-cxleg="'+bk+'"]';
+ const sel=document.querySelectorAll(cxsel).length?cxsel:(bk==='KAL'?'a[data-kalticker]':'a[data-polyslug]');
  const re=bk==='KAL'?/KAL ([+-]\d+)/:/POLY ([+-]\d+)/;
  let d=1,cnt=0;
  document.querySelectorAll(sel).forEach(function(a){{
