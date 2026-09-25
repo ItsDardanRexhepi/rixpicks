@@ -78,14 +78,17 @@ h1 .tick{color:#2f8f7d}
 const RP_FD=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "MD", "MA", "MI", "MO", "NJ", "NY", "NC", "OH", "PA", "TN", "VT", "VA", "WV", "WY", "DC", "PR"];const RP_DK=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MO", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "TN", "VT", "VA", "WV", "WY", "DC"];
 const RP_L={FD:RP_FD,DK:RP_DK,MGM:["AZ", "CO", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "MS", "NJ", "NV", "NY", "NC", "OH", "PA", "TN", "VA", "WV", "WY"],B365:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "NJ", "NC", "OH", "PA", "TN", "VA"],FAN:["AZ", "CO", "CT", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NC", "NJ", "NY", "OH", "PA", "TN", "VT", "VA", "WV", "WY"],ESPN:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NJ", "NC", "OH", "PA", "TN", "VA", "WV"],HR:["AZ", "CO", "FL", "IL", "IN", "MI", "NJ", "OH", "TN", "VA"],BR:["AZ", "CO", "CT", "DE", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "RI", "TN", "VT", "VA", "WV", "WY"]};
 const RP_MOB=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const RP_STANDALONE=(navigator.standalone===true)||window.matchMedia('(display-mode: standalone)').matches;
+function rpOpen(u){if(RP_STANDALONE){location.assign(u);}else{window.open(u,'_blank','noopener');}}
+if(RP_STANDALONE){document.addEventListener('click',function(e){const a=e.target.closest('a[target="_blank"]');if(a&&!a.onclick&&a.href){e.preventDefault();location.assign(a.href);}},true);}
 function rpGo(a,st){const b=a.dataset.book;
- if(b==='POLY'){if(RP_MOB&&a.dataset.app){location.href=a.dataset.app;}else{window.open(a.dataset.sb,'_blank','noopener');}return;}
+ if(b==='POLY'){if(RP_MOB&&a.dataset.app){location.href=a.dataset.app;}else{rpOpen(a.dataset.sb);}return;}
  if(b==='FD'||b==='DK'){const sb=b==='FD'?RP_FD:RP_DK;
-  if(sb.includes(st)){window.open(a.dataset.sb,'_blank','noopener');}
+  if(sb.includes(st)){rpOpen(a.dataset.sb);}
   else if(b==='FD'&&RP_MOB&&a.dataset.pmapp){location.href=a.dataset.pmapp;}
-  else{window.open(a.dataset.pm,'_blank','noopener');}}
- else if(a.dataset.template){window.open(a.dataset.sb.replaceAll('{state}',st.toLowerCase()),'_blank','noopener');}
- else window.open(a.dataset.sb,'_blank','noopener');}
+  else{rpOpen(a.dataset.pm);}}
+ else if(a.dataset.template){rpOpen(a.dataset.sb.replaceAll('{state}',st.toLowerCase()));}
+ else rpOpen(a.dataset.sb);}
 function rpFilter(st){let parlayAllHidden=true;
  document.querySelectorAll('a[data-book]').forEach(function(a){const b=a.dataset.book;
   const inParlay=!!a.closest('#rpParlayChips');
@@ -125,7 +128,7 @@ function rpEdit(){window.__rpChip=null;
  },function(){rpNote('Location off - manual pick below (unverified).');},{timeout:9000});}
  else rpAsk(true);}
 if(!localStorage.getItem('rp_state')){rpAsk(false);}else{rpLabel();}
-const RP_BUILD='1790313016';
+const RP_BUILD='1790313119';
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded'))return;
  fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(t=>{
