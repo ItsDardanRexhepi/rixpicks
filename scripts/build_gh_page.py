@@ -586,13 +586,13 @@ function rpLsRender(pk,g){{const el=pk.querySelector('[data-ls]');if(!el)return;
 async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data-away]')].filter(x=>x.dataset.away);if(!picks.length)return;
  const mlb=picks.filter(x=>(x.dataset.espn||'')==='baseball/mlb');
  if(mlb.length){{try{{
-  const d=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore')).json();
+  const d=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team')).json();
   const games=(d.dates||[]).flatMap(x=>x.games||[]);
   mlb.forEach(pk=>{{const g=games.find(g=>g.teams.away.team.name===pk.dataset.away&&g.teams.home.team.name===pk.dataset.home);
    if(!g){{rpLsRender(pk,null);return;}}
    const ls=g.linescore||{{}};const st=g.status.detailedState;
    const inn=(st==='In Progress')?((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim():st;
-   rpLsRender(pk,{{a:g.teams.away.team.abbreviation,h:g.teams.home.team.abbreviation,
+   rpLsRender(pk,{{a:g.teams.away.team.abbreviation||g.teams.away.team.name.split(' ').pop().slice(0,3).toUpperCase(),h:g.teams.home.team.abbreviation||g.teams.home.team.name.split(' ').pop().slice(0,3).toUpperCase(),
     as:(ls.teams&&ls.teams.away&&ls.teams.away.runs)||0,hs:(ls.teams&&ls.teams.home&&ls.teams.home.runs)||0,
     st:inn,state:st==='In Progress'?'in':(st==='Final'||st==='Game Over')?'post':'pre'}});}});}}catch(e){{}}}}
  const byLg={{}};picks.filter(x=>x.dataset.espn&&(x.dataset.espn!=='baseball/mlb')).forEach(x=>{{(byLg[x.dataset.espn]=byLg[x.dataset.espn]||[]).push(x);}});
