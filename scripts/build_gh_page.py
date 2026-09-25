@@ -43,7 +43,7 @@ def poly_sub(url):
         parts=url.split('/event/')[1].split('/')
         return parts[1] if len(parts)>1 and parts[1] else None
     except Exception: return None
-def poly_price(url,kw):
+def poly_price(url,kw,won_ok=False):
     slug=poly_event_slug(url)
     if not slug: return None
     try:
@@ -70,6 +70,7 @@ def poly_price(url,kw):
             if kwl in str(o).lower() and i<len(prs):
                 c=round(float(prs[i])*100)
                 if 0<c<100: return c
+                if won_ok and target.get('closed') and c==100: return 100  # resolved win - leg is home, factor 1
     except Exception: return None
     return None
 def _load_prefill(path, wrap=False):
@@ -379,7 +380,7 @@ if man.get('parlay'):
         pc=[]; okp=True; purl='https://polymarket.us'; phidden=''
         if pl.get('poly_legs') and len(pl['poly_legs'])==nlegs:
             for l in pl['poly_legs']:
-                cc=poly_price(l['url'], l.get('kw',''))
+                cc=poly_price(l['url'], l.get('kw',''), won_ok=True)
                 if not cc: okp=False; break
                 pc.append(cc)
                 slug=poly_event_slug(l['url']) or ''
