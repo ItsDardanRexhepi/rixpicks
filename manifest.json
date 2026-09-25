@@ -49,6 +49,17 @@
    "espn_league": "baseball/mlb",
    "dkp": {
     "url": "https://predictions.draftkings.com/en/event/bal-orioles-%40-ny-yankees/34725769"
+   },
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxmlbgame/baltimore-vs-new-york-y-game-1/kxmlbgame-26sep261915balnyy",
+    "cents": 48,
+    "team": "BAL"
+   },
+   "polymarket": {
+    "url": "https://polymarket.com/event/mlb-bal-nyy-2026-09-26"
+   },
+   "polymarket_us": {
+    "url": "https://polymarket.us/event/mlb-bal-nyy-2026-09-26"
    }
   },
   {
@@ -85,7 +96,7 @@
   "legs": [
    "Astros ML",
    "Guardians ML",
-   "Orioles ML (G2)"
+   "Orioles ML"
   ],
   "note": "All 3 legs matched at Playbook; link is geo-aware and opens the slip at the best book for your state. Sportsbook-only - in CA the singles above ride on Kalshi & Polymarket.",
   "link": "https://playbookbot.com/books/fanduel/passthrough?deeplinkId[0]=ML3002533417&deeplinkId[1]=ML3001989066&deeplinkId[2]=ML3003215393&context=playbook-homepage-quickslip&sport=baseball",
@@ -116,10 +127,10 @@
     "cents": 57
    },
    {
-    "ticker": "KXMLBGAME-26SEP251905BALNYY",
+    "ticker": "KXMLBGAME-26SEP261915BALNYY",
     "side": "BAL",
-    "cents": 47,
-    "note": "Game 2 - only BAL market Kalshi lists today; matches placed ticket"
+    "cents": 48,
+    "note": "G1 - retitled moved-Saturday market; his rebuilt 10:08 AM ticket uses this leg"
    }
   ],
   "poly_legs": [
@@ -132,9 +143,9 @@
     "kw": "Guardians"
    },
    {
-    "url": "https://polymarket.com/event/mlb-bal-nyy-2026-09-25",
+    "url": "https://polymarket.com/event/mlb-bal-nyy-2026-09-26",
     "kw": "Orioles",
-    "note": "Game 2 per event resolution text (7:05 PM ET)"
+    "note": "G1 - moved Saturday game; poly desc stale (says Sep 26) but it is the only -09-26 event and resolves on this game"
    }
   ]
  },
