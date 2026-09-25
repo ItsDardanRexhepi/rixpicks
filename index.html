@@ -29,6 +29,7 @@ h1 .tick{color:#2f8f7d}
 .bklogo{width:16px;height:16px;border-radius:3px;flex:none}
 .chip.best{font-weight:800}
 .rec{font-weight:600;font-size:16px;padding:8px 0}
+.unitmath{color:#8a8f98;font-size:13px;margin-top:2px}
 .legs{padding-left:20px;font-size:15px;line-height:1.7}
 .note{color:#6b6b72;font-size:13px;margin-top:6px}
 .foot{margin-top:34px;color:#8a8a91;font-size:12px;line-height:1.6}
@@ -92,6 +93,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs"><li>Astros ML</li><li>Guardians ML</li><li>Orioles ML</li></ul><div class="note" id="rpParlayNote">Best combined price today: about +475 at full-pay books. No same-link slip available in every state - legs above work individually everywhere.</div>
 <div class="sect">Record</div>
 <div class="rec">&rsquo;RixPicks Overall Record: 8-5</div>
+<div class="unitmath">1u = $5 per $1,000 in bankroll</div>
 <div class="foot">Lines checked Sep 25, 7:00 AM PT. POLY prices and headline odds update live on this page; book lines refresh at each build. KAL chips open the exact market (works everywhere). FD/DK chips open the sportsbook where it&rsquo;s live in your state, or prediction markets elsewhere. Nothing is placed from this page &mdash; picks are informational, bets are yours to make. Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
 <div id="rpModal"><div class="box">
 <h3>One quick thing</h3>
@@ -163,7 +165,7 @@ function rpEdit(){window.__rpChip=null;
  },function(){rpNote('Location off - manual pick below (unverified).');},{timeout:9000});}
  else rpAsk(true);}
 if(!localStorage.getItem('rp_state')){rpAsk(false);}else{rpLabel();}
-const RP_BUILD='1790346124';
+const RP_BUILD='1790346385';
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded'))return;
  fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(t=>{
