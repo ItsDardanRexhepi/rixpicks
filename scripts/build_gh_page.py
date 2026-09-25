@@ -289,11 +289,11 @@ h1 .tick{{color:#2f8f7d}}
 .chip.best{{font-weight:800}}
 .rec{{font-weight:600;font-size:16px;padding:8px 0 1px}}
 .units{{color:#8a8f98;font-size:13px;font-weight:600;margin-right:8px}}
-.unitmath{{color:#8a8f98;font-size:13px;margin-top:2px}}
+.unitmath{{color:#8a8f98;font-size:13px;margin-top:8px}}
 .legs{{padding-left:20px;font-size:15px;line-height:1.7}}
 .note{{color:#6b6b72;font-size:13px;margin-top:6px}}
 .yesrec{{color:#6b6b72;font-size:13px;margin-top:2px}}
-.unitspl{{margin-top:8px}}
+
 .lghead{{color:#6b6b72;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:16px 0 4px}}
 .lghead:first-of-type{{margin-top:6px}}
 .cpx{{margin:8px 0 2px;font-size:13px;color:#9a9aa3}}
