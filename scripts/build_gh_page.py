@@ -7,7 +7,7 @@ content only - never layout, chip styling, terminology logic. Bump RP_DESIGN onl
 Chips resolved from /tmp/odds_prefill.json (+ _sp) when present; NO chips render without a game-level link.
 Branding: 'RixPicks only. No personal identifiers, ever.
 """
-import json,sys,html
+import json,sys,html,re
 
 RP_DESIGN='1.2.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme. v1.2.0 (user, Sep 25 8:46 AM): current page shape approved as THE standing daily template - header without FINAL line, tap-any-book intro, per-pick chips + units, combo section, record + unit line, minimal footer (reference commit fbec1c1). Every morning build reproduces this exact shape; changes only on his explicit instruction.
 
@@ -72,16 +72,29 @@ def poly_price(url,kw):
                 if 0<c<100: return c
     except Exception: return None
     return None
-pre={}
-try:
-    for g in json.load(open('/tmp/odds_prefill.json')):
-        pre[(g['away'],g['home'])]=g.get('books',{})
-except Exception: pass
-pre_sp={}
-try:
-    for g in json.load(open('/tmp/odds_prefill_sp.json')):
-        pre_sp[(g['away'],g['home'])]={'books':g.get('books',{})}
-except Exception: pass
+def _load_prefill(path, wrap=False):
+    out={}
+    try:
+        for g in json.load(open(path)):
+            books=g.get('books',{})
+            out.setdefault((g['away'],g['home']),[]).append((g.get('commence'), {'books':books} if wrap else books))
+    except Exception: pass
+    return out
+pre=_load_prefill('/tmp/odds_prefill.json')
+pre_sp=_load_prefill('/tmp/odds_prefill_sp.json', wrap=True)
+
+def sel_books(cands, game):
+    # J-090 doubleheader fix (user, Sep 25 9:50 AM): match book data to the exact game
+    # instance (commence), never the matchup alone. Same-team doubleheader with a
+    # missing/unmatched commence -> suppress book links and warn loudly; never link
+    # the wrong game.
+    if not cands: return {}
+    if len(cands)==1: return cands[0][1]
+    com=(game or {}).get('commence')
+    for c,b in cands:
+        if com and c and c[:16]==com[:16]: return b
+    print(f"DOUBLEHEADER WARNING: {game.get('away')} @ {game.get('home')} has {len(cands)} market entries, no commence match ({com!r}); book chips suppressed", file=sys.stderr)
+    return {}
 
 def chips(p):
     out=[]
@@ -89,9 +102,9 @@ def chips(p):
     kw=p['name'].split()[0]
     for name,short in BOOKS:
         link=None; ml=None
-        pr=pre.get((p['game']['away'],p['game']['home'])) if p.get('game') else None
+        pr=sel_books(pre.get((p['game']['away'],p['game']['home'])), p.get('game')) if p.get('game') else None
         if p.get('market')=='spread':
-            pr=(pre_sp.get((p['game']['away'],p['game']['home'])) or {}).get('books') if p.get('game') else None
+            pr=(sel_books(pre_sp.get((p['game']['away'],p['game']['home'])), p.get('game')) or {}).get('books') if p.get('game') else None
         PKMAP={'FanDuel':'fanduel','DraftKings':'draftkings','ESPN BET':'espnbet','Hard Rock':'hardrockbet'}
         if pr and name in PKMAP:
             pk=PKMAP[name]
@@ -109,12 +122,12 @@ def chips(p):
                 if pm is not None: ml=pm
         if name in ('BetMGM','BetRivers'):
             if p.get('market')=='spread':
-                st_=((pre_sp.get((p['game']['away'],p['game']['home'])) or {}).get('books') or {}).get('state_templates',{}) if p.get('game') else {}
+                st_=((sel_books(pre_sp.get((p['game']['away'],p['game']['home'])), p.get('game')) or {}).get('books') or {}).get('state_templates',{}) if p.get('game') else {}
                 e=(st_.get('betmgm' if name=='BetMGM' else 'betrivers') or {}).get(side) or {}
                 if e.get('link'): link=e['link']
                 if e.get('price') is not None: ml=e['price']
             else:
-                stt=((pre.get((p['game']['away'],p['game']['home'])) or {}).get('state_templates',{})) if p.get('game') else {}
+                stt=((sel_books(pre.get((p['game']['away'],p['game']['home'])), p.get('game')) or {}).get('state_templates',{})) if p.get('game') else {}
                 e=stt.get('betmgm' if name=='BetMGM' else 'betrivers') or {}
                 if name=='BetMGM' and e.get(f"{side}_link"):
                     link=e[f"{side}_link"]; ml=e.get(f"{side}_ml")
@@ -156,6 +169,7 @@ def chips(p):
 
 rows=[]
 last_lg=None
+SEEN=[]
 for p in man['picks']:
     lg=p.get('espn_league','')
     if lg!=last_lg:
@@ -163,6 +177,9 @@ for p in man['picks']:
         rows.append(f'<div class="lghead">{html.escape(lbl)}</div>')
         last_lg=lg
     ch=chips(p)
+    for _mm in re.finditer(r'href="([^"]+)"[^>]*data-book="([A-Z]+)"', ch):
+        _pg=p.get('game') or {}
+        SEEN.append((_mm.group(2), _mm.group(1), (_pg.get('away',''),_pg.get('home',''),_pg.get('commence',''))))
     chips_html=f'<div class="chips">{ch}</div>' if ch else ''
     espn=html.escape(p.get('espn_league',''))
     mkt='spread' if p.get('market')=='spread' else 'ml'
@@ -172,6 +189,14 @@ for p in man['picks']:
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
 </div>''')
+
+_seen={}
+for _bk,_lnk,_gk in SEEN:
+    _k=(_bk,_lnk)
+    if _k in _seen and _seen[_k]!=_gk:
+        print(f"DOUBLEHEADER REGRESSION: {_bk} link reused across different game instances: {_lnk[:120]}", file=sys.stderr)
+        sys.exit(2)
+    _seen[_k]=_gk
 
 parlay_html=''
 if man.get('parlay'):
@@ -222,7 +247,7 @@ if man.get('parlay'):
             mls=[]; ok=True
             for p in lp:
                 side=p.get('side','away')
-                pr=pre.get((p['game']['away'],p['game']['home'])) if p.get('game') else None
+                pr=sel_books(pre.get((p['game']['away'],p['game']['home'])), p.get('game')) if p.get('game') else None
                 if not pr: ok=False; break
                 if pk in ('betmgm','betrivers'):
                     e=(pr.get('state_templates') or {}).get(pk) or {}

@@ -13,7 +13,8 @@
    "side": "away",
    "game": {
     "away": "Houston Astros",
-    "home": "Athletics"
+    "home": "Athletics",
+    "commence": "2026-09-26T01:41:00Z"
    },
    "kalshi": {
     "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep252140houath",
@@ -41,23 +42,13 @@
    "side": "away",
    "game": {
     "away": "Baltimore Orioles",
-    "home": "New York Yankees"
+    "home": "New York Yankees",
+    "commence": "2026-09-25T20:05:00Z"
    },
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep251905balnyy",
-    "cents": 46,
-    "team": "BAL"
-   },
-   "best_book": "Kalshi",
+   "best_book": "DraftKings",
    "espn_league": "baseball/mlb",
    "dkp": {
     "url": "https://predictions.draftkings.com/en/event/bal-orioles-%40-ny-yankees/34725769"
-   },
-   "polymarket": {
-    "url": "https://polymarket.com/event/mlb-bal-nyy-2026-09-25"
-   },
-   "polymarket_us": {
-    "url": "https://polymarket.us/event/mlb-bal-nyy-2026-09-25"
    }
   },
   {
@@ -69,7 +60,8 @@
    "side": "away",
    "game": {
     "away": "Cleveland Guardians",
-    "home": "Kansas City Royals"
+    "home": "Kansas City Royals",
+    "commence": "2026-09-25T23:41:00Z"
    },
    "kalshi": {
     "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep251940clekc",

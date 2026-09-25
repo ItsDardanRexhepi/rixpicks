@@ -19,7 +19,7 @@ for sport in sys.argv[1:]:
         data=json.load(r)
     print(f"{sport}: {len(data)} events, credits remaining {rem}",file=sys.stderr)
     for e in data:
-        key=(e['away_team'],e['home_team'])
+        key=(e['away_team'],e['home_team'],e.get('commence_time'))  # J-090: game instance, not matchup - doubleheaders must never collide
         rec=out.setdefault(key,{})
         for b in e.get('bookmakers',[]):
             bk=b['key']
@@ -35,5 +35,5 @@ for sport in sys.argv[1:]:
                 rec[bk]=entry
             elif bk in ('betmgm','betrivers'):
                 rec.setdefault('state_templates',{})[bk]=entry
-json.dump([{'away':k[0],'home':k[1],'books':v} for k,v in out.items()],open('/tmp/odds_prefill.json','w'))
+json.dump([{'away':k[0],'home':k[1],'commence':k[2],'books':v} for k,v in out.items()],open('/tmp/odds_prefill.json','w'))
 print(f"wrote /tmp/odds_prefill.json ({len(out)} games)")
