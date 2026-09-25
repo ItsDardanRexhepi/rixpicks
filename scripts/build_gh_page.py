@@ -825,19 +825,13 @@ def build_game_pages(man, css, build_sha):
                team_slug(home),tlogo(mh),html.escape(abbr_h))
         teamlinks=''
         charts_html=''
-        BKNAME={'DK':'DraftKings','FD':'FanDuel','ESPN':'ESPN Bet','HR':'Hard Rock','MGM':'BetMGM','BR':'BetRivers','KAL':'Kalshi','POLY':'Polymarket'}
-        vols={'KAL':kvol if p.get('kalshi') else 0,'POLY':pvol if p.get('polymarket') else 0}
         if books_present:
-            charts_html='<div class="sect">Price history</div>'
-            for short in books_present:
-                v=vols.get(short,0)
-                vol_lbl=('$'+format(int(round(v)),',')+' vol') if v else ''
-                charts_html+=('<div class="chartcard" data-book="'+short+'" data-abbra="'+html.escape(abbr_a)+'" data-abbrh="'+html.escape(abbr_h)+'" style="padding:12px 0 8px;border-bottom:1px solid rgba(127,127,127,.15)">'
-                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">'+bkimg(short)+'<span class="bk">'+BKNAME.get(short,short)+'</span></div>'
-                    '<svg class="rpchart" id="chart-'+short+'" viewBox="0 0 340 150" preserveAspectRatio="none" style="width:100%;height:150px;display:block"></svg>'
-                    '<div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#8a8f98;margin-top:4px">'
-                    '<span>'+vol_lbl+'</span>'
-                    '<span class="rpranges" data-book="'+short+'"><span data-r="1D" style="padding:2px 6px;cursor:pointer">1D</span> <span data-r="1W" style="padding:2px 6px;cursor:pointer">1W</span> <span data-r="1M" style="padding:2px 6px;cursor:pointer">1M</span> <span data-r="ALL" style="padding:2px 6px;cursor:pointer;font-weight:700" class="rpon">ALL</span></span></div></div>')
+            charts_html=('<div class="sect">Price history</div>'
+                '<div class="chartcard" data-books="'+' '.join(books_present)+'" style="padding:12px 0 8px;border-bottom:1px solid rgba(127,127,127,.15)">'
+                '<svg class="rpchart" id="chart-main" viewBox="0 0 340 170" preserveAspectRatio="none" style="width:100%;height:170px;display:block"></svg>'
+                '<div id="chartlegend" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;font-size:11px"></div>'
+                '<div style="display:flex;justify-content:flex-end;font-size:11px;color:#8a8f98;margin-top:4px">'
+                '<span class="rpranges"><span data-r="1D" style="padding:2px 6px;cursor:pointer">1D</span> <span data-r="1W" style="padding:2px 6px;cursor:pointer">1W</span> <span data-r="1M" style="padding:2px 6px;cursor:pointer">1M</span> <span data-r="ALL" style="padding:2px 6px;cursor:pointer;font-weight:700">ALL</span></span></div></div>')
         HIST[(away,home)]=hrow
         ch=_chips_fn(p)
         espn=html.escape(p.get('espn_league',''))
