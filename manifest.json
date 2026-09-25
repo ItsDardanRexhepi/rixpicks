@@ -1,0 +1,70 @@
+{
+ "date_label": "Friday, Sep 25",
+ "status_note": "FINAL. KAL chips work in California; FD/DK chips one-tap in legal states.",
+ "record": "8-5",
+ "updated": "Sep 25, 7:00 AM PT",
+ "picks": [
+  {
+   "num": 1,
+   "name": "Astros ML",
+   "sub": "at Athletics - Brown (last 5: 1.9 ERA) vs Lopez (last out: 10 ER). HOU fighting for the AL West",
+   "odds": "-172",
+   "units": "6u",
+   "side": "away",
+   "game": {
+    "away": "Houston Astros",
+    "home": "Athletics"
+   },
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep252140houath",
+    "cents": 63
+   },
+   "best_book": "FanDuel",
+   "espn_league": "baseball/mlb"
+  },
+  {
+   "num": 2,
+   "name": "Orioles ML",
+   "sub": "at Yankees (Game 1) - Rogers dealing; NYY without Judge, Stanton, Grisham",
+   "odds": "+105",
+   "units": "5u",
+   "side": "away",
+   "game": {
+    "away": "Baltimore Orioles",
+    "home": "New York Yankees"
+   },
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep251905balnyy",
+    "cents": 46
+   },
+   "best_book": "Kalshi",
+   "espn_league": "baseball/mlb"
+  },
+  {
+   "num": 3,
+   "name": "Guardians ML",
+   "sub": "at Royals - Williams last 5: 0,2,2,0,5 ER with 40 Ks; CLE protecting the division lead",
+   "odds": "-129",
+   "units": "5u",
+   "side": "away",
+   "game": {
+    "away": "Cleveland Guardians",
+    "home": "Kansas City Royals"
+   },
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep251940clekc",
+    "cents": 56
+   },
+   "best_book": "Kalshi",
+   "espn_league": "baseball/mlb"
+  }
+ ],
+ "parlay": {
+  "legs": [
+   "Astros ML",
+   "Guardians ML",
+   "Orioles ML"
+  ],
+  "note": "Best combined price today: about +475 at full-pay books. No same-link slip available in every state - legs above work individually everywhere."
+ }
+}
