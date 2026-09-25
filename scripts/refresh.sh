@@ -25,7 +25,9 @@ for lg in ['baseball/mlb','football/nfl','football/college-football','basketball
             sys.exit(0)
 sys.exit(1)
 PY
-if [ $? -ne 0 ]; then echo "no live/imminent game - skip"; exit 0; fi
+GAME_WINDOW=$?
+set -e
+if [ $GAME_WINDOW -ne 0 ]; then echo "no live/imminent game - skip"; exit 0; fi
 if [ -z "$THE_ODDS_API_KEY" ]; then echo "THE_ODDS_API_KEY secret missing - skip (page keeps last build prices)"; exit 0; fi
 SPORTS=$(python3 -c "
 import json
