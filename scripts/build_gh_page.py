@@ -255,7 +255,13 @@ for _bk,_lnk,_gk in SEEN:
 parlay_html=''
 if man.get('parlay'):
     pl=man['parlay']
-    legs=''.join(f'<li>{html.escape(l)}</li>' for l in pl['legs'])
+    def _leg_li(l):
+        m=[p for p in man['picks'] if p['name'].lower() in l.lower() or l.lower() in p['name'].lower()]
+        if not m: return f'<li>{html.escape(l)}</li>'
+        p=m[0]; g=p.get('game') or {}
+        return ('<li class="cxleg" data-espn="%s" data-away="%s" data-home="%s" data-side="%s">%s<span class="ls" data-ls></span></li>'
+                % (html.escape(p.get('espn_league','')), html.escape(g.get('away','')), html.escape(g.get('home','')), html.escape(p.get('side','away')), html.escape(l)))
+    legs=''.join(_leg_li(l) for l in pl['legs'])
     # per-platform combo chips (his 9:08 AM directive): each chip carries the platform's combo
     # price and IS the build action - no separate build button. Verified prefill routes from the
     # manifest ('routes'); where none exists, chip is price-only and taps to the platform.
@@ -347,7 +353,7 @@ if man.get('parlay'):
         rendered.append(h)
     pchip=f'<div class="chips" id="rpParlayChips" style="margin:10px 0">{"".join(rendered)}</div>' if chips else ''
     # his 9:10 AM carve-out: in states where combos can't legally be built, asterisk the title + one-line footnote
-    parlay_html=(f'<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs">{legs}</ul>{pchip}'
+    parlay_html=(f'<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs">{legs}</ul><div class="note" id="rpCxLive" style="display:none;margin-top:6px"></div>{pchip}'
                  f'<div class="note" id="rpComboReg" style="display:none">* Due to regulations in your state, combos can\u2019t legally be built out for you and must be done manually.</div>'
                  f'<div class="note" id="rpParlayNote">{html.escape(pl.get("note",""))}</div>')
 
@@ -590,8 +596,8 @@ function rpLsRender(pk,g){{const el=pk.querySelector('[data-ls]');if(!el)return;
   el.innerHTML='<b>'+(win?'W':'L')+'</b> &middot; '+g.a+' '+g.as+' - '+g.h+' '+g.hs+' Final';return;}}
  el.className='ls on';
  const ba=(g.bat==='a')?RP_BAT:'',bh=(g.bat==='h')?RP_BAT:'';
- el.innerHTML=(g.state==='in'?'<span class="dot"></span>':'')+g.a+ba+' '+g.as+' - '+g.h+bh+' '+g.hs+' &middot; '+g.st;}}
-async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data-away]')].filter(x=>x.dataset.away);if(!picks.length)return;
+ el.innerHTML=(g.state==='in'?'<span class="dot"></span>':'')+ba+g.a+' '+g.as+' - '+bh+g.h+' '+g.hs+' &middot; '+g.st;}}
+async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data-away],.cxleg[data-away]')].filter(x=>x.dataset.away);if(!picks.length)return;
  const mlb=picks.filter(x=>(x.dataset.espn||'')==='baseball/mlb');
  if(mlb.length){{try{{
   const d=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team')).json();
@@ -614,7 +620,17 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
     found={{a:aw.team.abbreviation,h:hm.team.abbreviation,as:+aw.score||0,hs:+hm.score||0,st:e.status.type.shortDetail,state:e.status.type.state}};}});
    rpLsRender(pk,found);}});}}catch(e){{}}}}
 }}
-rpLsTick();setInterval(rpLsTick,30000);
+function rpCxLive(){{const legs=[...document.querySelectorAll('.cxleg')];const el=document.getElementById('rpCxLive');if(!el||!legs.length)return;
+ let w=0,l=0,live=0;
+ legs.forEach(x=>{{const sp=x.querySelector('[data-ls]');if(!sp)return;
+  if(sp.classList.contains('won'))w++;else if(sp.classList.contains('lost'))l++;else if(sp.classList.contains('on'))live++;}});
+ if(!w&&!l&&!live){{el.style.display='none';return;}}
+ el.style.display='';
+ if(l>0){{el.innerHTML='<span style="color:#e5484d;font-weight:700">Combo dead</span> - '+w+' of '+legs.length+' legs home';return;}}
+ if(w===legs.length){{el.innerHTML='<span style="color:#3ecf6f;font-weight:700">Combo cashed</span> - all '+legs.length+' legs home';return;}}
+ el.textContent=w+' of '+legs.length+' legs home'+(live?' \u00b7 '+live+' live':'')+(legs.length-w-l-live>0?' \u00b7 '+(legs.length-w-l-live)+' upcoming':'');}}
+async function rpLsTickAll(){{await rpLsTick();rpCxLive();}}
+rpLsTickAll();setInterval(rpLsTickAll,30000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
 window.addEventListener('pageshow',function(){{try{{
