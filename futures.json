@@ -71,5 +71,17 @@
   "poly_slug": "pro-football-2027-afc-champion",
   "poly_kw": "buffalo",
   "abbr": "buf"
+ },
+ {
+  "id": "F-NFLV3-SF-NFC",
+  "league": "NFL",
+  "team": "San Francisco 49ers",
+  "market": "NFC Champion",
+  "odds": "+545",
+  "units": 2,
+  "placed": "2026-09-25",
+  "abbr": "sf",
+  "poly_slug": "pro-football-2027-nfc-champion",
+  "poly_kw": "san francisco"
  }
 ]
