@@ -293,7 +293,7 @@ h1 .tick{{color:#2f8f7d}}
 .spin{{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}}
 @keyframes rpSpin{{to{{transform:rotate(360deg)}}}}
 @media (prefers-color-scheme: dark){{
-body{{background:#141416;color:#ececf1}}
+body{{background:#000;color:#ececf1}}
 h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 .status,.intro,.sect,.num,.sub,.note{{color:#9a9aa3}}
 .pick{{border-top-color:#2a2a2e}}
@@ -305,7 +305,7 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 #rpModal p{{color:#9a9aa3}}
 #rpState{{background:#141416;color:#ececf1;border-color:#2a2a2e}}
 #rpGeoNote{{color:#3aa895 !important}}
-#rpPull{{background:#141416;color:#3aa895}}
+#rpPull{{background:#000;color:#3aa895}}
 .spin{{border-color:#2a4a44;border-top-color:#3aa895}}
 .chip[data-bk="FD"]{{background:#12283d !important;border-color:#12283d !important;color:#5aa9e8 !important}}
 .chip[data-bk="ESPN"]{{background:#0f2e26 !important;border-color:#0f2e26 !important;color:#3ec9a0 !important}}
