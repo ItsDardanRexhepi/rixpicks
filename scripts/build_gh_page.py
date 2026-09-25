@@ -82,7 +82,29 @@ def _load_prefill(path, wrap=False):
     return out
 HIST={}
 pre=_load_prefill('/tmp/odds_prefill.json')
+
+def team_meta(man):
+    meta={}
+    lgs={p.get('espn_league','') for p in man.get('picks',[]) if p.get('espn_league')}
+    for lg in lgs:
+        try:
+            sb=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/scoreboard'%lg)
+            for ev in sb.get('events',[]):
+                comp=(ev.get('competitions') or [{}])[0]
+                for c in comp.get('competitors',[]):
+                    t=c.get('team') or {}
+                    nm=t.get('displayName','')
+                    meta[(lg,nm)]={'id':t.get('id'),'abbr':t.get('abbreviation',''),'logo':t.get('logo',''),
+                        'record':(c.get('records') or [{}])[0].get('summary','')}
+        except Exception: pass
+    return meta
+
+TEAM_META={}
+
+
 pre_sp=_load_prefill('/tmp/odds_prefill_sp.json', wrap=True)
+TEAM_META.update(team_meta(man))
+LG_BALL={'baseball/mlb':'\u26be','football/nfl':'\U0001f3c8','football/college-football':'\U0001f3c8','basketball/nba':'\U0001f3c0','basketball/wnba':'\U0001f3c0','basketball/college-basketball':'\U0001f3c0','hockey/nhl':'\U0001f3d2','tennis':'\U0001f3be'}
 
 def game_instance(game):
     # J-092 (user, Sep 25 10:05 AM): when a team plays twice in a day, every chip must NAME
@@ -189,7 +211,8 @@ for p in man['picks']:
     lg=p.get('espn_league','')
     if lg!=last_lg:
         lbl=LG_LABEL.get(lg) or (lg.split('/')[-1].replace('-',' ').title() if lg else 'Other')
-        rows.append(f'<div class="lghead">{html.escape(lbl)}</div>')
+        ball=LG_BALL.get(lg,'\U0001f3c5')
+        rows.append(f'<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(127,127,127,.16);margin-right:8px;font-size:15px">{ball}</span>{html.escape(lbl)}</div>')
         last_lg=lg
     ch=chips(p)
     for _mm in re.finditer(r'href="([^"]+)"[^>]*data-book="([A-Z]+)"', ch):
@@ -199,8 +222,18 @@ for p in man['picks']:
     espn=html.escape(p.get('espn_league',''))
     mkt='spread' if p.get('market')=='spread' else 'ml'
     g=p.get('game') or {}
+    _lga=p.get('espn_league','')
+    _ma=TEAM_META.get((_lga,g.get('away',''))) or {}; _mh=TEAM_META.get((_lga,g.get('home',''))) or {}
+    def _avimg(mm,overlap=False):
+        u=mm.get('logo','')
+        if not u: return ''
+        st='width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)'
+        if overlap: st+=';margin-left:-7px'
+        return '<img src="%s" alt="" style="%s" onerror="this.remove()">'%(html.escape(u),st)
+    _av=_avimg(_ma)+_avimg(_mh,True)
+    _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
     rows.append(f'''<div class="pick" data-espn="{espn}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}">
-  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html"><span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="chev" href="game-{p['num']}.html" aria-label="live markets">&rsaquo;</a></div>
+  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="chev" href="game-{p['num']}.html" aria-label="live markets">&rsaquo;</a></div>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
 </div>''')
@@ -359,7 +392,7 @@ h1 .tick{{color:#2f8f7d}}
 .note{{color:#6b6b72;font-size:13px;margin-top:6px}}
 .yesrec{{color:#6b6b72;font-size:13px;margin-top:2px}}
 
-.lghead{{color:#6b6b72;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:16px 0 4px}}
+.lghead{{color:#6b6b72;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:16px 0 4px;display:flex;align-items:center}}
 .lghead:first-of-type{{margin-top:6px}}
 .cpx{{margin:8px 0 2px;font-size:13px;color:#9a9aa3}}
 .cpx span{{margin-right:12px;font-weight:600}}
@@ -825,24 +858,6 @@ def _espn_get(url):
 def team_slug(name):
     return re.sub(r'[^a-z0-9]+','-',name.lower()).strip('-')
 
-def team_meta(man):
-    meta={}
-    lgs={p.get('espn_league','') for p in man.get('picks',[]) if p.get('espn_league')}
-    for lg in lgs:
-        try:
-            sb=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/scoreboard'%lg)
-            for ev in sb.get('events',[]):
-                comp=(ev.get('competitions') or [{}])[0]
-                for c in comp.get('competitors',[]):
-                    t=c.get('team') or {}
-                    nm=t.get('displayName','')
-                    meta[(lg,nm)]={'id':t.get('id'),'abbr':t.get('abbreviation',''),'logo':t.get('logo',''),
-                        'record':(c.get('records') or [{}])[0].get('summary','')}
-        except Exception: pass
-    return meta
-
-TEAM_META={}
-
 def build_team_pages(man, css, build_sha):
     "Per-team stat pages, tappable from game pages (user, Sep 25 12:23 PM)."
     tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'team_page_template.html')).read()
@@ -932,7 +947,6 @@ page=page.replace('{build_sha}',build_sha)
 os.makedirs(os.path.dirname(out) or '.',exist_ok=True)
 open(out,'w').write(page)
 _css=page.split('<style>')[1].split('</style>')[0]
-TEAM_META.update(team_meta(man))
 for _fn,_html in build_team_pages(man,_css,build_sha).items():
     open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(_html)
     print('written:',_fn,len(_html))
