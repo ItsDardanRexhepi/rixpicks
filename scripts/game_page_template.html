@@ -166,6 +166,8 @@ async function rpMlbLive(d){
   const g=games.find(function(x){return x.teams.away.team.name===d.dataset.away&&x.teams.home.team.name===d.dataset.home;});
   if(!g)return;
   d.dataset.gpk=g.gamePk;
+  d.dataset.aab=(g.teams.away.team.abbreviation)||'';
+  d.dataset.hab=(g.teams.home.team.abbreviation)||'';
  }
  const flds='liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,outs,balls,strikes,offense,first,second,third,plays,currentPlay,matchup,batter,pitcher,fullName,count,result,description,allPlays,about,inning,halfInning,gameData,status,detailedState';
  const j=await (await fetch('https://statsapi.mlb.com/api/v1.1/game/'+d.dataset.gpk+'/feed/live?fields='+flds)).json();
@@ -174,8 +176,8 @@ async function rpMlbLive(d){
  const sline=document.getElementById('rpScore');
  const aT=((ls.teams||{}).away||{}),hT=((ls.teams||{}).home||{});
  const aR=aT.runs||0,hR=hT.runs||0;
- const aAb=d.dataset.away.split(' ').map(function(w){return w[0];}).join('').slice(0,3).toUpperCase();
- const hAb=d.dataset.home.split(' ').map(function(w){return w[0];}).join('').slice(0,3).toUpperCase();
+ const aAb=d.dataset.aab||d.dataset.away.split(' ').map(function(w){return w[0];}).join('').slice(0,3).toUpperCase();
+ const hAb=d.dataset.hab||d.dataset.home.split(' ').map(function(w){return w[0];}).join('').slice(0,3).toUpperCase();
  if(det==='Scheduled'||det==='Pre-Game'){box.innerHTML='';return;}
  const inn=((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim();
  if(sline)sline.textContent=(det==='In Progress'?inn:det)+'  |  '+hAb+' '+hR+' - '+aAb+' '+aR;
