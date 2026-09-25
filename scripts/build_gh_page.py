@@ -487,6 +487,29 @@ function rpKalTick(){{try{{
  }});
 }}catch(e){{}}}}
 rpPolyTick();rpEspnTick();rpKalTick();setInterval(function(){{rpPolyTick();rpEspnTick();rpKalTick();}},60000);
+// sportsbook prices ride the 15-min Action rebuild (refresh.sh): pull the rebuilt page and swap
+// book chip prices + combo price spans in place. KAL/POLY stay on the 60s tick above.
+function rpPageRefresh(){{try{{
+ fetch(location.pathname+'?r='+Date.now()).then(r=>r.text()).then(function(t){{
+  const doc=new DOMParser().parseFromString(t,'text/html');
+  const picks=document.querySelectorAll('.pick');const npicks=doc.querySelectorAll('.pick');
+  for(let i=0;i<picks.length;i++){{
+   if(!npicks[i])continue;
+   picks[i].querySelectorAll('a[data-book]').forEach(function(a){{
+    const b=a.dataset.book;if(b==='POLY')return;
+    const na=npicks[i].querySelector('a[data-book="'+b+'"]');if(!na)return;
+    const m=na.textContent.match(/([+-]\d+)/);if(!m)return;
+    a.innerHTML=a.innerHTML.replace(/([+-]\d+)/,m[1]);
+   }});
+  }}
+  const cc=document.getElementById('rpComboPx');const nc=doc.getElementById('rpComboPx');
+  if(cc&&nc){{cc.querySelectorAll('span[data-book]').forEach(function(s){{
+   const b=s.dataset.book;if(b==='KAL'||b==='POLY')return;
+   const ns=nc.querySelector('span[data-book="'+b+'"]');if(ns)s.textContent=ns.textContent;
+  }});}}
+ }}).catch(()=>{{}});
+}}catch(e){{}}}}
+setInterval(rpPageRefresh,900000);
 </script>
 </div></body></html>'''
 import os
