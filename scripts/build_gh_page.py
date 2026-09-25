@@ -195,7 +195,7 @@ page=f'''<!DOCTYPE html>
 <meta property="og:description" content="Daily picks. Tap a book, the bet&rsquo;s built.">
 <meta name="twitter:title" content="&rsquo;RixPicks">
 <meta name="twitter:card" content="summary">
-<meta name="description" content="&rsquo;RixPicks picks of the day.">
+<meta name="description" content="&rsquo;RixPicks picks of the day. Tap any book under a pick to open that game there.">
 <style>
 *{{margin:0;box-sizing:border-box}}
 body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f7f6f4;color:#1b1b1f;min-height:100vh;overscroll-behavior-y:contain}}
@@ -262,6 +262,7 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 <div class="wrap">
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
 <div class="status">{html.escape(man['date_label'])}</div>
+<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>
 <div class="sect">Today&rsquo;s picks</div>
 {chr(10).join(rows)}
 {parlay_html}

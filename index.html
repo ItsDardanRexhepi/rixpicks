@@ -7,7 +7,7 @@
 <meta property="og:description" content="Daily picks. Tap a book, the bet&rsquo;s built.">
 <meta name="twitter:title" content="&rsquo;RixPicks">
 <meta name="twitter:card" content="summary">
-<meta name="description" content="&rsquo;RixPicks picks of the day.">
+<meta name="description" content="&rsquo;RixPicks picks of the day. Tap any book under a pick to open that game there.">
 <style>
 *{margin:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f7f6f4;color:#1b1b1f;min-height:100vh;overscroll-behavior-y:contain}
@@ -74,6 +74,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <div class="wrap">
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
 <div class="status">Friday, Sep 25</div>
+<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>
 <div class="sect">Today&rsquo;s picks</div>
 <div class="pick" data-espn="baseball/mlb" data-away="Houston Astros" data-home="Athletics" data-side="away" data-market="ml">
   <div class="pick-head"><span class="num">1.</span><span class="name">Astros ML</span><span class="units">6u</span><span class="odds">-172</span></div>
@@ -164,7 +165,7 @@ function rpEdit(){window.__rpChip=null;
  },function(){rpNote('Location off - manual pick below (unverified).');},{timeout:9000});}
  else rpAsk(true);}
 if(!localStorage.getItem('rp_state')){rpAsk(false);}else{rpLabel();}
-const RP_BUILD='1790349696';
+const RP_BUILD='1790349979';
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded'))return;
  fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(t=>{
