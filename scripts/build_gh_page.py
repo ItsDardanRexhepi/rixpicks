@@ -290,7 +290,7 @@ if man.get('parlay'):
         if kc and len(kc)==nlegs:
             c=amer_from_cents(kc)
             if c is not None:
-                chips.append(('KAL',f'<a class="chip"{bkstyle("KAL")} href="https://kalshi.com/category/sports/all-sports" data-book="KAL" data-sb="https://kalshi.com/category/sports/all-sports" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("KAL")}KAL {c2ml(c)}</a>{hidden}'))
+                chips.append(('KAL',f'<a class="chip%%BEST%%"{bkstyle("KAL")} href="https://kalshi.com/category/sports/all-sports" data-book="KAL" data-sb="https://kalshi.com/category/sports/all-sports" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("KAL")}KAL {c2ml(c)}</a>{hidden}',int(c2ml(c))))
         pc=[]; okp=True; purl='https://polymarket.us'; phidden=''
         if pl.get('poly_legs') and len(pl['poly_legs'])==nlegs:
             for l in pl['poly_legs']:
@@ -309,7 +309,7 @@ if man.get('parlay'):
         if okp and len(pc)==nlegs:
             c=amer_from_cents(pc)
             if c is not None:
-                chips.append(('POLY',f'<a class="chip"{bkstyle("POLY")} href="{html.escape(purl)}" data-book="POLY" data-sb="{html.escape(purl)}" id="rpCxPOLY" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("POLY")}POLY {c2ml(c)}</a>{phidden}'))
+                chips.append(('POLY',f'<a class="chip%%BEST%%"{bkstyle("POLY")} href="{html.escape(purl)}" data-book="POLY" data-sb="{html.escape(purl)}" id="rpCxPOLY" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("POLY")}POLY {c2ml(c)}</a>{phidden}',int(c2ml(c))))
         BKML=[('DK','draftkings',DKPM),('FD','fanduel','https://www.fanduel.com/predicts'),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]
         for short,pk,pm in BKML:
             mls=[]; ok=True
@@ -331,10 +331,21 @@ if man.get('parlay'):
             if price is None: continue
             link=r.get('link') or f'https://www.{BKDOM[short]}'
             pmattr=f' data-pm="{pm}"' if pm else ''
-            chips.append((short,f'<a class="chip"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}"{pmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(short)}{short} {price:+d}</a>'))
+            chips.append((short,f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}"{pmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{short} {price:+d}</a>',price))
     order=['DK','FD','ESPN','HR','MGM','BR','KAL','POLY']
     chips.sort(key=lambda s: order.index(s[0]) if s[0] in order else 99)
-    pchip=f'<div class="chips" id="rpParlayChips" style="margin:10px 0">{"".join(c[1] for c in chips)}</div>' if chips else ''
+    # best combo price gets the star left of the logo, same as solo best line (user, Sep 25 12:59 PM)
+    priced=[c for c in chips if len(c)>2 and isinstance(c[2],(int,float))]
+    best_i=None
+    if priced:
+        best_price=max(c[2] for c in priced)
+        for i,c in enumerate(chips):
+            if len(c)>2 and c[2]==best_price: best_i=i; break
+    rendered=[]
+    for i,c in enumerate(chips):
+        h=c[1].replace('%%BEST%%',' best' if i==best_i else '').replace('%%STAR%%','\u2605 ' if i==best_i else '')
+        rendered.append(h)
+    pchip=f'<div class="chips" id="rpParlayChips" style="margin:10px 0">{"".join(rendered)}</div>' if chips else ''
     # his 9:10 AM carve-out: in states where combos can't legally be built, asterisk the title + one-line footnote
     parlay_html=(f'<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs">{legs}</ul>{pchip}'
                  f'<div class="note" id="rpComboReg" style="display:none">* Due to regulations in your state, combos can\u2019t legally be built out for you and must be done manually.</div>'
