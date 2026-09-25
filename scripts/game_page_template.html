@@ -187,38 +187,35 @@ function rpDrawCharts(){try{
  const d=document.querySelector('.pick[data-away]');if(!d)return;
  const away=d.dataset.away,home=d.dataset.home,side=d.dataset.side||'away';
  const card=document.querySelector('.chartcard[data-books]');if(!card)return;
- const books=(card.dataset.books||'').split(' ').filter(function(x){return x;});
- fetch('price_history.jsonl?r='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(function(txt){
+ const svg=document.getElementById('chart-main');if(!svg)return;
+ const legend=document.getElementById('chartlegend');
+ const COLORS={KAL:'#2fd4a7',POLY:'#7a9fff'};
+ const rng=RP_RANGE['MAIN']||'ALL';
+ const now=Date.now();
+ const cut=rng==='1D'?now-864e5:rng==='1W'?now-7*864e5:rng==='1M'?now-30*864e5:0;
+ const mnum=(location.pathname.match(/game-(\d+)\.html/)||[])[1];
+ Promise.all([
+  fetch('price_history.jsonl?r='+Date.now(),{cache:'no-store'}).then(r=>r.text()).catch(function(){return '';}),
+  mnum?fetch('hist-'+mnum+'.json?r='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(function(){return null;}):Promise.resolve(null)
+ ]).then(function(res){
   const rows=[];
-  txt.split('\n').forEach(function(l){if(!l.trim())return;try{const j=JSON.parse(l);if(j.away===away&&j.home===home&&/Z$/.test(j.ts))rows.push(j);}catch(e){}});
-  const svg=document.getElementById('chart-main');if(!svg)return;
-  const legend=document.getElementById('chartlegend');
-  const COLORS={DK:'#53d337',FD:'#3b9eff',ESPN:'#e05a4e',HR:'#d4af37',MGM:'#c77dff',BR:'#4fc3e8',KAL:'#2fd4a7',POLY:'#7a9fff'};
-  const rng=RP_RANGE['MAIN']||'ALL';
-  const now=Date.now();
-  const cut=rng==='1D'?now-864e5:rng==='1W'?now-7*864e5:rng==='1M'?now-30*864e5:0;
-  const st=localStorage.getItem('rp_state')||'';
-  const visBooks=books.filter(function(b){
-   if(b==='KAL'||b==='POLY')return true;
-   if(b==='DK'||b==='FD')return true;
-   const L=(typeof RP_L!=='undefined'&&RP_L[b])||null;
-   return L&&st?L.includes(st):true;
-  });
+  res[0].split('\n').forEach(function(l){if(!l.trim())return;try{const j=JSON.parse(l);if(j.away===away&&j.home===home&&/Z$/.test(j.ts))rows.push(j);}catch(e){}});
+  const hist=res[1]||{};
   const series={};
-  visBooks.forEach(function(b){
+  ['KAL','POLY'].forEach(function(b){
    const key=b.toLowerCase();const pts=[];
+   const hb=hist[key]||[];
+   hb.forEach(function(p){if(p[0]*1000>=cut||!cut)pts.push([p[0]*1000,p[1]]);});
+   const lastH=pts.length?pts[pts.length-1][0]:0;
    rows.forEach(function(j){
     const ts=Date.parse(j.ts);if(cut&&ts<cut)return;
     let v=j[key+'_'+(side==='away'?'a':'h')];
-    if(b!=='KAL'&&b!=='POLY'){v=rpML2C(v);}
-    if(v!==null&&v!==undefined&&!isNaN(v))pts.push([ts,v]);
+    if(v!==null&&v!==undefined&&!isNaN(v)&&ts>lastH)pts.push([ts,v]);
    });
    if(pts.length)series[b]=pts;
   });
-  const LOGOS={};
-  document.querySelectorAll('[data-book] img').forEach(function(im){const w=im.closest('[data-book]');if(w&&!LOGOS[w.dataset.book])LOGOS[w.dataset.book]=im.src;});
   const ks=Object.keys(series);
-  if(!ks.length){svg.innerHTML='<text x="10" y="95" font-size="12" fill="#8a8f98">history building - first ticks logged today</text>';if(legend)legend.innerHTML='';return;}
+  if(!ks.length){svg.innerHTML='<text x="10" y="95" font-size="12" fill="#8a8f98">history building</text>';if(legend)legend.innerHTML='';return;}
   let lo=100,hi=0;
   ks.forEach(function(b){series[b].forEach(function(p){if(p[1]<lo)lo=p[1];if(p[1]>hi)hi=p[1];});});
   if(hi-lo<6){const m=(hi+lo)/2;lo=m-3;hi=m+3;}
@@ -248,9 +245,7 @@ function rpDrawCharts(){try{
   });
   ends.sort(function(p,q){return p.y-q.y;});
   for(let i=1;i<ends.length;i++){if(ends[i].y-ends[i-1].y<13)ends[i].y=ends[i-1].y+13;}
-  for(let i=ends.length-1;i>=0;i--){if(ends[i].y>H-padB-6){ends[i].y=H-padB-6;for(let j=i-1;j>=0;j--){if(ends[j+1].y-ends[j].y<13)ends[j].y=ends[j+1].y-13;}}}
   ends.forEach(function(e){
-   h+='<line x1="'+(W-padR)+'" y1="'+Y(series[e.b][series[e.b].length-1][1]).toFixed(1)+'" x2="'+(W-padR+4)+'" y2="'+e.y.toFixed(1)+'" stroke="'+e.col+'" stroke-width="1" opacity="0.5"/>';
    h+='<text x="'+(W-padR+7)+'" y="'+(e.y+4).toFixed(1)+'" font-size="11" font-weight="700" fill="'+e.col+'">'+e.v+'%</text>';
   });
   svg.innerHTML=h;
@@ -260,11 +255,24 @@ function rpDrawCharts(){try{
   ks.forEach(function(b){xh+='<circle data-xb="'+b+'" r="3.2" fill="'+(COLORS[b]||'#999')+'" stroke="#000" stroke-width="1"/>';});
   ov.innerHTML=xh; svg.appendChild(ov);
   svg.style.touchAction='pan-y';
+  const LOGOS={};
+  document.querySelectorAll('[data-book] img').forEach(function(im){const w=im.closest('[data-book]');if(w&&!LOGOS[w.dataset.book])LOGOS[w.dataset.book]=im.src;});
+  if(legend){
+   let lh='';
+   ks.forEach(function(b){
+    const col=COLORS[b]||'#999';
+    const lg=LOGOS[b]?('<img src="'+LOGOS[b]+'" style="width:15px;height:15px;object-fit:contain;border-radius:3px;background:#fff;padding:1px">'):'';
+    lh+='<span style="display:inline-flex;align-items:center;gap:5px;padding:2px 4px"><span style="display:inline-block;width:14px;height:3px;border-radius:2px;background:'+col+'"></span>'+lg+'<span style="color:#c8cdd4">'+b+'</span> <span class="lgv" data-lgb="'+b+'" style="color:#e8eaed;font-weight:700">'+Math.round(series[b][series[b].length-1][1])+'%</span></span>';
+   });
+   legend.innerHTML=lh;
+  }
   function valAt(pts,ts){
    if(ts<=pts[0][0])return pts[0][1];
    if(ts>=pts[pts.length-1][0])return pts[pts.length-1][1];
-   for(let i=1;i<pts.length;i++){if(pts[i][0]>=ts){const f=(ts-pts[i-1][0])/((pts[i][0]-pts[i-1][0])||1);return pts[i-1][1]+f*(pts[i][1]-pts[i-1][1]);}}
-   return pts[pts.length-1][1];
+   let lo2=0,hi2=pts.length-1;
+   while(hi2-lo2>1){const m2=(lo2+hi2)>>1;if(pts[m2][0]<=ts)lo2=m2;else hi2=m2;}
+   const f=(ts-pts[lo2][0])/((pts[hi2][0]-pts[lo2][0])||1);
+   return pts[lo2][1]+f*(pts[hi2][1]-pts[lo2][1]);
   }
   function scrub(cx){
    const r=svg.getBoundingClientRect();
@@ -291,15 +299,6 @@ function rpDrawCharts(){try{
   svg.onpointerdown=function(e){try{svg.setPointerCapture(e.pointerId);}catch(err){} scrub(e.clientX);};
   svg.onpointermove=function(e){if(e.buttons||e.pointerType==='touch')scrub(e.clientX);};
   svg.onpointerup=unscrub; svg.onpointercancel=unscrub;
-  if(legend){
-   let lh='';
-   ks.forEach(function(b){
-    const col=COLORS[b]||'#999';
-    const lg=LOGOS[b]?('<img src="'+LOGOS[b]+'" style="width:15px;height:15px;object-fit:contain;border-radius:3px;background:#fff;padding:1px">'):'';
-    lh+='<span style="display:inline-flex;align-items:center;gap:5px;padding:2px 4px"><span style="display:inline-block;width:14px;height:3px;border-radius:2px;background:'+col+'"></span>'+lg+'<span style="color:#c8cdd4">'+b+'</span> <span class="lgv" data-lgb="'+b+'" style="color:#e8eaed;font-weight:700">'+Math.round(series[b][series[b].length-1][1])+'%</span></span>';
-   });
-   legend.innerHTML=lh;
-  }
  }).catch(function(){});
 }catch(e){}}
 document.addEventListener('click',function(e){
