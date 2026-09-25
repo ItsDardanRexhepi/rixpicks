@@ -228,6 +228,12 @@ def lineshop_html(prs):
     if edge<0.05: return ''
     return '<div style="font-size:11px;color:#8a8f98;margin:3px 0 0">line shop: %+d to %+d &middot; %.1f%% edge at the best price</div>'%(worst,best,edge)
 _chips_fn=chips
+# Chronological pick order within each league (user, Sep 25 4:48 PM); league groups keep first-appearance order. Finished-first reorder stays client-side (rpFinalsTop).
+_lg_seen={}
+for _p in man['picks']:
+    _lgk=_p.get('espn_league','')
+    if _lgk not in _lg_seen: _lg_seen[_lgk]=len(_lg_seen)
+man['picks'].sort(key=lambda _p:(_lg_seen.get(_p.get('espn_league',''),99), (_p.get('game') or {}).get('commence','') or '9999'))
 rows=[]
 last_lg=None
 SEEN=[]
