@@ -333,7 +333,7 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 .chip[data-bk="B365"]{{background:#2a2410 !important;border-color:#2a2410 !important;color:#e0cd6a !important}}
 .chip[data-bk="FAN"]{{background:#232326 !important;border-color:#232326 !important;color:#d8d8dc !important}}
 }}
-</style></head><body>
+</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"></head><body>
 <div id="rpPull"></div>
 <div class="wrap">
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
@@ -529,7 +529,7 @@ rpPolyTick();rpEspnTick();rpKalTick();setInterval(function(){{rpPolyTick();rpEsp
 // sportsbook prices ride the 15-min Action rebuild (refresh.sh): pull the rebuilt page and swap
 // book chip prices + combo price spans in place. KAL/POLY stay on the 60s tick above.
 function rpPageRefresh(){{try{{
- fetch(location.pathname+'?r='+Date.now()).then(r=>r.text()).then(function(t){{
+ fetch(location.pathname+'?r='+Date.now(),{{cache:'no-store'}}).then(r=>r.text()).then(function(t){{
   const doc=new DOMParser().parseFromString(t,'text/html');
   const picks=document.querySelectorAll('.pick');const npicks=doc.querySelectorAll('.pick');
   for(let i=0;i<picks.length;i++){{
