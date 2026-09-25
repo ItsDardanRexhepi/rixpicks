@@ -136,6 +136,7 @@ def sel_books(cands, game):
     return {}
 
 def chips(p):
+    star='\u2605 '
     out=[]
     side=p.get('side','away')
     kw=p['name'].split()[0]
@@ -176,11 +177,11 @@ def chips(p):
                     link=e['event']; ml=e.get(f"{side}_ml")
         if name=='Kalshi' and p.get('kalshi'):
             link=p['kalshi']['url']; label=f"KAL {c2ml(p['kalshi']['cents'])}"+inst
-            if p.get('best_book')=='Kalshi': label='\u2605 '+label
+            if p.get('best_book')=='Kalshi': label=label
             tick=p['kalshi']['url'].rstrip('/').split('/')[-1].upper()
             best=(p.get('best_book')=='Kalshi')
             side=html.escape(p.get('kalshi',{}).get('team',''))
-            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-kalticker="{tick}" data-kalside="{side}" target="_blank" rel="noreferrer">{bkimg(short)}{label}</a>')
+            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-kalticker="{tick}" data-kalside="{side}" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{label}</a>')
             continue
         if name=='Polymarket':
             if not p.get('polymarket'): continue
@@ -189,23 +190,23 @@ def chips(p):
             sub=poly_sub(p['polymarket']['url']) or ''
             cents=poly_price(p['polymarket']['url'],kw)
             label=(f"POLY {c2ml(cents)}" if cents else "POLY")+inst
-            if p.get('best_book')=='Polymarket': label='\u2605 '+label
+            if p.get('best_book')=='Polymarket': label=label
             best=(p.get('best_book')=='Polymarket')
-            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle("POLY")} href="{html.escape(web)}" data-book="POLY" data-sb="{html.escape(web)}" data-app="{html.escape(app)}" data-polyslug="{html.escape(slug)}" data-polysub="{html.escape(sub)}" data-polykw="{html.escape(kw)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("POLY")}{label}</a>')
+            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle("POLY")} href="{html.escape(web)}" data-book="POLY" data-sb="{html.escape(web)}" data-app="{html.escape(app)}" data-polyslug="{html.escape(slug)}" data-polysub="{html.escape(sub)}" data-polykw="{html.escape(kw)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg("POLY")}{label}</a>')
             continue
         if not link: continue  # no game-level link -> drop chip
         best=(p.get('best_book')==name)
         label=(f"{short} {ml:+d}" if ml is not None else short)+inst
-        if best: label='\u2605 '+label
+        # star renders left of logo at append time
         if name in ('FanDuel','DraftKings'):
             pm='https://www.fanduel.com/predicts' if name=='FanDuel' else (p.get('dkp',{}).get('url') or 'https://predictions.draftkings.com/')
             pmapp='https://predicts.fanduel.com/' if name=='FanDuel' else ''
             nopm=' data-nopm="1"' if (name=='DraftKings' and not p.get('dkp',{}).get('url')) else ''
-            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}" data-pm="{html.escape(pm)}" data-pmapp="{html.escape(pmapp)}"{nopm} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(short)}{html.escape(label)}</a>')
+            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}" data-pm="{html.escape(pm)}" data-pmapp="{html.escape(pmapp)}"{nopm} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{html.escape(label)}</a>')
         elif '{state}' in link:
-            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}" data-template="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(short)}{html.escape(label)}</a>')
+            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}" data-template="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{html.escape(label)}</a>')
         else:
-            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(short)}{html.escape(label)}</a>')
+            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{html.escape(label)}</a>')
     return ''.join(out)
 
 _chips_fn=chips
@@ -889,13 +890,19 @@ def build_team_pages(man, css, build_sha):
                     loc='vs' if me.get('homeAway')=='home' else '@'
                     dt=str(ev.get('date',''))[:10]
                     if st.get('completed'):
-                        try: ms=int(me.get('score',0)); os_=int(opp.get('score',0))
-                        except Exception: ms=os_=0
+                        def _sc(c):
+                            v=c.get('score',0)
+                            if isinstance(v,dict): v=v.get('value',0)
+                            try: return int(float(v))
+                            except Exception: return None
+                        ms=_sc(me); os_=_sc(opp)
+                        if ms is None or os_ is None: continue
                         wl='W' if ms>os_ else ('L' if ms<os_ else 'T')
                         last5.append('%s %d-%d %s %s · %s'%(wl,ms,os_,loc,opp_nm,dt[5:]))
                         runs_for+=ms; runs_against+=os_; n_scored+=1
                     else:
-                        if len(upcoming)<3: upcoming.append('%s %s · %s'%(loc,opp_nm,dt[5:]))
+                        import datetime as _d
+                        if dt >= str(_d.date.today()) and len(upcoming)<3: upcoming.append('%s %s · %s'%(loc,opp_nm,dt[5:]))
                 last5=last5[-5:]
                 if last5:
                     streak=last5[-1][0]
