@@ -609,6 +609,6 @@ import os
 import time
 build_sha=str(int(time.time()))
 page=page.replace('{build_sha}',build_sha)
-os.makedirs(os.path.dirname(out),exist_ok=True)
+os.makedirs(os.path.dirname(out) or '.',exist_ok=True)
 open(out,'w').write(page)
 print('written:',out,len(page),'design v'+RP_DESIGN,'build',build_sha)
