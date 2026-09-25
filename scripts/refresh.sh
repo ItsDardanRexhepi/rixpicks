@@ -1,0 +1,49 @@
+#!/bin/bash
+# J-049A-safe DK/FD odds refresh (cadence b, user-approved Sep 25): 15-min cron,
+# rebuild only when a card game is live or starts within 2h, max 16 odds-API calls/day.
+set -e
+export TZ=America/Los_Angeles
+TODAY=$(date +%F)
+COUNT_FILE=.odds_refresh_count.json
+COUNT=0
+[ -f "$COUNT_FILE" ] && COUNT=$(python3 -c "import json;d=json.load(open('$COUNT_FILE'));print(d.get('$TODAY',0))")
+if [ "$COUNT" -ge 16 ]; then echo "daily odds-API budget (16) reached - skip"; exit 0; fi
+# Game window check: any picked game live or starting within 2h (ESPN, free)
+python3 - <<'PY'
+import json,urllib.request,datetime,sys,os
+os.environ.setdefault('TZ','America/Los_Angeles')
+man=json.load(open('manifest.json'))
+now=datetime.datetime.now()
+for lg in ['baseball/mlb','football/nfl','football/college-football','basketball/nba','hockey/nhl']:
+    try:
+        d=json.load(urllib.request.urlopen(f'https://site.api.espn.com/apis/site/v2/sports/{lg}/scoreboard?dates={now:%Y%m%d}',timeout=15))
+    except Exception: continue
+    for e in d.get('events',[]):
+        st=e['competitions'][0]['status']['type']
+        dt=datetime.datetime.fromisoformat(e['date'].replace('Z','+00:00')).replace(tzinfo=None)-datetime.timedelta(hours=7)
+        if st.get('state')=='in' or (st.get('state')=='pre' and 0 <= (dt-now).total_seconds() <= 7200):
+            sys.exit(0)
+sys.exit(1)
+PY
+if [ $? -ne 0 ]; then echo "no live/imminent game - skip"; exit 0; fi
+if [ -z "$THE_ODDS_API_KEY" ]; then echo "THE_ODDS_API_KEY secret missing - skip (page keeps last build prices)"; exit 0; fi
+SPORTS=$(python3 -c "
+import json
+m=json.load(open('manifest.json'))
+m2={'MLB':'baseball_mlb','NFL':'americanfootball_nfl','CFB':'americanfootball_ncaaf','NBA':'basketball_nba','NHL':'icehockey_nhl'}
+ls=sorted({m2.get(p.get('league',''),'baseball_mlb') for p in m['picks']})
+print(' '.join(ls))")
+python3 scripts/odds_prefill.py $SPORTS
+python3 scripts/build_gh_page.py manifest.json index.html
+if git diff --quiet index.html; then echo "no price movement - no commit"; exit 0; fi
+python3 -c "
+import json,datetime
+f='$COUNT_FILE'; d={}
+try: d=json.load(open(f))
+except: pass
+d['$TODAY']=d.get('$TODAY',0)+1
+json.dump(d,open(f,'w'))"
+git add index.html manifest.json "$COUNT_FILE"
+git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1))/16 today)"
+git push
+echo "rebuilt and pushed"
