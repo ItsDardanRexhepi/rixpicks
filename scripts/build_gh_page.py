@@ -253,6 +253,25 @@ for _bk,_lnk,_gk in SEEN:
     _seen[_k]=_gk
 
 parlay_html=''
+
+# futures book (futures.json) - compact home entry + NEW marker + futures page
+FUT=[]
+try:
+    FUT=json.load(open('futures.json'))
+except Exception:
+    FUT=[]
+fut_ids=[f.get('id','') for f in FUT]
+fut_entry=''
+if FUT:
+    fut_entry=('<div class="sect" style="margin-top:22px">Futures</div>'
+      '<a href="futures.html" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit">'
+      '<span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span>'
+      '<span style="color:#8a8f98;font-size:12px">'+str(len(FUT))+' live &rsaquo;</span></a>')
+fut_badge_js=("try{\n"
+"var rpFutSeen=JSON.parse(localStorage.getItem('rp_fut_seen')||'[]');\n"
+"var rpFutIds="+json.dumps(fut_ids)+";\n"
+"if(rpFutIds.some(function(i){return rpFutSeen.indexOf(i)<0;})){var nb=document.getElementById('rpFutNew');if(nb)nb.style.display='';}\n"
+"}catch(e){}\n")
 if man.get('parlay'):
     pl=man['parlay']
     def _leg_li(l):
@@ -494,6 +513,7 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 <div class="sect">Today&rsquo;s picks</div>
 {chr(10).join(rows)}
 {parlay_html}
+{fut_entry}
 <a class="rec" id="rpRec" data-bw="{man['record'].split('-')[0]}" data-bl="{man['record'].split('-')[1]}" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</a>
 {wl_pct_line(man['record'])}
 {f'<div class="yesrec unitspl" id="rpUnits" data-bu="{html.escape(man["units_pl"])}">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else ''}
@@ -645,7 +665,7 @@ function rpRecLive(){{const rec=document.getElementById('rpRec');if(!rec)return;
  if(uEl)uEl.textContent='Units: '+(u>=0?'+':'')+u.toFixed(2)+'u';
 }}
 async function rpLsTickAll(){{await rpLsTick();rpCxLive();rpRecLive();}}
-rpLsTickAll();setInterval(rpLsTickAll,30000);
+{fut_badge_js}rpLsTickAll();setInterval(rpLsTickAll,30000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
 window.addEventListener('pageshow',function(){{try{{
@@ -1092,6 +1112,81 @@ page=page.replace('{build_sha}',build_sha)
 os.makedirs(os.path.dirname(out) or '.',exist_ok=True)
 open(out,'w').write(page)
 _css=page.split('<style>')[1].split('</style>')[0]
+
+FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RixPicks Futures</title><style>__CSS__</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"></head><body>
+<div class="wrap">
+<h1><span class="tick">&rsquo;</span>RixPicks</h1>
+<div class="status">Futures &middot; __COUNT__ picks &middot; live Polymarket tracking vs carded entry</div>
+<div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
+__ROWS__
+<div class="unitmath" style="margin-top:18px">Live prices via Polymarket &middot; refresh 60s &middot; build __BUILD__</div>
+</div>
+<script>
+async function rpFutTick(){
+ var bySlug={};
+ document.querySelectorAll('.futrow[data-pslug]').forEach(function(r){
+  if(!r.dataset.pslug)return;
+  (bySlug[r.dataset.pslug]=bySlug[r.dataset.pslug]||[]).push(r);
+ });
+ var slugs=Object.keys(bySlug);
+ for(var s=0;s<slugs.length;s++){
+  try{
+   var res=await fetch('https://gamma-api.polymarket.com/events?slug='+slugs[s]);
+   var ev=await res.json();
+   if(!ev||!ev.length)continue;
+   var mkts=ev[0].markets||[];
+   bySlug[slugs[s]].forEach(function(r){
+    var kw=(r.dataset.pkw||'').toLowerCase();
+    var m=null;
+    for(var i=0;i<mkts.length;i++){if((mkts[i].question||'').toLowerCase().indexOf(kw)>=0){m=mkts[i];break;}}
+    if(!m)return;
+    var outs=[];try{outs=JSON.parse(m.outcomes||'[]');}catch(e){}
+    var pr=[];try{pr=JSON.parse(m.outcomePrices||'[]');}catch(e){}
+    var idx=0;
+    for(var j=0;j<outs.length;j++){if(String(outs[j]).toLowerCase()==='yes'){idx=j;break;}}
+    var p=parseFloat(pr[idx]);
+    if(!(p>0&&p<1))return;
+    var c=p*100;
+    var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
+    var el=r.querySelector('.futlive');
+    el.textContent=(ml>0?'+':'')+ml;
+    var entry=r.dataset.entry||'+0';
+    var eMl=parseInt(entry.replace('+',''),10)||100;
+    var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
+    var mv=r.querySelector('.futmove');
+    if(p>eImp+0.005){mv.innerHTML='<span style="color:#3ecf6f">&#9650; shortened from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+c.toFixed(1)+'%)</span>';}
+    else if(p<eImp-0.005){mv.innerHTML='<span style="color:#e5484d">&#9660; drifted from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+c.toFixed(1)+'%)</span>';}
+    else{mv.textContent='steady vs entry '+entry+' ('+(eImp*100).toFixed(1)+'%)';}
+   });
+  }catch(e){}
+ }
+}
+try{
+ var rpFutIds2=[];
+ document.querySelectorAll('.futrow').forEach(function(r){if(r.dataset.fid)rpFutIds2.push(r.dataset.fid);});
+ localStorage.setItem('rp_fut_seen',JSON.stringify(rpFutIds2));
+}catch(e){}
+rpFutTick();setInterval(rpFutTick,60000);
+</script></body></html>'''
+def build_futures_page(css,build_sha):
+    if not FUT: return None
+    rows=[]
+    for f in FUT:
+        rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-entry="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">'
+        '<span style="font-weight:700">%s</span>'
+        '<span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div>'
+        '<div style="font-size:12px;color:#8a8f98;margin-top:2px">%s &middot; entry %s &middot; %su</div>'
+        '<div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div>')
+        %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(f['odds']),
+          html.escape(f['team']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2)))
+    pg=FUTURES_TMPL
+    for tok,val in [('__CSS__',css),('__ROWS__',''.join(rows)),('__COUNT__',str(len(FUT))),('__BUILD__',build_sha)]:
+        pg=pg.replace(tok,val)
+    return pg
+_fp=build_futures_page(_css,build_sha)
+if _fp: open('futures.html','w').write(_fp)
 for _fn,_html in build_team_pages(man,_css,build_sha).items():
     open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(_html)
     print('written:',_fn,len(_html))

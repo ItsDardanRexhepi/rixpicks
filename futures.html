@@ -1,0 +1,158 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RixPicks Futures</title><style>
+*{margin:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f7f6f4;color:#1b1b1f;min-height:100vh;overscroll-behavior-y:contain}
+.wrap{max-width:680px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:26px;font-weight:800;letter-spacing:-0.01em}
+h1 .tick{color:#2f8f7d}
+.status{color:#6b6b72;font-size:14px;margin-top:6px}
+.intro{color:#6b6b72;font-size:14px;margin-top:2px}
+.sect{margin:26px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}
+.pick{padding:18px 0;border-top:1px solid #e4e2de}
+.pick:first-of-type{border-top:none}
+.pick-head{display:flex;align-items:baseline;gap:10px}
+.gamelink{display:flex;align-items:baseline;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}
+.chev{color:#b9b9c0;font-size:20px;font-weight:600;text-decoration:none;padding:0 2px;line-height:1}
+.mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}
+.mrow:first-of-type{border-top:none}
+.mrow .bk{font-weight:700;width:52px;flex:none}
+.mrow .side{flex:1}
+.mrow .pr{font-weight:600;color:#2f8f7d;white-space:nowrap}
+.mrow a{color:inherit;text-decoration:none}
+.back{color:#6b6b72;font-size:14px;text-decoration:none}
+.score{font-size:14px;color:#6b6b72;margin-top:4px}
+@media (prefers-color-scheme: dark){.chev{color:#55555c}.mrow{border-top-color:#2a2a2e}.mrow .pr{color:#3aa895}.back,.score{color:#9a9aa3}}
+.num{color:#6b6b72}
+.name{font-weight:600;font-size:17px;flex:1}
+.odds{color:#2f8f7d;font-weight:600;white-space:nowrap}
+.sub{color:#6b6b72;font-size:14px;margin:6px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}
+.bklogo{width:16px;height:16px;border-radius:3px;flex:none}
+.chip.best{font-weight:800}
+.rec{font-weight:600;font-size:16px;padding:8px 0 1px}
+.units{color:#8a8f98;font-size:13px;font-weight:600;margin-right:8px}
+.unitmath{color:#8a8f98;font-size:13px;margin-top:8px}
+.legs{padding-left:20px;font-size:15px;line-height:1.7}
+.note{color:#6b6b72;font-size:13px;margin-top:6px}
+.yesrec{color:#6b6b72;font-size:13px;margin-top:2px}
+
+.lghead{color:#6b6b72;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:16px 0 4px;display:flex;align-items:center}
+.lghead:first-of-type{margin-top:6px}
+.cpx{margin:8px 0 2px;font-size:13px;color:#9a9aa3}
+.cpx span{margin-right:12px;font-weight:600}
+.foot{margin-top:34px;color:#8a8a91;font-size:12px;line-height:1.6}
+#rpModal{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:50}
+#rpModal .box{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%}
+#rpModal h3{font-size:16px;margin-bottom:6px}
+#rpModal p{font-size:13px;color:#6b6b72;margin-bottom:12px}
+#rpState{width:100%;padding:10px;border:1px solid #e4e2de;border-radius:8px;font-size:15px;margin-bottom:12px}
+#rpSave{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.rpstate-link{color:#2f8f7d;cursor:pointer;text-decoration:underline}
+#rpA2hs{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:60}
+#rpA2hs .box{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%;text-align:center}
+#rpA2hs h3{font-size:16px;margin-bottom:4px}
+#rpA2hs .plat{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#2f8f7d;font-weight:700;margin-bottom:12px}
+#rpA2hs ol{text-align:left;font-size:13px;color:#3a3a40;margin:0 0 16px 0;padding-left:20px}
+#rpA2hs ol li{margin-bottom:8px}
+#rpA2hs .nav{display:flex;gap:8px}
+#rpA2hs .nav button{flex:1;padding:11px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+#rpA2hs .primary{background:#2f8f7d;color:#fff}
+#rpA2hs .ghost{background:#eee;color:#555}
+#rpA2hs .dots{font-size:10px;color:#bbb;margin-top:12px;letter-spacing:3px}
+.ls{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#2f8f7d;white-space:nowrap;margin:5px 0 2px}
+.ls.on{display:flex}
+.ls .dot{width:6px;height:6px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite}
+.ls.won{color:#3ecf6f}
+.ls.lost{color:#e5484d}
+@keyframes rpblink{0%,100%{opacity:1}50%{opacity:.25}}
+#rpPull{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}
+.spin{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}
+@keyframes rpSpin{to{transform:rotate(360deg)}}
+@media (prefers-color-scheme: dark){
+body{background:#000;color:#ececf1}
+h1 .tick,.odds,.rpstate-link{color:#3aa895}
+.status,.intro,.sect,.num,.sub,.note{color:#9a9aa3}
+.pick{border-top-color:#2a2a2e}
+.chip{background:#1e1e22;color:#ececf1}
+.foot{color:#6f6f78}
+#rpModal{background:rgba(0,0,0,.6)}
+#rpModal .box{background:#1e1e22}
+#rpModal h3{color:#ececf1}
+#rpModal p{color:#9a9aa3}
+#rpA2hs{background:rgba(0,0,0,.6)}
+#rpA2hs .box{background:#1e1e22}
+#rpA2hs h3{color:#ececf1}
+#rpA2hs ol{color:#c8c8d0}
+#rpA2hs .ghost{background:#2a2a30;color:#9a9aa3}
+#rpA2hs .dots{color:#555}
+.ls{color:#3ec9a0}
+#rpState{background:#141416;color:#ececf1;border-color:#2a2a2e}
+#rpGeoNote{color:#3aa895 !important}
+#rpPull{background:#000;color:#3aa895}
+.spin{border-color:#2a4a44;border-top-color:#3aa895}
+.chip[data-bk="FD"]{background:#12283d !important;border-color:#12283d !important;color:#5aa9e8 !important}
+.chip[data-bk="ESPN"]{background:#0f2e26 !important;border-color:#0f2e26 !important;color:#3ec9a0 !important}
+.chip[data-bk="HR"]{background:#2e2614 !important;border-color:#2e2614 !important;color:#d8b84e !important}
+.chip[data-bk="MGM"]{background:#2b2517 !important;border-color:#2b2517 !important;color:#cdb271 !important}
+.chip[data-bk="BR"]{background:#10262f !important;border-color:#10262f !important;color:#4fc3e8 !important}
+.chip[data-bk="KAL"]{background:#0f2a22 !important;border-color:#0f2a22 !important;color:#3ed0a8 !important}
+.chip[data-bk="POLY"]{background:#122536 !important;border-color:#122536 !important;color:#5aa9e0 !important}
+.chip[data-bk="B365"]{background:#2a2410 !important;border-color:#2a2410 !important;color:#e0cd6a !important}
+.chip[data-bk="FAN"]{background:#232326 !important;border-color:#232326 !important;color:#d8d8dc !important}
+}
+</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"></head><body>
+<div class="wrap">
+<h1><span class="tick">&rsquo;</span>RixPicks</h1>
+<div class="status">Futures &middot; 9 picks &middot; live Polymarket tracking vs carded entry</div>
+<div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
+<div class="futrow" data-fid="F-SBLXI-SF" data-pslug="pro-football-2027-champion-20260729185915366" data-pkw="san francisco" data-entry="+1400" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700">San Francisco 49ers</span><span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">Super Bowl LXI Champion &middot; entry +1400 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-SBLXI-KC" data-pslug="pro-football-2027-champion-20260729185915366" data-pkw="kansas city" data-entry="+1600" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700">Kansas City Chiefs</span><span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">Super Bowl LXI Champion &middot; entry +1600 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-SBLXI-SEA" data-pslug="pro-football-2027-champion-20260729185915366" data-pkw="seattle" data-entry="+1100" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700">Seattle Seahawks</span><span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">Super Bowl LXI Champion &middot; entry +1100 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-KC-AFCW" data-pslug="pro-football-afc-west-champion" data-pkw="kansas city" data-entry="+160" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700">Kansas City Chiefs</span><span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">AFC West Champion &middot; entry +160 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-SF-NFCW" data-pslug="pro-football-nfc-west-champion" data-pkw="san francisco" data-entry="+305" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700">San Francisco 49ers</span><span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">NFC West Champion &middot; entry +305 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-PHI-NFCE" data-pslug="pro-football-nfc-east-champion" data-pkw="philadelphia" data-entry="+140" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700">Philadelphia Eagles</span><span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">NFC East Champion &middot; entry +140 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-MIN-NFCN" data-pslug="pro-football-nfc-north-champion" data-pkw="minnesota" data-entry="+493" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700">Minnesota Vikings</span><span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">NFC North Champion &middot; entry +493 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-BUF-AFC" data-pslug="pro-football-2027-afc-champion" data-pkw="buffalo" data-entry="+510" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700">Buffalo Bills</span><span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">AFC Champion &middot; entry +510 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-SF-SB" data-pslug="pro-football-2027-champion-20260729185915366" data-pkw="san francisco" data-entry="+1400" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700">San Francisco 49ers</span><span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">Super Bowl LXI Champion (2nd entry) &middot; entry +1400 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div>
+<div class="unitmath" style="margin-top:18px">Live prices via Polymarket &middot; refresh 60s &middot; build 1790372649</div>
+</div>
+<script>
+async function rpFutTick(){
+ var bySlug={};
+ document.querySelectorAll('.futrow[data-pslug]').forEach(function(r){
+  if(!r.dataset.pslug)return;
+  (bySlug[r.dataset.pslug]=bySlug[r.dataset.pslug]||[]).push(r);
+ });
+ var slugs=Object.keys(bySlug);
+ for(var s=0;s<slugs.length;s++){
+  try{
+   var res=await fetch('https://gamma-api.polymarket.com/events?slug='+slugs[s]);
+   var ev=await res.json();
+   if(!ev||!ev.length)continue;
+   var mkts=ev[0].markets||[];
+   bySlug[slugs[s]].forEach(function(r){
+    var kw=(r.dataset.pkw||'').toLowerCase();
+    var m=null;
+    for(var i=0;i<mkts.length;i++){if((mkts[i].question||'').toLowerCase().indexOf(kw)>=0){m=mkts[i];break;}}
+    if(!m)return;
+    var outs=[];try{outs=JSON.parse(m.outcomes||'[]');}catch(e){}
+    var pr=[];try{pr=JSON.parse(m.outcomePrices||'[]');}catch(e){}
+    var idx=0;
+    for(var j=0;j<outs.length;j++){if(String(outs[j]).toLowerCase()==='yes'){idx=j;break;}}
+    var p=parseFloat(pr[idx]);
+    if(!(p>0&&p<1))return;
+    var c=p*100;
+    var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
+    var el=r.querySelector('.futlive');
+    el.textContent=(ml>0?'+':'')+ml;
+    var entry=r.dataset.entry||'+0';
+    var eMl=parseInt(entry.replace('+',''),10)||100;
+    var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
+    var mv=r.querySelector('.futmove');
+    if(p>eImp+0.005){mv.innerHTML='<span style="color:#3ecf6f">&#9650; shortened from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+c.toFixed(1)+'%)</span>';}
+    else if(p<eImp-0.005){mv.innerHTML='<span style="color:#e5484d">&#9660; drifted from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+c.toFixed(1)+'%)</span>';}
+    else{mv.textContent='steady vs entry '+entry+' ('+(eImp*100).toFixed(1)+'%)';}
+   });
+  }catch(e){}
+ }
+}
+try{
+ var rpFutIds2=[];
+ document.querySelectorAll('.futrow').forEach(function(r){if(r.dataset.fid)rpFutIds2.push(r.dataset.fid);});
+ localStorage.setItem('rp_fut_seen',JSON.stringify(rpFutIds2));
+}catch(e){}
+rpFutTick();setInterval(rpFutTick,60000);
+</script></body></html>
