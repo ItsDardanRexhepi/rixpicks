@@ -239,7 +239,7 @@ for p in man['picks']:
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
     rows.append(f'''<div class="pick" data-espn="{espn}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}">
-  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="chev" href="game-{p['num']}.html" aria-label="live markets">&rsaquo;</a></div>
+  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><span class="ls" data-ls></span><a class="chev" href="game-{p['num']}.html" aria-label="live markets">&rsaquo;</a></div>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
 </div>''')
@@ -437,6 +437,10 @@ h1 .tick{{color:#2f8f7d}}
 #rpA2hs .primary{{background:#2f8f7d;color:#fff}}
 #rpA2hs .ghost{{background:#eee;color:#555}}
 #rpA2hs .dots{{font-size:10px;color:#bbb;margin-top:12px;letter-spacing:3px}}
+.ls{{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#2f8f7d;white-space:nowrap;margin-left:8px}}
+.ls.on{{display:inline-flex}}
+.ls .dot{{width:6px;height:6px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite}}
+@keyframes rpblink{{0%,100%{{opacity:1}}50%{{opacity:.25}}}}
 #rpPull{{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}}
 .spin{{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}}
 @keyframes rpSpin{{to{{transform:rotate(360deg)}}}}
@@ -457,6 +461,7 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 #rpA2hs ol{{color:#c8c8d0}}
 #rpA2hs .ghost{{background:#2a2a30;color:#9a9aa3}}
 #rpA2hs .dots{{color:#555}}
+.ls{{color:#3ec9a0}}
 #rpState{{background:#141416;color:#ececf1;border-color:#2a2a2e}}
 #rpGeoNote{{color:#3aa895 !important}}
 #rpPull{{background:#000;color:#3aa895}}
@@ -574,6 +579,33 @@ function rpA2hsStep(d){{if(d>0&&rpA2hsI===RP_A2HS.length-1){{rpA2hsDone();return
 function rpA2hsDone(){{localStorage.setItem('rp_a2hs_v1','1');document.getElementById('rpA2hs').style.display='none';}}
 function rpMaybeA2HS(){{if(RP_STANDALONE||RP_MOB===false)return;if(localStorage.getItem('rp_a2hs_v1'))return;
  rpA2hsRender();document.getElementById('rpA2hs').style.display='flex';}}
+function rpLsRender(pk,g){{const el=pk.querySelector('[data-ls]');if(!el)return;
+ if(!g||g.state==='pre'){{el.className='ls';el.innerHTML='';return;}}
+ el.className='ls on';
+ el.innerHTML=(g.state==='in'?'<span class="dot"></span>':'')+g.a+' '+g.as+' - '+g.h+' '+g.hs+' &middot; '+g.st;}}
+async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data-away]')].filter(x=>x.dataset.away);if(!picks.length)return;
+ const mlb=picks.filter(x=>(x.dataset.espn||'')==='baseball/mlb');
+ if(mlb.length){{try{{
+  const d=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore')).json();
+  const games=(d.dates||[]).flatMap(x=>x.games||[]);
+  mlb.forEach(pk=>{{const g=games.find(g=>g.teams.away.team.name===pk.dataset.away&&g.teams.home.team.name===pk.dataset.home);
+   if(!g){{rpLsRender(pk,null);return;}}
+   const ls=g.linescore||{{}};const st=g.status.detailedState;
+   const inn=(st==='In Progress')?((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim():st;
+   rpLsRender(pk,{{a:g.teams.away.team.abbreviation,h:g.teams.home.team.abbreviation,
+    as:(ls.teams&&ls.teams.away&&ls.teams.away.runs)||0,hs:(ls.teams&&ls.teams.home&&ls.teams.home.runs)||0,
+    st:inn,state:st==='In Progress'?'in':(st==='Final'||st==='Game Over')?'post':'pre'}});}});}}catch(e){{}}}}
+ const byLg={{}};picks.filter(x=>x.dataset.espn&&(x.dataset.espn!=='baseball/mlb')).forEach(x=>{{(byLg[x.dataset.espn]=byLg[x.dataset.espn]||[]).push(x);}});
+ for(const lg of Object.keys(byLg)){{try{{
+  const d=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard')).json();
+  byLg[lg].forEach(pk=>{{let found=null;(d.events||[]).forEach(e=>{{const cs=e.competitions[0].competitors;
+   const aw=cs.find(c=>c.homeAway==='away'),hm=cs.find(c=>c.homeAway==='home');if(!aw||!hm)return;
+   const an=aw.team.displayName,hn=hm.team.displayName;
+   if((an===pk.dataset.away||an.includes(pk.dataset.away)||pk.dataset.away.includes(an))&&(hn===pk.dataset.home||hn.includes(pk.dataset.home)||pk.dataset.home.includes(hn)))
+    found={{a:aw.team.abbreviation,h:hm.team.abbreviation,as:+aw.score||0,hs:+hm.score||0,st:e.status.type.shortDetail,state:e.status.type.state}};}});
+   rpLsRender(pk,found);}});}}catch(e){{}}}}
+}}
+rpLsTick();setInterval(rpLsTick,30000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
 window.addEventListener('pageshow',function(){{try{{

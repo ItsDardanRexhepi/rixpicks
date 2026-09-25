@@ -64,6 +64,10 @@ h1 .tick{color:#2f8f7d}
 #rpA2hs .primary{background:#2f8f7d;color:#fff}
 #rpA2hs .ghost{background:#eee;color:#555}
 #rpA2hs .dots{font-size:10px;color:#bbb;margin-top:12px;letter-spacing:3px}
+.ls{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#2f8f7d;white-space:nowrap;margin-left:8px}
+.ls.on{display:inline-flex}
+.ls .dot{width:6px;height:6px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite}
+@keyframes rpblink{0%,100%{opacity:1}50%{opacity:.25}}
 #rpPull{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}
 .spin{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}
 @keyframes rpSpin{to{transform:rotate(360deg)}}
@@ -84,6 +88,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 #rpA2hs ol{color:#c8c8d0}
 #rpA2hs .ghost{background:#2a2a30;color:#9a9aa3}
 #rpA2hs .dots{color:#555}
+.ls{color:#3ec9a0}
 #rpState{background:#141416;color:#ececf1;border-color:#2a2a2e}
 #rpGeoNote{color:#3aa895 !important}
 #rpPull{background:#000;color:#3aa895}
@@ -127,7 +132,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790368716';
+const RP_BUILD='1790369713';
 const RP_FD=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "MD", "MA", "MI", "MO", "NJ", "NY", "NC", "OH", "PA", "TN", "VT", "VA", "WV", "WY", "DC", "PR"];const RP_DK=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MO", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "TN", "VT", "VA", "WV", "WY", "DC"];
 const RP_L={FD:RP_FD,DK:RP_DK,MGM:["AZ", "CO", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "MS", "NJ", "NV", "NY", "NC", "OH", "PA", "TN", "VA", "WV", "WY"],B365:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "NJ", "NC", "OH", "PA", "TN", "VA"],FAN:["AZ", "CO", "CT", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NC", "NJ", "NY", "OH", "PA", "TN", "VT", "VA", "WV", "WY"],ESPN:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NJ", "NC", "OH", "PA", "TN", "VA", "WV"],HR:["AZ", "CO", "FL", "IL", "IN", "MI", "NJ", "OH", "TN", "VA"],BR:["AZ", "CO", "CT", "DE", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "RI", "TN", "VT", "VA", "WV", "WY"]};
 function rpC2ML(c){c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}
