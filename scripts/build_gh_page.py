@@ -31,7 +31,7 @@ def wl_pct_line(rec):
     try:
         w,l=[int(x) for x in str(rec).split('-')]
         if w+l<=0: return ''
-        return f'<div class="yesrec">W/L: {100.0*w/(w+l):.1f}%</div>'
+        return f'<div class="yesrec" id="rpWlPct">W/L: {100.0*w/(w+l):.1f}%</div>'
     except Exception:
         return ''
 LG_LABEL={'baseball/mlb':'MLB','football/nfl':'NFL','basketball/nba':'NBA','hockey/nhl':'NHL','basketball/wnba':'WNBA','football/college-football':'CFB','basketball/college-basketball':'CBB','tennis':'Tennis'}
@@ -238,7 +238,7 @@ for p in man['picks']:
         return '<img src="%s" alt="" style="%s" onerror="this.remove()">'%(html.escape(u),st)
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
-    rows.append(f'''<div class="pick" data-espn="{espn}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}">
+    rows.append(f'''<div class="pick" data-espn="{espn}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}">
   <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="chev" href="game-{p['num']}.html" aria-label="live markets">&rsaquo;</a></div><span class="ls" data-ls></span>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
@@ -494,9 +494,9 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 <div class="sect">Today&rsquo;s picks</div>
 {chr(10).join(rows)}
 {parlay_html}
-<a class="rec" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</a>
+<a class="rec" id="rpRec" data-bw="{man['record'].split('-')[0]}" data-bl="{man['record'].split('-')[1]}" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</a>
 {wl_pct_line(man['record'])}
-{f'<div class="yesrec unitspl">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else ''}
+{f'<div class="yesrec unitspl" id="rpUnits" data-bu="{html.escape(man["units_pl"])}">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else ''}
 <div class="unitmath">1u = $5 per $1,000 in bankroll</div>
 <div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
 <div id="rpModal"><div class="box">
@@ -629,7 +629,22 @@ function rpCxLive(){{const legs=[...document.querySelectorAll('.cxleg')];const e
  if(l>0){{el.innerHTML='<span style="color:#e5484d;font-weight:700">Combo dead</span> - '+w+' of '+legs.length+' legs home';return;}}
  if(w===legs.length){{el.innerHTML='<span style="color:#3ecf6f;font-weight:700">Combo cashed</span> - all '+legs.length+' legs home';return;}}
  el.textContent=w+' of '+legs.length+' legs home'+(live?' \u00b7 '+live+' live':'')+(legs.length-w-l-live>0?' \u00b7 '+(legs.length-w-l-live)+' upcoming':'');}}
-async function rpLsTickAll(){{await rpLsTick();rpCxLive();}}
+function rpRecLive(){{const rec=document.getElementById('rpRec');if(!rec)return;
+ let w=parseInt(rec.dataset.bw||'0'),l=parseInt(rec.dataset.bl||'0');
+ const uEl=document.getElementById('rpUnits');let u=uEl?parseFloat(uEl.dataset.bu||'0'):0;
+ document.querySelectorAll('.pick[data-codds]').forEach(pk=>{{
+  const sp=pk.querySelector('[data-ls]');if(!sp)return;
+  const won=sp.classList.contains('won'),lost=sp.classList.contains('lost');
+  if(!won&&!lost)return;
+  const stake=parseFloat((pk.querySelector('.units')||{{}}).textContent)||0;
+  const ml=parseInt(pk.dataset.codds);if(!stake||!ml)return;
+  if(won){{w++;u+=stake*(ml>0?ml/100:100/Math.abs(ml));}}else{{l++;u-=stake;}}
+ }});
+ rec.innerHTML='&rsquo;RixPicks Overall Record: '+w+'-'+l;
+ const pct=document.getElementById('rpWlPct');if(pct&&(w+l)>0)pct.textContent='W/L: '+(100*w/(w+l)).toFixed(1)+'%';
+ if(uEl)uEl.textContent='Units: '+(u>=0?'+':'')+u.toFixed(2)+'u';
+}}
+async function rpLsTickAll(){{await rpLsTick();rpCxLive();rpRecLive();}}
 rpLsTickAll();setInterval(rpLsTickAll,30000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
@@ -712,7 +727,10 @@ function rpPolyTick(){{try{{
    let outs=[],pr=[];try{{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}}catch(e){{return;}}
    for(let i=0;i<outs.length;i++){{if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){{
     const c=Math.round(parseFloat(pr[i])*100);
-    if(c>0&&c<100){{a.innerHTML=a.innerHTML.replace(/POLY [+-]?\d+/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');}}
+    if(c>0&&c<100){{a.innerHTML=a.innerHTML.replace(/POLY [+-]?\d+/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');
+     const pk=a.closest('.pick');
+     if(pk&&pk.dataset.market==='ml'){{const s2=pk.querySelector('.odds');
+      if(s2){{const ml2=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);s2.textContent=(ml2>0?'+':'')+ml2;}}}}}}
     return;
    }}}}
   }}).catch(()=>{{}});
