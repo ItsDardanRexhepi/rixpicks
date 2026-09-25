@@ -13,7 +13,7 @@ function bookName(k){for(var i=0;i<RP_BOOKS.length;i++){if(RP_BOOKS[i].k===k)ret
 var css=document.createElement('style');
 css.textContent=
 '.rp-fab{background:#16181d;border:1px solid rgba(127,127,127,.35);color:#e8b10a;font-weight:700;border-radius:14px;padding:4px 10px;font-size:11px;cursor:pointer;white-space:nowrap;margin-left:10px;flex-shrink:0}'+
-'.rp-modal{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}'+
+'.rp-modal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}'+
 '.rp-sheet{background:#16181d;border:1px solid rgba(127,127,127,.3);border-bottom:none;border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:82vh;overflow-y:auto;padding:16px;color:#e6e8eb;font-family:inherit}'+
 '.rp-sheet h3{margin:0 0 4px;font-size:16px}.rp-sub{color:#8a8f98;font-size:12px;margin-bottom:12px}'+
 '.rp-pill{display:inline-block;margin:0 6px 8px 0;padding:8px 13px;border-radius:18px;border:1px solid rgba(127,127,127,.35);background:#101216;color:#c9cdd4;font-size:13px;cursor:pointer}'+
@@ -70,7 +70,7 @@ h+='<div class="rp-row"><span class="rp-pill on" id="mMktML">Moneyline</span><sp
 h+='<input class="rp-input" id="mLine" type="number" step="0.5" placeholder="Spread line (if spread)" style="display:none">';
 h+='<div class="rp-row"><select class="rp-input" id="mLg">';RP_LGS.forEach(function(l){h+='<option value="'+l+'">'+l.split('/')[1].toUpperCase()+'</option>';});h+='</select><select class="rp-input" id="mBook">';RP_BOOKS.forEach(function(b){h+='<option value="'+b.k+'">'+b.n+'</option>';});h+='<option value="OTHER">Other</option></select></div>';
 h+='<div class="rp-row"><input class="rp-input" id="mOdds" type="number" placeholder="Odds (e.g. -150)"><input class="rp-input" id="mStake" type="number" step="0.1" min="0" placeholder="Stake (units)"></div>';
-h+='<button class="rp-btn" id="mSave">Add bet</button>';
+h+='<button class="rp-btn ghost" id="mImport">Import from bet-slip screenshot</button><div id="mOcrStat" class="rp-sub" style="margin-top:6px"></div>';h+='<button class="rp-btn" id="mSave">Add bet</button>';
 var sh=openSheet(h);var side='away';
 sh.querySelector('#mSideA').onclick=function(){side='away';sh.querySelector('#mSideA').classList.add('on');sh.querySelector('#mSideH').classList.remove('on');};
 sh.querySelector('#mSideH').onclick=function(){side='home';sh.querySelector('#mSideH').classList.add('on');sh.querySelector('#mSideA').classList.remove('on');};
@@ -83,7 +83,29 @@ var odds=parseInt(sh.querySelector('#mOdds').value,10),stake=parseFloat(sh.query
 var line=sh.querySelector('#mLine').value!==''?parseFloat(sh.querySelector('#mLine').value):null;
 if(!away||!home||isNaN(odds)||isNaN(stake)||stake<=0){toast('Fill teams, odds, stake');return;}
 var bs=getBets();bs.unshift({id:Date.now(),ts:new Date().toISOString(),lg:sh.querySelector('#mLg').value,away:away,home:home,side:side,sel:side==='away'?away:home,market:mkt,line:line,book:sh.querySelector('#mBook').value,odds:odds,stake:stake,status:'open',result:null,units:null,src:'manual'});
-saveBets(bs);closeModal();toast('Bet added');renderBetsInto();};}
+saveBets(bs);closeModal();toast('Bet added');renderBetsInto();}
+sh.querySelector('#mImport').onclick=function(){
+var fi=document.createElement('input');fi.type='file';fi.accept='image/*';
+fi.onchange=function(){
+if(!fi.files||!fi.files[0])return;
+var stat=sh.querySelector('#mOcrStat');stat.textContent='Loading OCR engine (one-time download)...';
+var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+s.onload=function(){
+stat.textContent='Reading slip...';
+var url=URL.createObjectURL(fi.files[0]);
+Tesseract.recognize(url,'eng').then(function(res){
+var txt=(res&&res.data&&res.data.text)||'';
+var oddsM=txt.match(/[+-]\d{3,4}/);
+var amtM=txt.match(/\$\s?(\d+(?:\.\d{1,2})?)/);
+var toWinM=txt.match(/(?:to win|payout)[^\d]*(\d+(?:\.\d{1,2})?)/i);
+if(oddsM)sh.querySelector('#mOdds').value=parseInt(oddsM[0],10);
+if(amtM)sh.querySelector('#mStake').value=amtM[1];
+stat.textContent='Read the slip - confirm or fix the fields below, then Add bet. (Found: '+(oddsM?oddsM[0]:'no odds')+(amtM?', $'+amtM[1]:'')+(toWinM?', to win '+toWinM[1]:'')+')';
+}).catch(function(){stat.textContent='Could not read that image - enter the bet manually.';});};
+s.onerror=function(){stat.textContent='OCR engine failed to load - enter the bet manually.';};
+document.head.appendChild(s);};
+fi.click();};
+}
 /* --- Settling --- */
 function winUnits(odds,stake){return odds>0?stake*odds/100:stake*100/Math.abs(odds);}
 function settleBet(b,ev){var cs=ev.competitions[0].competitors;var aw=null,hm=null;cs.forEach(function(c){if(c.homeAway==='away')aw=c;else hm=c;});if(!aw||!hm)return false;
