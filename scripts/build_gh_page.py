@@ -1251,6 +1251,7 @@ window.addEventListener('pageshow',function(){try{
 }catch(e){}});
 /* futures detail sheet: reasoning + live market depth */
 var rpFdCache={};
+function rpFdClose(){document.getElementById('rpFd').style.display='none';}
 function rpFutOpen(fid){
  var r=document.querySelector('.futrow[data-fid="'+fid+'"]');if(!r)return;
  var sh=document.getElementById('rpFd');var bx=document.getElementById('rpFdBox');
@@ -1258,7 +1259,7 @@ function rpFutOpen(fid){
  var h='<h3>'+team+'</h3><div class="rp-sub">'+mkt+'</div>';
  h+='<div class="rp-bet"><b>Why this pick</b><div style="margin-top:4px">Carded at <b>'+entry+'</b>'+(fair?' - our fair price was <b>'+fair+'</b>':'')+(prob?' (we rate it ~'+Math.round(parseFloat(prob)*100)+'% vs the '+entry+' implied price)':'')+'. The gap between our number and the market price is the edge; we sized '+(units||'2')+'u on it.</div>'+(note?'<div style="margin-top:4px;color:#8FB3BC">'+note+'</div>':'')+(res?'<div style="margin-top:4px;color:#8FB3BC">Resolves: '+res+'</div>':'')+'</div>';
  h+='<div class="rp-bet" id="rpFdLive"><b>Live market</b><div style="margin-top:4px" id="rpFdLiveBody">loading...</div></div>';
- bx.innerHTML=h+'<button class="rp-btn ghost" onclick="document.getElementById(\'rpFd\').style.display=\'none\'">Close</button>';
+ bx.innerHTML=h+'<button class="rp-btn ghost" onclick="rpFdClose()">Close</button>';
  sh.style.display='flex';
  var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase();
  function render(m){
