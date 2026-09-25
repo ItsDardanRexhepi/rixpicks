@@ -12,7 +12,7 @@ function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'
 function bookName(k){for(var i=0;i<RP_BOOKS.length;i++){if(RP_BOOKS[i].k===k)return RP_BOOKS[i].n;}return k;}
 var css=document.createElement('style');
 css.textContent=
-'.rp-fab{position:fixed;left:14px;bottom:16px;z-index:60;background:#16181d;border:1px solid rgba(127,127,127,.35);color:#e8b10a;font-weight:700;border-radius:20px;padding:9px 15px;font-size:13px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.4)}'+
+'.rp-fab{position:fixed;right:12px;top:10px;z-index:60;background:#16181d;border:1px solid rgba(127,127,127,.35);color:#e8b10a;font-weight:700;border-radius:20px;padding:9px 15px;font-size:13px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.4)}'+
 '.rp-modal{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}'+
 '.rp-sheet{background:#16181d;border:1px solid rgba(127,127,127,.3);border-bottom:none;border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:82vh;overflow-y:auto;padding:16px;color:#e6e8eb;font-family:inherit}'+
 '.rp-sheet h3{margin:0 0 4px;font-size:16px}.rp-sub{color:#8a8f98;font-size:12px;margin-bottom:12px}'+

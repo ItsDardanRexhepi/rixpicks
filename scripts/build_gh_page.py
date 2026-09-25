@@ -207,8 +207,25 @@ def chips(p):
             out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}" data-template="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{html.escape(label)}</a>')
         else:
             out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{html.escape(label)}</a>')
+    global LAST_PRICES
+    LAST_PRICES=[]
+    for _o in out:
+        _txt=re.sub(r'<[^>]+>','',_o)
+        _nums=re.findall(r'[+-]\d{2,5}',_txt)
+        if _nums:
+            _v=int(_nums[0])
+            if abs(_v)<=1500: LAST_PRICES.append(_v)
     return ''.join(out)
 
+
+def lineshop_html(prs):
+    prs=[v for v in prs if v is not None]
+    if len(prs)<2: return ''
+    def ip(a): return 100.0/(a+100) if a>0 else (-a)/((-a)+100.0)
+    best=max(prs); worst=min(prs)
+    edge=(ip(worst)-ip(best))*100
+    if edge<0.05: return ''
+    return '<div style="font-size:11px;color:#8a8f98;margin:3px 0 0">line shop: %+d to %+d &middot; %.1f%% edge at the best price</div>'%(worst,best,edge)
 _chips_fn=chips
 rows=[]
 last_lg=None
@@ -225,6 +242,7 @@ for p in man['picks']:
         _pg=p.get('game') or {}
         SEEN.append((_mm.group(2), _mm.group(1), (_pg.get('away',''),_pg.get('home',''),_pg.get('commence',''))))
     chips_html=f'<div class="chips">{ch}</div>' if ch else ''
+    ls_html=lineshop_html(LAST_PRICES) if ch else ''
     espn=html.escape(p.get('espn_league',''))
     mkt='spread' if p.get('market')=='spread' else 'ml'
     g=p.get('game') or {}
@@ -242,6 +260,7 @@ for p in man['picks']:
   <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="chev" href="game-{p['num']}.html" aria-label="live markets">&rsaquo;</a></div><span class="ls" data-ls></span>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
+  {ls_html}
 </div>''')
 
 _seen={}
