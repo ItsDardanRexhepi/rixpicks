@@ -856,7 +856,7 @@ def build_game_pages(man, css, build_sha):
         if books_present:
             charts_html=('<div class="sect">Price history</div>'
                 '<div class="chartcard" data-books="'+' '.join(books_present)+'" style="padding:12px 0 8px;border-bottom:1px solid rgba(127,127,127,.15)">'
-                '<svg class="rpchart" id="chart-main" viewBox="0 0 340 170" preserveAspectRatio="none" style="width:100%;height:170px;display:block"></svg>'
+                '<svg class="rpchart" id="chart-main" viewBox="0 0 340 190" style="width:100%;height:auto;display:block"></svg>'
                 '<div id="chartlegend" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;font-size:11px"></div>'
                 '<div style="display:flex;justify-content:flex-end;font-size:11px;color:#8a8f98;margin-top:4px">'
                 '<span class="rpranges"><span data-r="1D" style="padding:2px 6px;cursor:pointer">1D</span> <span data-r="1W" style="padding:2px 6px;cursor:pointer">1W</span> <span data-r="1M" style="padding:2px 6px;cursor:pointer">1M</span> <span data-r="ALL" style="padding:2px 6px;cursor:pointer;font-weight:700">ALL</span></span></div></div>')
