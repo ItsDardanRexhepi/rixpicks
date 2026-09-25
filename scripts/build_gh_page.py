@@ -366,6 +366,11 @@ page=f'''<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>&rsquo;RixPicks</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="RixPicks">
+<meta name="theme-color" content="#2f8f7d">
 <meta property="og:title" content="&rsquo;RixPicks">
 <meta property="og:description" content="Daily picks. Tap a book, the bet&rsquo;s built.">
 <meta name="twitter:title" content="&rsquo;RixPicks">
@@ -421,6 +426,17 @@ h1 .tick{{color:#2f8f7d}}
 #rpState{{width:100%;padding:10px;border:1px solid #e4e2de;border-radius:8px;font-size:15px;margin-bottom:12px}}
 #rpSave{{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}}
 .rpstate-link{{color:#2f8f7d;cursor:pointer;text-decoration:underline}}
+#rpA2hs{{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:60}}
+#rpA2hs .box{{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%;text-align:center}}
+#rpA2hs h3{{font-size:16px;margin-bottom:4px}}
+#rpA2hs .plat{{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#2f8f7d;font-weight:700;margin-bottom:12px}}
+#rpA2hs ol{{text-align:left;font-size:13px;color:#3a3a40;margin:0 0 16px 0;padding-left:20px}}
+#rpA2hs ol li{{margin-bottom:8px}}
+#rpA2hs .nav{{display:flex;gap:8px}}
+#rpA2hs .nav button{{flex:1;padding:11px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}}
+#rpA2hs .primary{{background:#2f8f7d;color:#fff}}
+#rpA2hs .ghost{{background:#eee;color:#555}}
+#rpA2hs .dots{{font-size:10px;color:#bbb;margin-top:12px;letter-spacing:3px}}
 #rpPull{{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}}
 .spin{{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}}
 @keyframes rpSpin{{to{{transform:rotate(360deg)}}}}
@@ -435,6 +451,12 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 #rpModal .box{{background:#1e1e22}}
 #rpModal h3{{color:#ececf1}}
 #rpModal p{{color:#9a9aa3}}
+#rpA2hs{{background:rgba(0,0,0,.6)}}
+#rpA2hs .box{{background:#1e1e22}}
+#rpA2hs h3{{color:#ececf1}}
+#rpA2hs ol{{color:#c8c8d0}}
+#rpA2hs .ghost{{background:#2a2a30;color:#9a9aa3}}
+#rpA2hs .dots{{color:#555}}
 #rpState{{background:#141416;color:#ececf1;border-color:#2a2a2e}}
 #rpGeoNote{{color:#3aa895 !important}}
 #rpPull{{background:#000;color:#3aa895}}
@@ -471,6 +493,13 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 <select id="rpState"><option value="">Choose state&hellip;</option>{''.join(f'<option value="{c}">{n}</option>' for c,n in RP_STATES)}</select>
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
+<div id="rpA2hs"><div class="box">
+<div class="plat" id="rpA2hsPlat"></div>
+<h3>Add RixPicks to your Home Screen</h3>
+<ol id="rpA2hsSteps"></ol>
+<div class="nav"><button class="ghost" id="rpA2hsBack" onclick="rpA2hsStep(-1)">Back</button><button class="primary" id="rpA2hsNext" onclick="rpA2hsStep(1)">Next</button></div>
+<div class="dots" id="rpA2hsDots"></div>
+</div></div>
 <script>
 const RP_FD={json.dumps(RP_FD)};const RP_DK={json.dumps(RP_DK)};
 const RP_L={{FD:RP_FD,DK:RP_DK,MGM:{json.dumps(RP_MGM)},B365:{json.dumps(RP_B365)},FAN:{json.dumps(RP_FAN)},ESPN:{json.dumps(RP_ESPN)},HR:{json.dumps(RP_HR)},BR:{json.dumps(RP_BR)}}};
@@ -505,7 +534,7 @@ function rpFilter(st){{rpTerm(st);let parlayAllHidden=true;
 function rpRoute(e,a){{e.preventDefault();const st=localStorage.getItem('rp_state');if(!st){{window.__rpChip=a;rpAsk(false);return false;}}rpGo(a,st);return false;}}
 function rpSave(){{const st=document.getElementById('rpState').value;if(!st)return;const gps=localStorage.getItem('rp_state_gps');
  if(gps&&st!==gps){{localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src','preview');}}else{{localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src',gps?'gps':'manual');}}
- document.getElementById('rpModal').style.display='none';rpLabel();if(window.__rpChip){{rpGo(window.__rpChip,st);}}}}
+ document.getElementById('rpModal').style.display='none';rpLabel();if(window.__rpChip){{rpGo(window.__rpChip,st);}}else{{rpMaybeA2HS();}}}}
 function rpExitPreview(){{const gps=localStorage.getItem('rp_state_gps');if(gps){{localStorage.setItem('rp_state',gps);localStorage.setItem('rp_state_src','gps');rpLabel();}}}}
 function rpLabel(){{const el=document.getElementById('rpStateLabel');const st=localStorage.getItem('rp_state');if(st)rpFilter(st);if(el&&st){{const src=localStorage.getItem('rp_state_src');
  if(src==='preview'){{el.innerHTML='Previewing: '+st+' &middot; <u onclick="rpExitPreview();event.stopPropagation()">back to your state</u>';}}
@@ -520,7 +549,7 @@ function rpAsk(manualOnly){{window.__rpChip=window.__rpChip||null;
    if(code&&document.querySelector('#rpState option[value="'+code+'"]')){{
     localStorage.setItem('rp_state',code);localStorage.setItem('rp_state_src','gps');localStorage.setItem('rp_state_gps',code);
     document.getElementById('rpModal').style.display='none';rpLabel();
-    if(window.__rpChip)rpGo(window.__rpChip,code);
+    if(window.__rpChip)rpGo(window.__rpChip,code);else rpMaybeA2HS();
    }}else{{rpNote('Could not resolve your state - pick it below.');}}
   }}).catch(()=>rpNote('Location lookup failed - pick your state below.'));
  }},function(){{rpNote('Location off - pick your state below (unverified).');}},{{timeout:9000}});}}
@@ -534,6 +563,17 @@ function rpEdit(){{window.__rpChip=null;
   }}).catch(()=>rpNote('Verification failed - pick your state below.'));
  }},function(){{rpNote('Location off - manual pick below (unverified).');}},{{timeout:9000}});}}
  else rpAsk(true);}}
+const RP_A2HS=[{{plat:'iPhone &middot; Safari',steps:['Tap the <b>Share</b> button (square with an up arrow) in Safari&rsquo;s toolbar.','Scroll down and tap <b>Add to Home Screen</b>.','Tap <b>Add</b> - RixPicks now opens full-screen, like an app.']}},{{plat:'Android &middot; Chrome',steps:['Tap the <b>&#8942;</b> menu (top right) in Chrome.','Tap <b>Add to Home screen</b>.','Tap <b>Install</b> - RixPicks now opens full-screen, like an app.']}}];
+let rpA2hsI=/iPhone|iPad|iPod/i.test(navigator.userAgent)?0:1;
+function rpA2hsRender(){{const c=RP_A2HS[rpA2hsI];document.getElementById('rpA2hsPlat').innerHTML=c.plat;
+ document.getElementById('rpA2hsSteps').innerHTML=c.steps.map(x=>'<li>'+x+'</li>').join('');
+ document.getElementById('rpA2hsBack').style.visibility=rpA2hsI===0?'hidden':'visible';
+ document.getElementById('rpA2hsNext').textContent=rpA2hsI===RP_A2HS.length-1?'Done':'Next';
+ document.getElementById('rpA2hsDots').innerHTML=RP_A2HS.map((_,i)=>i===rpA2hsI?'&#9679;':'&#9675;').join(' ');}}
+function rpA2hsStep(d){{if(d>0&&rpA2hsI===RP_A2HS.length-1){{rpA2hsDone();return;}}rpA2hsI=Math.min(RP_A2HS.length-1,Math.max(0,rpA2hsI+d));rpA2hsRender();}}
+function rpA2hsDone(){{localStorage.setItem('rp_a2hs_v1','1');document.getElementById('rpA2hs').style.display='none';}}
+function rpMaybeA2HS(){{if(RP_STANDALONE||RP_MOB===false)return;if(localStorage.getItem('rp_a2hs_v1'))return;
+ rpA2hsRender();document.getElementById('rpA2hs').style.display='flex';}}
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
 window.addEventListener('pageshow',function(){{try{{
