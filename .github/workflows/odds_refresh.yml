@@ -1,0 +1,24 @@
+# GitHub Actions workflow for the rixpicks repo - HELD BACK: current PAT lacks
+# `workflow` scope (push rejected) and cannot write Actions secrets.
+# To activate: (1) add this file at .github/workflows/odds_refresh.yml in rixpicks,
+# (2) add repo secret THE_ODDS_API_KEY (value in /home/sandbox/.odds_api_key).
+name: odds-refresh
+on:
+  schedule:
+    # every 15 min, 3 PM - 11 PM PT = 22:00-06:00 UTC (PDT)
+    - cron: '*/15 22-23,0-6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: refresh odds and rebuild
+        env:
+          THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
+        run: bash scripts/refresh.sh
