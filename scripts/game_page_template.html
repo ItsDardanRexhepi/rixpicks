@@ -18,16 +18,76 @@
 __ROWS__
 __KAL__
 __POLY__
-<div class="foot">Prices update live: Kalshi &amp; Polymarket tick every 60s; sportsbook rows refresh with each page rebuild. Tap a price to open the market.</div>
+__CHARTS__
+<div class="foot">Prices update live: Kalshi &amp; Polymarket tick every 60s; sportsbook rows refresh with each page rebuild. Tap a price to open the market. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
 </div>
+<div id="rpModal"><div class="box">
+<h3>One quick thing</h3>
+<p>Pick your state once so taps open the right product &mdash; sportsbook where it&rsquo;s live, prediction markets everywhere else. Saved on this device.</p>
+<div id="rpGeoNote" style="font-size:12px;color:#2f8f7d;margin-bottom:10px"></div>
+<select id="rpState"><option value="">Choose state&hellip;</option>__STATEOPTS__</select>
+<button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
+</div></div>
 <script>
 const RP_BUILD='__BUILD__';
+__RPCONSTS__
 function rpC2ML(c){c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}
 function rpMLF(m){return (m>0?'+':'')+m;}
+const RP_MOB=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const RP_STANDALONE=(navigator.standalone===true)||window.matchMedia('(display-mode: standalone)').matches;
+function rpOpen(u){if(RP_STANDALONE){location.assign(u);}else{window.open(u,'_blank','noopener');}}
+if(RP_STANDALONE){document.addEventListener('click',function(e){const a=e.target.closest('a[target="_blank"]');if(a&&!a.onclick&&a.href){e.preventDefault();location.assign(a.href);}},true);}
+function rpGo(a,st){const b=a.dataset.book;
+ if(b==='POLY'){if(RP_MOB&&a.dataset.app){location.href=a.dataset.app;}else{rpOpen(a.dataset.sb||a.href);}return;}
+ if(b==='KAL'){rpOpen(a.dataset.sb||a.href);return;}
+ if(b==='FD'||b==='DK'){const sb=b==='FD'?RP_FD:RP_DK;
+  if(sb.includes(st)){rpOpen(a.dataset.sb);}
+  else if(a.dataset.pm){rpOpen(a.dataset.pm);}
+  else{rpOpen(a.dataset.sb);}return;}
+ const u=a.dataset.sb||a.href;
+ if(a.dataset.template){rpOpen(u.replaceAll('{state}',st.toLowerCase()));}else{rpOpen(u);}}
+function rpFilter(st){document.querySelectorAll('[data-book]').forEach(function(a){const b=a.dataset.book;
+ if(b==='POLY'||b==='KAL'){a.style.display='';return;}
+ if(b==='FD'||b==='DK'){const L2=b==='FD'?RP_FD:RP_DK;a.style.display=(a.dataset.nopm&&!L2.includes(st))?'none':'';return;}
+ const L=RP_L[b];if(!L){a.style.display='';return;}
+ a.style.display=L.includes(st)?'':'none';});}
+function rpRoute(e,a){e.preventDefault();const st=localStorage.getItem('rp_state');if(!st){window.__rpChip=a;rpAsk(false);return false;}rpGo(a,st);return false;}
+function rpSave(){const st=document.getElementById('rpState').value;if(!st)return;const gps=localStorage.getItem('rp_state_gps');
+ if(gps&&st!==gps){localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src','preview');}else{localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src',gps?'gps':'manual');}
+ document.getElementById('rpModal').style.display='none';rpLabel();if(window.__rpChip){rpGo(window.__rpChip,st);}}
+function rpExitPreview(){const gps=localStorage.getItem('rp_state_gps');if(gps){localStorage.setItem('rp_state',gps);localStorage.setItem('rp_state_src','gps');rpLabel();}}
+function rpLabel(){const el=document.getElementById('rpStateLabel');const st=localStorage.getItem('rp_state');if(st)rpFilter(st);if(el&&st){const src=localStorage.getItem('rp_state_src');
+ if(src==='preview'){el.innerHTML='Previewing: '+st+' &middot; <u onclick="rpExitPreview();event.stopPropagation()">back to your state</u>';}
+ else{el.textContent='Your state: '+st+(src==='gps'?' (verified)':' (change)');}}}}
+function rpNote(t){const n=document.getElementById('rpGeoNote');if(n)n.textContent=t||'';}
+function rpAsk(manualOnly){window.__rpChip=window.__rpChip||null;
+ if(manualOnly||!navigator.geolocation){rpNote('Location unavailable - pick your state below.');document.getElementById('rpModal').style.display='flex';return;}
+ rpNote('Checking your location&hellip;');document.getElementById('rpModal').style.display='flex';
+ navigator.geolocation.getCurrentPosition(function(pos){
+  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(j=>{
+   const code=(j.principalSubdivisionCode||'').split('-')[1]||'';
+   if(code&&document.querySelector('#rpState option[value="'+code+'"]')){
+    localStorage.setItem('rp_state',code);localStorage.setItem('rp_state_src','gps');localStorage.setItem('rp_state_gps',code);
+    document.getElementById('rpModal').style.display='none';rpLabel();
+    if(window.__rpChip)rpGo(window.__rpChip,code);
+   }else{rpNote('Could not resolve your state - pick it below.');}
+  }).catch(()=>rpNote('Location lookup failed - pick your state below.'));
+ },function(){rpNote('Location off - pick your state below (unverified).');},{timeout:9000});}
+function rpEdit(){window.__rpChip=null;
+ if(navigator.geolocation){rpNote('Verifying your new location&hellip;');document.getElementById('rpModal').style.display='flex';
+ navigator.geolocation.getCurrentPosition(function(pos){
+  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(j=>{
+   const code=(j.principalSubdivisionCode||'').split('-')[1]||'';
+   if(code&&document.querySelector('#rpState option[value="'+code+'"]')){localStorage.setItem('rp_state',code);localStorage.setItem('rp_state_src','gps');localStorage.setItem('rp_state_gps',code);rpNote('Updated from your location: '+code);rpLabel();setTimeout(()=>document.getElementById('rpModal').style.display='none',900);}
+   else rpNote('Could not verify - pick your state below.');
+  }).catch(()=>rpNote('Verification failed - pick your state below.'));
+ },function(){rpNote('Location off - pick your state below (unverified).');},{timeout:9000});}
+ else{document.getElementById('rpModal').style.display='flex';}}
 function rpKalTick(){try{
- document.querySelectorAll('a[data-kalticker][data-kalside]').forEach(function(a){
-  if(!a.dataset.kalticker||!a.dataset.kalside)return;
-  const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+a.dataset.kalticker+'-'+a.dataset.kalside;
+ document.querySelectorAll('a[data-kalticker][data-kalside],a[data-kalmkt]').forEach(function(a){
+  const tk=a.dataset.kalmkt||(a.dataset.kalticker+'-'+a.dataset.kalside);
+  if(!tk)return;
+  const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk;
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){
    const m=j&&j.market;if(!m)return;
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
@@ -86,6 +146,50 @@ function rpPageRefresh(){try{
   if(t.indexOf(RP_BUILD)<0){location.replace(location.pathname+'?v='+Date.now());}
  }).catch(function(){});
 }catch(e){}}
+if(!localStorage.getItem('rp_state')){rpAsk(false);}else{rpLabel();}
+
+function rpML2C(ml){ml=parseFloat(ml);if(!(ml!==ml))return null;if(isNaN(ml))return null;return ml<0?(-ml)/((-ml)+100)*100:100/(ml+100)*100;}
+function rpDrawCharts(){try{
+ const d=document.querySelector('.pick[data-away]');if(!d)return;
+ const away=d.dataset.away,home=d.dataset.home,side=d.dataset.side||'away';
+ fetch('price_history.jsonl?r='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(function(txt){
+  const rows=[];
+  txt.split('\n').forEach(function(l){if(!l.trim())return;try{const j=JSON.parse(l);if(j.away===away&&j.home===home)rows.push(j);}catch(e){}});
+  document.querySelectorAll('.chartcard[data-book]').forEach(function(card){
+   const b=card.dataset.book;const svg=document.getElementById('chart-'+b);if(!svg)return;
+   const key=b.toLowerCase();const pts=[];
+   rows.forEach(function(j){
+    let v=null;
+    if(b==='KAL'||b==='POLY'){v=j[key+'_'+(side==='away'?'a':'h')];}
+    else{const ml=j[key+'_'+(side==='away'?'a':'h')];v=(ml===null||ml===undefined)?null:rpML2C(ml);}
+    if(v!==null&&v!==undefined&&!isNaN(v))pts.push([j.ts,v]);
+   });
+   const val=document.getElementById('chartval-'+b);
+   if(!pts.length){svg.innerHTML='<text x="8" y="42" font-size="11" fill="#8a8f98">history building - first ticks logged today</text>';if(val)val.textContent='';return;}
+   let lo=Math.min.apply(null,pts.map(p=>p[1])),hi=Math.max.apply(null,pts.map(p=>p[1]));
+   if(hi-lo<2){lo-=1;hi+=1;}
+   const W=300,H=78,padT=8,padB=14,padL=6,padR=6;
+   const X=function(i){return padL+(pts.length===1?(W-padL-padR)/2:i*(W-padL-padR)/(pts.length-1));};
+   const Y=function(v){return padT+(1-(v-lo)/(hi-lo))*(H-padT-padB);};
+   let line='',area='';
+   pts.forEach(function(p,i){const x=X(i).toFixed(1),y=Y(p[1]).toFixed(1);line+=(i?'L':'M')+x+' '+y+' ';});
+   area=line+'L'+X(pts.length-1).toFixed(1)+' '+(H-padB)+' L'+X(0).toFixed(1)+' '+(H-padB)+' Z';
+   const gid='g'+b;
+   const lx=X(pts.length-1),ly=Y(pts[pts.length-1][1]);
+   svg.innerHTML='<defs><linearGradient id="'+gid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f8f7d" stop-opacity=".28"/><stop offset="1" stop-color="#2f8f7d" stop-opacity="0"/></linearGradient></defs>'
+    +'<path d="'+area+'" fill="url(#'+gid+')" stroke="none"/>'
+    +'<path d="'+line+'" fill="none" stroke="#2f8f7d" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>'
+    +'<circle cx="'+lx.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="3" fill="#2f8f7d"/>';
+   if(val)val.textContent=Math.round(pts[pts.length-1][1])+'c';
+   const f=function(ts){try{return new Date(ts).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/Los_Angeles'});}catch(e){return '';}};
+   const t0=document.getElementById('chartt0-'+b),t1=document.getElementById('chartt1-'+b);
+   if(t0)t0.textContent=f(pts[0][0]);
+   if(t1)t1.textContent=(pts.length>1?f(pts[pts.length-1][0]):'')+'  ('+Math.round(lo)+'c - '+Math.round(hi)+'c)';
+  });
+ }).catch(function(){});
+}catch(e){}}
+rpDrawCharts();setInterval(rpDrawCharts,60000);
+
 rpPolyTick();rpEspnTick();rpKalTick();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);
 setInterval(rpPageRefresh,60000);
 </script>

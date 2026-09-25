@@ -80,6 +80,7 @@ def _load_prefill(path, wrap=False):
             out.setdefault((g['away'],g['home']),[]).append((g.get('commence'), {'books':books} if wrap else books))
     except Exception: pass
     return out
+HIST={}
 pre=_load_prefill('/tmp/odds_prefill.json')
 pre_sp=_load_prefill('/tmp/odds_prefill_sp.json', wrap=True)
 
@@ -630,14 +631,21 @@ def build_game_pages(man, css, build_sha):
     tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'game_page_template.html')).read()
     pages={}
     NAME2KEY={'draftkings':'DK','fanduel':'FD','espnbet':'ESPN','hardrockbet':'HR'}
+    RP_CONSTS=('const RP_FD='+json.dumps(RP_FD)+';const RP_DK='+json.dumps(RP_DK)+';\n'
+        'const RP_L={FD:RP_FD,DK:RP_DK,MGM:'+json.dumps(RP_MGM)+',B365:'+json.dumps(RP_B365)+',FAN:'+json.dumps(RP_FAN)+',ESPN:'+json.dumps(RP_ESPN)+',HR:'+json.dumps(RP_HR)+',BR:'+json.dumps(RP_BR)+'};')
+    STATE_OPTS=''.join('<option value="%s">%s</option>'%(c,n) for c,n in RP_STATES)
+    def rt(short,url,tmpl_flag):
+        t=' data-template="1"' if tmpl_flag else ''
+        return 'data-book="%s" data-sb="%s"%s onclick="return rpRoute(event,this)" href="%s" target="_blank" rel="noreferrer"'%(short,html.escape(url),t,html.escape(url))
     for p in man.get('picks',[]):
         g=p.get('game') or {}
         if not g: continue
         away,home=g.get('away',''),g.get('home','')
         side=p.get('side','away')
-        other='home' if side=='away' else 'away'
         carded_team=g.get(side,'')
         rows_html=[]
+        books_present=[]
+        hrow={'away':away,'home':home}
         pr=sel_books(pre.get((away,home)), g) or {}
         for key,short in NAME2KEY.items():
             rec=pr.get(key) or {}
@@ -647,9 +655,11 @@ def build_game_pages(man, css, build_sha):
             hlink=rec.get('home_link') or rec.get('event') or ('https://www.'+BKDOM[short])
             a_lbl=('%+d'%aml) if aml is not None else '-'
             h_lbl=('%+d'%hml) if hml is not None else '-'
-            rows_html.append('<div class="mrow">'+bkimg(short)+'<span class="bk">'+short+'</span>'
-                '<span class="side"><a href="'+html.escape(alink)+'" target="_blank" rel="noreferrer">'+html.escape(away)+'</a></span><span class="pr"><a href="'+html.escape(alink)+'" target="_blank" rel="noreferrer">'+a_lbl+'</a></span>'
-                '<span class="side" style="text-align:right"><a href="'+html.escape(hlink)+'" target="_blank" rel="noreferrer">'+html.escape(home)+'</a></span><span class="pr"><a href="'+html.escape(hlink)+'" target="_blank" rel="noreferrer">'+h_lbl+'</a></span></div>')
+            rows_html.append('<div class="mrow" data-book="'+short+'">'+bkimg(short)+'<span class="bk">'+short+'</span>'
+                '<span class="side"><a '+rt(short,alink,'{state}' in alink)+'>'+html.escape(away)+'</a></span><span class="pr"><a '+rt(short,alink,'{state}' in alink)+'>'+a_lbl+'</a></span>'
+                '<span class="side" style="text-align:right"><a '+rt(short,hlink,'{state}' in hlink)+'>'+html.escape(home)+'</a></span><span class="pr"><a '+rt(short,hlink,'{state}' in hlink)+'>'+h_lbl+'</a></span></div>')
+            hrow[short.lower()+'_a']=aml; hrow[short.lower()+'_h']=hml
+            books_present.append(short)
         stt=pr.get('state_templates') or {}
         for key,short in (('betmgm','MGM'),('betrivers','BR')):
             rec=stt.get(key) or {}
@@ -658,29 +668,108 @@ def build_game_pages(man, css, build_sha):
             link=rec.get('event') or ('https://www.'+BKDOM[short])
             a_lbl=('%+d'%aml) if aml is not None else '-'
             h_lbl=('%+d'%hml) if hml is not None else '-'
-            rows_html.append('<div class="mrow">'+bkimg(short)+'<span class="bk">'+short+'</span>'
-                '<span class="side"><a href="'+html.escape(link)+'" target="_blank" rel="noreferrer">'+html.escape(away)+'</a></span><span class="pr">'+a_lbl+'</span>'
-                '<span class="side" style="text-align:right"><a href="'+html.escape(link)+'" target="_blank" rel="noreferrer">'+html.escape(home)+'</a></span><span class="pr">'+h_lbl+'</span></div>')
+            rows_html.append('<div class="mrow" data-book="'+short+'">'+bkimg(short)+'<span class="bk">'+short+'</span>'
+                '<span class="side"><a '+rt(short,link,'{state}' in link)+'>'+html.escape(away)+'</a></span><span class="pr"><a '+rt(short,link,'{state}' in link)+'>'+a_lbl+'</a></span>'
+                '<span class="side" style="text-align:right"><a '+rt(short,link,'{state}' in link)+'>'+html.escape(home)+'</a></span><span class="pr"><a '+rt(short,link,'{state}' in link)+'>'+h_lbl+'</a></span></div>')
+            hrow[short.lower()+'_a']=aml; hrow[short.lower()+'_h']=hml
+            books_present.append(short)
+        # Kalshi full board (user, Sep 25 12:19 PM): both sides, live-ticked. Fallback: single-side tap row.
         kal_html=''
         if p.get('kalshi'):
-            tick=p['kalshi']['url'].rstrip('/').split('/')[-1].upper()
-            kside=html.escape(p['kalshi'].get('team',''))
-            kal_html=('<div class="mrow">'+bkimg('KAL')+'<span class="bk">KAL</span>'
-                '<span class="side"><a href="'+html.escape(p['kalshi']['url'])+'" target="_blank" rel="noreferrer">'+html.escape(carded_team)+'</a></span>'
-                '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+kside+'" href="'+html.escape(p['kalshi']['url'])+'" target="_blank" rel="noreferrer">KAL '+str(c2ml(p['kalshi']['cents']))+'</a></span>'
-                '<span class="side" style="text-align:right;color:#8a8f98">full board on Kalshi</span><span class="pr"></span></div>')
+            kurl=p['kalshi']['url']; tick=kurl.rstrip('/').split('/')[-1].upper()
+            board=[]; et=tick
+            try:
+                import urllib.request
+                # URL may end at the event ticker or at a -SIDE market ticker: try the segment as-is, then stripped.
+                for cand in (tick, tick.rsplit('-',1)[0]):
+                    try:
+                        req=urllib.request.Request('https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=%s&status=open&limit=50'%cand,headers={'User-Agent':'Mozilla/5.0'})
+                        with urllib.request.urlopen(req,timeout=10) as r: km=json.load(r)
+                        ms=[m for m in km.get('markets',[]) if str(m.get('ticker','')).startswith(cand+'-')]
+                        if ms:
+                            et=cand
+                            for m in ms:
+                                try: ya=float(m.get('yes_ask_dollars') or 0)
+                                except Exception: continue
+                                if not (0<ya<1): continue
+                                sub=str(m.get('yes_sub_title') or m.get('title') or '')
+                                suf=str(m.get('ticker','')).rsplit('-',1)[-1]
+                                board.append((sub,str(m.get('ticker','')),suf,int(round(ya*100))))
+                            break
+                    except Exception: continue
+            except Exception: board=[]
+            def kmatch(team):
+                toks=[t for t in team.lower().split() if len(t)>2]
+                for sub,tk,suf,c in board:
+                    sl=sub.lower()
+                    if any(t in sl for t in toks): return tk,suf,c
+                return None
+            am=kmatch(away); hm=kmatch(home)
+            # two-market event: if one side matched, the other market is the other side (handles 'A\'s' vs 'Athletics')
+            if am and not hm and len(board)==2:
+                o=[b for b in board if b[1]!=am[0]]
+                if o: hm=(o[0][1],o[0][2],o[0][3])
+            if hm and not am and len(board)==2:
+                o=[b for b in board if b[1]!=hm[0]]
+                if o: am=(o[0][1],o[0][2],o[0][3])
+            base=kurl if et==tick else kurl.rsplit('-',1)[0]
+            if am and hm:
+                kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
+                    '<span class="side"><a '+rt('KAL',base+'-'+am[1].lower(),False)+'>'+html.escape(away)+'</a></span>'
+                    '<span class="pr"><a data-kalmkt="'+am[0]+'" '+rt('KAL',base+'-'+am[1].lower(),False)+'>KAL '+c2ml(am[2])+'</a></span>'
+                    '<span class="side" style="text-align:right"><a '+rt('KAL',base+'-'+hm[1].lower(),False)+'>'+html.escape(home)+'</a></span>'
+                    '<span class="pr"><a data-kalmkt="'+hm[0]+'" '+rt('KAL',base+'-'+hm[1].lower(),False)+'>KAL '+c2ml(hm[2])+'</a></span></div>')
+                hrow['kal_a']=am[2]; hrow['kal_h']=hm[2]
+            else:
+                kside=html.escape(p['kalshi'].get('team',''))
+                kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
+                    '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(carded_team)+'</a></span>'
+                    '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+kside+'" '+rt('KAL',kurl,False)+'>KAL '+str(c2ml(p['kalshi']['cents']))+'</a></span>'
+                    '<span class="side" style="text-align:right;color:#8a8f98">full board on Kalshi</span><span class="pr"></span></div>')
+                cc=p['kalshi']['cents']
+                hrow['kal_a']=cc if side=='away' else None
+                hrow['kal_h']=cc if side=='home' else None
+            books_present.append('KAL')
+        # Polymarket full board (user, Sep 25 12:19 PM): both sides, live-ticked. Fallback: single-side tap row.
         poly_html=''
         if p.get('polymarket'):
             web=p.get('polymarket_us',{}).get('url') or p['polymarket']['url'].replace('https://polymarket.com/','https://polymarket.us/')
             slug=poly_event_slug(p['polymarket']['url']) or ''
             sub=poly_sub(p['polymarket']['url']) or ''
-            kw=p['name'].split()[0]
-            cents=poly_price(p['polymarket']['url'],kw)
-            lbl=('POLY '+str(c2ml(cents))) if cents else 'POLY'
-            poly_html=('<div class="mrow">'+bkimg('POLY')+'<span class="bk">POLY</span>'
-                '<span class="side"><a href="'+html.escape(web)+'" target="_blank" rel="noreferrer">'+html.escape(carded_team)+'</a></span>'
-                '<span class="pr"><a data-polyslug="'+slug+'" data-polysub="'+sub+'" data-polykw="'+html.escape(kw)+'" href="'+html.escape(web)+'" target="_blank" rel="noreferrer">'+lbl+'</a></span>'
-                '<span class="side" style="text-align:right;color:#8a8f98">full board on Polymarket</span><span class="pr"></span></div>')
+            akw=away.split()[-1]; hkw=home.split()[-1]
+            ca=poly_price(p['polymarket']['url'],akw); chv=poly_price(p['polymarket']['url'],hkw)
+            if ca or chv:
+                la=('POLY '+c2ml(ca)) if ca else 'POLY'
+                lh=('POLY '+c2ml(chv)) if chv else 'POLY'
+                pa='data-book="POLY" data-sb="'+html.escape(web)+'" data-app="'+html.escape(web)+'" onclick="return rpRoute(event,this)" href="'+html.escape(web)+'" target="_blank" rel="noreferrer"'
+                poly_html=('<div class="mrow" data-book="POLY">'+bkimg('POLY')+'<span class="bk">POLY</span>'
+                    '<span class="side"><a '+pa+'>'+html.escape(away)+'</a></span>'
+                    '<span class="pr"><a data-polyslug="'+html.escape(slug)+'" data-polysub="'+html.escape(sub)+'" data-polykw="'+html.escape(akw)+'" '+pa+'>'+la+'</a></span>'
+                    '<span class="side" style="text-align:right"><a '+pa+'>'+html.escape(home)+'</a></span>'
+                    '<span class="pr"><a data-polyslug="'+html.escape(slug)+'" data-polysub="'+html.escape(sub)+'" data-polykw="'+html.escape(hkw)+'" '+pa+'>'+lh+'</a></span></div>')
+                hrow['poly_a']=ca; hrow['poly_h']=chv
+            else:
+                kw=p['name'].split()[0]
+                cents=poly_price(p['polymarket']['url'],kw)
+                lbl=('POLY '+str(c2ml(cents))) if cents else 'POLY'
+                poly_html=('<div class="mrow" data-book="POLY">'+bkimg('POLY')+'<span class="bk">POLY</span>'
+                    '<span class="side"><a data-book="POLY" data-sb="'+html.escape(web)+'" data-app="'+html.escape(web)+'" onclick="return rpRoute(event,this)" href="'+html.escape(web)+'" target="_blank" rel="noreferrer">'+html.escape(carded_team)+'</a></span>'
+                    '<span class="pr"><a data-polyslug="'+html.escape(slug)+'" data-polysub="'+html.escape(sub)+'" data-polykw="'+html.escape(kw)+'" data-book="POLY" data-sb="'+html.escape(web)+'" data-app="'+html.escape(web)+'" onclick="return rpRoute(event,this)" href="'+html.escape(web)+'" target="_blank" rel="noreferrer">'+lbl+'</a></span>'
+                    '<span class="side" style="text-align:right;color:#8a8f98">full board on Polymarket</span><span class="pr"></span></div>')
+                hrow['poly_a']=cents if side=='away' else None
+                hrow['poly_h']=cents if side=='home' else None
+            books_present.append('POLY')
+        # Per-book price-history charts (user, Sep 25 12:20 PM): Kalshi-style line, one per platform.
+        charts_html=''
+        if books_present:
+            charts_html='<div class="sect">Price history</div>'
+            for short in books_present:
+                charts_html+=('<div class="chartcard" data-book="'+short+'" style="padding:10px 0 4px;border-bottom:1px solid rgba(127,127,127,.15)">'
+                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+bkimg(short)+'<span class="bk">'+short+'</span>'
+                    '<span class="chartval" id="chartval-'+short+'" style="margin-left:auto;font-size:13px;color:#2f8f7d"></span></div>'
+                    '<svg class="rpchart" id="chart-'+short+'" viewBox="0 0 300 78" preserveAspectRatio="none" style="width:100%;height:78px;display:block"></svg>'
+                    '<div style="display:flex;justify-content:space-between;font-size:10px;color:#8a8f98;margin-top:2px"><span class="chartt0" id="chartt0-'+short+'"></span><span class="chartt1" id="chartt1-'+short+'"></span></div></div>')
+        HIST[(away,home)]=hrow
         ch=_chips_fn(p)
         espn=html.escape(p.get('espn_league',''))
         mkt='spread' if p.get('market')=='spread' else 'ml'
@@ -692,7 +781,8 @@ def build_game_pages(man, css, build_sha):
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),
             ('__SIDE__',side),('__MKT__',mkt),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
             ('__ODDS__',html.escape(p['odds'])),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
-            ('__CHIPS__',ch),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),('__BUILD__',build_sha)]:
+            ('__CHIPS__',ch),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),
+            ('__CHARTS__',charts_html),('__BUILD__',build_sha),('__RPCONSTS__',RP_CONSTS),('__STATEOPTS__',STATE_OPTS)]:
             page_html=page_html.replace(tok,val)
         pages['game-%s.html'%p['num']]=page_html
     return pages
@@ -707,4 +797,12 @@ _css=page.split('<style>')[1].split('</style>')[0]
 for _fn,_html in build_game_pages(man,_css,build_sha).items():
     open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(_html)
     print('written:',_fn,len(_html))
+if not os.environ.get('RP_NOHIST'):
+    import datetime as _dt
+    _ts=_dt.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    _hp=os.path.join(os.path.dirname(out) or '.','price_history.jsonl')
+    with open(_hp,'a') as _hf:
+        for _hr in HIST.values():
+            _r={'ts':_ts}; _r.update(_hr); _hf.write(json.dumps(_r)+'\n')
+    print('history appended:',len(HIST),'games ->',_hp)
 print('written:',out,len(page),'design v'+RP_DESIGN,'build',build_sha)
