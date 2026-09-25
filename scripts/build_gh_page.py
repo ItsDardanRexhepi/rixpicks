@@ -535,7 +535,7 @@ function rpPolyTick(){{try{{
    let outs=[],pr=[];try{{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}}catch(e){{return;}}
    for(let i=0;i<outs.length;i++){{if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){{
     const c=Math.round(parseFloat(pr[i])*100);
-    if(c>0&&c<100){{a.innerHTML=a.innerHTML.replace(/POLY[^<]*/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');}}
+    if(c>0&&c<100){{a.innerHTML=a.innerHTML.replace(/POLY [+-]?\d+/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');}}
     return;
    }}}}
   }}).catch(()=>{{}});
@@ -570,7 +570,7 @@ function rpKalTick(){{try{{
    const m=j&&j.market;if(!m)return;
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
    const c=Math.round(d*100);
-   a.innerHTML=a.innerHTML.replace(/KAL[^<]*/,'KAL '+rpMLF(rpC2ML(c)));rpCxUpd('KAL');
+   a.innerHTML=a.innerHTML.replace(/KAL [+-]?\d+/,'KAL '+rpMLF(rpC2ML(c)));rpCxUpd('KAL');
    const pk=a.closest('.pick');
    if(pk&&pk.dataset.market==='ml'){{const s=pk.querySelector('.odds');
     if(s&&c>0&&c<100){{const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);

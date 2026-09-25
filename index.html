@@ -175,7 +175,7 @@ function rpEdit(){window.__rpChip=null;
  },function(){rpNote('Location off - manual pick below (unverified).');},{timeout:9000});}
  else rpAsk(true);}
 if(!localStorage.getItem('rp_state')){rpAsk(false);}else{rpLabel();}
-const RP_BUILD='1790356420';
+const RP_BUILD='1790356532';
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded'))return;
  fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(t=>{
@@ -239,7 +239,7 @@ function rpPolyTick(){try{
    let outs=[],pr=[];try{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}catch(e){return;}
    for(let i=0;i<outs.length;i++){if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){
     const c=Math.round(parseFloat(pr[i])*100);
-    if(c>0&&c<100){a.innerHTML=a.innerHTML.replace(/POLY[^<]*/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');}
+    if(c>0&&c<100){a.innerHTML=a.innerHTML.replace(/POLY [+-]?\d+/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');}
     return;
    }}
   }).catch(()=>{});
@@ -274,7 +274,7 @@ function rpKalTick(){try{
    const m=j&&j.market;if(!m)return;
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
    const c=Math.round(d*100);
-   a.innerHTML=a.innerHTML.replace(/KAL[^<]*/,'KAL '+rpMLF(rpC2ML(c)));rpCxUpd('KAL');
+   a.innerHTML=a.innerHTML.replace(/KAL [+-]?\d+/,'KAL '+rpMLF(rpC2ML(c)));rpCxUpd('KAL');
    const pk=a.closest('.pick');
    if(pk&&pk.dataset.market==='ml'){const s=pk.querySelector('.odds');
     if(s&&c>0&&c<100){const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
