@@ -48,7 +48,7 @@ try: d=json.load(open(f))
 except: pass
 d['$TODAY']=d.get('$TODAY',0)+1
 json.dump(d,open(f,'w'))"
-git add index.html manifest.json "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html
+git add index.html manifest.json "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html
 git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1))/16 today)"
 git push
 echo "rebuilt and pushed"

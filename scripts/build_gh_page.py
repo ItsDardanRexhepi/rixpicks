@@ -83,6 +83,11 @@ def _load_prefill(path, wrap=False):
 HIST={}
 pre=_load_prefill('/tmp/odds_prefill.json')
 
+def _espn_get(url):
+    import urllib.request
+    # ESPN 403s a bare 'Mozilla/5.0' UA (verified Sep 25); urllib default UA passes.
+    with urllib.request.urlopen(url,timeout=12) as r: return json.load(r)
+
 def team_meta(man):
     meta={}
     lgs={p.get('espn_league','') for p in man.get('picks',[]) if p.get('espn_league')}
@@ -850,10 +855,6 @@ def build_game_pages(man, css, build_sha):
         pages['game-%s.html'%p['num']]=page_html
     return pages
 
-def _espn_get(url):
-    import urllib.request
-    # ESPN 403s a bare 'Mozilla/5.0' UA (verified Sep 25); urllib default UA passes.
-    with urllib.request.urlopen(url,timeout=12) as r: return json.load(r)
 
 def team_slug(name):
     return re.sub(r'[^a-z0-9]+','-',name.lower()).strip('-')
