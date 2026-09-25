@@ -94,7 +94,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>
 <a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: 2-1</a>
 <div class="sect">Today&rsquo;s picks</div>
-<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(127,127,127,.16);margin-right:8px;font-size:15px">⚾</span>MLB</div>
+<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">⚾</span>MLB</div>
 <div class="pick" data-espn="baseball/mlb" data-away="Houston Astros" data-home="Athletics" data-side="away" data-market="ml">
   <div class="pick-head"><a class="gamelink" href="game-1.html"><span class="num">1.</span><span class="name">Astros ML</span><span class="units">10u</span><span class="odds">-172</span></a><a class="chev" href="game-1.html" aria-label="live markets">&rsaquo;</a></div>
   <div class="sub">at Athletics - Brown (last 5: 1.9 ERA) vs Lopez (last out: 10 ER). HOU fighting for the AL West</div>
@@ -186,7 +186,7 @@ function rpEdit(){window.__rpChip=null;
  },function(){rpNote('Location off - manual pick below (unverified).');},{timeout:9000});}
  else rpAsk(true);}
 if(!localStorage.getItem('rp_state')){rpAsk(false);}else{rpLabel();}
-const RP_BUILD='1790365246';
+const RP_BUILD='1790365449';
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded'))return;
  fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(t=>{
