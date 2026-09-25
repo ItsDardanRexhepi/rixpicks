@@ -277,6 +277,19 @@ parlay_html=''
 FUT=[]
 try:
     FUT=json.load(open('futures.json'))
+    _led={}
+    import os as _os
+    _lp='/home/sandbox/rps_tmp/kb/ledger/picks.jsonl'
+    if _os.path.exists(_lp):
+        for _ln in open(_lp):
+            try: _d=json.loads(_ln)
+            except Exception: continue
+            if str(_d.get('id','')).startswith('F-') and _d.get('team'): _led[_d['team']+'|'+_d['market'].lower().replace(' winner',' champion').replace('LXI champion','LXI Champion')]=_d
+    for _f in FUT:
+        for _k,_v in _led.items():
+            if _v['team']==_f['team'] and (_f['market'].lower().startswith(_v['market'].split()[0].lower()) or _v['market'].split()[0].lower() in _f['market'].lower()):
+                _f.setdefault('fair',_v.get('fair_price_est',''));_f.setdefault('prob',_v.get('est_prob',''));_f.setdefault('res',_v.get('resolution',''))
+                break
 except Exception:
     FUT=[]
 fut_ids=[f.get('id','') for f in FUT]
@@ -523,20 +536,20 @@ body{{background:#000;color:#ececf1}}
 h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 .status,.intro,.sect,.num,.sub,.note{{color:#9a9aa3}}
 .pick{{border-top-color:#2a2a2e}}
-.chip{{background:#1e1e22;color:#ececf1}}
+.chip{{background:#0a0a0c;border:1px solid #232328;color:#ececf1}}
 .foot{{color:#6f6f78}}
 #rpModal{{background:rgba(0,0,0,.6)}}
-#rpModal .box{{background:#1e1e22}}
+#rpModal .box{{background:#000;border:1px solid #2a2a2e}}
 #rpModal h3{{color:#ececf1}}
 #rpModal p{{color:#9a9aa3}}
 #rpA2hs{{background:rgba(0,0,0,.6)}}
-#rpA2hs .box{{background:#1e1e22}}
+#rpA2hs .box{{background:#000;border:1px solid #2a2a2e}}
 #rpA2hs h3{{color:#ececf1}}
 #rpA2hs ol{{color:#c8c8d0}}
-#rpA2hs .ghost{{background:#2a2a30;color:#9a9aa3}}
+#rpA2hs .ghost{{background:#111114;color:#9a9aa3}}
 #rpA2hs .dots{{color:#555}}
 .ls{{color:#3ec9a0}}
-#rpState{{background:#141416;color:#ececf1;border-color:#2a2a2e}}
+#rpState{{background:#000;color:#ececf1;border-color:#2a2a2e}}
 #rpGeoNote{{color:#3aa895 !important}}
 #rpPull{{background:#000;color:#3aa895}}
 .spin{{border-color:#2a4a44;border-top-color:#3aa895}}
@@ -1169,6 +1182,7 @@ FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="vie
 <div class="status">Futures &middot; __COUNT__ picks &middot; live Polymarket tracking vs carded entry</div>
 <div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
 __ROWS__
+<div id="rpFd" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(4,10,16,.72);align-items:flex-end;justify-content:center" onclick="if(event.target===this)this.style.display='none'"><div id="rpFdBox" style="background:#0B1822;border-top:1px solid rgba(59,235,245,.25);border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;padding:16px;color:#E6F6F8"></div></div>
 <div class="unitmath" style="margin-top:18px">Live prices via Polymarket &middot; refresh 60s &middot; build __BUILD__</div>
 </div>
 <script>
@@ -1235,6 +1249,43 @@ window.addEventListener('pageshow',function(){try{
   if(t.indexOf(RP_BUILD)<0){sessionStorage.setItem('rp_reloaded','1');location.replace(location.pathname+'?v='+RP_BUILD);}
  }).catch(function(){});
 }catch(e){}});
+/* futures detail sheet: reasoning + live market depth */
+var rpFdCache={};
+function rpFutOpen(fid){
+ var r=document.querySelector('.futrow[data-fid="'+fid+'"]');if(!r)return;
+ var sh=document.getElementById('rpFd');var bx=document.getElementById('rpFdBox');
+ var team=r.dataset.team,mkt=r.dataset.mkt,entry=r.dataset.entry,fair=r.dataset.fair,prob=r.dataset.prob,res=r.dataset.res,units=r.dataset.units,note=r.dataset.note;
+ var h='<h3>'+team+'</h3><div class="rp-sub">'+mkt+'</div>';
+ h+='<div class="rp-bet"><b>Why this pick</b><div style="margin-top:4px">Carded at <b>'+entry+'</b>'+(fair?' - our fair price was <b>'+fair+'</b>':'')+(prob?' (we rate it ~'+Math.round(parseFloat(prob)*100)+'% vs the '+entry+' implied price)':'')+'. The gap between our number and the market price is the edge; we sized '+(units||'2')+'u on it.</div>'+(note?'<div style="margin-top:4px;color:#8FB3BC">'+note+'</div>':'')+(res?'<div style="margin-top:4px;color:#8FB3BC">Resolves: '+res+'</div>':'')+'</div>';
+ h+='<div class="rp-bet" id="rpFdLive"><b>Live market</b><div style="margin-top:4px" id="rpFdLiveBody">loading...</div></div>';
+ bx.innerHTML=h+'<button class="rp-btn ghost" onclick="document.getElementById(\'rpFd\').style.display=\'none\'">Close</button>';
+ sh.style.display='flex';
+ var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase();
+ function render(m){
+  var b=document.getElementById('rpFdLiveBody');if(!b)return;
+  try{
+   var outs=JSON.parse(m.outcomes||'[]'),pr=JSON.parse(m.outcomePrices||'[]'),idx=0;
+   for(var j=0;j<outs.length;j++){if(String(outs[j]).toLowerCase()==='yes'){idx=j;break;}}
+   var p=parseFloat(pr[idx]);var c=p*100;
+   var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
+   var eMl=parseInt(String(entry).replace('+',''),10)||100;
+   var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
+   var d=(p-eImp)*100;
+   var arrow=d>0.5?'<span style="color:#3ecf6f">&#9650; '+d.toFixed(1)+' pts since entry</span>':(d<-0.5?'<span style="color:#e5484d">&#9660; '+Math.abs(d).toFixed(1)+' pts since entry</span>':'flat vs entry');
+   var v24=m.volume24hr?('$'+Math.round(m.volume24hr).toLocaleString()+' traded in last 24h'):'';
+   var liq=m.liquidity?(' &middot; $'+Math.round(m.liquidity).toLocaleString()+' liquidity'):'';
+   var d1=(m.oneDayPriceChange!=null)?((m.oneDayPriceChange*100>=0?'+':'')+(m.oneDayPriceChange*100).toFixed(1)+' pts last 24h'):'';
+   b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow+'<div style="margin-top:4px;color:#8FB3BC">'+[d1,v24+liq].filter(Boolean).join(' &middot; ')+'</div>';
+  }catch(e){b.textContent='live data unavailable';}
+ }
+ if(rpFdCache[slug]){var mm=null;for(var i=0;i<rpFdCache[slug].length;i++){if((rpFdCache[slug][i].question||'').toLowerCase().indexOf(kw)>=0){mm=rpFdCache[slug][i];break;}}if(mm){render(mm);return;}}
+ fetch('https://gamma-api.polymarket.com/events?slug='+slug).then(function(r2){return r2.json();}).then(function(ev){
+  var mkts=(ev&&ev[0]&&ev[0].markets)||[];rpFdCache[slug]=mkts;var mm=null;
+  for(var i=0;i<mkts.length;i++){if((mkts[i].question||'').toLowerCase().indexOf(kw)>=0){mm=mkts[i];break;}}
+  if(mm)render(mm);else{var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='market not found';}
+ }).catch(function(){var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
+}
+</script>
 <script src="myprofile.js?v=__BUILD__"></script></body></html>'''
 def build_futures_page(css,build_sha):
     if not FUT: return None
@@ -1246,15 +1297,16 @@ def build_futures_page(css,build_sha):
         if lg not in seen_lg:
             seen_lg.add(lg)
             rows.append('<div class="sect" style="margin-top:18px">%s %s</div>'%(BALL.get(lg,'&#127937;'),html.escape(lg)))
-        rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-entry="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
+        rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-entry="%s" data-team="%s" data-mkt="%s" data-fair="%s" data-prob="%s" data-res="%s" data-units="%s" data-note="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
         '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">'
         '<span style="font-weight:700">'+('<img src="https://a.espncdn.com/i/teamlogos/'+f.get('league','nfl').lower()+'/500/'+f.get('abbr','')+'.png" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">' if f.get('abbr') else '')+'%s</span>'
-        '<span class="futlive" style="font-weight:700;color:#3aa895;white-space:nowrap">&hellip;</span></div>'
+        '<span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895">&hellip;</span><button class="futdots" onclick="rpFutOpen(this.getAttribute(\'data-f\'))" data-f="%s" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div>'
         '<div style="font-size:12px;color:#8a8f98;margin-top:2px">%s &middot; entry %s &middot; %su%s</div>'
         + ('<div style="font-size:12px;margin-top:3px;color:#d8a23a">&#8646; pick changed from %s (%s)</div>'%(html.escape(f['changed_from']['team']),html.escape(f['changed_from']['odds'])) if f.get('changed_from') else '')
         + '<div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div>')
         %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(f['odds']),
-          html.escape(f['team']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else '')))
+          html.escape(f['team']),html.escape(f['market']),html.escape(f.get('fair','')),html.escape(str(f.get('prob',''))),html.escape(f.get('res','')),str(f.get('units',2)),html.escape(f.get('note','')),
+          html.escape(f['team']),html.escape(f['id']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else '')))
     pg=FUTURES_TMPL
     for tok,val in [('__CSS__',css),('__ROWS__',''.join(rows)),('__COUNT__',str(len(FUT))),('__BUILD__',build_sha)]:
         pg=pg.replace(tok,val)

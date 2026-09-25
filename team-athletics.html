@@ -78,20 +78,20 @@ body{background:#000;color:#ececf1}
 h1 .tick,.odds,.rpstate-link{color:#3aa895}
 .status,.intro,.sect,.num,.sub,.note{color:#9a9aa3}
 .pick{border-top-color:#2a2a2e}
-.chip{background:#1e1e22;color:#ececf1}
+.chip{background:#0a0a0c;border:1px solid #232328;color:#ececf1}
 .foot{color:#6f6f78}
 #rpModal{background:rgba(0,0,0,.6)}
-#rpModal .box{background:#1e1e22}
+#rpModal .box{background:#000;border:1px solid #2a2a2e}
 #rpModal h3{color:#ececf1}
 #rpModal p{color:#9a9aa3}
 #rpA2hs{background:rgba(0,0,0,.6)}
-#rpA2hs .box{background:#1e1e22}
+#rpA2hs .box{background:#000;border:1px solid #2a2a2e}
 #rpA2hs h3{color:#ececf1}
 #rpA2hs ol{color:#c8c8d0}
-#rpA2hs .ghost{background:#2a2a30;color:#9a9aa3}
+#rpA2hs .ghost{background:#111114;color:#9a9aa3}
 #rpA2hs .dots{color:#555}
 .ls{color:#3ec9a0}
-#rpState{background:#141416;color:#ececf1;border-color:#2a2a2e}
+#rpState{background:#000;color:#ececf1;border-color:#2a2a2e}
 #rpGeoNote{color:#3aa895 !important}
 #rpPull{background:#000;color:#3aa895}
 .spin{border-color:#2a4a44;border-top-color:#3aa895}
@@ -127,7 +127,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790373950';
+const RP_BUILD='1790376215';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
