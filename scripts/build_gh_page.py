@@ -1115,6 +1115,7 @@ _css=page.split('<style>')[1].split('</style>')[0]
 
 FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RixPicks Futures</title><style>__CSS__</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"></head><body>
+<div id="rpPull"></div>
 <div class="wrap">
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
 <div class="status">Futures &middot; __COUNT__ picks &middot; live Polymarket tracking vs carded entry</div>
@@ -1167,6 +1168,17 @@ try{
  document.querySelectorAll('.futrow').forEach(function(r){if(r.dataset.fid)rpFutIds2.push(r.dataset.fid);});
  localStorage.setItem('rp_fut_seen',JSON.stringify(rpFutIds2));
 }catch(e){}
+let rpPtrY=null,rpPtrPull=0,rpPtrOn=false;
+document.addEventListener('touchstart',function(e){if(e.touches.length===1&&window.scrollY<2){rpPtrY=e.touches[0].clientY;rpPtrPull=0;rpPtrOn=true;}else{rpPtrOn=false;rpPtrY=null;rpPtrPull=0;}},{passive:true});
+document.addEventListener('touchmove',function(e){if(!rpPtrOn||rpPtrY===null)return;const d=e.touches[0].clientY-rpPtrY;if(d>rpPtrPull)rpPtrPull=d;
+ if(rpPtrPull>50){const el=document.getElementById('rpPull');if(el){el.style.transform='translateY(0)';el.textContent='release to refresh';}}},{passive:true});
+function rpPtrEnd(){const el=document.getElementById('rpPull');
+ if(rpPtrOn&&rpPtrPull>50){if(el){el.style.transform='translateY(0)';el.textContent='refreshing...';}
+  Promise.resolve(rpFutTick()).then(function(){setTimeout(function(){if(el)el.style.transform='translateY(-100%)';},900);});}
+ else if(el){el.style.transform='translateY(-100%)';}
+ rpPtrOn=false;rpPtrY=null;rpPtrPull=0;}
+document.addEventListener('touchend',rpPtrEnd,{passive:true});
+document.addEventListener('touchcancel',rpPtrEnd,{passive:true});
 rpFutTick();setInterval(rpFutTick,60000);
 </script></body></html>'''
 def build_futures_page(css,build_sha):
