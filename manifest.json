@@ -97,6 +97,21 @@
   ],
   "note": "All 3 legs matched at Playbook; link is geo-aware and opens the slip at the best book for your state. Sportsbook-only - in CA the singles above ride on Kalshi & Polymarket.",
   "link": "https://playbookbot.com/books/fanduel/passthrough?deeplinkId[0]=ML3002533417&deeplinkId[1]=ML3001989066&deeplinkId[2]=ML3003215393&context=playbook-homepage-quickslip&sport=baseball",
-  "label": "BUILD THIS PARLAY (+444)"
- }
+  "label": "BUILD THIS PARLAY (+444)",
+  "routes": {
+   "FD": {
+    "price": 444,
+    "link": "https://playbookbot.com/books/fanduel/passthrough?deeplinkId[0]=ML3002533417&deeplinkId[1]=ML3001989066&deeplinkId[2]=ML3003215393&context=playbook-homepage-quickslip&sport=baseball"
+   },
+   "DK": {
+    "price": 437,
+    "link": "https://playbookbot.com/books/draftkings/passthrough?deeplinkId[0]=ML3002707106&deeplinkId[1]=ML3001992739&deeplinkId[2]=ML3003217880&context=playbook-homepage-quickslip&sport=baseball"
+   },
+   "MGM": {
+    "price": 434,
+    "link": "https://playbookbot.com/books/betmgm/passthrough?deeplinkId[0]=ML3002962229&deeplinkId[1]=ML3002169898&deeplinkId[2]=ML3003233626&context=playbook-homepage-quickslip&sport=baseball"
+   }
+  }
+ },
+ "yesterday": "2-1"
 }

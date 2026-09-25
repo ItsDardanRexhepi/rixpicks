@@ -159,54 +159,43 @@ parlay_html=''
 if man.get('parlay'):
     pl=man['parlay']
     legs=''.join(f'<li>{html.escape(l)}</li>' for l in pl['legs'])
-    pchip=''
-    if pl.get('book_links'):
-        c=[]
-        for bk,(lab,url) in pl['book_links'].items():
-            c.append(f'<a class="chip"{bkstyle(bk)} href="{html.escape(url)}" data-book="{bk}" data-sb="{html.escape(url)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(bk)}{html.escape(lab)}</a>')
-        pchip=f'<div class="chips" id="rpParlayChips" style="margin:10px 0">{"".join(c)}</div>'
-    elif pl.get('link'):
-        # single Playbook FD-passthrough chip: state-gated like book_links (his Sep 25 7:37 AM rule:
-        # show ONLY where a real prefill route exists for a platform the state allows; hidden elsewhere
-        # with the honest note). data-book="FD" routes it through the existing rpFilter/rpTerm machinery.
-        u=html.escape(pl["link"]); lab=html.escape(pl.get("label","BUILD THIS PARLAY"))
-        pchip=(f'<div class="chips" id="rpParlayChips" style="margin:10px 0">'
-               f'<a class="chip best"{bkstyle("FD")} href="{u}" data-book="FD" data-sb="{u}" '
-               f'onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("FD")}{lab}</a></div>'
-)
-    # per-platform combo prices (his 8:54 AM directive): real prices only - KAL/POLY from live leg
-    # cents product, sportsbooks from verified per-leg MLs in the odds feed. No invented parlay math.
+    # per-platform combo chips (his 9:08 AM directive): each chip carries the platform's combo
+    # price and IS the build action - no separate build button. Verified prefill routes from the
+    # manifest ('routes'); where none exists, chip is price-only and taps to the platform.
     def amer_from_cents(cl):
         c=1.0
         for x in cl: c*=x
         c=c/(100**(len(cl)-1))
         if not (0<c<100): return None
-        return (-round(c/(100-c)*100)) if c>=50 else round((100-c)/c*100)
+        return c
     def amer_from_mls(mls):
         d=1.0
         for ml in mls: d*=(1+ml/100.0) if ml>0 else (1+100.0/abs(ml))
         if d<=1.0: return None
         return (round((d-1)*100)) if d>=2 else (-round(100/(d-1)))
     lp=[p for p in man['picks'] if any(p['name'].lower() in l.lower() or l.lower() in p['name'].lower() for l in pl['legs'])]
-    spans=[]
     nlegs=len(pl['legs'])
+    routes=pl.get('routes',{})
+    chips=[]
     if len(lp)==nlegs:
         kc=[p['kalshi']['cents'] for p in lp if p.get('kalshi') and p['kalshi'].get('cents')]
         if len(kc)==nlegs:
-            ml=amer_from_cents(kc)
-            if ml is not None: spans.append(('KAL',f'<span data-book="KAL" id="rpCxKAL" data-n="{nlegs}">KAL {ml:+d}</span>'))
-        pc=[]
-        okp=True
+            c=amer_from_cents(kc)
+            if c is not None:
+                chips.append(('KAL',f'<a class="chip"{bkstyle("KAL")} href="https://kalshi.com" data-book="KAL" data-sb="https://kalshi.com" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("KAL")}KAL {round(c)}¢</a>'))
+        pc=[]; okp=True; purl='https://polymarket.us'
         for p in lp:
             if not p.get('polymarket'): okp=False; break
             cc=poly_price(p['polymarket']['url'], p['name'].split()[0])
             if not cc: okp=False; break
             pc.append(cc)
+            if p.get('polymarket_us',{}).get('url'): purl=p['polymarket_us']['url']
         if okp and len(pc)==nlegs:
-            ml=amer_from_cents(pc)
-            if ml is not None: spans.append(('POLY',f'<span data-book="POLY" id="rpCxPOLY" data-n="{nlegs}">POLY {ml:+d}</span>'))
-        BKML=[('DK','draftkings'),('FD','fanduel'),('ESPN','espnbet'),('HR','hardrockbet'),('MGM','betmgm'),('BR','betrivers')]
-        for short,pk in BKML:
+            c=amer_from_cents(pc)
+            if c is not None:
+                chips.append(('POLY',f'<a class="chip"{bkstyle("POLY")} href="{html.escape(purl)}" data-book="POLY" data-sb="{html.escape(purl)}" id="rpCxPOLY" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("POLY")}POLY {round(c)}¢</a>'))
+        BKML=[('DK','draftkings','https://predictions.draftkings.com/'),('FD','fanduel','https://www.fanduel.com/predicts'),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]
+        for short,pk,pm in BKML:
             mls=[]; ok=True
             for p in lp:
                 side=p.get('side','away')
@@ -219,13 +208,21 @@ if man.get('parlay'):
                 v=e.get(f"{side}_ml")
                 if v is None: ok=False; break
                 mls.append(v)
-            if ok and len(mls)==nlegs:
-                ml=amer_from_mls(mls)
-                if ml is not None: spans.append((short,f'<span data-book="{short}">{short} {ml:+d}</span>'))
+            if not (ok and len(mls)==nlegs): continue
+            r=routes.get(short) or {}
+            price=r.get('price')
+            if price is None: price=amer_from_mls(mls)
+            if price is None: continue
+            link=r.get('link') or f'https://www.{BKDOM[short]}'
+            pmattr=f' data-pm="{pm}"' if pm else ''
+            chips.append((short,f'<a class="chip"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}"{pmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(short)}{short} {price:+d}</a>'))
     order=['KAL','POLY','DK','FD','ESPN','HR','MGM','BR']
-    spans.sort(key=lambda s: order.index(s[0]) if s[0] in order else 99)
-    cpx=f'<div class="cpx" id="rpComboPx">{"".join(s[1] for s in spans)}</div>' if spans else ''
-    parlay_html=f'<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs">{legs}</ul>{cpx}{pchip}<div class="note" id="rpParlayNote">{html.escape(pl.get("note",""))}</div>'
+    chips.sort(key=lambda s: order.index(s[0]) if s[0] in order else 99)
+    pchip=f'<div class="chips" id="rpParlayChips" style="margin:10px 0">{"".join(c[1] for c in chips)}</div>' if chips else ''
+    # his 9:10 AM carve-out: in states where combos can't legally be built, asterisk the title + one-line footnote
+    parlay_html=(f'<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs">{legs}</ul>{pchip}'
+                 f'<div class="note" id="rpComboReg" style="display:none">* Due to regulations in your state, combos can\u2019t legally be built out for you and must be done manually.</div>'
+                 f'<div class="note" id="rpParlayNote">{html.escape(pl.get("note",""))}</div>')
 
 RP_STATES=[('AL','Alabama'),('AK','Alaska'),('AZ','Arizona'),('AR','Arkansas'),('CA','California'),('CO','Colorado'),('CT','Connecticut'),('DE','Delaware'),('DC','Washington D.C.'),('FL','Florida'),('GA','Georgia'),('HI','Hawaii'),('ID','Idaho'),('IL','Illinois'),('IN','Indiana'),('IA','Iowa'),('KS','Kansas'),('KY','Kentucky'),('LA','Louisiana'),('ME','Maine'),('MD','Maryland'),('MA','Massachusetts'),('MI','Michigan'),('MN','Minnesota'),('MS','Mississippi'),('MO','Missouri'),('MT','Montana'),('NE','Nebraska'),('NV','Nevada'),('NH','New Hampshire'),('NJ','New Jersey'),('NM','New Mexico'),('NY','New York'),('NC','North Carolina'),('ND','North Dakota'),('OH','Ohio'),('OK','Oklahoma'),('OR','Oregon'),('PA','Pennsylvania'),('PR','Puerto Rico'),('RI','Rhode Island'),('SC','South Carolina'),('SD','South Dakota'),('TN','Tennessee'),('TX','Texas'),('UT','Utah'),('VT','Vermont'),('VA','Virginia'),('WA','Washington'),('WV','West Virginia'),('WI','Wisconsin'),('WY','Wyoming')]
 RP_FD=['AZ','AR','CO','CT','IL','IN','IA','KS','KY','LA','MD','MA','MI','MO','NJ','NY','NC','OH','PA','TN','VT','VA','WV','WY','DC','PR']
@@ -272,6 +269,7 @@ h1 .tick{{color:#2f8f7d}}
 .unitmath{{color:#8a8f98;font-size:13px;margin-top:2px}}
 .legs{{padding-left:20px;font-size:15px;line-height:1.7}}
 .note{{color:#6b6b72;font-size:13px;margin-top:6px}}
+.yesrec{{color:#6b6b72;font-size:13px;margin-top:2px}}
 .cpx{{margin:8px 0 2px;font-size:13px;color:#9a9aa3}}
 .cpx span{{margin-right:12px;font-weight:600}}
 .foot{{margin-top:34px;color:#8a8a91;font-size:12px;line-height:1.6}}
@@ -321,6 +319,7 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 {parlay_html}
 <div class="sect">Record</div>
 <div class="rec">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</div>
+{f'<div class="yesrec">Yesterday: {html.escape(man["yesterday"])}</div>' if man.get('yesterday') else ''}
 <div class="unitmath">1u = $5 per $1,000 in bankroll</div>
 <div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
 <div id="rpModal"><div class="box">
@@ -345,8 +344,9 @@ function rpGo(a,st){{const b=a.dataset.book;
   else{{rpOpen(a.dataset.pm);}}}}
  else if(a.dataset.template){{rpOpen(a.dataset.sb.replaceAll('{{state}}',st.toLowerCase()));}}
  else rpOpen(a.dataset.sb);}}
-function rpTerm(st){{const sb=RP_FD.includes(st)||RP_DK.includes(st);const T=sb?'Parlay':'Combo';
+function rpTerm(st){{const sb=RP_FD.includes(st)||RP_DK.includes(st);const T=sb?'Parlay':'Combo *';
  const h=document.getElementById('rpParlayTitle');if(h)h.textContent=T;
+ const rg=document.getElementById('rpComboReg');if(rg)rg.style.display=sb?'none':'';
  const nt=document.getElementById('rpParlayNote');if(nt&&!sb)nt.textContent='';}}
 function rpFilter(st){{rpTerm(st);let parlayAllHidden=true;
  document.querySelectorAll('a[data-book]').forEach(function(a){{const b=a.dataset.book;
@@ -355,11 +355,6 @@ function rpFilter(st){{rpTerm(st);let parlayAllHidden=true;
   if(b==='FD'||b==='DK'){{const L2=b==='FD'?RP_FD:RP_DK;if(inParlay){{a.style.display=L2.includes(st)?'':'none';}}else if(b==='FD'){{a.style.display=(a.dataset.nopm&&!L2.includes(st))?'none':'';}}else{{a.style.display=(a.dataset.nopm&&!L2.includes(st))?'none':'';}}return;}}
   const L=RP_L[b];if(!L){{return;}}
   if(!L.includes(st)){{a.style.display='none';}}else{{a.style.display='';parlayAllHidden=parlayAllHidden&&!a.closest('#rpParlayChips')?parlayAllHidden:false;}}
- }});
- document.querySelectorAll('#rpComboPx span[data-book]').forEach(function(s){{
-  const b=s.dataset.book;
-  if(b==='KAL'||b==='POLY'||b==='DK'||b==='FD'){{s.style.display='';return;}}
-  const L=RP_L[b];s.style.display=(L&&!L.includes(st))?'none':'';
  }});
  const pc=document.querySelectorAll('#rpParlayChips a[data-book]');let any=false;
  pc.forEach(function(a){{if(a.style.display!=='none')any=true;}});
@@ -415,7 +410,7 @@ window.addEventListener('pageshow',function(){{try{{
 }})();
 /* Live odds - POLY chips (public gamma API, ~60s) + headline consensus (ESPN free feed, ~60s). No keys. */
 function rpCxUpdMl(bk){{
- const span=document.querySelector('#rpComboPx span[data-book="'+bk+'"]');if(!span)return;
+ const span=document.querySelector('#rpParlayChips a[data-book="'+bk+'"]');if(!span)return;
  const n=document.querySelectorAll('.legs li').length;if(!n)return;
  let d=1,cnt=0;
  document.querySelectorAll('.pick a[data-book="'+bk+'"]').forEach(function(a){{
@@ -428,18 +423,18 @@ function rpCxUpdMl(bk){{
  span.textContent=bk+' '+(ml2>0?'+':'')+ml2;
 }}
 function rpCxUpd(bk){{
- const span=document.getElementById('rpCx'+bk);if(!span)return;
- const n=parseInt(span.dataset.n||'0');if(!n)return;
+ const chip=document.getElementById('rpCx'+bk);if(!chip)return;
+ const n=parseInt(chip.dataset.n||'0');if(!n)return;
  const sel=bk==='KAL'?'a[data-kalticker]':'a[data-polyslug]';
  const re=bk==='KAL'?/KAL (\d+)\u00a2/:/POLY (\d+)\u00a2/;
  let prod=1,cnt=0;
  document.querySelectorAll(sel).forEach(function(a){{
+  if(a.id==='rpCxKAL'||a.id==='rpCxPOLY')return;
   const m=a.innerHTML.match(re);if(m){{prod*=parseInt(m[1]);cnt++;}}
  }});
  if(cnt!==n)return;
  const c=prod/Math.pow(100,n-1);if(!(c>0&&c<100))return;
- const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
- span.textContent=bk+' '+(ml>0?'+':'')+ml;
+ chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY) \d+\u00a2/, bk+' '+Math.round(c)+'\u00a2');
 }}
 function rpPolyTick(){{try{{
  document.querySelectorAll('a[data-polyslug]').forEach(function(a){{
@@ -517,10 +512,11 @@ function rpPageRefresh(){{try{{
     a.innerHTML=a.innerHTML.replace(/([+-]\d+)/,m[1]);
    }});
   }}
-  const cc=document.getElementById('rpComboPx');const nc=doc.getElementById('rpComboPx');
-  if(cc&&nc){{cc.querySelectorAll('span[data-book]').forEach(function(s){{
+  const cc=document.getElementById('rpParlayChips');const nc=doc.getElementById('rpParlayChips');
+  if(cc&&nc){{cc.querySelectorAll('a[data-book]').forEach(function(s){{
    const b=s.dataset.book;if(b==='KAL'||b==='POLY')return;
-   const ns=nc.querySelector('span[data-book="'+b+'"]');if(ns)s.textContent=ns.textContent;
+   const ns=nc.querySelector('a[data-book="'+b+'"]');
+   if(ns){{const m=ns.textContent.match(/([+-]\d+)/);if(m)s.innerHTML=s.innerHTML.replace(/([+-]\d+)/,m[1]);}}
   }});}}
  }}).catch(()=>{{}});
 }}catch(e){{}}}}
