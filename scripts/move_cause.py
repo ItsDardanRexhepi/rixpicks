@@ -27,8 +27,37 @@ def team_tokens(name):
     parts=name.split()
     return {p.lower() for p in parts if len(p)>3}
 
+def _mlb_teams():
+    d=get('https://statsapi.mlb.com/api/v1/teams?sportId=1')
+    return {t['name']:t['id'] for t in d['teams']}
+
+def _mlb_cause(away,home):
+    teams=_mlb_teams()
+    start=(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=48)).strftime('%Y-%m-%d')
+    end=datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d')
+    found=[]
+    for name in (away,home):
+        tid=teams.get(name)
+        if not tid: continue
+        d=get(f'https://statsapi.mlb.com/api/v1/transactions?teamId={tid}&startDate={start}&endDate={end}')
+        for t in d.get('transactions',[]):
+            desc=t.get('description','')
+            if any(k in desc for k in ('injured list','paternity','bereavement','designated','recalled','selected the contract','optioned','traded','activated')):
+                found.append(f"[{t.get('date')}] {desc}")
+    return found[:4]
+
 def probe_cause(league,away,home,side_team):
-    """Return (cause_note, headlines_used)."""
+    """Return (cause_note, evidence). MLB: official Stats API transactions (48h).
+    Other leagues: ESPN news endpoint best-effort. Else classify market-driven."""
+    if league.startswith('baseball/'):
+        try:
+            txns=_mlb_cause(away,home)
+            if txns:
+                return ' | '.join(txns), txns
+            return 'no roster/IL transactions for either team in last 48h (MLB Stats API) - market-driven move (steam/sharp/positioning)', []
+        except Exception as e:
+            return f'transaction probe unavailable ({e}); move unclassified', []
+    # non-MLB fallback: ESPN news
     headlines=[]
     try:
         d=get(f'https://site.api.espn.com/apis/site/v2/sports/{league}/news?limit=50')
