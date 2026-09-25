@@ -219,14 +219,23 @@ function rpDrawCharts(){try{
   const t0=Math.min.apply(null,(function(){var a=[];Object.keys(series).forEach(function(b){a.push(series[b][0][0]);});return a;})());
   const t1=Math.max.apply(null,(function(){var a=[];Object.keys(series).forEach(function(b){a.push(series[b][series[b].length-1][0]);});return a;})());
   function X(ts){return t1===t0?(padL+W-padR)/2:padL+(ts-t0)/(t1-t0)*(W-padL-padR);}
-  let lh='';
+  const LOGOS={};
+  document.querySelectorAll('[data-book] img').forEach(function(im){const b=im.closest('[data-book]').dataset.book;if(b&&!LOGOS[b])LOGOS[b]=im.src;});
+  let lh='';const ends=[];
   Object.keys(series).forEach(function(b){
    const pts=series[b];const col=COLORS[b]||'#999';
    let s='';pts.forEach(function(p,i){s+=(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)+' ';});
    h+='<path d="'+s+'" fill="none" stroke="'+col+'" stroke-width="1.8" stroke-linejoin="round"/>';
-   const lx=X(pts[pts.length-1][0]),ly=Y(pts[pts.length-1][1]);
-   h+='<circle cx="'+lx.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="3" fill="'+col+'"/>';
-   lh+='<span style="display:inline-flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:'+col+'"></span>'+b+' '+Math.round(pts[pts.length-1][1])+'%</span>';
+   ends.push({b:b,col:col,y:Y(pts[pts.length-1][1]),v:Math.round(pts[pts.length-1][1])});
+   const lg=LOGOS[b]?('<img src="'+LOGOS[b]+'" style="width:15px;height:15px;object-fit:contain;border-radius:3px;background:#fff;padding:1px">'):('<span style="width:8px;height:8px;border-radius:50%;background:'+col+'"></span>');
+   lh+='<span style="display:inline-flex;align-items:center;gap:4px">'+lg+' '+Math.round(pts[pts.length-1][1])+'%</span>';
+  });
+  ends.sort(function(p,q){return p.y-q.y;});
+  for(let i=1;i<ends.length;i++){if(ends[i].y-ends[i-1].y<16)ends[i].y=ends[i-1].y+16;}
+  for(let i=ends.length-1;i>=0;i--){if(ends[i].y>H-16){const d=ends[i].y-(H-16);ends[i].y-=d;for(let j=i-1;j>=0;j--){if(ends[j+1].y-ends[j].y<16)ends[j].y=ends[j+1].y-16;}}}
+  ends.forEach(function(e){
+   if(LOGOS[e.b])h+='<image href="'+LOGOS[e.b]+'" x="'+(W-padR+8)+'" y="'+(e.y-8).toFixed(1)+'" width="16" height="16" style="border-radius:3px"/>';
+   else h+='<circle cx="'+(W-padR+16)+'" cy="'+e.y.toFixed(1)+'" r="4" fill="'+e.col+'"/>';
   });
   svg.innerHTML=h;
   if(legend)legend.innerHTML=lh;
