@@ -166,7 +166,14 @@ if man.get('parlay'):
             c.append(f'<a class="chip"{bkstyle(bk)} href="{html.escape(url)}" data-book="{bk}" data-sb="{html.escape(url)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(bk)}{html.escape(lab)}</a>')
         pchip=f'<div class="chips" id="rpParlayChips" style="margin:10px 0">{"".join(c)}</div><div class="note" id="rpParlayNa" style="display:none">Parlay links are sportsbook-only tonight &mdash; no parlay chip in your state. Singles above work on Kalshi &amp; Polymarket everywhere.</div>'
     elif pl.get('link'):
-        pchip=f'<div class="chips" style="margin:10px 0"><a class="chip best" href="{html.escape(pl["link"])}" target="_blank" rel="noreferrer">{html.escape(pl.get("label","BUILD THIS PARLAY"))}</a></div>'
+        # single Playbook FD-passthrough chip: state-gated like book_links (his Sep 25 7:37 AM rule:
+        # show ONLY where a real prefill route exists for a platform the state allows; hidden elsewhere
+        # with the honest note). data-book="FD" routes it through the existing rpFilter/rpTerm machinery.
+        u=html.escape(pl["link"]); lab=html.escape(pl.get("label","BUILD THIS PARLAY"))
+        pchip=(f'<div class="chips" id="rpParlayChips" style="margin:10px 0">'
+               f'<a class="chip best"{bkstyle("FD")} href="{u}" data-book="FD" data-sb="{u}" '
+               f'onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("FD")}{lab}</a></div>'
+               f'<div class="note" id="rpParlayNa" style="display:none">Parlay links are sportsbook-only tonight &mdash; no parlay chip in your state. Singles above work on Kalshi &amp; Polymarket everywhere.</div>')
     parlay_html=f'<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs">{legs}</ul>{pchip}<div class="note" id="rpParlayNote">{html.escape(pl.get("note",""))}</div>'
 
 RP_STATES=[('AL','Alabama'),('AK','Alaska'),('AZ','Arizona'),('AR','Arkansas'),('CA','California'),('CO','Colorado'),('CT','Connecticut'),('DE','Delaware'),('DC','Washington D.C.'),('FL','Florida'),('GA','Georgia'),('HI','Hawaii'),('ID','Idaho'),('IL','Illinois'),('IN','Indiana'),('IA','Iowa'),('KS','Kansas'),('KY','Kentucky'),('LA','Louisiana'),('ME','Maine'),('MD','Maryland'),('MA','Massachusetts'),('MI','Michigan'),('MN','Minnesota'),('MS','Mississippi'),('MO','Missouri'),('MT','Montana'),('NE','Nebraska'),('NV','Nevada'),('NH','New Hampshire'),('NJ','New Jersey'),('NM','New Mexico'),('NY','New York'),('NC','North Carolina'),('ND','North Dakota'),('OH','Ohio'),('OK','Oklahoma'),('OR','Oregon'),('PA','Pennsylvania'),('PR','Puerto Rico'),('RI','Rhode Island'),('SC','South Carolina'),('SD','South Dakota'),('TN','Tennessee'),('TX','Texas'),('UT','Utah'),('VT','Vermont'),('VA','Virginia'),('WA','Washington'),('WV','West Virginia'),('WI','Wisconsin'),('WY','Wyoming')]
@@ -401,6 +408,10 @@ function rpKalTick(){{try{{
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
    const c=Math.round(d*100);
    a.innerHTML=a.innerHTML.replace(/KAL[^<]*/,'KAL '+c+'\u00a2');
+   const pk=a.closest('.pick');
+   if(pk&&pk.dataset.market==='ml'){{const s=pk.querySelector('.odds');
+    if(s&&c>0&&c<100){{const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
+     s.textContent=(ml>0?'+':'')+ml;}}}}
   }}).catch(()=>{{}}); /* graceful fallback: relay/API failure keeps last build price */
  }});
 }}catch(e){{}}}}
