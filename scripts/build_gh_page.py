@@ -174,7 +174,58 @@ if man.get('parlay'):
                f'<a class="chip best"{bkstyle("FD")} href="{u}" data-book="FD" data-sb="{u}" '
                f'onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("FD")}{lab}</a></div>'
 )
-    parlay_html=f'<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs">{legs}</ul>{pchip}<div class="note" id="rpParlayNote">{html.escape(pl.get("note",""))}</div>'
+    # per-platform combo prices (his 8:54 AM directive): real prices only - KAL/POLY from live leg
+    # cents product, sportsbooks from verified per-leg MLs in the odds feed. No invented parlay math.
+    def amer_from_cents(cl):
+        c=1.0
+        for x in cl: c*=x
+        c=c/(100**(len(cl)-1))
+        if not (0<c<100): return None
+        return (-round(c/(100-c)*100)) if c>=50 else round((100-c)/c*100)
+    def amer_from_mls(mls):
+        d=1.0
+        for ml in mls: d*=(1+ml/100.0) if ml>0 else (1+100.0/abs(ml))
+        if d<=1.0: return None
+        return (round((d-1)*100)) if d>=2 else (-round(100/(d-1)))
+    lp=[p for p in man['picks'] if any(p['name'].lower() in l.lower() or l.lower() in p['name'].lower() for l in pl['legs'])]
+    spans=[]
+    nlegs=len(pl['legs'])
+    if len(lp)==nlegs:
+        kc=[p['kalshi']['cents'] for p in lp if p.get('kalshi') and p['kalshi'].get('cents')]
+        if len(kc)==nlegs:
+            ml=amer_from_cents(kc)
+            if ml is not None: spans.append(('KAL',f'<span data-book="KAL" id="rpCxKAL" data-n="{nlegs}">KAL {ml:+d}</span>'))
+        pc=[]
+        okp=True
+        for p in lp:
+            if not p.get('polymarket'): okp=False; break
+            cc=poly_price(p['polymarket']['url'], p['name'].split()[0])
+            if not cc: okp=False; break
+            pc.append(cc)
+        if okp and len(pc)==nlegs:
+            ml=amer_from_cents(pc)
+            if ml is not None: spans.append(('POLY',f'<span data-book="POLY" id="rpCxPOLY" data-n="{nlegs}">POLY {ml:+d}</span>'))
+        BKML=[('DK','draftkings'),('FD','fanduel'),('ESPN','espnbet'),('HR','hardrockbet'),('MGM','betmgm'),('BR','betrivers')]
+        for short,pk in BKML:
+            mls=[]; ok=True
+            for p in lp:
+                side=p.get('side','away')
+                pr=pre.get((p['game']['away'],p['game']['home'])) if p.get('game') else None
+                if not pr: ok=False; break
+                if pk in ('betmgm','betrivers'):
+                    e=(pr.get('state_templates') or {}).get(pk) or {}
+                else:
+                    e=pr.get(pk) or {}
+                v=e.get(f"{side}_ml")
+                if v is None: ok=False; break
+                mls.append(v)
+            if ok and len(mls)==nlegs:
+                ml=amer_from_mls(mls)
+                if ml is not None: spans.append((short,f'<span data-book="{short}">{short} {ml:+d}</span>'))
+    order=['KAL','POLY','DK','FD','ESPN','HR','MGM','BR']
+    spans.sort(key=lambda s: order.index(s[0]) if s[0] in order else 99)
+    cpx=f'<div class="cpx" id="rpComboPx">{"".join(s[1] for s in spans)}</div>' if spans else ''
+    parlay_html=f'<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs">{legs}</ul>{cpx}{pchip}<div class="note" id="rpParlayNote">{html.escape(pl.get("note",""))}</div>'
 
 RP_STATES=[('AL','Alabama'),('AK','Alaska'),('AZ','Arizona'),('AR','Arkansas'),('CA','California'),('CO','Colorado'),('CT','Connecticut'),('DE','Delaware'),('DC','Washington D.C.'),('FL','Florida'),('GA','Georgia'),('HI','Hawaii'),('ID','Idaho'),('IL','Illinois'),('IN','Indiana'),('IA','Iowa'),('KS','Kansas'),('KY','Kentucky'),('LA','Louisiana'),('ME','Maine'),('MD','Maryland'),('MA','Massachusetts'),('MI','Michigan'),('MN','Minnesota'),('MS','Mississippi'),('MO','Missouri'),('MT','Montana'),('NE','Nebraska'),('NV','Nevada'),('NH','New Hampshire'),('NJ','New Jersey'),('NM','New Mexico'),('NY','New York'),('NC','North Carolina'),('ND','North Dakota'),('OH','Ohio'),('OK','Oklahoma'),('OR','Oregon'),('PA','Pennsylvania'),('PR','Puerto Rico'),('RI','Rhode Island'),('SC','South Carolina'),('SD','South Dakota'),('TN','Tennessee'),('TX','Texas'),('UT','Utah'),('VT','Vermont'),('VA','Virginia'),('WA','Washington'),('WV','West Virginia'),('WI','Wisconsin'),('WY','Wyoming')]
 RP_FD=['AZ','AR','CO','CT','IL','IN','IA','KS','KY','LA','MD','MA','MI','MO','NJ','NY','NC','OH','PA','TN','VT','VA','WV','WY','DC','PR']
@@ -221,6 +272,8 @@ h1 .tick{{color:#2f8f7d}}
 .unitmath{{color:#8a8f98;font-size:13px;margin-top:2px}}
 .legs{{padding-left:20px;font-size:15px;line-height:1.7}}
 .note{{color:#6b6b72;font-size:13px;margin-top:6px}}
+.cpx{{margin:8px 0 2px;font-size:13px;color:#9a9aa3}}
+.cpx span{{margin-right:12px;font-weight:600}}
 .foot{{margin-top:34px;color:#8a8a91;font-size:12px;line-height:1.6}}
 #rpModal{{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:50}}
 #rpModal .box{{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%}}
@@ -303,6 +356,11 @@ function rpFilter(st){{rpTerm(st);let parlayAllHidden=true;
   const L=RP_L[b];if(!L){{return;}}
   if(!L.includes(st)){{a.style.display='none';}}else{{a.style.display='';parlayAllHidden=parlayAllHidden&&!a.closest('#rpParlayChips')?parlayAllHidden:false;}}
  }});
+ document.querySelectorAll('#rpComboPx span[data-book]').forEach(function(s){{
+  const b=s.dataset.book;
+  if(b==='KAL'||b==='POLY'||b==='DK'||b==='FD'){{s.style.display='';return;}}
+  const L=RP_L[b];s.style.display=(L&&!L.includes(st))?'none':'';
+ }});
  const pc=document.querySelectorAll('#rpParlayChips a[data-book]');let any=false;
  pc.forEach(function(a){{if(a.style.display!=='none')any=true;}});
  }}
@@ -356,6 +414,20 @@ window.addEventListener('pageshow',function(){{try{{
  window.addEventListener('touchend',function(){{if(y0!==null&&el.dataset.armed==='1'){{el.innerHTML='<span class="spin"></span>Refreshing&hellip;';location.replace(location.pathname+'?r='+Date.now());return;}}el.style.transform='translateY(-100%)';y0=null;}},{{passive:true}});
 }})();
 /* Live odds - POLY chips (public gamma API, ~60s) + headline consensus (ESPN free feed, ~60s). No keys. */
+function rpCxUpd(bk){{
+ const span=document.getElementById('rpCx'+bk);if(!span)return;
+ const n=parseInt(span.dataset.n||'0');if(!n)return;
+ const sel=bk==='KAL'?'a[data-kalticker]':'a[data-polyslug]';
+ const re=bk==='KAL'?/KAL (\d+)\u00a2/:/POLY (\d+)\u00a2/;
+ let prod=1,cnt=0;
+ document.querySelectorAll(sel).forEach(function(a){{
+  const m=a.innerHTML.match(re);if(m){{prod*=parseInt(m[1]);cnt++;}}
+ }});
+ if(cnt!==n)return;
+ const c=prod/Math.pow(100,n-1);if(!(c>0&&c<100))return;
+ const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
+ span.textContent=bk+' '+(ml>0?'+':'')+ml;
+}}
 function rpPolyTick(){{try{{
  document.querySelectorAll('a[data-polyslug]').forEach(function(a){{
   if(!a.dataset.polyslug)return;
@@ -373,7 +445,7 @@ function rpPolyTick(){{try{{
    let outs=[],pr=[];try{{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}}catch(e){{return;}}
    for(let i=0;i<outs.length;i++){{if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){{
     const c=Math.round(parseFloat(pr[i])*100);
-    if(c>0&&c<100){{a.innerHTML=a.innerHTML.replace(/POLY[^<]*/,'POLY '+c+'\u00a2');}}
+    if(c>0&&c<100){{a.innerHTML=a.innerHTML.replace(/POLY[^<]*/,'POLY '+c+'\u00a2');rpCxUpd('POLY');}}
     return;
    }}}}
   }}).catch(()=>{{}});
@@ -406,7 +478,7 @@ function rpKalTick(){{try{{
    const m=j&&j.market;if(!m)return;
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
    const c=Math.round(d*100);
-   a.innerHTML=a.innerHTML.replace(/KAL[^<]*/,'KAL '+c+'\u00a2');
+   a.innerHTML=a.innerHTML.replace(/KAL[^<]*/,'KAL '+c+'\u00a2');rpCxUpd('KAL');
    const pk=a.closest('.pick');
    if(pk&&pk.dataset.market==='ml'){{const s=pk.querySelector('.odds');
     if(s&&c>0&&c<100){{const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
