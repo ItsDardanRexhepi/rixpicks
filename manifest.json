@@ -17,7 +17,8 @@
    },
    "kalshi": {
     "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep252140houath",
-    "cents": 63
+    "cents": 63,
+    "team": "HOU"
    },
    "best_book": "FanDuel",
    "espn_league": "baseball/mlb",
@@ -44,7 +45,8 @@
    },
    "kalshi": {
     "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep251905balnyy",
-    "cents": 46
+    "cents": 46,
+    "team": "BAL"
    },
    "best_book": "Kalshi",
    "espn_league": "baseball/mlb",
@@ -71,7 +73,8 @@
    },
    "kalshi": {
     "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep251940clekc",
-    "cents": 56
+    "cents": 56,
+    "team": "CLE"
    },
    "best_book": "Kalshi",
    "espn_league": "baseball/mlb",
