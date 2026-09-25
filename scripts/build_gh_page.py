@@ -581,6 +581,7 @@ function rpA2hsStep(d){{if(d>0&&rpA2hsI===RP_A2HS.length-1){{rpA2hsDone();return
 function rpA2hsDone(){{localStorage.setItem('rp_a2hs_v1','1');document.getElementById('rpA2hs').style.display='none';}}
 function rpMaybeA2HS(){{if(RP_STANDALONE||RP_MOB===false)return;if(localStorage.getItem('rp_a2hs_v1'))return;
  rpA2hsRender();document.getElementById('rpA2hs').style.display='flex';}}
+const RP_BAT='<svg width="11" height="11" viewBox="0 0 16 16" style="vertical-align:-1px;margin:0 2px"><line x1="11.5" y1="1.5" x2="5.5" y2="7.5" stroke="#e8b93c" stroke-width="3" stroke-linecap="round"/><circle cx="4" cy="12" r="2.2" fill="#e8b93c"/></svg>';
 function rpLsRender(pk,g){{const el=pk.querySelector('[data-ls]');if(!el)return;
  if(!g||g.state==='pre'){{el.className='ls';el.innerHTML='';return;}}
  if(g.state==='post'){{const side=pk.dataset.side||'away';
@@ -588,7 +589,8 @@ function rpLsRender(pk,g){{const el=pk.querySelector('[data-ls]');if(!el)return;
   el.className='ls on '+(win?'won':'lost');
   el.innerHTML='<b>'+(win?'W':'L')+'</b> &middot; '+g.a+' '+g.as+' - '+g.h+' '+g.hs+' Final';return;}}
  el.className='ls on';
- el.innerHTML=(g.state==='in'?'<span class="dot"></span>':'')+g.a+' '+g.as+' - '+g.h+' '+g.hs+' &middot; '+g.st;}}
+ const ba=(g.bat==='a')?RP_BAT:'',bh=(g.bat==='h')?RP_BAT:'';
+ el.innerHTML=(g.state==='in'?'<span class="dot"></span>':'')+g.a+ba+' '+g.as+' - '+g.h+bh+' '+g.hs+' &middot; '+g.st;}}
 async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data-away]')].filter(x=>x.dataset.away);if(!picks.length)return;
  const mlb=picks.filter(x=>(x.dataset.espn||'')==='baseball/mlb');
  if(mlb.length){{try{{
@@ -600,6 +602,7 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
    const inn=(st==='In Progress')?((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim():st;
    rpLsRender(pk,{{a:g.teams.away.team.abbreviation||g.teams.away.team.name.split(' ').pop().slice(0,3).toUpperCase(),h:g.teams.home.team.abbreviation||g.teams.home.team.name.split(' ').pop().slice(0,3).toUpperCase(),
     as:(ls.teams&&ls.teams.away&&ls.teams.away.runs)||0,hs:(ls.teams&&ls.teams.home&&ls.teams.home.runs)||0,
+    bat:st==='In Progress'?(ls.inningState==='Top'?'a':(ls.inningState==='Bottom'?'h':null)):null,
     st:inn,state:st==='In Progress'?'in':(st==='Final'||st==='Game Over')?'post':'pre'}});}});}}catch(e){{}}}}
  const byLg={{}};picks.filter(x=>x.dataset.espn&&(x.dataset.espn!=='baseball/mlb')).forEach(x=>{{(byLg[x.dataset.espn]=byLg[x.dataset.espn]||[]).push(x);}});
  for(const lg of Object.keys(byLg)){{try{{

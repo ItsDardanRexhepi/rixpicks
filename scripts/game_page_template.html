@@ -154,6 +154,7 @@ function rpLiveBox(){try{
  if(d.dataset.espn==='baseball/mlb'){rpMlbLive(d);return;}
  rpEspnPanel(d);
 }catch(e){}}
+const RP_BAT='<svg width="11" height="11" viewBox="0 0 16 16" style="vertical-align:-1px;margin:0 2px"><line x1="11.5" y1="1.5" x2="5.5" y2="7.5" stroke="#e8b93c" stroke-width="3" stroke-linecap="round"/><circle cx="4" cy="12" r="2.2" fill="#e8b93c"/></svg>';
 function rpLiveSvg(on1,on2,on3){
  const c1=on1?'#e8b93c':'rgba(127,127,127,.25)',c2=on2?'#e8b93c':'rgba(127,127,127,.25)',c3=on3?'#e8b93c':'rgba(127,127,127,.25)';
  return '<svg width="34" height="30" viewBox="0 0 34 30" style="flex:none">'+
@@ -192,8 +193,9 @@ async function rpMlbLive(d){
   wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+det.toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+inn+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
  h+='<div style="display:flex;align-items:center;gap:12px">';
- h+='<div style="flex:1"><div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
- h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div></div>';
+ const batA=live&&ls.inningState==='Top',batH=live&&ls.inningState==='Bottom';
+ h+='<div style="flex:1"><div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+(batA?RP_BAT:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
+ h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+(batH?RP_BAT:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div></div>';
  if(live){
   const off=ls.offense||{};
   h+='<div style="text-align:center">'+rpLiveSvg(!!off.first,!!off.second,!!off.third)+'</div>';
