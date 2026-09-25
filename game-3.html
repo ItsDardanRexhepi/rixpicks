@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cleveland Guardians at Kansas City Royals - &rsquo;RixPicks</title>
+<meta name="description" content="Live markets for Cleveland Guardians at Kansas City Royals.">
+<style>
+*{margin:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f7f6f4;color:#1b1b1f;min-height:100vh;overscroll-behavior-y:contain}
+.wrap{max-width:680px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:26px;font-weight:800;letter-spacing:-0.01em}
+h1 .tick{color:#2f8f7d}
+.status{color:#6b6b72;font-size:14px;margin-top:6px}
+.intro{color:#6b6b72;font-size:14px;margin-top:2px}
+.sect{margin:26px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}
+.pick{padding:18px 0;border-top:1px solid #e4e2de}
+.pick:first-of-type{border-top:none}
+.pick-head{display:flex;align-items:baseline;gap:10px}
+.gamelink{display:flex;align-items:baseline;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}
+.chev{color:#b9b9c0;font-size:20px;font-weight:600;text-decoration:none;padding:0 2px;line-height:1}
+.mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}
+.mrow:first-of-type{border-top:none}
+.mrow .bk{font-weight:700;width:52px;flex:none}
+.mrow .side{flex:1}
+.mrow .pr{font-weight:600;color:#2f8f7d;white-space:nowrap}
+.mrow a{color:inherit;text-decoration:none}
+.back{color:#6b6b72;font-size:14px;text-decoration:none}
+.score{font-size:14px;color:#6b6b72;margin-top:4px}
+@media (prefers-color-scheme: dark){.chev{color:#55555c}.mrow{border-top-color:#2a2a2e}.mrow .pr{color:#3aa895}.back,.score{color:#9a9aa3}}
+.num{color:#6b6b72}
+.name{font-weight:600;font-size:17px;flex:1}
+.odds{color:#2f8f7d;font-weight:600;white-space:nowrap}
+.sub{color:#6b6b72;font-size:14px;margin:6px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}
+.bklogo{width:16px;height:16px;border-radius:3px;flex:none}
+.chip.best{font-weight:800}
+.rec{font-weight:600;font-size:16px;padding:8px 0 1px}
+.units{color:#8a8f98;font-size:13px;font-weight:600;margin-right:8px}
+.unitmath{color:#8a8f98;font-size:13px;margin-top:8px}
+.legs{padding-left:20px;font-size:15px;line-height:1.7}
+.note{color:#6b6b72;font-size:13px;margin-top:6px}
+.yesrec{color:#6b6b72;font-size:13px;margin-top:2px}
+
+.lghead{color:#6b6b72;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:16px 0 4px}
+.lghead:first-of-type{margin-top:6px}
+.cpx{margin:8px 0 2px;font-size:13px;color:#9a9aa3}
+.cpx span{margin-right:12px;font-weight:600}
+.foot{margin-top:34px;color:#8a8a91;font-size:12px;line-height:1.6}
+#rpModal{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:50}
+#rpModal .box{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%}
+#rpModal h3{font-size:16px;margin-bottom:6px}
+#rpModal p{font-size:13px;color:#6b6b72;margin-bottom:12px}
+#rpState{width:100%;padding:10px;border:1px solid #e4e2de;border-radius:8px;font-size:15px;margin-bottom:12px}
+#rpSave{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.rpstate-link{color:#2f8f7d;cursor:pointer;text-decoration:underline}
+#rpPull{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}
+.spin{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}
+@keyframes rpSpin{to{transform:rotate(360deg)}}
+@media (prefers-color-scheme: dark){
+body{background:#000;color:#ececf1}
+h1 .tick,.odds,.rpstate-link{color:#3aa895}
+.status,.intro,.sect,.num,.sub,.note{color:#9a9aa3}
+.pick{border-top-color:#2a2a2e}
+.chip{background:#1e1e22;color:#ececf1}
+.foot{color:#6f6f78}
+#rpModal{background:rgba(0,0,0,.6)}
+#rpModal .box{background:#1e1e22}
+#rpModal h3{color:#ececf1}
+#rpModal p{color:#9a9aa3}
+#rpState{background:#141416;color:#ececf1;border-color:#2a2a2e}
+#rpGeoNote{color:#3aa895 !important}
+#rpPull{background:#000;color:#3aa895}
+.spin{border-color:#2a4a44;border-top-color:#3aa895}
+.chip[data-bk="FD"]{background:#12283d !important;border-color:#12283d !important;color:#5aa9e8 !important}
+.chip[data-bk="ESPN"]{background:#0f2e26 !important;border-color:#0f2e26 !important;color:#3ec9a0 !important}
+.chip[data-bk="HR"]{background:#2e2614 !important;border-color:#2e2614 !important;color:#d8b84e !important}
+.chip[data-bk="MGM"]{background:#2b2517 !important;border-color:#2b2517 !important;color:#cdb271 !important}
+.chip[data-bk="BR"]{background:#10262f !important;border-color:#10262f !important;color:#4fc3e8 !important}
+.chip[data-bk="KAL"]{background:#0f2a22 !important;border-color:#0f2a22 !important;color:#3ed0a8 !important}
+.chip[data-bk="POLY"]{background:#122536 !important;border-color:#122536 !important;color:#5aa9e0 !important}
+.chip[data-bk="B365"]{background:#2a2410 !important;border-color:#2a2410 !important;color:#e0cd6a !important}
+.chip[data-bk="FAN"]{background:#232326 !important;border-color:#232326 !important;color:#d8d8dc !important}
+}
+</style>
+</head><body>
+<div class="wrap">
+<a class="back" href="./">&larr; Today&rsquo;s picks</a>
+<div class="sect" style="margin-top:18px">Game 3</div>
+<div class="pick" data-espn="baseball/mlb" data-away="Cleveland Guardians" data-home="Kansas City Royals" data-side="away" data-market="ml">
+  <div class="pick-head"><span class="num">3.</span><span class="name">Guardians ML</span><span class="units">5u</span><span class="odds">-129</span></div>
+  <div class="sub">at Royals - Williams last 5: 0,2,2,0,5 ER with 40 Ks; CLE protecting the division lead</div>
+  <div class="score" id="rpScore">4:41 PM PT</div>
+  <div class="chips" style="margin-top:12px"><a class="chip" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" href="https://sportsbook.draftkings.com/?outcomes=0ML86450711_3" data-book="DK" data-sb="https://sportsbook.draftkings.com/?outcomes=0ML86450711_3" data-pm="https://predictions.draftkings.com/en/event/cle-guardians-%40-kc-royals/34720710" data-pmapp="" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK -145</a><a class="chip" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886716&amp;selectionId=41541473" data-book="FD" data-sb="https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886716&amp;selectionId=41541473" data-pm="https://www.fanduel.com/predicts" data-pmapp="https://predicts.fanduel.com/" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD -142</a><a class="chip" data-bk="ESPN" style="background:#e6faf3;border-color:#e6faf3;color:#0a8a66" href="https://sportsbook.thescore.bet/?market_selection_id[0]=78fc9772-928a-4c53-94a9-1322b5931e2c&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" data-book="ESPN" data-sb="https://sportsbook.thescore.bet/?market_selection_id[0]=78fc9772-928a-4c53-94a9-1322b5931e2c&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=espnbet.com&sz=128" alt="" onerror="this.remove()">ESPN -145</a><a class="chip" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" href="https://app.hardrock.bet/?deep_link_value=betslip/4260429827233939846" data-book="HR" data-sb="https://app.hardrock.bet/?deep_link_value=betslip/4260429827233939846" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR -140</a><a class="chip" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" href="https://sports.{state}.betmgm.com/en/sports?options=19945278-1558627376-2296941748&amp;type=Single" data-book="MGM" data-sb="https://sports.{state}.betmgm.com/en/sports?options=19945278-1558627376-2296941748&amp;type=Single" data-template="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM -145</a><a class="chip" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" href="https://{state}.betrivers.com/?page=sportsbook#event/1024788223" data-book="BR" data-sb="https://{state}.betrivers.com/?page=sportsbook#event/1024788223" data-template="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR -137</a><a class="chip best" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep251940clekc" data-kalticker="KXMLBGAME-26SEP251940CLEKC" data-kalside="CLE" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">★ KAL -127</a><a class="chip" data-bk="POLY" style="background:#e8f3fc;border-color:#e8f3fc;color:#1a6db0" href="https://polymarket.us/event/mlb-cle-kc-2026-09-25" data-book="POLY" data-sb="https://polymarket.us/event/mlb-cle-kc-2026-09-25" data-app="https://polymarket.us/event/mlb-cle-kc-2026-09-25" data-polyslug="mlb-cle-kc-2026-09-25" data-polysub="" data-polykw="Guardians" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=polymarket.com&sz=128" alt="" onerror="this.remove()">POLY -127</a></div>
+</div>
+<div class="sect">Live markets - both sides</div>
+<div class="mrow"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()"><span class="bk">DK</span><span class="side"><a href="https://sportsbook.draftkings.com/?outcomes=0ML86450711_3" target="_blank" rel="noreferrer">Cleveland Guardians</a></span><span class="pr"><a href="https://sportsbook.draftkings.com/?outcomes=0ML86450711_3" target="_blank" rel="noreferrer">-145</a></span><span class="side" style="text-align:right"><a href="https://sportsbook.draftkings.com/?outcomes=0ML86450711_1" target="_blank" rel="noreferrer">Kansas City Royals</a></span><span class="pr"><a href="https://sportsbook.draftkings.com/?outcomes=0ML86450711_1" target="_blank" rel="noreferrer">+120</a></span></div><div class="mrow"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()"><span class="bk">FD</span><span class="side"><a href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886716&amp;selectionId=41541473" target="_blank" rel="noreferrer">Cleveland Guardians</a></span><span class="pr"><a href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886716&amp;selectionId=41541473" target="_blank" rel="noreferrer">-142</a></span><span class="side" style="text-align:right"><a href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886716&amp;selectionId=29179" target="_blank" rel="noreferrer">Kansas City Royals</a></span><span class="pr"><a href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886716&amp;selectionId=29179" target="_blank" rel="noreferrer">+120</a></span></div><div class="mrow"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=espnbet.com&sz=128" alt="" onerror="this.remove()"><span class="bk">ESPN</span><span class="side"><a href="https://sportsbook.thescore.bet/?market_selection_id[0]=78fc9772-928a-4c53-94a9-1322b5931e2c&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" target="_blank" rel="noreferrer">Cleveland Guardians</a></span><span class="pr"><a href="https://sportsbook.thescore.bet/?market_selection_id[0]=78fc9772-928a-4c53-94a9-1322b5931e2c&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" target="_blank" rel="noreferrer">-145</a></span><span class="side" style="text-align:right"><a href="https://sportsbook.thescore.bet/?market_selection_id[0]=a69b26d0-53c4-4880-bdc5-7cba0896afc1&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" target="_blank" rel="noreferrer">Kansas City Royals</a></span><span class="pr"><a href="https://sportsbook.thescore.bet/?market_selection_id[0]=a69b26d0-53c4-4880-bdc5-7cba0896afc1&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" target="_blank" rel="noreferrer">+125</a></span></div><div class="mrow"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()"><span class="bk">HR</span><span class="side"><a href="https://app.hardrock.bet/?deep_link_value=betslip/4260429827233939846" target="_blank" rel="noreferrer">Cleveland Guardians</a></span><span class="pr"><a href="https://app.hardrock.bet/?deep_link_value=betslip/4260429827233939846" target="_blank" rel="noreferrer">-140</a></span><span class="side" style="text-align:right"><a href="https://app.hardrock.bet/?deep_link_value=betslip/5395284156773171590" target="_blank" rel="noreferrer">Kansas City Royals</a></span><span class="pr"><a href="https://app.hardrock.bet/?deep_link_value=betslip/5395284156773171590" target="_blank" rel="noreferrer">+115</a></span></div><div class="mrow"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()"><span class="bk">MGM</span><span class="side"><a href="https://sports.{state}.betmgm.com/en/sports/events/cleveland-guardians-at-kansas-city-royals-19945278" target="_blank" rel="noreferrer">Cleveland Guardians</a></span><span class="pr">-145</span><span class="side" style="text-align:right"><a href="https://sports.{state}.betmgm.com/en/sports/events/cleveland-guardians-at-kansas-city-royals-19945278" target="_blank" rel="noreferrer">Kansas City Royals</a></span><span class="pr">+118</span></div><div class="mrow"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()"><span class="bk">BR</span><span class="side"><a href="https://{state}.betrivers.com/?page=sportsbook#event/1024788223" target="_blank" rel="noreferrer">Cleveland Guardians</a></span><span class="pr">-137</span><span class="side" style="text-align:right"><a href="https://{state}.betrivers.com/?page=sportsbook#event/1024788223" target="_blank" rel="noreferrer">Kansas City Royals</a></span><span class="pr">+116</span></div>
+<div class="mrow"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()"><span class="bk">KAL</span><span class="side"><a href="https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep251940clekc" target="_blank" rel="noreferrer">Cleveland Guardians</a></span><span class="pr"><a data-kalticker="KXMLBGAME-26SEP251940CLEKC" data-kalside="CLE" href="https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep251940clekc" target="_blank" rel="noreferrer">KAL -127</a></span><span class="side" style="text-align:right;color:#8a8f98">full board on Kalshi</span><span class="pr"></span></div>
+<div class="mrow"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=polymarket.com&sz=128" alt="" onerror="this.remove()"><span class="bk">POLY</span><span class="side"><a href="https://polymarket.us/event/mlb-cle-kc-2026-09-25" target="_blank" rel="noreferrer">Cleveland Guardians</a></span><span class="pr"><a data-polyslug="mlb-cle-kc-2026-09-25" data-polysub="" data-polykw="Guardians" href="https://polymarket.us/event/mlb-cle-kc-2026-09-25" target="_blank" rel="noreferrer">POLY -127</a></span><span class="side" style="text-align:right;color:#8a8f98">full board on Polymarket</span><span class="pr"></span></div>
+<div class="foot">Prices update live: Kalshi &amp; Polymarket tick every 60s; sportsbook rows refresh with each page rebuild. Tap a price to open the market.</div>
+</div>
+<script>
+const RP_BUILD='1790363654';
+function rpC2ML(c){c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}
+function rpMLF(m){return (m>0?'+':'')+m;}
+function rpKalTick(){try{
+ document.querySelectorAll('a[data-kalticker][data-kalside]').forEach(function(a){
+  if(!a.dataset.kalticker||!a.dataset.kalside)return;
+  const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+a.dataset.kalticker+'-'+a.dataset.kalside;
+  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){
+   const m=j&&j.market;if(!m)return;
+   const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
+   const c=Math.round(d*100);
+   a.innerHTML=a.innerHTML.replace(/KAL [+-]?\d+/,'KAL '+rpMLF(rpC2ML(c)));
+  }).catch(function(){});
+ });
+}catch(e){}}
+function rpPolyTick(){try{
+ document.querySelectorAll('a[data-polyslug]').forEach(function(a){
+  if(!a.dataset.polyslug)return;
+  fetch('https://gamma-api.polymarket.com/events?slug='+a.dataset.polyslug).then(r=>r.json()).then(function(ev){
+   if(!ev||!ev.length)return;const kw=(a.dataset.polykw||'').toLowerCase();const sub=a.dataset.polysub||'';
+   let target=null;
+   (ev[0].markets||[]).forEach(function(m){
+    if(target)return;
+    if(sub){if(m.slug===sub)target=m;return;}
+    const q=String(m.question||'');if(q.indexOf(':')>=0)return;
+    let oo=[];try{oo=JSON.parse(m.outcomes||'[]');}catch(e){return;}
+    for(let k=0;k<oo.length;k++){if(String(oo[k]).toLowerCase().indexOf(kw)>=0){target=m;break;}}
+   });
+   if(!target)return;
+   let outs=[],pr=[];try{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}catch(e){return;}
+   for(let i=0;i<outs.length;i++){if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){
+    const c=Math.round(parseFloat(pr[i])*100);
+    if(c>0&&c<100){a.innerHTML=a.innerHTML.replace(/POLY [+-]?\d+/,'POLY '+rpMLF(rpC2ML(c)));}
+    return;
+   }}
+  }).catch(function(){});
+ });
+}catch(e){}}
+function rpEspnTick(){try{
+ const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
+ fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
+  (j.events||[]).forEach(function(ev){
+   const comp=(ev.competitions||[])[0]||{};
+   const atok=(d.dataset.away||'').toLowerCase().split(' ').pop(),htok=(d.dataset.home||'').toLowerCase().split(' ').pop();
+   const nm=(ev.name||'').toLowerCase();
+   if(nm.indexOf(atok)<0||nm.indexOf(htok)<0)return;
+   const st=(comp.status||{}).type||{};
+   const comps=comp.competitors||[];
+   let sc='';
+   comps.forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
+   const sline=document.getElementById('rpScore');
+   if(sline&&st.state!=='pre'&&sc){sline.textContent=(st.shortDetail||'')+'  |  '+sc;}
+   const o=(comp.odds||[])[0];if(!o)return;
+   const ml=d.dataset.side==='away'?(o.awayTeamOdds||{}).moneyLine:(o.homeTeamOdds||{}).moneyLine;
+   if(typeof ml==='number'){const s=d.querySelector('.odds');if(s)s.textContent=(ml>0?'+':'')+ml;
+    const chip=d.querySelector('a[data-book="ESPN"]');
+    if(chip){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);}}
+  });
+ }).catch(function(){});
+}catch(e){}}
+function rpPageRefresh(){try{
+ fetch(location.pathname+'?r='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(function(t){
+  if(t.indexOf(RP_BUILD)<0){location.replace(location.pathname+'?v='+Date.now());}
+ }).catch(function(){});
+}catch(e){}}
+rpPolyTick();rpEspnTick();rpKalTick();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);
+setInterval(rpPageRefresh,60000);
+</script>
+</body></html>
