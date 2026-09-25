@@ -384,7 +384,9 @@ if man.get('parlay'):
                 if not cc: okp=False; break
                 pc.append(cc)
                 slug=poly_event_slug(l['url']) or ''
-                phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" style="display:none">POLY {c2ml(cc)}</a>'
+                wattr=' data-won="1"' if cc==100 else ''
+                ptext='POLY ✓' if cc==100 else 'POLY '+c2ml(cc)
+                phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}"{wattr} style="display:none">{ptext}</a>'
         else:
             for p in lp:
                 if not p.get('polymarket'): okp=False; break
@@ -783,6 +785,7 @@ function rpCxUpd(bk){{
  let d=1,cnt=0;
  document.querySelectorAll(sel).forEach(function(a){{
   if(a.id==='rpCxKAL'||a.id==='rpCxPOLY')return;
+  if(a.dataset.won==='1'){{cnt++;return;}}
   const m=a.innerHTML.match(re);if(m){{const ml=parseInt(m[1]);d*=ml>0?1+ml/100:1+100/Math.abs(ml);cnt++;}}
  }});
  if(cnt!==n||d<=1)return;
@@ -821,6 +824,7 @@ function rpPolyTick(){{try{{
    let outs=[],pr=[];try{{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}}catch(e){{return;}}
    for(let i=0;i<outs.length;i++){{if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){{
     const c=Math.round(parseFloat(pr[i])*100);
+    if(target.closed&&c>=99){{a.dataset.won='1';a.innerHTML=a.innerHTML.replace(/POLY [+-]?\d+/,'POLY \u2713');rpCxUpd('POLY');return;}}
     if(c>0&&c<100){{a.innerHTML=a.innerHTML.replace(/POLY [+-]?\d+/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');
      const pk=a.closest('.pick');
      if(pk&&pk.dataset.market==='ml'){{const s2=pk.querySelector('.odds');
@@ -857,6 +861,8 @@ function rpKalTick(){{try{{
   const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+a.dataset.kalticker+'-'+a.dataset.kalside;
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){{
    const m=j&&j.market;if(!m)return;
+   if(m.result==='yes'){{a.dataset.won='1';rpCxUpd('KAL');return;}}
+   if(m.result==='no')return;
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
    const c=Math.round(d*100);
    a.innerHTML=a.innerHTML.replace(/KAL [+-]?\d+/,'KAL '+rpMLF(rpC2ML(c)));rpCxUpd('KAL');
@@ -1195,7 +1201,7 @@ FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="vie
 <div class="status">Futures &middot; __COUNT__ picks &middot; live Polymarket tracking vs carded entry</div>
 <div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
 __ROWS__
-<div id="rpFd" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(4,10,16,.72);align-items:flex-end;justify-content:center" onclick="if(event.target===this)this.style.display='none'"><div id="rpFdBox" style="background:#0B1822;border-top:1px solid rgba(59,235,245,.25);border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;padding:16px;color:#E6F6F8"></div></div>
+<div id="rpFd" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(0,0,0,.78);align-items:flex-end;justify-content:center" onclick="if(event.target===this)this.style.display='none'"><div id="rpFdBox" style="background:#000000;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;padding:16px;color:#ECECF1"></div></div>
 <div class="unitmath" style="margin-top:18px">Live prices via Polymarket &middot; refresh 60s &middot; build __BUILD__</div>
 </div>
 <script>
@@ -1270,7 +1276,7 @@ function rpFutOpen(fid){
  var sh=document.getElementById('rpFd');var bx=document.getElementById('rpFdBox');
  var team=r.dataset.team,mkt=r.dataset.mkt,entry=r.dataset.entry,fair=r.dataset.fair,prob=r.dataset.prob,res=r.dataset.res,units=r.dataset.units,note=r.dataset.note;
  var h='<h3>'+team+'</h3><div class="rp-sub">'+mkt+'</div>';
- h+='<div class="rp-bet"><b>Why this pick</b><div style="margin-top:4px">Carded at <b>'+entry+'</b>'+(fair?' - our fair price was <b>'+fair+'</b>':'')+(prob?' (we rate it ~'+Math.round(parseFloat(prob)*100)+'% vs the '+entry+' implied price)':'')+'. The gap between our number and the market price is the edge; we sized '+(units||'2')+'u on it.</div>'+(note?'<div style="margin-top:4px;color:#8FB3BC">'+note+'</div>':'')+(res?'<div style="margin-top:4px;color:#8FB3BC">Resolves: '+res+'</div>':'')+'</div>';
+ h+='<div class="rp-bet"><b>Why this pick</b><div style="margin-top:4px">Carded at <b>'+entry+'</b>'+(fair?' - our fair price was <b>'+fair+'</b>':'')+(prob?' (we rate it ~'+Math.round(parseFloat(prob)*100)+'% vs the '+entry+' implied price)':'')+'. The gap between our number and the market price is the edge; we sized '+(units||'2')+'u on it.</div>'+(note?'<div style="margin-top:4px;color:#9A9AA3">'+note+'</div>':'')+(res?'<div style="margin-top:4px;color:#9A9AA3">Resolves: '+res+'</div>':'')+'</div>';
  h+='<div class="rp-bet" id="rpFdLive"><b>Live market</b><div style="margin-top:4px" id="rpFdLiveBody">loading...</div></div>';
  bx.innerHTML=h+'<button class="rp-btn ghost" onclick="rpFdClose()">Close</button>';
  sh.style.display='flex';
@@ -1289,7 +1295,7 @@ function rpFutOpen(fid){
    var v24=m.volume24hr?('$'+Math.round(m.volume24hr).toLocaleString()+' traded in last 24h'):'';
    var liq=m.liquidity?(' &middot; $'+Math.round(m.liquidity).toLocaleString()+' liquidity'):'';
    var d1=(m.oneDayPriceChange!=null)?((m.oneDayPriceChange*100>=0?'+':'')+(m.oneDayPriceChange*100).toFixed(1)+' pts last 24h'):'';
-   b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow+'<div style="margin-top:4px;color:#8FB3BC">'+[d1,v24+liq].filter(Boolean).join(' &middot; ')+'</div>';
+   b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow+'<div style="margin-top:4px;color:#9A9AA3">'+[d1,v24+liq].filter(Boolean).join(' &middot; ')+'</div>';
   }catch(e){b.textContent='live data unavailable';}
  }
  if(rpFdCache[slug]){var mm=null;for(var i=0;i<rpFdCache[slug].length;i++){if((rpFdCache[slug][i].question||'').toLowerCase().indexOf(kw)>=0){mm=rpFdCache[slug][i];break;}}if(mm){render(mm);return;}}

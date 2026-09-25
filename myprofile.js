@@ -22,18 +22,18 @@ css.textContent=
 '.rp-pill.on{border-color:#10D5E1;color:#3BEBF5;background:rgba(16,213,225,.08)}'+
 '.rp-btn{display:block;width:100%;padding:13px;border:none;border-radius:12px;background:#00CCBF;color:#03232B;font-weight:700;font-size:15px;cursor:pointer;margin-top:14px;letter-spacing:.1px}'+
 '.rp-btn.ghost{background:transparent;color:#9A9AA3;border:1px solid rgba(255,255,255,.14)}'+
-'.rp-tabs{display:flex;background:#0E0E11;border-radius:12px;padding:3px;margin:12px 0 16px}'+
+'.rp-tabs{display:flex;background:#111111;border-radius:12px;padding:3px;margin:12px 0 16px}'+
 '.rp-tab{flex:1;text-align:center;padding:8px;border-radius:9px;color:#8A8F98;font-size:13.5px;font-weight:600;cursor:pointer;transition:background .15s,color .15s}'+
 '.rp-tab.on{background:rgba(16,213,225,.12);color:#3BEBF5}'+
-'.rp-stats{display:flex;background:#0E0E11;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:12px 0;margin-bottom:14px}'+
+'.rp-stats{display:flex;background:#111111;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:12px 0;margin-bottom:14px}'+
 '.rp-stat{flex:1;text-align:center}'+
 '.rp-stat+.rp-stat{border-left:1px solid rgba(255,255,255,.07)}'+
 '.rp-stat b{display:block;font-size:16px;font-weight:700;color:#F2F2F5;margin-bottom:2px}'+
 '.rp-stat span{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#6E737C}'+
-'.rp-bet{border:1px solid rgba(255,255,255,.07);background:#0E0E11;border-radius:14px;padding:12px 14px;margin-bottom:10px;font-size:13.5px;line-height:1.4}'+
+'.rp-bet{border:1px solid rgba(255,255,255,.07);background:#111111;border-radius:14px;padding:12px 14px;margin-bottom:10px;font-size:13.5px;line-height:1.4}'+
 '.rp-bet .rp-live{color:#8A8F98;font-size:12px;margin-top:4px}'+
 '.rp-pos{color:#00CCBF}.rp-neg{color:#FF6B5E}'+
-'.rp-input{width:100%;box-sizing:border-box;background:#0E0E11;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#ECECF1;padding:11px 12px;font-size:14px;margin-bottom:10px;outline:none}'+
+'.rp-input{width:100%;box-sizing:border-box;background:#111111;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#ECECF1;padding:11px 12px;font-size:14px;margin-bottom:10px;outline:none}'+
 '.rp-input:focus{border-color:#10D5E1}'+
 '.rp-input::placeholder{color:#5C6068}'+
 '.rp-row{display:flex;gap:10px}.rp-row>*{flex:1}'+
@@ -62,7 +62,7 @@ document.head.appendChild(css);
 var modalEl=null;
 function closeModal(){if(modalEl){modalEl.remove();modalEl=null;}}
 function openSheet(html){closeModal();modalEl=document.createElement('div');modalEl.className='rp-modal';modalEl.innerHTML='<div class="rp-sheet"><div class="rp-grab"></div>'+html+'</div>';modalEl.addEventListener('click',function(e){if(e.target===modalEl)closeModal();});document.body.appendChild(modalEl);return modalEl.firstChild;}
-function toast(msg){var t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;left:50%;bottom:70px;transform:translateX(-50%);background:#0B1822;border:1px solid #3BEBF5;color:#3BEBF5;padding:8px 16px;border-radius:18px;font-size:13px;z-index:80';document.body.appendChild(t);setTimeout(function(){t.remove();},2200);}
+function toast(msg){var t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;left:50%;bottom:70px;transform:translateX(-50%);background:#000000;border:1px solid #3BEBF5;color:#3BEBF5;padding:8px 16px;border-radius:18px;font-size:13px;z-index:80';document.body.appendChild(t);setTimeout(function(){t.remove();},2200);}
 /* --- My Books --- */
 function personalize(){var mine=myBooks();each(document.querySelectorAll('.chips'),function(c){var kids=Array.prototype.slice.call(c.querySelectorAll('.chip'));if(!kids.length)return;if(!mine.length){kids.forEach(function(ch){ch.classList.remove('rpmine');ch.classList.remove('rpdim');});return;}kids.sort(function(a,b){var am=mine.indexOf(a.getAttribute('data-book')||'')>=0?0:1;var bm=mine.indexOf(b.getAttribute('data-book')||'')>=0?0:1;return am-bm;});kids.forEach(function(ch){var m=mine.indexOf(ch.getAttribute('data-book')||'')>=0;ch.classList.toggle('rpmine',m);ch.classList.toggle('rpdim',!m);c.appendChild(ch);});});}
 function booksSheet(){var sel=myBooks().slice();var sh=openSheet('<h3>My Platforms</h3><div class="rp-sub">Tap the platforms you use. Picks highlight yours first - linked account sync lands here.</div><div id="rpPills"></div><button class="rp-btn" id="rpSaveBooks">Save</button>'+(sel.length?'<button class="rp-btn ghost" id="rpClearBooks">Clear my platforms</button>':''));
