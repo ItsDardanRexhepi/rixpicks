@@ -181,7 +181,7 @@ def chips(p):
             tick=p['kalshi']['url'].rstrip('/').split('/')[-1].upper()
             best=(p.get('best_book')=='Kalshi')
             side=html.escape(p.get('kalshi',{}).get('team',''))
-            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-kalticker="{tick}" data-kalside="{side}" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{label}</a>')
+            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="KAL" data-kalticker="{tick}" data-kalside="{side}" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{label}</a>')
             continue
         if name=='Polymarket':
             if not p.get('polymarket'): continue
@@ -848,7 +848,7 @@ function rpPageRefresh(){{try{{
 }}catch(e){{}}}}
 setInterval(rpPageRefresh,60000);
 </script>
-</div></body></html>'''
+<script src="myprofile.js?v={{build_sha}}"></script></div></body></html>'''
 
 def _pt_label(iso):
     try:
@@ -1216,7 +1216,7 @@ window.addEventListener('pageshow',function(){try{
   if(t.indexOf(RP_BUILD)<0){sessionStorage.setItem('rp_reloaded','1');location.replace(location.pathname+'?v='+RP_BUILD);}
  }).catch(function(){});
 }catch(e){}});
-</script></body></html>'''
+<script src="myprofile.js?v=__BUILD__"></script></body></html>'''
 def build_futures_page(css,build_sha):
     if not FUT: return None
     BALL={'NFL':'&#127944;','MLB':'&#9918;','NBA':'&#127936;','NHL':'&#127954;','WTA':'&#127934;','CFB':'&#127944;'}
