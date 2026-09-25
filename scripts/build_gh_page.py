@@ -259,7 +259,7 @@ if man.get('parlay'):
         m=[p for p in man['picks'] if p['name'].lower() in l.lower() or l.lower() in p['name'].lower()]
         if not m: return f'<li>{html.escape(l)}</li>'
         p=m[0]; g=p.get('game') or {}
-        return ('<li class="cxleg" data-espn="%s" data-away="%s" data-home="%s" data-side="%s"><a href="game-%s.html" style="color:inherit;text-decoration:none">%s</a><span class="ls" data-ls></span></li>'
+        return ('<li class="cxleg" data-espn="%s" data-away="%s" data-home="%s" data-side="%s"><a href="game-%s.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">%s<span class="ls" data-ls></span></a></li>'
                 % (html.escape(p.get('espn_league','')), html.escape(g.get('away','')), html.escape(g.get('home','')), html.escape(p.get('side','away')), p['num'], html.escape(l)))
     legs=''.join(_leg_li(l) for l in pl['legs'])
     # per-platform combo chips (his 9:08 AM directive): each chip carries the platform's combo
