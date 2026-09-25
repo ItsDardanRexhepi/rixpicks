@@ -265,6 +265,7 @@ for p in man['picks']:
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
     rows.append(f'''<div class="pick" data-espn="{espn}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}">
   <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="chev" href="game-{p['num']}.html" aria-label="live markets">&rsaquo;</a></div><span class="ls" data-ls></span>
+  <a class="rpchatlink" href="game-{p['num']}.html#chat" style="float:right;font-size:12px;color:#8a8f98;text-decoration:none;margin-top:2px">&#128172;<span data-cc></span></a>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
   {ls_html}
@@ -711,6 +712,7 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
    const aw=cs.find(c=>c.homeAway==='away'),hm=cs.find(c=>c.homeAway==='home');if(!aw||!hm)return;
    const an=aw.team.displayName,hn=hm.team.displayName;
    if((an===pk.dataset.away||an.includes(pk.dataset.away)||pk.dataset.away.includes(an))&&(hn===pk.dataset.home||hn.includes(pk.dataset.home)||pk.dataset.home.includes(hn)))
+    pk.dataset.eid=e.id;
     found={{a:aw.team.abbreviation,h:hm.team.abbreviation,as:+aw.score||0,hs:+hm.score||0,st:e.status.type.shortDetail,state:e.status.type.state}};}});
    rpLsRender(pk,found);}});}}catch(e){{}}}}
 }}
@@ -750,7 +752,15 @@ function rpRenumber(){{try{{
  let i=0;
  document.querySelectorAll('.pick').forEach(function(pk){{const n=pk.querySelector('.num');if(!n)return;i++;n.textContent=i+'.';}});
 }}catch(e){{}}}}
-async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpRenumber();rpCxLive();rpRecLive();}}
+let _rpCcLast=0;
+function rpChatCounts(){{try{{
+ const now=Date.now();if(now-_rpCcLast<60000)return;_rpCcLast=now;
+ document.querySelectorAll('.pick[data-eid]').forEach(function(pk){{
+  const sp=pk.querySelector('[data-cc]');if(!sp)return;
+  fetch('https://api.rix-picks.com/chat/'+pk.dataset.eid).then(r=>r.json()).then(function(j){{sp.textContent=j.count>0?' '+j.count:'';}}).catch(()=>{{}});
+ }});
+}}catch(e){{}}}}
+async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpRenumber();rpCxLive();rpRecLive();rpChatCounts();}}
 {fut_badge_js}rpLsTickAll();setInterval(rpLsTickAll,30000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
