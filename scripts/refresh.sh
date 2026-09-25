@@ -40,6 +40,7 @@ print(' '.join(ls))")
 python3 scripts/odds_prefill.py $SPORTS
 python3 scripts/move_cause.py || true
 python3 scripts/build_gh_page.py manifest.json index.html
+python3 scripts/backfill_history.py || true
 if git diff --quiet index.html game-*.html odds_moves.jsonl .odds_prev.json price_history.jsonl 2>/dev/null; then echo "no price movement - no commit"; exit 0; fi
 python3 -c "
 import json,datetime
@@ -48,7 +49,7 @@ try: d=json.load(open(f))
 except: pass
 d['$TODAY']=d.get('$TODAY',0)+1
 json.dump(d,open(f,'w'))"
-git add index.html manifest.json "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html
+git add index.html manifest.json "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html hist-*.json
 git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1))/16 today)"
 git push
 echo "rebuilt and pushed"
