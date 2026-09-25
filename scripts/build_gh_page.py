@@ -318,12 +318,12 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
 <div class="status">{html.escape(man['date_label'])}</div>
 <div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>
+{f'<div class="yesrec">Yesterday: {html.escape(man["yesterday"])}</div>' if man.get('yesterday') else ''}
 <div class="sect">Today&rsquo;s picks</div>
 {chr(10).join(rows)}
 {parlay_html}
 <div class="sect">Record</div>
 <div class="rec">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</div>
-{f'<div class="yesrec">Yesterday: {html.escape(man["yesterday"])}</div>' if man.get('yesterday') else ''}
 {f'<div class="yesrec">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else ''}
 <div class="unitmath">1u = $5 per $1,000 in bankroll</div>
 <div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
