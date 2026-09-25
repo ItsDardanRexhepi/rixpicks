@@ -1180,6 +1180,13 @@ function rpPtrEnd(){const el=document.getElementById('rpPull');
 document.addEventListener('touchend',rpPtrEnd,{passive:true});
 document.addEventListener('touchcancel',rpPtrEnd,{passive:true});
 rpFutTick();setInterval(rpFutTick,60000);
+const RP_BUILD='__BUILD__';
+window.addEventListener('pageshow',function(){try{
+ if(sessionStorage.getItem('rp_reloaded'))return;
+ fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.text();}).then(function(t){
+  if(t.indexOf(RP_BUILD)<0){sessionStorage.setItem('rp_reloaded','1');location.replace(location.pathname+'?v='+RP_BUILD);}
+ }).catch(function(){});
+}catch(e){}});
 </script></body></html>'''
 def build_futures_page(css,build_sha):
     if not FUT: return None
