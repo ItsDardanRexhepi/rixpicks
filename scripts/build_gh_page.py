@@ -677,7 +677,7 @@ def build_game_pages(man, css, build_sha):
         kal_html=''
         if p.get('kalshi'):
             kurl=p['kalshi']['url']; tick=kurl.rstrip('/').split('/')[-1].upper()
-            board=[]; et=tick
+            board=[]; et=tick; kvol=0.0
             try:
                 import urllib.request
                 # URL may end at the event ticker or at a -SIDE market ticker: try the segment as-is, then stripped.
@@ -694,6 +694,9 @@ def build_game_pages(man, css, build_sha):
                                 if not (0<ya<1): continue
                                 sub=str(m.get('yes_sub_title') or m.get('title') or '')
                                 suf=str(m.get('ticker','')).rsplit('-',1)[-1]
+                                try: kv=float(m.get('volume_dollars') or 0)
+                                except Exception: kv=0
+                                kvol+=kv
                                 board.append((sub,str(m.get('ticker','')),suf,int(round(ya*100))))
                             break
                     except Exception: continue
@@ -738,6 +741,12 @@ def build_game_pages(man, css, build_sha):
             sub=poly_sub(p['polymarket']['url']) or ''
             akw=away.split()[-1]; hkw=home.split()[-1]
             ca=poly_price(p['polymarket']['url'],akw); chv=poly_price(p['polymarket']['url'],hkw)
+            pvol=0.0
+            try:
+                import urllib.request
+                _ev=_espn_get('https://gamma-api.polymarket.com/events?slug='+slug)
+                if _ev: pvol=float(_ev[0].get('volume') or _ev[0].get('volumeNum') or 0)
+            except Exception: pass
             if ca or chv:
                 la=('POLY '+c2ml(ca)) if ca else 'POLY'
                 lh=('POLY '+c2ml(chv)) if chv else 'POLY'
@@ -760,15 +769,36 @@ def build_game_pages(man, css, build_sha):
                 hrow['poly_h']=cents if side=='home' else None
             books_present.append('POLY')
         # Per-book price-history charts (user, Sep 25 12:20 PM): Kalshi-style line, one per platform.
+        lg=p.get('espn_league','')
+        ma=TEAM_META.get((lg,away)) or {}; mh=TEAM_META.get((lg,home)) or {}
+        abbr_a=ma.get('abbr') or away.split()[-1][:4].upper(); abbr_h=mh.get('abbr') or home.split()[-1][:4].upper()
+        def tlogo(mm):
+            u=mm.get('logo','')
+            return '<img src="%s" alt="" style="width:54px;height:54px;object-fit:contain" onerror="this.remove()">'%html.escape(u) if u else ''
+        matchup=('<div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 4px;text-align:center">'
+            '<a href="team-%s.html" style="flex:1;text-decoration:none;color:inherit">%s<div style="font-weight:700;margin-top:4px">%s</div></a>'
+            '<div style="flex:1.6"><div style="font-size:18px;font-weight:800">%s vs %s</div>'
+            '<div class="sub" style="margin-top:3px">%s</div></div>'
+            '<a href="team-%s.html" style="flex:1;text-decoration:none;color:inherit">%s<div style="font-weight:700;margin-top:4px">%s</div></a></div>'
+            )%(team_slug(away),tlogo(ma),html.escape(abbr_a),
+               html.escape(away.split()[-1] if len(away.split())>1 else away),html.escape(home.split()[-1] if len(home.split())>1 else home),
+               html.escape(_pt_label(g.get('commence',''))),
+               team_slug(home),tlogo(mh),html.escape(abbr_h))
+        teamlinks=''
         charts_html=''
+        BKNAME={'DK':'DraftKings','FD':'FanDuel','ESPN':'ESPN Bet','HR':'Hard Rock','MGM':'BetMGM','BR':'BetRivers','KAL':'Kalshi','POLY':'Polymarket'}
+        vols={'KAL':kvol if p.get('kalshi') else 0,'POLY':pvol if p.get('polymarket') else 0}
         if books_present:
             charts_html='<div class="sect">Price history</div>'
             for short in books_present:
-                charts_html+=('<div class="chartcard" data-book="'+short+'" style="padding:10px 0 4px;border-bottom:1px solid rgba(127,127,127,.15)">'
-                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+bkimg(short)+'<span class="bk">'+short+'</span>'
-                    '<span class="chartval" id="chartval-'+short+'" style="margin-left:auto;font-size:13px;color:#2f8f7d"></span></div>'
-                    '<svg class="rpchart" id="chart-'+short+'" viewBox="0 0 300 78" preserveAspectRatio="none" style="width:100%;height:78px;display:block"></svg>'
-                    '<div style="display:flex;justify-content:space-between;font-size:10px;color:#8a8f98;margin-top:2px"><span class="chartt0" id="chartt0-'+short+'"></span><span class="chartt1" id="chartt1-'+short+'"></span></div></div>')
+                v=vols.get(short,0)
+                vol_lbl=('$'+format(int(round(v)),',')+' vol') if v else ''
+                charts_html+=('<div class="chartcard" data-book="'+short+'" data-abbra="'+html.escape(abbr_a)+'" data-abbrh="'+html.escape(abbr_h)+'" style="padding:12px 0 8px;border-bottom:1px solid rgba(127,127,127,.15)">'
+                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">'+bkimg(short)+'<span class="bk">'+BKNAME.get(short,short)+'</span></div>'
+                    '<svg class="rpchart" id="chart-'+short+'" viewBox="0 0 340 150" preserveAspectRatio="none" style="width:100%;height:150px;display:block"></svg>'
+                    '<div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#8a8f98;margin-top:4px">'
+                    '<span>'+vol_lbl+'</span>'
+                    '<span class="rpranges" data-book="'+short+'"><span data-r="1D" style="padding:2px 6px;cursor:pointer">1D</span> <span data-r="1W" style="padding:2px 6px;cursor:pointer">1W</span> <span data-r="1M" style="padding:2px 6px;cursor:pointer">1M</span> <span data-r="ALL" style="padding:2px 6px;cursor:pointer;font-weight:700" class="rpon">ALL</span></span></div></div>')
         HIST[(away,home)]=hrow
         ch=_chips_fn(p)
         espn=html.escape(p.get('espn_league',''))
@@ -781,10 +811,118 @@ def build_game_pages(man, css, build_sha):
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),
             ('__SIDE__',side),('__MKT__',mkt),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
             ('__ODDS__',html.escape(p['odds'])),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
-            ('__CHIPS__',ch),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),
+            ('__CHIPS__',ch),('__MATCHUP__',matchup),('__TEAMLINKS__',teamlinks),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),
             ('__CHARTS__',charts_html),('__BUILD__',build_sha),('__RPCONSTS__',RP_CONSTS),('__STATEOPTS__',STATE_OPTS)]:
             page_html=page_html.replace(tok,val)
         pages['game-%s.html'%p['num']]=page_html
+    return pages
+
+def _espn_get(url):
+    import urllib.request
+    req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+    with urllib.request.urlopen(req,timeout=12) as r: return json.load(r)
+
+def team_slug(name):
+    return re.sub(r'[^a-z0-9]+','-',name.lower()).strip('-')
+
+def team_meta(man):
+    meta={}
+    lgs={p.get('espn_league','') for p in man.get('picks',[]) if p.get('espn_league')}
+    for lg in lgs:
+        try:
+            sb=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/scoreboard'%lg)
+            for ev in sb.get('events',[]):
+                comp=(ev.get('competitions') or [{}])[0]
+                for c in comp.get('competitors',[]):
+                    t=c.get('team') or {}
+                    nm=t.get('displayName','')
+                    meta[(lg,nm)]={'id':t.get('id'),'abbr':t.get('abbreviation',''),'logo':t.get('logo',''),
+                        'record':(c.get('records') or [{}])[0].get('summary','')}
+        except Exception: pass
+    return meta
+
+TEAM_META={}
+
+def build_team_pages(man, css, build_sha):
+    "Per-team stat pages, tappable from game pages (user, Sep 25 12:23 PM)."
+    tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'team_page_template.html')).read()
+    pages={}
+    teams=set()
+    for p in man.get('picks',[]):
+        g=p.get('game') or {}
+        if not g: continue
+        teams.add((p.get('espn_league',''),g.get('away','')))
+        teams.add((p.get('espn_league',''),g.get('home','')))
+    info=dict(TEAM_META)
+    for lg,name in sorted(teams):
+        if not name: continue
+        meta=info.get((lg,name)) or {}
+        tid=meta.get('id'); abbr=meta.get('abbr',''); logo=meta.get('logo',''); rec=meta.get('record','')
+        logo_html='<img src="%s" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()">'%html.escape(logo) if logo else ''
+        last5=[]; upcoming=[]; runs_for=0; runs_against=0; n_scored=0; streak=''
+        if tid and lg:
+            try:
+                sch=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams/%s/schedule'%(lg,tid))
+                for ev in sch.get('events',[]):
+                    comp=(ev.get('competitions') or [{}])[0]
+                    st=(comp.get('status') or {}).get('type') or {}
+                    comps=comp.get('competitors',[])
+                    me=next((c for c in comps if str((c.get('team') or {}).get('id'))==str(tid)),{})
+                    opp=next((c for c in comps if str((c.get('team') or {}).get('id'))!=str(tid)),{})
+                    opp_nm=((opp.get('team') or {}).get('abbreviation')) or ((opp.get('team') or {}).get('displayName',''))
+                    loc='vs' if me.get('homeAway')=='home' else '@'
+                    dt=str(ev.get('date',''))[:10]
+                    if st.get('completed'):
+                        try: ms=int(me.get('score',0)); os_=int(opp.get('score',0))
+                        except Exception: ms=os_=0
+                        wl='W' if ms>os_ else ('L' if ms<os_ else 'T')
+                        last5.append('%s %d-%d %s %s · %s'%(wl,ms,os_,loc,opp_nm,dt[5:]))
+                        runs_for+=ms; runs_against+=os_; n_scored+=1
+                    else:
+                        if len(upcoming)<3: upcoming.append('%s %s · %s'%(loc,opp_nm,dt[5:]))
+                last5=last5[-5:]
+                if last5:
+                    streak=last5[-1][0]
+                    k=1
+                    for r in reversed(last5[:-1]):
+                        if r[0]==streak: k+=1
+                        else: break
+                    streak=streak+str(k)
+            except Exception: pass
+        injuries=[]
+        if tid and lg:
+            try:
+                inj=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams/%s/injuries'%(lg,tid))
+                items=inj.get('items') or inj.get('injuries') or []
+                if items and isinstance(items[0],dict) and 'injuries' in items[0]:
+                    flat=[]
+                    for it in items: flat+=it.get('injuries') or []
+                    items=flat
+                for it in items[:6]:
+                    ath=(it.get('athlete') or {}).get('displayName','?')
+                    stat=str(it.get('status') or '')
+                    det=str(it.get('type') or it.get('description') or '')[:60]
+                    injuries.append('%s · %s%s'%(ath,stat,(' - '+det) if det else ''))
+            except Exception: pass
+        form_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in reversed(last5)) or '<div class="sub">No recent games found.</div>'
+        avgs_html=('<div class="sub" style="padding:7px 0">Scored %.1f &middot; allowed %.1f per game over last %d</div>'%(runs_for/n_scored,runs_against/n_scored,n_scored)) if n_scored else '<div class="sub">Not enough recent games.</div>'
+        next_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in upcoming) or '<div class="sub">No upcoming games listed.</div>'
+        inj_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in injuries) or '<div class="sub">None reported.</div>'
+        tagline=' · '.join(x for x in [rec and ('Record '+rec), streak and ('Streak '+streak)] if x)
+        today=''
+        for p in man.get('picks',[]):
+            g=p.get('game') or {}
+            if name in (g.get('away',''),g.get('home','')):
+                opp=g.get('home') if g.get('away')==name else g.get('away')
+                today='Today: %s %s · %s'%(('vs' if g.get('home')==name else '@'),opp,_pt_label(g.get('commence','')))
+        page=tmpl
+        for tok,val in [('__TEAM__',html.escape(name)),('__CSS__',css),('__RECORD__',html.escape(rec)),
+            ('__TAGLINE__',html.escape(tagline)),('__TODAY__',html.escape(today)),('__LOGO__',logo_html),
+            ('__LIVE__',''),('__FORM__',form_html),('__AVGS__',avgs_html),('__NEXT__',next_html),
+            ('__INJURIES__',inj_html),('__BUILD__',build_sha)]:
+            page=page.replace(tok,val)
+        page=page.replace('<div class="pick">','<div class="pick" data-espn="%s" data-team="%s">'%(html.escape(lg),html.escape(name)),1)
+        pages['team-%s.html'%team_slug(name)]=page
     return pages
 
 import os
@@ -794,6 +932,10 @@ page=page.replace('{build_sha}',build_sha)
 os.makedirs(os.path.dirname(out) or '.',exist_ok=True)
 open(out,'w').write(page)
 _css=page.split('<style>')[1].split('</style>')[0]
+TEAM_META.update(team_meta(man))
+for _fn,_html in build_team_pages(man,_css,build_sha).items():
+    open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(_html)
+    print('written:',_fn,len(_html))
 for _fn,_html in build_game_pages(man,_css,build_sha).items():
     open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(_html)
     print('written:',_fn,len(_html))

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TEAM__ - &rsquo;RixPicks</title>
+<meta name="description" content="__TEAM__ stats, form, injuries and schedule.">
+<style>__CSS__</style>
+</head><body>
+<div class="wrap">
+<a class="back" href="./">&larr; Today&rsquo;s picks</a>
+<div class="sect" style="margin-top:18px">Team</div>
+<div class="pick">
+  <div class="pick-head">__LOGO__<span class="name">__TEAM__</span><span class="odds">__RECORD__</span></div>
+  <div class="sub">__TAGLINE__</div>
+  <div class="score" id="rpScore">__TODAY__</div>
+</div>
+__LIVE__
+<div class="sect">Form - last 5</div>
+__FORM__
+<div class="sect">Scoring - last 10</div>
+__AVGS__
+<div class="sect">Next up</div>
+__NEXT__
+<div class="sect">Injuries</div>
+__INJURIES__
+<div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
+</div>
+<script>
+const RP_BUILD='__BUILD__';
+function rpTick(){try{
+ const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
+ fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
+  (j.events||[]).forEach(function(ev){
+   const comp=(ev.competitions||[])[0]||{};
+   const tok=(d.dataset.team||'').toLowerCase().split(' ').pop();
+   const nm=(ev.name||'').toLowerCase();
+   if(tok&&nm.indexOf(tok)<0)return;
+   const st=(comp.status||{}).type||{};
+   const comps=comp.competitors||[];
+   let sc='';
+   comps.forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
+   const sline=document.getElementById('rpScore');
+   if(sline&&st.state!=='pre'&&sc){sline.textContent=(st.shortDetail||'')+'  |  '+sc;}
+  });
+ }).catch(function(){});
+}catch(e){}}
+function rpPageRefresh(){try{
+ fetch(location.pathname+'?r='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(function(t){
+  if(t.indexOf(RP_BUILD)<0){location.replace(location.pathname+'?v='+Date.now());}
+ }).catch(function(){});
+}catch(e){}}
+rpTick();setInterval(rpTick,60000);setInterval(rpPageRefresh,60000);
+</script>
+</body></html>
