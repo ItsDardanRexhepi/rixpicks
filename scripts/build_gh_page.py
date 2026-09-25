@@ -181,12 +181,17 @@ if man.get('parlay'):
     nlegs=len(pl['legs'])
     routes=pl.get('routes',{})
     chips=[]
+    DKPM='https://predictions.draftkings.com/'
+    try:
+        lgs={p.get('espn_league') for p in lp}
+        if len(lgs)==1 and None not in lgs: DKPM='https://predictions.draftkings.com/en/markets/'+lgs.pop()
+    except Exception: pass
     if len(lp)==nlegs:
         kc=[p['kalshi']['cents'] for p in lp if p.get('kalshi') and p['kalshi'].get('cents')]
         if len(kc)==nlegs:
             c=amer_from_cents(kc)
             if c is not None:
-                chips.append(('KAL',f'<a class="chip"{bkstyle("KAL")} href="https://kalshi.com" data-book="KAL" data-sb="https://kalshi.com" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("KAL")}KAL {c2ml(c)}</a>'))
+                chips.append(('KAL',f'<a class="chip"{bkstyle("KAL")} href="https://kalshi.com/category/sports/all-sports" data-book="KAL" data-sb="https://kalshi.com/category/sports/all-sports" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("KAL")}KAL {c2ml(c)}</a>'))
         pc=[]; okp=True; purl='https://polymarket.us'
         for p in lp:
             if not p.get('polymarket'): okp=False; break
@@ -198,7 +203,7 @@ if man.get('parlay'):
             c=amer_from_cents(pc)
             if c is not None:
                 chips.append(('POLY',f'<a class="chip"{bkstyle("POLY")} href="{html.escape(purl)}" data-book="POLY" data-sb="{html.escape(purl)}" id="rpCxPOLY" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg("POLY")}POLY {c2ml(c)}</a>'))
-        BKML=[('DK','draftkings','https://predictions.draftkings.com/'),('FD','fanduel','https://www.fanduel.com/predicts'),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]
+        BKML=[('DK','draftkings',DKPM),('FD','fanduel','https://www.fanduel.com/predicts'),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]
         for short,pk,pm in BKML:
             mls=[]; ok=True
             for p in lp:
