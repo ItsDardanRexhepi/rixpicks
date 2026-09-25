@@ -220,7 +220,7 @@ if man.get('parlay'):
             link=r.get('link') or f'https://www.{BKDOM[short]}'
             pmattr=f' data-pm="{pm}"' if pm else ''
             chips.append((short,f'<a class="chip"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-sb="{html.escape(link)}"{pmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(short)}{short} {price:+d}</a>'))
-    order=['KAL','POLY','DK','FD','ESPN','HR','MGM','BR']
+    order=['DK','FD','ESPN','HR','MGM','BR','KAL','POLY']
     chips.sort(key=lambda s: order.index(s[0]) if s[0] in order else 99)
     pchip=f'<div class="chips" id="rpParlayChips" style="margin:10px 0">{"".join(c[1] for c in chips)}</div>' if chips else ''
     # his 9:10 AM carve-out: in states where combos can't legally be built, asterisk the title + one-line footnote
