@@ -55,6 +55,14 @@ def page(title, subtitle, body):
 <div class="foot">Bet responsibly.</div>
 </div></body></html>"""
 
+def clv_html(p):
+    if p.get('close') is None or p.get('clv') is None: return ''
+    clv=p['clv']
+    sign='+' if clv>0 else ''
+    col='#2f8f7d' if clv>0 else ('#c0392b' if clv<0 else '#8a8f98')
+    verdict='beat the close' if clv>0.05 else ('gave back vs the close' if clv<-0.05 else 'matched the close')
+    return f'<div class="clv" style="font-size:12px;color:#8a8f98;margin-top:4px">close {p["close"]:+d} &middot; CLV <b style="color:{col}">{sign}{clv}%</b> - {verdict}</div>'
+
 def pick_html(p):
     cls = p['result']
     return f"""<div class="pk">
@@ -62,6 +70,7 @@ def pick_html(p):
 <div class="gm">{html.escape(p.get('game',''))}</div>
 <div class="sc">{html.escape(p.get('score',''))}</div>
 {f'<div class="nt">{html.escape(p["note"])}</div>' if p.get('note') else ''}
+{clv_html(p)}
 </div>"""
 
 def day_html(d, with_brief_title):
@@ -81,7 +90,14 @@ def main(hist_path):
     # record.html = all days, newest first
     tot_w = sum(int(d['record'].split('-')[0]) for d in days)
     tot_l = sum(int(d['record'].split('-')[1]) for d in days)
-    body = f'<div class="dayhead"><span class="d">Overall</span><span class="r">{tot_w}-{tot_l}</span><span class="u"></span></div>'
+    clvs=[p['clv'] for d in days for p in d['picks'] if p.get('clv') is not None]
+    clv_line=''
+    if clvs:
+        avg=sum(clvs)/len(clvs)
+        pos=sum(1 for c in clvs if c>0)
+        col='#2f8f7d' if avg>0 else '#c0392b'
+        clv_line=f'<div style="font-size:13px;color:#6b6b72;margin-top:4px">CLV vs close: <b style="color:{col}">{avg:+.1f}%</b> avg &middot; beat the close on {pos}/{len(clvs)} graded picks</div>'
+    body = f'<div class="dayhead"><span class="d">Overall</span><span class="r">{tot_w}-{tot_l}</span><span class="u"></span></div>{clv_line}'
     body += ''.join(day_html(d, 'What the system learned') for d in reversed(days))
     open('record.html','w').write(page(
         f"Overall Record: {tot_w}-{tot_l}", "Overall record - day by day", body))
