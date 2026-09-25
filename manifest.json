@@ -95,6 +95,8 @@
    "Guardians ML",
    "Orioles ML"
   ],
-  "note": "Best combined price today: about +475 at full-pay books. No same-link slip available in every state - legs above work individually everywhere."
+  "note": "All 3 legs matched at Playbook; link is geo-aware and opens the slip at the best book for your state. Sportsbook-only - in CA the singles above ride on Kalshi & Polymarket.",
+  "link": "https://playbookbot.com/books/fanduel/passthrough?deeplinkId[0]=ML3002533417&deeplinkId[1]=ML3001989066&deeplinkId[2]=ML3003215393&context=playbook-homepage-quickslip&sport=baseball",
+  "label": "BUILD THIS PARLAY (+444)"
  }
 }
