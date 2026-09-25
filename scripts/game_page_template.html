@@ -61,7 +61,7 @@ function rpSave(){const st=document.getElementById('rpState').value;if(!st)retur
 function rpExitPreview(){const gps=localStorage.getItem('rp_state_gps');if(gps){localStorage.setItem('rp_state',gps);localStorage.setItem('rp_state_src','gps');rpLabel();}}
 function rpLabel(){const el=document.getElementById('rpStateLabel');const st=localStorage.getItem('rp_state');if(st)rpFilter(st);if(el&&st){const src=localStorage.getItem('rp_state_src');
  if(src==='preview'){el.innerHTML='Previewing: '+st+' &middot; <u onclick="rpExitPreview();event.stopPropagation()">back to your state</u>';}
- else{el.textContent='Your state: '+st+(src==='gps'?' (verified)':' (change)');}}}}
+ else{el.textContent='Your state: '+st+(src==='gps'?' (verified)':' (change)');}}}
 function rpNote(t){const n=document.getElementById('rpGeoNote');if(n)n.textContent=t||'';}
 function rpAsk(manualOnly){window.__rpChip=window.__rpChip||null;
  if(manualOnly||!navigator.geolocation){rpNote('Location unavailable - pick your state below.');document.getElementById('rpModal').style.display='flex';return;}
