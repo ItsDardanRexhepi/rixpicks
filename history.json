@@ -1,0 +1,35 @@
+{
+ "days": [
+  {
+   "date": "2026-09-22", "label": "Tuesday, Sep 22", "record": "4-4", "units": "-14.44u",
+   "picks": [
+    {"name": "Braves ML", "game": "vs Reds", "odds": "-178", "units": "5u", "result": "L", "score": "CIN 4, ATL 0", "note": "Shut out at home. The bats never showed up - a read failure, not a bad beat."},
+    {"name": "Diamondbacks ML", "game": "at Rockies", "odds": "-186", "units": "5u", "result": "W", "score": "ARI 7, COL 2", "note": "Clean read. Arizona handled a last-place team exactly like a -186 favorite should."},
+    {"name": "Phillies ML", "game": "vs Brewers", "odds": "-133", "units": "5u", "result": "W", "score": "PHI 6, MIL 4", "note": "Form read held up."},
+    {"name": "Cubs ML", "game": "vs Marlins", "odds": "-194", "units": "5u", "result": "L", "score": "MIA 8, CHC 2 (F/10)", "note": "Blew up in extras. Second blowout loss of the day against a heavy price."},
+    {"name": "Mariners ML", "game": "vs Astros", "odds": "-127", "units": "5u", "result": "L", "score": "HOU 7, SEA 0", "note": "Another shutout loss. Three of the four losses were 0-run games."},
+    {"name": "Mystics", "game": "vs Sun (WNBA)", "odds": "-1567", "units": "8u", "result": "W", "score": "WAS 79, CON 69", "note": "Won easily but earned +0.51u on 8u risked - that is the math on huge chalk."},
+    {"name": "Aces", "game": "vs Sparks (WNBA)", "odds": "-1329", "units": "8u", "result": "W", "score": "LV 89, LA 79", "note": "Same story: +0.60u on 8u risked."},
+    {"name": "Valkyries", "game": "at Fire (WNBA)", "odds": "-1011", "units": "7u", "result": "L", "score": "POR 90, GSV 82 (OT)", "note": "The expensive one. A -1011 lost in overtime and took 7u with it - more than both WNBA wins paid combined, seven times over."}
+   ],
+   "brief": "Split the day 4-4 and still lost 14.44u. The three MLB losses were a shutout and two blowouts - read failures the gate has to catch earlier. The WNBA lesson was pure math: massive minus prices risk a lot to win pennies, and one overtime loss at -1011 erased fourteen wins' worth of profit at those prices. Chalk sizing rules tightened from this day."
+  },
+  {
+   "date": "2026-09-23", "label": "Wednesday, Sep 23", "record": "2-0", "units": "+7.88u",
+   "picks": [
+    {"name": "Diamondbacks ML", "game": "at Rockies", "odds": "-150", "units": "5u", "result": "W", "score": "ARI 5, COL 3", "note": "Cashed, but the thesis said the Rockies rookie would get hit and the win actually came from unearned runs and the bullpen. Right side, wrong mechanism."},
+    {"name": "Wings -10.5", "game": "at Storm (WNBA)", "odds": "-110", "units": "5u", "result": "W", "score": "DAL 103, SEA 91", "note": "Won by 12 and covered by a point and a half. The form read on Dallas's turnaround season held."}
+   ],
+   "brief": "Perfect day, 2-0, +7.88u. Honest note even in a sweep: the ARI win came through a different door than the thesis predicted (unearned runs, not the rookie getting hit), so the system now requires a direct confirmation path when a pick leans on one pitcher imploding. Wins get audited too, not just losses."
+  },
+  {
+   "date": "2026-09-24", "label": "Thursday, Sep 24", "record": "2-1", "units": "+0.80u",
+   "picks": [
+    {"name": "Yankees ML", "game": "vs Rays", "odds": "-156", "units": "5u", "result": "W", "score": "NYY 6, TB 4", "note": "Won, but the line moved against us before first pitch (closed near -138). Right result, losing price - noted."},
+    {"name": "Diamondbacks ML", "game": "at Rockies", "odds": "-193", "units": "5u", "result": "W", "score": "ARI 12, COL 8", "note": "Beat the closing price by 3.1 points and won a slugfest. Best read of the day."},
+    {"name": "Red Sox ML", "game": "vs Guardians", "odds": "-131", "units": "5u", "result": "L", "score": "CLE 1, BOS 0", "note": "READ FAILURE. Assumed a bullpen game, Cantillo dealt a shutout, and the lefty split was never checked. This pick is now the standing reference case for what the gate must verify before a card ships."}
+   ],
+   "brief": "2-1 with the loss named plainly: Boston was a process failure, not bad luck - an assumption shipped where a check belonged, and it cost 5u and the +339 parlay with it. The rule that came out of it: probable pitchers and splits get verified, never assumed. Arizona beat the close, the Yankees won at a worse-than-close price, and the day finished +0.80u."
+  }
+ ]
+}

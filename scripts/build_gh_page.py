@@ -365,12 +365,11 @@ h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
 <div class="status">{html.escape(man['date_label'])}</div>
 <div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>
-{f'<div class="yesrec">Yesterday: {html.escape(man["yesterday"])}</div>' if man.get('yesterday') else ''}
+{f'<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: {html.escape(man["yesterday"])}</a>' if man.get('yesterday') else ''}
 <div class="sect">Today&rsquo;s picks</div>
 {chr(10).join(rows)}
 {parlay_html}
-<div class="sect">Record</div>
-<div class="rec">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</div>
+<a class="rec" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</a>
 {wl_pct_line(man['record'])}
 {f'<div class="yesrec unitspl">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else ''}
 <div class="unitmath">1u = $5 per $1,000 in bankroll</div>
