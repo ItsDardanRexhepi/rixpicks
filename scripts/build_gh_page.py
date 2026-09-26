@@ -494,8 +494,8 @@ def chips(p):
         elif '{state}' in link:
             # Sep 26 inspector ruling (J-112 class extended to singles): a priced chip on a generic
             # destination violates game-level-or-no-chip. Static HTML ships a priced NON-TAPPABLE span
-            # carrying the template in data-sbt; rpUpgrade (in rpFilter) swaps it to a deep-link anchor
-            # once the reader's state is known, so the tap always lands on the exact game at their book.
+            # carrying the template in data-sbt; rpTapify (in rpFilter) swaps it to a deep-link anchor
+            # once the reader's state is known and the book is live there, so the tap always lands on the exact game at their book.
             out.append(f'<span class="chip{" best" if best else ""} rpnontap"{bkstyle(short)} data-book="{short}"{_dm} data-sbt="{html.escape(link)}" data-template="1">{star if best else ""}{bkimg(short)}{html.escape(label)}</span>')
         else:
             out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}"{_dm} data-sb="{html.escape(link)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{html.escape(label)}</a>')
@@ -1059,17 +1059,17 @@ const RP_MOB=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 const RP_STANDALONE=(navigator.standalone===true)||window.matchMedia('(display-mode: standalone)').matches;
 function rpOpen(u){{if(RP_STANDALONE){{location.assign(u);}}else{{window.open(u,'_blank','noopener');}}}}
 if(RP_STANDALONE){{document.addEventListener('click',function(e){{const a=e.target.closest('a[target="_blank"]');if(a&&!a.onclick&&a.href){{e.preventDefault();location.assign(a.href);}}}},true);}}
+function rpBookLive(b,st){{if(b==='KAL'||b==='POLY')return true;const L=RP_L[b];return L?L.indexOf(st)!==-1:true;}}
+function rpDest(a,st){{const b=a.dataset.book;
+ if(rpBookLive(b,st)){{const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{{state}}',st.toLowerCase());return a.getAttribute('href')||null;}}
+ if(a.dataset.pm&&a.dataset.nopm!=='1')return a.dataset.pm;
+ return null;}}
 function rpGo(a,st){{const b=a.dataset.book;
- if(b==='POLY'){{if(RP_MOB&&a.dataset.app){{location.href=a.dataset.app;}}else{{rpOpen(a.dataset.sb);}}return;}}
- if(b==='FD'||b==='DK'){{const sb=b==='FD'?RP_FD:RP_DK;
-  if(sb.includes(st)){{rpOpen(a.dataset.sb);}}
-  else if(b==='FD'&&RP_MOB&&a.dataset.pmapp&&!a.dataset.nopm){{location.href=a.dataset.pmapp;}}
-  else if(!a.dataset.nopm&&a.dataset.pm){{rpOpen(a.dataset.pm);}}
-  else{{rpOpen(a.dataset.sb.replaceAll('{{state}}',st.toLowerCase()));}}}}
- else if(a.dataset.template){{rpOpen(a.dataset.sb.replaceAll('{{state}}',st.toLowerCase()));}}
- else rpOpen(a.dataset.sb);}}
-function rpTerm(st){{const sb=RP_FD.includes(st)||RP_DK.includes(st);const ntap=(typeof RP_COMBO_NONTAP!=='undefined'&&RP_COMBO_NONTAP===true);  /* hunter Sep 26: top-level const is lexical, NOT a window prop */
+ if(b==='POLY'&&RP_MOB&&a.dataset.app){{location.href=a.dataset.app;return;}}
+ if(!rpBookLive(b,st)&&b==='FD'&&RP_MOB&&a.dataset.pmapp&&a.dataset.nopm!=='1'){{location.href=a.dataset.pmapp;return;}}
+ const d=rpDest(a,st);if(d)rpOpen(d);return;}}
 
+function rpTerm(st){{const sb=RP_FD.includes(st)||RP_DK.includes(st);const ntap=(typeof RP_COMBO_NONTAP!=='undefined'&&RP_COMBO_NONTAP===true);
  const T=(sb?'Parlay':'Combo')+((!sb||ntap)?'<span style="letter-spacing:0">&thinsp;*</span>':'');
  const h=document.getElementById('rpParlayTitle');if(h)h.innerHTML=T;
  const rg=document.getElementById('rpComboReg');if(rg){{rg.style.display=(!sb||ntap)?'':'none';
@@ -1079,7 +1079,7 @@ function rpBestStar(pk){{
  // Sep 26: the best-line star follows VISIBLE prices - geo filtering or a price tick can strand
  // it on a hidden/worse chip. Recomputed over visible chips only, max American odds wins.
  try{{
- const chips=[...pk.querySelectorAll('a[data-book]')];let best=null,bestV=-1e18;
+ const chips=[...pk.querySelectorAll('[data-book]')].filter(function(a){{return !a.querySelector('[data-book]');}});let best=null,bestV=-1e18;
  chips.forEach(function(a){{
   if(a.offsetParent===null)return;
   const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
@@ -1090,35 +1090,14 @@ function rpBestStar(pk){{
  }}catch(e){{}}
 }}
 function rpAllBest(){{document.querySelectorAll('.pick').forEach(rpBestStar);}}
-function rpUpgrade(st){{document.querySelectorAll('span[data-sbt]').forEach(function(sp){{
- const L=RP_L[sp.dataset.book];if(L&&L.indexOf(st)===-1)return;  /* book not live here: stays a priced span */
- const a=document.createElement('a');
- for(const at of sp.attributes){{if(at.name!=='data-sbt')a.setAttribute(at.name,at.value);}}
- a.classList.remove('rpnontap');
- a.setAttribute('data-sb',sp.getAttribute('data-sbt'));
- a.setAttribute('href',sp.getAttribute('data-sbt').replaceAll('{{state}}',st.toLowerCase()));
- a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');
- a.innerHTML=sp.innerHTML;sp.replaceWith(a);
-}});
-/* Sep 26: a state CHANGE must re-bind already-upgraded template anchors too - rpGo routes
-   data-sb through the current state at tap time, but open-in-new-tab / copy-link / no-JS
-   paths use the baked href, which would otherwise stay on the previous state's URL */
-document.querySelectorAll('a[data-template][data-sb]').forEach(function(a){{
- const L=RP_L[a.dataset.book];if(L&&L.indexOf(st)===-1)return;  /* not live here: rpTerm hides it */
- a.setAttribute('href',a.getAttribute('data-sb').replaceAll('{{state}}',st.toLowerCase()));
-}});}}
-function rpFilter(st){{window.rpSt=st;rpTerm(st);rpUpgrade(st);let parlayAllHidden=true;
- document.querySelectorAll('[data-book]').forEach(function(a){{const b=a.dataset.book;
-  const inParlay=!!a.closest('#rpParlayChips');
-  if(b==='POLY'){{a.style.display='';return;}}
-  if(b==='FD'||b==='DK'){{const L2=b==='FD'?RP_FD:RP_DK;if(inParlay){{a.style.display='';}}else if(b==='FD'){{a.style.display=(a.dataset.nopm&&!L2.includes(st))?'none':'';}}else{{a.style.display=(a.dataset.nopm&&!L2.includes(st))?'none':'';}}return;}}
-  const L=RP_L[b];if(!L){{return;}}
-  if(!L.includes(st)){{a.style.display='none';}}else{{a.style.display='';parlayAllHidden=parlayAllHidden&&!a.closest('#rpParlayChips')?parlayAllHidden:false;}}
- }});
- const pc=document.querySelectorAll('#rpParlayChips [data-book]');let any=false;
- pc.forEach(function(a){{if(a.style.display!=='none')any=true;}});
- if(window.rpCxStar)rpCxStar();
- }}
+function rpTapify(el,st){{const d=rpDest(el,st);
+ if(d){{let a=el;if(el.tagName!=='A'){{a=document.createElement('a');for(const at of el.attributes)a.setAttribute(at.name,at.value);a.innerHTML=el.innerHTML;el.replaceWith(a);}}
+  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');}}
+ else{{let sp=el;if(el.tagName!=='SPAN'){{sp=document.createElement('span');for(const at of el.attributes)sp.setAttribute(at.name,at.value);sp.innerHTML=el.innerHTML;el.replaceWith(sp);}}
+  sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');}}}}
+function rpFilter(st){{window.rpSt=st;rpTerm(st);
+ document.querySelectorAll('[data-book]').forEach(function(el){{el.style.display='';if(el.querySelector('[data-book]'))return;rpTapify(el,st);}});
+ if(window.rpCxStar)rpCxStar(); }}
 function rpRoute(e,a){{e.preventDefault();const st=localStorage.getItem('rp_state');if(!st){{window.__rpChip=a;rpAsk(false);return false;}}rpGo(a,st);return false;}}
 function rpSave(){{const st=document.getElementById('rpState').value;if(!st)return;const gps=localStorage.getItem('rp_state_gps');
  if(gps&&st!==gps){{localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src','preview');}}else{{localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src',gps?'gps':'manual');}}
@@ -1262,7 +1241,7 @@ function rpLineShop(pk){{try{{
  const ip=function(a){{return a>0?100.0/(a+100):(-a)/((-a)+100.0);}};
  const prs=[];
  const pmkt=pk.dataset.market||'';
- pk.querySelectorAll('a[data-book]').forEach(function(a){{
+ [...pk.querySelectorAll('[data-book]')].filter(function(a){{return !a.querySelector('[data-book]');}}).forEach(function(a){{
   if(pmkt&&a.dataset.market!==pmkt)return;  /* sentinel Sep 26 (fail-closed): only chips WITH matching market identity enter the range */
   const cs=getComputedStyle(a);if(cs.display==='none'||cs.visibility==='hidden')return;  /* geo-hidden or dead books never enter the range */
   const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
@@ -1460,7 +1439,7 @@ function rpPageRefresh(){{try{{
    const k=(pk.dataset.gpk||'')+'@'+(pk.dataset.room||'');const np=nmap[k];if(!np)return;  /* null = absent or collided */
    /* Sep 26 (hunter #10): data-only refresh can never ADD a newly verified chip or REMOVE a retired
       one - a membership change between served and new build forces a full reload instead. */
-   /* Sep 26 refresh-loop fix: membership = [data-book] ANY tag + template status. rpUpgrade turns
+   /* Sep 26 refresh-loop fix: membership = [data-book] ANY tag + template status. rpTapify turns
       template spans into anchors once state is known; tag alone is not membership, so an upgraded
       live DOM vs a fresh static build must compare equal. A real add/retire/kind-change still reloads. */
    const rpSig=function(root){{return [...root.querySelectorAll('[data-book]')].map(a=>a.dataset.book+(a.dataset.template?':t':'')).sort().join(',');}};
