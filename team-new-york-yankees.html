@@ -16,7 +16,7 @@ h1 .tick{color:#2f8f7d}
 .pick:first-of-type{border-top:none}
 .pick-head{display:flex;align-items:center;gap:10px}
 .gamelink{display:flex;align-items:baseline;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}
-.chev{color:#55555c;text-decoration:none}
+.chev{color:#55555c;text-decoration:none;transform:translateY(5px)}
 .mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}
 .mrow:first-of-type{border-top:none}
 .mrow .bk{font-weight:700;width:52px;flex:none}
@@ -127,7 +127,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790382259';
+const RP_BUILD='1790382334';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
