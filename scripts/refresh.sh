@@ -11,8 +11,11 @@ COUNT=0
 [ -f "$COUNT_FILE" ] && COUNT=$(python3 -c "import json;d=json.load(open('$COUNT_FILE'));print(d.get('$TODAY',0))")
 if [ "$COUNT" -ge 16 ]; then echo "daily odds-API budget (16) reached - skip"; exit 0; fi
 # Game window check: any picked game live or starting within 2h (ESPN, free)
+# chaos drill (Sep 26): set -e killed quiet windows as red failures before GAME_WINDOW captured
+set +e
 python3 - <<'PY'
 import json,urllib.request,datetime,sys,os
+from zoneinfo import ZoneInfo
 os.environ.setdefault('TZ','America/Los_Angeles')
 man=json.load(open('manifest.json'))
 now=datetime.datetime.now()
@@ -31,7 +34,7 @@ for v in reg.values():
             comps.extend(g.get('competitions') or [])
         for c in comps:
             st=(c.get('status') or {}).get('type') or {}
-            dt=(datetime.datetime.fromisoformat(e['date'].replace('Z','+00:00')).replace(tzinfo=None)-datetime.timedelta(hours=7)) if e.get('date') else now
+            dt=datetime.datetime.fromisoformat(e['date'].replace('Z','+00:00')).astimezone(ZoneInfo('America/Los_Angeles')).replace(tzinfo=None) if e.get('date') else now
             if st.get('state')=='in' or (st.get('state')=='pre' and 0 <= (dt-now).total_seconds() <= 7200):
                 sys.exit(0)
 sys.exit(1)
@@ -48,7 +51,9 @@ ls=sorted({(reg.get(p.get('league','')) or {}).get('odds_api') or 'baseball_mlb'
 print(' '.join(ls))")
 python3 scripts/odds_prefill.py $SPORTS
 python3 scripts/move_cause.py || true
-python3 scripts/build_gh_page.py manifest.json index.html
+# Sep 26 live regression (hunter 7:25 AM): refresh rebuilds must never move record/units -
+# RP_REFRESH=1 pins them from the live page; only an approved publish sets them from the manifest.
+RP_REFRESH=1 python3 scripts/build_gh_page.py manifest.json index.html
 python3 scripts/backfill_history.py || true
 if git diff --quiet index.html game-*.html odds_moves.jsonl .odds_prev.json price_history.jsonl 2>/dev/null; then echo "no price movement - no commit"; exit 0; fi
 python3 -c "
@@ -60,5 +65,6 @@ d['$TODAY']=d.get('$TODAY',0)+1
 json.dump(d,open(f,'w'))"
 git add index.html futures.html futures.json manifest.json "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html hist-*.json
 git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1))/16 today)"
-git push
+# chaos drill (Sep 26): a push racing the publish window must retry+rebase, never fail red
+for i in 1 2; do git push && break || git pull --rebase; done
 echo "rebuilt and pushed"
