@@ -308,7 +308,7 @@ function rpScoreTable(el,hdrs,rows,tots){
  (tots||[]).forEach(function(x){h+='<th style="font-weight:700;color:#c8cdd5;padding:2px 4px;min-width:20px">'+x+'</th>';});
  h+='</tr>';
  rows.forEach(function(r){
-  h+='<tr><td style="text-align:left;font-weight:700;padding:3px 4px 3px 0">'+r.abbr+'</td>';
+  h+='<tr><td style="text-align:left;font-weight:700;padding:3px 4px 3px 0;white-space:nowrap">'+(r.logo?'<img src="'+r.logo+'" alt="" style="width:18px;height:18px;border-radius:50%;vertical-align:-4px;margin-right:6px" onerror="this.remove()">':'')+r.abbr+'</td>';
   hdrs.forEach(function(_,i){const v=(r.vals&&i<r.vals.length&&r.vals[i]!=null)?r.vals[i]:'';h+='<td style="padding:3px 4px;color:#c8cdd5">'+v+'</td>';});
   (r.tots||[]).forEach(function(v,ti){const last=ti===(r.tots.length-1);h+='<td style="padding:3px 4px;font-weight:'+(800)+';color:'+(last?'#fff':'#c8cdd5')+'">'+(v==null?'':v)+'</td>';});
   h+='</tr>';
@@ -318,7 +318,7 @@ function rpScoreTable(el,hdrs,rows,tots){
 }
 async function rpScoreMlb(d,el){
  if(!d.dataset.gpk)return;
- const flds='liveData,linescore,innings,num,away,home,runs,hits,errors,teams,gameData,status,detailedState';
+ const flds='liveData,linescore,innings,num,away,home,runs,hits,errors,teams,gameData,status,detailedState,id';
  const j=await (await fetch('https://statsapi.mlb.com/api/v1.1/game/'+d.dataset.gpk+'/feed/live?fields='+flds+'&t='+Date.now())).json();
  const det=(((j.gameData||{}).status||{}).detailedState)||'';
  if(det==='Scheduled'||det==='Pre-Game'||det==='Unknown'){el.innerHTML='';return;}
@@ -333,9 +333,12 @@ async function rpScoreMlb(d,el){
   valsA.push(inn&&inn.away&&typeof inn.away.runs==='number'?inn.away.runs:null);
   valsH.push(inn&&inn.home&&typeof inn.home.runs==='number'&&!(i===8&&det==='Final'&&aT.runs>hT.runs&&inn.home.runs===undefined)?inn.home.runs:null);
  }
+ const gT=((j.gameData||{}).teams)||{};
+ const aLogo=gT.away&&gT.away.id?('https://www.mlbstatic.com/team-logos/'+gT.away.id+'.svg'):'';
+ const hLogo=gT.home&&gT.home.id?('https://www.mlbstatic.com/team-logos/'+gT.home.id+'.svg'):'';
  rpScoreTable(el,hdrs,[
-  {abbr:aAb,vals:valsA,tots:[aT.runs,aT.hits,aT.errors]},
-  {abbr:hAb,vals:valsH,tots:[hT.runs,hT.hits,hT.errors]}],['R','H','E']);
+  {abbr:aAb,logo:aLogo,vals:valsA,tots:[aT.runs,aT.hits,aT.errors]},
+  {abbr:hAb,logo:hLogo,vals:valsH,tots:[hT.runs,hT.hits,hT.errors]}],['R','H','E']);
 }
 async function rpScoreEspn(d,el,lg){
  if(!d.dataset.eid)return;
@@ -354,14 +357,14 @@ async function rpScoreEspn(d,el,lg){
   let sa=0,sh=0;for(let i=0;i<n;i++){if(la[i]!=null&&lh[i]!=null){if(la[i]>lh[i])sa++;else if(lh[i]>la[i])sh++;}}
   const hdrs=[];for(let i=1;i<=n;i++)hdrs.push(''+i);
   rpScoreTable(el,hdrs,[
-   {abbr:(aw.team||{}).abbreviation||'',vals:la,tots:[sa]},
-   {abbr:(hm.team||{}).abbreviation||'',vals:lh,tots:[sh]}],['S']);
+   {abbr:(aw.team||{}).abbreviation||'',logo:(aw.team||{}).logo||'',vals:la,tots:[sa]},
+   {abbr:(hm.team||{}).abbreviation||'',logo:(hm.team||{}).logo||'',vals:lh,tots:[sh]}],['S']);
   return;
  }
  const hdrs=rpScoreHdrs(lg,n);
  rpScoreTable(el,hdrs,[
-  {abbr:(aw.team||{}).abbreviation||'',vals:la,tots:[aw.score]},
-  {abbr:(hm.team||{}).abbreviation||'',vals:lh,tots:[hm.score]}],['T']);
+  {abbr:(aw.team||{}).abbreviation||'',logo:(aw.team||{}).logo||'',vals:la,tots:[aw.score]},
+  {abbr:(hm.team||{}).abbreviation||'',logo:(hm.team||{}).logo||'',vals:lh,tots:[hm.score]}],['T']);
 }
 async function rpScoreTblTick(d){try{
  const el=document.getElementById('rpScoreTbl');if(!el||!d)return;
