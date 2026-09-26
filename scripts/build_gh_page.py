@@ -622,8 +622,8 @@ function rpGo(a,st){{const b=a.dataset.book;
   else{{rpOpen(a.dataset.pm);}}}}
  else if(a.dataset.template){{rpOpen(a.dataset.sb.replaceAll('{{state}}',st.toLowerCase()));}}
  else rpOpen(a.dataset.sb);}}
-function rpTerm(st){{const sb=RP_FD.includes(st)||RP_DK.includes(st);const T=sb?'Parlay':'Combo *';
- const h=document.getElementById('rpParlayTitle');if(h)h.textContent=T;
+function rpTerm(st){{const sb=RP_FD.includes(st)||RP_DK.includes(st);const T=sb?'Parlay':'Combo<span style="letter-spacing:0">&thinsp;*</span>';
+ const h=document.getElementById('rpParlayTitle');if(h)h.innerHTML=T;
  const rg=document.getElementById('rpComboReg');if(rg)rg.style.display=sb?'none':'';
  const nt=document.getElementById('rpParlayNote');if(nt&&!sb)nt.textContent='';}}
 function rpFilter(st){{rpTerm(st);let parlayAllHidden=true;
