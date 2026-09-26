@@ -33,6 +33,7 @@ __MATCHUP__
   <div id="rpLive"></div>
   <div id="rpScoreTbl"></div>
   <div class="chips" style="margin-top:12px">__CHIPS__</div>
+  <div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>
   __TEAMLINKS__
 </div>
 <div class="sect">__MKTHDR__</div>
@@ -104,12 +105,12 @@ function rpFilter(st){
  if(!st){document.querySelectorAll('[data-book]').forEach(function(el){
   if(el.querySelector('[data-book]')){el.style.display='';el.querySelectorAll('[data-book]').forEach(rpGate);return;}
   rpGate(el);});return;}  /* scores/content never gated; only outbound market taps ask for state (complaint-lens via main 9/26) */document.querySelectorAll('[data-book]').forEach(function(el){
- if(el.querySelector('[data-book]')){  /* container rows (LIVE MARKETS): whole-row visibility by state availability */
-  if(rpRowAvail(el,st)){el.style.display='';}
-  else{el.style.display='none';el.querySelectorAll('a[data-book]').forEach(rpStrip);}  /* hiding is not removal: strip every route on every switch */
+ if(el.querySelector('[data-book]')){  /* parity (user 9/26: same pick, same books on every surface): rows NEVER geo-hide - prices are content, only taps geo-gate */
+  const _rowOk=rpRowAvail(el,st);el.style.display='';
+  el.querySelectorAll('a[data-book]').forEach(function(a){if(_rowOk){delete a.dataset.marker;rpTapify(a,st);}else{rpStrip(a);a.dataset.marker='1';}});
   return;}
- if(!rpRowAvail(el,st)){rpStrip(el);el.style.display='none';return;}  /* unavailable in this state: stripped, never displayed */
- el.style.display='';rpTapify(el,st);  /* available: tappable with a verified/PM destination, priced inert span without one */
+ if(!rpRowAvail(el,st)){rpStrip(el);el.style.display='';el.dataset.marker='1';return;}  /* parity (user 9/26): prices are content, never geo-hidden - unavailable books render inert on every surface */
+ el.style.display='';delete el.dataset.marker;rpTapify(el,st);  /* available: tappable with a verified/PM destination, priced inert span without one */
 });}
 function rpRoute(e,a){e.preventDefault();const st=localStorage.getItem('rp_state');if(!st){window.__rpChip=a;rpAsk(false);return false;}rpGo(a,st);return false;}
 function rpSave(){const st=document.getElementById('rpState').value;if(!st)return;const gps=localStorage.getItem('rp_state_gps');
@@ -147,7 +148,7 @@ function rpKalTick(){try{
  document.querySelectorAll('a[data-kalticker][data-kalside],a[data-kalmkt]').forEach(function(a){
   const tk=a.dataset.kalmkt||(a.dataset.kalticker+'-'+a.dataset.kalside);
   if(!tk)return;
-  const r0=rpMkt(a);if(r0&&r0.ph!=='live')return;  /* canonical record: frozen phases never tick */
+  const r0=rpMkt(a);if(r0&&r0.ph==='last_pre_game')return;  /* canonical record: frozen phases never tick (phase = event status, not fetch time) */
   const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk;
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){
    const m=j&&j.market;if(!m)return;
@@ -162,7 +163,7 @@ function rpKalTick(){try{
 function rpPolyTick(){try{
  document.querySelectorAll('a[data-polyslug]').forEach(function(a){
   if(!a.dataset.polyslug)return;
-  const r0=rpMkt(a);if(r0&&r0.ph!=='live')return;  /* frozen phases never tick */
+  const r0=rpMkt(a);if(r0&&r0.ph==='last_pre_game')return;  /* frozen phases never tick (phase = event status, not fetch time) */
   fetch('https://gamma-api.polymarket.com/events?slug='+a.dataset.polyslug).then(r=>r.json()).then(function(ev){
    if(!ev||!ev.length)return;const kw=(a.dataset.polykw||'').toLowerCase();const sub=a.dataset.polysub||'';
    let target=null;
@@ -316,7 +317,7 @@ async function rpEspnPanel(d){
   if(aw2&&hm2){const win=(side==='away')?(+aw2.score>+hm2.score):(+hm2.score>+aw2.score);
   wl2='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl2)+'<span style="font-size:12px;color:#8a8f98">'+(st.shortDetail||'')+'</span></div>';
- (comp.competitors||[]).slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){
+ (comp.competitors||[]).forEach(function(c){
   const ab=(c.team||{}).abbreviation||'';const sc=c.score||'0';
   const ball=live&&comp.situation&&comp.situation.possession===c.team.id?' <span style="color:#e8b93c">&#9679;</span>':'';
   h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+ab+ball+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+sc+'</span></div>';
@@ -330,13 +331,39 @@ async function rpEspnPanel(d){
  if(base.length)bits.push('runners: '+base.join(', '));
  if(bits.length)h+='<div style="font-size:12px;color:#8a8f98;margin-top:6px">'+bits.join(' &middot; ')+'</div>';
  const pn=(((s.pitcher||{}).athlete||{}).displayName)||'';const bn=(((s.batter||{}).athlete||{}).displayName)||'';
- if(pn||bn)h+='<div class="rpsc-cell" style="font-size:12px;margin-top:6px">'+(pn?('P: '+pn):'')+(pn&&bn?' &middot; ':'')+(bn?('AB: '+bn):'')+'</div>';
+ if(pn||bn)h+='<div style="font-size:12px;color:#c8cdd5;margin-top:6px">'+(pn?('P: '+pn):'')+(pn&&bn?' &middot; ':'')+(bn?('AB: '+bn):'')+'</div>';
  const lp=(s.lastPlay||{}).text||'';
  if(lp)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+lp+'</div>';
  h+='</div>';
  box.innerHTML=h;
  }catch(e){}
 }
+function rpChipML(a){const r=rpMkt(a);if(r){if(r.st!=='ok')return null;if(r.c!=null)return rpC2MLn(r.c);return r.ml;}if(a.dataset&&a.dataset.cents){return rpC2MLn(a.dataset.cents);}const m=a.textContent.match(/([+-]\d+)/);return m?parseInt(m[1]):null;}  /* canonical record first; text is never a computational source when a record exists */
+
+/* Line shop / pre-game range on game pages (tester gate 9/26, U-DATA-001): SAME renderer rule as the card - canonical records only, pick-side chips only, geo never touches the math */
+function rpGameLineShop(){try{
+ const pk=document.querySelector('.pick[data-espn]');if(!pk)return;
+ const el=pk.querySelector('.rplineshop');if(!el)return;
+ const ip=function(a){return a>0?100.0/(a+100):(-a)/((-a)+100.0);};
+ const prs=[];
+ const pmkt=pk.dataset.market||'';
+ let ph0=null;
+ pk.querySelectorAll('.chips [data-mr]').forEach(function(a){if(ph0)return;const r=rpMkt(a);if(r)ph0=r.ph;});
+ pk.querySelectorAll('.chips [data-book]').forEach(function(a){
+  if(a.querySelector('[data-book]'))return;
+  if(pmkt&&a.dataset.market&&a.dataset.market!==pmkt)return;
+  const r=rpMkt(a);if(!r)return;  /* canonical-record-only: identical set on every surface, every viewer */
+  if(ph0&&r.ph!==ph0)return;  /* same-phase, fail-closed */
+  const v=rpChipML(a);if(v===null)return;
+  if(Math.abs(v)<=1500)prs.push(v);
+ });
+ if(prs.length<2){el.style.display='none';return;}
+ const best=Math.max.apply(null,prs),worst=Math.min.apply(null,prs);
+ const edge=(ip(worst)-ip(best))*100;
+ if(edge<0.05){el.style.display='none';return;}
+ el.style.display='';
+ el.textContent=rpInPlay()?('pre-game range: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best):('line shop: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best+' \u00b7 '+edge.toFixed(1)+'% edge at the best price');
+}catch(e){}}
 function rpPageRefresh(){try{
  /* canonical record: a new build forces a full reload, so RP_MARKETS and chips always arrive together */
  fetch(location.pathname+'?r='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(function(t){
@@ -345,6 +372,7 @@ function rpPageRefresh(){try{
 }catch(e){}}
 document.getElementById('rpModal').addEventListener('click',function(e){if(e.target===this){this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}});
 rpFilter(localStorage.getItem('rp_state')||'');
+rpGameLineShop();
 rpLabel(); /* state prompt fires only on outbound market taps - never gates score/game content (complaint-lens via main 9/26) */
 
 function rpML2C(ml){ml=parseFloat(ml);if(isNaN(ml))return null;return ml<0?(-ml)/((-ml)+100)*100:100/(ml+100)*100;}
@@ -463,7 +491,7 @@ async function rpScoreTblTick(d){try{
  el.innerHTML=''; /* mma/boxing/golf/nascar: no period-linescore shape - nothing rendered */
 }catch(e){}}
 
-rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}try{await rpScoreTblTick(document.querySelector('.pick[data-espn]'));}catch(e2){}setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?30000:3000);}rpLiveLoop();
+rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}try{await rpScoreTblTick(document.querySelector('.pick[data-espn]'));}catch(e2){}try{rpGameLineShop();}catch(e3){}setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?30000:3000);}rpLiveLoop();
 setInterval(rpPageRefresh,60000);
 
 /* Live per-game chat - room id baked at build (g<num>-<date>), no fetch needed to find it. Opens 1h before start, locks 2h after final. */
