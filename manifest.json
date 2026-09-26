@@ -1,166 +1,90 @@
 {
- "date_label": "Friday, Sep 25",
- "status_note": "FINAL. KAL chips work in California; FD/DK chips one-tap in legal states.",
- "record": "10-6",
- "updated": "Sep 25, 9:38 PM PT",
- "picks": [
-  {
-   "num": 1,
-   "name": "Astros ML",
-   "sub": "at Athletics - Brown (last 5: 1.9 ERA) vs Lopez (last out: 10 ER). HOU fighting for the AL West",
-   "odds": "-172",
-   "units": "10u",
-   "side": "away",
-   "game": {
-    "away": "Houston Astros",
-    "home": "Athletics",
-    "commence": "2026-09-26T01:41:00Z"
-   },
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep252140houath",
-    "cents": 63,
-    "team": "HOU"
-   },
-   "best_book": "FanDuel",
-   "espn_league": "baseball/mlb",
-   "dkp": {
-    "url": "https://predictions.draftkings.com/en/event/hou-astros-%40-athletics/34720874"
-   },
-   "polymarket": {
-    "url": "https://polymarket.com/event/mlb-hou-oak-2026-09-25"
-   },
-   "polymarket_us": {
-    "url": "https://polymarket.us/event/mlb-hou-ath-2026-09-25"
-   },
-   "result": "LOSS",
-   "status": "lost",
-   "polycents": 62
-  },
-  {
-   "num": 2,
-   "name": "Orioles ML",
-   "sub": "at Yankees (Game 1) - Rogers dealing; NYY without Judge, Stanton, Grisham",
-   "odds": "+105",
-   "units": "5u",
-   "side": "away",
-   "game": {
-    "away": "Baltimore Orioles",
-    "home": "New York Yankees",
-    "commence": "2026-09-25T20:05:00Z"
-   },
-   "best_book": "DraftKings",
-   "espn_league": "baseball/mlb",
-   "dkp": {
-    "url": "https://predictions.draftkings.com/en/event/bal-orioles-%40-ny-yankees/34725769"
-   },
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxmlbgame/baltimore-vs-new-york-y-game-1/kxmlbgame-26sep261915balnyy",
-    "cents": 48,
-    "team": "BAL"
-   },
-   "polymarket": {
-    "url": "https://polymarket.com/event/mlb-bal-nyy-2026-09-25"
-   },
-   "polymarket_us": {
-    "url": "https://polymarket.us/event/mlb-bal-nyy-2026-09-25"
-   },
-   "result": "WIN",
-   "status": "won",
-   "polycents": 48
-  },
-  {
-   "num": 3,
-   "name": "Guardians ML",
-   "sub": "at Royals - Williams last 5: 0,2,2,0,5 ER with 40 Ks; CLE protecting the division lead",
-   "odds": "-129",
-   "units": "5u",
-   "side": "away",
-   "game": {
-    "away": "Cleveland Guardians",
-    "home": "Kansas City Royals",
-    "commence": "2026-09-25T23:41:00Z"
-   },
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep251940clekc",
-    "cents": 56,
-    "team": "CLE"
-   },
-   "best_book": "Kalshi",
-   "espn_league": "baseball/mlb",
-   "dkp": {
-    "url": "https://predictions.draftkings.com/en/event/cle-guardians-%40-kc-royals/34720710"
-   },
-   "polymarket": {
-    "url": "https://polymarket.com/event/mlb-cle-kc-2026-09-25"
-   },
-   "polymarket_us": {
-    "url": "https://polymarket.us/event/mlb-cle-kc-2026-09-25"
-   },
-   "result": "WIN",
-   "status": "won",
-   "polycents": 56
-  }
- ],
- "parlay": {
-  "legs": [
-   "Astros ML",
-   "Guardians ML",
-   "Orioles ML"
+  "date_label": "Saturday, Sep 26",
+  "status_note": "FINAL. KAL chips work in California; FD/DK chips one-tap in legal states.",
+  "record": "10-6",
+  "updated": "Sep 26, 7:21 AM PT",
+  "picks": [
+    {
+      "num": 1,
+      "name": "Toledo ML",
+      "sub": "vs San Diego St · home · model 64.9, independents 60-66 · exchange 56.5-57c",
+      "odds": "-137",
+      "units": "5u",
+      "side": "home",
+      "game": {
+        "away": "San Diego State Aztecs",
+        "home": "Toledo Rockets",
+        "commence": "2026-09-26T16:00Z",
+        "eid": "401860893"
+      },
+      "espn_league": "football/college-football",
+      "best_book": "Kalshi",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26sdsutol",
+        "cents": 57,
+        "team": "Toledo",
+        "gate_cents": 57
+      },
+      "polymarket": {
+        "url": "https://polymarket.com/event/cfb-sdst-toledo-2026-09-26"
+      }
+    },
+    {
+      "num": 2,
+      "name": "Nebraska ML",
+      "sub": "at Michigan St · model + independents converge ~72 · MSU missing 6 incl. LB Pretzlaff",
+      "odds": "-225",
+      "units": "10u",
+      "side": "away",
+      "game": {
+        "away": "Nebraska Cornhuskers",
+        "home": "Michigan State Spartans",
+        "commence": "2026-09-26T21:00Z",
+        "eid": "401858464"
+      },
+      "espn_league": "football/college-football",
+      "best_book": "Kalshi",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26nebmsu",
+        "cents": 67,
+        "team": "Nebraska"
+      },
+      "polymarket": {
+        "url": "https://polymarket.com/event/cfb-nebr-mst-2026-09-26"
+      }
+    }
   ],
-  "note": "All 3 legs matched at Playbook; link is geo-aware and opens the slip at the best book for your state. Sportsbook-only - in CA the singles above ride on Kalshi & Polymarket.",
-  "link": "https://playbookbot.com/books/fanduel/passthrough?deeplinkId[0]=ML3002533417&deeplinkId[1]=ML3001989066&deeplinkId[2]=ML3003215393&context=playbook-homepage-quickslip&sport=baseball",
-  "label": "BUILD THIS PARLAY (+444)",
-  "routes": {
-   "FD": {
-    "price": 444,
-    "link": "https://playbookbot.com/books/fanduel/passthrough?deeplinkId[0]=ML3002533417&deeplinkId[1]=ML3001989066&deeplinkId[2]=ML3003215393&context=playbook-homepage-quickslip&sport=baseball"
-   },
-   "DK": {
-    "price": 437,
-    "link": "https://playbookbot.com/books/draftkings/passthrough?deeplinkId[0]=ML3002707106&deeplinkId[1]=ML3001992739&deeplinkId[2]=ML3003217880&context=playbook-homepage-quickslip&sport=baseball"
-   },
-   "MGM": {
-    "price": 434,
-    "link": "https://playbookbot.com/books/betmgm/passthrough?deeplinkId[0]=ML3002962229&deeplinkId[1]=ML3002169898&deeplinkId[2]=ML3003233626&context=playbook-homepage-quickslip&sport=baseball"
-   }
+  "parlay": {
+    "legs": [
+      "Toledo ML",
+      "Nebraska ML"
+    ],
+    "label": "BUILD THIS PARLAY (+162)",
+    "note": "38.2c combined at publish-time exchange asks (~+162).",
+    "kalshi_legs": [
+      {
+        "ticker": "KXNCAAFGAME-26SEP26SDSUTOL",
+        "side": "TOL",
+        "cents": 57
+      },
+      {
+        "ticker": "KXNCAAFGAME-26SEP26NEBMSU",
+        "side": "NEB",
+        "cents": 67
+      }
+    ],
+    "poly_legs": [
+      {
+        "url": "https://polymarket.com/event/cfb-sdst-toledo-2026-09-26",
+        "kw": "Toledo"
+      },
+      {
+        "url": "https://polymarket.com/event/cfb-nebr-mst-2026-09-26",
+        "kw": "Nebraska"
+      }
+    ]
   },
-  "kalshi_legs": [
-   {
-    "ticker": "KXMLBGAME-26SEP252140HOUATH",
-    "side": "HOU",
-    "cents": 63
-   },
-   {
-    "ticker": "KXMLBGAME-26SEP251940CLEKC",
-    "side": "CLE",
-    "cents": 57
-   },
-   {
-    "ticker": "KXMLBGAME-26SEP261915BALNYY",
-    "side": "BAL",
-    "cents": 48,
-    "note": "G1 - retitled moved-Saturday market; his rebuilt 10:08 AM ticket uses this leg"
-   }
-  ],
-  "poly_legs": [
-   {
-    "url": "https://polymarket.com/event/mlb-hou-oak-2026-09-25",
-    "kw": "Astros",
-    "cents": 62
-   },
-   {
-    "url": "https://polymarket.com/event/mlb-cle-kc-2026-09-25",
-    "kw": "Guardians",
-    "cents": 56
-   },
-   {
-    "url": "https://polymarket.com/event/mlb-bal-nyy-2026-09-25",
-    "kw": "Orioles",
-    "note": "G1 - live event page verified (starts 1:05 PM PT); gamma desc text stale",
-    "cents": 48
-   }
-  ]
- },
- "yesterday": "2-1",
- "units_pl": "-5.77u"
+  "yesterday": "2-1 · Orioles W · Guardians W · Astros L",
+  "units_pl": "-6.64u",
+  "units_ledger": "Sep 22 -$216.60, Sep 23 +$118.18, Sep 24 +$11.94, Sep 25 -$13.11 = -$99.59 = -6.64u at $15/u (data-auditor confirmed, Sep 26 7:17 AM)"
 }
