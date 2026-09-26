@@ -2269,6 +2269,8 @@ async function rpFutTick(){
    var ev=await res.json();
    if(!ev||!ev.length)return;
    var mkts=ev[0].markets||[];
+   (window.__rpFutMkts=window.__rpFutMkts||{})[slugS]=mkts;
+   (window.__rpPolyOkBySlug=window.__rpPolyOkBySlug||{})[slugS]=Date.now();
    bySlug[slugS].forEach(function(r){
     var kw=(r.dataset.pkw||'').toLowerCase();
     var m=null;
@@ -2295,13 +2297,18 @@ async function rpFutTick(){
   }catch(e){}
  }));
  try{var _nw=Date.now();document.querySelectorAll('.futrow').forEach(function(r){
-  var dm=false;
-  if(r.dataset.pslug&&(_nw-(window.__rpPolyOk||0))>30000)dm=true;
-  if(r.dataset.kalticker&&(_nw-(window.__rpKalOk||0))>90000)dm=true;  /* regression gate Sep 26: 90s threshold matches the 60s pregame-cadence KAL route; POLY stays 30s */
+  var polyDead=r.dataset.pslug&&(_nw-((window.__rpPolyOkBySlug||{})[r.dataset.pslug]||0))>30000;
+  var kalDead=r.dataset.kalticker&&(_nw-(window.__rpKalOk||0))>90000;  /* regression gate Sep 26: 90s threshold matches the 60s pregame-cadence KAL route; POLY stays 30s */
+  var dm=!!(polyDead||kalDead);
   var lv=r.querySelector('.futlive');var mv=r.querySelector('.futmove');
   if(lv)lv.style.opacity=dm?'.55':'';
-  if(mv)mv.style.opacity=dm?'.55':'';
- });}catch(e6){}  /* honesty dims (approved Sep 26): >30s stale source dims the row's live line; stale never re-stamps */
+  if(mv){mv.style.opacity=dm?'.55':'';
+   if(dm){var parts=[];if(polyDead)parts.push('Polymarket');if(kalDead)parts.push('Kalshi');
+    var _ok=kalDead&&!polyDead?(window.__rpKalOk||0):((window.__rpPolyOkBySlug||{})[r.dataset.pslug]||0);
+    var _at=_ok?new Date(_ok).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',second:'2-digit'}):'never';
+    mv.textContent='live paused - '+parts.join(' + ')+' unreachable, last update '+_at;}}
+  if(window.__rpFdFid&&r.dataset.fid===window.__rpFdFid&&!r.dataset.kalticker){rpFdRenderLive(r);}  /* tester regression Sep 26: the open sheet rides EVERY tick incl. failed fetches - one render point after the staleness decision; KAL-driven sheets untouched while the lane is dormant */
+ });}catch(e6){}  /* honesty dims (approved Sep 26): >30s stale source dims AND labels the row's live line; stale never re-stamps or passes as live */
 }
 async function rpFutKalTick(){
  document.querySelectorAll('.futrow[data-kalticker]').forEach(function(r){
@@ -2348,10 +2355,10 @@ window.addEventListener('pageshow',function(){try{
  }).catch(function(){});
 }catch(e){}});
 /* futures detail sheet: reasoning + live market depth */
-var rpFdCache={};
-function rpFdClose(){document.getElementById('rpFd').style.display='none';}
+function rpFdClose(){document.getElementById('rpFd').style.display='none';window.__rpFdFid=null;}
 function rpFutOpen(fid){
  var r=document.querySelector('.futrow[data-fid="'+fid+'"]');if(!r)return;
+ window.__rpFdFid=fid;
  var sh=document.getElementById('rpFd');var bx=document.getElementById('rpFdBox');
  var team=r.dataset.team,mkt=r.dataset.mkt,entry=r.dataset.entry,fair=r.dataset.fair,prob=r.dataset.prob,res=r.dataset.res,units=r.dataset.units,note=r.dataset.note;
  var h='<h3>'+team+'</h3><div class="rp-sub">'+mkt+'</div>';
@@ -2372,29 +2379,38 @@ function rpFutOpen(fid){
    b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow;
   }).catch(function(){var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
   return;}
- function render(m){
-  var b=document.getElementById('rpFdLiveBody');if(!b)return;
-  try{
-   var outs=JSON.parse(m.outcomes||'[]'),pr=JSON.parse(m.outcomePrices||'[]'),idx=0;
-   for(var j=0;j<outs.length;j++){if(String(outs[j]).toLowerCase()==='yes'){idx=j;break;}}
-   var p=parseFloat(pr[idx]);var c=p*100;
-   var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
-   var eMl=parseInt(String(entry).replace('+',''),10)||100;
-   var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
-   var d=(p-eImp)*100;
-   var arrow=d>0.5?'<span style="color:#3ecf6f">&#9650; '+d.toFixed(1)+' pts since entry</span>':(d<-0.5?'<span style="color:#e5484d">&#9660; '+Math.abs(d).toFixed(1)+' pts since entry</span>':'flat vs entry');
-   var v24=m.volume24hr?('$'+Math.round(m.volume24hr).toLocaleString()+' traded in last 24h'):'';
-   var liq=m.liquidity?(' &middot; $'+Math.round(m.liquidity).toLocaleString()+' liquidity'):'';
-   var d1=(m.oneDayPriceChange!=null)?((m.oneDayPriceChange*100>=0?'+':'')+(m.oneDayPriceChange*100).toFixed(1)+' pts last 24h'):'';
-   b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow+'<div style="margin-top:4px;color:#9A9AA3">'+[d1,v24+liq].filter(Boolean).join(' &middot; ')+'</div>';
-  }catch(e){b.textContent='live data unavailable';}
- }
- if(rpFdCache[slug]){var mm=null;for(var i=0;i<rpFdCache[slug].length;i++){if((rpFdCache[slug][i].question||'').toLowerCase().indexOf(kw)>=0){mm=rpFdCache[slug][i];break;}}if(mm){render(mm);return;}}
+ if((window.__rpFutMkts||{})[slug]){rpFdRenderLive(r);return;}
  fetch('https://gamma-api.polymarket.com/events?slug='+slug).then(function(r2){return r2.json();}).then(function(ev){
-  var mkts=(ev&&ev[0]&&ev[0].markets)||[];rpFdCache[slug]=mkts;var mm=null;
-  for(var i=0;i<mkts.length;i++){if((mkts[i].question||'').toLowerCase().indexOf(kw)>=0){mm=mkts[i];break;}}
-  if(mm)render(mm);else{var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='market not found';}
- }).catch(function(){var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
+  var mkts=(ev&&ev[0]&&ev[0].markets)||[];(window.__rpFutMkts=window.__rpFutMkts||{})[slug]=mkts;
+  rpFdRenderLive(r);
+ }).catch(function(){var b=document.getElementById('rpFdLiveBody');if(b){b.style.opacity='.55';b.textContent='live paused - Polymarket unreachable, last update never';}});
+}
+/* shared sheet live renderer - driven by the 2s tick cache so the open sheet rides the tick;
+   source death shows a dimmed honest label instead of a stale price (his Sep 26 rule) */
+function rpFdRenderLive(r){
+ var b=document.getElementById('rpFdLiveBody');if(!b)return;
+ var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase(),entry=r.dataset.entry||'+0';
+ var ok=((window.__rpPolyOkBySlug||{})[slug])||0;
+ if(!ok||(Date.now()-ok)>30000){var _at=ok?new Date(ok).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',second:'2-digit'}):'never';b.style.opacity='.55';b.textContent='live paused - Polymarket unreachable, last update '+_at;return;}
+ b.style.opacity='';
+ var mkts=(window.__rpFutMkts||{})[slug]||[];
+ var m=null;for(var i=0;i<mkts.length;i++){if((mkts[i].question||'').toLowerCase().indexOf(kw)>=0){m=mkts[i];break;}}
+ if(!m){b.textContent='market not found';return;}
+ try{
+  var outs=JSON.parse(m.outcomes||'[]'),pr=JSON.parse(m.outcomePrices||'[]'),idx=0;
+  for(var j=0;j<outs.length;j++){if(String(outs[j]).toLowerCase()==='yes'){idx=j;break;}}
+  var p=parseFloat(pr[idx]);if(!(p>0&&p<1)){b.textContent='live data unavailable';return;}
+  var c=p*100;
+  var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
+  var eMl=parseInt(String(entry).replace('+',''),10)||100;
+  var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
+  var d=(p-eImp)*100;
+  var arrow=d>0.5?'<span style="color:#3ecf6f">&#9650; '+d.toFixed(1)+' pts since entry</span>':(d<-0.5?'<span style="color:#e5484d">&#9660; '+Math.abs(d).toFixed(1)+' pts since entry</span>':'flat vs entry');
+  var v24=m.volume24hr?('$'+Math.round(m.volume24hr).toLocaleString()+' traded in last 24h'):'';
+  var liq=m.liquidity?(' &middot; $'+Math.round(m.liquidity).toLocaleString()+' liquidity'):'';
+  var d1=(m.oneDayPriceChange!=null)?((m.oneDayPriceChange*100>=0?'+':'')+(m.oneDayPriceChange*100).toFixed(1)+' pts last 24h'):'';
+  b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow+'<div style="margin-top:4px;color:#9A9AA3">'+[d1,v24+liq].filter(Boolean).join(' &middot; ')+'</div>';
+ }catch(e){b.textContent='live data unavailable';}
 }
 </script>
 <script src="myprofile.js?v=__BUILD__"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></body></html>'''
