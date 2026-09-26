@@ -15,8 +15,8 @@ h1 .tick{color:#2f8f7d}
 .pick{padding:18px 0;border-top:1px solid #e4e2de}
 .pick:first-of-type{border-top:none}
 .pick-head{display:flex;align-items:center;gap:10px}
-.gamelink{display:flex;align-items:baseline;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}
-.chev{color:#55555c;text-decoration:none;transform:translateY(5px)}
+.gamelink{display:flex;align-items:center;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}
+.chev{color:#55555c;text-decoration:none}
 .mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}
 .mrow:first-of-type{border-top:none}
 .mrow .bk{font-weight:700;width:52px;flex:none}
@@ -28,14 +28,14 @@ h1 .tick{color:#2f8f7d}
 @media (prefers-color-scheme: dark){.chev{color:#55555c}.mrow{border-top-color:#2a2a2e}.mrow .pr{color:#3aa895}.back,.score{color:#9a9aa3}}
 .num{color:#6b6b72}
 .name{font-weight:600;font-size:17px;flex:1}
-.odds{color:#2f8f7d;font-weight:600;white-space:nowrap}
+.odds{color:#2f8f7d;font-weight:600;white-space:nowrap;line-height:1}
 .sub{color:#6b6b72;font-size:14px;margin:6px 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}
 .bklogo{width:16px;height:16px;border-radius:3px;flex:none}
 .chip.best{font-weight:800}
 .rec{font-weight:600;font-size:16px;padding:8px 0 1px}
-.units{color:#8a8f98;font-size:13px;font-weight:600}
+.units{color:#8a8f98;font-size:13px;font-weight:600;line-height:1}
 .unitmath{color:#8a8f98;font-size:13px;margin-top:8px}
 .legs{padding-left:20px;font-size:15px;line-height:1.7}
 .note{color:#6b6b72;font-size:13px;margin-top:6px}
@@ -145,7 +145,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790382334';const RP_ROOM='g2-2026-09-25';const RP_START='2026-09-25T20:05:00Z';
+const RP_BUILD='1790382409';const RP_ROOM='g2-2026-09-25';const RP_START='2026-09-25T20:05:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build */
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
