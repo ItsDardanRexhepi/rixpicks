@@ -193,6 +193,6 @@ var fab=document.createElement('button');fab.className='rp-fab';fab.textContent=
 fab.onclick=function(){betsSheet();tickSettle(renderBetsInto);};
 var h1=document.querySelector('h1');if(h1){h1.style.position='relative';fab.style.position='absolute';fab.style.right='0';fab.style.top='50%';fab.style.transform='translateY(-50%)';h1.appendChild(fab);}else{fab.style.position='fixed';fab.style.right='12px';fab.style.top='10px';fab.style.zIndex='60';document.body.appendChild(fab);}
 /* platforms sheet never auto-opens (complaint-lens via main 9/26) - fires only from My Account / My Platforms taps */
-tickSettle(null);setInterval(function(){tickSettle(null);},60000);}
+tickSettle(null);setInterval(function(){tickSettle(null);},5000);}  /* Sep 26 residual fix: settle tick 60s -> 5s (his by-the-second standard - betRow shows live score+clock). tickSettle early-returns with zero fetches when no open bets, so idle pages stay idle */
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();

@@ -9,6 +9,12 @@ Branding: 'RixPicks only. No personal identifiers, ever.
 """
 import json,sys,html,re,os
 
+def _urf(decision,scores,action,why):
+    # Matrix outcome_truth/urf.py doctrine (Sep 26 inspection): every deploy-affecting build choice
+    # emits one auditable fixed-order decision line (C,F,R,U,V,CE + T). Log lives in build output,
+    # not just chat. Scores are 0-3; T = time sensitivity.
+    print(f"URF Decision: {decision} - {scores} | {action}: {why}", file=sys.stderr)
+
 RP_DESIGN='1.2.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme. v1.2.0 (user, Sep 25 8:46 AM): current page shape approved as THE standing daily template - header without FINAL line, tap-any-book intro, per-pick chips + units, combo section, record + unit line, minimal footer (reference commit fbec1c1). Every morning build reproduces this exact shape; changes only on his explicit instruction.
 
 def _pt_date(iso):
@@ -577,16 +583,19 @@ def chips(p):
                 _pin=((SHIPPED.get(_sk) or {}).get('Kalshi') or {}).get('cents') or (p.get('kalshi') or {}).get('cents')
                 if (_DISPLAY_ONLY or _uw) and _pin is not None:
                     print(f"IN-PLAY DEGRADE: {p.get('name')} Kalshi market unresolved under {tick} - pinned snapshot {_pin}c (market closed/halted in-play)", file=sys.stderr)
+                    _urf("EXECUTE","C=3 F=3 R=1 U=1 V=2 CE=1 T=high","in-play degrade to pinned snapshot",f"{p.get('name')} under {tick}: Kalshi delisted/halted in-play, pinned {_pin}c is the last verified pre-game quote; a stale-labeled-honest chip beats a killed build")
                     _kc=_pin
                 elif _uw:
                     # regression gate Sep 26 (11:21 AM incident, 3h outage): an in-play delisting with NO
                     # pinned snapshot must not kill the build either - degrade to an honest unpriced chip
                     # (st:'unknown', no cents). Pre-game NEW content still hard-fails below.
                     print(f"IN-PLAY DEGRADE: {p.get('name')} Kalshi market unresolved under {tick} and no pinned snapshot - chip ships unpriced (honest unknown), build continues", file=sys.stderr)
+                    _urf("EXECUTE","C=3 F=3 R=1 U=2 V=2 CE=1 T=high","in-play degrade to honest unpriced",f"{p.get('name')} under {tick}: no pinned snapshot exists; UNKNOWN is not a failure (outcome_truth three-way verdict) - ship st:unknown, never invent a price")
                     _kc=None
                 else:
                     # Sep 26 hunter ruling: a stale price posing as fresh is worse than no build.
                     print(f"BUILD FAILED: Kalshi market unresolved for {p.get('name')} team {_kside!r} under {tick}", file=sys.stderr)
+                    _urf("ABORT","C=3 F=0 R=3 U=2 V=3 CE=0 T=high","pre-game NEW content hard-fail",f"{p.get('name')} under {tick}: no live market, no pin, not underway - shipping would pose an unverified price as fresh (hunter ruling Sep 26)")
                     sys.exit(3)
             label=(f"KAL {c2ml(_kc)}" if _kc else "KAL")+inst  # user Sep 26 12:58 PM: ALL chips American, PM arms included (supersedes U-DISP-001 c1)  # in play _kc is the frozen last-known price - never blank (inspector Sep 26)
             best=(p.get('best_book')=='Kalshi')
