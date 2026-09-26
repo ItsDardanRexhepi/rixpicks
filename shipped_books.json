@@ -157,6 +157,18 @@
    "link": "https://{state}.betrivers.com/?page=sportsbook#event/1027508185",
    "ml": -148,
    "commence": "2026-09-26T16:00Z"
+  },
+  "Kalshi": {
+   "link": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26sdsutol",
+   "cents": 57,
+   "commence": "2026-09-26T16:00Z",
+   "ts": "2026-09-26T15:48:00Z"
+  },
+  "Polymarket": {
+   "link": "https://polymarket.com/event/cfb-sdst-toledo-2026-09-26",
+   "cents": 56,
+   "commence": "2026-09-26T16:00Z",
+   "ts": "2026-09-26T15:48:00Z"
   }
  },
  "Nebraska Cornhuskers|Michigan State Spartans|2026-09-26": {
@@ -189,6 +201,18 @@
    "link": "https://{state}.betrivers.com/?page=sportsbook#event/1027507946",
    "ml": -225,
    "commence": "2026-09-26T21:00Z"
+  },
+  "Kalshi": {
+   "link": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26nebmsu",
+   "cents": 67,
+   "commence": "2026-09-26T21:00Z",
+   "ts": "2026-09-26T15:48:00Z"
+  },
+  "Polymarket": {
+   "link": "https://polymarket.com/event/cfb-nebr-mst-2026-09-26",
+   "cents": 68,
+   "commence": "2026-09-26T21:00Z",
+   "ts": "2026-09-26T15:48:00Z"
   }
  }
 }
