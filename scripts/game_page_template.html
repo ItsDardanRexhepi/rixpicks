@@ -27,7 +27,7 @@
 <div class="sect" style="margin-top:18px">Game __NUM____INST__</div>
 __MATCHUP__
 <div class="pick" data-espn="__ESPN__" data-eid="__EID__" data-gpk="__GPK__" data-aab="__AAB__" data-hab="__HAB__" data-room="__ROOM__" data-away="__AWAY__" data-home="__HOME__" data-side="__SIDE__" data-market="__MKT__"__COUNTED__>
-  <div class="pick-head"><span class="num">__NUM__.</span><span class="name">__NAME__</span><span class="units">__UNITS__</span><span class="odds">__ODDS__</span></div>
+  <div class="pick-head"><span class="num">__NUM__.</span><span class="name">__NAME__</span><span class="units">__UNITS__</span><span class="odds">__ODDS__</span><span class="oddslock">__LOCK__ &middot; locked</span></div>
   <div class="sub">__SUB__</div>
   <div class="score" id="rpScore">__WHEN__</div>
   <div id="rpLive"></div>
@@ -80,7 +80,8 @@ if(location.protocol==='http:'&&/(^|\.)rix-picks\.com$/.test(location.hostname))
 const RP_STANDALONE=(navigator.standalone===true)||window.matchMedia('(display-mode: standalone)').matches;
 function rpOpen(u){if(RP_STANDALONE){location.assign(u);}else{window.open(u,'_blank','noopener');}}
 if(RP_STANDALONE){document.addEventListener('click',function(e){const a=e.target.closest('a[target="_blank"]');if(a&&!a.onclick&&a.href){e.preventDefault();location.assign(a.href);}},true);}
-function rpBookLive(b,st){if(b==='KAL'||b==='POLY')return true;const L=(typeof RP_L!=='undefined'&&RP_L[b])||null;return L?L.indexOf(st)!==-1:true;}
+/* U-GEO-002: ONE arm-level legality table as DATA (arms, never parent brands; the dead pre-rebrand arm never renders). Unresolved state fails closed to the prediction-market set. */
+function rpBookLive(b,st){if(typeof RP_LEGAL_STATE==='undefined')return b==='KAL'||b==='POLY';if(!st)return RP_PM_DEFAULT.indexOf(b)!==-1;const L=RP_LEGAL_STATE[st];return L?L.indexOf(b)!==-1:false;}
 function rpPm(el){if(el.dataset.pm&&el.dataset.nopm!=='1')return el.dataset.pm;const mr=el.closest?el.closest('.mrow'):null;if(mr&&mr.dataset.pm&&mr.dataset.nopm!=='1')return mr.dataset.pm;return null;}
 function rpDest(a,st){const b=a.dataset.book;
  if(rpBookLive(b,st)){const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{state}',st.toLowerCase());return a.getAttribute('href')||null;}
@@ -101,17 +102,35 @@ function rpTapify(el,st){const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.da
 function rpRowAvail(el,st){return rpBookLive(el.dataset.book,st)||!!rpPm(el);}
 function rpStrip(el){el.removeAttribute('href');el.removeAttribute('onclick');el.removeAttribute('target');el.removeAttribute('rel');el.classList.add('rpnontap');}
 function rpGate(el){if(!(el.getAttribute('href')||el.getAttribute('data-sb')||el.getAttribute('data-sbt')||el.getAttribute('data-pm'))){rpStrip(el);el.style.display='';return;}const h=el.getAttribute('href');if(h&&!el.getAttribute('data-sb'))el.setAttribute('data-sb',h);rpStrip(el);el.style.display='';el.classList.remove('rpnontap');el.setAttribute('onclick','return rpRoute(event,this)');}  /* unresolved state: visible, route-stripped, tap opens the state prompt */
+/* U-CORE star doctrine (tester gate 4, Sep 26): after ANY visibility or price change the best-line star is recomputed over exactly the VISIBLE set - max American, records canonical. */
+function rpBestStar(pk){try{
+ const chips=[...pk.querySelectorAll('[data-book]')].filter(function(a){return !a.querySelector('[data-book]');});let best=null,bestV=-1e18;
+ chips.forEach(function(a){
+  if(a.offsetParent===null)return;
+  if(a.dataset.pmroute==='1')return;
+  if(a.dataset.marker==='1')return;
+  const v=rpChipML(a);if(v===null)return;
+  if(v>bestV){bestV=v;best=a;}
+ });
+ chips.forEach(function(a){a.classList.remove('best');a.innerHTML=a.innerHTML.replace(/^\u2605 /,'');});
+ if(best){best.classList.add('best');best.innerHTML='\u2605 '+best.innerHTML;}
+}catch(e){}}
+function rpAllBest(){document.querySelectorAll('.chips').forEach(rpBestStar);}  /* per-pick scoping (tester gate 4): a star is computed inside ONE pick's chip row, never across the document/both-sides grid */
 function rpFilter(st){
- if(!st){document.querySelectorAll('[data-book]').forEach(function(el){
-  if(el.querySelector('[data-book]')){el.style.display='';el.querySelectorAll('[data-book]').forEach(rpGate);return;}
-  rpGate(el);});return;}  /* scores/content never gated; only outbound market taps ask for state (complaint-lens via main 9/26) */document.querySelectorAll('[data-book]').forEach(function(el){
- if(el.querySelector('[data-book]')){  /* parity (user 9/26: same pick, same books on every surface): rows NEVER geo-hide - prices are content, only taps geo-gate */
-  const _rowOk=rpRowAvail(el,st);el.style.display='';
-  el.querySelectorAll('a[data-book]').forEach(function(a){if(_rowOk){delete a.dataset.marker;rpTapify(a,st);}else{rpStrip(a);a.dataset.marker='1';}});
+ /* U-GEO-001 amendment (user Sep 26 12:27 PM): visibility is state-scoped - no legal route in the resolved state = no render, no inert prices, no markers. The resolved SET is identical on every surface. Unresolved = fail-closed nationwide set (KAL/POLY). */
+ document.querySelectorAll('[data-book]').forEach(function(el){
+ if(el.querySelector('[data-book]')){  /* container rows: children decide, row follows */
+  let _any=false;
+  el.querySelectorAll('[data-book]').forEach(function(a){
+   if(a.querySelector('[data-book]'))return;
+   if(rpBookLive(a.dataset.book,st)){a.style.display='';delete a.dataset.marker;rpTapify(a,st);_any=true;}
+   else{a.style.display='none';delete a.dataset.marker;}
+  });
+  el.style.display=_any?'':'none';
   return;}
- if(!rpRowAvail(el,st)){rpStrip(el);el.style.display='';el.dataset.marker='1';return;}  /* parity (user 9/26): prices are content, never geo-hidden - unavailable books render inert on every surface */
- el.style.display='';delete el.dataset.marker;rpTapify(el,st);  /* available: tappable with a verified/PM destination, priced inert span without one */
-});}
+ if(!rpBookLive(el.dataset.book,st)){el.style.display='none';delete el.dataset.marker;return;}
+ el.style.display='';delete el.dataset.marker;rpTapify(el,st);
+});if(typeof rpGameLineShop==='function')rpGameLineShop();rpAllBest();}
 function rpRoute(e,a){e.preventDefault();const st=localStorage.getItem('rp_state');if(!st){window.__rpChip=a;rpAsk(false);return false;}rpGo(a,st);return false;}
 function rpSave(){const st=document.getElementById('rpState').value;if(!st)return;const gps=localStorage.getItem('rp_state_gps');
  if(gps&&st!==gps){localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src','preview');}else{localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src',gps?'gps':'manual');}
@@ -156,7 +175,7 @@ function rpKalTick(){try{
    if(rpInPlay())return;  /* in play the chip freezes its last-known price - live values never replace frozen ones */
    const c=Math.round(d*100);
    a.dataset.cents=c;if(r0){r0.c=c;r0.ts=Date.now();}
-   if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c)/,'KAL '+rpMLF(rpC2ML(c)));
+   if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c)/,'KAL '+rpMLF(rpC2ML(c)));  /* user Sep 26 12:58 PM: all-American display */
   }).catch(function(){});
  });
 }catch(e){}}
@@ -208,8 +227,8 @@ function rpEspnTick(){try{
    const ml=d.dataset.side==='away'?(o.awayTeamOdds||{}).moneyLine:(o.homeTeamOdds||{}).moneyLine;
    /* header .odds = locked entry price, FROZEN (tester ruling Sep 26): summary/scoreboard ticks update chips only, never the header */
    if(typeof ml==='number'&&st.state==='pre'){
-    const chip=d.querySelector('a[data-book="ESPN"]');
-    if(chip&&!rpInPlay()){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);}}
+    const chip=d.querySelector('a[data-book="TSB"]');
+    if(chip&&!rpInPlay()){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);const _rc=(typeof rpMkt==='function')?rpMkt(chip):null;if(_rc){_rc.ml=ml;_rc.ts=Date.now();}if(typeof rpGameLineShop==='function')rpGameLineShop();rpAllBest();}}  /* one quote mutation updates record + rendered price + range + star (audit swamp + tester gate 4, Sep 26) */
   }).catch(function(){});
   return;
  }
@@ -355,6 +374,7 @@ function rpGameLineShop(){try{
   if(pmkt&&a.dataset.market&&a.dataset.market!==pmkt)return;
   const r=rpMkt(a);if(!r)return;  /* canonical-record-only: identical set on every surface, every viewer */
   if(ph0&&r.ph!==ph0)return;  /* same-phase, fail-closed */
+  if(a.offsetParent===null)return;  /* U-DATA-001 amendment: range = exactly the state-resolved VISIBLE set */
   const v=rpChipML(a);if(v===null)return;
   if(Math.abs(v)<=1500)prs.push(v);
  });
@@ -372,7 +392,19 @@ function rpPageRefresh(){try{
  }).catch(function(){});
 }catch(e){}}
 document.getElementById('rpModal').addEventListener('click',function(e){if(e.target===this){this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}});
-rpFilter(localStorage.getItem('rp_state')||'');
+rpFilter(localStorage.getItem('rp_state')||'');rpResolveState();
+function rpResolveState(){try{  /* U-GEO-002: saved state authoritative, geolocation where granted, IP fallback, fail-closed default */
+ const saved=localStorage.getItem('rp_state');if(saved)return;
+ const apply=function(code,src){if(code&&document.querySelector('#rpState option[value="'+code+'"]')){localStorage.setItem('rp_state',code);localStorage.setItem('rp_state_src',src);if(src==='gps')localStorage.setItem('rp_state_gps',code);rpLabel();}};
+ const ipFb=function(){fetch('https://ipapi.co/json/').then(r=>r.json()).then(function(j){if(j&&j.region_code)apply(j.region_code,'ip');}).catch(function(){});};
+ if(navigator.permissions&&navigator.geolocation){
+  navigator.permissions.query({name:'geolocation'}).then(function(p){
+   if(p.state==='granted'){navigator.geolocation.getCurrentPosition(function(pos){
+    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(function(j){const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code,'gps');else ipFb();}).catch(ipFb);
+   },ipFb,{timeout:6000});}else ipFb();
+  }).catch(ipFb);
+ }else ipFb();
+}catch(e){}}
 rpGameLineShop();
 rpLabel(); /* state prompt fires only on outbound market taps - never gates score/game content (complaint-lens via main 9/26) */
 

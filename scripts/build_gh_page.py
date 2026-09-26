@@ -109,10 +109,10 @@ def _sanitize_man(man):
         if isinstance(r,dict) and r.get('link'): r['link']=_rawurl(r['link'])
 _sanitize_man(man)
 out=sys.argv[2] if len(sys.argv)>2 else '/home/sandbox/gh_page/index.html'
-BOOKS=[('DraftKings','DK'),('FanDuel','FD'),('ESPN BET','ESPN'),('Hard Rock','HR'),('BetMGM','MGM'),('BetRivers','BR'),('Kalshi','KAL'),('Polymarket','POLY')]
-BKDOM={'DK':'draftkings.com','FD':'fanduel.com','ESPN':'espnbet.com','HR':'hardrock.bet','MGM':'betmgm.com','BR':'betrivers.com','KAL':'kalshi.com','POLY':'polymarket.com','B365':'bet365.com','FAN':'fanatics.com'}
+BOOKS=[('DraftKings','DK'),('FanDuel','FD'),('theScore','TSB'),('Hard Rock','HR'),('BetMGM','MGM'),('BetRivers','BR'),('Kalshi','KAL'),('Polymarket','POLY')]  # U-GEO-003: ESPN BET is DEAD - dropped at ingestion, never mapped (tester gate). theScore Bet is the single canonical arm (one chip per arm).
+BKDOM={'DK':'draftkings.com','FD':'fanduel.com','TSB':'thescore.bet','HR':'hardrock.bet','MGM':'betmgm.com','BR':'betrivers.com','KAL':'kalshi.com','POLY':'polymarket.com','B365':'bet365.com','FAN':'fanatics.com','DKP':'predictions.draftkings.com','FDP':'fanduel.com'}
 # Brand fills (user 9/24 10:48 PM): every chip filled with the platform's own brand colors. (bg, fg)
-BKFILL={'DK':('#0b0e11','#53d337'),'FD':('#e7f3ff','#0e6fd0'),'ESPN':('#e6faf3','#0a8a66'),'HR':('#faf3dd','#8a6d1a'),'MGM':('#f5f0e4','#7a6226'),'BR':('#e3f5fc','#0278a6'),'KAL':('#e6f9f3','#0a7c5c'),'POLY':('#e8f3fc','#1a6db0'),'B365':('#fff9db','#6b5900'),'FAN':('#f0f0f2','#1a1a1a')}
+BKFILL={'DK':('#0b0e11','#53d337'),'FD':('#e7f3ff','#0e6fd0'),'TSB':('#0d1b2e','#4d94ff'),'HR':('#faf3dd','#8a6d1a'),'MGM':('#f5f0e4','#7a6226'),'BR':('#e3f5fc','#0278a6'),'KAL':('#e6f9f3','#0a7c5c'),'POLY':('#e8f3fc','#1a6db0'),'B365':('#fff9db','#6b5900'),'FAN':('#f0f0f2','#1a1a1a'),'DKP':('#0b1a0e','#9be25f'),'FDP':('#e7f3ff','#4d9de0')}
 def bkimg(short):
     d=BKDOM.get(short)
     return f'<img class="bklogo" src="https://www.google.com/s2/favicons?domain={d}&sz=128" alt="" onerror="this.remove()">' if d else ''
@@ -123,6 +123,9 @@ def _rh(x):
     # half-up rounding, identical to JS Math.round - Python round() is banker's and drifted card vs game-page ML display (sentinel 9/26: POLY 68c showed -212 card / -213 game header)
     import math
     return int(math.floor(float(x)+0.5))
+def _clbl(c):
+    # U-DISP-001: PM-arm chips display cents (57c, 38.2c); comparison math stays American via c2ml_int
+    return ('%g'%round(c,1))+'c'
 def c2ml_int(c):
     # raw American int for star/range math even when the display goes cents notation (main 11:11)
     c=_rh(c)
@@ -280,6 +283,16 @@ try:
             if isinstance(_be,dict) and _be.get('link'): _be['link']=_rawurl(_be['link'])
 except Exception: SHIPPED={}
 NEWSHIPPED={}
+# J-099+ (swamp+tester Sep 26): entry price AND entry timestamp are ONE immutable provenance pair,
+# sourced from the original card record and carried in the shipped ledger keyed by card date.
+# No publish path can re-stamp an entry: a rewritten manifest.updated only feeds the FIRST seed of a new card day.
+import datetime as _dtc
+_CARD_DATE=_dtc.date.today().isoformat()  # unambiguous ISO card-date key (tester gate 5) - a card lives one day
+_cardprev=SHIPPED.get('__card__') or {}
+# precedence (tester gate 5): the shipped-ledger pin WINS; manifest fields are seed/fallback only
+ENTRY_LOCK=(_cardprev.get('locked') if _cardprev.get('date')==_CARD_DATE else None) or man.get('entry_locked') or man.get('updated','')
+if _cardprev.get('date')!=_CARD_DATE or not _cardprev.get('locked'):
+    NEWSHIPPED['__card__']={'date':_CARD_DATE,'locked':ENTRY_LOCK}
 
 # Canonical market truth record (Matrix-mining design, user 9/26): ONE record per
 # (source,event,market,side) - price (cents canonical, ml display cache), phase, timestamp,
@@ -405,7 +418,7 @@ def sel_books(cands, game):
                             if _srec.get(_f) and _stale_carryover({'betmgm':'BetMGM','betrivers':'BetRivers'}.get(_sb,_sb),_srec[_f],game):
                                 _srec[_f]=None
                     continue
-                _name={'draftkings':'DraftKings','fanduel':'FanDuel','espnbet':'ESPN BET','hardrockbet':'Hard Rock','betmgm':'BetMGM','betrivers':'BetRivers'}.get(_bn,_bn)
+                _name={'draftkings':'DraftKings','fanduel':'FanDuel','espnbet':'theScore','hardrockbet':'Hard Rock','betmgm':'BetMGM','betrivers':'BetRivers'}.get(_bn,_bn)
                 for _f in ('event','away_link','home_link'):
                     if _bd.get(_f) and _stale_carryover(_name, _bd[_f], game):
                         _bd[_f]=None
@@ -416,7 +429,7 @@ def sel_books(cands, game):
             if isinstance(b,dict):
                 for _bn,_bd in list(b.items()):
                     if not isinstance(_bd,dict): continue
-                    _name={'draftkings':'DraftKings','fanduel':'FanDuel','espnbet':'ESPN BET','hardrockbet':'Hard Rock','betmgm':'BetMGM','betrivers':'BetRivers'}.get(_bn,_bn)
+                    _name={'draftkings':'DraftKings','fanduel':'FanDuel','espnbet':'theScore','hardrockbet':'Hard Rock','betmgm':'BetMGM','betrivers':'BetRivers'}.get(_bn,_bn)
                     for _f in ('event','away_link','home_link'):
                         if _bd.get(_f) and _stale_carryover(_name,_bd[_f],game): _bd[_f]=None
             return b
@@ -489,7 +502,7 @@ def chips(p):
         pr=sel_books(pre.get((p['game']['away'],p['game']['home'])), p.get('game')) if p.get('game') else None
         if p.get('market')=='spread':
             pr=(sel_books(pre_sp.get((p['game']['away'],p['game']['home'])), p.get('game')) or {}).get('books') if p.get('game') else None
-        PKMAP={'FanDuel':'fanduel','DraftKings':'draftkings','ESPN BET':'espnbet','Hard Rock':'hardrockbet'}
+        PKMAP={'FanDuel':'fanduel','DraftKings':'draftkings','theScore':'espnbet','Hard Rock':'hardrockbet'}  # U-GEO-003: feed still ships theScore lines under the legacy 'espnbet' key - ingested ONCE into the canonical TSB arm (never the ESPN identity)
         if pr and name in PKMAP:
             pk=PKMAP[name]
             if p.get('market')=='spread':
@@ -554,7 +567,7 @@ def chips(p):
                     # Sep 26 hunter ruling: a stale price posing as fresh is worse than no build.
                     print(f"BUILD FAILED: Kalshi market unresolved for {p.get('name')} team {_kside!r} under {tick}", file=sys.stderr)
                     sys.exit(3)
-            label=(f"KAL {c2ml(_kc)}" if _kc else "KAL")+inst  # in play _kc is the frozen last-known price - never blank (inspector Sep 26)
+            label=(f"KAL {c2ml(_kc)}" if _kc else "KAL")+inst  # user Sep 26 12:58 PM: ALL chips American, PM arms included (supersedes U-DISP-001 c1)  # in play _kc is the frozen last-known price - never blank (inspector Sep 26)
             best=(p.get('best_book')=='Kalshi')
             side=html.escape(_sfx)
             _pr.append((len(out), c2ml_int(_kc) if _kc else None))
@@ -638,6 +651,18 @@ def chips(p):
             _pr.append((len(out), ml))
             _mr=_mkrec(name,_eid,_mkt,side,ml=ml,link=link,ph=_ph,st=('ok' if ml is not None else 'unknown'))  # tester gate 9/26: EVERY priced chip carries a record
             out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}"{_dm}{_mr} data-sb="{html.escape(link)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{html.escape(label)}</a>')
+    # U-GEO-002 platform-arm chips (PS6: arms are distinct platforms) - DK Predictions / FD Predicts.
+    # Priced only from a verified market record (fail closed); otherwise an unpriced platform chip
+    # on a verified destination (predictions.draftkings.com / fanduel.com/predicts - verified Sep 26).
+    for _arm,_albl,_aurl,_pmkey in (('DKP','DK Predictions','https://predictions.draftkings.com/','dkp'),('FDP','FD Predicts','https://www.fanduel.com/predicts','fdp')):
+        _pm=(p.get(_pmkey) or {})
+        _pmu=_pm.get('url');_pmc=_pm.get('cents')
+        if _pmu and _pmc is not None:
+            _pr.append((len(out),rp_c2a(_pmc) if 'rp_c2a' in dir() else None))
+            _mr=_mkrec(_arm,_eid,_mkt,side,ml=None,cents=_pmc,link=_pmu,ph=_ph,st='ok')
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(_arm)} href="{html.escape(_pmu)}" data-book="{_arm}"{_mr} data-sb="{html.escape(_pmu)}" data-cents="{_pmc}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(_arm)}{html.escape(_albl+" "+c2ml(_pmc))}</a>')
+        else:
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(_arm)} href="{html.escape(_pmu or _aurl)}" data-book="{_arm}" data-platform="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(_arm)}{html.escape(_albl)}</a>')
     # build-time star = same max-American rule as client rpBestStar: the star never sits on
     # anything but the best displayed price, and never in play.
     _win=None
@@ -820,6 +845,7 @@ for p in man['picks']:
         # Sep 26: guard the EFFECTIVE destination - templated chips carry a generic href and the
         # real {state} template in data-sb; comparing hrefs false-alarms on the shared base domain.
         _tag=_mm.group(0)
+        if 'data-platform="1"' in _tag: continue  # platform-level arm destinations (DK Predictions/FD Predicts) are not game-scoped - the doubleheader guard protects market links only
         _m2=re.search(r'data-sb="([^"]+)"',_tag) or re.search(r'href="([^"]+)"',_tag)
         if not _m2: continue
         _pg=p.get('game') or {}
@@ -843,7 +869,7 @@ for p in man['picks']:
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px">'+_av+'</span>' if _av else ''
     rows.append(f'''<div class="pick" data-espn="{espn}" data-eid="{html.escape(_eid)}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{(_pt_date(g.get('commence','')) or 'card')}" data-commence="{html.escape(g.get('commence',''))}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}" data-stake="{html.escape(re.sub(r'[^0-9.]','',p.get('units','')))}"{(' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else '')}>
-  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="uo"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></span><span class="oddslock">{html.escape(man.get('updated','').split(', ')[-1].replace(' PT',''))} &middot; locked</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
+  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="uo"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></span><span class="oddslock">{html.escape(ENTRY_LOCK.split(', ')[-1].replace(' PT',''))} &middot; locked</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="rpstart" data-commence="{html.escape(g.get('commence',''))}">{_pt_time(g.get('commence',''))}</div>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
@@ -985,7 +1011,7 @@ if man.get('parlay'):
         # Inspector ruling (Sep 26): no KAL/POLY combo chips - the exchanges have no native
         # parlay product, and per-leg chips on each pick already route to the real markets.
         # A priced chip linking to a homepage/category page is a defect; dead-combo pricing dies at the root here.
-        BKML=[('DK','draftkings',None),('FD','fanduel',None),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]  # DK pm: fail closed pending verified state list
+        BKML=[('DK','draftkings',None),('FD','fanduel',None),('TSB','thescore',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]  # DK pm: fail closed pending verified state list
         for short,pk,pm in BKML:
             mls=[]; ok=True
             for p in lp:
@@ -1053,7 +1079,7 @@ if man.get('parlay'):
             if _cp:
                 _aml=c2ml(_cp)
                 chips.append(('POLY',f'<span class="chip%%BEST%% rpnontap"{bkstyle("POLY")} id="rpCxPOLY" data-n="{nlegs}" data-book="POLY" data-market="parlay" data-cents="{_rh(_cp)}"{_mkrec("Polymarket","","parlay","",cents=_cp,link="",ph=("last_pre_game" if any(_is_underway((pp.get("game") or {})) for pp in lp) else "pre_game"),lv="none")}>%%STAR%%{bkimg("POLY")}POLY {_aml}</span>',c2ml_int(_cp)))
-    order=['DK','FD','ESPN','HR','MGM','BR','KAL','POLY']
+    order=['DK','FD','TSB','HR','MGM','BR','KAL','POLY']
     chips.sort(key=lambda s: order.index(s[0]) if s[0] in order else 99)
     # best combo price gets the star left of the logo, same as solo best line (user, Sep 25 12:59 PM)
     priced=[c for c in chips if len(c)>2 and isinstance(c[2],(int,float))]
@@ -1076,10 +1102,16 @@ if man.get('parlay'):
 RP_STATES=[('AL','Alabama'),('AK','Alaska'),('AZ','Arizona'),('AR','Arkansas'),('CA','California'),('CO','Colorado'),('CT','Connecticut'),('DE','Delaware'),('DC','Washington D.C.'),('FL','Florida'),('GA','Georgia'),('HI','Hawaii'),('ID','Idaho'),('IL','Illinois'),('IN','Indiana'),('IA','Iowa'),('KS','Kansas'),('KY','Kentucky'),('LA','Louisiana'),('ME','Maine'),('MD','Maryland'),('MA','Massachusetts'),('MI','Michigan'),('MN','Minnesota'),('MS','Mississippi'),('MO','Missouri'),('MT','Montana'),('NE','Nebraska'),('NV','Nevada'),('NH','New Hampshire'),('NJ','New Jersey'),('NM','New Mexico'),('NY','New York'),('NC','North Carolina'),('ND','North Dakota'),('OH','Ohio'),('OK','Oklahoma'),('OR','Oregon'),('PA','Pennsylvania'),('PR','Puerto Rico'),('RI','Rhode Island'),('SC','South Carolina'),('SD','South Dakota'),('TN','Tennessee'),('TX','Texas'),('UT','Utah'),('VT','Vermont'),('VA','Virginia'),('WA','Washington'),('WV','West Virginia'),('WI','Wisconsin'),('WY','Wyoming')]
 RP_FD=['AZ','AR','CO','CT','IL','IN','IA','KS','KY','LA','MD','MA','MI','MO','NJ','NY','NC','OH','PA','TN','VT','VA','WV','WY','DC','PR']
 RP_DK=['AZ','AR','CO','CT','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MO','NH','NJ','NY','NC','OH','OR','PA','TN','VT','VA','WV','WY','DC']
+# U-GEO-002 core data: full 51-jurisdiction arm-level legality table (research task, as-of 2026-09-26; state-legality.json committed to RixPicksSystem). Mechanism consumes DATA - flips land as data edits, never code.
+RP_LEGAL_ASOF='2026-09-26'
+TABLE={"AK": ["KAL", "POLY", "DKP", "FDP"], "AL": ["KAL", "POLY", "DKP", "FDP"], "AR": ["DK", "FD", "KAL", "POLY"], "AZ": ["DK", "FD", "TSB", "HR", "MGM", "BR", "KAL"], "CA": ["KAL", "POLY", "DKP", "FDP"], "CO": ["DK", "FD", "TSB", "HR", "MGM", "BR", "KAL", "POLY"], "CT": ["DK", "FD", "KAL"], "DC": ["DK", "FD", "TSB", "MGM", "KAL", "POLY"], "DE": ["BR", "KAL", "POLY", "DKP", "FDP"], "FL": ["HR", "KAL", "POLY", "DKP", "FDP"], "GA": ["KAL", "POLY", "DKP", "FDP"], "HI": ["KAL", "POLY", "DKP", "FDP"], "IA": ["DK", "FD", "TSB", "MGM", "BR", "KAL", "POLY"], "ID": ["KAL", "POLY", "DKP", "FDP"], "IL": ["DK", "FD", "TSB", "HR", "MGM", "BR", "KAL", "POLY"], "IN": ["DK", "FD", "TSB", "HR", "MGM", "BR", "KAL", "POLY"], "KS": ["DK", "FD", "TSB", "MGM", "KAL", "POLY"], "KY": ["DK", "FD", "TSB", "MGM", "KAL", "POLY"], "LA": ["DK", "FD", "TSB", "MGM", "BR", "KAL", "POLY"], "MA": ["DK", "FD", "TSB", "MGM", "KAL", "POLY"], "MD": ["DK", "FD", "TSB", "MGM", "BR", "KAL"], "ME": ["DK", "KAL", "POLY"], "MI": ["DK", "FD", "TSB", "HR", "MGM", "BR"], "MN": ["KAL", "POLY", "DKP", "FDP"], "MO": ["DK", "FD", "TSB", "MGM", "KAL", "POLY"], "MS": ["MGM", "KAL", "POLY"], "MT": ["KAL", "POLY"], "NC": ["DK", "FD", "TSB", "MGM", "KAL", "POLY"], "ND": ["KAL", "POLY", "DKP", "FDP"], "NE": ["KAL", "POLY", "DKP", "FDP"], "NH": ["DK", "KAL", "POLY"], "NJ": ["DK", "FD", "TSB", "HR", "MGM", "BR", "KAL", "POLY"], "NM": ["KAL", "POLY", "DKP", "FDP"], "NV": ["MGM"], "NY": ["DK", "FD", "TSB", "MGM", "BR", "KAL", "POLY"], "OH": ["DK", "FD", "TSB", "HR", "MGM", "BR", "KAL", "POLY"], "OK": ["KAL", "POLY", "DKP", "FDP"], "OR": ["DK", "KAL", "POLY"], "PA": ["DK", "FD", "TSB", "MGM", "BR", "KAL", "POLY"], "RI": ["KAL", "POLY", "DKP", "FDP"], "SC": ["KAL", "POLY", "DKP", "FDP"], "SD": ["KAL", "POLY", "DKP", "FDP"], "TN": ["DK", "FD", "TSB", "HR", "MGM", "KAL"], "TX": ["KAL", "POLY", "DKP", "FDP"], "UT": ["DKP", "FDP"], "VA": ["DK", "FD", "TSB", "HR", "MGM", "BR", "KAL", "POLY"], "VT": ["DK", "FD", "KAL", "POLY"], "WA": ["POLY"], "WI": ["KAL", "POLY"], "WV": ["DK", "FD", "TSB", "MGM", "BR", "KAL", "POLY"], "WY": ["DK", "FD", "MGM", "KAL", "POLY"]}  # U-GEO-002 core data: state-legality.json (as-of 2026-09-26, RixPicksSystem); construction = status in licensed_live/limited/live/live_contested/blocked_imminent (rule 3: blocked_imminent stays SHOWN until geoblock confirms): state-legality.json (as-of 2026-09-26, RixPicksSystem) baked at build time
+RP_LEGAL_STATE=TABLE
+RP_LEGAL_BI_DATA={'OH':['KAL'],'TN':['KAL']}  # blocked_imminent in-data flags (shown with caveat until geoblock confirms) - from state-legality.json blocked_imminent_flag
+# arms present in the table with no chip feed yet: TSB (theScore Bet - ESPN BET is DEAD, PENN terminated Nov 2025; chip + feed mapping land when a verified theScore source exists). B365/FAN not in the researched table -> fail closed (never render).
 RP_MGM=['AZ','CO','DC','IL','IN','IA','KS','KY','LA','MA','MD','MI','MS','NJ','NV','NY','NC','OH','PA','TN','VA','WV','WY']
 RP_B365=['AZ','CO','IL','IN','IA','KS','KY','LA','NJ','NC','OH','PA','TN','VA']
 RP_FAN=['AZ','CO','CT','DC','IL','IN','IA','KS','KY','LA','MA','MD','MI','NC','NJ','NY','OH','PA','TN','VT','VA','WV','WY']
-RP_ESPN=['AZ','CO','IL','IN','IA','KS','KY','LA','MA','MD','MI','NJ','NC','OH','PA','TN','VA','WV']
+RP_TSB=['AZ','CO','DC','IL','IN','IA','KS','KY','LA','MA','MD','MI','MO','NJ','NY','NC','OH','PA','TN','VA','WV']  # theScore Bet 20 states + DC (U-GEO-003)
 RP_HR=['AZ','CO','FL','IL','IN','MI','NJ','OH','TN','VA']
 RP_BR=['AZ','CO','CT','DE','DC','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','NH','NJ','NY','NC','OH','OR','PA','RI','TN','VT','VA','WV','WY']
 
@@ -1205,7 +1237,7 @@ h1 .tick{{color:#3BEBF5}}
 #rpPull{{background:#000;color:#3aa895}}
 .spin{{border-color:#2a4a44;border-top-color:#3aa895}}
 .chip[data-bk="FD"]{{background:#12283d !important;border-color:#12283d !important;color:#5aa9e8 !important}}
-.chip[data-bk="ESPN"]{{background:#0f2e26 !important;border-color:#0f2e26 !important;color:#3ec9a0 !important}}
+.chip[data-bk="TSB"]{{background:#0d1b2e !important;border-color:#0d1b2e !important;color:#4d94ff !important}}
 .chip[data-bk="HR"]{{background:#2e2614 !important;border-color:#2e2614 !important;color:#d8b84e !important}}
 .chip[data-bk="MGM"]{{background:#2b2517 !important;border-color:#2b2517 !important;color:#cdb271 !important}}
 .chip[data-bk="BR"]{{background:#10262f !important;border-color:#10262f !important;color:#4fc3e8 !important}}
@@ -1248,14 +1280,17 @@ h1 .tick{{color:#3BEBF5}}
 <script>
 const RP_FD={json.dumps(RP_FD)};const RP_DK={json.dumps(RP_DK)};
 let RP_MARKETS={json.dumps(_MARKETS,separators=(',',':'))};  /* canonical market truth records (Matrix-mining design 9/26) - chips carry data-mr indexes; never parse text into numbers */
-const RP_L={{FD:RP_FD,DK:RP_DK,MGM:{json.dumps(RP_MGM)},B365:{json.dumps(RP_B365)},FAN:{json.dumps(RP_FAN)},ESPN:{json.dumps(RP_ESPN)},HR:{json.dumps(RP_HR)},BR:{json.dumps(RP_BR)}}};
+const RP_L={{FD:RP_FD,DK:RP_DK,MGM:{json.dumps(RP_MGM)},B365:{json.dumps(RP_B365)},FAN:{json.dumps(RP_FAN)},TSB:{json.dumps(RP_TSB)},HR:{json.dumps(RP_HR)},BR:{json.dumps(RP_BR)}}};
 const RP_COMBO_NONTAP={'true' if (man.get('parlay') and combo_nontap) else 'false'};
 const RP_MOB=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 if(location.protocol==='http:'&&/(^|\.)rix-picks\.com$/.test(location.hostname)){{location.replace('https://'+location.host+location.pathname+location.search+location.hash);}}
 const RP_STANDALONE=(navigator.standalone===true)||window.matchMedia('(display-mode: standalone)').matches;
 function rpOpen(u){{if(RP_STANDALONE){{location.assign(u);}}else{{window.open(u,'_blank','noopener');}}}}
 if(RP_STANDALONE){{document.addEventListener('click',function(e){{const a=e.target.closest('a[target="_blank"]');if(a&&!a.onclick&&a.href){{e.preventDefault();location.assign(a.href);}}}},true);}}
-function rpBookLive(b,st){{if(b==='KAL'||b==='POLY')return true;const L=RP_L[b];return L?L.indexOf(st)!==-1:true;}}
+/* U-GEO-002 (user Sep 26 12:27 PM): ONE arm-level legality table as DATA at core - arms, never parent brands (DK Sportsbook != DK Predictions; the dead pre-rebrand arm never renders). Unresolved state fails closed to the prediction-market set (federally-regulated class), state prompt stays. */
+const RP_LEGAL_STATE={json.dumps(TABLE,sort_keys=True)};const RP_LEGAL_ASOF='{RP_LEGAL_ASOF}';const RP_LEGAL_BI={{"OH": ["KAL"], "TN": ["KAL"]}};
+const RP_PM_DEFAULT=['KAL','POLY','DKP','FDP'];
+function rpBookLive(b,st){{if(!st)return RP_PM_DEFAULT.indexOf(b)!==-1;const L=RP_LEGAL_STATE[st];return L?L.indexOf(b)!==-1:false;}}
 function rpPm(el){{if(el.dataset.pm&&el.dataset.nopm!=='1')return el.dataset.pm;const mr=el.closest?el.closest('.mrow'):null;if(mr&&mr.dataset.pm&&mr.dataset.nopm!=='1')return mr.dataset.pm;return null;}}
 function rpDest(a,st){{const b=a.dataset.book;
  if(rpBookLive(b,st)){{const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{{state}}',st.toLowerCase());return a.getAttribute('href')||null;}}
@@ -1308,16 +1343,19 @@ function rpStrip(el){{el.removeAttribute('href');el.removeAttribute('onclick');e
 function rpGate(el){{if(!(el.getAttribute('href')||el.getAttribute('data-sb')||el.getAttribute('data-sbt')||el.getAttribute('data-pm'))){{rpStrip(el);el.style.display='';return;}}  /* no-route price reference: visibly inert, never prompts */
  const h=el.getAttribute('href');if(h&&!el.getAttribute('data-sb'))el.setAttribute('data-sb',h);rpStrip(el);el.style.display='';el.classList.remove('rpnontap');el.setAttribute('onclick','return rpRoute(event,this)');}}  /* unresolved state: visible, route-stripped, tap opens the state prompt */
 function rpFilter(st){{window.rpSt=st;rpTerm(st);
- if(!st){{document.querySelectorAll('[data-book]').forEach(function(el){{
-  if(el.querySelector('[data-book]')){{el.style.display='';el.querySelectorAll('[data-book]').forEach(rpGate);return;}}
-  rpGate(el);}});if(window.rpCxStar)rpCxStar();return;}}  /* scores/content never gated; only outbound market taps ask for state (complaint-lens via main 9/26) */
+ /* U-GEO-001 amendment (user Sep 26 12:27 PM): visibility is state-scoped - a book with no legal route in the resolved state does NOT render (no inert prices, no markers). The resolved SET is identical on every surface; ranges/star compute over exactly it. Unresolved state = fail-closed nationwide set (KAL/POLY). */
  document.querySelectorAll('[data-book]').forEach(function(el){{
-  if(el.querySelector('[data-book]')){{  /* container rows (LIVE MARKETS): whole-row visibility by state availability */
-   const _rowOk=rpRowAvail(el,st);el.style.display='';  /* parity (user 9/26: same pick, same books on every surface): rows NEVER geo-hide - prices are content, only taps geo-gate */
-   el.querySelectorAll('a[data-book]').forEach(function(a){{if(_rowOk){{delete a.dataset.marker;rpTapify(a,st);}}else{{rpStrip(a);a.dataset.marker='1';}}}});
+  if(el.querySelector('[data-book]')){{  /* container rows (LIVE MARKETS): children decide, row follows */
+   let _any=false;
+   el.querySelectorAll('[data-book]').forEach(function(a){{
+    if(a.querySelector('[data-book]'))return;
+    if(rpBookLive(a.dataset.book,st)){{a.style.display='';delete a.dataset.marker;rpTapify(a,st);_any=true;}}
+    else{{a.style.display='none';delete a.dataset.marker;}}
+   }});
+   el.style.display=_any?'':'none';
    return;}}
-  if(!rpRowAvail(el,st)){{rpStrip(el);el.style.display='';el.dataset.marker='1';return;}}  /* parity (user 9/26): prices are content, never geo-hidden - unavailable books render inert (stripped, priced, never the star) on every surface */
-  el.style.display='';delete el.dataset.marker;rpTapify(el,st);  /* available: tappable with a verified/PM destination, priced inert span without one */
+  if(!rpBookLive(el.dataset.book,st)){{el.style.display='none';delete el.dataset.marker;return;}}
+  el.style.display='';delete el.dataset.marker;rpTapify(el,st);
  }});
  if(window.rpCxStar)rpCxStar(); }}
 function rpRoute(e,a){{e.preventDefault();const st=localStorage.getItem('rp_state');if(!st){{window.__rpChip=a;rpAsk(false);return false;}}rpGo(a,st);return false;}}
@@ -1468,6 +1506,7 @@ function rpLineShop(pk){{try{{
   if(pmkt&&a.dataset.market!==pmkt)return;  /* sentinel Sep 26 (fail-closed): only chips WITH matching market identity enter the range */
   if(!rpSamePh(a,ph0))return;
   if(!rpMkt(a))return;  /* canonical-record-only (user 9/26 parity): the range is the pick's truth set - identical for every viewer; geo/routing/marker state never changes the math */
+  if(a.offsetParent===null)return;  /* U-DATA-001 amendment: the range is computed over exactly the state-resolved VISIBLE set */
   const v=rpChipML(a);if(v===null)return;
   if(Math.abs(v)<=1500)prs.push(v);
  }});
@@ -1486,7 +1525,19 @@ async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLiv
 {fut_badge_js}async function rpFastLoop(){{try{{await rpLsTick();}}catch(e){{}}setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?30000:3000);}}
 rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();rpStartTimes();}},30000);
 document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this){{this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}}}});
-rpFilter(localStorage.getItem('rp_state')||'');
+rpFilter(localStorage.getItem('rp_state')||'');rpResolveState();
+function rpResolveState(){{try{{  /* U-GEO-002: most-extensive resolution at core - saved/account state authoritative, geolocation where granted, IP fallback, fail-closed default */
+ const saved=localStorage.getItem('rp_state');if(saved)return;  /* initial paint already applied it */
+ const apply=function(code,src){{if(code&&document.querySelector('#rpState option[value="'+code+'"]')){{localStorage.setItem('rp_state',code);localStorage.setItem('rp_state_src',src);if(src==='gps')localStorage.setItem('rp_state_gps',code);rpLabel();}}}};
+ const ipFb=function(){{fetch('https://ipapi.co/json/').then(r=>r.json()).then(function(j){{if(j&&j.region_code)apply(j.region_code,'ip');}}).catch(function(){{}});}};
+ if(navigator.permissions&&navigator.geolocation){{
+  navigator.permissions.query({{name:'geolocation'}}).then(function(p){{
+   if(p.state==='granted'){{navigator.geolocation.getCurrentPosition(function(pos){{
+    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(function(j){{const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code,'gps');else ipFb();}}).catch(ipFb);
+   }},ipFb,{{timeout:6000}});}}else ipFb();
+  }}).catch(ipFb);
+ }}else ipFb();
+}}catch(e){{}}}}
 rpLabel(); /* state prompt fires only on outbound market taps - never gates score/game content (complaint-lens via main 9/26) */
 const RP_BUILD='{{build_sha}}';
 try{{fetch('https://api.rix-picks.com/beacon',{{method:'POST',headers:{{'Content-Type':'application/json'}},body:JSON.stringify({{page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}}),keepalive:true}}).catch(()=>{{}});}}catch(e){{}}
@@ -1552,7 +1603,7 @@ function rpCxUpd(bk){{
  if(d<=1)return;
  const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
  const cc=Math.round(100/d);
- const lbl=Math.abs(ml2)>1000?(cc+'c'):((ml2>0?'+':'')+ml2);  /* cents notation past +/-1000 (main 9/26) */
+ const lbl=(ml2>0?'+':'')+ml2;  /* user Sep 26 12:58 PM: ALL chips American, PM combo chips included (supersedes both U-DISP-001 c1 and the old +/-1000 cents fallback) */
  if(cr){{cr.c=cc;cr.ts=Date.now();}}  /* canonical record write-through: star/rank read the SAME value the chip shows */
  chip.dataset.cents=cc;
  chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+| \d+c)?/, bk+' '+lbl);
@@ -1630,8 +1681,8 @@ function rpEspnTick(){{try{{
      if(rd&&ev.date){{const pd=new Intl.DateTimeFormat('en-CA',{{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}}).format(new Date(ev.date));if(pd!==rd)return;}}
      const ml=d.dataset.side==='away'?(o.awayTeamOdds||{{}}).moneyLine:(o.homeTeamOdds||{{}}).moneyLine;
      if(typeof ml==='number'&&!rpInPlay(d)){{
-      const chip=d.querySelector('a[data-book="ESPN"]');
-      if(chip){{chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);const _rc=rpMkt(chip);if(_rc){{_rc.ml=ml;_rc.ts=Date.now();}}rpCxUpdMl('ESPN');rpBestStar(d);}}}}
+      const chip=d.querySelector('a[data-book="TSB"]');
+      if(chip){{chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);const _rc=rpMkt(chip);if(_rc){{_rc.ml=ml;_rc.ts=Date.now();}}rpCxUpdMl('TSB');rpBestStar(d);}}}}
     }});
    }});
   }}).catch(()=>{{}});
@@ -1736,9 +1787,9 @@ def build_game_pages(man, css, build_sha):
     "Per-game live-market pages (user, Sep 25 12:11 PM)."
     tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'game_page_template.html')).read()
     pages={}
-    NAME2KEY={'draftkings':'DK','fanduel':'FD','espnbet':'ESPN','hardrockbet':'HR'}
+    NAME2KEY={'espnbet':'TSB','draftkings':'DK','fanduel':'FD','thescore':'TSB','hardrockbet':'HR'}  # legacy 'espnbet' key = theScore data (U-GEO-003); _rsseen below guarantees one row per ARM
     RP_CONSTS=('const RP_FD='+json.dumps(RP_FD)+';const RP_DK='+json.dumps(RP_DK)+';\n'
-        'const RP_L={FD:RP_FD,DK:RP_DK,MGM:'+json.dumps(RP_MGM)+',B365:'+json.dumps(RP_B365)+',FAN:'+json.dumps(RP_FAN)+',ESPN:'+json.dumps(RP_ESPN)+',HR:'+json.dumps(RP_HR)+',BR:'+json.dumps(RP_BR)+'};')
+        'const RP_L={FD:RP_FD,DK:RP_DK,MGM:'+json.dumps(RP_MGM)+',B365:'+json.dumps(RP_B365)+',FAN:'+json.dumps(RP_FAN)+',TSB:'+json.dumps(RP_TSB)+',HR:'+json.dumps(RP_HR)+',BR:'+json.dumps(RP_BR)+'};const RP_LEGAL_STATE='+json.dumps(TABLE,sort_keys=True)+';const RP_LEGAL_BI='+json.dumps(RP_LEGAL_BI_DATA,sort_keys=True)+';const RP_PM_DEFAULT=[\'KAL\',\'POLY\',\'DKP\',\'FDP\'];')
     STATE_OPTS=''.join('<option value="%s">%s</option>'%(c,n) for c,n in RP_STATES)
     def rt(short,url,tmpl_flag):
         # Sep 26: href never carries a raw {state} (context menu/no-JS 404s) - base domain href,
@@ -1774,10 +1825,13 @@ def build_game_pages(man, css, build_sha):
         books_present=[]
         hrow={'away':away,'home':home}
         pr=sel_books(pre.get((away,home)), g) or {}
+        _rsseen=set()
         for key,short in NAME2KEY.items():
+            if short in _rsseen: continue  # one row per arm: a feed carrying both legacy and current keys never doubles
             rec=pr.get(key) or {}
             aml,hml=rec.get('away_ml'),rec.get('home_ml')
             if aml is None and hml is None: continue
+            _rsseen.add(short)
             alink=rec.get('away_link') or rec.get('event') or ('https://www.'+BKDOM[short])
             hlink=rec.get('home_link') or rec.get('event') or ('https://www.'+BKDOM[short])
             a_lbl=('%+d'%aml) if aml is not None else '-'
@@ -1983,7 +2037,7 @@ def build_game_pages(man, css, build_sha):
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',_gpk_for(away,home,g.get('commence',''))[1]),('__HAB__',_gpk_for(away,home,g.get('commence',''))[2]),
             ('__EID__',html.escape(str(g.get('eid') or ''))),('__COUNTED__',' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else ''),
             ('__SIDE__',side),('__MKT__',mkt),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
-            ('__ODDS__',html.escape(p['odds'])),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
+            ('__ODDS__',html.escape(p['odds'])),('__LOCK__',html.escape(ENTRY_LOCK.split(', ')[-1].replace(' PT',''))),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
             ('__MKTHDR__',_mkthdr),('__FOOTNOTE__',_foot),
             ('__CHIPS__',ch),('__MATCHUP__',matchup),('__TEAMLINKS__',teamlinks),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),('__ROOM__','g%s-%s'%(p['num'],(_pt_date(g.get('commence','')) or 'card'))),('__START__',g.get('commence','') or ''),
             ('__CHARTS__',charts_html),('__BUILD__',build_sha),('__RPCONSTS__',RP_CONSTS+'\nlet RP_MARKETS='+json.dumps(_PM,separators=(',',':'))+';'),('__STATEOPTS__',STATE_OPTS)]:
