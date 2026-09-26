@@ -30,7 +30,11 @@ jobs:
         env:
           # data auditor (Sep 26): inputs.approve is the STRING true/false; the builder gates on =='1'
           RP_PUBLISH: ${{ inputs.approve == 'true' && '1' || '0' }}
-        run: python3 scripts/build_gh_page.py manifest.json index.html 2>&1 | tee /tmp/build.log
+        run: |
+          # fail-closed: a builder non-zero exit (e.g. unresolved-market exit 3) must fail this
+          # step outright - never tee-mask into a push of partially generated files
+          set -o pipefail
+          python3 scripts/build_gh_page.py manifest.json index.html 2>&1 | tee /tmp/build.log
       - name: upload candidate artifact
         uses: actions/upload-artifact@v4
         with:
@@ -52,16 +56,33 @@ jobs:
           git config user.name 'rixpicks-bot'
           git config user.email 'bot@users.noreply.github.com'
           git add -A
-          git commit -m "card publish $(date -u +%Y-%m-%dT%H:%MZ)" || echo 'nothing to commit'
-          for i in 1 2; do git push && break || git pull --rebase; done
+          # fail-closed: empty diff is the only soft commit case; a real commit error is fatal
+          if git diff --cached --quiet; then
+            echo 'nothing to commit'
+          else
+            git commit -m "card publish $(date -u +%Y-%m-%dT%H:%MZ)" || { echo 'COMMIT FAILED'; exit 1; }
+          fi
+          # fail-closed: both pushes failing (or a failed rebase) fails the run - never green without the card pushed
+          PUSHED=0
+          for i in 1 2; do
+            if git push; then PUSHED=1; break; fi
+            git pull --rebase || { echo 'REBASE FAILED'; exit 1; }
+          done
+          if [ "$PUSHED" != "1" ]; then echo 'PUSH FAILED after 2 attempts'; exit 1; fi
       - name: verify live deploy when approved
         if: ${{ inputs.approve == 'true' }}
         run: |
           BID=$(grep -oE 'build [0-9]+' /tmp/build.log | tail -1 | awk '{print $2}')
           echo "expecting build $BID live"
+          # Sep 26: probe EACH host independently with -L (the CNAME cutover raced this step:
+          # a redirect into a not-yet-resolving domain failed one shared curl and failed red on a good ship).
+          # Either host serving the expected build ID = live.
           for i in $(seq 1 30); do
-            LIVE=$(curl -fsSL "https://rix-picks.com/?cb=$RANDOM" 2>/dev/null || curl -fsSL "https://itsdardanrexhepi.github.io/rixpicks/?cb=$RANDOM" 2>/dev/null || true)
-            if echo "$LIVE" | grep -q "RP_BUILD='$BID'"; then echo "LIVE VERIFIED: build $BID"; exit 0; fi
+            for HOST in "https://itsdardanrexhepi.github.io/rixpicks/" "https://rix-picks.com/"; do
+              LIVE=$(curl -fsSL "$HOST?cb=$RANDOM" 2>/dev/null || true)
+              if [ -n "$LIVE" ] && echo "$LIVE" | grep -q "RP_BUILD='$BID'"; then echo "LIVE VERIFIED: build $BID via $HOST"; exit 0; fi
+              echo "attempt $i: $HOST not serving build $BID yet"
+            done
             sleep 10
           done
-          echo "LIVE VERIFICATION FAILED: build $BID not served after 5 minutes"; exit 1
+          echo "LIVE VERIFICATION FAILED: build $BID not served by either host after 5 minutes"; exit 1
