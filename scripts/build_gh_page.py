@@ -763,10 +763,13 @@ async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpRenumber();rpCxLi
 {fut_badge_js}rpLsTickAll();setInterval(rpLsTickAll,30000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
+try{{fetch('https://api.rix-picks.com/beacon',{{method:'POST',headers:{{'Content-Type':'application/json'}},body:JSON.stringify({{page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}}),keepalive:true}}).catch(()=>{{}});}}catch(e){{}}
 window.addEventListener('pageshow',function(){{try{{
  if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
  fetch(location.pathname+'?cb='+Date.now(),{{cache:'no-store'}}).then(r=>r.text()).then(t=>{{
-  if(t.indexOf(RP_BUILD)<0){{sessionStorage.setItem('rp_reloaded',RP_BUILD);location.replace(location.pathname+'?v='+RP_BUILD);}}
+  const m=t.match(/RP_BUILD='([^']+)'/);
+  const fresh=m?m[1]:null;
+  if(fresh&&fresh!==RP_BUILD){{sessionStorage.setItem('rp_reloaded',fresh);location.replace(location.pathname+'?v='+fresh);}}
  }}).catch(()=>{{}});
 }}catch(e){{}}}});
 /* Pull-to-refresh (incl. Home Screen standalone) - user 9/24 10:40 PM */
@@ -1281,10 +1284,12 @@ document.addEventListener('touchend',rpPtrEnd,{passive:true});
 document.addEventListener('touchcancel',rpPtrEnd,{passive:true});
 rpFutTick();setInterval(rpFutTick,60000);
 const RP_BUILD='__BUILD__';
+try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
- if(sessionStorage.getItem('rp_reloaded'))return;
+ if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
  fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.text();}).then(function(t){
-  if(t.indexOf(RP_BUILD)<0){sessionStorage.setItem('rp_reloaded','1');location.replace(location.pathname+'?v='+RP_BUILD);}
+  var m=t.match(/RP_BUILD='([^']+)'/);var fresh=m?m[1]:null;
+  if(fresh&&fresh!==RP_BUILD){sessionStorage.setItem('rp_reloaded',fresh);location.replace(location.pathname+'?v='+fresh);}
  }).catch(function(){});
 }catch(e){}});
 /* futures detail sheet: reasoning + live market depth */
