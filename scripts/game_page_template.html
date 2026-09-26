@@ -287,7 +287,8 @@ function rpPageRefresh(){try{
   if(t.indexOf(RP_BUILD)<0){location.replace(location.pathname+'?v='+Date.now());}
  }).catch(function(){});
 }catch(e){}}
-if(!localStorage.getItem('rp_state')){rpAsk(false);}else{rpLabel();}
+document.getElementById('rpModal').addEventListener('click',function(e){if(e.target===this){this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}});
+if(!localStorage.getItem('rp_state')&&!localStorage.getItem('rp_state_dismissed')){rpAsk(false);}else{rpLabel();}
 
 function rpML2C(ml){ml=parseFloat(ml);if(isNaN(ml))return null;return ml<0?(-ml)/((-ml)+100)*100:100/(ml+100)*100;}
 const RP_RANGE={};

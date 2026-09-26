@@ -60,12 +60,12 @@ css.textContent=
 '.rp-label{color:#9AA0A8}';
 document.head.appendChild(css);
 var modalEl=null;
-function closeModal(){if(modalEl){modalEl.remove();modalEl=null;}}
+function closeModal(){if(modalEl){if(window.__rpBooksOpen){sv('rp_books_asked',1);window.__rpBooksOpen=null;}modalEl.remove();modalEl=null;}}
 function openSheet(html){closeModal();modalEl=document.createElement('div');modalEl.className='rp-modal';modalEl.innerHTML='<div class="rp-sheet"><div class="rp-grab"></div>'+html+'</div>';modalEl.addEventListener('click',function(e){if(e.target===modalEl)closeModal();});document.body.appendChild(modalEl);return modalEl.firstChild;}
 function toast(msg){var t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;left:50%;bottom:70px;transform:translateX(-50%);background:#000000;border:1px solid #3BEBF5;color:#3BEBF5;padding:8px 16px;border-radius:18px;font-size:13px;z-index:80';document.body.appendChild(t);setTimeout(function(){t.remove();},2200);}
 /* --- My Books --- */
 function personalize(){var mine=myBooks();each(document.querySelectorAll('.chips'),function(c){var kids=Array.prototype.slice.call(c.querySelectorAll('.chip'));if(!kids.length)return;if(!mine.length){kids.forEach(function(ch){ch.classList.remove('rpmine');ch.classList.remove('rpdim');});return;}kids.sort(function(a,b){var am=mine.indexOf(a.getAttribute('data-book')||'')>=0?0:1;var bm=mine.indexOf(b.getAttribute('data-book')||'')>=0?0:1;return am-bm;});kids.forEach(function(ch){var m=mine.indexOf(ch.getAttribute('data-book')||'')>=0;ch.classList.toggle('rpmine',m);ch.classList.toggle('rpdim',!m);c.appendChild(ch);});});}
-function booksSheet(){var sel=myBooks().slice();var sh=openSheet('<h3>My Platforms</h3><div class="rp-sub">Tap the platforms you use. Picks highlight yours first - linked account sync lands here.</div><div id="rpPills"></div><button class="rp-btn" id="rpSaveBooks">Save</button>'+(sel.length?'<button class="rp-btn ghost" id="rpClearBooks">Clear my platforms</button>':''));
+function booksSheet(){window.__rpBooksOpen=1;var sel=myBooks().slice();var sh=openSheet('<h3>My Platforms</h3><div class="rp-sub">Tap the platforms you use. Picks highlight yours first - linked account sync lands here.</div><div id="rpPills"></div><button class="rp-btn" id="rpSaveBooks">Save</button>'+(sel.length?'<button class="rp-btn ghost" id="rpClearBooks">Clear my platforms</button>':''));
 var pills=sh.querySelector('#rpPills');
 RP_BOOKS.forEach(function(b){var p=document.createElement('span');p.className='rp-pill'+(sel.indexOf(b.k)>=0?' on':'');p.textContent=b.n;p.onclick=function(){var i=sel.indexOf(b.k);if(i>=0)sel.splice(i,1);else sel.push(b.k);p.classList.toggle('on');};pills.appendChild(p);});
 sh.querySelector('#rpSaveBooks').onclick=function(){sv('rp_books',sel);sv('rp_books_asked',1);personalize();closeModal();toast(sel.length?'Platforms saved':'Saved');};

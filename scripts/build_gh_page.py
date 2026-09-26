@@ -900,10 +900,10 @@ page=f'''<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>&rsquo;RixPicks</title>
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="manifest" href="site.webmanifest">
+<link rel="icon" href="favicon.ico?v={{build_sha}}" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v={{build_sha}}">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v={{build_sha}}">
+<link rel="manifest" href="site.webmanifest?v={{build_sha}}">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){{try{{await OneSignal.init({{appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{{scope:"/rixpicks/"}}}});}}catch(e){{}}}});</script>
 <meta name="mobile-web-app-capable" content="yes">
@@ -1280,7 +1280,8 @@ function rpAllLineShops(){{document.querySelectorAll('.pick').forEach(rpLineShop
 async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();}}
 {fut_badge_js}async function rpFastLoop(){{try{{await rpLsTick();}}catch(e){{}}setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?30000:3000);}}
 rpFastLoop();rpLsTickAll();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();}},30000);
-if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
+document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this){{this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}}}});
+if(!localStorage.getItem('rp_state')&&!localStorage.getItem('rp_state_dismissed')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
 try{{fetch('https://api.rix-picks.com/beacon',{{method:'POST',headers:{{'Content-Type':'application/json'}},body:JSON.stringify({{page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}}),keepalive:true}}).catch(()=>{{}});}}catch(e){{}}
 window.addEventListener('pageshow',function(){{try{{
