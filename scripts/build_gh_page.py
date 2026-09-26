@@ -487,7 +487,7 @@ h1 .tick{{color:#2f8f7d}}
 .pick:first-of-type{{border-top:none}}
 .pick-head{{display:flex;align-items:center;gap:10px}}
 .gamelink{{display:flex;align-items:baseline;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}}
-.chev{{color:#b9b9c0;font-size:20px;font-weight:600;text-decoration:none;padding:0 2px;line-height:1}}
+.chev{{color:#b9b9c0;font-size:20px;font-weight:600;text-decoration:none;padding:0;line-height:1;transform:translateY(5px)}}
 .mrow{{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}}
 .mrow:first-of-type{{border-top:none}}
 .mrow .bk{{font-weight:700;width:52px;flex:none}}
