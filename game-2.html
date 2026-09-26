@@ -273,7 +273,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790464077';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
+const RP_BUILD='1790464604';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -435,12 +435,9 @@ function rpEspnTick(){try{
    comps.slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
    const sline=document.getElementById('rpScore');
    if(sline&&st.state!=='pre'&&sc){sline.textContent=rpStatusText(d,j,st)+'  |  '+sc;}
-   const o=((j.pickcenter||[])[0])||((comp.odds||[])[0]);if(!o)return;
-   const ml=d.dataset.side==='away'?(o.awayTeamOdds||{}).moneyLine:(o.homeTeamOdds||{}).moneyLine;
-   /* header .odds = locked entry price, FROZEN (tester ruling Sep 26): summary/scoreboard ticks update chips only, never the header */
-   if(typeof ml==='number'&&st.state==='pre'){
-    const chip=d.querySelector('a[data-book="TSB"]');
-    if(chip&&!rpInPlay()){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);const _rc=(typeof rpMkt==='function')?rpMkt(chip):null;if(_rc){_rc.ml=ml;_rc.ts=Date.now();}rpQuoteMut();}}  /* one quote mutation updates record + rendered price + range + star (audit swamp + tester gate 4, Sep 26) */
+   /* attribution root fix Sep 26 (swamp catch, his rule): pickcenter/comp.odds is ESPN's DraftKings quote -
+      it must NEVER write into a TSB-labeled element or record. The TSB chip holds its own canonical snapshot;
+      only own-platform ticks (rpPolyTick/rpKalTick) move chips. Header .odds stays the frozen entry price. */
   }).catch(function(){});
   return;
  }
@@ -779,7 +776,7 @@ function rpFieldSvg(ballAbs,possIsHome,aCol,hCol,icon){
  '<rect x="270" y="2" width="30" height="36" rx="3" fill="'+hCol+'" opacity="0.85"/>'+
  '<rect x="30" y="2" width="240" height="36" fill="rgba(60,160,90,.30)"/>'+stripes+
  '<line x1="150" y1="4" x2="150" y2="36" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>'+
- (ballAbs==null?'':'<circle cx="'+x+'" cy="20" r="9" fill="rgba(12,15,20,.5)"/><svg x="'+(x-8)+'" y="12" width="16" height="16" viewBox="0 0 24 24">'+_ic+'</svg>')+
+ (ballAbs==null?'':'<svg x="'+(x-8)+'" y="12" width="16" height="16" viewBox="0 0 24 24">'+_ic+'</svg>')+
  '</svg>';}
 async function rpSit(lg,eid){ /* tester Sep 26: situation (possession/yardLine/down+Distance/server) lives on the SCOREBOARD endpoint, not summary - join by exact event id, fail closed */
  try{

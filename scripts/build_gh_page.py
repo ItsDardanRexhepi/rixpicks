@@ -1502,20 +1502,18 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
   const d=await (await fetch(_u)).json();
   if(d&&Array.isArray(d.events)){{window.__rpEspnOk=Date.now();}}  /* three-way verdict (Matrix outcome_truth Sep 26): TSB stamps ok ONLY when named fields parse - an error body or shape change is UNKNOWN and never stamps */
   // J-101 class fix: strict event-id binding - a row stamps ONLY when its own event (data-eid) is on the board.
-  byLg[lg].forEach(pk=>{{let found=null;const want=pk.dataset.eid||'';let _od=null;const _isMlb=pk.dataset.espn==='baseball/mlb';
+  byLg[lg].forEach(pk=>{{let found=null;const want=pk.dataset.eid||'';const _isMlb=pk.dataset.espn==='baseball/mlb';
    if(!want){{if(!_isMlb)rpLsRender(pk,null);return;}}
    (d.events||[]).forEach(e=>{{if(e.id!==want)return;
     const cs=e.competitions[0].competitors;
     const aw=cs.find(c=>c.homeAway==='away'),hm=cs.find(c=>c.homeAway==='home');if(!aw||!hm)return;
-    _od=(((e.competitions||[])[0]||{{}}).odds||[])[0]||null;
     found={{a:aw.team.abbreviation,h:hm.team.abbreviation,as:+aw.score||0,hs:+hm.score||0,st:e.status.type.shortDetail,state:e.status.type.state}};}});
    if(!_isMlb){{rpLsRender(pk,found);if(found&&found.state==='post')rpRecLive();}}
    /* odds + clock ride the 2s score tick (his Sep 26 instant spec): odds from the same scoreboard payload
       (zero extra fetches); one summary fetch per LIVE pick arbitrates the strip clock against advancing plays */
-   if(_od&&pk.dataset.market!=='spread'&&!rpInPlay(pk)){{
-    const _ml=pk.dataset.side==='away'?((_od.awayTeamOdds||{{}}).moneyLine):((_od.homeTeamOdds||{{}}).moneyLine);
-    if(typeof _ml==='number'){{const chip=pk.querySelector('[data-book="TSB"]');
-     if(chip){{chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(_ml>0?'+':'')+_ml);const _rc=rpMkt(chip);if(_rc){{_rc.ml=_ml;_rc.ts=Date.now();}}rpCxUpdMl('TSB');rpQuoteMut(pk);}}}}}}
+   /* attribution root fix Sep 26 (swamp catch, his rule): the scoreboard's odds payload is a DraftKings quote -
+      writing it into a[data-book="TSB"] labeled DK's number as theScore and poisoned the canonical record.
+      Chips render ONLY from their own attributed record (own-platform ticks: rpPolyTick/rpKalTick) or stay at snapshot. */
    if(found&&found.state==='in'){{(function(_pk,_f){{
     fetch('https://site.api.espn.com/apis/site/v2/sports/'+_pk.dataset.espn+'/summary?event='+_f.eid+'&t='+Date.now()).then(r=>r.json()).then(function(sj){{
      const sc2=(((sj.header||{{}}).competitions)||[])[0]||{{}};const st2=(sc2.status||{{}}).type||{{}};
