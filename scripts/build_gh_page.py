@@ -94,17 +94,26 @@ def _espn_get(url):
 def team_meta(man):
     meta={}
     lgs={p.get('espn_league','') for p in man.get('picks',[]) if p.get('espn_league')}
+    # logos bind to the CARD's own dates - a preview card's teams are not on today's board
+    dates=set()
+    for p in man.get('picks',[]):
+        c=(((p.get('game') or {}).get('commence','') or '')[:10]).replace('-','')
+        if c: dates.add(c)
+    dates.add('')  # today as fallback (live rows)
     for lg in lgs:
-        try:
-            sb=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/scoreboard'%lg)
-            for ev in sb.get('events',[]):
-                comp=(ev.get('competitions') or [{}])[0]
-                for c in comp.get('competitors',[]):
-                    t=c.get('team') or {}
-                    nm=t.get('displayName','')
-                    meta[(lg,nm)]={'id':t.get('id'),'abbr':t.get('abbreviation',''),'logo':t.get('logo',''),
-                        'record':(c.get('records') or [{}])[0].get('summary','')}
-        except Exception: pass
+        for d in dates:
+            try:
+                qs=('dates='+d if d else '')
+                if lg=='football/college-football': qs+=(('&' if qs else '')+'groups=80&limit=400')
+                sb=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/scoreboard'%lg+('?'+qs if qs else ''))
+                for ev in sb.get('events',[]):
+                    comp=(ev.get('competitions') or [{}])[0]
+                    for c in comp.get('competitors',[]):
+                        t=c.get('team') or {}
+                        nm=t.get('displayName','')
+                        meta[(lg,nm)]={'id':t.get('id'),'abbr':t.get('abbreviation',''),'logo':t.get('logo',''),
+                            'record':(c.get('records') or [{}])[0].get('summary','')}
+            except Exception: pass
     return meta
 
 TEAM_META={}
@@ -112,7 +121,15 @@ TEAM_META={}
 
 pre_sp=_load_prefill('/tmp/odds_prefill_sp.json', wrap=True)
 TEAM_META.update(team_meta(man))
-LG_BALL={'baseball/mlb':'\u26be','football/nfl':'\U0001f3c8','football/college-football':'\U0001f3c8','basketball/nba':'\U0001f3c0','basketball/wnba':'\U0001f3c0','basketball/college-basketball':'\U0001f3c0','hockey/nhl':'\U0001f3d2','tennis':'\U0001f3be'}
+def _meta_for(lg,name):
+    m=TEAM_META.get((lg,name))
+    if m: return m
+    if not name: return {}
+    for (l2,n2),v in TEAM_META.items():
+        if l2==lg and n2 and (name in n2 or n2 in name): return v
+    return {}
+
+LG_BALL={'baseball/mlb':'\u26be','football/nfl':'\U0001f3c8','football/college-football':'\U0001f3c8','basketball/nba':'\U0001f3c0','basketball/wnba':'\U0001f3c0','basketball/college-basketball':'\U0001f3c0','hockey/nhl':'\U0001f3d2','tennis':'\U0001f3be','tennis/atp':'\U0001f3be','tennis/wta':'\U0001f3be','soccer/usa.1':'\u26bd','soccer/usa.nwsl':'\u26bd','golf/pga':'\u26f3','racing/nascar':'\U0001f3ce\U0000fe0f','mma/ufc':'\U0001f94a','boxing':'\U0001f94a'}
 
 def game_instance(game):
     # J-092 (user, Sep 25 10:05 AM): when a team plays twice in a day, every chip must NAME
@@ -295,7 +312,7 @@ for p in man['picks']:
     if g.get('gpk'): _gk3=(str(g['gpk']),_gk3[1],_gk3[2])
     _eid=str(g.get('eid') or '')
     _lga=p.get('espn_league','')
-    _ma=TEAM_META.get((_lga,g.get('away',''))) or {}; _mh=TEAM_META.get((_lga,g.get('home',''))) or {}
+    _ma=_meta_for(_lga,g.get('away','')); _mh=_meta_for(_lga,g.get('home',''))
     def _avimg(mm,overlap=False):
         u=mm.get('logo','')
         if not u: return ''
@@ -1187,7 +1204,7 @@ def build_game_pages(man, css, build_sha):
             books_present.append('POLY')
         # Per-book price-history charts (user, Sep 25 12:20 PM): Kalshi-style line, one per platform.
         lg=p.get('espn_league','')
-        ma=TEAM_META.get((lg,away)) or {}; mh=TEAM_META.get((lg,home)) or {}
+        ma=_meta_for(lg,away); mh=_meta_for(lg,home)
         abbr_a=ma.get('abbr') or away.split()[-1][:4].upper(); abbr_h=mh.get('abbr') or home.split()[-1][:4].upper()
         def tlogo(mm):
             u=mm.get('logo','')
