@@ -17,15 +17,23 @@ os.environ.setdefault('TZ','America/Los_Angeles')
 man=json.load(open('manifest.json'))
 now=datetime.datetime.now()
 reg=json.load(open('config_leagues.json'))['leagues']
-for lg in [v['espn'] for v in reg.values() if v.get('espn')]:
+for v in reg.values():
+    lg=v.get('espn')
+    if not lg: continue
+    prm='&'+v['espn_params'] if v.get('espn_params') else ''
     try:
-        d=json.load(urllib.request.urlopen(f'https://site.api.espn.com/apis/site/v2/sports/{lg}/scoreboard?dates={now:%Y%m%d}',timeout=15))
+        d=json.load(urllib.request.urlopen(f'https://site.api.espn.com/apis/site/v2/sports/{lg}/scoreboard?dates={now:%Y%m%d}'+prm,timeout=15))
     except Exception: continue
     for e in d.get('events',[]):
-        st=e['competitions'][0]['status']['type']
-        dt=datetime.datetime.fromisoformat(e['date'].replace('Z','+00:00')).replace(tzinfo=None)-datetime.timedelta(hours=7)
-        if st.get('state')=='in' or (st.get('state')=='pre' and 0 <= (dt-now).total_seconds() <= 7200):
-            sys.exit(0)
+        comps=[]
+        if e.get('competitions'): comps.append(e['competitions'][0])
+        for g in e.get('groupings',[]):
+            comps.extend(g.get('competitions') or [])
+        for c in comps:
+            st=(c.get('status') or {}).get('type') or {}
+            dt=(datetime.datetime.fromisoformat(e['date'].replace('Z','+00:00')).replace(tzinfo=None)-datetime.timedelta(hours=7)) if e.get('date') else now
+            if st.get('state')=='in' or (st.get('state')=='pre' and 0 <= (dt-now).total_seconds() <= 7200):
+                sys.exit(0)
 sys.exit(1)
 PY
 GAME_WINDOW=$?
