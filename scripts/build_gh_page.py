@@ -1604,13 +1604,13 @@ function rpPolyTick(){{try{{
     if(c>0&&c<100){{a.dataset.won='';a.dataset.lost='';
      const pk=a.closest('.pick');
      if(!(pk&&rpInPlay(pk))){{a.dataset.cents=c;if(r0){{r0.c=c;r0.ts=Date.now();}}a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \d+c| \u2713| \u2717)?/,'POLY '+rpMLF(rpC2ML(c)));}}rpCxUpd('POLY');
-     if(pk&&pk.dataset.market==='ml'){{const s2=pk.querySelector('.odds');
-      if(s2&&!rpInPlay(pk)){{const ml2=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);s2.textContent=(ml2>0?'+':'')+ml2;}}}}}}
+}}
     return;
    }}}}
   }}).catch(()=>{{}});
  }});
 }}catch(e){{}}}}
+/* header .odds = locked entry price, FROZEN on every surface (tester ruling Sep 26): no ticker and no refresh ever writes .pick .odds - live market lives in chips + range only */
 function rpEspnTick(){{try{{
  const leagues={{}};
  document.querySelectorAll('.pick[data-espn]').forEach(function(d){{if(!d.dataset.espn)return;(leagues[d.dataset.espn]=leagues[d.dataset.espn]||[]).push(d);}});
@@ -1629,7 +1629,7 @@ function rpEspnTick(){{try{{
      const rd=(d.dataset.room||'').split('-').slice(1).join('-');
      if(rd&&ev.date){{const pd=new Intl.DateTimeFormat('en-CA',{{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}}).format(new Date(ev.date));if(pd!==rd)return;}}
      const ml=d.dataset.side==='away'?(o.awayTeamOdds||{{}}).moneyLine:(o.homeTeamOdds||{{}}).moneyLine;
-     if(typeof ml==='number'&&!rpInPlay(d)){{const s=d.querySelector('.odds');if(s)s.textContent=(ml>0?'+':'')+ml;
+     if(typeof ml==='number'&&!rpInPlay(d)){{
       const chip=d.querySelector('a[data-book="ESPN"]');
       if(chip){{chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);const _rc=rpMkt(chip);if(_rc){{_rc.ml=ml;_rc.ts=Date.now();}}rpCxUpdMl('ESPN');rpBestStar(d);}}}}
     }});
@@ -1651,9 +1651,6 @@ function rpKalTick(){{try{{
    a.dataset.won='';a.dataset.lost='';
    const pk=a.closest('.pick');
    if(!(pk&&rpInPlay(pk))){{a.dataset.cents=c;if(r0){{r0.c=c;r0.ts=Date.now();}}a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c| \u2713| \u2717)?/,'KAL '+rpMLF(rpC2ML(c)));}}rpCxUpd('KAL');
-   if(pk&&pk.dataset.market==='ml'){{const s=pk.querySelector('.odds');
-    if(s&&c>0&&c<100&&!rpInPlay(pk)){{const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
-     s.textContent=(ml>0?'+':'')+ml;}}}}
     if(rpInPlay(pk))rpBestStar(pk);
   }}).catch(()=>{{}}); /* graceful fallback: relay/API failure keeps last build price */
  }});
@@ -1710,8 +1707,6 @@ function rpPageRefresh(){{try{{
      if(na.dataset.sb)a.dataset.sb=na.dataset.sb;
     }}
    }});
-   const lo=pk.querySelector('.odds'),ln=np.querySelector('.odds');
-   if(lo&&ln&&ln.textContent)lo.textContent=ln.textContent;
    rpBestStar(pk);
   }});
   const cc=document.getElementById('rpParlayChips');const nc=doc.getElementById('rpParlayChips');
