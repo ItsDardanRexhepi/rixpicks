@@ -16,7 +16,8 @@ import json,urllib.request,datetime,sys,os
 os.environ.setdefault('TZ','America/Los_Angeles')
 man=json.load(open('manifest.json'))
 now=datetime.datetime.now()
-for lg in ['baseball/mlb','football/nfl','football/college-football','basketball/nba','hockey/nhl']:
+reg=json.load(open('config_leagues.json'))['leagues']
+for lg in [v['espn'] for v in reg.values() if v.get('espn')]:
     try:
         d=json.load(urllib.request.urlopen(f'https://site.api.espn.com/apis/site/v2/sports/{lg}/scoreboard?dates={now:%Y%m%d}',timeout=15))
     except Exception: continue
@@ -34,8 +35,8 @@ if [ -z "$THE_ODDS_API_KEY" ]; then echo "THE_ODDS_API_KEY secret missing - skip
 SPORTS=$(python3 -c "
 import json
 m=json.load(open('manifest.json'))
-m2={'MLB':'baseball_mlb','NFL':'americanfootball_nfl','CFB':'americanfootball_ncaaf','NBA':'basketball_nba','NHL':'icehockey_nhl'}
-ls=sorted({m2.get(p.get('league',''),'baseball_mlb') for p in m['picks']})
+reg=json.load(open('config_leagues.json'))['leagues']
+ls=sorted({(reg.get(p.get('league','')) or {}).get('odds_api') or 'baseball_mlb' for p in m['picks']})
 print(' '.join(ls))")
 python3 scripts/odds_prefill.py $SPORTS
 python3 scripts/move_cause.py || true

@@ -311,7 +311,7 @@ if FUT:
     try:
         import urllib.request as _u, datetime as _dt
         _today=_dt.datetime.now(_dt.timezone(_dt.timedelta(hours=-7))).strftime('%Y%m%d')
-        _LGMAP={'NFL':('football/nfl','nfl'),'NBA':('basketball/nba','nba'),'NHL':('hockey/nhl','nhl'),'MLB':('baseball/mlb','mlb')}
+        _LGMAP={'NFL':('football/nfl','nfl'),'NBA':('basketball/nba','nba'),'NHL':('hockey/nhl','nhl'),'MLB':('baseball/mlb','mlb'),'WNBA':('basketball/wnba','wnba')}
         _held={}
         for _f in FUT:
             if _f.get('league') not in _LGMAP or not _f.get('abbr'): continue

@@ -1,0 +1,20 @@
+{
+  "_doc": "RixPicks league registry - single source of truth for all league wiring. Every script reads this. A league reaches FULL STANDARD when: ingestion (espn), odds routing (odds_api and/or kalshi), card rendering, pulse, grading path all verified live. J-049A: odds_api is only queried for leagues carded that day (manifest-gated, 16 credits/day cap).",
+  "leagues": {
+    "MLB":   {"espn": "baseball/mlb",  "odds_api": "baseball_mlb",            "kalshi": ["KXMLBGAME"],   "logo_dir": "mlb",    "in_season": true},
+    "NFL":   {"espn": "football/nfl",  "odds_api": "americanfootball_nfl",    "kalshi": ["KXNFLGAME"],   "logo_dir": "nfl",    "in_season": true},
+    "CFB":   {"espn": "football/college-football", "odds_api": "americanfootball_ncaaf", "kalshi": ["KXNCAAFGAME"], "logo_dir": "ncaa", "in_season": true},
+    "WNBA":  {"espn": "basketball/wnba", "odds_api": "basketball_wnba",       "kalshi": ["KXWNBAGAME"],  "logo_dir": "wnba",   "in_season": true},
+    "NBA":   {"espn": "basketball/nba", "odds_api": "basketball_nba",         "kalshi": ["KXNBAGAME"],   "logo_dir": "nba",    "in_season": true},
+    "NHL":   {"espn": "hockey/nhl",    "odds_api": "icehockey_nhl",           "kalshi": ["KXNHLGAME"],   "logo_dir": "nhl",    "in_season": true},
+    "NCAAB": {"espn": "basketball/mens-college-basketball", "odds_api": null, "kalshi": ["KXNCAAMBGAME"],"logo_dir": "ncaab",  "in_season": false, "note": "odds-API adds basketball_ncaab when season starts (Nov); Kalshi series exists, opens with season"},
+    "MLS":   {"espn": "soccer/usa.1",  "odds_api": "soccer_usa_mls",          "kalshi": ["KXMLSGAME"],   "logo_dir": null,     "in_season": true, "note": "logos via ESPN meta id-URL, not abbr CDN"},
+    "NWSL":  {"espn": "soccer/usa.nwsl", "odds_api": null,                    "kalshi": ["KXNWSLGAME"],  "logo_dir": null,     "in_season": true, "note": "no odds-API coverage; Kalshi + Polymarket routing only"},
+    "PGA":   {"espn": "golf/pga",      "odds_api": null,                      "kalshi": ["KXPGATOUR"],   "logo_dir": null,     "in_season": true, "note": "odds-API covers majors only (per-tournament keys); weekly routing Kalshi/Polymarket"},
+    "ATP":   {"espn": "tennis/atp",    "odds_api": null,                      "kalshi": ["KXATPMATCH"],  "logo_dir": null,     "in_season": true, "note": "odds-API tennis keys are per-tournament when covered (currently none active)"},
+    "WTA":   {"espn": "tennis/wta",    "odds_api": null,                      "kalshi": ["KXWTAMATCH"],  "logo_dir": null,     "in_season": true, "note": "per-tournament odds keys; Kalshi match markets live"},
+    "NASCAR":{"espn": "racing/nascar-premier", "odds_api": null,              "kalshi": ["KXNASCARRACE"],"logo_dir": null,     "in_season": true, "note": "ESPN slug verified live (nascar-premier = Cup). No odds-API coverage; Kalshi + Polymarket"},
+    "UFC":   {"espn": "mma/ufc",       "odds_api": "mma_mixed_martial_arts",  "kalshi": ["KXUFCFIGHT"],  "logo_dir": null,     "in_season": true, "note": "slate-driven"},
+    "Boxing":{"espn": null,            "odds_api": "boxing_boxing",           "kalshi": ["KXBOXINGFIGHT"],"logo_dir": null,    "in_season": true, "note": "ESPN has no boxing scoreboard API; slate data from odds-API + Kalshi"}
+  }
+}
