@@ -1462,20 +1462,11 @@ function rpCxLive(){{const legs=[...document.querySelectorAll('.cxleg')];const e
  if(w===legs.length){{el.innerHTML='<span style="color:#3ecf6f;font-weight:700">Combo cashed</span> - all '+legs.length+' legs home';return;}}
  el.textContent=w+' of '+legs.length+' legs home'+(live?' \u00b7 '+live+' live':'')+(legs.length-w-l-live>0?' \u00b7 '+(legs.length-w-l-live)+' upcoming':'');}}
 function rpRecLive(){{const rec=document.getElementById('rpRec');if(!rec)return;
- let w=parseInt(rec.dataset.bw||'0'),l=parseInt(rec.dataset.bl||'0');
- const uEl=document.getElementById('rpUnits');let u=uEl?parseFloat(uEl.dataset.bu||'0'):0;
- document.querySelectorAll('.pick[data-codds]').forEach(pk=>{{
-  if(pk.dataset.counted==='1')return;  /* Sep 26 12-7 bug: result already graded into the baked base - never double-count */
-  const sp=pk.querySelector('[data-ls]');if(!sp)return;
-  const won=sp.classList.contains('won'),lost=sp.classList.contains('lost');
-  if(!won&&!lost)return;
-  const stake=parseFloat(pk.dataset.stake||(pk.querySelector('.units')||{{}}).textContent)||0;
-  const ml=parseInt(pk.dataset.codds);if(!stake||!ml)return;
-  if(won){{w++;u+=stake*(ml>0?ml/100:100/Math.abs(ml));}}else{{l++;u-=stake;}}
- }});
+ /* Sep 26 12-6/+0.66u bug: the footer is the LEDGER record only - page finals are NEVER added to baked values. Grading owns the record; the next build carries it. (Was: live-add of visible finals - double-counted Toledo once grading landed.) */
+ const w=parseInt(rec.dataset.bw||'0'),l=parseInt(rec.dataset.bl||'0');
  rec.innerHTML='&rsquo;RixPicks Overall Record: '+w+'-'+l;
  const pct=document.getElementById('rpWlPct');if(pct&&(w+l)>0)pct.textContent='W/L: '+(100*w/(w+l)).toFixed(1)+'%';
- if(uEl)uEl.textContent='Units: '+(u>=0?'+':'')+u.toFixed(2)+'u';
+ const uEl=document.getElementById('rpUnits');if(uEl){{const u=parseFloat(uEl.dataset.bu||'0');uEl.textContent='Units: '+(u>=0?'+':'')+u.toFixed(2)+'u';}}
 }}
 function rpFinalsTop(){{document.querySelectorAll('.pick').forEach(function(pk){{
  var sp=pk.querySelector('[data-ls]');if(!sp)return;
