@@ -147,7 +147,7 @@ function rpPolyTick(){try{
 }catch(e){}}
 function rpEspnTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
- fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
+ fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard?cb='+Date.now()).then(r=>r.json()).then(function(j){
   (j.events||[]).forEach(function(ev){
    const comp=(ev.competitions||[])[0]||{};
    const atok=(d.dataset.away||'').toLowerCase().split(' ').pop(),htok=(d.dataset.home||'').toLowerCase().split(' ').pop();
@@ -185,7 +185,7 @@ function rpPips(n,tot,color){let h='';for(let i=0;i<tot;i++){h+='<span style="di
 async function rpMlbLive(d){
  try{
  if(!d.dataset.gpk){
-  const sched=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team')).json();
+  const sched=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team&t='+Date.now())).json();
   const games=(sched.dates||[]).flatMap(function(x){return x.games||[];});
   const g=games.find(function(x){return x.teams.away.team.name===d.dataset.away&&x.teams.home.team.name===d.dataset.home;});
   if(!g)return;
@@ -194,7 +194,7 @@ async function rpMlbLive(d){
   d.dataset.hab=(g.teams.home.team.abbreviation)||'';
  }
  const flds='liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,outs,balls,strikes,offense,first,second,third,plays,currentPlay,matchup,batter,pitcher,fullName,count,result,description,allPlays,about,inning,halfInning,gameData,status,detailedState';
- const j=await (await fetch('https://statsapi.mlb.com/api/v1.1/game/'+d.dataset.gpk+'/feed/live?fields='+flds)).json();
+ const j=await (await fetch('https://statsapi.mlb.com/api/v1.1/game/'+d.dataset.gpk+'/feed/live?fields='+flds+'&t='+Date.now())).json();
  const ls=(j.liveData||{}).linescore||{};const det=((j.gameData||{}).status||{}).detailedState||'';
  const box=document.getElementById('rpLive');if(!box)return;
  const sline=document.getElementById('rpScore');
@@ -441,7 +441,7 @@ document.addEventListener('touchend',rpPtrEnd,{passive:true});
 document.addEventListener('touchcancel',rpPtrEnd,{passive:true});
 
 
-rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);setInterval(rpLiveBox,15000);
+rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);setInterval(rpLiveBox,8000);
 setInterval(rpPageRefresh,60000);
 
 /* Live per-game chat - room id baked at build (g<num>-<date>), no fetch needed to find it. Opens 1h before start, locks 2h after final. */

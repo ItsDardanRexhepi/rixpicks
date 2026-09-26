@@ -766,13 +766,13 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
   await Promise.all(keyed.map(async pk=>{{
    const k=pk.dataset.gpk;
    try{{
-    if(!cache[k]){{const r=await fetch('https://statsapi.mlb.com/api/v1.1/game/'+k+'/feed/live?fields=liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,gameData,status,detailedState');if(!r.ok)throw new Error('feed');cache[k]=await r.json();}}
+    if(!cache[k]){{const r=await fetch('https://statsapi.mlb.com/api/v1.1/game/'+k+'/feed/live?fields=liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,gameData,status,detailedState&t='+Date.now());if(!r.ok)throw new Error('feed');cache[k]=await r.json();}}
     const j=cache[k];const ls=(j.liveData||{{}}).linescore||{{}};const st=((j.gameData||{{}}).status||{{}}).detailedState||'';
     if(!st){{rpMlbMiss(pk);return;}}
     rpMlbGame(pk,ls,st,pk.dataset.aab||pk.dataset.away.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase(),pk.dataset.hab||pk.dataset.home.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase());
    }}catch(e){{rpMlbMiss(pk);}}}}));
   if(unkeyed.length){{try{{
-   const d=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team')).json();
+   const d=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team&t='+Date.now())).json();
    const games=(d.dates||[]).flatMap(x=>x.games||[]);
    unkeyed.forEach(pk=>{{const g=games.find(g=>g.teams.away.team.name===pk.dataset.away&&g.teams.home.team.name===pk.dataset.home);
     if(!g){{rpMlbMiss(pk);return;}}
@@ -780,7 +780,7 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
  }}
  const byLg={{}};picks.filter(x=>x.dataset.espn&&(x.dataset.espn!=='baseball/mlb')).forEach(x=>{{(byLg[x.dataset.espn]=byLg[x.dataset.espn]||[]).push(x);}});
  for(const lg of Object.keys(byLg)){{try{{
-  const d=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard')).json();
+  const d=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?cb='+Date.now())).json();
   byLg[lg].forEach(pk=>{{let found=null;(d.events||[]).forEach(e=>{{const cs=e.competitions[0].competitors;
    const aw=cs.find(c=>c.homeAway==='away'),hm=cs.find(c=>c.homeAway==='home');if(!aw||!hm)return;
    const an=aw.team.displayName,hn=hm.team.displayName;
@@ -835,7 +835,7 @@ function rpChatCounts(){{try{{
  }});
 }}catch(e){{}}}}
 async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();}}
-{fut_badge_js}rpLsTickAll();setInterval(rpLsTickAll,30000);
+{fut_badge_js}rpLsTickAll();setInterval(rpLsTickAll,10000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
 try{{fetch('https://api.rix-picks.com/beacon',{{method:'POST',headers:{{'Content-Type':'application/json'}},body:JSON.stringify({{page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}}),keepalive:true}}).catch(()=>{{}});}}catch(e){{}}
@@ -935,7 +935,7 @@ function rpEspnTick(){{try{{
  const leagues={{}};
  document.querySelectorAll('.pick[data-espn]').forEach(function(d){{if(!d.dataset.espn)return;(leagues[d.dataset.espn]=leagues[d.dataset.espn]||[]).push(d);}});
  Object.keys(leagues).forEach(function(lg){{
-  fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard').then(r=>r.json()).then(function(j){{
+  fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?cb='+Date.now()).then(r=>r.json()).then(function(j){{
    (j.events||[]).forEach(function(ev){{
     const comp=(ev.competitions||[])[0]||{{}};const o=(comp.odds||[])[0];if(!o)return;
     leagues[lg].forEach(function(d){{
