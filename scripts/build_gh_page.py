@@ -696,6 +696,8 @@ def lineshop_html(prs, underway=False):
     best=max(prs); worst=min(prs)
     edge=(ip(worst)-ip(best))*100
     if edge<0.05: return ''
+    if underway:  # frozen pre-game closers: historical reference, never obtainable-now language (swamp 9/26)
+        return '<div class="rplineshop" style="font-size:11px;color:#8a8f98;margin:3px 0 0">pre-game range: %+d to %+d</div>'%(worst,best)
     return '<div class="rplineshop" style="font-size:11px;color:#8a8f98;margin:3px 0 0">line shop: %+d to %+d &middot; %.1f%% edge at the best price</div>'%(worst,best,edge)
 _chips_fn=chips
 # Chronological pick order within each league (user, Sep 25 4:48 PM); league groups keep first-appearance order. Finished-first reorder stays client-side (rpFinalsTop).
@@ -1474,7 +1476,7 @@ function rpLineShop(pk){{try{{
  /* in play all prices are frozen pre-game closers (same phase) - the line shop stays computed across them (inspector Sep 26: never-blank) */
  if(edge<0.05){{el.style.display='none';return;}}
  el.style.display='';
- el.textContent='line shop: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best+' \u00b7 '+edge.toFixed(1)+'% edge at the best price';
+ el.textContent=rpInPlay(pk)?('pre-game range: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best):('line shop: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best+' \u00b7 '+edge.toFixed(1)+'% edge at the best price');
 }}catch(e){{}}}}
 function rpAllLineShops(){{document.querySelectorAll('.pick').forEach(rpLineShop);}}
 function rpStartTimes(){{const now=Date.now();document.querySelectorAll('.rpstart[data-commence]').forEach(function(el){{const t=Date.parse(el.dataset.commence);if(t&&now>=t)el.remove();}});}}
@@ -1510,7 +1512,7 @@ function rpMkt(a){{try{{const i=a.dataset.mr;if(i==null||typeof RP_MARKETS==='un
 function rpChipPh(a){{const r=rpMkt(a);return r?r.ph:null;}}
 function rpChipML(a){{const r=rpMkt(a);if(r){{if(r.st!=='ok')return null;if(r.c!=null)return rpC2MLn(r.c);return r.ml;}}if(a.dataset&&a.dataset.cents){{return rpC2MLn(a.dataset.cents);}}const m=a.textContent.match(/([+-]\d+)/);return m?parseInt(m[1]):null;}}  /* canonical truth record first (Matrix design 9/26); text is never a computational source when a record exists */
 function rpPickPhase(pk){{let ph=null;pk.querySelectorAll('[data-mr]').forEach(function(a){{if(ph)return;const r=rpMkt(a);if(r)ph=r.ph;}});return ph;}}
-function rpSamePh(a,ph){{if(!ph)return true;const r=rpMkt(a);return !r||r.ph===ph;}}  /* comparisons only ever mix same-phase prices (hunter Sep 26) */
+function rpSamePh(a,ph){{if(!ph)return true;const r=rpMkt(a);return !!r&&r.ph===ph;}}  /* fail-closed (main/swamp Sep 26): record-less chips (no phase provenance) never join star/range/combo comparisons */
 function rpMLF(m){{return (typeof m==='string')?m:(m>0?'+':'')+m;}}
 function rpCxUpdMl(bk){{
  const span=document.querySelector('#rpParlayChips [data-book="'+bk+'"]');if(!span)return;
