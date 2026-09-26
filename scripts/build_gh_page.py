@@ -311,7 +311,8 @@ if FUT:
     try:
         import urllib.request as _u, datetime as _dt
         _today=_dt.datetime.now(_dt.timezone(_dt.timedelta(hours=-7))).strftime('%Y%m%d')
-        _LGMAP={'NFL':('football/nfl','nfl'),'NBA':('basketball/nba','nba'),'NHL':('hockey/nhl','nhl'),'MLB':('baseball/mlb','mlb'),'WNBA':('basketball/wnba','wnba')}
+        _REG=json.load(open(os.path.join(os.path.dirname(__file__),'..','config_leagues.json')))['leagues']
+        _LGMAP={k:(v['espn'],v.get('logo_dir')) for k,v in _REG.items() if v.get('espn') and v.get('futures')}
         _held={}
         for _f in FUT:
             if _f.get('league') not in _LGMAP or not _f.get('abbr'): continue
@@ -321,9 +322,16 @@ if FUT:
         _sbs={}
         for _lg in {v['lg'] for v in _held.values()}:
             try:
-                _req=_u.Request('https://site.api.espn.com/apis/site/v2/sports/%s/scoreboard?dates='%_LGMAP[_lg][0]+_today+'&limit=100',headers={'User-Agent':'python-urllib/3.10'})
+                _prm='&'+_REG[_lg].get('espn_params','') if _REG[_lg].get('espn_params') else ''
+                _req=_u.Request('https://site.api.espn.com/apis/site/v2/sports/%s/scoreboard?dates='%_LGMAP[_lg][0]+_today+'&limit=100'+_prm,headers={'User-Agent':'python-urllib/3.10'})
                 _sbs[_lg]=json.load(_u.urlopen(_req,timeout=15))
             except Exception: pass
+        _mlogo={}
+        for _lg2,_sb2 in _sbs.items():
+            for _ev2 in _sb2.get('events',[]):
+                for _c2 in (_ev2.get('competitions') or [{}])[0].get('competitors',[]):
+                    _t2=_c2.get('team') or {}
+                    if _t2.get('logo'): _mlogo[(_lg2,_t2.get('displayName',''))]=_t2['logo']
         _fw=[]
         for _lg,_sb in _sbs.items():
           for ev in _sb.get('events',[]):
@@ -334,7 +342,9 @@ if FUT:
             for t,info in _held.items():
                 if (t==an or t==hn) and info['lg']==_lg:
                     _side='away' if t==an else 'home'
-                    _fw.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick" data-espn="%s" data-away="%s" data-home="%s" data-side="%s"><img src="https://a.espncdn.com/i/teamlogos/%s/500/%s.png" style="width:20px;height:20px;border-radius:50%%%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>%s</b> <span style="color:#8a8f98;font-size:12px">futures: %s</span><span class="ls" data-ls></span></div></a>'%(_LGMAP[_lg][0],html.escape(an),html.escape(hn),_side,_LGMAP[_lg][1],html.escape(info['abbr']),html.escape(t),' &middot; '.join(html.escape(x) for x in info['mkts'])))
+                    _isrc=_mlogo.get((_lg,t)) or ('https://a.espncdn.com/i/teamlogos/%s/500/%s.png'%(_LGMAP[_lg][1],info['abbr']) if _LGMAP[_lg][1] else '')
+                    _fimg='<img src="%s" style="width:20px;height:20px;border-radius:50%%%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">'%_isrc if _isrc else ''
+                    _fw.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick" data-espn="%s" data-away="%s" data-home="%s" data-side="%s">%s<b>%s</b> <span style="color:#8a8f98;font-size:12px">futures: %s</span><span class="ls" data-ls></span></div></a>'%(_LGMAP[_lg][0],html.escape(an),html.escape(hn),_side,_fimg,html.escape(t),' &middot; '.join(html.escape(x) for x in info['mkts'])))
                     break
         if _fw:
             fut_watch_html='<div class="sect" style="margin-top:22px">Futures live today</div>'+''.join(_fw)
@@ -1345,7 +1355,9 @@ function rpFutOpen(fid){
 <script src="myprofile.js?v=__BUILD__"></script></body></html>'''
 def build_futures_page(css,build_sha):
     if not FUT: return None
-    BALL={'NFL':'&#127944;','MLB':'&#9918;','NBA':'&#127936;','NHL':'&#127954;','WTA':'&#127934;','CFB':'&#127944;'}
+    import os as _os2
+    _REGALL=json.load(open(_os2.path.join(_os2.path.dirname(__file__),'..','config_leagues.json')))['leagues']
+    BALL={'NFL':'&#127944;','MLB':'&#9918;','NBA':'&#127936;','NHL':'&#127954;','WTA':'&#127934;','ATP':'&#127934;','CFB':'&#127944;','WNBA':'&#127936;','NCAAB':'&#127936;','MLS':'&#9917;','NWSL':'&#9917;','PGA':'&#9971;','NASCAR':'&#127950;','UFC':'&#129354;','Boxing':'&#129354;'}
     rows=[]
     seen_lg=set()
     for f in FUT:
@@ -1355,7 +1367,7 @@ def build_futures_page(css,build_sha):
             rows.append('<div class="sect" style="margin-top:18px">%s %s</div>'%(BALL.get(lg,'&#127937;'),html.escape(lg)))
         rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-entry="%s" data-team="%s" data-mkt="%s" data-fair="%s" data-prob="%s" data-res="%s" data-units="%s" data-note="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
         '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">'
-        '<span style="font-weight:700">'+('<img src="https://a.espncdn.com/i/teamlogos/'+f.get('league','nfl').lower()+'/500/'+f.get('abbr','')+'.png" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">' if f.get('abbr') else '')+'%s</span>'
+        '<span style="font-weight:700">'+('<img src="https://a.espncdn.com/i/teamlogos/'+_REGALL.get(f.get('league',''),{}).get('logo_dir','')+'/500/'+f.get('abbr','')+'.png" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">' if f.get('abbr') and _REGALL.get(f.get('league',''),{}).get('logo_dir') else '')+'%s</span>'
         '<span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895">&hellip;</span><button class="futdots" onclick="rpFutOpen(this.getAttribute(\'data-f\'))" data-f="%s" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div>'
         '<div style="font-size:12px;color:#8a8f98;margin-top:2px">%s &middot; entry %s &middot; %su%s</div>'
         + ('<div style="font-size:12px;margin-top:3px;color:#d8a23a">&#8646; pick changed from %s (%s)</div>'%(html.escape(f['changed_from']['team']),html.escape(f['changed_from']['odds'])) if f.get('changed_from') else '')

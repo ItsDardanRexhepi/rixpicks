@@ -8,7 +8,14 @@
     "KXMLBGAME"
    ],
    "logo_dir": "mlb",
-   "in_season": true
+   "in_season": true,
+   "futures": {
+    "poly_slug": "mlb-world-series-champion-2026",
+    "kalshi": [
+     "KXMLB"
+    ],
+    "label": "World Series Champion"
+   }
   },
   "NFL": {
    "espn": "football/nfl",
@@ -17,7 +24,12 @@
     "KXNFLGAME"
    ],
    "logo_dir": "nfl",
-   "in_season": true
+   "in_season": true,
+   "futures": {
+    "poly_slug": "pro-football-2027-champion-20260729185915366",
+    "kalshi": [],
+    "label": "Super Bowl LXI Champion"
+   }
   },
   "CFB": {
    "espn": "football/college-football",
@@ -27,7 +39,14 @@
    ],
    "logo_dir": "ncaa",
    "in_season": true,
-   "espn_params": "groups=80"
+   "espn_params": "groups=80",
+   "futures": {
+    "poly_slug": "college-football-champion-2026-684",
+    "kalshi": [
+     "KXNCAAFTOPSEED"
+    ],
+    "label": "National Champion"
+   }
   },
   "WNBA": {
    "espn": "basketball/wnba",
@@ -36,7 +55,15 @@
     "KXWNBAGAME"
    ],
    "logo_dir": "wnba",
-   "in_season": true
+   "in_season": true,
+   "futures": {
+    "poly_slug": null,
+    "kalshi": [
+     "KXWNBA"
+    ],
+    "label": "WNBA Champion",
+    "note": "polymarket wnba outright TBD; kalshi live"
+   }
   },
   "NBA": {
    "espn": "basketball/nba",
@@ -45,7 +72,14 @@
     "KXNBAGAME"
    ],
    "logo_dir": "nba",
-   "in_season": true
+   "in_season": true,
+   "futures": {
+    "poly_slug": "nba-champion",
+    "kalshi": [
+     "KXNBA"
+    ],
+    "label": "NBA Champion"
+   }
   },
   "NHL": {
    "espn": "hockey/nhl",
@@ -54,7 +88,14 @@
     "KXNHLGAME"
    ],
    "logo_dir": "nhl",
-   "in_season": true
+   "in_season": true,
+   "futures": {
+    "poly_slug": "2026-nhl-stanley-cup-champion",
+    "kalshi": [
+     "KXNHL"
+    ],
+    "label": "Stanley Cup Champion"
+   }
   },
   "NCAAB": {
    "espn": "basketball/mens-college-basketball",
@@ -64,7 +105,13 @@
    ],
    "logo_dir": "ncaab",
    "in_season": false,
-   "note": "odds-API adds basketball_ncaab when season starts (Nov); Kalshi series exists, opens with season"
+   "note": "odds-API adds basketball_ncaab when season starts (Nov); Kalshi series exists, opens with season",
+   "futures": {
+    "poly_slug": "2026-ncaa-tournament-winner",
+    "kalshi": [],
+    "label": "NCAA Tournament Champion",
+    "note": "2027 event slug at season start"
+   }
   },
   "MLS": {
    "espn": "soccer/usa.1",
@@ -74,7 +121,14 @@
    ],
    "logo_dir": null,
    "in_season": true,
-   "note": "logos via ESPN meta id-URL, not abbr CDN"
+   "note": "logos via ESPN meta id-URL, not abbr CDN",
+   "futures": {
+    "poly_slug": "mls-cup-winner-2026",
+    "kalshi": [
+     "KXMLSCUP"
+    ],
+    "label": "MLS Cup Champion"
+   }
   },
   "NWSL": {
    "espn": "soccer/usa.nwsl",
@@ -84,7 +138,14 @@
    ],
    "logo_dir": null,
    "in_season": true,
-   "note": "no odds-API coverage; Kalshi + Polymarket routing only"
+   "note": "no odds-API coverage; Kalshi + Polymarket routing only",
+   "futures": {
+    "poly_slug": "2026-soccer-nwsl-winner",
+    "kalshi": [
+     "KXNWSL"
+    ],
+    "label": "NWSL Champion"
+   }
   },
   "PGA": {
    "espn": "golf/pga",
@@ -94,7 +155,15 @@
    ],
    "logo_dir": null,
    "in_season": true,
-   "note": "odds-API covers majors only (per-tournament keys); weekly routing Kalshi/Polymarket | individuals have no ESPN logos - name-rendered rows (verified 9/25)"
+   "note": "odds-API covers majors only (per-tournament keys); weekly routing Kalshi/Polymarket | individuals have no ESPN logos - name-rendered rows (verified 9/25)",
+   "futures": {
+    "poly_slug": null,
+    "kalshi": [
+     "KXPGATOUR"
+    ],
+    "label": "Tournament Winner",
+    "note": "per-event outrights; majors via odds-API futures keys"
+   }
   },
   "ATP": {
    "espn": "tennis/atp",
@@ -104,7 +173,15 @@
    ],
    "logo_dir": null,
    "in_season": true,
-   "note": "odds-API tennis keys are per-tournament when covered (currently none active). ESPN match scores at events[].groupings[].competitions[] (athlete names, no logos)"
+   "note": "odds-API tennis keys are per-tournament when covered (currently none active). ESPN match scores at events[].groupings[].competitions[] (athlete names, no logos)",
+   "futures": {
+    "poly_slug": null,
+    "kalshi": [
+     "KXATP"
+    ],
+    "label": "Tournament Winner",
+    "note": "per-event"
+   }
   },
   "WTA": {
    "espn": "tennis/wta",
@@ -114,7 +191,16 @@
    ],
    "logo_dir": null,
    "in_season": true,
-   "note": "per-tournament odds keys; Kalshi match markets live. ESPN match scores at events[].groupings[].competitions[]"
+   "note": "per-tournament odds keys; Kalshi match markets live. ESPN match scores at events[].groupings[].competitions[]",
+   "futures": {
+    "poly_slug": null,
+    "kalshi": [
+     "KXWTA",
+     "KXWTAFINALS"
+    ],
+    "label": "Tournament Winner",
+    "note": "per-event"
+   }
   },
   "NASCAR": {
    "espn": "racing/nascar-premier",
@@ -124,7 +210,12 @@
    ],
    "logo_dir": null,
    "in_season": true,
-   "note": "ESPN slug verified live (nascar-premier = Cup). No odds-API coverage; Kalshi + Polymarket | individuals have no ESPN logos - name-rendered rows (verified 9/25)"
+   "note": "ESPN slug verified live (nascar-premier = Cup). No odds-API coverage; Kalshi + Polymarket | individuals have no ESPN logos - name-rendered rows (verified 9/25)",
+   "futures": {
+    "poly_slug": "nascar-cup-series-2026-champion-20260722193936777",
+    "kalshi": [],
+    "label": "Cup Series Champion"
+   }
   },
   "UFC": {
    "espn": "mma/ufc",
@@ -134,7 +225,15 @@
    ],
    "logo_dir": null,
    "in_season": true,
-   "note": "slate-driven | individuals have no ESPN logos - name-rendered rows (verified 9/25)"
+   "note": "slate-driven | individuals have no ESPN logos - name-rendered rows (verified 9/25)",
+   "futures": {
+    "poly_slug": null,
+    "kalshi": [
+     "KXUFCTITLE"
+    ],
+    "label": "Title Holder",
+    "note": "per-weight-class markets; poly per-title events"
+   }
   },
   "Boxing": {
    "espn": null,
@@ -144,7 +243,15 @@
    ],
    "logo_dir": null,
    "in_season": true,
-   "note": "ESPN has no boxing scoreboard API; slate verified live via odds-API boxing_boxing (53 bouts with h2h, 9/25). Kalshi KXBOXINGFIGHT series exists, opens per card"
+   "note": "ESPN has no boxing scoreboard API; slate verified live via odds-API boxing_boxing (53 bouts with h2h, 9/25). Kalshi KXBOXINGFIGHT series exists, opens per card",
+   "futures": {
+    "poly_slug": null,
+    "kalshi": [
+     "KXWBCMIDDLEWEIGHTTITLE"
+    ],
+    "label": "Title Holder",
+    "note": "per-sanctioning-body titles"
+   }
   }
  },
  "verified_2026_09_25": "All 15 entities: ESPN slug resolves live events; team sports resolve logos+records via scoreboard meta; Kalshi series all exist (NCAAB/Boxing open in season); odds-API keys verified active (NCAAB/NWSL/NASCAR/PGA-weekly/tennis have no daily odds coverage - Kalshi/Polymarket routing only)"
