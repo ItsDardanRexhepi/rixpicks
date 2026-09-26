@@ -751,6 +751,7 @@ function rpRenumber(){{try{{
  let i=0;
  document.querySelectorAll('.pick').forEach(function(pk){{const n=pk.querySelector('.num');if(!n)return;i++;n.textContent=i+'.';}});
 }}catch(e){{}}}}
+document.addEventListener('click',function(e){{const pk=e.target.closest('.pick');if(!pk)return;if(e.target.closest('a,button,input,select,textarea,label'))return;const gl=pk.querySelector('.gamelink');if(gl){{e.preventDefault();location.assign(gl.getAttribute('href'));}}}});
 let _rpCcLast=0;
 function rpChatCounts(){{try{{
  const now=Date.now();if(now-_rpCcLast<60000)return;_rpCcLast=now;
