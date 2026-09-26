@@ -3,6 +3,14 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>__TITLE__ - &rsquo;RixPicks</title>
 <meta name="description" content="Live markets for __TITLE__.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="__TITLE__ - &rsquo;RixPicks">
+<meta property="og:description" content="Free picks, live tracked, every league in one place. Built in public - the record is never edited.">
+<meta property="og:image" content="https://rix-picks.com/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="__TITLE__ - &rsquo;RixPicks">
+<meta name="twitter:description" content="Free picks, live tracked, every league in one place. Built in public - the record is never edited.">
+<meta name="twitter:image" content="https://rix-picks.com/og-card.png">
 <style>__CSS__
 @keyframes rpspin{to{transform:rotate(360deg)}}
 </style>
@@ -60,6 +68,7 @@ __RPCONSTS__
 function rpC2ML(c){c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}
 function rpMLF(m){return (m>0?'+':'')+m;}
 const RP_MOB=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+if(location.protocol==='http:'&&/(^|\.)rix-picks\.com$/.test(location.hostname)){location.replace('https://'+location.host+location.pathname+location.search+location.hash);}
 const RP_STANDALONE=(navigator.standalone===true)||window.matchMedia('(display-mode: standalone)').matches;
 function rpOpen(u){if(RP_STANDALONE){location.assign(u);}else{window.open(u,'_blank','noopener');}}
 if(RP_STANDALONE){document.addEventListener('click',function(e){const a=e.target.closest('a[target="_blank"]');if(a&&!a.onclick&&a.href){e.preventDefault();location.assign(a.href);}},true);}
@@ -71,11 +80,16 @@ function rpDest(a,st){const b=a.dataset.book;
 function rpGo(a,st){const b=a.dataset.book;
  if(b==='POLY'&&RP_MOB&&a.dataset.app){location.href=a.dataset.app;return;}
  const d=rpDest(a,st);if(d)rpOpen(d);return;}
-function rpTapify(el,st){const d=rpDest(el,st);
+function rpTapify(el,st){const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.dataset.book,st));let out;
  if(d){let a=el;if(el.tagName!=='A'){a=document.createElement('a');for(const at of el.attributes)a.setAttribute(at.name,at.value);a.innerHTML=el.innerHTML;el.replaceWith(a);}
-  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');}
+  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');out=a;}
  else{let sp=el;if(el.tagName!=='SPAN'){sp=document.createElement('span');for(const at of el.attributes)sp.setAttribute(at.name,at.value);sp.innerHTML=el.innerHTML;el.replaceWith(sp);}
-  sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');}}
+  sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');out=sp;}
+ /* a prediction-market fallback route never wears sportsbook numbers; restore them when the book is live */
+ if(pmr){if(!out.dataset.pmrprice){const m=out.innerHTML.match(/^\s*([+-]\d+)\s*$/)||out.innerHTML.match(/ ([+-]\d+)$/);if(m)out.dataset.pmrprice=m[1];}
+  out.innerHTML=out.innerHTML.replace(/^\s*[+-]\d+\s*$/,'').replace(/ [+-]\d+$/,'');out.dataset.pmroute='1';}
+ else{if(out.dataset.pmrprice&&out.innerHTML.indexOf(out.dataset.pmrprice)<0){out.innerHTML=(out.innerHTML?out.innerHTML+' ':'')+out.dataset.pmrprice;}
+  delete out.dataset.pmrprice;delete out.dataset.pmroute;}}
 function rpRowAvail(el,st){return rpBookLive(el.dataset.book,st)||!!rpPm(el);}
 function rpStrip(el){el.removeAttribute('href');el.removeAttribute('onclick');el.removeAttribute('target');el.removeAttribute('rel');el.classList.add('rpnontap');}
 function rpFilter(st){document.querySelectorAll('[data-book]').forEach(function(el){
@@ -156,24 +170,37 @@ function rpPolyTick(){try{
 }catch(e){}}
 function rpEspnTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
- fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard?cb='+Date.now()).then(r=>r.json()).then(function(j){
-  (j.events||[]).forEach(function(ev){
-   const comp=(ev.competitions||[])[0]||{};
+ if(d.dataset.eid){
+  // pinned event: exact-instance summary only - a name-token scoreboard hit may never move a canonical eid
+  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/summary?event='+d.dataset.eid+'&cb='+Date.now()).then(r=>r.json()).then(function(j){
+   const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
+   if(!comp.status)return;
    const atok=(d.dataset.away||'').toLowerCase().split(' ').pop(),htok=(d.dataset.home||'').toLowerCase().split(' ').pop();
-   const nm=(ev.name||'').toLowerCase();
-   if(nm.indexOf(atok)<0||nm.indexOf(htok)<0)return;
-   if(ev.id){d.dataset.eid=ev.id;if(window.rpChatSee)rpChatSee(ev);}
+   const nm=(comp.name||hdr.name||'').toLowerCase();
+   if(atok&&nm.indexOf(atok)<0)return;if(htok&&nm.indexOf(htok)<0)return;
    const st=(comp.status||{}).type||{};
    const comps=comp.competitors||[];
    let sc='';
    comps.forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
    const sline=document.getElementById('rpScore');
    if(sline&&st.state!=='pre'&&sc){sline.textContent=(st.shortDetail||'')+'  |  '+sc;}
-   const o=(comp.odds||[])[0];if(!o)return;
+   const o=((j.pickcenter||[])[0])||((comp.odds||[])[0]);if(!o)return;
    const ml=d.dataset.side==='away'?(o.awayTeamOdds||{}).moneyLine:(o.homeTeamOdds||{}).moneyLine;
-   if(typeof ml==='number'){const s=d.querySelector('.odds');if(s)s.textContent=(ml>0?'+':'')+ml;
+   if(typeof ml==='number'&&st.state==='pre'){const s2=d.querySelector('.odds');if(s2)s2.textContent=(ml>0?'+':'')+ml;
     const chip=d.querySelector('a[data-book="ESPN"]');
     if(chip){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);}}
+  }).catch(function(){});
+  return;
+ }
+ // no baked eid (futures cards): legacy scoreboard token match, eid discovery only - never odds/score poison
+ fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard?cb='+Date.now()).then(r=>r.json()).then(function(j){
+  (j.events||[]).forEach(function(ev){
+   const atok=(d.dataset.away||'').toLowerCase().split(' ').pop(),htok=(d.dataset.home||'').toLowerCase().split(' ').pop();
+   const nm=(ev.name||'').toLowerCase();
+   if(nm.indexOf(atok)<0||nm.indexOf(htok)<0)return;
+   const today=new Date().toLocaleDateString('en-CA',{timeZone:'America/Los_Angeles'});
+   if(ev.date&&ev.date.slice(0,10)!==today)return;
+   if(ev.id&&!d.dataset.eid){d.dataset.eid=ev.id;if(window.rpChatSee)rpChatSee(ev);}
   });
  }).catch(function(){});
 }catch(e){}}
@@ -297,6 +324,7 @@ function rpPageRefresh(){try{
  }).catch(function(){});
 }catch(e){}}
 document.getElementById('rpModal').addEventListener('click',function(e){if(e.target===this){this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}});
+rpFilter(localStorage.getItem('rp_state')||'');
 if(!localStorage.getItem('rp_state')&&!localStorage.getItem('rp_state_dismissed')){rpAsk(false);}else{rpLabel();}
 
 function rpML2C(ml){ml=parseFloat(ml);if(isNaN(ml))return null;return ml<0?(-ml)/((-ml)+100)*100:100/(ml+100)*100;}

@@ -21,13 +21,25 @@ def _pt_date(iso):
 
 man=json.load(open(sys.argv[1]))
 # --- pick-content hash gate (permanent): price ship conditions gate pick CONTENT only.
-# manifest carries pick_content_hash = sha256 over sorted "name|side|odds|units" pick rows;
-# same content as last shipped (shipped_pick_hash.txt) = display-only rebuild = conditions skipped;
-# different content = full condition eval. The manifest display_only flag is honored only while no
-# shipped hash exists yet (bootstrap push) so a stale flag can never skip a real content gate.
+# manifest carries pick_content_hash = sha256 over the FULL canonical pick object (see exclusion
+# list in _pick_content_hash). Any real content change forces the full gate.
+# same hash as last shipped (shipped_pick_hash.txt) = display-only rebuild = conditions skipped.
+# A manifest display_only flag is NEVER honored: absence of the shipped hash takes the normal
+# publish path with full condition eval - only a hash match can skip it.
 import hashlib as _hl
 def _pick_content_hash(m):
-    rows=sorted('|'.join(str(p.get(k,'')) for k in ('name','side','odds','units')) for p in m.get('picks',[]))
+    # Full-object hashing (hunter reject 3): hash the canonical FULL pick object so any content
+    # field - current or future - is covered automatically. EXCLUSION LIST (volatile/non-content
+    # operational fields, audit before extending): num (build-assigned display order), result and
+    # _final (post-settlement grading state, not pick content), polycents (live Polymarket price
+    # snapshot), kalshi.cents (live Kalshi ask snapshot - the gate re-checks it live anyway).
+    _EXCL_TOP={'num','result','_final','polycents'}
+    def _canon(p):
+        c={k:v for k,v in p.items() if k not in _EXCL_TOP}
+        if isinstance(c.get('kalshi'),dict):
+            c['kalshi']={k:v for k,v in c['kalshi'].items() if k!='cents'}
+        return c
+    rows=sorted(json.dumps(_canon(p),sort_keys=True) for p in m.get('picks',[]))
     return _hl.sha256('\n'.join(rows).encode()).hexdigest()
 _PC_HASH=_pick_content_hash(man)
 _DECLARED_HASH=man.get('pick_content_hash')
@@ -41,9 +53,8 @@ if os.path.exists(_HASHF):
     except Exception: _LAST_HASH=''
 _DISPLAY_ONLY=bool(_LAST_HASH and _LAST_HASH==_PC_HASH)
 if man.get('display_only') is True and not _LAST_HASH:
-    _DISPLAY_ONLY=True
-    print('DISPLAY-ONLY BUILD (manifest flag, bootstrap): price ship conditions skipped - no pick-content change', file=sys.stderr)
-elif _DISPLAY_ONLY:
+    print('manifest display_only flag IGNORED: no shipped pick-content hash on record - full condition eval', file=sys.stderr)
+if _DISPLAY_ONLY:
     print(f'DISPLAY-ONLY BUILD (pick-content hash {_PC_HASH[:12]} matches last shipped): price ship conditions skipped', file=sys.stderr)
 # Sep 26 live regression (hunter 7:25 AM): an hourly odds refresh rebuilt record/units from a stale
 # manifest and clobbered the tracker-canonical live values. Refresh builds (RP_REFRESH=1) INHERIT
@@ -112,6 +123,20 @@ def c2ml(c):
     c=int(round(c))
     if c<=0 or c>=100: return str(c)
     return ('-' if c>=50 else '+')+str(round(c/(100-c)*100) if c>=50 else round((100-c)/c*100))
+def _pt_time(iso):
+    try:
+        import datetime as _dt
+        from zoneinfo import ZoneInfo
+        t=_dt.datetime.fromisoformat((iso or '').replace('Z','+00:00')).astimezone(ZoneInfo('America/Los_Angeles'))
+        return t.strftime('%I:%M %p').lstrip('0')+' PT'
+    except Exception: return ''
+def _is_underway(g):
+    try:
+        import datetime as _dt
+        c=(g or {}).get('commence')
+        if not c: return False
+        return _dt.datetime.now(_dt.timezone.utc)>=_dt.datetime.fromisoformat(c.replace('Z','+00:00'))
+    except Exception: return False
 def wl_pct_line(rec):
     try:
         w,l=[int(x) for x in str(rec).split('-')]
@@ -419,6 +444,8 @@ def kal_market(tick, team_display):
 
 def chips(p):
     star='\u2605 '
+    _pr=[]
+    _uw=_is_underway(p.get('game') or {})
     _mkt='spread' if p.get('market')=='spread' else 'ml'
     _dm=f' data-market="{_mkt}"'  # sentinel Sep 26: the line-shop market guard reads this
     out=[]
@@ -478,10 +505,12 @@ def chips(p):
                 print(f"BUILD FAILED: Kalshi market unresolved for {p.get('name')} team {_kside!r} under {tick}", file=sys.stderr)
                 sys.exit(3)
             label=(f"KAL {c2ml(_kc)}" if _kc else "KAL")+inst
+            if _uw: label=(('KAL '+str(p.get('odds','')).strip()) if p.get('best_book')=='Kalshi' else 'KAL')+inst  # in-play freeze
             if p.get('best_book')=='Kalshi': label=label
-            best=(p.get('best_book')=='Kalshi')
+            best=(not _uw) and ((p.get('best_book')=='Kalshi'))
             side=html.escape(_sfx)
-            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="KAL" data-kalticker="{tick}" data-kalside="{side}"{_dm} target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{label}</a>')
+            _pr.append((len(out), int(c2ml(_kc)) if _kc else None))
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="KAL" data-kalticker="{tick}" data-kalside="{side}"{_dm} target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{label}</a>')
             continue
         if name=='Polymarket':
             if not p.get('polymarket'): continue
@@ -497,9 +526,11 @@ def chips(p):
             # .us search snapshots are stale/unreliable - gamma is the build-time source of truth.
             cents=poly_price(p['polymarket']['url'],kw) or p.get('polycents')
             label=(f"POLY {c2ml(cents)}" if cents else "POLY")+inst
+            if _uw: label=(('POLY '+str(p.get('odds','')).strip()) if p.get('best_book')=='Polymarket' else 'POLY')+inst  # in-play freeze
             if p.get('best_book')=='Polymarket': label=label
-            best=(p.get('best_book')=='Polymarket')
-            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle("POLY")} href="{html.escape(web)}" data-book="POLY" data-sb="{html.escape(web)}" data-app="{html.escape(app)}" data-polyslug="{html.escape(slug)}"{_dm} data-polysub="{html.escape(sub)}" data-polykw="{html.escape(kw)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg("POLY")}{label}</a>')
+            best=(not _uw) and ((p.get('best_book')=='Polymarket'))
+            _pr.append((len(out), int(c2ml(cents)) if cents else None))
+            out.append(f'<a class="chip%%BEST%%"{bkstyle("POLY")} href="{html.escape(web)}" data-book="POLY" data-sb="{html.escape(web)}" data-app="{html.escape(app)}" data-polyslug="{html.escape(slug)}"{_dm} data-polysub="{html.escape(sub)}" data-polykw="{html.escape(kw)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("POLY")}{label}</a>')
             continue
         if link and p.get('game'):
             _sk=f"{p['game'].get('away')}|{p['game'].get('home')}|{(p['game'].get('commence') or '')[:10]}"
@@ -509,7 +540,13 @@ def chips(p):
             if _se and _stale_carryover(name,_se.get('link'),p.get('game')): _se=None
             if _se: link=_se.get('link'); ml=_se.get('ml')
         if not link: continue  # no game-level link -> drop chip
-        best=(p.get('best_book')==name)
+        best=(not _uw) and ((p.get('best_book')==name))
+        if _uw:
+            # in-play freeze: pick-card chips hold the carded entry price on the picked book and go
+            # unpriced elsewhere once the game is underway; live quotes live on the game page only.
+            try: _entry=int(re.sub(r'[^0-9+-]','',str(p.get('odds',''))))
+            except Exception: _entry=None
+            ml=_entry if (name==p.get('best_book') and _entry is not None) else None
         label=(f"{short} {ml:+d}" if ml is not None else short)+inst
         # star renders left of logo at append time
         if name in ('FanDuel','DraftKings'):
@@ -519,15 +556,25 @@ def chips(p):
             _tm='{state}' in link
             _tmattr=' data-template="1"' if _tm else ''
             _href='https://www.'+BKDOM[short] if _tm else link
-            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(_href)}" data-book="{short}"{_dm} data-sb="{html.escape(link)}" data-pm="{html.escape(pm)}" data-pmapp="{html.escape(pmapp)}"{nopm}{_tmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{html.escape(label)}</a>')
+            _pr.append((len(out), ml))
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(_href)}" data-book="{short}"{_dm} data-sb="{html.escape(link)}" data-pm="{html.escape(pm)}" data-pmapp="{html.escape(pmapp)}"{nopm}{_tmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{html.escape(label)}</a>')
         elif '{state}' in link:
             # Sep 26 inspector ruling (J-112 class extended to singles): a priced chip on a generic
             # destination violates game-level-or-no-chip. Static HTML ships a priced NON-TAPPABLE span
             # carrying the template in data-sbt; rpTapify (in rpFilter) swaps it to a deep-link anchor
             # once the reader's state is known and the book is live there, so the tap always lands on the exact game at their book.
-            out.append(f'<span class="chip{" best" if best else ""} rpnontap"{bkstyle(short)} data-book="{short}"{_dm} data-sbt="{html.escape(link)}" data-template="1">{star if best else ""}{bkimg(short)}{html.escape(label)}</span>')
+            _pr.append((len(out), ml))
+            out.append(f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}"{_dm} data-sbt="{html.escape(link)}" data-template="1">%%STAR%%{bkimg(short)}{html.escape(label)}</span>')
         else:
-            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}"{_dm} data-sb="{html.escape(link)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{html.escape(label)}</a>')
+            _pr.append((len(out), ml))
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}"{_dm} data-sb="{html.escape(link)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{html.escape(label)}</a>')
+    # build-time star = same max-American rule as client rpBestStar: the star never sits on
+    # anything but the best displayed price, and never in play.
+    _win=None
+    if not _uw:
+        _cand=[(i,v) for i,v in _pr if v is not None and i<len(out)]
+        if _cand: _win=max(_cand,key=lambda t:t[1])[0]
+    out=[o.replace('%%BEST%%',' best' if i==_win else '').replace('%%STAR%%',star if i==_win else '') for i,o in enumerate(out)]
     # J-110 (Sep 26): settled-link retirement + tap pass. Feed-verified settled + retired
     # destination -> chip freezes non-tappable with brand fill + entry price. Dead link on a
     # live/upcoming event -> chip dropped until a working exact-market link exists.
@@ -579,8 +626,9 @@ def chips(p):
     return ''.join(out)
 
 
-def lineshop_html(prs):
+def lineshop_html(prs, underway=False):
     prs=[v for v in prs if v is not None]
+    if underway: return '<div class="rplineshop" style="font-size:11px;color:#8a8f98;margin:3px 0 0">line shop unavailable in play</div>'
     if len(prs)<2: return ''
     def ip(a): return 100.0/(a+100) if a>0 else (-a)/((-a)+100.0)
     best=max(prs); worst=min(prs)
@@ -707,7 +755,7 @@ for p in man['picks']:
         _pg=p.get('game') or {}
         SEEN.append((_mm.group(1), html.unescape(_m2.group(1)), (_pg.get('away',''),_pg.get('home',''),_pg.get('commence',''))))
     chips_html=f'<div class="chips">{ch}</div>' if ch else ''
-    ls_html=(lineshop_html(LAST_PRICES) or '<div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>') if ch else ''
+    ls_html=(lineshop_html(LAST_PRICES, _is_underway(p.get('game') or {})) or '<div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>') if ch else ''
     espn=html.escape(p.get('espn_league',''))
     mkt='spread' if p.get('market')=='spread' else 'ml'
     g=p.get('game') or {}
@@ -724,8 +772,9 @@ for p in man['picks']:
         return '<img src="%s" alt="" style="%s" onerror="this.remove()">'%(html.escape(u),st)
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
-    rows.append(f'''<div class="pick" data-espn="{espn}" data-eid="{html.escape(_eid)}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{(_pt_date(g.get('commence','')) or 'card')}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}" data-stake="{html.escape(re.sub(r'[^0-9.]','',p.get('units','')))}"{(' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else '')}>
+    rows.append(f'''<div class="pick" data-espn="{espn}" data-eid="{html.escape(_eid)}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{(_pt_date(g.get('commence','')) or 'card')}" data-commence="{html.escape(g.get('commence',''))}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}" data-stake="{html.escape(re.sub(r'[^0-9.]','',p.get('units','')))}"{(' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else '')}>
   <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
+  <div class="rpstart" data-commence="{html.escape(g.get('commence',''))}">{_pt_time(g.get('commence',''))}</div>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
   {ls_html}
@@ -836,8 +885,8 @@ if man.get('parlay'):
         if inst: l=l+' \u00b7 '+inst
         _gk3=_gpk_for(g.get('away',''),g.get('home',''),g.get('commence',''))
         if g.get('gpk'): _gk3=(str(g['gpk']),_gk3[1],_gk3[2])
-        return ('<li class="cxleg" data-espn="%s" data-eid="%s" data-gpk="%s" data-aab="%s" data-hab="%s" data-away="%s" data-home="%s" data-side="%s"><a href="game-%s.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">%s<span class="ls" data-ls></span></a></li>'
-                % (html.escape(p.get('espn_league','')), html.escape(str(g.get('eid') or '')), _gk3[0], _gk3[1], _gk3[2], html.escape(g.get('away','')), html.escape(g.get('home','')), html.escape(p.get('side','away')), p['num'], html.escape(l)))
+        return ('<li class="cxleg" data-espn="%s" data-eid="%s" data-gpk="%s" data-aab="%s" data-hab="%s" data-away="%s" data-home="%s" data-commence="%s" data-side="%s"><a href="game-%s.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">%s<span class="ls" data-ls></span></a></li>'
+                % (html.escape(p.get('espn_league','')), html.escape(str(g.get('eid') or '')), _gk3[0], _gk3[1], _gk3[2], html.escape(g.get('away','')), html.escape(g.get('home','')), html.escape(g.get('commence','')), html.escape(p.get('side','away')), p['num'], html.escape(l)))
     legs=''.join(_leg_li(l) for l in pl['legs'])
     # per-platform combo chips (his 9:08 AM directive): each chip carries the platform's combo
     # price and IS the build action - no separate build button. Verified prefill routes from the
@@ -893,13 +942,33 @@ if man.get('parlay'):
             if link:
                 chips.append((short,f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-market="parlay" data-sb="{html.escape(link)}"{pmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{short} {price:+d}</a>',price))
             else:
-                chips.append((short,f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}" data-market="parlay">%%STAR%%{bkimg(short)}{short} {price:+d}</span>',price))
+                chips.append((short,f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}" data-market="parlay"{pmattr}>%%STAR%%{bkimg(short)}{short} {price:+d}</span>',price))
+        # combos get market chips in every state, exchanges included. No native exchange
+        # parlay product exists, so the real combined price renders as an inert span (J-112), never a route.
+        _kc=[(p.get('kalshi') or {}).get('cents') for p in lp]
+        if len(_kc)==nlegs and all(isinstance(x,(int,float)) and 0<x<100 for x in _kc):
+            _cc=amer_from_cents(_kc)
+            if _cc:
+                _aml=c2ml(_cc)
+                chips.append(('KAL',f'<span class="chip%%BEST%% rpnontap"{bkstyle("KAL")} data-book="KAL" data-market="parlay">%%STAR%%{bkimg("KAL")}KAL {_aml}</span>',int(_aml)))
+        _pc=[]
+        for p in lp:
+            _v=None
+            if p.get('polymarket'):
+                try: _v=poly_price(p['polymarket']['url'],p['name'].split()[0]) or p.get('polycents')
+                except Exception: _v=p.get('polycents')
+            _pc.append(_v)
+        if len(_pc)==nlegs and all(isinstance(x,(int,float)) and 0<x<100 for x in _pc):
+            _cp=amer_from_cents(_pc)
+            if _cp:
+                _aml=c2ml(_cp)
+                chips.append(('POLY',f'<span class="chip%%BEST%% rpnontap"{bkstyle("POLY")} data-book="POLY" data-market="parlay">%%STAR%%{bkimg("POLY")}POLY {_aml}</span>',int(_aml)))
     order=['DK','FD','ESPN','HR','MGM','BR','KAL','POLY']
     chips.sort(key=lambda s: order.index(s[0]) if s[0] in order else 99)
     # best combo price gets the star left of the logo, same as solo best line (user, Sep 25 12:59 PM)
     priced=[c for c in chips if len(c)>2 and isinstance(c[2],(int,float))]
     best_i=None
-    if priced:
+    if priced and not any(_is_underway((p.get('game') or {})) for p in lp):
         best_price=max(c[2] for c in priced)
         for i,c in enumerate(chips):
             if len(c)>2 and c[2]==best_price: best_i=i; break
@@ -940,10 +1009,15 @@ page=f'''<!DOCTYPE html>
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="RixPicks">
 <meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rix-picks.com/">
 <meta property="og:title" content="&rsquo;RixPicks">
-<meta property="og:description" content="Daily picks. Tap a book, the bet&rsquo;s built.">
+<meta property="og:description" content="Free picks, live tracked, every league in one place. Built in public - the record is never edited.">
+<meta property="og:image" content="https://rix-picks.com/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="&rsquo;RixPicks">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:description" content="Free picks, live tracked, every league in one place. Built in public - the record is never edited.">
+<meta name="twitter:image" content="https://rix-picks.com/og-card.png">
 <meta name="description" content="&rsquo;RixPicks picks of the day. Tap any book under a pick to open that game there.">
 <style>
 *{{margin:0;box-sizing:border-box}}
@@ -979,6 +1053,7 @@ h1 .tick{{color:#3BEBF5}}
 .chip.best{{font-weight:800}}
 .rec{{font-weight:600;font-size:16px;padding:8px 0 1px}}
 .units{{color:#8a8f98;font-size:13px;font-weight:600;line-height:1}}
+.rpstart{{color:#8a8f98;font-size:12px;font-weight:600;line-height:1;margin:2px 0 0}}
 .unitmath{{color:#8a8f98;font-size:13px;margin-top:8px}}
 .legs{{padding-left:20px;font-size:15px;line-height:1.7}}
 .note{{color:#6b6b72;font-size:13px;margin-top:6px}}
@@ -1085,6 +1160,7 @@ const RP_FD={json.dumps(RP_FD)};const RP_DK={json.dumps(RP_DK)};
 const RP_L={{FD:RP_FD,DK:RP_DK,MGM:{json.dumps(RP_MGM)},B365:{json.dumps(RP_B365)},FAN:{json.dumps(RP_FAN)},ESPN:{json.dumps(RP_ESPN)},HR:{json.dumps(RP_HR)},BR:{json.dumps(RP_BR)}}};
 const RP_COMBO_NONTAP={'true' if (man.get('parlay') and combo_nontap) else 'false'};
 const RP_MOB=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+if(location.protocol==='http:'&&/(^|\.)rix-picks\.com$/.test(location.hostname)){{location.replace('https://'+location.host+location.pathname+location.search+location.hash);}}
 const RP_STANDALONE=(navigator.standalone===true)||window.matchMedia('(display-mode: standalone)').matches;
 function rpOpen(u){{if(RP_STANDALONE){{location.assign(u);}}else{{window.open(u,'_blank','noopener');}}}}
 if(RP_STANDALONE){{document.addEventListener('click',function(e){{const a=e.target.closest('a[target="_blank"]');if(a&&!a.onclick&&a.href){{e.preventDefault();location.assign(a.href);}}}},true);}}
@@ -1104,13 +1180,16 @@ function rpTerm(st){{const sb=RP_FD.includes(st)||RP_DK.includes(st);const ntap=
  const rg=document.getElementById('rpComboReg');if(rg){{rg.style.display=(!sb||ntap)?'':'none';
   if(ntap)rg.textContent='* Combo prices are live per-book references - build the combo manually at your book. Chips go tappable as verified deep links land.';}}
  const nt=document.getElementById('rpParlayNote');if(nt)nt.style.display=nt.textContent?'':'none';}}
+function rpInPlay(pk){{try{{const c=pk.dataset.commence;if(c&&Date.now()>=Date.parse(c))return true;}}catch(e){{}}return false;}}
 function rpBestStar(pk){{
  // Sep 26: the best-line star follows VISIBLE prices - geo filtering or a price tick can strand
  // it on a hidden/worse chip. Recomputed over visible chips only, max American odds wins.
  try{{
  const chips=[...pk.querySelectorAll('[data-book]')].filter(function(a){{return !a.querySelector('[data-book]');}});let best=null,bestV=-1e18;
+ if(rpInPlay(pk)){{chips.forEach(function(a){{a.classList.remove('best');a.innerHTML=a.innerHTML.replace(/^\u2605 /,'');}});return;}}  /* F2: best-line star is a pre-game artifact */
  chips.forEach(function(a){{
   if(a.offsetParent===null)return;
+  if(a.dataset.pmroute==='1')return;  /* F3: generic PM fallbacks are never best-line */
   const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
   const v=parseInt(m[1]);if(v>bestV){{bestV=v;best=a;}}
  }});
@@ -1119,11 +1198,16 @@ function rpBestStar(pk){{
  }}catch(e){{}}
 }}
 function rpAllBest(){{document.querySelectorAll('.pick').forEach(rpBestStar);}}
-function rpTapify(el,st){{const d=rpDest(el,st);
+function rpTapify(el,st){{const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.dataset.book,st));let out;
  if(d){{let a=el;if(el.tagName!=='A'){{a=document.createElement('a');for(const at of el.attributes)a.setAttribute(at.name,at.value);a.innerHTML=el.innerHTML;el.replaceWith(a);}}
-  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');}}
+  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');out=a;}}
  else{{let sp=el;if(el.tagName!=='SPAN'){{sp=document.createElement('span');for(const at of el.attributes)sp.setAttribute(at.name,at.value);sp.innerHTML=el.innerHTML;el.replaceWith(sp);}}
-  sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');}}}}
+  sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');out=sp;}}
+ /* F3: a prediction-market fallback route never wears sportsbook numbers; restore them when the book is live */
+ if(pmr){{if(!out.dataset.pmrprice){{const m=out.innerHTML.match(/^\s*([+-]\d+)\s*$/)||out.innerHTML.match(/ ([+-]\d+)$/);if(m)out.dataset.pmrprice=m[1];}}
+  out.innerHTML=out.innerHTML.replace(/^\s*[+-]\d+\s*$/,'').replace(/ [+-]\d+$/,'');out.dataset.pmroute='1';}}
+ else{{if(out.dataset.pmrprice&&out.innerHTML.indexOf(out.dataset.pmrprice)<0){{out.innerHTML=(out.innerHTML?out.innerHTML+' ':'')+out.dataset.pmrprice;}}
+  delete out.dataset.pmrprice;delete out.dataset.pmroute;}}}}
 function rpRowAvail(el,st){{return rpBookLive(el.dataset.book,st)||!!rpPm(el);}}
 function rpStrip(el){{el.removeAttribute('href');el.removeAttribute('onclick');el.removeAttribute('target');el.removeAttribute('rel');el.classList.add('rpnontap');}}
 function rpFilter(st){{window.rpSt=st;rpTerm(st);
@@ -1282,6 +1366,7 @@ function rpLineShop(pk){{try{{
  [...pk.querySelectorAll('[data-book]')].filter(function(a){{return !a.querySelector('[data-book]');}}).forEach(function(a){{
   if(pmkt&&a.dataset.market!==pmkt)return;  /* sentinel Sep 26 (fail-closed): only chips WITH matching market identity enter the range */
   const cs=getComputedStyle(a);if(cs.display==='none'||cs.visibility==='hidden')return;  /* geo-hidden or dead books never enter the range */
+  if(a.dataset.pmroute==='1')return;  /* F3: generic PM fallbacks never enter the line shop */
   const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
   const v=parseInt(m[1]);if(Math.abs(v)<=1500)prs.push(v);
  }});
@@ -1289,15 +1374,18 @@ function rpLineShop(pk){{try{{
  if(prs.length<2){{el.style.display='none';return;}}
  const best=Math.max.apply(null,prs),worst=Math.min.apply(null,prs);
  const edge=(ip(worst)-ip(best))*100;
+ if(rpInPlay(pk)){{el.style.display='';el.textContent='line shop unavailable in play';return;}}  /* F2: never compute across mixed-phase prices; entry price stays locked on the card */
  if(edge<0.05){{el.style.display='none';return;}}
  el.style.display='';
  el.textContent='line shop: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best+' \u00b7 '+edge.toFixed(1)+'% edge at the best price';
 }}catch(e){{}}}}
 function rpAllLineShops(){{document.querySelectorAll('.pick').forEach(rpLineShop);}}
+function rpStartTimes(){{const now=Date.now();document.querySelectorAll('.rpstart[data-commence]').forEach(function(el){{const t=Date.parse(el.dataset.commence);if(t&&now>=t)el.remove();}});}}
 async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();}}
 {fut_badge_js}async function rpFastLoop(){{try{{await rpLsTick();}}catch(e){{}}setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?30000:3000);}}
-rpFastLoop();rpLsTickAll();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();}},30000);
+rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();rpStartTimes();}},30000);
 document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this){{this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}}}});
+rpFilter(localStorage.getItem('rp_state')||'');
 if(!localStorage.getItem('rp_state')&&!localStorage.getItem('rp_state_dismissed')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
 try{{fetch('https://api.rix-picks.com/beacon',{{method:'POST',headers:{{'Content-Type':'application/json'}},body:JSON.stringify({{page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}}),keepalive:true}}).catch(()=>{{}});}}catch(e){{}}
@@ -1357,12 +1445,13 @@ function rpCxUpd(bk){{
 }}
 function rpCxStar(){{try{{
  const wrap=document.getElementById('rpParlayChips');if(!wrap)return;
+ let inplay=false;document.querySelectorAll('.cxleg').forEach(function(l){{if(rpInPlay(l))inplay=true;}});  /* F2 */
  let best=null,bestV=-1e9;
  wrap.querySelectorAll('[data-book]').forEach(function(a){{
   const vis=a.style.display!=='none';
   a.classList.remove('best');
   a.innerHTML=a.innerHTML.replace(/^\u2605 /,'');
-  if(!vis)return;
+  if(!vis||inplay||a.dataset.pmroute==='1')return;  /* F2/F3 */
   const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
   const v=parseInt(m[1]);
   if(v>bestV){{bestV=v;best=a;}}
@@ -1396,10 +1485,11 @@ function rpPolyTick(){{try{{
     const c=Math.round(parseFloat(pr[i])*100);
     if(target.closed&&c>=99){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('POLY');return;}}
     if(target.closed&&c<=1){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('POLY');return;}}
-    if(c>0&&c<100){{a.dataset.won='';a.dataset.lost='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');
+    if(c>0&&c<100){{a.dataset.won='';a.dataset.lost='';
      const pk=a.closest('.pick');
+     if(!(pk&&rpInPlay(pk))){{a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY '+rpMLF(rpC2ML(c)));}}rpCxUpd('POLY');
      if(pk&&pk.dataset.market==='ml'){{const s2=pk.querySelector('.odds');
-      if(s2){{const ml2=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);s2.textContent=(ml2>0?'+':'')+ml2;}}}}}}
+      if(s2&&!rpInPlay(pk)){{const ml2=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);s2.textContent=(ml2>0?'+':'')+ml2;}}}}}}
     return;
    }}}}
   }}).catch(()=>{{}});
@@ -1423,7 +1513,7 @@ function rpEspnTick(){{try{{
      const rd=(d.dataset.room||'').split('-').slice(1).join('-');
      if(rd&&ev.date){{const pd=new Intl.DateTimeFormat('en-CA',{{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}}).format(new Date(ev.date));if(pd!==rd)return;}}
      const ml=d.dataset.side==='away'?(o.awayTeamOdds||{{}}).moneyLine:(o.homeTeamOdds||{{}}).moneyLine;
-     if(typeof ml==='number'){{const s=d.querySelector('.odds');if(s)s.textContent=(ml>0?'+':'')+ml;
+     if(typeof ml==='number'&&!rpInPlay(d)){{const s=d.querySelector('.odds');if(s)s.textContent=(ml>0?'+':'')+ml;
       const chip=d.querySelector('a[data-book="ESPN"]');
       if(chip){{chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);rpCxUpdMl('ESPN');rpBestStar(d);}}}}
     }});
@@ -1442,11 +1532,12 @@ function rpKalTick(){{try{{
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
    const c=Math.round(d*100);
    a.dataset.won='';a.dataset.lost='';
-   a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \u2713| \u2717)?/,'KAL '+rpMLF(rpC2ML(c)));rpCxUpd('KAL');
    const pk=a.closest('.pick');
+   if(!(pk&&rpInPlay(pk))){{a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \u2713| \u2717)?/,'KAL '+rpMLF(rpC2ML(c)));}}rpCxUpd('KAL');
    if(pk&&pk.dataset.market==='ml'){{const s=pk.querySelector('.odds');
-    if(s&&c>0&&c<100){{const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
-     s.textContent=(ml>0?'+':'')+ml;rpBestStar(pk);}}}}
+    if(s&&c>0&&c<100&&!rpInPlay(pk)){{const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
+     s.textContent=(ml>0?'+':'')+ml;}}}}
+    if(rpInPlay(pk))rpBestStar(pk);
   }}).catch(()=>{{}}); /* graceful fallback: relay/API failure keeps last build price */
  }});
 }}catch(e){{}}}}
@@ -1539,6 +1630,12 @@ def build_game_pages(man, css, build_sha):
         t=' data-template="1"' if tmpl_flag else ''
         href=('https://www.'+BKDOM[short]) if tmpl_flag else url
         return 'data-book="%s" data-sb="%s"%s onclick="return rpRoute(event,this)" href="%s" target="_blank" rel="noreferrer"'%(short,html.escape(url),t,html.escape(href))
+    def rtc(short,url,lbl,style=''):
+        # verified market-level link or priced inert span (J-112) - a bare homepage is never an actionable price
+        generic=re.match(r'^https://www\.[a-z0-9.-]+/?$',url or '') is not None
+        if generic:
+            return '<span class="rpnontap" data-book="'+short+'"'+(' style="%s"'%style if style else '')+'>'+lbl+'</span>'
+        return '<a '+rt(short,url,'{state}' in url)+(' style="%s"'%style if style else '')+'>'+lbl+'</a>'
     for p in man.get('picks',[]):
         g=p.get('game') or {}
         if not g: continue
@@ -1564,8 +1661,8 @@ def build_game_pages(man, css, build_sha):
             else:
                 _rowpm=''
             rows_html.append('<div class="mrow" data-book="'+short+'"'+_rowpm+'>'+bkimg(short)+'<span class="bk">'+short+'</span>'
-                '<span class="side"><a '+rt(short,alink,'{state}' in alink)+'>'+html.escape(away)+'</a></span><span class="pr"><a '+rt(short,alink,'{state}' in alink)+'>'+a_lbl+'</a></span>'
-                '<span class="side" style="text-align:right"><a '+rt(short,hlink,'{state}' in hlink)+'>'+html.escape(home)+'</a></span><span class="pr"><a '+rt(short,hlink,'{state}' in hlink)+'>'+h_lbl+'</a></span></div>')
+                '<span class="side">'+rtc(short,alink,html.escape(away))+'</span><span class="pr">'+rtc(short,alink,a_lbl)+'</span>'
+                '<span class="side" style="text-align:right">'+rtc(short,hlink,html.escape(home),'text-align:right')+'</span><span class="pr">'+rtc(short,hlink,h_lbl)+'</span></div>')
             hrow[short.lower()+'_a']=aml; hrow[short.lower()+'_h']=hml
             books_present.append(short)
         stt=pr.get('state_templates') or {}
@@ -1577,8 +1674,8 @@ def build_game_pages(man, css, build_sha):
             a_lbl=('%+d'%aml) if aml is not None else '-'
             h_lbl=('%+d'%hml) if hml is not None else '-'
             rows_html.append('<div class="mrow" data-book="'+short+'">'+bkimg(short)+'<span class="bk">'+short+'</span>'
-                '<span class="side"><a '+rt(short,link,'{state}' in link)+'>'+html.escape(away)+'</a></span><span class="pr"><a '+rt(short,link,'{state}' in link)+'>'+a_lbl+'</a></span>'
-                '<span class="side" style="text-align:right"><a '+rt(short,link,'{state}' in link)+'>'+html.escape(home)+'</a></span><span class="pr"><a '+rt(short,link,'{state}' in link)+'>'+h_lbl+'</a></span></div>')
+                '<span class="side">'+rtc(short,link,html.escape(away))+'</span><span class="pr">'+rtc(short,link,a_lbl)+'</span>'
+                '<span class="side" style="text-align:right">'+rtc(short,link,html.escape(home),'text-align:right')+'</span><span class="pr">'+rtc(short,link,h_lbl)+'</span></div>')
             hrow[short.lower()+'_a']=aml; hrow[short.lower()+'_h']=hml
             books_present.append(short)
         # Kalshi full board (user, Sep 25 12:19 PM): both sides, live-ticked. Fallback: single-side tap row.
@@ -1829,11 +1926,11 @@ FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="vie
 <div id="rpPull"></div>
 <div class="wrap">
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
-<div class="status">Futures &middot; __COUNT__ picks &middot; live Polymarket tracking vs carded entry</div>
+<div class="status">Futures &middot; __COUNT__ picks &middot; live Polymarket + Kalshi tracking vs carded entry</div>
 <div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
 __ROWS__
 <div id="rpFd" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(0,0,0,.78);align-items:flex-end;justify-content:center" onclick="if(event.target===this)this.style.display='none'"><div id="rpFdBox" style="background:#000000;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;padding:16px;color:#ECECF1"></div></div>
-<div class="unitmath" style="margin-top:18px">Live prices via Polymarket &middot; refresh 60s &middot; build __BUILD__</div>
+<div class="unitmath" style="margin-top:18px">Live prices via Polymarket + Kalshi &middot; refresh 60s &middot; build __BUILD__</div>
 </div>
 <script>
 async function rpFutTick(){
@@ -1875,6 +1972,24 @@ async function rpFutTick(){
   }catch(e){}
  }
 }
+async function rpFutKalTick(){
+ document.querySelectorAll('.futrow[data-kalticker]').forEach(function(r){
+  var tk=r.dataset.kalticker;if(!tk)return;
+  var u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk;
+  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(function(res){return res.json();}).then(function(j){
+   var m=j&&j.market;if(!m)return;var p=parseFloat(m.yes_ask_dollars);if(!(p>0&&p<1))return;
+   var c=p*100;var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
+   var el=r.querySelector('.futlive');if(el)el.textContent=(ml>0?'+':'')+ml;
+   var entry=r.dataset.entry||'+0';var eMl=parseInt(entry.replace('+',''),10)||100;
+   var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
+   var mv=r.querySelector('.futmove');if(!mv)return;
+   if(p>eImp+0.005){mv.innerHTML='<span style="color:#3ecf6f">&#9650; shortened from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+c.toFixed(1)+'%)</span>';}
+   else if(p<eImp-0.005){mv.innerHTML='<span style="color:#e5484d">&#9660; drifted from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+c.toFixed(1)+'%)</span>';}
+   else{mv.textContent='steady vs entry '+entry+' ('+(eImp*100).toFixed(1)+'%)';}
+  }).catch(function(){});
+ });
+}
+rpFutKalTick();setInterval(rpFutKalTick,60000);
 try{
  var rpFutIds2=[];
  document.querySelectorAll('.futrow').forEach(function(r){if(r.dataset.fid)rpFutIds2.push(r.dataset.fid);});
@@ -1914,6 +2029,18 @@ function rpFutOpen(fid){
  bx.innerHTML=h+'<button class="rp-btn ghost" onclick="rpFdClose()">Close</button>';
  sh.style.display='flex';
  var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase();
+ var kt=r.dataset.kalticker;
+ if(kt){var u2='https://api.elections.kalshi.com/trade-api/v2/markets/'+kt;
+  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u2)).then(function(r3){return r3.json();}).then(function(j){
+   var m=j&&j.market;var b=document.getElementById('rpFdLiveBody');if(!b)return;
+   var p=m?parseFloat(m.yes_ask_dollars):NaN;if(!(p>0&&p<1)){b.textContent='live data unavailable';return;}
+   var c=p*100;var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
+   var eMl=parseInt(String(entry).replace('+',''),10)||100;var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
+   var d=(p-eImp)*100;
+   var arrow=d>0.5?'<span style="color:#3ecf6f">&#9650; '+d.toFixed(1)+' pts since entry</span>':(d<-0.5?'<span style="color:#e5484d">&#9660; '+Math.abs(d).toFixed(1)+' pts since entry</span>':'flat vs entry');
+   b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow;
+  }).catch(function(){var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
+  return;}
  function render(m){
   var b=document.getElementById('rpFdLiveBody');if(!b)return;
   try{
@@ -1957,7 +2084,7 @@ def build_futures_page(css,build_sha):
             print(f"LINK DROP: futures {f.get('team')} dead/generic .us destination: {_furl}", file=sys.stderr)
             _furl=''
         _flink=('<div style="margin-top:6px"><a class="chip"%s href="%s" data-book="POLY" data-sb="%s" target="_blank" rel="noreferrer">POLY &#8250;</a></div>'%(bkstyle('POLY'),html.escape(_furl),html.escape(_furl))) if _furl else ''
-        rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-entry="%s" data-team="%s" data-mkt="%s" data-fair="%s" data-prob="%s" data-res="%s" data-units="%s" data-note="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
+        rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-kalticker="%s" data-entry="%s" data-team="%s" data-mkt="%s" data-fair="%s" data-prob="%s" data-res="%s" data-units="%s" data-note="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
         '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">'
         '<span style="font-weight:700">'+('<img src="https://a.espncdn.com/i/teamlogos/'+_REGALL.get(f.get('league',''),{}).get('logo_dir','')+'/500/'+f.get('abbr','')+'.png" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">' if f.get('abbr') and _REGALL.get(f.get('league',''),{}).get('logo_dir') else '')+'%s</span>'
         '<span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895">&hellip;</span><button class="futdots" onclick="rpFutOpen(this.getAttribute(\'data-f\'))" data-f="%s" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div>'
@@ -1965,7 +2092,7 @@ def build_futures_page(css,build_sha):
         + ('<div style="font-size:12px;margin-top:3px;color:#d8a23a">&#8646; pick changed from %s (%s)</div>'%(html.escape(f['changed_from']['team']),html.escape(f['changed_from']['odds'])) if f.get('changed_from') else '')
         + _flink
         + '<div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div>')
-        %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(f['odds']),
+        %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(f.get('kalshi_ticker','')),html.escape(f['odds']),
           html.escape(f['team']),html.escape(f['market']),html.escape(f.get('fair','')),html.escape(str(f.get('prob',''))),html.escape(f.get('res','')),str(f.get('units',2)),html.escape(f.get('note','')),
           html.escape(f['team']),html.escape(f['id']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else '')))
     pg=FUTURES_TMPL

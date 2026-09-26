@@ -83,5 +83,17 @@
   "abbr": "sf",
   "poly_slug": "pro-football-2027-nfc-champion",
   "poly_kw": "san francisco"
+ },
+ {
+  "id": "F-WNBA-MIN-CHAMP",
+  "league": "WNBA",
+  "team": "Minnesota Lynx",
+  "market": "WNBA Championship",
+  "odds": "+133",
+  "units": 2,
+  "placed": "2026-09-26",
+  "abbr": "min",
+  "kalshi_ticker": "KXWNBA-26-MIN",
+  "note": "Kalshi 43c vs BetMGM +100 / ESPN -110 - net edge +5 to +7c after fees"
  }
 ]
