@@ -206,7 +206,8 @@ function rpEspnTick(){try{
    if(sline&&st.state!=='pre'&&sc){sline.textContent=(st.shortDetail||'')+'  |  '+sc;}
    const o=((j.pickcenter||[])[0])||((comp.odds||[])[0]);if(!o)return;
    const ml=d.dataset.side==='away'?(o.awayTeamOdds||{}).moneyLine:(o.homeTeamOdds||{}).moneyLine;
-   if(typeof ml==='number'&&st.state==='pre'){const s2=d.querySelector('.odds');if(s2)s2.textContent=(ml>0?'+':'')+ml;
+   /* header .odds = locked entry price, FROZEN (tester ruling Sep 26): summary/scoreboard ticks update chips only, never the header */
+   if(typeof ml==='number'&&st.state==='pre'){
     const chip=d.querySelector('a[data-book="ESPN"]');
     if(chip&&!rpInPlay()){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);}}
   }).catch(function(){});
