@@ -235,6 +235,41 @@ for _p in man['picks']:
     if _lgk not in _lg_seen: _lg_seen[_lgk]=len(_lg_seen)
 man['picks'].sort(key=lambda _p:(_lg_seen.get(_p.get('espn_league',''),99), (_p.get('game') or {}).get('commence','') or '9999'))
 for _i,_p in enumerate(man['picks'],1): _p['num']=_i  # card display order IS the pick number (matches game-N.html + GAME header)
+
+# Class fix (9/25 Astros home-row lapse): bind every MLB row to its immutable gamePk, resolved
+# ONCE server-side, so the client never depends on a fragile date+name schedule lookup.
+GPK={}
+try:
+    import urllib.request as _u2
+    from zoneinfo import ZoneInfo as _ZI
+    import datetime as _dt2
+    _dates=set()
+    for _p2 in man['picks']:
+        if (_p2.get('espn_league') or '')!='baseball/mlb': continue
+        _c=((_p2.get('game') or {}).get('commence','') or '')
+        try: _dates.add(_dt2.datetime.fromisoformat(_c.replace('Z','+00:00')).astimezone(_ZI('America/Los_Angeles')).date().isoformat())
+        except Exception: pass
+    for _ds in sorted(_dates):
+        try:
+            _req=_u2.Request('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+_ds+'&hydrate=team',headers={'User-Agent':'python-urllib/3.10'})
+            _dd=json.load(_u2.urlopen(_req,timeout=12))
+            for _x in _dd.get('dates',[]):
+                for _gm in _x.get('games',[]):
+                    _t=_gm.get('teams',{})
+                    GPK.setdefault((_t['away']['team']['name'],_t['home']['team']['name']),[]).append((str(_gm['gamePk']),_t['away']['team'].get('abbreviation',''),_t['home']['team'].get('abbreviation',''),_gm.get('gameDate','')))
+        except Exception: pass
+except Exception: pass
+# doubleheader-safe: disambiguate same-matchup games by closest start time to the card's commence
+def _gpk_for(away,home,commence=''):
+    cands=GPK.get((away,home)) or []
+    if len(cands)<2: return (cands[0][:3] if cands else ('','',''))
+    try:
+        _ct=_dt2.datetime.fromisoformat((commence or '').replace('Z','+00:00'))
+        def _dist(c):
+            try: return abs((_dt2.datetime.fromisoformat(c[3].replace('Z','+00:00'))-_ct).total_seconds())
+            except Exception: return 9e9
+        return min(cands,key=_dist)[:3]
+    except Exception: return cands[0][:3]
 rows=[]
 last_lg=None
 SEEN=[]
@@ -254,6 +289,7 @@ for p in man['picks']:
     espn=html.escape(p.get('espn_league',''))
     mkt='spread' if p.get('market')=='spread' else 'ml'
     g=p.get('game') or {}
+    _gk3=_gpk_for(g.get('away',''),g.get('home',''),g.get('commence',''))
     _lga=p.get('espn_league','')
     _ma=TEAM_META.get((_lga,g.get('away',''))) or {}; _mh=TEAM_META.get((_lga,g.get('home',''))) or {}
     def _avimg(mm,overlap=False):
@@ -264,7 +300,7 @@ for p in man['picks']:
         return '<img src="%s" alt="" style="%s" onerror="this.remove()">'%(html.escape(u),st)
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
-    rows.append(f'''<div class="pick" data-espn="{espn}" data-room="g{p['num']}-{((g.get('commence','') or '')[:10] or 'card')}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}">
+    rows.append(f'''<div class="pick" data-espn="{espn}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{((g.get('commence','') or '')[:10] or 'card')}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}">
   <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
@@ -362,8 +398,9 @@ if man.get('parlay'):
         m=[p for p in man['picks'] if p['name'].lower() in l.lower() or l.lower() in p['name'].lower()]
         if not m: return f'<li>{html.escape(l)}</li>'
         p=m[0]; g=p.get('game') or {}
-        return ('<li class="cxleg" data-espn="%s" data-away="%s" data-home="%s" data-side="%s"><a href="game-%s.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">%s<span class="ls" data-ls></span></a></li>'
-                % (html.escape(p.get('espn_league','')), html.escape(g.get('away','')), html.escape(g.get('home','')), html.escape(p.get('side','away')), p['num'], html.escape(l)))
+        _gk3=_gpk_for(g.get('away',''),g.get('home',''),g.get('commence',''))
+        return ('<li class="cxleg" data-espn="%s" data-gpk="%s" data-aab="%s" data-hab="%s" data-away="%s" data-home="%s" data-side="%s"><a href="game-%s.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">%s<span class="ls" data-ls></span></a></li>'
+                % (html.escape(p.get('espn_league','')), _gk3[0], _gk3[1], _gk3[2], html.escape(g.get('away','')), html.escape(g.get('home','')), html.escape(p.get('side','away')), p['num'], html.escape(l)))
     legs=''.join(_leg_li(l) for l in pl['legs'])
     # per-platform combo chips (his 9:08 AM directive): each chip carries the platform's combo
     # price and IS the build action - no separate build button. Verified prefill routes from the
@@ -712,17 +749,32 @@ function rpLsRender(pk,g){{const el=pk.querySelector('[data-ls]');if(!el)return;
  el.innerHTML=(g.state==='in'?'<span class="dot"></span>':'')+ba+g.a+' '+g.as+' - '+bh+g.h+' '+g.hs+' &middot; '+g.st;}}
 async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data-away],.cxleg[data-away]')].filter(x=>x.dataset.away);if(!picks.length)return;
  const mlb=picks.filter(x=>(x.dataset.espn||'')==='baseball/mlb');
- if(mlb.length){{try{{
-  const d=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team')).json();
-  const games=(d.dates||[]).flatMap(x=>x.games||[]);
-  mlb.forEach(pk=>{{const g=games.find(g=>g.teams.away.team.name===pk.dataset.away&&g.teams.home.team.name===pk.dataset.home);
-   if(!g){{rpLsRender(pk,null);return;}}
-   const ls=g.linescore||{{}};const st=g.status.detailedState;
-   const inn=(st==='In Progress')?((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim():st;
-   rpLsRender(pk,{{a:g.teams.away.team.abbreviation||g.teams.away.team.name.split(' ').pop().slice(0,3).toUpperCase(),h:g.teams.home.team.abbreviation||g.teams.home.team.name.split(' ').pop().slice(0,3).toUpperCase(),
-    as:(ls.teams&&ls.teams.away&&ls.teams.away.runs)||0,hs:(ls.teams&&ls.teams.home&&ls.teams.home.runs)||0,
-    bat:st==='In Progress'?((ls.inningState==='Top'||ls.inningState==='End')?'a':'h'):null,
-    st:inn,state:st==='In Progress'?'in':(st==='Final'||st==='Game Over')?'post':'pre'}});}});}}catch(e){{}}}}
+ // class fix (9/25 Astros lapse): gamePk-keyed rows hit the per-game feed directly; a lookup
+ // miss NEVER blanks a row that was live - it dims and keeps last-good until a good tick lands.
+ const rpMlbMiss=pk=>{{const el=pk.querySelector('[data-ls]');if(el&&el.dataset.live==='1'){{el.style.opacity='.55';return;}}rpLsRender(pk,null);}};
+ const rpMlbGame=(pk,ls,st,aab,hab)=>{{
+  const inn=(st==='In Progress')?((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim():st;
+  const el=pk.querySelector('[data-ls]');if(el){{el.style.opacity='';el.dataset.live=(st==='In Progress')?'1':'';}}
+  rpLsRender(pk,{{a:aab,h:hab,as:((ls.teams||{{}}).away||{{}}).runs||0,hs:((ls.teams||{{}}).home||{{}}).runs||0,
+   bat:st==='In Progress'?((ls.inningState==='Top'||ls.inningState==='End')?'a':'h'):null,
+   st:inn,state:st==='In Progress'?'in':(st==='Final'||st==='Game Over')?'post':'pre'}});}};
+ if(mlb.length){{
+  const keyed=mlb.filter(x=>x.dataset.gpk),unkeyed=mlb.filter(x=>!x.dataset.gpk);
+  const cache={{}};
+  await Promise.all(keyed.map(async pk=>{{
+   const k=pk.dataset.gpk;
+   try{{
+    if(!cache[k])cache[k]=await (await fetch('https://statsapi.mlb.com/api/v1.1/game/'+k+'/feed/live?fields=liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,gameData,status,detailedState')).json();
+    const j=cache[k];const ls=(j.liveData||{{}}).linescore||{{}};const st=((j.gameData||{{}}).status||{{}}).detailedState||'';
+    rpMlbGame(pk,ls,st,pk.dataset.aab||pk.dataset.away.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase(),pk.dataset.hab||pk.dataset.home.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase());
+   }}catch(e){{rpMlbMiss(pk);}}}}));
+  if(unkeyed.length){{try{{
+   const d=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team')).json();
+   const games=(d.dates||[]).flatMap(x=>x.games||[]);
+   unkeyed.forEach(pk=>{{const g=games.find(g=>g.teams.away.team.name===pk.dataset.away&&g.teams.home.team.name===pk.dataset.home);
+    if(!g){{rpMlbMiss(pk);return;}}
+    rpMlbGame(pk,g.linescore||{{}},g.status.detailedState,g.teams.away.team.abbreviation||'',g.teams.home.team.abbreviation||'');}});}}catch(e){{unkeyed.forEach(rpMlbMiss);}}}}
+ }}
  const byLg={{}};picks.filter(x=>x.dataset.espn&&(x.dataset.espn!=='baseball/mlb')).forEach(x=>{{(byLg[x.dataset.espn]=byLg[x.dataset.espn]||[]).push(x);}});
  for(const lg of Object.keys(byLg)){{try{{
   const d=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard')).json();
@@ -1126,7 +1178,7 @@ def build_game_pages(man, css, build_sha):
         inst_lbl=(' ('+inst+')') if inst else ''
         page_html=tmpl
         for tok,val in [('__TITLE__',html.escape(away+' at '+home)),('__CSS__',css),('__NUM__',str(p['num'])),
-            ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),
+            ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',_gpk_for(away,home,g.get('commence',''))[1]),('__HAB__',_gpk_for(away,home,g.get('commence',''))[2]),
             ('__SIDE__',side),('__MKT__',mkt),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
             ('__ODDS__',html.escape(p['odds'])),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
             ('__CHIPS__',ch),('__MATCHUP__',matchup),('__TEAMLINKS__',teamlinks),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),('__ROOM__','g%s-%s'%(p['num'],(g.get('commence','') or '')[:10] or 'card')),('__START__',g.get('commence','') or ''),
