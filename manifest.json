@@ -27,7 +27,9 @@
    },
    "polymarket": {
     "url": "https://polymarket.com/event/cfb-sdst-toledo-2026-09-26"
-   }
+   },
+   "dkp": null,
+   "dkp_note": "no DKP solo market matched at harvest 2026-09-26T13:27-07:00 (game started/final = DK delists in-play)"
   },
   {
    "num": 2,
@@ -51,6 +53,14 @@
    },
    "polymarket": {
     "url": "https://polymarket.com/event/cfb-nebr-mst-2026-09-26"
+   },
+   "dkp": {
+    "home_cents": 33,
+    "away_cents": 68,
+    "derived": false,
+    "url": "https://predictions.draftkings.com/en/event/nebraska-%40-michigan-state/34674742",
+    "harvested": "2026-09-26T13:27-07:00",
+    "team_cents": 68
    }
   }
  ],
