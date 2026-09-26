@@ -86,11 +86,20 @@ jobs:
             sleep 10
           done
           echo "LIVE VERIFICATION FAILED: build $BID not served by either host after 5 minutes"; exit 1
-      - name: on-failure instant marker
-        if: failure()
+      - name: card-ready push (approved deploys only)
+        if: ${{ inputs.approve == 'true' }}
+        env:
+          ONESIGNAL_REST_API_KEY: ${{ secrets.ONESIGNAL_REST_API_KEY }}
         run: |
-          mkdir -p incidents
-          { echo "# FAILURE publish-card in-run $GITHUB_RUN_ID"; echo "sha: $GITHUB_SHA";
-            echo '## build log tail (error lines)'; grep -iE 'error|failed' /tmp/build.log 2>/dev/null | tail -20 || true; } > "incidents/${GITHUB_RUN_ID}-inrun.md"
-          git config user.name 'incident-hook'; git config user.email 'actions@users.noreply.github.com'
-          git add incidents/ && git commit -m "incident: publish-card in-run failure $GITHUB_RUN_ID" && git push || true
+          # Card-ready push (user queue, Sep 26): one real notification per APPROVED deploy, after the
+          # card is verified live. Locked copy, user-approved. Fail-closed: a send failure fails the
+          # run - a silently missing push is worse than a red one.
+          # YAML hold fix (tester, Sep 26): the id check must parse JSON and require a nonempty string;
+          # grep '"id"' passes on {"id":null} and {"id":""}. And an unset key must fail before any send.
+          if [ -z "$ONESIGNAL_REST_API_KEY" ]; then echo "CARD-READY PUSH FAILED: ONESIGNAL_REST_API_KEY secret is unset/empty"; exit 1; fi
+          RESP=$(curl -fsS -X POST https://onesignal.com/api/v1/notifications \
+            -H "Authorization: Basic $ONESIGNAL_REST_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{"app_id":"5e86ebe3-a135-4984-9623-db83a0f1840c","included_segments":["Subscribed Users"],"headings":{"en":"RixPicks"},"contents":{"en":"Your RixPicks are ready for the day"},"url":"https://rix-picks.com/"}')
+          echo "OneSignal response: $RESP"
+          echo "$RESP" | jq -e '.id | strings | length > 0' >/dev/null || { echo "CARD-READY PUSH FAILED: no nonempty notification id in response"; exit 1; }

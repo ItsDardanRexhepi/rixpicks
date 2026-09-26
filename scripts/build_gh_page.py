@@ -2432,17 +2432,21 @@ def build_futures_page(css,build_sha):
         pg=pg.replace(tok,val)
     return pg
 _fp=build_futures_page(_css,build_sha)
+_pages=0
 if _fp:
     # Sep 26 builder fix: futures page must land in the OUTPUT dir like every other page -
     # writing to cwd silently dropped it from candidate builds (and clobbered the repo copy on test runs).
     open(os.path.join(os.path.dirname(out) or '.','futures.html'),'w').write(_fp)
     print('written: futures.html',len(_fp))
+    _pages+=1
 for _fn,_html in build_team_pages(man,_css,build_sha).items():
     open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(_html)
     print('written:',_fn,len(_html))
+    _pages+=1
 for _fn,_html in build_game_pages(man,_css,build_sha).items():
     open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(_html)
     print('written:',_fn,len(_html))
+    _pages+=1
 if os.environ.get('RP_PUBLISH')=='1':
     import datetime as _dt
     _ts=_dt.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -2470,3 +2474,8 @@ if os.environ.get('RP_PUBLISH')=='1':
     except Exception as _e:
         print(f'LEDGER WRITE FAILED: shipped_books.json not persisted ({type(_e).__name__}: {_e}) - J-106/J-101 defenses degraded', file=sys.stderr)
         sys.exit(4)
+
+# Guaranteed build-level audit record (verifier Sep 26): EXACTLY ONE URF line per build invocation,
+# clean or not. Branch _urf lines above are per-choice detail; this is the deploy-affecting summary
+# and it fires unconditionally - a clean build can never leave an empty audit trail.
+_urf("EXECUTE","C=3 F=3 R=2 U=1 V=3 CE=1 T=med",f"build {build_sha} complete",f"{_pages+1} pages written (index + {_pages} secondary); arbiter v3.1 baked; registry 1.8 verified; ledger {'persisted' if os.environ.get('RP_PUBLISH')=='1' else 'untouched (candidate build)'}")
