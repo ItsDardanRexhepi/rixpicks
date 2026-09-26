@@ -993,8 +993,8 @@ function rpPolyTick(){{try{{
    if(yn&&outs.length===2&&outs[0]==='Yes'&&pr[0]!=null){{outs=[kw];pr=[pr[0]];}}
    for(let i=0;i<outs.length;i++){{if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){{
     const c=Math.round(parseFloat(pr[i])*100);
-    if(target.closed&&c>=99){{a.dataset.won='1';a.dataset.lost='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY');rpCxUpd('POLY');return;}}
-    if(target.closed&&c<=1){{a.dataset.lost='1';a.dataset.won='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY');rpCxUpd('POLY');return;}}
+    if(target.closed&&c>=99){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('POLY');return;}}
+    if(target.closed&&c<=1){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('POLY');return;}}
     if(c>0&&c<100){{a.dataset.won='';a.dataset.lost='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');
      const pk=a.closest('.pick');
      if(pk&&pk.dataset.market==='ml'){{const s2=pk.querySelector('.odds');
@@ -1032,7 +1032,7 @@ function rpKalTick(){{try{{
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){{
    const m=j&&j.market;if(!m)return;
    if(m.result==='yes'){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('KAL');return;}}
-   if(m.result==='no'){{a.dataset.lost='1';a.dataset.won='';a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+)?/,'KAL');rpCxUpd('KAL');return;}}
+   if(m.result==='no'){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('KAL');return;}}
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
    const c=Math.round(d*100);
    a.dataset.won='';a.dataset.lost='';
