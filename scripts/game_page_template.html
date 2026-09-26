@@ -521,8 +521,9 @@ function rpChatReport(id,el){
  .then(function(r){el.textContent=r.status===401?' sign in to report':' reported';el.onclick=null;}).catch(function(){});}
 function rpChatAuth(){const em=document.getElementById('rpChatEmail').value.trim();if(!em)return;
  fetch(RP_API+'/auth/start',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:em})})
- .then(function(){document.getElementById('rpChatAuthMsg').textContent='Check your email - tap the link to sign in, then come back here.';})
- .catch(function(){});}
+ .then(function(r){return r.json();}).then(function(j){
+  document.getElementById('rpChatAuthMsg').textContent=(j&&j.sent===false)?'Login emails go live shortly - sit tight.':'Check your email - tap the link to sign in, then come back here.';
+ }).catch(function(){});}
 rpChatStart();
 </script>
 </body></html>

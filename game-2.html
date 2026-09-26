@@ -145,7 +145,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790381403';const RP_ROOM='g2-2026-09-25';const RP_START='2026-09-25T20:05:00Z';
+const RP_BUILD='1790381538';const RP_ROOM='g2-2026-09-25';const RP_START='2026-09-25T20:05:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build */
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
@@ -624,8 +624,9 @@ function rpChatReport(id,el){
  .then(function(r){el.textContent=r.status===401?' sign in to report':' reported';el.onclick=null;}).catch(function(){});}
 function rpChatAuth(){const em=document.getElementById('rpChatEmail').value.trim();if(!em)return;
  fetch(RP_API+'/auth/start',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:em})})
- .then(function(){document.getElementById('rpChatAuthMsg').textContent='Check your email - tap the link to sign in, then come back here.';})
- .catch(function(){});}
+ .then(function(r){return r.json();}).then(function(j){
+  document.getElementById('rpChatAuthMsg').textContent=(j&&j.sent===false)?'Login emails go live shortly - sit tight.':'Check your email - tap the link to sign in, then come back here.';
+ }).catch(function(){});}
 rpChatStart();
 </script>
 </body></html>
