@@ -10,7 +10,10 @@
   "note": "2 entries",
   "poly_slug": "pro-football-2027-champion-20260729185915366",
   "poly_kw": "san francisco",
-  "abbr": "sf"
+  "abbr": "sf",
+  "fair_price_est": "+900",
+  "est_prob": 0.1,
+  "resolution": "Super Bowl LXI result (Feb 2027)"
  },
  {
   "id": "F-NFLV2-KC-AFCW",
@@ -22,7 +25,10 @@
   "placed": "2026-09-24",
   "poly_slug": "pro-football-afc-west-champion",
   "poly_kw": "kansas city",
-  "abbr": "kc"
+  "abbr": "kc",
+  "fair_price_est": "-122",
+  "est_prob": 0.55,
+  "resolution": "Division decided end of NFL regular season (Jan 2027)"
  },
  {
   "id": "F-NFLV2-SF-NFCW",
@@ -34,7 +40,10 @@
   "placed": "2026-09-24",
   "poly_slug": "pro-football-nfc-west-champion",
   "poly_kw": "san francisco",
-  "abbr": "sf"
+  "abbr": "sf",
+  "fair_price_est": "+150",
+  "est_prob": 0.4,
+  "resolution": "Division decided end of NFL regular season (Jan 2027)"
  },
  {
   "id": "F-NFLV2-PHI-NFCE",
@@ -46,7 +55,10 @@
   "placed": "2026-09-24",
   "poly_slug": "pro-football-nfc-east-champion",
   "poly_kw": "philadelphia",
-  "abbr": "phi"
+  "abbr": "phi",
+  "fair_price_est": "-122",
+  "est_prob": 0.55,
+  "resolution": "Division decided end of NFL regular season (Jan 2027)"
  },
  {
   "id": "F-NFLV2-MIN-NFCN",
@@ -58,7 +70,10 @@
   "placed": "2026-09-24",
   "poly_slug": "pro-football-nfc-north-champion",
   "poly_kw": "minnesota",
-  "abbr": "min"
+  "abbr": "min",
+  "fair_price_est": "+257",
+  "est_prob": 0.28,
+  "resolution": "Division decided end of NFL regular season (Jan 2027)"
  },
  {
   "id": "F-NFLV2-BUF-AFC",
@@ -70,7 +85,10 @@
   "placed": "2026-09-24",
   "poly_slug": "pro-football-2027-afc-champion",
   "poly_kw": "buffalo",
-  "abbr": "buf"
+  "abbr": "buf",
+  "fair_price_est": "+285",
+  "est_prob": 0.26,
+  "resolution": "AFC Championship result (Jan 2027)"
  },
  {
   "id": "F-NFLV3-SF-NFC",
@@ -82,7 +100,10 @@
   "placed": "2026-09-25",
   "abbr": "sf",
   "poly_slug": "pro-football-2027-nfc-champion",
-  "poly_kw": "san francisco"
+  "poly_kw": "san francisco",
+  "fair_price_est": "+400",
+  "est_prob": 0.2,
+  "resolution": "NFC Championship result (Jan 2027)"
  },
  {
   "id": "F-WNBA-MIN-CHAMP",
@@ -94,6 +115,9 @@
   "placed": "2026-09-26",
   "abbr": "min",
   "kalshi_ticker": "KXWNBA-26-MIN",
-  "note": "Kalshi 43c vs BetMGM +100 / ESPN -110 - net edge +5 to +7c after fees"
+  "note": "Kalshi 43c vs BetMGM +100 / ESPN -110 - net edge +5 to +7c after fees",
+  "fair_price_est": "+100",
+  "est_prob": 0.5,
+  "resolution": "WNBA Finals result (Oct 2026)"
  }
 ]
