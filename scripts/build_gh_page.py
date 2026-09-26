@@ -64,8 +64,18 @@ def poly_price(url,kw,won_ok=False):
                 try: outs=json.loads(m.get('outcomes') or '[]')
                 except Exception: continue
                 if any(kwl in str(o).lower() for o in outs): target=m; break
+        yn=False
+        if target is None:
+            for m in mkts:  # soccer-style 'Will <team> win ...' Yes/No markets: match by question, price = Yes
+                q=str(m.get('question') or '').lower()
+                if q.startswith('will ') and ' win' in q and kwl in q:
+                    target=m; yn=True; break
         if target is None: return None
         outs=json.loads(target.get('outcomes') or '[]'); prs=json.loads(target.get('outcomePrices') or '[]')
+        if yn and outs==['Yes','No'] and prs:
+            c=round(float(prs[0])*100)
+            if 0<c<100: return c
+            return None
         for i,o in enumerate(outs):
             if kwl in str(o).lower() and i<len(prs):
                 c=round(float(prs[i])*100)
@@ -208,7 +218,7 @@ def chips(p):
             web=p.get('polymarket_us',{}).get('url') or p['polymarket']['url'].replace('https://polymarket.com/','https://polymarket.us/'); app=web
             slug=poly_event_slug(p['polymarket']['url']) or ''
             sub=poly_sub(p['polymarket']['url']) or ''
-            cents=poly_price(p['polymarket']['url'],kw)
+            cents=poly_price(p['polymarket']['url'],kw) or p.get('polycents')
             label=(f"POLY {c2ml(cents)}" if cents else "POLY")+inst
             if p.get('best_book')=='Polymarket': label=label
             best=(p.get('best_book')=='Polymarket')
@@ -475,7 +485,7 @@ if man.get('parlay'):
             # won legs factor 1 (marked data-won), lost legs mark the combo dead (data-lost), unknown/hiccup legs
             # keep an unpriced stub so the runtime tick resumes pricing when the feed recovers.
             for l in pl['poly_legs']:
-                cc=poly_price(l['url'], l.get('kw',''), won_ok=True)
+                cc=poly_price(l['url'], l.get('kw',''), won_ok=True) or (l.get('cents') if l.get('cents') is not None else None) or 0
                 slug=poly_event_slug(l['url']) or ''
                 if cc==100:
                     phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" data-won="1" style="display:none">POLY ✓</a>'
@@ -492,7 +502,7 @@ if man.get('parlay'):
             for p in lp:
                 if not p.get('polymarket'): okp=False; break
                 if p.get('polymarket_us',{}).get('url'): purl=p['polymarket_us']['url']
-                cc=poly_price(p['polymarket']['url'], p['name'].split()[0], won_ok=True)
+                cc=poly_price(p['polymarket']['url'], p['name'].split()[0], won_ok=True) or p.get('polycents') or 0
                 if cc==100: continue
                 if cc==0: pdead=True; continue
                 if not cc: pallwon=False; continue
@@ -963,7 +973,7 @@ function rpPolyTick(){{try{{
   if(!a.dataset.polyslug)return;
   fetch('https://gamma-api.polymarket.com/events?slug='+a.dataset.polyslug).then(r=>r.json()).then(function(ev){{
    if(!ev||!ev.length)return;const kw=(a.dataset.polykw||'').toLowerCase();const sub=a.dataset.polysub||'';
-   let target=null;
+   let target=null,yn=false;
    (ev[0].markets||[]).forEach(function(m){{
     if(target)return;
     if(sub){{if(m.slug===sub)target=m;return;}}
@@ -971,8 +981,16 @@ function rpPolyTick(){{try{{
     let oo=[];try{{oo=JSON.parse(m.outcomes||'[]');}}catch(e){{return;}}
     for(let k=0;k<oo.length;k++){{if(String(oo[k]).toLowerCase().indexOf(kw)>=0){{target=m;break;}}}}
    }});
+   if(!target){{
+    (ev[0].markets||[]).forEach(function(m){{
+     if(target)return;
+     const q=String(m.question||'').toLowerCase();
+     if(q.indexOf('will ')===0&&q.indexOf(' win')>=0&&kw&&q.indexOf(kw)>=0){{target=m;yn=true;}}
+    }});
+   }}
    if(!target)return;
    let outs=[],pr=[];try{{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}}catch(e){{return;}}
+   if(yn&&outs.length===2&&outs[0]==='Yes'&&pr[0]!=null){{outs=[kw];pr=[pr[0]];}}
    for(let i=0;i<outs.length;i++){{if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){{
     const c=Math.round(parseFloat(pr[i])*100);
     if(target.closed&&c>=99){{a.dataset.won='1';a.dataset.lost='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY \u2713');rpCxUpd('POLY');return;}}

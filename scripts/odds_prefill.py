@@ -28,7 +28,10 @@ for sport in sys.argv[1:]:
             links={}
             mls={}
             for o in oc:
-                side='away' if o['name']==e['away_team'] else 'home'
+                if o['name']==e['away_team']: side='away'
+                elif o['name']==e['home_team']: side='home'
+                else: continue  # 3-way sports (soccer Draw) - never mislabel as home (J-099)
+
                 if o.get('link'): links[side]=o['link']
                 if o.get('price') is not None: mls[side]=o['price']
             entry={'event':b.get('link'),**{f'{s}_link':l for s,l in links.items()},**{f'{s}_ml':m for s,m in mls.items()}}
