@@ -763,14 +763,14 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
  if(mlb.length){{
   const keyed=mlb.filter(x=>x.dataset.gpk),unkeyed=mlb.filter(x=>!x.dataset.gpk);
   const cache={{}};
-  await Promise.all(keyed.map(async pk=>{{
+  keyed.forEach(pk=>{{(async()=>{{
    const k=pk.dataset.gpk;
    try{{
     if(!cache[k]){{const r=await fetch('https://statsapi.mlb.com/api/v1.1/game/'+k+'/feed/live?fields=liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,gameData,status,detailedState&t='+Date.now());if(!r.ok)throw new Error('feed');cache[k]=await r.json();}}
     const j=cache[k];const ls=(j.liveData||{{}}).linescore||{{}};const st=((j.gameData||{{}}).status||{{}}).detailedState||'';
     if(!st){{rpMlbMiss(pk);return;}}
     rpMlbGame(pk,ls,st,pk.dataset.aab||pk.dataset.away.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase(),pk.dataset.hab||pk.dataset.home.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase());
-   }}catch(e){{rpMlbMiss(pk);}}}}));
+   }}catch(e){{rpMlbMiss(pk);}}}})();}});
   if(unkeyed.length){{try{{
    const d=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team&t='+Date.now())).json();
    const games=(d.dates||[]).flatMap(x=>x.games||[]);
