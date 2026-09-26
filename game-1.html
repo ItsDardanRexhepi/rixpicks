@@ -118,6 +118,9 @@ h1 .tick{color:#3BEBF5}
 }
 
 @keyframes rpspin{to{transform:rotate(360deg)}}
+/* scoring table: mode-aware text (light default, dark override) - inline near-white was invisible in light mode (hunter 9/26) */
+.rpsc-hd{color:#5f636b}.rpsc-cell{color:#3a3f47}.rpsc-tot{color:#3a3f47}.rpsc-totlast{color:#14161a}
+@media (prefers-color-scheme: dark){.rpsc-hd{color:#8a8f98}.rpsc-cell{color:#c8cdd5}.rpsc-tot{color:#c8cdd5}.rpsc-totlast{color:#fff}}
 </style>
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -133,6 +136,7 @@ h1 .tick{color:#3BEBF5}
   <div class="sub">vs San Diego St · home · model 64.9, independents 60-66 · exchange 56.5-57c</div>
   <div class="score" id="rpScore">9:00 AM PT</div>
   <div id="rpLive"></div>
+  <div id="rpScoreTbl"></div>
   <div class="chips" style="margin-top:12px"><a class="chip" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" href="https://sportsbook.draftkings.com/?outcomes=0ML86319046_1" data-book="DK" data-market="ml" data-mr="3" data-sb="https://sportsbook.draftkings.com/?outcomes=0ML86319046_1" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK -142</a><a class="chip" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608182818&amp;selectionId=532781" data-book="FD" data-market="ml" data-mr="4" data-sb="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608182818&amp;selectionId=532781" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD -150</a><a class="chip" data-bk="ESPN" style="background:#e6faf3;border-color:#e6faf3;color:#0a8a66" href="https://sportsbook.thescore.bet/?market_selection_id[0]=20fb3ee9-b85c-4686-aa2b-47d8810b4565&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" data-book="ESPN" data-market="ml" data-sb="https://sportsbook.thescore.bet/?market_selection_id[0]=20fb3ee9-b85c-4686-aa2b-47d8810b4565&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=espnbet.com&sz=128" alt="" onerror="this.remove()">ESPN -145</a><a class="chip" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" href="https://app.hardrock.bet/?deep_link_value=betslip/7563767419093778824" data-book="HR" data-market="ml" data-sb="https://app.hardrock.bet/?deep_link_value=betslip/7563767419093778824" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR -140</a><span class="chip rpnontap" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="ml" data-sbt="https://sports.{state}.betmgm.com/en/sports?options=6:45056-3648433-5792770&amp;type=Single" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM -145</span><span class="chip rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="ml" data-sbt="https://{state}.betrivers.com/?page=sportsbook#event/1027508185" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR -148</span><a class="chip" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26sdsutol" data-book="KAL" data-kalticker="KXNCAAFGAME-26SEP26SDSUTOL" data-kalside="TOL" data-market="ml" data-cents="57" data-mr="5" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -133</a><a class="chip best" data-bk="POLY" style="background:#e8f3fc;border-color:#e8f3fc;color:#1a6db0" href="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-book="POLY" data-sb="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-app="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-polyslug="cfb-sdst-toledo-2026-09-26" data-market="ml" data-polysub="" data-polykw="Toledo" data-cents="56" data-mr="6" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=polymarket.com&sz=128" alt="" onerror="this.remove()">POLY -127</a></div>
   
 </div>
@@ -159,7 +163,7 @@ h1 .tick{color:#3BEBF5}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790447961';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
+const RP_BUILD='1790448649';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -387,7 +391,7 @@ async function rpMlbLive(d){
   h+='<div style="display:flex;align-items:center;gap:14px;margin-top:8px;font-size:12px;color:#8a8f98">';
   h+='<span>B '+rpPips(B,4,'#3b9eff')+'</span><span>S '+rpPips(S,3,'#e8b93c')+'</span><span>O '+rpPips(O,3,'#e5484d')+'</span></div>';
   const pn=((((cp.matchup||{}).pitcher||{}).fullName)||''),bn=((((cp.matchup||{}).batter||{}).fullName)||'');
-  if(pn||bn)h+='<div style="font-size:12px;color:#c8cdd5;margin-top:6px">'+(pn?('P: '+pn):'')+(pn&&bn?' &middot; ':'')+(bn?('AB: '+bn):'')+'</div>';
+  if(pn||bn)h+='<div class="rpsc-cell" style="font-size:12px;margin-top:6px">'+(pn?('P: '+pn):'')+(pn&&bn?' &middot; ':'')+(bn?('AB: '+bn):'')+'</div>';
  }
  const plays=(((j.liveData||{}).plays||{}).allPlays)||[];
  let lp='';
@@ -433,7 +437,7 @@ async function rpEspnPanel(d){
  if(base.length)bits.push('runners: '+base.join(', '));
  if(bits.length)h+='<div style="font-size:12px;color:#8a8f98;margin-top:6px">'+bits.join(' &middot; ')+'</div>';
  const pn=(((s.pitcher||{}).athlete||{}).displayName)||'';const bn=(((s.batter||{}).athlete||{}).displayName)||'';
- if(pn||bn)h+='<div style="font-size:12px;color:#c8cdd5;margin-top:6px">'+(pn?('P: '+pn):'')+(pn&&bn?' &middot; ':'')+(bn?('AB: '+bn):'')+'</div>';
+ if(pn||bn)h+='<div class="rpsc-cell" style="font-size:12px;margin-top:6px">'+(pn?('P: '+pn):'')+(pn&&bn?' &middot; ':'')+(bn?('AB: '+bn):'')+'</div>';
  const lp=(s.lastPlay||{}).text||'';
  if(lp)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+lp+'</div>';
  h+='</div>';
@@ -468,7 +472,105 @@ document.addEventListener('touchend',rpPtrEnd,{passive:true});
 document.addEventListener('touchcancel',rpPtrEnd,{passive:true});
 
 
-rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?30000:3000);}rpLiveLoop();
+
+/* Live scoring table - per-league linescore, fixed order: live updates -> scoring table -> platform chips (user 9/25 9:22 PM; restored into template root 9/26 - 792ca91+d72389f had landed in generated pages only and rebuilds clobbered them). Shapes: MLB innings+R/H/E; NFL/CFB/NBA quarters(+OT); NCAAB halves(+OT); NHL periods(+OT/SO); soccer halves(+ET); tennis sets(+sets-won). Combat/leaderboard sports: no table. */
+function rpScoreHdrs(lg,n){
+ if(lg.indexOf('soccer')===0){const h=['1H','2H'];for(let i=2;i<n;i++)h.push(i===2?'ET':'ET'+(i-1));return h;}
+ if(lg.indexOf('hockey')===0){const h=['1','2','3'];for(let i=3;i<n;i++)h.push(i===3?'OT':'SO');return h;}
+ if(lg.indexOf('basketball/')===0&&lg.indexOf('nba')<0){const h=['1','2'];for(let i=2;i<n;i++)h.push(i===2?'OT':(i-1)+'OT');return h;}
+ const h=['1','2','3','4'];for(let i=4;i<n;i++)h.push(i===4?'OT':(i-3)+'OT');return h;
+}
+function rpScoreTable(el,hdrs,rows,tots){
+ if(!rows.length){el.innerHTML='';return;}
+ let h='<div style="margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px;overflow-x:auto">';
+ h+='<div class="rpsc-hd" style="font-size:11px;font-weight:800;letter-spacing:1px;margin-bottom:6px">SCORING</div>';
+ h+='<table style="width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:13px;text-align:center"><tr><th style="text-align:left;font-weight:600"></th>';
+ hdrs.forEach(function(x){h+='<th class="rpsc-hd" style="font-weight:600;padding:2px 4px;min-width:18px">'+x+'</th>';});
+ (tots||[]).forEach(function(x){h+='<th class="rpsc-tot" style="font-weight:700;padding:2px 4px;min-width:20px">'+x+'</th>';});
+ h+='</tr>';
+ rows.forEach(function(r){
+  h+='<tr><td style="text-align:left;font-weight:700;padding:3px 4px 3px 0;white-space:nowrap">'+(r.logo?'<img src="'+r.logo+'" alt="" style="width:18px;height:18px;border-radius:50%;vertical-align:-4px;margin-right:6px" onerror="this.remove()">':'')+r.abbr+'</td>';
+  hdrs.forEach(function(_,i){const v=(r.vals&&i<r.vals.length&&r.vals[i]!=null)?r.vals[i]:'';h+='<td class="rpsc-cell" style="padding:3px 4px">'+v+'</td>';});
+  (r.tots||[]).forEach(function(v,ti){const last=ti===(r.tots.length-1);h+='<td class="'+(last?'rpsc-totlast':'rpsc-tot')+'" style="padding:3px 4px;font-weight:800">'+(v==null?'':v)+'</td>';});
+  h+='</tr>';
+ });
+ h+='</table></div>';
+ el.innerHTML=h;
+}
+async function rpScoreMlb(d,el){
+ if(!d.dataset.gpk)return;
+ const flds='liveData,linescore,innings,num,away,home,runs,hits,errors,teams,gameData,status,detailedState,id';
+ const j=await (await fetch('https://statsapi.mlb.com/api/v1.1/game/'+d.dataset.gpk+'/feed/live?fields='+flds+'&t='+Date.now())).json();
+ const det=(((j.gameData||{}).status||{}).detailedState)||'';
+ if(det==='Scheduled'||det==='Pre-Game'||det==='Unknown'){el.innerHTML='';return;}
+ const ls=(j.liveData||{}).linescore||{};
+ const inns=ls.innings||[];const n=Math.max(9,inns.length);
+ const aT=(ls.teams||{}).away||{},hT=(ls.teams||{}).home||{};
+ const aAb=d.dataset.aab||'',hAb=d.dataset.hab||'';
+ const gT=((j.gameData||{}).teams)||{};
+ const aLogo=gT.away&&gT.away.id?('https://www.mlbstatic.com/team-logos/'+gT.away.id+'.svg'):'';
+ const hLogo=gT.home&&gT.home.id?('https://www.mlbstatic.com/team-logos/'+gT.home.id+'.svg'):'';
+ const hdrs=[];for(let i=1;i<=n;i++)hdrs.push(''+i);
+ const valsA=[],valsH=[];
+ for(let i=0;i<n;i++){
+  const inn=inns[i];
+  valsA.push(inn&&inn.away&&typeof inn.away.runs==='number'?inn.away.runs:null);
+  valsH.push(inn&&inn.home&&typeof inn.home.runs==='number'&&!(i===8&&det==='Final'&&aT.runs>hT.runs&&inn.home.runs===undefined)?inn.home.runs:null);
+ }
+ rpScoreTable(el,hdrs,[
+  {abbr:aAb,logo:aLogo,vals:valsA,tots:[aT.runs,aT.hits,aT.errors]},
+  {abbr:hAb,logo:hLogo,vals:valsH,tots:[hT.runs,hT.hits,hT.errors]}],['R','H','E']);
+}
+async function rpScoreEspn(d,el,lg){
+ if(!d.dataset.eid)return;
+ const j=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/summary?event='+d.dataset.eid)).json();
+ const comp=(((j.header||{}).competitions)||[])[0]||{};
+ const st=((comp.status||{}).type)||{};
+ if(st.state==='pre'){el.innerHTML='';return;}
+ const aw=(comp.competitors||[]).find(function(c){return c.homeAway==='away';});
+ const hm=(comp.competitors||[]).find(function(c){return c.homeAway==='home';});
+ if(!aw||!hm)return;
+ let la=(aw.linescores||[]).map(function(x){return x.value;});
+ let lh=(hm.linescores||[]).map(function(x){return x.value;});
+ /* 9/26: ESPN summary returns null per-period values for in-game events; the scoreboard endpoint carries them live - fall back so the live table shows real periods, not blanks */
+ const _allnull=function(a){return !a.some(function(v){return typeof v==='number';});};
+ if((!la.length||_allnull(la))&&(!lh.length||_allnull(lh))){
+  try{
+   const sb=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?dates='+new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'}).replace(/-/g,'')+'&cb='+Date.now())).json();
+   const ev=(sb.events||[]).find(function(e){return e.id===d.dataset.eid;});
+   const c2=ev&&((ev.competitions||[])[0]);
+   const aw2=c2&&(c2.competitors||[]).find(function(c){return c.homeAway==='away';});
+   const hm2=c2&&(c2.competitors||[]).find(function(c){return c.homeAway==='home';});
+   if(aw2&&hm2){const ta=(aw2.linescores||[]).map(function(x){return x.value;});const th=(hm2.linescores||[]).map(function(x){return x.value;});
+    if(!_allnull(ta)||!_allnull(th)){la=ta;lh=th;}}
+  }catch(e){}
+ }
+ if(!la.length&&!lh.length){el.innerHTML='';return;}
+ if(_allnull(la)&&_allnull(lh)){el.innerHTML='';return;}
+ const n=Math.max(la.length,lh.length,(lg.indexOf('soccer')===0?2:(lg.indexOf('hockey')===0?3:(lg.indexOf('basketball/')===0&&lg.indexOf('nba')<0?2:4))));
+ if(lg.indexOf('tennis')===0){
+  let sa=0,sh=0;for(let i=0;i<n;i++){if(la[i]!=null&&lh[i]!=null){if(la[i]>lh[i])sa++;else if(lh[i]>la[i])sh++;}}
+  const hdrs=[];for(let i=1;i<=n;i++)hdrs.push(''+i);
+  rpScoreTable(el,hdrs,[
+   {abbr:(aw.team||{}).abbreviation||'',logo:(aw.team||{}).logo||'',vals:la,tots:[sa]},
+   {abbr:(hm.team||{}).abbreviation||'',logo:(hm.team||{}).logo||'',vals:lh,tots:[sh]}],['S']);
+  return;
+ }
+ const hdrs=rpScoreHdrs(lg,n);
+ rpScoreTable(el,hdrs,[
+  {abbr:(aw.team||{}).abbreviation||'',logo:(aw.team||{}).logo||'',vals:la,tots:[aw.score]},
+  {abbr:(hm.team||{}).abbreviation||'',logo:(hm.team||{}).logo||'',vals:lh,tots:[hm.score]}],['T']);
+}
+async function rpScoreTblTick(d){try{
+ const el=document.getElementById('rpScoreTbl');if(!el||!d)return;
+ const lg=d.dataset.espn||'';if(!lg)return;
+ const now=Date.now();if(now-(window.__rpStT||0)<10000)return;window.__rpStT=now;
+ if(lg==='baseball/mlb'){await rpScoreMlb(d,el);return;}
+ if(lg.indexOf('tennis')===0||lg.indexOf('football')===0||lg.indexOf('basketball')===0||lg.indexOf('hockey')===0||lg.indexOf('soccer')===0){await rpScoreEspn(d,el,lg);return;}
+ el.innerHTML=''; /* mma/boxing/golf/nascar: no period-linescore shape - nothing rendered */
+}catch(e){}}
+
+rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}try{await rpScoreTblTick(document.querySelector('.pick[data-espn]'));}catch(e2){}setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?30000:3000);}rpLiveLoop();
 setInterval(rpPageRefresh,60000);
 
 /* Live per-game chat - room id baked at build (g<num>-<date>), no fetch needed to find it. Opens 1h before start, locks 2h after final. */
