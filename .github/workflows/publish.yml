@@ -86,3 +86,11 @@ jobs:
             sleep 10
           done
           echo "LIVE VERIFICATION FAILED: build $BID not served by either host after 5 minutes"; exit 1
+      - name: on-failure instant marker
+        if: failure()
+        run: |
+          mkdir -p incidents
+          { echo "# FAILURE publish-card in-run $GITHUB_RUN_ID"; echo "sha: $GITHUB_SHA";
+            echo '## build log tail (error lines)'; grep -iE 'error|failed' /tmp/build.log 2>/dev/null | tail -20 || true; } > "incidents/${GITHUB_RUN_ID}-inrun.md"
+          git config user.name 'incident-hook'; git config user.email 'actions@users.noreply.github.com'
+          git add incidents/ && git commit -m "incident: publish-card in-run failure $GITHUB_RUN_ID" && git push || true

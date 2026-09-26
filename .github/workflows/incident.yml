@@ -1,0 +1,50 @@
+name: incident-hook
+# Instant failure detection (his rule Sep 26 9:46 PT: "not 4 minutes after, instantly and
+# constantly"). Runs AT THE EVENT when a site-critical workflow fails - captures the failed
+# run's job logs and commits them to incidents/ so the diagnosis exists the moment the
+# failure does. The agent-side 5-min failure scout polls incidents/ + run list as the floor.
+on:
+  workflow_run:
+    workflows: ["odds-refresh", "publish-card", "pages build and deployment"]
+    types: [completed]
+permissions:
+  actions: read
+  contents: write
+jobs:
+  capture:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: capture failed run logs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_NAME: ${{ github.event.workflow_run.name }}
+          RUN_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -x
+          mkdir -p incidents
+          F="incidents/${RUN_ID}.md"
+          {
+            echo "# FAILURE ${RUN_NAME} run ${RUN_ID}"
+            echo "sha: ${RUN_SHA}"
+            echo "url: ${{ github.event.workflow_run.html_url }}"
+            echo "captured: $(date -u +%FT%TZ)"
+            echo
+            echo '## jobs'
+            gh api "repos/${{ github.repository }}/actions/runs/${RUN_ID}/jobs" --jq '.jobs[] | "- \(.name): \(.conclusion) (started \(.started_at))"'
+            echo
+            echo '## log tails'
+            for J in $(gh api "repos/${{ github.repository }}/actions/runs/${RUN_ID}/jobs" --jq '.jobs[] | select(.conclusion=="failure") | .id'); do
+              echo "### job $J"
+              gh api "repos/${{ github.repository }}/actions/jobs/${J}/logs" 2>/dev/null | grep -E 'error|FAILED|Error|failed' | tail -30 || true
+            done
+          } > "$F" || true
+      - name: commit incident report
+        run: |
+          git config user.name 'incident-hook'
+          git config user.email 'actions@users.noreply.github.com'
+          git add incidents/
+          git commit -m "incident: ${{ github.event.workflow_run.name }} run ${{ github.event.workflow_run.id }} failure captured" || echo 'nothing to commit'
+          git push || true

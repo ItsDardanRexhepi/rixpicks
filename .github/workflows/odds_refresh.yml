@@ -24,3 +24,10 @@ jobs:
         env:
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
         run: bash scripts/refresh.sh
+      - name: on-failure instant marker
+        if: failure()
+        run: |
+          mkdir -p incidents
+          printf '# FAILURE odds-refresh in-run %s\nsha: %s\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" > "incidents/${GITHUB_RUN_ID}-inrun.md"
+          git config user.name 'incident-hook'; git config user.email 'actions@users.noreply.github.com'
+          git add incidents/ && git commit -m "incident: odds-refresh in-run failure $GITHUB_RUN_ID" && git push || true
