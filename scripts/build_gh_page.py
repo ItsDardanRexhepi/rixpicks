@@ -119,10 +119,18 @@ def bkimg(short):
 def bkstyle(short):
     bf=BKFILL.get(short)
     return f' data-bk="{short}" style="background:{bf[0]};border-color:{bf[0]};color:{bf[1]}"' if bf else ''
+def c2ml_int(c):
+    # raw American int for star/range math even when the display goes cents notation (main 11:11)
+    c=int(round(c))
+    if c<=0 or c>=100: return None
+    return -(round(c/(100-c)*100)) if c>=50 else round((100-c)/c*100)
 def c2ml(c):
     c=int(round(c))
-    if c<=0 or c>=100: return str(c)
-    return ('-' if c>=50 else '+')+str(round(c/(100-c)*100) if c>=50 else round((100-c)/c*100))
+    if c<=0: return str(c)
+    if c>=100: return f"{c}c"  # 100c ask: American odds can't express it - exchange-native cents (main 11:11)
+    ml=round(c/(100-c)*100) if c>=50 else round((100-c)/c*100)
+    if ml>1000: return f"{c}c"  # extreme in-play prices read in cents, never -9900 (main 11:11)
+    return ('-' if c>=50 else '+')+str(ml)
 def _pt_time(iso):
     try:
         import datetime as _dt
@@ -268,6 +276,15 @@ try:
             if isinstance(_be,dict) and _be.get('link'): _be['link']=_rawurl(_be['link'])
 except Exception: SHIPPED={}
 NEWSHIPPED={}
+
+# Canonical market truth record (Matrix-mining design, user 9/26): ONE record per
+# (source,event,market,side) - price (cents canonical, ml display cache), phase, timestamp,
+# verified link, status - drives every chip/star/range/combo. Never parse rendered text into numbers.
+_MARKETS=[]
+_COLL=[_MARKETS]  # current record collector: index -> _MARKETS; a game page -> its own _PM (data-mr indexes must match the page's injected RP_MARKETS)
+def _mkrec(src,ev='',mkt='',side='',ml=None,cents=None,link='',ph='live',ts='',lv='verified',st='ok'):
+    _COLL[0].append({'src':src,'ev':ev,'mkt':mkt,'side':side,'ml':ml,'c':cents,'link':link,'ph':ph,'ts':ts,'lv':lv,'st':st})
+    return ' data-mr="%d"'%(len(_COLL[0])-1)
 TEAM_META.update(team_meta(man))
 def _meta_for(lg,name):
     m=TEAM_META.get((lg,name))
@@ -444,7 +461,7 @@ def kal_market(tick, team_display):
             try:
                 d=float(m.get('yes_ask_dollars') or 0)
             except Exception: d=0
-            return (sfx, round(d*100) if 0<d<1 else None)
+            return (sfx, round(d*100) if 0<d<=1 else None)
     return ('',None)
 
 def chips(p):
@@ -456,6 +473,11 @@ def chips(p):
     out=[]
     side=p.get('side','away')
     kw=p['name'].split()[0]
+    _g=p.get('game') or {}
+    _cm=_g.get('commence','')
+    _eid=str(_g.get('eid') or '')
+    _sk=f"{_g.get('away')}|{_g.get('home')}|{(_cm or '')[:10]}" if _g else ''
+    _ph='last_pre_game' if _uw else 'live'
     inst=game_instance(p.get('game'))
     inst=f' {inst}' if inst else ''
     for name,short in BOOKS:
@@ -505,26 +527,36 @@ def chips(p):
                 else:
                     print(f"BUILD FAILED: {p.get('name')} Kalshi ask {_kc}c exceeds ship-condition ceiling {_gate}c", file=sys.stderr)
                     sys.exit(3)
+            if _uw:
+                # in play (never-blank + phase provenance, Sep 26): freeze the last PRE-GAME snapshot -
+                # SHIPPED carryover first, manifest ship cents as fallback; never a live in-play ask
+                # (an in-play 99c beside pre-game closers poisons every same-phase comparison).
+                _frozen=((SHIPPED.get(_sk) or {}).get('Kalshi') or {}).get('cents') or (p.get('kalshi') or {}).get('cents')
+                if _frozen and _frozen!=_kc:
+                    print(f"IN-PLAY FREEZE: {p.get('name')} Kalshi live ask {_kc} - frozen to pre-game snapshot {_frozen}c", file=sys.stderr)
+                    _kc=_frozen
+            else:
+                NEWSHIPPED.setdefault(_sk,{})['Kalshi']={'link':link,'cents':_kc,'commence':_cm}
             if not _sfx or _kc is None:
-                _pin=(p.get('kalshi') or {}).get('cents')
+                # e4f128e absorbed (run 36262260747): Kalshi delists/halts in-play markets - an
+                # unresolved market must not kill underway/display-only rebuilds. Degrade to the
+                # pinned snapshot (SHIPPED ledger first, manifest ship cents as fallback). Pre-game
+                # NEW content still hard-fails (ship condition must re-verify a real market).
+                _pin=((SHIPPED.get(_sk) or {}).get('Kalshi') or {}).get('cents') or (p.get('kalshi') or {}).get('cents')
                 if (_DISPLAY_ONLY or _uw) and _pin is not None:
-                    # Sep 26 in-play class fix (run 36262260747): Kalshi delists/halts in-play
-                    # markets. Same doctrine as the book chips below: underway/display-only
-                    # rebuilds degrade to the pinned carded snapshot, never kill the build.
-                    # Pre-game NEW content still hard-fails (ship condition must re-verify).
-                    print(f"IN-PLAY DEGRADE: {p.get('name')} Kalshi market unresolved under {tick} - pinned carded snapshot {_pin}c (market closed/halted in-play)", file=sys.stderr)
+                    print(f"IN-PLAY DEGRADE: {p.get('name')} Kalshi market unresolved under {tick} - pinned snapshot {_pin}c (market closed/halted in-play)", file=sys.stderr)
                     _kc=_pin
                 else:
                     # Sep 26 hunter ruling: a stale price posing as fresh is worse than no build.
                     print(f"BUILD FAILED: Kalshi market unresolved for {p.get('name')} team {_kside!r} under {tick}", file=sys.stderr)
                     sys.exit(3)
-            label=(f"KAL {c2ml(_kc)}" if _kc else "KAL")+inst
-            if _uw: label=(('KAL '+str(p.get('odds','')).strip()) if p.get('best_book')=='Kalshi' else 'KAL')+inst  # in-play freeze
-            if p.get('best_book')=='Kalshi': label=label
-            best=(not _uw) and ((p.get('best_book')=='Kalshi'))
+            label=(f"KAL {c2ml(_kc)}" if _kc else "KAL")+inst  # in play _kc is the frozen last-known price - never blank (inspector Sep 26)
+            best=(p.get('best_book')=='Kalshi')
             side=html.escape(_sfx)
-            _pr.append((len(out), int(c2ml(_kc)) if _kc else None))
-            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="KAL" data-kalticker="{tick}" data-kalside="{side}"{_dm} target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{label}</a>')
+            _pr.append((len(out), c2ml_int(_kc) if _kc else None))
+            _kcattr=f' data-cents="{_kc}"' if _kc else ''
+            _kcattr+=_mkrec('Kalshi',tick,tick+'-'+side,side,cents=_kc,link=link,ph=_ph,ts=(((SHIPPED.get(_sk) or {}).get('Kalshi') or {}).get('ts') or '') if _uw else '',st=('ok' if _kc else 'unknown'))
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="KAL" data-kalticker="{tick}" data-kalside="{side}"{_dm}{_kcattr} target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{label}</a>')
             continue
         if name=='Polymarket':
             if not p.get('polymarket'): continue
@@ -538,13 +570,22 @@ def chips(p):
             sub=poly_sub(p['polymarket']['url']) or ''
             # price basis: gamma outcomePrices = mid/last, NOT the ask (auditor-confirmed Sep 26);
             # .us search snapshots are stale/unreliable - gamma is the build-time source of truth.
-            cents=poly_price(p['polymarket']['url'],kw) or p.get('polycents')
-            label=(f"POLY {c2ml(cents)}" if cents else "POLY")+inst
-            if _uw: label=(('POLY '+str(p.get('odds','')).strip()) if p.get('best_book')=='Polymarket' else 'POLY')+inst  # in-play freeze
+            if _uw:
+                # in play: freeze the verified PRE-GAME snapshot (SHIPPED carryover, then manifest
+                # polycents) - never a live in-play gamma quote in the frozen comparison set.
+                cents=((SHIPPED.get(_sk) or {}).get('Polymarket') or {}).get('cents') or p.get('polycents')
+            else:
+                cents=poly_price(p['polymarket']['url'],kw) or p.get('polycents')
+                if cents: NEWSHIPPED.setdefault(_sk,{})['Polymarket']={'link':web,'cents':cents,'commence':_cm}
+            # never-blank (inspector Sep 26): entry odds are the last-resort fallback on the
+            # picked book. Never a bare 'POLY' when any price was ever known.
+            _pcattr=f' data-cents="{round(cents)}"' if cents else ''
+            _pcattr+=_mkrec('Polymarket',slug,sub or slug,side,cents=cents,link=web,ph=_ph,ts=(((SHIPPED.get(_sk) or {}).get('Polymarket') or {}).get('ts') or '') if _uw else '',st=('ok' if cents else 'unknown'))
+            label=(f"POLY {c2ml(cents)}" if cents else (('POLY '+str(p.get('odds','')).strip()) if (_uw and p.get('best_book')=='Polymarket') else 'POLY'))+inst
             if p.get('best_book')=='Polymarket': label=label
-            best=(not _uw) and ((p.get('best_book')=='Polymarket'))
-            _pr.append((len(out), int(c2ml(cents)) if cents else None))
-            out.append(f'<a class="chip%%BEST%%"{bkstyle("POLY")} href="{html.escape(web)}" data-book="POLY" data-sb="{html.escape(web)}" data-app="{html.escape(app)}" data-polyslug="{html.escape(slug)}"{_dm} data-polysub="{html.escape(sub)}" data-polykw="{html.escape(kw)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("POLY")}{label}</a>')
+            best=(p.get('best_book')=='Polymarket')
+            _pr.append((len(out), c2ml_int(cents) if cents else None))
+            out.append(f'<a class="chip%%BEST%%"{bkstyle("POLY")} href="{html.escape(web)}" data-book="POLY" data-sb="{html.escape(web)}" data-app="{html.escape(app)}" data-polyslug="{html.escape(slug)}"{_dm} data-polysub="{html.escape(sub)}" data-polykw="{html.escape(kw)}"{_pcattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("POLY")}{label}</a>')
             continue
         if link and p.get('game'):
             _sk=f"{p['game'].get('away')}|{p['game'].get('home')}|{(p['game'].get('commence') or '')[:10]}"
@@ -555,18 +596,17 @@ def chips(p):
             if _se: link=_se.get('link'); ml=_se.get('ml')
         if not link:
             if _uw:
-                # in-play (Sep 26 regression): books pull their markets at commence; omit the PRICE,
-                # never the chip - unpriced inert chip holds the row complete.
-                _pr.append((len(out), None))
-                out.append(f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}"{_dm}>{bkimg(short)}{html.escape(short+inst)}</span>')
+                # in-play (inspector Sep 26): books pull markets at commence; freeze the last-known
+                # price when we have one, else unpriced - the chip never drops, never goes blank.
+                _lbl=(f"{short} {ml:+d}" if ml is not None else short)+inst
+                _pr.append((len(out), ml))
+                _mr=_mkrec(name,_eid,_mkt,side,ml=ml,link='',ph=_ph,lv='none',st=('ok' if ml is not None else 'unknown'))
+                out.append(f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}"{_dm}{_mr}>{bkimg(short)}{html.escape(_lbl)}</span>')
             continue  # no game-level link -> drop chip (pre-game only)
-        best=(not _uw) and ((p.get('best_book')==name))
-        if _uw:
-            # in-play freeze: pick-card chips hold the carded entry price on the picked book and go
-            # unpriced elsewhere once the game is underway; live quotes live on the game page only.
-            try: _entry=int(re.sub(r'[^0-9+-]','',str(p.get('odds',''))))
-            except Exception: _entry=None
-            ml=_entry if (name==p.get('best_book') and _entry is not None) else None
+        best=(p.get('best_book')==name)
+        # in-play (inspector ruling Sep 26): freeze each book's last-known price - ml from the live
+        # feed or the SHIPPED carryover above; the chip never goes blank and the link still carries
+        # to the live market. No price ever known -> unpriced inert chip, never a dropped chip.
         label=(f"{short} {ml:+d}" if ml is not None else short)+inst
         # star renders left of logo at append time
         if name in ('FanDuel','DraftKings'):
@@ -580,7 +620,8 @@ def chips(p):
             _tmattr=' data-template="1"' if _tm else ''
             _href='https://www.'+BKDOM[short] if _tm else link
             _pr.append((len(out), ml))
-            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(_href)}" data-book="{short}"{_dm} data-sb="{html.escape(link)}"{_pmattr} data-pmapp="{html.escape(pmapp)}"{nopm}{_tmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{html.escape(label)}</a>')
+            _mr=_mkrec(name,_eid,_mkt,side,ml=ml,link=link,ph=_ph,st=('ok' if ml is not None else 'unknown'))
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(_href)}" data-book="{short}"{_dm}{_mr} data-sb="{html.escape(link)}"{_pmattr} data-pmapp="{html.escape(pmapp)}"{nopm}{_tmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{html.escape(label)}</a>')
         elif '{state}' in link:
             # Sep 26 inspector ruling (J-112 class extended to singles): a priced chip on a generic
             # destination violates game-level-or-no-chip. Static HTML ships a priced NON-TAPPABLE span
@@ -594,9 +635,8 @@ def chips(p):
     # build-time star = same max-American rule as client rpBestStar: the star never sits on
     # anything but the best displayed price, and never in play.
     _win=None
-    if not _uw:
-        _cand=[(i,v) for i,v in _pr if v is not None and i<len(out)]
-        if _cand: _win=max(_cand,key=lambda t:t[1])[0]
+    _cand=[(i,v) for i,v in _pr if v is not None and i<len(out)]
+    if _cand: _win=max(_cand,key=lambda t:t[1])[0]  # star marks the best DISPLAYED price - frozen prices in play included (inspector Sep 26)
     out=[o.replace('%%BEST%%',' best' if i==_win else '').replace('%%STAR%%',star if i==_win else '') for i,o in enumerate(out)]
     # J-110 (Sep 26): settled-link retirement + tap pass. Feed-verified settled + retired
     # destination -> chip freezes non-tappable with brand fill + entry price. Dead link on a
@@ -651,7 +691,6 @@ def chips(p):
 
 def lineshop_html(prs, underway=False):
     prs=[v for v in prs if v is not None]
-    if underway: return '<div class="rplineshop" style="font-size:11px;color:#8a8f98;margin:3px 0 0">line shop unavailable in play</div>'
     if len(prs)<2: return ''
     def ip(a): return 100.0/(a+100) if a>0 else (-a)/((-a)+100.0)
     best=max(prs); worst=min(prs)
@@ -791,10 +830,10 @@ for p in man['picks']:
         u=mm.get('logo','')
         if not u: return ''
         st='width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)'
-        if overlap: st+=';margin-left:-7px'
+        if overlap: st+=';margin-left:-8px'
         return '<img src="%s" alt="" style="%s" onerror="this.remove()">'%(html.escape(u),st)
     _av=_avimg(_ma)+_avimg(_mh,True)
-    _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
+    _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px">'+_av+'</span>' if _av else ''
     rows.append(f'''<div class="pick" data-espn="{espn}" data-eid="{html.escape(_eid)}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{(_pt_date(g.get('commence','')) or 'card')}" data-commence="{html.escape(g.get('commence',''))}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}" data-stake="{html.escape(re.sub(r'[^0-9.]','',p.get('units','')))}"{(' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else '')}>
   <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="uo"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></span><span class="oddslock">{html.escape(man.get('updated','').split(', ')[-1].replace(' PT',''))} &middot; locked</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="rpstart" data-commence="{html.escape(g.get('commence',''))}">{_pt_time(g.get('commence',''))}</div>
@@ -952,46 +991,66 @@ if man.get('parlay'):
                 v=e.get(f"{side}_ml")
                 if v is None: ok=False; break
                 mls.append(v)
-            if not (ok and len(mls)==nlegs): continue
+            if not (ok and len(mls)==nlegs):
+                # his 8:51 visibility directive: every book renders a combo chip; without full-leg
+                # prices it's an unpriced inert reference, tappability still gated on verified routes.
+                chips.append((short,f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}" data-market="parlay"{_mkrec(short,"","parlay","",link="",ph=("last_pre_game" if any(_is_underway((pp.get("game") or {})) for pp in lp) else "live"),lv="none",st="unknown")}>%%STAR%%{bkimg(short)}{short}</span>',None))
+                continue
             r=routes.get(short) or {}
             price=r.get('price')
             if price is None: price=amer_from_mls(mls)
-            if price is None: continue
+            if price is None:
+                chips.append((short,f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}" data-market="parlay"{_mkrec(short,"","parlay","",link="",ph=("last_pre_game" if any(_is_underway((pp.get("game") or {})) for pp in lp) else "live"),lv="none",st="unknown")}>%%STAR%%{bkimg(short)}{short}</span>',None))
+                continue
             # J-112 (inspector ruling, Sep 26): combined price ALWAYS renders; the chip is tappable
             # ONLY with a tap-verified executable/deepest-real destination. No verified route -> the
             # price stays and the chip is a non-tappable span under the * manual-build disclaimer.
             link=r.get('link') if r.get('verified') else None
             pmattr=f' data-pm="{pm}"' if pm else ''
+            _cxph='last_pre_game' if any(_is_underway((pp.get('game') or {})) for pp in lp) else 'live'
             if link:
-                chips.append((short,f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-market="parlay" data-sb="{html.escape(link)}"{pmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{short} {price:+d}</a>',price))
+                chips.append((short,f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}" data-market="parlay" data-sb="{html.escape(link)}"{pmattr}{_mkrec(short,"","parlay","",ml=price,link=link,ph=_cxph)} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{short} {price:+d}</a>',price))
             else:
-                chips.append((short,f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}" data-market="parlay"{pmattr}>%%STAR%%{bkimg(short)}{short} {price:+d}</span>',price))
+                chips.append((short,f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}" data-market="parlay"{pmattr}{_mkrec(short,"","parlay","",ml=price,link="",ph=_cxph,lv="none")}>%%STAR%%{bkimg(short)}{short} {price:+d}</span>',price))
         # combos get market chips in every state, exchanges included. No native exchange
         # parlay product exists, so the real combined price renders as an inert span (J-112), never a route.
-        _kc=[(p.get('kalshi') or {}).get('cents') for p in lp]
+        _kc=[]
+        for p in lp:
+            _v=(p.get('kalshi') or {}).get('cents')
+            _pg=(p.get('game') or {})
+            if _v is not None and _is_underway(_pg):
+                # same-phase rule: an in-play leg contributes its pre-game snapshot, never a live quote
+                _v=((SHIPPED.get(f"{_pg.get('away')}|{_pg.get('home')}|{((_pg.get('commence') or '') or '')[:10]}") or {}).get('Kalshi') or {}).get('cents') or _v
+            _kc.append(_v)
         if len(_kc)==nlegs and all(isinstance(x,(int,float)) and 0<x<100 for x in _kc):
             _cc=amer_from_cents(_kc)
             if _cc:
                 _aml=c2ml(_cc)
-                chips.append(('KAL',f'<span class="chip%%BEST%% rpnontap"{bkstyle("KAL")} data-book="KAL" data-market="parlay">%%STAR%%{bkimg("KAL")}KAL {_aml}</span>',int(_aml)))
+                chips.append(('KAL',f'<span class="chip%%BEST%% rpnontap"{bkstyle("KAL")} id="rpCxKAL" data-n="{nlegs}" data-book="KAL" data-market="parlay" data-cents="{round(_cc)}"{_mkrec("Kalshi","","parlay","",cents=_cc,link="",ph=("last_pre_game" if any(_is_underway((pp.get("game") or {})) for pp in lp) else "live"),lv="none")}>%%STAR%%{bkimg("KAL")}KAL {_aml}</span>',c2ml_int(_cc)))
         _pc=[]
         for p in lp:
             _v=None
             if p.get('polymarket'):
-                try: _v=poly_price(p['polymarket']['url'],p['name'].split()[0]) or p.get('polycents')
-                except Exception: _v=p.get('polycents')
+                _pg=(p.get('game') or {})
+                _psk=f"{_pg.get('away')}|{_pg.get('home')}|{((_pg.get('commence') or '') or '')[:10]}"
+                if _is_underway(_pg):
+                    # same-phase rule: an in-play leg contributes its pre-game snapshot, never a live quote
+                    _v=((SHIPPED.get(_psk) or {}).get('Polymarket') or {}).get('cents') or p.get('polycents')
+                else:
+                    try: _v=poly_price(p['polymarket']['url'],p['name'].split()[0]) or p.get('polycents')
+                    except Exception: _v=p.get('polycents')
             _pc.append(_v)
         if len(_pc)==nlegs and all(isinstance(x,(int,float)) and 0<x<100 for x in _pc):
             _cp=amer_from_cents(_pc)
             if _cp:
                 _aml=c2ml(_cp)
-                chips.append(('POLY',f'<span class="chip%%BEST%% rpnontap"{bkstyle("POLY")} data-book="POLY" data-market="parlay">%%STAR%%{bkimg("POLY")}POLY {_aml}</span>',int(_aml)))
+                chips.append(('POLY',f'<span class="chip%%BEST%% rpnontap"{bkstyle("POLY")} id="rpCxPOLY" data-n="{nlegs}" data-book="POLY" data-market="parlay" data-cents="{round(_cp)}"{_mkrec("Polymarket","","parlay","",cents=_cp,link="",ph=("last_pre_game" if any(_is_underway((pp.get("game") or {})) for pp in lp) else "live"),lv="none")}>%%STAR%%{bkimg("POLY")}POLY {_aml}</span>',c2ml_int(_cp)))
     order=['DK','FD','ESPN','HR','MGM','BR','KAL','POLY']
     chips.sort(key=lambda s: order.index(s[0]) if s[0] in order else 99)
     # best combo price gets the star left of the logo, same as solo best line (user, Sep 25 12:59 PM)
     priced=[c for c in chips if len(c)>2 and isinstance(c[2],(int,float))]
     best_i=None
-    if priced and not any(_is_underway((p.get('game') or {})) for p in lp):
+    if priced:  # star on the best DISPLAYED combo price - frozen prices in play included (inspector Sep 26)
         best_price=max(c[2] for c in priced)
         for i,c in enumerate(chips):
             if len(c)>2 and c[2]==best_price: best_i=i; break
@@ -1060,7 +1119,7 @@ h1 .tick{{color:#3BEBF5}}
 .mrow{{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}}
 .mrow:first-of-type{{border-top:none}}
 .mrow .bk{{font-weight:700;width:52px;flex:none}}
-.mrow .side{{flex:1}}
+.mrow .side{{flex:1;min-width:0}}
 .mrow .pr{{font-weight:600;color:#2f8f7d;white-space:nowrap}}
 .mrow a{{color:inherit;text-decoration:none}}
 .back{{color:#6b6b72;font-size:14px;text-decoration:none}}
@@ -1180,6 +1239,7 @@ h1 .tick{{color:#3BEBF5}}
 </div></div>
 <script>
 const RP_FD={json.dumps(RP_FD)};const RP_DK={json.dumps(RP_DK)};
+let RP_MARKETS={json.dumps(_MARKETS,separators=(',',':'))};  /* canonical market truth records (Matrix-mining design 9/26) - chips carry data-mr indexes; never parse text into numbers */
 const RP_L={{FD:RP_FD,DK:RP_DK,MGM:{json.dumps(RP_MGM)},B365:{json.dumps(RP_B365)},FAN:{json.dumps(RP_FAN)},ESPN:{json.dumps(RP_ESPN)},HR:{json.dumps(RP_HR)},BR:{json.dumps(RP_BR)}}};
 const RP_COMBO_NONTAP={'true' if (man.get('parlay') and combo_nontap) else 'false'};
 const RP_MOB=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -1201,7 +1261,8 @@ function rpTerm(st){{const sb=RP_FD.includes(st)||RP_DK.includes(st);const ntap=
  const T=(sb?'Parlay':'Combo')+((!sb||ntap)?'<span style="letter-spacing:0">&thinsp;*</span>':'');
  const h=document.getElementById('rpParlayTitle');if(h)h.innerHTML=T;
  const rg=document.getElementById('rpComboReg');if(rg){{rg.style.display=(!sb||ntap)?'':'none';
-  if(ntap)rg.textContent='* Combo prices are live per-book references - build the combo manually at your book. Chips go tappable as verified deep links land.';}}
+  if(ntap){{let _ip=false;document.querySelectorAll('.cxleg').forEach(function(l){{if(rpInPlay(l))_ip=true;}});
+   rg.textContent=_ip?'* Combo prices are frozen pre-game references - books pull combos in play. Chips go tappable as verified deep links land.':'* Combo prices are live per-book references - build the combo manually at your book. Chips go tappable as verified deep links land.';}}}}
  const nt=document.getElementById('rpParlayNote');if(nt)nt.style.display=nt.textContent?'':'none';}}
 function rpInPlay(pk){{try{{const c=pk.dataset.commence;if(c&&Date.now()>=Date.parse(c))return true;}}catch(e){{}}return false;}}
 function rpBestStar(pk){{
@@ -1209,12 +1270,15 @@ function rpBestStar(pk){{
  // it on a hidden/worse chip. Recomputed over visible chips only, max American odds wins.
  try{{
  const chips=[...pk.querySelectorAll('[data-book]')].filter(function(a){{return !a.querySelector('[data-book]');}});let best=null,bestV=-1e18;
- if(rpInPlay(pk)){{chips.forEach(function(a){{a.classList.remove('best');a.innerHTML=a.innerHTML.replace(/^\u2605 /,'');}});return;}}  /* F2: best-line star is a pre-game artifact */
+ const ph0=rpPickPhase(pk);
+ /* star persists in play on the best FROZEN price (inspector Sep 26) - never-blank doctrine */
  chips.forEach(function(a){{
   if(a.offsetParent===null)return;
   if(a.dataset.pmroute==='1')return;  /* F3: generic PM fallbacks are never best-line */
-  const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
-  const v=parseInt(m[1]);if(v>bestV){{bestV=v;best=a;}}
+  if(a.dataset.marker==='1')return;  /* interim markers are references, never best-line */
+  if(!rpSamePh(a,ph0))return;  /* never compare across phases */
+  const v=rpChipML(a);if(v===null)return;
+  if(v>bestV){{bestV=v;best=a;}}
  }});
  chips.forEach(function(a){{a.classList.remove('best');a.innerHTML=a.innerHTML.replace(/^\u2605 /,'');}});
  if(best){{best.classList.add('best');best.innerHTML='\u2605 '+best.innerHTML;}}
@@ -1244,8 +1308,10 @@ function rpFilter(st){{window.rpSt=st;rpTerm(st);
    if(rpRowAvail(el,st)){{el.style.display='';}}
    else{{el.style.display='none';el.querySelectorAll('a[data-book]').forEach(rpStrip);}}  /* hiding is not removal: strip every route on every switch */
    return;}}
-  if(!rpRowAvail(el,st)){{rpStrip(el);el.style.display='none';return;}}  /* unavailable in this state: stripped, never displayed */
-  el.style.display='';rpTapify(el,st);  /* available: tappable with a verified/PM destination, priced inert span without one */
+  if(!rpRowAvail(el,st)){{
+   if(el.dataset.nopm==='1'){{rpStrip(el);el.style.display='';el.dataset.marker='1';return;}}  /* interim marker (main 9/26): PM-product book whose exact-market matcher has not landed yet - visible reference, never tappable, never the star */
+   rpStrip(el);el.style.display='none';delete el.dataset.marker;return;}}  /* unavailable in this state: stripped, never displayed */
+  el.style.display='';delete el.dataset.marker;rpTapify(el,st);  /* available: tappable with a verified/PM destination, priced inert span without one */
  }});
  if(window.rpCxStar)rpCxStar(); }}
 function rpRoute(e,a){{e.preventDefault();const st=localStorage.getItem('rp_state');if(!st){{window.__rpChip=a;rpAsk(false);return false;}}rpGo(a,st);return false;}}
@@ -1390,19 +1456,22 @@ function rpChatCounts(){{try{{
 function rpLineShop(pk){{try{{
  const ip=function(a){{return a>0?100.0/(a+100):(-a)/((-a)+100.0);}};
  const prs=[];
+ const ph0=rpPickPhase(pk);
  const pmkt=pk.dataset.market||'';
  [...pk.querySelectorAll('[data-book]')].filter(function(a){{return !a.querySelector('[data-book]');}}).forEach(function(a){{
   if(pmkt&&a.dataset.market!==pmkt)return;  /* sentinel Sep 26 (fail-closed): only chips WITH matching market identity enter the range */
   const cs=getComputedStyle(a);if(cs.display==='none'||cs.visibility==='hidden')return;  /* geo-hidden or dead books never enter the range */
   if(a.dataset.pmroute==='1')return;  /* F3: generic PM fallbacks never enter the line shop */
-  const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
-  const v=parseInt(m[1]);if(Math.abs(v)<=1500)prs.push(v);
+  if(a.dataset.marker==='1')return;  /* main 11:11: reference-only markers are not in the user's actionable range */
+  if(!rpSamePh(a,ph0))return;
+  const v=rpChipML(a);if(v===null)return;
+  if(Math.abs(v)<=1500)prs.push(v);
  }});
  const el=pk.querySelector('.rplineshop');if(!el)return;
  if(prs.length<2){{el.style.display='none';return;}}
  const best=Math.max.apply(null,prs),worst=Math.min.apply(null,prs);
  const edge=(ip(worst)-ip(best))*100;
- if(rpInPlay(pk)){{el.style.display='';el.textContent='line shop unavailable in play';return;}}  /* F2: never compute across mixed-phase prices; entry price stays locked on the card */
+ /* in play all prices are frozen pre-game closers (same phase) - the line shop stays computed across them (inspector Sep 26: never-blank) */
  if(edge<0.05){{el.style.display='none';return;}}
  el.style.display='';
  el.textContent='line shop: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best+' \u00b7 '+edge.toFixed(1)+'% edge at the best price';
@@ -1435,53 +1504,67 @@ window.addEventListener('pageshow',function(){{try{{
  window.addEventListener('touchend',function(){{if(y0!==null&&el.dataset.armed==='1'){{el.innerHTML='<span class="spin"></span>Refreshing&hellip;';location.replace(location.pathname+'?r='+Date.now());return;}}el.style.transform='translateY(-100%)';y0=null;}},{{passive:true}});
 }})();
 /* Live odds - POLY chips (public gamma API, ~60s) + headline consensus (ESPN free feed, ~60s). No keys. */
-function rpC2ML(c){{c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}}
-function rpMLF(m){{return (m>0?'+':'')+m;}}
+function rpC2ML(c){{c=Math.round(c);if(c<=0)return null;if(c>=100)return c+'c';const m=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);return Math.abs(m)>1000?c+'c':m;}}
+function rpC2MLn(c){{c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}}  /* numeric American - comparison math only, never display */
+function rpMkt(a){{try{{const i=a.dataset.mr;if(i==null||typeof RP_MARKETS==='undefined')return null;return RP_MARKETS[+i]||null;}}catch(e){{}}return null;}}
+function rpChipPh(a){{const r=rpMkt(a);return r?r.ph:null;}}
+function rpChipML(a){{const r=rpMkt(a);if(r){{if(r.st!=='ok')return null;if(r.c!=null)return rpC2MLn(r.c);return r.ml;}}if(a.dataset&&a.dataset.cents){{return rpC2MLn(a.dataset.cents);}}const m=a.textContent.match(/([+-]\d+)/);return m?parseInt(m[1]):null;}}  /* canonical truth record first (Matrix design 9/26); text is never a computational source when a record exists */
+function rpPickPhase(pk){{let ph=null;pk.querySelectorAll('[data-mr]').forEach(function(a){{if(ph)return;const r=rpMkt(a);if(r)ph=r.ph;}});return ph;}}
+function rpSamePh(a,ph){{if(!ph)return true;const r=rpMkt(a);return !r||r.ph===ph;}}  /* comparisons only ever mix same-phase prices (hunter Sep 26) */
+function rpMLF(m){{return (typeof m==='string')?m:(m>0?'+':'')+m;}}
 function rpCxUpdMl(bk){{
  const span=document.querySelector('#rpParlayChips [data-book="'+bk+'"]');if(!span)return;
+ const cr=rpMkt(span);if(cr&&cr.ph!=='live')return;  /* a frozen combo never reprices */
  const n=document.querySelectorAll('.legs li').length;if(!n)return;
  let d=1,cnt=0;
  document.querySelectorAll('.pick a[data-book="'+bk+'"]').forEach(function(a){{
-  const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
-  const ml=parseInt(m[1]);cnt++;
+  const lr=rpMkt(a);if(cr&&lr&&lr.ph!==cr.ph)return;  /* legs must match the combo record's phase */
+  const ml=rpChipML(a);if(ml===null)return;  /* record-first pricing - rendered text is never a source */
+  cnt++;
   d*=ml>0?1+ml/100:1+100/Math.abs(ml);
  }});
  if(cnt!==n||d<=1)return;
  const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
+ if(cr){{cr.ml=ml2;cr.ts=Date.now();}}  /* canonical record write-through: display derives from the record, never the reverse */
  span.innerHTML=span.innerHTML.replace(/([+-]\d+)/,(ml2>0?'+':'')+ml2);
  rpCxStar();
 }}
 function rpCxUpd(bk){{
  const chip=document.getElementById('rpCx'+bk);if(!chip)return;
+ const cr=rpMkt(chip);if(cr&&cr.ph!=='live')return;  /* a frozen combo never reprices */
  const n=parseInt(chip.dataset.n||'0');if(!n)return;
  const cxsel='a[data-cxleg="'+bk+'"]';
  const sel=document.querySelectorAll(cxsel).length?cxsel:(bk==='KAL'?'a[data-kalticker]':'a[data-polyslug]');
- const re=bk==='KAL'?/KAL ([+-]\d+)/:/POLY ([+-]\d+)/;
  let d=1,cnt=0,dead=false;
  document.querySelectorAll(sel).forEach(function(a){{
   if(a.id==='rpCxKAL'||a.id==='rpCxPOLY')return;
   if(a.dataset.won==='1'){{cnt++;return;}}
   if(a.dataset.lost==='1'){{cnt++;dead=true;return;}}
-  const m=a.innerHTML.match(re);if(m){{const ml=parseInt(m[1]);d*=ml>0?1+ml/100:1+100/Math.abs(ml);cnt++;}}
+  const lr=rpMkt(a);if(cr&&lr&&lr.ph!==cr.ph)return;  /* legs must match the combo record's phase */
+  const ml=rpChipML(a);if(ml!==null){{d*=ml>0?1+ml/100:1+100/Math.abs(ml);cnt++;}}
  }});
  if(cnt!==n)return;
  if(dead){{rpCxStar();return;}}
  if(d<=1)return;
  const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
- chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+)?/, bk+' '+(ml2>0?'+':'')+ml2);
+ const cc=Math.round(100/d);
+ const lbl=Math.abs(ml2)>1000?(cc+'c'):((ml2>0?'+':'')+ml2);  /* cents notation past +/-1000 (main 9/26) */
+ if(cr){{cr.c=cc;cr.ts=Date.now();}}  /* canonical record write-through: star/rank read the SAME value the chip shows */
+ chip.dataset.cents=cc;
+ chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+| \d+c)?/, bk+' '+lbl);
  rpCxStar();
 }}
 function rpCxStar(){{try{{
  const wrap=document.getElementById('rpParlayChips');if(!wrap)return;
- let inplay=false;document.querySelectorAll('.cxleg').forEach(function(l){{if(rpInPlay(l))inplay=true;}});  /* F2 */
  let best=null,bestV=-1e9;
+ const ph0=(function(){{let ph=null;document.querySelectorAll('.cxleg').forEach(function(l){{if(rpInPlay(l))ph='last_pre_game';}});return ph;}})();
  wrap.querySelectorAll('[data-book]').forEach(function(a){{
   const vis=a.style.display!=='none';
   a.classList.remove('best');
   a.innerHTML=a.innerHTML.replace(/^\u2605 /,'');
-  if(!vis||inplay||a.dataset.pmroute==='1')return;  /* F2/F3 */
-  const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
-  const v=parseInt(m[1]);
+  if(!vis||a.dataset.pmroute==='1')return;  /* F3 */
+  if(!rpSamePh(a,ph0))return;
+  const v=rpChipML(a);if(v===null)return;
   if(v>bestV){{bestV=v;best=a;}}
  }});
  if(best){{best.classList.add('best');best.innerHTML='\u2605 '+best.innerHTML;}}
@@ -1489,6 +1572,7 @@ function rpCxStar(){{try{{
 function rpPolyTick(){{try{{
  document.querySelectorAll('a[data-polyslug]').forEach(function(a){{
   if(!a.dataset.polyslug)return;
+  const r0=rpMkt(a);if(r0&&r0.ph!=='live')return;  /* frozen phases never tick */
   fetch('https://gamma-api.polymarket.com/events?slug='+a.dataset.polyslug).then(r=>r.json()).then(function(ev){{
    if(!ev||!ev.length)return;const kw=(a.dataset.polykw||'').toLowerCase();const sub=a.dataset.polysub||'';
    let target=null,yn=false;
@@ -1515,7 +1599,7 @@ function rpPolyTick(){{try{{
     if(target.closed&&c<=1){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('POLY');return;}}
     if(c>0&&c<100){{a.dataset.won='';a.dataset.lost='';
      const pk=a.closest('.pick');
-     if(!(pk&&rpInPlay(pk))){{a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY '+rpMLF(rpC2ML(c)));}}rpCxUpd('POLY');
+     if(!(pk&&rpInPlay(pk))){{a.dataset.cents=c;if(r0){{r0.c=c;r0.ts=Date.now();}}a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \d+c| \u2713| \u2717)?/,'POLY '+rpMLF(rpC2ML(c)));}}rpCxUpd('POLY');
      if(pk&&pk.dataset.market==='ml'){{const s2=pk.querySelector('.odds');
       if(s2&&!rpInPlay(pk)){{const ml2=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);s2.textContent=(ml2>0?'+':'')+ml2;}}}}}}
     return;
@@ -1543,7 +1627,7 @@ function rpEspnTick(){{try{{
      const ml=d.dataset.side==='away'?(o.awayTeamOdds||{{}}).moneyLine:(o.homeTeamOdds||{{}}).moneyLine;
      if(typeof ml==='number'&&!rpInPlay(d)){{const s=d.querySelector('.odds');if(s)s.textContent=(ml>0?'+':'')+ml;
       const chip=d.querySelector('a[data-book="ESPN"]');
-      if(chip){{chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);rpCxUpdMl('ESPN');rpBestStar(d);}}}}
+      if(chip){{chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);const _rc=rpMkt(chip);if(_rc){{_rc.ml=ml;_rc.ts=Date.now();}}rpCxUpdMl('ESPN');rpBestStar(d);}}}}
     }});
    }});
   }}).catch(()=>{{}});
@@ -1552,16 +1636,17 @@ function rpEspnTick(){{try{{
 function rpKalTick(){{try{{
  document.querySelectorAll('a[data-kalticker][data-kalside]').forEach(function(a){{
   if(!a.dataset.kalticker||!a.dataset.kalside)return;
+  const r0=rpMkt(a);if(r0&&r0.ph!=='live')return;  /* canonical record: frozen phases never tick */
   const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+a.dataset.kalticker+'-'+a.dataset.kalside;
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){{
    const m=j&&j.market;if(!m)return;
    if(m.result==='yes'){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('KAL');return;}}
    if(m.result==='no'){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('KAL');return;}}
-   const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
+   const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<=1))return;  /* $1.00 ask is a real quote (Sep 26 root fix) */
    const c=Math.round(d*100);
    a.dataset.won='';a.dataset.lost='';
    const pk=a.closest('.pick');
-   if(!(pk&&rpInPlay(pk))){{a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \u2713| \u2717)?/,'KAL '+rpMLF(rpC2ML(c)));}}rpCxUpd('KAL');
+   if(!(pk&&rpInPlay(pk))){{a.dataset.cents=c;if(r0){{r0.c=c;r0.ts=Date.now();}}a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c| \u2713| \u2717)?/,'KAL '+rpMLF(rpC2ML(c)));}}rpCxUpd('KAL');
    if(pk&&pk.dataset.market==='ml'){{const s=pk.querySelector('.odds');
     if(s&&c>0&&c<100&&!rpInPlay(pk)){{const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
      s.textContent=(ml>0?'+':'')+ml;}}}}
@@ -1574,6 +1659,7 @@ rpPolyTick();rpEspnTick();rpKalTick();setInterval(function(){{rpPolyTick();rpEsp
 // book chip prices + combo price spans in place. KAL/POLY stay on the 60s tick above.
 function rpPageRefresh(){{try{{
  fetch(location.pathname+'?r='+Date.now(),{{cache:'no-store'}}).then(r=>r.text()).then(function(t){{
+  const _mm=t.match(/let RP_MARKETS=(\[.*?\]);/);if(_mm){{try{{RP_MARKETS=JSON.parse(_mm[1]);}}catch(e){{}}}}  /* canonical records travel with the rebuilt page - refresh never desyncs display from truth */
   const doc=new DOMParser().parseFromString(t,'text/html');
   /* J-107 (Sep 26): bind by stable pick key (data-gpk, else data-room), never DOM position -
      rpFinalsTop reorders the live DOM, so index-mapping sprayed another game's prices onto
@@ -1603,12 +1689,15 @@ function rpPageRefresh(){{try{{
    const curB=rpSig(pk),newB=rpSig(np);
    if(curB!==newB){{location.reload();return;}}
    pk.querySelectorAll('[data-book]').forEach(function(a){{
-    const b=a.dataset.book;if(b==='POLY')return;
+    const b=a.dataset.book;
     /* any-tag counterpart: priced spans reprice too (state unknown); an upgraded anchor reprices
-       from its static span counterpart (state known) */
+       from its static span counterpart (state known). Label + record attrs travel as one unit
+       (canonical record, Sep 26) - display and truth never desync. */
     const na=np.querySelector('[data-book="'+b+'"]');if(!na)return;
-    const m=na.textContent.match(/([+-]\d+)/);if(!m)return;
-    a.innerHTML=a.innerHTML.replace(/([+-]\d+)/,m[1]);
+    if(!na.textContent.match(/([+-]\d+|\d+c)/))return;
+    a.innerHTML=na.innerHTML;
+    if(na.dataset.cents)a.dataset.cents=na.dataset.cents;else delete a.dataset.cents;
+    if(na.dataset.mr)a.dataset.mr=na.dataset.mr;else delete a.dataset.mr;
     if(na.dataset.sbt){{  /* template chip: price and templated destination travel together; never a homepage route */
      if(a.tagName==='A'){{a.dataset.sb=na.dataset.sbt;if(window.rpSt)a.href=na.dataset.sbt.replaceAll('{{state}}',window.rpSt.toLowerCase());}}
      else a.dataset.sbt=na.dataset.sbt;
@@ -1623,9 +1712,9 @@ function rpPageRefresh(){{try{{
   }});
   const cc=document.getElementById('rpParlayChips');const nc=doc.getElementById('rpParlayChips');
   if(cc&&nc){{cc.querySelectorAll('[data-book]').forEach(function(s){{
-   const b=s.dataset.book;if(b==='KAL'||b==='POLY')return;
+   const b=s.dataset.book;
    const ns=nc.querySelector('[data-book="'+b+'"]');
-   if(ns){{const m=ns.textContent.match(/([+-]\d+)/);if(m)s.innerHTML=s.innerHTML.replace(/([+-]\d+)/,m[1]);
+   if(ns){{if(ns.textContent.match(/([+-]\d+|\d+c)/)){{s.innerHTML=ns.innerHTML;if(ns.dataset.cents)s.dataset.cents=ns.dataset.cents;else delete s.dataset.cents;if(ns.dataset.mr)s.dataset.mr=ns.dataset.mr;else delete s.dataset.mr;}}
     if(ns.dataset.sbt){{if(s.tagName==='A'){{s.dataset.sb=ns.dataset.sbt;if(window.rpSt)s.href=ns.dataset.sbt.replaceAll('{{state}}',window.rpSt.toLowerCase());}}else s.dataset.sbt=ns.dataset.sbt;}}
     else{{if(s.tagName==='A'&&ns.href)s.href=ns.href;if(ns.dataset.sb)s.dataset.sb=ns.dataset.sb;}}
     if(ns.dataset.pm)s.dataset.pm=ns.dataset.pm;}}  /* Sep 26: destination travels with price - no stale parlay links; template chips swap data-sbt/data-sb, never a homepage route */
@@ -1670,6 +1759,18 @@ def build_game_pages(man, css, build_sha):
         away,home=g.get('away',''),g.get('home','')
         side=p.get('side','away')
         carded_team=g.get(side,'')
+        _uw=_is_underway(g)
+        _sk=f"{away}|{home}|{(g.get('commence') or '')[:10]}"
+        _shk=(SHIPPED.get(_sk) or {}) if _uw else {}
+        _gph='last_pre_game' if _uw else 'live'
+        _fqt=_pt_label(((_shk.get('Kalshi') or _shk.get('Polymarket') or {}).get('ts')) or '') if _uw else ''
+        _mkthdr=('Frozen pre-game prices%s - both sides' % (' - '+_fqt if _fqt else '')) if _uw else 'Live markets - both sides'
+        _foot=('Prices shown are frozen pre-game references%s - in-play markets move without us. Tap a price to open the live market.' % (' as of '+_fqt if _fqt else '')) if _uw else 'Prices update live: Kalshi & Polymarket tick every 60s; sportsbook rows refresh with each page rebuild. Tap a price to open the market.'
+        _PM=[]
+        _COLL[0]=_PM  # chips() below must index into THIS page's record list
+        def _pmk(src,ev='',mkt='',side_='',ml=None,cents=None,link='',lv='verified',st='ok'):
+            _PM.append({'src':src,'ev':ev,'mkt':mkt,'side':side_,'ml':ml,'c':cents,'link':link,'ph':_gph,'ts':'','lv':lv,'st':st})
+            return ' data-mr="%d"'%(len(_PM)-1)
         rows_html=[]
         books_present=[]
         hrow={'away':away,'home':home}
@@ -1742,6 +1843,20 @@ def build_game_pages(man, css, build_sha):
         if p.get('kalshi'):
             kurl=p['kalshi']['url']; tick=kurl.rstrip('/').split('/')[-1].upper()
             board=[]; et=tick; kvol=0.0
+            if _uw and (_shk.get('Kalshi') or {}).get('cents'):
+                # in play: frozen pre-game snapshot (canonical record) - the live board never feeds
+                # a frozen page. Picked side carries the snapshot; the other side is honestly unpriced.
+                _kc=_shk['Kalshi']['cents']
+                kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
+                    '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(carded_team)+'</a></span>'
+                    '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+html.escape(p['kalshi'].get('team',''))+'" data-cents="'+str(round(_kc))+'"'+_pmk('Kalshi',tick,tick,side,cents=_kc,link=kurl)+' '+rt('KAL',kurl,False)+'>KAL '+str(c2ml(_kc))+'</a></span>'
+                    '<span class="side" style="text-align:right;color:#8a8f98">'+('pre-game snapshot' if _uw else 'full board on Kalshi')+'</span><span class="pr"></span></div>')
+                hrow['kal_a']=_kc if side=='away' else None
+                hrow['kal_h']=_kc if side=='home' else None
+                books_present.append('KAL')
+        if p.get('kalshi') and not kal_html:
+            kurl=p['kalshi']['url']; tick=kurl.rstrip('/').split('/')[-1].upper()
+            board=[]; et=tick; kvol=0.0
             try:
                 import urllib.request
                 # URL may end at the event ticker or at a -SIDE market ticker: try the segment as-is, then stripped.
@@ -1783,15 +1898,15 @@ def build_game_pages(man, css, build_sha):
             if am and hm:
                 kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
                     '<span class="side"><a '+rt('KAL',base+'-'+am[1].lower(),False)+'>'+html.escape(away)+'</a></span>'
-                    '<span class="pr"><a data-kalmkt="'+am[0]+'" '+rt('KAL',base+'-'+am[1].lower(),False)+'>KAL '+c2ml(am[2])+'</a></span>'
+                    '<span class="pr"><a data-prc="1" data-kalmkt="'+am[0]+'" data-cents="'+str(round(am[2]))+'"'+_pmk('Kalshi',et,am[0],'away',cents=am[2],link=kurl)+' '+rt('KAL',base+'-'+am[1].lower(),False)+'>'+c2ml(am[2])+'</a></span>'
                     '<span class="side" style="text-align:right"><a '+rt('KAL',base+'-'+hm[1].lower(),False)+'>'+html.escape(home)+'</a></span>'
-                    '<span class="pr"><a data-kalmkt="'+hm[0]+'" '+rt('KAL',base+'-'+hm[1].lower(),False)+'>KAL '+c2ml(hm[2])+'</a></span></div>')
+                    '<span class="pr"><a data-prc="1" data-kalmkt="'+hm[0]+'" data-cents="'+str(round(hm[2]))+'"'+_pmk('Kalshi',et,hm[0],'home',cents=hm[2],link=kurl)+' '+rt('KAL',base+'-'+hm[1].lower(),False)+'>'+c2ml(hm[2])+'</a></span></div>')
                 hrow['kal_a']=am[2]; hrow['kal_h']=hm[2]
             else:
                 kside=html.escape(p['kalshi'].get('team',''))
                 kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
                     '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(carded_team)+'</a></span>'
-                    '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+kside+'" '+rt('KAL',kurl,False)+'>KAL '+str(c2ml(p['kalshi']['cents']))+'</a></span>'
+                    '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+kside+'" data-cents="'+str(round(p['kalshi']['cents']))+'"'+_pmk('Kalshi',tick,tick,side,cents=p['kalshi']['cents'],link=kurl)+' '+rt('KAL',kurl,False)+'>KAL '+str(c2ml(p['kalshi']['cents']))+'</a></span>'
                     '<span class="side" style="text-align:right;color:#8a8f98">full board on Kalshi</span><span class="pr"></span></div>')
                 cc=p['kalshi']['cents']
                 hrow['kal_a']=cc if side=='away' else None
@@ -1805,7 +1920,12 @@ def build_game_pages(man, css, build_sha):
             slug=poly_event_slug(p['polymarket']['url']) or ''
             sub=poly_sub(p['polymarket']['url']) or ''
             akw=away.split()[-1]; hkw=home.split()[-1]
-            ca=poly_price(p['polymarket']['url'],akw); chv=poly_price(p['polymarket']['url'],hkw)
+            if _uw and (_shk.get('Polymarket') or {}).get('cents'):
+                # in play: frozen pre-game snapshot on the picked side only - same-phase truth record
+                ca=(_shk['Polymarket']['cents'] if side=='away' else None)
+                chv=(_shk['Polymarket']['cents'] if side=='home' else None)
+            else:
+                ca=poly_price(p['polymarket']['url'],akw); chv=poly_price(p['polymarket']['url'],hkw)
             pvol=0.0
             try:
                 import urllib.request
@@ -1813,22 +1933,22 @@ def build_game_pages(man, css, build_sha):
                 if _ev: pvol=float(_ev[0].get('volume') or _ev[0].get('volumeNum') or 0)
             except Exception: pass
             if ca or chv:
-                la=('POLY '+c2ml(ca)) if ca else 'POLY'
-                lh=('POLY '+c2ml(chv)) if chv else 'POLY'
+                la=c2ml(ca) if ca else 'POLY'  # board price cells are price-only (390px fit); bare book name when the side was never priced
+                lh=c2ml(chv) if chv else 'POLY'
                 pa='data-book="POLY" data-sb="'+html.escape(web)+'" data-app="'+html.escape(web)+'" onclick="return rpRoute(event,this)" href="'+html.escape(web)+'" target="_blank" rel="noreferrer"'
                 poly_html=('<div class="mrow" data-book="POLY">'+bkimg('POLY')+'<span class="bk">POLY</span>'
                     '<span class="side"><a '+pa+'>'+html.escape(away)+'</a></span>'
-                    '<span class="pr"><a data-polyslug="'+html.escape(slug)+'" data-polysub="'+html.escape(sub)+'" data-polykw="'+html.escape(akw)+'" '+pa+'>'+la+'</a></span>'
+                    '<span class="pr"><a data-prc="1" data-polyslug="'+html.escape(slug)+'" data-polysub="'+html.escape(sub)+'" data-polykw="'+html.escape(akw)+'"'+(' data-cents="'+str(round(ca))+'"' if ca else '')+(_pmk('Polymarket',slug,sub or slug,'away',cents=ca,link=web,st=('ok' if ca else 'unknown')))+' '+pa+'>'+la+'</a></span>'
                     '<span class="side" style="text-align:right"><a '+pa+'>'+html.escape(home)+'</a></span>'
-                    '<span class="pr"><a data-polyslug="'+html.escape(slug)+'" data-polysub="'+html.escape(sub)+'" data-polykw="'+html.escape(hkw)+'" '+pa+'>'+lh+'</a></span></div>')
+                    '<span class="pr"><a data-prc="1" data-polyslug="'+html.escape(slug)+'" data-polysub="'+html.escape(sub)+'" data-polykw="'+html.escape(hkw)+'"'+(' data-cents="'+str(round(chv))+'"' if chv else '')+(_pmk('Polymarket',slug,sub or slug,'home',cents=chv,link=web,st=('ok' if chv else 'unknown')))+' '+pa+'>'+lh+'</a></span></div>')
                 hrow['poly_a']=ca; hrow['poly_h']=chv
             else:
                 kw=p['name'].split()[0]
-                cents=poly_price(p['polymarket']['url'],kw)
+                cents=None if _uw else poly_price(p['polymarket']['url'],kw)
                 lbl=('POLY '+str(c2ml(cents))) if cents else 'POLY'
                 poly_html=('<div class="mrow" data-book="POLY">'+bkimg('POLY')+'<span class="bk">POLY</span>'
                     '<span class="side"><a data-book="POLY" data-sb="'+html.escape(web)+'" data-app="'+html.escape(web)+'" onclick="return rpRoute(event,this)" href="'+html.escape(web)+'" target="_blank" rel="noreferrer">'+html.escape(carded_team)+'</a></span>'
-                    '<span class="pr"><a data-polyslug="'+html.escape(slug)+'" data-polysub="'+html.escape(sub)+'" data-polykw="'+html.escape(kw)+'" data-book="POLY" data-sb="'+html.escape(web)+'" data-app="'+html.escape(web)+'" onclick="return rpRoute(event,this)" href="'+html.escape(web)+'" target="_blank" rel="noreferrer">'+lbl+'</a></span>'
+                    '<span class="pr"><a data-polyslug="'+html.escape(slug)+'" data-polysub="'+html.escape(sub)+'" data-polykw="'+html.escape(kw)+'"'+_pmk('Polymarket',slug,sub or slug,side,cents=cents,link=web,st=('ok' if cents else 'unknown'))+' data-book="POLY" data-sb="'+html.escape(web)+'" data-app="'+html.escape(web)+'" onclick="return rpRoute(event,this)" href="'+html.escape(web)+'" target="_blank" rel="noreferrer">'+lbl+'</a></span>'
                     '<span class="side" style="text-align:right;color:#8a8f98">full board on Polymarket</span><span class="pr"></span></div>')
                 hrow['poly_a']=cents if side=='away' else None
                 hrow['poly_h']=cents if side=='home' else None
@@ -1865,10 +1985,12 @@ def build_game_pages(man, css, build_sha):
             ('__EID__',html.escape(str(g.get('eid') or ''))),('__COUNTED__',' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else ''),
             ('__SIDE__',side),('__MKT__',mkt),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
             ('__ODDS__',html.escape(p['odds'])),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
+            ('__MKTHDR__',_mkthdr),('__FOOTNOTE__',_foot),
             ('__CHIPS__',ch),('__MATCHUP__',matchup),('__TEAMLINKS__',teamlinks),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),('__ROOM__','g%s-%s'%(p['num'],(_pt_date(g.get('commence','')) or 'card'))),('__START__',g.get('commence','') or ''),
-            ('__CHARTS__',charts_html),('__BUILD__',build_sha),('__RPCONSTS__',RP_CONSTS),('__STATEOPTS__',STATE_OPTS)]:
+            ('__CHARTS__',charts_html),('__BUILD__',build_sha),('__RPCONSTS__',RP_CONSTS+'\nlet RP_MARKETS='+json.dumps(_PM,separators=(',',':'))+';'),('__STATEOPTS__',STATE_OPTS)]:
             page_html=page_html.replace(tok,val)
         pages['game-%s.html'%p['num']]=page_html
+        _COLL[0]=_MARKETS  # restore the index collector for the next build phase
     return pages
 
 
