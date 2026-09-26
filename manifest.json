@@ -7,7 +7,7 @@
   {
    "num": 1,
    "name": "Toledo ML",
-   "sub": "vs San Diego St \u00b7 home \u00b7 model 64.9, independents 60-66 \u00b7 exchange 56.5-57c",
+   "sub": "vs San Diego St · home · model 64.9, independents 60-66 · exchange 56.5-57c",
    "odds": "-137",
    "units": "5u",
    "side": "home",
@@ -34,7 +34,7 @@
   {
    "num": 2,
    "name": "Nebraska ML",
-   "sub": "at Michigan St \u00b7 model + independents converge ~72 \u00b7 MSU missing 6 incl. LB Pretzlaff",
+   "sub": "at Michigan St · model + independents converge ~72 · MSU missing 6 incl. LB Pretzlaff",
    "odds": "-225",
    "units": "10u",
    "side": "away",
@@ -62,6 +62,37 @@
     "harvested": "2026-09-26T13:27-07:00",
     "team_cents": 68
    }
+  },
+  {
+   "num": 3,
+   "name": "Mississippi St ML",
+   "sub": "vs Missouri · Mizzou missing starting EDGE + RB Hardy",
+   "odds": "-205",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "Missouri Tigers",
+    "home": "Mississippi State Bulldogs",
+    "commence": "2026-09-26T23:45Z",
+    "eid": "401856703"
+   },
+   "espn_league": "football/college-football",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26mizzmsst",
+    "cents": 63,
+    "team": "Mississippi St.",
+    "gate_cents": 63
+   },
+   "dkp": {
+    "home_cents": 64,
+    "away_cents": 39,
+    "derived": false,
+    "url": "https://predictions.draftkings.com/en/event/missouri-%40-mississippi-state/34674790",
+    "harvested": "2026-09-26T15:54-07:00",
+    "team_cents": 64
+   },
+   "locked": "Sep 26, 3:52 PM PT"
   }
  ],
  "parlay": {
@@ -94,9 +125,9 @@
    }
   ]
  },
- "yesterday": "2-1 \u00b7 Orioles W \u00b7 Guardians W \u00b7 Astros L",
+ "yesterday": "2-1 · Orioles W · Guardians W · Astros L",
  "units_pl": "-2.99u",
  "units_ledger": "Sep 22 -$216.60, Sep 23 +$118.18, Sep 24 +$11.94, Sep 25 -$13.11 = -$99.59 = -6.64u at $15/u (data-auditor confirmed, Sep 26 7:17 AM)",
  "display_only": true,
- "pick_content_hash": "57b7cb36d2501a77080010d3506de1066bbe7084431440d2981dccdda4d0c352"
+ "pick_content_hash": "8f8606104000420823ecb9ea9825fc3c26682322c5fc301b9359b5316033bc80"
 }

@@ -273,7 +273,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790462705';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
+const RP_BUILD='1790463343';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -815,7 +815,8 @@ async function rpFbLive(d){
   ballAbs=100-s.yardLine;
  }
  const drv=(j.drives||{}).current||{};
- const drvPlays=(typeof drv.offensivePlays==='number'?drv.offensivePlays:(drv.plays||[]).length)||(drv.description?null:0);
+ let drvPlays=null;
+ if(typeof drv.offensivePlays==='number'){drvPlays=drv.offensivePlays;}else{const _pl=(drv.plays||[]).length;drvPlays=_pl>0?_pl:(drv.description?null:0);}
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  const isFinal=st.state==='post';
  let wl='';
@@ -830,7 +831,7 @@ async function rpFbLive(d){
   h+='<div style="display:flex;justify-content:space-between;font-size:10px;color:#8a8f98"><span>'+aAb+'</span><span>50</span><span>'+hAb+'</span></div>';
   const bits=[];
   if(s.downDistanceText)bits.push('<b style="color:#c8cdd5">'+s.downDistanceText+'</b>');
-  if(drv&&(drv.start||drvPlays!=null))bits.push('Drive: '+((drv.start||{}).text||'-')+(drvPlays!=null?' &middot; '+drvPlays+' plays':''));
+  if(possId&&drv&&(drv.start||drvPlays!=null))bits.push('Drive: '+((drv.start||{}).text||'-')+(drvPlays!=null?' &middot; '+drvPlays+' plays':''));  /* tracker fix #4 (swamp, halftime): no possession = no drive line - stale drives.current never renders */
   if(bits.length)h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:6px">'+bits.join('<span style="color:#3a3f4a">|</span>')+'</div>';
   if(typeof s.awayTimeouts==='number'&&typeof s.homeTimeouts==='number')h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:4px"><span>'+aAb+' timeouts: <b style="color:#c8cdd5">'+s.awayTimeouts+'</b></span><span>'+hAb+' timeouts: <b style="color:#c8cdd5">'+s.homeTimeouts+'</b></span></div>';
  }
