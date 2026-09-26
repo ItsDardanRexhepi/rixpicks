@@ -482,7 +482,7 @@ h1{{font-size:26px;font-weight:800;letter-spacing:-0.01em}}
 h1 .tick{{color:#2f8f7d}}
 .status{{color:#6b6b72;font-size:14px;margin-top:6px}}
 .intro{{color:#6b6b72;font-size:14px;margin-top:2px}}
-.sect{{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}}
+.yesrec+.sect{{margin-top:0}}.sect{{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}}
 .pick{{padding:18px 0;border-top:1px solid #e4e2de}}
 .pick:first-of-type{{border-top:none}}
 .pick-head{{display:flex;align-items:center;gap:10px}}.meta-grp{{display:inline-flex;align-items:center;gap:8px;flex:none}}.rpmetalink{{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit}}.rpchatlink{{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}}
