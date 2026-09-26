@@ -506,9 +506,18 @@ def chips(p):
                     print(f"BUILD FAILED: {p.get('name')} Kalshi ask {_kc}c exceeds ship-condition ceiling {_gate}c", file=sys.stderr)
                     sys.exit(3)
             if not _sfx or _kc is None:
-                # Sep 26 hunter ruling: a stale price posing as fresh is worse than no build.
-                print(f"BUILD FAILED: Kalshi market unresolved for {p.get('name')} team {_kside!r} under {tick}", file=sys.stderr)
-                sys.exit(3)
+                _pin=(p.get('kalshi') or {}).get('cents')
+                if (_DISPLAY_ONLY or _uw) and _pin is not None:
+                    # Sep 26 in-play class fix (run 36262260747): Kalshi delists/halts in-play
+                    # markets. Same doctrine as the book chips below: underway/display-only
+                    # rebuilds degrade to the pinned carded snapshot, never kill the build.
+                    # Pre-game NEW content still hard-fails (ship condition must re-verify).
+                    print(f"IN-PLAY DEGRADE: {p.get('name')} Kalshi market unresolved under {tick} - pinned carded snapshot {_pin}c (market closed/halted in-play)", file=sys.stderr)
+                    _kc=_pin
+                else:
+                    # Sep 26 hunter ruling: a stale price posing as fresh is worse than no build.
+                    print(f"BUILD FAILED: Kalshi market unresolved for {p.get('name')} team {_kside!r} under {tick}", file=sys.stderr)
+                    sys.exit(3)
             label=(f"KAL {c2ml(_kc)}" if _kc else "KAL")+inst
             if _uw: label=(('KAL '+str(p.get('odds','')).strip()) if p.get('best_book')=='Kalshi' else 'KAL')+inst  # in-play freeze
             if p.get('best_book')=='Kalshi': label=label
