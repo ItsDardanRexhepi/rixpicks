@@ -24,7 +24,7 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f7f6f4;color:#1b1b1f;min-height:100vh;overscroll-behavior-y:contain}
 .wrap{max-width:680px;margin:0 auto;padding:28px 18px 60px}
 h1{font-size:26px;font-weight:800;letter-spacing:-0.01em}
-h1 .tick{color:#2f8f7d}
+h1 .tick{color:#3BEBF5}
 .status{color:#6b6b72;font-size:14px;margin-top:6px}
 .intro{color:#6b6b72;font-size:14px;margin-top:2px}
 .yesrec+.sect{margin-top:6px}.sect+.lghead{margin-top:6px}.sect{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}
@@ -91,7 +91,8 @@ h1 .tick{color:#2f8f7d}
 @keyframes rpSpin{to{transform:rotate(360deg)}}
 @media (prefers-color-scheme: dark){
 body{background:#000;color:#ececf1}
-h1 .tick,.odds,.rpstate-link{color:#3aa895}
+h1 .tick{color:#3BEBF5}
+.odds,.rpstate-link{color:#3aa895}
 .status,.intro,.sect,.num,.sub,.note{color:#9a9aa3}
 .pick{border-top-color:#2a2a2e}
 .chip{background:#0a0a0c;border:1px solid #232328;color:#ececf1}
@@ -200,7 +201,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 </div>
 <div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs"><li class="cxleg" data-espn="baseball/mlb" data-eid="401817096" data-gpk="823733" data-aab="STL" data-hab="MIL" data-away="St. Louis Cardinals" data-home="Milwaukee Brewers" data-side="away"><a href="game-4.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Cardinals ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="football/college-football" data-eid="401858462" data-gpk="" data-aab="" data-hab="" data-away="UCLA" data-home="Maryland" data-side="home"><a href="game-5.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Maryland ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="football/college-football" data-eid="401856815" data-gpk="" data-aab="" data-hab="" data-away="TCU" data-home="UCF" data-side="home"><a href="game-6.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">UCF ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="football/college-football" data-eid="401858466" data-gpk="" data-aab="" data-hab="" data-away="Wisconsin" data-home="Penn State" data-side="home"><a href="game-7.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Penn State -10<span class="ls" data-ls></span></a></li></ul><div class="note" id="rpCxLive" style="display:none;margin-top:6px"></div><div class="note" id="rpComboReg" style="display:none">* Due to regulations in your state, combos can’t legally be built out for you and must be done manually.</div><div class="note" id="rpParlayNote">22.8x combined at current prices. Per-book parlay chips ship with the final morning card.</div>
 
-<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1790401358" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">7 live &rsaquo;</span></a>
+<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1790401617" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">7 live &rsaquo;</span></a>
 <a class="rec" id="rpRec" data-bw="10" data-bl="6" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: 10-6</a>
 <div class="yesrec" id="rpWlPct">W/L: 62.5%</div>
 <div class="yesrec unitspl" id="rpUnits" data-bu="-6.63u">Units: -6.63u</div>
@@ -398,7 +399,7 @@ if(rpFutIds.some(function(i){return rpFutSeen.indexOf(i)<0;})){var nb=document.g
 async function rpFastLoop(){try{await rpLsTick();}catch(e){}setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?30000:3000);}
 rpFastLoop();rpLsTickAll();setInterval(function(){rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();},30000);
 if(!localStorage.getItem('rp_state')){rpAsk(false);}else{rpLabel();}
-const RP_BUILD='1790401358';
+const RP_BUILD='1790401617';
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(()=>{});}catch(e){}
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
@@ -562,4 +563,4 @@ function rpPageRefresh(){try{
 }catch(e){}}
 setInterval(rpPageRefresh,60000);
 </script>
-<script src="myprofile.js?v=1790401358"></script></div></body></html>
+<script src="myprofile.js?v=1790401617"></script></div></body></html>

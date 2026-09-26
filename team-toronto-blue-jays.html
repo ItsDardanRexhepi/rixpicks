@@ -8,7 +8,7 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f7f6f4;color:#1b1b1f;min-height:100vh;overscroll-behavior-y:contain}
 .wrap{max-width:680px;margin:0 auto;padding:28px 18px 60px}
 h1{font-size:26px;font-weight:800;letter-spacing:-0.01em}
-h1 .tick{color:#2f8f7d}
+h1 .tick{color:#3BEBF5}
 .status{color:#6b6b72;font-size:14px;margin-top:6px}
 .intro{color:#6b6b72;font-size:14px;margin-top:2px}
 .yesrec+.sect{margin-top:6px}.sect+.lghead{margin-top:6px}.sect{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}
@@ -75,7 +75,8 @@ h1 .tick{color:#2f8f7d}
 @keyframes rpSpin{to{transform:rotate(360deg)}}
 @media (prefers-color-scheme: dark){
 body{background:#000;color:#ececf1}
-h1 .tick,.odds,.rpstate-link{color:#3aa895}
+h1 .tick{color:#3BEBF5}
+.odds,.rpstate-link{color:#3aa895}
 .status,.intro,.sect,.num,.sub,.note{color:#9a9aa3}
 .pick{border-top-color:#2a2a2e}
 .chip{background:#0a0a0c;border:1px solid #232328;color:#ececf1}
@@ -130,7 +131,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790401358';
+const RP_BUILD='1790401617';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
