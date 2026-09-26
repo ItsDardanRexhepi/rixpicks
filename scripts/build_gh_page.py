@@ -9,7 +9,7 @@ Branding: 'RixPicks only. No personal identifiers, ever.
 """
 import json,sys,html,re
 
-RP_DESIGN='1.3.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme. v1.2.0 (user, Sep 25 8:46 AM): shape approved. v1.3.0 (user, Sep 25 10:26 PM via main: page was 'so bad compared to how we set it all up today' - rebuild to the visual system set today): index+futures adopt the CARD visual system (card_template_v3.html): Aime serif h1, KMR Melange Grotesk body, cream #ece7e1 with white rounded card, teal #77b8ac accents, boxed parlay panel, card-style league labels, hosted fonts in assets/fonts/; dark-mode override REMOVED (cream always). All v1.2.0 features kept: state router, geo verify, brand-fill chips, row tap-through, chat link, futures strip, live ticks, A2HS, pull-refresh, TODAY'S PICKS positioning nudges - header without FINAL line, tap-any-book intro, per-pick chips + units, combo section, record + unit line, minimal footer (reference commit fbec1c1). Every morning build reproduces this exact shape; changes only on his explicit instruction.
+RP_DESIGN='1.2.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme. v1.2.0 (user, Sep 25 8:46 AM): current page shape approved as THE standing daily template - header without FINAL line, tap-any-book intro, per-pick chips + units, combo section, record + unit line, minimal footer (reference commit fbec1c1). Every morning build reproduces this exact shape; changes only on his explicit instruction.
 
 man=json.load(open(sys.argv[1]))
 out=sys.argv[2] if len(sys.argv)>2 else '/home/sandbox/gh_page/index.html'
@@ -34,7 +34,7 @@ def wl_pct_line(rec):
         return f'<div class="yesrec" id="rpWlPct">W/L: {100.0*w/(w+l):.1f}%</div>'
     except Exception:
         return ''
-LG_LABEL={'baseball/mlb':'MLB','football/nfl':'NFL','basketball/nba':'NBA','hockey/nhl':'NHL','basketball/wnba':'WNBA','football/college-football':'CFB','basketball/college-basketball':'NCAAB','tennis':'Tennis','tennis/atp':'ATP','tennis/wta':'WTA','soccer/usa.1':'MLS','soccer/usa.nwsl':'NWSL','golf/pga':'PGA','racing/nascar':'NASCAR','mma/ufc':'UFC','boxing':'Boxing'}
+LG_LABEL={'baseball/mlb':'MLB','football/nfl':'NFL','basketball/nba':'NBA','hockey/nhl':'NHL','basketball/wnba':'WNBA','football/college-football':'CFB','basketball/college-basketball':'CBB','tennis':'Tennis','tennis/atp':'ATP','tennis/wta':'WTA','soccer/usa.1':'MLS','soccer/usa.nwsl':'NWSL','golf/pga':'PGA','racing/nascar':'NASCAR','mma/ufc':'UFC','boxing':'Boxing'}
 def poly_event_slug(url):
     try: return url.split('/event/')[1].split('/')[0]
     except Exception: return None
@@ -292,6 +292,8 @@ for p in man['picks']:
     mkt='spread' if p.get('market')=='spread' else 'ml'
     g=p.get('game') or {}
     _gk3=_gpk_for(g.get('away',''),g.get('home',''),g.get('commence',''))
+    if g.get('gpk'): _gk3=(str(g['gpk']),_gk3[1],_gk3[2])
+    _eid=str(g.get('eid') or '')
     _lga=p.get('espn_league','')
     _ma=TEAM_META.get((_lga,g.get('away',''))) or {}; _mh=TEAM_META.get((_lga,g.get('home',''))) or {}
     def _avimg(mm,overlap=False):
@@ -302,7 +304,7 @@ for p in man['picks']:
         return '<img src="%s" alt="" style="%s" onerror="this.remove()">'%(html.escape(u),st)
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
-    rows.append(f'''<div class="pick" data-espn="{espn}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{((g.get('commence','') or '')[:10] or 'card')}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}">
+    rows.append(f'''<div class="pick" data-espn="{espn}" data-eid="{html.escape(_eid)}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{((g.get('commence','') or '')[:10] or 'card')}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}">
   <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
@@ -401,8 +403,9 @@ if man.get('parlay'):
         if not m: return f'<li>{html.escape(l)}</li>'
         p=m[0]; g=p.get('game') or {}
         _gk3=_gpk_for(g.get('away',''),g.get('home',''),g.get('commence',''))
-        return ('<li class="cxleg" data-espn="%s" data-gpk="%s" data-aab="%s" data-hab="%s" data-away="%s" data-home="%s" data-side="%s"><a href="game-%s.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">%s<span class="ls" data-ls></span></a></li>'
-                % (html.escape(p.get('espn_league','')), _gk3[0], _gk3[1], _gk3[2], html.escape(g.get('away','')), html.escape(g.get('home','')), html.escape(p.get('side','away')), p['num'], html.escape(l)))
+        if g.get('gpk'): _gk3=(str(g['gpk']),_gk3[1],_gk3[2])
+        return ('<li class="cxleg" data-espn="%s" data-eid="%s" data-gpk="%s" data-aab="%s" data-hab="%s" data-away="%s" data-home="%s" data-side="%s"><a href="game-%s.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">%s<span class="ls" data-ls></span></a></li>'
+                % (html.escape(p.get('espn_league','')), html.escape(str(g.get('eid') or '')), _gk3[0], _gk3[1], _gk3[2], html.escape(g.get('away','')), html.escape(g.get('home','')), html.escape(p.get('side','away')), p['num'], html.escape(l)))
     legs=''.join(_leg_li(l) for l in pl['legs'])
     # per-platform combo chips (his 9:08 AM directive): each chip carries the platform's combo
     # price and IS the build action - no separate build button. Verified prefill routes from the
@@ -526,9 +529,9 @@ if man.get('parlay'):
         rendered.append(h)
     pchip=f'<div class="chips" id="rpParlayChips" style="margin:10px 0">{"".join(rendered)}</div>' if chips else ''
     # his 9:10 AM carve-out: in states where combos can't legally be built, asterisk the title + one-line footnote
-    parlay_html=(f'<div class="parlaybox"><div class="plbl" id="rpParlayTitle">Parlay of the day</div><ul class="legs">{legs}</ul><div class="note" id="rpCxLive" style="display:none;margin-top:6px"></div>{pchip}'
+    parlay_html=(f'<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs">{legs}</ul><div class="note" id="rpCxLive" style="display:none;margin-top:6px"></div>{pchip}'
                  f'<div class="note" id="rpComboReg" style="display:none">* Due to regulations in your state, combos can\u2019t legally be built out for you and must be done manually.</div>'
-                 f'<div class="note" id="rpParlayNote">{html.escape(pl.get("note",""))}</div></div>')
+                 f'<div class="note" id="rpParlayNote">{html.escape(pl.get("note",""))}</div>')
 
 RP_STATES=[('AL','Alabama'),('AK','Alaska'),('AZ','Arizona'),('AR','Arkansas'),('CA','California'),('CO','Colorado'),('CT','Connecticut'),('DE','Delaware'),('DC','Washington D.C.'),('FL','Florida'),('GA','Georgia'),('HI','Hawaii'),('ID','Idaho'),('IL','Illinois'),('IN','Indiana'),('IA','Iowa'),('KS','Kansas'),('KY','Kentucky'),('LA','Louisiana'),('ME','Maine'),('MD','Maryland'),('MA','Massachusetts'),('MI','Michigan'),('MN','Minnesota'),('MS','Mississippi'),('MO','Missouri'),('MT','Montana'),('NE','Nebraska'),('NV','Nevada'),('NH','New Hampshire'),('NJ','New Jersey'),('NM','New Mexico'),('NY','New York'),('NC','North Carolina'),('ND','North Dakota'),('OH','Ohio'),('OK','Oklahoma'),('OR','Oregon'),('PA','Pennsylvania'),('PR','Puerto Rico'),('RI','Rhode Island'),('SC','South Carolina'),('SD','South Dakota'),('TN','Tennessee'),('TX','Texas'),('UT','Utah'),('VT','Vermont'),('VA','Virginia'),('WA','Washington'),('WV','West Virginia'),('WI','Wisconsin'),('WY','Wyoming')]
 RP_FD=['AZ','AR','CO','CT','IL','IN','IA','KS','KY','LA','MD','MA','MI','MO','NJ','NY','NC','OH','PA','TN','VT','VA','WV','WY','DC','PR']
@@ -562,85 +565,110 @@ page=f'''<!DOCTYPE html>
 <meta name="twitter:card" content="summary">
 <meta name="description" content="&rsquo;RixPicks picks of the day. Tap any book under a pick to open that game there.">
 <style>
-@font-face{{font-family:'Aime';src:url('assets/fonts/aime-300.woff2') format('woff2');font-weight:300}}
-@font-face{{font-family:'Aime';src:url('assets/fonts/aime-400.woff2') format('woff2');font-weight:400}}
-@font-face{{font-family:'KMR Melange Grotesk';src:url('assets/fonts/melange-grotesk-400.woff2') format('woff2');font-weight:400}}
-@font-face{{font-family:'KMR Melange Grotesk';src:url('assets/fonts/melange-grotesk-500.woff2') format('woff2');font-weight:500}}
-@font-face{{font-family:'KMR Melange Grotesk';src:url('assets/fonts/melange-grotesk-600.otf') format('opentype');font-weight:600}}
 *{{margin:0;box-sizing:border-box}}
-body{{font-family:'KMR Melange Grotesk',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#ece7e1;color:#1a1a1a;min-height:100vh;overscroll-behavior-y:contain}}
-.wrap{{max-width:720px;margin:0 auto;padding:30px 14px 60px}}
-.cardbox{{background:#ffffff;border-radius:24px;padding:40px 34px 34px}}
-h1{{font-family:'Aime',Georgia,serif;font-size:42px;font-weight:300;letter-spacing:0;color:#1a1a1a}}
-h1 .tick{{color:#1a1a1a}}
-.status{{color:#77b8ac;font-size:19px;font-weight:600;margin-top:10px}}
-.intro{{color:#a3a09b;font-size:14px;margin-top:10px;line-height:1.5}}
-.yesrec+.sect{{margin-top:6px}}.sect+.lghead{{margin-top:6px}}.sect{{margin:16px 0 4px;font-size:14px;font-weight:500;letter-spacing:.02em;color:#a3a09b}}
-.pick{{padding:16px 0;border-top:1px solid #eee9e3}}
+body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f7f6f4;color:#1b1b1f;min-height:100vh;overscroll-behavior-y:contain}}
+.wrap{{max-width:680px;margin:0 auto;padding:28px 18px 60px}}
+h1{{font-size:26px;font-weight:800;letter-spacing:-0.01em}}
+h1 .tick{{color:#2f8f7d}}
+.status{{color:#6b6b72;font-size:14px;margin-top:6px}}
+.intro{{color:#6b6b72;font-size:14px;margin-top:2px}}
+.yesrec+.sect{{margin-top:6px}}.sect+.lghead{{margin-top:6px}}.sect{{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}}
+.pick{{padding:18px 0;border-top:1px solid #e4e2de}}
 .pick:first-of-type{{border-top:none}}
-.pick-head{{display:flex;align-items:center;gap:10px}}.meta-grp{{display:inline-flex;align-items:center;gap:8px;flex:none}}.rpmetalink{{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit}}.rpchatlink{{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#b3aea8;font-size:11px;line-height:1;margin-left:-2px}}
+.pick-head{{display:flex;align-items:center;gap:10px}}.meta-grp{{display:inline-flex;align-items:center;gap:8px;flex:none}}.rpmetalink{{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit}}.rpchatlink{{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}}
 .gamelink{{display:flex;align-items:center;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}}
-.chev{{color:#c8c2ba;text-decoration:none}}
-.mrow{{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #eee9e3;font-size:14px}}
+.chev{{color:#55555c;text-decoration:none}}
+.mrow{{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}}
 .mrow:first-of-type{{border-top:none}}
 .mrow .bk{{font-weight:700;width:52px;flex:none}}
 .mrow .side{{flex:1}}
-.mrow .pr{{font-weight:600;color:#77b8ac;white-space:nowrap}}
+.mrow .pr{{font-weight:600;color:#2f8f7d;white-space:nowrap}}
 .mrow a{{color:inherit;text-decoration:none}}
-.back{{color:#a3a09b;font-size:14px;text-decoration:none}}
-.score{{font-size:14px;color:#a3a09b;margin-top:4px}}
-.num{{color:#b3aea8}}
-.name{{font-weight:600;font-size:18px;flex:1;color:#1a1a1a}}
-.odds{{color:#77b8ac;font-weight:600;white-space:nowrap;line-height:1}}
-.sub{{color:#a3a09b;font-size:14px;margin:6px 0 12px}}
+.back{{color:#6b6b72;font-size:14px;text-decoration:none}}
+.score{{font-size:14px;color:#6b6b72;margin-top:4px}}
+@media (prefers-color-scheme: dark){{.chev{{color:#55555c}}.mrow{{border-top-color:#2a2a2e}}.mrow .pr{{color:#3aa895}}.back,.score{{color:#9a9aa3}}}}
+.num{{color:#6b6b72}}
+.name{{font-weight:600;font-size:17px;flex:1}}
+.odds{{color:#2f8f7d;font-weight:600;white-space:nowrap;line-height:1}}
+.sub{{color:#6b6b72;font-size:14px;margin:6px 0 12px}}
 .chips{{display:flex;flex-wrap:wrap;gap:8px}}
-.chip{{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#f6f3ef}}
+.chip{{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}}
 .bklogo{{width:16px;height:16px;border-radius:3px;flex:none}}
 .chip.best{{font-weight:800}}
-.rec{{font-weight:600;font-size:19px;padding:8px 0 1px;color:#1a1a1a}}
-.units{{color:#b3aea8;font-size:14px;font-weight:600;line-height:1}}
-.unitmath{{color:#a3a09b;font-size:13px;margin-top:8px}}
-.parlaybox{{margin-top:34px;background:#f6f3ef;border-radius:16px;padding:24px 22px}}
-.plbl{{font-size:12px;font-weight:600;letter-spacing:1.4px;color:#a3a09b;text-transform:uppercase}}
-.legs{{list-style:none;margin-top:10px;padding-left:0;font-size:16px;font-weight:600;color:#1a1a1a;line-height:1.7}}
-.note{{color:#a3a09b;font-size:13px;margin-top:6px;line-height:1.5}}
-.yesrec{{color:#9a958f;font-size:14px;margin-top:2px}}
-.lghead{{color:#a3a09b;font-size:14px;font-weight:500;letter-spacing:.02em;margin:16px 0 4px;display:flex;align-items:center}}
+.rec{{font-weight:600;font-size:16px;padding:8px 0 1px}}
+.units{{color:#8a8f98;font-size:13px;font-weight:600;line-height:1}}
+.unitmath{{color:#8a8f98;font-size:13px;margin-top:8px}}
+.legs{{padding-left:20px;font-size:15px;line-height:1.7}}
+.note{{color:#6b6b72;font-size:13px;margin-top:6px}}
+.yesrec{{color:#6b6b72;font-size:13px;margin-top:2px}}
+
+.lghead{{color:#6b6b72;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:16px 0 4px;display:flex;align-items:center}}
 .lghead:first-of-type{{margin-top:6px}}
-.cpx{{margin:8px 0 2px;font-size:13px;color:#a3a09b}}
+.cpx{{margin:8px 0 2px;font-size:13px;color:#9a9aa3}}
 .cpx span{{margin-right:12px;font-weight:600}}
-.foot{{margin-top:34px;color:#a3a09b;font-size:12px;line-height:1.6}}
-#rpModal{{display:none;position:fixed;inset:0;background:rgba(60,55,50,.45);align-items:center;justify-content:center;z-index:50}}
-#rpModal .box{{background:#fff;border-radius:16px;padding:24px 22px;max-width:340px;width:88%}}
-#rpModal h3{{font-size:16px;margin-bottom:6px;color:#1a1a1a}}
+.foot{{margin-top:34px;color:#8a8a91;font-size:12px;line-height:1.6}}
+#rpModal{{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:50}}
+#rpModal .box{{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%}}
+#rpModal h3{{font-size:16px;margin-bottom:6px}}
 #rpModal p{{font-size:13px;color:#6b6b72;margin-bottom:12px}}
-#rpState{{width:100%;padding:10px;border:1px solid #e0dbd5;border-radius:8px;font-size:15px;margin-bottom:12px;background:#fff;color:#1a1a1a}}
-#rpSave{{width:100%;padding:11px;border:none;border-radius:8px;background:#77b8ac;color:#fff;font-size:15px;font-weight:600;cursor:pointer}}
-.rpstate-link{{color:#77b8ac;cursor:pointer;text-decoration:underline}}
-#rpA2hs{{display:none;position:fixed;inset:0;background:rgba(60,55,50,.45);align-items:center;justify-content:center;z-index:60}}
-#rpA2hs .box{{background:#fff;border-radius:16px;padding:24px 22px;max-width:340px;width:88%;text-align:center}}
-#rpA2hs h3{{font-size:16px;margin-bottom:4px;color:#1a1a1a}}
-#rpA2hs .plat{{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#77b8ac;font-weight:700;margin-bottom:12px}}
+#rpState{{width:100%;padding:10px;border:1px solid #e4e2de;border-radius:8px;font-size:15px;margin-bottom:12px}}
+#rpSave{{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}}
+.rpstate-link{{color:#2f8f7d;cursor:pointer;text-decoration:underline}}
+#rpA2hs{{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:60}}
+#rpA2hs .box{{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%;text-align:center}}
+#rpA2hs h3{{font-size:16px;margin-bottom:4px}}
+#rpA2hs .plat{{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#2f8f7d;font-weight:700;margin-bottom:12px}}
 #rpA2hs ol{{text-align:left;font-size:13px;color:#3a3a40;margin:0 0 16px 0;padding-left:20px}}
 #rpA2hs ol li{{margin-bottom:8px}}
 #rpA2hs .nav{{display:flex;gap:8px}}
 #rpA2hs .nav button{{flex:1;padding:11px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}}
-#rpA2hs .primary{{background:#77b8ac;color:#fff}}
-#rpA2hs .ghost{{background:#f6f3ef;color:#555}}
+#rpA2hs .primary{{background:#2f8f7d;color:#fff}}
+#rpA2hs .ghost{{background:#eee;color:#555}}
 #rpA2hs .dots{{font-size:10px;color:#bbb;margin-top:12px;letter-spacing:3px}}
-.ls{{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#5aa596;white-space:nowrap;margin:5px 0 2px}}
+.ls{{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#2f8f7d;white-space:nowrap;margin:5px 0 2px}}
 .ls.on{{display:flex}}
 .ls .dot{{width:6px;height:6px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite}}
 .ls.won{{color:#3ecf6f}}
 .ls.lost{{color:#e5484d}}
 @keyframes rpblink{{0%,100%{{opacity:1}}50%{{opacity:.25}}}}
-#rpPull{{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#ece7e1;color:#5aa596;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}}
-.spin{{width:14px;height:14px;border:2px solid #d8e5e1;border-top-color:#77b8ac;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}}
+#rpPull{{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}}
+.spin{{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}}
 @keyframes rpSpin{{to{{transform:rotate(360deg)}}}}
-@media (max-width:520px){{.cardbox{{padding:28px 20px 24px;border-radius:20px}}h1{{font-size:34px}}}}
+@media (prefers-color-scheme: dark){{
+body{{background:#000;color:#ececf1}}
+h1 .tick,.odds,.rpstate-link{{color:#3aa895}}
+.status,.intro,.sect,.num,.sub,.note{{color:#9a9aa3}}
+.pick{{border-top-color:#2a2a2e}}
+.chip{{background:#0a0a0c;border:1px solid #232328;color:#ececf1}}
+.foot{{color:#6f6f78}}
+#rpModal{{background:rgba(0,0,0,.6)}}
+#rpModal .box{{background:#000;border:1px solid #2a2a2e}}
+#rpModal h3{{color:#ececf1}}
+#rpModal p{{color:#9a9aa3}}
+#rpA2hs{{background:rgba(0,0,0,.6)}}
+#rpA2hs .box{{background:#000;border:1px solid #2a2a2e}}
+#rpA2hs h3{{color:#ececf1}}
+#rpA2hs ol{{color:#c8c8d0}}
+#rpA2hs .ghost{{background:#111114;color:#9a9aa3}}
+#rpA2hs .dots{{color:#555}}
+.ls{{color:#3ec9a0}}
+#rpState{{background:#000;color:#ececf1;border-color:#2a2a2e}}
+#rpGeoNote{{color:#3aa895 !important}}
+#rpPull{{background:#000;color:#3aa895}}
+.spin{{border-color:#2a4a44;border-top-color:#3aa895}}
+.chip[data-bk="FD"]{{background:#12283d !important;border-color:#12283d !important;color:#5aa9e8 !important}}
+.chip[data-bk="ESPN"]{{background:#0f2e26 !important;border-color:#0f2e26 !important;color:#3ec9a0 !important}}
+.chip[data-bk="HR"]{{background:#2e2614 !important;border-color:#2e2614 !important;color:#d8b84e !important}}
+.chip[data-bk="MGM"]{{background:#2b2517 !important;border-color:#2b2517 !important;color:#cdb271 !important}}
+.chip[data-bk="BR"]{{background:#10262f !important;border-color:#10262f !important;color:#4fc3e8 !important}}
+.chip[data-bk="KAL"]{{background:#0f2a22 !important;border-color:#0f2a22 !important;color:#3ed0a8 !important}}
+.chip[data-bk="POLY"]{{background:#122536 !important;border-color:#122536 !important;color:#5aa9e0 !important}}
+.chip[data-bk="B365"]{{background:#2a2410 !important;border-color:#2a2410 !important;color:#e0cd6a !important}}
+.chip[data-bk="FAN"]{{background:#232326 !important;border-color:#232326 !important;color:#d8d8dc !important}}
+}}
 </style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"></head><body>
 <div id="rpPull"></div>
-<div class="wrap"><div class="cardbox">
+<div class="wrap">
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
 <div class="status">{html.escape(man['date_label'])}</div>
 <div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>
@@ -653,13 +681,12 @@ h1 .tick{{color:#1a1a1a}}
 <a class="rec" id="rpRec" data-bw="{man['record'].split('-')[0]}" data-bl="{man['record'].split('-')[1]}" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</a>
 {wl_pct_line(man['record'])}
 {f'<div class="yesrec unitspl" id="rpUnits" data-bu="{html.escape(man["units_pl"])}">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else ''}
-<div class="unitmath">Odds checked {html.escape(man.get("updated",""))}</div>
+<div class="unitmath">1u = $5 per $1,000 in bankroll</div>
 <div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
-</div>
 <div id="rpModal"><div class="box">
 <h3>One quick thing</h3>
 <p>Pick your state once so taps open the right product &mdash; sportsbook where it&rsquo;s live, prediction markets everywhere else. Saved on this device.</p>
-<div id="rpGeoNote" style="font-size:12px;color:#77b8ac;margin-bottom:10px"></div>
+<div id="rpGeoNote" style="font-size:12px;color:#2f8f7d;margin-bottom:10px"></div>
 <select id="rpState"><option value="">Choose state&hellip;</option>{''.join(f'<option value="{c}">{n}</option>' for c,n in RP_STATES)}</select>
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
@@ -778,21 +805,19 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
     if(!st){{rpMlbMiss(pk);return;}}
     rpMlbGame(pk,ls,st,pk.dataset.aab||pk.dataset.away.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase(),pk.dataset.hab||pk.dataset.home.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase());
    }}catch(e){{rpMlbMiss(pk);}}}})();}});
-  if(unkeyed.length){{try{{
-   const d=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team&t='+Date.now())).json();
-   const games=(d.dates||[]).flatMap(x=>x.games||[]);
-   unkeyed.forEach(pk=>{{const g=games.find(g=>g.teams.away.team.name===pk.dataset.away&&g.teams.home.team.name===pk.dataset.home);
-    if(!g){{rpMlbMiss(pk);return;}}
-    rpMlbGame(pk,g.linescore||{{}},g.status.detailedState,g.teams.away.team.abbreviation||'',g.teams.home.team.abbreviation||'');}});}}catch(e){{unkeyed.forEach(rpMlbMiss);}}}}
+  // J-101 class fix: unkeyed rows NEVER stamp. The old teams-only fallback matched a PRIOR date's
+  // completed game (same teams) and stamped its Final onto an unplayed pick. Keyed gamePk binding only.
  }}
  const byLg={{}};picks.filter(x=>x.dataset.espn&&(x.dataset.espn!=='baseball/mlb')).forEach(x=>{{(byLg[x.dataset.espn]=byLg[x.dataset.espn]||[]).push(x);}});
  for(const lg of Object.keys(byLg)){{try{{
-  const d=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?cb='+Date.now())).json();
-  byLg[lg].forEach(pk=>{{let found=null;(d.events||[]).forEach(e=>{{const cs=e.competitions[0].competitors;
-   const aw=cs.find(c=>c.homeAway==='away'),hm=cs.find(c=>c.homeAway==='home');if(!aw||!hm)return;
-   const an=aw.team.displayName,hn=hm.team.displayName;
-   if((an===pk.dataset.away||an.includes(pk.dataset.away)||pk.dataset.away.includes(an))&&(hn===pk.dataset.home||hn.includes(pk.dataset.home)||pk.dataset.home.includes(hn)))
-    pk.dataset.eid=e.id;
+  const _u='https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?cb='+Date.now()+(lg==='football/college-football'?'&groups=80&limit=400':'');
+  const d=await (await fetch(_u)).json();
+  // J-101 class fix: strict event-id binding - a row stamps ONLY when its own event (data-eid) is on the board.
+  byLg[lg].forEach(pk=>{{let found=null;const want=pk.dataset.eid||'';
+   if(!want){{rpLsRender(pk,null);return;}}
+   (d.events||[]).forEach(e=>{{if(e.id!==want)return;
+    const cs=e.competitions[0].competitors;
+    const aw=cs.find(c=>c.homeAway==='away'),hm=cs.find(c=>c.homeAway==='home');if(!aw||!hm)return;
     found={{a:aw.team.abbreviation,h:hm.team.abbreviation,as:+aw.score||0,hs:+hm.score||0,st:e.status.type.shortDetail,state:e.status.type.state}};}});
    rpLsRender(pk,found);if(found&&found.state==='post')rpRecLive();}});}}catch(e){{}}}}
 }}
@@ -805,7 +830,7 @@ function rpCxLive(){{const legs=[...document.querySelectorAll('.cxleg')];const e
  if(l>0){{el.innerHTML='<span style="color:#e5484d;font-weight:700">Combo dead</span> - '+w+' of '+legs.length+' legs home';return;}}
  if(w===legs.length){{el.innerHTML='<span style="color:#3ecf6f;font-weight:700">Combo cashed</span> - all '+legs.length+' legs home';return;}}
  el.textContent=w+' of '+legs.length+' legs home'+(live?' \u00b7 '+live+' live':'')+(legs.length-w-l-live>0?' \u00b7 '+(legs.length-w-l-live)+' upcoming':'');}}
-function rpRecLive(){{return; /* J-100: record is static from canonical manifest (picks_tracker RUNNING); rebuild-on-grade is the only updater - client recompute removed (kept showing stale 8-5) */ const rec=document.getElementById('rpRec');if(!rec)return;
+function rpRecLive(){{const rec=document.getElementById('rpRec');if(!rec)return;
  let w=parseInt(rec.dataset.bw||'0'),l=parseInt(rec.dataset.bl||'0');
  const uEl=document.getElementById('rpUnits');let u=uEl?parseFloat(uEl.dataset.bu||'0'):0;
  document.querySelectorAll('.pick[data-codds]').forEach(pk=>{{
@@ -1309,14 +1334,14 @@ FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="vie
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});}catch(e){}});</script>
 </head><body>
 <div id="rpPull"></div>
-<div class="wrap"><div class="cardbox">
+<div class="wrap">
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
 <div class="status">Futures &middot; __COUNT__ picks &middot; live Polymarket tracking vs carded entry</div>
 <div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
 __ROWS__
 <div id="rpFd" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(0,0,0,.78);align-items:flex-end;justify-content:center" onclick="if(event.target===this)this.style.display='none'"><div id="rpFdBox" style="background:#000000;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;padding:16px;color:#ECECF1"></div></div>
 <div class="unitmath" style="margin-top:18px">Live prices via Polymarket &middot; refresh 60s &middot; build __BUILD__</div>
-</div></div>
+</div>
 <script>
 async function rpFutTick(){
  var bySlug={};

@@ -1,85 +1,110 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Toronto FC at Nashville SC - &rsquo;RixPicks</title>
-<meta name="description" content="Live markets for Toronto FC at Nashville SC.">
+<title>New England Revolution at Real Salt Lake - &rsquo;RixPicks</title>
+<meta name="description" content="Live markets for New England Revolution at Real Salt Lake.">
 <style>
-@font-face{font-family:'Aime';src:url('assets/fonts/aime-300.woff2') format('woff2');font-weight:300}
-@font-face{font-family:'Aime';src:url('assets/fonts/aime-400.woff2') format('woff2');font-weight:400}
-@font-face{font-family:'KMR Melange Grotesk';src:url('assets/fonts/melange-grotesk-400.woff2') format('woff2');font-weight:400}
-@font-face{font-family:'KMR Melange Grotesk';src:url('assets/fonts/melange-grotesk-500.woff2') format('woff2');font-weight:500}
-@font-face{font-family:'KMR Melange Grotesk';src:url('assets/fonts/melange-grotesk-600.otf') format('opentype');font-weight:600}
 *{margin:0;box-sizing:border-box}
-body{font-family:'KMR Melange Grotesk',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#ece7e1;color:#1a1a1a;min-height:100vh;overscroll-behavior-y:contain}
-.wrap{max-width:720px;margin:0 auto;padding:30px 14px 60px}
-.cardbox{background:#ffffff;border-radius:24px;padding:40px 34px 34px}
-h1{font-family:'Aime',Georgia,serif;font-size:42px;font-weight:300;letter-spacing:0;color:#1a1a1a}
-h1 .tick{color:#1a1a1a}
-.status{color:#77b8ac;font-size:19px;font-weight:600;margin-top:10px}
-.intro{color:#a3a09b;font-size:14px;margin-top:10px;line-height:1.5}
-.yesrec+.sect{margin-top:6px}.sect+.lghead{margin-top:6px}.sect{margin:16px 0 4px;font-size:14px;font-weight:500;letter-spacing:.02em;color:#a3a09b}
-.pick{padding:16px 0;border-top:1px solid #eee9e3}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f7f6f4;color:#1b1b1f;min-height:100vh;overscroll-behavior-y:contain}
+.wrap{max-width:680px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:26px;font-weight:800;letter-spacing:-0.01em}
+h1 .tick{color:#2f8f7d}
+.status{color:#6b6b72;font-size:14px;margin-top:6px}
+.intro{color:#6b6b72;font-size:14px;margin-top:2px}
+.yesrec+.sect{margin-top:6px}.sect+.lghead{margin-top:6px}.sect{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}
+.pick{padding:18px 0;border-top:1px solid #e4e2de}
 .pick:first-of-type{border-top:none}
-.pick-head{display:flex;align-items:center;gap:10px}.meta-grp{display:inline-flex;align-items:center;gap:8px;flex:none}.rpmetalink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit}.rpchatlink{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#b3aea8;font-size:11px;line-height:1;margin-left:-2px}
+.pick-head{display:flex;align-items:center;gap:10px}.meta-grp{display:inline-flex;align-items:center;gap:8px;flex:none}.rpmetalink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit}.rpchatlink{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}
 .gamelink{display:flex;align-items:center;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}
-.chev{color:#c8c2ba;text-decoration:none}
-.mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #eee9e3;font-size:14px}
+.chev{color:#55555c;text-decoration:none}
+.mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}
 .mrow:first-of-type{border-top:none}
 .mrow .bk{font-weight:700;width:52px;flex:none}
 .mrow .side{flex:1}
-.mrow .pr{font-weight:600;color:#77b8ac;white-space:nowrap}
+.mrow .pr{font-weight:600;color:#2f8f7d;white-space:nowrap}
 .mrow a{color:inherit;text-decoration:none}
-.back{color:#a3a09b;font-size:14px;text-decoration:none}
-.score{font-size:14px;color:#a3a09b;margin-top:4px}
-.num{color:#b3aea8}
-.name{font-weight:600;font-size:18px;flex:1;color:#1a1a1a}
-.odds{color:#77b8ac;font-weight:600;white-space:nowrap;line-height:1}
-.sub{color:#a3a09b;font-size:14px;margin:6px 0 12px}
+.back{color:#6b6b72;font-size:14px;text-decoration:none}
+.score{font-size:14px;color:#6b6b72;margin-top:4px}
+@media (prefers-color-scheme: dark){.chev{color:#55555c}.mrow{border-top-color:#2a2a2e}.mrow .pr{color:#3aa895}.back,.score{color:#9a9aa3}}
+.num{color:#6b6b72}
+.name{font-weight:600;font-size:17px;flex:1}
+.odds{color:#2f8f7d;font-weight:600;white-space:nowrap;line-height:1}
+.sub{color:#6b6b72;font-size:14px;margin:6px 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#f6f3ef}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}
 .bklogo{width:16px;height:16px;border-radius:3px;flex:none}
 .chip.best{font-weight:800}
-.rec{font-weight:600;font-size:19px;padding:8px 0 1px;color:#1a1a1a}
-.units{color:#b3aea8;font-size:14px;font-weight:600;line-height:1}
-.unitmath{color:#a3a09b;font-size:13px;margin-top:8px}
-.parlaybox{margin-top:34px;background:#f6f3ef;border-radius:16px;padding:24px 22px}
-.plbl{font-size:12px;font-weight:600;letter-spacing:1.4px;color:#a3a09b;text-transform:uppercase}
-.legs{list-style:none;margin-top:10px;padding-left:0;font-size:16px;font-weight:600;color:#1a1a1a;line-height:1.7}
-.note{color:#a3a09b;font-size:13px;margin-top:6px;line-height:1.5}
-.yesrec{color:#9a958f;font-size:14px;margin-top:2px}
-.lghead{color:#a3a09b;font-size:14px;font-weight:500;letter-spacing:.02em;margin:16px 0 4px;display:flex;align-items:center}
+.rec{font-weight:600;font-size:16px;padding:8px 0 1px}
+.units{color:#8a8f98;font-size:13px;font-weight:600;line-height:1}
+.unitmath{color:#8a8f98;font-size:13px;margin-top:8px}
+.legs{padding-left:20px;font-size:15px;line-height:1.7}
+.note{color:#6b6b72;font-size:13px;margin-top:6px}
+.yesrec{color:#6b6b72;font-size:13px;margin-top:2px}
+
+.lghead{color:#6b6b72;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:16px 0 4px;display:flex;align-items:center}
 .lghead:first-of-type{margin-top:6px}
-.cpx{margin:8px 0 2px;font-size:13px;color:#a3a09b}
+.cpx{margin:8px 0 2px;font-size:13px;color:#9a9aa3}
 .cpx span{margin-right:12px;font-weight:600}
-.foot{margin-top:34px;color:#a3a09b;font-size:12px;line-height:1.6}
-#rpModal{display:none;position:fixed;inset:0;background:rgba(60,55,50,.45);align-items:center;justify-content:center;z-index:50}
-#rpModal .box{background:#fff;border-radius:16px;padding:24px 22px;max-width:340px;width:88%}
-#rpModal h3{font-size:16px;margin-bottom:6px;color:#1a1a1a}
+.foot{margin-top:34px;color:#8a8a91;font-size:12px;line-height:1.6}
+#rpModal{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:50}
+#rpModal .box{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%}
+#rpModal h3{font-size:16px;margin-bottom:6px}
 #rpModal p{font-size:13px;color:#6b6b72;margin-bottom:12px}
-#rpState{width:100%;padding:10px;border:1px solid #e0dbd5;border-radius:8px;font-size:15px;margin-bottom:12px;background:#fff;color:#1a1a1a}
-#rpSave{width:100%;padding:11px;border:none;border-radius:8px;background:#77b8ac;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
-.rpstate-link{color:#77b8ac;cursor:pointer;text-decoration:underline}
-#rpA2hs{display:none;position:fixed;inset:0;background:rgba(60,55,50,.45);align-items:center;justify-content:center;z-index:60}
-#rpA2hs .box{background:#fff;border-radius:16px;padding:24px 22px;max-width:340px;width:88%;text-align:center}
-#rpA2hs h3{font-size:16px;margin-bottom:4px;color:#1a1a1a}
-#rpA2hs .plat{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#77b8ac;font-weight:700;margin-bottom:12px}
+#rpState{width:100%;padding:10px;border:1px solid #e4e2de;border-radius:8px;font-size:15px;margin-bottom:12px}
+#rpSave{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.rpstate-link{color:#2f8f7d;cursor:pointer;text-decoration:underline}
+#rpA2hs{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:60}
+#rpA2hs .box{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%;text-align:center}
+#rpA2hs h3{font-size:16px;margin-bottom:4px}
+#rpA2hs .plat{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#2f8f7d;font-weight:700;margin-bottom:12px}
 #rpA2hs ol{text-align:left;font-size:13px;color:#3a3a40;margin:0 0 16px 0;padding-left:20px}
 #rpA2hs ol li{margin-bottom:8px}
 #rpA2hs .nav{display:flex;gap:8px}
 #rpA2hs .nav button{flex:1;padding:11px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
-#rpA2hs .primary{background:#77b8ac;color:#fff}
-#rpA2hs .ghost{background:#f6f3ef;color:#555}
+#rpA2hs .primary{background:#2f8f7d;color:#fff}
+#rpA2hs .ghost{background:#eee;color:#555}
 #rpA2hs .dots{font-size:10px;color:#bbb;margin-top:12px;letter-spacing:3px}
-.ls{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#5aa596;white-space:nowrap;margin:5px 0 2px}
+.ls{display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#2f8f7d;white-space:nowrap;margin:5px 0 2px}
 .ls.on{display:flex}
 .ls .dot{width:6px;height:6px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite}
 .ls.won{color:#3ecf6f}
 .ls.lost{color:#e5484d}
 @keyframes rpblink{0%,100%{opacity:1}50%{opacity:.25}}
-#rpPull{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#ece7e1;color:#5aa596;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}
-.spin{width:14px;height:14px;border:2px solid #d8e5e1;border-top-color:#77b8ac;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}
+#rpPull{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}
+.spin{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}
 @keyframes rpSpin{to{transform:rotate(360deg)}}
-@media (max-width:520px){.cardbox{padding:28px 20px 24px;border-radius:20px}h1{font-size:34px}}
+@media (prefers-color-scheme: dark){
+body{background:#000;color:#ececf1}
+h1 .tick,.odds,.rpstate-link{color:#3aa895}
+.status,.intro,.sect,.num,.sub,.note{color:#9a9aa3}
+.pick{border-top-color:#2a2a2e}
+.chip{background:#0a0a0c;border:1px solid #232328;color:#ececf1}
+.foot{color:#6f6f78}
+#rpModal{background:rgba(0,0,0,.6)}
+#rpModal .box{background:#000;border:1px solid #2a2a2e}
+#rpModal h3{color:#ececf1}
+#rpModal p{color:#9a9aa3}
+#rpA2hs{background:rgba(0,0,0,.6)}
+#rpA2hs .box{background:#000;border:1px solid #2a2a2e}
+#rpA2hs h3{color:#ececf1}
+#rpA2hs ol{color:#c8c8d0}
+#rpA2hs .ghost{background:#111114;color:#9a9aa3}
+#rpA2hs .dots{color:#555}
+.ls{color:#3ec9a0}
+#rpState{background:#000;color:#ececf1;border-color:#2a2a2e}
+#rpGeoNote{color:#3aa895 !important}
+#rpPull{background:#000;color:#3aa895}
+.spin{border-color:#2a4a44;border-top-color:#3aa895}
+.chip[data-bk="FD"]{background:#12283d !important;border-color:#12283d !important;color:#5aa9e8 !important}
+.chip[data-bk="ESPN"]{background:#0f2e26 !important;border-color:#0f2e26 !important;color:#3ec9a0 !important}
+.chip[data-bk="HR"]{background:#2e2614 !important;border-color:#2e2614 !important;color:#d8b84e !important}
+.chip[data-bk="MGM"]{background:#2b2517 !important;border-color:#2b2517 !important;color:#cdb271 !important}
+.chip[data-bk="BR"]{background:#10262f !important;border-color:#10262f !important;color:#4fc3e8 !important}
+.chip[data-bk="KAL"]{background:#0f2a22 !important;border-color:#0f2a22 !important;color:#3ed0a8 !important}
+.chip[data-bk="POLY"]{background:#122536 !important;border-color:#122536 !important;color:#5aa9e0 !important}
+.chip[data-bk="B365"]{background:#2a2410 !important;border-color:#2a2410 !important;color:#e0cd6a !important}
+.chip[data-bk="FAN"]{background:#232326 !important;border-color:#232326 !important;color:#d8d8dc !important}
+}
 
 @keyframes rpspin{to{transform:rotate(360deg)}}
 </style>
@@ -91,13 +116,12 @@ h1 .tick{color:#1a1a1a}
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div id="rpPtr" style="display:none;text-align:center;font-size:12px;color:#8a8f98;padding:8px 0"><span style="display:inline-block;width:14px;height:14px;border:2px solid #2a4a44;border-top-color:#3aa895;border-radius:50%;animation:rpspin .8s linear infinite;vertical-align:-2px"></span> <span id="rpPtrTxt">refreshing&hellip;</span></div>
 <div class="sect" style="margin-top:18px">Game 11</div>
-<div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 4px;text-align:center"><a href="team-toronto-fc.html" style="flex:1;text-decoration:none;color:inherit"><img src="https://a.espncdn.com/i/teamlogos/soccer/500/7318.png" alt="" style="width:54px;height:54px;object-fit:contain" onerror="this.remove()"><div style="font-weight:700;margin-top:4px">TOR</div></a><div style="flex:1.6"><div style="font-size:18px;font-weight:800">FC vs SC</div><div class="sub" style="margin-top:3px"></div></div><a href="team-nashville-sc.html" style="flex:1;text-decoration:none;color:inherit"><img src="https://a.espncdn.com/i/teamlogos/soccer/500/18986.png" alt="" style="width:54px;height:54px;object-fit:contain" onerror="this.remove()"><div style="font-weight:700;margin-top:4px">NSH</div></a></div>
-<div class="pick" data-espn="soccer/usa.1" data-gpk="" data-aab="" data-hab="" data-away="Toronto FC" data-home="Nashville SC" data-side="away" data-market="ml">
-  <div class="pick-head"><span class="num">11.</span><span class="name">Toronto FC ML</span><span class="units">5u</span><span class="odds">+567</span></div>
-  <div class="sub">at Nashville · long shot, model 21% vs 15c</div>
-  <div class="score" id="rpScore"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 4px;text-align:center"><a href="team-new-england-revolution.html" style="flex:1;text-decoration:none;color:inherit"><img src="https://a.espncdn.com/i/teamlogos/soccer/500/189.png" alt="" style="width:54px;height:54px;object-fit:contain" onerror="this.remove()"><div style="font-weight:700;margin-top:4px">NE</div></a><div style="flex:1.6"><div style="font-size:18px;font-weight:800">Revolution vs Lake</div><div class="sub" style="margin-top:3px">6:30 PM PT</div></div><a href="team-real-salt-lake.html" style="flex:1;text-decoration:none;color:inherit"><img src="https://a.espncdn.com/i/teamlogos/soccer/500/4771.png" alt="" style="width:54px;height:54px;object-fit:contain" onerror="this.remove()"><div style="font-weight:700;margin-top:4px">RSL</div></a></div>
+<div class="pick" data-espn="soccer/usa.1" data-gpk="" data-aab="" data-hab="" data-away="New England Revolution" data-home="Real Salt Lake" data-side="home" data-market="ml">
+  <div class="pick-head"><span class="num">11.</span><span class="name">Real Salt Lake ML</span><span class="units">5u</span><span class="odds">+163</span></div>
+  <div class="sub">vs New England · home + season-long xGA edge</div>
+  <div class="score" id="rpScore">6:30 PM PT</div>
   <div id="rpLive"></div>
-  <div id="rpScoreTbl"></div>
   <div class="chips" style="margin-top:12px"></div>
   
 </div>
@@ -124,7 +148,7 @@ h1 .tick{color:#1a1a1a}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790400564';const RP_ROOM='g11-card';const RP_START='';
+const RP_BUILD='1790401056';const RP_ROOM='g11-2026-09-27';const RP_START='2026-09-27T01:30Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -273,7 +297,7 @@ async function rpMlbLive(d){
   d.dataset.aab=(g.teams.away.team.abbreviation)||'';
   d.dataset.hab=(g.teams.home.team.abbreviation)||'';
  }
- const flds='liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,outs,balls,strikes,offense,first,second,third,plays,currentPlay,playEvents,details,call,type,code,isPitch,isStrike,pitchData,startSpeed,matchup,batter,pitcher,fullName,count,result,description,allPlays,about,inning,halfInning,gameData,status,detailedState';
+ const flds='liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,outs,balls,strikes,offense,first,second,third,plays,currentPlay,matchup,batter,pitcher,fullName,count,result,description,allPlays,about,inning,halfInning,gameData,status,detailedState';
  const j=await (await fetch('https://statsapi.mlb.com/api/v1.1/game/'+d.dataset.gpk+'/feed/live?fields='+flds+'&t='+Date.now())).json();
  const ls=(j.liveData||{}).linescore||{};const det=((j.gameData||{}).status||{}).detailedState||'';
  const box=document.getElementById('rpLive');if(!box)return;
@@ -307,15 +331,6 @@ async function rpMlbLive(d){
   const B=ls.balls||0,S=ls.strikes||0,O=ls.outs||0;
   h+='<div style="display:flex;align-items:center;gap:14px;margin-top:8px;font-size:12px;color:#8a8f98">';
   h+='<span>B '+rpPips(B,4,'#3b9eff')+'</span><span>S '+rpPips(S,3,'#e8b93c')+'</span><span>O '+rpPips(O,3,'#e5484d')+'</span></div>';
-  const pevs=((cp||{}).playEvents||[]).filter(function(e){return e.isPitch;});
-  if(pevs.length){
-   h+='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px">';
-   for(let i=pevs.length-1;i>=0&&i>pevs.length-6;i--){
-    const e2=pevs[i];const det2=e2.details||{};const call2=(det2.call||{}).description||'';const ty2=(det2.type||{}).code||'';const sp2=(e2.pitchData||{}).startSpeed||0;
-    h+='<span style="font-size:11px;padding:3px 7px;border-radius:8px;border:1px solid '+(det2.isStrike?'rgba(229,72,77,.5)':'rgba(59,158,255,.4)')+';color:#c8cdd5">'+ty2+(sp2?' '+Math.round(sp2):'')+(call2?' &middot; '+call2:'')+'</span>';
-   }
-   h+='</div>';
-  }
   const pn=((((cp.matchup||{}).pitcher||{}).fullName)||''),bn=((((cp.matchup||{}).batter||{}).fullName)||'');
   if(pn||bn)h+='<div style="font-size:12px;color:#c8cdd5;margin-top:6px">'+(pn?('P: '+pn):'')+(pn&&bn?' &middot; ':'')+(bn?('AB: '+bn):'')+'</div>';
  }
@@ -370,88 +385,6 @@ async function rpEspnPanel(d){
  box.innerHTML=h;
  }catch(e){}
 }
-/* Live scoring table - per-league linescore, fixed order: live updates -> scoring table -> platform chips (user 9/25 9:22 PM). Shapes: MLB innings+R/H/E; NFL/CFB/NBA quarters(+OT); NCAAB halves(+OT); NHL periods(+OT/SO); soccer halves(+ET); tennis sets(+sets-won). Combat sports/leaderboard sports: no table. */
-function rpScoreHdrs(lg,n){
- if(lg.indexOf('soccer')===0){const h=['1H','2H'];for(let i=2;i<n;i++)h.push(i===2?'ET':'ET'+(i-1));return h;}
- if(lg.indexOf('hockey')===0){const h=['1','2','3'];for(let i=3;i<n;i++)h.push(i===3?'OT':'SO');return h;}
- if(lg.indexOf('basketball/')===0&&lg.indexOf('nba')<0){const h=['1','2'];for(let i=2;i<n;i++)h.push(i===2?'OT':(i-1)+'OT');return h;}
- const h=['1','2','3','4'];for(let i=4;i<n;i++)h.push(i===4?'OT':(i-3)+'OT');return h;
-}
-function rpScoreTable(el,hdrs,rows,tots){
- if(!rows.length){el.innerHTML='';return;}
- let h='<div style="margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px;overflow-x:auto">';
- h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98;margin-bottom:6px">SCORING</div>';
- h+='<table style="width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:13px;text-align:center"><tr><th style="text-align:left;font-weight:600;color:#8a8f98"></th>';
- hdrs.forEach(function(x){h+='<th style="font-weight:600;color:#8a8f98;padding:2px 4px;min-width:18px">'+x+'</th>';});
- (tots||[]).forEach(function(x){h+='<th style="font-weight:700;color:#c8cdd5;padding:2px 4px;min-width:20px">'+x+'</th>';});
- h+='</tr>';
- rows.forEach(function(r){
-  h+='<tr><td style="text-align:left;font-weight:700;padding:3px 4px 3px 0;white-space:nowrap">'+(r.logo?'<img src="'+r.logo+'" alt="" style="width:18px;height:18px;border-radius:50%;vertical-align:-4px;margin-right:6px" onerror="this.remove()">':'')+r.abbr+'</td>';
-  hdrs.forEach(function(_,i){const v=(r.vals&&i<r.vals.length&&r.vals[i]!=null)?r.vals[i]:'';h+='<td style="padding:3px 4px;color:#c8cdd5">'+v+'</td>';});
-  (r.tots||[]).forEach(function(v,ti){const last=ti===(r.tots.length-1);h+='<td style="padding:3px 4px;font-weight:'+(800)+';color:'+(last?'#fff':'#c8cdd5')+'">'+(v==null?'':v)+'</td>';});
-  h+='</tr>';
- });
- h+='</table></div>';
- el.innerHTML=h;
-}
-async function rpScoreMlb(d,el){
- if(!d.dataset.gpk)return;
- const flds='liveData,linescore,innings,num,away,home,runs,hits,errors,teams,gameData,status,detailedState,id';
- const j=await (await fetch('https://statsapi.mlb.com/api/v1.1/game/'+d.dataset.gpk+'/feed/live?fields='+flds+'&t='+Date.now())).json();
- const det=(((j.gameData||{}).status||{}).detailedState)||'';
- if(det==='Scheduled'||det==='Pre-Game'||det==='Unknown'){el.innerHTML='';return;}
- const ls=(j.liveData||{}).linescore||{};
- const inns=ls.innings||[];const n=Math.max(9,inns.length);
- const aT=(ls.teams||{}).away||{},hT=(ls.teams||{}).home||{};
- const aAb=d.dataset.aab||'',hAb=d.dataset.hab||'';
- const hdrs=[];for(let i=1;i<=n;i++)hdrs.push(''+i);
- const valsA=[],valsH=[];
- for(let i=0;i<n;i++){
-  const inn=inns[i];
-  valsA.push(inn&&inn.away&&typeof inn.away.runs==='number'?inn.away.runs:null);
-  valsH.push(inn&&inn.home&&typeof inn.home.runs==='number'&&!(i===8&&det==='Final'&&aT.runs>hT.runs&&inn.home.runs===undefined)?inn.home.runs:null);
- }
- const gT=((j.gameData||{}).teams)||{};
- const aLogo=gT.away&&gT.away.id?('https://www.mlbstatic.com/team-logos/'+gT.away.id+'.svg'):'';
- const hLogo=gT.home&&gT.home.id?('https://www.mlbstatic.com/team-logos/'+gT.home.id+'.svg'):'';
- rpScoreTable(el,hdrs,[
-  {abbr:aAb,logo:aLogo,vals:valsA,tots:[aT.runs,aT.hits,aT.errors]},
-  {abbr:hAb,logo:hLogo,vals:valsH,tots:[hT.runs,hT.hits,hT.errors]}],['R','H','E']);
-}
-async function rpScoreEspn(d,el,lg){
- if(!d.dataset.eid)return;
- const j=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/summary?event='+d.dataset.eid)).json();
- const comp=(((j.header||{}).competitions)||[])[0]||{};
- const st=((comp.status||{}).type)||{};
- if(st.state==='pre'){el.innerHTML='';return;}
- const aw=(comp.competitors||[]).find(function(c){return c.homeAway==='away';});
- const hm=(comp.competitors||[]).find(function(c){return c.homeAway==='home';});
- if(!aw||!hm)return;
- const la=(aw.linescores||[]).map(function(x){return x.value;});
- const lh=(hm.linescores||[]).map(function(x){return x.value;});
- if(!la.length&&!lh.length){el.innerHTML='';return;}
- const n=Math.max(la.length,lh.length,(lg.indexOf('soccer')===0?2:(lg.indexOf('hockey')===0?3:(lg.indexOf('basketball/')===0&&lg.indexOf('nba')<0?2:4))));
- if(lg.indexOf('tennis')===0){
-  let sa=0,sh=0;for(let i=0;i<n;i++){if(la[i]!=null&&lh[i]!=null){if(la[i]>lh[i])sa++;else if(lh[i]>la[i])sh++;}}
-  const hdrs=[];for(let i=1;i<=n;i++)hdrs.push(''+i);
-  rpScoreTable(el,hdrs,[
-   {abbr:(aw.team||{}).abbreviation||'',logo:(aw.team||{}).logo||'',vals:la,tots:[sa]},
-   {abbr:(hm.team||{}).abbreviation||'',logo:(hm.team||{}).logo||'',vals:lh,tots:[sh]}],['S']);
-  return;
- }
- const hdrs=rpScoreHdrs(lg,n);
- rpScoreTable(el,hdrs,[
-  {abbr:(aw.team||{}).abbreviation||'',logo:(aw.team||{}).logo||'',vals:la,tots:[aw.score]},
-  {abbr:(hm.team||{}).abbreviation||'',logo:(hm.team||{}).logo||'',vals:lh,tots:[hm.score]}],['T']);
-}
-async function rpScoreTblTick(d){try{
- const el=document.getElementById('rpScoreTbl');if(!el||!d)return;
- const lg=d.dataset.espn||'';if(!lg)return;
- const now=Date.now();if(now-(window.__rpStT||0)<10000)return;window.__rpStT=now;
- if(lg==='baseball/mlb'){await rpScoreMlb(d,el);return;}
- if(lg.indexOf('tennis')===0||lg.indexOf('football')===0||lg.indexOf('basketball')===0||lg.indexOf('hockey')===0||lg.indexOf('soccer')===0){await rpScoreEspn(d,el,lg);return;}
- el.innerHTML=''; /* mma/boxing/golf/nascar: no period-linescore shape - nothing rendered */
-}catch(e){}}
 function rpPageRefresh(){try{
  fetch(location.pathname+'?r='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(function(t){
   if(t.indexOf(RP_BUILD)<0){location.replace(location.pathname+'?v='+Date.now());}
@@ -612,7 +545,7 @@ document.addEventListener('touchend',rpPtrEnd,{passive:true});
 document.addEventListener('touchcancel',rpPtrEnd,{passive:true});
 
 
-rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}try{await rpScoreTblTick(document.querySelector('.pick[data-espn]'));}catch(e2){}setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?30000:3000);}rpLiveLoop();
+rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?30000:3000);}rpLiveLoop();
 setInterval(rpPageRefresh,60000);
 
 /* Live per-game chat - room id baked at build (g<num>-<date>), no fetch needed to find it. Opens 1h before start, locks 2h after final. */
