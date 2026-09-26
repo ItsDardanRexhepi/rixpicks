@@ -263,7 +263,7 @@ for p in man['picks']:
         return '<img src="%s" alt="" style="%s" onerror="this.remove()">'%(html.escape(u),st)
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
-    rows.append(f'''<div class="pick" data-espn="{espn}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}">
+    rows.append(f'''<div class="pick" data-espn="{espn}" data-room="g{p['num']}-{((g.get('commence','') or '')[:10] or 'card')}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}">
   <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="chev" href="game-{p['num']}.html" aria-label="live markets">&rsaquo;</a></div><span class="ls" data-ls></span>
   <a class="rpchatlink" href="game-{p['num']}.html#chat" style="float:right;font-size:12px;color:#8a8f98;text-decoration:none;margin-top:2px">&#128172;<span data-cc></span></a>
   <div class="sub">{html.escape(p['sub'])}</div>
@@ -755,9 +755,9 @@ function rpRenumber(){{try{{
 let _rpCcLast=0;
 function rpChatCounts(){{try{{
  const now=Date.now();if(now-_rpCcLast<60000)return;_rpCcLast=now;
- document.querySelectorAll('.pick[data-eid]').forEach(function(pk){{
+ document.querySelectorAll('.pick[data-room]').forEach(function(pk){{
   const sp=pk.querySelector('[data-cc]');if(!sp)return;
-  fetch('https://api.rix-picks.com/chat/'+pk.dataset.eid).then(r=>r.json()).then(function(j){{sp.textContent=j.count>0?' '+j.count:'';}}).catch(()=>{{}});
+  fetch('https://api.rix-picks.com/chat/'+pk.dataset.room).then(r=>r.json()).then(function(j){{sp.textContent=j.count>0?' '+j.count:'';}}).catch(()=>{{}});
  }});
 }}catch(e){{}}}}
 async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpRenumber();rpCxLive();rpRecLive();rpChatCounts();}}
@@ -765,9 +765,9 @@ async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpRenumber();rpCxLi
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
 window.addEventListener('pageshow',function(){{try{{
- if(sessionStorage.getItem('rp_reloaded'))return;
+ if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
  fetch(location.pathname+'?cb='+Date.now(),{{cache:'no-store'}}).then(r=>r.text()).then(t=>{{
-  if(t.indexOf(RP_BUILD)<0){{sessionStorage.setItem('rp_reloaded','1');location.replace(location.pathname+'?v='+RP_BUILD);}}
+  if(t.indexOf(RP_BUILD)<0){{sessionStorage.setItem('rp_reloaded',RP_BUILD);location.replace(location.pathname+'?v='+RP_BUILD);}}
  }}).catch(()=>{{}});
 }}catch(e){{}}}});
 /* Pull-to-refresh (incl. Home Screen standalone) - user 9/24 10:40 PM */
@@ -1107,7 +1107,7 @@ def build_game_pages(man, css, build_sha):
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),
             ('__SIDE__',side),('__MKT__',mkt),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
             ('__ODDS__',html.escape(p['odds'])),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
-            ('__CHIPS__',ch),('__MATCHUP__',matchup),('__TEAMLINKS__',teamlinks),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),
+            ('__CHIPS__',ch),('__MATCHUP__',matchup),('__TEAMLINKS__',teamlinks),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),('__ROOM__','g%s-%s'%(p['num'],(g.get('commence','') or '')[:10] or 'card')),('__START__',g.get('commence','') or ''),
             ('__CHARTS__',charts_html),('__BUILD__',build_sha),('__RPCONSTS__',RP_CONSTS),('__STATEOPTS__',STATE_OPTS)]:
             page_html=page_html.replace(tok,val)
         pages['game-%s.html'%p['num']]=page_html

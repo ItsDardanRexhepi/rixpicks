@@ -145,7 +145,14 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790381123';
+const RP_BUILD='1790381403';const RP_ROOM='g2-2026-09-25';const RP_START='2026-09-25T20:05:00Z';
+/* build-check self-reload (iOS PWA caches pages) - one reload per build */
+window.addEventListener('pageshow',function(){try{
+ if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
+ fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(function(tx){
+  if(tx.indexOf(RP_BUILD)<0){sessionStorage.setItem('rp_reloaded',RP_BUILD);location.replace(location.pathname+'?v='+RP_BUILD);}
+ }).catch(function(){});
+}catch(e){}});
 const RP_FD=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "MD", "MA", "MI", "MO", "NJ", "NY", "NC", "OH", "PA", "TN", "VT", "VA", "WV", "WY", "DC", "PR"];const RP_DK=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MO", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "TN", "VT", "VA", "WV", "WY", "DC"];
 const RP_L={FD:RP_FD,DK:RP_DK,MGM:["AZ", "CO", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "MS", "NJ", "NV", "NY", "NC", "OH", "PA", "TN", "VA", "WV", "WY"],B365:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "NJ", "NC", "OH", "PA", "TN", "VA"],FAN:["AZ", "CO", "CT", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NC", "NJ", "NY", "OH", "PA", "TN", "VT", "VA", "WV", "WY"],ESPN:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NJ", "NC", "OH", "PA", "TN", "VA", "WV"],HR:["AZ", "CO", "FL", "IL", "IN", "MI", "NJ", "OH", "TN", "VA"],BR:["AZ", "CO", "CT", "DE", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "RI", "TN", "VT", "VA", "WV", "WY"]};
 function rpC2ML(c){c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}
@@ -535,33 +542,41 @@ document.addEventListener('touchcancel',rpPtrEnd,{passive:true});
 rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);setInterval(rpLiveBox,15000);
 setInterval(rpPageRefresh,60000);
 
-/* Live per-game chat - room = ESPN event id. Opens 1h before start, locks 2h after final. */
+/* Live per-game chat - room id baked at build (g<num>-<date>), no fetch needed to find it. Opens 1h before start, locks 2h after final. */
 const RP_API='https://api.rix-picks.com';
+var RP_CHAT={authed:null,last:'',open:false};
 (function(){var bg=getComputedStyle(document.body).backgroundColor;['rpChatForm','rpChatSign'].forEach(function(i){var e=document.getElementById(i);if(e)e.style.background=bg;});})();
-var RP_CHAT={room:null,authed:null,started:false,last:''};
+function rpChatStart(){try{
+ var panel=document.getElementById('rpChatPanel');if(!panel)return;
+ panel.style.display='';
+ var now=Date.now(),start=Date.parse(RP_START||'');
+ if(start&&now<start-3600000){
+  var note=document.getElementById('rpChatNote');note.style.display='';
+  note.textContent='Chat opens 1 hour before game time ('+new Date(start-3600000).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})+').';
+  return;
+ }
+ rpChatOpen();
+}catch(e){}}
+function rpChatOpen(){
+ if(RP_CHAT.open)return;RP_CHAT.open=true;
+ rpChatAuthState();rpChatLoad();setInterval(rpChatLoad,12000);
+}
 function rpChatSee(ev){try{
- const d=document.querySelector('.pick[data-espn]');if(!d||!ev||!ev.id)return;
- const now=Date.now(),start=Date.parse(ev.date||'');
+ /* called by the live tick with the matched ESPN event - locks the room 2h after final */
  const comp=(ev.competitions||[])[0]||{};const st=(comp.status||{}).type||{};
- const done=!!st.completed;const k='rp_chat_done_'+ev.id;
- if(done&&!localStorage.getItem(k))localStorage.setItem(k,String(now));
- const doneAt=parseInt(localStorage.getItem(k)||'0');
- let state='open';
- if(start&&now<start-3600000)state='pre';
- if(done&&doneAt&&now>doneAt+7200000)state='closed';
- document.getElementById('rpChatPanel').style.display='';
- const note=document.getElementById('rpChatNote');
- if(state==='pre'){note.style.display='';note.textContent='Chat opens 1 hour before game time.';return;}
- if(state==='closed'){note.style.display='';note.textContent='Chat closed.';document.getElementById('rpChatForm').style.display='none';document.getElementById('rpChatSign').style.display='none';}
- RP_CHAT.room=ev.id;
- if(!RP_CHAT.started){RP_CHAT.started=true;rpChatAuthState();rpChatLoad();setInterval(rpChatLoad,12000);}
+ if(!st.completed)return;
+ const now=Date.now();const k='rp_chat_done_'+RP_ROOM;
+ if(!localStorage.getItem(k))localStorage.setItem(k,String(now));
+ if(now>parseInt(localStorage.getItem(k))+7200000){
+  var note=document.getElementById('rpChatNote');note.style.display='';note.textContent='Chat closed.';
+  document.getElementById('rpChatForm').style.display='none';document.getElementById('rpChatSign').style.display='none';
+ }
 }catch(e){}}
 function rpChatAuthState(){fetch(RP_API+'/me/platforms',{credentials:'include'}).then(function(r){
  RP_CHAT.authed=(r.status!==401);
- const open=!document.getElementById('rpChatNote').textContent||document.getElementById('rpChatNote').textContent==='';
- if(RP_CHAT.authed){document.getElementById('rpChatForm').style.display='';}
+ if(RP_CHAT.authed){document.getElementById('rpChatForm').style.display='';document.getElementById('rpChatSign').style.display='none';}
  else{document.getElementById('rpChatSign').style.display='';}
-}).catch(function(){});}
+}).catch(function(){document.getElementById('rpChatSign').style.display='';});}
 function rpChatRow(m){
  const row=document.createElement('div');row.style.cssText='padding:8px 0;border-bottom:1px solid rgba(127,127,127,.1)';
  const top=document.createElement('div');top.style.cssText='display:flex;justify-content:space-between;align-items:baseline;gap:8px';
@@ -583,8 +598,8 @@ function rpChatRender(msgs){
  msgs.forEach(function(m){list.appendChild(rpChatRow(m));});
  list.scrollTop=list.scrollHeight;
 }
-function rpChatLoad(){if(!RP_CHAT.room)return;
- fetch(RP_API+'/chat/'+RP_CHAT.room+(RP_CHAT.last?'?after='+encodeURIComponent(RP_CHAT.last):''))
+function rpChatLoad(){
+ fetch(RP_API+'/chat/'+RP_ROOM+(RP_CHAT.last?'?after='+encodeURIComponent(RP_CHAT.last):''))
  .then(function(r){return r.json();}).then(function(j){
   document.getElementById('rpChatCount').textContent=j.count===1?'1 comment':j.count+' comments';
   if(j.messages&&j.messages.length){
@@ -595,20 +610,22 @@ function rpChatLoad(){if(!RP_CHAT.room)return;
    }
    RP_CHAT.last=j.messages[j.messages.length-1].created_at;
   }
- }).catch(function(){});}
-function rpChatSend(){const inp=document.getElementById('rpChatIn');const body=inp.value.trim();if(!body||!RP_CHAT.room)return;
- fetch(RP_API+'/chat/'+RP_CHAT.room,{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({body:body})})
+ }).catch(function(){});
+}
+function rpChatSend(){const inp=document.getElementById('rpChatIn');const body=inp.value.trim();if(!body)return;
+ fetch(RP_API+'/chat/'+RP_ROOM,{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({body:body})})
  .then(function(r){
   if(r.status===401){document.getElementById('rpChatForm').style.display='none';document.getElementById('rpChatSign').style.display='';return;}
-  if(r.status===429){document.getElementById('rpChatNote').textContent='Slow down - one message every 5 seconds.';return;}
+  if(r.status===429){var note=document.getElementById('rpChatNote');note.style.display='';note.textContent='Slow down - one message every 5 seconds.';return;}
   inp.value='';RP_CHAT.last='';rpChatLoad();
  }).catch(function(){});}
-function rpChatReport(id,el){if(!RP_CHAT.room)return;
- fetch(RP_API+'/chat/'+RP_CHAT.room+'/report',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({message_id:id})})
+function rpChatReport(id,el){
+ fetch(RP_API+'/chat/'+RP_ROOM+'/report',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({message_id:id})})
  .then(function(r){el.textContent=r.status===401?' sign in to report':' reported';el.onclick=null;}).catch(function(){});}
 function rpChatAuth(){const em=document.getElementById('rpChatEmail').value.trim();if(!em)return;
  fetch(RP_API+'/auth/start',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:em})})
  .then(function(){document.getElementById('rpChatAuthMsg').textContent='Check your email - tap the link to sign in, then come back here.';})
  .catch(function(){});}
+rpChatStart();
 </script>
 </body></html>
