@@ -33,6 +33,7 @@ h1 .tick{color:#3BEBF5}
 .sub{color:#6b6b72;font-size:14px;margin:6px 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}
+.chip.rpunpriced{opacity:.45}  /* watchdog Sep 26: explicit unpriced state - dimmed, em-dash, inert */
 .bklogo{width:16px;height:16px;border-radius:3px;flex:none}
 .chip.best{font-weight:800}
 .rec{font-weight:600;font-size:16px;padding:8px 0 1px}
@@ -53,7 +54,7 @@ h1 .tick{color:#3BEBF5}
 #rpModal h3{font-size:16px;margin-bottom:6px}
 #rpModal p{font-size:13px;color:#6b6b72;margin-bottom:12px}
 #rpState{width:100%;padding:10px;border:1px solid #e4e2de;border-radius:8px;font-size:15px;margin-bottom:12px}
-#rpSave{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+#rpShareLoc{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
 .rpstate-link{color:#2f8f7d;cursor:pointer;text-decoration:underline}
 #rpA2hs{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:60}
 #rpA2hs .box{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%;text-align:center}
@@ -99,7 +100,7 @@ h1 .tick{color:#3BEBF5}
 #rpPull{background:#000;color:#3aa895}
 .spin{border-color:#2a4a44;border-top-color:#3aa895}
 .chip[data-bk="FD"]{background:#12283d !important;border-color:#12283d !important;color:#5aa9e8 !important}
-.chip[data-bk="ESPN"]{background:#0f2e26 !important;border-color:#0f2e26 !important;color:#3ec9a0 !important}
+.chip[data-bk="TSB"]{background:#0d1b2e !important;border-color:#0d1b2e !important;color:#4d94ff !important}
 .chip[data-bk="HR"]{background:#2e2614 !important;border-color:#2e2614 !important;color:#d8b84e !important}
 .chip[data-bk="MGM"]{background:#2b2517 !important;border-color:#2b2517 !important;color:#cdb271 !important}
 .chip[data-bk="BR"]{background:#10262f !important;border-color:#10262f !important;color:#4fc3e8 !important}
@@ -133,7 +134,7 @@ h1 .tick{color:#3BEBF5}
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790452581';
+const RP_BUILD='1790460262';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){

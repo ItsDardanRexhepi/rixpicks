@@ -164,7 +164,7 @@ h1 .tick{color:#3BEBF5}
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790459050';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
+const RP_BUILD='1790460262';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -269,6 +269,7 @@ function rpKalTick(){try{
   const tk=a.dataset.kalmkt||(a.dataset.kalticker+'-'+a.dataset.kalside);
   if(!tk)return;
   const r0=rpMkt(a);if(r0&&r0.ph==='last_pre_game')return;  /* canonical record: frozen phases never tick (phase = event status, not fetch time) */
+  if(rpInPlay())return;  /* regression gate Sep 26: proxies measured unusable (allorigins 500@14.7s/522, codetabs 522/503, corsproxy 401) - KAL ticks PREGAME-ONLY until the api.rix-picks.com relay lands; in-play dims honestly, never re-stamps */
   const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk+'?_='+Date.now();
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){
    const m=j&&j.market;if(!m)return;window.__rpKalOk=Date.now();
@@ -945,7 +946,7 @@ async function rpScoreTblTick(d){try{
  el.innerHTML=''; /* mma/boxing/golf/nascar: no period-linescore shape - nothing rendered */
 }catch(e){}}
 
-window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(rpKalTick,5000);  /* approved Sep 26: Kalshi via proxy 5s (CORS-blocked direct); POLY + ESPN ride the 2s live loop */async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}
+window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(rpKalTick,60000);  /* regression gate Sep 26: pregame-only KAL at 60s via proxy (15s+ latency makes 5s pointless and abusive); relay restores live cadence when it lands */async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}
  /* his verbatim Sep 26 2:14 PM: "Make it instant at core level." Fetch failures are swallowed deep in
     the render paths, so freshness is enforced HERE by data age: >20s without a successful render, the
     LIVE claim comes off and the panel says it is reconnecting - old data never wears the LIVE badge. */
@@ -955,7 +956,7 @@ window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpKalTic
    const _s=document.createElement('div');_s.id='rpStale';_s.style.cssText='margin-bottom:6px;font-size:11px;font-weight:700;color:#e8b93c';
    _s.textContent='RECONNECTING - updating to the live game';lc.insertBefore(_s,lc.firstChild);}
  }catch(e2){}try{await rpScoreTblTick(document.querySelector('.pick[data-espn]'));}catch(e2){}try{rpQuoteMut();}catch(e3){}try{rpPolyTick();rpEspnTick();}catch(e4){}
- try{const _nw=Date.now();[['POLY','__rpPolyOk'],['KAL','__rpKalOk'],['TSB','__rpLiveOk']].forEach(function(pr){const dm=(_nw-(window[pr[1]]||0))>30000;document.querySelectorAll('[data-book="'+pr[0]+'"]').forEach(function(c){c.style.opacity=dm?'.55':'';});});}catch(e5){}  /* honesty dims (approved Sep 26): >30s stale source = dimmed chips, stale never re-stamps live */
+ try{const _nw=Date.now();[['POLY','__rpPolyOk',30000],['KAL','__rpKalOk',90000],['TSB','__rpLiveOk',30000]].forEach(function(pr){const dm=(_nw-(window[pr[1]]||0))>pr[2];document.querySelectorAll('[data-book="'+pr[0]+'"]').forEach(function(c){c.style.opacity=dm?'.55':'';});});}catch(e5){}  /* honesty dims: stale source dims, stale never re-stamps; KAL threshold 90s matches its 60s pregame cadence (proxy route), others 30s */
  setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?5000:2000);  /* his Sep 26 2:14 PM spec: by-the-second live - 2s cadence, 5s recovery retry, staleness never wears the LIVE badge */}rpLiveLoop();
 setInterval(rpPageRefresh,60000);
 
