@@ -148,7 +148,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790391967';const RP_ROOM='g1-2026-09-25';const RP_START='2026-09-25T20:05:00Z';
+const RP_BUILD='1790392181';const RP_ROOM='g1-2026-09-25';const RP_START='2026-09-25T20:05:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -286,6 +286,7 @@ function rpLiveSvg(on1,on2,on3){
  '<rect x="2" y="12" width="10" height="10" rx="1.5" transform="rotate(45 7 17)" fill="'+c3+'"/></svg>';}
 function rpPips(n,tot,color){let h='';for(let i=0;i<tot;i++){h+='<span style="display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:3px;background:'+(i<n?color:'rgba(127,127,127,.25)')+'"></span>';}return h;}
 async function rpMlbLive(d){
+ window.__rpLbF=0;
  try{
  if(!d.dataset.gpk){
   const sched=await (await fetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+new Date().toLocaleDateString('en-CA')+'&hydrate=linescore,team&t='+Date.now())).json();
@@ -544,7 +545,7 @@ document.addEventListener('touchend',rpPtrEnd,{passive:true});
 document.addEventListener('touchcancel',rpPtrEnd,{passive:true});
 
 
-rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);setInterval(rpLiveBox,8000);
+rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?30000:3000);}rpLiveLoop();
 setInterval(rpPageRefresh,60000);
 
 /* Live per-game chat - room id baked at build (g<num>-<date>), no fetch needed to find it. Opens 1h before start, locks 2h after final. */

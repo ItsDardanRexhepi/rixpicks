@@ -835,7 +835,7 @@ function rpChatCounts(){{try{{
  }});
 }}catch(e){{}}}}
 async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();}}
-{fut_badge_js}async function rpFastLoop(){{try{{await rpLsTick();}}catch(e){{}}}setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?30000:3000);}}
+{fut_badge_js}async function rpFastLoop(){{try{{await rpLsTick();}}catch(e){{}}setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?30000:3000);}}
 rpFastLoop();rpLsTickAll();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();}},30000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
