@@ -561,14 +561,17 @@ def chips(p):
         label=(f"{short} {ml:+d}" if ml is not None else short)+inst
         # star renders left of logo at append time
         if name in ('FanDuel','DraftKings'):
-            pm=((p.get('fdp') or {}).get('url') or 'https://www.fanduel.com/predicts') if name=='FanDuel' else ((p.get('dkp') or {}).get('url') or 'https://predictions.draftkings.com/')
-            pmapp='https://predicts.fanduel.com/' if name=='FanDuel' else ''
-            nopm=' data-nopm="1"' if (name=='DraftKings' and not (p.get('dkp') or {}).get('url')) else ''
+            # exact PM market url or fail-closed (complaint-lens via main 9/26): a generic Predicts/Predictions
+            # homepage never substantiates a displayed selection, on any surface.
+            pm=((p.get('fdp') or {}).get('url')) if name=='FanDuel' else ((p.get('dkp') or {}).get('url'))
+            pmapp=('https://predicts.fanduel.com/' if pm else '') if name=='FanDuel' else ''
+            nopm='' if pm else ' data-nopm="1"'
+            _pmattr=(' data-pm="'+html.escape(pm)+'"') if pm else ''
             _tm='{state}' in link
             _tmattr=' data-template="1"' if _tm else ''
             _href='https://www.'+BKDOM[short] if _tm else link
             _pr.append((len(out), ml))
-            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(_href)}" data-book="{short}"{_dm} data-sb="{html.escape(link)}" data-pm="{html.escape(pm)}" data-pmapp="{html.escape(pmapp)}"{nopm}{_tmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{html.escape(label)}</a>')
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(_href)}" data-book="{short}"{_dm} data-sb="{html.escape(link)}"{_pmattr} data-pmapp="{html.escape(pmapp)}"{nopm}{_tmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{html.escape(label)}</a>')
         elif '{state}' in link:
             # Sep 26 inspector ruling (J-112 class extended to singles): a priced chip on a generic
             # destination violates game-level-or-no-chip. Static HTML ships a priced NON-TAPPABLE span
@@ -784,7 +787,7 @@ for p in man['picks']:
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
     rows.append(f'''<div class="pick" data-espn="{espn}" data-eid="{html.escape(_eid)}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{(_pt_date(g.get('commence','')) or 'card')}" data-commence="{html.escape(g.get('commence',''))}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}" data-stake="{html.escape(re.sub(r'[^0-9.]','',p.get('units','')))}"{(' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else '')}>
-  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="uo"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></span><span class="oddslock">carded {html.escape(man.get('updated','').split(', ')[-1])} &middot; locked</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
+  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="uo"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></span><span class="oddslock">{html.escape(man.get('updated','').split(', ')[-1].replace(' PT',''))} &middot; locked</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="rpstart" data-commence="{html.escape(g.get('commence',''))}">{_pt_time(g.get('commence',''))}</div>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
@@ -926,7 +929,7 @@ if man.get('parlay'):
         # Inspector ruling (Sep 26): no KAL/POLY combo chips - the exchanges have no native
         # parlay product, and per-leg chips on each pick already route to the real markets.
         # A priced chip linking to a homepage/category page is a defect; dead-combo pricing dies at the root here.
-        BKML=[('DK','draftkings',None),('FD','fanduel','https://www.fanduel.com/predicts'),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]  # DK pm: fail closed pending verified state list
+        BKML=[('DK','draftkings',None),('FD','fanduel',None),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]  # DK pm: fail closed pending verified state list
         for short,pk,pm in BKML:
             mls=[]; ok=True
             for p in lp:
@@ -1042,7 +1045,7 @@ h1 .tick{{color:#3BEBF5}}
 .lghead span{{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}}.sect{{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}}
 .pick{{padding:18px 0;border-top:1px solid #e4e2de}}
 .pick:first-of-type{{border-top:none}}
-.pick-head{{display:flex;align-items:center;gap:10px}}.meta-grp{{display:inline-flex;align-items:center;gap:8px;flex:none}}.rpmetalink{{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}}.uo{{display:inline-flex;align-items:center;gap:8px}}.oddslock{{font-size:9px;letter-spacing:.4px;color:rgba(127,127,127,.9);text-transform:uppercase;white-space:nowrap}}.rpchatlink{{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}}
+.pick-head{{display:flex;align-items:center;gap:10px}}.gamelink{{flex:1;min-width:0}}.meta-grp{{display:inline-flex;align-items:center;gap:8px;flex:none}}.rpmetalink{{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}}.uo{{display:inline-flex;align-items:center;gap:8px}}.oddslock{{font-size:10px;letter-spacing:.4px;color:#8a8f98;text-transform:uppercase;white-space:nowrap}}.rpchatlink{{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}}
 .gamelink{{display:flex;align-items:center;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}}
 .chev{{color:#55555c;text-decoration:none}}
 .mrow{{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}}
@@ -1221,7 +1224,8 @@ function rpTapify(el,st){{const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.d
   delete out.dataset.pmrprice;delete out.dataset.pmroute;}}}}
 function rpRowAvail(el,st){{return rpBookLive(el.dataset.book,st)||!!rpPm(el);}}
 function rpStrip(el){{el.removeAttribute('href');el.removeAttribute('onclick');el.removeAttribute('target');el.removeAttribute('rel');el.classList.add('rpnontap');}}
-function rpGate(el){{const h=el.getAttribute('href');if(h&&!el.getAttribute('data-sb'))el.setAttribute('data-sb',h);rpStrip(el);el.style.display='';el.classList.remove('rpnontap');el.setAttribute('onclick','return rpRoute(event,this)');}}  /* unresolved state: visible, route-stripped, tap opens the state prompt */
+function rpGate(el){{if(!(el.getAttribute('href')||el.getAttribute('data-sb')||el.getAttribute('data-sbt')||el.getAttribute('data-pm'))){{rpStrip(el);el.style.display='';return;}}  /* no-route price reference: visibly inert, never prompts */
+ const h=el.getAttribute('href');if(h&&!el.getAttribute('data-sb'))el.setAttribute('data-sb',h);rpStrip(el);el.style.display='';el.classList.remove('rpnontap');el.setAttribute('onclick','return rpRoute(event,this)');}}  /* unresolved state: visible, route-stripped, tap opens the state prompt */
 function rpFilter(st){{window.rpSt=st;rpTerm(st);
  if(!st){{document.querySelectorAll('[data-book]').forEach(function(el){{
   if(el.querySelector('[data-book]')){{el.style.display='';el.querySelectorAll('[data-book]').forEach(rpGate);return;}}
@@ -1670,7 +1674,9 @@ def build_game_pages(man, css, build_sha):
             a_lbl=('%+d'%aml) if aml is not None else '-'
             h_lbl=('%+d'%hml) if hml is not None else '-'
             if short=='FD':
-                _rowpm=' data-pm="'+html.escape((p.get('fdp') or {}).get('url') or 'https://www.fanduel.com/predicts')+'"'
+                # generic Predicts homepage never substantiates a displayed selection (complaint-lens via main 9/26) - exact market url only
+                _fdpu=(p.get('fdp') or {}).get('url')
+                _rowpm=(' data-pm="'+html.escape(_fdpu)+'"') if _fdpu else ''
             elif short=='DK' and (p.get('dkp') or {}).get('url'):
                 _rowpm=' data-pm="'+html.escape(p['dkp']['url'])+'"'
             else:
@@ -1836,13 +1842,7 @@ def build_game_pages(man, css, build_sha):
                team_slug(home),tlogo(mh),html.escape(abbr_h))
         teamlinks=''
         charts_html=''
-        if books_present:
-            charts_html=('<div class="sect">Price history</div>'
-                '<div class="chartcard" data-books="'+' '.join(books_present)+'" style="padding:12px 0 8px;border-bottom:1px solid rgba(127,127,127,.15)">'
-                '<svg class="rpchart" id="chart-main" viewBox="0 0 340 190" style="width:100%;height:auto;display:block"></svg>'
-                '<div id="chartlegend" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;font-size:11px"></div>'
-                '<div style="display:flex;justify-content:flex-end;font-size:11px;color:#8a8f98;margin-top:4px">'
-                '<span class="rpranges"><span data-r="1D" style="padding:2px 6px;cursor:pointer">1D</span> <span data-r="1W" style="padding:2px 6px;cursor:pointer">1W</span> <span data-r="1M" style="padding:2px 6px;cursor:pointer">1M</span> <span data-r="ALL" style="padding:2px 6px;cursor:pointer;font-weight:700">ALL</span></span></div></div>')
+        # price-history graphs removed (user 9/26 10:58 iMessage via main) - no chart markup emitted
         HIST[(away,home)]=hrow
         ch=_chips_fn(p)
         espn=html.escape(p.get('espn_league',''))
