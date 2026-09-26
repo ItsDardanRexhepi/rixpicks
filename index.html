@@ -3,10 +3,10 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>&rsquo;RixPicks</title>
-<link rel="icon" href="favicon.ico?v=1790442522" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1790442522">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1790442522">
-<link rel="manifest" href="site.webmanifest?v=1790442522">
+<link rel="icon" href="favicon.ico?v=1790443075" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1790443075">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1790443075">
+<link rel="manifest" href="site.webmanifest?v=1790443075">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});}catch(e){}});</script>
 <meta name="mobile-web-app-capable" content="yes">
@@ -14,10 +14,15 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="RixPicks">
 <meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rix-picks.com/">
 <meta property="og:title" content="&rsquo;RixPicks">
-<meta property="og:description" content="Daily picks. Tap a book, the bet&rsquo;s built.">
+<meta property="og:description" content="Free picks, live tracked, every league in one place. Built in public - the record is never edited.">
+<meta property="og:image" content="https://rix-picks.com/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="&rsquo;RixPicks">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:description" content="Free picks, live tracked, every league in one place. Built in public - the record is never edited.">
+<meta name="twitter:image" content="https://rix-picks.com/og-card.png">
 <meta name="description" content="&rsquo;RixPicks picks of the day. Tap any book under a pick to open that game there.">
 <style>
 *{margin:0;box-sizing:border-box}
@@ -53,6 +58,7 @@ h1 .tick{color:#3BEBF5}
 .chip.best{font-weight:800}
 .rec{font-weight:600;font-size:16px;padding:8px 0 1px}
 .units{color:#8a8f98;font-size:13px;font-weight:600;line-height:1}
+.rpstart{color:#8a8f98;font-size:12px;font-weight:600;line-height:1;margin:2px 0 0}
 .unitmath{color:#8a8f98;font-size:13px;margin-top:8px}
 .legs{padding-left:20px;font-size:15px;line-height:1.7}
 .note{color:#6b6b72;font-size:13px;margin-top:6px}
@@ -132,21 +138,23 @@ h1 .tick{color:#3BEBF5}
 <a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: 2-1 · Orioles W · Guardians W · Astros L</a>
 <div class="sect">Today&rsquo;s picks</div>
 <div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">🏈</span>CFB</div>
-<div class="pick" data-espn="football/college-football" data-eid="401860893" data-gpk="" data-aab="" data-hab="" data-room="g1-2026-09-26" data-away="San Diego State Aztecs" data-home="Toledo Rockets" data-side="home" data-market="ml" data-codds="-137" data-stake="5">
+<div class="pick" data-espn="football/college-football" data-eid="401860893" data-gpk="" data-aab="" data-hab="" data-room="g1-2026-09-26" data-commence="2026-09-26T16:00Z" data-away="San Diego State Aztecs" data-home="Toledo Rockets" data-side="home" data-market="ml" data-codds="-137" data-stake="5">
   <div class="pick-head"><a class="gamelink" href="game-1.html"><span style="display:inline-flex;flex-shrink:0;align-items:center"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/21.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)" onerror="this.remove()"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14);margin-left:-7px" onerror="this.remove()"></span><span class="num">1.</span><span class="name">Toledo ML</span></a><span class="meta-grp"><a class="rpmetalink" href="game-1.html"><span class="units">5u</span><span class="odds">-137</span></a><a class="rpchatlink" href="game-1.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
+  <div class="rpstart" data-commence="2026-09-26T16:00Z">9:00 AM PT</div>
   <div class="sub">vs San Diego St · home · model 64.9, independents 60-66 · exchange 56.5-57c</div>
-  <div class="chips"><a class="chip" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" href="https://sportsbook.draftkings.com/?outcomes=0ML86319046_1" data-book="DK" data-market="ml" data-sb="https://sportsbook.draftkings.com/?outcomes=0ML86319046_1" data-pm="https://predictions.draftkings.com/" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK -142</a><a class="chip" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608182818&amp;selectionId=532781" data-book="FD" data-market="ml" data-sb="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608182818&amp;selectionId=532781" data-pm="https://www.fanduel.com/predicts" data-pmapp="https://predicts.fanduel.com/" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD -150</a><a class="chip" data-bk="ESPN" style="background:#e6faf3;border-color:#e6faf3;color:#0a8a66" href="https://sportsbook.thescore.bet/?market_selection_id[0]=20fb3ee9-b85c-4686-aa2b-47d8810b4565&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" data-book="ESPN" data-market="ml" data-sb="https://sportsbook.thescore.bet/?market_selection_id[0]=20fb3ee9-b85c-4686-aa2b-47d8810b4565&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=espnbet.com&sz=128" alt="" onerror="this.remove()">ESPN -145</a><a class="chip" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" href="https://app.hardrock.bet/?deep_link_value=betslip/7563767419093778824" data-book="HR" data-market="ml" data-sb="https://app.hardrock.bet/?deep_link_value=betslip/7563767419093778824" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR -140</a><span class="chip rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="ml" data-sbt="https://{state}.betrivers.com/?page=sportsbook#event/1027508185" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR -148</span><a class="chip best" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26sdsutol" data-book="KAL" data-kalticker="KXNCAAFGAME-26SEP26SDSUTOL" data-kalside="TOL" data-market="ml" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -376</a><a class="chip" data-bk="POLY" style="background:#e8f3fc;border-color:#e8f3fc;color:#1a6db0" href="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-book="POLY" data-sb="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-app="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-polyslug="cfb-sdst-toledo-2026-09-26" data-market="ml" data-polysub="" data-polykw="Toledo" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=polymarket.com&sz=128" alt="" onerror="this.remove()">POLY -270</a></div>
-  <div class="rplineshop" style="font-size:11px;color:#8a8f98;margin:3px 0 0">line shop: -376 to -140 &middot; 20.7% edge at the best price</div>
+  <div class="chips"><a class="chip" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" href="https://sportsbook.draftkings.com/?outcomes=0ML86319046_1" data-book="DK" data-market="ml" data-sb="https://sportsbook.draftkings.com/?outcomes=0ML86319046_1" data-pm="https://predictions.draftkings.com/" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK</a><a class="chip" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608182818&amp;selectionId=532781" data-book="FD" data-market="ml" data-sb="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608182818&amp;selectionId=532781" data-pm="https://www.fanduel.com/predicts" data-pmapp="https://predicts.fanduel.com/" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD</a><a class="chip" data-bk="ESPN" style="background:#e6faf3;border-color:#e6faf3;color:#0a8a66" href="https://sportsbook.thescore.bet/?market_selection_id[0]=20fb3ee9-b85c-4686-aa2b-47d8810b4565&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" data-book="ESPN" data-market="ml" data-sb="https://sportsbook.thescore.bet/?market_selection_id[0]=20fb3ee9-b85c-4686-aa2b-47d8810b4565&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=espnbet.com&sz=128" alt="" onerror="this.remove()">ESPN</a><a class="chip" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" href="https://app.hardrock.bet/?deep_link_value=betslip/7563767419093778824" data-book="HR" data-market="ml" data-sb="https://app.hardrock.bet/?deep_link_value=betslip/7563767419093778824" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR</a><span class="chip rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="ml" data-sbt="https://{state}.betrivers.com/?page=sportsbook#event/1027508185" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR</span><a class="chip" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26sdsutol" data-book="KAL" data-kalticker="KXNCAAFGAME-26SEP26SDSUTOL" data-kalside="TOL" data-market="ml" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -137</a><a class="chip" data-bk="POLY" style="background:#e8f3fc;border-color:#e8f3fc;color:#1a6db0" href="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-book="POLY" data-sb="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-app="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-polyslug="cfb-sdst-toledo-2026-09-26" data-market="ml" data-polysub="" data-polykw="Toledo" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=polymarket.com&sz=128" alt="" onerror="this.remove()">POLY</a></div>
+  <div class="rplineshop" style="font-size:11px;color:#8a8f98;margin:3px 0 0">line shop unavailable in play</div>
 </div>
-<div class="pick" data-espn="football/college-football" data-eid="401858464" data-gpk="" data-aab="" data-hab="" data-room="g2-2026-09-26" data-away="Nebraska Cornhuskers" data-home="Michigan State Spartans" data-side="away" data-market="ml" data-codds="-225" data-stake="10">
+<div class="pick" data-espn="football/college-football" data-eid="401858464" data-gpk="" data-aab="" data-hab="" data-room="g2-2026-09-26" data-commence="2026-09-26T21:00Z" data-away="Nebraska Cornhuskers" data-home="Michigan State Spartans" data-side="away" data-market="ml" data-codds="-225" data-stake="10">
   <div class="pick-head"><a class="gamelink" href="game-2.html"><span style="display:inline-flex;flex-shrink:0;align-items:center"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/158.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)" onerror="this.remove()"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/127.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14);margin-left:-7px" onerror="this.remove()"></span><span class="num">2.</span><span class="name">Nebraska ML</span></a><span class="meta-grp"><a class="rpmetalink" href="game-2.html"><span class="units">10u</span><span class="odds">-225</span></a><a class="rpchatlink" href="game-2.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
+  <div class="rpstart" data-commence="2026-09-26T21:00Z">2:00 PM PT</div>
   <div class="sub">at Michigan St · model + independents converge ~72 · MSU missing 6 incl. LB Pretzlaff</div>
   <div class="chips"><a class="chip" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" href="https://sportsbook.draftkings.com/?outcomes=0ML86319026_3" data-book="DK" data-market="ml" data-sb="https://sportsbook.draftkings.com/?outcomes=0ML86319026_3" data-pm="https://predictions.draftkings.com/" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK -225</a><a class="chip" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608181768&amp;selectionId=70350" data-book="FD" data-market="ml" data-sb="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608181768&amp;selectionId=70350" data-pm="https://www.fanduel.com/predicts" data-pmapp="https://predicts.fanduel.com/" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD -230</a><a class="chip" data-bk="ESPN" style="background:#e6faf3;border-color:#e6faf3;color:#0a8a66" href="https://sportsbook.thescore.bet/?market_selection_id[0]=c3fe1249-3060-4a16-a706-4c038bd45a44&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" data-book="ESPN" data-market="ml" data-sb="https://sportsbook.thescore.bet/?market_selection_id[0]=c3fe1249-3060-4a16-a706-4c038bd45a44&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=espnbet.com&sz=128" alt="" onerror="this.remove()">ESPN -240</a><a class="chip" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" href="https://app.hardrock.bet/?deep_link_value=betslip/8408035242006413709" data-book="HR" data-market="ml" data-sb="https://app.hardrock.bet/?deep_link_value=betslip/8408035242006413709" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR -250</a><span class="chip rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="ml" data-sbt="https://{state}.betrivers.com/?page=sportsbook#event/1027507946" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR -225</span><a class="chip best" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26nebmsu" data-book="KAL" data-kalticker="KXNCAAFGAME-26SEP26NEBMSU" data-kalside="NEB" data-market="ml" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -203</a><a class="chip" data-bk="POLY" style="background:#e8f3fc;border-color:#e8f3fc;color:#1a6db0" href="https://polymarket.us/event/cfb-nebr-mst-2026-09-26" data-book="POLY" data-sb="https://polymarket.us/event/cfb-nebr-mst-2026-09-26" data-app="https://polymarket.us/event/cfb-nebr-mst-2026-09-26" data-polyslug="cfb-nebr-mst-2026-09-26" data-market="ml" data-polysub="" data-polykw="Nebraska" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=polymarket.com&sz=128" alt="" onerror="this.remove()">POLY -212</a></div>
   <div class="rplineshop" style="font-size:11px;color:#8a8f98;margin:3px 0 0">line shop: -250 to -203 &middot; 4.4% edge at the best price</div>
 </div>
-<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs"><li class="cxleg" data-espn="football/college-football" data-eid="401860893" data-gpk="" data-aab="" data-hab="" data-away="San Diego State Aztecs" data-home="Toledo Rockets" data-side="home"><a href="game-1.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Toledo ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="football/college-football" data-eid="401858464" data-gpk="" data-aab="" data-hab="" data-away="Nebraska Cornhuskers" data-home="Michigan State Spartans" data-side="away"><a href="game-2.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Nebraska ML<span class="ls" data-ls></span></a></li></ul><div class="note" id="rpCxLive" style="display:none;margin-top:6px"></div><div class="chips" id="rpParlayChips" style="margin:10px 0"><span class="chip best rpnontap" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" data-book="DK" data-market="parlay">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK +146</span><span class="chip rpnontap" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" data-book="FD" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD +139</span><span class="chip rpnontap" data-bk="ESPN" style="background:#e6faf3;border-color:#e6faf3;color:#0a8a66" data-book="ESPN" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=espnbet.com&sz=128" alt="" onerror="this.remove()">ESPN +139</span><span class="chip rpnontap" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" data-book="HR" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR +140</span><span class="chip rpnontap" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM +144</span><span class="chip rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR +142</span></div><div class="note" id="rpComboReg" style="display:none">* Due to regulations in your state, combos can’t legally be built out for you and must be done manually.</div><div class="note" id="rpParlayNote" style="display:none">38.2c combined at publish-time exchange asks (~+162).</div>
+<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs"><li class="cxleg" data-espn="football/college-football" data-eid="401860893" data-gpk="" data-aab="" data-hab="" data-away="San Diego State Aztecs" data-home="Toledo Rockets" data-commence="2026-09-26T16:00Z" data-side="home"><a href="game-1.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Toledo ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="football/college-football" data-eid="401858464" data-gpk="" data-aab="" data-hab="" data-away="Nebraska Cornhuskers" data-home="Michigan State Spartans" data-commence="2026-09-26T21:00Z" data-side="away"><a href="game-2.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Nebraska ML<span class="ls" data-ls></span></a></li></ul><div class="note" id="rpCxLive" style="display:none;margin-top:6px"></div><div class="chips" id="rpParlayChips" style="margin:10px 0"><span class="chip rpnontap" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" data-book="DK" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK +146</span><span class="chip rpnontap" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" data-book="FD" data-market="parlay" data-pm="https://www.fanduel.com/predicts"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD +139</span><span class="chip rpnontap" data-bk="ESPN" style="background:#e6faf3;border-color:#e6faf3;color:#0a8a66" data-book="ESPN" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=espnbet.com&sz=128" alt="" onerror="this.remove()">ESPN +139</span><span class="chip rpnontap" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" data-book="HR" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR +140</span><span class="chip rpnontap" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM +144</span><span class="chip rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR +142</span><span class="chip rpnontap" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" data-book="KAL" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL +163</span><span class="chip rpnontap" data-bk="POLY" style="background:#e8f3fc;border-color:#e8f3fc;color:#1a6db0" data-book="POLY" data-market="parlay"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=polymarket.com&sz=128" alt="" onerror="this.remove()">POLY -108</span></div><div class="note" id="rpComboReg" style="display:none">* Due to regulations in your state, combos can’t legally be built out for you and must be done manually.</div><div class="note" id="rpParlayNote" style="display:none">38.2c combined at publish-time exchange asks (~+162).</div>
 
-<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1790442522" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">7 live &rsaquo;</span></a>
+<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1790443075" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">8 live &rsaquo;</span></a>
 <a class="rec" id="rpRec" data-bw="10" data-bl="6" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: 10-6</a>
 <div class="yesrec" id="rpWlPct">W/L: 62.5%</div>
 <div class="yesrec unitspl" id="rpUnits" data-bu="-6.64">Units: -6.64u</div>
@@ -171,6 +179,7 @@ const RP_FD=["AZ", "AR", "CO", "CT", "IL", "IN", "IA", "KS", "KY", "LA", "MD", "
 const RP_L={FD:RP_FD,DK:RP_DK,MGM:["AZ", "CO", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "MS", "NJ", "NV", "NY", "NC", "OH", "PA", "TN", "VA", "WV", "WY"],B365:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "NJ", "NC", "OH", "PA", "TN", "VA"],FAN:["AZ", "CO", "CT", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NC", "NJ", "NY", "OH", "PA", "TN", "VT", "VA", "WV", "WY"],ESPN:["AZ", "CO", "IL", "IN", "IA", "KS", "KY", "LA", "MA", "MD", "MI", "NJ", "NC", "OH", "PA", "TN", "VA", "WV"],HR:["AZ", "CO", "FL", "IL", "IN", "MI", "NJ", "OH", "TN", "VA"],BR:["AZ", "CO", "CT", "DE", "DC", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "NH", "NJ", "NY", "NC", "OH", "OR", "PA", "RI", "TN", "VT", "VA", "WV", "WY"]};
 const RP_COMBO_NONTAP=true;
 const RP_MOB=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+if(location.protocol==='http:'&&/(^|\.)rix-picks\.com$/.test(location.hostname)){location.replace('https://'+location.host+location.pathname+location.search+location.hash);}
 const RP_STANDALONE=(navigator.standalone===true)||window.matchMedia('(display-mode: standalone)').matches;
 function rpOpen(u){if(RP_STANDALONE){location.assign(u);}else{window.open(u,'_blank','noopener');}}
 if(RP_STANDALONE){document.addEventListener('click',function(e){const a=e.target.closest('a[target="_blank"]');if(a&&!a.onclick&&a.href){e.preventDefault();location.assign(a.href);}},true);}
@@ -190,13 +199,16 @@ function rpTerm(st){const sb=RP_FD.includes(st)||RP_DK.includes(st);const ntap=(
  const rg=document.getElementById('rpComboReg');if(rg){rg.style.display=(!sb||ntap)?'':'none';
   if(ntap)rg.textContent='* Combo prices are live per-book references - build the combo manually at your book. Chips go tappable as verified deep links land.';}
  const nt=document.getElementById('rpParlayNote');if(nt)nt.style.display=nt.textContent?'':'none';}
+function rpInPlay(pk){try{const c=pk.dataset.commence;if(c&&Date.now()>=Date.parse(c))return true;}catch(e){}return false;}
 function rpBestStar(pk){
  // Sep 26: the best-line star follows VISIBLE prices - geo filtering or a price tick can strand
  // it on a hidden/worse chip. Recomputed over visible chips only, max American odds wins.
  try{
  const chips=[...pk.querySelectorAll('[data-book]')].filter(function(a){return !a.querySelector('[data-book]');});let best=null,bestV=-1e18;
+ if(rpInPlay(pk)){chips.forEach(function(a){a.classList.remove('best');a.innerHTML=a.innerHTML.replace(/^★ /,'');});return;}  /* F2: best-line star is a pre-game artifact */
  chips.forEach(function(a){
   if(a.offsetParent===null)return;
+  if(a.dataset.pmroute==='1')return;  /* F3: generic PM fallbacks are never best-line */
   const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
   const v=parseInt(m[1]);if(v>bestV){bestV=v;best=a;}
  });
@@ -205,11 +217,16 @@ function rpBestStar(pk){
  }catch(e){}
 }
 function rpAllBest(){document.querySelectorAll('.pick').forEach(rpBestStar);}
-function rpTapify(el,st){const d=rpDest(el,st);
+function rpTapify(el,st){const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.dataset.book,st));let out;
  if(d){let a=el;if(el.tagName!=='A'){a=document.createElement('a');for(const at of el.attributes)a.setAttribute(at.name,at.value);a.innerHTML=el.innerHTML;el.replaceWith(a);}
-  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');}
+  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');out=a;}
  else{let sp=el;if(el.tagName!=='SPAN'){sp=document.createElement('span');for(const at of el.attributes)sp.setAttribute(at.name,at.value);sp.innerHTML=el.innerHTML;el.replaceWith(sp);}
-  sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');}}
+  sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');out=sp;}
+ /* F3: a prediction-market fallback route never wears sportsbook numbers; restore them when the book is live */
+ if(pmr){if(!out.dataset.pmrprice){const m=out.innerHTML.match(/^\s*([+-]\d+)\s*$/)||out.innerHTML.match(/ ([+-]\d+)$/);if(m)out.dataset.pmrprice=m[1];}
+  out.innerHTML=out.innerHTML.replace(/^\s*[+-]\d+\s*$/,'').replace(/ [+-]\d+$/,'');out.dataset.pmroute='1';}
+ else{if(out.dataset.pmrprice&&out.innerHTML.indexOf(out.dataset.pmrprice)<0){out.innerHTML=(out.innerHTML?out.innerHTML+' ':'')+out.dataset.pmrprice;}
+  delete out.dataset.pmrprice;delete out.dataset.pmroute;}}
 function rpRowAvail(el,st){return rpBookLive(el.dataset.book,st)||!!rpPm(el);}
 function rpStrip(el){el.removeAttribute('href');el.removeAttribute('onclick');el.removeAttribute('target');el.removeAttribute('rel');el.classList.add('rpnontap');}
 function rpFilter(st){window.rpSt=st;rpTerm(st);
@@ -368,6 +385,7 @@ function rpLineShop(pk){try{
  [...pk.querySelectorAll('[data-book]')].filter(function(a){return !a.querySelector('[data-book]');}).forEach(function(a){
   if(pmkt&&a.dataset.market!==pmkt)return;  /* sentinel Sep 26 (fail-closed): only chips WITH matching market identity enter the range */
   const cs=getComputedStyle(a);if(cs.display==='none'||cs.visibility==='hidden')return;  /* geo-hidden or dead books never enter the range */
+  if(a.dataset.pmroute==='1')return;  /* F3: generic PM fallbacks never enter the line shop */
   const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
   const v=parseInt(m[1]);if(Math.abs(v)<=1500)prs.push(v);
  });
@@ -375,22 +393,25 @@ function rpLineShop(pk){try{
  if(prs.length<2){el.style.display='none';return;}
  const best=Math.max.apply(null,prs),worst=Math.min.apply(null,prs);
  const edge=(ip(worst)-ip(best))*100;
+ if(rpInPlay(pk)){el.style.display='';el.textContent='line shop unavailable in play';return;}  /* F2: never compute across mixed-phase prices; entry price stays locked on the card */
  if(edge<0.05){el.style.display='none';return;}
  el.style.display='';
  el.textContent='line shop: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best+' · '+edge.toFixed(1)+'% edge at the best price';
 }catch(e){}}
 function rpAllLineShops(){document.querySelectorAll('.pick').forEach(rpLineShop);}
+function rpStartTimes(){const now=Date.now();document.querySelectorAll('.rpstart[data-commence]').forEach(function(el){const t=Date.parse(el.dataset.commence);if(t&&now>=t)el.remove();});}
 async function rpLsTickAll(){await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();}
 try{
 var rpFutSeen=JSON.parse(localStorage.getItem('rp_fut_seen')||'[]');
-var rpFutIds=["F-SBLXI-SF", "F-NFLV2-KC-AFCW", "F-NFLV2-SF-NFCW", "F-NFLV2-PHI-NFCE", "F-NFLV2-MIN-NFCN", "F-NFLV2-BUF-AFC", "F-NFLV3-SF-NFC"];
+var rpFutIds=["F-SBLXI-SF", "F-NFLV2-KC-AFCW", "F-NFLV2-SF-NFCW", "F-NFLV2-PHI-NFCE", "F-NFLV2-MIN-NFCN", "F-NFLV2-BUF-AFC", "F-NFLV3-SF-NFC", "F-WNBA-MIN-CHAMP"];
 if(rpFutIds.some(function(i){return rpFutSeen.indexOf(i)<0;})){var nb=document.getElementById('rpFutNew');if(nb)nb.style.display='';}
 }catch(e){}
 async function rpFastLoop(){try{await rpLsTick();}catch(e){}setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?30000:3000);}
-rpFastLoop();rpLsTickAll();setInterval(function(){rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();},30000);
+rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();rpStartTimes();},30000);
 document.getElementById('rpModal').addEventListener('click',function(e){if(e.target===this){this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}});
+rpFilter(localStorage.getItem('rp_state')||'');
 if(!localStorage.getItem('rp_state')&&!localStorage.getItem('rp_state_dismissed')){rpAsk(false);}else{rpLabel();}
-const RP_BUILD='1790442522';
+const RP_BUILD='1790443075';
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(()=>{});}catch(e){}
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
@@ -448,12 +469,13 @@ function rpCxUpd(bk){
 }
 function rpCxStar(){try{
  const wrap=document.getElementById('rpParlayChips');if(!wrap)return;
+ let inplay=false;document.querySelectorAll('.cxleg').forEach(function(l){if(rpInPlay(l))inplay=true;});  /* F2 */
  let best=null,bestV=-1e9;
  wrap.querySelectorAll('[data-book]').forEach(function(a){
   const vis=a.style.display!=='none';
   a.classList.remove('best');
   a.innerHTML=a.innerHTML.replace(/^★ /,'');
-  if(!vis)return;
+  if(!vis||inplay||a.dataset.pmroute==='1')return;  /* F2/F3 */
   const m=a.textContent.match(/([+-]\d+)/);if(!m)return;
   const v=parseInt(m[1]);
   if(v>bestV){bestV=v;best=a;}
@@ -487,10 +509,11 @@ function rpPolyTick(){try{
     const c=Math.round(parseFloat(pr[i])*100);
     if(target.closed&&c>=99){a.dataset.won='1';a.dataset.lost='';rpCxUpd('POLY');return;}
     if(target.closed&&c<=1){a.dataset.lost='1';a.dataset.won='';rpCxUpd('POLY');return;}
-    if(c>0&&c<100){a.dataset.won='';a.dataset.lost='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| ✓| ✗)?/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');
+    if(c>0&&c<100){a.dataset.won='';a.dataset.lost='';
      const pk=a.closest('.pick');
+     if(!(pk&&rpInPlay(pk))){a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| ✓| ✗)?/,'POLY '+rpMLF(rpC2ML(c)));}rpCxUpd('POLY');
      if(pk&&pk.dataset.market==='ml'){const s2=pk.querySelector('.odds');
-      if(s2){const ml2=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);s2.textContent=(ml2>0?'+':'')+ml2;}}}
+      if(s2&&!rpInPlay(pk)){const ml2=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);s2.textContent=(ml2>0?'+':'')+ml2;}}}
     return;
    }}
   }).catch(()=>{});
@@ -514,7 +537,7 @@ function rpEspnTick(){try{
      const rd=(d.dataset.room||'').split('-').slice(1).join('-');
      if(rd&&ev.date){const pd=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(ev.date));if(pd!==rd)return;}
      const ml=d.dataset.side==='away'?(o.awayTeamOdds||{}).moneyLine:(o.homeTeamOdds||{}).moneyLine;
-     if(typeof ml==='number'){const s=d.querySelector('.odds');if(s)s.textContent=(ml>0?'+':'')+ml;
+     if(typeof ml==='number'&&!rpInPlay(d)){const s=d.querySelector('.odds');if(s)s.textContent=(ml>0?'+':'')+ml;
       const chip=d.querySelector('a[data-book="ESPN"]');
       if(chip){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);rpCxUpdMl('ESPN');rpBestStar(d);}}
     });
@@ -533,11 +556,12 @@ function rpKalTick(){try{
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
    const c=Math.round(d*100);
    a.dataset.won='';a.dataset.lost='';
-   a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| ✓| ✗)?/,'KAL '+rpMLF(rpC2ML(c)));rpCxUpd('KAL');
    const pk=a.closest('.pick');
+   if(!(pk&&rpInPlay(pk))){a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| ✓| ✗)?/,'KAL '+rpMLF(rpC2ML(c)));}rpCxUpd('KAL');
    if(pk&&pk.dataset.market==='ml'){const s=pk.querySelector('.odds');
-    if(s&&c>0&&c<100){const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
-     s.textContent=(ml>0?'+':'')+ml;rpBestStar(pk);}}
+    if(s&&c>0&&c<100&&!rpInPlay(pk)){const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
+     s.textContent=(ml>0?'+':'')+ml;}}
+    if(rpInPlay(pk))rpBestStar(pk);
   }).catch(()=>{}); /* graceful fallback: relay/API failure keeps last build price */
  });
 }catch(e){}}
@@ -606,4 +630,4 @@ function rpPageRefresh(){try{
 }catch(e){}}
 setInterval(rpPageRefresh,60000);
 </script>
-<script src="myprofile.js?v=1790442522"></script></div></body></html>
+<script src="myprofile.js?v=1790443075"></script></div></body></html>
