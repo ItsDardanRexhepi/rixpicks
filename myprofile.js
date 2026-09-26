@@ -192,7 +192,7 @@ personalize();
 var fab=document.createElement('button');fab.className='rp-fab';fab.textContent='My Account';
 fab.onclick=function(){betsSheet();tickSettle(renderBetsInto);};
 var h1=document.querySelector('h1');if(h1){h1.style.position='relative';fab.style.position='absolute';fab.style.right='0';fab.style.top='50%';fab.style.transform='translateY(-50%)';h1.appendChild(fab);}else{fab.style.position='fixed';fab.style.right='12px';fab.style.top='10px';fab.style.zIndex='60';document.body.appendChild(fab);}
-if(!ls('rp_books_asked',null)&&!myBooks().length){setTimeout(function(){booksSheet();},900);}
+/* platforms sheet never auto-opens (complaint-lens via main 9/26) - fires only from My Account / My Platforms taps */
 tickSettle(null);setInterval(function(){tickSettle(null);},60000);}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();

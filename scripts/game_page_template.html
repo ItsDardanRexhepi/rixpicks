@@ -92,7 +92,11 @@ function rpTapify(el,st){const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.da
   delete out.dataset.pmrprice;delete out.dataset.pmroute;}}
 function rpRowAvail(el,st){return rpBookLive(el.dataset.book,st)||!!rpPm(el);}
 function rpStrip(el){el.removeAttribute('href');el.removeAttribute('onclick');el.removeAttribute('target');el.removeAttribute('rel');el.classList.add('rpnontap');}
-function rpFilter(st){document.querySelectorAll('[data-book]').forEach(function(el){
+function rpGate(el){const h=el.getAttribute('href');if(h&&!el.getAttribute('data-sb'))el.setAttribute('data-sb',h);rpStrip(el);el.style.display='';el.classList.remove('rpnontap');el.setAttribute('onclick','return rpRoute(event,this)');}  /* unresolved state: visible, route-stripped, tap opens the state prompt */
+function rpFilter(st){
+ if(!st){document.querySelectorAll('[data-book]').forEach(function(el){
+  if(el.querySelector('[data-book]')){el.style.display='';el.querySelectorAll('[data-book]').forEach(rpGate);return;}
+  rpGate(el);});if(window.rpDrawCharts)rpDrawCharts();return;}  /* scores/content never gated; only outbound market taps ask for state (complaint-lens via main 9/26) */document.querySelectorAll('[data-book]').forEach(function(el){
  if(el.querySelector('[data-book]')){  /* container rows (LIVE MARKETS): whole-row visibility by state availability */
   if(rpRowAvail(el,st)){el.style.display='';}
   else{el.style.display='none';el.querySelectorAll('a[data-book]').forEach(rpStrip);}  /* hiding is not removal: strip every route on every switch */
@@ -329,7 +333,7 @@ function rpPageRefresh(){try{
 }catch(e){}}
 document.getElementById('rpModal').addEventListener('click',function(e){if(e.target===this){this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}});
 rpFilter(localStorage.getItem('rp_state')||'');
-if(!localStorage.getItem('rp_state')&&!localStorage.getItem('rp_state_dismissed')){rpAsk(false);}else{rpLabel();}
+rpLabel(); /* state prompt fires only on outbound market taps - never gates score/game content (complaint-lens via main 9/26) */
 
 function rpML2C(ml){ml=parseFloat(ml);if(isNaN(ml))return null;return ml<0?(-ml)/((-ml)+100)*100:100/(ml+100)*100;}
 const RP_RANGE={};

@@ -784,7 +784,7 @@ for p in man['picks']:
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
     rows.append(f'''<div class="pick" data-espn="{espn}" data-eid="{html.escape(_eid)}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{(_pt_date(g.get('commence','')) or 'card')}" data-commence="{html.escape(g.get('commence',''))}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}" data-stake="{html.escape(re.sub(r'[^0-9.]','',p.get('units','')))}"{(' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else '')}>
-  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
+  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="uo"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></span><span class="oddslock">carded {html.escape(man.get('updated','').split(', ')[-1])} &middot; locked</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="rpstart" data-commence="{html.escape(g.get('commence',''))}">{_pt_time(g.get('commence',''))}</div>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
@@ -1042,7 +1042,7 @@ h1 .tick{{color:#3BEBF5}}
 .lghead span{{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}}.sect{{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}}
 .pick{{padding:18px 0;border-top:1px solid #e4e2de}}
 .pick:first-of-type{{border-top:none}}
-.pick-head{{display:flex;align-items:center;gap:10px}}.meta-grp{{display:inline-flex;align-items:center;gap:8px;flex:none}}.rpmetalink{{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit}}.rpchatlink{{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}}
+.pick-head{{display:flex;align-items:center;gap:10px}}.meta-grp{{display:inline-flex;align-items:center;gap:8px;flex:none}}.rpmetalink{{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}}.uo{{display:inline-flex;align-items:center;gap:8px}}.oddslock{{font-size:9px;letter-spacing:.4px;color:rgba(127,127,127,.9);text-transform:uppercase;white-space:nowrap}}.rpchatlink{{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}}
 .gamelink{{display:flex;align-items:center;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}}
 .chev{{color:#55555c;text-decoration:none}}
 .mrow{{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}}
@@ -1221,7 +1221,11 @@ function rpTapify(el,st){{const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.d
   delete out.dataset.pmrprice;delete out.dataset.pmroute;}}}}
 function rpRowAvail(el,st){{return rpBookLive(el.dataset.book,st)||!!rpPm(el);}}
 function rpStrip(el){{el.removeAttribute('href');el.removeAttribute('onclick');el.removeAttribute('target');el.removeAttribute('rel');el.classList.add('rpnontap');}}
+function rpGate(el){{const h=el.getAttribute('href');if(h&&!el.getAttribute('data-sb'))el.setAttribute('data-sb',h);rpStrip(el);el.style.display='';el.classList.remove('rpnontap');el.setAttribute('onclick','return rpRoute(event,this)');}}  /* unresolved state: visible, route-stripped, tap opens the state prompt */
 function rpFilter(st){{window.rpSt=st;rpTerm(st);
+ if(!st){{document.querySelectorAll('[data-book]').forEach(function(el){{
+  if(el.querySelector('[data-book]')){{el.style.display='';el.querySelectorAll('[data-book]').forEach(rpGate);return;}}
+  rpGate(el);}});if(window.rpCxStar)rpCxStar();return;}}  /* scores/content never gated; only outbound market taps ask for state (complaint-lens via main 9/26) */
  document.querySelectorAll('[data-book]').forEach(function(el){{
   if(el.querySelector('[data-book]')){{  /* container rows (LIVE MARKETS): whole-row visibility by state availability */
    if(rpRowAvail(el,st)){{el.style.display='';}}
@@ -1397,7 +1401,7 @@ async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLiv
 rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();rpStartTimes();}},30000);
 document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this){{this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}}}});
 rpFilter(localStorage.getItem('rp_state')||'');
-if(!localStorage.getItem('rp_state')&&!localStorage.getItem('rp_state_dismissed')){{rpAsk(false);}}else{{rpLabel();}}
+rpLabel(); /* state prompt fires only on outbound market taps - never gates score/game content (complaint-lens via main 9/26) */
 const RP_BUILD='{{build_sha}}';
 try{{fetch('https://api.rix-picks.com/beacon',{{method:'POST',headers:{{'Content-Type':'application/json'}},body:JSON.stringify({{page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}}),keepalive:true}}).catch(()=>{{}});}}catch(e){{}}
 window.addEventListener('pageshow',function(){{try{{
