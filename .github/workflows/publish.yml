@@ -1,0 +1,67 @@
+name: publish-card
+# Chaos drill #7 (Sep 26): publish must not depend on an interactive push (PAT/sudo/web editor).
+# Two-dispatch flow: dispatch with approve=false -> candidate artifact for the swarm;
+# swarm passes -> dispatch with approve=true -> the runner itself commits and pushes.
+on:
+  workflow_dispatch:
+    inputs:
+      approve:
+        description: 'push the built card live (true/false)'
+        required: true
+        default: 'false'
+permissions:
+  contents: write
+concurrency:
+  group: publish-card
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: snapshot rollback artifact (pre-build live pages)
+        run: |
+          mkdir -p /tmp/rollback
+          cp index.html game-*.html futures.html team-*.html /tmp/rollback/ 2>/dev/null || true
+      - name: build card
+        env:
+          # data auditor (Sep 26): inputs.approve is the STRING true/false; the builder gates on =='1'
+          RP_PUBLISH: ${{ inputs.approve == 'true' && '1' || '0' }}
+        run: python3 scripts/build_gh_page.py manifest.json index.html 2>&1 | tee /tmp/build.log
+      - name: upload candidate artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: candidate-card
+          path: |
+            index.html
+            game-*.html
+            futures.html
+            team-*.html
+            /tmp/build.log
+      - name: upload rollback artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rollback-card
+          path: /tmp/rollback/
+      - name: push when approved
+        if: ${{ inputs.approve == 'true' }}
+        run: |
+          git config user.name 'rixpicks-bot'
+          git config user.email 'bot@users.noreply.github.com'
+          git add -A
+          git commit -m "card publish $(date -u +%Y-%m-%dT%H:%MZ)" || echo 'nothing to commit'
+          for i in 1 2; do git push && break || git pull --rebase; done
+      - name: verify live deploy when approved
+        if: ${{ inputs.approve == 'true' }}
+        run: |
+          BID=$(grep -oE 'build [0-9]+' /tmp/build.log | tail -1 | awk '{print $2}')
+          echo "expecting build $BID live"
+          for i in $(seq 1 30); do
+            LIVE=$(curl -fsSL "https://rix-picks.com/?cb=$RANDOM" 2>/dev/null || curl -fsSL "https://itsdardanrexhepi.github.io/rixpicks/?cb=$RANDOM" 2>/dev/null || true)
+            if echo "$LIVE" | grep -q "RP_BUILD='$BID'"; then echo "LIVE VERIFIED: build $BID"; exit 0; fi
+            sleep 10
+          done
+          echo "LIVE VERIFICATION FAILED: build $BID not served after 5 minutes"; exit 1
