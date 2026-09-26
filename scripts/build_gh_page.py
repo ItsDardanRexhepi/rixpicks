@@ -506,7 +506,7 @@ h1 .tick{{color:#2f8f7d}}
 .bklogo{{width:16px;height:16px;border-radius:3px;flex:none}}
 .chip.best{{font-weight:800}}
 .rec{{font-weight:600;font-size:16px;padding:8px 0 1px}}
-.units{{color:#8a8f98;font-size:13px;font-weight:600;margin-right:8px}}
+.units{{color:#8a8f98;font-size:13px;font-weight:600}}
 .unitmath{{color:#8a8f98;font-size:13px;margin-top:8px}}
 .legs{{padding-left:20px;font-size:15px;line-height:1.7}}
 .note{{color:#6b6b72;font-size:13px;margin-top:6px}}
