@@ -8,6 +8,10 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+# Chaos drill #3 (Sep 26): overlapping runs raced the API counter and git push.
+concurrency:
+  group: odds-refresh
+  cancel-in-progress: false
 jobs:
   refresh:
     runs-on: ubuntu-latest
