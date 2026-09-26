@@ -492,9 +492,11 @@ def chips(p):
             _href='https://www.'+BKDOM[short] if _tm else link
             out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(_href)}" data-book="{short}"{_dm} data-sb="{html.escape(link)}" data-pm="{html.escape(pm)}" data-pmapp="{html.escape(pmapp)}"{nopm}{_tmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{html.escape(label)}</a>')
         elif '{state}' in link:
-            # Sep 26: href must never carry a raw {state} placeholder (context menu/no-JS 404s);
-            # the template lives in data-sb and rpOpen substitutes the verified state at tap time.
-            out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="https://www.{BKDOM[short]}" data-book="{short}"{_dm} data-sb="{html.escape(link)}" data-template="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{html.escape(label)}</a>')
+            # Sep 26 inspector ruling (J-112 class extended to singles): a priced chip on a generic
+            # destination violates game-level-or-no-chip. Static HTML ships a priced NON-TAPPABLE span
+            # carrying the template in data-sbt; rpUpgrade (in rpFilter) swaps it to a deep-link anchor
+            # once the reader's state is known, so the tap always lands on the exact game at their book.
+            out.append(f'<span class="chip{" best" if best else ""} rpnontap"{bkstyle(short)} data-book="{short}"{_dm} data-sbt="{html.escape(link)}" data-template="1">{star if best else ""}{bkimg(short)}{html.escape(label)}</span>')
         else:
             out.append(f'<a class="chip{" best" if best else ""}"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}"{_dm} data-sb="{html.escape(link)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg(short)}{html.escape(label)}</a>')
     # J-110 (Sep 26): settled-link retirement + tap pass. Feed-verified settled + retired
@@ -1088,7 +1090,24 @@ function rpBestStar(pk){{
  }}catch(e){{}}
 }}
 function rpAllBest(){{document.querySelectorAll('.pick').forEach(rpBestStar);}}
-function rpFilter(st){{rpTerm(st);let parlayAllHidden=true;
+function rpUpgrade(st){{document.querySelectorAll('span[data-sbt]').forEach(function(sp){{
+ const L=RP_L[sp.dataset.book];if(L&&L.indexOf(st)===-1)return;  /* book not live here: stays a priced span */
+ const a=document.createElement('a');
+ for(const at of sp.attributes){{if(at.name!=='data-sbt')a.setAttribute(at.name,at.value);}}
+ a.classList.remove('rpnontap');
+ a.setAttribute('data-sb',sp.getAttribute('data-sbt'));
+ a.setAttribute('href',sp.getAttribute('data-sbt').replaceAll('{{state}}',st.toLowerCase()));
+ a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');
+ a.innerHTML=sp.innerHTML;sp.replaceWith(a);
+}});
+/* Sep 26: a state CHANGE must re-bind already-upgraded template anchors too - rpGo routes
+   data-sb through the current state at tap time, but open-in-new-tab / copy-link / no-JS
+   paths use the baked href, which would otherwise stay on the previous state's URL */
+document.querySelectorAll('a[data-template][data-sb]').forEach(function(a){{
+ const L=RP_L[a.dataset.book];if(L&&L.indexOf(st)===-1)return;  /* not live here: rpTerm hides it */
+ a.setAttribute('href',a.getAttribute('data-sb').replaceAll('{{state}}',st.toLowerCase()));
+}});}}
+function rpFilter(st){{window.rpSt=st;rpTerm(st);rpUpgrade(st);let parlayAllHidden=true;
  document.querySelectorAll('[data-book]').forEach(function(a){{const b=a.dataset.book;
   const inParlay=!!a.closest('#rpParlayChips');
   if(b==='POLY'){{a.style.display='';return;}}
@@ -1440,16 +1459,26 @@ function rpPageRefresh(){{try{{
    const k=(pk.dataset.gpk||'')+'@'+(pk.dataset.room||'');const np=nmap[k];if(!np)return;  /* null = absent or collided */
    /* Sep 26 (hunter #10): data-only refresh can never ADD a newly verified chip or REMOVE a retired
       one - a membership change between served and new build forces a full reload instead. */
-   const curB=[...pk.querySelectorAll('a[data-book]')].map(a=>a.dataset.book).sort().join(',');
-   const newB=[...np.querySelectorAll('a[data-book]')].map(a=>a.dataset.book).sort().join(',');
+   /* Sep 26 refresh-loop fix: membership = [data-book] ANY tag + template status. rpUpgrade turns
+      template spans into anchors once state is known; tag alone is not membership, so an upgraded
+      live DOM vs a fresh static build must compare equal. A real add/retire/kind-change still reloads. */
+   const rpSig=function(root){{return [...root.querySelectorAll('[data-book]')].map(a=>a.dataset.book+(a.dataset.template?':t':'')).sort().join(',');}};
+   const curB=rpSig(pk),newB=rpSig(np);
    if(curB!==newB){{location.reload();return;}}
-   pk.querySelectorAll('a[data-book]').forEach(function(a){{
+   pk.querySelectorAll('[data-book]').forEach(function(a){{
     const b=a.dataset.book;if(b==='POLY')return;
-    const na=np.querySelector('a[data-book="'+b+'"]');if(!na)return;
+    /* any-tag counterpart: priced spans reprice too (state unknown); an upgraded anchor reprices
+       from its static span counterpart (state known) */
+    const na=np.querySelector('[data-book="'+b+'"]');if(!na)return;
     const m=na.textContent.match(/([+-]\d+)/);if(!m)return;
     a.innerHTML=a.innerHTML.replace(/([+-]\d+)/,m[1]);
-    if(na.href)a.href=na.href;
-    if(na.dataset.sb)a.dataset.sb=na.dataset.sb;
+    if(na.dataset.sbt){{  /* template chip: price and templated destination travel together; never a homepage route */
+     if(a.tagName==='A'){{a.dataset.sb=na.dataset.sbt;if(window.rpSt)a.href=na.dataset.sbt.replaceAll('{{state}}',window.rpSt.toLowerCase());}}
+     else a.dataset.sbt=na.dataset.sbt;
+    }}else{{
+     if(a.tagName==='A'&&na.href)a.href=na.href;
+     if(na.dataset.sb)a.dataset.sb=na.dataset.sb;
+    }}
    }});
    const lo=pk.querySelector('.odds'),ln=np.querySelector('.odds');
    if(lo&&ln&&ln.textContent)lo.textContent=ln.textContent;
@@ -1460,7 +1489,9 @@ function rpPageRefresh(){{try{{
    const b=s.dataset.book;if(b==='KAL'||b==='POLY')return;
    const ns=nc.querySelector('[data-book="'+b+'"]');
    if(ns){{const m=ns.textContent.match(/([+-]\d+)/);if(m)s.innerHTML=s.innerHTML.replace(/([+-]\d+)/,m[1]);
-    if(ns.href)s.href=ns.href;if(ns.dataset.sb)s.dataset.sb=ns.dataset.sb;if(ns.dataset.pm)s.dataset.pm=ns.dataset.pm;}}  /* Sep 26: destination travels with price - no stale parlay links */
+    if(ns.dataset.sbt){{if(s.tagName==='A'){{s.dataset.sb=ns.dataset.sbt;if(window.rpSt)s.href=ns.dataset.sbt.replaceAll('{{state}}',window.rpSt.toLowerCase());}}else s.dataset.sbt=ns.dataset.sbt;}}
+    else{{if(s.tagName==='A'&&ns.href)s.href=ns.href;if(ns.dataset.sb)s.dataset.sb=ns.dataset.sb;}}
+    if(ns.dataset.pm)s.dataset.pm=ns.dataset.pm;}}  /* Sep 26: destination travels with price - no stale parlay links; template chips swap data-sbt/data-sb, never a homepage route */
   }});rpCxStar();}}
  }}).catch(()=>{{}});
 }}catch(e){{}}}}
