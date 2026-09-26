@@ -20,18 +20,18 @@ __MATCHUP__
   <div class="chips" style="margin-top:12px">__CHIPS__</div>
   __TEAMLINKS__
 </div>
-<div class="sect" id="rpChatHead" style="display:none">Live chat <span id="rpChatCount" style="font-weight:400;color:#8a8f98;font-size:12px"></span></div>
-<div id="rpChat" style="display:none;margin-bottom:16px">
- <div id="rpChatList" style="font-size:13.5px;line-height:1.55"></div>
- <div id="rpChatNote" style="font-size:12px;color:#8a8f98;margin-top:6px"></div>
- <div id="rpChatForm" style="display:none;margin-top:8px"><div style="display:flex;gap:8px"><input id="rpChatIn" maxlength="280" placeholder="Say something&hellip;" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;font-size:14px;outline:none;font-family:inherit"><button onclick="rpChatSend()" style="padding:10px 16px;border:none;border-radius:10px;background:#2f8f7d;color:#fff;font-weight:700;cursor:pointer;font-family:inherit">Send</button></div></div>
- <div id="rpChatSign" style="display:none;margin-top:8px;font-size:13px"><span style="color:#8a8f98">Sign in to join the chat:</span><div style="display:flex;gap:8px;margin-top:6px"><input id="rpChatEmail" type="email" placeholder="you@email.com" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;font-size:13px;outline:none;font-family:inherit"><button onclick="rpChatAuth()" style="padding:10px 14px;border:none;border-radius:10px;background:#2f8f7d;color:#fff;font-weight:700;cursor:pointer;font-family:inherit">Email me a link</button></div><div id="rpChatAuthMsg" style="font-size:12px;color:#3aa895;margin-top:5px"></div></div>
-</div>
 <div class="sect">Live markets - both sides</div>
 __ROWS__
 __KAL__
 __POLY__
 __CHARTS__
+<div id="rpChatPanel" style="display:none;border:1px solid rgba(127,127,127,.22);border-radius:14px;margin:22px 0 6px;overflow:hidden">
+ <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid rgba(127,127,127,.18)"><span style="font-weight:700;font-size:14px">Live chat</span><span id="rpChatCount" style="font-size:12px;color:#8a8f98"></span></div>
+ <div id="rpChatNote" style="display:none;font-size:12.5px;color:#8a8f98;padding:12px 14px"></div>
+ <div id="rpChatList" style="max-height:340px;overflow-y:auto;padding:6px 14px"></div>
+ <div id="rpChatForm" style="display:none;padding:10px 12px;border-top:1px solid rgba(127,127,127,.18);position:sticky;bottom:0;background:inherit"><div style="display:flex;gap:8px"><input id="rpChatIn" maxlength="280" placeholder="Join the discussion&hellip;" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;font-size:14px;outline:none;font-family:inherit"><button onclick="rpChatSend()" style="padding:10px 16px;border:none;border-radius:10px;background:#2f8f7d;color:#fff;font-weight:700;cursor:pointer;font-family:inherit">Post</button></div></div>
+ <div id="rpChatSign" style="display:none;padding:10px 12px;border-top:1px solid rgba(127,127,127,.18)"><div style="display:flex;gap:8px"><input id="rpChatEmail" type="email" placeholder="Email to sign in and chat" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;font-size:13px;outline:none;font-family:inherit"><button onclick="rpChatAuth()" style="padding:10px 14px;border:none;border-radius:10px;background:#2f8f7d;color:#fff;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Email me a link</button></div><div id="rpChatAuthMsg" style="font-size:12px;color:#3aa895;margin-top:5px"></div></div>
+</div>
 <div class="foot">Prices update live: Kalshi &amp; Polymarket tick every 60s; sportsbook rows refresh with each page rebuild. Tap a price to open the market. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
 </div>
 <div id="rpModal"><div class="box">
@@ -433,6 +433,7 @@ setInterval(rpPageRefresh,60000);
 
 /* Live per-game chat - room = ESPN event id. Opens 1h before start, locks 2h after final. */
 const RP_API='https://api.rix-picks.com';
+(function(){var bg=getComputedStyle(document.body).backgroundColor;['rpChatForm','rpChatSign'].forEach(function(i){var e=document.getElementById(i);if(e)e.style.background=bg;});})();
 var RP_CHAT={room:null,authed:null,started:false,last:''};
 function rpChatSee(ev){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!ev||!ev.id)return;
@@ -444,11 +445,10 @@ function rpChatSee(ev){try{
  let state='open';
  if(start&&now<start-3600000)state='pre';
  if(done&&doneAt&&now>doneAt+7200000)state='closed';
- document.getElementById('rpChatHead').style.display='';
- document.getElementById('rpChat').style.display='';
+ document.getElementById('rpChatPanel').style.display='';
  const note=document.getElementById('rpChatNote');
- if(state==='pre'){note.textContent='Chat opens 1 hour before game time.';return;}
- if(state==='closed'){note.textContent='Chat closed.';document.getElementById('rpChatForm').style.display='none';document.getElementById('rpChatSign').style.display='none';}
+ if(state==='pre'){note.style.display='';note.textContent='Chat opens 1 hour before game time.';return;}
+ if(state==='closed'){note.style.display='';note.textContent='Chat closed.';document.getElementById('rpChatForm').style.display='none';document.getElementById('rpChatSign').style.display='none';}
  RP_CHAT.room=ev.id;
  if(!RP_CHAT.started){RP_CHAT.started=true;rpChatAuthState();rpChatLoad();setInterval(rpChatLoad,12000);}
 }catch(e){}}
@@ -458,37 +458,36 @@ function rpChatAuthState(){fetch(RP_API+'/me/platforms',{credentials:'include'})
  if(RP_CHAT.authed){document.getElementById('rpChatForm').style.display='';}
  else{document.getElementById('rpChatSign').style.display='';}
 }).catch(function(){});}
+function rpChatRow(m){
+ const row=document.createElement('div');row.style.cssText='padding:8px 0;border-bottom:1px solid rgba(127,127,127,.1)';
+ const top=document.createElement('div');top.style.cssText='display:flex;justify-content:space-between;align-items:baseline;gap:8px';
+ const h=document.createElement('b');h.textContent=m.handle;h.style.fontSize='12.5px';
+ const right=document.createElement('span');right.style.cssText='font-size:11px;color:#8a8f98;white-space:nowrap';
+ const dt=new Date((m.created_at||'').replace(' ','T')+'Z');
+ right.textContent=isNaN(dt)?'':dt.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+ const rep=document.createElement('a');rep.textContent=' report';rep.href='#';
+ rep.style.cssText='font-size:11px;color:#8a8f98;margin-left:6px;text-decoration:none';
+ rep.onclick=function(e){e.preventDefault();rpChatReport(m.id,rep);};
+ right.appendChild(rep);
+ top.appendChild(h);top.appendChild(right);
+ const b=document.createElement('div');b.textContent=m.body;b.style.cssText='font-size:13.5px;line-height:1.45;margin-top:2px';
+ row.appendChild(top);row.appendChild(b);
+ return row;
+}
 function rpChatRender(msgs){
  const list=document.getElementById('rpChatList');list.innerHTML='';
- msgs.forEach(function(m){
-  const row=document.createElement('div');row.style.marginBottom='6px';
-  const h=document.createElement('b');h.textContent=m.handle;h.style.marginRight='6px';
-  const b=document.createElement('span');b.textContent=m.body;
-  const meta=document.createElement('span');meta.style.cssText='font-size:11px;color:#8a8f98;margin-left:6px';
-  meta.textContent=(m.created_at||'').slice(11,16);
-  const rep=document.createElement('a');rep.textContent=' report';rep.href='#';
-  rep.style.cssText='font-size:11px;color:#8a8f98;margin-left:4px;text-decoration:none';
-  rep.onclick=function(e){e.preventDefault();rpChatReport(m.id,rep);};
-  row.appendChild(h);row.appendChild(b);row.appendChild(meta);row.appendChild(rep);
-  list.appendChild(row);
- });
+ msgs.forEach(function(m){list.appendChild(rpChatRow(m));});
+ list.scrollTop=list.scrollHeight;
 }
 function rpChatLoad(){if(!RP_CHAT.room)return;
  fetch(RP_API+'/chat/'+RP_CHAT.room+(RP_CHAT.last?'?after='+encodeURIComponent(RP_CHAT.last):''))
  .then(function(r){return r.json();}).then(function(j){
-  document.getElementById('rpChatCount').textContent='('+j.count+')';
+  document.getElementById('rpChatCount').textContent=j.count===1?'1 comment':j.count+' comments';
   if(j.messages&&j.messages.length){
    if(!RP_CHAT.last){rpChatRender(j.messages);}else{
     const list=document.getElementById('rpChatList');
-    j.messages.forEach(function(m){
-     const row=document.createElement('div');row.style.marginBottom='6px';
-     const h=document.createElement('b');h.textContent=m.handle;h.style.marginRight='6px';
-     const b=document.createElement('span');b.textContent=m.body;
-     const meta=document.createElement('span');meta.style.cssText='font-size:11px;color:#8a8f98;margin-left:6px';meta.textContent=(m.created_at||'').slice(11,16);
-     const rep=document.createElement('a');rep.textContent=' report';rep.href='#';rep.style.cssText='font-size:11px;color:#8a8f98;margin-left:4px;text-decoration:none';
-     rep.onclick=function(e){e.preventDefault();rpChatReport(m.id,rep);};
-     row.appendChild(h);row.appendChild(b);row.appendChild(meta);row.appendChild(rep);list.appendChild(row);
-    });
+    j.messages.forEach(function(m){list.appendChild(rpChatRow(m));});
+    list.scrollTop=list.scrollHeight;
    }
    RP_CHAT.last=j.messages[j.messages.length-1].created_at;
   }
