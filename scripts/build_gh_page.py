@@ -15,6 +15,31 @@ def _urf(decision,scores,action,why):
     # not just chat. Scores are 0-3; T = time sensitivity.
     print(f"URF Decision: {decision} - {scores} | {action}: {why}", file=sys.stderr)
 
+# Feed arbiter transport (main Sep 26 2:44:52): registry + arbiter module are build inputs with a
+# SINGLE writer; the build fails loudly if they are missing or the version stamp drifts.
+try:
+    _ARB_SRC=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','feed_arbiter.js')).read()
+    _REG=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','feed_registry.json')))
+except Exception as _e:
+    print(f"BUILD FAILED: feed arbiter/registry unreadable ({_e}) - fail loud, never bake a guess", file=sys.stderr)
+    sys.exit(4)
+if str(_REG.get('version'))!='1.8':
+    _urf("ABORT","C=3 F=0 R=3 U=2 V=2 CE=0 T=med","registry stamp drift",f"registry version {_REG.get('version')} != 1.8 - refusing to bake stale clock config")
+    sys.exit(4)
+_CLG=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','config_leagues.json')))['leagues']
+_RP_SPORT_CLOCK={}
+for _lk,_lv in _CLG.items():
+    _sc=(_REG.get('sport_clock') or {}).get(_lk)
+    if _sc and _lv.get('espn'):
+        _RP_SPORT_CLOCK[_lv['espn']]={'period_seconds':_sc['period_seconds'],'counts_down':_sc['counts_down']}
+# registry-clocked leagues with no config_leagues entry still bake their clock (tester hold Sep 26:
+# FIFA_WC/EPL count-up cfgs were silently dropped - the registry is the source of truth, all 10 ride)
+for _lk,_esp in [('FIFA_WC','soccer/fifa.world'),('EPL','soccer/eng.1')]:
+    _sc=(_REG.get('sport_clock') or {}).get(_lk)
+    if _sc:
+        _RP_SPORT_CLOCK.setdefault(_esp,{'period_seconds':_sc['period_seconds'],'counts_down':_sc['counts_down']})
+ARB_INJECT=_ARB_SRC+'\nvar RP_SPORT_CLOCK='+json.dumps(_RP_SPORT_CLOCK,separators=(',',':'))+';\n' 
+
 RP_DESIGN='1.2.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme. v1.2.0 (user, Sep 25 8:46 AM): current page shape approved as THE standing daily template - header without FINAL line, tap-any-book intro, per-pick chips + units, combo section, record + unit line, minimal footer (reference commit fbec1c1). Every morning build reproduces this exact shape; changes only on his explicit instruction.
 
 def _pt_date(iso):
@@ -1165,6 +1190,7 @@ page=f'''<!DOCTYPE html>
 <link rel="manifest" href="site.webmanifest?v={{build_sha}}">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){{try{{await OneSignal.init({{appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{{scope:"/rixpicks/"}}}});try{{OneSignal.Notifications.addEventListener("permissionChange",function(granted){{if(granted&&!localStorage.getItem("rp_gc_push")){{rpGcEvent("new-user-push","rp_gc_push");}}}});}}catch(e){{}}}}catch(e){{}}}});</script>
+<script>{ARB_INJECT}</script>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -1473,7 +1499,7 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
  for(const lg of Object.keys(byLg)){{try{{
   const _u='https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?cb='+Date.now()+(lg==='football/college-football'?'&groups=80&limit=400':'');
   const d=await (await fetch(_u)).json();
-  window.__rpEspnOk=Date.now();
+  if(d&&Array.isArray(d.events)){{window.__rpEspnOk=Date.now();}}  /* three-way verdict (Matrix outcome_truth Sep 26): TSB stamps ok ONLY when named fields parse - an error body or shape change is UNKNOWN and never stamps */
   // J-101 class fix: strict event-id binding - a row stamps ONLY when its own event (data-eid) is on the board.
   byLg[lg].forEach(pk=>{{let found=null;const want=pk.dataset.eid||'';let _od=null;const _isMlb=pk.dataset.espn==='baseball/mlb';
    if(!want){{if(!_isMlb)rpLsRender(pk,null);return;}}
@@ -1561,11 +1587,16 @@ function rpAllLineShops(){{document.querySelectorAll('.pick').forEach(rpLineShop
 function rpStartTimes(){{const now=Date.now();document.querySelectorAll('.rpstart[data-commence]').forEach(function(el){{const t=Date.parse(el.dataset.commence);if(t&&now>=t)el.remove();}});}}
 async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();}}
 function rpLiveClock(d,j,st){{ /* panel auditor Sep 26: frozen status clock never wins over advancing plays; both frozen >4min = stale-as-live */
- const s=(st.displayClock||((st.shortDetail||'').match(/^\d+:\d+/)||[''])[0]||'');
- const pl=(((j.drives||{{}}).current||{{}}).plays)||j.plays||[];
- const lp=pl.length?pl[pl.length-1]:null;
- const p=lp?(((lp.clock||{{}}).displayValue)||''):'';
- const nk=pl.length+'|'+(((j.drives||{{}}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):'');
+ const _acfg=(window.RP_SPORT_CLOCK||{{}})[d.dataset.espn];
+ const _am=(_acfg&&window.rpFeedArb&&rpFeedArb.markerFromEspnSummary)?rpFeedArb.markerFromEspnSummary(j,_acfg):undefined;  /* ONE parser (arbiter v3.1) for every registry-clocked league - no field-extraction drift */
+ if(_acfg&&_am===null)return '';  /* unknown/drift: no clock served, never guessed from prose */
+ if(_am&&_am.negative)return '';  /* failed verdict (completed/not-started): status text carries the truth */
+ const _fmt=function(v){{return (v==null)?'':(Math.floor(v/60)+':'+('0'+v%60).slice(-2));}};  /* regression hold Sep 26 (live NEB repro): arbiter raw fields are SECONDS - format m:ss at the display boundary; 0:00 is a valid clock, never ||-defaulted away */
+ const s=_am?_fmt(_am.sClock):((st.displayClock||((st.shortDetail||'').match(/^\d+:\d+/)||[''])[0]||''));
+ const pl=_am?[]:((((j.drives||{{}}).current||{{}}).plays)||j.plays||[]);
+ const lp=_am?null:(pl.length?pl[pl.length-1]:null);
+ const p=_am?_fmt(_am.pClock):(lp?(((lp.clock||{{}}).displayValue)||''):'');
+ const nk=_am?(_am.playKey||''):(pl.length+'|'+(((j.drives||{{}}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):''));
  const k=d.dataset.eid||'x';const W=window.__rpClk=window.__rpClk||{{}};const rec=W[k]=W[k]||{{s:'',sT:0,p:'',pT:0,n:'',nT:0}};
  const now=Date.now();
  if(s&&s!==rec.s){{rec.s=s;rec.sT=now;}}
@@ -1584,7 +1615,7 @@ function rpStatusText(d,j,st){{ /* tester Sep 26 presentation parity: EVERY cloc
  const per=(st.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,'');
  const c=rpLiveClock(d,j,st);
  if(rec.stale)return per;
- return c?(c+(per?' - '+per:'')):(st.shortDetail||'');
+ return c?(c+(per?' - '+per:'')):per;  /* regression hold Sep 26: an empty arbiter verdict NEVER falls back to unstripped shortDetail - its embedded clock is exactly what the verdict rejected */
 }}
 {fut_badge_js}async function rpFastLoop(){{try{{await rpLsTick();}}catch(e){{}}try{{rpPolyTick();}}catch(e){{}}
  try{{const _now=Date.now();[['POLY','__rpPolyOk',30000],['KAL','__rpKalOk',90000],['TSB','__rpEspnOk',30000]].forEach(function(pr){{const dim=(_now-(window[pr[1]]||0))>pr[2];document.querySelectorAll('[data-book="'+pr[0]+'"]').forEach(function(c){{c.style.opacity=dim?'.55':'';}});}});}}catch(e){{}}  /* honesty dims: stale source dims, stale never re-stamps; KAL threshold 90s matches its 60s pregame cadence (proxy route), others 30s */
@@ -2104,7 +2135,7 @@ def build_game_pages(man, css, build_sha):
             ('__ODDS__',html.escape(p['odds'])),('__LOCK__',html.escape(ENTRY_LOCK.split(', ')[-1].replace(' PT',''))),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
             ('__MKTHDR__',_mkthdr),('__FOOTNOTE__',_foot),
             ('__CHIPS__',ch),('__MATCHUP__',matchup),('__TEAMLINKS__',teamlinks),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),('__ROOM__','g%s-%s'%(p['num'],(_pt_date(g.get('commence','')) or 'card'))),('__START__',g.get('commence','') or ''),
-            ('__CHARTS__',charts_html),('__BUILD__',build_sha),('__RPCONSTS__',RP_CONSTS+'\nlet RP_MARKETS='+json.dumps(_PM,separators=(',',':'))+';'),('__STATEOPTS__',STATE_OPTS),('__STATECODES__','['+','.join(chr(34)+c+chr(34) for c,_ in RP_STATES)+']')]:
+            ('__CHARTS__',charts_html),('__BUILD__',build_sha),('__RPARB__',ARB_INJECT),('__RPCONSTS__',RP_CONSTS+'\nlet RP_MARKETS='+json.dumps(_PM,separators=(',',':'))+';'),('__STATEOPTS__',STATE_OPTS),('__STATECODES__','['+','.join(chr(34)+c+chr(34) for c,_ in RP_STATES)+']')]:
             page_html=page_html.replace(tok,val)
         pages['game-%s.html'%p['num']]=page_html
         _COLL[0]=_MARKETS  # restore the index collector for the next build phase
@@ -2214,6 +2245,7 @@ FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="vie
 <title>RixPicks Futures</title><style>__CSS__</style><style>body{overscroll-behavior-y:none}.wrap{min-height:101vh}</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
+<script>__RPARB__</script>
 </head><body>
 <div id="rpPull"></div>
 <div class="wrap">
@@ -2396,7 +2428,7 @@ def build_futures_page(css,build_sha):
           html.escape(f['team']),html.escape(f['market']),html.escape(f.get('fair','')),html.escape(str(f.get('prob',''))),html.escape(f.get('res','')),str(f.get('units',2)),html.escape(f.get('note','')),
           html.escape(f['team']),html.escape(f['id']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else '')))
     pg=FUTURES_TMPL
-    for tok,val in [('__CSS__',css),('__ROWS__',''.join(rows)),('__COUNT__',str(len(FUT))),('__BUILD__',build_sha)]:
+    for tok,val in [('__CSS__',css),('__ROWS__',''.join(rows)),('__COUNT__',str(len(FUT))),('__BUILD__',build_sha),('__RPARB__',ARB_INJECT)]:
         pg=pg.replace(tok,val)
     return pg
 _fp=build_futures_page(_css,build_sha)

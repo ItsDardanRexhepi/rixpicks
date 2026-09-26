@@ -20,6 +20,7 @@
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
+<script>__RPARB__</script>
 </head><body>
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
@@ -244,11 +245,16 @@ function rpLiveClock(d,j,st){
  /* panel auditor Sep 26 (live NEB-MSU): ESPN status.displayClock can FREEZE while PBP advances -
     a successful-but-frozen field is stale-as-live. The displayed clock follows whichever source
     last ADVANCED (status vs latest play); if both freeze >4min, the render is not fresh - no live stamp. */
- const s=(st.displayClock||((st.shortDetail||'').match(/^\d+:\d+/)||[''])[0]||'');
- const pl=(((j.drives||{}).current||{}).plays)||j.plays||[];  /* tester Sep 26 (verified on the live NEB payload): football summary has NO top-level plays - the advancing clock lives at drives.current.plays[-1] */
- const lp=pl.length?pl[pl.length-1]:null;
- const p=lp?(((lp.clock||{}).displayValue)||''):'';
- const nk=pl.length+'|'+(((j.drives||{}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):'');
+ var _acfg=(window.RP_SPORT_CLOCK||{})[d.dataset.espn];
+ var _am=(_acfg&&window.rpFeedArb&&rpFeedArb.markerFromEspnSummary)?rpFeedArb.markerFromEspnSummary(j,_acfg):undefined;  /* ONE parser (arbiter v3.1) for every registry-clocked league - no field-extraction drift */
+ if(_acfg&&_am===null)return '';  /* unknown/drift: no clock served, never guessed from prose */
+ if(_am&&_am.negative)return '';  /* failed verdict (completed/not-started): status text carries the truth */
+ var _fmt=function(v){return (v==null)?'':(Math.floor(v/60)+':'+('0'+v%60).slice(-2));};  /* regression hold Sep 26 (live NEB repro): arbiter raw fields are SECONDS - format m:ss at the display boundary; 0:00 is a valid clock, never ||-defaulted away */
+ var s=_am?_fmt(_am.sClock):((st.displayClock||((st.shortDetail||'').match(/^\d+:\d+/)||[''])[0]||''));
+ var pl=_am?[]:((((j.drives||{}).current||{}).plays)||j.plays||[]);  /* tester Sep 26 (verified on the live NEB payload): football summary has NO top-level plays - the advancing clock lives at drives.current.plays[-1] */
+ var lp=_am?null:(pl.length?pl[pl.length-1]:null);
+ var p=_am?_fmt(_am.pClock):(lp?(((lp.clock||{}).displayValue)||''):'');
+ var nk=_am?(_am.playKey||''):(pl.length+'|'+(((j.drives||{}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):''));
  const k=d.dataset.eid||'x';const W=window.__rpClk=window.__rpClk||{};const rec=W[k]=W[k]||{s:'',sT:0,p:'',pT:0,n:'',nT:0};
  const now=Date.now();
  if(s&&s!==rec.s){rec.s=s;rec.sT=now;}
@@ -269,7 +275,7 @@ function rpStatusText(d,j,st){ /* tester Sep 26 presentation parity: EVERY clock
  const per=(st.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,'');
  const c=rpLiveClock(d,j,st);
  if(rec.stale)return per;
- return c?(c+(per?' - '+per:'')):(st.shortDetail||'');
+ return c?(c+(per?' - '+per:'')):per;  /* regression hold Sep 26: an empty arbiter verdict NEVER falls back to unstripped shortDetail - its embedded clock is exactly what the verdict rejected */
 }
 function rpLiveBox(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;

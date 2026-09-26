@@ -126,6 +126,115 @@ h1 .tick{color:#3BEBF5}
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
+<script>/* rpFeedArb v3 - browser arbiter per selector v5.1 contract + registry v1.8 sport_clock.
+   v3 (Sep 26, Matrix outcome_truth doctrine): three-way verdict per source per tick.
+   ok      = named fields parsed AND a usable progress marker - stamps, eligible.
+   failed  = the source ANSWERED with a negative verdict (event completed/postponed,
+             market closed) - recorded, not eligible; feeds failover health.
+   unknown = transport error, unparseable body, or missing named fields - NOT eligible
+             and NOT a failure: never poisons source health, never learned as success.
+   Schema drift (expected key path absent) flags lastDrift loudly instead of silently
+   serving nothing. Freeze/failover semantics unchanged from v2 (4-min field freeze,
+   stale_serve + served_is_live:false + failover_gap => RECONNECTING, never silent). */
+(function(W){
+"use strict";
+var REGISTRY_VERSION='1.8';
+function parseClock(s){var m=/^(\d+):(\d{2})$/.exec(String(s||''));return m?(+m[1])*60+(+m[2]):null;}
+function progressOf(clockSec,period,clockCfg){
+ if(clockSec==null||!period||period<1)return null;
+ var ps=clockCfg.period_seconds;
+ if(clockCfg.counts_down)return (period-1)*ps+(ps-clockSec);
+ return (period-1)*ps+clockSec; /* count-up: clock value is elapsed within the period */
+}
+/* ESPN site summary marker. status lives at header.competitions[0].status with type.shortDetail/state. */
+function markerFromEspnSummary(j,clockCfg){
+ if(!j)return null; /* unknown: no body to read */
+ if(!j.header||!Array.isArray(j.header.competitions)){
+  W.rpFeedArb.lastDrift={at:Date.now(),what:'espn_summary_schema',hint:'header.competitions missing'};
+  return null; /* unknown + loud drift flag: shape changed under us */
+ }
+ var comp=j.header.competitions[0]||{};
+ var st=comp.status||{};
+ var ty=st.type||{};
+ if(ty.state==='post'||ty.completed===true)return {negative:true,reason:'completed'}; /* failed verdict: game over, not a live source */
+ if(ty.state==='pre')return {negative:true,reason:'not_started'};
+ var sc=(comp.competitors||[]).map(function(c){return c.score||'0';});
+ var per=st.period||0;
+ var clk=parseClock(st.displayClock),adv=null;
+ var dr=j.drives&&j.drives.current;
+ if(dr&&dr.plays&&dr.plays.length){
+  var last=dr.plays[dr.plays.length-1];
+  adv=parseClock(last.clock&&last.clock.displayValue);
+ }
+ var best=(adv!=null)?adv:clk; /* frozen-field rule: plays clock outranks status.displayClock */
+ if(best==null&&ty.state!=='in')return null; /* unknown: no clock fields to trust */
+ var pk='';
+ if(dr&&dr.plays){var lp=dr.plays[dr.plays.length-1];pk=dr.plays.length+'|'+(((j.drives||{}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):'');}
+ return {progress:progressOf(best,per,clockCfg),clock:best,period:per,scores:sc,state:ty.state||'',
+         sClock:clk,pClock:adv,playKey:pk, /* raw fields for the page-side clock arbiter (single parser, no drift) */
+         periodText:(ty.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,''),
+         text:(best!=null?(Math.floor(best/60)+':'+('0'+best%60).slice(-2)+' - '):'')+((ty.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,'')||'')};
+}
+function Arb(league,clockCfg){
+ this.league=league;this.clockCfg=clockCfg;
+ this.cands=[];this.hist={};this.lastAdvance=0;this.lastProg=-1;this.held=null;this.serving=null;
+ this.verdicts={};this.health={}; /* health[id]: consecutive FAILED verdicts only - unknown never increments */
+}
+Arb.prototype.addCand=function(id,rank,fetcher,parser){this.cands.push({id:id,rank:rank,fetcher:fetcher,parser:parser,lat:null});};
+Arb.prototype.tick=function(done){
+ var self=this;var results=[];var pending=self.cands.length;
+ if(!pending){done(self.decide([]));return;}
+ self.cands.forEach(function(c){
+  var t0=Date.now();
+  c.fetcher(function(err,j){
+   var v='unknown';
+   if(!err&&j){
+    var mk=c.parser(j,self.clockCfg);
+    if(mk&&mk.progress!=null){c.lat=Date.now()-t0;results.push({c:c,mk:mk});v='ok';}
+    else if(mk&&mk.negative){v='failed';}
+   }
+   self.verdicts[c.id]=v;
+   if(v==='failed')self.health[c.id]=(self.health[c.id]||0)+1;else if(v==='ok')self.health[c.id]=0;
+   /* unknown: health untouched - an unlabelled sample costs one data point, a mislabelled one corrupts the rate */
+   if(--pending===0)done(self.decide(results));
+  });
+ });
+};
+Arb.prototype.decide=function(results){
+ var now=Date.now();
+ var elig=results.filter(function(r){ /* own-history advance gate: no rewinds */
+  var h=this.hist[r.c.id];
+  return !h||r.mk.progress>=h.progress-0.0001;
+ },this);
+ elig.sort(function(a,b){
+  if(b.mk.progress!==a.mk.progress)return b.mk.progress-a.mk.progress;
+  if(a.c.lat!==b.c.lat)return a.c.lat-b.c.lat;
+  if(a.c.rank-b.c.rank!==0)return a.c.rank-b.c.rank;
+  return (this.health[a.c.id]||0)-(this.health[b.c.id]||0); /* tie-break: fewer consecutive failed verdicts */
+ },this);
+ var win=elig[0]||null;
+ if(win){
+  this.hist[win.c.id]=win.mk;
+  if(win.mk.progress>this.lastProg){this.lastProg=win.mk.progress;this.lastAdvance=now;}
+ }
+ var frozen=(now-this.lastAdvance)>240000; /* 4-min field-freeze rule */
+ var gap=!win||frozen;
+ if(win&&!frozen){
+  this.held={mk:win.mk,src:win.c.id,at:now};
+  this.serving={mk:win.mk,src:win.c.id,stale_serve:false,served_is_live:true,failover_gap:false};
+ }else if(this.held){
+  this.serving={mk:this.held.mk,src:this.held.src,stale_serve:true,served_is_live:false,failover_gap:true};
+ }else{
+  this.serving={mk:null,src:null,stale_serve:false,served_is_live:false,failover_gap:true};
+ }
+ this.serving.verdicts=JSON.parse(JSON.stringify(this.verdicts));
+ return this.serving;
+};
+W.rpFeedArb={Arb:Arb,markerFromEspnSummary:markerFromEspnSummary,parseClock:parseClock,progressOf:progressOf,registryVersion:REGISTRY_VERSION,lastDrift:null};
+})(typeof window!=='undefined'?window:globalThis);
+
+var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"football/college-football":{"period_seconds":900,"counts_down":true},"basketball/wnba":{"period_seconds":600,"counts_down":true},"basketball/nba":{"period_seconds":720,"counts_down":true},"hockey/nhl":{"period_seconds":1200,"counts_down":true},"basketball/mens-college-basketball":{"period_seconds":1200,"counts_down":true},"soccer/usa.1":{"period_seconds":2700,"counts_down":false},"soccer/usa.nwsl":{"period_seconds":2700,"counts_down":false},"soccer/fifa.world":{"period_seconds":2700,"counts_down":false},"soccer/eng.1":{"period_seconds":2700,"counts_down":false}};
+</script>
 </head><body>
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
@@ -164,7 +273,7 @@ h1 .tick{color:#3BEBF5}
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790460765';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
+const RP_BUILD='1790461105';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -352,11 +461,16 @@ function rpLiveClock(d,j,st){
  /* panel auditor Sep 26 (live NEB-MSU): ESPN status.displayClock can FREEZE while PBP advances -
     a successful-but-frozen field is stale-as-live. The displayed clock follows whichever source
     last ADVANCED (status vs latest play); if both freeze >4min, the render is not fresh - no live stamp. */
- const s=(st.displayClock||((st.shortDetail||'').match(/^\d+:\d+/)||[''])[0]||'');
- const pl=(((j.drives||{}).current||{}).plays)||j.plays||[];  /* tester Sep 26 (verified on the live NEB payload): football summary has NO top-level plays - the advancing clock lives at drives.current.plays[-1] */
- const lp=pl.length?pl[pl.length-1]:null;
- const p=lp?(((lp.clock||{}).displayValue)||''):'';
- const nk=pl.length+'|'+(((j.drives||{}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):'');
+ var _acfg=(window.RP_SPORT_CLOCK||{})[d.dataset.espn];
+ var _am=(_acfg&&window.rpFeedArb&&rpFeedArb.markerFromEspnSummary)?rpFeedArb.markerFromEspnSummary(j,_acfg):undefined;  /* ONE parser (arbiter v3.1) for every registry-clocked league - no field-extraction drift */
+ if(_acfg&&_am===null)return '';  /* unknown/drift: no clock served, never guessed from prose */
+ if(_am&&_am.negative)return '';  /* failed verdict (completed/not-started): status text carries the truth */
+ var _fmt=function(v){return (v==null)?'':(Math.floor(v/60)+':'+('0'+v%60).slice(-2));};  /* regression hold Sep 26 (live NEB repro): arbiter raw fields are SECONDS - format m:ss at the display boundary; 0:00 is a valid clock, never ||-defaulted away */
+ var s=_am?_fmt(_am.sClock):((st.displayClock||((st.shortDetail||'').match(/^\d+:\d+/)||[''])[0]||''));
+ var pl=_am?[]:((((j.drives||{}).current||{}).plays)||j.plays||[]);  /* tester Sep 26 (verified on the live NEB payload): football summary has NO top-level plays - the advancing clock lives at drives.current.plays[-1] */
+ var lp=_am?null:(pl.length?pl[pl.length-1]:null);
+ var p=_am?_fmt(_am.pClock):(lp?(((lp.clock||{}).displayValue)||''):'');
+ var nk=_am?(_am.playKey||''):(pl.length+'|'+(((j.drives||{}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):''));
  const k=d.dataset.eid||'x';const W=window.__rpClk=window.__rpClk||{};const rec=W[k]=W[k]||{s:'',sT:0,p:'',pT:0,n:'',nT:0};
  const now=Date.now();
  if(s&&s!==rec.s){rec.s=s;rec.sT=now;}
@@ -377,7 +491,7 @@ function rpStatusText(d,j,st){ /* tester Sep 26 presentation parity: EVERY clock
  const per=(st.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,'');
  const c=rpLiveClock(d,j,st);
  if(rec.stale)return per;
- return c?(c+(per?' - '+per:'')):(st.shortDetail||'');
+ return c?(c+(per?' - '+per:'')):per;  /* regression hold Sep 26: an empty arbiter verdict NEVER falls back to unstripped shortDetail - its embedded clock is exactly what the verdict rejected */
 }
 function rpLiveBox(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;

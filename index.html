@@ -3,12 +3,121 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>&rsquo;RixPicks</title>
-<link rel="icon" href="favicon.ico?v=1790460765" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1790460765">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1790460765">
-<link rel="manifest" href="site.webmanifest?v=1790460765">
+<link rel="icon" href="favicon.ico?v=1790461105" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1790461105">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1790461105">
+<link rel="manifest" href="site.webmanifest?v=1790461105">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
+<script>/* rpFeedArb v3 - browser arbiter per selector v5.1 contract + registry v1.8 sport_clock.
+   v3 (Sep 26, Matrix outcome_truth doctrine): three-way verdict per source per tick.
+   ok      = named fields parsed AND a usable progress marker - stamps, eligible.
+   failed  = the source ANSWERED with a negative verdict (event completed/postponed,
+             market closed) - recorded, not eligible; feeds failover health.
+   unknown = transport error, unparseable body, or missing named fields - NOT eligible
+             and NOT a failure: never poisons source health, never learned as success.
+   Schema drift (expected key path absent) flags lastDrift loudly instead of silently
+   serving nothing. Freeze/failover semantics unchanged from v2 (4-min field freeze,
+   stale_serve + served_is_live:false + failover_gap => RECONNECTING, never silent). */
+(function(W){
+"use strict";
+var REGISTRY_VERSION='1.8';
+function parseClock(s){var m=/^(\d+):(\d{2})$/.exec(String(s||''));return m?(+m[1])*60+(+m[2]):null;}
+function progressOf(clockSec,period,clockCfg){
+ if(clockSec==null||!period||period<1)return null;
+ var ps=clockCfg.period_seconds;
+ if(clockCfg.counts_down)return (period-1)*ps+(ps-clockSec);
+ return (period-1)*ps+clockSec; /* count-up: clock value is elapsed within the period */
+}
+/* ESPN site summary marker. status lives at header.competitions[0].status with type.shortDetail/state. */
+function markerFromEspnSummary(j,clockCfg){
+ if(!j)return null; /* unknown: no body to read */
+ if(!j.header||!Array.isArray(j.header.competitions)){
+  W.rpFeedArb.lastDrift={at:Date.now(),what:'espn_summary_schema',hint:'header.competitions missing'};
+  return null; /* unknown + loud drift flag: shape changed under us */
+ }
+ var comp=j.header.competitions[0]||{};
+ var st=comp.status||{};
+ var ty=st.type||{};
+ if(ty.state==='post'||ty.completed===true)return {negative:true,reason:'completed'}; /* failed verdict: game over, not a live source */
+ if(ty.state==='pre')return {negative:true,reason:'not_started'};
+ var sc=(comp.competitors||[]).map(function(c){return c.score||'0';});
+ var per=st.period||0;
+ var clk=parseClock(st.displayClock),adv=null;
+ var dr=j.drives&&j.drives.current;
+ if(dr&&dr.plays&&dr.plays.length){
+  var last=dr.plays[dr.plays.length-1];
+  adv=parseClock(last.clock&&last.clock.displayValue);
+ }
+ var best=(adv!=null)?adv:clk; /* frozen-field rule: plays clock outranks status.displayClock */
+ if(best==null&&ty.state!=='in')return null; /* unknown: no clock fields to trust */
+ var pk='';
+ if(dr&&dr.plays){var lp=dr.plays[dr.plays.length-1];pk=dr.plays.length+'|'+(((j.drives||{}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):'');}
+ return {progress:progressOf(best,per,clockCfg),clock:best,period:per,scores:sc,state:ty.state||'',
+         sClock:clk,pClock:adv,playKey:pk, /* raw fields for the page-side clock arbiter (single parser, no drift) */
+         periodText:(ty.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,''),
+         text:(best!=null?(Math.floor(best/60)+':'+('0'+best%60).slice(-2)+' - '):'')+((ty.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,'')||'')};
+}
+function Arb(league,clockCfg){
+ this.league=league;this.clockCfg=clockCfg;
+ this.cands=[];this.hist={};this.lastAdvance=0;this.lastProg=-1;this.held=null;this.serving=null;
+ this.verdicts={};this.health={}; /* health[id]: consecutive FAILED verdicts only - unknown never increments */
+}
+Arb.prototype.addCand=function(id,rank,fetcher,parser){this.cands.push({id:id,rank:rank,fetcher:fetcher,parser:parser,lat:null});};
+Arb.prototype.tick=function(done){
+ var self=this;var results=[];var pending=self.cands.length;
+ if(!pending){done(self.decide([]));return;}
+ self.cands.forEach(function(c){
+  var t0=Date.now();
+  c.fetcher(function(err,j){
+   var v='unknown';
+   if(!err&&j){
+    var mk=c.parser(j,self.clockCfg);
+    if(mk&&mk.progress!=null){c.lat=Date.now()-t0;results.push({c:c,mk:mk});v='ok';}
+    else if(mk&&mk.negative){v='failed';}
+   }
+   self.verdicts[c.id]=v;
+   if(v==='failed')self.health[c.id]=(self.health[c.id]||0)+1;else if(v==='ok')self.health[c.id]=0;
+   /* unknown: health untouched - an unlabelled sample costs one data point, a mislabelled one corrupts the rate */
+   if(--pending===0)done(self.decide(results));
+  });
+ });
+};
+Arb.prototype.decide=function(results){
+ var now=Date.now();
+ var elig=results.filter(function(r){ /* own-history advance gate: no rewinds */
+  var h=this.hist[r.c.id];
+  return !h||r.mk.progress>=h.progress-0.0001;
+ },this);
+ elig.sort(function(a,b){
+  if(b.mk.progress!==a.mk.progress)return b.mk.progress-a.mk.progress;
+  if(a.c.lat!==b.c.lat)return a.c.lat-b.c.lat;
+  if(a.c.rank-b.c.rank!==0)return a.c.rank-b.c.rank;
+  return (this.health[a.c.id]||0)-(this.health[b.c.id]||0); /* tie-break: fewer consecutive failed verdicts */
+ },this);
+ var win=elig[0]||null;
+ if(win){
+  this.hist[win.c.id]=win.mk;
+  if(win.mk.progress>this.lastProg){this.lastProg=win.mk.progress;this.lastAdvance=now;}
+ }
+ var frozen=(now-this.lastAdvance)>240000; /* 4-min field-freeze rule */
+ var gap=!win||frozen;
+ if(win&&!frozen){
+  this.held={mk:win.mk,src:win.c.id,at:now};
+  this.serving={mk:win.mk,src:win.c.id,stale_serve:false,served_is_live:true,failover_gap:false};
+ }else if(this.held){
+  this.serving={mk:this.held.mk,src:this.held.src,stale_serve:true,served_is_live:false,failover_gap:true};
+ }else{
+  this.serving={mk:null,src:null,stale_serve:false,served_is_live:false,failover_gap:true};
+ }
+ this.serving.verdicts=JSON.parse(JSON.stringify(this.verdicts));
+ return this.serving;
+};
+W.rpFeedArb={Arb:Arb,markerFromEspnSummary:markerFromEspnSummary,parseClock:parseClock,progressOf:progressOf,registryVersion:REGISTRY_VERSION,lastDrift:null};
+})(typeof window!=='undefined'?window:globalThis);
+
+var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"football/college-football":{"period_seconds":900,"counts_down":true},"basketball/wnba":{"period_seconds":600,"counts_down":true},"basketball/nba":{"period_seconds":720,"counts_down":true},"hockey/nhl":{"period_seconds":1200,"counts_down":true},"basketball/mens-college-basketball":{"period_seconds":1200,"counts_down":true},"soccer/usa.1":{"period_seconds":2700,"counts_down":false},"soccer/usa.nwsl":{"period_seconds":2700,"counts_down":false},"soccer/fifa.world":{"period_seconds":2700,"counts_down":false},"soccer/eng.1":{"period_seconds":2700,"counts_down":false}};
+</script>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -155,7 +264,7 @@ h1 .tick{color:#3BEBF5}
 </div>
 <div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs"><li class="cxleg" data-espn="football/college-football" data-eid="401860893" data-gpk="" data-aab="" data-hab="" data-away="San Diego State Aztecs" data-home="Toledo Rockets" data-commence="2026-09-26T16:00Z" data-side="home"><a href="game-1.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Toledo ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="football/college-football" data-eid="401858464" data-gpk="" data-aab="" data-hab="" data-away="Nebraska Cornhuskers" data-home="Michigan State Spartans" data-commence="2026-09-26T21:00Z" data-side="away"><a href="game-2.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Nebraska ML<span class="ls" data-ls></span></a></li></ul><div class="note" id="rpCxLive" style="display:none;margin-top:6px"></div><div class="chips" id="rpParlayChips" style="margin:10px 0"><span class="chip rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="parlay" data-mr="22"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR +142</span><span class="chip rpnontap" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" data-book="DK" data-market="parlay" data-mr="17"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK +146</span><span class="chip rpnontap" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" data-book="FD" data-market="parlay" data-mr="18"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD +139</span><span class="chip rpnontap" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" data-book="HR" data-market="parlay" data-mr="20"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR +140</span><span class="chip best rpnontap" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" id="rpCxKAL" data-n="2" data-book="KAL" data-market="parlay" data-cents="38" data-mr="23">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL +163</span><span class="chip rpnontap" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="parlay" data-mr="21"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM +144</span><span class="chip rpnontap" data-bk="POLY" style="background:#e8f3fc;border-color:#e8f3fc;color:#1a6db0" id="rpCxPOLY" data-n="2" data-book="POLY" data-market="parlay" data-cents="38" data-mr="24"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=polymarket.com&sz=128" alt="" onerror="this.remove()">POLY +163</span><span class="chip rpunpriced rpnontap" data-bk="TSB" style="background:#0d1b2e;border-color:#0d1b2e;color:#4d94ff" data-book="TSB" data-market="parlay" data-mr="19"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=thescore.bet&sz=128" alt="" onerror="this.remove()">TSB —</span></div><div class="note" id="rpComboReg" style="display:none">* Due to regulations in your state, combos can’t legally be built out for you and must be done manually.</div><div class="note" id="rpParlayNote" style="display:none">38.2c combined at publish-time exchange asks (~+162).</div>
 
-<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1790460765" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">8 live &rsaquo;</span></a>
+<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1790461105" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">8 live &rsaquo;</span></a>
 <a class="rec" id="rpRec" data-bw="11" data-bl="6" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: 11-6</a>
 <div class="yesrec" id="rpWlPct">W/L: 64.7%</div>
 <div class="yesrec unitspl" id="rpUnits" data-bu="-2.99">Units: -2.99u</div>
@@ -331,7 +440,7 @@ async function rpLsTick(){const picks=[...document.querySelectorAll('.pick[data-
  for(const lg of Object.keys(byLg)){try{
   const _u='https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?cb='+Date.now()+(lg==='football/college-football'?'&groups=80&limit=400':'');
   const d=await (await fetch(_u)).json();
-  window.__rpEspnOk=Date.now();
+  if(d&&Array.isArray(d.events)){window.__rpEspnOk=Date.now();}  /* three-way verdict (Matrix outcome_truth Sep 26): TSB stamps ok ONLY when named fields parse - an error body or shape change is UNKNOWN and never stamps */
   // J-101 class fix: strict event-id binding - a row stamps ONLY when its own event (data-eid) is on the board.
   byLg[lg].forEach(pk=>{let found=null;const want=pk.dataset.eid||'';let _od=null;const _isMlb=pk.dataset.espn==='baseball/mlb';
    if(!want){if(!_isMlb)rpLsRender(pk,null);return;}
@@ -419,11 +528,16 @@ function rpAllLineShops(){document.querySelectorAll('.pick').forEach(rpLineShop)
 function rpStartTimes(){const now=Date.now();document.querySelectorAll('.rpstart[data-commence]').forEach(function(el){const t=Date.parse(el.dataset.commence);if(t&&now>=t)el.remove();});}
 async function rpLsTickAll(){await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();}
 function rpLiveClock(d,j,st){ /* panel auditor Sep 26: frozen status clock never wins over advancing plays; both frozen >4min = stale-as-live */
- const s=(st.displayClock||((st.shortDetail||'').match(/^\d+:\d+/)||[''])[0]||'');
- const pl=(((j.drives||{}).current||{}).plays)||j.plays||[];
- const lp=pl.length?pl[pl.length-1]:null;
- const p=lp?(((lp.clock||{}).displayValue)||''):'';
- const nk=pl.length+'|'+(((j.drives||{}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):'');
+ const _acfg=(window.RP_SPORT_CLOCK||{})[d.dataset.espn];
+ const _am=(_acfg&&window.rpFeedArb&&rpFeedArb.markerFromEspnSummary)?rpFeedArb.markerFromEspnSummary(j,_acfg):undefined;  /* ONE parser (arbiter v3.1) for every registry-clocked league - no field-extraction drift */
+ if(_acfg&&_am===null)return '';  /* unknown/drift: no clock served, never guessed from prose */
+ if(_am&&_am.negative)return '';  /* failed verdict (completed/not-started): status text carries the truth */
+ const _fmt=function(v){return (v==null)?'':(Math.floor(v/60)+':'+('0'+v%60).slice(-2));};  /* regression hold Sep 26 (live NEB repro): arbiter raw fields are SECONDS - format m:ss at the display boundary; 0:00 is a valid clock, never ||-defaulted away */
+ const s=_am?_fmt(_am.sClock):((st.displayClock||((st.shortDetail||'').match(/^\d+:\d+/)||[''])[0]||''));
+ const pl=_am?[]:((((j.drives||{}).current||{}).plays)||j.plays||[]);
+ const lp=_am?null:(pl.length?pl[pl.length-1]:null);
+ const p=_am?_fmt(_am.pClock):(lp?(((lp.clock||{}).displayValue)||''):'');
+ const nk=_am?(_am.playKey||''):(pl.length+'|'+(((j.drives||{}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):''));
  const k=d.dataset.eid||'x';const W=window.__rpClk=window.__rpClk||{};const rec=W[k]=W[k]||{s:'',sT:0,p:'',pT:0,n:'',nT:0};
  const now=Date.now();
  if(s&&s!==rec.s){rec.s=s;rec.sT=now;}
@@ -442,7 +556,7 @@ function rpStatusText(d,j,st){ /* tester Sep 26 presentation parity: EVERY clock
  const per=(st.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,'');
  const c=rpLiveClock(d,j,st);
  if(rec.stale)return per;
- return c?(c+(per?' - '+per:'')):(st.shortDetail||'');
+ return c?(c+(per?' - '+per:'')):per;  /* regression hold Sep 26: an empty arbiter verdict NEVER falls back to unstripped shortDetail - its embedded clock is exactly what the verdict rejected */
 }
 try{
 var rpFutSeen=JSON.parse(localStorage.getItem('rp_fut_seen')||'[]');
@@ -478,7 +592,7 @@ function rpResolveState(){try{  /* his rule Sep 26 1:52 PM: ONLY shared location
  }
 }catch(e){}}
 rpLabel(); /* state prompt fires only on outbound market taps - never gates score/game content (complaint-lens via main 9/26) */
-const RP_BUILD='1790460765';
+const RP_BUILD='1790461105';
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(()=>{});}catch(e){}
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
@@ -700,4 +814,4 @@ function rpPageRefresh(){try{
 }catch(e){}}
 setInterval(rpPageRefresh,60000);
 </script>
-<script src="myprofile.js?v=1790460765"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></div></body></html>
+<script src="myprofile.js?v=1790461105"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></div></body></html>
