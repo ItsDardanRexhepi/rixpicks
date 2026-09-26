@@ -488,10 +488,10 @@ if man.get('parlay'):
                 cc=poly_price(l['url'], l.get('kw',''), won_ok=True) or (l.get('cents') if l.get('cents') is not None else None) or 0
                 slug=poly_event_slug(l['url']) or ''
                 if cc==100:
-                    phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" data-won="1" style="display:none">POLY ✓</a>'
+                    phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" data-won="1" style="display:none">POLY</a>'
                 elif cc==0:
                     pdead=True; pallwon=False
-                    phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" data-lost="1" style="display:none">POLY ✗</a>'
+                    phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" data-lost="1" style="display:none">POLY</a>'
                 elif cc:
                     pallwon=False; pc.append(cc)
                     phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" style="display:none">POLY {c2ml(cc)}</a>'
@@ -509,9 +509,9 @@ if man.get('parlay'):
                 pallwon=False; pc.append(cc)
         if okp:
             if pdead:
-                plbl='POLY ✗'; psort=-10**9
+                plbl='POLY'; psort=None
             elif not pc and pallwon and nlegs:
-                plbl='POLY ✓'; psort=10**9
+                plbl='POLY'; psort=None
             elif pc:
                 c=amer_from_cents(pc)
                 if c is None: plbl='POLY'; psort=None
@@ -948,7 +948,7 @@ function rpCxUpd(bk){{
   const m=a.innerHTML.match(re);if(m){{const ml=parseInt(m[1]);d*=ml>0?1+ml/100:1+100/Math.abs(ml);cnt++;}}
  }});
  if(cnt!==n)return;
- if(dead){{chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+)?/,bk+' \u2717');rpCxStar();return;}}
+ if(dead){{chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+)?/,bk);rpCxStar();return;}}
  if(d<=1)return;
  const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
  chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+)?/, bk+' '+(ml2>0?'+':'')+ml2);
@@ -993,8 +993,8 @@ function rpPolyTick(){{try{{
    if(yn&&outs.length===2&&outs[0]==='Yes'&&pr[0]!=null){{outs=[kw];pr=[pr[0]];}}
    for(let i=0;i<outs.length;i++){{if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){{
     const c=Math.round(parseFloat(pr[i])*100);
-    if(target.closed&&c>=99){{a.dataset.won='1';a.dataset.lost='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY \u2713');rpCxUpd('POLY');return;}}
-    if(target.closed&&c<=1){{a.dataset.lost='1';a.dataset.won='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY \u2717');rpCxUpd('POLY');return;}}
+    if(target.closed&&c>=99){{a.dataset.won='1';a.dataset.lost='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY');rpCxUpd('POLY');return;}}
+    if(target.closed&&c<=1){{a.dataset.lost='1';a.dataset.won='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY');rpCxUpd('POLY');return;}}
     if(c>0&&c<100){{a.dataset.won='';a.dataset.lost='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');
      const pk=a.closest('.pick');
      if(pk&&pk.dataset.market==='ml'){{const s2=pk.querySelector('.odds');
@@ -1032,7 +1032,7 @@ function rpKalTick(){{try{{
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){{
    const m=j&&j.market;if(!m)return;
    if(m.result==='yes'){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('KAL');return;}}
-   if(m.result==='no'){{a.dataset.lost='1';a.dataset.won='';a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+)?/,'KAL \u2717');rpCxUpd('KAL');return;}}
+   if(m.result==='no'){{a.dataset.lost='1';a.dataset.won='';a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+)?/,'KAL');rpCxUpd('KAL');return;}}
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
    const c=Math.round(d*100);
    a.dataset.won='';a.dataset.lost='';
