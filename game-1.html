@@ -273,7 +273,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790461982';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
+const RP_BUILD='1790462705';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -764,10 +764,14 @@ const RP_CFG_GOLF={icon:RP_FLAG,abbr:rpTeamAbbr,scoringLabel:'CARD',
  bits:function(){return [];},
  lastPlay:function(j){const lb=j.leaderboard||{};const rows=lb.rows||lb.competitors||[];return rows.length?('Leaderboard: '+rows.length+' on the card'):'';}};
 const RP_FOOTBALL='<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin:0 3px 0 1px"><g fill="#e8b93c"><ellipse cx="12" cy="12" rx="10" ry="6.2" transform="rotate(-35 12 12)"/><rect x="10.6" y="7.2" width="2.8" height="9.6" rx="1.4" fill="#0c0f14" transform="rotate(-35 12 12)"/><rect x="8.2" y="10.2" width="7.6" height="1.2" rx="0.6" fill="#0c0f14" transform="rotate(-35 12 12)"/><rect x="8.2" y="12.6" width="7.6" height="1.2" rx="0.6" fill="#0c0f14" transform="rotate(-35 12 12)"/></g></svg>';
-function rpFieldSvg(ballAbs,possIsHome,aCol,hCol){
+/* canonical league->sport icon map (his 3:43 core-level order: the ball dot IS the sport's own icon in every league) */
+const RP_SPORT_ICON=[['football/',RP_FOOTBALL],['baseball/',RP_BAT],['basketball/',RP_BASKETBALL],['hockey/',RP_PUCK],['soccer/',RP_SOCCERBALL],['tennis/',RP_RACKET],['golf/',RP_FLAG],['mma/',RP_GLOVE]];
+function rpSportIcon(lg){lg=lg||'';for(let i=0;i<RP_SPORT_ICON.length;i++){if(lg.indexOf(RP_SPORT_ICON[i][0])===0)return RP_SPORT_ICON[i][1];}return RP_FOOTBALL;}
+function rpFieldSvg(ballAbs,possIsHome,aCol,hCol,icon){
  /* interactive CFB/NFL field (his ref-field spec): end zones in team colors, 10-yard stripes, midfield mark, ball marker at the absolute 0-100 spot; tap-scrolls to PBP via the card's own toggle */
  aCol=aCol||'#5a5f6a';hCol=hCol||'#3a3f4a';
  const x=Math.max(0,Math.min(100,ballAbs==null?50:ballAbs))*2.9;
+ const _ic=((icon||RP_FOOTBALL)+'').replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'');
  let stripes='';
  for(let i=1;i<10;i++){stripes+='<line x1="'+(i*29)+'" y1="4" x2="'+(i*29)+'" y2="36" stroke="rgba(255,255,255,.18)" stroke-width="1"/>';}
  return '<svg width="100%" viewBox="0 0 300 40" style="display:block;margin:8px 0 2px">'+
@@ -775,7 +779,7 @@ function rpFieldSvg(ballAbs,possIsHome,aCol,hCol){
  '<rect x="270" y="2" width="30" height="36" rx="3" fill="'+hCol+'" opacity="0.85"/>'+
  '<rect x="30" y="2" width="240" height="36" fill="rgba(60,160,90,.30)"/>'+stripes+
  '<line x1="150" y1="4" x2="150" y2="36" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>'+
- (ballAbs==null?'':'<circle cx="'+x+'" cy="20" r="5" fill="#fff" stroke="#0c0f14" stroke-width="1.5"/><circle cx="'+x+'" cy="20" r="2" fill="'+(possIsHome?'#e8b93c':'#3b9eff')+'"/>')+
+ (ballAbs==null?'':'<circle cx="'+x+'" cy="20" r="9" fill="rgba(12,15,20,.5)"/><svg x="'+(x-8)+'" y="12" width="16" height="16" viewBox="0 0 24 24">'+_ic+'</svg>')+
  '</svg>';}
 async function rpSit(lg,eid){ /* tester Sep 26: situation (possession/yardLine/down+Distance/server) lives on the SCOREBOARD endpoint, not summary - join by exact event id, fail closed */
  try{
@@ -804,13 +808,14 @@ async function rpFbLive(d){
  const possId=s.possession;
  const possIsHome=possId&&hm.team&&String(hm.team.id)===String(possId);
  const possA=possId&&aw.team&&String(aw.team.id)===String(possId);
+ const spIcon=rpSportIcon(d.dataset.espn);
  let ballAbs=null;
  if(live&&typeof s.yardLine==='number'&&possId){
-  /* ESPN yardLine is 0-50 from the possessing team's own goal; map to absolute 0(away ez)-100(home ez) */
-  ballAbs=possIsHome?(100-s.yardLine):s.yardLine;
+  /* ESPN yardLine is ABSOLUTE 0-100 from the HOME team's goal regardless of possession (verified Sep 26 vs live event 401858464 feed: MSU25=25, NEB25=75, MSU13=13); page field is 0(away ez)-100(home ez), so ballAbs=100-yardLine ALWAYS - no possession conditional */
+  ballAbs=100-s.yardLine;
  }
  const drv=(j.drives||{}).current||{};
- const drvPlays=(drv.plays||[]).length||(drv.description?null:0);
+ const drvPlays=(typeof drv.offensivePlays==='number'?drv.offensivePlays:(drv.plays||[]).length)||(drv.description?null:0);
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  const isFinal=st.state==='post';
  let wl='';
@@ -818,10 +823,10 @@ async function rpFbLive(d){
   wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}
  const _clk=live?rpLiveClock(d,j,st):'';const _cdet=(st.shortDetail||'').replace(/^\d+:\d+\s*-?\s*/,'');
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+(st.shortDetail||'FINAL').toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+(live?(_clk?(_clk+(_cdet?' - '+_cdet:'')):(st.shortDetail||'')):'')+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
- h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+(possA?RP_FOOTBALL:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
- h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+(possIsHome?RP_FOOTBALL:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div>';
+ h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+(possA?spIcon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
+ h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+(possIsHome?spIcon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div>';
  if(live){
-  h+=rpFieldSvg(ballAbs,possIsHome,aCol,hCol);
+  h+=rpFieldSvg(ballAbs,possIsHome,aCol,hCol,spIcon);
   h+='<div style="display:flex;justify-content:space-between;font-size:10px;color:#8a8f98"><span>'+aAb+'</span><span>50</span><span>'+hAb+'</span></div>';
   const bits=[];
   if(s.downDistanceText)bits.push('<b style="color:#c8cdd5">'+s.downDistanceText+'</b>');
