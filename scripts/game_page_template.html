@@ -116,7 +116,8 @@ function rpBestStar(pk){try{
  chips.forEach(function(a){a.classList.remove('best');a.innerHTML=a.innerHTML.replace(/^\u2605 /,'');});
  if(best){best.classList.add('best');best.innerHTML='\u2605 '+best.innerHTML;}
 }catch(e){}}
-function rpAllBest(){document.querySelectorAll('.chips').forEach(rpBestStar);}  /* per-pick scoping (tester gate 4): a star is computed inside ONE pick's chip row, never across the document/both-sides grid */
+function rpAllBest(){document.querySelectorAll('.chips').forEach(rpBestStar);}
+function rpQuoteMut(){rpGameLineShop();rpAllBest();}  /* ONE shared derivation (tester Sep 26 game-page star defect): every canonical price change recomputes range AND star in the same callback */  /* per-pick scoping (tester gate 4): a star is computed inside ONE pick's chip row, never across the document/both-sides grid */
 function rpFilter(st){
  /* U-GEO-001 amendment (user Sep 26 12:27 PM): visibility is state-scoped - no legal route in the resolved state = no render, no inert prices, no markers. The resolved SET is identical on every surface. Unresolved = fail-closed nationwide set (KAL/POLY). */
  document.querySelectorAll('[data-book]').forEach(function(el){
@@ -177,6 +178,7 @@ function rpKalTick(){try{
    const c=Math.round(d*100);
    a.dataset.cents=c;if(r0){r0.c=c;r0.ts=Date.now();}
    if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c)/,'KAL '+rpMLF(rpC2ML(c)));  /* user Sep 26 12:58 PM: all-American display */
+   rpQuoteMut();  /* tester Sep 26: star recomputes on every canonical tick, not just range */
   }).catch(function(){});
  });
 }catch(e){}}
@@ -198,7 +200,7 @@ function rpPolyTick(){try{
    let outs=[],pr=[];try{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}catch(e){return;}
    for(let i=0;i<outs.length;i++){if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){
     const c=Math.round(parseFloat(pr[i])*100);
-    if(c>0&&c<=100&&!rpInPlay()){a.dataset.cents=c;if(r0){r0.c=c;r0.ts=Date.now();}if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \d+c)/,'POLY '+rpMLF(rpC2ML(c)));}
+    if(c>0&&c<=100&&!rpInPlay()){a.dataset.cents=c;if(r0){r0.c=c;r0.ts=Date.now();}if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \d+c)/,'POLY '+rpMLF(rpC2ML(c)));rpQuoteMut();}  /* tester Sep 26: star recomputes on every canonical tick */
     return;
    }}
   }).catch(function(){});
@@ -229,7 +231,7 @@ function rpEspnTick(){try{
    /* header .odds = locked entry price, FROZEN (tester ruling Sep 26): summary/scoreboard ticks update chips only, never the header */
    if(typeof ml==='number'&&st.state==='pre'){
     const chip=d.querySelector('a[data-book="TSB"]');
-    if(chip&&!rpInPlay()){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);const _rc=(typeof rpMkt==='function')?rpMkt(chip):null;if(_rc){_rc.ml=ml;_rc.ts=Date.now();}if(typeof rpGameLineShop==='function')rpGameLineShop();rpAllBest();}}  /* one quote mutation updates record + rendered price + range + star (audit swamp + tester gate 4, Sep 26) */
+    if(chip&&!rpInPlay()){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);const _rc=(typeof rpMkt==='function')?rpMkt(chip):null;if(_rc){_rc.ml=ml;_rc.ts=Date.now();}rpQuoteMut();}}  /* one quote mutation updates record + rendered price + range + star (audit swamp + tester gate 4, Sep 26) */
   }).catch(function(){});
   return;
  }
@@ -525,7 +527,7 @@ async function rpScoreTblTick(d){try{
  el.innerHTML=''; /* mma/boxing/golf/nascar: no period-linescore shape - nothing rendered */
 }catch(e){}}
 
-rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}try{await rpScoreTblTick(document.querySelector('.pick[data-espn]'));}catch(e2){}try{rpGameLineShop();}catch(e3){}setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?30000:3000);}rpLiveLoop();
+rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}try{await rpScoreTblTick(document.querySelector('.pick[data-espn]'));}catch(e2){}try{rpQuoteMut();}catch(e3){}setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?30000:3000);}rpLiveLoop();
 setInterval(rpPageRefresh,60000);
 
 /* Live per-game chat - room id baked at build (g<num>-<date>), no fetch needed to find it. Opens 1h before start, locks 2h after final. */
