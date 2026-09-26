@@ -11,6 +11,12 @@ import json,sys,html,re
 
 RP_DESIGN='1.2.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme. v1.2.0 (user, Sep 25 8:46 AM): current page shape approved as THE standing daily template - header without FINAL line, tap-any-book intro, per-pick chips + units, combo section, record + unit line, minimal footer (reference commit fbec1c1). Every morning build reproduces this exact shape; changes only on his explicit instruction.
 
+def _pt_date(iso):
+    try:
+        import datetime as _dt
+        return (_dt.datetime.fromisoformat((iso or '').replace('Z','+00:00'))-_dt.timedelta(hours=7)).date().isoformat()
+    except Exception: return ''
+
 man=json.load(open(sys.argv[1]))
 out=sys.argv[2] if len(sys.argv)>2 else '/home/sandbox/gh_page/index.html'
 BOOKS=[('DraftKings','DK'),('FanDuel','FD'),('ESPN BET','ESPN'),('Hard Rock','HR'),('BetMGM','MGM'),('BetRivers','BR'),('Kalshi','KAL'),('Polymarket','POLY')]
@@ -345,7 +351,7 @@ for p in man['picks']:
         return '<img src="%s" alt="" style="%s" onerror="this.remove()">'%(html.escape(u),st)
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center">'+_av+'</span>' if _av else ''
-    rows.append(f'''<div class="pick" data-espn="{espn}" data-eid="{html.escape(_eid)}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{((g.get('commence','') or '')[:10] or 'card')}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}">
+    rows.append(f'''<div class="pick" data-espn="{espn}" data-eid="{html.escape(_eid)}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{(_pt_date(g.get('commence','')) or 'card')}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}">
   <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
@@ -522,10 +528,15 @@ if man.get('parlay'):
                 if not cc: pallwon=False; continue
                 pallwon=False; pc.append(cc)
         if okp:
+            ent=None
+            kl=pl.get('kalshi_legs') or []
+            if kl and len(kl)==nlegs and all(l.get('cents') for l in kl):
+                ent=amer_from_cents([l['cents'] for l in kl])
+            entlbl=('POLY '+c2ml(ent)) if ent is not None else 'POLY'
             if pdead:
-                plbl='POLY'; psort=None
+                plbl=entlbl; psort=int(c2ml(ent)) if ent is not None else None
             elif not pc and pallwon and nlegs:
-                plbl='POLY'; psort=None
+                plbl=entlbl; psort=int(c2ml(ent)) if ent is not None else None
             elif pc:
                 c=amer_from_cents(pc)
                 if c is None: plbl='POLY'; psort=None
@@ -962,7 +973,7 @@ function rpCxUpd(bk){{
   const m=a.innerHTML.match(re);if(m){{const ml=parseInt(m[1]);d*=ml>0?1+ml/100:1+100/Math.abs(ml);cnt++;}}
  }});
  if(cnt!==n)return;
- if(dead){{chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+)?/,bk);rpCxStar();return;}}
+ if(dead){{rpCxStar();return;}}
  if(d<=1)return;
  const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
  chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+)?/, bk+' '+(ml2>0?'+':'')+ml2);
@@ -1027,9 +1038,14 @@ function rpEspnTick(){{try{{
     const comp=(ev.competitions||[])[0]||{{}};const o=(comp.odds||[])[0];if(!o)return;
     leagues[lg].forEach(function(d){{
      if(d.dataset.market==='spread')return;
+     /* J-108: bind by ESPN event id when carried; otherwise require BOTH team tokens AND
+        the event's PT date to equal the pick's card date - never last-token-only. */
+     if(d.dataset.eid&&String(ev.id)!==d.dataset.eid)return;
      const atok=(d.dataset.away||'').toLowerCase().split(' ').pop(),htok=(d.dataset.home||'').toLowerCase().split(' ').pop();
      const nm=(ev.name||'').toLowerCase();
      if(nm.indexOf(atok)<0||nm.indexOf(htok)<0)return;
+     const rd=(d.dataset.room||'').split('-').slice(1).join('-');
+     if(rd&&ev.date){{const pd=new Date(new Date(ev.date).getTime()-7*3600*1000).toISOString().slice(0,10);if(pd!==rd)return;}}
      const ml=d.dataset.side==='away'?(o.awayTeamOdds||{{}}).moneyLine:(o.homeTeamOdds||{{}}).moneyLine;
      if(typeof ml==='number'){{const s=d.querySelector('.odds');if(s)s.textContent=(ml>0?'+':'')+ml;
       const chip=d.querySelector('a[data-book="ESPN"]');
@@ -1064,16 +1080,26 @@ rpPolyTick();rpEspnTick();rpKalTick();setInterval(function(){{rpPolyTick();rpEsp
 function rpPageRefresh(){{try{{
  fetch(location.pathname+'?r='+Date.now(),{{cache:'no-store'}}).then(r=>r.text()).then(function(t){{
   const doc=new DOMParser().parseFromString(t,'text/html');
-  const picks=document.querySelectorAll('.pick');const npicks=doc.querySelectorAll('.pick');
-  for(let i=0;i<picks.length;i++){{
-   if(!npicks[i])continue;
-   picks[i].querySelectorAll('a[data-book]').forEach(function(a){{
+  /* J-107 (Sep 26): bind by stable pick key (data-gpk, else data-room), never DOM position -
+     rpFinalsTop reorders the live DOM, so index-mapping sprayed another game's prices onto
+     the wrong pick with the wrong link. Price and href/data-sb update together. */
+  const nmap={{}};
+  doc.querySelectorAll('.pick').forEach(function(np){{
+   const k=np.dataset.gpk||np.dataset.room||'';if(k)nmap[k]=np;
+  }});
+  document.querySelectorAll('.pick').forEach(function(pk){{
+   const k=pk.dataset.gpk||pk.dataset.room||'';const np=nmap[k];if(!np)return;
+   pk.querySelectorAll('a[data-book]').forEach(function(a){{
     const b=a.dataset.book;if(b==='POLY')return;
-    const na=npicks[i].querySelector('a[data-book="'+b+'"]');if(!na)return;
+    const na=np.querySelector('a[data-book="'+b+'"]');if(!na)return;
     const m=na.textContent.match(/([+-]\d+)/);if(!m)return;
     a.innerHTML=a.innerHTML.replace(/([+-]\d+)/,m[1]);
+    if(na.href)a.href=na.href;
+    if(na.dataset.sb)a.dataset.sb=na.dataset.sb;
    }});
-  }}
+   const lo=pk.querySelector('.odds'),ln=np.querySelector('.odds');
+   if(lo&&ln&&ln.textContent)lo.textContent=ln.textContent;
+  }});
   const cc=document.getElementById('rpParlayChips');const nc=doc.getElementById('rpParlayChips');
   if(cc&&nc){{cc.querySelectorAll('a[data-book]').forEach(function(s){{
    const b=s.dataset.book;if(b==='KAL'||b==='POLY')return;
