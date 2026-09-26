@@ -1,0 +1,106 @@
+{
+ "Baltimore Orioles|New York Yankees|2026-09-25": {
+  "DraftKings": {
+   "link": "https://sportsbook.draftkings.com/?outcomes=0ML86450310_1",
+   "ml": -136
+  },
+  "FanDuel": {
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886712&amp;selectionId=29164",
+   "ml": -142
+  },
+  "ESPN BET": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=45a03cd0-092f-4074-b825-61f790ee529c&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1",
+   "ml": -135
+  },
+  "Hard Rock": {
+   "link": "https://app.hardrock.bet/?deep_link_value=betslip/500158454615376280",
+   "ml": -135
+  },
+  "BetMGM": {
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=19945275-1558627097-2296941137&amp;type=Single",
+   "ml": -135
+  },
+  "BetRivers": {
+   "link": "https://{state}.betrivers.com/?page=sportsbook#event/1024788219",
+   "ml": -130
+  }
+ },
+ "Cleveland Guardians|Kansas City Royals|2026-09-25": {
+  "DraftKings": {
+   "link": "https://sportsbook.draftkings.com/?outcomes=0ML86466884_3",
+   "ml": -127
+  },
+  "FanDuel": {
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611161326&selectionId=41541473",
+   "ml": -126
+  },
+  "ESPN BET": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=be5d7803-50fe-4159-bdb9-b8cdb18bd2b8&odds_numerator[0]=2&odds_denominator[0]=1",
+   "ml": -130
+  },
+  "Hard Rock": {
+   "link": "https://app.hardrock.bet/?deep_link_value=betslip/6065028261287690649",
+   "ml": -130
+  },
+  "BetMGM": {
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=19944856-1558589553-2296848086&type=Single",
+   "ml": -130
+  },
+  "BetRivers": {
+   "link": "https://{state}.betrivers.com/?page=sportsbook#event/1024788205",
+   "ml": -124
+  }
+ },
+ "Houston Astros|Athletics|2026-09-25": {
+  "DraftKings": {
+   "link": "https://sportsbook.draftkings.com/?outcomes=0ML86450775_3",
+   "ml": 157
+  },
+  "FanDuel": {
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886647&amp;selectionId=50291",
+   "ml": 160
+  },
+  "ESPN BET": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=aa93a11a-d966-467d-a49f-10b4dfbba1e3&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1",
+   "ml": 155
+  },
+  "Hard Rock": {
+   "link": "https://app.hardrock.bet/?deep_link_value=betslip/8256176501297381791",
+   "ml": 150
+  },
+  "BetMGM": {
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=19945280-1558627562-2296942156&amp;type=Single",
+   "ml": 155
+  },
+  "BetRivers": {
+   "link": "https://{state}.betrivers.com/?page=sportsbook#event/1024788212",
+   "ml": 150
+  }
+ },
+ "Houston Astros|Athletics|2026-09-26": {
+  "DraftKings": {
+   "link": "https://sportsbook.draftkings.com/?outcomes=0ML86467072_3",
+   "ml": -161
+  },
+  "FanDuel": {
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611161333&selectionId=29170",
+   "ml": -154
+  },
+  "ESPN BET": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=a5013723-0843-48a3-ad2c-e23a00f5b0b1&odds_numerator[0]=2&odds_denominator[0]=1",
+   "ml": -150
+  },
+  "Hard Rock": {
+   "link": "https://app.hardrock.bet/?deep_link_value=betslip/7579840836385505697",
+   "ml": -155
+  },
+  "BetMGM": {
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=19944877-1558592639-2296855978&type=Single",
+   "ml": -160
+  },
+  "BetRivers": {
+   "link": "https://{state}.betrivers.com/?page=sportsbook#event/1024788210",
+   "ml": -162
+  }
+ }
+}

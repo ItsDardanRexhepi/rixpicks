@@ -130,6 +130,14 @@ TEAM_META={}
 
 
 pre_sp=_load_prefill('/tmp/odds_prefill_sp.json', wrap=True)
+# J-106 (Sep 26): shipped book links freeze with the card. Prefill only knows live/upcoming
+# games - a refresh rebuild for a settled game used to find nothing and DROP the chips
+# (the Orioles-row regression he caught). shipped_books.json is committed with the site:
+# fresh resolutions record into it every build; settled/missing games fall back to it.
+SHIPPED={}
+try: SHIPPED=json.load(open('shipped_books.json'))
+except Exception: SHIPPED={}
+NEWSHIPPED={}
 TEAM_META.update(team_meta(man))
 def _meta_for(lg,name):
     m=TEAM_META.get((lg,name))
@@ -224,6 +232,12 @@ def chips(p):
             best=(p.get('best_book')=='Polymarket')
             out.append(f'<a class="chip{" best" if best else ""}"{bkstyle("POLY")} href="{html.escape(web)}" data-book="POLY" data-sb="{html.escape(web)}" data-app="{html.escape(app)}" data-polyslug="{html.escape(slug)}" data-polysub="{html.escape(sub)}" data-polykw="{html.escape(kw)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{star if best else ""}{bkimg("POLY")}{label}</a>')
             continue
+        if link and p.get('game'):
+            _sk=f"{p['game'].get('away')}|{p['game'].get('home')}|{(p['game'].get('commence') or '')[:10]}"
+            NEWSHIPPED.setdefault(_sk,{})[name]={'link':link,'ml':ml}
+        if not link and p.get('game'):
+            _se=SHIPPED.get(f"{p['game'].get('away')}|{p['game'].get('home')}|{(p['game'].get('commence') or '')[:10]}",{}).get(name)
+            if _se: link=_se.get('link'); ml=_se.get('ml')
         if not link: continue  # no game-level link -> drop chip
         best=(p.get('best_book')==name)
         label=(f"{short} {ml:+d}" if ml is not None else short)+inst
@@ -1526,3 +1540,11 @@ if not os.environ.get('RP_NOHIST'):
             _r={'ts':_ts}; _r.update(_hr); _hf.write(json.dumps(_r)+'\n')
     print('history appended:',len(HIST),'games ->',_hp)
 print('written:',out,len(page),'design v'+RP_DESIGN,'build',build_sha)
+
+# J-106: persist freshly resolved book links so refresh rebuilds can never strip shipped chips
+try:
+    for _k,_v in NEWSHIPPED.items():
+        SHIPPED.setdefault(_k,{}).update(_v)
+    if NEWSHIPPED:
+        json.dump(SHIPPED,open('shipped_books.json','w'),indent=1)
+except Exception: pass
