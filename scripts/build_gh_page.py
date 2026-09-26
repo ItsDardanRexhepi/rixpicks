@@ -34,10 +34,14 @@ def _pick_content_hash(m):
     # _final (post-settlement grading state, not pick content), polycents (live Polymarket price
     # snapshot), kalshi.cents (live Kalshi ask snapshot - the gate re-checks it live anyway).
     _EXCL_TOP={'num','result','_final','polycents'}
+    _DKP_VOL={'team_cents','home_cents','away_cents','derived','harvested'}  # live DK Predictions snapshots (builder dkp-volatility exclusion, Sep 26)
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
             c['kalshi']={k:v for k,v in c['kalshi'].items() if k!='cents'}
+        c.pop('dkp_note',None)
+        if isinstance(c.get('dkp'),dict):
+            c['dkp']={k:v for k,v in c['dkp'].items() if k not in _DKP_VOL}
         return c
     rows=sorted(json.dumps(_canon(p),sort_keys=True) for p in m.get('picks',[]))
     return _hl.sha256('\n'.join(rows).encode()).hexdigest()
