@@ -24,7 +24,6 @@ __MATCHUP__
 __ROWS__
 __KAL__
 __POLY__
-__CHARTS__
 <div id="rpChatPanel" style="display:none;border:1px solid rgba(127,127,127,.22);border-radius:14px;margin:22px 0 6px;overflow:hidden">
  <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid rgba(127,127,127,.18)"><span style="font-weight:700;font-size:14px">Live chat</span><span id="rpChatCount" style="font-size:12px;color:#8a8f98"></span></div>
  <div id="rpChatNote" style="display:none;font-size:12.5px;color:#8a8f98;padding:12px 14px"></div>
@@ -32,6 +31,8 @@ __CHARTS__
  <div id="rpChatForm" style="display:none;padding:10px 12px;border-top:1px solid rgba(127,127,127,.18);position:sticky;bottom:0;background:inherit"><div style="display:flex;gap:8px"><input id="rpChatIn" maxlength="280" placeholder="Join the discussion&hellip;" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;font-size:14px;outline:none;font-family:inherit"><button onclick="rpChatSend()" style="padding:10px 16px;border:none;border-radius:10px;background:#2f8f7d;color:#fff;font-weight:700;cursor:pointer;font-family:inherit">Post</button></div></div>
  <div id="rpChatSign" style="display:none;padding:10px 12px;border-top:1px solid rgba(127,127,127,.18)"><div style="display:flex;gap:8px"><input id="rpChatEmail" type="email" placeholder="Email to sign in and chat" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;font-size:13px;outline:none;font-family:inherit"><button onclick="rpChatAuth()" style="padding:10px 14px;border:none;border-radius:10px;background:#2f8f7d;color:#fff;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Email me a link</button></div><div id="rpChatAuthMsg" style="font-size:12px;color:#3aa895;margin-top:5px"></div></div>
 </div>
+
+__CHARTS__
 <div class="foot">Prices update live: Kalshi &amp; Polymarket tick every 60s; sportsbook rows refresh with each page rebuild. Tap a price to open the market. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
 </div>
 <div id="rpModal"><div class="box">
