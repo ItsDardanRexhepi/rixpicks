@@ -751,8 +751,8 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
  const mlb=picks.filter(x=>(x.dataset.espn||'')==='baseball/mlb');
  // class fix (9/25 Astros lapse): gamePk-keyed rows hit the per-game feed directly; a lookup
  // miss NEVER blanks a row that was live - it dims and keeps last-good until a good tick lands.
- const rpMlbMiss=pk=>{{const el=pk.querySelector('[data-ls]');if(el&&el.dataset.live==='1'){{el.style.opacity='.55';return;}}rpLsRender(pk,null);}};
- const rpMlbGame=(pk,ls,st,aab,hab)=>{{
+ const rpMlbMiss=pk=>{{window.__rpMissN=(window.__rpMissN||0)+1;const el=pk.querySelector('[data-ls]');if(el&&el.dataset.live==='1'){{el.style.opacity='.55';return;}}rpLsRender(pk,null);}};
+ const rpMlbGame=(pk,ls,st,aab,hab)=>{{window.__rpMissN=0;
   const KNOWN=['Scheduled','Pre-Game','Warmup','In Progress','Final','Game Over','Delayed','Delayed Start','Postponed','Suspended','Completed Early','Called'];
   if(KNOWN.indexOf(st)<0){{rpMlbMiss(pk);return;}}
   const inn=(st==='In Progress')?((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim():st;
@@ -835,7 +835,8 @@ function rpChatCounts(){{try{{
  }});
 }}catch(e){{}}}}
 async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();}}
-{fut_badge_js}rpLsTickAll();setInterval(rpLsTickAll,10000);
+{fut_badge_js}async function rpFastLoop(){{try{{await rpLsTick();}}catch(e){{}}}setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?30000:3000);}}
+rpFastLoop();rpLsTickAll();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();}},30000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
 try{{fetch('https://api.rix-picks.com/beacon',{{method:'POST',headers:{{'Content-Type':'application/json'}},body:JSON.stringify({{page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}}),keepalive:true}}).catch(()=>{{}});}}catch(e){{}}
