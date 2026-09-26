@@ -164,7 +164,7 @@ h1 .tick{color:#3BEBF5}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790450726';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
+const RP_BUILD='1790450748';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -313,7 +313,8 @@ function rpEspnTick(){try{
    if(sline&&st.state!=='pre'&&sc){sline.textContent=(st.shortDetail||'')+'  |  '+sc;}
    const o=((j.pickcenter||[])[0])||((comp.odds||[])[0]);if(!o)return;
    const ml=d.dataset.side==='away'?(o.awayTeamOdds||{}).moneyLine:(o.homeTeamOdds||{}).moneyLine;
-   if(typeof ml==='number'&&st.state==='pre'){const s2=d.querySelector('.odds');if(s2)s2.textContent=(ml>0?'+':'')+ml;
+   /* header .odds = locked entry price, FROZEN (tester ruling Sep 26): summary/scoreboard ticks update chips only, never the header */
+   if(typeof ml==='number'&&st.state==='pre'){
     const chip=d.querySelector('a[data-book="ESPN"]');
     if(chip&&!rpInPlay()){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);}}
   }).catch(function(){});
