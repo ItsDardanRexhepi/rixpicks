@@ -6,12 +6,12 @@
    "commence": "2026-09-25T20:10:00Z"
   },
   "FanDuel": {
-   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886712&amp;selectionId=29164",
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886712&selectionId=29164",
    "ml": -142,
    "commence": "2026-09-25T20:10:00Z"
   },
   "ESPN BET": {
-   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=45a03cd0-092f-4074-b825-61f790ee529c&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1",
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=45a03cd0-092f-4074-b825-61f790ee529c&odds_numerator[0]=2&odds_denominator[0]=1",
    "ml": -135,
    "commence": "2026-09-25T20:10:00Z"
   },
@@ -21,7 +21,7 @@
    "commence": "2026-09-25T20:10:00Z"
   },
   "BetMGM": {
-   "link": "https://sports.{state}.betmgm.com/en/sports?options=19945275-1558627097-2296941137&amp;type=Single",
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=19945275-1558627097-2296941137&type=Single",
    "ml": -135,
    "commence": "2026-09-25T20:10:00Z"
   },
@@ -70,12 +70,12 @@
    "commence": "2026-09-26T01:40:00Z"
   },
   "FanDuel": {
-   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886647&amp;selectionId=50291",
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.610886647&selectionId=50291",
    "ml": 160,
    "commence": "2026-09-26T01:40:00Z"
   },
   "ESPN BET": {
-   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=aa93a11a-d966-467d-a49f-10b4dfbba1e3&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1",
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=aa93a11a-d966-467d-a49f-10b4dfbba1e3&odds_numerator[0]=2&odds_denominator[0]=1",
    "ml": 155,
    "commence": "2026-09-26T01:40:00Z"
   },
@@ -85,7 +85,7 @@
    "commence": "2026-09-26T01:40:00Z"
   },
   "BetMGM": {
-   "link": "https://sports.{state}.betmgm.com/en/sports?options=19945280-1558627562-2296942156&amp;type=Single",
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=19945280-1558627562-2296942156&type=Single",
    "ml": 155,
    "commence": "2026-09-26T01:40:00Z"
   },
@@ -125,6 +125,70 @@
    "link": "https://{state}.betrivers.com/?page=sportsbook#event/1024788210",
    "ml": -162,
    "commence": "2026-09-27T01:40:00Z"
+  }
+ },
+ "San Diego State Aztecs|Toledo Rockets|2026-09-26": {
+  "DraftKings": {
+   "link": "https://sportsbook.draftkings.com/?outcomes=0ML86319046_1",
+   "ml": -142,
+   "commence": "2026-09-26T16:00Z"
+  },
+  "FanDuel": {
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.608182818&selectionId=532781",
+   "ml": -150,
+   "commence": "2026-09-26T16:00Z"
+  },
+  "ESPN BET": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=20fb3ee9-b85c-4686-aa2b-47d8810b4565&odds_numerator[0]=2&odds_denominator[0]=1",
+   "ml": -145,
+   "commence": "2026-09-26T16:00Z"
+  },
+  "Hard Rock": {
+   "link": "https://app.hardrock.bet/?deep_link_value=betslip/7563767419093778824",
+   "ml": -140,
+   "commence": "2026-09-26T16:00Z"
+  },
+  "BetMGM": {
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=6:45056-3648433-5792770&type=Single",
+   "ml": -145,
+   "commence": "2026-09-26T16:00Z"
+  },
+  "BetRivers": {
+   "link": "https://{state}.betrivers.com/?page=sportsbook#event/1027508185",
+   "ml": -148,
+   "commence": "2026-09-26T16:00Z"
+  }
+ },
+ "Nebraska Cornhuskers|Michigan State Spartans|2026-09-26": {
+  "DraftKings": {
+   "link": "https://sportsbook.draftkings.com/?outcomes=0ML86319026_3",
+   "ml": -225,
+   "commence": "2026-09-26T21:00Z"
+  },
+  "FanDuel": {
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.608181768&selectionId=70350",
+   "ml": -230,
+   "commence": "2026-09-26T21:00Z"
+  },
+  "ESPN BET": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=c3fe1249-3060-4a16-a706-4c038bd45a44&odds_numerator[0]=2&odds_denominator[0]=1",
+   "ml": -240,
+   "commence": "2026-09-26T21:00Z"
+  },
+  "Hard Rock": {
+   "link": "https://app.hardrock.bet/?deep_link_value=betslip/8408035242006413709",
+   "ml": -250,
+   "commence": "2026-09-26T21:00Z"
+  },
+  "BetMGM": {
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=6:45029-3647828-5791434&type=Single",
+   "ml": -225,
+   "commence": "2026-09-26T21:00Z"
+  },
+  "BetRivers": {
+   "link": "https://{state}.betrivers.com/?page=sportsbook#event/1027507946",
+   "ml": -225,
+   "commence": "2026-09-26T21:00Z"
   }
  }
 }
