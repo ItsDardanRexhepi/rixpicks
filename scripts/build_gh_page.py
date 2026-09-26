@@ -759,7 +759,7 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
   const el=pk.querySelector('[data-ls]');if(el){{el.style.opacity='';el.dataset.live=(st==='In Progress')?'1':'';}}
   rpLsRender(pk,{{a:aab,h:hab,as:((ls.teams||{{}}).away||{{}}).runs||0,hs:((ls.teams||{{}}).home||{{}}).runs||0,
    bat:st==='In Progress'?((ls.inningState==='Top'||ls.inningState==='End')?'a':'h'):null,
-   st:inn,state:st==='In Progress'?'in':(st==='Final'||st==='Game Over')?'post':'pre'}});}};
+   st:inn,state:st==='In Progress'?'in':(st==='Final'||st==='Game Over')?'post':'pre'}});if(st==='Final'||st==='Game Over')rpRecLive();}};
  if(mlb.length){{
   const keyed=mlb.filter(x=>x.dataset.gpk),unkeyed=mlb.filter(x=>!x.dataset.gpk);
   const cache={{}};
@@ -787,7 +787,7 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
    if((an===pk.dataset.away||an.includes(pk.dataset.away)||pk.dataset.away.includes(an))&&(hn===pk.dataset.home||hn.includes(pk.dataset.home)||pk.dataset.home.includes(hn)))
     pk.dataset.eid=e.id;
     found={{a:aw.team.abbreviation,h:hm.team.abbreviation,as:+aw.score||0,hs:+hm.score||0,st:e.status.type.shortDetail,state:e.status.type.state}};}});
-   rpLsRender(pk,found);}});}}catch(e){{}}}}
+   rpLsRender(pk,found);if(found&&found.state==='post')rpRecLive();}});}}catch(e){{}}}}
 }}
 function rpCxLive(){{const legs=[...document.querySelectorAll('.cxleg')];const el=document.getElementById('rpCxLive');if(!el||!legs.length)return;
  let w=0,l=0,live=0;
