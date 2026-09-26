@@ -41,6 +41,7 @@ h1 .tick{color:#3BEBF5}
 .sub{color:#6b6b72;font-size:14px;margin:6px 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}
+.chip.rpunpriced{opacity:.45}  /* watchdog Sep 26: explicit unpriced state - dimmed, em-dash, inert */
 .bklogo{width:16px;height:16px;border-radius:3px;flex:none}
 .chip.best{font-weight:800}
 .rec{font-weight:600;font-size:16px;padding:8px 0 1px}
@@ -137,7 +138,7 @@ h1 .tick{color:#3BEBF5}
   <div class="score" id="rpScore">9:00 AM PT</div>
   <div id="rpLive"></div>
   <div id="rpScoreTbl"></div>
-  <div class="chips" style="margin-top:12px"><span class="chip rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="ml" data-mr="3" data-sbt="https://{state}.betrivers.com/?page=sportsbook#event/1027508185" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR -148</span><a class="chip" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" href="https://sportsbook.draftkings.com/?outcomes=0ML86319046_1" data-book="DK" data-market="ml" data-mr="4" data-sb="https://sportsbook.draftkings.com/?outcomes=0ML86319046_1" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK -142</a><a class="chip" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608182818&amp;selectionId=532781" data-book="FD" data-market="ml" data-mr="5" data-sb="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608182818&amp;selectionId=532781" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD -150</a><a class="chip" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" href="https://app.hardrock.bet/?deep_link_value=betslip/7563767419093778824" data-book="HR" data-market="ml" data-mr="6" data-sb="https://app.hardrock.bet/?deep_link_value=betslip/7563767419093778824" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR -140</a><a class="chip" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26sdsutol" data-book="KAL" data-kalticker="KXNCAAFGAME-26SEP26SDSUTOL" data-kalside="TOL" data-market="ml" data-cents="57" data-mr="7" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -133</a><span class="chip rpnontap" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="ml" data-mr="8" data-sbt="https://sports.{state}.betmgm.com/en/sports?options=6:45056-3648433-5792770&amp;type=Single" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM -145</span><a class="chip best" data-bk="POLY" style="background:#e8f3fc;border-color:#e8f3fc;color:#1a6db0" href="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-book="POLY" data-sb="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-app="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-polyslug="cfb-sdst-toledo-2026-09-26" data-market="ml" data-polysub="" data-polykw="Toledo" data-cents="56" data-mr="9" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=polymarket.com&sz=128" alt="" onerror="this.remove()">POLY -127</a><span class="chip rpnontap" data-bk="TSB" style="background:#0d1b2e;border-color:#0d1b2e;color:#4d94ff" data-book="TSB" data-market="ml" data-mr="10"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=thescore.bet&sz=128" alt="" onerror="this.remove()">TSB</span><span class="chip rpnontap" data-bk="DKP" style="background:#0b1a0e;border-color:#0b1a0e;color:#9be25f" data-book="DKP" data-platform="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=predictions.draftkings.com&sz=128" alt="" onerror="this.remove()">DK Predictions</span><span class="chip rpnontap" data-bk="FDP" style="background:#e7f3ff;border-color:#e7f3ff;color:#4d9de0" data-book="FDP" data-platform="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD Predicts</span></div>
+  <div class="chips" style="margin-top:12px"><span class="chip rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="ml" data-mr="3" data-sbt="https://{state}.betrivers.com/?page=sportsbook#event/1027508185" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR -148</span><a class="chip" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" href="https://sportsbook.draftkings.com/?outcomes=0ML86319046_1" data-book="DK" data-market="ml" data-mr="4" data-sb="https://sportsbook.draftkings.com/?outcomes=0ML86319046_1" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK -142</a><a class="chip" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608182818&amp;selectionId=532781" data-book="FD" data-market="ml" data-mr="5" data-sb="https://sportsbook.fanduel.com/addToBetslip?marketId=42.608182818&amp;selectionId=532781" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD -150</a><a class="chip" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" href="https://app.hardrock.bet/?deep_link_value=betslip/7563767419093778824" data-book="HR" data-market="ml" data-mr="6" data-sb="https://app.hardrock.bet/?deep_link_value=betslip/7563767419093778824" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR -140</a><a class="chip" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26sdsutol" data-book="KAL" data-kalticker="KXNCAAFGAME-26SEP26SDSUTOL" data-kalside="TOL" data-market="ml" data-cents="57" data-mr="7" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -133</a><span class="chip rpnontap" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="ml" data-mr="8" data-sbt="https://sports.{state}.betmgm.com/en/sports?options=6:45056-3648433-5792770&amp;type=Single" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM -145</span><a class="chip best" data-bk="POLY" style="background:#e8f3fc;border-color:#e8f3fc;color:#1a6db0" href="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-book="POLY" data-sb="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-app="https://polymarket.us/event/cfb-sdst-toledo-2026-09-26" data-polyslug="cfb-sdst-toledo-2026-09-26" data-market="ml" data-polysub="" data-polykw="Toledo" data-cents="56" data-mr="9" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=polymarket.com&sz=128" alt="" onerror="this.remove()">POLY -127</a><span class="chip rpnontap rpunpriced" data-bk="TSB" style="background:#0d1b2e;border-color:#0d1b2e;color:#4d94ff" data-book="TSB" data-market="ml" data-mr="10"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=thescore.bet&sz=128" alt="" onerror="this.remove()">TSB —</span><span class="chip rpnontap" data-bk="DKP" style="background:#0b1a0e;border-color:#0b1a0e;color:#9be25f" data-book="DKP" data-platform="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=predictions.draftkings.com&sz=128" alt="" onerror="this.remove()">DK Predictions</span><span class="chip rpnontap" data-bk="FDP" style="background:#e7f3ff;border-color:#e7f3ff;color:#4d9de0" data-book="FDP" data-platform="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD Predicts</span></div>
   <div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>
   
 </div>
@@ -163,7 +164,7 @@ h1 .tick{color:#3BEBF5}
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790457607';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
+const RP_BUILD='1790459050';const RP_ROOM='g1-2026-09-26';const RP_START='2026-09-26T16:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -270,7 +271,7 @@ function rpKalTick(){try{
   const r0=rpMkt(a);if(r0&&r0.ph==='last_pre_game')return;  /* canonical record: frozen phases never tick (phase = event status, not fetch time) */
   const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk+'?_='+Date.now();
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){
-   const m=j&&j.market;if(!m)return;
+   const m=j&&j.market;if(!m)return;window.__rpKalOk=Date.now();
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<=1))return;
    if(rpInPlay())return;  /* in play the chip freezes its last-known price - live values never replace frozen ones */
    const c=Math.round(d*100);
@@ -285,7 +286,7 @@ function rpPolyTick(){try{
   if(!a.dataset.polyslug)return;
   const r0=rpMkt(a);if(r0&&r0.ph==='last_pre_game')return;  /* frozen phases never tick (phase = event status, not fetch time) */
   fetch('https://gamma-api.polymarket.com/events?slug='+a.dataset.polyslug+'&_='+Date.now()).then(r=>r.json()).then(function(ev){
-   if(!ev||!ev.length)return;const kw=(a.dataset.polykw||'').toLowerCase();const sub=a.dataset.polysub||'';
+   if(!ev||!ev.length)return;window.__rpPolyOk=Date.now();const kw=(a.dataset.polykw||'').toLowerCase();const sub=a.dataset.polysub||'';
    let target=null;
    (ev[0].markets||[]).forEach(function(m){
     if(target)return;
@@ -323,7 +324,7 @@ function rpEspnTick(){try{
    // Sep 26 user rule: home team always bottom - away renders first in every score display
    comps.slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
    const sline=document.getElementById('rpScore');
-   if(sline&&st.state!=='pre'&&sc){sline.textContent=(st.shortDetail||'')+'  |  '+sc;}
+   if(sline&&st.state!=='pre'&&sc){sline.textContent=rpStatusText(d,j,st)+'  |  '+sc;}
    const o=((j.pickcenter||[])[0])||((comp.odds||[])[0]);if(!o)return;
    const ml=d.dataset.side==='away'?(o.awayTeamOdds||{}).moneyLine:(o.homeTeamOdds||{}).moneyLine;
    /* header .odds = locked entry price, FROZEN (tester ruling Sep 26): summary/scoreboard ticks update chips only, never the header */
@@ -346,6 +347,37 @@ function rpEspnTick(){try{
  }).catch(function(){});
 }catch(e){}}
 
+function rpLiveClock(d,j,st){
+ /* panel auditor Sep 26 (live NEB-MSU): ESPN status.displayClock can FREEZE while PBP advances -
+    a successful-but-frozen field is stale-as-live. The displayed clock follows whichever source
+    last ADVANCED (status vs latest play); if both freeze >4min, the render is not fresh - no live stamp. */
+ const s=(st.displayClock||((st.shortDetail||'').match(/^\d+:\d+/)||[''])[0]||'');
+ const pl=(((j.drives||{}).current||{}).plays)||j.plays||[];  /* tester Sep 26 (verified on the live NEB payload): football summary has NO top-level plays - the advancing clock lives at drives.current.plays[-1] */
+ const lp=pl.length?pl[pl.length-1]:null;
+ const p=lp?(((lp.clock||{}).displayValue)||''):'';
+ const nk=pl.length+'|'+(((j.drives||{}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):'');
+ const k=d.dataset.eid||'x';const W=window.__rpClk=window.__rpClk||{};const rec=W[k]=W[k]||{s:'',sT:0,p:'',pT:0,n:'',nT:0};
+ const now=Date.now();
+ if(s&&s!==rec.s){rec.s=s;rec.sT=now;}
+ if(p&&p!==rec.p){rec.p=p;rec.pT=now;}
+ if(nk!==rec.n){rec.n=nk;rec.nT=now;}
+ rec.stale=(now-Math.max(rec.sT,rec.pT,rec.nT))>240000;
+ if(rec.p&&rec.pT>rec.sT)return rec.p;
+ if(rec.s&&rec.sT>rec.pT)return rec.s;
+ /* first sight / same-tick tie: within a period the clock only runs DOWN, so less remaining is
+    fresher evidence; a >10min gap means a quarter reset - trust status then. */
+ const _sec=function(v){{const m=/^(\d+):(\d+)$/.exec(v||'');return m?(+m[1])*60+(+m[2]):null;}};
+ const _ps=_sec(rec.p),_ss=_sec(rec.s);
+ if(_ps!=null&&_ss!=null&&_ps<_ss&&(_ss-_ps)<=600)return rec.p;
+ return rec.s||rec.p;
+}
+function rpStatusText(d,j,st){ /* tester Sep 26 presentation parity: EVERY clock on the page comes from the one arbiter */
+ const rec=(window.__rpClk||{})[d.dataset.eid||'x']||{};
+ const per=(st.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,'');
+ const c=rpLiveClock(d,j,st);
+ if(rec.stale)return per;
+ return c?(c+(per?' - '+per:'')):(st.shortDetail||'');
+}
 function rpLiveBox(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  const _lg=d.dataset.espn;
@@ -669,7 +701,8 @@ async function rpFbLive(d){
  let wl='';
  if(isFinal){const side=d.dataset.side||'away';const win=(side==='away')?(+aR>+hR):(+hR>+aR);
   wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}
- h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+(st.shortDetail||'FINAL').toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+(live?(st.shortDetail||''):'')+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
+ const _clk=live?rpLiveClock(d,j,st):'';const _cdet=(st.shortDetail||'').replace(/^\d+:\d+\s*-?\s*/,'');
+ h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+(st.shortDetail||'FINAL').toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+(live?(_clk?(_clk+(_cdet?' - '+_cdet:'')):(st.shortDetail||'')):'')+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+(possA?RP_FOOTBALL:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+(possIsHome?RP_FOOTBALL:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div>';
  if(live){
@@ -697,7 +730,7 @@ async function rpFbLive(d){
  if(rows.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98;margin:6px 0 4px">PLAY BY PLAY</div>';
   rows.forEach(function(tx){h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+tx+'</div>';});}
  h+='</div></div>';
- box.innerHTML=h;window.__rpLiveOk=Date.now();
+ box.innerHTML=h;if(!(live&&(window.__rpClk[d.dataset.eid||'x']||{}).stale))window.__rpLiveOk=Date.now();  /* both clocks frozen = stale-as-live: no fresh stamp -> RECONNECTING */
  }catch(e){}
 }
 function rpPbpToggle(){const el=document.getElementById('rpPbp');if(el)el.style.display=el.style.display==='none'?'block':'none';}
@@ -715,7 +748,7 @@ async function rpEspnPanel(d){
  if(st.state==='post'){const side=d.dataset.side||'away';const aw2=(comp.competitors||[]).find(function(c){return c.homeAway==='away';});const hm2=(comp.competitors||[]).find(function(c){return c.homeAway==='home';});
   if(aw2&&hm2){const win=(side==='away')?(+aw2.score>+hm2.score):(+hm2.score>+aw2.score);
   wl2='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}
- h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl2)+'<span style="font-size:12px;color:#8a8f98">'+(st.shortDetail||'')+'</span></div>';
+ h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl2)+'<span style="font-size:12px;color:#8a8f98">'+rpStatusText(d,j,st)+'</span></div>';
  (comp.competitors||[]).forEach(function(c){
   const ab=(c.team||{}).abbreviation||'';const sc=c.score||'0';
   const ball=live&&comp.situation&&comp.situation.possession===c.team.id?' <span style="color:#e8b93c">&#9679;</span>':'';
@@ -912,7 +945,7 @@ async function rpScoreTblTick(d){try{
  el.innerHTML=''; /* mma/boxing/golf/nascar: no period-linescore shape - nothing rendered */
 }catch(e){}}
 
-rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyTick();rpEspnTick();rpKalTick();},60000);async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}
+window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(rpKalTick,5000);  /* approved Sep 26: Kalshi via proxy 5s (CORS-blocked direct); POLY + ESPN ride the 2s live loop */async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}
  /* his verbatim Sep 26 2:14 PM: "Make it instant at core level." Fetch failures are swallowed deep in
     the render paths, so freshness is enforced HERE by data age: >20s without a successful render, the
     LIVE claim comes off and the panel says it is reconnecting - old data never wears the LIVE badge. */
@@ -921,7 +954,9 @@ rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(function(){rpPolyT
    lc.querySelectorAll('span').forEach(function(sp){if(sp.style.animation.indexOf('rpblink')>=0||sp.textContent.trim()==='LIVE')sp.style.display='none';});  /* tester Sep 26 re-hold: hide the DOT and the LIVE text - stale data never keeps any LIVE badge element */
    const _s=document.createElement('div');_s.id='rpStale';_s.style.cssText='margin-bottom:6px;font-size:11px;font-weight:700;color:#e8b93c';
    _s.textContent='RECONNECTING - updating to the live game';lc.insertBefore(_s,lc.firstChild);}
- }catch(e2){}try{await rpScoreTblTick(document.querySelector('.pick[data-espn]'));}catch(e2){}try{rpQuoteMut();}catch(e3){}setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?5000:2000);  /* his Sep 26 2:14 PM spec: by-the-second live - 2s cadence, 5s recovery retry, staleness never wears the LIVE badge */}rpLiveLoop();
+ }catch(e2){}try{await rpScoreTblTick(document.querySelector('.pick[data-espn]'));}catch(e2){}try{rpQuoteMut();}catch(e3){}try{rpPolyTick();rpEspnTick();}catch(e4){}
+ try{const _nw=Date.now();[['POLY','__rpPolyOk'],['KAL','__rpKalOk'],['TSB','__rpLiveOk']].forEach(function(pr){const dm=(_nw-(window[pr[1]]||0))>30000;document.querySelectorAll('[data-book="'+pr[0]+'"]').forEach(function(c){c.style.opacity=dm?'.55':'';});});}catch(e5){}  /* honesty dims (approved Sep 26): >30s stale source = dimmed chips, stale never re-stamps live */
+ setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?5000:2000);  /* his Sep 26 2:14 PM spec: by-the-second live - 2s cadence, 5s recovery retry, staleness never wears the LIVE badge */}rpLiveLoop();
 setInterval(rpPageRefresh,60000);
 
 /* Live per-game chat - room id baked at build (g<num>-<date>), no fetch needed to find it. Opens 1h before start, locks 2h after final. */
