@@ -313,7 +313,12 @@ def _link_ids(u):
                 r'/events?/(\d+)', r'-(\d{8,})(?:\?|$)', r'/event/[a-z0-9%40-]+/(\d{7,})',
                 r'betslip/(\d+)'):
         for m in re.finditer(pat,u or ''): ev.add(m.group(1))
-    for m in re.finditer(r'options=([0-9-]+)',u or ''): ev.add(m.group(1).split('-')[0])
+    # Sep 26 hotfix: betmgm template options=6:<event>-<market>-<selection> - the old [0-9-]+ pattern
+    # captured only the leading '6' as an event id, so EVERY betmgm link shared it and any second
+    # slate game >3h away false-rejected every betmgm carryover (live MGM chip drop, build 1790443075).
+    # Colon-form carries the real event scope; the plain form keeps legacy behavior, colon excluded.
+    for m in re.finditer(r'options=([0-9-]+)(?!:)',u or ''): ev.add(m.group(1).split('-')[0])
+    for m in re.finditer(r'options=[0-9]+:([0-9]+)',u or ''): ev.add(m.group(1))
     for m in re.finditer(r'selectionId=(\d+)',u or ''): sel.add(m.group(1))
     # chaos Sep 26: market_selection_id is a UUID - event-unique, one shared UUID is sufficient reject evidence
     for m in re.finditer(r'market_selection_id(?:%5B0%5D|\[0\])=([0-9a-f-]+)',u or ''): ev.add(m.group(1))
@@ -539,7 +544,13 @@ def chips(p):
             _se=SHIPPED.get(f"{p['game'].get('away')}|{p['game'].get('home')}|{(p['game'].get('commence') or '')[:10]}",{}).get(name)
             if _se and _stale_carryover(name,_se.get('link'),p.get('game')): _se=None
             if _se: link=_se.get('link'); ml=_se.get('ml')
-        if not link: continue  # no game-level link -> drop chip
+        if not link:
+            if _uw:
+                # in-play (Sep 26 regression): books pull their markets at commence; omit the PRICE,
+                # never the chip - unpriced inert chip holds the row complete.
+                _pr.append((len(out), None))
+                out.append(f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}"{_dm}>{bkimg(short)}{html.escape(short+inst)}</span>')
+            continue  # no game-level link -> drop chip (pre-game only)
         best=(not _uw) and ((p.get('best_book')==name))
         if _uw:
             # in-play freeze: pick-card chips hold the carded entry price on the picked book and go
@@ -1003,7 +1014,7 @@ page=f'''<!DOCTYPE html>
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v={{build_sha}}">
 <link rel="manifest" href="site.webmanifest?v={{build_sha}}">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){{try{{await OneSignal.init({{appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{{scope:"/rixpicks/"}}}});}}catch(e){{}}}});</script>
+<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){{try{{await OneSignal.init({{appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{{scope:"/rixpicks/"}}}});try{{OneSignal.Notifications.addEventListener("permissionChange",function(granted){{if(granted&&!localStorage.getItem("rp_gc_push")){{rpGcEvent("new-user-push","rp_gc_push");}}}});}}catch(e){{}}}}catch(e){{}}}});</script>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -1606,7 +1617,7 @@ function rpPageRefresh(){{try{{
 }}catch(e){{}}}}
 setInterval(rpPageRefresh,60000);
 </script>
-<script src="myprofile.js?v={{build_sha}}"></script></div></body></html>'''
+<script src="myprofile.js?v={{build_sha}}"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){{var pend=window.__rpGcPend=window.__rpGcPend||{{}};if(pend[p])return;pend[p]=1;var n=0;var go=function(){{try{{if(flag&&localStorage.getItem(flag)){{pend[p]=0;return;}}if(window.goatcounter&&goatcounter.count){{goatcounter.count({{path:p,event:true}});if(flag){{try{{localStorage.setItem(flag,'1');}}catch(e){{}}}}pend[p]=0;}}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}}catch(e){{pend[p]=0;if(n++<20)setTimeout(go,3000);}}}};go();}};</script></div></body></html>'''
 
 def _pt_label(iso):
     try:
@@ -1660,6 +1671,23 @@ def build_game_pages(man, css, build_sha):
                 _rowpm=' data-pm="'+html.escape(p['dkp']['url'])+'"'
             else:
                 _rowpm=''
+            # Sep 26 swamp ruling: a side without its own selection link must not carry the shared
+            # event url under a side-specific price - inert price, single 'view game' route per row.
+            _aevt=not rec.get('away_link'); _hevt=not rec.get('home_link')
+            if _aevt or _hevt:
+                _evl=rec.get('event') or ''
+                if not _evl:
+                    _fn={s2:n2 for n2,s2 in BOOKS}.get(short,short)
+                    _se=SHIPPED.get(f"{away}|{home}|{(g.get('commence') or '')[:10]}",{}).get(_fn)
+                    if _se and not _stale_carryover(_fn,_se.get('link'),g): _evl=_se.get('link') or ''
+                _evl=_evl or alink
+                rows_html.append('<div class="mrow" data-book="'+short+'"'+_rowpm+'>'+bkimg(short)+'<span class="bk">'+short+'</span>'
+                    '<span class="side">'+html.escape(away)+' <span class="pr">'+a_lbl+'</span></span>'
+                    '<span class="side" style="text-align:right">'+html.escape(home)+' <span class="pr">'+h_lbl+'</span></span>'
+                    +rtc(short,_evl,'view game')+'</div>')
+                hrow[short.lower()+'_a']=aml; hrow[short.lower()+'_h']=hml
+                books_present.append(short)
+                continue
             rows_html.append('<div class="mrow" data-book="'+short+'"'+_rowpm+'>'+bkimg(short)+'<span class="bk">'+short+'</span>'
                 '<span class="side">'+rtc(short,alink,html.escape(away))+'</span><span class="pr">'+rtc(short,alink,a_lbl)+'</span>'
                 '<span class="side" style="text-align:right">'+rtc(short,hlink,html.escape(home),'text-align:right')+'</span><span class="pr">'+rtc(short,hlink,h_lbl)+'</span></div>')
@@ -1670,12 +1698,24 @@ def build_game_pages(man, css, build_sha):
             rec=stt.get(key) or {}
             aml,hml=rec.get('away_ml'),rec.get('home_ml')
             if aml is None and hml is None: continue
-            link=rec.get('event') or ('https://www.'+BKDOM[short])
+            link=rec.get('event') or ''
+            if not link:
+                # Sep 26 hunter: the index chips hold verified exact event routes via the SHIPPED
+                # ledger - the game-page row uses the SAME verified route; homepage only when no
+                # event url exists at all.
+                _fn='BetMGM' if key=='betmgm' else 'BetRivers'
+                _se=SHIPPED.get(f"{away}|{home}|{(g.get('commence') or '')[:10]}",{}).get(_fn)
+                if _se and not _stale_carryover(_fn,_se.get('link'),g): link=_se.get('link') or ''
+            link=link or ('https://www.'+BKDOM[short])
             a_lbl=('%+d'%aml) if aml is not None else '-'
             h_lbl=('%+d'%hml) if hml is not None else '-'
+            # Sep 26 swamp ruling: MGM/BR carry EVENT-ONLY urls - both sides tapping the same event page
+            # implies outcome prefill the route can't deliver. Side prices render inert; the event route
+            # becomes ONE 'view game' label per row until verified side-specific selection ids exist.
             rows_html.append('<div class="mrow" data-book="'+short+'">'+bkimg(short)+'<span class="bk">'+short+'</span>'
-                '<span class="side">'+rtc(short,link,html.escape(away))+'</span><span class="pr">'+rtc(short,link,a_lbl)+'</span>'
-                '<span class="side" style="text-align:right">'+rtc(short,link,html.escape(home),'text-align:right')+'</span><span class="pr">'+rtc(short,link,h_lbl)+'</span></div>')
+                '<span class="side">'+html.escape(away)+' <span class="pr">'+a_lbl+'</span></span>'
+                '<span class="side" style="text-align:right">'+html.escape(home)+' <span class="pr">'+h_lbl+'</span></span>'
+                +rtc(short,link,'view game')+'</div>')
             hrow[short.lower()+'_a']=aml; hrow[short.lower()+'_h']=hml
             books_present.append(short)
         # Kalshi full board (user, Sep 25 12:19 PM): both sides, live-ticked. Fallback: single-side tap row.
@@ -1921,7 +1961,7 @@ _css=page.split('<style>')[1].split('</style>')[0]
 FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RixPicks Futures</title><style>__CSS__</style><style>body{overscroll-behavior-y:none}.wrap{min-height:101vh}</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});}catch(e){}});</script>
+<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
 </head><body>
 <div id="rpPull"></div>
 <div class="wrap">
@@ -2066,7 +2106,7 @@ function rpFutOpen(fid){
  }).catch(function(){var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
 }
 </script>
-<script src="myprofile.js?v=__BUILD__"></script></body></html>'''
+<script src="myprofile.js?v=__BUILD__"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></body></html>'''
 def build_futures_page(css,build_sha):
     if not FUT: return None
     import os as _os2

@@ -16,7 +16,7 @@
 </style>
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});}catch(e){}});</script>
+<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
 </head><body>
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
@@ -176,10 +176,13 @@ function rpEspnTick(){try{
    const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
    if(!comp.status)return;
    const atok=(d.dataset.away||'').toLowerCase().split(' ').pop(),htok=(d.dataset.home||'').toLowerCase().split(' ').pop();
-   const nm=(comp.name||hdr.name||'').toLowerCase();
-   if(atok&&nm.indexOf(atok)<0)return;if(htok&&nm.indexOf(htok)<0)return;
-   const st=(comp.status||{}).type||{};
+   // Sep 26 swamp: the REAL summary returns comp.name/header.name ABSENT - nm='' silently killed every
+   // tick. Competitor identities are exact in header competitions (team ids + displayName).
    const comps=comp.competitors||[];
+   const cnames=comps.map(function(c){return ((c.team||{}).displayName||'').toLowerCase();});
+   if(atok&&!cnames.some(function(n){return n.indexOf(atok)>=0;}))return;
+   if(htok&&!cnames.some(function(n){return n.indexOf(htok)>=0;}))return;
+   const st=(comp.status||{}).type||{};
    let sc='';
    comps.forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
    const sline=document.getElementById('rpScore');
@@ -515,7 +518,7 @@ function rpChatSee(ev){try{
 }catch(e){}}
 function rpChatAuthState(){fetch(RP_API+'/me/platforms',{credentials:'include'}).then(function(r){
  RP_CHAT.authed=(r.status!==401);
- if(RP_CHAT.authed){document.getElementById('rpChatForm').style.display='';document.getElementById('rpChatSign').style.display='none';}
+ if(RP_CHAT.authed){document.getElementById('rpChatForm').style.display='';document.getElementById('rpChatSign').style.display='none';if(!localStorage.getItem('rp_gc_acct')){rpGcEvent('new-user-account','rp_gc_acct');}}
  else{document.getElementById('rpChatSign').style.display='';}
 }).catch(function(){document.getElementById('rpChatSign').style.display='';});}
 function rpChatRow(m){
@@ -570,4 +573,4 @@ function rpChatAuth(){const em=document.getElementById('rpChatEmail').value.trim
  }).catch(function(){});}
 rpChatStart();
 </script>
-</body></html>
+<script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></body></html>
