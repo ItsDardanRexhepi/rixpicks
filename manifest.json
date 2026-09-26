@@ -1,90 +1,92 @@
 {
-  "date_label": "Saturday, Sep 26",
-  "status_note": "FINAL. KAL chips work in California; FD/DK chips one-tap in legal states.",
-  "record": "10-6",
-  "updated": "Sep 26, 7:21 AM PT",
-  "picks": [
-    {
-      "num": 1,
-      "name": "Toledo ML",
-      "sub": "vs San Diego St · home · model 64.9, independents 60-66 · exchange 56.5-57c",
-      "odds": "-137",
-      "units": "5u",
-      "side": "home",
-      "game": {
-        "away": "San Diego State Aztecs",
-        "home": "Toledo Rockets",
-        "commence": "2026-09-26T16:00Z",
-        "eid": "401860893"
-      },
-      "espn_league": "football/college-football",
-      "best_book": "Kalshi",
-      "kalshi": {
-        "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26sdsutol",
-        "cents": 57,
-        "team": "Toledo",
-        "gate_cents": 57
-      },
-      "polymarket": {
-        "url": "https://polymarket.com/event/cfb-sdst-toledo-2026-09-26"
-      }
-    },
-    {
-      "num": 2,
-      "name": "Nebraska ML",
-      "sub": "at Michigan St · model + independents converge ~72 · MSU missing 6 incl. LB Pretzlaff",
-      "odds": "-225",
-      "units": "10u",
-      "side": "away",
-      "game": {
-        "away": "Nebraska Cornhuskers",
-        "home": "Michigan State Spartans",
-        "commence": "2026-09-26T21:00Z",
-        "eid": "401858464"
-      },
-      "espn_league": "football/college-football",
-      "best_book": "Kalshi",
-      "kalshi": {
-        "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26nebmsu",
-        "cents": 67,
-        "team": "Nebraska"
-      },
-      "polymarket": {
-        "url": "https://polymarket.com/event/cfb-nebr-mst-2026-09-26"
-      }
-    }
-  ],
-  "parlay": {
-    "legs": [
-      "Toledo ML",
-      "Nebraska ML"
-    ],
-    "label": "BUILD THIS PARLAY (+162)",
-    "note": "38.2c combined at publish-time exchange asks (~+162).",
-    "kalshi_legs": [
-      {
-        "ticker": "KXNCAAFGAME-26SEP26SDSUTOL",
-        "side": "TOL",
-        "cents": 57
-      },
-      {
-        "ticker": "KXNCAAFGAME-26SEP26NEBMSU",
-        "side": "NEB",
-        "cents": 67
-      }
-    ],
-    "poly_legs": [
-      {
-        "url": "https://polymarket.com/event/cfb-sdst-toledo-2026-09-26",
-        "kw": "Toledo"
-      },
-      {
-        "url": "https://polymarket.com/event/cfb-nebr-mst-2026-09-26",
-        "kw": "Nebraska"
-      }
-    ]
+ "date_label": "Saturday, Sep 26",
+ "status_note": "FINAL. KAL chips work in California; FD/DK chips one-tap in legal states.",
+ "record": "10-6",
+ "updated": "Sep 26, 7:21 AM PT",
+ "picks": [
+  {
+   "num": 1,
+   "name": "Toledo ML",
+   "sub": "vs San Diego St \u00b7 home \u00b7 model 64.9, independents 60-66 \u00b7 exchange 56.5-57c",
+   "odds": "-137",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "San Diego State Aztecs",
+    "home": "Toledo Rockets",
+    "commence": "2026-09-26T16:00Z",
+    "eid": "401860893"
+   },
+   "espn_league": "football/college-football",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26sdsutol",
+    "cents": 57,
+    "team": "Toledo",
+    "gate_cents": 57
+   },
+   "polymarket": {
+    "url": "https://polymarket.com/event/cfb-sdst-toledo-2026-09-26"
+   }
   },
-  "yesterday": "2-1 · Orioles W · Guardians W · Astros L",
-  "units_pl": "-6.64u",
-  "units_ledger": "Sep 22 -$216.60, Sep 23 +$118.18, Sep 24 +$11.94, Sep 25 -$13.11 = -$99.59 = -6.64u at $15/u (data-auditor confirmed, Sep 26 7:17 AM)"
+  {
+   "num": 2,
+   "name": "Nebraska ML",
+   "sub": "at Michigan St \u00b7 model + independents converge ~72 \u00b7 MSU missing 6 incl. LB Pretzlaff",
+   "odds": "-225",
+   "units": "10u",
+   "side": "away",
+   "game": {
+    "away": "Nebraska Cornhuskers",
+    "home": "Michigan State Spartans",
+    "commence": "2026-09-26T21:00Z",
+    "eid": "401858464"
+   },
+   "espn_league": "football/college-football",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26nebmsu",
+    "cents": 67,
+    "team": "Nebraska"
+   },
+   "polymarket": {
+    "url": "https://polymarket.com/event/cfb-nebr-mst-2026-09-26"
+   }
+  }
+ ],
+ "parlay": {
+  "legs": [
+   "Toledo ML",
+   "Nebraska ML"
+  ],
+  "label": "BUILD THIS PARLAY (+162)",
+  "note": "38.2c combined at publish-time exchange asks (~+162).",
+  "kalshi_legs": [
+   {
+    "ticker": "KXNCAAFGAME-26SEP26SDSUTOL",
+    "side": "TOL",
+    "cents": 57
+   },
+   {
+    "ticker": "KXNCAAFGAME-26SEP26NEBMSU",
+    "side": "NEB",
+    "cents": 67
+   }
+  ],
+  "poly_legs": [
+   {
+    "url": "https://polymarket.com/event/cfb-sdst-toledo-2026-09-26",
+    "kw": "Toledo"
+   },
+   {
+    "url": "https://polymarket.com/event/cfb-nebr-mst-2026-09-26",
+    "kw": "Nebraska"
+   }
+  ]
+ },
+ "yesterday": "2-1 \u00b7 Orioles W \u00b7 Guardians W \u00b7 Astros L",
+ "units_pl": "-6.64u",
+ "units_ledger": "Sep 22 -$216.60, Sep 23 +$118.18, Sep 24 +$11.94, Sep 25 -$13.11 = -$99.59 = -6.64u at $15/u (data-auditor confirmed, Sep 26 7:17 AM)",
+ "display_only": true,
+ "pick_content_hash": "84d46967e988c0286b93845221760e7b0830362d3a5fe980419426557e3b1b6f"
 }

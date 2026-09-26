@@ -20,6 +20,31 @@ def _pt_date(iso):
     except Exception: return ''
 
 man=json.load(open(sys.argv[1]))
+# --- pick-content hash gate (permanent): price ship conditions gate pick CONTENT only.
+# manifest carries pick_content_hash = sha256 over sorted "name|side|odds|units" pick rows;
+# same content as last shipped (shipped_pick_hash.txt) = display-only rebuild = conditions skipped;
+# different content = full condition eval. The manifest display_only flag is honored only while no
+# shipped hash exists yet (bootstrap push) so a stale flag can never skip a real content gate.
+import hashlib as _hl
+def _pick_content_hash(m):
+    rows=sorted('|'.join(str(p.get(k,'')) for k in ('name','side','odds','units')) for p in m.get('picks',[]))
+    return _hl.sha256('\n'.join(rows).encode()).hexdigest()
+_PC_HASH=_pick_content_hash(man)
+_DECLARED_HASH=man.get('pick_content_hash')
+if _DECLARED_HASH and _DECLARED_HASH!=_PC_HASH:
+    print(f'BUILD FAILED: manifest pick_content_hash {_DECLARED_HASH[:12]}... != computed {_PC_HASH[:12]}... - manifest integrity', file=sys.stderr)
+    sys.exit(3)
+_HASHF=os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])),'shipped_pick_hash.txt')
+_LAST_HASH=''
+if os.path.exists(_HASHF):
+    try: _LAST_HASH=open(_HASHF).read().strip()
+    except Exception: _LAST_HASH=''
+_DISPLAY_ONLY=bool(_LAST_HASH and _LAST_HASH==_PC_HASH)
+if man.get('display_only') is True and not _LAST_HASH:
+    _DISPLAY_ONLY=True
+    print('DISPLAY-ONLY BUILD (manifest flag, bootstrap): price ship conditions skipped - no pick-content change', file=sys.stderr)
+elif _DISPLAY_ONLY:
+    print(f'DISPLAY-ONLY BUILD (pick-content hash {_PC_HASH[:12]} matches last shipped): price ship conditions skipped', file=sys.stderr)
 # Sep 26 live regression (hunter 7:25 AM): an hourly odds refresh rebuilt record/units from a stale
 # manifest and clobbered the tracker-canonical live values. Refresh builds (RP_REFRESH=1) INHERIT
 # record/units from the live page being rebuilt; only an approved publish (RP_PUBLISH=1) may move
@@ -441,9 +466,13 @@ def chips(p):
             _sfx,_kc=kal_market(tick,_kside)
             _gate=(p.get('kalshi') or {}).get('gate_cents')
             if _gate is not None and _kc is not None and _kc>_gate:
-                # ship condition (main, Sep 26 7:17 AM): pick ships only at gate_cents-or-better executable ask
-                print(f"BUILD FAILED: {p.get('name')} Kalshi ask {_kc}c exceeds ship-condition ceiling {_gate}c", file=sys.stderr)
-                sys.exit(3)
+                # ship condition (main, Sep 26 7:17 AM): pick ships only at gate_cents-or-better executable ask.
+                # Display-only rebuilds (no pick-content change) skip it - the card shipped at its condition already.
+                if _DISPLAY_ONLY:
+                    print(f"DISPLAY-ONLY: {p.get('name')} Kalshi ask {_kc}c above ship ceiling {_gate}c - condition skipped, pick content unchanged", file=sys.stderr)
+                else:
+                    print(f"BUILD FAILED: {p.get('name')} Kalshi ask {_kc}c exceeds ship-condition ceiling {_gate}c", file=sys.stderr)
+                    sys.exit(3)
             if not _sfx or _kc is None:
                 # Sep 26 hunter ruling: a stale price posing as fresh is worse than no build.
                 print(f"BUILD FAILED: Kalshi market unresolved for {p.get('name')} team {_kside!r} under {tick}", file=sys.stderr)
@@ -837,7 +866,7 @@ if man.get('parlay'):
         # Inspector ruling (Sep 26): no KAL/POLY combo chips - the exchanges have no native
         # parlay product, and per-leg chips on each pick already route to the real markets.
         # A priced chip linking to a homepage/category page is a defect; dead-combo pricing dies at the root here.
-        BKML=[('DK','draftkings',DKPM),('FD','fanduel','https://www.fanduel.com/predicts'),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]
+        BKML=[('DK','draftkings',None),('FD','fanduel','https://www.fanduel.com/predicts'),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]  # DK pm: fail closed pending verified state list
         for short,pk,pm in BKML:
             mls=[]; ok=True
             for p in lp:
@@ -1060,10 +1089,10 @@ const RP_STANDALONE=(navigator.standalone===true)||window.matchMedia('(display-m
 function rpOpen(u){{if(RP_STANDALONE){{location.assign(u);}}else{{window.open(u,'_blank','noopener');}}}}
 if(RP_STANDALONE){{document.addEventListener('click',function(e){{const a=e.target.closest('a[target="_blank"]');if(a&&!a.onclick&&a.href){{e.preventDefault();location.assign(a.href);}}}},true);}}
 function rpBookLive(b,st){{if(b==='KAL'||b==='POLY')return true;const L=RP_L[b];return L?L.indexOf(st)!==-1:true;}}
+function rpPm(el){{if(el.dataset.pm&&el.dataset.nopm!=='1')return el.dataset.pm;const mr=el.closest?el.closest('.mrow'):null;if(mr&&mr.dataset.pm&&mr.dataset.nopm!=='1')return mr.dataset.pm;return null;}}
 function rpDest(a,st){{const b=a.dataset.book;
  if(rpBookLive(b,st)){{const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{{state}}',st.toLowerCase());return a.getAttribute('href')||null;}}
- if(a.dataset.pm&&a.dataset.nopm!=='1')return a.dataset.pm;
- return null;}}
+ return rpPm(a);}}
 function rpGo(a,st){{const b=a.dataset.book;
  if(b==='POLY'&&RP_MOB&&a.dataset.app){{location.href=a.dataset.app;return;}}
  if(!rpBookLive(b,st)&&b==='FD'&&RP_MOB&&a.dataset.pmapp&&a.dataset.nopm!=='1'){{location.href=a.dataset.pmapp;return;}}
@@ -1095,8 +1124,17 @@ function rpTapify(el,st){{const d=rpDest(el,st);
   a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');}}
  else{{let sp=el;if(el.tagName!=='SPAN'){{sp=document.createElement('span');for(const at of el.attributes)sp.setAttribute(at.name,at.value);sp.innerHTML=el.innerHTML;el.replaceWith(sp);}}
   sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');}}}}
+function rpRowAvail(el,st){{return rpBookLive(el.dataset.book,st)||!!rpPm(el);}}
+function rpStrip(el){{el.removeAttribute('href');el.removeAttribute('onclick');el.removeAttribute('target');el.removeAttribute('rel');el.classList.add('rpnontap');}}
 function rpFilter(st){{window.rpSt=st;rpTerm(st);
- document.querySelectorAll('[data-book]').forEach(function(el){{el.style.display='';if(el.querySelector('[data-book]'))return;rpTapify(el,st);}});
+ document.querySelectorAll('[data-book]').forEach(function(el){{
+  if(el.querySelector('[data-book]')){{  /* container rows (LIVE MARKETS): whole-row visibility by state availability */
+   if(rpRowAvail(el,st)){{el.style.display='';}}
+   else{{el.style.display='none';el.querySelectorAll('a[data-book]').forEach(rpStrip);}}  /* hiding is not removal: strip every route on every switch */
+   return;}}
+  if(!rpRowAvail(el,st)){{rpStrip(el);el.style.display='none';return;}}  /* unavailable in this state: stripped, never displayed */
+  el.style.display='';rpTapify(el,st);  /* available: tappable with a verified/PM destination, priced inert span without one */
+ }});
  if(window.rpCxStar)rpCxStar(); }}
 function rpRoute(e,a){{e.preventDefault();const st=localStorage.getItem('rp_state');if(!st){{window.__rpChip=a;rpAsk(false);return false;}}rpGo(a,st);return false;}}
 function rpSave(){{const st=document.getElementById('rpState').value;if(!st)return;const gps=localStorage.getItem('rp_state_gps');
@@ -1519,7 +1557,13 @@ def build_game_pages(man, css, build_sha):
             hlink=rec.get('home_link') or rec.get('event') or ('https://www.'+BKDOM[short])
             a_lbl=('%+d'%aml) if aml is not None else '-'
             h_lbl=('%+d'%hml) if hml is not None else '-'
-            rows_html.append('<div class="mrow" data-book="'+short+'">'+bkimg(short)+'<span class="bk">'+short+'</span>'
+            if short=='FD':
+                _rowpm=' data-pm="'+html.escape((p.get('fdp') or {}).get('url') or 'https://www.fanduel.com/predicts')+'"'
+            elif short=='DK' and (p.get('dkp') or {}).get('url'):
+                _rowpm=' data-pm="'+html.escape(p['dkp']['url'])+'"'
+            else:
+                _rowpm=''
+            rows_html.append('<div class="mrow" data-book="'+short+'"'+_rowpm+'>'+bkimg(short)+'<span class="bk">'+short+'</span>'
                 '<span class="side"><a '+rt(short,alink,'{state}' in alink)+'>'+html.escape(away)+'</a></span><span class="pr"><a '+rt(short,alink,'{state}' in alink)+'>'+a_lbl+'</a></span>'
                 '<span class="side" style="text-align:right"><a '+rt(short,hlink,'{state}' in hlink)+'>'+html.escape(home)+'</a></span><span class="pr"><a '+rt(short,hlink,'{state}' in hlink)+'>'+h_lbl+'</a></span></div>')
             hrow[short.lower()+'_a']=aml; hrow[short.lower()+'_h']=hml
@@ -1962,6 +2006,8 @@ if os.environ.get('RP_PUBLISH')=='1':
         if NEWSHIPPED:
             json.dump(SHIPPED,open('shipped_books.json','w'),indent=1)
             print(f'shipped_books ledger: {len(NEWSHIPPED)} game(s) persisted', file=sys.stderr)
+        open('shipped_pick_hash.txt','w').write(_PC_HASH+'\n')
+        print(f'pick-content hash persisted: {_PC_HASH[:12]}... -> shipped_pick_hash.txt', file=sys.stderr)
     except Exception as _e:
         print(f'LEDGER WRITE FAILED: shipped_books.json not persisted ({type(_e).__name__}: {_e}) - J-106/J-101 defenses degraded', file=sys.stderr)
         sys.exit(4)

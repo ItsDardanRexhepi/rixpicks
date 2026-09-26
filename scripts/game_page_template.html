@@ -64,10 +64,10 @@ const RP_STANDALONE=(navigator.standalone===true)||window.matchMedia('(display-m
 function rpOpen(u){if(RP_STANDALONE){location.assign(u);}else{window.open(u,'_blank','noopener');}}
 if(RP_STANDALONE){document.addEventListener('click',function(e){const a=e.target.closest('a[target="_blank"]');if(a&&!a.onclick&&a.href){e.preventDefault();location.assign(a.href);}},true);}
 function rpBookLive(b,st){if(b==='KAL'||b==='POLY')return true;const L=(typeof RP_L!=='undefined'&&RP_L[b])||null;return L?L.indexOf(st)!==-1:true;}
+function rpPm(el){if(el.dataset.pm&&el.dataset.nopm!=='1')return el.dataset.pm;const mr=el.closest?el.closest('.mrow'):null;if(mr&&mr.dataset.pm&&mr.dataset.nopm!=='1')return mr.dataset.pm;return null;}
 function rpDest(a,st){const b=a.dataset.book;
  if(rpBookLive(b,st)){const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{state}',st.toLowerCase());return a.getAttribute('href')||null;}
- if(a.dataset.pm&&a.dataset.nopm!=='1')return a.dataset.pm;
- return null;}
+ return rpPm(a);}
 function rpGo(a,st){const b=a.dataset.book;
  if(b==='POLY'&&RP_MOB&&a.dataset.app){location.href=a.dataset.app;return;}
  const d=rpDest(a,st);if(d)rpOpen(d);return;}
@@ -76,7 +76,16 @@ function rpTapify(el,st){const d=rpDest(el,st);
   a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');}
  else{let sp=el;if(el.tagName!=='SPAN'){sp=document.createElement('span');for(const at of el.attributes)sp.setAttribute(at.name,at.value);sp.innerHTML=el.innerHTML;el.replaceWith(sp);}
   sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');}}
-function rpFilter(st){document.querySelectorAll('[data-book]').forEach(function(el){el.style.display='';if(el.querySelector('[data-book]'))return;rpTapify(el,st);});if(window.rpDrawCharts)rpDrawCharts();}
+function rpRowAvail(el,st){return rpBookLive(el.dataset.book,st)||!!rpPm(el);}
+function rpStrip(el){el.removeAttribute('href');el.removeAttribute('onclick');el.removeAttribute('target');el.removeAttribute('rel');el.classList.add('rpnontap');}
+function rpFilter(st){document.querySelectorAll('[data-book]').forEach(function(el){
+ if(el.querySelector('[data-book]')){  /* container rows (LIVE MARKETS): whole-row visibility by state availability */
+  if(rpRowAvail(el,st)){el.style.display='';}
+  else{el.style.display='none';el.querySelectorAll('a[data-book]').forEach(rpStrip);}  /* hiding is not removal: strip every route on every switch */
+  return;}
+ if(!rpRowAvail(el,st)){rpStrip(el);el.style.display='none';return;}  /* unavailable in this state: stripped, never displayed */
+ el.style.display='';rpTapify(el,st);  /* available: tappable with a verified/PM destination, priced inert span without one */
+});if(window.rpDrawCharts)rpDrawCharts();}
 function rpRoute(e,a){e.preventDefault();const st=localStorage.getItem('rp_state');if(!st){window.__rpChip=a;rpAsk(false);return false;}rpGo(a,st);return false;}
 function rpSave(){const st=document.getElementById('rpState').value;if(!st)return;const gps=localStorage.getItem('rp_state_gps');
  if(gps&&st!==gps){localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src','preview');}else{localStorage.setItem('rp_state',st);localStorage.setItem('rp_state_src',gps?'gps':'manual');}
