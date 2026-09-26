@@ -31,7 +31,7 @@ __MATCHUP__
   <div class="chips" style="margin-top:12px">__CHIPS__</div>
   __TEAMLINKS__
 </div>
-<div class="sect">Live markets - both sides</div>
+<div class="sect">__MKTHDR__</div>
 __ROWS__
 __KAL__
 __POLY__
@@ -44,7 +44,7 @@ __POLY__
 </div>
 
 __CHARTS__
-<div class="foot">Prices update live: Kalshi &amp; Polymarket tick every 60s; sportsbook rows refresh with each page rebuild. Tap a price to open the market. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
+<div class="foot">__FOOTNOTE__ <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Set your state</span></div>
 </div>
 <div id="rpModal"><div class="box">
 <h3>One quick thing</h3>
@@ -65,8 +65,11 @@ window.addEventListener('pageshow',function(){try{
  }).catch(function(){});
 }catch(e){}});
 __RPCONSTS__
-function rpC2ML(c){c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}
-function rpMLF(m){return (m>0?'+':'')+m;}
+function rpC2ML(c){c=Math.round(c);if(c<=0)return null;if(c>=100)return c+'c';const m=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);return Math.abs(m)>1000?c+'c':m;}
+function rpMLF(m){return (typeof m==='string')?m:(m>0?'+':'')+m;}
+function rpC2MLn(c){c=Math.round(c);if(c<=0||c>=100)return null;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}
+function rpMkt(a){try{const i=a.dataset.mr;if(i==null||typeof RP_MARKETS==='undefined')return null;return RP_MARKETS[+i]||null;}catch(e){}return null;}
+function rpInPlay(){try{if(typeof RP_START!=='undefined'&&RP_START&&Date.now()>=Date.parse(RP_START))return true;}catch(e){}return false;}
 const RP_MOB=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 if(location.protocol==='http:'&&/(^|\.)rix-picks\.com$/.test(location.hostname)){location.replace('https://'+location.host+location.pathname+location.search+location.hash);}
 const RP_STANDALONE=(navigator.standalone===true)||window.matchMedia('(display-mode: standalone)').matches;
@@ -140,18 +143,22 @@ function rpKalTick(){try{
  document.querySelectorAll('a[data-kalticker][data-kalside],a[data-kalmkt]').forEach(function(a){
   const tk=a.dataset.kalmkt||(a.dataset.kalticker+'-'+a.dataset.kalside);
   if(!tk)return;
+  const r0=rpMkt(a);if(r0&&r0.ph!=='live')return;  /* canonical record: frozen phases never tick */
   const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk;
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){
    const m=j&&j.market;if(!m)return;
-   const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
+   const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<=1))return;
+   if(rpInPlay())return;  /* in play the chip freezes its last-known price - live values never replace frozen ones */
    const c=Math.round(d*100);
-   a.innerHTML=a.innerHTML.replace(/KAL [+-]?\d+/,'KAL '+rpMLF(rpC2ML(c)));
+   a.dataset.cents=c;if(r0){r0.c=c;r0.ts=Date.now();}
+   if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c)/,'KAL '+rpMLF(rpC2ML(c)));
   }).catch(function(){});
  });
 }catch(e){}}
 function rpPolyTick(){try{
  document.querySelectorAll('a[data-polyslug]').forEach(function(a){
   if(!a.dataset.polyslug)return;
+  const r0=rpMkt(a);if(r0&&r0.ph!=='live')return;  /* frozen phases never tick */
   fetch('https://gamma-api.polymarket.com/events?slug='+a.dataset.polyslug).then(r=>r.json()).then(function(ev){
    if(!ev||!ev.length)return;const kw=(a.dataset.polykw||'').toLowerCase();const sub=a.dataset.polysub||'';
    let target=null;
@@ -166,7 +173,7 @@ function rpPolyTick(){try{
    let outs=[],pr=[];try{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}catch(e){return;}
    for(let i=0;i<outs.length;i++){if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){
     const c=Math.round(parseFloat(pr[i])*100);
-    if(c>0&&c<100){a.innerHTML=a.innerHTML.replace(/POLY [+-]?\d+/,'POLY '+rpMLF(rpC2ML(c)));}
+    if(c>0&&c<=100&&!rpInPlay()){a.dataset.cents=c;if(r0){r0.c=c;r0.ts=Date.now();}if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \d+c)/,'POLY '+rpMLF(rpC2ML(c)));}
     return;
    }}
   }).catch(function(){});
@@ -196,7 +203,7 @@ function rpEspnTick(){try{
    const ml=d.dataset.side==='away'?(o.awayTeamOdds||{}).moneyLine:(o.homeTeamOdds||{}).moneyLine;
    if(typeof ml==='number'&&st.state==='pre'){const s2=d.querySelector('.odds');if(s2)s2.textContent=(ml>0?'+':'')+ml;
     const chip=d.querySelector('a[data-book="ESPN"]');
-    if(chip){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);}}
+    if(chip&&!rpInPlay()){chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);}}
   }).catch(function(){});
   return;
  }
@@ -327,6 +334,7 @@ async function rpEspnPanel(d){
  }catch(e){}
 }
 function rpPageRefresh(){try{
+ /* canonical record: a new build forces a full reload, so RP_MARKETS and chips always arrive together */
  fetch(location.pathname+'?r='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(function(t){
   if(t.indexOf(RP_BUILD)<0){location.replace(location.pathname+'?v='+Date.now());}
  }).catch(function(){});
