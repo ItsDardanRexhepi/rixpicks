@@ -149,7 +149,7 @@ h1 .tick,.odds,.rpstate-link{color:#3aa895}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790396656';const RP_ROOM='g1-2026-09-25';const RP_START='2026-09-25T20:05:00Z';
+const RP_BUILD='1790396783';const RP_ROOM='g1-2026-09-25';const RP_START='2026-09-25T20:05:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -298,7 +298,7 @@ async function rpMlbLive(d){
   d.dataset.aab=(g.teams.away.team.abbreviation)||'';
   d.dataset.hab=(g.teams.home.team.abbreviation)||'';
  }
- const flds='liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,outs,balls,strikes,offense,first,second,third,plays,currentPlay,matchup,batter,pitcher,fullName,count,result,description,allPlays,about,inning,halfInning,gameData,status,detailedState';
+ const flds='liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,outs,balls,strikes,offense,first,second,third,plays,currentPlay,playEvents,details,call,type,code,isPitch,isStrike,pitchData,startSpeed,matchup,batter,pitcher,fullName,count,result,description,allPlays,about,inning,halfInning,gameData,status,detailedState';
  const j=await (await fetch('https://statsapi.mlb.com/api/v1.1/game/'+d.dataset.gpk+'/feed/live?fields='+flds+'&t='+Date.now())).json();
  const ls=(j.liveData||{}).linescore||{};const det=((j.gameData||{}).status||{}).detailedState||'';
  const box=document.getElementById('rpLive');if(!box)return;
@@ -332,6 +332,15 @@ async function rpMlbLive(d){
   const B=ls.balls||0,S=ls.strikes||0,O=ls.outs||0;
   h+='<div style="display:flex;align-items:center;gap:14px;margin-top:8px;font-size:12px;color:#8a8f98">';
   h+='<span>B '+rpPips(B,4,'#3b9eff')+'</span><span>S '+rpPips(S,3,'#e8b93c')+'</span><span>O '+rpPips(O,3,'#e5484d')+'</span></div>';
+  const pevs=((cp||{}).playEvents||[]).filter(function(e){return e.isPitch;});
+  if(pevs.length){
+   h+='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px">';
+   for(let i=pevs.length-1;i>=0&&i>pevs.length-6;i--){
+    const e2=pevs[i];const det2=e2.details||{};const call2=(det2.call||{}).description||'';const ty2=(det2.type||{}).code||'';const sp2=(e2.pitchData||{}).startSpeed||0;
+    h+='<span style="font-size:11px;padding:3px 7px;border-radius:8px;border:1px solid '+(det2.isStrike?'rgba(229,72,77,.5)':'rgba(59,158,255,.4)')+';color:#c8cdd5">'+ty2+(sp2?' '+Math.round(sp2):'')+(call2?' &middot; '+call2:'')+'</span>';
+   }
+   h+='</div>';
+  }
   const pn=((((cp.matchup||{}).pitcher||{}).fullName)||''),bn=((((cp.matchup||{}).batter||{}).fullName)||'');
   if(pn||bn)h+='<div style="font-size:12px;color:#c8cdd5;margin-top:6px">'+(pn?('P: '+pn):'')+(pn&&bn?' &middot; ':'')+(bn?('AB: '+bn):'')+'</div>';
  }
