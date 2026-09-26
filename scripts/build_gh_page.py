@@ -234,6 +234,7 @@ for _p in man['picks']:
     _lgk=_p.get('espn_league','')
     if _lgk not in _lg_seen: _lg_seen[_lgk]=len(_lg_seen)
 man['picks'].sort(key=lambda _p:(_lg_seen.get(_p.get('espn_league',''),99), (_p.get('game') or {}).get('commence','') or '9999'))
+for _i,_p in enumerate(man['picks'],1): _p['num']=_i  # card display order IS the pick number (matches game-N.html + GAME header)
 rows=[]
 last_lg=None
 SEEN=[]
@@ -778,7 +779,7 @@ function rpChatCounts(){{try{{
   fetch('https://api.rix-picks.com/chat/'+pk.dataset.room).then(r=>r.json()).then(function(j){{sp.textContent=j.count>0?' '+j.count:'';}}).catch(()=>{{}});
  }});
 }}catch(e){{}}}}
-async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpRenumber();rpCxLive();rpRecLive();rpChatCounts();}}
+async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();}}
 {fut_badge_js}rpLsTickAll();setInterval(rpLsTickAll,30000);
 if(!localStorage.getItem('rp_state')){{rpAsk(false);}}else{{rpLabel();}}
 const RP_BUILD='{{build_sha}}';
