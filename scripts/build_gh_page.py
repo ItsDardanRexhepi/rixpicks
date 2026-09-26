@@ -753,6 +753,8 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
  // miss NEVER blanks a row that was live - it dims and keeps last-good until a good tick lands.
  const rpMlbMiss=pk=>{{const el=pk.querySelector('[data-ls]');if(el&&el.dataset.live==='1'){{el.style.opacity='.55';return;}}rpLsRender(pk,null);}};
  const rpMlbGame=(pk,ls,st,aab,hab)=>{{
+  const KNOWN=['Scheduled','Pre-Game','Warmup','In Progress','Final','Game Over','Delayed','Delayed Start','Postponed','Suspended','Completed Early','Called'];
+  if(KNOWN.indexOf(st)<0){{rpMlbMiss(pk);return;}}
   const inn=(st==='In Progress')?((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim():st;
   const el=pk.querySelector('[data-ls]');if(el){{el.style.opacity='';el.dataset.live=(st==='In Progress')?'1':'';}}
   rpLsRender(pk,{{a:aab,h:hab,as:((ls.teams||{{}}).away||{{}}).runs||0,hs:((ls.teams||{{}}).home||{{}}).runs||0,
@@ -764,8 +766,9 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
   await Promise.all(keyed.map(async pk=>{{
    const k=pk.dataset.gpk;
    try{{
-    if(!cache[k])cache[k]=await (await fetch('https://statsapi.mlb.com/api/v1.1/game/'+k+'/feed/live?fields=liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,gameData,status,detailedState')).json();
+    if(!cache[k]){{const r=await fetch('https://statsapi.mlb.com/api/v1.1/game/'+k+'/feed/live?fields=liveData,linescore,teams,away,home,runs,currentInningOrdinal,inningState,gameData,status,detailedState');if(!r.ok)throw new Error('feed');cache[k]=await r.json();}}
     const j=cache[k];const ls=(j.liveData||{{}}).linescore||{{}};const st=((j.gameData||{{}}).status||{{}}).detailedState||'';
+    if(!st){{rpMlbMiss(pk);return;}}
     rpMlbGame(pk,ls,st,pk.dataset.aab||pk.dataset.away.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase(),pk.dataset.hab||pk.dataset.home.split(' ').map(w=>w[0]).join('').slice(0,3).toUpperCase());
    }}catch(e){{rpMlbMiss(pk);}}}}));
   if(unkeyed.length){{try{{
