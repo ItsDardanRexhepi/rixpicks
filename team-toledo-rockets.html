@@ -133,7 +133,7 @@ h1 .tick{color:#3BEBF5}
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790448811';
+const RP_BUILD='1790449802';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
