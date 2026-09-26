@@ -159,7 +159,7 @@ h1 .tick{color:#3BEBF5}
 <button id="rpSave" onclick="rpSave()">Save &amp; continue</button>
 </div></div>
 <script>
-const RP_BUILD='1790444096';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
+const RP_BUILD='1790444491';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -290,7 +290,8 @@ function rpEspnTick(){try{
    if(htok&&!cnames.some(function(n){return n.indexOf(htok)>=0;}))return;
    const st=(comp.status||{}).type||{};
    let sc='';
-   comps.forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
+   // Sep 26 user rule: home team always bottom - away renders first in every score display
+   comps.slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
    const sline=document.getElementById('rpScore');
    if(sline&&st.state!=='pre'&&sc){sline.textContent=(st.shortDetail||'')+'  |  '+sc;}
    const o=((j.pickcenter||[])[0])||((comp.odds||[])[0]);if(!o)return;
@@ -350,7 +351,7 @@ async function rpMlbLive(d){
  const hAb=d.dataset.hab||d.dataset.home.split(' ').map(function(w){return w[0];}).join('').slice(0,3).toUpperCase();
  if(det==='Scheduled'||det==='Pre-Game'){box.innerHTML='';return;}
  const inn=((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim();
- if(sline)sline.textContent=(det==='In Progress'?inn:det)+'  |  '+hAb+' '+hR+' - '+aAb+' '+aR;
+ if(sline)sline.textContent=(det==='In Progress'?inn:det)+'  |  '+aAb+' '+aR+' - '+hAb+' '+hR;
  const live=det==='In Progress';
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  const isFinal=det==='Final'||det==='Game Over';
@@ -406,7 +407,7 @@ async function rpEspnPanel(d){
   if(aw2&&hm2){const win=(side==='away')?(+aw2.score>+hm2.score):(+hm2.score>+aw2.score);
   wl2='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl2)+'<span style="font-size:12px;color:#8a8f98">'+(st.shortDetail||'')+'</span></div>';
- (comp.competitors||[]).forEach(function(c){
+ (comp.competitors||[]).slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){
   const ab=(c.team||{}).abbreviation||'';const sc=c.score||'0';
   const ball=live&&comp.situation&&comp.situation.possession===c.team.id?' <span style="color:#e8b93c">&#9679;</span>':'';
   h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+ab+ball+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+sc+'</span></div>';

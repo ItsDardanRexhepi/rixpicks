@@ -133,7 +133,7 @@ h1 .tick{color:#3BEBF5}
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790444096';
+const RP_BUILD='1790444491';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
@@ -145,7 +145,8 @@ function rpTick(){try{
    const st=(comp.status||{}).type||{};
    const comps=comp.competitors||[];
    let sc='';
-   comps.forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
+   // Sep 26 user rule: home team always bottom - away renders first in every score display
+   comps.slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
    const sline=document.getElementById('rpScore');
    if(sline&&st.state!=='pre'&&sc){sline.textContent=(st.shortDetail||'')+'  |  '+sc;}
   });
@@ -158,4 +159,4 @@ function rpPageRefresh(){try{
 }catch(e){}}
 rpTick();setInterval(rpTick,60000);setInterval(rpPageRefresh,60000);
 </script>
-</body></html>
+<script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script></body></html>
