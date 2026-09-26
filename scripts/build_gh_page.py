@@ -70,7 +70,9 @@ def poly_price(url,kw,won_ok=False):
             if kwl in str(o).lower() and i<len(prs):
                 c=round(float(prs[i])*100)
                 if 0<c<100: return c
-                if won_ok and target.get('closed') and c==100: return 100  # resolved win - leg is home, factor 1
+                if won_ok and target.get('closed'):
+                    if c==100: return 100  # resolved win - leg is home, factor 1
+                    if c==0: return 0      # resolved loss - leg is dead; combo marks dead, chip is NEVER dropped (class fix 9/25: leg close = status update only)
     except Exception: return None
     return None
 def _load_prefill(path, wrap=False):
@@ -426,38 +428,67 @@ if man.get('parlay'):
         if len(lgs)==1 and None not in lgs: DKPM='https://predictions.draftkings.com/en/markets/'+lgs.pop()
     except Exception: pass
     if len(lp)==nlegs:
-        kc=None
         if pl.get('kalshi_legs') and len(pl['kalshi_legs'])==nlegs:
-            kc=[l['cents'] for l in pl['kalshi_legs'] if l.get('cents')]
-            hidden=''.join(f'<a data-cxleg="KAL" data-kalticker="{html.escape(l["ticker"])}" data-kalside="{html.escape(l["side"])}" style="display:none">KAL {c2ml(l["cents"])}</a>' for l in pl['kalshi_legs'] if l.get('cents'))
+            # class fix 9/25: a leg closing/opening updates status only - chip + pricing source are never dropped
+            kc=[l['cents'] for l in pl['kalshi_legs'] if l.get('cents') and 0<l['cents']<100]
+            hidden=''.join(
+                (f'<a data-cxleg="KAL" data-kalticker="{html.escape(l["ticker"])}" data-kalside="{html.escape(l["side"])}" style="display:none">KAL {c2ml(l["cents"])}</a>'
+                 if l.get('cents') and 0<l['cents']<100 else
+                 f'<a data-cxleg="KAL" data-kalticker="{html.escape(l["ticker"])}" data-kalside="{html.escape(l["side"])}" style="display:none">KAL</a>')
+                for l in pl['kalshi_legs'])
+            if kc:
+                c=amer_from_cents(kc)
+                klbl='KAL '+c2ml(c) if c is not None else 'KAL'
+                ksort=int(c2ml(c)) if c is not None else None
+            else:
+                klbl='KAL'; ksort=None
+            chips.append(('KAL',f'<a class="chip%%BEST%%"{bkstyle("KAL")} href="https://kalshi.com/category/sports/all-sports" data-book="KAL" data-sb="https://kalshi.com/category/sports/all-sports" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("KAL")}{klbl}</a>{hidden}',ksort))
         else:
             kc=[p['kalshi']['cents'] for p in lp if p.get('kalshi') and p['kalshi'].get('cents')]
-            hidden=''
-        if kc and len(kc)==nlegs:
-            c=amer_from_cents(kc)
-            if c is not None:
-                chips.append(('KAL',f'<a class="chip%%BEST%%"{bkstyle("KAL")} href="https://kalshi.com/category/sports/all-sports" data-book="KAL" data-sb="https://kalshi.com/category/sports/all-sports" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("KAL")}KAL {c2ml(c)}</a>{hidden}',int(c2ml(c))))
-        pc=[]; okp=True; purl='https://polymarket.us'; phidden=''
+            if kc and len(kc)==nlegs:
+                c=amer_from_cents(kc)
+                if c is not None:
+                    chips.append(('KAL',f'<a class="chip%%BEST%%"{bkstyle("KAL")} href="https://kalshi.com/category/sports/all-sports" data-book="KAL" data-sb="https://kalshi.com/category/sports/all-sports" id="rpCxKAL" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("KAL")}KAL {c2ml(c)}</a>',int(c2ml(c))))
+        pc=[]; okp=True; purl='https://polymarket.us'; phidden=''; pdead=False; pallwon=True
         if pl.get('poly_legs') and len(pl['poly_legs'])==nlegs:
+            # class fix 9/25: leg close = status update only. Chip + per-leg pricing stubs are ALWAYS emitted;
+            # won legs factor 1 (marked data-won), lost legs mark the combo dead (data-lost), unknown/hiccup legs
+            # keep an unpriced stub so the runtime tick resumes pricing when the feed recovers.
             for l in pl['poly_legs']:
                 cc=poly_price(l['url'], l.get('kw',''), won_ok=True)
-                if not cc: okp=False; break
-                pc.append(cc)
                 slug=poly_event_slug(l['url']) or ''
-                wattr=' data-won="1"' if cc==100 else ''
-                ptext='POLY ✓' if cc==100 else 'POLY '+c2ml(cc)
-                phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}"{wattr} style="display:none">{ptext}</a>'
+                if cc==100:
+                    phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" data-won="1" style="display:none">POLY ✓</a>'
+                elif cc==0:
+                    pdead=True; pallwon=False
+                    phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" data-lost="1" style="display:none">POLY ✗</a>'
+                elif cc:
+                    pallwon=False; pc.append(cc)
+                    phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" style="display:none">POLY {c2ml(cc)}</a>'
+                else:
+                    pallwon=False
+                    phidden+=f'<a data-cxleg="POLY" data-polyslug="{html.escape(slug)}" data-polysub="" data-polykw="{html.escape(l.get("kw",""))}" style="display:none">POLY</a>'
         else:
             for p in lp:
                 if not p.get('polymarket'): okp=False; break
-                cc=poly_price(p['polymarket']['url'], p['name'].split()[0])
-                if not cc: okp=False; break
-                pc.append(cc)
                 if p.get('polymarket_us',{}).get('url'): purl=p['polymarket_us']['url']
-        if okp and len(pc)==nlegs:
-            c=amer_from_cents(pc)
-            if c is not None:
-                chips.append(('POLY',f'<a class="chip%%BEST%%"{bkstyle("POLY")} href="{html.escape(purl)}" data-book="POLY" data-sb="{html.escape(purl)}" id="rpCxPOLY" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("POLY")}POLY {c2ml(c)}</a>{phidden}',int(c2ml(c))))
+                cc=poly_price(p['polymarket']['url'], p['name'].split()[0], won_ok=True)
+                if cc==100: continue
+                if cc==0: pdead=True; continue
+                if not cc: pallwon=False; continue
+                pallwon=False; pc.append(cc)
+        if okp:
+            if pdead:
+                plbl='POLY ✗'; psort=-10**9
+            elif not pc and pallwon and nlegs:
+                plbl='POLY ✓'; psort=10**9
+            elif pc:
+                c=amer_from_cents(pc)
+                if c is None: plbl='POLY'; psort=None
+                else: plbl='POLY '+c2ml(c); psort=int(c2ml(c))
+            else:
+                plbl='POLY'; psort=None
+            chips.append(('POLY',f'<a class="chip%%BEST%%"{bkstyle("POLY")} href="{html.escape(purl)}" data-book="POLY" data-sb="{html.escape(purl)}" id="rpCxPOLY" data-n="{nlegs}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("POLY")}{plbl}</a>{phidden}',psort))
         BKML=[('DK','draftkings',DKPM),('FD','fanduel','https://www.fanduel.com/predicts'),('ESPN','espnbet',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]
         for short,pk,pm in BKML:
             mls=[]; ok=True
@@ -880,15 +911,18 @@ function rpCxUpd(bk){{
  const cxsel='a[data-cxleg="'+bk+'"]';
  const sel=document.querySelectorAll(cxsel).length?cxsel:(bk==='KAL'?'a[data-kalticker]':'a[data-polyslug]');
  const re=bk==='KAL'?/KAL ([+-]\d+)/:/POLY ([+-]\d+)/;
- let d=1,cnt=0;
+ let d=1,cnt=0,dead=false;
  document.querySelectorAll(sel).forEach(function(a){{
   if(a.id==='rpCxKAL'||a.id==='rpCxPOLY')return;
   if(a.dataset.won==='1'){{cnt++;return;}}
+  if(a.dataset.lost==='1'){{cnt++;dead=true;return;}}
   const m=a.innerHTML.match(re);if(m){{const ml=parseInt(m[1]);d*=ml>0?1+ml/100:1+100/Math.abs(ml);cnt++;}}
  }});
- if(cnt!==n||d<=1)return;
+ if(cnt!==n)return;
+ if(dead){{chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+)?/,bk+' \u2717');rpCxStar();return;}}
+ if(d<=1)return;
  const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
- chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY) [+-]?\d+/, bk+' '+(ml2>0?'+':'')+ml2);
+ chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+)?/, bk+' '+(ml2>0?'+':'')+ml2);
  rpCxStar();
 }}
 function rpCxStar(){{try{{
@@ -922,8 +956,9 @@ function rpPolyTick(){{try{{
    let outs=[],pr=[];try{{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}}catch(e){{return;}}
    for(let i=0;i<outs.length;i++){{if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){{
     const c=Math.round(parseFloat(pr[i])*100);
-    if(target.closed&&c>=99){{a.dataset.won='1';a.innerHTML=a.innerHTML.replace(/POLY [+-]?\d+/,'POLY \u2713');rpCxUpd('POLY');return;}}
-    if(c>0&&c<100){{a.innerHTML=a.innerHTML.replace(/POLY [+-]?\d+/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');
+    if(target.closed&&c>=99){{a.dataset.won='1';a.dataset.lost='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY \u2713');rpCxUpd('POLY');return;}}
+    if(target.closed&&c<=1){{a.dataset.lost='1';a.dataset.won='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY \u2717');rpCxUpd('POLY');return;}}
+    if(c>0&&c<100){{a.dataset.won='';a.dataset.lost='';a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \u2713| \u2717)?/,'POLY '+rpMLF(rpC2ML(c)));rpCxUpd('POLY');
      const pk=a.closest('.pick');
      if(pk&&pk.dataset.market==='ml'){{const s2=pk.querySelector('.odds');
       if(s2){{const ml2=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);s2.textContent=(ml2>0?'+':'')+ml2;}}}}}}
@@ -959,11 +994,12 @@ function rpKalTick(){{try{{
   const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+a.dataset.kalticker+'-'+a.dataset.kalside;
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){{
    const m=j&&j.market;if(!m)return;
-   if(m.result==='yes'){{a.dataset.won='1';rpCxUpd('KAL');return;}}
-   if(m.result==='no')return;
+   if(m.result==='yes'){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('KAL');return;}}
+   if(m.result==='no'){{a.dataset.lost='1';a.dataset.won='';a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+)?/,'KAL \u2717');rpCxUpd('KAL');return;}}
    const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<1))return;
    const c=Math.round(d*100);
-   a.innerHTML=a.innerHTML.replace(/KAL [+-]?\d+/,'KAL '+rpMLF(rpC2ML(c)));rpCxUpd('KAL');
+   a.dataset.won='';a.dataset.lost='';
+   a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \u2713| \u2717)?/,'KAL '+rpMLF(rpC2ML(c)));rpCxUpd('KAL');
    const pk=a.closest('.pick');
    if(pk&&pk.dataset.market==='ml'){{const s=pk.querySelector('.odds');
     if(s&&c>0&&c<100){{const ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
