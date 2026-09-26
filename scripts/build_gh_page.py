@@ -311,24 +311,30 @@ if FUT:
     try:
         import urllib.request as _u, datetime as _dt
         _today=_dt.datetime.now(_dt.timezone(_dt.timedelta(hours=-7))).strftime('%Y%m%d')
-        _req=_u.Request('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates='+_today+'&limit=100',headers={'User-Agent':'python-urllib/3.10'})
-        _sb=json.load(_u.urlopen(_req,timeout=15))
+        _LGMAP={'NFL':('football/nfl','nfl'),'NBA':('basketball/nba','nba'),'NHL':('hockey/nhl','nhl'),'MLB':('baseball/mlb','mlb')}
         _held={}
         for _f in FUT:
-            if _f.get('league')!='NFL' or not _f.get('abbr'): continue
-            _held.setdefault(_f['team'],{'abbr':_f['abbr'],'mkts':[]})
+            if _f.get('league') not in _LGMAP or not _f.get('abbr'): continue
+            _held.setdefault(_f['team'],{'abbr':_f['abbr'],'mkts':[],'lg':_f['league']})
             _lbl='SB' if 'Super Bowl' in _f['market'] else _f['market'].replace(' Champion','')
             if _lbl not in _held[_f['team']]['mkts']: _held[_f['team']]['mkts'].append(_lbl)
+        _sbs={}
+        for _lg in {v['lg'] for v in _held.values()}:
+            try:
+                _req=_u.Request('https://site.api.espn.com/apis/site/v2/sports/%s/scoreboard?dates='%_LGMAP[_lg][0]+_today+'&limit=100',headers={'User-Agent':'python-urllib/3.10'})
+                _sbs[_lg]=json.load(_u.urlopen(_req,timeout=15))
+            except Exception: pass
         _fw=[]
-        for ev in _sb.get('events',[]):
+        for _lg,_sb in _sbs.items():
+          for ev in _sb.get('events',[]):
             cs=ev['competitions'][0]['competitors']
             aw=next((c for c in cs if c['homeAway']=='away'),None); hm=next((c for c in cs if c['homeAway']=='home'),None)
             if not aw or not hm: continue
             an=aw['team']['displayName']; hn=hm['team']['displayName']
             for t,info in _held.items():
-                if t==an or t==hn:
+                if (t==an or t==hn) and info['lg']==_lg:
                     _side='away' if t==an else 'home'
-                    _fw.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick" data-espn="football/nfl" data-away="%s" data-home="%s" data-side="%s"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/%s.png" style="width:20px;height:20px;border-radius:50%%%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>%s</b> <span style="color:#8a8f98;font-size:12px">futures: %s</span><span class="ls" data-ls></span></div></a>'%(html.escape(an),html.escape(hn),_side,html.escape(info['abbr']),html.escape(t),' &middot; '.join(html.escape(x) for x in info['mkts'])))
+                    _fw.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick" data-espn="%s" data-away="%s" data-home="%s" data-side="%s"><img src="https://a.espncdn.com/i/teamlogos/%s/500/%s.png" style="width:20px;height:20px;border-radius:50%%%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>%s</b> <span style="color:#8a8f98;font-size:12px">futures: %s</span><span class="ls" data-ls></span></div></a>'%(_LGMAP[_lg][0],html.escape(an),html.escape(hn),_side,_LGMAP[_lg][1],html.escape(info['abbr']),html.escape(t),' &middot; '.join(html.escape(x) for x in info['mkts'])))
                     break
         if _fw:
             fut_watch_html='<div class="sect" style="margin-top:22px">Futures live today</div>'+''.join(_fw)
