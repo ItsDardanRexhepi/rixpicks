@@ -84,6 +84,7 @@ if(RP_STANDALONE){document.addEventListener('click',function(e){const a=e.target
 function rpBookLive(b,st){if(typeof RP_LEGAL_STATE==='undefined')return b==='KAL'||b==='POLY';if(!st)return RP_PM_DEFAULT.indexOf(b)!==-1;const L=RP_LEGAL_STATE[st];return L?L.indexOf(b)!==-1:false;}
 function rpPm(el){if(el.dataset.pm&&el.dataset.nopm!=='1')return el.dataset.pm;const mr=el.closest?el.closest('.mrow'):null;if(mr&&mr.dataset.pm&&mr.dataset.nopm!=='1')return mr.dataset.pm;return null;}
 function rpDest(a,st){const b=a.dataset.book;
+ if(a.dataset.platform==='1'&&!a.getAttribute('data-sb'))return null;  /* inspector Sep 26 interim: platform-arm root URLs are NOT tap destinations - non-tappable until event-level deep links land */
  if(rpBookLive(b,st)){const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{state}',st.toLowerCase());return a.getAttribute('href')||null;}
  return rpPm(a);}
 function rpGo(a,st){const b=a.dataset.book;

@@ -662,7 +662,7 @@ def chips(p):
             _mr=_mkrec(_arm,_eid,_mkt,side,ml=None,cents=_pmc,link=_pmu,ph=_ph,st='ok')
             out.append(f'<a class="chip%%BEST%%"{bkstyle(_arm)} href="{html.escape(_pmu)}" data-book="{_arm}"{_mr} data-sb="{html.escape(_pmu)}" data-cents="{_pmc}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(_arm)}{html.escape(_albl+" "+c2ml(_pmc))}</a>')
         else:
-            out.append(f'<a class="chip%%BEST%%"{bkstyle(_arm)} href="{html.escape(_pmu or _aurl)}" data-book="{_arm}" data-platform="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(_arm)}{html.escape(_albl)}</a>')
+            out.append(f'<span class="chip%%BEST%% rpnontap"{bkstyle(_arm)} data-book="{_arm}" data-platform="1">{bkimg(_arm)}{html.escape(_albl)}</span>')  # inspector Sep 26: visible in the state set, non-tappable until event-level deep links land
     # build-time star = same max-American rule as client rpBestStar: the star never sits on
     # anything but the best displayed price, and never in play.
     _win=None
@@ -1293,6 +1293,7 @@ const RP_PM_DEFAULT=['KAL','POLY','DKP','FDP'];
 function rpBookLive(b,st){{if(!st)return RP_PM_DEFAULT.indexOf(b)!==-1;const L=RP_LEGAL_STATE[st];return L?L.indexOf(b)!==-1:false;}}
 function rpPm(el){{if(el.dataset.pm&&el.dataset.nopm!=='1')return el.dataset.pm;const mr=el.closest?el.closest('.mrow'):null;if(mr&&mr.dataset.pm&&mr.dataset.nopm!=='1')return mr.dataset.pm;return null;}}
 function rpDest(a,st){{const b=a.dataset.book;
+ if(a.dataset.platform==='1'&&!a.getAttribute('data-sb'))return null;  /* inspector Sep 26 interim: platform-arm root URLs are NOT tap destinations - non-tappable until event-level deep links land */
  if(rpBookLive(b,st)){{const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{{state}}',st.toLowerCase());return a.getAttribute('href')||null;}}
  return rpPm(a);}}
 function rpGo(a,st){{const b=a.dataset.book;
