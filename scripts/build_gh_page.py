@@ -1515,7 +1515,7 @@ function rpAllLineShops(){{document.querySelectorAll('.pick').forEach(rpLineShop
 function rpStartTimes(){{const now=Date.now();document.querySelectorAll('.rpstart[data-commence]').forEach(function(el){{const t=Date.parse(el.dataset.commence);if(t&&now>=t)el.remove();}});}}
 async function rpLsTickAll(){{await rpLsTick();rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();}}
 {fut_badge_js}async function rpFastLoop(){{try{{await rpLsTick();}}catch(e){{}}setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?30000:3000);}}
-rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllLineShops();rpStartTimes();}},30000);
+rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllBest();rpAllLineShops();rpStartTimes();}},30000);
 document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this){{this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}}}});
 rpFilter(localStorage.getItem('rp_state')||'');rpResolveState();
 function rpResolveState(){{try{{  /* U-GEO-002: most-extensive resolution at core - saved/account state authoritative, geolocation where granted, IP fallback, fail-closed default */
@@ -1646,13 +1646,14 @@ function rpPolyTick(){{try{{
     if(target.closed&&c<=1){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('POLY');return;}}
     if(c>0&&c<100){{a.dataset.won='';a.dataset.lost='';
      const pk=a.closest('.pick');
-     if(!(pk&&rpInPlay(pk))){{a.dataset.cents=c;if(r0){{r0.c=c;r0.ts=Date.now();}}a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \d+c| \u2713| \u2717)?/,'POLY '+rpMLF(rpC2ML(c)));}}rpCxUpd('POLY');
+     if(!(pk&&rpInPlay(pk))){{a.dataset.cents=c;if(r0){{r0.c=c;r0.ts=Date.now();}}a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \d+c| \u2713| \u2717)?/,'POLY '+rpMLF(rpC2ML(c)));}}rpCxUpd('POLY');rpQuoteMut(pk);  /* tester Sep 26: POLY tick recomputes too */
 }}
     return;
    }}}}
   }}).catch(()=>{{}});
  }});
 }}catch(e){{}}}}
+function rpQuoteMut(pk){{if(!pk)return;rpBestStar(pk);rpLineShop(pk);}}  /* ONE shared derivation (tester Sep 26 index tick defect): every canonical price change - KAL, POLY, ESPN - recomputes range AND star on the affected pick in the same callback; range hides itself when prices converge */
 /* header .odds = locked entry price, FROZEN on every surface (tester ruling Sep 26): no ticker and no refresh ever writes .pick .odds - live market lives in chips + range only */
 function rpEspnTick(){{try{{
  const leagues={{}};
@@ -1674,7 +1675,7 @@ function rpEspnTick(){{try{{
      const ml=d.dataset.side==='away'?(o.awayTeamOdds||{{}}).moneyLine:(o.homeTeamOdds||{{}}).moneyLine;
      if(typeof ml==='number'&&!rpInPlay(d)){{
       const chip=d.querySelector('a[data-book="TSB"]');
-      if(chip){{chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);const _rc=rpMkt(chip);if(_rc){{_rc.ml=ml;_rc.ts=Date.now();}}rpCxUpdMl('TSB');rpBestStar(d);}}}}
+      if(chip){{chip.innerHTML=chip.innerHTML.replace(/([+-]\d+)/,(ml>0?'+':'')+ml);const _rc=rpMkt(chip);if(_rc){{_rc.ml=ml;_rc.ts=Date.now();}}rpCxUpdMl('TSB');rpQuoteMut(d);}}}}
     }});
    }});
   }}).catch(()=>{{}});
@@ -1694,7 +1695,7 @@ function rpKalTick(){{try{{
    a.dataset.won='';a.dataset.lost='';
    const pk=a.closest('.pick');
    if(!(pk&&rpInPlay(pk))){{a.dataset.cents=c;if(r0){{r0.c=c;r0.ts=Date.now();}}a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c| \u2713| \u2717)?/,'KAL '+rpMLF(rpC2ML(c)));}}rpCxUpd('KAL');
-    if(rpInPlay(pk))rpBestStar(pk);
+    rpQuoteMut(pk);  /* tester Sep 26: pre-game ticks recompute too - the in-play-only gate left the stale star/range live */
   }}).catch(()=>{{}}); /* graceful fallback: relay/API failure keeps last build price */
  }});
 }}catch(e){{}}}}
