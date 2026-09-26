@@ -19,7 +19,7 @@
 </style>
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
+<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:(location.pathname.indexOf("/rixpicks/")===0?"/rixpicks/":"/")}  /* Sep 26: SW scope must match the ORIGIN's path root - rix-picks.com serves at /, github.io at /rixpicks/ */});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
 <script>__RPARB__</script>
 </head><body>
 <div class="wrap">

@@ -1189,7 +1189,7 @@ page=f'''<!DOCTYPE html>
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v={{build_sha}}">
 <link rel="manifest" href="site.webmanifest?v={{build_sha}}">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){{try{{await OneSignal.init({{appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{{scope:"/rixpicks/"}}}});try{{OneSignal.Notifications.addEventListener("permissionChange",function(granted){{if(granted&&!localStorage.getItem("rp_gc_push")){{rpGcEvent("new-user-push","rp_gc_push");}}}});}}catch(e){{}}}}catch(e){{}}}});</script>
+<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){{try{{await OneSignal.init({{appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{{scope:(location.pathname.indexOf("/rixpicks/")===0?"/rixpicks/":"/")}}  /* Sep 26: SW scope must match the ORIGIN's path root - rix-picks.com serves at /, github.io at /rixpicks/; a hardcoded /rixpicks/ scope makes subscriptions impossible on the custom domain */}});try{{OneSignal.Notifications.addEventListener("permissionChange",function(granted){{if(granted&&!localStorage.getItem("rp_gc_push")){{rpGcEvent("new-user-push","rp_gc_push");}}}});}}catch(e){{}}}}catch(e){{}}}});</script>
 <script>{ARB_INJECT}</script>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -2244,7 +2244,7 @@ _css=page.split('<style>')[1].split('</style>')[0]
 FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RixPicks Futures</title><style>__CSS__</style><style>body{overscroll-behavior-y:none}.wrap{min-height:101vh}</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/rixpicks/"}});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
+<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:(location.pathname.indexOf("/rixpicks/")===0?"/rixpicks/":"/")}  /* Sep 26: SW scope must match the ORIGIN's path root - rix-picks.com serves at /, github.io at /rixpicks/ */});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
 <script>__RPARB__</script>
 </head><body>
 <div id="rpPull"></div>
