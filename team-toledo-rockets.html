@@ -117,23 +117,23 @@ h1 .tick{color:#3BEBF5}
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
 <div class="pick" data-espn="football/college-football" data-team="Toledo Rockets">
-  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Toledo Rockets</span><span class="odds">2-1</span></div>
-  <div class="sub">Record 2-1 · Streak W2</div>
+  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Toledo Rockets</span><span class="odds">3-1</span></div>
+  <div class="sub">Record 3-1 · Streak W3</div>
   <div class="score" id="rpScore">Today: vs San Diego State Aztecs · 9:00 AM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 49-48 vs TEM · 09-19</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 63-10 vs CCSU · 09-12</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 20-30 @ MSU · 09-05</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 41-16 vs SDSU · 09-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 49-48 vs TEM · 09-19</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 63-10 vs CCSU · 09-12</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 20-30 @ MSU · 09-05</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 44.0 &middot; allowed 29.3 per game over last 3</div>
+<div class="sub" style="padding:7px 0">Scored 43.2 &middot; allowed 26.0 per game over last 4</div>
 <div class="sect">Next up</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs SDSU · 09-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ BALL · 10-03</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs BUFF · 10-10</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ BALL · 10-03</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs BUFF · 10-10</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ EMU · 10-17</div>
 <div class="sect">Injuries</div>
 <div class="sub">None reported.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790449802';
+const RP_BUILD='1790450726';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
