@@ -530,7 +530,7 @@ def chips(p):
     _mkt='spread' if p.get('market')=='spread' else 'ml'
     _dm=f' data-market="{_mkt}"'  # sentinel Sep 26: the line-shop market guard reads this
     out=[]
-    side=p.get('side','away')
+    _SIDE=p.get('side','away')  # loop-scoped constant: set once, never rebound - a per-book branch mutating the pick side poisoned every later book's lookup (Sep 26: Kalshi rebound it, killing MGM/TSB chips for picks without ledger carryover)
     kw=p['name'].split()[0]
     _g=p.get('game') or {}
     _cm=_g.get('commence','')
@@ -548,30 +548,30 @@ def chips(p):
         if pr and name in PKMAP:
             pk=PKMAP[name]
             if p.get('market')=='spread':
-                e=(pr.get(pk) or {}).get(side) or {}
+                e=(pr.get(pk) or {}).get(_SIDE) or {}
                 if e.get('link'): link=e['link']
                 if e.get('price') is not None: ml=e['price']
             else:
-                pl=(pr.get(pk) or {}).get(f"{side}_link")
+                pl=(pr.get(pk) or {}).get(f"{_SIDE}_link")
                 if pl: link=pl
                 if p.get('event_mode'):
                     ev=(pr.get(pk) or {}).get('event')
                     if ev: link=ev
-                pm=(pr.get(pk) or {}).get(f"{side}_ml")
+                pm=(pr.get(pk) or {}).get(f"{_SIDE}_ml")
                 if pm is not None: ml=pm
         if name in ('BetMGM','BetRivers'):
             if p.get('market')=='spread':
                 st_=((sel_books(pre_sp.get((p['game']['away'],p['game']['home'])), p.get('game')) or {}).get('books') or {}).get('state_templates',{}) if p.get('game') else {}
-                e=(st_.get('betmgm' if name=='BetMGM' else 'betrivers') or {}).get(side) or {}
+                e=(st_.get('betmgm' if name=='BetMGM' else 'betrivers') or {}).get(_SIDE) or {}
                 if e.get('link'): link=e['link']
                 if e.get('price') is not None: ml=e['price']
             else:
                 stt=((sel_books(pre.get((p['game']['away'],p['game']['home'])), p.get('game')) or {}).get('state_templates',{})) if p.get('game') else {}
                 e=stt.get('betmgm' if name=='BetMGM' else 'betrivers') or {}
-                if name=='BetMGM' and e.get(f"{side}_link"):
-                    link=e[f"{side}_link"]; ml=e.get(f"{side}_ml")
+                if name=='BetMGM' and e.get(f"{_SIDE}_link"):
+                    link=e[f"{_SIDE}_link"]; ml=e.get(f"{_SIDE}_ml")
                 if name=='BetRivers' and e.get('event'):
-                    link=e['event']; ml=e.get(f"{side}_ml")
+                    link=e['event']; ml=e.get(f"{_SIDE}_ml")
         if name=='Kalshi' and p.get('kalshi'):
             link=p['kalshi']['url']
             tick=p['kalshi']['url'].rstrip('/').split('/')[-1].upper()
@@ -624,11 +624,11 @@ def chips(p):
                     sys.exit(3)
             label=(f"KAL {c2ml(_kc)}" if _kc else "KAL")+inst  # user Sep 26 12:58 PM: ALL chips American, PM arms included (supersedes U-DISP-001 c1)  # in play _kc is the frozen last-known price - never blank (inspector Sep 26)
             best=(p.get('best_book')=='Kalshi')
-            side=html.escape(_sfx)
+            _kside_html=html.escape(_sfx)  # Kalshi-scoped: never rebind the pick side
             _pr.append((len(out), c2ml_int(_kc) if _kc else None))
             _kcattr=f' data-cents="{_kc}"' if _kc else ''
-            _kcattr+=_mkrec('Kalshi',tick,tick+'-'+side,side,cents=_kc,link=link,ph=_ph,ts=(((SHIPPED.get(_sk) or {}).get('Kalshi') or {}).get('ts') or '') if _uw else '',st=('ok' if _kc else 'unknown'))
-            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="KAL" data-kalticker="{tick}" data-kalside="{side}"{_dm}{_kcattr} target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{label}</a>')
+            _kcattr+=_mkrec('Kalshi',tick,tick+'-'+_kside_html,_kside_html,cents=_kc,link=link,ph=_ph,ts=(((SHIPPED.get(_sk) or {}).get('Kalshi') or {}).get('ts') or '') if _uw else '',st=('ok' if _kc else 'unknown'))
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="KAL" data-kalticker="{tick}" data-kalside="{_kside_html}"{_dm}{_kcattr} target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{label}</a>')
             continue
         if name=='Polymarket':
             if not p.get('polymarket'): continue
@@ -652,7 +652,7 @@ def chips(p):
             # never-blank (inspector Sep 26): entry odds are the last-resort fallback on the
             # picked book. Never a bare 'POLY' when any price was ever known.
             _pcattr=f' data-cents="{round(cents)}"' if cents else ''
-            _pcattr+=_mkrec('Polymarket',slug,sub or slug,side,cents=cents,link=web,ph=_ph,ts=(((SHIPPED.get(_sk) or {}).get('Polymarket') or {}).get('ts') or '') if _uw else '',st=('ok' if cents else 'unknown'))
+            _pcattr+=_mkrec('Polymarket',slug,sub or slug,_SIDE,cents=cents,link=web,ph=_ph,ts=(((SHIPPED.get(_sk) or {}).get('Polymarket') or {}).get('ts') or '') if _uw else '',st=('ok' if cents else 'unknown'))
             label=(f"POLY {c2ml(cents)}" if cents else (('POLY '+str(p.get('odds','')).strip()) if (_uw and p.get('best_book')=='Polymarket') else 'POLY'))+inst
             if p.get('best_book')=='Polymarket': label=label
             best=(p.get('best_book')=='Polymarket')
@@ -672,7 +672,7 @@ def chips(p):
                 # price when we have one, else unpriced - the chip never drops, never goes blank.
                 _lbl=(f"{short} {ml:+d}" if ml is not None else short+' \u2014')+inst  # watchdog Sep 26: explicit unpriced state - never a bare chip that reads broken
                 _pr.append((len(out), ml))
-                _mr=_mkrec(name,_eid,_mkt,side,ml=ml,link='',ph=_ph,lv='none',st=('ok' if ml is not None else 'unknown'))
+                _mr=_mkrec(name,_eid,_mkt,_SIDE,ml=ml,link='',ph=_ph,lv='none',st=('ok' if ml is not None else 'unknown'))
                 _upcls='' if ml is not None else ' rpunpriced'
                 out.append(f'<span class="chip%%BEST%% rpnontap{_upcls}"{bkstyle(short)} data-book="{short}"{_dm}{_mr}>{bkimg(short)}{html.escape(_lbl)}</span>')
             continue  # no game-level link -> drop chip (pre-game only)
@@ -693,7 +693,7 @@ def chips(p):
             _tmattr=' data-template="1"' if _tm else ''
             _href='https://www.'+BKDOM[short] if _tm else link
             _pr.append((len(out), ml))
-            _mr=_mkrec(name,_eid,_mkt,side,ml=ml,link=link,ph=_ph,st=('ok' if ml is not None else 'unknown'))
+            _mr=_mkrec(name,_eid,_mkt,_SIDE,ml=ml,link=link,ph=_ph,st=('ok' if ml is not None else 'unknown'))
             out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(_href)}" data-book="{short}"{_dm}{_mr} data-sb="{html.escape(link)}"{_pmattr} data-pmapp="{html.escape(pmapp)}"{nopm}{_tmattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{html.escape(label)}</a>')
         elif '{state}' in link:
             # Sep 26 inspector ruling (J-112 class extended to singles): a priced chip on a generic
@@ -701,22 +701,23 @@ def chips(p):
             # carrying the template in data-sbt; rpTapify (in rpFilter) swaps it to a deep-link anchor
             # once the reader's state is known and the book is live there, so the tap always lands on the exact game at their book.
             _pr.append((len(out), ml))
-            _mr=_mkrec(name,_eid,_mkt,side,ml=ml,link=link,ph=_ph,st=('ok' if ml is not None else 'unknown'))  # tester gate 9/26: EVERY priced chip carries a record - the range set is identical static vs JS
+            _mr=_mkrec(name,_eid,_mkt,_SIDE,ml=ml,link=link,ph=_ph,st=('ok' if ml is not None else 'unknown'))  # tester gate 9/26: EVERY priced chip carries a record - the range set is identical static vs JS
             out.append(f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}"{_dm}{_mr} data-sbt="{html.escape(link)}" data-template="1">%%STAR%%{bkimg(short)}{html.escape(label)}</span>')
         else:
             _pr.append((len(out), ml))
-            _mr=_mkrec(name,_eid,_mkt,side,ml=ml,link=link,ph=_ph,st=('ok' if ml is not None else 'unknown'))  # tester gate 9/26: EVERY priced chip carries a record
+            _mr=_mkrec(name,_eid,_mkt,_SIDE,ml=ml,link=link,ph=_ph,st=('ok' if ml is not None else 'unknown'))  # tester gate 9/26: EVERY priced chip carries a record
             out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="{short}"{_dm}{_mr} data-sb="{html.escape(link)}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{html.escape(label)}</a>')
     # U-GEO-002 platform-arm chips (PS6: arms are distinct platforms) - DK Predictions / FD Predicts.
     # Priced only from a verified market record (fail closed); otherwise an unpriced platform chip
     # on a verified destination (predictions.draftkings.com / fanduel.com/predicts - verified Sep 26).
     for _arm,_albl,_aurl,_pmkey in (('DKP','DK Predictions','https://predictions.draftkings.com/','dkp'),('FDP','FD Predicts','https://www.fanduel.com/predicts','fdp')):
+        if _arm=='FDP': continue  # his call Sep 26 4:00 PM: FD Predicts chip hidden on ALL cards until the state-gated FD pipeline ships - restored by the queued DK+FD pipeline work
         _pm=(p.get(_pmkey) or {})
         _pmu=_pm.get('url');_pmc=_pm.get('team_cents') if _pm.get('team_cents') is not None else _pm.get('cents')  # d03ba56 contract: team_cents is the pick-side price (harvest snapshot); 'cents' = legacy key
         if _pmu and _pmc is not None:
             _pr.append((len(out),rp_c2a(_pmc) if 'rp_c2a' in dir() else None))
-            _mr=_mkrec(_arm,_eid,_mkt,side,ml=None,cents=_pmc,link=_pmu,ph=_ph,st=('ok' if _pmc is not None else 'unknown'))
-            out.append(f'<a class="chip%%BEST%%"{bkstyle(_arm)} href="{html.escape(_pmu)}" data-book="{_arm}"{_mr} data-sb="{html.escape(_pmu)}" data-cents="{_pmc}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(_arm)}{html.escape(_albl+" "+c2ml(_pmc))}</a>')
+            _mr=_mkrec(_arm,_eid,_mkt,_SIDE,ml=None,cents=_pmc,link=_pmu,ph=_ph,st=('ok' if _pmc is not None else 'unknown'))
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(_arm)} href="{html.escape(_pmu)}" data-book="{_arm}"{_dm}{_mr} data-sb="{html.escape(_pmu)}" data-cents="{_pmc}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(_arm)}{html.escape(_albl+" "+c2ml(_pmc))}</a>')  # parity fix Sep 26: priced prediction-arm chips carry market identity like every other priced chip - the line-shop guard was silently excluding them (MSST card lost its range line in KAL+DKP-only states)
         else:
             out.append(f'<span class="chip%%BEST%% rpnontap"{bkstyle(_arm)} data-book="{_arm}" data-platform="1">{bkimg(_arm)}{html.escape(_albl)}</span>')  # inspector Sep 26: visible in the state set, non-tappable until event-level deep links land
     # build-time star = same max-American rule as client rpBestStar: the star never sits on
