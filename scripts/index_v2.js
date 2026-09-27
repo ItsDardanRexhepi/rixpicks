@@ -175,15 +175,24 @@ function renderGames(t,events){
 }
 function srcDom(s){return s==='CBS'?'cbssports.com':(s==='YAHOO'?'sports.yahoo.com':'espn.com');}
 function unesc(s){var t=document.createElement('textarea');t.innerHTML=String(s==null?'':s);return t.value;}  /* swamp 1:09: feeds ship HTML-encoded headlines (Jets&#39;) - decode before esc() or they double-escape */
+function normH(h){return String(h||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').replace(/^\s+|\s+$/g,'');}
 function newsBucket(t){
- if(!NEWSF||!NEWSF.leagues)return null;
- var L=NEWSF.leagues,out;
- if(t.key==='tennis'){out=(L['tennis/atp']||[]).concat(L['tennis/wta']||[]);}
- else if(t.key==='ufcboxing'){out=(L['mma/ufc']||[]).concat(L['boxing']||[]);}
- else out=L[t.espn]||[];
- out=out.slice();
+ /* instant lane (Dardan 1:13: no lag on news dropping): the visible league's bucket merges
+    the 5-min server file with a direct 25s ESPN poll from the page - new ESPN stories render
+    within ~30s of publish; CBS/Yahoo lanes arrive on the server cadence. */
+ var out=[];
+ if(NEWSF&&NEWSF.leagues){
+  var L=NEWSF.leagues;
+  if(t.key==='tennis'){out=(L['tennis/atp']||[]).concat(L['tennis/wta']||[]);}
+  else if(t.key==='ufcboxing'){out=(L['mma/ufc']||[]).concat(L['boxing']||[]);}
+  else out=L[t.espn]||[];
+  out=out.slice();
+ }
+ out=out.concat(DNEWS[t.key]||[]);
  out.sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);});
- return out;
+ var seen={},ded=[];
+ out.forEach(function(a){var n=normH(a.headline);if(!n||seen[n])return;seen[n]=1;ded.push(a);});
+ return ded;
 }
 function renderNews(t,arts){
  var box=$('rpNews');if(!box)return;
@@ -198,6 +207,7 @@ function renderNews(t,arts){
  box.innerHTML=h;
 }
 var NEWSF=null,NEWSF_TS=0;
+var DNEWS={},DNEWS_TS={};
 var KALW=window.RP_KAL_WATCH||[];
 var KALD={},KALD_TS={},KALIN={};
 function kalHasSfx(tick,sfx){return !!sfx&&tick.length>sfx.length&&tick.slice(-(sfx.length+1))===('-'+sfx);}
@@ -262,6 +272,12 @@ function loadSide(t){
    .then(function(r){if(!r.ok)throw 0;return r.json();})
    .then(function(j){NEWSF=j;NEWSF_TS=Date.now();if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
    .catch(function(){if(cur===t){renderNews(t,newsBucket(t));tickRender();}});
+ }
+ if(!DNEWS_TS[t.key]||now-DNEWS_TS[t.key]>25000){
+  fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/news?limit=8',{cache:'no-store'})
+   .then(function(r){if(!r.ok)throw 0;return r.json();})
+   .then(function(j){DNEWS[t.key]=(j.articles||[]).map(function(a){return {headline:a.headline||'',link:((a.links||{}).web||{}).href||'',published:a.published||'',source:'ESPN'};});DNEWS_TS[t.key]=Date.now();if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
+   .catch(function(){DNEWS_TS[t.key]=Date.now()-10000;});  /* soft backoff, keeps last good */
  }
 }
 setInterval(function(){if(cur&&!document.hidden)loadSide(cur);},30000);

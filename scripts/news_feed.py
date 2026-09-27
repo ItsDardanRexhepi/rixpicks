@@ -94,8 +94,8 @@ LEAGUE_KEYWORDS = {
  'ATP': ['tennis','atp','grand slam','wimbledon','us open','australian open','french open'],
  'WTA': ['tennis','wta','grand slam','wimbledon','us open','australian open','french open'],
  'NASCAR': ['nascar','racing','daytona','cup series'],
- 'UFC': ['ufc','mma','fight','octagon','knockout'],
- 'Boxing': ['boxing','fight','knockout','heavyweight','title bout'],
+ 'UFC': ['ufc'],  # swamp 1:14: promotion, not the sport - generic MMA/boxing falls out
+ 'Boxing': ['boxing','heavyweight','title bout'],
 }
 STRONG_MARKERS = {  # sport-owning tokens: presence in a foreign bucket => reject
  'NFL': ['nfl','super bowl','quarterback','touchdown'],
