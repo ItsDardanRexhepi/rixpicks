@@ -1551,6 +1551,7 @@ if _V2:
     # Shared data: same slates/*.json hydration, no divergent state. Dingers stays on the MLB tab.
     RP_TABS.append({'key':'wooder','label':'Picks from Wooder Ice','espn':''})
 
+    RP_TABS.append({'key':'past','label':'Past Tickets','espn':''})
     # Past Tickets archive (Julian 1:33 spec via main, Dardan full-control): completed/removed picks
     # and tickets with All/Won/Lost filters. Original selection, result, provenance preserved -
     # nothing deleted, just moved. BOUGHT stays visually distinct from SUGGESTED forever; voids render
@@ -1665,7 +1666,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
 
     for t in RP_TABS:
         _prows=''.join(_panels.get(t['key']) or [])
-        _body=(_prows if t['key']=='nfl' else (((nfl_entry+past_entry) if t['key']=='wooder' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows))))
+        _body=(_prows if t['key']=='nfl' else (((nfl_entry+past_entry) if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows)))))
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
