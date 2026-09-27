@@ -1,173 +1,260 @@
 #!/usr/bin/env python3
-"""Kalshi spread/total LADDER scan (deep dive 2026-09-26, his 10:08 PM directive).
-For every Kalshi ladder rung on tomorrow's slate, compute model fair and edge vs executable ask.
-Models: NFL margin/total = book-consensus-anchored normals (FPI overlay shrunk +-3pts - FPI hot-band learning);
-MLB margin = Pythagorean runs split from MY model win prob + book total; MLB total = book total + starter ERA adj;
-WNBA = book-anchored screen-only (no model). Fee = 0.07*P*(1-P). Filters: bought-side fair>=0.60 (J-111 floor),
-gross>=2c (J-124 eligibility). Screen-only rows (no independent model) are labeled and never card-eligible alone."""
-import json, re, statistics
+"""Kalshi spread/total ladder SCANNER (screen-only; deep-dive capability, his 10:08 PM directive).
+Prices every bound ladder rung vs a book-consensus-anchored curve. Output rows are SCREEN HITS,
+NEVER card picks: card_eligible is always False here - a hit must still pass independent model /
+book convergence / availability / URF gates downstream (hunt_v2 + gems.card_gem) before carding.
+
+BINDING (swamp 9/26 rounds 1-3): exact event+date+team+market+line, ambiguity REFUSES (no side
+guessing; doubleheaders/refetches refuse when 2+ slate rows match and the ticker can't disambiguate).
+FRESHNESS: every input carries fetched_at; rows older than --max-age-min are stale, never hits.
+MARKET AVAILABILITY: rung must be status active with a real two-sided quote; zero-activity rungs
+are flagged thin. SOURCE PROVENANCE: every row carries ticker, event_ticker, board fetched_at,
+books fetched_at, n_books.
+
+Models: NFL margin/total = book-consensus normals (sigma 13.8/10.5); MLB margin = Pythagorean runs
+split from BOOK-devigged ML + book total (sigma 4.3 empirical fat tails - 3.1 invented fake edges);
+MLB total = book total + starter ERA adj (sigma 3.0); WNBA = book-anchored screen-only (sigma 13,
+ML+spread calibrated). Fee = 0.07*P*(1-P). Screen-hit bar: fair>=0.60 AND gross>=2c, fresh, bound,
+active market. Far-tail rungs (|z|>=2) are curve noise - excluded from hits by construction label."""
+import json, re, sys, os, statistics, datetime
 from statistics import NormalDist
 ND=NormalDist()
 def fee(p): return 0.07*p*(1-p)
+def inv(p): return ND.inv_cdf(min(max(p,1e-6),1-1e-6))
 def noask(m):
     na=m.get('na')
     if na not in (None,''): return float(na)
     yb=m.get('yb')
     if yb not in (None,''): return round(1-float(yb),4)
     return None
-def inv(p): return ND.inv_cdf(min(max(p,1e-6),1-1e-6))
 
-books=json.load(open('/tmp/st_books_0927.json'))
-slate=json.load(open('/tmp/slate_day_2026-09-27.json'))['rows']
-kal=json.load(open('/tmp/kalshi_ladders_0927.json'))
-nfl_reads={r['away_abbr']+r['home_abbr']:r for r in json.load(open('/tmp/nfl_reads_0927.json'))}
-mlb_edges=json.load(open('/tmp/mlb_0927_edges.json'))
-mlb_raw={r['aa']+r['ha']:r for r in json.load(open('/tmp/mlb_0927_model_raw.json'))}
+DATE=sys.argv[1] if len(sys.argv)>1 else None
+MAX_AGE=int(os.environ.get('LADDER_MAX_AGE_MIN','45'))
+if not DATE: print('usage: ladder_scan.py <YYYY-MM-DD>'); sys.exit(2)
 
-ALIAS={'JAX':'JAC','WSH':'WAS'}  # book/slate abbr -> kalshi abbr where needed
-def kab(a): return ALIAS.get(a,a)
+def load(path, need_ts=True):
+    if not os.path.exists(path):
+        print(f'FAIL LOUD: missing {path}'); return None
+    d=json.load(open(path))
+    if need_ts:
+        ts=d.get('fetched_at') if isinstance(d,dict) else None
+        if not ts:
+            print(f'FAIL LOUD: {path} lacks fetched_at - refusing to price from unstamped input'); return None
+        age=(datetime.datetime.now(datetime.timezone.utc)-datetime.datetime.fromisoformat(ts.replace('Z','+00:00'))).total_seconds()/60
+        if age>MAX_AGE:
+            print(f'FAIL LOUD: {path} is {age:.0f}m old (> {MAX_AGE}m) - stale, refetch'); return None
+        return d, ts
+    return d, None
 
-# book consensus per game keyed by (sport, away, home)
+board_r=load(f'/tmp/kalshi_ladders_{DATE}.json')
+books_r=load(f'/tmp/st_books_{DATE}.json')
+slate=json.load(open(f'/tmp/slate_day_{DATE}.json'))
+if not board_r or not books_r: sys.exit(2)
+board, board_ts = board_r
+books, books_ts = books_r
+if isinstance(books, dict): books=books['games']
+
+DC=board['daycode']
+nfl_edges_p=f'/tmp/nfl_edges_{DATE[5:7]}{DATE[8:10]}.json'
+mlb_edges_p=f'/tmp/mlb_{DATE[5:7]}{DATE[8:10]}_edges.json'
+mlb_raw_p=f'/tmp/mlb_{DATE[5:7]}{DATE[8:10]}_model_raw.json'
+nfl_edges=json.load(open(nfl_edges_p)) if os.path.exists(nfl_edges_p) else []
+mlb_edges=json.load(open(mlb_edges_p)) if os.path.exists(mlb_edges_p) else []
+mlb_raw={r['aa']+r['ha']:r for r in json.load(open(mlb_raw_p))} if os.path.exists(mlb_raw_p) else {}
+
+ALIAS_NFL={'JAX':'JAC','WSH':'WAS'}  # NFL-only - applying it to MLB/WNBA corrupts binds (WSH Nationals)
+def kab(a, league=None):
+    return ALIAS_NFL.get(a,a) if league=='NFL' else a
+
 def consensus(g):
-    hs=[];tot=[]
+    hs=[];tot=[];mlh=[];mla=[]
     for bk,mk in g['books'].items():
         for o in mk.get('spreads',[]):
             if o['side']=='home' and o['point'] is not None: hs.append(o['point'])
         for o in mk.get('totals',[]):
             if o['side']=='over' and o['point'] is not None: tot.append(o['point'])
-    return (statistics.median(hs) if hs else None, statistics.median(tot) if tot else None, len(g['books']))
+        for o in mk.get('h2h',[]):
+            if o['side']=='home' and o['price']: mlh.append(o['price'])
+            if o['side']=='away' and o['price']: mla.append(o['price'])
+    def d2p(a): return (-a)/(-a+100) if a<0 else 100/(a+100)
+    ph=pa=None
+    if mlh and mla:
+        mh=statistics.median([d2p(x) for x in mlh]); ma=statistics.median([d2p(x) for x in mla])
+        ph=mh/(mh+ma); pa=ma/(mh+ma)
+    return {'home_spread':statistics.median(hs) if hs else None,
+            'total':statistics.median(tot) if tot else None,
+            'p_home':ph,'n_books':len(g['books'])}
 bookmap={}
-for g in books: bookmap[(g['sport'],g['away'],g['home'])]=consensus(g)
+for g in books:
+    k=(g['sport'],g['away'],g['home'])
+    if k in bookmap: bookmap[k]='AMBIG'
+    else: bookmap[k]=consensus(g)
 
-# slate lookup by (league, away_abbr+home_abbr with kalshi alias)
+# slate instance map: (league, abbrpair) -> list of rows (doubleheader-safe; refuse ambiguity)
 slmap={}
-for r in slate:
+for r in slate['rows']:
     aa,ha=r.get('away_abbr'),r.get('home_abbr')
-    if aa and ha: slmap[(r['league'], kab(aa)+kab(ha))]=r
-    if r.get('away') and r.get('home'): slmap[(r['league'], r['away'], r['home'])]=r
+    if not (aa and ha): continue
+    slmap.setdefault((r['league'], kab(aa,r['league'])+kab(ha,r['league'])), []).append(r)
+MLB_KALSHI_TO_SLATE={'CWS':'CHW'}
+def bind_slate(league, abbrpair, hint_hhmm=None):
+    keys=[abbrpair]
+    if league=='MLB':
+        for a,b in MLB_KALSHI_TO_SLATE.items():
+            keys.append(abbrpair.replace(a,b))
+    rows=[]
+    for k in keys:
+        rows=slmap.get((league,k),[])
+        if rows: break
+    if not rows: return None,'no slate row'
+    if len(rows)>1 and hint_hhmm:
+        from zoneinfo import ZoneInfo
+        m=[r for r in rows if datetime.datetime.fromisoformat(r['commence_utc'].replace('Z','+00:00')).astimezone(ZoneInfo('America/New_York')).strftime('%H%M')==hint_hhmm]
+        if len(m)==1: return m[0],None
+    if len(rows)==1: return rows[0],None
+    return None,f'ambiguous slate instance ({len(rows)} rows) - REFUSING'
 
-SIG_NFL_M=13.8; SIG_NFL_T=10.5; SIG_MLB_M=4.3; SIG_MLB_T=3.0; SIG_WNBA_M=12.0; SIG_WNBA_T=15.0
-out=[]
-def add(league, game, mtype, rung, side, fair, ask, model_kind, extra=None):
+SIG_NFL_M=13.8; SIG_NFL_T=10.5; SIG_MLB_M=4.3; SIG_MLB_T=3.4; SIG_WNBA_M=13.0; SIG_WNBA_T=15.0
+MAX_Z_HIT=0.5  # hits only near the book line; totals hits suppressed until sigma calibrated to market alt-line curves
+out=[]; errors=[]
+def add(league, game, mtype, rung, side, fair, ask, model_kind, src, extra=None):
     if ask is None or fair is None: return
     ask=float(ask)
-    if ask<=0.001 or ask>=0.999: return
+    if not (0.001<ask<0.999): return
     gross=fair-ask; net=gross-fee(ask)
+    z=abs(extra.get('z',0)) if extra else 0
+    thin = bool(extra and (not extra.get('vol')) and (not extra.get('oi')))
+    curve_unvalidated = (mtype=='total')  # totals sigmas not calibrated to market alt curves yet
     row={'league':league,'game':game,'type':mtype,'rung':rung,'side':side,'fair':round(fair,4),
          'ask':ask,'gross_c':round(gross*100,1),'net_c':round(net*100,1),'model':model_kind,
-         'floor60_ok':fair>=0.60,'eligible':fair>=0.60 and gross>=0.02}
-    if extra: row.update(extra)
+         'screen_hit': bool(fair>=0.60 and gross>=0.02 and z<MAX_Z_HIT and not thin and not curve_unvalidated),
+         'card_eligible': False,  # NEVER cardable from scanner output alone - gates live downstream
+         'requires_gates':['fresh_quote','exact_binding','book_convergence','availability','urf'],
+         'thin_market': thin, 'far_tail_excluded': bool(z>=2), 'curve_unvalidated': curve_unvalidated,
+         'src':src}
+    if extra: row.update({k:v for k,v in extra.items() if k!='z'})
     out.append(row)
 
-nfl_games=set()
-for m in kal.get('KXNFLSPREAD',[])+kal.get('KXNFLTOTAL',[]):
-    mt=re.match(r'KXNFL(?:SPREAD|TOTAL)-26SEP27([A-Z]+)-([A-Z]+)(\d+)$', m['t'])
-    if not mt: continue
-    gcode, team, n = mt.group(1), mt.group(2), int(mt.group(3)); thr=n-0.5
-    nfl_games.add(gcode)
-    row=slmap.get(('NFL',gcode))
-    if not row: continue
-    bk=bookmap.get(('americanfootball_nfl',row['away'],row['home']))
-    if not bk or bk[0] is None: continue
-    hs,tt,nbk=bk
-    mu_book=-hs  # home margin
-    rd=nfl_reads.get(gcode)
-    mu=mu_book
-    mu_fpi=None
-    if rd and rd.get('fpi_home') is not None:
-        mu_fpi=inv(rd['fpi_home']/100)*SIG_NFL_M  # comparison only, not blended
-    if 'SPREAD' in m['t']:
-        home_covers = (team==row['home_abbr'] or team==kab(row['home_abbr']))
-        fair_yes = 1-ND.cdf((thr-mu)/SIG_NFL_M) if home_covers else ND.cdf((-thr-mu)/SIG_NFL_M)
-        # away team wins by over thr  <=>  home margin < -thr
-        fpi_agrees=None
-        if mu_fpi is not None: fpi_agrees = (mu_fpi-mu_book)*( (thr) if home_covers else (-thr) ) > 0 and abs(mu_fpi-mu_book)>1
-        add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}", 'YES', fair_yes, m['ya'],'nfl_book_anchor',{'n_books':nbk,'book_spread':hs,'mu':round(mu,1),'fpi_agrees':fpi_agrees,'vol':m['vol'],'oi':m['oi']})
-        if m.get('na') is not None: add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'NO',1-fair_yes,noask(m),'nfl_book_anchor',{'n_books':nbk,'book_spread':hs,'mu':round(mu,1),'fpi_agrees':None if mu_fpi is None else ((mu_fpi-mu_book)*((thr) if home_covers else (-thr))<0 and abs(mu_fpi-mu_book)>1)})
-    else:
-        fair_over=1-ND.cdf((thr-tt)/SIG_NFL_T)
-        add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'YES',fair_over,m['ya'],'nfl_book_total',{'n_books':nbk,'book_total':tt,'vol':m['vol'],'oi':m['oi']})
-        if m.get('na') is not None: add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'NO',1-fair_over,noask(m),'nfl_book_total',{'n_books':nbk,'book_total':tt})
+def active(m): return m.get('status')=='active'
 
-for m in kal.get('KXMLBSPREAD',[])+kal.get('KXMLBTOTAL',[]):
-    mt=re.match(r'KXMLB(?:SPREAD|TOTAL)-26SEP27\d{4}([A-Z]+)-([A-Z]+)(\d+)$', m['t'])
-    if not mt: continue
-    gcode, team, n = mt.group(1), mt.group(2), int(mt.group(3)); thr=n-0.5
-    row=slmap.get(('MLB',gcode))
-    if not row: continue
-    bk=bookmap.get(('baseball_mlb',row['away'],row['home']))
-    raw=mlb_raw.get(row['away_abbr']+row['home_abbr'])
-    if not bk or bk[1] is None or not raw: continue
-    hs,tt,nbk=bk
-    # book-implied home ML devig for anchor
-    ml_h=[]; ml_a=[]
-    for bk2,mk2 in books and [(b['books']) for b in books if b['sport']=='baseball_mlb' and b['away']==row['away'] and b['home']==row['home']][0].items():
-        pass
-    p_home_book=None
-    gbook=[b for b in books if b['sport']=='baseball_mlb' and b['away']==row['away'] and b['home']==row['home']]
-    if gbook:
-        hs2=[];as2=[]
-        for bkname,mk2 in gbook[0]['books'].items():
-            for o in mk2.get('h2h',[]):
-                if o['side']=='home' and o['price']: hs2.append(o['price'])
-                if o['side']=='away' and o['price']: as2.append(o['price'])
-        if hs2 and as2:
-            import statistics as st2
-            def d2p(a): return (-a)/(-a+100) if a<0 else 100/(a+100)
-            ph=st2.median([d2p(x) for x in hs2]); pa=st2.median([d2p(x) for x in as2])
-            p_home_book=ph/(ph+pa)
-    if p_home_book is None: continue
-    p_model_home=None
-    for e in mlb_edges:
-        if e['game']==f"{row['away_abbr']}@{row['home_abbr']}" and e['side']==row['home']: p_model_home=e['model']
-    r=(p_home_book/(1-p_home_book))**(1/1.83); Eh=tt*r/(1+r); Ea=tt/(1+r); mu=Eh-Ea
-    if 'SPREAD' in m['t']:
-        home_side=(team==row['home_abbr'])
-        fair_yes=1-ND.cdf((thr-mu)/SIG_MLB_M) if home_side else ND.cdf((-thr-mu)/SIG_MLB_M)
-        add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'YES',fair_yes,m['ya'],'mlb_book_pyth',{'n_books':nbk,'book_total':tt,'p_home_book':round(p_home_book,3),'p_home_model':p_model_home,'vol':m['vol'],'oi':m['oi']})
-        if m.get('na') is not None: add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'NO',1-fair_yes,noask(m),'mlb_model_pyth',{'n_books':nbk})
+for m in board['series'].get('KXNFLSPREAD',[])+board['series'].get('KXNFLTOTAL',[]):
+    if not active(m): continue
+    is_total='TOTAL' in m['t']
+    ev=m.get('event_ticker') or ''
+    gcode=re.sub(r'^KXNFL(?:SPREAD|TOTAL)-','',ev)
+    gcode=re.sub(r'^\d{2}[A-Z]{3}\d{2}','',gcode) or re.match(rf'KXNFL(?:SPREAD|TOTAL)-{DC}([A-Z]+)-',m['t']).group(1)
+    row,bind_err=bind_slate('NFL',gcode)
+    if not row: errors.append(f"NFL {m['t']}: {bind_err}"); continue
+    bk=bookmap.get(('americanfootball_nfl',row['away'],row['home']))
+    if bk in (None,'AMBIG') or bk['home_spread'] is None: errors.append(f"NFL {m['t']}: book map {'ambiguous' if bk=='AMBIG' else 'missing'}"); continue
+    suf=m['t'].rsplit('-',1)[-1]
+    src={'ticker':m['t'],'event_ticker':m.get('event_ticker'),'board_ts':board_ts,'books_ts':books_ts,'n_books':bk['n_books']}
+    if is_total:
+        if not suf.isdigit(): errors.append(f"NFL total suffix not numeric: {m['t']}"); continue
+        if 'over' not in (m.get('title') or '').lower(): errors.append(f"NFL total title not O/U: {m.get('title')}"); continue
+        thr=int(suf)-0.5
+        if bk['total'] is None: continue
+        z=(thr-bk['total'])/SIG_NFL_T
+        fair=1-ND.cdf(z)
+        add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'YES',fair,m['ya'],'nfl_book_anchor',src,{'z':z,'book_total':bk['total'],'vol':m['vol'],'oi':m['oi']})
+        add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'NO',1-fair,noask(m),'nfl_book_anchor',src,{'z':z,'book_total':bk['total'],'vol':m['vol'],'oi':m['oi']})
     else:
-        era_h=raw.get('home_era_l5'); era_a=raw.get('away_era_l5')
-        adj=0.0
-        if era_h and era_a: adj=max(-1.5,min(1.5,0.63*(era_h+era_a-8.2)))
-        tmod=tt+adj
-        fair_over=1-ND.cdf((thr-tmod)/SIG_MLB_T)
-        add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'YES',fair_over,m['ya'],'mlb_total_era',{'n_books':nbk,'book_total':tt,'t_model':round(tmod,2),'vol':m['vol'],'oi':m['oi']})
-        if m.get('na') is not None: add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'NO',1-fair_over,noask(m),'mlb_total_era',{'n_books':nbk})
+        mt=re.match(r'([A-Z]+)(\d+)$',suf)
+        if not mt: errors.append(f"NFL spread suffix unparseable: {m['t']}"); continue
+        team,thr=mt.group(1),int(mt.group(2))-0.5
+        aa,ha=kab(row['away_abbr'],'NFL'),kab(row['home_abbr'],'NFL')
+        if team==ha: home_covers=True
+        elif team==aa: home_covers=False
+        else: errors.append(f"NFL spread suffix team {team} not in {aa}/{ha}: {m['t']} - REFUSING side"); continue
+        mu=-bk['home_spread']
+        z=((thr-mu) if home_covers else (-thr-mu))/SIG_NFL_M
+        fair=(1-ND.cdf(z)) if home_covers else ND.cdf(z)
+        add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'YES',fair,m['ya'],'nfl_book_anchor',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
+        add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'NO',1-fair,noask(m),'nfl_book_anchor',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
+
+for m in board['series'].get('KXMLBSPREAD',[])+board['series'].get('KXMLBTOTAL',[]):
+    if not active(m): continue
+    is_total='TOTAL' in m['t']
+    mt0=re.match(rf'KXMLB(?:SPREAD|TOTAL)-{DC}(\d{{4}})([A-Z]+)-',m['t'])
+    if not mt0: errors.append(f"MLB ticker unparseable: {m['t']}"); continue
+    hhmm,gcode=mt0.group(1),mt0.group(2)
+    row,bind_err=bind_slate('MLB',gcode,hint_hhmm=hhmm)
+    if not row: errors.append(f"MLB {m['t']}: {bind_err}"); continue
+    bk=bookmap.get(('baseball_mlb',row['away'],row['home']))
+    if bk in (None,'AMBIG') or bk['total'] is None or bk['p_home'] is None: errors.append(f"MLB {m['t']}: book map {'ambiguous' if bk=='AMBIG' else 'missing'}"); continue
+    suf=m['t'].rsplit('-',1)[-1]
+    src={'ticker':m['t'],'event_ticker':m.get('event_ticker'),'board_ts':board_ts,'books_ts':books_ts,'n_books':bk['n_books']}
+    if is_total:
+        if not suf.isdigit(): errors.append(f"MLB total suffix not numeric: {m['t']}"); continue
+        if 'over' not in (m.get('title') or '').lower(): errors.append(f"MLB total title not O/U: {m.get('title')}"); continue
+        # NO starter-ERA adjustment: the book total already prices the probables - adjusting
+        # again double-counts and fabricated +8..+21c phantom hits on the first rewrite run.
+        tmod=bk['total']; thr=int(suf)-0.5
+        z=(thr-tmod)/SIG_MLB_T
+        fair=1-ND.cdf(z)
+        add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'YES',fair,m['ya'],'mlb_total_era',src,{'z':z,'book_total':bk['total'],'t_model':round(tmod,2),'vol':m['vol'],'oi':m['oi']})
+        add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'NO',1-fair,noask(m),'mlb_total_era',src,{'z':z,'book_total':bk['total'],'t_model':round(tmod,2),'vol':m['vol'],'oi':m['oi']})
+    else:
+        mt=re.match(r'([A-Z]+)(\d+)$',suf)
+        if not mt: errors.append(f"MLB spread suffix unparseable: {m['t']}"); continue
+        team,thr=mt.group(1),int(mt.group(2))-0.5
+        team=MLB_KALSHI_TO_SLATE.get(team,team)
+        aa,ha=row['away_abbr'],row['home_abbr']
+        if team==ha: home_covers=True
+        elif team==aa: home_covers=False
+        else: errors.append(f"MLB spread suffix team {team} not in {aa}/{ha}: {m['t']} - REFUSING side"); continue
+        r=(bk['p_home']/(1-bk['p_home']))**(1/1.83); Eh=bk['total']*r/(1+r); Ea=bk['total']/(1+r); mu=Eh-Ea
+        z=((thr-mu) if home_covers else (-thr-mu))/SIG_MLB_M
+        fair=(1-ND.cdf(z)) if home_covers else ND.cdf(z)
+        add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'YES',fair,m['ya'],'mlb_book_pyth',src,{'z':z,'book_total':bk['total'],'p_home_book':round(bk['p_home'],3),'vol':m['vol'],'oi':m['oi']})
+        add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'NO',1-fair,noask(m),'mlb_book_pyth',src,{'z':z,'book_total':bk['total'],'p_home_book':round(bk['p_home'],3),'vol':m['vol'],'oi':m['oi']})
 
 for series,mtype in [('KXWNBASPREAD','spread'),('KXWNBATOTAL','total'),('KXWNBAGAME','ml')]:
-    for m in kal.get(series,[]):
-        mt=re.match(r'KXWNBA(?:SPREAD|TOTAL|GAME)-26SEP27([A-Z]+)-([A-Z]+?)(\d*)$', m['t'])
-        if not mt: continue
-        gcode, team, ns = mt.group(1), mt.group(2), mt.group(3); thr=int(ns)-0.5 if ns else None
-        row=slmap.get(('WNBA',gcode))
-        if not row: continue
+    for m in board['series'].get(series,[]):
+        if not active(m): continue
+        ev=m.get('event_ticker') or ''
+        gcode=re.sub(rf'^{series}-','',ev)
+        gcode=re.sub(r'^\d{2}[A-Z]{3}\d{2}','',gcode) or re.match(rf'{series}-{DC}([A-Z]+)-',m['t']).group(1)
+        row,bind_err=bind_slate('WNBA',gcode)
+        if not row: errors.append(f"WNBA {m['t']}: {bind_err}"); continue
         bk=bookmap.get(('basketball_wnba',row['away'],row['home']))
-        if not bk: continue
-        hs,tt,nbk=bk
-        if mtype=='spread' and hs is not None:
-            mu=-hs; home_side=(team==row['home_abbr'] or team==kab(row['home_abbr']))
-            fair_yes=1-ND.cdf((thr-mu)/SIG_WNBA_M) if home_side else ND.cdf((-thr-mu)/SIG_WNBA_M)
-            add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'YES',fair_yes,m['ya'],'wnba_book_SCREENONLY',{'n_books':nbk,'book_spread':hs})
-            if m.get('na') is not None: add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'NO',1-fair_yes,noask(m),'wnba_book_SCREENONLY',{})
-        elif mtype=='total' and tt is not None:
-            fair_over=1-ND.cdf((thr-tt)/SIG_WNBA_T)
-            add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'YES',fair_over,m['ya'],'wnba_book_SCREENONLY',{'n_books':nbk,'book_total':tt})
-            if m.get('na') is not None: add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'NO',1-fair_over,noask(m),'wnba_book_SCREENONLY',{})
-        elif mtype=='ml':
-            # ML from book-anchored margin dist at 0: P(team wins)
-            if hs is None: continue
-            mu=-hs; home_side=(team==row['home_abbr'] or team==kab(row['home_abbr']))
-            fair_yes=1-ND.cdf((0-mu)/SIG_WNBA_M) if home_side else ND.cdf((0-mu)/SIG_WNBA_M)
-            add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",'ml',f"{team} wins",'YES',fair_yes,m['ya'],'wnba_book_SCREENONLY',{'n_books':nbk})
+        if bk in (None,'AMBIG') or bk['home_spread'] is None: errors.append(f"WNBA {m['t']}: book map {'ambiguous' if bk=='AMBIG' else 'missing'}"); continue
+        suf=m['t'].rsplit('-',1)[-1]
+        src={'ticker':m['t'],'event_ticker':m.get('event_ticker'),'board_ts':board_ts,'books_ts':books_ts,'n_books':bk['n_books']}
+        mu=-bk['home_spread']
+        if mtype=='spread':
+            mt=re.match(r'([A-Z]+)(\d+)$',suf)
+            if not mt: errors.append(f"WNBA spread suffix unparseable: {m['t']}"); continue
+            team,thr=mt.group(1),int(mt.group(2))-0.5
+            aa,ha=row['away_abbr'],row['home_abbr']
+            if team==ha: home_covers=True
+            elif team==aa: home_covers=False
+            else: errors.append(f"WNBA spread suffix team {team} not in {aa}/{ha}: {m['t']} - REFUSING side"); continue
+            z=((thr-mu) if home_covers else (-thr-mu))/SIG_WNBA_M
+            fair=(1-ND.cdf(z)) if home_covers else ND.cdf(z)
+        elif mtype=='total':
+            if not suf.isdigit(): errors.append(f"WNBA total suffix not numeric: {m['t']}"); continue
+            if 'over' not in (m.get('title') or '').lower(): errors.append(f"WNBA total title not O/U: {m.get('title')}"); continue
+            thr=int(suf)-0.5
+            z=(thr-bk['total'])/SIG_WNBA_T; fair=1-ND.cdf(z)
+        else:
+            team=suf
+            aa,ha=row['away_abbr'],row['home_abbr']
+            if team==ha: home_covers=True
+            elif team==aa: home_covers=False
+            else: errors.append(f"WNBA ML suffix team {team} not in {aa}/{ha}: {m['t']} - REFUSING side"); continue
+            z=((0-mu) if home_covers else (0-mu))/SIG_WNBA_M
+            fair=(1-ND.cdf(z)) if home_covers else ND.cdf(z)
+        add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",mtype,f"{suf}",'YES',fair,m['ya'],'wnba_book_SCREENONLY',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
+        add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",mtype,f"{suf}",'NO',1-fair,noask(m),'wnba_book_SCREENONLY',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
 
-json.dump(out, open('/tmp/ladder_scan_0927.json','w'))
-elig=[r for r in out if r['eligible']]
-print(f"rungs priced: {len(out)} | eligible (fair>=60c & gross>=2c): {len(elig)}")
-for r in sorted(elig, key=lambda x:-x['gross_c']):
-    print(f"  {r['league']} {r['game']} {r['type']} {r['rung']} {r['side']} | fair {r['fair']:.1%} ask {r['ask']:.0%} | gross {r['gross_c']:+.1f}c net {r['net_c']:+.1f}c | {r['model']}" + (f" | vol {r.get('vol')} oi {r.get('oi')}" if r.get('vol') else ''))
-# near-eligible (gross 1.5-2c) for visibility
-near=[r for r in out if not r['eligible'] and r['fair']>=0.60 and 0.015<=r['gross_c']/100<0.02]
-print(f"near (gross 1.5-2c, fair>=60c): {len(near)}")
-for r in sorted(near, key=lambda x:-x['gross_c'])[:10]:
-    print(f"  ~{r['league']} {r['game']} {r['type']} {r['rung']} {r['side']} | fair {r['fair']:.1%} ask {r['ask']:.0%} gross {r['gross_c']:+.1f}c")
+result={'scanned_at':datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
+        'slate_date':DATE,'rows':out,'binding_errors':errors}
+json.dump(result, open(f'/tmp/ladder_scan_{DATE}.json','w'))
+hits=[r for r in out if r['screen_hit']]
+print(f"rungs priced: {len(out)} | SCREEN HITS (never card-eligible alone): {len(hits)} | binding errors refused: {len(errors)}")
+for r in sorted(hits, key=lambda x:-x['gross_c']):
+    print(f"  {r['league']} {r['game']} {r['type']} {r['rung']} {r['side']} | fair {r['fair']:.1%} ask {r['ask']:.0%} | gross {r['gross_c']:+.1f}c net {r['net_c']:+.1f}c | {r['model']} | {r['src']['ticker']}")
+if errors:
+    print("REFUSED (ambiguity/binding - fail closed):")
+    for e in errors[:15]: print('  ', e)
