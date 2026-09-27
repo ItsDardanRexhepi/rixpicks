@@ -257,7 +257,7 @@
           "units": "5u",
           "result": "W",
           "score": "TB 3, PHI 7",
-          "_delta": "3.07"
+          "_delta": "3.067484662576687116564417178"
         },
         {
           "name": "Brewers ML",
@@ -266,7 +266,7 @@
           "units": "5u",
           "result": "W",
           "score": "STL 4, MIL 6",
-          "_delta": "2.24"
+          "_delta": "2.242152466367713004484304933"
         },
         {
           "name": "Dodgers ML",
@@ -275,7 +275,7 @@
           "units": "5u",
           "result": "W",
           "score": "LAD 5, SF 1",
-          "_delta": "2.15"
+          "_delta": "2.145922746781115879828326180"
         }
       ]
     }
