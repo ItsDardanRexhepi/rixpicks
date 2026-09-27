@@ -1,7 +1,7 @@
 {
  "date": "2026-09-27",
  "date_label": "Sunday, Sep 27",
- "updated": "Sep 27, 7:16 AM PT",
+ "updated": "Sep 27, 7:17 AM PT",
  "record": "13-6",
  "units_pl": "+3.89u",
  "units_ledger": null,
@@ -13,7 +13,7 @@
    "Lynx ML"
   ],
   "label": "BUILD THIS PARLAY (+90)",
-  "note": "52.6c combined at publish-time exchange asks (~+90).",
+  "note": "Combined ~+90 at publish-time prices.",
   "kalshi_legs": [
    {
     "ticker": "KXNFLGAME-26SEP27NYJDET",
@@ -51,7 +51,7 @@
    },
    "card_american": -270,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:16:25-07:00",
+   "card_ts": "2026-09-27T07:17:41-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -79,7 +79,7 @@
    },
    "card_american": -163,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:16:25-07:00",
+   "card_ts": "2026-09-27T07:17:41-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -107,7 +107,7 @@
    },
    "card_american": -257,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:16:25-07:00",
+   "card_ts": "2026-09-27T07:17:41-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -135,7 +135,7 @@
    },
    "card_american": -163,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:16:25-07:00",
+   "card_ts": "2026-09-27T07:17:41-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -163,7 +163,7 @@
    },
    "card_american": -233,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:16:25-07:00",
+   "card_ts": "2026-09-27T07:17:41-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -191,7 +191,7 @@
    },
    "card_american": -223,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:16:25-07:00",
+   "card_ts": "2026-09-27T07:17:41-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -219,10 +219,10 @@
    },
    "card_american": -270,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:16:25-07:00",
+   "card_ts": "2026-09-27T07:17:41-07:00",
    "polymarket": null,
    "dkp": null
   }
  ],
- "pick_content_hash": "f7027403484f4540594af3f4157d043dc303ffb4db98c83f9b34e9bdb619134e"
+ "pick_content_hash": "40f197f89b12722542b6dfcc2323447395e9cafb6667b9386c2c6694ebac42de"
 }
