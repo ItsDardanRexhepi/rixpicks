@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T18:14:25.315729+00:00",
+ "generated_at": "2026-09-27T18:38:35.972480+00:00",
  "window": "sun-early",
  "legs": [
   {
@@ -8,9 +8,9 @@
    "team": "DET",
    "matchup": "NYJ @ DET",
    "price_c": 74,
-   "td_scored": false,
-   "td_count": 0,
-   "last_td": null,
+   "td_scored": true,
+   "td_count": 1,
+   "last_td": "Jahmyr Gibbs 17 Yd Rush (Jake Bates Kick)",
    "espn_event_id": "401872954"
   },
   {
@@ -89,8 +89,8 @@
    "matchup": "NYJ @ DET",
    "espn_event_id": "401872954",
    "status": "in",
-   "detail": "0:41 - 2nd",
-   "score": "DET 10 - NYJ 7"
+   "detail": "10:56 - 3rd",
+   "score": "DET 17 - NYJ 7"
   },
   {
    "matchup": "BAL @ DAL",
@@ -103,29 +103,29 @@
    "matchup": "KC @ MIA",
    "espn_event_id": "401872952",
    "status": "in",
-   "detail": "2:00 - 2nd",
+   "detail": "Halftime",
    "score": "MIA 7 - KC 14"
   },
   {
    "matchup": "LAC @ BUF",
    "espn_event_id": "401872953",
    "status": "in",
-   "detail": "2:00 - 2nd",
-   "score": "BUF 3 - LAC 10"
+   "detail": "Halftime",
+   "score": "BUF 10 - LAC 10"
   },
   {
    "matchup": "SEA @ WAS",
    "espn_event_id": "401872955",
    "status": "in",
-   "detail": "6:47 - 2nd",
+   "detail": "1:13 - 2nd",
    "score": "WSH 14 - SEA 7"
   },
   {
    "matchup": "CIN @ PIT",
    "espn_event_id": "401872950",
    "status": "in",
-   "detail": "4:30 - 2nd",
-   "score": "PIT 17 - CIN 10"
+   "detail": "Halftime",
+   "score": "PIT 17 - CIN 17"
   }
  ]
 }
