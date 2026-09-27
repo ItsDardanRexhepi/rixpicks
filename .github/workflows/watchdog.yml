@@ -1,7 +1,7 @@
 name: failure-watchdog
 on:
   workflow_run:
-    workflows: [odds-refresh, wooder-td-tracker, kalshi-quotes, extras-sweep, publish-card]
+    workflows: [odds-refresh, wooder-td-tracker, kalshi-quotes, extras-sweep, publish-card, nfl-scores-confirm]
     types: [completed]
 permissions:
   contents: write
@@ -15,9 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: validate workflow YAML
+        run: |
+          pip install -q pyyaml
+          python3 scripts/check_workflows.py
       - name: diagnose + budgeted auto-retry
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
