@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T21:57:03.515643+00:00",
+ "generated_at": "2026-09-27T22:01:19.049614+00:00",
  "window": "sun-afternoon",
  "legs": [
   {
@@ -8,9 +8,9 @@
    "team": "SF",
    "matchup": "ARI @ SF",
    "price_c": 69,
-   "td_scored": false,
-   "td_count": 0,
-   "last_td": null,
+   "td_scored": true,
+   "td_count": 1,
+   "last_td": "Christian McCaffrey 1 Yd Rush (Eddy Pineiro PAT Failed)",
    "espn_event_id": "401872958"
   },
   {
@@ -90,8 +90,8 @@
    "espn_event_id": "401872958",
    "commence": "2026-09-27T20:05Z",
    "status": "in",
-   "detail": "11:59 - 3rd",
-   "score": "SF 17 - ARI 6"
+   "detail": "11:07 - 3rd",
+   "score": "SF 23 - ARI 6"
   },
   {
    "matchup": "BAL @ DAL",
@@ -114,7 +114,7 @@
    "espn_event_id": "401872959",
    "commence": "2026-09-27T20:05Z",
    "status": "in",
-   "detail": "12:21 - 3rd",
+   "detail": "10:45 - 3rd",
    "score": "TB 10 - MIN 17"
   }
  ]
