@@ -2,12 +2,21 @@
 """Hunt evaluator v2 - per-event gates over the local-day slate. Reusable (speed directive).
 Usage: python3 hunt_v2.py /tmp/slate_day_<date>.json /tmp/hunt_v2_<date>.jsonl
 """
-import json, datetime, re, sys
+import json, datetime, re, sys, os, glob
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # repo-local urf (packaged)
 sys.path.insert(0,'/home/sandbox')
 import urf  # URF core (user directive phonemsg-01M3FR1WBQXZFBHXSQ8ZQ45HMH): every candidate card decision runs the six gates
+def _newest(pat):
+    fs = sorted(glob.glob(pat), key=os.path.getmtime)
+    return fs[-1] if fs else None
+MKTS_PATH='/tmp/kalshi_open_by_league.json'; CFB_PATH='/tmp/cfb_weighted.json'; MLB_PATH=_newest('/tmp/mlb_*_edges.json')
+_missing=[n for p,n in ((MKTS_PATH,'kalshi open feed'),(CFB_PATH,'cfb model'),(MLB_PATH,'mlb edges'),
+                        ('/tmp/mls_edges.json','mls edges'),('/tmp/nwsl_model_out.json','nwsl model')) if not p or not os.path.exists(p)]
+if _missing:
+    print('FAIL LOUD: missing production feeds: '+', '.join(_missing)+' - hunt cannot run; fix the feed chain, do not degrade quietly'); sys.exit(2)
 slate = json.load(open(sys.argv[1]))
-mkts = json.load(open('/tmp/kalshi_open_by_league.json'))
-cfb_model = {g['id']: g for g in json.load(open('/tmp/cfb_weighted.json'))}
+mkts = json.load(open(MKTS_PATH))
+cfb_model = {g['id']: g for g in json.load(open(CFB_PATH))}
 def gem_check(best):
     """J-119 gem screen: near-miss candidates get flagged, not silently cut."""
     if not best: return None
@@ -18,30 +27,46 @@ def gem_check(best):
     return reasons if len(reasons)>=2 else None
 gems=[]
 
-mlb_edges = [e for e in json.load(open('/tmp/mlb_0926_edges.json')) if 'side' in e]
+mlb_edges = [e for e in json.load(open(MLB_PATH)) if 'side' in e]
 mls_edges = json.load(open('/tmp/mls_edges.json'))
 nwsl_model = json.load(open('/tmp/nwsl_model_out.json'))
 
 def fee(ask): return 0.07*ask*(1-ask)
 def tok(s): return re.sub(r'[^A-Z0-9]','',(s or '').upper())
+def daycode(commence_utc):
+    # Kalshi event-ticker date token (YYMMMDD) from the game's commence, user-local day
+    from zoneinfo import ZoneInfo
+    dt = datetime.datetime.fromisoformat(commence_utc.replace('Z','+00:00')).astimezone(ZoneInfo('America/Los_Angeles'))
+    return dt.strftime('%y%b%d').upper()
 def bind_standard(row, markets):
     ALIAS={'CHW':'CWS','ARI':'AZ'}  # ESPN abbr -> Kalshi abbr
     aa0, ha0 = tok(row.get('away_abbr')), tok(row.get('home_abbr'))
     aa, ha = ALIAS.get(aa0,aa0), ALIAS.get(ha0,ha0)
     if not aa or not ha: return []
-    # exact-instance: event code must be EXACTLY away+home or home+away abbr concat (substring matching
+    # exact-instance: same-day date token + EXACT away+home or home+away abbr concat (substring matching
     # produced the Oklahoma@Georgia -> HOUGASO contamination; under-binding is the safe direction)
+    dc = daycode(row['commence_utc'])
     ok = {aa+ha, ha+aa}
     def code(t):
-        seg = t.split('-')[1].replace('26SEP26','')
+        seg = t.split('-')[1]
+        seg = re.sub(r'^\d{2}[A-Z]{3}\d{2}','',seg)  # strip the YYMMMDD date token
         return re.sub(r'^\d{4}','',seg)  # MLB embeds a HHMM start-time token before the team concat
-    return [m for m in markets if '26SEP26' in m['ticker'] and code(m['ticker']) in ok]
+    return [m for m in markets if dc in m['ticker'] and code(m['ticker']) in ok]
+def _surnames(match_str):
+    parts = re.split(r'\s+vs\.?\s+', match_str.split('[')[0], flags=re.I)
+    out = []
+    for p in parts[:2]:
+        words = [w for w in re.findall(r"[A-Za-z']+", p) if len(w) >= 3]
+        if words: out.append(words[-1].lower())
+    return out
 def bind_fight(row, markets):
-    names=[n for n in re.findall(r"[A-Za-z']+", row['match'].split('[')[0]) if len(n)>=4]
-    return [m for m in markets if any(n.lower() in (m.get('title') or '').lower() for n in names)]
+    sn = _surnames(row['match'])
+    if len(sn) < 2: return []  # fail closed - cannot identify both fighters
+    return [m for m in markets if all(s in (m.get('title') or '').lower() for s in sn)]
 def bind_tennis(row, markets):
-    names=[n for n in re.findall(r"[A-Za-z']+", row['match'].split('[')[0]) if len(n)>=4]
-    return [m for m in markets if any(n.lower() in (m.get('title') or '').lower() for n in names)]
+    sn = _surnames(row['match'])
+    if len(sn) < 2: return []
+    return [m for m in markets if all(s in (m.get('title') or '').lower() for s in sn)]
 def model_fair(lg, r):
     if lg=='CFB':
         g=cfb_model.get(r.get('parent_event_id'))
@@ -78,24 +103,24 @@ for r in slate['rows']:
     bound = bind_tennis(r, mkts.get(lg,[])) if lg in ('ATP','WTA') else bind_fight(r, mkts.get(lg,[])) if lg=='UFC' else bind_standard(r, mkts.get(lg,[])) if lg in mkts else []
     entry['markets_bound']=[(m['ticker'],m.get('yes_ask_dollars')) for m in bound]
     if lg=='NHL':
-        entry['verdict']='cut'; entry['reason']='capability gap: no NHL fair engine (preseason) - not a genuine evaluation'; log.append(entry); continue
+        entry['verdict']='not_evaluable'; entry['reason']='capability gap: no NHL fair engine (preseason) - not a genuine evaluation'; log.append(entry); continue
     if lg=='PGA':
-        entry['verdict']='cut'; entry['reason']='capability gap: no per-match golf model (outright-only coverage) - not a genuine evaluation'; log.append(entry); continue
+        entry['verdict']='not_evaluable'; entry['reason']='capability gap: no per-match golf model (outright-only coverage) - not a genuine evaluation'; log.append(entry); continue
     if lg=='UFC':
         # fail-loud: absent league key or series fetch errors = board state UNKNOWN, never 'no market'
         if 'UFC' not in mkts or mkts.get('_errors',{}).get('UFC'):
             entry['verdict']='not_evaluable'; entry['reason']=f"board state unknown: UFC series fetch failed ({mkts.get('_errors',{}).get('UFC')}) - rerun board build"; log.append(entry); continue
         if not bound:
-            entry['verdict']='cut'; entry['reason']='genuine evaluation: no market bound across UFC series (KXUFCFIGHT+KXMMAFIGHT, healthy fetch)'; log.append(entry); continue
-        entry['verdict']='cut'; entry['reason']='capability gap: market bound but no UFC fair engine (Elo buildout pending) - not a genuine evaluation'; log.append(entry); continue
+            entry['verdict']='not_evaluable'; entry['reason']='capability gap: no market bound across UFC series (KXUFCFIGHT+KXMMAFIGHT, healthy fetch)'; log.append(entry); continue
+        entry['verdict']='not_evaluable'; entry['reason']='capability gap: market bound but no UFC fair engine (Elo buildout pending) - not a genuine evaluation'; log.append(entry); continue
     if not bound:
-        entry['verdict']='cut'; entry['reason']='capability gap: no executable Kalshi market bound to this exact instance (date+teams verified) - not a genuine evaluation'; log.append(entry); continue
+        entry['verdict']='not_evaluable'; entry['reason']='capability gap: no executable Kalshi market bound to this exact instance (date+teams verified) - not a genuine evaluation'; log.append(entry); continue
     if lg in ('ATP','WTA'):
-        entry['verdict']='cut'; entry['reason']='capability gap: price bound but no tennis fair engine (exchange-anchored model cannot diverge; book-reference feed buildout pending) - not a genuine evaluation'; log.append(entry); continue
+        entry['verdict']='not_evaluable'; entry['reason']='capability gap: price bound but no tennis fair engine (exchange-anchored model cannot diverge; book-reference feed buildout pending) - not a genuine evaluation'; log.append(entry); continue
     fair,note = model_fair(lg,r)
     entry['model']=note or None
     if not fair or fair.get('home') is None or fair.get('away') is None:
-        entry['verdict']='cut'; entry['reason']='capability gap: market bound but no model read for this event'; log.append(entry); continue
+        entry['verdict']='not_evaluable'; entry['reason']='capability gap: market bound but no model read for this event'; log.append(entry); continue
     best=None
     ha, aa = tok(r.get('home_abbr')), tok(r.get('away_abbr'))
     hword = (r.get('home','').split() or [''])[0].lower()

@@ -1,31 +1,31 @@
-"""Real Kalshi binding lookup for Stage 0 pipeline: searches the captured open-markets feed
-for a market matching this game (team tokens) + market class, builds the binding from the
-feed record via KalshiBinding.from_feed_record (fields from the record, freshness = feed mtime).
-Returns None when nothing binds - fail closed, never fabricated."""
+"""Canonical Kalshi binding for Stage 0: binds on KALSHI'S OWN identifiers - the series
+ticker's class token (GAME/SPREAD/TOTAL) and the event_ticker's exact date+team-abbr game code
+(both orders, same rule as hunt_v2 bind_standard). Name substrings never bind. Fail closed."""
 import json, os, re
-def _toks(name):
-    return [t for t in re.findall(r'[A-Za-z]+', (name or '').upper()) if len(t) >= 3]
-def bind_from_feed(feed_path, away, home, event_id, market_class, side):
-    """feed_path: captured Kalshi open-markets JSON {league: [market records]}.
-    Matches when BOTH teams' tokens appear in the ticker+event_ticker+title, and the
-    market class token matches (SPREAD/TOTAL/GAME for ml)."""
+def game_code(event_ticker):
+    """'KXNCAAFGAME-26SEP27MIZZMSST' -> 'MIZZMSST' (date token + optional HHMM stripped)."""
+    seg = event_ticker.split('-')[-1]
+    seg = re.sub(r'^\d{2}[A-Z]{3}\d{2}', '', seg)
+    return re.sub(r'^\d{4}', '', seg)
+CLASS_TOKEN = {'ml': 'GAME', 'spread': 'SPREAD', 'total': 'TOTAL'}
+def bind_event(feed_path, event_id, away_abbr, home_abbr, market_class, side):
+    """Returns KalshiBinding built from the feed record, or None. Requires non-empty
+    event_id and BOTH abbrs; the event_ticker game code must equal an exact abbr concat."""
+    if not event_id or not away_abbr or not home_abbr:
+        return None
     try:
-        mkts = json.load(open(feed_path))
-        mtime = os.path.getmtime(feed_path)
+        mkts = json.load(open(feed_path)); mtime = os.path.getmtime(feed_path)
     except Exception:
         return None
-    cls_tok = {'ml': 'GAME', 'spread': 'SPREAD', 'total': 'TOTAL'}.get(market_class, market_class.upper())
+    ok_codes = {away_abbr.upper() + home_abbr.upper(), home_abbr.upper() + away_abbr.upper()}
+    cls_tok = CLASS_TOKEN.get(market_class, market_class.upper())
     from core.binding import KalshiBinding
-    def team_hit(name, hay):
-        # a team matches when any >=4-letter name word appears in the market text
-        # (tickers carry abbrs, titles carry names - word-level hit covers both)
-        return any(w in hay for w in _toks(name) if len(w) >= 4)
     for lg, lst in mkts.items():
         if not isinstance(lst, list): continue
         for m in lst:
-            hay = (m.get('ticker', '') + ' ' + m.get('event_ticker', '') + ' ' + (m.get('title') or '')).upper()
-            if cls_tok not in hay: continue
-            if not (team_hit(away, hay) and team_hit(home, hay)): continue
+            et = m.get('event_ticker', '')
+            if cls_tok not in m.get('ticker', '').upper() and cls_tok not in et.upper(): continue
+            if game_code(et) not in ok_codes: continue
             try:
                 return KalshiBinding.from_feed_record(m, event_id, market_class, side, mtime)
             except ValueError:

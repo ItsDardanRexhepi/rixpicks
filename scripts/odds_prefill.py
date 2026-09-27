@@ -3,7 +3,7 @@
 Usage: odds_prefill.py <sport_key> [<sport_key>...]   e.g. odds_prefill.py baseball_mlb americanfootball_ncaaf
 Writes /tmp/odds_prefill.json: {(away,home): {'fanduel': {'away':link,'home':link,'away_ml':int,'home_ml':int,'event':link}, 'draftkings': {...}}}
 Only FD + DK produce clean universal prefill links; betmgm/betrivers carry {state} templates (kept in 'state_templates').
-Credit discipline: 1 credit per market per region per sport (h2h only). ~16/day max (standing J-049A).
+Credit discipline: 1 credit per market per region per sport (h2h only). ~16/day max. Use directed by user: phonemsg-01M3BB8FGWF59GJEXAGM9RHDG0 (2026-09-24) + phonemsg-01M3CG19FAFWYD3A97A1Q1732X (2026-09-25); free tier only - paid tier is his purchase. Domain: the-odds-api.com ONLY (theoddsapi.com unhyphenated is a blocked impostor).
 """
 import json,sys,urllib.request,os
 import os as _os
