@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T17:48:27.751491+00:00",
+ "generated_at": "2026-09-27T18:11:31.882348+00:00",
  "window": "sun-early",
  "legs": [
   {
@@ -48,9 +48,9 @@
    "team": "SEA",
    "matchup": "SEA @ WAS",
    "price_c": 50,
-   "td_scored": false,
-   "td_count": 0,
-   "last_td": null,
+   "td_scored": true,
+   "td_count": 1,
+   "last_td": "Jaxon Smith-Njigba 1 Yd pass from Sam Darnold (Jason Myers Kick)",
    "espn_event_id": "401872955"
   },
   {
@@ -89,8 +89,8 @@
    "matchup": "NYJ @ DET",
    "espn_event_id": "401872954",
    "status": "in",
-   "detail": "8:52 - 2nd",
-   "score": "DET 3 - NYJ 0"
+   "detail": "1:36 - 2nd",
+   "score": "DET 10 - NYJ 7"
   },
   {
    "matchup": "BAL @ DAL",
@@ -103,29 +103,29 @@
    "matchup": "KC @ MIA",
    "espn_event_id": "401872952",
    "status": "in",
-   "detail": "12:09 - 2nd",
+   "detail": "2:00 - 2nd",
    "score": "MIA 7 - KC 14"
   },
   {
    "matchup": "LAC @ BUF",
    "espn_event_id": "401872953",
    "status": "in",
-   "detail": "11:09 - 2nd",
-   "score": "BUF 0 - LAC 10"
+   "detail": "4:05 - 2nd",
+   "score": "BUF 3 - LAC 10"
   },
   {
    "matchup": "SEA @ WAS",
    "espn_event_id": "401872955",
    "status": "in",
-   "detail": "15:00 - 2nd",
-   "score": "WSH 7 - SEA 0"
+   "detail": "6:50 - 2nd",
+   "score": "WSH 7 - SEA 7"
   },
   {
    "matchup": "CIN @ PIT",
    "espn_event_id": "401872950",
    "status": "in",
-   "detail": "12:13 - 2nd",
-   "score": "PIT 14 - CIN 7"
+   "detail": "4:30 - 2nd",
+   "score": "PIT 17 - CIN 10"
   }
  ]
 }
