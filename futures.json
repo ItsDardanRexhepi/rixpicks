@@ -20,7 +20,7 @@
    "ask_c": 9,
    "mid_c": 8,
    "status": "active",
-   "quoted_at": "2026-09-27T16:03:07+00:00"
+   "quoted_at": "2026-09-27T16:28:33+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-2027-champion-20260729185915366",
@@ -28,7 +28,7 @@
    "verified": true,
    "market_label": "Will the San Francisco 49ers win the 2027 NFL league championship?",
    "source": "gamma",
-   "quoted_at": "2026-09-27T16:03:10+00:00"
+   "quoted_at": "2026-09-27T16:28:37+00:00"
   }
  },
  {
@@ -51,7 +51,7 @@
    "ask_c": 59,
    "mid_c": 58,
    "status": "active",
-   "quoted_at": "2026-09-27T16:03:07+00:00"
+   "quoted_at": "2026-09-27T16:28:34+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-afc-west-champion",
@@ -59,7 +59,7 @@
    "verified": true,
    "market_label": "Will Kansas City Chiefs win the 2026 AFC West?",
    "source": "gamma",
-   "quoted_at": "2026-09-27T16:03:11+00:00"
+   "quoted_at": "2026-09-27T16:28:37+00:00"
   }
  },
  {
@@ -82,7 +82,7 @@
    "ask_c": 33,
    "mid_c": 32,
    "status": "active",
-   "quoted_at": "2026-09-27T16:03:08+00:00"
+   "quoted_at": "2026-09-27T16:28:34+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-nfc-west-champion",
@@ -90,7 +90,7 @@
    "verified": true,
    "market_label": "Will San Francisco 49ers win the 2026 NFC West?",
    "source": "gamma",
-   "quoted_at": "2026-09-27T16:03:11+00:00"
+   "quoted_at": "2026-09-27T16:28:38+00:00"
   }
  },
  {
@@ -113,7 +113,7 @@
    "ask_c": 64,
    "mid_c": 63,
    "status": "active",
-   "quoted_at": "2026-09-27T16:03:08+00:00"
+   "quoted_at": "2026-09-27T16:28:35+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-nfc-east-champion",
@@ -121,7 +121,7 @@
    "verified": true,
    "market_label": "Will Philadelphia Eagles win the 2026 NFC East?",
    "source": "gamma",
-   "quoted_at": "2026-09-27T16:03:11+00:00"
+   "quoted_at": "2026-09-27T16:28:38+00:00"
   }
  },
  {
@@ -141,10 +141,10 @@
   "kalshi_quote": {
    "ticker": "KXNFLNFCNORTH-27-MIN",
    "bid_c": 35,
-   "ask_c": 36,
+   "ask_c": 37,
    "mid_c": 36,
    "status": "active",
-   "quoted_at": "2026-09-27T16:03:09+00:00"
+   "quoted_at": "2026-09-27T16:28:35+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-nfc-north-champion",
@@ -152,7 +152,7 @@
    "verified": true,
    "market_label": "Will Minnesota Vikings win the 2026 NFC North?",
    "source": "gamma",
-   "quoted_at": "2026-09-27T16:03:12+00:00"
+   "quoted_at": "2026-09-27T16:28:39+00:00"
   }
  },
  {
@@ -172,10 +172,10 @@
   "kalshi_quote": {
    "ticker": "KXNFLAFCCHAMP-27-BUF",
    "bid_c": 20,
-   "ask_c": 22,
-   "mid_c": 21,
+   "ask_c": 21,
+   "mid_c": 20,
    "status": "active",
-   "quoted_at": "2026-09-27T16:03:09+00:00"
+   "quoted_at": "2026-09-27T16:28:36+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-2027-afc-champion",
@@ -183,7 +183,7 @@
    "verified": true,
    "market_label": "Will Buffalo Bills win the 2027 NFL AFC Championship?",
    "source": "gamma",
-   "quoted_at": "2026-09-27T16:03:12+00:00"
+   "quoted_at": "2026-09-27T16:28:39+00:00"
   }
  },
  {
@@ -206,7 +206,7 @@
    "ask_c": 16,
    "mid_c": 16,
    "status": "active",
-   "quoted_at": "2026-09-27T16:03:10+00:00"
+   "quoted_at": "2026-09-27T16:28:36+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-2027-nfc-champion",
@@ -214,7 +214,7 @@
    "verified": true,
    "market_label": "Will San Francisco 49ers win the 2027 NFL NFC Championship?",
    "source": "gamma",
-   "quoted_at": "2026-09-27T16:03:12+00:00"
+   "quoted_at": "2026-09-27T16:28:39+00:00"
   }
  },
  {
@@ -237,7 +237,7 @@
    "ask_c": 44,
    "mid_c": 44,
    "status": "active",
-   "quoted_at": "2026-09-27T16:03:10+00:00"
+   "quoted_at": "2026-09-27T16:28:37+00:00"
   },
   "poly_slug": "wnba-2026-champion-464",
   "polymarket_com": {
@@ -246,7 +246,7 @@
    "verified": true,
    "market_label": "Minnesota Lynx",
    "source": "gamma",
-   "quoted_at": "2026-09-27T16:03:13+00:00"
+   "quoted_at": "2026-09-27T16:28:40+00:00"
   }
  }
 ]
