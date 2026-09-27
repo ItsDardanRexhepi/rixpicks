@@ -11,15 +11,18 @@ from email.utils import parsedate_to_datetime
 
 UA = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) RixPicks/1.0'}
 
+# swamp 9/27 1:02 PT (main escalation): generic-sport RSS lanes cross-contaminate league
+# buckets (Euro men's soccer in NWSL/MLS, men's tennis in WTA). League-unique lanes only;
+# MLS/NWSL/ATP/WTA ride the per-league ESPN API lane (fail-closed beats misleading).
 ESPN_RSS = {'NFL':'nfl','NBA':'nba','MLB':'mlb','NHL':'nhl','CFB':'ncf','NCAAB':'ncb',
-            'WNBA':'wnba','MLS':'soccer','PGA':'golf','ATP':'tennis','WTA':'tennis',
-            'NASCAR':'racing','UFC':'mma','NWSL':'soccer','Boxing':'boxing'}
+            'WNBA':'wnba','PGA':'golf',
+            'NASCAR':'racing','UFC':'mma','Boxing':'boxing'}
 CBS_RSS = {'NFL':'nfl','NBA':'nba','MLB':'mlb','NHL':'nhl','CFB':'college-football',
-           'NCAAB':'college-basketball','WNBA':'wnba','MLS':'soccer','PGA':'golf',
-           'ATP':'tennis','WTA':'tennis','UFC':'mma','Boxing':'boxing'}
+           'NCAAB':'college-basketball','WNBA':'wnba','PGA':'golf',
+           'UFC':'mma','Boxing':'boxing'}
 YAHOO_RSS = {'NFL':'nfl','NBA':'nba','MLB':'mlb','NHL':'nhl','CFB':'college-football',
-             'NCAAB':'college-basketball','WNBA':'wnba','MLS':'soccer','NWSL':'soccer',
-             'PGA':'golf','ATP':'tennis','WTA':'tennis','NASCAR':'nascar','UFC':'mma',
+             'NCAAB':'college-basketball','WNBA':'wnba',
+             'PGA':'golf','NASCAR':'nascar','UFC':'mma',
              'Boxing':'boxing'}
 
 def get(url, timeout=12):
