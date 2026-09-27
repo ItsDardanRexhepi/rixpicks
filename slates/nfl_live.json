@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T16:58:06.235515+00:00",
+ "generated_at": "2026-09-27T17:41:28.211302+00:00",
  "window": "sun-early",
  "legs": [
   {
@@ -28,9 +28,9 @@
    "team": "KC",
    "matchup": "KC @ MIA",
    "price_c": 65,
-   "td_scored": false,
-   "td_count": 0,
-   "last_td": null,
+   "td_scored": true,
+   "td_count": 1,
+   "last_td": "Kenneth Walker III 10 Yd Rush (Harrison Butker Kick)",
    "espn_event_id": "401872952"
   },
   {
@@ -58,9 +58,9 @@
    "team": "CIN",
    "matchup": "CIN @ PIT",
    "price_c": 46,
-   "td_scored": false,
-   "td_count": 0,
-   "last_td": null,
+   "td_scored": true,
+   "td_count": 1,
+   "last_td": "Ja'Marr Chase 3 Yd pass from Joe Burrow (Evan McPherson Kick)",
    "espn_event_id": "401872950"
   },
   {
@@ -88,8 +88,8 @@
   {
    "matchup": "NYJ @ DET",
    "espn_event_id": "401872954",
-   "status": "pre",
-   "detail": "9/27 - 10:00 AM PT",
+   "status": "in",
+   "detail": "11:31 - 2nd",
    "score": "DET 0 - NYJ 0"
   },
   {
@@ -102,30 +102,30 @@
   {
    "matchup": "KC @ MIA",
    "espn_event_id": "401872952",
-   "status": "pre",
-   "detail": "9/27 - 10:00 AM PT",
-   "score": "MIA 0 - KC 0"
+   "status": "in",
+   "detail": "13:02 - 2nd",
+   "score": "MIA 7 - KC 7"
   },
   {
    "matchup": "LAC @ BUF",
    "espn_event_id": "401872953",
-   "status": "pre",
-   "detail": "9/27 - 10:00 AM PT",
-   "score": "BUF 0 - LAC 0"
+   "status": "in",
+   "detail": "15:00 - 2nd",
+   "score": "BUF 0 - LAC 10"
   },
   {
    "matchup": "SEA @ WAS",
    "espn_event_id": "401872955",
-   "status": "pre",
-   "detail": "9/27 - 10:00 AM PT",
-   "score": "WSH 0 - SEA 0"
+   "status": "in",
+   "detail": "3:25 - 1st",
+   "score": "WSH 7 - SEA 0"
   },
   {
    "matchup": "CIN @ PIT",
    "espn_event_id": "401872950",
-   "status": "pre",
-   "detail": "9/27 - 10:00 AM PT",
-   "score": "PIT 0 - CIN 0"
+   "status": "in",
+   "detail": "End of 1st",
+   "score": "PIT 14 - CIN 7"
   }
  ]
 }
