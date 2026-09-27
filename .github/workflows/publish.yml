@@ -30,11 +30,14 @@ jobs:
         env:
           # data auditor (Sep 26): inputs.approve is the STRING true/false; the builder gates on =='1'
           RP_PUBLISH: ${{ inputs.approve == 'true' && '1' || '0' }}
+          POLYMARKET_API_KEY_ID: ${{ secrets.POLYMARKET_API_KEY_ID }}
+          POLYMARKET_API_SECRET: ${{ secrets.POLYMARKET_API_SECRET }}
         run: |
           # fail-closed: a builder non-zero exit (e.g. unresolved-market exit 3) must fail this
           # step outright - never tee-mask into a push of partially generated files
           set -o pipefail
-          python3 scripts/build_gh_page_v2.py manifest.json index.html 2>&1 | tee /tmp/build.log
+          pip install -q cryptography
+          python3 scripts/build_gh_page.py manifest.json index.html 2>&1 | tee /tmp/build.log
       - name: upload candidate artifact
         uses: actions/upload-artifact@v4
         with:

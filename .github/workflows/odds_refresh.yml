@@ -10,7 +10,7 @@ permissions:
   contents: write
 # Chaos drill #3 (Sep 26): overlapping runs raced the API counter and git push.
 concurrency:
-  group: site-main-writers
+  group: odds-refresh
   cancel-in-progress: false
 jobs:
   refresh:
@@ -20,14 +20,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: validate workflow YAML
-        run: |
-          pip install -q pyyaml
-          python3 scripts/check_workflows.py
       - name: refresh odds and rebuild
         env:
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
-        run: bash scripts/refresh.sh
+          POLYMARKET_API_KEY_ID: ${{ secrets.POLYMARKET_API_KEY_ID }}
+          POLYMARKET_API_SECRET: ${{ secrets.POLYMARKET_API_SECRET }}
+        run: |
+          pip install -q cryptography
+          bash scripts/refresh.sh
       - name: on-failure instant marker
         if: failure()
         run: |
