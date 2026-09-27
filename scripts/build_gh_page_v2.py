@@ -1795,7 +1795,7 @@ function rpFilter(st){{window.rpSt=st;rpTerm(st);
   if(!rpBookLive(el.dataset.book,st)){{el.style.display='none';delete el.dataset.marker;return;}}
   el.style.display='';delete el.dataset.marker;rpTapify(el,st);
  }});
- if(window.rpCxStar)rpCxStar();rpAllLineShops(); }}
+ if(window.rpCxStar)rpCxStar();rpAllBest();rpAllLineShops(); }}
 const RP_CODES=[{','.join('"%s"'%c for c,_ in RP_STATES)}];
 function rpRoute(e,a){{e.preventDefault();const st=localStorage.getItem('rp_state');const src=localStorage.getItem('rp_state_src');const ts=+(localStorage.getItem('rp_state_ts')||0);
  if(!st||src!=='gps'||!ts||Date.now()-ts>12*3600*1000){{window.__rpChip=a;rpAsk(false);return false;}}  /* his rule Sep 26 + tester freshness gate: taps need a CURRENT shared+verified location - expired fixes go back through the prompt */

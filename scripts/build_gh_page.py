@@ -76,8 +76,10 @@ def _pick_content_hash(m):
     # field - current or future - is covered automatically. EXCLUSION LIST (volatile/non-content
     # operational fields, audit before extending): num (build-assigned display order), result and
     # _final (post-settlement grading state, not pick content), polycents (live Polymarket price
-    # snapshot), kalshi.cents (live Kalshi ask snapshot - the gate re-checks it live anyway).
-    _EXCL_TOP={'num','result','_final','polycents'}
+    # snapshot), kalshi.cents (live Kalshi ask snapshot - the gate re-checks it live anyway),
+    # card_ts (first-lock provenance - excluded per main Sep 27 10:04 ruling; its stability is
+    # guarded by the dedicated ledger-equality assertion in build_manifest.py, not by this hash).
+    _EXCL_TOP={'num','result','_final','polycents','card_ts'}
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
@@ -1592,7 +1594,7 @@ function rpFilter(st){{window.rpSt=st;rpTerm(st);
   if(!rpBookLive(el.dataset.book,st)){{el.style.display='none';delete el.dataset.marker;return;}}
   el.style.display='';delete el.dataset.marker;rpTapify(el,st);
  }});
- if(window.rpCxStar)rpCxStar();rpAllLineShops(); }}
+ if(window.rpCxStar)rpCxStar();rpAllBest();rpAllLineShops(); }}
 const RP_CODES=[{','.join('"%s"'%c for c,_ in RP_STATES)}];
 function rpRoute(e,a){{e.preventDefault();const st=localStorage.getItem('rp_state');const src=localStorage.getItem('rp_state_src');const ts=+(localStorage.getItem('rp_state_ts')||0);
  if(!st||src!=='gps'||!ts||Date.now()-ts>12*3600*1000){{window.__rpChip=a;rpAsk(false);return false;}}  /* his rule Sep 26 + tester freshness gate: taps need a CURRENT shared+verified location - expired fixes go back through the prompt */
