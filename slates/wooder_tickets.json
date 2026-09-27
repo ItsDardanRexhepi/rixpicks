@@ -3,78 +3,6 @@
   "generated_at": "2026-09-27T13:25:00-07:00",
   "tickets": [
     {
-      "id": 1,
-      "title": "7 Pick Combo",
-      "pct": "1%",
-      "status": "Open",
-      "bought": "$0.04",
-      "to_pay": "$3.00",
-      "legs": [
-        {
-          "player": "Chuba Hubbard",
-          "market": "Anytime TD Scorer",
-          "matchup": "CAR-CLE",
-          "time": "Today 10:00 AM"
-        },
-        {
-          "player": "Wan'Dale Robinson",
-          "market": "Anytime TD Scorer",
-          "matchup": "TEN-NYG",
-          "time": "Today 10:00 AM"
-        },
-        {
-          "player": "Josh Allen",
-          "market": "Anytime TD Scorer",
-          "matchup": "LAC-BUF",
-          "time": "Today 10:00 AM"
-        },
-        {
-          "player": "Adonai Mitchell",
-          "market": "Anytime TD Scorer",
-          "matchup": "NYJ-DET",
-          "time": "Today 10:00 AM"
-        },
-        {
-          "player": "Pat Freiermuth",
-          "market": "Anytime TD Scorer",
-          "matchup": "CIN-PIT",
-          "time": "Today 10:00 AM"
-        },
-        {
-          "player": "Parker Washington",
-          "market": "Anytime TD Scorer",
-          "matchup": "NE-JAX",
-          "time": "Today 10:00 AM"
-        },
-        {
-          "player": "Tyquan Thornton",
-          "market": "Anytime TD Scorer",
-          "matchup": "KC-MIA",
-          "time": "Today 10:00 AM"
-        }
-      ],
-      "site_updates": [
-        {
-          "label": "Wooder Ice site update",
-          "note": "Adonai Mitchell (NYJ) ruled inactive today. Other six picks unchanged. Site-only update - the bought ticket is unchanged; the proposal is a new pick, not a leg edit.",
-          "items": [
-            {
-              "player": "Dalton Kincaid",
-              "market": "anytime TD",
-              "matchup": "LAC @ BUF",
-              "time": "today 10:00 AM PT",
-              "status": "proposed replacement pick",
-              "proposed": true,
-              "kalshi": {
-                "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27lacbuf",
-                "american": "+203"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": 2,
       "title": "5 Pick Parlay",
       "pct": "+25% Parlay Boost",
@@ -192,46 +120,6 @@
           "time": "Today 1:25 PM PT",
           "fm": "pass_td",
           "line": 2
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "title": "5-leg SGP",
-      "pct": "+1500 \u00b7 Fanatics",
-      "status": "Final",
-      "combo_id": "t4",
-      "fancash": "$0.23",
-      "legs": [
-        {
-          "player": "Napheesa Collier",
-          "market": "18+ Points",
-          "matchup": "NY @ MIN",
-          "status": "lost"
-        },
-        {
-          "player": "Sabrina Ionescu",
-          "market": "16+ Points",
-          "matchup": "NY @ MIN",
-          "status": "lost"
-        },
-        {
-          "player": "Jonquel Jones",
-          "market": "10+ Rebounds",
-          "matchup": "NY @ MIN",
-          "status": "lost"
-        },
-        {
-          "player": "Courtney Williams",
-          "market": "5+ Rebounds",
-          "matchup": "NY @ MIN",
-          "status": "lost"
-        },
-        {
-          "player": "Olivia Miles",
-          "market": "6+ Assists",
-          "matchup": "NY @ MIN",
-          "status": "lost"
         }
       ]
     }
