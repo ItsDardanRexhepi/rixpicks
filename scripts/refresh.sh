@@ -53,7 +53,7 @@ ls=sorted({(reg.get(p.get('league','')) or {}).get('odds_api') or 'baseball_mlb'
 print(' '.join(ls))")
 python3 scripts/odds_prefill.py $SPORTS 2> >(tee /tmp/odds_prefill.err >&2)
 cp /tmp/odds_prefill.json slates/odds_prefill.json
-ODDS_CREDITS_LEDGER=/tmp/odds_credits_gha.jsonl ODDS_PREFILL_ST_OUT=slates/odds_prefill_st.json ODDS_PREFILL_ST_SNAPSHOT=slates/odds_prefill_st_pregame.json python3 scripts/odds_prefill_st.py $SPORTS 2> >(tee /tmp/odds_prefill_st.err >&2) || echo "odds_prefill_st failed - keeping last st file" >&2
+ODDS_CREDITS_LEDGER=/tmp/odds_credits_gha.jsonl ODDS_PREFILL_ST_OUT=slates/odds_prefill_st.json ODDS_PREFILL_ST_SNAPSHOT=slates/odds_prefill_st_pregame.json python3 scripts/odds_prefill_st.py $SPORTS 2> >(tee /tmp/odds_prefill_st.err >&2) || { if grep -q "credit cap" /tmp/odds_prefill_st.err 2>/dev/null; then echo "ST BUDGET BREACH - hard fail" >&2; exit 1; fi; echo "odds_prefill_st failed - keeping last st file" >&2; }
 # props prefill (paid tier; J-123a gate in-script): in-window NFL/MLB event ids from the st pull
 python3 - <<'PYX' > /tmp/props_args.txt
 import json, datetime
@@ -73,7 +73,11 @@ for sp,ids in by.items(): print(sp+' '+' '.join(ids))
 PYX
 while read -r line; do
   [ -z "$line" ] && continue
-  ODDS_CREDITS_LEDGER=/tmp/odds_credits_gha.jsonl python3 scripts/odds_prefill_props.py $line || echo "props prefill failed: $line" >&2
+  if ! ODDS_CREDITS_LEDGER=/tmp/odds_credits_gha.jsonl python3 scripts/odds_prefill_props.py $line 2>/tmp/props_err.txt; then
+    cat /tmp/props_err.txt >&2
+    if grep -q "credit cap" /tmp/props_err.txt 2>/dev/null; then echo "PROPS BUDGET BREACH - hard fail" >&2; exit 1; fi
+    echo "props prefill failed: $line" >&2
+  else cat /tmp/props_err.txt >&2; fi
 done < /tmp/props_args.txt
 LASTREM=$(grep -o 'credits remaining [0-9]*' /tmp/odds_prefill.err 2>/dev/null | tail -1 | grep -o '[0-9]*$' || true)
 if [ -n "${LASTREM:-}" ]; then python3 -c "
@@ -90,7 +94,8 @@ python3 scripts/futures_quotes.py futures.json --write || echo "futures_quotes f
 python3 scripts/wooder_td_feed.py slates/nfl_latest.json slates/nfl_live.json || echo "wooder_td_feed failed - keeping last live file" >&2
 RP_REFRESH=1 python3 scripts/build_gh_page_v2.py manifest.json index.html
 python3 scripts/backfill_history.py || true
-if git diff --quiet index.html game-*.html futures.json slates/nfl_live.json slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json odds_moves.jsonl .odds_prev.json price_history.jsonl 2>/dev/null; then echo "no price movement - no commit"; exit 0; fi
+git add -N slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json 2>/dev/null || true
+if git diff --quiet -- index.html game-*.html futures.json slates/nfl_live.json slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json odds_moves.jsonl .odds_prev.json price_history.jsonl 2>/dev/null; then echo "no price movement - no commit"; exit 0; fi
 python3 -c "
 import json,datetime
 f='$COUNT_FILE'; d={}
@@ -101,7 +106,7 @@ json.dump(d,open(f,'w'))"
 git add index.html futures.html futures.json slates/nfl_live.json slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json manifest.json manifests/ "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html hist-*.json
 git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1))/33 today)"
 # chaos drill (Sep 26): a push racing the publish window must retry+rebase, never fail red
-for i in 1 2; do
+for i in 1 2 3 4 5; do
   if git push; then break; fi
   git pull --rebase -X theirs || { git rebase --abort; continue; }
   OF=$(git show --pretty='' --name-only ORIG_HEAD)
