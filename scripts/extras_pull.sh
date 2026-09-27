@@ -8,7 +8,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 : "${THE_ODDS_API_KEY:?THE_ODDS_API_KEY missing}"
-SPORTS="soccer_usa_mls mma_mixed_martial_arts boxing_heavyweight"
+SPORTS="soccer_usa_mls mma_mixed_martial_arts boxing_boxing"
 OUT=extras_books.json
 TMP=$(mktemp); RESP=$(mktemp)
 trap 'rm -f "$TMP" "$RESP"' EXIT

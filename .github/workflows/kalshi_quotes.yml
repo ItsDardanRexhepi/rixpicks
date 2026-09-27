@@ -28,4 +28,10 @@ jobs:
           git add slates/nfl_kalshi_quotes.json
           if git diff --cached --quiet; then echo "no change - no commit"; exit 0; fi
           git commit -m "kalshi quotes $(date '+%H:%M PT')"
-          for i in 1 2; do git push && break || git pull --rebase -X theirs; done
+          for i in 1 2; do
+  if git push; then break; fi
+  git pull --rebase -X theirs || { git rebase --abort; continue; }
+  OF=$(git show --pretty='' --name-only ORIG_HEAD)
+  git diff --quiet ORIG_HEAD HEAD -- $OF || { echo 'REBASE GUARD: rebase altered generated content - failing loud; next cycle regenerates' >&2; exit 1; }
+done
+git ls-remote origin main | grep -q "$(git rev-parse HEAD)" || { echo 'PUSH READBACK FAILED: origin/main != HEAD' >&2; exit 1; }
