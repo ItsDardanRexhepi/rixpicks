@@ -19,6 +19,17 @@ def stake_pnl(stake_dollars, price_c):
     """P&L of a WIN at locked price (cents of a 100c contract). Validates inputs."""
     s, p = _stake(stake_dollars), _price(price_c)
     return s * (Decimal(100) - p) / p
+def _american(price):
+    if isinstance(price, bool) or not isinstance(price, int):
+        raise ValueError(f'american odds must be an int, got {price!r}')
+    if -100 <= price < 100:
+        raise ValueError(f'american odds invalid: {price} (need >= +100 or <= -101)')
+    return price
+def stake_pnl_american(stake_dollars, american):
+    """P&L of a WIN at the published card price (American odds). Validates inputs.
+    -205 -> stake*100/205; +150 -> stake*150/100. Exact Decimal from the first op."""
+    s, a = _stake(stake_dollars), _american(american)
+    return s * a / Decimal(100) if a > 0 else s * Decimal(100) / abs(a)
 def display_units(u):
     """Half-up 2dp display of an exact unit value. NEVER store the displayed form."""
     return str(Decimal(u).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP))

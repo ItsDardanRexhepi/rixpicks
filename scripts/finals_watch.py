@@ -215,11 +215,34 @@ def grade(pick, primary):
         if cents is not None and dv['fill_c'] is not None and int(dv['fill_c']) != int(cents):
             print(f"WARN: fill divergence {dv['id']} {dv['venue']} {dv['fill_c']}c vs card {cents}c - "
                   'grade uses CARD price, fill stays in positions ledger')
+    # CARD-PRICE GRADING (his word 9:43 PM, uniform convention): P&L is computed from
+    # the published CARD American price, sourced from the picks-ledger card entry and
+    # asserted identical against the published card (manifest odds). Exchange cents
+    # above stay an exchange-consistency check only - never the grading basis.
+    def _parse_american(v):
+        if isinstance(v, bool):
+            return None
+        if isinstance(v, int):
+            a = v
+        elif isinstance(v, str) and re.fullmatch(r'[+-]?\d+', v.strip()):
+            a = int(v.strip())
+        else:
+            return None
+        return a if (a >= 100 or a <= -101) else None
+    manifest_am = _parse_american(pick.get('odds'))
+    card_am = _parse_american(card_row.get('card_american'))
+    if manifest_am is None:
+        raise ValueError(f"manifest published price missing/invalid ({pick.get('odds')!r}) - REFUSING to grade (fail closed)")
+    if card_am is None:
+        raise ValueError(f"picks-ledger card entry lacks a valid card_american ({card_row.get('card_american')!r}) - "
+                         'REFUSING to grade (fail closed)')
+    if card_am != manifest_am:
+        raise ValueError(f'published-price fork: manifest {manifest_am} != picks-ledger {card_am} - REFUSING to grade')
     u = Decimal(str(pick.get('units', '0u')).rstrip('u'))
-    if not cents or not u:
-        raise ValueError('missing price/units in manifest - grade manually')
+    if not u:
+        raise ValueError('missing units in manifest - grade manually')
     stake = u * Decimal(15)  # exact from the first multiplication
-    return ('W' if won else 'L'), (units.stake_pnl(stake, cents) if won else -stake)
+    return ('W' if won else 'L'), (units.stake_pnl_american(stake, card_am) if won else -stake)
 
 def _parse_ts(s):
     return datetime.fromisoformat(str(s).replace('Z', '+00:00'))
@@ -294,7 +317,9 @@ def main():
                                        dry_run=False,
                                        graded_pick=f"{p.get('name', '')} {result} "
                                                    f"{max(primary['home_score'], primary['away_score'])}-"
-                                                   f"{min(primary['home_score'], primary['away_score'])}",
+                                                   f"{min(primary['home_score'], primary['away_score'])} "
+                                                   f"({('+' if pnl >= 0 else '')}{units.display_units(units.pnl_to_units(pnl))}u on "
+                                                   f"{p.get('units', '?')} @{p.get('odds', '?')}, published-card basis)",
                                        source='finals_watch J-118 live chain')
             if res['chain'] != 'complete':
                 print(f'{stamp} WARN: {pkey} chain {res["chain"]} - NOT marked seen; chain STOPS, retry next fire')

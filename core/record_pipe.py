@@ -9,14 +9,18 @@ dry_run performs NO writes (ledger, sidecar, or seen)."""
 import json, os, time, urllib.request
 from datetime import datetime, timezone
 from core.units import display_units
-ALLOWED_ROW_KEYS = {'grade_id', 'date', 'record', 'win_pct', 'units', 'units_exact', 'basis'}
+ALLOWED_ROW_KEYS = {'grade_id', 'date', 'record', 'win_pct', 'units', 'units_exact', 'basis', 'graded_pick', 'source'}
 SITE_URL = 'https://api.rix-picks.com/record/update'
 SITE_GET = 'https://api.rix-picks.com/record'
 BASIS = 'card stake at locked price, $15/u'
 
-def build_record_row(grade_id, date, record, win_pct, units_exact, basis):
+def build_record_row(grade_id, date, record, win_pct, units_exact, basis, graded_pick=None, source=None):
     row = {'grade_id': grade_id, 'date': date, 'record': record, 'win_pct': win_pct,
            'units': display_units(units_exact), 'units_exact': str(units_exact), 'basis': basis}
+    if graded_pick is not None:
+        row['graded_pick'] = graded_pick
+    if source is not None:
+        row['source'] = source
     extra = set(row) - ALLOWED_ROW_KEYS
     if extra:
         raise ValueError(f'row-content rule violation: {extra}')
@@ -90,16 +94,14 @@ def resume_pending(ledger_path, token):
         gid = r.get('grade_id', '')
         if gid.startswith('G-BASELINE-') or state.get(gid, {}).get('verified'):
             continue
-        payload = {'record': r['record'], 'win_pct': r['win_pct'], 'units': r['units']}
-        # sparse POST blanks graded_pick/source on the worker - carry them forward
-        try:
-            req = urllib.request.Request(SITE_GET, headers=UA)
-            with urllib.request.urlopen(req, timeout=15) as resp:
-                cur = json.load(resp)
-            payload['graded_pick'] = cur.get('graded_pick', '')
-            payload['source'] = cur.get('source', '')
-        except Exception:
-            pass  # carry-forward best-effort; value-compare covers w/l/pct/units
+        # labels REQUIRED for POST (swamp 9:46): a sparse POST blanks graded_pick/source
+        # on the worker, so they live in the durable row and a row without them never POSTs.
+        if not r.get('graded_pick') or not r.get('source'):
+            out.append({'grade_id': gid, 'chain': 'blocked-missing-labels',
+                        'mismatches': None})
+            break  # order guard: fail closed, resume nothing after it
+        payload = {'record': r['record'], 'win_pct': r['win_pct'], 'units': r['units'],
+                   'graded_pick': r['graded_pick'], 'source': r['source']}
         post = post_record_update(payload, token, expected=payload, dry_run=False)
         g = state.get(gid, {})
         g['appended'] = True
@@ -187,7 +189,8 @@ def on_final(event_id, final_home, final_away, grade_id, date, record, win_pct, 
     """The J-118 chain, staged and resumable: grade row append -> site POST -> value-verify.
     Resume rule (swamp): if grade_id already has a saved row, it MUST equal the freshly
     computed row - a mismatch fails loud, never silently reuses a stale row."""
-    row = build_record_row(grade_id, date, record, win_pct, units_exact, basis)
+    row = build_record_row(grade_id, date, record, win_pct, units_exact, basis,
+                           graded_pick=graded_pick, source=source)
     existing = [r for r in read_rows(ledger_path) if r.get('grade_id') == grade_id]
     if existing and existing[0] != row:
         raise SystemExit(f'FAIL-CLOSED: resume mismatch for {grade_id}: saved {existing[0]} != fresh {row}')
@@ -208,21 +211,13 @@ def on_final(event_id, final_home, final_away, grade_id, date, record, win_pct, 
     result = {'grade_id': grade_id, 'event_id': event_id, 'final': f'{final_home}-{final_away}',
               'ts': datetime.now(timezone.utc).isoformat(), 'stages': {'append': 'done'}}
     if not g.get('verified'):
-        payload = {'record': record, 'win_pct': win_pct, 'units': row['units']}
-        if graded_pick is not None:
-            payload['graded_pick'] = graded_pick
-        else:
-            # carry forward so a sparse POST never blanks the site's graded_pick
-            try:
-                req = urllib.request.Request(SITE_GET, headers=UA)
-                with urllib.request.urlopen(req, timeout=15) as resp:
-                    cur = json.load(resp)
-                payload['graded_pick'] = cur.get('graded_pick', '')
-                payload['source'] = cur.get('source', '')
-            except Exception:
-                pass
-        if source is not None:
-            payload['source'] = source
+        # labels REQUIRED (swamp 9:46): durable in the row, never best-effort - a sparse
+        # POST blanks graded_pick/source on the worker, so a row without them never POSTs.
+        if not row.get('graded_pick') or not row.get('source'):
+            raise SystemExit(f'FAIL-CLOSED: grade row for {grade_id} lacks graded_pick/source - '
+                             'refusing to POST a sparse payload (would blank the site fields)')
+        payload = {'record': record, 'win_pct': win_pct, 'units': row['units'],
+                   'graded_pick': row['graded_pick'], 'source': row['source']}
         post = post_record_update(payload, token, expected=payload, dry_run=False)
         result['stages']['post'] = post
         if post.get('post_status') and str(post.get('post_status'), ).startswith('2'):

@@ -219,10 +219,11 @@ def tier_eval(fair_c, gross_c):
     # User directive phonemsg-01M3FJTAVAKTMTQ89WTX0K64QN (iMessage 2026-09-26 12:24:34 PM, verbatim verified):
     #   'If you have 3c games. Put them in the 10u tier and run it against that tiers math
     #   to see if it can get approved to get accepted for that tier'
-    #   10u requires BOTH fair 70-79c AND gross >= 3c; a 70-79 fair with gross < 3c is not
-    #   approved for the tier and cards at the 5u rung instead. 15u/100u tiers unchanged (band-only).
+    #   10u requires BOTH fair 70-79c AND gross >= the advantage floor.
+    #   J-124 (his verbatim 9:46 PM PT, phonemsg-01M3GJZ06VVXDGHSTRZS8KZG7G): advantage
+    #   floor is 2c (was 3c) until further notice; card minimum 3 picks/day.
     if fair_c>=90: return 100
     if 80<=fair_c<90: return 15
-    if 70<=fair_c<80: return 10 if gross_c>=3 else 5
+    if 70<=fair_c<80: return 10 if gross_c>=2 else 5
     if 60<=fair_c<70: return 5
     return 0  # below card band
