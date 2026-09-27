@@ -17,8 +17,8 @@ def gh(path, method='GET', fields=None, raw=False):
     return r.stdout if raw else (json.loads(r.stdout) if r.stdout.strip() else {})
 
 
-BUDGET_COST = {'odds-refresh': 1, 'extras-sweep': 3, 'nfl-scores-confirm': 1}
-BUDGET_CAP = 16
+BUDGET_COST = {'odds-refresh': 3, 'extras-sweep': 3, 'nfl-scores-confirm': 1}
+BUDGET_CAP = 100
 
 def odds_spend_today():
     """Conservative daily Odds-API spend across all consumers: max(git commit counter,
