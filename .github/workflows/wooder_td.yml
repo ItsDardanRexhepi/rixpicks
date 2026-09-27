@@ -1,0 +1,37 @@
+name: wooder-td-tracker
+on:
+  schedule:
+    # 5-min cadence across plausible NFL windows (9 AM - 11 PM PT = 16:00-06:00 UTC PDT).
+    # Content-gated commit: pre/post-game the feed is static (status/score unchanged),
+    # so idle cycles cost two ESPN calls and zero commits. While any tracked game is
+    # live, score/clock/TD changes land within one 5-min cycle.
+    - cron: '*/5 16-23,0-6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: wooder-td-tracker
+  cancel-in-progress: false
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: update TD tracker feed
+        run: python3 scripts/wooder_td_feed.py slates/nfl_latest.json slates/nfl_live.json
+      - name: commit only on content change
+        run: |
+          git config user.name 'wooder-td-tracker'
+          git config user.email 'actions@users.noreply.github.com'
+          python3 -c "import json; d=json.load(open('slates/nfl_live.json')); d.pop('generated_at',None); print(json.dumps(d,sort_keys=True))" > /tmp/new_live.json
+          git show HEAD:slates/nfl_live.json 2>/dev/null | python3 -c "import json,sys; d=json.load(sys.stdin); d.pop('generated_at',None); print(json.dumps(d,sort_keys=True))" > /tmp/old_live.json || touch /tmp/old_live.json
+          if ! diff -q /tmp/old_live.json /tmp/new_live.json >/dev/null; then
+            git add slates/nfl_live.json
+            git commit -m "wooder td tracker: live update $(date -u +'%H:%M') UTC"
+            git pull --rebase origin main && git push
+          else
+            echo "idle - tracker unchanged"
+          fi
