@@ -11,12 +11,27 @@ def _newest(pat):
     return fs[-1] if fs else None
 MKTS_PATH='/tmp/kalshi_open_by_league.json'; CFB_PATH='/tmp/cfb_weighted.json'; MLB_PATH=_newest('/tmp/mlb_*_edges.json')
 _missing=[n for p,n in ((MKTS_PATH,'kalshi open feed'),(CFB_PATH,'cfb model'),(MLB_PATH,'mlb edges'),
-                        ('/tmp/mls_edges.json','mls edges'),('/tmp/nwsl_model_out.json','nwsl model')) if not p or not os.path.exists(p)]
+                        ('/tmp/mls_edges.json','mls edges'),('/tmp/nwsl_model_out.json','nwsl model'),
+                        ('/tmp/nfl_edges.json','nfl edges'),('/tmp/wnba_edges.json','wnba edges')) if not p or not os.path.exists(p)]
 if _missing:
     print('FAIL LOUD: missing production feeds: '+', '.join(_missing)+' - hunt cannot run; fix the feed chain, do not degrade quietly'); sys.exit(2)
 slate = json.load(open(sys.argv[1]))
 mkts = json.load(open(MKTS_PATH))
 cfb_model = {g['id']: g for g in json.load(open(CFB_PATH))}
+# VEGAS-TEAM EXCLUSION (his standing rule, enforced in code 2026-09-27 7:14 AM PT after the
+# NO-vs-LV card violation he caught): never bet on or against any team whose home is Las Vegas.
+# Team identity, not venue nickname: LV Raiders, Las Vegas Aces, Athletics while in Las Vegas,
+# Vegas Golden Knights, UNLV, any club whose home is Las Vegas. Applies to BOTH sides - a game
+# INVOLVING a Vegas-home team is excluded entirely, no matter the floor regime.
+_VEGAS_NAMES=('las vegas','vegas golden knights','raiders','aces','athletics',"a's",'unlv','golden knights')
+_VEGAS_ABBR={'LV','LVK','VGK','ATH','LVA'}
+def _is_vegas_game(r):
+    blob=((r.get('home') or '')+' '+(r.get('away') or '')).lower()
+    if any(n in blob for n in _VEGAS_NAMES): return True
+    if (r.get('home_abbr') or '').upper() in _VEGAS_ABBR: return True
+    if (r.get('away_abbr') or '').upper() in _VEGAS_ABBR: return True
+    return False
+
 def gem_check(best):
     """J-119 gem screen: near-miss candidates get flagged, not silently cut."""
     if not best: return None
@@ -30,6 +45,8 @@ gems=[]
 mlb_edges = [e for e in json.load(open(MLB_PATH)) if 'side' in e]
 mls_edges = json.load(open('/tmp/mls_edges.json'))
 nwsl_model = json.load(open('/tmp/nwsl_model_out.json'))
+nfl_edges = json.load(open('/tmp/nfl_edges.json'))
+wnba_edges = json.load(open('/tmp/wnba_edges.json'))
 
 def fee(ask): return 0.07*ask*(1-ask)
 def tok(s): return re.sub(r'[^A-Z0-9]','',(s or '').upper())
@@ -83,6 +100,19 @@ def model_fair(lg, r):
         am=next((v for s,v in er.items() if match(s, r.get('away'))), None)
         if hm is None or am is None: return None,''
         return {'home':hm,'away':am}, 'mlb weights'
+    if lg in ('NFL','WNBA'):
+        src_edges = nfl_edges if lg=='NFL' else wnba_edges
+        AL={'CHW':'CWS','ARI':'AZ'}
+        key=f"{AL.get(r.get('away_abbr'),r.get('away_abbr'))}@{AL.get(r.get('home_abbr'),r.get('home_abbr'))}"
+        er={e['side']:e['model'] for e in src_edges if e.get('game')==key}
+        if not er: return None,''
+        def match(s, full):
+            s=s.lower(); full=(full or '').lower()
+            return s in full or (s=="a's" and 'athletics' in full)
+        hm=next((v for s,v in er.items() if match(s, r.get('home'))), None)
+        am=next((v for s,v in er.items() if match(s, r.get('away'))), None)
+        if hm is None or am is None: return None,''
+        return {'home':hm,'away':am}, 'dk devig single-book (espn)'
     if lg=='MLS':
         key=f"{r.get('away_abbr')}@{r.get('home_abbr')}"
         er={e['side']:e['model'] for e in mls_edges if e.get('match')==key}
@@ -98,6 +128,8 @@ for r in slate['rows']:
     lg=r['league']
     entry={'league':lg,'instance_id':r['instance_id'],'match':r.get('match') or f"{r.get('away')} @ {r.get('home')}",
            'match_type':r.get('match_type','game'),'commence_utc':r['commence_utc'],'status':r['status']}
+    if _is_vegas_game(r):
+        entry['verdict']='excluded'; entry['reason']='Vegas-team exclusion (standing rule, hard-coded): game involves a Las Vegas-home team - never bet on or against Vegas teams'; log.append(entry); continue
     if r['status']!='STATUS_SCHEDULED':
         entry['verdict']='not hunted'; entry['reason']=f"already {r['status'].replace('STATUS_','')}"; log.append(entry); continue
     bound = bind_tennis(r, mkts.get(lg,[])) if lg in ('ATP','WTA') else bind_fight(r, mkts.get(lg,[])) if lg=='UFC' else bind_standard(r, mkts.get(lg,[])) if lg in mkts else []
