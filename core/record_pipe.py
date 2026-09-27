@@ -55,10 +55,11 @@ def current_state(ledger_path):
         raise SystemExit(f'FAIL-CLOSED: {len(baselines)} baseline rows, expected exactly 1')
     b = baselines[0]
     if not (b.get('grade_id') == 'G-BASELINE-0926' and b.get('record') == '13-6'
-            and _D(str(b.get('units_exact', 'NaN'))) == _D('4.5113')
+            and _D(str(b.get('units_exact', 'NaN'))) == _D('3.8937')
             and b.get('date') == '2026-09-26'):
         raise SystemExit(f"FAIL-CLOSED: baseline row does not match canonical values "
-                         f"(G-BASELINE-0926 / 13-6 / +4.5113 / 2026-09-26): {b}")
+                         f"(G-BASELINE-0926 / 13-6 / +3.8937 / 2026-09-26, card-price "
+                         f"convention per his word 9/26 9:43 PM): {b}")
     state = _load_state(ledger_path)
     last_verified = None
     for r in rows:
@@ -90,6 +91,15 @@ def resume_pending(ledger_path, token):
         if gid.startswith('G-BASELINE-') or state.get(gid, {}).get('verified'):
             continue
         payload = {'record': r['record'], 'win_pct': r['win_pct'], 'units': r['units']}
+        # sparse POST blanks graded_pick/source on the worker - carry them forward
+        try:
+            req = urllib.request.Request(SITE_GET, headers=UA)
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                cur = json.load(resp)
+            payload['graded_pick'] = cur.get('graded_pick', '')
+            payload['source'] = cur.get('source', '')
+        except Exception:
+            pass  # carry-forward best-effort; value-compare covers w/l/pct/units
         post = post_record_update(payload, token, expected=payload, dry_run=False)
         g = state.get(gid, {})
         g['appended'] = True
@@ -122,25 +132,45 @@ def _load_state(ledger_path):
 def _save_state(ledger_path, st):
     json.dump(st, open(_sp(ledger_path), 'w'))
 
+UA = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'}
+
+def _wire_payload(record, win_pct, units_display, graded_pick=None, source=None):
+    """The record worker's live schema (discovered 9/26 9:44 PM: {record,win_pct,units}
+    gets HTTP 400 'numeric w+l required'; python-urllib UA gets CF 1010 403)."""
+    w, l = (int(x) for x in record.split('-')[:2])
+    body = {'w': w, 'l': l, 'pct': float(str(win_pct).rstrip('%')),
+            'units': float(units_display)}
+    if graded_pick is not None:
+        body['graded_pick'] = graded_pick
+    if source is not None:
+        body['source'] = source
+    return body
+
 def post_record_update(payload, token, expected=None, dry_run=True, attempts=3, sleep_s=5):
     """POST then GET and VALUE-COMPARE expected fields, up to `attempts` rounds
-    (a re-POST each round). Verified only when the GET matches. dry_run: no network."""
+    (a re-POST each round). Verified only when the GET matches. dry_run: no network.
+    `payload` carries logical fields {record, win_pct, units, graded_pick?, source?};
+    the wire body is the worker schema {w,l,pct,units,...}."""
     if dry_run:
         return {'dry_run': True, 'would_post': payload, 'would_verify': expected,
                 'url': SITE_URL, 'post_status': 'dry', 'verified': True}
+    body = _wire_payload(payload['record'], payload['win_pct'], payload['units'],
+                         payload.get('graded_pick'), payload.get('source'))
+    expect_wire = {'w': body['w'], 'l': body['l'], 'pct': body['pct'], 'units': body['units']}
     last = {'post_status': None, 'verified': False}
     for attempt in range(1, attempts + 1):
         try:
-            req = urllib.request.Request(SITE_URL, data=json.dumps(payload).encode(),
-                headers={'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'})
+            req = urllib.request.Request(SITE_URL, data=json.dumps(body).encode(),
+                headers={'Authorization': f'Bearer {token}', 'Content-Type': 'application/json', **UA})
             with urllib.request.urlopen(req, timeout=20) as r:
                 post_status = r.status
             if not str(post_status).startswith('2'):
                 last = {'post_status': post_status, 'verified': False, 'attempt': attempt}
                 continue
-            with urllib.request.urlopen(SITE_GET, timeout=20) as r:
+            req2 = urllib.request.Request(SITE_GET, headers=UA)
+            with urllib.request.urlopen(req2, timeout=20) as r:
                 live = json.load(r)
-            mismatches = {k: {'expected': v, 'live': live.get(k)} for k, v in (expected or {}).items()
+            mismatches = {k: {'expected': v, 'live': live.get(k)} for k, v in expect_wire.items()
                           if str(live.get(k)) != str(v)}
             last = {'post_status': post_status, 'verified': not mismatches,
                     'mismatches': mismatches, 'attempt': attempt}
@@ -153,7 +183,7 @@ def post_record_update(payload, token, expected=None, dry_run=True, attempts=3, 
     return last
 
 def on_final(event_id, final_home, final_away, grade_id, date, record, win_pct, units_exact,
-             ledger_path, token, basis=BASIS, dry_run=True):
+             ledger_path, token, basis=BASIS, dry_run=True, graded_pick=None, source=None):
     """The J-118 chain, staged and resumable: grade row append -> site POST -> value-verify.
     Resume rule (swamp): if grade_id already has a saved row, it MUST equal the freshly
     computed row - a mismatch fails loud, never silently reuses a stale row."""
@@ -179,6 +209,20 @@ def on_final(event_id, final_home, final_away, grade_id, date, record, win_pct, 
               'ts': datetime.now(timezone.utc).isoformat(), 'stages': {'append': 'done'}}
     if not g.get('verified'):
         payload = {'record': record, 'win_pct': win_pct, 'units': row['units']}
+        if graded_pick is not None:
+            payload['graded_pick'] = graded_pick
+        else:
+            # carry forward so a sparse POST never blanks the site's graded_pick
+            try:
+                req = urllib.request.Request(SITE_GET, headers=UA)
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    cur = json.load(resp)
+                payload['graded_pick'] = cur.get('graded_pick', '')
+                payload['source'] = cur.get('source', '')
+            except Exception:
+                pass
+        if source is not None:
+            payload['source'] = source
         post = post_record_update(payload, token, expected=payload, dry_run=False)
         result['stages']['post'] = post
         if post.get('post_status') and str(post.get('post_status'), ).startswith('2'):

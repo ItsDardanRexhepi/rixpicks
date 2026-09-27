@@ -291,7 +291,11 @@ def main():
         else:
             res = record_pipe.on_final(eid, primary['home_score'], primary['away_score'],
                                        pkey, date_label, rec, pct, str(u2), LEDGER, token,
-                                       dry_run=False)
+                                       dry_run=False,
+                                       graded_pick=f"{p.get('name', '')} {result} "
+                                                   f"{max(primary['home_score'], primary['away_score'])}-"
+                                                   f"{min(primary['home_score'], primary['away_score'])}",
+                                       source='finals_watch J-118 live chain')
             if res['chain'] != 'complete':
                 print(f'{stamp} WARN: {pkey} chain {res["chain"]} - NOT marked seen; chain STOPS, retry next fire')
                 break
