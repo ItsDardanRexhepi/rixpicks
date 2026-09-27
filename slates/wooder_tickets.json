@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T09:21:00-07:00",
+ "generated_at": "2026-09-27T09:53:00-07:00",
  "tickets": [
   {
    "id": 1,
@@ -71,6 +71,44 @@
        }
       }
      ]
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "title": "5 Pick Parlay",
+   "pct": "+25% Parlay Boost",
+   "status": "Open",
+   "legs": [
+    {
+     "player": "Justin Herbert",
+     "market": "2+ Passing Touchdowns",
+     "matchup": "LAC-BUF",
+     "time": "Today 10:00 AM"
+    },
+    {
+     "player": "Rachaad White",
+     "market": "3+ Receptions",
+     "matchup": "SEA-WAS",
+     "time": "Today 10:00 AM"
+    },
+    {
+     "player": "Kenyon Sadiq",
+     "market": "3+ Receptions",
+     "matchup": "NYJ-DET",
+     "time": "Today 10:00 AM"
+    },
+    {
+     "player": "Quinshon Judkins",
+     "market": "50+ Rushing Yards",
+     "matchup": "CAR-CLE",
+     "time": "Today 10:00 AM"
+    },
+    {
+     "player": "Malik Nabers",
+     "market": "5+ Receptions",
+     "matchup": "TEN-NYG",
+     "time": "Today 10:00 AM"
     }
    ]
   }
