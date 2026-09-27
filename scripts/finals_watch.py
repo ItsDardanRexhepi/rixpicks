@@ -16,7 +16,7 @@ import json, os, re, sys, urllib.request
 sys.path.insert(0, '/home/sandbox/rix_tmp')
 from datetime import datetime
 from decimal import Decimal
-from core import record_pipe, units, budget
+from core import record_pipe, units, budget, fill_leak
 HERE = os.path.dirname(os.path.abspath(__file__))
 MANIFEST = os.path.join(HERE, '..', 'manifest.json')
 STATE = '/home/sandbox/rps_tmp/kb/ledger/finals_seen.json'
@@ -187,6 +187,15 @@ def grade(pick, primary):
         return 'PUSH', Decimal('0')
     won = (pick['side'] == 'home') == (primary['home_score'] > primary['away_score'])
     cents = (pick.get('kalshi') or {}).get('cents')
+    # FILL-LEAK GUARD: manifest price must equal the picks-ledger card entry;
+    # positions fills differing from the card price warn but never block.
+    card_c, card_row = fill_leak.card_price(pick)
+    if card_row is not None and cents is not None and card_c is not None and int(card_c) != int(cents):
+        raise ValueError(f'card-price fork: manifest {cents}c != picks-ledger {card_c}c - REFUSING to grade')
+    for dv in fill_leak.fill_divergence(pick):
+        if cents is not None and dv['fill_c'] is not None and int(dv['fill_c']) != int(cents):
+            print(f"WARN: fill divergence {dv['id']} {dv['venue']} {dv['fill_c']}c vs card {cents}c - "
+                  'grade uses CARD price, fill stays in positions ledger')
     u = Decimal(str(pick.get('units', '0u')).rstrip('u'))
     if not cents or not u:
         raise ValueError('missing price/units in manifest - grade manually')
