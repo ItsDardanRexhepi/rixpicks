@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T22:53:40.556112+00:00",
+ "generated_at": "2026-09-27T23:04:47.511779+00:00",
  "window": "sun-afternoon",
  "legs": [
   {
@@ -90,23 +90,23 @@
    "espn_event_id": "401872958",
    "commence": "2026-09-27T20:05Z",
    "status": "in",
-   "detail": "6:19 - 4th",
-   "score": "SF 29 - ARI 20"
+   "detail": "1:56 - 4th",
+   "score": "SF 29 - ARI 27"
   },
   {
    "matchup": "BAL @ DAL",
    "espn_event_id": "401872960",
    "commence": "2026-09-27T20:25Z",
    "status": "in",
-   "detail": "14:38 - 4th",
-   "score": "DAL 21 - BAL 24"
+   "detail": "9:42 - 4th",
+   "score": "DAL 28 - BAL 24"
   },
   {
    "matchup": "LV @ NO",
    "espn_event_id": "401872961",
    "commence": "2026-09-27T20:25Z",
    "status": "in",
-   "detail": "1:36 - 3rd",
+   "detail": "12:55 - 4th",
    "score": "NO 27 - LV 22"
   },
   {
@@ -114,8 +114,8 @@
    "espn_event_id": "401872959",
    "commence": "2026-09-27T20:05Z",
    "status": "in",
-   "detail": "9:02 - 4th",
-   "score": "TB 16 - MIN 17"
+   "detail": "3:10 - 4th",
+   "score": "TB 16 - MIN 20"
   }
  ]
 }
