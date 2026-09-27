@@ -64,6 +64,42 @@ def main(path, write=False):
                              'ask_c': round(float(ask)*100) if ask else None, 'mid_c': mid,
                              'status': m['status'], 'quoted_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')}
         print(f"OK {ticker}: {r['kalshi_quote']['bid_c']}/{r['kalshi_quote']['ask_c']} mid {mid}c")
+    # .com gamma leg (owner 9/27 9:00 rule change: .com fills markets .us lacks; price-venue
+    # lock - polymarket_com.cents always comes from gamma, the venue the chip opens).
+    for r in rows:
+        pc = r.get('polymarket_com')
+        if not pc or not pc.get('url'):
+            continue
+        slug = pc['url'].rstrip('/').split('/')[-1]
+        try:
+            ev = get(f"https://gamma-api.polymarket.com/events?slug={slug}")
+            mkts = (ev[0].get('markets') if ev else []) or []
+            m = None
+            lbl = (pc.get('market_label') or '').lower()
+            kw = (r.get('poly_kw') or '').lower()
+            for cand in mkts:
+                q = (cand.get('question') or '').lower()
+                if lbl and q == lbl: m = cand; break
+            if m is None and lbl:
+                for cand in mkts:
+                    if lbl in (cand.get('question') or '').lower(): m = cand; break
+            if m is None and kw:
+                for cand in mkts:
+                    if kw in (cand.get('question') or '').lower(): m = cand; break
+            if m is None:
+                print(f"COM-NOMATCH {slug}", file=sys.stderr); continue
+            outs = json.loads(m.get('outcomes') or '[]')
+            prs = json.loads(m.get('outcomePrices') or '[]')
+            idx = next((i for i,o in enumerate(outs) if str(o).lower()=='yes'), 0)
+            pr = float(prs[idx])
+            if not (0 < pr < 1):
+                print(f"COM-BADPX {slug}: {pr}", file=sys.stderr); continue
+            pc['cents'] = round(pr*100)
+            pc['quoted_at'] = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')
+            print(f"COM-OK {slug}: {pc['cents']}c")
+        except Exception as ex:
+            print(f"COM-ERR {slug}: {ex}", file=sys.stderr)  # fail-closed: last verified cents stays
+        time.sleep(0.3)
     if write:
         json.dump(rows, open(path,'w'), indent=1)
 

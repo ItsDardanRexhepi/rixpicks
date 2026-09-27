@@ -544,12 +544,16 @@ def _link_alive(url):
     ok=True
     try:
         import urllib.request
-        if 'polymarket.us' in url:
+        if 'polymarket.us' in url or 'polymarket.com' in url:
             # 9/27 swamp catch: polymarket.us soft-404s - HTTP 200 with OG title "Page not found".
             # Status alone proves nothing on this host; verify page content.
             req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
             with urllib.request.urlopen(req,timeout=10) as r: body=r.read(1200000).decode('utf-8','ignore')  # soft-404 marker sits ~466KB in - past any small cap
-            ok=('Page not found' not in body)
+            import re as _re2
+            _og=_re2.search(r'og:title[^>]*content="([^"]*)"',body)
+            # .us soft-404: og:title "Page not found | Polymarket". Good .com pages carry the raw
+            # string inside the JS bundle, so ONLY the OG title is evidence (9/27 .com restore).
+            ok=(_og is not None and 'Page not found' not in _og.group(1))
         else:
             req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'},method='HEAD')
             with urllib.request.urlopen(req,timeout=8) as r: ok=(r.status!=404)
@@ -1130,6 +1134,29 @@ r'fetch("slates/nfl_latest.json?cb="+Date.now(),{cache:"no-store"}).then(functio
 r'if(!j||j.version!==1){empty();return;}'
 r'try{if(j.generated_at&&Date.now()-Date.parse(j.generated_at)>4*24*3600*1000){empty();return;}}catch(e){}'
 r'render(j);updTrk();setInterval(updTrk,60000);}).catch(empty);});'
+r'})();</script>')
+# Wooder Ice's current tickets (main 9:05): additive ticket ledger shared by the guest -
+# client-hydrated from slates/wooder_tickets.json; section hides when no tickets exist.
+nfl_entry+=(
+r'<div style="margin-top:14px;border:1px solid rgba(216,162,58,.45);border-radius:12px;padding:11px 12px">'
+r'<div class="lghead" style="margin-top:0">Wooder Ice&#39;s current tickets</div>'
+r'<div id="rpTix"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div>'
+r'</div>'
+r'<script>(function(){'
+r'var box=document.getElementById("rpTix");if(!box)return;'
+r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
+r'fetch("slates/wooder_tickets.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
+r'var tix=(j&&j.tickets)||[];'
+r'if(!tix.length){box.parentNode.style.display="none";return;}'
+r'var h="";'
+r'tix.forEach(function(t){'
+r'h+="<div class=\"rpnpick\">"'
+r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+esc(t.title||"Ticket")+(t.pct?" <span style=\"color:#8a8f98;font-weight:400\">| "+esc(t.pct)+"</span>":"")+"</b>"+(t.status?"<span style=\"background:rgba(216,162,58,.18);color:#b07708;border-radius:8px;font-size:11px;font-weight:700;padding:1px 8px\">"+esc(t.status)+"</span>":"")+"</div>"'
+r'+(t.bought||t.to_pay?"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+(t.bought?"Bought "+esc(t.bought):"")+(t.bought&&t.to_pay?" &middot; ":"")+(t.to_pay?"To Pay "+esc(t.to_pay):"")+"</div>":"")'
+r'+(t.legs||[]).map(function(l,i){return "<div style=\"font-size:13px;margin-top:5px\">"+(i+1)+". <b>"+esc(l.player)+"</b> <span style=\"color:#8a8f98\">"+esc(l.market||"")+(l.matchup?" &middot; "+esc(l.matchup):"")+(l.time?" &middot; "+esc(l.time):"")+"</span></div>";}).join("")'
+r'+"</div>";});'
+r'box.innerHTML=h;'
+r'}).catch(function(){box.parentNode.style.display="none";});'
 r'})();</script>')
 
 fut_watch_html=''
@@ -2527,11 +2554,11 @@ def build_team_pages(man, css, build_sha):
                         ms=_sc(me); os_=_sc(opp)
                         if ms is None or os_ is None: continue
                         wl='W' if ms>os_ else ('L' if ms<os_ else 'T')
-                        last5.append('%s %d-%d %s %s · %s'%(wl,ms,os_,loc,opp_nm,dt[5:]))
+                        last5.append('%s %d-%d %s %s Â· %s'%(wl,ms,os_,loc,opp_nm,dt[5:]))
                         runs_for+=ms; runs_against+=os_; n_scored+=1
                     else:
                         import datetime as _d
-                        if dt >= str(_d.date.today()) and len(upcoming)<3: upcoming.append('%s %s · %s'%(loc,opp_nm,dt[5:]))
+                        if dt >= str(_d.date.today()) and len(upcoming)<3: upcoming.append('%s %s Â· %s'%(loc,opp_nm,dt[5:]))
                 last5=last5[-5:]
                 if last5:
                     streak=last5[-1][0]
@@ -2554,19 +2581,19 @@ def build_team_pages(man, css, build_sha):
                     ath=(it.get('athlete') or {}).get('displayName','?')
                     stat=str(it.get('status') or '')
                     det=str(it.get('type') or it.get('description') or '')[:60]
-                    injuries.append('%s · %s%s'%(ath,stat,(' - '+det) if det else ''))
+                    injuries.append('%s Â· %s%s'%(ath,stat,(' - '+det) if det else ''))
             except Exception: pass
         form_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in reversed(last5)) or '<div class="sub">No recent games found.</div>'
         avgs_html=('<div class="sub" style="padding:7px 0">Scored %.1f &middot; allowed %.1f per game over last %d</div>'%(runs_for/n_scored,runs_against/n_scored,n_scored)) if n_scored else '<div class="sub">Not enough recent games.</div>'
         next_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in upcoming) or '<div class="sub">No upcoming games listed.</div>'
         inj_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in injuries) or '<div class="sub">None reported.</div>'
-        tagline=' · '.join(x for x in [rec and ('Record '+rec), streak and ('Streak '+streak)] if x)
+        tagline=' Â· '.join(x for x in [rec and ('Record '+rec), streak and ('Streak '+streak)] if x)
         today=''
         for p in man.get('picks',[]):
             g=p.get('game') or {}
             if name in (g.get('away',''),g.get('home','')):
                 opp=g.get('home') if g.get('away')==name else g.get('away')
-                today='Today: %s %s · %s'%(('vs' if g.get('home')==name else '@'),opp,_pt_label(g.get('commence','')))
+                today='Today: %s %s Â· %s'%(('vs' if g.get('home')==name else '@'),opp,_pt_label(g.get('commence','')))
         page=tmpl
         for tok,val in [('__TEAM__',html.escape(name)),('__CSS__',css),('__RECORD__',html.escape(rec)),
             ('__TAGLINE__',html.escape(tagline)),('__TODAY__',html.escape(today)),('__LOGO__',logo_html),
@@ -2694,6 +2721,7 @@ function rpFutOpen(fid){
  bx.innerHTML=h+'<button class="rp-btn ghost" onclick="rpFdClose()">Close</button>';
  sh.style.display='flex';
  var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase();
+ if(r.dataset.ksrc==='kalshi'){rpFdRenderLive(r);return;}  /* 9/27: seeded Kalshi sheet FIRST (server-verified quote) - proxy only for non-seeded rows */
  var kt=r.dataset.kalticker;
  if(kt){var u2='https://api.elections.kalshi.com/trade-api/v2/markets/'+kt+'?_='+Date.now();
   var _ac=new AbortController();setTimeout(function(){_ac.abort();},8000);  /* futures batch: loading must RESOLVE - data or an honest unavailable state, never spin forever */
@@ -2707,7 +2735,6 @@ function rpFutOpen(fid){
    b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow;
   }).catch(function(){if(window.__rpFdFid!==_fid)return;var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
   return;}
- if(r.dataset.ksrc==='kalshi'){rpFdRenderLive(r);return;}  /* 9/27: Kalshi-sourced sheet, no .com gamma */
  if((window.__rpFutMkts||{})[slug]){rpFdRenderLive(r);return;}
  var _ac2=new AbortController();setTimeout(function(){_ac2.abort();},8000);
  fetch('https://gamma-api.polymarket.com/events?slug='+slug,{signal:_ac2.signal}).then(function(r2){return r2.json();}).then(function(ev){
@@ -2763,11 +2790,23 @@ def build_futures_page(css,build_sha):
         if lg not in seen_lg:
             seen_lg.add(lg)
             rows.append('<div class="sect" style="margin-top:18px">%s %s</div>'%(BALL.get(lg,'&#127937;'),html.escape(lg)))
+        # owner 9/27 9:00 (supersedes 8:25 .us-only): .us first, .com fills markets .us lacks.
+        # PRICE-VENUE LOCK: the chip's price comes from the venue it opens, never mixed.
         _furl=_poly_us_url(f.get('poly_slug','')) if f.get('poly_slug') else ''
         if _furl and not _link_alive(_furl):
             print(f"LINK DROP: futures {f.get('team')} dead/generic .us destination: {_furl}", file=sys.stderr)
             _furl=''
-        _flink=('<div style="margin-top:6px"><a class="chip"%s href="%s" data-book="POLY" data-sb="%s" target="_blank" rel="noreferrer">POLY &#8250;</a></div>'%(bkstyle('POLY'),html.escape(_furl),html.escape(_furl))) if _furl else ''
+        _pus=(f.get('polymarket_us') or {})
+        _pcom=(f.get('polymarket_com') or {})
+        _flink=''
+        if _furl:
+            _flbl='POLY'+((' '+c2ml(_pus['cents'])) if isinstance(_pus.get('cents'),(int,float)) else '')
+            _flink=('<div style="margin-top:6px"><a class="chip futpoly"%s href="%s" data-book="POLY" data-sb="%s" target="_blank" rel="noreferrer">%s</a></div>'%(bkstyle('POLY'),html.escape(_furl),html.escape(_furl),html.escape(_flbl)))
+        elif _pcom.get('url') and _pcom.get('verified') and isinstance(_pcom.get('cents'),(int,float)) and 0<_pcom['cents']<100:
+            if _link_alive(_pcom['url']):
+                _flink=('<div style="margin-top:6px"><a class="chip futpoly"%s href="%s" data-book="POLY" data-sb="%s" target="_blank" rel="noreferrer">POLY %s</a></div>'%(bkstyle('POLY'),html.escape(_pcom['url']),html.escape(_pcom['url']),html.escape(c2ml(_pcom['cents']))))
+            else:
+                print(f"LINK DROP: futures {f.get('team')} dead/generic .com destination: {_pcom['url']}", file=sys.stderr)
         # 9/27 owner instruction: futures odds live on-site. Server-seeded Kalshi ask (futures_quotes.py
         # at refresh) owns the numbers - no client poll (Kalshi sends no CORS header; proxy tick removed 9/27 per main); no quote -> locked entry, never blank.
         _kq=(f.get('kalshi_quote') or {})
@@ -2812,6 +2851,8 @@ function rpFutPoll(){fetch("futures.json?cb="+Date.now(),{cache:"no-store"}).the
   var lv=el.querySelector(".futlive");if(lv){lv.textContent=_faml(kq.ask_c);lv.style.opacity="";}
   var mv=el.querySelector(".futmove");if(mv)mv.innerHTML=_fmv(el.dataset.entry||"+0",kq.ask_c);
   if(kq.quoted_at&&kq.quoted_at>asof)asof=kq.quoted_at;
+  var pc=f.polymarket_com;
+  if(pc&&pc.verified&&typeof pc.cents==="number"&&pc.cents>0&&pc.cents<100){var pel=el.querySelector(".futpoly");if(pel)pel.textContent="POLY "+_faml(pc.cents);}
  });
  if(asof){var a2=document.getElementById("rpFutAsOf");if(a2)a2.textContent=_fpt(asof);}
 }).catch(function(){});}
