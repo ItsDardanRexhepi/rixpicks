@@ -13,7 +13,14 @@
   "abbr": "sf",
   "fair_price_est": "+900",
   "est_prob": 0.1,
-  "resolution": "Super Bowl LXI result (Feb 2027)"
+  "resolution": "Super Bowl LXI result (Feb 2027)",
+  "kalshi_quote": {
+   "ticker": "KXSB-27-SF",
+   "bid_c": 8,
+   "ask_c": 9,
+   "mid_c": 8,
+   "status": "active"
+  }
  },
  {
   "id": "F-NFLV2-KC-AFCW",
@@ -28,7 +35,14 @@
   "abbr": "kc",
   "fair_price_est": "-122",
   "est_prob": 0.55,
-  "resolution": "Division decided end of NFL regular season (Jan 2027)"
+  "resolution": "Division decided end of NFL regular season (Jan 2027)",
+  "kalshi_quote": {
+   "ticker": "KXNFLAFCWEST-27-KC",
+   "bid_c": 58,
+   "ask_c": 59,
+   "mid_c": 58,
+   "status": "active"
+  }
  },
  {
   "id": "F-NFLV2-SF-NFCW",
@@ -43,7 +57,14 @@
   "abbr": "sf",
   "fair_price_est": "+150",
   "est_prob": 0.4,
-  "resolution": "Division decided end of NFL regular season (Jan 2027)"
+  "resolution": "Division decided end of NFL regular season (Jan 2027)",
+  "kalshi_quote": {
+   "ticker": "KXNFLNFCWEST-27-SF",
+   "bid_c": 32,
+   "ask_c": 33,
+   "mid_c": 32,
+   "status": "active"
+  }
  },
  {
   "id": "F-NFLV2-PHI-NFCE",
@@ -58,7 +79,14 @@
   "abbr": "phi",
   "fair_price_est": "-122",
   "est_prob": 0.55,
-  "resolution": "Division decided end of NFL regular season (Jan 2027)"
+  "resolution": "Division decided end of NFL regular season (Jan 2027)",
+  "kalshi_quote": {
+   "ticker": "KXNFLNFCEAST-27-PHI",
+   "bid_c": 62,
+   "ask_c": 64,
+   "mid_c": 63,
+   "status": "active"
+  }
  },
  {
   "id": "F-NFLV2-MIN-NFCN",
@@ -73,7 +101,14 @@
   "abbr": "min",
   "fair_price_est": "+257",
   "est_prob": 0.28,
-  "resolution": "Division decided end of NFL regular season (Jan 2027)"
+  "resolution": "Division decided end of NFL regular season (Jan 2027)",
+  "kalshi_quote": {
+   "ticker": "KXNFLNFCNORTH-27-MIN",
+   "bid_c": 35,
+   "ask_c": 37,
+   "mid_c": 36,
+   "status": "active"
+  }
  },
  {
   "id": "F-NFLV2-BUF-AFC",
@@ -88,7 +123,14 @@
   "abbr": "buf",
   "fair_price_est": "+285",
   "est_prob": 0.26,
-  "resolution": "AFC Championship result (Jan 2027)"
+  "resolution": "AFC Championship result (Jan 2027)",
+  "kalshi_quote": {
+   "ticker": "KXNFLAFCCHAMP-27-BUF",
+   "bid_c": 20,
+   "ask_c": 22,
+   "mid_c": 21,
+   "status": "active"
+  }
  },
  {
   "id": "F-NFLV3-SF-NFC",
@@ -103,7 +145,14 @@
   "poly_kw": "san francisco",
   "fair_price_est": "+400",
   "est_prob": 0.2,
-  "resolution": "NFC Championship result (Jan 2027)"
+  "resolution": "NFC Championship result (Jan 2027)",
+  "kalshi_quote": {
+   "ticker": "KXNFLNFCCHAMP-27-SF",
+   "bid_c": 15,
+   "ask_c": 16,
+   "mid_c": 16,
+   "status": "active"
+  }
  },
  {
   "id": "F-WNBA-MIN-CHAMP",
@@ -118,6 +167,13 @@
   "note": "Kalshi 43c vs BetMGM +100 / ESPN -110 - net edge +5 to +7c after fees",
   "fair_price_est": "+100",
   "est_prob": 0.5,
-  "resolution": "WNBA Finals result (Oct 2026)"
+  "resolution": "WNBA Finals result (Oct 2026)",
+  "kalshi_quote": {
+   "ticker": "KXWNBA-26-MIN",
+   "bid_c": 43,
+   "ask_c": 44,
+   "mid_c": 44,
+   "status": "active"
+  }
  }
 ]

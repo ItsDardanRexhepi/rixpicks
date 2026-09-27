@@ -2594,6 +2594,7 @@ async function rpFutTick(){
  var bySlug={};
  document.querySelectorAll('.futrow[data-pslug]').forEach(function(r){
   if(!r.dataset.pslug)return;
+  if(r.dataset.ksrc==='kalshi')return;  /* 9/27: Kalshi-sourced rows tick from Kalshi only */
   (bySlug[r.dataset.pslug]=bySlug[r.dataset.pslug]||[]).push(r);
  });
  var slugs=Object.keys(bySlug);
@@ -2712,6 +2713,7 @@ function rpFutOpen(fid){
    b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow;
   }).catch(function(){if(window.__rpFdFid!==_fid)return;var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
   return;}
+ if(r.dataset.ksrc==='kalshi'){rpFdRenderLive(r);return;}  /* 9/27: Kalshi-sourced sheet, no .com gamma */
  if((window.__rpFutMkts||{})[slug]){rpFdRenderLive(r);return;}
  var _ac2=new AbortController();setTimeout(function(){_ac2.abort();},8000);
  fetch('https://gamma-api.polymarket.com/events?slug='+slug,{signal:_ac2.signal}).then(function(r2){return r2.json();}).then(function(ev){
@@ -2723,6 +2725,12 @@ function rpFutOpen(fid){
    source death shows a dimmed honest label instead of a stale price (his Sep 26 rule) */
 function rpFdRenderLive(r){
  var b=document.getElementById('rpFdLiveBody');if(!b)return;
+ if(r.dataset.ksrc==='kalshi'){var _kc=parseFloat(r.dataset.kc||'0');if(!(_kc>0&&_kc<100)){b.style.opacity='.55';b.textContent='live data unavailable';return;}
+  var _ml=_kc>=50?-Math.round(_kc/(100-_kc)*100):Math.round((100-_kc)/_kc*100);
+  var _e=r.dataset.entry||'+0',_eMl=parseInt(_e.replace('+',''),10)||100,_eImp=_eMl>0?100/(_eMl+100):(-_eMl)/((-_eMl)+100),_p=_kc/100;
+  var _mv=_p>_eImp+0.005?'&#9650; shortened':(_p<_eImp-0.005?'&#9660; drifted':'steady');
+  b.style.opacity='';b.innerHTML='Live on Kalshi (ask) <b>'+(_ml>0?'+':'')+_ml+'</b> ('+_kc.toFixed(1)+'%) &middot; '+_mv+' vs entry '+_e+' &middot; ticks 60s, refreshes each rebuild';return;}  /* 9/27 futures live-odds: Kalshi-sourced, never .com gamma */
+
  var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase(),entry=r.dataset.entry||'+0';
  var ok=((window.__rpPolyOkByFid||{})[r.dataset.fid])||0;
  if(!ok){b.style.opacity='.55';b.textContent='live data unavailable';return;}  /* never delivered: say so, no fake timestamp */
@@ -2766,17 +2774,24 @@ def build_futures_page(css,build_sha):
             print(f"LINK DROP: futures {f.get('team')} dead/generic .us destination: {_furl}", file=sys.stderr)
             _furl=''
         _flink=('<div style="margin-top:6px"><a class="chip"%s href="%s" data-book="POLY" data-sb="%s" target="_blank" rel="noreferrer">POLY &#8250;</a></div>'%(bkstyle('POLY'),html.escape(_furl),html.escape(_furl))) if _furl else ''
-        rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-kalticker="%s" data-entry="%s" data-team="%s" data-mkt="%s" data-fair="%s" data-prob="%s" data-res="%s" data-units="%s" data-note="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
+        # 9/27 owner instruction: futures odds live on-site. Server-seeded Kalshi ask (futures_quotes.py
+        # at refresh); client rpFutKalTick rides data-kalticker between rebuilds; no quote -> locked entry, never blank.
+        _kq=(f.get('kalshi_quote') or {})
+        _kqok=(_kq.get('status')=='active' and isinstance(_kq.get('ask_c'),(int,float)) and 0<_kq['ask_c']<100)
+        _fut_live=c2ml(_kq['ask_c']) if _kqok else f['odds']
+        _kqattrs=(' data-ksrc="kalshi" data-kc="%d"'%round(_kq['ask_c'])) if _kqok else ''
+        _ktick=_kq.get('ticker','') if _kqok else f.get('kalshi_ticker','')
+        rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-kalticker="%s"%s data-entry="%s" data-team="%s" data-mkt="%s" data-fair="%s" data-prob="%s" data-res="%s" data-units="%s" data-note="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
         '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">'
         '<span style="font-weight:700">'+('<img src="https://a.espncdn.com/i/teamlogos/'+_REGALL.get(f.get('league',''),{}).get('logo_dir','')+'/500/'+f.get('abbr','')+'.png" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">' if f.get('abbr') and _REGALL.get(f.get('league',''),{}).get('logo_dir') else '')+'%s</span>'
-        '<span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">\u2014</span><button class="futdots" onclick="rpFutOpen(this.getAttribute(\'data-f\'))" data-f="%s" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div>'
+        '<span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">%s</span><button class="futdots" onclick="rpFutOpen(this.getAttribute(\'data-f\'))" data-f="%s" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div>'
         '<div style="font-size:12px;color:#8a8f98;margin-top:2px">%s &middot; entry %s &middot; %su%s</div>'
         + ('<div style="font-size:12px;margin-top:3px;color:#d8a23a">&#8646; pick changed from %s (%s)</div>'%(html.escape(f['changed_from']['team']),html.escape(f['changed_from']['odds'])) if f.get('changed_from') else '')
         + _flink
         + '<div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div>')
-        %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(f.get('kalshi_ticker','')),html.escape(f['odds']),
+        %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(_ktick),_kqattrs,html.escape(f['odds']),
           html.escape(f['team']),html.escape(f['market']),html.escape(f.get('fair','')),html.escape(str(f.get('prob',''))),html.escape(f.get('res','')),str(f.get('units',2)),html.escape(f.get('note','')),
-          html.escape(f['team']),html.escape(f['id']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else '')))
+          html.escape(f['team']),html.escape(_fut_live),html.escape(f['id']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else '')))
     pg=FUTURES_TMPL
     for tok,val in [('__CSS__',css),('__ROWS__',''.join(rows)),('__COUNT__',str(len(FUT))),('__BUILD__',build_sha),('__RPARB__',ARB_INJECT)]:
         pg=pg.replace(tok,val)

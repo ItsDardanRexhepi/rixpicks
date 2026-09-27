@@ -87,7 +87,12 @@
    },
    "polycents": 74,
    "fdp": null,
-   "league": "NFL"
+   "league": "NFL",
+   "polymarket_us": {
+    "url": "https://polymarket.us/sports/nfl/nfl-nyj-det-2026-09-27",
+    "cents": 73,
+    "verified": true
+   }
   },
   {
    "num": 2,
@@ -124,7 +129,12 @@
    },
    "polycents": 60,
    "fdp": null,
-   "league": "NFL"
+   "league": "NFL",
+   "polymarket_us": {
+    "url": "https://polymarket.us/sports/nfl/nfl-cin-pit-2026-09-27",
+    "cents": 62,
+    "verified": true
+   }
   },
   {
    "num": 3,
@@ -161,7 +171,12 @@
    },
    "polycents": 72,
    "fdp": null,
-   "league": "WNBA"
+   "league": "WNBA",
+   "polymarket_us": {
+    "url": "https://polymarket.us/sports/wnba/wnba-ny-min-2026-09-27",
+    "cents": 72,
+    "verified": true
+   }
   },
   {
    "num": 4,
@@ -198,7 +213,12 @@
    },
    "polycents": 62,
    "fdp": null,
-   "league": "MLB"
+   "league": "MLB",
+   "polymarket_us": {
+    "url": "https://polymarket.us/sports/mlb/mlb-tb-phi-2026-09-27",
+    "cents": 62,
+    "verified": true
+   }
   },
   {
    "num": 5,
@@ -235,7 +255,12 @@
    },
    "polycents": 70,
    "fdp": null,
-   "league": "MLB"
+   "league": "MLB",
+   "polymarket_us": {
+    "url": "https://polymarket.us/sports/mlb/mlb-lad-sf-2026-09-27",
+    "cents": 70,
+    "verified": true
+   }
   },
   {
    "num": 6,
@@ -272,7 +297,12 @@
    },
    "polycents": 64,
    "fdp": null,
-   "league": "MLB"
+   "league": "MLB",
+   "polymarket_us": {
+    "url": "https://polymarket.us/sports/mlb/mlb-stl-mil-2026-09-27",
+    "cents": 64,
+    "verified": true
+   }
   },
   {
    "num": 7,
@@ -309,8 +339,13 @@
    },
    "polycents": 72,
    "fdp": null,
-   "league": "WNBA"
+   "league": "WNBA",
+   "polymarket_us": {
+    "url": "https://polymarket.us/sports/wnba/wnba-wsh-atl-2026-09-27",
+    "cents": 73,
+    "verified": true
+   }
   }
  ],
- "pick_content_hash": "56b38d927c70b9b40588e813781949d3d2d814a23df8856a0e275190890935db"
+ "pick_content_hash": "6d9a1024cd113f31b19402655b7d9cf0867de4e2f5d61e1c16a4a850c014a2c0"
 }
