@@ -204,6 +204,11 @@ def main():
     dry = '--dry-run' in sys.argv
     m = json.load(open(MANIFEST))
     seen = load_seen()
+    # swamp 9:30: reconstruct seen from ledger/sidecar-verified rows - a crash between
+    # on_final verify and the seen write must not regrade (resume-mismatch deadlock).
+    for gid in record_pipe.verified_grade_ids(LEDGER):
+        if gid not in seen:
+            seen[gid] = {'reconstructed_from_ledger': True}
     stamp = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M %Z')
     token = open(TOKEN_PATH).read().strip() if os.path.exists(TOKEN_PATH) else ''
     date_label = m.get('date_label', '')

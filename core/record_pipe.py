@@ -71,6 +71,14 @@ def current_state(ledger_path):
         raise SystemExit(f"FAIL-CLOSED: verified row record {last_verified.get('record')!r} unparseable")
     return int(m.group(1)), int(m.group(2)), Decimal(last_verified['units_exact'])
 
+def verified_grade_ids(ledger_path):
+    """All non-baseline grade_ids with a completed (verified) chain - the crash-safe
+    seen set. The watcher can die between sidecar verify and its seen write; the ledger
+    + sidecar are the durable record, so 'seen' is reconstructible from them (swamp 9:30)."""
+    state = _load_state(ledger_path)
+    return {r['grade_id'] for r in read_rows(ledger_path) if _is_verified(r, state)
+            and not str(r.get('grade_id', '')).startswith('G-BASELINE-')}
+
 def resume_pending(ledger_path, token):
     """Complete the POST/GET chain for every ledger row that is appended but not yet
     verified (sidecar missing or verified=false), in ledger order, BEFORE any successor
