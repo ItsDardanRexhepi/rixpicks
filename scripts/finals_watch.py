@@ -189,8 +189,11 @@ def grade(pick, primary):
     cents = (pick.get('kalshi') or {}).get('cents')
     # FILL-LEAK GUARD: manifest price must equal the picks-ledger card entry;
     # positions fills differing from the card price warn but never block.
-    card_c, card_row = fill_leak.card_price(pick)
-    if card_row is not None and cents is not None and card_c is not None and int(card_c) != int(cents):
+    card_c, card_row, n_card = fill_leak.card_price(pick)
+    if n_card != 1:
+        raise ValueError(f'card record missing or ambiguous (n={n_card}) for '
+                         f"{pick['game']['eid']}|ml|{pick['side']} - REFUSING to grade (fail closed)")
+    if cents is not None and card_c is not None and int(card_c) != int(cents):
         raise ValueError(f'card-price fork: manifest {cents}c != picks-ledger {card_c}c - REFUSING to grade')
     for dv in fill_leak.fill_divergence(pick):
         if cents is not None and dv['fill_c'] is not None and int(dv['fill_c']) != int(cents):
