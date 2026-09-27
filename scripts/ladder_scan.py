@@ -17,6 +17,8 @@ MLB total = book total + starter ERA adj (sigma 3.0); WNBA = book-anchored scree
 ML+spread calibrated). Fee = 0.07*P*(1-P). Screen-hit bar: fair>=0.60 AND gross>=2c, fresh, bound,
 active market. Far-tail rungs (|z|>=2) are curve noise - excluded from hits by construction label."""
 import json, re, sys, os, statistics, datetime
+import sys as _s; _s.path.insert(0,'/home/sandbox/rix_tmp')
+from core.linefmt import fmt_spread
 from statistics import NormalDist
 ND=NormalDist()
 def fee(p): return 0.07*p*(1-p)
@@ -176,11 +178,11 @@ for m in board['series'].get('KXNFLSPREAD',[])+board['series'].get('KXNFLTOTAL',
         mu=-bk['home_spread']
         z=((thr-mu) if home_covers else (-thr-mu))/SIG_NFL_M
         fair=(1-ND.cdf(z)) if home_covers else ND.cdf(z)
-        add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'YES',fair,m['ya'],'nfl_book_anchor',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
+        add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'spread',fmt_spread(team,-thr),'YES',fair,m['ya'],'nfl_book_anchor',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
         _na,_viol=noask(m)
         if _viol: errors.append(f'NFL {_viol}: {m["t"]} - REFUSING NO row')
         elif _na is None: errors.append(f'NFL no executable no_ask: {m["t"]} - REFUSING NO row')
-        else: add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'NO',1-fair,_na,'nfl_book_anchor',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
+        else: add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'spread',fmt_spread(team,-thr),'NO',1-fair,_na,'nfl_book_anchor',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
 
 for m in board['series'].get('KXMLBSPREAD',[])+board['series'].get('KXMLBTOTAL',[]):
     if not active(m): continue
@@ -219,11 +221,11 @@ for m in board['series'].get('KXMLBSPREAD',[])+board['series'].get('KXMLBTOTAL',
         r=(bk['p_home']/(1-bk['p_home']))**(1/1.83); Eh=bk['total']*r/(1+r); Ea=bk['total']/(1+r); mu=Eh-Ea
         z=((thr-mu) if home_covers else (-thr-mu))/SIG_MLB_M
         fair=(1-ND.cdf(z)) if home_covers else ND.cdf(z)
-        add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'YES',fair,m['ya'],'mlb_book_pyth',src,{'z':z,'book_total':bk['total'],'p_home_book':round(bk['p_home'],3),'vol':m['vol'],'oi':m['oi']})
+        add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'spread',fmt_spread(team,-thr),'YES',fair,m['ya'],'mlb_book_pyth',src,{'z':z,'book_total':bk['total'],'p_home_book':round(bk['p_home'],3),'vol':m['vol'],'oi':m['oi']})
         _na,_viol=noask(m)
         if _viol: errors.append(f'MLB {_viol}: {m["t"]} - REFUSING NO row')
         elif _na is None: errors.append(f'MLB no executable no_ask: {m["t"]} - REFUSING NO row')
-        else: add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'NO',1-fair,_na,'mlb_book_pyth',src,{'z':z,'book_total':bk['total'],'p_home_book':round(bk['p_home'],3),'vol':m['vol'],'oi':m['oi']})
+        else: add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'spread',fmt_spread(team,-thr),'NO',1-fair,_na,'mlb_book_pyth',src,{'z':z,'book_total':bk['total'],'p_home_book':round(bk['p_home'],3),'vol':m['vol'],'oi':m['oi']})
 
 for series,mtype in [('KXWNBASPREAD','spread'),('KXWNBATOTAL','total'),('KXWNBAGAME','ml')]:
     for m in board['series'].get(series,[]):
