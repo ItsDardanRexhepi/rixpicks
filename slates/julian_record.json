@@ -7,8 +7,17 @@
   "t4"
  ],
  "dead_picks": [
+  "Ashton Jeanty",
+  "CeeDee Lamb",
+  "Mark Andrews",
   "Bucky Irving",
+  "Ashton Jeanty",
+  "CeeDee Lamb",
+  "Mark Andrews",
   "Bucky Irving",
+  "Chris Olave",
+  "George Pickens",
+  "Lamar Jackson",
   "Jaxon Smith-Njigba",
   "Jameson Williams",
   "Tyquan Thornton",
@@ -24,10 +33,10 @@
  ],
  "removal_rule": "one definitively LOST leg removes the whole combo card from the public site; lost standalones come off alone; internal ledger keeps all rows",
  "record": {
-  "wins": 28,
-  "losses": 27,
+  "wins": 38,
+  "losses": 38,
   "pushes": 0,
-  "pending": 28
+  "pending": 7
  },
  "by_window": {
   "dingers-2026-09-27": {
@@ -38,17 +47,17 @@
    "void": 1
   },
   "sun-early": {
-   "wins": 19,
+   "wins": 20,
    "losses": 9,
    "pushes": 0,
-   "pending": 1,
+   "pending": 0,
    "void": 1
   },
   "sun-afternoon": {
-   "wins": 7,
-   "losses": 11,
+   "wins": 16,
+   "losses": 22,
    "pushes": 0,
-   "pending": 20,
+   "pending": 0,
    "void": 0
   },
   "sun-evening": {
@@ -67,28 +76,28 @@
    "pending": 0
   },
   "anytime_td": {
-   "wins": 11,
-   "losses": 8,
+   "wins": 17,
+   "losses": 16,
    "pushes": 0,
-   "pending": 14
+   "pending": 0
   },
   "ml": {
-   "wins": 4,
+   "wins": 5,
    "losses": 2,
    "pushes": 0,
-   "pending": 1
+   "pending": 0
   },
   "passing_yards": {
    "wins": 6,
-   "losses": 0,
+   "losses": 1,
    "pushes": 0,
-   "pending": 1
+   "pending": 0
   },
   "pass_td": {
-   "wins": 1,
-   "losses": 2,
+   "wins": 2,
+   "losses": 3,
    "pushes": 0,
-   "pending": 2
+   "pending": 0
   },
   "receptions": {
    "wins": 2,
@@ -103,10 +112,10 @@
    "pending": 0
   },
   "total_over": {
-   "wins": 0,
+   "wins": 1,
    "losses": 0,
    "pushes": 0,
-   "pending": 1
+   "pending": 0
   },
   "first_td": {
    "wins": 0,
@@ -115,10 +124,10 @@
    "pending": 0
   },
   "receiving_yards": {
-   "wins": 0,
-   "losses": 0,
+   "wins": 1,
+   "losses": 1,
    "pushes": 0,
-   "pending": 2
+   "pending": 0
   },
   "points": {
    "wins": 0,
@@ -294,7 +303,7 @@
    "price": "68c/None",
    "window": "sun-early",
    "combo_id": null,
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T08:36:02-07:00"
   },
   {
@@ -671,7 +680,7 @@
    "price": "67c/-203",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T12:14:00-07:00"
   },
   {
@@ -683,7 +692,7 @@
    "price": "59c/-144",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T12:14:00-07:00"
   },
   {
@@ -695,8 +704,9 @@
    "price": "52c/-108",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Aaron Jones Sr.",
@@ -719,8 +729,9 @@
    "price": "44c/+127",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Mark Andrews",
@@ -731,8 +742,9 @@
    "price": "43c/+133",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Bucky Irving",
@@ -768,7 +780,7 @@
    "price": "65c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T12:14:00-07:00"
   },
   {
@@ -780,7 +792,7 @@
    "price": "57c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T12:14:00-07:00"
   },
   {
@@ -792,8 +804,9 @@
    "price": "49c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Aaron Jones Sr.",
@@ -816,8 +829,9 @@
    "price": "42c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Mark Andrews",
@@ -828,8 +842,9 @@
    "price": "41c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Bucky Irving",
@@ -853,8 +868,9 @@
    "price": "38c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "George Pickens",
@@ -865,8 +881,9 @@
    "price": "37c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "BAL/DAL",
@@ -877,7 +894,7 @@
    "price": "77c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T12:14:00-07:00"
   },
   {
@@ -889,8 +906,9 @@
    "price": "73c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Derrick Henry",
@@ -901,7 +919,7 @@
    "price": "65c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T12:14:00-07:00"
   },
   {
@@ -913,7 +931,7 @@
    "price": "63c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T12:14:00-07:00"
   },
   {
@@ -1016,7 +1034,7 @@
    "price": null,
    "window": "sun-afternoon",
    "combo_id": "t3",
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T13:12:00-07:00",
    "card_status": "dead"
   },
@@ -1029,7 +1047,7 @@
    "price": null,
    "window": "sun-afternoon",
    "combo_id": "t3",
-   "status": "pending",
+   "status": "lost",
    "received": "2026-09-27T13:12:00-07:00",
    "card_status": "dead"
   },
@@ -1042,7 +1060,7 @@
    "price": null,
    "window": "sun-afternoon",
    "combo_id": "t3",
-   "status": "pending",
+   "status": "lost",
    "received": "2026-09-27T13:12:00-07:00",
    "card_status": "dead"
   },
@@ -1055,7 +1073,7 @@
    "price": null,
    "window": "sun-afternoon",
    "combo_id": "t3",
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T13:12:00-07:00",
    "card_status": "dead"
   },
