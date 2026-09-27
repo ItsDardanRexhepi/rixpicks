@@ -80,6 +80,7 @@ def main():
             'status': m.get('status'),
             'yes_bid': cents(m.get('yes_bid_dollars')),
             'yes_ask': cents(m.get('yes_ask_dollars')),
+            'quoted_at': m.get('updated_time'),
         }
     payload = {'quoted_at': datetime.now(timezone.utc).isoformat(), 'quotes': quotes}
     atomic_write(payload)
