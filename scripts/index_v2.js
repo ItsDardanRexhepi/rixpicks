@@ -339,6 +339,9 @@ function loadSide(t){
 }
 setInterval(function(){if(cur&&!document.hidden)loadSide(cur);},30000);
 setInterval(function(){if(cur&&!document.hidden&&NEWSF){renderNews(cur,newsBucket(cur));tickRender();}},30000);
+/* wordmark -> home (Julian 9/27 4:31 PT via main): tap logo from any tab lands home. Clear rp_tab + hash so boot's default-tab pick (home) wins and a later refresh stays home. */
+var _wmlogo=document.querySelector('nav.rpnav .logo');
+if(_wmlogo){_wmlogo.addEventListener('click',function(e){e.preventDefault();try{localStorage.removeItem('rp_tab');}catch(x){}try{history.replaceState(null,'',location.pathname);}catch(x){}location.href='index.html';});}
 /* ---- boot ---- */
 var start=fromHash()||(function(){try{return localStorage.getItem('rp_tab');}catch(e){return null;}})();
 if(!start){
