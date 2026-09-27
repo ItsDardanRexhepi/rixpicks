@@ -77,9 +77,7 @@ def _pick_content_hash(m):
     # operational fields, audit before extending): num (build-assigned display order), result and
     # _final (post-settlement grading state, not pick content), polycents (live Polymarket price
     # snapshot), kalshi.cents (live Kalshi ask snapshot - the gate re-checks it live anyway),
-    # card_ts (first-lock provenance - excluded per main Sep 27 10:04 ruling; its stability is
-    # guarded by the dedicated ledger-equality assertion in build_manifest.py, not by this hash).
-    _EXCL_TOP={'num','result','_final','polycents','card_ts'}
+    _EXCL_TOP={'num','result','_final','polycents'}
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):

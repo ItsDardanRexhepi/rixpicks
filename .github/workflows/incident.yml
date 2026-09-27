@@ -36,9 +36,15 @@ jobs:
             gh api "repos/${{ github.repository }}/actions/runs/${RUN_ID}/jobs" --jq '.jobs[] | "- \(.name): \(.conclusion) (started \(.started_at))"'
             echo
             echo '## log tails'
+            # 9/27 root fix: gh api chokes on log byte streams (terminal escape
+            # rejection) and its redirect handling is opaque - curl -L the signed
+            # URL, strip ANSI/CR, and always land a tail even when grep matches
+            # nothing, so the diagnosis exists the moment the failure does.
             for J in $(gh api "repos/${{ github.repository }}/actions/runs/${RUN_ID}/jobs" --jq '.jobs[] | select(.conclusion=="failure") | .id'); do
               echo "### job $J"
-              gh api "repos/${{ github.repository }}/actions/jobs/${J}/logs" 2>/dev/null | grep -E 'error|FAILED|Error|failed' | tail -30 || true
+              RAW=$(curl -sL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/actions/jobs/${J}/logs" | sed -e 's/\x1b\[[0-9;]*[A-Za-z]//g' -e 's/\r//g' | tail -c 60000)
+              HITS=$(printf '%s' "$RAW" | grep -Ei 'error|failed|exit code|abort|traceback' | tail -30)
+              if [ -n "$HITS" ]; then printf '%s\n' "$HITS"; else printf '%s\n' "$RAW" | tail -30; fi
             done
           } > "$F" || true
       - name: commit incident report
