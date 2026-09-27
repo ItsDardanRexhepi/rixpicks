@@ -1,0 +1,143 @@
+{
+ "date_label": "Saturday, Sep 26",
+ "updated": "Sep 25, 10:29 PM PT",
+ "archive_rebuild": "game-4..11 (8-game card shipped Fri Sep 25 10:29 PM PT, commit a857c06) reconstructed from served pages Sep 27 - manifest committed to close the orphan-manifest process gap",
+ "picks": [
+  {
+   "name": "Cardinals ML",
+   "sub": "at Brewers · Mathews (2.37) vs May (5.40) · MIL resting",
+   "odds": "+160",
+   "units": "5u",
+   "side": "away",
+   "game": {
+    "away": "St. Louis Cardinals",
+    "home": "Milwaukee Brewers",
+    "commence": "2026-09-26T23:10:00Z",
+    "eid": "401817096",
+    "gpk": "823733"
+   },
+   "espn_league": "baseball/mlb",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep261910stlmil",
+    "cents": 37,
+    "team": "St. Louis",
+    "gate_cents": 37
+   }
+  },
+  {
+   "name": "Maryland ML",
+   "sub": "vs UCLA · cross-country 10:30am body-clock kick",
+   "odds": "+100",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "UCLA",
+    "home": "Maryland",
+    "commence": "2026-09-26T17:30Z",
+    "eid": "401858462"
+   },
+   "espn_league": "football/college-football",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26uclamd",
+    "cents": 48,
+    "team": "Maryland",
+    "gate_cents": 48
+   }
+  },
+  {
+   "name": "UCF ML",
+   "sub": "vs TCU · model favorite priced as home dog",
+   "odds": "+130",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "TCU",
+    "home": "UCF",
+    "commence": "2026-09-26T19:30Z",
+    "eid": "401856815"
+   },
+   "espn_league": "football/college-football",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26tcuucf",
+    "cents": 41,
+    "team": "UCF",
+    "gate_cents": 41
+   }
+  },
+  {
+   "name": "Penn State -10",
+   "sub": "vs Wisconsin · projected margin ~16",
+   "odds": "-110",
+   "units": "5u",
+   "side": "home",
+   "market": "spread",
+   "game": {
+    "away": "Wisconsin",
+    "home": "Penn State",
+    "commence": "2026-09-26T21:00Z",
+    "eid": "401858466"
+   },
+   "espn_league": "football/college-football"
+  },
+  {
+   "name": "Union ML",
+   "sub": "vs Orlando · xG-dominant both windows (2.76 last-5 xGF)",
+   "odds": "-213",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "Orlando City SC",
+    "home": "Philadelphia Union",
+    "commence": "2026-09-26T23:30Z",
+    "eid": "761834"
+   },
+   "espn_league": "soccer/usa.1"
+  },
+  {
+   "name": "Atlanta United ML",
+   "sub": "vs NYCFC · NYC cold (1.22 last-5 xGF)",
+   "odds": "+133",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "New York City FC",
+    "home": "Atlanta United",
+    "commence": "2026-09-26T23:30Z",
+    "eid": "761830"
+   },
+   "espn_league": "soccer/usa.1"
+  },
+  {
+   "name": "Toronto FC ML",
+   "sub": "at Nashville · long shot, model 21% vs 15c",
+   "odds": "+567",
+   "units": "5u",
+   "side": "away",
+   "game": {
+    "away": "Toronto FC",
+    "home": "Nashville SC",
+    "commence": "2026-09-27T00:30Z",
+    "eid": "761838"
+   },
+   "espn_league": "soccer/usa.1"
+  },
+  {
+   "name": "Real Salt Lake ML",
+   "sub": "vs New England · home + season-long xGA edge",
+   "odds": "+163",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "New England Revolution",
+    "home": "Real Salt Lake",
+    "commence": "2026-09-27T01:30Z",
+    "eid": "761840"
+   },
+   "espn_league": "soccer/usa.1"
+  }
+ ],
+ "record": "10-6"
+}

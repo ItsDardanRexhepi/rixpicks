@@ -2637,6 +2637,18 @@ if os.environ.get('RP_PUBLISH')=='1':
     print('history appended:',len(HIST),'games ->',_hp)
 if man.get('units_ledger'): print('units reconciliation:',man['units_ledger'],file=sys.stderr)
 print('written:',out,len(page),'design v'+RP_DESIGN,'build',build_sha)
+# process gap (main, Sep 27): every build leaves a content-addressed snapshot of the manifest it
+# built from in manifests/ - the Sep 25 8-game card shipped from an uncommitted /tmp manifest and
+# orphaned (game-4..11 with no recoverable source). Content-hash naming dedupes: rebuilds with an
+# unchanged manifest reuse the file, so refresh cycles add no commit noise; any add-all commit
+# path (publish.yml, refresh.sh, agent payload) carries the snapshot automatically.
+import hashlib as _hl2
+_mby=open(os.path.abspath(sys.argv[1]),'rb').read()
+os.makedirs('manifests',exist_ok=True)
+_msn=os.path.join('manifests','manifest-'+_hl2.sha256(_mby).hexdigest()[:12]+'.json')
+if not os.path.exists(_msn):
+    open(_msn,'wb').write(_mby)
+    print('manifest snapshot:',_msn,file=sys.stderr)
 
 # J-106: persist freshly resolved book links so refresh rebuilds can never strip shipped chips.
 # Sep 26 chaos drill: ledger writes are OPT-IN (RP_PUBLISH=1, set by publish.yml on approve=true) -
