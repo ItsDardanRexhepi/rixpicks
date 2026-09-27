@@ -1183,7 +1183,8 @@ r'box.innerHTML="<div style=\"font-size:12px;color:#8a8f98;margin:3px 0 8px\">LA
 r'card.hidden=false;}).catch(function(){});})();</script>')
 # Wooder WNBA three-leg idea; separate from the NFL night idea and tickets.
 # Research snapshots remain marked as such when the source cannot be live rechecked.
-nfl_entry+=(
+# PLACEMENT (Julian 9/27 4:34 PT via main, standing): his WNBA content always lives on the WNBA tab, never the Wooder tab.
+wnba_entry=(
 r'<div style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px" id="rpWnbaSgpCard" hidden>'
 r'<div class="rpwhead" style="margin-top:0">WNBA three-leg SGP idea</div><div id="rpWnbaSgp"></div></div>'
 r'<script>(function(){'
@@ -1247,7 +1248,7 @@ r'<div style="margin-top:14px;border:1px solid rgba(216,162,58,.45);border-radiu
 r'<div id="rpTix"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div>'
 r'</div>'
 r'<script>(function(){'
-r'var box=document.getElementById("rpTix");if(!box)return;'
+r'var box=document.getElementById("rpTix"),boxW=document.getElementById("rpTixW");if(!box)return;'
 r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
 r"""function dot(c){return "<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:"+c+";margin-right:6px;vertical-align:1px\"></span>";}"""
 r"""function abPair(m){var N={WAS:"WSH"};var p=String(m||"").toUpperCase().split("-");if(p.length!==2)return null;var x=p[0].trim(),y=p[1].trim();return [N[x]||x,N[y]||y];}"""
@@ -1257,10 +1258,9 @@ r"""function tS(spec,count,state,det){var cur=(count==null?0:count);var got=(cou
 r"""function updTix(){fetch("slates/julian_live.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(lj){var llegs=(lj&&lj.live_legs)||[];function nrm(s){return String(s||"").toLowerCase().replace(/[^a-z0-9]+/g,"");}Array.prototype.forEach.call(document.querySelectorAll(".rptixtrk"),function(el){var fm=el.getAttribute("data-fm");if(!fm)return;var np=nrm(el.getAttribute("data-p")),nm=nrm(String(el.getAttribute("data-m")||"").replace(/\s*@\s*/g,"-"));var hit=null;llegs.forEach(function(l){if(hit)return;if(l.market!==fm)return;if(nrm(l.player)!==np)return;if(nm&&nrm(String(l.matchup||"").replace(/\s*@\s*/g,"-"))!==nm)return;hit=l;});if(!hit)return;el.__fed=true;var st=hit.game_state||"",det=hit.game_detail||"",pr2=hit.progress||"";if(/[AP]M\s*(E|C|M|P)/i.test(det))det="";if(st==="post"){var doneG=function(g){if(g==="won"){el.innerHTML=dot("#0b6e5f")+"<b style=\"color:#0b6e5f\">Won &#10003;</b><span style=\"color:#8a8f98\"> &middot; Final</span>";}else if(g==="lost"){el.innerHTML=dot("#8a8f98")+"<span style=\"color:#8a8f98\">Lost &middot; Final</span>";}else{el.innerHTML=dot("#8a8f98")+(pr2?("<span style=\"color:#8a8f98\">"+esc(pr2)+"</span>"):"")+"<span style=\"color:#8a8f98\"> &middot; Final</span>";}};var paintG=function(rp){var g="";(rp||[]).forEach(function(p){if(g)return;if(p.market!==fm)return;if(nrm(p.label)!==np)return;if(nm&&nrm(String(p.matchup||"").replace(/\s*@\s*/g,"-"))!==nm)return;g=(p.status==="won"||p.status==="lost")?p.status:"";});doneG(g);};if(window.__rpRecPicks){paintG(window.__rpRecPicks);}else{fetch("slates/julian_record.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(rj){window.__rpRecPicks=(rj&&rj.picks)||[];paintG(window.__rpRecPicks);}).catch(function(){doneG("");});}return;}el.innerHTML=dot(st==="in"?"#e8a13d":"#8a8f98")+(pr2?("<span style=\"color:"+(st==="in"?"#b07708":"#8a8f98")+"\">"+esc(pr2)+"</span>"):"")+(det?"<span style=\"color:#8a8f98\"> &middot; "+esc(det)+"</span>":"")+(st==="post"?"<span style=\"color:#8a8f98\"> &middot; Final</span>":"");});fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(sb){var gm={};(sb.events||[]).forEach(function(ev){var cmp=(ev.competitions||[])[0]||{};var st=(cmp.status&&cmp.status.type)||{};var home=null,away=null;(cmp.competitors||[]).forEach(function(c){var o={ab:((c.team||{}).abbreviation||"").toUpperCase()};if(c.homeAway==="home")home=o;else away=o;});if(home&&away)gm[away.ab+"-"+home.ab]={state:st.state||"",eid:ev.id,det:(st.detail||st.shortDetail||"")};});var seen={};Array.prototype.forEach.call(document.querySelectorAll(".rptixtrk"),function(el){if(el.__fed)return;var pr=abPair(el.getAttribute("data-m"));var g=pr?gm[pr[0]+"-"+pr[1]]:null;if(!g){el.innerHTML="";return;}el.__st=g.state;el.__det=g.det;if(g.eid&&g.state!=="pre"){(seen[g.eid]=seen[g.eid]||[]).push(el);}else{var sp=mSpec(el.getAttribute("data-mkt"));el.innerHTML=sp?tS(sp,null,g.state,g.det):"";}});Object.keys(seen).forEach(function(eid){fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event="+eid+"&cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(sj){if(!sj)return;seen[eid].forEach(function(el){var sp=mSpec(el.getAttribute("data-mkt"));if(!sp){el.innerHTML="";return;}el.innerHTML=tS(sp,statOf(sj,el.getAttribute("data-p"),sp.key),el.__st,el.__det);});}).catch(function(){});});}).catch(function(){});});}"""
 r"""function startTrk(){updTix();setInterval(updTix,30000);}"""
 r'fetch("slates/wooder_tickets.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
-r'var tix=(j&&j.tickets)||[];'
-r'if(!tix.length){box.parentNode.style.display="none";return;}'
-r'var h="",ups=[];'
-r'tix.forEach(function(t,ti){'
+r'var tixAll=(j&&j.tickets)||[];'
+r'function renderInto(bx,arr){if(!bx)return;if(!arr.length){bx.parentNode.style.display="none";return;}var h="",ups=[];'
+'arr.forEach(function(t,ti){'
 r'(t.site_updates||[]).forEach(function(u){ups.push(u);});'
 r'h+="<div class=\"rpnpick\""+(ti>0?" style=\"margin-top:18px;border-top:1px solid #e4e2de;padding-top:14px\"":"")+">"'
 r'+"<div class=\"rpwhead\">Ticket "+(t.id||(ti+1))+(t.title?" &middot; "+esc(t.title):"")+"</div>"'
@@ -1275,8 +1275,11 @@ r'+"<div style=\"font-size:11px;font-weight:700;letter-spacing:.09em;text-transf
 r'+(u.note?"<div style=\"font-size:12px;color:#8a8f98;margin-top:3px\">"+esc(u.note)+"</div>":"")'
 r'+(u.items||[]).map(function(it){return "<div style=\"font-size:13px;margin-top:5px\">"+(it.proposed?"<span style=\"background:rgba(216,162,58,.18);color:#b07708;border-radius:8px;font-size:10px;font-weight:700;padding:1px 6px;margin-right:4px\">PROPOSED</span>":"")+"<b>"+esc(it.player||"")+"</b> <span style=\"color:#8a8f98\">"+esc(it.market||"")+(it.matchup?" &middot; "+esc(it.matchup):"")+(it.time?" &middot; "+esc(it.time):"")+(it.status?" &middot; "+esc(it.status):"")+"</span>"+(it.kalshi&&it.kalshi.url?" <a class=\"chip\" style=\"background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c;font-size:11px;padding:2px 10px\" href=\""+esc(it.kalshi.url)+"\" target=\"_blank\" rel=\"noreferrer\">KAL "+esc(it.kalshi.american||"")+"</a>":"")+"</div>";}).join("")'
 r'+"</div>";}).join("");}'
-r'box.innerHTML=h;startTrk();'
-r'}).catch(function(){box.parentNode.style.display="none";});'
+r'bx.innerHTML=h;}'
+r'renderInto(box,tixAll.filter(function(t){return t.sport!=="wnba";}));'
+r'renderInto(boxW,tixAll.filter(function(t){return t.sport==="wnba";}));'
+r'startTrk();'
+r'}).catch(function(){box.parentNode.style.display="none";if(boxW)boxW.parentNode.style.display="none";});'
 r'})();</script>')
 
 
@@ -1307,6 +1310,14 @@ r'box.innerHTML=h;}'
 r'function load(){fetch("slates/julian_record.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(!j||!j.record||!Array.isArray(j.picks))throw 0;paint(j);}).catch(function(){box.parentNode.style.display="none";});}'
 r'load();setInterval(load,60000);'
 r'})();</script>')
+
+wnba_entry+=(
+r'<div style="margin-top:22px">'
+r'<div class="sect">Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div>'
+r'<div style="font-size:12px;color:#8a8f98;margin:2px 0 8px">Separate from the RixPicks card and record. Picks only, no wagers placed.</div>'
+r'<div style="border:1px solid rgba(216,162,58,.45);border-radius:12px;padding:11px 12px">'
+r'<div id="rpTixW"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div>'
+r'</div></div>')
 
 fut_watch_html=''
 if FUT:
@@ -1707,7 +1718,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
 
     for t in RP_TABS:
         _prows=''.join(_panels.get(t['key']) or [])
-        _body=(_prows if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows)))))
+        _body=(_prows if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
