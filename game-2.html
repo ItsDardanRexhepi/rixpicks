@@ -41,7 +41,7 @@ h1 .tick{color:#3BEBF5}
 .sub{color:#6b6b72;font-size:14px;margin:6px 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}
-.chip.rpunpriced{opacity:.45}  /* watchdog Sep 26: explicit unpriced state - dimmed, em-dash, inert */
+.chip.rpunpriced{opacity:.45}  /* */
 .bklogo{width:16px;height:16px;border-radius:3px;flex:none}
 .chip.best{font-weight:800}
 .rec{font-weight:600;font-size:16px;padding:8px 0 1px}
@@ -119,23 +119,14 @@ h1 .tick{color:#3BEBF5}
 }
 
 @keyframes rpspin{to{transform:rotate(360deg)}}
-/* scoring table: mode-aware text (light default, dark override) - inline near-white was invisible in light mode (hunter 9/26) */
+/* */
 .rpsc-hd{color:#5f636b}.rpsc-cell{color:#3a3f47}.rpsc-tot{color:#3a3f47}.rpsc-totlast{color:#14161a}
 @media (prefers-color-scheme: dark){.rpsc-hd{color:#8a8f98}.rpsc-cell{color:#c8cdd5}.rpsc-tot{color:#c8cdd5}.rpsc-totlast{color:#fff}}
 </style>
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:(location.pathname.indexOf("/rixpicks/")===0?"/rixpicks/":"/")}  /* Sep 26: SW scope must match the ORIGIN's path root - rix-picks.com serves at /, github.io at /rixpicks/ */});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
-<script>/* rpFeedArb v3 - browser arbiter per selector v5.1 contract + registry v1.8 sport_clock.
-   v3 (Sep 26, Matrix outcome_truth doctrine): three-way verdict per source per tick.
-   ok      = named fields parsed AND a usable progress marker - stamps, eligible.
-   failed  = the source ANSWERED with a negative verdict (event completed/postponed,
-             market closed) - recorded, not eligible; feeds failover health.
-   unknown = transport error, unparseable body, or missing named fields - NOT eligible
-             and NOT a failure: never poisons source health, never learned as success.
-   Schema drift (expected key path absent) flags lastDrift loudly instead of silently
-   serving nothing. Freeze/failover semantics unchanged from v2 (4-min field freeze,
-   stale_serve + served_is_live:false + failover_gap => RECONNECTING, never silent). */
+<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:(location.pathname.indexOf("/rixpicks/")===0?"/rixpicks/":"/")}  /* */});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
+<script>
 (function(W){
 "use strict";
 var REGISTRY_VERSION='1.8';
@@ -158,7 +149,7 @@ function markerFromEspnSummary(j,clockCfg){
  var ty=st.type||{};
  if(ty.state==='post'||ty.completed===true)return {negative:true,reason:'completed'}; /* failed verdict: game over, not a live source */
  if(ty.state==='pre')return {negative:true,reason:'not_started'};
- var sc=(comp.competitors||[]).map(function(c){return c.score||'0';});
+ var sc=(comp.competitors||[]).map(function(c){return c.score!=null?c.score:'\u2014';});
  var per=st.period||0;
  var clk=parseClock(st.displayClock),adv=null;
  var dr=j.drives&&j.drives.current;
@@ -175,62 +166,7 @@ function markerFromEspnSummary(j,clockCfg){
          periodText:(ty.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,''),
          text:(best!=null?(Math.floor(best/60)+':'+('0'+best%60).slice(-2)+' - '):'')+((ty.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,'')||'')};
 }
-function Arb(league,clockCfg){
- this.league=league;this.clockCfg=clockCfg;
- this.cands=[];this.hist={};this.lastAdvance=0;this.lastProg=-1;this.held=null;this.serving=null;
- this.verdicts={};this.health={}; /* health[id]: consecutive FAILED verdicts only - unknown never increments */
-}
-Arb.prototype.addCand=function(id,rank,fetcher,parser){this.cands.push({id:id,rank:rank,fetcher:fetcher,parser:parser,lat:null});};
-Arb.prototype.tick=function(done){
- var self=this;var results=[];var pending=self.cands.length;
- if(!pending){done(self.decide([]));return;}
- self.cands.forEach(function(c){
-  var t0=Date.now();
-  c.fetcher(function(err,j){
-   var v='unknown';
-   if(!err&&j){
-    var mk=c.parser(j,self.clockCfg);
-    if(mk&&mk.progress!=null){c.lat=Date.now()-t0;results.push({c:c,mk:mk});v='ok';}
-    else if(mk&&mk.negative){v='failed';}
-   }
-   self.verdicts[c.id]=v;
-   if(v==='failed')self.health[c.id]=(self.health[c.id]||0)+1;else if(v==='ok')self.health[c.id]=0;
-   /* unknown: health untouched - an unlabelled sample costs one data point, a mislabelled one corrupts the rate */
-   if(--pending===0)done(self.decide(results));
-  });
- });
-};
-Arb.prototype.decide=function(results){
- var now=Date.now();
- var elig=results.filter(function(r){ /* own-history advance gate: no rewinds */
-  var h=this.hist[r.c.id];
-  return !h||r.mk.progress>=h.progress-0.0001;
- },this);
- elig.sort(function(a,b){
-  if(b.mk.progress!==a.mk.progress)return b.mk.progress-a.mk.progress;
-  if(a.c.lat!==b.c.lat)return a.c.lat-b.c.lat;
-  if(a.c.rank-b.c.rank!==0)return a.c.rank-b.c.rank;
-  return (this.health[a.c.id]||0)-(this.health[b.c.id]||0); /* tie-break: fewer consecutive failed verdicts */
- },this);
- var win=elig[0]||null;
- if(win){
-  this.hist[win.c.id]=win.mk;
-  if(win.mk.progress>this.lastProg){this.lastProg=win.mk.progress;this.lastAdvance=now;}
- }
- var frozen=(now-this.lastAdvance)>240000; /* 4-min field-freeze rule */
- var gap=!win||frozen;
- if(win&&!frozen){
-  this.held={mk:win.mk,src:win.c.id,at:now};
-  this.serving={mk:win.mk,src:win.c.id,stale_serve:false,served_is_live:true,failover_gap:false};
- }else if(this.held){
-  this.serving={mk:this.held.mk,src:this.held.src,stale_serve:true,served_is_live:false,failover_gap:true};
- }else{
-  this.serving={mk:null,src:null,stale_serve:false,served_is_live:false,failover_gap:true};
- }
- this.serving.verdicts=JSON.parse(JSON.stringify(this.verdicts));
- return this.serving;
-};
-W.rpFeedArb={Arb:Arb,markerFromEspnSummary:markerFromEspnSummary,parseClock:parseClock,progressOf:progressOf,registryVersion:REGISTRY_VERSION,lastDrift:null};
+W.rpFeedArb={markerFromEspnSummary:markerFromEspnSummary,parseClock:parseClock,progressOf:progressOf,registryVersion:REGISTRY_VERSION,lastDrift:null};
 })(typeof window!=='undefined'?window:globalThis);
 
 var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"football/college-football":{"period_seconds":900,"counts_down":true},"basketball/wnba":{"period_seconds":600,"counts_down":true},"basketball/nba":{"period_seconds":720,"counts_down":true},"hockey/nhl":{"period_seconds":1200,"counts_down":true},"basketball/mens-college-basketball":{"period_seconds":1200,"counts_down":true},"soccer/usa.1":{"period_seconds":2700,"counts_down":false},"soccer/usa.nwsl":{"period_seconds":2700,"counts_down":false},"soccer/fifa.world":{"period_seconds":2700,"counts_down":false},"soccer/eng.1":{"period_seconds":2700,"counts_down":false}};
@@ -273,7 +209,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790472612';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
+const RP_BUILD='1790491991';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -300,7 +236,7 @@ if(RP_STANDALONE){document.addEventListener('click',function(e){const a=e.target
 function rpBookLive(b,st){if(typeof RP_LEGAL_STATE==='undefined')return b==='KAL'||b==='POLY';if(!st)return RP_PM_DEFAULT.indexOf(b)!==-1;const L=RP_LEGAL_STATE[st];return L?L.indexOf(b)!==-1:false;}
 function rpPm(el){if(el.dataset.pm&&el.dataset.nopm!=='1')return el.dataset.pm;const mr=el.closest?el.closest('.mrow'):null;if(mr&&mr.dataset.pm&&mr.dataset.nopm!=='1')return mr.dataset.pm;return null;}
 function rpDest(a,st){const b=a.dataset.book;
- if(a.dataset.platform==='1'&&!a.getAttribute('data-sb'))return null;  /* inspector Sep 26 interim: platform-arm root URLs are NOT tap destinations - non-tappable until event-level deep links land */
+ if(a.dataset.platform==='1'&&!a.getAttribute('data-sb'))return null;  /* */
  if(rpBookLive(b,st)){const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{state}',st.toLowerCase());return a.getAttribute('href')||null;}
  return rpPm(a);}
 function rpGo(a,st){const b=a.dataset.book;
@@ -319,7 +255,7 @@ function rpTapify(el,st){const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.da
 function rpRowAvail(el,st){return rpBookLive(el.dataset.book,st)||!!rpPm(el);}
 function rpStrip(el){el.removeAttribute('href');el.removeAttribute('onclick');el.removeAttribute('target');el.removeAttribute('rel');el.classList.add('rpnontap');}
 function rpGate(el){if(!(el.getAttribute('href')||el.getAttribute('data-sb')||el.getAttribute('data-sbt')||el.getAttribute('data-pm'))){rpStrip(el);el.style.display='';return;}const h=el.getAttribute('href');if(h&&!el.getAttribute('data-sb'))el.setAttribute('data-sb',h);rpStrip(el);el.style.display='';el.classList.remove('rpnontap');el.setAttribute('onclick','return rpRoute(event,this)');}  /* unresolved state: visible, route-stripped, tap opens the state prompt */
-/* U-CORE star doctrine (tester gate 4, Sep 26): after ANY visibility or price change the best-line star is recomputed over exactly the VISIBLE set - max American, records canonical. */
+/* */
 function rpBestStar(pk){try{
  const chips=[...pk.querySelectorAll('[data-book]')].filter(function(a){return !a.querySelector('[data-book]');});let best=null,bestV=-1e18;
  chips.forEach(function(a){
@@ -332,10 +268,10 @@ function rpBestStar(pk){try{
  chips.forEach(function(a){a.classList.remove('best');a.innerHTML=a.innerHTML.replace(/^\u2605 /,'');});
  if(best){best.classList.add('best');best.innerHTML='\u2605 '+best.innerHTML;}
 }catch(e){}}
-function rpAllBest(){document.querySelectorAll('.chips').forEach(rpBestStar);}  /* per-pick scoping (tester gate 4): a star is computed inside ONE pick's chip row, never across the document/both-sides grid */
-function rpQuoteMut(){rpGameLineShop();rpAllBest();}  /* ONE shared derivation (tester Sep 26 game-page star defect): every canonical price change recomputes range AND star in the same callback */
+function rpAllBest(){document.querySelectorAll('.chips').forEach(rpBestStar);}  /* */
+function rpQuoteMut(){rpGameLineShop();rpAllBest();}  /* */
 function rpFilter(st){
- /* U-GEO-001 amendment (user Sep 26 12:27 PM): visibility is state-scoped - no legal route in the resolved state = no render, no inert prices, no markers. The resolved SET is identical on every surface. Unresolved = fail-closed nationwide set (KAL/POLY). */
+ /* */
  document.querySelectorAll('[data-book]').forEach(function(el){
  if(el.querySelector('[data-book]')){  /* container rows: children decide, row follows */
   let _any=false;
@@ -351,9 +287,9 @@ function rpFilter(st){
 });if(typeof rpGameLineShop==='function')rpGameLineShop();rpAllBest();}
 const RP_CODES=["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","PR","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 function rpRoute(e,a){e.preventDefault();const st=localStorage.getItem('rp_state');const src=localStorage.getItem('rp_state_src');const ts=+(localStorage.getItem('rp_state_ts')||0);
- if(!st||src!=='gps'||!ts||Date.now()-ts>12*3600*1000){window.__rpChip=a;rpAsk(false);return false;}  /* his rule Sep 26 + tester freshness gate: taps need a CURRENT shared+verified location */
+ if(!st||src!=='gps'||!ts||Date.now()-ts>12*3600*1000){window.__rpChip=a;rpAsk(false);return false;}  /* */
  rpGo(a,st);return false;}
-function rpShareLoc(){  /* the ONLY way state resolves now (his verbatim Sep 26 1:52 PM): no manual pick, no preview */
+function rpShareLoc(){  /* */
  if(!navigator.geolocation){rpNote('This browser has no location services. Markets need your location - try another browser.');return;}
  rpNote('Checking your location&hellip;');
  navigator.geolocation.getCurrentPosition(function(pos){
@@ -371,14 +307,14 @@ function rpNote(t){const n=document.getElementById('rpGeoNote');if(n)n.textConte
 function rpAsk(manualOnly){window.__rpChip=window.__rpChip||null;
  rpNote('');document.getElementById('rpModal').style.display='flex';
  rpShareLoc();}
-function rpEdit(){window.__rpChip=null;rpAsk(false);}  /* change state = re-verify via location; there is no manual path (his rule Sep 26) */
+function rpEdit(){window.__rpChip=null;rpAsk(false);}  /* */
 
 function rpKalTick(){try{
  document.querySelectorAll('a[data-kalticker][data-kalside],a[data-kalmkt]').forEach(function(a){
   const tk=a.dataset.kalmkt||(a.dataset.kalticker+'-'+a.dataset.kalside);
   if(!tk)return;
   const r0=rpMkt(a);if(r0&&r0.ph==='last_pre_game')return;  /* canonical record: frozen phases never tick (phase = event status, not fetch time) */
-  if(rpInPlay())return;  /* regression gate Sep 26: proxies measured unusable (allorigins 500@14.7s/522, codetabs 522/503, corsproxy 401) - KAL ticks PREGAME-ONLY until the api.rix-picks.com relay lands; in-play dims honestly, never re-stamps */
+  if(rpInPlay())return;  /* */
   const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk+'?_='+Date.now();
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){
    const m=j&&j.market;if(!m)return;window.__rpKalOk=Date.now();
@@ -386,8 +322,8 @@ function rpKalTick(){try{
    if(rpInPlay())return;  /* in play the chip freezes its last-known price - live values never replace frozen ones */
    const c=Math.round(d*100);
    a.dataset.cents=c;if(r0){r0.c=c;r0.ts=Date.now();}
-   if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c)/,'KAL '+rpMLF(rpC2ML(c)));  /* user Sep 26 12:58 PM: all-American display */
-   rpQuoteMut();  /* tester Sep 26: star recomputes on every canonical tick, not just range */
+   if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c)/,'KAL '+rpMLF(rpC2ML(c)));  /* */
+   rpQuoteMut();  /* */
   }).catch(function(){});
  });
 }catch(e){}}
@@ -409,7 +345,7 @@ function rpPolyTick(){try{
    let outs=[],pr=[];try{outs=JSON.parse(target.outcomes||'[]');pr=JSON.parse(target.outcomePrices||'[]');}catch(e){return;}
    for(let i=0;i<outs.length;i++){if(kw&&String(outs[i]).toLowerCase().indexOf(kw)>=0&&pr[i]!=null){
     const c=Math.round(parseFloat(pr[i])*100);
-    if(c>0&&c<=100&&!rpInPlay()){a.dataset.cents=c;if(r0){r0.c=c;r0.ts=Date.now();}if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \d+c)/,'POLY '+rpMLF(rpC2ML(c)));rpQuoteMut();}  /* tester Sep 26: star recomputes on every canonical tick */
+    if(c>0&&c<=100&&!rpInPlay()){a.dataset.cents=c;if(r0){r0.c=c;r0.ts=Date.now();}if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/POLY( [+-]?\d+| \d+c)/,'POLY '+rpMLF(rpC2ML(c)));rpQuoteMut();}  /* */
     return;
    }}
   }).catch(function(){});
@@ -423,7 +359,7 @@ function rpEspnTick(){try{
    const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
    if(!comp.status)return;
    const atok=(d.dataset.away||'').toLowerCase().split(' ').pop(),htok=(d.dataset.home||'').toLowerCase().split(' ').pop();
-   // Sep 26 swamp: the REAL summary returns comp.name/header.name ABSENT - nm='' silently killed every
+   
    // tick. Competitor identities are exact in header competitions (team ids + displayName).
    const comps=comp.competitors||[];
    const cnames=comps.map(function(c){return ((c.team||{}).displayName||'').toLowerCase();});
@@ -431,13 +367,13 @@ function rpEspnTick(){try{
    if(htok&&!cnames.some(function(n){return n.indexOf(htok)>=0;}))return;
    const st=(comp.status||{}).type||{};
    let sc='';
-   // Sep 26 user rule: home team always bottom - away renders first in every score display
-   comps.slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
+   
+   const _awC=comps.find(function(c){return c.homeAway==='away';})||{},_hmC=comps.find(function(c){return c.homeAway==='home';})||{};
+   let _aS=_awC.score,_hS=_hmC.score;const _cnH=rpCanonScore(d.dataset.eid,_aS,_hS);if(_cnH){_aS=_cnH.a;_hS=_cnH.h;}  /* */
+   comps.slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){const _cs=(c.homeAway==='away')?_aS:_hS;sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(_cs!=null?_cs:'\u2014');});  /* */
    const sline=document.getElementById('rpScore');
    if(sline&&st.state!=='pre'&&sc){sline.textContent=rpStatusText(d,j,st)+'  |  '+sc;}
-   /* attribution root fix Sep 26 (swamp catch, his rule): pickcenter/comp.odds is ESPN's DraftKings quote -
-      it must NEVER write into a TSB-labeled element or record. The TSB chip holds its own canonical snapshot;
-      only own-platform ticks (rpPolyTick/rpKalTick) move chips. Header .odds stays the frozen entry price. */
+   /* */
   }).catch(function(){});
   return;
  }
@@ -455,16 +391,14 @@ function rpEspnTick(){try{
 }catch(e){}}
 
 function rpLiveClock(d,j,st){
- /* panel auditor Sep 26 (live NEB-MSU): ESPN status.displayClock can FREEZE while PBP advances -
-    a successful-but-frozen field is stale-as-live. The displayed clock follows whichever source
-    last ADVANCED (status vs latest play); if both freeze >4min, the render is not fresh - no live stamp. */
+ /* */
  var _acfg=(window.RP_SPORT_CLOCK||{})[d.dataset.espn];
  var _am=(_acfg&&window.rpFeedArb&&rpFeedArb.markerFromEspnSummary)?rpFeedArb.markerFromEspnSummary(j,_acfg):undefined;  /* ONE parser (arbiter v3.1) for every registry-clocked league - no field-extraction drift */
  if(_acfg&&_am===null)return '';  /* unknown/drift: no clock served, never guessed from prose */
  if(_am&&_am.negative)return '';  /* failed verdict (completed/not-started): status text carries the truth */
- var _fmt=function(v){return (v==null)?'':(Math.floor(v/60)+':'+('0'+v%60).slice(-2));};  /* regression hold Sep 26 (live NEB repro): arbiter raw fields are SECONDS - format m:ss at the display boundary; 0:00 is a valid clock, never ||-defaulted away */
+ var _fmt=function(v){return (v==null)?'':(Math.floor(v/60)+':'+('0'+v%60).slice(-2));};  /* */
  var s=_am?_fmt(_am.sClock):((st.displayClock||((st.shortDetail||'').match(/^\d+:\d+/)||[''])[0]||''));
- var pl=_am?[]:((((j.drives||{}).current||{}).plays)||j.plays||[]);  /* tester Sep 26 (verified on the live NEB payload): football summary has NO top-level plays - the advancing clock lives at drives.current.plays[-1] */
+ var pl=_am?[]:((((j.drives||{}).current||{}).plays)||j.plays||[]);  /* */
  var lp=_am?null:(pl.length?pl[pl.length-1]:null);
  var p=_am?_fmt(_am.pClock):(lp?(((lp.clock||{}).displayValue)||''):'');
  var nk=_am?(_am.playKey||''):(pl.length+'|'+(((j.drives||{}).previous)||[]).length+'|'+(lp?(lp.id||lp.text||''):''));
@@ -476,19 +410,18 @@ function rpLiveClock(d,j,st){
  rec.stale=(now-Math.max(rec.sT,rec.pT,rec.nT))>240000;
  if(rec.p&&rec.pT>rec.sT)return rec.p;
  if(rec.s&&rec.sT>rec.pT)return rec.s;
- /* first sight / same-tick tie: within a period the clock only runs DOWN, so less remaining is
-    fresher evidence; a >10min gap means a quarter reset - trust status then. */
+ /* */
  const _sec=function(v){{const m=/^(\d+):(\d+)$/.exec(v||'');return m?(+m[1])*60+(+m[2]):null;}};
  const _ps=_sec(rec.p),_ss=_sec(rec.s);
  if(_ps!=null&&_ss!=null&&_ps<_ss&&(_ss-_ps)<=600)return rec.p;
  return rec.s||rec.p;
 }
-function rpStatusText(d,j,st){ /* tester Sep 26 presentation parity: EVERY clock on the page comes from the one arbiter */
+function rpStatusText(d,j,st){ /* */
  const rec=(window.__rpClk||{})[d.dataset.eid||'x']||{};
  const per=(st.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,'');
  const c=rpLiveClock(d,j,st);
  if(rec.stale)return per;
- return c?(c+(per?' - '+per:'')):per;  /* regression hold Sep 26: an empty arbiter verdict NEVER falls back to unstripped shortDetail - its embedded clock is exactly what the verdict rejected */
+ return c?(c+(per?' - '+per:'')):per;  /* */
 }
 function rpLiveBox(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
@@ -502,7 +435,7 @@ function rpLiveBox(){try{
  if(_lg.indexOf('mma/')===0){rpLeagueLive(d,RP_CFG_MMA);return;}
  if(_lg.indexOf('golf/')===0){rpLeagueLive(d,RP_CFG_GOLF);return;}
  if(_lg.indexOf('racing/')===0){rpLeagueLive(d,RP_CFG_NASCAR);return;}
- rpEspnPanel(d); /* boxing: registry has no ESPN feed - this honest panel renders whatever summary exists, else nothing (never fabricated) */
+ rpEspnPanel(d); /* */
 }catch(e){}}
 const RP_BAT='<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin:0 3px 0 1px"><g transform="rotate(45 12 12)" fill="#e8b93c"><rect x="10.3" y="1.2" width="3.4" height="12" rx="1.7"/><rect x="11.1" y="12.8" width="1.8" height="7.4" rx="0.9"/><circle cx="12" cy="21.6" r="1.9"/></g></svg>';
 function rpLiveSvg(on1,on2,on3){
@@ -530,13 +463,14 @@ async function rpMlbLive(d){
  const box=document.getElementById('rpLive');if(!box)return;
  const sline=document.getElementById('rpScore');
  const aT=((ls.teams||{}).away||{}),hT=((ls.teams||{}).home||{});
- const aR=aT.runs||0,hR=hT.runs||0;
+ let aR=aT.runs||0,hR=hT.runs||0;const _cnB=rpCanonScore(d.dataset.gpk||d.dataset.eid,aR,hR);if(_cnB){aR=_cnB.a;hR=_cnB.h;}  /* */
  const aAb=d.dataset.aab||d.dataset.away.split(' ').map(function(w){return w[0];}).join('').slice(0,3).toUpperCase();
  const hAb=d.dataset.hab||d.dataset.home.split(' ').map(function(w){return w[0];}).join('').slice(0,3).toUpperCase();
  if(det==='Scheduled'||det==='Pre-Game'){box.innerHTML='';return;}
  const inn=((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim();
  if(sline)sline.textContent=(det==='In Progress'?inn:det)+'  |  '+aAb+' '+aR+' - '+hAb+' '+hR;
  const live=det==='In Progress';
+ const _pst=rpPbpSt(d.dataset.gpk||d.dataset.eid||'');
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  const isFinal=det==='Final'||det==='Game Over';
  let wl='';
@@ -565,18 +499,18 @@ async function rpMlbLive(d){
  let lp='';
  for(let i=plays.length-1;i>=0;i--){const t=((plays[i].result||{}).description)||'';if(t){const ab=plays[i].about||{};lp=(ab.inning?'['+(ab.halfInning==='top'?'Top':'Bot')+' '+ab.inning+'] ':'')+t;break;}}
  if(lp)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+lp+'</div>';
- h+='<div id="rpPbp" style="display:none;margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
+ h+='<div id="rpPbp" style="display:'+(_pst.open?'block':'none')+';margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
  for(let i=plays.length-1;i>=0&&i>plays.length-16;i--){
   const pl=plays[i];const abt=pl.about||{};const txt=((pl.result||{}).description)||'';
   if(!txt)continue;
   h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)"><span style="color:#8a8f98;font-size:11px">'+(abt.halfInning==='top'?'Top':'Bot')+' '+abt.inning+'</span> &middot; '+txt+'</div>';
  }
  h+='</div></div>';
- box.innerHTML=h;window.__rpLiveOk=Date.now();
+ const _pc=_pst.open?rpPbpCapture():null;box.innerHTML=h;if(_pc)rpPbpRestore(_pc);window.__rpLiveOk=Date.now();
  }catch(e){}
 }
 
-/* Per-league surfaces + possession icons (his Sep 26 spec: every league its own surface, possession icon like the MLB bat - tennis racket for server, etc; as detailed as the feed honestly allows) */
+/* */
 const RP_BASKETBALL='<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin:0 3px 0 1px"><g fill="#e8b93c"><circle cx="12" cy="12" r="9.4"/><path d="M12 2.6v18.8M2.6 12h18.8M5 4.6c3 2.2 3 12.6 0 14.8M19 4.6c-3 2.2-3 12.6 0 14.8" stroke="#0c0f14" stroke-width="1.6" fill="none"/></g></svg>';
 const RP_PUCK='<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin:0 3px 0 1px"><g fill="#e8b93c"><ellipse cx="12" cy="9" rx="8" ry="3.4"/><rect x="4" y="9" width="16" height="6"/><ellipse cx="12" cy="15" rx="8" ry="3.4"/></g></svg>';
 const RP_SOCCERBALL='<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin:0 3px 0 1px"><g fill="#e8b93c"><circle cx="12" cy="12" r="9.4"/><path d="M12 7l3.4 2.5-1.3 4h-4.2l-1.3-4z" fill="#0c0f14"/><path d="M12 7V3.2M15.4 9.5l3.9-1.3M14.1 13.5l2.4 3.2M9.9 13.5l-2.4 3.2M8.6 9.5L4.7 8.2" stroke="#0c0f14" stroke-width="1.3" fill="none"/></g></svg>';
@@ -657,18 +591,29 @@ function rpLeagueCard(d,j,cfg){
  const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
  const st=(comp.status||{}).type||{};
  const box=document.getElementById('rpLive');if(!box)return;
+ /* */
+ const _rk={pre:0,'in':1,post:2},_nr=_rk[st.state]||0;
+ if(_nr<+(d.dataset.lsrank||0))return;  /* */
+ d.dataset.lsrank=_nr;
  if(st.state==='pre'){box.innerHTML='';return;}
  const aw=(comp.competitors||[]).find(function(c){return c.homeAway==='away';})||{};
  const hm=(comp.competitors||[]).find(function(c){return c.homeAway==='home';})||{};
  const aAb=cfg.abbr(aw),hAb=cfg.abbr(hm);
- const aR=aw.score!=null?aw.score:'0',hR=hm.score!=null?hm.score:'0';
- const live=st.state==='in';
+ let aR=aw.score!=null?String(aw.score):'\u2014',hR=hm.score!=null?String(hm.score):'\u2014';  /* */
+ const _sig=st.state+'|'+aR+'|'+hR+'|'+((comp.status||{}).displayClock||'')+'|'+(st.period||'');
+ const _cnL=rpCanonScore(d.dataset.eid,aR,hR);if(_cnL){aR=String(_cnL.a);hR=String(_cnL.h);}  /* */
+ let _frozen=false;
+ if(st.state==='in'){if(_sig!==d.__sig){d.__sig=_sig;d.__sigAt=Date.now();}else if(Date.now()-(d.__sigAt||0)>240000)_frozen=true;}
+ if(_frozen){window.__rpDownSince=window.__rpDownSince||Date.now();}else{window.__rpDownSince=0;}
+ const live=st.state==='in'&&!_frozen;  /* a frozen 'in' is last-known data, NEVER a liveness claim */
  const isFinal=st.state==='post';
  const poss=live?cfg.possession(j,comp,aw,hm):null;
+ const _pst=rpPbpSt(d.dataset.eid||'');
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  let wl='';
- if(isFinal){const side=d.dataset.side||'away';const win=(side==='away')?(+aR>+hR):(+hR>+aR);
-  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}
+ if(isFinal){const side=d.dataset.side||'away';const _aN=parseFloat(aR),_hN=parseFloat(hR);
+  if(isFinite(_aN)&&isFinite(_hN)){const win=(side==='away')?(_aN>_hN):(_hN>_aN);
+  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}  /* */
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+(st.shortDetail||'FINAL').toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+(live?(st.shortDetail||''):'')+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+(poss==='away'?cfg.icon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+(poss==='home'?cfg.icon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div>';
@@ -676,18 +621,19 @@ function rpLeagueCard(d,j,cfg){
  const bits=cfg.bits?cfg.bits(j,comp,aw,hm):[];
  if(live&&bits.length)h+='<div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:#8a8f98;margin-top:6px">'+bits.join('<span style="color:#3a3f4a">|</span>')+'</div>';
  const s=j.situation||comp.situation||{};
- if(live&&typeof s.awayTimeouts==='number'&&typeof s.homeTimeouts==='number')h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:6px"><span>'+aAb+' timeouts: <b style="color:#c8cdd5">'+s.awayTimeouts+'</b></span><span>'+hAb+' timeouts: <b style="color:#c8cdd5">'+s.homeTimeouts+'</b></span></div>';
+ const _to=live?rpTimeouts(d.dataset.espn,d.dataset.eid,(comp.status||{}).period,aw.timeoutsUsed,hm.timeoutsUsed,s.awayTimeouts,s.homeTimeouts,s._sbPeriod,{trusted:s._workerTo===true,lpMatch:(function(){var pl=j.plays||((j.drives||{}).current||{}).plays||[];var a1=pl.length?pl[pl.length-1].id:null;return a1!=null&&s._sbLp!=null&&String(a1)===s._sbLp;})()}):null;
+ if(_to)h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:6px"><span>'+aAb+' timeouts left: <b style="color:#c8cdd5">'+_to.a+'</b></span><span>'+hAb+' timeouts left: <b style="color:#c8cdd5">'+_to.h+'</b></span>'+(_to.lk?'<span style="color:#5a5f6a"> · last-known</span>':'')+'</div>';
  const lp=((s.lastPlay||{}).text)||cfg.lastPlay(j)||'';
  if(lp)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+lp+'</div>';
  const sc=(j.scoringPlays||[]).map(function(p){return (p.text||'');}).filter(function(x){return x;});
  const plays=(j.plays||[]).map(function(p){return (p.text||'');}).filter(function(x){return x;});
- h+='<div id="rpPbp" style="display:none;margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
+ h+='<div id="rpPbp" style="display:'+(_pst.open?'block':'none')+';margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
  if(sc.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e8b93c;margin:4px 0">'+(cfg.scoringLabel||'SCORING')+'</div>';
   for(let i=sc.length-1;i>=0;i--)h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+sc[i]+'</div>';}
  if(plays.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98;margin:6px 0 4px">PLAY BY PLAY</div>';
   for(let i=plays.length-1;i>=0&&i>plays.length-16;i--)h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+plays[i]+'</div>';}
  h+='</div></div>';
- box.innerHTML=h;window.__rpLiveOk=Date.now();
+ const _pc=_pst.open?rpPbpCapture():null;box.innerHTML=h;if(_pc)rpPbpRestore(_pc);if(live)window.__rpLiveOk=Date.now();  /* */
 }
 function rpTeamAbbr(x){return ((x.team||{}).abbreviation)||(((x.athlete||{}).shortName)||((x.athlete||{}).displayName)||'').slice(0,12);}
 function rpStat(j,side,name){ /* boxscore stat lookup, fail-closed */
@@ -702,9 +648,10 @@ async function rpLeagueLive(d,cfg){
  if(!d.dataset.eid)return;
  const j=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/summary?event='+d.dataset.eid+'&t='+Date.now())).json();
  const _ss=await rpSit(d.dataset.espn,d.dataset.eid);
- if(_ss&&!j.situation)j.situation=_ss;  /* tester Sep 26: summary carries no situation; scoreboard does (exact-id join, fail closed) */
+ if(_ss&&(!j.situation||!Object.keys(j.situation).length))j.situation=_ss;  /* summary carries situation as an EMPTY object (truthy) - graft whenever it has no keys, never only when absent */
+ if(!j||!j.header||!Array.isArray(j.header.competitions)||!j.header.competitions.length){window.__rpDownSince=window.__rpDownSince||Date.now();return;}  /* truthy-but-empty is not an answer */
  rpLeagueCard(d,j,cfg);
- }catch(e){}
+ }catch(e){window.__rpDownSince=window.__rpDownSince||Date.now();}  /* */
 }
 const RP_CFG_BB={icon:RP_BASKETBALL,abbr:rpTeamAbbr,
  possession:function(j,comp,aw,hm){const s=j.situation||comp.situation||{};const id=s.possession;if(!id)return null;
@@ -723,14 +670,14 @@ const RP_CFG_HK={icon:RP_PUCK,abbr:rpTeamAbbr,scoringLabel:'GOALS',
   const b=[];if(a&&h)b.push('SOG '+a+' / '+h);return b;},
  lastPlay:function(){return '';}};
 const RP_CFG_SO={icon:RP_SOCCERBALL,abbr:rpTeamAbbr,scoringLabel:'GOALS',
- possession:function(){return null;}, /* tester Sep 26: possessionPct is an AGGREGATE share, never a momentary ball - no exact per-moment possession feed exists for soccer, so NO ball icon; the % stays as labeled aggregate stats below */
+ possession:function(){return null;}, /* */
  surface:function(j,comp,aw,hm,poss,aAb,hAb){return rpPitchSvg(aAb,hAb);},
  bits:function(j){const a=rpStat(j,'away','possessionPct'),h=rpStat(j,'home','possessionPct');
   const b=[];if(a&&h)b.push('Possession '+a+'% / '+h+'%');
   const as=rpStat(j,'away','totalShots'),hs=rpStat(j,'home','totalShots');if(as&&hs)b.push('Shots '+as+' / '+hs);return b;},
  lastPlay:function(){return '';}};
 const RP_CFG_TE={icon:RP_RACKET,abbr:rpTeamAbbr,scoringLabel:'BREAKS',
- possession:function(j,comp,aw,hm){ /* server = possession analog (his verbatim: tennis racket shows who serves) */
+ possession:function(j,comp,aw,hm){ /* */
   const s=j.situation||comp.situation||{};const id=s.possession;
   if(id){if(String((aw.athlete||{}).id)===String(id)||(aw.team&&String(aw.team.id)===String(id)))return 'away';
    if(String((hm.athlete||{}).id)===String(id)||(hm.team&&String(hm.team.id)===String(id)))return 'home';}
@@ -761,16 +708,16 @@ const RP_CFG_GOLF={icon:RP_FLAG,abbr:rpTeamAbbr,scoringLabel:'CARD',
  bits:function(){return [];},
  lastPlay:function(j){const lb=j.leaderboard||{};const rows=lb.rows||lb.competitors||[];return rows.length?('Leaderboard: '+rows.length+' on the card'):'';}};
 const RP_FOOTBALL='<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin:0 3px 0 1px"><g fill="#e8b93c"><ellipse cx="12" cy="12" rx="10" ry="6.2" transform="rotate(-35 12 12)"/><rect x="10.6" y="7.2" width="2.8" height="9.6" rx="1.4" fill="#0c0f14" transform="rotate(-35 12 12)"/><rect x="8.2" y="10.2" width="7.6" height="1.2" rx="0.6" fill="#0c0f14" transform="rotate(-35 12 12)"/><rect x="8.2" y="12.6" width="7.6" height="1.2" rx="0.6" fill="#0c0f14" transform="rotate(-35 12 12)"/></g></svg>';
-/* canonical league->sport icon map (his 3:43 core-level order: the ball dot IS the sport's own icon in every league) */
+/* */
 const RP_SPORT_ICON=[['football/',RP_FOOTBALL],['baseball/',RP_BAT],['basketball/',RP_BASKETBALL],['hockey/',RP_PUCK],['soccer/',RP_SOCCERBALL],['tennis/',RP_RACKET],['golf/',RP_FLAG],['mma/',RP_GLOVE]];
 function rpSportIcon(lg){lg=lg||'';for(let i=0;i<RP_SPORT_ICON.length;i++){if(lg.indexOf(RP_SPORT_ICON[i][0])===0)return RP_SPORT_ICON[i][1];}return RP_FOOTBALL;}
 function rpFieldSvg(ballAbs,possIsHome,aCol,hCol,icon){
- /* interactive CFB/NFL field (his ref-field spec): end zones in team colors, 10-yard stripes, midfield mark, ball marker at the absolute 0-100 spot; tap-scrolls to PBP via the card's own toggle */
+ /* */
  aCol=aCol||'#5a5f6a';hCol=hCol||'#3a3f4a';
- const x=30+Math.max(0,Math.min(100,ballAbs==null?50:ballAbs))*2.4; /* field geometry (user-reported wrong-side dot 9/26): grass is x=30..270 with end zones 0..30/270..300, so ballAbs 0-100 maps 30+2.4*ballAbs - the old 2.9 scale drifted up to 20u off and put goal-line dots inside end zones */
+ const x=30+Math.max(0,Math.min(100,ballAbs==null?50:ballAbs))*2.4; /* */
  const _ic=((icon||RP_FOOTBALL)+'').replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'');
  let stripes='';
- for(let i=1;i<10;i++){if(i===5)continue; /* midfield is the dedicated 1.2px mark below - drawing a stripe there too renders a doubled line (user-reported 9/26) */ stripes+='<line x1="'+(30+i*24)+'" y1="4" x2="'+(30+i*24)+'" y2="36" stroke="rgba(255,255,255,.18)" stroke-width="1"/>';}
+ for(let i=1;i<10;i++){if(i===5)continue; /* */ stripes+='<line x1="'+(30+i*24)+'" y1="4" x2="'+(30+i*24)+'" y2="36" stroke="rgba(255,255,255,.18)" stroke-width="1"/>';}
  return '<svg width="100%" viewBox="0 0 300 40" style="display:block;margin:8px 0 2px">'+
  '<rect x="0" y="2" width="30" height="36" rx="3" fill="'+aCol+'" opacity="0.85"/>'+
  '<rect x="270" y="2" width="30" height="36" rx="3" fill="'+hCol+'" opacity="0.85"/>'+
@@ -778,71 +725,89 @@ function rpFieldSvg(ballAbs,possIsHome,aCol,hCol,icon){
  '<line x1="150" y1="4" x2="150" y2="36" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>'+
  (ballAbs==null?'':'<svg x="'+(x-8)+'" y="12" width="16" height="16" viewBox="0 0 24 24">'+_ic+'</svg>')+
  '</svg>';}
-async function rpSit(lg,eid){ /* tester Sep 26: situation (possession/yardLine/down+Distance/server) lives on the SCOREBOARD endpoint, not summary - join by exact event id, fail closed */
+async function rpSit(lg,eid){ /* */
  try{
-  const sb=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?dates='+new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'}).replace(/-/g,'')+'&cb='+Date.now())).json();
+  const _ac=new AbortController();setTimeout(function(){_ac.abort();},8000);  /* */
+  const sb=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?dates='+new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'}).replace(/-/g,'')+'&cb='+Date.now(),{signal:_ac.signal})).json();
   const ev=(sb.events||[]).find(function(e){return String(e.id)===String(eid);});
   const c2=ev&&((ev.competitions||[])[0]);
-  return (c2&&c2.situation)||null;
+  const _s2=(c2&&c2.situation)||null;
+  if(_s2){const _cp=(c2.status||{}).period;const _sp=(_cp!=null?_cp:(ev.status||{}).period);if(_sp!=null)_s2._sbPeriod=_sp;const _cc=(c2.status||{}).displayClock;if(_cc!=null)_s2._sbClock=_cc;const _cm2=(c2.competitors)||[];const _c2a=_cm2.find(function(c){return c.homeAway==='away';})||{};const _c2h=_cm2.find(function(c){return c.homeAway==='home';})||{};if(_c2a.score!=null)_s2._sbScoreA=+_c2a.score;if(_c2h.score!=null)_s2._sbScoreH=+_c2h.score;const _slp=((c2.situation||{}).lastPlay||{}).id;if(_slp!=null)_s2._sbLp=String(_slp);}  /* snapshot moment (competition status): cross-source coherence gate + timeouts block guard */
+  return _s2;
  }catch(e){return null;}
 }
 async function rpFbLive(d){
  window.__rpLbF=0;
  try{
  if(!d.dataset.eid)return;
- /* feed arbiter v3 (shared worker core): /feed/game composes cross-source-verified fields
-    (ESPN PBP-primary score + NCAA corroboration, per-field freeze detection). Arbiter verdicts
-    win on score + feed health; any arbiter failure falls through to the direct ESPN path
-    unchanged - failover invisible in the happy path (UX bar, main 9/26 4:48:33). */
+ /* */
  let arb=null;
  try{const _fr=await fetch('https://api.rix-picks.com/feed/game/'+d.dataset.eid+'?league='+encodeURIComponent(d.dataset.espn||'')+'&t='+Date.now());if(_fr.ok)arb=await _fr.json();}catch(e){}
- /* arbiter-primary (swamp 9/26): the direct ESPN read is OPTIONAL enrichment (PBP/drives/colors),
-    NEVER a gate - a network blocking ESPN must not blank a card the healthy worker can fill.
-    Arbiter-only mode renders score/clock/state/situation from worker-verified fields (abbrs from
-    baked data attrs, colors/drives/PBP honestly absent until ESPN is reachable again). */
+ /* */
  let j=null,_fromArb=false;
  try{j=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/summary?event='+d.dataset.eid+'&t='+Date.now())).json();}catch(e){}
- if(!j){
+ let _espnGood=!!(j&&j.header&&Array.isArray(j.header.competitions)&&j.header.competitions.length&&j.header.competitions[0]);  /* */
+ if(!_espnGood){
   if(!arb||!arb.fields||!arb.fields.state){window.__rpDownSince=window.__rpDownSince||Date.now();return;}  /* both down: keep the last good render, count the outage */
   _fromArb=true;
   const _F=arb.fields,_fv=function(k){const c=_F[k];return (c&&!c.stale)?c.value:null;};
-  const _fvs=function(k){const c=_F[k];return c?{v:c.value,stale:!!c.stale}:null;};  /* swamp 9/26: NEVER fabricate 0-0 - last-known score renders labeled, unknown renders em-dash */
+  const _fvs=function(k){const c=_F[k];return (c&&c.value!=null)?{v:c.value,stale:!!c.stale}:null;};  /* */
   const _sa=_fvs('scoreAway'),_sh=_fvs('scoreHome');
   const _ps=_fv('possessionSide');
   j={header:{competitions:[{status:{type:{state:_fv('state')||arb.state||'pre',detail:_fv('detail')||'',shortDetail:_fv('detail')||''},displayClock:_fv('clock')||'',period:_fv('period')!=null?+_fv('period'):undefined},competitors:[{homeAway:'away',team:{abbreviation:d.dataset.aab||'',id:(_ps==='away'?'1':'0')},score:_sa?_sa.v:'\u2014'},{homeAway:'home',team:{abbreviation:d.dataset.hab||'',id:(_ps==='home'?'1':'0')},score:_sh?_sh.v:'\u2014'}]}]},
-     situation:{down:_fv('down')!=null?+_fv('down'):undefined,distance:_fv('distance')!=null?+_fv('distance'):undefined,yardLine:_fv('yardLine')!=null?+_fv('yardLine'):undefined,possession:_ps?'1':undefined},drives:{current:{description:'-'}},scoringPlays:[]};  /* description truthy = drive-line gate stays closed in arbiter-only mode (no fabricated play count) */
+     situation:{down:_fv('down')!=null?+_fv('down'):undefined,distance:_fv('distance')!=null?+_fv('distance'):undefined,yardLine:_fv('yardLine')!=null?+_fv('yardLine'):undefined,possession:_ps?'1':undefined,awayTimeouts:_fvs('timeoutAway')?_fvs('timeoutAway').v:undefined,homeTimeouts:_fvs('timeoutHome')?_fvs('timeoutHome').v:undefined,_workerTo:(_fvs('timeoutAway')&&_fvs('timeoutHome')&&!_fvs('timeoutAway').stale&&!_fvs('timeoutHome').stale)?true:undefined},drives:{current:{description:'-'}},scoringPlays:[]};  /* description truthy = drive-line gate stays closed in arbiter-only mode (no fabricated play count) */
  }
  const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
  const st=(comp.status||{}).type||{};
  const box=document.getElementById('rpLive');if(!box)return;
- if(st.state==='pre'){box.innerHTML='';return;}
+ /* */
+ if((arb&&arb.allDown)||(!arb&&!_espnGood)){window.__rpDownSince=window.__rpDownSince||Date.now();}else{window.__rpDownSince=0;}  /* */
+ const _arbDead=arb?!!(arb.allDown||(arb.fields&&arb.fields.state&&arb.fields.state.stale)):false;  /* */
+ if(st.state==='pre'){
+  if(_arbDead)return;  /* */
+  box.innerHTML='';return;}
  const aw=(comp.competitors||[]).find(function(c){return c.homeAway==='away';})||{};
  const hm=(comp.competitors||[]).find(function(c){return c.homeAway==='home';})||{};
  const aAb=(aw.team||{}).abbreviation||'',hAb=(hm.team||{}).abbreviation||'';
- let aR=aw.score||'0',hR=hm.score||'0';
- if(arb&&arb.fields){if(arb.fields.scoreAway&&!arb.fields.scoreAway.stale)aR=String(arb.fields.scoreAway.value);if(arb.fields.scoreHome&&!arb.fields.scoreHome.stale)hR=String(arb.fields.scoreHome.value);}  /* arbiter score: PBP-derived, NCAA-corroborated - beats the lagging header read */
+ let aR=aw.score!=null?String(aw.score):'\u2014',hR=hm.score!=null?String(hm.score):'\u2014';  /* */
+ if(arb&&arb.fields){const _wa=arb.fields.scoreAway,_wh=arb.fields.scoreHome;
+  if(_wa&&_wh&&_wa.value!=null&&_wh.value!=null&&!_wa.stale&&!_wh.stale){
+   const _dA=parseFloat(aR),_dH=parseFloat(hR),_wA=parseFloat(_wa.value),_wH=parseFloat(_wh.value);
+   if(!isFinite(_dA)||!isFinite(_dH)||!isFinite(_wA)||!isFinite(_wH)||(_wA>=_dA&&_wH>=_dH)){aR=String(_wa.value);hR=String(_wh.value);}
+   /* */
+  }}  /* */  /* arbiter score: PBP-derived, NCAA-corroborated - beats the lagging header read */
+ const _cnF=rpCanonScore(d.dataset.eid,aR,hR);if(_cnF){aR=String(_cnF.a);hR=String(_cnF.h);}  /* */
  const aCol=(aw.team||{}).color?('#'+aw.team.color):null,hCol=(hm.team||{}).color?('#'+hm.team.color):null;
- const s=(await rpSit(d.dataset.espn,d.dataset.eid))||j.situation||comp.situation||{};
- const live=st.state==='in';
- const possId=s.possession;
+ let s=(await rpSit(d.dataset.espn,d.dataset.eid))||j.situation||comp.situation||{};
+ /* */
+ const _pgX=function(p,c){p=+p||0;const m=/^(\d+):(\d{2})$/.exec(String(c||''));if(p<1||!m)return null;return (p-1)*900+(900-((+m[1])*60+(+m[2])));};
+ const _pgSm=_pgX((comp.status||{}).period,(comp.status||{}).displayClock);
+ const _pgSb=_pgX(s._sbPeriod,s._sbClock);
+ if(_pgSm!=null&&_pgSb!=null&&_pgSb<_pgSm)s={awayTimeouts:s.awayTimeouts,homeTimeouts:s.homeTimeouts,_sbPeriod:s._sbPeriod,_sbClock:s._sbClock,_sbScoreA:s._sbScoreA,_sbScoreH:s._sbScoreH,_sbLp:s._sbLp};
+ const possId=s.possession!=null?String(s.possession):null;  /* */
+
+ const live=st.state==='in'&&!_arbDead;  /* */
  const possIsHome=possId&&hm.team&&String(hm.team.id)===String(possId);
  const possA=possId&&aw.team&&String(aw.team.id)===String(possId);
  const spIcon=rpSportIcon(d.dataset.espn);
  let ballAbs=null;
  if(live&&typeof s.yardLine==='number'&&possId){
-  /* ESPN yardLine is ABSOLUTE 0-100 from the HOME team's goal regardless of possession (verified Sep 26 vs live event 401858464 feed: MSU25=25, NEB25=75, MSU13=13); page field is 0(away ez)-100(home ez), so ballAbs=100-yardLine ALWAYS - no possession conditional */
+  /* */
   ballAbs=100-s.yardLine;
  }
  const drv=(j.drives||{}).current||{};
  let drvPlays=null;
  if(typeof drv.offensivePlays==='number'){drvPlays=drv.offensivePlays;}else{const _pl=(drv.plays||[]).length;drvPlays=_pl>0?_pl:(drv.description?null:0);}
+ const _pst=rpPbpSt(d.dataset.eid||'');
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  const isFinal=st.state==='post';
  let wl='';
- if(isFinal){const side=d.dataset.side||'away';const win=(side==='away')?(+aR>+hR):(+hR>+aR);
-  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}
+ if(isFinal){const side=d.dataset.side||'away';const _aN=parseFloat(aR),_hN=parseFloat(hR);
+  if(isFinite(_aN)&&isFinite(_hN)){const win=(side==='away')?(_aN>_hN):(_hN>_aN);
+  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}  /* */
  const _clk=live?rpLiveClock(d,j,st):'';const _cdet=(st.shortDetail||'').replace(/^\d+:\d+\s*-?\s*/,'');
- h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+(st.shortDetail||'FINAL').toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+(live?(_clk?(_clk+(_cdet?' - '+_cdet:'')):(st.shortDetail||'')):'')+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
+ const _brk=live&&/halftime|end of|delay|postponed/i.test(String(st.detail||st.shortDetail||''));  /* */
+ h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+((live&&!_brk)?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+(_brk?String(st.detail||st.shortDetail||'Break').toUpperCase():(st.shortDetail||'FINAL').toUpperCase())+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+((live&&!_brk)?(_clk?(_clk+(_cdet?' - '+_cdet:'')):(st.shortDetail||'')):'')+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+(possA?spIcon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+(possIsHome?spIcon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div>';
  if(live){
@@ -850,13 +815,14 @@ async function rpFbLive(d){
   h+='<div style="display:flex;justify-content:space-between;font-size:10px;color:#8a8f98"><span>'+aAb+'</span><span>50</span><span>'+hAb+'</span></div>';
   const bits=[];
   if(s.downDistanceText)bits.push('<b style="color:#c8cdd5">'+s.downDistanceText+'</b>');
-  if(possId&&drv&&(drv.start||drvPlays!=null))bits.push('Drive: '+((drv.start||{}).text||'-')+(drvPlays!=null?' &middot; '+drvPlays+' plays':''));  /* tracker fix #4 (swamp, halftime): no possession = no drive line - stale drives.current never renders */
+  if(possId&&drv&&(drv.start||drvPlays!=null))bits.push('Drive: '+((drv.start||{}).text||'-')+(drvPlays!=null?' &middot; '+drvPlays+' plays':''));  /* */
   if(bits.length)h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:6px">'+bits.join('<span style="color:#3a3f4a">|</span>')+'</div>';
-  if(typeof s.awayTimeouts==='number'&&typeof s.homeTimeouts==='number')h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:4px"><span>'+aAb+' timeouts: <b style="color:#c8cdd5">'+s.awayTimeouts+'</b></span><span>'+hAb+' timeouts: <b style="color:#c8cdd5">'+s.homeTimeouts+'</b></span></div>';
+  const _to=rpTimeouts(d.dataset.espn,d.dataset.eid,(comp.status||{}).period,aw.timeoutsUsed,hm.timeoutsUsed,s.awayTimeouts,s.homeTimeouts,s._sbPeriod,{trusted:s._workerTo===true,lpMatch:(function(){var pl=j.plays||((j.drives||{}).current||{}).plays||[];var a1=pl.length?pl[pl.length-1].id:null;return a1!=null&&s._sbLp!=null&&String(a1)===s._sbLp;})()});
+  if(_to)h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:4px"><span>'+aAb+' timeouts left: <b style="color:#c8cdd5">'+_to.a+'</b></span><span>'+hAb+' timeouts left: <b style="color:#c8cdd5">'+_to.h+'</b></span>'+(_to.lk?'<span style="color:#5a5f6a"> · last-known</span>':'')+'</div>';
  }
  const lp=(s.lastPlay||{}).text||'';
  if(lp)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+lp+'</div>';
- /* PBP carousel (interactive, scrollable - his stat-carousel spec) */
+ /* */
  const drvs=((j.drives||{}).previous)||[];
  const rows=[];
  for(let i=drvs.length-1;i>=0&&rows.length<15;i--){
@@ -864,23 +830,99 @@ async function rpFbLive(d){
   for(let k=plays.length-1;k>=0&&rows.length<15;k--){const tx=plays[k]&&plays[k].text;if(tx)rows.push(tx);}
  }
  const sc=(j.scoringPlays||[]).map(function(p){return (p.text||'');}).filter(function(x){return x;});
- h+='<div id="rpPbp" style="display:none;margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
+ h+='<div id="rpPbp" style="display:'+(_pst.open?'block':'none')+';margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
  if(sc.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e8b93c;margin:4px 0">SCORING</div>';
   for(let i=sc.length-1;i>=0;i--)h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+sc[i]+'</div>';}
  if(rows.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98;margin:6px 0 4px">PLAY BY PLAY</div>';
   rows.forEach(function(tx){h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+tx+'</div>';});}
  h+='</div></div>';
- box.innerHTML=h;
- /* his 9/26 UX bar, verbatim: "It's supposed to be smooth and seamless for the users too. They should
-    never notice this stuff." Failover + carried last-known data render IDENTICALLY - no badges, dims or
-    labels for feed mechanics, no perceptible trace of a source swap. Only a TOTAL arbiter outage
-    (unreachable or all sources dead) counts toward __rpDownSince; rpLiveLoop shows one understated note
-    after 5 continuous minutes and clears it silently on recovery. Strict staleness stays server-side
-    (per-field stale flags) for internal monitoring - it is for US, not for the page. */
- if(_fromArb&&arb&&arb.allDown){window.__rpDownSince=window.__rpDownSince||Date.now();}else{window.__rpDownSince=0;window.__rpLiveOk=Date.now();}
+ const _pc=_pst.open?rpPbpCapture():null;box.innerHTML=h;if(_pc)rpPbpRestore(_pc);  /* */
+ if(!_arbDead)window.__rpLiveOk=Date.now();  /* stamp AFTER the render landed, and never for carried last-known data */
+ /* */
+
  }catch(e){}
 }
-function rpPbpToggle(){const el=document.getElementById('rpPbp');if(el)el.style.display=el.style.display==='none'?'block':'none';}
+function rpCanonScore(eid,a,h){const W=window;W.__rpCanon=W.__rpCanon||{};const A=parseFloat(a),H=parseFloat(h);
+ if(eid==null||eid===''||!isFinite(A)||!isFinite(H))return null;
+ const c=W.__rpCanon[eid];
+ if(!c){W.__rpCanon[eid]={a:A,h:H};return W.__rpCanon[eid];}
+ if(A>=c.a&&H>=c.h){W.__rpCanon[eid]={a:A,h:H};return W.__rpCanon[eid];}  /* */
+ return c;}  /* */
+/* timeouts core: ONE semantic - REMAINING, labeled 'left' in the UI. The summary's timeoutsUsed is the fresh
+   monotonic source; the scoreboard situation's remaining count cross-checks and (after convergence) seeds the
+   current block's baseline. TRUST RULES: (a) a block baseline is PROVEN only by resident progression - the last
+   read of the prior block is the count carried in; (b) a first-ever mid-block sighting is UNPROVEN and paints
+   NOTHING until the (block, used, remaining) tuple holds for 3 straight reads - a lagging snapshot breaks the
+   streak and never seeds, so a first-load visitor never sees a possibly-wrong count; (c) a scoreboard snapshot
+   from an earlier block (competition status period) is excluded. Football 3/half (NCAA OT 1/period, NFL OT
+   2/period); basketball whole-game (NBA 7, NCAAM 4, NCAAW 3, WNBA 5, plus OT); NHL 1/game. */
+var RP_TO_SPEC={
+ 'football/college-football':{block:function(p){return p<=2?'h1':(p<=4?'h2':'ot'+p);},total:function(p){return p>4?1:3;}},
+ 'football/nfl':{block:function(p){return p<=2?'h1':(p<=4?'h2':'ot'+p);},total:function(p){return p>4?2:3;}},
+ 'basketball/nba':{block:function(){return 'g';},total:function(p){return 7+(p>4?2*(p-4):0);}},
+ 'basketball/mens-college':{block:function(){return 'g';},total:function(p){return 4+(p>2?(p-2):0);}},
+ 'basketball/womens-college':{block:function(){return 'g';},total:function(p){return 3+(p>4?(p-4):0);}},
+ 'basketball/wnba':{block:function(){return 'g';},total:function(p){return 5+(p>4?2*(p-4):0);}},
+ 'hockey/nhl':{block:function(){return 'g';},total:function(){return 1;}}};
+function rpTimeouts(lg,eid,period,usedA,usedH,sbA,sbH,sbPeriod,o){
+ o=o||{};var sbTrusted=o.trusted===true;
+ var spec=RP_TO_SPEC[lg];if(!spec)return null;
+ period=+period||0;if(period<1)return null;
+ var total=spec.total(period),bk=spec.block(period);
+ var num=function(x){var n=parseFloat(x);return isFinite(n)?n:null;};
+ usedA=num(usedA);usedH=num(usedH);sbA=num(sbA);sbH=num(sbH);
+ if(sbPeriod!=null&&+sbPeriod<period){sbA=null;sbH=null;}
+ var W=window;W.__rpTmO=W.__rpTmO||{};var st=W.__rpTmO[eid]||(W.__rpTmO[eid]={});
+ if(usedA!=null)st.muA=Math.max(st.muA||0,usedA);
+ if(usedH!=null)st.muH=Math.max(st.muH||0,usedH);
+ if(st.bk!==bk){
+  var resident=(st.prevBk!=null&&st.prevBk===st.bk);
+  st.bA=(resident&&st.prevMuA!=null)?st.prevMuA:null;
+  st.bH=(resident&&st.prevMuH!=null)?st.prevMuH:null;
+  st.bk=bk;st.stableKey=null;st.stableN=0;st.sbKeyA=null;st.sbKeyH=null;st.muAtSbA=null;st.muAtSbH=null;
+ }
+ var skey=bk+'|'+(usedA==null?'x':usedA)+'|'+(usedH==null?'x':usedH)+'|'+(sbA==null?'x':sbA)+'|'+(sbH==null?'x':sbH);
+ if(skey===st.stableKey)st.stableN=(st.stableN||0)+1;else{st.stableKey=skey;st.stableN=1;}
+ /* fresh-visitor convergence: stable polls prove stability, not correctness. Proof is PER SIDE: the scoreboard moved at-or-after the summary's last usage change, or the snapshot validates same-moment against the summary (period+clock within 15s+scores). Unproven values still render, labeled last-known - never invisible */
+ var muKey=(st.muA==null?'x':st.muA)+'|'+(st.muH==null?'x':st.muH);
+ if(sbA!=null){if(st.sbKeyA==null){st.sbKeyA=String(sbA);}else if(st.sbKeyA!==String(sbA)){st.sbKeyA=String(sbA);st.muAtSbA=muKey;}}
+ if(sbH!=null){if(st.sbKeyH==null){st.sbKeyH=String(sbH);}else if(st.sbKeyH!==String(sbH)){st.sbKeyH=String(sbH);st.muAtSbH=muKey;}}
+ var provA=st.muAtSbA!=null&&st.muAtSbA===muKey,provH=st.muAtSbH!=null&&st.muAtSbH===muKey;
+ /* clock+score agreement is NOT proof (a timeout freezes the clock, never changes the score): unlabeled service needs counter convergence - per-side movement, worker trust, or lastPlay id equality */
+ var lpMatch=o.lpMatch===true;
+ var side=function(mu,bkey,sb,provS){
+  var base=st[bkey];
+  var ok=sbTrusted||lpMatch||(provS&&(st.stableN||0)>=3);
+  if(base==null&&mu!=null&&sb!=null&&ok){
+   var uib=total-sb;
+   if(uib>=0&&uib<=total&&mu-uib>=0){base=mu-uib;st[bkey]=base;}
+  }
+  if(base==null){
+   if(mu==null&&sb!=null&&ok)return{r:Math.max(0,Math.min(total,sb))};
+   if(sb!=null)return{r:Math.max(0,Math.min(total,sb)),lk:true};
+   return null;
+  }
+  var est=[total-Math.max(0,(mu||0)-base)];
+  if(sb!=null)est.push(sb);
+  return{r:Math.max(0,Math.min(total,Math.min.apply(null,est)))};
+ };
+ var ra=side(st.muA,'bA',sbA,provA),rh=side(st.muH,'bH',sbH,provH);
+ st.prevBk=bk;st.prevMuA=st.muA;st.prevMuH=st.muH;
+ if(ra==null||rh==null)return null;
+ return {a:ra.r,h:rh.r,lk:!!(ra.lk||rh.lk)};
+}
+function rpPbpSt(eid){const W=window;W.__rpPbp=W.__rpPbp||{eid:null,open:false};if(eid!=null&&W.__rpPbp.eid!==eid){W.__rpPbp={eid:eid,open:false};}return W.__rpPbp;}  /* */
+function rpPbpCapture(){const el=document.getElementById('rpPbp');if(!el)return null;const st=el.scrollTop||0;
+ if(st<=1)return {txt:null,st:0};  /* parked at the top follows the newest plays */
+ const er=el.getBoundingClientRect();const kids=el.children?el.children:[];
+ for(let i=0;i<kids.length;i++){const r=kids[i].getBoundingClientRect();
+  if(r.bottom>er.top+1)return {txt:kids[i].textContent,off:r.top-er.top,st:st};}  /* */
+ return {txt:null,st:st};}  /* */
+function rpPbpRestore(cap){if(!cap)return;const el=document.getElementById('rpPbp');if(!el)return;
+ if(cap.txt!=null){const er=el.getBoundingClientRect();const kids=el.children?el.children:[];
+  for(let i=0;i<kids.length;i++){if(kids[i].textContent===cap.txt){el.scrollTop+=((kids[i].getBoundingClientRect().top-er.top)-cap.off);return;}}}  /* rect deltas move 1:1 with scrollTop, whatever the positioning context */
+ if(cap.st!=null)el.scrollTop=cap.st;}
+function rpPbpToggle(){const st=rpPbpSt();st.open=!st.open;const el=document.getElementById('rpPbp');if(el)el.style.display=st.open?'block':'none';}  /* */
 async function rpEspnPanel(d){
  try{
  if(!d.dataset.eid)return;
@@ -890,14 +932,18 @@ async function rpEspnPanel(d){
  const st=(comp.status||{}).type||{};
  if(st.state==='pre'){box.innerHTML='';return;}
  const live=st.state==='in';
+ const _awP=(comp.competitors||[]).find(function(c){return c.homeAway==='away';})||{};
+ const _hmP=(comp.competitors||[]).find(function(c){return c.homeAway==='home';})||{};
+ const _cnP=rpCanonScore(d.dataset.eid,_awP.score,_hmP.score);  /* */
  let h='<div style="margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  let wl2='';
- if(st.state==='post'){const side=d.dataset.side||'away';const aw2=(comp.competitors||[]).find(function(c){return c.homeAway==='away';});const hm2=(comp.competitors||[]).find(function(c){return c.homeAway==='home';});
-  if(aw2&&hm2){const win=(side==='away')?(+aw2.score>+hm2.score):(+hm2.score>+aw2.score);
+ if(st.state==='post'){const side=d.dataset.side||'away';
+  const _sA=_cnP?_cnP.a:+_awP.score,_sH=_cnP?_cnP.h:+_hmP.score;
+  if(isFinite(_sA)&&isFinite(_sH)){const win=(side==='away')?(_sA>_sH):(_sH>_sA);
   wl2='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl2)+'<span style="font-size:12px;color:#8a8f98">'+rpStatusText(d,j,st)+'</span></div>';
  (comp.competitors||[]).forEach(function(c){
-  const ab=(c.team||{}).abbreviation||'';const sc=c.score||'0';
+  const ab=(c.team||{}).abbreviation||'';const sc=_cnP?String(c.homeAway==='away'?_cnP.a:_cnP.h):(c.score!=null?c.score:'\u2014');  /* */
   const ball=live&&comp.situation&&comp.situation.possession===c.team.id?' <span style="color:#e8b93c">&#9679;</span>':'';
   h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+ab+ball+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+sc+'</span></div>';
  });
@@ -919,7 +965,7 @@ async function rpEspnPanel(d){
 }
 function rpChipML(a){const r=rpMkt(a);if(r){if(r.st!=='ok')return null;if(r.c!=null)return rpC2MLn(r.c);return r.ml;}if(a.dataset&&a.dataset.cents){return rpC2MLn(a.dataset.cents);}const m=a.textContent.match(/([+-]\d+)/);return m?parseInt(m[1]):null;}  /* canonical record first; text is never a computational source when a record exists */
 
-/* Line shop / pre-game range on game pages (tester gate 9/26, U-DATA-001): SAME renderer rule as the card - canonical records only, pick-side chips only, geo never touches the math */
+/* */
 function rpGameLineShop(){try{
  const pk=document.querySelector('.pick[data-espn]');if(!pk)return;
  const el=pk.querySelector('.rplineshop');if(!el)return;
@@ -930,7 +976,7 @@ function rpGameLineShop(){try{
  pk.querySelectorAll('.chips [data-mr]').forEach(function(a){if(ph0)return;const r=rpMkt(a);if(r)ph0=r.ph;});
  pk.querySelectorAll('.chips [data-book]').forEach(function(a){
   if(a.querySelector('[data-book]'))return;
-  if(pmkt&&a.dataset.market!==pmkt)return;  /* fail-closed market identity, identical to the card renderer (parity sentinel Sep 26) */
+  if(pmkt&&a.dataset.market!==pmkt)return;  /* */
   const r=rpMkt(a);if(!r)return;  /* canonical-record-only: identical set on every surface, every viewer */
   if(ph0&&r.ph!==ph0)return;  /* same-phase, fail-closed */
   if(a.offsetParent===null)return;  /* U-DATA-001 amendment: range = exactly the state-resolved VISIBLE set */
@@ -945,17 +991,17 @@ function rpGameLineShop(){try{
  el.textContent=rpInPlay()?('pre-game range: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best):('line shop: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best+' \u00b7 '+edge.toFixed(1)+'% edge at the best price');
 }catch(e){}}
 function rpPageRefresh(){try{
- /* canonical record: a new build forces a full reload, so RP_MARKETS and chips always arrive together */
+ /* */
  fetch(location.pathname+'?r='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(function(t){
   if(t.indexOf(RP_BUILD)<0){location.replace(location.pathname+'?v='+Date.now());}
  }).catch(function(){});
 }catch(e){}}
 document.getElementById('rpModal').addEventListener('click',function(e){if(e.target===this){this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}});
-function rpFreshState(){try{const st=localStorage.getItem('rp_state'),src=localStorage.getItem('rp_state_src'),ts=+(localStorage.getItem('rp_state_ts')||0);return (st&&src==='gps'&&ts&&Date.now()-ts<=12*3600*1000)?st:'';}catch(e){return '';}}  /* tester Sep 26: first paint never exposes an expired jurisdiction */
+function rpFreshState(){try{const st=localStorage.getItem('rp_state'),src=localStorage.getItem('rp_state_src'),ts=+(localStorage.getItem('rp_state_ts')||0);return (st&&src==='gps'&&ts&&Date.now()-ts<=12*3600*1000)?st:'';}catch(e){return '';}}  /* */
 rpFilter(rpFreshState());rpResolveState();
-function rpResolveState(){try{  /* his rule Sep 26 1:52 PM: ONLY shared location resolves state - no IP guess, no manual, no preview. Unverified = fail-closed PM set + location prompt on tap. */
+function rpResolveState(){try{  /* */
  const saved=localStorage.getItem('rp_state'),src=localStorage.getItem('rp_state_src');
- /* freshness boundary (tester Sep 26 re-gate): expired GPS state is CLEARED UP FRONT - the async re-verify below re-resolves silently when permission persists; taps fail closed until it lands */
+ /* */
  const _sts=+(localStorage.getItem('rp_state_ts')||0);
  if(saved&&src==='gps'&&(!_sts||Date.now()-_sts>12*3600*1000)){
   localStorage.removeItem('rp_state');localStorage.removeItem('rp_state_src');rpLabel();
@@ -974,11 +1020,11 @@ function rpResolveState(){try{  /* his rule Sep 26 1:52 PM: ONLY shared location
  }
 }catch(e){}}
 rpGameLineShop();
-rpLabel(); /* state prompt fires only on outbound market taps - never gates score/game content (complaint-lens via main 9/26) */
+rpLabel(); /* */
 
 function rpML2C(ml){ml=parseFloat(ml);if(isNaN(ml))return null;return ml<0?(-ml)/((-ml)+100)*100:100/(ml+100)*100;}
 const RP_RANGE={};
-/* price-history graphs removed (user 9/26 10:58 iMessage via main) */
+/* */
 let rpPtrY=null,rpPtrPull=0,rpPtrOn=false;
 document.addEventListener('touchstart',function(e){if(e.touches.length===1&&window.scrollY<2){rpPtrY=e.touches[0].clientY;rpPtrPull=0;rpPtrOn=true;}else{rpPtrOn=false;rpPtrY=null;rpPtrPull=0;}},{passive:true});
 document.addEventListener('touchmove',function(e){if(!rpPtrOn||rpPtrY===null)return;const d=e.touches[0].clientY-rpPtrY;if(d>rpPtrPull)rpPtrPull=d;
@@ -995,7 +1041,7 @@ document.addEventListener('touchcancel',rpPtrEnd,{passive:true});
 
 
 
-/* Live scoring table - per-league linescore, fixed order: live updates -> scoring table -> platform chips (user 9/25 9:22 PM; restored into template root 9/26 - 792ca91+d72389f had landed in generated pages only and rebuilds clobbered them). Shapes: MLB innings+R/H/E; NFL/CFB/NBA quarters(+OT); NCAAB halves(+OT); NHL periods(+OT/SO); soccer halves(+ET); tennis sets(+sets-won). Combat/leaderboard sports: no table. */
+/* */
 function rpScoreHdrs(lg,n){
  if(lg.indexOf('soccer')===0){const h=['1H','2H'];for(let i=2;i<n;i++)h.push(i===2?'ET':'ET'+(i-1));return h;}
  if(lg.indexOf('hockey')===0){const h=['1','2','3'];for(let i=3;i<n;i++)h.push(i===3?'OT':'SO');return h;}
@@ -1039,9 +1085,12 @@ async function rpScoreMlb(d,el){
   valsA.push(inn&&inn.away&&typeof inn.away.runs==='number'?inn.away.runs:null);
   valsH.push(inn&&inn.home&&typeof inn.home.runs==='number'&&!(i===8&&det==='Final'&&aT.runs>hT.runs&&inn.home.runs===undefined)?inn.home.runs:null);
  }
+ const _cnM=rpCanonScore(d.dataset.gpk||d.dataset.eid,aT.runs,hT.runs);const _rA=_cnM?_cnM.a:aT.runs,_rH=_cnM?_cnM.h:hT.runs;  /* */
+ const _sumI=function(a){let t=0;for(let i=0;i<a.length;i++){if(typeof a[i]==='number')t+=a[i];}return t;};
+ if(_rA>_sumI(valsA)||_rH>_sumI(valsH))return;  /* */
  rpScoreTable(el,hdrs,[
-  {abbr:aAb,logo:aLogo,vals:valsA,tots:[aT.runs,aT.hits,aT.errors]},
-  {abbr:hAb,logo:hLogo,vals:valsH,tots:[hT.runs,hT.hits,hT.errors]}],['R','H','E']);
+  {abbr:aAb,logo:aLogo,vals:valsA,tots:[_rA,aT.hits,aT.errors]},
+  {abbr:hAb,logo:hLogo,vals:valsH,tots:[_rH,hT.hits,hT.errors]}],['R','H','E']);
 }
 async function rpScoreEspn(d,el,lg){
  if(!d.dataset.eid)return;
@@ -1054,7 +1103,7 @@ async function rpScoreEspn(d,el,lg){
  if(!aw||!hm)return;
  let la=(aw.linescores||[]).map(function(x){return x.value;});
  let lh=(hm.linescores||[]).map(function(x){return x.value;});
- /* 9/26: ESPN summary returns null per-period values for in-game events; the scoreboard endpoint carries them live - fall back so the live table shows real periods, not blanks */
+ /* */
  const _allnull=function(a){return !a.some(function(v){return typeof v==='number';});};
  if((!la.length||_allnull(la))&&(!lh.length||_allnull(lh))){
   try{
@@ -1079,9 +1128,12 @@ async function rpScoreEspn(d,el,lg){
   return;
  }
  const hdrs=rpScoreHdrs(lg,n);
+ const _cnS=rpCanonScore(d.dataset.eid,aw.score,hm.score);const _tA=_cnS?_cnS.a:aw.score,_tH=_cnS?_cnS.h:hm.score;  /* */
+ const _sumP=function(a){let t=0;for(let i=0;i<a.length;i++){if(typeof a[i]==='number')t+=a[i];}return t;};
+ if(_tA>_sumP(la)||_tH>_sumP(lh))return;  /* */
  rpScoreTable(el,hdrs,[
-  {abbr:(aw.team||{}).abbreviation||'',logo:(aw.team||{}).logo||'',vals:la,tots:[aw.score]},
-  {abbr:(hm.team||{}).abbreviation||'',logo:(hm.team||{}).logo||'',vals:lh,tots:[hm.score]}],['T']);
+  {abbr:(aw.team||{}).abbreviation||'',logo:(aw.team||{}).logo||'',vals:la,tots:[_tA]},
+  {abbr:(hm.team||{}).abbreviation||'',logo:(hm.team||{}).logo||'',vals:lh,tots:[_tH]}],['T']);
 }
 async function rpScoreTblTick(d){try{
  const el=document.getElementById('rpScoreTbl');if(!el||!d)return;
@@ -1092,10 +1144,8 @@ async function rpScoreTblTick(d){try{
  el.innerHTML=''; /* mma/boxing/golf/nascar: no period-linescore shape - nothing rendered */
 }catch(e){}}
 
-window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(rpKalTick,60000);  /* regression gate Sep 26: pregame-only KAL at 60s via proxy (15s+ latency makes 5s pointless and abusive); relay restores live cadence when it lands */async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}
- /* his verbatim Sep 26 2:14 PM: "Make it instant at core level." Fetch failures are swallowed deep in
-    the render paths, so freshness is enforced HERE by data age: >20s without a successful render, the
-    LIVE claim comes off and the panel says it is reconnecting - old data never wears the LIVE badge. */
+window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(rpKalTick,60000);  /* */async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}
+ /* */
  try{const lc=document.getElementById('rpLiveCard');
   if(lc&&window.__rpDownSince&&Date.now()-window.__rpDownSince>300000&&!document.getElementById('rpStale')){
    lc.querySelectorAll('span').forEach(function(sp){if(sp.style.animation.indexOf('rpblink')>=0||sp.textContent.trim()==='LIVE')sp.style.display='none';});  /* extreme case only (5+ min total outage): LIVE badge off, one understated note */
@@ -1103,7 +1153,7 @@ window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpKalTic
    _s.textContent='Connection slow - scores update automatically';lc.insertBefore(_s,lc.firstChild);}
  }catch(e2){}try{await rpScoreTblTick(document.querySelector('.pick[data-espn]'));}catch(e2){}try{rpQuoteMut();}catch(e3){}try{rpPolyTick();rpEspnTick();}catch(e4){}
  try{const _nw=Date.now();[['POLY','__rpPolyOk',30000],['KAL','__rpKalOk',90000],['TSB','__rpLiveOk',30000]].forEach(function(pr){const dm=(_nw-(window[pr[1]]||0))>pr[2];document.querySelectorAll('[data-book="'+pr[0]+'"]').forEach(function(c){c.style.opacity=dm?'.55':'';});});}catch(e5){}  /* honesty dims: stale source dims, stale never re-stamps; KAL threshold 90s matches its 60s pregame cadence (proxy route), others 30s */
- setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?5000:2000);  /* his Sep 26 2:14 PM spec: by-the-second live - 2s cadence, 5s recovery retry, staleness never wears the LIVE badge */}rpLiveLoop();
+ setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?5000:2000);  /* */}rpLiveLoop();
 setInterval(rpPageRefresh,60000);
 
 /* Live per-game chat - room id baked at build (g<num>-<date>), no fetch needed to find it. Opens 1h before start, locks 2h after final. */

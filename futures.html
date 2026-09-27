@@ -29,7 +29,7 @@ h1 .tick{color:#3BEBF5}
 .sub{color:#6b6b72;font-size:14px;margin:6px 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}
-.chip.rpunpriced{opacity:.45}  /* watchdog Sep 26: explicit unpriced state - dimmed, em-dash, inert */
+.chip.rpunpriced{opacity:.45}  /* */
 .bklogo{width:16px;height:16px;border-radius:3px;flex:none}
 .chip.best{font-weight:800}
 .rec{font-weight:600;font-size:16px;padding:8px 0 1px}
@@ -107,17 +107,8 @@ h1 .tick{color:#3BEBF5}
 }
 </style><style>body{overscroll-behavior-y:none}.wrap{min-height:101vh}</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:(location.pathname.indexOf("/rixpicks/")===0?"/rixpicks/":"/")}  /* Sep 26: SW scope must match the ORIGIN's path root - rix-picks.com serves at /, github.io at /rixpicks/ */});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
-<script>/* rpFeedArb v3 - browser arbiter per selector v5.1 contract + registry v1.8 sport_clock.
-   v3 (Sep 26, Matrix outcome_truth doctrine): three-way verdict per source per tick.
-   ok      = named fields parsed AND a usable progress marker - stamps, eligible.
-   failed  = the source ANSWERED with a negative verdict (event completed/postponed,
-             market closed) - recorded, not eligible; feeds failover health.
-   unknown = transport error, unparseable body, or missing named fields - NOT eligible
-             and NOT a failure: never poisons source health, never learned as success.
-   Schema drift (expected key path absent) flags lastDrift loudly instead of silently
-   serving nothing. Freeze/failover semantics unchanged from v2 (4-min field freeze,
-   stale_serve + served_is_live:false + failover_gap => RECONNECTING, never silent). */
+<script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:(location.pathname.indexOf("/rixpicks/")===0?"/rixpicks/":"/")}  /* */});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
+<script>
 (function(W){
 "use strict";
 var REGISTRY_VERSION='1.8';
@@ -140,7 +131,7 @@ function markerFromEspnSummary(j,clockCfg){
  var ty=st.type||{};
  if(ty.state==='post'||ty.completed===true)return {negative:true,reason:'completed'}; /* failed verdict: game over, not a live source */
  if(ty.state==='pre')return {negative:true,reason:'not_started'};
- var sc=(comp.competitors||[]).map(function(c){return c.score||'0';});
+ var sc=(comp.competitors||[]).map(function(c){return c.score!=null?c.score:'\u2014';});
  var per=st.period||0;
  var clk=parseClock(st.displayClock),adv=null;
  var dr=j.drives&&j.drives.current;
@@ -157,62 +148,7 @@ function markerFromEspnSummary(j,clockCfg){
          periodText:(ty.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,''),
          text:(best!=null?(Math.floor(best/60)+':'+('0'+best%60).slice(-2)+' - '):'')+((ty.shortDetail||'').replace(/^\d+:\d+\s*-\s*/,'')||'')};
 }
-function Arb(league,clockCfg){
- this.league=league;this.clockCfg=clockCfg;
- this.cands=[];this.hist={};this.lastAdvance=0;this.lastProg=-1;this.held=null;this.serving=null;
- this.verdicts={};this.health={}; /* health[id]: consecutive FAILED verdicts only - unknown never increments */
-}
-Arb.prototype.addCand=function(id,rank,fetcher,parser){this.cands.push({id:id,rank:rank,fetcher:fetcher,parser:parser,lat:null});};
-Arb.prototype.tick=function(done){
- var self=this;var results=[];var pending=self.cands.length;
- if(!pending){done(self.decide([]));return;}
- self.cands.forEach(function(c){
-  var t0=Date.now();
-  c.fetcher(function(err,j){
-   var v='unknown';
-   if(!err&&j){
-    var mk=c.parser(j,self.clockCfg);
-    if(mk&&mk.progress!=null){c.lat=Date.now()-t0;results.push({c:c,mk:mk});v='ok';}
-    else if(mk&&mk.negative){v='failed';}
-   }
-   self.verdicts[c.id]=v;
-   if(v==='failed')self.health[c.id]=(self.health[c.id]||0)+1;else if(v==='ok')self.health[c.id]=0;
-   /* unknown: health untouched - an unlabelled sample costs one data point, a mislabelled one corrupts the rate */
-   if(--pending===0)done(self.decide(results));
-  });
- });
-};
-Arb.prototype.decide=function(results){
- var now=Date.now();
- var elig=results.filter(function(r){ /* own-history advance gate: no rewinds */
-  var h=this.hist[r.c.id];
-  return !h||r.mk.progress>=h.progress-0.0001;
- },this);
- elig.sort(function(a,b){
-  if(b.mk.progress!==a.mk.progress)return b.mk.progress-a.mk.progress;
-  if(a.c.lat!==b.c.lat)return a.c.lat-b.c.lat;
-  if(a.c.rank-b.c.rank!==0)return a.c.rank-b.c.rank;
-  return (this.health[a.c.id]||0)-(this.health[b.c.id]||0); /* tie-break: fewer consecutive failed verdicts */
- },this);
- var win=elig[0]||null;
- if(win){
-  this.hist[win.c.id]=win.mk;
-  if(win.mk.progress>this.lastProg){this.lastProg=win.mk.progress;this.lastAdvance=now;}
- }
- var frozen=(now-this.lastAdvance)>240000; /* 4-min field-freeze rule */
- var gap=!win||frozen;
- if(win&&!frozen){
-  this.held={mk:win.mk,src:win.c.id,at:now};
-  this.serving={mk:win.mk,src:win.c.id,stale_serve:false,served_is_live:true,failover_gap:false};
- }else if(this.held){
-  this.serving={mk:this.held.mk,src:this.held.src,stale_serve:true,served_is_live:false,failover_gap:true};
- }else{
-  this.serving={mk:null,src:null,stale_serve:false,served_is_live:false,failover_gap:true};
- }
- this.serving.verdicts=JSON.parse(JSON.stringify(this.verdicts));
- return this.serving;
-};
-W.rpFeedArb={Arb:Arb,markerFromEspnSummary:markerFromEspnSummary,parseClock:parseClock,progressOf:progressOf,registryVersion:REGISTRY_VERSION,lastDrift:null};
+W.rpFeedArb={markerFromEspnSummary:markerFromEspnSummary,parseClock:parseClock,progressOf:progressOf,registryVersion:REGISTRY_VERSION,lastDrift:null};
 })(typeof window!=='undefined'?window:globalThis);
 
 var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"football/college-football":{"period_seconds":900,"counts_down":true},"basketball/wnba":{"period_seconds":600,"counts_down":true},"basketball/nba":{"period_seconds":720,"counts_down":true},"hockey/nhl":{"period_seconds":1200,"counts_down":true},"basketball/mens-college-basketball":{"period_seconds":1200,"counts_down":true},"soccer/usa.1":{"period_seconds":2700,"counts_down":false},"soccer/usa.nwsl":{"period_seconds":2700,"counts_down":false},"soccer/fifa.world":{"period_seconds":2700,"counts_down":false},"soccer/eng.1":{"period_seconds":2700,"counts_down":false}};
@@ -223,9 +159,9 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
 <div class="status">Futures &middot; 8 picks &middot; live Polymarket + Kalshi tracking vs carded entry</div>
 <div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
-<div class="sect" style="margin-top:18px">&#127944; NFL</div><div class="futrow" data-fid="F-SBLXI-SF" data-pslug="pro-football-2027-champion-20260729185915366" data-pkw="san francisco" data-kalticker="" data-entry="+1400" data-team="San Francisco 49ers" data-mkt="Super Bowl LXI Champion" data-fair="+900" data-prob="0.1" data-res="Super Bowl LXI result (Feb 2027)" data-units="4" data-note="2 entries" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">San Francisco 49ers</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895">&hellip;</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-SBLXI-SF" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">Super Bowl LXI Champion &middot; entry +1400 &middot; 4u &middot; 2 entries</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-KC-AFCW" data-pslug="pro-football-afc-west-champion" data-pkw="kansas city" data-kalticker="" data-entry="+160" data-team="Kansas City Chiefs" data-mkt="AFC West Champion" data-fair="-122" data-prob="0.55" data-res="Division decided end of NFL regular season (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">Kansas City Chiefs</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895">&hellip;</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV2-KC-AFCW" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">AFC West Champion &middot; entry +160 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-SF-NFCW" data-pslug="pro-football-nfc-west-champion" data-pkw="san francisco" data-kalticker="" data-entry="+305" data-team="San Francisco 49ers" data-mkt="NFC West Champion" data-fair="+150" data-prob="0.4" data-res="Division decided end of NFL regular season (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">San Francisco 49ers</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895">&hellip;</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV2-SF-NFCW" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">NFC West Champion &middot; entry +305 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-PHI-NFCE" data-pslug="pro-football-nfc-east-champion" data-pkw="philadelphia" data-kalticker="" data-entry="+140" data-team="Philadelphia Eagles" data-mkt="NFC East Champion" data-fair="-122" data-prob="0.55" data-res="Division decided end of NFL regular season (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">Philadelphia Eagles</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895">&hellip;</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV2-PHI-NFCE" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">NFC East Champion &middot; entry +140 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-MIN-NFCN" data-pslug="pro-football-nfc-north-champion" data-pkw="minnesota" data-kalticker="" data-entry="+493" data-team="Minnesota Vikings" data-mkt="NFC North Champion" data-fair="+257" data-prob="0.28" data-res="Division decided end of NFL regular season (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">Minnesota Vikings</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895">&hellip;</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV2-MIN-NFCN" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">NFC North Champion &middot; entry +493 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-BUF-AFC" data-pslug="pro-football-2027-afc-champion" data-pkw="buffalo" data-kalticker="" data-entry="+510" data-team="Buffalo Bills" data-mkt="AFC Champion" data-fair="+285" data-prob="0.26" data-res="AFC Championship result (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">Buffalo Bills</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895">&hellip;</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV2-BUF-AFC" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">AFC Champion &middot; entry +510 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV3-SF-NFC" data-pslug="pro-football-2027-nfc-champion" data-pkw="san francisco" data-kalticker="" data-entry="+545" data-team="San Francisco 49ers" data-mkt="NFC Champion" data-fair="+400" data-prob="0.2" data-res="NFC Championship result (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">San Francisco 49ers</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895">&hellip;</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV3-SF-NFC" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">NFC Champion &middot; entry +545 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="sect" style="margin-top:18px">&#127936; WNBA</div><div class="futrow" data-fid="F-WNBA-MIN-CHAMP" data-pslug="" data-pkw="" data-kalticker="KXWNBA-26-MIN" data-entry="+133" data-team="Minnesota Lynx" data-mkt="WNBA Championship" data-fair="+100" data-prob="0.5" data-res="WNBA Finals result (Oct 2026)" data-units="2" data-note="Kalshi 43c vs BetMGM +100 / ESPN -110 - net edge +5 to +7c after fees" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/min.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">Minnesota Lynx</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895">&hellip;</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-WNBA-MIN-CHAMP" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">WNBA Championship &middot; entry +133 &middot; 2u &middot; Kalshi 43c vs BetMGM +100 / ESPN -110 - net edge +5 to +7c after fees</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div>
-<div id="rpFd" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(0,0,0,.78);align-items:flex-end;justify-content:center" onclick="if(event.target===this)this.style.display='none'"><div id="rpFdBox" style="background:#000000;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;padding:16px;color:#ECECF1"></div></div>
-<div class="unitmath" style="margin-top:18px">Live prices via Polymarket + Kalshi &middot; refresh live &middot; build 1790472612</div>
+<div class="sect" style="margin-top:18px">&#127944; NFL</div><div class="futrow" data-fid="F-SBLXI-SF" data-pslug="pro-football-2027-champion-20260729185915366" data-pkw="san francisco" data-kalticker="" data-entry="+1400" data-team="San Francisco 49ers" data-mkt="Super Bowl LXI Champion" data-fair="+900" data-prob="0.1" data-res="Super Bowl LXI result (Feb 2027)" data-units="4" data-note="2 entries" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">San Francisco 49ers</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">—</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-SBLXI-SF" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">Super Bowl LXI Champion &middot; entry +1400 &middot; 4u &middot; 2 entries</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-KC-AFCW" data-pslug="pro-football-afc-west-champion" data-pkw="kansas city" data-kalticker="" data-entry="+160" data-team="Kansas City Chiefs" data-mkt="AFC West Champion" data-fair="-122" data-prob="0.55" data-res="Division decided end of NFL regular season (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">Kansas City Chiefs</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">—</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV2-KC-AFCW" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">AFC West Champion &middot; entry +160 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-SF-NFCW" data-pslug="pro-football-nfc-west-champion" data-pkw="san francisco" data-kalticker="" data-entry="+305" data-team="San Francisco 49ers" data-mkt="NFC West Champion" data-fair="+150" data-prob="0.4" data-res="Division decided end of NFL regular season (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">San Francisco 49ers</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">—</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV2-SF-NFCW" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">NFC West Champion &middot; entry +305 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-PHI-NFCE" data-pslug="pro-football-nfc-east-champion" data-pkw="philadelphia" data-kalticker="" data-entry="+140" data-team="Philadelphia Eagles" data-mkt="NFC East Champion" data-fair="-122" data-prob="0.55" data-res="Division decided end of NFL regular season (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">Philadelphia Eagles</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">—</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV2-PHI-NFCE" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">NFC East Champion &middot; entry +140 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-MIN-NFCN" data-pslug="pro-football-nfc-north-champion" data-pkw="minnesota" data-kalticker="" data-entry="+493" data-team="Minnesota Vikings" data-mkt="NFC North Champion" data-fair="+257" data-prob="0.28" data-res="Division decided end of NFL regular season (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">Minnesota Vikings</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">—</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV2-MIN-NFCN" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">NFC North Champion &middot; entry +493 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV2-BUF-AFC" data-pslug="pro-football-2027-afc-champion" data-pkw="buffalo" data-kalticker="" data-entry="+510" data-team="Buffalo Bills" data-mkt="AFC Champion" data-fair="+285" data-prob="0.26" data-res="AFC Championship result (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">Buffalo Bills</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">—</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV2-BUF-AFC" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">AFC Champion &middot; entry +510 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="futrow" data-fid="F-NFLV3-SF-NFC" data-pslug="pro-football-2027-nfc-champion" data-pkw="san francisco" data-kalticker="" data-entry="+545" data-team="San Francisco 49ers" data-mkt="NFC Champion" data-fair="+400" data-prob="0.2" data-res="NFC Championship result (Jan 2027)" data-units="2" data-note="" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">San Francisco 49ers</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">—</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-NFLV3-SF-NFC" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">NFC Champion &middot; entry +545 &middot; 2u</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div><div class="sect" style="margin-top:18px">&#127936; WNBA</div><div class="futrow" data-fid="F-WNBA-MIN-CHAMP" data-pslug="" data-pkw="" data-kalticker="KXWNBA-26-MIN" data-entry="+133" data-team="Minnesota Lynx" data-mkt="WNBA Championship" data-fair="+100" data-prob="0.5" data-res="WNBA Finals result (Oct 2026)" data-units="2" data-note="Kalshi 43c vs BetMGM +100 / ESPN -110 - net edge +5 to +7c after fees" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/min.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">Minnesota Lynx</span><span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">—</span><button class="futdots" onclick="rpFutOpen(this.getAttribute('data-f'))" data-f="F-WNBA-MIN-CHAMP" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div><div style="font-size:12px;color:#8a8f98;margin-top:2px">WNBA Championship &middot; entry +133 &middot; 2u &middot; Kalshi 43c vs BetMGM +100 / ESPN -110 - net edge +5 to +7c after fees</div><div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div>
+<div id="rpFd" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(0,0,0,.78);align-items:flex-end;justify-content:center" onclick="if(event.target===this)rpFdClose()"><div id="rpFdBox" style="background:#000000;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;padding:16px;color:#ECECF1"></div></div>
+<div class="unitmath" style="margin-top:18px">Live prices via Polymarket + Kalshi &middot; refresh live &middot; build 1790491991</div>
 </div>
 <script>
 async function rpFutTick(){
@@ -242,7 +178,6 @@ async function rpFutTick(){
    if(!ev||!ev.length)return;
    var mkts=ev[0].markets||[];
    (window.__rpFutMkts=window.__rpFutMkts||{})[slugS]=mkts;
-   (window.__rpPolyOkBySlug=window.__rpPolyOkBySlug||{})[slugS]=Date.now();
    bySlug[slugS].forEach(function(r){
     var kw=(r.dataset.pkw||'').toLowerCase();
     var m=null;
@@ -253,7 +188,7 @@ async function rpFutTick(){
     var idx=0;
     for(var j=0;j<outs.length;j++){if(String(outs[j]).toLowerCase()==='yes'){idx=j;break;}}
     var p=parseFloat(pr[idx]);
-    if(!(p>0&&p<1))return;window.__rpPolyOk=Date.now();
+    if(!(p>0&&p<1))return;window.__rpPolyOk=Date.now();(window.__rpPolyOkByFid=window.__rpPolyOkByFid||{})[r.dataset.fid]=Date.now();  /* */
     var c=p*100;
     var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
     var el=r.querySelector('.futlive');
@@ -269,25 +204,22 @@ async function rpFutTick(){
   }catch(e){}
  }));
  try{var _nw=Date.now();document.querySelectorAll('.futrow').forEach(function(r){
-  var polyDead=r.dataset.pslug&&(_nw-((window.__rpPolyOkBySlug||{})[r.dataset.pslug]||0))>30000;
-  var kalDead=r.dataset.kalticker&&(_nw-(window.__rpKalOk||0))>90000;  /* regression gate Sep 26: 90s threshold matches the 60s pregame-cadence KAL route; POLY stays 30s */
+  var polyDead=r.dataset.pslug&&(_nw-((window.__rpPolyOkByFid||{})[r.dataset.fid]||0))>30000;
+  var kalDead=r.dataset.kalticker&&(_nw-((window.__rpKalOkByFid||{})[r.dataset.fid]||0))>90000;  /* 90s threshold matches the 60s pregame cadence; keyed to the row's own last valid price */
   var dm=!!(polyDead||kalDead);
   var lv=r.querySelector('.futlive');var mv=r.querySelector('.futmove');
   if(lv)lv.style.opacity=dm?'.55':'';
   if(mv){mv.style.opacity=dm?'.55':'';
-   if(dm){var parts=[];if(polyDead)parts.push('Polymarket');if(kalDead)parts.push('Kalshi');
-    var _ok=kalDead&&!polyDead?(window.__rpKalOk||0):((window.__rpPolyOkBySlug||{})[r.dataset.pslug]||0);
-    var _at=_ok?new Date(_ok).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',second:'2-digit'}):'never';
-    mv.textContent='live paused - '+parts.join(' + ')+' unreachable, last update '+_at;}}
-  if(window.__rpFdFid&&r.dataset.fid===window.__rpFdFid&&!r.dataset.kalticker){rpFdRenderLive(r);}  /* tester regression Sep 26: the open sheet rides EVERY tick incl. failed fetches - one render point after the staleness decision; KAL-driven sheets untouched while the lane is dormant */
- });}catch(e6){}  /* honesty dims (approved Sep 26): >30s stale source dims AND labels the row's live line; stale never re-stamps or passes as live */
+   if(dm&&!mv.textContent){mv.textContent='live price unavailable - checking again shortly';}}  /* */
+  if(window.__rpFdFid&&r.dataset.fid===window.__rpFdFid&&!r.dataset.kalticker){rpFdRenderLive(r);}  /* */
+ });}catch(e6){}  /* */
 }
 async function rpFutKalTick(){
  document.querySelectorAll('.futrow[data-kalticker]').forEach(function(r){
   var tk=r.dataset.kalticker;if(!tk)return;
   var u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk+'?_='+Date.now();
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(function(res){return res.json();}).then(function(j){
-   var m=j&&j.market;if(!m)return;var p=parseFloat(m.yes_ask_dollars);if(!(p>0&&p<1))return;window.__rpKalOk=Date.now();
+   var m=j&&j.market;if(!m)return;var p=parseFloat(m.yes_ask_dollars);if(!(p>0&&p<1))return;window.__rpKalOk=Date.now();(window.__rpKalOkByFid=window.__rpKalOkByFid||{})[r.dataset.fid]=Date.now();  /* */
    var c=p*100;var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
    var el=r.querySelector('.futlive');if(el)el.textContent=(ml>0?'+':'')+ml;
    var entry=r.dataset.entry||'+0';var eMl=parseInt(entry.replace('+',''),10)||100;
@@ -299,7 +231,7 @@ async function rpFutKalTick(){
   }).catch(function(){});
  });
 }
-rpFutKalTick();setInterval(rpFutKalTick,60000); /* regression gate Sep 26: proxies unusable at 5s (15s+ latency, 52x errors) - futures KAL at 60s until the relay lands */
+rpFutKalTick();setInterval(rpFutKalTick,60000); /* */
 try{
  var rpFutIds2=[];
  document.querySelectorAll('.futrow').forEach(function(r){if(r.dataset.fid)rpFutIds2.push(r.dataset.fid);});
@@ -316,8 +248,8 @@ function rpPtrEnd(){const el=document.getElementById('rpPull');
  rpPtrOn=false;rpPtrY=null;rpPtrPull=0;}
 document.addEventListener('touchend',rpPtrEnd,{passive:true});
 document.addEventListener('touchcancel',rpPtrEnd,{passive:true});
-rpFutTick();setInterval(rpFutTick,2000); /* approved Sep 26: POLY rides 2s (CORS *) */
-const RP_BUILD='1790472612';
+rpFutTick();setInterval(rpFutTick,2000); /* */
+const RP_BUILD='1790491991';
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
@@ -330,7 +262,7 @@ window.addEventListener('pageshow',function(){try{
 function rpFdClose(){document.getElementById('rpFd').style.display='none';window.__rpFdFid=null;}
 function rpFutOpen(fid){
  var r=document.querySelector('.futrow[data-fid="'+fid+'"]');if(!r)return;
- window.__rpFdFid=fid;
+ window.__rpFdFid=fid;var _fid=fid;  /* */
  var sh=document.getElementById('rpFd');var bx=document.getElementById('rpFdBox');
  var team=r.dataset.team,mkt=r.dataset.mkt,entry=r.dataset.entry,fair=r.dataset.fair,prob=r.dataset.prob,res=r.dataset.res,units=r.dataset.units,note=r.dataset.note;
  var h='<h3>'+team+'</h3><div class="rp-sub">'+mkt+'</div>';
@@ -341,29 +273,31 @@ function rpFutOpen(fid){
  var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase();
  var kt=r.dataset.kalticker;
  if(kt){var u2='https://api.elections.kalshi.com/trade-api/v2/markets/'+kt+'?_='+Date.now();
-  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u2)).then(function(r3){return r3.json();}).then(function(j){
-   var m=j&&j.market;var b=document.getElementById('rpFdLiveBody');if(!b)return;
+  var _ac=new AbortController();setTimeout(function(){_ac.abort();},8000);  /* futures batch: loading must RESOLVE - data or an honest unavailable state, never spin forever */
+  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u2),{signal:_ac.signal}).then(function(r3){return r3.json();}).then(function(j){
+   if(window.__rpFdFid!==_fid)return;var m=j&&j.market;var b=document.getElementById('rpFdLiveBody');if(!b)return;
    var p=m?parseFloat(m.yes_ask_dollars):NaN;if(!(p>0&&p<1)){b.textContent='live data unavailable';return;}
    var c=p*100;var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
    var eMl=parseInt(String(entry).replace('+',''),10)||100;var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
    var d=(p-eImp)*100;
    var arrow=d>0.5?'<span style="color:#3ecf6f">&#9650; '+d.toFixed(1)+' pts since entry</span>':(d<-0.5?'<span style="color:#e5484d">&#9660; '+Math.abs(d).toFixed(1)+' pts since entry</span>':'flat vs entry');
    b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow;
-  }).catch(function(){var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
+  }).catch(function(){if(window.__rpFdFid!==_fid)return;var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
   return;}
  if((window.__rpFutMkts||{})[slug]){rpFdRenderLive(r);return;}
- fetch('https://gamma-api.polymarket.com/events?slug='+slug).then(function(r2){return r2.json();}).then(function(ev){
-  var mkts=(ev&&ev[0]&&ev[0].markets)||[];(window.__rpFutMkts=window.__rpFutMkts||{})[slug]=mkts;
+ var _ac2=new AbortController();setTimeout(function(){_ac2.abort();},8000);
+ fetch('https://gamma-api.polymarket.com/events?slug='+slug,{signal:_ac2.signal}).then(function(r2){return r2.json();}).then(function(ev){
+  if(window.__rpFdFid!==_fid)return;var mkts=(ev&&ev[0]&&ev[0].markets)||[];(window.__rpFutMkts=window.__rpFutMkts||{})[slug]=mkts;
   rpFdRenderLive(r);
- }).catch(function(){var b=document.getElementById('rpFdLiveBody');if(b){b.style.opacity='.55';b.textContent='live paused - Polymarket unreachable, last update never';}});
+ }).catch(function(){if(window.__rpFdFid!==_fid)return;var b=document.getElementById('rpFdLiveBody');if(b){b.style.opacity='.55';b.textContent='live data unavailable';}});
 }
-/* shared sheet live renderer - driven by the 2s tick cache so the open sheet rides the tick;
-   source death shows a dimmed honest label instead of a stale price (his Sep 26 rule) */
+/* */
 function rpFdRenderLive(r){
  var b=document.getElementById('rpFdLiveBody');if(!b)return;
  var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase(),entry=r.dataset.entry||'+0';
- var ok=((window.__rpPolyOkBySlug||{})[slug])||0;
- if(!ok||(Date.now()-ok)>30000){var _at=ok?new Date(ok).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',second:'2-digit'}):'never';b.style.opacity='.55';b.textContent='live paused - Polymarket unreachable, last update '+_at;return;}
+ var ok=((window.__rpPolyOkByFid||{})[r.dataset.fid])||0;
+ if(!ok){b.style.opacity='.55';b.textContent='live data unavailable';return;}  /* never delivered: say so, no fake timestamp */
+ if((Date.now()-ok)>30000){b.style.opacity='.55';if(!b.dataset.live)b.textContent='live data unavailable';return;}  /* */
  b.style.opacity='';
  var mkts=(window.__rpFutMkts||{})[slug]||[];
  var m=null;for(var i=0;i<mkts.length;i++){if((mkts[i].question||'').toLowerCase().indexOf(kw)>=0){m=mkts[i];break;}}
@@ -381,8 +315,8 @@ function rpFdRenderLive(r){
   var v24=m.volume24hr?('$'+Math.round(m.volume24hr).toLocaleString()+' traded in last 24h'):'';
   var liq=m.liquidity?(' &middot; $'+Math.round(m.liquidity).toLocaleString()+' liquidity'):'';
   var d1=(m.oneDayPriceChange!=null)?((m.oneDayPriceChange*100>=0?'+':'')+(m.oneDayPriceChange*100).toFixed(1)+' pts last 24h'):'';
-  b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow+'<div style="margin-top:4px;color:#9A9AA3">'+[d1,v24+liq].filter(Boolean).join(' &middot; ')+'</div>';
+  b.dataset.live='1';b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow+'<div style="margin-top:4px;color:#9A9AA3">'+[d1,v24+liq].filter(Boolean).join(' &middot; ')+'</div>';
  }catch(e){b.textContent='live data unavailable';}
 }
 </script>
-<script src="myprofile.js?v=1790472612"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></body></html>
+<script src="myprofile.js?v=1790491991"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></body></html>

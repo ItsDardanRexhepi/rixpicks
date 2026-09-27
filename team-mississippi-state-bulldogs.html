@@ -33,7 +33,7 @@ h1 .tick{color:#3BEBF5}
 .sub{color:#6b6b72;font-size:14px;margin:6px 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}
-.chip.rpunpriced{opacity:.45}  /* watchdog Sep 26: explicit unpriced state - dimmed, em-dash, inert */
+.chip.rpunpriced{opacity:.45}  /* */
 .bklogo{width:16px;height:16px;border-radius:3px;flex:none}
 .chip.best{font-weight:800}
 .rec{font-weight:600;font-size:16px;padding:8px 0 1px}
@@ -118,23 +118,23 @@ h1 .tick{color:#3BEBF5}
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
 <div class="pick" data-espn="football/college-football" data-team="Mississippi State Bulldogs">
-  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/344.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Mississippi State Bulldogs</span><span class="odds">3-0</span></div>
-  <div class="sub">Record 3-0 · Streak W3</div>
+  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/344.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Mississippi State Bulldogs</span><span class="odds">4-0</span></div>
+  <div class="sub">Record 4-0 · Streak W4</div>
   <div class="score" id="rpScore">Today: vs Missouri Tigers · 4:45 PM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 41-34 @ SC · 09-19</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 38-13 @ MINN · 09-12</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 62-13 vs ULM · 09-05</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 31-24 vs MIZ · 09-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 41-34 @ SC · 09-19</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 38-13 @ MINN · 09-12</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 62-13 vs ULM · 09-05</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 47.0 &middot; allowed 20.0 per game over last 3</div>
+<div class="sub" style="padding:7px 0">Scored 43.0 &middot; allowed 21.0 per game over last 4</div>
 <div class="sect">Next up</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs MIZ · 09-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs ALA · 10-03</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ LSU · 10-17</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs ALA · 10-03</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ LSU · 10-17</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs OU · 10-24</div>
 <div class="sect">Injuries</div>
 <div class="sub">None reported.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790472612';
+const RP_BUILD='1790491991';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
@@ -146,8 +146,8 @@ function rpTick(){try{
    const st=(comp.status||{}).type||{};
    const comps=comp.competitors||[];
    let sc='';
-   // Sep 26 user rule: home team always bottom - away renders first in every score display
-   comps.slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
+   
+   comps.slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score!=null?c.score:'\u2014');});  /* */
    const sline=document.getElementById('rpScore');
    if(sline&&st.state!=='pre'&&sc){sline.textContent=(st.shortDetail||'')+'  |  '+sc;}
   });

@@ -3,7 +3,7 @@
 Runs at morning build + nightly grading; the 15-min odds Action does not touch these.
 Doctrine (user, Sep 25 9:54 AM): 'the app and system holding itself accountable in every
 aspect possible' - losses named plainly, lessons specific, no hindsight inflation."""
-import json,sys,html
+import json,sys,html,re
 
 CSS = """
 *{margin:0;box-sizing:border-box}
@@ -61,6 +61,27 @@ def page(title, subtitle, body, live=False):
 # api.rix-picks.com/record (Bus record tab via worker). 404/failure keeps baked values - fail closed.
 LIVE_JS = """<script>(function(){function up(j){if(!j||typeof j.w!=='number'||typeof j.l!=='number')return;var el=document.getElementById('rpOverall');if(el)el.textContent=j.w+'-'+j.l;var u=document.getElementById('rpOverallU');if(u&&typeof j.units==='number')u.textContent=(j.units>=0?'+':'')+j.units.toFixed(2)+'u';}function go(){fetch('https://api.rix-picks.com/record').then(function(r){return r.ok?r.json():null;}).then(up).catch(function(){});}go();setInterval(go,60000);})();</script>"""
 
+
+# Note coherence (swarm 8): a forward-looking 'pending' sentence DIES at assembly once the
+# referenced team has a graded result anywhere in the data - never hand-maintained.
+def _resolved_tokens(days):
+    toks=set()
+    for d in days:
+        for p in d['picks']:
+            if p.get('result') in ('W','L','P'):
+                for src in (p.get('name',''),p.get('game',''),p.get('score','')):
+                    for t in re.findall(r"[A-Za-z]{3,}",src):
+                        toks.add(t.lower())
+    return toks
+
+_PENDING_RE=re.compile(r"[^.!?]*\bpending\b[^.!?]*[.!?]")
+def _coherent_note(note,resolved):
+    if not note or 'pending' not in note.lower(): return note
+    def drop(m):
+        toks={t.lower() for t in re.findall(r"[A-Za-z]{3,}",m.group(0))}
+        return '' if toks & resolved else m.group(0)
+    return re.sub(r"\s{2,}"," ",_PENDING_RE.sub(drop,note)).strip()
+
 def clv_html(p):
     if p.get('close') is None or p.get('clv') is None: return ''
     clv=p['clv']
@@ -88,6 +109,10 @@ def day_html(d, with_brief_title):
 def main(hist_path):
     h = json.load(open(hist_path))
     days = h['days']
+    _res=_resolved_tokens(days)
+    for _d in days:
+        for _p in _d['picks']:
+            _p['note']=_coherent_note(_p.get('note'),_res)
     # yesterday.html = most recent graded day
     yd = days[-1]
     open('yesterday.html','w').write(page(

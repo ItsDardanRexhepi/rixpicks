@@ -1,435 +1,56 @@
 {
-  "version": "1.8",
-  "built": "2026-09-26T14:35:00-07:00",
-  "authority": "user iMessage 2:33:10 PM PT (feed engine directive) + 2:34:24 PM PT (most-up-to-date-every-time rule)",
-  "selection_doctrine": "FRESHEST-PER-TICK: never a sticky source. Each cycle, compare candidate sources for the event and serve the one with the newest game state (latest advancing play/clock/score). Staleness = fields frozen while another candidate advances. Failover is automatic via the same compare.",
-  "feeds": [
-    {
-      "id": "mlb-statsapi",
-      "name": "MLB Stats API (official)",
-      "leagues": [
-        "MLB"
-      ],
-      "url_pattern": "https://statsapi.mlb.com/api/v1.1/game/{gamePk}/feed/live",
-      "auth": "none",
-      "cors": "permissive (builder verified)",
-      "server_side_ok": true,
-      "browser_ok": true,
-      "verified": "200 in 0.68s 2026-09-26 2:34 PM PT; event-endTime timestamps enable exact freshness bounds",
-      "measured_freshness": "FASTEST KNOWN MLB - 2026-09-26 ATL@MIA: ESPN summary lagged statsapi >=10s on final play, displayed play 2m26s stale (feed-latency-sentinel, cross-feed lower bound)",
-      "known_failure_modes": [],
-      "rank": {
-        "MLB": 1
-      },
-      "selection_note": "STRONG MLB preference: provable freshness via play endTime; ESPN MLB PBP lag growing (70s+) - statsapi is the MLB default on every surface that can reach it (auditor 2:43 PM)"
-    },
-    {
-      "id": "nhl-apiweb",
-      "name": "NHL api-web (official)",
-      "leagues": [
-        "NHL"
-      ],
-      "url_pattern": "https://api-web.nhle.com/v1/gamecenter/{gameId}/boxscore | /v1/score/{date}",
-      "auth": "none",
-      "cors": "none (scout 2:38 PM: no ACAO on GET or OPTIONS) - server-fetch only",
-      "server_side_ok": true,
-      "browser_ok": false,
-      "verified": "200 in 0.095s 2026-09-26 2:34 PM PT; used live for NJ@NYI roster read 2:03 PM | 2026-09-26T21:37Z scout",
-      "measured_freshness": "unmeasured - freshness auditor to bound vs ESPN NHL",
-      "known_failure_modes": [
-        "browser preflight 200 but NO ACAO for rix-picks.com - server-side/proxy only, not a client default (scout 2:37 PM)"
-      ],
-      "rank": {
-        "NHL": 1
-      }
-    },
-    {
-      "id": "espn-core",
-      "name": "ESPN Core API v2",
-      "leagues": [
-        "CFB",
-        "NFL",
-        "NBA",
-        "NCAAB",
-        "WNBA",
-        "MLB",
-        "NHL",
-        "MLS",
-        "NWSL",
-        "UFC",
-        "PGA",
-        "TENNIS-adjacent"
-      ],
-      "url_pattern": "https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/events/{eid}/competitions/{eid}",
-      "auth": "none (User-Agent header required)",
-      "cors": "n/a (JSON-HATEOAS; browser path uses site.api)",
-      "server_side_ok": true,
-      "browser_ok": false,
-      "verified": "200 in 0.25s 2026-09-26 2:34 PM PT",
-      "measured_freshness": "fast when healthy; TODAY'S FAILURES: NEB@MSU event print frozen ~20min at source (Q1 11:14 while game advanced; CBS + Kalshi both ahead), unfroze 2:34 PM; status.displayClock can freeze while drives.current.plays advances (frozen-field pattern - read clock from drives.current.plays[-1].clock.displayValue per builder 8411)",
-      "known_failure_modes": [
-        "event-level full freeze (min tens of minutes)",
-        "status.clock field freeze while plays advance",
-        "summary vs scoreboard skew",
-        "MLB PBP lag vs statsapi WORSENING: >=70s LAD-SF (up from 39s), 32-39s ATL-MIA (auditor ledger 2:43 PM)"
-      ],
-      "rank": {
-        "CFB": 1,
-        "NFL": 1,
-        "NBA": 2,
-        "NCAAB": 1,
-        "WNBA": 1,
-        "MLS": 1,
-        "NWSL": 1,
-        "UFC": 1,
-        "PGA": 1
-      },
-      "pga_coverage": "scoreboard-only-live: summary 404 on active Presidents Cup but scoreboard exposes 19 competitions w/ per-competitor scores incl IN_PROGRESS (scout 2:39 PM)",
-      "mls_summary": "verified 200 JSON boxscore/header/gameInfo for real events (scout 2:39 PM; freshness unmeasured)"
-    },
-    {
-      "id": "espn-site",
-      "name": "ESPN Site API",
-      "leagues": [
-        "all ESPN leagues"
-      ],
-      "url_pattern": "https://site.api.espn.com/apis/site/v2/sports/{sport}/{league}/summary?event={eid} | /scoreboard",
-      "auth": "none",
-      "cors": "* (builder verified - browser-direct OK)",
-      "server_side_ok": false,
-      "browser_ok": true,
-      "verified": "403 from this sandbox 2026-09-26 2:34 PM PT (IP block; browser path unaffected)",
-      "measured_freshness": "carries competitions[0].odds + 2s-capable scoreboard tick (builder odds-cadence plan)",
-      "known_failure_modes": [
-        "same upstream content as core - core/site share the event pipe; a content freeze hits both, an IP block hits server-side only"
-      ],
-      "rank": {
-        "_browser_default": 1
-      }
-    },
-    {
-      "id": "cbs-gametracker",
-      "name": "CBS Sports Gametracker",
-      "leagues": [
-        "CFB",
-        "NFL",
-        "NBA",
-        "NCAAB",
-        "MLB",
-        "NHL"
-      ],
-      "url_pattern": "https://www.cbssports.com/college-football/gametracker/live/{LEAGUE}_{DATE}_{AWAY}@{HOME}/",
-      "auth": "none",
-      "cors": "n/a (JS-rendered page, cloud browser required server-side)",
-      "server_side_ok": false,
-      "browser_ok": true,
-      "verified": "live read 2026-09-26 2:32 PM PT (NEB@MSU 0-0 Q1 7:05 when ESPN frozen)",
-      "measured_freshness": "~4min behind realtime at 2:32 (ESPN-frozen window), THEN behind ESPN when ESPN unfroze (CBS 0-0 vs ESPN MSU 3 at 2:34) - FALLBACK CLASS, not a lead source",
-      "known_failure_modes": [
-        "prompt-injection content observed in page (2026-09-26, ignored; read-only sessions only)",
-        "JS-only live data (no static fetch)",
-        "~4min lag measured twice 2026-09-26; browser arbiter required for server-side failover"
-      ],
-      "rank": {
-        "CFB": 2,
-        "NFL": 2,
-        "NBA": 3,
-        "MLB": 3,
-        "NHL": 2
-      },
-      "reach": "cloud-browser (JS-rendered)"
-    },
-    {
-      "id": "polymarket-gamma",
-      "name": "Polymarket Gamma API",
-      "leagues": [
-        "cross-league event contracts"
-      ],
-      "url_pattern": "https://gamma-api.polymarket.com/events?{query}",
-      "auth": "none",
-      "cors": "* (builder live header check)",
-      "server_side_ok": true,
-      "browser_ok": true,
-      "verified": "200 in 0.14s 2026-09-26 2:34 PM PT",
-      "measured_freshness": "market prices, not scores - 2s tick approved for chips",
-      "known_failure_modes": [],
-      "rank": {
-        "_price_source": 1
-      }
-    },
-    {
-      "id": "kalshi-public",
-      "name": "Kalshi Public API",
-      "leagues": [
-        "cross-league event contracts"
-      ],
-      "url_pattern": "https://api.elections.kalshi.com/trade-api/v2/markets?{query}",
-      "auth": "none for market data",
-      "cors": "NONE (verified: no CORS headers + Origin 403) - server-side only, browser needs allorigins or api relay",
-      "server_side_ok": true,
-      "browser_ok": false,
-      "verified": "200 in 0.16s 2026-09-26 2:34 PM PT",
-      "measured_freshness": "fastest live-game sentiment signal (NEB@MSU: moved on MSU defensive stand minutes before any score feed confirmed state)",
-      "known_failure_modes": [
-        "in-play markets can delist",
-        "public WS requires auth (401)"
-      ],
-      "rank": {
-        "_price_source": 2
-      }
-    },
-    {
-      "id": "nba-stats",
-      "name": "NBA Stats API (official)",
-      "leagues": [
-        "NBA",
-        "WNBA"
-      ],
-      "url_pattern": "https://stats.nba.com/stats/scoreboardv2?...",
-      "auth": "none (strict headers)",
-      "cors": "unknown",
-      "server_side_ok": false,
-      "browser_ok": false,
-      "verified": "TIMEOUT (8s) from this sandbox 2026-09-26 2:34 PM PT - blocked/unreachable server-side | 2026-09-26T21:37Z scout",
-      "measured_freshness": "unmeasured - registry scout to verify via browser path",
-      "known_failure_modes": [
-        "CDN/header blocks",
-        "NBA CDN 403 even with referer+UA; stats.nba.com times out server-side - EXCLUDED from live registry (scout 2:37 PM)"
-      ],
-      "rank": {},
-      "exclusion_status": "EXCLUDED for engine/site - availability is environment/client-fingerprint dependent (scout could not reproduce: node fetch + curl both 12s timeouts; auditor gets valid JSON). Scoped exception: usable ONLY from the auditor-proven runtime with per-request 200/schema checks + timeout fallback. No browser CORS claim, no guaranteed rank. Re-verification closed 2:43 PM."
-    },
-    {
-      "id": "nfl-live",
-      "name": "NFL.com liveupdate",
-      "leagues": [
-        "NFL"
-      ],
-      "url_pattern": "https://www.nfl.com/liveupdate/scores/scores.json",
-      "auth": "none",
-      "cors": "unknown",
-      "server_side_ok": false,
-      "browser_ok": false,
-      "verified": "301 2026-09-26 2:34 PM PT - endpoint moved, canonical URL unverified | 2026-09-26T21:37Z scout",
-      "measured_freshness": "unmeasured",
-      "known_failure_modes": [
-        "endpoint drift",
-        "endpoint 301s to homepage - DEAD, no canonical replacement found (scout 2:37 PM)"
-      ],
-      "rank": {
-        "NFL": 3
-      }
-    },
-    {
-      "id": "espn-scoreboard-f1",
-      "name": "ESPN F1 scoreboard",
-      "url_pattern": "https://site.api.espn.com/apis/site/v2/sports/racing/f1/scoreboard",
-      "leagues": [
-        "F1"
-      ],
-      "rank": {
-        "F1": 1
-      },
-      "cors": "* (assumed - same site.api host)",
-      "browser_ok": true,
-      "server_side_ok": true,
-      "auth": "none",
-      "measured_freshness": "pending",
-      "known_failure_modes": [
-        "freshness measurement pending (scout 2:37 PM)"
-      ],
-      "verified": "2026-09-26T21:37Z scout: HTTP 200"
-    },
-    {
-      "id": "espn-scoreboard-indycar",
-      "name": "ESPN INDYCAR scoreboard",
-      "url_pattern": "https://site.api.espn.com/apis/site/v2/sports/racing/indycar/scoreboard",
-      "leagues": [
-        "INDYCAR"
-      ],
-      "rank": {
-        "INDYCAR": 1
-      },
-      "cors": "* (assumed - same site.api host)",
-      "browser_ok": true,
-      "server_side_ok": true,
-      "auth": "none",
-      "measured_freshness": "pending",
-      "known_failure_modes": [
-        "freshness measurement pending (scout 2:37 PM)"
-      ],
-      "verified": "2026-09-26T21:37Z scout: HTTP 200"
-    },
-    {
-      "id": "espn-scoreboard-fifa_wc",
-      "name": "ESPN FIFA_WC scoreboard",
-      "url_pattern": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard",
-      "leagues": [
-        "FIFA_WC"
-      ],
-      "rank": {
-        "FIFA_WC": 1
-      },
-      "cors": "* (assumed - same site.api host)",
-      "browser_ok": true,
-      "server_side_ok": true,
-      "auth": "none",
-      "measured_freshness": "pending",
-      "known_failure_modes": [
-        "freshness measurement pending (scout 2:37 PM)"
-      ],
-      "verified": "2026-09-26T21:37Z scout: HTTP 200"
-    }
-  ],
-  "selection_rules": [
-    {
-      "surface": "analysis-sandbox (server-side)",
-      "rule": "per-tick compare over server-reachable candidates for the event; serve newest game state. Defaults: MLB=statsapi, NHL=api-web, CFB/NFL/NCAAB/WNBA/MLS/NWSL/UFC/PGA=espn-core, NBA=espn-core (stats.nba.com blocked), fallback=CBS via cloud browser. Kalshi price = always-on secondary signal during exposure windows."
-    },
-    {
-      "surface": "site client browser (builder)",
-      "rule": "espn-site scoreboard 2s tick primary (CORS *, odds inline), polymarket-gamma 2s, kalshi via allorigins 5s honesty-dimmed (no CORS). Per-tick freshness arbitration identical to sandbox."
-    },
-    {
-      "surface": "score relay to user",
-      "rule": "relay off the freshest source per tick with source named; frozen-field reads (clock) follow drives.current.plays over status.displayClock; a source stuck >4min while another advances = stale, auto-failover, report the switch."
-    },
-    {
-      "surface": "all",
-      "rule": "freshness-provability is a selection input: a feed that can PROVE freshness (event timestamps) outranks a same-speed feed that cannot, because failover decisions need measured evidence not vibes. MLB: statsapi is both fastest AND provable = permanent rank 1. NHL/CFB: serve official/ESPN but mark freshness best-effort; the 4-min field-freeze rule is the failover trigger there."
-    }
-  ],
-  "urf_integration": "feed_select.py runs urf.decide on every source-selection change: C (freshness evidence measured=3, assumed=1), F (endpoint reachable now=3), R (read-only=1), U (unmeasured freshness=2 -> PROBE = measure before serving), V (user-facing correctness=3), CE (new feed cataloged=2). Selection CHANGES (failover) log to urf_decisions.jsonl; every registry entry marked verified carries its evidence string - unverified entries are hypotheses for the registry scout, never served as truth.",
-  "open_verification_queue": [
-    "nba-stats browser-path reachability + freshness (scout)",
-    "nfl-live canonical URL (scout)",
-    "NHL api-web CORS (builder client check)",
-    "CBB/soccer-league official feeds beyond ESPN (scout)",
-    "tennis/ATP-WTA live official feeds (scout)",
-    "PGA official shot-level feed (scout)"
-  ],
-  "freshness_provability": {
-    "MLB": "PROVABLE - statsapi event endTime vs ESPN summary (cross-feed bound; measured lag persists 32-39s, freshness auditor ledgering continuously)",
-    "NHL": "NOT PROVABLE cross-feed - official PBP carries no absolute timestamps; single-source bounds only",
-    "CFB": "NOT PROVABLE to seconds - ESPN summary plays carry no wallclock; freshness = field-advance compare only",
-    "PGA": "ESPN summary 404 - scoreboard-only coverage on ESPN; no PBP feed registered (scout queue)",
-    "UFC": "ESPN summary 404 - scoreboard-only coverage on ESPN; no PBP feed registered (scout queue)",
-    "Boxing": "NO FEED BY DESIGN - excluded from engine coverage"
+ "version": "1.8",
+ "built": "2026-09-26T14:35:00-07:00",
+ "sport_clock": {
+  "CFB": {
+   "period_seconds": 900,
+   "counts_down": true,
+   "periods": 4
   },
-  "rejected": [
-    {
-      "id": "openf1-realtime",
-      "reason": "real-time tier is PAID - not a free live feed (scout 2:37 PM)"
-    },
-    {
-      "id": "atp-atptour-scores",
-      "reason": "403 (scout 2:37 PM)"
-    },
-    {
-      "id": "nascar-feed-official",
-      "reason": "feed.nascar.com LiveFeed/LiveFlag/racelist all 401 access-gated; Swagger spec public but data not free (scout 2:39 PM). ESPN NASCAR scoreboard = free fallback."
-    }
-  ],
-  "updated": "2026-09-26T21:44Z",
-  "hypotheses": [
-    {
-      "id": "nba-s3-livedata",
-      "url": "https://nba-prod-us-east-1-mediaops-stats.s3.amazonaws.com/NBA/liveData/scoreboard/todaysScoreboard_00.json",
-      "leagues": [
-        "NBA",
-        "WNBA"
-      ],
-      "status": "UNVERIFIED HYPOTHESIS",
-      "note": "200 no-auth JSON with meta.time/gameDate, 0 games at sample time - needs advancing-feed + Origin-header checks before any use (scout 2:37 PM) | Last-Modified/meta.time update confirmed, freshness still unmeasured (0 games today)",
-      "cors": "none (scout 2:38 PM: no ACAO for rix-picks.com - browser-unreadable)"
-    },
-    {
-      "id": "mls-dapi",
-      "url": "MLS dapi root",
-      "leagues": [
-        "MLS"
-      ],
-      "status": "UNVERIFIED HYPOTHESIS - welcome banner only",
-      "note": "ACAO * but no data endpoint verified (scout 2:37 PM)"
-    },
-    {
-      "id": "mls-matchfeed-html",
-      "url": "mlssoccer.com match-feed HTML",
-      "leagues": [
-        "MLS"
-      ],
-      "status": "UNVERIFIED HYPOTHESIS - not JSON/live",
-      "note": "ACAO * on HTML only (scout 2:37 PM)"
-    },
-    {
-      "id": "pga-leaderboard-html",
-      "url": "pgatour.com/leaderboard",
-      "leagues": [
-        "PGA"
-      ],
-      "status": "UNVERIFIED HYPOTHESIS - no machine feed",
-      "note": "ACAO * on HTML only (scout 2:37 PM)"
-    },
-    {
-      "id": "pga-orchestrator-graphql",
-      "url": "pgatour.com leaderboard embedded GraphQL endpoint+key",
-      "leagues": [
-        "PGA"
-      ],
-      "status": "UNVERIFIED HYPOTHESIS",
-      "note": "embedded in leaderboard page; unverified (scout 2:39 PM)"
-    }
-  ],
-  "sport_clock": {
-    "CFB": {
-      "period_seconds": 900,
-      "counts_down": true,
-      "periods": 4
-    },
-    "NFL": {
-      "period_seconds": 900,
-      "counts_down": true,
-      "periods": 4
-    },
-    "NBA": {
-      "period_seconds": 720,
-      "counts_down": true,
-      "periods": 4
-    },
-    "WNBA": {
-      "period_seconds": 600,
-      "counts_down": true,
-      "periods": 4
-    },
-    "NCAAB": {
-      "period_seconds": 1200,
-      "counts_down": true,
-      "periods": 2
-    },
-    "NHL": {
-      "period_seconds": 1200,
-      "counts_down": true,
-      "periods": 3
-    },
-    "MLS": {
-      "period_seconds": 2700,
-      "counts_down": false,
-      "periods": 2
-    },
-    "NWSL": {
-      "period_seconds": 2700,
-      "counts_down": false,
-      "periods": 2
-    },
-    "FIFA_WC": {
-      "period_seconds": 2700,
-      "counts_down": false,
-      "periods": 2
-    },
-    "EPL": {
-      "period_seconds": 2700,
-      "counts_down": false,
-      "periods": 2
-    }
+  "NFL": {
+   "period_seconds": 900,
+   "counts_down": true,
+   "periods": 4
+  },
+  "NBA": {
+   "period_seconds": 720,
+   "counts_down": true,
+   "periods": 4
+  },
+  "WNBA": {
+   "period_seconds": 600,
+   "counts_down": true,
+   "periods": 4
+  },
+  "NCAAB": {
+   "period_seconds": 1200,
+   "counts_down": true,
+   "periods": 2
+  },
+  "NHL": {
+   "period_seconds": 1200,
+   "counts_down": true,
+   "periods": 3
+  },
+  "MLS": {
+   "period_seconds": 2700,
+   "counts_down": false,
+   "periods": 2
+  },
+  "NWSL": {
+   "period_seconds": 2700,
+   "counts_down": false,
+   "periods": 2
+  },
+  "FIFA_WC": {
+   "period_seconds": 2700,
+   "counts_down": false,
+   "periods": 2
+  },
+  "EPL": {
+   "period_seconds": 2700,
+   "counts_down": false,
+   "periods": 2
   }
+ }
 }

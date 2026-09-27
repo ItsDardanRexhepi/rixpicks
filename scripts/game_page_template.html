@@ -216,7 +216,9 @@ function rpEspnTick(){try{
    const st=(comp.status||{}).type||{};
    let sc='';
    // Sep 26 user rule: home team always bottom - away renders first in every score display
-   comps.slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
+   const _awC=comps.find(function(c){return c.homeAway==='away';})||{},_hmC=comps.find(function(c){return c.homeAway==='home';})||{};
+   let _aS=_awC.score,_hS=_hmC.score;const _cnH=rpCanonScore(d.dataset.eid,_aS,_hS);if(_cnH){_aS=_cnH.a;_hS=_cnH.h;}  /* batch 19: the header paints the canonical page moment too - never a different one than the panel */
+   comps.slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){const _cs=(c.homeAway==='away')?_aS:_hS;sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(_cs!=null?_cs:'\u2014');});  /* batch 4 sweep: unknown != 0 */
    const sline=document.getElementById('rpScore');
    if(sline&&st.state!=='pre'&&sc){sline.textContent=rpStatusText(d,j,st)+'  |  '+sc;}
    /* attribution root fix Sep 26 (swamp catch, his rule): pickcenter/comp.odds is ESPN's DraftKings quote -
@@ -314,13 +316,14 @@ async function rpMlbLive(d){
  const box=document.getElementById('rpLive');if(!box)return;
  const sline=document.getElementById('rpScore');
  const aT=((ls.teams||{}).away||{}),hT=((ls.teams||{}).home||{});
- const aR=aT.runs||0,hR=hT.runs||0;
+ let aR=aT.runs||0,hR=hT.runs||0;const _cnB=rpCanonScore(d.dataset.gpk||d.dataset.eid,aR,hR);if(_cnB){aR=_cnB.a;hR=_cnB.h;}  /* batch 19: panel + header line both ride the canonical moment */
  const aAb=d.dataset.aab||d.dataset.away.split(' ').map(function(w){return w[0];}).join('').slice(0,3).toUpperCase();
  const hAb=d.dataset.hab||d.dataset.home.split(' ').map(function(w){return w[0];}).join('').slice(0,3).toUpperCase();
  if(det==='Scheduled'||det==='Pre-Game'){box.innerHTML='';return;}
  const inn=((ls.inningState||'')+' '+(ls.currentInningOrdinal||'')).trim();
  if(sline)sline.textContent=(det==='In Progress'?inn:det)+'  |  '+aAb+' '+aR+' - '+hAb+' '+hR;
  const live=det==='In Progress';
+ const _pst=rpPbpSt(d.dataset.gpk||d.dataset.eid||'');
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  const isFinal=det==='Final'||det==='Game Over';
  let wl='';
@@ -349,14 +352,14 @@ async function rpMlbLive(d){
  let lp='';
  for(let i=plays.length-1;i>=0;i--){const t=((plays[i].result||{}).description)||'';if(t){const ab=plays[i].about||{};lp=(ab.inning?'['+(ab.halfInning==='top'?'Top':'Bot')+' '+ab.inning+'] ':'')+t;break;}}
  if(lp)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+lp+'</div>';
- h+='<div id="rpPbp" style="display:none;margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
+ h+='<div id="rpPbp" style="display:'+(_pst.open?'block':'none')+';margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
  for(let i=plays.length-1;i>=0&&i>plays.length-16;i--){
   const pl=plays[i];const abt=pl.about||{};const txt=((pl.result||{}).description)||'';
   if(!txt)continue;
   h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)"><span style="color:#8a8f98;font-size:11px">'+(abt.halfInning==='top'?'Top':'Bot')+' '+abt.inning+'</span> &middot; '+txt+'</div>';
  }
  h+='</div></div>';
- box.innerHTML=h;window.__rpLiveOk=Date.now();
+ const _pc=_pst.open?rpPbpCapture():null;box.innerHTML=h;if(_pc)rpPbpRestore(_pc);window.__rpLiveOk=Date.now();
  }catch(e){}
 }
 
@@ -441,18 +444,29 @@ function rpLeagueCard(d,j,cfg){
  const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
  const st=(comp.status||{}).type||{};
  const box=document.getElementById('rpLive');if(!box)return;
+ /* batch 15 (capability honesty until worker coverage ships): monotonic state + 4-min field-freeze rule + outage accounting, worker-identical semantics */
+ const _rk={pre:0,'in':1,post:2},_nr=_rk[st.state]||0;
+ if(_nr<+(d.dataset.lsrank||0))return;  /* a stale board never rolls state backward - a late 'pre' can never empty an in/post panel (round-4) */
+ d.dataset.lsrank=_nr;
  if(st.state==='pre'){box.innerHTML='';return;}
  const aw=(comp.competitors||[]).find(function(c){return c.homeAway==='away';})||{};
  const hm=(comp.competitors||[]).find(function(c){return c.homeAway==='home';})||{};
  const aAb=cfg.abbr(aw),hAb=cfg.abbr(hm);
- const aR=aw.score!=null?aw.score:'0',hR=hm.score!=null?hm.score:'0';
- const live=st.state==='in';
+ let aR=aw.score!=null?String(aw.score):'\u2014',hR=hm.score!=null?String(hm.score):'\u2014';  /* batch 15: unknown score renders em-dash, never a fabricated 0 */
+ const _sig=st.state+'|'+aR+'|'+hR+'|'+((comp.status||{}).displayClock||'')+'|'+(st.period||'');
+ const _cnL=rpCanonScore(d.dataset.eid,aR,hR);if(_cnL){aR=String(_cnL.a);hR=String(_cnL.h);}  /* batch 19: panel renders the canonical page moment (_sig freeze detection above intentionally uses the RAW source read) */
+ let _frozen=false;
+ if(st.state==='in'){if(_sig!==d.__sig){d.__sig=_sig;d.__sigAt=Date.now();}else if(Date.now()-(d.__sigAt||0)>240000)_frozen=true;}
+ if(_frozen){window.__rpDownSince=window.__rpDownSince||Date.now();}else{window.__rpDownSince=0;}
+ const live=st.state==='in'&&!_frozen;  /* a frozen 'in' is last-known data, NEVER a liveness claim */
  const isFinal=st.state==='post';
  const poss=live?cfg.possession(j,comp,aw,hm):null;
+ const _pst=rpPbpSt(d.dataset.eid||'');
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  let wl='';
- if(isFinal){const side=d.dataset.side||'away';const win=(side==='away')?(+aR>+hR):(+hR>+aR);
-  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}
+ if(isFinal){const side=d.dataset.side||'away';const _aN=parseFloat(aR),_hN=parseFloat(hR);
+  if(isFinite(_aN)&&isFinite(_hN)){const win=(side==='away')?(_aN>_hN):(_hN>_aN);
+  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}  /* batch 17 */
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+(st.shortDetail||'FINAL').toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+(live?(st.shortDetail||''):'')+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+(poss==='away'?cfg.icon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+(poss==='home'?cfg.icon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div>';
@@ -460,18 +474,19 @@ function rpLeagueCard(d,j,cfg){
  const bits=cfg.bits?cfg.bits(j,comp,aw,hm):[];
  if(live&&bits.length)h+='<div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:#8a8f98;margin-top:6px">'+bits.join('<span style="color:#3a3f4a">|</span>')+'</div>';
  const s=j.situation||comp.situation||{};
- if(live&&typeof s.awayTimeouts==='number'&&typeof s.homeTimeouts==='number')h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:6px"><span>'+aAb+' timeouts: <b style="color:#c8cdd5">'+s.awayTimeouts+'</b></span><span>'+hAb+' timeouts: <b style="color:#c8cdd5">'+s.homeTimeouts+'</b></span></div>';
+ const _to=live?rpTimeouts(d.dataset.espn,d.dataset.eid,(comp.status||{}).period,aw.timeoutsUsed,hm.timeoutsUsed,s.awayTimeouts,s.homeTimeouts,s._sbPeriod,{trusted:s._workerTo===true,lpMatch:(function(){var pl=j.plays||((j.drives||{}).current||{}).plays||[];var a1=pl.length?pl[pl.length-1].id:null;return a1!=null&&s._sbLp!=null&&String(a1)===s._sbLp;})()}):null;
+ if(_to)h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:6px"><span>'+aAb+' timeouts left: <b style="color:#c8cdd5">'+_to.a+'</b></span><span>'+hAb+' timeouts left: <b style="color:#c8cdd5">'+_to.h+'</b></span>'+(_to.lk?'<span style="color:#5a5f6a"> · last-known</span>':'')+'</div>';
  const lp=((s.lastPlay||{}).text)||cfg.lastPlay(j)||'';
  if(lp)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+lp+'</div>';
  const sc=(j.scoringPlays||[]).map(function(p){return (p.text||'');}).filter(function(x){return x;});
  const plays=(j.plays||[]).map(function(p){return (p.text||'');}).filter(function(x){return x;});
- h+='<div id="rpPbp" style="display:none;margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
+ h+='<div id="rpPbp" style="display:'+(_pst.open?'block':'none')+';margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
  if(sc.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e8b93c;margin:4px 0">'+(cfg.scoringLabel||'SCORING')+'</div>';
   for(let i=sc.length-1;i>=0;i--)h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+sc[i]+'</div>';}
  if(plays.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98;margin:6px 0 4px">PLAY BY PLAY</div>';
   for(let i=plays.length-1;i>=0&&i>plays.length-16;i--)h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+plays[i]+'</div>';}
  h+='</div></div>';
- box.innerHTML=h;window.__rpLiveOk=Date.now();
+ const _pc=_pst.open?rpPbpCapture():null;box.innerHTML=h;if(_pc)rpPbpRestore(_pc);if(live)window.__rpLiveOk=Date.now();  /* batch 15: ok stamps on verified-fresh live renders only - a frozen truthy summary stamps nothing */
 }
 function rpTeamAbbr(x){return ((x.team||{}).abbreviation)||(((x.athlete||{}).shortName)||((x.athlete||{}).displayName)||'').slice(0,12);}
 function rpStat(j,side,name){ /* boxscore stat lookup, fail-closed */
@@ -486,9 +501,10 @@ async function rpLeagueLive(d,cfg){
  if(!d.dataset.eid)return;
  const j=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/summary?event='+d.dataset.eid+'&t='+Date.now())).json();
  const _ss=await rpSit(d.dataset.espn,d.dataset.eid);
- if(_ss&&!j.situation)j.situation=_ss;  /* tester Sep 26: summary carries no situation; scoreboard does (exact-id join, fail closed) */
+ if(_ss&&(!j.situation||!Object.keys(j.situation).length))j.situation=_ss;  /* summary carries situation as an EMPTY object (truthy) - graft whenever it has no keys, never only when absent */
+ if(!j||!j.header||!Array.isArray(j.header.competitions)||!j.header.competitions.length){window.__rpDownSince=window.__rpDownSince||Date.now();return;}  /* truthy-but-empty is not an answer */
  rpLeagueCard(d,j,cfg);
- }catch(e){}
+ }catch(e){window.__rpDownSince=window.__rpDownSince||Date.now();}  /* batch 15: a failed lane counts the outage - never silently keeps stale LIVE */
 }
 const RP_CFG_BB={icon:RP_BASKETBALL,abbr:rpTeamAbbr,
  possession:function(j,comp,aw,hm){const s=j.situation||comp.situation||{};const id=s.possession;if(!id)return null;
@@ -564,10 +580,13 @@ function rpFieldSvg(ballAbs,possIsHome,aCol,hCol,icon){
  '</svg>';}
 async function rpSit(lg,eid){ /* tester Sep 26: situation (possession/yardLine/down+Distance/server) lives on the SCOREBOARD endpoint, not summary - join by exact event id, fail closed */
  try{
-  const sb=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?dates='+new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'}).replace(/-/g,'')+'&cb='+Date.now())).json();
+  const _ac=new AbortController();setTimeout(function(){_ac.abort();},8000);  /* swarm round-4: a hanging situation fetch resolves null (fail-closed), never parks the lane without an outage mark */
+  const sb=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?dates='+new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'}).replace(/-/g,'')+'&cb='+Date.now(),{signal:_ac.signal})).json();
   const ev=(sb.events||[]).find(function(e){return String(e.id)===String(eid);});
   const c2=ev&&((ev.competitions||[])[0]);
-  return (c2&&c2.situation)||null;
+  const _s2=(c2&&c2.situation)||null;
+  if(_s2){const _cp=(c2.status||{}).period;const _sp=(_cp!=null?_cp:(ev.status||{}).period);if(_sp!=null)_s2._sbPeriod=_sp;const _cc=(c2.status||{}).displayClock;if(_cc!=null)_s2._sbClock=_cc;const _cm2=(c2.competitors)||[];const _c2a=_cm2.find(function(c){return c.homeAway==='away';})||{};const _c2h=_cm2.find(function(c){return c.homeAway==='home';})||{};if(_c2a.score!=null)_s2._sbScoreA=+_c2a.score;if(_c2h.score!=null)_s2._sbScoreH=+_c2h.score;const _slp=((c2.situation||{}).lastPlay||{}).id;if(_slp!=null)_s2._sbLp=String(_slp);}  /* snapshot moment (competition status): cross-source coherence gate + timeouts block guard */
+  return _s2;
  }catch(e){return null;}
 }
 async function rpFbLive(d){
@@ -586,29 +605,51 @@ async function rpFbLive(d){
     baked data attrs, colors/drives/PBP honestly absent until ESPN is reachable again). */
  let j=null,_fromArb=false;
  try{j=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/summary?event='+d.dataset.eid+'&t='+Date.now())).json();}catch(e){}
- if(!j){
+ let _espnGood=!!(j&&j.header&&Array.isArray(j.header.competitions)&&j.header.competitions.length&&j.header.competitions[0]);  /* batch 13: a truthy-but-empty summary is NOT an answer */
+ if(!_espnGood){
   if(!arb||!arb.fields||!arb.fields.state){window.__rpDownSince=window.__rpDownSince||Date.now();return;}  /* both down: keep the last good render, count the outage */
   _fromArb=true;
   const _F=arb.fields,_fv=function(k){const c=_F[k];return (c&&!c.stale)?c.value:null;};
-  const _fvs=function(k){const c=_F[k];return c?{v:c.value,stale:!!c.stale}:null;};  /* swamp 9/26: NEVER fabricate 0-0 - last-known score renders labeled, unknown renders em-dash */
+  const _fvs=function(k){const c=_F[k];return (c&&c.value!=null)?{v:c.value,stale:!!c.stale}:null;};  /* swamp 9/26 + batch 4: NEVER fabricate 0-0 - null is absent; unknown renders em-dash, never a number */
   const _sa=_fvs('scoreAway'),_sh=_fvs('scoreHome');
   const _ps=_fv('possessionSide');
   j={header:{competitions:[{status:{type:{state:_fv('state')||arb.state||'pre',detail:_fv('detail')||'',shortDetail:_fv('detail')||''},displayClock:_fv('clock')||'',period:_fv('period')!=null?+_fv('period'):undefined},competitors:[{homeAway:'away',team:{abbreviation:d.dataset.aab||'',id:(_ps==='away'?'1':'0')},score:_sa?_sa.v:'\u2014'},{homeAway:'home',team:{abbreviation:d.dataset.hab||'',id:(_ps==='home'?'1':'0')},score:_sh?_sh.v:'\u2014'}]}]},
-     situation:{down:_fv('down')!=null?+_fv('down'):undefined,distance:_fv('distance')!=null?+_fv('distance'):undefined,yardLine:_fv('yardLine')!=null?+_fv('yardLine'):undefined,possession:_ps?'1':undefined},drives:{current:{description:'-'}},scoringPlays:[]};  /* description truthy = drive-line gate stays closed in arbiter-only mode (no fabricated play count) */
+     situation:{down:_fv('down')!=null?+_fv('down'):undefined,distance:_fv('distance')!=null?+_fv('distance'):undefined,yardLine:_fv('yardLine')!=null?+_fv('yardLine'):undefined,possession:_ps?'1':undefined,awayTimeouts:_fvs('timeoutAway')?_fvs('timeoutAway').v:undefined,homeTimeouts:_fvs('timeoutHome')?_fvs('timeoutHome').v:undefined,_workerTo:(_fvs('timeoutAway')&&_fvs('timeoutHome')&&!_fvs('timeoutAway').stale&&!_fvs('timeoutHome').stale)?true:undefined},drives:{current:{description:'-'}},scoringPlays:[]};  /* description truthy = drive-line gate stays closed in arbiter-only mode (no fabricated play count) */
  }
  const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
  const st=(comp.status||{}).type||{};
  const box=document.getElementById('rpLive');if(!box)return;
- if(st.state==='pre'){box.innerHTML='';return;}
+ /* batch 13 addendum: outage accounting FIRST - no path (pre-clear, early return, normal render) skips the clock */
+ if((arb&&arb.allDown)||(!arb&&!_espnGood)){window.__rpDownSince=window.__rpDownSince||Date.now();}else{window.__rpDownSince=0;}  /* freshness stamp moved AFTER successful render (swamp addendum): a swallowed exception can never stamp stale content fresh */
+ const _arbDead=arb?!!(arb.allDown||(arb.fields&&arb.fields.state&&arb.fields.state.stale)):false;  /* batch 13: the worker's freshness/failure verdict gates rendered state in EVERY mode - a truthy ESPN payload never overrides it */
+ if(st.state==='pre'){
+  if(_arbDead)return;  /* round-3: a shape-valid stale 'pre' with a dead/contradicting worker verdict is UNVERIFIABLE - keep the last render, the outage clock (above) is already counting; never roll live content backward */
+  box.innerHTML='';return;}
  const aw=(comp.competitors||[]).find(function(c){return c.homeAway==='away';})||{};
  const hm=(comp.competitors||[]).find(function(c){return c.homeAway==='home';})||{};
  const aAb=(aw.team||{}).abbreviation||'',hAb=(hm.team||{}).abbreviation||'';
- let aR=aw.score||'0',hR=hm.score||'0';
- if(arb&&arb.fields){if(arb.fields.scoreAway&&!arb.fields.scoreAway.stale)aR=String(arb.fields.scoreAway.value);if(arb.fields.scoreHome&&!arb.fields.scoreHome.stale)hR=String(arb.fields.scoreHome.value);}  /* arbiter score: PBP-derived, NCAA-corroborated - beats the lagging header read */
+ let aR=aw.score!=null?String(aw.score):'\u2014',hR=hm.score!=null?String(hm.score):'\u2014';  /* batch 4: null/unknown NEVER renders as 0 */
+ if(arb&&arb.fields){const _wa=arb.fields.scoreAway,_wh=arb.fields.scoreHome;
+  if(_wa&&_wh&&_wa.value!=null&&_wh.value!=null&&!_wa.stale&&!_wh.stale){
+   const _dA=parseFloat(aR),_dH=parseFloat(hR),_wA=parseFloat(_wa.value),_wH=parseFloat(_wh.value);
+   if(!isFinite(_dA)||!isFinite(_dH)||!isFinite(_wA)||!isFinite(_wH)||(_wA>=_dA&&_wH>=_dH)){aR=String(_wa.value);hR=String(_wh.value);}
+   /* batch 19: worker scores override direct ESPN ONLY as a newer-or-equal moment and BOTH sides
+      atomically - an older-moment source never overwrites a newer one, and the panel never paints
+      sides from different source moments than itself (header/table ride direct ESPN) */
+  }}  /* batch 10: null value renders NOTHING (em-dash from the header path) in every stale state - never literal 'null' */  /* arbiter score: PBP-derived, NCAA-corroborated - beats the lagging header read */
+ const _cnF=rpCanonScore(d.dataset.eid,aR,hR);if(_cnF){aR=String(_cnF.a);hR=String(_cnF.h);}  /* batch 19: panel renders the canonical page moment */
  const aCol=(aw.team||{}).color?('#'+aw.team.color):null,hCol=(hm.team||{}).color?('#'+hm.team.color):null;
- const s=(await rpSit(d.dataset.espn,d.dataset.eid))||j.situation||comp.situation||{};
- const live=st.state==='in';
- const possId=s.possession;
+ let s=(await rpSit(d.dataset.espn,d.dataset.eid))||j.situation||comp.situation||{};
+ /* coherent-moment gate: a scoreboard situation snapshot BEHIND the summary's own moment is an older
+    world - its play context (down/distance/field position/last play) must never paint next to the
+    summary's fresher clock. Timeouts survive (block-guarded, monotonic). */
+ const _pgX=function(p,c){p=+p||0;const m=/^(\d+):(\d{2})$/.exec(String(c||''));if(p<1||!m)return null;return (p-1)*900+(900-((+m[1])*60+(+m[2])));};
+ const _pgSm=_pgX((comp.status||{}).period,(comp.status||{}).displayClock);
+ const _pgSb=_pgX(s._sbPeriod,s._sbClock);
+ if(_pgSm!=null&&_pgSb!=null&&_pgSb<_pgSm)s={awayTimeouts:s.awayTimeouts,homeTimeouts:s.homeTimeouts,_sbPeriod:s._sbPeriod,_sbClock:s._sbClock,_sbScoreA:s._sbScoreA,_sbScoreH:s._sbScoreH,_sbLp:s._sbLp};
+ const possId=s.possession!=null?String(s.possession):null;  /* round-3 regression fix: possId declaration - a ReferenceError here silently killed the whole football live box behind the broad catch */
+
+ const live=st.state==='in'&&!_arbDead;  /* batch 4 + 13: dead/stale worker verdict renders last-known WITHOUT the LIVE claim */
  const possIsHome=possId&&hm.team&&String(hm.team.id)===String(possId);
  const possA=possId&&aw.team&&String(aw.team.id)===String(possId);
  const spIcon=rpSportIcon(d.dataset.espn);
@@ -620,13 +661,16 @@ async function rpFbLive(d){
  const drv=(j.drives||{}).current||{};
  let drvPlays=null;
  if(typeof drv.offensivePlays==='number'){drvPlays=drv.offensivePlays;}else{const _pl=(drv.plays||[]).length;drvPlays=_pl>0?_pl:(drv.description?null:0);}
+ const _pst=rpPbpSt(d.dataset.eid||'');
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  const isFinal=st.state==='post';
  let wl='';
- if(isFinal){const side=d.dataset.side||'away';const win=(side==='away')?(+aR>+hR):(+hR>+aR);
-  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}
+ if(isFinal){const side=d.dataset.side||'away';const _aN=parseFloat(aR),_hN=parseFloat(hR);
+  if(isFinite(_aN)&&isFinite(_hN)){const win=(side==='away')?(_aN>_hN):(_hN>_aN);
+  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}  /* batch 17: unknown scores suppress the W/L badge - a score outage never declares a result */
  const _clk=live?rpLiveClock(d,j,st):'';const _cdet=(st.shortDetail||'').replace(/^\d+:\d+\s*-?\s*/,'');
- h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+(st.shortDetail||'FINAL').toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+(live?(_clk?(_clk+(_cdet?' - '+_cdet:'')):(st.shortDetail||'')):'')+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
+ const _brk=live&&/halftime|end of|delay|postponed/i.test(String(st.detail||st.shortDetail||''));  /* batch 2: a declared break is not live action - no red pulse, no frozen 20:00; the break itself renders from verified status detail */
+ h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+((live&&!_brk)?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+(_brk?String(st.detail||st.shortDetail||'Break').toUpperCase():(st.shortDetail||'FINAL').toUpperCase())+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+((live&&!_brk)?(_clk?(_clk+(_cdet?' - '+_cdet:'')):(st.shortDetail||'')):'')+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+(possA?spIcon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+(possIsHome?spIcon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div>';
  if(live){
@@ -636,7 +680,8 @@ async function rpFbLive(d){
   if(s.downDistanceText)bits.push('<b style="color:#c8cdd5">'+s.downDistanceText+'</b>');
   if(possId&&drv&&(drv.start||drvPlays!=null))bits.push('Drive: '+((drv.start||{}).text||'-')+(drvPlays!=null?' &middot; '+drvPlays+' plays':''));  /* tracker fix #4 (swamp, halftime): no possession = no drive line - stale drives.current never renders */
   if(bits.length)h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:6px">'+bits.join('<span style="color:#3a3f4a">|</span>')+'</div>';
-  if(typeof s.awayTimeouts==='number'&&typeof s.homeTimeouts==='number')h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:4px"><span>'+aAb+' timeouts: <b style="color:#c8cdd5">'+s.awayTimeouts+'</b></span><span>'+hAb+' timeouts: <b style="color:#c8cdd5">'+s.homeTimeouts+'</b></span></div>';
+  const _to=rpTimeouts(d.dataset.espn,d.dataset.eid,(comp.status||{}).period,aw.timeoutsUsed,hm.timeoutsUsed,s.awayTimeouts,s.homeTimeouts,s._sbPeriod,{trusted:s._workerTo===true,lpMatch:(function(){var pl=j.plays||((j.drives||{}).current||{}).plays||[];var a1=pl.length?pl[pl.length-1].id:null;return a1!=null&&s._sbLp!=null&&String(a1)===s._sbLp;})()});
+  if(_to)h+='<div style="display:flex;gap:14px;font-size:12px;color:#8a8f98;margin-top:4px"><span>'+aAb+' timeouts left: <b style="color:#c8cdd5">'+_to.a+'</b></span><span>'+hAb+' timeouts left: <b style="color:#c8cdd5">'+_to.h+'</b></span>'+(_to.lk?'<span style="color:#5a5f6a"> · last-known</span>':'')+'</div>';
  }
  const lp=(s.lastPlay||{}).text||'';
  if(lp)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+lp+'</div>';
@@ -648,23 +693,104 @@ async function rpFbLive(d){
   for(let k=plays.length-1;k>=0&&rows.length<15;k--){const tx=plays[k]&&plays[k].text;if(tx)rows.push(tx);}
  }
  const sc=(j.scoringPlays||[]).map(function(p){return (p.text||'');}).filter(function(x){return x;});
- h+='<div id="rpPbp" style="display:none;margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
+ h+='<div id="rpPbp" style="display:'+(_pst.open?'block':'none')+';margin-top:10px;border-top:1px solid rgba(127,127,127,.18);padding-top:8px;max-height:260px;overflow-y:auto">';
  if(sc.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e8b93c;margin:4px 0">SCORING</div>';
   for(let i=sc.length-1;i>=0;i--)h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+sc[i]+'</div>';}
  if(rows.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98;margin:6px 0 4px">PLAY BY PLAY</div>';
   rows.forEach(function(tx){h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+tx+'</div>';});}
  h+='</div></div>';
- box.innerHTML=h;
+ const _pc=_pst.open?rpPbpCapture():null;box.innerHTML=h;if(_pc)rpPbpRestore(_pc);  /* batch 20: re-render from persisted pane state, scroll anchored to content */
+ if(!_arbDead)window.__rpLiveOk=Date.now();  /* stamp AFTER the render landed, and never for carried last-known data */
  /* his 9/26 UX bar, verbatim: "It's supposed to be smooth and seamless for the users too. They should
     never notice this stuff." Failover + carried last-known data render IDENTICALLY - no badges, dims or
     labels for feed mechanics, no perceptible trace of a source swap. Only a TOTAL arbiter outage
     (unreachable or all sources dead) counts toward __rpDownSince; rpLiveLoop shows one understated note
     after 5 continuous minutes and clears it silently on recovery. Strict staleness stays server-side
     (per-field stale flags) for internal monitoring - it is for US, not for the page. */
- if(_fromArb&&arb&&arb.allDown){window.__rpDownSince=window.__rpDownSince||Date.now();}else{window.__rpDownSince=0;window.__rpLiveOk=Date.now();}
+
  }catch(e){}
 }
-function rpPbpToggle(){const el=document.getElementById('rpPbp');if(el)el.style.display=el.style.display==='none'?'block':'none';}
+function rpCanonScore(eid,a,h){const W=window;W.__rpCanon=W.__rpCanon||{};const A=parseFloat(a),H=parseFloat(h);
+ if(eid==null||eid===''||!isFinite(A)||!isFinite(H))return null;
+ const c=W.__rpCanon[eid];
+ if(!c){W.__rpCanon[eid]={a:A,h:H};return W.__rpCanon[eid];}
+ if(A>=c.a&&H>=c.h){W.__rpCanon[eid]={a:A,h:H};return W.__rpCanon[eid];}  /* PER-SIDE monotonic (swamp 9/26): each side may only advance - a read rewinding EITHER side is an older moment or an anomaly and is rejected; aggregate-total merges permit side flips (17-21 -> 21-17) and same-total reassignments (17-17 -> 20-14) */
+ return c;}  /* batch 19 completion: ONE canonical score moment per event, page-wide - every live score element (panel, header, scoring table) publishes its arbitrated read and renders the never-older merge, so two elements can never paint different moments (the 7:17 split) */
+/* timeouts core: ONE semantic - REMAINING, labeled 'left' in the UI. The summary's timeoutsUsed is the fresh
+   monotonic source; the scoreboard situation's remaining count cross-checks and (after convergence) seeds the
+   current block's baseline. TRUST RULES: (a) a block baseline is PROVEN only by resident progression - the last
+   read of the prior block is the count carried in; (b) a first-ever mid-block sighting is UNPROVEN and paints
+   NOTHING until the (block, used, remaining) tuple holds for 3 straight reads - a lagging snapshot breaks the
+   streak and never seeds, so a first-load visitor never sees a possibly-wrong count; (c) a scoreboard snapshot
+   from an earlier block (competition status period) is excluded. Football 3/half (NCAA OT 1/period, NFL OT
+   2/period); basketball whole-game (NBA 7, NCAAM 4, NCAAW 3, WNBA 5, plus OT); NHL 1/game. */
+var RP_TO_SPEC={
+ 'football/college-football':{block:function(p){return p<=2?'h1':(p<=4?'h2':'ot'+p);},total:function(p){return p>4?1:3;}},
+ 'football/nfl':{block:function(p){return p<=2?'h1':(p<=4?'h2':'ot'+p);},total:function(p){return p>4?2:3;}},
+ 'basketball/nba':{block:function(){return 'g';},total:function(p){return 7+(p>4?2*(p-4):0);}},
+ 'basketball/mens-college':{block:function(){return 'g';},total:function(p){return 4+(p>2?(p-2):0);}},
+ 'basketball/womens-college':{block:function(){return 'g';},total:function(p){return 3+(p>4?(p-4):0);}},
+ 'basketball/wnba':{block:function(){return 'g';},total:function(p){return 5+(p>4?2*(p-4):0);}},
+ 'hockey/nhl':{block:function(){return 'g';},total:function(){return 1;}}};
+function rpTimeouts(lg,eid,period,usedA,usedH,sbA,sbH,sbPeriod,o){
+ o=o||{};var sbTrusted=o.trusted===true;
+ var spec=RP_TO_SPEC[lg];if(!spec)return null;
+ period=+period||0;if(period<1)return null;
+ var total=spec.total(period),bk=spec.block(period);
+ var num=function(x){var n=parseFloat(x);return isFinite(n)?n:null;};
+ usedA=num(usedA);usedH=num(usedH);sbA=num(sbA);sbH=num(sbH);
+ if(sbPeriod!=null&&+sbPeriod<period){sbA=null;sbH=null;}
+ var W=window;W.__rpTmO=W.__rpTmO||{};var st=W.__rpTmO[eid]||(W.__rpTmO[eid]={});
+ if(usedA!=null)st.muA=Math.max(st.muA||0,usedA);
+ if(usedH!=null)st.muH=Math.max(st.muH||0,usedH);
+ if(st.bk!==bk){
+  var resident=(st.prevBk!=null&&st.prevBk===st.bk);
+  st.bA=(resident&&st.prevMuA!=null)?st.prevMuA:null;
+  st.bH=(resident&&st.prevMuH!=null)?st.prevMuH:null;
+  st.bk=bk;st.stableKey=null;st.stableN=0;st.sbKeyA=null;st.sbKeyH=null;st.muAtSbA=null;st.muAtSbH=null;
+ }
+ var skey=bk+'|'+(usedA==null?'x':usedA)+'|'+(usedH==null?'x':usedH)+'|'+(sbA==null?'x':sbA)+'|'+(sbH==null?'x':sbH);
+ if(skey===st.stableKey)st.stableN=(st.stableN||0)+1;else{st.stableKey=skey;st.stableN=1;}
+ /* fresh-visitor convergence: stable polls prove stability, not correctness. Proof is PER SIDE: the scoreboard moved at-or-after the summary's last usage change, or the snapshot validates same-moment against the summary (period+clock within 15s+scores). Unproven values still render, labeled last-known - never invisible */
+ var muKey=(st.muA==null?'x':st.muA)+'|'+(st.muH==null?'x':st.muH);
+ if(sbA!=null){if(st.sbKeyA==null){st.sbKeyA=String(sbA);}else if(st.sbKeyA!==String(sbA)){st.sbKeyA=String(sbA);st.muAtSbA=muKey;}}
+ if(sbH!=null){if(st.sbKeyH==null){st.sbKeyH=String(sbH);}else if(st.sbKeyH!==String(sbH)){st.sbKeyH=String(sbH);st.muAtSbH=muKey;}}
+ var provA=st.muAtSbA!=null&&st.muAtSbA===muKey,provH=st.muAtSbH!=null&&st.muAtSbH===muKey;
+ /* clock+score agreement is NOT proof (a timeout freezes the clock, never changes the score): unlabeled service needs counter convergence - per-side movement, worker trust, or lastPlay id equality */
+ var lpMatch=o.lpMatch===true;
+ var side=function(mu,bkey,sb,provS){
+  var base=st[bkey];
+  var ok=sbTrusted||lpMatch||(provS&&(st.stableN||0)>=3);
+  if(base==null&&mu!=null&&sb!=null&&ok){
+   var uib=total-sb;
+   if(uib>=0&&uib<=total&&mu-uib>=0){base=mu-uib;st[bkey]=base;}
+  }
+  if(base==null){
+   if(mu==null&&sb!=null&&ok)return{r:Math.max(0,Math.min(total,sb))};
+   if(sb!=null)return{r:Math.max(0,Math.min(total,sb)),lk:true};
+   return null;
+  }
+  var est=[total-Math.max(0,(mu||0)-base)];
+  if(sb!=null)est.push(sb);
+  return{r:Math.max(0,Math.min(total,Math.min.apply(null,est)))};
+ };
+ var ra=side(st.muA,'bA',sbA,provA),rh=side(st.muH,'bH',sbH,provH);
+ st.prevBk=bk;st.prevMuA=st.muA;st.prevMuH=st.muH;
+ if(ra==null||rh==null)return null;
+ return {a:ra.r,h:rh.r,lk:!!(ra.lk||rh.lk)};
+}
+function rpPbpSt(eid){const W=window;W.__rpPbp=W.__rpPbp||{eid:null,open:false};if(eid!=null&&W.__rpPbp.eid!==eid){W.__rpPbp={eid:eid,open:false};}return W.__rpPbp;}  /* batch 20: expanded state lives OUTSIDE the replaced DOM - ticks render from it; a game change resets it */
+function rpPbpCapture(){const el=document.getElementById('rpPbp');if(!el)return null;const st=el.scrollTop||0;
+ if(st<=1)return {txt:null,st:0};  /* parked at the top follows the newest plays */
+ const er=el.getBoundingClientRect();const kids=el.children?el.children:[];
+ for(let i=0;i<kids.length;i++){const r=kids[i].getBoundingClientRect();
+  if(r.bottom>er.top+1)return {txt:kids[i].textContent,off:r.top-er.top,st:st};}  /* first VISIBLE row, viewport-relative: offsetTop is offsetParent-relative and #rpPbp is unpositioned - pixel spaces would mismatch (swamp re-audit 9/26) */
+ return {txt:null,st:st};}  /* batch 20: content-anchored position - new plays inserted above never jump the user's reading spot */
+function rpPbpRestore(cap){if(!cap)return;const el=document.getElementById('rpPbp');if(!el)return;
+ if(cap.txt!=null){const er=el.getBoundingClientRect();const kids=el.children?el.children:[];
+  for(let i=0;i<kids.length;i++){if(kids[i].textContent===cap.txt){el.scrollTop+=((kids[i].getBoundingClientRect().top-er.top)-cap.off);return;}}}  /* rect deltas move 1:1 with scrollTop, whatever the positioning context */
+ if(cap.st!=null)el.scrollTop=cap.st;}
+function rpPbpToggle(){const st=rpPbpSt();st.open=!st.open;const el=document.getElementById('rpPbp');if(el)el.style.display=st.open?'block':'none';}  /* batch 20: intentional open AND close both persist across ticks */
 async function rpEspnPanel(d){
  try{
  if(!d.dataset.eid)return;
@@ -674,14 +800,18 @@ async function rpEspnPanel(d){
  const st=(comp.status||{}).type||{};
  if(st.state==='pre'){box.innerHTML='';return;}
  const live=st.state==='in';
+ const _awP=(comp.competitors||[]).find(function(c){return c.homeAway==='away';})||{};
+ const _hmP=(comp.competitors||[]).find(function(c){return c.homeAway==='home';})||{};
+ const _cnP=rpCanonScore(d.dataset.eid,_awP.score,_hmP.score);  /* batch 19: this panel paints the canonical page moment too */
  let h='<div style="margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  let wl2='';
- if(st.state==='post'){const side=d.dataset.side||'away';const aw2=(comp.competitors||[]).find(function(c){return c.homeAway==='away';});const hm2=(comp.competitors||[]).find(function(c){return c.homeAway==='home';});
-  if(aw2&&hm2){const win=(side==='away')?(+aw2.score>+hm2.score):(+hm2.score>+aw2.score);
+ if(st.state==='post'){const side=d.dataset.side||'away';
+  const _sA=_cnP?_cnP.a:+_awP.score,_sH=_cnP?_cnP.h:+_hmP.score;
+  if(isFinite(_sA)&&isFinite(_sH)){const win=(side==='away')?(_sA>_sH):(_sH>_sA);
   wl2='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl2)+'<span style="font-size:12px;color:#8a8f98">'+rpStatusText(d,j,st)+'</span></div>';
  (comp.competitors||[]).forEach(function(c){
-  const ab=(c.team||{}).abbreviation||'';const sc=c.score||'0';
+  const ab=(c.team||{}).abbreviation||'';const sc=_cnP?String(c.homeAway==='away'?_cnP.a:_cnP.h):(c.score!=null?c.score:'\u2014');  /* batch 4 sweep: unknown != 0 */
   const ball=live&&comp.situation&&comp.situation.possession===c.team.id?' <span style="color:#e8b93c">&#9679;</span>':'';
   h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+ab+ball+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+sc+'</span></div>';
  });
@@ -823,9 +953,12 @@ async function rpScoreMlb(d,el){
   valsA.push(inn&&inn.away&&typeof inn.away.runs==='number'?inn.away.runs:null);
   valsH.push(inn&&inn.home&&typeof inn.home.runs==='number'&&!(i===8&&det==='Final'&&aT.runs>hT.runs&&inn.home.runs===undefined)?inn.home.runs:null);
  }
+ const _cnM=rpCanonScore(d.dataset.gpk||d.dataset.eid,aT.runs,hT.runs);const _rA=_cnM?_cnM.a:aT.runs,_rH=_cnM?_cnM.h:hT.runs;  /* batch 19: canonical moment in the totals too */
+ const _sumI=function(a){let t=0;for(let i=0;i<a.length;i++){if(typeof a[i]==='number')t+=a[i];}return t;};
+ if(_rA>_sumI(valsA)||_rH>_sumI(valsH))return;  /* swamp 9/26: canonical runs ahead of the per-inning data - keep the prior coherent table; never fabricate allocation */
  rpScoreTable(el,hdrs,[
-  {abbr:aAb,logo:aLogo,vals:valsA,tots:[aT.runs,aT.hits,aT.errors]},
-  {abbr:hAb,logo:hLogo,vals:valsH,tots:[hT.runs,hT.hits,hT.errors]}],['R','H','E']);
+  {abbr:aAb,logo:aLogo,vals:valsA,tots:[_rA,aT.hits,aT.errors]},
+  {abbr:hAb,logo:hLogo,vals:valsH,tots:[_rH,hT.hits,hT.errors]}],['R','H','E']);
 }
 async function rpScoreEspn(d,el,lg){
  if(!d.dataset.eid)return;
@@ -863,9 +996,12 @@ async function rpScoreEspn(d,el,lg){
   return;
  }
  const hdrs=rpScoreHdrs(lg,n);
+ const _cnS=rpCanonScore(d.dataset.eid,aw.score,hm.score);const _tA=_cnS?_cnS.a:aw.score,_tH=_cnS?_cnS.h:hm.score;  /* batch 19: table totals paint the canonical page moment; period rows catch up from ESPN */
+ const _sumP=function(a){let t=0;for(let i=0;i<a.length;i++){if(typeof a[i]==='number')t+=a[i];}return t;};
+ if(_tA>_sumP(la)||_tH>_sumP(lh))return;  /* swamp 9/26: canonical total AHEAD of the per-period data - keep the prior coherent table until periods catch up; NEVER fabricate point allocation across periods */
  rpScoreTable(el,hdrs,[
-  {abbr:(aw.team||{}).abbreviation||'',logo:(aw.team||{}).logo||'',vals:la,tots:[aw.score]},
-  {abbr:(hm.team||{}).abbreviation||'',logo:(hm.team||{}).logo||'',vals:lh,tots:[hm.score]}],['T']);
+  {abbr:(aw.team||{}).abbreviation||'',logo:(aw.team||{}).logo||'',vals:la,tots:[_tA]},
+  {abbr:(hm.team||{}).abbreviation||'',logo:(hm.team||{}).logo||'',vals:lh,tots:[_tH]}],['T']);
 }
 async function rpScoreTblTick(d){try{
  const el=document.getElementById('rpScoreTbl');if(!el||!d)return;
