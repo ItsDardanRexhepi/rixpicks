@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "kind": "wnba-sgp-idea",
+  "source": "wooder-ice",
+  "matchup": "WAS @ ATL",
+  "kickoff": "2026-09-27T23:00:00Z",
+  "captured_at": "2026-09-27T15:44:40-07:00",
+  "status": "idea_only",
+  "combined_price": null,
+  "legs": [
+    {
+      "player": "DeWanna Bonner",
+      "team": "ATL",
+      "original_market": "4+ rebounds",
+      "dk_market": "4+ rebounds",
+      "dk_display_probability": 86,
+      "dk_as_of": "2026-09-27T15:44:40-07:00",
+      "dk_verified": "research_snapshot_not_live_verified",
+      "dk_exact_selection_url": null,
+      "kalshi_status": "not_verified",
+      "kalshi_market": null,
+      "kalshi_display_probability": null,
+      "kalshi_as_of": null,
+      "kalshi_verified": "not_verified",
+      "kalshi_exact_selection_url": null
+    },
+    {
+      "player": "Shakira Austin",
+      "team": "WAS",
+      "original_market": "2+ assists",
+      "dk_market": "2+ assists",
+      "dk_display_probability": 76,
+      "dk_as_of": "2026-09-27T15:44:40-07:00",
+      "dk_verified": "research_snapshot_not_live_verified",
+      "dk_exact_selection_url": null,
+      "kalshi_status": "stricter_substitute",
+      "kalshi_market": "3+ assists",
+      "kalshi_display_probability": 48,
+      "kalshi_as_of": "2026-09-27T15:44:40-07:00",
+      "kalshi_verified": "web_page_snapshot",
+      "kalshi_exact_selection_url": null
+    },
+    {
+      "player": "Allisha Gray",
+      "team": "ATL",
+      "original_market": "15+ points",
+      "dk_market": "16+ points",
+      "dk_display_probability": 71,
+      "dk_as_of": "2026-09-27T15:44:40-07:00",
+      "dk_verified": "research_snapshot_not_live_verified",
+      "dk_exact_selection_url": null,
+      "kalshi_status": "exact",
+      "kalshi_market": "15+ points",
+      "kalshi_display_probability": 74,
+      "kalshi_as_of": "2026-09-27T15:44:40-07:00",
+      "kalshi_verified": "research_snapshot_not_live_verified",
+      "kalshi_exact_selection_url": null
+    }
+  ],
+  "source_urls": {
+    "dk": "https://predictions.draftkings.com/en/event/was-mystics-%40-atl-dream/34725305",
+    "kalshi_assists": "https://kalshi.com/combos/basketball/wnba/assists",
+    "kalshi_points": "https://kalshi.com/combos/basketball/wnba/points"
+  },
+  "note": "DK values are signed-out research snapshot, not independently live-verified. Kalshi Austin 3+ and Gray 15+ board presence corroborated; displayed percent on Gray 20+ instead, so Gray 15+ 74% remains research snapshot only. No exact selection deep links, combined quote or wager."
+}
