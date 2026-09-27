@@ -1,0 +1,40 @@
+name: failure-watchdog
+on:
+  workflow_run:
+    workflows: [odds-refresh, wooder-td-tracker, kalshi-quotes, extras-sweep, publish-card]
+    types: [completed]
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: failure-watchdog
+  cancel-in-progress: false
+jobs:
+  triage:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: diagnose + budgeted auto-retry
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          WF_NAME: ${{ github.event.workflow_run.name }}
+          WF_ID: ${{ github.event.workflow_run.workflow_id }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          mkdir -p incidents
+          python3 scripts/watchdog.py
+      - name: commit diagnosis
+        run: |
+          git config user.name 'failure-watchdog'
+          git config user.email 'actions@users.noreply.github.com'
+          git add incidents/ watchdog_state.json
+          git commit -m "watchdog: diagnosis for run ${{ github.event.workflow_run.id }}" || echo 'no changes'
+          for i in 1 2; do
+            if git push; then break; fi
+            git pull --rebase -X theirs || { git rebase --abort; continue; }
+          done
