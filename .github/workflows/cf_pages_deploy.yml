@@ -1,0 +1,35 @@
+name: cf-pages-deploy
+# CF migration (main Sep 27 2:05): mirror every main-branch push to Cloudflare Pages project
+# "rix-picks" in PARALLEL with repo-Pages. GH Pages keeps serving rix-picks.com until the flip -
+# this workflow never touches DNS and never blocks the repo-Pages path. Failure here fails only
+# itself (watcher surfaces it); the site stays live on GH Pages.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cf-pages-deploy
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: deploy to Cloudflare Pages (rix-picks)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy . --project-name=rix-picks --branch=main --commit-dirty=true
+      - name: verify pages.dev mirror
+        run: |
+          for i in $(seq 1 18); do
+            LIVE=$(curl -fsSL "https://rix-picks.pages.dev/?cb=$RANDOM" 2>/dev/null || true)
+            BID=$(grep -oE "RP_BUILD='[0-9]+'" index.html | head -1)
+            if [ -n "$LIVE" ] && [ -n "$BID" ] && echo "$LIVE" | grep -q "$BID"; then echo "CF MIRROR LIVE: $BID"; exit 0; fi
+            echo "attempt $i: mirror not serving $BID yet"
+            sleep 10
+          done
+          echo "CF MIRROR VERIFY FAILED"; exit 1
