@@ -1,0 +1,209 @@
+{
+ "generated_at": "2026-09-27T14:47:00-07:00",
+ "entries": [
+  {
+   "id": "t1",
+   "kind": "ticket",
+   "origin": "bought",
+   "title": "7 Pick Combo",
+   "result": "lost",
+   "detail": "Kalshi app - bought $0.04, to pay $3.00",
+   "legs": [
+    {
+     "player": "Chuba Hubbard",
+     "market": "Anytime TD Scorer",
+     "matchup": "CAR-CLE",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Wan'Dale Robinson",
+     "market": "Anytime TD Scorer",
+     "matchup": "TEN-NYG",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Josh Allen",
+     "market": "Anytime TD Scorer",
+     "matchup": "LAC-BUF",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Adonai Mitchell",
+     "market": "Anytime TD Scorer",
+     "matchup": "NYJ-DET",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Pat Freiermuth",
+     "market": "Anytime TD Scorer",
+     "matchup": "CIN-PIT",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Parker Washington",
+     "market": "Anytime TD Scorer",
+     "matchup": "NE-JAX",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Tyquan Thornton",
+     "market": "Anytime TD Scorer",
+     "matchup": "KC-MIA",
+     "time": "Today 10:00 AM PT"
+    }
+   ],
+   "archived_at": "2026-09-27T13:38:00-07:00",
+   "reason": "dead combo - 2 lost legs (3 won, 2 lost, 1 void, 1 pending at removal)",
+   "provenance": "Kalshi app bought $0.04 pays $3.00 (7-leg), legs graded in julian_record feed (combo_id t1): 3 won, 2 lost, 1 void, 1 pending at removal; dead combo (2 lost legs). Site Update PROPOSED block was attached.",
+   "removed_label": "Sep 27, 1:38 PM PT"
+  },
+  {
+   "id": "t4",
+   "kind": "ticket",
+   "origin": "bought",
+   "title": "5-leg SGP",
+   "result": "lost",
+   "detail": "Fanatics +1500 - FanCash $0.23",
+   "legs": [
+    {
+     "player": "Napheesa Collier",
+     "market": "18+ Points",
+     "matchup": "NY @ MIN",
+     "status": "lost"
+    },
+    {
+     "player": "Sabrina Ionescu",
+     "market": "16+ Points",
+     "matchup": "NY @ MIN",
+     "status": "lost"
+    },
+    {
+     "player": "Jonquel Jones",
+     "market": "10+ Rebounds",
+     "matchup": "NY @ MIN",
+     "status": "lost"
+    },
+    {
+     "player": "Courtney Williams",
+     "market": "5+ Rebounds",
+     "matchup": "NY @ MIN",
+     "status": "lost"
+    },
+    {
+     "player": "Olivia Miles",
+     "market": "6+ Assists",
+     "matchup": "NY @ MIN",
+     "status": "lost"
+    }
+   ],
+   "archived_at": "2026-09-27T13:38:00-07:00",
+   "reason": "0-5 Final",
+   "provenance": "Fanatics 5-leg SGP +1500, FanCash $0.23, 0-5 Final (ESPN final stat lines, corroborated via StatMuse per main 1:37).",
+   "removed_label": "Sep 27, 1:38 PM PT"
+  },
+  {
+   "id": "combo3",
+   "kind": "combo",
+   "origin": "suggested",
+   "title": "Kalshi combo - SEA @ WAS",
+   "result": "lost",
+   "detail": "10:00 AM PT",
+   "legs": [
+    {
+     "player": "Seahawks ML"
+    },
+    {
+     "player": "Sam Darnold 150+ passing yards"
+    }
+   ],
+   "archived_at": "2026-09-27T13:46",
+   "reason": "SEA ML lost kills kalshi combo3",
+   "provenance": "parent relay 1:40:25 (read-only failure detection)",
+   "removed_label": "Sep 27, 1:46 PM PT"
+  },
+  {
+   "id": "ding-soto",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Juan Soto - Home Run",
+   "result": "lost",
+   "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T14:02",
+   "reason": "verified LOST standalone HR pick, game final - Julian removal standing rule",
+   "provenance": "parent relay 2:02 PM PT + julian_record dead_picks feed",
+   "removed_label": "Sep 27, 2:02 PM PT"
+  },
+  {
+   "id": "ding-wood",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "James Wood - Home Run",
+   "result": "lost",
+   "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T14:02",
+   "reason": "verified LOST standalone HR pick, game final - Julian removal standing rule",
+   "provenance": "parent relay 2:02 PM PT + julian_record dead_picks feed",
+   "removed_label": "Sep 27, 2:02 PM PT"
+  },
+  {
+   "id": "ding-bichette",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Bo Bichette - Home Run",
+   "result": "lost",
+   "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T14:02",
+   "reason": "verified LOST standalone HR pick, game final - Julian removal standing rule",
+   "provenance": "parent relay 2:02 PM PT + julian_record dead_picks feed",
+   "removed_label": "Sep 27, 2:02 PM PT"
+  },
+  {
+   "id": "single-smith-njigba",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Jaxon Smith-Njigba - Anytime TD Scorer",
+   "result": "lost",
+   "detail": "SEA @ WAS \u00b7 dk_predictions",
+   "archived_at": "2026-09-27",
+   "reason": "verified LOST - Julian removal standing rule",
+   "provenance": "julian_record dead_picks feed",
+   "removed_label": "Sep 27 PT"
+  },
+  {
+   "id": "single-williams",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Jameson Williams - Anytime TD Scorer",
+   "result": "lost",
+   "detail": "NYJ @ DET \u00b7 dk_predictions",
+   "archived_at": "2026-09-27",
+   "reason": "verified LOST - Julian removal standing rule",
+   "provenance": "julian_record dead_picks feed",
+   "removed_label": "Sep 27 PT"
+  },
+  {
+   "id": "single-thornton",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Tyquan Thornton - Anytime TD Scorer",
+   "result": "lost",
+   "detail": "KC @ MIA \u00b7 dk_predictions",
+   "archived_at": "2026-09-27",
+   "reason": "verified LOST - Julian removal standing rule",
+   "provenance": "julian_record dead_picks feed",
+   "removed_label": "Sep 27 PT"
+  },
+  {
+   "id": "single-kittle",
+   "kind": "pick",
+   "origin": "bought",
+   "title": "George Kittle - First TD Scorer",
+   "result": "lost",
+   "detail": "ARI @ SF \u00b7 kalshi_app +1000",
+   "archived_at": "2026-09-27",
+   "reason": "verified LOST - Julian removal standing rule",
+   "provenance": "julian_record dead_picks feed",
+   "removed_label": "Sep 27 PT"
+  }
+ ]
+}
