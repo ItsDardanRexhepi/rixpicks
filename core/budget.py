@@ -5,7 +5,7 @@ check_and_log is atomic across processes: exclusive flock held over read-check-w
 import json, os, fcntl
 from datetime import datetime
 from zoneinfo import ZoneInfo
-PAID_TIER = False   # flips True only on his verbatim word that he purchased (via main)
+PAID_TIER = True   # his verbatim word via main 2026-09-27: iMessage 08:53 PT signup + 09:03 checkout; provider x-requests-remaining 19,905 confirms the 20K plan live
 DAILY_CAP = 16
 TZ = ZoneInfo('America/Los_Angeles')
 LEDGER = os.environ.get('ODDS_CREDITS_LEDGER', '/home/sandbox/rps_tmp/kb/ledger/odds_credits.jsonl')
