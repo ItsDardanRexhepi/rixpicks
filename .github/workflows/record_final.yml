@@ -6,6 +6,13 @@ name: record-final
 # GITHUB_TOKEN. No file token anywhere; secrets never move. Private kb/ledger stays analysis-side.
 on:
   workflow_dispatch:
+  # POST-stage retirement (main 9/27 3:03): the analysis side's queued write IS the trigger -
+  # a push touching record_request.json fires the grade/apply/republish chain with zero manual
+  # dispatch. Self-commit uses GITHUB_TOKEN, which never re-triggers (no recursion). The
+  # site-main-writers concurrency group serializes against odds-refresh/publish races.
+  push:
+    branches: [main]
+    paths: [record_request.json]
 permissions:
   contents: write
 concurrency:
