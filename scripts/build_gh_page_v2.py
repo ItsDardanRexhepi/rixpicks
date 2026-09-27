@@ -1666,7 +1666,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
 
     for t in RP_TABS:
         _prows=''.join(_panels.get(t['key']) or [])
-        _body=(_prows if t['key']=='nfl' else (((nfl_entry+past_entry) if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows)))))
+        _body=(_prows if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows)))))
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
