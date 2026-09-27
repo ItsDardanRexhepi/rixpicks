@@ -1,7 +1,7 @@
 {
  "date_label": "Saturday, Sep 26",
  "updated": "Sep 25, 10:25 PM PT",
- "archive_rebuild": "game-4..11 (8-game card shipped Fri Sep 25 10:29 PM PT, commit a857c06) reconstructed from served pages Sep 27 - manifest committed to close the orphan-manifest process gap",
+ "archive_rebuild": "game-4..11 reconstructed Sep 27 from the served pages; the 8-game manifest was never originally committed. 'Sep 25, 10:25 PM PT' is the odds-check stamp baked in the original 11-pick preview page (a857c06:index.html). No separate 8-pick lock event is claimed - stamp_label=odds_checked renders 'Odds checked', never 'locked'.",
  "picks": [
   {
    "name": "Cardinals ML",
