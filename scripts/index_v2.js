@@ -82,7 +82,7 @@ function activate(key,skipHash){
  var links=document.querySelectorAll('nav.rpnav .tab');
  for(i=0;i<links.length;i++)links[i].classList.toggle('active',links[i].getAttribute('data-tab')===t.key);
  document.body.classList.remove('menu-open');
- var sub=$('rpAsideSub');if(sub)sub.textContent=t.label+' \u00b7 ET';
+ var sub=$('rpAsideSub');if(sub)sub.textContent=t.label+' · PT';
  tailFilter(t.key);
  loadSide(t);
  if(!skipHash){try{history.replaceState(null,'','#'+t.key);}catch(e){}}
@@ -137,7 +137,7 @@ function until(iso){
  return Math.round(s/86400)+'d';
 }
 function dayTime(iso){
- try{return new Date(iso).toLocaleString('en-US',{timeZone:'America/New_York',weekday:'short',hour:'numeric',minute:'2-digit'});}catch(e){return '';}
+ try{return new Date(iso).toLocaleString('en-US',{timeZone:'America/Los_Angeles',weekday:'short',hour:'numeric',minute:'2-digit'})+' PT';}catch(e){return '';}  /* all-times-PT rule (owner 9/27): sidebar game times render PT with explicit label, same convention as ptLabel elsewhere */
 }
 function renderGames(t,events){
  var box=$('rpGames');if(!box)return;
@@ -177,7 +177,7 @@ function renderNews(t,arts){
  var box=$('rpNews');if(!box)return;
  if(!arts||!arts.length){box.innerHTML='<div class="empty">News unavailable right now.</div>';return;}
  var h='';
- arts.slice(0,3).forEach(function(a){
+ arts.slice(0,6).forEach(function(a){  /* render matches the fetch (limit=6) - swamp 12:38: the cap silently dropped 3 fetched stories */
   var u=((a.links||{}).web||{}).href||'';
   var inner='<span class="src espn">ESPN</span><span class="ntxt">'+esc(a.headline||'')+'</span><div class="nts">'+esc(ago(a.published))+' \u00b7 espn.com</div>';
   h+='<div class="nitem">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';

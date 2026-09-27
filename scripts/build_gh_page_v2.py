@@ -77,7 +77,9 @@ def _pick_content_hash(m):
     # operational fields, audit before extending): num (build-assigned display order), result and
     # _final (post-settlement grading state, not pick content), polycents (live Polymarket price
     # snapshot), kalshi.cents (live Kalshi ask snapshot - the gate re-checks it live anyway),
-    _EXCL_TOP={'num','result','_final','polycents'}
+    # card_ts (first-lock provenance - excluded per main Sep 27 10:04 ruling; its stability is
+    # guarded by the dedicated ledger-equality assertion in build_manifest.py, not by this hash).
+    _EXCL_TOP={'num','result','_final','polycents','card_ts'}
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
@@ -1461,6 +1463,19 @@ if _V2:
             RP_TABS.append({'key':_k,'label':_lbl,'espn':_esp})
     # futures/watch data-espn no longer appends nav tabs (9:40:49 rule: picks only) -
     # futures/combo content renders globally in <main>, never tab-scoped, so nothing orphans.
+    # Julian 12:38 (his design decision via main, supersedes 9:40:49 for these two only):
+    # CFB and NBA tabs are ALWAYS visible, desktop+mobile, even on no-pick days - the
+    # standard empty state renders instead of hiding. Canonical slots: CFB right after
+    # NFL (else first), NBA right after CFB. Every other league keeps the picks-only rule.
+    def _ensure_tab(_lg,_after):
+        _k,_lbl,_esp=_tab_of_lg(_lg)
+        if any(t['key']==_k for t in RP_TABS): return
+        _t={'key':_k,'label':_lbl,'espn':_esp}
+        for _i,_x in enumerate(RP_TABS):
+            if _x['key']==_after: RP_TABS.insert(_i+1,_t); return
+        RP_TABS.insert(0,_t)
+    _ensure_tab('football/college-football','nfl')
+    _ensure_tab('basketball/nba','ncaaf')
     _cxesp=','.join(sorted(set(re.findall(r'data-espn="([^"]+)"',parlay_html))))
     _combo_wrap=('<div id="rpComboTail" data-cx-espn="'+_cxesp+'">'+parlay_html+'</div>') if parlay_html else ''
     _fut_wrap=('<div id="rpFutTail">'+fut_watch_html+'</div>') if fut_watch_html else ''
