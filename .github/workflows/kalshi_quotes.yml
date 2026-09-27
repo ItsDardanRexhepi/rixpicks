@@ -28,4 +28,4 @@ jobs:
           git add slates/nfl_kalshi_quotes.json
           if git diff --cached --quiet; then echo "no change - no commit"; exit 0; fi
           git commit -m "kalshi quotes $(date '+%H:%M PT')"
-          for i in 1 2; do git push && break || git pull --rebase; done
+          for i in 1 2; do git push && break || git pull --rebase -X theirs; done
