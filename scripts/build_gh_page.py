@@ -740,8 +740,7 @@ def chips(p):
             _pr.append((len(out),rp_c2a(_pmc) if 'rp_c2a' in dir() else None))
             _mr=_mkrec(_arm,_eid,_mkt,_SIDE,ml=None,cents=_pmc,link=_pmu,ph=_ph,st=('ok' if _pmc is not None else 'unknown'))
             out.append(f'<a class="chip%%BEST%%"{bkstyle(_arm)} href="{html.escape(_pmu)}" data-book="{_arm}"{_dm}{_mr} data-sb="{html.escape(_pmu)}" data-cents="{_pmc}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(_arm)}{html.escape(_albl+" "+c2ml(_pmc))}</a>')  # parity fix Sep 26: priced prediction-arm chips carry market identity like every other priced chip - the line-shop guard was silently excluding them (MSST card lost its range line in KAL+DKP-only states)
-        else:
-            out.append(f'<span class="chip%%BEST%% rpnontap"{bkstyle(_arm)} data-book="{_arm}" data-platform="1">{bkimg(_arm)}{html.escape(_albl)}</span>')  # inspector Sep 26: visible in the state set, non-tappable until event-level deep links land
+        # unpriced prediction-arm chips are never emitted: a chip requires a verified priced record (url + cents), fail closed
     # build-time star = same max-American rule as client rpBestStar: the star never sits on
     # anything but the best displayed price, and never in play.
     _win=None
@@ -2415,8 +2414,10 @@ async function rpFutTick(){
   var kalDead=r.dataset.kalticker&&(_nw-((window.__rpKalOkByFid||{})[r.dataset.fid]||0))>90000;  /* 90s threshold matches the 60s pregame cadence; keyed to the row's own last valid price */
   var dm=!!(polyDead||kalDead);
   var lv=r.querySelector('.futlive');var mv=r.querySelector('.futmove');
-  if(lv){lv.style.opacity=dm?'.55':'';var lk=r.querySelector('.futlk');if(dm&&!lk){lv.insertAdjacentHTML('afterend','<span class="futlk" style="font-size:10px;color:#8a8f98;font-weight:600;letter-spacing:.04em;margin-left:6px;vertical-align:1px">last known</span>');}if(!dm&&lk)lk.remove();}
-  if(mv){mv.style.opacity=dm?'.55':'';
+  var hasKnown=!!((r.dataset.pslug&&(window.__rpPolyOkByFid||{})[r.dataset.fid])||(r.dataset.kalticker&&(window.__rpKalOkByFid||{})[r.dataset.fid]));  /* 'last known' requires a prior VERIFIED price (stamp present); a never-priced row has no last known - it is 'unavailable', never mislabeled */
+  var dmK=dm&&hasKnown;
+  if(lv){lv.style.opacity=dmK?'.55':'';var lk=r.querySelector('.futlk');if(dmK&&!lk){lv.insertAdjacentHTML('afterend','<span class="futlk" style="font-size:10px;color:#8a8f98;font-weight:600;letter-spacing:.04em;margin-left:6px;vertical-align:1px">last known</span>');}if(!dmK&&lk)lk.remove();}
+  if(mv){mv.style.opacity=dmK?'.55':'';
    if(dm&&!mv.textContent){mv.textContent='live price unavailable - checking again shortly';}}  /* his 9/26 seamless bar: dead source = quiet dim + last confirmed data stays; 'never' is not a timestamp; no alarm copy */
   if(window.__rpFdFid&&r.dataset.fid===window.__rpFdFid&&!r.dataset.kalticker){rpFdRenderLive(r);}  /* tester regression Sep 26: the open sheet rides EVERY tick incl. failed fetches - one render point after the staleness decision; KAL-driven sheets untouched while the lane is dormant */
  });}catch(e6){}  /* honesty dims (approved Sep 26): >30s stale source dims AND labels the row's live line; stale never re-stamps or passes as live */
