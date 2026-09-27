@@ -161,7 +161,8 @@ _sanitize_man(man)
 out=sys.argv[2] if len(sys.argv)>2 else '/home/sandbox/gh_page/index.html'
 BOOKS=[('BetRivers','BR'),('DraftKings','DK'),('FanDuel','FD'),('Hard Rock','HR'),('Kalshi','KAL'),('BetMGM','MGM'),('Polymarket','POLY'),('theScore','TSB')]  # alphabetical by displayed chip label (his Sep 25 9:19 AM spec: alphabetical chips; audit Sep 26 caught combo order regressed - root fix is the shared order, solo+combo read the same sequence)  # U-GEO-003: ESPN BET is DEAD - dropped at ingestion, never mapped (tester gate). theScore Bet is the single canonical arm (one chip per arm).
 BKDOM={'DK':'draftkings.com','FD':'fanduel.com','TSB':'thescore.bet','HR':'hardrock.bet','MGM':'betmgm.com','BR':'betrivers.com','KAL':'kalshi.com','POLY':'polymarket.com','B365':'bet365.com','FAN':'fanatics.com','DKP':'predictions.draftkings.com','FDP':'fanduel.com'}
-_POLY_US_ABBR={'nyl':'ny'}  # add entries ONLY after verifying the .us slug live; verified 9/27: nyl->ny
+_POLY_US_ABBR={'nyl':'ny'}
+_POLY_US_PRICED=False  # 9/27 P1 (main 8:31): .com-gamma quotes never label .us-linked POLY chips (Bengals -150 vs .us -163 class). Flip True ONLY when analysis ships verified .us-sourced quotes; until then POLY chips are destination-only and excluded from best-line.  # add entries ONLY after verifying the .us slug live; verified 9/27: nyl->ny
 def _poly_us_url(slug):
     # polymarket.us serves events under /sports/<sport>/<slug>, NOT /event/<slug> (soft-404 shell).
     # .us team abbrs diverge from .com slugs for shared-city teams (verified 9/27: wnba-nyl-min -> wnba-ny-min).
@@ -714,19 +715,26 @@ def chips(p):
                 # in play: freeze the verified PRE-GAME snapshot (SHIPPED carryover, then manifest
                 # polycents) - never a live in-play gamma quote in the frozen comparison set.
                 cents=((SHIPPED.get(_sk) or {}).get('Polymarket') or {}).get('cents') or p.get('polycents')
-                if cents: NEWSHIPPED.setdefault(_sk,{})['Polymarket']={'link':web,'cents':cents,'commence':_cm}
+                if cents and _POLY_US_PRICED: NEWSHIPPED.setdefault(_sk,{})['Polymarket']={'link':web,'cents':cents,'commence':_cm}
             else:
                 cents=poly_price(p['polymarket']['url'],kw) or p.get('polycents')
-                if cents: NEWSHIPPED.setdefault(_sk,{})['Polymarket']={'link':web,'cents':cents,'commence':_cm}
+                if cents and _POLY_US_PRICED: NEWSHIPPED.setdefault(_sk,{})['Polymarket']={'link':web,'cents':cents,'commence':_cm}
+            if not _POLY_US_PRICED: cents=None  # P1: no .com-gamma price on a .us link
+            _usv=(p.get('polymarket_us') or {})
+            if _usv.get('verified'):
+                if _usv.get('url'): web=_usv['url']; app=web  # 9/27 8:34 feed: hub-verified .us URL verbatim
+                if _usv.get('cents'):
+                    cents=_usv['cents']  # .us pick-side mid - the ONLY price a .us chip may wear
+                    NEWSHIPPED.setdefault(_sk,{})['Polymarket']={'link':web,'cents':cents,'commence':_cm}
             # never-blank (inspector Sep 26): entry odds are the last-resort fallback on the
             # picked book. Never a bare 'POLY' when any price was ever known.
             _pcattr=f' data-cents="{round(cents)}"' if cents else ''
             _pcattr+=_mkrec('Polymarket',slug,sub or slug,_SIDE,cents=cents,link=web,ph=_ph,ts=(((SHIPPED.get(_sk) or {}).get('Polymarket') or {}).get('ts') or '') if _uw else '',st=('ok' if cents else 'unknown'))
-            label=(f"POLY {c2ml(cents)}" if cents else (('POLY '+str(p.get('odds','')).strip()) if (_uw and p.get('best_book')=='Polymarket') else 'POLY'))+inst
-            if p.get('best_book')=='Polymarket': label=label
-            best=(p.get('best_book')=='Polymarket')
-            _pr.append((len(out), c2ml_int(cents) if cents else None))
-            out.append(f'<a class="chip%%BEST%%"{bkstyle("POLY")} href="{html.escape(web)}" data-book="POLY" data-sb="{html.escape(web)}" data-app="{html.escape(app)}" data-polyslug="{html.escape(slug)}"{_dm} data-polysub="{html.escape(sub)}" data-polykw="{html.escape(kw)}"{_pcattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("POLY")}{label}</a>')
+            label=(('POLY '+str(c2ml(cents))) if cents else 'POLY')+inst  # priced only from verified .us cents (never .com)
+            best=(p.get('best_book')=='Polymarket') and bool(cents)  # an unpriced POLY row never takes the star
+            _pr.append((len(out), (c2ml_int(cents) if cents else None)))
+            _polyattrs=(f' data-polyslug="{html.escape(slug)}" data-polysub="{html.escape(sub)}" data-polykw="{html.escape(kw)}"') if _POLY_US_PRICED else ''  # P1: no slug attrs -> client tick cannot re-price from .com gamma
+            out.append(f'<a class="chip%%BEST%%"{bkstyle("POLY")} href="{html.escape(web)}" data-book="POLY" data-sb="{html.escape(web)}" data-app="{html.escape(app)}"{_dm}{_polyattrs}{_pcattr} onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">%%STAR%%{bkimg("POLY")}{label}</a>')
             continue
         if link and p.get('game'):
             _sk=f"{p['game'].get('away')}|{p['game'].get('home')}|{(p['game'].get('commence') or '')[:10]}"
@@ -1076,7 +1084,8 @@ r'function okUrl(u){return (typeof u==="string")&&/^https:\/\/([a-z0-9-]+\.)*(dr
 r'function chip(bk,label,url,pm){if(!url)return "";var a=" data-bk=\""+bk+"\" data-book=\""+bk+"\" data-sb=\""+esc(url)+"\"";if(pm)a+=" data-pm=\""+esc(pm)+"\"";return "<span class=\"chip rpnontap\""+a+">"+esc(label)+"</span>";}'
 r'function ptLabel(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",weekday:"short",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}'
 r'function empty(){box.innerHTML="<div style=\"color:#8a8f98;font-size:13px;padding:6px 0\">No NFL slate yet - Wooder Ice anytime TD picks land here Sundays.</div>";}'
-r'function rpLegPx(o){var hasA=(o.odds!==undefined&&o.odds!==null&&String(o.odds)!=="");var hasC=(typeof o.price_c==="number"&&o.price_c>=1&&o.price_c<=99&&o.price_type==="contract_cents");if(hasA===hasC)return null;if(hasC)return{label:"DKP "+o.price_c+"c",head:o.price_c+"c"};return{label:"DK "+o.odds,head:String(o.odds)};}'
+r'function rpAml(c){var q=c/100;if(q<=0||q>=1)return"";return q>=0.5?String(Math.round(-100*q/(1-q))):"+"+String(Math.round(100*(1-q)/q));}'
+r'function rpLegPx(o){var hasA=(o.odds!==undefined&&o.odds!==null&&String(o.odds)!=="");var hasC=(typeof o.price_c==="number"&&o.price_c>=1&&o.price_c<=99&&o.price_type==="contract_cents");if(hasA===hasC)return null;if(hasC)return{label:"DKP "+rpAml(o.price_c),head:rpAml(o.price_c)};return{label:"DK "+o.odds,head:String(o.odds)};}'
 r'function render(j){'
 r'var singles=((j.dk||{}).singles)||[],parlays=((j.dk||{}).parlays)||[];'
 r'var kal=j.kalshi||{},top=kal.top10||[],bb=kal.bankroll_builder;'
@@ -1086,23 +1095,23 @@ r'if(singles.length){h+="<div class=\"sect\" style=\"margin-top:10px\">DraftKing
 r'singles.forEach(function(s,i){var kl=null;'
 r'top.forEach(function(t){if((t.player||"").toLowerCase()===(s.player||"").toLowerCase()&&(t.matchup||"")===(s.matchup||""))kl=t;});'
 r'var px=rpLegPx(s);if(!px)return;var chips=chip("DK",px.label,okUrl(s.link),kl?okUrl(kl.link):null);'
-r'if(kl)chips+=chip("KAL","KAL "+kl.price_c+"c",okUrl(kl.link),null);'
+r'if(kl)chips+=chip("KAL","KAL "+rpAml(kl.price_c),okUrl(kl.link),null);'
 r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(s.player)+"</b> anytime TD</span></span><span class=\"uo\"><span class=\"odds\">"+esc(px.head)+"</span></span></div>"'
 r'+"<div class=\"sub\">"+esc(s.matchup||"")+"</div>"+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}'
 r'if(parlays.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Parlays</div>";'
 r'parlays.forEach(function(p){var _bad=false;var legs=(p.legs||[]).map(function(l){var lp=rpLegPx(l);if(!lp)_bad=true;return esc(l.player)+" ("+(lp?esc(lp.head):"?")+")";}).join(" + ");if(_bad)return;'
-r'var _co=p.combined_odds,_cc=p.combined_price_c,_hasCO=(_co!==undefined&&_co!==null&&String(_co)!==""),_hasCC=(typeof _cc==="number"&&_cc>=1&&_cc<=99&&p.price_type==="contract_cents");if(_hasCO===_hasCC)return;var _clab=_hasCC?("DKP "+_cc+"c"):("DK "+_co),_chead=_hasCC?(_cc+"c"):String(_co);var chips=chip("DK",_clab,okUrl(p.link),okUrl(p.pm));'
+r'var _co=p.combined_odds,_cc=p.combined_price_c,_hasCO=(_co!==undefined&&_co!==null&&String(_co)!==""),_hasCC=(typeof _cc==="number"&&_cc>=1&&_cc<=99&&p.price_type==="contract_cents");if(_hasCO===_hasCC)return;var _clab=_hasCC?("DKP "+rpAml(_cc)):("DK "+_co),_chead=_hasCC?rpAml(_cc):String(_co);var chips=chip("DK",_clab,okUrl(p.link),okUrl(p.pm));'
 r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+(p.legs||[]).length+"-leg parlay</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(_chead)+"</span></span></div>"'
 r'+"<div class=\"sub\">"+legs+"</div>"+(p.est_payout?"<div class=\"sub\">Est. payout "+esc(p.est_payout)+"</div>":"")+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}'
 r'if(top.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Kalshi top "+top.length+"</div>";'
 r'top.forEach(function(t,i){'
-r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(t.player)+"</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(t.price_c)+"c</span></span></div>"'
+r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(t.player)+"</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(rpAml(t.price_c))+"</span></span></div>"'
 r'+"<div class=\"sub\">"+esc(t.matchup||"")+" &middot; "+Math.round((t.prob||0)*100)+"%</div>"'
-r'+"<div class=\"chips\">"+chip("KAL","KAL "+t.price_c+"c",okUrl(t.link),null)+"</div></div>";});}'
+r'+"<div class=\"chips\">"+chip("KAL","KAL "+rpAml(t.price_c),okUrl(t.link),null)+"</div></div>";});}'
 r'if(bb&&(bb.picks||[]).length){h+="<div class=\"sect\" style=\"margin-top:14px\">Bankroll builder</div>";'
-r'var bchips="";(bb.picks||[]).forEach(function(b2){bchips+=chip("KAL","KAL "+b2.price_c+"c",okUrl(b2.link),null);});'
+r'var bchips="";(bb.picks||[]).forEach(function(b2){bchips+=chip("KAL","KAL "+rpAml(b2.price_c),okUrl(b2.link),null);});'
 r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+esc(bb.matchup||"")+"</b></span></span></div>"'
-r'+"<div class=\"sub\">"+(bb.picks||[]).map(function(b2){return esc(b2.player)+" "+esc(b2.price_c)+"c";}).join(" + ")+"</div>"'
+r'+"<div class=\"sub\">"+(bb.picks||[]).map(function(b2){return esc(b2.player)+" "+esc(rpAml(b2.price_c));}).join(" + ")+"</div>"'
 r'+(bb.est_cost_c?"<div class=\"sub\">Est. cost "+esc(bb.est_cost_c)+"c</div>":"")+(bchips?"<div class=\"chips\">"+bchips+"</div>":"")+"</div>";}'
 r'box.innerHTML=h;'
 r'try{if(window.rpFilter)rpFilter(localStorage.getItem("rp_state"));}catch(e){}}'
@@ -1368,7 +1377,7 @@ if _V2:
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
     '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><div class="rec"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navu+'</div></nav>\n'
-    '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Books shown are the ones legal in your state - tap any chip to open that game there. Best line is highlighted.</div>\n'+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_tail_html+'</main>'
+    '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Games</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div class="col-head" style="margin-top:18px"><div class="sect">News</div></div><div class="card" id="rpNews"></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
@@ -1394,7 +1403,7 @@ if _V2:
 else:
     _SHELL=('<h1><span class="tick">&rsquo;</span>RixPicks</h1>\n'
     f'<div class="status">{html.escape(man["date_label"])}</div>\n'
-    '<div class="intro">Books shown are the ones legal in your state - tap any chip to open that game there. Best line is highlighted.</div>\n'
+    '<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'
     +_yestr+'\n'
     '<div class="sect">Today&rsquo;s picks</div>\n'
     +chr(10).join(rows)+'\n'
@@ -2209,7 +2218,7 @@ def build_game_pages(man, css, build_sha):
         _gph='last_pre_game' if _uw else 'pre_game'
         _fqt=_pt_label(((_shk.get('Kalshi') or _shk.get('Polymarket') or {}).get('ts')) or '') if _uw else ''
         _mkthdr=('Frozen pre-game prices%s - both sides' % (' - '+_fqt if _fqt else '')) if _uw else 'Live markets - both sides'
-        _foot=('Prices shown are frozen pre-game references%s - in-play markets move without us. Tap a price to open the live market.' % (' as of '+_fqt if _fqt else '')) if _uw else 'Prices update live: Kalshi & Polymarket tick every 60s; sportsbook rows refresh with each page rebuild. Tap a price to open the market.'
+        _foot=('Prices shown are frozen pre-game references%s - in-play markets move without us. Tap a price to open the live market.' % (' as of '+_fqt if _fqt else '')) if _uw else 'Prices update live: Kalshi ticks every 60s; Polymarket & sportsbook prices refresh with each page rebuild. Tap a price to open the market.'
         _PM=[]
         _COLL[0]=_PM  # chips() below must index into THIS page's record list
         def _pmk(src,ev='',mkt='',side_='',ml=None,cents=None,link='',lv='verified',st='ok'):
@@ -2372,7 +2381,8 @@ def build_game_pages(man, css, build_sha):
         poly_html=''
         if p.get('polymarket'):
             _gs=poly_event_slug(p['polymarket']['url']) or ''
-            web=_poly_us_url(_gs) if _gs else ((p.get('polymarket_us') or {}).get('url') or '')
+            _usv=(p.get('polymarket_us') or {})
+            web=(_usv.get('url') if _usv.get('verified') else '') or (_poly_us_url(_gs) if _gs else '')
             slug=poly_event_slug(p['polymarket']['url']) or ''
             sub=poly_sub(p['polymarket']['url']) or ''
             akw=away.split()[-1]; hkw=home.split()[-1]
@@ -2384,7 +2394,7 @@ def build_game_pages(man, css, build_sha):
                 ca=(_pf if side=='away' else None)
                 chv=(_pf if side=='home' else None)
             else:
-                ca=poly_price(p['polymarket']['url'],akw); chv=poly_price(p['polymarket']['url'],hkw)
+                ca=(poly_price(p['polymarket']['url'],akw) if _POLY_US_PRICED else None); chv=(poly_price(p['polymarket']['url'],hkw) if _POLY_US_PRICED else None)  # P1
             pvol=0.0
             try:
                 import urllib.request
@@ -2403,7 +2413,8 @@ def build_game_pages(man, css, build_sha):
                 hrow['poly_a']=ca; hrow['poly_h']=chv
             else:
                 kw=p['name'].split()[0]
-                cents=None if _uw else poly_price(p['polymarket']['url'],kw)
+                cents=None if (_uw or not _POLY_US_PRICED) else poly_price(p['polymarket']['url'],kw)  # P1
+                if _usv.get('verified') and _usv.get('cents'): cents=_usv['cents']  # 9/27: .us pick-side mid wins
                 lbl=('POLY '+str(c2ml(cents))) if cents else 'POLY'
                 poly_html=('<div class="mrow" data-book="POLY">'+bkimg('POLY')+'<span class="bk">POLY</span>'
                     '<span class="side"><a data-book="POLY" data-sb="'+html.escape(web)+'" data-app="'+html.escape(web)+'" onclick="return rpRoute(event,this)" href="'+html.escape(web)+'" target="_blank" rel="noreferrer">'+html.escape(carded_team)+'</a></span>'
@@ -2411,6 +2422,7 @@ def build_game_pages(man, css, build_sha):
                     '<span class="side" style="text-align:right;color:#8a8f98">full board on Polymarket</span><span class="pr"></span></div>')
                 hrow['poly_a']=cents if side=='away' else None
                 hrow['poly_h']=cents if side=='home' else None
+            if not _POLY_US_PRICED: poly_html=re.sub(r' data-poly(slug|sub|kw)="[^"]*"','',poly_html)  # P1: kill client tick on .us-linked rows
             books_present.append('POLY')
         # Per-book price-history charts (user, Sep 25 12:20 PM): Kalshi-style line, one per platform.
         lg=p.get('espn_league','')
@@ -2443,9 +2455,9 @@ def build_game_pages(man, css, build_sha):
             _pm_rows='POLY' in books_present
             _sb_rows=any(b not in ('KAL','POLY') for b in books_present)
             _bits=[]
-            if _kal_rows and _pm_rows: _bits.append('Kalshi & Polymarket tick every 60s')
+            if _kal_rows and _pm_rows: _bits.append('Kalshi ticks every 60s; Polymarket refreshes each rebuild')
             elif _kal_rows: _bits.append('Kalshi ticks every 60s')
-            elif _pm_rows: _bits.append('Polymarket ticks every 60s')
+            elif _pm_rows: _bits.append('Polymarket refreshes each rebuild')
             if _sb_rows: _bits.append('sportsbook rows refresh with each page rebuild')
             _foot=('Prices update live: '+'; '.join(_bits)+'. Tap a price to open the market.') if _bits else 'No live market rows on this page yet - tap a pick chip to open the market.'
         page_html=tmpl

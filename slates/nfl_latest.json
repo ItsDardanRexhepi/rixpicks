@@ -1,1 +1,79 @@
-{"version":1,"source":"wooder-ice","kind":"nfl-anytime-td","generated_at":null,"window":null,"window_label":null,"dk":{"singles":[],"parlays":[]},"kalshi":{"top10":[],"bankroll_builder":null}}
+{
+  "version": 1,
+  "source": "wooder-ice",
+  "kind": "nfl-anytime-td",
+  "generated_at": "2026-09-27T08:36:02-07:00",
+  "window": "sun-early",
+  "window_label": "Sunday early-game draft, whole-day anytime TD legs",
+  "dk": {
+    "singles": [
+      {
+        "player": "Jahmyr Gibbs",
+        "team": "DET",
+        "matchup": "NYJ @ DET",
+        "price_c": 74,
+        "price_type": "contract_cents",
+        "link": "https://predictions.draftkings.com/en/event/ny-jets-%40-det-lions/34118222?category=odds&subcategory=td-scorers"
+      },
+      {
+        "player": "Derrick Henry",
+        "team": "BAL",
+        "matchup": "BAL @ DAL",
+        "price_c": 68,
+        "price_type": "contract_cents",
+        "link": "https://predictions.draftkings.com/en/event/bal-ravens-%40-dal-cowboys/34118119?category=odds&subcategory=td-scorers"
+      },
+      {
+        "player": "Kenneth Walker III",
+        "team": "KC",
+        "matchup": "KC @ MIA",
+        "price_c": 65,
+        "price_type": "contract_cents",
+        "link": "https://predictions.draftkings.com/en/event/kc-chiefs-%40-mia-dolphins/34118189?category=odds&subcategory=td-scorers"
+      },
+      {
+        "player": "James Cook",
+        "team": "BUF",
+        "matchup": "LAC @ BUF",
+        "price_c": 61,
+        "price_type": "contract_cents",
+        "link": "https://predictions.draftkings.com/en/event/la-chargers-%40-buf-bills/34118212?category=odds&subcategory=td-scorers"
+      },
+      {
+        "player": "Jaxon Smith-Njigba",
+        "team": "SEA",
+        "matchup": "SEA @ WAS",
+        "price_c": 50,
+        "price_type": "contract_cents",
+        "link": "https://predictions.draftkings.com/en/event/sea-seahawks-%40-was-commanders/34118053?category=odds&subcategory=td-scorers"
+      },
+      {
+        "player": "Ja'Marr Chase",
+        "team": "CIN",
+        "matchup": "CIN @ PIT",
+        "price_c": 46,
+        "price_type": "contract_cents",
+        "link": "https://predictions.draftkings.com/en/event/cin-bengals-%40-pit-steelers/34118057?category=odds&subcategory=td-scorers"
+      },
+      {
+        "player": "Jameson Williams",
+        "team": "DET",
+        "matchup": "NYJ @ DET",
+        "price_c": 37,
+        "price_type": "contract_cents",
+        "link": "https://predictions.draftkings.com/en/event/ny-jets-%40-det-lions/34118222?category=odds&subcategory=td-scorers"
+      },
+      {
+        "player": "Tyquan Thornton",
+        "team": "KC",
+        "matchup": "KC @ MIA",
+        "price_c": 16,
+        "price_type": "contract_cents",
+        "link": "https://predictions.draftkings.com/en/event/kc-chiefs-%40-mia-dolphins/34118189?category=odds&subcategory=td-scorers"
+      }
+    ]
+  },
+  "kalshi": {
+    "top10": []
+  }
+}
