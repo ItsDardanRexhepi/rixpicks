@@ -2415,7 +2415,7 @@ async function rpFutTick(){
   var kalDead=r.dataset.kalticker&&(_nw-((window.__rpKalOkByFid||{})[r.dataset.fid]||0))>90000;  /* 90s threshold matches the 60s pregame cadence; keyed to the row's own last valid price */
   var dm=!!(polyDead||kalDead);
   var lv=r.querySelector('.futlive');var mv=r.querySelector('.futmove');
-  if(lv)lv.style.opacity=dm?'.55':'';
+  if(lv){lv.style.opacity=dm?'.55':'';var lk=r.querySelector('.futlk');if(dm&&!lk){lv.insertAdjacentHTML('afterend','<span class="futlk" style="font-size:10px;color:#8a8f98;font-weight:600;letter-spacing:.04em;margin-left:6px;vertical-align:1px">last known</span>');}if(!dm&&lk)lk.remove();}
   if(mv){mv.style.opacity=dm?'.55':'';
    if(dm&&!mv.textContent){mv.textContent='live price unavailable - checking again shortly';}}  /* his 9/26 seamless bar: dead source = quiet dim + last confirmed data stays; 'never' is not a timestamp; no alarm copy */
   if(window.__rpFdFid&&r.dataset.fid===window.__rpFdFid&&!r.dataset.kalticker){rpFdRenderLive(r);}  /* tester regression Sep 26: the open sheet rides EVERY tick incl. failed fetches - one render point after the staleness decision; KAL-driven sheets untouched while the lane is dormant */
@@ -2505,8 +2505,8 @@ function rpFdRenderLive(r){
  var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase(),entry=r.dataset.entry||'+0';
  var ok=((window.__rpPolyOkByFid||{})[r.dataset.fid])||0;
  if(!ok){b.style.opacity='.55';b.textContent='live data unavailable';return;}  /* never delivered: say so, no fake timestamp */
- if((Date.now()-ok)>30000){b.style.opacity='.55';if(!b.dataset.live)b.textContent='live data unavailable';return;}  /* swarm round 2: dim-only applies to CONFIRMED prices; an unconfirmed placeholder resolves to explicit unavailable - loading never persists */
- b.style.opacity='';
+ if((Date.now()-ok)>30000){b.style.opacity='.55';if(!b.dataset.live){b.textContent='live data unavailable';return;}if(!b.querySelector('.futlk')){b.insertAdjacentHTML('beforeend',' <span class="futlk" style="font-size:11px;color:#8a8f98;font-weight:600">&middot; last known</span>');}return;}  /* swarm round 2: dim-only applies to CONFIRMED prices; an unconfirmed placeholder resolves to explicit unavailable - loading never persists */
+ b.style.opacity='';var _lk2=b.querySelector('.futlk');if(_lk2)_lk2.remove();
  var mkts=(window.__rpFutMkts||{})[slug]||[];
  var m=null;for(var i=0;i<mkts.length;i++){if((mkts[i].question||'').toLowerCase().indexOf(kw)>=0){m=mkts[i];break;}}
  if(!m){b.textContent='market not found';return;}
@@ -2532,7 +2532,7 @@ def build_futures_page(css,build_sha):
     if not FUT: return None
     import os as _os2
     _REGALL=json.load(open(_os2.path.join(_os2.path.dirname(__file__),'..','config_leagues.json')))['leagues']
-    BALL={'NFL':'&#127944;','MLB':'&#9918;','NBA':'&#127936;','NHL':'&#127954;','WTA':'&#127934;','ATP':'&#127934;','CFB':'&#127944;','WNBA':'&#127936;','NCAAB':'&#127936;','MLS':'&#9917;','NWSL':'&#9917;','PGA':'&#9971;','NASCAR':'&#127950;','UFC':'&#129354;','Boxing':'&#129354;'}
+    BALL={'NFL':'FB','MLB':'&#9918;','NBA':'&#127936;','NHL':'&#127954;','WTA':'&#127934;','ATP':'&#127934;','CFB':'FB','WNBA':'&#127936;','NCAAB':'&#127936;','MLS':'&#9917;','NWSL':'&#9917;','PGA':'&#9971;','NASCAR':'&#127950;','UFC':'&#129354;','Boxing':'&#129354;'}
     rows=[]
     seen_lg=set()
     for f in FUT:
