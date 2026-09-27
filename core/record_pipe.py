@@ -44,9 +44,21 @@ def current_state(ledger_path):
     rows = read_rows(ledger_path)
     if not rows:
         raise SystemExit('FAIL-CLOSED: record ledger empty (no baseline row) - refusing to grade')
+    baselines = [r for r in rows if str(r.get('grade_id', '')).startswith('G-BASELINE-')]
     if not rows[0].get('grade_id', '').startswith('G-BASELINE-'):
         raise SystemExit(f"FAIL-CLOSED: first ledger row is {rows[0].get('grade_id')!r}, "
                          'not the canonical G-BASELINE-* row - refusing to grade')
+    # swamp 9:29: the baseline must be the EXACT canonical 0926 row, unique -
+    # prefix alone is spoofable.
+    from decimal import Decimal as _D
+    if len(baselines) != 1:
+        raise SystemExit(f'FAIL-CLOSED: {len(baselines)} baseline rows, expected exactly 1')
+    b = baselines[0]
+    if not (b.get('grade_id') == 'G-BASELINE-0926' and b.get('record') == '13-6'
+            and _D(str(b.get('units_exact', 'NaN'))) == _D('4.5113')
+            and b.get('date') == '2026-09-26'):
+        raise SystemExit(f"FAIL-CLOSED: baseline row does not match canonical values "
+                         f"(G-BASELINE-0926 / 13-6 / +4.5113 / 2026-09-26): {b}")
     state = _load_state(ledger_path)
     last_verified = None
     for r in rows:
