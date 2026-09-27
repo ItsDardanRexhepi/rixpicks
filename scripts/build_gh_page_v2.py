@@ -161,6 +161,14 @@ _sanitize_man(man)
 out=sys.argv[2] if len(sys.argv)>2 else '/home/sandbox/gh_page/index.html'
 BOOKS=[('BetRivers','BR'),('DraftKings','DK'),('FanDuel','FD'),('Hard Rock','HR'),('Kalshi','KAL'),('BetMGM','MGM'),('Polymarket','POLY'),('theScore','TSB')]  # alphabetical by displayed chip label (his Sep 25 9:19 AM spec: alphabetical chips; audit Sep 26 caught combo order regressed - root fix is the shared order, solo+combo read the same sequence)  # U-GEO-003: ESPN BET is DEAD - dropped at ingestion, never mapped (tester gate). theScore Bet is the single canonical arm (one chip per arm).
 BKDOM={'DK':'draftkings.com','FD':'fanduel.com','TSB':'thescore.bet','HR':'hardrock.bet','MGM':'betmgm.com','BR':'betrivers.com','KAL':'kalshi.com','POLY':'polymarket.com','B365':'bet365.com','FAN':'fanatics.com','DKP':'predictions.draftkings.com','FDP':'fanduel.com'}
+_POLY_US_ABBR={'nyl':'ny'}  # add entries ONLY after verifying the .us slug live; verified 9/27: nyl->ny
+def _poly_us_url(slug):
+    # polymarket.us serves events under /sports/<sport>/<slug>, NOT /event/<slug> (soft-404 shell).
+    # .us team abbrs diverge from .com slugs for shared-city teams (verified 9/27: wnba-nyl-min -> wnba-ny-min).
+    parts=slug.split('-'); sport=parts[0]
+    parts=[parts[0]]+[_POLY_US_ABBR.get(x,x) for x in parts[1:]]
+    return 'https://polymarket.us/sports/'+sport+'/'+'-'.join(parts)
+
 # Brand fills (user 9/24 10:48 PM): every chip filled with the platform's own brand colors. (bg, fg)
 BKFILL={'DK':('#0b0e11','#53d337'),'FD':('#e7f3ff','#0e6fd0'),'TSB':('#0d1b2e','#4d94ff'),'HR':('#faf3dd','#8a6d1a'),'MGM':('#f5f0e4','#7a6226'),'BR':('#e3f5fc','#0278a6'),'KAL':('#e6f9f3','#0a7c5c'),'POLY':('#e8f3fc','#1a6db0'),'B365':('#fff9db','#6b5900'),'FAN':('#f0f0f2','#1a1a1a'),'DKP':('#0b1a0e','#9be25f'),'FDP':('#e7f3ff','#4d9de0')}
 def bkimg(short):
@@ -698,7 +706,7 @@ def chips(p):
                 # Sep 26 relocation-alias trap (hou-ath vs hou-oak): the .com slug is the
                 # gamma-verifiable source of truth; a disagreeing .us slug is never bound.
                 print(f"POLY SLUG WARNING: {p.get('name')} .us slug {poly_event_slug(_us)} != verified {slug} - using verified", file=sys.stderr)
-            web=('https://polymarket.us/event/'+slug) if slug else (_us or p['polymarket']['url'].replace('https://polymarket.com/','https://polymarket.us/')); app=web
+            web=_poly_us_url(slug) if slug else (_us or ''); app=web
             sub=poly_sub(p['polymarket']['url']) or ''
             # price basis: gamma outcomePrices = mid/last, NOT the ask (auditor-confirmed Sep 26);
             # .us search snapshots are stale/unreliable - gamma is the build-time source of truth.
@@ -1068,6 +1076,7 @@ r'function okUrl(u){return (typeof u==="string")&&/^https:\/\/([a-z0-9-]+\.)*(dr
 r'function chip(bk,label,url,pm){if(!url)return "";var a=" data-bk=\""+bk+"\" data-book=\""+bk+"\" data-sb=\""+esc(url)+"\"";if(pm)a+=" data-pm=\""+esc(pm)+"\"";return "<span class=\"chip rpnontap\""+a+">"+esc(label)+"</span>";}'
 r'function ptLabel(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",weekday:"short",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}'
 r'function empty(){box.innerHTML="<div style=\"color:#8a8f98;font-size:13px;padding:6px 0\">No NFL slate yet - Wooder Ice anytime TD picks land here Sundays.</div>";}'
+r'function rpLegPx(o){var hasA=(o.odds!==undefined&&o.odds!==null&&String(o.odds)!=="");var hasC=(typeof o.price_c==="number"&&o.price_c>=1&&o.price_c<=99&&o.price_type==="contract_cents");if(hasA===hasC)return null;if(hasC)return{label:"DKP "+o.price_c+"c",head:o.price_c+"c"};return{label:"DK "+o.odds,head:String(o.odds)};}'
 r'function render(j){'
 r'var singles=((j.dk||{}).singles)||[],parlays=((j.dk||{}).parlays)||[];'
 r'var kal=j.kalshi||{},top=kal.top10||[],bb=kal.bankroll_builder;'
@@ -1076,14 +1085,14 @@ r'var h="<div style=\"font-size:12px;color:#8a8f98;margin:2px 0 4px\">"+esc(j.wi
 r'if(singles.length){h+="<div class=\"sect\" style=\"margin-top:10px\">DraftKings singles</div>";'
 r'singles.forEach(function(s,i){var kl=null;'
 r'top.forEach(function(t){if((t.player||"").toLowerCase()===(s.player||"").toLowerCase()&&(t.matchup||"")===(s.matchup||""))kl=t;});'
-r'var chips=chip("DK","DK "+s.odds,okUrl(s.link),kl?okUrl(kl.link):null);'
+r'var px=rpLegPx(s);if(!px)return;var chips=chip("DK",px.label,okUrl(s.link),kl?okUrl(kl.link):null);'
 r'if(kl)chips+=chip("KAL","KAL "+kl.price_c+"c",okUrl(kl.link),null);'
-r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(s.player)+"</b> anytime TD</span></span><span class=\"uo\"><span class=\"odds\">"+esc(s.odds||"")+"</span></span></div>"'
+r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(s.player)+"</b> anytime TD</span></span><span class=\"uo\"><span class=\"odds\">"+esc(px.head)+"</span></span></div>"'
 r'+"<div class=\"sub\">"+esc(s.matchup||"")+"</div>"+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}'
 r'if(parlays.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Parlays</div>";'
-r'parlays.forEach(function(p){var legs=(p.legs||[]).map(function(l){return esc(l.player)+" ("+esc(l.odds||"")+")";}).join(" + ");'
-r'var chips=chip("DK","DK "+(p.combined_odds||""),okUrl(p.link),okUrl(p.pm));'
-r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+(p.legs||[]).length+"-leg parlay</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(p.combined_odds||"")+"</span></span></div>"'
+r'parlays.forEach(function(p){var _bad=false;var legs=(p.legs||[]).map(function(l){var lp=rpLegPx(l);if(!lp)_bad=true;return esc(l.player)+" ("+(lp?esc(lp.head):"?")+")";}).join(" + ");if(_bad)return;'
+r'var _co=p.combined_odds,_cc=p.combined_price_c,_hasCO=(_co!==undefined&&_co!==null&&String(_co)!==""),_hasCC=(typeof _cc==="number"&&_cc>=1&&_cc<=99&&p.price_type==="contract_cents");if(_hasCO===_hasCC)return;var _clab=_hasCC?("DKP "+_cc+"c"):("DK "+_co),_chead=_hasCC?(_cc+"c"):String(_co);var chips=chip("DK",_clab,okUrl(p.link),okUrl(p.pm));'
+r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+(p.legs||[]).length+"-leg parlay</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(_chead)+"</span></span></div>"'
 r'+"<div class=\"sub\">"+legs+"</div>"+(p.est_payout?"<div class=\"sub\">Est. payout "+esc(p.est_payout)+"</div>":"")+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}'
 r'if(top.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Kalshi top "+top.length+"</div>";'
 r'top.forEach(function(t,i){'
@@ -1359,7 +1368,7 @@ if _V2:
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
     '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><div class="rec"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navu+'</div></nav>\n'
-    '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_tail_html+'</main>'
+    '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Books shown are the ones legal in your state - tap any chip to open that game there. Best line is highlighted.</div>\n'+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Games</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div class="col-head" style="margin-top:18px"><div class="sect">News</div></div><div class="card" id="rpNews"></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
@@ -1385,7 +1394,7 @@ if _V2:
 else:
     _SHELL=('<h1><span class="tick">&rsquo;</span>RixPicks</h1>\n'
     f'<div class="status">{html.escape(man["date_label"])}</div>\n'
-    '<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'
+    '<div class="intro">Books shown are the ones legal in your state - tap any chip to open that game there. Best line is highlighted.</div>\n'
     +_yestr+'\n'
     '<div class="sect">Today&rsquo;s picks</div>\n'
     +chr(10).join(rows)+'\n'
@@ -1886,7 +1895,7 @@ function rpStatusText(d,j,st){{ /* tester Sep 26 presentation parity: EVERY cloc
 rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllBest();rpAllLineShops();rpStartTimes();}},30000);
 document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this){{this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}}}});
 function rpFreshState(){{try{{const st=localStorage.getItem('rp_state'),src=localStorage.getItem('rp_state_src'),ts=+(localStorage.getItem('rp_state_ts')||0);return (st&&src==='gps'&&ts&&Date.now()-ts<=12*3600*1000)?st:'';}}catch(e){{return '';}}}}  /* tester Sep 26: even the FIRST paint never exposes an expired jurisdiction */
-rpFilter(rpFreshState());rpResolveState();
+var _rpFs=rpFreshState();rpFilter(_rpFs);if(!_rpFs&&!localStorage.getItem('rp_state_dismissed')){{try{{rpAsk(false);}}catch(e){{}}}}rpResolveState();
 function rpResolveState(){{try{{  /* his rule Sep 26 1:52 PM: ONLY shared location resolves state - no IP guess, no manual, no preview. Unverified = fail-closed PM set + location prompt on tap. */
  const saved=localStorage.getItem('rp_state'),src=localStorage.getItem('rp_state_src');
  /* freshness boundary (tester Sep 26): a saved GPS state expires after 12h - re-verify silently when
@@ -2363,7 +2372,7 @@ def build_game_pages(man, css, build_sha):
         poly_html=''
         if p.get('polymarket'):
             _gs=poly_event_slug(p['polymarket']['url']) or ''
-            web=('https://polymarket.us/event/'+_gs) if _gs else ((p.get('polymarket_us') or {}).get('url') or (p.get('polymarket') or {})['url'].replace('https://polymarket.com/','https://polymarket.us/'))
+            web=_poly_us_url(_gs) if _gs else ((p.get('polymarket_us') or {}).get('url') or '')
             slug=poly_event_slug(p['polymarket']['url']) or ''
             sub=poly_sub(p['polymarket']['url']) or ''
             akw=away.split()[-1]; hkw=home.split()[-1]
@@ -2429,6 +2438,16 @@ def build_game_pages(man, css, build_sha):
         when=_pt_label(g.get('commence',''))
         inst=game_instance(g)
         inst_lbl=(' ('+inst+')') if inst else ''
+        if not _uw:
+            _kal_rows='KAL' in books_present
+            _pm_rows='POLY' in books_present
+            _sb_rows=any(b not in ('KAL','POLY') for b in books_present)
+            _bits=[]
+            if _kal_rows and _pm_rows: _bits.append('Kalshi & Polymarket tick every 60s')
+            elif _kal_rows: _bits.append('Kalshi ticks every 60s')
+            elif _pm_rows: _bits.append('Polymarket ticks every 60s')
+            if _sb_rows: _bits.append('sportsbook rows refresh with each page rebuild')
+            _foot=('Prices update live: '+'; '.join(_bits)+'. Tap a price to open the market.') if _bits else 'No live market rows on this page yet - tap a pick chip to open the market.'
         page_html=tmpl
         for tok,val in [('__TITLE__',html.escape(away+' at '+home)),('__CSS__',css),('__NUM__',str(p['num'])),
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',abbr_a),('__HAB__',abbr_h),  # swamp 9/26: gpk registry blanks on unregistered games rendered UNLABELED arbiter-only scores - abbrs come from the same verified _meta_for source as the matchup display
@@ -2730,7 +2749,7 @@ def build_futures_page(css,build_sha):
         if lg not in seen_lg:
             seen_lg.add(lg)
             rows.append('<div class="sect" style="margin-top:18px">%s %s</div>'%(BALL.get(lg,'&#127937;'),html.escape(lg)))
-        _furl='https://polymarket.us/event/'+f.get('poly_slug','') if f.get('poly_slug') else ''
+        _furl=_poly_us_url(f.get('poly_slug','')) if f.get('poly_slug') else ''
         if _furl and not _link_alive(_furl):
             print(f"LINK DROP: futures {f.get('team')} dead/generic .us destination: {_furl}", file=sys.stderr)
             _furl=''

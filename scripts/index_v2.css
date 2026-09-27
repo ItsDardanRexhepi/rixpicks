@@ -126,3 +126,6 @@ body.rp-ready .tickbar{transform:translateY(0)}
 .rpdate{color:var(--mut);font-size:12px;letter-spacing:.04em;text-transform:uppercase;margin:4px 0 12px}
 .tsrc.kalshi{color:#2fbf9b}
 .intro{color:var(--mut);font-size:13px;margin:2px 0 10px}
+
+/* desktop: reserve space for the fixed My Account control (myprofile.js FAB) so it never covers record/units - swamp 9/27 1280px overlap */
+@media(min-width:900px){nav.rpnav{padding-right:132px}}
