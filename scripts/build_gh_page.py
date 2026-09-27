@@ -1655,6 +1655,8 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
      if(!fj||!fj.fields){{rpLsEnrichEspn(_pk,_f,_seq);return;}}  /* worker feed cannot answer: degradation lane, never worse than the pre-feed path */
      const F=fj.fields;const stv=(F.state&&F.state.value)||fj.state||'';
      if(stv!=='in')return;  /* monotonic: a non-live feed never rewrites the live render; post lands via the board branch */
+     const _staleFld=['scoreAway','scoreHome','clock','period','state','detail'].some(function(k){{return F[k]&&F[k].stale===true;}});
+     if(fj.allDown===true||_staleFld){{rpLsEnrichEspn(_pk,_f,_seq);return;}}  /* stale worker answer (total upstream outage or aged fields): must never restamp apparent liveness or clear the dim - the degradation lane arbitrates, else the hold+dim path keeps last good (outage doctrine) */
      if((+(_pk.dataset.lsrank||0))>1)return;
      const sa=(F.scoreAway&&F.scoreAway.value!=null&&!isNaN(+F.scoreAway.value))?+F.scoreAway.value:null;
      const sh=(F.scoreHome&&F.scoreHome.value!=null&&!isNaN(+F.scoreHome.value))?+F.scoreHome.value:null;
