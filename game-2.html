@@ -273,7 +273,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790470472';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
+const RP_BUILD='1790470747';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -770,7 +770,7 @@ function rpFieldSvg(ballAbs,possIsHome,aCol,hCol,icon){
  const x=30+Math.max(0,Math.min(100,ballAbs==null?50:ballAbs))*2.4; /* field geometry (user-reported wrong-side dot 9/26): grass is x=30..270 with end zones 0..30/270..300, so ballAbs 0-100 maps 30+2.4*ballAbs - the old 2.9 scale drifted up to 20u off and put goal-line dots inside end zones */
  const _ic=((icon||RP_FOOTBALL)+'').replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'');
  let stripes='';
- for(let i=1;i<10;i++){stripes+='<line x1="'+(30+i*24)+'" y1="4" x2="'+(30+i*24)+'" y2="36" stroke="rgba(255,255,255,.18)" stroke-width="1"/>';}
+ for(let i=1;i<10;i++){if(i===5)continue; /* midfield is the dedicated 1.2px mark below - drawing a stripe there too renders a doubled line (user-reported 9/26) */ stripes+='<line x1="'+(30+i*24)+'" y1="4" x2="'+(30+i*24)+'" y2="36" stroke="rgba(255,255,255,.18)" stroke-width="1"/>';}
  return '<svg width="100%" viewBox="0 0 300 40" style="display:block;margin:8px 0 2px">'+
  '<rect x="0" y="2" width="30" height="36" rx="3" fill="'+aCol+'" opacity="0.85"/>'+
  '<rect x="270" y="2" width="30" height="36" rx="3" fill="'+hCol+'" opacity="0.85"/>'+

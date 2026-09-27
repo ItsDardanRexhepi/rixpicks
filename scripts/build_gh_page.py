@@ -603,6 +603,10 @@ def chips(p):
                 if _frozen and _frozen!=_kc:
                     print(f"IN-PLAY FREEZE: {p.get('name')} Kalshi live ask {_kc} - frozen to pre-game snapshot {_frozen}c", file=sys.stderr)
                     _kc=_frozen
+                if _frozen:
+                    # kickoff lock (tester caveat, build 1790470472): persist the pin so the snapshot
+                    # survives in the ledger - the original publish predates the ledger's PM-arm lines.
+                    NEWSHIPPED.setdefault(_sk,{})['Kalshi']={'link':link,'cents':_frozen,'commence':_cm}
             else:
                 NEWSHIPPED.setdefault(_sk,{})['Kalshi']={'link':link,'cents':_kc,'commence':_cm}
             if not _sfx or _kc is None:
@@ -651,6 +655,7 @@ def chips(p):
                 # in play: freeze the verified PRE-GAME snapshot (SHIPPED carryover, then manifest
                 # polycents) - never a live in-play gamma quote in the frozen comparison set.
                 cents=((SHIPPED.get(_sk) or {}).get('Polymarket') or {}).get('cents') or p.get('polycents')
+                if cents: NEWSHIPPED.setdefault(_sk,{})['Polymarket']={'link':web,'cents':cents,'commence':_cm}
             else:
                 cents=poly_price(p['polymarket']['url'],kw) or p.get('polycents')
                 if cents: NEWSHIPPED.setdefault(_sk,{})['Polymarket']={'link':web,'cents':cents,'commence':_cm}
@@ -1999,18 +2004,20 @@ def build_game_pages(man, css, build_sha):
         if p.get('kalshi'):
             kurl=p['kalshi']['url']; tick=kurl.rstrip('/').split('/')[-1].upper()
             board=[]; et=tick; kvol=0.0
-            if _uw and (_shk.get('Kalshi') or {}).get('cents'):
-                # in play: frozen pre-game snapshot (canonical record) - the live board never feeds
-                # a frozen page. Picked side carries the snapshot; the other side is honestly unpriced.
-                _kc=_shk['Kalshi']['cents']
+            if _uw:
+                # in play (tester caveat on build 1790470472, Sep 26): pre-game snapshots LOCK at kickoff
+                # and never refresh from in-play reads - the live-board branch below is pre-game only.
+                # Snapshot source: shipped-ledger cents, then manifest ship cents; the other side is
+                # honestly unpriced. No snapshot at all -> the picked side ships honestly unpriced too.
+                _kc=((_shk.get('Kalshi') or {}).get('cents')) or (p.get('kalshi') or {}).get('cents')
                 kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
                     '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(carded_team)+'</a></span>'
-                    '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+html.escape(p['kalshi'].get('team',''))+'" data-cents="'+str(round(_kc))+'"'+_pmk('Kalshi',tick,tick,side,cents=_kc,link=kurl)+' '+rt('KAL',kurl,False)+'>KAL '+str(c2ml(_kc))+'</a></span>'
-                    '<span class="side" style="text-align:right;color:#8a8f98">'+('pre-game snapshot' if _uw else 'full board on Kalshi')+'</span><span class="pr"></span></div>')
+                    '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+html.escape(p['kalshi'].get('team',''))+'"'+(f' data-cents="{round(_kc)}"' if _kc else '')+_pmk('Kalshi',tick,tick,side,cents=_kc,link=kurl,st=('ok' if _kc else 'unknown'))+' '+rt('KAL',kurl,False)+'>'+(f'KAL {c2ml(_kc)}' if _kc else 'KAL')+'</a></span>'
+                    '<span class="side" style="text-align:right;color:#8a8f98">pre-game snapshot</span><span class="pr"></span></div>')
                 hrow['kal_a']=_kc if side=='away' else None
                 hrow['kal_h']=_kc if side=='home' else None
                 books_present.append('KAL')
-        if p.get('kalshi') and not kal_html:
+        if p.get('kalshi') and not kal_html and not _uw:
             kurl=p['kalshi']['url']; tick=kurl.rstrip('/').split('/')[-1].upper()
             board=[]; et=tick; kvol=0.0
             try:
@@ -2076,10 +2083,13 @@ def build_game_pages(man, css, build_sha):
             slug=poly_event_slug(p['polymarket']['url']) or ''
             sub=poly_sub(p['polymarket']['url']) or ''
             akw=away.split()[-1]; hkw=home.split()[-1]
-            if _uw and (_shk.get('Polymarket') or {}).get('cents'):
-                # in play: frozen pre-game snapshot on the picked side only - same-phase truth record
-                ca=(_shk['Polymarket']['cents'] if side=='away' else None)
-                chv=(_shk['Polymarket']['cents'] if side=='home' else None)
+            if _uw:
+                # in play (tester caveat on build 1790470472, Sep 26): frozen pre-game snapshot on the
+                # picked side only - shipped-ledger cents, then manifest polycents; NEVER a live
+                # in-play gamma read. No snapshot -> both sides honestly unpriced.
+                _pf=((_shk.get('Polymarket') or {}).get('cents')) or p.get('polycents')
+                ca=(_pf if side=='away' else None)
+                chv=(_pf if side=='home' else None)
             else:
                 ca=poly_price(p['polymarket']['url'],akw); chv=poly_price(p['polymarket']['url'],hkw)
             pvol=0.0
