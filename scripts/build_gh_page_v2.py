@@ -1476,7 +1476,9 @@ if _V2:
     r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
     r'function c2ml(c){c=+c;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}'
     r'function ptDate(){try{return new Date().toLocaleDateString("en-CA",{timeZone:"America/Los_Angeles"});}catch(e){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}}'
-    r'function hide(){var p=box.closest("div");while(p&&p.previousElementSibling&&p.previousElementSibling.className!=="sect")p=p.parentNode;box.parentNode.parentNode.parentNode.style.display="none";}'
+    # swarm 9:49: third parent from #rpDing is .state#st-mlb (whole panel incl. official picks).
+    # Hide ONLY the enclosing Wooder guest module (margin-top wrapper = two parents up).
+    r'function hide(){box.parentNode.parentNode.style.display="none";}'
     r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
     r'var ps=(j&&j.picks)||[];'
     r'if(!ps.length||(j.date||"")!==ptDate()){hide();return;}'
