@@ -215,6 +215,7 @@ return '<div class="rp-bet" style="display:flex;justify-content:space-between;al
 /* --- boot --- */
 function boot(){
 each(document.querySelectorAll('.pick[data-away][data-home]'),function(pick){
+if(pick.closest('#rpFutTail'))return;  /* futures watch rows are not bet markets (no line/market data) - track-bet never attaches here (Dardan 12:31) */
 if(pick.querySelector('.rp-trackbtn'))return;
 var btn=document.createElement('button');btn.className='rp-trackbtn';btn.textContent='+ track bet';
 btn.onclick=function(e){e.preventDefault();e.stopPropagation();trackSheet(pick);};

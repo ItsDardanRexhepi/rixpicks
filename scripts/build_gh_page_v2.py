@@ -1244,7 +1244,7 @@ if FUT:
                     _side='away' if t==an else 'home'
                     _isrc=_mlogo.get((_lg,t)) or ('https://a.espncdn.com/i/teamlogos/%s/500/%s.png'%(_LGMAP[_lg][1],info['abbr']) if _LGMAP[_lg][1] else '')
                     _fimg='<img src="%s" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">'%_isrc if _isrc else ''
-                    _fw.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick" data-espn="%s" data-away="%s" data-home="%s" data-side="%s">%s<b>%s</b> <span style="color:#8a8f98;font-size:12px">futures: %s</span><span class="ls" data-ls></span></div></a>'%(_LGMAP[_lg][0],html.escape(an),html.escape(hn),_side,_fimg,html.escape(t),' &middot; '.join(html.escape(x) for x in info['mkts'])))
+                    _fw.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick" data-espn="%s" data-eid="%s" data-away="%s" data-home="%s" data-side="%s">%s<b>%s</b> <span style="color:#8a8f98;font-size:12px">futures: %s</span><span class="ls" data-ls></span></div></a>'%(_LGMAP[_lg][0],ev['id'],html.escape(an),html.escape(hn),_side,_fimg,html.escape(t),' &middot; '.join(html.escape(x) for x in info['mkts'])))  # 12:31 core fix: futures-live rows bind their event id - rpLsTick's strict eid lane (J-101) hydrates them with the same live score/clock/quarter data as score rows; no eid = static row was the root defect
                     _fwgot.add(t)
                     break
         _fw2=[]
