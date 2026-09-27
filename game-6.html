@@ -209,7 +209,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790541866';const RP_ROOM='g6-2026-09-27';const RP_START='2026-09-27T19:05Z';
+const RP_BUILD='1790544200';const RP_ROOM='g6-2026-09-27';const RP_START='2026-09-27T19:05Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -1057,7 +1057,7 @@ function rpScoreTable(el,hdrs,rows,tots){
  (tots||[]).forEach(function(x){h+='<th class="rpsc-tot" style="font-weight:700;padding:2px 4px;min-width:20px">'+x+'</th>';});
  h+='</tr>';
  rows.forEach(function(r){
-  h+='<tr><td style="text-align:left;font-weight:700;padding:3px 4px 3px 0;white-space:nowrap">'+(r.logo?'<img src="'+r.logo+'" alt="" style="width:18px;height:18px;border-radius:50%;vertical-align:-4px;margin-right:6px" onerror="this.remove()">':'')+r.abbr+'</td>';
+  h+='<tr><td style="text-align:left;font-weight:700;padding:3px 4px 3px 0;white-space:nowrap">'+(r.logo?'<img src="'+r.logo+'" alt="" style="width:18px;height:18px;vertical-align:-4px;margin-right:6px" onerror="this.remove()">':'')+r.abbr+'</td>';
   hdrs.forEach(function(_,i){const v=(r.vals&&i<r.vals.length&&r.vals[i]!=null)?r.vals[i]:'';h+='<td class="rpsc-cell" style="padding:3px 4px">'+v+'</td>';});
   (r.tots||[]).forEach(function(v,ti){const last=ti===(r.tots.length-1);h+='<td class="'+(last?'rpsc-totlast':'rpsc-tot')+'" style="padding:3px 4px;font-weight:800">'+(v==null?'':v)+'</td>';});
   h+='</tr>';
