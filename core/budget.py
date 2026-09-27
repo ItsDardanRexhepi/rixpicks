@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 PAID_TIER = False   # flips True only on his verbatim word that he purchased (via main)
 DAILY_CAP = 16
 TZ = ZoneInfo('America/Los_Angeles')
-LEDGER = '/home/sandbox/rps_tmp/kb/ledger/odds_credits.jsonl'
+LEDGER = os.environ.get('ODDS_CREDITS_LEDGER', '/home/sandbox/rps_tmp/kb/ledger/odds_credits.jsonl')
 def props_allowed(): return PAID_TIER
 def props_block_reason():
     return 'player props gated on paid odds tier (J-123a, verbatim 9/26 9:09 PM); no scrape path'
