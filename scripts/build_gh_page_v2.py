@@ -52,7 +52,7 @@ for _lk,_esp in [('FIFA_WC','soccer/fifa.world'),('EPL','soccer/eng.1')]:
         _RP_SPORT_CLOCK.setdefault(_esp,{'period_seconds':_sc['period_seconds'],'counts_down':_sc['counts_down']})
 ARB_INJECT=_ARB_SRC+'\nvar RP_SPORT_CLOCK='+json.dumps(_RP_SPORT_CLOCK,separators=(',',':'))+';\n' 
 
-_V2=os.environ.get('RP_V2')=='1'  # v2 dark shell (Julian-approved mock, Sep 27): builds the redesign candidate. Default (flag off) reproduces v1.2.0 EXACTLY - cron/refresh builds never jump the Julian/user publish gate.
+_V2=os.environ.get('RP_V2')!='0'  # v2 dark shell is the default build. RP_V2=0 reproduces v1.2.0 exactly (escape hatch).
 RP_DESIGN='2.0.0' if _V2 else '1.2.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme. v1.2.0 (user, Sep 25 8:46 AM): current page shape approved as THE standing daily template - header without FINAL line, tap-any-book intro, per-pick chips + units, combo section, record + unit line, minimal footer (reference commit fbec1c1). Every morning build reproduces this exact shape; changes only on his explicit instruction.
 
 def _pt_date(iso):
@@ -186,7 +186,6 @@ def c2ml(c):
     if c<=0: return str(c)
     if c>=100: return f"{c}c"  # 100c ask: American odds can't express it - exchange-native cents (main 11:11)
     ml=_rh(c/(100-c)*100) if c>=50 else _rh((100-c)/c*100)
-    if ml>1000: return f"{c}c"  # extreme in-play prices read in cents, never -9900 (main 11:11)
     return ('-' if c>=50 else '+')+str(ml)
 def _pt_time(iso):
     try:
@@ -356,7 +355,14 @@ _cardprev=SHIPPED.get('__card__') or {}
 # date-only matching let the live card's lock bleed
 # into a same-day rebuild of a different card (the archived Friday-night 8-game card).
 _pin_ok=_cardprev.get('date')==_CARD_DATE and _cardprev.get('picks_sha')==_MAN_SHA
-ENTRY_LOCK=(_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or man.get('updated','')
+_cts=[p.get('card_ts') for p in man.get('picks',[]) if p.get('card_ts')]
+_ct_lock=None
+if _cts:
+    _c0=min(_cts)  # canonical provenance (main Sep 27 7:26): lock label carries the original ledger card_ts, never a rebuild restamp
+    from zoneinfo import ZoneInfo as _ZI
+    _c0d=_dtc.datetime.fromisoformat(_c0.replace('Z','+00:00')).astimezone(_ZI('America/Los_Angeles'))
+    _ct_lock=_c0d.strftime('%b %d').replace(' 0',' ')+', '+_pt_time(_c0)
+ENTRY_LOCK=(_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or _ct_lock or man.get('updated','')
 _ODDS_CHECKED=man.get('stamp_label')=='odds_checked'  # reconstructed/archive card: odds-check evidence only, no lock event - render "Odds checked <stamp>", never "locked" (main ruling Sep 27)
 def _stamp_html(p):
     if _ODDS_CHECKED:
@@ -390,7 +396,7 @@ def _meta_for(lg,name):
         if l2==lg and n2 and (name in n2 or n2 in name): return v
     return {}
 
-LG_BALL={'baseball/mlb':'\u26be','football/nfl':'FB','football/college-football':'FB','basketball/nba':'\U0001f3c0','basketball/wnba':'\U0001f3c0','basketball/college-basketball':'\U0001f3c0','hockey/nhl':'\U0001f3d2','tennis':'\U0001f3be','tennis/atp':'\U0001f3be','tennis/wta':'\U0001f3be','soccer/usa.1':'\u26bd','soccer/usa.nwsl':'\u26bd','golf/pga':'\u26f3','racing/nascar':'\U0001f3ce\U0000fe0f','mma/ufc':'\U0001f94a','boxing':'\U0001f94a'}
+LG_BALL={'baseball/mlb':'\u26be','football/nfl':'\U0001f3c8','football/college-football':'\U0001f3c8','basketball/nba':'\U0001f3c0','basketball/wnba':'\U0001f3c0','basketball/college-basketball':'\U0001f3c0','hockey/nhl':'\U0001f3d2','tennis':'\U0001f3be','tennis/atp':'\U0001f3be','tennis/wta':'\U0001f3be','soccer/usa.1':'\u26bd','soccer/usa.nwsl':'\u26bd','golf/pga':'\u26f3','racing/nascar':'\U0001f3ce\U0000fe0f','mma/ufc':'\U0001f94a','boxing':'\U0001f94a'}
 
 def game_instance(game):
     # J-092 (user, Sep 25 10:05 AM): when a team plays twice in a day, every chip must NAME
@@ -671,9 +677,7 @@ def chips(p):
             # LOCKED-PRICE BAKE (Sep 27 7:47 tester NO-GO, main directive): the picked chip always
             # bakes the LOCKED card price (manifest kalshi.cents, "Kalshi ask at lock"), never the
             # live ask pulled at build time. Live ask still feeds the ship-condition ceiling above;
-            # the baked snapshot is the lock. Root cause of the Brewers 65c-vs-69c fork: a restamped
-            # card_ts changed pick_content_hash -> display-only detection failed -> full live re-gate
-            # on a re-publish. Client-side ticking still refreshes the page live.
+            # the baked snapshot is the lock. Client-side ticking still refreshes the page live.
             _lck=(p.get('kalshi') or {}).get('cents')
             if _lck is not None and _kc is not None and _kc!=_lck:
                 print(f"LOCKED BAKE: {p.get('name')} chip pinned to locked {_lck}c (live ask {_kc}c at build)", file=sys.stderr)
@@ -1150,7 +1154,8 @@ if FUT:
             _isrc2='https://a.espncdn.com/i/teamlogos/%s/500/%s.png'%(_LGMAP[_f['league']][1],_f['abbr']) if _LGMAP[_f['league']][1] else ''
             _fimg2='<img src="%s" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">'%_isrc2 if _isrc2 else ''
             _lbl2='SB' if 'Super Bowl' in _f['market'] else (_f['market'][:-9] if _f['market'].endswith(' Champion') else _f['market'])
-            _fw2.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick">%s<b>%s</b> <span style="color:#8a8f98;font-size:12px">new futures: %s &middot; %s</span></div></a>'%(_fimg2,html.escape(_f['team']),html.escape(_lbl2),html.escape(_f.get('odds',''))))
+            _da2=(' data-espn="%s"'%_LGMAP[_f['league']][0]) if _V2 else ''
+            _fw2.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick"%s>%s<b>%s</b> <span style="color:#8a8f98;font-size:12px">new futures: %s &middot; %s</span></div></a>'%(_da2,_fimg2,html.escape(_f['team']),html.escape(_lbl2),html.escape(_f.get('odds',''))))
         fut_watch_html=('' if not _fw2 else '<div class="sect" style="margin-top:22px">New futures</div>'+''.join(_fw2))+('' if not _fw else '<div class="sect" style="margin-top:22px">Futures live today</div>'+''.join(_fw))
     except Exception:
         fut_watch_html=''
@@ -1247,7 +1252,8 @@ if man.get('parlay'):
         if len(_kc)==nlegs and all(isinstance(x,(int,float)) and 0<x<100 for x in _kc):
             _cc=amer_from_cents(_kc)
             if _cc:
-                _aml=c2ml(_cc)
+                _lab=_re_scrub.search(r'\(\s*([+-]\d+)\s*\)', pl.get('label','') or '')
+                _aml=_lab.group(1) if _lab else (('+'+str(_rh((100-_cc)/_cc*100))) if _cc<50 else ('-'+str(_rh(_cc/(100-_cc)*100))))  # manifest label American is canonical (main 7:44); fallback exact, never cents
                 chips.append(('KAL',f'<span class="chip%%BEST%% rpnontap"{bkstyle("KAL")} id="rpCxKAL" data-n="{nlegs}" data-book="KAL" data-market="parlay" data-cents="{_rh(_cc)}"{_mkrec("Kalshi","","parlay","",cents=_cc,link="",ph=("last_pre_game" if any(_is_underway((pp.get("game") or {})) for pp in lp) else "pre_game"),lv="none")}>%%STAR%%{bkimg("KAL")}KAL {_aml}</span>',c2ml_int(_cc)))
         _pc=[]
         for p in lp:
@@ -1265,7 +1271,7 @@ if man.get('parlay'):
         if len(_pc)==nlegs and all(isinstance(x,(int,float)) and 0<x<100 for x in _pc):
             _cp=amer_from_cents(_pc)
             if _cp:
-                _aml=c2ml(_cp)
+                _aml=('+'+str(_rh((100-_cp)/_cp*100))) if _cp<50 else ('-'+str(_rh(_cp/(100-_cp)*100)))  # exact unrounded American, never cents (his all-+/- override)
                 chips.append(('POLY',f'<span class="chip%%BEST%% rpnontap"{bkstyle("POLY")} id="rpCxPOLY" data-n="{nlegs}" data-book="POLY" data-market="parlay" data-cents="{_rh(_cp)}"{_mkrec("Polymarket","","parlay","",cents=_cp,link="",ph=("last_pre_game" if any(_is_underway((pp.get("game") or {})) for pp in lp) else "pre_game"),lv="none")}>%%STAR%%{bkimg("POLY")}POLY {_aml}</span>',c2ml_int(_cp)))
     order=['BR','DK','FD','HR','KAL','MGM','POLY','TSB']  # alphabetical by chip label (his Sep 25 9:19 AM spec; matches solo order)
     chips.sort(key=lambda s: order.index(s[0]) if s[0] in order else 99)
@@ -1333,28 +1339,53 @@ if _V2:
         _k,_lbl,_esp=_tab_of_lg(_lg)
         if _k not in _canon_keys and not any(t['key']==_k for t in RP_TABS):
             RP_TABS.append({'key':_k,'label':_lbl,'espn':_esp})
+    for _fe in sorted(set(re.findall(r'data-espn="([^"]+)"',fut_watch_html+fut_entry))):
+        if not any(t['espn']==_fe for t in RP_TABS):
+            _fs=_fe.split('/')[-1]
+            RP_TABS.append({'key':re.sub(r'[^a-z0-9]','',_fs.lower()) or 'other','label':_fs.upper(),'espn':_fe})
+    _cxesp=','.join(sorted(set(re.findall(r'data-espn="([^"]+)"',parlay_html))))
+    _combo_wrap=('<div id="rpComboTail" data-cx-espn="'+_cxesp+'">'+parlay_html+'</div>') if parlay_html else ''
+    _fut_wrap=('<div id="rpFutTail">'+fut_watch_html+'</div>') if fut_watch_html else ''
     _tabs_html=''.join('<a class="tab" data-tab="'+t['key']+'" href="#'+t['key']+'">'+html.escape(t['label'])+'</a>' for t in RP_TABS)
     _panels_html=''
     for t in RP_TABS:
         _prows=''.join(_panels.get(t['key']) or [])
         _body=(_prows+nfl_entry) if t['key']=='nfl' else _prows
         if not _body.strip():
-            _body='<div class="pick"><div class="pick-head"><span class="name">No picks today</span></div></div>'
+            _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
         elif _prows.strip():
             _body='<div class="sect" style="margin-top:2px">Today&rsquo;s picks</div>'+_body
         _panels_html+='<div class="state" id="st-'+t['key']+'">'+_body+'</div>\n'
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
-    _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span class="rx">R</span><span class="rx">i</span><span class="rx">x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
-    '<nav class="rpnav"><a class="logo" href="index.html">&rsquo;<em>Rix</em>Picks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><div class="rec"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navu+'</div></nav>\n'
-    '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n'+_yestr+'\n'+_panels_html+parlay_html+'\n'+fut_watch_html+'\n'+fut_entry+'\n'+_tail_html+'</main>'
+    _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
+    '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><div class="rec"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navu+'</div></nav>\n'
+    '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Games</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div class="col-head" style="margin-top:18px"><div class="sect">News</div></div><div class="card" id="rpNews"></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
-    _V2_SCRIPTS='<script>window.RP_TABS='+json.dumps(RP_TABS,separators=(',',':'))+';</script><script>'+INDEX_V2_JS+'</script>'
+    _kal_watch=[]
+    if os.environ.get('RP_KAL_TICKER')=='1':
+        for _p in man.get('picks',[]):
+            _k=_p.get('kalshi') or {}
+            _u=(_k.get('url') or '').rstrip('/')
+            _g=_p.get('game') or {}
+            _lg=_p.get('espn_league') or ''
+            if not (_u and _g.get('eid') and _lg and isinstance(_k.get('cents'),(int,float))): continue
+            _awa=(_meta_for(_lg,_g.get('away','')).get('abbr') or '').upper()
+            _hom=(_meta_for(_lg,_g.get('home','')).get('abbr') or '').upper()
+            _kt=_k.get('team','') or ''
+            _sfx=(_meta_for(_lg,_kt).get('abbr') or _meta_for(_lg,_kt.rstrip('.')).get('abbr') or '').upper()
+            if not _sfx:
+                _ktn=_kt.rstrip('.').lower()
+                if _ktn and _ktn in (_g.get('away','') or '').lower(): _sfx=_awa
+                elif _ktn and _ktn in (_g.get('home','') or '').lower(): _sfx=_hom
+            if not (_awa and _hom and _sfx): continue
+            _kal_watch.append({'eid':_g['eid'],'lg':_lg,'ev':_u.split('/')[-1].upper(),'entry':_k['cents'],'sfx':_sfx,'awa':_awa,'hom':_hom})
+    _V2_SCRIPTS='<script>window.RP_TABS='+json.dumps(RP_TABS,separators=(',',':'))+';window.RP_KAL_TICKER='+(str(len(_kal_watch)) if os.environ.get('RP_KAL_TICKER')=='1' else '0')+';window.RP_KAL_WATCH='+json.dumps(_kal_watch,separators=(',',':'))+';</script><script>'+INDEX_V2_JS+'</script>'
 else:
     _SHELL=('<h1><span class="tick">&rsquo;</span>RixPicks</h1>\n'
     f'<div class="status">{html.escape(man["date_label"])}</div>\n'
-    '<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+ '    <div class="intro">Today\'s card is conviction-selected, no edge floor - conviction % on each pick, price on the book chip.</div>\n'
+    '<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'
     +_yestr+'\n'
     '<div class="sect">Today&rsquo;s picks</div>\n'
     +chr(10).join(rows)+'\n'
@@ -1942,9 +1973,8 @@ function rpCxUpd(bk){{
   if(a.dataset.won==='1'){{cnt++;return;}}
   if(a.dataset.lost==='1'){{cnt++;dead=true;return;}}
   const lr=rpMkt(a);  /* no leg-phase gate: each record holds its phase-correct value (frozen at kickoff, live while pre-game) */
-  const _ec=(lr&&typeof lr.c==='number'&&lr.c>0&&lr.c<100)?lr.c:parseFloat(a.dataset.cents);
-  if(_ec>0&&_ec<100){{d*=100/_ec;cnt++;}}  /* exact canonical cents multiply through - round ONCE at final display (swarm reversal: per-leg American rounding cost precision, +161 vs the +162 combined-ask convention) */
-  else{{const ml=rpChipML(a);if(ml!==null){{d*=ml>0?1+ml/100:1+100/Math.abs(ml);cnt++;}}}}
+  const ml=rpChipML(a);if(ml!==null){{d*=ml>0?1+ml/100:1+100/Math.abs(ml);cnt++;}}  /* combo American from the per-leg CARD AMERICANS (main 7:47 ruling): matches the manifest label, the static chip, the card photo and the social post; the raw-cents path yields a fighting value (+1304 vs +1306) */
+
  }});
  if(cnt!==n)return;
  if(dead){{rpCxStar();return;}}
@@ -1952,7 +1982,7 @@ function rpCxUpd(bk){{
  const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
  const cc=Math.round(100/d);
  const lbl=(ml2>0?'+':'')+ml2;  /* user Sep 26 12:58 PM: ALL chips American, PM combo chips included (supersedes both U-DISP-001 c1 and the old +/-1000 cents fallback) */
- if(cr){{cr.c=cc;cr.ts=Date.now();}}  /* canonical record write-through: star/rank read the SAME value the chip shows */
+ if(cr){{cr.ml=ml2;delete cr.c;cr.ts=Date.now();}}  /* canonical record write-through: star/rank read the SAME American the chip shows (c cleared - cents no longer the combo source of truth) */
  chip.dataset.cents=cc;
  chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+| \d+c)?/, bk+' '+lbl);
  rpCxStar();
@@ -2057,7 +2087,7 @@ function rpPageRefresh(){{try{{
   const curKeys=[...document.querySelectorAll('.pick')].map(function(x){{return (x.dataset.gpk||'')+'@'+(x.dataset.room||'');}}).filter(function(k){{return k!=='@';}}).sort().join('|');
   const newKeys=[...doc.querySelectorAll('.pick')].map(function(x){{return (x.dataset.gpk||'')+'@'+(x.dataset.room||'');}}).filter(function(k){{return k!=='@';}}).sort().join('|');
   if(curKeys!==newKeys){{location.reload();return;}}
-  const cd0=document.querySelector('.status'),nd0=doc.querySelector('.status');
+  const cd0=document.querySelector('.status,.rpdate'),nd0=doc.querySelector('.status,.rpdate');
   if(cd0&&nd0&&cd0.textContent.trim()!==nd0.textContent.trim()){{location.reload();return;}}
   /* Sep 26 (data auditor): same membership rule for the combo row - a combo chip added/removed
      between builds forces a full reload, same as per-pick chips. */
@@ -2307,9 +2337,7 @@ def build_game_pages(man, css, build_sha):
             base=kurl if et==tick else kurl.rsplit('-',1)[0]
             # LOCKED-PRICE BAKE (Sep 27 7:47, tester NO-GO): the picked side's baked price is the
             # LOCKED card price from the manifest, never the live board quote pulled at build time.
-            # Live leak: Brewers baked 65c (live at build) vs 69c locked -> game-page parlay math
-            # forked from the manifest (+1390 vs +1306/+1304). Unpicked side may show the live quote;
-            # the card side is always the lock. Client-side ticking still refreshes live.
+            # Unpicked side may show the live quote; the card side is always the lock.
             _lk=(p.get('kalshi') or {}).get('cents')
             if _lk and am and hm:
                 if side=='away': am=(am[0],am[1],_lk)

@@ -1,0 +1,128 @@
+/* RixPicks index v2 - dark shell: intro, nav+tabs, two-column layout, sidebar, ticker */
+:root{--bg:#000;--panel:#101619;--panel2:#0c1214;--line:#1f2f2c;--txt:#f2f5f4;--mut:#8fa39e;--acc:#2aa88f;--acc-deep:#0b6e5f;--live:#3ed67a;--amber:#e0b356;--red:#e5484d}
+body{background:var(--bg);color:var(--txt);min-height:100vh;padding-bottom:34px}
+.wrap{max-width:none;margin:0;padding:0}
+/* intro overlay: in-flow, natural scroll; wordmark parallax-exits via JS transform */
+#rpIntro{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);position:relative}
+#rpIntro .wm{font-weight:800;letter-spacing:-.02em;font-size:clamp(44px,22.5vw,176px);white-space:nowrap;line-height:1;will-change:transform,opacity}
+#rpIntro .wm span{opacity:0;display:inline-block;animation:rplett .5s cubic-bezier(.2,.7,.3,1) forwards}
+#rpIntro .wm span.rx{color:#3BEBF5}
+#rpIntro .wm span:nth-child(1){animation-delay:.02s}#rpIntro .wm span:nth-child(2){animation-delay:.14s}#rpIntro .wm span:nth-child(3){animation-delay:.07s}#rpIntro .wm span:nth-child(4){animation-delay:.22s}#rpIntro .wm span:nth-child(5){animation-delay:.11s}#rpIntro .wm span:nth-child(6){animation-delay:.3s}#rpIntro .wm span:nth-child(7){animation-delay:.17s}#rpIntro .wm span:nth-child(8){animation-delay:.36s}#rpIntro .wm span:nth-child(9){animation-delay:.26s}
+@keyframes rplett{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+#rpIntro .scrolldn{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--mut);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+@media (prefers-reduced-motion: reduce){#rpIntro .wm span{animation:none;opacity:1}#rpIntro .wm{transform:none !important;opacity:1 !important}.tickbar{transition:none !important}.ticktrack{animation:none !important}}
+/* nav */
+nav.rpnav{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:18px;padding:12px 22px;background:rgba(0,0,0,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.rpnav .logo{font-size:18px;font-weight:800;letter-spacing:-.02em;color:var(--txt);text-decoration:none}
+nav.rpnav .logo em{color:#3BEBF5;font-style:normal}
+nav.rpnav .tabs{display:flex;gap:4px;flex:1;justify-content:center}
+nav.rpnav .tab{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);text-decoration:none;padding:8px 14px;border-radius:8px}
+nav.rpnav .tab.active{color:var(--txt);background:var(--panel);box-shadow:inset 0 -2px 0 var(--acc)}
+nav.rpnav .rec{display:flex;gap:10px;font-size:12px;color:var(--mut);font-weight:400;margin:0;padding:0}
+nav.rpnav .rec b{color:var(--acc)}
+#burger{display:none;flex-direction:column;gap:4px;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 9px;cursor:pointer}
+#burger span{display:block;width:16px;height:2px;background:var(--txt);border-radius:2px}
+/* layout */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;max-width:1180px;margin:0 auto;padding:20px 22px 40px}
+.state{display:none}
+body.tab-ncaaf #st-ncaaf,body.tab-nfl #st-nfl,body.tab-mlb #st-mlb,body.tab-nba #st-nba,body.tab-tennis #st-tennis{display:block}
+.state.on{display:block}
+@media(max-width:900px){.layout{grid-template-columns:1fr}
+nav.rpnav{flex-wrap:nowrap;gap:12px;padding:10px 16px}
+#burger{display:flex}
+nav.rpnav .tabs{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:6px 10px 10px}
+body.menu-open nav.rpnav .tabs{display:flex;flex-direction:column;gap:2px}
+nav.rpnav .tabs .tab{padding:10px 12px;font-size:12px}}
+/* sections + cards */
+.sect{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin:20px 0 10px}
+.lghead{color:var(--mut);font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:16px 0 4px;display:flex;align-items:center}
+.state>.lghead:first-of-type{margin-top:6px}
+.lghead span{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+.pick{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px;border-top:1px solid var(--line)}
+.pick-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pick .gamelink{display:flex;align-items:center;gap:10px;flex:1;min-width:0;color:inherit;text-decoration:none}
+.pick .name{font-weight:700;font-size:15px;color:var(--txt)}
+.pick .num{color:var(--mut);font-weight:600;font-size:13px}
+.pick .uo{display:inline-flex;align-items:center;gap:8px}
+.pick .units{font-size:11px;color:var(--mut)}
+.pick .odds{color:var(--acc);font-weight:700;white-space:nowrap}
+.pick .oddslock{color:var(--mut);font-size:10px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
+.pick .rpmetalink{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none}
+.pick .rpchatlink{color:var(--mut)}
+.pick .sub{color:var(--mut);font-size:12px;margin:6px 0 0}
+.pick .rpstart{color:var(--mut);font-size:11px;font-weight:600;margin:2px 0 0}
+.pick .ls{font-size:12px}
+.pick .chips{margin-top:10px}
+.chev{color:var(--mut)}
+/* chips: dark system, brand text (inline light-theme styles overridden) */
+.chip{background:var(--panel2) !important;border:none !important;color:var(--txt) !important;border-radius:9px !important;min-height:0;padding:5px 12px;font-size:12px;font-weight:700}
+.chip[data-book="DK"],.chip[data-bk="DK"]{background:#0b0e11 !important;color:#53d337 !important}
+.chip[data-book="KAL"],.chip[data-bk="KAL"]{background:#0f2a22 !important;color:#3ed0a8 !important}
+.chip[data-book="FD"],.chip[data-bk="FD"]{background:#0d1524 !important;color:#5aa0ea !important}
+.chip[data-book="MGM"],.chip[data-bk="MGM"]{background:#17150c !important;color:#c9a85a !important}
+.chip[data-book="BR"],.chip[data-bk="BR"]{background:#0b1620 !important;color:#38a8d8 !important}
+.chip[data-book="HR"],.chip[data-bk="HR"]{background:#171408 !important;color:#d8b74a !important}
+.chip[data-book="TSB"],.chip[data-bk="TSB"]{background:#0d1b2e !important;color:#4d94ff !important}
+.chip[data-book="POLY"],.chip[data-bk="POLY"]{background:#0c1622 !important;color:#4aa3e8 !important}
+.chip.best{font-weight:800}
+.chip.rpunpriced{opacity:.45}
+.rplineshop{color:var(--mut) !important}
+/* parlay + combo */
+.legs{color:var(--txt);font-size:14px;line-height:1.7}
+.legs a{color:inherit}
+.note{color:var(--mut);font-size:12px;margin-top:6px}
+/* futures + record tail */
+.futrow{border-bottom-color:var(--line) !important;color:var(--txt)}
+a.rec{font-weight:600;font-size:16px;color:var(--txt)}
+.yesrec{color:var(--mut);font-size:13px;margin-top:2px}
+.unitmath{color:var(--mut);font-size:12px;margin-top:8px}
+.foot{margin-top:26px;color:var(--mut);font-size:11px;line-height:1.6}
+.rpstate-link{color:var(--acc);cursor:pointer;text-decoration:underline}
+/* Wooder Ice guest block */
+.rpguest{border:1px dashed #3a4552;border-radius:12px;padding:12px 14px;background:var(--panel2)}
+.rpguest .gtag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;color:#f2f5f4;background:var(--acc-deep);padding:2px 8px;border-radius:6px;margin-bottom:8px}
+.rpnpick{padding:12px 0;border-top:1px solid var(--line)}
+/* sidebar */
+.col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.col-head .sect{margin:2px 0 0}
+.col-head .sub{color:var(--mut);font-size:12px;margin:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.grow{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid var(--line)}
+.grow:first-of-type{border-top:none}
+.gname{font-weight:600;font-size:13px}
+.gsub{font-size:11px;color:var(--mut)}
+.when{font-size:11px;font-weight:700;color:var(--amber);white-space:nowrap}
+.when.live{color:var(--live)}
+.when.fin{color:var(--mut)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--live);margin-right:5px;box-shadow:0 0 6px var(--live)}
+.nitem{padding:10px 0;border-top:1px solid var(--line)}
+.nitem:first-of-type{border-top:none}
+.nitem a{color:inherit;text-decoration:none}
+.src{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.05em;padding:1px 7px;border-radius:5px;background:var(--panel);border:1px solid var(--line);color:var(--mut);margin-right:7px}
+.src.espn{color:#d84a4a}
+.ntxt{font-size:12.5px}
+.nts{font-size:11px;color:var(--mut);margin-top:2px}
+.empty{color:var(--mut);font-size:12px;padding:6px 0}
+/* ticker */
+.tickbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(0,0,0,.96);border-top:1px solid var(--line);padding:7px 0;backdrop-filter:blur(6px);transform:translateY(100%);transition:transform .55s cubic-bezier(.2,.7,.3,1)}
+body.rp-ready .tickbar{transform:translateY(0)}
+.ticktrack{display:inline-flex;align-items:center;white-space:nowrap;animation:tickmove 30s linear infinite;will-change:transform}
+.tickbar:hover .ticktrack{animation-play-state:paused}
+@keyframes tickmove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.titem{font-size:12px;padding:0 10px;color:var(--txt);text-decoration:none}
+.tsrc{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;padding:1px 6px;border-radius:5px;border:1px solid var(--line);margin-right:7px;vertical-align:1px;color:var(--mut)}
+.tsrc.espn{color:#d84a4a}
+.tsep{color:var(--mut)}
+@media(max-width:900px){.tickbar{display:none}body{padding-bottom:0}}
+/* modals + fixed overlays keep working on dark */
+#rpModal .box,#rpA2hs .box{background:var(--panel);border:1px solid var(--line)}
+#rpModal h3,#rpA2hs h3{color:var(--txt)}
+#rpModal p,#rpA2hs ol{color:var(--mut)}
+#rpState{background:var(--panel2);border-color:var(--line);color:var(--txt)}
+#rpShareLoc,#rpA2hsNext{background:var(--acc-deep)}
+#rpA2hsBack{background:var(--panel2);color:var(--txt)}
+#rpPull{background:var(--panel);color:var(--acc)}
+
+.rpdate{color:var(--mut);font-size:12px;letter-spacing:.04em;text-transform:uppercase;margin:4px 0 12px}
+.tsrc.kalshi{color:#2fbf9b}
+.intro{color:var(--mut);font-size:13px;margin:2px 0 10px}

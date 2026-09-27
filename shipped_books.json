@@ -223,7 +223,8 @@
  },
  "__card__": {
   "date": "2026-09-27",
-  "locked": "Sep 26, 7:21 AM PT"
+  "locked": "Sep 27, 7:00 AM PT",
+  "picks_sha": "9724c501b6ae563de12e97a0f2bf425d7de531f78b5c001cfbd5e23eb52ab1aa"
  },
  "Missouri Tigers|Mississippi State Bulldogs|2026-09-26": {
   "BetRivers": {
@@ -297,6 +298,145 @@
    "link": "https://{state}.betrivers.com/?page=sportsbook#event/1024788212",
    "ml": 150,
    "commence": "2026-09-26T23:10:00Z"
+  }
+ },
+ "New York Jets|Detroit Lions|2026-09-27": {
+  "Kalshi": {
+   "link": "https://kalshi.com/markets/kxnflgame/kxnflgame-26sep27nyjdet",
+   "cents": 73,
+   "commence": "2026-09-27T17:00Z"
+  }
+ },
+ "Cincinnati Bengals|Pittsburgh Steelers|2026-09-27": {
+  "Kalshi": {
+   "link": "https://kalshi.com/markets/kxnflgame/kxnflgame-26sep27cinpit",
+   "cents": 62,
+   "commence": "2026-09-27T17:00Z"
+  }
+ },
+ "New York Liberty|Minnesota Lynx|2026-09-27": {
+  "Kalshi": {
+   "link": "https://kalshi.com/markets/kxwnbagame/kxwnbagame-26sep27nymin",
+   "cents": 72,
+   "commence": "2026-09-27T18:00Z"
+  }
+ },
+ "Washington Mystics|Atlanta Dream|2026-09-27": {
+  "Kalshi": {
+   "link": "https://kalshi.com/markets/kxwnbagame/kxwnbagame-26sep27wshatl",
+   "cents": 73,
+   "commence": "2026-09-27T23:00Z"
+  }
+ },
+ "Tampa Bay Rays|Philadelphia Phillies|2026-09-27": {
+  "BetRivers": {
+   "link": "https://{state}.betrivers.com/?page=sportsbook#event/1024788227",
+   "ml": -107,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "DraftKings": {
+   "link": "https://sportsbook.draftkings.com/?outcomes=0ML86466887_1",
+   "ml": -110,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "FanDuel": {
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611161319&selectionId=29175",
+   "ml": -106,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "Hard Rock": {
+   "link": "https://app.hardrock.bet/?deep_link_value=betslip/7814202399123440029",
+   "ml": -110,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "Kalshi": {
+   "link": "https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271505tbphi",
+   "cents": 62,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "BetMGM": {
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=19944862-1558590116-2296849400&type=Single",
+   "ml": -110,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "theScore": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=c103aab5-8ec3-4522-908d-144ca17b816b&odds_numerator[0]=2&odds_denominator[0]=1",
+   "ml": -115,
+   "commence": "2026-09-27T19:05Z"
+  }
+ },
+ "Los Angeles Dodgers|San Francisco Giants|2026-09-27": {
+  "BetRivers": {
+   "link": "https://{state}.betrivers.com/?page=sportsbook#event/1024788203",
+   "ml": -286,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "DraftKings": {
+   "link": "https://sportsbook.draftkings.com/?outcomes=0ML86466879_3",
+   "ml": -289,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "FanDuel": {
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611161323&selectionId=29171",
+   "ml": -310,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "Hard Rock": {
+   "link": "https://app.hardrock.bet/?deep_link_value=betslip/1460628352082772364",
+   "ml": -300,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "Kalshi": {
+   "link": "https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271505ladsf",
+   "cents": 70,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "BetMGM": {
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=19944853-1558589274-2296847474&type=Single",
+   "ml": -285,
+   "commence": "2026-09-27T19:05Z"
+  },
+  "theScore": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=3cd9063c-dd29-4214-80ea-c0cec953d3ff&odds_numerator[0]=2&odds_denominator[0]=1",
+   "ml": -290,
+   "commence": "2026-09-27T19:05Z"
+  }
+ },
+ "St. Louis Cardinals|Milwaukee Brewers|2026-09-27": {
+  "BetRivers": {
+   "link": "https://{state}.betrivers.com/?page=sportsbook#event/1024788207",
+   "ml": -148,
+   "commence": "2026-09-27T19:10Z"
+  },
+  "DraftKings": {
+   "link": "https://sportsbook.draftkings.com/?outcomes=0ML86466885_1",
+   "ml": -163,
+   "commence": "2026-09-27T19:10Z"
+  },
+  "FanDuel": {
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611161324&selectionId=29172",
+   "ml": -164,
+   "commence": "2026-09-27T19:10Z"
+  },
+  "Hard Rock": {
+   "link": "https://app.hardrock.bet/?deep_link_value=betslip/9103143811281977758",
+   "ml": -170,
+   "commence": "2026-09-27T19:10Z"
+  },
+  "Kalshi": {
+   "link": "https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271510stlmil",
+   "cents": 65,
+   "commence": "2026-09-27T19:10Z"
+  },
+  "BetMGM": {
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=19944858-1558589756-2296848535&type=Single",
+   "ml": -160,
+   "commence": "2026-09-27T19:10Z"
+  },
+  "theScore": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=61305402-6203-41b4-b2e6-f099185e129a&odds_numerator[0]=2&odds_denominator[0]=1",
+   "ml": -170,
+   "commence": "2026-09-27T19:10Z"
   }
  }
 }

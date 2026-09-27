@@ -11,16 +11,17 @@ h1{font-size:26px;font-weight:800;letter-spacing:-0.01em}
 h1 .tick{color:#3BEBF5}
 .status{color:#6b6b72;font-size:14px;margin-top:6px}
 .intro{color:#6b6b72;font-size:14px;margin-top:2px}
-.yesrec+.sect{margin-top:6px}.sect+.lghead{margin-top:6px}.sect{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}
+.yesrec+.sect{margin-top:6px}.sect+.lghead{margin-top:6px}
+.lghead span{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}.sect{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}
 .pick{padding:18px 0;border-top:1px solid #e4e2de}
 .pick:first-of-type{border-top:none}
-.pick-head{display:flex;align-items:center;gap:10px}.meta-grp{display:inline-flex;align-items:center;gap:8px;flex:none}.rpmetalink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit}.rpchatlink{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}
+.pick-head{display:flex;align-items:center;gap:10px}.gamelink{flex:1;min-width:0}.meta-grp{display:inline-flex;align-items:center;gap:8px;flex:none}.rpmetalink{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}.uo{display:inline-flex;align-items:center;gap:8px}.oddslock{font-size:10px;letter-spacing:.4px;color:#8a8f98;text-transform:uppercase;white-space:nowrap}.rpchatlink{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}
 .gamelink{display:flex;align-items:center;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}
 .chev{color:#55555c;text-decoration:none}
 .mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}
 .mrow:first-of-type{border-top:none}
 .mrow .bk{font-weight:700;width:52px;flex:none}
-.mrow .side{flex:1}
+.mrow .side{flex:1;min-width:0}
 .mrow .pr{font-weight:600;color:#2f8f7d;white-space:nowrap}
 .mrow a{color:inherit;text-decoration:none}
 .back{color:#6b6b72;font-size:14px;text-decoration:none}
@@ -32,10 +33,12 @@ h1 .tick{color:#3BEBF5}
 .sub{color:#6b6b72;font-size:14px;margin:6px 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:none;color:#1b1b1f;text-decoration:none;font-size:13px;font-weight:600;background:#fff}
+.chip.rpunpriced{opacity:.45}  /* */
 .bklogo{width:16px;height:16px;border-radius:3px;flex:none}
 .chip.best{font-weight:800}
 .rec{font-weight:600;font-size:16px;padding:8px 0 1px}
 .units{color:#8a8f98;font-size:13px;font-weight:600;line-height:1}
+.rpstart{color:#8a8f98;font-size:12px;font-weight:600;line-height:1;margin:2px 0 0}
 .unitmath{color:#8a8f98;font-size:13px;margin-top:8px}
 .legs{padding-left:20px;font-size:15px;line-height:1.7}
 .note{color:#6b6b72;font-size:13px;margin-top:6px}
@@ -51,7 +54,7 @@ h1 .tick{color:#3BEBF5}
 #rpModal h3{font-size:16px;margin-bottom:6px}
 #rpModal p{font-size:13px;color:#6b6b72;margin-bottom:12px}
 #rpState{width:100%;padding:10px;border:1px solid #e4e2de;border-radius:8px;font-size:15px;margin-bottom:12px}
-#rpSave{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+#rpShareLoc{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
 .rpstate-link{color:#2f8f7d;cursor:pointer;text-decoration:underline}
 #rpA2hs{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:60}
 #rpA2hs .box{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%;text-align:center}
@@ -97,7 +100,7 @@ h1 .tick{color:#3BEBF5}
 #rpPull{background:#000;color:#3aa895}
 .spin{border-color:#2a4a44;border-top-color:#3aa895}
 .chip[data-bk="FD"]{background:#12283d !important;border-color:#12283d !important;color:#5aa9e8 !important}
-.chip[data-bk="ESPN"]{background:#0f2e26 !important;border-color:#0f2e26 !important;color:#3ec9a0 !important}
+.chip[data-bk="TSB"]{background:#0d1b2e !important;border-color:#0d1b2e !important;color:#4d94ff !important}
 .chip[data-bk="HR"]{background:#2e2614 !important;border-color:#2e2614 !important;color:#d8b84e !important}
 .chip[data-bk="MGM"]{background:#2b2517 !important;border-color:#2b2517 !important;color:#cdb271 !important}
 .chip[data-bk="BR"]{background:#10262f !important;border-color:#10262f !important;color:#4fc3e8 !important}
@@ -115,23 +118,23 @@ h1 .tick{color:#3BEBF5}
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
 <div class="pick" data-espn="baseball/mlb" data-team="Milwaukee Brewers">
-  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mil.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Milwaukee Brewers</span><span class="odds">101-59</span></div>
-  <div class="sub">Record 101-59 · Streak W3</div>
-  <div class="score" id="rpScore">Today: vs St. Louis Cardinals · 4:10 PM PT</div>
+  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mil.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Milwaukee Brewers</span><span class="odds">102-59</span></div>
+  <div class="sub">Record 102-59 · Streak W4</div>
+  <div class="score" id="rpScore">Today: vs St. Louis Cardinals · 12:10 PM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 8-4 vs STL · 09-25</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 5-1 @ PHI · 09-24</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 4-1 @ PHI · 09-23</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 4-6 @ PHI · 09-22</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 3-0 @ BAL · 09-20</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 3-2 vs STL · 09-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 8-4 vs STL · 09-25</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 5-1 @ PHI · 09-24</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 4-1 @ PHI · 09-23</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 4-6 @ PHI · 09-22</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 5.1 &middot; allowed 3.8 per game over last 160</div>
+<div class="sub" style="padding:7px 0">Scored 5.1 &middot; allowed 3.8 per game over last 161</div>
 <div class="sect">Next up</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs STL · 09-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs STL · 09-27</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs STL · 09-27</div>
 <div class="sect">Injuries</div>
 <div class="sub">None reported.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790401617';
+const RP_BUILD='1790520554';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){
@@ -143,7 +146,8 @@ function rpTick(){try{
    const st=(comp.status||{}).type||{};
    const comps=comp.competitors||[];
    let sc='';
-   comps.forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score||'0');});
+   
+   comps.slice().sort(function(a,b){return (a.homeAway==='home'?1:0)-(b.homeAway==='home'?1:0);}).forEach(function(c){sc+=(sc?' - ':'')+((c.team||{}).abbreviation||'')+' '+(c.score!=null?c.score:'\u2014');});  /* */
    const sline=document.getElementById('rpScore');
    if(sline&&st.state!=='pre'&&sc){sline.textContent=(st.shortDetail||'')+'  |  '+sc;}
   });
@@ -156,4 +160,4 @@ function rpPageRefresh(){try{
 }catch(e){}}
 rpTick();setInterval(rpTick,60000);setInterval(rpPageRefresh,60000);
 </script>
-</body></html>
+<script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script></body></html>

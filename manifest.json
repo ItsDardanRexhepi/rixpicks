@@ -1,7 +1,7 @@
 {
  "date": "2026-09-27",
  "date_label": "Sunday, Sep 27",
- "updated": "Sep 27, 7:17 AM PT",
+ "updated": "Sep 27, 7:48 AM PT",
  "record": "13-6",
  "units_pl": "+3.89u",
  "units_ledger": null,
@@ -10,18 +10,43 @@
  "parlay": {
   "legs": [
    "Lions ML",
-   "Lynx ML"
+   "Bengals ML",
+   "Lynx ML",
+   "Phillies ML",
+   "Dodgers ML",
+   "Brewers ML",
+   "Dream ML"
   ],
-  "label": "BUILD THIS PARLAY (+90)",
-  "note": "Combined ~+90 at publish-time prices.",
+  "label": "BUILD THIS PARLAY (+1306)",
+  "note": "Combined +1306 at publish-time prices.",
   "kalshi_legs": [
    {
     "ticker": "KXNFLGAME-26SEP27NYJDET",
     "side": "DET"
    },
    {
+    "ticker": "KXNFLGAME-26SEP27CINPIT",
+    "side": "CIN"
+   },
+   {
     "ticker": "KXWNBAGAME-26SEP27NYMIN",
     "side": "MIN"
+   },
+   {
+    "ticker": "KXMLBGAME-26SEP271505TBPHI",
+    "side": "PHI"
+   },
+   {
+    "ticker": "KXMLBGAME-26SEP271505LADSF",
+    "side": "LAD"
+   },
+   {
+    "ticker": "KXMLBGAME-26SEP271510STLMIL",
+    "side": "MIL"
+   },
+   {
+    "ticker": "KXWNBAGAME-26SEP27WSHATL",
+    "side": "ATL"
    }
   ]
  },
@@ -51,7 +76,7 @@
    },
    "card_american": -270,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:17:41-07:00",
+   "card_ts": "2026-09-27T07:00:34-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -79,7 +104,7 @@
    },
    "card_american": -163,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:17:41-07:00",
+   "card_ts": "2026-09-27T07:00:34-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -107,7 +132,7 @@
    },
    "card_american": -257,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:17:41-07:00",
+   "card_ts": "2026-09-27T07:00:34-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -135,7 +160,7 @@
    },
    "card_american": -163,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:17:41-07:00",
+   "card_ts": "2026-09-27T07:00:34-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -163,7 +188,7 @@
    },
    "card_american": -233,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:17:41-07:00",
+   "card_ts": "2026-09-27T07:00:34-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -191,7 +216,7 @@
    },
    "card_american": -223,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:17:41-07:00",
+   "card_ts": "2026-09-27T07:00:34-07:00",
    "polymarket": null,
    "dkp": null
   },
@@ -219,10 +244,10 @@
    },
    "card_american": -270,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:17:41-07:00",
+   "card_ts": "2026-09-27T07:00:34-07:00",
    "polymarket": null,
    "dkp": null
   }
  ],
- "pick_content_hash": "40f197f89b12722542b6dfcc2323447395e9cafb6667b9386c2c6694ebac42de"
+ "pick_content_hash": "9724c501b6ae563de12e97a0f2bf425d7de531f78b5c001cfbd5e23eb52ab1aa"
 }
