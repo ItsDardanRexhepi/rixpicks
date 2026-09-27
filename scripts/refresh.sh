@@ -1,6 +1,6 @@
 #!/bin/bash
 # J-049A-safe DK/FD odds refresh (cadence b, user-approved Sep 25): 15-min cron,
-# rebuild only when a card game is live or starts within 2h, lane cap 33 runs/day (~99 credits, 3cr/run; real plan ~20k credits/mo per 9/27 header read); authoritative provider floor via x-requests-remaining.
+# rebuild only when a card game is live or starts within 2h. STANDING RULE (his word 9/27): no cap unless we hit a hard cap ever - no daily/lane cap; the only tripwire is the API plan's own 20,000 credits/month hard limit, enforced fail-loud via core/budget.py (local lane) and the authoritative x-requests-remaining floor below (this lane). Run count kept as telemetry only.
 set -e
 git config user.name "RixPicks Bot"
 git config user.email "rixpicks-bot@users.noreply.github.com"
@@ -9,9 +9,9 @@ TODAY=$(date +%F)
 COUNT_FILE=.odds_refresh_count.json
 COUNT=0
 [ -f "$COUNT_FILE" ] && COUNT=$(python3 -c "import json;d=json.load(open('$COUNT_FILE'));print(d.get('$TODAY',0))")
-if [ "$COUNT" -ge 33 ]; then echo "daily odds-API lane budget (33 runs ~ 99 credits) reached - skip"; exit 0; fi
+# 33/day lane cap REMOVED 9/27 (standing rule: no cap unless hard cap ever); COUNT is telemetry in the commit message
 LASTREM_PRE=$(python3 -c "import json;d=json.load(open('$COUNT_FILE'));print(d.get('last_remaining') or 0)" 2>/dev/null || echo 0)
-if [ "${LASTREM_PRE:-0}" -gt 0 ] && [ "$LASTREM_PRE" -lt 200 ]; then echo "provider quota floor (200 remaining, authoritative x-requests-remaining) - skip"; exit 0; fi
+if [ "${LASTREM_PRE:-0}" -gt 0 ] && [ "$LASTREM_PRE" -lt 200 ]; then echo "HARD CAP TRIPWIRE: provider monthly quota nearly exhausted (200 remaining, authoritative x-requests-remaining) - fail loud per standing rule 9/27" >&2; exit 1; fi
 # Game window check: any picked game live or starting within 2h (ESPN, free)
 # chaos drill (Sep 26): set -e killed quiet windows as red failures before GAME_WINDOW captured
 set +e
@@ -104,7 +104,7 @@ except: pass
 d['$TODAY']=d.get('$TODAY',0)+1
 json.dump(d,open(f,'w'))"
 git add index.html futures.html futures.json slates/nfl_live.json slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json manifest.json manifests/ "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html hist-*.json
-git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1))/33 today)"
+git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1)) today)"
 # chaos drill (Sep 26): a push racing the publish window must retry+rebase, never fail red
 for i in 1 2 3 4 5; do
   if git push; then break; fi
