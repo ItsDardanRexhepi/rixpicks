@@ -1154,7 +1154,7 @@ r'})();</script>')
 # from slates/wooder_first_td.json; hides on missing/invalid. All times PT (owner 9/27 rule).
 nfl_entry+=(
 r'<div style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
-r'<div class="lghead" style="margin-top:0">First TD scorers</div>'
+r'<div class="rpwhead" style="margin-top:0">FIRST TD SCORERS</div>'
 r'<div id="rpFtd"></div>'
 r'</div>'
 r'<script>(function(){'
