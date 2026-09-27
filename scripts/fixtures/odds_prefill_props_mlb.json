@@ -1,0 +1,31 @@
+{
+  "id": "b7c2f1a09e4d4f3c8c1f0aabbccddeef",
+  "sport_key": "baseball_mlb",
+  "commence_time": "2026-09-28T01:05:00Z",
+  "home_team": "Philadelphia Phillies",
+  "away_team": "New York Mets",
+  "bookmakers": [
+    {
+      "key": "draftkings",
+      "title": "DraftKings",
+      "markets": [
+        {
+          "key": "pitcher_strikeouts",
+          "last_update": "2026-09-27T18:00:00Z",
+          "outcomes": [
+            {"name": "Over", "description": "Zack Wheeler", "price": -120, "point": 6.5},
+            {"name": "Under", "description": "Zack Wheeler", "price": 100, "point": 6.5}
+          ]
+        },
+        {
+          "key": "batter_hits",
+          "last_update": "2026-09-27T18:00:00Z",
+          "outcomes": [
+            {"name": "Over", "description": "Trea Turner", "price": -150, "point": 0.5},
+            {"name": "Under", "description": "Trea Turner", "price": 120, "point": 0.5}
+          ]
+        }
+      ]
+    }
+  ]
+}
