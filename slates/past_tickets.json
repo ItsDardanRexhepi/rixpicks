@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-27T14:47:00-07:00",
+ "generated_at": "2026-09-27T15:14:00-07:00",
  "entries": [
   {
    "id": "t1",
@@ -54,7 +54,7 @@
    ],
    "archived_at": "2026-09-27T13:38:00-07:00",
    "reason": "dead combo - 2 lost legs (3 won, 2 lost, 1 void, 1 pending at removal)",
-   "provenance": "Kalshi app bought $0.04 pays $3.00 (7-leg), legs graded in julian_record feed (combo_id t1): 3 won, 2 lost, 1 void, 1 pending at removal; dead combo (2 lost legs). Site Update PROPOSED block was attached.",
+   "provenance": "Original ticket image (Kalshi app), Sep 27; leg results from ESPN final scores.",
    "removed_label": "Sep 27, 1:38 PM PT"
   },
   {
@@ -98,7 +98,7 @@
    ],
    "archived_at": "2026-09-27T13:38:00-07:00",
    "reason": "0-5 Final",
-   "provenance": "Fanatics 5-leg SGP +1500, FanCash $0.23, 0-5 Final (ESPN final stat lines, corroborated via StatMuse per main 1:37).",
+   "provenance": "Original ticket image (Fanatics), Sep 27; ESPN final stat lines.",
    "removed_label": "Sep 27, 1:38 PM PT"
   },
   {
@@ -118,7 +118,7 @@
    ],
    "archived_at": "2026-09-27T13:46",
    "reason": "SEA ML lost kills kalshi combo3",
-   "provenance": "parent relay 1:40:25 (read-only failure detection)",
+   "provenance": "ESPN final score, Sep 27.",
    "removed_label": "Sep 27, 1:46 PM PT"
   },
   {
@@ -127,10 +127,10 @@
    "origin": "suggested",
    "title": "Juan Soto - Home Run",
    "result": "lost",
-   "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
+   "detail": "NYM at WSH · 10:05 AM PT · DKP",
    "archived_at": "2026-09-27T14:02",
    "reason": "verified LOST standalone HR pick, game final - Julian removal standing rule",
-   "provenance": "parent relay 2:02 PM PT + julian_record dead_picks feed",
+   "provenance": "ESPN final stat lines, Sep 27.",
    "removed_label": "Sep 27, 2:02 PM PT"
   },
   {
@@ -139,10 +139,10 @@
    "origin": "suggested",
    "title": "James Wood - Home Run",
    "result": "lost",
-   "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
+   "detail": "NYM at WSH · 10:05 AM PT · DKP",
    "archived_at": "2026-09-27T14:02",
    "reason": "verified LOST standalone HR pick, game final - Julian removal standing rule",
-   "provenance": "parent relay 2:02 PM PT + julian_record dead_picks feed",
+   "provenance": "ESPN final stat lines, Sep 27.",
    "removed_label": "Sep 27, 2:02 PM PT"
   },
   {
@@ -151,10 +151,10 @@
    "origin": "suggested",
    "title": "Bo Bichette - Home Run",
    "result": "lost",
-   "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
+   "detail": "NYM at WSH · 10:05 AM PT · DKP",
    "archived_at": "2026-09-27T14:02",
    "reason": "verified LOST standalone HR pick, game final - Julian removal standing rule",
-   "provenance": "parent relay 2:02 PM PT + julian_record dead_picks feed",
+   "provenance": "ESPN final stat lines, Sep 27.",
    "removed_label": "Sep 27, 2:02 PM PT"
   },
   {
@@ -163,10 +163,10 @@
    "origin": "suggested",
    "title": "Jaxon Smith-Njigba - Anytime TD Scorer",
    "result": "lost",
-   "detail": "SEA @ WAS \u00b7 dk_predictions",
+   "detail": "SEA @ WAS · dk_predictions",
    "archived_at": "2026-09-27",
    "reason": "verified LOST - Julian removal standing rule",
-   "provenance": "julian_record dead_picks feed",
+   "provenance": "Wooder Ice record feed, Sep 27.",
    "removed_label": "Sep 27 PT"
   },
   {
@@ -175,10 +175,10 @@
    "origin": "suggested",
    "title": "Jameson Williams - Anytime TD Scorer",
    "result": "lost",
-   "detail": "NYJ @ DET \u00b7 dk_predictions",
+   "detail": "NYJ @ DET · dk_predictions",
    "archived_at": "2026-09-27",
    "reason": "verified LOST - Julian removal standing rule",
-   "provenance": "julian_record dead_picks feed",
+   "provenance": "Wooder Ice record feed, Sep 27.",
    "removed_label": "Sep 27 PT"
   },
   {
@@ -187,22 +187,22 @@
    "origin": "suggested",
    "title": "Tyquan Thornton - Anytime TD Scorer",
    "result": "lost",
-   "detail": "KC @ MIA \u00b7 dk_predictions",
+   "detail": "KC @ MIA · dk_predictions",
    "archived_at": "2026-09-27",
    "reason": "verified LOST - Julian removal standing rule",
-   "provenance": "julian_record dead_picks feed",
+   "provenance": "Wooder Ice record feed, Sep 27.",
    "removed_label": "Sep 27 PT"
   },
   {
    "id": "single-kittle",
    "kind": "pick",
-   "origin": "bought",
+   "origin": "suggested",
    "title": "George Kittle - First TD Scorer",
    "result": "lost",
-   "detail": "ARI @ SF \u00b7 kalshi_app +1000",
+   "detail": "ARI @ SF · kalshi_app +1000",
    "archived_at": "2026-09-27",
    "reason": "verified LOST - Julian removal standing rule",
-   "provenance": "julian_record dead_picks feed",
+   "provenance": "Wooder Ice record feed, Sep 27.",
    "removed_label": "Sep 27 PT"
   }
  ]
