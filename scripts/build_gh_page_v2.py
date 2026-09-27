@@ -1551,16 +1551,15 @@ if _V2:
     # Shared data: same slates/*.json hydration, no divergent state. Dingers stays on the MLB tab.
     RP_TABS.append({'key':'wooder','label':'Picks from Wooder Ice','espn':''})
 
-    RP_TABS.append({'key':'past','label':'Past Tickets','espn':''})
     # Past Tickets archive (Julian 1:33 spec via main, Dardan full-control): completed/removed picks
-    # and tickets with All/Won/Lost filters. Original selection, odds, result, provenance preserved -
+    # and tickets with All/Won/Lost filters. Original selection, result, provenance preserved -
     # nothing deleted, just moved. BOUGHT stays visually distinct from SUGGESTED forever; voids render
     # as their own state, never forced Won/Lost; no settlement/payout implications. Client-hydrated
     # from slates/past_tickets.json; honest empty/unavailable states, nothing invented.
     past_entry=(
     r'<div style="margin-top:6px">'
     r'<div class="sect">Past Tickets</div>'
-    r'<div class="sub" style="margin-bottom:10px">Archive of completed and removed Wooder Ice picks and tickets. Original selection, odds, result and provenance preserved - nothing is deleted, just moved. No settlement or payout implications.</div>'
+    r'<div class="sub" style="margin-bottom:10px">Archive of completed and removed Wooder Ice picks and tickets. Original selection, result and provenance preserved - nothing is deleted, just moved. No settlement or payout implications.</div>'
     r'<div id="rpPastBar" style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap"></div>'
     r'<div id="rpPastBox"></div>'
     r'</div>'
@@ -1581,7 +1580,7 @@ if _V2:
     r'return "<div style=\"font-size:13px;padding:3px 0\">"+dt+"<b>"+esc(l.player)+"</b>"+(l.market?(" <span style=\"color:#8a8f98\">"+esc(l.market)+"</span>"):"")+(l.matchup?(" <span style=\"color:#8a8f98\">&middot; "+esc(l.matchup)+"</span>"):"")+(l.time?(" <span style=\"color:#8a8f98\">&middot; "+esc(l.time)+"</span>"):"")+"</div>";'
     r'}).join("");'
     r'h+="<div style=\"border:1px solid rgba(127,127,127,.22);border-radius:12px;padding:11px 12px;margin-bottom:10px\">"'
-    r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px\"><span><b>"+esc(e.title)+"</b>"+badge(e)+"</span>"+rbadge(e.result)+"</div>"'
+    r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px\"><span style=\"min-width:0\"><b>"+esc(e.title)+"</b>"+badge(e)+"</span><span style=\"flex:0 0 auto;margin-left:auto;padding-left:8px\">"+rbadge(e.result)+"</span></div>"'
     r'+(e.detail?("<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(e.detail)+"</div>"):"")'
     r'+(legs?("<div style=\"margin-top:6px\">"+legs+"</div>"):"")'
     r'+"<div style=\"font-size:11px;color:#8a8f98;margin-top:8px\">Removed "+esc(e.removed_label||e.archived_at||"")+" &middot; "+esc(e.reason||"")+"</div>"'
@@ -1666,7 +1665,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
 
     for t in RP_TABS:
         _prows=''.join(_panels.get(t['key']) or [])
-        _body=(_prows if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows)))))
+        _body=(_prows if t['key']=='nfl' else (((nfl_entry+past_entry) if t['key']=='wooder' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows))))
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
