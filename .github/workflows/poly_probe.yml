@@ -1,0 +1,57 @@
+name: poly-probe
+# Evidence run for the authenticated-Polymarket rewire (main Sep 27 2:02): one authenticated
+# gateway read + the legacy public gamma read of the SAME event, timestamps, printed to the log.
+# Read-only. No secrets are printed - only whether auth succeeded and the price shape.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: probe authenticated gateway vs public gamma
+        env:
+          POLYMARKET_API_KEY_ID: ${{ secrets.POLYMARKET_API_KEY_ID }}
+          POLYMARKET_API_SECRET: ${{ secrets.POLYMARKET_API_SECRET }}
+        run: |
+          pip install -q cryptography
+          python3 - <<'PY'
+          import json, sys, datetime, urllib.request
+          sys.path.insert(0, 'scripts')
+          import poly_us
+          slug = 'nfl-nyj-det-2026-09-27'
+          now = datetime.datetime.utcnow().isoformat(timespec='seconds') + 'Z'
+          print('probe utc:', now)
+          if not poly_us._headers('GET', '/v1/events/slug/' + slug):
+              print('AUTH: FAIL - secrets missing or unreadable')
+              raise SystemExit(1)
+          print('AUTH: headers minted OK (key id present, signature minted)')
+          ev = poly_us.event_by_slug(slug)
+          if not ev:
+              print('GATEWAY READ: FAIL - no event returned')
+              raise SystemExit(1)
+          mkts = ev.get('markets') or []
+          ml = [m for m in mkts if (m.get('marketType') or '').lower() == 'moneyline']
+          print('GATEWAY READ: OK - event', ev.get('slug'), '| markets:', len(mkts), '| moneyline:', len(ml))
+          cents = poly_us.pick_side_cents(ev, ['Lions', 'Detroit'])
+          print('GATEWAY moneyline pick-side cents (Lions/Detroit):', cents)
+          # BEFORE: legacy public gamma read of the same slug
+          try:
+              g = json.load(urllib.request.urlopen(
+                  'https://gamma-api.polymarket.com/events?slug=' + slug, timeout=12))
+              gm = (g[0].get('markets') or []) if g else []
+              gml = [m for m in gm if (m.get('sportsMarketType') or '') == 'moneyline']
+              print('GAMMA (before): events:', len(g), '| moneyline markets:', len(gml))
+              if gml:
+                  print('GAMMA moneyline outcomes:', gml[0].get('outcomes'), 'prices:', gml[0].get('outcomePrices'))
+          except Exception as e:
+              print('GAMMA (before): fetch failed -', type(e).__name__)
+          gs = poly_us.gamma_shaped(slug)
+          print('GAMMA-SHAPED adapter:', 'OK' if gs else 'FAIL', '| markets:', len(gs[0]['markets']) if gs else 0)
+          print('PROBE RESULT:', 'PASS' if (ev and cents is not None) else 'PARTIAL (event ok, cents missing)')
+          PY
