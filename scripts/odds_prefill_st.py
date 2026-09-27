@@ -33,7 +33,7 @@ for sport in sys.argv[1:]:
     print(f"{sport}: {len(data)} events, credits remaining {rem}", file=sys.stderr)
     for e in data:
         key = (e['away_team'], e['home_team'], e.get('commence_time'))
-        rec = out.setdefault(key, {'provider_event_id': e.get('id'), 'books': {}})
+        rec = out.setdefault(key, {'provider_event_id': e.get('id'), 'sport': sport, 'books': {}})
         for b in e.get('bookmakers', []):
             ent = {}
             for m in b.get('markets', []):
@@ -46,7 +46,30 @@ for sport in sys.argv[1:]:
                         if o['name'] == 'Over': ent['total_pts'] = o.get('point'); ent['over_price'] = o.get('price')
                         elif o['name'] == 'Under': ent['under_price'] = o.get('price')
             if ent: rec['books'][b['key']] = ent
-json.dump([{'away': k[0], 'home': k[1], 'commence': k[2],
-            'provider_event_id': v['provider_event_id'], 'books': v['books']} for k, v in out.items()],
-          open(OUT, 'w'))
+rows = [{'away': k[0], 'home': k[1], 'commence': k[2], 'sport': v['sport'],
+         'provider_event_id': v['provider_event_id'], 'books': v['books']} for k, v in out.items()]
+json.dump(rows, open(OUT, 'w'))
+# Pregame snapshot (fair-model input): first pull BEFORE a game's commence freezes its lines
+# forever; in-window refreshes carry live lines (grading fodder) and never touch the snapshot.
+SNAP = os.environ.get('ODDS_PREFILL_ST_SNAPSHOT')
+if SNAP:
+    from datetime import datetime, timezone
+    now = datetime.now(timezone.utc)
+    try: snap_list = json.load(open(SNAP))
+    except Exception: snap_list = []
+    snap = {}
+    for r0 in snap_list:
+        gk0 = '|'.join([r0.get('sport', ''), r0['away'], r0['home'], r0.get('commence') or ''])
+        snap[gk0] = r0
+    for r in rows:
+        gk = '|'.join([r['sport'], r['away'], r['home'], r['commence'] or ''])
+        if gk in snap: continue
+        try:
+            ct = datetime.fromisoformat((r['commence'] or '').replace('Z', '+00:00'))
+        except Exception:
+            continue
+        if ct > now:
+            snap[gk] = {**r, 'snapshot_at': now.isoformat()}
+    json.dump(list(snap.values()), open(SNAP, 'w'))
+    print(f"snapshot: {len(snap)} frozen pregame games -> {SNAP}", file=sys.stderr)
 print(f"wrote {OUT} ({len(out)} games)")
