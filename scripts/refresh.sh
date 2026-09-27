@@ -53,7 +53,7 @@ python3 scripts/odds_prefill.py $SPORTS
 python3 scripts/move_cause.py || true
 # Sep 26 live regression (hunter 7:25 AM): refresh rebuilds must never move record/units -
 # RP_REFRESH=1 pins them from the live page; only an approved publish sets them from the manifest.
-RP_REFRESH=1 python3 scripts/build_gh_page.py manifest.json index.html
+RP_REFRESH=1 python3 scripts/build_gh_page_v2.py manifest.json index.html
 python3 scripts/backfill_history.py || true
 if git diff --quiet index.html game-*.html odds_moves.jsonl .odds_prev.json price_history.jsonl 2>/dev/null; then echo "no price movement - no commit"; exit 0; fi
 python3 -c "
