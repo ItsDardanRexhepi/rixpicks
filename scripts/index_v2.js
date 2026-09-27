@@ -86,6 +86,7 @@ function activate(key,skipHash){
  tailFilter(t.key);
  loadSide(t);
  if(!skipHash){try{history.replaceState(null,'','#'+t.key);}catch(e){}}
+ try{localStorage.setItem('rp_tab',t.key);}catch(e){}
  /* tester Sep 27 (Phillies/Brewers repro): rpBestStar/rpLineShop skip chips on hidden panels
     (offsetParent gate), so a freshly activated panel carried no star/range until the next 30s
     tick. Recompute both on every tab activation; guarded - these exist only on the card page. */
@@ -339,7 +340,7 @@ function loadSide(t){
 setInterval(function(){if(cur&&!document.hidden)loadSide(cur);},30000);
 setInterval(function(){if(cur&&!document.hidden&&NEWSF){renderNews(cur,newsBucket(cur));tickRender();}},30000);
 /* ---- boot ---- */
-var start=fromHash();
+var start=fromHash()||(function(){try{return localStorage.getItem('rp_tab');}catch(e){return null;}})();
 if(!start){
  for(var i=0;i<TABS.length;i++){var p=$('st-'+TABS[i].key);if(p&&p.querySelector('.pick:not(.rp-empty)')){start=TABS[i].key;break;}}
  if(!start&&TABS.length)start=TABS[0].key;
