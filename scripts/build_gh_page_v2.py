@@ -2554,11 +2554,11 @@ def build_team_pages(man, css, build_sha):
                         ms=_sc(me); os_=_sc(opp)
                         if ms is None or os_ is None: continue
                         wl='W' if ms>os_ else ('L' if ms<os_ else 'T')
-                        last5.append('%s %d-%d %s %s Â· %s'%(wl,ms,os_,loc,opp_nm,dt[5:]))
+                        last5.append('%s %d-%d %s %s · %s'%(wl,ms,os_,loc,opp_nm,dt[5:]))
                         runs_for+=ms; runs_against+=os_; n_scored+=1
                     else:
                         import datetime as _d
-                        if dt >= str(_d.date.today()) and len(upcoming)<3: upcoming.append('%s %s Â· %s'%(loc,opp_nm,dt[5:]))
+                        if dt >= str(_d.date.today()) and len(upcoming)<3: upcoming.append('%s %s · %s'%(loc,opp_nm,dt[5:]))
                 last5=last5[-5:]
                 if last5:
                     streak=last5[-1][0]
@@ -2581,19 +2581,19 @@ def build_team_pages(man, css, build_sha):
                     ath=(it.get('athlete') or {}).get('displayName','?')
                     stat=str(it.get('status') or '')
                     det=str(it.get('type') or it.get('description') or '')[:60]
-                    injuries.append('%s Â· %s%s'%(ath,stat,(' - '+det) if det else ''))
+                    injuries.append('%s · %s%s'%(ath,stat,(' - '+det) if det else ''))
             except Exception: pass
         form_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in reversed(last5)) or '<div class="sub">No recent games found.</div>'
         avgs_html=('<div class="sub" style="padding:7px 0">Scored %.1f &middot; allowed %.1f per game over last %d</div>'%(runs_for/n_scored,runs_against/n_scored,n_scored)) if n_scored else '<div class="sub">Not enough recent games.</div>'
         next_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in upcoming) or '<div class="sub">No upcoming games listed.</div>'
         inj_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in injuries) or '<div class="sub">None reported.</div>'
-        tagline=' Â· '.join(x for x in [rec and ('Record '+rec), streak and ('Streak '+streak)] if x)
+        tagline=' · '.join(x for x in [rec and ('Record '+rec), streak and ('Streak '+streak)] if x)
         today=''
         for p in man.get('picks',[]):
             g=p.get('game') or {}
             if name in (g.get('away',''),g.get('home','')):
                 opp=g.get('home') if g.get('away')==name else g.get('away')
-                today='Today: %s %s Â· %s'%(('vs' if g.get('home')==name else '@'),opp,_pt_label(g.get('commence','')))
+                today='Today: %s %s · %s'%(('vs' if g.get('home')==name else '@'),opp,_pt_label(g.get('commence','')))
         page=tmpl
         for tok,val in [('__TEAM__',html.escape(name)),('__CSS__',css),('__RECORD__',html.escape(rec)),
             ('__TAGLINE__',html.escape(tagline)),('__TODAY__',html.escape(today)),('__LOGO__',logo_html),
