@@ -18,11 +18,12 @@ def gh(path, method='GET', fields=None, raw=False):
 
 
 BUDGET_COST = {'odds-refresh': 3, 'extras-sweep': 3, 'nfl-scores-confirm': 1}
-BUDGET_CAP = 100
+SOFT_DAILY_TARGET = 100  # soft discipline target across consumers (main 12:11) - NOT a hard cap; audits: over-target runs are valid. Hard guardrail = provider x-requests-remaining floor.
 
 def odds_spend_today():
-    """Conservative daily Odds-API spend across all consumers: max(git commit counter,
-    runs-based estimate). PT day boundary (PDT = UTC-7)."""
+    """Conservative daily Odds-API spend estimate (soft-target accounting only, main
+    12:11 - NOT a hard cap; the provider x-requests-remaining floor is the hard gate).
+    max(git commit counter, runs-based estimate). PT day boundary (PDT = UTC-7)."""
     import re as _re
     now_utc = datetime.datetime.now(datetime.timezone.utc)
     pt = now_utc - datetime.timedelta(hours=7)
@@ -94,11 +95,13 @@ if not skip:
     diag['provider_remaining'] = prem
     if prem is not None and prem < 100:
         skip.append('provider quota low: %s remaining (authoritative header)' % prem)
-if not skip and wf in BUDGET_COST:
+if wf in BUDGET_COST:
     spend = odds_spend_today()
     diag['odds_spend_today'] = spend
-    if spend + BUDGET_COST[wf] > BUDGET_CAP:
-        skip.append('Odds-API daily budget: %d/%d spent, retry costs %d' % (spend, BUDGET_CAP, BUDGET_COST[wf]))
+    # soft target only: recorded for accounting, never blocks a retry (main 12:11);
+    # the provider floor above is the only hard budget gate.
+    if spend + BUDGET_COST[wf] > SOFT_DAILY_TARGET:
+        diag['budget_note'] = 'over soft daily target (%d/%d) - discipline only, not a violation' % (spend, SOFT_DAILY_TARGET)
 if skip:
     diag['decision'] = 'no auto-retry: ' + ', '.join(skip)
 else:
