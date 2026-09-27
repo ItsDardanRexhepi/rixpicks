@@ -77,7 +77,7 @@ def _pick_content_hash(m):
     # operational fields, audit before extending): num (build-assigned display order), result and
     # _final (post-settlement grading state, not pick content), polycents (live Polymarket price
     # snapshot), kalshi.cents (live Kalshi ask snapshot - the gate re-checks it live anyway),
-    _EXCL_TOP={'num','result','_final','polycents'}
+    _EXCL_TOP={'num','result','_final','polycents','card_ts'}
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
@@ -230,10 +230,21 @@ def poly_price(url,kw,won_ok=False):
     slug=poly_event_slug(url)
     if not slug: return None
     try:
-        import urllib.request
-        req=urllib.request.Request(f'https://gamma-api.polymarket.com/events?slug={slug}',headers={'User-Agent':'Mozilla/5.0'})
-        with urllib.request.urlopen(req,timeout=10) as r:
-            ev=json.load(r)
+        # Authenticated POLY transport (owner directive Sep 27): gateway.polymarket.us signed reads
+        # are primary whenever POLYMARKET_API_KEY_ID/SECRET are present (CI). Secrets present but the
+        # read failing -> fail closed (None), NEVER a silent public fallback on authed runners.
+        # No secrets (local verification builds) -> legacy public gamma, so chip presence stays true.
+        import os as _pos, sys as _psys
+        _psys.path.insert(0, _pos.path.dirname(_pos.path.abspath(__file__)))
+        import poly_us as _pus
+        if _pos.environ.get('POLYMARKET_API_KEY_ID') and _pos.environ.get('POLYMARKET_API_SECRET'):
+            ev=_pus.gamma_shaped(slug)
+            if not ev: return None
+        else:
+            import urllib.request
+            req=urllib.request.Request(f'https://gamma-api.polymarket.com/events?slug={slug}',headers={'User-Agent':'Mozilla/5.0'})
+            with urllib.request.urlopen(req,timeout=10) as r:
+                ev=json.load(r)
         if not ev: return None
         kwl=kw.lower(); sub=poly_sub(url); mkts=ev[0].get('markets') or []
         target=None
@@ -2650,12 +2661,9 @@ def build_game_pages(man, css, build_sha):
                 chv=(_pf if side=='home' else None)
             else:
                 ca=(poly_price(p['polymarket']['url'],akw) if _POLY_US_PRICED else None); chv=(poly_price(p['polymarket']['url'],hkw) if _POLY_US_PRICED else None)  # P1
-            pvol=0.0
-            try:
-                import urllib.request
-                _ev=_espn_get('https://gamma-api.polymarket.com/events?slug='+slug)
-                if _ev: pvol=float(_ev[0].get('volume') or _ev[0].get('volumeNum') or 0)
-            except Exception: pass
+            pvol=0.0  # gateway.polymarket.us events carry NO volume field - pvol stays 0 on authed
+            # reads (reported to main Sep 27); the legacy gamma volume probe is retired with the public feed.
+
             if ca or chv:
                 la=c2ml(ca) if ca else 'POLY'  # board price cells are price-only (390px fit); bare book name when the side was never priced
                 lh=c2ml(chv) if chv else 'POLY'
