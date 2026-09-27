@@ -1,0 +1,135 @@
+{
+ "date_label": "Saturday, Sep 26",
+ "status_note": "FINAL. KAL chips work in California; FD/DK chips one-tap in legal states.",
+ "record": "13-6",
+ "updated": "Sep 26, 7:21 AM PT",
+ "picks": [
+  {
+   "num": 1,
+   "name": "Toledo ML",
+   "sub": "vs San Diego St · home · model 64.9, independents 60-66 · exchange 56.5-57c",
+   "odds": "-137",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "San Diego State Aztecs",
+    "home": "Toledo Rockets",
+    "commence": "2026-09-26T16:00Z",
+    "eid": "401860893"
+   },
+   "espn_league": "football/college-football",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26sdsutol",
+    "cents": 57,
+    "team": "Toledo",
+    "gate_cents": 57
+   },
+   "polymarket": {
+    "url": "https://polymarket.com/event/cfb-sdst-toledo-2026-09-26"
+   },
+   "dkp": null,
+   "dkp_note": "no DKP solo market matched at harvest 2026-09-26T13:27-07:00 (game started/final = DK delists in-play)"
+  },
+  {
+   "num": 2,
+   "name": "Nebraska ML",
+   "sub": "at Michigan St · model + independents converge ~72 · MSU missing 6 incl. LB Pretzlaff",
+   "odds": "-225",
+   "units": "10u",
+   "side": "away",
+   "game": {
+    "away": "Nebraska Cornhuskers",
+    "home": "Michigan State Spartans",
+    "commence": "2026-09-26T21:00Z",
+    "eid": "401858464"
+   },
+   "espn_league": "football/college-football",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26nebmsu",
+    "cents": 67,
+    "team": "Nebraska"
+   },
+   "polymarket": {
+    "url": "https://polymarket.com/event/cfb-nebr-mst-2026-09-26"
+   },
+   "dkp": {
+    "home_cents": 33,
+    "away_cents": 68,
+    "derived": false,
+    "url": "https://predictions.draftkings.com/en/event/nebraska-%40-michigan-state/34674742",
+    "harvested": "2026-09-26T13:27-07:00",
+    "team_cents": 68
+   }
+  },
+  {
+   "num": 3,
+   "name": "Mississippi St ML",
+   "sub": "vs Missouri · Mizzou missing starting EDGE + RB Hardy",
+   "odds": "-205",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "Missouri Tigers",
+    "home": "Mississippi State Bulldogs",
+    "commence": "2026-09-26T23:45Z",
+    "eid": "401856703"
+   },
+   "espn_league": "football/college-football",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxncaafgame/college-football-game/kxncaafgame-26sep26mizzmsst",
+    "cents": 63,
+    "team": "Mississippi St.",
+    "gate_cents": 63
+   },
+   "dkp": {
+    "home_cents": 64,
+    "away_cents": 39,
+    "derived": false,
+    "url": "https://predictions.draftkings.com/en/event/missouri-%40-mississippi-state/34674790",
+    "harvested": "2026-09-26T15:54-07:00",
+    "team_cents": 64
+   },
+   "locked": "Sep 26, 3:52 PM PT",
+   "polymarket": {
+    "url": "https://polymarket.com/event/cfb-missr-mspst-2026-09-26"
+   }
+  }
+ ],
+ "parlay": {
+  "legs": [
+   "Toledo ML",
+   "Nebraska ML"
+  ],
+  "label": "BUILD THIS PARLAY (+162)",
+  "note": "38.2c combined at publish-time exchange asks (~+162).",
+  "kalshi_legs": [
+   {
+    "ticker": "KXNCAAFGAME-26SEP26SDSUTOL",
+    "side": "TOL",
+    "cents": 57
+   },
+   {
+    "ticker": "KXNCAAFGAME-26SEP26NEBMSU",
+    "side": "NEB",
+    "cents": 67
+   }
+  ],
+  "poly_legs": [
+   {
+    "url": "https://polymarket.com/event/cfb-sdst-toledo-2026-09-26",
+    "kw": "Toledo"
+   },
+   {
+    "url": "https://polymarket.com/event/cfb-nebr-mst-2026-09-26",
+    "kw": "Nebraska"
+   }
+  ]
+ },
+ "yesterday": "2-1 · Orioles W · Guardians W · Astros L",
+ "units_pl": "+3.89u",
+ "display_only": true,
+ "pick_content_hash": "3e15b021a77c1dcd4548aca4a96b3348fe7754f34341802c4d67c51ba66f4eb8"
+}
