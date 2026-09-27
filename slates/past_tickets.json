@@ -104,7 +104,7 @@
     {
       "id": "t2",
       "kind": "ticket",
-      "origin": "bought",
+      "origin": "unconfirmed",
       "title": "5 Pick Parlay",
       "result": "lost",
       "detail": "+1609 · boosted +2013 (+25% Parlay Boost)",
@@ -141,7 +141,7 @@
         }
       ],
       "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Combo lost - Herbert and White legs lost, games final",
+      "reason": "Combo lost - Herbert and White legs lost, games final (origin label unconfirmed pending owner check)",
       "provenance": "Original ticket record (Wooder Ice tickets ledger), Sep 27; leg results from ESPN final scores.",
       "removed_label": "Sep 27, 3:52 PM PT"
     },
@@ -338,10 +338,10 @@
       "kind": "pick",
       "origin": "suggested",
       "title": "Pete Crow-Armstrong - Home Run",
-      "result": "removed",
+      "result": "pending",
       "detail": "CHC at BOS · 12:05 PM PT · DKP",
       "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Dingers card settled dead - removed with the card; pick outcome not separately graded",
+      "reason": "Game final (CHC 6-2) - leg not yet graded; entry will update when graded",
       "provenance": "Original Wooder Ice Dingers card, Sep 27.",
       "removed_label": "Sep 27, 3:52 PM PT"
     }
