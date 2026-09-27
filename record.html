@@ -186,6 +186,6 @@ h1 .tick,.od,.back{color:#3aa895}
 
 </div>
 <div class="brief"><span class="bt">What the system learned</span>Split the day 4-4 and still lost 14.44u. The three MLB losses were two shutouts and a blowout - read failures the gate has to catch earlier. The WNBA lesson was pure math: massive minus prices risk a lot to win pennies, and one overtime loss at -1011 cost more than six times what both WNBA wins paid. Chalk sizing rules tightened from this day.</div>
-<script>(function(){function up(j){if(!j||typeof j.w!=='number'||typeof j.l!=='number')return;var el=document.getElementById('rpOverall');if(el)el.textContent=j.w+'-'+j.l;var u=document.getElementById('rpOverallU');if(u&&typeof j.units==='number')u.textContent=(j.units>=0?'+':'')+j.units.toFixed(2)+'u';}function go(){fetch('https://api.rix-picks.com/record').then(function(r){return r.ok?r.json():null;}).then(up).catch(function(){});}go();setInterval(go,60000);})();</script>
+<script>(function(){function up(j){if(!j)return;var m=/^([0-9]+)-([0-9]+)/.exec(j.record||'');if(!m)return;var el=document.getElementById('rpOverall');if(el)el.textContent=m[1]+'-'+m[2];var u=document.getElementById('rpOverallU');if(u&&j.units_pl){var v=parseFloat(String(j.units_pl).replace('u',''));if(!isNaN(v))u.textContent=(v>=0?'+':'')+v.toFixed(2)+'u';}}function go(){fetch('manifest.json?cb='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(up).catch(function(){});}go();setInterval(go,60000);})();</script>
 <div class="foot">Bet responsibly.</div>
 </div></body></html>
