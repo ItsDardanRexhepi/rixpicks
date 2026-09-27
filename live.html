@@ -60,6 +60,7 @@ function render(j){
   +(sit?'<div class="sit">'+esc(sit)+'</div>':"");
  scoreEl.innerHTML=h;
  var sp=j.scoringPlays||[];
+ if(!sp.length){sp=(j.plays||[]).filter(function(p){return p&&p.scoringPlay===true;});}  /* swamp 1:28: MLB summaries carry scoring only in plays[] with scoringPlay=true - fall back instead of "No scoring yet" on a 7-run game */
  if(!sp.length){playsEl.innerHTML='<div class="empty">'+(state==="pre"?"Game has not started.":"No scoring yet.")+'</div>';}
  else{playsEl.innerHTML=sp.slice().reverse().map(function(p){
    return '<div class="play">'+(p.period&&p.clock?'<span class="ph">'+esc((p.period.displayValue||("P"+p.period.number))+" "+(p.clock.displayValue||""))+'</span>':"")+esc(p.text||"")+(p.awayScore!=null?' <span class="ph">'+p.awayScore+"-"+p.homeScore+"</span>":"")+'</div>';
