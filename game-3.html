@@ -241,7 +241,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <div id="rpPtr" style="display:none;text-align:center;font-size:12px;color:#8a8f98;padding:8px 0"><span style="display:inline-block;width:14px;height:14px;border:2px solid #2a4a44;border-top-color:#3aa895;border-radius:50%;animation:rpspin .8s linear infinite;vertical-align:-2px"></span> <span id="rpPtrTxt">refreshing&hellip;</span></div>
 <div class="sect" style="margin-top:18px">Game 3</div>
 <div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 4px;text-align:center"><a href="team-missouri-tigers.html" style="flex:1;text-decoration:none;color:inherit"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/142.png" alt="" style="width:54px;height:54px;object-fit:contain" onerror="this.remove()"><div style="font-weight:700;margin-top:4px">MIZ</div></a><div style="flex:1.6"><div style="font-size:18px;font-weight:800">Tigers vs Bulldogs</div><div class="sub" style="margin-top:3px">4:45 PM PT</div></div><a href="team-mississippi-state-bulldogs.html" style="flex:1;text-decoration:none;color:inherit"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/344.png" alt="" style="width:54px;height:54px;object-fit:contain" onerror="this.remove()"><div style="font-weight:700;margin-top:4px">MSST</div></a></div>
-<div class="pick" data-espn="football/college-football" data-eid="401856703" data-gpk="" data-aab="" data-hab="" data-room="g3-2026-09-26" data-away="Missouri Tigers" data-home="Mississippi State Bulldogs" data-side="home" data-market="ml">
+<div class="pick" data-espn="football/college-football" data-eid="401856703" data-gpk="" data-aab="MIZ" data-hab="MSST" data-room="g3-2026-09-26" data-away="Missouri Tigers" data-home="Mississippi State Bulldogs" data-side="home" data-market="ml">
   <div class="pick-head"><span class="num">3.</span><span class="name">Mississippi St ML</span><span class="units">5u</span><span class="odds">-205</span><span class="oddslock">3:52 PM &middot; locked</span></div>
   <div class="sub">vs Missouri · Mizzou missing starting EDGE + RB Hardy</div>
   <div class="score" id="rpScore">4:45 PM PT</div>
@@ -273,7 +273,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790471890';const RP_ROOM='g3-2026-09-26';const RP_START='2026-09-26T23:45Z';
+const RP_BUILD='1790472059';const RP_ROOM='g3-2026-09-26';const RP_START='2026-09-26T23:45Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -805,8 +805,11 @@ async function rpFbLive(d){
  if(!j){
   if(!arb||!arb.fields||!arb.fields.state)return;  /* both down: keep the last good render */
   const _F=arb.fields,_fv=function(k){const c=_F[k];return (c&&!c.stale)?c.value:null;};
+  const _fvs=function(k){const c=_F[k];return c?{v:c.value,stale:!!c.stale}:null;};  /* swamp 9/26: NEVER fabricate 0-0 - last-known score renders labeled, unknown renders em-dash */
+  const _sa=_fvs('scoreAway'),_sh=_fvs('scoreHome');
+  if((_sa&&_sa.stale)||(_sh&&_sh.stale))window.__rpScoreStale=true;
   const _ps=_fv('possessionSide');
-  j={header:{competitions:[{status:{type:{state:_fv('state')||arb.state||'pre',detail:_fv('detail')||'',shortDetail:_fv('detail')||''},displayClock:_fv('clock')||'',period:_fv('period')!=null?+_fv('period'):undefined},competitors:[{homeAway:'away',team:{abbreviation:d.dataset.aab||'',id:(_ps==='away'?'1':'0')},score:_fv('scoreAway')||'0'},{homeAway:'home',team:{abbreviation:d.dataset.hab||'',id:(_ps==='home'?'1':'0')},score:_fv('scoreHome')||'0'}]}]},
+  j={header:{competitions:[{status:{type:{state:_fv('state')||arb.state||'pre',detail:_fv('detail')||'',shortDetail:_fv('detail')||''},displayClock:_fv('clock')||'',period:_fv('period')!=null?+_fv('period'):undefined},competitors:[{homeAway:'away',team:{abbreviation:d.dataset.aab||'',id:(_ps==='away'?'1':'0')},score:_sa?_sa.v:'\u2014'},{homeAway:'home',team:{abbreviation:d.dataset.hab||'',id:(_ps==='home'?'1':'0')},score:_sh?_sh.v:'\u2014'}]}]},
      situation:{down:_fv('down')!=null?+_fv('down'):undefined,distance:_fv('distance')!=null?+_fv('distance'):undefined,yardLine:_fv('yardLine')!=null?+_fv('yardLine'):undefined,possession:_ps?'1':undefined},drives:{current:{description:'-'}},scoringPlays:[]};  /* description truthy = drive-line gate stays closed in arbiter-only mode (no fabricated play count) */
  }
  const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
@@ -867,7 +870,7 @@ async function rpFbLive(d){
  if(rows.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98;margin:6px 0 4px">PLAY BY PLAY</div>';
   rows.forEach(function(tx){h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+tx+'</div>';});}
  h+='</div></div>';
- if(arb&&(arb.allDown||arb.paused)){const _lbl='<div style="font-size:10px;letter-spacing:1px;color:#e8b93c;margin-top:6px;font-weight:800">'+(arb.allDown?'FEEDS DOWN - SHOWING LAST CONFIRMED':'UPDATES PAUSED - FEEDS STALE')+'</div>';h=h.slice(0,-6)+_lbl+h.slice(-6);}  /* arbiter health verdict: dim+label only when all sources dead or none advancing */
+ if(arb&&(arb.allDown||arb.paused||window.__rpScoreStale)){const _lbl='<div style="font-size:10px;letter-spacing:1px;color:#e8b93c;margin-top:6px;font-weight:800">'+(arb.allDown?'FEEDS DOWN - SHOWING LAST CONFIRMED':(arb.paused?'UPDATES PAUSED - FEEDS STALE':'SCORE UNCONFIRMED - LAST KNOWN'))+'</div>';h=h.slice(0,-6)+_lbl+h.slice(-6);window.__rpScoreStale=false;}  /* arbiter health verdict: dim+label only when all sources dead or none advancing */
  box.innerHTML=h;
  if(arb&&(arb.allDown||arb.paused)){const _lc=document.getElementById('rpLiveCard');if(_lc)_lc.style.opacity='.55';}
  if(!(live&&(window.__rpClk[d.dataset.eid||'x']||{}).stale))window.__rpLiveOk=Date.now();  /* both clocks frozen = stale-as-live: no fresh stamp -> RECONNECTING */

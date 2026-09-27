@@ -589,8 +589,11 @@ async function rpFbLive(d){
  if(!j){
   if(!arb||!arb.fields||!arb.fields.state)return;  /* both down: keep the last good render */
   const _F=arb.fields,_fv=function(k){const c=_F[k];return (c&&!c.stale)?c.value:null;};
+  const _fvs=function(k){const c=_F[k];return c?{v:c.value,stale:!!c.stale}:null;};  /* swamp 9/26: NEVER fabricate 0-0 - last-known score renders labeled, unknown renders em-dash */
+  const _sa=_fvs('scoreAway'),_sh=_fvs('scoreHome');
+  if((_sa&&_sa.stale)||(_sh&&_sh.stale))window.__rpScoreStale=true;
   const _ps=_fv('possessionSide');
-  j={header:{competitions:[{status:{type:{state:_fv('state')||arb.state||'pre',detail:_fv('detail')||'',shortDetail:_fv('detail')||''},displayClock:_fv('clock')||'',period:_fv('period')!=null?+_fv('period'):undefined},competitors:[{homeAway:'away',team:{abbreviation:d.dataset.aab||'',id:(_ps==='away'?'1':'0')},score:_fv('scoreAway')||'0'},{homeAway:'home',team:{abbreviation:d.dataset.hab||'',id:(_ps==='home'?'1':'0')},score:_fv('scoreHome')||'0'}]}]},
+  j={header:{competitions:[{status:{type:{state:_fv('state')||arb.state||'pre',detail:_fv('detail')||'',shortDetail:_fv('detail')||''},displayClock:_fv('clock')||'',period:_fv('period')!=null?+_fv('period'):undefined},competitors:[{homeAway:'away',team:{abbreviation:d.dataset.aab||'',id:(_ps==='away'?'1':'0')},score:_sa?_sa.v:'\u2014'},{homeAway:'home',team:{abbreviation:d.dataset.hab||'',id:(_ps==='home'?'1':'0')},score:_sh?_sh.v:'\u2014'}]}]},
      situation:{down:_fv('down')!=null?+_fv('down'):undefined,distance:_fv('distance')!=null?+_fv('distance'):undefined,yardLine:_fv('yardLine')!=null?+_fv('yardLine'):undefined,possession:_ps?'1':undefined},drives:{current:{description:'-'}},scoringPlays:[]};  /* description truthy = drive-line gate stays closed in arbiter-only mode (no fabricated play count) */
  }
  const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
@@ -651,7 +654,7 @@ async function rpFbLive(d){
  if(rows.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98;margin:6px 0 4px">PLAY BY PLAY</div>';
   rows.forEach(function(tx){h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+tx+'</div>';});}
  h+='</div></div>';
- if(arb&&(arb.allDown||arb.paused)){const _lbl='<div style="font-size:10px;letter-spacing:1px;color:#e8b93c;margin-top:6px;font-weight:800">'+(arb.allDown?'FEEDS DOWN - SHOWING LAST CONFIRMED':'UPDATES PAUSED - FEEDS STALE')+'</div>';h=h.slice(0,-6)+_lbl+h.slice(-6);}  /* arbiter health verdict: dim+label only when all sources dead or none advancing */
+ if(arb&&(arb.allDown||arb.paused||window.__rpScoreStale)){const _lbl='<div style="font-size:10px;letter-spacing:1px;color:#e8b93c;margin-top:6px;font-weight:800">'+(arb.allDown?'FEEDS DOWN - SHOWING LAST CONFIRMED':(arb.paused?'UPDATES PAUSED - FEEDS STALE':'SCORE UNCONFIRMED - LAST KNOWN'))+'</div>';h=h.slice(0,-6)+_lbl+h.slice(-6);window.__rpScoreStale=false;}  /* arbiter health verdict: dim+label only when all sources dead or none advancing */
  box.innerHTML=h;
  if(arb&&(arb.allDown||arb.paused)){const _lc=document.getElementById('rpLiveCard');if(_lc)_lc.style.opacity='.55';}
  if(!(live&&(window.__rpClk[d.dataset.eid||'x']||{}).stale))window.__rpLiveOk=Date.now();  /* both clocks frozen = stale-as-live: no fresh stamp -> RECONNECTING */

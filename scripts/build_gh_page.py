@@ -2147,7 +2147,7 @@ def build_game_pages(man, css, build_sha):
         inst_lbl=(' ('+inst+')') if inst else ''
         page_html=tmpl
         for tok,val in [('__TITLE__',html.escape(away+' at '+home)),('__CSS__',css),('__NUM__',str(p['num'])),
-            ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',_gpk_for(away,home,g.get('commence',''))[1]),('__HAB__',_gpk_for(away,home,g.get('commence',''))[2]),
+            ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',abbr_a),('__HAB__',abbr_h),  # swamp 9/26: gpk registry blanks on unregistered games rendered UNLABELED arbiter-only scores - abbrs come from the same verified _meta_for source as the matchup display
             ('__EID__',html.escape(str(g.get('eid') or ''))),('__COUNTED__',' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else ''),
             ('__SIDE__',side),('__MKT__',mkt),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
             ('__ODDS__',html.escape(p['odds'])),('__LOCK__',html.escape((p.get('locked') or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
