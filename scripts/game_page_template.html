@@ -584,14 +584,14 @@ async function rpFbLive(d){
     NEVER a gate - a network blocking ESPN must not blank a card the healthy worker can fill.
     Arbiter-only mode renders score/clock/state/situation from worker-verified fields (abbrs from
     baked data attrs, colors/drives/PBP honestly absent until ESPN is reachable again). */
- let j=null;
+ let j=null,_fromArb=false;
  try{j=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/summary?event='+d.dataset.eid+'&t='+Date.now())).json();}catch(e){}
  if(!j){
-  if(!arb||!arb.fields||!arb.fields.state)return;  /* both down: keep the last good render */
+  if(!arb||!arb.fields||!arb.fields.state){window.__rpDownSince=window.__rpDownSince||Date.now();return;}  /* both down: keep the last good render, count the outage */
+  _fromArb=true;
   const _F=arb.fields,_fv=function(k){const c=_F[k];return (c&&!c.stale)?c.value:null;};
   const _fvs=function(k){const c=_F[k];return c?{v:c.value,stale:!!c.stale}:null;};  /* swamp 9/26: NEVER fabricate 0-0 - last-known score renders labeled, unknown renders em-dash */
   const _sa=_fvs('scoreAway'),_sh=_fvs('scoreHome');
-  if((_sa&&_sa.stale)||(_sh&&_sh.stale))window.__rpScoreStale=true;
   const _ps=_fv('possessionSide');
   j={header:{competitions:[{status:{type:{state:_fv('state')||arb.state||'pre',detail:_fv('detail')||'',shortDetail:_fv('detail')||''},displayClock:_fv('clock')||'',period:_fv('period')!=null?+_fv('period'):undefined},competitors:[{homeAway:'away',team:{abbreviation:d.dataset.aab||'',id:(_ps==='away'?'1':'0')},score:_sa?_sa.v:'\u2014'},{homeAway:'home',team:{abbreviation:d.dataset.hab||'',id:(_ps==='home'?'1':'0')},score:_sh?_sh.v:'\u2014'}]}]},
      situation:{down:_fv('down')!=null?+_fv('down'):undefined,distance:_fv('distance')!=null?+_fv('distance'):undefined,yardLine:_fv('yardLine')!=null?+_fv('yardLine'):undefined,possession:_ps?'1':undefined},drives:{current:{description:'-'}},scoringPlays:[]};  /* description truthy = drive-line gate stays closed in arbiter-only mode (no fabricated play count) */
@@ -654,10 +654,14 @@ async function rpFbLive(d){
  if(rows.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98;margin:6px 0 4px">PLAY BY PLAY</div>';
   rows.forEach(function(tx){h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+tx+'</div>';});}
  h+='</div></div>';
- if(arb&&(arb.allDown||arb.paused||window.__rpScoreStale)){const _lbl='<div style="font-size:10px;letter-spacing:1px;color:#e8b93c;margin-top:6px;font-weight:800">'+(arb.allDown?'FEEDS DOWN - SHOWING LAST CONFIRMED':(arb.paused?'UPDATES PAUSED - FEEDS STALE':'SCORE UNCONFIRMED - LAST KNOWN'))+'</div>';h=h.slice(0,-6)+_lbl+h.slice(-6);window.__rpScoreStale=false;}  /* arbiter health verdict: dim+label only when all sources dead or none advancing */
  box.innerHTML=h;
- if(arb&&(arb.allDown||arb.paused)){const _lc=document.getElementById('rpLiveCard');if(_lc)_lc.style.opacity='.55';}
- if(!(live&&(window.__rpClk[d.dataset.eid||'x']||{}).stale))window.__rpLiveOk=Date.now();  /* both clocks frozen = stale-as-live: no fresh stamp -> RECONNECTING */
+ /* his 9/26 UX bar, verbatim: "It's supposed to be smooth and seamless for the users too. They should
+    never notice this stuff." Failover + carried last-known data render IDENTICALLY - no badges, dims or
+    labels for feed mechanics, no perceptible trace of a source swap. Only a TOTAL arbiter outage
+    (unreachable or all sources dead) counts toward __rpDownSince; rpLiveLoop shows one understated note
+    after 5 continuous minutes and clears it silently on recovery. Strict staleness stays server-side
+    (per-field stale flags) for internal monitoring - it is for US, not for the page. */
+ if(_fromArb&&arb&&arb.allDown){window.__rpDownSince=window.__rpDownSince||Date.now();}else{window.__rpDownSince=0;window.__rpLiveOk=Date.now();}
  }catch(e){}
 }
 function rpPbpToggle(){const el=document.getElementById('rpPbp');if(el)el.style.display=el.style.display==='none'?'block':'none';}
@@ -877,10 +881,10 @@ window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpKalTic
     the render paths, so freshness is enforced HERE by data age: >20s without a successful render, the
     LIVE claim comes off and the panel says it is reconnecting - old data never wears the LIVE badge. */
  try{const lc=document.getElementById('rpLiveCard');
-  if(lc&&Date.now()-(window.__rpLiveOk||0)>20000&&!document.getElementById('rpStale')){
-   lc.querySelectorAll('span').forEach(function(sp){if(sp.style.animation.indexOf('rpblink')>=0||sp.textContent.trim()==='LIVE')sp.style.display='none';});  /* tester Sep 26 re-hold: hide the DOT and the LIVE text - stale data never keeps any LIVE badge element */
-   const _s=document.createElement('div');_s.id='rpStale';_s.style.cssText='margin-bottom:6px;font-size:11px;font-weight:700;color:#e8b93c';
-   _s.textContent='RECONNECTING - updating to the live game';lc.insertBefore(_s,lc.firstChild);}
+  if(lc&&window.__rpDownSince&&Date.now()-window.__rpDownSince>300000&&!document.getElementById('rpStale')){
+   lc.querySelectorAll('span').forEach(function(sp){if(sp.style.animation.indexOf('rpblink')>=0||sp.textContent.trim()==='LIVE')sp.style.display='none';});  /* extreme case only (5+ min total outage): LIVE badge off, one understated note */
+   const _s=document.createElement('div');_s.id='rpStale';_s.style.cssText='margin-bottom:6px;font-size:10px;font-weight:600;color:#8a8f98';
+   _s.textContent='Connection slow - scores update automatically';lc.insertBefore(_s,lc.firstChild);}
  }catch(e2){}try{await rpScoreTblTick(document.querySelector('.pick[data-espn]'));}catch(e2){}try{rpQuoteMut();}catch(e3){}try{rpPolyTick();rpEspnTick();}catch(e4){}
  try{const _nw=Date.now();[['POLY','__rpPolyOk',30000],['KAL','__rpKalOk',90000],['TSB','__rpLiveOk',30000]].forEach(function(pr){const dm=(_nw-(window[pr[1]]||0))>pr[2];document.querySelectorAll('[data-book="'+pr[0]+'"]').forEach(function(c){c.style.opacity=dm?'.55':'';});});}catch(e5){}  /* honesty dims: stale source dims, stale never re-stamps; KAL threshold 90s matches its 60s pregame cadence (proxy route), others 30s */
  setTimeout(rpLiveLoop,(window.__rpLbF||0)>=3?5000:2000);  /* his Sep 26 2:14 PM spec: by-the-second live - 2s cadence, 5s recovery retry, staleness never wears the LIVE badge */}rpLiveLoop();
