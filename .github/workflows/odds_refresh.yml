@@ -10,7 +10,7 @@ permissions:
   contents: write
 # Chaos drill #3 (Sep 26): overlapping runs raced the API counter and git push.
 concurrency:
-  group: odds-refresh
+  group: site-main-writers
   cancel-in-progress: false
 jobs:
   refresh:

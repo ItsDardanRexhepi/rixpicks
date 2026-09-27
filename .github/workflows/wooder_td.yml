@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: wooder-td-tracker
+  group: site-main-writers
   cancel-in-progress: false
 jobs:
   track:

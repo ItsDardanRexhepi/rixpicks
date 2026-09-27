@@ -9,7 +9,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: kalshi-quotes
+  group: site-main-writers
   cancel-in-progress: false
 jobs:
   quotes:
