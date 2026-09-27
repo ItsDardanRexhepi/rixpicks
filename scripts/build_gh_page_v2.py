@@ -77,7 +77,9 @@ def _pick_content_hash(m):
     # operational fields, audit before extending): num (build-assigned display order), result and
     # _final (post-settlement grading state, not pick content), polycents (live Polymarket price
     # snapshot), kalshi.cents (live Kalshi ask snapshot - the gate re-checks it live anyway),
-    _EXCL_TOP={'num','result','_final','polycents'}
+    # card_ts (first-lock provenance - excluded per main Sep 27 10:04 ruling; its stability is
+    # guarded by the dedicated ledger-equality assertion in build_manifest.py, not by this hash).
+    _EXCL_TOP={'num','result','_final','polycents','card_ts'}
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
@@ -1098,6 +1100,11 @@ r'var RPCHIPS={};function RPKEY(p2,t2){return((p2||"")+"|"+(t2||"")).toLowerCase
 r"""function rpPT(s){return String(s==null?"":s).replace(/(\d{1,2}):(\d{2}) ([AP])M E[DS]T/g,function(m,h,mi,ap){var h24=(parseInt(h,10)%12)+(ap==="P"?12:0);h24=(h24+21)%24;var ap2=h24<12?"AM":"PM";return (h24%12||12)+":"+mi+" "+ap2+" PT";});}"""
 r'function trkHtml(l,g){if(!g)return"";var dot=function(c){return"<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:"+c+";margin-right:6px;vertical-align:1px\"></span>";};var sc=(g.score&&g.status!=="pre")?(" &middot; "+esc(g.score)):"";if(g.status==="pre")return dot("#8a8f98")+"<span style=\"color:#8a8f98\">"+esc(rpPT(g.detail)||"Upcoming")+"</span>";var td=l.td_scored?("<b style=\"color:#0b6e5f\">TD"+(l.td_count>1?(" x"+l.td_count):"")+" &#10003;</b>"):null;if(g.status==="post")return td?(dot("#0b6e5f")+td+"<span style=\"color:#8a8f98\"> &middot; Final"+sc+"</span>"):(dot("#8a8f98")+"<span style=\"color:#8a8f98\">No TD &middot; Final"+sc+"</span>");return td?(dot("#0b6e5f")+td+"<span style=\"color:#8a8f98\"> &middot; "+esc(rpPT(g.detail)||"Live")+sc+"</span>"):(dot("#e8a13d")+"<span style=\"color:#b07708\">Live - no TD yet</span><span style=\"color:#8a8f98\"> &middot; "+esc(rpPT(g.detail)||"")+sc+"</span>");}'
 r'function updTrk(){fetch("slates/nfl_live.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){var gm={};(j.games||[]).forEach(function(g){gm[g.espn_event_id]=g;});(j.legs||[]).forEach(function(l){var el=document.querySelector("[data-trk=\""+RPKEY(l.player,l.team)+"\"]");if(el)el.innerHTML=trkHtml(l,gm[l.espn_event_id]);});}).catch(function(){});}'
+r'function updChips(){fetch("slates/nfl_chips.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(cj){if(!cj||!(cj.legs||[]).length)return;'
+r'/* live-odds standing order (his iMessage 10:18-10:19, main scoping 10:25): guest KAL market chips refresh on the tracker tick. Fail-closed: a bad/empty read keeps the last-good price - blank beats wrong, stale never wears LIVE (URF 10:30). */'
+r'(cj.legs||[]).forEach(function(l){if(l.kalshi&&typeof l.kalshi.ask_c==="number")RPCHIPS[RPKEY(l.player,l.team)]={ask_c:l.kalshi.ask_c,url:l.kalshi.url};});'
+r'document.querySelectorAll("[data-trk]").forEach(function(trk){var kc=RPCHIPS[trk.getAttribute("data-trk")];if(!kc)return;var row=trk.closest(".rpnpick");if(!row)return;var chs=row.querySelectorAll("[data-book=\"KAL\"]");for(var i=0;i<chs.length;i++){if(chs[i].querySelector("[data-book]"))continue;var lbl="KAL "+rpAml(kc.ask_c);if(chs[i].textContent!==lbl)chs[i].textContent=lbl;var sb=okUrl(kc.url);if(sb)chs[i].setAttribute("data-sb",sb);}});'
+r'}).catch(function(){});}'
 r'function empty(){box.innerHTML="<div style=\"color:#8a8f98;font-size:13px;padding:6px 0\">No NFL slate yet - Wooder Ice anytime TD picks land here Sundays.</div>";}'
 r'function rpAml(c){var q=c/100;if(q<=0||q>=1)return"";return q>=0.5?String(Math.round(-100*q/(1-q))):"+"+String(Math.round(100*(1-q)/q));}'
 r'function rpLegPx(o){var hasA=(o.odds!==undefined&&o.odds!==null&&String(o.odds)!=="");var hasC=(typeof o.price_c==="number"&&o.price_c>=1&&o.price_c<=99&&o.price_type==="contract_cents");if(hasA===hasC)return null;if(hasC)return{label:"DKP "+rpAml(o.price_c),head:rpAml(o.price_c)};return{label:"DK "+o.odds,head:String(o.odds)};}'
@@ -1134,7 +1141,7 @@ r'fetch("slates/nfl_chips.json?cb="+Date.now(),{cache:"no-store"}).then(function
 r'fetch("slates/nfl_latest.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
 r'if(!j||j.version!==1){empty();return;}'
 r'try{if(j.generated_at&&Date.now()-Date.parse(j.generated_at)>4*24*3600*1000){empty();return;}}catch(e){}'
-r'render(j);updTrk();setInterval(updTrk,60000);}).catch(empty);});'
+r'render(j);updTrk();updChips();setInterval(function(){updTrk();updChips();},60000);}).catch(empty);});'
 r'})();</script>')
 # Wooder Ice same-game combos (main 9:22): additive Kalshi combo list - legs + game link only
 # (no combined odds/payout; nothing priced or invented). Client-hydrated, hides when empty.
