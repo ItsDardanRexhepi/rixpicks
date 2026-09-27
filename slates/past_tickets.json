@@ -74,8 +74,8 @@
         }
       ],
       "archived_at": "2026-09-27T16:55:00-07:00",
-      "reason": "Combo lost - 4 dead legs on finals (TB ML, Mayfield 2+ pass TD, Bateman 40+ rec yds, Dak 2+ pass TD). Whole combo card comes down on a dead leg per standing rule.",
-      "provenance": "Original Wooder Ice FanDuel 9-leg SGP+ ticket, Sep 27. Leg results from the Julian record feed off ESPN finals.",
+      "reason": "Combo lost - 4 dead legs on finals (TB ML, Mayfield 2+ pass TD, Bateman 40+ rec yds, Dak 2+ pass TD).",
+      "provenance": "Original Wooder Ice FanDuel 9-leg SGP+ ticket, Sep 27. Leg results off ESPN finals.",
       "removed_label": "9/27, 4:55 PM PT"
     },
     {
@@ -181,7 +181,7 @@
     {
       "id": "t2",
       "kind": "ticket",
-      "origin": "unconfirmed",
+      "origin": "bought",
       "title": "5 Pick Parlay",
       "result": "lost",
       "detail": "+1609 \u00b7 boosted +2013 (+25% Parlay Boost)",
@@ -218,8 +218,8 @@
         }
       ],
       "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Combo lost - Herbert and White legs lost, games final (origin label unconfirmed pending owner check)",
-      "provenance": "Original ticket record (Wooder Ice tickets ledger), Sep 27; leg results from ESPN final scores.",
+      "reason": "Combo lost - Herbert and White legs lost, games final.",
+      "provenance": "Original Wooder Ice 5-pick parlay ticket, Sep 27 - app screenshot shows the placed bet with +25% Parlay Boost applied.",
       "removed_label": "Sep 27, 3:52 PM PT"
     },
     {
