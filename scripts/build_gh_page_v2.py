@@ -1997,13 +1997,16 @@ function rpLineShop(pk){{try{{
   if(Math.abs(v)<=1500)prs.push(v);
  }});
  const el=pk.querySelector('.rplineshop');if(!el)return;
- if(prs.length<2){{el.style.display='none';return;}}
+ /* his rule 9:43:53: EVERY pick gets the line, every time - agreement is a truth to render,
+    never a reason to omit. Zero readable prices stays hidden (nothing truthful to show). */
+ if(prs.length<1){{el.style.display='none';return;}}
  const best=Math.max.apply(null,prs),worst=Math.min.apply(null,prs);
  const edge=(ip(worst)-ip(best))*100;
- /* in play all prices are frozen pre-game closers (same phase) - the line shop stays computed across them (inspector Sep 26: never-blank) */
- if(edge<0.05){{el.style.display='none';return;}}
+ const _inplay=rpInPlay(pk);
+ if(prs.length<2){{el.style.display='';el.textContent=(_inplay?'pre-game: ':'line shop: ')+(best>0?'+':'')+best+' - only one book priced';return;}}
+ if(edge<0.05){{el.style.display='';el.textContent=(_inplay?'pre-game: ':'line shop: ')+(best>0?'+':'')+best+' at every book - no edge';return;}}
  el.style.display='';
- el.textContent=rpInPlay(pk)?('pre-game range: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best):('line shop: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best+' \u00b7 '+edge.toFixed(1)+'% edge at the best price');
+ el.textContent=_inplay?('pre-game range: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best):('line shop: '+(worst>0?'+':'')+worst+' to '+(best>0?'+':'')+best+' \u00b7 '+edge.toFixed(1)+'% edge at the best price');
 }}catch(e){{}}}}
 function rpAllLineShops(){{document.querySelectorAll('.pick').forEach(rpLineShop);}}
 function rpStartTimes(){{const now=Date.now();document.querySelectorAll('.rpstart[data-commence]').forEach(function(el){{const t=Date.parse(el.dataset.commence);if(t&&now>=t)el.remove();}});}}
