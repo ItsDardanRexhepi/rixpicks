@@ -1,0 +1,24 @@
+"""UNIT BASIS (final, 9/26 8:33 PM via main): canonical = card stake at locked price, $15/u.
+Store exact, display half-up 2dp. Actual-cash fills live in positions ledger only, never public record."""
+from decimal import Decimal, ROUND_HALF_UP
+UNIT_DOLLARS = Decimal('15')
+def _price(p):
+    p = Decimal(str(p))
+    if not p.is_finite() or not (Decimal(0) < p <= Decimal(100)):
+        raise ValueError(f'invalid price_c {p}: must be finite, 0 < p <= 100')
+    return p
+def _stake(s):
+    s = Decimal(str(s))
+    if not s.is_finite() or s < 0:
+        raise ValueError(f'invalid stake {s}: must be finite and nonnegative')
+    return s
+def pnl_to_units(pnl_dollars):
+    """Exact units from a card-stake dollar P&L. No rounding - store this value."""
+    return Decimal(str(pnl_dollars)) / UNIT_DOLLARS
+def stake_pnl(stake_dollars, price_c):
+    """P&L of a WIN at locked price (cents of a 100c contract). Validates inputs."""
+    s, p = _stake(stake_dollars), _price(price_c)
+    return s * (Decimal(100) - p) / p
+def display_units(u):
+    """Half-up 2dp display of an exact unit value. NEVER store the displayed form."""
+    return str(Decimal(u).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP))
