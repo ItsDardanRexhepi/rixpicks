@@ -2726,7 +2726,7 @@ FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="vie
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
 <div class="status">Futures &middot; __COUNT__ picks &middot; live Kalshi tracking vs carded entry</div>
 <div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
-<div class="intro">Live quotes as of <span id="rpFutAsOf">__FUTASOF__</span> PT &middot; refresh every ~5 min</div>
+<div class="intro"><span id="rpFutPre">Live quotes as of </span><span id="rpFutAsOf">__FUTASOF__</span><span id="rpFutTail"> PT &middot; refresh every ~5 min</span></div>
 __ROWS__
 <div id="rpFd" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(0,0,0,.78);align-items:flex-end;justify-content:center" onclick="if(event.target===this)rpFdClose()"><div id="rpFdBox" style="background:#000000;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;padding:16px;color:#ECECF1"></div></div>
 <div class="unitmath" style="margin-top:18px">Live prices via Kalshi &middot; refresh live &middot; build __BUILD__</div>
@@ -2961,16 +2961,20 @@ function rpFutPoll(){fetch("futures.json?cb="+Date.now(),{cache:"no-store"}).the
  if(asof){
   var age=Date.now()-new Date(asof).getTime();
   var stale=!(age>=0&&age<12*60*1000); /* promise is ~5 min - 12 min = honest slack, never stale-as-live */
-  var iv=document.getElementById("rpFutAsOf");
-  if(iv&&iv.parentNode){iv.parentNode.innerHTML=stale
-    ?('Quotes as of '+_fpt(asof)+' PT &middot; refresh delayed - showing last verified prices')
-    :('Live quotes as of <span id="rpFutAsOf">'+_fpt(asof)+'</span> PT &middot; refresh every ~5 min');}
+  /* tester 9:57: never replace the parent node - it deleted #rpFutAsOf and the label could
+     never recover on fresh quotes. Preserve the spans, update text only. */
+  var iv=document.getElementById("rpFutAsOf"),_fpre=document.getElementById("rpFutPre"),_ftl=document.getElementById("rpFutTail");
+  if(iv){iv.textContent=_fpt(asof);
+    if(_fpre)_fpre.textContent=stale?'Quotes as of ':'Live quotes as of ';
+    if(_ftl)_ftl.innerHTML=stale?' PT &middot; refresh delayed - showing last verified prices':' PT &middot; refresh every ~5 min';}
   var fl=document.querySelectorAll(".futlive,.futmove,.futpoly");
   for(var i=0;i<fl.length;i++)fl[i].style.opacity=stale?".55":"";
  }
 }).catch(function(){
- var iv=document.getElementById("rpFutAsOf");
- if(iv&&iv.parentNode)iv.parentNode.innerHTML='Quotes unavailable - refresh delayed';
+ var iv=document.getElementById("rpFutAsOf"),_fpre=document.getElementById("rpFutPre"),_ftl=document.getElementById("rpFutTail");
+ if(iv)iv.textContent='';
+ if(_fpre)_fpre.textContent='Quotes unavailable';
+ if(_ftl)_ftl.innerHTML=' - refresh delayed';
  var fl=document.querySelectorAll(".futlive,.futmove,.futpoly");
  for(var i=0;i<fl.length;i++)fl[i].style.opacity=".55";
 });}
