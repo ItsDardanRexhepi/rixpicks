@@ -336,12 +336,29 @@ NEWSHIPPED={}
 # sourced from the original card record and carried in the shipped ledger keyed by card date.
 # No publish path can re-stamp an entry: a rewritten manifest.updated only feeds the FIRST seed of a new card day.
 import datetime as _dtc
-_CARD_DATE=_dtc.date.today().isoformat()  # unambiguous ISO card-date key (tester gate 5) - a card lives one day
+def _card_date_of(m):
+    # Sep 27 swamp kill (archived game-4..11 wore Saturday's 7:21 AM lock): the card date belongs to
+    # the CARD, not the clock - derive from the picks' commence dates (PT), today only as a gameless
+    # fallback. date.today() made post-midnight rebuilds pin whatever lock the ledger carried.
+    from collections import Counter as _Ct
+    _ds=[_pt_date((p.get('game') or {}).get('commence','')) for p in m.get('picks',[]) if isinstance(p,dict)]
+    _ds=[d for d in _ds if d]
+    return _Ct(_ds).most_common(1)[0][0] if _ds else _dtc.date.today().isoformat()
+_CARD_DATE=_card_date_of(man)
+_MAN_SHA=_PC_HASH  # card identity: canonical pick-content hash (tester hold Sep 27) - volatile
+# operational fields (num/result/_final/polycents/kalshi.cents/dkp snapshots, updated stamp,
+# formatting) never move it, so a same-card rebuild keeps the pin; real pick content moves it.
 _cardprev=SHIPPED.get('__card__') or {}
-# precedence (tester gate 5): the shipped-ledger pin WINS; manifest fields are seed/fallback only
-ENTRY_LOCK=(_cardprev.get('locked') if _cardprev.get('date')==_CARD_DATE else None) or man.get('entry_locked') or man.get('updated','')
-if _cardprev.get('date')!=_CARD_DATE or not _cardprev.get('locked'):
-    NEWSHIPPED['__card__']={'date':_CARD_DATE,'locked':ENTRY_LOCK}
+# precedence (tester gate 5): the shipped-ledger pin WINS, but only on PROVEN card identity -
+# same card date AND same manifest bytes. Sep 27: date-only matching let the live card's lock bleed
+# into a same-day rebuild of a different card (the archived Friday-night 8-game card).
+_pin_ok=_cardprev.get('date')==_CARD_DATE and _cardprev.get('picks_sha')==_MAN_SHA
+ENTRY_LOCK=(_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or man.get('updated','')
+_today_iso=_dtc.date.today().isoformat()
+if _CARD_DATE>=_today_iso and (_cardprev.get('date')!=_CARD_DATE or not _cardprev.get('locked') or not _cardprev.get('picks_sha')):
+    # the ledger tracks the CURRENT card only: a past-dated build (archive rebuild) never writes;
+    # a same-date entry without an identity hash (legacy/corrupt) gets replaced by this card's.
+    NEWSHIPPED['__card__']={'date':_CARD_DATE,'locked':ENTRY_LOCK,'picks_sha':_MAN_SHA}
 
 # Canonical market truth record (Matrix-mining design, user 9/26): ONE record per
 # (source,event,market,side) - price (cents canonical, ml display cache), phase, timestamp,
