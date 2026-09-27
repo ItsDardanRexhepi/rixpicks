@@ -1,6 +1,6 @@
 #!/bin/bash
 # J-049A-safe DK/FD odds refresh (cadence b, user-approved Sep 25): 15-min cron,
-# rebuild only when a card game is live or starts within 2h, max 16 odds-API calls/day.
+# rebuild only when a card game is live or starts within 2h, lane cap 33 runs/day (~99 credits, 3cr/run; real plan ~20k credits/mo per 9/27 header read); authoritative provider floor via x-requests-remaining.
 set -e
 git config user.name "RixPicks Bot"
 git config user.email "rixpicks-bot@users.noreply.github.com"
@@ -9,7 +9,9 @@ TODAY=$(date +%F)
 COUNT_FILE=.odds_refresh_count.json
 COUNT=0
 [ -f "$COUNT_FILE" ] && COUNT=$(python3 -c "import json;d=json.load(open('$COUNT_FILE'));print(d.get('$TODAY',0))")
-if [ "$COUNT" -ge 16 ]; then echo "daily odds-API budget (16) reached - skip"; exit 0; fi
+if [ "$COUNT" -ge 33 ]; then echo "daily odds-API lane budget (33 runs ~ 99 credits) reached - skip"; exit 0; fi
+LASTREM_PRE=$(python3 -c "import json;d=json.load(open('$COUNT_FILE'));print(d.get('last_remaining') or 0)" 2>/dev/null || echo 0)
+if [ "${LASTREM_PRE:-0}" -gt 0 ] && [ "$LASTREM_PRE" -lt 200 ]; then echo "provider quota floor (200 remaining, authoritative x-requests-remaining) - skip"; exit 0; fi
 # Game window check: any picked game live or starting within 2h (ESPN, free)
 # chaos drill (Sep 26): set -e killed quiet windows as red failures before GAME_WINDOW captured
 set +e
@@ -49,7 +51,15 @@ m=json.load(open('manifest.json'))
 reg=json.load(open('config_leagues.json'))['leagues']
 ls=sorted({(reg.get(p.get('league','')) or {}).get('odds_api') or 'baseball_mlb' for p in m['picks']})
 print(' '.join(ls))")
-python3 scripts/odds_prefill.py $SPORTS
+python3 scripts/odds_prefill.py $SPORTS 2> >(tee /tmp/odds_prefill.err >&2)
+LASTREM=$(grep -o 'credits remaining [0-9]*' /tmp/odds_prefill.err 2>/dev/null | tail -1 | grep -o '[0-9]*$' || true)
+if [ -n "${LASTREM:-}" ]; then python3 -c "
+import json
+f='$COUNT_FILE'; d={}
+try: d=json.load(open(f))
+except: pass
+d['last_remaining']=int('$LASTREM')
+json.dump(d,open(f,'w'))"; fi
 python3 scripts/move_cause.py || true
 # Sep 26 live regression (hunter 7:25 AM): refresh rebuilds must never move record/units -
 # RP_REFRESH=1 pins them from the live page; only an approved publish sets them from the manifest.
@@ -66,7 +76,7 @@ except: pass
 d['$TODAY']=d.get('$TODAY',0)+1
 json.dump(d,open(f,'w'))"
 git add index.html futures.html futures.json slates/nfl_live.json manifest.json manifests/ "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html hist-*.json
-git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1))/16 today)"
+git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1))/33 today)"
 # chaos drill (Sep 26): a push racing the publish window must retry+rebase, never fail red
 for i in 1 2; do
   if git push; then break; fi
@@ -76,3 +86,4 @@ for i in 1 2; do
 done
 git ls-remote origin main | grep -q "$(git rev-parse HEAD)" || { echo 'PUSH READBACK FAILED: origin/main != HEAD' >&2; exit 1; }
 echo "rebuilt and pushed"
+

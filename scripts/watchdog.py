@@ -32,18 +32,33 @@ def odds_spend_today():
     try:
         log = subprocess.run(['git', 'log', '--since=' + pt_midnight_utc.isoformat(), '--format=%s'],
                              capture_output=True, text=True).stdout
-        for m in _re.finditer(r'call (\d+)/16', log):
-            git_max = max(git_max, int(m.group(1)))
+        for m in _re.finditer(r'call (\d+)/(?:16|33)', log):
+            git_max = max(git_max, int(m.group(1)) * 3)
     except Exception:
         pass
     est = 0
-    for wfid, cost in ((367062180, 1), ('extras_sweep.yml', 3), ('nfl_scores.yml', 1)):
+    for wfid, cost in ((367062180, 3), ('extras_sweep.yml', 3), ('nfl_scores.yml', 1)):
         try:
             rr = gh(f'repos/{REPO}/actions/workflows/{wfid}/runs?per_page=100')
             est += cost * sum(1 for x in rr.get('workflow_runs', []) if x.get('created_at', '') >= since)
         except Exception:
             pass
     return max(git_max, est)
+
+
+def provider_remaining():
+    """Authoritative provider quota from nfl_scores.json credits_remaining (written each
+    NFL-window tick from x-requests-remaining). None when unavailable/stale (>3h)."""
+    try:
+        import base64 as _b64
+        d = gh(f'repos/{REPO}/contents/nfl_scores.json')
+        j = json.loads(_b64.b64decode(d['content']))
+        pulled = datetime.datetime.fromisoformat(j['pulled_at_utc'].replace('Z', '+00:00'))
+        if (datetime.datetime.now(datetime.timezone.utc) - pulled).total_seconds() > 10800:
+            return None
+        return j.get('credits_remaining')
+    except Exception:
+        return None
 
 run_id, wf, wf_id = os.environ['RUN_ID'], os.environ['WF_NAME'], os.environ['WF_ID']
 sha = os.environ.get('HEAD_SHA', '')[:8]
@@ -74,6 +89,11 @@ runs = gh(f'repos/{REPO}/actions/workflows/{wf_id}/runs?per_page=3')
 failed_started = next((x.get('run_started_at') for x in runs.get('workflow_runs', []) if str(x['id']) == str(run_id)), None)
 if failed_started and any(x.get('run_started_at', '') > failed_started for x in runs.get('workflow_runs', [])):
     skip.append('newer run exists - superseded')
+if not skip:
+    prem = provider_remaining()
+    diag['provider_remaining'] = prem
+    if prem is not None and prem < 100:
+        skip.append('provider quota low: %s remaining (authoritative header)' % prem)
 if not skip and wf in BUDGET_COST:
     spend = odds_spend_today()
     diag['odds_spend_today'] = spend
@@ -95,3 +115,4 @@ with open(f'incidents/{run_id}-diag.md', 'w') as f:
     f.write('# watchdog diagnosis: %s run %s\n\n- head: %s\n- failing steps: %s\n- decision: %s\n- url: https://github.com/%s/actions/runs/%s\n\n## error tail\n```\n%s\n```\n'
             % (wf, run_id, sha, ', '.join(diag['failing_steps']) or 'unknown', diag['decision'], REPO, run_id, diag['error_tail']))
 print(json.dumps(diag, indent=1))
+
