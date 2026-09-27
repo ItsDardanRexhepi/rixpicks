@@ -302,11 +302,11 @@
       "kind": "pick",
       "origin": "suggested",
       "title": "Pete Alonso - Home Run",
-      "result": "removed",
+      "result": "void",
       "detail": "BAL at NYY · 10:05 AM PT · DKP",
       "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Dingers card settled dead - removed with the card; pick outcome not separately graded",
-      "provenance": "Original Wooder Ice Dingers card, Sep 27.",
+      "reason": "Pick void - game result voided the selection",
+      "provenance": "Original Wooder Ice Dingers card, Sep 27. Result per ESPN final scores.",
       "removed_label": "Sep 27, 3:52 PM PT"
     },
     {
@@ -314,11 +314,11 @@
       "kind": "pick",
       "origin": "suggested",
       "title": "Randal Grichuk - Home Run",
-      "result": "removed",
+      "result": "won",
       "detail": "COL at CWS · 12:10 PM PT · DKP",
       "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Dingers card settled dead - removed with the card; pick outcome not separately graded",
-      "provenance": "Original Wooder Ice Dingers card, Sep 27.",
+      "reason": "Home run pick won - game final",
+      "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
       "removed_label": "Sep 27, 3:52 PM PT"
     },
     {
@@ -326,11 +326,11 @@
       "kind": "pick",
       "origin": "suggested",
       "title": "Corey Seager - Home Run",
-      "result": "removed",
+      "result": "won",
       "detail": "TEX at MIN · 12:10 PM PT · DKP",
       "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Dingers card settled dead - removed with the card; pick outcome not separately graded",
-      "provenance": "Original Wooder Ice Dingers card, Sep 27.",
+      "reason": "Home run pick won - game final",
+      "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
       "removed_label": "Sep 27, 3:52 PM PT"
     },
     {
