@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live - RixPicks</title>
+<style>
+:root{--bg:#000;--panel:#101619;--line:#1f2f2c;--txt:#f2f5f4;--mut:#8fa39e;--acc:#2aa88f;--live:#3ed67a;--amber:#e0b356}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;min-height:100vh;padding:18px 16px 40px}
+.wrap{max-width:640px;margin:0 auto}
+a.back{color:var(--acc);text-decoration:none;font-size:13px;font-weight:600}
+.scorecard{margin-top:14px;border:1px solid var(--line);border-radius:14px;padding:18px 16px;background:var(--panel)}
+.teams{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.team{flex:1;text-align:center}
+.team .ab{font-size:22px;font-weight:800}
+.team .nm{font-size:11px;color:var(--mut);margin-top:2px}
+.sc{font-size:34px;font-weight:800;min-width:120px;text-align:center}
+.status{margin-top:10px;text-align:center;font-size:13px;color:var(--mut)}
+.status .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--live);margin-right:6px;vertical-align:1px}
+.sit{margin-top:6px;text-align:center;font-size:12px;color:var(--amber)}
+.sect{margin-top:20px;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.plays{margin-top:8px;border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+.play{padding:10px 14px;border-top:1px solid var(--line);font-size:13px;line-height:1.45}
+.play:first-child{border-top:none}
+.play .ph{color:var(--mut);font-size:11px;font-weight:700;margin-right:6px}
+.foot{margin-top:16px;font-size:11px;color:var(--mut);text-align:center}
+.empty{color:var(--mut);font-size:13px;padding:14px;text-align:center}
+.err{color:var(--amber);font-size:13px;padding:14px;text-align:center}
+</style></head><body><div class="wrap">
+<a class="back" href="index.html">&larr; RixPicks</a>
+<div class="scorecard" id="rpScore"><div class="empty">Loading&hellip;</div></div>
+<div class="sect">Scoring</div>
+<div class="plays" id="rpPlays"><div class="empty">Loading&hellip;</div></div>
+<div class="foot">Live data: ESPN &middot; <span id="rpAge"></span></div>
+</div>
+<script>(function(){
+function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}
+function ptTime(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}
+var q=new URLSearchParams(location.search),espn=q.get("espn")||"",eid=q.get("eid")||"";
+var scoreEl=document.getElementById("rpScore"),playsEl=document.getElementById("rpPlays"),ageEl=document.getElementById("rpAge");
+if(!espn||!eid){scoreEl.innerHTML='<div class="err">No game specified.</div>';playsEl.innerHTML='<div class="empty">-</div>';return;}
+var lastOk=0;
+function ageTick(){if(!lastOk){ageEl.textContent="waiting for data";return;}var s=Math.max(0,Math.round((Date.now()-lastOk)/1000));ageEl.textContent="updated "+(s<5?"just now":s+"s ago");}
+setInterval(ageTick,1000);
+function render(j){
+ var hd=(j.header||{}),comp=(hd.competitions||[])[0]||{},st=(comp.status||{}).type||{};
+ var comps=comp.competitors||[];
+ var away=comps.filter(function(c){return c.homeAway==="away";})[0]||{};
+ var home=comps.filter(function(c){return c.homeAway==="home";})[0]||{};
+ var an=((away.team||{}).abbreviation)||"AWY",hn=((home.team||{}).abbreviation)||"HOME";
+ var state=st.state||"";
+ var sct='-' ;if(state!=="pre"){sct=(away.score!=null?away.score:"0")+" - "+(home.score!=null?home.score:"0");}
+ var det=state==="pre"?("Starts "+ptTime(comp.date||hd.competitions&&hd.competitions[0]&&hd.competitions[0].date)):(st.shortDetail||st.detail||"");
+ var sit=((comp.situation||{}).downDistanceText)||((comp.situation||{}).lastPlay&&(comp.situation.lastPlay.text||"").slice(0,120))||"";
+ var h='<div class="teams"><div class="team"><div class="ab">'+esc(an)+'</div><div class="nm">'+esc((away.team||{}).displayName||"")+'</div></div>'
+  +'<div class="sc">'+esc(sct)+'</div>'
+  +'<div class="team"><div class="ab">'+esc(hn)+'</div><div class="nm">'+esc((home.team||{}).displayName||"")+'</div></div></div>'
+  +'<div class="status">'+(state==="in"?'<span class="dot"></span>':"")+esc(det)+'</div>'
+  +(sit?'<div class="sit">'+esc(sit)+'</div>':"");
+ scoreEl.innerHTML=h;
+ var sp=j.scoringPlays||[];
+ if(!sp.length){playsEl.innerHTML='<div class="empty">'+(state==="pre"?"Game has not started.":"No scoring yet.")+'</div>';}
+ else{playsEl.innerHTML=sp.slice().reverse().map(function(p){
+   return '<div class="play">'+(p.period&&p.clock?'<span class="ph">'+esc((p.period.displayValue||("P"+p.period.number))+" "+(p.clock.displayValue||""))+'</span>':"")+esc(p.text||"")+(p.awayScore!=null?' <span class="ph">'+p.awayScore+"-"+p.homeScore+"</span>":"")+'</div>';
+  }).join("");}
+}
+function tick(){
+ fetch("https://site.api.espn.com/apis/site/v2/sports/"+encodeURIComponent(espn)+"/summary?event="+encodeURIComponent(eid)+"&cb="+Date.now(),{cache:"no-store"})
+  .then(function(r){if(!r.ok)throw 0;return r.json();})
+  .then(function(j){lastOk=Date.now();render(j);})
+  .catch(function(){if(!lastOk){scoreEl.innerHTML='<div class="err">Live data unavailable right now.</div>';playsEl.innerHTML='<div class="empty">-</div>';}});
+}
+tick();setInterval(tick,15000);
+})();</script></body></html>

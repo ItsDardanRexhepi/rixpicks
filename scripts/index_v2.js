@@ -166,7 +166,8 @@ function renderGames(t,events){
    sub=esc(dayTime(ev.date));
    when='<span class="when">'+esc(until(ev.date))+'</span>';
   }
-  rows.push('<div class="grow"><div><div class="gname">'+txt+'</div><div class="gsub">'+sub+'</div></div>'+when+'</div>');
+  var _row='<div class="grow"><div><div class="gname">'+txt+'</div><div class="gsub">'+sub+'</div></div>'+when+'</div>';
+  rows.push(ev.id?('<a class="growtap" href="live.html?espn='+encodeURIComponent(lgpath(t))+'&eid='+encodeURIComponent(ev.id)+'" style="display:block;text-decoration:none;color:inherit">'+_row+'</a>'):_row);
  }
  box.innerHTML=rows.join('')||'<div class="empty">No games listed right now.</div>';
 }
@@ -238,15 +239,16 @@ function loadSide(t){
    .then(function(j){SB[t.key]=j.events||[];SB_TS[t.key]=Date.now();if(cur===t)renderGames(t,SB[t.key]);})
    .catch(function(){if(cur===t)renderGames(t,SB[t.key]||null);});
  }
- if(NEWS[t.key]&&now-(NEWS_TS[t.key]||0)<600000){renderNews(t,NEWS[t.key]);tickRender();}
+ if(NEWS[t.key]&&now-(NEWS_TS[t.key]||0)<120000){renderNews(t,NEWS[t.key]);tickRender();}
  else{
-  fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/news?limit=4',{cache:'no-store'})
+  fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/news?limit=6',{cache:'no-store'})
    .then(function(r){if(!r.ok)throw 0;return r.json();})
    .then(function(j){NEWS[t.key]=j.articles||[];NEWS_TS[t.key]=Date.now();if(cur===t){renderNews(t,NEWS[t.key]);tickRender();}})
    .catch(function(){if(cur===t){renderNews(t,NEWS[t.key]||null);tickRender();}});
  }
 }
 setInterval(function(){if(cur&&!document.hidden)loadSide(cur);},60000);
+setInterval(function(){if(cur&&!document.hidden&&NEWS[cur.key]){renderNews(cur,NEWS[cur.key]);tickRender();}},30000);
 /* ---- boot ---- */
 var start=fromHash();
 if(!start){

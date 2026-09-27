@@ -1464,6 +1464,10 @@ if _V2:
     _cxesp=','.join(sorted(set(re.findall(r'data-espn="([^"]+)"',parlay_html))))
     _combo_wrap=('<div id="rpComboTail" data-cx-espn="'+_cxesp+'">'+parlay_html+'</div>') if parlay_html else ''
     _fut_wrap=('<div id="rpFutTail">'+fut_watch_html+'</div>') if fut_watch_html else ''
+    # Wooder Ice guest tab (Julian 12:25 design-approved via main, scope settled 12:25:40): ALL Wooder NFL
+    # guest content moves here from the NFL tab (slate+countdown, combos, tickets, Kincaid update, builders).
+    # Shared data: same slates/*.json hydration, no divergent state. Dingers stays on the MLB tab.
+    RP_TABS.append({'key':'wooder','label':'Picks from Wooder Ice','espn':''})
     _tabs_html=''.join('<a class="tab" data-tab="'+t['key']+'" href="#'+t['key']+'">'+html.escape(t['label'])+'</a>' for t in RP_TABS)
     _panels_html=''
 
@@ -1531,7 +1535,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
 
     for t in RP_TABS:
         _prows=''.join(_panels.get(t['key']) or [])
-        _body=(_prows+nfl_entry) if t['key']=='nfl' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows)
+        _body=(_prows if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows))))
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
