@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: news-refresh
   cancel-in-progress: false
@@ -29,3 +30,24 @@ jobs:
           if git diff --cached --quiet; then echo "no change - no commit"; exit 0; fi
           git commit -m "news feed $(date '+%H:%M PT')"
           for i in 1 2; do git push && break || git pull --rebase; done
+      - name: kalshi-quotes staleness watchdog
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          last=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/368490964/runs?per_page=1" \
+            | python3 -c "import json,sys; r=json.load(sys.stdin).get('workflow_runs',[]); print((r[0]['created_at']+' '+r[0]['status']) if r else '1970-01-01T00:00:00Z none')")
+          ts=$(echo "$last" | cut -d' ' -f1); st=$(echo "$last" | cut -d' ' -f2)
+          age=$(( $(date +%s) - $(date -d "$ts" +%s) ))
+          echo "newest kalshi-quotes run: $ts status=$st age=${age}s"
+          if [ "$st" = "queued" ] || [ "$st" = "in_progress" ]; then
+            echo "run active - no dispatch"
+          elif [ "$age" -gt 600 ]; then
+            echo "stale >10min - dispatching kalshi-quotes"
+            curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/workflows/368490964/dispatches" \
+              -d '{"ref":"main"}'
+          else
+            echo "fresh - no dispatch"
+          fi
