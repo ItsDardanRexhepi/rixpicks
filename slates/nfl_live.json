@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T20:07:28.203560+00:00",
+ "generated_at": "2026-09-27T20:13:16.438874+00:00",
  "window": "sun-afternoon",
  "legs": [
   {
@@ -90,7 +90,7 @@
    "espn_event_id": "401872958",
    "commence": "2026-09-27T20:05Z",
    "status": "in",
-   "detail": "14:23 - 1st",
+   "detail": "10:22 - 1st",
    "score": "SF 0 - ARI 0"
   },
   {
@@ -114,8 +114,8 @@
    "espn_event_id": "401872959",
    "commence": "2026-09-27T20:05Z",
    "status": "in",
-   "detail": "14:54 - 1st",
-   "score": "TB 0 - MIN 0"
+   "detail": "10:20 - 1st",
+   "score": "TB 0 - MIN 3"
   }
  ]
 }
