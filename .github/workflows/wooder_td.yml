@@ -2,9 +2,9 @@ name: wooder-td-tracker
 on:
   schedule:
     # 5-min cadence across plausible NFL windows (9 AM - 11 PM PT = 16:00-06:00 UTC PDT).
-    # Content-gated commit: pre/post-game the feed is static (status/score unchanged),
-    # so idle cycles cost two ESPN calls and zero commits. While any tracked game is
-    # live, score/clock/TD changes land within one 5-min cycle.
+    # Content-gated commits: idle cycles make a few API calls and commit nothing, so the
+    # loop self-scopes to game windows. While tracked games are live, TD/score/quote
+    # changes land within one 5-min cycle.
     - cron: '*/5 16-23,0-6 * * *'
   workflow_dispatch:
 permissions:
@@ -28,33 +28,12 @@ jobs:
         run: |
           git config user.name 'wooder-td-tracker'
           git config user.email 'actions@users.noreply.github.com'
-          python3 -c "import json; d=json.load(open('slates/nfl_live.json')); d.pop('generated_at',None); print(json.dumps(d,sort_keys=True))" > /tmp/new_live.json
-          git show HEAD:slates/nfl_live.json 2>/dev/null | python3 -c "import json,sys; d=json.load(sys.stdin); d.pop('generated_at',None); print(json.dumps(d,sort_keys=True))" > /tmp/old_live.json || touch /tmp/old_live.json
-          python3 -c "
-import json
-def norm(p):
-    try: d=json.load(open(p))
-    except Exception: return ''
-    for r in d:
-        q=r.get('kalshi_quote') or {}
-        q.pop('quoted_at',None)
-    return json.dumps(d,sort_keys=True)
-print(norm('futures.json'))" > /tmp/new_fut.json
-          git show HEAD:futures.json 2>/dev/null > /tmp/old_fut_raw.json || touch /tmp/old_fut_raw.json
-          python3 -c "
-import json
-def norm(p):
-    try: d=json.load(open(p))
-    except Exception: return ''
-    for r in d:
-        q=r.get('kalshi_quote') or {}
-        q.pop('quoted_at',None)
-    return json.dumps(d,sort_keys=True)
-print(norm('/tmp/old_fut_raw.json'))" > /tmp/old_fut.json
+          python3 scripts/fastloop_changed.py slates/nfl_live.json generated_at /tmp/old_live.json /tmp/new_live.json
+          python3 scripts/fastloop_changed.py futures.json quoted_at /tmp/old_fut.json /tmp/new_fut.json
           if ! diff -q /tmp/old_live.json /tmp/new_live.json >/dev/null || ! diff -q /tmp/old_fut.json /tmp/new_fut.json >/dev/null; then
             git add slates/nfl_live.json futures.json
             git commit -m "fast loop: td tracker + futures quotes $(date -u +'%H:%M') UTC"
             git pull --rebase origin main && git push
           else
-            echo "idle - tracker unchanged"
+            echo "idle - feeds unchanged"
           fi
