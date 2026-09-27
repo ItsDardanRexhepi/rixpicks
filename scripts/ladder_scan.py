@@ -22,11 +22,15 @@ ND=NormalDist()
 def fee(p): return 0.07*p*(1-p)
 def inv(p): return ND.inv_cdf(min(max(p,1e-6),1-1e-6))
 def noask(m):
+    # Executable NO ask ONLY - never synthesize one from 1-yes_bid (a low yes_bid fabricates
+    # NO-side hits). Returns (na, violation). Missing na -> (None,None): caller refuses the row.
     na=m.get('na')
-    if na not in (None,''): return float(na)
+    if na in (None,''): return None,None
+    na=float(na)
     yb=m.get('yb')
-    if yb not in (None,''): return round(1-float(yb),4)
-    return None
+    if yb not in (None,'') and na < 1-float(yb)-0.02:
+        return None,f'bid/ask integrity violation: no_ask {na} < 1-yes_bid {round(1-float(yb),4)}'
+    return na,None
 
 DATE=sys.argv[1] if len(sys.argv)>1 else None
 MAX_AGE=int(os.environ.get('LADDER_MAX_AGE_MIN','45'))
@@ -157,7 +161,10 @@ for m in board['series'].get('KXNFLSPREAD',[])+board['series'].get('KXNFLTOTAL',
         z=(thr-bk['total'])/SIG_NFL_T
         fair=1-ND.cdf(z)
         add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'YES',fair,m['ya'],'nfl_book_anchor',src,{'z':z,'book_total':bk['total'],'vol':m['vol'],'oi':m['oi']})
-        add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'NO',1-fair,noask(m),'nfl_book_anchor',src,{'z':z,'book_total':bk['total'],'vol':m['vol'],'oi':m['oi']})
+        _na,_viol=noask(m)
+        if _viol: errors.append(f'NFL {_viol}: {m["t"]} - REFUSING NO row')
+        elif _na is None: errors.append(f'NFL no executable no_ask: {m["t"]} - REFUSING NO row')
+        else: add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'NO',1-fair,_na,'nfl_book_anchor',src,{'z':z,'book_total':bk['total'],'vol':m['vol'],'oi':m['oi']})
     else:
         mt=re.match(r'([A-Z]+)(\d+)$',suf)
         if not mt: errors.append(f"NFL spread suffix unparseable: {m['t']}"); continue
@@ -170,7 +177,10 @@ for m in board['series'].get('KXNFLSPREAD',[])+board['series'].get('KXNFLTOTAL',
         z=((thr-mu) if home_covers else (-thr-mu))/SIG_NFL_M
         fair=(1-ND.cdf(z)) if home_covers else ND.cdf(z)
         add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'YES',fair,m['ya'],'nfl_book_anchor',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
-        add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'NO',1-fair,noask(m),'nfl_book_anchor',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
+        _na,_viol=noask(m)
+        if _viol: errors.append(f'NFL {_viol}: {m["t"]} - REFUSING NO row')
+        elif _na is None: errors.append(f'NFL no executable no_ask: {m["t"]} - REFUSING NO row')
+        else: add('NFL',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'NO',1-fair,_na,'nfl_book_anchor',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
 
 for m in board['series'].get('KXMLBSPREAD',[])+board['series'].get('KXMLBTOTAL',[]):
     if not active(m): continue
@@ -193,7 +203,10 @@ for m in board['series'].get('KXMLBSPREAD',[])+board['series'].get('KXMLBTOTAL',
         z=(thr-tmod)/SIG_MLB_T
         fair=1-ND.cdf(z)
         add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'YES',fair,m['ya'],'mlb_total_era',src,{'z':z,'book_total':bk['total'],'t_model':round(tmod,2),'vol':m['vol'],'oi':m['oi']})
-        add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'NO',1-fair,noask(m),'mlb_total_era',src,{'z':z,'book_total':bk['total'],'t_model':round(tmod,2),'vol':m['vol'],'oi':m['oi']})
+        _na,_viol=noask(m)
+        if _viol: errors.append(f'MLB {_viol}: {m["t"]} - REFUSING NO row')
+        elif _na is None: errors.append(f'MLB no executable no_ask: {m["t"]} - REFUSING NO row')
+        else: add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'total',f"over {thr}",'NO',1-fair,_na,'mlb_total_era',src,{'z':z,'book_total':bk['total'],'t_model':round(tmod,2),'vol':m['vol'],'oi':m['oi']})
     else:
         mt=re.match(r'([A-Z]+)(\d+)$',suf)
         if not mt: errors.append(f"MLB spread suffix unparseable: {m['t']}"); continue
@@ -207,7 +220,10 @@ for m in board['series'].get('KXMLBSPREAD',[])+board['series'].get('KXMLBTOTAL',
         z=((thr-mu) if home_covers else (-thr-mu))/SIG_MLB_M
         fair=(1-ND.cdf(z)) if home_covers else ND.cdf(z)
         add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'YES',fair,m['ya'],'mlb_book_pyth',src,{'z':z,'book_total':bk['total'],'p_home_book':round(bk['p_home'],3),'vol':m['vol'],'oi':m['oi']})
-        add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'NO',1-fair,noask(m),'mlb_book_pyth',src,{'z':z,'book_total':bk['total'],'p_home_book':round(bk['p_home'],3),'vol':m['vol'],'oi':m['oi']})
+        _na,_viol=noask(m)
+        if _viol: errors.append(f'MLB {_viol}: {m["t"]} - REFUSING NO row')
+        elif _na is None: errors.append(f'MLB no executable no_ask: {m["t"]} - REFUSING NO row')
+        else: add('MLB',f"{row['away_abbr']}@{row['home_abbr']}",'spread',f"{team} by>{thr}",'NO',1-fair,_na,'mlb_book_pyth',src,{'z':z,'book_total':bk['total'],'p_home_book':round(bk['p_home'],3),'vol':m['vol'],'oi':m['oi']})
 
 for series,mtype in [('KXWNBASPREAD','spread'),('KXWNBATOTAL','total'),('KXWNBAGAME','ml')]:
     for m in board['series'].get(series,[]):
@@ -243,10 +259,13 @@ for series,mtype in [('KXWNBASPREAD','spread'),('KXWNBATOTAL','total'),('KXWNBAG
             if team==ha: home_covers=True
             elif team==aa: home_covers=False
             else: errors.append(f"WNBA ML suffix team {team} not in {aa}/{ha}: {m['t']} - REFUSING side"); continue
-            z=((0-mu) if home_covers else (0-mu))/SIG_WNBA_M
-            fair=(1-ND.cdf(z)) if home_covers else ND.cdf(z)
+            z=(0-mu)/SIG_WNBA_M
+            fair=(1-ND.cdf(z)) if home_covers else ND.cdf(z)  # away ML = complement of home win prob
         add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",mtype,f"{suf}",'YES',fair,m['ya'],'wnba_book_SCREENONLY',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
-        add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",mtype,f"{suf}",'NO',1-fair,noask(m),'wnba_book_SCREENONLY',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
+        _na,_viol=noask(m)
+        if _viol: errors.append(f'WNBA {_viol}: {m["t"]} - REFUSING NO row')
+        elif _na is None: errors.append(f'WNBA no executable no_ask: {m["t"]} - REFUSING NO row')
+        else: add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",mtype,f"{suf}",'NO',1-fair,_na,'wnba_book_SCREENONLY',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
 
 result={'scanned_at':datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
         'slate_date':DATE,'rows':out,'binding_errors':errors}
