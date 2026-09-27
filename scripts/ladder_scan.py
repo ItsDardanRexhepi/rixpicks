@@ -240,10 +240,12 @@ for series,mtype in [('KXWNBASPREAD','spread'),('KXWNBATOTAL','total'),('KXWNBAG
         suf=m['t'].rsplit('-',1)[-1]
         src={'ticker':m['t'],'event_ticker':m.get('event_ticker'),'board_ts':board_ts,'books_ts':books_ts,'n_books':bk['n_books']}
         mu=-bk['home_spread']
+        rlabel=f"{suf}"
         if mtype=='spread':
             mt=re.match(r'([A-Z]+)(\d+)$',suf)
             if not mt: errors.append(f"WNBA spread suffix unparseable: {m['t']}"); continue
             team,thr=mt.group(1),int(mt.group(2))-0.5
+            rlabel=fmt_spread(team,-thr)
             aa,ha=row['away_abbr'],row['home_abbr']
             if team==ha: home_covers=True
             elif team==aa: home_covers=False
@@ -263,11 +265,11 @@ for series,mtype in [('KXWNBASPREAD','spread'),('KXWNBATOTAL','total'),('KXWNBAG
             else: errors.append(f"WNBA ML suffix team {team} not in {aa}/{ha}: {m['t']} - REFUSING side"); continue
             z=(0-mu)/SIG_WNBA_M
             fair=(1-ND.cdf(z)) if home_covers else ND.cdf(z)  # away ML = complement of home win prob
-        add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",mtype,f"{suf}",'YES',fair,m['ya'],'wnba_book_SCREENONLY',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
+        add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",mtype,rlabel,'YES',fair,m['ya'],'wnba_book_SCREENONLY',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
         _na,_viol=noask(m)
         if _viol: errors.append(f'WNBA {_viol}: {m["t"]} - REFUSING NO row')
         elif _na is None: errors.append(f'WNBA no executable no_ask: {m["t"]} - REFUSING NO row')
-        else: add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",mtype,f"{suf}",'NO',1-fair,_na,'wnba_book_SCREENONLY',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
+        else: add('WNBA',f"{row['away_abbr']}@{row['home_abbr']}",mtype,rlabel,'NO',1-fair,_na,'wnba_book_SCREENONLY',src,{'z':z,'book_spread':bk['home_spread'],'vol':m['vol'],'oi':m['oi']})
 
 result={'scanned_at':datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
         'slate_date':DATE,'rows':out,'binding_errors':errors}
