@@ -193,7 +193,18 @@ def grade(pick, primary):
     if n_card != 1:
         raise ValueError(f'card record missing or ambiguous (n={n_card}) for '
                          f"{pick['game']['eid']}|ml|{pick['side']} - REFUSING to grade (fail closed)")
-    if cents is not None and card_c is not None and int(card_c) != int(cents):
+    def _valid_price(v):
+        try:
+            return 1 <= int(v) <= 99
+        except (TypeError, ValueError):
+            return False
+    # swamp 9:40: BOTH prices must be present and valid before grade - a null
+    # card price must never wave the manifest price through.
+    if not _valid_price(card_c):
+        raise ValueError(f'card entry price missing/invalid ({card_c!r}) - REFUSING to grade (fail closed)')
+    if not _valid_price(cents):
+        raise ValueError(f'manifest price missing/invalid ({cents!r}) - REFUSING to grade (fail closed)')
+    if int(card_c) != int(cents):
         raise ValueError(f'card-price fork: manifest {cents}c != picks-ledger {card_c}c - REFUSING to grade')
     for dv in fill_leak.fill_divergence(pick):
         if cents is not None and dv['fill_c'] is not None and int(dv['fill_c']) != int(cents):
