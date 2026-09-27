@@ -119,22 +119,22 @@ h1 .tick{color:#3BEBF5}
 <div class="sect" style="margin-top:18px">Team</div>
 <div class="pick" data-espn="basketball/wnba" data-team="New York Liberty">
   <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/ny.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">New York Liberty</span><span class="odds">26-18</span></div>
-  <div class="sub">Record 26-18 · Streak L2</div>
+  <div class="sub">Record 26-18 · Streak W1</div>
   <div class="score" id="rpScore">Today: @ Minnesota Lynx · 11:00 AM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 65-83 vs ATL · 09-24</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 84-95 vs ATL · 09-22</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 106-69 @ TOR · 09-20</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 93-81 @ MIN · 09-18</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 85-66 vs CHI · 08-29</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 91-75 @ MIN · 09-27</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 65-83 vs ATL · 09-24</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 84-95 vs ATL · 09-22</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 106-69 @ TOR · 09-20</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 93-81 @ MIN · 09-18</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 89.4 &middot; allowed 86.4 per game over last 47</div>
+<div class="sub" style="padding:7px 0">Scored 89.5 &middot; allowed 86.2 per game over last 48</div>
 <div class="sect">Next up</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ MIN · 09-27</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs MIN · 09-30</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ MIN · 10-01</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs MIN · 09-30</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ MIN · 10-01</div>
 <div class="sect">Injuries</div>
 <div class="sub">None reported.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790536016';
+const RP_BUILD='1790539659';
 function rpTick(){try{
  const d=document.querySelector('.pick[data-espn]');if(!d||!d.dataset.espn)return;
  fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard').then(r=>r.json()).then(function(j){

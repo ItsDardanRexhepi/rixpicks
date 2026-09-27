@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T19:51:17.033850+00:00",
+ "generated_at": "2026-09-27T20:07:28.203560+00:00",
  "window": "sun-afternoon",
  "legs": [
   {
@@ -89,8 +89,8 @@
    "matchup": "ARI @ SF",
    "espn_event_id": "401872958",
    "commence": "2026-09-27T20:05Z",
-   "status": "pre",
-   "detail": "9/27 - 1:05 PM PT",
+   "status": "in",
+   "detail": "14:23 - 1st",
    "score": "SF 0 - ARI 0"
   },
   {
@@ -113,8 +113,8 @@
    "matchup": "MIN @ TB",
    "espn_event_id": "401872959",
    "commence": "2026-09-27T20:05Z",
-   "status": "pre",
-   "detail": "9/27 - 1:05 PM PT",
+   "status": "in",
+   "detail": "14:54 - 1st",
    "score": "TB 0 - MIN 0"
   }
  ]
