@@ -1216,7 +1216,7 @@ r'var h="",ups=[];'
 r'tix.forEach(function(t,ti){'
 r'(t.site_updates||[]).forEach(function(u){ups.push(u);});'
 r'h+="<div class=\"rpnpick\""+(ti>0?" style=\"margin-top:18px;border-top:1px solid #e4e2de;padding-top:14px\"":"")+">"'
-r'+"<div class=\"rpwhead\">Ticket "+(ti+1)+(t.title?" &middot; "+esc(t.title):"")+"</div>"'
+r'+"<div class=\"rpwhead\">Ticket "+(t.id||(ti+1))+(t.title?" &middot; "+esc(t.title):"")+"</div>"'
 r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline;margin-top:2px\"><span>"+(t.bought?"<span style=\"background:#0b6e5f;color:#fff;border-radius:8px;font-size:11px;font-weight:700;padding:1px 8px\">BOUGHT</span> ":"")+(t.pct?"<span style=\"color:#8a8f98\">"+esc(t.pct)+"</span> ":"")+(t.odds_was?"<s style=\"color:#8a8f98\">"+esc(t.odds_was)+"</s> ":"")+(t.odds_boosted?"<span style=\"background:#7c3aed;color:#fff;border-radius:8px;font-size:11px;font-weight:700;padding:1px 8px\">"+esc(t.odds_boosted)+"</span>":"")+"</span>"+(t.status?"<span style=\"background:rgba(216,162,58,.18);color:#b07708;border-radius:8px;font-size:11px;font-weight:700;padding:1px 8px\">"+esc(t.status)+"</span>":"")+"</div>"'
 r'+(t.bought||t.to_pay||t.fancash?"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+(t.bought?"Bought "+esc(t.bought):"")+(t.bought&&t.to_pay?" &middot; ":"")+(t.to_pay?"To Pay "+esc(t.to_pay):"")+((t.bought||t.to_pay)&&t.fancash?" &middot; ":"")+(t.fancash?"FanCash "+esc(t.fancash):"")+"</div>":"")'
 r'+(t.legs||[]).map(function(l,i){var fin=l.status||"";var pill="";if(fin==="won")pill=dot("#0b6e5f")+"<b style=\"color:#0b6e5f\">Won &#10003;</b><span style=\"color:#8a8f98\"> &middot; Final</span>";else if(fin==="lost")pill=dot("#8a8f98")+"<span style=\"color:#8a8f98\">Lost &middot; Final</span>";else if(fin==="void")pill=dot("#8a8f98")+"<span style=\"color:#8a8f98\">Void</span>";return "<div style=\"font-size:13px;margin-top:5px\">"+(i+1)+". <b>"+esc(l.player)+"</b> <span style=\"color:#8a8f98\">"+esc(l.market||"")+(l.matchup?" &middot; "+esc(l.matchup):"")+(l.time?" &middot; "+esc(l.time):"")+"</span></div>"+(pill?"<div style=\"margin-top:1px;font-size:12px\">"+pill+"</div>":("<div class=\"rptixtrk\" data-p=\""+esc(l.fp||l.player||"")+"\" data-m=\""+esc(l.matchup||"")+"\" data-mkt=\""+esc(l.market||"")+"\" data-fm=\""+esc(l.fm||"")+"\" style=\"margin-top:1px;font-size:12px\"></div>"));}).join("")'
@@ -1479,6 +1479,11 @@ def _ystr_for(_tab):
     return ('<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: '+html.escape(_s)+'</a>') if _s else ''
 _units_line=(f'<div class="yesrec unitspl" id="rpUnits" data-bu="{html.escape(re.sub(r"[^0-9.+-]","",man["units_pl"]))}">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else '')
 _rw,_rl=man['record'].split('-')[0],man['record'].split('-')[1]
+_navpct=''
+try:
+    _w0,_l0=int(_rw),int(_rl)
+    if _w0+_l0>0: _navpct='<span><b id="rpNavPct">'+('%.2f'%(100.0*_w0/(_w0+_l0)))+'%</b></span>'
+except Exception: _navpct=''
 _tail_html=('<a class="rec" id="rpRec" data-bw="'+html.escape(str(_rw))+'" data-bl="'+html.escape(str(_rl))+'" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: '+html.escape(man['record'])+'</a>\n'
     +wl_pct_line(man['record'])+'\n'+_units_line+'\n'
     '<div class="unitmath">1u = $5 per $1,000 in bankroll</div>\n'
@@ -1615,7 +1620,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
         _panels_html+='<div class="state" id="st-'+t['key']+'">'+_body+'</div>\n'
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
-    '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><div class="rec"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navu+'</div></nav>\n'
+    '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><div class="rec"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</div></nav>\n'
     '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Games</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div class="col-head" style="margin-top:18px"><div class="sect">News</div></div><div class="card" id="rpNews"></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')

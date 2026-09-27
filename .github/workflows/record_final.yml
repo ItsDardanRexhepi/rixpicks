@@ -1,0 +1,61 @@
+name: record-final
+# Record write on graded finals (main 9/27 decision): analysis drops ledger-verified grades in
+# record_request.json (polled by the builder dispatcher / relayed dispatch on live finals);
+# this workflow independently verifies each final against ESPN core, applies the ledger's exact
+# numbers to manifest.json + history.json, rebuilds, syntax-sweeps emitted JS, and commits via
+# GITHUB_TOKEN. No file token anywhere; secrets never move. Private kb/ledger stays analysis-side.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: site-main-writers
+  cancel-in-progress: false
+jobs:
+  write:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: apply graded finals (independent ESPN verify, fail-closed)
+        run: python3 scripts/record_final.py
+      - name: nothing pending check
+        id: gate
+        run: |
+          if git diff --quiet -- manifest.json history.json record_request.json record_done.json 2>/dev/null && [ ! -f record_done.json ] || git diff --quiet -- manifest.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: rebuild site + record pages
+        if: steps.gate.outputs.changed == 'true'
+        run: |
+          set -o pipefail
+          python3 scripts/_build_nocanon_v2.py manifest.json index.html 2>&1 | tee /tmp/build.log
+          python3 scripts/build_history.py history.json
+      - name: syntax-sweep emitted script blocks
+        if: steps.gate.outputs.changed == 'true'
+        run: |
+          python3 - <<'PY'
+          import re, subprocess, sys
+          s=open('index.html').read()
+          blocks=[b for b in re.findall(r'<script>(.*?)</script>', s, re.S) if len(b)>50]
+          bad=0
+          for i,b in enumerate(blocks):
+              open('/tmp/blk.js','w').write(b)
+              r=subprocess.run(['node','--check','/tmp/blk.js'],capture_output=True,text=True)
+              if r.returncode!=0:
+                  bad+=1; print('BLOCK',i,'FAIL',r.stderr[:300])
+          print('blocks',len(blocks),'bad',bad)
+          sys.exit(1 if bad else 0)
+          PY
+      - name: commit record write
+        if: steps.gate.outputs.changed == 'true'
+        run: |
+          git config user.name 'rixpicks-record-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add manifest.json history.json record.html yesterday.html index.html game-*.html record_request.json record_done.json
+          git commit -m "Record write: graded finals applied from record_request.json (ESPN-verified, ledger-exact) [record-final]"
+          git push

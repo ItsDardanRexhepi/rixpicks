@@ -1,0 +1,60 @@
+{
+ "requests": [
+  {
+   "grade_id": "401872954|ml|home",
+   "event_id": "401872954",
+   "league": "football/nfl",
+   "pick": "Lions ML",
+   "side": "home",
+   "result": "WON",
+   "score": "NYJ 24 @ DET 31",
+   "stake_units": "5u",
+   "locked_american": "-270",
+   "delta_units_exact": 1.8518518518518519,
+   "record_after": "14-6",
+   "units_after_exact": 5.745551851851852,
+   "two_source": [
+    "espn_core completed 31-24",
+    "repo nfl_scores.json completed=true 31-24 @20:07:54Z"
+   ],
+   "note": "ledger row already appended; site write POST failed - this is the resumable write"
+  },
+  {
+   "grade_id": "401872950|ml|away",
+   "event_id": "401872950",
+   "league": "football/nfl",
+   "pick": "Bengals ML",
+   "side": "away",
+   "result": "LOST",
+   "score": "CIN 27 @ PIT 30",
+   "stake_units": "5u",
+   "locked_american": "-163",
+   "delta_units_exact": -5.0,
+   "record_after": "14-7",
+   "units_after_exact": 0.745551851851852,
+   "two_source": [
+    "espn_core completed away 27 home 30",
+    "statmuse \"Steelers eked out a victory over the Bengals, 30 to 27\"",
+    "repo nfl_scores.json score-agrees 30-27 but completed flag stale (last_update 20:07:54Z)"
+   ]
+  },
+  {
+   "grade_id": "401918014|ml|home",
+   "event_id": "401918014",
+   "league": "basketball/wnba",
+   "pick": "Lynx ML",
+   "side": "home",
+   "result": "LOST",
+   "score": "NYL 91 @ MIN 75",
+   "stake_units": "5u",
+   "locked_american": "-257",
+   "delta_units_exact": -5.0,
+   "record_after": "14-8",
+   "units_after_exact": -4.254448148148148,
+   "two_source": [
+    "espn_core completed home 75 away 91",
+    "statmuse \"Liberty won against the Lynx, 91 to 75\""
+   ]
+  }
+ ]
+}
