@@ -1,126 +1,108 @@
 {
- "version": 1,
- "note": "Wooder Ice anytime-TD market chips; kalshi verified live 8:44 PT; polymarket_us has no player-prop markets (hub = game moneylines only) so POLY chips drop per fail-closed",
- "legs": [
-  {
-   "player": "Jahmyr Gibbs",
-   "team": "DET",
-   "matchup": "NYJ @ DET",
-   "kalshi": {
-    "ticker": "KXNFLTD-26SEP27NYJDET-DETJGIBBS0-1",
-    "title": "Jahmyr Gibbs: 1+ touchdowns",
-    "bid_c": 70,
-    "ask_c": 71,
-    "mid_c": 70,
-    "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27nyjdet",
-    "url_note": "event page (per-game TD board); deep per-market links not in card convention"
-   },
-   "polymarket_us": null
-  },
-  {
-   "player": "Derrick Henry",
-   "team": "BAL",
-   "matchup": "BAL @ DAL",
-   "kalshi": {
-    "ticker": "KXNFLTD-26SEP27BALDAL-BALDHENRY22-1",
-    "title": "Derrick Henry: 1+ touchdowns",
-    "bid_c": 64,
-    "ask_c": 65,
-    "mid_c": 64,
-    "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27baldal",
-    "url_note": "event page (per-game TD board); deep per-market links not in card convention"
-   },
-   "polymarket_us": null
-  },
-  {
-   "player": "Kenneth Walker III",
-   "team": "KC",
-   "matchup": "KC @ MIA",
-   "kalshi": {
-    "ticker": "KXNFLTD-26SEP27KCMIA-KCKWALKER9-1",
-    "title": "Kenneth Walker III: 1+ touchdowns",
-    "bid_c": 62,
-    "ask_c": 63,
-    "mid_c": 62,
-    "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27kcmia",
-    "url_note": "event page (per-game TD board); deep per-market links not in card convention"
-   },
-   "polymarket_us": null
-  },
-  {
-   "player": "James Cook",
-   "team": "BUF",
-   "matchup": "LAC @ BUF",
-   "kalshi": {
-    "ticker": "KXNFLTD-26SEP27LACBUF-BUFJCOOK4-1",
-    "title": "James Cook: 1+ touchdowns",
-    "bid_c": 59,
-    "ask_c": 60,
-    "mid_c": 60,
-    "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27lacbuf",
-    "url_note": "event page (per-game TD board); deep per-market links not in card convention"
-   },
-   "polymarket_us": null
-  },
-  {
-   "player": "Jaxon Smith-Njigba",
-   "team": "SEA",
-   "matchup": "SEA @ WAS",
-   "kalshi": {
-    "ticker": "KXNFLTD-26SEP27SEAWAS-SEAJSMITHNJIGBA11-1",
-    "title": "Jaxon Smith-Njigba: 1+ touchdowns",
-    "bid_c": 48,
-    "ask_c": 49,
-    "mid_c": 48,
-    "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27seawas",
-    "url_note": "event page (per-game TD board); deep per-market links not in card convention"
-   },
-   "polymarket_us": null
-  },
-  {
-   "player": "Ja'Marr Chase",
-   "team": "CIN",
-   "matchup": "CIN @ PIT",
-   "kalshi": {
-    "ticker": "KXNFLTD-26SEP27CINPIT-CINJCHASE1-1",
-    "title": "Ja'Marr Chase: 1+ touchdowns",
-    "bid_c": 42,
-    "ask_c": 43,
-    "mid_c": 42,
-    "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27cinpit",
-    "url_note": "event page (per-game TD board); deep per-market links not in card convention"
-   },
-   "polymarket_us": null
-  },
-  {
-   "player": "Jameson Williams",
-   "team": "DET",
-   "matchup": "NYJ @ DET",
-   "kalshi": {
-    "ticker": "KXNFLTD-26SEP27NYJDET-DETJWILLIAMS1-1",
-    "title": "Jameson Williams: 1+ touchdowns",
-    "bid_c": 34,
-    "ask_c": 35,
-    "mid_c": 34,
-    "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27nyjdet",
-    "url_note": "event page (per-game TD board); deep per-market links not in card convention"
-   },
-   "polymarket_us": null
-  },
-  {
-   "player": "Tyquan Thornton",
-   "team": "KC",
-   "matchup": "KC @ MIA",
-   "kalshi": {
-    "ticker": "KXNFLTD-26SEP27KCMIA-KCTTHORNTON2-1",
-    "title": "Tyquan Thornton: 1+ touchdowns",
-    "bid_c": 15,
-    "ask_c": 16,
-    "mid_c": 16,
-    "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27kcmia",
-    "url_note": "event page (per-game TD board); deep per-market links not in card convention"
-   },
-   "polymarket_us": null
-  }
- ]
+  "legs": [
+    {
+      "kalshi": {
+        "ask_c": 68,
+        "ticker": "KXNFLTD-26SEP27ARISF-SFCMCCAFFREY23-1",
+        "title": "Christian McCaffrey: 1+ touchdowns",
+        "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27arisf",
+        "url_note": "event page (per-game TD board); deep per-market links not in card convention"
+      },
+      "matchup": "ARI @ SF",
+      "player": "Christian McCaffrey",
+      "polymarket_us": null,
+      "team": "SF"
+    },
+    {
+      "kalshi": {
+        "ask_c": 65,
+        "ticker": "KXNFLTD-26SEP27BALDAL-BALDHENRY22-1",
+        "title": "Derrick Henry: 1+ touchdowns",
+        "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27baldal",
+        "url_note": "event page (per-game TD board); deep per-market links not in card convention"
+      },
+      "matchup": "BAL @ DAL",
+      "player": "Derrick Henry",
+      "polymarket_us": null,
+      "team": "BAL"
+    },
+    {
+      "kalshi": {
+        "ask_c": 57,
+        "ticker": "KXNFLTD-26SEP27BALDAL-DALJWILLIAMS33-1",
+        "title": "Javonte Williams: 1+ touchdowns",
+        "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27baldal",
+        "url_note": "event page (per-game TD board); deep per-market links not in card convention"
+      },
+      "matchup": "BAL @ DAL",
+      "player": "Javonte Williams",
+      "polymarket_us": null,
+      "team": "DAL"
+    },
+    {
+      "kalshi": {
+        "ask_c": 49,
+        "ticker": "KXNFLTD-26SEP27LVNO-LVAJEANTY2-1",
+        "title": "Ashton Jeanty: 1+ touchdowns",
+        "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27lvno",
+        "url_note": "event page (per-game TD board); deep per-market links not in card convention"
+      },
+      "matchup": "LV @ NO",
+      "player": "Ashton Jeanty",
+      "polymarket_us": null,
+      "team": "LV"
+    },
+    {
+      "kalshi": {
+        "ask_c": 45,
+        "ticker": "KXNFLTD-26SEP27MINTB-MINAJONES33-1",
+        "title": "Aaron Jones Sr.: 1+ touchdowns",
+        "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27mintb",
+        "url_note": "event page (per-game TD board); deep per-market links not in card convention"
+      },
+      "matchup": "MIN @ TB",
+      "player": "Aaron Jones Sr.",
+      "polymarket_us": null,
+      "team": "MIN"
+    },
+    {
+      "kalshi": {
+        "ask_c": 42,
+        "ticker": "KXNFLTD-26SEP27BALDAL-DALCLAMB88-1",
+        "title": "CeeDee Lamb: 1+ touchdowns",
+        "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27baldal",
+        "url_note": "event page (per-game TD board); deep per-market links not in card convention"
+      },
+      "matchup": "BAL @ DAL",
+      "player": "CeeDee Lamb",
+      "polymarket_us": null,
+      "team": "DAL"
+    },
+    {
+      "kalshi": {
+        "ask_c": 41,
+        "ticker": "KXNFLTD-26SEP27BALDAL-BALMANDREWS89-1",
+        "title": "Mark Andrews: 1+ touchdowns",
+        "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27baldal",
+        "url_note": "event page (per-game TD board); deep per-market links not in card convention"
+      },
+      "matchup": "BAL @ DAL",
+      "player": "Mark Andrews",
+      "polymarket_us": null,
+      "team": "BAL"
+    },
+    {
+      "kalshi": {
+        "ask_c": 39,
+        "ticker": "KXNFLTD-26SEP27MINTB-TBBIRVING7-1",
+        "title": "Bucky Irving: 1+ touchdowns",
+        "url": "https://kalshi.com/markets/kxnfltd/kxnfltd-26sep27mintb",
+        "url_note": "event page (per-game TD board); deep per-market links not in card convention"
+      },
+      "matchup": "MIN @ TB",
+      "player": "Bucky Irving",
+      "polymarket_us": null,
+      "team": "TB"
+    }
+  ]
 }
