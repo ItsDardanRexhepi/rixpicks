@@ -1137,7 +1137,7 @@ r'if(bb&&(bb.picks||[]).length){h+="<div class=\"rpwhead\" style=\"margin-top:18
 r'var bchips="";(bb.picks||[]).forEach(function(b2){bchips+=chip("KAL","KAL "+rpAml(b2.price_c),okUrl(b2.link),null);});'
 r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+esc(bb.matchup||"")+"</b></span></span></div>"'
 r'+"<div class=\"sub\">"+(bb.picks||[]).map(function(b2){return esc(b2.player)+" "+esc(rpAml(b2.price_c));}).join(" + ")+"</div>"'
-r'+(bb.est_cost_c?"<div class=\"sub\">Est. cost "+esc(bb.est_cost_c)+"c</div>":"")+(bchips?"<div class=\"chips\">"+bchips+"</div>":"")+"</div>";}'
+r'+(bb.est_cost_c?"<div class=\"sub\">Sum of individual asks "+esc(bb.est_cost_c)+"c &middot; not a combined quote</div>":"")+(bchips?"<div class=\"chips\">"+bchips+"</div>":"")+"</div>";}'
 r'box.innerHTML=h;'
 r'try{if(window.rpFilter)rpFilter(localStorage.getItem("rp_state"));}catch(e){}}'
 r'fetch("slates/nfl_chips.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(cj){/* carded prices only; as-of comes from the slate generated_at at render (main Sep-27 URF directive). The file mtime advances without content change, so it must never be shown as the quote time. */((cj&&cj.legs)||[]).forEach(function(l){if(l.kalshi&&typeof l.kalshi.ask_c==="number")RPCHIPS[RPKEY(l.player,l.team)]={ask_c:l.kalshi.ask_c,url:l.kalshi.url,ticker:(typeof l.kalshi.ticker==="string"?l.kalshi.ticker:null)};});}).catch(function(){}).then(function(){'

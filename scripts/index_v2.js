@@ -206,6 +206,61 @@ function renderNews(t,arts){
  });
  box.innerHTML=h;
 }
+/* client replica of news_feed.py relevant() - the 25s instant lane merges straight into the
+   visible bucket, so it must pass the same promotion/league filter the server applies
+   (swamp 1:19: unfiltered ESPN mma stories bypassed the UFC-promotion rule). Keep in sync. */
+var RP_NEWS_LEAGUE_KW={
+ 'NFL':['nfl','football','super bowl','quarterback','touchdown'],
+ 'NBA':['nba','basketball'],
+ 'MLB':['mlb','baseball','world series','pitcher','home run'],
+ 'NHL':['nhl','hockey','stanley cup'],
+ 'CFB':['college football','ncaa football','cfb','quarterback','touchdown','heisman'],
+ 'NCAAB':['college basketball','ncaa','march madness','basketball'],
+ 'WNBA':['wnba','basketball'],
+ 'MLS':['mls','soccer','major league soccer'],
+ 'NWSL':['nwsl','soccer'],
+ 'PGA':['golf','pga','masters','ryder','open championship','tour championship','birdie','eagle'],
+ 'ATP':['tennis','atp','grand slam','wimbledon','us open','australian open','french open'],
+ 'WTA':['tennis','wta','grand slam','wimbledon','us open','australian open','french open'],
+ 'NASCAR':['nascar','racing','daytona','cup series'],
+ 'UFC':['ufc'],
+ 'Boxing':['boxing','heavyweight','title bout']
+};
+var RP_NEWS_STRONG={'NFL':['nfl','super bowl','quarterback','touchdown'],'NBA':['nba'],'MLB':['mlb','world series','home run'],'NHL':['nhl','stanley cup'],'WNBA':['wnba']};
+var RP_NEWS_SPORT_OF={'NFL':'NFL','CFB':'NFL','NBA':'NBA','NCAAB':'NBA','WNBA':'WNBA','MLB':'MLB','NHL':'NHL'};
+var RP_NEWS_NICHE={'MLS':1,'NWSL':1,'PGA':1,'ATP':1,'WTA':1,'NASCAR':1,'UFC':1,'Boxing':1};
+var RP_NEWS_ESPN2KEY={'football/nfl':'NFL','football/college-football':'CFB','basketball/nba':'NBA','basketball/mens-college-basketball':'NCAAB','basketball/wnba':'WNBA','baseball/mlb':'MLB','hockey/nhl':'NHL','soccer/usa.1':'MLS','soccer/usa.nwsl':'NWSL','golf/pga':'PGA','tennis/atp':'ATP','tennis/wta':'WTA','racing/nascar-premier':'NASCAR','mma/ufc':'UFC'};
+function rpNewsKeys(t){
+ if(!t)return[];
+ if(t.key==='tennis')return['ATP','WTA'];
+ if(t.key==='ufcboxing')return['UFC','Boxing'];
+ var k=RP_NEWS_ESPN2KEY[t.espn||''];
+ return k?[k]:[];
+}
+function rpNewsOkKey(key,headline){
+ var h=' '+(headline||'').toLowerCase()+' ';
+ var my=RP_NEWS_SPORT_OF[key];
+ for(var sport in RP_NEWS_STRONG){
+  if(sport===my)continue;
+  var marks=RP_NEWS_STRONG[sport];
+  for(var i=0;i<marks.length;i++)if(h.indexOf(marks[i])!==-1)return false;
+ }
+ if(RP_NEWS_NICHE[key]){
+  var kws=RP_NEWS_LEAGUE_KW[key];
+  if(!kws)return false;
+  var cut=Math.max(20,Math.floor(h.length*0.6));
+  var lead=h.slice(0,cut);
+  for(var j=0;j<kws.length;j++)if(lead.indexOf(kws[j])!==-1)return true;
+  return false;
+ }
+ return true;
+}
+function rpNewsOk(t,headline){
+ var ks=rpNewsKeys(t);
+ if(!ks.length)return true;  /* unknown tab: server file already filtered; don't double-gate */
+ for(var i=0;i<ks.length;i++)if(rpNewsOkKey(ks[i],headline))return true;
+ return false;
+}
 var NEWSF=null,NEWSF_TS=0;
 var DNEWS={},DNEWS_TS={};
 var KALW=window.RP_KAL_WATCH||[];
@@ -276,7 +331,7 @@ function loadSide(t){
  if(!DNEWS_TS[t.key]||now-DNEWS_TS[t.key]>25000){
   fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/news?limit=8',{cache:'no-store'})
    .then(function(r){if(!r.ok)throw 0;return r.json();})
-   .then(function(j){DNEWS[t.key]=(j.articles||[]).map(function(a){return {headline:a.headline||'',link:((a.links||{}).web||{}).href||'',published:a.published||'',source:'ESPN'};});DNEWS_TS[t.key]=Date.now();if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
+   .then(function(j){DNEWS[t.key]=(j.articles||[]).map(function(a){return {headline:a.headline||'',link:((a.links||{}).web||{}).href||'',published:a.published||'',source:'ESPN'};}).filter(function(a){return rpNewsOk(t,a.headline);});DNEWS_TS[t.key]=Date.now();if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
    .catch(function(){DNEWS_TS[t.key]=Date.now()-10000;});  /* soft backoff, keeps last good */
  }
 }
