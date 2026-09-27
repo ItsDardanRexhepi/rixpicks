@@ -34,7 +34,10 @@ a.back{color:var(--acc);text-decoration:none;font-size:13px;font-weight:600}
 <script>(function(){
 function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}
 function ptTime(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}
-var q=new URLSearchParams(location.search),espn=q.get("espn")||"",eid=q.get("eid")||"";
+/* league path whitelist (swamp 12:28): never encode the path (slash must survive), never allow arbitrary paths */
+/* whitelist + aliases verified live 12:30 (scoreboard 200 per route; boxing has no working ESPN route - rows never link it) */
+var RP_LG_MAP={"football/nfl":1,"football/college-football":1,"basketball/nba":1,"basketball/wnba":1,"basketball/college-basketball":"basketball/mens-college-basketball","basketball/mens-college-basketball":1,"basketball/womens-college-basketball":1,"baseball/mlb":1,"hockey/nhl":1,"tennis/atp":1,"tennis/wta":1,"soccer/usa.1":1,"soccer/usa.nwsl":1,"golf/pga":1,"racing/nascar":"racing/nascar-premier","racing/nascar-premier":1,"mma/ufc":1};
+var q=new URLSearchParams(location.search),_m=RP_LG_MAP[q.get("espn")||""],espn=_m===1?q.get("espn"):(typeof _m==="string"?_m:""),eid=q.get("eid")||"";
 var scoreEl=document.getElementById("rpScore"),playsEl=document.getElementById("rpPlays"),ageEl=document.getElementById("rpAge");
 if(!espn||!eid){scoreEl.innerHTML='<div class="err">No game specified.</div>';playsEl.innerHTML='<div class="empty">-</div>';return;}
 var lastOk=0;
@@ -63,7 +66,7 @@ function render(j){
   }).join("");}
 }
 function tick(){
- fetch("https://site.api.espn.com/apis/site/v2/sports/"+encodeURIComponent(espn)+"/summary?event="+encodeURIComponent(eid)+"&cb="+Date.now(),{cache:"no-store"})
+ fetch("https://site.api.espn.com/apis/site/v2/sports/"+espn+"/summary?event="+encodeURIComponent(eid)+"&cb="+Date.now(),{cache:"no-store"})
   .then(function(r){if(!r.ok)throw 0;return r.json();})
   .then(function(j){lastOk=Date.now();render(j);})
   .catch(function(){if(!lastOk){scoreEl.innerHTML='<div class="err">Live data unavailable right now.</div>';playsEl.innerHTML='<div class="empty">-</div>';}});

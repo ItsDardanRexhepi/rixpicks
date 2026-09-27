@@ -116,6 +116,8 @@ if('MutationObserver' in window){
 }
 /* ---- sidebar: games + news (ESPN free endpoints; failure states honest, never fabricated) ---- */
 var SB={},NEWS={},SB_TS={},NEWS_TS={};
+/* leagues with a verified live-tracking route (live.html) - rows for anything else stay untappable (fail closed; boxing has no working ESPN route 12:30) */
+var RP_LIVE_OK={'football/nfl':1,'football/college-football':1,'basketball/nba':1,'basketball/wnba':1,'basketball/college-basketball':1,'basketball/mens-college-basketball':1,'basketball/womens-college-basketball':1,'baseball/mlb':1,'hockey/nhl':1,'tennis/atp':1,'tennis/wta':1,'soccer/usa.1':1,'soccer/usa.nwsl':1,'golf/pga':1,'racing/nascar':1,'racing/nascar-premier':1,'mma/ufc':1};
 function lgpath(t){return t.espn||'';}
 function ordinal(p){p=parseInt(p,10);if(!p)return '';if(p<=4)return p+(['th','st','nd','rd'][p]||'th');return p===5?'OT':(p-4)+'OT';}
 function ago(iso){
@@ -167,7 +169,7 @@ function renderGames(t,events){
    when='<span class="when">'+esc(until(ev.date))+'</span>';
   }
   var _row='<div class="grow"><div><div class="gname">'+txt+'</div><div class="gsub">'+sub+'</div></div>'+when+'</div>';
-  rows.push(ev.id?('<a class="growtap" href="live.html?espn='+encodeURIComponent(lgpath(t))+'&eid='+encodeURIComponent(ev.id)+'" style="display:block;text-decoration:none;color:inherit">'+_row+'</a>'):_row);
+  rows.push((ev.id&&RP_LIVE_OK[lgpath(t)])?('<a class="growtap" href="live.html?espn='+encodeURIComponent(lgpath(t))+'&eid='+encodeURIComponent(ev.id)+'" style="display:block;text-decoration:none;color:inherit">'+_row+'</a>'):_row);
  }
  box.innerHTML=rows.join('')||'<div class="empty">No games listed right now.</div>';
 }
