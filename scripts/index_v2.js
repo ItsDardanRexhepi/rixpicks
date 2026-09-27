@@ -173,17 +173,30 @@ function renderGames(t,events){
  }
  box.innerHTML=rows.join('')||'<div class="empty">No games listed right now.</div>';
 }
+function srcDom(s){return s==='CBS'?'cbssports.com':(s==='YAHOO'?'sports.yahoo.com':'espn.com');}
+function newsBucket(t){
+ if(!NEWSF||!NEWSF.leagues)return null;
+ var L=NEWSF.leagues,out;
+ if(t.key==='tennis'){out=(L['tennis/atp']||[]).concat(L['tennis/wta']||[]);}
+ else if(t.key==='ufcboxing'){out=(L['mma/ufc']||[]).concat(L['boxing']||[]);}
+ else out=L[t.espn]||[];
+ out=out.slice();
+ out.sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);});
+ return out;
+}
 function renderNews(t,arts){
  var box=$('rpNews');if(!box)return;
  if(!arts||!arts.length){box.innerHTML='<div class="empty">News unavailable right now.</div>';return;}
  var h='';
- arts.slice(0,6).forEach(function(a){  /* render matches the fetch (limit=6) - swamp 12:38: the cap silently dropped 3 fetched stories */
-  var u=((a.links||{}).web||{}).href||'';
-  var inner='<span class="src espn">ESPN</span><span class="ntxt">'+esc(a.headline||'')+'</span><div class="nts">'+esc(ago(a.published))+' \u00b7 espn.com</div>';
+ arts.slice(0,8).forEach(function(a){
+  var u=a.link||'';
+  var s=a.source||'ESPN';
+  var inner='<span class="src '+s.toLowerCase()+'">'+esc(s)+'</span><span class="ntxt">'+esc(a.headline||'')+'</span><div class="nts">'+esc(ago(a.published))+' \u00b7 '+srcDom(s)+'</div>';
   h+='<div class="nitem">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
  });
  box.innerHTML=h;
 }
+var NEWSF=null,NEWSF_TS=0;
 var KALW=window.RP_KAL_WATCH||[];
 var KALD={},KALD_TS={},KALIN={};
 function kalHasSfx(tick,sfx){return !!sfx&&tick.length>sfx.length&&tick.slice(-(sfx.length+1))===('-'+sfx);}
@@ -218,14 +231,15 @@ function kalItemsFor(t,cb){
 }
 function tickRender(){
  var tr=$('rpTickTrack'),bar=$('rpTickBar');if(!tr||!bar)return;
- var arts=NEWS[cur?cur.key:'']||[];
+ var arts=(NEWSF&&NEWSF.latest)||[];
  kalItemsFor(cur,function(kal){
   if(!arts.length&&!kal.length){bar.style.display='none';return;}
   bar.style.display='';
   var h='';
-  arts.slice(0,4).forEach(function(a){
-   var u=((a.links||{}).web||{}).href||'';
-   h+='<'+(u?'a class="titem" href="'+esc(u)+'" target="_blank" rel="noreferrer"':'span class="titem"')+'><span class="tsrc espn">ESPN</span>'+esc(a.headline||'')+'</'+(u?'a':'span')+'><span class="tsep">\u00b7</span>';
+  arts.slice(0,8).forEach(function(a){
+   var u=a.link||'';
+   var s=a.source||'ESPN';
+   h+='<'+(u?'a class="titem" href="'+esc(u)+'" target="_blank" rel="noreferrer"':'span class="titem"')+'><span class="tsrc '+s.toLowerCase()+'">'+esc(s)+'</span><span class="tsrc">'+esc(a.league||'')+'</span>'+esc(a.headline||'')+'</'+(u?'a':'span')+'><span class="tsep">\u00b7</span>';
   });
   h+=kal.join('');
   tr.innerHTML=h+h;
@@ -241,16 +255,16 @@ function loadSide(t){
    .then(function(j){SB[t.key]=j.events||[];SB_TS[t.key]=Date.now();if(cur===t)renderGames(t,SB[t.key]);})
    .catch(function(){if(cur===t)renderGames(t,SB[t.key]||null);});
  }
- if(NEWS[t.key]&&now-(NEWS_TS[t.key]||0)<120000){renderNews(t,NEWS[t.key]);tickRender();}
+ if(NEWSF&&now-NEWSF_TS<30000){renderNews(t,newsBucket(t));tickRender();}
  else{
-  fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/news?limit=6',{cache:'no-store'})
+  fetch('slates/news.json', {cache:'no-store'})
    .then(function(r){if(!r.ok)throw 0;return r.json();})
-   .then(function(j){NEWS[t.key]=j.articles||[];NEWS_TS[t.key]=Date.now();if(cur===t){renderNews(t,NEWS[t.key]);tickRender();}})
-   .catch(function(){if(cur===t){renderNews(t,NEWS[t.key]||null);tickRender();}});
+   .then(function(j){NEWSF=j;NEWSF_TS=Date.now();if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
+   .catch(function(){if(cur===t){renderNews(t,newsBucket(t));tickRender();}});
  }
 }
-setInterval(function(){if(cur&&!document.hidden)loadSide(cur);},60000);
-setInterval(function(){if(cur&&!document.hidden&&NEWS[cur.key]){renderNews(cur,NEWS[cur.key]);tickRender();}},30000);
+setInterval(function(){if(cur&&!document.hidden)loadSide(cur);},30000);
+setInterval(function(){if(cur&&!document.hidden&&NEWSF){renderNews(cur,newsBucket(cur));tickRender();}},30000);
 /* ---- boot ---- */
 var start=fromHash();
 if(!start){
