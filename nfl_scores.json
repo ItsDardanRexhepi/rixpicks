@@ -1,6 +1,6 @@
 {
- "pulled_at_utc": "2026-09-27T22:14:03Z",
- "credits_remaining": 19922,
+ "pulled_at_utc": "2026-09-27T22:35:13Z",
+ "credits_remaining": 19908,
  "source": "the-odds-api v4 nfl scores (daysFrom=1)",
  "games": [
   {
@@ -21,7 +21,7 @@
      "score": "27"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "0339a0e41bcee12820eb3e64bb5fadb4",
@@ -41,7 +41,7 @@
      "score": "24"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "1f3cfd315a24d1a7dd5859a8e6b88e18",
@@ -61,7 +61,7 @@
      "score": "6"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "07f552badfa8a565d1be22123713e4da",
@@ -81,7 +81,7 @@
      "score": "24"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "b225458a282e140c44c45651255f2f6c",
@@ -101,7 +101,7 @@
      "score": "16"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "555afd4a27aaa392662881cffa8f2eef",
@@ -121,7 +121,7 @@
      "score": "7"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "613b8cd3a5fab58f7be4e3fd6f76223e",
@@ -141,7 +141,7 @@
      "score": "18"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "2a529c108305ffa049d8b6cfdbaa4d36",
@@ -161,7 +161,7 @@
      "score": "31"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "17a730b7d399feeab6a78c30767c29d2",
@@ -181,7 +181,7 @@
      "score": "17"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "9d2b09e0f9b6dd5ce0d985894f4f98fa",
@@ -198,10 +198,10 @@
     },
     {
      "name": "Arizona Cardinals",
-     "score": "6"
+     "score": "13"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "f1724dead3eab61546033032fc782375",
@@ -214,14 +214,14 @@
    "scores": [
     {
      "name": "Tampa Bay Buccaneers",
-     "score": "10"
+     "score": "13"
     },
     {
      "name": "Minnesota Vikings",
      "score": "17"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "2e523fcb0497aa689473e290eb2b97de",
@@ -234,14 +234,14 @@
    "scores": [
     {
      "name": "New Orleans Saints",
-     "score": "13"
+     "score": "27"
     },
     {
      "name": "Las Vegas Raiders",
      "score": "16"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "84cfca14efc21363fd605508404cf1ff",
@@ -258,10 +258,10 @@
     },
     {
      "name": "Baltimore Ravens",
-     "score": "17"
+     "score": "24"
     }
    ],
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "3bfd8bfb4b8e9a365a0877879b73b16b",
@@ -272,7 +272,7 @@
    "home_team": "Denver Broncos",
    "away_team": "Los Angeles Rams",
    "scores": null,
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "47dc7baa254659f3beb2ed2b38c207b6",
@@ -283,7 +283,7 @@
    "home_team": "Chicago Bears",
    "away_team": "Philadelphia Eagles",
    "scores": null,
-   "last_update": "2026-09-27T22:13:55Z"
+   "last_update": "2026-09-27T22:35:11Z"
   },
   {
    "id": "d55cb69fed50a09170560b5b75d8de86",
