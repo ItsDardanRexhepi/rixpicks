@@ -52,6 +52,7 @@ reg=json.load(open('config_leagues.json'))['leagues']
 ls=sorted({(reg.get(p.get('league','')) or {}).get('odds_api') or 'baseball_mlb' for p in m['picks']})
 print(' '.join(ls))")
 python3 scripts/odds_prefill.py $SPORTS 2> >(tee /tmp/odds_prefill.err >&2)
+cp /tmp/odds_prefill.json slates/odds_prefill.json
 LASTREM=$(grep -o 'credits remaining [0-9]*' /tmp/odds_prefill.err 2>/dev/null | tail -1 | grep -o '[0-9]*$' || true)
 if [ -n "${LASTREM:-}" ]; then python3 -c "
 import json
@@ -67,7 +68,7 @@ python3 scripts/futures_quotes.py futures.json --write || echo "futures_quotes f
 python3 scripts/wooder_td_feed.py slates/nfl_latest.json slates/nfl_live.json || echo "wooder_td_feed failed - keeping last live file" >&2
 RP_REFRESH=1 python3 scripts/build_gh_page_v2.py manifest.json index.html
 python3 scripts/backfill_history.py || true
-if git diff --quiet index.html game-*.html futures.json slates/nfl_live.json odds_moves.jsonl .odds_prev.json price_history.jsonl 2>/dev/null; then echo "no price movement - no commit"; exit 0; fi
+if git diff --quiet index.html game-*.html futures.json slates/nfl_live.json slates/odds_prefill.json odds_moves.jsonl .odds_prev.json price_history.jsonl 2>/dev/null; then echo "no price movement - no commit"; exit 0; fi
 python3 -c "
 import json,datetime
 f='$COUNT_FILE'; d={}
@@ -75,7 +76,7 @@ try: d=json.load(open(f))
 except: pass
 d['$TODAY']=d.get('$TODAY',0)+1
 json.dump(d,open(f,'w'))"
-git add index.html futures.html futures.json slates/nfl_live.json manifest.json manifests/ "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html hist-*.json
+git add index.html futures.html futures.json slates/nfl_live.json slates/odds_prefill.json manifest.json manifests/ "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html hist-*.json
 git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1))/33 today)"
 # chaos drill (Sep 26): a push racing the publish window must retry+rebase, never fail red
 for i in 1 2; do
