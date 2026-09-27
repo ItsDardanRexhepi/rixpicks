@@ -1,7 +1,7 @@
 {
  "date": "2026-09-27",
  "date_label": "Sunday, Sep 27",
- "updated": "Sep 27, 7:00 AM PT",
+ "updated": "Sep 27, 7:16 AM PT",
  "record": "13-6",
  "units_pl": "+3.89u",
  "units_ledger": null,
@@ -30,7 +30,7 @@
   {
    "num": 1,
    "name": "Lions ML",
-   "sub": "vs NY Jets - home - Jets OUT: Fitzpatrick, Mauigoa, TE Taylor; Nwangwu doubtful - model 72.2, exchange 73c ask, gross -0.8c net -2.2c",
+   "sub": "vs NY Jets - home - Jets OUT: Fitzpatrick, Mauigoa, TE Taylor; Nwangwu doubtful - model 72.2",
    "odds": "-270",
    "units": "5u",
    "side": "home",
@@ -51,14 +51,14 @@
    },
    "card_american": -270,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
+   "card_ts": "2026-09-27T07:16:25-07:00",
    "polymarket": null,
    "dkp": null
   },
   {
    "num": 2,
    "name": "Bengals ML",
-   "sub": "at Pittsburgh - CIN 2-0; PIT gets Warren + Pittman back - model 62.3, exchange 62c ask, gross +0.3c net -1.4c",
+   "sub": "at Pittsburgh - CIN 2-0; PIT gets Warren + Pittman back - model 62.3",
    "odds": "-163",
    "units": "5u",
    "side": "away",
@@ -79,14 +79,14 @@
    },
    "card_american": -163,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
+   "card_ts": "2026-09-27T07:16:25-07:00",
    "polymarket": null,
    "dkp": null
   },
   {
    "num": 3,
    "name": "Lynx ML",
-   "sub": "vs NY Liberty - MIN 33-11 league-best, 15-7 home - model 71.0, exchange 72c ask, gross -1.0c net -2.5c",
+   "sub": "vs NY Liberty - MIN 33-11 league-best, 15-7 home - model 71.0",
    "odds": "-257",
    "units": "5u",
    "side": "home",
@@ -107,14 +107,14 @@
    },
    "card_american": -257,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
+   "card_ts": "2026-09-27T07:16:25-07:00",
    "polymarket": null,
    "dkp": null
   },
   {
    "num": 4,
    "name": "Phillies ML",
-   "sub": "vs Tampa Bay - home; TB 98-63 (strong road profile) - thinnest read - model 60.2, exchange 62c ask, gross -1.8c net -3.5c",
+   "sub": "vs Tampa Bay - home; TB 98-63 (strong road profile) - thinnest read - model 60.2",
    "odds": "-163",
    "units": "5u",
    "side": "home",
@@ -135,14 +135,14 @@
    },
    "card_american": -163,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
+   "card_ts": "2026-09-27T07:16:25-07:00",
    "polymarket": null,
    "dkp": null
   },
   {
    "num": 5,
    "name": "Dodgers ML",
-   "sub": "at San Francisco - LAD 99-62 vs SF 65-96, 48-32 road - model 68.1, exchange 70c ask, gross -1.9c net -3.4c",
+   "sub": "at San Francisco - LAD 99-62 vs SF 65-96, 48-32 road - model 68.1",
    "odds": "-233",
    "units": "5u",
    "side": "away",
@@ -163,14 +163,14 @@
    },
    "card_american": -233,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
+   "card_ts": "2026-09-27T07:16:25-07:00",
    "polymarket": null,
    "dkp": null
   },
   {
    "num": 6,
    "name": "Brewers ML",
-   "sub": "vs St. Louis - MIL 102-59, 54-26 home - model 68.3, exchange 69c ask, gross -0.7c net -2.2c",
+   "sub": "vs St. Louis - MIL 102-59, 54-26 home - model 68.3",
    "odds": "-223",
    "units": "5u",
    "side": "home",
@@ -191,42 +191,14 @@
    },
    "card_american": -223,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
+   "card_ts": "2026-09-27T07:16:25-07:00",
    "polymarket": null,
    "dkp": null
   },
   {
    "num": 7,
-   "name": "Saints ML",
-   "sub": "vs Las Vegas - home; Bowers expected in for 2-0 LV - model 63.7, exchange 62c ask, gross +1.7c net +0.0c",
-   "odds": "-163",
-   "units": "5u",
-   "side": "home",
-   "game": {
-    "away": "Las Vegas Raiders",
-    "home": "New Orleans Saints",
-    "commence": "2026-09-27T20:25Z",
-    "eid": "401872961"
-   },
-   "espn_league": "football/nfl",
-   "best_book": "Kalshi",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxnflgame/kxnflgame-26sep27lvno",
-    "cents": 62,
-    "team": "New Orleans",
-    "gate_cents": 62,
-    "ticker": "KXNFLGAME-26SEP27LVNO-NO"
-   },
-   "card_american": -163,
-   "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": null,
-   "dkp": null
-  },
-  {
-   "num": 8,
    "name": "Dream ML",
-   "sub": "vs Washington - ATL 30-14 vs WSH 28-16 - model 71.8, exchange 73c ask, gross -1.2c net -2.6c",
+   "sub": "vs Washington - ATL 30-14 vs WSH 28-16 - model 71.8",
    "odds": "-270",
    "units": "5u",
    "side": "home",
@@ -247,10 +219,10 @@
    },
    "card_american": -270,
    "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
+   "card_ts": "2026-09-27T07:16:25-07:00",
    "polymarket": null,
    "dkp": null
   }
  ],
- "pick_content_hash": "8423afe4fb5cab3158d8a2fe978aaf11953dcc273a519d48b7582a68a9369af9"
+ "pick_content_hash": "f7027403484f4540594af3f4157d043dc303ffb4db98c83f9b34e9bdb619134e"
 }
