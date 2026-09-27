@@ -1417,9 +1417,21 @@ if _V2:
         if lg=='baseball/mlb': return ('mlb','MLB',lg)
         if lg=='basketball/nba': return ('nba','NBA',lg)
         if lg in ('tennis','tennis/atp','tennis/wta'): return ('tennis','Tennis',lg)
+        if lg=='basketball/mens-college-basketball': return ('ncaab','NCAAB',lg)
+        if lg=='basketball/wnba': return ('wnba','WNBA',lg)
+        if lg=='hockey/nhl': return ('nhl','NHL',lg)
+        if lg=='soccer/usa.1': return ('mls','MLS',lg)
+        if lg=='soccer/usa.nwsl': return ('nwsl','NWSL',lg)
+        if lg=='golf/pga': return ('pga','PGA',lg)
+        if lg in ('racing/nascar-premier','racing/nascar'): return ('nascar','NASCAR',lg)
+        if lg in ('mma/ufc','boxing'): return ('ufcboxing','UFC/Boxing',lg)
         lbl=LG_LABEL.get(lg) or (lg.split('/')[-1].replace('-',' ').title() if lg else 'Other')
         return (re.sub(r'[^a-z0-9]','',lbl.lower()) or 'other', lbl, lg)
-    _CANON_TABS=[('ncaaf','NCAAF','football/college-football'),('nfl','NFL','football/nfl'),('mlb','MLB','baseball/mlb'),('nba','NBA','basketball/nba'),('tennis','Tennis','tennis')]
+    # 9/27 9:40:49 (Dardan, verbatim): "Only have leagues show up that have picks for the
+    # day." NO hardcoded always-on tabs - a league's tab renders only when it has a pick on
+    # today's card (its row header in _row_lgs appends it below). No pick = tab hidden.
+    # Supersedes the 9:40 all-13-always-show direction (reversed one minute later).
+    _CANON_TABS=[]
     _panels={}
     for _lg,_h in zip(_row_lgs,rows):
         _k,_lbl,_esp=_tab_of_lg(_lg)
@@ -1430,18 +1442,71 @@ if _V2:
         _k,_lbl,_esp=_tab_of_lg(_lg)
         if _k not in _canon_keys and not any(t['key']==_k for t in RP_TABS):
             RP_TABS.append({'key':_k,'label':_lbl,'espn':_esp})
-    for _fe in sorted(set(re.findall(r'data-espn="([^"]+)"',fut_watch_html+fut_entry))):
-        if not any(t['espn']==_fe for t in RP_TABS):
-            _fs=_fe.split('/')[-1]
-            RP_TABS.append({'key':re.sub(r'[^a-z0-9]','',_fs.lower()) or 'other','label':_fs.upper(),'espn':_fe})
+    # futures/watch data-espn no longer appends nav tabs (9:40:49 rule: picks only) -
+    # futures/combo content renders globally in <main>, never tab-scoped, so nothing orphans.
     _cxesp=','.join(sorted(set(re.findall(r'data-espn="([^"]+)"',parlay_html))))
     _combo_wrap=('<div id="rpComboTail" data-cx-espn="'+_cxesp+'">'+parlay_html+'</div>') if parlay_html else ''
     _fut_wrap=('<div id="rpFutTail">'+fut_watch_html+'</div>') if fut_watch_html else ''
     _tabs_html=''.join('<a class="tab" data-tab="'+t['key']+'" href="#'+t['key']+'">'+html.escape(t['label'])+'</a>' for t in RP_TABS)
     _panels_html=''
+
+    # --- Dingers Only (main 9:33 contract): Wooder Ice MLB daily HR picks, MLB tab ONLY.
+    # Client-hydrated from slates/wooder_dingers.json; hides on missing/empty/wrong-date file,
+    # drops invalid picks/links silently, never renders invented prices. Contract-pinned venue map.
+    # Contract venues (KAL/POLY/DKP) accept "cents" or "american"; sportsbook venues take
+    # "american" ONLY (native book odds - a sportsbook line can never be derived from a
+    # contract quote). Both present on one link = REJECT the link. No price field = chip
+    # renders without a price (allowed, pinned).
+    _DING_VENUES={'KAL':('kalshi.com','#e6f9f3','#0a7c5c',1),'POLY':('polymarket.com','#e8f3fc','#1a6db0',1),
+     'DK':('sportsbook.draftkings.com','#0b0e11','#53d337',0),'DKP':('predictions.draftkings.com','#0b1a0e','#9be25f',1),
+     'FD':('sportsbook.fanduel.com','#e7f3ff','#0e6fd0',0),'MGM':('betmgm.com','#f5f0e4','#7a6226',0),
+     'BR':('betrivers.com','#e3f5fc','#0278a6',0),'HR':('hardrock.bet','#faf3dd','#8a6d1a',0),
+     'TSB':('thescore.bet','#0d1b2e','#4d94ff',0),'B365':('bet365.com','#f0f6f0','#1c6e3c',0),'FAN':('sportsbook.fanatics.com','#f3f3f3','#111',0)}
+    mlb_entry=(
+    r'<div style="margin-top:22px">'
+    r'<div class="sect">Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div>'
+    r'<div style="border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
+    r'<div class="lghead" style="margin-top:0">Dingers Only &#128293;</div>'
+    r'<div class="sub" style="margin-bottom:8px">Separate from the RixPicks card and record. Picks only, no wagers placed.</div>'
+    r'<div id="rpDing"></div>'
+    r'</div></div>'
+    r'<script>(function(){'
+    r'var box=document.getElementById("rpDing");if(!box)return;'
+    r'var VEN={};'
+    r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
+    r'function c2ml(c){c=+c;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}'
+    r'function ptDate(){try{return new Date().toLocaleDateString("en-CA",{timeZone:"America/Los_Angeles"});}catch(e){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}}'
+    r'function hide(){var p=box.closest("div");while(p&&p.previousElementSibling&&p.previousElementSibling.className!=="sect")p=p.parentNode;box.parentNode.parentNode.parentNode.style.display="none";}'
+    r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
+    r'var ps=(j&&j.picks)||[];'
+    r'if(!ps.length||(j.date||"")!==ptDate()){hide();return;}'
+    r'var h="";'
+    r'ps.slice(0,10).forEach(function(pk,i){'
+    r'if(!pk.player||!pk.team||!pk.matchup||!pk.time||!pk.market)return;'
+    r'var chips="";'
+    r'(pk.links||[]).forEach(function(l){'
+    r'var v=VEN[l.venue];if(!v)return;'
+    r'if(l.url!=null&&l.url.indexOf(v[0])===-1)return;'
+    r'if(l.american!=null&&l.cents!=null)return;'
+    r'var pr="";'
+    r'if(l.american!=null)pr=String(l.american);'
+    r'else if(l.cents!=null){if(!v[3])return;if(typeof l.cents==="number"&&l.cents>0&&l.cents<100)pr=(c2ml(l.cents)>0?"+":"")+c2ml(l.cents);}'
+    # 9:43 owner rule: exact market page or NOTHING - url:null renders an unlinked chip (venue label only), never a wrong-target link.
+    r'var st=\"background:"+v[1]+";border-color:"+v[1]+";color:"+v[2]+";font-size:11px;padding:2px 10px\";'
+    r'chips+=l.url?(" <a class=\"chip\" style=\""+st+"\" href=\""+esc(l.url)+"\" target=\"_blank\" rel=\"noreferrer\">"+esc(l.venue)+(pr?" "+esc(pr):"")+"</a>"):(" <span class=\"chip\" style=\""+st+"\">"+esc(l.venue)+(pr?" "+esc(pr):"")+"</span>");});'
+    r'if(!chips)return;'
+    r'h+="<div class=\"rpnpick\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+(i+1)+". "+esc(pk.player)+"</b><span style=\"color:#8a8f98;font-size:12px\">"+esc(pk.market)+"</span></div>"'
+    r'+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(pk.matchup)+" &middot; "+esc(pk.time)+"</div>"'
+    r'+"<div style=\"margin-top:4px\">"+chips+"</div></div>";});'
+    r'if(!h){hide();return;}'
+    r'box.innerHTML=h;'
+    r'}).catch(hide);'
+    r'})();</script>')
+    mlb_entry=mlb_entry.replace('var VEN={};','var VEN='+json.dumps({k:[v[0],v[1],v[2],v[3]] for k,v in _DING_VENUES.items()},separators=(',',':'))+';')
+
     for t in RP_TABS:
         _prows=''.join(_panels.get(t['key']) or [])
-        _body=(_prows+nfl_entry) if t['key']=='nfl' else _prows
+        _body=(_prows+nfl_entry) if t['key']=='nfl' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows)
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
