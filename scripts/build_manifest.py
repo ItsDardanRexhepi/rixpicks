@@ -21,6 +21,10 @@ from core.fill_leak import PICKS_LEDGER as _DEFAULT_PICKS_LEDGER
 PICKS_LEDGER = os.environ.get('RIX_PICKS_LEDGER', _DEFAULT_PICKS_LEDGER)  # test-isolation hook
 
 
+LEAGUE_KEY = {'baseball/mlb':'MLB','football/nfl':'NFL','football/college-football':'CFB',
+              'basketball/wnba':'WNBA','basketball/nba':'NBA','hockey/nhl':'NHL',
+              'soccer/usa.1':'MLS','mma/ufc':'UFC'}  # values must match config_leagues.json keys
+
 def _pick_content_hash(m):
     # VERBATIM contract copy of build_gh_page.py's gate - declared hash must equal its computed hash.
     _EXCL_TOP={'num','result','_final','polycents'}
@@ -65,10 +69,12 @@ def main():
         am = cents_to_american(cents)
         picks.append({
             'num': c['num'], 'name': c['name'],
-            'sub': f"{c.get('sub_context','')} - model {c['model']:.1f}, exchange {cents}c ask, gross {c['gross_c']:+.1f}c net {c['net_c']:+.1f}c".strip(' -'),
+            'sub': f"{c.get('sub_context','')} - model {c['model']:.1f}".strip(' -'),
             'odds': f"{am:+d}", 'units': c['units'], 'side': c['side'],
             'game': {'away': c['away'], 'home': c['home'], 'commence': c['commence'], 'eid': c['eid']},
-            'espn_league': c['espn_league'], 'best_book': 'Kalshi',
+            'espn_league': c['espn_league'],
+            'league': LEAGUE_KEY.get(c['espn_league'], c['espn_league'].split('/')[-1].upper()),  # refresh.sh SPORTS derivation reads p['league'] (config_leagues.json key) - Sep 27: NFL/WNBA got zero prefill when this was absent
+            'best_book': 'Kalshi',
             'kalshi': {'url': c['kalshi'].get('url') or 'https://kalshi.com/markets/{}/{}'.format(c['kalshi']['ticker'].split('-')[0].lower(), c['kalshi']['ticker'].rsplit('-',1)[0].lower()),  # event-level URL: build_gh_page resolves the gate via the LAST segment (event ticker)
                        'cents': cents, 'team': c['kalshi']['team'], 'gate_cents': cents,
                        'ticker': c['kalshi']['ticker']},
