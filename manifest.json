@@ -1,354 +1,354 @@
 {
- "date": "2026-09-27",
- "date_label": "Sunday, Sep 27",
- "updated": "Sep 27, 7:48 AM PT",
- "record": "13-6",
- "units_pl": "+3.89u",
- "units_ledger": null,
- "yesterday": "3-0 \u00b7 Toledo W \u00b7 Nebraska W \u00b7 Mississippi State W",
- "status_note": "FINAL. KAL chips work in California; FD/DK chips one-tap in legal states.",
- "parlay": {
-  "legs": [
-   "Lions ML",
-   "Bengals ML",
-   "Lynx ML",
-   "Phillies ML",
-   "Dodgers ML",
-   "Brewers ML",
-   "Dream ML"
+  "date": "2026-09-27",
+  "date_label": "Sunday, Sep 27",
+  "updated": "Sep 27, 7:48 AM PT",
+  "record": "13-6",
+  "units_pl": "+3.89u",
+  "units_ledger": null,
+  "yesterday": "3-0 \u00b7 Toledo W \u00b7 Nebraska W \u00b7 Mississippi State W",
+  "status_note": "FINAL. KAL chips work in California; FD/DK chips one-tap in legal states.",
+  "parlay": {
+    "legs": [
+      "Lions ML",
+      "Bengals ML",
+      "Lynx ML",
+      "Phillies ML",
+      "Dodgers ML",
+      "Brewers ML",
+      "Dream ML"
+    ],
+    "label": "BUILD THIS PARLAY (+1306)",
+    "note": "Combined +1306 at publish-time prices.",
+    "kalshi_legs": [
+      {
+        "ticker": "KXNFLGAME-26SEP27NYJDET",
+        "side": "DET"
+      },
+      {
+        "ticker": "KXNFLGAME-26SEP27CINPIT",
+        "side": "CIN"
+      },
+      {
+        "ticker": "KXWNBAGAME-26SEP27NYMIN",
+        "side": "MIN"
+      },
+      {
+        "ticker": "KXMLBGAME-26SEP271505TBPHI",
+        "side": "PHI"
+      },
+      {
+        "ticker": "KXMLBGAME-26SEP271505LADSF",
+        "side": "LAD"
+      },
+      {
+        "ticker": "KXMLBGAME-26SEP271510STLMIL",
+        "side": "MIL"
+      },
+      {
+        "ticker": "KXWNBAGAME-26SEP27WSHATL",
+        "side": "ATL"
+      }
+    ]
+  },
+  "preview": false,
+  "picks": [
+    {
+      "num": 1,
+      "name": "Lions ML",
+      "sub": "vs NY Jets - home - Jets OUT: Fitzpatrick, Mauigoa, TE Taylor; Nwangwu doubtful - model 72.2",
+      "odds": "-270",
+      "units": "5u",
+      "side": "home",
+      "game": {
+        "away": "New York Jets",
+        "home": "Detroit Lions",
+        "commence": "2026-09-27T17:00Z",
+        "eid": "401872954"
+      },
+      "espn_league": "football/nfl",
+      "best_book": "Kalshi",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxnflgame/kxnflgame-26sep27nyjdet",
+        "cents": 73,
+        "team": "Detroit",
+        "gate_cents": 73,
+        "ticker": "KXNFLGAME-26SEP27NYJDET-DET"
+      },
+      "card_american": -270,
+      "card_source": "Kalshi ask at lock",
+      "card_ts": "2026-09-27T07:00:34-07:00",
+      "polymarket": {
+        "url": "https://polymarket.com/event/nfl-nyj-det-2026-09-27",
+        "cents": 74
+      },
+      "dkp": {
+        "url": "https://predictions.draftkings.com/en/event/ny-jets-%40-det-lions/34118222",
+        "team_cents": 74
+      },
+      "polycents": 74,
+      "fdp": null,
+      "league": "NFL",
+      "polymarket_us": {
+        "url": "https://polymarket.us/sports/nfl/nfl-nyj-det-2026-09-27",
+        "cents": 73,
+        "verified": true
+      }
+    },
+    {
+      "num": 2,
+      "name": "Bengals ML",
+      "sub": "at Pittsburgh - CIN 2-0; PIT gets Warren + Pittman back - model 62.3",
+      "odds": "-163",
+      "units": "5u",
+      "side": "away",
+      "game": {
+        "away": "Cincinnati Bengals",
+        "home": "Pittsburgh Steelers",
+        "commence": "2026-09-27T17:00Z",
+        "eid": "401872950"
+      },
+      "espn_league": "football/nfl",
+      "best_book": "Kalshi",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxnflgame/kxnflgame-26sep27cinpit",
+        "cents": 62,
+        "team": "Cincinnati",
+        "gate_cents": 62,
+        "ticker": "KXNFLGAME-26SEP27CINPIT-CIN"
+      },
+      "card_american": -163,
+      "card_source": "Kalshi ask at lock",
+      "card_ts": "2026-09-27T07:00:34-07:00",
+      "polymarket": {
+        "url": "https://polymarket.com/event/nfl-cin-pit-2026-09-27",
+        "cents": 60
+      },
+      "dkp": {
+        "url": "https://predictions.draftkings.com/en/event/cin-bengals-%40-pit-steelers/34118057",
+        "team_cents": 62
+      },
+      "polycents": 60,
+      "fdp": null,
+      "league": "NFL",
+      "polymarket_us": {
+        "url": "https://polymarket.us/sports/nfl/nfl-cin-pit-2026-09-27",
+        "cents": 62,
+        "verified": true
+      }
+    },
+    {
+      "num": 3,
+      "name": "Lynx ML",
+      "sub": "vs NY Liberty - MIN 33-11 league-best, 15-7 home - model 71.0",
+      "odds": "-257",
+      "units": "5u",
+      "side": "home",
+      "game": {
+        "away": "New York Liberty",
+        "home": "Minnesota Lynx",
+        "commence": "2026-09-27T18:00Z",
+        "eid": "401918014"
+      },
+      "espn_league": "basketball/wnba",
+      "best_book": "Kalshi",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxwnbagame/kxwnbagame-26sep27nymin",
+        "cents": 72,
+        "team": "Minnesota",
+        "gate_cents": 72,
+        "ticker": "KXWNBAGAME-26SEP27NYMIN-MIN"
+      },
+      "card_american": -257,
+      "card_source": "Kalshi ask at lock",
+      "card_ts": "2026-09-27T07:00:34-07:00",
+      "polymarket": {
+        "url": "https://polymarket.com/event/wnba-nyl-min-2026-09-27",
+        "cents": 72
+      },
+      "dkp": {
+        "url": "https://predictions.draftkings.com/en/event/ny-liberty-%40-min-lynx/34719865",
+        "team_cents": 73
+      },
+      "polycents": 72,
+      "fdp": null,
+      "league": "WNBA",
+      "polymarket_us": {
+        "url": "https://polymarket.us/sports/wnba/wnba-ny-min-2026-09-27",
+        "cents": 72,
+        "verified": true
+      }
+    },
+    {
+      "num": 4,
+      "name": "Phillies ML",
+      "sub": "vs Tampa Bay - home; TB 98-63 (strong road profile) - thinnest read - model 60.2",
+      "odds": "-163",
+      "units": "5u",
+      "side": "home",
+      "game": {
+        "away": "Tampa Bay Rays",
+        "home": "Philadelphia Phillies",
+        "commence": "2026-09-27T19:05Z",
+        "eid": "401817108"
+      },
+      "espn_league": "baseball/mlb",
+      "best_book": "Kalshi",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271505tbphi",
+        "cents": 62,
+        "team": "Philadelphia",
+        "gate_cents": 62,
+        "ticker": "KXMLBGAME-26SEP271505TBPHI-PHI"
+      },
+      "card_american": -163,
+      "card_source": "Kalshi ask at lock",
+      "card_ts": "2026-09-27T07:00:34-07:00",
+      "polymarket": {
+        "url": "https://polymarket.com/event/mlb-tb-phi-2026-09-27",
+        "cents": 62
+      },
+      "dkp": {
+        "url": "https://predictions.draftkings.com/en/event/tb-rays-%40-phi-phillies/34731651",
+        "team_cents": 63
+      },
+      "polycents": 62,
+      "fdp": null,
+      "league": "MLB",
+      "polymarket_us": {
+        "url": "https://polymarket.us/sports/mlb/mlb-tb-phi-2026-09-27",
+        "cents": 62,
+        "verified": true
+      }
+    },
+    {
+      "num": 5,
+      "name": "Dodgers ML",
+      "sub": "at San Francisco - LAD 99-62 vs SF 65-96, 48-32 road - model 68.1",
+      "odds": "-233",
+      "units": "5u",
+      "side": "away",
+      "game": {
+        "away": "Los Angeles Dodgers",
+        "home": "San Francisco Giants",
+        "commence": "2026-09-27T19:05Z",
+        "eid": "401817116"
+      },
+      "espn_league": "baseball/mlb",
+      "best_book": "Kalshi",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271505ladsf",
+        "cents": 70,
+        "team": "Los Angeles D",
+        "gate_cents": 70,
+        "ticker": "KXMLBGAME-26SEP271505LADSF-LAD"
+      },
+      "card_american": -233,
+      "card_source": "Kalshi ask at lock",
+      "card_ts": "2026-09-27T07:00:34-07:00",
+      "polymarket": {
+        "url": "https://polymarket.com/event/mlb-lad-sf-2026-09-27",
+        "cents": 70
+      },
+      "dkp": {
+        "url": "https://predictions.draftkings.com/en/event/la-dodgers-%40-sf-giants/34731653",
+        "team_cents": 70
+      },
+      "polycents": 70,
+      "fdp": null,
+      "league": "MLB",
+      "polymarket_us": {
+        "url": "https://polymarket.us/sports/mlb/mlb-lad-sf-2026-09-27",
+        "cents": 70,
+        "verified": true
+      }
+    },
+    {
+      "num": 6,
+      "name": "Brewers ML",
+      "sub": "vs St. Louis - MIL 102-59, 54-26 home - model 68.3",
+      "odds": "-223",
+      "units": "5u",
+      "side": "home",
+      "game": {
+        "away": "St. Louis Cardinals",
+        "home": "Milwaukee Brewers",
+        "commence": "2026-09-27T19:10Z",
+        "eid": "401817111"
+      },
+      "espn_league": "baseball/mlb",
+      "best_book": "Kalshi",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271510stlmil",
+        "cents": 69,
+        "team": "Milwaukee",
+        "gate_cents": 69,
+        "ticker": "KXMLBGAME-26SEP271510STLMIL-MIL"
+      },
+      "card_american": -223,
+      "card_source": "Kalshi ask at lock",
+      "card_ts": "2026-09-27T07:00:34-07:00",
+      "polymarket": {
+        "url": "https://polymarket.com/event/mlb-stl-mil-2026-09-27",
+        "cents": 64
+      },
+      "dkp": {
+        "url": "https://predictions.draftkings.com/en/event/stl-cardinals-%40-mil-brewers/34731661",
+        "team_cents": 67
+      },
+      "polycents": 64,
+      "fdp": null,
+      "league": "MLB",
+      "polymarket_us": {
+        "url": "https://polymarket.us/sports/mlb/mlb-stl-mil-2026-09-27",
+        "cents": 64,
+        "verified": true
+      }
+    },
+    {
+      "num": 7,
+      "name": "Dream ML",
+      "sub": "vs Washington - ATL 30-14 vs WSH 28-16 - model 71.8",
+      "odds": "-270",
+      "units": "5u",
+      "side": "home",
+      "game": {
+        "away": "Washington Mystics",
+        "home": "Atlanta Dream",
+        "commence": "2026-09-27T23:00Z",
+        "eid": "401918013"
+      },
+      "espn_league": "basketball/wnba",
+      "best_book": "Kalshi",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxwnbagame/kxwnbagame-26sep27wshatl",
+        "cents": 73,
+        "team": "Atlanta",
+        "gate_cents": 73,
+        "ticker": "KXWNBAGAME-26SEP27WSHATL-ATL"
+      },
+      "card_american": -270,
+      "card_source": "Kalshi ask at lock",
+      "card_ts": "2026-09-27T07:00:34-07:00",
+      "polymarket": {
+        "url": "https://polymarket.com/event/wnba-wsh-atl-2026-09-27",
+        "cents": 72
+      },
+      "dkp": {
+        "url": "https://predictions.draftkings.com/en/event/was-mystics-%40-atl-dream/34725305",
+        "team_cents": 75
+      },
+      "polycents": 72,
+      "fdp": null,
+      "league": "WNBA",
+      "polymarket_us": {
+        "url": "https://polymarket.us/sports/wnba/wnba-wsh-atl-2026-09-27",
+        "cents": 73,
+        "verified": true
+      }
+    }
   ],
-  "label": "BUILD THIS PARLAY (+1306)",
-  "note": "Combined +1306 at publish-time prices.",
-  "kalshi_legs": [
-   {
-    "ticker": "KXNFLGAME-26SEP27NYJDET",
-    "side": "DET"
-   },
-   {
-    "ticker": "KXNFLGAME-26SEP27CINPIT",
-    "side": "CIN"
-   },
-   {
-    "ticker": "KXWNBAGAME-26SEP27NYMIN",
-    "side": "MIN"
-   },
-   {
-    "ticker": "KXMLBGAME-26SEP271505TBPHI",
-    "side": "PHI"
-   },
-   {
-    "ticker": "KXMLBGAME-26SEP271505LADSF",
-    "side": "LAD"
-   },
-   {
-    "ticker": "KXMLBGAME-26SEP271510STLMIL",
-    "side": "MIL"
-   },
-   {
-    "ticker": "KXWNBAGAME-26SEP27WSHATL",
-    "side": "ATL"
-   }
-  ]
- },
- "preview": false,
- "picks": [
-  {
-   "num": 1,
-   "name": "Lions ML",
-   "sub": "vs NY Jets - home - Jets OUT: Fitzpatrick, Mauigoa, TE Taylor; Nwangwu doubtful - model 72.2",
-   "odds": "-270",
-   "units": "5u",
-   "side": "home",
-   "game": {
-    "away": "New York Jets",
-    "home": "Detroit Lions",
-    "commence": "2026-09-27T17:00Z",
-    "eid": "401872954"
-   },
-   "espn_league": "football/nfl",
-   "best_book": "Kalshi",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxnflgame/kxnflgame-26sep27nyjdet",
-    "cents": 73,
-    "team": "Detroit",
-    "gate_cents": 73,
-    "ticker": "KXNFLGAME-26SEP27NYJDET-DET"
-   },
-   "card_american": -270,
-   "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": {
-    "url": "https://polymarket.com/event/nfl-nyj-det-2026-09-27",
-    "cents": 74
-   },
-   "dkp": {
-    "url": "https://predictions.draftkings.com/en/event/ny-jets-%40-det-lions/34118222",
-    "team_cents": 74
-   },
-   "polycents": 74,
-   "fdp": null,
-   "league": "NFL",
-   "polymarket_us": {
-    "url": "https://polymarket.us/sports/nfl/nfl-nyj-det-2026-09-27",
-    "cents": 73,
-    "verified": true
-   }
-  },
-  {
-   "num": 2,
-   "name": "Bengals ML",
-   "sub": "at Pittsburgh - CIN 2-0; PIT gets Warren + Pittman back - model 62.3",
-   "odds": "-163",
-   "units": "5u",
-   "side": "away",
-   "game": {
-    "away": "Cincinnati Bengals",
-    "home": "Pittsburgh Steelers",
-    "commence": "2026-09-27T17:00Z",
-    "eid": "401872950"
-   },
-   "espn_league": "football/nfl",
-   "best_book": "Kalshi",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxnflgame/kxnflgame-26sep27cinpit",
-    "cents": 62,
-    "team": "Cincinnati",
-    "gate_cents": 62,
-    "ticker": "KXNFLGAME-26SEP27CINPIT-CIN"
-   },
-   "card_american": -163,
-   "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": {
-    "url": "https://polymarket.com/event/nfl-cin-pit-2026-09-27",
-    "cents": 60
-   },
-   "dkp": {
-    "url": "https://predictions.draftkings.com/en/event/cin-bengals-%40-pit-steelers/34118057",
-    "team_cents": 62
-   },
-   "polycents": 60,
-   "fdp": null,
-   "league": "NFL",
-   "polymarket_us": {
-    "url": "https://polymarket.us/sports/nfl/nfl-cin-pit-2026-09-27",
-    "cents": 62,
-    "verified": true
-   }
-  },
-  {
-   "num": 3,
-   "name": "Lynx ML",
-   "sub": "vs NY Liberty - MIN 33-11 league-best, 15-7 home - model 71.0",
-   "odds": "-257",
-   "units": "5u",
-   "side": "home",
-   "game": {
-    "away": "New York Liberty",
-    "home": "Minnesota Lynx",
-    "commence": "2026-09-27T18:00Z",
-    "eid": "401918014"
-   },
-   "espn_league": "basketball/wnba",
-   "best_book": "Kalshi",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxwnbagame/kxwnbagame-26sep27nymin",
-    "cents": 72,
-    "team": "Minnesota",
-    "gate_cents": 72,
-    "ticker": "KXWNBAGAME-26SEP27NYMIN-MIN"
-   },
-   "card_american": -257,
-   "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": {
-    "url": "https://polymarket.com/event/wnba-nyl-min-2026-09-27",
-    "cents": 72
-   },
-   "dkp": {
-    "url": "https://predictions.draftkings.com/en/event/ny-liberty-%40-min-lynx/34719865",
-    "team_cents": 73
-   },
-   "polycents": 72,
-   "fdp": null,
-   "league": "WNBA",
-   "polymarket_us": {
-    "url": "https://polymarket.us/sports/wnba/wnba-ny-min-2026-09-27",
-    "cents": 72,
-    "verified": true
-   }
-  },
-  {
-   "num": 4,
-   "name": "Phillies ML",
-   "sub": "vs Tampa Bay - home; TB 98-63 (strong road profile) - thinnest read - model 60.2",
-   "odds": "-163",
-   "units": "5u",
-   "side": "home",
-   "game": {
-    "away": "Tampa Bay Rays",
-    "home": "Philadelphia Phillies",
-    "commence": "2026-09-27T19:05Z",
-    "eid": "401817108"
-   },
-   "espn_league": "baseball/mlb",
-   "best_book": "Kalshi",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271505tbphi",
-    "cents": 62,
-    "team": "Philadelphia",
-    "gate_cents": 62,
-    "ticker": "KXMLBGAME-26SEP271505TBPHI-PHI"
-   },
-   "card_american": -163,
-   "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": {
-    "url": "https://polymarket.com/event/mlb-tb-phi-2026-09-27",
-    "cents": 62
-   },
-   "dkp": {
-    "url": "https://predictions.draftkings.com/en/event/tb-rays-%40-phi-phillies/34731651",
-    "team_cents": 63
-   },
-   "polycents": 62,
-   "fdp": null,
-   "league": "MLB",
-   "polymarket_us": {
-    "url": "https://polymarket.us/sports/mlb/mlb-tb-phi-2026-09-27",
-    "cents": 62,
-    "verified": true
-   }
-  },
-  {
-   "num": 5,
-   "name": "Dodgers ML",
-   "sub": "at San Francisco - LAD 99-62 vs SF 65-96, 48-32 road - model 68.1",
-   "odds": "-233",
-   "units": "5u",
-   "side": "away",
-   "game": {
-    "away": "Los Angeles Dodgers",
-    "home": "San Francisco Giants",
-    "commence": "2026-09-27T19:05Z",
-    "eid": "401817116"
-   },
-   "espn_league": "baseball/mlb",
-   "best_book": "Kalshi",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271505ladsf",
-    "cents": 70,
-    "team": "Los Angeles D",
-    "gate_cents": 70,
-    "ticker": "KXMLBGAME-26SEP271505LADSF-LAD"
-   },
-   "card_american": -233,
-   "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": {
-    "url": "https://polymarket.com/event/mlb-lad-sf-2026-09-27",
-    "cents": 70
-   },
-   "dkp": {
-    "url": "https://predictions.draftkings.com/en/event/la-dodgers-%40-sf-giants/34731653",
-    "team_cents": 70
-   },
-   "polycents": 70,
-   "fdp": null,
-   "league": "MLB",
-   "polymarket_us": {
-    "url": "https://polymarket.us/sports/mlb/mlb-lad-sf-2026-09-27",
-    "cents": 70,
-    "verified": true
-   }
-  },
-  {
-   "num": 6,
-   "name": "Brewers ML",
-   "sub": "vs St. Louis - MIL 102-59, 54-26 home - model 68.3",
-   "odds": "-223",
-   "units": "5u",
-   "side": "home",
-   "game": {
-    "away": "St. Louis Cardinals",
-    "home": "Milwaukee Brewers",
-    "commence": "2026-09-27T19:10Z",
-    "eid": "401817111"
-   },
-   "espn_league": "baseball/mlb",
-   "best_book": "Kalshi",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271510stlmil",
-    "cents": 69,
-    "team": "Milwaukee",
-    "gate_cents": 69,
-    "ticker": "KXMLBGAME-26SEP271510STLMIL-MIL"
-   },
-   "card_american": -223,
-   "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": {
-    "url": "https://polymarket.com/event/mlb-stl-mil-2026-09-27",
-    "cents": 64
-   },
-   "dkp": {
-    "url": "https://predictions.draftkings.com/en/event/stl-cardinals-%40-mil-brewers/34731661",
-    "team_cents": 67
-   },
-   "polycents": 64,
-   "fdp": null,
-   "league": "MLB",
-   "polymarket_us": {
-    "url": "https://polymarket.us/sports/mlb/mlb-stl-mil-2026-09-27",
-    "cents": 64,
-    "verified": true
-   }
-  },
-  {
-   "num": 7,
-   "name": "Dream ML",
-   "sub": "vs Washington - ATL 30-14 vs WSH 28-16 - model 71.8",
-   "odds": "-270",
-   "units": "5u",
-   "side": "home",
-   "game": {
-    "away": "Washington Mystics",
-    "home": "Atlanta Dream",
-    "commence": "2026-09-27T23:00Z",
-    "eid": "401918013"
-   },
-   "espn_league": "basketball/wnba",
-   "best_book": "Kalshi",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxwnbagame/kxwnbagame-26sep27wshatl",
-    "cents": 73,
-    "team": "Atlanta",
-    "gate_cents": 73,
-    "ticker": "KXWNBAGAME-26SEP27WSHATL-ATL"
-   },
-   "card_american": -270,
-   "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": {
-    "url": "https://polymarket.com/event/wnba-wsh-atl-2026-09-27",
-    "cents": 72
-   },
-   "dkp": {
-    "url": "https://predictions.draftkings.com/en/event/was-mystics-%40-atl-dream/34725305",
-    "team_cents": 75
-   },
-   "polycents": 72,
-   "fdp": null,
-   "league": "WNBA",
-   "polymarket_us": {
-    "url": "https://polymarket.us/sports/wnba/wnba-wsh-atl-2026-09-27",
-    "cents": 73,
-    "verified": true
-   }
+  "pick_content_hash": "6d9a1024cd113f31b19402655b7d9cf0867de4e2f5d61e1c16a4a850c014a2c0",
+  "yesterday_by_league": {
+    "ncaaf": "3-0 \u00b7 Toledo W \u00b7 Nebraska W \u00b7 Mississippi State W"
   }
- ],
- "pick_content_hash": "440dcf0b40a00cae5564c528a2de717f2ca370c3a414d40e8c2a2f7b236abff1",
- "yesterday_by_league": {
-  "ncaaf": "3-0 \u00b7 Toledo W \u00b7 Nebraska W \u00b7 Mississippi State W"
- }
 }
