@@ -194,10 +194,15 @@ def grade(pick, primary):
         raise ValueError(f'card record missing or ambiguous (n={n_card}) for '
                          f"{pick['game']['eid']}|ml|{pick['side']} - REFUSING to grade (fail closed)")
     def _valid_price(v):
-        try:
-            return 1 <= int(v) <= 99
-        except (TypeError, ValueError):
+        # strict integer cents (swamp nit 9:41): 63.9 float, bools, non-digit
+        # strings all refuse - only a true int or an all-digit string passes.
+        if isinstance(v, bool):
             return False
+        if isinstance(v, int):
+            return 1 <= v <= 99
+        if isinstance(v, str):
+            return v.isdigit() and 1 <= int(v) <= 99
+        return False
     # swamp 9:40: BOTH prices must be present and valid before grade - a null
     # card price must never wave the manifest price through.
     if not _valid_price(card_c):
