@@ -169,6 +169,11 @@
    "cents": 56,
    "commence": "2026-09-26T16:00Z",
    "ts": "2026-09-26T15:48:00Z"
+  },
+  "theScore": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=20fb3ee9-b85c-4686-aa2b-47d8810b4565&odds_numerator[0]=2&odds_denominator[0]=1",
+   "ml": -145,
+   "commence": "2026-09-26T16:00Z"
   }
  },
  "Nebraska Cornhuskers|Michigan State Spartans|2026-09-26": {
@@ -211,10 +216,47 @@
    "link": "https://polymarket.us/event/cfb-nebr-mst-2026-09-26",
    "cents": 68,
    "commence": "2026-09-26T21:00Z"
+  },
+  "theScore": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=c3fe1249-3060-4a16-a706-4c038bd45a44&odds_numerator[0]=2&odds_denominator[0]=1",
+   "ml": -240,
+   "commence": "2026-09-26T21:00Z"
   }
  },
  "__card__": {
   "date": "2026-09-26",
   "locked": "Sep 26, 7:21 AM PT"
+ },
+ "Missouri Tigers|Mississippi State Bulldogs|2026-09-26": {
+  "BetRivers": {
+   "link": "https://{state}.betrivers.com/?page=sportsbook#event/1027507872",
+   "ml": -235,
+   "commence": "2026-09-26T23:45Z"
+  },
+  "DraftKings": {
+   "link": "https://sportsbook.draftkings.com/?outcomes=0ML86319084_1",
+   "ml": -230,
+   "commence": "2026-09-26T23:45Z"
+  },
+  "FanDuel": {
+   "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.608178631&selectionId=924535",
+   "ml": -205,
+   "commence": "2026-09-26T23:45Z"
+  },
+  "Hard Rock": {
+   "link": "https://app.hardrock.bet/?deep_link_value=betslip/4834207644229173680",
+   "ml": -230,
+   "commence": "2026-09-26T23:45Z"
+  },
+  "BetMGM": {
+   "link": "https://sports.{state}.betmgm.com/en/sports?options=6:45021-3647805-5791392&type=Single",
+   "ml": -220,
+   "commence": "2026-09-26T23:45Z"
+  },
+  "theScore": {
+   "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=d808db9e-b663-49d5-81f9-c62988ba5cb1&odds_numerator[0]=2&odds_denominator[0]=1",
+   "ml": -195,
+   "commence": "2026-09-26T23:45Z"
+  }
  }
 }

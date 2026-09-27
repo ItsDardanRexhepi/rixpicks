@@ -42,7 +42,7 @@ h1 .tick,.od,.back{color:#3aa895}
 }
 """
 
-def page(title, subtitle, body):
+def page(title, subtitle, body, live=False):
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{html.escape(title)} - 'RixPicks</title>
@@ -52,8 +52,14 @@ def page(title, subtitle, body):
 <div class="status">{html.escape(subtitle)}</div>
 <a class="back" href="index.html">&larr; Back to today&rsquo;s picks</a>
 {body}
+{LIVE_JS if live else ''}
 <div class="foot">Bet responsibly.</div>
 </div></body></html>"""
+
+
+# Live canonical record hydration (his order 9/26): record.html overall header hydrates from
+# api.rix-picks.com/record (Bus record tab via worker). 404/failure keeps baked values - fail closed.
+LIVE_JS = """<script>(function(){function up(j){if(!j||typeof j.w!=='number'||typeof j.l!=='number')return;var el=document.getElementById('rpOverall');if(el)el.textContent=j.w+'-'+j.l;var u=document.getElementById('rpOverallU');if(u&&typeof j.units==='number')u.textContent=(j.units>=0?'+':'')+j.units.toFixed(2)+'u';}function go(){fetch('https://api.rix-picks.com/record').then(function(r){return r.ok?r.json():null;}).then(up).catch(function(){});}go();setInterval(go,60000);})();</script>"""
 
 def clv_html(p):
     if p.get('close') is None or p.get('clv') is None: return ''
@@ -97,10 +103,10 @@ def main(hist_path):
         pos=sum(1 for c in clvs if c>0)
         col='#2f8f7d' if avg>0 else '#c0392b'
         clv_line=f'<div style="font-size:13px;color:#6b6b72;margin-top:4px">CLV vs close: <b style="color:{col}">{avg:+.1f}%</b> avg &middot; beat the close on {pos}/{len(clvs)} graded picks</div>'
-    body = f'<div class="dayhead"><span class="d">Overall</span><span class="r">{tot_w}-{tot_l}</span><span class="u"></span></div>{clv_line}'
+    body = f'<div class="dayhead"><span class="d">Overall</span><span class="r" id="rpOverall">{tot_w}-{tot_l}</span><span class="u" id="rpOverallU"></span></div>{clv_line}'
     body += ''.join(day_html(d, 'What the system learned') for d in reversed(days))
     open('record.html','w').write(page(
-        f"Overall Record: {tot_w}-{tot_l}", "Overall record - day by day", body))
+        f"Overall Record: {tot_w}-{tot_l}", "Overall record - day by day", body, live=True))
     print('wrote yesterday.html + record.html')
 
 if __name__ == '__main__':

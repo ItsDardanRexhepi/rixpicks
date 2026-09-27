@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Overall Record: 11-6 - 'RixPicks</title>
+<title>Overall Record: 12-6 - 'RixPicks</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <style>
 *{margin:0;box-sizing:border-box}
@@ -41,15 +41,21 @@ h1 .tick,.od,.back{color:#3aa895}
 <h1><a href="index.html"><span class="tick">&rsquo;</span>RixPicks</a></h1>
 <div class="status">Overall record - day by day</div>
 <a class="back" href="index.html">&larr; Back to today&rsquo;s picks</a>
-<div class="dayhead"><span class="d">Overall</span><span class="r">11-6</span><span class="u"></span></div><div class="dayhead"><span class="d">Saturday, Sep 26</span><span class="r">1-0</span><span class="u">+3.65u</span></div>
+<div class="dayhead"><span class="d">Overall</span><span class="r" id="rpOverall">12-6</span><span class="u" id="rpOverallU"></span></div><div class="dayhead"><span class="d">Saturday, Sep 26</span><span class="r">2-0</span><span class="u">+8.58u</span></div>
 <div class="pk">
 <div class="pk-top"><span class="res W">W</span><span class="nm">Toledo ML</span><span class="un">5u</span><span class="od">-137</span></div>
 <div class="gm">vs San Diego St</div>
 <div class="sc">TOL 41, SDSU 16</div>
 <div class="nt">Wire-to-wire. Up 27-3 at the half, never threatened. Nebraska pending tonight.</div>
 
+</div><div class="pk">
+<div class="pk-top"><span class="res W">W</span><span class="nm">Nebraska ML</span><span class="un">10u</span><span class="od">-225</span></div>
+<div class="gm">at Michigan State</div>
+<div class="sc">NEB 31, MSU 13</div>
+<div class="nt">10u at 67c Kalshi pricing, +4.93u. Closed 99c - CLV +32pp. Genatone 1yd TD at 10:05 Q4 sealed it.</div>
+
 </div>
-<div class="brief"><span class="bt">What the system learned</span>1-0, +3.65u so far. Toledo did exactly what the card said - up 27-3 by half, 41-16 final, never a sweat. Nebraska at Michigan State goes at 2 PM PT; day grade finalizes tonight.</div><div class="dayhead"><span class="d">Friday, Sep 25</span><span class="r">2-1</span><span class="u">-0.87u</span></div>
+<div class="brief"><span class="bt">What the system learned</span>2-0, +8.58u. Toledo did exactly what the card said - up 27-3 by half, 41-16 final, never a sweat. Nebraska took Michigan State 31-13; the 10u play at 67c paid +4.93u and closed 99c. Mississippi State is live; day grade finalizes tonight.</div><div class="dayhead"><span class="d">Friday, Sep 25</span><span class="r">2-1</span><span class="u">-0.87u</span></div>
 <div class="pk">
 <div class="pk-top"><span class="res W">W</span><span class="nm">Orioles ML</span><span class="un">5u</span><span class="od">+105</span></div>
 <div class="gm">at Yankees G1</div>
@@ -154,5 +160,6 @@ h1 .tick,.od,.back{color:#3aa895}
 
 </div>
 <div class="brief"><span class="bt">What the system learned</span>Split the day 4-4 and still lost 14.44u. The three MLB losses were two shutouts and a blowout - read failures the gate has to catch earlier. The WNBA lesson was pure math: massive minus prices risk a lot to win pennies, and one overtime loss at -1011 cost more than six times what both WNBA wins paid. Chalk sizing rules tightened from this day.</div>
+<script>(function(){function up(j){if(!j||typeof j.w!=='number'||typeof j.l!=='number')return;var el=document.getElementById('rpOverall');if(el)el.textContent=j.w+'-'+j.l;var u=document.getElementById('rpOverallU');if(u&&typeof j.units==='number')u.textContent=(j.units>=0?'+':'')+j.units.toFixed(2)+'u';}function go(){fetch('https://api.rix-picks.com/record').then(function(r){return r.ok?r.json():null;}).then(up).catch(function(){});}go();setInterval(go,60000);})();</script>
 <div class="foot">Bet responsibly.</div>
 </div></body></html>
