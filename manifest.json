@@ -5,7 +5,7 @@
  "record": "13-6",
  "units_pl": "+3.89u",
  "units_ledger": null,
- "yesterday": "3-0 · Toledo W · Nebraska W · Mississippi State W",
+ "yesterday": "3-0 \u00b7 Toledo W \u00b7 Nebraska W \u00b7 Mississippi State W",
  "status_note": "FINAL. KAL chips work in California; FD/DK chips one-tap in legal states.",
  "parlay": {
   "legs": [
@@ -347,8 +347,8 @@
    }
   }
  ],
- "pick_content_hash": "6d9a1024cd113f31b19402655b7d9cf0867de4e2f5d61e1c16a4a850c014a2c0",
+ "pick_content_hash": "440dcf0b40a00cae5564c528a2de717f2ca370c3a414d40e8c2a2f7b236abff1",
  "yesterday_by_league": {
-  "ncaaf": "3-0 · Toledo W · Nebraska W · Mississippi State W"
+  "ncaaf": "3-0 \u00b7 Toledo W \u00b7 Nebraska W \u00b7 Mississippi State W"
  }
 }
