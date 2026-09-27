@@ -77,9 +77,7 @@ def _pick_content_hash(m):
     # operational fields, audit before extending): num (build-assigned display order), result and
     # _final (post-settlement grading state, not pick content), polycents (live Polymarket price
     # snapshot), kalshi.cents (live Kalshi ask snapshot - the gate re-checks it live anyway),
-    # card_ts (first-lock provenance - excluded per main Sep 27 10:04 ruling; its stability is
-    # guarded by the dedicated ledger-equality assertion in build_manifest.py, not by this hash).
-    _EXCL_TOP={'num','result','_final','polycents','card_ts'}
+    _EXCL_TOP={'num','result','_final','polycents'}
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
@@ -1096,10 +1094,13 @@ r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return
 r'function okUrl(u){return (typeof u==="string")&&/^https:\/\/([a-z0-9-]+\.)*(draftkings\.com|kalshi\.com)(\/[A-Za-z0-9\-._~:/?&=%,+@!$()*;]*)?$/i.test(u)?u:null;}'
 r'function chip(bk,label,url,pm){if(!url)return "";var a=" data-bk=\""+bk+"\" data-book=\""+bk+"\" data-sb=\""+esc(url)+"\"";if(pm)a+=" data-pm=\""+esc(pm)+"\"";return "<span class=\"chip rpnontap\""+a+">"+esc(label)+"</span>";}'
 r'function ptLabel(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",weekday:"short",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}'
-r'var RPCHIPS={};function RPKEY(p2,t2){return((p2||"")+"|"+(t2||"")).toLowerCase();}'
+r'var RPCHIPS={},RP_CARDED_TM="";function RPKEY(p2,t2){return((p2||"")+"|"+(t2||"")).toLowerCase();}'
 r"""function rpPT(s){return String(s==null?"":s).replace(/(\d{1,2}):(\d{2}) ([AP])M E[DS]T/g,function(m,h,mi,ap){var h24=(parseInt(h,10)%12)+(ap==="P"?12:0);h24=(h24+21)%24;var ap2=h24<12?"AM":"PM";return (h24%12||12)+":"+mi+" "+ap2+" PT";});}"""
 r'function trkHtml(l,g){if(!g)return"";var dot=function(c){return"<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:"+c+";margin-right:6px;vertical-align:1px\"></span>";};var sc=(g.score&&g.status!=="pre")?(" &middot; "+esc(g.score)):"";if(g.status==="pre")return dot("#8a8f98")+"<span style=\"color:#8a8f98\">"+esc(rpPT(g.detail)||"Upcoming")+"</span>";var td=l.td_scored?("<b style=\"color:#0b6e5f\">TD"+(l.td_count>1?(" x"+l.td_count):"")+" &#10003;</b>"):null;if(g.status==="post")return td?(dot("#0b6e5f")+td+"<span style=\"color:#8a8f98\"> &middot; Final"+sc+"</span>"):(dot("#8a8f98")+"<span style=\"color:#8a8f98\">No TD &middot; Final"+sc+"</span>");return td?(dot("#0b6e5f")+td+"<span style=\"color:#8a8f98\"> &middot; "+esc(rpPT(g.detail)||"Live")+sc+"</span>"):(dot("#e8a13d")+"<span style=\"color:#b07708\">Live - no TD yet</span><span style=\"color:#8a8f98\"> &middot; "+esc(rpPT(g.detail)||"")+sc+"</span>");}'
 r'function updTrk(){fetch("slates/nfl_live.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){var gm={};(j.games||[]).forEach(function(g){gm[g.espn_event_id]=g;});(j.legs||[]).forEach(function(l){var el=document.querySelector("[data-trk=\""+RPKEY(l.player,l.team)+"\"]");if(el)el.innerHTML=trkHtml(l,gm[l.espn_event_id]);});}).catch(function(){});}'
+r'function updChips(){var apply=function(quotes){document.querySelectorAll("[data-trk]").forEach(function(trk){var kc=RPCHIPS[trk.getAttribute("data-trk")];if(!kc)return;var row=trk.closest(".rpnpick");if(!row)return;var chs=row.querySelectorAll("[data-book=\"KAL\"]");for(var i=0;i<chs.length;i++){if(chs[i].querySelector("[data-book]"))continue;var q=kc.ticker?quotes[kc.ticker]:null;var lbl=null;if(q&&q.status==="active"&&typeof q.yes_ask==="number"&&q.yes_ask>=1&&q.yes_ask<=99)lbl="KAL "+rpAml(q.yes_ask);else if(RP_CARDED_TM)lbl="KAL "+rpAml(kc.ask_c)+" \u00b7 "+RP_CARDED_TM;if(!lbl){chs[i].style.display="none";continue;}chs[i].style.display="";if(chs[i].textContent!==lbl)chs[i].textContent=lbl;var sb=okUrl(kc.url);if(sb)chs[i].setAttribute("data-sb",sb);}});};'
+r'fetch("slates/nfl_kalshi_quotes.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(qj){var fresh=false;try{fresh=qj&&qj.quoted_at&&(Date.now()-Date.parse(qj.quoted_at)<=600000);}catch(e){}apply((fresh&&qj&&qj.quotes)||{});}).catch(function(){apply({});});}'
+r'/* URF live-chip rule (main Sep-27 10:57): bare label = LIVE, only from a timestamped quotes file <=10 min old with market status active; anything else reverts to the carded price with its explicit as-of, or the chip hides. Stale never wears LIVE. */'
 r'function empty(){box.innerHTML="<div style=\"color:#8a8f98;font-size:13px;padding:6px 0\">No NFL slate yet - Wooder Ice anytime TD picks land here Sundays.</div>";}'
 r'function rpAml(c){var q=c/100;if(q<=0||q>=1)return"";return q>=0.5?String(Math.round(-100*q/(1-q))):"+"+String(Math.round(100*(1-q)/q));}'
 r'function rpHM(ms){try{return new Date(ms).toLocaleString("en-US",{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"}).toLowerCase().replace(/\s/g,"");}catch(e){return"";}}'
@@ -1113,7 +1114,7 @@ r'if(singles.length){h+="<div class=\"sect\" style=\"margin-top:10px\">DraftKing
 r'singles.forEach(function(s,i){var kl=null;'
 r'top.forEach(function(t){if((t.player||"").toLowerCase()===(s.player||"").toLowerCase()&&(t.matchup||"")===(s.matchup||""))kl=t;});'
 r'var px=rpLegPx(s);if(!px)return;var chips=chip("DKP",px.label,okUrl(s.link),null);'
-r'var kc=RPCHIPS[RPKEY(s.player,s.team)];var ctm=j.generated_at?rpHM(Date.parse(j.generated_at)):"";if(kc&&ctm)chips+=chip("KAL","KAL "+rpAml(kc.ask_c)+" \u00b7 "+ctm,okUrl(kc.url),null);else if(kl&&ctm)chips+=chip("KAL","KAL "+rpAml(kl.price_c)+" \u00b7 "+ctm,okUrl(kl.link),null);'
+r'var kc=RPCHIPS[RPKEY(s.player,s.team)];RP_CARDED_TM=j.generated_at?rpHM(Date.parse(j.generated_at)):"";var ctm=RP_CARDED_TM;if(kc&&ctm)chips+=chip("KAL","KAL "+rpAml(kc.ask_c)+" \u00b7 "+ctm,okUrl(kc.url),null);else if(kl&&ctm)chips+=chip("KAL","KAL "+rpAml(kl.price_c)+" \u00b7 "+ctm,okUrl(kl.link),null);'
 r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(s.player)+"</b> anytime TD</span></span><span class=\"uo\"><span class=\"odds\">"+esc(px.head)+"</span></span></div>"'
 r'+"<div class=\"sub\">"+esc(s.matchup||"")+"</div><div class=\"sub rpntrk\" data-trk=\""+esc(RPKEY(s.player,s.team))+"\" style=\"margin-top:3px;font-size:12px\"></div>"+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}'
 r'if(parlays.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Parlays</div>";'
@@ -1133,11 +1134,11 @@ r'+"<div class=\"sub\">"+(bb.picks||[]).map(function(b2){return esc(b2.player)+"
 r'+(bb.est_cost_c?"<div class=\"sub\">Est. cost "+esc(bb.est_cost_c)+"c</div>":"")+(bchips?"<div class=\"chips\">"+bchips+"</div>":"")+"</div>";}'
 r'box.innerHTML=h;'
 r'try{if(window.rpFilter)rpFilter(localStorage.getItem("rp_state"));}catch(e){}}'
-r'fetch("slates/nfl_chips.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(cj){/* carded prices only; as-of comes from the slate generated_at at render (main Sep-27 URF directive). The file mtime advances without content change, so it must never be shown as the quote time. */((cj&&cj.legs)||[]).forEach(function(l){if(l.kalshi&&typeof l.kalshi.ask_c==="number")RPCHIPS[RPKEY(l.player,l.team)]={ask_c:l.kalshi.ask_c,url:l.kalshi.url};});}).catch(function(){}).then(function(){'
+r'fetch("slates/nfl_chips.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(cj){/* carded prices only; as-of comes from the slate generated_at at render (main Sep-27 URF directive). The file mtime advances without content change, so it must never be shown as the quote time. */((cj&&cj.legs)||[]).forEach(function(l){if(l.kalshi&&typeof l.kalshi.ask_c==="number")RPCHIPS[RPKEY(l.player,l.team)]={ask_c:l.kalshi.ask_c,url:l.kalshi.url,ticker:(typeof l.kalshi.ticker==="string"?l.kalshi.ticker:null)};});}).catch(function(){}).then(function(){'
 r'fetch("slates/nfl_latest.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
 r'if(!j||j.version!==1){empty();return;}'
 r'try{if(j.generated_at&&Date.now()-Date.parse(j.generated_at)>4*24*3600*1000){empty();return;}}catch(e){}'
-r'render(j);updTrk();setInterval(updTrk,60000);}).catch(empty);});'
+r'render(j);updTrk();updChips();setInterval(function(){updTrk();updChips();},60000);}).catch(empty);});'
 r'})();</script>')
 # Wooder Ice same-game combos (main 9:22): additive Kalshi combo list - legs + game link only
 # (no combined odds/payout; nothing priced or invented). Client-hydrated, hides when empty.
