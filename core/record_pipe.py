@@ -159,6 +159,11 @@ def post_record_update(payload, token, expected=None, dry_run=True, attempts=3, 
     body = _wire_payload(payload['record'], payload['win_pct'], payload['units'],
                          payload.get('graded_pick'), payload.get('source'))
     expect_wire = {'w': body['w'], 'l': body['l'], 'pct': body['pct'], 'units': body['units']}
+    # swamp 9:50: labels are publication-bearing - a worker blank/miswrite of
+    # graded_pick/source must FAIL the verify, not mark the chain complete.
+    for lbl in ('graded_pick', 'source'):
+        if lbl in body:
+            expect_wire[lbl] = body[lbl]
     last = {'post_status': None, 'verified': False}
     for attempt in range(1, attempts + 1):
         try:
@@ -201,6 +206,11 @@ def on_final(event_id, final_home, final_away, grade_id, date, record, win_pct, 
                 'stages': {'append': 'dry', 'post': {'dry_run': True, 'would_post':
                             {'record': record, 'win_pct': win_pct, 'units': row['units']}}},
                 'chain': 'complete'}
+    # labels REQUIRED before any write (swamp 9:50): a row that can never POST must
+    # never be appended - a label-less pending row would block resume_pending forever.
+    if not row.get('graded_pick') or not row.get('source'):
+        raise SystemExit(f'FAIL-CLOSED: grade row for {grade_id} lacks graded_pick/source - '
+                         'refusing to append or POST (a sparse POST would blank the site fields)')
     state = _load_state(ledger_path)
     g = state.get(grade_id, {})
     if not g.get('appended'):
@@ -211,11 +221,6 @@ def on_final(event_id, final_home, final_away, grade_id, date, record, win_pct, 
     result = {'grade_id': grade_id, 'event_id': event_id, 'final': f'{final_home}-{final_away}',
               'ts': datetime.now(timezone.utc).isoformat(), 'stages': {'append': 'done'}}
     if not g.get('verified'):
-        # labels REQUIRED (swamp 9:46): durable in the row, never best-effort - a sparse
-        # POST blanks graded_pick/source on the worker, so a row without them never POSTs.
-        if not row.get('graded_pick') or not row.get('source'):
-            raise SystemExit(f'FAIL-CLOSED: grade row for {grade_id} lacks graded_pick/source - '
-                             'refusing to POST a sparse payload (would blank the site fields)')
         payload = {'record': record, 'win_pct': win_pct, 'units': row['units'],
                    'graded_pick': row['graded_pick'], 'source': row['source']}
         post = post_record_update(payload, token, expected=payload, dry_run=False)

@@ -315,9 +315,9 @@ def main():
             res = record_pipe.on_final(eid, primary['home_score'], primary['away_score'],
                                        pkey, date_label, rec, pct, str(u2), LEDGER, token,
                                        dry_run=False,
-                                       graded_pick=f"{p.get('name', '')} {result} "
-                                                   f"{max(primary['home_score'], primary['away_score'])}-"
-                                                   f"{min(primary['home_score'], primary['away_score'])} "
+                                       graded_pick=f"{p.get('name', '')} {result}: "
+                                                   f"{p.get('game', {}).get('away', 'away')} {primary['away_score']} @ "
+                                                   f"{p.get('game', {}).get('home', 'home')} {primary['home_score']} "
                                                    f"({('+' if pnl >= 0 else '')}{units.display_units(units.pnl_to_units(pnl))}u on "
                                                    f"{p.get('units', '?')} @{p.get('odds', '?')}, published-card basis)",
                                        source='finals_watch J-118 live chain')
