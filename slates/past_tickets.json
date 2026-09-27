@@ -2,6 +2,83 @@
   "generated_at": "2026-09-27T15:14:00-07:00",
   "entries": [
     {
+      "id": "t3",
+      "kind": "ticket",
+      "origin": "bought",
+      "title": "9-leg SGP+ \u00b7 +6577 \u00b7 FanDuel",
+      "result": "lost",
+      "detail": "FanDuel - bought ticket. All 9 original legs preserved.",
+      "legs": [
+        {
+          "player": "Tampa Bay Buccaneers",
+          "market": "ML",
+          "matchup": "MIN @ TB",
+          "time": "Today 1:00 PM PT",
+          "status": "lost"
+        },
+        {
+          "player": "Baker Mayfield",
+          "market": "2+ Passing Touchdowns",
+          "matchup": "MIN @ TB",
+          "time": "Today 1:00 PM PT",
+          "status": "lost"
+        },
+        {
+          "player": "Baker Mayfield",
+          "market": "200+ Passing Yards",
+          "matchup": "MIN @ TB",
+          "time": "Today 1:00 PM PT",
+          "status": "won"
+        },
+        {
+          "player": "Christian McCaffrey",
+          "market": "50+ Rushing Yards",
+          "matchup": "ARI @ SF",
+          "time": "Today 1:05 PM PT",
+          "status": "won"
+        },
+        {
+          "player": "Brock Purdy",
+          "market": "2+ Passing Touchdowns",
+          "matchup": "ARI @ SF",
+          "time": "Today 1:05 PM PT",
+          "status": "won"
+        },
+        {
+          "player": "George Pickens",
+          "market": "60+ Receiving Yards",
+          "matchup": "BAL @ DAL",
+          "time": "Today 1:25 PM PT",
+          "status": "won"
+        },
+        {
+          "player": "Rashod Bateman",
+          "market": "40+ Receiving Yards",
+          "matchup": "BAL @ DAL",
+          "time": "Today 1:25 PM PT",
+          "status": "lost"
+        },
+        {
+          "player": "Dak Prescott",
+          "market": "2+ Passing Touchdowns",
+          "matchup": "BAL @ DAL",
+          "time": "Today 1:25 PM PT",
+          "status": "lost"
+        },
+        {
+          "player": "Lamar Jackson",
+          "market": "2+ Passing Touchdowns",
+          "matchup": "BAL @ DAL",
+          "time": "Today 1:25 PM PT",
+          "status": "won"
+        }
+      ],
+      "archived_at": "2026-09-27T16:55:00-07:00",
+      "reason": "Combo lost - 4 dead legs on finals (TB ML, Mayfield 2+ pass TD, Bateman 40+ rec yds, Dak 2+ pass TD). Whole combo card comes down on a dead leg per standing rule.",
+      "provenance": "Original Wooder Ice FanDuel 9-leg SGP+ ticket, Sep 27. Leg results from the Julian record feed off ESPN finals.",
+      "removed_label": "9/27, 4:55 PM PT"
+    },
+    {
       "id": "t1",
       "kind": "ticket",
       "origin": "bought",
