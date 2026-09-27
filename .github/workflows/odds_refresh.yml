@@ -2,8 +2,8 @@ name: odds-refresh
 on:
   schedule:
     # every 15 min, 8 AM - 11 PM PT = 15:00-06:00 UTC (PDT).
-    # scripts/refresh.sh gates on game proximity (live or starting within 2h)
-    # and a 16-odds-API-call/day cap, so a wide window is free-tier-safe.
+    # scripts/refresh.sh gates on game proximity (live or starting within 2h).
+    # Standing rule 9/27: no daily cap; only tripwire is the plan's 20K credits/mo hard limit, fail-loud.
     - cron: '*/15 15-23,0-6 * * *'
   workflow_dispatch:
 permissions:
