@@ -1,6 +1,6 @@
 {
- "pulled_at_utc": "2026-09-27T21:53:31Z",
- "credits_remaining": 19930,
+ "pulled_at_utc": "2026-09-27T22:14:03Z",
+ "credits_remaining": 19922,
  "source": "the-odds-api v4 nfl scores (daysFrom=1)",
  "games": [
   {
@@ -21,7 +21,7 @@
      "score": "27"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "0339a0e41bcee12820eb3e64bb5fadb4",
@@ -41,7 +41,7 @@
      "score": "24"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "1f3cfd315a24d1a7dd5859a8e6b88e18",
@@ -61,7 +61,7 @@
      "score": "6"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "07f552badfa8a565d1be22123713e4da",
@@ -81,7 +81,7 @@
      "score": "24"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "b225458a282e140c44c45651255f2f6c",
@@ -101,7 +101,7 @@
      "score": "16"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "555afd4a27aaa392662881cffa8f2eef",
@@ -121,7 +121,7 @@
      "score": "7"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "613b8cd3a5fab58f7be4e3fd6f76223e",
@@ -141,7 +141,7 @@
      "score": "18"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "2a529c108305ffa049d8b6cfdbaa4d36",
@@ -161,7 +161,7 @@
      "score": "31"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "17a730b7d399feeab6a78c30767c29d2",
@@ -181,7 +181,7 @@
      "score": "17"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "9d2b09e0f9b6dd5ce0d985894f4f98fa",
@@ -194,14 +194,14 @@
    "scores": [
     {
      "name": "San Francisco 49ers",
-     "score": "17"
+     "score": "23"
     },
     {
      "name": "Arizona Cardinals",
      "score": "6"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "f1724dead3eab61546033032fc782375",
@@ -221,7 +221,7 @@
      "score": "17"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "2e523fcb0497aa689473e290eb2b97de",
@@ -238,10 +238,10 @@
     },
     {
      "name": "Las Vegas Raiders",
-     "score": "13"
+     "score": "16"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "84cfca14efc21363fd605508404cf1ff",
@@ -261,7 +261,7 @@
      "score": "17"
     }
    ],
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "3bfd8bfb4b8e9a365a0877879b73b16b",
@@ -272,7 +272,7 @@
    "home_team": "Denver Broncos",
    "away_team": "Los Angeles Rams",
    "scores": null,
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "47dc7baa254659f3beb2ed2b38c207b6",
@@ -283,7 +283,7 @@
    "home_team": "Chicago Bears",
    "away_team": "Philadelphia Eagles",
    "scores": null,
-   "last_update": "2026-09-27T21:53:24Z"
+   "last_update": "2026-09-27T22:13:55Z"
   },
   {
    "id": "d55cb69fed50a09170560b5b75d8de86",
@@ -308,6 +308,28 @@
    "last_update": null
   },
   {
+   "id": "664e6bda5721dc63be16bcf7d962a436",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-04T17:00:00Z",
+   "completed": false,
+   "home_team": "New York Giants",
+   "away_team": "Arizona Cardinals",
+   "scores": null,
+   "last_update": null
+  },
+  {
+   "id": "f01589b0e7e6dd4f4ac1220a1db81f53",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-04T17:00:00Z",
+   "completed": false,
+   "home_team": "Baltimore Ravens",
+   "away_team": "Tennessee Titans",
+   "scores": null,
+   "last_update": null
+  },
+  {
    "id": "573cc0ef39631a4f6673ec843a8bedd4",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
@@ -326,6 +348,116 @@
    "completed": false,
    "home_team": "Chicago Bears",
    "away_team": "New York Jets",
+   "scores": null,
+   "last_update": null
+  },
+  {
+   "id": "2ea94ddf20f66432b9024fe2e2eaba5f",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-04T17:00:00Z",
+   "completed": false,
+   "home_team": "Cincinnati Bengals",
+   "away_team": "Jacksonville Jaguars",
+   "scores": null,
+   "last_update": null
+  },
+  {
+   "id": "daf55e2df5341c007fee5a0fc5bbc2d4",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-04T17:00:00Z",
+   "completed": false,
+   "home_team": "Houston Texans",
+   "away_team": "Dallas Cowboys",
+   "scores": null,
+   "last_update": null
+  },
+  {
+   "id": "99a9bae4dc0dc2590496bd3102b211f2",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-04T17:00:00Z",
+   "completed": false,
+   "home_team": "Tampa Bay Buccaneers",
+   "away_team": "Green Bay Packers",
+   "scores": null,
+   "last_update": null
+  },
+  {
+   "id": "1b4f2e60ce83fa1d63a5dff83769d27c",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-04T17:00:00Z",
+   "completed": false,
+   "home_team": "Philadelphia Eagles",
+   "away_team": "Los Angeles Rams",
+   "scores": null,
+   "last_update": null
+  },
+  {
+   "id": "c327223d76a3b7b0db8c6c104442f44b",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-04T20:05:00Z",
+   "completed": false,
+   "home_team": "Minnesota Vikings",
+   "away_team": "Miami Dolphins",
+   "scores": null,
+   "last_update": null
+  },
+  {
+   "id": "a7e7efb75a9792ac63480ae6328dca18",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-04T20:25:00Z",
+   "completed": false,
+   "home_team": "San Francisco 49ers",
+   "away_team": "Denver Broncos",
+   "scores": null,
+   "last_update": null
+  },
+  {
+   "id": "e0cbd266dcf997089203a1b33ba0333d",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-04T20:25:00Z",
+   "completed": false,
+   "home_team": "Las Vegas Raiders",
+   "away_team": "Kansas City Chiefs",
+   "scores": null,
+   "last_update": null
+  },
+  {
+   "id": "96d2373cda647873b971f268482bced0",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-04T20:25:00Z",
+   "completed": false,
+   "home_team": "Seattle Seahawks",
+   "away_team": "Los Angeles Chargers",
+   "scores": null,
+   "last_update": null
+  },
+  {
+   "id": "a73a76599a4f3422803e57bd8f61b626",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-05T00:20:00Z",
+   "completed": false,
+   "home_team": "Carolina Panthers",
+   "away_team": "Detroit Lions",
+   "scores": null,
+   "last_update": null
+  },
+  {
+   "id": "8bd90781e17e6d97df3941063cedae1e",
+   "sport_key": "americanfootball_nfl",
+   "sport_title": "NFL",
+   "commence_time": "2026-10-06T00:15:00Z",
+   "completed": false,
+   "home_team": "New Orleans Saints",
+   "away_team": "Atlanta Falcons",
    "scores": null,
    "last_update": null
   }
