@@ -55,12 +55,12 @@ jobs:
             git add slates/nfl_live.json futures.json
             git commit -m "fast loop: td tracker + futures quotes $(date -u +'%H:%M') UTC"
             for i in 1 2; do
-  if git push; then break; fi
-  git pull --rebase -X theirs origin main || { git rebase --abort; continue; }
-  OF=$(git show --pretty='' --name-only ORIG_HEAD)
-  git diff --quiet ORIG_HEAD HEAD -- $OF || { echo 'REBASE GUARD: rebase altered generated content - failing loud; next cycle regenerates' >&2; exit 1; }
-done
-git ls-remote origin main | grep -q "$(git rev-parse HEAD)" || { echo 'PUSH READBACK FAILED: origin/main != HEAD' >&2; exit 1; }
+              if git push; then break; fi
+            git pull --rebase -X theirs origin main || { git rebase --abort; continue; }
+              OF=$(git show --pretty='' --name-only ORIG_HEAD)
+              git diff --quiet ORIG_HEAD HEAD -- $OF || { echo 'REBASE GUARD: rebase altered generated content - failing loud; next cycle regenerates' >&2; exit 1; }
+            done
+            git ls-remote origin main | grep -q "$(git rev-parse HEAD)" || { echo 'PUSH READBACK FAILED: origin/main != HEAD' >&2; exit 1; }
           else
             echo "idle - feeds unchanged"
           fi
