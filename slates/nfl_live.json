@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T18:46:16.485226+00:00",
+ "generated_at": "2026-09-27T18:54:41.579340+00:00",
  "window": "sun-early",
  "legs": [
   {
@@ -89,8 +89,8 @@
    "matchup": "NYJ @ DET",
    "espn_event_id": "401872954",
    "status": "in",
-   "detail": "6:51 - 3rd",
-   "score": "DET 17 - NYJ 7"
+   "detail": "4:59 - 3rd",
+   "score": "DET 17 - NYJ 10"
   },
   {
    "matchup": "BAL @ DAL",
@@ -103,28 +103,28 @@
    "matchup": "KC @ MIA",
    "espn_event_id": "401872952",
    "status": "in",
-   "detail": "11:39 - 3rd",
-   "score": "MIA 7 - KC 14"
+   "detail": "8:05 - 3rd",
+   "score": "MIA 10 - KC 14"
   },
   {
    "matchup": "LAC @ BUF",
    "espn_event_id": "401872953",
    "status": "in",
-   "detail": "11:30 - 3rd",
-   "score": "BUF 10 - LAC 10"
+   "detail": "6:12 - 3rd",
+   "score": "BUF 10 - LAC 13"
   },
   {
    "matchup": "SEA @ WAS",
    "espn_event_id": "401872955",
    "status": "in",
-   "detail": "0:03 - 2nd",
-   "score": "WSH 14 - SEA 10"
+   "detail": "Halftime",
+   "score": "WSH 17 - SEA 10"
   },
   {
    "matchup": "CIN @ PIT",
    "espn_event_id": "401872950",
    "status": "in",
-   "detail": "Halftime",
+   "detail": "13:11 - 3rd",
    "score": "PIT 17 - CIN 17"
   }
  ]
