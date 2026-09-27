@@ -1545,6 +1545,39 @@ function rpA2hsDone(){{localStorage.setItem('rp_a2hs_v1','1');document.getElemen
 function rpMaybeA2HS(){{if(RP_STANDALONE||RP_MOB===false)return;if(localStorage.getItem('rp_a2hs_v1'))return;
  rpA2hsRender();document.getElementById('rpA2hs').style.display='flex';}}
 const RP_BAT='<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin:0 3px 0 1px"><g transform="rotate(45 12 12)" fill="#e8b93c"><rect x="10.3" y="1.2" width="3.4" height="12" rx="1.7"/><rect x="11.1" y="12.8" width="1.8" height="7.4" rx="0.9"/><circle cx="12" cy="21.6" r="1.9"/></g></svg>';
+function rpFeedStatusTxt(F){{ /* worker-composed canonical moment -> strip status text; a stale clock never wears live (period-only) */
+ const gv=function(k){{return (F[k]&&F[k].value!=null)?F[k].value:null;}};
+ const clk=gv('clock'),per=gv('period');
+ let t='';
+ if(clk&&!(F.clock&&F.clock.stale))t=clk;
+ if(per&&per!=='FINAL'){{const pn=parseInt(per,10);const po=isNaN(pn)?String(per):(pn===1?'1st':pn===2?'2nd':pn===3?'3rd':pn===4?'4th':(pn===5?'OT':(pn-4)+'OT'));t=t?(t+' - '+po):po;}}
+ if(!t){{const dv=gv('detail');if(dv)t=dv;}}
+ return t;}}
+function rpMomentOf(t){{ /* 'm:ss - 3rd' | '3rd' | '2:41 - OT' | '2OT' -> moment parts; null = transitional detail text (not comparable) */
+ const m=/^(?:(\d+):(\d\d) - )?(?:(\d+)(?:st|nd|rd|th)(?:\s+(?:quarter|qtr|q|half|period))?|(\d*)OT)$/i.exec(t||''); /* production text forms: '3rd', '3rd Quarter', '1st Half', 'OT' */
+
+ if(!m)return null;
+ return {{per:(m[3]!=null)?+m[3]:5+(m[4]?+m[4]-1:0),clk:(m[1]!=null)?(+m[1])*60+(+m[2]):null}};}}
+function rpMomentOK(cur,nxt){{ /* cross-lane moment monotonicity: the displayed moment never regresses - period never rewinds; within a period the clock only runs down */
+ const a=rpMomentOf(cur),b=rpMomentOf(nxt);
+ if(!a||!b)return true;
+ if(b.per!==a.per)return b.per>a.per;
+ if(a.clk!=null&&b.clk!=null)return b.clk<=a.clk;
+ return true;}}
+function rpLsEnrichEspn(_pk,_f,_seq){{ /* degradation lane when the worker feed cannot answer: summary fetch + client arbiter */
+ fetch('https://site.api.espn.com/apis/site/v2/sports/'+_pk.dataset.espn+'/summary?event='+_f.eid+'&t='+Date.now()).then(r=>r.json()).then(function(sj){{
+  if(_seq!==window.__rpLsSeq)return;
+  const sc2=(((sj.header||{{}}).competitions)||[])[0]||{{}};const st2=(sc2.status||{{}}).type||{{}};
+  if(st2.state!=='in')return;
+  if((+(_pk.dataset.lsrank||0))>1)return;
+  const _st2x=rpStatusText(_pk,sj,st2);
+  if(!_st2x)return;  /* never blank a live strip with an empty summary status */
+  if(_pk.__lsLast&&_pk.__lsLast.arb&&rpMomentOf(_pk.__lsLast.st)&&!rpMomentOf(_st2x))return;  /* an answer without a comparable moment never displaces a formed one */
+  if(_pk.__lsLast&&_pk.__lsLast.arb&&_pk.__lsLast.state==='in'&&!rpMomentOK(_pk.__lsLast.st,_st2x))return;  /* stale lane answer: the displayed moment never rewinds */
+  const _fa=(_pk.__lsLast&&_pk.__lsLast.state==='in')?Math.max(_f.as,_pk.__lsLast.as):_f.as,_fh=(_pk.__lsLast&&_pk.__lsLast.state==='in')?Math.max(_f.hs,_pk.__lsLast.hs):_f.hs;
+  const _nf={{a:_f.a,h:_f.h,as:_fa,hs:_fh,st:_st2x,state:'in',arb:true}};  /* per-side canonical floor - lane takeover never lowers displayed scores */
+_pk.__lsArbTs=Date.now();const _e4=_pk.querySelector('[data-ls]');if(_e4)_e4.style.opacity='';_pk.__lsLast=_nf;rpLsRender(_pk,_nf);
+ }}).catch(()=>{{}});}}
 function rpLsRender(pk,g){{const el=pk.querySelector('[data-ls]');if(!el)return;
  if(!g||g.state==='pre'){{el.className='ls';el.innerHTML='';return;}}
  if(g.state==='post'){{const side=pk.dataset.side||'away';
@@ -1601,7 +1634,15 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
    if(!_isMlb){{
     if(!found){{rpLsMiss(pk);}}
     else{{const nr=rpLsRank[found.state]||0,pr=+(pk.dataset.lsrank||0);
-     if((nr>=pr||!pk.__lsLast)&&!(pk.__lsLast&&pk.__lsLast.state==='in'&&found.state==='in'&&(found.as+found.hs)<(pk.__lsLast.as+pk.__lsLast.hs))){{pk.__lsLast=found;pk.dataset.lsrank=nr;const _e=pk.querySelector('[data-ls]');if(_e)_e.style.opacity='';rpLsRender(pk,found);if(found.state==='post')rpRecLive();}}  /* swarm 16: same-state boards also monotonic on progress - 17-21 never rewrites to 10-14 */  /* swarm 11: monotonic pre->in->post - a stale pre-board never rolls state BACKWARD; last-good snapshot held */
+     {{if(pk.__lsLast&&pk.__lsLast.arb&&found.state==='in'&&pk.__lsLast.state==='in'){{
+   /* canonical-hold: once an arbiter lane (worker feed or summary arbiter) owns the live render, the raw board advances
+      SCORES ONLY, per-side monotonic - its low-resolution status text never overwrites the canonical moment.
+      Evaluated on EVERY live board tick under arb ownership, advance or regress: the carried-state dim never depends on the board moving. */
+   const _mg={{a:found.a,h:found.h,as:Math.max(found.as,pk.__lsLast.as),hs:Math.max(found.hs,pk.__lsLast.hs),st:pk.__lsLast.st,state:'in',arb:true}};
+   pk.__lsLast=_mg;pk.dataset.lsrank=nr;const _e=pk.querySelector('[data-ls]');
+   if(_e)_e.style.opacity=(Date.now()-(pk.__lsArbTs||0)>60000)?'.55':'';
+   rpLsRender(pk,_mg);
+  }}else if((nr>=pr||!pk.__lsLast)&&!(pk.__lsLast&&pk.__lsLast.state==='in'&&found.state==='in'&&(found.as+found.hs)<(pk.__lsLast.as+pk.__lsLast.hs))){{pk.__lsLast=found;pk.dataset.lsrank=nr;const _e=pk.querySelector('[data-ls]');if(_e)_e.style.opacity='';rpLsRender(pk,found);if(found.state==='post')rpRecLive();}}}}  /* swarm 16: same-state boards also monotonic on progress - 17-21 never rewrites to 10-14 */  /* swarm 11: monotonic pre->in->post - a stale pre-board never rolls state BACKWARD; last-good snapshot held */
     }}}}
    /* odds + clock ride the 2s score tick (his Sep 26 instant spec): odds from the same scoreboard payload
       (zero extra fetches); one summary fetch per LIVE pick arbitrates the strip clock against advancing plays */
@@ -1609,13 +1650,20 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
       writing it into a[data-book="TSB"] labeled DK's number as theScore and poisoned the canonical record.
       Chips render ONLY from their own attributed record (own-platform ticks: rpPolyTick/rpKalTick) or stay at snapshot. */
    if(found&&found.state==='in'){{(function(_pk,_f){{
-    fetch('https://site.api.espn.com/apis/site/v2/sports/'+_pk.dataset.espn+'/summary?event='+_f.eid+'&t='+Date.now()).then(r=>r.json()).then(function(sj){{
-     if(_seq!==window.__rpLsSeq)return;  /* swarm 16: superseded tick's enrichment never writes */
-     const sc2=(((sj.header||{{}}).competitions)||[])[0]||{{}};const st2=(sc2.status||{{}}).type||{{}};
-     if(st2.state!=='in')return;
-     if((+(_pk.dataset.lsrank||0))>1)return;  /* monotonic: a late in-state summary never overwrites a post */
-     const _nf={{a:_f.a,h:_f.h,as:_f.as,hs:_f.hs,st:rpStatusText(_pk,sj,st2),state:'in'}};_pk.__lsLast=_nf;rpLsRender(_pk,_nf);
-    }}).catch(()=>{{}});
+    fetch('https://api.rix-picks.com/feed/game/'+_f.eid+'?league='+encodeURIComponent(_pk.dataset.espn)+'&t='+Date.now()).then(r=>r.json()).then(function(fj){{
+     if(_seq!==window.__rpLsSeq)return;
+     if(!fj||!fj.fields){{rpLsEnrichEspn(_pk,_f,_seq);return;}}  /* worker feed cannot answer: degradation lane, never worse than the pre-feed path */
+     const F=fj.fields;const stv=(F.state&&F.state.value)||fj.state||'';
+     if(stv!=='in')return;  /* monotonic: a non-live feed never rewrites the live render; post lands via the board branch */
+     if((+(_pk.dataset.lsrank||0))>1)return;
+     const sa=(F.scoreAway&&F.scoreAway.value!=null&&!isNaN(+F.scoreAway.value))?+F.scoreAway.value:null;
+     const sh=(F.scoreHome&&F.scoreHome.value!=null&&!isNaN(+F.scoreHome.value))?+F.scoreHome.value:null;
+     const _st=rpFeedStatusTxt(F)||_f.st;
+     if(_pk.__lsLast&&_pk.__lsLast.arb&&_pk.__lsLast.state==='in'&&!rpMomentOK(_pk.__lsLast.st,_st))return;  /* stale lane answer: the displayed moment never rewinds */
+     const _fa=(_pk.__lsLast&&_pk.__lsLast.state==='in')?Math.max(_f.as,_pk.__lsLast.as):_f.as,_fh=(_pk.__lsLast&&_pk.__lsLast.state==='in')?Math.max(_f.hs,_pk.__lsLast.hs):_f.hs;
+     const _nf={{a:_f.a,h:_f.h,as:(sa!=null&&sa>=_fa)?sa:_fa,hs:(sh!=null&&sh>=_fh)?sh:_fh,st:_st,state:'in',arb:true}};  /* canonical arbitrated scores - the wrong-score class (raw-board behind-read) cannot surface on the index; per-side floor = the board snapshot */
+     _pk.__lsArbTs=Date.now();const _e3=_pk.querySelector('[data-ls]');if(_e3)_e3.style.opacity='';_pk.__lsLast=_nf;rpLsRender(_pk,_nf);
+    }}).catch(()=>{{rpLsEnrichEspn(_pk,_f,_seq);}});
    }})(pk,Object.assign({{eid:want}},found));}}
   }});}}catch(e){{}}}}
 }}
