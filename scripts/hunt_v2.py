@@ -101,6 +101,10 @@ for r in slate['rows']:
     if r['status']!='STATUS_SCHEDULED':
         entry['verdict']='not hunted'; entry['reason']=f"already {r['status'].replace('STATUS_','')}"; log.append(entry); continue
     bound = bind_tennis(r, mkts.get(lg,[])) if lg in ('ATP','WTA') else bind_fight(r, mkts.get(lg,[])) if lg=='UFC' else bind_standard(r, mkts.get(lg,[])) if lg in mkts else []
+    if lg in ('ATP','WTA','UFC') and len(bound) > 1:
+        # fail closed (swamp 9/26): surname matching is not unique across sessions/days;
+        # no date/session corroboration exists for these series - not_evaluable until exact-ID binding
+        entry['verdict']='not_evaluable'; entry['reason']=f'capability gap: {lg} binding ambiguous - {len(bound)} markets match both surnames, no date/session corroboration - fail closed until exact-ID binding exists'; log.append(entry); continue
     entry['markets_bound']=[(m['ticker'],m.get('yes_ask_dollars')) for m in bound]
     if lg=='NHL':
         entry['verdict']='not_evaluable'; entry['reason']='capability gap: no NHL fair engine (preseason) - not a genuine evaluation'; log.append(entry); continue

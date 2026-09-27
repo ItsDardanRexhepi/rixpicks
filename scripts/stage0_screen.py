@@ -8,22 +8,35 @@ from datetime import datetime, timezone
 sys.path.insert(0, '/home/sandbox/rix_tmp')
 from core import pipeline, kalshi_bind
 def toks(name): return {w for w in re.findall(r'[A-Za-z]+', (name or '').upper()) if len(w) >= 4}
-def _close(t1, t2, hours=6):
+def _close(t1, t2, hours=1.5):
     from datetime import datetime as _dt
     try:
         a = _dt.fromisoformat(t1.replace('Z', '+00:00')); b = _dt.fromisoformat(t2.replace('Z', '+00:00'))
         return abs((a - b).total_seconds()) <= hours * 3600
     except Exception:
         return False
-def join_slate(row, slate_rows):
-    """Resolve the ESPN canonical competition ID: team-word match corroborated by commence
-    time (<=6h). Ambiguous or uncorroborated -> None (fail closed, row stays screen-only)."""
+CROSSWALK = '/tmp/provider_espn_crosswalk.json'
+def _load_cw():
+    try: return json.load(open(CROSSWALK))
+    except Exception: return {}
+def join_slate(row, slate_rows, crosswalk):
+    """Resolve the ESPN canonical competition ID. Requires: provider_event_id present,
+    team-word match, commence corroboration (<=90min), and crosswalk consistency - a
+    provider ID already mapped to a DIFFERENT ESPN id is a conflict and fails closed.
+    Returns (slate_row, status)."""
+    pid = row.get('provider_event_id')
+    if not pid: return None, 'missing provider_event_id'
     a, h = toks(row['away']), toks(row['home'])
     cands = [s for s in slate_rows if toks(s.get('away')) & a and toks(s.get('home')) & h]
-    if not cands: return None
     timed = [s for s in cands if _close(row.get('commence', ''), s.get('commence_utc', ''))]
-    if len(timed) == 1: return timed[0]
-    return None  # 0 = no time corroboration; >1 = ambiguous - both fail closed
+    if len(timed) != 1:
+        return None, f'{len(timed)} corroborated candidates (need exactly 1)'
+    espn_id = timed[0]['instance_id']
+    prev = crosswalk.get(pid)
+    if prev and prev != espn_id:
+        return None, f'crosswalk conflict: provider {pid} mapped {prev}, now {espn_id}'
+    crosswalk[pid] = espn_id
+    return timed[0], 'ok'
 def main():
     date = datetime.now().strftime('%Y-%m-%d')
     feed = sys.argv[1] if len(sys.argv) > 1 else '/tmp/kalshi_open_by_league.json'
@@ -39,15 +52,22 @@ def main():
     except Exception as e:
         slate_rows = []
         print(f'WARN: slate {slate_path} unavailable ({e}) - all rows screen-only (no event identity)')
+    crosswalk = _load_cw()
     for r in rows:
-        s = join_slate(r, slate_rows)
-        if s:
-            r['event_id'] = s['instance_id']; r['away_abbr'] = s.get('away_abbr'); r['home_abbr'] = s.get('home_abbr')
+        s2, why = join_slate(r, slate_rows, crosswalk)
+        if s2:
+            r['event_id'] = s2['instance_id']; r['away_abbr'] = s2.get('away_abbr'); r['home_abbr'] = s2.get('home_abbr')
+        else:
+            r['join_rejected'] = why
+    json.dump(crosswalk, open(CROSSWALK, 'w'))
     log = []
     out = pipeline.run_stage0(
         rows,
-        lambda row, cls, side: kalshi_bind.bind_event(feed, row.get('event_id'), row.get('away_abbr'),
-                                                      row.get('home_abbr'), cls, side),
+        lambda row, cls, side: kalshi_bind.bind_event(
+            feed, row.get('event_id'), row.get('away_abbr'), row.get('home_abbr'), cls, side,
+            commence_utc=row.get('commence'),
+            line_hint=(row.get('consensus_home_spread') if cls == 'spread' else row.get('consensus_total')),
+            line_tol=1.5 if cls == 'spread' else 2.5),
         log_lines=log)
     dest = f'/tmp/stage0_gate_{date}.json'
     json.dump({'ts': datetime.now(timezone.utc).isoformat(), 'date': date, **out}, open(dest, 'w'), indent=1)
