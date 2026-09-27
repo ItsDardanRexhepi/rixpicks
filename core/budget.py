@@ -6,7 +6,7 @@ import json, os, fcntl
 from datetime import datetime
 from zoneinfo import ZoneInfo
 PAID_TIER = True   # his verbatim word via main 2026-09-27: iMessage 08:53 PT signup + 09:03 checkout; provider x-requests-remaining 19,905 confirms the 20K plan live
-DAILY_CAP = 16
+DAILY_CAP = None   # REMOVED on his verbatim word (main 9/27 4:23 PT): "Make it so there's no cap if you can." Ledger below still logs every pull - telemetry, not a limit.
 TZ = ZoneInfo('America/Los_Angeles')
 LEDGER = os.environ.get('ODDS_CREDITS_LEDGER', '/home/sandbox/rps_tmp/kb/ledger/odds_credits.jsonl')
 def props_allowed(): return PAID_TIER
@@ -37,11 +37,11 @@ def check_and_log(sport, markets, credits):
         try:
             f.seek(0)
             used = _used_from_lines(f.readlines())
-            if used + credits > DAILY_CAP:
+            if DAILY_CAP is not None and used + credits > DAILY_CAP:
                 raise ValueError(f'credit cap: {used}+{credits} > {DAILY_CAP}/day (J-123)')
             f.write(json.dumps({'ts': datetime.now(TZ).isoformat(), 'local_date': _today(),
                                 'sport': sport, 'markets': markets, 'credits': credits}) + '\n')
             f.flush(); os.fsync(f.fileno())
         finally:
             fcntl.flock(f, fcntl.LOCK_UN)
-    return {'used_after': credits_today(), 'cap': DAILY_CAP}
+    return {'used_after': credits_today(), 'cap': DAILY_CAP}  # cap None = telemetry only
