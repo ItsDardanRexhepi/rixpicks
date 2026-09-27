@@ -1,19 +1,7 @@
 {
- "generated_at": "2026-09-27T14:37:12",
+ "generated_at": "2026-09-27T16:20:50",
  "live_legs": [
   {
-   "player": "Christian McCaffrey",
-   "market": "anytime_td",
-   "line": null,
-   "current": 0,
-   "progress": "no TD yet",
-   "matchup": "ARI @ SF",
-   "combo_id": null,
-   "card_status": "live",
-   "game_state": "in",
-   "game_detail": "0:04 - 2nd"
-  },
-  {
    "player": "Derrick Henry",
    "market": "anytime_td",
    "line": null,
@@ -23,7 +11,7 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Javonte Williams",
@@ -35,7 +23,7 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Ashton Jeanty",
@@ -47,7 +35,7 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "1:54 - 2nd"
+   "game_detail": "6:22 - 4th"
   },
   {
    "player": "Aaron Jones Sr.",
@@ -59,19 +47,19 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "0:27 - 2nd"
+   "game_detail": "0:33 - 4th"
   },
   {
    "player": "CeeDee Lamb",
    "market": "anytime_td",
    "line": null,
-   "current": 0,
-   "progress": "no TD yet",
+   "current": 1,
+   "progress": "TD",
    "matchup": "BAL @ DAL",
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Mark Andrews",
@@ -83,7 +71,7 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Bucky Irving",
@@ -95,19 +83,7 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "0:27 - 2nd"
-  },
-  {
-   "player": "Christian McCaffrey",
-   "market": "anytime_td",
-   "line": null,
-   "current": 0,
-   "progress": "no TD yet",
-   "matchup": "ARI @ SF",
-   "combo_id": null,
-   "card_status": "live",
-   "game_state": "in",
-   "game_detail": "0:04 - 2nd"
+   "game_detail": "0:33 - 4th"
   },
   {
    "player": "Derrick Henry",
@@ -119,7 +95,7 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Javonte Williams",
@@ -131,7 +107,7 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Ashton Jeanty",
@@ -143,7 +119,7 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "1:54 - 2nd"
+   "game_detail": "6:22 - 4th"
   },
   {
    "player": "Aaron Jones Sr.",
@@ -155,19 +131,19 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "0:27 - 2nd"
+   "game_detail": "0:33 - 4th"
   },
   {
    "player": "CeeDee Lamb",
    "market": "anytime_td",
    "line": null,
-   "current": 0,
-   "progress": "no TD yet",
+   "current": 1,
+   "progress": "TD",
    "matchup": "BAL @ DAL",
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Mark Andrews",
@@ -179,7 +155,7 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Bucky Irving",
@@ -191,7 +167,7 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "0:27 - 2nd"
+   "game_detail": "0:33 - 4th"
   },
   {
    "player": "Chris Olave",
@@ -203,7 +179,7 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "1:54 - 2nd"
+   "game_detail": "6:22 - 4th"
   },
   {
    "player": "George Pickens",
@@ -215,19 +191,19 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Lamar Jackson",
    "market": "passing_yards",
    "line": 200,
-   "current": 58.0,
-   "progress": "58/200",
+   "current": 143.0,
+   "progress": "143/200",
    "matchup": "BAL @ DAL",
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Derrick Henry",
@@ -239,19 +215,19 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "BAL",
    "market": "ml",
    "line": null,
    "current": null,
-   "progress": "BAL 17 - DAL 10 - LEADING",
+   "progress": "BAL 24 - DAL 28 - TRAILING",
    "matchup": "BAL @ DAL",
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Derrick Henry",
@@ -263,43 +239,19 @@
    "combo_id": null,
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
-  },
-  {
-   "player": "SF",
-   "market": "ml",
-   "line": null,
-   "current": null,
-   "progress": "SF 14 - ARI 6 - LEADING",
-   "matchup": "ARI @ SF",
-   "combo_id": "combo5",
-   "card_status": "live",
-   "game_state": "in",
-   "game_detail": "0:04 - 2nd"
-  },
-  {
-   "player": "Brock Purdy",
-   "market": "passing_yards",
-   "line": 150,
-   "current": 204.0,
-   "progress": "204/150",
-   "matchup": "ARI @ SF",
-   "combo_id": "combo5",
-   "card_status": "live",
-   "game_state": "in",
-   "game_detail": "0:04 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "TB",
    "market": "ml",
    "line": null,
    "current": null,
-   "progress": "TB 10 - MIN 17 - TRAILING",
+   "progress": "TB 16 - MIN 23 - TRAILING",
    "matchup": "MIN @ TB",
    "combo_id": "t3",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "0:27 - 2nd"
+   "game_detail": "0:33 - 4th"
   },
   {
    "player": "Baker Mayfield",
@@ -311,91 +263,151 @@
    "combo_id": "t3",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "0:27 - 2nd"
+   "game_detail": "0:33 - 4th"
   },
   {
    "player": "Baker Mayfield",
    "market": "passing_yards",
    "line": 200,
-   "current": 147.0,
-   "progress": "147/200",
+   "current": 217.0,
+   "progress": "217/200",
    "matchup": "MIN @ TB",
    "combo_id": "t3",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "0:27 - 2nd"
-  },
-  {
-   "player": "Christian McCaffrey",
-   "market": "rushing_yards",
-   "line": 50,
-   "current": 22.0,
-   "progress": "22/50",
-   "matchup": "ARI @ SF",
-   "combo_id": "t3",
-   "card_status": "live",
-   "game_state": "in",
-   "game_detail": "0:04 - 2nd"
-  },
-  {
-   "player": "Brock Purdy",
-   "market": "pass_td",
-   "line": 2,
-   "current": 2.0,
-   "progress": "2/2",
-   "matchup": "ARI @ SF",
-   "combo_id": "t3",
-   "card_status": "live",
-   "game_state": "in",
-   "game_detail": "0:04 - 2nd"
+   "game_detail": "0:33 - 4th"
   },
   {
    "player": "George Pickens",
    "market": "receiving_yards",
    "line": 60,
-   "current": 22.0,
-   "progress": "22/60",
+   "current": 82.0,
+   "progress": "82/60",
    "matchup": "BAL @ DAL",
    "combo_id": "t3",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Rashod Bateman",
    "market": "receiving_yards",
    "line": 40,
-   "current": 6.0,
-   "progress": "6/40",
+   "current": 37.0,
+   "progress": "37/40",
    "matchup": "BAL @ DAL",
    "combo_id": "t3",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Dak Prescott",
    "market": "pass_td",
    "line": 2,
-   "current": 0.0,
-   "progress": "0/2",
+   "current": 1.0,
+   "progress": "1/2",
    "matchup": "BAL @ DAL",
    "combo_id": "t3",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
   },
   {
    "player": "Lamar Jackson",
    "market": "pass_td",
    "line": 2,
-   "current": 0.0,
-   "progress": "0/2",
+   "current": 1.0,
+   "progress": "1/2",
    "matchup": "BAL @ DAL",
    "combo_id": "t3",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "2:43 - 2nd"
+   "game_detail": "2:36 - 4th"
+  },
+  {
+   "player": "Kiki Iriafen",
+   "market": "points",
+   "line": 16,
+   "current": 4.0,
+   "progress": "4/16",
+   "matchup": "WAS @ ATL",
+   "combo_id": "t5",
+   "card_status": "live",
+   "game_state": "in",
+   "game_detail": "4:57 - 1st"
+  },
+  {
+   "player": "Angel Reese",
+   "market": "rebounds",
+   "line": 12,
+   "current": 3.0,
+   "progress": "3/12",
+   "matchup": "WAS @ ATL",
+   "combo_id": "t5",
+   "card_status": "live",
+   "game_state": "in",
+   "game_detail": "4:57 - 1st"
+  },
+  {
+   "player": "Shakira Austin",
+   "market": "assists",
+   "line": 3,
+   "current": 0.0,
+   "progress": "0/3",
+   "matchup": "WAS @ ATL",
+   "combo_id": "t5",
+   "card_status": "live",
+   "game_state": "in",
+   "game_detail": "4:57 - 1st"
+  },
+  {
+   "player": "Michaela Onyenwere",
+   "market": "threes",
+   "line": 1,
+   "current": 1.0,
+   "progress": "1/1",
+   "matchup": "WAS @ ATL",
+   "combo_id": "t5",
+   "card_status": "live",
+   "game_state": "in",
+   "game_detail": "4:57 - 1st"
+  },
+  {
+   "player": "Rhyne Howard",
+   "market": "threes",
+   "line": 3,
+   "current": 1.0,
+   "progress": "1/3",
+   "matchup": "WAS @ ATL",
+   "combo_id": "t5",
+   "card_status": "live",
+   "game_state": "in",
+   "game_detail": "4:57 - 1st"
+  },
+  {
+   "player": "DeWanna Bonner",
+   "market": "rebounds",
+   "line": 8,
+   "current": 0.0,
+   "progress": "0/8",
+   "matchup": "WAS @ ATL",
+   "combo_id": "t6",
+   "card_status": "live",
+   "game_state": "in",
+   "game_detail": "4:57 - 1st"
+  },
+  {
+   "player": "Sonia Citron",
+   "market": "assists",
+   "line": 5,
+   "current": 1.0,
+   "progress": "1/5",
+   "matchup": "WAS @ ATL",
+   "combo_id": "t6",
+   "card_status": "live",
+   "game_state": "in",
+   "game_detail": "4:57 - 1st"
   }
  ]
 }
