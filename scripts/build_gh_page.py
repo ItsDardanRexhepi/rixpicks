@@ -1333,7 +1333,6 @@ h1 .tick{{color:#3BEBF5}}
 <a class="rec" id="rpRec" data-bw="{man['record'].split('-')[0]}" data-bl="{man['record'].split('-')[1]}" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</a>
 {wl_pct_line(man['record'])}
 {f'<div class="yesrec unitspl" id="rpUnits" data-bu="{html.escape(re.sub(r"[^0-9.+-]","",man["units_pl"]))}">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else ''}
-{f'<div class="yesrec unitspl" id="rpLedger" data-bl100="{html.escape(str(man["ledger100"]))}">Flat $100/pick: +${man["ledger100"]:.2f} today</div>' if man.get('ledger100') is not None else ''}
 <div class="unitmath">1u = $5 per $1,000 in bankroll</div>
 <div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>
 <div id="rpModal"><div class="box">
@@ -1543,12 +1542,11 @@ async function rpRecLive(){{const rec=document.getElementById('rpRec');if(!rec)r
  /* Live canonical record (his order 9/26): hydrate from api.rix-picks.com/record - Bus record tab via worker, keeper-owned. 404/failure keeps baked last-build values: fail closed, never invent. Page finals are still NEVER added locally; the served record comes from the keeper only. */
  const _now=Date.now();
  if(_now-_rpRecLast>15000){{_rpRecLast=_now;
- try{{const r=await fetch('https://api.rix-picks.com/record');if(r.ok){{const j=await r.json();if(j&&typeof j.w==='number'&&typeof j.l==='number'){{rec.dataset.bw=j.w;rec.dataset.bl=j.l;if(typeof j.units==='number'){{const u0=document.getElementById('rpUnits');if(u0)u0.dataset.bu=j.units;}}if(typeof j.ledger100==='number'){{const g0=document.getElementById('rpLedger');if(g0)g0.dataset.bl100=j.ledger100;}}}}}}}}catch(e){{}}}}
+ try{{const r=await fetch('https://api.rix-picks.com/record');if(r.ok){{const j=await r.json();if(j&&typeof j.w==='number'&&typeof j.l==='number'){{rec.dataset.bw=j.w;rec.dataset.bl=j.l;if(typeof j.units==='number'){{const u0=document.getElementById('rpUnits');if(u0)u0.dataset.bu=j.units;}}}}}}}}catch(e){{}}}}
  const w=parseInt(rec.dataset.bw||'0'),l=parseInt(rec.dataset.bl||'0');
  rec.innerHTML='&rsquo;RixPicks Overall Record: '+w+'-'+l;
  const pct=document.getElementById('rpWlPct');if(pct&&(w+l)>0)pct.textContent='W/L: '+(100*w/(w+l)).toFixed(1)+'%';
  const uEl=document.getElementById('rpUnits');if(uEl){{const u=parseFloat(uEl.dataset.bu||'0');uEl.textContent='Units: '+(u>=0?'+':'')+u.toFixed(2)+'u';}}
- const lg=document.getElementById('rpLedger');if(lg){{const v=parseFloat(lg.dataset.bl100||'0');lg.textContent='Flat $100/pick: '+(v>=0?'+':'-')+'$'+Math.abs(v).toFixed(2)+' today';}}
 }}
 function rpFinalsTop(){{document.querySelectorAll('.pick').forEach(function(pk){{
  var sp=pk.querySelector('[data-ls]');if(!sp)return;
