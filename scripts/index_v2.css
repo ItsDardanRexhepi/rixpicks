@@ -145,3 +145,7 @@ nav.rpnav .rec{order:3;width:100%;gap:10px}
    or crop, anywhere, ever. Core backstop: applies to every ESPN team-logo img on any page that
    inlines this stylesheet, including future emitters; inline emitters are cleaned too. */
 img[src*="teamlogos"]{border-radius:0!important;background:none!important;border:none!important;box-shadow:none!important}
+/* Past Tickets archive tab (tester Sep 27 2:58): Games/News sidebar panels have no archive
+   data - hide the whole aside and collapse the grid to one column while #past is active. */
+body.tab-past .layout{grid-template-columns:minmax(0,1fr)}
+body.tab-past .layout aside{display:none}
