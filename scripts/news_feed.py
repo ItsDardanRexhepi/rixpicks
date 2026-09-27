@@ -73,6 +73,56 @@ def rss(url, source):
         print('  lane rss %s: %s' % (url, e), file=sys.stderr)
     return out
 
+# Cross-sport guard (swamp 9/27 1:08): outlet league feeds carry roundup stories from other
+# sports (NFL injury roundup in the UFC bucket, MLB/WNBA roundup in PGA). Two rules per bucket:
+# (1) a headline naming another league's strong markers is rejected from this bucket;
+# (2) niche buckets (golf/tennis/mma/boxing/nascar/soccer) must name a league keyword at all.
+FOREIGN = {
+ 'NFL': [],  # nfl is the contaminant, never the contaminated marker set
+}
+LEAGUE_KEYWORDS = {
+ 'NFL': ['nfl','football','super bowl','quarterback','touchdown'],
+ 'NBA': ['nba','basketball'],
+ 'MLB': ['mlb','baseball','world series','pitcher','home run'],
+ 'NHL': ['nhl','hockey','stanley cup'],
+ 'CFB': ['college football','ncaa football','cfb','quarterback','touchdown','heisman'],
+ 'NCAAB': ['college basketball','ncaa','march madness','basketball'],
+ 'WNBA': ['wnba','basketball'],
+ 'MLS': ['mls','soccer','major league soccer'],
+ 'NWSL': ['nwsl','soccer'],
+ 'PGA': ['golf','pga','masters','ryder','open championship','tour championship','birdie','eagle'],
+ 'ATP': ['tennis','atp','grand slam','wimbledon','us open','australian open','french open'],
+ 'WTA': ['tennis','wta','grand slam','wimbledon','us open','australian open','french open'],
+ 'NASCAR': ['nascar','racing','daytona','cup series'],
+ 'UFC': ['ufc','mma','fight','octagon','knockout'],
+ 'Boxing': ['boxing','fight','knockout','heavyweight','title bout'],
+}
+STRONG_MARKERS = {  # sport-owning tokens: presence in a foreign bucket => reject
+ 'NFL': ['nfl','super bowl','quarterback','touchdown'],
+ 'NBA': ['nba'],
+ 'MLB': ['mlb','world series','home run'],
+ 'NHL': ['nhl','stanley cup'],
+ 'WNBA': ['wnba'],
+}
+SPORT_OF = {'NFL':'NFL','CFB':'NFL','NBA':'NBA','NCAAB':'NBA','WNBA':'WNBA','MLB':'MLB','NHL':'NHL'}
+
+def relevant(key, headline):
+    h = ' ' + (headline or '').lower() + ' '
+    def has(tok): return tok in h
+    my_sport = SPORT_OF.get(key)
+    for sport, marks in STRONG_MARKERS.items():
+        if sport == my_sport: continue
+        if any(has(m) for m in marks):
+            return False
+    kws = LEAGUE_KEYWORDS.get(key)
+    if key in ('MLS','NWSL','PGA','ATP','WTA','NASCAR','UFC','Boxing'):
+        if not kws: return False
+        # roundup guard: the league keyword must lead, not trail - a multi-sport roundup
+        # that opens on another sport and tags this league at the end is rejected.
+        cut = max(20, int(len(h) * 0.6))
+        return any(k in h[:cut] for k in kws)
+    return True
+
 def ts_of(a):
     try:
         return datetime.fromisoformat((a.get('published') or '').replace('Z', '+00:00')).timestamp()
@@ -94,6 +144,7 @@ def main():
         for a in sorted(items, key=ts_of, reverse=True):
             n = norm(a['headline'])
             if not n or n in seen: continue
+            if not relevant(key, a['headline']): continue
             seen.add(n)
             a['league'] = key
             ded.append(a)
