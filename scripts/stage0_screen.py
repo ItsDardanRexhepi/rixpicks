@@ -15,7 +15,7 @@ def _close(t1, t2, hours=1.5):
         return abs((a - b).total_seconds()) <= hours * 3600
     except Exception:
         return False
-CROSSWALK = '/tmp/provider_espn_crosswalk.json'
+CROSSWALK = '/home/sandbox/rps_tmp/kb/ledger/provider_espn_crosswalk.json'  # KB ledger path - /tmp resets on workspace rebuild and would silently disarm the conflict check
 def _load_cw():
     try: return json.load(open(CROSSWALK))
     except Exception: return {}
@@ -33,9 +33,15 @@ def join_slate(row, slate_rows, crosswalk):
         return None, f'{len(timed)} corroborated candidates (need exactly 1)'
     espn_id = timed[0]['instance_id']
     prev = crosswalk.get(pid)
-    if prev and prev != espn_id:
-        return None, f'crosswalk conflict: provider {pid} mapped {prev}, now {espn_id}'
-    crosswalk[pid] = espn_id
+    if prev:
+        if prev['espn_id'] != espn_id:
+            return None, f"crosswalk conflict: provider {pid} mapped {prev['espn_id']}, now {espn_id}"
+        if prev.get('provisional'):
+            prev['provisional'] = False   # re-corroborated on an independent join - promote
+    else:
+        from datetime import datetime as _dt2, timezone as _tz
+        crosswalk[pid] = {'espn_id': espn_id, 'provisional': True,
+                          'seeded_ts': _dt2.now(_tz.utc).isoformat()}  # provisional until re-corroborated
     return timed[0], 'ok'
 def main():
     date = datetime.now().strftime('%Y-%m-%d')

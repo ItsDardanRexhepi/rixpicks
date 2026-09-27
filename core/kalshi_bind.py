@@ -36,6 +36,8 @@ def bind_event(feed_path, event_id, away_abbr, home_abbr, market_class, side,
         why.append('missing event_id/abbrs'); return None
     if not commence_utc:
         why.append('no commence - cannot verify date token'); return None
+    if market_class in ('spread', 'total') and line_hint is None:
+        why.append(f'no line_hint for {market_class} - cannot verify line value, fail closed'); return None
     try:
         mkts = json.load(open(feed_path)); mtime = os.path.getmtime(feed_path)
     except Exception as e:
@@ -58,8 +60,9 @@ def bind_event(feed_path, event_id, away_abbr, home_abbr, market_class, side,
             else:
                 want = 'O' if side == 'over' else 'U'
                 if not team.startswith(want): continue                  # over/under marker required
-            if line_hint is not None and line is not None and abs(line - abs(line_hint)) > line_tol:
-                continue                                                # wrong handicap/total rejected
+            if market_class in ('spread', 'total'):
+                if line is None: continue                               # no numeric line in ticker = unverifiable, fail closed
+                if abs(line - abs(line_hint)) > line_tol: continue      # wrong handicap/total rejected
             cands.append(m)
     if len(cands) != 1:
         why.append(f'{len(cands)} verified candidates - need exactly 1, fail closed'); return None
