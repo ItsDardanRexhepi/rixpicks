@@ -2596,6 +2596,7 @@ FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="vie
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
 <div class="status">Futures &middot; __COUNT__ picks &middot; live Kalshi tracking vs carded entry</div>
 <div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
+<div class="intro">Live quotes as of <span id="rpFutAsOf">__FUTASOF__</span> PT &middot; refresh every ~5 min</div>
 __ROWS__
 <div id="rpFd" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(0,0,0,.78);align-items:flex-end;justify-content:center" onclick="if(event.target===this)rpFdClose()"><div id="rpFdBox" style="background:#000000;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;padding:16px;color:#ECECF1"></div></div>
 <div class="unitmath" style="margin-top:18px">Live prices via Kalshi &middot; refresh live &middot; build __BUILD__</div>
@@ -2749,7 +2750,7 @@ function rpFdRenderLive(r){
  }catch(e){b.textContent='live data unavailable';}
 }
 </script>
-<script src="myprofile.js?v=__BUILD__"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></body></html>'''
+__FUTPOLL__<script src="myprofile.js?v=__BUILD__"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></body></html>'''
 def build_futures_page(css,build_sha):
     if not FUT: return None
     import os as _os2
@@ -2795,8 +2796,36 @@ def build_futures_page(css,build_sha):
         %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(_ktick),_kqattrs,html.escape(f['odds']),
           html.escape(f['team']),html.escape(f['market']),html.escape(f.get('fair','')),html.escape(str(f.get('prob',''))),html.escape(f.get('res','')),str(f.get('units',2)),html.escape(f.get('note','')),
           html.escape(f['team']),('' if _kqok else '.55'),html.escape(_fut_live),html.escape(f['id']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else ''),_flink,_futmove))
+    _FUTPOLL="""<script>(function(){
+function _faml(c){var q=c/100;if(!(q>0&&q<1))return"";return q>=0.5?String(Math.round(-100*q/(1-q))):"+"+String(Math.round(100*(1-q)/q));}
+function _fpt(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"});}catch(e){return"";}}
+function _fmv(entry,c){var eMl=parseInt(String(entry).replace("+",""),10)||100;var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);var p=c/100;
+ if(p>eImp+0.005)return '<span style="color:#3ecf6f">&#9650; shortened from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+(p*100).toFixed(1)+'%)</span>';
+ if(p<eImp-0.005)return '<span style="color:#e5484d">&#9660; drifted from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+(p*100).toFixed(1)+'%)</span>';
+ return 'steady vs entry '+entry+' ('+(eImp*100).toFixed(1)+'%)';}
+function rpFutPoll(){fetch("futures.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(rows){
+ var asof="";
+ (rows||[]).forEach(function(f){
+  var kq=f&&f.kalshi_quote;if(!kq||kq.status!=="active"||!(kq.ask_c>0&&kq.ask_c<100))return;
+  var el=document.querySelector('.futrow[data-fid="'+f.id+'"]');if(!el)return;
+  el.dataset.kc=String(kq.ask_c);
+  var lv=el.querySelector(".futlive");if(lv){lv.textContent=_faml(kq.ask_c);lv.style.opacity="";}
+  var mv=el.querySelector(".futmove");if(mv)mv.innerHTML=_fmv(el.dataset.entry||"+0",kq.ask_c);
+  if(kq.quoted_at&&kq.quoted_at>asof)asof=kq.quoted_at;
+ });
+ if(asof){var a2=document.getElementById("rpFutAsOf");if(a2)a2.textContent=_fpt(asof);}
+}).catch(function(){});}
+rpFutPoll();setInterval(rpFutPoll,60000); /* server fast-loop owns the file; page just mirrors it - never ticks the exchange directly */
+})();</script>"""
+    try:
+        import datetime as _dt2
+        from zoneinfo import ZoneInfo as _ZI2
+        _qts=[(f.get('kalshi_quote') or {}).get('quoted_at') for f in FUT]
+        _qts=[q for q in _qts if q]
+        _asof=_dt2.datetime.fromisoformat(max(_qts)).astimezone(_ZI2('America/Los_Angeles')).strftime('%I:%M %p').lstrip('0') if _qts else 'unavailable'
+    except Exception: _asof='unavailable'
     pg=FUTURES_TMPL
-    for tok,val in [('__CSS__',css),('__ROWS__',''.join(rows)),('__COUNT__',str(len(FUT))),('__BUILD__',build_sha),('__RPARB__',ARB_INJECT)]:
+    for tok,val in [('__CSS__',css),('__FUTASOF__',_asof),('__FUTPOLL__',_FUTPOLL),('__ROWS__',''.join(rows)),('__COUNT__',str(len(FUT))),('__BUILD__',build_sha),('__RPARB__',ARB_INJECT)]:
         pg=pg.replace(tok,val)
     return pg
 _fp=build_futures_page(_css,build_sha)

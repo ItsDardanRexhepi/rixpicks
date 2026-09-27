@@ -54,6 +54,24 @@ def main():
         meta = json.load(open(sys.argv[sys.argv.index('--meta')+1]))
     now = datetime.datetime.now(ZoneInfo('America/Los_Angeles')).isoformat(timespec='seconds')
     ledger = PREVIEW_LEDGER if preview else PICKS_LEDGER
+    # card_ts canon (restamp fork fix, third surfacing): card_ts is the FIRST-LOCK time and must
+    # never be restamped on regeneration. Resolve per pick: existing canonical ledger row card_ts ->
+    # production manifest pick card_ts -> `now` ONLY for a genuinely new lock. Never a literal.
+    _ts_map = {}
+    if not preview and os.path.exists(PICKS_LEDGER):
+        for _l in open(PICKS_LEDGER):
+            try: _r = json.loads(_l)
+            except Exception: continue
+            if _r.get('kind') == 'pick' and _r.get('card_ts'):
+                _ts_map[(str(_r.get('event_id')), _r.get('market_class','ml'), _r.get('side'))] = _r['card_ts']
+    _prod_ts = {}
+    if not preview and os.path.exists(PROD_MANIFEST_PATH):
+        try:
+            for _p in json.load(open(PROD_MANIFEST_PATH)).get('picks', []):
+                _g = _p.get('game') or {}
+                if _p.get('card_ts') and _g.get('eid'):
+                    _prod_ts[(str(_g['eid']), 'ml', _p.get('side'))] = _p['card_ts']
+        except Exception: pass
     picks = []
     for c in cands:
         # ML-ONLY GATE (swamp round 9): spread/total manifest + scoring + grading + market
@@ -78,7 +96,10 @@ def main():
             'kalshi': {'url': c['kalshi'].get('url') or 'https://kalshi.com/markets/{}/{}'.format(c['kalshi']['ticker'].split('-')[0].lower(), c['kalshi']['ticker'].rsplit('-',1)[0].lower()),  # event-level URL: build_gh_page resolves the gate via the LAST segment (event ticker)
                        'cents': cents, 'team': c['kalshi']['team'], 'gate_cents': cents,
                        'ticker': c['kalshi']['ticker']},
-            'card_american': am, 'card_source': 'Kalshi ask at lock', 'card_ts': now,
+            'card_american': am, 'card_source': 'Kalshi ask at lock',
+            'card_ts': _ts_map.get((str(c['eid']), c.get('market_class','ml'), c['side']))
+                       or _prod_ts.get((str(c['eid']), 'ml', c['side']))
+                       or now,  # first lock only; regenerations inherit, never restamp
             'polymarket': c.get('polymarket'), 'dkp': c.get('dkp')})
     # FULL MANIFEST CONTRACT (swamp round 8): build_gh_page.py (publish.yml publish path) reads
     # date_label, status_note, record, updated, units_pl, units_ledger, yesterday, parlay and

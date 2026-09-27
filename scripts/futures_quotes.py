@@ -4,7 +4,7 @@ pull at GHA build/refresh time (GitHub egress IPs, separate rate bucket) and wri
 inline into futures.json. Worker-IP 429 risk is on MY workspace egress; GHA is clean.
 Usage: python3 futures_quotes.py <futures.json> [--write]
 """
-import json, sys, time, urllib.request
+import json, sys, time, urllib.request, datetime
 
 # carded market -> (kalshi series, ticker suffix abbr) ; abbr = Kalshi team code
 MAP = {
@@ -62,7 +62,7 @@ def main(path, write=False):
         mid = round((float(bid)+float(ask))*50) if bid and ask else None  # cents
         r['kalshi_quote'] = {'ticker': ticker, 'bid_c': round(float(bid)*100) if bid else None,
                              'ask_c': round(float(ask)*100) if ask else None, 'mid_c': mid,
-                             'status': m['status']}
+                             'status': m['status'], 'quoted_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')}
         print(f"OK {ticker}: {r['kalshi_quote']['bid_c']}/{r['kalshi_quote']['ask_c']} mid {mid}c")
     if write:
         json.dump(rows, open(path,'w'), indent=1)
