@@ -71,7 +71,10 @@ def main():
                 pub = json.load(open(out))
                 published_keys = {(str(x.get('game',{}).get('eid')), x.get('market_class','ml'), x.get('side'))
                                   for x in pub.get('picks',[])}
-            except Exception: pass  # unreadable manifest: orphan detection fails closed below via fork check
+            except Exception as e:
+                # FAIL CLOSED (swamp round 7): an unreadable manifest is NEVER 'nothing published' -
+                # treating it as empty would let orphan rollback delete genuinely published rows.
+                raise ValueError(f"fail closed: published manifest {out} exists but is unreadable ({e}) - refusing any ledger rewrite until it is repaired or removed deliberately")
         # batch-level duplicate rejection: one (event|class|side) per build
         keys = [(str(c['eid']), c.get('market_class','ml'), c['side']) for c in cands]
         dupes = {k for k in keys if keys.count(k) > 1}
@@ -85,7 +88,14 @@ def main():
                 raise ValueError(f"fail closed: ledger already ambiguous for {key} ({len(same)} rows) - refusing to add to an ambiguous key")
             if same:
                 r = same[0]
-                identical = r.get('entry_c') == p['kalshi']['cents'] and r.get('card_american') == p['card_american']
+                # FULL payload equality (swamp round 7): identity + stake + price. A units/name/
+                # ticker/commence change on a published key is a REFUSAL, never a silent re-size.
+                # card_ts excluded: it is per-run write provenance, not pick identity.
+                newrow = {'kind':'pick','event_id':key[0],'market_class':key[1],'side':key[2],
+                          'name':c['name'],'units':c['units'],
+                          'entry_c':p['kalshi']['cents'],'card_american':p['card_american'],
+                          'kalshi_ticker':p['kalshi']['ticker'],'commence':c['commence']}
+                identical = all(r.get(f) == v for f, v in newrow.items())
                 if identical and not r.get('preview'):
                     continue  # idempotent re-run: finishes an interrupted publish or no-ops a completed one
                 if identical and r.get('preview') and not preview:
@@ -102,7 +112,8 @@ def main():
                 elif not identical and preview:
                     existing = [x for x in existing if x is not r]  # preview ledger: replace freely, previews are disposable
                 else:
-                    raise ValueError(f"fail closed: conflicting canonical pick row for {key} - {r.get('entry_c')}c/{r.get('card_american')} vs new {p['kalshi']['cents']}c/{p['card_american']} - refusing to fork the card record")
+                    diffs = {f: (r.get(f), v) for f, v in newrow.items() if r.get(f) != v}
+                    raise ValueError(f"fail closed: conflicting canonical pick row for {key} - fields differ {diffs} - refusing to fork the card record")
             ledger_rows.append({'kind':'pick','event_id':key[0],'market_class':key[1],'side':key[2],
                                 'name':c['name'],'units':c['units'],
                                 'entry_c':p['kalshi']['cents'],'card_american':p['card_american'],
