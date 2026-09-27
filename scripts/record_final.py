@@ -133,6 +133,9 @@ def main():
     if not processed:
         print('nothing new processed')
         return 0
+    # ROUND-ONCE CORE RULE (main 9/27 3:19): deltas and units_after_exact travel at FULL
+    # ledger precision; every displayed total is computed from exact canonical values and
+    # quantized ONCE at display time. Never sum pre-rounded deltas - one-cent drift results.
     # day units = exact sum of per-pick deltas graded into this day
     day = hist['days'][-1]
     du = sum((Decimal(p['_delta']) for p in day['picks'] if '_delta' in p), Decimal('0'))
