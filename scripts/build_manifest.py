@@ -52,6 +52,13 @@ def main():
     ledger = PREVIEW_LEDGER if preview else PICKS_LEDGER
     picks = []
     for c in cands:
+        # ML-ONLY GATE (swamp round 9): spread/total manifest + scoring + grading + market
+        # identity are NOT implemented end to end (finals_watch hard-codes eid|ml|side with an
+        # ML comparator; fill_leak.card_price hunts the ml row). A ladder candidate through this
+        # path would render on the card and then grade as ML. Refuse anything that is not
+        # explicitly market_class=='ml' - never silently accept a ladder candidate.
+        if c.get('market_class') != 'ml':
+            raise ValueError(f"fail closed: candidate {c.get('name')} has market_class={c.get('market_class')!r} - only explicit 'ml' is buildable until spread/total grading exists end to end")
         cents = c['kalshi']['cents']
         if type(cents) is not int or not (1 <= cents <= 99):  # strict: bool is not int here
             raise ValueError(f"fail closed: bad kalshi cents {cents!r} on {c.get('name')}")

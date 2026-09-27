@@ -5,7 +5,7 @@ prod_ledger=f'{tmp}/picks.jsonl'
 MAN=f'{tmp}/manifest.json'  # stable production manifest path for this test
 CAND=[{'num':1,'name':'Test ML','side':'home','away':'AAA','home':'BBB','commence':'2026-09-28T00:00Z',
  'eid':999001,'espn_league':'MLB','units':5,'date':'2026-09-28',
- 'kalshi':{'cents':57,'team':'BBB','ticker':'KXT-BBB'},'model':60.7,'gross_c':3.7,'net_c':2.0}]
+ 'kalshi':{'cents':57,'team':'BBB','ticker':'KXT-BBB'},'model':60.7,'gross_c':3.7,'net_c':2.0,'market_class':'ml'}]
 cf=f'{tmp}/cands.json'
 S='/home/sandbox/rix_tmp/scripts/build_manifest.py'
 env=dict(os.environ); env['PYTHONPATH']='/home/sandbox/rix_tmp'; env['RIX_PICKS_LEDGER']=prod_ledger
@@ -110,6 +110,15 @@ st=r.stderr+r.stdout
 if 'KeyError' in st or 'JSONDecodeError' in st: fails.append(f'T13 format contract broken: {st[-300:]}')
 if 'Kalshi market unresolved' not in st and r.returncode!=0: fails.append(f'T13 unexpected failure: {st[-300:]}')
 print('T13 OK' if not any(x.startswith('T13') for x in fails) else 'T13 FAILED')
+# T14 market_class gate: spread candidate refused loud, nothing written
+c6=[dict(CAND[0])]; c6[0]['market_class']='spread'
+write_cands(c6); r=run([cf,MAN],expect_ok=False)
+if "only explicit 'ml'" not in r.stderr+r.stdout: fails.append('T14 no ml-only refusal')
+if len(rows())!=1: fails.append('T14 ledger mutated')
+c7=[dict(CAND[0])]; c7[0].pop('market_class',None)
+write_cands(c7); r=run([cf,MAN],expect_ok=False)
+if "only explicit 'ml'" not in r.stderr+r.stdout: fails.append('T14b missing market_class not refused')
+print('T14 OK')
 print('FAILS:',fails if fails else 'none')
 shutil.rmtree(tmp)
 sys.exit(1 if fails else 0)
