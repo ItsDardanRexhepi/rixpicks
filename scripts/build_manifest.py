@@ -127,6 +127,7 @@ def main():
         'record': _field('record'), 'units_pl': _field('units_pl'),
         'units_ledger': _field('units_ledger', required=False),
         'yesterday': _field('yesterday', required=False),
+        'yesterday_by_league': meta.get('yesterday_by_league', inherit.get('yesterday_by_league')),  # per-league Yesterday strip (9/27): tab-scoped, never global
         'status_note': _field('status_note', required=False),
         'parlay': meta.get('parlay', inherit.get('parlay')),
         'preview': preview, 'picks': picks}

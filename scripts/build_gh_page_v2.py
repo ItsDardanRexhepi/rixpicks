@@ -1366,7 +1366,15 @@ RP_HR=['AZ','CO','FL','IL','IN','MI','NJ','OH','TN','VA']
 RP_BR=['AZ','CO','CT','DE','DC','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','NH','NJ','NY','NC','OH','OR','PA','RI','TN','VT','VA','WV','WY']
 
 # --- shell: v2 dark redesign when RP_V2=1; otherwise the locked v1.2.0 markup, byte-for-byte.
-_yestr=(f'<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: {html.escape(man["yesterday"])}</a>' if man.get('yesterday') else '')
+# 9/27 (Julian/Dardan): the Yesterday strip is PER-LEAGUE - a tab shows only its own league's
+# results, from manifest yesterday_by_league {tab_key: "3-0 - ..."}. No entry for a tab = strip
+# hidden (never fabricate, never show another league's results). Legacy aggregate
+# man['yesterday'] stays data-only; v2 never renders it globally.
+_yestr=''
+_YBL=man.get('yesterday_by_league') or {}
+def _ystr_for(_tab):
+    _s=_YBL.get(_tab)
+    return ('<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: '+html.escape(_s)+'</a>') if _s else ''
 _units_line=(f'<div class="yesrec unitspl" id="rpUnits" data-bu="{html.escape(re.sub(r"[^0-9.+-]","",man["units_pl"]))}">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else '')
 _rw,_rl=man['record'].split('-')[0],man['record'].split('-')[1]
 _tail_html=('<a class="rec" id="rpRec" data-bw="'+html.escape(str(_rw))+'" data-bl="'+html.escape(str(_rl))+'" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: '+html.escape(man['record'])+'</a>\n'
@@ -1407,6 +1415,7 @@ if _V2:
     for t in RP_TABS:
         _prows=''.join(_panels.get(t['key']) or [])
         _body=(_prows+nfl_entry) if t['key']=='nfl' else _prows
+        _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
         elif _prows.strip():
