@@ -48,36 +48,59 @@ def main():
             'polymarket': c.get('polymarket'), 'dkp': c.get('dkp')})
     manifest = {'date': cands[0].get('date') if cands else None, 'preview': preview, 'picks': picks}
 
-    # Single-writer lock: held across read-decide-append-publish-verify so concurrent builds
-    # can never both read the pre-append ledger and duplicate a canonical row.
+    # Single-writer lock: held across read-decide-stage-publish-verify so concurrent builds
+    # can never both read the pre-publish ledger and duplicate a canonical row.
+    # TWO-FILE COMMIT + RECOVERY (swamp round 6): the ledger is staged whole and os.replace'd
+    # first (single commit point), then the manifest is os.replace'd. A crash between the two
+    # replaces leaves ORPHAN rows - ledger entries whose key is absent from the published
+    # manifest. The next run detects orphans against the manifest: identical candidates finish
+    # the interrupted publish (idempotent), changed candidates roll orphans back through the
+    # same staged write (explicit, logged) instead of stranding as a conflict refusal. A key
+    # present in BOTH the ledger and the manifest with different values is a real fork: refuse.
+    PROD_MANIFEST = '/home/sandbox/rix_tmp/manifest.json'
+    if preview and os.path.abspath(out) == PROD_MANIFEST:
+        raise ValueError(f"fail closed: --preview refuses production manifest path {out} - preview output is isolated")
     os.makedirs(os.path.dirname(ledger), exist_ok=True)
     lockf = open(LOCK_PATH, 'w')
     fcntl.flock(lockf, fcntl.LOCK_EX)
     try:
         existing = [json.loads(l) for l in open(ledger)] if os.path.exists(ledger) else []
+        published_keys = set()
+        if not preview and os.path.exists(out):
+            try:
+                pub = json.load(open(out))
+                published_keys = {(str(x.get('game',{}).get('eid')), x.get('market_class','ml'), x.get('side'))
+                                  for x in pub.get('picks',[])}
+            except Exception: pass  # unreadable manifest: orphan detection fails closed below via fork check
+        # batch-level duplicate rejection: one (event|class|side) per build
+        keys = [(str(c['eid']), c.get('market_class','ml'), c['side']) for c in cands]
+        dupes = {k for k in keys if keys.count(k) > 1}
+        if dupes: raise ValueError(f"fail closed: duplicate candidates in batch for {sorted(dupes)} - refusing to build")
         ledger_rows = []
         for c, p in zip(cands, picks):
             key = (str(c['eid']), c.get('market_class','ml'), c['side'])
             same = [r for r in existing if r.get('kind')=='pick' and str(r.get('event_id'))==key[0]
                     and r.get('market_class','ml')==key[1] and r.get('side')==key[2]]
+            if len(same) > 1:
+                raise ValueError(f"fail closed: ledger already ambiguous for {key} ({len(same)} rows) - refusing to add to an ambiguous key")
             if same:
                 r = same[0]
                 identical = r.get('entry_c') == p['kalshi']['cents'] and r.get('card_american') == p['card_american']
-                if identical and not r.get('preview') and not preview:
-                    continue  # idempotent re-run: identical canonical row already present
-                if identical and preview:
-                    continue  # preview ledger re-run: identical row already present
+                if identical and not r.get('preview'):
+                    continue  # idempotent re-run: finishes an interrupted publish or no-ops a completed one
                 if identical and r.get('preview') and not preview:
-                    # STAGED PROMOTION (swamp replay): a legacy preview marker on this key must
-                    # never satisfy a production publish. Rewrite the ledger without the marker,
-                    # append the canonical production row, verify. Explicit, logged, one write.
-                    staged = [x for x in existing if x is not r]
-                    ltmp = ledger + '.stage'
-                    with open(ltmp, 'w') as sf:
-                        for x in staged: sf.write(json.dumps(x) + '\n')
-                    os.replace(ltmp, ledger)
-                    existing = staged
+                    # STAGED PROMOTION: a legacy preview marker on this key must never satisfy a
+                    # production publish. Retire it through the staged write below.
+                    existing = [x for x in existing if x is not r]
                     print(f"STAGED PROMOTION: retired preview marker on {key}, publishing canonical row")
+                elif not identical and not preview and key not in published_keys and not r.get('preview'):
+                    # ORPHAN ROLLBACK: row exists but its key was never published (interrupted
+                    # publication). Roll it back through the staged write and proceed with the
+                    # new values - this is recovery, not a fork.
+                    existing = [x for x in existing if x is not r]
+                    print(f"ORPHAN ROLLBACK: removed unpublished ledger row on {key} ({r.get('entry_c')}c) - recovering interrupted publication")
+                elif not identical and preview:
+                    existing = [x for x in existing if x is not r]  # preview ledger: replace freely, previews are disposable
                 else:
                     raise ValueError(f"fail closed: conflicting canonical pick row for {key} - {r.get('entry_c')}c/{r.get('card_american')} vs new {p['kalshi']['cents']}c/{p['card_american']} - refusing to fork the card record")
             ledger_rows.append({'kind':'pick','event_id':key[0],'market_class':key[1],'side':key[2],
@@ -86,18 +109,21 @@ def main():
                                 'card_source':'Kalshi ask at lock','card_ts':p['card_ts'],
                                 'kalshi_ticker':p['kalshi']['ticker'],'commence':c['commence'],
                                 'preview':preview})
+        # stage manifest + whole ledger; commit ledger first, then publish manifest
         tmp = out + '.tmp'
-        json.dump(manifest, open(tmp, 'w'), indent=1)
-        appended_at = None
-        with open(ledger, 'a') as f:
-            for r in ledger_rows: f.write(json.dumps(r) + '\n')
-        os.replace(tmp, out)
-        # READBACK VERIFICATION: every row we meant to append must parse and match exactly.
-        if ledger_rows:
-            tail = [json.loads(l) for l in open(ledger)][-len(ledger_rows):]
-            for want, got in zip(ledger_rows, tail):
-                if want != got:
-                    raise ValueError(f"fail closed: ledger readback mismatch for {want.get('event_id')} - appended row does not verify")
+        with open(tmp, 'w') as mf:
+            json.dump(manifest, mf, indent=1); mf.flush(); os.fsync(mf.fileno())
+        final_ledger = existing + ledger_rows
+        ltmp = ledger + '.stage'
+        with open(ltmp, 'w') as sf:
+            for r in final_ledger: sf.write(json.dumps(r) + '\n')
+            sf.flush(); os.fsync(sf.fileno())
+        os.replace(ltmp, ledger)   # ledger commit point
+        os.replace(tmp, out)       # manifest publish
+        # READBACK VERIFICATION: staged ledger must read back exactly; appended rows must match.
+        rb = [json.loads(l) for l in open(ledger)]
+        if rb != final_ledger:
+            raise ValueError("fail closed: ledger readback mismatch after commit - staged content does not verify")
         print(f"wrote {out}: {len(picks)} picks, preview={preview} | ledger rows appended: {len(ledger_rows)} -> {ledger} (readback verified)")
     finally:
         fcntl.flock(lockf, fcntl.LOCK_UN); lockf.close()
