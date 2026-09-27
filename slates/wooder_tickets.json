@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T09:53:00-07:00",
+ "generated_at": "2026-09-27T09:55:00-07:00",
  "tickets": [
   {
    "id": 1,
@@ -110,7 +110,9 @@
      "matchup": "TEN-NYG",
      "time": "Today 10:00 AM"
     }
-   ]
+   ],
+   "odds_was": "+1609",
+   "odds_boosted": "+2013"
   }
  ]
 }
