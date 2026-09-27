@@ -1,96 +1,96 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T19:13:40.079834+00:00",
- "window": "sun-early",
+ "generated_at": "2026-09-27T19:16:51.075945+00:00",
+ "window": "sun-afternoon",
  "legs": [
   {
-   "player": "Jahmyr Gibbs",
-   "team": "DET",
-   "matchup": "NYJ @ DET",
-   "price_c": 74,
-   "td_scored": true,
-   "td_count": 2,
-   "last_td": "Jahmyr Gibbs 1 Yd Rush (Jake Bates Kick)",
-   "espn_event_id": "401872954"
+   "player": "Christian McCaffrey",
+   "team": "SF",
+   "matchup": "ARI @ SF",
+   "price_c": 69,
+   "td_scored": false,
+   "td_count": 0,
+   "last_td": null,
+   "espn_event_id": "401872958"
   },
   {
    "player": "Derrick Henry",
    "team": "BAL",
    "matchup": "BAL @ DAL",
-   "price_c": 68,
+   "price_c": 67,
    "td_scored": false,
    "td_count": 0,
    "last_td": null,
    "espn_event_id": "401872960"
   },
   {
-   "player": "Kenneth Walker III",
-   "team": "KC",
-   "matchup": "KC @ MIA",
-   "price_c": 65,
-   "td_scored": true,
-   "td_count": 2,
-   "last_td": "Kenneth Walker III 5 Yd pass from Patrick Mahomes (Harrison Butker Kick)",
-   "espn_event_id": "401872952"
-  },
-  {
-   "player": "James Cook",
-   "team": "BUF",
-   "matchup": "LAC @ BUF",
-   "price_c": 61,
+   "player": "Javonte Williams",
+   "team": "DAL",
+   "matchup": "BAL @ DAL",
+   "price_c": 59,
    "td_scored": false,
    "td_count": 0,
    "last_td": null,
-   "espn_event_id": "401872953"
+   "espn_event_id": "401872960"
   },
   {
-   "player": "Jaxon Smith-Njigba",
-   "team": "SEA",
-   "matchup": "SEA @ WAS",
-   "price_c": 50,
-   "td_scored": true,
-   "td_count": 1,
-   "last_td": "Jaxon Smith-Njigba 1 Yd pass from Sam Darnold (Jason Myers Kick)",
-   "espn_event_id": "401872955"
-  },
-  {
-   "player": "Ja'Marr Chase",
-   "team": "CIN",
-   "matchup": "CIN @ PIT",
-   "price_c": 46,
-   "td_scored": true,
-   "td_count": 1,
-   "last_td": "Ja'Marr Chase 3 Yd pass from Joe Burrow (Evan McPherson Kick)",
-   "espn_event_id": "401872950"
-  },
-  {
-   "player": "Jameson Williams",
-   "team": "DET",
-   "matchup": "NYJ @ DET",
-   "price_c": 37,
+   "player": "Ashton Jeanty",
+   "team": "LV",
+   "matchup": "LV @ NO",
+   "price_c": 52,
    "td_scored": false,
    "td_count": 0,
    "last_td": null,
-   "espn_event_id": "401872954"
+   "espn_event_id": "401872961"
   },
   {
-   "player": "Tyquan Thornton",
-   "team": "KC",
-   "matchup": "KC @ MIA",
-   "price_c": 16,
+   "player": "Aaron Jones Sr.",
+   "team": "MIN",
+   "matchup": "MIN @ TB",
+   "price_c": 47,
    "td_scored": false,
    "td_count": 0,
    "last_td": null,
-   "espn_event_id": "401872952"
+   "espn_event_id": "401872959"
+  },
+  {
+   "player": "CeeDee Lamb",
+   "team": "DAL",
+   "matchup": "BAL @ DAL",
+   "price_c": 44,
+   "td_scored": false,
+   "td_count": 0,
+   "last_td": null,
+   "espn_event_id": "401872960"
+  },
+  {
+   "player": "Mark Andrews",
+   "team": "BAL",
+   "matchup": "BAL @ DAL",
+   "price_c": 43,
+   "td_scored": false,
+   "td_count": 0,
+   "last_td": null,
+   "espn_event_id": "401872960"
+  },
+  {
+   "player": "Bucky Irving",
+   "team": "TB",
+   "matchup": "MIN @ TB",
+   "price_c": 41,
+   "td_scored": false,
+   "td_count": 0,
+   "last_td": null,
+   "espn_event_id": "401872959"
   }
  ],
  "games": [
   {
-   "matchup": "NYJ @ DET",
-   "espn_event_id": "401872954",
-   "status": "in",
-   "detail": "12:32 - 4th",
-   "score": "DET 24 - NYJ 10"
+   "matchup": "ARI @ SF",
+   "espn_event_id": "401872958",
+   "status": "pre",
+   "detail": "9/27 - 1:05 PM PT",
+   "score": "SF 0 - ARI 0"
   },
   {
    "matchup": "BAL @ DAL",
@@ -100,32 +100,18 @@
    "score": "DAL 0 - BAL 0"
   },
   {
-   "matchup": "KC @ MIA",
-   "espn_event_id": "401872952",
-   "status": "in",
-   "detail": "2:26 - 3rd",
-   "score": "MIA 10 - KC 14"
+   "matchup": "LV @ NO",
+   "espn_event_id": "401872961",
+   "status": "pre",
+   "detail": "9/27 - 1:25 PM PT",
+   "score": "NO 0 - LV 0"
   },
   {
-   "matchup": "LAC @ BUF",
-   "espn_event_id": "401872953",
-   "status": "in",
-   "detail": "1:36 - 3rd",
-   "score": "BUF 10 - LAC 13"
-  },
-  {
-   "matchup": "SEA @ WAS",
-   "espn_event_id": "401872955",
-   "status": "in",
-   "detail": "10:43 - 3rd",
-   "score": "WSH 24 - SEA 10"
-  },
-  {
-   "matchup": "CIN @ PIT",
-   "espn_event_id": "401872950",
-   "status": "in",
-   "detail": "3:30 - 3rd",
-   "score": "PIT 17 - CIN 20"
+   "matchup": "MIN @ TB",
+   "espn_event_id": "401872959",
+   "status": "pre",
+   "detail": "9/27 - 1:05 PM PT",
+   "score": "TB 0 - MIN 0"
   }
  ]
 }

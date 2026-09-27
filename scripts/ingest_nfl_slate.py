@@ -28,6 +28,22 @@ def opt_url(d, k, ctx):
         die('%s.%s must be an https:// draftkings.com or kalshi.com URL' % (ctx, k))
     return v
 
+
+def price_form(d, ctx, combined=False):
+    """Fail-closed price rule, mirrors builder rpLegPx: exactly one price form.
+    American string OR native contract cents (price_c int 1-99 + price_type contract_cents).
+    Both or neither -> reject whole slate."""
+    ok = d.get('odds') if not combined else d.get('combined_odds')
+    pc_key = 'price_c' if not combined else 'combined_price_c'
+    has_a = isinstance(ok, str) and ok.strip() != ''
+    pc = d.get(pc_key)
+    has_c = isinstance(pc, int) and not isinstance(pc, bool) and 1 <= pc <= 99 \
+        and d.get('price_type') == 'contract_cents'
+    if has_a == has_c:
+        die('%s must carry exactly one price form (American odds OR contract_cents, never both/neither)' % ctx)
+    if has_a and not ODDS_RE.match(ok.strip()):
+        die('%s odds must be American odds like +115 or -140' % ctx)
+
 def check_pick(p, ctx):
     req_str(p, 'player', ctx)
     req_str(p, 'team', ctx)
@@ -63,9 +79,7 @@ def main(path):
     for i, s in enumerate(singles):
         c = 'dk.singles[%d]' % i
         check_pick(s, c)
-        odds = req_str(s, 'odds', c)
-        if not ODDS_RE.match(odds):
-            die('%s.odds must be American odds like +115 or -140' % c)
+        price_form(s, c)
         opt_url(s, 'link', c)
     for i, p in enumerate(parlays):
         c = 'dk.parlays[%d]' % i
@@ -74,13 +88,10 @@ def main(path):
             die('%s.legs must hold 2-8 legs' % c)
         for k, l in enumerate(legs):
             check_pick(l, '%s.legs[%d]' % (c, k))
-            odds = req_str(l, 'odds', '%s.legs[%d]' % (c, k))
-            if not ODDS_RE.match(odds):
-                die('%s.legs[%d].odds must be American odds' % (c, k))
-        co = req_str(p, 'combined_odds', c)
-        if not ODDS_RE.match(co):
-            die('%s.combined_odds must be American odds' % c)
-        req_str(p, 'est_payout', c)
+            price_form(l, '%s.legs[%d]' % (c, k))
+        price_form(p, c + '.combined', combined=True)
+        if isinstance(p.get('combined_odds'), str) and p['combined_odds'].strip():
+            req_str(p, 'est_payout', c)
         opt_url(p, 'link', c)
         opt_url(p, 'pm', c)
 
