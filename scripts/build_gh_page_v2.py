@@ -1550,6 +1550,55 @@ if _V2:
     # guest content moves here from the NFL tab (slate+countdown, combos, tickets, Kincaid update, builders).
     # Shared data: same slates/*.json hydration, no divergent state. Dingers stays on the MLB tab.
     RP_TABS.append({'key':'wooder','label':'Picks from Wooder Ice','espn':''})
+
+    RP_TABS.append({'key':'past','label':'Past Tickets','espn':''})
+    # Past Tickets archive (Julian 1:33 spec via main, Dardan full-control): completed/removed picks
+    # and tickets with All/Won/Lost filters. Original selection, odds, result, provenance preserved -
+    # nothing deleted, just moved. BOUGHT stays visually distinct from SUGGESTED forever; voids render
+    # as their own state, never forced Won/Lost; no settlement/payout implications. Client-hydrated
+    # from slates/past_tickets.json; honest empty/unavailable states, nothing invented.
+    past_entry=(
+    r'<div style="margin-top:6px">'
+    r'<div class="sect">Past Tickets</div>'
+    r'<div class="sub" style="margin-bottom:10px">Archive of completed and removed Wooder Ice picks and tickets. Original selection, odds, result and provenance preserved - nothing is deleted, just moved. No settlement or payout implications.</div>'
+    r'<div id="rpPastBar" style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap"></div>'
+    r'<div id="rpPastBox"></div>'
+    r'</div>'
+    r'<script>(function(){'
+    r'var box=document.getElementById("rpPastBox"),bar=document.getElementById("rpPastBar");if(!box||!bar)return;'
+    r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
+    r'var ALL=[],FILT="all";'
+    r'function badge(e){return e.origin==="bought"?"<span style=\"display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px\">BOUGHT TICKET</span>":"<span style=\"display:inline-block;border:1px solid rgba(127,127,127,.4);color:#8a8f98;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px\">SUGGESTED</span>";}'
+    r'function rbadge(r){r=(r||"").toLowerCase();if(r==="won")return "<b style=\"color:#0b6e5f\">WON</b>";if(r==="lost")return "<b style=\"color:#e5484d\">LOST</b>";if(r==="void")return "<b style=\"color:#8a8f98\">VOID</b>";return "<b style=\"color:#8a8f98\">"+esc(r.toUpperCase())+"</b>";}'
+    r'function draw(){'
+    r'var es=ALL.filter(function(e){return FILT==="all"||((e.result||"").toLowerCase()===FILT);});'
+    r'var h="";'
+    r'es.forEach(function(e){'
+    r'var legs=(e.legs||[]).map(function(l){'
+    r'var st=(l.status||"").toLowerCase();'
+    r'var dot=st==="won"?"#0b6e5f":(st==="lost"?"#e5484d":(st?"#8a8f98":""));'
+    r'var dt=dot?("<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:"+dot+";margin-right:6px;vertical-align:1px\"></span>"):"";'
+    r'return "<div style=\"font-size:13px;padding:3px 0\">"+dt+"<b>"+esc(l.player)+"</b>"+(l.market?(" <span style=\"color:#8a8f98\">"+esc(l.market)+"</span>"):"")+(l.matchup?(" <span style=\"color:#8a8f98\">&middot; "+esc(l.matchup)+"</span>"):"")+(l.time?(" <span style=\"color:#8a8f98\">&middot; "+esc(l.time)+"</span>"):"")+"</div>";'
+    r'}).join("");'
+    r'h+="<div style=\"border:1px solid rgba(127,127,127,.22);border-radius:12px;padding:11px 12px;margin-bottom:10px\">"'
+    r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px\"><span><b>"+esc(e.title)+"</b>"+badge(e)+"</span>"+rbadge(e.result)+"</div>"'
+    r'+(e.detail?("<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(e.detail)+"</div>"):"")'
+    r'+(legs?("<div style=\"margin-top:6px\">"+legs+"</div>"):"")'
+    r'+"<div style=\"font-size:11px;color:#8a8f98;margin-top:8px\">Removed "+esc(e.removed_label||e.archived_at||"")+" &middot; "+esc(e.reason||"")+"</div>"'
+    r'+(e.provenance?("<div style=\"font-size:11px;color:#8a8f98;opacity:.8;margin-top:2px\">Source: "+esc(e.provenance)+"</div>"):"")'
+    r'+"</div>";});'
+    r'box.innerHTML=h||"<div class=\"sub\">Nothing archived in this view yet.</div>";}'
+    r'function barDraw(){'
+    r'var n={all:ALL.length,won:0,lost:0};'
+    r'ALL.forEach(function(e){var r=(e.result||"").toLowerCase();if(n[r]!=null)n[r]++;});'
+    r'var defs=[["all","All"],["won","Won"],["lost","Lost"]];'
+    r'bar.innerHTML=defs.map(function(d){'
+    r'var on=FILT===d[0];'
+    r'return "<a href=\"#past\" data-f=\""+d[0]+"\" style=\"text-decoration:none;font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px;border:1px solid "+(on?"#0b6e5f":"rgba(127,127,127,.35)")+";color:"+(on?"#0b6e5f":"#8a8f98")+"\">"+d[1]+" "+n[d[0]]+"</a>";'
+    r'}).join("");'
+    r'Array.prototype.forEach.call(bar.querySelectorAll("a"),function(a){a.onclick=function(ev){ev.preventDefault();FILT=a.getAttribute("data-f");barDraw();draw();};});}'
+    r'fetch("slates/past_tickets.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){ALL=(j&&j.entries)||[];barDraw();draw();}).catch(function(){box.innerHTML="<div class=\"sub\">Archive unavailable right now.</div>";});'
+    r'})();</script>')
     _tabs_html=''.join('<a class="tab" data-tab="'+t['key']+'" href="#'+t['key']+'">'+html.escape(t['label'])+'</a>' for t in RP_TABS)
     _panels_html=''
 
@@ -1617,7 +1666,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
 
     for t in RP_TABS:
         _prows=''.join(_panels.get(t['key']) or [])
-        _body=(_prows if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows))))
+        _body=(_prows if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else _prows)))))
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
