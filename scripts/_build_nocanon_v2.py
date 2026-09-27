@@ -1480,7 +1480,7 @@ _rw,_rl=man['record'].split('-')[0],man['record'].split('-')[1]
 _navpct=''
 try:
     _w0,_l0=int(_rw),int(_rl)
-    if _w0+_l0>0: _navpct='<span><b id="rpNavPct">'+('%.2f'%(100.0*_w0/(_w0+_l0)))+'%</b></span>'
+    if _w0+_l0>0: _navpct='<span>W/L <b id="rpNavPct">'+('%.2f'%(100.0*_w0/(_w0+_l0)))+'%</b></span>'
 except Exception: _navpct=''
 _tail_html=('<a class="rec" id="rpRec" data-bw="'+html.escape(str(_rw))+'" data-bl="'+html.escape(str(_rl))+'" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: '+html.escape(man['record'])+'</a>\n'
     +wl_pct_line(man['record'])+'\n'+_units_line+'\n'
