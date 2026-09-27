@@ -105,9 +105,10 @@ var burger=$('burger');
 if(burger)burger.addEventListener('click',function(){document.body.classList.toggle('menu-open');});
 /* ---- nav record mirror (canonical values live on #rpRec/#rpUnits datasets) ---- */
 function navRec(){
- var r=$('rpRec'),u=$('rpUnits'),w=$('rpNavRecW'),l=$('rpNavRecL'),uu=$('rpNavU');
+ var r=$('rpRec'),u=$('rpUnits'),w=$('rpNavRecW'),l=$('rpNavRecL'),uu=$('rpNavU'),pc=$('rpNavPct');
  if(r&&w&&l){w.textContent=r.dataset.bw||'';l.textContent=r.dataset.bl||'';}
- if(u&&uu)uu.textContent=(u.dataset.bu||'')+'u';
+ if(r&&pc){var bw=parseInt(r.dataset.bw||'0',10),bl=parseInt(r.dataset.bl||'0',10);if(bw+bl>0)pc.textContent=(100*bw/(bw+bl)).toFixed(2)+'%';}
+ if(u&&uu){var uv=parseFloat(u.dataset.bu||'0');uu.textContent=(uv>=0?'+':'')+uv.toFixed(2)+'u';}
 }
 navRec();
 if('MutationObserver' in window){

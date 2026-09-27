@@ -133,3 +133,5 @@ body.rp-ready .tickbar{transform:translateY(0)}
 
 /* desktop: reserve space for the fixed My Account control (myprofile.js FAB) so it never covers record/units - swamp 9/27 1280px overlap */
 @media(min-width:900px){nav.rpnav{padding-right:132px}}
+/* mobile: same reservation - the fixed My Account pill overlaps record/units without it (Dardan screenshot 9/27 1:48 PM) */
+nav.rpnav{padding-right:132px}

@@ -58,8 +58,8 @@ def page(title, subtitle, body, live=False):
 
 
 # Live canonical record hydration (his order 9/26): record.html overall header hydrates from
-# api.rix-picks.com/record (Bus record tab via worker). 404/failure keeps baked values - fail closed.
-LIVE_JS = """<script>(function(){function up(j){if(!j||typeof j.w!=='number'||typeof j.l!=='number')return;var el=document.getElementById('rpOverall');if(el)el.textContent=j.w+'-'+j.l;var u=document.getElementById('rpOverallU');if(u&&typeof j.units==='number')u.textContent=(j.units>=0?'+':'')+j.units.toFixed(2)+'u';}function go(){fetch('https://api.rix-picks.com/record').then(function(r){return r.ok?r.json():null;}).then(up).catch(function(){});}go();setInterval(go,60000);})();</script>"""
+# same-origin manifest.json (ledger-verified served record; the worker mirror is stale - 9/27). 404/failure keeps baked values - fail closed.
+LIVE_JS = """<script>(function(){function up(j){if(!j)return;var m=/^([0-9]+)-([0-9]+)/.exec(j.record||'');if(!m)return;var el=document.getElementById('rpOverall');if(el)el.textContent=m[1]+'-'+m[2];var u=document.getElementById('rpOverallU');if(u&&j.units_pl){var v=parseFloat(String(j.units_pl).replace('u',''));if(!isNaN(v))u.textContent=(v>=0?'+':'')+v.toFixed(2)+'u';}}function go(){fetch('manifest.json?cb='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(up).catch(function(){});}go();setInterval(go,60000);})();</script>"""
 
 
 # Note coherence (swarm 8): a forward-looking 'pending' sentence DIES at assembly once the

@@ -11,7 +11,7 @@ For each request, in order:
 Apply: manifest record/units_pl, history.json day row (+day record/units), record_done.json.
 Writes NOTHING to any private ledger - that stays analysis-side.
 """
-import json, os, re, sys, urllib.request
+import json, re, os, re, sys, urllib.request
 from datetime import datetime, timezone
 from decimal import Decimal
 
@@ -142,6 +142,12 @@ def main():
     last = processed[-1][0]
     man['record'] = last['record_after']
     man['units_pl'] = fmt_units(Decimal(str(last['units_after_exact'])))
+    # freshness truth (main Sep 27): the write moves manifest state, so its freshness label
+    # must move with it - stamp `updated` at write time, PT, same display format ingest uses.
+    from zoneinfo import ZoneInfo as _ZI
+    import datetime as _dtc
+    _now=_dtc.datetime.now(_ZI('America/Los_Angeles'))
+    man['updated']=re.sub(r'(\d), 0', r'\1, ', _now.strftime('%b %d, %I:%M %p PT').replace(' 0',' '))
     done.setdefault('processed', []).extend(q['grade_id'] for q, _ in processed)
     done['at'] = datetime.now(timezone.utc).isoformat()
     remaining = [q for q in reqs if q['grade_id'] not in done['processed']]

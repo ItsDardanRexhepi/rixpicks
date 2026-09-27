@@ -2054,10 +2054,10 @@ function rpCxLive(){{const legs=[...document.querySelectorAll('.cxleg')];const e
  el.textContent=w+' of '+legs.length+' legs home'+(live?' \u00b7 '+live+' live':'')+(legs.length-w-l-live>0?' \u00b7 '+(legs.length-w-l-live)+' upcoming':'');}}
 let _rpRecLast=0;
 async function rpRecLive(){{const rec=document.getElementById('rpRec');if(!rec)return;
- /* Live canonical record (his order 9/26): hydrate from api.rix-picks.com/record - Bus record tab via worker, keeper-owned. 404/failure keeps baked last-build values: fail closed, never invent. Page finals are still NEVER added locally; the served record comes from the keeper only. */
+ /* Live canonical record: hydrate from same-origin manifest.json - the ledger-verified served record written by record_final (one record, one source, every surface - main 9/27; the api.rix-picks.com/record worker is a stale mirror, keeper-side). 404/failure keeps baked last-build values: fail closed, never invent. Page finals are still NEVER added locally. */
  const _now=Date.now();
  if(_now-_rpRecLast>15000){{_rpRecLast=_now;
- try{{const r=await fetch('https://api.rix-picks.com/record');if(r.ok){{const j=await r.json();if(j&&typeof j.w==='number'&&typeof j.l==='number'){{rec.dataset.bw=j.w;rec.dataset.bl=j.l;if(typeof j.units==='number'){{const u0=document.getElementById('rpUnits');if(u0)u0.dataset.bu=j.units;}}}}}}}}catch(e){{}}}}
+ try{{const r=await fetch('manifest.json?cb='+_now);if(r.ok){{const j=await r.json();const m=/^([0-9]+)-([0-9]+)/.exec((j&&j.record)||'');if(m){{rec.dataset.bw=m[1];rec.dataset.bl=m[2];const u0=document.getElementById('rpUnits');if(u0&&j.units_pl){{const up=parseFloat(String(j.units_pl).replace('u',''));if(!isNaN(up))u0.dataset.bu=up;}}}}}}}}catch(e){{}}}}
  const w=parseInt(rec.dataset.bw||'0'),l=parseInt(rec.dataset.bl||'0');
  rec.innerHTML='&rsquo;RixPicks Overall Record: '+w+'-'+l;
  const pct=document.getElementById('rpWlPct');if(pct&&(w+l)>0)pct.textContent='W/L: '+(100*w/(w+l)).toFixed(1)+'%';
