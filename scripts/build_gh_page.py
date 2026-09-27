@@ -2028,8 +2028,9 @@ rpPolyTick();rpKalTick();setInterval(rpKalTick,60000);  /* regression gate Sep 2
 // sportsbook prices ride the 15-min Action rebuild (refresh.sh): pull the rebuilt page and swap
 // book chip prices + combo price spans in place. KAL/POLY stay on the 60s tick above.
 function rpPageRefresh(){{try{{
- fetch(location.pathname+'?r='+Date.now(),{{cache:'no-store'}}).then(r=>r.text()).then(function(t){{
-  const _mm=t.match(/let RP_MARKETS=(\[.*?\]);/);if(_mm){{try{{RP_MARKETS=JSON.parse(_mm[1]);}}catch(e){{}}}}  /* canonical records travel with the rebuilt page - refresh never desyncs display from truth */
+ fetch(location.pathname+'?r='+Date.now(),{{cache:'no-store'}}).then(function(r){{return r.ok?r.text():null;}}).then(function(t){{
+  if(!t)return;  /* swamp Sep 27 re-test (1b): a failed/empty fetch skips the cycle silently - a transient CDN error page must never parse as an empty card and force a reload loop */
+  const _mm=t.match(/let RP_MARKETS=(\[.*?\]);/);if(!_mm)return;  /* not a built page (malformed/short/error HTML) - skip the cycle, never reload */
   const doc=new DOMParser().parseFromString(t,'text/html');
   /* J-107 (Sep 26): bind by stable pick key (data-gpk, else data-room), never DOM position -
      rpFinalsTop reorders the live DOM, so index-mapping sprayed another game's prices onto
@@ -2040,6 +2041,14 @@ function rpPageRefresh(){{try{{
    if(k==='@')return;  /* no stable key - never guess */
    if(nmap[k]){{console.warn('rpRefresh duplicate key',k);nmap[k]=null;}}else{{nmap[k]=np;}}  /* collision: bind neither, never overwrite */
   }});
+  /* swamp Sep 27 (pre-deploy): a tab left open across a card rollover must not keep showing the
+     old card - if the stable pick-key set (gpk@room) or the slate date label differs between the
+     live DOM and the fetched page, force a full reload BEFORE any merge/record reuse. */
+  const curKeys=[...document.querySelectorAll('.pick')].map(function(x){{return (x.dataset.gpk||'')+'@'+(x.dataset.room||'');}}).filter(function(k){{return k!=='@';}}).sort().join('|');
+  const newKeys=[...doc.querySelectorAll('.pick')].map(function(x){{return (x.dataset.gpk||'')+'@'+(x.dataset.room||'');}}).filter(function(k){{return k!=='@';}}).sort().join('|');
+  if(curKeys!==newKeys){{location.reload();return;}}
+  const cd0=document.querySelector('.status'),nd0=doc.querySelector('.status');
+  if(cd0&&nd0&&cd0.textContent.trim()!==nd0.textContent.trim()){{location.reload();return;}}
   /* Sep 26 (data auditor): same membership rule for the combo row - a combo chip added/removed
      between builds forces a full reload, same as per-pick chips. */
   const ccmb=document.getElementById('rpParlayChips'),ncx=doc.getElementById('rpParlayChips');
@@ -2048,6 +2057,17 @@ function rpPageRefresh(){{try{{
    const c2=[...ncx.querySelectorAll('[data-book]')].map(a=>a.dataset.book).sort().join(',');
    if(c1!==c2){{location.reload();return;}}
   }}
+  /* swamp Sep 27 re-test (1a): per-pick chip membership validated in a pre-scan, and the canonical
+     RP_MARKETS record swaps ONLY after every mismatch guard passes - no interval where an old tab
+     wears the new card's markets before reload fires. */
+  const rpSig=function(root){{return [...root.querySelectorAll('[data-book]')].map(a=>a.dataset.book+(a.dataset.template?':t':'')).sort().join(',');}};
+  let memBad=false;
+  document.querySelectorAll('.pick').forEach(function(pk){{
+   const k=(pk.dataset.gpk||'')+'@'+(pk.dataset.room||'');const np=nmap[k];if(!np)return;  /* null = absent or collided */
+   if(rpSig(pk)!==rpSig(np))memBad=true;
+  }});
+  if(memBad){{location.reload();return;}}
+  try{{RP_MARKETS=JSON.parse(_mm[1]);}}catch(e){{}}  /* canonical records travel with the rebuilt page - refresh never desyncs display from truth */
   document.querySelectorAll('.pick').forEach(function(pk){{
    const k=(pk.dataset.gpk||'')+'@'+(pk.dataset.room||'');const np=nmap[k];if(!np)return;  /* null = absent or collided */
    /* Sep 26 (hunter #10): data-only refresh can never ADD a newly verified chip or REMOVE a retired
@@ -2055,7 +2075,6 @@ function rpPageRefresh(){{try{{
    /* Sep 26 refresh-loop fix: membership = [data-book] ANY tag + template status. rpTapify turns
       template spans into anchors once state is known; tag alone is not membership, so an upgraded
       live DOM vs a fresh static build must compare equal. A real add/retire/kind-change still reloads. */
-   const rpSig=function(root){{return [...root.querySelectorAll('[data-book]')].map(a=>a.dataset.book+(a.dataset.template?':t':'')).sort().join(',');}};
    const curB=rpSig(pk),newB=rpSig(np);
    if(curB!==newB){{location.reload();return;}}
    pk.querySelectorAll('[data-book]').forEach(function(a){{
