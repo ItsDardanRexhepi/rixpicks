@@ -17,6 +17,20 @@ def get(url):
 def norm(s):
     return ''.join(c for c in unicodedata.normalize('NFKD', s) if not unicodedata.combining(c)).lower()
 
+
+import re as _re_pt
+def _pt_detail(s):
+    # owner rule 9/27: ALL times render PT, never ET. ESPN shortDetail arrives ET
+    # ("9/27 - 1:00 PM EDT") - shift -3h, suffix PT. Non-matching strings pass through.
+    def _cv(m):
+        h=int(m.group(1)); ap=m.group(3)
+        h24=(h%12)+(12 if ap=='P' else 0)
+        h24=(h24-3)%24
+        ap2='AM' if h24<12 else 'PM'
+        h12=h24%12 or 12
+        return m.group(0)[:m.start(1)-m.start(0)]+f"{h12}:{m.group(2)} {ap2} PT"
+    return _re_pt.sub(r'(\d{1,2}):(\d{2}) ([AP])M E[DS]T',_cv,s) if s else s
+
 def main(slate_path, out_path, dates=None):
     slate = json.load(open(slate_path))
     legs = slate['dk']['singles']
@@ -47,7 +61,7 @@ def main(slate_path, out_path, dates=None):
         st = ev['status']
         games[eid] = {'matchup': mu, 'espn_event_id': eid,
                       'status': st['type']['state'],  # pre|in|post
-                      'detail': st['type'].get('shortDetail',''),
+                      'detail': _pt_detail(st['type'].get('shortDetail','')),
                       'score': ' - '.join(f"{c['team']['abbreviation']} {c.get('score','0')}" for c in comp['competitors'])}
         rec['espn_event_id'] = eid
         try:

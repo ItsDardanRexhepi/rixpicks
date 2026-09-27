@@ -1095,7 +1095,8 @@ r'function okUrl(u){return (typeof u==="string")&&/^https:\/\/([a-z0-9-]+\.)*(dr
 r'function chip(bk,label,url,pm){if(!url)return "";var a=" data-bk=\""+bk+"\" data-book=\""+bk+"\" data-sb=\""+esc(url)+"\"";if(pm)a+=" data-pm=\""+esc(pm)+"\"";return "<span class=\"chip rpnontap\""+a+">"+esc(label)+"</span>";}'
 r'function ptLabel(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",weekday:"short",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}'
 r'var RPCHIPS={};function RPKEY(p2,t2){return((p2||"")+"|"+(t2||"")).toLowerCase();}'
-r'function trkHtml(l,g){if(!g)return"";var dot=function(c){return"<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:"+c+";margin-right:6px;vertical-align:1px\"></span>";};var sc=(g.score&&g.status!=="pre")?(" &middot; "+esc(g.score)):"";if(g.status==="pre")return dot("#8a8f98")+"<span style=\"color:#8a8f98\">"+esc(g.detail||"Upcoming")+"</span>";var td=l.td_scored?("<b style=\"color:#0b6e5f\">TD"+(l.td_count>1?(" x"+l.td_count):"")+" &#10003;</b>"):null;if(g.status==="post")return td?(dot("#0b6e5f")+td+"<span style=\"color:#8a8f98\"> &middot; Final"+sc+"</span>"):(dot("#8a8f98")+"<span style=\"color:#8a8f98\">No TD &middot; Final"+sc+"</span>");return td?(dot("#0b6e5f")+td+"<span style=\"color:#8a8f98\"> &middot; "+esc(g.detail||"Live")+sc+"</span>"):(dot("#e8a13d")+"<span style=\"color:#b07708\">Live - no TD yet</span><span style=\"color:#8a8f98\"> &middot; "+esc(g.detail||"")+sc+"</span>");}'
+r'function rpPT(s){return String(s==null?"":s).replace(/(\d{1,2}):(\d{2}) ([AP])M E[DS]T/g,function(m,h,mi,ap){var h24=(parseInt(h,10)%12)+(ap==="P"?12:0);h24=(h24+21)%24;var ap2=h24<12?"AM":"PM";return (h24%12||12)+":"+mi+" "+ap2+" PT";});}'
+r'function trkHtml(l,g){if(!g)return"";var dot=function(c){return"<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:"+c+";margin-right:6px;vertical-align:1px\"></span>";};var sc=(g.score&&g.status!=="pre")?(" &middot; "+esc(g.score)):"";if(g.status==="pre")return dot("#8a8f98")+"<span style=\"color:#8a8f98\">"+esc(rpPT(g.detail)||"Upcoming")+"</span>";var td=l.td_scored?("<b style=\"color:#0b6e5f\">TD"+(l.td_count>1?(" x"+l.td_count):"")+" &#10003;</b>"):null;if(g.status==="post")return td?(dot("#0b6e5f")+td+"<span style=\"color:#8a8f98\"> &middot; Final"+sc+"</span>"):(dot("#8a8f98")+"<span style=\"color:#8a8f98\">No TD &middot; Final"+sc+"</span>");return td?(dot("#0b6e5f")+td+"<span style=\"color:#8a8f98\"> &middot; "+esc(rpPT(g.detail)||"Live")+sc+"</span>"):(dot("#e8a13d")+"<span style=\"color:#b07708\">Live - no TD yet</span><span style=\"color:#8a8f98\"> &middot; "+esc(rpPT(g.detail)||"")+sc+"</span>");}'
 r'function updTrk(){fetch("slates/nfl_live.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){var gm={};(j.games||[]).forEach(function(g){gm[g.espn_event_id]=g;});(j.legs||[]).forEach(function(l){var el=document.querySelector("[data-trk=\""+RPKEY(l.player,l.team)+"\"]");if(el)el.innerHTML=trkHtml(l,gm[l.espn_event_id]);});}).catch(function(){});}'
 r'function empty(){box.innerHTML="<div style=\"color:#8a8f98;font-size:13px;padding:6px 0\">No NFL slate yet - Wooder Ice anytime TD picks land here Sundays.</div>";}'
 r'function rpAml(c){var q=c/100;if(q<=0||q>=1)return"";return q>=0.5?String(Math.round(-100*q/(1-q))):"+"+String(Math.round(100*(1-q)/q));}'
@@ -1134,6 +1135,26 @@ r'fetch("slates/nfl_latest.json?cb="+Date.now(),{cache:"no-store"}).then(functio
 r'if(!j||j.version!==1){empty();return;}'
 r'try{if(j.generated_at&&Date.now()-Date.parse(j.generated_at)>4*24*3600*1000){empty();return;}}catch(e){}'
 r'render(j);updTrk();setInterval(updTrk,60000);}).catch(empty);});'
+r'})();</script>')
+# Wooder Ice same-game combos (main 9:22): additive Kalshi combo list - legs + game link only
+# (no combined odds/payout; nothing priced or invented). Client-hydrated, hides when empty.
+nfl_entry+=(
+r'<div style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
+r'<div class="lghead" style="margin-top:0">Same-game combos (Kalshi)</div>'
+r'<div id="rpCmb"></div>'
+r'</div>'
+r'<script>(function(){'
+r'var box=document.getElementById("rpCmb");if(!box)return;'
+r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
+r'fetch("slates/wooder_combos.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
+r'var cs=(j&&j.combos)||[];'
+r'if(!cs.length){box.parentNode.style.display="none";return;}'
+r'box.innerHTML=cs.map(function(c,i){'
+r'return "<a class=\"rpnpick\" style=\"display:block;text-decoration:none;color:inherit\" href=\""+esc(c.url)+"\" target=\"_blank\" rel=\"noreferrer\">"'
+r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+(i+1)+". "+esc((c.legs||[]).join(" + "))+"</b><span style=\"color:#0a7c5c;font-size:11px;font-weight:700;white-space:nowrap\">KAL &#8250;</span></div>"'
+r'+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(c.matchup||"")+(c.time?" &middot; "+esc(c.time):"")+"</div>"'
+r'+"</a>";}).join("");'
+r'}).catch(function(){box.parentNode.style.display="none";});'
 r'})();</script>')
 # Wooder Ice's current tickets (main 9:05): additive ticket ledger shared by the guest -
 # client-hydrated from slates/wooder_tickets.json; section hides when no tickets exist.
@@ -1736,7 +1757,7 @@ function rpFeedStatusTxt(F){{ /* worker-composed canonical moment -> strip statu
  let t='';
  if(clk&&!(F.clock&&F.clock.stale))t=clk;
  if(per&&per!=='FINAL'){{const pn=parseInt(per,10);const po=isNaN(pn)?String(per):(pn===1?'1st':pn===2?'2nd':pn===3?'3rd':pn===4?'4th':(pn===5?'OT':(pn-4)+'OT'));t=t?(t+' - '+po):po;}}
- if(!t){{const dv=gv('detail');if(dv)t=dv;}}
+ if(!t){{const dv=gv('detail');if(dv)t=rpPT(dv);}}
  return t;}}
 function rpMomentOf(t){{ /* 'm:ss - 3rd' | '3rd' | '2:41 - OT' | '2OT' -> moment parts; null = transitional detail text (not comparable) */
  const m=/^(?:(\d+):(\d\d) - )?(?:(\d+)(?:st|nd|rd|th)(?:\s+(?:quarter|qtr|q|half|period))?|(\d*)OT)$/i.exec(t||''); /* production text forms: '3rd', '3rd Quarter', '1st Half', 'OT' */
