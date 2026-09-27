@@ -3,9 +3,12 @@
   "combo3",
   "t1",
   "t2",
+  "t3",
   "t4"
  ],
  "dead_picks": [
+  "Bucky Irving",
+  "Bucky Irving",
   "Jaxon Smith-Njigba",
   "Jameson Williams",
   "Tyquan Thornton",
@@ -21,10 +24,10 @@
  ],
  "removal_rule": "one definitively LOST leg removes the whole combo card from the public site; lost standalones come off alone; internal ledger keeps all rows",
  "record": {
-  "wins": 25,
-  "losses": 23,
+  "wins": 28,
+  "losses": 27,
   "pushes": 0,
-  "pending": 35
+  "pending": 28
  },
  "by_window": {
   "dingers-2026-09-27": {
@@ -42,10 +45,10 @@
    "void": 1
   },
   "sun-afternoon": {
-   "wins": 4,
-   "losses": 7,
+   "wins": 7,
+   "losses": 11,
    "pushes": 0,
-   "pending": 27,
+   "pending": 20,
    "void": 0
   },
   "sun-evening": {
@@ -64,28 +67,28 @@
    "pending": 0
   },
   "anytime_td": {
-   "wins": 9,
-   "losses": 6,
+   "wins": 11,
+   "losses": 8,
    "pushes": 0,
-   "pending": 18
+   "pending": 14
   },
   "ml": {
    "wins": 4,
-   "losses": 1,
+   "losses": 2,
    "pushes": 0,
-   "pending": 2
+   "pending": 1
   },
   "passing_yards": {
-   "wins": 5,
+   "wins": 6,
    "losses": 0,
    "pushes": 0,
-   "pending": 2
+   "pending": 1
   },
   "pass_td": {
    "wins": 1,
-   "losses": 1,
+   "losses": 2,
    "pushes": 0,
-   "pending": 3
+   "pending": 2
   },
   "receptions": {
    "wins": 2,
@@ -704,7 +707,7 @@
    "price": "47c/+113",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T12:14:00-07:00"
   },
   {
@@ -740,8 +743,9 @@
    "price": "41c/+144",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Christian McCaffrey",
@@ -800,7 +804,7 @@
    "price": "45c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
+   "status": "won",
    "received": "2026-09-27T12:14:00-07:00"
   },
   {
@@ -836,8 +840,9 @@
    "price": "39c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "pending",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Chris Olave",
@@ -946,8 +951,9 @@
    "price": "+6577 (9-leg SGP+)",
    "window": "sun-afternoon",
    "combo_id": "t3",
-   "status": "pending",
-   "received": "2026-09-27T13:12:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T13:12:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Baker Mayfield",
@@ -958,8 +964,9 @@
    "price": null,
    "window": "sun-afternoon",
    "combo_id": "t3",
-   "status": "pending",
-   "received": "2026-09-27T13:12:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T13:12:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Baker Mayfield",
@@ -970,8 +977,9 @@
    "price": null,
    "window": "sun-afternoon",
    "combo_id": "t3",
-   "status": "pending",
-   "received": "2026-09-27T13:12:00-07:00"
+   "status": "won",
+   "received": "2026-09-27T13:12:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Christian McCaffrey",
@@ -983,7 +991,8 @@
    "window": "sun-afternoon",
    "combo_id": "t3",
    "status": "won",
-   "received": "2026-09-27T13:12:00-07:00"
+   "received": "2026-09-27T13:12:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Brock Purdy",
@@ -995,7 +1004,8 @@
    "window": "sun-afternoon",
    "combo_id": "t3",
    "status": "won",
-   "received": "2026-09-27T13:12:00-07:00"
+   "received": "2026-09-27T13:12:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "George Pickens",
@@ -1007,7 +1017,8 @@
    "window": "sun-afternoon",
    "combo_id": "t3",
    "status": "pending",
-   "received": "2026-09-27T13:12:00-07:00"
+   "received": "2026-09-27T13:12:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Rashod Bateman",
@@ -1019,7 +1030,8 @@
    "window": "sun-afternoon",
    "combo_id": "t3",
    "status": "pending",
-   "received": "2026-09-27T13:12:00-07:00"
+   "received": "2026-09-27T13:12:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Dak Prescott",
@@ -1031,7 +1043,8 @@
    "window": "sun-afternoon",
    "combo_id": "t3",
    "status": "pending",
-   "received": "2026-09-27T13:12:00-07:00"
+   "received": "2026-09-27T13:12:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Lamar Jackson",
@@ -1043,7 +1056,8 @@
    "window": "sun-afternoon",
    "combo_id": "t3",
    "status": "pending",
-   "received": "2026-09-27T13:12:00-07:00"
+   "received": "2026-09-27T13:12:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Napheesa Collier",
