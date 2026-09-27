@@ -28,7 +28,7 @@ nav.rpnav .rec b{color:var(--acc)}
 body.tab-ncaaf #st-ncaaf,body.tab-nfl #st-nfl,body.tab-mlb #st-mlb,body.tab-nba #st-nba,body.tab-tennis #st-tennis{display:block}
 .state.on{display:block}
 @media(max-width:900px){.layout{grid-template-columns:1fr}
-nav.rpnav{flex-wrap:nowrap;gap:12px;padding:10px 16px}
+nav.rpnav{flex-wrap:wrap;row-gap:4px;gap:12px;padding:10px 16px}
 #burger{display:flex}
 nav.rpnav .tabs{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:6px 10px 10px}
 body.menu-open nav.rpnav .tabs{display:flex;flex-direction:column;gap:2px}
@@ -133,10 +133,15 @@ body.rp-ready .tickbar{transform:translateY(0)}
 
 /* desktop: reserve space for the fixed My Account control (myprofile.js FAB) so it never covers record/units - swamp 9/27 1280px overlap */
 @media(min-width:900px){nav.rpnav{padding-right:132px}}
-/* narrow mobile (<=380px): the fixed My Account pill shares the logo row (room there), the record
-   cluster wraps to its own full-width row - no horizontal collision at 320px, no page overflow
-   (tester pixel 9/27: unscoped 132px reservation collided + overflowed 3px) */
-@media(max-width:380px){
-nav.rpnav{flex-wrap:wrap;row-gap:4px;padding-right:16px}
-nav.rpnav .rec{order:3;width:100%;gap:8px;font-size:11px}
+/* mobile all widths (<900px): the record cluster wraps to its own full-width row under the
+   logo/burger row, so the fixed My Account pill (top-right) can NEVER cover record/units at any
+   width - 320/375/390/430 all hold by construction, not by per-width reservations (Dardan 9/27:
+   three header regressions one viewport at a time - kill the class) */
+@media(max-width:900px){
+nav.rpnav .rec{order:3;width:100%;gap:10px}
 }
+
+/* PERMANENT design rule (Dardan 9/27): team logos render bare - no circle, outline, backdrop,
+   or crop, anywhere, ever. Core backstop: applies to every ESPN team-logo img on any page that
+   inlines this stylesheet, including future emitters; inline emitters are cleaned too. */
+img[src*="teamlogos"]{border-radius:0!important;background:none!important;border:none!important;box-shadow:none!important}

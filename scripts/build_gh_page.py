@@ -980,7 +980,7 @@ for p in man['picks']:
     def _avimg(mm,overlap=False):
         u=mm.get('logo','')
         if not u: return ''
-        st='width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)'
+        st='width:26px;height:26px;object-fit:contain'
         if overlap: st+=';margin-left:-8px'
         return '<img src="%s" alt="" style="%s" onerror="this.remove()">'%(html.escape(u),st)
     _av=_avimg(_ma)+_avimg(_mh,True)
@@ -1139,7 +1139,7 @@ if FUT:
                 if (t==an or t==hn) and info['lg']==_lg:
                     _side='away' if t==an else 'home'
                     _isrc=_mlogo.get((_lg,t)) or ('https://a.espncdn.com/i/teamlogos/%s/500/%s.png'%(_LGMAP[_lg][1],info['abbr']) if _LGMAP[_lg][1] else '')
-                    _fimg='<img src="%s" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">'%_isrc if _isrc else ''
+                    _fimg='<img src="%s" style="width:20px;height:20px;vertical-align:-4px;margin-right:7px" onerror="this.remove()">'%_isrc if _isrc else ''
                     _fw.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick" data-espn="%s" data-away="%s" data-home="%s" data-side="%s">%s<b>%s</b> <span style="color:#8a8f98;font-size:12px">futures: %s</span><span class="ls" data-ls></span></div></a>'%(_LGMAP[_lg][0],html.escape(an),html.escape(hn),_side,_fimg,html.escape(t),' &middot; '.join(html.escape(x) for x in info['mkts'])))
                     _fwgot.add(t)
                     break
@@ -1150,7 +1150,7 @@ if FUT:
             if _f['team'] in _fwgot: continue  # game-day card already carries them
             _fwgot.add(_f['team'])
             _isrc2='https://a.espncdn.com/i/teamlogos/%s/500/%s.png'%(_LGMAP[_f['league']][1],_f['abbr']) if _LGMAP[_f['league']][1] else ''
-            _fimg2='<img src="%s" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">'%_isrc2 if _isrc2 else ''
+            _fimg2='<img src="%s" style="width:20px;height:20px;vertical-align:-4px;margin-right:7px" onerror="this.remove()">'%_isrc2 if _isrc2 else ''
             _lbl2='SB' if 'Super Bowl' in _f['market'] else (_f['market'][:-9] if _f['market'].endswith(' Champion') else _f['market'])
             _fw2.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick">%s<b>%s</b> <span style="color:#8a8f98;font-size:12px">new futures: %s &middot; %s</span></div></a>'%(_fimg2,html.escape(_f['team']),html.escape(_lbl2),html.escape(_f.get('odds',''))))
         fut_watch_html=('' if not _fw2 else '<div class="sect" style="margin-top:22px">New futures</div>'+''.join(_fw2))+('' if not _fw else '<div class="sect" style="margin-top:22px">Futures live today</div>'+''.join(_fw))
@@ -2711,7 +2711,7 @@ def build_futures_page(css,build_sha):
         _flink=('<div style="margin-top:6px"><a class="chip"%s href="%s" data-book="POLY" data-sb="%s" target="_blank" rel="noreferrer">POLY &#8250;</a></div>'%(bkstyle('POLY'),html.escape(_furl),html.escape(_furl))) if _furl else ''
         rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-kalticker="%s" data-entry="%s" data-team="%s" data-mkt="%s" data-fair="%s" data-prob="%s" data-res="%s" data-units="%s" data-note="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
         '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">'
-        '<span style="font-weight:700">'+('<img src="https://a.espncdn.com/i/teamlogos/'+_REGALL.get(f.get('league',''),{}).get('logo_dir','')+'/500/'+f.get('abbr','')+'.png" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">' if f.get('abbr') and _REGALL.get(f.get('league',''),{}).get('logo_dir') else '')+'%s</span>'
+        '<span style="font-weight:700">'+('<img src="https://a.espncdn.com/i/teamlogos/'+_REGALL.get(f.get('league',''),{}).get('logo_dir','')+'/500/'+f.get('abbr','')+'.png" style="width:20px;height:20px;vertical-align:-4px;margin-right:7px" onerror="this.remove()">' if f.get('abbr') and _REGALL.get(f.get('league',''),{}).get('logo_dir') else '')+'%s</span>'
         '<span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">\u2014</span><button class="futdots" onclick="rpFutOpen(this.getAttribute(\'data-f\'))" data-f="%s" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div>'
         '<div style="font-size:12px;color:#8a8f98;margin-top:2px">%s &middot; entry %s &middot; %su%s</div>'
         + ('<div style="font-size:12px;margin-top:3px;color:#d8a23a">&#8646; pick changed from %s (%s)</div>'%(html.escape(f['changed_from']['team']),html.escape(f['changed_from']['odds'])) if f.get('changed_from') else '')
