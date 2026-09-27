@@ -3,10 +3,10 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>&rsquo;RixPicks</title>
-<link rel="icon" href="favicon.ico?v=1790521690" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1790521690">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1790521690">
-<link rel="manifest" href="site.webmanifest?v=1790521690">
+<link rel="icon" href="favicon.ico?v=1790520645" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1790520645">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1790520645">
+<link rel="manifest" href="site.webmanifest?v=1790520645">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:(location.pathname.indexOf("/rixpicks/")===0?"/rixpicks/":"/")}  /* */});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
 <script>
@@ -175,76 +175,199 @@ h1 .tick{color:#3BEBF5}
 .chip[data-bk="B365"]{background:#2a2410 !important;border-color:#2a2410 !important;color:#e0cd6a !important}
 .chip[data-bk="FAN"]{background:#232326 !important;border-color:#232326 !important;color:#d8d8dc !important}
 }
+</style><style>/* RixPicks index v2 - dark shell: intro, nav+tabs, two-column layout, sidebar, ticker */
+:root{--bg:#000;--panel:#101619;--panel2:#0c1214;--line:#1f2f2c;--txt:#f2f5f4;--mut:#8fa39e;--acc:#2aa88f;--acc-deep:#0b6e5f;--live:#3ed67a;--amber:#e0b356;--red:#e5484d}
+body{background:var(--bg);color:var(--txt);min-height:100vh;padding-bottom:34px}
+.wrap{max-width:none;margin:0;padding:0}
+/* intro overlay: in-flow, natural scroll; wordmark parallax-exits via JS transform */
+#rpIntro{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);position:relative}
+#rpIntro .wm{font-weight:800;letter-spacing:-.02em;font-size:clamp(44px,22.5vw,176px);white-space:nowrap;line-height:1;will-change:transform,opacity}
+#rpIntro .wm span{opacity:0;display:inline-block;animation:rplett .5s cubic-bezier(.2,.7,.3,1) forwards}
+#rpIntro .wm span.rx{color:#3BEBF5}
+#rpIntro .wm span:nth-child(1){animation-delay:.02s}#rpIntro .wm span:nth-child(2){animation-delay:.14s}#rpIntro .wm span:nth-child(3){animation-delay:.07s}#rpIntro .wm span:nth-child(4){animation-delay:.22s}#rpIntro .wm span:nth-child(5){animation-delay:.11s}#rpIntro .wm span:nth-child(6){animation-delay:.3s}#rpIntro .wm span:nth-child(7){animation-delay:.17s}#rpIntro .wm span:nth-child(8){animation-delay:.36s}#rpIntro .wm span:nth-child(9){animation-delay:.26s}
+@keyframes rplett{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+#rpIntro .scrolldn{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--mut);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+@media (prefers-reduced-motion: reduce){#rpIntro .wm span{animation:none;opacity:1}#rpIntro .wm{transform:none !important;opacity:1 !important}.tickbar{transition:none !important}.ticktrack{animation:none !important}}
+/* nav */
+nav.rpnav{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:18px;padding:12px 22px;background:rgba(0,0,0,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.rpnav .logo{font-size:18px;font-weight:800;letter-spacing:-.02em;color:var(--txt);text-decoration:none}
+nav.rpnav .logo em{color:#3BEBF5;font-style:normal}
+nav.rpnav .tabs{display:flex;gap:4px;flex:1;justify-content:center}
+nav.rpnav .tab{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);text-decoration:none;padding:8px 14px;border-radius:8px}
+nav.rpnav .tab.active{color:var(--txt);background:var(--panel);box-shadow:inset 0 -2px 0 var(--acc)}
+nav.rpnav .rec{display:flex;gap:10px;font-size:12px;color:var(--mut);font-weight:400;margin:0;padding:0}
+nav.rpnav .rec b{color:var(--acc)}
+#burger{display:none;flex-direction:column;gap:4px;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 9px;cursor:pointer}
+#burger span{display:block;width:16px;height:2px;background:var(--txt);border-radius:2px}
+/* layout */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;max-width:1180px;margin:0 auto;padding:20px 22px 40px}
+.state{display:none}
+body.tab-ncaaf #st-ncaaf,body.tab-nfl #st-nfl,body.tab-mlb #st-mlb,body.tab-nba #st-nba,body.tab-tennis #st-tennis{display:block}
+.state.on{display:block}
+@media(max-width:900px){.layout{grid-template-columns:1fr}
+nav.rpnav{flex-wrap:nowrap;gap:12px;padding:10px 16px}
+#burger{display:flex}
+nav.rpnav .tabs{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:6px 10px 10px}
+body.menu-open nav.rpnav .tabs{display:flex;flex-direction:column;gap:2px}
+nav.rpnav .tabs .tab{padding:10px 12px;font-size:12px}}
+/* sections + cards */
+.sect{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin:20px 0 10px}
+.lghead{color:var(--mut);font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:16px 0 4px;display:flex;align-items:center}
+.state>.lghead:first-of-type{margin-top:6px}
+.lghead span{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+.pick{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px;border-top:1px solid var(--line)}
+.pick-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pick .gamelink{display:flex;align-items:center;gap:10px;flex:1;min-width:0;color:inherit;text-decoration:none}
+.pick .name{font-weight:700;font-size:15px;color:var(--txt)}
+.pick .num{color:var(--mut);font-weight:600;font-size:13px}
+.pick .uo{display:inline-flex;align-items:center;gap:8px}
+.pick .units{font-size:11px;color:var(--mut)}
+.pick .odds{color:var(--acc);font-weight:700;white-space:nowrap}
+.pick .oddslock{color:var(--mut);font-size:10px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
+.pick .rpmetalink{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none}
+.pick .rpchatlink{color:var(--mut)}
+.pick .sub{color:var(--mut);font-size:12px;margin:6px 0 0}
+.pick .rpstart{color:var(--mut);font-size:11px;font-weight:600;margin:2px 0 0}
+.pick .ls{font-size:12px}
+.pick .chips{margin-top:10px}
+.chev{color:var(--mut)}
+/* chips: dark system, brand text (inline light-theme styles overridden) */
+.chip{background:var(--panel2) !important;border:none !important;color:var(--txt) !important;border-radius:9px !important;min-height:0;padding:5px 12px;font-size:12px;font-weight:700}
+.chip[data-book="DK"],.chip[data-bk="DK"]{background:#0b0e11 !important;color:#53d337 !important}
+.chip[data-book="KAL"],.chip[data-bk="KAL"]{background:#0f2a22 !important;color:#3ed0a8 !important}
+.chip[data-book="FD"],.chip[data-bk="FD"]{background:#0d1524 !important;color:#5aa0ea !important}
+.chip[data-book="MGM"],.chip[data-bk="MGM"]{background:#17150c !important;color:#c9a85a !important}
+.chip[data-book="BR"],.chip[data-bk="BR"]{background:#0b1620 !important;color:#38a8d8 !important}
+.chip[data-book="HR"],.chip[data-bk="HR"]{background:#171408 !important;color:#d8b74a !important}
+.chip[data-book="TSB"],.chip[data-bk="TSB"]{background:#0d1b2e !important;color:#4d94ff !important}
+.chip[data-book="POLY"],.chip[data-bk="POLY"]{background:#0c1622 !important;color:#4aa3e8 !important}
+.chip.best{font-weight:800}
+.chip.rpunpriced{opacity:.45}
+.rplineshop{color:var(--mut) !important}
+/* parlay + combo */
+.legs{color:var(--txt);font-size:14px;line-height:1.7}
+.legs a{color:inherit}
+.note{color:var(--mut);font-size:12px;margin-top:6px}
+/* futures + record tail */
+.futrow{border-bottom-color:var(--line) !important;color:var(--txt)}
+a.rec{font-weight:600;font-size:16px;color:var(--txt)}
+.yesrec{color:var(--mut);font-size:13px;margin-top:2px}
+.unitmath{color:var(--mut);font-size:12px;margin-top:8px}
+.foot{margin-top:26px;color:var(--mut);font-size:11px;line-height:1.6}
+.rpstate-link{color:var(--acc);cursor:pointer;text-decoration:underline}
+/* Wooder Ice guest block */
+.rpguest{border:1px dashed #3a4552;border-radius:12px;padding:12px 14px;background:var(--panel2)}
+.rpguest .gtag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;color:#f2f5f4;background:var(--acc-deep);padding:2px 8px;border-radius:6px;margin-bottom:8px}
+.rpnpick{padding:12px 0;border-top:1px solid var(--line)}
+/* sidebar */
+.col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.col-head .sect{margin:2px 0 0}
+.col-head .sub{color:var(--mut);font-size:12px;margin:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.grow{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid var(--line)}
+.grow:first-of-type{border-top:none}
+.gname{font-weight:600;font-size:13px}
+.gsub{font-size:11px;color:var(--mut)}
+.when{font-size:11px;font-weight:700;color:var(--amber);white-space:nowrap}
+.when.live{color:var(--live)}
+.when.fin{color:var(--mut)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--live);margin-right:5px;box-shadow:0 0 6px var(--live)}
+.nitem{padding:10px 0;border-top:1px solid var(--line)}
+.nitem:first-of-type{border-top:none}
+.nitem a{color:inherit;text-decoration:none}
+.src{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.05em;padding:1px 7px;border-radius:5px;background:var(--panel);border:1px solid var(--line);color:var(--mut);margin-right:7px}
+.src.espn{color:#d84a4a}
+.ntxt{font-size:12.5px}
+.nts{font-size:11px;color:var(--mut);margin-top:2px}
+.empty{color:var(--mut);font-size:12px;padding:6px 0}
+/* ticker */
+.tickbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(0,0,0,.96);border-top:1px solid var(--line);padding:7px 0;backdrop-filter:blur(6px);transform:translateY(100%);transition:transform .55s cubic-bezier(.2,.7,.3,1)}
+body.rp-ready .tickbar{transform:translateY(0)}
+.ticktrack{display:inline-flex;align-items:center;white-space:nowrap;animation:tickmove 30s linear infinite;will-change:transform}
+.tickbar:hover .ticktrack{animation-play-state:paused}
+@keyframes tickmove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.titem{font-size:12px;padding:0 10px;color:var(--txt);text-decoration:none}
+.tsrc{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;padding:1px 6px;border-radius:5px;border:1px solid var(--line);margin-right:7px;vertical-align:1px;color:var(--mut)}
+.tsrc.espn{color:#d84a4a}
+.tsep{color:var(--mut)}
+@media(max-width:900px){.tickbar{display:none}body{padding-bottom:0}}
+/* modals + fixed overlays keep working on dark */
+#rpModal .box,#rpA2hs .box{background:var(--panel);border:1px solid var(--line)}
+#rpModal h3,#rpA2hs h3{color:var(--txt)}
+#rpModal p,#rpA2hs ol{color:var(--mut)}
+#rpState{background:var(--panel2);border-color:var(--line);color:var(--txt)}
+#rpShareLoc,#rpA2hsNext{background:var(--acc-deep)}
+#rpA2hsBack{background:var(--panel2);color:var(--txt)}
+#rpPull{background:var(--panel);color:var(--acc)}
+
+.rpdate{color:var(--mut);font-size:12px;letter-spacing:.04em;text-transform:uppercase;margin:4px 0 12px}
+.tsrc.kalshi{color:#2fbf9b}
+.intro{color:var(--mut);font-size:13px;margin:2px 0 10px}
 </style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"></head><body>
 <div id="rpPull"></div>
 <div class="wrap">
-<h1><span class="tick">&rsquo;</span>RixPicks</h1>
-<div class="status">Sunday, Sep 27</div>
+<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>
+<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs"><a class="tab" data-tab="ncaaf" href="#ncaaf">NCAAF</a><a class="tab" data-tab="nfl" href="#nfl">NFL</a><a class="tab" data-tab="mlb" href="#mlb">MLB</a><a class="tab" data-tab="nba" href="#nba">NBA</a><a class="tab" data-tab="tennis" href="#tennis">Tennis</a><a class="tab" data-tab="wnba" href="#wnba">WNBA</a></div><div class="rec"><span>Record <b><span id="rpNavRecW">13</span>-<span id="rpNavRecL">6</span></b></span><span>Units <b id="rpNavU">+3.89u</b></span></div></nav>
+<div class="layout"><main><div class="rpdate">Sunday, Sep 27</div>
 <div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>
-    <div class="intro">Today's card is conviction-selected, no edge floor - conviction % on each pick, price on the book chip.</div>
 <a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: 3-0 · Toledo W · Nebraska W · Mississippi State W</a>
-<div class="sect">Today&rsquo;s picks</div>
-<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">FB</span>NFL</div>
-<div class="pick" data-espn="football/nfl" data-eid="401872954" data-gpk="" data-aab="" data-hab="" data-room="g1-2026-09-27" data-commence="2026-09-27T17:00Z" data-away="New York Jets" data-home="Detroit Lions" data-side="home" data-market="ml" data-codds="-270" data-stake="5">
+<div class="state" id="st-ncaaf"><div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div></div>
+<div class="state" id="st-nfl"><div class="sect" style="margin-top:2px">Today&rsquo;s picks</div><div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">🏈</span>NFL</div><div class="pick" data-espn="football/nfl" data-eid="401872954" data-gpk="" data-aab="" data-hab="" data-room="g1-2026-09-27" data-commence="2026-09-27T17:00Z" data-away="New York Jets" data-home="Detroit Lions" data-side="home" data-market="ml" data-codds="-270" data-stake="5">
   <div class="pick-head"><a class="gamelink" href="game-1.html"><span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)" onerror="this.remove()"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14);margin-left:-8px" onerror="this.remove()"></span><span class="num">1.</span><span class="name">Lions ML</span></a><span class="meta-grp"><a class="rpmetalink" href="game-1.html"><span class="uo"><span class="units">5u</span><span class="odds">-270</span></span><span class="oddslock">7:00 AM &middot; locked</span></a><a class="rpchatlink" href="game-1.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="rpstart" data-commence="2026-09-27T17:00Z">10:00 AM PT</div>
   <div class="sub">vs NY Jets - home - Jets OUT: Fitzpatrick, Mauigoa, TE Taylor; Nwangwu doubtful - model 72.2</div>
   <div class="chips"><a class="chip best" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxnflgame/kxnflgame-26sep27nyjdet" data-book="KAL" data-kalticker="KXNFLGAME-26SEP27NYJDET" data-kalside="DET" data-market="ml" data-cents="73" data-mr="0" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -270</a></div>
   <div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>
-</div>
-<div class="pick" data-espn="football/nfl" data-eid="401872950" data-gpk="" data-aab="" data-hab="" data-room="g2-2026-09-27" data-commence="2026-09-27T17:00Z" data-away="Cincinnati Bengals" data-home="Pittsburgh Steelers" data-side="away" data-market="ml" data-codds="-163" data-stake="5">
+</div><div class="pick" data-espn="football/nfl" data-eid="401872950" data-gpk="" data-aab="" data-hab="" data-room="g2-2026-09-27" data-commence="2026-09-27T17:00Z" data-away="Cincinnati Bengals" data-home="Pittsburgh Steelers" data-side="away" data-market="ml" data-codds="-163" data-stake="5">
   <div class="pick-head"><a class="gamelink" href="game-2.html"><span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)" onerror="this.remove()"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14);margin-left:-8px" onerror="this.remove()"></span><span class="num">2.</span><span class="name">Bengals ML</span></a><span class="meta-grp"><a class="rpmetalink" href="game-2.html"><span class="uo"><span class="units">5u</span><span class="odds">-163</span></span><span class="oddslock">7:00 AM &middot; locked</span></a><a class="rpchatlink" href="game-2.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="rpstart" data-commence="2026-09-27T17:00Z">10:00 AM PT</div>
   <div class="sub">at Pittsburgh - CIN 2-0; PIT gets Warren + Pittman back - model 62.3</div>
   <div class="chips"><a class="chip best" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxnflgame/kxnflgame-26sep27cinpit" data-book="KAL" data-kalticker="KXNFLGAME-26SEP27CINPIT" data-kalside="CIN" data-market="ml" data-cents="62" data-mr="1" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -163</a></div>
   <div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>
-</div>
-<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">🏀</span>WNBA</div>
-<div class="pick" data-espn="basketball/wnba" data-eid="401918014" data-gpk="" data-aab="" data-hab="" data-room="g3-2026-09-27" data-commence="2026-09-27T18:00Z" data-away="New York Liberty" data-home="Minnesota Lynx" data-side="home" data-market="ml" data-codds="-257" data-stake="5">
-  <div class="pick-head"><a class="gamelink" href="game-3.html"><span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/ny.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)" onerror="this.remove()"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/min.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14);margin-left:-8px" onerror="this.remove()"></span><span class="num">3.</span><span class="name">Lynx ML</span></a><span class="meta-grp"><a class="rpmetalink" href="game-3.html"><span class="uo"><span class="units">5u</span><span class="odds">-257</span></span><span class="oddslock">7:00 AM &middot; locked</span></a><a class="rpchatlink" href="game-3.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
-  <div class="rpstart" data-commence="2026-09-27T18:00Z">11:00 AM PT</div>
-  <div class="sub">vs NY Liberty - MIN 33-11 league-best, 15-7 home - model 71.0</div>
-  <div class="chips"><a class="chip best" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxwnbagame/kxwnbagame-26sep27nymin" data-book="KAL" data-kalticker="KXWNBAGAME-26SEP27NYMIN" data-kalside="MIN" data-market="ml" data-cents="72" data-mr="2" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -257</a></div>
-  <div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>
-</div>
-<div class="pick" data-espn="basketball/wnba" data-eid="401918013" data-gpk="" data-aab="" data-hab="" data-room="g4-2026-09-27" data-commence="2026-09-27T23:00Z" data-away="Washington Mystics" data-home="Atlanta Dream" data-side="home" data-market="ml" data-codds="-270" data-stake="5">
-  <div class="pick-head"><a class="gamelink" href="game-4.html"><span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/scoreboard/wsh.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)" onerror="this.remove()"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/atl.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14);margin-left:-8px" onerror="this.remove()"></span><span class="num">4.</span><span class="name">Dream ML</span></a><span class="meta-grp"><a class="rpmetalink" href="game-4.html"><span class="uo"><span class="units">5u</span><span class="odds">-270</span></span><span class="oddslock">7:00 AM &middot; locked</span></a><a class="rpchatlink" href="game-4.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
-  <div class="rpstart" data-commence="2026-09-27T23:00Z">4:00 PM PT</div>
-  <div class="sub">vs Washington - ATL 30-14 vs WSH 28-16 - model 71.8</div>
-  <div class="chips"><a class="chip best" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxwnbagame/kxwnbagame-26sep27wshatl" data-book="KAL" data-kalticker="KXWNBAGAME-26SEP27WSHATL" data-kalside="ATL" data-market="ml" data-cents="73" data-mr="3" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -270</a></div>
-  <div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>
-</div>
-<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">⚾</span>MLB</div>
-<div class="pick" data-espn="baseball/mlb" data-eid="401817108" data-gpk="823408" data-aab="TB" data-hab="PHI" data-room="g5-2026-09-27" data-commence="2026-09-27T19:05Z" data-away="Tampa Bay Rays" data-home="Philadelphia Phillies" data-side="home" data-market="ml" data-codds="-163" data-stake="5">
+</div><div class="sect" style="margin-top:22px">Picks from Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div><div style="border:1px dashed rgba(127,127,127,.35);border-radius:12px;padding:11px 12px"><div class="lghead" style="margin-top:0">NFL - anytime TD scorers</div><div style="font-size:12px;color:#8a8f98;margin:2px 0 8px">Separate from the RixPicks card and record. Picks only, no wagers placed.</div><div id="rpNfl"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div></div><style>.rpnpick{padding:12px 0;border-top:1px solid #e4e2de}@media (prefers-color-scheme:dark){.rpnpick{border-top-color:#2a2a2e}}</style><script>(function(){var box=document.getElementById("rpNfl");if(!box)return;function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}function okUrl(u){return (typeof u==="string")&&/^https:\/\/([a-z0-9-]+\.)*(draftkings\.com|kalshi\.com)(\/[A-Za-z0-9\-._~:/?&=%,+@!$()*;]*)?$/i.test(u)?u:null;}function chip(bk,label,url,pm){if(!url)return "";var a=" data-bk=\""+bk+"\" data-book=\""+bk+"\" data-sb=\""+esc(url)+"\"";if(pm)a+=" data-pm=\""+esc(pm)+"\"";return "<span class=\"chip rpnontap\""+a+">"+esc(label)+"</span>";}function ptLabel(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",weekday:"short",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}function empty(){box.innerHTML="<div style=\"color:#8a8f98;font-size:13px;padding:6px 0\">No NFL slate yet - Wooder Ice anytime TD picks land here Sundays.</div>";}function render(j){var singles=((j.dk||{}).singles)||[],parlays=((j.dk||{}).parlays)||[];var kal=j.kalshi||{},top=kal.top10||[],bb=kal.bankroll_builder;if(!singles.length&&!parlays.length&&!top.length&&!(bb&&(bb.picks||[]).length)){empty();return;}var h="<div style=\"font-size:12px;color:#8a8f98;margin:2px 0 4px\">"+esc(j.window_label||"")+(j.generated_at?" &middot; posted "+esc(ptLabel(j.generated_at)):"")+"</div>";if(singles.length){h+="<div class=\"sect\" style=\"margin-top:10px\">DraftKings singles</div>";singles.forEach(function(s,i){var kl=null;top.forEach(function(t){if((t.player||"").toLowerCase()===(s.player||"").toLowerCase()&&(t.matchup||"")===(s.matchup||""))kl=t;});var chips=chip("DK","DK "+s.odds,okUrl(s.link),kl?okUrl(kl.link):null);if(kl)chips+=chip("KAL","KAL "+kl.price_c+"c",okUrl(kl.link),null);h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(s.player)+"</b> anytime TD</span></span><span class=\"uo\"><span class=\"odds\">"+esc(s.odds||"")+"</span></span></div>"+"<div class=\"sub\">"+esc(s.matchup||"")+"</div>"+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}if(parlays.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Parlays</div>";parlays.forEach(function(p){var legs=(p.legs||[]).map(function(l){return esc(l.player)+" ("+esc(l.odds||"")+")";}).join(" + ");var chips=chip("DK","DK "+(p.combined_odds||""),okUrl(p.link),okUrl(p.pm));h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+(p.legs||[]).length+"-leg parlay</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(p.combined_odds||"")+"</span></span></div>"+"<div class=\"sub\">"+legs+"</div>"+(p.est_payout?"<div class=\"sub\">Est. payout "+esc(p.est_payout)+"</div>":"")+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}if(top.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Kalshi top "+top.length+"</div>";top.forEach(function(t,i){h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(t.player)+"</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(t.price_c)+"c</span></span></div>"+"<div class=\"sub\">"+esc(t.matchup||"")+" &middot; "+Math.round((t.prob||0)*100)+"%</div>"+"<div class=\"chips\">"+chip("KAL","KAL "+t.price_c+"c",okUrl(t.link),null)+"</div></div>";});}if(bb&&(bb.picks||[]).length){h+="<div class=\"sect\" style=\"margin-top:14px\">Bankroll builder</div>";var bchips="";(bb.picks||[]).forEach(function(b2){bchips+=chip("KAL","KAL "+b2.price_c+"c",okUrl(b2.link),null);});h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+esc(bb.matchup||"")+"</b></span></span></div>"+"<div class=\"sub\">"+(bb.picks||[]).map(function(b2){return esc(b2.player)+" "+esc(b2.price_c)+"c";}).join(" + ")+"</div>"+(bb.est_cost_c?"<div class=\"sub\">Est. cost "+esc(bb.est_cost_c)+"c</div>":"")+(bchips?"<div class=\"chips\">"+bchips+"</div>":"")+"</div>";}box.innerHTML=h;try{if(window.rpFilter)rpFilter(localStorage.getItem("rp_state"));}catch(e){}}fetch("slates/nfl_latest.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(!j||j.version!==1){empty();return;}try{if(j.generated_at&&Date.now()-Date.parse(j.generated_at)>4*24*3600*1000){empty();return;}}catch(e){}render(j);}).catch(empty);})();</script></div>
+<div class="state" id="st-mlb"><div class="sect" style="margin-top:2px">Today&rsquo;s picks</div><div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">⚾</span>MLB</div><div class="pick" data-espn="baseball/mlb" data-eid="401817108" data-gpk="823408" data-aab="TB" data-hab="PHI" data-room="g5-2026-09-27" data-commence="2026-09-27T19:05Z" data-away="Tampa Bay Rays" data-home="Philadelphia Phillies" data-side="home" data-market="ml" data-codds="-163" data-stake="5">
   <div class="pick-head"><a class="gamelink" href="game-5.html"><span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/tb.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)" onerror="this.remove()"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/phi.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14);margin-left:-8px" onerror="this.remove()"></span><span class="num">5.</span><span class="name">Phillies ML</span></a><span class="meta-grp"><a class="rpmetalink" href="game-5.html"><span class="uo"><span class="units">5u</span><span class="odds">-163</span></span><span class="oddslock">7:00 AM &middot; locked</span></a><a class="rpchatlink" href="game-5.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="rpstart" data-commence="2026-09-27T19:05Z">12:05 PM PT</div>
   <div class="sub">vs Tampa Bay - home; TB 98-63 (strong road profile) - thinnest read - model 60.2</div>
   <div class="chips"><span class="chip rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="ml" data-mr="4" data-sbt="https://{state}.betrivers.com/?page=sportsbook#event/1024788227" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR -107</span><a class="chip" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" href="https://sportsbook.draftkings.com/?outcomes=0ML86466887_1" data-book="DK" data-market="ml" data-mr="5" data-sb="https://sportsbook.draftkings.com/?outcomes=0ML86466887_1" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK -110</a><a class="chip best" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.611161319&amp;selectionId=29175" data-book="FD" data-market="ml" data-mr="6" data-sb="https://sportsbook.fanduel.com/addToBetslip?marketId=42.611161319&amp;selectionId=29175" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD -106</a><a class="chip" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" href="https://app.hardrock.bet/?deep_link_value=betslip/7814202399123440029" data-book="HR" data-market="ml" data-mr="7" data-sb="https://app.hardrock.bet/?deep_link_value=betslip/7814202399123440029" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR -110</a><a class="chip" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271505tbphi" data-book="KAL" data-kalticker="KXMLBGAME-26SEP271505TBPHI" data-kalside="PHI" data-market="ml" data-cents="62" data-mr="8" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -163</a><span class="chip rpnontap" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="ml" data-mr="9" data-sbt="https://sports.{state}.betmgm.com/en/sports?options=19944862-1558590116-2296849400&amp;type=Single" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM -110</span><a class="chip" data-bk="TSB" style="background:#0d1b2e;border-color:#0d1b2e;color:#4d94ff" href="https://sportsbook.thescore.bet/?market_selection_id[0]=c103aab5-8ec3-4522-908d-144ca17b816b&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" data-book="TSB" data-market="ml" data-mr="10" data-sb="https://sportsbook.thescore.bet/?market_selection_id[0]=c103aab5-8ec3-4522-908d-144ca17b816b&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=thescore.bet&sz=128" alt="" onerror="this.remove()">TSB -115</a></div>
   <div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>
-</div>
-<div class="pick" data-espn="baseball/mlb" data-eid="401817116" data-gpk="823164" data-aab="LAD" data-hab="SF" data-room="g6-2026-09-27" data-commence="2026-09-27T19:05Z" data-away="Los Angeles Dodgers" data-home="San Francisco Giants" data-side="away" data-market="ml" data-codds="-233" data-stake="5">
+</div><div class="pick" data-espn="baseball/mlb" data-eid="401817116" data-gpk="823164" data-aab="LAD" data-hab="SF" data-room="g6-2026-09-27" data-commence="2026-09-27T19:05Z" data-away="Los Angeles Dodgers" data-home="San Francisco Giants" data-side="away" data-market="ml" data-codds="-233" data-stake="5">
   <div class="pick-head"><a class="gamelink" href="game-6.html"><span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/lad.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)" onerror="this.remove()"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/sf.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14);margin-left:-8px" onerror="this.remove()"></span><span class="num">6.</span><span class="name">Dodgers ML</span></a><span class="meta-grp"><a class="rpmetalink" href="game-6.html"><span class="uo"><span class="units">5u</span><span class="odds">-233</span></span><span class="oddslock">7:00 AM &middot; locked</span></a><a class="rpchatlink" href="game-6.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="rpstart" data-commence="2026-09-27T19:05Z">12:05 PM PT</div>
   <div class="sub">at San Francisco - LAD 99-62 vs SF 65-96, 48-32 road - model 68.1</div>
   <div class="chips"><span class="chip rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="ml" data-mr="11" data-sbt="https://{state}.betrivers.com/?page=sportsbook#event/1024788203" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR -286</span><a class="chip" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" href="https://sportsbook.draftkings.com/?outcomes=0ML86466879_3" data-book="DK" data-market="ml" data-mr="12" data-sb="https://sportsbook.draftkings.com/?outcomes=0ML86466879_3" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK -289</a><a class="chip" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.611161323&amp;selectionId=29171" data-book="FD" data-market="ml" data-mr="13" data-sb="https://sportsbook.fanduel.com/addToBetslip?marketId=42.611161323&amp;selectionId=29171" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD -310</a><a class="chip" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" href="https://app.hardrock.bet/?deep_link_value=betslip/1460628352082772364" data-book="HR" data-market="ml" data-mr="14" data-sb="https://app.hardrock.bet/?deep_link_value=betslip/1460628352082772364" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR -300</a><a class="chip best" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271505ladsf" data-book="KAL" data-kalticker="KXMLBGAME-26SEP271505LADSF" data-kalside="LAD" data-market="ml" data-cents="70" data-mr="15" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -233</a><span class="chip rpnontap" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="ml" data-mr="16" data-sbt="https://sports.{state}.betmgm.com/en/sports?options=19944853-1558589274-2296847474&amp;type=Single" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM -285</span><a class="chip" data-bk="TSB" style="background:#0d1b2e;border-color:#0d1b2e;color:#4d94ff" href="https://sportsbook.thescore.bet/?market_selection_id[0]=3cd9063c-dd29-4214-80ea-c0cec953d3ff&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" data-book="TSB" data-market="ml" data-mr="17" data-sb="https://sportsbook.thescore.bet/?market_selection_id[0]=3cd9063c-dd29-4214-80ea-c0cec953d3ff&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=thescore.bet&sz=128" alt="" onerror="this.remove()">TSB -290</a></div>
   <div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>
-</div>
-<div class="pick" data-espn="baseball/mlb" data-eid="401817111" data-gpk="823731" data-aab="STL" data-hab="MIL" data-room="g7-2026-09-27" data-commence="2026-09-27T19:10Z" data-away="St. Louis Cardinals" data-home="Milwaukee Brewers" data-side="home" data-market="ml" data-codds="-223" data-stake="5">
+</div><div class="pick" data-espn="baseball/mlb" data-eid="401817111" data-gpk="823731" data-aab="STL" data-hab="MIL" data-room="g7-2026-09-27" data-commence="2026-09-27T19:10Z" data-away="St. Louis Cardinals" data-home="Milwaukee Brewers" data-side="home" data-market="ml" data-codds="-223" data-stake="5">
   <div class="pick-head"><a class="gamelink" href="game-7.html"><span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/stl.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)" onerror="this.remove()"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mil.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14);margin-left:-8px" onerror="this.remove()"></span><span class="num">7.</span><span class="name">Brewers ML</span></a><span class="meta-grp"><a class="rpmetalink" href="game-7.html"><span class="uo"><span class="units">5u</span><span class="odds">-223</span></span><span class="oddslock">7:00 AM &middot; locked</span></a><a class="rpchatlink" href="game-7.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="rpstart" data-commence="2026-09-27T19:10Z">12:10 PM PT</div>
   <div class="sub">vs St. Louis - MIL 102-59, 54-26 home - model 68.3</div>
   <div class="chips"><span class="chip best rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="ml" data-mr="18" data-sbt="https://{state}.betrivers.com/?page=sportsbook#event/1024788207" data-template="1">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR -148</span><a class="chip" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" href="https://sportsbook.draftkings.com/?outcomes=0ML86466885_1" data-book="DK" data-market="ml" data-mr="19" data-sb="https://sportsbook.draftkings.com/?outcomes=0ML86466885_1" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK -163</a><a class="chip" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" href="https://sportsbook.fanduel.com/addToBetslip?marketId=42.611161324&amp;selectionId=29172" data-book="FD" data-market="ml" data-mr="20" data-sb="https://sportsbook.fanduel.com/addToBetslip?marketId=42.611161324&amp;selectionId=29172" data-pmapp="" data-nopm="1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD -164</a><a class="chip" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" href="https://app.hardrock.bet/?deep_link_value=betslip/9103143811281977758" data-book="HR" data-market="ml" data-mr="21" data-sb="https://app.hardrock.bet/?deep_link_value=betslip/9103143811281977758" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR -170</a><a class="chip" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep271510stlmil" data-book="KAL" data-kalticker="KXMLBGAME-26SEP271510STLMIL" data-kalside="MIL" data-market="ml" data-cents="69" data-mr="22" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -223</a><span class="chip rpnontap" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="ml" data-mr="23" data-sbt="https://sports.{state}.betmgm.com/en/sports?options=19944858-1558589756-2296848535&amp;type=Single" data-template="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM -160</span><a class="chip" data-bk="TSB" style="background:#0d1b2e;border-color:#0d1b2e;color:#4d94ff" href="https://sportsbook.thescore.bet/?market_selection_id[0]=61305402-6203-41b4-b2e6-f099185e129a&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" data-book="TSB" data-market="ml" data-mr="24" data-sb="https://sportsbook.thescore.bet/?market_selection_id[0]=61305402-6203-41b4-b2e6-f099185e129a&amp;odds_numerator[0]=2&amp;odds_denominator[0]=1" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=thescore.bet&sz=128" alt="" onerror="this.remove()">TSB -170</a></div>
   <div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>
-</div>
-<div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs"><li class="cxleg" data-espn="football/nfl" data-eid="401872954" data-gpk="" data-aab="" data-hab="" data-away="New York Jets" data-home="Detroit Lions" data-commence="2026-09-27T17:00Z" data-side="home"><a href="game-1.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Lions ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="football/nfl" data-eid="401872950" data-gpk="" data-aab="" data-hab="" data-away="Cincinnati Bengals" data-home="Pittsburgh Steelers" data-commence="2026-09-27T17:00Z" data-side="away"><a href="game-2.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Bengals ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="basketball/wnba" data-eid="401918014" data-gpk="" data-aab="" data-hab="" data-away="New York Liberty" data-home="Minnesota Lynx" data-commence="2026-09-27T18:00Z" data-side="home"><a href="game-3.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Lynx ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="baseball/mlb" data-eid="401817108" data-gpk="823408" data-aab="TB" data-hab="PHI" data-away="Tampa Bay Rays" data-home="Philadelphia Phillies" data-commence="2026-09-27T19:05Z" data-side="home"><a href="game-5.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Phillies ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="baseball/mlb" data-eid="401817116" data-gpk="823164" data-aab="LAD" data-hab="SF" data-away="Los Angeles Dodgers" data-home="San Francisco Giants" data-commence="2026-09-27T19:05Z" data-side="away"><a href="game-6.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Dodgers ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="baseball/mlb" data-eid="401817111" data-gpk="823731" data-aab="STL" data-hab="MIL" data-away="St. Louis Cardinals" data-home="Milwaukee Brewers" data-commence="2026-09-27T19:10Z" data-side="home"><a href="game-7.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Brewers ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="basketball/wnba" data-eid="401918013" data-gpk="" data-aab="" data-hab="" data-away="Washington Mystics" data-home="Atlanta Dream" data-commence="2026-09-27T23:00Z" data-side="home"><a href="game-4.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Dream ML<span class="ls" data-ls></span></a></li></ul><div class="note" id="rpCxLive" style="display:none;margin-top:6px"></div><div class="chips" id="rpParlayChips" style="margin:10px 0"><span class="chip rpunpriced rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="parlay" data-mr="30"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR —</span><span class="chip rpunpriced rpnontap" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" data-book="DK" data-market="parlay" data-mr="25"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK —</span><span class="chip rpunpriced rpnontap" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" data-book="FD" data-market="parlay" data-mr="26"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD —</span><span class="chip rpunpriced rpnontap" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" data-book="HR" data-market="parlay" data-mr="28"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR —</span><span class="chip best rpnontap" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" id="rpCxKAL" data-n="7" data-book="KAL" data-market="parlay" data-cents="7" data-mr="31">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL 7c</span><span class="chip rpunpriced rpnontap" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="parlay" data-mr="29"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM —</span><span class="chip rpunpriced rpnontap" data-bk="TSB" style="background:#0d1b2e;border-color:#0d1b2e;color:#4d94ff" data-book="TSB" data-market="parlay" data-mr="27"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=thescore.bet&sz=128" alt="" onerror="this.remove()">TSB —</span></div><div class="note" id="rpComboReg" style="display:none">* Due to regulations in your state, combos can’t legally be built out for you and must be done manually.</div><div class="note" id="rpParlayNote" style="display:none">Combined +1306 at publish-time prices.</div>
-<div class="sect" style="margin-top:22px">Futures live today</div><a href="futures.html?v=1790521690" style="text-decoration:none;color:inherit"><div class="pick" data-espn="football/nfl" data-away="Los Angeles Chargers" data-home="Buffalo Bills" data-side="home"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>Buffalo Bills</b> <span style="color:#8a8f98;font-size:12px">futures: AFC</span><span class="ls" data-ls></span></div></a><a href="futures.html?v=1790521690" style="text-decoration:none;color:inherit"><div class="pick" data-espn="football/nfl" data-away="Kansas City Chiefs" data-home="Miami Dolphins" data-side="away"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>Kansas City Chiefs</b> <span style="color:#8a8f98;font-size:12px">futures: AFC West</span><span class="ls" data-ls></span></div></a><a href="futures.html?v=1790521690" style="text-decoration:none;color:inherit"><div class="pick" data-espn="football/nfl" data-away="Arizona Cardinals" data-home="San Francisco 49ers" data-side="home"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>San Francisco 49ers</b> <span style="color:#8a8f98;font-size:12px">futures: SB &middot; NFC West &middot; NFC</span><span class="ls" data-ls></span></div></a><a href="futures.html?v=1790521690" style="text-decoration:none;color:inherit"><div class="pick" data-espn="football/nfl" data-away="Minnesota Vikings" data-home="Tampa Bay Buccaneers" data-side="away"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>Minnesota Vikings</b> <span style="color:#8a8f98;font-size:12px">futures: NFC North</span><span class="ls" data-ls></span></div></a><a href="futures.html?v=1790521690" style="text-decoration:none;color:inherit"><div class="pick" data-espn="basketball/wnba" data-away="New York Liberty" data-home="Minnesota Lynx" data-side="home"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/min.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>Minnesota Lynx</b> <span style="color:#8a8f98;font-size:12px">futures: WNBA Championship</span><span class="ls" data-ls></span></div></a>
-<div class="sect" style="margin-top:22px">Picks from Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div><div style="border:1px dashed rgba(127,127,127,.35);border-radius:12px;padding:11px 12px"><div class="lghead" style="margin-top:0">NFL - anytime TD scorers</div><div style="font-size:12px;color:#8a8f98;margin:2px 0 8px">Separate from the RixPicks card and record. Picks only, no wagers placed.</div><div id="rpNfl"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div></div><style>.rpnpick{padding:12px 0;border-top:1px solid #e4e2de}@media (prefers-color-scheme:dark){.rpnpick{border-top-color:#2a2a2e}}</style><script>(function(){var box=document.getElementById("rpNfl");if(!box)return;function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}function okUrl(u){return (typeof u==="string")&&/^https:\/\/([a-z0-9-]+\.)*(draftkings\.com|kalshi\.com)(\/[A-Za-z0-9\-._~:/?&=%,+@!$()*;]*)?$/i.test(u)?u:null;}function chip(bk,label,url,pm){if(!url)return "";var a=" data-bk=\""+bk+"\" data-book=\""+bk+"\" data-sb=\""+esc(url)+"\"";if(pm)a+=" data-pm=\""+esc(pm)+"\"";return "<span class=\"chip rpnontap\""+a+">"+esc(label)+"</span>";}function ptLabel(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",weekday:"short",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}function empty(){box.innerHTML="<div style=\"color:#8a8f98;font-size:13px;padding:6px 0\">No NFL slate yet - Wooder Ice anytime TD picks land here Sundays.</div>";}function render(j){var singles=((j.dk||{}).singles)||[],parlays=((j.dk||{}).parlays)||[];var kal=j.kalshi||{},top=kal.top10||[],bb=kal.bankroll_builder;if(!singles.length&&!parlays.length&&!top.length&&!(bb&&(bb.picks||[]).length)){empty();return;}var h="<div style=\"font-size:12px;color:#8a8f98;margin:2px 0 4px\">"+esc(j.window_label||"")+(j.generated_at?" &middot; posted "+esc(ptLabel(j.generated_at)):"")+"</div>";if(singles.length){h+="<div class=\"sect\" style=\"margin-top:10px\">DraftKings singles</div>";singles.forEach(function(s,i){var kl=null;top.forEach(function(t){if((t.player||"").toLowerCase()===(s.player||"").toLowerCase()&&(t.matchup||"")===(s.matchup||""))kl=t;});var chips=chip("DK","DK "+s.odds,okUrl(s.link),kl?okUrl(kl.link):null);if(kl)chips+=chip("KAL","KAL "+kl.price_c+"c",okUrl(kl.link),null);h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(s.player)+"</b> anytime TD</span></span><span class=\"uo\"><span class=\"odds\">"+esc(s.odds||"")+"</span></span></div>"+"<div class=\"sub\">"+esc(s.matchup||"")+"</div>"+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}if(parlays.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Parlays</div>";parlays.forEach(function(p){var legs=(p.legs||[]).map(function(l){return esc(l.player)+" ("+esc(l.odds||"")+")";}).join(" + ");var chips=chip("DK","DK "+(p.combined_odds||""),okUrl(p.link),okUrl(p.pm));h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+(p.legs||[]).length+"-leg parlay</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(p.combined_odds||"")+"</span></span></div>"+"<div class=\"sub\">"+legs+"</div>"+(p.est_payout?"<div class=\"sub\">Est. payout "+esc(p.est_payout)+"</div>":"")+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}if(top.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Kalshi top "+top.length+"</div>";top.forEach(function(t,i){h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(t.player)+"</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(t.price_c)+"c</span></span></div>"+"<div class=\"sub\">"+esc(t.matchup||"")+" &middot; "+Math.round((t.prob||0)*100)+"%</div>"+"<div class=\"chips\">"+chip("KAL","KAL "+t.price_c+"c",okUrl(t.link),null)+"</div></div>";});}if(bb&&(bb.picks||[]).length){h+="<div class=\"sect\" style=\"margin-top:14px\">Bankroll builder</div>";var bchips="";(bb.picks||[]).forEach(function(b2){bchips+=chip("KAL","KAL "+b2.price_c+"c",okUrl(b2.link),null);});h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+esc(bb.matchup||"")+"</b></span></span></div>"+"<div class=\"sub\">"+(bb.picks||[]).map(function(b2){return esc(b2.player)+" "+esc(b2.price_c)+"c";}).join(" + ")+"</div>"+(bb.est_cost_c?"<div class=\"sub\">Est. cost "+esc(bb.est_cost_c)+"c</div>":"")+(bchips?"<div class=\"chips\">"+bchips+"</div>":"")+"</div>";}box.innerHTML=h;try{if(window.rpFilter)rpFilter(localStorage.getItem("rp_state"));}catch(e){}}fetch("slates/nfl_latest.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(!j||j.version!==1){empty();return;}try{if(j.generated_at&&Date.now()-Date.parse(j.generated_at)>4*24*3600*1000){empty();return;}}catch(e){}render(j);}).catch(empty);})();</script>
-<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1790521690" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">8 live &rsaquo;</span></a>
+</div></div>
+<div class="state" id="st-nba"><div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div></div>
+<div class="state" id="st-tennis"><div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div></div>
+<div class="state" id="st-wnba"><div class="sect" style="margin-top:2px">Today&rsquo;s picks</div><div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">🏀</span>WNBA</div><div class="pick" data-espn="basketball/wnba" data-eid="401918014" data-gpk="" data-aab="" data-hab="" data-room="g3-2026-09-27" data-commence="2026-09-27T18:00Z" data-away="New York Liberty" data-home="Minnesota Lynx" data-side="home" data-market="ml" data-codds="-257" data-stake="5">
+  <div class="pick-head"><a class="gamelink" href="game-3.html"><span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/ny.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)" onerror="this.remove()"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/min.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14);margin-left:-8px" onerror="this.remove()"></span><span class="num">3.</span><span class="name">Lynx ML</span></a><span class="meta-grp"><a class="rpmetalink" href="game-3.html"><span class="uo"><span class="units">5u</span><span class="odds">-257</span></span><span class="oddslock">7:00 AM &middot; locked</span></a><a class="rpchatlink" href="game-3.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
+  <div class="rpstart" data-commence="2026-09-27T18:00Z">11:00 AM PT</div>
+  <div class="sub">vs NY Liberty - MIN 33-11 league-best, 15-7 home - model 71.0</div>
+  <div class="chips"><a class="chip best" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxwnbagame/kxwnbagame-26sep27nymin" data-book="KAL" data-kalticker="KXWNBAGAME-26SEP27NYMIN" data-kalside="MIN" data-market="ml" data-cents="72" data-mr="2" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -257</a></div>
+  <div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>
+</div><div class="pick" data-espn="basketball/wnba" data-eid="401918013" data-gpk="" data-aab="" data-hab="" data-room="g4-2026-09-27" data-commence="2026-09-27T23:00Z" data-away="Washington Mystics" data-home="Atlanta Dream" data-side="home" data-market="ml" data-codds="-270" data-stake="5">
+  <div class="pick-head"><a class="gamelink" href="game-4.html"><span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/scoreboard/wsh.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14)" onerror="this.remove()"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/atl.png" alt="" style="width:26px;height:26px;object-fit:contain;border-radius:50%;background:rgba(127,127,127,.14);margin-left:-8px" onerror="this.remove()"></span><span class="num">4.</span><span class="name">Dream ML</span></a><span class="meta-grp"><a class="rpmetalink" href="game-4.html"><span class="uo"><span class="units">5u</span><span class="odds">-270</span></span><span class="oddslock">7:00 AM &middot; locked</span></a><a class="rpchatlink" href="game-4.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
+  <div class="rpstart" data-commence="2026-09-27T23:00Z">4:00 PM PT</div>
+  <div class="sub">vs Washington - ATL 30-14 vs WSH 28-16 - model 71.8</div>
+  <div class="chips"><a class="chip best" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" href="https://kalshi.com/markets/kxwnbagame/kxwnbagame-26sep27wshatl" data-book="KAL" data-kalticker="KXWNBAGAME-26SEP27WSHATL" data-kalside="ATL" data-market="ml" data-cents="73" data-mr="3" target="_blank" rel="noreferrer">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL -270</a></div>
+  <div class="rplineshop" style="display:none;font-size:11px;color:#8a8f98;margin:3px 0 0"></div>
+</div></div>
+<div id="rpComboTail" data-cx-espn="baseball/mlb,basketball/wnba,football/nfl"><div class="sect" id="rpParlayTitle">Parlay</div><ul class="legs"><li class="cxleg" data-espn="football/nfl" data-eid="401872954" data-gpk="" data-aab="" data-hab="" data-away="New York Jets" data-home="Detroit Lions" data-commence="2026-09-27T17:00Z" data-side="home"><a href="game-1.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Lions ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="football/nfl" data-eid="401872950" data-gpk="" data-aab="" data-hab="" data-away="Cincinnati Bengals" data-home="Pittsburgh Steelers" data-commence="2026-09-27T17:00Z" data-side="away"><a href="game-2.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Bengals ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="basketball/wnba" data-eid="401918014" data-gpk="" data-aab="" data-hab="" data-away="New York Liberty" data-home="Minnesota Lynx" data-commence="2026-09-27T18:00Z" data-side="home"><a href="game-3.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Lynx ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="baseball/mlb" data-eid="401817108" data-gpk="823408" data-aab="TB" data-hab="PHI" data-away="Tampa Bay Rays" data-home="Philadelphia Phillies" data-commence="2026-09-27T19:05Z" data-side="home"><a href="game-5.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Phillies ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="baseball/mlb" data-eid="401817116" data-gpk="823164" data-aab="LAD" data-hab="SF" data-away="Los Angeles Dodgers" data-home="San Francisco Giants" data-commence="2026-09-27T19:05Z" data-side="away"><a href="game-6.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Dodgers ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="baseball/mlb" data-eid="401817111" data-gpk="823731" data-aab="STL" data-hab="MIL" data-away="St. Louis Cardinals" data-home="Milwaukee Brewers" data-commence="2026-09-27T19:10Z" data-side="home"><a href="game-7.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Brewers ML<span class="ls" data-ls></span></a></li><li class="cxleg" data-espn="basketball/wnba" data-eid="401918013" data-gpk="" data-aab="" data-hab="" data-away="Washington Mystics" data-home="Atlanta Dream" data-commence="2026-09-27T23:00Z" data-side="home"><a href="game-4.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">Dream ML<span class="ls" data-ls></span></a></li></ul><div class="note" id="rpCxLive" style="display:none;margin-top:6px"></div><div class="chips" id="rpParlayChips" style="margin:10px 0"><span class="chip rpunpriced rpnontap" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="parlay" data-mr="30"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR —</span><span class="chip rpunpriced rpnontap" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" data-book="DK" data-market="parlay" data-mr="25"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK —</span><span class="chip rpunpriced rpnontap" data-bk="FD" style="background:#e7f3ff;border-color:#e7f3ff;color:#0e6fd0" data-book="FD" data-market="parlay" data-mr="26"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=fanduel.com&sz=128" alt="" onerror="this.remove()">FD —</span><span class="chip rpunpriced rpnontap" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" data-book="HR" data-market="parlay" data-mr="28"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR —</span><span class="chip best rpnontap" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" id="rpCxKAL" data-n="7" data-book="KAL" data-market="parlay" data-cents="7" data-mr="31">★ <img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL +1306</span><span class="chip rpunpriced rpnontap" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="parlay" data-mr="29"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM —</span><span class="chip rpunpriced rpnontap" data-bk="TSB" style="background:#0d1b2e;border-color:#0d1b2e;color:#4d94ff" data-book="TSB" data-market="parlay" data-mr="27"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=thescore.bet&sz=128" alt="" onerror="this.remove()">TSB —</span></div><div class="note" id="rpComboReg" style="display:none">* Due to regulations in your state, combos can’t legally be built out for you and must be done manually.</div><div class="note" id="rpParlayNote" style="display:none">Combined +1306 at publish-time prices.</div></div>
+<div id="rpFutTail"><div class="sect" style="margin-top:22px">Futures live today</div><a href="futures.html?v=1790520645" style="text-decoration:none;color:inherit"><div class="pick" data-espn="basketball/wnba" data-away="New York Liberty" data-home="Minnesota Lynx" data-side="home"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/min.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>Minnesota Lynx</b> <span style="color:#8a8f98;font-size:12px">futures: WNBA Championship</span><span class="ls" data-ls></span></div></a><a href="futures.html?v=1790520645" style="text-decoration:none;color:inherit"><div class="pick" data-espn="football/nfl" data-away="Los Angeles Chargers" data-home="Buffalo Bills" data-side="home"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>Buffalo Bills</b> <span style="color:#8a8f98;font-size:12px">futures: AFC</span><span class="ls" data-ls></span></div></a><a href="futures.html?v=1790520645" style="text-decoration:none;color:inherit"><div class="pick" data-espn="football/nfl" data-away="Kansas City Chiefs" data-home="Miami Dolphins" data-side="away"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>Kansas City Chiefs</b> <span style="color:#8a8f98;font-size:12px">futures: AFC West</span><span class="ls" data-ls></span></div></a><a href="futures.html?v=1790520645" style="text-decoration:none;color:inherit"><div class="pick" data-espn="football/nfl" data-away="Arizona Cardinals" data-home="San Francisco 49ers" data-side="home"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>San Francisco 49ers</b> <span style="color:#8a8f98;font-size:12px">futures: SB &middot; NFC West &middot; NFC</span><span class="ls" data-ls></span></div></a><a href="futures.html?v=1790520645" style="text-decoration:none;color:inherit"><div class="pick" data-espn="football/nfl" data-away="Minnesota Vikings" data-home="Tampa Bay Buccaneers" data-side="away"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png" style="width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-right:7px" onerror="this.remove()"><b>Minnesota Vikings</b> <span style="color:#8a8f98;font-size:12px">futures: NFC North</span><span class="ls" data-ls></span></div></a></div>
+<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1790520645" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">8 live &rsaquo;</span></a>
 <a class="rec" id="rpRec" data-bw="13" data-bl="6" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: 13-6</a>
 <div class="yesrec" id="rpWlPct">W/L: 68.4%</div>
 <div class="yesrec unitspl" id="rpUnits" data-bu="+3.89">Units: +3.89u</div>
 <div class="unitmath">1u = $5 per $1,000 in bankroll</div>
-<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>
+<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div></main><aside><div class="col-head"><div class="sect">Games</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div class="col-head" style="margin-top:18px"><div class="sect">News</div></div><div class="card" id="rpNews"></div></aside></div>
+<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>
 <div id="rpModal"><div class="box">
 <h3>One quick thing</h3>
 <p>Share your location once so taps open the right product &mdash; sportsbook where it&rsquo;s live, prediction markets everywhere else. Location is required for market links. Saved on this device.</p>
@@ -626,7 +749,7 @@ function rpResolveState(){try{  /* */
  }
 }catch(e){}}
 rpLabel(); /* */
-const RP_BUILD='1790521690';
+const RP_BUILD='1790520645';
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(()=>{});}catch(e){}
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
@@ -690,9 +813,8 @@ function rpCxUpd(bk){
   if(a.dataset.won==='1'){cnt++;return;}
   if(a.dataset.lost==='1'){cnt++;dead=true;return;}
   const lr=rpMkt(a);  /* no leg-phase gate: each record holds its phase-correct value (frozen at kickoff, live while pre-game) */
-  const _ec=(lr&&typeof lr.c==='number'&&lr.c>0&&lr.c<100)?lr.c:parseFloat(a.dataset.cents);
-  if(_ec>0&&_ec<100){d*=100/_ec;cnt++;}  /* */
-  else{const ml=rpChipML(a);if(ml!==null){d*=ml>0?1+ml/100:1+100/Math.abs(ml);cnt++;}}
+  const ml=rpChipML(a);if(ml!==null){d*=ml>0?1+ml/100:1+100/Math.abs(ml);cnt++;}  /* */
+
  });
  if(cnt!==n)return;
  if(dead){rpCxStar();return;}
@@ -700,7 +822,7 @@ function rpCxUpd(bk){
  const ml2=d>=2?Math.round((d-1)*100):-Math.round(100/(d-1));
  const cc=Math.round(100/d);
  const lbl=(ml2>0?'+':'')+ml2;  /* */
- if(cr){cr.c=cc;cr.ts=Date.now();}  /* canonical record write-through: star/rank read the SAME value the chip shows */
+ if(cr){cr.ml=ml2;delete cr.c;cr.ts=Date.now();}  /* canonical record write-through: star/rank read the SAME American the chip shows (c cleared - cents no longer the combo source of truth) */
  chip.dataset.cents=cc;
  chip.innerHTML=chip.innerHTML.replace(/(KAL|POLY)( [+-]?\d+| \d+c)?/, bk+' '+lbl);
  rpCxStar();
@@ -801,7 +923,7 @@ function rpPageRefresh(){try{
   const curKeys=[...document.querySelectorAll('.pick')].map(function(x){return (x.dataset.gpk||'')+'@'+(x.dataset.room||'');}).filter(function(k){return k!=='@';}).sort().join('|');
   const newKeys=[...doc.querySelectorAll('.pick')].map(function(x){return (x.dataset.gpk||'')+'@'+(x.dataset.room||'');}).filter(function(k){return k!=='@';}).sort().join('|');
   if(curKeys!==newKeys){location.reload();return;}
-  const cd0=document.querySelector('.status'),nd0=doc.querySelector('.status');
+  const cd0=document.querySelector('.status,.rpdate'),nd0=doc.querySelector('.status,.rpdate');
   if(cd0&&nd0&&cd0.textContent.trim()!==nd0.textContent.trim()){location.reload();return;}
   /* */
   const ccmb=document.getElementById('rpParlayChips'),ncx=doc.getElementById('rpParlayChips');
@@ -864,4 +986,258 @@ function rpPageRefresh(){try{
 }catch(e){}}
 setInterval(rpPageRefresh,60000);
 </script>
-<script src="myprofile.js?v=1790521690"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></div></body></html>
+<script src="myprofile.js?v=1790520645"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></div><script>window.RP_TABS=[{"key":"ncaaf","label":"NCAAF","espn":"football/college-football"},{"key":"nfl","label":"NFL","espn":"football/nfl"},{"key":"mlb","label":"MLB","espn":"baseball/mlb"},{"key":"nba","label":"NBA","espn":"basketball/nba"},{"key":"tennis","label":"Tennis","espn":"tennis"},{"key":"wnba","label":"WNBA","espn":"basketball/wnba"}];window.RP_KAL_TICKER=0;window.RP_KAL_WATCH=[];</script><script>/* RixPicks index v2 shell: intro (once/session, natural scroll, no trapping), league tabs, games+news sidebar, ticker */
+(function(){
+"use strict";
+var TABS=window.RP_TABS||[];
+function $(id){return document.getElementById(id);}
+function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}
+/* ---- intro ---- */
+(function(){
+var intro=$('rpIntro');if(!intro){document.body.classList.add('rp-ready');return;}
+var SK='rp_intro_seen',seen=false;
+try{seen=!!sessionStorage.getItem(SK);}catch(e){}
+if(seen){intro.remove();document.body.classList.add('rp-ready');return;}
+document.body.classList.add('intro-on');
+var wm=intro.querySelector('.wm');
+var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var done=false;
+function consume(){
+ if(done)return;done=true;
+ try{sessionStorage.setItem(SK,'1');}catch(e){}
+ var h=intro.offsetHeight;
+ intro.remove();
+ document.body.classList.remove('intro-on');
+ document.body.classList.add('rp-ready');
+ window.scrollBy(0,-h);
+}
+if(!reduced&&wm){
+ var tick=false;
+ window.addEventListener('scroll',function(){
+  if(tick)return;tick=true;
+  requestAnimationFrame(function(){
+   tick=false;
+   if(done)return;
+   var y=window.scrollY||0;
+   wm.style.transform='translateY('+(-y*0.55)+'px)';
+   wm.style.opacity=String(Math.max(0,1-y/(window.innerHeight*0.75)));
+  });
+ },{passive:true});
+}
+if('IntersectionObserver' in window){
+ new IntersectionObserver(function(es){es.forEach(function(en){if(en.intersectionRatio<0.35)consume();});},{threshold:[0.35]}).observe(intro);
+}else{
+ window.addEventListener('scroll',function(){if(window.scrollY>window.innerHeight*0.6)consume();},{passive:true});
+}
+})();
+/* ---- tabs ---- */
+var cur=null;
+var TABOF={};TABS.forEach(function(t){if(t.espn)TABOF[t.espn]=t.key;});
+function tailFilter(key){
+ var cw=document.getElementById('rpComboTail');
+ if(cw){
+  var lgs=(cw.getAttribute('data-cx-espn')||'').split(',').filter(function(x){return x;});
+  var ok=false;
+  for(var i=0;i<lgs.length;i++)if(TABOF[lgs[i]]===key){ok=true;break;}
+  cw.style.display=ok?'':'none';
+ }
+ var ft=document.getElementById('rpFutTail');
+ if(ft){
+  var kids=ft.children,sect=null,i,k,row,tk,show;
+  for(i=0;i<kids.length;i++){
+   k=kids[i];
+   if(k.classList.contains('sect')){sect=k;k._fv=0;continue;}
+   row=k.querySelector?k.querySelector('[data-espn]'):null;
+   if(!row)continue;
+   tk=TABOF[row.getAttribute('data-espn')];
+   show=(tk===key);
+   k.style.display=show?'':'none';
+   if(show&&sect)sect._fv++;
+  }
+  for(i=0;i<kids.length;i++)if(kids[i].classList.contains('sect'))kids[i].style.display=kids[i]._fv>0?'':'none';
+ }
+}
+function tabKey(t){return t.key;}
+function activate(key,skipHash){
+ var t=null,i;
+ for(i=0;i<TABS.length;i++)if(TABS[i].key===key)t=TABS[i];
+ if(!t)return;
+ cur=t;
+ document.body.className=document.body.className.replace(/\btab-[a-z0-9]+\b/g,'').trim();
+ document.body.classList.add('tab-'+t.key);
+ var states=document.querySelectorAll('.state');
+ for(i=0;i<states.length;i++)states[i].classList.toggle('on',states[i].id==='st-'+t.key);
+ var links=document.querySelectorAll('nav.rpnav .tab');
+ for(i=0;i<links.length;i++)links[i].classList.toggle('active',links[i].getAttribute('data-tab')===t.key);
+ document.body.classList.remove('menu-open');
+ var sub=$('rpAsideSub');if(sub)sub.textContent=t.label+' \u00b7 ET';
+ tailFilter(t.key);
+ loadSide(t);
+ if(!skipHash){try{history.replaceState(null,'','#'+t.key);}catch(e){}}
+}
+function fromHash(){
+ var h=(location.hash||'').replace('#','').toLowerCase(),i;
+ for(i=0;i<TABS.length;i++)if(TABS[i].key===h)return TABS[i].key;
+ return null;
+}
+window.addEventListener('hashchange',function(){var k=fromHash();if(k)activate(k,true);});
+document.querySelectorAll('nav.rpnav .tab').forEach(function(a){
+ a.addEventListener('click',function(e){e.preventDefault();activate(a.getAttribute('data-tab'));});
+});
+var burger=$('burger');
+if(burger)burger.addEventListener('click',function(){document.body.classList.toggle('menu-open');});
+/* ---- nav record mirror (canonical values live on #rpRec/#rpUnits datasets) ---- */
+function navRec(){
+ var r=$('rpRec'),u=$('rpUnits'),w=$('rpNavRecW'),l=$('rpNavRecL'),uu=$('rpNavU');
+ if(r&&w&&l){w.textContent=r.dataset.bw||'';l.textContent=r.dataset.bl||'';}
+ if(u&&uu)uu.textContent=(u.dataset.bu||'')+'u';
+}
+navRec();
+if('MutationObserver' in window){
+ var mo=new MutationObserver(navRec);
+ ['rpRec','rpUnits'].forEach(function(id){var n=$(id);if(n)mo.observe(n,{attributes:true,attributeFilter:['data-bw','data-bl','data-bu']});});
+}
+/* ---- sidebar: games + news (ESPN free endpoints; failure states honest, never fabricated) ---- */
+var SB={},NEWS={},SB_TS={},NEWS_TS={};
+function lgpath(t){return t.espn||'';}
+function ordinal(p){p=parseInt(p,10);if(!p)return '';if(p<=4)return p+(['th','st','nd','rd'][p]||'th');return p===5?'OT':(p-4)+'OT';}
+function ago(iso){
+ var t=Date.parse(iso);if(!t)return '';
+ var s=Math.max(0,(Date.now()-t)/1000);
+ if(s<90)return '1m ago';
+ if(s<3600)return Math.round(s/60)+'m ago';
+ if(s<86400)return Math.round(s/3600)+'h ago';
+ return Math.round(s/86400)+'d ago';
+}
+function until(iso){
+ var t=Date.parse(iso);if(!t)return '';
+ var s=(t-Date.now())/1000;
+ if(s<=0)return 'soon';
+ if(s<3600)return 'in '+Math.max(1,Math.round(s/60))+'m';
+ if(s<86400)return 'in '+Math.floor(s/3600)+'h '+Math.round((s%3600)/60)+'m';
+ return Math.round(s/86400)+'d';
+}
+function dayTime(iso){
+ try{return new Date(iso).toLocaleString('en-US',{timeZone:'America/New_York',weekday:'short',hour:'numeric',minute:'2-digit'});}catch(e){return '';}
+}
+function renderGames(t,events){
+ var box=$('rpGames');if(!box)return;
+ if(!events||!events.length){box.innerHTML='<div class="empty">No games listed right now.</div>';return;}
+ var rows=[],i,ev,c,st,comps,away,home,txt,sub,when,cls;
+ events=events.slice();
+ events.sort(function(a,b){
+  var sa=(((a.competitions||[])[0]||{}).status||{}).type||{},sb=(((b.competitions||[])[0]||{}).status||{}).type||{};
+  var ra=sa.state==='in'?0:(sa.state==='pre'?1:2),rb=sb.state==='in'?0:(sb.state==='pre'?1:2);
+  if(ra!==rb)return ra-rb;
+  return Date.parse(a.date||0)-Date.parse(b.date||0);
+ });
+ for(i=0;i<events.length&&rows.length<9;i++){
+  ev=events[i];c=(ev.competitions||[])[0]||{};st=c.status||{};comps=c.competitors||[];
+  away=comps.filter(function(x){return x.homeAway==='away';})[0]||{};
+  home=comps.filter(function(x){return x.homeAway==='home';})[0]||{};
+  var an=(away.team||{}).abbreviation||'',hn=(home.team||{}).abbreviation||'';
+  if(st.type&&st.type.state==='in'){
+   txt=esc(an)+' '+(away.score!=null?esc(away.score):'\u2014')+' - '+(home.score!=null?esc(home.score):'\u2014')+' '+esc(hn);
+   sub=esc(st.type.shortDetail||st.type.detail||'');
+   when='<span class="when live"><span class="dot"></span>LIVE</span>';
+  }else if(st.type&&st.type.state==='post'){
+   txt=esc(an)+' '+(away.score!=null?esc(away.score):'\u2014')+' - '+(home.score!=null?esc(home.score):'\u2014')+' '+esc(hn);
+   sub='Final';
+   when='<span class="when fin">FINAL</span>';
+  }else{
+   txt=esc(an)+' @ '+esc(hn);
+   sub=esc(dayTime(ev.date));
+   when='<span class="when">'+esc(until(ev.date))+'</span>';
+  }
+  rows.push('<div class="grow"><div><div class="gname">'+txt+'</div><div class="gsub">'+sub+'</div></div>'+when+'</div>');
+ }
+ box.innerHTML=rows.join('')||'<div class="empty">No games listed right now.</div>';
+}
+function renderNews(t,arts){
+ var box=$('rpNews');if(!box)return;
+ if(!arts||!arts.length){box.innerHTML='<div class="empty">News unavailable right now.</div>';return;}
+ var h='';
+ arts.slice(0,3).forEach(function(a){
+  var u=((a.links||{}).web||{}).href||'';
+  var inner='<span class="src espn">ESPN</span><span class="ntxt">'+esc(a.headline||'')+'</span><div class="nts">'+esc(ago(a.published))+' \u00b7 espn.com</div>';
+  h+='<div class="nitem">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
+ });
+ box.innerHTML=h;
+}
+var KALW=window.RP_KAL_WATCH||[];
+var KALD={},KALD_TS={},KALIN={};
+function kalHasSfx(tick,sfx){return !!sfx&&tick.length>sfx.length&&tick.slice(-(sfx.length+1))===('-'+sfx);}
+function kalItemsFor(t,cb){
+ if(!KALW.length||!t||!t.espn)return cb([]);
+ var out=[],pend=0,done=false;
+ var fin=function(){if(!done){done=true;cb(out);}};
+ KALW.forEach(function(w){
+  if(w.lg!==t.espn)return;
+  var ck=w.ev;
+  var use=function(d){
+   var ks=(d&&d.markets&&d.markets.kalshi&&d.markets.kalshi.markets)||[];
+   var m=null,i;
+   for(i=0;i<ks.length;i++)if(kalHasSfx(ks[i].ticker||'',w.sfx)){m=ks[i];break;}
+   if(!m)return;
+   var px=(m.yesAsk!=null&&m.yesAsk>0)?m.yesAsk:m.lastTrade;
+   if(px==null||px<=0)return;
+   var dd=px-w.entry;
+   var verb=Math.abs(dd)<=1?'steady at':(dd>0?'up to':'down to');
+   out.push('<span class="titem"><span class="tsrc kalshi">KALSHI</span>'+esc(w.awa+'-'+w.hom+' winner '+verb+' '+px+'c')+'</span><span class="tsep">\u00b7</span>');
+  };
+  if(KALD[ck]&&Date.now()-(KALD_TS[ck]||0)<600000){use(KALD[ck]);return;}
+  if(KALIN[ck])return;
+  KALIN[ck]=1;pend++;
+  fetch('https://api.rix-picks.com/feed/game/'+w.eid+'?league='+encodeURIComponent(w.lg)+'&kalshi='+encodeURIComponent(w.ev),{cache:'no-store'})
+   .then(function(r){if(!r.ok)throw 0;return r.json();})
+   .then(function(j){KALD[ck]=j;var ok=!!(j&&j.markets&&j.markets.kalshi&&j.markets.kalshi.httpOk);KALD_TS[ck]=Date.now()-(ok?0:540000);use(j);})
+   .catch(function(){})
+   .finally(function(){delete KALIN[ck];pend--;if(pend<=0)fin();});
+ });
+ if(pend===0)fin();
+}
+function tickRender(){
+ var tr=$('rpTickTrack'),bar=$('rpTickBar');if(!tr||!bar)return;
+ var arts=NEWS[cur?cur.key:'']||[];
+ kalItemsFor(cur,function(kal){
+  if(!arts.length&&!kal.length){bar.style.display='none';return;}
+  bar.style.display='';
+  var h='';
+  arts.slice(0,4).forEach(function(a){
+   var u=((a.links||{}).web||{}).href||'';
+   h+='<'+(u?'a class="titem" href="'+esc(u)+'" target="_blank" rel="noreferrer"':'span class="titem"')+'><span class="tsrc espn">ESPN</span>'+esc(a.headline||'')+'</'+(u?'a':'span')+'><span class="tsep">\u00b7</span>';
+  });
+  h+=kal.join('');
+  tr.innerHTML=h+h;
+ });
+}
+function loadSide(t){
+ var lg=lgpath(t);if(!lg)return;
+ var now=Date.now();
+ if(SB[t.key]&&now-(SB_TS[t.key]||0)<60000){renderGames(t,SB[t.key]);}
+ else{
+  fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?limit=50',{cache:'no-store'})
+   .then(function(r){if(!r.ok)throw 0;return r.json();})
+   .then(function(j){SB[t.key]=j.events||[];SB_TS[t.key]=Date.now();if(cur===t)renderGames(t,SB[t.key]);})
+   .catch(function(){if(cur===t)renderGames(t,SB[t.key]||null);});
+ }
+ if(NEWS[t.key]&&now-(NEWS_TS[t.key]||0)<600000){renderNews(t,NEWS[t.key]);tickRender();}
+ else{
+  fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/news?limit=4',{cache:'no-store'})
+   .then(function(r){if(!r.ok)throw 0;return r.json();})
+   .then(function(j){NEWS[t.key]=j.articles||[];NEWS_TS[t.key]=Date.now();if(cur===t){renderNews(t,NEWS[t.key]);tickRender();}})
+   .catch(function(){if(cur===t){renderNews(t,NEWS[t.key]||null);tickRender();}});
+ }
+}
+setInterval(function(){if(cur&&!document.hidden)loadSide(cur);},60000);
+/* ---- boot ---- */
+var start=fromHash();
+if(!start){
+ for(var i=0;i<TABS.length;i++){var p=$('st-'+TABS[i].key);if(p&&p.querySelector('.pick:not(.rp-empty)')){start=TABS[i].key;break;}}
+ if(!start&&TABS.length)start=TABS[0].key;
+}
+if(start)activate(start,true);
+else document.body.classList.add('rp-ready');
+if(!document.body.classList.contains('intro-on'))document.body.classList.add('rp-ready');
+})();
+</script></body></html>
