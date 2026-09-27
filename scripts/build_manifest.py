@@ -13,12 +13,30 @@ INSIDE the lock, appends canonical rows, publishes the manifest via os.replace, 
 back and verifies every appended row. Crash recovery: re-running with the same candidates is
 idempotent (identical rows skip, manifest publishes); re-running with different candidates on
 the same key refuses closed rather than forking the card record."""
-import json, sys, datetime, os, fcntl
+import json, sys, datetime, os, fcntl, hashlib
 from zoneinfo import ZoneInfo
 sys.path.insert(0, '/home/sandbox/rix_tmp')
 from core.units import cents_to_american
 from core.fill_leak import PICKS_LEDGER as _DEFAULT_PICKS_LEDGER
 PICKS_LEDGER = os.environ.get('RIX_PICKS_LEDGER', _DEFAULT_PICKS_LEDGER)  # test-isolation hook
+
+
+def _pick_content_hash(m):
+    # VERBATIM contract copy of build_gh_page.py's gate - declared hash must equal its computed hash.
+    _EXCL_TOP={'num','result','_final','polycents'}
+    def _canon(p):
+        c={k:v for k,v in p.items() if k not in _EXCL_TOP}
+        if isinstance(c.get('kalshi'),dict):
+            c['kalshi']={k:v for k,v in c['kalshi'].items() if k!='cents'}
+        c.pop('dkp_note',None)
+        if isinstance(c.get('dkp'),dict):
+            c['dkp']={k:v for k,v in c['dkp'].items() if k not in ('team_cents','home_cents','away_cents','derived','harvested')}
+            if not c['dkp']: c.pop('dkp')
+        return c
+    rows=sorted(json.dumps(_canon(p),sort_keys=True) for p in m.get('picks',[]))
+    return hashlib.sha256('\n'.join(rows).encode()).hexdigest()
+
+PROD_MANIFEST_PATH = '/home/sandbox/rix_tmp/manifest.json'
 
 PREVIEW_LEDGER = PICKS_LEDGER.replace('picks.jsonl', 'picks.preview.jsonl')
 LOCK_PATH = PICKS_LEDGER + '.lock'
@@ -27,6 +45,9 @@ def main():
     cands = json.load(open(sys.argv[1]))
     preview = '--preview' in sys.argv
     out = sys.argv[2] if not sys.argv[2].startswith('--') else sys.argv[3]
+    meta = {}
+    if '--meta' in sys.argv:
+        meta = json.load(open(sys.argv[sys.argv.index('--meta')+1]))
     now = datetime.datetime.now(ZoneInfo('America/Los_Angeles')).isoformat(timespec='seconds')
     ledger = PREVIEW_LEDGER if preview else PICKS_LEDGER
     picks = []
@@ -41,12 +62,41 @@ def main():
             'odds': f"{am:+d}", 'units': c['units'], 'side': c['side'],
             'game': {'away': c['away'], 'home': c['home'], 'commence': c['commence'], 'eid': c['eid']},
             'espn_league': c['espn_league'], 'best_book': 'Kalshi',
-            'kalshi': {'url': c['kalshi'].get('url','https://kalshi.com/markets/'+c['kalshi']['ticker'].split('-')[0].lower()),
+            'kalshi': {'url': c['kalshi'].get('url') or 'https://kalshi.com/markets/{}/{}'.format(c['kalshi']['ticker'].split('-')[0].lower(), c['kalshi']['ticker'].rsplit('-',1)[0].lower()),  # event-level URL: build_gh_page resolves the gate via the LAST segment (event ticker)
                        'cents': cents, 'team': c['kalshi']['team'], 'gate_cents': cents,
                        'ticker': c['kalshi']['ticker']},
             'card_american': am, 'card_source': 'Kalshi ask at lock', 'card_ts': now,
             'polymarket': c.get('polymarket'), 'dkp': c.get('dkp')})
-    manifest = {'date': cands[0].get('date') if cands else None, 'preview': preview, 'picks': picks}
+    # FULL MANIFEST CONTRACT (swamp round 8): build_gh_page.py (publish.yml publish path) reads
+    # date_label, status_note, record, updated, units_pl, units_ledger, yesterday, parlay and
+    # verifies pick_content_hash against its own canonicalization. Metadata comes from --meta
+    # (pipeline-supplied, record tab canonical per J-100) with inherit-from-production fallback;
+    # a required field available from neither fails closed - the record is never invented.
+    date_s = cands[0].get('date') if cands else None
+    dpt = datetime.datetime.now(ZoneInfo('America/Los_Angeles'))
+    try:
+        dlab = datetime.datetime.strptime(date_s, '%Y-%m-%d').strftime('%A, %b %-d') if date_s else dpt.strftime('%A, %b %-d')
+    except Exception:
+        dlab = dpt.strftime('%A, %b %-d')
+    inherit = {}
+    if not preview and os.path.exists(PROD_MANIFEST_PATH):
+        try: inherit = json.load(open(PROD_MANIFEST_PATH))
+        except Exception: inherit = {}
+    def _field(name, required=True):
+        if name in meta: return meta[name]
+        if name in inherit: return inherit[name]
+        if required: raise ValueError(f"fail closed: manifest metadata '{name}' missing from --meta and no readable production manifest to inherit from")
+        return None
+    manifest = {
+        'date': date_s, 'date_label': meta.get('date_label', dlab),
+        'updated': meta.get('updated', dpt.strftime('%b %-d, %-I:%M %p PT')),
+        'record': _field('record'), 'units_pl': _field('units_pl'),
+        'units_ledger': _field('units_ledger', required=False),
+        'yesterday': _field('yesterday', required=False),
+        'status_note': _field('status_note', required=False),
+        'parlay': meta.get('parlay', inherit.get('parlay')),
+        'preview': preview, 'picks': picks}
+    manifest['pick_content_hash'] = _pick_content_hash(manifest)
 
     # Single-writer lock: held across read-decide-stage-publish-verify so concurrent builds
     # can never both read the pre-publish ledger and duplicate a canonical row.
@@ -57,8 +107,7 @@ def main():
     # the interrupted publish (idempotent), changed candidates roll orphans back through the
     # same staged write (explicit, logged) instead of stranding as a conflict refusal. A key
     # present in BOTH the ledger and the manifest with different values is a real fork: refuse.
-    PROD_MANIFEST = '/home/sandbox/rix_tmp/manifest.json'
-    if preview and os.path.abspath(out) == PROD_MANIFEST:
+    if preview and os.path.abspath(out) == PROD_MANIFEST_PATH:
         raise ValueError(f"fail closed: --preview refuses production manifest path {out} - preview output is isolated")
     os.makedirs(os.path.dirname(ledger), exist_ok=True)
     lockf = open(LOCK_PATH, 'w')
