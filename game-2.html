@@ -273,7 +273,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790471728';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
+const RP_BUILD='1790471890';const RP_ROOM='g2-2026-09-26';const RP_START='2026-09-26T21:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -807,7 +807,7 @@ async function rpFbLive(d){
   const _F=arb.fields,_fv=function(k){const c=_F[k];return (c&&!c.stale)?c.value:null;};
   const _ps=_fv('possessionSide');
   j={header:{competitions:[{status:{type:{state:_fv('state')||arb.state||'pre',detail:_fv('detail')||'',shortDetail:_fv('detail')||''},displayClock:_fv('clock')||'',period:_fv('period')!=null?+_fv('period'):undefined},competitors:[{homeAway:'away',team:{abbreviation:d.dataset.aab||'',id:(_ps==='away'?'1':'0')},score:_fv('scoreAway')||'0'},{homeAway:'home',team:{abbreviation:d.dataset.hab||'',id:(_ps==='home'?'1':'0')},score:_fv('scoreHome')||'0'}]}]},
-     situation:{down:_fv('down')!=null?+_fv('down'):undefined,distance:_fv('distance')!=null?+_fv('distance'):undefined,yardLine:_fv('yardLine')!=null?+_fv('yardLine'):undefined,possession:_ps?'1':undefined},drives:{},scoringPlays:[]};
+     situation:{down:_fv('down')!=null?+_fv('down'):undefined,distance:_fv('distance')!=null?+_fv('distance'):undefined,yardLine:_fv('yardLine')!=null?+_fv('yardLine'):undefined,possession:_ps?'1':undefined},drives:{current:{description:'-'}},scoringPlays:[]};  /* description truthy = drive-line gate stays closed in arbiter-only mode (no fabricated play count) */
  }
  const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
  const st=(comp.status||{}).type||{};

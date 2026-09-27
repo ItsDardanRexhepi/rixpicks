@@ -591,7 +591,7 @@ async function rpFbLive(d){
   const _F=arb.fields,_fv=function(k){const c=_F[k];return (c&&!c.stale)?c.value:null;};
   const _ps=_fv('possessionSide');
   j={header:{competitions:[{status:{type:{state:_fv('state')||arb.state||'pre',detail:_fv('detail')||'',shortDetail:_fv('detail')||''},displayClock:_fv('clock')||'',period:_fv('period')!=null?+_fv('period'):undefined},competitors:[{homeAway:'away',team:{abbreviation:d.dataset.aab||'',id:(_ps==='away'?'1':'0')},score:_fv('scoreAway')||'0'},{homeAway:'home',team:{abbreviation:d.dataset.hab||'',id:(_ps==='home'?'1':'0')},score:_fv('scoreHome')||'0'}]}]},
-     situation:{down:_fv('down')!=null?+_fv('down'):undefined,distance:_fv('distance')!=null?+_fv('distance'):undefined,yardLine:_fv('yardLine')!=null?+_fv('yardLine'):undefined,possession:_ps?'1':undefined},drives:{},scoringPlays:[]};
+     situation:{down:_fv('down')!=null?+_fv('down'):undefined,distance:_fv('distance')!=null?+_fv('distance'):undefined,yardLine:_fv('yardLine')!=null?+_fv('yardLine'):undefined,possession:_ps?'1':undefined},drives:{current:{description:'-'}},scoringPlays:[]};  /* description truthy = drive-line gate stays closed in arbiter-only mode (no fabricated play count) */
  }
  const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
  const st=(comp.status||{}).type||{};
