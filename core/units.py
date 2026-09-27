@@ -33,3 +33,19 @@ def stake_pnl_american(stake_dollars, american):
 def display_units(u):
     """Half-up 2dp display of an exact unit value. NEVER store the displayed form."""
     return str(Decimal(u).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP))
+def cents_to_american(price_c):
+    """Kalshi ask cents -> int American for the PUBLISHED card price (his call 9/26 10:14 PM PT,
+    phonemsg-01M3GMJBQVQX5099CH3AN4TB3E reply 'Show the Kalshi +/-': card price = the Kalshi
+    executable he actually pays, forward-only; Toledo/NEB/MSST stay as published).
+    57c -> -133, 40c -> +150, 50c -> +100 (even money is +100 by convention)."""
+    p = _price(price_c)
+    if p == Decimal(100):
+        raise ValueError('100c has no American equivalent')
+    if p > 50:
+        a = -(Decimal(100) * p / (Decimal(100) - p)).quantize(Decimal('1'), rounding=ROUND_HALF_UP)
+    elif p < 50:
+        a = ((Decimal(100) * (Decimal(100) - p)) / p).quantize(Decimal('1'), rounding=ROUND_HALF_UP)
+    else:
+        return 100
+    a = int(a)
+    return 100 if a == -100 else a
