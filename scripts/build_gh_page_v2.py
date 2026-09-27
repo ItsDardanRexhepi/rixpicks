@@ -1148,6 +1148,29 @@ r'if(!j||j.version!==1){empty();return;}'
 r'try{if(j.generated_at&&Date.now()-Date.parse(j.generated_at)>4*24*3600*1000){empty();return;}}catch(e){}'
 r'render(j);updTrk();updChips();setInterval(function(){updTrk();updChips();},60000);setInterval(cdPaint,1000);}).catch(empty);});'
 r'})();</script>')
+# Wooder Ice first-TD picks (main 12:46, publish promptly): additive block - individual
+# first-touchdown picks only. NEVER a linked parlay: no combined odds/stake/payout/status
+# (source crop establishes none). No venue chips - source establishes no venue. Client-hydrated
+# from slates/wooder_first_td.json; hides on missing/invalid. All times PT (owner 9/27 rule).
+nfl_entry+=(
+r'<div style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
+r'<div class="lghead" style="margin-top:0">First TD scorers</div>'
+r'<div id="rpFtd"></div>'
+r'</div>'
+r'<script>(function(){'
+r'var box=document.getElementById("rpFtd");if(!box)return;'
+r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
+r'function ptT(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}'
+r'fetch("slates/wooder_first_td.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
+r'var ps=(j&&j.picks)||[];'
+r'if(!ps.length){box.parentNode.style.display="none";return;}'
+r'box.innerHTML=ps.map(function(p,i){'
+r'if(!p||!p.player||!p.market||!p.american)return "";'
+r'return "<div class=\"rpnpick\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+(i+1)+". "+esc(p.player)+"</b><span style=\"font-weight:700\">"+esc(p.american)+"</span></div>"'
+r'+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(p.market)+" &middot; "+esc(p.matchup||"")+(p.commence?" &middot; "+esc(ptT(p.commence)):"")+"</div>"'
+r'+"</div>";}).join("");'
+r'}).catch(function(){box.parentNode.style.display="none";});'
+r'})();</script>')
 # Wooder Ice same-game combos (main 9:22): additive Kalshi combo list - legs + game link only
 # (no combined odds/payout; nothing priced or invented). Client-hydrated, hides when empty.
 nfl_entry+=(
