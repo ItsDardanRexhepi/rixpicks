@@ -8,6 +8,7 @@ API call - cap refusal blocks the pull. API key read lazily, only for real pulls
 $ODDS_PREFILL_ST_FIXTURE (e2e only): canned API response; no key read, no budget, no network."""
 import json, sys, urllib.request, urllib.error, os
 sys.path.insert(0, '/home/sandbox/rix_tmp')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # repo root - core/ import on GHA runners
 OUT = os.environ.get('ODDS_PREFILL_ST_OUT', '/tmp/odds_prefill_st.json')
 FIXTURE = os.environ.get('ODDS_PREFILL_ST_FIXTURE')
 _K = None
