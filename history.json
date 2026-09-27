@@ -219,8 +219,8 @@
     {
       "date": "2026-09-27",
       "label": "Sunday, Sep 27",
-      "record": "1-2",
-      "units": "-8.15u",
+      "record": "4-2",
+      "units": "-0.69u",
       "brief": "",
       "picks": [
         {
@@ -249,6 +249,33 @@
           "result": "L",
           "score": "NYL 91, MIN 75",
           "_delta": "-5.0"
+        },
+        {
+          "name": "Phillies ML",
+          "game": "vs Rays",
+          "odds": "-163",
+          "units": "5u",
+          "result": "W",
+          "score": "TB 3, PHI 7",
+          "_delta": "3.07"
+        },
+        {
+          "name": "Brewers ML",
+          "game": "vs Cardinals",
+          "odds": "-223",
+          "units": "5u",
+          "result": "W",
+          "score": "STL 4, MIL 6",
+          "_delta": "2.24"
+        },
+        {
+          "name": "Dodgers ML",
+          "game": "at Giants",
+          "odds": "-233",
+          "units": "5u",
+          "result": "W",
+          "score": "LAD 5, SF 1",
+          "_delta": "2.15"
         }
       ]
     }
