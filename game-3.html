@@ -273,7 +273,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790470747';const RP_ROOM='g3-2026-09-26';const RP_START='2026-09-26T23:45Z';
+const RP_BUILD='1790471027';const RP_ROOM='g3-2026-09-26';const RP_START='2026-09-26T23:45Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -790,6 +790,12 @@ async function rpFbLive(d){
  window.__rpLbF=0;
  try{
  if(!d.dataset.eid)return;
+ /* feed arbiter v3 (shared worker core): /feed/game composes cross-source-verified fields
+    (ESPN PBP-primary score + NCAA corroboration, per-field freeze detection). Arbiter verdicts
+    win on score + feed health; any arbiter failure falls through to the direct ESPN path
+    unchanged - failover invisible in the happy path (UX bar, main 9/26 4:48:33). */
+ let arb=null;
+ try{const _fr=await fetch('https://api.rix-picks.com/feed/game/'+d.dataset.eid+'?league='+encodeURIComponent(d.dataset.espn||'')+'&t='+Date.now());if(_fr.ok)arb=await _fr.json();}catch(e){}
  const j=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/summary?event='+d.dataset.eid+'&t='+Date.now())).json();
  const hdr=j.header||{};const comp=(hdr.competitions||[])[0]||{};
  const st=(comp.status||{}).type||{};
@@ -798,7 +804,8 @@ async function rpFbLive(d){
  const aw=(comp.competitors||[]).find(function(c){return c.homeAway==='away';})||{};
  const hm=(comp.competitors||[]).find(function(c){return c.homeAway==='home';})||{};
  const aAb=(aw.team||{}).abbreviation||'',hAb=(hm.team||{}).abbreviation||'';
- const aR=aw.score||'0',hR=hm.score||'0';
+ let aR=aw.score||'0',hR=hm.score||'0';
+ if(arb&&arb.fields){if(arb.fields.scoreAway&&!arb.fields.scoreAway.stale)aR=String(arb.fields.scoreAway.value);if(arb.fields.scoreHome&&!arb.fields.scoreHome.stale)hR=String(arb.fields.scoreHome.value);}  /* arbiter score: PBP-derived, NCAA-corroborated - beats the lagging header read */
  const aCol=(aw.team||{}).color?('#'+aw.team.color):null,hCol=(hm.team||{}).color?('#'+hm.team.color):null;
  const s=(await rpSit(d.dataset.espn,d.dataset.eid))||j.situation||comp.situation||{};
  const live=st.state==='in';
@@ -848,7 +855,10 @@ async function rpFbLive(d){
  if(rows.length){h+='<div style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98;margin:6px 0 4px">PLAY BY PLAY</div>';
   rows.forEach(function(tx){h+='<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.1)">'+tx+'</div>';});}
  h+='</div></div>';
- box.innerHTML=h;if(!(live&&(window.__rpClk[d.dataset.eid||'x']||{}).stale))window.__rpLiveOk=Date.now();  /* both clocks frozen = stale-as-live: no fresh stamp -> RECONNECTING */
+ if(arb&&(arb.allDown||arb.paused)){const _lbl='<div style="font-size:10px;letter-spacing:1px;color:#e8b93c;margin-top:6px;font-weight:800">'+(arb.allDown?'FEEDS DOWN - SHOWING LAST CONFIRMED':'UPDATES PAUSED - FEEDS STALE')+'</div>';h=h.slice(0,-6)+_lbl+h.slice(-6);}  /* arbiter health verdict: dim+label only when all sources dead or none advancing */
+ box.innerHTML=h;
+ if(arb&&(arb.allDown||arb.paused)){const _lc=document.getElementById('rpLiveCard');if(_lc)_lc.style.opacity='.55';}
+ if(!(live&&(window.__rpClk[d.dataset.eid||'x']||{}).stale))window.__rpLiveOk=Date.now();  /* both clocks frozen = stale-as-live: no fresh stamp -> RECONNECTING */
  }catch(e){}
 }
 function rpPbpToggle(){const el=document.getElementById('rpPbp');if(el)el.style.display=el.style.display==='none'?'block':'none';}
