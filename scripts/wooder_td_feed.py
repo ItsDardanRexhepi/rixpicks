@@ -60,6 +60,7 @@ def main(slate_path, out_path, dates=None):
         comp = ev['competitions'][0]
         st = ev['status']
         games[eid] = {'matchup': mu, 'espn_event_id': eid,
+                      'commence': ev.get('date'),  # ISO UTC tip-off - countdown derives from this, never hardcoded
                       'status': st['type']['state'],  # pre|in|post
                       'detail': _pt_detail(st['type'].get('shortDetail','')),
                       'score': ' - '.join(f"{c['team']['abbreviation']} {c.get('score','0')}" for c in comp['competitors'])}
