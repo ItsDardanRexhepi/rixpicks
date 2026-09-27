@@ -66,6 +66,11 @@ def main(path, write=False):
         print(f"OK {ticker}: {r['kalshi_quote']['bid_c']}/{r['kalshi_quote']['ask_c']} mid {mid}c")
     # .com gamma leg (owner 9/27 9:00 rule change: .com fills markets .us lacks; price-venue
     # lock - polymarket_com.cents always comes from gamma, the venue the chip opens).
+    # VENUE-LOCK RULING (main 9/27 2:44 PM, option 3): this leg STAYS on public gamma for
+    # .com-venue prices - the authenticated gateway serves the .us order book only, and .us
+    # data must NEVER render on a .com board (the 9/27 2:02 authed-rewire is scoped to
+    # .us-venue reads). If gamma starts failing from runners: escalate for a .com API key,
+    # never substitute .us data here.
     for r in rows:
         pc = r.get('polymarket_com')
         if not pc or not pc.get('url'):
