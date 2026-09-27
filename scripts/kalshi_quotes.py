@@ -19,6 +19,19 @@ OUT = 'slates/nfl_kalshi_quotes.json'
 API = 'https://api.elections.kalshi.com/trade-api/v2/markets?tickers=%s&limit=100'
 
 
+def iso_z(s):
+    """Normalize Kalshi updated_time to clean YYYY-MM-DDTHH:MM:SSZ (drops
+    fractional seconds - arbitrary-precision fractions break strict parsers)."""
+    if not isinstance(s, str):
+        return None
+    core = s.split('+')[0].replace('Z', '').split('.')[0]
+    try:
+        dt = datetime.strptime(core, '%Y-%m-%dT%H:%M:%S')
+    except Exception:
+        return None
+    return dt.strftime('%Y-%m-%dT%H:%M:%S') + 'Z'
+
+
 def cents(v):
     """Kalshi *_dollars string ("0.4900") -> cents int (49). 1..100 valid."""
     try:
@@ -80,7 +93,7 @@ def main():
             'status': m.get('status'),
             'yes_bid': cents(m.get('yes_bid_dollars')),
             'yes_ask': cents(m.get('yes_ask_dollars')),
-            'quoted_at': m.get('updated_time'),
+            'quoted_at': iso_z(m.get('updated_time')),
         }
     payload = {'quoted_at': datetime.now(timezone.utc).isoformat(), 'quotes': quotes}
     atomic_write(payload)
