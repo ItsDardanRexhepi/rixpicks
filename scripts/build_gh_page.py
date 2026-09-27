@@ -52,7 +52,8 @@ for _lk,_esp in [('FIFA_WC','soccer/fifa.world'),('EPL','soccer/eng.1')]:
         _RP_SPORT_CLOCK.setdefault(_esp,{'period_seconds':_sc['period_seconds'],'counts_down':_sc['counts_down']})
 ARB_INJECT=_ARB_SRC+'\nvar RP_SPORT_CLOCK='+json.dumps(_RP_SPORT_CLOCK,separators=(',',':'))+';\n' 
 
-RP_DESIGN='1.2.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme. v1.2.0 (user, Sep 25 8:46 AM): current page shape approved as THE standing daily template - header without FINAL line, tap-any-book intro, per-pick chips + units, combo section, record + unit line, minimal footer (reference commit fbec1c1). Every morning build reproduces this exact shape; changes only on his explicit instruction.
+_V2=os.environ.get('RP_V2')=='1'  # v2 dark shell (Julian-approved mock, Sep 27): builds the redesign candidate. Default (flag off) reproduces v1.2.0 EXACTLY - cron/refresh builds never jump the Julian/user publish gate.
+RP_DESIGN='2.0.0' if _V2 else '1.2.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme. v1.2.0 (user, Sep 25 8:46 AM): current page shape approved as THE standing daily template - header without FINAL line, tap-any-book intro, per-pick chips + units, combo section, record + unit line, minimal footer (reference commit fbec1c1). Every morning build reproduces this exact shape; changes only on his explicit instruction.
 
 def _pt_date(iso):
     # Sep 26 builder fix: real America/Los_Angeles conversion - a hard-coded UTC-7 is wrong in PST.
@@ -350,10 +351,17 @@ _MAN_SHA=_PC_HASH  # card identity: canonical pick-content hash (tester hold Sep
 # formatting) never move it, so a same-card rebuild keeps the pin; real pick content moves it.
 _cardprev=SHIPPED.get('__card__') or {}
 # precedence (tester gate 5): the shipped-ledger pin WINS, but only on PROVEN card identity -
-# same card date AND same manifest bytes. Sep 27: date-only matching let the live card's lock bleed
+# same card date AND same canonical pick-content identity (teams/side/odds/units/commence;
+# updated stamps, graded results, and formatting mutations do NOT move the pin). Sep 27:
+# date-only matching let the live card's lock bleed
 # into a same-day rebuild of a different card (the archived Friday-night 8-game card).
 _pin_ok=_cardprev.get('date')==_CARD_DATE and _cardprev.get('picks_sha')==_MAN_SHA
 ENTRY_LOCK=(_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or man.get('updated','')
+_ODDS_CHECKED=man.get('stamp_label')=='odds_checked'  # reconstructed/archive card: odds-check evidence only, no lock event - render "Odds checked <stamp>", never "locked" (main ruling Sep 27)
+def _stamp_html(p):
+    if _ODDS_CHECKED:
+        return 'Odds checked '+html.escape(ENTRY_LOCK)
+    return html.escape((p.get('locked') or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))+' &middot; locked'
 _today_iso=_dtc.date.today().isoformat()
 if _CARD_DATE>=_today_iso and (_cardprev.get('date')!=_CARD_DATE or not _cardprev.get('locked') or not _cardprev.get('picks_sha')):
     # the ledger tracks the CURRENT card only: a past-dated build (archive rebuild) never writes;
@@ -926,6 +934,7 @@ def _eid_resolve(man):
             g['eid']=''
 _eid_resolve(man)
 rows=[]
+_row_lgs=[]
 last_lg=None
 SEEN=[]
 for p in man['picks']:
@@ -934,6 +943,7 @@ for p in man['picks']:
         lbl=LG_LABEL.get(lg) or (lg.split('/')[-1].replace('-',' ').title() if lg else 'Other')
         ball=LG_BALL.get(lg,'\U0001f3c5')
         rows.append(f'<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">{ball}</span>{html.escape(lbl)}</div>')
+        _row_lgs.append(lg)
         last_lg=lg
     ch=chips(p)
     for _mm in re.finditer(r'<a [^>]*data-book="([A-Z]+)"[^>]*>', ch):
@@ -964,12 +974,13 @@ for p in man['picks']:
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px">'+_av+'</span>' if _av else ''
     rows.append(f'''<div class="pick" data-espn="{espn}" data-eid="{html.escape(_eid)}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{(_pt_date(g.get('commence','')) or 'card')}" data-commence="{html.escape(g.get('commence',''))}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}" data-codds="{html.escape(p.get('odds',''))}" data-stake="{html.escape(re.sub(r'[^0-9.]','',p.get('units','')))}"{(' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else '')}>
-  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="uo"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></span><span class="oddslock">{html.escape((p.get('locked') or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))} &middot; locked</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
+  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="uo"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></span><span class="oddslock">{_stamp_html(p)}</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="rpstart" data-commence="{html.escape(g.get('commence',''))}">{_pt_time(g.get('commence',''))}</div>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
   {ls_html}
 </div>''')
+    _row_lgs.append(lg)
 
 if not rows:
     # Empty-slate defense (Sep 26 chaos drill / app_spec Data rules): the page NEVER ships silently
@@ -978,6 +989,7 @@ if not rows:
     rows.append('<div class="pick"><div class="pick-head"><span class="name">No picks today</span></div>'
                 + (f'<div class="sub"><a class="yesrec" href="yesterday.html" style="color:inherit">Yesterday: {_y}</a></div>' if _y else '')
                 + '</div>')
+    _row_lgs.append('')
     print('EMPTY SLATE: degraded card shipped (no picks in manifest)', file=sys.stderr)
 
 _seen={}
@@ -1281,6 +1293,64 @@ RP_TSB=['AZ','CO','DC','IL','IN','IA','KS','KY','LA','MA','MD','MI','MO','NJ','N
 RP_HR=['AZ','CO','FL','IL','IN','MI','NJ','OH','TN','VA']
 RP_BR=['AZ','CO','CT','DE','DC','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','NH','NJ','NY','NC','OH','OR','PA','RI','TN','VT','VA','WV','WY']
 
+# --- shell: v2 dark redesign when RP_V2=1; otherwise the locked v1.2.0 markup, byte-for-byte.
+_yestr=(f'<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: {html.escape(man["yesterday"])}</a>' if man.get('yesterday') else '')
+_units_line=(f'<div class="yesrec unitspl" id="rpUnits" data-bu="{html.escape(re.sub(r"[^0-9.+-]","",man["units_pl"]))}">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else '')
+_rw,_rl=man['record'].split('-')[0],man['record'].split('-')[1]
+_tail_html=('<a class="rec" id="rpRec" data-bw="'+html.escape(str(_rw))+'" data-bl="'+html.escape(str(_rl))+'" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: '+html.escape(man['record'])+'</a>\n'
+    +wl_pct_line(man['record'])+'\n'+_units_line+'\n'
+    '<div class="unitmath">1u = $5 per $1,000 in bankroll</div>\n'
+    '<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>')
+if _V2:
+    INDEX_V2_CSS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.css')).read()
+    INDEX_V2_JS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.js')).read()
+    def _tab_of_lg(lg):
+        if lg=='football/college-football': return ('ncaaf','NCAAF',lg)
+        if lg=='football/nfl': return ('nfl','NFL',lg)
+        if lg=='baseball/mlb': return ('mlb','MLB',lg)
+        if lg=='basketball/nba': return ('nba','NBA',lg)
+        if lg in ('tennis','tennis/atp','tennis/wta'): return ('tennis','Tennis',lg)
+        lbl=LG_LABEL.get(lg) or (lg.split('/')[-1].replace('-',' ').title() if lg else 'Other')
+        return (re.sub(r'[^a-z0-9]','',lbl.lower()) or 'other', lbl, lg)
+    _CANON_TABS=[('ncaaf','NCAAF','football/college-football'),('nfl','NFL','football/nfl'),('mlb','MLB','baseball/mlb'),('nba','NBA','basketball/nba'),('tennis','Tennis','tennis')]
+    _panels={}
+    for _lg,_h in zip(_row_lgs,rows):
+        _k,_lbl,_esp=_tab_of_lg(_lg)
+        _panels.setdefault(_k,[]).append(_h)
+    RP_TABS=[{'key':k,'label':l,'espn':e} for k,l,e in _CANON_TABS]
+    _canon_keys=[t['key'] for t in RP_TABS]
+    for _lg,_h in zip(_row_lgs,rows):
+        _k,_lbl,_esp=_tab_of_lg(_lg)
+        if _k not in _canon_keys and not any(t['key']==_k for t in RP_TABS):
+            RP_TABS.append({'key':_k,'label':_lbl,'espn':_esp})
+    _tabs_html=''.join('<a class="tab" data-tab="'+t['key']+'" href="#'+t['key']+'">'+html.escape(t['label'])+'</a>' for t in RP_TABS)
+    _panels_html=''
+    for t in RP_TABS:
+        _prows=''.join(_panels.get(t['key']) or [])
+        _body=(_prows+nfl_entry) if t['key']=='nfl' else _prows
+        if not _body.strip():
+            _body='<div class="pick"><div class="pick-head"><span class="name">No picks today</span></div></div>'
+        elif _prows.strip():
+            _body='<div class="sect" style="margin-top:2px">Today&rsquo;s picks</div>'+_body
+        _panels_html+='<div class="state" id="st-'+t['key']+'">'+_body+'</div>\n'
+    _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
+    _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span class="rx">R</span><span class="rx">i</span><span class="rx">x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
+    '<nav class="rpnav"><a class="logo" href="index.html">&rsquo;<em>Rix</em>Picks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><div class="rec"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navu+'</div></nav>\n'
+    '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n'+_yestr+'\n'+_panels_html+parlay_html+'\n'+fut_watch_html+'\n'+fut_entry+'\n'+_tail_html+'</main>'
+    '<aside><div class="col-head"><div class="sect">Games</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div class="col-head" style="margin-top:18px"><div class="sect">News</div></div><div class="card" id="rpNews"></div></aside></div>\n'
+    '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
+    _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
+    _V2_SCRIPTS='<script>window.RP_TABS='+json.dumps(RP_TABS,separators=(',',':'))+';</script><script>'+INDEX_V2_JS+'</script>'
+else:
+    _SHELL=('<h1><span class="tick">&rsquo;</span>RixPicks</h1>\n'
+    f'<div class="status">{html.escape(man["date_label"])}</div>\n'
+    '<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'
+    +_yestr+'\n'
+    '<div class="sect">Today&rsquo;s picks</div>\n'
+    +chr(10).join(rows)+'\n'
+    +parlay_html+'\n'+fut_watch_html+'\n'+nfl_entry+'\n'+fut_entry+'\n'+_tail_html)
+    _V2_ASSETS=''
+    _V2_SCRIPTS=''
 page=f'''<!DOCTYPE html>
 <!-- 'RixPicks design system v{RP_DESIGN} - LOCKED (user, Sep 24 2026). Daily builds change picks content only. -->
 <html lang="en"><head>
@@ -1414,24 +1484,10 @@ h1 .tick{{color:#3BEBF5}}
 .chip[data-bk="B365"]{{background:#2a2410 !important;border-color:#2a2410 !important;color:#e0cd6a !important}}
 .chip[data-bk="FAN"]{{background:#232326 !important;border-color:#232326 !important;color:#d8d8dc !important}}
 }}
-</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"></head><body>
+</style>{_V2_ASSETS}<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"></head><body>
 <div id="rpPull"></div>
 <div class="wrap">
-<h1><span class="tick">&rsquo;</span>RixPicks</h1>
-<div class="status">{html.escape(man['date_label'])}</div>
-<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>
-{f'<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: {html.escape(man["yesterday"])}</a>' if man.get('yesterday') else ''}
-<div class="sect">Today&rsquo;s picks</div>
-{chr(10).join(rows)}
-{parlay_html}
-{fut_watch_html}
-{nfl_entry}
-{fut_entry}
-<a class="rec" id="rpRec" data-bw="{man['record'].split('-')[0]}" data-bl="{man['record'].split('-')[1]}" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</a>
-{wl_pct_line(man['record'])}
-{f'<div class="yesrec unitspl" id="rpUnits" data-bu="{html.escape(re.sub(r"[^0-9.+-]","",man["units_pl"]))}">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else ''}
-<div class="unitmath">1u = $5 per $1,000 in bankroll</div>
-<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>
+{_SHELL}
 <div id="rpModal"><div class="box">
 <h3>One quick thing</h3>
 <p>Share your location once so taps open the right product &mdash; sportsbook where it&rsquo;s live, prediction markets everywhere else. Location is required for market links. Saved on this device.</p>
@@ -2043,7 +2099,7 @@ function rpPageRefresh(){{try{{
 }}catch(e){{}}}}
 setInterval(rpPageRefresh,60000);
 </script>
-<script src="myprofile.js?v={{build_sha}}"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){{var pend=window.__rpGcPend=window.__rpGcPend||{{}};if(pend[p])return;pend[p]=1;var n=0;var go=function(){{try{{if(flag&&localStorage.getItem(flag)){{pend[p]=0;return;}}if(window.goatcounter&&goatcounter.count){{goatcounter.count({{path:p,event:true}});if(flag){{try{{localStorage.setItem(flag,'1');}}catch(e){{}}}}pend[p]=0;}}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}}catch(e){{pend[p]=0;if(n++<20)setTimeout(go,3000);}}}};go();}};</script></div></body></html>'''
+<script src="myprofile.js?v={{build_sha}}"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){{var pend=window.__rpGcPend=window.__rpGcPend||{{}};if(pend[p])return;pend[p]=1;var n=0;var go=function(){{try{{if(flag&&localStorage.getItem(flag)){{pend[p]=0;return;}}if(window.goatcounter&&goatcounter.count){{goatcounter.count({{path:p,event:true}});if(flag){{try{{localStorage.setItem(flag,'1');}}catch(e){{}}}}pend[p]=0;}}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}}catch(e){{pend[p]=0;if(n++<20)setTimeout(go,3000);}}}};go();}};</script></div>{_V2_SCRIPTS}</body></html>'''
 
 def _pt_label(iso):
     try:
@@ -2312,7 +2368,7 @@ def build_game_pages(man, css, build_sha):
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',abbr_a),('__HAB__',abbr_h),  # swamp 9/26: gpk registry blanks on unregistered games rendered UNLABELED arbiter-only scores - abbrs come from the same verified _meta_for source as the matchup display
             ('__EID__',html.escape(str(g.get('eid') or ''))),('__COUNTED__',' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else ''),
             ('__SIDE__',side),('__MKT__',mkt),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
-            ('__ODDS__',html.escape(p['odds'])),('__LOCK__',html.escape((p.get('locked') or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
+            ('__ODDS__',html.escape(p['odds'])),('__LOCK__',_stamp_html(p)),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
             ('__MKTHDR__',_mkthdr),('__FOOTNOTE__',_foot),
             ('__CHIPS__',ch),('__MATCHUP__',matchup),('__TEAMLINKS__',teamlinks),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),('__ROOM__','g%s-%s'%(p['num'],(_pt_date(g.get('commence','')) or 'card'))),('__START__',g.get('commence','') or ''),
             ('__CHARTS__',charts_html),('__BUILD__',build_sha),('__RPARB__',ARB_INJECT),('__RPCONSTS__',RP_CONSTS+'\nlet RP_MARKETS='+json.dumps(_PM,separators=(',',':'))+';'),('__STATEOPTS__',STATE_OPTS),('__STATECODES__','['+','.join(chr(34)+c+chr(34) for c,_ in RP_STATES)+']')]:

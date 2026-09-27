@@ -1,11 +1,11 @@
 {
  "date_label": "Saturday, Sep 26",
- "updated": "Sep 25, 10:29 PM PT",
+ "updated": "Sep 25, 10:25 PM PT",
  "archive_rebuild": "game-4..11 (8-game card shipped Fri Sep 25 10:29 PM PT, commit a857c06) reconstructed from served pages Sep 27 - manifest committed to close the orphan-manifest process gap",
  "picks": [
   {
    "name": "Cardinals ML",
-   "sub": "at Brewers · Mathews (2.37) vs May (5.40) · MIL resting",
+   "sub": "at Brewers \u00b7 Mathews (2.37) vs May (5.40) \u00b7 MIL resting",
    "odds": "+160",
    "units": "5u",
    "side": "away",
@@ -27,7 +27,7 @@
   },
   {
    "name": "Maryland ML",
-   "sub": "vs UCLA · cross-country 10:30am body-clock kick",
+   "sub": "vs UCLA \u00b7 cross-country 10:30am body-clock kick",
    "odds": "+100",
    "units": "5u",
    "side": "home",
@@ -48,7 +48,7 @@
   },
   {
    "name": "UCF ML",
-   "sub": "vs TCU · model favorite priced as home dog",
+   "sub": "vs TCU \u00b7 model favorite priced as home dog",
    "odds": "+130",
    "units": "5u",
    "side": "home",
@@ -69,7 +69,7 @@
   },
   {
    "name": "Penn State -10",
-   "sub": "vs Wisconsin · projected margin ~16",
+   "sub": "vs Wisconsin \u00b7 projected margin ~16",
    "odds": "-110",
    "units": "5u",
    "side": "home",
@@ -84,7 +84,7 @@
   },
   {
    "name": "Union ML",
-   "sub": "vs Orlando · xG-dominant both windows (2.76 last-5 xGF)",
+   "sub": "vs Orlando \u00b7 xG-dominant both windows (2.76 last-5 xGF)",
    "odds": "-213",
    "units": "5u",
    "side": "home",
@@ -98,7 +98,7 @@
   },
   {
    "name": "Atlanta United ML",
-   "sub": "vs NYCFC · NYC cold (1.22 last-5 xGF)",
+   "sub": "vs NYCFC \u00b7 NYC cold (1.22 last-5 xGF)",
    "odds": "+133",
    "units": "5u",
    "side": "home",
@@ -112,7 +112,7 @@
   },
   {
    "name": "Toronto FC ML",
-   "sub": "at Nashville · long shot, model 21% vs 15c",
+   "sub": "at Nashville \u00b7 long shot, model 21% vs 15c",
    "odds": "+567",
    "units": "5u",
    "side": "away",
@@ -126,7 +126,7 @@
   },
   {
    "name": "Real Salt Lake ML",
-   "sub": "vs New England · home + season-long xGA edge",
+   "sub": "vs New England \u00b7 home + season-long xGA edge",
    "odds": "+163",
    "units": "5u",
    "side": "home",
@@ -139,5 +139,6 @@
    "espn_league": "soccer/usa.1"
   }
  ],
- "record": "10-6"
+ "record": "10-6",
+ "stamp_label": "odds_checked"
 }
