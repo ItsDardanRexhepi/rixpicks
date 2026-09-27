@@ -1,135 +1,96 @@
 {
- "date": "2026-09-27",
- "picks": [
-  {
-   "player": "Pete Alonso",
-   "team": "BAL",
-   "matchup": "BAL at NYY",
-   "time": "10:05 AM PT",
-   "market": "Home Run",
-   "links": [
+  "date": "2026-09-27",
+  "picks": [
     {
-     "venue": "DKP",
-     "url": null
-    }
-   ]
-  },
-  {
-   "player": "Juan Soto",
-   "team": "NYM",
-   "matchup": "NYM at WSH",
-   "time": "10:05 AM PT",
-   "market": "Home Run",
-   "links": [
+      "player": "Pete Alonso",
+      "team": "BAL",
+      "matchup": "BAL at NYY",
+      "time": "10:05 AM PT",
+      "market": "Home Run",
+      "links": [
+        {
+          "venue": "DKP",
+          "url": null
+        }
+      ]
+    },
     {
-     "venue": "DKP",
-     "url": null
-    }
-   ]
-  },
-  {
-   "player": "James Wood",
-   "team": "WSH",
-   "matchup": "NYM at WSH",
-   "time": "10:05 AM PT",
-   "market": "Home Run",
-   "links": [
+      "player": "Junior Caminero",
+      "team": "TB",
+      "matchup": "TB at PHI",
+      "time": "11:30 AM PT",
+      "market": "Home Run",
+      "links": [
+        {
+          "venue": "DKP",
+          "url": null
+        }
+      ]
+    },
     {
-     "venue": "DKP",
-     "url": null
-    }
-   ]
-  },
-  {
-   "player": "Bo Bichette",
-   "team": "NYM",
-   "matchup": "NYM at WSH",
-   "time": "10:05 AM PT",
-   "market": "Home Run",
-   "links": [
+      "player": "Randal Grichuk",
+      "team": "CWS",
+      "matchup": "COL at CWS",
+      "time": "12:10 PM PT",
+      "market": "Home Run",
+      "links": [
+        {
+          "venue": "DKP",
+          "url": null
+        }
+      ]
+    },
     {
-     "venue": "DKP",
-     "url": null
-    }
-   ]
-  },
-  {
-   "player": "Junior Caminero",
-   "team": "TB",
-   "matchup": "TB at PHI",
-   "time": "11:30 AM PT",
-   "market": "Home Run",
-   "links": [
+      "player": "Shea Langeliers",
+      "team": "ATH",
+      "matchup": "HOU at ATH",
+      "time": "12:05 PM PT",
+      "market": "Home Run",
+      "links": [
+        {
+          "venue": "DKP",
+          "url": null
+        }
+      ]
+    },
     {
-     "venue": "DKP",
-     "url": null
-    }
-   ]
-  },
-  {
-   "player": "Randal Grichuk",
-   "team": "CWS",
-   "matchup": "COL at CWS",
-   "time": "12:10 PM PT",
-   "market": "Home Run",
-   "links": [
+      "player": "Corey Seager",
+      "team": "TEX",
+      "matchup": "TEX at MIN",
+      "time": "12:10 PM PT",
+      "market": "Home Run",
+      "links": [
+        {
+          "venue": "DKP",
+          "url": null
+        }
+      ]
+    },
     {
-     "venue": "DKP",
-     "url": null
-    }
-   ]
-  },
-  {
-   "player": "Shea Langeliers",
-   "team": "ATH",
-   "matchup": "HOU at ATH",
-   "time": "12:05 PM PT",
-   "market": "Home Run",
-   "links": [
+      "player": "Riley Greene",
+      "team": "DET",
+      "matchup": "PIT at DET",
+      "time": "12:10 PM PT",
+      "market": "Home Run",
+      "links": [
+        {
+          "venue": "DKP",
+          "url": null
+        }
+      ]
+    },
     {
-     "venue": "DKP",
-     "url": null
+      "player": "Pete Crow-Armstrong",
+      "team": "CHC",
+      "matchup": "CHC at BOS",
+      "time": "12:05 PM PT",
+      "market": "Home Run",
+      "links": [
+        {
+          "venue": "DKP",
+          "url": null
+        }
+      ]
     }
-   ]
-  },
-  {
-   "player": "Corey Seager",
-   "team": "TEX",
-   "matchup": "TEX at MIN",
-   "time": "12:10 PM PT",
-   "market": "Home Run",
-   "links": [
-    {
-     "venue": "DKP",
-     "url": null
-    }
-   ]
-  },
-  {
-   "player": "Riley Greene",
-   "team": "DET",
-   "matchup": "PIT at DET",
-   "time": "12:10 PM PT",
-   "market": "Home Run",
-   "links": [
-    {
-     "venue": "DKP",
-     "url": null
-    }
-   ]
-  },
-  {
-   "player": "Pete Crow-Armstrong",
-   "team": "CHC",
-   "matchup": "CHC at BOS",
-   "time": "12:05 PM PT",
-   "market": "Home Run",
-   "links": [
-    {
-     "venue": "DKP",
-     "url": null
-    }
-   ]
-  }
- ]
+  ]
 }
