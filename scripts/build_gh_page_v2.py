@@ -113,20 +113,15 @@ if _DISPLAY_ONLY:
 # record/units from the live page being rebuilt; only an approved publish (RP_PUBLISH=1) may move
 # them, from a manifest staged off the tracker at ship time.
 if os.environ.get('RP_REFRESH')=='1':
-    # Fail CLOSED (data auditor, Sep 26): a refresh that cannot pin record/units from the live page
-    # aborts loudly with NO write - a skipped odds refresh is recoverable, a clobbered record is not.
-    try:
-        if len(sys.argv)<=2 or not os.path.exists(sys.argv[2]): raise FileNotFoundError('live page missing')
-        _live=open(sys.argv[2],encoding='utf-8').read()
-        _lr=re.search(r'id="rpRec"[^>]*data-bw="(\d+)"[^>]*data-bl="(\d+)"', _live)
-        _lu=re.search(r'id="rpUnits"[^>]*>([^<]+)<', _live)
-        if not (_lr and _lu): raise ValueError('live record/units not parseable')
-        man['record']=f'{_lr.group(1)}-{_lr.group(2)}'
-        man['units_pl']=_lu.group(1).replace('Units:','').strip()
-        print(f"REFRESH INHERIT: record {man['record']} / units {man['units_pl']} pinned from live page (refresh cannot move them)", file=sys.stderr)
-    except Exception as _e:
-        print(f'REFRESH ABORTED: cannot pin record/units from live page ({type(_e).__name__}: {_e}) - no write, no push', file=sys.stderr)
+    # Main ruling Sep 27 2:32 PM (option a, one-record-one-source): refresh builds take record/units
+    # from the MANIFEST as loaded - never from the live page. The page's baked rpRec attributes went
+    # stale (13-6/+3.89u) and every pin re-poisoned the next build, flashing the wrong record on
+    # first paint while hydration showed the right one. Manifest is canonical post-fc312355.
+    # Fail CLOSED: a refresh whose manifest lacks record/units aborts loudly with NO write.
+    if not man.get('record') or not man.get('units_pl'):
+        print('REFRESH ABORTED: manifest.json missing record/units - no write, no push', file=sys.stderr)
         sys.exit(5)
+    print(f"REFRESH SOURCE: record {man['record']} / units {man['units_pl']} from manifest.json (canonical)", file=sys.stderr)
 def _rawurl(u):
     # Sep 26 builder fix: links can arrive HTML-escaped (past builds escaped into storage);
     # storage is RAW, escaping happens once at render. Loop because some stored links are double-escaped.
