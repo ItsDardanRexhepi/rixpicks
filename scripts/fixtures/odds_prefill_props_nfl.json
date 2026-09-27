@@ -1,0 +1,45 @@
+{
+  "id": "a512a48a58c4329048174217b2cc7ce0",
+  "sport_key": "americanfootball_nfl",
+  "commence_time": "2026-10-01T00:20:00Z",
+  "home_team": "Philadelphia Eagles",
+  "away_team": "Dallas Cowboys",
+  "bookmakers": [
+    {
+      "key": "draftkings",
+      "title": "DraftKings",
+      "markets": [
+        {
+          "key": "player_pass_yds",
+          "last_update": "2026-09-30T12:00:00Z",
+          "outcomes": [
+            {"name": "Over", "description": "Jalen Hurts", "price": -115, "point": 243.5},
+            {"name": "Under", "description": "Jalen Hurts", "price": -105, "point": 243.5}
+          ]
+        },
+        {
+          "key": "player_anytime_td",
+          "last_update": "2026-09-30T12:00:00Z",
+          "outcomes": [
+            {"name": "Yes", "description": "Saquon Barkley", "price": -140},
+            {"name": "No", "description": "Saquon Barkley", "price": 110}
+          ]
+        }
+      ]
+    },
+    {
+      "key": "fanduel",
+      "title": "FanDuel",
+      "markets": [
+        {
+          "key": "player_pass_yds",
+          "last_update": "2026-09-30T12:05:00Z",
+          "outcomes": [
+            {"name": "Over", "description": "Jalen Hurts", "price": -110, "point": 244.5},
+            {"name": "Under", "description": "Jalen Hurts", "price": -110, "point": 244.5}
+          ]
+        }
+      ]
+    }
+  ]
+}
