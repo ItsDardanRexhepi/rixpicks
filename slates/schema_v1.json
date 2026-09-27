@@ -1,0 +1,76 @@
+{
+ "contract": "RixPicks NFL anytime-TD slate v1 - one JSON object per delivery window",
+ "delivery": "Sundays 8:30 AM / 12:15 PM / 3:30 PM PT via i2i; our side validates with scripts/ingest_nfl_slate.py (any violation rejects the whole slate) and publishes slates/nfl_latest.json",
+ "window_enum": [
+  "sun-early",
+  "sun-afternoon",
+  "sun-night",
+  "mon-night",
+  "thu-night"
+ ],
+ "shape": {
+  "version": 1,
+  "source": "wooder-ice",
+  "kind": "nfl-anytime-td",
+  "generated_at": "ISO-8601 with offset, e.g. 2026-09-28T08:30:00-07:00",
+  "window": "one of window_enum",
+  "window_label": "display label, e.g. Sun 1:00 PM ET",
+  "dk": {
+   "singles": [
+    {
+     "player": "full name",
+     "team": "abbr",
+     "matchup": "CIN @ PIT",
+     "odds": "+115",
+     "link": "https://sportsbook.draftkings.com/... (optional)"
+    }
+   ],
+   "parlays": [
+    {
+     "legs": [
+      {
+       "player": "...",
+       "team": "...",
+       "matchup": "...",
+       "odds": "+115"
+      }
+     ],
+     "combined_odds": "+1200",
+     "est_payout": "$130 on $10",
+     "link": "https://... (optional)",
+     "pm": "https://kalshi.com/... fallback (optional)"
+    }
+   ],
+   "_rules": "parlay legs 2-8; all odds American (+115 / -140)"
+  },
+  "kalshi": {
+   "top10": [
+    {
+     "player": "...",
+     "team": "...",
+     "matchup": "...",
+     "prob": 0.62,
+     "price_c": 62,
+     "ticker": "KX... (optional)",
+     "link": "https://kalshi.com/markets/... (required)"
+    }
+   ],
+   "bankroll_builder": {
+    "matchup": "CIN @ PIT",
+    "picks": [
+     {
+      "player": "...",
+      "team": "...",
+      "matchup": "...",
+      "price_c": 62,
+      "link": "https://kalshi.com/... (required)"
+     }
+    ],
+    "est_cost_c": 185
+   },
+   "_rules": "top10 max 10 entries, prob 0-1, price_c int 0-100; bankroll_builder 3-5 picks from one matchup"
+  }
+ },
+ "validation": "unknown extra fields are ignored; missing required fields, bad odds, bad URLs (https:// draftkings.com or kalshi.com only), or out-of-range values reject the slate - nothing partial ships",
+ "notes": "picks only, no wagers; rendered above Futures on rix-picks.com as Wooder Ice picks, separate from the RixPicks card and record; slates older than 4 days render as the empty state"
+}

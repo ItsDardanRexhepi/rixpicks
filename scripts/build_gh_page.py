@@ -1008,6 +1008,59 @@ if FUT:
       '<a href="futures.html?v={build_sha}" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit">'
       '<span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span>'
       '<span style="color:#8a8f98;font-size:12px">'+str(len(FUT))+' live &rsaquo;</span></a>')
+# guest NFL anytime-TD slate (contract slates/schema_v1.json) - home section hydrates from
+# slates/nfl_latest.json; empty state until the first slate lands; stale slates (4d+) fall back to empty
+nfl_entry=(
+r'<div class="sect" style="margin-top:22px">Picks from Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div>'
+r'<div style="border:1px dashed rgba(127,127,127,.35);border-radius:12px;padding:11px 12px">'
+r'<div class="lghead" style="margin-top:0">NFL - anytime TD scorers</div>'
+r'<div style="font-size:12px;color:#8a8f98;margin:2px 0 8px">Separate from the RixPicks card and record. Picks only, no wagers placed.</div>'
+r'<div id="rpNfl"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div>'
+r'</div>'
+r'<style>.rpnpick{padding:12px 0;border-top:1px solid #e4e2de}'
+r'@media (prefers-color-scheme:dark){.rpnpick{border-top-color:#2a2a2e}}</style>'
+r'<script>(function(){'
+r'var box=document.getElementById("rpNfl");if(!box)return;'
+r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
+r'function okUrl(u){return (typeof u==="string")&&/^https:\/\/([a-z0-9-]+\.)*(draftkings\.com|kalshi\.com)(\/[A-Za-z0-9\-._~:/?&=%,+@!$()*;]*)?$/i.test(u)?u:null;}'
+r'function chip(bk,label,url,pm){if(!url)return "";var a=" data-bk=\""+bk+"\" data-book=\""+bk+"\" data-sb=\""+esc(url)+"\"";if(pm)a+=" data-pm=\""+esc(pm)+"\"";return "<span class=\"chip rpnontap\""+a+">"+esc(label)+"</span>";}'
+r'function ptLabel(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",weekday:"short",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}'
+r'function empty(){box.innerHTML="<div style=\"color:#8a8f98;font-size:13px;padding:6px 0\">No NFL slate yet - Wooder Ice anytime TD picks land here Sundays.</div>";}'
+r'function render(j){'
+r'var singles=((j.dk||{}).singles)||[],parlays=((j.dk||{}).parlays)||[];'
+r'var kal=j.kalshi||{},top=kal.top10||[],bb=kal.bankroll_builder;'
+r'if(!singles.length&&!parlays.length&&!top.length&&!(bb&&(bb.picks||[]).length)){empty();return;}'
+r'var h="<div style=\"font-size:12px;color:#8a8f98;margin:2px 0 4px\">"+esc(j.window_label||"")+(j.generated_at?" &middot; posted "+esc(ptLabel(j.generated_at)):"")+"</div>";'
+r'if(singles.length){h+="<div class=\"sect\" style=\"margin-top:10px\">DraftKings singles</div>";'
+r'singles.forEach(function(s,i){var kl=null;'
+r'top.forEach(function(t){if((t.player||"").toLowerCase()===(s.player||"").toLowerCase()&&(t.matchup||"")===(s.matchup||""))kl=t;});'
+r'var chips=chip("DK","DK "+s.odds,okUrl(s.link),kl?okUrl(kl.link):null);'
+r'if(kl)chips+=chip("KAL","KAL "+kl.price_c+"c",okUrl(kl.link),null);'
+r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(s.player)+"</b> anytime TD</span></span><span class=\"uo\"><span class=\"odds\">"+esc(s.odds||"")+"</span></span></div>"'
+r'+"<div class=\"sub\">"+esc(s.matchup||"")+"</div>"+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}'
+r'if(parlays.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Parlays</div>";'
+r'parlays.forEach(function(p){var legs=(p.legs||[]).map(function(l){return esc(l.player)+" ("+esc(l.odds||"")+")";}).join(" + ");'
+r'var chips=chip("DK","DK "+(p.combined_odds||""),okUrl(p.link),okUrl(p.pm));'
+r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+(p.legs||[]).length+"-leg parlay</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(p.combined_odds||"")+"</span></span></div>"'
+r'+"<div class=\"sub\">"+legs+"</div>"+(p.est_payout?"<div class=\"sub\">Est. payout "+esc(p.est_payout)+"</div>":"")+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}'
+r'if(top.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Kalshi top "+top.length+"</div>";'
+r'top.forEach(function(t,i){'
+r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(t.player)+"</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(t.price_c)+"c</span></span></div>"'
+r'+"<div class=\"sub\">"+esc(t.matchup||"")+" &middot; "+Math.round((t.prob||0)*100)+"%</div>"'
+r'+"<div class=\"chips\">"+chip("KAL","KAL "+t.price_c+"c",okUrl(t.link),null)+"</div></div>";});}'
+r'if(bb&&(bb.picks||[]).length){h+="<div class=\"sect\" style=\"margin-top:14px\">Bankroll builder</div>";'
+r'var bchips="";(bb.picks||[]).forEach(function(b2){bchips+=chip("KAL","KAL "+b2.price_c+"c",okUrl(b2.link),null);});'
+r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+esc(bb.matchup||"")+"</b></span></span></div>"'
+r'+"<div class=\"sub\">"+(bb.picks||[]).map(function(b2){return esc(b2.player)+" "+esc(b2.price_c)+"c";}).join(" + ")+"</div>"'
+r'+(bb.est_cost_c?"<div class=\"sub\">Est. cost "+esc(bb.est_cost_c)+"c</div>":"")+(bchips?"<div class=\"chips\">"+bchips+"</div>":"")+"</div>";}'
+r'box.innerHTML=h;'
+r'try{if(window.rpFilter)rpFilter(localStorage.getItem("rp_state"));}catch(e){}}'
+r'fetch("slates/nfl_latest.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
+r'if(!j||j.version!==1){empty();return;}'
+r'try{if(j.generated_at&&Date.now()-Date.parse(j.generated_at)>4*24*3600*1000){empty();return;}}catch(e){}'
+r'render(j);}).catch(empty);'
+r'})();</script>')
+
 fut_watch_html=''
 if FUT:
     try:
@@ -1356,6 +1409,7 @@ h1 .tick{{color:#3BEBF5}}
 {chr(10).join(rows)}
 {parlay_html}
 {fut_watch_html}
+{nfl_entry}
 {fut_entry}
 <a class="rec" id="rpRec" data-bw="{man['record'].split('-')[0]}" data-bl="{man['record'].split('-')[1]}" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: {html.escape(man['record'])}</a>
 {wl_pct_line(man['record'])}
