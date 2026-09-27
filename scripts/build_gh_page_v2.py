@@ -544,8 +544,15 @@ def _link_alive(url):
     ok=True
     try:
         import urllib.request
-        req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'},method='HEAD')
-        with urllib.request.urlopen(req,timeout=8) as r: ok=(r.status!=404)
+        if 'polymarket.us' in url:
+            # 9/27 swamp catch: polymarket.us soft-404s - HTTP 200 with OG title "Page not found".
+            # Status alone proves nothing on this host; verify page content.
+            req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+            with urllib.request.urlopen(req,timeout=10) as r: body=r.read(1200000).decode('utf-8','ignore')  # soft-404 marker sits ~466KB in - past any small cap
+            ok=('Page not found' not in body)
+        else:
+            req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'},method='HEAD')
+            with urllib.request.urlopen(req,timeout=8) as r: ok=(r.status!=404)
     except Exception as e:
         if '404' in str(e): ok=False
     _LINKCACHE[url]=ok
@@ -1083,6 +1090,9 @@ r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return
 r'function okUrl(u){return (typeof u==="string")&&/^https:\/\/([a-z0-9-]+\.)*(draftkings\.com|kalshi\.com)(\/[A-Za-z0-9\-._~:/?&=%,+@!$()*;]*)?$/i.test(u)?u:null;}'
 r'function chip(bk,label,url,pm){if(!url)return "";var a=" data-bk=\""+bk+"\" data-book=\""+bk+"\" data-sb=\""+esc(url)+"\"";if(pm)a+=" data-pm=\""+esc(pm)+"\"";return "<span class=\"chip rpnontap\""+a+">"+esc(label)+"</span>";}'
 r'function ptLabel(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",weekday:"short",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}'
+r'var RPCHIPS={};function RPKEY(p2,t2){return((p2||"")+"|"+(t2||"")).toLowerCase();}'
+r'function trkHtml(l,g){if(!g)return"";var dot=function(c){return"<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:"+c+";margin-right:6px;vertical-align:1px\"></span>";};var sc=(g.score&&g.status!=="pre")?(" &middot; "+esc(g.score)):"";if(g.status==="pre")return dot("#8a8f98")+"<span style=\"color:#8a8f98\">"+esc(g.detail||"Upcoming")+"</span>";var td=l.td_scored?("<b style=\"color:#0b6e5f\">TD"+(l.td_count>1?(" x"+l.td_count):"")+" &#10003;</b>"):null;if(g.status==="post")return td?(dot("#0b6e5f")+td+"<span style=\"color:#8a8f98\"> &middot; Final"+sc+"</span>"):(dot("#8a8f98")+"<span style=\"color:#8a8f98\">No TD &middot; Final"+sc+"</span>");return td?(dot("#0b6e5f")+td+"<span style=\"color:#8a8f98\"> &middot; "+esc(g.detail||"Live")+sc+"</span>"):(dot("#e8a13d")+"<span style=\"color:#b07708\">Live - no TD yet</span><span style=\"color:#8a8f98\"> &middot; "+esc(g.detail||"")+sc+"</span>");}'
+r'function updTrk(){fetch("slates/nfl_live.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){var gm={};(j.games||[]).forEach(function(g){gm[g.espn_event_id]=g;});(j.legs||[]).forEach(function(l){var el=document.querySelector("[data-trk=\""+RPKEY(l.player,l.team)+"\"]");if(el)el.innerHTML=trkHtml(l,gm[l.espn_event_id]);});}).catch(function(){});}'
 r'function empty(){box.innerHTML="<div style=\"color:#8a8f98;font-size:13px;padding:6px 0\">No NFL slate yet - Wooder Ice anytime TD picks land here Sundays.</div>";}'
 r'function rpAml(c){var q=c/100;if(q<=0||q>=1)return"";return q>=0.5?String(Math.round(-100*q/(1-q))):"+"+String(Math.round(100*(1-q)/q));}'
 r'function rpLegPx(o){var hasA=(o.odds!==undefined&&o.odds!==null&&String(o.odds)!=="");var hasC=(typeof o.price_c==="number"&&o.price_c>=1&&o.price_c<=99&&o.price_type==="contract_cents");if(hasA===hasC)return null;if(hasC)return{label:"DKP "+rpAml(o.price_c),head:rpAml(o.price_c)};return{label:"DK "+o.odds,head:String(o.odds)};}'
@@ -1094,13 +1104,13 @@ r'var h="<div style=\"font-size:12px;color:#8a8f98;margin:2px 0 4px\">"+esc(j.wi
 r'if(singles.length){h+="<div class=\"sect\" style=\"margin-top:10px\">DraftKings singles</div>";'
 r'singles.forEach(function(s,i){var kl=null;'
 r'top.forEach(function(t){if((t.player||"").toLowerCase()===(s.player||"").toLowerCase()&&(t.matchup||"")===(s.matchup||""))kl=t;});'
-r'var px=rpLegPx(s);if(!px)return;var chips=chip("DK",px.label,okUrl(s.link),kl?okUrl(kl.link):null);'
-r'if(kl)chips+=chip("KAL","KAL "+rpAml(kl.price_c),okUrl(kl.link),null);'
+r'var px=rpLegPx(s);if(!px)return;var chips=chip("DKP",px.label,okUrl(s.link),null);'
+r'var kc=RPCHIPS[RPKEY(s.player,s.team)];if(kc)chips+=chip("KAL","KAL "+rpAml(kc.ask_c),okUrl(kc.url),null);else if(kl)chips+=chip("KAL","KAL "+rpAml(kl.price_c),okUrl(kl.link),null);'
 r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"num\">"+(i+1)+".</span><span class=\"name\"><b>"+esc(s.player)+"</b> anytime TD</span></span><span class=\"uo\"><span class=\"odds\">"+esc(px.head)+"</span></span></div>"'
-r'+"<div class=\"sub\">"+esc(s.matchup||"")+"</div>"+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}'
+r'+"<div class=\"sub\">"+esc(s.matchup||"")+"</div><div class=\"sub rpntrk\" data-trk=\""+esc(RPKEY(s.player,s.team))+"\" style=\"margin-top:3px;font-size:12px\"></div>"+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}'
 r'if(parlays.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Parlays</div>";'
 r'parlays.forEach(function(p){var _bad=false;var legs=(p.legs||[]).map(function(l){var lp=rpLegPx(l);if(!lp)_bad=true;return esc(l.player)+" ("+(lp?esc(lp.head):"?")+")";}).join(" + ");if(_bad)return;'
-r'var _co=p.combined_odds,_cc=p.combined_price_c,_hasCO=(_co!==undefined&&_co!==null&&String(_co)!==""),_hasCC=(typeof _cc==="number"&&_cc>=1&&_cc<=99&&p.price_type==="contract_cents");if(_hasCO===_hasCC)return;var _clab=_hasCC?("DKP "+rpAml(_cc)):("DK "+_co),_chead=_hasCC?rpAml(_cc):String(_co);var chips=chip("DK",_clab,okUrl(p.link),okUrl(p.pm));'
+r'var _co=p.combined_odds,_cc=p.combined_price_c,_hasCO=(_co!==undefined&&_co!==null&&String(_co)!==""),_hasCC=(typeof _cc==="number"&&_cc>=1&&_cc<=99&&p.price_type==="contract_cents");if(_hasCO===_hasCC)return;var _clab=_hasCC?("DKP "+rpAml(_cc)):("DK "+_co),_chead=_hasCC?rpAml(_cc):String(_co);var chips=chip("DKP",_clab,okUrl(p.link),okUrl(p.pm));'
 r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+(p.legs||[]).length+"-leg parlay</b></span></span><span class=\"uo\"><span class=\"odds\">"+esc(_chead)+"</span></span></div>"'
 r'+"<div class=\"sub\">"+legs+"</div>"+(p.est_payout?"<div class=\"sub\">Est. payout "+esc(p.est_payout)+"</div>":"")+(chips?"<div class=\"chips\">"+chips+"</div>":"")+"</div>";});}'
 r'if(top.length){h+="<div class=\"sect\" style=\"margin-top:14px\">Kalshi top "+top.length+"</div>";'
@@ -1115,10 +1125,11 @@ r'+"<div class=\"sub\">"+(bb.picks||[]).map(function(b2){return esc(b2.player)+"
 r'+(bb.est_cost_c?"<div class=\"sub\">Est. cost "+esc(bb.est_cost_c)+"c</div>":"")+(bchips?"<div class=\"chips\">"+bchips+"</div>":"")+"</div>";}'
 r'box.innerHTML=h;'
 r'try{if(window.rpFilter)rpFilter(localStorage.getItem("rp_state"));}catch(e){}}'
+r'fetch("slates/nfl_chips.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(cj){((cj&&cj.legs)||[]).forEach(function(l){if(l.kalshi&&typeof l.kalshi.ask_c==="number")RPCHIPS[RPKEY(l.player,l.team)]={ask_c:l.kalshi.ask_c,url:l.kalshi.url};});}).catch(function(){}).then(function(){'
 r'fetch("slates/nfl_latest.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
 r'if(!j||j.version!==1){empty();return;}'
 r'try{if(j.generated_at&&Date.now()-Date.parse(j.generated_at)>4*24*3600*1000){empty();return;}}catch(e){}'
-r'render(j);}).catch(empty);'
+r'render(j);updTrk();setInterval(updTrk,60000);}).catch(empty);});'
 r'})();</script>')
 
 fut_watch_html=''
@@ -2583,11 +2594,11 @@ FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="vie
 <div id="rpPull"></div>
 <div class="wrap">
 <h1><span class="tick">&rsquo;</span>RixPicks</h1>
-<div class="status">Futures &middot; __COUNT__ picks &middot; live Polymarket + Kalshi tracking vs carded entry</div>
+<div class="status">Futures &middot; __COUNT__ picks &middot; live Kalshi tracking vs carded entry</div>
 <div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
 __ROWS__
 <div id="rpFd" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(0,0,0,.78);align-items:flex-end;justify-content:center" onclick="if(event.target===this)rpFdClose()"><div id="rpFdBox" style="background:#000000;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;padding:16px;color:#ECECF1"></div></div>
-<div class="unitmath" style="margin-top:18px">Live prices via Polymarket + Kalshi &middot; refresh live &middot; build __BUILD__</div>
+<div class="unitmath" style="margin-top:18px">Live prices via Kalshi &middot; refresh live &middot; build __BUILD__</div>
 </div>
 <script>
 async function rpFutTick(){
@@ -2632,7 +2643,7 @@ async function rpFutTick(){
  }));
  try{var _nw=Date.now();document.querySelectorAll('.futrow').forEach(function(r){
   var polyDead=r.dataset.pslug&&(_nw-((window.__rpPolyOkByFid||{})[r.dataset.fid]||0))>30000;
-  var kalDead=r.dataset.kalticker&&(_nw-((window.__rpKalOkByFid||{})[r.dataset.fid]||0))>90000;  /* 90s threshold matches the 60s pregame cadence; keyed to the row's own last valid price */
+  var kalDead=false;  /* 9/27: server-side futures_quotes.py owns Kalshi numbers (proxy tick removed per main) - rows re-seed each rebuild */
   var dm=!!(polyDead||kalDead);
   var lv=r.querySelector('.futlive');var mv=r.querySelector('.futmove');
   var hasKnown=!!((r.dataset.pslug&&(window.__rpPolyOkByFid||{})[r.dataset.fid])||(r.dataset.kalticker&&(window.__rpKalOkByFid||{})[r.dataset.fid]));  /* 'last known' requires a prior VERIFIED price (stamp present); a never-priced row has no last known - it is 'unavailable', never mislabeled */
@@ -2643,24 +2654,6 @@ async function rpFutTick(){
   if(window.__rpFdFid&&r.dataset.fid===window.__rpFdFid&&!r.dataset.kalticker){rpFdRenderLive(r);}  /* tester regression Sep 26: the open sheet rides EVERY tick incl. failed fetches - one render point after the staleness decision; KAL-driven sheets untouched while the lane is dormant */
  });}catch(e6){}  /* honesty dims (approved Sep 26): >30s stale source dims AND labels the row's live line; stale never re-stamps or passes as live */
 }
-async function rpFutKalTick(){
- document.querySelectorAll('.futrow[data-kalticker]').forEach(function(r){
-  var tk=r.dataset.kalticker;if(!tk)return;
-  var u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk+'?_='+Date.now();
-  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(function(res){return res.json();}).then(function(j){
-   var m=j&&j.market;if(!m)return;var p=parseFloat(m.yes_ask_dollars);if(!(p>0&&p<1))return;window.__rpKalOk=Date.now();(window.__rpKalOkByFid=window.__rpKalOkByFid||{})[r.dataset.fid]=Date.now();  /* per-row stamp - one dead ticker never rides another's success */
-   var c=p*100;var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
-   var el=r.querySelector('.futlive');if(el)el.textContent=(ml>0?'+':'')+ml;
-   var entry=r.dataset.entry||'+0';var eMl=parseInt(entry.replace('+',''),10)||100;
-   var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
-   var mv=r.querySelector('.futmove');if(!mv)return;
-   if(p>eImp+0.005){mv.innerHTML='<span style="color:#3ecf6f">&#9650; shortened from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+c.toFixed(1)+'%)</span>';}
-   else if(p<eImp-0.005){mv.innerHTML='<span style="color:#e5484d">&#9660; drifted from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+c.toFixed(1)+'%)</span>';}
-   else{mv.textContent='steady vs entry '+entry+' ('+(eImp*100).toFixed(1)+'%)';}
-  }).catch(function(){});
- });
-}
-rpFutKalTick();setInterval(rpFutKalTick,60000); /* regression gate Sep 26: proxies unusable at 5s (15s+ latency, 52x errors) - futures KAL at 60s until the relay lands */
 try{
  var rpFutIds2=[];
  document.querySelectorAll('.futrow').forEach(function(r){if(r.dataset.fid)rpFutIds2.push(r.dataset.fid);});
@@ -2729,7 +2722,7 @@ function rpFdRenderLive(r){
   var _ml=_kc>=50?-Math.round(_kc/(100-_kc)*100):Math.round((100-_kc)/_kc*100);
   var _e=r.dataset.entry||'+0',_eMl=parseInt(_e.replace('+',''),10)||100,_eImp=_eMl>0?100/(_eMl+100):(-_eMl)/((-_eMl)+100),_p=_kc/100;
   var _mv=_p>_eImp+0.005?'&#9650; shortened':(_p<_eImp-0.005?'&#9660; drifted':'steady');
-  b.style.opacity='';b.innerHTML='Live on Kalshi (ask) <b>'+(_ml>0?'+':'')+_ml+'</b> ('+_kc.toFixed(1)+'%) &middot; '+_mv+' vs entry '+_e+' &middot; ticks 60s, refreshes each rebuild';return;}  /* 9/27 futures live-odds: Kalshi-sourced, never .com gamma */
+  b.style.opacity='';b.innerHTML='Live on Kalshi (ask) <b>'+(_ml>0?'+':'')+_ml+'</b> ('+_kc.toFixed(1)+'%) &middot; '+_mv+' vs entry '+_e+' &middot; refreshes each site rebuild';return;}  /* 9/27 futures live-odds: Kalshi-sourced, never .com gamma */
 
  var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase(),entry=r.dataset.entry||'+0';
  var ok=((window.__rpPolyOkByFid||{})[r.dataset.fid])||0;
@@ -2775,23 +2768,33 @@ def build_futures_page(css,build_sha):
             _furl=''
         _flink=('<div style="margin-top:6px"><a class="chip"%s href="%s" data-book="POLY" data-sb="%s" target="_blank" rel="noreferrer">POLY &#8250;</a></div>'%(bkstyle('POLY'),html.escape(_furl),html.escape(_furl))) if _furl else ''
         # 9/27 owner instruction: futures odds live on-site. Server-seeded Kalshi ask (futures_quotes.py
-        # at refresh); client rpFutKalTick rides data-kalticker between rebuilds; no quote -> locked entry, never blank.
+        # at refresh) owns the numbers - no client poll (Kalshi sends no CORS header; proxy tick removed 9/27 per main); no quote -> locked entry, never blank.
         _kq=(f.get('kalshi_quote') or {})
         _kqok=(_kq.get('status')=='active' and isinstance(_kq.get('ask_c'),(int,float)) and 0<_kq['ask_c']<100)
         _fut_live=c2ml(_kq['ask_c']) if _kqok else f['odds']
         _kqattrs=(' data-ksrc="kalshi" data-kc="%d"'%round(_kq['ask_c'])) if _kqok else ''
         _ktick=_kq.get('ticker','') if _kqok else f.get('kalshi_ticker','')
+        _futmove=''
+        if _kqok:
+            try:
+                _eMl=int(str(f['odds']).replace('+',''))
+                _eImp=(100/(_eMl+100)) if _eMl>0 else ((-_eMl)/((-_eMl)+100))
+                _p=float(_kq['ask_c'])/100
+                if _p>_eImp+0.005: _futmove='<span style="color:#3ecf6f">&#9650; shortened from %s (%.1f%% &rarr; %.1f%%)</span>'%(html.escape(f['odds']),_eImp*100,_p*100)
+                elif _p<_eImp-0.005: _futmove='<span style="color:#e5484d">&#9660; drifted from %s (%.1f%% &rarr; %.1f%%)</span>'%(html.escape(f['odds']),_eImp*100,_p*100)
+                else: _futmove='steady vs entry %s (%.1f%%)'%(html.escape(f['odds']),_eImp*100)
+            except Exception: _futmove=''
         rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-kalticker="%s"%s data-entry="%s" data-team="%s" data-mkt="%s" data-fair="%s" data-prob="%s" data-res="%s" data-units="%s" data-note="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
         '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">'
         '<span style="font-weight:700">'+('<img src="https://a.espncdn.com/i/teamlogos/'+_REGALL.get(f.get('league',''),{}).get('logo_dir','')+'/500/'+f.get('abbr','')+'.png" style="width:20px;height:20px;border-radius:50%%;vertical-align:-4px;margin-right:7px" onerror="this.remove()">' if f.get('abbr') and _REGALL.get(f.get('league',''),{}).get('logo_dir') else '')+'%s</span>'
-        '<span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:.55">%s</span><button class="futdots" onclick="rpFutOpen(this.getAttribute(\'data-f\'))" data-f="%s" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div>'
+        '<span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:%s">%s</span><button class="futdots" onclick="rpFutOpen(this.getAttribute(\'data-f\'))" data-f="%s" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div>'
         '<div style="font-size:12px;color:#8a8f98;margin-top:2px">%s &middot; entry %s &middot; %su%s</div>'
         + ('<div style="font-size:12px;margin-top:3px;color:#d8a23a">&#8646; pick changed from %s (%s)</div>'%(html.escape(f['changed_from']['team']),html.escape(f['changed_from']['odds'])) if f.get('changed_from') else '')
-        + _flink
-        + '<div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98"></div></div>')
+        + '%s'
+        + '<div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98">%s</div></div>')
         %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(_ktick),_kqattrs,html.escape(f['odds']),
           html.escape(f['team']),html.escape(f['market']),html.escape(f.get('fair','')),html.escape(str(f.get('prob',''))),html.escape(f.get('res','')),str(f.get('units',2)),html.escape(f.get('note','')),
-          html.escape(f['team']),html.escape(_fut_live),html.escape(f['id']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else '')))
+          html.escape(f['team']),('' if _kqok else '.55'),html.escape(_fut_live),html.escape(f['id']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else ''),_flink,_futmove))
     pg=FUTURES_TMPL
     for tok,val in [('__CSS__',css),('__ROWS__',''.join(rows)),('__COUNT__',str(len(FUT))),('__BUILD__',build_sha),('__RPARB__',ARB_INJECT)]:
         pg=pg.replace(tok,val)
