@@ -77,8 +77,17 @@
    "card_american": -270,
    "card_source": "Kalshi ask at lock",
    "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": null,
-   "dkp": null
+   "polymarket": {
+    "url": "https://polymarket.com/event/nfl-nyj-det-2026-09-27",
+    "cents": 74
+   },
+   "dkp": {
+    "url": "https://predictions.draftkings.com/en/event/ny-jets-%40-det-lions/34118222",
+    "team_cents": 74
+   },
+   "polycents": 74,
+   "fdp": null,
+   "league": "NFL"
   },
   {
    "num": 2,
@@ -105,8 +114,17 @@
    "card_american": -163,
    "card_source": "Kalshi ask at lock",
    "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": null,
-   "dkp": null
+   "polymarket": {
+    "url": "https://polymarket.com/event/nfl-cin-pit-2026-09-27",
+    "cents": 60
+   },
+   "dkp": {
+    "url": "https://predictions.draftkings.com/en/event/cin-bengals-%40-pit-steelers/34118057",
+    "team_cents": 62
+   },
+   "polycents": 60,
+   "fdp": null,
+   "league": "NFL"
   },
   {
    "num": 3,
@@ -133,8 +151,17 @@
    "card_american": -257,
    "card_source": "Kalshi ask at lock",
    "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": null,
-   "dkp": null
+   "polymarket": {
+    "url": "https://polymarket.com/event/wnba-nyl-min-2026-09-27",
+    "cents": 72
+   },
+   "dkp": {
+    "url": "https://predictions.draftkings.com/en/event/ny-liberty-%40-min-lynx/34719865",
+    "team_cents": 73
+   },
+   "polycents": 72,
+   "fdp": null,
+   "league": "WNBA"
   },
   {
    "num": 4,
@@ -161,8 +188,17 @@
    "card_american": -163,
    "card_source": "Kalshi ask at lock",
    "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": null,
-   "dkp": null
+   "polymarket": {
+    "url": "https://polymarket.com/event/mlb-tb-phi-2026-09-27",
+    "cents": 62
+   },
+   "dkp": {
+    "url": "https://predictions.draftkings.com/en/event/tb-rays-%40-phi-phillies/34731651",
+    "team_cents": 63
+   },
+   "polycents": 62,
+   "fdp": null,
+   "league": "MLB"
   },
   {
    "num": 5,
@@ -189,8 +225,17 @@
    "card_american": -233,
    "card_source": "Kalshi ask at lock",
    "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": null,
-   "dkp": null
+   "polymarket": {
+    "url": "https://polymarket.com/event/mlb-lad-sf-2026-09-27",
+    "cents": 70
+   },
+   "dkp": {
+    "url": "https://predictions.draftkings.com/en/event/la-dodgers-%40-sf-giants/34731653",
+    "team_cents": 70
+   },
+   "polycents": 70,
+   "fdp": null,
+   "league": "MLB"
   },
   {
    "num": 6,
@@ -217,8 +262,17 @@
    "card_american": -223,
    "card_source": "Kalshi ask at lock",
    "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": null,
-   "dkp": null
+   "polymarket": {
+    "url": "https://polymarket.com/event/mlb-stl-mil-2026-09-27",
+    "cents": 64
+   },
+   "dkp": {
+    "url": "https://predictions.draftkings.com/en/event/stl-cardinals-%40-mil-brewers/34731661",
+    "team_cents": 67
+   },
+   "polycents": 64,
+   "fdp": null,
+   "league": "MLB"
   },
   {
    "num": 7,
@@ -245,9 +299,18 @@
    "card_american": -270,
    "card_source": "Kalshi ask at lock",
    "card_ts": "2026-09-27T07:00:34-07:00",
-   "polymarket": null,
-   "dkp": null
+   "polymarket": {
+    "url": "https://polymarket.com/event/wnba-wsh-atl-2026-09-27",
+    "cents": 72
+   },
+   "dkp": {
+    "url": "https://predictions.draftkings.com/en/event/was-mystics-%40-atl-dream/34725305",
+    "team_cents": 75
+   },
+   "polycents": 72,
+   "fdp": null,
+   "league": "WNBA"
   }
  ],
- "pick_content_hash": "9724c501b6ae563de12e97a0f2bf425d7de531f78b5c001cfbd5e23eb52ab1aa"
+ "pick_content_hash": "56b38d927c70b9b40588e813781949d3d2d814a23df8856a0e275190890935db"
 }
