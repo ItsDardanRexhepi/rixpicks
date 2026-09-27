@@ -2888,10 +2888,25 @@ function rpFutPoll(){fetch("futures.json?cb="+Date.now(),{cache:"no-store"}).the
   var mv=el.querySelector(".futmove");if(mv)mv.innerHTML=_fmv(el.dataset.entry||"+0",kq.ask_c);
   if(kq.quoted_at&&kq.quoted_at>asof)asof=kq.quoted_at;
   var pc=f.polymarket_com;
+  if(pc&&pc.quoted_at&&pc.quoted_at>asof)asof=pc.quoted_at;
   if(pc&&pc.verified&&typeof pc.cents==="number"&&pc.cents>0&&pc.cents<100){var pel=el.querySelector(".futpoly");if(pel)pel.textContent="POLY "+_faml(pc.cents);}
  });
- if(asof){var a2=document.getElementById("rpFutAsOf");if(a2)a2.textContent=_fpt(asof);}
-}).catch(function(){});}
+ if(asof){
+  var age=Date.now()-new Date(asof).getTime();
+  var stale=!(age>=0&&age<12*60*1000); /* promise is ~5 min - 12 min = honest slack, never stale-as-live */
+  var iv=document.getElementById("rpFutAsOf");
+  if(iv&&iv.parentNode){iv.parentNode.innerHTML=stale
+    ?('Quotes as of '+_fpt(asof)+' PT &middot; refresh delayed - showing last verified prices')
+    :('Live quotes as of <span id="rpFutAsOf">'+_fpt(asof)+'</span> PT &middot; refresh every ~5 min');}
+  var fl=document.querySelectorAll(".futlive,.futmove,.futpoly");
+  for(var i=0;i<fl.length;i++)fl[i].style.opacity=stale?".55":"";
+ }
+}).catch(function(){
+ var iv=document.getElementById("rpFutAsOf");
+ if(iv&&iv.parentNode)iv.parentNode.innerHTML='Quotes unavailable - refresh delayed';
+ var fl=document.querySelectorAll(".futlive,.futmove,.futpoly");
+ for(var i=0;i<fl.length;i++)fl[i].style.opacity=".55";
+});}
 rpFutPoll();setInterval(rpFutPoll,60000); /* server fast-loop owns the file; page just mirrors it - never ticks the exchange directly */
 })();</script>"""
     try:
