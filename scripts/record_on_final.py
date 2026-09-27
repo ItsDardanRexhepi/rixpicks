@@ -12,6 +12,7 @@ def main():
     a = sys.argv[1:]
     token = open('/tmp/.push_token').read().strip()
     res = record_pipe.on_final(a[0], int(a[1]), int(a[2]), a[3], a[4], a[5], a[6],
-                               Decimal(a[7]), ' '.join(a[8:]), LEDGER, token, dry_run=False)
+                               Decimal(a[7]), LEDGER, token, basis=' '.join(a[8:]) or record_pipe.BASIS,
+                               dry_run=False)
     print(res['chain'], res.get('stages', {}).get('post'))
 if __name__ == '__main__': main()
