@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T21:53:04.953269+00:00",
+ "generated_at": "2026-09-27T21:57:03.515643+00:00",
  "window": "sun-afternoon",
  "legs": [
   {
@@ -90,7 +90,7 @@
    "espn_event_id": "401872958",
    "commence": "2026-09-27T20:05Z",
    "status": "in",
-   "detail": "15:00 - 3rd",
+   "detail": "11:59 - 3rd",
    "score": "SF 17 - ARI 6"
   },
   {
@@ -106,15 +106,15 @@
    "espn_event_id": "401872961",
    "commence": "2026-09-27T20:25Z",
    "status": "in",
-   "detail": "0:07 - 2nd",
-   "score": "NO 13 - LV 13"
+   "detail": "Halftime",
+   "score": "NO 13 - LV 16"
   },
   {
    "matchup": "MIN @ TB",
    "espn_event_id": "401872959",
    "commence": "2026-09-27T20:05Z",
    "status": "in",
-   "detail": "14:55 - 3rd",
+   "detail": "12:21 - 3rd",
    "score": "TB 10 - MIN 17"
   }
  ]
