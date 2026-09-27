@@ -174,6 +174,7 @@ function renderGames(t,events){
  box.innerHTML=rows.join('')||'<div class="empty">No games listed right now.</div>';
 }
 function srcDom(s){return s==='CBS'?'cbssports.com':(s==='YAHOO'?'sports.yahoo.com':'espn.com');}
+function unesc(s){var t=document.createElement('textarea');t.innerHTML=String(s==null?'':s);return t.value;}  /* swamp 1:09: feeds ship HTML-encoded headlines (Jets&#39;) - decode before esc() or they double-escape */
 function newsBucket(t){
  if(!NEWSF||!NEWSF.leagues)return null;
  var L=NEWSF.leagues,out;
@@ -191,7 +192,7 @@ function renderNews(t,arts){
  arts.slice(0,8).forEach(function(a){
   var u=a.link||'';
   var s=a.source||'ESPN';
-  var inner='<span class="src '+s.toLowerCase()+'">'+esc(s)+'</span><span class="ntxt">'+esc(a.headline||'')+'</span><div class="nts">'+esc(ago(a.published))+' \u00b7 '+srcDom(s)+'</div>';
+  var inner='<span class="src '+s.toLowerCase()+'">'+esc(s)+'</span><span class="ntxt">'+esc(unesc(a.headline||''))+'</span><div class="nts">'+esc(ago(a.published))+' \u00b7 '+srcDom(s)+'</div>';
   h+='<div class="nitem">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
  });
  box.innerHTML=h;
@@ -239,7 +240,7 @@ function tickRender(){
   arts.slice(0,8).forEach(function(a){
    var u=a.link||'';
    var s=a.source||'ESPN';
-   h+='<'+(u?'a class="titem" href="'+esc(u)+'" target="_blank" rel="noreferrer"':'span class="titem"')+'><span class="tsrc '+s.toLowerCase()+'">'+esc(s)+'</span><span class="tsrc">'+esc(a.league||'')+'</span>'+esc(a.headline||'')+'</'+(u?'a':'span')+'><span class="tsep">\u00b7</span>';
+   h+='<'+(u?'a class="titem" href="'+esc(u)+'" target="_blank" rel="noreferrer"':'span class="titem"')+'><span class="tsrc '+s.toLowerCase()+'">'+esc(s)+'</span><span class="tsrc">'+esc(a.league||'')+'</span>'+esc(unesc(a.headline||''))+'</'+(u?'a':'span')+'><span class="tsep">\u00b7</span>';
   });
   h+=kal.join('');
   tr.innerHTML=h+h;
