@@ -204,10 +204,23 @@ def main():
     dry = '--dry-run' in sys.argv
     m = json.load(open(MANIFEST))
     seen = load_seen()
-    W, L, U = record_pipe.current_state(LEDGER)
     stamp = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M %Z')
     token = open(TOKEN_PATH).read().strip() if os.path.exists(TOKEN_PATH) else ''
     date_label = m.get('date_label', '')
+    if not dry:
+        # swamp 9:28: resume unfinished pending grades (appended, POST/GET not verified)
+        # with their EXACT saved rows BEFORE any successor is graded or state is read.
+        resumed = record_pipe.resume_pending(LEDGER, token)
+        for r in resumed:
+            if r['chain'] == 'complete':
+                seen[r['grade_id']] = {'verified_at': stamp, 'resumed': True}
+                os.makedirs(os.path.dirname(STATE), exist_ok=True)
+                json.dump(seen, open(STATE, 'w'))
+                print(f'{stamp} FINAL-CHAIN RESUMED+VERIFIED {r["grade_id"]}')
+            else:
+                print(f'{stamp} WARN: pending grade {r["grade_id"]} still {r["chain"]} - chain STOPS, nothing new graded')
+                return
+    W, L, U = record_pipe.current_state(LEDGER)
     picks = sorted([p for p in m.get('picks', []) if p.get('game', {}).get('eid')],
                    key=lambda p: p['game'].get('commence', ''))
     fired = []

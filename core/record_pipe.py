@@ -28,18 +28,62 @@ def read_rows(ledger_path):
     except FileNotFoundError:
         return []
 
+def _is_verified(row, state):
+    """A row counts toward the cumulative ONLY if verified: the canonical baseline
+    (grade_id G-BASELINE-*) or the sidecar marks its POST/GET chain verified."""
+    gid = row.get('grade_id', '')
+    return gid.startswith('G-BASELINE-') or bool(state.get(gid, {}).get('verified'))
+
 def current_state(ledger_path):
-    """(w, l, units_exact Decimal) from the LAST ledger row - cumulative by construction,
-    so replaying prior verified rows is automatic. Refuses an empty ledger: never zero-seed."""
+    """(w, l, units_exact) from the last VERIFIED ledger row. Swamp 9:28: the canonical
+    G-BASELINE-* row must exist explicitly, and unverified rows (appended but POST/GET
+    not yet confirmed) must NOT seed the next grade - that deadlock rejects the retry
+    as a resume mismatch forever."""
     from decimal import Decimal
     import re
     rows = read_rows(ledger_path)
     if not rows:
         raise SystemExit('FAIL-CLOSED: record ledger empty (no baseline row) - refusing to grade')
-    m = re.match(r'^(\d+)-(\d+)', rows[-1].get('record', ''))
+    if not rows[0].get('grade_id', '').startswith('G-BASELINE-'):
+        raise SystemExit(f"FAIL-CLOSED: first ledger row is {rows[0].get('grade_id')!r}, "
+                         'not the canonical G-BASELINE-* row - refusing to grade')
+    state = _load_state(ledger_path)
+    last_verified = None
+    for r in rows:
+        if _is_verified(r, state):
+            last_verified = r
+    if last_verified is None:
+        raise SystemExit('FAIL-CLOSED: no verified ledger rows (baseline missing sidecar-independent status)')
+    m = re.match(r'^(\d+)-(\d+)', last_verified.get('record', ''))
     if not m:
-        raise SystemExit(f"FAIL-CLOSED: last ledger row record {rows[-1].get('record')!r} unparseable")
-    return int(m.group(1)), int(m.group(2)), Decimal(rows[-1]['units_exact'])
+        raise SystemExit(f"FAIL-CLOSED: verified row record {last_verified.get('record')!r} unparseable")
+    return int(m.group(1)), int(m.group(2)), Decimal(last_verified['units_exact'])
+
+def resume_pending(ledger_path, token):
+    """Complete the POST/GET chain for every ledger row that is appended but not yet
+    verified (sidecar missing or verified=false), in ledger order, BEFORE any successor
+    is graded. Returns list of {grade_id, chain}; caller MUST stop if any chain != complete."""
+    out = []
+    state = _load_state(ledger_path)
+    for r in read_rows(ledger_path):
+        gid = r.get('grade_id', '')
+        if gid.startswith('G-BASELINE-') or state.get(gid, {}).get('verified'):
+            continue
+        payload = {'record': r['record'], 'win_pct': r['win_pct'], 'units': r['units']}
+        post = post_record_update(payload, token, expected=payload, dry_run=False)
+        g = state.get(gid, {})
+        g['appended'] = True
+        if post.get('post_status') and str(post.get('post_status')).startswith('2'):
+            g['posted'] = True
+        g['verified'] = bool(post.get('verified'))
+        state[gid] = g
+        _save_state(ledger_path, state)
+        chain = 'complete' if g['verified'] else (
+            'posted-unverified-resumable' if g.get('posted') else 'post-failed-resumable')
+        out.append({'grade_id': gid, 'chain': chain, 'mismatches': post.get('mismatches')})
+        if chain != 'complete':
+            break  # order guard: never resume a successor while an earlier grade is unfinished
+    return out
 
 def append_row(ledger_path, row):
     """Append-only, idempotent on grade_id."""
