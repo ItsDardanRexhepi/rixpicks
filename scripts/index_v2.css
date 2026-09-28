@@ -233,6 +233,6 @@ body.tab-home .ultrix-sync-line{display:block}
 .pick.rp-empty{padding:18px 14px;text-align:center}
 .pick.rp-empty .pick-head{justify-content:center}
 .pick.rp-empty .sub{margin-top:8px}
-.pick.rp-empty .yesrec{color:#8a8f98;text-decoration:none;border-bottom:1px solid rgba(127,127,127,.35);font-size:13px}
+.pick.rp-empty .yesrec{color:#8a8f98;text-decoration:none;border-bottom:none;font-size:13px}
 .futpill{font-size:10px;font-weight:700;letter-spacing:.06em;color:#3aa895;border:1px solid rgba(58,168,149,.45);border-radius:999px;padding:3px 8px;white-space:nowrap}
 #rpGames.homeall{max-height:560px;overflow-y:auto}
