@@ -563,17 +563,9 @@ function kalItemsFor(t,cb){
    is constant; (4) background/visibility desync - rAF stops/resumes without state loss. */
 var TICK_V=46,tickX=0,tickHalf=0,tickPaused=false,tickLast=0;
 try{if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)TICK_V=0;}catch(e){}
-function tickDrive(ts){
- var tr=$('rpTickTrack');
- if(tr&&tickHalf>0&&!tickPaused&&!document.hidden&&TICK_V>0){
-  if(tickLast)tickX=(tickX+TICK_V*(ts-tickLast)/1000)%tickHalf;
-  tr.style.transform='translateX('+(-Math.round(tickX*2)/2)+'px)';
- }
- tickLast=ts;
- requestAnimationFrame(tickDrive);
-}
-requestAnimationFrame(tickDrive);
-(function(){var b=$('rpTickBar');if(b){b.addEventListener('mouseenter',function(){tickPaused=true;});b.addEventListener('mouseleave',function(){tickPaused=false;});}})();
+/* ticker motion is CSS-composited (rpTickX keyframes) since 1:50 - no rAF drive, no 1Hz
+   throttling artifacts, hover pause via CSS animation-play-state. tickX/tickHalf kept for
+   content-rebuild bookkeeping. */
 function tickRender(){
  var tr=$('rpTickTrack'),bar=$('rpTickBar');if(!tr||!bar)return;
  var arts=(NEWSF&&NEWSF.latest)||[];
@@ -590,8 +582,13 @@ function tickRender(){
   if(h!==tr.__h){
    tr.__h=h;tr.innerHTML=h+h;
    var nh=tr.scrollWidth/2;
-   tickX=(tickHalf>0&&nh>0)?(tickX%nh):0;  /* same visual position under the new width */
    tickHalf=nh;
+   /* QA 1:50 stutter kill: compositor-driven CSS animation (true constant px/s, smooth even
+      when rAF is throttled to 1Hz in occluded tabs - the stepwise 47px jumps QA measured
+      were rAF starvation, not the drive math). Speed stays TICK_V px/s via duration. */
+   tr.style.animation='none';
+   void tr.offsetWidth;
+   tr.style.animation='rpTickX '+(nh>0?(nh/TICK_V).toFixed(2):1)+'s linear infinite';
   }
  });
 }
