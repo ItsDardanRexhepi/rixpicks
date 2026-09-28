@@ -194,10 +194,11 @@ function newsBucket(t){
  var out=[];
  if(NEWSF&&NEWSF.leagues){
   var L=NEWSF.leagues;
-  if(t.key==='home'){out=[];Object.keys(L).forEach(function(k){out=out.concat(L[k]||[]);});if(!out.length)out=(NEWSF.latest||[]).slice();}
+  if(t.key==='home'||t.key==='wooder'||t.key==='past'){out=[];Object.keys(L).forEach(function(k){out=out.concat(L[k]||[]);});if(!out.length)out=(NEWSF.latest||[]).slice();}
   else if(t.key==='tennis'){out=(L['tennis/atp']||[]).concat(L['tennis/wta']||[]);}
   else if(t.key==='ufcboxing'){out=(L['mma/ufc']||[]).concat(L['boxing']||[]);}
   else out=L[t.espn]||[];
+  if(!out.length)out=(NEWSF.latest||[]).slice(); /* owner 12:29: empty news on a live tab is a bug - fall back to all-sources latest */
   out=out.slice();
  }
  out=out.concat(DNEWS[t.key]||[]);
@@ -304,7 +305,7 @@ function socGo(d){if(SOC_N<2)return;SOC_IDX=(SOC_IDX+d+SOC_N)%SOC_N;socApply();}
 function renderSocial(){
  var box=$('rpSocial');if(!box)return;
  if(!XNEWS.length){box.innerHTML='<div class="empty">No posts right now.</div>';SOC_SIG='';SOC_N=0;return;}
- var items=XNEWS.slice(0,6);
+ var items=XNEWS.slice().sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);}).slice(0,6);
  var sig=items.map(function(p){return String(p.headline||'').slice(0,40);}).join('|');
  if(sig===SOC_SIG){socApply();return;}
  SOC_SIG=sig;SOC_N=items.length;
