@@ -37,7 +37,7 @@ jobs:
         run: |
           git config user.name "RixPicks Bot"
           git config user.email "rixpicks-bot@users.noreply.github.com"
-          git add slates/x_feed.json slates/x_burn.jsonl 2>/dev/null || exit 0
+          git add slates/x_feed.json slates/x_burn.jsonl slates/x_feed_state.json 2>/dev/null || exit 0
           git diff --cached --quiet && exit 0
           git commit -m "x feed $(date -u +%H:%M) UTC"
           for i in 1 2 3 4 5; do
