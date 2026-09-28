@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T09:57:48.483637+00:00",
+ "generated_at": "2026-09-28T10:09:25.371768+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -23,14 +23,6 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Jodie Burrage @ Rebecca Sramkova",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Jodie Burrage 0 - Rebecca Sramkova 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Varvara Lepchenko @ Ulrikke Eikeri",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
@@ -44,6 +36,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Mai Hontama 0 - Alexandra Panova 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Darya Astakhova @ Desirae Krawczyk",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Darya Astakhova 0 - Desirae Krawczyk 0"
     }
    ]
   },
@@ -55,7 +55,7 @@
      "matchup": "Anna Blinkova @ Emiliana Arango",
      "commence": "2026-09-26T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Anna Blinkova 0 - Emiliana Arango 0"
     },
     {
@@ -76,14 +76,6 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Jodie Burrage @ Rebecca Sramkova",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Jodie Burrage 0 - Rebecca Sramkova 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Varvara Lepchenko @ Ulrikke Eikeri",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
@@ -97,6 +89,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Mai Hontama 0 - Alexandra Panova 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Darya Astakhova @ Desirae Krawczyk",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Darya Astakhova 0 - Desirae Krawczyk 0"
     }
    ]
   }
