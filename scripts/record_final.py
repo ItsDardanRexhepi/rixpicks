@@ -68,11 +68,65 @@ def nick(display):
     parts = display.split()
     return parts[-1] if parts else display
 
+
+def eod_day_close(p):
+    """EOD DAY CLOSE wire (analysis, Sep 28): the brief travels IN the payload.
+    eod_day_close.py itself can NEVER run here - its sheet reads shell out to the
+    analysis runtime. Verify anchors fail-closed, then fill the day-row brief ONLY.
+    Canonical pick rows and _delta fields are never touched; no row creation."""
+    date = p.get('date')
+    brief = p.get('brief')
+    if not date or not isinstance(brief, str) or not brief.strip():
+        print('  REFUSE eod_day_close: missing date or empty brief', file=sys.stderr)
+        return 3
+    hist = json.load(open(HIST))
+    day = next((d for d in hist['days'] if d.get('date') == date), None)
+    if day is None:
+        print(f'  REFUSE eod_day_close: no chain-written day row for {date} - no row creation', file=sys.stderr)
+        return 3
+    if not day['picks'] or any(pk.get('result') not in ('W', 'L', 'P') for pk in day['picks']):
+        print(f'  REFUSE eod_day_close: ungraded picks remain in {date} row', file=sys.stderr)
+        return 3
+    if p.get('record') != day.get('record'):
+        print(f'  REFUSE eod_day_close: record anchor {p.get("record")} != day row {day.get("record")}', file=sys.stderr)
+        return 3
+    if not any('_delta' in pk for pk in day['picks']):
+        print(f'  REFUSE eod_day_close: no _delta ledger fields in {date} row - not chain-written', file=sys.stderr)
+        return 3
+    du = sum((Decimal(pk['_delta']) for pk in day['picks'] if '_delta' in pk), Decimal('0'))
+    try:
+        pu = Decimal(str(p.get('units', '')).strip().rstrip('u'))
+    except Exception:
+        print(f'  REFUSE eod_day_close: unparsable units anchor {p.get("units")!r}', file=sys.stderr)
+        return 3
+    if pu != du and pu != du.quantize(Decimal('0.01')):
+        print(f'  REFUSE eod_day_close: units anchor {pu} != exact day sum {du}', file=sys.stderr)
+        return 3
+    gid = 'eod_day_close:' + date
+    done = {'processed': [], 'at': None}
+    if os.path.exists(DONE):
+        done = json.load(open(DONE))
+    if gid in done.get('processed', []):
+        print(f'  skip {gid}: already processed')
+        json.dump({'requests': []}, open(REQ, 'w'), indent=2)
+        return 0
+    day['brief'] = brief
+    json.dump(hist, open(HIST, 'w'), indent=2)
+    done.setdefault('processed', []).append(gid)
+    done['at'] = datetime.now(timezone.utc).isoformat()
+    json.dump(done, open(DONE, 'w'), indent=2)
+    json.dump({'requests': []}, open(REQ, 'w'), indent=2)
+    print(f'EOD DAY CLOSE: brief filled for {date} (record {day["record"]}, units {fmt_units(du)})')
+    return 0
+
 def main():
     if not os.path.exists(REQ):
         print('no record_request.json - nothing to do')
         return 0
-    reqs = (json.load(open(REQ)).get('requests')) or []
+    payload = json.load(open(REQ))
+    if payload.get('kind') == 'eod_day_close':
+        return eod_day_close(payload)
+    reqs = payload.get('requests') or []
     if not reqs:
         print('record_request.json empty - nothing to do')
         return 0
