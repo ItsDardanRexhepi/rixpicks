@@ -25,3 +25,17 @@
 {"ts": "2026-09-28T20:36:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Ranking\" OR \"MLB\" OR \"Yankees\") lang:en -is:retweet -is:reply", "results": 10}
 {"ts": "2026-09-28T20:36:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Fox Selects Indiana\" OR \"Nebraska\" OR \"Big\") lang:en -is:retweet -is:reply", "results": 10}
 {"ts": "2026-09-28T20:36:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"J.J. McCarthy\" OR \"Giants\" OR \"Vikings QB\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:58:17+00:00", "endpoint": "/tweets/search/recent", "query": "\"Chicago Bears\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-28T20:58:17+00:00", "endpoint": "/tweets/search/recent", "query": "\"Philadelphia Eagles\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T20:58:17+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2026 MLB playoff\" lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:58:18+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Fantasy Football Waiver\" lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:58:18+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Stroud prove year\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T20:58:18+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"C.J. Stroud\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:58:18+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"McCarthy experiment unraveled\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-28T20:58:18+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"network designated Texas\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T20:58:18+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"No.\" OR \"Texas\" OR \"Oklahoma\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:58:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Ranking pitching staffs\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T20:58:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Ranking\" OR \"MLB\" OR \"Yankees\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:58:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Fox Selects Indiana\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-28T20:58:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"McCarthy trade Giants\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T20:58:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"J.J. McCarthy\" OR \"Giants\" OR \"Vikings QB\") lang:en -is:retweet -is:reply", "results": 10}
