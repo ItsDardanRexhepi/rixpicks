@@ -203,7 +203,7 @@ function newsBucket(t){
  }
  out=out.concat(DNEWS[t.key]||[]);
  /* XNEWS intentionally NOT merged: X posts get their own Home social section (owner 10:32); news is articles only. XNEWS stays populated for that consumer. */
- out.sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);});
+ out.sort(function(a,b){return (Date.parse(b.published||0)||0)-(Date.parse(a.published||0)||0);});
  var seen={},seenP={},ded=[];
  out.forEach(function(a){var n=normH(a.headline);if(!n)return;var pk=n.slice(0,40);if(seen[n]||seenP[pk])return;seen[n]=1;seenP[pk]=1;ded.push(a);});
  return ded;
@@ -241,6 +241,7 @@ function carMove(ci,sync){
  vp.style.height=s.offsetHeight+'px';
  tr.style.transform='translateY(-'+s.offsetTop+'px)';
  var c=$('rpCarCount');if(c)c.textContent=(CAR_N?(CAR_IDX+1):0)+' of '+CAR_N;
+ var mb=$('rpSocMore');if(mb){var _mm=socMatchMore();mb.style.display=(_mm&&_mm.length)?'':'none';} /* audit 7: never offer an empty expansion */
  if(sync)socSync();
 }
 function carApply(){carMove(CAR_IDX+(carCloned($('rpCarTrack'),CAR_N)?1:0),true);}
@@ -304,10 +305,17 @@ function renderNews(t,arts){
  var box=$('rpNewsCar');if(!box)return;
  if(t&&t.key!=='home'){box.innerHTML='';return;}  /* owner 12:54: News renders on Home only - no leaks, no per-tab feeds */
 
- var items=(arts||[]).slice(0,12);
- if(!items.length&&CAR_LAST.length)items=CAR_LAST; /* latest-valid fallback: never blank a good card on a bad fetch */
+ var base=(arts||[]);
+ /* matched-only (owner 1:09/1:11 + 2:59 "factually synced at all times" + QA audit 6): with a
+    fresh sync map the news carousel shows ONLY stories holding a URF-verified social pair;
+    unmatched stories live in View all News. Counts are a CONSEQUENCE, never forced. No fresh
+    map -> fail closed to the plain list (12:29 news-never-blank is about fetch failures, not
+    about rendering unverified pairs). */
+ var matchedOnly=!!(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs);
+ var items=matchedOnly?base.filter(function(a){var pr=SOC_MATCH.pairs[(a.link||'')||String(a.headline||'')];return !!(pr&&pr.post_id);}):base.slice(0,12);
+ if(!items.length&&!matchedOnly&&CAR_LAST.length)items=CAR_LAST; /* latest-valid fallback: never blank a good card on a bad fetch */
  if(items.length)CAR_LAST=items;
- CAR_ALL=(arts||[]).slice(0,40);
+ CAR_ALL=base.slice(0,40);
  var sig=items.map(function(a){return normH(a.headline);}).join('|');
  if(sig===CAR_SIG&&$('rpCarTrack')){carApply();return;}
  var curKey=(CAR_LAST[CAR_IDX]&&carKey(CAR_LAST[CAR_IDX]))||'';
@@ -315,7 +323,15 @@ function renderNews(t,arts){
  CAR_IDX=0;
  if(curKey){for(var _ci=0;_ci<items.length;_ci++){if(carKey(items[_ci])===curKey){CAR_IDX=_ci;break;}}}
  if(CAR_IDX>=CAR_N)CAR_IDX=0;
- if(!items.length){box.innerHTML='<div class="empty">News unavailable right now.</div>';return;}
+ if(!items.length){
+  if(matchedOnly){ /* designed syncing state (2:59): honest, styled, keeps View all reachable */
+   box.innerHTML='<div class="empty syncwait">Live sync on - stories land here as the algorithm verifies matching social posts. Everything unmatched is in View all News.</div>'
+    +'<div class="carctl"><button type="button" id="rpCarAllBtn" class="carall">View all News</button></div>';
+   $('rpCarAllBtn').addEventListener('click',function(e){e.preventDefault();carAll();});
+   CAR_N=0;return;
+  }
+  box.innerHTML='<div class="empty">News unavailable right now.</div>';return;
+ }
  var h='<div class="carvp"><div class="cartrack" id="rpCarTrack">';
  items.forEach(function(a){
   var u=a.link||'',src=a.source||'';
@@ -449,7 +465,7 @@ function renderSocial(){
   if(REL){var r=REL[String(p.id)];if(r)return r.on_topic!==false;return true;}
   return RP_SPORT_KW.test(String(p.headline||''));
  };
- var chrono=XNEWS.slice().sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);});
+ var chrono=XNEWS.slice().sort(function(a,b){return (Date.parse(b.published||0)||0)-(Date.parse(a.published||0)||0);});
  /* matched pinning (owner 1:09/1:11): posts with a URF-verified pair to a carousel story are
     pinned into the rendered slice (news-carousel order), then chronological fills to 6.
     Without pinning a verified post older than the top-6 silently abstained (drift bug, 1:12 test). */
@@ -465,7 +481,10 @@ function renderSocial(){
   });
  }
  var pool=chrono.filter(function(p){return seenP[p.id]||onTopic(p);}); /* verified pins bypass the topic floor - the probe already judged them */
- var items=pinned.concat(pool.filter(function(p){return pinned.indexOf(p)<0;})).slice(0,6);
+ /* matched-only counterpart (QA audit 6): when verified pins exist, the social carousel shows
+    exactly the paired posts - counts match the news carousel as a consequence. No pins yet ->
+    the generic on-topic chronological feed (1:00: nothing synced beats wrong). */
+ var items=(pinned.length?pinned.slice():pinned.concat(pool.filter(function(p){return pinned.indexOf(p)<0;}))).slice(0,6);
  var sig=items.map(function(p){return p.id||String(p.headline||'').slice(0,40);}).join('|');
  if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
  var curId=(SOC_LAST[SOC_IDX]&&SOC_LAST[SOC_IDX].id)||'';
