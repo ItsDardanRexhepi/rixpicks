@@ -33,7 +33,7 @@ ALERT_FLOOR = 2.00
 COST_PER_REQUEST = 0.033
 COST_PER_POST = 0.005
 MAX_RESULTS = 10
-NEWS_QUERIES_PER_RUN = 12      # hard cap per run (burn discipline)
+NEWS_QUERIES_PER_RUN = 18      # hard cap per run (burn discipline; 12->18 owner 2:09 coverage push)
 MAX_HEADLINE_AGE_H = 18       # only fresh headlines drive pulls
 ROUTE_ATTEMPTS = 3            # route-around rotations per headline before conceding
 
@@ -198,7 +198,8 @@ def merge_feed(new_items):
         keep_ids = set()
     pinned = [p for p in items if str(p.get('id')) in keep_ids]
     rest = [p for p in items if str(p.get('id')) not in keep_ids]
-    items = (pinned + rest)[:50]
+    items = (pinned + rest)[:150]  # pool 50->150 (owner 2:09 coverage push): more candidates
+    # per story = more honest verified-pair chances; pinned ids still never evicted
     out = {'generated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
            'source': 'x_recent_search', 'window': False, 'items': items}
     json.dump(out, open(OUT, 'w'), indent=1)
