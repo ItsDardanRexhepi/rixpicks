@@ -1,48 +1,16 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T10:59:48.470171+00:00",
+ "generated_at": "2026-09-28T11:14:19.334568+00:00",
  "leagues": [
   {
    "league": "ATP",
    "games": [
     {
-     "espn_event_id": "441-2026",
-     "matchup": "Alejandro Davidovich Fokina @ Nikoloz Basilashvili",
-     "commence": "2026-09-22T04:00Z",
-     "status": "in",
-     "detail": "3rd",
-     "score": "Alejandro Davidovich Fokina 0 - Nikoloz Basilashvili 0"
-    },
-    {
-     "espn_event_id": "1001-2026",
-     "matchup": "Andrey Rublev @ Kyrian Jacquet",
-     "commence": "2026-09-22T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Andrey Rublev 0 - Kyrian Jacquet 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Mai Hontama @ Alexandra Panova",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Mai Hontama 0 - Alexandra Panova 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Darya Astakhova @ Desirae Krawczyk",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Darya Astakhova 0 - Desirae Krawczyk 0"
-    },
-    {
      "espn_event_id": "959-2026",
      "matchup": "Anna-Lena Friedsam @ Anastasia Kulikova",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Anna-Lena Friedsam 0 - Anastasia Kulikova 0"
     }
    ]
@@ -76,26 +44,10 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Mai Hontama @ Alexandra Panova",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Mai Hontama 0 - Alexandra Panova 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Darya Astakhova @ Desirae Krawczyk",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Darya Astakhova 0 - Desirae Krawczyk 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Anna-Lena Friedsam @ Anastasia Kulikova",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Anna-Lena Friedsam 0 - Anastasia Kulikova 0"
     }
    ]
