@@ -1,10 +1,18 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T11:14:19.334568+00:00",
+ "generated_at": "2026-09-28T11:29:24.241639+00:00",
  "leagues": [
   {
    "league": "ATP",
    "games": [
+    {
+     "espn_event_id": "441-2026",
+     "matchup": "Denis Shapovalov @ Hubert Hurkacz",
+     "commence": "2026-09-22T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Denis Shapovalov 0 - Hubert Hurkacz 0"
+    },
     {
      "espn_event_id": "959-2026",
      "matchup": "Anna-Lena Friedsam @ Anastasia Kulikova",
@@ -12,6 +20,14 @@
      "status": "in",
      "detail": "2nd",
      "score": "Anna-Lena Friedsam 0 - Anastasia Kulikova 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Yao Xinxin @ Maddison Inglis",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Yao Xinxin 0 - Maddison Inglis 0"
     }
    ]
   },
@@ -23,7 +39,7 @@
      "matchup": "Lucrezia Stefanini @ Elena Ruxandra Bertea",
      "commence": "2026-09-26T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Lucrezia Stefanini 0 - Elena Ruxandra Bertea 0"
     },
     {
@@ -49,6 +65,14 @@
      "status": "in",
      "detail": "2nd",
      "score": "Anna-Lena Friedsam 0 - Anastasia Kulikova 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Yao Xinxin @ Maddison Inglis",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Yao Xinxin 0 - Maddison Inglis 0"
     }
    ]
   }
