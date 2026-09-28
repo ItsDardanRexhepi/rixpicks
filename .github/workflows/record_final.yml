@@ -6,6 +6,11 @@ name: record-final
 # GITHUB_TOKEN. No file token anywhere; secrets never move. Private kb/ledger stays analysis-side.
 on:
   workflow_dispatch:
+    inputs:
+      force_rebuild:
+        description: 'rebuild+ship site pages from current manifest even with no pending grades (true/false)'
+        required: true
+        default: 'false'
   # POST-stage retirement (main 9/27 3:03): the analysis side's queued write IS the trigger -
   # a push touching record_request.json fires the grade/apply/republish chain with zero manual
   # dispatch. Self-commit uses GITHUB_TOKEN, which never re-triggers (no recursion). The
@@ -31,7 +36,9 @@ jobs:
       - name: nothing pending check
         id: gate
         run: |
-          if git diff --quiet -- manifest.json history.json record_request.json record_done.json 2>/dev/null && [ ! -f record_done.json ] || git diff --quiet -- manifest.json; then
+          if [ "${{ inputs.force_rebuild }}" = "true" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          elif git diff --quiet -- manifest.json history.json record_request.json record_done.json 2>/dev/null && [ ! -f record_done.json ] || git diff --quiet -- manifest.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
