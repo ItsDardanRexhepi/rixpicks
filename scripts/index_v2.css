@@ -126,7 +126,7 @@ body.rp-ready .tickbar{transform:translateY(0)}
 .tsrc.cbs{color:#4a9bd8}
 .tsrc.yahoo{color:#7b5cd6}
 .tsep{color:var(--mut)}
-@media(max-width:900px){.tickbar{display:none}body{padding-bottom:0}}
+/* mobile ticker ENABLED (QA 1:44: his ticker-stutter asks were on mobile - he expects it there; tickDrive rAF handles pause/resume + constant px/s) */
 /* modals + fixed overlays keep working on dark */
 #rpModal .box,#rpA2hs .box{background:var(--panel);border:1px solid var(--line)}
 #rpModal h3,#rpA2hs h3{color:var(--txt)}
