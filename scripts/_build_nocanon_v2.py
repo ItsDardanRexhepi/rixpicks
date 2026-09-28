@@ -798,7 +798,7 @@ def chips(p):
             # once the reader's state is known and the book is live there, so the tap always lands on the exact game at their book.
             _pr.append((len(out), ml))
             _mr=_mkrec(name,_eid,_mkt,_SIDE,ml=ml,link=link,ph=_ph,st=('ok' if ml is not None else 'unknown'))  # tester gate 9/26: EVERY priced chip carries a record - the range set is identical static vs JS
-            out.append(f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}"{_dm}{_mr} data-sbt="{html.escape(link)}" data-template="1">%%STAR%%{bkimg(short)}{html.escape(label)}</span>')
+            out.append(f'<span class="chip%%BEST%% rpnontap rppending"{bkstyle(short)} data-book="{short}"{_dm}{_mr} data-sbt="{html.escape(link)}" data-template="1">%%STAR%%{bkimg(short)}{html.escape(label)}</span>')
         else:
             _pr.append((len(out), ml))
             _mr=_mkrec(name,_eid,_mkt,_SIDE,ml=ml,link=link,ph=_ph,st=('ok' if ml is not None else 'unknown'))  # tester gate 9/26: EVERY priced chip carries a record
@@ -1273,7 +1273,7 @@ r'h+=ups.map(function(u){'
 r'return "<div style=\"margin-top:8px;border:1px dashed rgba(216,162,58,.6);border-radius:10px;padding:8px 10px\">"'
 r'+"<div style=\"font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#b07708\">"+esc(u.label||"Wooder Ice site update")+"</div>"'
 r'+(u.note?"<div style=\"font-size:12px;color:#8a8f98;margin-top:3px\">"+esc(u.note)+"</div>":"")'
-r'+(u.items||[]).map(function(it){return "<div style=\"font-size:13px;margin-top:5px\">"+(it.proposed?"<span style=\"background:rgba(216,162,58,.18);color:#b07708;border-radius:8px;font-size:10px;font-weight:700;padding:1px 6px;margin-right:4px\">PROPOSED</span>":"")+"<b>"+esc(it.player||"")+"</b> <span style=\"color:#8a8f98\">"+esc(it.market||"")+(it.matchup?" &middot; "+esc(it.matchup):"")+(it.time?" &middot; "+esc(it.time):"")+(it.status?" &middot; "+esc(it.status):"")+"</span>"+(it.kalshi&&it.kalshi.url?" <a class=\"chip\" style=\"background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c;font-size:11px;padding:2px 10px\" href=\""+esc(it.kalshi.url)+"\" target=\"_blank\" rel=\"noreferrer\">KAL "+esc(it.kalshi.american||"")+"</a>":"")+"</div>";}).join("")'
+r'+(u.items||[]).map(function(it){return "<div style=\"font-size:13px;margin-top:5px\">"+(it.proposed?"<span style=\"background:rgba(216,162,58,.18);color:#b07708;border-radius:8px;font-size:10px;font-weight:700;padding:1px 7px;margin-right:8px;vertical-align:1px;letter-spacing:.04em\">PROPOSED</span>":"")+"<b>"+esc(it.player||"")+"</b> <span style=\"color:#8a8f98\">"+esc(it.market||"")+(it.matchup?" &middot; "+esc(it.matchup):"")+(it.time?" &middot; "+esc(it.time):"")+(it.status?" &middot; "+esc(it.status):"")+"</span>"+(it.kalshi&&it.kalshi.url?" <a class=\"chip\" style=\"background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c;font-size:11px;padding:2px 10px\" href=\""+esc(it.kalshi.url)+"\" target=\"_blank\" rel=\"noreferrer\">KAL "+esc(it.kalshi.american||"")+"</a>":"")+"</div>";}).join("")'
 r'+"</div>";}).join("");}'
 r'bx.innerHTML=h;}'
 r'renderInto(box,tixAll.filter(function(t){return t.sport!=="wnba";}));'
@@ -1968,7 +1968,7 @@ function rpBestStar(pk){{
 function rpAllBest(){{document.querySelectorAll('.pick').forEach(rpBestStar);}}
 function rpTapify(el,st){{const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.dataset.book,st));let out;
  if(d){{let a=el;if(el.tagName!=='A'){{a=document.createElement('a');for(const at of el.attributes)a.setAttribute(at.name,at.value);a.innerHTML=el.innerHTML;el.replaceWith(a);}}
-  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');out=a;}}
+  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');a.classList.remove('rppending');out=a;}}
  else{{let sp=el;if(el.tagName!=='SPAN'){{sp=document.createElement('span');for(const at of el.attributes)sp.setAttribute(at.name,at.value);sp.innerHTML=el.innerHTML;el.replaceWith(sp);}}
   sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');out=sp;}}
  /* F3: a prediction-market fallback route never wears sportsbook numbers; restore them when the book is live */
