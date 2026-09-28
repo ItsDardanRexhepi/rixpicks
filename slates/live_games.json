@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T11:29:24.241639+00:00",
+ "generated_at": "2026-09-28T11:45:32.032105+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -12,6 +12,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Denis Shapovalov 0 - Hubert Hurkacz 0"
+    },
+    {
+     "espn_event_id": "1001-2026",
+     "matchup": "Roman Safiullin @ Daniil Medvedev",
+     "commence": "2026-09-22T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Roman Safiullin 0 - Daniil Medvedev 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -47,7 +55,7 @@
      "matchup": "Suzan Lamens @ Leolia Jeanjean",
      "commence": "2026-09-26T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Suzan Lamens 0 - Leolia Jeanjean 0"
     },
     {
@@ -55,7 +63,7 @@
      "matchup": "Fiona Crawley @ Noma Noha Akugue",
      "commence": "2026-09-26T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Fiona Crawley 0 - Noma Noha Akugue 0"
     },
     {
