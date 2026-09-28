@@ -1,6 +1,6 @@
 /* RixPicks index v2 - dark shell: intro, nav+tabs, two-column layout, sidebar, ticker */
 :root{--bg:#000;--panel:#101619;--panel2:#0c1214;--line:#1f2f2c;--txt:#f2f5f4;--mut:#8fa39e;--acc:#2aa88f;--acc-deep:#0b6e5f;--live:#3ed67a;--amber:#e0b356;--red:#e5484d}
-body{background:var(--bg);color:var(--txt);min-height:100vh;padding-bottom:34px}
+body{background:var(--bg);color:var(--txt);min-height:100vh;padding-bottom:calc(34px + env(safe-area-inset-bottom))}
 .wrap{max-width:none;margin:0;padding:0}
 /* intro overlay: in-flow, natural scroll; wordmark parallax-exits via JS transform */
 #rpIntro{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);position:relative}
@@ -116,8 +116,13 @@ nav.rpnav button.rec:hover b{text-decoration:underline}
 .ntxt{font-size:12.5px}
 .nts{font-size:11px;color:var(--mut);margin-top:2px}
 .empty{color:var(--mut);font-size:12px;padding:6px 0}
+.rp-empty .sub.cnote{color:var(--mut);font-size:12.5px;line-height:1.45;padding:4px 14px 0;text-align:center}
 /* ticker */
-.tickbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(0,0,0,.96);border-top:1px solid var(--line);padding:7px 0;backdrop-filter:blur(6px);transform:translateY(100%);transition:transform .55s cubic-bezier(.2,.7,.3,1)}
+.tickbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(0,0,0,.96);border-top:1px solid var(--line);padding:7px 0 calc(7px + env(safe-area-inset-bottom));backdrop-filter:blur(6px);transform:translateY(100%);transition:transform .55s cubic-bezier(.2,.7,.3,1);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+/* owner 2:55 (iPhone): iOS auto text-inflation blew up ticker text after the first item
+   (track is thousands of px wide; Safari inflates per text cluster). 100% pins every item at
+   its authored 12px. safe-area padding keeps the bar + page content clear of the home
+   indicator zone so the bar never covers card content at scroll end. */
 body.rp-ready .tickbar{transform:translateY(0)}
 .ticktrack{display:inline-flex;align-items:center;white-space:nowrap;will-change:transform}
 @keyframes rpTickX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
