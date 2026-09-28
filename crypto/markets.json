@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "observed_at": "2026-09-28T00:17:30.842612Z",
+  "expires_at": "2026-09-28T00:23:30.842612Z",
+  "cadence": "approximately 5 minutes; not an execution feed",
+  "status": "ok",
+  "spots": [
+    {
+      "symbol": "BTC-USD",
+      "venue": "Coinbase Exchange",
+      "price_usd": 84485.11,
+      "source_time": "2026-09-28T00:16:50.853942121Z",
+      "url": "https://api.exchange.coinbase.com/products/BTC-USD/ticker"
+    },
+    {
+      "symbol": "BTC-USD",
+      "venue": "Kraken",
+      "price_usd": 84475.3,
+      "source_time": null,
+      "url": "https://api.kraken.com/0/public/Ticker?pair=XBTUSD,ETHUSD"
+    },
+    {
+      "symbol": "ETH-USD",
+      "venue": "Coinbase Exchange",
+      "price_usd": 2688.34,
+      "source_time": "2026-09-28T00:16:51.212263310Z",
+      "url": "https://api.exchange.coinbase.com/products/ETH-USD/ticker"
+    },
+    {
+      "symbol": "ETH-USD",
+      "venue": "Kraken",
+      "price_usd": 2688.51,
+      "source_time": null,
+      "url": "https://api.kraken.com/0/public/Ticker?pair=XBTUSD,ETHUSD"
+    }
+  ],
+  "contracts": [
+    {
+      "venue": "Kalshi",
+      "ticker": "KXBTCMAXMON-BTC-26SEP30-8750000",
+      "status": "active",
+      "yes_bid": 0.13,
+      "yes_bid_size": 4983.0,
+      "yes_ask": 0.14,
+      "yes_ask_size": 2373.2,
+      "book_observed_at": "2026-09-28T00:17:30.842612Z",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXBTCMAXMON-BTC-26SEP30-8750000/orderbook?depth=5"
+    },
+    {
+      "venue": "Polymarket",
+      "market_id": "4052418",
+      "yes_token_id": "93102073593745160534123412868713328176360151139344483198023062751009656599915",
+      "status": "active",
+      "yes_bid": 0.2,
+      "yes_bid_size": 3000.0,
+      "yes_ask": 0.22,
+      "yes_ask_size": 2398.0,
+      "book_source_time": "2026-09-28T00:16:48.332000Z",
+      "book_observed_at": "2026-09-28T00:17:30.842612Z",
+      "url": "https://clob.polymarket.com/book?token_id=93102073593745160534123412868713328176360151139344483198023062751009656599915"
+    }
+  ],
+  "settlement_basis": {
+    "kalshi": "YES if a one-minute CF BRTI trimmed mean exceeds $87,500 at any point through 11:59 PM ET September 30.",
+    "polymarket": "YES if Binance BTC/USDT one-minute candle final high is at least $87,500 during September (ET).",
+    "equivalent": false
+  },
+  "notice": "Quotes and displayed sizes may change before a consumer reads this snapshot. Fees, fills, and non-equivalent outcomes are not accounted for; no trade recommendation."
+}
