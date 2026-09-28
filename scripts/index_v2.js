@@ -236,8 +236,9 @@ function carAll(){
   var h='';
   CAR_ALL.forEach(function(a){
    var u=a.link||'',src=a.source||'';
-   var inner='<span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span><span class="ntxt">'+esc(unesc(a.headline||''))+'</span><div class="nts">'+esc(ago(a.published))+'</div>';
-   h+='<div class="nitem">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
+   var inner='<span class="napill src '+esc(src.toLowerCase())+'">'+esc(src)+'</span>'
+    +'<span class="nabody"><span class="nahead">'+esc(unesc(a.headline||''))+'</span><span class="nameta">'+esc(ago(a.published))+'</span></span>';
+   h+='<div class="narow">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
   });
   pop.innerHTML=h||'<div class="empty">News unavailable right now.</div>';
   pop.hidden=false;
