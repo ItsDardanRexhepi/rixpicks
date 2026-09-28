@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T09:36:30.526232+00:00",
+ "generated_at": "2026-09-28T09:44:42.060394+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -14,12 +14,12 @@
      "score": "Alejandro Davidovich Fokina 0 - Nikoloz Basilashvili 0"
     },
     {
-     "espn_event_id": "959-2026",
-     "matchup": "Storm Hunter @ Zhang Ruien",
-     "commence": "2026-09-27T04:00Z",
+     "espn_event_id": "1001-2026",
+     "matchup": "Andrey Rublev @ Kyrian Jacquet",
+     "commence": "2026-09-22T04:00Z",
      "status": "in",
-     "detail": "3rd",
-     "score": "Storm Hunter 0 - Zhang Ruien 0"
+     "detail": "1st",
+     "score": "Andrey Rublev 0 - Kyrian Jacquet 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -28,14 +28,6 @@
      "status": "in",
      "detail": "2nd",
      "score": "Ksenia Zaytseva 0 - Tamara Zidansek 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Aran Teixido Garcia @ Robin Montgomery",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Aran Teixido Garcia 0 - Robin Montgomery 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -79,7 +71,7 @@
      "matchup": "Vendula Valdmannova @ Antonia Ruzic",
      "commence": "2026-09-26T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Vendula Valdmannova 0 - Antonia Ruzic 0"
     },
     {
@@ -87,16 +79,8 @@
      "matchup": "Anna Siskova @ Julia Riera",
      "commence": "2026-09-26T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Anna Siskova 0 - Julia Riera 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Storm Hunter @ Zhang Ruien",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "3rd",
-     "score": "Storm Hunter 0 - Zhang Ruien 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -105,14 +89,6 @@
      "status": "in",
      "detail": "2nd",
      "score": "Ksenia Zaytseva 0 - Tamara Zidansek 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Aran Teixido Garcia @ Robin Montgomery",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Aran Teixido Garcia 0 - Robin Montgomery 0"
     },
     {
      "espn_event_id": "959-2026",
