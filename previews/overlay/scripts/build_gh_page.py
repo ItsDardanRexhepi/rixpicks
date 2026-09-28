@@ -1019,7 +1019,7 @@ if not rows:
         _row_lgs.append('')
         for _sec in _es['sections']:
             _lgk=_sec.get('espn_league','')
-            _lbl=LG_LABEL.get(_lgk) or (_lgk.split('/')[-1].replace('-',' ').title() if _lgk else 'Other')
+            _lbl=_sec.get('label') or LG_LABEL.get(_lgk) or (_lgk.split('/')[-1].replace('-',' ').title() if _lgk else 'Other')
             _ball=LG_BALL.get(_lgk,'\U0001f3c5')
             rows.append(f'<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">{_ball}</span>{html.escape(_lbl)}</div>')
             _row_lgs.append(_lgk)

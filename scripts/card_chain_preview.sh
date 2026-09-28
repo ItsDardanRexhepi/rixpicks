@@ -107,7 +107,7 @@ PY
 
 echo "-- stage: evaluation summary (zero-pick standard card sections)"
 python3 - <<'PY'
-import json, collections, html
+import json, collections, re
 DT='2026-09-28'
 def load(p, dflt):
     try: return json.load(open(p))
@@ -119,45 +119,81 @@ props=load('/tmp/props_candidates.json',{})
 catch=load(f'/tmp/tennis_catch_{DT}.json',{})
 try: notes=[l.strip() for l in open(f'/tmp/tennis_adapter_notes_{DT}.txt') if l.strip()]
 except Exception: notes=[]
+# st event count from the chain log line
+n_ev='?'
+try:
+    m=re.search(r'wrote /tmp/odds_prefill_st\.json \((\d+) games\)', open('/tmp/card_chain.log').read())
+    if m: n_ev=m.group(1)
+except Exception: pass
 LG={'NFL':'football/nfl','ATP':'tennis/atp','WTA':'tennis/wta','PGA':'golf/pga'}
 slc=collections.Counter(r.get('league') for r in slate)
 hc=collections.Counter((e.get('league'),e.get('verdict')) for e in hunt)
+# tennis per-league buckets: ATP / WTA / ITF+challenger (ungradeable today)
+def tbucket(series):
+    if series.startswith('KXATP'): return 'ATP'
+    if series.startswith('KXWTA'): return 'WTA'
+    return 'ITF'
+tcats={'ATP':[],'WTA':[],'ITF':[]}
+for c in catch.get('catches',[]):
+    tcats[tbucket(c.get('series',''))].append(c)
+def tstats(bucket):
+    cats=tcats[bucket]
+    npriced=sum(len(c.get('sides',[])) for c in cats)
+    npass=sum(1 for c in cats for s in c.get('sides',[]) if (s.get('net_edge_c') or -99)>=2)
+    return len(cats), npriced, npass
+# attribute adapter notes to a bucket by matching the trailing title against catch titles
+title2bucket={c.get('title',''):tbucket(c.get('series','')) for c in catch.get('catches',[])}
+notes_by={'ATP':[],'WTA':[],'ITF':[],'?':[]}
+for n in notes:
+    t=n.rsplit(' - ',1)[-1] if ' - ' in n else ''
+    notes_by[title2bucket.get(t,'?')].append(n)
 sections=[]
 def hunt_line(lg):
     c=collections.Counter({v:n for (l,v),n in hc.items() if l==lg})
     if not c: return None
     parts=', '.join(f'{n} {v}' for v,n in sorted(c.items(), key=lambda x:-x[1]))
     return f'Model hunt: {parts}'
-for lg in ['NFL','ATP','WTA','PGA']:
-    if slc.get(lg,0)==0: continue
+for lg in ['NFL','ATP','WTA','ITF','PGA']:
+    if lg!='ITF' and slc.get(lg,0)==0: continue
     lines=[]
-    matches=[r.get('match') or f"{r.get('away','')} @ {r.get('home','')}" for r in slate if r.get('league')==lg]
-    lines.append(f"Slate: {slc[lg]} {'game' if slc[lg]==1 else 'events'}" + (f" - {matches[0]}" if slc[lg]==1 else ''))
-    hl=hunt_line(lg)
-    if hl:
-        cuts=[e for e in hunt if e.get('league')==lg and e.get('verdict')=='cut']
-        if cuts: hl+=f" (cut: {cuts[0].get('reason','')})"
-        lines.append(hl)
     if lg=='NFL':
-        try: n_ev=len(load('/tmp/odds_prefill_st.json',{}).get('games',load('/tmp/odds_prefill_st.json',[])))
-        except Exception: n_ev='?'
+        matches=[r.get('match') or f"{r.get('away','')} @ {r.get('home','')}" for r in slate if r.get('league')==lg]
+        lines.append(f"Slate: {slc[lg]} {'game' if slc[lg]==1 else 'events'}" + (f" - {matches[0]}" if slc[lg]==1 else ''))
+        hl=hunt_line(lg)
+        if hl:
+            cuts=[e for e in hunt if e.get('league')==lg and e.get('verdict')=='cut']
+            if cuts: hl+=f" (cut: {cuts[0].get('reason','')})"
+            lines.append(hl)
         lines.append(f"Side/total engine: {n_ev} events priced, {len(cand_st)} candidates")
         pr=props.get('rows') or []
         rc=collections.Counter(r.get('reason') for r in pr if r.get('verdict')=='REJECT')
         rtxt='; '.join(f'{k} x{n}' for k,n in rc.most_common(3))
         lines.append(f"Props: {props.get('n_priced_rows',0)} rows priced, {props.get('n_kalshi_bound',0)} Kalshi-bound, {props.get('n_candidates',0)} candidates" + (f" - rejects: {rtxt}" if rtxt else ''))
-    if lg in ('ATP','WTA'):
-        pref='KX'+lg
-        cats=[c for c in catch.get('catches',[]) if c.get('series','').startswith(pref)]
-        npriced=sum(len(c.get('sides',[])) for c in cats)
-        npass=sum(1 for c in cats for s in c.get('sides',[]) if (s.get('net_edge_c') or -99)>=2)
-        lines.append(f"{len(cats)} matches settling {DT}, {npriced} sides priced (Polymarket fair anchor), {npass} passed P-EDGE-001")
-        lines += notes
-    if lg=='PGA':
+        sections.append({'espn_league': LG[lg], 'lines': lines})
+    elif lg in ('ATP','WTA'):
+        nm,npr,npass=tstats(lg)
+        lines.append(f"Slate: {slc[lg]} events")
+        hl=hunt_line(lg)
+        if hl: lines.append(hl)
+        lines.append(f"{nm} matches settling {DT}, {npr} sides priced (Polymarket fair anchor), {npass} passed P-EDGE-001")
+        lines += notes_by[lg]
+        sections.append({'espn_league': LG[lg], 'lines': lines})
+    elif lg=='ITF':
+        nm,npr,npass=tstats('ITF')
+        itf_notes=notes_by['ITF']+notes_by['?']
+        if nm==0 and not itf_notes: continue
+        lines.append(f"{nm} matches settling {DT}, {npr} sides priced (Polymarket fair anchor), {npass} passed P-EDGE-001")
+        lines.append('No ESPN scoreboard for ITF/challenger - ungradeable today, loud skip (never carded)')
+        lines += itf_notes
+        sections.append({'espn_league': 'tennis', 'label': 'ITF / Challenger', 'lines': lines})
+    elif lg=='PGA':
+        lines.append(f"Slate: {slc[lg]} events")
+        hl=hunt_line(lg)
+        if hl: lines.append(hl)
         lines.append('No card market coverage - evaluated rows were capability gaps, not picks')
-    sections.append({'espn_league': LG[lg], 'lines': lines})
+        sections.append({'espn_league': LG[lg], 'lines': lines})
 json.dump({'date': DT, 'sections': sections}, open(f'/tmp/eval_summary_{DT}.json','w'), indent=1)
-print('eval sections:', [(s['espn_league'], len(s['lines'])) for s in sections])
+print('eval sections:', [(s.get('label') or s['espn_league'], len(s['lines'])) for s in sections])
 PY
 echo "-- stage: build_manifest --preview"
 python3 - <<'PY'
