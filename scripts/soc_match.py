@@ -28,6 +28,30 @@ MAX_PROBES = 60         # per-run LLM verify budget (trial credits)
 TOP_CANDIDATES = 3
 MORE_CAP = 20
 
+# owner 1:26: the social feed itself renders sports-relevant, topic-matching posts only -
+# never a raw firehose. Relevance is decided by the SAME semantic layer (evidence gate):
+# each post is cosined against fixed league anchor phrases; below every anchor threshold =>
+# flagged off_topic in the map and the client excludes it from the social carousel. Client
+# falls back to its own keyword check only when no fresh map exists (stale beats raw).
+LEAGUE_ANCHORS = {
+    'NFL': 'NFL football news, teams, players, scores, injuries, trades',
+    'NBA': 'NBA basketball news, teams, players, scores, trades',
+    'MLB': 'MLB baseball news, teams, players, scores, playoffs',
+    'NHL': 'NHL hockey news, teams, players, scores',
+    'CFB': 'college football news, teams, players, scores, rankings',
+    'NCAAB': 'college basketball news, teams, players, scores',
+    'WNBA': 'WNBA basketball news, teams, players, scores',
+    'MLS': 'MLS soccer news, teams, players, scores',
+    'NWSL': 'NWSL soccer news, teams, players, scores',
+    'PGA': 'PGA golf news, players, tournaments, leaderboard',
+    'NASCAR': 'NASCAR racing news, drivers, race results',
+    'UFC': 'UFC MMA fight news, fighters, cards, results',
+    'Boxing': 'boxing news, fighters, bouts, results',
+    'ATP': 'tennis news, players, tournaments, results',
+    'SPORTS_GENERIC': 'sports talk, game analysis, fantasy sports, betting picks, sports debate',
+}
+RELEVANCE_FLOOR = 0.40   # below every anchor = off_topic (calibration: unrelated non-sports ~0.30-0.36)
+
 def token():
     with open('/tmp/.nim_client_token') as f:
         return f.read().strip()
@@ -88,8 +112,22 @@ def main():
 
     ntexts = [(it.get('headline', '') + ' - ' + (it.get('blurb') or ''))[:1800] for it in items]
     ptexts = [p.get('text', '')[:1800] for p in posts]
-    vecs = embed_all(ntexts + ptexts)
-    nv, pv = vecs[:len(ntexts)], vecs[len(ntexts):]
+    anchors = list(LEAGUE_ANCHORS.items())
+    vecs = embed_all(ntexts + ptexts + [a[1] for a in anchors])
+    nv, pv = vecs[:len(ntexts)], vecs[len(ntexts):len(ntexts)+len(ptexts)]
+    av = vecs[len(ntexts)+len(ptexts):]
+    # relevance pass: best anchor score per post
+    relevance = {}
+    for j, p in enumerate(posts):
+        best_league, best_score = '', 0.0
+        for k, (lname, _) in enumerate(anchors):
+            sc = cos(pv[j], av[k])
+            if sc > best_score:
+                best_league, best_score = lname, sc
+        relevance[str(p.get('id'))] = {'league': best_league, 'score': round(best_score, 4),
+                                       'on_topic': best_score >= RELEVANCE_FLOOR}
+    log['relevance'] = relevance
+    log['audit']['off_topic'] = sum(1 for r in relevance.values() if not r['on_topic'])
 
     probes = 0
     stats = {'paired': 0, 'auto': 0, 'probe_confirmed': 0, 'abstained': 0, 'probe_rejected': 0}
