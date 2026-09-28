@@ -1860,6 +1860,7 @@ h1 .tick{{color:#3BEBF5}}
 #rpModal p{{font-size:13px;color:#6b6b72;margin-bottom:12px}}
 #rpState{{width:100%;padding:10px;border:1px solid #e4e2de;border-radius:8px;font-size:15px;margin-bottom:12px}}
 #rpShareLoc{{width:100%;padding:11px;border:none;border-radius:8px;background:#2f8f7d;color:#fff;font-size:15px;font-weight:600;cursor:pointer}}
+#rpLocSkip{{width:100%;margin-top:8px;padding:10px;border:1px solid #d8d6d2;border-radius:8px;background:none;color:#6b6b72;font-size:14px;cursor:pointer}}
 .rpstate-link{{color:#2f8f7d;cursor:pointer;text-decoration:underline}}
 #rpA2hs{{display:none;position:fixed;inset:0;background:rgba(20,20,25,.55);align-items:center;justify-content:center;z-index:60}}
 #rpA2hs .box{{background:#fff;border-radius:14px;padding:22px 20px;max-width:340px;width:88%;text-align:center}}
@@ -1893,6 +1894,7 @@ h1 .tick{{color:#3BEBF5}}
 #rpModal .box{{background:#000;border:1px solid #2a2a2e}}
 #rpModal h3{{color:#ececf1}}
 #rpModal p{{color:#9a9aa3}}
+#rpLocSkip{{border-color:#2a2a2e;color:#9a9aa3}}
 #rpA2hs{{background:rgba(0,0,0,.6)}}
 #rpA2hs .box{{background:#000;border:1px solid #2a2a2e}}
 #rpA2hs h3{{color:#ececf1}}
@@ -1918,11 +1920,12 @@ h1 .tick{{color:#3BEBF5}}
 <div id="rpPull"></div>
 <div class="wrap">
 {_SHELL}
-<div id="rpModal"><div class="box">
+<div id="rpModal" role="dialog" aria-modal="true" aria-label="Location sharing"><div class="box">
 <h3>One quick thing</h3>
 <p>Share your location once so taps open the right product &mdash; sportsbook where it&rsquo;s live, prediction markets everywhere else. Location is required for market links. Saved on this device.</p>
 <div id="rpGeoNote" style="font-size:12px;color:#2f8f7d;margin-bottom:10px"></div>
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
+<button id="rpLocSkip" onclick="rpLocDismiss()">Not now</button>
 </div></div>
 <div id="rpA2hs"><div class="box">
 <div class="plat" id="rpA2hsPlat"></div>
@@ -2276,9 +2279,10 @@ function rpStatusText(d,j,st){{ /* tester Sep 26 presentation parity: EVERY cloc
  try{{const _now=Date.now();[['POLY','__rpPolyOk',30000],['KAL','__rpKalOk',90000],['TSB','__rpEspnOk',30000]].forEach(function(pr){{const dim=(_now-(window[pr[1]]||0))>pr[2];document.querySelectorAll('[data-book="'+pr[0]+'"]').forEach(function(c){{c.style.opacity=dim?'.55':'';}});}});}}catch(e){{}}  /* honesty dims: stale source dims, stale never re-stamps; KAL threshold 90s matches its 60s pregame cadence (proxy route), others 30s */
  setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?5000:2000);}}
 rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllBest();rpAllLineShops();rpStartTimes();}},30000);
-document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this){{this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}}}});
+function rpLocDismiss(){{const m=document.getElementById('rpModal');if(m)m.style.display='none';try{{localStorage.setItem('rp_state_dismissed','1');}}catch(e){{}}window.__rpChip=null;}}
+document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this)rpLocDismiss();}});
 function rpFreshState(){{try{{const st=localStorage.getItem('rp_state'),src=localStorage.getItem('rp_state_src'),ts=+(localStorage.getItem('rp_state_ts')||0);return (st&&src==='gps'&&ts&&Date.now()-ts<=12*3600*1000)?st:'';}}catch(e){{return '';}}}}  /* tester Sep 26: even the FIRST paint never exposes an expired jurisdiction */
-var _rpFs=rpFreshState();rpFilter(_rpFs);if(!_rpFs&&!localStorage.getItem('rp_state_dismissed')){{try{{rpAsk(false);}}catch(e){{}}}}rpResolveState();
+var _rpFs=rpFreshState();rpFilter(_rpFs);rpResolveState();  /* QA HIGH (two audits, relayed 12:08): no auto-prompt on load - location is requested ONLY on market-link taps (rpRoute) or the footer link; the prompt itself carries a Not now close */
 function rpResolveState(){{try{{  /* his rule Sep 26 1:52 PM: ONLY shared location resolves state - no IP guess, no manual, no preview. Unverified = fail-closed PM set + location prompt on tap. */
  const saved=localStorage.getItem('rp_state'),src=localStorage.getItem('rp_state_src');
  /* freshness boundary (tester Sep 26): a saved GPS state expires after 12h - re-verify silently when
