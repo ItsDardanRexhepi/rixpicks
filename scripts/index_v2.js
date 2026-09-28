@@ -347,6 +347,9 @@ var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={};
 /* owner 1:26: social feed renders sports-relevant, topic-matching posts only - never a raw
    firehose. Fresh map: server relevance layer (URF evidence gate) decides per post. No fresh
    map: this keyword floor is the fallback so raw off-topic chatter never renders. */
+/* owner 1:39: NO tout/selling-access posts, ever - client layer mirrors the server filter so
+   legacy pool items and no-map fallbacks are covered too. */
+var RP_TOUT_KW=/discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)/i;
 var RP_SPORT_KW=/nfl|nba|mlb|nhl|wnba|ncaa|cfb|mls|nwsl|pga|nascar|ufc|mma|boxing|tennis|football|basketball|baseball|hockey|soccer|golf|sports|touchdown|quarterback|playoff|super bowl|world series|stanley cup|fantasy|draft pick|trade rumor|injury report|starting lineup|home run|slam dunk|shutout|knockout|title fight|grand slam|eagles|bears|chiefs|cowboys|packers|vikings|giants|jets|patriots|steelers|ravens|bengals|browns|texans|colts|jaguars|titans|broncos|raiders|chargers|rams|seahawks|49ers|cardinals|falcons|panthers|saints|buccaneers|commanders|lions|dolphins|bills|yankees|dodgers|red sox|cubs|braves|astros|phillies|mets|padres|mariners|lakers|celtics|warriors|knicks|nets|sixers|bulls|heat|bucks|nuggets|suns|mavericks|thunder|timberwolves|spurs|rockets|clippers|grizzlies|pelicans|kings|trail blazers|jazz|hawks|hornets|hornets|pacers|cavaliers|pistons|magic|wizards|raptors|maple leafs|bruins|canadiens|oilers|avalanche|lightning|panthers|rangers|penguins|capitals|flyers|red wings|blackhawks|wild|stars|predators|blues|jets|kraken|golden knights|sharks|ducks|kings|coyotes|hurricanes|blue jackets|devils|islanders|sabres|senators|flames|canucks/i;
 fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
  if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;try{renderSocial();socSync();}catch(e){}}
@@ -373,8 +376,15 @@ function renderSocial(){
  var box=$('rpSocial');if(!box)return;
  if(!XNEWS.length){box.innerHTML='<div class="empty">No posts right now.</div>';SOC_SIG='';SOC_N=0;return;}
  var REL=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.relevance)?SOC_MATCH.relevance:null;
+ var ADMIT=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.admit&&SOC_MATCH.admit.length)?SOC_MATCH.admit:null;
  var onTopic=function(p){
-  if(REL){var r=REL[String(p.id)];if(r)return r.on_topic!==false;return true;} /* unmapped (feed newer than map): allow, next map judges */
+  /* owner 1:39 narrow rule: social shows ONLY posts related to news-feed articles.
+     tout check always first; fresh map: admit-set membership is the admission test
+     (a post earned membership by scoring the relatedness floor against a current story);
+     no fresh map: sports-keyword floor so the raw firehose never renders. */
+  if(RP_TOUT_KW.test(String(p.headline||'')))return false;
+  if(ADMIT)return ADMIT.indexOf(String(p.id))>=0;
+  if(REL){var r=REL[String(p.id)];if(r)return r.on_topic!==false;return true;}
   return RP_SPORT_KW.test(String(p.headline||''));
  };
  var chrono=XNEWS.slice().sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);});
