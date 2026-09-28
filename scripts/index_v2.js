@@ -597,7 +597,7 @@ function loadSide(t){
  /* polish (main 1:43): never show another tab's stale rows while the target tab's sidebar
     loads - cached tabs render instantly via the SB path, uncached get an honest Loading. */
  var _gb0=$('rpGames');
- if(_gb0&&t.key!=='home'&&!SB[t.key])_gb0.innerHTML='<div class="empty">Loading upcoming games&hellip;</div>';
+ if(_gb0&&t.key!=='home'){_gb0.classList.remove('homeall');if(!SB[t.key])_gb0.innerHTML='<div class="empty">Loading upcoming games&hellip;</div>';}
  if(t.key==='home'){refreshX();renderSocial();}
  if(!lg){
   if(t.key==='wooder'){
@@ -609,8 +609,20 @@ function loadSide(t){
   if(t.key==='home'){
    var gb=$('rpGames'),games=[{label:'NFL',espn:'football/nfl'},{label:'CFB',espn:'football/college-football'},{label:'NBA',espn:'basketball/nba'},{label:'WNBA',espn:'basketball/wnba'},{label:'MLB',espn:'baseball/mlb'},{label:'NHL',espn:'hockey/nhl'},{label:'NCAAB',espn:'basketball/mens-college-basketball'},{label:'MLS',espn:'soccer/usa.1'},{label:'NWSL',espn:'soccer/usa.nwsl'},{label:'PGA',espn:'golf/pga'},{label:'NASCAR',espn:'racing/nascar'},{label:'UFC',espn:'mma/ufc'},{label:'ATP',espn:'tennis/atp'},{label:'WTA',espn:'tennis/wta'}];
    if(gb&&Date.now()-HOME_GAMES_TS>300000){
-   HOME_GAMES_TS=Date.now();gb.innerHTML='<div class="empty">Loading upcoming games&hellip;</div>';
-   Promise.all(games.map(function(x){return fetch('https://site.api.espn.com/apis/site/v2/sports/'+x.espn+'/scoreboard?limit=50',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){return (j.events||[]).filter(function(e){var st=(((e.competitions||[])[0]||{}).status||{}).type||{};return st.state==='pre'&&Date.parse(e.date||0)>=Date.now()-3600000&&Date.parse(e.date||0)<Date.now()+172800000;}).map(function(e){return {league:x.label,event:e,espn:x.espn};});}).catch(function(){return [];});})).then(function(lists){if(cur!==t||!gb)return;var all=[].concat.apply([],lists).sort(function(a,b){return Date.parse(a.event.date||0)-Date.parse(b.event.date||0);}).slice(0,9);gb.innerHTML=all.map(function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var _an=(a.team||{}).abbreviation||(a.team||{}).shortDisplayName||(a.team||{}).displayName||(a.athlete||{}).shortName||(a.athlete||{}).displayName||'',_hn=(h.team||{}).abbreviation||(h.team||{}).shortDisplayName||(h.team||{}).displayName||(h.athlete||{}).shortName||(h.athlete||{}).displayName||'';var title=(_an&&_hn)?(esc(_an)+' @ '+esc(_hn)):esc(g.event.shortName||g.event.name||'');return '<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when">'+esc(until(g.event.date))+'</span></div>';}).join('')||'<div class="empty">No upcoming games listed right now.</div>';});
+   HOME_GAMES_TS=Date.now();
+   /* owner 2:12: 72h window, EVERY covered league, no count cap (was 48h + slice(0,9)).
+      owner 2:13 intermittent-load kill: the old Promise.all gated the whole section on the
+      SLOWEST league fetch with NO timeout - one hung ESPN call stalled every row. Now each
+      league gets a 7s abort and paints progressively as it lands. */
+   gb.classList.add('homeall');
+   var _acc=[],_seenG={},_pend=games.length;
+   var _rowH=function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var _an=(a.team||{}).abbreviation||(a.team||{}).shortDisplayName||(a.team||{}).displayName||(a.athlete||{}).shortName||(a.athlete||{}).displayName||'',_hn=(h.team||{}).abbreviation||(h.team||{}).shortDisplayName||(h.team||{}).displayName||(h.athlete||{}).shortName||(h.athlete||{}).displayName||'';var title=(_an&&_hn)?(esc(_an)+' @ '+esc(_hn)):esc(g.event.shortName||g.event.name||'');return '<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when">'+esc(until(g.event.date))+'</span></div>';};
+   var _paint=function(){if(cur!==t||!gb)return;var all=_acc.slice().sort(function(p,q){return Date.parse(p.event.date||0)-Date.parse(q.event.date||0);});gb.innerHTML=all.map(_rowH).join('')||(_pend?'<div class="empty">Loading upcoming games&hellip;</div>':'<div class="empty">No upcoming games listed right now.</div>');};
+   _paint();
+   games.forEach(function(x){
+    var _ctl=new AbortController();var _to=setTimeout(function(){_ctl.abort();},7000);
+    fetch('https://site.api.espn.com/apis/site/v2/sports/'+x.espn+'/scoreboard?limit=50',{cache:'no-store',signal:_ctl.signal}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){(j.events||[]).forEach(function(e){if(_seenG[e.id])return;var st=(((e.competitions||[])[0]||{}).status||{}).type||{};if(st.state==='pre'&&Date.parse(e.date||0)>=Date.now()-3600000&&Date.parse(e.date||0)<Date.now()+259200000){_seenG[e.id]=1;_acc.push({league:x.label,event:e});}});}).catch(function(){}).finally(function(){_pend--;clearTimeout(_to);_paint();});
+   });
    }
   }
  }else{
