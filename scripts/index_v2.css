@@ -210,3 +210,8 @@ body.tab-home .home-only{display:block}
 .nahead{display:block;font-size:13.5px;line-height:1.4}
 .nameta{display:block;font-size:11px;color:#8a8f98;margin-top:4px}
 .narow+a,.narow a:active{background:rgba(127,127,127,.06)}
+/* social carousel (owner 12:25): same mechanics as news carousel, natural heights */
+.social .carvp{overflow:hidden;position:relative;transition:height .55s cubic-bezier(.4,0,.2,1)}
+.social .cartrack{transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.social .socslide>a{display:block;padding:14px;text-decoration:none;color:inherit}
+@media (prefers-reduced-motion:reduce){.social .cartrack,.social .carvp{transition:none}}
