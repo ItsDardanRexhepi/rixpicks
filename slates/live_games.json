@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T03:19:56.905749+00:00",
+ "generated_at": "2026-09-28T03:25:51.063974+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,8 +10,8 @@
      "matchup": "LAR @ DEN",
      "commence": "2026-09-28T00:20Z",
      "status": "in",
-     "detail": "4:49 - 4th",
-     "score": "LAR 19 - DEN 23",
+     "detail": "3:38 - 4th",
+     "score": "LAR 26 - DEN 23",
      "away_to": 3,
      "home_to": 3
     }
@@ -64,6 +64,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Ma YeXin 0 - Ren Yufei 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Jiayi Wang @ Quinn Gleason",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Jiayi Wang 0 - Quinn Gleason 0"
     }
    ]
   },
@@ -125,6 +133,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Ma YeXin 0 - Ren Yufei 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Jiayi Wang @ Quinn Gleason",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Jiayi Wang 0 - Quinn Gleason 0"
     }
    ]
   }
