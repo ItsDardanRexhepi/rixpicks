@@ -26,11 +26,13 @@ jobs:
         run: |
           git config user.name "RixPicks Bot"
           git config user.email "rixpicks-bot@users.noreply.github.com"
-          git add slates/news.json
+          git add slates/
           if git diff --cached --quiet; then echo "no change - no commit"; exit 0; fi
           git commit -m "news feed $(date '+%H:%M PT')"
-          # push-race hardening (2:24 red-run kill): x_feed commits the same minute; 2 bare tries lost.
-          for i in 1 2 3 4 5; do git push && break || { git pull --rebase; sleep 3; }; done
+          # push-race hardening (2:25 red-run kill): futures_ws listener lands commits every 75s,
+          # so races are structural. autostash covers residual local edits (unstaged writes were
+          # blocking the rebase); 5 tries with backoff.
+          for i in 1 2 3 4 5; do git push && break || { git pull --rebase --autostash; sleep 3; }; done
       - name: kalshi-quotes staleness watchdog
         if: always()
         env:
