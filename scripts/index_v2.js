@@ -340,6 +340,7 @@ function renderNews(t,arts){
  $('rpCarPP').addEventListener('click',function(e){e.preventDefault();carPP();});
  $('rpCarAllBtn').addEventListener('click',function(e){e.preventDefault();carAll();});
  carApply();
+ carObserve();
  if((CAR_N>1||SOC_N>1)&&!CAR_TIMER)CAR_TIMER=setInterval(carStep,5500);
 }
 /* X social section (owner 10:32: X posts out of news, own Home section; built 11:53 scope):
@@ -366,6 +367,19 @@ function socAdv(d){
  SOC_JUMP=setTimeout(function(){SOC_JUMP=0;var t2=$('rpSocTrack');if(t2)carNoTrans(t2,function(){socApply();});},580);
 }
 function socGo(d){socAdv(d);}
+/* owner 2:55 clip kill (permanent): slide offsets measured before late reflows (font swap, image
+   layout, async CSS) left translateY pointing BETWEEN slides - the previous slide's tail bled into
+   the viewport top, headline cut mid-line. Any geometry change on either track, plus full load,
+   re-applies the CURRENT slide position so offsets are never stale. */
+var CAR_RO=null;
+try{CAR_RO=new ResizeObserver(function(){carApply();socApply();});}catch(e){CAR_RO=null;}
+window.addEventListener('load',function(){carApply();socApply();});
+function carObserve(){
+ if(!CAR_RO)return;
+ CAR_RO.disconnect();
+ var a=$('rpCarTrack'),b=$('rpSocTrack');
+ if(a)CAR_RO.observe(a);if(b)CAR_RO.observe(b);
+}
 /* View more posts (owner 12:33): pop listing the fuller set of posts related to the current
    news+social pair's topic - same topic matching as the contextual sync; row grid mobile pass. */
 function socMore(){
@@ -481,6 +495,7 @@ function renderSocial(){
  $('rpSocPP').addEventListener('click',function(e){e.preventDefault();carPP();});
  $('rpSocMore').addEventListener('click',function(e){e.preventDefault();socMore();});
  socApply();
+ carObserve();
  if((CAR_N>1||SOC_N>1)&&!CAR_TIMER)CAR_TIMER=setInterval(carStep,5500);
 }
 /* client replica of news_feed.py relevant() - the 25s instant lane merges straight into the
