@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T02:18:11.653669+00:00",
+ "generated_at": "2026-09-28T02:23:30.762592+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,7 +10,7 @@
      "matchup": "LAR @ DEN",
      "commence": "2026-09-28T00:20Z",
      "status": "in",
-     "detail": "11:49 - 3rd",
+     "detail": "8:22 - 3rd",
      "score": "LAR 16 - DEN 0",
      "away_to": 3,
      "home_to": 3
@@ -33,10 +33,10 @@
      "matchup": "DAL @ GS",
      "commence": "2026-09-28T01:00Z",
      "status": "in",
-     "detail": "7:20 - 3rd",
-     "score": "DAL 33 - GS 66",
+     "detail": "7:02 - 3rd",
+     "score": "DAL 35 - GS 66",
      "away_to": 3,
-     "home_to": 5
+     "home_to": 4
     }
    ]
   },
