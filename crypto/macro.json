@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "observed_at": "2026-09-28T00:17:30.842612Z",
+  "expires_at": "2026-09-28T01:27:30.842612Z",
+  "cadence": "hourly and on verified material event",
+  "fx_reference": {
+    "base": "USD",
+    "note": "Reference feeds differ slightly and do not represent an executable FX spread. Friday date on Frankfurter reflects weekend closure.",
+    "sources": [
+      {
+        "provider": "Frankfurter",
+        "rate_date": "2026-09-25",
+        "rates": {
+          "EUR": 0.87696,
+          "GBP": 0.75458,
+          "JPY": 157.59
+        },
+        "url": "https://api.frankfurter.dev/v1/latest?base=USD&symbols=EUR,GBP,JPY"
+      },
+      {
+        "provider": "Open ER API",
+        "last_update_utc": "Sun, 27 Sep 2026 00:02:31 +0000",
+        "rates": {
+          "EUR": 0.877506,
+          "GBP": 0.755093,
+          "JPY": 157.453603
+        },
+        "url": "https://open.er-api.com/v6/latest/USD"
+      }
+    ]
+  },
+  "public_news": [
+    {
+      "title": "Federal Reserve sought comment on two stablecoin-issuer rule proposals under GENIUS Act",
+      "published_at": "2026-09-24",
+      "fresh_event": false,
+      "summary": "Reserve assets, capital, risk management and bank application processes proposed, not final rules.",
+      "sources": [
+        "https://www.federalreserve.gov/newsevents/pressreleases/bcreg20260924a.htm"
+      ]
+    },
+    {
+      "title": "Akamai announced $11.6B seven-year Anthropic cloud agreement",
+      "published_at": "2026-09-24",
+      "fresh_event": false,
+      "summary": "Company announcement, not an Anthropic IPO filing.",
+      "sources": [
+        "https://www.globenewswire.com/news-release/2026/09/24/3368729/0/en/akamai-announces-11-6-billion-multi-year-agreement-with-anthropic-to-support-growing-demand.html",
+        "https://techcrunch.com/2026/09/25/anthropic-to-pay-akamai-11-6-billion-over-seven-years-in-cloud-deal/"
+      ]
+    },
+    {
+      "title": "ECB said Isabel Schnabel will leave for IMF role in January 2027",
+      "published_at": "2026-09-24",
+      "fresh_event": false,
+      "summary": "She remains in her ECB role until January 3, 2027.",
+      "sources": [
+        "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.pr260924~bea1dd9824.en.html",
+        "https://www.reuters.com/business/finance/isabel-schnabel-sought-bridge-germany-ecb-2026-09-24/"
+      ]
+    }
+  ],
+  "notice": "Historical public-source ledger, not a fresh-news alert, financial advice, or a user/account record."
+}
