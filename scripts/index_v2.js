@@ -228,14 +228,25 @@ window.addEventListener('resize',function(){if(CAR_RZ)clearTimeout(CAR_RZ);CAR_R
    hover/focus on either freezes both. Manual Prev/Next stays per-carousel. */
 var SYNC_STOP=['with','from','that','this','after','before','into','your','their','will','would','could','should','about','over','just','have','been','what','when','where','they','them','then','than','against','season','trade','week','year','game','games','team','teams','picks','pick','news','says','report','first','last','next','back','down','more','most','some','make','makes','made','take','takes','gets','going','goes','here','there','still','even','much','many','only','also','very','head','heads','look','looks','best','worst','every','each','both','while','which','whose','rank','ranks','ranked','ranking','start','starts','started'];
 var SYNC_LAST=false;
+function topicTokens(){
+ var ntr=$('rpCarTrack');if(!ntr)return null;
+ var slide=ntr.children[CAR_IDX];if(!slide)return null;
+ var head=((slide.querySelector('.carhead')||{}).textContent||'').toLowerCase();
+ var toks=head.replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(function(w){return w.length>=4&&SYNC_STOP.indexOf(w)<0;});
+ return toks.length?toks:null;
+}
+function topicScores(txt,toks){
+ var t=(txt||'').toLowerCase(),sc=0,strong=0;
+ for(var j=0;j<toks.length;j++){if(t.indexOf(toks[j])>=0){sc++;if(toks[j].length>=5&&['football','basketball','baseball','soccer','hockey','college','sports','players','player'].indexOf(toks[j])<0)strong++;}}
+ return {sc:sc,strong:strong};
+}
 function socSync(){
  SYNC_LAST=false;
  if(SOC_N<2)return false;
  var ntr=$('rpCarTrack'),str=$('rpSocTrack');
  if(!ntr||!str)return false;
  var slide=ntr.children[CAR_IDX];if(!slide)return false;
- var head=((slide.querySelector('.carhead')||{}).textContent||'').toLowerCase();
- var toks=head.replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(function(w){return w.length>=4&&SYNC_STOP.indexOf(w)<0;});
+ var toks=topicTokens();
  if(!toks.length)return false;
  var SPORT_GEN=['football','basketball','baseball','soccer','hockey','college','sports','players','player'];
  var best=-1,bestScore=0,bestStrong=0;
@@ -328,6 +339,32 @@ function socApply(){
  var c=$('rpSocCount');if(c)c.textContent=(SOC_N?(SOC_IDX+1):0)+' of '+SOC_N;
 }
 function socGo(d){if(SOC_N<2)return;SOC_IDX=(SOC_IDX+d+SOC_N)%SOC_N;socApply();}
+/* View more posts (owner 12:33): pop listing the fuller set of posts related to the current
+   news+social pair's topic - same topic matching as the contextual sync; row grid mobile pass. */
+function socMore(){
+ var pop=$('rpSocMorePop');if(!pop)return;
+ if(!pop.hidden){pop.hidden=true;return;}
+ var toks=topicTokens();
+ var rel=[];
+ if(toks){
+  XNEWS.forEach(function(p){
+   var q=topicScores(p.headline,toks);
+   if(q.sc>=1)rel.push({p:p,q:q});
+  });
+  rel.sort(function(a,b){return (b.q.strong-a.q.strong)||(b.q.sc-a.q.sc)||(Date.parse(b.p.published||0)-Date.parse(a.p.published||0));});
+ }
+ var h='';
+ if(!rel.length){h='<div class="empty">No posts about this topic right now.</div>';}
+ rel.slice(0,20).forEach(function(r){
+  var p=r.p,txt=String(p.headline||'');
+  if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
+  var inner='<span class="napill src x">X</span>'
+   +'<span class="nabody"><span class="nahead stxt">'+esc(unesc(txt))+'</span><span class="nameta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+'</span></span>';
+  h+='<div class="narow">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
+ });
+ pop.innerHTML=h;
+ pop.hidden=false;
+}
 /* social carousel (owner 12:25): one post at a time, same mechanics as the news carousel,
    natural slide heights (12:21 clip fix), shared tick + shared pause via carStep/carPP. */
 function renderSocial(){
@@ -349,11 +386,13 @@ function renderSocial(){
  h+='</div></div><div class="carctl"><button type="button" id="rpSocPrev" aria-label="previous post">\u2039 Prev</button>'
   +'<span id="rpSocCount" class="carcount"></span>'
   +'<button type="button" id="rpSocNext" aria-label="next post">Next \u203a</button>'
-  +'<button type="button" id="rpSocPP" aria-label="pause rotation">'+(CAR_PAUSED?'Play':'Pause')+'</button></div>';
+  +'<button type="button" id="rpSocPP" aria-label="pause rotation">'+(CAR_PAUSED?'Play':'Pause')+'</button>'
+  +'<button type="button" id="rpSocMore" class="carall">View more posts</button></div>';
  box.innerHTML=h;
  $('rpSocPrev').addEventListener('click',function(e){e.preventDefault();socGo(-1);});
  $('rpSocNext').addEventListener('click',function(e){e.preventDefault();socGo(1);});
  $('rpSocPP').addEventListener('click',function(e){e.preventDefault();carPP();});
+ $('rpSocMore').addEventListener('click',function(e){e.preventDefault();socMore();});
  socApply();
  if((CAR_N>1||SOC_N>1)&&!CAR_TIMER)CAR_TIMER=setInterval(carStep,5500);
 }
