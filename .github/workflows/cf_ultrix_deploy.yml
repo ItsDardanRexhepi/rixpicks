@@ -1,0 +1,125 @@
+name: cf-ultrix-deploy
+# UltRix CF-as-server deploy (builder 9/28): deploys the algorithm's server package from the
+# private ultrix repo, fetched in-runner at a pinned/HEAD SHA via ULTRIX_READ_PAT. The package
+# never enters this public repo - checkout is ephemeral in-runner. Workers fail closed while
+# secrets are unset (all routes 403) until INGEST_SECRET / NVIDIA_API_KEY land.
+on:
+  workflow_dispatch:
+    inputs:
+      ultrix_sha:
+        description: 'ultrix commit SHA to deploy (blank = resolve main HEAD at dispatch)'
+        required: false
+        default: ''
+permissions:
+  contents: read
+concurrency:
+  group: cf-ultrix-deploy
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: fetch ultrix package (private, pinned, ephemeral)
+        env:
+          ULTRIX_PAT: ${{ secrets.ULTRIX_READ_PAT }}
+          IN_SHA: ${{ inputs.ultrix_sha }}
+        run: |
+          set -e
+          SHA="$IN_SHA"
+          if [ -z "$SHA" ]; then
+            SHA=$(curl -sf -H "Authorization: token $ULTRIX_PAT" https://api.github.com/repos/ItsDardanRexhepi/ultrix/commits/main | python3 -c 'import json,sys; print(json.load(sys.stdin)["sha"])')
+          fi
+          echo "DEPLOYING ULTRIX SHA: $SHA"
+          curl -sfL -H "Authorization: token $ULTRIX_PAT" "https://api.github.com/repos/ItsDardanRexhepi/ultrix/tarball/$SHA" -o u.tar.gz
+          mkdir -p pkg
+          tar xzf u.tar.gz -C pkg --strip-components=1 --wildcards '*/cloudflare' '*/canon'
+          echo "$SHA" | tee pkg/ULTRIX_SHA
+          find pkg -type f | sort
+      - name: provision ultrix-archive R2 bucket (idempotent, per two-bucket decision)
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -e
+          API="https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID"
+          R2=$(curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API/r2/buckets?per_page=100")
+          echo "$R2" | jq -e '.success' >/dev/null
+          if ! echo "$R2" | jq -e '.result.buckets[]? | select(.name=="ultrix-archive")' >/dev/null; then
+            C=$(curl -s -X POST -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" "$API/r2/buckets" -d '{"name":"ultrix-archive"}')
+            echo "$C" | jq -e '.success' >/dev/null || { echo "R2 CREATE FAIL: $C"; exit 1; }
+            echo "created ultrix-archive"
+          else echo "exists ultrix-archive"; fi
+      - name: resolve real KV namespace IDs and fill toml placeholders
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -e
+          API="https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID"
+          KV=$(curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API/storage/kv/namespaces?per_page=100")
+          KBID=$(echo "$KV" | jq -r '.result[]? | select(.title=="rixpicks-kb") | .id')
+          LOOPID=$(echo "$KV" | jq -r '.result[]? | select(.title=="rixpicks-loop-state") | .id')
+          [ -n "$KBID" ] && [ -n "$LOOPID" ] || { echo "KV ID RESOLVE FAIL: $KV"; exit 1; }
+          echo "rixpicks-kb=$KBID rixpicks-loop-state=$LOOPID"
+          for T in pkg/cloudflare/wrangler.toml pkg/cloudflare/wrangler.intake.toml; do
+            sed -i "s/^id = \"rixpicks-kb\"$/id = \"$KBID\"/" "$T"
+            sed -i "s/^id = \"rixpicks-loop-state\"$/id = \"$LOOPID\"/" "$T"
+            ! grep -q '^id = "rixpicks-' "$T" || { echo "PLACEHOLDER LEFT in $T"; exit 1; }
+          done
+          echo "KBID=$KBID" >> "$GITHUB_ENV"
+      - name: deploy ultrix-core
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: pkg/cloudflare
+          command: deploy
+      - name: deploy ultrix-intake
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: pkg/cloudflare
+          command: deploy --config wrangler.intake.toml
+      - name: install wrangler for object ops
+        working-directory: pkg/cloudflare
+        run: npm install wrangler@4 --no-save --silent
+      - name: upload canon audio byte-identical + sha256 verify + manifest
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        working-directory: pkg/cloudflare
+        run: |
+          set -e
+          W=./node_modules/.bin/wrangler
+          : > canon_manifest.txt
+          for f in ../canon/audio/*.m4a; do
+            n=$(basename "$f")
+            sha=$(sha256sum "$f" | cut -d' ' -f1)
+            $W r2 object put "ultrix-archive/canon/audio/$n" --file "$f"
+            rm -f /tmp/dl.bin
+            $W r2 object get "ultrix-archive/canon/audio/$n" --file /tmp/dl.bin >/dev/null
+            sha2=$(sha256sum /tmp/dl.bin | cut -d' ' -f1)
+            [ "$sha" = "$sha2" ] || { echo "R2 HASH MISMATCH $n"; exit 1; }
+            echo "$n|$sha|$(date -u +%F)" | tee -a canon_manifest.txt
+          done
+      - name: write canon:manifest to KV
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        working-directory: pkg/cloudflare
+        run: ./node_modules/.bin/wrangler kv key put canon:manifest --namespace-id "$KBID" --path canon_manifest.txt
+      - name: smoke - unauthenticated must fail closed
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -e
+          SUB=$(curl -s -H "Authorization: Bearer $CF_API_TOKEN" "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/workers/subdomain" | jq -r '.result.subdomain')
+          echo "workers subdomain: $SUB"
+          for path in /facts /manifest /registry /canon/audio/audio_04_2026-09-28.m4a; do
+            CODE=$(curl -s -o /dev/null -w '%{http_code}' "https://ultrix-core.$SUB.workers.dev$path")
+            echo "GET $path -> $CODE"
+            [ "$CODE" = "403" ] || { echo "SMOKE FAIL: expected 403, got $CODE"; exit 1; }
+          done
+          echo "SMOKE GREEN: all routes fail closed (403) unauthenticated"
