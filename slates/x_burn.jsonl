@@ -39,3 +39,17 @@
 {"ts": "2026-09-28T20:58:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Fox Selects Indiana\" lang:en -is:retweet -is:reply", "results": 1}
 {"ts": "2026-09-28T20:58:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"McCarthy trade Giants\" lang:en -is:retweet -is:reply", "results": 0}
 {"ts": "2026-09-28T20:58:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"J.J. McCarthy\" OR \"Giants\" OR \"Vikings QB\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T21:21:42+00:00", "endpoint": "/tweets/search/recent", "query": "\"Chicago Bears\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-28T21:21:42+00:00", "endpoint": "/tweets/search/recent", "query": "\"Philadelphia Eagles\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-28T21:21:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Heisman Trophy betting\" lang:en -is:retweet -is:reply", "results": 3}
+{"ts": "2026-09-28T21:21:43+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2026 MLB wild\" lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T21:21:43+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Caitlin Clark Rise\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:21:43+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Caitlin Clark\" OR \"Rise Draws Steph Curry Parallels ESPN Analyst\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T21:21:43+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Lions defenders who\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-28T21:21:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Mike Vrabel explains\" lang:en -is:retweet -is:reply", "results": 3}
+{"ts": "2026-09-28T21:21:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Six Wins Keyed\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:21:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Six Wins Keyed Guardians\" OR \"Division Title\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T21:21:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Today's top games\" lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T21:21:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Today's top games\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:21:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Today's\" OR \"Eagles\" OR \"Bears\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T21:21:45+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Today's top games\" lang:en -is:retweet -is:reply", "results": 0}
