@@ -3109,7 +3109,7 @@ def build_futures_page(css,build_sha):
     if not FUT: return None
     import os as _os2
     _REGALL=json.load(open(_os2.path.join(_os2.path.dirname(__file__),'..','config_leagues.json')))['leagues']
-    BALL={'NFL':'FB','MLB':'&#9918;','NBA':'&#127936;','NHL':'&#127954;','WTA':'&#127934;','ATP':'&#127934;','CFB':'FB','WNBA':'&#127936;','NCAAB':'&#127936;','MLS':'&#9917;','NWSL':'&#9917;','PGA':'&#9971;','NASCAR':'&#127950;','UFC':'&#129354;','Boxing':'&#129354;'}
+    BALL={'NFL':'&#127944;','MLB':'&#9918;','NBA':'&#127936;','NHL':'&#127954;','WTA':'&#127934;','ATP':'&#127934;','CFB':'&#127944;','WNBA':'&#127936;','NCAAB':'&#127936;','MLS':'&#9917;','NWSL':'&#9917;','PGA':'&#9971;','NASCAR':'&#127950;','UFC':'&#129354;','Boxing':'&#129354;'}
     rows=[]
     seen_lg=set()
     for f in FUT:
