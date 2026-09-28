@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T11:45:32.032105+00:00",
+ "generated_at": "2026-09-28T12:01:09.036745+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -34,7 +34,7 @@
      "matchup": "Yao Xinxin @ Maddison Inglis",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Yao Xinxin 0 - Maddison Inglis 0"
     }
    ]
@@ -59,14 +59,6 @@
      "score": "Suzan Lamens 0 - Leolia Jeanjean 0"
     },
     {
-     "espn_event_id": "1078-2026",
-     "matchup": "Fiona Crawley @ Noma Noha Akugue",
-     "commence": "2026-09-26T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Fiona Crawley 0 - Noma Noha Akugue 0"
-    },
-    {
      "espn_event_id": "959-2026",
      "matchup": "Anna-Lena Friedsam @ Anastasia Kulikova",
      "commence": "2026-09-27T04:00Z",
@@ -79,7 +71,7 @@
      "matchup": "Yao Xinxin @ Maddison Inglis",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Yao Xinxin 0 - Maddison Inglis 0"
     }
    ]
