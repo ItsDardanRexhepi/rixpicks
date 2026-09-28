@@ -1,102 +1,13 @@
 {
-  "version": 1,
-  "source": "wooder-ice",
-  "kind": "nfl-sgp-idea",
-  "matchup": "LAR @ DEN",
-  "kickoff": "2026-09-28T00:20:00Z",
-  "captured_at": "2026-09-27T15:41:14-07:00",
-  "event_url": "https://predictions.draftkings.com/en/event/la-rams-%40-den-broncos/34118276",
-  "status": "idea_only",
-  "combined_price": null,
-  "legs": [
-    {
-      "player": "Kyren Williams",
-      "team": "LAR",
-      "market": "anytime TD",
-      "source": "DK Predictions",
-      "price_c": 48,
-      "source_snapshot_c": 48,
-      "price_type": "displayed_probability_percent",
-      "selection_url": null,
-      "captured_at": "2026-09-27T15:39:03-07:00"
-    },
-    {
-      "player": "Kyren Williams",
-      "team": "LAR",
-      "market": "50+ rushing yards",
-      "source": "DK Predictions",
-      "price_c": 56,
-      "source_snapshot_c": 56,
-      "price_type": "displayed_probability_percent",
-      "selection_url": null,
-      "captured_at": "2026-09-27T15:41:01-07:00"
-    },
-    {
-      "player": "Blake Corum",
-      "team": "LAR",
-      "market": "30+ rushing yards",
-      "source": "DK Predictions",
-      "price_c": 80,
-      "source_snapshot_c": 80,
-      "price_type": "displayed_probability_percent",
-      "selection_url": null,
-      "captured_at": "2026-09-27T15:41:01-07:00"
-    },
-    {
-      "player": "Kyren Williams",
-      "team": "LAR",
-      "market": "2+ receptions",
-      "source": "DK Predictions",
-      "price_c": 68,
-      "source_snapshot_c": 68,
-      "price_type": "displayed_probability_percent",
-      "selection_url": null,
-      "captured_at": "2026-09-27T15:40:48-07:00"
-    },
-    {
-      "player": "Courtland Sutton",
-      "team": "DEN",
-      "market": "2+ receptions",
-      "source": "DK Predictions",
-      "price_c": 88,
-      "source_snapshot_c": 88,
-      "price_type": "displayed_probability_percent",
-      "selection_url": null,
-      "captured_at": "2026-09-27T15:40:48-07:00"
-    },
-    {
-      "player": "RJ Harvey",
-      "team": "DEN",
-      "market": "2+ receptions",
-      "source": "DK Predictions",
-      "price_c": 78,
-      "source_snapshot_c": 78,
-      "price_type": "displayed_probability_percent",
-      "selection_url": null,
-      "captured_at": "2026-09-27T15:40:48-07:00"
-    },
-    {
-      "player": "Terrance Ferguson",
-      "team": "LAR",
-      "market": "2+ receptions",
-      "source": "DK Predictions",
-      "price_c": 93,
-      "source_snapshot_c": 93,
-      "price_type": "displayed_probability_percent",
-      "selection_url": null,
-      "captured_at": "2026-09-27T15:40:48-07:00"
-    },
-    {
-      "player": "Matthew Stafford",
-      "team": "LAR",
-      "market": "150+ passing yards",
-      "source": "DK Predictions",
-      "price_c": 95,
-      "source_snapshot_c": 93,
-      "price_type": "displayed_probability_percent",
-      "selection_url": null,
-      "captured_at": "2026-09-27T15:41:14-07:00"
-    }
-  ],
-  "note": "Each row converts the displayed DK Predictions percentage to American-style equivalent at its capture time, not an executable quote. Original snapshot cents are retained as input only. No combined quote, placement, or exact-selection deep link."
+ "version": 1,
+ "source": "wooder-ice",
+ "kind": "nfl-sgp-idea",
+ "matchup": "LAR @ DEN",
+ "kickoff": "2026-09-28T00:20:00Z",
+ "captured_at": "2026-09-27T15:41:14-07:00",
+ "event_url": "https://predictions.draftkings.com/en/event/la-rams-%40-den-broncos/34118276",
+ "status": "idea_only",
+ "combined_price": null,
+ "legs": [],
+ "note": "Each row converts the displayed DK Predictions percentage to American-style equivalent at its capture time, not an executable quote. Original snapshot cents are retained as input only. No combined quote, placement, or exact-selection deep link."
 }
