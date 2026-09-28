@@ -47,11 +47,20 @@ jobs:
             echo "X_BEARER_TOKEN not set - news_social dormant"; exit 0
           fi
           python3 scripts/news_social.py "$NS_MODE"
+      - name: "semantic match build (URF six-gate, owner 1:00/1:01 - every link passes the full loop)"
+        env:
+          NIM_CLIENT_TOKEN: ${{ secrets.NIM_CLIENT_TOKEN }}
+        run: |
+          if [ -z "$NIM_CLIENT_TOKEN" ]; then
+            echo "NIM_CLIENT_TOKEN not set - matcher dormant"; exit 0
+          fi
+          printf '%s' "$NIM_CLIENT_TOKEN" > /tmp/.nim_client_token
+          python3 scripts/soc_match.py
       - name: commit feed + burn ledger
         run: |
           git config user.name "RixPicks Bot"
           git config user.email "rixpicks-bot@users.noreply.github.com"
-          git add slates/x_feed.json slates/x_burn.jsonl slates/x_feed_state.json slates/soc_trials.json 2>/dev/null || exit 0
+          git add slates/x_feed.json slates/x_burn.jsonl slates/x_feed_state.json slates/soc_trials.json slates/soc_match.json 2>/dev/null || exit 0
           git diff --cached --quiet && exit 0
           git commit -m "x feed $(date -u +%H:%M) UTC"
           for i in 1 2 3 4 5; do
