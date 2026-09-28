@@ -211,6 +211,25 @@ for s in sections:
         s['compact']=[L[0]+' \u00b7 no card market coverage (capability gaps, not picks)']
     else:
         s['compact']=L[:2]
+# audience-safe card lines (daily-card photo): no Kalshi/Polymarket, no gate jargon, no side events
+for s in sections:
+    lg=s.get('espn_league')
+    if lg=='football/nfl':
+        conv=''
+        cuts=[e for e in hunt if e.get('league')=='NFL' and e.get('verdict')=='cut']
+        if cuts:
+            bs=(cuts[0].get('best_side') or {}).get('model')
+            if bs is not None: conv=f'{bs*100:.1f}%'
+        mm=[r for r in slate if r.get('league')=='NFL']
+        if mm:
+            aw=(mm[0].get('away') or '').split()[-1]; hm=(mm[0].get('home') or '').split()[-1]
+            s['card_lines']=[f"{aw} @ {hm} - no pick at 60%+" + (f" (best read {conv})" if conv else '')]
+    elif lg in ('tennis/atp','tennis/wta'):
+        nm=sum(1 for c in catch.get('catches',[]) if c.get('series','').startswith('KX'+('ATP' if lg.endswith('atp') else 'WTA')))
+        s['card_lines']=[f"{nm} matches evaluated - no pick at 60%+"]
+    elif lg=='golf/pga':
+        s['card_lines']=['No wager markets covered tonight']
+    # ITF/challenger: side events never appear on the daily card (standing rule) - no card_lines
 json.dump({'date': DT, 'sections': sections}, open(f'/tmp/eval_summary_{DT}.json','w'), indent=1)
 print('eval sections:', [(s.get('label') or s['espn_league'], len(s['lines'])) for s in sections])
 PY
@@ -241,6 +260,8 @@ PY
 python3 scripts/build_manifest.py /tmp/candidates_$DT.json /tmp/manifest_preview_$DT.json --preview --meta /tmp/card_meta.json || echo "STAGE FAIL build_manifest"
 echo "-- stage: card render (legacy builder, candidate artifact only - NOT published)"
 RP_EVAL_SUMMARY=/tmp/eval_summary_$DT.json python3 scripts/build_gh_page.py /tmp/manifest_preview_$DT.json /tmp/card_preview_$DT.html || echo "STAGE FAIL build_gh_page"
+echo "-- probe: sofascore egress (analysis itf_results feasibility - HTTP code only, no blind parse)"
+curl -s -o /dev/null -w "sofascore scheduled-events 2026-09-28 HTTP %{http_code}\n" --max-time 15 "https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/2026-09-28" || echo "sofascore probe failed: curl exit $?"
 echo "-- stage: card photo (one-screen by construction)"
 python3 scripts/card_photo.py /tmp/manifest_preview_$DT.json /tmp/eval_summary_$DT.json /tmp/card_photo_$DT.html || echo "STAGE FAIL card_photo"
 echo "== chain end $(date -u +%FT%TZ)"
