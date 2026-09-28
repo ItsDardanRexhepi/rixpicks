@@ -297,6 +297,8 @@ function carAll(){
    replaces the old sidebar news list; renderNews keeps its name so every existing call site feeds it. */
 function renderNews(t,arts){
  var box=$('rpNewsCar');if(!box)return;
+ if(t&&t.key!=='home'){box.innerHTML='';return;}  /* owner 12:54: News renders on Home only - no leaks, no per-tab feeds */
+
  var items=(arts||[]).slice(0,12);
  if(!items.length&&CAR_LAST.length)items=CAR_LAST; /* latest-valid fallback: never blank a good card on a bad fetch */
  if(items.length)CAR_LAST=items;
