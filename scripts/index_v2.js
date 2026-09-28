@@ -102,6 +102,15 @@ window.addEventListener('hashchange',function(){var k=fromHash();if(k)activate(k
 document.querySelectorAll('nav.rpnav .tab').forEach(function(a){
  a.addEventListener('click',function(e){e.preventDefault();activate(a.getAttribute('data-tab'));});
 });
+/* record strip -> record panel (owner 10:55): tap opens the record view with the units
+   math under the units P/L; tap again / outside / Escape closes. Works from every tab. */
+var navRecBtn=$('rpNavRec'),recPop=$('rpRecPop');
+if(navRecBtn&&recPop){
+ var setPop=function(open){recPop.hidden=!open;navRecBtn.setAttribute('aria-expanded',open?'true':'false');};
+ navRecBtn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();setPop(recPop.hidden);});
+ document.addEventListener('click',function(e){if(!recPop.hidden&&!recPop.contains(e.target)&&!navRecBtn.contains(e.target))setPop(false);});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!recPop.hidden)setPop(false);});
+}
 var burger=$('burger');
 if(burger)burger.addEventListener('click',function(){document.body.classList.toggle('menu-open');});
 /* ---- nav record mirror (canonical values live on #rpRec/#rpUnits datasets) ---- */
