@@ -57,7 +57,13 @@ def main():
         return
     mode = sys.argv[1] if len(sys.argv) > 1 else 'pull'
     if mode == 'verify':
-        status, body = req('/users/me')
+        try:
+            status, body = req('/users/me')
+        except urllib.error.HTTPError as e:
+            detail = e.read().decode()[:300]
+            print(f'verify: HTTP {e.code} body: {detail}')
+            log_burn('/users/me', 'verify', 0)
+            sys.exit(1)
         print(f'verify: HTTP {status}', json.dumps(body.get('data', {}))[:200])
         log_burn('/users/me', 'verify', 0)
         return
