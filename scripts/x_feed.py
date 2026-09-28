@@ -92,22 +92,42 @@ def slate_terms():
 
 
 def game_window():
-    """True when a slate game is live now or commences within 60 min (drives the 2-min burst)."""
+    """True when a slate game is live now or commences within 60 min (drives the 2-min burst).
+    Fail-closed on stale input - the burst spends money, so it needs fresh truth:
+    live_games.json older than 2h, or a stuck 'in' game (commence >8h ago), is NOT a window.
+    (10:47 bug: stale Sep 22/26 tennis stuck at status 'in' opened a false burst window.)"""
     try:
         lg = json.load(open(LIVE_GAMES))
         now = datetime.datetime.now(datetime.timezone.utc)
+        try:
+            gen = datetime.datetime.fromisoformat(lg.get('generated_at', '').replace('Z', '+00:00'))
+            if (now - gen) > datetime.timedelta(hours=2):
+                print(f'game_window: live_games.json stale (generated {lg.get("generated_at")}) - no window')
+                return False
+        except Exception:
+            print('game_window: generated_at unreadable - no window')
+            return False
         for league in lg.get('leagues', []):
             for g in league.get('games', []):
-                if g.get('status') == 'in':
-                    return True
                 try:
                     ct = datetime.datetime.strptime(g.get('commence', ''), '%Y-%m-%dT%H:%MZ').replace(tzinfo=datetime.timezone.utc)
                 except Exception:
                     continue
+                if abs((ct - now).total_seconds()) > GAME_WINDOW_H * 3600:
+                    continue
+                if g.get('status') == 'in' and ct >= now - datetime.timedelta(hours=8):
+                    return True
                 if g.get('status') == 'pre' and datetime.timedelta(0) <= (ct - now) <= datetime.timedelta(minutes=60):
                     return True
     except Exception:
         pass
+    # mirrored time-bounded fallback (same expiry as slate_terms): MNF tonight while the
+    # census chain lacks NFL - 4:15-9:30 PM PT Sep 28 covers commence-60min through game end.
+    now_pt = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-7)))
+    if now_pt.date() == datetime.date(2026, 9, 28):
+        mins = now_pt.hour * 60 + now_pt.minute
+        if 16 * 60 + 15 <= mins <= 21 * 60 + 30:
+            return True
     return False
 
 def load_state():
