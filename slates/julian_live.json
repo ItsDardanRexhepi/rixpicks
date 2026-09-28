@@ -1,4 +1,89 @@
 {
- "generated_at": "2026-09-27T21:03:06",
- "live_legs": []
+ "generated_at": "2026-09-28T11:18:11",
+ "live_legs": [
+  {
+   "player": "Jalen Hurts",
+   "market": "passing_yards",
+   "line": 200,
+   "current": 0.0,
+   "progress": "0/200",
+   "matchup": "PHI @ CHI",
+   "combo_id": "mnf-t1",
+   "card_status": "live",
+   "game_state": "pre",
+   "game_detail": "5:15 PM PT"
+  },
+  {
+   "player": "Saquon Barkley",
+   "market": "rushing_yards",
+   "line": 60,
+   "current": 0.0,
+   "progress": "0/60",
+   "matchup": "PHI @ CHI",
+   "combo_id": "mnf-t1",
+   "card_status": "live",
+   "game_state": "pre",
+   "game_detail": "5:15 PM PT"
+  },
+  {
+   "player": "D'Andre Swift",
+   "market": "rushing_yards",
+   "line": 60,
+   "current": 0.0,
+   "progress": "0/60",
+   "matchup": "PHI @ CHI",
+   "combo_id": "mnf-t1",
+   "card_status": "live",
+   "game_state": "pre",
+   "game_detail": "5:15 PM PT"
+  },
+  {
+   "player": "Zach Ertz",
+   "market": "receiving_yards",
+   "line": 20,
+   "current": 0.0,
+   "progress": "0/20",
+   "matchup": "PHI @ CHI",
+   "combo_id": "mnf-t1",
+   "card_status": "live",
+   "game_state": "pre",
+   "game_detail": "5:15 PM PT"
+  },
+  {
+   "player": "DeVonta Smith",
+   "market": "receiving_yards",
+   "line": 50,
+   "current": 0.0,
+   "progress": "0/50",
+   "matchup": "PHI @ CHI",
+   "combo_id": "mnf-t1",
+   "card_status": "live",
+   "game_state": "pre",
+   "game_detail": "5:15 PM PT"
+  },
+  {
+   "player": "Saquon Barkley",
+   "market": "anytime_td",
+   "line": null,
+   "current": 0,
+   "progress": "no TD yet",
+   "matchup": "PHI @ CHI",
+   "combo_id": "mnf-t1",
+   "card_status": "live",
+   "game_state": "pre",
+   "game_detail": "5:15 PM PT"
+  },
+  {
+   "player": "Eagles",
+   "market": "spread",
+   "line": 2.5,
+   "current": null,
+   "progress": "PHI 0 - CHI 0 (+2.5) - COVERING",
+   "matchup": "PHI @ CHI",
+   "combo_id": "mnf-t1",
+   "card_status": "live",
+   "game_state": "pre",
+   "game_detail": "5:15 PM PT"
+  }
+ ]
 }
