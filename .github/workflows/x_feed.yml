@@ -1,0 +1,47 @@
+name: x-feed
+# X API recent-search feed for the SENSE stage (main 9/27 9:25 PM handoff from analysis).
+# Cadence: 1 pull set / 15 min default; widen only on live slates. Dormant (exit 0) until
+# the X_BEARER_TOKEN secret is filled - midnight browser window, vaulted token.
+on:
+  workflow_dispatch:
+    inputs:
+      verify_only:
+        description: 'Only verify the token (GET /2/users/me), no pulls'
+        type: boolean
+        default: false
+  schedule:
+    - cron: '3,18,33,48 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: x-feed
+  cancel-in-progress: false
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: x feed pull (burn-ledgered)
+        env:
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          MODE: ${{ inputs.verify_only && 'verify' || 'pull' }}
+        run: |
+          if [ -z "$X_BEARER_TOKEN" ]; then
+            echo "X_BEARER_TOKEN not set - dormant cycle (fill pending)"; exit 0
+          fi
+          python3 scripts/x_feed.py "$MODE"
+      - name: commit feed + burn ledger
+        run: |
+          git config user.name "RixPicks Bot"
+          git config user.email "rixpicks-bot@users.noreply.github.com"
+          git add slates/x_feed.json slates/x_burn.jsonl 2>/dev/null || exit 0
+          git diff --cached --quiet && exit 0
+          git commit -m "x feed $(date -u +%H:%M) UTC"
+          for i in 1 2 3 4 5; do
+            git pull --rebase -q && git push -q && exit 0
+            sleep 5
+          done
+          exit 1
