@@ -18,7 +18,7 @@ if [ -d previews/feeds ]; then cp -f previews/feeds/* /tmp/; echo "feeds staged:
 ' ' ')"; fi
 
 echo "-- stage: league_slate"
-python3 scripts/league_slate.py MLB NFL CFB WNBA NBA NHL NCAAB MLS NWSL PGA ATP WTA NASCAR UFC --date $D --odds --json > $SLATE
+python3 scripts/league_slate.py MLB NFL CFB WNBA NBA NHL NCAAB MLS NWSL PGA ATP WTA NASCAR UFC Boxing --date $D --odds --json > $SLATE
 echo "slate rows: $(python3 -c "import json;print(len(json.load(open('$SLATE'))))" 2>/dev/null || echo ERR)"
 
 echo "-- stage: hunt slate transform ({rows:[...]}, instance_id/commence_utc/match schema)"
@@ -35,11 +35,11 @@ for r in slate:
     rows.append(rr)
 # leagues_empty attestation (main 7:23): a hunted league with zero rows today is attested empty
 # by the producer instead of reading as coverage drift. Hunted set = the league_slate CLI list
-# above; canon comes from config_leagues.json. Leagues in canon but NOT hunted (Boxing - no ESPN
-# endpoint, league_slate events are ESPN-only) are deliberately NOT attested: unattested absence
-# stays a visible certification blocker rather than a false "no events today" claim.
+# above; canon comes from config_leagues.json. Any canonical league NOT in the hunted CLI
+# list is deliberately NOT attested: unattested absence stays a visible certification blocker
+# rather than a false "no events today" claim.
 canon=sorted(json.load(open('config_leagues.json'))['leagues'].keys())
-hunted='MLB NFL CFB WNBA NBA NHL NCAAB MLS NWSL PGA ATP WTA NASCAR UFC'.split()
+hunted='MLB NFL CFB WNBA NBA NHL NCAAB MLS NWSL PGA ATP WTA NASCAR UFC Boxing'.split()
 present={r.get('league') for r in rows}
 leagues_empty=[lg for lg in canon if lg in hunted and lg not in present]
 json.dump({'rows':rows,'leagues_empty':leagues_empty}, open(f'/tmp/hunt_slate_{DT}.json','w'))
