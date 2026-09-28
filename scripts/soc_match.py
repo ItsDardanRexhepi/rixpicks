@@ -198,8 +198,11 @@ def main():
             admit.add(str(v['post_id']))
     for lst in log['more'].values():
         for e in (lst or []):
-            if e.get('post_id') and (e.get('score') or 0) >= PROBE_FLOOR:
-                admit.add(str(e['post_id']))
+            pid = str(e.get('post_id') or '')
+            # combined gate (QA 1:49): relatedness floor AND sports-relevance - off-topic posts
+            # that scrape the relatedness floor (Avengers podcast 0.43, prank 0.43) never admit
+            if pid and (e.get('score') or 0) >= PROBE_FLOOR and (relevance.get(pid) or {}).get('on_topic'):
+                admit.add(pid)
     log['admit'] = sorted(admit)
     log['audit'] = {'thresholds': {'auto_accept': AUTO_ACCEPT, 'probe_floor': PROBE_FLOOR, 'more_floor': MORE_FLOOR},
                     'probes_used': probes, **stats,
