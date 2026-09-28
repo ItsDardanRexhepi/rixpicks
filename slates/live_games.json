@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T07:31:07.566033+00:00",
+ "generated_at": "2026-09-28T07:54:00.366568+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -10,7 +10,7 @@
      "matchup": "Rinko Matsuda @ Katarzyna Kawa",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Rinko Matsuda 0 - Katarzyna Kawa 0"
     },
     {
@@ -18,7 +18,7 @@
      "matchup": "Linda Fruhvirtova @ Ye Shiyu",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Linda Fruhvirtova 0 - Ye Shiyu 0"
     },
     {
@@ -26,7 +26,7 @@
      "matchup": "Olivia Nicholls @ Marina Bassols Ribera",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Olivia Nicholls 0 - Marina Bassols Ribera 0"
     },
     {
@@ -36,6 +36,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Junhan Zhang 0 - Aliaksandra Sasnovich 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Storm Hunter @ Zhang Ruien",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Storm Hunter 0 - Zhang Ruien 0"
     }
    ]
   },
@@ -55,7 +63,7 @@
      "matchup": "Rinko Matsuda @ Katarzyna Kawa",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Rinko Matsuda 0 - Katarzyna Kawa 0"
     },
     {
@@ -63,7 +71,7 @@
      "matchup": "Linda Fruhvirtova @ Ye Shiyu",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Linda Fruhvirtova 0 - Ye Shiyu 0"
     },
     {
@@ -71,7 +79,7 @@
      "matchup": "Olivia Nicholls @ Marina Bassols Ribera",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Olivia Nicholls 0 - Marina Bassols Ribera 0"
     },
     {
@@ -81,6 +89,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Junhan Zhang 0 - Aliaksandra Sasnovich 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Storm Hunter @ Zhang Ruien",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Storm Hunter 0 - Zhang Ruien 0"
     }
    ]
   }
