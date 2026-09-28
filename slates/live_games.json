@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T06:39:13.488196+00:00",
+ "generated_at": "2026-09-28T06:54:34.506060+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -15,18 +15,10 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Irene Burillo @ Valeria Savinykh",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Irene Burillo 0 - Valeria Savinykh 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Rinko Matsuda @ Katarzyna Kawa",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Rinko Matsuda 0 - Katarzyna Kawa 0"
     },
     {
@@ -34,7 +26,7 @@
      "matchup": "Linda Fruhvirtova @ Ye Shiyu",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Linda Fruhvirtova 0 - Ye Shiyu 0"
     },
     {
@@ -42,7 +34,7 @@
      "matchup": "Ellen Perez @ Elvina Kalieva",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Ellen Perez 0 - Elvina Kalieva 0"
     }
    ]
@@ -59,6 +51,14 @@
      "score": "Yujia Huang 0 - Wei Sijia 0"
     },
     {
+     "espn_event_id": "1028-2026",
+     "matchup": "Emerson Jones @ Haruka Kaji",
+     "commence": "2026-09-25T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Emerson Jones 0 - Haruka Kaji 0"
+    },
+    {
      "espn_event_id": "959-2026",
      "matchup": "Tian Jialin @ Andrea Lazaro Garcia",
      "commence": "2026-09-27T04:00Z",
@@ -68,18 +68,10 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Irene Burillo @ Valeria Savinykh",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Irene Burillo 0 - Valeria Savinykh 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Rinko Matsuda @ Katarzyna Kawa",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Rinko Matsuda 0 - Katarzyna Kawa 0"
     },
     {
@@ -87,7 +79,7 @@
      "matchup": "Linda Fruhvirtova @ Ye Shiyu",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Linda Fruhvirtova 0 - Ye Shiyu 0"
     },
     {
@@ -95,7 +87,7 @@
      "matchup": "Ellen Perez @ Elvina Kalieva",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Ellen Perez 0 - Elvina Kalieva 0"
     }
    ]
