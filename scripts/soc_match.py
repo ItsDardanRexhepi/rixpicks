@@ -19,13 +19,13 @@ import json, math, os, sys, time, hashlib, urllib.request, datetime
 
 NIM_URL = 'https://ultrix-core.itsdardanr.workers.dev/nim'
 EMBED_MODEL = 'nvidia/nemotron-3-embed-1b'
-VERIFY_MODEL = 'meta/llama-3.2-11b-vision-instruct'
+VERIFY_MODEL = 'meta/llama-3.2-11b-vision-instruct'  # only live language model on this NIM account (probed 3:26 - 70b/405b/qwen/deepseek all 404/410)
 REQUESTER = 'rixpicks-socmatch'
 AUTO_ACCEPT = 0.62      # evidence gate passes outright
 PROBE_FLOOR = 0.48      # band [FLOOR, ACCEPT): PROBE via LLM verify
 MORE_FLOOR = 0.42       # "View more posts" list inclusion
-MAX_PROBES = 60         # per-run LLM verify budget (trial credits)
-TOP_CANDIDATES = 3
+MAX_PROBES = 90         # per-run LLM verify budget (trial credits)
+TOP_CANDIDATES = 10
 MORE_CAP = 20
 
 # owner 1:26: the social feed itself renders sports-relevant, topic-matching posts only -
@@ -77,7 +77,8 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL])
+PROMPT_VERSION = 'v3-structured-entities'  # probe wording is decision-changing: version MUST salt the verdict cache
+SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION])
 
 def thash(t):
     return hashlib.sha1(t.encode('utf-8')).hexdigest()
@@ -112,17 +113,32 @@ def verify(story, post):
     # fan's "My OFFICIAL 2026 MLB Playoff Predictions" against "2026 MLB playoff predictions:
     # Expert picks", which IS the same topic. Boundary unchanged: different player/team/game/
     # storyline is still a mismatch (adversarial: Jets injury post vs Bills injury story = NO).
-    prompt = ('You verify content pairings for a sports site.\n'
+    # v3 structured (owner 3:16 hardening): force entity extraction BEFORE the verdict so the
+    # small judge can't pattern-match on a side-mentioned name (the Jameis Winston false-reject:
+    # the blurb named him but the story's subject was the McCarthy trade). Same bar, better aim.
+    prompt = ('You verify content pairings for a sports site. Work in two steps.\n'
               'NEWS STORY: ' + story[:600] + '\n'
               'SOCIAL POST: ' + post[:600] + '\n'
-              'Is the social post about the same story or the same specific topic as the news story? '
-              'Same specific topic counts (e.g. both are about 2026 MLB playoff predictions). '
-              'A different player, team, game, or storyline is NOT a match, even in the same sport. '
-              'Same broad sport alone is NOT enough. Answer with exactly YES or NO, then one short reason.')
+              'Step 1: In one line each, name the main subject of the story (specific player/team/game/event) '
+              'and the main subject of the post. Ignore side mentions.\n'
+              'Step 2: Is the post about the same story or the same specific topic as the story? '
+              'Same specific topic counts (e.g. both are about 2026 MLB playoff predictions, or both about the same trade). '
+              'A different player, team, game, or storyline as the MAIN subject is NOT a match, even in the same sport. '
+              'Same broad sport alone is NOT enough.\n'
+              'Answer: two Step-1 lines, then a final line starting with exactly YES or NO and one short reason.')
     out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
-               'prompt': prompt, 'max_tokens': 60}, timeout=90)
+               'prompt': prompt, 'max_tokens': 200}, timeout=90)
     text = out.get('text', '').strip()
-    return text.upper().startswith('YES'), text[:160]
+    # v3: verdict lives on the LAST non-empty line (step-1 subject lines come first)
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    verdict_line = ''
+    for l in reversed(lines):
+        if l.upper().startswith('YES') or l.upper().startswith('NO'):
+            verdict_line = l
+            break
+    if not verdict_line:
+        verdict_line = lines[-1] if lines else ''
+    return verdict_line.upper().startswith('YES'), (verdict_line or text)[:160]
 
 def key_news(it):
     # client resolvable: the exact link (or headline) string is the key - no hashing needed in JS
