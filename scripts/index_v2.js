@@ -192,7 +192,7 @@ function newsBucket(t){
   out=out.slice();
  }
  out=out.concat(DNEWS[t.key]||[]);
- if(t.key==='home')out=out.concat(XNEWS);
+ /* XNEWS intentionally NOT merged: X posts get their own Home social section (owner 10:32); news is articles only. XNEWS stays populated for that consumer. */
  out.sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);});
  var seen={},ded=[];
  out.forEach(function(a){var n=normH(a.headline);if(!n||seen[n])return;seen[n]=1;ded.push(a);});
@@ -309,11 +309,30 @@ function kalItemsFor(t,cb){
  });
  if(pend===0)fin();
 }
+/* ticker core (Julian stutter hunt 9/28): crawl driven by rAF at CONSTANT px/s in JS, never
+   CSS animation. Root causes killed: (1) innerHTML swap on every tickRender (tab switch, 30s
+   refresh, async KALSHI callback) restarted/jerked the loop - swap now only on real content
+   change; (2) translateX(-50%) remapped pixel position on width change mid-loop - position
+   preserved modulo new half-width; (3) %-duration made px/s vary with content volume - speed
+   is constant; (4) background/visibility desync - rAF stops/resumes without state loss. */
+var TICK_V=46,tickX=0,tickHalf=0,tickPaused=false,tickLast=0;
+try{if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)TICK_V=0;}catch(e){}
+function tickDrive(ts){
+ var tr=$('rpTickTrack');
+ if(tr&&tickHalf>0&&!tickPaused&&!document.hidden&&TICK_V>0){
+  if(tickLast)tickX=(tickX+TICK_V*(ts-tickLast)/1000)%tickHalf;
+  tr.style.transform='translateX('+(-Math.round(tickX*2)/2)+'px)';
+ }
+ tickLast=ts;
+ requestAnimationFrame(tickDrive);
+}
+requestAnimationFrame(tickDrive);
+(function(){var b=$('rpTickBar');if(b){b.addEventListener('mouseenter',function(){tickPaused=true;});b.addEventListener('mouseleave',function(){tickPaused=false;});}})();
 function tickRender(){
  var tr=$('rpTickTrack'),bar=$('rpTickBar');if(!tr||!bar)return;
  var arts=(NEWSF&&NEWSF.latest)||[];
  kalItemsFor(cur,function(kal){
-  if(!arts.length&&!kal.length){bar.style.display='none';return;}
+  if(!arts.length&&!kal.length){bar.style.display='none';tr.__h='';tr.innerHTML='';tickHalf=0;tickX=0;return;}
   bar.style.display='';
   var h='';
   arts.slice(0,8).forEach(function(a){
@@ -322,7 +341,12 @@ function tickRender(){
    h+='<'+(u?'a class="titem" href="'+esc(u)+'" target="_blank" rel="noreferrer"':'span class="titem"')+'><span class="tsrc '+s.toLowerCase()+'">'+esc(s)+'</span><span class="tsrc">'+esc(a.league||'')+'</span>'+esc(unesc(a.headline||''))+'</'+(u?'a':'span')+'><span class="tsep">\u00b7</span>';
   });
   h+=kal.join('');
-  tr.innerHTML=h+h;
+  if(h!==tr.__h){
+   tr.__h=h;tr.innerHTML=h+h;
+   var nh=tr.scrollWidth/2;
+   tickX=(tickHalf>0&&nh>0)?(tickX%nh):0;  /* same visual position under the new width */
+   tickHalf=nh;
+  }
  });
 }
 function loadSide(t){
