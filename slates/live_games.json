@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T03:06:11.129499+00:00",
+ "generated_at": "2026-09-28T03:12:27.526147+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,7 +10,7 @@
      "matchup": "LAR @ DEN",
      "commence": "2026-09-28T00:20Z",
      "status": "in",
-     "detail": "8:40 - 4th",
+     "detail": "7:03 - 4th",
      "score": "LAR 19 - DEN 16",
      "away_to": 3,
      "home_to": 3
@@ -24,11 +24,107 @@
      "espn_event_id": "401918016",
      "matchup": "DAL @ GS",
      "commence": "2026-09-28T01:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "DAL 80 - GS 104"
+    }
+   ]
+  },
+  {
+   "league": "ATP",
+   "games": [
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Vivian Wolff @ Carol Zhao",
+     "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "17.5 - 4th",
-     "score": "DAL 80 - GS 104",
-     "away_to": 2,
-     "home_to": 3
+     "detail": "1st",
+     "score": "Vivian Wolff 0 - Carol Zhao 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Bai Zhuoxuan @ Mina Hodzic",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Bai Zhuoxuan 0 - Mina Hodzic 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Tiphanie Lemaitre @ Harriet Dart",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Tiphanie Lemaitre 0 - Harriet Dart 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Ma YeXin @ Ren Yufei",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Ma YeXin 0 - Ren Yufei 0"
+    }
+   ]
+  },
+  {
+   "league": "WTA",
+   "games": [
+    {
+     "espn_event_id": "1028-2026",
+     "matchup": "Chenting Zhu @ Sara Saito",
+     "commence": "2026-09-25T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Chenting Zhu 0 - Sara Saito 0"
+    },
+    {
+     "espn_event_id": "1028-2026",
+     "matchup": "Fiona Ferro @ Yang Yidi",
+     "commence": "2026-09-25T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Fiona Ferro 0 - Yang Yidi 0"
+    },
+    {
+     "espn_event_id": "1028-2026",
+     "matchup": "Zheng Wushuang @ Mei Yamaguchi",
+     "commence": "2026-09-25T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Zheng Wushuang 0 - Mei Yamaguchi 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Vivian Wolff @ Carol Zhao",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Vivian Wolff 0 - Carol Zhao 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Bai Zhuoxuan @ Mina Hodzic",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Bai Zhuoxuan 0 - Mina Hodzic 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Tiphanie Lemaitre @ Harriet Dart",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Tiphanie Lemaitre 0 - Harriet Dart 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Ma YeXin @ Ren Yufei",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Ma YeXin 0 - Ren Yufei 0"
     }
    ]
   }
