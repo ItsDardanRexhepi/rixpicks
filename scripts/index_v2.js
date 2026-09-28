@@ -482,8 +482,15 @@ function renderSocial(){
  }
  var pool=chrono.filter(function(p){return seenP[p.id]||onTopic(p);}); /* verified pins bypass the topic floor - the probe already judged them */
  /* matched-only counterpart (QA audit 6): when verified pins exist, the social carousel shows
-    exactly the paired posts - counts match the news carousel as a consequence. No pins yet ->
-    the generic on-topic chronological feed (1:00: nothing synced beats wrong). */
+    exactly the paired posts - counts match the news carousel as a consequence. */
+ var matchedOnly=!!(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs);
+ if(matchedOnly&&!pinned.length){
+  /* QA batch-one catch + owner 2:59 (always matching topics, no exceptions): zero-pair state
+     must NOT cycle the generic pool while the news card shows the syncing state - the feeds
+     would be visibly unsynchronized exactly when we claim otherwise. Social sync-states too. */
+  box.innerHTML='<div class="empty syncwait">Live sync on - posts land here as the algorithm verifies them against the stories above.</div>';
+  SOC_SIG='';SOC_N=0;SOC_LAST=[];return;
+ }
  var items=(pinned.length?pinned.slice():pinned.concat(pool.filter(function(p){return pinned.indexOf(p)<0;}))).slice(0,6);
  var sig=items.map(function(p){return p.id||String(p.headline||'').slice(0,40);}).join('|');
  if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
