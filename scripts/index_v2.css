@@ -169,7 +169,7 @@ body.tab-past .layout aside{display:none}
 .newscar .cartrack{transition:transform .55s cubic-bezier(.4,0,.2,1)}
 .newscar .carslide{height:118px}
 .newscar .carslide>a{display:flex;gap:12px;align-items:center;height:100%;padding:12px 14px;text-decoration:none;color:inherit;box-sizing:border-box}
-.carimg{flex:0 0 132px;height:100%;background-size:cover;background-position:center;border-radius:8px}
+.carimg{flex:0 0 132px;align-self:stretch;min-height:94px;background-size:cover;background-position:center;border-radius:8px} /* NEWS-ART-GUARD: never height:100% here - slides are height:auto (12:21 clip fix), so % heights collapse to 0; align-self:stretch + min-height are the contract (2:03 zero-height image bug) */
 .carbody{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
 .carhead{font-size:14.5px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .carblurb{font-size:12.5px;color:#8a8f98;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
