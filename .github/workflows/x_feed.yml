@@ -1,7 +1,9 @@
 name: x-feed
 # X API recent-search feed for the SENSE stage (main 9/27 9:25 PM handoff from analysis).
-# Cadence: 1 pull set / 15 min default; widen only on live slates. Dormant (exit 0) until
-# the X_BEARER_TOKEN secret is filled - midnight browser window, vaulted token.
+# STANDING CRON DISABLED (main 9/27 9:29): recurring 15-min cadence waits for his informed
+# approval of the real burn math - pricing pulled from the X dashboard post-verification,
+# daily/monthly burn vs $9.04 computed and reported to main first. Dispatch-only until then:
+# verify-only and one-off test calls are approved.
 on:
   workflow_dispatch:
     inputs:
@@ -9,8 +11,6 @@ on:
         description: 'Only verify the token (GET /2/users/me), no pulls'
         type: boolean
         default: false
-  schedule:
-    - cron: '3,18,33,48 * * * *'
 permissions:
   contents: write
 concurrency:
