@@ -1,5 +1,69 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T09:24:00-07:00",
- "combos": []
+ "generated_at": "2026-09-28T11:07:30-07:00",
+ "combos": [
+  {
+   "id": "idea-mnf-phi-chi-20260928",
+   "type": "idea",
+   "title": "MNF 7-Leg Idea",
+   "matchup": "PHI @ CHI",
+   "time": "Mon 5:15 PM PT",
+   "sport": "nfl",
+   "league": "NFL",
+   "estimate": "Est. 7 legs on DK ~+4548 (no native combo quote). Kalshi has no Ertz market",
+   "estimate_note": "Estimate from seven individually priced DK legs - not an executable SGP quote.",
+   "prices_note": "Wooder Ice snapshots, DK Predictions / Kalshi, as of ~11:00 AM PT - reference, not live quotes.",
+   "legs": [
+    {
+     "player": "Jalen Hurts",
+     "market": "200+ passing yards",
+     "dk": "-178",
+     "kalshi": "-156",
+     "fm": "passing_yards"
+    },
+    {
+     "player": "Saquon Barkley",
+     "market": "60+ rushing yards",
+     "dk": "-194",
+     "kalshi": "-178",
+     "fm": "rushing_yards"
+    },
+    {
+     "player": "D'Andre Swift",
+     "market": "60+ rushing yards",
+     "dk": "-122",
+     "kalshi": "-113",
+     "fm": "rushing_yards"
+    },
+    {
+     "player": "Zach Ertz",
+     "market": "20+ receiving yards",
+     "dk": "+178",
+     "kalshi_note": "no Kalshi market",
+     "fm": "receiving_yards"
+    },
+    {
+     "player": "Eagles",
+     "market": "+2.5",
+     "dk": "-233",
+     "kalshi": "-223",
+     "fm": "spread"
+    },
+    {
+     "player": "DeVonta Smith",
+     "market": "50+ receiving yards",
+     "dk": "-300",
+     "kalshi": "-270",
+     "fm": "receiving_yards"
+    },
+    {
+     "player": "Saquon Barkley",
+     "market": "anytime TD",
+     "dk": "+104",
+     "kalshi": "+104",
+     "fm": "anytime_td"
+    }
+   ]
+  }
+ ]
 }
