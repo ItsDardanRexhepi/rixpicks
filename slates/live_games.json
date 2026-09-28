@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T09:44:42.060394+00:00",
+ "generated_at": "2026-09-28T09:57:48.483637+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -10,7 +10,7 @@
      "matchup": "Alejandro Davidovich Fokina @ Nikoloz Basilashvili",
      "commence": "2026-09-22T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Alejandro Davidovich Fokina 0 - Nikoloz Basilashvili 0"
     },
     {
@@ -20,22 +20,6 @@
      "status": "in",
      "detail": "1st",
      "score": "Andrey Rublev 0 - Kyrian Jacquet 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Ksenia Zaytseva @ Tamara Zidansek",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Ksenia Zaytseva 0 - Tamara Zidansek 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Shi Han @ Tereza Mihalikova",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Shi Han 0 - Tereza Mihalikova 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -52,6 +36,14 @@
      "status": "in",
      "detail": "2nd",
      "score": "Varvara Lepchenko 0 - Ulrikke Eikeri 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Mai Hontama @ Alexandra Panova",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Mai Hontama 0 - Alexandra Panova 0"
     }
    ]
   },
@@ -84,22 +76,6 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Ksenia Zaytseva @ Tamara Zidansek",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Ksenia Zaytseva 0 - Tamara Zidansek 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Shi Han @ Tereza Mihalikova",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Shi Han 0 - Tereza Mihalikova 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Jodie Burrage @ Rebecca Sramkova",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
@@ -113,6 +89,14 @@
      "status": "in",
      "detail": "2nd",
      "score": "Varvara Lepchenko 0 - Ulrikke Eikeri 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Mai Hontama @ Alexandra Panova",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Mai Hontama 0 - Alexandra Panova 0"
     }
    ]
   }
