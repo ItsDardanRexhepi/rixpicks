@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T03:41:24.780699+00:00",
+ "generated_at": "2026-09-28T03:49:14.772195+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,9 +10,9 @@
      "matchup": "LAR @ DEN",
      "commence": "2026-09-28T00:20Z",
      "status": "in",
-     "detail": "0:51 - 4th",
-     "score": "LAR 26 - DEN 23",
-     "away_to": 1,
+     "detail": "0:26 - 4th",
+     "score": "LAR 26 - DEN 30",
+     "away_to": 0,
      "home_to": 2
     }
    ]
@@ -83,7 +83,7 @@
      "matchup": "Chenting Zhu @ Sara Saito",
      "commence": "2026-09-25T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Chenting Zhu 0 - Sara Saito 0"
     },
     {
