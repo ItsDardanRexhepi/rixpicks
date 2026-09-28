@@ -1,27 +1,27 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-09-28T06:39:42.883311Z",
-  "expires_at": "2026-09-28T06:45:42.883311Z",
+  "observed_at": "2026-09-28T06:45:13.513195Z",
+  "expires_at": "2026-09-28T06:51:13.513195Z",
   "cadence": "approximately 5 minutes",
   "events": [
     {
       "id": "btc-sep-2026-87500-kalshi-poly-20260927",
       "first_seen_at": "2026-09-28T00:03:50Z",
-      "last_verified_at": "2026-09-28T06:39:42.883311Z",
-      "expires_at": "2026-09-28T06:45:42.883311Z",
+      "last_verified_at": "2026-09-28T06:45:13.513195Z",
+      "expires_at": "2026-09-28T06:51:13.513195Z",
       "status": "thinned",
       "contract": "BTC September reaches $87,500 YES",
       "buy_leg": {
         "venue": "Kalshi",
         "ask": 0.07,
-        "displayed_size": 656.13
+        "displayed_size": 660.93
       },
       "sell_leg": {
         "venue": "Polymarket",
-        "bid": 0.08,
+        "bid": 0.09,
         "displayed_size": 15909.0
       },
-      "gross_displayed_spread": 0.01,
+      "gross_displayed_spread": 0.02,
       "source_urls": [
         "https://api.elections.kalshi.com/trade-api/v2/markets/KXBTCMAXMON-BTC-26SEP30-8750000/orderbook?depth=5",
         "https://clob.polymarket.com/book?token_id=93102073593745160534123412868713328176360151139344483198023062751009656599915",
