@@ -219,8 +219,8 @@
     {
       "date": "2026-09-27",
       "label": "Sunday, Sep 27",
-      "record": "4-2",
-      "units": "-0.69u",
+      "record": "5-2",
+      "units": "+1.16u",
       "brief": "",
       "picks": [
         {
@@ -276,6 +276,15 @@
           "result": "W",
           "score": "LAD 5, SF 1",
           "_delta": "2.145922746781115879828326180"
+        },
+        {
+          "name": "Dream ML",
+          "game": "vs Mystics",
+          "odds": "-270",
+          "units": "5u",
+          "result": "W",
+          "score": "WAS 77, ATL 92",
+          "_delta": "1.8518518518518519"
         }
       ]
     }
