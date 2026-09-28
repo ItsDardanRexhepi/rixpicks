@@ -8,10 +8,12 @@
  ],
  "dead_picks": [
   "Ashton Jeanty",
+  "Aaron Jones Sr.",
   "CeeDee Lamb",
   "Mark Andrews",
   "Bucky Irving",
   "Ashton Jeanty",
+  "Aaron Jones Sr.",
   "CeeDee Lamb",
   "Mark Andrews",
   "Bucky Irving",
@@ -33,10 +35,10 @@
  ],
  "removal_rule": "one definitively LOST leg removes the whole combo card from the public site; lost standalones come off alone; internal ledger keeps all rows",
  "record": {
-  "wins": 38,
-  "losses": 38,
+  "wins": 36,
+  "losses": 40,
   "pushes": 0,
-  "pending": 7
+  "pending": 14
  },
  "by_window": {
   "dingers-2026-09-27": {
@@ -54,13 +56,20 @@
    "void": 1
   },
   "sun-afternoon": {
-   "wins": 16,
-   "losses": 22,
+   "wins": 14,
+   "losses": 24,
    "pushes": 0,
    "pending": 0,
    "void": 0
   },
   "sun-evening": {
+   "wins": 0,
+   "losses": 0,
+   "pushes": 0,
+   "pending": 7,
+   "void": 0
+  },
+  "sun-night": {
    "wins": 0,
    "losses": 0,
    "pushes": 0,
@@ -76,10 +85,10 @@
    "pending": 0
   },
   "anytime_td": {
-   "wins": 17,
-   "losses": 16,
+   "wins": 15,
+   "losses": 18,
    "pushes": 0,
-   "pending": 0
+   "pending": 1
   },
   "ml": {
    "wins": 5,
@@ -103,13 +112,13 @@
    "wins": 2,
    "losses": 1,
    "pushes": 0,
-   "pending": 0
+   "pending": 4
   },
   "rushing_yards": {
    "wins": 2,
    "losses": 0,
    "pushes": 0,
-   "pending": 0
+   "pending": 2
   },
   "total_over": {
    "wins": 1,
@@ -717,8 +726,9 @@
    "price": "47c/+113",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "won",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "CeeDee Lamb",
@@ -817,8 +827,9 @@
    "price": "45c",
    "window": "sun-afternoon",
    "combo_id": null,
-   "status": "won",
-   "received": "2026-09-27T12:14:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T12:14:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "CeeDee Lamb",
@@ -1225,6 +1236,90 @@
    "combo_id": "t6",
    "status": "pending",
    "received": "2026-09-27T16:20:00-07:00"
+  },
+  {
+   "label": "Kyren Williams",
+   "market": "anytime_td",
+   "matchup": "LAR @ DEN",
+   "venue": "dk_idea",
+   "line": null,
+   "price": null,
+   "window": "sun-night",
+   "combo_id": "t7",
+   "status": "pending",
+   "received": "2026-09-27T17:16:00-07:00"
+  },
+  {
+   "label": "Kyren Williams",
+   "market": "rushing_yards",
+   "matchup": "LAR @ DEN",
+   "venue": "dk_idea",
+   "line": 50,
+   "price": null,
+   "window": "sun-night",
+   "combo_id": "t7",
+   "status": "pending",
+   "received": "2026-09-27T17:16:00-07:00"
+  },
+  {
+   "label": "Blake Corum",
+   "market": "rushing_yards",
+   "matchup": "LAR @ DEN",
+   "venue": "dk_idea",
+   "line": 30,
+   "price": null,
+   "window": "sun-night",
+   "combo_id": "t7",
+   "status": "pending",
+   "received": "2026-09-27T17:16:00-07:00"
+  },
+  {
+   "label": "Kyren Williams",
+   "market": "receptions",
+   "matchup": "LAR @ DEN",
+   "venue": "dk_idea",
+   "line": 2,
+   "price": null,
+   "window": "sun-night",
+   "combo_id": "t7",
+   "status": "pending",
+   "received": "2026-09-27T17:16:00-07:00"
+  },
+  {
+   "label": "Courtland Sutton",
+   "market": "receptions",
+   "matchup": "LAR @ DEN",
+   "venue": "dk_idea",
+   "line": 2,
+   "price": null,
+   "window": "sun-night",
+   "combo_id": "t7",
+   "status": "pending",
+   "received": "2026-09-27T17:16:00-07:00"
+  },
+  {
+   "label": "RJ Harvey",
+   "market": "receptions",
+   "matchup": "LAR @ DEN",
+   "venue": "dk_idea",
+   "line": 2,
+   "price": null,
+   "window": "sun-night",
+   "combo_id": "t7",
+   "status": "pending",
+   "received": "2026-09-27T17:16:00-07:00"
+  },
+  {
+   "label": "Terrance Ferguson",
+   "market": "receptions",
+   "matchup": "LAR @ DEN",
+   "venue": "dk_idea",
+   "line": 2,
+   "price": null,
+   "window": "sun-night",
+   "combo_id": "t7",
+   "status": "pending",
+   "received": "2026-09-27T17:16:00-07:00"
   }
  ],
  "note": "Bought tickets grade at their legs; void = inactive/no-action."
