@@ -1,0 +1,9 @@
+{
+ "version": 1,
+ "generated": "2026-09-27T17:11:27",
+ "mode": "pregame",
+ "schema": "candidates only - post-gate (P-EDGE-001 net>=2c measured / >=3c MODELED_FAIR, confidence OK, 4.5c divergence kill, availability veto, URF). Empty list = honest quiet, not an outage.",
+ "n_priced_rows": 74,
+ "n_kalshi_bound": 33,
+ "candidates": []
+}
