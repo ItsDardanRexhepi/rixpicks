@@ -110,6 +110,7 @@ for name,path in [('st',f'/tmp/cand_st_{DT}.json'),('props',f'/tmp/cand_props_{D
         rows=json.load(open(path))
         cands+=rows; print(f"{name}: {len(rows)} candidates")
     except Exception as e: print(f"{name} merge skip:", e)
+for i,c in enumerate(cands,1): c.setdefault('num',i)  # build_manifest contract: candidate rows carry num
 json.dump(cands, open(f'/tmp/candidates_{DT}.json','w'), indent=1)
 print("merged candidates:", len(cands))
 PY

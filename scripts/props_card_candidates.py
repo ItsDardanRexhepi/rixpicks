@@ -57,7 +57,7 @@ def tier_eval(fair_c, gross_c):
 def adapt(row, floor=True, now=None):
     now = now or datetime.now(ZoneInfo('UTC'))
     if row.get('net_c') is None: return None
-    if floor and row['net_c'] < 2: return None
+    if row['net_c'] < (2 if floor else 0): return None  # floorless pass: zero-edge gate stands (negative edge never cards)
     market = MARKET_MAP.get(row.get('market'))
     if not market:
         print(f"SKIP (fail closed): ungradeable market {row.get('market')!r} for {row.get('player')}", file=sys.stderr)

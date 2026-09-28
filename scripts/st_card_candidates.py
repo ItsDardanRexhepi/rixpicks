@@ -58,7 +58,7 @@ def adapt(row, cache, eid_map, floor=True):
     # gates mirror st_hunt.candidate: needs anchored kalshi + net >= 2c (P-EDGE-001);
     # floor=False only for the governing-sequence floorless fallback pass.
     if row.get('net_c') is None: return None
-    if floor and row['net_c'] < 2: return None
+    if row['net_c'] < (2 if floor else 0): return None  # floorless: zero-edge gate stands
     cls = row['cls']
     if cls not in ('spread', 'total'): return None
     cons = row['consensus_line']
@@ -128,7 +128,7 @@ def main():
         c = adapt(r, cache, eid_map, floor=floor)
         if c: out.append(c)
         alt = r.get('alt')
-        if alt and alt.get('net_c') is not None and (not floor or alt['net_c'] >= 2):
+        if alt and alt.get('net_c') is not None and alt['net_c'] >= (2 if floor else 0):
             aunits = tier_eval(alt['fair_c'], alt['gross_c'])
             if aunits == 0: continue  # below J-096 card band, floor or not
             eid, _ = resolve_eid(r, cache, eid_map)

@@ -38,7 +38,7 @@ def adapt(catch, side_rec, floor=True):
     gross = fair_c - ask
     net = side_rec.get('net_edge_c')
     if net is None: return None
-    if floor and net < 2: return None            # P-EDGE-001
+    if net < (2 if floor else 0): return None    # P-EDGE-001 floored; floorless keeps the zero-edge gate
     # divergence kill: dual-anchor only; single-anchor tonight = N/A (recorded)
     alt = side_rec.get('fair_pct_alt')
     anchors = 2 if alt is not None else 1
