@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T06:08:56.657308+00:00",
+ "generated_at": "2026-09-28T06:24:55.338400+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -10,7 +10,7 @@
      "matchup": "Tian Jialin @ Andrea Lazaro Garcia",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Tian Jialin 0 - Andrea Lazaro Garcia 0"
     },
     {
@@ -36,6 +36,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Linda Fruhvirtova 0 - Ye Shiyu 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Ellen Perez @ Elvina Kalieva",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Ellen Perez 0 - Elvina Kalieva 0"
     }
    ]
   },
@@ -63,7 +71,7 @@
      "matchup": "Tian Jialin @ Andrea Lazaro Garcia",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Tian Jialin 0 - Andrea Lazaro Garcia 0"
     },
     {
@@ -89,6 +97,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Linda Fruhvirtova 0 - Ye Shiyu 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Ellen Perez @ Elvina Kalieva",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Ellen Perez 0 - Elvina Kalieva 0"
     }
    ]
   }
