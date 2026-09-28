@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-09-28T06:02:00.928977Z",
-  "expires_at": "2026-09-28T07:12:00.928977Z",
+  "observed_at": "2026-09-28T06:06:44.370106Z",
+  "expires_at": "2026-09-28T07:16:44.370106Z",
   "cadence": "hourly and on verified material event",
   "fx_reference": {
     "base": "USD",
@@ -30,6 +30,16 @@
     ]
   },
   "public_news": [
+    {
+      "title": "Bank of Japan published July 30-31 meeting minutes; some members discussed faster hikes",
+      "published_at": "2026-09-28T08:50:00+09:00",
+      "fresh_event": true,
+      "summary": "One member favored a 1.25% rate at the July meeting; another said future hike pace could exceed market expectations of six-month intervals, conditional on inflation and conditions. No new rate decision or fixed hike path.",
+      "sources": [
+        "https://www.boj.or.jp/en/mopo/mpmsche_minu/minu_2026/g260731.pdf",
+        "https://www.reuters.com/business/finance/bank-japan-debated-need-faster-rate-hikes-july-minutes-show-2026-09-28/"
+      ]
+    },
     {
       "title": "Federal Reserve sought comment on two stablecoin-issuer rule proposals under GENIUS Act",
       "published_at": "2026-09-24",
