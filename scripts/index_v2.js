@@ -264,6 +264,12 @@ var SYNC_STOP=['with','from','that','this','after','before','into','your','their
 var SYNC_LAST=false;
 function socSync(){
  SYNC_LAST=false;
+ /* aligned mode (user 4:27): social index IS the news index - the feeds can never disagree
+    on position or count. Slide content already carries verified/latest/scan honesty tiers. */
+ if(SOC_MATCH_OK&&SOC_N>0&&CAR_LAST.length>0){
+  SOC_IDX=CAR_IDX;if(SOC_IDX>=SOC_N)SOC_IDX=SOC_N-1;if(SOC_IDX<0)SOC_IDX=0;
+  socApply();SYNC_LAST=true;return true;
+ }
  var mp=socMatchPair();
  if(mp>=0){SOC_IDX=mp;socApply();SYNC_LAST=true;return true;}
  /* abstain or no map entry: NEVER guess a pairing (owner 1:00 hard rule - a wrong match is a failure,
@@ -492,20 +498,53 @@ function renderSocial(){
  /* never-empty (user 3:54, supersedes the 1:09/2:59 zero-pair waiting card): social ALWAYS shows
     the most recent on-topic posts; a verified pair for the displayed story pins first via the
     pinned slice + socSync jump. No verified pair -> latest on-topic posts, never a blank card. */
- var items=(pinned.length?pinned.slice():pinned.concat(pool.filter(function(p){return pinned.indexOf(p)<0;}))).slice(0,6);
- var sig=items.map(function(p){return p.id||String(p.headline||'').slice(0,40);}).join('|');
+ /* ALIGNED MODE (user 4:27 "feeds not synced, numbers mismatch" - killed at the class level):
+    social slides are built 1:1 from the news slides, so both carousels always read the same
+    "x of N" and advance in lockstep. Each slide is one of three honest tiers:
+    VERIFIED (URF-probe-confirmed pair for that exact story, badged), LATEST (most recent
+    on-topic post not already shown - labeled as latest, never claimed as a pair; satisfies
+    his 3:54 never-empty/"most recent thing" floor), SCAN (designed scanning card, last resort).
+    No-map fallback keeps the old pinned+pool behavior below. */
+ var items=[];
+ var aligned=SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs&&CAR_LAST.length>0;
+ if(aligned){
+  var usedA={};
+  CAR_LAST.forEach(function(a){
+   var k=(a.link||'')||String(a.headline||'');
+   var pr=SOC_MATCH.pairs[k];
+   if(pr&&pr.post_id&&!usedA[pr.post_id]&&SOC_XIDX[pr.post_id]!==undefined){
+    usedA[pr.post_id]=1;
+    items.push({post:XNEWS[SOC_XIDX[pr.post_id]],kind:'verified',nkey:k});
+   } else items.push({post:null,kind:'scan',nkey:k});
+  });
+  var pi=0;
+  items.forEach(function(it){
+   if(it.kind!=='scan')return;
+   while(pi<pool.length&&usedA[pool[pi].id])pi++;
+   if(pi<pool.length){usedA[pool[pi].id]=1;it.post=pool[pi];it.kind='latest';pi++;}
+  });
+ } else {
+  items=(pinned.length?pinned.slice():pinned.concat(pool.filter(function(p){return pinned.indexOf(p)<0;}))).slice(0,6).map(function(p){return {post:p,kind:'pool',nkey:''};});
+ }
+ var sig=items.map(function(it){return ((it.post&&it.post.id)||'-')+it.kind;}).join('|');
  if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
- var curId=(SOC_LAST[SOC_IDX]&&SOC_LAST[SOC_IDX].id)||'';
+ var curId=(SOC_LAST[SOC_IDX]&&SOC_LAST[SOC_IDX].post&&SOC_LAST[SOC_IDX].post.id)||'';
  SOC_SIG=sig;SOC_N=items.length;SOC_LAST=items;
- SOC_RIDX={};items.forEach(function(p,i){if(p.id)SOC_RIDX[p.id]=i;});
+ SOC_RIDX={};items.forEach(function(it,i){if(it.post&&it.post.id)SOC_RIDX[it.post.id]=i;});
  SOC_IDX=0;
- if(curId){for(var _si=0;_si<items.length;_si++){if(items[_si].id===curId){SOC_IDX=_si;break;}}}
+ if(curId){for(var _si=0;_si<items.length;_si++){if(items[_si].post&&items[_si].post.id===curId){SOC_IDX=_si;break;}}}
  if(SOC_IDX>=SOC_N)SOC_IDX=0;
  var h='<div class="carvp socvp"><div class="cartrack" id="rpSocTrack">';
- items.forEach(function(p){
+ items.forEach(function(it){
+  var p=it.post;
+  if(!p){
+   h+='<div class="carslide socslide"><span class="carbody"><span class="stxt syncscan">UltRix is scanning for posts about this story.</span></span></div>';
+   return;
+  }
   var txt=String(p.headline||'');
   if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
-  var inner='<span class="carbody"><span class="stxt">'+esc(unesc(txt))+'</span>'
+  var badge=it.kind==='verified'?'<span class="syncbadge">UltRix verified sync</span>':(it.kind==='latest'?'<span class="synclatest">Latest from the feed</span>':'');
+  var inner='<span class="carbody">'+badge+'<span class="stxt">'+esc(unesc(txt))+'</span>'
    +'<span class="carmeta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+(isNewIt(p)?' <span class="carnew">new</span>':'')+'</span></span>';
   h+='<div class="carslide socslide">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
  });
