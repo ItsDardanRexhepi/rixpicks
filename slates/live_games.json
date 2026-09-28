@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T05:07:55.556726+00:00",
+ "generated_at": "2026-09-28T05:22:58.356489+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -18,7 +18,7 @@
      "matchup": "Tian Jialin @ Andrea Lazaro Garcia",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Tian Jialin 0 - Andrea Lazaro Garcia 0"
     },
     {
@@ -26,7 +26,7 @@
      "matchup": "You Xiaodi @ Dang Yiming",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "You Xiaodi 0 - Dang Yiming 0"
     },
     {
@@ -55,8 +55,16 @@
      "matchup": "Yujia Huang @ Wei Sijia",
      "commence": "2026-09-25T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Yujia Huang 0 - Wei Sijia 0"
+    },
+    {
+     "espn_event_id": "1028-2026",
+     "matchup": "Hayu Kinoshita @ Lu Jia-Jing",
+     "commence": "2026-09-25T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Hayu Kinoshita 0 - Lu Jia-Jing 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -71,7 +79,7 @@
      "matchup": "Tian Jialin @ Andrea Lazaro Garcia",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Tian Jialin 0 - Andrea Lazaro Garcia 0"
     },
     {
@@ -79,7 +87,7 @@
      "matchup": "You Xiaodi @ Dang Yiming",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "You Xiaodi 0 - Dang Yiming 0"
     },
     {
