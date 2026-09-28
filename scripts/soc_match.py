@@ -184,6 +184,7 @@ def main():
     log['audit']['off_topic'] = sum(1 for r in relevance.values() if not r['on_topic'])
 
     probes = 0
+    used_posts = set()  # one post = one story: a post already pinned/listed for a story is out of every other story's candidates
     stats = {'paired': 0, 'auto': 0, 'probe_confirmed': 0, 'abstained': 0, 'probe_rejected': 0}
     for i, it in enumerate(items):
         nk = key_news(it)
@@ -201,6 +202,8 @@ def main():
         verdicts = []
         confirmed = []  # every probe-confirmed candidate, score-ranked; [0] = pin, rest = verified more[]
         for score, j in scored[:TOP_CANDIDATES]:
+            if str(posts[j].get('id')) in used_posts:
+                continue
             # six-gate decide() - owner 1:00/1:01 hard rule: EVERY link passes the full loop.
             # Cosine alone NEVER pairs (adversarial proof 1:03: different-team same-injury-pattern
             # scored 0.628 > old 0.62 auto-accept). Every candidate >= floor takes the LLM probe
@@ -250,9 +253,15 @@ def main():
             stats['probe_rejected'] += 1
         if confirmed:
             best = confirmed[0]
+            pin_id = str(posts[best[1]].get('id'))
+            if nk in log['pairs']:
+                nk = nk + '#' + str(i)  # duplicate link/headline keys must not overwrite a recorded pair
             log['pairs'][nk] = {'post_id': posts[best[1]].get('id'), 'score': round(best[0], 4),
                                 'verified': True, 'verdicts': verdicts}
             stats['paired'] += 1
+            used_posts.add(pin_id)
+            for sc, j in confirmed[1:]:
+                used_posts.add(str(posts[j].get('id')))
         else:
             stats['abstained'] += 1
             if verdicts:
@@ -280,6 +289,7 @@ def main():
             if pid and (e.get('score') or 0) >= PROBE_FLOOR and (relevance.get(pid) or {}).get('on_topic'):
                 admit.add(pid)
     log['admit'] = sorted(admit)
+    stats['paired'] = sum(1 for v in log['pairs'].values() if (v or {}).get('verified'))
     log['audit'] = {'thresholds': {'auto_accept': AUTO_ACCEPT, 'probe_floor': PROBE_FLOOR, 'more_floor': MORE_FLOOR},
                     'probes_used': probes, **stats,
                     'coverage_pct': round(100.0 * stats['paired'] / max(1, len(items)), 1)}
