@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-09-28T12:59:04.035509Z",
-  "expires_at": "2026-09-28T14:09:04.035509Z",
+  "observed_at": "2026-09-28T14:00:54.021732Z",
+  "expires_at": "2026-09-28T15:10:54.021732Z",
   "cadence": "hourly and on verified material event",
   "fx_reference": {
     "base": "USD",
@@ -9,11 +9,11 @@
     "sources": [
       {
         "provider": "Frankfurter",
-        "rate_date": "2026-09-25",
+        "rate_date": "2026-09-28",
         "rates": {
-          "EUR": 0.87696,
-          "GBP": 0.75458,
-          "JPY": 157.59
+          "EUR": 0.87889,
+          "GBP": 0.75396,
+          "JPY": 156.88
         },
         "url": "https://api.frankfurter.dev/v1/latest?base=USD&symbols=EUR,GBP,JPY"
       },
