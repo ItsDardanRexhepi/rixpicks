@@ -22,11 +22,24 @@ def card_price(pick, picks_path=PICKS_LEDGER):
     card record is missing (0) or ambiguous (>1) - the caller REFUSES to grade."""
     eid = pick['game']['eid']
     side = pick['side']
+    mc = pick.get('market_class', 'ml')
     hits = [r for r in _rows(picks_path)
             if r.get('kind') == 'pick'
             and str(r.get('event_id')) == str(eid)
-            and r.get('market_class', 'ml') == 'ml'
+            and r.get('market_class', 'ml') == mc
             and r.get('side') == side]
+    if mc == 'prop':
+        # prop identity includes player + market + line (multiple props per game);
+        # normalized-name compare, line as float.
+        import re as _re
+        want_p = _re.sub(r'[^a-z0-9]', '', (pick.get('player') or '').lower())
+        hits = [r for r in hits
+                if _re.sub(r'[^a-z0-9]', '', (r.get('player') or '').lower()) == want_p
+                and r.get('market') == pick.get('market')
+                and float(r.get('line') or -1) == float(pick.get('line') or -2)]
+    elif mc in ('spread', 'total') and pick.get('line') is not None:
+        # alt lines of the same game+side are distinct picks
+        hits = [r for r in hits if float(r.get('line') or -1) == float(pick['line'])]
     if len(hits) == 1:
         return hits[0].get('entry_c'), hits[0], 1
     return None, None, len(hits)

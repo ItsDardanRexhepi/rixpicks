@@ -1,0 +1,225 @@
+{
+ "rows": [
+  {
+   "player": "Kyren Williams",
+   "market": "player_receptions",
+   "event_id": "prov1",
+   "league": "NFL",
+   "espn_id": "401000001",
+   "match": "Dallas Cowboys @ Los Angeles Rams",
+   "commence": "2026-09-28T20:25Z",
+   "line": 2.5,
+   "fair_over_c": 71.0,
+   "n_books": 6,
+   "basis": "MEASURED",
+   "confidence": "OK",
+   "kalshi": {
+    "ticker": "KXNFLREC-T1-KW",
+    "ask": 0.66,
+    "bid": "0.64"
+   },
+   "gross_c": 5.0,
+   "fee_c": 1.8,
+   "net_c": 3.2,
+   "verdict": "CANDIDATE"
+  },
+  {
+   "player": "Puka Nacua",
+   "market": "player_reception_yds",
+   "event_id": "prov1",
+   "league": "NFL",
+   "espn_id": "401000001",
+   "match": "Dallas Cowboys @ Los Angeles Rams",
+   "commence": "2026-09-28T20:25Z",
+   "line": 72.5,
+   "fair_over_c": 63.0,
+   "n_books": 5,
+   "confidence": "OK",
+   "kalshi": {
+    "ticker": "KXNFLRECYDS-T1-PN",
+    "ask": 0.55,
+    "bid": "0.53"
+   },
+   "gross_c": 8.0,
+   "fee_c": 1.8,
+   "net_c": 6.2,
+   "verdict": "CANDIDATE"
+  },
+  {
+   "player": "Davante Adams",
+   "market": "player_anytime_td",
+   "event_id": "prov1",
+   "league": "NFL",
+   "espn_id": "401000001",
+   "match": "Dallas Cowboys @ Los Angeles Rams",
+   "commence": "2026-09-28T20:25Z",
+   "line": null,
+   "fair_over_c": 46.5,
+   "n_books": 6,
+   "confidence": "OK",
+   "kalshi": {
+    "ticker": "KXNFLTD-T1-DA",
+    "ask": 0.42,
+    "bid": "0.40"
+   },
+   "gross_c": 4.5,
+   "fee_c": 1.7,
+   "net_c": 2.8,
+   "verdict": "CANDIDATE"
+  },
+  {
+   "player": "Bad Net",
+   "market": "player_receptions",
+   "event_id": "prov1",
+   "league": "NFL",
+   "espn_id": "401000001",
+   "match": "Dallas Cowboys @ Los Angeles Rams",
+   "commence": "2026-09-28T20:25Z",
+   "line": 4.5,
+   "fair_over_c": 55.0,
+   "n_books": 4,
+   "confidence": "OK",
+   "kalshi": {
+    "ticker": "KXNFLREC-T1-BN",
+    "ask": 0.54,
+    "bid": "0.52"
+   },
+   "gross_c": 1.0,
+   "fee_c": 1.8,
+   "net_c": -0.8,
+   "verdict": "REJECT"
+  },
+  {
+   "player": "No Espn",
+   "market": "player_points",
+   "event_id": "prov9",
+   "league": "NBA",
+   "espn_id": null,
+   "match": "A @ B",
+   "commence": "2026-09-28T23:00Z",
+   "line": 20.5,
+   "fair_over_c": 65.0,
+   "n_books": 4,
+   "confidence": "OK",
+   "kalshi": {
+    "ticker": "KXNBAPTS-T9-NE",
+    "ask": 0.55,
+    "bid": "0.53"
+   },
+   "gross_c": 10.0,
+   "fee_c": 1.8,
+   "net_c": 8.2,
+   "verdict": "CANDIDATE"
+  },
+  {
+   "player": "Weird Market",
+   "market": "player_double_double",
+   "event_id": "prov9",
+   "league": "NBA",
+   "espn_id": "401000009",
+   "match": "A @ B",
+   "commence": "2026-09-28T23:00Z",
+   "line": 0.5,
+   "fair_over_c": 65.0,
+   "n_books": 4,
+   "confidence": "OK",
+   "kalshi": {
+    "ticker": "KXNBADD-T9-WM",
+    "ask": 0.55,
+    "bid": "0.53"
+   },
+   "gross_c": 10.0,
+   "fee_c": 1.8,
+   "net_c": 8.2,
+   "verdict": "CANDIDATE"
+  },
+  {
+   "player": "Shohei Ohtani",
+   "market": "batter_hits",
+   "event_id": "prov20",
+   "league": "MLB",
+   "espn_id": "401000100",
+   "match": "Los Angeles Dodgers @ New York Mets",
+   "commence": "2026-09-28T23:05Z",
+   "line": 0.5,
+   "fair_over_c": 74.0,
+   "n_books": 5,
+   "confidence": "OK",
+   "kalshi": {
+    "ticker": "KXMLBHIT-T1-SO",
+    "ask": 0.69,
+    "bid": "0.67"
+   },
+   "gross_c": 5.0,
+   "fee_c": 1.8,
+   "net_c": 3.2,
+   "verdict": "CANDIDATE"
+  },
+  {
+   "player": "Denis Bouanga",
+   "market": "player_goal_scorer_anytime",
+   "event_id": "prov21",
+   "league": "MLS",
+   "espn_id": "761844",
+   "match": "Columbus Crew @ Los Angeles FC",
+   "commence": "2026-09-28T22:30Z",
+   "line": 0.5,
+   "fair_over_c": 64.0,
+   "n_books": 4,
+   "confidence": "OK",
+   "kalshi": {
+    "ticker": "KXMLSGOAL-T1-DB",
+    "ask": 0.6,
+    "bid": "0.58"
+   },
+   "gross_c": 4.0,
+   "fee_c": 1.5,
+   "net_c": 2.5,
+   "verdict": "CANDIDATE"
+  },
+  {
+   "player": "Live Started",
+   "market": "player_receptions",
+   "event_id": "prov22",
+   "league": "NFL",
+   "espn_id": "401000022",
+   "match": "C @ D",
+   "commence": "2026-09-27T20:25Z",
+   "line": 2.5,
+   "fair_over_c": 70.0,
+   "n_books": 5,
+   "confidence": "OK",
+   "kalshi": {
+    "ticker": "KXNFLREC-T1-LS",
+    "ask": 0.65,
+    "bid": "0.63"
+   },
+   "gross_c": 5.0,
+   "fee_c": 1.8,
+   "net_c": 3.2,
+   "verdict": "CANDIDATE"
+  },
+  {
+   "player": "No Commence",
+   "market": "player_points",
+   "event_id": "prov23",
+   "league": "NBA",
+   "espn_id": "401000023",
+   "match": "E @ F",
+   "commence": null,
+   "line": 20.5,
+   "fair_over_c": 70.0,
+   "n_books": 5,
+   "confidence": "OK",
+   "kalshi": {
+    "ticker": "KXNBAPTS-T1-NC",
+    "ask": 0.65,
+    "bid": "0.63"
+   },
+   "gross_c": 5.0,
+   "fee_c": 1.8,
+   "net_c": 3.2,
+   "verdict": "CANDIDATE"
+  }
+ ]
+}

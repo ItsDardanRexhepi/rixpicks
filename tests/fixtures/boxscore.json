@@ -1,0 +1,16 @@
+{"boxscore": {"players": [
+  {"statistics": [
+    {"keys": ["receptions", "receivingYards", "receivingTouchdowns"],
+     "athletes": [
+       {"athlete": {"id": "a1", "displayName": "Kyren Williams"}, "stats": ["3", "45", "0"]},
+       {"athlete": {"id": "a2", "displayName": "Puka Nacua"}, "stats": ["5", "80", "1"]}]},
+    {"keys": ["rushingYards", "rushingTouchdowns"],
+     "athletes": [
+       {"athlete": {"id": "a1", "displayName": "Kyren Williams"}, "stats": ["57", "1"]},
+       {"athlete": {"id": "a2", "displayName": "Puka Nacua"}, "stats": ["2", "0"]}]}]},
+  {"statistics": [
+    {"keys": ["receptions", "receivingYards", "receivingTouchdowns"],
+     "athletes": [
+       {"athlete": {"id": "b1", "displayName": "CeeDee Lamb"}, "stats": ["6", "88", "0"]},
+       {"athlete": {"id": "b2", "displayName": "Mike Williams"}, "stats": ["2", "30", "0"]}]}]}
+]}}

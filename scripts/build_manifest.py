@@ -13,12 +13,34 @@ INSIDE the lock, appends canonical rows, publishes the manifest via os.replace, 
 back and verifies every appended row. Crash recovery: re-running with the same candidates is
 idempotent (identical rows skip, manifest publishes); re-running with different candidates on
 the same key refuses closed rather than forking the card record."""
-import json, sys, datetime, os, fcntl, hashlib
+import json, sys, datetime, os, fcntl, hashlib, re
 from zoneinfo import ZoneInfo
 sys.path.insert(0, '/home/sandbox/rix_tmp')
 from core.units import cents_to_american
 from core.fill_leak import PICKS_LEDGER as _DEFAULT_PICKS_LEDGER
 PICKS_LEDGER = os.environ.get('RIX_PICKS_LEDGER', _DEFAULT_PICKS_LEDGER)  # test-isolation hook
+
+def _ikey(mc, side, obj):
+    # Pick identity key. Props add player|market|line - multiple props share one game, so
+    # eid|prop|side alone collides. Spread/total carry the line (alt lines must never collide).
+    # ml keeps an empty 4th element.
+    if mc == 'prop':
+        np = re.sub(r'[^a-z0-9]', '', (obj.get('player') or '').lower())
+        return (mc, side, f"{np}|{obj.get('market')}|{obj.get('line')}")
+    if mc in ('spread', 'total'):
+        return (mc, side, str(obj.get('line')))
+    return (mc, side, '')
+
+def _ikey(mc, side, obj):
+    # Pick identity key. Props add player|market|line - multiple props share one game, so
+    # eid|prop|side alone collides. Spread/total carry the line (alt lines must never collide).
+    # ml keeps an empty 4th element.
+    if mc == 'prop':
+        np = re.sub(r'[^a-z0-9]', '', (obj.get('player') or '').lower())
+        return (mc, side, f"{np}|{obj.get('market')}|{obj.get('line')}")
+    if mc in ('spread', 'total'):
+        return (mc, side, str(obj.get('line')))
+    return (mc, side, '')
 
 
 LEAGUE_KEY = {'baseball/mlb':'MLB','football/nfl':'NFL','football/college-football':'CFB',
@@ -27,7 +49,7 @@ LEAGUE_KEY = {'baseball/mlb':'MLB','football/nfl':'NFL','football/college-footba
 
 def _pick_content_hash(m):
     # VERBATIM contract copy of build_gh_page.py's gate - declared hash must equal its computed hash.
-    _EXCL_TOP={'num','result','_final','polycents','card_ts'}
+    _EXCL_TOP={'num','result','_final','polycents'}
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
@@ -63,30 +85,53 @@ def main():
             try: _r = json.loads(_l)
             except Exception: continue
             if _r.get('kind') == 'pick' and _r.get('card_ts'):
-                _ts_map[(str(_r.get('event_id')), _r.get('market_class','ml'), _r.get('side'))] = _r['card_ts']
+                _ts_map[(str(_r.get('event_id')),) + _ikey(_r.get('market_class','ml'), _r.get('side'), _r)] = _r['card_ts']
     _prod_ts = {}
     if not preview and os.path.exists(PROD_MANIFEST_PATH):
         try:
             for _p in json.load(open(PROD_MANIFEST_PATH)).get('picks', []):
                 _g = _p.get('game') or {}
                 if _p.get('card_ts') and _g.get('eid'):
-                    _prod_ts[(str(_g['eid']), 'ml', _p.get('side'))] = _p['card_ts']
+                    _prod_ts[(str(_g['eid']),) + _ikey(_p.get('market_class', 'ml'), _p.get('side'), _p)] = _p['card_ts']
         except Exception: pass
     picks = []
     for c in cands:
-        # ML-ONLY GATE (swamp round 9): spread/total manifest + scoring + grading + market
-        # identity are NOT implemented end to end (finals_watch hard-codes eid|ml|side with an
-        # ML comparator; fill_leak.card_price hunts the ml row). A ladder candidate through this
-        # path would render on the card and then grade as ML. Refuse anything that is not
-        # explicitly market_class=='ml' - never silently accept a ladder candidate.
-        if c.get('market_class') != 'ml':
-            raise ValueError(f"fail closed: candidate {c.get('name')} has market_class={c.get('market_class')!r} - only explicit 'ml' is buildable until spread/total grading exists end to end")
+        # market-class gate (s/t wired 9/27): ml | spread | total are buildable end to end
+        # (finals_watch grades all three incl. push; fill_leak is market-class-aware). Refuse
+        # anything without an explicit, known class; spread/total MUST carry a numeric line.
+        mc = c.get('market_class')
+        if mc not in ('ml', 'spread', 'total', 'prop'):
+            raise ValueError(f"fail closed: candidate {c.get('name')} has market_class={mc!r} - must be explicit ml|spread|total|prop")
+        if mc in ('spread', 'total', 'prop'):
+            try:
+                float(c.get('line'))
+            except (TypeError, ValueError):
+                raise ValueError(f"fail closed: {mc} candidate {c.get('name')} missing numeric line")
+        if mc == 'prop':
+            # props-on-card wiring 9/27: player + verified-gradeable market required;
+            # keep in sync with finals_watch.PROP_STAT_KEYS + specials.
+            if not (c.get('player') or '').strip():
+                raise ValueError(f"fail closed: prop candidate {c.get('name')} missing player")
+            gradeable = {'passing_yards','pass_td','rushing_yards','rush_attempts','receiving_yards',
+                         'receptions','reception_tds','rush_tds','points','rebounds','assists','threes',
+                         'goals','shots_on_goal','saves','blocked_shots','anytime_td','hockey_points',
+                         # MLB + soccer grading shipped 9/27 - keep in sync with finals_watch
+                         'bat_hits','bat_home_runs','bat_rbis','bat_runs','bat_walks','bat_strikeouts',
+                         'pit_strikeouts','pit_hits_allowed','pit_walks','pit_outs','pit_earned_runs',
+                         'anytime_goal','first_goal','last_goal'}
+            if c.get('market') not in gradeable:
+                raise ValueError(f"fail closed: prop candidate {c.get('name')} market {c.get('market')!r} not in the verified gradeable map")
+            if c.get('side') not in ('over', 'under'):
+                raise ValueError(f"fail closed: prop candidate {c.get('name')} side {c.get('side')!r} - must be over|under")
         cents = c['kalshi']['cents']
         if type(cents) is not int or not (1 <= cents <= 99):  # strict: bool is not int here
             raise ValueError(f"fail closed: bad kalshi cents {cents!r} on {c.get('name')}")
         am = cents_to_american(cents)
         picks.append({
             'num': c['num'], 'name': c['name'],
+            'market_class': mc,
+            **({'line': c['line']} if mc in ('spread', 'total', 'prop') else {}),
+            **({'player': c['player'], 'market': c['market']} if mc == 'prop' else {}),
             'sub': f"{c.get('sub_context','')} - model {c['model']:.1f}".strip(' -'),
             'odds': f"{am:+d}", 'units': c['units'], 'side': c['side'],
             'game': {'away': c['away'], 'home': c['home'], 'commence': c['commence'], 'eid': c['eid']},
@@ -97,8 +142,8 @@ def main():
                        'cents': cents, 'team': c['kalshi']['team'], 'gate_cents': cents,
                        'ticker': c['kalshi']['ticker']},
             'card_american': am, 'card_source': 'Kalshi ask at lock',
-            'card_ts': _ts_map.get((str(c['eid']), c.get('market_class','ml'), c['side']))
-                       or _prod_ts.get((str(c['eid']), 'ml', c['side']))
+            'card_ts': _ts_map.get((str(c['eid']),) + _ikey(mc, c['side'], c))
+                       or _prod_ts.get((str(c['eid']),) + _ikey(mc, c['side'], c))
                        or now,  # first lock only; regenerations inherit, never restamp
             'polymarket': c.get('polymarket'), 'dkp': c.get('dkp')})
     # FULL MANIFEST CONTRACT (swamp round 8): build_gh_page.py (publish.yml publish path) reads
@@ -127,7 +172,6 @@ def main():
         'record': _field('record'), 'units_pl': _field('units_pl'),
         'units_ledger': _field('units_ledger', required=False),
         'yesterday': _field('yesterday', required=False),
-        'yesterday_by_league': meta.get('yesterday_by_league', inherit.get('yesterday_by_league')),  # per-league Yesterday strip (9/27): tab-scoped, never global
         'status_note': _field('status_note', required=False),
         'parlay': meta.get('parlay', inherit.get('parlay')),
         'preview': preview, 'picks': picks}
@@ -153,21 +197,21 @@ def main():
         if not preview and os.path.exists(out):
             try:
                 pub = json.load(open(out))
-                published_keys = {(str(x.get('game',{}).get('eid')), x.get('market_class','ml'), x.get('side'))
+                published_keys = {(str(x.get('game',{}).get('eid')),) + _ikey(x.get('market_class','ml'), x.get('side'), x)
                                   for x in pub.get('picks',[])}
             except Exception as e:
                 # FAIL CLOSED (swamp round 7): an unreadable manifest is NEVER 'nothing published' -
                 # treating it as empty would let orphan rollback delete genuinely published rows.
                 raise ValueError(f"fail closed: published manifest {out} exists but is unreadable ({e}) - refusing any ledger rewrite until it is repaired or removed deliberately")
         # batch-level duplicate rejection: one (event|class|side) per build
-        keys = [(str(c['eid']), c.get('market_class','ml'), c['side']) for c in cands]
+        keys = [(str(c['eid']),) + _ikey(c.get('market_class','ml'), c['side'], c) for c in cands]
         dupes = {k for k in keys if keys.count(k) > 1}
         if dupes: raise ValueError(f"fail closed: duplicate candidates in batch for {sorted(dupes)} - refusing to build")
         ledger_rows = []
         for c, p in zip(cands, picks):
-            key = (str(c['eid']), c.get('market_class','ml'), c['side'])
+            key = (str(c['eid']),) + _ikey(c.get('market_class','ml'), c['side'], c)
             same = [r for r in existing if r.get('kind')=='pick' and str(r.get('event_id'))==key[0]
-                    and r.get('market_class','ml')==key[1] and r.get('side')==key[2]]
+                    and _ikey(r.get('market_class','ml'), r.get('side'), r) == key[1:]]
             if len(same) > 1:
                 raise ValueError(f"fail closed: ledger already ambiguous for {key} ({len(same)} rows) - refusing to add to an ambiguous key")
             if same:
@@ -178,7 +222,9 @@ def main():
                 newrow = {'kind':'pick','event_id':key[0],'market_class':key[1],'side':key[2],
                           'name':c['name'],'units':c['units'],
                           'entry_c':p['kalshi']['cents'],'card_american':p['card_american'],
-                          'kalshi_ticker':p['kalshi']['ticker'],'commence':c['commence']}
+                          'kalshi_ticker':p['kalshi']['ticker'],'commence':c['commence'],
+                          **({'line': c.get('line')} if key[1] in ('spread','total','prop') else {}),
+                          **({'player': c.get('player'), 'market': c.get('market')} if key[1] == 'prop' else {})}
                 identical = all(r.get(f) == v for f, v in newrow.items())
                 if identical and not r.get('preview'):
                     continue  # idempotent re-run: finishes an interrupted publish or no-ops a completed one
@@ -203,6 +249,8 @@ def main():
                                 'entry_c':p['kalshi']['cents'],'card_american':p['card_american'],
                                 'card_source':'Kalshi ask at lock','card_ts':p['card_ts'],
                                 'kalshi_ticker':p['kalshi']['ticker'],'commence':c['commence'],
+                                **({'line': c.get('line')} if key[1] in ('spread','total','prop') else {}),
+                                **({'player': c.get('player'), 'market': c.get('market')} if key[1] == 'prop' else {}),
                                 'preview':preview})
         # stage manifest + whole ledger; commit ledger first, then publish manifest
         tmp = out + '.tmp'

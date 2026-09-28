@@ -1,0 +1,188 @@
+{
+ "boxscore": {
+  "players": [
+   {
+    "team": {
+     "displayName": "Los Angeles Dodgers"
+    },
+    "statistics": [
+     {
+      "name": null,
+      "keys": [
+       "hits-atBats",
+       "atBats",
+       "runs",
+       "hits",
+       "RBIs",
+       "homeRuns",
+       "walks",
+       "strikeouts",
+       "pitches",
+       "avg",
+       "onBasePct",
+       "slugAvg"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "o1",
+         "displayName": "Shohei Ohtani"
+        },
+        "stats": [
+         "2-4",
+         "4",
+         "1",
+         "2",
+         "1",
+         "1",
+         "0",
+         "1",
+         "18",
+         ".300",
+         ".400",
+         ".700"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "b1",
+         "displayName": "Mookie Betts"
+        },
+        "stats": [
+         "1-4",
+         "4",
+         "2",
+         "1",
+         "0",
+         "0",
+         "1",
+         "0",
+         "15",
+         ".280",
+         ".350",
+         ".500"
+        ]
+       }
+      ]
+     },
+     {
+      "name": null,
+      "keys": [
+       "fullInnings.partInnings",
+       "hits",
+       "runs",
+       "earnedRuns",
+       "walks",
+       "strikeouts",
+       "homeRuns",
+       "pitches-strikes",
+       "ERA",
+       "pitches"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "o1",
+         "displayName": "Shohei Ohtani"
+        },
+        "stats": [
+         "6.1",
+         "5",
+         "2",
+         "2",
+         "1",
+         "8",
+         "1",
+         "100-63",
+         "3.20",
+         "100"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "team": {
+     "displayName": "New York Mets"
+    },
+    "statistics": [
+     {
+      "name": null,
+      "keys": [
+       "hits-atBats",
+       "atBats",
+       "runs",
+       "hits",
+       "RBIs",
+       "homeRuns",
+       "walks",
+       "strikeouts",
+       "pitches",
+       "avg",
+       "onBasePct",
+       "slugAvg"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "l1",
+         "displayName": "Francisco Lindor"
+        },
+        "stats": [
+         "1-4",
+         "4",
+         "0",
+         "1",
+         "0",
+         "0",
+         "0",
+         "2",
+         "16",
+         ".225",
+         ".309",
+         ".423"
+        ]
+       }
+      ]
+     },
+     {
+      "name": null,
+      "keys": [
+       "fullInnings.partInnings",
+       "hits",
+       "runs",
+       "earnedRuns",
+       "walks",
+       "strikeouts",
+       "homeRuns",
+       "pitches-strikes",
+       "ERA",
+       "pitches"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "m1",
+         "displayName": "Sean Manaea"
+        },
+        "stats": [
+         "5.2",
+         "7",
+         "5",
+         "5",
+         "3",
+         "3",
+         "1",
+         "95-60",
+         "4.78",
+         "95"
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,162 @@
+{
+ "rosters": [
+  {
+   "homeAway": "home",
+   "team": {
+    "id": "t1",
+    "displayName": "Los Angeles FC"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "100",
+      "displayName": "Denis Bouanga",
+      "fullName": "Denis Bouanga",
+      "shortName": "D. Bouanga"
+     }
+    },
+    {
+     "athlete": {
+      "id": "101",
+      "displayName": "Son Heung-min",
+      "fullName": "Son Heung-min",
+      "shortName": "H. Son"
+     }
+    },
+    {
+     "athlete": {
+      "id": "300",
+      "displayName": "Carlos Rodriguez",
+      "fullName": "Carlos Rodriguez",
+      "shortName": "C. Rodriguez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "301",
+      "displayName": "Luis Rodriguez",
+      "fullName": "Luis Rodriguez",
+      "shortName": "L. Rodriguez"
+     }
+    }
+   ]
+  },
+  {
+   "homeAway": "home",
+   "team": {
+    "id": "t2",
+    "displayName": "Columbus Crew"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "200",
+      "displayName": "Josef Martinez",
+      "fullName": "Josef Martinez",
+      "shortName": "J. Martinez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "201",
+      "displayName": "Diego Rossi",
+      "fullName": "Diego Rossi",
+      "shortName": "D. Rossi"
+     }
+    }
+   ]
+  }
+ ],
+ "keyEvents": [
+  {
+   "clock": {
+    "value": 600.0
+   },
+   "period": {
+    "number": 1
+   },
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "scoringPlay": true,
+   "text": "Goal! Los Angeles FC 1, Columbus Crew 0. Denis Bouanga (Los Angeles FC) scores with a left footed shot."
+  },
+  {
+   "clock": {
+    "value": 1500.0
+   },
+   "period": {
+    "number": 1
+   },
+   "type": {
+    "id": "98",
+    "text": "Penalty - Scored",
+    "type": "penalty---scored"
+   },
+   "scoringPlay": true,
+   "text": "Goal! Los Angeles FC 2, Columbus Crew 0. Son Heung-min (Los Angeles FC) converts the penalty."
+  },
+  {
+   "clock": {
+    "value": 1634.0
+   },
+   "period": {
+    "number": 1
+   },
+   "type": {
+    "id": "99",
+    "text": "Own Goal",
+    "type": "own-goal"
+   },
+   "scoringPlay": true,
+   "text": "Own Goal by Diego Rossi (Columbus Crew)."
+  },
+  {
+   "clock": {
+    "value": 2500.0
+   },
+   "period": {
+    "number": 2
+   },
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "scoringPlay": true,
+   "text": "Goal! Los Angeles FC 3, Columbus Crew 0. Denis Bouanga (Los Angeles FC) scores with a header."
+  },
+  {
+   "clock": {
+    "value": 5400.0
+   },
+   "period": {
+    "number": 3
+   },
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "scoringPlay": true,
+   "text": "Goal! Josef Martinez (Columbus Crew) scores in the shootout."
+  },
+  {
+   "clock": {
+    "value": 3000.0
+   },
+   "period": {
+    "number": 2
+   },
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "scoringPlay": true,
+   "text": "Goal! Los Angeles FC 4, Columbus Crew 0. Unknown Guy (Los Angeles FC) scores."
+  }
+ ]
+}

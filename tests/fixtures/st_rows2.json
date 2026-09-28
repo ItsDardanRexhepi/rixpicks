@@ -1,0 +1,12 @@
+[
+ {"match":"Buffalo Bills @ Miami Dolphins","away":"Buffalo Bills","home":"Miami Dolphins","sport":"nfl",
+  "commence":"2026-09-28T17:00Z","cls":"spread","consensus_line":-6.5,"fair_home_or_over_c":35.0,
+  "n_books":4,"confidence":"OK","kalshi":{"ticker":"KXNFLSPREAD-T1-MIA","side":"yes","ask":0.62},
+  "gross_c":-27.0,"fee_c":2.0,"net_c":-29.0,
+  "alt":{"kalshi":{"ticker":"KXNFLSPREAD-T1-MIA","side":"no","ask":0.55},"fair_c":65.0,"gross_c":10.0,"fee_c":1.8,"net_c":8.2}},
+ {"match":"Seattle Seahawks @ Los Angeles Rams","away":"Seattle Seahawks","home":"Los Angeles Rams","sport":"nfl",
+  "commence":"2026-09-28T20:25Z","cls":"total","consensus_line":44.5,"fair_home_or_over_c":32.0,
+  "n_books":3,"confidence":"OK","kalshi":{"ticker":"KXNFLTOTAL-T3-44.5","side":"yes","ask":0.55},
+  "gross_c":-23.0,"fee_c":1.8,"net_c":-24.8,
+  "alt":{"kalshi":{"ticker":"KXNFLTOTAL-T3-44.5","side":"no","ask":0.56},"fair_c":68.0,"gross_c":12.0,"fee_c":1.8,"net_c":10.2}}
+]
