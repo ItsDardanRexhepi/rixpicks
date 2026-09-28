@@ -1,0 +1,87 @@
+{
+ "ran_at": "2026-09-28T20:23:37+00:00",
+ "mode": "trial",
+ "headlines": 6,
+ "requests": 9,
+ "posts_pulled": 52,
+ "feed_total": 50,
+ "attempts": [
+  {
+   "headline": "2026 MLB playoff predictions: Expert picks for entire postseason bracket, including World Series cha",
+   "nk": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-predictions-expert-picks-world-series-champion/",
+   "strategy": "S1",
+   "query": "\"2026 MLB playoff\" lang:en -is:retweet",
+   "results": 10,
+   "routed": false
+  },
+  {
+   "headline": "Fantasy Football Waiver Wire: Justin Boone&#39;s top defenses to stream for Week 4",
+   "nk": "https://sports.yahoo.com/fantasy/article/fantasy-football-waiver-wire-justin-boones-top-defenses-to-stream-for-week-4-174646989.html",
+   "strategy": "S1",
+   "query": "\"Fantasy Football Waiver\" lang:en -is:retweet",
+   "results": 10,
+   "routed": false
+  },
+  {
+   "headline": "C.J. Stroud\u2019s prove-it year is off to a nightmare start",
+   "nk": "https://sports.yahoo.com/nfl/article/cj-strouds-prove-it-year-is-off-to-a-nightmare-start-174601556.html",
+   "strategy": "S1",
+   "query": "\"Stroud prove year\" lang:en -is:retweet",
+   "results": 0,
+   "routed": false,
+   "note": "zero results - rotating"
+  },
+  {
+   "headline": "C.J. Stroud\u2019s prove-it year is off to a nightmare start",
+   "nk": "https://sports.yahoo.com/nfl/article/cj-strouds-prove-it-year-is-off-to-a-nightmare-start-174601556.html",
+   "strategy": "S3-rotate",
+   "query": "(\"C.J. Stroud\") lang:en -is:retweet",
+   "results": 10,
+   "routed": true
+  },
+  {
+   "headline": "J.J. McCarthy experiment unraveled after only 10 starts in Minnesota; can QB pick up the pieces with",
+   "nk": "https://www.cbssports.com/nfl/news/j-j-mccarthy-vikings-giants-trade-whats-next-for-former-top-10-qb/",
+   "strategy": "S1",
+   "query": "\"McCarthy experiment unraveled\" lang:en -is:retweet",
+   "results": 2,
+   "routed": false
+  },
+  {
+   "headline": "TV network designated for No. 1 Texas vs. Oklahoma",
+   "nk": "https://sports.yahoo.com/articles/tv-network-designated-no-1-174309827.html",
+   "strategy": "S1",
+   "query": "\"network designated Texas\" lang:en -is:retweet",
+   "results": 0,
+   "routed": false,
+   "note": "zero results - rotating"
+  },
+  {
+   "headline": "TV network designated for No. 1 Texas vs. Oklahoma",
+   "nk": "https://sports.yahoo.com/articles/tv-network-designated-no-1-174309827.html",
+   "strategy": "S3-rotate",
+   "query": "(\"No.\" OR \"Texas\" OR \"Oklahoma\") lang:en -is:retweet",
+   "results": 10,
+   "routed": true
+  },
+  {
+   "headline": "Ranking the pitching staffs of all 12 MLB playoff teams: Yankees rotation looks unbeatable",
+   "nk": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-ranking-pitching-staffs/",
+   "strategy": "S1",
+   "query": "\"Ranking pitching staffs\" lang:en -is:retweet",
+   "results": 0,
+   "routed": false,
+   "note": "zero results - rotating"
+  },
+  {
+   "headline": "Ranking the pitching staffs of all 12 MLB playoff teams: Yankees rotation looks unbeatable",
+   "nk": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-ranking-pitching-staffs/",
+   "strategy": "S3-rotate",
+   "query": "(\"Ranking\" OR \"MLB\" OR \"Yankees\") lang:en -is:retweet",
+   "results": 10,
+   "routed": true
+  }
+ ],
+ "winner": null,
+ "note": "winner decided after soc_match gating attributes verified pairs to via=strategy tags"
+}

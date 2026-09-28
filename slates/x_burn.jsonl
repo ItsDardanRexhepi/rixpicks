@@ -4,3 +4,14 @@
 {"ts": "2026-09-28T16:39:57+00:00", "endpoint": "/tweets/search/recent", "query": "\"Philadelphia Eagles\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet", "results": 10}
 {"ts": "2026-09-28T18:17:57+00:00", "endpoint": "/tweets/search/recent", "query": "\"Chicago Bears\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet", "results": 10}
 {"ts": "2026-09-28T18:17:57+00:00", "endpoint": "/tweets/search/recent", "query": "\"Philadelphia Eagles\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet", "results": 10}
+{"ts": "2026-09-28T20:23:35+00:00", "endpoint": "/tweets/search/recent", "query": "\"Chicago Bears\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet", "results": 9}
+{"ts": "2026-09-28T20:23:35+00:00", "endpoint": "/tweets/search/recent", "query": "\"Philadelphia Eagles\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet", "results": 3}
+{"ts": "2026-09-28T20:23:36+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2026 MLB playoff\" lang:en -is:retweet", "results": 10}
+{"ts": "2026-09-28T20:23:36+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Fantasy Football Waiver\" lang:en -is:retweet", "results": 10}
+{"ts": "2026-09-28T20:23:36+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Stroud prove year\" lang:en -is:retweet", "results": 0}
+{"ts": "2026-09-28T20:23:36+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"C.J. Stroud\") lang:en -is:retweet", "results": 10}
+{"ts": "2026-09-28T20:23:36+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"McCarthy experiment unraveled\" lang:en -is:retweet", "results": 2}
+{"ts": "2026-09-28T20:23:37+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"network designated Texas\" lang:en -is:retweet", "results": 0}
+{"ts": "2026-09-28T20:23:37+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"No.\" OR \"Texas\" OR \"Oklahoma\") lang:en -is:retweet", "results": 10}
+{"ts": "2026-09-28T20:23:37+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Ranking pitching staffs\" lang:en -is:retweet", "results": 0}
+{"ts": "2026-09-28T20:23:37+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Ranking\" OR \"MLB\" OR \"Yankees\") lang:en -is:retweet", "results": 10}
