@@ -208,7 +208,7 @@ function newsBucket(t){
  return ded;
 }
 var CAR_SIG='',CAR_IDX=0,CAR_N=0,CAR_TIMER=null;
-function carApply(){var tr=$('rpCarTrack');if(tr)tr.style.transform='translateY(-'+(CAR_IDX*100)+'%)';}
+function carApply(){var tr=$('rpCarTrack');if(tr&&CAR_N)tr.style.transform='translateY(-'+(CAR_IDX*(100/CAR_N))+'%)';}
 function carStep(){
  if(document.hidden||CAR_N<2)return;
  var box=$('rpNewsCar');
