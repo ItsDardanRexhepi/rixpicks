@@ -266,7 +266,7 @@ function socSync(){
  SYNC_LAST=false;
  /* aligned mode (user 4:27): social index IS the news index - the feeds can never disagree
     on position or count. Slide content already carries verified/latest/scan honesty tiers. */
- if(SOC_MATCH_OK&&SOC_N>0&&CAR_LAST.length>0){
+ if(SOC_N>0&&CAR_LAST.length>0&&SOC_N===CAR_N){
   SOC_IDX=CAR_IDX;if(SOC_IDX>=SOC_N)SOC_IDX=SOC_N-1;if(SOC_IDX<0)SOC_IDX=0;
   socApply();SYNC_LAST=true;return true;
  }
@@ -325,8 +325,17 @@ function renderNews(t,arts){
  if(items.length)CAR_LAST=items;
  NEWS_READY=true; /* load-race guard (user 3:52 screenshot + QA 3:51): social must know news has rendered before it judges pinned==0 */
  CAR_ALL=base.slice(0,40);
+ /* class kill (user 4:27 + QA 4:33 verdict 1): BOTH feeds hold the loading state until news,
+    x_feed AND the sync-map verdict have all settled - one feed's numbers never render beside
+    the other's placeholder. Failure paths set their done flags too, so this always releases. */
+ if(!XFEED_DONE||!SOC_MAP_DONE){
+  box.innerHTML='<div class="empty syncwait">Loading feeds - syncing stories and posts now.</div>';
+  CAR_SIG='';CAR_N=0;
+  try{renderSocial();}catch(e){}
+  return;
+ }
  var sig=items.map(function(a){return normH(a.headline);}).join('|');
- if(sig===CAR_SIG&&$('rpCarTrack')){carApply();return;}
+ if(sig===CAR_SIG&&$('rpCarTrack')){carApply();try{renderSocial();}catch(e){}return;}
  var curKey=(CAR_LAST[CAR_IDX]&&carKey(CAR_LAST[CAR_IDX]))||'';
  CAR_SIG=sig;CAR_N=items.length;
  CAR_IDX=0;
@@ -361,6 +370,7 @@ function renderNews(t,arts){
  carApply();
  carObserve();
  if((CAR_N>1||SOC_N>1)&&!CAR_TIMER)CAR_TIMER=setInterval(carStep,5500);
+ try{renderSocial();}catch(e){} /* news rendered last: social rebuilds on the shared list now */
 }
 /* X social section (owner 10:32: X posts out of news, own Home section; built 11:53 scope):
    renders the x_feed items XNEWS already normalizes; Home-only visibility via body.tab-home CSS. */
@@ -385,7 +395,12 @@ function socAdv(d){
  socMove((d>0)?SOC_N+1:0);
  SOC_JUMP=setTimeout(function(){SOC_JUMP=0;var t2=$('rpSocTrack');if(t2)carNoTrans(t2,function(){socApply();});},580);
 }
-function socGo(d){socAdv(d);}
+function socGo(d){
+ /* one shared index (QA 4:33 verdict 2): social Prev/Next drives the SAME index as news -
+    carAdv moves CAR_IDX and carMove's sync call pulls social along via socSync. */
+ if(SOC_N>0&&SOC_N===CAR_N){carAdv(d);return;}
+ socAdv(d);
+}
 /* owner 2:55 clip kill (permanent): slide offsets measured before late reflows (font swap, image
    layout, async CSS) left translateY pointing BETWEEN slides - the previous slide's tail bled into
    the viewport top, headline cut mid-line. Any geometry change on either track, plus full load,
@@ -432,9 +447,11 @@ var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={};
 var RP_TOUT_KW=/discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)/i;
 var RP_SPORT_KW=/nfl|nba|mlb|nhl|wnba|ncaa|cfb|mls|nwsl|pga|nascar|ufc|mma|boxing|tennis|football|basketball|baseball|hockey|soccer|golf|sports|touchdown|quarterback|playoff|super bowl|world series|stanley cup|fantasy|draft pick|trade rumor|injury report|starting lineup|home run|slam dunk|shutout|knockout|title fight|grand slam|eagles|bears|chiefs|cowboys|packers|vikings|giants|jets|patriots|steelers|ravens|bengals|browns|texans|colts|jaguars|titans|broncos|raiders|chargers|rams|seahawks|49ers|cardinals|falcons|panthers|saints|buccaneers|commanders|lions|dolphins|bills|yankees|dodgers|red sox|cubs|braves|astros|phillies|mets|padres|mariners|lakers|celtics|warriors|knicks|nets|sixers|bulls|heat|bucks|nuggets|suns|mavericks|thunder|timberwolves|spurs|rockets|clippers|grizzlies|pelicans|kings|trail blazers|jazz|hawks|hornets|hornets|pacers|cavaliers|pistons|magic|wizards|raptors|maple leafs|bruins|canadiens|oilers|avalanche|lightning|panthers|rangers|penguins|capitals|flyers|red wings|blackhawks|wild|stars|predators|blues|jets|kraken|golden knights|sharks|ducks|kings|coyotes|hurricanes|blue jackets|devils|islanders|sabres|senators|flames|canucks/i;
 fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
- if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;try{if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));renderSocial();socSync();}catch(e){}}
-}).catch(function(){SOC_MATCH_OK=false;SOC_MAP_DONE=true;});
-SOC_MAP_DONE=true;
+ if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;}
+ SOC_MAP_DONE=true; /* settled = verdict reached (fresh map OR rejected); the feeds may now build */
+ try{if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));renderSocial();socSync();}catch(e){}
+}).catch(function(){SOC_MATCH_OK=false;SOC_MAP_DONE=true;
+ try{if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));renderSocial();}catch(e){}});
 function socMatchPair(){ /* XNEWS index of the current news slide's verified pair; -2 abstained; -1 no map entry */
  if(!SOC_MATCH_OK)return -1;
  var ntr=$('rpCarTrack');if(!ntr)return -1;
@@ -455,85 +472,35 @@ function socMatchMore(){ /* ranked related posts for the current news key; null 
 }
 function renderSocial(){
  var box=$('rpSocial');if(!box)return;
- if(!XNEWS.length){
-  /* load-race kill (user 3:52 "kill it so it doesn't happen again"): while the async feeds are
-     still landing, render a loading state - NEVER the zero-pair card or an empty verdict. A
-     completed fetch with zero posts is the only true-empty. */
-  if(!XFEED_DONE){box.innerHTML='<div class="empty syncwait">Loading feeds - syncing stories and posts now.</div>';SOC_SIG='';SOC_N=0;return;}
-  box.innerHTML='<div class="empty">No posts right now.</div>';SOC_SIG='';SOC_N=0;return;}
- var REL=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.relevance)?SOC_MATCH.relevance:null;
- var ADMIT=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.admit&&SOC_MATCH.admit.length)?SOC_MATCH.admit:null;
- var onTopic=function(p){
-  /* owner 1:39 narrow rule: social shows ONLY posts related to news-feed articles.
-     tout check always first; fresh map: admit-set membership is the admission test
-     (a post earned membership by scoring the relatedness floor against a current story);
-     no fresh map: sports-keyword floor so the raw firehose never renders. */
-  if(RP_TOUT_KW.test(String(p.headline||'')))return false;
-  if(ADMIT){if(ADMIT.indexOf(String(p.id))<0)return false;
-   var rr=REL&&REL[String(p.id)];return rr?rr.on_topic!==false:true;} /* combined gate: related AND sports-relevant (QA 1:49) */
-  if(REL){var r=REL[String(p.id)];if(r)return r.on_topic!==false;return true;}
-  return RP_SPORT_KW.test(String(p.headline||''));
- };
- var chrono=XNEWS.slice().sort(function(a,b){return (Date.parse(b.published||0)||0)-(Date.parse(a.published||0)||0);});
- /* matched pinning (owner 1:09/1:11): posts with a URF-verified pair to a carousel story are
-    pinned into the rendered slice (news-carousel order), then chronological fills to 6.
-    Without pinning a verified post older than the top-6 silently abstained (drift bug, 1:12 test). */
- var pinned=[],seenP={};
- if(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs){
-  (CAR_LAST||[]).forEach(function(a){
-   var k=(a.link||'')||String(a.headline||'');
-   var pr=SOC_MATCH.pairs[k];
-   if(!pr||!pr.post_id||seenP[pr.post_id])return;
-   var xi=SOC_XIDX[pr.post_id];
-   if(xi===undefined)return;
-   seenP[pr.post_id]=1;pinned.push(XNEWS[xi]);
-  });
- }
- var pool=chrono.filter(function(p){return seenP[p.id]||onTopic(p);}); /* verified pins bypass the topic floor - the probe already judged them */
- /* load-race kill (user 3:52): never judge pin state before every feed has landed. */
- if(SOC_MATCH_OK&&(!NEWS_READY||!XFEED_DONE)){
+ /* class kill (user 4:27 "feeds must never disagree" + QA 4:33): ONE shared displayed list.
+    Social slides are built 1:1 from the news slides - same N, same index, same counter, always.
+    Until news, x_feed and the sync-map verdict have ALL settled, show the loading state -
+    never a number that can disagree with the news counter. */
+ if(!NEWS_READY||!XFEED_DONE||!SOC_MAP_DONE||!CAR_LAST.length){
   box.innerHTML='<div class="empty syncwait">Loading feeds - syncing stories and posts now.</div>';
   SOC_SIG='';SOC_N=0;return;
  }
- /* never-empty (user 3:54, supersedes the 1:09/2:59 zero-pair waiting card): social ALWAYS shows
-    the most recent on-topic posts; a verified pair for the displayed story pins first via the
-    pinned slice + socSync jump. No verified pair -> latest on-topic posts, never a blank card. */
- /* ALIGNED MODE (user 4:27 "feeds not synced, numbers mismatch" - killed at the class level):
-    social slides are built 1:1 from the news slides, so both carousels always read the same
-    "x of N" and advance in lockstep. Each slide is one of three honest tiers:
-    VERIFIED (URF-probe-confirmed pair for that exact story, badged), LATEST (most recent
-    on-topic post not already shown - labeled as latest, never claimed as a pair; satisfies
-    his 3:54 never-empty/"most recent thing" floor), SCAN (designed scanning card, last resort).
-    No-map fallback keeps the old pinned+pool behavior below. */
  var items=[];
- var aligned=SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs&&CAR_LAST.length>0;
- if(aligned){
-  var usedA={};
-  CAR_LAST.forEach(function(a){
-   var k=(a.link||'')||String(a.headline||'');
-   var pr=SOC_MATCH.pairs[k];
-   if(pr&&pr.post_id&&!usedA[pr.post_id]&&SOC_XIDX[pr.post_id]!==undefined){
-    usedA[pr.post_id]=1;
-    items.push({post:XNEWS[SOC_XIDX[pr.post_id]],kind:'verified',nkey:k});
-   } else items.push({post:null,kind:'scan',nkey:k});
-  });
-  var pi=0;
-  items.forEach(function(it){
-   if(it.kind!=='scan')return;
-   while(pi<pool.length&&usedA[pool[pi].id])pi++;
-   if(pi<pool.length){usedA[pool[pi].id]=1;it.post=pool[pi];it.kind='latest';pi++;}
-  });
- } else {
-  items=(pinned.length?pinned.slice():pinned.concat(pool.filter(function(p){return pinned.indexOf(p)<0;}))).slice(0,6).map(function(p){return {post:p,kind:'pool',nkey:''};});
- }
+ var usedA={};
+ CAR_LAST.forEach(function(a){
+  var k=(a.link||'')||String(a.headline||'');
+  var pr=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs)?SOC_MATCH.pairs[k]:null;
+  var cand=(pr&&pr.post_id&&SOC_XIDX[pr.post_id]!==undefined)?XNEWS[SOC_XIDX[pr.post_id]]:null;
+  if(cand&&!usedA[cand.id]&&!RP_TOUT_KW.test(String(cand.headline||''))){
+   usedA[cand.id]=1;
+   items.push({post:cand,kind:'verified',nkey:k});
+  } else {
+   /* align-by-topic or don't co-locate (QA 4:33 verdict 3, owner 2:59 topic-sync-at-all-times):
+      an unpaired story NEVER gets an unrelated post beside it. Honest scanning card instead -
+      a wrong match is a failure, an abstain is not (owner 1:00). */
+   items.push({post:null,kind:'scan',nkey:k});
+  }
+ });
  var sig=items.map(function(it){return ((it.post&&it.post.id)||'-')+it.kind;}).join('|');
  if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
- var curId=(SOC_LAST[SOC_IDX]&&SOC_LAST[SOC_IDX].post&&SOC_LAST[SOC_IDX].post.id)||'';
  SOC_SIG=sig;SOC_N=items.length;SOC_LAST=items;
  SOC_RIDX={};items.forEach(function(it,i){if(it.post&&it.post.id)SOC_RIDX[it.post.id]=i;});
- SOC_IDX=0;
- if(curId){for(var _si=0;_si<items.length;_si++){if(items[_si].post&&items[_si].post.id===curId){SOC_IDX=_si;break;}}}
- if(SOC_IDX>=SOC_N)SOC_IDX=0;
+ SOC_IDX=CAR_IDX;if(SOC_IDX>=SOC_N)SOC_IDX=SOC_N-1;if(SOC_IDX<0)SOC_IDX=0;
  var h='<div class="carvp socvp"><div class="cartrack" id="rpSocTrack">';
  items.forEach(function(it){
   var p=it.post;
@@ -543,8 +510,7 @@ function renderSocial(){
   }
   var txt=String(p.headline||'');
   if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
-  var badge=it.kind==='verified'?'<span class="syncbadge">UltRix verified sync</span>':(it.kind==='latest'?'<span class="synclatest">Latest from the feed</span>':'');
-  var inner='<span class="carbody">'+badge+'<span class="stxt">'+esc(unesc(txt))+'</span>'
+  var inner='<span class="carbody"><span class="syncbadge">UltRix verified sync</span><span class="stxt">'+esc(unesc(txt))+'</span>'
    +'<span class="carmeta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+(isNewIt(p)?' <span class="carnew">new</span>':'')+'</span></span>';
   h+='<div class="carslide socslide">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
  });
@@ -635,7 +601,7 @@ function rtPoll(){
  }).catch(function(){});
  if(typeof cur!=='undefined'&&cur&&cur.key==='home'){XNEWS_TS=0;refreshX();}
  fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
-  if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;}
+  if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;try{if(cur&&cur.key==='home'){renderSocial();socSync();}}catch(e){}}
  }).catch(function(){});
 }
 setInterval(rtPoll,45000);
@@ -650,7 +616,7 @@ function refreshX(){
   XFEED_DONE=true;
   renderSocial();
  if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));
- }).catch(function(){XFEED_DONE=true;});
+ }).catch(function(){XFEED_DONE=true;try{renderSocial();if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));}catch(e){}});
 }
 
 var DNEWS={},DNEWS_TS={};
