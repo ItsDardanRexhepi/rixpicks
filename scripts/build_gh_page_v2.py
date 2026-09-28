@@ -1288,13 +1288,16 @@ r'})();</script>')
 # slates/julian_record.json (analysis feed, rebuilt each wire cycle); 60s re-fetch; fail-closed
 # hide on missing/invalid. Pending renders as pending - never blank, never guessed.
 nfl_entry+=(
-r'<div style="margin-top:14px;border:1px solid rgba(127,127,127,.35);border-radius:12px;padding:11px 12px">'
-r'<div class="rpwhead">Rolling Record</div>'
+r'<div id="rpWRecWrap" style="margin-top:14px;border:1px solid rgba(127,127,127,.35);border-radius:12px;padding:11px 12px">'
+r'<div id="rpWRecHead" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none"><div class="rpwhead">Rolling Record</div><span id="rpWRecChev" style="font-size:14px;font-weight:700;color:#8a8f98;padding:0 4px;line-height:1">v</span></div>'
+r'<div id="rpWRecBody" style="display:none">'
 r'<div style="font-size:12px;color:#8a8f98;margin:2px 0 8px">Wooder Ice picks only - separate from the RixPicks card and record.</div>'
 r'<div id="rpWRec"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div>'
 r'</div>'
+r'</div>'
 r'<script>(function(){'
 r'var box=document.getElementById("rpWRec");if(!box)return;'
+r'var head=document.getElementById("rpWRecHead");if(head)head.onclick=function(){var b=document.getElementById("rpWRecBody");var c=document.getElementById("rpWRecChev");if(!b||!c)return;var open=b.style.display!=="none";b.style.display=open?"none":"";c.textContent=open?"v":"^";};'
 r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
 r'var MM={anytime_td:"Anytime TD",home_run:"Home Run",ml:"ML",passing_yards:"Passing Yds",pass_td:"Pass TD",receptions:"Receptions",rushing_yards:"Rush Yds",total_over:"Total Over",first_td:"First TD"};'
 r'function wlabel(w){return String(w||"").replace(/-\d{4}-\d{2}-\d{2}$/,"").replace(/-/g," ").replace(/\b\w/g,function(c){return c.toUpperCase();});}'
@@ -1307,7 +1310,7 @@ r'h+=ord.map(function(w){var rows=byW[w].map(function(p){var pr=(p.price!=null?S
 r'return "<div style=\"display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-top:4px\"><span><b>"+esc(p.label||"")+"</b> <span style=\"color:#8a8f98\">"+esc(MM[p.market]||p.market||"")+(p.line!=null?(" "+esc(p.line)):"")+(p.matchup?" &middot; "+esc(p.matchup):"")+"</span></span><span style=\"white-space:nowrap\">"+(vn?("<span style=\"color:#8a8f98;font-size:11px\">"+vn+(pr?" "+esc(pr):"")+"</span> "):"")+pill(p.status)+"</span></div>";}).join("");'
 r'return "<div style=\"margin-top:10px;border-top:1px solid #e4e2de;padding-top:8px\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#8a8f98\">"+esc(wlabel(w))+"</div>"+rows+"</div>";}).join("");'
 r'box.innerHTML=h;}'
-r'function load(){fetch("slates/julian_record.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(!j||!j.record||!Array.isArray(j.picks))throw 0;paint(j);}).catch(function(){box.parentNode.style.display="none";});}'
+r'function load(){fetch("slates/julian_record.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(!j||!j.record||!Array.isArray(j.picks))throw 0;paint(j);}).catch(function(){var w=document.getElementById("rpWRecWrap");if(w)w.style.display="none";});}'
 r'load();setInterval(load,60000);'
 r'})();</script>')
 
