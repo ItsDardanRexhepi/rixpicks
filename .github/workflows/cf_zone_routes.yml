@@ -1,0 +1,32 @@
+name: cf-zone-routes
+# Read-only verification (main 9/28 4:36): does our CF account/zone own api.rix-picks.com?
+# Lists zones, workers domains, worker routes, and api.* DNS records as the API returns them.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: zone + workers ownership dump (read-only)
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -e
+          echo "== zones matching rix-picks.com"
+          Z=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=rix-picks.com" -H "Authorization: Bearer $CF_TOKEN")
+          echo "$Z" | python3 -c "import json,sys;d=json.load(sys.stdin);print(json.dumps([{'id':z['id'],'name':z['name'],'status':z['status'],'account':z['account']['name']} for z in d.get('result',[])],indent=1));print('success:',d.get('success'),'errors:',d.get('errors'))"
+          ZID=$(echo "$Z" | python3 -c "import json,sys;d=json.load(sys.stdin);r=d.get('result',[]);print(r[0]['id'] if r else '')")
+          echo "zone_id=$ZID"
+          echo "== workers domains (account)"
+          curl -s "https://api.cloudflare.com/client/v4/accounts/$CF_ACCT/workers/domains" -H "Authorization: Bearer $CF_TOKEN" | python3 -m json.tool
+          if [ -n "$ZID" ]; then
+            echo "== worker routes (zone)"
+            curl -s "https://api.cloudflare.com/client/v4/zones/$ZID/workers/routes" -H "Authorization: Bearer $CF_TOKEN" | python3 -m json.tool
+            echo "== DNS records api.rix-picks.com"
+            curl -s "https://api.cloudflare.com/client/v4/zones/$ZID/dns_records?name=api.rix-picks.com" -H "Authorization: Bearer $CF_TOKEN" | python3 -m json.tool
+            echo "== DNS records rix-picks.com (apex, first 10)"
+            curl -s "https://api.cloudflare.com/client/v4/zones/$ZID/dns_records?per_page=10" -H "Authorization: Bearer $CF_TOKEN" | python3 -c "import json,sys;d=json.load(sys.stdin);print(json.dumps([{'type':r['type'],'name':r['name'],'content':r['content'],'proxied':r.get('proxied')} for r in d.get('result',[])],indent=1));print('success:',d.get('success'),'errors:',d.get('errors'))"
+          fi
