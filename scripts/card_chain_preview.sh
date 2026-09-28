@@ -33,8 +33,17 @@ for r in slate:
     rr['commence_utc']=r.get('commence')
     rr['match']=r.get('match') or f"{r.get('away','')} @ {r.get('home','')}"
     rows.append(rr)
-json.dump({'rows':rows}, open(f'/tmp/hunt_slate_{DT}.json','w'))
-print('hunt slate rows:', len(rows))
+# leagues_empty attestation (main 7:23): a hunted league with zero rows today is attested empty
+# by the producer instead of reading as coverage drift. Hunted set = the league_slate CLI list
+# above; canon comes from config_leagues.json. Leagues in canon but NOT hunted (Boxing - no ESPN
+# endpoint, league_slate events are ESPN-only) are deliberately NOT attested: unattested absence
+# stays a visible certification blocker rather than a false "no events today" claim.
+canon=sorted(json.load(open('config_leagues.json'))['leagues'].keys())
+hunted='MLB NFL CFB WNBA NBA NHL NCAAB MLS NWSL PGA ATP WTA NASCAR UFC'.split()
+present={r.get('league') for r in rows}
+leagues_empty=[lg for lg in canon if lg in hunted and lg not in present]
+json.dump({'rows':rows,'leagues_empty':leagues_empty}, open(f'/tmp/hunt_slate_{DT}.json','w'))
+print('hunt slate rows:', len(rows), '| leagues_empty attested:', ','.join(leagues_empty) or 'none')
 PY
 if [ "$FLOORLESS" = "true" ]; then
   echo "-- stage: hunt (floorless governing pass)"
