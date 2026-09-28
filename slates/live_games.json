@@ -1,18 +1,10 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T05:22:58.356489+00:00",
+ "generated_at": "2026-09-28T05:38:06.081296+00:00",
  "leagues": [
   {
    "league": "ATP",
    "games": [
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Ma YeXin @ Ren Yufei",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "3rd",
-     "score": "Ma YeXin 0 - Ren Yufei 0"
-    },
     {
      "espn_event_id": "959-2026",
      "matchup": "Tian Jialin @ Andrea Lazaro Garcia",
@@ -20,14 +12,6 @@
      "status": "in",
      "detail": "2nd",
      "score": "Tian Jialin 0 - Andrea Lazaro Garcia 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "You Xiaodi @ Dang Yiming",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "You Xiaodi 0 - Dang Yiming 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -68,27 +52,11 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Ma YeXin @ Ren Yufei",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "3rd",
-     "score": "Ma YeXin 0 - Ren Yufei 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Tian Jialin @ Andrea Lazaro Garcia",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
      "detail": "2nd",
      "score": "Tian Jialin 0 - Andrea Lazaro Garcia 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "You Xiaodi @ Dang Yiming",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "You Xiaodi 0 - Dang Yiming 0"
     },
     {
      "espn_event_id": "959-2026",
