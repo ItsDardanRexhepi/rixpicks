@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T03:31:16.909079+00:00",
+ "generated_at": "2026-09-28T03:41:24.780699+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,10 +10,10 @@
      "matchup": "LAR @ DEN",
      "commence": "2026-09-28T00:20Z",
      "status": "in",
-     "detail": "2:00 - 4th",
+     "detail": "0:51 - 4th",
      "score": "LAR 26 - DEN 23",
-     "away_to": 3,
-     "home_to": 3
+     "away_to": 1,
+     "home_to": 2
     }
    ]
   },
@@ -38,7 +38,7 @@
      "matchup": "Vivian Wolff @ Carol Zhao",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Vivian Wolff 0 - Carol Zhao 0"
     },
     {
@@ -99,7 +99,7 @@
      "matchup": "Zheng Wushuang @ Mei Yamaguchi",
      "commence": "2026-09-25T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Zheng Wushuang 0 - Mei Yamaguchi 0"
     },
     {
@@ -107,7 +107,7 @@
      "matchup": "Vivian Wolff @ Carol Zhao",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Vivian Wolff 0 - Carol Zhao 0"
     },
     {
