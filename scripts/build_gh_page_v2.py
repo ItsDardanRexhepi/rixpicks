@@ -1752,7 +1752,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
             _kal_watch.append({'eid':_g['eid'],'lg':_lg,'ev':_u.split('/')[-1].upper(),'entry':_k['cents'],'sfx':_sfx,'awa':_awa,'hom':_hom})
     _V2_SCRIPTS='<script>window.RP_TABS='+json.dumps(RP_TABS,separators=(',',':'))+';window.RP_KAL_TICKER='+(str(len(_kal_watch)) if os.environ.get('RP_KAL_TICKER')=='1' else '0')+';window.RP_KAL_WATCH='+json.dumps(_kal_watch,separators=(',',':'))+';</script><script>'+INDEX_V2_JS+'</script>'
 else:
-    _SHELL=('<h1><span class="tick">&rsquo;</span>RixPicks</h1>\n'
+    _SHELL=('<h1><a href="index.html"><span class="tick">&rsquo;</span>RixPicks</a></h1>\n'
     f'<div class="status">{html.escape(man["date_label"])}</div>\n'
     '<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'
     +_yestr+'\n'
@@ -2255,7 +2255,8 @@ function rpStatusText(d,j,st){{ /* tester Sep 26 presentation parity: EVERY cloc
 {fut_badge_js}async function rpFastLoop(){{try{{await rpLsTick();}}catch(e){{}}try{{rpPolyTick();}}catch(e){{}}
  try{{const _now=Date.now();[['POLY','__rpPolyOk',30000],['KAL','__rpKalOk',90000],['TSB','__rpEspnOk',30000]].forEach(function(pr){{const dim=(_now-(window[pr[1]]||0))>pr[2];document.querySelectorAll('[data-book="'+pr[0]+'"]').forEach(function(c){{c.style.opacity=dim?'.55':'';}});}});}}catch(e){{}}  /* honesty dims: stale source dims, stale never re-stamps; KAL threshold 90s matches its 60s pregame cadence (proxy route), others 30s */
  setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?5000:2000);}}
-rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllBest();rpAllLineShops();rpStartTimes();}},30000);
+function rpGamesTick(){{var el=document.getElementById('rpGames');if(!el)return;fetch("slates/live_games.json?cb="+Date.now(),{{cache:"no-store"}}).then(function(r){{if(!r.ok)throw 0;return r.json();}}).then(function(j){{var html="";(j.leagues||[]).forEach(function(L){{(L.games||[]).forEach(function(g){{var sc=(g.score&&g.status!=="pre")?(" &middot; "+esc(g.score)):"";var to="";if(typeof g.away_to==="number"&&typeof g.home_to==="number"){{to=" &middot; <span style=\\"color:#b07708\\">TO "+g.away_to+"-"+g.home_to+"</span>";}}html+="<div style=\\"padding:6px 0;border-top:1px solid #ececf0;font-size:13px\\"><span style=\\"color:#8a8f98;font-size:11px;letter-spacing:.04em\\">"+esc(L.league)+"</span> "+esc(g.matchup)+sc+" <span style=\\"color:#8a8f98\\">"+esc(rpPT(g.detail)||"")+"</span>"+to+"</div>";}});}});el.innerHTML=html||"<div style=\\"padding:10px 0;color:#8a8f98;font-size:13px\\">No live games right now</div>";var s=document.getElementById('rpAsideSub');if(s){{try{{s.textContent=j.generated_at?("updated "+new Date(j.generated_at).toLocaleTimeString("en-US",{{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"}}).toLowerCase().replace(" ","")+" PT"):"";}}catch(e){{}}}}}}).catch(function(){{}});}}
+rpFastLoop();rpLsTickAll();rpStartTimes();rpGamesTick();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllBest();rpAllLineShops();rpStartTimes();rpGamesTick();}},30000);
 document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this){{this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}}}});
 function rpFreshState(){{try{{const st=localStorage.getItem('rp_state'),src=localStorage.getItem('rp_state_src'),ts=+(localStorage.getItem('rp_state_ts')||0);return (st&&src==='gps'&&ts&&Date.now()-ts<=12*3600*1000)?st:'';}}catch(e){{return '';}}}}  /* tester Sep 26: even the FIRST paint never exposes an expired jurisdiction */
 var _rpFs=rpFreshState();rpFilter(_rpFs);if(!_rpFs&&!localStorage.getItem('rp_state_dismissed')){{try{{rpAsk(false);}}catch(e){{}}}}rpResolveState();
@@ -2936,14 +2937,14 @@ open(out,'w').write(scrub_shipped(page))
 _css=page.split('<style>')[1].split('</style>')[0]
 
 FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RixPicks Futures</title><style>__CSS__</style><style>body{overscroll-behavior-y:none}.wrap{min-height:101vh}</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>RixPicks Futures</title><meta property="og:type" content="website"><meta property="og:url" content="https://rix-picks.com/futures.html"><meta property="og:title" content="&rsquo;RixPicks Futures"><meta property="og:description" content="Free picks, live tracked, every league in one place. Built in public - the record is never edited."><meta property="og:image" content="https://rix-picks.com/og-card.png"><meta name="twitter:card" content="summary_large_image"><style>__CSS__</style><style>body{overscroll-behavior-y:none}.wrap{min-height:101vh}</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:(location.pathname.indexOf("/rixpicks/")===0?"/rixpicks/":"/")}  /* Sep 26: SW scope must match the ORIGIN's path root - rix-picks.com serves at /, github.io at /rixpicks/ */});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
 <script>__RPARB__</script>
 </head><body>
 <div id="rpPull"></div>
 <div class="wrap">
-<h1><span class="tick">&rsquo;</span>RixPicks</h1>
+<h1><a href="index.html"><span class="tick">&rsquo;</span>RixPicks</a></h1>
 <div class="status">Futures &middot; __COUNT__ picks &middot; live Kalshi tracking vs carded entry</div>
 <div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
 <div class="intro"><span id="rpFutPre">Live quotes as of </span><span id="rpFutAsOf">__FUTASOF__</span><span id="rpFutTail"> PT &middot; refresh every ~5 min</span></div>

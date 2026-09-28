@@ -42,10 +42,11 @@ h1 .tick,.od,.back{color:#3aa895}
 }
 """
 
-def page(title, subtitle, body, live=False):
+def page(title, subtitle, body, live=False, slug=''):
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{html.escape(title)} - 'RixPicks</title>
+<meta property="og:type" content="website"><meta property="og:url" content="https://rix-picks.com/{slug}"><meta property="og:title" content="{html.escape(title)} - 'RixPicks"><meta property="og:description" content="Free picks, live tracked, every league in one place. Built in public - the record is never edited."><meta property="og:image" content="https://rix-picks.com/og-card.png"><meta name="twitter:card" content="summary_large_image">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <style>{CSS}</style></head><body><div class="wrap">
 <h1><a href="index.html"><span class="tick">&rsquo;</span>RixPicks</a></h1>
@@ -117,7 +118,7 @@ def main(hist_path):
     yd = days[-1]
     open('yesterday.html','w').write(page(
         f"Yesterday: {yd['record']}", f"Yesterday - {yd['label']}",
-        day_html(yd, 'What the system learned')))
+        day_html(yd, 'What the system learned'), slug='yesterday.html'))
     # record.html = all days, newest first
     tot_w = sum(int(d['record'].split('-')[0]) for d in days)
     tot_l = sum(int(d['record'].split('-')[1]) for d in days)
@@ -131,7 +132,7 @@ def main(hist_path):
     body = f'<div class="dayhead"><span class="d">Overall</span><span class="r" id="rpOverall">{tot_w}-{tot_l}</span><span class="u" id="rpOverallU"></span></div>{clv_line}'
     body += ''.join(day_html(d, 'What the system learned') for d in reversed(days))
     open('record.html','w').write(page(
-        f"Overall Record: {tot_w}-{tot_l}", "Overall record - day by day", body, live=True))
+        f"Overall Record: {tot_w}-{tot_l}", "Overall record - day by day", body, live=True, slug='record.html'))
     print('wrote yesterday.html + record.html')
 
 if __name__ == '__main__':
