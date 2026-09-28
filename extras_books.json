@@ -1,5 +1,5 @@
 {
- "pulled_at_utc": "2026-09-28T05:44:16Z",
+ "pulled_at_utc": "2026-09-28T23:26:52Z",
  "sports": {
   "soccer_usa_mls": [
    {
@@ -13,15 +13,15 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "New York Red Bulls",
-          "price": 250
+          "price": 240
          },
          {
           "name": "St. Louis City SC",
@@ -38,19 +38,19 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "New York Red Bulls",
-          "price": 234
+          "price": 224
          },
          {
           "name": "St. Louis City SC",
-          "price": -114
+          "price": -109
          },
          {
           "name": "Draw",
@@ -63,11 +63,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:44:07Z",
+      "last_update": "2026-09-28T23:26:34Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:07Z",
+        "last_update": "2026-09-28T23:26:34Z",
         "outcomes": [
          {
           "name": "New York Red Bulls",
@@ -88,23 +88,23 @@
      {
       "key": "fanatics",
       "title": "Fanatics",
-      "last_update": "2026-09-28T05:42:06Z",
+      "last_update": "2026-09-28T23:26:35Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:42:06Z",
+        "last_update": "2026-09-28T23:26:35Z",
         "outcomes": [
          {
           "name": "New York Red Bulls",
-          "price": 280
+          "price": 250
          },
          {
           "name": "St. Louis City SC",
-          "price": -115
+          "price": -110
          },
          {
           "name": "Draw",
-          "price": 300
+          "price": 310
          }
         ]
        }
@@ -113,11 +113,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:26:34Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:26:34Z",
         "outcomes": [
          {
           "name": "New York Red Bulls",
@@ -130,6 +130,81 @@
          {
           "name": "Draw",
           "price": 300
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "New York Red Bulls",
+          "price": 235
+         },
+         {
+          "name": "St. Louis City SC",
+          "price": -109
+         },
+         {
+          "name": "Draw",
+          "price": 305
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "betrivers",
+      "title": "BetRivers",
+      "last_update": "2026-09-28T23:26:48Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:48Z",
+        "outcomes": [
+         {
+          "name": "New York Red Bulls",
+          "price": 235
+         },
+         {
+          "name": "St. Louis City SC",
+          "price": -107
+         },
+         {
+          "name": "Draw",
+          "price": 290
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "betus",
+      "title": "BetUS",
+      "last_update": "2026-09-28T23:26:34Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:34Z",
+        "outcomes": [
+         {
+          "name": "New York Red Bulls",
+          "price": 235
+         },
+         {
+          "name": "St. Louis City SC",
+          "price": -114
+         },
+         {
+          "name": "Draw",
+          "price": 308
          }
         ]
        }
@@ -148,11 +223,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Seattle Sounders FC",
@@ -173,11 +248,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "Seattle Sounders FC",
@@ -198,11 +273,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:44:07Z",
+      "last_update": "2026-09-28T23:26:34Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:07Z",
+        "last_update": "2026-09-28T23:26:34Z",
         "outcomes": [
          {
           "name": "Seattle Sounders FC",
@@ -223,11 +298,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:26:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:26:48Z",
         "outcomes": [
          {
           "name": "Seattle Sounders FC",
@@ -248,11 +323,11 @@
      {
       "key": "fanatics",
       "title": "Fanatics",
-      "last_update": "2026-09-28T05:42:06Z",
+      "last_update": "2026-09-28T23:26:35Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:42:06Z",
+        "last_update": "2026-09-28T23:26:35Z",
         "outcomes": [
          {
           "name": "Seattle Sounders FC",
@@ -273,11 +348,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:43:14Z",
+      "last_update": "2026-09-28T23:26:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:14Z",
+        "last_update": "2026-09-28T23:26:48Z",
         "outcomes": [
          {
           "name": "Seattle Sounders FC",
@@ -298,11 +373,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:44:06Z",
+      "last_update": "2026-09-28T23:26:34Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:06Z",
+        "last_update": "2026-09-28T23:26:34Z",
         "outcomes": [
          {
           "name": "Seattle Sounders FC",
@@ -323,11 +398,11 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:42:49Z",
+      "last_update": "2026-09-28T23:24:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:42:49Z",
+        "last_update": "2026-09-28T23:24:41Z",
         "outcomes": [
          {
           "name": "Seattle Sounders FC",
@@ -348,11 +423,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:26:34Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:26:34Z",
         "outcomes": [
          {
           "name": "Seattle Sounders FC",
@@ -373,11 +448,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:54Z",
+      "last_update": "2026-09-28T23:26:46Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:54Z",
+        "last_update": "2026-09-28T23:26:46Z",
         "outcomes": [
          {
           "name": "Seattle Sounders FC",
@@ -408,19 +483,19 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "Chicago Fire",
-          "price": 190
+          "price": 180
          },
          {
           "name": "Vancouver Whitecaps FC",
-          "price": 110
+          "price": 115
          },
          {
           "name": "Draw",
@@ -433,23 +508,23 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Chicago Fire",
-          "price": 192
+          "price": 178
          },
          {
           "name": "Vancouver Whitecaps FC",
-          "price": 109
+          "price": 118
          },
          {
           "name": "Draw",
-          "price": 290
+          "price": 280
          }
         ]
        }
@@ -458,11 +533,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:44:07Z",
+      "last_update": "2026-09-28T23:26:34Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:07Z",
+        "last_update": "2026-09-28T23:26:34Z",
         "outcomes": [
          {
           "name": "Chicago Fire",
@@ -483,23 +558,23 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:42:49Z",
+      "last_update": "2026-09-28T23:24:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:42:49Z",
+        "last_update": "2026-09-28T23:24:41Z",
         "outcomes": [
          {
           "name": "Chicago Fire",
-          "price": 190
+          "price": 180
          },
          {
           "name": "Vancouver Whitecaps FC",
-          "price": 117
+          "price": 123
          },
          {
           "name": "Draw",
-          "price": 285
+          "price": 290
          }
         ]
        }
@@ -508,23 +583,48 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:26:34Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:26:34Z",
         "outcomes": [
          {
           "name": "Chicago Fire",
-          "price": 180
+          "price": 170
          },
          {
           "name": "Vancouver Whitecaps FC",
-          "price": 110
+          "price": 115
          },
          {
           "name": "Draw",
           "price": 270
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "Chicago Fire",
+          "price": 183
+         },
+         {
+          "name": "Vancouver Whitecaps FC",
+          "price": 115
+         },
+         {
+          "name": "Draw",
+          "price": 290
          }
         ]
        }
@@ -543,11 +643,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "CF Montreal",
@@ -568,11 +668,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "CF Montreal",
@@ -585,6 +685,31 @@
          {
           "name": "Draw",
           "price": 300
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "CF Montreal",
+          "price": 295
+         },
+         {
+          "name": "Toronto FC",
+          "price": -130
+         },
+         {
+          "name": "Draw",
+          "price": 305
          }
         ]
        }
@@ -603,11 +728,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Chicago Fire",
@@ -628,11 +753,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "Chicago Fire",
@@ -645,6 +770,31 @@
          {
           "name": "Draw",
           "price": 320
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "Chicago Fire",
+          "price": -130
+         },
+         {
+          "name": "New York City FC",
+          "price": 300
+         },
+         {
+          "name": "Draw",
+          "price": 300
          }
         ]
        }
@@ -663,11 +813,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Atlanta United FC",
@@ -688,11 +838,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "Atlanta United FC",
@@ -705,6 +855,31 @@
          {
           "name": "Draw",
           "price": 300
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "Atlanta United FC",
+          "price": 133
+         },
+         {
+          "name": "FC Cincinnati",
+          "price": 166
+         },
+         {
+          "name": "Draw",
+          "price": 290
          }
         ]
        }
@@ -723,11 +898,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:19Z",
         "outcomes": [
          {
           "name": "Charlotte FC",
@@ -748,11 +923,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Charlotte FC",
@@ -765,6 +940,31 @@
          {
           "name": "Draw",
           "price": 275
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "Charlotte FC",
+          "price": 104
+         },
+         {
+          "name": "FC Dallas",
+          "price": 220
+         },
+         {
+          "name": "Draw",
+          "price": 280
          }
         ]
        }
@@ -783,11 +983,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "Columbus Crew SC",
@@ -808,11 +1008,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Columbus Crew SC",
@@ -825,6 +1025,31 @@
          {
           "name": "Draw",
           "price": 280
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "Columbus Crew SC",
+          "price": 220
+         },
+         {
+          "name": "Orlando City SC",
+          "price": 102
+         },
+         {
+          "name": "Draw",
+          "price": 285
          }
         ]
        }
@@ -843,11 +1068,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "D.C. United",
@@ -868,11 +1093,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "D.C. United",
@@ -885,6 +1110,31 @@
          {
           "name": "Draw",
           "price": 470
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "D.C. United",
+          "price": 575
+         },
+         {
+          "name": "Inter Miami CF",
+          "price": -275
+         },
+         {
+          "name": "Draw",
+          "price": 425
          }
         ]
        }
@@ -903,11 +1153,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:19Z",
         "outcomes": [
          {
           "name": "New England Revolution",
@@ -928,11 +1178,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "New England Revolution",
@@ -945,6 +1195,31 @@
          {
           "name": "Draw",
           "price": 310
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "New England Revolution",
+          "price": -136
+         },
+         {
+          "name": "Seattle Sounders FC",
+          "price": 305
+         },
+         {
+          "name": "Draw",
+          "price": 305
          }
         ]
        }
@@ -963,11 +1238,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "New York Red Bulls",
@@ -988,11 +1263,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "New York Red Bulls",
@@ -1005,6 +1280,31 @@
          {
           "name": "Draw",
           "price": 320
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "New York Red Bulls",
+          "price": 110
+         },
+         {
+          "name": "San Diego FC",
+          "price": 200
+         },
+         {
+          "name": "Draw",
+          "price": 290
          }
         ]
        }
@@ -1023,11 +1323,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "Philadelphia Union",
@@ -1048,11 +1348,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Philadelphia Union",
@@ -1065,6 +1365,31 @@
          {
           "name": "Draw",
           "price": 440
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "Philadelphia Union",
+          "price": -320
+         },
+         {
+          "name": "Real Salt Lake",
+          "price": 700
+         },
+         {
+          "name": "Draw",
+          "price": 450
          }
         ]
        }
@@ -1083,11 +1408,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "Austin FC",
@@ -1108,11 +1433,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Austin FC",
@@ -1121,6 +1446,31 @@
          {
           "name": "Nashville SC",
           "price": -110
+         },
+         {
+          "name": "Draw",
+          "price": 270
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "Austin FC",
+          "price": 255
+         },
+         {
+          "name": "Nashville SC",
+          "price": -106
          },
          {
           "name": "Draw",
@@ -1143,11 +1493,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Houston Dynamo",
@@ -1168,11 +1518,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "Houston Dynamo",
@@ -1185,6 +1535,31 @@
          {
           "name": "Draw",
           "price": 270
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "Houston Dynamo",
+          "price": 210
+         },
+         {
+          "name": "Minnesota United FC",
+          "price": 115
+         },
+         {
+          "name": "Draw",
+          "price": 260
          }
         ]
        }
@@ -1203,11 +1578,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Portland Timbers",
@@ -1228,11 +1603,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "Portland Timbers",
@@ -1245,6 +1620,31 @@
          {
           "name": "Draw",
           "price": 310
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "Portland Timbers",
+          "price": 137
+         },
+         {
+          "name": "Sporting Kansas City",
+          "price": 158
+         },
+         {
+          "name": "Draw",
+          "price": 295
          }
         ]
        }
@@ -1263,11 +1663,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Colorado Rapids",
@@ -1288,23 +1688,48 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "Colorado Rapids",
-          "price": -140
+          "price": -145
          },
          {
           "name": "San Jose Earthquakes",
-          "price": 290
+          "price": 310
          },
          {
           "name": "Draw",
           "price": 310
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "Colorado Rapids",
+          "price": -134
+         },
+         {
+          "name": "San Jose Earthquakes",
+          "price": 305
+         },
+         {
+          "name": "Draw",
+          "price": 295
          }
         ]
        }
@@ -1323,11 +1748,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "Los Angeles FC",
@@ -1348,11 +1773,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:19Z",
         "outcomes": [
          {
           "name": "Los Angeles FC",
@@ -1365,6 +1790,31 @@
          {
           "name": "Draw",
           "price": 280
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "Los Angeles FC",
+          "price": 162
+         },
+         {
+          "name": "Vancouver Whitecaps FC",
+          "price": 142
+         },
+         {
+          "name": "Draw",
+          "price": 275
          }
         ]
        }
@@ -1383,11 +1833,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:05Z",
+      "last_update": "2026-09-28T23:26:20Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:05Z",
+        "last_update": "2026-09-28T23:26:20Z",
         "outcomes": [
          {
           "name": "LA Galaxy",
@@ -1408,11 +1858,11 @@
      {
       "key": "mybookieag",
       "title": "MyBookie.ag",
-      "last_update": "2026-09-28T05:43:12Z",
+      "last_update": "2026-09-28T23:25:49Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:12Z",
+        "last_update": "2026-09-28T23:25:49Z",
         "outcomes": [
          {
           "name": "LA Galaxy",
@@ -1429,11 +1879,296 @@
         ]
        }
       ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:26:46Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:46Z",
+        "outcomes": [
+         {
+          "name": "LA Galaxy",
+          "price": 425
+         },
+         {
+          "name": "St. Louis City SC",
+          "price": -190
+         },
+         {
+          "name": "Draw",
+          "price": 340
+         }
+        ]
+       }
+      ]
      }
     ]
    }
   ],
   "mma_mixed_martial_arts": [
+   {
+    "id": "024fddc413aed022f8da6c28fed6bbfb",
+    "sport_key": "mma_mixed_martial_arts",
+    "sport_title": "MMA",
+    "commence_time": "2026-09-29T23:15:00Z",
+    "home_team": "Ilias Bulaid",
+    "away_team": "Erick Visconde",
+    "bookmakers": [
+     {
+      "key": "betonlineag",
+      "title": "BetOnline.ag",
+      "last_update": "2026-09-28T23:26:06Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:06Z",
+        "outcomes": [
+         {
+          "name": "Erick Visconde",
+          "price": 110
+         },
+         {
+          "name": "Ilias Bulaid",
+          "price": -130
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "fanduel",
+      "title": "FanDuel",
+      "last_update": "2026-09-28T23:26:16Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:16Z",
+        "outcomes": [
+         {
+          "name": "Erick Visconde",
+          "price": 108
+         },
+         {
+          "name": "Ilias Bulaid",
+          "price": -126
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "c49f8357091430fb149f3015cefac4da",
+    "sport_key": "mma_mixed_martial_arts",
+    "sport_title": "MMA",
+    "commence_time": "2026-09-29T23:40:00Z",
+    "home_team": "Aieza Bertolso",
+    "away_team": "Camila Reynoso",
+    "bookmakers": [
+     {
+      "key": "betonlineag",
+      "title": "BetOnline.ag",
+      "last_update": "2026-09-28T23:26:06Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:06Z",
+        "outcomes": [
+         {
+          "name": "Aieza Bertolso",
+          "price": -500
+         },
+         {
+          "name": "Camila Reynoso",
+          "price": 383
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "fanduel",
+      "title": "FanDuel",
+      "last_update": "2026-09-28T23:26:16Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:16Z",
+        "outcomes": [
+         {
+          "name": "Aieza Bertolso",
+          "price": -400
+         },
+         {
+          "name": "Camila Reynoso",
+          "price": 300
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "9c9b0a1e31fc9d1f135dac4f2fe9c7ff",
+    "sport_key": "mma_mixed_martial_arts",
+    "sport_title": "MMA",
+    "commence_time": "2026-09-30T00:05:00Z",
+    "home_team": "Ian Escuza",
+    "away_team": "Luca Borando",
+    "bookmakers": [
+     {
+      "key": "betonlineag",
+      "title": "BetOnline.ag",
+      "last_update": "2026-09-28T23:26:06Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:06Z",
+        "outcomes": [
+         {
+          "name": "Ian Escuza",
+          "price": 105
+         },
+         {
+          "name": "Luca Borando",
+          "price": -125
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "fanduel",
+      "title": "FanDuel",
+      "last_update": "2026-09-28T23:26:16Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:16Z",
+        "outcomes": [
+         {
+          "name": "Ian Escuza",
+          "price": 100
+         },
+         {
+          "name": "Luca Borando",
+          "price": -122
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "83b93ee5f98afc2720355f0badc41cad",
+    "sport_key": "mma_mixed_martial_arts",
+    "sport_title": "MMA",
+    "commence_time": "2026-09-30T00:30:00Z",
+    "home_team": "Adama Diop",
+    "away_team": "Zaurbek Sabanov",
+    "bookmakers": [
+     {
+      "key": "betonlineag",
+      "title": "BetOnline.ag",
+      "last_update": "2026-09-28T23:26:06Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:06Z",
+        "outcomes": [
+         {
+          "name": "Adama Diop",
+          "price": 303
+         },
+         {
+          "name": "Zaurbek Sabanov",
+          "price": -380
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "fanduel",
+      "title": "FanDuel",
+      "last_update": "2026-09-28T23:26:16Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:16Z",
+        "outcomes": [
+         {
+          "name": "Adama Diop",
+          "price": 360
+         },
+         {
+          "name": "Zaurbek Sabanov",
+          "price": -500
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "449e743f6cd55e4fd2e7045c2cca9d62",
+    "sport_key": "mma_mixed_martial_arts",
+    "sport_title": "MMA",
+    "commence_time": "2026-09-30T00:55:00Z",
+    "home_team": "Loai Abushaar",
+    "away_team": "George Staines",
+    "bookmakers": [
+     {
+      "key": "betonlineag",
+      "title": "BetOnline.ag",
+      "last_update": "2026-09-28T23:26:06Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:06Z",
+        "outcomes": [
+         {
+          "name": "George Staines",
+          "price": -350
+         },
+         {
+          "name": "Loai Abushaar",
+          "price": 280
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "fanduel",
+      "title": "FanDuel",
+      "last_update": "2026-09-28T23:26:16Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:16Z",
+        "outcomes": [
+         {
+          "name": "George Staines",
+          "price": -355
+         },
+         {
+          "name": "Loai Abushaar",
+          "price": 270
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
    {
     "id": "e3cae8581a512ff400398f8427d19014",
     "sport_key": "mma_mixed_martial_arts",
@@ -1445,19 +2180,19 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Alden Coria",
-          "price": 155
+          "price": 136
          },
          {
           "name": "Imanol Rodriguez",
-          "price": -177
+          "price": -156
          }
         ]
        }
@@ -1466,11 +2201,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Alden Coria",
@@ -1487,19 +2222,19 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:29Z",
+      "last_update": "2026-09-28T23:23:29Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:29Z",
+        "last_update": "2026-09-28T23:23:29Z",
         "outcomes": [
          {
           "name": "Alden Coria",
-          "price": 142
+          "price": 133
          },
          {
           "name": "Imanol Rodriguez",
-          "price": -168
+          "price": -155
          }
         ]
        }
@@ -1508,11 +2243,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Alden Coria",
@@ -1529,11 +2264,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:25:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:25:48Z",
         "outcomes": [
          {
           "name": "Alden Coria",
@@ -1550,19 +2285,19 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Alden Coria",
-          "price": 140
+          "price": 136
          },
          {
           "name": "Imanol Rodriguez",
-          "price": -166
+          "price": -162
          }
         ]
        }
@@ -1581,19 +2316,19 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Alex Hernandez",
-          "price": -250
+          "price": -255
          },
          {
           "name": "Rafael dos Anjos",
-          "price": 207
+          "price": 211
          }
         ]
        }
@@ -1602,11 +2337,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Alex Hernandez",
@@ -1623,19 +2358,19 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:29Z",
+      "last_update": "2026-09-28T23:23:29Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:29Z",
+        "last_update": "2026-09-28T23:23:29Z",
         "outcomes": [
          {
           "name": "Alex Hernandez",
-          "price": -245
+          "price": -260
          },
          {
           "name": "Rafael dos Anjos",
-          "price": 205
+          "price": 215
          }
         ]
        }
@@ -1644,11 +2379,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Alex Hernandez",
@@ -1665,11 +2400,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:25:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:25:48Z",
         "outcomes": [
          {
           "name": "Alex Hernandez",
@@ -1686,19 +2421,19 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Alex Hernandez",
-          "price": -258
+          "price": -285
          },
          {
           "name": "Rafael dos Anjos",
-          "price": 210
+          "price": 230
          }
         ]
        }
@@ -1717,11 +2452,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Andrey Pulyaev",
@@ -1738,11 +2473,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Andrey Pulyaev",
@@ -1759,19 +2494,19 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:29Z",
+      "last_update": "2026-09-28T23:23:29Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:29Z",
+        "last_update": "2026-09-28T23:23:29Z",
         "outcomes": [
          {
           "name": "Andrey Pulyaev",
-          "price": 380
+          "price": 370
          },
          {
           "name": "Damian Pinas",
-          "price": -500
+          "price": -480
          }
         ]
        }
@@ -1780,11 +2515,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Andrey Pulyaev",
@@ -1801,11 +2536,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:25:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:25:48Z",
         "outcomes": [
          {
           "name": "Andrey Pulyaev",
@@ -1822,11 +2557,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Andrey Pulyaev",
@@ -1853,11 +2588,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Benardo Sopaj",
@@ -1874,19 +2609,19 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Benardo Sopaj",
-          "price": 130
+          "price": 122
          },
          {
           "name": "Marcus McGhee",
-          "price": -155
+          "price": -145
          }
         ]
        }
@@ -1895,19 +2630,19 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:29Z",
+      "last_update": "2026-09-28T23:23:29Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:29Z",
+        "last_update": "2026-09-28T23:23:29Z",
         "outcomes": [
          {
           "name": "Benardo Sopaj",
-          "price": 133
+          "price": 130
          },
          {
           "name": "Marcus McGhee",
-          "price": -155
+          "price": -150
          }
         ]
        }
@@ -1916,19 +2651,19 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Benardo Sopaj",
-          "price": 123
+          "price": 118
          },
          {
           "name": "Marcus McGhee",
-          "price": -155
+          "price": -148
          }
         ]
        }
@@ -1937,11 +2672,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:25:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:25:48Z",
         "outcomes": [
          {
           "name": "Benardo Sopaj",
@@ -1958,11 +2693,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Benardo Sopaj",
@@ -1971,6 +2706,100 @@
          {
           "name": "Marcus McGhee",
           "price": -142
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "6ef3d90fcb1c708a2d25c4284867142f",
+    "sport_key": "mma_mixed_martial_arts",
+    "sport_title": "MMA",
+    "commence_time": "2026-10-04T00:00:00Z",
+    "home_team": "Jacobe Smith",
+    "away_team": "Bruce Whitehead",
+    "bookmakers": [
+     {
+      "key": "betonlineag",
+      "title": "BetOnline.ag",
+      "last_update": "2026-09-28T23:26:06Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:06Z",
+        "outcomes": [
+         {
+          "name": "Bruce Whitehead",
+          "price": 637
+         },
+         {
+          "name": "Jacobe Smith",
+          "price": -950
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "fanduel",
+      "title": "FanDuel",
+      "last_update": "2026-09-28T23:26:16Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:16Z",
+        "outcomes": [
+         {
+          "name": "Bruce Whitehead",
+          "price": 560
+         },
+         {
+          "name": "Jacobe Smith",
+          "price": -1000
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:22:41Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:22:41Z",
+        "outcomes": [
+         {
+          "name": "Bruce Whitehead",
+          "price": 600
+         },
+         {
+          "name": "Jacobe Smith",
+          "price": -1000
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "draftkings",
+      "title": "DraftKings",
+      "last_update": "2026-09-28T23:26:16Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:16Z",
+        "outcomes": [
+         {
+          "name": "Bruce Whitehead",
+          "price": 625
+         },
+         {
+          "name": "Jacobe Smith",
+          "price": -950
          }
         ]
        }
@@ -1989,11 +2818,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Court McGee",
@@ -2010,19 +2839,19 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Court McGee",
-          "price": 190
+          "price": 200
          },
          {
           "name": "Eric Nolan",
-          "price": -230
+          "price": -240
          }
         ]
        }
@@ -2031,19 +2860,19 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:29Z",
+      "last_update": "2026-09-28T23:23:29Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:29Z",
+        "last_update": "2026-09-28T23:23:29Z",
         "outcomes": [
          {
           "name": "Court McGee",
-          "price": 195
+          "price": 205
          },
          {
           "name": "Eric Nolan",
-          "price": -235
+          "price": -245
          }
         ]
        }
@@ -2052,11 +2881,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Court McGee",
@@ -2073,11 +2902,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:25:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:25:48Z",
         "outcomes": [
          {
           "name": "Court McGee",
@@ -2094,19 +2923,19 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Court McGee",
-          "price": 195
+          "price": 210
          },
          {
           "name": "Eric Nolan",
-          "price": -238
+          "price": -258
          }
         ]
        }
@@ -2125,19 +2954,19 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Esteban Ribovics",
-          "price": -240
+          "price": -230
          },
          {
           "name": "King Green",
-          "price": 200
+          "price": 192
          }
         ]
        }
@@ -2146,11 +2975,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Esteban Ribovics",
@@ -2167,19 +2996,19 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:29Z",
+      "last_update": "2026-09-28T23:23:29Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:29Z",
+        "last_update": "2026-09-28T23:23:29Z",
         "outcomes": [
          {
           "name": "Esteban Ribovics",
-          "price": -260
+          "price": -245
          },
          {
           "name": "King Green",
-          "price": 215
+          "price": 205
          }
         ]
        }
@@ -2188,11 +3017,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Esteban Ribovics",
@@ -2209,11 +3038,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:25:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:25:48Z",
         "outcomes": [
          {
           "name": "Esteban Ribovics",
@@ -2230,11 +3059,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Esteban Ribovics",
@@ -2261,19 +3090,19 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Ismail Naurdiev",
-          "price": -130
+          "price": -137
          },
          {
           "name": "Marvin Vettori",
-          "price": 110
+          "price": 117
          }
         ]
        }
@@ -2282,19 +3111,19 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Ismail Naurdiev",
-          "price": -130
+          "price": -135
          },
          {
           "name": "Marvin Vettori",
-          "price": 110
+          "price": 115
          }
         ]
        }
@@ -2303,19 +3132,19 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:29Z",
+      "last_update": "2026-09-28T23:23:29Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:29Z",
+        "last_update": "2026-09-28T23:23:29Z",
         "outcomes": [
          {
           "name": "Ismail Naurdiev",
-          "price": -133
+          "price": -138
          },
          {
           "name": "Marvin Vettori",
-          "price": 112
+          "price": 117
          }
         ]
        }
@@ -2324,19 +3153,19 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Ismail Naurdiev",
-          "price": -137
+          "price": -157
          },
          {
           "name": "Marvin Vettori",
-          "price": 112
+          "price": 125
          }
         ]
        }
@@ -2345,11 +3174,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:25:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:25:48Z",
         "outcomes": [
          {
           "name": "Ismail Naurdiev",
@@ -2366,19 +3195,19 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Ismail Naurdiev",
-          "price": -135
+          "price": -142
          },
          {
           "name": "Marvin Vettori",
-          "price": 114
+          "price": 120
          }
         ]
        }
@@ -2397,19 +3226,19 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Johnny Walker",
-          "price": -150
+          "price": -132
          },
          {
           "name": "Michael Parkin",
-          "price": 130
+          "price": 112
          }
         ]
        }
@@ -2418,19 +3247,19 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Johnny Walker",
-          "price": -150
+          "price": -135
          },
          {
           "name": "Michael Parkin",
-          "price": 125
+          "price": 115
          }
         ]
        }
@@ -2439,19 +3268,19 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:29Z",
+      "last_update": "2026-09-28T23:23:29Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:29Z",
+        "last_update": "2026-09-28T23:23:29Z",
         "outcomes": [
          {
           "name": "Johnny Walker",
-          "price": -142
+          "price": -138
          },
          {
           "name": "Michael Parkin",
-          "price": 122
+          "price": 117
          }
         ]
        }
@@ -2460,11 +3289,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Johnny Walker",
@@ -2473,6 +3302,121 @@
          {
           "name": "Michael Parkin",
           "price": 114
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "8a75f347e3469e40dbc8f3075ad4e2a7",
+    "sport_key": "mma_mixed_martial_arts",
+    "sport_title": "MMA",
+    "commence_time": "2026-10-04T00:00:00Z",
+    "home_team": "Khaos Williams",
+    "away_team": "Roberto Soldic",
+    "bookmakers": [
+     {
+      "key": "betonlineag",
+      "title": "BetOnline.ag",
+      "last_update": "2026-09-28T23:26:06Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:06Z",
+        "outcomes": [
+         {
+          "name": "Khaos Williams",
+          "price": 263
+         },
+         {
+          "name": "Roberto Soldic",
+          "price": -325
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "draftkings",
+      "title": "DraftKings",
+      "last_update": "2026-09-28T23:26:16Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:16Z",
+        "outcomes": [
+         {
+          "name": "Khaos Williams",
+          "price": 260
+         },
+         {
+          "name": "Roberto Soldic",
+          "price": -325
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "betmgm",
+      "title": "BetMGM",
+      "last_update": "2026-09-28T23:25:48Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:25:48Z",
+        "outcomes": [
+         {
+          "name": "Khaos Williams",
+          "price": 260
+         },
+         {
+          "name": "Roberto Soldic",
+          "price": -325
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "betrivers",
+      "title": "BetRivers",
+      "last_update": "2026-09-28T23:26:32Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:32Z",
+        "outcomes": [
+         {
+          "name": "Khaos Williams",
+          "price": 230
+         },
+         {
+          "name": "Roberto Soldic",
+          "price": -305
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "williamhill_us",
+      "title": "Caesars",
+      "last_update": "2026-09-28T23:22:41Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:22:41Z",
+        "outcomes": [
+         {
+          "name": "Khaos Williams",
+          "price": 240
+         },
+         {
+          "name": "Roberto Soldic",
+          "price": -300
          }
         ]
        }
@@ -2491,19 +3435,19 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Ateba Gautier",
-          "price": -205
+          "price": -215
          },
          {
           "name": "Roman Kopylov",
-          "price": 177
+          "price": 183
          }
         ]
        }
@@ -2512,11 +3456,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Ateba Gautier",
@@ -2533,19 +3477,19 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:29Z",
+      "last_update": "2026-09-28T23:23:29Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:29Z",
+        "last_update": "2026-09-28T23:23:29Z",
         "outcomes": [
          {
           "name": "Ateba Gautier",
-          "price": -198
+          "price": -205
          },
          {
           "name": "Roman Kopylov",
-          "price": 168
+          "price": 173
          }
         ]
        }
@@ -2554,11 +3498,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Ateba Gautier",
@@ -2575,11 +3519,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:25:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:25:48Z",
         "outcomes": [
          {
           "name": "Ateba Gautier",
@@ -2596,19 +3540,19 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Ateba Gautier",
-          "price": -205
+          "price": -218
          },
          {
           "name": "Roman Kopylov",
-          "price": 170
+          "price": 180
          }
         ]
        }
@@ -2627,11 +3571,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Deiveson Figueiredo",
@@ -2648,11 +3592,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Deiveson Figueiredo",
@@ -2669,11 +3613,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:17Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:17Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Deiveson Figueiredo",
@@ -2690,11 +3634,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Deiveson Figueiredo",
@@ -2711,11 +3655,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Deiveson Figueiredo",
@@ -2732,11 +3676,11 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:29Z",
+      "last_update": "2026-09-28T23:23:29Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:29Z",
+        "last_update": "2026-09-28T23:23:29Z",
         "outcomes": [
          {
           "name": "Deiveson Figueiredo",
@@ -2753,11 +3697,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:25:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:25:48Z",
         "outcomes": [
          {
           "name": "Deiveson Figueiredo",
@@ -2784,19 +3728,19 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Natalia Silva",
-          "price": -198
+          "price": -205
          },
          {
           "name": "Wang Cong",
-          "price": 164
+          "price": 170
          }
         ]
        }
@@ -2805,11 +3749,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Natalia Silva",
@@ -2826,11 +3770,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Natalia Silva",
@@ -2847,11 +3791,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:17Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:17Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Natalia Silva",
@@ -2868,11 +3812,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Natalia Silva",
@@ -2889,11 +3833,11 @@
      {
       "key": "betmgm",
       "title": "BetMGM",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:25:48Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:25:48Z",
         "outcomes": [
          {
           "name": "Natalia Silva",
@@ -2910,19 +3854,19 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:29Z",
+      "last_update": "2026-09-28T23:23:29Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:29Z",
+        "last_update": "2026-09-28T23:23:29Z",
         "outcomes": [
          {
           "name": "Natalia Silva",
-          "price": -195
+          "price": -198
          },
          {
           "name": "Wang Cong",
-          "price": 165
+          "price": 168
          }
         ]
        }
@@ -2941,11 +3885,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Merab Dvalishvili",
@@ -2962,11 +3906,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Merab Dvalishvili",
@@ -2983,11 +3927,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Merab Dvalishvili",
@@ -3004,11 +3948,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Merab Dvalishvili",
@@ -3025,11 +3969,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:17Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:17Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Merab Dvalishvili",
@@ -3056,11 +4000,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Alex Volkanovski",
@@ -3077,11 +4021,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Alex Volkanovski",
@@ -3098,11 +4042,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Alex Volkanovski",
@@ -3119,11 +4063,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Alex Volkanovski",
@@ -3140,11 +4084,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:44:17Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:17Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Alex Volkanovski",
@@ -3171,11 +4115,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Amanda Nunes",
@@ -3192,11 +4136,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Amanda Nunes",
@@ -3213,11 +4157,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Amanda Nunes",
@@ -3234,11 +4178,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Amanda Nunes",
@@ -3265,11 +4209,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:37Z",
+      "last_update": "2026-09-28T23:26:16Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:37Z",
+        "last_update": "2026-09-28T23:26:16Z",
         "outcomes": [
          {
           "name": "Ciryl Gane",
@@ -3286,11 +4230,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Ciryl Gane",
@@ -3307,11 +4251,11 @@
      {
       "key": "betrivers",
       "title": "BetRivers",
-      "last_update": "2026-09-28T05:43:38Z",
+      "last_update": "2026-09-28T23:26:32Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:38Z",
+        "last_update": "2026-09-28T23:26:32Z",
         "outcomes": [
          {
           "name": "Ciryl Gane",
@@ -3328,11 +4272,11 @@
      {
       "key": "williamhill_us",
       "title": "Caesars",
-      "last_update": "2026-09-28T05:41:41Z",
+      "last_update": "2026-09-28T23:22:41Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:41:41Z",
+        "last_update": "2026-09-28T23:22:41Z",
         "outcomes": [
          {
           "name": "Ciryl Gane",
@@ -3359,11 +4303,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Ilia Topuria",
@@ -3390,11 +4334,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Conor McGregor",
@@ -3421,11 +4365,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Khamzat Chimaev",
@@ -3452,11 +4396,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Khamzat Chimaev",
@@ -3483,11 +4427,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Max Holloway",
@@ -3514,19 +4458,19 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Nassourdine Imavov",
-          "price": 115
+          "price": 105
          },
          {
           "name": "Sean Strickland",
-          "price": -135
+          "price": -125
          }
         ]
        }
@@ -3545,11 +4489,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Carlos Prates",
@@ -3576,11 +4520,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Islam Makhachev",
@@ -3607,11 +4551,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Joshua Van",
@@ -3638,11 +4582,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Islam Makhachev",
@@ -3669,11 +4613,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Conor McGregor",
@@ -3700,11 +4644,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Carlos Ulberg",
@@ -3731,11 +4675,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Jiri Prochazka",
@@ -3762,11 +4706,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:26Z",
+      "last_update": "2026-09-28T23:26:06Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:26Z",
+        "last_update": "2026-09-28T23:26:06Z",
         "outcomes": [
          {
           "name": "Arman Tsarukyan",
@@ -3795,11 +4739,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:10Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Alan Sanchez",
@@ -3816,11 +4760,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Alan Sanchez",
@@ -3837,11 +4781,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Alan Sanchez",
@@ -3858,11 +4802,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Alan Sanchez",
@@ -3879,11 +4823,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Alan Sanchez",
@@ -3892,6 +4836,100 @@
          {
           "name": "Omari Jones",
           "price": -5000
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "2c3792aea4b209b24040406a903fd5dc",
+    "sport_key": "boxing_boxing",
+    "sport_title": "Boxing",
+    "commence_time": "2026-10-03T19:00:00Z",
+    "home_team": "Ibraheem Sulaimaan",
+    "away_team": "Sonny Hardy",
+    "bookmakers": [
+     {
+      "key": "betonlineag",
+      "title": "BetOnline.ag",
+      "last_update": "2026-09-28T23:25:45Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:25:45Z",
+        "outcomes": [
+         {
+          "name": "Ibraheem Sulaimaan",
+          "price": -1200
+         },
+         {
+          "name": "Sonny Hardy",
+          "price": 628
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "lowvig",
+      "title": "LowVig.ag",
+      "last_update": "2026-09-28T23:26:11Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:11Z",
+        "outcomes": [
+         {
+          "name": "Ibraheem Sulaimaan",
+          "price": -1200
+         },
+         {
+          "name": "Sonny Hardy",
+          "price": 628
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "betus",
+      "title": "BetUS",
+      "last_update": "2026-09-28T23:26:25Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:26:25Z",
+        "outcomes": [
+         {
+          "name": "Ibraheem Sulaimaan",
+          "price": -1000
+         },
+         {
+          "name": "Sonny Hardy",
+          "price": 600
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "key": "fanduel",
+      "title": "FanDuel",
+      "last_update": "2026-09-28T23:24:43Z",
+      "markets": [
+       {
+        "key": "h2h",
+        "last_update": "2026-09-28T23:24:43Z",
+        "outcomes": [
+         {
+          "name": "Ibraheem Sulaimaan",
+          "price": -1300
+         },
+         {
+          "name": "Sonny Hardy",
+          "price": 580
          }
         ]
        }
@@ -3910,11 +4948,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Bilal Fawaz",
@@ -3931,11 +4969,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Bilal Fawaz",
@@ -3952,11 +4990,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Bilal Fawaz",
@@ -3973,11 +5011,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Bilal Fawaz",
@@ -4004,19 +5042,19 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Ben Whittaker",
-          "price": -909
+          "price": -1000
          },
          {
           "name": "Conor Wallace",
-          "price": 559
+          "price": 600
          }
         ]
        }
@@ -4025,11 +5063,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Ben Whittaker",
@@ -4046,11 +5084,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:10Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Ben Whittaker",
@@ -4067,11 +5105,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Ben Whittaker",
@@ -4088,11 +5126,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Ben Whittaker",
@@ -4119,11 +5157,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Oliver Zaren",
@@ -4140,11 +5178,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Oliver Zaren",
@@ -4161,11 +5199,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:10Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Oliver Zaren",
@@ -4192,11 +5230,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Floyd Scholfield",
@@ -4213,11 +5251,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Floyd Scholfield",
@@ -4234,11 +5272,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Floyd Scholfield",
@@ -4255,11 +5293,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Floyd Scholfield",
@@ -4276,11 +5314,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:10Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Floyd Scholfield",
@@ -4307,11 +5345,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Daniel Dubois",
@@ -4328,11 +5366,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Daniel Dubois",
@@ -4349,11 +5387,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Daniel Dubois",
@@ -4370,11 +5408,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Daniel Dubois",
@@ -4391,11 +5429,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:10Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Daniel Dubois",
@@ -4422,11 +5460,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Jermell Charlo",
@@ -4443,11 +5481,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Jermell Charlo",
@@ -4464,11 +5502,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Jermell Charlo",
@@ -4485,11 +5523,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Jermell Charlo",
@@ -4506,11 +5544,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Jermell Charlo",
@@ -4537,11 +5575,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Brandon Figueroa",
@@ -4558,11 +5596,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Brandon Figueroa",
@@ -4579,11 +5617,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Brandon Figueroa",
@@ -4600,11 +5638,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Brandon Figueroa",
@@ -4631,11 +5669,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Ermal Hadribeaj",
@@ -4652,11 +5690,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Ermal Hadribeaj",
@@ -4673,11 +5711,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Ermal Hadribeaj",
@@ -4694,11 +5732,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Ermal Hadribeaj",
@@ -4715,11 +5753,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Ermal Hadribeaj",
@@ -4746,11 +5784,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Emma Dolan",
@@ -4777,11 +5815,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Giorgio Visoli",
@@ -4798,11 +5836,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Giorgio Visoli",
@@ -4819,11 +5857,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Giorgio Visoli",
@@ -4850,11 +5888,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Alberto Puello",
@@ -4871,11 +5909,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Alberto Puello",
@@ -4892,11 +5930,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Alberto Puello",
@@ -4913,11 +5951,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Alberto Puello",
@@ -4934,11 +5972,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Alberto Puello",
@@ -4965,11 +6003,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Emanuel Navarrete",
@@ -4986,11 +6024,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Emanuel Navarrete",
@@ -5007,11 +6045,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Emanuel Navarrete",
@@ -5028,11 +6066,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Emanuel Navarrete",
@@ -5049,11 +6087,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Emanuel Navarrete",
@@ -5080,11 +6118,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Canelo \u00c1lvarez",
@@ -5101,11 +6139,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Canelo \u00c1lvarez",
@@ -5122,11 +6160,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Canelo \u00c1lvarez",
@@ -5143,11 +6181,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Canelo \u00c1lvarez",
@@ -5164,11 +6202,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Canelo \u00c1lvarez",
@@ -5195,11 +6233,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Joshua Buatsi",
@@ -5216,11 +6254,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Joshua Buatsi",
@@ -5237,11 +6275,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Joshua Buatsi",
@@ -5258,11 +6296,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Joshua Buatsi",
@@ -5289,11 +6327,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Mikiah Kreps",
@@ -5310,11 +6348,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Mikiah Kreps",
@@ -5331,11 +6369,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Mikiah Kreps",
@@ -5362,11 +6400,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Miyo Yoshida",
@@ -5383,11 +6421,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Miyo Yoshida",
@@ -5404,11 +6442,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Miyo Yoshida",
@@ -5435,11 +6473,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Ellie Scotney",
@@ -5456,11 +6494,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Ellie Scotney",
@@ -5477,11 +6515,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Ellie Scotney",
@@ -5508,11 +6546,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Alycia Baumgardner",
@@ -5529,11 +6567,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Alycia Baumgardner",
@@ -5550,11 +6588,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Alycia Baumgardner",
@@ -5581,11 +6619,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Anthony Joshua",
@@ -5602,11 +6640,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Anthony Joshua",
@@ -5623,11 +6661,11 @@
      {
       "key": "bovada",
       "title": "Bovada",
-      "last_update": "2026-09-28T05:43:09Z",
+      "last_update": "2026-09-28T23:24:04Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:09Z",
+        "last_update": "2026-09-28T23:24:04Z",
         "outcomes": [
          {
           "name": "Anthony Joshua",
@@ -5644,11 +6682,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Anthony Joshua",
@@ -5665,11 +6703,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Anthony Joshua",
@@ -5686,11 +6724,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Anthony Joshua",
@@ -5717,11 +6755,11 @@
      {
       "key": "fanduel",
       "title": "FanDuel",
-      "last_update": "2026-09-28T05:43:32Z",
+      "last_update": "2026-09-28T23:24:43Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:32Z",
+        "last_update": "2026-09-28T23:24:43Z",
         "outcomes": [
          {
           "name": "Anthony Cacace",
@@ -5738,11 +6776,11 @@
      {
       "key": "betus",
       "title": "BetUS",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:26:25Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:26:25Z",
         "outcomes": [
          {
           "name": "Anthony Cacace",
@@ -5759,11 +6797,11 @@
      {
       "key": "lowvig",
       "title": "LowVig.ag",
-      "last_update": "2026-09-28T05:44:00Z",
+      "last_update": "2026-09-28T23:26:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:44:00Z",
+        "last_update": "2026-09-28T23:26:11Z",
         "outcomes": [
          {
           "name": "Anthony Cacace",
@@ -5780,11 +6818,11 @@
      {
       "key": "betonlineag",
       "title": "BetOnline.ag",
-      "last_update": "2026-09-28T05:43:45Z",
+      "last_update": "2026-09-28T23:25:45Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:45Z",
+        "last_update": "2026-09-28T23:25:45Z",
         "outcomes": [
          {
           "name": "Anthony Cacace",
@@ -5801,11 +6839,11 @@
      {
       "key": "draftkings",
       "title": "DraftKings",
-      "last_update": "2026-09-28T05:43:44Z",
+      "last_update": "2026-09-28T23:25:11Z",
       "markets": [
        {
         "key": "h2h",
-        "last_update": "2026-09-28T05:43:44Z",
+        "last_update": "2026-09-28T23:25:10Z",
         "outcomes": [
          {
           "name": "Anthony Cacace",
