@@ -172,6 +172,15 @@ def main():
     for i, it in enumerate(items):
         nk = key_news(it)
         scored = sorted(((cos(nv[i], pv[j]), j) for j in range(len(posts))), reverse=True)
+        # league-first funnel (owner 3:09 architecture, all 13 leagues): matching happens WITHIN
+        # the story's league. A candidate is excluded only on a KNOWN league mismatch (both sides
+        # tagged, different, non-generic) - anchor uncertainty can never kill a true pair; the
+        # probe remains the decider for everything that passes.
+        slg = str(it.get('league') or '').upper()
+        if slg and slg != 'SPORTS_GENERIC':
+            scored = [(sc, j) for sc, j in scored
+                      if (relevance.get(str(posts[j].get('id'))) or {}).get('league', '')
+                         in ('', slg, 'SPORTS_GENERIC')]
         best = None
         verdicts = []
         for score, j in scored[:TOP_CANDIDATES]:
