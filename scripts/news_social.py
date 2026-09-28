@@ -33,7 +33,7 @@ ALERT_FLOOR = 2.00
 COST_PER_REQUEST = 0.033
 COST_PER_POST = 0.005
 MAX_RESULTS = 10
-NEWS_QUERIES_PER_RUN = 8      # hard cap per run (burn discipline)
+NEWS_QUERIES_PER_RUN = 12      # hard cap per run (burn discipline)
 MAX_HEADLINE_AGE_H = 18       # only fresh headlines drive pulls
 ROUTE_ATTEMPTS = 3            # route-around rotations per headline before conceding
 
@@ -336,9 +336,9 @@ def main():
         winner = (json.load(open(TRIALS)) or {}).get('winner')
     except Exception:
         pass
-    strategy = (winner or 'news:S3').replace('news:', '')
+    strategy = (winner or 'news:S1').replace('news:', '')
     if strategy not in ('S1', 'S2', 'S3', 'S4'):
-        strategy = 'S3'
+        strategy = 'S1'
     st = load_state()
     try:
         news_gen = json.load(open(NEWS)).get('generated_at')
@@ -348,7 +348,7 @@ def main():
         print('pull: news unchanged since last pull - 0 requests (burn discipline)')
         return
     headlines = fresh_headlines(NEWS_QUERIES_PER_RUN)
-    items, used = run_strategies(headlines, [strategy], NEWS_QUERIES_PER_RUN)
+    items, used = run_strategies(headlines, [strategy, 'S2', 'S3'], NEWS_QUERIES_PER_RUN)
     total = merge_feed(items)
     st = load_state(); st['news_pulled_gen'] = news_gen; save_state(st)
     print(f'pull[{strategy}]: {used} requests, {len(items)} new posts, feed carries {total}')
