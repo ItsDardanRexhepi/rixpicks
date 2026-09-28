@@ -4,7 +4,7 @@ name: x-feed
 on:
   schedule:
     # UNPARKED 15-min: his verbatim sign-off '15-min' (main 9:25), burn math presented (~$3.17/day vs $9.04 free, billing after). Balance-watch: ledger exits 1 under $2.00.
-    - cron: '*/15 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       verify_only:
