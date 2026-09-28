@@ -165,7 +165,7 @@ function renderGames(t,events){
   ev=events[i];c=(ev.competitions||[])[0]||{};st=c.status||{};comps=c.competitors||[];
   away=comps.filter(function(x){return x.homeAway==='away';})[0]||{};
   home=comps.filter(function(x){return x.homeAway==='home';})[0]||{};
-  var an=(away.team||{}).abbreviation||'',hn=(home.team||{}).abbreviation||'';
+  var an=(away.team||{}).abbreviation||(away.team||{}).shortDisplayName||(away.team||{}).displayName||(away.athlete||{}).shortName||(away.athlete||{}).displayName||'',hn=(home.team||{}).abbreviation||(home.team||{}).shortDisplayName||(home.team||{}).displayName||(home.athlete||{}).shortName||(home.athlete||{}).displayName||'';
   if(st.type&&st.type.state==='in'){
    txt=esc(an)+' '+(away.score!=null?esc(away.score):'\u2014')+' - '+(home.score!=null?esc(home.score):'\u2014')+' '+esc(hn);
    sub=esc(st.type.shortDetail||st.type.detail||'');
@@ -175,7 +175,7 @@ function renderGames(t,events){
    sub='Final';
    when='<span class="when fin">FINAL</span>';
   }else{
-   txt=esc(an)+' @ '+esc(hn);
+   txt=(an&&hn)?(esc(an)+' @ '+esc(hn)):esc(ev.shortName||ev.name||'');
    sub=esc(dayTime(ev.date));
    when='<span class="when">'+esc(until(ev.date))+'</span>';
   }
@@ -343,9 +343,9 @@ function socMore(){
    natural slide heights (12:21 clip fix), shared tick + shared pause via carStep/carPP. */
 /* ULTRIX semantic match map (owner 12:37): built+cached by scripts/soc_match.py at feed-refresh time.
    Never per-pageview. Stale (>2h) or missing map => NO sync jump (abstain beats a wrong match, 1:00 rule). */
-var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={};
+var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={};
 fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
- if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;}
+ if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;try{renderSocial();socSync();}catch(e){}}
 }).catch(function(){SOC_MATCH_OK=false;});
 function socMatchPair(){ /* XNEWS index of the current news slide's verified pair; -2 abstained; -1 no map entry */
  if(!SOC_MATCH_OK)return -1;
@@ -355,7 +355,7 @@ function socMatchPair(){ /* XNEWS index of the current news slide's verified pai
  if(!k||!(k in SOC_MATCH.pairs))return -1;
  var pr=SOC_MATCH.pairs[k];
  if(!pr||!pr.post_id)return -2;
- return (pr.post_id in SOC_XIDX)?SOC_XIDX[pr.post_id]:-2;
+ return (pr.post_id in SOC_RIDX)?SOC_RIDX[pr.post_id]:-2;
 }
 function socMatchMore(){ /* ranked related posts for the current news key; null when the map has no entry */
  if(!SOC_MATCH_OK)return null;
@@ -368,11 +368,27 @@ function socMatchMore(){ /* ranked related posts for the current news key; null 
 function renderSocial(){
  var box=$('rpSocial');if(!box)return;
  if(!XNEWS.length){box.innerHTML='<div class="empty">No posts right now.</div>';SOC_SIG='';SOC_N=0;return;}
- var items=XNEWS.slice().sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);}).slice(0,6);
+ var chrono=XNEWS.slice().sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);});
+ /* matched pinning (owner 1:09/1:11): posts with a URF-verified pair to a carousel story are
+    pinned into the rendered slice (news-carousel order), then chronological fills to 6.
+    Without pinning a verified post older than the top-6 silently abstained (drift bug, 1:12 test). */
+ var pinned=[],seenP={};
+ if(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs){
+  (CAR_LAST||[]).forEach(function(a){
+   var k=(a.link||'')||String(a.headline||'');
+   var pr=SOC_MATCH.pairs[k];
+   if(!pr||!pr.post_id||seenP[pr.post_id])return;
+   var xi=SOC_XIDX[pr.post_id];
+   if(xi===undefined)return;
+   seenP[pr.post_id]=1;pinned.push(XNEWS[xi]);
+  });
+ }
+ var items=pinned.concat(chrono.filter(function(p){return pinned.indexOf(p)<0;})).slice(0,6);
  var sig=items.map(function(p){return p.id||String(p.headline||'').slice(0,40);}).join('|');
  if(sig===SOC_SIG){socApply();return;}
  var curId=(SOC_LAST[SOC_IDX]&&SOC_LAST[SOC_IDX].id)||'';
  SOC_SIG=sig;SOC_N=items.length;SOC_LAST=items;
+ SOC_RIDX={};items.forEach(function(p,i){if(p.id)SOC_RIDX[p.id]=i;});
  SOC_IDX=0;
  if(curId){for(var _si=0;_si<items.length;_si++){if(items[_si].id===curId){SOC_IDX=_si;break;}}}
  if(SOC_IDX>=SOC_N)SOC_IDX=0;
@@ -562,11 +578,17 @@ function loadSide(t){
  var lg=lgpath(t),now=Date.now();
  if(t.key==='home'){refreshX();renderSocial();}
  if(!lg){
+  if(t.key==='wooder'){
+   /* wooder sidebar (1:17 regression kill: empty box on direct #wooder load - the tab has no
+      espn path so neither sidebar branch filled it). Wooder Ice is NFL content: NFL scoreboard. */
+   if(SB[t.key]&&now-(SB_TS[t.key]||0)<60000){renderGames(t,SB[t.key]);}
+   else{fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?limit=50',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){SB[t.key]=j.events||[];SB_TS[t.key]=Date.now();if(cur===t)renderGames(t,SB[t.key]);}).catch(function(){if(cur===t)renderGames(t,SB[t.key]||null);});}
+  }
   if(t.key==='home'){
    var gb=$('rpGames'),games=[{label:'NFL',espn:'football/nfl'},{label:'CFB',espn:'football/college-football'},{label:'NBA',espn:'basketball/nba'},{label:'WNBA',espn:'basketball/wnba'},{label:'MLB',espn:'baseball/mlb'},{label:'NHL',espn:'hockey/nhl'},{label:'NCAAB',espn:'basketball/mens-college-basketball'},{label:'MLS',espn:'soccer/usa.1'},{label:'NWSL',espn:'soccer/usa.nwsl'},{label:'PGA',espn:'golf/pga'},{label:'NASCAR',espn:'racing/nascar'},{label:'UFC',espn:'mma/ufc'},{label:'ATP',espn:'tennis/atp'},{label:'WTA',espn:'tennis/wta'}];
    if(gb&&Date.now()-HOME_GAMES_TS>300000){
    HOME_GAMES_TS=Date.now();gb.innerHTML='<div class="empty">Loading upcoming games&hellip;</div>';
-   Promise.all(games.map(function(x){return fetch('https://site.api.espn.com/apis/site/v2/sports/'+x.espn+'/scoreboard?limit=50',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){return (j.events||[]).filter(function(e){var st=(((e.competitions||[])[0]||{}).status||{}).type||{};return st.state==='pre'&&Date.parse(e.date||0)>=Date.now()-3600000&&Date.parse(e.date||0)<Date.now()+172800000;}).map(function(e){return {league:x.label,event:e,espn:x.espn};});}).catch(function(){return [];});})).then(function(lists){if(cur!==t||!gb)return;var all=[].concat.apply([],lists).sort(function(a,b){return Date.parse(a.event.date||0)-Date.parse(b.event.date||0);}).slice(0,9);gb.innerHTML=all.map(function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var title=esc((a.team||{}).abbreviation||'')+' @ '+esc((h.team||{}).abbreviation||'');return '<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when">'+esc(until(g.event.date))+'</span></div>';}).join('')||'<div class="empty">No upcoming games listed right now.</div>';});
+   Promise.all(games.map(function(x){return fetch('https://site.api.espn.com/apis/site/v2/sports/'+x.espn+'/scoreboard?limit=50',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){return (j.events||[]).filter(function(e){var st=(((e.competitions||[])[0]||{}).status||{}).type||{};return st.state==='pre'&&Date.parse(e.date||0)>=Date.now()-3600000&&Date.parse(e.date||0)<Date.now()+172800000;}).map(function(e){return {league:x.label,event:e,espn:x.espn};});}).catch(function(){return [];});})).then(function(lists){if(cur!==t||!gb)return;var all=[].concat.apply([],lists).sort(function(a,b){return Date.parse(a.event.date||0)-Date.parse(b.event.date||0);}).slice(0,9);gb.innerHTML=all.map(function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var _an=(a.team||{}).abbreviation||(a.team||{}).shortDisplayName||(a.team||{}).displayName||(a.athlete||{}).shortName||(a.athlete||{}).displayName||'',_hn=(h.team||{}).abbreviation||(h.team||{}).shortDisplayName||(h.team||{}).displayName||(h.athlete||{}).shortName||(h.athlete||{}).displayName||'';var title=(_an&&_hn)?(esc(_an)+' @ '+esc(_hn)):esc(g.event.shortName||g.event.name||'');return '<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when">'+esc(until(g.event.date))+'</span></div>';}).join('')||'<div class="empty">No upcoming games listed right now.</div>';});
    }
   }
  }else{
