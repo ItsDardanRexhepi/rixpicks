@@ -82,6 +82,8 @@ json.dump({"rows":rows},open('/tmp/tennis_slate_2026-09-28.json','w'))
 print(f"tennis slate rows: {len(rows)}")
 PY
 python3 scripts/tennis_kalshi_discovery.py --date 2026-09-28 --slate /tmp/tennis_slate_$DT.json --out /tmp/tennis_catch_$DT.json || echo "STAGE FAIL tennis"
+echo "-- stage: tennis_card_candidates (adapter: catch -> build_manifest schema)"
+python3 scripts/tennis_card_candidates.py /tmp/tennis_catch_$DT.json > /tmp/cand_tennis_$DT.json || echo "STAGE FAIL tennis_adapter"
 
 echo "-- stage: merge candidate classes"
 python3 - <<'PY'
@@ -93,13 +95,11 @@ try:
     h=[e for e in log if e.get('verdict')=='CANDIDATE']
     cands+=h; print(f"hunt: {len(h)} candidates")
 except Exception as e: print("hunt merge skip:", e)
-for name,path in [('st',f'/tmp/cand_st_{DT}.json'),('props',f'/tmp/cand_props_{DT}.json')]:
+for name,path in [('st',f'/tmp/cand_st_{DT}.json'),('props',f'/tmp/cand_props_{DT}.json'),('tennis',f'/tmp/cand_tennis_{DT}.json')]:
     try:
         rows=json.load(open(path))
         cands+=rows; print(f"{name}: {len(rows)} candidates")
     except Exception as e: print(f"{name} merge skip:", e)
-# NOTE: tennis catches are NOT build_manifest schema (no market_class/line) - excluded from
-# candidates.json pending a tennis adapter; shipped as its own artifact (tennis_catch_2026-09-28.json).
 json.dump(cands, open(f'/tmp/candidates_{DT}.json','w'), indent=1)
 print("merged candidates:", len(cands))
 PY
