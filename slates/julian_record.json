@@ -6,7 +6,8 @@
   "t3",
   "t4",
   "t5",
-  "t6"
+  "t6",
+  "t7"
  ],
  "dead_picks": [
   "Ashton Jeanty",
@@ -37,10 +38,10 @@
  ],
  "removal_rule": "one definitively LOST leg removes the whole combo card from the public site; lost standalones come off alone; internal ledger keeps all rows",
  "record": {
-  "wins": 38,
-  "losses": 45,
+  "wins": 42,
+  "losses": 48,
   "pushes": 0,
-  "pending": 7
+  "pending": 0
  },
  "by_window": {
   "dingers-2026-09-27": {
@@ -72,10 +73,10 @@
    "void": 0
   },
   "sun-night": {
-   "wins": 0,
-   "losses": 0,
+   "wins": 4,
+   "losses": 3,
    "pushes": 0,
-   "pending": 7,
+   "pending": 0,
    "void": 0
   }
  },
@@ -88,9 +89,9 @@
   },
   "anytime_td": {
    "wins": 15,
-   "losses": 18,
+   "losses": 19,
    "pushes": 0,
-   "pending": 1
+   "pending": 0
   },
   "ml": {
    "wins": 5,
@@ -111,16 +112,16 @@
    "pending": 0
   },
   "receptions": {
-   "wins": 2,
-   "losses": 1,
+   "wins": 5,
+   "losses": 2,
    "pushes": 0,
-   "pending": 4
+   "pending": 0
   },
   "rushing_yards": {
-   "wins": 2,
-   "losses": 0,
+   "wins": 3,
+   "losses": 1,
    "pushes": 0,
-   "pending": 2
+   "pending": 0
   },
   "total_over": {
    "wins": 1,
@@ -1255,8 +1256,9 @@
    "price": null,
    "window": "sun-night",
    "combo_id": "t7",
-   "status": "pending",
-   "received": "2026-09-27T17:16:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T17:16:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Kyren Williams",
@@ -1267,8 +1269,9 @@
    "price": null,
    "window": "sun-night",
    "combo_id": "t7",
-   "status": "pending",
-   "received": "2026-09-27T17:16:00-07:00"
+   "status": "won",
+   "received": "2026-09-27T17:16:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Blake Corum",
@@ -1279,8 +1282,9 @@
    "price": null,
    "window": "sun-night",
    "combo_id": "t7",
-   "status": "pending",
-   "received": "2026-09-27T17:16:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T17:16:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Kyren Williams",
@@ -1291,8 +1295,9 @@
    "price": null,
    "window": "sun-night",
    "combo_id": "t7",
-   "status": "pending",
-   "received": "2026-09-27T17:16:00-07:00"
+   "status": "won",
+   "received": "2026-09-27T17:16:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Courtland Sutton",
@@ -1303,8 +1308,9 @@
    "price": null,
    "window": "sun-night",
    "combo_id": "t7",
-   "status": "pending",
-   "received": "2026-09-27T17:16:00-07:00"
+   "status": "won",
+   "received": "2026-09-27T17:16:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "RJ Harvey",
@@ -1315,8 +1321,9 @@
    "price": null,
    "window": "sun-night",
    "combo_id": "t7",
-   "status": "pending",
-   "received": "2026-09-27T17:16:00-07:00"
+   "status": "won",
+   "received": "2026-09-27T17:16:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Terrance Ferguson",
@@ -1327,8 +1334,9 @@
    "price": null,
    "window": "sun-night",
    "combo_id": "t7",
-   "status": "pending",
-   "received": "2026-09-27T17:16:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T17:16:00-07:00",
+   "card_status": "dead"
   }
  ],
  "note": "Bought tickets grade at their legs; void = inactive/no-action."
