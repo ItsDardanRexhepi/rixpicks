@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-09-28T14:00:54.021732Z",
-  "expires_at": "2026-09-28T15:10:54.021732Z",
+  "observed_at": "2026-09-28T14:01:10.625478Z",
+  "expires_at": "2026-09-28T15:11:10.625478Z",
   "cadence": "hourly and on verified material event",
   "fx_reference": {
     "base": "USD",
-    "note": "Reference feeds differ slightly and do not represent an executable FX spread. Friday date on Frankfurter reflects weekend closure.",
+    "note": "Reference feeds differ slightly and do not represent an executable FX spread. Each source rate date and update timestamp are shown explicitly.",
     "sources": [
       {
         "provider": "Frankfurter",
