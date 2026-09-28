@@ -20,7 +20,7 @@
    "ask_c": 10,
    "mid_c": 10,
    "status": "active",
-   "quoted_at": "2026-09-28T12:30:40+00:00"
+   "quoted_at": "2026-09-28T12:46:14+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-2027-champion-20260729185915366",
@@ -28,7 +28,7 @@
    "verified": true,
    "market_label": "Will the San Francisco 49ers win the 2027 NFL league championship?",
    "source": "gamma",
-   "quoted_at": "2026-09-28T12:30:44+00:00"
+   "quoted_at": "2026-09-28T12:46:18+00:00"
   }
  },
  {
@@ -51,7 +51,7 @@
    "ask_c": 55,
    "mid_c": 55,
    "status": "active",
-   "quoted_at": "2026-09-28T12:30:41+00:00"
+   "quoted_at": "2026-09-28T12:46:15+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-afc-west-champion",
@@ -59,7 +59,7 @@
    "verified": true,
    "market_label": "Will Kansas City Chiefs win the 2026 AFC West?",
    "source": "gamma",
-   "quoted_at": "2026-09-28T12:30:45+00:00"
+   "quoted_at": "2026-09-28T12:46:19+00:00"
   }
  },
  {
@@ -82,15 +82,15 @@
    "ask_c": 44,
    "mid_c": 44,
    "status": "active",
-   "quoted_at": "2026-09-28T12:30:41+00:00"
+   "quoted_at": "2026-09-28T12:46:15+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-nfc-west-champion",
-   "cents": 41,
+   "cents": 40,
    "verified": true,
    "market_label": "Will San Francisco 49ers win the 2026 NFC West?",
    "source": "gamma",
-   "quoted_at": "2026-09-28T12:30:45+00:00"
+   "quoted_at": "2026-09-28T12:46:19+00:00"
   }
  },
  {
@@ -113,7 +113,7 @@
    "ask_c": 67,
    "mid_c": 66,
    "status": "active",
-   "quoted_at": "2026-09-28T12:30:42+00:00"
+   "quoted_at": "2026-09-28T12:46:16+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-nfc-east-champion",
@@ -121,7 +121,7 @@
    "verified": true,
    "market_label": "Will Philadelphia Eagles win the 2026 NFC East?",
    "source": "gamma",
-   "quoted_at": "2026-09-28T12:30:46+00:00"
+   "quoted_at": "2026-09-28T12:46:20+00:00"
   }
  },
  {
@@ -144,15 +144,15 @@
    "ask_c": 39,
    "mid_c": 38,
    "status": "active",
-   "quoted_at": "2026-09-28T12:30:42+00:00"
+   "quoted_at": "2026-09-28T12:46:17+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-nfc-north-champion",
-   "cents": 38,
+   "cents": 36,
    "verified": true,
    "market_label": "Will Minnesota Vikings win the 2026 NFC North?",
    "source": "gamma",
-   "quoted_at": "2026-09-28T12:30:46+00:00"
+   "quoted_at": "2026-09-28T12:46:20+00:00"
   }
  },
  {
@@ -175,7 +175,7 @@
    "ask_c": 23,
    "mid_c": 22,
    "status": "active",
-   "quoted_at": "2026-09-28T12:30:43+00:00"
+   "quoted_at": "2026-09-28T12:46:17+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-2027-afc-champion",
@@ -183,7 +183,7 @@
    "verified": true,
    "market_label": "Will Buffalo Bills win the 2027 NFL AFC Championship?",
    "source": "gamma",
-   "quoted_at": "2026-09-28T12:30:47+00:00"
+   "quoted_at": "2026-09-28T12:46:21+00:00"
   }
  },
  {
@@ -206,7 +206,7 @@
    "ask_c": 17,
    "mid_c": 16,
    "status": "active",
-   "quoted_at": "2026-09-28T12:30:43+00:00"
+   "quoted_at": "2026-09-28T12:46:18+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-2027-nfc-champion",
@@ -214,7 +214,7 @@
    "verified": true,
    "market_label": "Will San Francisco 49ers win the 2027 NFL NFC Championship?",
    "source": "gamma",
-   "quoted_at": "2026-09-28T12:30:47+00:00"
+   "quoted_at": "2026-09-28T12:46:21+00:00"
   }
  },
  {
@@ -233,11 +233,11 @@
   "resolution": "WNBA Finals result (Oct 2026)",
   "kalshi_quote": {
    "ticker": "KXWNBA-26-MIN",
-   "bid_c": 19,
+   "bid_c": 20,
    "ask_c": 21,
    "mid_c": 20,
    "status": "active",
-   "quoted_at": "2026-09-28T12:30:44+00:00"
+   "quoted_at": "2026-09-28T12:46:18+00:00"
   },
   "poly_slug": "wnba-2026-champion-464",
   "polymarket_com": {
@@ -246,7 +246,7 @@
    "verified": true,
    "market_label": "Minnesota Lynx",
    "source": "gamma",
-   "quoted_at": "2026-09-28T12:30:48+00:00"
+   "quoted_at": "2026-09-28T12:46:22+00:00"
   }
  }
 ]
