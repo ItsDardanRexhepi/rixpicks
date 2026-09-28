@@ -49,7 +49,7 @@ LEAGUE_KEY = {'baseball/mlb':'MLB','football/nfl':'NFL','football/college-footba
 
 def _pick_content_hash(m):
     # VERBATIM contract copy of build_gh_page.py's gate - declared hash must equal its computed hash.
-    _EXCL_TOP={'num','result','_final','polycents'}
+    _EXCL_TOP={'num','result','_final','polycents','card_ts'}
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
