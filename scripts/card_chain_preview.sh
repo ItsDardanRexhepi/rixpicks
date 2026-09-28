@@ -83,7 +83,8 @@ print(f"tennis slate rows: {len(rows)}")
 PY
 python3 scripts/tennis_kalshi_discovery.py --date 2026-09-28 --slate /tmp/tennis_slate_$DT.json --out /tmp/tennis_catch_$DT.json || echo "STAGE FAIL tennis"
 echo "-- stage: tennis_card_candidates (adapter: catch -> build_manifest schema)"
-python3 scripts/tennis_card_candidates.py /tmp/tennis_catch_$DT.json > /tmp/cand_tennis_$DT.json || echo "STAGE FAIL tennis_adapter"
+python3 scripts/tennis_card_candidates.py /tmp/tennis_catch_$DT.json > /tmp/cand_tennis_$DT.json 2>/tmp/tennis_adapter_notes_$DT.txt || echo "STAGE FAIL tennis_adapter"
+cat /tmp/tennis_adapter_notes_$DT.txt
 
 echo "-- stage: merge candidate classes"
 python3 - <<'PY'
@@ -104,6 +105,60 @@ json.dump(cands, open(f'/tmp/candidates_{DT}.json','w'), indent=1)
 print("merged candidates:", len(cands))
 PY
 
+echo "-- stage: evaluation summary (zero-pick standard card sections)"
+python3 - <<'PY'
+import json, collections, html
+DT='2026-09-28'
+def load(p, dflt):
+    try: return json.load(open(p))
+    except Exception: return dflt
+slate=load(f'/tmp/slate_day_{DT}.json',[])
+hunt=load(f'/tmp/hunt_v2_{DT}.json',[])
+cand_st=load(f'/tmp/cand_st_{DT}.json',[])
+props=load('/tmp/props_candidates.json',{})
+catch=load(f'/tmp/tennis_catch_{DT}.json',{})
+try: notes=[l.strip() for l in open(f'/tmp/tennis_adapter_notes_{DT}.txt') if l.strip()]
+except Exception: notes=[]
+LG={'NFL':'football/nfl','ATP':'tennis/atp','WTA':'tennis/wta','PGA':'golf/pga'}
+slc=collections.Counter(r.get('league') for r in slate)
+hc=collections.Counter((e.get('league'),e.get('verdict')) for e in hunt)
+sections=[]
+def hunt_line(lg):
+    c=collections.Counter({v:n for (l,v),n in hc.items() if l==lg})
+    if not c: return None
+    parts=', '.join(f'{n} {v}' for v,n in sorted(c.items(), key=lambda x:-x[1]))
+    return f'Model hunt: {parts}'
+for lg in ['NFL','ATP','WTA','PGA']:
+    if slc.get(lg,0)==0: continue
+    lines=[]
+    matches=[r.get('match') or f"{r.get('away','')} @ {r.get('home','')}" for r in slate if r.get('league')==lg]
+    lines.append(f"Slate: {slc[lg]} {'game' if slc[lg]==1 else 'events'}" + (f" - {matches[0]}" if slc[lg]==1 else ''))
+    hl=hunt_line(lg)
+    if hl:
+        cuts=[e for e in hunt if e.get('league')==lg and e.get('verdict')=='cut']
+        if cuts: hl+=f" (cut: {cuts[0].get('reason','')})"
+        lines.append(hl)
+    if lg=='NFL':
+        try: n_ev=len(load('/tmp/odds_prefill_st.json',{}).get('games',load('/tmp/odds_prefill_st.json',[])))
+        except Exception: n_ev='?'
+        lines.append(f"Side/total engine: {n_ev} events priced, {len(cand_st)} candidates")
+        pr=props.get('rows') or []
+        rc=collections.Counter(r.get('reason') for r in pr if r.get('verdict')=='REJECT')
+        rtxt='; '.join(f'{k} x{n}' for k,n in rc.most_common(3))
+        lines.append(f"Props: {props.get('n_priced_rows',0)} rows priced, {props.get('n_kalshi_bound',0)} Kalshi-bound, {props.get('n_candidates',0)} candidates" + (f" - rejects: {rtxt}" if rtxt else ''))
+    if lg in ('ATP','WTA'):
+        pref='KX'+lg
+        cats=[c for c in catch.get('catches',[]) if c.get('series','').startswith(pref)]
+        npriced=sum(len(c.get('sides',[])) for c in cats)
+        npass=sum(1 for c in cats for s in c.get('sides',[]) if (s.get('net_edge_c') or -99)>=2)
+        lines.append(f"{len(cats)} matches settling {DT}, {npriced} sides priced (Polymarket fair anchor), {npass} passed P-EDGE-001")
+        lines += notes
+    if lg=='PGA':
+        lines.append('No card market coverage - evaluated rows were capability gaps, not picks')
+    sections.append({'espn_league': LG[lg], 'lines': lines})
+json.dump({'date': DT, 'sections': sections}, open(f'/tmp/eval_summary_{DT}.json','w'), indent=1)
+print('eval sections:', [(s['espn_league'], len(s['lines'])) for s in sections])
+PY
 echo "-- stage: build_manifest --preview"
 python3 - <<'PY'
 import json, datetime
@@ -117,5 +172,5 @@ print('meta:', meta['record'], meta['units_pl'])
 PY
 python3 scripts/build_manifest.py /tmp/candidates_$DT.json /tmp/manifest_preview_$DT.json --preview --meta /tmp/card_meta.json || echo "STAGE FAIL build_manifest"
 echo "-- stage: card render (legacy builder, candidate artifact only - NOT published)"
-python3 scripts/build_gh_page.py /tmp/manifest_preview_$DT.json /tmp/card_preview_$DT.html || echo "STAGE FAIL build_gh_page"
+RP_EVAL_SUMMARY=/tmp/eval_summary_$DT.json python3 scripts/build_gh_page.py /tmp/manifest_preview_$DT.json /tmp/card_preview_$DT.html || echo "STAGE FAIL build_gh_page"
 echo "== chain end $(date -u +%FT%TZ)"
