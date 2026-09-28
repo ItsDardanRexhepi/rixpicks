@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-27T18:29:00-07:00",
+ "generated_at": "2026-09-27T20:59:54-07:00",
  "entries": [
   {
    "id": "t5",
@@ -708,6 +708,69 @@
    "reason": "Home run pick lost - game final (CHC 6-2 at BOS), 0 HR. ESPN final event 401817089; matches julian_record dead_picks grade.",
    "provenance": "Original Wooder Ice Dingers card, Sep 27.",
    "removed_label": "Sep 27, 3:52 PM PT"
+  },
+  {
+   "id": "t7",
+   "kind": "ticket",
+   "origin": "suggested",
+   "title": "7-leg DK idea",
+   "result": "lost",
+   "detail": "Idea only - DK Predictions",
+   "legs": [
+    {
+     "player": "Kyren Williams",
+     "market": "Anytime TD",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Kyren Williams",
+     "market": "50+ Rushing Yards",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Blake Corum",
+     "market": "30+ Rushing Yards",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Kyren Williams",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Courtland Sutton",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "RJ Harvey",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Terrance Ferguson",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "lost"
+    }
+   ],
+   "archived_at": "2026-09-27T20:59",
+   "reason": "Ticket lost - Williams anytime TD (0 TDs), Corum (15 rush yds) and Ferguson (1 rec) legs lost, game final",
+   "provenance": "ESPN official box score, event 401872962 (Final: DEN 30, LAR 26), Sep 27.",
+   "removed_label": "Sep 27, 8:59 PM PT"
   }
  ]
 }
