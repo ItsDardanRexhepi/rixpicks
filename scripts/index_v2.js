@@ -51,7 +51,7 @@ function tailFilter(key){
   var lgs=(cw.getAttribute('data-cx-espn')||'').split(',').filter(function(x){return x;});
   var ok=false;
   for(var i=0;i<lgs.length;i++)if(TABOF[lgs[i]]===key){ok=true;break;}
-  cw.style.display=ok?'':'none';
+  cw.style.display=(key==='home'||ok)?'':'none';
  }
  var ft=document.getElementById('rpFutTail');
  if(ft){
@@ -62,7 +62,7 @@ function tailFilter(key){
    row=k.querySelector?k.querySelector('[data-espn]'):null;
    if(!row)continue;
    tk=TABOF[row.getAttribute('data-espn')];
-   show=(tk===key);
+   show=(key==='home'||tk===key);
    k.style.display=show?'':'none';
    if(show&&sect)sect._fv++;
   }
@@ -175,7 +175,7 @@ function renderGames(t,events){
  }
  box.innerHTML=rows.join('')||'<div class="empty">No games listed right now.</div>';
 }
-function srcDom(s){return s==='CBS'?'cbssports.com':(s==='YAHOO'?'sports.yahoo.com':'espn.com');}
+function srcDom(s){return s==='X'?'via X':(s==='CBS'?'cbssports.com':(s==='YAHOO'?'sports.yahoo.com':'espn.com'));}
 function unesc(s){var t=document.createElement('textarea');t.innerHTML=String(s==null?'':s);return t.value;}  /* swamp 1:09: feeds ship HTML-encoded headlines (Jets&#39;) - decode before esc() or they double-escape */
 function normH(h){return String(h||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').replace(/^\s+|\s+$/g,'');}
 function newsBucket(t){
@@ -185,12 +185,14 @@ function newsBucket(t){
  var out=[];
  if(NEWSF&&NEWSF.leagues){
   var L=NEWSF.leagues;
-  if(t.key==='tennis'){out=(L['tennis/atp']||[]).concat(L['tennis/wta']||[]);}
+  if(t.key==='home'){out=[];Object.keys(L).forEach(function(k){out=out.concat(L[k]||[]);});if(!out.length)out=(NEWSF.latest||[]).slice();}
+  else if(t.key==='tennis'){out=(L['tennis/atp']||[]).concat(L['tennis/wta']||[]);}
   else if(t.key==='ufcboxing'){out=(L['mma/ufc']||[]).concat(L['boxing']||[]);}
   else out=L[t.espn]||[];
   out=out.slice();
  }
  out=out.concat(DNEWS[t.key]||[]);
+ if(t.key==='home')out=out.concat(XNEWS);
  out.sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);});
  var seen={},ded=[];
  out.forEach(function(a){var n=normH(a.headline);if(!n||seen[n])return;seen[n]=1;ded.push(a);});
@@ -200,10 +202,10 @@ function renderNews(t,arts){
  var box=$('rpNews');if(!box)return;
  if(!arts||!arts.length){box.innerHTML='<div class="empty">News unavailable right now.</div>';return;}
  var h='';
- arts.slice(0,8).forEach(function(a){
+ arts.slice(0,t.key==='home'?20:8).forEach(function(a){
   var u=a.link||'';
   var s=a.source||'ESPN';
-  var inner='<span class="src '+s.toLowerCase()+'">'+esc(s)+'</span><span class="ntxt">'+esc(unesc(a.headline||''))+'</span><div class="nts">'+esc(ago(a.published))+' \u00b7 '+srcDom(s)+'</div>';
+  var inner='<span class="src '+s.toLowerCase()+'">'+esc(s==='X'?'X POST':s)+'</span><span class="ntxt">'+esc(unesc(a.headline||''))+'</span><div class="nts">'+esc(ago(a.published))+' \u00b7 '+(s==='X'&&a.author?esc(a.author)+' \u00b7 ':'')+srcDom(s)+'</div>';
   h+='<div class="nitem">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
  });
  box.innerHTML=h;
@@ -263,7 +265,17 @@ function rpNewsOk(t,headline){
  for(var i=0;i<ks.length;i++)if(rpNewsOkKey(ks[i],headline))return true;
  return false;
 }
-var NEWSF=null,NEWSF_TS=0;
+var NEWSF=null,NEWSF_TS=0,XNEWS=[],XNEWS_TS=0,HOME_GAMES_TS=0;
+function refreshX(){
+ if(Date.now()-XNEWS_TS<60000)return;
+ XNEWS_TS=Date.now();
+ fetch('slates/x_feed.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
+  if(!j||!Array.isArray(j.items))throw 0;
+  XNEWS=j.items.filter(function(p){return p&&/^[0-9]+$/.test(String(p.id||''))&&p.created_at&&p.text;}).map(function(p){var u=(typeof p.url==='string'&&/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/[A-Za-z0-9_]+\/status\/[0-9]+(?:\?.*)?$/.test(p.url)&&p.url.split('/status/')[1].split('?')[0]===String(p.id))?p.url:'';return {headline:String(p.text).slice(0,900),link:u,published:p.created_at,source:'X',author:typeof p.author_name==='string'?p.author_name.slice(0,80):''};});
+  if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));
+ }).catch(function(){});
+}
+
 var DNEWS={},DNEWS_TS={};
 var KALW=window.RP_KAL_WATCH||[];
 var KALD={},KALD_TS={},KALIN={};
@@ -314,15 +326,21 @@ function tickRender(){
  });
 }
 function loadSide(t){
- var lg=lgpath(t);if(!lg)return;
- var now=Date.now();
- if(SB[t.key]&&now-(SB_TS[t.key]||0)<60000){renderGames(t,SB[t.key]);}
- else{
-  fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?limit=50',{cache:'no-store'})
-   .then(function(r){if(!r.ok)throw 0;return r.json();})
-   .then(function(j){SB[t.key]=j.events||[];SB_TS[t.key]=Date.now();if(cur===t)renderGames(t,SB[t.key]);})
-   .catch(function(){if(cur===t)renderGames(t,SB[t.key]||null);});
+ var lg=lgpath(t),now=Date.now();
+ if(t.key==='home')refreshX();
+ if(!lg){
+  if(t.key==='home'){
+   var gb=$('rpGames'),games=[{label:'NFL',espn:'football/nfl'},{label:'CFB',espn:'football/college-football'},{label:'NBA',espn:'basketball/nba'},{label:'WNBA',espn:'basketball/wnba'},{label:'MLB',espn:'baseball/mlb'},{label:'NHL',espn:'hockey/nhl'},{label:'NCAAB',espn:'basketball/mens-college-basketball'},{label:'MLS',espn:'soccer/usa.1'},{label:'NWSL',espn:'soccer/usa.nwsl'},{label:'PGA',espn:'golf/pga'},{label:'NASCAR',espn:'racing/nascar'},{label:'UFC',espn:'mma/ufc'},{label:'ATP',espn:'tennis/atp'},{label:'WTA',espn:'tennis/wta'}];
+   if(gb&&Date.now()-HOME_GAMES_TS>300000){
+   HOME_GAMES_TS=Date.now();gb.innerHTML='<div class="empty">Loading upcoming games&hellip;</div>';
+   Promise.all(games.map(function(x){return fetch('https://site.api.espn.com/apis/site/v2/sports/'+x.espn+'/scoreboard?limit=50',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){return (j.events||[]).filter(function(e){var st=(((e.competitions||[])[0]||{}).status||{}).type||{};return st.state==='pre'&&Date.parse(e.date||0)>=Date.now()-3600000&&Date.parse(e.date||0)<Date.now()+172800000;}).map(function(e){return {league:x.label,event:e,espn:x.espn};});}).catch(function(){return [];});})).then(function(lists){if(cur!==t||!gb)return;var all=[].concat.apply([],lists).sort(function(a,b){return Date.parse(a.event.date||0)-Date.parse(b.event.date||0);}).slice(0,9);gb.innerHTML=all.map(function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var title=esc((a.team||{}).abbreviation||'')+' @ '+esc((h.team||{}).abbreviation||'');return '<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when">'+esc(until(g.event.date))+'</span></div>';}).join('')||'<div class="empty">No upcoming games listed right now.</div>';});
+   }
+  }
+ }else{
+  if(SB[t.key]&&now-(SB_TS[t.key]||0)<60000){renderGames(t,SB[t.key]);}
+  else{fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/scoreboard?limit=50',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){SB[t.key]=j.events||[];SB_TS[t.key]=Date.now();if(cur===t)renderGames(t,SB[t.key]);}).catch(function(){if(cur===t)renderGames(t,SB[t.key]||null);});}
  }
+
  if(NEWSF&&now-NEWSF_TS<30000){renderNews(t,newsBucket(t));tickRender();}
  else{
   fetch('slates/news.json', {cache:'no-store'})
@@ -330,7 +348,7 @@ function loadSide(t){
    .then(function(j){NEWSF=j;NEWSF_TS=Date.now();if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
    .catch(function(){if(cur===t){renderNews(t,newsBucket(t));tickRender();}});
  }
- if(!DNEWS_TS[t.key]||now-DNEWS_TS[t.key]>25000){
+ if(lg&&(!DNEWS_TS[t.key]||now-DNEWS_TS[t.key]>25000)){
   fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/news?limit=8',{cache:'no-store'})
    .then(function(r){if(!r.ok)throw 0;return r.json();})
    .then(function(j){DNEWS[t.key]=(j.articles||[]).map(function(a){return {headline:a.headline||'',link:((a.links||{}).web||{}).href||'',published:a.published||'',source:'ESPN'};}).filter(function(a){return rpNewsOk(t,a.headline);});DNEWS_TS[t.key]=Date.now();if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
@@ -344,6 +362,7 @@ var _wmlogo=document.querySelector('nav.rpnav .logo');
 if(_wmlogo){_wmlogo.addEventListener('click',function(e){e.preventDefault();try{localStorage.removeItem('rp_tab');}catch(x){}try{history.replaceState(null,'',location.pathname);}catch(x){}location.href='index.html';});}
 /* ---- boot ---- */
 var start=fromHash()||(function(){try{return localStorage.getItem('rp_tab');}catch(e){return null;}})();
+if(!start&&TABS.some(function(t){return t.key==='home';}))start='home';
 if(!start){
  for(var i=0;i<TABS.length;i++){var p=$('st-'+TABS[i].key);if(p&&p.querySelector('.pick:not(.rp-empty)')){start=TABS[i].key;break;}}
  if(!start&&TABS.length)start=TABS[0].key;
