@@ -1,0 +1,20 @@
+name: cf-ultrix-tail
+# Builder 9/28: one-shot diagnostic. Tails ultrix-intake for ~100s so a coordinated test
+# POST /ingest (fired by analysis during the window) shows the consumer outcome live.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  tail:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install wrangler
+        run: |
+          mkdir -p tailenv && cd tailenv && npm install wrangler@4 --no-save --silent
+      - name: tail ultrix-intake (100s window)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        working-directory: tailenv
+        run: timeout 100 ./node_modules/.bin/wrangler tail ultrix-intake --format json || true
