@@ -32,6 +32,11 @@ COST_PER_POST = 0.005
 MAX_RESULTS = 10        # tight per handoff
 GAME_WINDOW_H = 36      # slate-relevant = commences within +/-36h
 
+TOUT_RE = __import__('re').compile(
+    r'discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|'
+    r'picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|'
+    r'free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)', __import__('re').I)
+
 def within_24h(ts):
     """owner 2:49 match horizon: the past 24 hours of X conversation is matchable.
     Posts we cannot age are kept (fail-open on missing data, never on a known-old post)."""
@@ -230,6 +235,9 @@ def main():
           prev = json.load(open(OUT)).get('items', [])
       except Exception:
           prev = []
+      # owner 1:39 (QA audit 2): tout/sales pitches must never enter the shared pool from
+      # THIS path either - news_social.py already filters its own pull; same regex, same rule.
+      items = [pp for pp in items if not TOUT_RE.search(pp.get('text') or '')]
       merged = {str(p.get('id')): p for p in (items + prev) if p.get('id')}
       merged_items = sorted(merged.values(), key=lambda p: str(p.get('created_at', '')), reverse=True)
       merged_items = [pp for pp in merged_items if within_24h(pp.get('created_at'))]
