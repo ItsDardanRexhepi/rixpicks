@@ -1,86 +1,152 @@
 {
-  "version": 1,
-  "generated_at": "2026-09-27T16:55:24-07:00",
-  "tickets": [
+ "version": 1,
+ "generated_at": "2026-09-27T16:55:24-07:00",
+ "tickets": [
+  {
+   "id": 5,
+   "title": "5-leg SGP",
+   "pct": "+1050 \u00b7 Fanatics",
+   "status": "Open",
+   "combo_id": "t5",
+   "bought": "$0.21 FanCash",
+   "legs": [
     {
-      "id": 5,
-      "title": "5-leg SGP",
-      "pct": "+1050 \u00b7 Fanatics",
-      "status": "Open",
-      "combo_id": "t5",
-      "bought": "$0.21 FanCash",
-      "legs": [
-        {
-          "player": "Kiki Iriafen",
-          "market": "16+ Points",
-          "matchup": "WAS @ ATL",
-          "time": "Today 4:00 PM PT",
-          "fm": "points",
-          "line": 16
-        },
-        {
-          "player": "Angel Reese",
-          "market": "12+ Rebounds",
-          "matchup": "WAS @ ATL",
-          "time": "Today 4:00 PM PT",
-          "fm": "rebounds",
-          "line": 12
-        },
-        {
-          "player": "Shakira Austin",
-          "market": "3+ Assists",
-          "matchup": "WAS @ ATL",
-          "time": "Today 4:00 PM PT",
-          "fm": "assists",
-          "line": 3
-        },
-        {
-          "player": "Michaela Onyenwere",
-          "market": "1+ Threes",
-          "matchup": "WAS @ ATL",
-          "time": "Today 4:00 PM PT",
-          "fm": "threes",
-          "line": 1
-        },
-        {
-          "player": "Rhyne Howard",
-          "market": "3+ Threes",
-          "matchup": "WAS @ ATL",
-          "time": "Today 4:00 PM PT",
-          "fm": "threes",
-          "line": 3
-        }
-      ],
-      "sport": "wnba"
+     "player": "Kiki Iriafen",
+     "market": "16+ Points",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "fm": "points",
+     "line": 16
     },
     {
-      "id": 6,
-      "title": "2-pick SGP",
-      "pct": "+30% Parlay Boost",
-      "odds_was": "+600",
-      "odds_boosted": "+780",
-      "status": "Open",
-      "combo_id": "t6",
-      "bought": true,
-      "legs": [
-        {
-          "player": "DeWanna Bonner",
-          "market": "8+ Rebounds",
-          "matchup": "WAS @ ATL",
-          "time": "Today 4:00 PM PT",
-          "fm": "rebounds",
-          "line": 8
-        },
-        {
-          "player": "Sonia Citron",
-          "market": "5+ Assists",
-          "matchup": "WAS @ ATL",
-          "time": "Today 4:00 PM PT",
-          "fm": "assists",
-          "line": 5
-        }
-      ],
-      "sport": "wnba"
+     "player": "Angel Reese",
+     "market": "12+ Rebounds",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "fm": "rebounds",
+     "line": 12
+    },
+    {
+     "player": "Shakira Austin",
+     "market": "3+ Assists",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "fm": "assists",
+     "line": 3
+    },
+    {
+     "player": "Michaela Onyenwere",
+     "market": "1+ Threes",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "fm": "threes",
+     "line": 1
+    },
+    {
+     "player": "Rhyne Howard",
+     "market": "3+ Threes",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "fm": "threes",
+     "line": 3
     }
-  ]
+   ],
+   "sport": "wnba"
+  },
+  {
+   "id": 6,
+   "title": "2-pick SGP",
+   "pct": "+30% Parlay Boost",
+   "odds_was": "+600",
+   "odds_boosted": "+780",
+   "status": "Open",
+   "combo_id": "t6",
+   "bought": true,
+   "legs": [
+    {
+     "player": "DeWanna Bonner",
+     "market": "8+ Rebounds",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "fm": "rebounds",
+     "line": 8
+    },
+    {
+     "player": "Sonia Citron",
+     "market": "5+ Assists",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "fm": "assists",
+     "line": 5
+    }
+   ],
+   "sport": "wnba"
+  },
+  {
+   "id": 7,
+   "title": "7-leg DK idea",
+   "pct": "Idea only \u00b7 DK Predictions",
+   "status": "Open",
+   "combo_id": "t7",
+   "legs": [
+    {
+     "player": "Kyren Williams",
+     "market": "Anytime TD",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "fm": "anytime_td",
+     "line": 1
+    },
+    {
+     "player": "Kyren Williams",
+     "market": "50+ Rushing Yards",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "fm": "rushing_yards",
+     "line": 50
+    },
+    {
+     "player": "Blake Corum",
+     "market": "30+ Rushing Yards",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "fm": "rushing_yards",
+     "line": 30
+    },
+    {
+     "player": "Kyren Williams",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "fm": "receptions",
+     "line": 2
+    },
+    {
+     "player": "Courtland Sutton",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "fm": "receptions",
+     "line": 2
+    },
+    {
+     "player": "RJ Harvey",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "fm": "receptions",
+     "line": 2
+    },
+    {
+     "player": "Terrance Ferguson",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "fm": "receptions",
+     "line": 2
+    }
+   ],
+   "sport": "nfl"
+  }
+ ]
 }
