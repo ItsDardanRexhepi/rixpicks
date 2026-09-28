@@ -1387,7 +1387,7 @@ if _V2:
 else:
     _SHELL=('<h1><span class="tick">&rsquo;</span>RixPicks</h1>\n'
     f'<div class="status">{html.escape(man["date_label"])}</div>\n'
-    '<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+ '    <div class="intro">Today\'s card is conviction-selected, no edge floor - conviction % on each pick, price on the book chip.</div>\n'
+    '<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+ '    <div class="intro">Today\'s card is conviction-selected with an edge floor - the floorless pass runs only when the floor yields zero. Conviction % on each pick, price on the book chip.</div>\n'
     +_yestr+'\n'
     '<div class="sect">Today&rsquo;s picks</div>\n'
     +chr(10).join(rows)+'\n'

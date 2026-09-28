@@ -199,8 +199,21 @@ echo "-- stage: build_manifest --preview"
 python3 - <<'PY'
 import json, datetime
 m=json.load(open('manifest.json'))
+# yesterday: build from history.json's most recent graded day (the canonical record the site
+# itself renders yesterday.html from) - NEVER inherit manifest.json's field, which is yesterday
+# relative to TODAY's live card and goes stale for tomorrow's card (Sep 27 preview bug).
+yesterday=None
+try:
+    days=json.load(open('history.json'))['days']
+    last=days[-1]
+    names=' \u00b7 '.join(p['name'].replace(' ML','')+' '+p['result'] for p in last['picks'])
+    yesterday=f"{last['record']} \u00b7 {names}"
+    print('yesterday from history.json:', last['date'], yesterday)
+except Exception as e:
+    print(f'LOUD: yesterday uncomputable from history.json ({e}) - falling back to manifest inherit', flush=True)
+    yesterday=m.get('yesterday')
 meta={'record': m.get('record'), 'units_pl': m.get('units_pl'),
-      'units_ledger': m.get('units_ledger'), 'yesterday': m.get('yesterday'),
+      'units_ledger': m.get('units_ledger'), 'yesterday': yesterday,
       'status_note': m.get('status_note'), 'date_label': 'Monday, Sep 28',
       'updated': datetime.datetime.now().strftime('%b %-d, %-I:%M %p PT')}
 json.dump(meta, open('/tmp/card_meta.json','w'))
