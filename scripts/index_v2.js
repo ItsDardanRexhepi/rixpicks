@@ -207,15 +207,54 @@ function newsBucket(t){
  out.forEach(function(a){var n=normH(a.headline);if(!n||seen[n])return;seen[n]=1;ded.push(a);});
  return ded;
 }
+var CAR_SIG='',CAR_IDX=0,CAR_N=0,CAR_TIMER=null;
+function carApply(){var tr=$('rpCarTrack');if(tr)tr.style.transform='translateY(-'+(CAR_IDX*100)+'%)';}
+function carStep(){
+ if(document.hidden||CAR_N<2)return;
+ var box=$('rpNewsCar');
+ if(box&&(box.matches(':hover')||box.matches(':focus-within')))return;
+ CAR_IDX=(CAR_IDX+1)%CAR_N;carApply();
+}
+/* news carousel (owner 10:51 spec via main 11:53: main-column width, one article at a time,
+   image + headline + first lines + source, vertical rotation, all sports sources) - replaces
+   the old sidebar news list; renderNews keeps its name so every existing call site feeds it. */
 function renderNews(t,arts){
- var box=$('rpNews');if(!box)return;
- if(!arts||!arts.length){box.innerHTML='<div class="empty">News unavailable right now.</div>';return;}
+ var box=$('rpNewsCar');if(!box)return;
+ var items=(arts||[]).slice(0,12);
+ var sig=items.map(function(a){return normH(a.headline);}).join('|');
+ if(sig===CAR_SIG)return;
+ CAR_SIG=sig;CAR_N=items.length;
+ if(CAR_IDX>=CAR_N)CAR_IDX=0;
+ if(!items.length){box.innerHTML='<div class="empty">News unavailable right now.</div>';return;}
+ var h='<div class="carvp"><div class="cartrack" id="rpCarTrack">';
+ items.forEach(function(a){
+  var u=a.link||'',src=a.source||'';
+  var img=(typeof a.image==='string'&&/^https:\/\//.test(a.image))?a.image:'';
+  var blurb=(typeof a.blurb==='string')?a.blurb:'';
+  var inner=(img?'<span class="carimg" style="background-image:url(\''+esc(img)+'\')"></span>':'')
+   +'<span class="carbody"><span class="carhead">'+esc(unesc(a.headline||''))+'</span>'
+   +(blurb?'<span class="carblurb">'+esc(unesc(blurb))+'</span>':'')
+   +'<span class="carmeta"><span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span> \u00b7 '+esc(ago(a.published))+'</span></span>';
+  h+='<div class="carslide">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
+ });
+ h+='</div></div>';
+ box.innerHTML=h;
+ carApply();
+ if(CAR_N>1&&!CAR_TIMER)CAR_TIMER=setInterval(carStep,5500);
+}
+/* X social section (owner 10:32: X posts out of news, own Home section; built 11:53 scope):
+   renders the x_feed items XNEWS already normalizes; Home-only visibility via body.tab-home CSS. */
+function renderSocial(){
+ var box=$('rpSocial'),head=$('rpSocialHead');
+ if(!box)return;
+ if(!XNEWS.length){box.innerHTML='';box.style.display='none';if(head)head.style.display='none';return;}
+ box.style.display='';if(head)head.style.display='';
  var h='';
- arts.slice(0,t.key==='home'?20:8).forEach(function(a){
-  var u=a.link||'';
-  var s=a.source||'ESPN';
-  var inner='<span class="src '+s.toLowerCase()+'">'+esc(s==='X'?'X POST':s)+'</span><span class="ntxt">'+esc(unesc(a.headline||''))+'</span><div class="nts">'+esc(ago(a.published))+' \u00b7 '+(s==='X'&&a.author?esc(a.author)+' \u00b7 ':'')+srcDom(s)+'</div>';
-  h+='<div class="nitem">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
+ XNEWS.slice(0,6).forEach(function(p){
+  var txt=String(p.headline||'');
+  if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
+  var inner='<span class="stxt">'+esc(unesc(txt))+'</span><span class="smeta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+'</span>';
+  h+='<div class="sitem">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
  });
  box.innerHTML=h;
 }
@@ -281,7 +320,8 @@ function refreshX(){
  fetch('slates/x_feed.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
   if(!j||!Array.isArray(j.items))throw 0;
   XNEWS=j.items.filter(function(p){return p&&/^[0-9]+$/.test(String(p.id||''))&&p.created_at&&p.text;}).map(function(p){var u=(typeof p.url==='string'&&/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/[A-Za-z0-9_]+\/status\/[0-9]+(?:\?.*)?$/.test(p.url)&&p.url.split('/status/')[1].split('?')[0]===String(p.id))?p.url:'';return {headline:String(p.text).slice(0,900),link:u,published:p.created_at,source:'X',author:typeof p.author_name==='string'?p.author_name.slice(0,80):''};});
-  if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));
+  renderSocial();
+ if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));
  }).catch(function(){});
 }
 
@@ -360,7 +400,7 @@ function tickRender(){
 }
 function loadSide(t){
  var lg=lgpath(t),now=Date.now();
- if(t.key==='home')refreshX();
+ if(t.key==='home'){refreshX();renderSocial();}
  if(!lg){
   if(t.key==='home'){
    var gb=$('rpGames'),games=[{label:'NFL',espn:'football/nfl'},{label:'CFB',espn:'football/college-football'},{label:'NBA',espn:'basketball/nba'},{label:'WNBA',espn:'basketball/wnba'},{label:'MLB',espn:'baseball/mlb'},{label:'NHL',espn:'hockey/nhl'},{label:'NCAAB',espn:'basketball/mens-college-basketball'},{label:'MLS',espn:'soccer/usa.1'},{label:'NWSL',espn:'soccer/usa.nwsl'},{label:'PGA',espn:'golf/pga'},{label:'NASCAR',espn:'racing/nascar'},{label:'UFC',espn:'mma/ufc'},{label:'ATP',espn:'tennis/atp'},{label:'WTA',espn:'tennis/wta'}];
