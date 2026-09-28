@@ -4,9 +4,15 @@
 set -uo pipefail
 LOG=/tmp/card_chain.log
 exec > >(tee -a "$LOG") 2>&1
-DT=2026-09-28; D=20280928
+DT=2026-09-28; D=20260928
 SLATE=/tmp/slate_day_$DT.json
 echo "== card chain preview $DT (PT) start $(date -u +%FT%TZ)"
+
+# analysis-tree overlays (preview-only; main repo untouched): core/ overrides + hunt production feeds
+if [ -d previews/overlay ]; then cp -rf previews/overlay/. .; echo "overlay applied: $(find previews/overlay -type f | tr '
+' ' ')"; fi
+if [ -d previews/feeds ]; then cp -f previews/feeds/* /tmp/; echo "feeds staged: $(ls previews/feeds | tr '
+' ' ')"; fi
 
 echo "-- stage: league_slate"
 python3 scripts/league_slate.py MLB NFL CFB WNBA NBA NHL NCAAB MLS NWSL PGA ATP WTA NASCAR UFC --date $D --odds --json > $SLATE
@@ -84,7 +90,17 @@ print("merged candidates:", len(cands))
 PY
 
 echo "-- stage: build_manifest --preview"
-python3 scripts/build_manifest.py /tmp/candidates_$DT.json /tmp/manifest_preview_$DT.json --preview || echo "STAGE FAIL build_manifest"
+python3 - <<'PY'
+import json, datetime
+m=json.load(open('manifest.json'))
+meta={'record': m.get('record'), 'units_pl': m.get('units_pl'),
+      'units_ledger': m.get('units_ledger'), 'yesterday': m.get('yesterday'),
+      'status_note': m.get('status_note'), 'date_label': 'Monday, Sep 28',
+      'updated': datetime.datetime.now().strftime('%b %-d, %-I:%M %p PT')}
+json.dump(meta, open('/tmp/card_meta.json','w'))
+print('meta:', meta['record'], meta['units_pl'])
+PY
+python3 scripts/build_manifest.py /tmp/candidates_$DT.json /tmp/manifest_preview_$DT.json --preview --meta /tmp/card_meta.json || echo "STAGE FAIL build_manifest"
 echo "-- stage: card render (legacy builder, candidate artifact only - NOT published)"
 python3 scripts/build_gh_page.py /tmp/manifest_preview_$DT.json /tmp/card_preview_$DT.html || echo "STAGE FAIL build_gh_page"
 echo "== chain end $(date -u +%FT%TZ)"
