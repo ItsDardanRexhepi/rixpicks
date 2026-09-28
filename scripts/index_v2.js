@@ -315,6 +315,7 @@ function renderNews(t,arts){
  var items=matchedOnly?base.filter(function(a){var pr=SOC_MATCH.pairs[(a.link||'')||String(a.headline||'')];return !!(pr&&pr.post_id);}):base.slice(0,12);
  if(!items.length&&!matchedOnly&&CAR_LAST.length)items=CAR_LAST; /* latest-valid fallback: never blank a good card on a bad fetch */
  if(items.length)CAR_LAST=items;
+ NEWS_READY=true; /* load-race guard (user 3:52 screenshot + QA 3:51): social must know news has rendered before it judges pinned==0 */
  CAR_ALL=base.slice(0,40);
  var sig=items.map(function(a){return normH(a.headline);}).join('|');
  if(sig===CAR_SIG&&$('rpCarTrack')){carApply();return;}
@@ -429,8 +430,9 @@ var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={};
 var RP_TOUT_KW=/discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)/i;
 var RP_SPORT_KW=/nfl|nba|mlb|nhl|wnba|ncaa|cfb|mls|nwsl|pga|nascar|ufc|mma|boxing|tennis|football|basketball|baseball|hockey|soccer|golf|sports|touchdown|quarterback|playoff|super bowl|world series|stanley cup|fantasy|draft pick|trade rumor|injury report|starting lineup|home run|slam dunk|shutout|knockout|title fight|grand slam|eagles|bears|chiefs|cowboys|packers|vikings|giants|jets|patriots|steelers|ravens|bengals|browns|texans|colts|jaguars|titans|broncos|raiders|chargers|rams|seahawks|49ers|cardinals|falcons|panthers|saints|buccaneers|commanders|lions|dolphins|bills|yankees|dodgers|red sox|cubs|braves|astros|phillies|mets|padres|mariners|lakers|celtics|warriors|knicks|nets|sixers|bulls|heat|bucks|nuggets|suns|mavericks|thunder|timberwolves|spurs|rockets|clippers|grizzlies|pelicans|kings|trail blazers|jazz|hawks|hornets|hornets|pacers|cavaliers|pistons|magic|wizards|raptors|maple leafs|bruins|canadiens|oilers|avalanche|lightning|panthers|rangers|penguins|capitals|flyers|red wings|blackhawks|wild|stars|predators|blues|jets|kraken|golden knights|sharks|ducks|kings|coyotes|hurricanes|blue jackets|devils|islanders|sabres|senators|flames|canucks/i;
 fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
- if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;try{renderSocial();socSync();}catch(e){}}
-}).catch(function(){SOC_MATCH_OK=false;});
+ if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;try{if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));renderSocial();socSync();}catch(e){}}
+}).catch(function(){SOC_MATCH_OK=false;SOC_MAP_DONE=true;});
+SOC_MAP_DONE=true;
 function socMatchPair(){ /* XNEWS index of the current news slide's verified pair; -2 abstained; -1 no map entry */
  if(!SOC_MATCH_OK)return -1;
  var ntr=$('rpCarTrack');if(!ntr)return -1;
@@ -451,7 +453,12 @@ function socMatchMore(){ /* ranked related posts for the current news key; null 
 }
 function renderSocial(){
  var box=$('rpSocial');if(!box)return;
- if(!XNEWS.length){box.innerHTML='<div class="empty">No posts right now.</div>';SOC_SIG='';SOC_N=0;return;}
+ if(!XNEWS.length){
+  /* load-race kill (user 3:52 "kill it so it doesn't happen again"): while the async feeds are
+     still landing, render a loading state - NEVER the zero-pair card or an empty verdict. A
+     completed fetch with zero posts is the only true-empty. */
+  if(!XFEED_DONE){box.innerHTML='<div class="empty syncwait">Loading feeds - syncing stories and posts now.</div>';SOC_SIG='';SOC_N=0;return;}
+  box.innerHTML='<div class="empty">No posts right now.</div>';SOC_SIG='';SOC_N=0;return;}
  var REL=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.relevance)?SOC_MATCH.relevance:null;
  var ADMIT=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.admit&&SOC_MATCH.admit.length)?SOC_MATCH.admit:null;
  var onTopic=function(p){
@@ -485,6 +492,12 @@ function renderSocial(){
     exactly the paired posts - counts match the news carousel as a consequence. */
  var matchedOnly=!!(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs);
  if(matchedOnly&&!pinned.length){
+  if(!NEWS_READY||!XFEED_DONE){
+   /* load-race kill (user 3:52): pairs may exist for stories news hasn't rendered yet - this is
+      a LOADING state, not the zero-pair state. The next renderNews/x_feed render settles it. */
+   box.innerHTML='<div class="empty syncwait">Loading feeds - syncing stories and posts now.</div>';
+   SOC_SIG='';SOC_N=0;return;
+  }
   /* QA batch-one catch + owner 2:59 (always matching topics, no exceptions): zero-pair state
      must NOT cycle the generic pool while the news card shows the syncing state - the feeds
      would be visibly unsynchronized exactly when we claim otherwise. Social sync-states too. */
@@ -579,7 +592,7 @@ function rpNewsOk(t,headline){
  for(var i=0;i<ks.length;i++)if(rpNewsOkKey(ks[i],headline))return true;
  return false;
 }
-var NEWSF=null,NEWSF_TS=0,XNEWS=[],XNEWS_TS=0,HOME_GAMES_TS=0;
+var NEWSF=null,NEWSF_TS=0,XNEWS=[],XNEWS_TS=0,HOME_GAMES_TS=0,NEWS_READY=false,SOC_MAP_DONE=false,XFEED_DONE=false;
 /* REAL-TIME feeds (owner 12:44): poll feed JSONs + cached UltRix match map on a short interval,
    merge newest-first, keep the user's current slide stable, live counter, subtle 'new' marker.
    The match map stays build-time cached (12:37) - clients never touch the NIM endpoint. */
@@ -607,9 +620,10 @@ function refreshX(){
   if(!j||!Array.isArray(j.items))throw 0;
   XNEWS=j.items.filter(function(p){return p&&/^[0-9]+$/.test(String(p.id||''))&&p.created_at&&p.text;}).map(function(p){var u=(typeof p.url==='string'&&/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/[A-Za-z0-9_]+\/status\/[0-9]+(?:\?.*)?$/.test(p.url)&&p.url.split('/status/')[1].split('?')[0]===String(p.id))?p.url:'';return {id:String(p.id),headline:String(p.text).slice(0,900),link:u,published:p.created_at,source:'X',author:typeof p.author_name==='string'?p.author_name.slice(0,80):''};});
   SOC_XIDX={};XNEWS.forEach(function(p,i){if(p.id)SOC_XIDX[p.id]=i;});
+  XFEED_DONE=true;
   renderSocial();
  if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));
- }).catch(function(){});
+ }).catch(function(){XFEED_DONE=true;});
 }
 
 var DNEWS={},DNEWS_TS={};
