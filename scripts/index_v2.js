@@ -237,18 +237,22 @@ function socSync(){
  var head=((slide.querySelector('.carhead')||{}).textContent||'').toLowerCase();
  var toks=head.replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(function(w){return w.length>=4&&SYNC_STOP.indexOf(w)<0;});
  if(!toks.length)return false;
- var best=-1,bestScore=0;
+ var SPORT_GEN=['football','basketball','baseball','soccer','hockey','college','sports','players','player'];
+ var best=-1,bestScore=0,bestStrong=0;
  for(var i=0;i<str.children.length;i++){
   var txt=str.children[i].textContent.toLowerCase();
-  var sc=0;
-  for(var j=0;j<toks.length;j++)if(txt.indexOf(toks[j])>=0)sc++;
-  if(sc>bestScore){bestScore=sc;best=i;}
+  var sc=0,strong=0;
+  for(var j=0;j<toks.length;j++){if(txt.indexOf(toks[j])>=0){sc++;if(SPORT_GEN.indexOf(toks[j])<0&&toks[j].length>=5)strong++;}}
+  if(sc>bestScore||(sc===bestScore&&strong>bestStrong)){bestScore=sc;bestStrong=strong;best=i;}
  }
- /* owner 12:30 contextual sync: social slide follows the news slide's entities (team/player/story
-    keywords). A match jumps the social index; no match -> caller keeps chronological advance. */
- if(best>=0&&bestScore>=1){SOC_IDX=best;socApply();SYNC_LAST=true;return true;}
+ /* match quality gate: one specific entity (player/team name, 5+ chars) or two any-overlaps;
+    a bare sport word ('football') alone never syncs */
+ if(best>=0&&(bestStrong>=1||bestScore>=2)){SOC_IDX=best;socApply();SYNC_LAST=true;return true;}
  return false;
 }
+ /* owner 12:30 contextual sync: social slide follows the news slide's entities (team/player/story
+    keywords). A match jumps the social index; no match -> caller keeps chronological advance. */
+
 function carStep(){
  if(document.hidden||CAR_PAUSED||CAR_RM)return;
  if(CAR_N<2&&SOC_N<2)return;
