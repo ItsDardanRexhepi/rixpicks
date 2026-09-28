@@ -1,0 +1,38 @@
+name: official-video
+# Official-video detector (owner directive 9/28 9:48 via main; contract accepted main 9:53).
+# FREE sources only: channel-page identity resolve -> RSS -> oEmbed embeddability (no API key;
+# optional YT_API_KEY upgrades to authoritative videos.list status check). Writes
+# slates/official_video.json; Home renders validated entries only, fail-closed.
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: official-video
+  cancel-in-progress: false
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: detect official embeds
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+        run: python3 scripts/official_video.py
+      - name: commit feed
+        run: |
+          git config user.name "RixPicks Bot"
+          git config user.email "rixpicks-bot@users.noreply.github.com"
+          git add slates/official_video.json 2>/dev/null || exit 0
+          git diff --cached --quiet && exit 0
+          git commit -m "official video $(date -u +%H:%M) UTC"
+          for i in 1 2 3 4 5; do
+            git pull --rebase -q && git push -q && exit 0
+            sleep 5
+          done
+          exit 1
