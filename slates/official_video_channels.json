@@ -1,0 +1,16 @@
+{
+ "version": 1,
+ "note": "Curated LEAGUE-OWNED official YouTube channels only (identity resolved + verified from the channel page at runtime). Broadcasters/highlights channels are NOT rights-holder stream sources. Fail-closed: remove a handle here and its videos vanish next cycle.",
+ "channels": [
+  {"handle": "NFL", "leagues": ["NFL"]},
+  {"handle": "NBA", "leagues": ["NBA"]},
+  {"handle": "MLB", "leagues": ["MLB"]},
+  {"handle": "NHL", "leagues": ["NHL"]},
+  {"handle": "WNBA", "leagues": ["WNBA"]},
+  {"handle": "MLS", "leagues": ["MLS"]},
+  {"handle": "NWSL", "leagues": ["NWSL"]},
+  {"handle": "PGATOUR", "leagues": ["PGA"]},
+  {"handle": "atptour", "leagues": ["ATP"]},
+  {"handle": "WTA", "leagues": ["WTA"]}
+ ]
+}
