@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T05:53:34.602734+00:00",
+ "generated_at": "2026-09-28T06:08:56.657308+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -23,19 +23,19 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Li Zongyu @ Elsa Jacquemot",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Li Zongyu 0 - Elsa Jacquemot 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Rinko Matsuda @ Katarzyna Kawa",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
      "detail": "1st",
      "score": "Rinko Matsuda 0 - Katarzyna Kawa 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Linda Fruhvirtova @ Ye Shiyu",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Linda Fruhvirtova 0 - Ye Shiyu 0"
     }
    ]
   },
@@ -47,7 +47,7 @@
      "matchup": "Yujia Huang @ Wei Sijia",
      "commence": "2026-09-25T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Yujia Huang 0 - Wei Sijia 0"
     },
     {
@@ -55,7 +55,7 @@
      "matchup": "Hayu Kinoshita @ Lu Jia-Jing",
      "commence": "2026-09-25T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Hayu Kinoshita 0 - Lu Jia-Jing 0"
     },
     {
@@ -76,19 +76,19 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Li Zongyu @ Elsa Jacquemot",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Li Zongyu 0 - Elsa Jacquemot 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Rinko Matsuda @ Katarzyna Kawa",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
      "detail": "1st",
      "score": "Rinko Matsuda 0 - Katarzyna Kawa 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Linda Fruhvirtova @ Ye Shiyu",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Linda Fruhvirtova 0 - Ye Shiyu 0"
     }
    ]
   }
