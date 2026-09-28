@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-27T18:31:48",
+ "generated_at": "2026-09-27T18:36:48",
  "live_legs": [
   {
    "player": "Kyren Williams",
@@ -11,7 +11,7 @@
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "4:43 - 2nd"
+   "game_detail": "3:47 - 2nd"
   },
   {
    "player": "Kyren Williams",
@@ -23,7 +23,7 @@
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "4:43 - 2nd"
+   "game_detail": "3:47 - 2nd"
   },
   {
    "player": "Blake Corum",
@@ -35,7 +35,7 @@
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "4:43 - 2nd"
+   "game_detail": "3:47 - 2nd"
   },
   {
    "player": "Kyren Williams",
@@ -47,7 +47,7 @@
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "4:43 - 2nd"
+   "game_detail": "3:47 - 2nd"
   },
   {
    "player": "Courtland Sutton",
@@ -59,19 +59,19 @@
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "4:43 - 2nd"
+   "game_detail": "3:47 - 2nd"
   },
   {
    "player": "RJ Harvey",
    "market": "receptions",
    "line": 2,
-   "current": 2.0,
-   "progress": "2/2",
+   "current": 3.0,
+   "progress": "3/2",
    "matchup": "LAR @ DEN",
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "4:43 - 2nd"
+   "game_detail": "3:47 - 2nd"
   },
   {
    "player": "Terrance Ferguson",
@@ -83,7 +83,7 @@
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "4:43 - 2nd"
+   "game_detail": "3:47 - 2nd"
   }
  ]
 }
