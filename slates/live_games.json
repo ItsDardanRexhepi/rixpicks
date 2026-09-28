@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T10:09:25.371768+00:00",
+ "generated_at": "2026-09-28T10:28:36.746387+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -23,14 +23,6 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Varvara Lepchenko @ Ulrikke Eikeri",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Varvara Lepchenko 0 - Ulrikke Eikeri 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Mai Hontama @ Alexandra Panova",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
@@ -44,6 +36,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Darya Astakhova 0 - Desirae Krawczyk 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Anna-Lena Friedsam @ Anastasia Kulikova",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Anna-Lena Friedsam 0 - Anastasia Kulikova 0"
     }
    ]
   },
@@ -67,22 +67,6 @@
      "score": "Vendula Valdmannova 0 - Antonia Ruzic 0"
     },
     {
-     "espn_event_id": "1078-2026",
-     "matchup": "Anna Siskova @ Julia Riera",
-     "commence": "2026-09-26T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Anna Siskova 0 - Julia Riera 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Varvara Lepchenko @ Ulrikke Eikeri",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Varvara Lepchenko 0 - Ulrikke Eikeri 0"
-    },
-    {
      "espn_event_id": "959-2026",
      "matchup": "Mai Hontama @ Alexandra Panova",
      "commence": "2026-09-27T04:00Z",
@@ -97,6 +81,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Darya Astakhova 0 - Desirae Krawczyk 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Anna-Lena Friedsam @ Anastasia Kulikova",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Anna-Lena Friedsam 0 - Anastasia Kulikova 0"
     }
    ]
   }
