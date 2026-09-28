@@ -210,9 +210,30 @@ function newsBucket(t){
 }
 var CAR_SIG='',CAR_IDX=0,CAR_N=0,CAR_TIMER=null,CAR_PAUSED=false,CAR_LAST=[],CAR_ALL=[];
 var CAR_RM=false;try{CAR_RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
-function carApply(){
+/* owner 2:47 seamless loop: the wrap used to transition from the last slide back to the first,
+   visibly rushing backwards through every slide ("restringing"). Each track now carries a clone of
+   the last slide up front and of the first slide at the end; a wrap animates onto the clone (motion
+   stays continuous, same direction), then silent-jumps to the identical real slide. CAR_IDX/SOC_IDX
+   stay logical (0..N-1); track space adds +1 while clones are present. */
+var CAR_JUMP=0,SOC_JUMP=0;
+function carClonify(tr,N){
+ if(!tr||N<2)return;
+ var f=tr.children[0],l=tr.children[N-1];if(!f||!l)return;
+ var cl=l.cloneNode(true);cl.classList.add('carclone');cl.setAttribute('aria-hidden','true');
+ var cf=f.cloneNode(true);cf.classList.add('carclone');cf.setAttribute('aria-hidden','true');
+ tr.insertBefore(cl,f);tr.appendChild(cf);
+}
+function carCloned(tr,N){return !!(tr&&N>1&&tr.children.length===N+2);}
+function carNoTrans(tr,fn){
+ var vp=tr.parentElement;
+ tr.style.transition='none';if(vp)vp.style.transition='none';
+ fn();
+ void tr.offsetHeight;
+ tr.style.transition='';if(vp)vp.style.transition='';
+}
+function carMove(ci,sync){
  var tr=$('rpCarTrack');if(!tr||!CAR_N)return;
- var s=tr.children[CAR_IDX];if(!s)return;
+ var s=tr.children[ci];if(!s)return;
  /* owner 12:21 bug: fixed slide heights clipped content at mobile widths (prev slide bled in,
     current headline cut). Natural slide heights + pixel-offset translate: the viewport hugs the
     active slide's real height, so nothing clips and nothing bleeds, any width, any content. */
@@ -220,7 +241,19 @@ function carApply(){
  vp.style.height=s.offsetHeight+'px';
  tr.style.transform='translateY(-'+s.offsetTop+'px)';
  var c=$('rpCarCount');if(c)c.textContent=(CAR_N?(CAR_IDX+1):0)+' of '+CAR_N;
- socSync();
+ if(sync)socSync();
+}
+function carApply(){carMove(CAR_IDX+(carCloned($('rpCarTrack'),CAR_N)?1:0),true);}
+function carAdv(d){
+ if(CAR_N<2)return;
+ var tr=$('rpCarTrack');
+ if(!carCloned(tr,CAR_N)){CAR_IDX=(CAR_IDX+d+CAR_N)%CAR_N;carApply();return;}
+ var v=CAR_IDX+1+d;
+ if(v>=1&&v<=CAR_N){CAR_IDX=v-1;carApply();return;}
+ if(CAR_JUMP)clearTimeout(CAR_JUMP);
+ CAR_IDX=(d>0)?0:CAR_N-1;
+ carMove((d>0)?CAR_N+1:0,true); /* glide onto the clone - identical content, motion stays continuous */
+ CAR_JUMP=setTimeout(function(){CAR_JUMP=0;var t2=$('rpCarTrack');if(t2)carNoTrans(t2,function(){carApply();});},580);
 }
 var CAR_RZ=null;
 window.addEventListener('resize',function(){if(CAR_RZ)clearTimeout(CAR_RZ);CAR_RZ=setTimeout(function(){carApply();socApply();},180);});
@@ -244,10 +277,10 @@ function carStep(){
  if(CAR_N<2&&SOC_N<2)return;
  var nb=$('rpNewsCar'),sb=$('rpSocial');
  if((nb&&(nb.matches(':hover')||nb.matches(':focus-within')))||(sb&&(sb.matches(':hover')||sb.matches(':focus-within'))))return;
- if(CAR_N>1){CAR_IDX=(CAR_IDX+1)%CAR_N;carApply();}
- if(!SYNC_LAST&&SOC_N>1){SOC_IDX=(SOC_IDX+1)%SOC_N;socApply();}
+ if(CAR_N>1)carAdv(1);
+ if(!SYNC_LAST&&SOC_N>1)socAdv(1);
 }
-function carGo(d){if(CAR_N<2)return;CAR_IDX=(CAR_IDX+d+CAR_N)%CAR_N;carApply();}
+function carGo(d){carAdv(d);}
 function carPP(){CAR_PAUSED=!CAR_PAUSED;var ids=['rpCarPP','rpSocPP'];for(var i=0;i<ids.length;i++){var b=$(ids[i]);if(b)b.textContent=CAR_PAUSED?'Play':'Pause';}}
 function carAll(){
  var pop=$('rpCarAllPop');if(!pop)return;
@@ -276,7 +309,7 @@ function renderNews(t,arts){
  if(items.length)CAR_LAST=items;
  CAR_ALL=(arts||[]).slice(0,40);
  var sig=items.map(function(a){return normH(a.headline);}).join('|');
- if(sig===CAR_SIG){carApply();return;}
+ if(sig===CAR_SIG&&$('rpCarTrack')){carApply();return;}
  var curKey=(CAR_LAST[CAR_IDX]&&carKey(CAR_LAST[CAR_IDX]))||'';
  CAR_SIG=sig;CAR_N=items.length;
  CAR_IDX=0;
@@ -300,6 +333,8 @@ function renderNews(t,arts){
   +'<button type="button" id="rpCarPP" aria-label="pause rotation">'+(CAR_PAUSED?'Play':'Pause')+'</button>'
   +'<button type="button" id="rpCarAllBtn" class="carall">View all News</button></div>';
  box.innerHTML=h;
+ carClonify($('rpCarTrack'),CAR_N);
+ if(CAR_JUMP){clearTimeout(CAR_JUMP);CAR_JUMP=0;}
  $('rpCarPrev').addEventListener('click',function(e){e.preventDefault();carGo(-1);});
  $('rpCarNext').addEventListener('click',function(e){e.preventDefault();carGo(1);});
  $('rpCarPP').addEventListener('click',function(e){e.preventDefault();carPP();});
@@ -310,15 +345,27 @@ function renderNews(t,arts){
 /* X social section (owner 10:32: X posts out of news, own Home section; built 11:53 scope):
    renders the x_feed items XNEWS already normalizes; Home-only visibility via body.tab-home CSS. */
 var SOC_SIG='',SOC_IDX=0,SOC_N=0,SOC_LAST=[];
-function socApply(){
+function socMove(ci){
  var tr=$('rpSocTrack');if(!tr||!SOC_N)return;
- var sl=tr.children[SOC_IDX];if(!sl)return;
+ var sl=tr.children[ci];if(!sl)return;
  var vp=tr.parentElement;
  vp.style.height=sl.offsetHeight+'px';
  tr.style.transform='translateY(-'+sl.offsetTop+'px)';
  var c=$('rpSocCount');if(c)c.textContent=(SOC_N?(SOC_IDX+1):0)+' of '+SOC_N;
 }
-function socGo(d){if(SOC_N<2)return;SOC_IDX=(SOC_IDX+d+SOC_N)%SOC_N;socApply();}
+function socApply(){socMove(SOC_IDX+(carCloned($('rpSocTrack'),SOC_N)?1:0));}
+function socAdv(d){
+ if(SOC_N<2)return;
+ var tr=$('rpSocTrack');
+ if(!carCloned(tr,SOC_N)){SOC_IDX=(SOC_IDX+d+SOC_N)%SOC_N;socApply();return;}
+ var v=SOC_IDX+1+d;
+ if(v>=1&&v<=SOC_N){SOC_IDX=v-1;socApply();return;}
+ if(SOC_JUMP)clearTimeout(SOC_JUMP);
+ SOC_IDX=(d>0)?0:SOC_N-1;
+ socMove((d>0)?SOC_N+1:0);
+ SOC_JUMP=setTimeout(function(){SOC_JUMP=0;var t2=$('rpSocTrack');if(t2)carNoTrans(t2,function(){socApply();});},580);
+}
+function socGo(d){socAdv(d);}
 /* View more posts (owner 12:33): pop listing the fuller set of posts related to the current
    news+social pair's topic - same topic matching as the contextual sync; row grid mobile pass. */
 function socMore(){
@@ -357,7 +404,7 @@ fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)thro
 function socMatchPair(){ /* XNEWS index of the current news slide's verified pair; -2 abstained; -1 no map entry */
  if(!SOC_MATCH_OK)return -1;
  var ntr=$('rpCarTrack');if(!ntr)return -1;
- var slide=ntr.children[CAR_IDX];if(!slide)return -1;
+ var slide=ntr.children[CAR_IDX+(carCloned(ntr,CAR_N)?1:0)];if(!slide)return -1;
  var k=slide.getAttribute('data-nkey')||'';
  if(!k||!(k in SOC_MATCH.pairs))return -1;
  var pr=SOC_MATCH.pairs[k];
@@ -367,7 +414,7 @@ function socMatchPair(){ /* XNEWS index of the current news slide's verified pai
 function socMatchMore(){ /* ranked related posts for the current news key; null when the map has no entry */
  if(!SOC_MATCH_OK)return null;
  var ntr=$('rpCarTrack');if(!ntr)return null;
- var slide=ntr.children[CAR_IDX];if(!slide)return null;
+ var slide=ntr.children[CAR_IDX+(carCloned(ntr,CAR_N)?1:0)];if(!slide)return null;
  var k=slide.getAttribute('data-nkey')||'';
  if(!k||!(k in SOC_MATCH.more))return null;
  return SOC_MATCH.more[k];
@@ -406,7 +453,7 @@ function renderSocial(){
  var pool=chrono.filter(function(p){return seenP[p.id]||onTopic(p);}); /* verified pins bypass the topic floor - the probe already judged them */
  var items=pinned.concat(pool.filter(function(p){return pinned.indexOf(p)<0;})).slice(0,6);
  var sig=items.map(function(p){return p.id||String(p.headline||'').slice(0,40);}).join('|');
- if(sig===SOC_SIG){socApply();return;}
+ if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
  var curId=(SOC_LAST[SOC_IDX]&&SOC_LAST[SOC_IDX].id)||'';
  SOC_SIG=sig;SOC_N=items.length;SOC_LAST=items;
  SOC_RIDX={};items.forEach(function(p,i){if(p.id)SOC_RIDX[p.id]=i;});
@@ -427,6 +474,8 @@ function renderSocial(){
   +'<button type="button" id="rpSocPP" aria-label="pause rotation">'+(CAR_PAUSED?'Play':'Pause')+'</button>'
   +'<button type="button" id="rpSocMore" class="carall">View more posts</button></div>';
  box.innerHTML=h;
+ carClonify($('rpSocTrack'),SOC_N);
+ if(SOC_JUMP){clearTimeout(SOC_JUMP);SOC_JUMP=0;}
  $('rpSocPrev').addEventListener('click',function(e){e.preventDefault();socGo(-1);});
  $('rpSocNext').addEventListener('click',function(e){e.preventDefault();socGo(1);});
  $('rpSocPP').addEventListener('click',function(e){e.preventDefault();carPP();});
