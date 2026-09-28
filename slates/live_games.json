@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T02:51:36.421733+00:00",
+ "generated_at": "2026-09-28T03:06:11.129499+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,8 +10,8 @@
      "matchup": "LAR @ DEN",
      "commence": "2026-09-28T00:20Z",
      "status": "in",
-     "detail": "0:46 - 3rd",
-     "score": "LAR 16 - DEN 16",
+     "detail": "8:40 - 4th",
+     "score": "LAR 19 - DEN 16",
      "away_to": 3,
      "home_to": 3
     }
@@ -21,48 +21,14 @@
    "league": "WNBA",
    "games": [
     {
-     "espn_event_id": "401918013",
-     "matchup": "WAS @ ATL",
-     "commence": "2026-09-27T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "WAS 77 - ATL 92"
-    },
-    {
      "espn_event_id": "401918016",
      "matchup": "DAL @ GS",
      "commence": "2026-09-28T01:00Z",
      "status": "in",
-     "detail": "5:17 - 4th",
-     "score": "DAL 65 - GS 95",
+     "detail": "17.5 - 4th",
+     "score": "DAL 80 - GS 104",
      "away_to": 2,
-     "home_to": 4
-    }
-   ]
-  },
-  {
-   "league": "MLS",
-   "games": [
-    {
-     "espn_event_id": "761844",
-     "matchup": "MIA @ CLB",
-     "commence": "2026-09-27T23:00Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "MIA 1 - CLB 2"
-    }
-   ]
-  },
-  {
-   "league": "NWSL",
-   "games": [
-    {
-     "espn_event_id": "401854014",
-     "matchup": "NC @ UTA",
-     "commence": "2026-09-27T23:00Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "NC 1 - UTA 2"
+     "home_to": 3
     }
    ]
   }
