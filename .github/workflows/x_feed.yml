@@ -11,6 +11,11 @@ on:
         description: 'Only verify the token (GET /2/users/me), no pulls'
         type: boolean
         default: false
+      ns_mode:
+        description: 'news_social mode: pull (standing) or trial (sentient strategy trials)'
+        type: choice
+        options: [pull, trial]
+        default: pull
 permissions:
   contents: write
 concurrency:
@@ -33,11 +38,20 @@ jobs:
             echo "X_BEARER_TOKEN not set - dormant cycle (fill pending)"; exit 0
           fi
           python3 scripts/x_feed.py "$MODE"
+      - name: news-driven social pull (owner 1:11/1:15: X API is the tap; trials route around until a path works)
+        env:
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          NS_MODE: ${{ inputs.ns_mode || 'pull' }}
+        run: |
+          if [ -z "$X_BEARER_TOKEN" ]; then
+            echo "X_BEARER_TOKEN not set - news_social dormant"; exit 0
+          fi
+          python3 scripts/news_social.py "$NS_MODE"
       - name: commit feed + burn ledger
         run: |
           git config user.name "RixPicks Bot"
           git config user.email "rixpicks-bot@users.noreply.github.com"
-          git add slates/x_feed.json slates/x_burn.jsonl slates/x_feed_state.json 2>/dev/null || exit 0
+          git add slates/x_feed.json slates/x_burn.jsonl slates/x_feed_state.json slates/soc_trials.json 2>/dev/null || exit 0
           git diff --cached --quiet && exit 0
           git commit -m "x feed $(date -u +%H:%M) UTC"
           for i in 1 2 3 4 5; do
