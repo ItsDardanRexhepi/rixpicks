@@ -1036,7 +1036,7 @@ if not rows:
     # Empty-slate defense (Sep 26 chaos drill / app_spec Data rules): the page NEVER ships silently
     # empty. Degraded card: explicit state + yesterday's grades, locked layout otherwise intact.
     _y=html.escape(str(man.get('yesterday') or ''))
-    rows.append('<div class="pick"><div class="pick-head"><span class="name">No picks today</span></div>'
+    rows.append('<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div>'
                 + (f'<div class="sub"><a class="yesrec" href="yesterday.html" style="color:inherit">Yesterday: {_y}</a></div>' if _y else '')
                 + '</div>')
     _row_lgs.append('')
@@ -1375,7 +1375,7 @@ if FUT:
                     _side='away' if t==an else 'home'
                     _isrc=_mlogo.get((_lg,t)) or ('https://a.espncdn.com/i/teamlogos/%s/500/%s.png'%(_LGMAP[_lg][1],info['abbr']) if _LGMAP[_lg][1] else '')
                     _fimg='<img src="%s" style="width:20px;height:20px;vertical-align:-4px;margin-right:7px" onerror="this.remove()">'%_isrc if _isrc else ''
-                    _fw.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick" data-espn="%s" data-eid="%s" data-away="%s" data-home="%s" data-side="%s">%s<b>%s</b> <span style="color:#8a8f98;font-size:12px">futures: %s</span><span class="ls" data-ls></span></div></a>'%(_LGMAP[_lg][0],ev['id'],html.escape(an),html.escape(hn),_side,_fimg,html.escape(t),' &middot; '.join(html.escape(x) for x in info['mkts'])))  # 12:31 core fix: futures-live rows bind their event id - rpLsTick's strict eid lane (J-101) hydrates them with the same live score/clock/quarter data as score rows; no eid = static row was the root defect
+                    _fw.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick" data-espn="%s" data-eid="%s" data-away="%s" data-home="%s" data-side="%s"><div class="pick-head"><span class="name">%s<b>%s</b></span><span class="futpill">LIVE TODAY</span></div><div class="sub">futures: %s <span class="ls" data-ls></span></div></div></a>'%(_LGMAP[_lg][0],ev['id'],html.escape(an),html.escape(hn),_side,_fimg,html.escape(t),' &middot; '.join(html.escape(x) for x in info['mkts'])))  # 12:31 core fix: futures-live rows bind their event id - rpLsTick's strict eid lane (J-101) hydrates them with the same live score/clock/quarter data as score rows; no eid = static row was the root defect
                     _fwgot.add(t)
                     break
         _fw2=[]
@@ -1549,7 +1549,7 @@ RP_BR=['AZ','CO','CT','DE','DC','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI
 # man['yesterday'] stays data-only; v2 never renders it globally.
 _yestr=''
 _YBL=man.get('yesterday_by_league') or {}
-_cnote_html=('<div class="yesrec" style="font-style:normal">'+html.escape(str(man['card_note']))+'</div>') if man.get('card_note') else ''
+_cnote_html=('<div class="cardnote">'+html.escape(str(man['card_note']))+'</div>') if man.get('card_note') else ''
 def _ystr_for(_tab):
     _s=_YBL.get(_tab)
     return ('<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: '+html.escape(_s)+'</a>') if _s else ''
@@ -1579,6 +1579,12 @@ if _V2:
     _rule=_m.group(1)
     assert ('height:100%' not in _rule), 'NEWS-ART-GUARD: .carimg uses height:100% - collapses to 0 on auto-height slides (2:03 bug)'
     assert ('align-self:stretch' in _rule) or _reg.search(r'height:\\d+px', _rule), 'NEWS-ART-GUARD: .carimg has no definite sizing mechanism (need align-self:stretch or fixed px height)'
+    # GAMES-LOAD-GUARD (2:13 intermittent-load bug): the section must never again gate on one
+    # all-or-nothing barrier without timeouts, and card_note must never render as raw plain text.
+    INDEX_V2_JS_CHK=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.js')).read()
+    assert 'Promise.all(games.map' not in INDEX_V2_JS_CHK, 'GAMES-LOAD-GUARD: all-or-nothing games barrier is back (2:13 bug)'
+    assert 'AbortController' in INDEX_V2_JS_CHK and '259200000' in INDEX_V2_JS_CHK, 'GAMES-LOAD-GUARD: per-league timeout or 72h window missing'
+    assert '.cardnote' in INDEX_V2_CSS, 'CARD-NOTE-GUARD: .cardnote style missing - card_note would render raw (2:12 bug)' 
     INDEX_V2_JS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.js')).read()
     def _tab_of_lg(lg):
         if lg=='football/college-football': return ('ncaaf','NCAAF',lg)
