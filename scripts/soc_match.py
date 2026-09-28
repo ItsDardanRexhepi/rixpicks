@@ -82,11 +82,18 @@ def cos(a, b):
 
 def verify(story, post):
     """PROBE: smallest falsifying test - does this post talk about this story?"""
+    # probe calibration (1:30): the product rule is "matching social posts ABOUT the story"
+    # (owner 1:11). Round 1's wording ("same specific story") over-abstained - it rejected a
+    # fan's "My OFFICIAL 2026 MLB Playoff Predictions" against "2026 MLB playoff predictions:
+    # Expert picks", which IS the same topic. Boundary unchanged: different player/team/game/
+    # storyline is still a mismatch (adversarial: Jets injury post vs Bills injury story = NO).
     prompt = ('You verify content pairings for a sports site.\n'
               'NEWS STORY: ' + story[:600] + '\n'
               'SOCIAL POST: ' + post[:600] + '\n'
-              'Is the social post about the same specific story, game, team, or player as the news story? '
-              'Same broad sport is NOT enough. Answer with exactly YES or NO, then one short reason.')
+              'Is the social post about the same story or the same specific topic as the news story? '
+              'Same specific topic counts (e.g. both are about 2026 MLB playoff predictions). '
+              'A different player, team, game, or storyline is NOT a match, even in the same sport. '
+              'Same broad sport alone is NOT enough. Answer with exactly YES or NO, then one short reason.')
     out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
                'prompt': prompt, 'max_tokens': 60}, timeout=90)
     text = out.get('text', '').strip()
