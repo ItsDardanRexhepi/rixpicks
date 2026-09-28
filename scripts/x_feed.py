@@ -18,9 +18,9 @@ TOKEN = os.environ.get('X_BEARER_TOKEN', '')
 LEDGER = 'slates/x_burn.jsonl'
 OUT = 'slates/x_feed.json'
 CREDITS = 9.04          # his reported balance 9/27 9:25 PM PT
-ALERT_FLOOR = 1.50      # alert when estimated remaining drops below this
-# ASSUMED unverified per-use pricing (post-midnight dashboard check owns the true rates):
-COST_PER_REQUEST = 0.01
+ALERT_FLOOR = 2.00      # main 9:25 balance-watch: alert main before free credits run out
+# MEASURED pricing (X console, Sep 28 9:22 AM PT: 190 events / $0.97 / 29 requests over 30d):
+COST_PER_REQUEST = 0.033
 COST_PER_POST = 0.005
 MAX_RESULTS = 10        # tight per handoff
 
@@ -49,7 +49,8 @@ def log_burn(endpoint, query, results):
     remaining = CREDITS - est
     print(f'BURN: {n} requests / {posts} posts | est spend ${est:.2f} (ASSUMED rates, unverified) | est remaining ${remaining:.2f} of ${CREDITS:.2f}')
     if remaining < ALERT_FLOOR:
-        print(f'ALERT: estimated remaining ${remaining:.2f} < ${ALERT_FLOOR:.2f} floor - STOP WIDENING, dashboard check due')
+        print(f'ALERT: estimated remaining ${remaining:.2f} < ${ALERT_FLOOR:.2f} floor - balance-watch trip, alert main before billing starts')
+        sys.exit(1)  # fail loud: red run = the balance-watch signal
 
 def main():
     if not TOKEN:
