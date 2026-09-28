@@ -1,12 +1,15 @@
 {
- "since_id": "2104664684322247077",
- "updated_at": "2026-09-28T20:23:35+00:00",
+ "since_id": "2104665156236317071",
+ "updated_at": "2026-09-28T20:36:41+00:00",
  "news_since": {
-  "\"2026 MLB playoff\" lang:en -is:retweet": "2104658987194958139",
-  "\"Fantasy Football Waiver\" lang:en -is:retweet": "2104666980855005237",
-  "(\"C.J. Stroud\") lang:en -is:retweet": "2104667490500718712",
-  "\"McCarthy experiment unraveled\" lang:en -is:retweet": "2104657899180183963",
-  "(\"No.\" OR \"Texas\" OR \"Oklahoma\") lang:en -is:retweet": "2104668327956062389",
-  "(\"Ranking\" OR \"MLB\" OR \"Yankees\") lang:en -is:retweet": "2104668324403826776"
- }
+  "(\"MLB\" OR \"Expert\" OR \"World Series\") lang:en -is:retweet -is:reply": "2104671603439132812",
+  "(\"Fantasy Football Waiver Wire\" OR \"Justin Boone\" OR \"Week\") lang:en -is:retweet -is:reply": "2104671616068460945",
+  "(\"C.J. Stroud\") lang:en -is:retweet -is:reply": "2104671210248564957",
+  "(\"J.J. McCarthy\" OR \"Minnesota\" OR \"Giants\") lang:en -is:retweet -is:reply": "2104671585202491503",
+  "(\"No.\" OR \"Texas\" OR \"Oklahoma\") lang:en -is:retweet -is:reply": "2104671611635093666",
+  "(\"Ranking\" OR \"MLB\" OR \"Yankees\") lang:en -is:retweet -is:reply": "2104671610183815593",
+  "(\"Fox Selects Indiana\" OR \"Nebraska\" OR \"Big\") lang:en -is:retweet -is:reply": "2104671620165931356",
+  "(\"J.J. McCarthy\" OR \"Giants\" OR \"Vikings QB\") lang:en -is:retweet -is:reply": "2104671585202491503"
+ },
+ "news_pulled_gen": "2026-09-28T17:54:51.888608+00:00"
 }

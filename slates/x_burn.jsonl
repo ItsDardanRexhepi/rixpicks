@@ -15,3 +15,13 @@
 {"ts": "2026-09-28T20:23:37+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"No.\" OR \"Texas\" OR \"Oklahoma\") lang:en -is:retweet", "results": 10}
 {"ts": "2026-09-28T20:23:37+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Ranking pitching staffs\" lang:en -is:retweet", "results": 0}
 {"ts": "2026-09-28T20:23:37+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Ranking\" OR \"MLB\" OR \"Yankees\") lang:en -is:retweet", "results": 10}
+{"ts": "2026-09-28T20:36:41+00:00", "endpoint": "/tweets/search/recent", "query": "\"Chicago Bears\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-28T20:36:41+00:00", "endpoint": "/tweets/search/recent", "query": "\"Philadelphia Eagles\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T20:36:41+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"MLB\" OR \"Expert\" OR \"World Series\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:36:41+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Fantasy Football Waiver Wire\" OR \"Justin Boone\" OR \"Week\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:36:41+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"C.J. Stroud\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:36:41+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"J.J. McCarthy\" OR \"Minnesota\" OR \"Giants\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:36:41+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"No.\" OR \"Texas\" OR \"Oklahoma\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:36:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Ranking\" OR \"MLB\" OR \"Yankees\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:36:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Fox Selects Indiana\" OR \"Nebraska\" OR \"Big\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T20:36:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"J.J. McCarthy\" OR \"Giants\" OR \"Vikings QB\") lang:en -is:retweet -is:reply", "results": 10}
