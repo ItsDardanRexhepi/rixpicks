@@ -315,7 +315,7 @@ def git_push():
         if r.returncode != 0:
             return 'nothing-to-commit'
         for _ in range(4):
-            subprocess.run(['git', 'pull', '--rebase', 'origin', 'main'], cwd=REPO, capture_output=True)
+            subprocess.run(['git', 'pull', '--rebase', '--autostash', 'origin', 'main'], cwd=REPO, capture_output=True)
             p = subprocess.run(['git', 'push', 'origin', 'main'], cwd=REPO, capture_output=True, text=True)
             if p.returncode == 0:
                 return 'pushed'
