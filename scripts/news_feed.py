@@ -45,14 +45,37 @@ def espn_api(path):
     try:
         j = json.loads(get('https://site.api.espn.com/apis/site/v2/sports/%s/news?limit=10' % path))
         for a in j.get('articles', []):
+            imgs = a.get('images') or []
             out.append({'headline': a.get('headline', ''),
                         'link': ((a.get('links') or {}).get('web') or {}).get('href', ''),
-                        'published': a.get('published', ''), 'source': 'ESPN'})
+                        'published': a.get('published', ''), 'source': 'ESPN',
+                        'image': (imgs[0].get('url', '') if imgs else ''),
+                        'blurb': a.get('description', '')})
     except Exception as e:
         print('  lane espn-api %s: %s' % (path, e), file=sys.stderr)
     return out
 
 ATOM = '{http://www.w3.org/2005/Atom}'
+
+MEDIA = '{http://search.yahoo.com/mrss/}'
+
+def item_image(it, atom=False):
+    """Best-effort article image from RSS/Atom: media:content, media:thumbnail, or
+    image enclosure. Fail-closed: '' when absent - the carousel hides the art slot."""
+    for tag in (MEDIA + 'content', MEDIA + 'thumbnail'):
+        for m in it.findall(tag):
+            u = m.get('url', '')
+            if u:
+                return u
+    for enc in it.findall('enclosure'):
+        if (enc.get('type') or '').startswith('image') and enc.get('url'):
+            return enc.get('url')
+    return ''
+
+def item_blurb(it, atom=False):
+    d = (it.findtext(ATOM + 'summary') if atom else it.findtext('description')) or ''
+    d = re.sub(r'<[^>]+>', ' ', d)
+    return re.sub(r'\s+', ' ', d).strip()[:280]
 
 def rss(url, source):
     out = []
@@ -61,14 +84,16 @@ def rss(url, source):
         for it in root.iter('item'):
             out.append({'headline': (it.findtext('title') or '').strip(),
                         'link': (it.findtext('link') or '').strip(),
-                        'published': iso(it.findtext('pubDate') or ''), 'source': source})
+                        'published': iso(it.findtext('pubDate') or ''), 'source': source,
+                        'image': item_image(it), 'blurb': item_blurb(it)})
         for en in root.iter(ATOM + 'entry'):
             lk = ''
             for l in en.findall(ATOM + 'link'):
                 if l.get('href'): lk = l.get('href'); break
             p = en.findtext(ATOM + 'published') or en.findtext(ATOM + 'updated') or ''
             out.append({'headline': (en.findtext(ATOM + 'title') or '').strip(),
-                        'link': lk, 'published': p, 'source': source})
+                        'link': lk, 'published': p, 'source': source,
+                        'image': item_image(en, atom=True), 'blurb': item_blurb(en, atom=True)})
     except Exception as e:
         print('  lane rss %s: %s' % (url, e), file=sys.stderr)
     return out
@@ -129,7 +154,52 @@ def ts_of(a):
     except Exception:
         return 0
 
+
+IMG_CACHE = 'slates/news_images.json'
+OG_RE = re.compile(r'<meta[^>]+(?:property|name)=["\'](?:og:image|twitter:image)["\'][^>]+content=["\']([^"\']+)["\']', re.I)
+OG_RE2 = re.compile(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name)=["\'](?:og:image|twitter:image)["\']', re.I)
+
+def enrich_images(latest):
+    """og:image pass for articles whose lane carried no art (carousel contract 10:51:
+    per-article image URLs). Bounded: cache by link so a 5-min cron never re-fetches,
+    max 12 fresh fetches per run, 6s timeout. Fail-closed: '' hides the art slot."""
+    try:
+        cache = json.load(open(IMG_CACHE))
+    except Exception:
+        cache = {}
+    fresh = 0
+    for a in latest:
+        if a.get('image'):
+            continue
+        link = a.get('link', '')
+        if not link:
+            continue
+        if link in cache:
+            a['image'] = cache[link]
+            continue
+        if fresh >= 12:
+            continue
+        fresh += 1
+        img = ''
+        try:
+            html = get(link, timeout=6).decode('utf-8', 'ignore')[:200000]
+            m = OG_RE.search(html) or OG_RE2.search(html)
+            if m and m.group(1).startswith('http'):
+                img = m.group(1)
+        except Exception as e:
+            print('  og:image %s: %s' % (link[:60], e), file=sys.stderr)
+        cache[link] = img
+        a['image'] = img
+    if len(cache) > 300:
+        cache = dict(list(cache.items())[-300:])
+    try:
+        json.dump(cache, open(IMG_CACHE, 'w'), indent=0)
+    except Exception as e:
+        print('  img cache write: %s' % e, file=sys.stderr)
+
+
 def main():
+
     cfg = json.load(open('config_leagues.json'))['leagues']
     leagues, latest = {}, []
     for key, v in cfg.items():
@@ -162,8 +232,10 @@ def main():
         leagues[jkey] = mixed[:10]
         latest += mixed[:6]
     latest.sort(key=ts_of, reverse=True)
+    latest = latest[:40]
+    enrich_images(latest)
     out = {'generated_at': datetime.now(timezone.utc).isoformat(),
-           'leagues': leagues, 'latest': latest[:40]}
+           'leagues': leagues, 'latest': latest}
     with open('slates/news.json', 'w') as f:
         json.dump(out, f, indent=1)
     counts = {k: len(v) for k, v in leagues.items()}
