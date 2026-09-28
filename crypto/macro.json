@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-09-28T00:17:30.842612Z",
-  "expires_at": "2026-09-28T01:27:30.842612Z",
+  "observed_at": "2026-09-28T00:58:50.238291Z",
+  "expires_at": "2026-09-28T02:08:50.238291Z",
   "cadence": "hourly and on verified material event",
   "fx_reference": {
     "base": "USD",
@@ -19,11 +19,11 @@
       },
       {
         "provider": "Open ER API",
-        "last_update_utc": "Sun, 27 Sep 2026 00:02:31 +0000",
+        "last_update_utc": "Mon, 28 Sep 2026 00:02:31 +0000",
         "rates": {
-          "EUR": 0.877506,
-          "GBP": 0.755093,
-          "JPY": 157.453603
+          "EUR": 0.878356,
+          "GBP": 0.755594,
+          "JPY": 157.489371
         },
         "url": "https://open.er-api.com/v6/latest/USD"
       }
