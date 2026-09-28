@@ -991,8 +991,9 @@ for p in man['picks']:
     if lg!=last_lg:
         lbl=LG_LABEL.get(lg) or (lg.split('/')[-1].replace('-',' ').title() if lg else 'Other')
         ball=LG_BALL.get(lg,'\U0001f3c5')
-        rows.append(f'<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">{ball}</span>{html.escape(lbl)}</div>')
-        _row_lgs.append(lg)
+        if lg or not _V2:  # A league-less pick has no invented 'Other' league heading.
+            rows.append(f'<div class="lghead"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;font-size:17px">{ball}</span>{html.escape(lbl)}</div>')
+            _row_lgs.append(lg)
         last_lg=lg
     ch=chips(p)
     for _mm in re.finditer(r'<a [^>]*data-book="([A-Z]+)"[^>]*>', ch):
@@ -1582,23 +1583,11 @@ if _V2:
     _canon_keys=[t['key'] for t in RP_TABS]
     for _lg,_h in zip(_row_lgs,rows):
         _k,_lbl,_esp=_tab_of_lg(_lg)
-        if _k not in _canon_keys and not any(t['key']==_k for t in RP_TABS):
+        if _k!='other' and _k not in _canon_keys and not any(t['key']==_k for t in RP_TABS):
             RP_TABS.append({'key':_k,'label':_lbl,'espn':_esp})
     # futures/watch data-espn no longer appends nav tabs (9:40:49 rule: picks only) -
     # futures/combo content renders globally in <main>, never tab-scoped, so nothing orphans.
-    # Julian 12:38 (his design decision via main, supersedes 9:40:49 for these two only):
-    # CFB and NBA tabs are ALWAYS visible, desktop+mobile, even on no-pick days - the
-    # standard empty state renders instead of hiding. Canonical slots: CFB right after
-    # NFL (else first), NBA right after CFB. Every other league keeps the picks-only rule.
-    def _ensure_tab(_lg,_after):
-        _k,_lbl,_esp=_tab_of_lg(_lg)
-        if any(t['key']==_k for t in RP_TABS): return
-        _t={'key':_k,'label':_lbl,'espn':_esp}
-        for _i,_x in enumerate(RP_TABS):
-            if _x['key']==_after: RP_TABS.insert(_i+1,_t); return
-        RP_TABS.insert(0,_t)
-    _ensure_tab('football/college-football','nfl')
-    _ensure_tab('basketball/nba','ncaaf')
+    # Home is fixed; league tabs above are pick-bearing only.
     _cxesp=','.join(sorted(set(re.findall(r'data-espn="([^"]+)"',parlay_html))))
     _combo_wrap=('<div id="rpComboTail" data-cx-espn="'+_cxesp+'">'+parlay_html+'</div>') if parlay_html else ''
     _fut_wrap=('<div id="rpFutTail">'+fut_watch_html+'</div>') if fut_watch_html else ''
@@ -1608,6 +1597,9 @@ if _V2:
     RP_TABS.append({'key':'wooder','label':'Picks from Wooder Ice','espn':''})
 
     RP_TABS.append({'key':'past','label':'Past Tickets','espn':''})
+    # Home is a view over the existing league panels, not a second copy of card markup.
+    # It therefore inherits the exact pick order, links, IDs and live updates from each tab.
+    RP_TABS.insert(0, {'key':'home','label':'Home','espn':''})
     # Past Tickets archive (Julian 1:33 spec via main, Dardan full-control): completed/removed picks
     # and tickets with All/Won/Lost filters. Original selection, result, provenance preserved -
     # nothing deleted, just moved. BOUGHT stays visually distinct from SUGGESTED forever; voids render
@@ -1656,7 +1648,12 @@ if _V2:
     r'fetch("slates/past_tickets.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){ALL=(j&&j.entries)||[];barDraw();draw();}).catch(function(){box.innerHTML="<div class=\"sub\">Archive unavailable right now.</div>";});'
     r'})();</script>')
     _tabs_html=''.join('<a class="tab" data-tab="'+t['key']+'" href="#'+t['key']+'">'+html.escape(t['label'])+'</a>' for t in RP_TABS)
-    _panels_html=''
+    _home_pick_tabs={_tab_of_lg(p.get('espn_league',''))[0] for p in man['picks']}
+    # The builder's zero-card defense stores its honest empty row under 'other'.
+    # Render that row (including Yesterday) on Home. Any genuinely league-less picks
+    # also live here; no 'Other' navigation or made-up league label is emitted.
+    _home_misc=''.join(_panels.get('other') or [])
+    _panels_html='<div class="state" id="st-home">'+('<div class="sect" style="margin-top:2px">Today&rsquo;s picks</div>' if _home_pick_tabs else '')+_home_misc+'</div>\n'
 
     # --- Dingers Only (main 9:33 contract): Wooder Ice MLB daily HR picks, MLB tab ONLY.
     # Client-hydrated from slates/wooder_dingers.json; hides on missing/empty/wrong-date file,
@@ -1721,6 +1718,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     mlb_entry=mlb_entry.replace('var VEN={};','var VEN='+json.dumps({k:[v[0],v[1],v[2],v[3]] for k,v in _DING_VENUES.items()},separators=(',',':'))+';')
 
     for t in RP_TABS:
+        if t['key']=='home': continue  # home projects the canonical league panels below
         _prows=''.join(_panels.get(t['key']) or [])
         _body=(_prows if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
         _body=_ystr_for(t['key'])+_body
@@ -1728,12 +1726,14 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
         elif _prows.strip():
             _body='<div class="sect" style="margin-top:2px">Today&rsquo;s picks</div>'+_body
-        _panels_html+='<div class="state" id="st-'+t['key']+'">'+_body+'</div>\n'
+        _home_lg=t['key'] in _home_pick_tabs
+        _home_attr=' data-home-league="1"' if _home_lg else ''
+        _panels_html+='<div class="state" id="st-'+t['key']+'"'+_home_attr+'>'+_body+'</div>\n'
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
     '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><div class="rec"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</div></nav>\n'
     '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+_cnote_html+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_tail_html+'</main>'
-    '<aside><div class="col-head"><div class="sect">Games</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div class="col-head" style="margin-top:18px"><div class="sect">News</div></div><div class="card" id="rpNews"></div></aside></div>\n'
+    '<aside><div class="col-head"><div class="sect">Upcoming games</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div class="col-head" style="margin-top:18px"><div class="sect">News</div></div><div class="card" id="rpNews"></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
     _kal_watch=[]
@@ -2259,8 +2259,7 @@ function rpStatusText(d,j,st){{ /* tester Sep 26 presentation parity: EVERY cloc
 {fut_badge_js}async function rpFastLoop(){{try{{await rpLsTick();}}catch(e){{}}try{{rpPolyTick();}}catch(e){{}}
  try{{const _now=Date.now();[['POLY','__rpPolyOk',30000],['KAL','__rpKalOk',90000],['TSB','__rpEspnOk',30000]].forEach(function(pr){{const dim=(_now-(window[pr[1]]||0))>pr[2];document.querySelectorAll('[data-book="'+pr[0]+'"]').forEach(function(c){{c.style.opacity=dim?'.55':'';}});}});}}catch(e){{}}  /* honesty dims: stale source dims, stale never re-stamps; KAL threshold 90s matches its 60s pregame cadence (proxy route), others 30s */
  setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?5000:2000);}}
-function rpGamesTick(){{var el=document.getElementById('rpGames');if(!el)return;fetch("slates/live_games.json?cb="+Date.now(),{{cache:"no-store"}}).then(function(r){{if(!r.ok)throw 0;return r.json();}}).then(function(j){{var html="";(j.leagues||[]).forEach(function(L){{(L.games||[]).forEach(function(g){{var sc=(g.score&&g.status!=="pre")?(" &middot; "+esc(g.score)):"";var to="";if(typeof g.away_to==="number"&&typeof g.home_to==="number"){{to=" &middot; <span style=\\"color:#b07708\\">TO "+g.away_to+"-"+g.home_to+"</span>";}}html+="<div style=\\"padding:6px 0;border-top:1px solid #ececf0;font-size:13px\\"><span style=\\"color:#8a8f98;font-size:11px;letter-spacing:.04em\\">"+esc(L.league)+"</span> "+esc(g.matchup)+sc+" <span style=\\"color:#8a8f98\\">"+esc(rpPT(g.detail)||"")+"</span>"+to+"</div>";}});}});el.innerHTML=html||"<div style=\\"padding:10px 0;color:#8a8f98;font-size:13px\\">No live games right now</div>";var s=document.getElementById('rpAsideSub');if(s){{try{{s.textContent=j.generated_at?("updated "+new Date(j.generated_at).toLocaleTimeString("en-US",{{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"}}).toLowerCase().replace(" ","")+" PT"):"";}}catch(e){{}}}}}}).catch(function(){{}});}}
-rpFastLoop();rpLsTickAll();rpStartTimes();rpGamesTick();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllBest();rpAllLineShops();rpStartTimes();rpGamesTick();}},30000);
+rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllBest();rpAllLineShops();rpStartTimes();}},30000);
 document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this){{this.style.display='none';localStorage.setItem('rp_state_dismissed','1');}}}});
 function rpFreshState(){{try{{const st=localStorage.getItem('rp_state'),src=localStorage.getItem('rp_state_src'),ts=+(localStorage.getItem('rp_state_ts')||0);return (st&&src==='gps'&&ts&&Date.now()-ts<=12*3600*1000)?st:'';}}catch(e){{return '';}}}}  /* tester Sep 26: even the FIRST paint never exposes an expired jurisdiction */
 var _rpFs=rpFreshState();rpFilter(_rpFs);if(!_rpFs&&!localStorage.getItem('rp_state_dismissed')){{try{{rpAsk(false);}}catch(e){{}}}}rpResolveState();
