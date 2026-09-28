@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T03:49:14.772195+00:00",
+ "generated_at": "2026-09-28T03:53:44.963752+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,10 +10,10 @@
      "matchup": "LAR @ DEN",
      "commence": "2026-09-28T00:20Z",
      "status": "in",
-     "detail": "0:26 - 4th",
+     "detail": "0:02 - 4th",
      "score": "LAR 26 - DEN 30",
      "away_to": 0,
-     "home_to": 2
+     "home_to": 1
     }
    ]
   },
@@ -46,7 +46,7 @@
      "matchup": "Bai Zhuoxuan @ Mina Hodzic",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Bai Zhuoxuan 0 - Mina Hodzic 0"
     },
     {
@@ -70,7 +70,7 @@
      "matchup": "Jiayi Wang @ Quinn Gleason",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Jiayi Wang 0 - Quinn Gleason 0"
     }
    ]
@@ -91,7 +91,7 @@
      "matchup": "Fiona Ferro @ Yang Yidi",
      "commence": "2026-09-25T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Fiona Ferro 0 - Yang Yidi 0"
     },
     {
@@ -115,7 +115,7 @@
      "matchup": "Bai Zhuoxuan @ Mina Hodzic",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Bai Zhuoxuan 0 - Mina Hodzic 0"
     },
     {
@@ -139,7 +139,7 @@
      "matchup": "Jiayi Wang @ Quinn Gleason",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Jiayi Wang 0 - Quinn Gleason 0"
     }
    ]
