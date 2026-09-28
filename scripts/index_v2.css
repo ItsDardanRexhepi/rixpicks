@@ -27,6 +27,10 @@ nav.rpnav .rec b{color:var(--acc)}
 .state{display:none}
 body.tab-ncaaf #st-ncaaf,body.tab-nfl #st-nfl,body.tab-mlb #st-mlb,body.tab-nba #st-nba,body.tab-tennis #st-tennis{display:block}
 .state.on{display:block}
+/* Home projects the existing pick-bearing league panels; no duplicated pick nodes. */
+body.tab-home .state[data-home-league="1"]{display:block}
+body.tab-home .state[data-home-league="1"]>.sect:first-of-type{display:none}
+
 @media(max-width:900px){.layout{grid-template-columns:1fr}
 nav.rpnav{flex-wrap:wrap;row-gap:4px;gap:12px;padding:10px 16px}
 #burger{display:flex}
@@ -150,3 +154,5 @@ img[src*="teamlogos"]{border-radius:0!important;background:none!important;border
    data - hide the whole aside and collapse the grid to one column while #past is active. */
 body.tab-past .layout{grid-template-columns:minmax(0,1fr)}
 body.tab-past .layout aside{display:none}
+
+.src.x{color:var(--acc)}
