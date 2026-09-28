@@ -311,9 +311,11 @@ function renderNews(t,arts){
     unmatched stories live in View all News. Counts are a CONSEQUENCE, never forced. No fresh
     map -> fail closed to the plain list (12:29 news-never-blank is about fetch failures, not
     about rendering unverified pairs). */
- var matchedOnly=!!(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs);
- var items=matchedOnly?base.filter(function(a){var pr=SOC_MATCH.pairs[(a.link||'')||String(a.headline||'')];return !!(pr&&pr.post_id);}):base.slice(0,12);
- if(!items.length&&!matchedOnly&&CAR_LAST.length)items=CAR_LAST; /* latest-valid fallback: never blank a good card on a bad fetch */
+ /* never-empty (user 3:54, supersedes the 1:09 matched-only carousel): the news floor is ALWAYS
+    the most recent stories, paired or not. Verified pairs are the sync layer on top (social pin +
+    socSync jump), never a filter that can empty the feed. */
+ var items=base.slice(0,12);
+ if(!items.length&&CAR_LAST.length)items=CAR_LAST; /* latest-valid fallback: never blank a good card on a bad fetch */
  if(items.length)CAR_LAST=items;
  NEWS_READY=true; /* load-race guard (user 3:52 screenshot + QA 3:51): social must know news has rendered before it judges pinned==0 */
  CAR_ALL=base.slice(0,40);
@@ -325,12 +327,6 @@ function renderNews(t,arts){
  if(curKey){for(var _ci=0;_ci<items.length;_ci++){if(carKey(items[_ci])===curKey){CAR_IDX=_ci;break;}}}
  if(CAR_IDX>=CAR_N)CAR_IDX=0;
  if(!items.length){
-  if(matchedOnly){ /* designed syncing state (2:59): honest, styled, keeps View all reachable */
-   box.innerHTML='<div class="empty syncwait">Live sync on - stories land here as the algorithm verifies matching social posts. Everything unmatched is in View all News.</div>'
-    +'<div class="carctl"><button type="button" id="rpCarAllBtn" class="carall">View all News</button></div>';
-   $('rpCarAllBtn').addEventListener('click',function(e){e.preventDefault();carAll();});
-   CAR_N=0;return;
-  }
   box.innerHTML='<div class="empty">News unavailable right now.</div>';return;
  }
  var h='<div class="carvp"><div class="cartrack" id="rpCarTrack">';
@@ -488,22 +484,14 @@ function renderSocial(){
   });
  }
  var pool=chrono.filter(function(p){return seenP[p.id]||onTopic(p);}); /* verified pins bypass the topic floor - the probe already judged them */
- /* matched-only counterpart (QA audit 6): when verified pins exist, the social carousel shows
-    exactly the paired posts - counts match the news carousel as a consequence. */
- var matchedOnly=!!(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs);
- if(matchedOnly&&!pinned.length){
-  if(!NEWS_READY||!XFEED_DONE){
-   /* load-race kill (user 3:52): pairs may exist for stories news hasn't rendered yet - this is
-      a LOADING state, not the zero-pair state. The next renderNews/x_feed render settles it. */
-   box.innerHTML='<div class="empty syncwait">Loading feeds - syncing stories and posts now.</div>';
-   SOC_SIG='';SOC_N=0;return;
-  }
-  /* QA batch-one catch + owner 2:59 (always matching topics, no exceptions): zero-pair state
-     must NOT cycle the generic pool while the news card shows the syncing state - the feeds
-     would be visibly unsynchronized exactly when we claim otherwise. Social sync-states too. */
-  box.innerHTML='<div class="empty syncwait">Live sync on - posts land here as the algorithm verifies them against the stories above.</div>';
-  SOC_SIG='';SOC_N=0;SOC_LAST=[];return;
+ /* load-race kill (user 3:52): never judge pin state before every feed has landed. */
+ if(SOC_MATCH_OK&&(!NEWS_READY||!XFEED_DONE)){
+  box.innerHTML='<div class="empty syncwait">Loading feeds - syncing stories and posts now.</div>';
+  SOC_SIG='';SOC_N=0;return;
  }
+ /* never-empty (user 3:54, supersedes the 1:09/2:59 zero-pair waiting card): social ALWAYS shows
+    the most recent on-topic posts; a verified pair for the displayed story pins first via the
+    pinned slice + socSync jump. No verified pair -> latest on-topic posts, never a blank card. */
  var items=(pinned.length?pinned.slice():pinned.concat(pool.filter(function(p){return pinned.indexOf(p)<0;}))).slice(0,6);
  var sig=items.map(function(p){return p.id||String(p.headline||'').slice(0,40);}).join('|');
  if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
