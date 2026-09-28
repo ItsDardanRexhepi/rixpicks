@@ -1,0 +1,56 @@
+name: futures-ws-listener
+# Persistent futures outright-board WS listener (builder spec v2 2026-09-28).
+# Runs a 340-min window then re-dispatches itself; the */30 cron is a watchdog that
+# no-ops while any run is active, so a dead feed revives within 30 min even if the
+# self-dispatch chain breaks. Builder wake is the final backstop.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 * * * *'
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    outputs:
+      alive: ${{ steps.check.outputs.alive }}
+    steps:
+      - name: Check for an active listener run
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/futures_ws.yml/runs?status=in_progress" --jq '.total_count')
+          q=$(gh api "repos/${{ github.repository }}/actions/workflows/futures_ws.yml/runs?status=queued" --jq '.total_count')
+          echo "in_progress=$n queued=$q"
+          # this run itself counts as in_progress once it starts; guard runs BEFORE listener job
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$n" -ge 1 ]; then echo "alive=1" >> "$GITHUB_OUTPUT"; else echo "alive=0" >> "$GITHUB_OUTPUT"; fi
+  listen:
+    needs: guard
+    if: needs.guard.outputs.alive == '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install websockets cryptography
+      - name: Run WS listener window
+        env:
+          KALSHI_KEY_ID: ${{ secrets.KALSHI_KEY_ID }}
+          KALSHI_PRIVATE_KEY: ${{ secrets.KALSHI_PRIVATE_KEY }}
+          LISTENER_MAX_MINUTES: '340'
+          LISTENER_PUSH_EVERY: '75'
+        run: |
+          git config user.name "rix-bot"
+          git config user.email "bot@rix-picks.com"
+          python3 scripts/futures_ws_listener.py
+      - name: Respawn next window
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X POST "repos/${{ github.repository }}/actions/workflows/futures_ws.yml/dispatches" -f ref=main || true
