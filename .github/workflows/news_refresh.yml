@@ -4,7 +4,7 @@ on:
     # 5-min floor during active hours (1 PM-11 PM PT = 20:00-06:00 UTC PDT... widened
     # 13:00-06:00 UTC to catch mornings) - the wake dispatcher also fires
     # workflow_dispatch when slates/news.json generated_at is >2 min stale.
-    - cron: '*/5 13-23,0-6 * * *'
+    - cron: '*/2 13-23,0-6 * * *'
   workflow_dispatch:
 permissions:
   contents: write
