@@ -140,6 +140,18 @@
    "removed_label": "Sep 27, 5:21 PM PT"
   },
   {
+   "id": "single-jones",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Aaron Jones Sr. - Anytime TD Scorer",
+   "result": "lost",
+   "detail": "MIN @ TB \u00b7 DKP +113",
+   "archived_at": "2026-09-27T17:22",
+   "reason": "Pick lost - game final; grade corrected (initial record-feed win reversed - ESPN scoring summary shows no Jones TD)",
+   "provenance": "ESPN final score, Sep 27; corrected Wooder record feed 5:21 PM PT.",
+   "removed_label": "Sep 27, 5:22 PM PT"
+  },
+  {
    "id": "single-jwilliams",
    "kind": "pick",
    "origin": "suggested",
