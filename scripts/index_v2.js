@@ -344,6 +344,10 @@ function socMore(){
 /* ULTRIX semantic match map (owner 12:37): built+cached by scripts/soc_match.py at feed-refresh time.
    Never per-pageview. Stale (>2h) or missing map => NO sync jump (abstain beats a wrong match, 1:00 rule). */
 var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={};
+/* owner 1:26: social feed renders sports-relevant, topic-matching posts only - never a raw
+   firehose. Fresh map: server relevance layer (URF evidence gate) decides per post. No fresh
+   map: this keyword floor is the fallback so raw off-topic chatter never renders. */
+var RP_SPORT_KW=/nfl|nba|mlb|nhl|wnba|ncaa|cfb|mls|nwsl|pga|nascar|ufc|mma|boxing|tennis|football|basketball|baseball|hockey|soccer|golf|sports|touchdown|quarterback|playoff|super bowl|world series|stanley cup|fantasy|draft pick|trade rumor|injury report|starting lineup|home run|slam dunk|shutout|knockout|title fight|grand slam|eagles|bears|chiefs|cowboys|packers|vikings|giants|jets|patriots|steelers|ravens|bengals|browns|texans|colts|jaguars|titans|broncos|raiders|chargers|rams|seahawks|49ers|cardinals|falcons|panthers|saints|buccaneers|commanders|lions|dolphins|bills|yankees|dodgers|red sox|cubs|braves|astros|phillies|mets|padres|mariners|lakers|celtics|warriors|knicks|nets|sixers|bulls|heat|bucks|nuggets|suns|mavericks|thunder|timberwolves|spurs|rockets|clippers|grizzlies|pelicans|kings|trail blazers|jazz|hawks|hornets|hornets|pacers|cavaliers|pistons|magic|wizards|raptors|maple leafs|bruins|canadiens|oilers|avalanche|lightning|panthers|rangers|penguins|capitals|flyers|red wings|blackhawks|wild|stars|predators|blues|jets|kraken|golden knights|sharks|ducks|kings|coyotes|hurricanes|blue jackets|devils|islanders|sabres|senators|flames|canucks/i;
 fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
  if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;try{renderSocial();socSync();}catch(e){}}
 }).catch(function(){SOC_MATCH_OK=false;});
@@ -368,6 +372,11 @@ function socMatchMore(){ /* ranked related posts for the current news key; null 
 function renderSocial(){
  var box=$('rpSocial');if(!box)return;
  if(!XNEWS.length){box.innerHTML='<div class="empty">No posts right now.</div>';SOC_SIG='';SOC_N=0;return;}
+ var REL=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.relevance)?SOC_MATCH.relevance:null;
+ var onTopic=function(p){
+  if(REL){var r=REL[String(p.id)];if(r)return r.on_topic!==false;return true;} /* unmapped (feed newer than map): allow, next map judges */
+  return RP_SPORT_KW.test(String(p.headline||''));
+ };
  var chrono=XNEWS.slice().sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);});
  /* matched pinning (owner 1:09/1:11): posts with a URF-verified pair to a carousel story are
     pinned into the rendered slice (news-carousel order), then chronological fills to 6.
@@ -383,7 +392,8 @@ function renderSocial(){
    seenP[pr.post_id]=1;pinned.push(XNEWS[xi]);
   });
  }
- var items=pinned.concat(chrono.filter(function(p){return pinned.indexOf(p)<0;})).slice(0,6);
+ var pool=chrono.filter(function(p){return seenP[p.id]||onTopic(p);}); /* verified pins bypass the topic floor - the probe already judged them */
+ var items=pinned.concat(pool.filter(function(p){return pinned.indexOf(p)<0;})).slice(0,6);
  var sig=items.map(function(p){return p.id||String(p.headline||'').slice(0,40);}).join('|');
  if(sig===SOC_SIG){socApply();return;}
  var curId=(SOC_LAST[SOC_IDX]&&SOC_LAST[SOC_IDX].id)||'';
