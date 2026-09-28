@@ -195,3 +195,8 @@ body.tab-home .home-only{display:block}
  .carctl{flex-wrap:wrap}
 }
 @media (prefers-reduced-motion:reduce){.newscar .cartrack{transition:none}}
+/* owner 12:21 carousel clip bug: kill fixed slide heights; viewport height is owned by JS (active slide's real height) */
+.newscar .carvp{height:auto;transition:height .55s cubic-bezier(.4,0,.2,1)}
+.newscar .carslide{height:auto}
+.newscar .carslide>a{height:auto;box-sizing:border-box}
+@media (max-width:640px){.newscar .carvp,.newscar .carslide{height:auto}}
