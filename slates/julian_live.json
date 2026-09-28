@@ -1,41 +1,41 @@
 {
- "generated_at": "2026-09-27T17:22:45",
+ "generated_at": "2026-09-27T17:32:50",
  "live_legs": [
   {
    "player": "Kiki Iriafen",
    "market": "points",
    "line": 16,
-   "current": 4.0,
-   "progress": "4/16",
+   "current": 5.0,
+   "progress": "5/16",
    "matchup": "WAS @ ATL",
    "combo_id": "t5",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "6:14 - 3rd"
+   "game_detail": "3:30 - 3rd"
   },
   {
    "player": "Angel Reese",
    "market": "rebounds",
    "line": 12,
-   "current": 7.0,
-   "progress": "7/12",
+   "current": 8.0,
+   "progress": "8/12",
    "matchup": "WAS @ ATL",
    "combo_id": "t5",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "6:14 - 3rd"
+   "game_detail": "3:30 - 3rd"
   },
   {
    "player": "Shakira Austin",
    "market": "assists",
    "line": 3,
-   "current": 3.0,
-   "progress": "3/3",
+   "current": 2.0,
+   "progress": "2/3",
    "matchup": "WAS @ ATL",
    "combo_id": "t5",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "6:14 - 3rd"
+   "game_detail": "3:30 - 3rd"
   },
   {
    "player": "Michaela Onyenwere",
@@ -47,7 +47,7 @@
    "combo_id": "t5",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "6:14 - 3rd"
+   "game_detail": "3:30 - 3rd"
   },
   {
    "player": "Rhyne Howard",
@@ -59,19 +59,19 @@
    "combo_id": "t5",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "6:14 - 3rd"
+   "game_detail": "3:30 - 3rd"
   },
   {
    "player": "DeWanna Bonner",
    "market": "rebounds",
    "line": 8,
-   "current": 1.0,
-   "progress": "1/8",
+   "current": 3.0,
+   "progress": "3/8",
    "matchup": "WAS @ ATL",
    "combo_id": "t6",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "6:14 - 3rd"
+   "game_detail": "3:30 - 3rd"
   },
   {
    "player": "Sonia Citron",
@@ -83,7 +83,7 @@
    "combo_id": "t6",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "6:14 - 3rd"
+   "game_detail": "3:30 - 3rd"
   },
   {
    "player": "Kyren Williams",
@@ -94,20 +94,20 @@
    "matchup": "LAR @ DEN",
    "combo_id": "t7",
    "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "9/27 - 8:20 PM EDT"
+   "game_state": "in",
+   "game_detail": "10:23 - 1st"
   },
   {
    "player": "Kyren Williams",
    "market": "rushing_yards",
    "line": 50,
-   "current": 0.0,
-   "progress": "0/50",
+   "current": 12.0,
+   "progress": "12/50",
    "matchup": "LAR @ DEN",
    "combo_id": "t7",
    "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "9/27 - 8:20 PM EDT"
+   "game_state": "in",
+   "game_detail": "10:23 - 1st"
   },
   {
    "player": "Blake Corum",
@@ -118,8 +118,8 @@
    "matchup": "LAR @ DEN",
    "combo_id": "t7",
    "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "9/27 - 8:20 PM EDT"
+   "game_state": "in",
+   "game_detail": "10:23 - 1st"
   },
   {
    "player": "Kyren Williams",
@@ -130,8 +130,8 @@
    "matchup": "LAR @ DEN",
    "combo_id": "t7",
    "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "9/27 - 8:20 PM EDT"
+   "game_state": "in",
+   "game_detail": "10:23 - 1st"
   },
   {
    "player": "Courtland Sutton",
@@ -142,20 +142,20 @@
    "matchup": "LAR @ DEN",
    "combo_id": "t7",
    "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "9/27 - 8:20 PM EDT"
+   "game_state": "in",
+   "game_detail": "10:23 - 1st"
   },
   {
    "player": "RJ Harvey",
    "market": "receptions",
    "line": 2,
-   "current": 0.0,
-   "progress": "0/2",
+   "current": 1.0,
+   "progress": "1/2",
    "matchup": "LAR @ DEN",
    "combo_id": "t7",
    "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "9/27 - 8:20 PM EDT"
+   "game_state": "in",
+   "game_detail": "10:23 - 1st"
   },
   {
    "player": "Terrance Ferguson",
@@ -166,8 +166,8 @@
    "matchup": "LAR @ DEN",
    "combo_id": "t7",
    "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "9/27 - 8:20 PM EDT"
+   "game_state": "in",
+   "game_detail": "10:23 - 1st"
   }
  ]
 }
