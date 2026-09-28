@@ -133,3 +133,23 @@
 {"ts": "2026-09-28T22:07:32+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Josh Hokit scoffs\" lang:en -is:retweet -is:reply", "results": 1}
 {"ts": "2026-09-28T22:07:32+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Packers place Zach\" lang:en -is:retweet -is:reply", "results": 1}
 {"ts": "2026-09-28T22:07:32+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Yankees ace Cam\" lang:en -is:retweet -is:reply", "results": 5}
+{"ts": "2026-09-28T22:12:02+00:00", "endpoint": "/tweets/search/recent", "query": "\"Chicago Bears\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:12:02+00:00", "endpoint": "/tweets/search/recent", "query": "\"Philadelphia Eagles\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:12:02+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Bears Eagles preview\" lang:en -is:retweet -is:reply", "results": 7}
+{"ts": "2026-09-28T22:12:02+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Karl Anthony Towns\" lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:12:02+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Time Rams panic\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:12:03+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Time\" OR \"Rams\" OR \"Optimism\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:12:03+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Iowa football Hank\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:12:03+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Iowa\" OR \"QB Hank Brown\" OR \"Davey\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:12:03+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"successes Minnesota Lynx\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:12:04+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Minnesota Lynx\" OR \"Coach Year Cheryl Reeve\" OR \"Rookie Year Olivia Miles\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:12:04+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"vibes immaculate right\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-28T22:12:04+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Joe Brady provides\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-28T22:12:04+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Browns roster moves\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-28T22:12:04+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2028 four star\" lang:en -is:retweet -is:reply", "results": 50}
+{"ts": "2026-09-28T22:12:04+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"LeBron James 76ers\" lang:en -is:retweet -is:reply", "results": 13}
+{"ts": "2026-09-28T22:12:05+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"McCarthy trade Giants\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:12:05+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"J.J. McCarthy\" OR \"Giants\" OR \"Vikings QB\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:12:05+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Use BetMGM bonus\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:12:05+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Use BetMGM\" OR \"CBSSPORTS\" OR \"Eagles\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:12:05+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Paul Finebaum slams\" lang:en -is:retweet -is:reply", "results": 0}
