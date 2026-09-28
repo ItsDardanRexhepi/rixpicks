@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T04:37:13.706234+00:00",
+ "generated_at": "2026-09-28T04:52:18.294088+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -10,16 +10,8 @@
      "matchup": "Ma YeXin @ Ren Yufei",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Ma YeXin 0 - Ren Yufei 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Jiayi Wang @ Quinn Gleason",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Jiayi Wang 0 - Quinn Gleason 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -28,6 +20,22 @@
      "status": "in",
      "detail": "1st",
      "score": "Tian Jialin 0 - Andrea Lazaro Garcia 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "You Xiaodi @ Dang Yiming",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "You Xiaodi 0 - Dang Yiming 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Irene Burillo @ Valeria Savinykh",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Irene Burillo 0 - Valeria Savinykh 0"
     }
    ]
   },
@@ -43,20 +51,20 @@
      "score": "Fiona Ferro 0 - Yang Yidi 0"
     },
     {
+     "espn_event_id": "1028-2026",
+     "matchup": "Yujia Huang @ Wei Sijia",
+     "commence": "2026-09-25T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Yujia Huang 0 - Wei Sijia 0"
+    },
+    {
      "espn_event_id": "959-2026",
      "matchup": "Ma YeXin @ Ren Yufei",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Ma YeXin 0 - Ren Yufei 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Jiayi Wang @ Quinn Gleason",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Jiayi Wang 0 - Quinn Gleason 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -65,6 +73,22 @@
      "status": "in",
      "detail": "1st",
      "score": "Tian Jialin 0 - Andrea Lazaro Garcia 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "You Xiaodi @ Dang Yiming",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "You Xiaodi 0 - Dang Yiming 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Irene Burillo @ Valeria Savinykh",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Irene Burillo 0 - Valeria Savinykh 0"
     }
    ]
   }
