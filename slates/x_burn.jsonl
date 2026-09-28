@@ -173,3 +173,7 @@
 {"ts": "2026-09-28T22:28:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"vibes immaculate right\" lang:en -is:retweet -is:reply", "results": 2}
 {"ts": "2026-09-28T22:28:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2028 four star\" lang:en -is:retweet -is:reply", "results": 50}
 {"ts": "2026-09-28T22:28:45+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"NASCAR Las Vegas\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-28T23:02:35+00:00", "endpoint": "/tweets/search/recent", "query": "\"CHI\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-28T23:02:36+00:00", "endpoint": "/tweets/search/recent", "query": "\"PHI\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 3}
+{"ts": "2026-09-28T23:02:36+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Eagles Bears live\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T23:02:36+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Eagles\" OR \"Bears\" OR \"Case Keenum\") lang:en -is:retweet -is:reply", "results": 100}
