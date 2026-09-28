@@ -1535,6 +1535,7 @@ RP_BR=['AZ','CO','CT','DE','DC','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI
 # man['yesterday'] stays data-only; v2 never renders it globally.
 _yestr=''
 _YBL=man.get('yesterday_by_league') or {}
+_cnote_html=('<div class="yesrec" style="font-style:normal">'+html.escape(str(man['card_note']))+'</div>') if man.get('card_note') else ''
 def _ystr_for(_tab):
     _s=_YBL.get(_tab)
     return ('<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: '+html.escape(_s)+'</a>') if _s else ''
@@ -1731,7 +1732,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
     '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><div class="rec"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</div></nav>\n'
-    '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_tail_html+'</main>'
+    '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+_cnote_html+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Games</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div class="col-head" style="margin-top:18px"><div class="sect">News</div></div><div class="card" id="rpNews"></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
@@ -1758,7 +1759,7 @@ else:
     _SHELL=('<h1><a href="index.html"><span class="tick">&rsquo;</span>RixPicks</a></h1>\n'
     f'<div class="status">{html.escape(man["date_label"])}</div>\n'
     '<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'
-    +_yestr+'\n'
+    +_cnote_html+_yestr+'\n'
     '<div class="sect">Today&rsquo;s picks</div>\n'
     +chr(10).join(rows)+'\n'
     +parlay_html+'\n'+fut_watch_html+'\n'+nfl_entry+'\n'+fut_entry+'\n'+_tail_html)
