@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T07:54:00.366568+00:00",
+ "generated_at": "2026-09-28T08:04:15.543705+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -44,20 +44,20 @@
      "status": "in",
      "detail": "1st",
      "score": "Storm Hunter 0 - Zhang Ruien 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Ksenia Zaytseva @ Tamara Zidansek",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Ksenia Zaytseva 0 - Tamara Zidansek 0"
     }
    ]
   },
   {
    "league": "WTA",
    "games": [
-    {
-     "espn_event_id": "1028-2026",
-     "matchup": "Emerson Jones @ Haruka Kaji",
-     "commence": "2026-09-25T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Emerson Jones 0 - Haruka Kaji 0"
-    },
     {
      "espn_event_id": "959-2026",
      "matchup": "Rinko Matsuda @ Katarzyna Kawa",
@@ -97,6 +97,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Storm Hunter 0 - Zhang Ruien 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Ksenia Zaytseva @ Tamara Zidansek",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Ksenia Zaytseva 0 - Tamara Zidansek 0"
     }
    ]
   }
