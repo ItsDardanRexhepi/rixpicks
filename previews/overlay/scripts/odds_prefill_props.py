@@ -5,8 +5,11 @@ Cost per official docs: 1 credit per market per region PER EVENT. Every pull pas
 core.budget.check_and_log BEFORE request (J-123); props_allowed() gate (J-123a verbatim).
 IN : JSON list on argv[1]: [{"sport":"americanfootball_nfl","event_id":"...",
      "markets":["player_rush_yds",...]}, ...]  (screen-flagged games from hunt/st_hunt)
-OUT: /tmp/odds_prefill_props.json - rows {sport,event_id,book,player,market,line,
-     over_price,under_price,link?}  FAIL-LOUD on missing key/budget breach."""
+OUT: /tmp/odds_prefill_props.json - rows in the props_fair.py schema:
+     two-sided: {sport,event_id,book,player,market,point,over,under}
+     anytime_td yes/no: {sport,event_id,book,player,market,point:None,yes[,no]}
+     (9/27 v4 bug: producer emitted over_price/under_price/line and dropped yes-only rows;
+     props_fair reads over/under/point -> 0 calibration pairs -> fail-close.)"""
 import json, os, sys, urllib.request
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from core.budget import check_and_log, props_allowed, props_block_reason, odds_key
@@ -25,16 +28,26 @@ def main(jobs_path):
         d = pull(job['sport'], job['event_id'], job['markets'])
         for bk in d.get('bookmakers', []):
             for mk in bk.get('markets', []):
-                # group outcomes by player+line: over/under pairs
+                # group outcomes by player+point: over/under sides
                 pairs = {}
                 for o in mk.get('outcomes', []):
                     key = (o.get('description'), o.get('point'))
                     pairs.setdefault(key, {})[o.get('name')] = o.get('price')
-                for (player, line), sides in pairs.items():
-                    if 'Over' not in sides or 'Under' not in sides: continue
-                    out.append({'sport': job['sport'], 'event_id': job['event_id'],
-                                'book': bk.get('key'), 'player': player, 'market': mk.get('key'),
-                                'line': line, 'over_price': sides['Over'], 'under_price': sides['Under']})
+                yn_market = mk.get('key') == 'player_anytime_td'
+                for (player, point), sides in pairs.items():
+                    base = {'sport': job['sport'], 'event_id': job['event_id'],
+                            'book': bk.get('key'), 'player': player, 'market': mk.get('key')}
+                    if yn_market:
+                        # books post anytime_td as Over 0.5 (yes); fair model wants point=None yes/no
+                        if 'Over' not in sides: continue
+                        r = dict(base); r['point'] = None; r['yes'] = sides['Over']
+                        if 'Under' in sides: r['no'] = sides['Under']
+                        out.append(r)
+                    else:
+                        if 'Over' not in sides or 'Under' not in sides: continue
+                        r = dict(base); r['point'] = point
+                        r['over'] = sides['Over']; r['under'] = sides['Under']
+                        out.append(r)
     outp = '/tmp/odds_prefill_props.json'
     json.dump(out, open(outp, 'w'), indent=1)
     print(f'{len(out)} prop rows -> {outp}')
