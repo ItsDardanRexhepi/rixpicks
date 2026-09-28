@@ -189,13 +189,16 @@ def main():
                            for sc, j in scored if sc >= MORE_FLOOR][:MORE_CAP]
     # owner 1:39: topic-relatedness to news stories is the social feed's CORE admission test.
     # admit = every post related to at least one current story (verified pair or >= more floor).
+    # 1:48 tighten (his "very narrow"): admission floor = PROBE floor (0.48), not the looser
+    # view-more floor (0.42) - vague chatter that scraped 0.42 rendered ("prank" post QA pass).
+    # A post renders socially only when it is related enough to a current story to merit a probe.
     admit = set()
     for v in log['pairs'].values():
         if (v or {}).get('post_id'):
             admit.add(str(v['post_id']))
     for lst in log['more'].values():
         for e in (lst or []):
-            if e.get('post_id'):
+            if e.get('post_id') and (e.get('score') or 0) >= PROBE_FLOOR:
                 admit.add(str(e['post_id']))
     log['admit'] = sorted(admit)
     log['audit'] = {'thresholds': {'auto_accept': AUTO_ACCEPT, 'probe_floor': PROBE_FLOOR, 'more_floor': MORE_FLOOR},
