@@ -4,7 +4,9 @@
   "t1",
   "t2",
   "t3",
-  "t4"
+  "t4",
+  "t5",
+  "t6"
  ],
  "dead_picks": [
   "Ashton Jeanty",
@@ -35,10 +37,10 @@
  ],
  "removal_rule": "one definitively LOST leg removes the whole combo card from the public site; lost standalones come off alone; internal ledger keeps all rows",
  "record": {
-  "wins": 36,
-  "losses": 40,
+  "wins": 38,
+  "losses": 45,
   "pushes": 0,
-  "pending": 14
+  "pending": 7
  },
  "by_window": {
   "dingers-2026-09-27": {
@@ -63,10 +65,10 @@
    "void": 0
   },
   "sun-evening": {
-   "wins": 0,
-   "losses": 0,
+   "wins": 2,
+   "losses": 5,
    "pushes": 0,
-   "pending": 7,
+   "pending": 0,
    "void": 0
   },
   "sun-night": {
@@ -140,27 +142,27 @@
   },
   "points": {
    "wins": 0,
-   "losses": 2,
+   "losses": 3,
    "pushes": 0,
-   "pending": 1
+   "pending": 0
   },
   "rebounds": {
-   "wins": 0,
-   "losses": 2,
+   "wins": 1,
+   "losses": 3,
    "pushes": 0,
-   "pending": 2
+   "pending": 0
   },
   "assists": {
    "wins": 0,
-   "losses": 1,
+   "losses": 3,
    "pushes": 0,
-   "pending": 2
+   "pending": 0
   },
   "threes": {
-   "wins": 0,
-   "losses": 0,
+   "wins": 1,
+   "losses": 1,
    "pushes": 0,
-   "pending": 2
+   "pending": 0
   }
  },
  "picks": [
@@ -1162,8 +1164,9 @@
    "price": null,
    "window": "sun-evening",
    "combo_id": "t5",
-   "status": "pending",
-   "received": "2026-09-27T16:17:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T16:17:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Angel Reese",
@@ -1174,8 +1177,9 @@
    "price": null,
    "window": "sun-evening",
    "combo_id": "t5",
-   "status": "pending",
-   "received": "2026-09-27T16:17:00-07:00"
+   "status": "won",
+   "received": "2026-09-27T16:17:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Shakira Austin",
@@ -1186,8 +1190,9 @@
    "price": null,
    "window": "sun-evening",
    "combo_id": "t5",
-   "status": "pending",
-   "received": "2026-09-27T16:17:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T16:17:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Michaela Onyenwere",
@@ -1198,8 +1203,9 @@
    "price": null,
    "window": "sun-evening",
    "combo_id": "t5",
-   "status": "pending",
-   "received": "2026-09-27T16:17:00-07:00"
+   "status": "won",
+   "received": "2026-09-27T16:17:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Rhyne Howard",
@@ -1210,8 +1216,9 @@
    "price": null,
    "window": "sun-evening",
    "combo_id": "t5",
-   "status": "pending",
-   "received": "2026-09-27T16:17:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T16:17:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "DeWanna Bonner",
@@ -1222,8 +1229,9 @@
    "price": null,
    "window": "sun-evening",
    "combo_id": "t6",
-   "status": "pending",
-   "received": "2026-09-27T16:20:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T16:20:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Sonia Citron",
@@ -1234,8 +1242,9 @@
    "price": null,
    "window": "sun-evening",
    "combo_id": "t6",
-   "status": "pending",
-   "received": "2026-09-27T16:20:00-07:00"
+   "status": "lost",
+   "received": "2026-09-27T16:20:00-07:00",
+   "card_status": "dead"
   },
   {
    "label": "Kyren Williams",
