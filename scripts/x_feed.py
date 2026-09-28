@@ -163,9 +163,9 @@ def main():
     window = game_window()
     if window and terms:
         ors = ' OR '.join(f'"{t}"' for t in terms[:4])
-        queries = [f'({ors}) (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet']
+        queries = [f'({ors}) (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply']
     else:
-        queries = [f'"{t}" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet'
+        queries = [f'"{t}" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply'
                    for t in terms]
     items = []
     seen = set()
