@@ -55,6 +55,9 @@ except Exception: print(0)")
   fi
 fi
 
+echo "-- stage: coverage census (same-run reconciliation certificate; exit 2 = publish nothing)"
+python3 scripts/coverage_census.py /tmp/hunt_slate_$DT.json /tmp/hunt_v2_$DT.json slates/coverage_census.json || { echo "STAGE FAIL coverage_census"; rm -f slates/coverage_census.json; }
+
 echo "-- stage: st prefill"
 SPORTS=$(python3 - <<'PY'
 import json
