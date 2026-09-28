@@ -253,7 +253,7 @@ except Exception as e:
 meta={'record': m.get('record'), 'units_pl': m.get('units_pl'),
       'units_ledger': m.get('units_ledger'), 'yesterday': yesterday,
       'status_note': m.get('status_note'), 'date_label': 'Monday, Sep 28',
-      'updated': datetime.datetime.now().strftime('%b %-d, %-I:%M %p PT')}
+      'updated': datetime.datetime.now(datetime.timezone.utc).astimezone(__import__('zoneinfo').ZoneInfo('America/Los_Angeles')).strftime('%b %-d, %-I:%M %p PT')}
 json.dump(meta, open('/tmp/card_meta.json','w'))
 print('meta:', meta['record'], meta['units_pl'])
 PY
