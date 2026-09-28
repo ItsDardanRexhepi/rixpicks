@@ -18,8 +18,23 @@ echo "-- stage: league_slate"
 python3 scripts/league_slate.py MLB NFL CFB WNBA NBA NHL NCAAB MLS NWSL PGA ATP WTA NASCAR UFC --date $D --odds --json > $SLATE
 echo "slate rows: $(python3 -c "import json;print(len(json.load(open('$SLATE'))))" 2>/dev/null || echo ERR)"
 
+echo "-- stage: hunt slate transform ({rows:[...]}, instance_id/commence_utc/match schema)"
+python3 - <<'PY'
+import json
+DT='2026-09-28'
+slate=json.load(open(f'/tmp/slate_day_{DT}.json'))
+rows=[]
+for r in slate:
+    rr=dict(r)
+    rr['instance_id']=r.get('espn_id')
+    rr['commence_utc']=r.get('commence')
+    rr['match']=r.get('match') or f"{r.get('away','')} @ {r.get('home','')}"
+    rows.append(rr)
+json.dump({'rows':rows}, open(f'/tmp/hunt_slate_{DT}.json','w'))
+print('hunt slate rows:', len(rows))
+PY
 echo "-- stage: hunt (floored first)"
-python3 scripts/hunt_v2.py $SLATE /tmp/hunt_v2_$DT.json || echo "STAGE FAIL hunt_v2"
+python3 scripts/hunt_v2.py /tmp/hunt_slate_$DT.json /tmp/hunt_v2_$DT.json || echo "STAGE FAIL hunt_v2"
 NCAND=$(python3 -c "
 import json
 try:
@@ -29,7 +44,7 @@ except Exception: print(0)")
 echo "hunt candidates: $NCAND"
 if [ "$NCAND" = "0" ]; then
   echo "-- stage: hunt fallback (floorless - zero-pick rule)"
-  python3 scripts/hunt_nofloor.py $SLATE /tmp/hunt_v2_$DT.json || echo "STAGE FAIL hunt_nofloor"
+  python3 scripts/hunt_nofloor.py /tmp/hunt_slate_$DT.json /tmp/hunt_v2_$DT.json || echo "STAGE FAIL hunt_nofloor"
 fi
 
 echo "-- stage: st prefill"
