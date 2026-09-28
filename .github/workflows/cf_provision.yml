@@ -1,0 +1,59 @@
+name: cf-provision
+on:
+  workflow_dispatch:
+
+jobs:
+  provision:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Provision Cloudflare namespaces (idempotent)
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -e
+          API="https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID"
+          auth() { curl -s -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" "$@"; }
+          OUT="{}"
+          # KV namespaces
+          KVLIST=$(auth "$API/storage/kv/namespaces?per_page=100")
+          for NS in rixpicks-kb rixpicks-loop-state; do
+            ID=$(echo "$KVLIST" | jq -r --arg t "$NS" '.result[]? | select(.title==$t) | .id' | head -1)
+            if [ -z "$ID" ]; then
+              R=$(auth -X POST "$API/storage/kv/namespaces" -d "{\"title\":\"$NS\"}")
+              echo "$R" | jq -e '.success' >/dev/null || { echo "KV CREATE FAIL $NS: $R"; exit 1; }
+              ID=$(echo "$R" | jq -r '.result.id')
+              echo "created KV $NS $ID"
+            else
+              echo "exists KV $NS $ID"
+            fi
+            OUT=$(echo "$OUT" | jq --arg k "$NS" --arg v "$ID" '. + {($k): $v}')
+          done
+          # Queue
+          QLIST=$(auth "$API/queues?per_page=100")
+          QID=$(echo "$QLIST" | jq -r '.result[]? | select(.queue_name=="rixpicks-wake-fanout") | .queue_id' | head -1)
+          if [ -z "$QID" ]; then
+            R=$(auth -X POST "$API/queues" -d '{"queue_name":"rixpicks-wake-fanout"}')
+            echo "$R" | jq -e '.success' >/dev/null || { echo "QUEUE CREATE FAIL: $R"; exit 1; }
+            QID=$(echo "$R" | jq -r '.result.queue_id')
+            echo "created queue $QID"
+          else
+            echo "exists queue $QID"
+          fi
+          OUT=$(echo "$OUT" | jq --arg v "$QID" '. + {queue_id: $v}')
+          # R2 bucket (may not be enabled on the account yet)
+          R2=$(auth "$API/r2/buckets?per_page=100")
+          if echo "$R2" | jq -e '.success' >/dev/null 2>&1; then
+            BID=$(echo "$R2" | jq -r '.result.buckets[]? | select(.name=="rixpicks-spine-archive") | .name' | head -1)
+            if [ -z "$BID" ]; then
+              R=$(auth -X POST "$API/r2/buckets" -d '{"name":"rixpicks-spine-archive"}')
+              if echo "$R" | jq -e '.success' >/dev/null; then echo "created R2 bucket rixpicks-spine-archive"; OUT=$(echo "$OUT" | jq '. + {r2: "rixpicks-spine-archive"}');
+              else echo "R2 CREATE FAIL: $R"; OUT=$(echo "$OUT" | jq '. + {r2: "FAILED"}'); fi
+            else
+              echo "exists R2 bucket rixpicks-spine-archive"; OUT=$(echo "$OUT" | jq '. + {r2: "rixpicks-spine-archive"}')
+            fi
+          else
+            echo "R2 NOT ENABLED: $(echo "$R2" | jq -c '.errors')"
+            OUT=$(echo "$OUT" | jq '. + {r2: "NOT_ENABLED"}')
+          fi
+          echo "$OUT" | tee provision_result.json
