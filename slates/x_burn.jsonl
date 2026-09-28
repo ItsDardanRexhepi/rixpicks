@@ -153,3 +153,23 @@
 {"ts": "2026-09-28T22:12:05+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Use BetMGM bonus\" lang:en -is:retweet -is:reply", "results": 0}
 {"ts": "2026-09-28T22:12:05+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Use BetMGM\" OR \"CBSSPORTS\" OR \"Eagles\") lang:en -is:retweet -is:reply", "results": 100}
 {"ts": "2026-09-28T22:12:05+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Paul Finebaum slams\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:28:41+00:00", "endpoint": "/tweets/search/recent", "query": "\"Chicago Bears\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:28:41+00:00", "endpoint": "/tweets/search/recent", "query": "\"Philadelphia Eagles\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:28:41+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Shohei Ohtani Yoshinobu\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-28T22:28:41+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Braves stay loose\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:28:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Braves\" OR \"Workout Day\" OR \"Wild Card Series\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:28:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Falcons snap counts\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-28T22:28:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Cowboys Ravens Stock\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:28:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Cowboys\" OR \"Ravens Stock\" OR \"Brian Schottenheimer\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:28:42+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Plenty records Bills\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:28:43+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Plenty\" OR \"Bills\" OR \"Week\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:28:43+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"UFC 332 Countdown\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-28T22:28:43+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Bears Eagles preview\" lang:en -is:retweet -is:reply", "results": 7}
+{"ts": "2026-09-28T22:28:43+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Karl Anthony Towns\" lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:28:43+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Iowa football Hank\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:28:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Iowa\" OR \"QB Hank Brown\" OR \"Davey\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:28:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"successes Minnesota Lynx\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T22:28:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Minnesota Lynx\" OR \"Coach Year Cheryl Reeve\" OR \"Rookie Year Olivia Miles\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-28T22:28:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"vibes immaculate right\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-28T22:28:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2028 four star\" lang:en -is:retweet -is:reply", "results": 50}
+{"ts": "2026-09-28T22:28:45+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"NASCAR Las Vegas\" lang:en -is:retweet -is:reply", "results": 1}
