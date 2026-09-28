@@ -62,8 +62,8 @@
     "bid": "0.3400"
    },
    "net_c": 3.3,
-   "verdict": "CANDIDATE",
-   "reason": "net +3.3c >= floor 3.0c"
+   "verdict": "EXPIRED",
+   "reason": "pregame price (ask 35c at 5:13 PM PT); game kicked 5:20 PM PT - not a live quote"
   },
   {
    "player": "Jaylen Waddle",
@@ -1179,5 +1179,7 @@
    "verdict": "REJECT",
    "reason": "fewer than 3 books - skipped"
   }
- ]
+ ],
+ "status": "expired",
+ "expired_reason": "pregame snapshot generated 5:13 PM PT; LAR @ DEN kicked 5:20 PM PT - all prices are pregame, not live"
 }
