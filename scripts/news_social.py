@@ -35,6 +35,19 @@ COST_PER_POST = 0.005
 MAX_RESULTS = 10
 NEWS_QUERIES_PER_RUN = 18      # hard cap per run (burn discipline; 12->18 owner 2:09 coverage push)
 MAX_HEADLINE_AGE_H = 18       # only fresh headlines drive pulls
+
+def within_24h(ts):
+    """owner 2:49 match horizon: the past 24 hours of X conversation is matchable.
+    Posts we cannot age are kept (fail-open on missing data, never on a known-old post)."""
+    if not ts:
+        return True
+    try:
+        dt = datetime.datetime.fromisoformat(str(ts).replace('Z', '+00:00'))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=datetime.timezone.utc)
+        return (datetime.datetime.now(datetime.timezone.utc) - dt) <= datetime.timedelta(hours=24)
+    except Exception:
+        return True
 ROUTE_ATTEMPTS = 3            # route-around rotations per headline before conceding
 
 STOP = set('the a an and or of to in on for with after before over under from at by is are was were be been being has have had will would could should may might can do does did not no yes it its his her their our your my we you they he she them us this that these those as if than then so such more most other some any each few all both few own same into about against between through during without within new just says report reports rumored rumors per sources source watch latest breaking video photos'.split())
@@ -186,6 +199,8 @@ def merge_feed(new_items):
         prev = []
     merged = {str(p.get('id')): p for p in (new_items + prev) if p.get('id')}
     items = sorted(merged.values(), key=lambda p: str(p.get('created_at', '')), reverse=True)
+    # owner 2:49: the match horizon is the past 24 hours - posts older than 24h age out of the pool
+    items = [pp for pp in items if within_24h(pp.get('created_at'))]
     # pair-flicker fix (1:38 regression): the 50-cap evicted a post holding a verified pair,
     # regressing the served map to 0 pairs. Posts the matcher has paired or admitted are
     # preserved across merges regardless of cap.
