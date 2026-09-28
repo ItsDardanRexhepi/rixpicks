@@ -1,35 +1,7 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T03:53:44.963752+00:00",
+ "generated_at": "2026-09-28T04:10:02.465491+00:00",
  "leagues": [
-  {
-   "league": "NFL",
-   "games": [
-    {
-     "espn_event_id": "401872962",
-     "matchup": "LAR @ DEN",
-     "commence": "2026-09-28T00:20Z",
-     "status": "in",
-     "detail": "0:02 - 4th",
-     "score": "LAR 26 - DEN 30",
-     "away_to": 0,
-     "home_to": 1
-    }
-   ]
-  },
-  {
-   "league": "WNBA",
-   "games": [
-    {
-     "espn_event_id": "401918016",
-     "matchup": "DAL @ GS",
-     "commence": "2026-09-28T01:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "DAL 80 - GS 104"
-    }
-   ]
-  },
   {
    "league": "ATP",
    "games": [
@@ -54,7 +26,7 @@
      "matchup": "Tiphanie Lemaitre @ Harriet Dart",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Tiphanie Lemaitre 0 - Harriet Dart 0"
     },
     {
@@ -62,7 +34,7 @@
      "matchup": "Ma YeXin @ Ren Yufei",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Ma YeXin 0 - Ren Yufei 0"
     },
     {
@@ -95,14 +67,6 @@
      "score": "Fiona Ferro 0 - Yang Yidi 0"
     },
     {
-     "espn_event_id": "1028-2026",
-     "matchup": "Zheng Wushuang @ Mei Yamaguchi",
-     "commence": "2026-09-25T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Zheng Wushuang 0 - Mei Yamaguchi 0"
-    },
-    {
      "espn_event_id": "959-2026",
      "matchup": "Vivian Wolff @ Carol Zhao",
      "commence": "2026-09-27T04:00Z",
@@ -123,7 +87,7 @@
      "matchup": "Tiphanie Lemaitre @ Harriet Dart",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Tiphanie Lemaitre 0 - Harriet Dart 0"
     },
     {
@@ -131,7 +95,7 @@
      "matchup": "Ma YeXin @ Ren Yufei",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Ma YeXin 0 - Ren Yufei 0"
     },
     {
