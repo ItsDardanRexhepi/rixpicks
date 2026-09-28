@@ -16,13 +16,14 @@ search response itself (expansions=author_id - same single request, no extra bur
 must render text as plain escaped text (untrusted third-party posts, labeled X-sourced - these
 are PUBLIC posts matching slate queries, never the user's own posts).
 """
-import json, os, sys, urllib.request, urllib.parse, datetime
+import json, os, sys, time, urllib.request, urllib.parse, datetime
 
 BASE = 'https://api.x.com/2'
 TOKEN = os.environ.get('X_BEARER_TOKEN', '')
 LEDGER = 'slates/x_burn.jsonl'
 OUT = 'slates/x_feed.json'
 LIVE_GAMES = 'slates/live_games.json'
+STATE = 'slates/x_feed_state.json'
 CREDITS = 9.04          # his reported balance 9/27 9:25 PM PT
 ALERT_FLOOR = 2.00      # main 9:25 balance-watch: alert main before free credits run out
 # MEASURED pricing (X console, Sep 28 9:22 AM PT: 190 events / $0.97 / 29 requests over 30d):
@@ -56,8 +57,7 @@ def log_burn(endpoint, query, results):
     remaining = CREDITS - est
     print(f'BURN: {n} requests / {posts} posts | est spend ${est:.2f} (measured rates) | est remaining ${remaining:.2f} of ${CREDITS:.2f}')
     if remaining < ALERT_FLOOR:
-        print(f'ALERT: estimated remaining ${remaining:.2f} < ${ALERT_FLOOR:.2f} floor - balance-watch trip, alert main before billing starts')
-        sys.exit(1)  # fail loud: red run = the balance-watch signal
+        print(f'ALERT: estimated remaining ${remaining:.2f} < ${ALERT_FLOOR:.2f} floor - FREE CREDIT EXHAUSTED, meter now billing (owner 10:31: alert-only, no hard stop) - relay to main with realized burn')
 
 def slate_terms():
     """Teams/players from slates/live_games.json (in-repo, refreshed by the census chain).
@@ -90,6 +90,35 @@ def slate_terms():
         terms = {'Philadelphia Eagles', 'Chicago Bears'}
     return sorted(terms)
 
+
+def game_window():
+    """True when a slate game is live now or commences within 60 min (drives the 2-min burst)."""
+    try:
+        lg = json.load(open(LIVE_GAMES))
+        now = datetime.datetime.now(datetime.timezone.utc)
+        for league in lg.get('leagues', []):
+            for g in league.get('games', []):
+                if g.get('status') == 'in':
+                    return True
+                try:
+                    ct = datetime.datetime.strptime(g.get('commence', ''), '%Y-%m-%dT%H:%MZ').replace(tzinfo=datetime.timezone.utc)
+                except Exception:
+                    continue
+                if g.get('status') == 'pre' and datetime.timedelta(0) <= (ct - now) <= datetime.timedelta(minutes=60):
+                    return True
+    except Exception:
+        pass
+    return False
+
+def load_state():
+    try:
+        return json.load(open(STATE))
+    except Exception:
+        return {}
+
+def save_state(st):
+    json.dump(st, open(STATE, 'w'), indent=1)
+
 def main():
     if not TOKEN:
         print('X_BEARER_TOKEN secret not set - feed dormant')
@@ -108,17 +137,33 @@ def main():
         return
     # pull: slate-relevant queries from live_games.json (injury/scratch/lineup + slate teams)
     terms = slate_terms()
-    queries = [f'"{t}" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet'
-               for t in terms]
+    # owner 10:22: real-time pulls, SCOPED to relevant info only. Game windows (game live or
+    # starting within 60 min) switch to a 2-min burst loop with ONE combined query; off-window
+    # stays per-team on the 15-min cron. Owner 10:31: $2.00 floor is ALERT-ONLY, meter runs.
+    window = game_window()
+    if window and terms:
+        ors = ' OR '.join(f'"{t}"' for t in terms[:4])
+        queries = [f'({ors}) (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet']
+    else:
+        queries = [f'"{t}" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet'
+                   for t in terms]
     items = []
     seen = set()
-    for q in queries[:4]:  # hard cap per cycle: burn discipline, 1 pull set/15min
+    st = load_state()
+    since_id = st.get('since_id')
+    newest = since_id
+    deadline = time.time() + (13 * 60 if window else 0)  # burst: keep pulling inside one run
+    first_pass = True
+    while first_pass or (window and time.time() < deadline):
+      first_pass = False
+      for q in queries[:4]:  # hard cap per cycle: burn discipline
         try:
-            status, body = req('/tweets/search/recent', {
-                'query': q, 'max_results': MAX_RESULTS,
-                'tweet.fields': 'created_at,author_id,public_metrics',
-                'expansions': 'author_id',
-                'user.fields': 'username,name'})
+            params = {'query': q, 'max_results': MAX_RESULTS,
+                      'tweet.fields': 'created_at,author_id,public_metrics',
+                      'expansions': 'author_id', 'user.fields': 'username,name'}
+            if since_id:
+                params['since_id'] = since_id  # incremental: only NEW posts billed
+            status, body = req('/tweets/search/recent', params)
             data = body.get('data') or []
             users = {u.get('id'): u for u in ((body.get('includes') or {}).get('users') or [])}
             log_burn('/tweets/search/recent', q, len(data))
@@ -134,12 +179,28 @@ def main():
                               'author_username': uname,
                               'author_name': u.get('name'),
                               'url': f'https://x.com/{uname}/status/{tid}' if uname else None})
+            meta = body.get('meta') or {}
+            if meta.get('newest_id'):
+                newest = meta['newest_id']
         except Exception as e:
             print(f'pull FAIL ({q[:40]}...): {e}')
-    out = {'generated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
-           'source': 'x_recent_search', 'items': items}
-    json.dump(out, open(OUT, 'w'), indent=1)
-    print(f'x_feed: {len(items)} posts across {len(queries[:4])} queries ({len(terms)} slate terms) -> {OUT}')
+      # end for q
+      since_id = newest or since_id
+      save_state({'since_id': since_id, 'updated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')})
+      # merge this pass into the feed file (newest first, cap 50) so the site sees posts mid-burst
+      try:
+          prev = json.load(open(OUT)).get('items', [])
+      except Exception:
+          prev = []
+      merged = {str(p.get('id')): p for p in (items + prev) if p.get('id')}
+      merged_items = sorted(merged.values(), key=lambda p: str(p.get('created_at', '')), reverse=True)[:50]
+      out = {'generated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
+             'source': 'x_recent_search', 'window': bool(window), 'items': merged_items}
+      json.dump(out, open(OUT, 'w'), indent=1)
+      if window and time.time() < deadline:
+          print(f'burst pass: {len(items)} new, feed carries {len(merged_items)}; next pull in 120s')
+          time.sleep(120)
+    print(f'x_feed: {len(items)} new posts, {len(queries[:4])} queries ({len(terms)} slate terms), window={bool(window)} -> {OUT}')
 
 if __name__ == '__main__':
     main()
