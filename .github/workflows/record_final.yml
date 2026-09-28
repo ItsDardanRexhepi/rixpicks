@@ -63,6 +63,6 @@ jobs:
         run: |
           git config user.name 'rixpicks-record-bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add manifest.json history.json record.html yesterday.html index.html game-*.html record_request.json record_done.json
+          git add manifest.json history.json record.html yesterday.html index.html game-*.html record_request.json record_done.json slates/api_record.json
           git commit -m "Record write: graded finals applied from record_request.json (ESPN-verified, ledger-exact) [record-final]"
           git push
