@@ -113,13 +113,13 @@ def build_queries(it, strategy):
     ph = phrase(h)
     qs = []
     if strategy == 'S1' and ph:
-        qs.append(f'"{ph}" lang:en -is:retweet')
+        qs.append(f'"{ph}" lang:en -is:retweet -is:reply')
     elif strategy == 'S2' and ents and kw:
         ors = ' OR '.join(f'"{e}"' for e in ents[:2])
-        qs.append(f'({ors}) ({kw}) lang:en -is:retweet')
+        qs.append(f'({ors}) ({kw}) lang:en -is:retweet -is:reply')
     elif strategy == 'S3' and ents:
         ors = ' OR '.join(f'"{e}"' for e in ents[:3])
-        qs.append(f'({ors}) lang:en -is:retweet')
+        qs.append(f'({ors}) lang:en -is:retweet -is:reply')
     elif strategy == 'S4':
         league = it.get('league') or it.get('sport') or ''
         if league:
@@ -129,7 +129,7 @@ def build_queries(it, strategy):
         else:
             base = ''
         if base:
-            qs.append(f'"{base}" lang:en -is:retweet')
+            qs.append(f'"{base}" lang:en -is:retweet -is:reply')
     return [q for q in qs if len(q) <= 500]
 
 def route_arounds(it, strategy):
@@ -139,15 +139,15 @@ def route_arounds(it, strategy):
     ph = phrase(h)
     alts = []
     if strategy != 'S3' and ents:
-        alts.append(('S3-rotate', f'({" OR ".join(chr(34)+e+chr(34) for e in ents[:3])}) lang:en -is:retweet'))
+        alts.append(('S3-rotate', f'({" OR ".join(chr(34)+e+chr(34) for e in ents[:3])}) lang:en -is:retweet -is:reply'))
     if ph:
         words = ph.split()
         if len(words) >= 2:
-            alts.append(('loose-phrase', f'"{words[0]} {words[-1]}" lang:en -is:retweet'))
+            alts.append(('loose-phrase', f'"{words[0]} {words[-1]}" lang:en -is:retweet -is:reply'))
     if len(ents) >= 2:
-        alts.append(('swap-order', f'("{ents[1]}" OR "{ents[0]}") lang:en -is:retweet'))
+        alts.append(('swap-order', f'("{ents[1]}" OR "{ents[0]}") lang:en -is:retweet -is:reply'))
     if ents:
-        alts.append(('bare-entity', f'"{ents[0]}" lang:en -is:retweet'))
+        alts.append(('bare-entity', f'"{ents[0]}" lang:en -is:retweet -is:reply'))
     return [(tag, q) for tag, q in alts if len(q) <= 500]
 
 def load_state():
@@ -159,7 +159,19 @@ def load_state():
 def save_state(st):
     json.dump(st, open(STATE, 'w'), indent=1)
 
+def quality_ok(p):
+    """anti-junk floor (main 1:29: random replies / low-content posts must not drive anything):
+    queries already exclude replies server-side; here, a post needs real engagement OR
+    substantive text. public_metrics ride the pull response (same request, no extra burn)."""
+    m = p.get('public_metrics') or {}
+    eng = sum(int(m.get(k) or 0) for k in ('like_count', 'retweet_count', 'reply_count', 'quote_count'))
+    return eng >= 2 or len((p.get('text') or '')) >= 100
+
 def merge_feed(new_items):
+    dropped = [p for p in new_items if not quality_ok(p)]
+    if dropped:
+        print(f'quality floor: dropped {len(dropped)} low-engagement/short posts')
+    new_items = [p for p in new_items if quality_ok(p)]
     try:
         prev = json.load(open(OUT)).get('items', [])
     except Exception:
@@ -188,6 +200,7 @@ def pull_query(q, since_id=None):
         items.append({'query': q, 'id': tw.get('id'), 'created_at': tw.get('created_at'),
                       'text': tw.get('text'), 'author_username': uname,
                       'author_name': u.get('name'),
+                      'public_metrics': tw.get('public_metrics') or {},
                       'url': f'https://x.com/{uname}/status/{tw.get("id")}' if uname else None})
     newest = ((body.get('meta') or {}).get('newest_id')) or since_id
     return items, newest
