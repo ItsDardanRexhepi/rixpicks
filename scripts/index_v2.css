@@ -78,7 +78,13 @@ nav.rpnav .tabs .tab{padding:10px 12px;font-size:12px}}
 .note{color:var(--mut);font-size:12px;margin-top:6px}
 /* futures + record tail */
 .futrow{border-bottom-color:var(--line) !important;color:var(--txt)}
-a.rec{font-weight:600;font-size:16px;color:var(--txt)}
+nav.rpnav button.rec{background:none;border:0;font:inherit;color:var(--mut);cursor:pointer;border-radius:6px;padding:2px 6px;margin:-2px -6px}
+nav.rpnav button.rec:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+nav.rpnav button.rec:hover b{text-decoration:underline}
+.recpop{position:absolute;top:100%;right:16px;z-index:60;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 8px 30px rgba(0,0,0,.5);min-width:230px;text-align:left}
+.recpop .rpPopRec{font-weight:700;font-size:14px;color:var(--txt)}
+.recpop .yesrec{margin-top:4px}
+.recpop .unitmath{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
 .yesrec{color:var(--mut);font-size:13px;margin-top:2px}
 .unitmath{color:var(--mut);font-size:12px;margin-top:8px}
 .foot{margin-top:26px;color:var(--mut);font-size:11px;line-height:1.6}
