@@ -1,16 +1,24 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T09:06:36.103862+00:00",
+ "generated_at": "2026-09-28T09:25:55.374539+00:00",
  "leagues": [
   {
    "league": "ATP",
    "games": [
     {
+     "espn_event_id": "441-2026",
+     "matchup": "Alejandro Davidovich Fokina @ Nikoloz Basilashvili",
+     "commence": "2026-09-22T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Alejandro Davidovich Fokina 0 - Nikoloz Basilashvili 0"
+    },
+    {
      "espn_event_id": "959-2026",
      "matchup": "Storm Hunter @ Zhang Ruien",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Storm Hunter 0 - Zhang Ruien 0"
     },
     {
@@ -34,7 +42,7 @@
      "matchup": "Shi Han @ Tereza Mihalikova",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Shi Han 0 - Tereza Mihalikova 0"
     },
     {
@@ -87,7 +95,7 @@
      "matchup": "Storm Hunter @ Zhang Ruien",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Storm Hunter 0 - Zhang Ruien 0"
     },
     {
@@ -111,7 +119,7 @@
      "matchup": "Shi Han @ Tereza Mihalikova",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Shi Han 0 - Tereza Mihalikova 0"
     },
     {
