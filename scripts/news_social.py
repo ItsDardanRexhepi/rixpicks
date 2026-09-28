@@ -159,10 +159,18 @@ def load_state():
 def save_state(st):
     json.dump(st, open(STATE, 'w'), indent=1)
 
+TOUT_RE = __import__('re').compile(
+    r'discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|'
+    r'picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|'
+    r'free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)', __import__('re').I)
+
 def quality_ok(p):
     """anti-junk floor (main 1:29: random replies / low-content posts must not drive anything):
     queries already exclude replies server-side; here, a post needs real engagement OR
     substantive text. public_metrics ride the pull response (same request, no extra burn)."""
+    # owner 1:39: NO touts/selling-access on the social feed, ever
+    if TOUT_RE.search(p.get('text') or ''):
+        return False
     m = p.get('public_metrics') or {}
     eng = sum(int(m.get(k) or 0) for k in ('like_count', 'retweet_count', 'reply_count', 'quote_count'))
     return eng >= 2 or len((p.get('text') or '')) >= 100
@@ -177,7 +185,20 @@ def merge_feed(new_items):
     except Exception:
         prev = []
     merged = {str(p.get('id')): p for p in (new_items + prev) if p.get('id')}
-    items = sorted(merged.values(), key=lambda p: str(p.get('created_at', '')), reverse=True)[:50]
+    items = sorted(merged.values(), key=lambda p: str(p.get('created_at', '')), reverse=True)
+    # pair-flicker fix (1:38 regression): the 50-cap evicted a post holding a verified pair,
+    # regressing the served map to 0 pairs. Posts the matcher has paired or admitted are
+    # preserved across merges regardless of cap.
+    try:
+        mm = json.load(open('slates/soc_match.json'))
+        keep_ids = {str(v['post_id']) for v in (mm.get('pairs') or {}).values() if (v or {}).get('post_id')}
+        keep_ids |= {str(e.get('post_id')) for lst in (mm.get('more') or {}).values() for e in (lst or [])}
+        keep_ids |= {str(x) for x in (mm.get('admit') or [])}
+    except Exception:
+        keep_ids = set()
+    pinned = [p for p in items if str(p.get('id')) in keep_ids]
+    rest = [p for p in items if str(p.get('id')) not in keep_ids]
+    items = (pinned + rest)[:50]
     out = {'generated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
            'source': 'x_recent_search', 'window': False, 'items': items}
     json.dump(out, open(OUT, 'w'), indent=1)
