@@ -66,6 +66,7 @@ nav.rpnav .tabs .tab{padding:10px 12px;font-size:12px}}
 .chip[data-book="POLY"],.chip[data-bk="POLY"]{background:#0c1622 !important;color:#4aa3e8 !important}
 .chip.best{font-weight:800}
 .chip.rpunpriced{opacity:.45}
+.chip.rppending{opacity:.55;cursor:pointer}
 .rplineshop{color:var(--mut) !important}
 /* parlay + combo */
 .legs{color:var(--txt);font-size:14px;line-height:1.7}
