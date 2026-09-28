@@ -24,7 +24,7 @@ REQUESTER = 'rixpicks-socmatch'
 AUTO_ACCEPT = 0.62      # evidence gate passes outright
 PROBE_FLOOR = 0.48      # band [FLOOR, ACCEPT): PROBE via LLM verify
 MORE_FLOOR = 0.42       # "View more posts" list inclusion
-MAX_PROBES = 90         # per-run LLM verify budget (trial credits)
+MAX_PROBES = 120        # per-run LLM verify budget (trial credits) - more[] verification costs probes now
 TOP_CANDIDATES = 10
 MORE_CAP = 20
 
@@ -199,6 +199,7 @@ def main():
                          in ('', slg, 'SPORTS_GENERIC')]
         best = None
         verdicts = []
+        confirmed = []  # every probe-confirmed candidate, score-ranked; [0] = pin, rest = verified more[]
         for score, j in scored[:TOP_CANDIDATES]:
             # six-gate decide() - owner 1:00/1:01 hard rule: EVERY link passes the full loop.
             # Cosine alone NEVER pairs (adversarial proof 1:03: different-team same-injury-pattern
@@ -214,9 +215,9 @@ def main():
                 if prior.get('verdict') == 'EXECUTE':
                     verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                      'verdict': 'EXECUTE', 'gate': 'conflict', 'reason': 'probe confirmed (cached): ' + prior.get('reason', '')})
-                    best = (score, j, True)
+                    confirmed.append((score, j))
                     stats['probe_confirmed'] += 1
-                    break
+                    continue
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'REJECT', 'gate': 'conflict', 'reason': 'probe rejected (cached): ' + prior.get('reason', '')})
                 stats['probe_rejected'] += 1
@@ -237,9 +238,9 @@ def main():
                 vcache[vk] = {'verdict': 'EXECUTE', 'reason': why}
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'EXECUTE', 'gate': 'conflict', 'reason': 'probe confirmed: ' + why})
-                best = (score, j, True)
+                confirmed.append((score, j))
                 stats['probe_confirmed'] += 1
-                break
+                continue
             vcache[vk] = {'verdict': 'REJECT', 'reason': why}
             verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                              'verdict': 'REJECT', 'gate': 'conflict', 'reason': 'probe rejected: ' + why})
@@ -247,17 +248,21 @@ def main():
                                     'post_id': posts[j].get('id'), 'post': posts[j].get('text', '')[:120],
                                     'score': round(score, 4), 'gate': 'conflict', 'reason': why})
             stats['probe_rejected'] += 1
-        if best:
+        if confirmed:
+            best = confirmed[0]
             log['pairs'][nk] = {'post_id': posts[best[1]].get('id'), 'score': round(best[0], 4),
-                                'verified': best[2], 'verdicts': verdicts}
+                                'verified': True, 'verdicts': verdicts}
             stats['paired'] += 1
         else:
             stats['abstained'] += 1
             if verdicts:
                 log['pairs'][nk] = {'post_id': None, 'score': None, 'verified': False, 'verdicts': verdicts}
-        # "View more posts" ranked list (loop-light: score-ranked, floor-gated, audit trail via scores)
+        # "View more posts" (QA 3:53 systemic catch + owner 1:39 "very narrow"): VERIFIED-ONLY.
+        # Raw cosine>=more-floor lists passed ticket ads/CS2/wrestling posts into expansions.
+        # An expansion entry is now a probe-confirmed same-topic post that didn't take the pin -
+        # the same six-gate discipline as the pair itself, never a looser topical list.
         log['more'][nk] = [{'post_id': posts[j].get('id'), 'score': round(sc, 4)}
-                           for sc, j in scored if sc >= MORE_FLOOR][:MORE_CAP]
+                           for sc, j in confirmed[1:]][:MORE_CAP]
     # owner 1:39: topic-relatedness to news stories is the social feed's CORE admission test.
     # admit = every post related to at least one current story (verified pair or >= more floor).
     # 1:48 tighten (his "very narrow"): admission floor = PROBE floor (0.48), not the looser
