@@ -18,7 +18,7 @@ if [ -d previews/feeds ]; then cp -f previews/feeds/* /tmp/; echo "feeds staged:
 ' ' ')"; fi
 
 echo "-- stage: league_slate"
-python3 scripts/league_slate.py MLB NFL CFB WNBA NBA NHL NCAAB MLS NWSL PGA ATP WTA NASCAR UFC Boxing --date $D --odds --json > $SLATE
+python3 scripts/league_slate.py MLB NFL CFB WNBA NBA NHL NCAAB MLS NWSL PGA ATP WTA NASCAR UFC Boxing --date $D --odds --json > $SLATE 2> /tmp/slate_err_$D.txt
 echo "slate rows: $(python3 -c "import json;print(len(json.load(open('$SLATE'))))" 2>/dev/null || echo ERR)"
 
 echo "-- stage: hunt slate transform ({rows:[...]}, instance_id/commence_utc/match schema)"
@@ -41,7 +41,18 @@ for r in slate:
 canon=sorted(json.load(open('config_leagues.json'))['leagues'].keys())
 hunted='MLB NFL CFB WNBA NBA NHL NCAAB MLS NWSL PGA ATP WTA NASCAR UFC Boxing'.split()
 present={r.get('league') for r in rows}
-leagues_empty=[lg for lg in canon if lg in hunted and lg not in present]
+# fetch-failure exclusion (swarm Boxing contract): a league whose source fetch FAILED must NOT be
+# attested empty - zero rows from a failure stays an unattested visible census blocker. Only a
+# successful fetch with no events earns the attestation.
+failed=set()
+try:
+    import re as _re
+    err=open(f'/tmp/slate_err_{DT}.txt').read()
+    failed={m.group(1) for m in _re.finditer(r'^([A-Za-z]+): .*fetch failed', err, _re.M)}
+except FileNotFoundError:
+    pass
+leagues_empty=[lg for lg in canon if lg in hunted and lg not in present and lg not in failed]
+if failed: print('league fetch failures (NOT attested empty):', ','.join(sorted(failed)))
 json.dump({'rows':rows,'leagues_empty':leagues_empty}, open(f'/tmp/hunt_slate_{DT}.json','w'))
 print('hunt slate rows:', len(rows), '| leagues_empty attested:', ','.join(leagues_empty) or 'none')
 PY
