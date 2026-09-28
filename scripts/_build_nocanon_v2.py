@@ -2002,7 +2002,7 @@ function rpRoute(e,a){{e.preventDefault();const st=localStorage.getItem('rp_stat
  rpGo(a,st);return false;}}
 function rpShareLoc(){{  /* the ONLY way state resolves now (his verbatim Sep 26 1:52 PM): no manual pick, no preview */
  if(!navigator.geolocation){{rpNote('This browser has no location services. Markets need your location - try another browser.');return;}}
- rpNote('Checking your location&hellip;');
+ rpNote('Checking your location…');
  navigator.geolocation.getCurrentPosition(function(pos){{
   fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(j=>{{
    const code=(j.principalSubdivisionCode||'').split('-')[1]||'';
