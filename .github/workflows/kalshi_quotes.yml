@@ -9,7 +9,10 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: site-main-writers
+  # Own group (Sep 27 5:29 PT, analysis staleness diagnosis): quotes are read-only on
+  # Kalshi and write only slates/nfl_kalshi_quotes.json (rebase-guarded) - serializing
+  # behind site-main-writers stacked 27-min staleness when cron lagged. Decoupled.
+  group: kalshi-quotes
   cancel-in-progress: false
 jobs:
   quotes:
