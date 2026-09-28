@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T10:28:36.746387+00:00",
+ "generated_at": "2026-09-28T10:43:40.035614+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -10,7 +10,7 @@
      "matchup": "Alejandro Davidovich Fokina @ Nikoloz Basilashvili",
      "commence": "2026-09-22T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Alejandro Davidovich Fokina 0 - Nikoloz Basilashvili 0"
     },
     {
@@ -18,7 +18,7 @@
      "matchup": "Andrey Rublev @ Kyrian Jacquet",
      "commence": "2026-09-22T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Andrey Rublev 0 - Kyrian Jacquet 0"
     },
     {
@@ -26,7 +26,7 @@
      "matchup": "Mai Hontama @ Alexandra Panova",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Mai Hontama 0 - Alexandra Panova 0"
     },
     {
@@ -34,7 +34,7 @@
      "matchup": "Darya Astakhova @ Desirae Krawczyk",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Darya Astakhova 0 - Desirae Krawczyk 0"
     },
     {
@@ -52,19 +52,11 @@
    "games": [
     {
      "espn_event_id": "1078-2026",
-     "matchup": "Anna Blinkova @ Emiliana Arango",
+     "matchup": "Lucrezia Stefanini @ Elena Ruxandra Bertea",
      "commence": "2026-09-26T04:00Z",
      "status": "in",
-     "detail": "2nd",
-     "score": "Anna Blinkova 0 - Emiliana Arango 0"
-    },
-    {
-     "espn_event_id": "1078-2026",
-     "matchup": "Vendula Valdmannova @ Antonia Ruzic",
-     "commence": "2026-09-26T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Vendula Valdmannova 0 - Antonia Ruzic 0"
+     "detail": "1st",
+     "score": "Lucrezia Stefanini 0 - Elena Ruxandra Bertea 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -79,7 +71,7 @@
      "matchup": "Darya Astakhova @ Desirae Krawczyk",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Darya Astakhova 0 - Desirae Krawczyk 0"
     },
     {
