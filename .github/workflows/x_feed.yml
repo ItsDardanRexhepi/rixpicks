@@ -5,6 +5,12 @@ on:
   schedule:
     # UNPARKED 15-min: his verbatim sign-off '15-min' (main 9:25), burn math presented (~$3.17/day vs $9.04 free, billing after). Balance-watch: ledger exits 1 under $2.00.
     - cron: '*/5 * * * *'
+  workflow_run:
+    # sync-at-all-times (user 4:27 class kill): the pair map tracks the news feed by CONSTRUCTION -
+    # every news-refresh completion re-runs the chain. The freshness guard below exits before any
+    # X pull when the map already covers the current news, so burn only happens on real rotation.
+    workflows: ["news-refresh"]
+    types: [completed]
   workflow_dispatch:
     inputs:
       verify_only:
@@ -29,7 +35,25 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: freshness guard (skip X burn when the map already covers current news)
+        run: |
+          python3 - <<'EOF'
+          import json, os, sys
+          try:
+              news = json.load(open('slates/news.json'))
+              mp = json.load(open('slates/soc_match.json'))
+          except Exception:
+              sys.exit(0)  # unreadable state -> run the chain
+          ng = news.get('generated_at') or ''
+          mb = mp.get('built_at') or ''
+          if ng and mb and mb >= ng:
+              print(f'map {mb} covers news {ng} - no rotation, skipping chain')
+              os.system("echo 'SKIP_CHAIN=1' >> $GITHUB_ENV")
+          else:
+              print(f'news {ng} newer than map {mb} - chain runs')
+          EOF
       - name: x feed pull (burn-ledgered)
+        if: env.SKIP_CHAIN != '1'
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
           MODE: ${{ inputs.verify_only && 'verify' || 'pull' }}
@@ -39,6 +63,7 @@ jobs:
           fi
           python3 scripts/x_feed.py "$MODE"
       - name: "news-driven social pull (owner 1:11 + 1:15 - X API is the tap; trials route around until a path works)"
+        if: env.SKIP_CHAIN != '1'
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
           NS_MODE: ${{ inputs.ns_mode || 'pull' }}
@@ -48,6 +73,7 @@ jobs:
           fi
           python3 scripts/news_social.py "$NS_MODE"
       - name: "semantic match build (URF six-gate, owner 1:00/1:01 - every link passes the full loop)"
+        if: env.SKIP_CHAIN != '1'
         env:
           NIM_CLIENT_TOKEN: ${{ secrets.NIM_CLIENT_TOKEN }}
         run: |
@@ -57,6 +83,7 @@ jobs:
           printf '%s' "$NIM_CLIENT_TOKEN" > /tmp/.nim_client_token
           python3 scripts/soc_match.py
       - name: commit feed + burn ledger
+        if: env.SKIP_CHAIN != '1'
         run: |
           git config user.name "RixPicks Bot"
           git config user.email "rixpicks-bot@users.noreply.github.com"
