@@ -99,12 +99,10 @@ def main():
         best = None
         verdicts = []
         for score, j in scored[:TOP_CANDIDATES]:
-            # six-gate decide()
-            if score >= AUTO_ACCEPT:
-                verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
-                                 'verdict': 'EXECUTE', 'gate': 'evidence', 'reason': 'score>=auto_accept'})
-                best = (score, j, True)
-                break
+            # six-gate decide() - owner 1:00/1:01 hard rule: EVERY link passes the full loop.
+            # Cosine alone NEVER pairs (adversarial proof 1:03: different-team same-injury-pattern
+            # scored 0.628 > old 0.62 auto-accept). Every candidate >= floor takes the LLM probe
+            # (conflict gate); only probe-confirmed pairs may render.
             if score < PROBE_FLOOR:
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'ABSTAIN', 'gate': 'evidence', 'reason': 'below probe floor'})
@@ -137,8 +135,6 @@ def main():
             log['pairs'][nk] = {'post_id': posts[best[1]].get('id'), 'score': round(best[0], 4),
                                 'verified': best[2], 'verdicts': verdicts}
             stats['paired'] += 1
-            if best[0] >= AUTO_ACCEPT:
-                stats['auto'] += 1
         else:
             stats['abstained'] += 1
             if verdicts:
