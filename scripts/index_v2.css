@@ -215,3 +215,9 @@ body.tab-home .home-only{display:block}
 .social .cartrack{transition:transform .55s cubic-bezier(.4,0,.2,1)}
 .social .socslide>a{display:block;padding:14px;text-decoration:none;color:inherit}
 @media (prefers-reduced-motion:reduce){.social .cartrack,.social .carvp{transition:none}}
+/* LIVE bug kill 12:43: hidden pop containers must never render (empty bordered bar under carousel
+   controls) - .card display beats the UA [hidden] rule without this guard */
+.carallpop[hidden]{display:none !important}
+/* owner 12:43: news art cropped heads at 16/9 - bias the cover crop toward the upper third */
+.carimg{background-position:center 25%}
+.carnew{color:#2f8f7d;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
