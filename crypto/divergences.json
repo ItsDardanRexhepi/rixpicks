@@ -1,25 +1,25 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-09-28T01:53:50.923384Z",
-  "expires_at": "2026-09-28T01:59:50.923384Z",
+  "observed_at": "2026-09-28T01:59:19.155036Z",
+  "expires_at": "2026-09-28T02:05:19.155036Z",
   "cadence": "approximately 5 minutes",
   "events": [
     {
       "id": "btc-sep-2026-87500-kalshi-poly-20260927",
       "first_seen_at": "2026-09-28T00:03:50Z",
-      "last_verified_at": "2026-09-28T01:53:50.923384Z",
-      "expires_at": "2026-09-28T01:59:50.923384Z",
+      "last_verified_at": "2026-09-28T01:59:19.155036Z",
+      "expires_at": "2026-09-28T02:05:19.155036Z",
       "status": "thinned",
       "contract": "BTC September reaches $87,500 YES",
       "buy_leg": {
         "venue": "Kalshi",
-        "ask": 0.12,
-        "displayed_size": 1056.51
+        "ask": 0.11,
+        "displayed_size": 3511.77
       },
       "sell_leg": {
         "venue": "Polymarket",
-        "bid": 0.14,
-        "displayed_size": 15205.0
+        "bid": 0.13,
+        "displayed_size": 15458.64
       },
       "gross_displayed_spread": 0.02,
       "source_urls": [
