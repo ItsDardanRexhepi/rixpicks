@@ -32,6 +32,19 @@ COST_PER_POST = 0.005
 MAX_RESULTS = 10        # tight per handoff
 GAME_WINDOW_H = 36      # slate-relevant = commences within +/-36h
 
+def within_24h(ts):
+    """owner 2:49 match horizon: the past 24 hours of X conversation is matchable.
+    Posts we cannot age are kept (fail-open on missing data, never on a known-old post)."""
+    if not ts:
+        return True
+    try:
+        dt = datetime.datetime.fromisoformat(str(ts).replace('Z', '+00:00'))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=datetime.timezone.utc)
+        return (datetime.datetime.now(datetime.timezone.utc) - dt) <= datetime.timedelta(hours=24)
+    except Exception:
+        return True
+
 def req(path, params=None):
     url = BASE + path + (('?' + urllib.parse.urlencode(params)) if params else '')
     r = urllib.request.Request(url, headers={'Authorization': 'Bearer ' + TOKEN,
@@ -207,13 +220,29 @@ def main():
       # end for q
       since_id = newest or since_id
       save_state({'since_id': since_id, 'updated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')})
-      # merge this pass into the feed file (newest first, cap 50) so the site sees posts mid-burst
+      # merge this pass into the feed file so the site sees posts mid-burst.
+      # cap 50->150 (owner 2:09 coverage push): this script and news_social.py share
+      # slates/x_feed.json - a 50-cap here truncated the match pool back down between
+      # chain runs and could evict a URF-paired post (1:38 flicker class). Pinned ids
+      # (paired/admitted in the current soc_match map) are never evicted.
+      # owner 2:49: the match horizon is the past 24 hours - posts older than 24h age out here.
       try:
           prev = json.load(open(OUT)).get('items', [])
       except Exception:
           prev = []
       merged = {str(p.get('id')): p for p in (items + prev) if p.get('id')}
-      merged_items = sorted(merged.values(), key=lambda p: str(p.get('created_at', '')), reverse=True)[:50]
+      merged_items = sorted(merged.values(), key=lambda p: str(p.get('created_at', '')), reverse=True)
+      merged_items = [pp for pp in merged_items if within_24h(pp.get('created_at'))]
+      try:
+          mm = json.load(open('slates/soc_match.json'))
+          keep_ids = {str(v['post_id']) for v in (mm.get('pairs') or {}).values() if (v or {}).get('post_id')}
+          keep_ids |= {str(e.get('post_id')) for lst in (mm.get('more') or {}).values() for e in (lst or [])}
+          keep_ids |= {str(x) for x in (mm.get('admit') or [])}
+      except Exception:
+          keep_ids = set()
+      pinned = [pp for pp in merged_items if str(pp.get('id')) in keep_ids]
+      rest = [pp for pp in merged_items if str(pp.get('id')) not in keep_ids]
+      merged_items = (pinned + rest)[:150]
       out = {'generated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
              'source': 'x_recent_search', 'window': bool(window), 'items': merged_items}
       json.dump(out, open(OUT, 'w'), indent=1)
