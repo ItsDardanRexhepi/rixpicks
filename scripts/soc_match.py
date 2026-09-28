@@ -187,6 +187,17 @@ def main():
         # "View more posts" ranked list (loop-light: score-ranked, floor-gated, audit trail via scores)
         log['more'][nk] = [{'post_id': posts[j].get('id'), 'score': round(sc, 4)}
                            for sc, j in scored if sc >= MORE_FLOOR][:MORE_CAP]
+    # owner 1:39: topic-relatedness to news stories is the social feed's CORE admission test.
+    # admit = every post related to at least one current story (verified pair or >= more floor).
+    admit = set()
+    for v in log['pairs'].values():
+        if (v or {}).get('post_id'):
+            admit.add(str(v['post_id']))
+    for lst in log['more'].values():
+        for e in (lst or []):
+            if e.get('post_id'):
+                admit.add(str(e['post_id']))
+    log['admit'] = sorted(admit)
     log['audit'] = {'thresholds': {'auto_accept': AUTO_ACCEPT, 'probe_floor': PROBE_FLOOR, 'more_floor': MORE_FLOOR},
                     'probes_used': probes, **stats,
                     'coverage_pct': round(100.0 * stats['paired'] / max(1, len(items)), 1)}
