@@ -1,0 +1,129 @@
+{
+ "version": 1,
+ "generated": "2026-09-27T17:09:48",
+ "note": "Engine-driven producer pull spec (builder decision 5:08 #2). Producer consumes when present, else self-derives. cardable=has Kalshi binding series; ingest_only=book-only pull, no candidates.",
+ "leagues": {
+  "NFL": {
+   "sport": "americanfootball_nfl",
+   "markets": [
+    "player_pass_yds",
+    "player_pass_tds",
+    "player_pass_completions",
+    "player_pass_attempts",
+    "player_pass_interceptions",
+    "player_rush_yds",
+    "player_rush_attempts",
+    "player_rush_tds",
+    "player_reception_yds",
+    "player_receptions",
+    "player_reception_tds",
+    "player_anytime_td",
+    "player_1st_td",
+    "player_sacks",
+    "player_solo_tackles",
+    "player_tackles_assists",
+    "player_kicking_points",
+    "player_field_goals"
+   ],
+   "cardable": true
+  },
+  "MLB": {
+   "sport": "baseball_mlb",
+   "markets": [
+    "batter_home_runs",
+    "batter_hits",
+    "batter_total_bases",
+    "batter_rbis",
+    "batter_runs_scored",
+    "batter_stolen_bases",
+    "batter_walks",
+    "batter_strikeouts",
+    "pitcher_strikeouts",
+    "pitcher_hits_allowed",
+    "pitcher_walks",
+    "pitcher_outs",
+    "pitcher_earned_runs",
+    "pitcher_record_a_win"
+   ],
+   "cardable": true
+  },
+  "NBA": {
+   "sport": "basketball_nba",
+   "markets": [
+    "player_points",
+    "player_rebounds",
+    "player_assists",
+    "player_threes",
+    "player_blocks",
+    "player_steals",
+    "player_points_rebounds_assists",
+    "player_points_rebounds",
+    "player_points_assists",
+    "player_rebounds_assists",
+    "player_double_double",
+    "player_triple_double",
+    "player_first_basket"
+   ],
+   "cardable": true
+  },
+  "WNBA": {
+   "sport": "basketball_wnba",
+   "markets": [
+    "player_points",
+    "player_rebounds",
+    "player_assists",
+    "player_threes",
+    "player_blocks",
+    "player_steals",
+    "player_points_rebounds_assists",
+    "player_double_double"
+   ],
+   "cardable": true
+  },
+  "NHL": {
+   "sport": "icehockey_nhl",
+   "markets": [
+    "player_goals",
+    "player_assists",
+    "player_points",
+    "player_shots_on_goal",
+    "player_total_saves",
+    "player_power_play_points",
+    "player_blocked_shots"
+   ],
+   "cardable": true
+  },
+  "MLS": {
+   "sport": "soccer_usa_mls",
+   "markets": [
+    "player_goal_scorer_anytime",
+    "player_goal_scorer_first",
+    "player_goal_scorer_last",
+    "player_shots_on_target"
+   ],
+   "cardable": true
+  },
+  "CFB": {
+   "sport": "americanfootball_ncaaf",
+   "markets": [
+    "player_pass_yds",
+    "player_pass_tds",
+    "player_rush_yds",
+    "player_reception_yds",
+    "player_receptions",
+    "player_anytime_td"
+   ],
+   "cardable": false
+  },
+  "NCAAB": {
+   "sport": "basketball_ncaab",
+   "markets": [
+    "player_points",
+    "player_rebounds",
+    "player_assists",
+    "player_threes"
+   ],
+   "cardable": false
+  }
+ }
+}
