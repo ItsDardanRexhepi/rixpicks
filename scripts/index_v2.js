@@ -210,9 +210,18 @@ function newsBucket(t){
 var CAR_SIG='',CAR_IDX=0,CAR_N=0,CAR_TIMER=null,CAR_PAUSED=false,CAR_LAST=[],CAR_ALL=[];
 var CAR_RM=false;try{CAR_RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
 function carApply(){
- var tr=$('rpCarTrack');if(tr&&CAR_N)tr.style.transform='translateY(-'+(CAR_IDX*(100/CAR_N))+'%)';
+ var tr=$('rpCarTrack');if(!tr||!CAR_N)return;
+ var s=tr.children[CAR_IDX];if(!s)return;
+ /* owner 12:21 bug: fixed slide heights clipped content at mobile widths (prev slide bled in,
+    current headline cut). Natural slide heights + pixel-offset translate: the viewport hugs the
+    active slide's real height, so nothing clips and nothing bleeds, any width, any content. */
+ var vp=tr.parentElement;
+ vp.style.height=s.offsetHeight+'px';
+ tr.style.transform='translateY(-'+s.offsetTop+'px)';
  var c=$('rpCarCount');if(c)c.textContent=(CAR_N?(CAR_IDX+1):0)+' of '+CAR_N;
 }
+var CAR_RZ=null;
+window.addEventListener('resize',function(){if(CAR_RZ)clearTimeout(CAR_RZ);CAR_RZ=setTimeout(carApply,180);});
 function carStep(){
  if(document.hidden||CAR_N<2||CAR_PAUSED||CAR_RM)return;
  var box=$('rpNewsCar');
