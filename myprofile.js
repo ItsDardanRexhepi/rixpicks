@@ -1,6 +1,6 @@
 /* RixPicks local profile: My Books + My Bets (on-device, no accounts) */
 (function(){
-var RP_BOOKS=[{k:'DK',n:'DraftKings'},{k:'FD',n:'FanDuel'},{k:'ESPN',n:'ESPN BET'},{k:'MGM',n:'BetMGM'},{k:'HR',n:'Hard Rock'},{k:'BR',n:'BetRivers'},{k:'KAL',n:'Kalshi'},{k:'POLY',n:'Polymarket'},{k:'B365',n:'bet365'},{k:'FAN',n:'Fanatics'}];
+var RP_BOOKS=[{k:'DK',n:'DraftKings'},{k:'FD',n:'FanDuel'},{k:'ESPN',n:'theScore Bet'} /* U-GEO-003: ESPN BET sportsbook dead (became theScore Bet Dec 1 2025); key kept so saved platform picks survive the rename */,{k:'MGM',n:'BetMGM'},{k:'HR',n:'Hard Rock'},{k:'BR',n:'BetRivers'},{k:'KAL',n:'Kalshi'},{k:'POLY',n:'Polymarket'},{k:'B365',n:'bet365'},{k:'FAN',n:'Fanatics'}];
 var RP_LGS=['baseball/mlb','football/nfl','football/college-football','basketball/nba','basketball/wnba','hockey/nhl','soccer/usa.1','tennis/wta'];
 function ls(k,d){try{var v=localStorage.getItem(k);return v===null?d:JSON.parse(v);}catch(e){return d;}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
