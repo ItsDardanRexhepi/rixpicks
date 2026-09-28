@@ -228,40 +228,12 @@ window.addEventListener('resize',function(){if(CAR_RZ)clearTimeout(CAR_RZ);CAR_R
    hover/focus on either freezes both. Manual Prev/Next stays per-carousel. */
 var SYNC_STOP=['with','from','that','this','after','before','into','your','their','will','would','could','should','about','over','just','have','been','what','when','where','they','them','then','than','against','season','trade','week','year','game','games','team','teams','picks','pick','news','says','report','first','last','next','back','down','more','most','some','make','makes','made','take','takes','gets','going','goes','here','there','still','even','much','many','only','also','very','head','heads','look','looks','best','worst','every','each','both','while','which','whose','rank','ranks','ranked','ranking','start','starts','started'];
 var SYNC_LAST=false;
-function topicTokens(){
- var ntr=$('rpCarTrack');if(!ntr)return null;
- var slide=ntr.children[CAR_IDX];if(!slide)return null;
- var head=((slide.querySelector('.carhead')||{}).textContent||'').toLowerCase();
- var toks=head.replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(function(w){return w.length>=4&&SYNC_STOP.indexOf(w)<0;});
- return toks.length?toks:null;
-}
-function topicScores(txt,toks){
- var t=(txt||'').toLowerCase(),sc=0,strong=0;
- for(var j=0;j<toks.length;j++){if(t.indexOf(toks[j])>=0){sc++;if(toks[j].length>=5&&['football','basketball','baseball','soccer','hockey','college','sports','players','player'].indexOf(toks[j])<0)strong++;}}
- return {sc:sc,strong:strong};
-}
 function socSync(){
  SYNC_LAST=false;
- if(SOC_N<2)return false;
- var ntr=$('rpCarTrack'),str=$('rpSocTrack');
- if(!ntr||!str)return false;
- var slide=ntr.children[CAR_IDX];if(!slide)return false;
  var mp=socMatchPair();
  if(mp>=0){SOC_IDX=mp;socApply();SYNC_LAST=true;return true;}
- if(mp===-2)return false; /* URF abstain: no verified pair - stay chronological, never force */
- var toks=topicTokens();
- if(!toks.length)return false;
- var SPORT_GEN=['football','basketball','baseball','soccer','hockey','college','sports','players','player'];
- var best=-1,bestScore=0,bestStrong=0;
- for(var i=0;i<str.children.length;i++){
-  var txt=str.children[i].textContent.toLowerCase();
-  var sc=0,strong=0;
-  for(var j=0;j<toks.length;j++){if(txt.indexOf(toks[j])>=0){sc++;if(SPORT_GEN.indexOf(toks[j])<0&&toks[j].length>=5)strong++;}}
-  if(sc>bestScore||(sc===bestScore&&strong>bestStrong)){bestScore=sc;bestStrong=strong;best=i;}
- }
- /* match quality gate: one specific entity (player/team name, 5+ chars) or two any-overlaps;
-    a bare sport word ('football') alone never syncs */
- if(best>=0&&(bestStrong>=1||bestScore>=2)){SOC_IDX=best;socApply();SYNC_LAST=true;return true;}
+ /* abstain or no map entry: NEVER guess a pairing (owner 1:00 hard rule - a wrong match is a failure,
+    an abstain is not). Social simply advances chronologically. */
  return false;
 }
  /* owner 12:30 contextual sync: social slide follows the news slide's entities (team/player/story
@@ -353,42 +325,46 @@ function socMore(){
  var pop=$('rpSocMorePop');if(!pop)return;
  if(!pop.hidden){pop.hidden=true;return;}
  var mm=socMatchMore();
- if(mm){
-  var h2='';
-  if(!mm.length){h2='<div class="empty">No posts about this topic right now.</div>';}
+ var h2='';
+ if(mm&&mm.length){
   mm.forEach(function(e){
-   var i=SOC_XIDX[e.post_id];if(i===undefined)return;
-   var p=XNEWS[i],txt=String(p.headline||'');
+   var xi=SOC_XIDX[e.post_id];if(xi===undefined)return;
+   var p=XNEWS[xi],txt=String(p.headline||'');
    if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
    var inner='<span class="napill src x">X</span>'
     +'<span class="nabody"><span class="nahead stxt">'+esc(unesc(txt))+'</span><span class="nameta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+'</span></span>';
    h2+='<div class="narow">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
   });
-  pop.innerHTML=h2;pop.hidden=false;return;
  }
- var toks=topicTokens();
- var rel=[];
- if(toks){
-  XNEWS.forEach(function(p){
-   var q=topicScores(p.headline,toks);
-   if(q.sc>=1)rel.push({p:p,q:q});
-  });
-  rel.sort(function(a,b){return (b.q.strong-a.q.strong)||(b.q.sc-a.q.sc)||(Date.parse(b.p.published||0)-Date.parse(a.p.published||0));});
- }
- var h='';
- if(!rel.length){h='<div class="empty">No posts about this topic right now.</div>';}
- rel.slice(0,20).forEach(function(r){
-  var p=r.p,txt=String(p.headline||'');
-  if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
-  var inner='<span class="napill src x">X</span>'
-   +'<span class="nabody"><span class="nahead stxt">'+esc(unesc(txt))+'</span><span class="nameta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+'</span></span>';
-  h+='<div class="narow">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
- });
- pop.innerHTML=h;
- pop.hidden=false;
+ if(!h2)h2='<div class="empty">No posts about this topic right now.</div>';
+ pop.innerHTML=h2;pop.hidden=false;
 }
 /* social carousel (owner 12:25): one post at a time, same mechanics as the news carousel,
    natural slide heights (12:21 clip fix), shared tick + shared pause via carStep/carPP. */
+/* ULTRIX semantic match map (owner 12:37): built+cached by scripts/soc_match.py at feed-refresh time.
+   Never per-pageview. Stale (>2h) or missing map => NO sync jump (abstain beats a wrong match, 1:00 rule). */
+var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={};
+fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
+ if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;}
+}).catch(function(){SOC_MATCH_OK=false;});
+function socMatchPair(){ /* XNEWS index of the current news slide's verified pair; -2 abstained; -1 no map entry */
+ if(!SOC_MATCH_OK)return -1;
+ var ntr=$('rpCarTrack');if(!ntr)return -1;
+ var slide=ntr.children[CAR_IDX];if(!slide)return -1;
+ var k=slide.getAttribute('data-nkey')||'';
+ if(!k||!(k in SOC_MATCH.pairs))return -1;
+ var pr=SOC_MATCH.pairs[k];
+ if(!pr||!pr.post_id)return -2;
+ return (pr.post_id in SOC_XIDX)?SOC_XIDX[pr.post_id]:-2;
+}
+function socMatchMore(){ /* ranked related posts for the current news key; null when the map has no entry */
+ if(!SOC_MATCH_OK)return null;
+ var ntr=$('rpCarTrack');if(!ntr)return null;
+ var slide=ntr.children[CAR_IDX];if(!slide)return null;
+ var k=slide.getAttribute('data-nkey')||'';
+ if(!k||!(k in SOC_MATCH.more))return null;
+ return SOC_MATCH.more[k];
+}
 function renderSocial(){
  var box=$('rpSocial');if(!box)return;
  if(!XNEWS.length){box.innerHTML='<div class="empty">No posts right now.</div>';SOC_SIG='';SOC_N=0;return;}
@@ -496,6 +472,7 @@ function rtPoll(){
  }).catch(function(){});
 }
 setInterval(rtPoll,45000);
+window.__rpRT={poll:rtPoll,state:function(){return {gen:NEWSF&&NEWSF.generated_at,carIdx:CAR_IDX,carN:CAR_N,socN:SOC_N,curKey:typeof cur!=='undefined'&&cur&&cur.key};}};
 function refreshX(){
  if(Date.now()-XNEWS_TS<60000)return;
  XNEWS_TS=Date.now();
