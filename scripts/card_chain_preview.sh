@@ -192,6 +192,25 @@ for lg in ['NFL','ATP','WTA','ITF','PGA']:
         if hl: lines.append(hl)
         lines.append('No card market coverage - evaluated rows were capability gaps, not picks')
         sections.append({'espn_league': LG[lg], 'lines': lines})
+# compact photo lines (one-screen card): mechanically compressed from the same stage outputs
+for s in sections:
+    lg=s.get('espn_league'); L=s['lines']
+    if lg=='football/nfl':
+        conv=''
+        cuts=[e for e in hunt if e.get('league')=='NFL' and e.get('verdict')=='cut']
+        if cuts:
+            bs=(cuts[0].get('best_side') or {}).get('model')
+            if bs is not None: conv=f'{bs*100:.1f}%'
+        s['compact']=[L[0],
+          f"hunt cut ({conv} vs 60c floor) \u00b7 st {n_ev} events 0 cand \u00b7 props {props.get('n_priced_rows',0)} priced/{props.get('n_kalshi_bound',0)} KAL-bound 0 cand"]
+    elif lg in ('tennis/atp','tennis/wta'):
+        s['compact']=[L[0]+' \u00b7 '+L[2]]
+    elif lg=='tennis':
+        s['compact']=[L[0]+' - all below the 60c card band','No ESPN scoreboard - ungradeable today, loud skip']
+    elif lg=='golf/pga':
+        s['compact']=[L[0]+' \u00b7 no card market coverage (capability gaps, not picks)']
+    else:
+        s['compact']=L[:2]
 json.dump({'date': DT, 'sections': sections}, open(f'/tmp/eval_summary_{DT}.json','w'), indent=1)
 print('eval sections:', [(s.get('label') or s['espn_league'], len(s['lines'])) for s in sections])
 PY
@@ -222,4 +241,6 @@ PY
 python3 scripts/build_manifest.py /tmp/candidates_$DT.json /tmp/manifest_preview_$DT.json --preview --meta /tmp/card_meta.json || echo "STAGE FAIL build_manifest"
 echo "-- stage: card render (legacy builder, candidate artifact only - NOT published)"
 RP_EVAL_SUMMARY=/tmp/eval_summary_$DT.json python3 scripts/build_gh_page.py /tmp/manifest_preview_$DT.json /tmp/card_preview_$DT.html || echo "STAGE FAIL build_gh_page"
+echo "-- stage: card photo (one-screen by construction)"
+python3 scripts/card_photo.py /tmp/manifest_preview_$DT.json /tmp/eval_summary_$DT.json /tmp/card_photo_$DT.html || echo "STAGE FAIL card_photo"
 echo "== chain end $(date -u +%FT%TZ)"
