@@ -31,6 +31,12 @@ $ODDS_PREFILL_PROPS_OUT for tests). Atomic write via temp + replace.
 
 $ODDS_PREFILL_PROPS_FIXTURE (tests only): canned API response JSON (single
 event object); no key read, no budget call, no network.
+
+$ODDS_PROPS_JOBS (default: slates/props_jobs.json next to the repo root):
+engine-emitted per-league jobs file {"leagues": {"NFL": {"sport": ...,
+"markets": [...]}}}. When present it drives the market set per sport;
+when absent the built-in MARKETS_BY_SPORT below is used (self-derive).
+Event ids always come from argv (caller derives them from the st pull).
 """
 import json, os, re, sys, urllib.request
 
@@ -49,6 +55,23 @@ MARKETS_BY_SPORT = {
 }
 ALL_MARKETS = sorted({m for ms in MARKETS_BY_SPORT.values() for m in ms})
 
+JOBS = os.environ.get(
+    'ODDS_PROPS_JOBS',
+    os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'slates', 'props_jobs.json'))
+_JOBS_CACHE = 'unset'
+def jobs_markets():
+    """Engine-emitted jobs file -> {sport_key: markets}; None when absent/unreadable."""
+    global _JOBS_CACHE
+    if _JOBS_CACHE == 'unset':
+        try:
+            j = json.load(open(JOBS))
+            m = {v['sport']: list(v['markets']) for v in j.get('leagues', {}).values()
+                 if v.get('sport') and v.get('markets')}
+            _JOBS_CACHE = m or None
+        except Exception:
+            _JOBS_CACHE = None
+    return _JOBS_CACHE
+
 _K = None
 def api_key():
     global _K
@@ -61,6 +84,9 @@ def api_key():
 from core.names import norm as norm_player  # single canonical normalizer (core/names.py)
 
 def markets_for(sport):
+    jm = jobs_markets()
+    if jm is not None:
+        return jm.get(sport, [])
     return MARKETS_BY_SPORT.get(sport, ALL_MARKETS)
 
 def fetch_event(sport, event_id):
@@ -70,6 +96,8 @@ def fetch_event(sport, event_id):
         raise SystemExit(props_block_reason())
     from core import budget
     markets = markets_for(sport)
+    if not markets:
+        raise SystemExit(f'props jobs file present but lists no markets for {sport} - refusing pull (fail-closed)')
     # worst case = len(markets) credits (1 region); returned-empty markets are not charged
     budget.check_and_log(sport, ','.join(markets), len(markets))
     url = (f"https://api.the-odds-api.com/v4/sports/{sport}/events/{event_id}/odds"
