@@ -96,9 +96,9 @@ jobs:
           for f in ../canon/audio/*.m4a; do
             n=$(basename "$f")
             sha=$(sha256sum "$f" | cut -d' ' -f1)
-            $W r2 object put "ultrix-archive/canon/audio/$n" --file "$f"
+            $W r2 object put "ultrix-archive/canon/audio/$n" --file "$f" --remote
             rm -f /tmp/dl.bin
-            $W r2 object get "ultrix-archive/canon/audio/$n" --file /tmp/dl.bin >/dev/null
+            $W r2 object get "ultrix-archive/canon/audio/$n" --file /tmp/dl.bin --remote >/dev/null
             sha2=$(sha256sum /tmp/dl.bin | cut -d' ' -f1)
             [ "$sha" = "$sha2" ] || { echo "R2 HASH MISMATCH $n"; exit 1; }
             echo "$n|$sha|$(date -u +%F)" | tee -a canon_manifest.txt
@@ -108,7 +108,29 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         working-directory: pkg/cloudflare
-        run: ./node_modules/.bin/wrangler kv key put canon:manifest --namespace-id "$KBID" --path canon_manifest.txt
+        run: ./node_modules/.bin/wrangler kv key put canon:manifest --namespace-id "$KBID" --path canon_manifest.txt --remote
+      - name: readback + consume-path diagnostics
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        working-directory: pkg/cloudflare
+        run: |
+          set -e
+          W=./node_modules/.bin/wrangler
+          API="https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID"
+          echo "== canon:manifest remote readback"
+          $W kv key get canon:manifest --namespace-id "$KBID" --remote
+          echo
+          echo "== R2 ultrix-archive objects (remote)"
+          curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API/r2/buckets/ultrix-archive/objects?per_page=20" | python3 -c 'import json,sys; d=json.load(sys.stdin); r=d.get("result"); objs = r.get("objects") if isinstance(r,dict) else r; print("\n".join(o.get("key","?") for o in (objs or [])) or "EMPTY")'
+          echo "== queue consumers on rixpicks-wake-fanout"
+          QID=a4c7b97cff9c4162bb5c711dfafb5f9f
+          curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API/queues/$QID" | python3 -c 'import json,sys; d=json.load(sys.stdin).get("result",{}); print("consumers:", json.dumps(d.get("consumers",[])))'
+          echo "== script secrets metadata (names only)"
+          for SC in ultrix-core ultrix-intake; do
+            echo "-- $SC"
+            curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API/workers/scripts/$SC/secrets" | python3 -c 'import json,sys; d=json.load(sys.stdin); print([x.get("name") for x in (d.get("result") or [])], "errors:", d.get("errors"))'
+          done
       - name: smoke - unauthenticated must fail closed
         env:
           CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
