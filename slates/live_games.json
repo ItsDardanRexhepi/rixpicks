@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T05:38:06.081296+00:00",
+ "generated_at": "2026-09-28T05:53:34.602734+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -18,7 +18,7 @@
      "matchup": "Irene Burillo @ Valeria Savinykh",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Irene Burillo 0 - Valeria Savinykh 0"
     },
     {
@@ -26,8 +26,16 @@
      "matchup": "Li Zongyu @ Elsa Jacquemot",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Li Zongyu 0 - Elsa Jacquemot 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Rinko Matsuda @ Katarzyna Kawa",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Rinko Matsuda 0 - Katarzyna Kawa 0"
     }
    ]
   },
@@ -63,7 +71,7 @@
      "matchup": "Irene Burillo @ Valeria Savinykh",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Irene Burillo 0 - Valeria Savinykh 0"
     },
     {
@@ -71,8 +79,16 @@
      "matchup": "Li Zongyu @ Elsa Jacquemot",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Li Zongyu 0 - Elsa Jacquemot 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Rinko Matsuda @ Katarzyna Kawa",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Rinko Matsuda 0 - Katarzyna Kawa 0"
     }
    ]
   }
