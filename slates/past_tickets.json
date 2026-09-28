@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-28T04:39:00-07:00",
+ "generated_at": "2026-09-28T04:44:00-07:00",
  "entries": [
   {
    "id": "t5",
@@ -867,6 +867,153 @@
    "reason": "Pick lost - game final",
    "provenance": "ESPN summary event 401872962 (Final: DEN 30, LAR 26); Kalshi KXNFLTD-26SEP27LARDEN player tickers finalized 'no', Sep 27.",
    "removed_label": "Sep 28, 4:37 AM PT"
+  },
+  {
+   "id": "t8",
+   "kind": "ticket",
+   "origin": "suggested",
+   "title": "8-leg DK idea",
+   "result": "lost",
+   "detail": "Idea only - DK Predictions",
+   "legs": [
+    {
+     "player": "Kyren Williams",
+     "market": "Anytime TD",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Kyren Williams",
+     "market": "50+ Rushing Yards",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Blake Corum",
+     "market": "30+ Rushing Yards",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Kyren Williams",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Courtland Sutton",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "RJ Harvey",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Terrance Ferguson",
+     "market": "2+ Receptions",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Matthew Stafford",
+     "market": "150+ Passing Yards",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "won"
+    }
+   ],
+   "archived_at": "2026-09-28T04:44",
+   "reason": "Ticket lost - Williams anytime TD (0 TDs), Corum (15 rush yds) and Ferguson (1 rec) legs lost, game final. Stafford leg won (390 pass yds).",
+   "provenance": "ESPN official box score, event 401872962 (Final: DEN 30, LAR 26); Kalshi KXNFLPASSYDS-26SEP27LARDEN-LARMSTAFFORD9-150 finalized 'yes', Sep 27.",
+   "removed_label": "Sep 28, 4:44 AM PT"
+  },
+  {
+   "id": "t9",
+   "kind": "ticket",
+   "origin": "suggested",
+   "title": "Same Game Parlay idea",
+   "result": "lost",
+   "detail": "Idea only - Kyren Williams + Davante Adams + J.K. Dobbins + Evan Engram anytime TD",
+   "legs": [
+    {
+     "player": "Kyren Williams",
+     "market": "Anytime TD",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Davante Adams",
+     "market": "Anytime TD",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "J.K. Dobbins",
+     "market": "Anytime TD",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Evan Engram",
+     "market": "Anytime TD",
+     "matchup": "LAR @ DEN",
+     "time": "Today 5:20 PM PT",
+     "status": "lost"
+    }
+   ],
+   "archived_at": "2026-09-28T04:44",
+   "reason": "Ticket lost - all four anytime TD legs lost (none scored), game final",
+   "provenance": "ESPN summary event 401872962 (Final: DEN 30, LAR 26); Kalshi KXNFLTD-26SEP27LARDEN finals 'no', Sep 27.",
+   "removed_label": "Sep 28, 4:44 AM PT"
+  },
+  {
+   "id": "t10",
+   "kind": "ticket",
+   "origin": "suggested",
+   "title": "WNBA 3-leg idea",
+   "result": "won",
+   "detail": "Idea only · no combined quote posted",
+   "legs": [
+    {
+     "player": "DeWanna Bonner",
+     "market": "4+ Rebounds",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Shakira Austin",
+     "market": "2+ Assists",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Allisha Gray",
+     "market": "15+ Points",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "status": "won"
+    }
+   ],
+   "archived_at": "2026-09-28T04:44",
+   "reason": "Idea won - all three legs won (Bonner 4 reb, Austin 2 ast, Gray 22 pts), game final",
+   "provenance": "ESPN official box score, event 401918013 (Final: ATL 92, WAS 77); Kalshi KXWNBA-26SEP27WSHATL finals corroborate Austin/Gray legs (Bonner leg ESPN single-source, no Kalshi market), Sep 27.",
+   "removed_label": "Sep 28, 4:44 AM PT"
   }
  ]
 }
