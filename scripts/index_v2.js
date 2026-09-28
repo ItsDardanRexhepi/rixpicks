@@ -221,15 +221,19 @@ function carApply(){
  var c=$('rpCarCount');if(c)c.textContent=(CAR_N?(CAR_IDX+1):0)+' of '+CAR_N;
 }
 var CAR_RZ=null;
-window.addEventListener('resize',function(){if(CAR_RZ)clearTimeout(CAR_RZ);CAR_RZ=setTimeout(carApply,180);});
+window.addEventListener('resize',function(){if(CAR_RZ)clearTimeout(CAR_RZ);CAR_RZ=setTimeout(function(){carApply();socApply();},180);});
+/* owner 12:25 add-on: news + social rotate IN SYNC on one shared clock; pausing one pauses both;
+   hover/focus on either freezes both. Manual Prev/Next stays per-carousel. */
 function carStep(){
- if(document.hidden||CAR_N<2||CAR_PAUSED||CAR_RM)return;
- var box=$('rpNewsCar');
- if(box&&(box.matches(':hover')||box.matches(':focus-within')))return;
- CAR_IDX=(CAR_IDX+1)%CAR_N;carApply();
+ if(document.hidden||CAR_PAUSED||CAR_RM)return;
+ if(CAR_N<2&&SOC_N<2)return;
+ var nb=$('rpNewsCar'),sb=$('rpSocial');
+ if((nb&&(nb.matches(':hover')||nb.matches(':focus-within')))||(sb&&(sb.matches(':hover')||sb.matches(':focus-within'))))return;
+ if(CAR_N>1){CAR_IDX=(CAR_IDX+1)%CAR_N;carApply();}
+ if(SOC_N>1){SOC_IDX=(SOC_IDX+1)%SOC_N;socApply();}
 }
 function carGo(d){if(CAR_N<2)return;CAR_IDX=(CAR_IDX+d+CAR_N)%CAR_N;carApply();}
-function carPP(){CAR_PAUSED=!CAR_PAUSED;var b=$('rpCarPP');if(b)b.textContent=CAR_PAUSED?'Play':'Pause';}
+function carPP(){CAR_PAUSED=!CAR_PAUSED;var ids=['rpCarPP','rpSocPP'];for(var i=0;i<ids.length;i++){var b=$(ids[i]);if(b)b.textContent=CAR_PAUSED?'Play':'Pause';}}
 function carAll(){
  var pop=$('rpCarAllPop');if(!pop)return;
  if(pop.hidden){
@@ -281,22 +285,48 @@ function renderNews(t,arts){
  $('rpCarPP').addEventListener('click',function(e){e.preventDefault();carPP();});
  $('rpCarAllBtn').addEventListener('click',function(e){e.preventDefault();carAll();});
  carApply();
- if(CAR_N>1&&!CAR_TIMER)CAR_TIMER=setInterval(carStep,5500);
+ if((CAR_N>1||SOC_N>1)&&!CAR_TIMER)CAR_TIMER=setInterval(carStep,5500);
 }
 /* X social section (owner 10:32: X posts out of news, own Home section; built 11:53 scope):
    renders the x_feed items XNEWS already normalizes; Home-only visibility via body.tab-home CSS. */
+var SOC_SIG='',SOC_IDX=0,SOC_N=0;
+function socApply(){
+ var tr=$('rpSocTrack');if(!tr||!SOC_N)return;
+ var sl=tr.children[SOC_IDX];if(!sl)return;
+ var vp=tr.parentElement;
+ vp.style.height=sl.offsetHeight+'px';
+ tr.style.transform='translateY(-'+sl.offsetTop+'px)';
+ var c=$('rpSocCount');if(c)c.textContent=(SOC_N?(SOC_IDX+1):0)+' of '+SOC_N;
+}
+function socGo(d){if(SOC_N<2)return;SOC_IDX=(SOC_IDX+d+SOC_N)%SOC_N;socApply();}
+/* social carousel (owner 12:25): one post at a time, same mechanics as the news carousel,
+   natural slide heights (12:21 clip fix), shared tick + shared pause via carStep/carPP. */
 function renderSocial(){
- var box=$('rpSocial'),head=$('rpSocialHead');
- if(!box)return;
- if(!XNEWS.length){box.innerHTML='<div class="empty">No posts right now.</div>';return;}
- var h='';
- XNEWS.slice(0,6).forEach(function(p){
+ var box=$('rpSocial');if(!box)return;
+ if(!XNEWS.length){box.innerHTML='<div class="empty">No posts right now.</div>';SOC_SIG='';SOC_N=0;return;}
+ var items=XNEWS.slice(0,6);
+ var sig=items.map(function(p){return String(p.headline||'').slice(0,40);}).join('|');
+ if(sig===SOC_SIG){socApply();return;}
+ SOC_SIG=sig;SOC_N=items.length;
+ if(SOC_IDX>=SOC_N)SOC_IDX=0;
+ var h='<div class="carvp socvp"><div class="cartrack" id="rpSocTrack">';
+ items.forEach(function(p){
   var txt=String(p.headline||'');
   if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
-  var inner='<span class="stxt">'+esc(unesc(txt))+'</span><span class="smeta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+'</span>';
-  h+='<div class="sitem">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
+  var inner='<span class="carbody"><span class="stxt">'+esc(unesc(txt))+'</span>'
+   +'<span class="carmeta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+'</span></span>';
+  h+='<div class="carslide socslide">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
  });
+ h+='</div></div><div class="carctl"><button type="button" id="rpSocPrev" aria-label="previous post">\u2039 Prev</button>'
+  +'<span id="rpSocCount" class="carcount"></span>'
+  +'<button type="button" id="rpSocNext" aria-label="next post">Next \u203a</button>'
+  +'<button type="button" id="rpSocPP" aria-label="pause rotation">'+(CAR_PAUSED?'Play':'Pause')+'</button></div>';
  box.innerHTML=h;
+ $('rpSocPrev').addEventListener('click',function(e){e.preventDefault();socGo(-1);});
+ $('rpSocNext').addEventListener('click',function(e){e.preventDefault();socGo(1);});
+ $('rpSocPP').addEventListener('click',function(e){e.preventDefault();carPP();});
+ socApply();
+ if((CAR_N>1||SOC_N>1)&&!CAR_TIMER)CAR_TIMER=setInterval(carStep,5500);
 }
 /* client replica of news_feed.py relevant() - the 25s instant lane merges straight into the
    visible bucket, so it must pass the same promotion/league filter the server applies
