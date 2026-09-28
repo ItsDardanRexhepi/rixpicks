@@ -73,3 +73,23 @@
 {"ts": "2026-09-28T21:31:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Josh Hokit scoffs\" lang:en -is:retweet -is:reply", "results": 1}
 {"ts": "2026-09-28T21:31:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Packers place Zach\" lang:en -is:retweet -is:reply", "results": 1}
 {"ts": "2026-09-28T21:31:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Yankees ace Cam\" lang:en -is:retweet -is:reply", "results": 5}
+{"ts": "2026-09-28T21:51:44+00:00", "endpoint": "/tweets/search/recent", "query": "\"Chicago Bears\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:44+00:00", "endpoint": "/tweets/search/recent", "query": "\"Philadelphia Eagles\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Field survived Ravens\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Field\" OR \"Ravens-Cowboys\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T21:51:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Golf Saudi Shifts\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:44+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Golf Saudi Shifts Focus\" OR \"LPGA LET Championship\") lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:45+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Golf Shifts\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:45+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Golf Saudi Shifts Focus\" OR \"LPGA LET Championship\") lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:45+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Golf Shifts\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:45+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"LPGA LET Championship\" OR \"Golf Saudi Shifts Focus\") lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:45+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Colorado penalty problem\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:45+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Colorado\" OR \"Opinion\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T21:51:46+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Jimmy Butler injury\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:46+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Jimmy Butler\" OR \"Warriors\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T21:51:46+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Winners losers Ravens\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-28T21:51:46+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Winners\" OR \"Ravens\" OR \"Week\") lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-28T21:51:46+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"College basketball rankings\" lang:en -is:retweet -is:reply", "results": 8}
+{"ts": "2026-09-28T21:51:46+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Josh Hokit scoffs\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-28T21:51:47+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Packers place Zach\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-28T21:51:47+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Yankees ace Cam\" lang:en -is:retweet -is:reply", "results": 5}
