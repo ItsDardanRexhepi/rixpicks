@@ -145,7 +145,19 @@ def key_news(it):
     return (it.get('link') or '') or it.get('headline', '')
 
 def main():
-    news = json.load(open('slates/news.json'))
+    # sync-at-all-times (user 4:27 class kill): match against the LIVE served news window,
+    # not the minutes-old checkout snapshot - a stale snapshot pairs stories that have already
+    # rotated out of the visible feed (0 verified slides observed 4:46 with a 52s-old map).
+    news = None
+    try:
+        req = urllib.request.Request('https://rix-picks.com/slates/news.json?cb=' + str(int(datetime.datetime.now().timestamp())),
+            headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36'})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            news = json.loads(r.read().decode())
+    except Exception as e:
+        print('live news fetch failed (%s) - falling back to checkout snapshot' % str(e)[:80])
+    if not isinstance(news, dict) or not news.get('latest'):
+        news = json.load(open('slates/news.json'))
     x = json.load(open('slates/x_feed.json'))
     items = news.get('latest', [])
     posts = x.get('items', []) if isinstance(x, dict) else x
