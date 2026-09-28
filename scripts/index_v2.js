@@ -596,6 +596,10 @@ function tickRender(){
 }
 function loadSide(t){
  var lg=lgpath(t),now=Date.now();
+ /* polish (main 1:43): never show another tab's stale rows while the target tab's sidebar
+    loads - cached tabs render instantly via the SB path, uncached get an honest Loading. */
+ var _gb0=$('rpGames');
+ if(_gb0&&t.key!=='home'&&!SB[t.key])_gb0.innerHTML='<div class="empty">Loading upcoming games&hellip;</div>';
  if(t.key==='home'){refreshX();renderSocial();}
  if(!lg){
   if(t.key==='wooder'){
