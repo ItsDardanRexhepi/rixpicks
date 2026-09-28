@@ -1,10 +1,10 @@
 name: x-feed
 # X API recent-search feed for the SENSE stage (main 9/27 9:25 PM handoff from analysis).
-# STANDING CRON DISABLED (main 9/27 9:29): recurring 15-min cadence waits for his informed
-# approval of the real burn math - pricing pulled from the X dashboard post-verification,
-# daily/monthly burn vs $9.04 computed and reported to main first. Dispatch-only until then:
-# verify-only and one-off test calls are approved.
+# Cron live since 9:25 his sign-off (see schedule note).
 on:
+  schedule:
+    # UNPARKED 15-min: his verbatim sign-off '15-min' (main 9:25), burn math presented (~$3.17/day vs $9.04 free, billing after). Balance-watch: ledger exits 1 under $2.00.
+    - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       verify_only:
