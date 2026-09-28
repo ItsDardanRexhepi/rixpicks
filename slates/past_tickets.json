@@ -1,426 +1,624 @@
 {
-  "generated_at": "2026-09-27T15:14:00-07:00",
-  "entries": [
+ "generated_at": "2026-09-27T15:14:00-07:00",
+ "entries": [
+  {
+   "id": "combo1",
+   "kind": "combo",
+   "origin": "suggested",
+   "title": "Kalshi combo - KC @ MIA",
+   "result": "won",
+   "detail": "10:00 AM PT",
+   "legs": [
     {
-      "id": "t3",
-      "kind": "ticket",
-      "origin": "bought",
-      "title": "9-leg SGP+ \u00b7 +6577 \u00b7 FanDuel",
-      "result": "lost",
-      "detail": "FanDuel - bought ticket. All 9 original legs preserved.",
-      "legs": [
-        {
-          "player": "Tampa Bay Buccaneers",
-          "market": "ML",
-          "matchup": "MIN @ TB",
-          "time": "Today 1:00 PM PT",
-          "status": "lost"
-        },
-        {
-          "player": "Baker Mayfield",
-          "market": "2+ Passing Touchdowns",
-          "matchup": "MIN @ TB",
-          "time": "Today 1:00 PM PT",
-          "status": "lost"
-        },
-        {
-          "player": "Baker Mayfield",
-          "market": "200+ Passing Yards",
-          "matchup": "MIN @ TB",
-          "time": "Today 1:00 PM PT",
-          "status": "won"
-        },
-        {
-          "player": "Christian McCaffrey",
-          "market": "50+ Rushing Yards",
-          "matchup": "ARI @ SF",
-          "time": "Today 1:05 PM PT",
-          "status": "won"
-        },
-        {
-          "player": "Brock Purdy",
-          "market": "2+ Passing Touchdowns",
-          "matchup": "ARI @ SF",
-          "time": "Today 1:05 PM PT",
-          "status": "won"
-        },
-        {
-          "player": "George Pickens",
-          "market": "60+ Receiving Yards",
-          "matchup": "BAL @ DAL",
-          "time": "Today 1:25 PM PT",
-          "status": "won"
-        },
-        {
-          "player": "Rashod Bateman",
-          "market": "40+ Receiving Yards",
-          "matchup": "BAL @ DAL",
-          "time": "Today 1:25 PM PT",
-          "status": "lost"
-        },
-        {
-          "player": "Dak Prescott",
-          "market": "2+ Passing Touchdowns",
-          "matchup": "BAL @ DAL",
-          "time": "Today 1:25 PM PT",
-          "status": "lost"
-        },
-        {
-          "player": "Lamar Jackson",
-          "market": "2+ Passing Touchdowns",
-          "matchup": "BAL @ DAL",
-          "time": "Today 1:25 PM PT",
-          "status": "won"
-        }
-      ],
-      "archived_at": "2026-09-27T16:55:00-07:00",
-      "reason": "Combo lost - 4 dead legs on finals (TB ML, Mayfield 2+ pass TD, Bateman 40+ rec yds, Dak 2+ pass TD).",
-      "provenance": "Original Wooder Ice FanDuel 9-leg SGP+ ticket, Sep 27. Leg results off ESPN finals.",
-      "removed_label": "9/27, 4:55 PM PT"
+     "player": "Chiefs ML",
+     "result": "won"
     },
     {
-      "id": "t1",
-      "kind": "ticket",
-      "origin": "bought",
-      "title": "7 Pick Combo",
-      "result": "lost",
-      "detail": "Kalshi app - bought $0.04, to pay $3.00",
-      "legs": [
-        {
-          "player": "Chuba Hubbard",
-          "market": "Anytime TD Scorer",
-          "matchup": "CAR-CLE",
-          "time": "Today 10:00 AM PT"
-        },
-        {
-          "player": "Wan'Dale Robinson",
-          "market": "Anytime TD Scorer",
-          "matchup": "TEN-NYG",
-          "time": "Today 10:00 AM PT"
-        },
-        {
-          "player": "Josh Allen",
-          "market": "Anytime TD Scorer",
-          "matchup": "LAC-BUF",
-          "time": "Today 10:00 AM PT"
-        },
-        {
-          "player": "Adonai Mitchell",
-          "market": "Anytime TD Scorer",
-          "matchup": "NYJ-DET",
-          "time": "Today 10:00 AM PT"
-        },
-        {
-          "player": "Pat Freiermuth",
-          "market": "Anytime TD Scorer",
-          "matchup": "CIN-PIT",
-          "time": "Today 10:00 AM PT"
-        },
-        {
-          "player": "Parker Washington",
-          "market": "Anytime TD Scorer",
-          "matchup": "NE-JAX",
-          "time": "Today 10:00 AM PT"
-        },
-        {
-          "player": "Tyquan Thornton",
-          "market": "Anytime TD Scorer",
-          "matchup": "KC-MIA",
-          "time": "Today 10:00 AM PT"
-        }
-      ],
-      "archived_at": "2026-09-27T13:38:00-07:00",
-      "reason": "Combo lost - 2 of 7 legs lost (1 leg still pending when removed)",
-      "provenance": "Original ticket image (Kalshi app), Sep 27; leg results from ESPN final scores.",
-      "removed_label": "Sep 27, 1:38 PM PT"
-    },
-    {
-      "id": "t4",
-      "kind": "ticket",
-      "origin": "bought",
-      "title": "5-leg SGP",
-      "result": "lost",
-      "detail": "Fanatics +1500 - FanCash $0.23",
-      "legs": [
-        {
-          "player": "Napheesa Collier",
-          "market": "18+ Points",
-          "matchup": "NY @ MIN",
-          "status": "lost"
-        },
-        {
-          "player": "Sabrina Ionescu",
-          "market": "16+ Points",
-          "matchup": "NY @ MIN",
-          "status": "lost"
-        },
-        {
-          "player": "Jonquel Jones",
-          "market": "10+ Rebounds",
-          "matchup": "NY @ MIN",
-          "status": "lost"
-        },
-        {
-          "player": "Courtney Williams",
-          "market": "5+ Rebounds",
-          "matchup": "NY @ MIN",
-          "status": "lost"
-        },
-        {
-          "player": "Olivia Miles",
-          "market": "6+ Assists",
-          "matchup": "NY @ MIN",
-          "status": "lost"
-        }
-      ],
-      "archived_at": "2026-09-27T13:38:00-07:00",
-      "reason": "Combo lost - all 5 legs lost, games final",
-      "provenance": "Original ticket image (Fanatics), Sep 27; ESPN final stat lines.",
-      "removed_label": "Sep 27, 1:38 PM PT"
-    },
-    {
-      "id": "t2",
-      "kind": "ticket",
-      "origin": "bought",
-      "title": "5 Pick Parlay",
-      "result": "lost",
-      "detail": "+1609 \u00b7 boosted +2013 (+25% Parlay Boost)",
-      "legs": [
-        {
-          "player": "Justin Herbert",
-          "market": "2+ Passing Touchdowns",
-          "matchup": "LAC-BUF",
-          "time": "Today 10:00 AM"
-        },
-        {
-          "player": "Rachaad White",
-          "market": "3+ Receptions",
-          "matchup": "SEA-WAS",
-          "time": "Today 10:00 AM"
-        },
-        {
-          "player": "Kenyon Sadiq",
-          "market": "3+ Receptions",
-          "matchup": "NYJ-DET",
-          "time": "Today 10:00 AM"
-        },
-        {
-          "player": "Quinshon Judkins",
-          "market": "50+ Rushing Yards",
-          "matchup": "CAR-CLE",
-          "time": "Today 10:00 AM"
-        },
-        {
-          "player": "Malik Nabers",
-          "market": "5+ Receptions",
-          "matchup": "TEN-NYG",
-          "time": "Today 10:00 AM"
-        }
-      ],
-      "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Combo lost - Herbert and White legs lost, games final.",
-      "provenance": "Original Wooder Ice 5-pick parlay ticket, Sep 27 - app screenshot shows the placed bet with +25% Parlay Boost applied.",
-      "removed_label": "Sep 27, 3:52 PM PT"
-    },
-    {
-      "id": "combo3",
-      "kind": "combo",
-      "origin": "suggested",
-      "title": "Kalshi combo - SEA @ WAS",
-      "result": "lost",
-      "detail": "10:00 AM PT",
-      "legs": [
-        {
-          "player": "Seahawks ML"
-        },
-        {
-          "player": "Sam Darnold 150+ passing yards"
-        }
-      ],
-      "archived_at": "2026-09-27T13:46",
-      "reason": "Combo lost - Seattle moneyline leg lost, game final",
-      "provenance": "ESPN final score, Sep 27.",
-      "removed_label": "Sep 27, 1:46 PM PT"
-    },
-    {
-      "id": "ding-soto",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Juan Soto - Home Run",
-      "result": "lost",
-      "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
-      "archived_at": "2026-09-27T14:02",
-      "reason": "Home run pick lost - game final",
-      "provenance": "ESPN final stat lines, Sep 27.",
-      "removed_label": "Sep 27, 2:02 PM PT"
-    },
-    {
-      "id": "ding-wood",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "James Wood - Home Run",
-      "result": "lost",
-      "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
-      "archived_at": "2026-09-27T14:02",
-      "reason": "Home run pick lost - game final",
-      "provenance": "ESPN final stat lines, Sep 27.",
-      "removed_label": "Sep 27, 2:02 PM PT"
-    },
-    {
-      "id": "ding-bichette",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Bo Bichette - Home Run",
-      "result": "lost",
-      "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
-      "archived_at": "2026-09-27T14:02",
-      "reason": "Home run pick lost - game final",
-      "provenance": "ESPN final stat lines, Sep 27.",
-      "removed_label": "Sep 27, 2:02 PM PT"
-    },
-    {
-      "id": "single-smith-njigba",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Jaxon Smith-Njigba - Anytime TD Scorer",
-      "result": "lost",
-      "detail": "SEA @ WAS \u00b7 dk_predictions",
-      "archived_at": "2026-09-27",
-      "reason": "Pick lost - game final",
-      "provenance": "Wooder Ice record feed, Sep 27.",
-      "removed_label": "Sep 27 PT"
-    },
-    {
-      "id": "single-williams",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Jameson Williams - Anytime TD Scorer",
-      "result": "lost",
-      "detail": "NYJ @ DET \u00b7 dk_predictions",
-      "archived_at": "2026-09-27",
-      "reason": "Pick lost - game final",
-      "provenance": "Wooder Ice record feed, Sep 27.",
-      "removed_label": "Sep 27 PT"
-    },
-    {
-      "id": "single-thornton",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Tyquan Thornton - Anytime TD Scorer",
-      "result": "lost",
-      "detail": "KC @ MIA \u00b7 dk_predictions",
-      "archived_at": "2026-09-27",
-      "reason": "Pick lost - game final",
-      "provenance": "Wooder Ice record feed, Sep 27.",
-      "removed_label": "Sep 27 PT"
-    },
-    {
-      "id": "single-kittle",
-      "kind": "pick",
-      "origin": "bought",
-      "title": "George Kittle - First TD Scorer",
-      "result": "lost",
-      "detail": "ARI @ SF \u00b7 kalshi_app +1000",
-      "archived_at": "2026-09-27",
-      "reason": "Pick lost - game final",
-      "provenance": "Wooder Ice record feed, Sep 27.",
-      "removed_label": "Sep 27 PT"
-    },
-    {
-      "id": "single-lamb",
-      "kind": "pick",
-      "origin": "bought",
-      "title": "CeeDee Lamb - First TD Scorer",
-      "result": "lost",
-      "detail": "BAL @ DAL \u00b7 kalshi_app +1000",
-      "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Pick lost - first TD scored by another player",
-      "provenance": "Original Kalshi app screenshot, Sep 27 (per-row cash-out control); result from ESPN.",
-      "removed_label": "Sep 27, 3:52 PM PT"
-    },
-    {
-      "id": "ding-caminero",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Junior Caminero - Home Run",
-      "result": "lost",
-      "detail": "TB at PHI \u00b7 11:30 AM PT \u00b7 DKP",
-      "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Home run pick lost - game final",
-      "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
-      "removed_label": "Sep 27, 3:52 PM PT"
-    },
-    {
-      "id": "ding-greene",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Riley Greene - Home Run",
-      "result": "lost",
-      "detail": "PIT at DET \u00b7 12:10 PM PT \u00b7 DKP",
-      "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Home run pick lost - game final",
-      "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
-      "removed_label": "Sep 27, 3:52 PM PT"
-    },
-    {
-      "id": "ding-langeliers",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Shea Langeliers - Home Run",
-      "result": "lost",
-      "detail": "HOU at ATH \u00b7 12:05 PM PT \u00b7 DKP",
-      "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Home run pick lost - game final",
-      "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
-      "removed_label": "Sep 27, 3:52 PM PT"
-    },
-    {
-      "id": "ding-alonso",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Pete Alonso - Home Run",
-      "result": "void",
-      "detail": "BAL at NYY \u00b7 10:05 AM PT \u00b7 DKP",
-      "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Pick void - game result voided the selection",
-      "provenance": "Original Wooder Ice Dingers card, Sep 27. Result per ESPN final scores.",
-      "removed_label": "Sep 27, 3:52 PM PT"
-    },
-    {
-      "id": "ding-grichuk",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Randal Grichuk - Home Run",
-      "result": "won",
-      "detail": "COL at CWS \u00b7 12:10 PM PT \u00b7 DKP",
-      "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Home run pick won - game final",
-      "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
-      "removed_label": "Sep 27, 3:52 PM PT"
-    },
-    {
-      "id": "ding-seager",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Corey Seager - Home Run",
-      "result": "won",
-      "detail": "TEX at MIN \u00b7 12:10 PM PT \u00b7 DKP",
-      "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Home run pick won - game final",
-      "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
-      "removed_label": "Sep 27, 3:52 PM PT"
-    },
-    {
-      "id": "ding-pca",
-      "kind": "pick",
-      "origin": "suggested",
-      "title": "Pete Crow-Armstrong - Home Run",
-      "result": "lost",
-      "detail": "CHC at BOS \u00b7 12:05 PM PT \u00b7 DKP",
-      "archived_at": "2026-09-27T15:52:00-07:00",
-      "reason": "Home run pick lost - game final (CHC 6-2 at BOS), 0 HR. ESPN final event 401817089; matches julian_record dead_picks grade.",
-      "provenance": "Original Wooder Ice Dingers card, Sep 27.",
-      "removed_label": "Sep 27, 3:52 PM PT"
+     "player": "Patrick Mahomes 150+ passing yards",
+     "result": "won"
     }
-  ]
+   ],
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Combo won - all legs won, game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "combo2",
+   "kind": "combo",
+   "origin": "suggested",
+   "title": "Kalshi combo - LAC @ BUF",
+   "result": "won",
+   "detail": "10:00 AM PT",
+   "legs": [
+    {
+     "player": "Bills ML",
+     "result": "won"
+    },
+    {
+     "player": "Josh Allen 150+ passing yards",
+     "result": "won"
+    }
+   ],
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Combo won - all legs won, game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "combo4",
+   "kind": "combo",
+   "origin": "suggested",
+   "title": "Kalshi combo - NYJ @ DET",
+   "result": "won",
+   "detail": "10:00 AM PT",
+   "legs": [
+    {
+     "player": "Lions ML",
+     "result": "won"
+    },
+    {
+     "player": "Jared Goff 175+ passing yards",
+     "result": "won"
+    }
+   ],
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Combo won - all legs won, game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "combo5",
+   "kind": "combo",
+   "origin": "suggested",
+   "title": "Kalshi combo - ARI @ SF",
+   "result": "won",
+   "detail": "1:05 PM PT",
+   "legs": [
+    {
+     "player": "49ers ML",
+     "result": "won"
+    },
+    {
+     "player": "Brock Purdy 150+ passing yards",
+     "result": "won"
+    }
+   ],
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Combo won - all legs won, game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "bankroll-builder-baldal",
+   "kind": "combo",
+   "origin": "suggested",
+   "title": "Bankroll Builder - BAL @ DAL",
+   "result": "lost",
+   "detail": "Sum of individual asks 163c \u00b7 not a combined quote \u00b7 1:05 PM PT",
+   "legs": [
+    {
+     "player": "Derrick Henry anytime TD",
+     "result": "won"
+    },
+    {
+     "player": "Javonte Williams anytime TD",
+     "result": "won"
+    },
+    {
+     "player": "Mark Andrews anytime TD",
+     "result": "lost"
+    }
+   ],
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Combo lost - Mark Andrews leg lost, game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "single-mccaffrey",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Christian McCaffrey - Anytime TD Scorer",
+   "result": "won",
+   "detail": "ARI @ SF \u00b7 DKP -223",
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Pick won - game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "single-henry",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Derrick Henry - Anytime TD Scorer",
+   "result": "won",
+   "detail": "BAL @ DAL \u00b7 DKP -203",
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Pick won - game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "single-jwilliams",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Javonte Williams - Anytime TD Scorer",
+   "result": "won",
+   "detail": "BAL @ DAL \u00b7 DKP -144",
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Pick won - game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "single-jeanty",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Ashton Jeanty - Anytime TD Scorer",
+   "result": "lost",
+   "detail": "LV @ NO \u00b7 DKP -108",
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Pick lost - game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "single-lamb",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "CeeDee Lamb - Anytime TD Scorer",
+   "result": "lost",
+   "detail": "BAL @ DAL \u00b7 DKP +127",
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Pick lost - game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "single-andrews",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Mark Andrews - Anytime TD Scorer",
+   "result": "lost",
+   "detail": "BAL @ DAL \u00b7 DKP +133",
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Pick lost - game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "single-irving",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Bucky Irving - Anytime TD Scorer",
+   "result": "lost",
+   "detail": "MIN @ TB \u00b7 DKP +144",
+   "archived_at": "2026-09-27T17:21",
+   "reason": "Pick lost - game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 5:21 PM PT"
+  },
+  {
+   "id": "t3",
+   "kind": "ticket",
+   "origin": "bought",
+   "title": "9-leg SGP+ \u00b7 +6577 \u00b7 FanDuel",
+   "result": "lost",
+   "detail": "FanDuel - bought ticket. All 9 original legs preserved.",
+   "legs": [
+    {
+     "player": "Tampa Bay Buccaneers",
+     "market": "ML",
+     "matchup": "MIN @ TB",
+     "time": "Today 1:00 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Baker Mayfield",
+     "market": "2+ Passing Touchdowns",
+     "matchup": "MIN @ TB",
+     "time": "Today 1:00 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Baker Mayfield",
+     "market": "200+ Passing Yards",
+     "matchup": "MIN @ TB",
+     "time": "Today 1:00 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Christian McCaffrey",
+     "market": "50+ Rushing Yards",
+     "matchup": "ARI @ SF",
+     "time": "Today 1:05 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Brock Purdy",
+     "market": "2+ Passing Touchdowns",
+     "matchup": "ARI @ SF",
+     "time": "Today 1:05 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "George Pickens",
+     "market": "60+ Receiving Yards",
+     "matchup": "BAL @ DAL",
+     "time": "Today 1:25 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Rashod Bateman",
+     "market": "40+ Receiving Yards",
+     "matchup": "BAL @ DAL",
+     "time": "Today 1:25 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Dak Prescott",
+     "market": "2+ Passing Touchdowns",
+     "matchup": "BAL @ DAL",
+     "time": "Today 1:25 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Lamar Jackson",
+     "market": "2+ Passing Touchdowns",
+     "matchup": "BAL @ DAL",
+     "time": "Today 1:25 PM PT",
+     "status": "won"
+    }
+   ],
+   "archived_at": "2026-09-27T16:55:00-07:00",
+   "reason": "Combo lost - 4 dead legs on finals (TB ML, Mayfield 2+ pass TD, Bateman 40+ rec yds, Dak 2+ pass TD).",
+   "provenance": "Original Wooder Ice FanDuel 9-leg SGP+ ticket, Sep 27. Leg results off ESPN finals.",
+   "removed_label": "9/27, 4:55 PM PT"
+  },
+  {
+   "id": "t1",
+   "kind": "ticket",
+   "origin": "bought",
+   "title": "7 Pick Combo",
+   "result": "lost",
+   "detail": "Kalshi app - bought $0.04, to pay $3.00",
+   "legs": [
+    {
+     "player": "Chuba Hubbard",
+     "market": "Anytime TD Scorer",
+     "matchup": "CAR-CLE",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Wan'Dale Robinson",
+     "market": "Anytime TD Scorer",
+     "matchup": "TEN-NYG",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Josh Allen",
+     "market": "Anytime TD Scorer",
+     "matchup": "LAC-BUF",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Adonai Mitchell",
+     "market": "Anytime TD Scorer",
+     "matchup": "NYJ-DET",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Pat Freiermuth",
+     "market": "Anytime TD Scorer",
+     "matchup": "CIN-PIT",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Parker Washington",
+     "market": "Anytime TD Scorer",
+     "matchup": "NE-JAX",
+     "time": "Today 10:00 AM PT"
+    },
+    {
+     "player": "Tyquan Thornton",
+     "market": "Anytime TD Scorer",
+     "matchup": "KC-MIA",
+     "time": "Today 10:00 AM PT"
+    }
+   ],
+   "archived_at": "2026-09-27T13:38:00-07:00",
+   "reason": "Combo lost - 2 of 7 legs lost (1 leg still pending when removed)",
+   "provenance": "Original ticket image (Kalshi app), Sep 27; leg results from ESPN final scores.",
+   "removed_label": "Sep 27, 1:38 PM PT"
+  },
+  {
+   "id": "t4",
+   "kind": "ticket",
+   "origin": "bought",
+   "title": "5-leg SGP",
+   "result": "lost",
+   "detail": "Fanatics +1500 - FanCash $0.23",
+   "legs": [
+    {
+     "player": "Napheesa Collier",
+     "market": "18+ Points",
+     "matchup": "NY @ MIN",
+     "status": "lost"
+    },
+    {
+     "player": "Sabrina Ionescu",
+     "market": "16+ Points",
+     "matchup": "NY @ MIN",
+     "status": "lost"
+    },
+    {
+     "player": "Jonquel Jones",
+     "market": "10+ Rebounds",
+     "matchup": "NY @ MIN",
+     "status": "lost"
+    },
+    {
+     "player": "Courtney Williams",
+     "market": "5+ Rebounds",
+     "matchup": "NY @ MIN",
+     "status": "lost"
+    },
+    {
+     "player": "Olivia Miles",
+     "market": "6+ Assists",
+     "matchup": "NY @ MIN",
+     "status": "lost"
+    }
+   ],
+   "archived_at": "2026-09-27T13:38:00-07:00",
+   "reason": "Combo lost - all 5 legs lost, games final",
+   "provenance": "Original ticket image (Fanatics), Sep 27; ESPN final stat lines.",
+   "removed_label": "Sep 27, 1:38 PM PT"
+  },
+  {
+   "id": "t2",
+   "kind": "ticket",
+   "origin": "bought",
+   "title": "5 Pick Parlay",
+   "result": "lost",
+   "detail": "+1609 \u00b7 boosted +2013 (+25% Parlay Boost)",
+   "legs": [
+    {
+     "player": "Justin Herbert",
+     "market": "2+ Passing Touchdowns",
+     "matchup": "LAC-BUF",
+     "time": "Today 10:00 AM"
+    },
+    {
+     "player": "Rachaad White",
+     "market": "3+ Receptions",
+     "matchup": "SEA-WAS",
+     "time": "Today 10:00 AM"
+    },
+    {
+     "player": "Kenyon Sadiq",
+     "market": "3+ Receptions",
+     "matchup": "NYJ-DET",
+     "time": "Today 10:00 AM"
+    },
+    {
+     "player": "Quinshon Judkins",
+     "market": "50+ Rushing Yards",
+     "matchup": "CAR-CLE",
+     "time": "Today 10:00 AM"
+    },
+    {
+     "player": "Malik Nabers",
+     "market": "5+ Receptions",
+     "matchup": "TEN-NYG",
+     "time": "Today 10:00 AM"
+    }
+   ],
+   "archived_at": "2026-09-27T15:52:00-07:00",
+   "reason": "Combo lost - Herbert and White legs lost, games final.",
+   "provenance": "Original Wooder Ice 5-pick parlay ticket, Sep 27 - app screenshot shows the placed bet with +25% Parlay Boost applied.",
+   "removed_label": "Sep 27, 3:52 PM PT"
+  },
+  {
+   "id": "combo3",
+   "kind": "combo",
+   "origin": "suggested",
+   "title": "Kalshi combo - SEA @ WAS",
+   "result": "lost",
+   "detail": "10:00 AM PT",
+   "legs": [
+    {
+     "player": "Seahawks ML"
+    },
+    {
+     "player": "Sam Darnold 150+ passing yards"
+    }
+   ],
+   "archived_at": "2026-09-27T13:46",
+   "reason": "Combo lost - Seattle moneyline leg lost, game final",
+   "provenance": "ESPN final score, Sep 27.",
+   "removed_label": "Sep 27, 1:46 PM PT"
+  },
+  {
+   "id": "ding-soto",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Juan Soto - Home Run",
+   "result": "lost",
+   "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T14:02",
+   "reason": "Home run pick lost - game final",
+   "provenance": "ESPN final stat lines, Sep 27.",
+   "removed_label": "Sep 27, 2:02 PM PT"
+  },
+  {
+   "id": "ding-wood",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "James Wood - Home Run",
+   "result": "lost",
+   "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T14:02",
+   "reason": "Home run pick lost - game final",
+   "provenance": "ESPN final stat lines, Sep 27.",
+   "removed_label": "Sep 27, 2:02 PM PT"
+  },
+  {
+   "id": "ding-bichette",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Bo Bichette - Home Run",
+   "result": "lost",
+   "detail": "NYM at WSH \u00b7 10:05 AM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T14:02",
+   "reason": "Home run pick lost - game final",
+   "provenance": "ESPN final stat lines, Sep 27.",
+   "removed_label": "Sep 27, 2:02 PM PT"
+  },
+  {
+   "id": "single-smith-njigba",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Jaxon Smith-Njigba - Anytime TD Scorer",
+   "result": "lost",
+   "detail": "SEA @ WAS \u00b7 dk_predictions",
+   "archived_at": "2026-09-27",
+   "reason": "Pick lost - game final",
+   "provenance": "Wooder Ice record feed, Sep 27.",
+   "removed_label": "Sep 27 PT"
+  },
+  {
+   "id": "single-williams",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Jameson Williams - Anytime TD Scorer",
+   "result": "lost",
+   "detail": "NYJ @ DET \u00b7 dk_predictions",
+   "archived_at": "2026-09-27",
+   "reason": "Pick lost - game final",
+   "provenance": "Wooder Ice record feed, Sep 27.",
+   "removed_label": "Sep 27 PT"
+  },
+  {
+   "id": "single-thornton",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Tyquan Thornton - Anytime TD Scorer",
+   "result": "lost",
+   "detail": "KC @ MIA \u00b7 dk_predictions",
+   "archived_at": "2026-09-27",
+   "reason": "Pick lost - game final",
+   "provenance": "Wooder Ice record feed, Sep 27.",
+   "removed_label": "Sep 27 PT"
+  },
+  {
+   "id": "single-kittle",
+   "kind": "pick",
+   "origin": "bought",
+   "title": "George Kittle - First TD Scorer",
+   "result": "lost",
+   "detail": "ARI @ SF \u00b7 kalshi_app +1000",
+   "archived_at": "2026-09-27",
+   "reason": "Pick lost - game final",
+   "provenance": "Wooder Ice record feed, Sep 27.",
+   "removed_label": "Sep 27 PT"
+  },
+  {
+   "id": "single-lamb",
+   "kind": "pick",
+   "origin": "bought",
+   "title": "CeeDee Lamb - First TD Scorer",
+   "result": "lost",
+   "detail": "BAL @ DAL \u00b7 kalshi_app +1000",
+   "archived_at": "2026-09-27T15:52:00-07:00",
+   "reason": "Pick lost - first TD scored by another player",
+   "provenance": "Original Kalshi app screenshot, Sep 27 (per-row cash-out control); result from ESPN.",
+   "removed_label": "Sep 27, 3:52 PM PT"
+  },
+  {
+   "id": "ding-caminero",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Junior Caminero - Home Run",
+   "result": "lost",
+   "detail": "TB at PHI \u00b7 11:30 AM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T15:52:00-07:00",
+   "reason": "Home run pick lost - game final",
+   "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
+   "removed_label": "Sep 27, 3:52 PM PT"
+  },
+  {
+   "id": "ding-greene",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Riley Greene - Home Run",
+   "result": "lost",
+   "detail": "PIT at DET \u00b7 12:10 PM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T15:52:00-07:00",
+   "reason": "Home run pick lost - game final",
+   "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
+   "removed_label": "Sep 27, 3:52 PM PT"
+  },
+  {
+   "id": "ding-langeliers",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Shea Langeliers - Home Run",
+   "result": "lost",
+   "detail": "HOU at ATH \u00b7 12:05 PM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T15:52:00-07:00",
+   "reason": "Home run pick lost - game final",
+   "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
+   "removed_label": "Sep 27, 3:52 PM PT"
+  },
+  {
+   "id": "ding-alonso",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Pete Alonso - Home Run",
+   "result": "void",
+   "detail": "BAL at NYY \u00b7 10:05 AM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T15:52:00-07:00",
+   "reason": "Pick void - game result voided the selection",
+   "provenance": "Original Wooder Ice Dingers card, Sep 27. Result per ESPN final scores.",
+   "removed_label": "Sep 27, 3:52 PM PT"
+  },
+  {
+   "id": "ding-grichuk",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Randal Grichuk - Home Run",
+   "result": "won",
+   "detail": "COL at CWS \u00b7 12:10 PM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T15:52:00-07:00",
+   "reason": "Home run pick won - game final",
+   "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
+   "removed_label": "Sep 27, 3:52 PM PT"
+  },
+  {
+   "id": "ding-seager",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Corey Seager - Home Run",
+   "result": "won",
+   "detail": "TEX at MIN \u00b7 12:10 PM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T15:52:00-07:00",
+   "reason": "Home run pick won - game final",
+   "provenance": "Original Wooder Ice Dingers card, Sep 27. Result from ESPN final scores.",
+   "removed_label": "Sep 27, 3:52 PM PT"
+  },
+  {
+   "id": "ding-pca",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Pete Crow-Armstrong - Home Run",
+   "result": "lost",
+   "detail": "CHC at BOS \u00b7 12:05 PM PT \u00b7 DKP",
+   "archived_at": "2026-09-27T15:52:00-07:00",
+   "reason": "Home run pick lost - game final (CHC 6-2 at BOS), 0 HR. ESPN final event 401817089; matches julian_record dead_picks grade.",
+   "provenance": "Original Wooder Ice Dingers card, Sep 27.",
+   "removed_label": "Sep 27, 3:52 PM PT"
+  }
+ ]
 }
