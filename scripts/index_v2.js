@@ -203,26 +203,49 @@ function newsBucket(t){
  out=out.concat(DNEWS[t.key]||[]);
  /* XNEWS intentionally NOT merged: X posts get their own Home social section (owner 10:32); news is articles only. XNEWS stays populated for that consumer. */
  out.sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);});
- var seen={},ded=[];
- out.forEach(function(a){var n=normH(a.headline);if(!n||seen[n])return;seen[n]=1;ded.push(a);});
+ var seen={},seenP={},ded=[];
+ out.forEach(function(a){var n=normH(a.headline);if(!n)return;var pk=n.slice(0,40);if(seen[n]||seenP[pk])return;seen[n]=1;seenP[pk]=1;ded.push(a);});
  return ded;
 }
-var CAR_SIG='',CAR_IDX=0,CAR_N=0,CAR_TIMER=null;
-function carApply(){var tr=$('rpCarTrack');if(tr&&CAR_N)tr.style.transform='translateY(-'+(CAR_IDX*(100/CAR_N))+'%)';}
+var CAR_SIG='',CAR_IDX=0,CAR_N=0,CAR_TIMER=null,CAR_PAUSED=false,CAR_LAST=[],CAR_ALL=[];
+var CAR_RM=false;try{CAR_RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+function carApply(){
+ var tr=$('rpCarTrack');if(tr&&CAR_N)tr.style.transform='translateY(-'+(CAR_IDX*(100/CAR_N))+'%)';
+ var c=$('rpCarCount');if(c)c.textContent=(CAR_N?(CAR_IDX+1):0)+' of '+CAR_N;
+}
 function carStep(){
- if(document.hidden||CAR_N<2)return;
+ if(document.hidden||CAR_N<2||CAR_PAUSED||CAR_RM)return;
  var box=$('rpNewsCar');
  if(box&&(box.matches(':hover')||box.matches(':focus-within')))return;
  CAR_IDX=(CAR_IDX+1)%CAR_N;carApply();
 }
-/* news carousel (owner 10:51 spec via main 11:53: main-column width, one article at a time,
-   image + headline + first lines + source, vertical rotation, all sports sources) - replaces
-   the old sidebar news list; renderNews keeps its name so every existing call site feeds it. */
+function carGo(d){if(CAR_N<2)return;CAR_IDX=(CAR_IDX+d+CAR_N)%CAR_N;carApply();}
+function carPP(){CAR_PAUSED=!CAR_PAUSED;var b=$('rpCarPP');if(b)b.textContent=CAR_PAUSED?'Play':'Pause';}
+function carAll(){
+ var pop=$('rpCarAllPop');if(!pop)return;
+ if(pop.hidden){
+  var h='';
+  CAR_ALL.forEach(function(a){
+   var u=a.link||'',src=a.source||'';
+   var inner='<span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span><span class="ntxt">'+esc(unesc(a.headline||''))+'</span><div class="nts">'+esc(ago(a.published))+'</div>';
+   h+='<div class="nitem">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
+  });
+  pop.innerHTML=h||'<div class="empty">News unavailable right now.</div>';
+  pop.hidden=false;
+ }else pop.hidden=true;
+}
+/* news carousel (owner 10:51 spec via main 11:53 + 12:06 critique: main-column width, one article at a
+   time, image + headline + first lines + source, vertical rotation, all sports sources, Prev/Next +
+   counter + Pause/Play, hover/focus pause, reduced-motion, dedupe, last-valid fallback, View all) -
+   replaces the old sidebar news list; renderNews keeps its name so every existing call site feeds it. */
 function renderNews(t,arts){
  var box=$('rpNewsCar');if(!box)return;
  var items=(arts||[]).slice(0,12);
+ if(!items.length&&CAR_LAST.length)items=CAR_LAST; /* latest-valid fallback: never blank a good card on a bad fetch */
+ if(items.length)CAR_LAST=items;
+ CAR_ALL=(arts||[]).slice(0,40);
  var sig=items.map(function(a){return normH(a.headline);}).join('|');
- if(sig===CAR_SIG)return;
+ if(sig===CAR_SIG){carApply();return;}
  CAR_SIG=sig;CAR_N=items.length;
  if(CAR_IDX>=CAR_N)CAR_IDX=0;
  if(!items.length){box.innerHTML='<div class="empty">News unavailable right now.</div>';return;}
@@ -235,10 +258,18 @@ function renderNews(t,arts){
    +'<span class="carbody"><span class="carhead">'+esc(unesc(a.headline||''))+'</span>'
    +(blurb?'<span class="carblurb">'+esc(unesc(blurb))+'</span>':'')
    +'<span class="carmeta"><span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span> \u00b7 '+esc(ago(a.published))+'</span></span>';
-  h+='<div class="carslide">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
+  h+='<div class="carslide">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer" aria-label="'+esc(unesc(a.headline||''))+'">'+inner+'</a>':inner)+'</div>';
  });
- h+='</div></div>';
+ h+='</div></div><div class="carctl"><button type="button" id="rpCarPrev" aria-label="previous article">\u2039 Prev</button>'
+  +'<span id="rpCarCount" class="carcount"></span>'
+  +'<button type="button" id="rpCarNext" aria-label="next article">Next \u203a</button>'
+  +'<button type="button" id="rpCarPP" aria-label="pause rotation">'+(CAR_PAUSED?'Play':'Pause')+'</button>'
+  +'<button type="button" id="rpCarAllBtn" class="carall">View all News</button></div>';
  box.innerHTML=h;
+ $('rpCarPrev').addEventListener('click',function(e){e.preventDefault();carGo(-1);});
+ $('rpCarNext').addEventListener('click',function(e){e.preventDefault();carGo(1);});
+ $('rpCarPP').addEventListener('click',function(e){e.preventDefault();carPP();});
+ $('rpCarAllBtn').addEventListener('click',function(e){e.preventDefault();carAll();});
  carApply();
  if(CAR_N>1&&!CAR_TIMER)CAR_TIMER=setInterval(carStep,5500);
 }
@@ -247,8 +278,7 @@ function renderNews(t,arts){
 function renderSocial(){
  var box=$('rpSocial'),head=$('rpSocialHead');
  if(!box)return;
- if(!XNEWS.length){box.innerHTML='';box.style.display='none';if(head)head.style.display='none';return;}
- box.style.display='';if(head)head.style.display='';
+ if(!XNEWS.length){box.innerHTML='<div class="empty">No posts right now.</div>';return;}
  var h='';
  XNEWS.slice(0,6).forEach(function(p){
   var txt=String(p.headline||'');
