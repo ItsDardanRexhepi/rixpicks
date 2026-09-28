@@ -383,7 +383,8 @@ function renderSocial(){
      (a post earned membership by scoring the relatedness floor against a current story);
      no fresh map: sports-keyword floor so the raw firehose never renders. */
   if(RP_TOUT_KW.test(String(p.headline||'')))return false;
-  if(ADMIT)return ADMIT.indexOf(String(p.id))>=0;
+  if(ADMIT){if(ADMIT.indexOf(String(p.id))<0)return false;
+   var rr=REL&&REL[String(p.id)];return rr?rr.on_topic!==false:true;} /* combined gate: related AND sports-relevant (QA 1:49) */
   if(REL){var r=REL[String(p.id)];if(r)return r.on_topic!==false;return true;}
   return RP_SPORT_KW.test(String(p.headline||''));
  };
