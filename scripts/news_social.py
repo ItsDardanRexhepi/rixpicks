@@ -32,7 +32,7 @@ CREDITS = 9.04
 ALERT_FLOOR = 2.00
 COST_PER_REQUEST = 0.033
 COST_PER_POST = 0.005
-MAX_RESULTS = 10
+MAX_RESULTS = 100      # 10->100 (owner 2:09/2:49 coverage): same request count, up to 10x posts per query - burn is per REQUEST
 NEWS_QUERIES_PER_RUN = 18      # hard cap per run (burn discipline; 12->18 owner 2:09 coverage push)
 MAX_HEADLINE_AGE_H = 18       # only fresh headlines drive pulls
 
@@ -258,6 +258,8 @@ def fresh_headlines(limit):
             break
     return out
 
+BACKFILL = False   # set by main when the pool does not span the full 24h horizon (owner 2:49)
+
 def run_strategies(headlines, strategies, requests_cap, trial_log=None):
     """Core pull loop with route-around. Returns (items, requests_used)."""
     st = load_state()
@@ -281,7 +283,7 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
                 if used >= requests_cap:
                     break
                 try:
-                    got, newest = pull_query(aq, since.get(aq))
+                    got, newest = pull_query(aq, None if BACKFILL else since.get(aq))  # backfill: no since_id so the full 24h window is matchable
                     used += 1
                     if newest:
                         since[aq] = newest
@@ -363,6 +365,20 @@ def main():
     if news_gen and st.get('news_pulled_gen') == news_gen:
         print('pull: news unchanged since last pull - 0 requests (burn discipline)')
         return
+    # owner 2:49: if the pooled posts do not yet span 24h, run this pull as a backfill
+    # (since_id suppressed) until the horizon is covered.
+    try:
+        _pool = json.load(open(OUT)).get('items', [])
+        _oldest = min((str(pp.get('created_at') or '') for pp in _pool), default='')
+        _age_h = 999
+        if _oldest:
+            _dt = datetime.datetime.fromisoformat(_oldest.replace('Z', '+00:00'))
+            _age_h = (datetime.datetime.now(datetime.timezone.utc) - _dt).total_seconds() / 3600.0
+        globals()['BACKFILL'] = (not _pool) or (_age_h < 23.0)  # span short of the 24h horizon -> backfill
+        if BACKFILL:
+            print('backfill: pool does not span 24h - pulling without since_id this run')
+    except Exception:
+        globals()['BACKFILL'] = False
     headlines = fresh_headlines(NEWS_QUERIES_PER_RUN)
     items, used = run_strategies(headlines, [strategy, 'S2', 'S3'], NEWS_QUERIES_PER_RUN)
     total = merge_feed(items)
