@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """DAILY CARD PHOTO renderer (preview chain -> 6:45 build): the morning picks card as a
-one-screen photo, by construction. Fixed template (standing spec: daily-picks-card, his
-09-23/09-26 card): header "Today's 'RixPicks", good-morning + full date, "Yesterday W-L"
-(no colon) with per-pick results under it, one digestible paragraph, picks separated by
-league, parlay only when the card carries one, "'RixPicks Overall Record: W-L" as the
-bottom line. Content centered. Never on the card: Kalshi/Polymarket, dollars, unit math,
-side events (ITF/challenger), gate jargon. Zero-pick card: plain state line + one
-audience-safe outcome line per evaluated league (from eval_summary card_lines).
-Viewport: iPhone logical 393x852pt (1179x2556 @3x capture); page is exactly one screen,
-overflow hidden - no scrolling, not a shrunken webpage.
-IN : manifest JSON, eval_summary JSON (optional), OUT path."""
+one-screen photo, by construction. FIXED VISUAL TEMPLATE (his 09-27 reference image,
+sent 09-27 8:21 PM via main - the standing template for every daily card):
+  cream page (#ece8e1), white rounded card centered, serif display header
+  "Today's 'RixPicks", green abbrev date line ("Mon Sep 28"), yesterday block with left
+  green border (bold "Yesterday W-L" + muted per-pick line; "sweep" suffix on sweeps),
+  league labels small gray caps, numbered picks (bold name left, teal "odds . units"
+  right, gray reasoning subtext incl. "model XX.X vs Kalshi XXc ask" when priced),
+  parlay pill (only when the card carries one), footer "'RixPicks Overall Record:
+  W-L . pct%" bold + muted "Odds checked ..." line. Zero-pick card: same shell, league
+  sections carry one honest muted outcome line, no parlay pill.
+Viewport: iPhone logical 393x852pt (1179x2556 @3x capture); exactly one screen,
+overflow hidden. IN: manifest JSON, eval_summary JSON (optional), OUT path."""
 import json, sys, html, re
 
 def esc(s): return html.escape(str(s or ''))
@@ -26,36 +28,41 @@ LG_LABEL={'baseball/mlb':'MLB','football/nfl':'NFL','basketball/nba':'NBA','hock
           'tennis':'Tennis','tennis/atp':'ATP','tennis/wta':'WTA','soccer/usa.1':'MLS','soccer/usa.nwsl':'NWSL',
           'golf/pga':'PGA','racing/nascar':'NASCAR','mma/ufc':'UFC','boxing':'Boxing'}
 
-# full date ("September 28") from date_label ("Monday, Sep 28")
-MON={'Sep':'September','Oct':'October','Nov':'November','Dec':'December','Jan':'January','Feb':'February',
-     'Mar':'March','Apr':'April','May':'May','Jun':'June','Jul':'July','Aug':'August'}
+# green abbrev date line: "Mon Sep 28" from date_label "Monday, Sep 28"
+WK={'Monday':'Mon','Tuesday':'Tue','Wednesday':'Wed','Thursday':'Thu','Friday':'Fri','Saturday':'Sat','Sunday':'Sun'}
 dl=str(man.get('date_label') or '')
-m=re.search(r'(\w+), (\w+) (\d+)', dl)
-full_date=f"{MON.get(m.group(2), m.group(2))} {m.group(3)}" if m else dl
+m=re.match(r'(\w+), (.+)', dl)
+green_date=f"{WK.get(m.group(1), m.group(1))} {m.group(2)}" if m else dl
 
 picks = man.get('picks') or []
 has_picks = bool(picks)
 B = []
 
-# 0. header
 B.append('<div class="hdr">Today&rsquo;s &rsquo;RixPicks</div>')
-# 1. good morning + full date
-B.append(f'<div class="gm">Good morning - {esc(full_date)}</div>')
-# 2. Yesterday W-L (no colon) + per-pick results
+B.append(f'<div class="gm">{esc(green_date)}</div>')
+
 if man.get('yesterday'):
     y=str(man['yesterday'])
-    m2=re.match(r'\s*([\d]+-[\d]+)\s*[\u00b7-]?\s*(.*)', y)
+    m2=re.match(r'\s*([\d]+)-([\d]+)\s*[\u00b7]?\s*(.*)', y)
     if m2:
-        B.append(f'<div class="yes">Yesterday {esc(m2.group(1))}</div>')
-        if m2.group(2): B.append(f'<div class="yesdet">{esc(m2.group(2))}</div>')
+        wl=f"{m2.group(1)}\u2013{m2.group(2)}"
+        sweep = ' \u00b7 sweep' if m2.group(2)=='0' and m2.group(1)!='0' else ''
+        B.append(f'<div class="yesblk"><div class="yes">Yesterday {esc(wl)}{sweep}</div>')
+        if m2.group(3): B.append(f'<div class="yesdet">{esc(m2.group(3))}</div>')
+        B.append('</div>')
     else:
-        B.append(f'<div class="yes">Yesterday {esc(y)}</div>')
-# 3. one digestible paragraph
-if has_picks:
-    B.append(f'<div class="para">Full run across every league playing - {len(picks)} pick{"s" if len(picks)!=1 else ""} cleared 60%.</div>')
-else:
-    B.append('<div class="para">Full run across every league playing tomorrow. Nothing reached the 60% bar - the card stays empty rather than forcing one.</div>')
-# 4. picks separated by league, or zero-pick league outcomes (audience-safe card_lines only)
+        B.append(f'<div class="yesblk"><div class="yes">Yesterday {esc(y)}</div></div>')
+
+def pick_sub(p):
+    sub=str(p.get('sub') or '')
+    mod=p.get('model'); kal=(p.get('kalshi') or {})
+    cents=kal.get('cents')
+    if mod is not None and cents is not None:
+        mv=f"{float(mod):.1f}" if isinstance(mod,(int,float)) else str(mod)
+        tail=f"model {mv} vs Kalshi {int(round(float(cents)))}c ask"
+        sub=(sub+' \u00b7 '+tail) if sub else tail
+    return sub
+
 if has_picks:
     last_lg=None
     for p in picks:
@@ -63,45 +70,63 @@ if has_picks:
         lbl=LG_LABEL.get(lgk) or (lgk.split('/')[-1].upper() if lgk else '')
         if lgk!=last_lg:
             B.append(f'<div class="sect">{esc(lbl)}</div>'); last_lg=lgk
-        lab=p.get('label')
-        tag=f' <span class="tag">{esc(lab)}</span>' if lab else ''
-        B.append(f'<div class="pick">{esc(p.get("name"))}{tag} <span class="meta">{esc(p.get("units"))} &middot; {esc(p.get("odds"))}</span></div>')
-        if p.get('sub'): B.append(f'<div class="sub">{esc(p["sub"])}</div>')
+        B.append(f'<div class="prow"><span class="pnum">{esc(p.get("num"))}.</span>'
+                 f'<span class="pname">{esc(p.get("name"))}</span>'
+                 f'<span class="podds">{esc(p.get("odds"))} \u00b7 {esc(p.get("units"))}</span></div>')
+        s=pick_sub(p)
+        if s: B.append(f'<div class="psub">{esc(s)}</div>')
 else:
     for sec in (es.get('sections') or []):
         cl=sec.get('card_lines')
         if not cl: continue
         lbl=sec.get('label') or LG_LABEL.get(sec.get('espn_league','')) or sec.get('espn_league','?')
         B.append(f'<div class="sect">{esc(lbl)}</div>')
-        for ln in cl[:1]: B.append(f'<div class="oline">{esc(ln)}</div>')
-# 5. parlay of the day (only when the card carries one)
+        B.append(f'<div class="psub">{esc(cl[0])}</div>')
+
 if man.get('parlay'):
     pr=man['parlay']
-    B.append(f'<div class="sect">Parlay of the day</div>')
-    B.append(f'<div class="pick">{esc(pr.get("label") or pr.get("name") or "")} <span class="meta">{esc(pr.get("payout") or pr.get("odds") or "")}</span></div>')
-# 7. record line above footer (W-L only)
-B.append(f'<div class="record">&rsquo;RixPicks Overall Record: {esc(man.get("record"))}</div>')
+    legs=pr.get('label') or pr.get('name') or ''
+    comb=pr.get('payout') or pr.get('odds') or ''
+    B.append(f'<div class="pill"><span class="pill-l">PARLAY OF THE DAY</span>'
+             f'<span class="pill-m">{esc(legs)}</span><span class="pill-r">{esc(comb)}</span></div>')
+
+rec=str(man.get('record') or '').replace('-','\u2013')
+pct=str(man.get('pct') or man.get('win_pct') or '')
+if not pct:
+    _mr=re.match(r'\s*(\d+)\s*-\s*(\d+)', str(man.get('record') or ''))
+    if _mr and (int(_mr.group(1))+int(_mr.group(2)))>0:
+        pct=f"{100.0*int(_mr.group(1))/(int(_mr.group(1))+int(_mr.group(2))):.1f}%"
+rec_line=f"'RixPicks Overall Record: {rec}" + (f" \u00b7 {pct}" if pct else '')
+upd=str(man.get('updated') or '')
+B.append(f'<div class="ftr"><div class="frec">{esc(rec_line)}</div>'
+         f'<div class="fmut">Odds checked {esc(upd)} \u00b7 Conviction-selected, edge floor first - floorless only when the floor yields zero</div></div>')
 
 doc='''<!DOCTYPE html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=393, initial-scale=1">
 <style>
-html,body{margin:0;padding:0;width:393px;height:852px;overflow:hidden;background:#ffffff;color:#111;
-  font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;text-align:center}
-.wrap{width:393px;height:852px;box-sizing:border-box;padding:26px 22px 12px;position:relative}
-.hdr{font-size:24px;font-weight:800;letter-spacing:.02em}
-.gm{font-size:14px;color:#3a3a3f;margin-top:6px}
-.yes{font-size:13.5px;font-weight:700;margin-top:10px}
-.yesdet{font-size:12px;color:#3a3a3f;margin-top:2px}
-.para{font-size:12.5px;color:#1c1c1e;margin-top:12px;line-height:1.45}
-.sect{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b6b72;margin-top:14px}
-.pick{font-size:14px;font-weight:600;margin-top:4px}
-.pick .meta{font-weight:400;color:#3a3a3f;font-size:12.5px}
-.sub{font-size:11.5px;color:#6b6b72;margin-top:1px}
-.oline{font-size:12.5px;color:#1c1c1e;margin-top:3px;line-height:1.4}
-.tag{display:inline-block;background:#111;color:#fff;border-radius:6px;font-size:9.5px;
-  font-weight:800;letter-spacing:.06em;padding:1px 6px;vertical-align:2px}
-.record{position:absolute;bottom:10px;left:22px;right:22px;font-size:13px;font-weight:800;
-  border-top:1px solid #e4e2de;padding-top:8px}
-</style></head><body><div class="wrap">'''+'\n'.join(B)+'</div></body></html>'
+html,body{margin:0;padding:0;width:393px;height:852px;overflow:hidden;background:#ece8e1;
+  font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;color:#111}
+.card{box-sizing:border-box;width:353px;height:812px;margin:20px;background:#fff;border-radius:20px;
+  padding:26px 24px 14px;position:relative;overflow:hidden}
+.hdr{font-family:Georgia,'Times New Roman',serif;font-size:34px;font-weight:400;letter-spacing:.01em;color:#111}
+.gm{font-size:14px;font-weight:600;color:#4a9d7f;margin-top:8px}
+.yesblk{border-left:3px solid #4a9d7f;padding-left:10px;margin-top:18px}
+.yes{font-size:15px;font-weight:700}
+.yesdet{font-size:12.5px;color:#8a8f98;margin-top:3px}
+.sect{font-size:11px;font-weight:600;letter-spacing:.14em;color:#9a9aa3;margin-top:20px}
+.prow{display:flex;align-items:baseline;margin-top:10px}
+.pnum{color:#9a9aa3;font-size:14px;width:24px;flex-shrink:0}
+.pname{font-size:15.5px;font-weight:700;flex:1}
+.podds{font-size:14px;font-weight:600;color:#2f9e8f;white-space:nowrap}
+.psub{font-size:12px;color:#8a8f98;margin:3px 0 0 24px;line-height:1.4}
+.pill{display:flex;align-items:center;justify-content:space-between;background:#f1ede6;
+  border-radius:12px;padding:12px 14px;margin-top:24px}
+.pill-l{font-size:10px;font-weight:700;letter-spacing:.1em;color:#9a9aa3}
+.pill-m{font-size:14px;font-weight:700}
+.pill-r{font-size:15px;font-weight:700;color:#2f9e8f}
+.ftr{position:absolute;bottom:14px;left:24px;right:24px}
+.frec{font-size:15px;font-weight:800}
+.fmut{font-size:11.5px;color:#9a9aa3;margin-top:4px;line-height:1.4}
+</style></head><body><div class="card">'''+'\n'.join(B)+'</div></body></html>'
 open(out,'w').write(doc)
 print(f'card photo written: {out} ({len(doc)} bytes, picks={len(picks)}, league_lines={sum(1 for s in (es.get("sections") or []) if s.get("card_lines"))})')
