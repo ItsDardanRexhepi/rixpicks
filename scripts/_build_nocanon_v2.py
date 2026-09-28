@@ -1032,13 +1032,20 @@ for p in man['picks']:
 </div>''')
     _row_lgs.append(lg)
 
+_cnote_folded=False
 if not rows:
     # Empty-slate defense (Sep 26 chaos drill / app_spec Data rules): the page NEVER ships silently
     # empty. Degraded card: explicit state + yesterday's grades, locked layout otherwise intact.
     _y=html.escape(str(man.get('yesterday') or ''))
+    # owner 2:55 (screenshot): card_note banner + 'No picks today' slate render as redundant,
+    # conflicting empty states. With no picks the note folds INTO the slate as its context line
+    # and the standalone banner is suppressed on home (futures page keeps its own copy).
+    _cn=html.escape(str(man['card_note'])) if man.get('card_note') else ''
     rows.append('<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div>'
+                + (f'<div class="sub cnote">{_cn}</div>' if _cn else '')
                 + (f'<div class="sub"><a class="yesrec" href="yesterday.html" style="color:inherit">Yesterday: {_y}</a></div>' if _y else '')
                 + '</div>')
+    _cnote_folded=bool(_cn)
     _row_lgs.append('')
     print('EMPTY SLATE: degraded card shipped (no picks in manifest)', file=sys.stderr)
 
@@ -1550,6 +1557,7 @@ RP_BR=['AZ','CO','CT','DE','DC','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI
 _yestr=''
 _YBL=man.get('yesterday_by_league') or {}
 _cnote_html=('<div class="cardnote">'+html.escape(str(man['card_note']))+'</div>') if man.get('card_note') else ''
+_cnote_home='' if globals().get('_cnote_folded') else _cnote_html  # 2:55: no double empty-state on home
 def _ystr_for(_tab):
     _s=_YBL.get(_tab)
     return ('<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: '+html.escape(_s)+'</a>') if _s else ''
@@ -1764,7 +1772,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
     '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><button type="button" class="rec" id="rpNavRec" aria-haspopup="true" aria-expanded="false" aria-controls="rpRecPop" aria-label="View overall record"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</button>'+_recpop_html+'</nav>\n'
-    '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+_cnote_html+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
+    '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+_cnote_home+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Upcoming games</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
