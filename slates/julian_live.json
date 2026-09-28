@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-27T18:03:46",
+ "generated_at": "2026-09-27T18:08:30",
  "live_legs": [
   {
    "player": "Kiki Iriafen",
@@ -11,19 +11,19 @@
    "combo_id": "t5",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "3:21 - 4th"
+   "game_detail": "2:41 - 4th"
   },
   {
    "player": "Angel Reese",
    "market": "rebounds",
    "line": 12,
-   "current": 9.0,
-   "progress": "9/12",
+   "current": 10.0,
+   "progress": "10/12",
    "matchup": "WAS @ ATL",
    "combo_id": "t5",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "3:21 - 4th"
+   "game_detail": "2:41 - 4th"
   },
   {
    "player": "Shakira Austin",
@@ -35,7 +35,7 @@
    "combo_id": "t5",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "3:21 - 4th"
+   "game_detail": "2:41 - 4th"
   },
   {
    "player": "Michaela Onyenwere",
@@ -47,7 +47,7 @@
    "combo_id": "t5",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "3:21 - 4th"
+   "game_detail": "2:41 - 4th"
   },
   {
    "player": "Rhyne Howard",
@@ -59,7 +59,7 @@
    "combo_id": "t5",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "3:21 - 4th"
+   "game_detail": "2:41 - 4th"
   },
   {
    "player": "DeWanna Bonner",
@@ -71,7 +71,7 @@
    "combo_id": "t6",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "3:21 - 4th"
+   "game_detail": "2:41 - 4th"
   },
   {
    "player": "Sonia Citron",
@@ -83,7 +83,7 @@
    "combo_id": "t6",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "3:21 - 4th"
+   "game_detail": "2:41 - 4th"
   },
   {
    "player": "Kyren Williams",
@@ -95,19 +95,19 @@
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "End of 1st"
+   "game_detail": "13:46 - 2nd"
   },
   {
    "player": "Kyren Williams",
    "market": "rushing_yards",
    "line": 50,
-   "current": 45.0,
-   "progress": "45/50",
+   "current": 53.0,
+   "progress": "53/50",
    "matchup": "LAR @ DEN",
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "End of 1st"
+   "game_detail": "13:46 - 2nd"
   },
   {
    "player": "Blake Corum",
@@ -119,19 +119,19 @@
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "End of 1st"
+   "game_detail": "13:46 - 2nd"
   },
   {
    "player": "Kyren Williams",
    "market": "receptions",
    "line": 2,
-   "current": 1.0,
-   "progress": "1/2",
+   "current": 2.0,
+   "progress": "2/2",
    "matchup": "LAR @ DEN",
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "End of 1st"
+   "game_detail": "13:46 - 2nd"
   },
   {
    "player": "Courtland Sutton",
@@ -143,7 +143,7 @@
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "End of 1st"
+   "game_detail": "13:46 - 2nd"
   },
   {
    "player": "RJ Harvey",
@@ -155,7 +155,7 @@
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "End of 1st"
+   "game_detail": "13:46 - 2nd"
   },
   {
    "player": "Terrance Ferguson",
@@ -167,7 +167,7 @@
    "combo_id": "t7",
    "card_status": "live",
    "game_state": "in",
-   "game_detail": "End of 1st"
+   "game_detail": "13:46 - 2nd"
   }
  ]
 }
