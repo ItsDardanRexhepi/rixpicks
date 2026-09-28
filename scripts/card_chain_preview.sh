@@ -2,6 +2,9 @@
 # Preview card chain for 2026-09-28 (owner green light 9/27 via main): CANDIDATE ARTIFACTS ONLY.
 # No commits, no pushes - go-live gate holds. Env: THE_ODDS_API_KEY/ODDS_API_KEY (+ Polymarket pair).
 set -uo pipefail
+FLOORLESS="${FLOORLESS:-false}"
+[ "$FLOORLESS" = "true" ] || [ "$FLOORLESS" = "1" ] || FLOORLESS="false"
+echo "mode: floorless=$FLOORLESS"
 LOG=/tmp/card_chain.log
 exec > >(tee -a "$LOG") 2>&1
 DT=2026-09-28; D=20260928
@@ -33,18 +36,23 @@ for r in slate:
 json.dump({'rows':rows}, open(f'/tmp/hunt_slate_{DT}.json','w'))
 print('hunt slate rows:', len(rows))
 PY
-echo "-- stage: hunt (floored first)"
-python3 scripts/hunt_v2.py /tmp/hunt_slate_$DT.json /tmp/hunt_v2_$DT.json || echo "STAGE FAIL hunt_v2"
-NCAND=$(python3 -c "
+if [ "$FLOORLESS" = "true" ]; then
+  echo "-- stage: hunt (floorless governing pass)"
+  python3 scripts/hunt_nofloor.py /tmp/hunt_slate_$DT.json /tmp/hunt_v2_$DT.json || echo "STAGE FAIL hunt_nofloor"
+else
+  echo "-- stage: hunt (floored first)"
+  python3 scripts/hunt_v2.py /tmp/hunt_slate_$DT.json /tmp/hunt_v2_$DT.json || echo "STAGE FAIL hunt_v2"
+  NCAND=$(python3 -c "
 import json
 try:
     log=json.load(open('/tmp/hunt_v2_$DT.json'))
     print(sum(1 for e in log if e.get('verdict')=='CANDIDATE'))
 except Exception: print(0)")
-echo "hunt candidates: $NCAND"
-if [ "$NCAND" = "0" ]; then
-  echo "-- stage: hunt fallback (floorless - zero-pick rule)"
-  python3 scripts/hunt_nofloor.py /tmp/hunt_slate_$DT.json /tmp/hunt_v2_$DT.json || echo "STAGE FAIL hunt_nofloor"
+  echo "hunt candidates: $NCAND"
+  if [ "$NCAND" = "0" ]; then
+    echo "-- stage: hunt fallback (floorless - zero-pick rule)"
+    python3 scripts/hunt_nofloor.py /tmp/hunt_slate_$DT.json /tmp/hunt_v2_$DT.json || echo "STAGE FAIL hunt_nofloor"
+  fi
 fi
 
 echo "-- stage: st prefill"
@@ -63,12 +71,13 @@ if [ -n "$SPORTS" ]; then ODDS_PREFILL_ST_OUT=/tmp/odds_prefill_st.json python3 
 echo "-- stage: st_fair"
 python3 scripts/st_fair.py > /tmp/st_fair_$DT.json || echo "STAGE FAIL st_fair"
 echo "-- stage: st_card_candidates"
-python3 scripts/st_card_candidates.py /tmp/st_fair_$DT.json > /tmp/cand_st_$DT.json || echo "STAGE FAIL st_card_candidates"
+NF=""; [ "$FLOORLESS" = "true" ] && NF="--no-floor"
+python3 scripts/st_card_candidates.py /tmp/st_fair_$DT.json $NF > /tmp/cand_st_$DT.json || echo "STAGE FAIL st_card_candidates"
 
 echo "-- stage: props_engine (pregame)"
 python3 scripts/props_engine.py || echo "STAGE FAIL props_engine"
 echo "-- stage: props_card_candidates (pre-game gate live)"
-python3 scripts/props_card_candidates.py /tmp/props_candidates.json > /tmp/cand_props_$DT.json || echo "STAGE FAIL props_card_candidates"
+python3 scripts/props_card_candidates.py /tmp/props_candidates.json $NF > /tmp/cand_props_$DT.json || echo "STAGE FAIL props_card_candidates"
 
 echo "-- stage: tennis_kalshi_discovery"
 python3 - <<'PY'
@@ -83,7 +92,7 @@ print(f"tennis slate rows: {len(rows)}")
 PY
 python3 scripts/tennis_kalshi_discovery.py --date 2026-09-28 --slate /tmp/tennis_slate_$DT.json --out /tmp/tennis_catch_$DT.json || echo "STAGE FAIL tennis"
 echo "-- stage: tennis_card_candidates (adapter: catch -> build_manifest schema)"
-python3 scripts/tennis_card_candidates.py /tmp/tennis_catch_$DT.json > /tmp/cand_tennis_$DT.json 2>/tmp/tennis_adapter_notes_$DT.txt || echo "STAGE FAIL tennis_adapter"
+python3 scripts/tennis_card_candidates.py /tmp/tennis_catch_$DT.json $NF > /tmp/cand_tennis_$DT.json 2>/tmp/tennis_adapter_notes_$DT.txt || echo "STAGE FAIL tennis_adapter"
 cat /tmp/tennis_adapter_notes_$DT.txt
 
 echo "-- stage: merge candidate classes"

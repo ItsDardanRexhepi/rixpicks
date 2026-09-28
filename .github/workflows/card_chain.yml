@@ -2,6 +2,11 @@ name: card-chain-preview
 # Preview-only card chain (owner green light 9/27 via main): candidate artifacts, no pushes.
 on:
   workflow_dispatch:
+    inputs:
+      floorless:
+        description: 'Run the floorless governing-sequence pass (all adapters --no-floor)'
+        type: boolean
+        default: false
 permissions:
   contents: none
 concurrency:
@@ -32,6 +37,7 @@ jobs:
           ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
           POLYMARKET_API_KEY_ID: ${{ secrets.POLYMARKET_API_KEY_ID }}
           POLYMARKET_API_SECRET: ${{ secrets.POLYMARKET_API_SECRET }}
+          FLOORLESS: ${{ inputs.floorless }}
         run: bash scripts/card_chain_preview.sh
       - uses: actions/upload-artifact@v4
         if: always()
