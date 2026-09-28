@@ -12,6 +12,17 @@ jobs:
       - name: install wrangler
         run: |
           mkdir -p tailenv && cd tailenv && npm install wrangler@4 --no-save --silent
+      - name: worker settings - bound KV namespace ids
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -e
+          API="https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID"
+          for SC in ultrix-core ultrix-intake; do
+            echo "== $SC bindings"
+            curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API/workers/scripts/$SC/settings" | python3 -c 'import json,sys; d=json.load(sys.stdin).get("result",{}); print(json.dumps([{"name":b.get("name"),"type":b.get("type"),"namespace_id":b.get("namespace_id"),"bucket_name":b.get("bucket_name"),"queue_name":b.get("queue_name")} for b in d.get("bindings",[])], indent=1))'
+          done
       - name: tail ultrix-intake (100s window)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
