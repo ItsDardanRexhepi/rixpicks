@@ -75,6 +75,31 @@ def embed_all(texts):
         vecs.extend(out['embeddings'])
     return vecs
 
+VECS = 'slates/soc_vecs.json'
+VERD = 'slates/soc_verdicts.json'
+SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL])
+
+def thash(t):
+    return hashlib.sha1(t.encode('utf-8')).hexdigest()
+
+def embed_cached(texts):
+    """owner 2:48 (six gates must be instant): embeddings are deterministic per model+text, so
+    cache by content hash and bill NIM only for NEW texts. A steady-state cycle (no new stories,
+    no new posts) makes zero embed calls; the matcher becomes CPU-only over cached vectors."""
+    try:
+        cache = json.load(open(VECS))
+    except Exception:
+        cache = {}
+    missing = [t for t in dict.fromkeys(texts) if thash(t) not in cache]
+    if missing:
+        for v, t in zip(embed_all(missing), missing):
+            cache[thash(t)] = v
+        print(f'embed cache: {len(missing)} new texts embedded, {len(texts) - len(missing)} reused')
+    keep = {thash(t) for t in texts}
+    cache = {h: v for h, v in cache.items() if h in keep}
+    json.dump(cache, open(VECS, 'w'))
+    return [cache[thash(t)] for t in texts]
+
 def cos(a, b):
     dot = sum(x*y for x, y in zip(a, b))
     na = math.sqrt(sum(x*x for x in a)); nb = math.sqrt(sum(x*x for x in b))
@@ -120,7 +145,13 @@ def main():
     ntexts = [(it.get('headline', '') + ' - ' + (it.get('blurb') or ''))[:1800] for it in items]
     ptexts = [p.get('text', '')[:1800] for p in posts]
     anchors = list(LEAGUE_ANCHORS.items())
-    vecs = embed_all(ntexts + ptexts + [a[1] for a in anchors])
+    vecs = embed_cached(ntexts + ptexts + [a[1] for a in anchors])
+    # verdict cache (owner 2:48): a decided (story, post) pair never re-probes - decisions are
+    # deterministic per pair, so reuse is not loosening. DEFERs are never cached (not decisions).
+    try:
+        vcache = json.load(open(VERD))
+    except Exception:
+        vcache = {}
     nv, pv = vecs[:len(ntexts)], vecs[len(ntexts):len(ntexts)+len(ptexts)]
     av = vecs[len(ntexts)+len(ptexts):]
     # relevance pass: best anchor score per post
@@ -152,6 +183,19 @@ def main():
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'ABSTAIN', 'gate': 'evidence', 'reason': 'below probe floor'})
                 break
+            vk = SALT + '|' + nk + '|' + str(posts[j].get('id'))
+            prior = vcache.get(vk)
+            if prior:
+                if prior.get('verdict') == 'EXECUTE':
+                    verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
+                                     'verdict': 'EXECUTE', 'gate': 'conflict', 'reason': 'probe confirmed (cached): ' + prior.get('reason', '')})
+                    best = (score, j, True)
+                    stats['probe_confirmed'] += 1
+                    break
+                verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
+                                 'verdict': 'REJECT', 'gate': 'conflict', 'reason': 'probe rejected (cached): ' + prior.get('reason', '')})
+                stats['probe_rejected'] += 1
+                continue
             # PROBE: smallest falsifying test
             if probes >= MAX_PROBES:
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
@@ -165,11 +209,13 @@ def main():
                                  'verdict': 'DEFER', 'gate': 'evidence', 'reason': 'probe failed: ' + str(e)[:80]})
                 continue
             if ok:
+                vcache[vk] = {'verdict': 'EXECUTE', 'reason': why}
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'EXECUTE', 'gate': 'conflict', 'reason': 'probe confirmed: ' + why})
                 best = (score, j, True)
                 stats['probe_confirmed'] += 1
                 break
+            vcache[vk] = {'verdict': 'REJECT', 'reason': why}
             verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                              'verdict': 'REJECT', 'gate': 'conflict', 'reason': 'probe rejected: ' + why})
             log['rejected'].append({'news_key': nk, 'headline': it.get('headline', '')[:120],
@@ -207,6 +253,11 @@ def main():
     log['audit'] = {'thresholds': {'auto_accept': AUTO_ACCEPT, 'probe_floor': PROBE_FLOOR, 'more_floor': MORE_FLOOR},
                     'probes_used': probes, **stats,
                     'coverage_pct': round(100.0 * stats['paired'] / max(1, len(items)), 1)}
+    cur_keys = {key_news(it) for it in items}
+    cur_pids = {str(pp.get('id')) for pp in posts}
+    vcache = {k: v for k, v in vcache.items()
+              if k.split('|')[-2] in cur_keys and k.split('|')[-1] in cur_pids}
+    json.dump(vcache, open(VERD, 'w'))
     json.dump(log, open('slates/soc_match.json', 'w'))
     print('soc_match built:', json.dumps(log['audit']))
     return 0
