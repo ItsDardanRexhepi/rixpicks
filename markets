@@ -1,35 +1,35 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-09-28T15:08:26.747937Z",
-  "expires_at": "2026-09-28T15:14:26.747937Z",
+  "observed_at": "2026-09-28T15:11:53.798642Z",
+  "expires_at": "2026-09-28T15:17:53.798642Z",
   "cadence": "approximately 5 minutes; not an execution feed",
   "status": "ok",
   "spots": [
     {
       "symbol": "BTC-USD",
       "venue": "Coinbase Exchange",
-      "price_usd": 82998.23,
-      "source_time": "2026-09-28T15:08:25.146516762Z",
+      "price_usd": 82989.98,
+      "source_time": "2026-09-28T15:11:52.687778759Z",
       "url": "https://api.exchange.coinbase.com/products/BTC-USD/ticker"
     },
     {
       "symbol": "BTC-USD",
       "venue": "Kraken",
-      "price_usd": 82994.6,
+      "price_usd": 83000.1,
       "source_time": null,
       "url": "https://api.kraken.com/0/public/Ticker?pair=XBTUSD,ETHUSD"
     },
     {
       "symbol": "ETH-USD",
       "venue": "Coinbase Exchange",
-      "price_usd": 2667.97,
-      "source_time": "2026-09-28T15:08:25.968548070Z",
+      "price_usd": 2665.23,
+      "source_time": "2026-09-28T15:11:52.052277680Z",
       "url": "https://api.exchange.coinbase.com/products/ETH-USD/ticker"
     },
     {
       "symbol": "ETH-USD",
       "venue": "Kraken",
-      "price_usd": 2667.48,
+      "price_usd": 2665.41,
       "source_time": null,
       "url": "https://api.kraken.com/0/public/Ticker?pair=XBTUSD,ETHUSD"
     }
@@ -40,10 +40,10 @@
       "ticker": "KXBTCMAXMON-BTC-26SEP30-8750000",
       "status": "active",
       "yes_bid": 0.05,
-      "yes_bid_size": 869.42,
+      "yes_bid_size": 4810.98,
       "yes_ask": 0.07,
       "yes_ask_size": 500.0,
-      "book_observed_at": "2026-09-28T15:08:26.747937Z",
+      "book_observed_at": "2026-09-28T15:11:53.798642Z",
       "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXBTCMAXMON-BTC-26SEP30-8750000/orderbook?depth=5"
     },
     {
@@ -51,12 +51,12 @@
       "market_id": "4052418",
       "yes_token_id": "93102073593745160534123412868713328176360151139344483198023062751009656599915",
       "status": "active",
-      "yes_bid": 0.06,
-      "yes_bid_size": 1509.24,
-      "yes_ask": 0.07,
-      "yes_ask_size": 667.11,
-      "book_source_time": "2026-09-28T15:08:25.702000Z",
-      "book_observed_at": "2026-09-28T15:08:26.747937Z",
+      "yes_bid": 0.07,
+      "yes_bid_size": 366.29,
+      "yes_ask": 0.08,
+      "yes_ask_size": 6107.0,
+      "book_source_time": "2026-09-28T15:11:52.081000Z",
+      "book_observed_at": "2026-09-28T15:11:53.798642Z",
       "url": "https://clob.polymarket.com/book?token_id=93102073593745160534123412868713328176360151139344483198023062751009656599915"
     }
   ],
