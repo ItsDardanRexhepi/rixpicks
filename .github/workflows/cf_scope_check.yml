@@ -1,0 +1,28 @@
+name: cf-scope-check
+# CF-1 credential gate probe (main 9/27 10:36): verify the existing CLOUDFLARE_API_TOKEN scope
+# covers Workers/KV/Queues/Durable Objects/R2 before CF-2 provisions namespaces. Read-only.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: wrangler whoami + scope probes
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: whoami
+      - name: token permission verify (API)
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "== token verify"; curl -s https://api.cloudflare.com/client/v4/user/tokens/verify -H "Authorization: Bearer $CF_TOKEN" | python3 -m json.tool | head -20
+          echo "== KV namespaces (list = read scope)"; curl -s "https://api.cloudflare.com/client/v4/accounts/$CF_ACCT/storage/kv/namespaces?per_page=1" -H "Authorization: Bearer $CF_TOKEN" | python3 -c "import json,sys;d=json.load(sys.stdin);print('success:',d.get('success'),'errors:',d.get('errors'))"
+          echo "== Queues list"; curl -s "https://api.cloudflare.com/client/v4/accounts/$CF_ACCT/queues?per_page=1" -H "Authorization: Bearer $CF_TOKEN" | python3 -c "import json,sys;d=json.load(sys.stdin);print('success:',d.get('success'),'errors:',d.get('errors'))"
+          echo "== R2 buckets list"; curl -s "https://api.cloudflare.com/client/v4/accounts/$CF_ACCT/r2/buckets?per_page=1" -H "Authorization: Bearer $CF_TOKEN" | python3 -c "import json,sys;d=json.load(sys.stdin);print('success:',d.get('success'),'errors:',d.get('errors'))"
+          echo "== Workers scripts list"; curl -s "https://api.cloudflare.com/client/v4/accounts/$CF_ACCT/workers/scripts?per_page=1" -H "Authorization: Bearer $CF_TOKEN" | python3 -c "import json,sys;d=json.load(sys.stdin);print('success:',d.get('success'),'errors:',d.get('errors'))"
+          echo "== DO namespaces list"; curl -s "https://api.cloudflare.com/client/v4/accounts/$CF_ACCT/workers/durable_objects/namespaces?per_page=1" -H "Authorization: Bearer $CF_TOKEN" | python3 -c "import json,sys;d=json.load(sys.stdin);print('success:',d.get('success'),'errors:',d.get('errors'))"
