@@ -159,6 +159,21 @@ def main():
     json.dump(hist, open(HIST, 'w'), indent=2)
     json.dump(done, open(DONE, 'w'), indent=2)
     json.dump({'requests': remaining}, open(REQ, 'w'), indent=2)
+    # API MIRROR (main 9/27 6:20, option B): slates/api_record.json in the
+    # api.rix-picks.com/record worker's exact GET shape, emitted on every apply.
+    # graded_pick/source ride in analysis's request payload; omitted when absent -
+    # no invented state.
+    mirror = {
+        'w': rw, 'l': rl,
+        'pct': float((Decimal(rw * 100) / (rw + rl)).quantize(Decimal('0.1'))) if (rw + rl) else 0.0,
+        'units': float(Decimal(str(last['units_after_exact'])).quantize(Decimal('0.01'))),
+        'updated': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+    }
+    if last.get('graded_pick'):
+        mirror['graded_pick'] = last['graded_pick']
+    if last.get('source'):
+        mirror['source'] = last['source']
+    json.dump(mirror, open(os.path.join(ROOT, 'slates', 'api_record.json'), 'w'), indent=1)
     print(f'RECORD WRITE: record {man["record"]} units {man["units_pl"]}; {len(processed)} graded, {len(remaining)} remain')
     return 0
 
