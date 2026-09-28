@@ -1547,10 +1547,13 @@ try:
     _w0,_l0=int(_rw),int(_rl)
     if _w0+_l0>0: _navpct='<span>W/L <b id="rpNavPct">'+('%.2f'%(100.0*_w0/(_w0+_l0)))+'%</b></span>'
 except Exception: _navpct=''
-_tail_html=('<a class="rec" id="rpRec" data-bw="'+html.escape(str(_rw))+'" data-bl="'+html.escape(str(_rl))+'" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: '+html.escape(man['record'])+'</a>\n'
-    +wl_pct_line(man['record'])+'\n'+_units_line+'\n'
-    '<div class="unitmath">1u = $5 per $1,000 in bankroll</div>\n'
-    '<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>')
+# header record strip tap opens the record panel (owner 10:55: strip tappable, units math
+# under the units P/L, static body section removed - the tap replaces it).
+_recpop_html=('<div class="recpop" id="rpRecPop" hidden>'
+    '<div class="rpPopRec" id="rpRec" data-bw="'+html.escape(str(_rw))+'" data-bl="'+html.escape(str(_rl))+'">&rsquo;RixPicks Overall Record: '+html.escape(man['record'])+'</div>'
+    +wl_pct_line(man['record'])+_units_line+
+    '<div class="unitmath">1u = $5 per $1,000 in bankroll</div></div>')
+_tail_html=('<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>')
 if _V2:
     INDEX_V2_CSS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.css')).read()
     INDEX_V2_JS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.js')).read()
@@ -1731,7 +1734,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
         _panels_html+='<div class="state" id="st-'+t['key']+'"'+_home_attr+'>'+_body+'</div>\n'
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
-    '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><div class="rec"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</div></nav>\n'
+    '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><button type="button" class="rec" id="rpNavRec" aria-haspopup="true" aria-expanded="false" aria-controls="rpRecPop" aria-label="View overall record"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</button>'+_recpop_html+'</nav>\n'
     '<div class="layout"><main><div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n'+_cnote_html+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Upcoming games</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div class="col-head" style="margin-top:18px"><div class="sect">News</div></div><div class="card" id="rpNews"></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
