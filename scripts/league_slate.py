@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Daily slate gatherer for the 6:45 AM card build - registry-driven (config_leagues.json).
 Usage: league_slate.py LEAGUE [LEAGUE...] [--date YYYYMMDD] [--odds] [--json]
-Per league: ESPN schedule+meta (team sports via competitions, tennis via groupings),
+Per league: ESPN schedule+meta (team sports via competitions, tennis via groupings); leagues with
+espn:null and an odds_api key (Boxing) pull events from The Odds API events endpoint (free).
 Kalshi open-market match per event, and (only with --odds, spends credits) odds-API h2h.
 Output: JSON list of slate entries {league, away, home, commence, status, espn_id, kalshi:[{ticker,title,yes_bid,yes_ask}], odds?}
 Credit discipline: --odds only when building a card that will use it (J-049A)."""
@@ -55,6 +56,35 @@ def main():
                             'away_abbr':'','home_abbr':''})
             except Exception as e:
                 print(f"{lgname}: espn fetch failed {e}",file=sys.stderr)
+        if not cfg.get('espn') and cfg.get('odds_api'):
+            # no ESPN scoreboard (Boxing is espn:null): events from The Odds API EVENTS endpoint.
+            # Free - no odds credits spent, credit discipline (--odds / J-049A) untouched. Rows
+            # carry the same contract as the ESPN path; espn_id holds the odds-api event id and
+            # becomes instance_id downstream. Absence stays loud: any failure -> zero rows -> the
+            # coverage census keeps this league as a visible certification blocker.
+            try:
+                _key=(os.environ.get('THE_ODDS_API_KEY') or open('/home/sandbox/.odds_api_key').read()).strip()
+            except Exception:
+                _key=None
+            if not _key:
+                print(f"{lgname}: no ESPN endpoint and odds-api key unavailable - zero rows, census blocker stays visible",file=sys.stderr)
+            else:
+                try:
+                    _base=os.environ.get('ODDS_API_BASE','https://api.the-odds-api.com/v4')  # base override exists for fixture tests only
+                    from zoneinfo import ZoneInfo
+                    _day=datetime.datetime.strptime(dt,'%Y%m%d').date()
+                    for e in get(f"{_base}/sports/{cfg['odds_api']}/events?apiKey={_key}"):
+                        ct=e.get('commence_time') or ''
+                        try:
+                            _local=datetime.datetime.fromisoformat(ct.replace('Z','+00:00')).astimezone(ZoneInfo('America/Los_Angeles')).date()
+                        except Exception:
+                            continue  # unparseable commence: drop the row, never guess a date
+                        if _local!=_day: continue  # local-day slate (PST standing rule)
+                        events.append({'espn_id':e.get('id'),'away':e.get('away_team') or '','home':e.get('home_team') or '',
+                            'commence':ct,'status':'STATUS_SCHEDULED',  # events feed is upcoming-only by contract
+                            'away_abbr':'','home_abbr':'','source':'the-odds-api events (free endpoint)'})
+                except Exception as e:
+                    print(f"{lgname}: odds-api events fetch failed {e} - zero rows, census blocker stays visible",file=sys.stderr)
         # Kalshi match
         km=[]
         for ser in cfg.get('kalshi') or []:
