@@ -1,6 +1,83 @@
 {
- "generated_at": "2026-09-27T15:14:00-07:00",
+ "generated_at": "2026-09-27T18:29:00-07:00",
  "entries": [
+  {
+   "id": "t5",
+   "kind": "ticket",
+   "origin": "bought",
+   "title": "5-leg SGP \u00b7 +1050 \u00b7 Fanatics",
+   "result": "lost",
+   "detail": "Fanatics - bought $0.21 FanCash",
+   "legs": [
+    {
+     "player": "Kiki Iriafen",
+     "market": "16+ Points",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Angel Reese",
+     "market": "12+ Rebounds",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Shakira Austin",
+     "market": "3+ Assists",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Michaela Onyenwere",
+     "market": "1+ Threes",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "status": "won"
+    },
+    {
+     "player": "Rhyne Howard",
+     "market": "3+ Threes",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "status": "lost"
+    }
+   ],
+   "archived_at": "2026-09-27T18:29",
+   "reason": "Ticket lost - Iriafen (15 pts), Austin (2 ast) and Howard (2 3PM) legs lost, game final",
+   "provenance": "ESPN official box score, event 401918013 (Final: ATL 92, WAS 77), Sep 27.",
+   "removed_label": "Sep 27, 6:29 PM PT"
+  },
+  {
+   "id": "t6",
+   "kind": "ticket",
+   "origin": "bought",
+   "title": "2-pick SGP \u00b7 +600 boosted to +780 \u00b7 Parlay Boost",
+   "result": "lost",
+   "detail": "Parlay Boost - bought ticket",
+   "legs": [
+    {
+     "player": "DeWanna Bonner",
+     "market": "8+ Rebounds",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Sonia Citron",
+     "market": "5+ Assists",
+     "matchup": "WAS @ ATL",
+     "time": "Today 4:00 PM PT",
+     "status": "lost"
+    }
+   ],
+   "archived_at": "2026-09-27T18:29",
+   "reason": "Ticket lost - Bonner (4 reb) and Citron (3 ast) legs lost, game final",
+   "provenance": "ESPN official box score, event 401918013 (Final: ATL 92, WAS 77), Sep 27.",
+   "removed_label": "Sep 27, 6:29 PM PT"
+  },
   {
    "id": "combo1",
    "kind": "combo",
