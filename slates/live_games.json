@@ -1,18 +1,10 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T08:35:51.010901+00:00",
+ "generated_at": "2026-09-28T08:47:02.216465+00:00",
  "leagues": [
   {
    "league": "ATP",
    "games": [
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Linda Fruhvirtova @ Ye Shiyu",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "3rd",
-     "score": "Linda Fruhvirtova 0 - Ye Shiyu 0"
-    },
     {
      "espn_event_id": "959-2026",
      "matchup": "Storm Hunter @ Zhang Ruien",
@@ -26,7 +18,7 @@
      "matchup": "Ksenia Zaytseva @ Tamara Zidansek",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Ksenia Zaytseva 0 - Tamara Zidansek 0"
     },
     {
@@ -36,6 +28,22 @@
      "status": "in",
      "detail": "1st",
      "score": "Aran Teixido Garcia 0 - Robin Montgomery 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Shi Han @ Tereza Mihalikova",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Shi Han 0 - Tereza Mihalikova 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Jodie Burrage @ Rebecca Sramkova",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Jodie Burrage 0 - Rebecca Sramkova 0"
     }
    ]
   },
@@ -43,12 +51,20 @@
    "league": "WTA",
    "games": [
     {
-     "espn_event_id": "959-2026",
-     "matchup": "Linda Fruhvirtova @ Ye Shiyu",
-     "commence": "2026-09-27T04:00Z",
+     "espn_event_id": "1078-2026",
+     "matchup": "Anna Blinkova @ Emiliana Arango",
+     "commence": "2026-09-26T04:00Z",
      "status": "in",
-     "detail": "3rd",
-     "score": "Linda Fruhvirtova 0 - Ye Shiyu 0"
+     "detail": "1st",
+     "score": "Anna Blinkova 0 - Emiliana Arango 0"
+    },
+    {
+     "espn_event_id": "1078-2026",
+     "matchup": "Vendula Valdmannova @ Antonia Ruzic",
+     "commence": "2026-09-26T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Vendula Valdmannova 0 - Antonia Ruzic 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -63,7 +79,7 @@
      "matchup": "Ksenia Zaytseva @ Tamara Zidansek",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Ksenia Zaytseva 0 - Tamara Zidansek 0"
     },
     {
@@ -73,6 +89,22 @@
      "status": "in",
      "detail": "1st",
      "score": "Aran Teixido Garcia 0 - Robin Montgomery 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Shi Han @ Tereza Mihalikova",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Shi Han 0 - Tereza Mihalikova 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Jodie Burrage @ Rebecca Sramkova",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Jodie Burrage 0 - Rebecca Sramkova 0"
     }
    ]
   }
