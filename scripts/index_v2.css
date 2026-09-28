@@ -200,3 +200,13 @@ body.tab-home .home-only{display:block}
 .newscar .carslide{height:auto}
 .newscar .carslide>a{height:auto;box-sizing:border-box}
 @media (max-width:640px){.newscar .carvp,.newscar .carslide{height:auto}}
+/* View all News mobile pass (owner 12:24): fixed pill column, headline own line, meta row, 44px+ tap targets, even rows */
+.carallpop{padding:4px 0}
+.narow{border-top:1px solid rgba(127,127,127,.14)}
+.narow:first-child{border-top:0}
+.narow>a{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;min-height:52px;box-sizing:border-box;text-decoration:none;color:inherit}
+.napill{flex:0 0 62px;text-align:center;margin-top:1px}
+.nabody{flex:1;min-width:0;display:block}
+.nahead{display:block;font-size:13.5px;line-height:1.4}
+.nameta{display:block;font-size:11px;color:#8a8f98;margin-top:4px}
+.narow+a,.narow a:active{background:rgba(127,127,127,.06)}
