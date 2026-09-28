@@ -220,18 +220,42 @@ function carApply(){
  vp.style.height=s.offsetHeight+'px';
  tr.style.transform='translateY(-'+s.offsetTop+'px)';
  var c=$('rpCarCount');if(c)c.textContent=(CAR_N?(CAR_IDX+1):0)+' of '+CAR_N;
+ socSync();
 }
 var CAR_RZ=null;
 window.addEventListener('resize',function(){if(CAR_RZ)clearTimeout(CAR_RZ);CAR_RZ=setTimeout(function(){carApply();socApply();},180);});
 /* owner 12:25 add-on: news + social rotate IN SYNC on one shared clock; pausing one pauses both;
    hover/focus on either freezes both. Manual Prev/Next stays per-carousel. */
+var SYNC_STOP=['with','from','that','this','after','before','into','your','their','will','would','could','should','about','over','just','have','been','what','when','where','they','them','then','than','against','season','trade','week','year','game','games','team','teams','picks','pick','news','says','report','first','last','next','back','down','more','most','some','make','makes','made','take','takes','gets','going','goes','here','there','still','even','much','many','only','also','very','head','heads','look','looks','best','worst','every','each','both','while','which','whose','rank','ranks','ranked','ranking','start','starts','started'];
+var SYNC_LAST=false;
+function socSync(){
+ SYNC_LAST=false;
+ if(SOC_N<2)return false;
+ var ntr=$('rpCarTrack'),str=$('rpSocTrack');
+ if(!ntr||!str)return false;
+ var slide=ntr.children[CAR_IDX];if(!slide)return false;
+ var head=((slide.querySelector('.carhead')||{}).textContent||'').toLowerCase();
+ var toks=head.replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(function(w){return w.length>=4&&SYNC_STOP.indexOf(w)<0;});
+ if(!toks.length)return false;
+ var best=-1,bestScore=0;
+ for(var i=0;i<str.children.length;i++){
+  var txt=str.children[i].textContent.toLowerCase();
+  var sc=0;
+  for(var j=0;j<toks.length;j++)if(txt.indexOf(toks[j])>=0)sc++;
+  if(sc>bestScore){bestScore=sc;best=i;}
+ }
+ /* owner 12:30 contextual sync: social slide follows the news slide's entities (team/player/story
+    keywords). A match jumps the social index; no match -> caller keeps chronological advance. */
+ if(best>=0&&bestScore>=1){SOC_IDX=best;socApply();SYNC_LAST=true;return true;}
+ return false;
+}
 function carStep(){
  if(document.hidden||CAR_PAUSED||CAR_RM)return;
  if(CAR_N<2&&SOC_N<2)return;
  var nb=$('rpNewsCar'),sb=$('rpSocial');
  if((nb&&(nb.matches(':hover')||nb.matches(':focus-within')))||(sb&&(sb.matches(':hover')||sb.matches(':focus-within'))))return;
  if(CAR_N>1){CAR_IDX=(CAR_IDX+1)%CAR_N;carApply();}
- if(SOC_N>1){SOC_IDX=(SOC_IDX+1)%SOC_N;socApply();}
+ if(!SYNC_LAST&&SOC_N>1){SOC_IDX=(SOC_IDX+1)%SOC_N;socApply();}
 }
 function carGo(d){if(CAR_N<2)return;CAR_IDX=(CAR_IDX+d+CAR_N)%CAR_N;carApply();}
 function carPP(){CAR_PAUSED=!CAR_PAUSED;var ids=['rpCarPP','rpSocPP'];for(var i=0;i<ids.length;i++){var b=$(ids[i]);if(b)b.textContent=CAR_PAUSED?'Play':'Pause';}}
