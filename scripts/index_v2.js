@@ -246,6 +246,9 @@ function socSync(){
  var ntr=$('rpCarTrack'),str=$('rpSocTrack');
  if(!ntr||!str)return false;
  var slide=ntr.children[CAR_IDX];if(!slide)return false;
+ var mp=socMatchPair();
+ if(mp>=0){SOC_IDX=mp;socApply();SYNC_LAST=true;return true;}
+ if(mp===-2)return false; /* URF abstain: no verified pair - stay chronological, never force */
  var toks=topicTokens();
  if(!toks.length)return false;
  var SPORT_GEN=['football','basketball','baseball','soccer','hockey','college','sports','players','player'];
@@ -300,7 +303,10 @@ function renderNews(t,arts){
  CAR_ALL=(arts||[]).slice(0,40);
  var sig=items.map(function(a){return normH(a.headline);}).join('|');
  if(sig===CAR_SIG){carApply();return;}
+ var curKey=(CAR_LAST[CAR_IDX]&&carKey(CAR_LAST[CAR_IDX]))||'';
  CAR_SIG=sig;CAR_N=items.length;
+ CAR_IDX=0;
+ if(curKey){for(var _ci=0;_ci<items.length;_ci++){if(carKey(items[_ci])===curKey){CAR_IDX=_ci;break;}}}
  if(CAR_IDX>=CAR_N)CAR_IDX=0;
  if(!items.length){box.innerHTML='<div class="empty">News unavailable right now.</div>';return;}
  var h='<div class="carvp"><div class="cartrack" id="rpCarTrack">';
@@ -311,8 +317,8 @@ function renderNews(t,arts){
   var inner=(img?'<span class="carimg" style="background-image:url(\''+esc(img)+'\')"></span>':'')
    +'<span class="carbody"><span class="carhead">'+esc(unesc(a.headline||''))+'</span>'
    +(blurb?'<span class="carblurb">'+esc(unesc(blurb))+'</span>':'')
-   +'<span class="carmeta"><span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span> \u00b7 '+esc(ago(a.published))+'</span></span>';
-  h+='<div class="carslide">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer" aria-label="'+esc(unesc(a.headline||''))+'">'+inner+'</a>':inner)+'</div>';
+   +'<span class="carmeta"><span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span> \u00b7 '+esc(ago(a.published))+(isNewIt(a)?' <span class="carnew">new</span>':'')+'</span></span>';
+  h+='<div class="carslide" data-nkey="'+esc(u||String(a.headline||''))+'">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer" aria-label="'+esc(unesc(a.headline||''))+'">'+inner+'</a>':inner)+'</div>';
  });
  h+='</div></div><div class="carctl"><button type="button" id="rpCarPrev" aria-label="previous article">\u2039 Prev</button>'
   +'<span id="rpCarCount" class="carcount"></span>'
@@ -329,7 +335,7 @@ function renderNews(t,arts){
 }
 /* X social section (owner 10:32: X posts out of news, own Home section; built 11:53 scope):
    renders the x_feed items XNEWS already normalizes; Home-only visibility via body.tab-home CSS. */
-var SOC_SIG='',SOC_IDX=0,SOC_N=0;
+var SOC_SIG='',SOC_IDX=0,SOC_N=0,SOC_LAST=[];
 function socApply(){
  var tr=$('rpSocTrack');if(!tr||!SOC_N)return;
  var sl=tr.children[SOC_IDX];if(!sl)return;
@@ -344,6 +350,20 @@ function socGo(d){if(SOC_N<2)return;SOC_IDX=(SOC_IDX+d+SOC_N)%SOC_N;socApply();}
 function socMore(){
  var pop=$('rpSocMorePop');if(!pop)return;
  if(!pop.hidden){pop.hidden=true;return;}
+ var mm=socMatchMore();
+ if(mm){
+  var h2='';
+  if(!mm.length){h2='<div class="empty">No posts about this topic right now.</div>';}
+  mm.forEach(function(e){
+   var i=SOC_XIDX[e.post_id];if(i===undefined)return;
+   var p=XNEWS[i],txt=String(p.headline||'');
+   if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
+   var inner='<span class="napill src x">X</span>'
+    +'<span class="nabody"><span class="nahead stxt">'+esc(unesc(txt))+'</span><span class="nameta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+'</span></span>';
+   h2+='<div class="narow">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
+  });
+  pop.innerHTML=h2;pop.hidden=false;return;
+ }
  var toks=topicTokens();
  var rel=[];
  if(toks){
@@ -371,16 +391,19 @@ function renderSocial(){
  var box=$('rpSocial');if(!box)return;
  if(!XNEWS.length){box.innerHTML='<div class="empty">No posts right now.</div>';SOC_SIG='';SOC_N=0;return;}
  var items=XNEWS.slice().sort(function(a,b){return Date.parse(b.published||0)-Date.parse(a.published||0);}).slice(0,6);
- var sig=items.map(function(p){return String(p.headline||'').slice(0,40);}).join('|');
+ var sig=items.map(function(p){return p.id||String(p.headline||'').slice(0,40);}).join('|');
  if(sig===SOC_SIG){socApply();return;}
- SOC_SIG=sig;SOC_N=items.length;
+ var curId=(SOC_LAST[SOC_IDX]&&SOC_LAST[SOC_IDX].id)||'';
+ SOC_SIG=sig;SOC_N=items.length;SOC_LAST=items;
+ SOC_IDX=0;
+ if(curId){for(var _si=0;_si<items.length;_si++){if(items[_si].id===curId){SOC_IDX=_si;break;}}}
  if(SOC_IDX>=SOC_N)SOC_IDX=0;
  var h='<div class="carvp socvp"><div class="cartrack" id="rpSocTrack">';
  items.forEach(function(p){
   var txt=String(p.headline||'');
   if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
   var inner='<span class="carbody"><span class="stxt">'+esc(unesc(txt))+'</span>'
-   +'<span class="carmeta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+'</span></span>';
+   +'<span class="carmeta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+(isNewIt(p)?' <span class="carnew">new</span>':'')+'</span></span>';
   h+='<div class="carslide socslide">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
  });
  h+='</div></div><div class="carctl"><button type="button" id="rpSocPrev" aria-label="previous post">\u2039 Prev</button>'
@@ -452,12 +475,32 @@ function rpNewsOk(t,headline){
  return false;
 }
 var NEWSF=null,NEWSF_TS=0,XNEWS=[],XNEWS_TS=0,HOME_GAMES_TS=0;
+/* REAL-TIME feeds (owner 12:44): poll feed JSONs + cached UltRix match map on a short interval,
+   merge newest-first, keep the user's current slide stable, live counter, subtle 'new' marker.
+   The match map stays build-time cached (12:37) - clients never touch the NIM endpoint. */
+var RP_LOAD=Date.now();
+function carKey(a){return (a&&a.link)||String((a&&a.headline)||'');}
+function isNewIt(a){var t=Date.parse((a&&a.published)||0);return t&&t>RP_LOAD;}
+function rtPoll(){
+ fetch('slates/news.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
+  if(j&&j.generated_at&&(!NEWSF||j.generated_at!==NEWSF.generated_at)){
+   NEWSF=j;NEWSF_TS=Date.now();
+   if(typeof cur!=='undefined'&&cur){renderNews(cur,newsBucket(cur));}
+  }
+ }).catch(function(){});
+ if(typeof cur!=='undefined'&&cur&&cur.key==='home'){XNEWS_TS=0;refreshX();}
+ fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
+  if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;}
+ }).catch(function(){});
+}
+setInterval(rtPoll,45000);
 function refreshX(){
  if(Date.now()-XNEWS_TS<60000)return;
  XNEWS_TS=Date.now();
  fetch('slates/x_feed.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
   if(!j||!Array.isArray(j.items))throw 0;
-  XNEWS=j.items.filter(function(p){return p&&/^[0-9]+$/.test(String(p.id||''))&&p.created_at&&p.text;}).map(function(p){var u=(typeof p.url==='string'&&/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/[A-Za-z0-9_]+\/status\/[0-9]+(?:\?.*)?$/.test(p.url)&&p.url.split('/status/')[1].split('?')[0]===String(p.id))?p.url:'';return {headline:String(p.text).slice(0,900),link:u,published:p.created_at,source:'X',author:typeof p.author_name==='string'?p.author_name.slice(0,80):''};});
+  XNEWS=j.items.filter(function(p){return p&&/^[0-9]+$/.test(String(p.id||''))&&p.created_at&&p.text;}).map(function(p){var u=(typeof p.url==='string'&&/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/[A-Za-z0-9_]+\/status\/[0-9]+(?:\?.*)?$/.test(p.url)&&p.url.split('/status/')[1].split('?')[0]===String(p.id))?p.url:'';return {id:String(p.id),headline:String(p.text).slice(0,900),link:u,published:p.created_at,source:'X',author:typeof p.author_name==='string'?p.author_name.slice(0,80):''};});
+  SOC_XIDX={};XNEWS.forEach(function(p,i){if(p.id)SOC_XIDX[p.id]=i;});
   renderSocial();
  if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));
  }).catch(function(){});
