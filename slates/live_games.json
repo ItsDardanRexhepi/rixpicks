@@ -1,18 +1,10 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T06:54:34.506060+00:00",
+ "generated_at": "2026-09-28T07:31:07.566033+00:00",
  "leagues": [
   {
    "league": "ATP",
    "games": [
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Tian Jialin @ Andrea Lazaro Garcia",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "3rd",
-     "score": "Tian Jialin 0 - Andrea Lazaro Garcia 0"
-    },
     {
      "espn_event_id": "959-2026",
      "matchup": "Rinko Matsuda @ Katarzyna Kawa",
@@ -31,11 +23,19 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Ellen Perez @ Elvina Kalieva",
+     "matchup": "Olivia Nicholls @ Marina Bassols Ribera",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
-     "score": "Ellen Perez 0 - Elvina Kalieva 0"
+     "detail": "1st",
+     "score": "Olivia Nicholls 0 - Marina Bassols Ribera 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Junhan Zhang @ Aliaksandra Sasnovich",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Junhan Zhang 0 - Aliaksandra Sasnovich 0"
     }
    ]
   },
@@ -44,27 +44,11 @@
    "games": [
     {
      "espn_event_id": "1028-2026",
-     "matchup": "Yujia Huang @ Wei Sijia",
-     "commence": "2026-09-25T04:00Z",
-     "status": "in",
-     "detail": "3rd",
-     "score": "Yujia Huang 0 - Wei Sijia 0"
-    },
-    {
-     "espn_event_id": "1028-2026",
      "matchup": "Emerson Jones @ Haruka Kaji",
      "commence": "2026-09-25T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Emerson Jones 0 - Haruka Kaji 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Tian Jialin @ Andrea Lazaro Garcia",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "3rd",
-     "score": "Tian Jialin 0 - Andrea Lazaro Garcia 0"
     },
     {
      "espn_event_id": "959-2026",
@@ -84,11 +68,19 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Ellen Perez @ Elvina Kalieva",
+     "matchup": "Olivia Nicholls @ Marina Bassols Ribera",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "2nd",
-     "score": "Ellen Perez 0 - Elvina Kalieva 0"
+     "detail": "1st",
+     "score": "Olivia Nicholls 0 - Marina Bassols Ribera 0"
+    },
+    {
+     "espn_event_id": "959-2026",
+     "matchup": "Junhan Zhang @ Aliaksandra Sasnovich",
+     "commence": "2026-09-27T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Junhan Zhang 0 - Aliaksandra Sasnovich 0"
     }
    ]
   }
