@@ -2,7 +2,7 @@
 """X API feed for the SENSE stage (main 9:25 handoff from analysis; spec engine/x_feed_spec.md).
 
 Modes:
-  verify  - GET /2/users/me; 200 = live token. Prints the @handle.
+  verify  - GET /2/users/by/username/XDevelopers (app-only bearer compatible); 200 = live token + read access.
   pull    - recent-search on slate-relevant queries (injury/scratch/lineup + watched teams),
             writes slates/x_feed.json (consumer: news_watch + prediction loop via SENSE spine).
 
@@ -58,14 +58,14 @@ def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else 'pull'
     if mode == 'verify':
         try:
-            status, body = req('/users/me')
+            status, body = req('/users/by/username/XDevelopers')
         except urllib.error.HTTPError as e:
             detail = e.read().decode()[:300]
             print(f'verify: HTTP {e.code} body: {detail}')
-            log_burn('/users/me', 'verify', 0)
+            log_burn('/users/by/username', 'verify', 0)
             sys.exit(1)
         print(f'verify: HTTP {status}', json.dumps(body.get('data', {}))[:200])
-        log_burn('/users/me', 'verify', 0)
+        log_burn('/users/by/username', 'verify', 0)
         return
     # pull: slate-relevant queries from tomorrow's slate + standing watch
     queries = []
