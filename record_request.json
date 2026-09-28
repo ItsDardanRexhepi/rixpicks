@@ -1,1 +1,81 @@
-{"requests":[]}
+{
+  "requests": [
+    {
+      "grade_id": "401817108|ml|home",
+      "event_id": "401817108",
+      "league": "baseball/mlb",
+      "pick": "Phillies ML",
+      "side": "home",
+      "result": "WON",
+      "score": "TB 3 @ PHI 7",
+      "stake_units": "5u",
+      "locked_american": "-163",
+      "delta_units_exact": 3.067484662576687,
+      "record_after": "15-8",
+      "units_after_exact": -1.1869634855714608,
+      "two_source": [
+        "espn_core completed",
+        "mlb-statsapi official Final (CBS+ESPN-site scrapes failed; statsapi added as MLB second source)"
+      ]
+    },
+    {
+      "grade_id": "401817111|ml|home",
+      "event_id": "401817111",
+      "league": "baseball/mlb",
+      "pick": "Brewers ML",
+      "side": "home",
+      "result": "WON",
+      "score": "STL 4 @ MIL 6",
+      "stake_units": "5u",
+      "locked_american": "-223",
+      "delta_units_exact": 2.242152466367713,
+      "record_after": "16-8",
+      "units_after_exact": 1.0551889807962522,
+      "two_source": [
+        "espn_core completed=True",
+        "mlb-statsapi detailedState Final (gamePk 823731)"
+      ],
+      "queue_order": "SECOND - apply only after Phillies (401817108|ml|home) lands at 15-8"
+    },
+    {
+      "grade_id": "401817116|ml|away",
+      "event_id": "401817116",
+      "league": "baseball/mlb",
+      "pick": "Dodgers ML",
+      "side": "away",
+      "result": "WON",
+      "score": "LAD 5 @ SF 1 (F/10)",
+      "stake_units": "5u",
+      "locked_american": "-233",
+      "delta_units_exact": 2.1459227467811157,
+      "record_after": "17-8",
+      "units_after_exact": 3.201111727577368,
+      "two_source": [
+        "espn_core completed=True (Final/10)",
+        "mlb-statsapi detailedState Final (gamePk 823164)"
+      ],
+      "queue_order": "THIRD - apply only after Phillies (15-8) and Brewers (16-8) land"
+    },
+    {
+      "grade_id": "401918013|ml|home",
+      "event_id": "401918013",
+      "league": "basketball/wnba",
+      "pick": "Dream ML",
+      "side": "home",
+      "result": "WON",
+      "score": "WAS 77 @ ATL 92",
+      "stake_units": "5u",
+      "locked_american": "-270",
+      "delta_units_exact": 1.8518518518518519,
+      "record_after": "18-8",
+      "units_after_exact": 5.05296357942922,
+      "two_source": [
+        "espn_core completed",
+        "espn_site (SAME COMPANY as primary - weaker independence)"
+      ],
+      "queued_at": "2026-09-27 18:20 PDT",
+      "graded_pick": "Dream ML W: Washington Mystics 77 @ Atlanta Dream 92 (+1.85u on 5u @-270, published-card basis)",
+      "source": "finals_watch J-118 live chain"
+    }
+  ]
+}
