@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T08:27:11.240373+00:00",
+ "generated_at": "2026-09-28T08:35:51.010901+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -15,18 +15,10 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Junhan Zhang @ Aliaksandra Sasnovich",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Junhan Zhang 0 - Aliaksandra Sasnovich 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Storm Hunter @ Zhang Ruien",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Storm Hunter 0 - Zhang Ruien 0"
     },
     {
@@ -60,18 +52,10 @@
     },
     {
      "espn_event_id": "959-2026",
-     "matchup": "Junhan Zhang @ Aliaksandra Sasnovich",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Junhan Zhang 0 - Aliaksandra Sasnovich 0"
-    },
-    {
-     "espn_event_id": "959-2026",
      "matchup": "Storm Hunter @ Zhang Ruien",
      "commence": "2026-09-27T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Storm Hunter 0 - Zhang Ruien 0"
     },
     {
