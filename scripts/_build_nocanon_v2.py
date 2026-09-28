@@ -1569,6 +1569,16 @@ _recpop_html=('<div class="recpop" id="rpRecPop" hidden>'
 _tail_html=('<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>')
 if _V2:
     INDEX_V2_CSS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.css')).read()
+    # NEWS-ART-GUARD (2:03 zero-height news art bug): news carousel slides are height:auto since the
+    # 12:21 clip fix, so .carimg MUST NOT size itself with height:100% (collapses to 0 against an
+    # auto-height flex anchor). Require a definite sizing mechanism on the base .carimg rule:
+    # align-self:stretch (desktop contract) or a fixed px height. Fail the build loudly, never ship blank art.
+    import re as _reg
+    _m=_reg.search(r'\.carimg\{([^}]*)\}', INDEX_V2_CSS)
+    assert _m, 'NEWS-ART-GUARD: no base .carimg rule found in index_v2.css'
+    _rule=_m.group(1)
+    assert ('height:100%' not in _rule), 'NEWS-ART-GUARD: .carimg uses height:100% - collapses to 0 on auto-height slides (2:03 bug)'
+    assert ('align-self:stretch' in _rule) or _reg.search(r'height:\\d+px', _rule), 'NEWS-ART-GUARD: .carimg has no definite sizing mechanism (need align-self:stretch or fixed px height)'
     INDEX_V2_JS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.js')).read()
     def _tab_of_lg(lg):
         if lg=='football/college-football': return ('ncaaf','NCAAF',lg)
