@@ -1,0 +1,41 @@
+name: predictions
+on:
+  repository_dispatch:
+    types: [external-tick]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: predictions
+  cancel-in-progress: false
+jobs:
+  predict:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: nim key
+        env:
+          NIM_CLIENT_TOKEN: ${{ secrets.NIM_CLIENT_TOKEN }}
+        run: |
+          if [ -z "$NIM_CLIENT_TOKEN" ]; then
+            echo "NIM_CLIENT_TOKEN not set - predictions dormant"; exit 0
+          fi
+          printf '%s' "$NIM_CLIENT_TOKEN" > /tmp/.nim_client_token
+      - name: run predictions producer
+        run: python3 scripts/predictions.py
+      - name: commit predictions
+        run: |
+          git config user.name "RixPicks Bot"
+          git config user.email "rixpicks-bot@users.noreply.github.com"
+          git add slates/predictions.json predictions_ledger.json 2>/dev/null || exit 0
+          git diff --cached --quiet && exit 0
+          git commit -m "predictions $(date -u +%H:%M) UTC"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash -q && git push -q && exit 0
+            git rebase --abort 2>/dev/null
+            sleep 5
+          done
+          exit 1
