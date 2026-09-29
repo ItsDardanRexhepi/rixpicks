@@ -227,6 +227,14 @@ for name, handle in [('Betfair', 'official'), ('Sportsbook News', 'tipster'), ('
 if sm.operator_author('David Malandra Jr', 'DaveMReports'):
     fails.append('ordinary sports reporter misclassified as operator')
 
+# Dynamic re-pairing: a newer qualified post outside the former cosine top-10
+# must be considered, and cached verdicts cannot pin last cycle's older ID.
+_virtual = [{'created_at': ago(3-i*.01)} for i in range(10)] + [{'created_at': ago(.1)}]
+_ranked = [(.95-i*.02, i) for i in range(10)] + [(.50, 10)]
+_order = sm.candidate_order(_ranked, _virtual)
+if _order[0][1] != 10 or len(_order) != 11:
+    fails.append('newer on-story candidate excluded or outranked by old cosine top-10')
+
 # Ingest must fail closed on a failed paid request and never restamp an old feed.
 import tempfile, os, copy
 xspec = importlib.util.spec_from_file_location('x_feed_fixture', 'scripts/x_feed.py')
