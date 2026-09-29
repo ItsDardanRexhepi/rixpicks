@@ -92,6 +92,13 @@ jobs:
           git commit -m "x feed $(date -u +%H:%M) UTC"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash -q && git push -q && exit 0
+            # generated slates: a content conflict means a sibling chain committed first -
+            # this run's freshly computed, self-consistent set always wins (chain 36499444063
+            # lost a completed map to this conflict 9/28 23:59). Non-slate conflicts abort+retry.
+            if git status --porcelain | grep -q '^UU slates/'; then
+              git checkout --theirs -- slates/ && git add slates/ && git rebase --continue --no-edit 2>/dev/null && git push -q && exit 0
+            fi
+            git rebase --abort 2>/dev/null
             sleep 5
           done
           exit 1
