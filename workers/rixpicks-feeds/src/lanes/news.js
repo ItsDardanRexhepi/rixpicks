@@ -35,11 +35,13 @@ async function getText(url, timeoutMs = 12000, headers = UA) {
 }
 
 async function espnApi(path) {
-  try {
+  for (let attempt = 0; attempt < 2; attempt++) try {
+    if (attempt) await new Promise(r => setTimeout(r, 2000)); // 403s are egress-IP dependent - retry once
     const j = JSON.parse(await getText(`https://site.api.espn.com/apis/site/v2/sports/${path}/news?limit=10`));
     return (j.articles || []).map(a => ({ headline: a.headline || '', link: ((a.links || {}).web || {}).href || '',
       published: a.published || '', source: 'ESPN', image: (a.images && a.images[0] && a.images[0].url) || '', blurb: a.description || '' }));
-  } catch (e) { console.error('lane espn-api', path, String(e).slice(0, 80)); return []; }
+  } catch (e) { if (attempt === 1) console.error('lane espn-api', path, String(e).slice(0, 80)); }
+  return [];
 }
 async function rss(url, source) {
   try {
