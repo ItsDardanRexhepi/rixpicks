@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T03:20:06.255523+00:00",
+ "generated_at": "2026-09-29T03:35:05.243557+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -12,104 +12,6 @@
      "status": "post",
      "detail": "Final",
      "score": "PHI 7 - CHI 27"
-    }
-   ]
-  },
-  {
-   "league": "ATP",
-   "games": [
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Vivian Wolff @ Elsa Jacquemot",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Vivian Wolff 0 - Elsa Jacquemot 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Valeria Savinykh @ Katarzyna Kawa",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Valeria Savinykh 0 - Katarzyna Kawa 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Bai Zhuoxuan @ Jiayi Wang",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Bai Zhuoxuan 0 - Jiayi Wang 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Ma YeXin @ Harriet Dart",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Ma YeXin 0 - Harriet Dart 0"
-    }
-   ]
-  },
-  {
-   "league": "WTA",
-   "games": [
-    {
-     "espn_event_id": "1028-2026",
-     "matchup": "Sofia Costoulas @ Kristina Mladenovic",
-     "commence": "2026-09-25T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Sofia Costoulas 0 - Kristina Mladenovic 0"
-    },
-    {
-     "espn_event_id": "1028-2026",
-     "matchup": "Aliona Falei @ Tyra Caterina Grant",
-     "commence": "2026-09-25T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Aliona Falei 0 - Tyra Caterina Grant 0"
-    },
-    {
-     "espn_event_id": "1028-2026",
-     "matchup": "Rina Saigo @ Alexandra Shubladze",
-     "commence": "2026-09-25T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Rina Saigo 0 - Alexandra Shubladze 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Vivian Wolff @ Elsa Jacquemot",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Vivian Wolff 0 - Elsa Jacquemot 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Valeria Savinykh @ Katarzyna Kawa",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Valeria Savinykh 0 - Katarzyna Kawa 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Bai Zhuoxuan @ Jiayi Wang",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Bai Zhuoxuan 0 - Jiayi Wang 0"
-    },
-    {
-     "espn_event_id": "959-2026",
-     "matchup": "Ma YeXin @ Harriet Dart",
-     "commence": "2026-09-27T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Ma YeXin 0 - Harriet Dart 0"
     }
    ]
   }
