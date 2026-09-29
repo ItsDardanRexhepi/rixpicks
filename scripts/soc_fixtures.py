@@ -73,6 +73,56 @@ KEEP_POST = ('Google and ChatGPT have the eagles winning tonight. Vegas has the 
 if sm.probe_predeny("Today's top games to watch, best bets, odds: Eagles vs. Bears on MNF and more", KEEP_POST) is not None:
     fails.append('guard 3: pick-declaring post pre-denied - would starve the judge of a legit pair')
 
+# guard 2 story-audit kills (9/28 7:59): v6 verify() emitted fabricated YES on all four pins
+# ('check-down option', 'same health status', 'direct promo of same game'). Every pair must now
+# REJECT offline at the action/temporal/story-type layer; verify() asserts the exact verdict.
+KEENUM = "Case Keenum's second TD pass has Bears holding 20-7 lead"
+THREAD = 'Eagles vs. Bears Week 3 game thread'
+CURRY = 'Steph Curry ready to go for Warriors, but injuries will be factor early'
+PREVIEW = 'Bears vs. Eagles preview: Philadelphia looks to remain unbeaten against Caleb Williams-less Chicago'
+GIANTS = "Does Giants' trade for J.J. McCarthy make sense? Coaches, execs explain 2 key reasons"
+G2PINS = [
+    (KEENUM, 'Barkley hasn’t scored a TD all season and has never scored a TD against the bears. The script is telling me that changes tonight.\n\nKeenum hasn’t seen the field in like 2 years. Swift is a receiving back. Check-downs/security blanket? I think so.\n\n#NFL #prizepicks #underdog https://t.co/rHQ0nife5N'),
+    (THREAD, 'Here are the Ultegacy Team Representatives picks for today’s game between the Eagles and Bears. https://t.co/dGX2HdsDpu'),
+    (CURRY, 'Steph Curry on his attempt in recruiting players to the Warriors this offseason:\n\n“Same way when you pull up to shoot a shot and you miss… If it doesn\'t happen, it doesn\'t change your vibe at all. It\'s part of the business.”\n\n(via @kenzofuku) https://t.co/IjxBdxcEml'),
+    (PREVIEW, 'Chicago Bears quarterback Caleb Williams was officially inactive for Monday night’s game against the Philadelphia Eagles at Soldier Field. https://t.co/bDVgzvZYJE'),
+]
+for title, post in G2PINS:
+    v, why = sm.verify(title, post)
+    if v != 'REJECT':
+        fails.append('guard 2 pin: verify() verdict = %s for %r (%s)' % (v, title[:50], why))
+G2MORE = [
+    (GIANTS, 'Anyone think JJ McCarthy will rock #4 in honor of Jim while playing for John? It’s one of a few QB numbers available for the Giants.\n\nHe can’t wear 9 and he can’t wear 2, which he wore in high school.'),
+    (KEENUM, 'Case Keenum making his first start against the Eagles in 7 years 🦅👀 Could be a shootout tonight in Chicago 🐻🔥💨 The RaQ might be on one 😤💯#MNF 🏈 #Eagles #DaBears'),
+    (PREVIEW, 'The Philadelphia Eagles hit the road for the second straight week when they travel to the Windy City to take on the Chicago Bears!\n\nTune into WEEU tonight at 8:15pm for the game! Merrill Reese and Mike Quick have the call!\n\nGo Birds 🦅'),
+    (PREVIEW, 'Philadelphia Eagles (2-0) vs. Chicago Bears (1-1)\nSeptember 28, 2026 8:15 pm EDT\n\nThe Eagles have been strong in this situation, going 4-0 ATS in the second of back-to-back road games and 4-1 ATS against NFC North opponents. Meanwhile, Chicago has struggled under the Monday night'),
+]
+for title, post in G2MORE:
+    if not sm.story_type_gate(title, post):
+        fails.append('guard 2 more/nearest junk passed story_type_gate: %r' % (title[:50],))
+# keeps: legit pairs must NOT die to the new gates
+G2KEEPS = [
+    ('Bears vs. Eagles preview: Philadelphia looks to remain unbeaten against Caleb Williams-less Chicago',
+     '🏈🌃 MONDAY NIGHT FOOTBALL IN CHICAGO\n\nThe Eagles come into Soldier Field at 2-0, while the Bears are 1-1 and looking to make a statement under the lights.\n\nWith Caleb Williams ruled out, the spotlight shifts'),
+    ("Today's top games to watch, best bets, odds: Eagles vs. Bears on MNF and more",
+     'Google and ChatGPT have the eagles winning tonight. Vegas has the eagles winning tonight. I’m picking the bears. Not because it’s reasonable'),
+]
+for title, post in G2KEEPS:
+    if sm.story_type_gate(title, post):
+        fails.append('guard 2 KEEP killed by story_type_gate: %r' % (title[:50],))
+# uniqueness invariant: cross-story repeat stripped, intra-story repetition allowed
+_log = {'pairs': {'A': {'post_id': 'p1'}, 'B': {'post_id': 'p2'}},
+        'nearest': {'A': {'post_id': 'p1'}, 'B': {'post_id': 'p1'}},
+        'more': {'A': [{'post_id': 'p1'}], 'C': [{'post_id': 'p2'}, {'post_id': 'p3'}]},
+        'latest': {'D': {'post_id': 'p1'}}, 'audit': {}}
+_viol = sm.enforce_uniqueness(_log)
+if not _viol or 'B' in _log['nearest'] or 'D' in _log['latest']:
+    fails.append('uniqueness sweep failed to strip cross-story repeats: %r' % (_viol,))
+if _log['nearest'].get('A', {}).get('post_id') != 'p1' or _log['more']['A'][0]['post_id'] != 'p1':
+    fails.append('uniqueness sweep stripped allowed intra-story repetition')
+if _log['more']['C'] != [{'post_id': 'p3'}]:
+    fails.append('uniqueness sweep wrong on story C (p2 cross-story repeat must drop, p3 keep): %r' % (_log['more']['C'],))
+
 # equivocal-YES parser fixtures (guard 2 parsing bug: "YES - Different team." was badged)
 v, _ = sm.parse_verification('Story subject: Braves postseason discussion\nPost subject: Yankees fans attending Game 1\nYES - Different team.')
 if v != "ABSTAIN": fails.append("equivocal YES (different team) parsed as %s" % v)
