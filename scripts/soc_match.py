@@ -51,7 +51,7 @@ MORE_CAP = 20
 # boilerplate); (2) a post whose text introduces a foreign principal person (capitalized
 # bigram surname absent from the headline's entities, place/org words excluded) conflicts.
 # No extractable entities -> gate silent, probe decides. Latest tier uses layer 1 at need=1.
-ENTITY_GATE_VERSION = 'eg4'  # eg4: action+temporal gates R4-R8 (guard 2 9/28 7:59) + uniqueness sweep
+ENTITY_GATE_VERSION = 'eg5'  # cache salt: freshness and reason-integrity checks
 ENTITY_STOP = set('game games report reports season seasons preview previews recap recap watch video highlight highlights rumor rumors update updates news trade trades injury injuries week daily today tonight tomorrow yesterday best worst ranking rankings power draft pick picks odds line lines spread spreads over under win wins loss losses versus the after before says said new why how what who live score scores final first last early late big top free agent agents coach coaches team teams player players star stars fans fan take takes make makes get gets back down into with from will would could should must still just more most ever every next league playoff playoffs postseason championship title titles night match matches fight fights career future futures ready leads lead leading recalls sent check throws college football basketball baseball hockey soccer monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december chat discussion eve face home road looks remain unbeaten factor charge go years year state count counts props prop expert experts bets bet betting booed'.split())
 POST_PERSON_STOP = ENTITY_STOP | set('field stadium arena center centre park garden dome coliseum bowl classic series cup showdown invitational open masters nationals united city club fc sc ac cf real sporting athletics university kings queens islanders'.split())
 
@@ -216,21 +216,98 @@ def enforce_uniqueness(log):
 # reads the whole response; an equivocal YES abstains - never cached, never badged.
 EQUIVOCAL = re.compile(r'\b(different (team|teams|player|players|game|story|stories|event|sport|fight|match|matchup|league)|not the same|unrelated|no overlap|does not (mention|discuss|cover)|not about|other (team|player|game)|main subject differs)\b', re.I)
 
-def parse_verification(text):
-    """tri-state: EXECUTE / REJECT / ABSTAIN (equivocal YES)."""
+# A YES is admissible only when its final line gives an actual action supported by
+# both inputs. The model's rationale is evidence to check, never evidence by itself.
+GENERIC_REASON = re.compile(r'\b(same (?:event|game|story|topic|subject|health status)|related to|about the same|both (?:mention|discuss|refer to)|shares? (?:the )?(?:name|team|player)|no contradiction|does not contradict|exact quote of (?:the )?(?:story.s )?headline|headline quote|same person)\b', re.I)
+ACTION_WORDS = set('score scores scored scoring wins won loses lost leads led beats beat signs signed signing trades traded trading injured injury cleared clears clearing ruled inactive activates activated returns returned returning starts started starting exits exited breaks broke throws threw thrown passes passed passing hits hit homers homered shoots shot retires retired retirement cuts cut waived waive suspended suspends drafts drafted fired hired hiring extends extended extension announces announced announce reports reported report confirms confirmed files filed qualifies qualified advances advanced predicts predicted predicts prediction recommends recommended picks picked picking bets bet betting changes changed updates updated update discusses discussed explains explained analyzes analysed analysis'.split())
+STOP_REASON = set('the and for with from into over under after before this that they their his her its are was were about story news post article social both same main team player game event match matching headline quote exact says mentions discussion directly specific concrete shared action because as also has have had'.split())
+
+def _reason_tokens(s):
+    return set(re.findall(r"[a-z0-9]+", (s or '').lower())) - STOP_REASON
+
+def reason_integrity(reason, story='', post=''):
+    """Default-deny incomplete, tautological and unsupported YES rationales."""
+    r = (reason or '').strip()
+    if len(r) < 18 or len(r.split()) < 4 or r.endswith(('...', '…', ':', '-', ',')) or GENERIC_REASON.search(r):
+        return False
+    # Quote claims are falsifiable: text in quotation marks must actually occur in
+    # both the story and post, not merely be asserted by the judge.
+    quotes = re.findall(r'["“]([^"”]{4,})["”]', r)
+    if quotes and (not story or not post or any(q.lower() not in story.lower() or q.lower() not in post.lower() for q in quotes)):
+        return False
+    if story and post:
+        # Proper-name and number claims cannot be supplied by the model alone.
+        names = re.findall(r'\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+\b', r)
+        if any(n.lower() not in story.lower() or n.lower() not in post.lower() for n in names):
+            return False
+        if any(n not in story or n not in post for n in re.findall(r'\b\d+(?:st|nd|rd|th)?\b', r, re.I)):
+            return False
+        rt = _reason_tokens(r); st = _reason_tokens(story); pt = _reason_tokens(post)
+        # Names alone are never proof. At least an action in the reason must be
+        # supported by each input. A conservative abstain is safer than a false badge.
+        if not (rt & st & pt & ACTION_WORDS):
+            return False
+        if len(rt & st & pt) < 2:
+            return False
+    return bool(_reason_tokens(r) & ACTION_WORDS)
+
+def parse_verification(text, story='', post=''):
+    """tri-state: EXECUTE / REJECT / ABSTAIN; only an evidenced final YES executes."""
     lines = [l.strip() for l in (text or '').splitlines() if l.strip()]
     verdict_line = ''
     for l in reversed(lines):
-        if l.upper().startswith('YES') or l.upper().startswith('NO'):
+        if re.match(r'^(YES|NO)\b', l, re.I):
             verdict_line = l
             break
     if not verdict_line:
         verdict_line = lines[-1] if lines else ''
-    if verdict_line.upper().startswith('YES'):
+    if re.match(r'^YES\b', verdict_line, re.I):
         if EQUIVOCAL.search(text or ''):
             return 'ABSTAIN', ('equivocal YES: ' + verdict_line)[:160]
-        return 'EXECUTE', (verdict_line or text)[:160]
-    return 'REJECT', (verdict_line or text)[:160]
+        reason = re.sub(r'^YES\b[\s:.-]*', '', verdict_line, flags=re.I)
+        if not reason_integrity(reason, story, post):
+            return 'ABSTAIN', ('unsupported YES reason: ' + verdict_line)[:160]
+        return 'EXECUTE', verdict_line[:160]
+    return 'REJECT', verdict_line[:160]
+
+
+def timestamp(value):
+    try:
+        dt = datetime.datetime.fromisoformat(str(value).replace('Z', '+00:00'))
+        return dt if dt.tzinfo else None
+    except (ValueError, TypeError):
+        return None
+
+
+def freshness_gate(story, post):
+    """Article-to-post parity: unknown clocks never grant a pair.
+
+    The 24h matching horizon is distinct from the tighter article-time parity.
+    A post before a new story by hours cannot pass just because both are within 24h.
+    """
+    published = timestamp(story.get('published'))
+    posted = timestamp(post.get('created_at') or post.get('ts'))
+    now = datetime.datetime.now(datetime.timezone.utc)
+    if not published or not posted:
+        return 'unknown article/post timestamp'
+    if posted > now + datetime.timedelta(minutes=5) or published > now + datetime.timedelta(minutes=5):
+        return 'future article/post timestamp'
+    if now - posted > datetime.timedelta(hours=24):
+        return 'post outside 24h window'
+    article_age = now - published
+    allowed = datetime.timedelta(hours=2 if article_age < datetime.timedelta(hours=6) else 6)
+    if published - posted > allowed:
+        return 'post predates article beyond freshness parity'
+    return None
+
+
+def candidate_order(scored, posts):
+    """Final candidate set: high similarity plus recent qualified posts, then newest first."""
+    eligible = [(score, j) for score, j in scored if score >= PROBE_FLOOR]
+    recent = sorted(eligible, key=lambda sj: posts[sj[1]].get('created_at') or posts[sj[1]].get('ts') or '', reverse=True)
+    chosen = {j for _, j in eligible[:TOP_CANDIDATES]}
+    chosen.update(j for _, j in recent[:TOP_CANDIDATES])
+    return [sj for sj in recent if sj[1] in chosen]
 
 # owner 1:26: the social feed itself renders sports-relevant, topic-matching posts only -
 # never a raw firehose. Relevance is decided by the SAME semantic layer (evidence gate):
@@ -281,7 +358,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v8-action-temporal'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v9-reason-freshness'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
@@ -335,7 +412,7 @@ def verify(story, post):
               'event - never merely the same game or the same sport. Rules:\n'
               '- Cause and consequence of the SAME event are the same story (a player cleared to play AND his '
               'team entering the rankings because of it): YES.\n'
-              '- An exact quote of the story' + chr(39) + 's headline or story URL with no contradiction: YES.\n'
+              '- A matching headline quote is not proof without the post sharing its concrete action.\n'
               '- A promo/bonus-bet article matches ONLY posts identifying THAT brand and THAT offer; other '
               'sportsbooks, deposit bonuses, or game commentary: NO.\n'
               '- A betting preview or picks article matches ONLY posts discussing THAT specific pick or odds '
@@ -364,7 +441,7 @@ def verify(story, post):
               'Answer: two Step-1 lines, then a final line starting with exactly YES or NO and one short reason.')
     out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
                'prompt': prompt, 'max_tokens': 200}, timeout=90)
-    return parse_verification(out.get('text', '').strip())
+    return parse_verification(out.get('text', '').strip(), story, post)
 
 
 def onstory(story, post):
@@ -380,10 +457,11 @@ def onstory(story, post):
               'Step 2: Answer YES only if the post' + chr(39) + 's main subject is genuinely this story' + chr(39) + 's subject - '
               'the same specific event, claim, or analysis angle, or a direct reaction to it. A different player, team, game, '
               'or storyline as the main subject: NO. Any ad, promo, ticket, viewing-schedule, or sales CTA: NO.\n'
+              'The YES reason must name the concrete shared action from both inputs, not just a person or game.\n'
               'Answer: two Step-1 lines, then a final line starting with exactly YES or NO and one short reason.')
     out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
                'prompt': prompt, 'max_tokens': 160}, timeout=90)
-    return parse_verification(out.get('text', '').strip())
+    return parse_verification(out.get('text', '').strip(), story, post)
 
 def key_news(it):
     # client resolvable: the exact link (or headline) string is the key - no hashing needed in JS
@@ -480,8 +558,13 @@ def main():
         best = None
         verdicts = []
         confirmed = []  # every probe-confirmed candidate, score-ranked; [0] = pin, rest = verified more[]
-        for score, j in scored[:TOP_CANDIDATES]:
+        for score, j in candidate_order(scored, posts):
             if str(posts[j].get('id')) in used_posts:
+                continue
+            stale = freshness_gate(it, posts[j])
+            if stale:
+                verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
+                                 'verdict': 'REJECT', 'gate': 'freshness', 'reason': stale})
                 continue
             if (RP_AD.search(ptexts[j]) or RP_AD2.search(ptexts[j]) or RP_PROMO_CAPS.search(ptexts[j])):
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
@@ -513,9 +596,13 @@ def main():
             if score < PROBE_FLOOR:
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'ABSTAIN', 'gate': 'evidence', 'reason': 'below probe floor'})
-                break
+                continue
             vk = SALT + '|' + nk + '|' + str(posts[j].get('id'))
             prior = vcache.get(vk)
+            if prior:
+                if prior.get('verdict') == 'EXECUTE' and not reason_integrity(re.sub(r'^YES\b[\s:.-]*', '', prior.get('reason', ''), flags=re.I), ntexts[i], ptexts[j]):
+                    prior = None
+                    vcache.pop(vk, None)
             if prior:
                 if prior.get('verdict') == 'EXECUTE':
                     verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
@@ -559,6 +646,11 @@ def main():
                                     'post_id': posts[j].get('id'), 'post': posts[j].get('text', '')[:120],
                                     'score': round(score, 4), 'gate': 'conflict', 'reason': why})
             stats['probe_rejected'] += 1
+        confirmed.sort(key=lambda sj: posts[sj[1]].get('created_at') or posts[sj[1]].get('ts') or '', reverse=True)
+        # Re-shop the final verified pool after freshness and reason gates. A pin
+        # and its nearest/more candidates must come from this same qualified set.
+        confirmed = [(sc, j) for sc, j in confirmed if not freshness_gate(it, posts[j])
+                     and str(posts[j].get('id')) not in used_posts]
         # nearest (guard 2 class kill): NEVER unprobed cosine - only a probe-EXECUTE candidate for
         # THIS exact story may hold the fallback slot. No second probe-confirmed post -> NO nearest
         # entry; the client abstains (1:00) instead of rendering an unprobed post beside the story.
@@ -587,11 +679,11 @@ def main():
             # genuinely on-story fills the slide badged 'Latest from the feed'. Unprobed
             # posts, ads and other-story posts still never qualify.
             best_on = None
-            for score, j in scored[:25]:
+            for score, j in candidate_order(scored, posts)[:25]:
                 if score < MORE_FLOOR or ons_probes >= MAX_ONS_PROBES:
                     break
                 pid = str(posts[j].get('id'))
-                if pid in used_posts or (RP_AD.search(ptexts[j]) or RP_AD2.search(ptexts[j]) or RP_PROMO_CAPS.search(ptexts[j])):
+                if freshness_gate(it, posts[j]) or pid in used_posts or (RP_AD.search(ptexts[j]) or RP_AD2.search(ptexts[j]) or RP_PROMO_CAPS.search(ptexts[j])):
                     continue
                 # pre-gates, latest bar (eg2): same story-level bar as verified - one story
                 # entity, no foreign principal, story-type compatible (guard 2: badge or no badge)
@@ -604,7 +696,9 @@ def main():
                 ck = 'ONS|' + SALT + '|' + nk + '|' + pid
                 pr2 = vcache.get(ck)
                 if pr2 is not None:
-                    ok2 = pr2.get('verdict') == 'EXECUTE'
+                    ok2 = pr2.get('verdict') == 'EXECUTE' and reason_integrity(re.sub(r'^YES\b[\s:.-]*', '', pr2.get('reason', ''), flags=re.I), ntexts[i], ptexts[j])
+                    if pr2.get('verdict') == 'EXECUTE' and not ok2:
+                        vcache.pop(ck, None)
                 else:
                     ons_probes += 1
                     try:
