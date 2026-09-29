@@ -122,14 +122,14 @@ h1 .tick{color:#3BEBF5}
 <div class="sect" style="margin-top:18px">Team</div>
 <div class="pick" data-espn="baseball/mlb" data-team="Athletics" data-abbr="ATH" data-eid="" data-game-day="">
   <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/ath.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Athletics</span><span class="odds">64-98</span></div>
-  <div class="sub">Record 64-98</div>
+  <div class="sub">Record 64-98 · Streak L2</div>
   <div class="score" id="rpScore"></div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub">No recent games found.</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 0-9 vs Houston Astros · 09-27</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 2-13 vs Houston Astros · 09-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 6-5 vs Houston Astros · 09-25</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 5-7 vs Houston Astros · 09-24</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 7-3 vs Los Angeles Angels · 09-23</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub">Not enough recent games.</div>
+<div class="sub" style="padding:7px 0">Scored 3.9 &middot; allowed 7.2 per game over last 10</div>
 <div class="sect">Next up</div>
 <div class="sub">No upcoming games listed.</div>
 <div class="sect">Injuries</div>
@@ -137,7 +137,7 @@ h1 .tick{color:#3BEBF5}
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790671818';
+const RP_BUILD='1790672717';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}
