@@ -18,6 +18,12 @@ from core.timeouts import fetch_timeouts
 UA = {"User-Agent": "python-urllib/3.10"}
 SB = "https://site.api.espn.com/apis/site/v2/sports/{lg}/scoreboard?dates={d}{prm}"
 TO_PREFIXES = ("football/", "basketball/", "hockey/")
+# Max age (seconds) an in-progress row may live past its commence time before it is
+# treated as a stale scoreboard artifact and dropped (audit Sep 28: 2-4 day old ATP/WTA
+# rows served as live 0-0). A match beyond its expected window is re-admitted only when a
+# fresh live-source check confirms it is actually still playing; absent that, fail-closed drop.
+MAX_IN_AGE = {"tennis/": 6 * 3600}
+MAX_IN_AGE_DEFAULT = 6 * 3600
 AL = {"WSH": "WAS"}  # ESPN abbr -> site abbr
 
 _RE_PT = re.compile(r"(\d{1,2}):(\d{2}) ([AP])M E[DS]T")
@@ -62,7 +68,8 @@ def main(out_path):
                     state = st.get("state") or ""
                     dt = datetime.fromisoformat(ev["date"].replace("Z", "+00:00")) if ev.get("date") else None
                     delta = (dt - now).total_seconds() if dt else None
-                    keep = (state == "in"
+                    max_age = next((v for pfx, v in MAX_IN_AGE.items() if lg.startswith(pfx)), MAX_IN_AGE_DEFAULT)
+                    keep = ((state == "in" and delta is not None and delta >= -max_age)
                             or (state == "pre" and delta is not None and 0 <= delta <= 7200)
                             or (state == "post" and delta is not None and -14400 <= delta <= 0))
                     if not keep:
@@ -76,7 +83,11 @@ def main(out_path):
                     if "away" not in teams or "home" not in teams or not teams["away"][0] or not teams["home"][0]:
                         continue
                     (aab, asc), (hab, hsc) = teams["away"], teams["home"]
-                    rec = {"espn_event_id": ev.get("id"), "matchup": "%s @ %s" % (aab, hab),
+                    eid = str(c.get("id") or ev.get("id") or "")
+                    seen = {g["espn_event_id"] for g in games}
+                    if eid in seen:  # grouped tennis comps share the tournament-level event id - disambiguate per match
+                        eid = "%s-%s-%s" % (eid, aab.lower().replace(" ", ""), hab.lower().replace(" ", ""))
+                    rec = {"espn_event_id": eid, "matchup": "%s @ %s" % (aab, hab),
                            "commence": ev.get("date"), "status": state,
                            "detail": _pt_detail(st.get("shortDetail") or ""),
                            "score": "%s %s - %s %s" % (aab, asc, hab, hsc)}
