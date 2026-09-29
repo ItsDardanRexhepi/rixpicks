@@ -1529,7 +1529,7 @@ if man.get('parlay'):
             if _cp:
                 _aml=('+'+str(_rh((100-_cp)/_cp*100))) if _cp<50 else ('-'+str(_rh(_cp/(100-_cp)*100)))  # exact unrounded American, never cents (his all-+/- override)
                 chips.append(('POLY',f'<span class="chip%%BEST%% rpnontap"{bkstyle("POLY")} id="rpCxPOLY" data-n="{nlegs}" data-book="POLY" data-market="parlay" data-cents="{_rh(_cp)}"{_mkrec("Polymarket","","parlay","",cents=_cp,link="",ph=("last_pre_game" if any(_is_underway((pp.get("game") or {})) for pp in lp) else "pre_game"),lv="none")}>%%STAR%%{bkimg("POLY")}POLY {_aml}</span>',c2ml_int(_cp)))
-    order=['BR','DK','FD','HR','KAL','MGM','POLY','TSB']  # alphabetical by chip label (his Sep 25 9:19 AM spec; matches solo order)
+    order=['BR','DK','HR','KAL','MGM','POLY','TSB']  # FD sportsbook removed (same spec)  # alphabetical by chip label (his Sep 25 9:19 AM spec; matches solo order)
     chips.sort(key=lambda s: order.index(s[0]) if s[0] in order else 99)
     # best combo price gets the star left of the logo, same as solo best line (user, Sep 25 12:59 PM)
     priced=[c for c in chips if len(c)>2 and isinstance(c[2],(int,float)) and 'rppending' not in c[1]]  # audit finding 5: pending combos never take the star
@@ -2619,7 +2619,7 @@ def build_game_pages(man, css, build_sha):
     "Per-game live-market pages (user, Sep 25 12:11 PM)."
     tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'game_page_template.html')).read()
     pages={}
-    NAME2KEY={'espnbet':'TSB','draftkings':'DK','fanduel':'FD','thescore':'TSB','hardrockbet':'HR'}  # legacy 'espnbet' key = theScore data (U-GEO-003); _rsseen below guarantees one row per ARM
+    NAME2KEY={'espnbet':'TSB','draftkings':'DK','thescore':'TSB','hardrockbet':'HR'}  # FD sportsbook removed site-wide (his standing spec, scope settled 8:37 PM via main): game-page market rows read this map - FD here silently reintroduced FD rows on every rebuild (caught by lane-2 acceptance game-5 zero-FD)  # legacy 'espnbet' key = theScore data (U-GEO-003); _rsseen below guarantees one row per ARM
     RP_CONSTS=('const RP_FD='+json.dumps(RP_FD)+';const RP_DK='+json.dumps(RP_DK)+';\n'
         'const RP_L={FD:RP_FD,DK:RP_DK,MGM:'+json.dumps(RP_MGM)+',B365:'+json.dumps(RP_B365)+',FAN:'+json.dumps(RP_FAN)+',TSB:'+json.dumps(RP_TSB)+',HR:'+json.dumps(RP_HR)+',BR:'+json.dumps(RP_BR)+'};const RP_LEGAL_STATE='+json.dumps(TABLE,sort_keys=True)+';const RP_LEGAL_BI='+json.dumps(RP_LEGAL_BI_DATA,sort_keys=True)+';const RP_PM_DEFAULT=[\'KAL\',\'POLY\',\'DKP\',\'FDP\'];')
     STATE_OPTS=''.join('<option value="%s">%s</option>'%(c,n) for c,n in RP_STATES)
@@ -2873,7 +2873,18 @@ def build_game_pages(man, css, build_sha):
         ch=_chips_fn(p)
         espn=html.escape(p.get('espn_league',''))
         mkt='spread' if p.get('market')=='spread' else 'ml'
-        when=_pt_label(g.get('commence',''))
+        when=(_pt_date(g.get('commence','')) or 'Date unavailable')+' · '+_pt_label(g.get('commence',''))
+        if g.get('eid') and _pt_date(g.get('commence',''))<_dtc.datetime.now(__import__('zoneinfo').ZoneInfo('America/Los_Angeles')).date().isoformat():
+            try:
+                _sj=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/summary?event=%s'%(p.get('espn_league',''),str(g['eid'])))
+                _cc=((_sj.get('header') or {}).get('competitions') or [{}])[0]
+                _state=((_cc.get('status') or {}).get('type') or {})
+                if str(_cc.get('id'))==str(g['eid']) and _state.get('state')=='post':
+                    _scores={c.get('homeAway'):c.get('score') for c in (_cc.get('competitors') or [])}
+                    if _scores.get('away') is not None and _scores.get('home') is not None:
+                        when='Final · '+html.escape(away)+' '+str(_scores['away'])+' - '+html.escape(home)+' '+str(_scores['home'])+' · '+when
+                    else: when='Final · '+when
+            except Exception: pass
         inst=game_instance(g)
         inst_lbl=(' ('+inst+')') if inst else ''
         if not _uw:
@@ -2909,16 +2920,46 @@ def build_team_pages(man, css, build_sha):
     tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'team_page_template.html')).read()
     pages={}
     teams=set()
+    # Preserve the existing evergreen team-page family when today's card is empty.
+    # Identity comes from the page's own structured data, never from its stale date/score.
+    for old in __import__('glob').glob(os.path.join(os.path.dirname(out) or '.','team-*.html')):
+        try:
+            text=open(old).read()
+            match=re.search(r'<div class="pick" data-espn="([^"]+)" data-team="([^"]+)"',text)
+            if match: teams.add((html.unescape(match.group(1)),html.unescape(match.group(2))))
+        except Exception: pass
     for p in man.get('picks',[]):
         g=p.get('game') or {}
         if not g: continue
         teams.add((p.get('espn_league',''),g.get('away','')))
         teams.add((p.get('espn_league',''),g.get('home','')))
     info=dict(TEAM_META)
+    _team_listing={}
+    # Historical cards are part of the site even when current manifest is empty.
+    # Retain their team identities across clean builds, not only in workspaces with old HTML.
+    try:
+        import glob as _team_glob
+        for snap in _team_glob.glob('manifests/manifest-*.json'):
+            for old_pick in (json.load(open(snap)).get('picks') or []):
+                game=old_pick.get('game') or {}; league=old_pick.get('espn_league') or ''
+                if league:
+                    for side in ('away','home'):
+                        if game.get(side): teams.add((league,game[side]))
+    except Exception as _te:
+        print('TEAM HISTORY DISCOVERY FAILED: '+str(_te),file=sys.stderr)
     for lg,name in sorted(teams):
         if not name: continue
         meta=info.get((lg,name)) or {}
         tid=meta.get('id'); abbr=meta.get('abbr',''); logo=meta.get('logo',''); rec=meta.get('record','')
+        if not tid and lg:
+            try:
+                if lg not in _team_listing: _team_listing[lg]=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams'%lg)
+                listing=_team_listing[lg]
+                for row in ((listing.get('sports') or [{}])[0].get('leagues') or [{}])[0].get('teams',[]):
+                    candidate=row.get('team') or {}
+                    if candidate.get('displayName','').casefold()==name.casefold():
+                        tid=candidate.get('id'); abbr=candidate.get('abbreviation',''); logo=candidate.get('logo',''); rec='';break
+            except Exception: pass
         logo_html='<img src="%s" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()">'%html.escape(logo) if logo else ''
         last5=[]; upcoming=[]; _scored=[]; streak=''
         if tid and lg:
@@ -2977,19 +3018,45 @@ def build_team_pages(man, css, build_sha):
         next_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in upcoming) or '<div class="sub">No upcoming games listed.</div>'
         inj_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in injuries) or '<div class="sub">None reported.</div>'
         tagline=' · '.join(x for x in [rec and ('Record '+rec), streak and ('Streak '+streak)] if x)
-        today=''
+        today=''; current_game=None
+        import datetime as _dt_team
+        from zoneinfo import ZoneInfo as _ZI_team
+        _build_pt=_dt_team.datetime.now(_ZI_team('America/Los_Angeles')).date().isoformat()
         for p in man.get('picks',[]):
             g=p.get('game') or {}
-            if name in (g.get('away',''),g.get('home','')):
-                opp=g.get('home') if g.get('away')==name else g.get('away')
-                today='Today: %s %s · %s'%(('vs' if g.get('home')==name else '@'),opp,_pt_label(g.get('commence','')))
+            if name not in (g.get('away',''),g.get('home','')): continue
+            game_day=_pt_date(g.get('commence',''))
+            if not game_day or game_day<_build_pt: continue  # old card never masquerades as today's matchup
+            if current_game is None or g['commence']<current_game['commence']: current_game=g
+        # An empty/currently unrelated card still gets the team's next actual scheduled event.
+        if not current_game and tid and lg:
+            try:
+                for ev in sch.get('events',[]):
+                    comp=(ev.get('competitions') or [{}])[0]
+                    ev_date=ev.get('date') or comp.get('date') or ''
+                    ev_day=_pt_date(ev_date)
+                    if not ev_day or ev_day<_build_pt: continue
+                    if ((comp.get('status') or {}).get('type') or {}).get('completed'): continue
+                    me=next((c for c in comp.get('competitors',[]) if str((c.get('team') or {}).get('id'))==str(tid)),None)
+                    opp=next((c for c in comp.get('competitors',[]) if str((c.get('team') or {}).get('id'))!=str(tid)),None)
+                    if not me or not opp: continue
+                    other=(opp.get('team') or {}).get('displayName') or (opp.get('team') or {}).get('abbreviation')
+                    if not other: continue
+                    g={'commence':ev_date,'eid':ev.get('id'),'away':name if me.get('homeAway')=='away' else other,'home':name if me.get('homeAway')=='home' else other}
+                    if current_game is None or ev_date<current_game['commence']: current_game=g
+            except Exception: pass
+        if current_game:
+            g=current_game; opp=g.get('home') if g.get('away')==name else g.get('away')
+            label='Today' if _pt_date(g.get('commence',''))==_build_pt else 'Next up'
+            when=_pt_label(g.get('commence','')) if label=='Today' else _dt_team.datetime.fromisoformat(g['commence'].replace('Z','+00:00')).astimezone(_ZI_team('America/Los_Angeles')).strftime('%a, %b %-d, %-I:%M %p PT')
+            today='%s: %s %s · %s'%(label,('vs' if g.get('home')==name else '@'),opp,when)
         page=tmpl
         for tok,val in [('__TEAM__',html.escape(name)),('__CSS__',css),('__RECORD__',html.escape(rec)),
             ('__TAGLINE__',html.escape(tagline)),('__TODAY__',html.escape(today)),('__LOGO__',logo_html),
             ('__LIVE__',''),('__FORM__',form_html),('__AVGS__',avgs_html),('__NEXT__',next_html),
             ('__INJURIES__',inj_html),('__BUILD__',build_sha)]:
             page=page.replace(tok,val)
-        page=page.replace('<div class="pick">','<div class="pick" data-espn="%s" data-team="%s">'%(html.escape(lg),html.escape(name)),1)
+        page=page.replace('<div class="pick">','<div class="pick" data-espn="%s" data-team="%s" data-abbr="%s" data-eid="%s" data-game-day="%s">'%(html.escape(lg),html.escape(name),html.escape(abbr),html.escape(str(current_game.get('eid') or '') if current_game else ''),html.escape(_pt_date(current_game.get('commence','')) if current_game else '')),1)
         pages['team-%s.html'%team_slug(name)]=page
     return pages
 
@@ -3289,7 +3356,35 @@ for _fn,_html in build_team_pages(man,_css,build_sha).items():
     open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(scrub_shipped(_html))
     print('written:',_fn,len(_html))
     _pages+=1
-for _fn,_html in build_game_pages(man,_css,build_sha).items():
+# When the current card is empty, maintain the last numbered game-page family from
+# its exact content-addressed manifest. Never silently rebind game-N to a different event.
+_game_manifest=man
+if not man.get('picks'):
+    import glob as _game_glob
+    def _numbered_ids(m):
+        return {int(p.get('num') or 0):str((p.get('game') or {}).get('eid') or '') for p in m.get('picks',[]) if (p.get('game') or {}).get('eid')}
+    _existing={}
+    for old in _game_glob.glob(os.path.join(os.path.dirname(out) or '.','game-*.html')):
+        match=re.search(r'game-([0-9]+)\.html$',old)
+        eid=re.search(r'<div class="pick"[^>]*data-eid="([^"]+)"',open(old).read()) if match else None
+        if match and eid: _existing[int(match.group(1))]=eid.group(1)
+    if _existing:
+        _matches=[]
+        for snap in _game_glob.glob('manifests/manifest-*.json'):
+            try:
+                m=json.load(open(snap)); by_eid={str((p.get('game') or {}).get('eid') or ''):p for p in m.get('picks',[])}
+                if len(_existing)==len(by_eid) and set(_existing.values())==set(by_eid):
+                    # Page numbering has changed across prior card builds. The SERVED page's
+                    # event ID owns that URL; rebind pick number to the event, not stale order.
+                    restored=[]
+                    for num,eid in sorted(_existing.items()):
+                        pick=dict(by_eid[eid]);pick['num']=num;restored.append(pick)
+                    m=dict(m);m['picks']=restored
+                    _matches.append((os.path.getmtime(snap),m))
+            except Exception: pass
+        if _matches: _game_manifest=max(_matches,key=lambda x:x[0])[1]
+        else: print('HISTORICAL GAME HOLD: no exact event-set snapshot for numbered pages',file=sys.stderr)
+for _fn,_html in build_game_pages(_game_manifest,_css,build_sha).items():
     open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(scrub_shipped(_html))
     print('written:',_fn,len(_html))
     _pages+=1
