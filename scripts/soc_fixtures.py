@@ -247,6 +247,23 @@ if sm.parse_verification('YES. Tre White cleared to play in the pregame preview.
                          KANSAS_LIVE_STORY, KANSAS_OLD)[0] == 'EXECUTE':
     fails.append('fabricated phase label accepted for otherwise grounded ranking action')
 
+# 05:19Z served triple: newer verified Kansas pin, older twin probe-EXECUTE,
+# older twin incorrectly occupied both nearest and more. The shared selection
+# helper must mark the older text twin even when its model verdict is EXECUTE;
+# main loop removes that index from confirmed before computing either tier.
+KANSAS_V16_VERDICTS = [
+    {'post_id': '2104685738528747602', 'verdict': 'EXECUTE', 'gate': 'conflict'},
+    {'post_id': '2104666303197749304', 'verdict': 'EXECUTE', 'gate': 'conflict'},
+]
+KANSAS_V16_CONFIRMED = [(.9326, 0), (.9181, 1)]
+KANSAS_V16_CONFIRMED = sm.demote_older_twins(
+    KANSAS_V16_VERDICTS, KANSAS_V16_CONFIRMED,
+    [{'id': '2104685738528747602', 'created_at': '2026-09-28T21:32:37Z'},
+     {'id': '2104666303197749304', 'created_at': '2026-09-28T20:15:24Z'}],
+    [KANSAS_NEW, KANSAS_OLD], KANSAS_LIVE_STORY)
+if KANSAS_V16_CONFIRMED != [(.9326, 0)] or KANSAS_V16_VERDICTS[1]['verdict'] != 'NOT_SELECTED':
+    fails.append('05:19Z older EXECUTE twin retained a nearest/more slot')
+
 # 04:37Z exact served NO line: older twin explicitly carries ranking,
 # court ruling, and Tre White, so "only a link" is a false denial.
 KANSAS_V15_NO = ('NO - Timeline mismatch: the article discusses a court ruling granting a preliminary '
