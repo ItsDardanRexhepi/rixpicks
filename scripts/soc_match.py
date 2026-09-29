@@ -207,6 +207,7 @@ def main():
     if not isinstance(news, dict) or not news.get('latest'):
         news = json.load(open('slates/news.json'))
     x = json.load(open('slates/x_feed.json'))
+    news_gen = news.get('generated_at')  # guard 5 coherence: stamp the exact news snapshot every verdict covers
     items = news.get('latest', [])
     posts = x.get('items', []) if isinstance(x, dict) else x
     # canonical publishability at generation (guard 5): the map never references a post the intake
@@ -227,6 +228,7 @@ def main():
     log = {'built_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
            'model': EMBED_MODEL, 'framework': 'urf-six-gate',
            'news_count': len(items), 'post_count': len(posts),
+           'news_generated_at': news_gen,
            'pairs': {}, 'more': {}, 'nearest': {}, 'rejected': [], 'audit': {}}
     if not items or not posts:
         log['audit']['aborted'] = 'empty feed'
