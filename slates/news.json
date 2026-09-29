@@ -1,41 +1,59 @@
 {
- "generated_at": "2026-09-29T17:34:57.853123+00:00",
+ "generated_at": "2026-09-29T17:50:07.907399+00:00",
  "leagues": {
   "baseball/mlb": [
    {
-    "headline": "Padres playoff roster includes All-Star who hasn&#39;t pitched in two years",
-    "link": "https://sports.yahoo.com/articles/padres-playoff-roster-includes-star-172338132.html",
-    "published": "2026-09-29T17:23:38+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/93a6df164984ffac7a2675daab3f56ea93040b839201658a8d6997648a7619cc/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Ff519667ec3d0c4b11e0c981978df0b73.jpg",
-    "blurb": "The Padres included Joe Musgrove in their NL wild card roster, who hasn&#39;t pitched an MLB game since 2024.",
-    "league": "MLB"
-   },
-   {
     "headline": "Athletics' Zack Gelof sues Tigers after hitting metal fence",
     "link": "https://www.espn.com/mlb/story/_/id/50059756/athletics-zack-gelof-sues-tigers-hitting-metal-fence",
-    "published": "2026-09-29T17:17:07Z",
+    "published": "2026-09-29T17:36:27Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723500_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Athletics outfielder Zack Gelof has sued the Tigers, Ilitch Holdings and the Detroit-Wayne County Stadium Authority for damages caused by a metal fence at Comerica Park.",
     "league": "MLB"
    },
    {
-    "headline": "World Series odds, predictions: Breaking down contenders, longshots and more for 2026 MLB playoffs",
-    "link": "https://www.cbssports.com/betting/news/world-series-odds-predictions-breaking-down-contenders-longshots-and-more-for-2026-mlb-playoffs/",
-    "published": "2026-09-29T15:59:56+00:00",
+    "headline": "2026 MLB playoff bracket: Schedule, where to watch as baseball postseason kicks off",
+    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
+    "published": "2026-09-29T17:33:46+00:00",
     "source": "CBS",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2Ff0dcdd02-9bdd-40de-b421-6f76083c1639%2Fdodgers-world-series-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The MLB playoffs begin on Tuesday and DraftKings has posted its latest World Series odds",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F27%2F232771eb-c08e-4746-8995-16e4d9d09afc%2F2026-mlb-bracket.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The baseball playoffs have arrived as all four MLB Wild Card Series get started on Tuesady",
     "league": "MLB"
    },
    {
     "headline": "Cubs announce Wild Card Series roster",
     "link": "https://sports.yahoo.com/articles/cubs-announce-wild-card-series-172059728.html",
-    "published": "2026-09-29T17:20:59+00:00",
+    "published": "2026-09-29T17:32:01+00:00",
     "source": "YAHOO",
     "image": "https://s.yimg.com/lo/mysterio/api/a560791d9aa61b464c17ceb220e21df10023ba7d8326c30542ac3d7f5ef57f02/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fb76900a7d7837e063f662ff540b9d4f0.jpg",
     "blurb": "There aren\u2019t really any surprises here.",
+    "league": "MLB"
+   },
+   {
+    "headline": "Padres add Joe Musgrove, out since 2024, to wild-card roster",
+    "link": "https://www.espn.com/mlb/story/_/id/50059817/padres-add-joe-musgrove-2024-wild-card-roster",
+    "published": "2026-09-29T17:35:16Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2024%2F0223%2Fr1295183_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "RHP Joe Musgrove last played in 2024 before undergoing Tommy John surgery, but the Padres added him to their wild-card roster Tuesday.",
+    "league": "MLB"
+   },
+   {
+    "headline": "Padres add Joe Musgrove, who hasn't pitched in an MLB game in two years, to playoff roster vs. Cubs",
+    "link": "https://www.cbssports.com/mlb/news/padres-add-joe-musgrove-wild-card-roster-cubs/",
+    "published": "2026-09-29T17:30:39+00:00",
+    "source": "CBS",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2F9b01d6e4-d33f-4bda-9578-cdaeeea700a4%2Fjoe-musgrove-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Musgrove, who had elbow surgery and multiple setbacks, hasn't faced MLB hitters since Oct. 2, 2024",
+    "league": "MLB"
+   },
+   {
+    "headline": "MLB Wild Card Series Game 1: Phillies at Braves, White Sox at Astros, Red Sox at Yankees",
+    "link": "https://sports.yahoo.com/articles/mlb-wild-card-series-game-173000529.html",
+    "published": "2026-09-29T17:30:00+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/39b22133ac18d8befccb241ecbe2d2f6850affffff437685117bc16af5e16944/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0725d29c705e6b61a4aab26dbddf3a4c.jpg",
+    "blurb": "The MLB postseason begins!",
     "league": "MLB"
    },
    {
@@ -48,21 +66,21 @@
     "league": "MLB"
    },
    {
-    "headline": "Pete Crow-Armstrong just wrapped up one of the best Cubs seasons ever, and he's not done yet",
-    "link": "https://www.cbssports.com/mlb/news/pete-crow-armstrong-best-cubs-seasons-ever-playoffs/",
-    "published": "2026-09-29T14:50:26+00:00",
+    "headline": "World Series odds, predictions: Breaking down contenders, longshots and more for 2026 MLB playoffs",
+    "link": "https://www.cbssports.com/betting/news/world-series-odds-predictions-breaking-down-contenders-longshots-and-more-for-2026-mlb-playoffs/",
+    "published": "2026-09-29T15:59:56+00:00",
     "source": "CBS",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2F8dff5c83-5006-40e7-b5f2-8c7f8b8f0e93%2Fpca-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The 24-year-old MVP favorite put it all together in a 2026 campaign that has the Cubs headed to the playoffs",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2Ff0dcdd02-9bdd-40de-b421-6f76083c1639%2Fdodgers-world-series-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The MLB playoffs begin on Tuesday and DraftKings has posted its latest World Series odds",
     "league": "MLB"
    },
    {
-    "headline": "A full breakdown of the Yankees postseason roster for Wild Card Series",
-    "link": "https://sports.yahoo.com/articles/full-breakdown-yankees-postseason-roster-171620299.html",
-    "published": "2026-09-29T17:16:20+00:00",
+    "headline": "MLB Wildcard 2026 Discussion Thread: Day 1",
+    "link": "https://sports.yahoo.com/articles/mlb-wildcard-2026-discussion-thread-173000949.html",
+    "published": "2026-09-29T17:30:00+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "A closer look at who made the roster for the Wild Card Series vs. Boston",
+    "blurb": "It\u2019s (kind of) a three-day MLB October Madness!",
     "league": "MLB"
    },
    {
@@ -73,43 +91,79 @@
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0928%2Fr1723016_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Eight teams enter wild-card week; only four can make it out. We've got it all covered for you.",
     "league": "MLB"
-   },
-   {
-    "headline": "Aaron Judge left off Yankees Wild Card Series roster, but Giancarlo Stanton will be available vs. Red Sox",
-    "link": "https://www.cbssports.com/mlb/news/yankees-aaron-judge-injury-wild-card-series-roster-progress/",
-    "published": "2026-09-29T14:45:36+00:00",
-    "source": "CBS",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2F1e243387-0d42-4e48-925b-078068078167%2Fjudge-stanton-yankees-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Judge has been on the injured list since Sept. 16 with a calf strain and will miss at least the first round of the playoffs",
-    "league": "MLB"
-   },
-   {
-    "headline": "NBC Curbs One of Fans\u2019 Biggest MLB Playoffs Issues",
-    "link": "https://sports.yahoo.com/articles/nbc-curbs-one-fans-biggest-170004511.html",
-    "published": "2026-09-29T17:00:04+00:00",
-    "source": "YAHOO",
-    "image": "",
-    "blurb": "Boston Red Sox and New York Yankees fans will hear friendly TV voices call their team\u2019s Wild-Card matchup this week. In the playoffs, that\u2019s not always the case. Year after year, MLB followers grumble about losing the local announcing booths they\u2019ve spent their summers with in fa",
-    "league": "MLB"
    }
   ],
   "football/nfl": [
    {
-    "headline": "Source - Bengals cut Ke'Shawn Williams after costly muffed punt",
-    "link": "https://www.espn.com/nfl/story/_/id/50059809/source-bengals-cut-keshawn-williams-costly-muffed-punt",
-    "published": "2026-09-29T17:24:55Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723472_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Cincinnati Bengals cut WR Ke'Shawn Williams after he muffed a punt that eventually led to the Pittsburgh Steelers' 30-27 win, a source told ESPN's Jeremy Fowler. Earlier Tuesday, Cincinnati signed WR Mitch Tinsley, per ESPN's Adam Schefter.",
+    "headline": "NY Giants release WR Odell Beckham Jr., per reports",
+    "link": "https://sports.yahoo.com/articles/ny-giants-release-wr-odell-171628923.html",
+    "published": "2026-09-29T17:45:11+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/2e4d418cd26f5609512890f0dc535422b1039b88a349cd48c1aec8acf3f20ef0/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F069e55a8ad2281f7272e21d6b48dbce2.jpg",
+    "blurb": "The NY Giants once again part ways with Odell Beckham Jr.",
     "league": "NFL"
    },
    {
-    "headline": "Rams Power Rankings roundup: Week 4",
-    "link": "https://sports.yahoo.com/articles/rams-power-rankings-roundup-week-172225589.html",
-    "published": "2026-09-29T17:22:25+00:00",
+    "headline": "Fantasy football rankings Week 4: PPR and superflex",
+    "link": "https://www.espn.com/fantasy/football/story/_/page/FFWeeklyPlayerRank26main-49797082/fantasy-football-rankings-2026-qb-rb-wr-te-dst",
+    "published": "2026-09-29T17:39:17Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0914%2Fr1716699_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Weekly composite ranks for each position in PPR and IDP formats, as well as Eric Karabell's superflex ranks.",
+    "league": "NFL"
+   },
+   {
+    "headline": "Biggest weakness for top Super Bowl contenders: Rams facing depth questions, 49ers' defense in trouble?",
+    "link": "https://www.cbssports.com/nfl/news/biggest-weakness-for-super-bowl-contenders-rams-49ers/",
+    "published": "2026-09-29T17:29:17+00:00",
+    "source": "CBS",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2F8db24d1f-6d73-4834-9e88-c8c908bc65d3%2Fjosh-allen-bills-7.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Plus, the defending champs miss their Super Bowl MVP badly",
+    "league": "NFL"
+   },
+   {
+    "headline": "Browns make 5 roster moves on Tuesday, ahead of Thursday Night Football vs. Steelers",
+    "link": "https://sports.yahoo.com/articles/browns-5-roster-moves-tuesday-173637623.html",
+    "published": "2026-09-29T17:36:37+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/680f4ba9b1abb827165b1623a37c94ef50ad0652bca5328bfeabd118637a12f9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F34a0ad2dcc04a3f81d1a7c414b2b76df.jpg",
-    "blurb": "The LA Rams drop in most rankings after losing to the Denver Broncos",
+    "image": "https://s.yimg.com/lo/mysterio/api/02017984ed52354a15a28f02953ad340fc9103fd05e964edca1072988fcbdc0a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ffc6fc0cc21f24218e2ed40bdcb3a405d.jpg",
+    "blurb": "The Cleveland Browns roster remains in flux ahead of Thursday Night Football against the Steelers, with 5 moves Tuesday",
+    "league": "NFL"
+   },
+   {
+    "headline": "Fantasy football flex and superflex rankings for Week 4",
+    "link": "https://www.espn.com/fantasy/football/story/_/id/49803708/fantasy-football-superflex-rankings-2026-qb-rb-wr-te",
+    "published": "2026-09-29T17:37:33Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0902%2Fr1710593_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Trying to decide between a couple of closely ranked players this week? Eric Karabell's rankings are here to help.",
+    "league": "NFL"
+   },
+   {
+    "headline": "Giants release Odell Beckham Jr., franchise legend makes zero catches in return to New York",
+    "link": "https://www.cbssports.com/nfl/news/new-york-giants-release-odell-beckham-jr/",
+    "published": "2026-09-29T17:21:47+00:00",
+    "source": "CBS",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2F23ca76c4-a351-4930-b4a5-0d270f8e5910%2Fobj.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "New York parts ways with the wide receiver for the second time",
+    "league": "NFL"
+   },
+   {
+    "headline": "VIDEO: How the Jets defense came back on the Lions then fell short",
+    "link": "https://sports.yahoo.com/articles/video-jets-defense-came-back-173437729.html",
+    "published": "2026-09-29T17:34:37+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "The Jets had a hard fought loss in Week 3 against the Detroit Lions. The team came back from 14 points down in the fourth quarter with some key plays on offense. After Detroit reclaimed the lead, however, a fumble on a strip sack ended things and sent the Jets home with a 1-2 rec",
+    "league": "NFL"
+   },
+   {
+    "headline": "Source - Bengals cut Ke'Shawn Williams after costly muffed punt",
+    "link": "https://www.espn.com/nfl/story/_/id/50059809/source-bengals-cut-keshawn-williams-costly-muffed-punt",
+    "published": "2026-09-29T17:31:21Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723472_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Cincinnati Bengals cut WR Ke'Shawn Williams after he muffed a punt that eventually led to the Pittsburgh Steelers' 30-27 win, a source told ESPN's Jeremy Fowler. Earlier Tuesday, Cincinnati signed WR Mitch Tinsley, per ESPN's Adam Schefter.",
     "league": "NFL"
    },
    {
@@ -122,86 +176,32 @@
     "league": "NFL"
    },
    {
-    "headline": "Jerry Jones: 'No explanation' for Cowboys coaches' mistakes",
-    "link": "https://www.espn.com/nfl/story/_/id/50059557/jerry-jones-no-explanation-cowboys-coaches-mistakes",
-    "published": "2026-09-29T17:19:24Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0918%2Fr1718576_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Jerry Jones says he believes errors in game management by his coaching staff cost the Cowboys a victory over the Ravens.",
-    "league": "NFL"
-   },
-   {
-    "headline": "NFL Power Rankings: Jayden Daniels\u2019 injury sinks Washington Commanders",
-    "link": "https://sports.yahoo.com/articles/nfl-power-rankings-jayden-daniels-172134420.html",
-    "published": "2026-09-29T17:21:34+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/010fc33896f4508390ffb7144e6a37200c16a84cdf0fc4e39786b4888eb155d6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Febd24f56bd42d10730b4bda95d701eb6.jpg",
-    "blurb": "A win over the defending super bowl champs in Washington\u2019s home opener has changed some minds",
-    "league": "NFL"
-   },
-   {
-    "headline": "Week 4 NFL betting odds, lines, spreads, totals, for every game, including Steelers-Browns, Cowboys-Texans",
-    "link": "https://www.cbssports.com/betting/news/week-4-nfl-betting-odds-lines-totals-spreads/",
-    "published": "2026-09-29T16:53:52+00:00",
-    "source": "CBS",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2Fee82d22b-ec2c-4046-a191-04b8a52ea2fb%2Fdak-prescott-dallas-cowboys-imagn-images-8.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Week 4 NFL schedule features 16 games, starting with Steelers vs. Browns on Thursday Night Football",
-    "league": "NFL"
-   },
-   {
-    "headline": "Rest-of-season rankings: Purdy joins top five QBs, Sadiq impresses among TEs",
-    "link": "https://www.espn.com/fantasy/football/story/_/id/49949224/fantasy-football-2026-updated-rest-season-rankings",
-    "published": "2026-09-29T17:18:16Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723467_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Need a quick free agent pickup -- or roster overhaul -- after Week 3? These rankings are designed to help.",
-    "league": "NFL"
-   },
-   {
-    "headline": "NY Giants release WR Odell Beckham Jr., per reports",
-    "link": "https://sports.yahoo.com/articles/ny-giants-release-wr-odell-171628923.html",
-    "published": "2026-09-29T17:16:28+00:00",
+    "headline": "Packers-Bears game in Week 5 flexed to Noon Central kickoff",
+    "link": "https://sports.yahoo.com/articles/packers-bears-game-week-5-173350754.html",
+    "published": "2026-09-29T17:33:50+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "The NY Giants once again part ways with Odell Beckham Jr.",
-    "league": "NFL"
-   },
-   {
-    "headline": "Jim Harbaugh tells Justin Herbert to 'be better' amid Chargers' offensive struggles",
-    "link": "https://www.cbssports.com/nfl/news/jim-harbaugh-tells-justin-herbert-to-be-better-chargers/",
-    "published": "2026-09-29T16:45:41+00:00",
-    "source": "CBS",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2F8a61c204-f92c-4723-9092-48d5c424b65d%2Fjharbaugh.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Harbaugh knows his team's current situation starts with getting more out of the quarterback position",
-    "league": "NFL"
-   },
-   {
-    "headline": "Sources: Giants to release fan favorite Odell Beckham Jr.",
-    "link": "https://www.espn.com/nfl/story/_/id/50059755/sources-giants-release-fan-favorite-odell-beckham-jr",
-    "published": "2026-09-29T17:15:42Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723501_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Giants are releasing veteran wide receiver Odell Beckham Jr., sources told NFL Network.",
+    "blurb": "Both games between the two teams this season will kick off at noon.",
     "league": "NFL"
    }
   ],
   "football/college-football": [
    {
-    "headline": "Florida State TE commit Connor Winn reopens recruitment",
-    "link": "https://sports.yahoo.com/articles/florida-state-te-commit-connor-172220309.html",
-    "published": "2026-09-29T17:22:20+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/09cabce73c4e530a0eaf5aeee9885551e0efb59c033753b58b376023b1378b2e/lightyear_networkapi/resizefill_w1024_h537%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fon3_recruiting_articles_521%2Fe3858a4fbf73f39003a34c25447c3d55.png",
-    "blurb": "Jacksonville (Fla.) University Christian three-star tight end Connor Winn announced on Tuesday afternoon that he is re-opening his recruitment. He has been committed to Florida State since July 1, 2025. The 6-foot-3, 230-pounder was the longest-tenured member of FSU\u2019s 2027 recrui",
+    "headline": "College football's most overrated and underrated teams one month into the 2026 season",
+    "link": "https://www.cbssports.com/college-football/news/college-football-rankings-overrated-underrated-2026-week-5/",
+    "published": "2026-09-29T17:38:35+00:00",
+    "source": "CBS",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F27%2F8e2c9e5f-85c6-4d0f-9231-0cc505b1e304%2Fgogators.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Five teams AP Top 25 voters are still wrong about as the calendar flips to October",
     "league": "CFB"
    },
    {
-    "headline": "LSU LB Whit Weeks out to undergo surgery for fractured leg amid rash of injuries to Tigers players",
-    "link": "https://www.cbssports.com/college-football/news/lsu-lb-whit-weeks-surgery-leg-injuries/",
-    "published": "2026-09-29T16:42:53+00:00",
-    "source": "CBS",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F27%2F5754e6d7-b47b-40af-8283-beb8fc818919%2Fwhit-weeks-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The team captain and defensive signal-caller is expected to return this season as Dahvon Keys steps into the lineup for the Tigers",
+    "headline": "Florida&#39;s seeding in Week 4 College Football Playoff projections",
+    "link": "https://sports.yahoo.com/articles/floridas-seeding-week-4-college-173825536.html",
+    "published": "2026-09-29T17:38:25+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/fe4a4547b844d0d1f322cbb14529f7ab18774a46b52fd783d182730560297205/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fgators_wire_usa_today_articles_447%2F04732851e1ee996d4bb2505067ac56f2.jpg",
+    "blurb": "Here&#39;s where USA TODAY Sports has the Florida Gators seeded in its College Football Playoff projections after their Week 4 win over Ole Miss.",
     "league": "CFB"
    },
    {
@@ -214,21 +214,21 @@
     "league": "CFB"
    },
    {
-    "headline": "Colorado reportedly set to start Isaac Wilson over JuJu Lewis at QB for game vs. No. 12 Texas Tech",
-    "link": "https://sports.yahoo.com/college-football/breaking-news/article/colorado-reportedly-set-to-start-isaac-wilson-over-juju-lewis-at-qb-for-game-vs-no-12-texas-tech-172050151.html",
-    "published": "2026-09-29T17:20:50+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/9e98244c75833d676a1ed8ba830dbab0f9f16f9095f3e8f41c19bc3bb6ce15c4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-09%2Fb1f13fa4-0525-4c9b-ab60-8cd859c41692",
-    "blurb": "Wilson took over for Lewis during the Buffaloes&#39; 23-13 loss to Baylor.",
+    "headline": "SEC Power Rankings: Texas tops Georgia in Week 5 on the strength of an impressive resume",
+    "link": "https://www.cbssports.com/college-football/news/sec-power-rankings-week-5-texas-georgia/",
+    "published": "2026-09-29T17:13:42+00:00",
+    "source": "CBS",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2Feb760005-7983-468e-850b-ce5035e9c429%2Fgettyimages-2296754807-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "How things stack up in the SEC after one month of the college football season",
     "league": "CFB"
    },
    {
-    "headline": "Miami OC Shannon Dawson takes shot at SEC, preseason rankings: 'Half of them won't be in the top 30'",
-    "link": "https://www.cbssports.com/college-football/news/miami-shannon-dawson-sec-preseason-rankings/",
-    "published": "2026-09-29T16:29:13+00:00",
-    "source": "CBS",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2F30e2c97d-e21c-4ce2-af3f-015bcba3255f%2Fdawson.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Hurricanes' offensive coordinator took issue with the SEC, which has 10 teams ranked in this week's AP Top 25",
+    "headline": "Column: It\u2019s time for Ohio State to admit its mistakes in the transfer portal",
+    "link": "https://sports.yahoo.com/articles/column-time-ohio-state-admit-173100544.html",
+    "published": "2026-09-29T17:31:00+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/68f6c64653f316f0cc897205ad04ae9714f7890b97869512f3626baa3cfb6790/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F00d3d67bcd9e47f1fc7159f185fcc3a9.jpg",
+    "blurb": "Ohio State has whiffed in the transfer portal. The Buckeyes now need to be willing to move on from poor talent evaluations and let their young players shine, regardless of NIL costs",
     "league": "CFB"
    },
    {
@@ -241,21 +241,21 @@
     "league": "CFB"
    },
    {
-    "headline": "Greg Johnson is making a strong case for the Outland Trophy through four games",
-    "link": "https://sports.yahoo.com/articles/greg-johnson-making-strong-case-171005568.html",
-    "published": "2026-09-29T17:10:05+00:00",
-    "source": "YAHOO",
-    "image": "",
-    "blurb": "Greg Johnson has performed at an All-American level in 2026.",
+    "headline": "LSU LB Whit Weeks out to undergo surgery for fractured leg amid rash of injuries to Tigers players",
+    "link": "https://www.cbssports.com/college-football/news/lsu-lb-whit-weeks-surgery-leg-injuries/",
+    "published": "2026-09-29T16:42:53+00:00",
+    "source": "CBS",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F27%2F5754e6d7-b47b-40af-8283-beb8fc818919%2Fwhit-weeks-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The team captain and defensive signal-caller is expected to return this season as Dahvon Keys steps into the lineup for the Tigers",
     "league": "CFB"
    },
    {
-    "headline": "WATCH: New footage shows USC radio crew questioning targeting call that resulted in Dante Moore injury",
-    "link": "https://www.cbssports.com/college-football/news/dante-moore-injury-usc-radio-broadcast-targeting-call/",
-    "published": "2026-09-29T15:29:27+00:00",
-    "source": "CBS",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2Fcaa351e3-e667-4b51-a0bb-291a14844b1f%2Fusc-dante-moore-hit-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Radio announcers are known to be partial to their own teams, but the USC crew's assessment teetered on the line of delusion Saturday",
+    "headline": "Identifying 5 South Carolina Gamecocks Coaching Candidates to Replace Shane Beamer",
+    "link": "https://sports.yahoo.com/articles/identifying-5-south-carolina-gamecocks-172900974.html",
+    "published": "2026-09-29T17:29:00+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "The South Carolina Gamecocks entered the 2026 college football season hoping to be a top-25 team led by quarterback LaNorris [\u2026]",
     "league": "CFB"
    },
    {
@@ -268,12 +268,12 @@
     "league": "CFB"
    },
    {
-    "headline": "Three Things We Learned From Virginia Tech\u2019s 21-14 Win Over Boston College",
-    "link": "https://sports.yahoo.com/articles/three-things-learned-virginia-tech-170018618.html",
-    "published": "2026-09-29T17:00:18+00:00",
-    "source": "YAHOO",
-    "image": "",
-    "blurb": "Virginia Tech moved to 4-0 on the season for the first time in nine years in a 21-14 monsoon-impacted comeback win over Boston College on Saturday in Chestnut Hill. As anticipated, both teams struggled to put points on the board in the heart of a Nor&#39;Easter in Massachusetts, ",
+    "headline": "Miami OC Shannon Dawson takes shot at SEC, preseason rankings: 'Half of them won't be in the top 30'",
+    "link": "https://www.cbssports.com/college-football/news/miami-shannon-dawson-sec-preseason-rankings/",
+    "published": "2026-09-29T16:29:13+00:00",
+    "source": "CBS",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2F30e2c97d-e21c-4ce2-af3f-015bcba3255f%2Fdawson.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Hurricanes' offensive coordinator took issue with the SEC, which has 10 teams ranked in this week's AP Top 25",
     "league": "CFB"
    }
   ],
@@ -463,48 +463,30 @@
   ],
   "hockey/nhl": [
    {
-    "headline": "Wild top-pair D-man Brock Faber has surgery on fractured skull",
-    "link": "https://www.espn.com/nhl/story/_/id/50059634/wild-top-pair-d-man-brock-faber-surgery-fractured-skull",
-    "published": "2026-09-29T16:58:53Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F0326%2Fr1469764_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Wild top-pair defenseman Brock Faber underwent surgery for a fractured skull and is out indefinitely.",
-    "league": "NHL"
-   },
-   {
-    "headline": "Hurricanes&#39; repeat bid, superstar trade requests, who will win the Stanley Cup and other 2026-27 NHL season storylines",
-    "link": "https://sports.yahoo.com/nhl/article/hurricanes-repeat-bid-superstar-trade-requests-who-will-win-the-stanley-cup-and-other-2026-27-nhl-season-storylines-163721655.html",
-    "published": "2026-09-29T16:37:21+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/ccc316bedf744b5630db379efac4a9b5aa9a1643c66c9d6579f49e8a99eb411d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-09%2F5aee8cfb-b799-4c8b-b25e-391ee063bba2",
-    "blurb": "The NHL drops the puck on the 2026-27 season Tuesday night.",
-    "league": "NHL"
-   },
-   {
-    "headline": "2026-27 NHL season predictions: Expert picks for Stanley Cup playoffs, champion and major awards this sesaon",
+    "headline": "2026-27 NHL season predictions: Expert picks for Stanley Cup playoffs, champion and major awards this season",
     "link": "https://www.cbssports.com/nhl/news/2026-27-nhl-season-predictions-expert-picks-stanley-cup-playoffs-final-major-awards/",
-    "published": "2026-09-29T13:27:50+00:00",
+    "published": "2026-09-29T17:33:53+00:00",
     "source": "CBS",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2F917dc6d9-6f54-4071-9083-2c8dc08d26de%2Fgettyimages-2281038618-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "How will the 2026-27 NHL season play out? We've called our shots",
     "league": "NHL"
    },
    {
-    "headline": "2026-27 NHL picks: Stanley Cup, division winners, awards",
-    "link": "https://www.espn.com/nhl/story/_/id/50052107/nhl-2026-27-season-picks-stanley-cup-divisions-awards",
-    "published": "2026-09-29T15:31:00Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0615%2Fr1673571_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Can the Canes repeat? Who are the favorites for major individual hardware? Here are our predictions.",
+    "headline": "Thomas Chabot Named Captain Of The Ottawa Senators",
+    "link": "https://sports.yahoo.com/articles/thomas-chabot-named-captain-ottawa-171822467.html",
+    "published": "2026-09-29T17:18:22+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/e9790b6b36d1ac8f6af1b9698f5dd83a03c6514b1007e12c6365c5407a4c0fe6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_ottawa_senators_articles_596%2F825a845ad66b79f94bd9fc9ac14c8768.jpg",
+    "blurb": "The longest-serving Senator takes the helm, rewarding a decade of loyalty through the dark rebuild years.",
     "league": "NHL"
    },
    {
-    "headline": "A Hurricanes Trade For Connor Hellebuyck Reportedly Could Depend On The Blues And Alexander Nikishin",
-    "link": "https://sports.yahoo.com/articles/hurricanes-trade-connor-hellebuyck-reportedly-163222987.html",
-    "published": "2026-09-29T16:32:22+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/78f94c8a56bfcf0c5ecb74c7dc8d00a1c822fe9c6728356855b17257274da7be/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_st_louis_blues_articles_393%2F297f43200401c344f3bc3c9f8217f5b9.jpg",
-    "blurb": "The St. Louis Blues remain interested in Alexander Nikishin, but now, their interest has direct implications on the Carolina Hurricanes&#39; pursuit of Connor Hellebuyck.",
+    "headline": "Wild top-pair D-man Brock Faber has surgery on fractured skull",
+    "link": "https://www.espn.com/nhl/story/_/id/50059634/wild-top-pair-d-man-brock-faber-surgery-fractured-skull",
+    "published": "2026-09-29T16:58:53Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F0326%2Fr1469764_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Wild top-pair defenseman Brock Faber underwent surgery for a fractured skull and is out indefinitely.",
     "league": "NHL"
    },
    {
@@ -517,21 +499,21 @@
     "league": "NHL"
    },
    {
-    "headline": "NHL betting guide: 32 teams, 32 bets to make this season",
-    "link": "https://www.espn.com/espn/betting/story/_/id/50015025/nhl-betting-2026-season-futures-props-stanley-cup-picks",
-    "published": "2026-09-29T15:14:12Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0928%2Fr1723094_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "One bet to make on each of the NHL's 32 squads, including Stanley Cup winner, player awards and more futures.",
+    "headline": "Florida Panthers Assigned A Slew Of Players To The Charlotte Checkers",
+    "link": "https://sports.yahoo.com/articles/florida-panthers-assigned-slew-players-170424778.html",
+    "published": "2026-09-29T17:04:24+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/849fe3a96632c8fe20c30e5647473604054c5e5c3213a4b956710c33d6000971/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_florida_panthers_articles_782%2Fdb9ddf0fd91c18d72cdfd73bd91e94fc.jpg",
+    "blurb": "The Florida Panthers made their final roster adjustments, sending a slew of players to their AHL affiliate, the Charlotte Checkers.",
     "league": "NHL"
    },
    {
-    "headline": "&#39;He&#39;s Got Some Swag&#39;: Maple Leafs Teammates And Jim Hiller React To Gavin McKenna Not Taking Optional Skate Ahead Of NHL Debut",
-    "link": "https://sports.yahoo.com/articles/hes-got-swag-maple-leafs-155123364.html",
-    "published": "2026-09-29T15:51:23+00:00",
-    "source": "YAHOO",
-    "image": "",
-    "blurb": "Usually when a player makes his NHL debut, they&#39;ll take the optional morning skate to prepare for arguably the biggest night of their life to this point. But Toronto Maple Leafs rookie Gavin McKenna is putting his confidence on display again by skipping the option. His teamma",
+    "headline": "2026-27 NHL picks: Stanley Cup, division winners, awards",
+    "link": "https://www.espn.com/nhl/story/_/id/50052107/nhl-2026-27-season-picks-stanley-cup-divisions-awards",
+    "published": "2026-09-29T15:31:00Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0615%2Fr1673571_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Can the Canes repeat? Who are the favorites for major individual hardware? Here are our predictions.",
     "league": "NHL"
    },
    {
@@ -544,23 +526,41 @@
     "league": "NHL"
    },
    {
-    "headline": "Gary Bettman excited over new 84-game NHL season",
-    "link": "https://www.espn.com/video/clip/_/id/50058404/gary-bettman-excited-new-84-game-nhl-season",
-    "published": "2026-09-29T13:19:32Z",
+    "headline": "Hurricanes&#39; repeat bid, superstar trade requests, who will win the Stanley Cup and other 2026-27 NHL season storylines",
+    "link": "https://sports.yahoo.com/nhl/article/hurricanes-repeat-bid-superstar-trade-requests-who-will-win-the-stanley-cup-and-other-2026-27-nhl-season-storylines-163721655.html",
+    "published": "2026-09-29T16:37:21+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "The NHL drops the puck on the 2026-27 season Tuesday night.",
+    "league": "NHL"
+   },
+   {
+    "headline": "NHL betting guide: 32 teams, 32 bets to make this season",
+    "link": "https://www.espn.com/espn/betting/story/_/id/50015025/nhl-betting-2026-season-futures-props-stanley-cup-picks",
+    "published": "2026-09-29T15:14:12Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F0929%2Fss_20260929_091139175_3679053%2Fss_20260929_091139175_3679053.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Gary Bettman excited over new 84-game NHL season  ",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0928%2Fr1723094_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "One bet to make on each of the NHL's 32 squads, including Stanley Cup winner, player awards and more futures.",
+    "league": "NHL"
+   },
+   {
+    "headline": "Avalanche sign star Cale Makar to largest contract in NHL history at $163.2 million",
+    "link": "https://www.cbssports.com/nhl/news/cale-makar-colorado-avalanche-contract-record/",
+    "published": "2026-08-28T22:10:31+00:00",
+    "source": "CBS",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F08%2F28%2Fc425c3e5-c1f6-460b-a117-80e84d9b94a7%2Fgettyimages-2272100313-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Makar just became the NHL's first $20 million player",
     "league": "NHL"
    }
   ],
   "basketball/mens-college-basketball": [
    {
-    "headline": "Non-Conference Preview: Saint Louis",
-    "link": "https://sports.yahoo.com/articles/non-conference-preview-saint-louis-170000535.html",
-    "published": "2026-09-29T17:00:00+00:00",
+    "headline": "Duke Basketball Stays Put in Updated Early Rankings",
+    "link": "https://sports.yahoo.com/articles/duke-basketball-stays-put-updated-171918278.html",
+    "published": "2026-09-29T17:19:18+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/5e0f0594583d5c23e6d4bee6d61b4f454dde8632e7c3a7b915bf9b7cbaa84de7/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0dcb666951f98985e9d64694f90ec061.jpg",
-    "blurb": "An early test for both teams is a welcomed sight for St. Louis area basketball fans.",
+    "image": "https://s.yimg.com/lo/mysterio/api/be8307ce085dee1609d72dfe386572c1486ef68aea792fdaab7221b354aab34a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_duke_772%2F582ddfa45fdfcfef8b08b6683440c592.jpg",
+    "blurb": "The Duke Basketball program has stayed put in the latest CBS Sports early top 25 and 1 rankings here in September.",
     "league": "NCAAB"
    },
    {
@@ -582,12 +582,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Illinois will look to taste sweet revenge over Wisconsin in Madison",
-    "link": "https://sports.yahoo.com/articles/illinois-look-taste-sweet-revenge-165019197.html",
-    "published": "2026-09-29T16:50:19+00:00",
+    "headline": "Non-Conference Preview: Saint Louis",
+    "link": "https://sports.yahoo.com/articles/non-conference-preview-saint-louis-170000535.html",
+    "published": "2026-09-29T17:00:00+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/5d7451369171f232252580a30b1b8aca1bf5634d3da3f81e1fc4fc2befb053a9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F928fef9b8cb0d9f25c15cd785edbc9b3.jpg",
-    "blurb": "It\u2019s time for the Illini to get payback.",
+    "image": "https://s.yimg.com/lo/mysterio/api/5e0f0594583d5c23e6d4bee6d61b4f454dde8632e7c3a7b915bf9b7cbaa84de7/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0dcb666951f98985e9d64694f90ec061.jpg",
+    "blurb": "An early test for both teams is a welcomed sight for St. Louis area basketball fans.",
     "league": "NCAAB"
    },
    {
@@ -609,12 +609,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Unscientific Predictions: 2026-27 Big East Women\u2019s Basketball Preseason Awards",
-    "link": "https://sports.yahoo.com/articles/unscientific-predictions-2026-27-big-154500170.html",
-    "published": "2026-09-29T15:45:00+00:00",
+    "headline": "Illinois will look to taste sweet revenge over Wisconsin in Madison",
+    "link": "https://sports.yahoo.com/articles/illinois-look-taste-sweet-revenge-165019197.html",
+    "published": "2026-09-29T16:50:19+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "If Media Day is right around the corner, then we have to make some picks to figure out how the Big East coaches are going to vote!",
+    "blurb": "It\u2019s time for the Illini to get payback.",
     "league": "NCAAB"
    },
    {
@@ -636,12 +636,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Unscientific Predictions: 2026-27 Big East Men\u2019s Basketball Preseason Awards",
-    "link": "https://sports.yahoo.com/articles/unscientific-predictions-2026-27-big-134500922.html",
-    "published": "2026-09-29T13:45:00+00:00",
+    "headline": "Unscientific Predictions: 2026-27 Big East Women\u2019s Basketball Preseason Awards",
+    "link": "https://sports.yahoo.com/articles/unscientific-predictions-2026-27-big-154500170.html",
+    "published": "2026-09-29T15:45:00+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "We\u2019re just days away from Media Day, so we should probably make some picks, huh?",
+    "blurb": "If Media Day is right around the corner, then we have to make some picks to figure out how the Big East coaches are going to vote!",
     "league": "NCAAB"
    }
   ],
@@ -1087,94 +1087,175 @@
  },
  "latest": [
   {
-   "headline": "Source - Bengals cut Ke'Shawn Williams after costly muffed punt",
-   "link": "https://www.espn.com/nfl/story/_/id/50059809/source-bengals-cut-keshawn-williams-costly-muffed-punt",
-   "published": "2026-09-29T17:24:55Z",
+   "headline": "NY Giants release WR Odell Beckham Jr., per reports",
+   "link": "https://sports.yahoo.com/articles/ny-giants-release-wr-odell-171628923.html",
+   "published": "2026-09-29T17:45:11+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/2e4d418cd26f5609512890f0dc535422b1039b88a349cd48c1aec8acf3f20ef0/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F069e55a8ad2281f7272e21d6b48dbce2.jpg",
+   "blurb": "The NY Giants once again part ways with Odell Beckham Jr.",
+   "league": "NFL"
+  },
+  {
+   "headline": "Fantasy football rankings Week 4: PPR and superflex",
+   "link": "https://www.espn.com/fantasy/football/story/_/page/FFWeeklyPlayerRank26main-49797082/fantasy-football-rankings-2026-qb-rb-wr-te-dst",
+   "published": "2026-09-29T17:39:17Z",
    "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723472_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Cincinnati Bengals cut WR Ke'Shawn Williams after he muffed a punt that eventually led to the Pittsburgh Steelers' 30-27 win, a source told ESPN's Jeremy Fowler. Earlier Tuesday, Cincinnati signed WR Mitch Tinsley, per ESPN's Adam Schefter.",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0914%2Fr1716699_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Weekly composite ranks for each position in PPR and IDP formats, as well as Eric Karabell's superflex ranks.",
    "league": "NFL"
   },
   {
-   "headline": "Padres playoff roster includes All-Star who hasn&#39;t pitched in two years",
-   "link": "https://sports.yahoo.com/articles/padres-playoff-roster-includes-star-172338132.html",
-   "published": "2026-09-29T17:23:38+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/93a6df164984ffac7a2675daab3f56ea93040b839201658a8d6997648a7619cc/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Ff519667ec3d0c4b11e0c981978df0b73.jpg",
-   "blurb": "The Padres included Joe Musgrove in their NL wild card roster, who hasn&#39;t pitched an MLB game since 2024.",
-   "league": "MLB"
-  },
-  {
-   "headline": "Rams Power Rankings roundup: Week 4",
-   "link": "https://sports.yahoo.com/articles/rams-power-rankings-roundup-week-172225589.html",
-   "published": "2026-09-29T17:22:25+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/680f4ba9b1abb827165b1623a37c94ef50ad0652bca5328bfeabd118637a12f9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F34a0ad2dcc04a3f81d1a7c414b2b76df.jpg",
-   "blurb": "The LA Rams drop in most rankings after losing to the Denver Broncos",
-   "league": "NFL"
-  },
-  {
-   "headline": "Florida State TE commit Connor Winn reopens recruitment",
-   "link": "https://sports.yahoo.com/articles/florida-state-te-commit-connor-172220309.html",
-   "published": "2026-09-29T17:22:20+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/09cabce73c4e530a0eaf5aeee9885551e0efb59c033753b58b376023b1378b2e/lightyear_networkapi/resizefill_w1024_h537%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fon3_recruiting_articles_521%2Fe3858a4fbf73f39003a34c25447c3d55.png",
-   "blurb": "Jacksonville (Fla.) University Christian three-star tight end Connor Winn announced on Tuesday afternoon that he is re-opening his recruitment. He has been committed to Florida State since July 1, 2025. The 6-foot-3, 230-pounder was the longest-tenured member of FSU\u2019s 2027 recrui",
+   "headline": "College football's most overrated and underrated teams one month into the 2026 season",
+   "link": "https://www.cbssports.com/college-football/news/college-football-rankings-overrated-underrated-2026-week-5/",
+   "published": "2026-09-29T17:38:35+00:00",
+   "source": "CBS",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F27%2F8e2c9e5f-85c6-4d0f-9231-0cc505b1e304%2Fgogators.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Five teams AP Top 25 voters are still wrong about as the calendar flips to October",
    "league": "CFB"
   },
   {
-   "headline": "NFL Power Rankings: Jayden Daniels\u2019 injury sinks Washington Commanders",
-   "link": "https://sports.yahoo.com/articles/nfl-power-rankings-jayden-daniels-172134420.html",
-   "published": "2026-09-29T17:21:34+00:00",
+   "headline": "Florida&#39;s seeding in Week 4 College Football Playoff projections",
+   "link": "https://sports.yahoo.com/articles/floridas-seeding-week-4-college-173825536.html",
+   "published": "2026-09-29T17:38:25+00:00",
    "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/010fc33896f4508390ffb7144e6a37200c16a84cdf0fc4e39786b4888eb155d6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Febd24f56bd42d10730b4bda95d701eb6.jpg",
-   "blurb": "A win over the defending super bowl champs in Washington\u2019s home opener has changed some minds",
-   "league": "NFL"
-  },
-  {
-   "headline": "Cubs announce Wild Card Series roster",
-   "link": "https://sports.yahoo.com/articles/cubs-announce-wild-card-series-172059728.html",
-   "published": "2026-09-29T17:20:59+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/a560791d9aa61b464c17ceb220e21df10023ba7d8326c30542ac3d7f5ef57f02/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fb76900a7d7837e063f662ff540b9d4f0.jpg",
-   "blurb": "There aren\u2019t really any surprises here.",
-   "league": "MLB"
-  },
-  {
-   "headline": "Colorado reportedly set to start Isaac Wilson over JuJu Lewis at QB for game vs. No. 12 Texas Tech",
-   "link": "https://sports.yahoo.com/college-football/breaking-news/article/colorado-reportedly-set-to-start-isaac-wilson-over-juju-lewis-at-qb-for-game-vs-no-12-texas-tech-172050151.html",
-   "published": "2026-09-29T17:20:50+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/9e98244c75833d676a1ed8ba830dbab0f9f16f9095f3e8f41c19bc3bb6ce15c4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-09%2Fb1f13fa4-0525-4c9b-ab60-8cd859c41692",
-   "blurb": "Wilson took over for Lewis during the Buffaloes&#39; 23-13 loss to Baylor.",
+   "image": "https://s.yimg.com/lo/mysterio/api/fe4a4547b844d0d1f322cbb14529f7ab18774a46b52fd783d182730560297205/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fgators_wire_usa_today_articles_447%2F04732851e1ee996d4bb2505067ac56f2.jpg",
+   "blurb": "Here&#39;s where USA TODAY Sports has the Florida Gators seeded in its College Football Playoff projections after their Week 4 win over Ole Miss.",
    "league": "CFB"
   },
   {
-   "headline": "Jerry Jones: 'No explanation' for Cowboys coaches' mistakes",
-   "link": "https://www.espn.com/nfl/story/_/id/50059557/jerry-jones-no-explanation-cowboys-coaches-mistakes",
-   "published": "2026-09-29T17:19:24Z",
+   "headline": "Fantasy football flex and superflex rankings for Week 4",
+   "link": "https://www.espn.com/fantasy/football/story/_/id/49803708/fantasy-football-superflex-rankings-2026-qb-rb-wr-te",
+   "published": "2026-09-29T17:37:33Z",
    "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0918%2Fr1718576_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Jerry Jones says he believes errors in game management by his coaching staff cost the Cowboys a victory over the Ravens.",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0902%2Fr1710593_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Trying to decide between a couple of closely ranked players this week? Eric Karabell's rankings are here to help.",
+   "league": "NFL"
+  },
+  {
+   "headline": "Browns make 5 roster moves on Tuesday, ahead of Thursday Night Football vs. Steelers",
+   "link": "https://sports.yahoo.com/articles/browns-5-roster-moves-tuesday-173637623.html",
+   "published": "2026-09-29T17:36:37+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/02017984ed52354a15a28f02953ad340fc9103fd05e964edca1072988fcbdc0a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ffc6fc0cc21f24218e2ed40bdcb3a405d.jpg",
+   "blurb": "The Cleveland Browns roster remains in flux ahead of Thursday Night Football against the Steelers, with 5 moves Tuesday",
    "league": "NFL"
   },
   {
    "headline": "Athletics' Zack Gelof sues Tigers after hitting metal fence",
    "link": "https://www.espn.com/mlb/story/_/id/50059756/athletics-zack-gelof-sues-tigers-hitting-metal-fence",
-   "published": "2026-09-29T17:17:07Z",
+   "published": "2026-09-29T17:36:27Z",
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723500_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Athletics outfielder Zack Gelof has sued the Tigers, Ilitch Holdings and the Detroit-Wayne County Stadium Authority for damages caused by a metal fence at Comerica Park.",
    "league": "MLB"
   },
   {
-   "headline": "Yankees WITHOUT Aaron Judge for the Wild Card series?!",
-   "link": "https://www.espn.com/video/clip/_/id/50059214/yankees-aaron-judge-wild-card-series",
-   "published": "2026-09-29T17:15:53Z",
+   "headline": "Padres add Joe Musgrove, out since 2024, to wild-card roster",
+   "link": "https://www.espn.com/mlb/story/_/id/50059817/padres-add-joe-musgrove-2024-wild-card-roster",
+   "published": "2026-09-29T17:35:16Z",
    "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F0929%2Fss_20260929_112353446_3679125793%2Fss_20260929_112353446_3679125793.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "n First Take, Stephen A. Smith joins Shae Cornette to react to the breaking news that Aaron Judge will not be on the New York Yankees\u2019 Wild Card series roster after suffering a right calf strain on Sept. 16.",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2024%2F0223%2Fr1295183_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "RHP Joe Musgrove last played in 2024 before undergoing Tommy John surgery, but the Padres added him to their wild-card roster Tuesday.",
    "league": "MLB"
+  },
+  {
+   "headline": "2026-27 NHL season predictions: Expert picks for Stanley Cup playoffs, champion and major awards this season",
+   "link": "https://www.cbssports.com/nhl/news/2026-27-nhl-season-predictions-expert-picks-stanley-cup-playoffs-final-major-awards/",
+   "published": "2026-09-29T17:33:53+00:00",
+   "source": "CBS",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2F917dc6d9-6f54-4071-9083-2c8dc08d26de%2Fgettyimages-2281038618-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "How will the 2026-27 NHL season play out? We've called our shots",
+   "league": "NHL"
+  },
+  {
+   "headline": "2026 MLB playoff bracket: Schedule, where to watch as baseball postseason kicks off",
+   "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
+   "published": "2026-09-29T17:33:46+00:00",
+   "source": "CBS",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F27%2F232771eb-c08e-4746-8995-16e4d9d09afc%2F2026-mlb-bracket.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The baseball playoffs have arrived as all four MLB Wild Card Series get started on Tuesady",
+   "league": "MLB"
+  },
+  {
+   "headline": "Cubs announce Wild Card Series roster",
+   "link": "https://sports.yahoo.com/articles/cubs-announce-wild-card-series-172059728.html",
+   "published": "2026-09-29T17:32:01+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/a560791d9aa61b464c17ceb220e21df10023ba7d8326c30542ac3d7f5ef57f02/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fb76900a7d7837e063f662ff540b9d4f0.jpg",
+   "blurb": "There aren\u2019t really any surprises here.",
+   "league": "MLB"
+  },
+  {
+   "headline": "Column: It\u2019s time for Ohio State to admit its mistakes in the transfer portal",
+   "link": "https://sports.yahoo.com/articles/column-time-ohio-state-admit-173100544.html",
+   "published": "2026-09-29T17:31:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/68f6c64653f316f0cc897205ad04ae9714f7890b97869512f3626baa3cfb6790/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F00d3d67bcd9e47f1fc7159f185fcc3a9.jpg",
+   "blurb": "Ohio State has whiffed in the transfer portal. The Buckeyes now need to be willing to move on from poor talent evaluations and let their young players shine, regardless of NIL costs",
+   "league": "CFB"
+  },
+  {
+   "headline": "Padres add Joe Musgrove, who hasn't pitched in an MLB game in two years, to playoff roster vs. Cubs",
+   "link": "https://www.cbssports.com/mlb/news/padres-add-joe-musgrove-wild-card-roster-cubs/",
+   "published": "2026-09-29T17:30:39+00:00",
+   "source": "CBS",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2F9b01d6e4-d33f-4bda-9578-cdaeeea700a4%2Fjoe-musgrove-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Musgrove, who had elbow surgery and multiple setbacks, hasn't faced MLB hitters since Oct. 2, 2024",
+   "league": "MLB"
+  },
+  {
+   "headline": "MLB Wild Card Series Game 1: Phillies at Braves, White Sox at Astros, Red Sox at Yankees",
+   "link": "https://sports.yahoo.com/articles/mlb-wild-card-series-game-173000529.html",
+   "published": "2026-09-29T17:30:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/39b22133ac18d8befccb241ecbe2d2f6850affffff437685117bc16af5e16944/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0725d29c705e6b61a4aab26dbddf3a4c.jpg",
+   "blurb": "The MLB postseason begins!",
+   "league": "MLB"
+  },
+  {
+   "headline": "Biggest weakness for top Super Bowl contenders: Rams facing depth questions, 49ers' defense in trouble?",
+   "link": "https://www.cbssports.com/nfl/news/biggest-weakness-for-super-bowl-contenders-rams-49ers/",
+   "published": "2026-09-29T17:29:17+00:00",
+   "source": "CBS",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2F8db24d1f-6d73-4834-9e88-c8c908bc65d3%2Fjosh-allen-bills-7.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Plus, the defending champs miss their Super Bowl MVP badly",
+   "league": "NFL"
+  },
+  {
+   "headline": "Giants release Odell Beckham Jr., franchise legend makes zero catches in return to New York",
+   "link": "https://www.cbssports.com/nfl/news/new-york-giants-release-odell-beckham-jr/",
+   "published": "2026-09-29T17:21:47+00:00",
+   "source": "CBS",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2F23ca76c4-a351-4930-b4a5-0d270f8e5910%2Fobj.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "New York parts ways with the wide receiver for the second time",
+   "league": "NFL"
+  },
+  {
+   "headline": "Duke Basketball Stays Put in Updated Early Rankings",
+   "link": "https://sports.yahoo.com/articles/duke-basketball-stays-put-updated-171918278.html",
+   "published": "2026-09-29T17:19:18+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/be8307ce085dee1609d72dfe386572c1486ef68aea792fdaab7221b354aab34a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_duke_772%2F582ddfa45fdfcfef8b08b6683440c592.jpg",
+   "blurb": "The Duke Basketball program has stayed put in the latest CBS Sports early top 25 and 1 rankings here in September.",
+   "league": "NCAAB"
+  },
+  {
+   "headline": "Thomas Chabot Named Captain Of The Ottawa Senators",
+   "link": "https://sports.yahoo.com/articles/thomas-chabot-named-captain-ottawa-171822467.html",
+   "published": "2026-09-29T17:18:22+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/e9790b6b36d1ac8f6af1b9698f5dd83a03c6514b1007e12c6365c5407a4c0fe6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_ottawa_senators_articles_596%2F825a845ad66b79f94bd9fc9ac14c8768.jpg",
+   "blurb": "The longest-serving Senator takes the helm, rewarding a decade of loyalty through the dark rebuild years.",
+   "league": "NHL"
+  },
+  {
+   "headline": "SEC Power Rankings: Texas tops Georgia in Week 5 on the strength of an impressive resume",
+   "link": "https://www.cbssports.com/college-football/news/sec-power-rankings-week-5-texas-georgia/",
+   "published": "2026-09-29T17:13:42+00:00",
+   "source": "CBS",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2Feb760005-7983-468e-850b-ce5035e9c429%2Fgettyimages-2296754807-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "How things stack up in the SEC after one month of the college football season",
+   "league": "CFB"
   },
   {
    "headline": "Two-time NBA champion, former Knick J.R. Smith arrested on assault charge in Texas",
@@ -1186,13 +1267,13 @@
    "league": "NBA"
   },
   {
-   "headline": "Odd NFL rule impacts Steelers travel plans for 'Thursday Night Football' vs. Browns",
-   "link": "https://www.cbssports.com/nfl/news/odd-nfl-rule-impacts-steelers-travel-thursday-night-football-browns/",
-   "published": "2026-09-29T17:00:43+00:00",
-   "source": "CBS",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2Fe98f171d-9e5d-4cab-a3a3-876a1fe0771b%2Frodgersbrowns25.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Pittsburgh had considered making the short drive to Cleveland on Thursday morning",
-   "league": "NFL"
+   "headline": "Florida Panthers Assigned A Slew Of Players To The Charlotte Checkers",
+   "link": "https://sports.yahoo.com/articles/florida-panthers-assigned-slew-players-170424778.html",
+   "published": "2026-09-29T17:04:24+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/849fe3a96632c8fe20c30e5647473604054c5e5c3213a4b956710c33d6000971/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_florida_panthers_articles_782%2Fdb9ddf0fd91c18d72cdfd73bd91e94fc.jpg",
+   "blurb": "The Florida Panthers made their final roster adjustments, sending a slew of players to their AHL affiliate, the Charlotte Checkers.",
+   "league": "NHL"
   },
   {
    "headline": "Whistler Golf Club in Canada is getting a facelift and the images are stunning",
@@ -1240,33 +1321,6 @@
    "league": "WNBA"
   },
   {
-   "headline": "Week 4 NFL betting odds, lines, spreads, totals, for every game, including Steelers-Browns, Cowboys-Texans",
-   "link": "https://www.cbssports.com/betting/news/week-4-nfl-betting-odds-lines-totals-spreads/",
-   "published": "2026-09-29T16:53:52+00:00",
-   "source": "CBS",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2Fee82d22b-ec2c-4046-a191-04b8a52ea2fb%2Fdak-prescott-dallas-cowboys-imagn-images-8.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Week 4 NFL schedule features 16 games, starting with Steelers vs. Browns on Thursday Night Football",
-   "league": "NFL"
-  },
-  {
-   "headline": "Illinois will look to taste sweet revenge over Wisconsin in Madison",
-   "link": "https://sports.yahoo.com/articles/illinois-look-taste-sweet-revenge-165019197.html",
-   "published": "2026-09-29T16:50:19+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/5d7451369171f232252580a30b1b8aca1bf5634d3da3f81e1fc4fc2befb053a9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F928fef9b8cb0d9f25c15cd785edbc9b3.jpg",
-   "blurb": "It\u2019s time for the Illini to get payback.",
-   "league": "NCAAB"
-  },
-  {
-   "headline": "LSU LB Whit Weeks out to undergo surgery for fractured leg amid rash of injuries to Tigers players",
-   "link": "https://www.cbssports.com/college-football/news/lsu-lb-whit-weeks-surgery-leg-injuries/",
-   "published": "2026-09-29T16:42:53+00:00",
-   "source": "CBS",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F27%2F5754e6d7-b47b-40af-8283-beb8fc818919%2Fwhit-weeks-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The team captain and defensive signal-caller is expected to return this season as Dahvon Keys steps into the lineup for the Tigers",
-   "league": "CFB"
-  },
-  {
    "headline": "NBA preseason: Answering big questions for all 30 teams",
    "link": "https://www.espn.com/nba/story/_/id/50008454/nba-2026-2027-preseason-biggest-question-all-30-teams",
    "published": "2026-09-29T16:39:52Z",
@@ -1276,15 +1330,6 @@
    "league": "NBA"
   },
   {
-   "headline": "Hurricanes&#39; repeat bid, superstar trade requests, who will win the Stanley Cup and other 2026-27 NHL season storylines",
-   "link": "https://sports.yahoo.com/nhl/article/hurricanes-repeat-bid-superstar-trade-requests-who-will-win-the-stanley-cup-and-other-2026-27-nhl-season-storylines-163721655.html",
-   "published": "2026-09-29T16:37:21+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/ccc316bedf744b5630db379efac4a9b5aa9a1643c66c9d6579f49e8a99eb411d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-09%2F5aee8cfb-b799-4c8b-b25e-391ee063bba2",
-   "blurb": "The NHL drops the puck on the 2026-27 season Tuesday night.",
-   "league": "NHL"
-  },
-  {
    "headline": "\u2018Is She Talking About Caitlin (Clark)?\u2019 \u2013 Fever Fan Rachel DeMita Rips Stephanie White\u2019s \u2018Crazy\u2019 Take After Aces Loss",
    "link": "https://sports.yahoo.com/articles/she-talking-caitlin-clark-fever-163603664.html",
    "published": "2026-09-29T16:36:03+00:00",
@@ -1292,24 +1337,6 @@
    "image": "https://s.yimg.com/lo/mysterio/api/54afb77e7ff0802e7c381b3560655908892d88fac866eeb099fb7adee3b3738b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpro_football_network_512%2F7216873e7626d4a5463574839dfd22f1.jpg",
    "blurb": "The Indiana Fever opened their 2026 WNBA playoff campaign with a tough 102-85 loss to the Las Vegas Aces. But the result was not the only thing creating buzz after Game 1.",
    "league": "WNBA"
-  },
-  {
-   "headline": "A Hurricanes Trade For Connor Hellebuyck Reportedly Could Depend On The Blues And Alexander Nikishin",
-   "link": "https://sports.yahoo.com/articles/hurricanes-trade-connor-hellebuyck-reportedly-163222987.html",
-   "published": "2026-09-29T16:32:22+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/78f94c8a56bfcf0c5ecb74c7dc8d00a1c822fe9c6728356855b17257274da7be/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_st_louis_blues_articles_393%2F297f43200401c344f3bc3c9f8217f5b9.jpg",
-   "blurb": "The St. Louis Blues remain interested in Alexander Nikishin, but now, their interest has direct implications on the Carolina Hurricanes&#39; pursuit of Connor Hellebuyck.",
-   "league": "NHL"
-  },
-  {
-   "headline": "Miami OC Shannon Dawson takes shot at SEC, preseason rankings: 'Half of them won't be in the top 30'",
-   "link": "https://www.cbssports.com/college-football/news/miami-shannon-dawson-sec-preseason-rankings/",
-   "published": "2026-09-29T16:29:13+00:00",
-   "source": "CBS",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2F30e2c97d-e21c-4ce2-af3f-015bcba3255f%2Fdawson.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Hurricanes' offensive coordinator took issue with the SEC, which has 10 teams ranked in this week's AP Top 25",
-   "league": "CFB"
   },
   {
    "headline": "NASCAR Cup Series Driver Challenges Denny Hamlin After Troubling Hendrick Claim",
@@ -1355,15 +1382,6 @@
    "image": "https://s.yimg.com/lo/mysterio/api/0456124b11ab90c010539d16a43d7da9d476ae3b48e402b4b8938f21f2e209ca/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F50b186d055fad3378a446e27379a97b7.jpg",
    "blurb": "Jacobe Smith is back at UFC 332",
    "league": "UFC"
-  },
-  {
-   "headline": "World Series odds, predictions: Breaking down contenders, longshots and more for 2026 MLB playoffs",
-   "link": "https://www.cbssports.com/betting/news/world-series-odds-predictions-breaking-down-contenders-longshots-and-more-for-2026-mlb-playoffs/",
-   "published": "2026-09-29T15:59:56+00:00",
-   "source": "CBS",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2Ff0dcdd02-9bdd-40de-b421-6f76083c1639%2Fdodgers-world-series-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The MLB playoffs begin on Tuesday and DraftKings has posted its latest World Series odds",
-   "league": "MLB"
   },
   {
    "headline": "LeBron confirms that he would've been a Knick if they didn't win the NBA Finals",
@@ -1420,15 +1438,6 @@
    "league": "CFB"
   },
   {
-   "headline": "Pete Crow-Armstrong just wrapped up one of the best Cubs seasons ever, and he's not done yet",
-   "link": "https://www.cbssports.com/mlb/news/pete-crow-armstrong-best-cubs-seasons-ever-playoffs/",
-   "published": "2026-09-29T14:50:26+00:00",
-   "source": "CBS",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2F8dff5c83-5006-40e7-b5f2-8c7f8b8f0e93%2Fpca-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The 24-year-old MVP favorite put it all together in a 2026 campaign that has the Cubs headed to the playoffs",
-   "league": "MLB"
-  },
-  {
    "headline": "NASCAR News: Brad Keselowski, RFK Racing Abruptly Parting Ways After 2026 Season",
    "link": "https://sports.yahoo.com/articles/nascar-news-brad-keselowski-rfk-143030110.html",
    "published": "2026-09-29T14:30:30+00:00",
@@ -1436,21 +1445,12 @@
    "image": "https://s.yimg.com/lo/mysterio/api/3b0c9b99f76d0cc7a9969bed896859fdd1ace8b7cfe3b87a794637b1f872f9e0/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F713b2ec9a8c19daf3e98e09cccc9e4ca.jpg",
    "blurb": "Driver and co-owner Brad Keselowski had reason to celebrate entering September, with Ryan Preece\u2019s win in the regular-season finale at [\u2026]",
    "league": "NASCAR"
-  },
-  {
-   "headline": "Dribble Handoff: Which 2026 NCAA Tournament teams won't make this season's Big Dance?",
-   "link": "https://www.cbssports.com/college-basketball/news/dribble-handoff-2026-ncaa-tournament-teams/",
-   "published": "2026-09-29T14:08:54+00:00",
-   "source": "CBS",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F25%2F078f09b6-ceb6-4fea-8a81-56b82a0f01df%2Fgettyimages-2268836810.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Even with eight new at-large spots coming to an expanded 76-team field, transfer portal volatility means some teams will fail to return to March Madness",
-   "league": "NCAAB"
   }
  ],
  "source_mix": {
-  "ESPN": 43,
-  "YAHOO": 70,
-  "CBS": 44
+  "YAHOO": 69,
+  "ESPN": 42,
+  "CBS": 46
  },
  "degraded_sources": []
 }
