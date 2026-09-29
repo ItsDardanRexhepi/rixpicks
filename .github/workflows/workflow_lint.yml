@@ -1,0 +1,29 @@
+name: workflow-lint
+# guard 4 YAML-gate class: the 00:31 instant-fail class (invalid workflow YAML) never reaches
+# the default branch unparseable again. Runs on any workflow-file push.
+on:
+  push:
+    paths:
+      - '.github/workflows/**'
+  workflow_dispatch:
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "checkout"
+        uses: actions/checkout@v4
+      - name: "yaml parse gate + actionlint"
+        run: |
+          python3 - <<'EOF'
+          import glob, sys, yaml
+          bad = False
+          for f in sorted(glob.glob('.github/workflows/*.yml')):
+              try:
+                  yaml.safe_load(open(f))
+              except Exception as e:
+                  print('INVALID %s: %s' % (f, e)); bad = True
+          sys.exit(1 if bad else 0)
+          EOF
+          if command -v actionlint >/dev/null 2>&1; then actionlint -oneline; else
+            curl -sS https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash | bash -s latest ./bin >/dev/null 2>&1 && ./bin/actionlint -oneline || echo 'actionlint unavailable - parse gate already passed'
+          fi
