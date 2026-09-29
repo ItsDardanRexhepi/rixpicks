@@ -574,7 +574,7 @@ function renderSocial(){
   if(!p)return; /* defensive: no slide ever renders the abstain line (owner 6:08) */
   var txt=String(p.headline||'');
   if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
-  var badge=it.kind==='verified'?'<span class="syncbadge">Verified by UltRix algorithm</span>':'<span class="synclatest">Latest from the feed</span>';
+  var badge=it.kind==='verified'?'<span class="syncbadge">Verified by UltRix</span>':'<span class="synclatest">Latest from the feed</span>';
   var inner='<span class="carbody">'+badge+'<span class="stxt">'+esc(unesc(txt))+'</span>'
    +'<span class="carmeta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+(isNewIt(p)?' <span class="carnew">new</span>':'')+'</span></span>';
   h+='<div class="carslide socslide">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
