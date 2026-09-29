@@ -1,4 +1,19 @@
 {
- "generated_at": "2026-09-29T02:29:43.891175+00:00",
- "items": []
+ "generated_at": "2026-09-29T03:04:34.248719+00:00",
+ "items": [
+  {
+   "id": "8d8b04a7da",
+   "league": "MLB",
+   "event": "Philadelphia Phillies @ Atlanta Braves",
+   "prediction": "Atlanta Braves beat Philadelphia Phillies",
+   "kickoff_utc": "2026-09-29T18:00:00+00:00"
+  },
+  {
+   "id": "e2e1066447",
+   "league": "MLB",
+   "event": "Chicago White Sox @ Houston Astros",
+   "prediction": "Houston Astros beat Chicago White Sox",
+   "kickoff_utc": "2026-09-29T21:00:00+00:00"
+  }
+ ]
 }
