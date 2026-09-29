@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T20:19:57.770677+00:00",
+ "generated_at": "2026-09-29T20:34:59.703380+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "PHI @ ATL",
      "commence": "2026-09-29T18:00Z",
      "status": "in",
-     "detail": "Top 8th",
+     "detail": "Bot 8th",
      "score": "PHI 3 - ATL 2"
     },
     {
@@ -20,6 +20,19 @@
      "status": "pre",
      "detail": "9/29 - 2:00 PM PT",
      "score": "CHW 0 - HOU 0"
+    }
+   ]
+  },
+  {
+   "league": "WNBA",
+   "games": [
+    {
+     "espn_event_id": "401918018",
+     "matchup": "LV @ IND",
+     "commence": "2026-09-29T22:30Z",
+     "status": "pre",
+     "detail": "9/29 - 3:30 PM PT",
+     "score": "LV 0 - IND 0"
     }
    ]
   },
