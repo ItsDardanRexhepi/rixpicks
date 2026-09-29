@@ -6,6 +6,10 @@ on:
     # Standing rule 9/27: no daily cap; only tripwire is the plan's 20K credits/mo hard limit, fail-loud.
     - cron: '*/15 15-23,0-6 * * *'
   workflow_dispatch:
+  # guard 4 starvation class (9/28 7:40 slip: hosted cron 56 min late): the CF dispatcher's
+  # external-tick is the reliable 15-min time base; hosted cron stays as backstop signal only.
+  repository_dispatch:
+    types: [external-tick]
 permissions:
   contents: write
 # Chaos drill #3 (Sep 26): overlapping runs raced the API counter and git push.
