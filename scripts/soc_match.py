@@ -129,6 +129,26 @@ HISTORICAL_POST = re.compile(r'\b(since (19|20)\d\d|career|all[- ]time|histor(?:
 # preview analysis vs transaction report, editorial analysis vs trivia, betting content vs
 # non-betting story.
 RECAP_ARTICLE = re.compile(r"\b(second|third|fourth|game-winning|walk-?off)\b.{0,25}\b(td|touchdown|goal|shot|home run|pass)\b|\b(td|touchdown) pass\b|holding .{0,15}lead|\bfinal\b|recap|postgame", re.I)
+FINAL_RESULT_ARTICLE = re.compile(r'\b(final score|final result|final:|postgame|game recap)\b', re.I)
+COMPLETED_EVENT_POST = re.compile(r'\b(final score|final result|final:|postgame|game over|game is over|won|lost|defeated|beat|beats|beaten|finished|ended|score was)\b|\b\d{1,3}\s*[-–]\s*\d{1,3}\b', re.I)
+
+def event_time_gate(story, post):
+    """A post cannot report a final result before it happened. An RSS publication
+    time is only a conservative proxy for the event time; early posts explicitly
+    describing the completed event may pass onward to the semantic judge.
+    """
+    title = story.get('headline') or ''
+    text = post.get('text') or ''
+    if not FINAL_RESULT_ARTICLE.search(title):
+        return None
+    published = timestamp(story.get('published'))
+    posted = timestamp(post.get('created_at') or post.get('ts'))
+    if not published or not posted:
+        return 'unknown final-story/post time'
+    if posted < published and not COMPLETED_EVENT_POST.search(text):
+        return 'pre-report post does not mention completed event or outcome'
+    return None
+
 PREGAME_POST = re.compile(r"\b(tonight|my pick|i'?m picking|could be a|the script|pregame|tailgate|first start .{0,30}in \d+ years|hasn'?t .{0,30}(all season|yet|since \d+))\b", re.I)
 PREVIEW_ARTICLE = re.compile(r'\b(preview|looks to|how to watch|keys to|storylines)\b', re.I)
 TRANSACTION_POST = re.compile(r'\b(officially inactive|inactive for|placed on|activated from|listed as (out|doubtful|questionable)|waived|signed to)\b', re.I)
@@ -380,7 +400,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v10-prediction-selection'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v11-final-result-timing'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
@@ -586,7 +606,7 @@ def main():
         for score, j in candidate_order(scored, posts):
             if str(posts[j].get('id')) in used_posts:
                 continue
-            stale = freshness_gate(it, posts[j])
+            stale = freshness_gate(it, posts[j]) or event_time_gate(it, posts[j])
             if stale:
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'REJECT', 'gate': 'freshness', 'reason': stale})
@@ -690,7 +710,7 @@ def main():
                 confirmed = []
         # Re-shop the final verified pool after freshness and reason gates. A pin
         # and its nearest/more candidates must come from this same qualified set.
-        confirmed = [(sc, j) for sc, j in confirmed if not freshness_gate(it, posts[j])
+        confirmed = [(sc, j) for sc, j in confirmed if not freshness_gate(it, posts[j]) and not event_time_gate(it, posts[j])
                      and str(posts[j].get('id')) not in used_posts]
         # nearest (guard 2 class kill): NEVER unprobed cosine - only a probe-EXECUTE candidate for
         # THIS exact story may hold the fallback slot. No second probe-confirmed post -> NO nearest
@@ -726,7 +746,7 @@ def main():
                 if ons_probes >= MAX_ONS_PROBES:
                     break
                 pid = str(posts[j].get('id'))
-                if freshness_gate(it, posts[j]) or pid in used_posts or (RP_AD.search(ptexts[j]) or RP_AD2.search(ptexts[j]) or RP_PROMO_CAPS.search(ptexts[j])):
+                if freshness_gate(it, posts[j]) or event_time_gate(it, posts[j]) or pid in used_posts or (RP_AD.search(ptexts[j]) or RP_AD2.search(ptexts[j]) or RP_PROMO_CAPS.search(ptexts[j])):
                     continue
                 # pre-gates, latest bar (eg2): same story-level bar as verified - one story
                 # entity, no foreign principal, story-type compatible (guard 2: badge or no badge)
