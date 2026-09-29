@@ -360,7 +360,12 @@ function buildPairs(base){
  PAIRS=[];
  if(!rpMapFresh(SOC_MATCH))return;
  var usedA={};
- base.slice(0,12).forEach(function(a){
+ /* guard 3 (1:08 9/29) class kill - match BEFORE slicing: slicing the newest 12 unfiltered
+    stories first blanked BOTH feeds whenever none of those 12 held an admitted post (the
+    11-key/1-verified map). Scan EVERY publishable story for an admitted verified/nearest/
+    latest pair, THEN cap at 12 paired stories. base is newest-first (newsBucket sort), so
+    the post-match cap keeps the freshest 12 pairs. View-all pool CAR_ALL stays separate. */
+ base.forEach(function(a){
   var k=carKey(a);
   var m=SOC_MATCH;
   var pr=(m.pairs||{})[k];
@@ -375,6 +380,7 @@ function buildPairs(base){
   if(!post){var lt=(m.latest||{})[k];if(lt){post=take(lt.post_id);if(post)kind='latest';}}
   if(post)PAIRS.push({a:a,post:post,kind:kind,k:k});
  });
+ if(PAIRS.length>12)PAIRS=PAIRS.slice(0,12); /* the 12-cap lives AFTER pairing, never before */
 }
 /* EMPTY-STATE CLASS KILL (owner 6:58 9/28): the page NEVER renders empty-feed or
    loading/syncing strings. Last good content (this build only, so a stale badge from

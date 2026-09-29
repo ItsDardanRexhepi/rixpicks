@@ -131,6 +131,7 @@ jobs:
           fi
           printf '%s' "$NIM_CLIENT_TOKEN" > /tmp/.nim_client_token
           python3 scripts/soc_fixtures.py  # deterministic gate regressions - abort the chain before a bad map ships
+          node scripts/test_buildpairs_class.js  # buildPairs match-before-slice class fixture (guard 3, 1:08 9/29)
           python3 scripts/soc_match.py
       - name: "commit feed + burn ledger"
         run: |
