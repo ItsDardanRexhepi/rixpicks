@@ -34,10 +34,11 @@ async function getText(url, timeoutMs = 12000, headers = UA) {
   finally { clearTimeout(t); }
 }
 
+const ESPN_API_UA = { 'User-Agent': 'Python-urllib/3.12 RixPicks/1.0' };
 async function espnApi(path) {
   for (let attempt = 0; attempt < 2; attempt++) try {
     if (attempt) await new Promise(r => setTimeout(r, 2000)); // 403s are egress-IP dependent - retry once
-    const j = JSON.parse(await getText(`https://site.api.espn.com/apis/site/v2/sports/${path}/news?limit=10`));
+    const j = JSON.parse(await getText(`https://site.api.espn.com/apis/site/v2/sports/${path}/news?limit=10`, 12000, ESPN_API_UA));
     return (j.articles || []).map(a => ({ headline: a.headline || '', link: ((a.links || {}).web || {}).href || '',
       published: a.published || '', source: 'ESPN', image: (a.images && a.images[0] && a.images[0].url) || '', blurb: a.description || '' }));
   } catch (e) { if (attempt === 1) console.error('lane espn-api', path, String(e).slice(0, 80)); }
@@ -181,7 +182,13 @@ export async function runNews(env) {
   }
   const imgCheck = await validateImages(arts);
 
-  const out = { generated_at: new Date().toISOString(), leagues, latest };
+  // prod shape (builder 4825975): source_mix = unique articles per source across buckets+latest;
+  // degraded_sources = outlets with zero output this cycle. Consumers alert on this field.
+  const sourceMix = {};
+  for (const a of arts) sourceMix[a.source] = (sourceMix[a.source] || 0) + 1;
+  const degraded = ['ESPN', 'CBS', 'YAHOO'].filter(src => !sourceMix[src]);
+
+  const out = { generated_at: new Date().toISOString(), leagues, latest, source_mix: sourceMix, degraded_sources: degraded };
   const put = (k, v) => env.FEEDS.put(k, JSON.stringify(v, null, 1), { httpMetadata: { contentType: 'application/json' } });
   await Promise.all([put('slates/news.json', out), put('slates/news_images.json', cache), put('slates/img_check.json', imgCheck)]);
   return { generated_at: out.generated_at, buckets: Object.keys(leagues).length, latest: latest.length };

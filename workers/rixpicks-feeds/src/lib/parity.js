@@ -16,7 +16,8 @@ function newsParity(mine, prod) {
   const fresh = !prod.generated_at || (mine.generated_at || '') >= (prod.generated_at || '');
   // worker must carry what prod serves (recall) and never be staler than prod
   return { ok: recall >= 0.8 && fresh, recall: +recall.toFixed(3), fresh,
-    prod_sources: src(prod.latest || []), worker_sources: src(mine.latest || []) };
+    prod_sources: src(prod.latest || []), worker_sources: src(mine.latest || []),
+    prod_degraded: prod.degraded_sources || null };
 }
 function quotesParity(mine, prod) {
   const mq = mine.quotes || {}, pq = prod.quotes || {};
