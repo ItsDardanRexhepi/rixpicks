@@ -317,11 +317,23 @@ function renderNews(t,arts){
     unmatched stories live in View all News. Counts are a CONSEQUENCE, never forced. No fresh
     map -> fail closed to the plain list (12:29 news-never-blank is about fetch failures, not
     about rendering unverified pairs). */
- /* never-empty (user 3:54, supersedes the 1:09 matched-only carousel): the news floor is ALWAYS
-    the most recent stories, paired or not. Verified pairs are the sync layer on top (social pin +
-    socSync jump), never a filter that can empty the feed. */
+ /* BIDIRECTIONAL standing rule (user 6:29, supersedes 3:54's paired-or-not floor): the news
+    carousel shows ONLY articles carrying an algo match (verified pin, probe-confirmed nearest,
+    or on-story latest), and every social slide carries its story's matching post. With no fresh
+    map this fails closed to the plain list (12:29: news-never-blank is about fetch failures,
+    not about rendering unpaired stories); with a fresh map, unmatched articles are excluded -
+    coverage is owned server-side by the widened search and reported before shipping. */
  var curKey=(CAR_LAST[CAR_IDX]&&carKey(CAR_LAST[CAR_IDX]))||''; /* capture the active story key BEFORE replacing the list (guard 1 reorder-jump class) */
  var items=base.slice(0,12);
+ if(rpMapFresh(SOC_MATCH)){
+  var m2=SOC_MATCH;
+  var matched=base.filter(function(a){
+   var k=carKey(a);
+   var pr=(m2.pairs||{})[k];
+   return !!((pr&&pr.post_id)||(m2.nearest||{})[k]||(m2.latest||{})[k]);
+  });
+  if(matched.length)items=matched.slice(0,12); /* fresh map + zero matches: keep the plain list rather than blank Home; coverage report fires server-side */
+ }
  if(!items.length&&CAR_LAST.length)items=CAR_LAST; /* latest-valid fallback: never blank a good card on a bad fetch */
  if(items.length)CAR_LAST=items;
  NEWS_READY=true; /* load-race guard (user 3:52 screenshot + QA 3:51): social must know news has rendered before it judges pinned==0 */
