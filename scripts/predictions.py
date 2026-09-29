@@ -22,7 +22,7 @@ LEDGER = 'predictions_ledger.json'
 CONF_FLOOR = 0.70      # owner gate - internal only, never emitted
 MAX_PROBES = 12        # new events probed per run (NIM burn control)
 MAX_ITEMS = 6          # rendered cap (layout)
-HORIZON_H = 48
+HORIZON_H = 168     # owner directive 8:18 PT 9/28: 48h -> 7 days ahead
 FRESH_MIN = 12         # self-throttle under the 15-min external tick (owner 7:58: 'most instant pass it can do, not hourly'); dedupes accidental double-dispatch, NIM cost stays gated by new-events-only
 TEAM_LEAGUES = [('NFL','football/nfl'),('CFB','football/college-football'),('NBA','basketball/nba'),
     ('WNBA','basketball/wnba'),('MLB','baseball/mlb'),('NHL','hockey/nhl'),
@@ -231,8 +231,11 @@ def main():
     evs = [e for e in upcoming() if e['id'] not in known]
     print(f'{len(evs)} new events in {HORIZON_H}h horizon')
     approved = 0
+    far = now() + timedelta(hours=48)
     for ev in evs[:MAX_PROBES]:
         try:
+            ko = datetime.fromisoformat(ev['kickoff_utc'].replace('Z','+00:00'))
+            if ko > far: print(f"  NOTE {ev['away']}@{ev['home']}: >48h out - reduced information (lineups/injuries unset); concur gate + 0.70 floor arbitrate")
             r = probe(ev, news_context(ev['league']), miss_context(ledger, ev['league']))
         except Exception as e:
             print(f"  probe error {ev['away']}@{ev['home']}: {e}", file=sys.stderr); continue
