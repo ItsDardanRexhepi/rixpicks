@@ -125,15 +125,25 @@ jobs:
           git add slates/x_feed.json slates/x_burn.jsonl slates/x_feed_state.json slates/soc_trials.json slates/soc_match.json slates/soc_vecs.json slates/soc_verdicts.json 2>/dev/null || exit 0
           git diff --cached --quiet && exit 0
           git commit -m "x feed $(date -u +%H:%M) UTC"
+          # bash -e killed this loop on ANY push race: a failing && list at statement level
+          # exits the step before theirs-wins could run (chain 36523387751, 04:51Z). Every
+          # fallible command below is an if-condition or ||-guarded so all 5 retries survive.
           for i in 1 2 3 4 5; do
-            git pull --rebase --autostash -q && git push -q && exit 0
-            # generated slates: a content conflict means a sibling chain committed first -
-            # this run's freshly computed, self-consistent set always wins (chain 36499444063
-            # lost a completed map to this conflict 9/28 23:59). Non-slate conflicts abort+retry.
-            if git status --porcelain | grep -q '^UU slates/'; then
-              git checkout --theirs -- slates/ && git add slates/ && GIT_EDITOR=true git rebase --continue && git push -q && exit 0
+            if git pull --rebase --autostash -q; then
+              if git push -q; then exit 0; fi
+            else
+              # generated slates: a content conflict means a sibling chain committed first -
+              # this run's freshly computed, self-consistent set always wins (chain 36499444063
+              # lost a completed map to this conflict 9/28 23:59). Non-slate conflicts abort+retry.
+              if git status --porcelain | grep -q '^UU slates/'; then
+                git checkout --theirs -- slates/ || true
+                git add slates/ || true
+                if GIT_EDITOR=true git rebase --continue; then
+                  if git push -q; then exit 0; fi
+                fi
+              fi
+              git rebase --abort 2>/dev/null || true
             fi
-            git rebase --abort 2>/dev/null
             sleep 5
           done
           exit 1
