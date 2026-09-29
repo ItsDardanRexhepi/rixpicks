@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T09:41:00-07:00",
+ "generated_at": "2026-09-29T09:57:00-07:00",
  "tickets": [
   {
    "id": "t11",
@@ -25,6 +25,50 @@
      "market": "To hit a home run",
      "matchup": "CWS @ HOU",
      "time": "Today 2:00 PM PT"
+    }
+   ]
+  },
+  {
+   "id": "t12",
+   "sport": "mlb",
+   "title": "6-leg SGP - FanDuel - +9492 is the source 5-leg screenshot quote; updated 6-leg quote unavailable",
+   "status": "IDEA - NOT BOUGHT",
+   "legs": [
+    {
+     "player": "Kyle Schwarber",
+     "market": "To hit a home run",
+     "matchup": "PHI @ ATL",
+     "time": "Today 11:00 AM PT"
+    },
+    {
+     "player": "Matt Olson",
+     "market": "To hit a home run",
+     "matchup": "PHI @ ATL",
+     "time": "Today 11:00 AM PT"
+    },
+    {
+     "player": "Chris Sale",
+     "market": "6+ strikeouts (ALT)",
+     "matchup": "PHI @ ATL",
+     "time": "Today 11:00 AM PT"
+    },
+    {
+     "player": "Trea Turner",
+     "market": "To record 2+ total bases",
+     "matchup": "PHI @ ATL",
+     "time": "Today 11:00 AM PT"
+    },
+    {
+     "player": "Mauricio Dubon",
+     "market": "To record a hit",
+     "matchup": "PHI @ ATL",
+     "time": "Today 11:00 AM PT"
+    },
+    {
+     "player": "Jesus Luzardo",
+     "market": "5+ strikeouts",
+     "matchup": "PHI @ ATL",
+     "time": "Today 11:00 AM PT"
     }
    ]
   }
