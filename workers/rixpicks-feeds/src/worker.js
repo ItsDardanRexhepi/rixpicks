@@ -14,6 +14,7 @@ const SERVE = {
   'feeds/img_check.json': 'slates/img_check.json',
   'feeds/futures/current.json': 'futures/current.json',
   'parity/latest.json': 'parity/latest.json',
+  'parity/history.json': 'parity/history.json',
 };
 
 export default {
