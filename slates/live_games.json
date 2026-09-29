@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T23:37:38.860573+00:00",
+ "generated_at": "2026-09-29T23:49:33.376409+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "CHW @ HOU",
      "commence": "2026-09-29T21:00Z",
      "status": "in",
-     "detail": "Bot 7th",
+     "detail": "Bot 8th",
      "score": "CHW 6 - HOU 2"
     },
     {
@@ -31,9 +31,9 @@
      "matchup": "LV @ IND",
      "commence": "2026-09-29T22:30Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "LV 43 - IND 48",
-     "away_to": 4,
+     "detail": "6:00 - 3rd",
+     "score": "LV 47 - IND 54",
+     "away_to": 3,
      "home_to": 4
     },
     {
@@ -54,7 +54,7 @@
      "matchup": "FLA @ CAR",
      "commence": "2026-09-29T21:00Z",
      "status": "in",
-     "detail": "6:23 - 3rd",
+     "detail": "0:49 - 3rd",
      "score": "FLA 0 - CAR 0",
      "away_to": null,
      "home_to": null
@@ -64,8 +64,8 @@
      "matchup": "MTL @ TOR",
      "commence": "2026-09-29T23:00Z",
      "status": "in",
-     "detail": "10:50 - 1st",
-     "score": "MTL 0 - TOR 1",
+     "detail": "4:11 - 1st",
+     "score": "MTL 1 - TOR 1",
      "away_to": null,
      "home_to": null
     },
