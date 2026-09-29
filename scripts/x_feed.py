@@ -35,7 +35,13 @@ GAME_WINDOW_H = 36      # slate-relevant = commences within +/-36h
 TOUT_RE = __import__('re').compile(
     r'discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|'
     r'picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|'
-    r'free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)', __import__('re').I)
+    r'free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|'
+    r'freebie|free picks? on|model.{0,20}(is )?(live|cashed)', __import__('re').I)
+AD_RE = __import__('re').compile(
+    r'tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|'
+    r'price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|'
+    r'vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|brought to you by|listen in now|'
+    r'tune in (now|tonight)|happy hour|dine[ -]?in|drink specials?|food specials?', __import__('re').I)
 
 def within_24h(ts):
     """owner 2:49 match horizon: the past 24 hours of X conversation is matchable.
@@ -237,7 +243,10 @@ def main():
           prev = []
       # owner 1:39 (QA audit 2): tout/sales pitches must never enter the shared pool from
       # THIS path either - news_social.py already filters its own pull; same regex, same rule.
-      items = [pp for pp in items if not TOUT_RE.search(pp.get('text') or '')]
+      items = [pp for pp in items if not TOUT_RE.search(pp.get('text') or '') and not AD_RE.search(pp.get('text') or '')]
+      # owner 5:28 default-deny is STRUCTURAL: the 24h carryover (prev) passes the same gate -
+      # a promotional post can never persist in the pool, so no downstream stage can pair or render one.
+      prev = [pp for pp in prev if not TOUT_RE.search(pp.get('text') or '') and not AD_RE.search(pp.get('text') or '')]
       merged = {str(p.get('id')): p for p in (items + prev) if p.get('id')}
       merged_items = sorted(merged.values(), key=lambda p: str(p.get('created_at', '')), reverse=True)
       merged_items = [pp for pp in merged_items if within_24h(pp.get('created_at'))]
