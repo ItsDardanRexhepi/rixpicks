@@ -21,6 +21,8 @@ the run: simplify -> reorder -> league fallback. Route log written to the trial 
 """
 import json, os, re, sys, time, urllib.request, urllib.parse, datetime
 
+import x_wall
+
 BASE = 'https://api.x.com/2'
 TOKEN = os.environ.get('X_BEARER_TOKEN', '')
 LEDGER = 'slates/x_burn.jsonl'
@@ -297,6 +299,7 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
     items = []
     used = 0
     successful = 0
+    fail_codes = []
     for it in headlines:
         if used >= requests_cap:
             break
@@ -336,6 +339,8 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
                                           'routed': tag != strategy, 'note': 'zero results - rotating'})
                 except Exception as e:
                     used += 1
+                    c = x_wall.http_code(e)
+                    if c: fail_codes.append(c)
                     if trial_log is not None:
                         trial_log.append({'headline': it.get('headline', '')[:100], 'nk': nk,
                                           'strategy': tag, 'query': aq, 'error': str(e)[:160],
@@ -343,6 +348,9 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
     st['news_since'] = since
     save_state(st)
     if used and not successful:
+        if x_wall.is_wall(fail_codes):
+            x_wall.wall_skip('news_social pull')
+            return [], used
         raise RuntimeError('news-driven X ingest stalled: no successful recent-search request; preserving feed')
     return items, used
 
