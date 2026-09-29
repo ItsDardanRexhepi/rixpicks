@@ -299,7 +299,8 @@ function carAll(){
     +'<span class="nabody"><span class="nahead">'+esc(unesc(a.headline||''))+'</span><span class="nameta">'+esc(ago(a.published))+'</span></span>';
    h+='<div class="narow">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
   });
-  pop.innerHTML=h||'<div class="empty">News unavailable right now.</div>';
+  if(!h){pop.hidden=true;return;}
+  pop.innerHTML=h;
   pop.hidden=false;
  }else pop.hidden=true;
 }
@@ -341,6 +342,13 @@ function buildPairs(base){
   if(post)PAIRS.push({a:a,post:post,kind:kind,k:k});
  });
 }
+/* EMPTY-STATE CLASS KILL (owner 6:58 9/28): the page NEVER renders empty-feed or
+   loading/syncing strings. Last good content (this build only, so a stale badge from
+   pre-fix code can never resurrect) is held through every transient: fetch failure,
+   bad payload, mid-publish gap, unsettled verdicts. Fresh data replaces it on settle;
+   the 30s poll self-heals. */
+function feedCacheSave(){try{localStorage.setItem('rp_feed_v2',JSON.stringify({v:RP_BUILD,t:Date.now(),items:CAR_LAST,all:CAR_ALL,pairs:PAIRS}));}catch(e){}}
+function feedCacheLoad(){try{var j=JSON.parse(localStorage.getItem('rp_feed_v2')||'null');return (j&&j.v===RP_BUILD&&j.items&&j.items.length)?j:null;}catch(e){return null;}}
 function renderNews(t,arts){
  var box=$('rpNewsCar');if(!box)return;
  if(t&&t.key!=='home'){box.innerHTML='';return;}  /* owner 12:54: News renders on Home only - no leaks, no per-tab feeds */
@@ -375,10 +383,8 @@ function renderNews(t,arts){
     x_feed AND the sync-map verdict have all settled - one feed's numbers never render beside
     the other's placeholder. Failure paths set their done flags too, so this always releases. */
  if(!XFEED_DONE||!SOC_MAP_DONE){
-  box.innerHTML='<div class="empty syncwait">Loading feeds - syncing stories and posts now.</div>';
-  CAR_SIG='';CAR_N=0;
-  try{renderSocial();}catch(e){}
-  return;
+  if(CAR_LAST.length&&!$('rpCarTrack')){items=CAR_LAST; /* cold boot, warm cache: paint last good now */}
+  else{if(!$('rpCarTrack'))box.innerHTML='';CAR_SIG='';CAR_N=0;try{renderSocial();}catch(e){}return;}
  }
  var sig=items.map(function(a){return normH(a.headline);}).join('|');
  if(sig===CAR_SIG&&$('rpCarTrack')){carApply();try{renderSocial();}catch(e){}return;}
@@ -387,14 +393,18 @@ function renderNews(t,arts){
  if(curKey){for(var _ci=0;_ci<items.length;_ci++){if(carKey(items[_ci])===curKey){CAR_IDX=_ci;break;}}}
  if(CAR_IDX>=CAR_N)CAR_IDX=0;
  if(!items.length){
-  box.innerHTML='<div class="empty">News unavailable right now.</div>';return;
+  if(!$('rpCarTrack'))box.innerHTML=''; /* last resort: blank box, never a string (6:58); 30s poll self-heals */
+  return;
  }
  var h='<div class="carvp"><div class="cartrack" id="rpCarTrack">';
  items.forEach(function(a){
   var u=a.link||'',src=a.source||'';
   var img=imgOpt(a.image);
+  var lg=String(a.league||'').split('/').pop().toUpperCase()||'SPORTS';
   var blurb=(typeof a.blurb==='string')?a.blurb:'';
-  var inner=(img?'<span class="carimg" style="background-image:url(\''+esc(img)+'\')"></span>':'')
+  /* owner 6:59 graphics class kill: a card ALWAYS carries art - the real image, or the
+     designed league fallback when the source has none or the URL dies at load time. */
+  var inner=(img?'<span class="carimg" style="background-image:url(\''+esc(img)+'\')"><img src="'+esc(img)+'" alt="" style="display:none" onerror="var p=this.parentNode;p.style.backgroundImage=\'none\';p.className=\'carimg carimg-fb\';p.setAttribute(\'data-lg\',\''+esc(lg)+'\');this.remove();"></span>':'<span class="carimg carimg-fb" data-lg="'+esc(lg)+'"></span>')
    +'<span class="carbody"><span class="carhead">'+esc(unesc(a.headline||''))+'</span>'
    +(blurb?'<span class="carblurb">'+esc(unesc(blurb))+'</span>':'')
    +'<span class="carmeta"><span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span> \u00b7 '+esc(ago(a.published))+(isNewIt(a)?' <span class="carnew">new</span>':'')+'</span></span>';
@@ -416,6 +426,7 @@ function renderNews(t,arts){
  carObserve();
  if((CAR_N>1||SOC_N>1)&&!CAR_TIMER)CAR_TIMER=setInterval(carStep,5500);
  try{renderSocial();}catch(e){} /* news rendered last: social rebuilds on the shared list now */
+ feedCacheSave();
 }
 /* X social section (owner 10:32: X posts out of news, own Home section; built 11:53 scope):
    renders the x_feed items XNEWS already normalizes; Home-only visibility via body.tab-home CSS. */
@@ -545,8 +556,8 @@ function renderSocial(){
     Until news, x_feed and the sync-map verdict have ALL settled, show the loading state -
     never a number that can disagree with the news counter. */
  if(!NEWS_READY||!XFEED_DONE||!SOC_MAP_DONE||!CAR_LAST.length){
-  box.innerHTML='<div class="empty syncwait">Loading feeds - syncing stories and posts now.</div>';
-  SOC_SIG='';SOC_N=0;return;
+  if(PAIRS.length&&!$('rpSocTrack')){SOC_SIG=''; /* cold boot, warm cache: paint cached pairs below */}
+  else{if(!$('rpSocTrack'))box.innerHTML='';SOC_SIG='';SOC_N=0;return;}
  }
  /* owner 5:09 (his words: "It shouldn't say it's scanning, it should always have the latest post
     about the story"): every slide shows a REAL post - never a placeholder. Per story: probe-verified
@@ -832,6 +843,8 @@ setInterval(function(){if(cur&&!document.hidden&&NEWSF){renderNews(cur,newsBucke
 var _wmlogo=document.querySelector('nav.rpnav .logo');
 if(_wmlogo){_wmlogo.addEventListener('click',function(e){e.preventDefault();try{localStorage.removeItem('rp_tab');}catch(x){}try{history.replaceState(null,'',location.pathname);}catch(x){}location.href='index.html';});}
 /* ---- boot ---- */
+var _fc=feedCacheLoad();
+if(_fc){CAR_LAST=_fc.items;CAR_ALL=_fc.all||[];PAIRS=_fc.pairs||[];}
 var start=fromHash()||(function(){try{return localStorage.getItem('rp_tab');}catch(e){return null;}})();
 if(!start&&TABS.some(function(t){return t.key==='home';}))start='home';
 if(!start){
