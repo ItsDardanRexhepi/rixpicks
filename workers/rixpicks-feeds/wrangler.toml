@@ -1,0 +1,20 @@
+name = "rixpicks-feeds"
+main = "src/worker.js"
+compatibility_date = "2026-09-28"
+workers_dev = true
+
+# Lane 3 (Cloudflare migration): feed pipeline off the GitHub-cron starvation class.
+# Shadow phase: writes R2 only, serves on workers.dev, zero user-visible change.
+# Cutover gates are vars flipped ONLY after main relays owner sign-off.
+
+[[r2_buckets]]
+binding = "FEEDS"
+bucket_name = "rixpicks-feeds"
+
+[vars]
+PROD_BASE = "https://rix-picks.com"
+XFEED_DISPATCH = "off"      # "on" at news cutover: fire repository_dispatch x-feed-chain on rotation
+
+# odd minutes: futures poll only. 5-minute marks: news + kalshi-quotes + parity (+ futures).
+[triggers]
+crons = ["*/5 * * * *", "1-59/2 * * * *"]
