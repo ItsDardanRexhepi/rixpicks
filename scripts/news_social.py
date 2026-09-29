@@ -175,14 +175,21 @@ def save_state(st):
 TOUT_RE = __import__('re').compile(
     r'discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|'
     r'picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|'
-    r'free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)', __import__('re').I)
+    r'free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|'
+    r'freebie|free picks? on|model.{0,20}(is )?(live|cashed)', __import__('re').I)
+AD_RE = __import__('re').compile(
+    r'tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|'
+    r'price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|'
+    r'vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|brought to you by|listen in now|'
+    r'tune in (now|tonight)|happy hour|dine[ -]?in|drink specials?|food specials?', __import__('re').I)
 
 def quality_ok(p):
     """anti-junk floor (main 1:29: random replies / low-content posts must not drive anything):
     queries already exclude replies server-side; here, a post needs real engagement OR
     substantive text. public_metrics ride the pull response (same request, no extra burn)."""
-    # owner 1:39: NO touts/selling-access on the social feed, ever
-    if TOUT_RE.search(p.get('text') or ''):
+    # owner 1:39 + 5:27/5:28: NO touts/selling-access/ads/promos on the feed, ever -
+    # default deny at intake; the only exception path is his explicit per-item approval
+    if TOUT_RE.search(p.get('text') or '') or AD_RE.search(p.get('text') or ''):
         return False
     m = p.get('public_metrics') or {}
     eng = sum(int(m.get(k) or 0) for k in ('like_count', 'retweet_count', 'reply_count', 'quote_count'))
@@ -197,6 +204,8 @@ def merge_feed(new_items):
         prev = json.load(open(OUT)).get('items', [])
     except Exception:
         prev = []
+    # owner 5:28 structural default-deny: carryover items pass the same gate (see x_feed.py)
+    prev = [pp for pp in prev if not TOUT_RE.search(pp.get('text') or '') and not AD_RE.search(pp.get('text') or '')]
     merged = {str(p.get('id')): p for p in (new_items + prev) if p.get('id')}
     items = sorted(merged.values(), key=lambda p: str(p.get('created_at', '')), reverse=True)
     # owner 2:49: the match horizon is the past 24 hours - posts older than 24h age out of the pool
