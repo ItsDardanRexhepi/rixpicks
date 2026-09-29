@@ -57,10 +57,14 @@ export async function runFutures(env) {
       : JSON.parse(await (await fetch(env.PROD_BASE + '/config_leagues.json?cb=' + Date.now())).text()); }
   catch (e) { return { failed: 'config unreadable' }; }
   const ts = new Date().toISOString();
-  const rows = []; const current = {};
+  const rows = []; const current = {}; const errs = [];
   for (const [lg, ent] of Object.entries(cfg.leagues || {})) {
     const fut = ent.futures || {};
-    const board = { ...(fut.poly_slug ? await polyBoard(fut.poly_slug) : {}), ...(await kalshiBoard(fut.kalshi)) };
+    const pb = fut.poly_slug ? await polyBoard(fut.poly_slug) : {};
+    const kb = await kalshiBoard(fut.kalshi);
+    if (fut.poly_slug && !Object.keys(pb).length) errs.push('poly:' + lg);
+    if ((fut.kalshi || []).length && !Object.keys(kb).length) errs.push('kalshi:' + lg);
+    const board = { ...pb, ...kb };
     if (!Object.keys(board).length) continue;
     rows.push(JSON.stringify({ ts, league: lg, board }));
     current[lg] = { ts, board };
@@ -72,6 +76,6 @@ export async function runFutures(env) {
     env.FEEDS.put(`futures/ticks/${day}/${hhmm}.jsonl`, rows.join('\n') + '\n'),
   ]);
   // heartbeat, same shape as the GHA listener's
-  await env.FEEDS.put('futures/heartbeat.json', JSON.stringify({ ts, mode: 'cf-cron-poll', leagues: Object.keys(current).length }));
+  await env.FEEDS.put('futures/heartbeat.json', JSON.stringify({ ts, mode: 'cf-cron-poll', leagues: Object.keys(current).length, leg_errors: errs }));
   return { leagues: Object.keys(current).length, keys: rows.reduce((n, r) => n + Object.keys(JSON.parse(r).board).length, 0) };
 }
