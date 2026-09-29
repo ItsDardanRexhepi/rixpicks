@@ -322,10 +322,11 @@ def timestamp(value):
 
 
 def freshness_gate(story, post):
-    """Article-to-post parity: unknown clocks never grant a pair.
+    """Keep the 24h feed horizon; require tighter parity for new event reports.
 
-    The 24h matching horizon is distinct from the tighter article-time parity.
-    A post before a new story by hours cannot pass just because both are within 24h.
+    Preview, analysis, game thread and syndication can publish after an on-topic
+    post. A publication timestamp is not the event timestamp. A final result
+    gets the separate event_time_gate and breaking news keeps a 2h pre-report bar.
     """
     published = timestamp(story.get('published'))
     posted = timestamp(post.get('created_at') or post.get('ts'))
@@ -336,10 +337,13 @@ def freshness_gate(story, post):
         return 'future article/post timestamp'
     if now - posted > datetime.timedelta(hours=24):
         return 'post outside 24h window'
-    article_age = now - published
-    allowed = datetime.timedelta(hours=2 if article_age < datetime.timedelta(hours=6) else 6)
-    if published - posted > allowed:
-        return 'post predates article beyond freshness parity'
+    title = story.get('headline') or ''
+    # Completed events are handled by event_time_gate, which demands actual
+    # result wording from a pre-publication post. Do not apply generic age math.
+    if FINAL_RESULT_ARTICLE.search(title):
+        return None
+    if BREAKING_ARTICLE.search(title) and not re.search(r'\b(rankings?|analysis|preview|recap|game thread|feature)\b', title, re.I) and published - posted > datetime.timedelta(hours=2):
+        return 'breaking-event post predates report beyond 2h'
     return None
 
 
@@ -400,7 +404,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v11-final-result-timing'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v12-type-aware-freshness'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
