@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T20:34:59.703380+00:00",
+ "generated_at": "2026-09-29T20:49:55.970756+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,9 +9,9 @@
      "espn_event_id": "401907965",
      "matchup": "PHI @ ATL",
      "commence": "2026-09-29T18:00Z",
-     "status": "in",
-     "detail": "Bot 8th",
-     "score": "PHI 3 - ATL 2"
+     "status": "post",
+     "detail": "Final",
+     "score": "PHI 3 - ATL 5"
     },
     {
      "espn_event_id": "401907896",
