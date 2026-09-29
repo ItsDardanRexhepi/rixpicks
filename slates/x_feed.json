@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-29T05:35:33+00:00",
+ "generated_at": "2026-09-29T05:49:56+00:00",
  "source": "x_recent_search",
  "window": false,
  "items": [
@@ -19,25 +19,6 @@
     "retweet_count": 0
    },
    "url": "https://x.com/JayhawksFandom/status/2104685738528747602",
-   "via": "news:S1",
-   "nk": "https://www.cbssports.com/college-basketball/news/college-basketball-rankings-kansas-early-top-25-and-1-tre-white/"
-  },
-  {
-   "query": "\"College basketball rankings\" lang:en -is:retweet -is:reply",
-   "id": "2104666303197749304",
-   "created_at": "2026-09-28T20:15:24.000Z",
-   "text": "College basketball rankings: Kansas joins early Top 25 And 1 after Tre White cleared to play by court ruling https://t.co/Tps6NMYkE3",
-   "author_username": "footballBuzzz",
-   "author_name": "Football Buzz",
-   "public_metrics": {
-    "bookmark_count": 0,
-    "impression_count": 8,
-    "like_count": 0,
-    "quote_count": 0,
-    "reply_count": 0,
-    "retweet_count": 0
-   },
-   "url": "https://x.com/footballBuzzz/status/2104666303197749304",
    "via": "news:S1",
    "nk": "https://www.cbssports.com/college-basketball/news/college-basketball-rankings-kansas-early-top-25-and-1-tre-white/"
   },
@@ -2274,6 +2255,25 @@
    "url": "https://x.com/Sabresbills92/status/2104668266740289943",
    "via": "news:S3-rotate",
    "nk": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-ranking-pitching-staffs/"
+  },
+  {
+   "query": "\"College basketball rankings\" lang:en -is:retweet -is:reply",
+   "id": "2104666303197749304",
+   "created_at": "2026-09-28T20:15:24.000Z",
+   "text": "College basketball rankings: Kansas joins early Top 25 And 1 after Tre White cleared to play by court ruling https://t.co/Tps6NMYkE3",
+   "author_username": "footballBuzzz",
+   "author_name": "Football Buzz",
+   "public_metrics": {
+    "bookmark_count": 0,
+    "impression_count": 8,
+    "like_count": 0,
+    "quote_count": 0,
+    "reply_count": 0,
+    "retweet_count": 0
+   },
+   "url": "https://x.com/footballBuzzz/status/2104666303197749304",
+   "via": "news:S1",
+   "nk": "https://www.cbssports.com/college-basketball/news/college-basketball-rankings-kansas-early-top-25-and-1-tre-white/"
   },
   {
    "query": "\"Packers place Zach\" lang:en -is:retweet -is:reply",
