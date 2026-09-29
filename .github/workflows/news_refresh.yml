@@ -1,5 +1,9 @@
 name: news-refresh
 on:
+  repository_dispatch:
+    # external time base (guard 4 scheduler class): the Cloudflare gh-dispatcher worker fires
+    # every 15 min - GitHub hosted cron starves this repo and is a BACKSTOP signal only.
+    types: [external-tick]
   schedule:
     # 5-min floor during active hours (1 PM-11 PM PT = 20:00-06:00 UTC PDT... widened
     # 13:00-06:00 UTC to catch mornings) - the wake dispatcher also fires
@@ -20,9 +24,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: fetch + write multi-source news feed
+      - name: "fetch + write multi-source news feed"
         run: python3 scripts/news_feed.py
-      - name: commit if changed
+      - name: "commit if changed"
         run: |
           git config user.name "RixPicks Bot"
           git config user.email "rixpicks-bot@users.noreply.github.com"
@@ -33,7 +37,7 @@ jobs:
           # so races are structural. autostash covers residual local edits (unstaged writes were
           # blocking the rebase); 5 tries with backoff.
           for i in 1 2 3 4 5; do git push && break || { git pull --rebase --autostash; sleep 3; }; done
-      - name: kalshi-quotes staleness watchdog
+      - name: "kalshi-quotes staleness watchdog"
         if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
