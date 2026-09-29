@@ -53,6 +53,26 @@ for title, post in POS:
     if conflict:
         fails.append("POSITIVE killed by entity gate: %r (ents=%s)" % (title[:60], sorted(ents)))
 
+# guard 3 kill (9/28 7:51): TruGrit 2104707827759473125 vs the CBS expert-props article.
+# The judge EXECUTEd on "same event (MNF) and odds ... does not contradict" - noncontradiction
+# is not a match. The article-level test now demands a POSITIVE match to the article's
+# concrete picks/props/expert claim; this pair must be REJECT in verdicts, not only pair-null.
+CBS_PROPS = 'Eagles vs. Bears picks, player props: Experts best bets for Monday Night Football in NFL Week 3'
+TRUGRIT = ('The Bears are home favorites at -122, with the Eagles at +100 for Monday Night Football. '
+           'Week 3 wraps under the lights at Soldier Field. @Eagles @ChicagoBears\n\n'
+           'https://t.co/J3ESD5wmGl https://t.co/uk7cNAQwI6')
+pre = sm.probe_predeny(CBS_PROPS, TRUGRIT)
+if not pre or pre[0] != 'REJECT':
+    fails.append('guard 3: generic-odds post vs expert-props article not pre-denied: %r' % (pre,))
+v, why = sm.verify(CBS_PROPS, TRUGRIT)
+if v != 'REJECT':
+    fails.append('guard 3: verify() verdict for TruGrit/CBS pair = %s (%s)' % (v, why))
+# keep case: a post that DOES declare its own pick must reach the judge, never pre-denied
+KEEP_POST = ('Google and ChatGPT have the eagles winning tonight. Vegas has the eagles winning tonight. '
+             'I’m picking the bears. Not because it’s reasonable, but because I still believe.')
+if sm.probe_predeny("Today's top games to watch, best bets, odds: Eagles vs. Bears on MNF and more", KEEP_POST) is not None:
+    fails.append('guard 3: pick-declaring post pre-denied - would starve the judge of a legit pair')
+
 # equivocal-YES parser fixtures (guard 2 parsing bug: "YES - Different team." was badged)
 v, _ = sm.parse_verification('Story subject: Braves postseason discussion\nPost subject: Yankees fans attending Game 1\nYES - Different team.')
 if v != "ABSTAIN": fails.append("equivocal YES (different team) parsed as %s" % v)
