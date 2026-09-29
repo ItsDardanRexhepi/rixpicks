@@ -1,0 +1,5 @@
+name = "rixpicks-gh-dispatcher"
+main = "src/worker.js"
+compatibility_date = "2026-09-28"
+[triggers]
+crons = ["4,19,34,49 * * * *"]
