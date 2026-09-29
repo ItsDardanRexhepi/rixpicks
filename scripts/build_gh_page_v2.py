@@ -79,7 +79,9 @@ def _pick_content_hash(m):
     # snapshot), kalshi.cents (live Kalshi ask snapshot - the gate re-checks it live anyway),
     # card_ts (first-lock provenance - excluded per main Sep 27 10:04 ruling; its stability is
     # guarded by the dedicated ledger-equality assertion in build_manifest.py, not by this hash).
-    _EXCL_TOP={'num','result','_final','polycents','card_ts'}
+    _EXCL_TOP={'num','result','_final','polycents','card_ts','line_shop','books','books_sp','prop_books'}
+    # line_shop/books/books_sp/prop_books (Sep 29 line-shop seam, main's call): live pricing SNAPSHOTS,
+    # not pick content - price-only regens stay display-only rebuilds (same doctrine as card_ts).
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
@@ -705,6 +707,17 @@ def chips(p):
     inst=f' {inst}' if inst else ''
     for name,short in BOOKS:
         link=None; ml=None
+        if p.get('market_class')=='prop':
+            # Sep 29 prop seam: prop legs price chips from manifest prop_books {book: {over, under, link?}}
+            # (native st_books keys). Price-only rows render as inert priced chips; books without a site
+            # arm (offshore) are never emitted. Game-market prefill lookups do not apply to props.
+            _PBK={'DraftKings':'draftkings','theScore':'espnbet','Hard Rock':'hardrockbet','BetMGM':'betmgm','BetRivers':'betrivers'}
+            _pk=_PBK.get(name)
+            if _pk:
+                _e=((p.get('prop_books') or {}).get(_pk)) or {}
+                _v=_e.get(p.get('side','over'))
+                if _v is not None: ml=_v
+                if _e.get('link'): link=_e['link']
         pr=sel_books(pre.get((p['game']['away'],p['game']['home'])), p.get('game')) if p.get('game') else None
         if p.get('market')=='spread':
             pr=(sel_books(pre_sp.get((p['game']['away'],p['game']['home'])), p.get('game')) or {}).get('books') if p.get('game') else None
