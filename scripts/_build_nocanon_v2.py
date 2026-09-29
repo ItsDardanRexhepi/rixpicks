@@ -594,6 +594,30 @@ def kal_market(tick, team_display):
             return (sfx, round(d*100) if 0<d<=1 else None)
     return ('',None)
 
+def _finalize_chip_rows(out, records):
+    """Select the best displayed survivor and range from its canonical price record."""
+    values=[]
+    for i, markup in enumerate(out):
+        match=re.search(r'data-mr="(\d+)"', markup)
+        if not match: continue
+        index=int(match.group(1))
+        if index>=len(records): continue
+        record=records[index]
+        if record.get('st')!='ok': continue
+        value=(c2ml_int(record['c']) if record.get('c') is not None
+               else record.get('ml'))
+        if value is not None: values.append((i,value))
+    winner=max(values,key=lambda row:row[1])[0] if values else None
+    out=[re.sub(r'(?<=class="chip) best(?=[ "\'])','',markup).replace('>★ ', '>')
+         for markup in out]
+    if winner is not None:
+        out[winner]=out[winner].replace('class="chip','class="chip best',1)
+        out[winner]=re.sub(r'(<(?:a|span)\b[^>]*>)',r'\1★ ',out[winner],count=1)
+    global LAST_PRICES
+    LAST_PRICES=[v for _,v in values if abs(v)<=1500]
+    return ''.join(out)
+
+
 def chips(p):
     star='\u2605 '
     _pr=[]
@@ -811,7 +835,7 @@ def chips(p):
         _pm=(p.get(_pmkey) or {})
         _pmu=_pm.get('url');_pmc=_pm.get('team_cents') if _pm.get('team_cents') is not None else _pm.get('cents')  # d03ba56 contract: team_cents is the pick-side price (harvest snapshot); 'cents' = legacy key
         if _pmu and _pmc is not None:
-            _pr.append((len(out),rp_c2a(_pmc) if 'rp_c2a' in dir() else None))
+            _pr.append((len(out),c2ml_int(_pmc)))
             _mr=_mkrec(_arm,_eid,_mkt,_SIDE,ml=None,cents=_pmc,link=_pmu,ph=_ph,st=('ok' if _pmc is not None else 'unknown'))
             out.append(f'<a class="chip%%BEST%%"{bkstyle(_arm)} href="{html.escape(_pmu)}" data-book="{_arm}"{_dm}{_mr} data-sb="{html.escape(_pmu)}" data-cents="{_pmc}" onclick="return rpRoute(event,this)" target="_blank" rel="noreferrer">{bkimg(_arm)}{html.escape(_albl+" "+c2ml(_pmc))}</a>')  # parity fix Sep 26: priced prediction-arm chips carry market identity like every other priced chip - the line-shop guard was silently excluding them (MSST card lost its range line in KAL+DKP-only states)
         # unpriced prediction-arm chips are never emitted: a chip requires a verified priced record (url + cents), fail closed
@@ -860,16 +884,7 @@ def chips(p):
                 print(f"LINK DROP: {p.get('name')} dead link on live/upcoming event: {_dead[0]}", file=sys.stderr)
                 continue
         _kept.append(_o)
-    out=_kept
-    global LAST_PRICES
-    LAST_PRICES=[]
-    for _o in out:
-        _txt=re.sub(r'<[^>]+>','',_o)
-        _nums=re.findall(r'[+-]\d{2,5}',_txt)
-        if _nums:
-            _v=int(_nums[0])
-            if abs(_v)<=1500: LAST_PRICES.append(_v)
-    return ''.join(out)
+    return _finalize_chip_rows(_kept, _COLL[0])
 
 
 def lineshop_html(prs, underway=False):
