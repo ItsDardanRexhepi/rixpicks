@@ -1,11 +1,11 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T09:57:00-07:00",
+ "generated_at": "2026-09-29T10:07:00-07:00",
  "tickets": [
   {
    "id": "t11",
    "sport": "mlb",
-   "title": "3-leg HR SGP - FanDuel - +7919 as quoted on Wooder Ice's screenshot (not a live executable price)",
+   "title": "3-leg HR SGP - +7919 as quoted on the source slip screenshot (not a live executable price)",
    "status": "IDEA - NOT BOUGHT",
    "legs": [
     {
@@ -31,44 +31,50 @@
   {
    "id": "t12",
    "sport": "mlb",
-   "title": "6-leg SGP - FanDuel - +9492 is the source 5-leg screenshot quote; updated 6-leg quote unavailable",
+   "title": "6-leg SGP - +9492 is the original five-leg screenshot quote; no six-leg quote exists",
    "status": "IDEA - NOT BOUGHT",
    "legs": [
     {
      "player": "Kyle Schwarber",
      "market": "To hit a home run",
      "matchup": "PHI @ ATL",
-     "time": "Today 11:00 AM PT"
+     "time": "Today 11:00 AM PT",
+     "note": "Kalshi displayed selection chance 17% (~+488) at 9:54am - not a live executable ask"
     },
     {
      "player": "Matt Olson",
      "market": "To hit a home run",
      "matchup": "PHI @ ATL",
-     "time": "Today 11:00 AM PT"
+     "time": "Today 11:00 AM PT",
+     "note": "Kalshi displayed selection chance 17% (~+488) at 9:54am - not a live executable ask"
     },
     {
      "player": "Chris Sale",
      "market": "6+ strikeouts (ALT)",
      "matchup": "PHI @ ATL",
-     "time": "Today 11:00 AM PT"
+     "time": "Today 11:00 AM PT",
+     "note": "Kalshi displayed selection chance 79% (~-376) at 9:54am - not a live executable ask"
     },
     {
      "player": "Trea Turner",
      "market": "To record 2+ total bases",
      "matchup": "PHI @ ATL",
-     "time": "Today 11:00 AM PT"
+     "time": "Today 11:00 AM PT",
+     "note": "Kalshi displayed selection chance 36% (~+178) at 9:54am - not a live executable ask"
     },
     {
      "player": "Mauricio Dubon",
      "market": "To record a hit",
      "matchup": "PHI @ ATL",
-     "time": "Today 11:00 AM PT"
+     "time": "Today 11:00 AM PT",
+     "note": "Kalshi displayed selection chance 67% (~-203) at 9:54am - not a live executable ask"
     },
     {
      "player": "Jesus Luzardo",
      "market": "5+ strikeouts",
      "matchup": "PHI @ ATL",
-     "time": "Today 11:00 AM PT"
+     "time": "Today 11:00 AM PT",
+     "note": "Kalshi displayed selection chance 29% (~+245) at 9:54am - not a live executable ask"
     }
    ]
   }
