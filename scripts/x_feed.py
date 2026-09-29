@@ -37,11 +37,23 @@ TOUT_RE = __import__('re').compile(
     r'picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|'
     r'free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|'
     r'freebie|free picks? on|model.{0,20}(is )?(live|cashed)', __import__('re').I)
+
+
+def _payload(p):
+    # guard 3+5 full-payload gate: text + author branding + url - a promo carried only in
+    # the account name (the Brownstone Bets class) or a shortened link is still denied.
+    return ' '.join([p.get('text') or '', str(p.get('author_name') or ''), str(p.get('author_username') or ''), str(p.get('url') or '')])
+
+
+def _banned(p):
+    import re as _re
+    t = _payload(p)
+    return bool(TOUT_RE.search(t) or AD_RE.search(t) or _re.search(r'\b(bets|capper|cappers|handicapp)\b', str(p.get('author_name') or ''), _re.I))
 AD_RE = __import__('re').compile(
     r'tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|'
     r'price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|'
     r'vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|brought to you by|listen in now|'
-    r'tune in (now|tonight)|happy hour|dine[ -]?in|drink specials?|food specials?', __import__('re').I)
+    r'tune in (now|tonight)|happy hour|dine[ -]?in|drink specials?|food specials?|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props', __import__('re').I)
 
 def within_24h(ts):
     """owner 2:49 match horizon: the past 24 hours of X conversation is matchable.
@@ -243,10 +255,10 @@ def main():
           prev = []
       # owner 1:39 (QA audit 2): tout/sales pitches must never enter the shared pool from
       # THIS path either - news_social.py already filters its own pull; same regex, same rule.
-      items = [pp for pp in items if not TOUT_RE.search(pp.get('text') or '') and not AD_RE.search(pp.get('text') or '')]
+      items = [pp for pp in items if not _banned(pp)]
       # owner 5:28 default-deny is STRUCTURAL: the 24h carryover (prev) passes the same gate -
       # a promotional post can never persist in the pool, so no downstream stage can pair or render one.
-      prev = [pp for pp in prev if not TOUT_RE.search(pp.get('text') or '') and not AD_RE.search(pp.get('text') or '')]
+      prev = [pp for pp in prev if not _banned(pp)]
       merged = {str(p.get('id')): p for p in (items + prev) if p.get('id')}
       merged_items = sorted(merged.values(), key=lambda p: str(p.get('created_at', '')), reverse=True)
       merged_items = [pp for pp in merged_items if within_24h(pp.get('created_at'))]
