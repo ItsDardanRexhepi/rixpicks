@@ -2,9 +2,13 @@ name: x-feed
 # X API recent-search feed for the SENSE stage (main 9/27 9:25 PM handoff from analysis).
 # Cron live since 9:25 his sign-off (see schedule note).
 on:
+  repository_dispatch:
+    # external time base (guard 4 scheduler class): the Cloudflare gh-dispatcher worker fires
+    # every 15 min - GitHub hosted cron starves this repo and is a BACKSTOP signal only.
+    types: [external-tick]
   schedule:
     # UNPARKED 15-min: his verbatim sign-off '15-min' (main 9:25), burn math presented (~$3.17/day vs $9.04 free, billing after). Balance-watch: ledger exits 1 under $2.00.
-    - cron: '*/5 * * * *'
+    - cron: '*/15 * * * *'
   workflow_run:
     # sync-at-all-times (user 4:27 class kill): the pair map tracks the news feed by CONSTRUCTION -
     # every news-refresh completion re-runs the chain. The freshness guard below exits before any
@@ -47,7 +51,7 @@ jobs:
       #      is hardened (QA 5:21 pub-ad false green -> v4-commercial-gate).
       # This guard is R1+R2's burn discipline: skip ONLY when the map covers live news AND every
       # visible story already holds a verified pair.
-      - name: freshness guard (IFTTT R1+R2 - skip only when map covers live news AND visible window fully verified)
+      - name: "freshness guard (IFTTT R1+R2 - skip only when map covers live news AND visible window fully verified)"
         run: |
           python3 - <<'EOF'
           import json, os, urllib.request
@@ -70,7 +74,7 @@ jobs:
           else:
               print(f'chain runs: map={mb} news={ng} unpaired-visible={len(unpaired)}/{len(top)}')
           EOF
-      - name: x feed pull (burn-ledgered)
+      - name: "x feed pull (burn-ledgered)"
         if: env.SKIP_CHAIN != '1'
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
@@ -100,7 +104,7 @@ jobs:
           fi
           printf '%s' "$NIM_CLIENT_TOKEN" > /tmp/.nim_client_token
           python3 scripts/soc_match.py
-      - name: commit feed + burn ledger
+      - name: "commit feed + burn ledger"
         if: env.SKIP_CHAIN != '1'
         run: |
           git config user.name "RixPicks Bot"
