@@ -14,6 +14,8 @@ spec.loader.exec_module(sm)
 
 def gate(title, post, need=2):
     ents = sm.title_entities(title)
+    if not ents:
+        return ents, bool(sm.foreign_person_vs_title(title, post))
     return ents, sm.entity_conflict(ents, post, need) or bool(sm.post_persons(post, ents))
 
 fails = []
@@ -29,6 +31,10 @@ NEG = [
     # guard 2 strip 7:28 (2104681108113908031): generic CBS Top 25 update naming neither Kansas
     # nor Tre White - entity conflict + foreign principal against the Kansas rankings article.
     ('College basketball rankings: Kansas joins early Top 25 And 1 after Tre White cleared to play by court ruling', 'COLLEGE BASKETBALL RANKINGS: The 2026-27 @CBSSports Preseason Top 25 And 1 has been updated to reflect recent developments. \n\nVersion 28 \n\n1. Florida \n2. Duke \n3. Illinois \n4. UConn \n5. Texas \nhttps://t.co/kwB8r1rGhH'),
+    # 7:46 re-admission (2104679415208698214, eg3 hole): the served Fever story's headline
+    # yielded ZERO entities, the layer-2 check was skipped, and the Caitlin Clark post pinned.
+    # Empty/unextractable headline = the production shape; foreign subject person must kill.
+    ('', 'My goodness, Steph White has done a PHENOMENAL job of TRYING to humble Caitlin Clark both with the Fever and @usabasketball but it won’t work.  CC’s too good of a person and player to let her break her down. https://t.co/UnMSvMo22D'),
 ]
 POS = [
     ('College basketball rankings: Kansas joins early Top 25 And 1 after Tre White cleared to play by court ruling', 'College basketball rankings: Kansas joins early Top 25 And 1 after Tre White cleared to play by court ruling #kansasjayhawks #jayhawks https://t.co/yVGhegNGdn'),
