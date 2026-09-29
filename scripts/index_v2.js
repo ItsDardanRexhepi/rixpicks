@@ -362,9 +362,10 @@ function buildPairs(base){
    pre-fix code can never resurrect) is held through every transient: fetch failure,
    bad payload, mid-publish gap, unsettled verdicts. Fresh data replaces it on settle;
    the 30s poll self-heals. */
-function feedCacheSave(){try{localStorage.setItem('rp_feed_v2',JSON.stringify({v:RP_BUILD,t:Date.now(),items:CAR_LAST,all:CAR_ALL,pairs:PAIRS}));}catch(e){}}
+function feedCacheSave(){try{var s=JSON.stringify({v:RP_BUILD,t:Date.now(),items:CAR_LAST,all:CAR_ALL,pairs:PAIRS});localStorage.setItem('rp_feed_v2',s);localStorage.setItem('rp_feed_stable',s);}catch(e){}}
 function feedCacheLoad(){try{var j=JSON.parse(localStorage.getItem('rp_feed_v2')||'null');
- if(!j||j.v!==RP_BUILD)return null;
+ if(!j||j.v!==RP_BUILD){j=JSON.parse(localStorage.getItem('rp_feed_stable')||'null');} /* cross-build hold (7:30 class): a deploy must never cold-boot to blank - the last coherent unit paints with badges suppressed regardless of which build saved it */
+ if(!j)return null;
  if(Date.now()-(j.t||0)>900000)return null; /* 15-min TTL (guard 5 7:10): a stale snapshot is not permission */
  /* guard 1 (7:20) source kill of the independent-filter incoherence: pairs are validated
     FIRST, items are DERIVED from the survivors - a cached snapshot can never boot News N
@@ -419,7 +420,8 @@ function renderNews(t,arts){
     the other's placeholder. Failure paths set their done flags too, so this always releases. */
  if(!XFEED_DONE||!SOC_MAP_DONE){
   if(CAR_LAST.length&&!$('rpCarTrack')){items=CAR_LAST; /* cold boot, warm cache: paint last good now */}
-  else{box.innerHTML='';CAR_SIG='';CAR_N=0; /* no valid unit: the old track is destroyed atomically with the decision, never left visible (guard 1 7:20) */ try{renderSocial();}catch(e){}return;}
+  else if(CAR_LAST.length){items=CAR_LAST; /* a valid unit is RETAINED through every unsettled window - the 7:30 blank-site regression was clearing here mid-poll (kill-at-source: an unsettled poll must never destroy visible content) */}
+  else{box.innerHTML='';CAR_SIG='';CAR_N=0; /* no valid unit ever: blank atomically, old track destroyed with the decision (guard 1 7:20) */ try{renderSocial();}catch(e){}return;}
  }
  var sig=items.map(function(a){return normH(a.headline);}).join('|');
  if(sig===CAR_SIG&&$('rpCarTrack')){carApply();try{renderSocial();}catch(e){}return;}
