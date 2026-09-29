@@ -202,8 +202,12 @@ if v != 'EXECUTE': fails.append('shared concrete action was not accepted: %s' % 
 import datetime
 NOW = datetime.datetime.now(datetime.timezone.utc)
 def ago(hours): return (NOW - datetime.timedelta(hours=hours)).isoformat()
-if not sm.freshness_gate({'published': ago(.5)}, {'created_at': ago(5)}):
-    fails.append('fresh article paired with much older post')
+if not sm.freshness_gate({'headline': 'Star injured during live game', 'published': ago(.5)}, {'created_at': ago(5)}):
+    fails.append('fresh breaking event paired with much older post')
+if sm.freshness_gate({'headline': 'Bears vs Eagles preview and game thread', 'published': ago(.5)}, {'created_at': ago(5)}):
+    fails.append('on-topic pregame post pre-denied by generic article publish age')
+if sm.freshness_gate({'headline': 'College basketball rankings: Kansas joins Top 25 after Tre White cleared', 'published': ago(.5)}, {'created_at': ago(5)}):
+    fails.append('exact-headline syndication candidate pre-denied by publication age')
 if sm.freshness_gate({'published': ago(.5)}, {'created_at': ago(.3)}):
     fails.append('recent post rejected for fresh article')
 if not sm.freshness_gate({'published': ago(.5)}, {'created_at': None}):
