@@ -182,10 +182,11 @@ export async function runNews(env) {
   }
   const imgCheck = await validateImages(arts);
 
-  // prod shape (builder 4825975): source_mix = unique articles per source across buckets+latest;
+  // prod shape (builder 4825975): source_mix = OCCURRENCE count per source - each item counted
+  // once per appearance across latest[] plus every league bucket (dup across both counts twice).
   // degraded_sources = outlets with zero output this cycle. Consumers alert on this field.
   const sourceMix = {};
-  for (const a of arts) sourceMix[a.source] = (sourceMix[a.source] || 0) + 1;
+  for (const a of [...latest, ...Object.values(leagues).flat()]) sourceMix[a.source] = (sourceMix[a.source] || 0) + 1;
   const degraded = ['ESPN', 'CBS', 'YAHOO'].filter(src => !sourceMix[src]);
 
   const out = { generated_at: new Date().toISOString(), leagues, latest, source_mix: sourceMix, degraded_sources: degraded };
