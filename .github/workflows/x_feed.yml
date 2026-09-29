@@ -103,6 +103,7 @@ jobs:
             echo "NIM_CLIENT_TOKEN not set - matcher dormant"; exit 0
           fi
           printf '%s' "$NIM_CLIENT_TOKEN" > /tmp/.nim_client_token
+          python3 scripts/soc_fixtures.py  # deterministic gate regressions - abort the chain before a bad map ships
           python3 scripts/soc_match.py
       - name: "commit feed + burn ledger"
         if: env.SKIP_CHAIN != '1'
