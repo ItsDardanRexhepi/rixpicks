@@ -374,6 +374,38 @@ TEAM_META={}
 
 
 pre_sp=_load_prefill(_prefill_path('odds_prefill_sp.json'), wrap=True)
+
+# Sep 29 standing order (phonemsg-01M3PXTWRCN8EE6YQ8WS2H6Z66): all-books pricing rides IN the manifest
+# (analysis books_prefill_pull.py seam, exact prefill shapes) - a missing/stale prefill file can never
+# strip sportsbook chips off the card again. Manifest books merge UNDER live prefill (live wins per-book);
+# FD sportsbook never renders (standing spec); state gating stays client-side (rpBookLive/RP_LEGAL_STATE).
+# Prop picks are skipped: game-market books on a prop card would be wrong-market chips.
+def _merge_manifest_books(man_, pre_, pre_sp_):
+    n=0
+    for _p in man_.get('picks',[]):
+        if _p.get('market_class')=='prop': continue
+        _g=_p.get('game') or {}
+        _key=(_g.get('away'),_g.get('home'))
+        if not all(_key): continue
+        _cm=_g.get('commence')
+        for _slot,_dst,_wrap in ((_p.get('books'),pre_,False),(_p.get('books_sp'),pre_sp_,True)):
+            if not (isinstance(_slot,dict) and _slot): continue
+            _c=_dst.setdefault(_key,[])
+            _hit=None
+            for _cm0,_bd in _c:
+                if _cm0==_cm and isinstance(_bd,dict): _hit=_bd; break
+            if _hit is None:
+                _c.append((_cm,{'books':dict(_slot)} if _wrap else dict(_slot)))
+            else:
+                _bb=_hit.setdefault('books',{}) if _wrap else _hit
+                for _bk,_bv in _slot.items():
+                    if _bk=='state_templates' and isinstance(_bv,dict):
+                        _st=_bb.setdefault('state_templates',{})
+                        for _k2,_v2 in _bv.items(): _st.setdefault(_k2,_v2)
+                    else: _bb.setdefault(_bk,_bv)
+            n+=1
+    if n: print(f'manifest books: merged all-books pricing for {n} pick-markets (standing Sep 29 seam)', file=sys.stderr)
+_merge_manifest_books(man, pre, pre_sp)
 # J-106 (Sep 26): shipped book links freeze with the card. Prefill only knows live/upcoming
 # games - a refresh rebuild for a settled game used to find nothing and DROP the chips
 # (the Orioles-row regression he caught). shipped_books.json is committed with the site:
@@ -700,10 +732,12 @@ def chips(p):
             else:
                 stt=((sel_books(pre.get((p['game']['away'],p['game']['home'])), p.get('game')) or {}).get('state_templates',{})) if p.get('game') else {}
                 e=stt.get('betmgm' if name=='BetMGM' else 'betrivers') or {}
-                if name=='BetMGM' and e.get(f"{_SIDE}_link"):
-                    link=e[f"{_SIDE}_link"]; ml=e.get(f"{_SIDE}_ml")
-                if name=='BetRivers' and e.get('event'):
-                    link=e['event']; ml=e.get(f"{_SIDE}_ml")
+                if name=='BetMGM':
+                    if e.get(f"{_SIDE}_link"): link=e[f"{_SIDE}_link"]
+                    if e.get(f"{_SIDE}_ml") is not None: ml=e.get(f"{_SIDE}_ml")
+                if name=='BetRivers':
+                    if e.get('event'): link=e['event']
+                    if e.get(f"{_SIDE}_ml") is not None: ml=e.get(f"{_SIDE}_ml")
         if name=='Kalshi' and p.get('kalshi'):
             link=p['kalshi']['url']
             tick=p['kalshi']['url'].rstrip('/').split('/')[-1].upper()
@@ -823,6 +857,14 @@ def chips(p):
             _se=SHIPPED.get(f"{p['game'].get('away')}|{p['game'].get('home')}|{(p['game'].get('commence') or '')[:10]}",{}).get(name)
             if _se and _stale_carryover(name,_se.get('link'),p.get('game')): _se=None
             if _se: link=_se.get('link'); ml=_se.get('ml')
+        if not link and ml is not None:
+            # Sep 29 line-shop seam: prices-only book data (no deep link) renders as an inert PRICED chip -
+            # never a fake href, never a dropped book. Same honesty pattern as the in-play freeze.
+            _lbl=(f"{short} {ml:+d}")+inst
+            _pr.append((len(out), ml))
+            _mr=_mkrec(name,_eid,_mkt,_SIDE,ml=ml,link='',ph=_ph,lv='none',st='ok')
+            out.append(f'<span class="chip%%BEST%% rpnontap"{bkstyle(short)} data-book="{short}"{_dm}{_mr}>{bkimg(short)}{html.escape(_lbl)}</span>')
+            continue
         if not link:
             if _uw:
                 # in-play (inspector Sep 26): books pull markets at commence; freeze the last-known
