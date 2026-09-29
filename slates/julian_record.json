@@ -1,6 +1,7 @@
 {
  "dead_combos": [
   "combo3",
+  "mnf-t1",
   "t1",
   "t2",
   "t3",
@@ -33,8 +34,8 @@
  ],
  "removal_rule": "one definitively LOST leg removes the whole combo card from the public site; lost standalones come off alone; internal ledger keeps all rows",
  "record": {
-  "wins": 38,
-  "losses": 43,
+  "wins": 41,
+  "losses": 47,
   "pushes": 0,
   "pending": 0
  },
@@ -73,6 +74,13 @@
    "pushes": 0,
    "pending": 0,
    "void": 0
+  },
+  "mon-night": {
+   "wins": 3,
+   "losses": 4,
+   "pushes": 0,
+   "pending": 0,
+   "void": 0
   }
  },
  "by_market": {
@@ -84,7 +92,7 @@
   },
   "anytime_td": {
    "wins": 11,
-   "losses": 14,
+   "losses": 15,
    "pushes": 0,
    "pending": 0
   },
@@ -96,7 +104,7 @@
   },
   "passing_yards": {
    "wins": 6,
-   "losses": 1,
+   "losses": 2,
    "pushes": 0,
    "pending": 0
   },
@@ -113,7 +121,7 @@
    "pending": 0
   },
   "rushing_yards": {
-   "wins": 3,
+   "wins": 5,
    "losses": 1,
    "pushes": 0,
    "pending": 0
@@ -131,8 +139,8 @@
    "pending": 0
   },
   "receiving_yards": {
-   "wins": 1,
-   "losses": 1,
+   "wins": 2,
+   "losses": 2,
    "pushes": 0,
    "pending": 0
   },
@@ -156,6 +164,12 @@
   },
   "threes": {
    "wins": 1,
+   "losses": 1,
+   "pushes": 0,
+   "pending": 0
+  },
+  "spread": {
+   "wins": 0,
    "losses": 1,
    "pushes": 0,
    "pending": 0
@@ -1218,6 +1232,97 @@
    "combo_id": "t7",
    "status": "lost",
    "received": "2026-09-27T17:16:00-07:00",
+   "card_status": "dead"
+  },
+  {
+   "label": "Jalen Hurts",
+   "market": "passing_yards",
+   "matchup": "PHI @ CHI",
+   "venue": "julian_ticket",
+   "line": 200,
+   "price": null,
+   "window": "mon-night",
+   "combo_id": "mnf-t1",
+   "status": "lost",
+   "received": "2026-09-28T11:18:00-07:00",
+   "card_status": "dead"
+  },
+  {
+   "label": "Saquon Barkley",
+   "market": "rushing_yards",
+   "matchup": "PHI @ CHI",
+   "venue": "julian_ticket",
+   "line": 60,
+   "price": null,
+   "window": "mon-night",
+   "combo_id": "mnf-t1",
+   "status": "won",
+   "received": "2026-09-28T11:18:00-07:00",
+   "card_status": "dead"
+  },
+  {
+   "label": "D'Andre Swift",
+   "market": "rushing_yards",
+   "matchup": "PHI @ CHI",
+   "venue": "julian_ticket",
+   "line": 60,
+   "price": null,
+   "window": "mon-night",
+   "combo_id": "mnf-t1",
+   "status": "won",
+   "received": "2026-09-28T11:18:00-07:00",
+   "card_status": "dead"
+  },
+  {
+   "label": "Zach Ertz",
+   "market": "receiving_yards",
+   "matchup": "PHI @ CHI",
+   "venue": "julian_ticket",
+   "line": 20,
+   "price": null,
+   "window": "mon-night",
+   "combo_id": "mnf-t1",
+   "status": "lost",
+   "received": "2026-09-28T11:18:00-07:00",
+   "card_status": "dead"
+  },
+  {
+   "label": "DeVonta Smith",
+   "market": "receiving_yards",
+   "matchup": "PHI @ CHI",
+   "venue": "julian_ticket",
+   "line": 50,
+   "price": null,
+   "window": "mon-night",
+   "combo_id": "mnf-t1",
+   "status": "won",
+   "received": "2026-09-28T11:18:00-07:00",
+   "card_status": "dead"
+  },
+  {
+   "label": "Saquon Barkley",
+   "market": "anytime_td",
+   "matchup": "PHI @ CHI",
+   "venue": "julian_ticket",
+   "line": null,
+   "price": null,
+   "window": "mon-night",
+   "combo_id": "mnf-t1",
+   "status": "lost",
+   "received": "2026-09-28T11:18:00-07:00",
+   "card_status": "dead"
+  },
+  {
+   "label": "Eagles",
+   "market": "spread",
+   "matchup": "PHI @ CHI",
+   "venue": "julian_ticket",
+   "line": 2.5,
+   "price": null,
+   "window": "mon-night",
+   "combo_id": "mnf-t1",
+   "status": "lost",
+   "received": "2026-09-28T11:18:00-07:00",
    "card_status": "dead"
   }
  ],
