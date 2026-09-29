@@ -444,6 +444,7 @@ var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={};
    map: this keyword floor is the fallback so raw off-topic chatter never renders. */
 /* owner 1:39: NO tout/selling-access posts, ever - client layer mirrors the server filter so
    legacy pool items and no-map fallbacks are covered too. */
+var RP_AD_KW=/happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|book a table|now open|grand opening/i;
 var RP_TOUT_KW=/discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)/i;
 var RP_SPORT_KW=/nfl|nba|mlb|nhl|wnba|ncaa|cfb|mls|nwsl|pga|nascar|ufc|mma|boxing|tennis|football|basketball|baseball|hockey|soccer|golf|sports|touchdown|quarterback|playoff|super bowl|world series|stanley cup|fantasy|draft pick|trade rumor|injury report|starting lineup|home run|slam dunk|shutout|knockout|title fight|grand slam|eagles|bears|chiefs|cowboys|packers|vikings|giants|jets|patriots|steelers|ravens|bengals|browns|texans|colts|jaguars|titans|broncos|raiders|chargers|rams|seahawks|49ers|cardinals|falcons|panthers|saints|buccaneers|commanders|lions|dolphins|bills|yankees|dodgers|red sox|cubs|braves|astros|phillies|mets|padres|mariners|lakers|celtics|warriors|knicks|nets|sixers|bulls|heat|bucks|nuggets|suns|mavericks|thunder|timberwolves|spurs|rockets|clippers|grizzlies|pelicans|kings|trail blazers|jazz|hawks|hornets|hornets|pacers|cavaliers|pistons|magic|wizards|raptors|maple leafs|bruins|canadiens|oilers|avalanche|lightning|panthers|rangers|penguins|capitals|flyers|red wings|blackhawks|wild|stars|predators|blues|jets|kraken|golden knights|sharks|ducks|kings|coyotes|hurricanes|blue jackets|devils|islanders|sabres|senators|flames|canucks/i;
 fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
@@ -488,7 +489,7 @@ function renderSocial(){
  var REL=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.relevance)?SOC_MATCH.relevance:null;
  var chrono=XNEWS.slice().sort(function(a,b){return (Date.parse(b.published||0)||0)-(Date.parse(a.published||0)||0);});
  var pool=chrono.filter(function(p){
-  if(RP_TOUT_KW.test(String(p.headline||'')))return false;
+  if(RP_TOUT_KW.test(String(p.headline||''))||RP_AD_KW.test(String(p.headline||'')))return false;
   if(REL){var r=REL[String(p.id)];if(r)return r.on_topic!==false;}
   return RP_SPORT_KW.test(String(p.headline||''));
  });
@@ -499,18 +500,31 @@ function renderSocial(){
   var k=(a.link||'')||String(a.headline||'');
   var pr=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs)?SOC_MATCH.pairs[k]:null;
   var cand=(pr&&pr.post_id&&SOC_XIDX[pr.post_id]!==undefined)?XNEWS[SOC_XIDX[pr.post_id]]:null;
-  if(cand&&!usedA[cand.id]&&!RP_TOUT_KW.test(String(cand.headline||''))){
+  if(cand&&!usedA[cand.id]&&!RP_TOUT_KW.test(String(cand.headline||''))&&!RP_AD_KW.test(String(cand.headline||''))){
    usedA[cand.id]=1;
    items.push({post:cand,kind:'verified',nkey:k});
    return;
   }
   var ne=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.nearest)?SOC_MATCH.nearest[k]:null;
   var np=(ne&&ne.post_id&&SOC_XIDX[ne.post_id]!==undefined)?XNEWS[SOC_XIDX[ne.post_id]]:null;
-  if(np&&!usedA[np.id]&&!RP_TOUT_KW.test(String(np.headline||''))){
+  if(np&&!usedA[np.id]&&!RP_TOUT_KW.test(String(np.headline||''))&&!RP_AD_KW.test(String(np.headline||''))){
    usedA[np.id]=1;
    items.push({post:np,kind:'latest',nkey:k});
    return;
   }
+  /* story-matched keyword bridge (owner 5:09: the post must be ABOUT the story - a generic
+     sports pool post is a mismatch with a label on it). Distinct content-word overlap between
+     the story headline and the post text; best overlap wins, ties break most recent. */
+  var sw=(String(a.headline||'').toLowerCase().match(/[a-z0-9]+/g)||[]).filter(function(w){return w.length>=4&&SYNC_STOP.indexOf(w)<0;});
+  var kb=null,kbs=1;
+  if(sw.length){for(var _q=0;_q<chrono.length;_q++){var pp=chrono[_q];
+   if(usedA[pp.id]||RP_TOUT_KW.test(String(pp.headline||''))||RP_AD_KW.test(String(pp.headline||'')))continue;
+   var ph=' '+String(pp.headline||'').toLowerCase()+' ';
+   var sc=0;for(var _w=0;_w<sw.length;_w++){if(ph.indexOf(' '+sw[_w])>=0||ph.indexOf(' '+sw[_w]+'s')>=0)sc++;}
+   var thr=(sw.some(function(w){return w.length>=7;}))?1:2;
+   if(sc>0&&sc>=thr&&sc>kbs-1&&sc>=kbs){if(sc>=kbs||!kb){kb=pp;kbs=sc;}}
+  }}
+  if(kb){usedA[kb.id]=1;items.push({post:kb,kind:'latest',nkey:k});return;}
   while(pi<pool.length&&usedA[pool[pi].id])pi++;
   if(pi<pool.length){usedA[pool[pi].id]=1;items.push({post:pool[pi],kind:'latest',nkey:k});pi++;}
   else if(chrono.length){items.push({post:chrono[0],kind:'latest',nkey:k});} /* his rule: never empty */
