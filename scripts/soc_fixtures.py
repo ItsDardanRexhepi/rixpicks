@@ -247,6 +247,20 @@ if sm.parse_verification('YES. Tre White cleared to play in the pregame preview.
                          KANSAS_LIVE_STORY, KANSAS_OLD)[0] == 'EXECUTE':
     fails.append('fabricated phase label accepted for otherwise grounded ranking action')
 
+# 04:37Z exact served NO line: older twin explicitly carries ranking,
+# court ruling, and Tre White, so "only a link" is a false denial.
+KANSAS_V15_NO = ('NO - Timeline mismatch: the article discusses a court ruling granting a preliminary '
+                 'injunction, but the post only provides a link without specifying its timelin')
+if sm.parse_verification(KANSAS_V15_NO, KANSAS_LIVE_STORY, KANSAS_OLD)[0] == 'REJECT':
+    fails.append('04:37Z fabricated/cut-off NO reason passed')
+if sm.twin_selection_reason(KANSAS_LIVE_STORY, KANSAS_OLD, KANSAS_NEW) is None:
+    fails.append('older exact-headline twin did not get truthful selection explanation')
+if sm.twin_selection_reason(KANSAS_LIVE_STORY, 'Bears fans after the game', KANSAS_NEW):
+    fails.append('unrelated post incorrectly called older duplicate')
+if sm.parse_verification('NO. Different event and player.', KANSAS_LIVE_STORY,
+                         'Caleb Williams injured in Bears game')[0] != 'REJECT':
+    fails.append('valid negative reason was not allowed')
+
 # 04:12Z Bears postgame story vs a prospective under bet: reject before the
 # judge can misdescribe a completed 27-7 game as a pregame preview.
 BEARS_RECAP = ('Case Keenum finds Fountain of Youth as Chicago Bears Dominate Philadelphia Eagles '
