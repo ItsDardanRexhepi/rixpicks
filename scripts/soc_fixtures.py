@@ -171,6 +171,13 @@ _pool = [{'created_at': ago(3)}, {'created_at': ago(.25)}]
 if sm.candidate_order([(.8, 0), (.65, 1)], _pool)[0][1] != 1:
     fails.append('final candidates did not prioritize fresh post')
 
+# Guard 3: generic MNF breakdown must never enter latest on an expert-picks article.
+ROTO = "MNF Breakdown: Eagles @ Bears. Last season Chicago gashed Philly on the ground: Kyle Monangai posted 130 yds and a TD, D'Andre Swift added 125 yds and a score."
+if not sm.latest_pick_gate(CBS_PROPS, ROTO):
+    fails.append('RotoWire generic breakdown was admitted to expert-picks latest')
+if sm.latest_pick_gate(CBS_PROPS, "I am picking the Bears +3.5 tonight; my pick is Bears to cover"):
+    fails.append('declared side wrongly killed at latest pre-gate')
+
 # Ingest must fail closed on a failed paid request and never restamp an old feed.
 import tempfile, os, copy
 xspec = importlib.util.spec_from_file_location('x_feed_fixture', 'scripts/x_feed.py')
