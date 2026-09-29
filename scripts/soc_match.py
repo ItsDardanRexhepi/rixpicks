@@ -281,10 +281,21 @@ def _grounded_name(name, story, post):
             all(re.search(r'\b' + re.escape(part) + r'\b', story, re.I) for part in parts) and
             re.search(r'(?<![a-z0-9])#' + re.escape(joined) + r'\b', post, re.I) is not None)
 
+def timeline_reason_conflict(reason, story, post):
+    """A reason cannot invent game-phase labels absent from both inputs.
+    Rankings/eligibility and other off-court stories are not pregame previews.
+    """
+    r = reason.lower()
+    inputs = (story + ' ' + post).lower()
+    if 'pregame' in r and not re.search(r'\b(pregame|preview|upcoming|tonight|tomorrow|kickoff|tipoff|game thread|how to watch)\b', inputs):
+        return True
+    return False
+
+
 def reason_integrity(reason, story='', post=''):
     """Default-deny incomplete, tautological and unsupported YES rationales."""
     r = (reason or '').strip()
-    if len(r) < 18 or len(r.split()) < 4 or r.endswith(('...', '…', ':', '-', ',')):
+    if len(r) < 18 or len(r.split()) < 4 or len(r) >= 151 or r.endswith(('...', '…', ':', '-', ',')):
         return False
     # Quote claims are falsifiable: text in quotation marks must actually occur in
     # both the story and post, not merely be asserted by the judge.
@@ -292,6 +303,8 @@ def reason_integrity(reason, story='', post=''):
     if quotes and (not story or not post or any(q.lower() not in story.lower() or q.lower() not in post.lower() for q in quotes)):
         return False
     if story and post:
+        if timeline_reason_conflict(r, story, post):
+            return False
         # Proper-name and number claims cannot be supplied by the model alone.
         names = re.findall(r'\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+\b', r)
         if any(not _grounded_name(n, story, post) for n in names):
@@ -325,7 +338,7 @@ def parse_verification(text, story='', post=''):
         reason = re.sub(r'^YES\b[\s:.-]*', '', verdict_line, flags=re.I)
         if not reason_integrity(reason, story, post):
             return 'ABSTAIN', ('unsupported YES reason: ' + verdict_line)[:160]
-        return 'EXECUTE', verdict_line[:160]
+        return 'EXECUTE', verdict_line
     return 'REJECT', verdict_line[:160]
 
 
@@ -420,7 +433,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v14-served-reason-and-recap'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v15-grounded-reasons'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
@@ -497,12 +510,28 @@ def verify(story, post):
               '  pregame pick or hype NEVER matches a postgame play or recap; an inactive/transaction\n'
               '  report NEVER matches a game preview; an offseason interview NEVER matches an in-season\n'
               '  availability update.\n'
-              '- The YES reason MUST name the single concrete shared event/action it proves.\n'
+              '- The YES reason MUST name the single concrete shared event/action it proves, in under 120 characters.\n'
+              '- Game-phase labels (pregame, postgame, live) must be explicit in the sources; a rankings/eligibility update is NOT a pregame game preview.\n'
               '  \'same event\', \'same game\', \'same health status\', or \'does not contradict\' are NOT proof.\n'              '- Start the final line with YES only when every rule above passes; on ANY doubt start\n'
               '  with NO and name the doubt.\n'
               'Answer: two Step-1 lines, then a final line starting with exactly YES or NO and one short reason.')
     out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
                'prompt': prompt, 'max_tokens': 200}, timeout=90)
+    return parse_verification(out.get('text', '').strip(), story, post)
+
+
+def repair_reason(story, post):
+    """One bounded re-ask after a YES with an unsupported explanation.
+    A verified pin still requires a fresh algorithm YES and validated rationale.
+    """
+    prompt = ('Check this sports story and social post again.\nNEWS: ' + story[:600] +
+              '\nPOST: ' + post[:600] +
+              '\nAnswer on ONE line: YES, followed by a concrete shared action under 110 characters, '
+              'or NO with a short mismatch. Use only exact facts in BOTH inputs. '
+              'Do not infer a game phase or a person/team name absent from either. '
+              'An offseason rankings/eligibility update is not a pregame preview.')
+    out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
+               'prompt': prompt, 'max_tokens': 110}, timeout=90)
     return parse_verification(out.get('text', '').strip(), story, post)
 
 
@@ -691,9 +720,10 @@ def main():
             probes += 1
             try:
                 vrd, why = verify(ntexts[i], ptexts[j])
-                if vrd == 'ABSTAIN' and why.startswith('probe gave no final YES/NO') and probes < MAX_PROBES:
+                if vrd == 'ABSTAIN' and probes < MAX_PROBES and (
+                        why.startswith('probe gave no final YES/NO') or why.startswith('unsupported YES reason')):
                     probes += 1
-                    vrd, why = verify(ntexts[i], ptexts[j])
+                    vrd, why = repair_reason(ntexts[i], ptexts[j])
             except Exception as e:
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'DEFER', 'gate': 'evidence', 'reason': 'probe failed: ' + str(e)[:80]})
