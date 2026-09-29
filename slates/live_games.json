@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-28T23:58:22.212092+00:00",
+ "generated_at": "2026-09-29T00:20:51.503778+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -9,9 +9,11 @@
      "espn_event_id": "401872963",
      "matchup": "PHI @ CHI",
      "commence": "2026-09-29T00:15Z",
-     "status": "pre",
-     "detail": "9/28 - 5:15 PM PT",
-     "score": "PHI 0 - CHI 0"
+     "status": "in",
+     "detail": "12:38 - 1st",
+     "score": "PHI 0 - CHI 0",
+     "away_to": 3,
+     "home_to": 3
     }
    ]
   }
