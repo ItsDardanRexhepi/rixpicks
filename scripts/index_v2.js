@@ -143,8 +143,11 @@ function until(iso){
  var t=Date.parse(iso);if(!t)return '';
  var s=(t-Date.now())/1000;
  if(s<=0)return 'soon';
- if(s<3600)return 'in '+Math.max(1,Math.round(s/60))+'m';
- if(s<86400)return 'in '+Math.floor(s/3600)+'h '+Math.round((s%3600)/60)+'m';
+ /* owner 9:33 screenshot bug: minutes must roll over - round TOTAL minutes first, then derive
+    h/m (17h 59.6m reads 'in 18h 0m', never 'in 17h 60m'; same class at the sub-hour edge). */
+ var tm=Math.round(s/60);
+ if(tm<60)return 'in '+Math.max(1,tm)+'m';
+ if(s<86400)return 'in '+Math.floor(tm/60)+'h '+(tm%60)+'m';
  return Math.round(s/86400)+'d';
 }
 function dayTime(iso){
@@ -193,7 +196,7 @@ function renderGames(t,events){
   }else{
    txt=(an&&hn)?(esc(an)+' @ '+esc(hn)):esc(ev.shortName||ev.name||'');
    sub=esc(dayTime(ev.date));
-   when='<span class="when">'+esc(until(ev.date))+'</span>';
+   when='<span class="when" data-until="'+esc(ev.date||'')+'">'+esc(until(ev.date))+'</span>';
   }
   var _row='<div class="grow"><div><div class="gname">'+txt+'</div><div class="gsub">'+sub+'</div></div>'+when+'</div>';
   rows.push((ev.id&&RP_LIVE_OK[lgpath(t)])?('<a class="growtap" href="live.html?espn='+encodeURIComponent(lgpath(t))+'&eid='+encodeURIComponent(ev.id)+'" style="display:block;text-decoration:none;color:inherit">'+_row+'</a>'):_row);
@@ -861,7 +864,7 @@ function loadSide(t){
  /* polish (main 1:43): never show another tab's stale rows while the target tab's sidebar
     loads - cached tabs render instantly via the SB path, uncached get an honest Loading. */
  var _gb0=$('rpGames');
- if(_gb0&&t.key!=='home'){_gb0.classList.remove('homeall');if(!SB[t.key])_gb0.innerHTML='<div class="empty">Loading upcoming games&hellip;</div>';}
+ if(_gb0&&t.key!=='home'){_gb0.classList.remove('homeall');if(!SB[t.key])_gb0.innerHTML='<div class="empty">Loading upcoming events&hellip;</div>';}
  if(t.key==='home'){refreshX();renderSocial();}
  if(!lg){
   if(t.key==='wooder'){
@@ -880,8 +883,8 @@ function loadSide(t){
       league gets a 7s abort and paints progressively as it lands. */
    gb.classList.add('homeall');
    var _acc=[],_seenG={},_pend=games.length;
-   var _rowH=function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var _an=(a.team||{}).abbreviation||(a.team||{}).shortDisplayName||(a.team||{}).displayName||(a.athlete||{}).shortName||(a.athlete||{}).displayName||'',_hn=(h.team||{}).abbreviation||(h.team||{}).shortDisplayName||(h.team||{}).displayName||(h.athlete||{}).shortName||(h.athlete||{}).displayName||'';var title=(_an&&_hn)?(esc(_an)+' @ '+esc(_hn)):esc(g.event.shortName||g.event.name||'');return '<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when">'+esc(until(g.event.date))+'</span></div>';};
-   var _paint=function(){if(cur!==t||!gb)return;var all=_acc.slice().sort(function(p,q){return Date.parse(p.event.date||0)-Date.parse(q.event.date||0);});gb.innerHTML=all.map(_rowH).join('')||(_pend?'<div class="empty">Loading upcoming games&hellip;</div>':'<div class="empty">No upcoming games listed right now.</div>');};
+   var _rowH=function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var _an=(a.team||{}).abbreviation||(a.team||{}).shortDisplayName||(a.team||{}).displayName||(a.athlete||{}).shortName||(a.athlete||{}).displayName||'',_hn=(h.team||{}).abbreviation||(h.team||{}).shortDisplayName||(h.team||{}).displayName||(h.athlete||{}).shortName||(h.athlete||{}).displayName||'';var title=(_an&&_hn)?(esc(_an)+' @ '+esc(_hn)):esc(g.event.shortName||g.event.name||'');return '<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when" data-until="'+esc(g.event.date||'')+'">'+esc(until(g.event.date))+'</span></div>';};
+   var _paint=function(){if(cur!==t||!gb)return;var all=_acc.slice().sort(function(p,q){return Date.parse(p.event.date||0)-Date.parse(q.event.date||0);});gb.innerHTML=all.map(_rowH).join('')||(_pend?'<div class="empty">Loading upcoming events&hellip;</div>':'<div class="empty">No upcoming events listed right now.</div>');};
    _paint();
    games.forEach(function(x){
     var _ctl=new AbortController();var _to=setTimeout(function(){_ctl.abort();},7000);
@@ -909,6 +912,9 @@ function loadSide(t){
  }
 }
 setInterval(function(){if(cur&&!document.hidden)loadSide(cur);},30000);
+/* owner 9:33 addendum: countdowns are ALWAYS live against current time - repaint every
+   countdown span from its own timestamp between the 30s/5min data refetches. */
+setInterval(function(){if(document.hidden)return;var n=document.querySelectorAll('[data-until]');for(var i=0;i<n.length;i++){n[i].textContent=until(n[i].getAttribute('data-until'));}},15000);
 setInterval(function(){if(cur&&!document.hidden&&NEWSF){renderNews(cur,newsBucket(cur));tickRender();}},30000);
 /* wordmark -> home (Julian 9/27 4:31 PT via main): tap logo from any tab lands home. Clear rp_tab + hash so boot's default-tab pick (home) wins and a later refresh stays home. */
 var _wmlogo=document.querySelector('nav.rpnav .logo');
