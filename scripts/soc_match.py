@@ -5,7 +5,12 @@ Pipeline per refresh:
   embed (NIM nemotron-3-embed-1b via ultrix-core /nim, passage mode)
   -> cosine candidates per news item
   -> six-gate decide() per candidate (authority/evidence/value/risk/conflict/reversibility)
-       evidence gate: score >= AUTO_ACCEPT passes; PROBE band -> smallest falsifying test
+       ALGO-ONLY VERIFICATION (owner 9/28 6:06, verbatim via main): 'verified' status is
+       conferred EXCLUSIVELY by the UltRix probe's own EXECUTE verdict - no static gate,
+       keyword list, cosine score, or side-channel check ever grants it. Static filters
+       (RP_AD/RP_TOUT/publishability) are default-DENY only: they can kill a candidate,
+       never bless one. pins, nearest and more[] are built ONLY from probe-EXECUTE candidates.
+       evidence gate: every candidate >= PROBE_FLOOR takes the smallest falsifying test
        (language-mode verify: is this post about THIS story?) -> confirm or reject-and-step
   -> verdict log per candidate (gate + reason); rejected candidates recorded (what-we-missed mining)
   -> abstain never forced: low-confidence items pair nothing, client falls back chronologically
