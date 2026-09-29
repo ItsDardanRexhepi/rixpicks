@@ -15,7 +15,10 @@ Public headlines/posts only (trial terms). Token from /tmp/.nim_client_token, ne
 Fail closed: any endpoint/credit failure leaves the previous soc_match.json untouched and
 writes status=fallback to slates/soc_match_status.json (client token-matches when map is stale).
 """
-import json, math, os, sys, time, hashlib, urllib.request, datetime
+import json, math, os, sys, time, hashlib, urllib.request, datetime, re
+
+# no tout/selling-access posts, ever (owner 1:39) - server mirror of the client RP_TOUT_KW filter
+RP_TOUT = re.compile(r'discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)', re.I)
 
 NIM_URL = 'https://ultrix-core.itsdardanr.workers.dev/nim'
 EMBED_MODEL = 'nvidia/nemotron-3-embed-1b'
@@ -164,7 +167,7 @@ def main():
     log = {'built_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
            'model': EMBED_MODEL, 'framework': 'urf-six-gate',
            'news_count': len(items), 'post_count': len(posts),
-           'pairs': {}, 'more': {}, 'rejected': [], 'audit': {}}
+           'pairs': {}, 'more': {}, 'nearest': {}, 'rejected': [], 'audit': {}}
     if not items or not posts:
         log['audit']['aborted'] = 'empty feed'
         json.dump(log, open('slates/soc_match.json', 'w'))
@@ -197,6 +200,8 @@ def main():
 
     probes = 0
     used_posts = set()  # one post = one story: a post already pinned/listed for a story is out of every other story's candidates
+    nearest = {}  # owner 5:09 (no scan placeholders): per story, the best-cosine post NOT probe-rejected -
+               # the client's muted-label fallback when no verified pair exists for a visible story
     stats = {'paired': 0, 'auto': 0, 'probe_confirmed': 0, 'abstained': 0, 'probe_rejected': 0}
     for i, it in enumerate(items):
         nk = key_news(it)
@@ -263,6 +268,20 @@ def main():
                                     'post_id': posts[j].get('id'), 'post': posts[j].get('text', '')[:120],
                                     'score': round(score, 4), 'gate': 'conflict', 'reason': why})
             stats['probe_rejected'] += 1
+        # nearest-on-story fallback candidate: first by cosine that is unused, not probe-rejected
+        # for THIS story, and above a sanity floor. A probe REJECT is honored (never shown beside
+        # the story it failed); below-floor unprobed candidates are eligible with the muted label.
+        rejected_ids = {str(v.get('post_id')) for v in verdicts if v.get('verdict') == 'REJECT'}
+        for score, j in scored:
+            pid = str(posts[j].get('id'))
+            if score < 0.25:
+                break
+            if pid in used_posts or pid in rejected_ids:
+                continue
+            if RP_TOUT.search(ptexts[j]):
+                continue
+            nearest[nk] = {'post_id': posts[j].get('id'), 'score': round(score, 4)}
+            break
         if confirmed:
             best = confirmed[0]
             pin_id = str(posts[best[1]].get('id'))
@@ -274,6 +293,8 @@ def main():
             used_posts.add(pin_id)
             for sc, j in confirmed[1:]:
                 used_posts.add(str(posts[j].get('id')))
+            if nk in nearest and str(nearest[nk]['post_id']) == pin_id:
+                del nearest[nk]  # the pin IS the nearest - no fallback needed for this story
         else:
             stats['abstained'] += 1
             if verdicts:
@@ -301,6 +322,7 @@ def main():
             if pid and (e.get('score') or 0) >= PROBE_FLOOR and (relevance.get(pid) or {}).get('on_topic'):
                 admit.add(pid)
     log['admit'] = sorted(admit)
+    log['nearest'] = nearest
     stats['paired'] = sum(1 for v in log['pairs'].values() if (v or {}).get('verified'))
     log['audit'] = {'thresholds': {'auto_accept': AUTO_ACCEPT, 'probe_floor': PROBE_FLOOR, 'more_floor': MORE_FLOOR},
                     'probes_used': probes, **stats,
