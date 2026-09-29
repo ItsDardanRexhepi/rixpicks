@@ -749,7 +749,13 @@ def chips(p):
                     if e.get(f"{_SIDE}_link"): link=e[f"{_SIDE}_link"]
                     if e.get(f"{_SIDE}_ml") is not None: ml=e.get(f"{_SIDE}_ml")
                 if name=='BetRivers':
-                    if e.get('event'): link=e['event']
+                    # owner 9/29 standing order: chips lead into the exact market for the pick - the
+                    # side-specific coupon link (event + selection into the betslip) beats the bare
+                    # event page. Placeholders resolve at build: pickType=single, wager left empty
+                    # (verified on il.betrivers.com 9:51 PT: coupon=single|<outcomeId>| opens the
+                    # event with the exact selection in the slip, wager blank for the user).
+                    _brl=e.get(f"{_SIDE}_link") or e.get('event')
+                    if _brl: link=_brl.replace('{pickType}','single').replace('{wagerAmount}','')
                     if e.get(f"{_SIDE}_ml") is not None: ml=e.get(f"{_SIDE}_ml")
         if name=='Kalshi' and p.get('kalshi'):
             link=p['kalshi']['url']
