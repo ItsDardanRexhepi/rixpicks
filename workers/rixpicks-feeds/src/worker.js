@@ -57,11 +57,14 @@ export default {
         cbs_rss: 'https://www.cbssports.com/rss/headlines/mlb/',
         espn_rss: 'https://www.espn.com/espn/rss/mlb/news',
       };
+      // probes use the lane UAs: espn_api 403s bot-looking UAs (UA+IP keyed, builder 4825975)
+      const LANE_UA = { espn_api: 'Python-urllib/3.12 RixPicks/1.0' };
+      const DEFAULT_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) RixPicks/1.0';
       const out = { ts: new Date().toISOString(), targets: {} };
       for (const [name, u] of Object.entries(targets)) {
         try {
           const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 10000);
-          const r = await fetch(u, { headers: { 'User-Agent': 'rix/1.0' }, signal: ctl.signal });
+          const r = await fetch(u, { headers: { 'User-Agent': LANE_UA[name] || DEFAULT_UA }, signal: ctl.signal });
           clearTimeout(t);
           const body = await r.text();
           out.targets[name] = { status: r.status, bytes: body.length, head: body.slice(0, 120) };
