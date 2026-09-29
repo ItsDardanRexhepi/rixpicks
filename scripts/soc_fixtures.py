@@ -171,6 +171,39 @@ _pool = [{'created_at': ago(3)}, {'created_at': ago(.25)}]
 if sm.candidate_order([(.8, 0), (.65, 1)], _pool)[0][1] != 1:
     fails.append('final candidates did not prioritize fresh post')
 
+# Ingest must fail closed on a failed paid request and never restamp an old feed.
+import tempfile, os, copy
+xspec = importlib.util.spec_from_file_location('x_feed_fixture', 'scripts/x_feed.py')
+xf = importlib.util.module_from_spec(xspec)
+xspec.loader.exec_module(xf)
+with tempfile.TemporaryDirectory() as td:
+    xf.OUT = os.path.join(td, 'feed.json')
+    xf.STATE = os.path.join(td, 'state.json')
+    xf.TOKEN = 'test-only'
+    xf.slate_terms = lambda: ['Kansas']
+    xf.game_window = lambda: False
+    xf.log_burn = lambda *args: None
+    initial = {'generated_at': '2026-09-28T20:00:00+00:00', 'items': []}
+    with open(xf.OUT, 'w') as f: __import__('json').dump(initial, f)
+    def failed_req(*args): raise RuntimeError('mock outage')
+    xf.req = failed_req
+    try:
+        xf.main()
+        fails.append('failed X API was treated as a successful pull')
+    except RuntimeError as exc:
+        if 'no successful' not in str(exc): fails.append('unexpected ingest error: %s' % exc)
+    if __import__('json').load(open(xf.OUT)) != initial:
+        fails.append('failed X API restamped or changed the old feed')
+    called = []
+    def empty_req(*args):
+        called.append(1)
+        return 200, {'data': [], 'meta': {}}
+    xf.req = empty_req
+    xf.main()
+    new = __import__('json').load(open(xf.OUT))
+    if len(called) != 1 or new.get('generated_at') == initial['generated_at']:
+        fails.append('single successful empty X request did not stamp the feed exactly once')
+
 # story_type_gate fixtures (eg2, guards 2+3 strips 7:10-7:11 PM): R1 picks-article needs
 # article-pick evidence; R2 bet-slip never pairs a non-picks story; R3 historical post
 # never pairs a breaking-event story. Each negative is the exact served false pair.
