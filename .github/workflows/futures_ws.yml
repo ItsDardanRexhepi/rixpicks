@@ -8,6 +8,15 @@ on:
   schedule:
     - cron: '*/30 * * * *'
 
+# Auditor 9:41 HIGH: two listeners ran concurrently - dispatched runs bypassed the
+# schedule-only alive-guard. The group is a hard mutex (at most one active run of
+# this workflow, ever); the guard below is now event-agnostic so queued/scheduled/
+# dispatched/respawned runs all no-op when another listener is alive. Queue (not
+# cancel): a long-lived window must never be killed mid-tick by the watchdog.
+concurrency:
+  group: futures-ws-listener
+  cancel-in-progress: false
+
 permissions:
   contents: write
   actions: write
@@ -23,11 +32,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          n=$(gh api "repos/${{ github.repository }}/actions/workflows/futures_ws.yml/runs?status=in_progress" --jq '.total_count')
-          q=$(gh api "repos/${{ github.repository }}/actions/workflows/futures_ws.yml/runs?status=queued" --jq '.total_count')
-          echo "in_progress=$n queued=$q"
-          # this run itself counts as in_progress once it starts; guard runs BEFORE listener job
-          if [ "${{ github.event_name }}" = "schedule" ] && [ "$n" -ge 1 ]; then echo "alive=1" >> "$GITHUB_OUTPUT"; else echo "alive=0" >> "$GITHUB_OUTPUT"; fi
+          # event-agnostic (auditor 9:41): count OTHER in_progress runs, any trigger -
+          # the old schedule-only check let every workflow_dispatch stack a duplicate.
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/futures_ws.yml/runs?status=in_progress" --jq '.workflow_runs | map(select(.id != ${{ github.run_id }})) | length')
+          echo "other_in_progress=$n (self ${{ github.run_id }} excluded)"
+          if [ "$n" -ge 1 ]; then echo "alive=1" >> "$GITHUB_OUTPUT"; else echo "alive=0" >> "$GITHUB_OUTPUT"; fi
   listen:
     needs: guard
     if: needs.guard.outputs.alive == '0'
