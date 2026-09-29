@@ -122,7 +122,10 @@ jobs:
             done
             [ "$ok" = "1" ] || exit 1
           fi
+      # The dispatcher starts news-refresh and X-feed at the same time.
+      # Ingest may publish now; the news-refresh completion builds the coherent map.
       - name: "semantic match build (URF six-gate, owner 1:00/1:01 - every link passes the full loop)"
+        if: github.event_name != 'repository_dispatch'
         env:
           NIM_CLIENT_TOKEN: ${{ secrets.NIM_CLIENT_TOKEN }}
         run: |
