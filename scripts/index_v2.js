@@ -320,6 +320,7 @@ function renderNews(t,arts){
  /* never-empty (user 3:54, supersedes the 1:09 matched-only carousel): the news floor is ALWAYS
     the most recent stories, paired or not. Verified pairs are the sync layer on top (social pin +
     socSync jump), never a filter that can empty the feed. */
+ var curKey=(CAR_LAST[CAR_IDX]&&carKey(CAR_LAST[CAR_IDX]))||''; /* capture the active story key BEFORE replacing the list (guard 1 reorder-jump class) */
  var items=base.slice(0,12);
  if(!items.length&&CAR_LAST.length)items=CAR_LAST; /* latest-valid fallback: never blank a good card on a bad fetch */
  if(items.length)CAR_LAST=items;
@@ -336,7 +337,6 @@ function renderNews(t,arts){
  }
  var sig=items.map(function(a){return normH(a.headline);}).join('|');
  if(sig===CAR_SIG&&$('rpCarTrack')){carApply();try{renderSocial();}catch(e){}return;}
- var curKey=(CAR_LAST[CAR_IDX]&&carKey(CAR_LAST[CAR_IDX]))||'';
  CAR_SIG=sig;CAR_N=items.length;
  CAR_IDX=0;
  if(curKey){for(var _ci=0;_ci<items.length;_ci++){if(carKey(items[_ci])===curKey){CAR_IDX=_ci;break;}}}
@@ -424,7 +424,7 @@ function socMore(){
  if(mm&&mm.length){
   mm.forEach(function(e){
    var xi=SOC_XIDX[e.post_id];if(xi===undefined)return;
-   var p=XNEWS[xi],txt=String(p.headline||'');
+   var p=XNEWS[xi];if(!isPublishablePost(p))return;var txt=String(p.headline||'');
    if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
    var inner='<span class="napill src x">X</span>'
     +'<span class="nabody"><span class="nahead stxt">'+esc(unesc(txt))+'</span><span class="nameta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+'</span></span>';
@@ -444,8 +444,18 @@ var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={};
    map: this keyword floor is the fallback so raw off-topic chatter never renders. */
 /* owner 1:39: NO tout/selling-access posts, ever - client layer mirrors the server filter so
    legacy pool items and no-map fallbacks are covered too. */
-var RP_AD_KW=/happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)/i;
+var RP_AD_KW=/happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props/i;
 var RP_TOUT_KW=/discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|freebie|free picks? on|model.{0,20}(is )?(live|cashed)/i;
+/* guard 3+5 class kill: ONE publishability predicate on the COMPLETE post payload (text + link +
+   author branding) - applied at XNEWS ingestion AND re-asserted at every display boundary
+   (pin, nearest, bridge, more modal). Account branding counts (the Brownstone Bets class). */
+function isPublishablePost(p){
+ if(!p)return false;
+ var t=String(p.headline||'')+' '+String(p.link||'')+' '+String(p.author||'');
+ if(RP_TOUT_KW.test(t)||RP_AD_KW.test(t))return false;
+ if(/\b(bets|capper|cappers|handicapp)\b/i.test(String(p.author||'')))return false;
+ return true;
+}
 var RP_SPORT_KW=/nfl|nba|mlb|nhl|wnba|ncaa|cfb|mls|nwsl|pga|nascar|ufc|mma|boxing|tennis|football|basketball|baseball|hockey|soccer|golf|sports|touchdown|quarterback|playoff|super bowl|world series|stanley cup|fantasy|draft pick|trade rumor|injury report|starting lineup|home run|slam dunk|shutout|knockout|title fight|grand slam|eagles|bears|chiefs|cowboys|packers|vikings|giants|jets|patriots|steelers|ravens|bengals|browns|texans|colts|jaguars|titans|broncos|raiders|chargers|rams|seahawks|49ers|cardinals|falcons|panthers|saints|buccaneers|commanders|lions|dolphins|bills|yankees|dodgers|red sox|cubs|braves|astros|phillies|mets|padres|mariners|lakers|celtics|warriors|knicks|nets|sixers|bulls|heat|bucks|nuggets|suns|mavericks|thunder|timberwolves|spurs|rockets|clippers|grizzlies|pelicans|kings|trail blazers|jazz|hawks|hornets|hornets|pacers|cavaliers|pistons|magic|wizards|raptors|maple leafs|bruins|canadiens|oilers|avalanche|lightning|panthers|rangers|penguins|capitals|flyers|red wings|blackhawks|wild|stars|predators|blues|jets|kraken|golden knights|sharks|ducks|kings|coyotes|hurricanes|blue jackets|devils|islanders|sabres|senators|flames|canucks/i;
 fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
  if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;}
@@ -488,26 +498,20 @@ function renderSocial(){
     no link claims the URF verdict without the full loop; the muted label makes that honest). */
  var REL=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.relevance)?SOC_MATCH.relevance:null;
  var chrono=XNEWS.slice().sort(function(a,b){return (Date.parse(b.published||0)||0)-(Date.parse(a.published||0)||0);});
- var pool=chrono.filter(function(p){
-  if(RP_TOUT_KW.test(String(p.headline||''))||RP_AD_KW.test(String(p.headline||'')))return false;
-  if(REL){var r=REL[String(p.id)];if(r)return r.on_topic!==false;}
-  return RP_SPORT_KW.test(String(p.headline||''));
- });
- var pi=0;
  var items=[];
  var usedA={};
  CAR_LAST.forEach(function(a){
   var k=(a.link||'')||String(a.headline||'');
   var pr=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs)?SOC_MATCH.pairs[k]:null;
-  var cand=(pr&&pr.post_id&&SOC_XIDX[pr.post_id]!==undefined)?XNEWS[SOC_XIDX[pr.post_id]]:null;
-  if(cand&&!usedA[cand.id]&&!RP_TOUT_KW.test(String(cand.headline||''))&&!RP_AD_KW.test(String(cand.headline||''))){
+  var cand=(pr&&pr.verified===true&&pr.post_id&&SOC_XIDX[pr.post_id]!==undefined)?XNEWS[SOC_XIDX[pr.post_id]]:null;
+  if(cand&&!usedA[cand.id]&&isPublishablePost(cand)){
    usedA[cand.id]=1;
    items.push({post:cand,kind:'verified',nkey:k});
    return;
   }
   var ne=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.nearest)?SOC_MATCH.nearest[k]:null;
   var np=(ne&&ne.post_id&&SOC_XIDX[ne.post_id]!==undefined)?XNEWS[SOC_XIDX[ne.post_id]]:null;
-  if(np&&!usedA[np.id]&&!RP_TOUT_KW.test(String(np.headline||''))&&!RP_AD_KW.test(String(np.headline||''))){
+  if(np&&!usedA[np.id]&&isPublishablePost(np)){
    usedA[np.id]=1;
    items.push({post:np,kind:'latest',nkey:k});
    return;
@@ -518,17 +522,18 @@ function renderSocial(){
   var sw=(String(a.headline||'').toLowerCase().match(/[a-z0-9]+/g)||[]).filter(function(w){return w.length>=4&&SYNC_STOP.indexOf(w)<0;});
   var kb=null,kbs=1;
   if(sw.length){for(var _q=0;_q<chrono.length;_q++){var pp=chrono[_q];
-   if(usedA[pp.id]||RP_TOUT_KW.test(String(pp.headline||''))||RP_AD_KW.test(String(pp.headline||'')))continue;
+   if(usedA[pp.id]||!isPublishablePost(pp))continue;
    var ph=' '+String(pp.headline||'').toLowerCase()+' ';
    var sc=0;for(var _w=0;_w<sw.length;_w++){if(ph.indexOf(' '+sw[_w])>=0||ph.indexOf(' '+sw[_w]+'s')>=0)sc++;}
    var thr=(sw.some(function(w){return w.length>=7;}))?1:2;
    if(sc>0&&sc>=thr&&sc>kbs-1&&sc>=kbs){if(sc>=kbs||!kb){kb=pp;kbs=sc;}}
   }}
   if(kb){usedA[kb.id]=1;items.push({post:kb,kind:'latest',nkey:k});return;}
-  while(pi<pool.length&&usedA[pool[pi].id])pi++;
-  if(pi<pool.length){usedA[pool[pi].id]=1;items.push({post:pool[pi],kind:'latest',nkey:k});pi++;}
-  else if(chrono.length){items.push({post:chrono[0],kind:'latest',nkey:k});} /* his rule: never empty */
-  else items.push({post:null,kind:'scan',nkey:k}); /* x_feed itself empty - the only true-empty */
+  /* fail-closed terminal (guards 1+2+3 class kill; 1:00: an abstain is not a failure, a wrong
+     match is): NO league pool, NO raw chrono fallback. A slide renders only a probe-verified pin,
+     a probe-confirmed nearest, or a story-matched keyword-bridge post - otherwise it abstains.
+     Coverage is owned server-side (the chain probes per-story until verified, R2). */
+  items.push({post:null,kind:'none',nkey:k});
  });
  var sig=items.map(function(it){return ((it.post&&it.post.id)||'-')+it.kind;}).join('|');
  if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
@@ -539,12 +544,12 @@ function renderSocial(){
  items.forEach(function(it){
   var p=it.post;
   if(!p){
-   h+='<div class="carslide socslide"><span class="carbody"><span class="stxt syncscan">UltRix is scanning for posts about this story.</span></span></div>';
+   h+='<div class="carslide socslide"><span class="carbody"><span class="stxt syncscan">No verified post about this story yet.</span></span></div>';
    return;
   }
   var txt=String(p.headline||'');
   if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
-  var badge=it.kind==='verified'?'<span class="syncbadge">UltRix verified sync</span>':'<span class="synclatest">Latest from the feed</span>';
+  var badge=it.kind==='verified'?'<span class="syncbadge">Verified by UltRix algorithm</span>':'<span class="synclatest">Latest from the feed</span>';
   var inner='<span class="carbody">'+badge+'<span class="stxt">'+esc(unesc(txt))+'</span>'
    +'<span class="carmeta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+(isNewIt(p)?' <span class="carnew">new</span>':'')+'</span></span>';
   h+='<div class="carslide socslide">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
@@ -621,33 +626,53 @@ function rpNewsOk(t,headline){
  return false;
 }
 var NEWSF=null,NEWSF_TS=0,XNEWS=[],XNEWS_TS=0,HOME_GAMES_TS=0,NEWS_READY=false,SOC_MAP_DONE=false,XFEED_DONE=false;
+/* guard 5 open-session class: the client knows its own build (stamped in this document by the
+   builder) and self-updates when rtPoll sees a newer slates/build.json - a behind client never
+   keeps old gates. Scroll position survives the controlled same-tab refresh. */
+var RP_BUILD=(function(){var m=document.documentElement.innerHTML.match(/build (\d{10})/);return m?+m[1]:0;})();
+try{var _up=sessionStorage.getItem('rpUpd');if(_up){sessionStorage.removeItem('rpUpd');var _u=JSON.parse(_up);if(_u&&typeof _u.y==='number')setTimeout(function(){window.scrollTo(0,_u.y);},400);}}catch(e){}
 /* REAL-TIME feeds (owner 12:44): poll feed JSONs + cached UltRix match map on a short interval,
    merge newest-first, keep the user's current slide stable, live counter, subtle 'new' marker.
    The match map stays build-time cached (12:37) - clients never touch the NIM endpoint. */
 var RP_LOAD=Date.now();
 function carKey(a){return (a&&a.link)||String((a&&a.headline)||'');}
 function isNewIt(a){var t=Date.parse((a&&a.published)||0);return t&&t>RP_LOAD;}
+function rpMapFresh(m){return !!(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs);}
 function rtPoll(){
- fetch('slates/news.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
-  if(j&&j.generated_at&&(!NEWSF||j.generated_at!==NEWSF.generated_at)){
-   NEWSF=j;NEWSF_TS=Date.now();
-   if(typeof cur!=='undefined'&&cur){renderNews(cur,newsBucket(cur));}
+ /* guard 5 live-loop class: news, x_feed and the map were three independent requests each
+    committing as it landed - fresh news beside stale social, fresh X against an old map. Now one
+    coordinated settle: successes stage together and render once; a failed source holds its last
+    good state; map expiry revokes sync verdicts EVERY tick (open tabs never run expired verdicts). */
+ var cb=Date.now();
+ var g=function(u){return fetch(u+(u.indexOf('?')<0?'?':'&')+'cb='+cb,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();});};
+ Promise.allSettled([g('slates/news.json'),g('slates/x_feed.json'),g('slates/soc_match.json'),g('slates/build.json')]).then(function(rs){
+  var v=rs[3].status==='fulfilled'?rs[3].value:null;
+  if(v&&v.build&&RP_BUILD&&+v.build>+RP_BUILD){
+   try{sessionStorage.setItem('rpUpd',JSON.stringify({y:window.scrollY||0}));}catch(e){}
+   location.reload();return; /* controlled same-tab code refresh: behind clients never keep old gates */
   }
- }).catch(function(){});
- if(typeof cur!=='undefined'&&cur&&cur.key==='home'){XNEWS_TS=0;refreshX();}
- fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
-  if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;try{if(cur&&cur.key==='home'){renderSocial();socSync();}}catch(e){}}
- }).catch(function(){});
+  var nj=rs[0].status==='fulfilled'?rs[0].value:null;
+  var xj=rs[1].status==='fulfilled'?rs[1].value:null;
+  var mj=rs[2].status==='fulfilled'?rs[2].value:null;
+  if(rpMapFresh(mj)){SOC_MATCH=mj;SOC_MATCH_OK=true;}
+  else{SOC_MATCH=null;SOC_MATCH_OK=false;} /* aged-out or unreadable map: verdicts revoked this tick */
+  if(xj&&Array.isArray(xj.items)){ingestX(xj);XFEED_DONE=true;}
+  if(nj&&nj.generated_at&&(!NEWSF||nj.generated_at!==NEWSF.generated_at)){NEWSF=nj;NEWSF_TS=Date.now();}
+  if(typeof cur!=='undefined'&&cur&&cur.key==='home'){renderNews(cur,newsBucket(cur));renderSocial();socSync();}
+ });
 }
 setInterval(rtPoll,45000);
 window.__rpRT={poll:rtPoll,state:function(){return {gen:NEWSF&&NEWSF.generated_at,carIdx:CAR_IDX,carN:CAR_N,socN:SOC_N,curKey:typeof cur!=='undefined'&&cur&&cur.key};}};
+function ingestX(j){ /* single publishability-gated ingest path (guard 3): XNEWS holds vetted posts only */
+ XNEWS=j.items.filter(function(p){return p&&/^[0-9]+$/.test(String(p.id||''))&&p.created_at&&p.text;}).map(function(p){var u=(typeof p.url==='string'&&/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/[A-Za-z0-9_]+\/status\/[0-9]+(?:\?.*)?$/.test(p.url)&&p.url.split('/status/')[1].split('?')[0]===String(p.id))?p.url:'';return {id:String(p.id),headline:String(p.text).slice(0,900),link:u,published:p.created_at,source:'X',author:typeof p.author_name==='string'?p.author_name.slice(0,80):''};}).filter(isPublishablePost);
+ SOC_XIDX={};XNEWS.forEach(function(p,i){if(p.id)SOC_XIDX[p.id]=i;});
+}
 function refreshX(){
  if(Date.now()-XNEWS_TS<60000)return;
  XNEWS_TS=Date.now();
  fetch('slates/x_feed.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
   if(!j||!Array.isArray(j.items))throw 0;
-  XNEWS=j.items.filter(function(p){return p&&/^[0-9]+$/.test(String(p.id||''))&&p.created_at&&p.text;}).map(function(p){var u=(typeof p.url==='string'&&/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/[A-Za-z0-9_]+\/status\/[0-9]+(?:\?.*)?$/.test(p.url)&&p.url.split('/status/')[1].split('?')[0]===String(p.id))?p.url:'';return {id:String(p.id),headline:String(p.text).slice(0,900),link:u,published:p.created_at,source:'X',author:typeof p.author_name==='string'?p.author_name.slice(0,80):''};});
-  SOC_XIDX={};XNEWS.forEach(function(p,i){if(p.id)SOC_XIDX[p.id]=i;});
+  ingestX(j);
   XFEED_DONE=true;
   renderSocial();
  if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));
