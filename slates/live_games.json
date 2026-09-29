@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T18:49:57.149887+00:00",
+ "generated_at": "2026-09-29T19:04:59.075800+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,29 @@
      "matchup": "PHI @ ATL",
      "commence": "2026-09-29T18:00Z",
      "status": "in",
-     "detail": "End 2nd",
+     "detail": "End 3rd",
      "score": "PHI 1 - ATL 1"
+    },
+    {
+     "espn_event_id": "401907896",
+     "matchup": "CHW @ HOU",
+     "commence": "2026-09-29T21:00Z",
+     "status": "pre",
+     "detail": "9/29 - 2:00 PM PT",
+     "score": "CHW 0 - HOU 0"
+    }
+   ]
+  },
+  {
+   "league": "NHL",
+   "games": [
+    {
+     "espn_event_id": "401891773",
+     "matchup": "FLA @ CAR",
+     "commence": "2026-09-29T21:00Z",
+     "status": "pre",
+     "detail": "9/29 - 2:00 PM PT",
+     "score": "FLA 0 - CAR 0"
     }
    ]
   }
