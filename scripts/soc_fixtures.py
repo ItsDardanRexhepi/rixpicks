@@ -59,6 +59,7 @@ for title, post in POS:
 SERVE_NEGATIVE_PAIRS = {
     ('https://sports.yahoo.com/articles/booed-road-caitlin-clark-fever-224245838.html', '2104679415208698214'),
     ('https://www.cbssports.com/betting/news/eagles-vs-bears-picks-player-props-experts-best-bets-for-monday-night-football-in-nfl-week-3/', '2104707840858362186'),
+    ('https://sports.yahoo.com/articles/eagles-vs-bears-live-score-000600179.html', '2104707921728942476'),
 }
 SERVE_ALLOWED_PAIR = ('https://sports.yahoo.com/articles/indiana-fever-stephanie-white-catch-015637083.html', '2104679415208698214')
 if SERVE_ALLOWED_PAIR in SERVE_NEGATIVE_PAIRS:
@@ -226,6 +227,18 @@ for name, handle in [('Betfair', 'official'), ('Sportsbook News', 'tipster'), ('
         fails.append('operator author/handle escaped map gate: %r %r' % (name, handle))
 if sm.operator_author('David Malandra Jr', 'DaveMReports'):
     fails.append('ordinary sports reporter misclassified as operator')
+
+FINAL_KEY = 'https://sports.yahoo.com/articles/eagles-vs-bears-live-score-000600179.html'
+FINAL_STORY = {'headline': 'Eagles-Bears final score: Philadelphia bullied by Chicago again',
+               'published': '2026-09-29T03:14:18+00:00'}
+FINAL_FAN = {'id': '2104707921728942476', 'created_at': '2026-09-28T23:00:46+00:00',
+             'text': 'i saw way too many people on the streets of chicago td comfortable in their eagles jerseys gtfo my front lawn'}
+if not sm.event_time_gate(FINAL_STORY, FINAL_FAN):
+    fails.append('G2 final-result article admitted pregame fan post (pin/latest)')
+if sm.event_time_gate(FINAL_STORY, {'created_at': '2026-09-29T03:16:00+00:00', 'text': 'Chicago beat Philadelphia 27-20, final score'}):
+    fails.append('postgame report after final article was pre-denied')
+if sm.event_time_gate({'headline': 'Eagles vs Bears game thread', 'published': FINAL_STORY['published']}, FINAL_FAN):
+    fails.append('pregame fan post wrongly denied on game-thread story')
 
 # Dynamic re-pairing: a newer qualified post outside the former cosine top-10
 # must be considered, and cached verdicts cannot pin last cycle's older ID.
