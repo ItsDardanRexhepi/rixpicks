@@ -322,6 +322,9 @@ function imgOpt(u){
    excluded from both; neither renderer may filter further. Unmatched stories still live in
    View all News. Counters, sync and advancement consume this one array and one index. */
 var PAIRS=[];
+var CAR_UNIT=null; /* guard 1 atomic fallback (owner 7:11 "the same ones too"): the last fully
+   rendered {story,post} unit. Fallback paths restore it AS ONE UNIT or blank BOTH carousels -
+   unpaired news NEVER renders in the paired carousel (the 2-of-12 + empty-social class). */
 function buildPairs(base){
  PAIRS=[];
  if(!rpMapFresh(SOC_MATCH))return;
@@ -348,7 +351,14 @@ function buildPairs(base){
    bad payload, mid-publish gap, unsettled verdicts. Fresh data replaces it on settle;
    the 30s poll self-heals. */
 function feedCacheSave(){try{localStorage.setItem('rp_feed_v2',JSON.stringify({v:RP_BUILD,t:Date.now(),items:CAR_LAST,all:CAR_ALL,pairs:PAIRS}));}catch(e){}}
-function feedCacheLoad(){try{var j=JSON.parse(localStorage.getItem('rp_feed_v2')||'null');return (j&&j.v===RP_BUILD&&j.items&&j.items.length)?j:null;}catch(e){return null;}}
+function feedCacheLoad(){try{var j=JSON.parse(localStorage.getItem('rp_feed_v2')||'null');
+ if(!j||j.v!==RP_BUILD||!j.items||!j.items.length)return null;
+ if(Date.now()-(j.t||0)>900000)return null; /* 15-min TTL (guard 5 7:10): a stale snapshot is not permission */
+ j.items=j.items.filter(isPublishableNews);
+ j.pairs=(j.pairs||[]).filter(function(p){return p&&p.a&&isPublishableNews(p.a)&&p.post&&isPublishablePost(p.post);});
+ j.pairs=j.pairs.map(function(p){return {a:p.a,post:p.post,kind:'latest',k:p.k};}); /* badge suppressed until the live map re-verifies (revocation can never warm-paint) */
+ if(!j.pairs.length)return null; /* cache is a coherent unit or nothing (guard 1 invariant) */
+ return j.items.length?j:null;}catch(e){return null;}}
 function renderNews(t,arts){
  var box=$('rpNewsCar');if(!box)return;
  if(t&&t.key!=='home'){box.innerHTML='';return;}  /* owner 12:54: News renders on Home only - no leaks, no per-tab feeds */
@@ -373,10 +383,10 @@ function renderNews(t,arts){
   items=PAIRS.map(function(p){return p.a;});
  }
  if(!items.length){
-  if(!freshMap&&base.length){PAIRS=[];items=base.slice(0,12);} /* no fresh map: plain list, no pairs (12:29 fetch-failure clause) */
-  else if(CAR_LAST.length)items=CAR_LAST; /* hold the last good card on a bad fetch or zero-match transient; its PAIRS persist with it */
+  if(CAR_UNIT){items=CAR_UNIT.items;PAIRS=CAR_UNIT.pairs.slice();} /* atomic: prior unit as ONE unit */
+  else{CAR_LAST=[];PAIRS=[];} /* no good unit ever: BOTH carousels blank, never unpaired news */
  }
- if(items.length)CAR_LAST=items;
+ if(items.length){CAR_LAST=items;CAR_UNIT={items:items,pairs:PAIRS.slice()};}
  NEWS_READY=true; /* load-race guard (user 3:52 screenshot + QA 3:51): social must know news has rendered before it judges pinned==0 */
  CAR_ALL=base.slice(0,40);
  /* class kill (user 4:27 + QA 4:33 verdict 1): BOTH feeds hold the loading state until news,
@@ -844,7 +854,7 @@ var _wmlogo=document.querySelector('nav.rpnav .logo');
 if(_wmlogo){_wmlogo.addEventListener('click',function(e){e.preventDefault();try{localStorage.removeItem('rp_tab');}catch(x){}try{history.replaceState(null,'',location.pathname);}catch(x){}location.href='index.html';});}
 /* ---- boot ---- */
 var _fc=feedCacheLoad();
-if(_fc){CAR_LAST=_fc.items;CAR_ALL=_fc.all||[];PAIRS=_fc.pairs||[];}
+if(_fc){CAR_LAST=_fc.items;CAR_ALL=_fc.all||[];PAIRS=_fc.pairs||[];if(PAIRS.length)CAR_UNIT={items:_fc.items,pairs:PAIRS.slice()};}
 var start=fromHash()||(function(){try{return localStorage.getItem('rp_tab');}catch(e){return null;}})();
 if(!start&&TABS.some(function(t){return t.key==='home';}))start='home';
 if(!start){
