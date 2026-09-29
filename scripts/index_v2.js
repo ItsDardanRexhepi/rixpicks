@@ -396,6 +396,22 @@ function buildPairs(base){
  });
  if(PAIRS.length>12)PAIRS=PAIRS.slice(0,12); /* the 12-cap lives AFTER pairing, never before */
 }
+
+/* zero-pair fallback: a settled fresh map can legitimately admit ZERO pairs (no story holds a
+   verified/nearest/latest post). The feeds never go blank and never fabricate a match: render
+   the latest publishable stories and latest publishable posts positionally, EVERY slide on the
+   muted "Latest from the feed" tier. The verified badge stays exclusive to an algorithmic match.
+   Both feeds derive from the same returned array, so the shared-list invariant (same N, same
+   index, same counter) holds structurally. Empty pool on either side -> empty array, caller
+   fails closed to the last-good-unit / blank-atomically path. */
+function zeroPairFallback(base){
+ var fs=base.slice(0,12);
+ var fp=[],seenP={};
+ for(var i=0;i<XNEWS.length&&fp.length<fs.length;i++){var p=XNEWS[i];if(p&&isPublishablePost(p)&&!seenP[p.id]){seenP[p.id]=1;fp.push(p);}}
+ var n=Math.min(fs.length,fp.length),out=[];
+ for(var j=0;j<n;j++)out.push({a:fs[j],post:fp[j],kind:'latest',k:carKey(fs[j])});
+ return out;
+}
 /* EMPTY-STATE CLASS KILL (owner 6:58 9/28): the page NEVER renders empty-feed or
    loading/syncing strings. Last good content (this build only, so a stale badge from
    pre-fix code can never resurrect) is held through every transient: fetch failure,
@@ -451,8 +467,9 @@ function renderNews(t,arts){
   items=PAIRS.map(function(p){return p.a;});
  }
  if(!items.length){
-  if(CAR_UNIT){items=CAR_UNIT.items;PAIRS=CAR_UNIT.pairs.map(function(p){return {a:p.a,post:p.post,kind:freshMap?p.kind:'latest',k:p.k};});} /* atomic: prior unit as ONE unit, no stale verification badge */
-  else{CAR_LAST=[];PAIRS=[];} /* no good unit ever: BOTH carousels blank, never unpaired news */
+  if(freshMap){PAIRS=zeroPairFallback(base);items=PAIRS.map(function(p){return p.a;});} /* settled zero-pair map: unpaired latest on the muted tier, never blank */
+  if(!items.length&&CAR_UNIT){items=CAR_UNIT.items;PAIRS=CAR_UNIT.pairs.map(function(p){return {a:p.a,post:p.post,kind:freshMap?p.kind:'latest',k:p.k};});} /* atomic: prior unit as ONE unit, no stale verification badge */
+  if(!items.length){CAR_LAST=[];PAIRS=[];} /* both pools empty and no good unit ever: blank atomically, self-heals on poll */
  }
  if(items.length){CAR_LAST=items;CAR_UNIT={items:items,pairs:PAIRS.slice()};}
  NEWS_READY=true; /* load-race guard (user 3:52 screenshot + QA 3:51): social must know news has rendered before it judges pinned==0 */

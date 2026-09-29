@@ -308,6 +308,43 @@ def _espn_get(url):
     # ESPN 403s a bare 'Mozilla/5.0' UA (verified Sep 25); urllib default UA passes.
     with urllib.request.urlopen(url,timeout=12) as r: return json.load(r)
 
+# MLB form fallback (Sep 29): ESPN's team schedule endpoint stopped returning completed MLB
+# events (Yankees observed; all 30 MLB teams affected) - Form/Last 10, streak, upcoming and
+# the next-event line all rendered empty. MLB Stats API is free and keyless; use it as
+# fallback whenever ESPN yields no completed MLB games. ESPN id -> MLBAM id map verified live
+# against both endpoints Sep 29 (30/30 exact-name match).
+_MLBAM={'1':'110','2':'111','3':'108','4':'145','5':'114','6':'116','7':'118','8':'158','9':'142','10':'147','11':'133','12':'136','13':'140','14':'141','15':'144','16':'112','17':'113','18':'117','19':'119','20':'120','21':'121','22':'143','23':'134','24':'138','25':'135','26':'137','27':'115','28':'146','29':'109','30':'139'}
+def mlb_form_fallback(tid,_get,today_iso):
+    mid=_MLBAM.get(str(tid))
+    if not mid: return None
+    import datetime as _dm
+    start=(_dm.date.fromisoformat(today_iso)-_dm.timedelta(days=21)).isoformat()
+    sj=_get('https://statsapi.mlb.com/api/v1/schedule?sportId=1&teamId=%s&startDate=%s&endDate=%s&hydrate=linescore'%(mid,start,today_iso))
+    last5=[]; scored=[]; upcoming=[]; nxt=None
+    for d in sj.get('dates',[]):
+        for g in d.get('games',[]):
+            st=((g.get('status') or {}).get('abstractGameState')) or ''
+            teams=g.get('teams') or {}
+            home=teams.get('home') or {}; away=teams.get('away') or {}
+            mine=home if str((home.get('team') or {}).get('id'))==str(mid) else away
+            opp=away if mine is home else home
+            opp_abbr=((opp.get('team') or {}).get('abbreviation')) or ((opp.get('team') or {}).get('name',''))
+            loc='vs' if mine is home else '@'
+            dtg=str(d.get('date',''))
+            if st=='Final':
+                ms=mine.get('score'); os_=opp.get('score')
+                if ms is None or os_ is None: continue
+                wl='W' if ms>os_ else ('L' if ms<os_ else 'T')
+                last5.append('%s %d-%d %s %s \u00b7 %s'%(wl,ms,os_,loc,opp_abbr,dtg[5:]))
+                scored.append((ms,os_))
+            elif dtg>=today_iso:
+                if len(upcoming)<3: upcoming.append('%s %s \u00b7 %s'%(loc,opp_abbr,dtg[5:]))
+                cm=g.get('gameDate','')
+                if cm and (nxt is None or cm<nxt['commence']):
+                    nxt={'commence':cm,'eid':'','away':(away.get('team') or {}).get('name',''),'home':(home.get('team') or {}).get('name','')}
+    return {'last5':last5,'scored':scored,'upcoming':upcoming,'next':nxt}
+# end mlb_form_fallback
+
 def team_meta(man):
     meta={}
     lgs={p.get('espn_league','') for p in man.get('picks',[]) if p.get('espn_league')}
@@ -3037,6 +3074,24 @@ def build_team_pages(man, css, build_sha):
                         else: break
                     streak=streak+str(k)
             except Exception: pass
+        # ESPN schedule empty for MLB -> Stats API fallback
+        _fb_next=None
+        if lg=='baseball/mlb' and tid and not _scored:
+            try:
+                import datetime as _dml
+                from zoneinfo import ZoneInfo as _Zml
+                _fb=mlb_form_fallback(tid,_espn_get,_dml.datetime.now(_Zml('America/Los_Angeles')).date().isoformat())
+                if _fb:
+                    last5=_fb['last5'][-5:]; _scored=_fb['scored']
+                    if last5:
+                        streak=last5[-1][0]; k=1
+                        for r in reversed(last5[:-1]):
+                            if r[0]==streak: k+=1
+                            else: break
+                        streak=streak+str(k)
+                    if not upcoming: upcoming=_fb['upcoming']
+                    _fb_next=_fb['next']
+            except Exception: pass
         injuries=[]
         if tid and lg:
             try:
@@ -3085,6 +3140,7 @@ def build_team_pages(man, css, build_sha):
                     g={'commence':ev_date,'eid':ev.get('id'),'away':name if me.get('homeAway')=='away' else other,'home':name if me.get('homeAway')=='home' else other}
                     if current_game is None or ev_date<current_game['commence']: current_game=g
             except Exception: pass
+        if not current_game and _fb_next: current_game=_fb_next  # MLB Stats API fallback next event
         if current_game:
             g=current_game; opp=g.get('home') if g.get('away')==name else g.get('away')
             label='Today' if _pt_date(g.get('commence',''))==_build_pt else 'Next up'

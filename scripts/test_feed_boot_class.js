@@ -57,7 +57,7 @@ const ctx = vm.createContext({
 });
 vm.runInContext([
   extract('rpMapFresh'), extract('socMapRetry'), extract('ingestX'), extract('buildPairs'),
-].join('\n'), ctx);
+extract('zeroPairFallback')].join('\n'), ctx);
 
 // A1: map fetched first, generations absent -> held, not promoted, not discarded
 vm.runInContext(`if(rpMapFresh(MAP)){SOC_MATCH=MAP;SOC_MATCH_OK=true;}else{SOC_MATCH_PENDING=MAP;}`, Object.assign(ctx, { MAP: map }));
@@ -124,4 +124,14 @@ vm.runInContext('rpDateRoll();', ctx4);
 check('second roll is a no-op', [el.textContent === h1, stHome.innerHTML === s1], [true, true]);
 
 if (failures) { console.error(failures + ' FAILURES'); process.exit(1); }
+
+// C: settled zero-pair map -> unpaired latest fallback, muted tier only
+vm.runInContext(`PAIRS=[];XNEWS=[{id:'p1'},{id:'p2'},{id:'p1'},{id:'p3'}];var ZF=zeroPairFallback([{link:'s1'},{link:'s2'},{link:'s3'}]);`, ctx);
+check('zero-pair fallback pairs latest stories with latest distinct posts', vm.runInContext(`ZF.map(p=>[p.a.link,p.post.id,p.kind]).join(';')`, ctx), 's1,p1,latest;s2,p2,latest;s3,p3,latest');
+check('fallback never emits a verified kind', vm.runInContext(`ZF.every(p=>p.kind==='latest')`, ctx), true);
+check('fallback keys stories for the shared-list machinery', vm.runInContext(`ZF.map(p=>p.k).join(',')`, ctx), 's1,s2,s3');
+vm.runInContext(`XNEWS=[];var ZF2=zeroPairFallback([{link:'s1'}]);`, ctx);
+check('empty X pool fails closed (no placeholders)', vm.runInContext(`ZF2.length`, ctx), 0);
+vm.runInContext(`XNEWS=[{id:'p9'}];var ZF3=zeroPairFallback([{link:'s1'},{link:'s2'}]);`, ctx);
+check('short X pool caps both feeds equally', vm.runInContext(`ZF3.length`, ctx), 1);
 console.log('feed boot + date-roll class fixture: ALL PASS');
