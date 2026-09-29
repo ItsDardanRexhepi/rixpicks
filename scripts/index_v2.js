@@ -315,6 +315,32 @@ function imgOpt(u){
  if(u.indexOf('images.weserv.nl/')>=0||u.indexOf('s.yimg.com/')>=0)return u;
  return 'https://images.weserv.nl/?url='+encodeURIComponent(u.slice(8))+'&w=1200&h=675&fit=cover&q=78&output=webp';
 }
+/* ONE shared pairing resolution (guard 1 source kill of the CAR_N>SOC_N divergence): each story's
+   publishable distinct post is resolved ONCE here - verified pin -> probe-confirmed nearest ->
+   on-story latest - and BOTH carousels render from PAIRS. A story with no resolvable post is
+   excluded from both; neither renderer may filter further. Unmatched stories still live in
+   View all News. Counters, sync and advancement consume this one array and one index. */
+var PAIRS=[];
+function buildPairs(base){
+ PAIRS=[];
+ if(!rpMapFresh(SOC_MATCH))return;
+ var usedA={};
+ base.slice(0,12).forEach(function(a){
+  var k=carKey(a);
+  var m=SOC_MATCH;
+  var pr=(m.pairs||{})[k];
+  function take(pid){
+   var p=(pid&&SOC_XIDX[pid]!==undefined)?XNEWS[SOC_XIDX[pid]]:null;
+   if(p&&!usedA[p.id]&&isPublishablePost(p)){usedA[p.id]=1;return p;}
+   return null;
+  }
+  var post=null,kind=null;
+  if(pr&&pr.verified===true){post=take(pr.post_id);if(post)kind='verified';}
+  if(!post){var ne=(m.nearest||{})[k];if(ne){post=take(ne.post_id);if(post)kind='latest';}}
+  if(!post){var lt=(m.latest||{})[k];if(lt){post=take(lt.post_id);if(post)kind='latest';}}
+  if(post)PAIRS.push({a:a,post:post,kind:kind,k:k});
+ });
+}
 function renderNews(t,arts){
  var box=$('rpNewsCar');if(!box)return;
  if(t&&t.key!=='home'){box.innerHTML='';return;}  /* owner 12:54: News renders on Home only - no leaks, no per-tab feeds */
@@ -332,17 +358,16 @@ function renderNews(t,arts){
     not about rendering unpaired stories); with a fresh map, unmatched articles are excluded -
     coverage is owned server-side by the widened search and reported before shipping. */
  var curKey=(CAR_LAST[CAR_IDX]&&carKey(CAR_LAST[CAR_IDX]))||''; /* capture the active story key BEFORE replacing the list (guard 1 reorder-jump class) */
- var items=base.slice(0,12);
- if(rpMapFresh(SOC_MATCH)){
-  var m2=SOC_MATCH;
-  var matched=base.filter(function(a){
-   var k=carKey(a);
-   var pr=(m2.pairs||{})[k];
-   return !!((pr&&pr.post_id)||(m2.nearest||{})[k]||(m2.latest||{})[k]);
-  });
-  if(matched.length)items=matched.slice(0,12); /* fresh map + zero matches: keep the plain list rather than blank Home; coverage report fires server-side */
+ var freshMap=rpMapFresh(SOC_MATCH);
+ var items=[];
+ if(freshMap&&base.length){
+  buildPairs(base);
+  items=PAIRS.map(function(p){return p.a;});
  }
- if(!items.length&&CAR_LAST.length)items=CAR_LAST; /* latest-valid fallback: never blank a good card on a bad fetch */
+ if(!items.length){
+  if(!freshMap&&base.length){PAIRS=[];items=base.slice(0,12);} /* no fresh map: plain list, no pairs (12:29 fetch-failure clause) */
+  else if(CAR_LAST.length)items=CAR_LAST; /* hold the last good card on a bad fetch or zero-match transient; its PAIRS persist with it */
+ }
  if(items.length)CAR_LAST=items;
  NEWS_READY=true; /* load-race guard (user 3:52 screenshot + QA 3:51): social must know news has rendered before it judges pinned==0 */
  CAR_ALL=base.slice(0,40);
@@ -528,47 +553,9 @@ function renderSocial(){
     pair (green badge) -> the map's nearest-on-story post (muted label, probe-rejects honored) ->
     league-relevant pool -> most recent sports post. Non-verified NEVER claims sync (1:00 stands:
     no link claims the URF verdict without the full loop; the muted label makes that honest). */
- var REL=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.relevance)?SOC_MATCH.relevance:null;
- var chrono=XNEWS.slice().sort(function(a,b){return (Date.parse(b.published||0)||0)-(Date.parse(a.published||0)||0);});
- var items=[];
- var usedA={};
- CAR_LAST.forEach(function(a){
-  var k=(a.link||'')||String(a.headline||'');
-  var pr=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.pairs)?SOC_MATCH.pairs[k]:null;
-  var cand=(pr&&pr.verified===true&&pr.post_id&&SOC_XIDX[pr.post_id]!==undefined)?XNEWS[SOC_XIDX[pr.post_id]]:null;
-  if(cand&&!usedA[cand.id]&&isPublishablePost(cand)){
-   usedA[cand.id]=1;
-   items.push({post:cand,kind:'verified',nkey:k});
-   return;
-  }
-  var ne=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.nearest)?SOC_MATCH.nearest[k]:null;
-  var np=(ne&&ne.post_id&&SOC_XIDX[ne.post_id]!==undefined)?XNEWS[SOC_XIDX[ne.post_id]]:null;
-  if(np&&!usedA[np.id]&&isPublishablePost(np)){
-   usedA[np.id]=1;
-   items.push({post:np,kind:'latest',nkey:k});
-   return;
-  }
-  var lt=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.latest)?SOC_MATCH.latest[k]:null;
-  var lp=(lt&&lt.post_id&&SOC_XIDX[lt.post_id]!==undefined)?XNEWS[SOC_XIDX[lt.post_id]]:null;
-  if(lp&&!usedA[lp.id]&&isPublishablePost(lp)){
-   usedA[lp.id]=1;
-   items.push({post:lp,kind:'latest',nkey:k});
-   return;
-  }
-  /* keyword bridge REMOVED (his 6:00 video: word-overlap paired Kentucky-roster news with a
-     generic CBB rankings post, CFB power rankings with college BASKETBALL rankings, Harbaugh
-     with a wrong-Harbaugh joke post - word overlap is NOT story match, and a muted label does
-     not make a wrong story right). Guard 2's required shape stands: a slide renders ONLY a
-     probe-verified pin or a probe-confirmed nearest for this exact story key. Everything else
-     abstains; coverage is owned server-side by the per-story probe loop (R2). */
-  /* fail-closed terminal (guards 1+2+3 class kill; 1:00: an abstain is not a failure, a wrong
-     match is): NO league pool, NO raw chrono fallback. A slide renders only a probe-verified pin,
-     a probe-confirmed nearest, or a story-matched keyword-bridge post - otherwise it abstains.
-     Coverage is owned server-side (the chain probes per-story until verified, R2). */
-  /* never-empty ruling (owner 6:08 via main): the abstain line NEVER renders. A story with
-     no algo-on-story post at any tier drops OUT of the social carousel; coverage is owned
-     server-side (the chain widens its search until a post verifies on-story). */
- });
+ /* guard 1 shared array: social renders EXACTLY the resolved PAIRS - same order, same N,
+    same index as the news carousel. No independent filtering here, no cascade, no fallback. */
+ var items=PAIRS.map(function(p){return {post:p.post,kind:p.kind,nkey:p.k};});
  var sig=items.map(function(it){return ((it.post&&it.post.id)||'-')+it.kind;}).join('|');
  if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
  SOC_SIG=sig;SOC_N=items.length;SOC_LAST=items;
