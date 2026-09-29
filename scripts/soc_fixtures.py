@@ -197,6 +197,21 @@ for candidate in REASON_NEG:
 v, _ = sm.parse_verification('YES - Keenum scored his second touchdown pass for the Bears.', STORY, POST)
 if v != 'EXECUTE': fails.append('shared concrete action was not accepted: %s' % v)
 
+# G7 Kansas exact-headline twins: generic preamble is allowed only when the
+# concrete same action is cited in both story and post. The fresher post must
+# not abstain while its older text-twin executes.
+KANSAS_STORY = 'College basketball rankings: Kansas joins early Top 25 And 1 after Tre White cleared to play by court ruling - Tre White was cleared by court ruling'
+KANSAS_NEW = 'College basketball rankings: Kansas joins early Top 25 And 1 after Tre White cleared to play by court ruling #kansasjayhawks #jayhawks'
+KANSAS_OLD = 'College basketball rankings: Kansas joins early Top 25 And 1 after Tre White cleared to play by court ruling'
+for pid, post, yes in (
+    ('2104685738528747602', KANSAS_NEW, "YES, same event (Tre White cleared to play by court ruling) matches the post's main subject (Kansas joining early Top 25 And 1 rankings)"),
+    ('2104666303197749304', KANSAS_OLD, 'YES. Tre White cleared to play by court ruling.'),
+):
+    v, _ = sm.parse_verification(yes, KANSAS_STORY, post)
+    if v != 'EXECUTE': fails.append('Kansas exact-headline twin %s rejected concrete shared event' % pid)
+v, _ = sm.parse_verification('YES - same event, no contradiction.', KANSAS_STORY, 'Kansas college basketball chatter')
+if v == 'EXECUTE': fails.append('generic same-event rationale without shared action EXECUTEd')
+
 # Freshness parity: a 5h-old post is not current beside a new article. The
 # candidate set includes recent posts even when their cosine rank is lower.
 import datetime
