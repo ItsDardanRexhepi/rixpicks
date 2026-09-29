@@ -476,6 +476,11 @@ def key_news(it):
     # client resolvable: the exact link (or headline) string is the key - no hashing needed in JS
     return (it.get('link') or '') or it.get('headline', '')
 
+def operator_author(author_name, author_username):
+    import unicodedata
+    who = unicodedata.normalize('NFKC', str(author_name or '') + ' ' + str(author_username or ''))
+    return bool(re.search(r'\b(bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook)\b', who, re.I))
+
 def main():
     # sync-at-all-times (user 4:27 class kill): match against the LIVE served news window,
     # not the minutes-old checkout snapshot - a stale snapshot pairs stories that have already
@@ -487,9 +492,9 @@ def main():
         with urllib.request.urlopen(req, timeout=20) as r:
             news = json.loads(r.read().decode())
     except Exception as e:
-        print('live news fetch failed (%s) - falling back to checkout snapshot' % str(e)[:80])
-    if not isinstance(news, dict) or not news.get('latest'):
-        news = json.load(open('slates/news.json'))
+        raise RuntimeError('live news fetch failed; keeping prior match map unchanged: ' + str(e)[:80])
+    if not isinstance(news, dict) or not news.get('latest') or not news.get('generated_at'):
+        raise RuntimeError('live news snapshot invalid or empty; keeping prior match map unchanged')
     x = json.load(open('slates/x_feed.json'))
     news_gen = news.get('generated_at')  # guard 5 coherence: stamp the exact news snapshot every verdict covers
     items = news.get('latest', [])
@@ -504,7 +509,7 @@ def main():
             return False
         # sportsbook/operator brands banned at author AND handle (guard 3 Betfair class):
         # operator-authored posts are operator content by construction, whatever the text says
-        return not re.search(r'\b(bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook)\\b', unicodedata.normalize('NFKC', str(p.get('author_name') or '') + ' ' + str(p.get('author_username') or '')), re.I)
+        return not operator_author(p.get('author_name'), p.get('author_username'))
     _pre = len(posts)
     posts = [p for p in posts if _pub(p)]
     if len(posts) != _pre:
@@ -512,12 +517,10 @@ def main():
     log = {'built_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
            'model': EMBED_MODEL, 'framework': 'urf-six-gate',
            'news_count': len(items), 'post_count': len(posts),
-           'news_generated_at': news_gen,
+           'news_generated_at': news_gen, 'x_generated_at': x.get('generated_at') if isinstance(x, dict) else None,
            'pairs': {}, 'more': {}, 'nearest': {}, 'rejected': [], 'audit': {}}
     if not items or not posts:
-        log['audit']['aborted'] = 'empty feed'
-        json.dump(log, open('slates/soc_match.json', 'w'))
-        return 0
+        raise RuntimeError('empty served news or X feed; keeping prior match map unchanged')
 
     ntexts = [(it.get('headline', '') + ' - ' + (it.get('blurb') or ''))[:1800] for it in items]
     ptexts = [p.get('text', '')[:1800] for p in posts]
@@ -776,6 +779,12 @@ def main():
     viol = enforce_uniqueness(log)
     if viol:
         print(f'uniqueness sweep stripped {len(viol)} cross-story repeats', file=sys.stderr)
+    # Recompute admission from the surviving assignments. A post stripped for
+    # cross-story reuse cannot remain admitted by a pre-sweep stale ID.
+    surviving = {str(v['post_id']) for v in log['pairs'].values() if (v or {}).get('post_id')}
+    surviving.update(str(e['post_id']) for lst in log['more'].values() for e in lst if e.get('post_id'))
+    surviving.update(str(v['post_id']) for v in log['latest'].values() if v.get('post_id'))
+    log['admit'] = sorted(set(log['admit']) & surviving)
     json.dump(log, open('slates/soc_match.json', 'w'))
     print('soc_match built:', json.dumps(log['audit']))
     return 0
