@@ -821,7 +821,7 @@ def chips(p):
             # carrying the template in data-sbt; rpTapify (in rpFilter) swaps it to a deep-link anchor
             # once the reader's state is known and the book is live there, so the tap always lands on the exact game at their book.
             _pr.append((len(out), ml))
-            _mr=_mkrec(name,_eid,_mkt,_SIDE,ml=ml,link=link,ph=_ph,st=('ok' if ml is not None else 'unknown'))  # tester gate 9/26: EVERY priced chip carries a record - the range set is identical static vs JS
+            _mr=_mkrec(name,_eid,_mkt,_SIDE,ml=ml,link=link,ph=_ph,st=('pending' if ml is not None else 'unknown'))  # audit finding 5: pending (state-unverified) prices never take the best-line star or set the range - _finalize_chip_rows admits st=='ok' only
             out.append(f'<span class="chip%%BEST%% rpnontap rppending"{bkstyle(short)} data-book="{short}"{_dm}{_mr} data-sbt="{html.escape(link)}" data-template="1">%%STAR%%{bkimg(short)}{html.escape(label)}</span>')
         else:
             _pr.append((len(out), ml))
@@ -1387,6 +1387,8 @@ if FUT:
         _fw=[];_fwgot=set()
         for _lg,_sb in _sbs.items():
           for ev in _sb.get('events',[]):
+            _est=(ev.get('status') or {}).get('type') or {}
+            if _est.get('state')=='post' or _est.get('completed'): continue  # audit finding 3: a FINAL game is never a LIVE TODAY futures card
             cs=ev['competitions'][0]['competitors']
             aw=next((c for c in cs if c['homeAway']=='away'),None); hm=next((c for c in cs if c['homeAway']=='home'),None)
             if not aw or not hm: continue
@@ -1530,7 +1532,7 @@ if man.get('parlay'):
     order=['BR','DK','FD','HR','KAL','MGM','POLY','TSB']  # alphabetical by chip label (his Sep 25 9:19 AM spec; matches solo order)
     chips.sort(key=lambda s: order.index(s[0]) if s[0] in order else 99)
     # best combo price gets the star left of the logo, same as solo best line (user, Sep 25 12:59 PM)
-    priced=[c for c in chips if len(c)>2 and isinstance(c[2],(int,float))]
+    priced=[c for c in chips if len(c)>2 and isinstance(c[2],(int,float)) and 'rppending' not in c[1]]  # audit finding 5: pending combos never take the star
     best_i=None
     if priced:  # star on the best DISPLAYED combo price - frozen prices in play included (inspector Sep 26)
         best_price=max(c[2] for c in priced)
