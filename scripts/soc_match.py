@@ -51,7 +51,7 @@ MORE_CAP = 20
 # boilerplate); (2) a post whose text introduces a foreign principal person (capitalized
 # bigram surname absent from the headline's entities, place/org words excluded) conflicts.
 # No extractable entities -> gate silent, probe decides. Latest tier uses layer 1 at need=1.
-ENTITY_GATE_VERSION = 'eg1'
+ENTITY_GATE_VERSION = 'eg2'
 ENTITY_STOP = set('game games report reports season seasons preview previews recap recap watch video highlight highlights rumor rumors update updates news trade trades injury injuries week daily today tonight tomorrow yesterday best worst ranking rankings power draft pick picks odds line lines spread spreads over under win wins loss losses versus the after before says said new why how what who live score scores final first last early late big top free agent agents coach coaches team teams player players star stars fans fan take takes make makes get gets back down into with from will would could should must still just more most ever every next league playoff playoffs postseason championship title titles night match matches fight fights career future futures ready leads lead leading recalls sent check throws college football basketball baseball hockey soccer monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december chat discussion eve face home road looks remain unbeaten factor charge go years year state count counts props prop expert experts bets bet betting booed'.split())
 POST_PERSON_STOP = ENTITY_STOP | set('field stadium arena center centre park garden dome coliseum bowl classic series cup showdown invitational open masters nationals united city club fc sc ac cf real sporting athletics university kings queens islanders'.split())
 
@@ -92,6 +92,30 @@ def post_persons(text, title_ents):
                 continue
             out.add(lb)
     return out
+
+# Story-type compatibility gates (guards 2+3, 9/28 ~7:10 PM - TruGrit bare-odds pin reversal):
+# R1 a picks/props/best-bets/odds article verifies ONLY against a post carrying evidence of
+#    the article's OWN chosen line or pick (player prop, expert claim, named pick) - a generic
+#    team-odds snapshot (Bears -122, Eagles +100) is game overlap, NEVER article-level.
+# R2 a betting-slip post (units, +/- lines, prop parlays) NEVER pairs a non-picks story.
+# R3 a historically-framed post (since 2021, career, all-time) NEVER pairs a breaking-event
+#    story (injury, trade, signing) - same person, different era = different story.
+PICKS_ARTICLE = re.compile(r'\b(picks?|props?|best bets|expert|parlay|bets|betting)\b', re.I)
+PICK_EVIDENCE = re.compile(r"\b(over|under|yards?|yds|td|touchdown|receptions?|rushing|passing|receiving|interceptions?|ints?|sacks?|strikeouts?|anytime|scorer|prop|best bet|lock|taking the|give me|pick:|play:)\b", re.I)
+BET_SLIP_POST = re.compile(r'\[\d+(\.\d+)?u\]|[+-]\d{3,}[^.\n]{0,40}[+-]\d{3,}', re.I)
+HISTORICAL_POST = re.compile(r'\b(since (19|20)\d\d|career|all[- ]time|histor(?:y|ical)|last season|retrospective|looking back)\b', re.I)
+BREAKING_ARTICLE = re.compile(r'\b(leaves|sent|injured|injury|ruled out|exits?|carted|concussion|traded|trade|signs|signed|released|breaks|sidelined|questionable|doubtful|scratched|activated|waived|recalled)\b', re.I)
+
+def story_type_gate(title, post):
+    t, p = title or '', post or ''
+    picks_art = bool(PICKS_ARTICLE.search(t))
+    if picks_art and not PICK_EVIDENCE.search(p):
+        return 'picks-type article: no article-pick evidence in post (generic odds/news is game overlap)'
+    if not picks_art and BET_SLIP_POST.search(p):
+        return 'betting-slip post on a non-picks story'
+    if HISTORICAL_POST.search(p) and BREAKING_ARTICLE.search(t):
+        return 'historical framing vs breaking-event story'
+    return None
 
 # Equivocal-YES abstain (guard 2, same incident): a YES whose own reasoning admits a
 # conflict ("YES - Different team.") is the model collapsing, not confirming. The parser
@@ -352,7 +376,13 @@ def main():
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'REJECT', 'gate': 'scope', 'reason': 'commercial/venue ad - never a news pair (QA 5:21 false-green class)'})
                 continue
-            # deterministic entity-conflict pre-gate (eg1, owner 6:58): can only DENY
+            # deterministic pre-gates (eg2, owner 6:58 + guards 2/3): can only DENY
+            st_reason = story_type_gate(it.get('headline') or '', ptexts[j])
+            if st_reason:
+                verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
+                                 'verdict': 'REJECT', 'gate': 'scope', 'reason': 'story-type gate (eg2): ' + st_reason})
+                stats['story_type_conflicts'] = stats.get('story_type_conflicts', 0) + 1
+                continue
             if t_ents and (entity_conflict(t_ents, ptexts[j], 2) or post_persons(ptexts[j], t_ents)):
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'REJECT', 'gate': 'conflict',
@@ -446,7 +476,10 @@ def main():
                 pid = str(posts[j].get('id'))
                 if pid in used_posts or (RP_AD.search(ptexts[j]) or RP_AD2.search(ptexts[j]) or RP_PROMO_CAPS.search(ptexts[j])):
                     continue
-                # entity pre-gate, latest bar (eg1): at least one story entity, no foreign principal
+                # pre-gates, latest bar (eg2): same story-level bar as verified - one story
+                # entity, no foreign principal, story-type compatible (guard 2: badge or no badge)
+                if story_type_gate(it.get('headline') or '', ptexts[j]):
+                    continue
                 if t_ents and (entity_conflict(t_ents, ptexts[j], 1) or post_persons(ptexts[j], t_ents)):
                     continue
                 ck = 'ONS|' + SALT + '|' + nk + '|' + pid
