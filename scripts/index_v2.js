@@ -316,6 +316,18 @@ function imgOpt(u){
  if(u.indexOf('images.weserv.nl/')>=0||u.indexOf('s.yimg.com/')>=0)return u;
  return 'https://images.weserv.nl/?url='+encodeURIComponent(u.slice(8))+'&w=1200&h=675&fit=cover&q=78&output=webp';
 }
+function RPimgErr(im){
+ var u=im.getAttribute('data-rsrc')||im.src,n=+(im.getAttribute('data-rtry')||0);
+ /* owner 7:13 kill-at-source: one transient load error never downgrades a card - retry twice
+    (1.5s, 4s) with a fresh probe; on recovery the parent background is force-repainted. Only a
+    confirmed-dead image reaches the league fallback, and every swap is logged. */
+ if(n<2){im.setAttribute('data-rtry',n+1);setTimeout(function(){var t=new Image();t.onload=function(){var p=im.parentNode;if(p){p.style.backgroundImage='none';void p.offsetHeight;p.style.backgroundImage='url("'+u+'")';}im.remove();};t.onerror=function(){RPimgErr(im);};t.src=u;},n?4000:1500);return;}
+ var p=im.parentNode;if(p){p.style.backgroundImage='none';p.className='carimg carimg-fb';p.setAttribute('data-lg',im.getAttribute('data-lg')||'SPORTS');}
+ try{var L=JSON.parse(localStorage.getItem('rp_imgfb_v1')||'[]');L.push({u:u,ts:Date.now()});if(L.length>50)L=L.slice(-50);localStorage.setItem('rp_imgfb_v1',JSON.stringify(L));}catch(e){}
+ (window.RP_IMGFB=window.RP_IMGFB||[]).push({u:u,ts:Date.now()});
+ if(window.console&&console.warn)console.warn('[RP] image fallback after retries:',u);
+ im.remove();
+}
 /* ONE shared pairing resolution (guard 1 source kill of the CAR_N>SOC_N divergence): each story's
    publishable distinct post is resolved ONCE here - verified pin -> probe-confirmed nearest ->
    on-story latest - and BOTH carousels render from PAIRS. A story with no resolvable post is
@@ -414,7 +426,7 @@ function renderNews(t,arts){
   var blurb=(typeof a.blurb==='string')?a.blurb:'';
   /* owner 6:59 graphics class kill: a card ALWAYS carries art - the real image, or the
      designed league fallback when the source has none or the URL dies at load time. */
-  var inner=(img?'<span class="carimg" style="background-image:url(\''+esc(img)+'\')"><img src="'+esc(img)+'" alt="" style="display:none" onerror="var p=this.parentNode;p.style.backgroundImage=\'none\';p.className=\'carimg carimg-fb\';p.setAttribute(\'data-lg\',\''+esc(lg)+'\');this.remove();"></span>':'<span class="carimg carimg-fb" data-lg="'+esc(lg)+'"></span>')
+  var inner=(img?'<span class="carimg" style="background-image:url(\''+esc(img)+'\')"><img src="'+esc(img)+'" data-rsrc="'+esc(img)+'" data-lg="'+esc(lg)+'" alt="" style="display:none" onerror="RPimgErr(this)"></span>':'<span class="carimg carimg-fb" data-lg="'+esc(lg)+'"></span>')
    +'<span class="carbody"><span class="carhead">'+esc(unesc(a.headline||''))+'</span>'
    +(blurb?'<span class="carblurb">'+esc(unesc(blurb))+'</span>':'')
    +'<span class="carmeta"><span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span> \u00b7 '+esc(ago(a.published))+(isNewIt(a)?' <span class="carnew">new</span>':'')+'</span></span>';
