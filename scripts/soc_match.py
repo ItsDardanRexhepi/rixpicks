@@ -18,6 +18,7 @@ writes status=fallback to slates/soc_match_status.json (client token-matches whe
 import json, math, os, sys, time, hashlib, urllib.request, datetime, re
 
 # no tout/selling-access posts, ever (owner 1:39) - server mirror of the client RP_TOUT_KW filter
+RP_AD = re.compile(r'happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|reservation|book a table|now open|grand opening', re.I)
 RP_TOUT = re.compile(r'discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)', re.I)
 
 NIM_URL = 'https://ultrix-core.itsdardanr.workers.dev/nim'
@@ -80,7 +81,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v3-structured-entities'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v4-commercial-gate'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION])
 
 def thash(t):
@@ -127,7 +128,10 @@ def verify(story, post):
               'Step 2: Is the post about the same story or the same specific topic as the story? '
               'Same specific topic counts (e.g. both are about 2026 MLB playoff predictions, or both about the same trade). '
               'A different player, team, game, or storyline as the MAIN subject is NOT a match, even in the same sport. '
-              'Same broad sport alone is NOT enough.\n'
+              'Same broad sport alone is NOT enough. Sharing only the same GAME is NOT enough: if the post is an '
+              'advertisement or promotion (selling food, drinks, tickets, products, or promoting a venue or service), '
+              'it is NEVER about the news story - answer NO. A promo/bonus-bet article matches only posts actually '
+              'discussing that specific offer, not game commentary and not other ads.\n'
               'Answer: two Step-1 lines, then a final line starting with exactly YES or NO and one short reason.')
     out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
                'prompt': prompt, 'max_tokens': 200}, timeout=90)
@@ -221,6 +225,10 @@ def main():
         for score, j in scored[:TOP_CANDIDATES]:
             if str(posts[j].get('id')) in used_posts:
                 continue
+            if RP_AD.search(ptexts[j]):
+                verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
+                                 'verdict': 'REJECT', 'gate': 'scope', 'reason': 'commercial/venue ad - never a news pair (QA 5:21 false-green class)'})
+                continue
             # six-gate decide() - owner 1:00/1:01 hard rule: EVERY link passes the full loop.
             # Cosine alone NEVER pairs (adversarial proof 1:03: different-team same-injury-pattern
             # scored 0.628 > old 0.62 auto-accept). Every candidate >= floor takes the LLM probe
@@ -278,7 +286,7 @@ def main():
                 break
             if pid in used_posts or pid in rejected_ids:
                 continue
-            if RP_TOUT.search(ptexts[j]):
+            if RP_TOUT.search(ptexts[j]) or RP_AD.search(ptexts[j]):
                 continue
             nearest[nk] = {'post_id': posts[j].get('id'), 'score': round(score, 4)}
             break
