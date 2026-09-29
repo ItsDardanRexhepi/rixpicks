@@ -322,6 +322,37 @@ def reason_integrity(reason, story='', post=''):
         return True
     return not GENERIC_REASON.search(r) and bool(_reason_tokens(r) & ACTION_WORDS)
 
+# A NO is also a factual claim. This gate catches falsifiable erasure claims
+# before they reach the verdict log; uncertain denials remain abstentions.
+NO_ERASURE = re.compile(r"\b(?:post|tweet|social (?:post|text))\b.{0,70}\b(?:only|merely|just)\b.{0,22}\b(?:a |the )?(?:link|url)\b|\b(?:post|tweet)\b.{0,65}\b(?:does not|doesn['’]t|fails to)\s+(?:mention|name|specify)\b", re.I)
+
+def no_reason_integrity(reason, story='', post=''):
+    r = (reason or '').strip()
+    if len(r) < 8 or len(r) > 145 or r.endswith(('...', '…', ':', '-', ',')):
+        return False
+    if story and post:
+        # "only a link" is refuted by any substantive text outside the URL.
+        if NO_ERASURE.search(r):
+            if re.search(r'\b(?:only|merely|just)\b', r, re.I) and len(re.sub(r'https?://\S+', '', post).split()) > 4:
+                return False
+            # Absence claims must not contradict a concrete shared action.
+            if (_reason_tokens(story) & _reason_tokens(post) & ACTION_WORDS):
+                return False
+    return True
+
+
+def twin_selection_reason(story, post, selected_post):
+    """Describes selection, not a model verdict: two X posts repeat the same
+    substantive headline; the later verified candidate wins the display slot.
+    """
+    def norm(t):
+        return re.sub(r'\s+', ' ', re.sub(r'https?://\S+|#\w+', '', t or '')).strip().lower()
+    a, b = norm(post), norm(selected_post)
+    if a and len(a) >= 45 and (a == b or a in b or b in a):
+        return 'Older duplicate headline post; newer verified post selected for this story.'
+    return None
+
+
 def parse_verification(text, story='', post=''):
     """tri-state: EXECUTE / REJECT / ABSTAIN; only an evidenced final YES executes."""
     lines = [l.strip() for l in (text or '').splitlines() if l.strip()]
@@ -339,7 +370,9 @@ def parse_verification(text, story='', post=''):
         if not reason_integrity(reason, story, post):
             return 'ABSTAIN', ('unsupported YES reason: ' + verdict_line)[:160]
         return 'EXECUTE', verdict_line
-    return 'REJECT', verdict_line[:160]
+    if not no_reason_integrity(verdict_line, story, post):
+        return 'ABSTAIN', ('unsupported NO reason: ' + verdict_line)[:160]
+    return 'REJECT', verdict_line
 
 
 def timestamp(value):
@@ -433,7 +466,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v15-grounded-reasons'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v16-bidirectional-reasons'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
@@ -510,7 +543,7 @@ def verify(story, post):
               '  pregame pick or hype NEVER matches a postgame play or recap; an inactive/transaction\n'
               '  report NEVER matches a game preview; an offseason interview NEVER matches an in-season\n'
               '  availability update.\n'
-              '- The YES reason MUST name the single concrete shared event/action it proves, in under 120 characters.\n'
+              '- YES and NO reasons must state only facts in the inputs, in under 120 characters. Do not say a post is only a link when it repeats a headline or court ruling.\n'
               '- Game-phase labels (pregame, postgame, live) must be explicit in the sources; a rankings/eligibility update is NOT a pregame game preview.\n'
               '  \'same event\', \'same game\', \'same health status\', or \'does not contradict\' are NOT proof.\n'              '- Start the final line with YES only when every rule above passes; on ANY doubt start\n'
               '  with NO and name the doubt.\n'
@@ -698,7 +731,7 @@ def main():
                     prior = None
                     vcache.pop(vk, None)
             if prior:
-                if prior.get('verdict') not in ('EXECUTE', 'REJECT') or (prior.get('verdict') == 'REJECT' and not re.match(r'^NO\b', prior.get('reason', ''), re.I)):
+                if prior.get('verdict') not in ('EXECUTE', 'REJECT') or (prior.get('verdict') == 'REJECT' and (not re.match(r'^NO\b', prior.get('reason', ''), re.I) or not no_reason_integrity(prior.get('reason', ''), ntexts[i], ptexts[j]))):
                     prior = None
                     vcache.pop(vk, None)
             if prior:
@@ -721,7 +754,7 @@ def main():
             try:
                 vrd, why = verify(ntexts[i], ptexts[j])
                 if vrd == 'ABSTAIN' and probes < MAX_PROBES and (
-                        why.startswith('probe gave no final YES/NO') or why.startswith('unsupported YES reason')):
+                        why.startswith('probe gave no final YES/NO') or why.startswith('unsupported YES reason') or why.startswith('unsupported NO reason')):
                     probes += 1
                     vrd, why = repair_reason(ntexts[i], ptexts[j])
             except Exception as e:
@@ -736,6 +769,11 @@ def main():
                 stats['probe_confirmed'] += 1
                 continue
             if vrd == 'ABSTAIN':
+                # Do not expose an unsupported claim as the reason text. Keep
+                # the uncertainty and let the duplicate-selection pass explain
+                # an older headline twin after a verified newer choice exists.
+                if why.startswith('unsupported NO reason:'):
+                    why = 'Probe NO rationale not supported by source text; no verified match.'
                 # equivocal YES (guard 2 parsing bug): never cached, never badged, not a reject
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'ABSTAIN', 'gate': 'conflict', 'reason': why})
@@ -762,6 +800,24 @@ def main():
         # and its nearest/more candidates must come from this same qualified set.
         confirmed = [(sc, j) for sc, j in confirmed if not freshness_gate(it, posts[j]) and not event_time_gate(it, posts[j])
                      and str(posts[j].get('id')) not in used_posts]
+        # A truthful post-selection reason replaces a false source-mismatch
+        # claim only when a newer post was independently probe-verified and the
+        # older candidate's substantive headline is duplicated. It never grants
+        # the older post a verified tier, and never masks a genuine mismatch.
+        if confirmed:
+            best_j = confirmed[0][1]
+            best_time = posts[best_j].get('created_at') or posts[best_j].get('ts') or ''
+            for v in verdicts:
+                if v.get('verdict') not in ('REJECT', 'ABSTAIN') or v.get('gate') != 'conflict':
+                    continue
+                old_j = next((j for j, p in enumerate(posts) if str(p.get('id')) == str(v.get('post_id'))), None)
+                if old_j is None or (posts[old_j].get('created_at') or posts[old_j].get('ts') or '') >= best_time:
+                    continue
+                sel = twin_selection_reason(ntexts[i], ptexts[old_j], ptexts[best_j])
+                if sel:
+                    v['verdict'] = 'NOT_SELECTED'
+                    v['gate'] = 'selection'
+                    v['reason'] = sel
         # nearest (guard 2 class kill): NEVER unprobed cosine - only a probe-EXECUTE candidate for
         # THIS exact story may hold the fallback slot. No second probe-confirmed post -> NO nearest
         # entry; the client abstains (1:00) instead of rendering an unprobed post beside the story.
