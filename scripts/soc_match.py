@@ -34,6 +34,7 @@ AUTO_ACCEPT = 0.62      # evidence gate passes outright
 PROBE_FLOOR = 0.48      # band [FLOOR, ACCEPT): PROBE via LLM verify
 MORE_FLOOR = 0.42       # "View more posts" list inclusion
 MAX_PROBES = 120        # per-run LLM verify budget (trial credits) - more[] verification costs probes now
+MAX_ONS_PROBES = 90     # per-run on-story probe budget for the never-empty latest tier
 TOP_CANDIDATES = 10
 MORE_CAP = 20
 
@@ -157,6 +158,34 @@ def verify(story, post):
         verdict_line = lines[-1] if lines else ''
     return verdict_line.upper().startswith('YES'), (verdict_line or text)[:160]
 
+
+def onstory(story, post):
+    """ON-STORY probe (owner 9/28 6:08 via main): the looser algo judgment behind the
+    'Latest from the feed' tier - is this post genuinely ABOUT this story's subject?
+    Same NIM judge, same two-step shape, lower bar than the pairing verdict. This is
+    the algo's call, never a keyword/score shortcut (algo-only verification 6:06)."""
+    prompt = ('You check whether a social post is genuinely about a specific sports news story. Work in two steps.\n'
+              'NEWS STORY: ' + story[:500] + '\n'
+              'SOCIAL POST: ' + post[:500] + '\n'
+              'Step 1: In one line each, name the story' + chr(39) + 's main subject and the post' + chr(39) + 's main subject. '
+              'Ignore side mentions.\n'
+              'Step 2: Answer YES only if the post' + chr(39) + 's main subject is genuinely this story' + chr(39) + 's subject - '
+              'the same specific event, claim, or analysis angle, or a direct reaction to it. A different player, team, game, '
+              'or storyline as the main subject: NO. Any ad, promo, ticket, viewing-schedule, or sales CTA: NO.\n'
+              'Answer: two Step-1 lines, then a final line starting with exactly YES or NO and one short reason.')
+    out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
+               'prompt': prompt, 'max_tokens': 160}, timeout=90)
+    text = out.get('text', '').strip()
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    verdict_line = ''
+    for l in reversed(lines):
+        if l.upper().startswith('YES') or l.upper().startswith('NO'):
+            verdict_line = l
+            break
+    if not verdict_line:
+        verdict_line = lines[-1] if lines else ''
+    return verdict_line.upper().startswith('YES'), (verdict_line or text)[:160]
+
 def key_news(it):
     # client resolvable: the exact link (or headline) string is the key - no hashing needed in JS
     return (it.get('link') or '') or it.get('headline', '')
@@ -228,10 +257,12 @@ def main():
     log['audit']['off_topic'] = sum(1 for r in relevance.values() if not r['on_topic'])
 
     probes = 0
+    ons_probes = 0
     used_posts = set()  # one post = one story: a post already pinned/listed for a story is out of every other story's candidates
+    latest = {}   # per story: newest ON-STORY-probe-YES post when nothing fully confirms (never-empty ruling 6:08)
     nearest = {}  # owner 5:09 (no scan placeholders): per story, the best-cosine post NOT probe-rejected -
                # the client's muted-label fallback when no verified pair exists for a visible story
-    stats = {'paired': 0, 'auto': 0, 'probe_confirmed': 0, 'abstained': 0, 'probe_rejected': 0}
+    stats = {'paired': 0, 'auto': 0, 'probe_confirmed': 0, 'abstained': 0, 'probe_rejected': 0, 'latest_filled': 0}
     for i, it in enumerate(items):
         nk = key_news(it)
         scored = sorted(((cos(nv[i], pv[j]), j) for j in range(len(posts))), reverse=True)
@@ -324,6 +355,34 @@ def main():
             stats['abstained'] += 1
             if verdicts:
                 log['pairs'][nk] = {'post_id': None, 'score': None, 'verified': False, 'verdicts': verdicts}
+            # NEVER-EMPTY ruling (owner 9/28 6:08 via main): the abstain line never renders.
+            # When nothing fully confirms, the newest post the ALGO (onstory probe) judges
+            # genuinely on-story fills the slide badged 'Latest from the feed'. Unprobed
+            # posts, ads and other-story posts still never qualify.
+            best_on = None
+            for score, j in scored[:25]:
+                if score < MORE_FLOOR or ons_probes >= MAX_ONS_PROBES:
+                    break
+                pid = str(posts[j].get('id'))
+                if pid in used_posts or RP_AD.search(ptexts[j]):
+                    continue
+                ck = 'ONS|' + SALT + '|' + nk + '|' + pid
+                pr2 = vcache.get(ck)
+                if pr2 is not None:
+                    ok2 = pr2.get('verdict') == 'EXECUTE'
+                else:
+                    ons_probes += 1
+                    try:
+                        ok2, why2 = onstory(ntexts[i], ptexts[j])
+                    except Exception:
+                        continue
+                    vcache[ck] = {'verdict': 'EXECUTE' if ok2 else 'REJECT', 'reason': why2}
+                if ok2 and (best_on is None or (posts[j].get('ts') or '') > (best_on.get('ts') or '')):
+                    best_on = posts[j]
+            if best_on:
+                latest[nk] = {'post_id': best_on.get('id'), 'ts': best_on.get('ts'), 'verified': False}
+                used_posts.add(str(best_on.get('id')))
+                stats['latest_filled'] += 1
         # "View more posts" (QA 3:53 systemic catch + owner 1:39 "very narrow"): VERIFIED-ONLY.
         # Raw cosine>=more-floor lists passed ticket ads/CS2/wrestling posts into expansions.
         # An expansion entry is now a probe-confirmed same-topic post that didn't take the pin -
@@ -346,8 +405,11 @@ def main():
             # that scrape the relatedness floor (Avengers podcast 0.43, prank 0.43) never admit
             if pid and (e.get('score') or 0) >= PROBE_FLOOR and (relevance.get(pid) or {}).get('on_topic'):
                 admit.add(pid)
+    for v in latest.values():
+        admit.add(str(v['post_id']))
     log['admit'] = sorted(admit)
     log['nearest'] = nearest
+    log['latest'] = latest
     stats['paired'] = sum(1 for v in log['pairs'].values() if (v or {}).get('verified'))
     log['audit'] = {'thresholds': {'auto_accept': AUTO_ACCEPT, 'probe_floor': PROBE_FLOOR, 'more_floor': MORE_FLOOR},
                     'probes_used': probes, **stats,
