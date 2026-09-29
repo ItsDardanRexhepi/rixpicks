@@ -33,6 +33,10 @@ export async function runKalshiQuotes(env) {
       await env.FEEDS.put('slates/nfl_kalshi_quotes.json', JSON.stringify({ quoted_at: new Date().toISOString(), quotes: {} }));
       return { cleared: true };
     }
+    if (!old) {
+      await env.FEEDS.put('slates/nfl_kalshi_quotes.json', JSON.stringify({ quoted_at: new Date().toISOString(), quotes: {} }));
+      return { initialized_empty: true };
+    }
     return { skipped: 'no tickers' };
   }
   let data;
