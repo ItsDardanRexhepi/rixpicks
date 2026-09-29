@@ -255,3 +255,7 @@ body.tab-home .ultrix-sync-line{display:block}
 .futpill{font-size:10px;font-weight:700;letter-spacing:.06em;color:#3aa895;border:1px solid rgba(58,168,149,.45);border-radius:999px;padding:3px 8px;white-space:nowrap}
 #rpGames.homeall{max-height:560px;overflow-y:auto}
 .synclatest{display:inline-block;align-self:flex-start;background:#22263a;color:#8ea0c0;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:99px;margin-bottom:6px}
+/* owner 6:59 graphics class kill: designed fallback art - a card is never image-less.
+   Shows when the source has no art or the image URL fails at load time (probe swaps the class). */
+.carimg-fb{background:linear-gradient(135deg,#12211d 0%,#0b1513 55%,#101a24 100%);display:flex;align-items:center;justify-content:center;position:relative}
+.carimg-fb::after{content:attr(data-lg);font-size:13px;font-weight:800;letter-spacing:.14em;color:#2fbf9b;opacity:.85}
