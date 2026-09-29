@@ -310,7 +310,7 @@ def git_push():
     try:
         subprocess.run(['git', 'add', 'data/futures_ws_ticks.jsonl', 'data/futures_ws_heartbeat.json'],
                        cwd=REPO, check=True, capture_output=True)
-        r = subprocess.run(['git', 'commit', '-m', 'futures ws ticks ' + now_iso()],
+        r = subprocess.run(['git', 'commit', '-m', 'futures ws ticks ' + now_iso() + ' [skip ci]'],  # skip-ci: tick churn must not starve legacy Pages deploys (publish starvation class 03:32Z)
                            cwd=REPO, capture_output=True, text=True)
         if r.returncode != 0:
             return 'nothing-to-commit'
