@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T22:49:29.210512+00:00",
+ "generated_at": "2026-09-29T23:04:35.219173+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "CHW @ HOU",
      "commence": "2026-09-29T21:00Z",
      "status": "in",
-     "detail": "Bot 5th",
-     "score": "CHW 5 - HOU 0"
+     "detail": "Top 6th",
+     "score": "CHW 5 - HOU 2"
     },
     {
      "espn_event_id": "401907924",
@@ -31,8 +31,8 @@
      "matchup": "LV @ IND",
      "commence": "2026-09-29T22:30Z",
      "status": "in",
-     "detail": "4:35 - 1st",
-     "score": "LV 11 - IND 10",
+     "detail": "9:31 - 2nd",
+     "score": "LV 29 - IND 18",
      "away_to": 5,
      "home_to": 5
     },
@@ -54,18 +54,10 @@
      "matchup": "FLA @ CAR",
      "commence": "2026-09-29T21:00Z",
      "status": "in",
-     "detail": "5:39 - 2nd",
+     "detail": "End of 2nd",
      "score": "FLA 0 - CAR 0",
      "away_to": null,
      "home_to": null
-    },
-    {
-     "espn_event_id": "401891827",
-     "matchup": "MTL @ TOR",
-     "commence": "2026-09-29T23:00Z",
-     "status": "pre",
-     "detail": "9/29 - 4:00 PM PT",
-     "score": "MTL 0 - TOR 0"
     },
     {
      "espn_event_id": "401891774",
