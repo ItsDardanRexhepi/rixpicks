@@ -366,8 +366,16 @@ def team_meta(man):
                     comp=(ev.get('competitions') or [{}])[0]
                     for c in comp.get('competitors',[]):
                         t=c.get('team') or {}
-                        nm=t.get('displayName','')
-                        meta[(lg,nm)]={'id':t.get('id'),'abbr':t.get('abbreviation',''),'logo':t.get('logo',''),
+                        a=c.get('athlete') or {}
+                        # individual sports (MMA/boxing/tennis): no team object - the athlete is the
+                        # entity; header imagery falls back logo -> headshot -> country flag
+                        # (broadcast-style, feed-honest; blank beats wrong when the feed has nothing)
+                        nm=t.get('displayName','') or a.get('displayName','')
+                        if not nm: continue
+                        _hs=a.get('headshot') or {}
+                        _fl=a.get('flag') or {}
+                        meta[(lg,nm)]={'id':t.get('id') or a.get('id'),'abbr':t.get('abbreviation',''),
+                            'logo':t.get('logo','') or (_hs.get('href','') if isinstance(_hs,dict) else _hs or '') or (_fl.get('href','') if isinstance(_fl,dict) else _fl or ''),
                             'record':(c.get('records') or [{}])[0].get('summary','')}
             except Exception: pass
     return meta

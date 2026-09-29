@@ -363,12 +363,22 @@ def team_meta(man):
                 if lg=='football/college-football': qs+=(('&' if qs else '')+'groups=80&limit=400')
                 sb=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/scoreboard'%lg+('?'+qs if qs else ''))
                 for ev in sb.get('events',[]):
-                    comp=(ev.get('competitions') or [{}])[0]
-                    for c in comp.get('competitors',[]):
-                        t=c.get('team') or {}
-                        nm=t.get('displayName','')
-                        meta[(lg,nm)]={'id':t.get('id'),'abbr':t.get('abbreviation',''),'logo':t.get('logo',''),
-                            'record':(c.get('records') or [{}])[0].get('summary','')}
+                    # every competition, not just [0]: combat-sport cards carry each fight as its
+                    # own competition under one event - first-fight-only meta blanked the rest
+                    for comp in (ev.get('competitions') or []):
+                        for c in comp.get('competitors',[]):
+                            t=c.get('team') or {}
+                            a=c.get('athlete') or {}
+                            # individual sports (MMA/boxing/tennis): no team object - the athlete is the
+                            # entity; header imagery falls back logo -> headshot -> country flag
+                            # (broadcast-style, feed-honest; blank beats wrong when the feed has nothing)
+                            nm=t.get('displayName','') or a.get('displayName','')
+                            if not nm: continue
+                            _hs=a.get('headshot') or {}
+                            _fl=a.get('flag') or {}
+                            meta[(lg,nm)]={'id':t.get('id') or a.get('id'),'abbr':t.get('abbreviation',''),
+                                'logo':t.get('logo','') or (_hs.get('href','') if isinstance(_hs,dict) else _hs or '') or (_fl.get('href','') if isinstance(_fl,dict) else _fl or ''),
+                                'record':(c.get('records') or [{}])[0].get('summary','')}
             except Exception: pass
     return meta
 
