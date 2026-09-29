@@ -296,6 +296,7 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
     since = st.get('news_since', {})
     items = []
     used = 0
+    successful = 0
     for it in headlines:
         if used >= requests_cap:
             break
@@ -315,6 +316,7 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
                 try:
                     got, newest = pull_query(aq, None if BACKFILL else since.get(aq))  # backfill: no since_id so the full 24h window is matchable
                     used += 1
+                    successful += 1
                     if newest:
                         since[aq] = newest
                     for g in got:
@@ -340,6 +342,8 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
                                           'note': 'request failed - rotating'})
     st['news_since'] = since
     save_state(st)
+    if used and not successful:
+        raise RuntimeError('news-driven X ingest stalled: no successful recent-search request; preserving feed')
     return items, used
 
 def main():
@@ -405,7 +409,11 @@ def main():
         globals()['BACKFILL'] = False
     headlines = fresh_headlines(NEWS_QUERIES_PER_RUN)
     items, used = run_strategies(headlines, [strategy, 'S2', 'S3'], NEWS_QUERIES_PER_RUN)
-    total = merge_feed(items)
+    if used:
+        total = merge_feed(items)
+    else:
+        try: total = len(json.load(open(OUT)).get('items', []))
+        except (FileNotFoundError, ValueError): total = 0
     print(f'pull[{strategy}]: {used} requests, {len(items)} new posts, feed carries {total}')
 
 if __name__ == '__main__':
