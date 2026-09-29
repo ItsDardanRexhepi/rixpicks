@@ -1,25 +1,25 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T20:49:55.970756+00:00",
+ "generated_at": "2026-09-29T22:49:29.210512+00:00",
  "leagues": [
   {
    "league": "MLB",
    "games": [
     {
-     "espn_event_id": "401907965",
-     "matchup": "PHI @ ATL",
-     "commence": "2026-09-29T18:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "PHI 3 - ATL 5"
-    },
-    {
      "espn_event_id": "401907896",
      "matchup": "CHW @ HOU",
      "commence": "2026-09-29T21:00Z",
+     "status": "in",
+     "detail": "Bot 5th",
+     "score": "CHW 5 - HOU 0"
+    },
+    {
+     "espn_event_id": "401907924",
+     "matchup": "BOS @ NYY",
+     "commence": "2026-09-30T00:00Z",
      "status": "pre",
-     "detail": "9/29 - 2:00 PM PT",
-     "score": "CHW 0 - HOU 0"
+     "detail": "9/29 - 5:00 PM PT",
+     "score": "BOS 0 - NYY 0"
     }
    ]
   },
@@ -30,9 +30,19 @@
      "espn_event_id": "401918018",
      "matchup": "LV @ IND",
      "commence": "2026-09-29T22:30Z",
+     "status": "in",
+     "detail": "4:35 - 1st",
+     "score": "LV 11 - IND 10",
+     "away_to": 5,
+     "home_to": 5
+    },
+    {
+     "espn_event_id": "401918017",
+     "matchup": "MIN @ NY",
+     "commence": "2026-09-30T00:30Z",
      "status": "pre",
-     "detail": "9/29 - 3:30 PM PT",
-     "score": "LV 0 - IND 0"
+     "detail": "9/29 - 5:30 PM PT",
+     "score": "MIN 0 - NY 0"
     }
    ]
   },
@@ -43,9 +53,27 @@
      "espn_event_id": "401891773",
      "matchup": "FLA @ CAR",
      "commence": "2026-09-29T21:00Z",
+     "status": "in",
+     "detail": "5:39 - 2nd",
+     "score": "FLA 0 - CAR 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401891827",
+     "matchup": "MTL @ TOR",
+     "commence": "2026-09-29T23:00Z",
      "status": "pre",
-     "detail": "9/29 - 2:00 PM PT",
-     "score": "FLA 0 - CAR 0"
+     "detail": "9/29 - 4:00 PM PT",
+     "score": "MTL 0 - TOR 0"
+    },
+    {
+     "espn_event_id": "401891774",
+     "matchup": "NYR @ BOS",
+     "commence": "2026-09-30T00:00Z",
+     "status": "pre",
+     "detail": "9/29 - 5:00 PM PT",
+     "score": "NYR 0 - BOS 0"
     }
    ]
   }
