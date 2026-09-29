@@ -26,15 +26,17 @@ a.back{color:var(--acc);text-decoration:none;font-size:13px;font-weight:600}
 .err{color:var(--amber);font-size:13px;padding:14px;text-align:center}
 .team button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;max-width:100%}.team button:focus-visible,.mode:focus-visible{outline:2px solid var(--acc)}
 .team .ab{display:block}.team .nm{display:block}.hint{color:var(--mut);font-size:11px;text-align:center;margin-top:9px}.field{margin-top:9px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,#122420,#0c1618);padding:14px;min-height:135px;position:relative;overflow:hidden;cursor:pointer}.field svg{width:100%;height:116px}.field .token{position:absolute;top:51%;left:50%;transform:translate(-50%,-50%);font-size:23px;filter:drop-shadow(0 2px 3px #000)}.field-label{font-size:11px;color:var(--mut);margin-top:8px;text-align:center}.statgrid{display:grid;grid-template-columns:1fr auto 1fr;gap:7px;padding:10px 14px;border-top:1px solid var(--line);font-size:12px}.statgrid:first-child{border:0}.statgrid span:first-child{text-align:left}.statgrid span:nth-child(2){color:var(--mut);text-align:center}.statgrid span:last-child{text-align:right}.mode{border:1px solid var(--line);border-radius:30px;background:var(--panel);color:var(--txt);padding:7px 12px;margin:8px 6px 0 0;font-size:12px;cursor:pointer}.mode[aria-pressed=true]{border-color:var(--acc);color:var(--acc)}.graph{width:100%;height:116px;display:block}.small{font-size:11px;color:var(--mut);padding:0 14px 12px}
+.shots{margin-top:9px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,#122420,#0c1618);padding:10px;position:relative;overflow:hidden}.shots svg{width:100%;height:auto;display:block}.shots circle.mk{fill:#3ed6a7;fill-opacity:.85;stroke:#0b1512;stroke-width:.5}.shots circle.ms{fill:none;stroke:#e0654f;stroke-width:1.1;stroke-opacity:.9}.shots circle.latest{fill:none;stroke:#f2f5f4;stroke-width:1.4;animation:rpPulse 1.6s ease-in-out infinite}@keyframes rpPulse{0%{stroke-opacity:.9}50%{stroke-opacity:.15}100%{stroke-opacity:.9}}@media (prefers-reduced-motion:reduce){.shots circle.latest{animation:none}}
 </style></head><body><div class="wrap">
 <a class="back" href="index.html">&larr; RixPicks</a>
 <div class="scorecard" id="rpScore"><div class="empty">Loading&hellip;</div></div>
 <div class="sect">Game view</div><div class="field" id="rpField" role="button" tabindex="0" aria-label="Switch game view"><div class="empty">Loading…</div></div><div class="field-label" id="rpPoss"></div>
+<div class="sect" id="rpShotSect" style="display:none">Shot chart</div><div class="shots" id="rpShots" style="display:none"></div><div class="field-label" id="rpShotCap"></div>
 <div class="sect">Team stats</div><div class="plays" id="rpStats"><div class="empty">Loading…</div></div>
 <div class="sect">Live graph / scoreboard</div><button class="mode" id="rpGraphMode" aria-pressed="true">Win chance</button><button class="mode" id="rpLinesMode" aria-pressed="false">Period scores</button><div class="plays" id="rpGraph"><div class="empty">Loading…</div></div>
 <div class="sect">Scoring</div>
 <div class="plays" id="rpPlays"><div class="empty">Loading&hellip;</div></div>
-<div class="foot">Live data: ESPN &middot; <span id="rpAge"></span></div>
+<div class="foot">Live data: ESPN &middot; page polls every 2s; ESPN play data typically lags live action ~15-30s &middot; <span id="rpAge"></span></div>
 </div>
 <script>(function(){
 function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}
@@ -47,6 +49,7 @@ var scoreEl=document.getElementById("rpScore"),playsEl=document.getElementById("
 if(!espn||!eid||!/^[0-9]+$/.test(eid)){scoreEl.innerHTML='<div class="err">No game specified.</div>';playsEl.innerHTML='<div class="empty">-</div>';return;}
 var lastOk=0,lastData=null,graphMode='win',fieldStep=0;
 var fieldEl=document.getElementById('rpField'),posEl=document.getElementById('rpPoss'),statsEl=document.getElementById('rpStats'),graphEl=document.getElementById('rpGraph');
+var shotSect=document.getElementById('rpShotSect'),shotEl=document.getElementById('rpShots'),shotCap=document.getElementById('rpShotCap');
 function teamSide(c){return ((c.team||{}).abbreviation)||((c.team||{}).shortDisplayName)||((c.team||{}).displayName)||((c.athlete||{}).displayName)||'?';}
 function scoreRows(comps){return comps.map(function(c){return {side:c.homeAway,values:c.linescores||[],label:teamSide(c)};});}
 function chooseMode(m){graphMode=m;document.getElementById('rpGraphMode').setAttribute('aria-pressed',m==='win');document.getElementById('rpLinesMode').setAttribute('aria-pressed',m==='lines');if(lastData)renderGraph(lastData);}
@@ -75,6 +78,34 @@ function renderField(j){var c=((j.header||{}).competitions||[])[0]||{},s=c.situa
  posEl.textContent=(possessing?possessing+' '+basis:(status.state==='in'?'Possession / active player not available from the live feed.':status.state==='pre'?'Game has not started.':status.name==='STATUS_CANCELED'?'Game canceled.':'Game complete.'))+' · '+field+' view · tap to explore';
  if(possessing){var x=possessing===teamSide(away)?'25%':'75%';fieldEl.querySelector('.token').style.left=fieldStep===0?x:(fieldStep===1?'50%':x);}
 }
+
+function rpCourtArt(){
+ function pt(x,y){return (x*10).toFixed(1)+' '+(530-(y+6)*10).toFixed(1);}
+ var L=['<rect x="0" y="0" width="500" height="522.5"/>','<circle cx="250" cy="470" r="7.5"/>','<line x1="210" y1="510" x2="290" y2="510"/>'];
+ var a=[];for(var t=180;t>=0;t-=15){a.push(pt(25+4*Math.cos(t*Math.PI/180),4*Math.sin(t*Math.PI/180)));}
+ L.push('<polyline points="'+a.join(' ')+'"/>');
+ L.push('<rect x="170" y="332.5" width="160" height="190"/>');
+ L.push('<circle cx="250" cy="332.5" r="60"/>');
+ L.push('<line x1="30" y1="522.5" x2="30" y2="380.5"/>');
+ L.push('<line x1="470" y1="522.5" x2="470" y2="380.5"/>');
+ var b=[],t0=Math.atan2(8.95,-22),t1=Math.atan2(8.95,22);
+ for(var i=0;i<=24;i++){var th=t0+(t1-t0)*i/24;b.push(pt(25+23.75*Math.cos(th),23.75*Math.sin(th)));}
+ L.push('<polyline points="'+b.join(' ')+'"/>');
+ return '<g fill="none" stroke="#497467" stroke-width="1.6">'+L.join('')+'</g>';
+}
+function renderShots(j){
+ if(espn.split('/')[0]!=='basketball'){shotSect.style.display='none';shotEl.style.display='none';shotCap.style.display='none';return;}
+ shotSect.style.display='';shotEl.style.display='';shotCap.style.display='';
+ var shots=(j.plays||[]).filter(function(p){return p&&p.shootingPlay===true&&p.coordinate&&p.coordinate.x>=0&&p.coordinate.x<=50&&p.coordinate.y>=0&&p.coordinate.y<=47;});
+ if(!shots.length){var st=((((j.header||{}).competitions||[])[0]||{}).status||{}).type||{};shotEl.innerHTML='<div class="empty">'+(st.state==='pre'?'Shot chart appears once the game starts and ESPN publishes shot locations.':'Shot locations not available from ESPN for this game.')+'</div>';shotCap.textContent='';return;}
+ var madeCt=0;
+ var dots=shots.map(function(p){var made=p.scoringPlay===true;if(made)madeCt++;var cx=(p.coordinate.x*10).toFixed(1),cy=(530-(p.coordinate.y+6)*10).toFixed(1);
+  return '<circle class="'+(made?'mk':'ms')+'" cx="'+cx+'" cy="'+cy+'" r="'+(made?5.5:5)+'"><title>'+esc(p.text||'')+'</title></circle>';}).join('');
+ var last=shots[shots.length-1],lcx=(last.coordinate.x*10).toFixed(1),lcy=(530-(last.coordinate.y+6)*10).toFixed(1);
+ shotEl.innerHTML='<svg viewBox="0 0 500 530" role="img" aria-label="Shot chart: filled green makes, open red misses">'+rpCourtArt()+dots+'<circle class="latest" cx="'+lcx+'" cy="'+lcy+'" r="10"/></svg>';
+ var ph=(last.period&&last.clock)?((last.period.displayValue||('P'+last.period.number))+' '+(last.clock.displayValue||'')+' \u00b7 '):'';
+ shotCap.textContent='Latest: '+ph+(last.text||'')+' \u00b7 '+shots.length+' shots plotted ('+madeCt+' made) \u00b7 positions from ESPN play-by-play, not optical tracking';
+}
 var statSide='away';
 function ageTick(){if(!lastOk){ageEl.textContent="waiting for data";return;}var s=Math.max(0,Math.round((Date.now()-lastOk)/1000));ageEl.textContent="updated "+(s<5?"just now":s+"s ago");}
 setInterval(ageTick,1000);
@@ -93,7 +124,7 @@ function render(j){
   +'<div class="team"><button type="button" data-side="home" aria-label="Home team stats"><span class="ab">'+esc(hn)+'</span><span class="nm">'+esc((home.team||{}).displayName||"")+'</span></button></div></div>'
   +'<div class="status">'+(state==="in"?'<span class="dot"></span>':"")+esc(det)+'</div>'
   +(sit?'<div class="sit">'+esc(sit)+'</div>':"");
- scoreEl.innerHTML=h+'<div class="hint">Tap a team to see its stats</div>';scoreEl.querySelectorAll("button[data-side]").forEach(function(b){b.onclick=function(){statSide=b.dataset.side;renderStats(j,statSide);statsEl.scrollIntoView({behavior:"smooth",block:"nearest"});};});renderField(j);renderStats(j,statSide);renderGraph(j);
+ scoreEl.innerHTML=h+'<div class="hint">Tap a team to see its stats</div>';scoreEl.querySelectorAll("button[data-side]").forEach(function(b){b.onclick=function(){statSide=b.dataset.side;renderStats(j,statSide);statsEl.scrollIntoView({behavior:"smooth",block:"nearest"});};});renderField(j);renderShots(j);renderStats(j,statSide);renderGraph(j);
  var sp=j.scoringPlays||[];
  if(!sp.length){sp=(j.plays||[]).filter(function(p){return p&&p.scoringPlay===true;});}  /* swamp 1:28: MLB summaries carry scoring only in plays[] with scoringPlay=true - fall back instead of "No scoring yet" on a 7-run game */
  if(!sp.length){playsEl.innerHTML='<div class="empty">'+(state==="pre"?"Game has not started.":st.name==="STATUS_CANCELED"?"Game canceled.":"No scoring yet.")+'</div>';}
