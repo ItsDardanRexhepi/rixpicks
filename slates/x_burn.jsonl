@@ -196,3 +196,22 @@
 {"ts": "2026-09-29T23:34:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Penn State WR Chase Sowell\") lang:en -is:retweet -is:reply", "results": 2}
 {"ts": "2026-09-29T23:34:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Broncos staying ahead\" lang:en -is:retweet -is:reply", "results": 1}
 {"ts": "2026-09-29T23:34:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"NBA reviewing bids\" lang:en -is:retweet -is:reply", "results": 5}
+{"ts": "2026-09-29T23:49:55+00:00", "endpoint": "/tweets/search/recent", "query": "(\"BOS\" OR \"CAR\" OR \"CHW\" OR \"FLA\") (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 3}
+{"ts": "2026-09-29T23:49:55+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Steelers' Ramsey broken\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:49:55+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Steelers' Ramsey\" OR \"Thursday\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:49:56+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Buster Posey wants\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:49:56+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Buster Posey\" OR \"Giants\" OR \"Pride\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:49:56+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Mattingly's call Duran\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:49:56+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Mattingly's\" OR \"Duran\" OR \"Phillies'\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:49:57+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Cowboys' Schottenheimer 'aligned'\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-29T23:49:57+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"49ers sign Dante\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:49:57+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Dante Pettis\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:49:57+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Jerry Jones hints\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-29T23:49:57+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Matthew Mayich's parents\" lang:en -is:retweet -is:reply", "results": 6}
+{"ts": "2026-09-29T23:49:58+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"MLB Wild Card\" lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:49:58+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Nick Saban claims\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-29T23:49:58+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Wild Card GDT\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:49:58+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"AL Wild Card GDT\" OR \"Let\") lang:en -is:retweet -is:reply", "results": 99}
+{"ts": "2026-09-29T23:49:58+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Florida basketball news\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:49:58+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Florida\" OR \"Standout\" OR \"Gators\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:49:59+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"UFC Contender Series\" lang:en -is:retweet -is:reply", "results": 11}
