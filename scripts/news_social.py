@@ -387,14 +387,8 @@ def main():
     strategy = (winner or 'news:S1').replace('news:', '')
     if strategy not in ('S1', 'S2', 'S3', 'S4'):
         strategy = 'S1'
-    st = load_state()
-    try:
-        news_gen = json.load(open(NEWS)).get('generated_at')
-    except Exception:
-        news_gen = None
-    if news_gen and st.get('news_pulled_gen') == news_gen:
-        print('pull: news unchanged since last pull - 0 requests (burn discipline)')
-        return
+    # A news generation ID does not prove X has not received a newer post.
+    # The workflow controls paid-pull cadence via the shared burn ledger.
     # owner 2:49: if the pooled posts do not yet span 24h, run this pull as a backfill
     # (since_id suppressed) until the horizon is covered.
     try:
@@ -412,7 +406,6 @@ def main():
     headlines = fresh_headlines(NEWS_QUERIES_PER_RUN)
     items, used = run_strategies(headlines, [strategy, 'S2', 'S3'], NEWS_QUERIES_PER_RUN)
     total = merge_feed(items)
-    st = load_state(); st['news_pulled_gen'] = news_gen; save_state(st)
     print(f'pull[{strategy}]: {used} requests, {len(items)} new posts, feed carries {total}')
 
 if __name__ == '__main__':
