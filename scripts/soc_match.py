@@ -324,12 +324,12 @@ def freshness_gate(story, post):
 
 
 def candidate_order(scored, posts):
-    """Final candidate set: high similarity plus recent qualified posts, then newest first."""
+    """All floor-qualified candidates, newest first. The verdict cache stores
+    pair-level evidence, never a frozen assignment; a newer on-story post must
+    be considered on every build even if it was absent on the last build.
+    """
     eligible = [(score, j) for score, j in scored if score >= PROBE_FLOOR]
-    recent = sorted(eligible, key=lambda sj: posts[sj[1]].get('created_at') or posts[sj[1]].get('ts') or '', reverse=True)
-    chosen = {j for _, j in eligible[:TOP_CANDIDATES]}
-    chosen.update(j for _, j in recent[:TOP_CANDIDATES])
-    return [sj for sj in recent if sj[1] in chosen]
+    return sorted(eligible, key=lambda sj: (posts[sj[1]].get('created_at') or posts[sj[1]].get('ts') or '', sj[0]), reverse=True)
 
 # owner 1:26: the social feed itself renders sports-relevant, topic-matching posts only -
 # never a raw firehose. Relevance is decided by the SAME semantic layer (evidence gate):
@@ -678,7 +678,16 @@ def main():
                                     'post_id': posts[j].get('id'), 'post': posts[j].get('text', '')[:120],
                                     'score': round(score, 4), 'gate': 'conflict', 'reason': why})
             stats['probe_rejected'] += 1
-        confirmed.sort(key=lambda sj: posts[sj[1]].get('created_at') or posts[sj[1]].get('ts') or '', reverse=True)
+        confirmed.sort(key=lambda sj: (posts[sj[1]].get('created_at') or posts[sj[1]].get('ts') or '', sj[0]), reverse=True)
+        unresolved_fresh = {str(v['post_id']) for v in verdicts if v.get('verdict') == 'DEFER'}
+        # A budget/transport defer on a newer plausible candidate is not
+        # permission to recycle a cached older pin. An algo ABSTAIN is a
+        # decision to withhold that candidate, not evidence of a better match.
+        if confirmed:
+            newest_confirmed = posts[confirmed[0][1]].get('created_at') or posts[confirmed[0][1]].get('ts') or ''
+            if any((p.get('created_at') or p.get('ts') or '') > newest_confirmed
+                   and str(p.get('id')) in unresolved_fresh for p in posts):
+                confirmed = []
         # Re-shop the final verified pool after freshness and reason gates. A pin
         # and its nearest/more candidates must come from this same qualified set.
         confirmed = [(sc, j) for sc, j in confirmed if not freshness_gate(it, posts[j])
@@ -711,8 +720,10 @@ def main():
             # genuinely on-story fills the slide badged 'Latest from the feed'. Unprobed
             # posts, ads and other-story posts still never qualify.
             best_on = None
-            for score, j in candidate_order(scored, posts)[:25]:
-                if score < MORE_FLOOR or ons_probes >= MAX_ONS_PROBES:
+            for score, j in candidate_order(scored, posts):
+                if score < MORE_FLOOR:
+                    continue
+                if ons_probes >= MAX_ONS_PROBES:
                     break
                 pid = str(posts[j].get('id'))
                 if freshness_gate(it, posts[j]) or pid in used_posts or (RP_AD.search(ptexts[j]) or RP_AD2.search(ptexts[j]) or RP_PROMO_CAPS.search(ptexts[j])):
