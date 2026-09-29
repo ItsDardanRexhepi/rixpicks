@@ -444,7 +444,7 @@ var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={};
    map: this keyword floor is the fallback so raw off-topic chatter never renders. */
 /* owner 1:39: NO tout/selling-access posts, ever - client layer mirrors the server filter so
    legacy pool items and no-map fallbacks are covered too. */
-var RP_AD_KW=/happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props|deposit (bonus|match|offer)|bonus bets?/i;
+var RP_AD_KW=/happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props|deposit (bonus|match|offer)|bonus bets?|#\s*(ad|ads|sponsored|sponsorship)\b|#\w*sale\b|#giveaway\b|follow\s+(us|me|@\w+)\b.{0,40}(to win|to enter|for a chance|giveaway)|(secure|reserve|book)\s+(a\s+|your\s+)table|(arrive|get (there|here)|come)\s+early\b[^.!?]{0,50}(secure|reserve|grab|book)\s+(a\s+|your\s+)?(table|spot|seat)|free picks?\s*(up|here|today|tonight|now|below|thread|incoming|alert|inside|drop)/i;
 var RP_TOUT_KW=/discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|freebie|free picks? on|model.{0,20}(is )?(live|cashed)/i;
 /* guard 3+5 class kill: ONE publishability predicate on the COMPLETE post payload (text + link +
    author branding) - applied at XNEWS ingestion AND re-asserted at every display boundary
@@ -454,8 +454,8 @@ var RP_TOUT_KW=/discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip 
 var RP_OPERATOR='bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook';
 function isPublishablePost(p){
  if(!p)return false;
- var t=(String(p.headline||'')+' '+String(p.link||'')+' '+String(p.author||'')).normalize('NFKC');
- if(RP_TOUT_KW.test(t)||RP_AD_KW.test(t))return false;
+ var t=(String(p.headline||'')+' '+String(p.link||'')+' '+String(p.author||'')).normalize('NFKC').replace(/#\s+/g,'#');
+ if(RP_TOUT_KW.test(t)||RP_AD_KW.test(t)||/\bFREE PICKS?\b/.test(t))return false;
  if(new RegExp('\\b('+RP_OPERATOR+')\\b','i').test(String(p.author||'').normalize('NFKC')))return false;
  return true;
 }
@@ -642,7 +642,7 @@ var NEWSF=null,NEWSF_TS=0,XNEWS=[],XNEWS_TS=0,HOME_GAMES_TS=0,NEWS_READY=false,S
 /* guard 5 open-session class: the client knows its own build (stamped in this document by the
    builder) and self-updates when rtPoll sees a newer slates/build.json - a behind client never
    keeps old gates. Scroll position survives the controlled same-tab refresh. */
-var RP_BUILD=(function(){var m=document.documentElement.innerHTML.match(/build (\d{10})/);return m?+m[1]:0;})();
+var RP_BUILD=(function(){var h=document.documentElement.innerHTML;var m=h.match(/build (\d{10})/)||h.match(/[?&]v=(\d{10})/);return m?+m[1]:0;})();
 try{var _up=sessionStorage.getItem('rpUpd');if(_up){sessionStorage.removeItem('rpUpd');var _u=JSON.parse(_up);if(_u&&typeof _u.y==='number')setTimeout(function(){window.scrollTo(0,_u.y);},400);}}catch(e){}
 /* REAL-TIME feeds (owner 12:44): poll feed JSONs + cached UltRix match map on a short interval,
    merge newest-first, keep the user's current slide stable, live counter, subtle 'new' marker.
@@ -663,6 +663,11 @@ function rtPoll(){
   if(v&&v.build&&RP_BUILD&&+v.build>+RP_BUILD){
    try{sessionStorage.setItem('rpUpd',JSON.stringify({y:window.scrollY||0}));}catch(e){}
    location.reload();return; /* controlled same-tab code refresh: behind clients never keep old gates */
+  }
+  var mv=rs[2].status==='fulfilled'?rs[2].value:null;
+  if(mv&&mv.client_build&&RP_BUILD&&+mv.client_build>+RP_BUILD){
+   try{sessionStorage.setItem('rpUpd',JSON.stringify({y:window.scrollY||0}));}catch(e){}
+   location.reload();return; /* guard 5 bootstrap kill: version signal rides the map payload every tick */
   }
   var nj=rs[0].status==='fulfilled'?rs[0].value:null;
   var xj=rs[1].status==='fulfilled'?rs[1].value:null;
