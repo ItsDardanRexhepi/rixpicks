@@ -260,7 +260,7 @@ def parse_verification(text, story='', post=''):
             verdict_line = l
             break
     if not verdict_line:
-        verdict_line = lines[-1] if lines else ''
+        return 'ABSTAIN', ('probe gave no final YES/NO: ' + (lines[-1] if lines else 'empty'))[:160]
     if re.match(r'^YES\b', verdict_line, re.I):
         if EQUIVOCAL.search(text or ''):
             return 'ABSTAIN', ('equivocal YES: ' + verdict_line)[:160]
@@ -604,6 +604,10 @@ def main():
                     prior = None
                     vcache.pop(vk, None)
             if prior:
+                if prior.get('verdict') not in ('EXECUTE', 'REJECT') or (prior.get('verdict') == 'REJECT' and not re.match(r'^NO\b', prior.get('reason', ''), re.I)):
+                    prior = None
+                    vcache.pop(vk, None)
+            if prior:
                 if prior.get('verdict') == 'EXECUTE':
                     verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                      'verdict': 'EXECUTE', 'gate': 'conflict', 'reason': 'probe confirmed (cached): ' + prior.get('reason', '')})
@@ -622,6 +626,9 @@ def main():
             probes += 1
             try:
                 vrd, why = verify(ntexts[i], ptexts[j])
+                if vrd == 'ABSTAIN' and why.startswith('probe gave no final YES/NO') and probes < MAX_PROBES:
+                    probes += 1
+                    vrd, why = verify(ntexts[i], ptexts[j])
             except Exception as e:
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'DEFER', 'gate': 'evidence', 'reason': 'probe failed: ' + str(e)[:80]})
