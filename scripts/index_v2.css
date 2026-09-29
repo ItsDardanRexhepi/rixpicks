@@ -245,6 +245,8 @@ body.tab-home .home-only{display:block}
 .ultrix-sync-line{margin:14px 2px 0;font-size:11px;color:#8a8a91;letter-spacing:.02em}
 body.tab-home .ultrix-sync-line{display:block}
 body.rp-nosync .ultrix-sync-line{display:none}
+.rp-zeronote{font-size:11px;color:#8a8f98;margin:2px 0 4px}
+
 
 /* owner 2:12 Home UI fixes: designed card note (raw status text never renders plain again),
    styled empty slate, futures-live pill card treatment; 2:12/2:13 games: 72h scroll box */

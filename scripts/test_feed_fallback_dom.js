@@ -125,5 +125,8 @@ vm.runInContext('socStep();', ctx);
 check('social clock advances social', ctx.SOC_IDX === (socIdx0 + 1) % 12, true);
 check('social clock does NOT move news index', ctx.CAR_IDX, (carIdx0 + 1) % 12);
 
+check('zero-note caption present', !!dom.window.document.getElementById('rpZeroNote'), true);
+check('zero-note caption visible in zero-pair', dom.window.document.getElementById('rpZeroNote') ? dom.window.document.getElementById('rpZeroNote').style.display!=='none' : false, true);
+check('zero-note caption text honest', (dom.window.document.getElementById('rpZeroNote')||{textContent:''}).textContent, 'No verified matches yet - latest from the feeds');
 console.log(failures ? ('FAILURES: ' + failures) : 'ALL CHECKS PASS');
 process.exit(failures ? 1 : 0);

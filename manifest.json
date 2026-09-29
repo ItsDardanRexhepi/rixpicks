@@ -1,7 +1,7 @@
 {
  "date": "2026-09-29",
  "date_label": "Tuesday, Sep 29",
- "updated": "Sep 29, 8:58 AM PT",
+ "updated": "Sep 29, 9:18 AM PT",
  "record": "18-8",
  "units_pl": "+5.05u",
  "units_ledger": null,
@@ -1790,6 +1790,16 @@
    "card_ts": "2026-09-29T08:19:43-07:00",
    "polymarket": null,
    "dkp": null,
+   "prop_books": {
+    "betmgm": {
+     "over": 195,
+     "under": -275
+    },
+    "betonlineag": {
+     "over": 220,
+     "under": -303
+    }
+   },
    "line_shop": {
     "as_of": "2026-09-29T15:52:01+00:00",
     "source": "st_books_2026-09-29.json",
@@ -2366,5 +2376,5 @@
    }
   ]
  },
- "pick_content_hash": "17cfa2ba9ea5aeb477320a4c179eb7711790485ccbac539443cfc0f01a4cefbf"
+ "pick_content_hash": "723ea9c7f4bdf7ab13fe5cae3d9ef6d02be034f8bda064b6e87828991420c98b"
 }

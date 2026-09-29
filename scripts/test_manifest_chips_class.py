@@ -29,4 +29,15 @@ for p in picks:
     if priced and dm==0: fails.append(f'{nm}: chips missing data-market (market guard) ')
 if fails:
     print('CHIPS CLASS FIXTURE: FAIL'); [print(' -',f) for f in fails]; sys.exit(1)
+props=[p for p in man.get('picks',[]) if p.get('market_class')=='prop' and p.get('prop_books')]
+for p in props:
+    nm=p['name']
+    card=next((c for c in cards if nm.split(' over ')[0] in c or nm in c),None)
+    if card is None: fails.append(f'{nm}: prop card not found'); continue
+    seg=card[:6000]
+    priced=0
+    for m in re.finditer(r'data-book="([A-Z]+)"',seg):
+        w=seg[m.start():m.start()+400]
+        if re.search(r'data-cents="\d+"',w) or re.search(r'>\s*(?:★\s*)?(?:<img[^>]*>)*\s*[A-Z]{2,4} [+-]\d+',w): priced+=1
+    if priced<2: fails.append(f'{nm}: prop pick with prop_books shows only {priced} priced chips - prop seam regressed')
 print(f'CHIPS CLASS FIXTURE: PASS ({len(picks)} game-market picks, all >=2 priced chips, no FD, KAL star intact)')

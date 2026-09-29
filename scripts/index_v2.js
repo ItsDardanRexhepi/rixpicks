@@ -495,6 +495,9 @@ function renderNews(t,arts){
  else if(items.length){CAR_LAST=items;}
  NEWS_READY=true;
  try{document.body.classList.toggle('rp-nosync',!!FEED_FALLBACK);}catch(e){} /* load-race guard (user 3:52 screenshot + QA 3:51): social must know news has rendered before it judges pinned==0 */
+ try{var _zn=$('rpZeroNote');if(!_zn){var _sb=$('rpSocial');if(_sb&&_sb.parentNode){_zn=document.createElement('div');_zn.id='rpZeroNote';_zn.className='rp-zeronote';_zn.textContent='No verified matches yet - latest from the feeds';_sb.parentNode.insertBefore(_zn,_sb);}}if(_zn)_zn.style.display=FEED_FALLBACK?'':'none';}catch(e){}
+ /* Sep 29 owner "Fix it" via main: the zero-pair state reads INTENTIONAL - one honest caption beside
+    the independent feeds, never a manufactured badge. Hidden the moment a pair verifies. */
  CAR_ALL=base.slice(0,40);
  /* class kill (user 4:27 + QA 4:33 verdict 1): BOTH feeds hold the loading state until news,
     x_feed AND the sync-map verdict have all settled - one feed's numbers never render beside
