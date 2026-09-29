@@ -627,6 +627,19 @@ def _repo_mirror_record():
 def main():
     dry = '--dry-run' in sys.argv
     m = json.load(open(MANIFEST))
+    # STALE-MANIFEST TRIPWIRE (Sep 29 incident: grader read a 2-day-old rix_tmp manifest and
+    # today's finals nearly went ungraded): the card date must be today or yesterday (PT) -
+    # yesterday tolerates post-midnight stragglers; anything older is the wrong card. Fail closed.
+    _today_pt = datetime.now(timezone.utc).astimezone().strftime('%Y-%m-%d')
+    try:
+        from zoneinfo import ZoneInfo as _ZI
+        _today_pt = datetime.now(_ZI('America/Los_Angeles')).strftime('%Y-%m-%d')
+    except Exception: pass
+    _yday_pt = (datetime.strptime(_today_pt, '%Y-%m-%d') - timedelta(days=1)).strftime('%Y-%m-%d')
+    if m.get('date') not in (_today_pt, _yday_pt):
+        print(f"STALE MANIFEST REFUSED: {MANIFEST} carries card date {m.get('date')!r}, expected {_today_pt} or {_yday_pt} - "
+              f"the daily build did not refresh this clone's manifest (see build_manifest.py prod mirror). Refusing to grade.", file=sys.stderr)
+        sys.exit(6)
     seen = load_seen()
     # swamp 9:30: reconstruct seen from ledger/sidecar-verified rows - a crash between
     # on_final verify and the seen write must not regrade (resume-mismatch deadlock).

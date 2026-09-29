@@ -68,7 +68,7 @@ def _pick_content_hash(m):
     rows=sorted(json.dumps(_canon(p),sort_keys=True) for p in m.get('picks',[]))
     return hashlib.sha256('\n'.join(rows).encode()).hexdigest()
 
-PROD_MANIFEST_PATH = '/home/sandbox/rix_tmp/manifest.json'
+PROD_MANIFEST_PATH = os.environ.get('RIX_PROD_MANIFEST', '/home/sandbox/rix_tmp/manifest.json')  # env override = test-isolation hook (same pattern as RIX_PICKS_LEDGER); non-preview publishes mirror here (Sep 29 stale-grader fix)
 
 PREVIEW_LEDGER = PICKS_LEDGER.replace('picks.jsonl', 'picks.preview.jsonl')
 LOCK_PATH = PICKS_LEDGER + '.lock'
@@ -269,6 +269,22 @@ def main():
             sf.flush(); os.fsync(sf.fileno())
         os.replace(ltmp, ledger)   # ledger commit point
         os.replace(tmp, out)       # manifest publish
+        # PROD MIRROR (Sep 29 stale-grader incident): finals_watch runs from the /home/sandbox/rix_tmp
+        # clone and reads ITS manifest.json. When the daily build publishes elsewhere (e.g.
+        # /tmp/rix_repo/manifest.json), the grader silently reads the stale rix_tmp copy and finals
+        # never grade. Mirror every non-preview publish onto PROD_MANIFEST_PATH (same box, atomic)
+        # so the grader's input is always the manifest just built. Mirror failure fails LOUD -
+        # a silent miss is exactly the incident being fixed.
+        if not preview and os.path.abspath(out) != os.path.abspath(PROD_MANIFEST_PATH):
+            if os.path.isdir(os.path.dirname(PROD_MANIFEST_PATH)):
+                import shutil
+                _mtmp = PROD_MANIFEST_PATH + '.mirror-tmp'
+                with open(out) as _src, open(_mtmp, 'w') as _dst:
+                    shutil.copyfileobj(_src, _dst); _dst.flush(); os.fsync(_dst.fileno())
+                os.replace(_mtmp, PROD_MANIFEST_PATH)
+                print(f"prod mirror: {out} -> {PROD_MANIFEST_PATH} (finals_watch input refreshed)")
+            else:
+                raise SystemExit(f"fail loud: prod mirror skipped - {os.path.dirname(PROD_MANIFEST_PATH)} missing; finals_watch would read a stale manifest")
         # READBACK VERIFICATION: staged ledger must read back exactly; appended rows must match.
         rb = [json.loads(l) for l in open(ledger)]
         if rb != final_ledger:

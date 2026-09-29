@@ -28,7 +28,11 @@ async function getJson(url) { const r = await fetch(url); if (!r.ok) throw new E
 // verified all-fresh on both pollers:
 const STALENESS_BAN_BUCKETS = ['football/nfl', 'basketball/nba', 'baseball/mlb',
   'football/college-football', 'basketball/mens-college-basketball'];
-const STALE_H = 24;
+// two-form staleness (9/29 14:15 PT evidence: CBS nba feed held the same 3 items at 24-25h
+// on BOTH pollers - legit feed backlog in a major bucket, not worker lag): while prod exists
+// a >24h ban-bucket item is excused when prod's same location carries it; post-cutover the
+// hard backstop is STALE_ABS_H. Mirrors amendment B's two-form freshness.
+const STALE_H = 24, STALE_ABS_H = 48;
 // Freshness mode: 'comparative' while the GH poller exists; flip to 'absolute'
 // at news cutover (one-line change, Phase C of CUTOVER_PLAN.md).
 const FRESHNESS_MODE = 'comparative';
@@ -97,14 +101,25 @@ function newsGate(mine, prod, ctx, now) {
   checks.freshness = { ok: freshOk && freshOrder, mode: freshMode, worker_median_age: wMed && +wMed.toFixed(1),
     prod_median_age: pMed && +pMed.toFixed(1), worker_p90_age: wP90 && +wP90.toFixed(1), generated_order_ok: freshOrder };
   // (4) staleness (scoped ban set; niche + nhl/wnba/soccer exempt per evidence above)
-  const stale = [];
+  const storyKey = a => (a.link || '') || (a.headline || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const prodAt = where => new Set((where === 'latest' ? prod.latest || [] : (prod.leagues || {})[where] || []).map(storyKey));
+  const prodLatestKeys = prodAt('latest');
+  const stale = [], excused = [];
   const staleCheck = (a, where) => {
     const t = Date.parse(a.published || '');
-    if (!isNaN(t) && (now - t) / 3600000 > STALE_H) stale.push({ where, age_h: Math.round((now - t) / 3600000), headline: (a.headline || '').slice(0, 50) });
+    if (isNaN(t)) return;
+    const ageH = (now - t) / 3600000;
+    const rec = { where, age_h: Math.round(ageH), headline: (a.headline || '').slice(0, 50) };
+    if (FRESHNESS_MODE === 'absolute') { if (ageH > STALE_ABS_H) stale.push(rec); return; }
+    if (ageH <= STALE_H) return;
+    // comparative: excused when prod carries the same story in the same location (or latest)
+    if (prodAt(where).has(storyKey(a)) || prodLatestKeys.has(storyKey(a))) excused.push(rec);
+    else stale.push(rec);
   };
   for (const a of mine.latest || []) staleCheck(a, 'latest');
   for (const k of STALENESS_BAN_BUCKETS) for (const a of (mine.leagues || {})[k] || []) staleCheck(a, k);
-  checks.staleness = { ok: stale.length === 0, ban_buckets: STALENESS_BAN_BUCKETS, violations: stale.slice(0, 5) };
+  checks.staleness = { ok: stale.length === 0, mode: FRESHNESS_MODE === 'absolute' ? 'absolute_' + STALE_ABS_H + 'h' : 'comparative_' + STALE_H + 'h',
+    ban_buckets: STALENESS_BAN_BUCKETS, violations: stale.slice(0, 5), excused_shared_with_prod: excused.slice(0, 5) };
   // (7) volume floor
   const total = Object.values(myMix).reduce((s, n) => s + n, 0);
   const volBase = ctx.totalBaseline || BASELINE_TOTAL;

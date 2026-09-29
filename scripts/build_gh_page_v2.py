@@ -782,6 +782,12 @@ def chips(p):
                     # settled pick: the ship condition was evaluated at entry - a post-final 100c ask is
                     # settlement, not a price. Settled markets keep their entry price (J-099); never gate on it.
                     print(f"SETTLED: {p.get('name')} graded - Kalshi ship ceiling skipped (entry condition already met)", file=sys.stderr)
+                elif os.environ.get('RP_REFRESH')=='1':
+                    # refresh quarantine (Sep 29 21:04Z Leafs incident; option (a), main 2:43 PM PT): the ceiling
+                    # is an ENTRY gate, evaluated at publish. A refresh-class rebuild never re-gates a shipped
+                    # pick - the tripped market is quarantined (chip keeps the locked card price via LOCKED BAKE
+                    # below) and the rest of the build ships. Publish/candidate builds keep the hard fail.
+                    print(f"REFRESH QUARANTINE: {p.get('name')} Kalshi ask {_kc}c above ship ceiling {_gate}c - refresh keeps locked card price, build continues (entry condition evaluated at publish)", file=sys.stderr)
                 elif _uw:
                     # in play (root fix, Sep 26 record-ship block): the ship condition was evaluated at entry;
                     # a live in-play ask is not an entry price. Per-leg freeze-at-kickoff doctrine: the chip
@@ -1900,6 +1906,29 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     '<aside><div class="col-head"><div class="sect">Upcoming Events</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div id="rpPredWrap" class="home-only" style="display:none"><div class="col-head" style="margin-top:18px"><div class="sect">Predictions by UltRix</div></div><div class="card" id="rpPred"></div></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
+
+    # Predictions by UltRix (todo-01M3QBSB8S3YA86RQTDC5MKDK8, Dardan 12:55 via main: UltRix core-level
+    # across the site): hydrates the aside panel from the analysis lane's ultrix_record.json dual-emit
+    # (identical to julian_record.json). Fail-closed HIDDEN when no linked/resolved predictions exist -
+    # pre-first-ask the feed carries explicit empty arrays (contract from analysis 3:02 PM). 60s
+    # refetch, cache-busted; any fetch/shape failure hides the panel (blank beats wrong).
+    _SHELL+=('\\n<script>(function(){'
+    r'var wrap=document.getElementById("rpPredWrap");var box=document.getElementById("rpPred");if(!wrap||!box)return;'
+    r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
+    r'function pill(p){var st=String(p.status||p.result||"").toLowerCase();var m={won:["#0b6e5f","W"],lost:["#e5484d","L"],push:["#8a8f98","P"]};var x=m[st];if(x)return "<span style=\"color:"+x[0]+";font-size:11px;font-weight:700\">"+x[1]+"</span>";return "<span style=\"color:#b07708;font-size:11px;font-weight:700\">"+esc(st||"open")+"</span>";}'
+    r'var MM={anytime_td:"Anytime TD",home_run:"Home Run",ml:"ML",passing_yards:"Passing Yds",pass_td:"Pass TD",receptions:"Receptions",rushing_yards:"Rush Yds",total_over:"Total Over",first_td:"First TD"};'
+    r'function row(p){var who=esc(p.player||p.team||"");var mk=esc(MM[p.market]||p.market||"");var mu=p.matchup?(" &middot; "+esc(p.matchup)):"";var vn=p.venue?esc(p.venue):"";var pr=(p.price!=null?esc(String(p.price)):"");'
+    r'return "<div style=\"display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-top:4px\"><span><b>"+who+"</b> <span style=\"color:#8a8f98\">"+mk+mu+"</span></span><span style=\"white-space:nowrap\">"+(vn?("<span style=\"color:#8a8f98;font-size:11px\">"+vn+(pr?" "+pr:"")+"</span> "):"")+pill(p)+"</span></div>";}'
+    r'function paint(j){var u=(j&&j.ultrix)||{};var lp=u.linked_predictions||[];var rs=u.resolved||[];'
+    r'if(!lp.length&&!rs.length){wrap.style.display="none";return;}'
+    r'var h="";'
+    r'if(lp.length){h+="<div style=\"font-size:12px;color:#8a8f98;margin:2px 0 4px\">Live from UltRix-linked sources</div>"+lp.map(row).join("");}'
+    r'if(rs.length){h+="<div style=\"margin-top:10px;border-top:1px solid #e4e2de;padding-top:8px\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#8a8f98\">Resolved</div>"+rs.slice(0,5).map(row).join("")+"</div>";}'
+    r'if(u.linked_asks!=null||u.resolution_verified!=null){h+="<div style=\"font-size:11px;color:#8a8f98;margin-top:6px\">"+(u.linked_asks||0)+" linked &middot; "+(u.resolution_verified||0)+" verified</div>";}'
+    r'box.innerHTML=h;wrap.style.display="";}'
+    r'function load(){fetch("slates/ultrix_record.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){paint(j||{});}).catch(function(){wrap.style.display="none";});}'
+    r'load();setInterval(load,60000);'
+    r'})();</script>')
     _kal_watch=[]
     if os.environ.get('RP_KAL_TICKER')=='1':
         for _p in man.get('picks',[]):
