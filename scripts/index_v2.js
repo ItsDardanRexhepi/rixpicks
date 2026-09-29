@@ -480,6 +480,19 @@ function renderSocial(){
   box.innerHTML='<div class="empty syncwait">Loading feeds - syncing stories and posts now.</div>';
   SOC_SIG='';SOC_N=0;return;
  }
+ /* owner 5:09 (his words: "It shouldn't say it's scanning, it should always have the latest post
+    about the story"): every slide shows a REAL post - never a placeholder. Per story: probe-verified
+    pair (green badge) -> the map's nearest-on-story post (muted label, probe-rejects honored) ->
+    league-relevant pool -> most recent sports post. Non-verified NEVER claims sync (1:00 stands:
+    no link claims the URF verdict without the full loop; the muted label makes that honest). */
+ var REL=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.relevance)?SOC_MATCH.relevance:null;
+ var chrono=XNEWS.slice().sort(function(a,b){return (Date.parse(b.published||0)||0)-(Date.parse(a.published||0)||0);});
+ var pool=chrono.filter(function(p){
+  if(RP_TOUT_KW.test(String(p.headline||'')))return false;
+  if(REL){var r=REL[String(p.id)];if(r)return r.on_topic!==false;}
+  return RP_SPORT_KW.test(String(p.headline||''));
+ });
+ var pi=0;
  var items=[];
  var usedA={};
  CAR_LAST.forEach(function(a){
@@ -489,12 +502,19 @@ function renderSocial(){
   if(cand&&!usedA[cand.id]&&!RP_TOUT_KW.test(String(cand.headline||''))){
    usedA[cand.id]=1;
    items.push({post:cand,kind:'verified',nkey:k});
-  } else {
-   /* align-by-topic or don't co-locate (QA 4:33 verdict 3, owner 2:59 topic-sync-at-all-times):
-      an unpaired story NEVER gets an unrelated post beside it. Honest scanning card instead -
-      a wrong match is a failure, an abstain is not (owner 1:00). */
-   items.push({post:null,kind:'scan',nkey:k});
+   return;
   }
+  var ne=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.nearest)?SOC_MATCH.nearest[k]:null;
+  var np=(ne&&ne.post_id&&SOC_XIDX[ne.post_id]!==undefined)?XNEWS[SOC_XIDX[ne.post_id]]:null;
+  if(np&&!usedA[np.id]&&!RP_TOUT_KW.test(String(np.headline||''))){
+   usedA[np.id]=1;
+   items.push({post:np,kind:'latest',nkey:k});
+   return;
+  }
+  while(pi<pool.length&&usedA[pool[pi].id])pi++;
+  if(pi<pool.length){usedA[pool[pi].id]=1;items.push({post:pool[pi],kind:'latest',nkey:k});pi++;}
+  else if(chrono.length){items.push({post:chrono[0],kind:'latest',nkey:k});} /* his rule: never empty */
+  else items.push({post:null,kind:'scan',nkey:k}); /* x_feed itself empty - the only true-empty */
  });
  var sig=items.map(function(it){return ((it.post&&it.post.id)||'-')+it.kind;}).join('|');
  if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
@@ -510,7 +530,8 @@ function renderSocial(){
   }
   var txt=String(p.headline||'');
   if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
-  var inner='<span class="carbody"><span class="syncbadge">UltRix verified sync</span><span class="stxt">'+esc(unesc(txt))+'</span>'
+  var badge=it.kind==='verified'?'<span class="syncbadge">UltRix verified sync</span>':'<span class="synclatest">Latest from the feed</span>';
+  var inner='<span class="carbody">'+badge+'<span class="stxt">'+esc(unesc(txt))+'</span>'
    +'<span class="carmeta">'+(p.author?esc(p.author)+' \u00b7 ':'')+esc(ago(p.published))+(isNewIt(p)?' <span class="carnew">new</span>':'')+'</span></span>';
   h+='<div class="carslide socslide">'+(p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noreferrer">'+inner+'</a>':inner)+'</div>';
  });
