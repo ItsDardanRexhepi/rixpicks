@@ -82,6 +82,17 @@ for key, pid in SERVE_NEGATIVE_PAIRS:
         fails.append('exact pair audit missed %s %s' % (key, pid))
 
 
+PRED_KEY = 'https://www.cbssports.com/nfl/news/bears-vs-eagles-preview-pick-prediction-how-to-watch/'
+PRED_POST = '2104692638855168310'
+PRED_TITLE = 'Bears vs. Eagles preview: Philadelphia looks to remain unbeaten against Caleb Williams-less Chicago'
+PRED_TEXT = 'The Eagles come into Soldier Field at 2-0, while the Bears are 1-1. With Caleb Williams ruled out, the spotlight shifts to D’Andre Swift.'
+# The RSS headline is preview-only but its blurb advertises a prediction; match
+# against the combined story text passed to verify, not headline alone.
+if not sm.selection_gate(PRED_TITLE + ' Plus, how to watch the game and a prediction for the Monday night matchup', PRED_TEXT):
+    fails.append('G7 prediction-free preview survived the selection gate')
+if sm.selection_gate(PRED_TITLE + ' Plus, how to watch the game and a prediction for the Monday night matchup', 'I am picking the Eagles -3.5 tonight'):
+    fails.append('G7 concrete selection was pre-denied')
+
 # guard 3 kill (9/28 7:51): TruGrit 2104707827759473125 vs the CBS expert-props article.
 # The judge EXECUTEd on "same event (MNF) and odds ... does not contradict" - noncontradiction
 # is not a match. The article-level test now demands a POSITIVE match to the article's
