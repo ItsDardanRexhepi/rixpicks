@@ -364,13 +364,26 @@ function buildPairs(base){
    the 30s poll self-heals. */
 function feedCacheSave(){try{localStorage.setItem('rp_feed_v2',JSON.stringify({v:RP_BUILD,t:Date.now(),items:CAR_LAST,all:CAR_ALL,pairs:PAIRS}));}catch(e){}}
 function feedCacheLoad(){try{var j=JSON.parse(localStorage.getItem('rp_feed_v2')||'null');
- if(!j||j.v!==RP_BUILD||!j.items||!j.items.length)return null;
+ if(!j||j.v!==RP_BUILD)return null;
  if(Date.now()-(j.t||0)>900000)return null; /* 15-min TTL (guard 5 7:10): a stale snapshot is not permission */
- j.items=j.items.filter(isPublishableNews);
- j.pairs=(j.pairs||[]).filter(function(p){return p&&p.a&&isPublishableNews(p.a)&&p.post&&isPublishablePost(p.post);});
- j.pairs=j.pairs.map(function(p){return {a:p.a,post:p.post,kind:'latest',k:p.k};}); /* badge suppressed until the live map re-verifies (revocation can never warm-paint) */
- if(!j.pairs.length)return null; /* cache is a coherent unit or nothing (guard 1 invariant) */
- return j.items.length?j:null;}catch(e){return null;}}
+ /* guard 1 (7:20) source kill of the independent-filter incoherence: pairs are validated
+    FIRST, items are DERIVED from the survivors - a cached snapshot can never boot News N
+    beside Social N-1. Distinct post IDs only, and the story key must match its pair key. */
+ var seen={},pairs=[];
+ (j.pairs||[]).forEach(function(p){
+  if(!p||!p.a||!p.post)return;
+  if(!isPublishableNews(p.a)||!isPublishablePost(p.post))return;
+  var k=p.k||carKey(p.a);
+  if(carKey(p.a)!==k)return;
+  var pid=String(p.post.id||'');
+  if(!pid||seen[pid])return;
+  seen[pid]=1;
+  pairs.push({a:p.a,post:p.post,kind:'latest',k:k}); /* badge suppressed until the live map re-verifies (revocation can never warm-paint) */
+ });
+ if(!pairs.length)return null; /* cache is a coherent unit or nothing (guard 1 invariant) */
+ j.pairs=pairs;
+ j.items=pairs.map(function(p){return p.a;});
+ return j;}catch(e){return null;}}
 function renderNews(t,arts){
  var box=$('rpNewsCar');if(!box)return;
  if(t&&t.key!=='home'){box.innerHTML='';return;}  /* owner 12:54: News renders on Home only - no leaks, no per-tab feeds */
@@ -406,7 +419,7 @@ function renderNews(t,arts){
     the other's placeholder. Failure paths set their done flags too, so this always releases. */
  if(!XFEED_DONE||!SOC_MAP_DONE){
   if(CAR_LAST.length&&!$('rpCarTrack')){items=CAR_LAST; /* cold boot, warm cache: paint last good now */}
-  else{if(!$('rpCarTrack'))box.innerHTML='';CAR_SIG='';CAR_N=0;try{renderSocial();}catch(e){}return;}
+  else{box.innerHTML='';CAR_SIG='';CAR_N=0; /* no valid unit: the old track is destroyed atomically with the decision, never left visible (guard 1 7:20) */ try{renderSocial();}catch(e){}return;}
  }
  var sig=items.map(function(a){return normH(a.headline);}).join('|');
  if(sig===CAR_SIG&&$('rpCarTrack')){carApply();try{renderSocial();}catch(e){}return;}
@@ -415,7 +428,7 @@ function renderNews(t,arts){
  if(curKey){for(var _ci=0;_ci<items.length;_ci++){if(carKey(items[_ci])===curKey){CAR_IDX=_ci;break;}}}
  if(CAR_IDX>=CAR_N)CAR_IDX=0;
  if(!items.length){
-  if(!$('rpCarTrack'))box.innerHTML=''; /* last resort: blank box, never a string (6:58); 30s poll self-heals */
+  box.innerHTML='';CAR_SIG='';CAR_N=0; /* last resort: blank box atomically, old track destroyed, never a string (6:58 + guard 1 7:20); 30s poll self-heals */
   return;
  }
  var h='<div class="carvp"><div class="cartrack" id="rpCarTrack">';
