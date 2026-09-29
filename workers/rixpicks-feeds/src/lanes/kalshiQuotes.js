@@ -1,6 +1,7 @@
 // kalshi-quotes lane - Worker port of scripts/kalshi_quotes.py.
 // Reads the card pipeline's nfl_chips.json (input), writes nfl_kalshi_quotes.json.
 // Fail-closed: fetch/parse trouble = no write; last-good object stays in R2.
+import { kalshiCoolingDown, tripKalshiCooldown, is429 } from '../lib/cooldown.js';
 const API = 'https://api.elections.kalshi.com/trade-api/v2/markets?tickers=%s&limit=100';
 
 function isoZ(s) {
@@ -39,12 +40,16 @@ export async function runKalshiQuotes(env) {
     }
     return { skipped: 'no tickers' };
   }
+  if (await kalshiCoolingDown(env)) return { skipped: 'kalshi cooldown (shared-egress 429)' };
   let data;
   try {
     const r = await fetch(API.replace('%s', tickers.join(',')), { headers: { 'User-Agent': 'rixpicks-quotes/1.0' } });
     if (!r.ok) throw new Error('http ' + r.status);
     data = await r.json();
-  } catch (e) { console.error('FAIL-CLOSED: kalshi fetch failed - keeping last-good'); return { failed: String(e).slice(0, 80) }; }
+  } catch (e) {
+    if (is429(e)) await tripKalshiCooldown(env, 'quotes 429');
+    console.error('FAIL-CLOSED: kalshi fetch failed - keeping last-good'); return { failed: String(e).slice(0, 80) };
+  }
   if (!Array.isArray(data.markets)) { console.error('FAIL-CLOSED: unexpected payload'); return { failed: 'payload shape' }; }
   const quotes = {};
   for (const m of data.markets) {
