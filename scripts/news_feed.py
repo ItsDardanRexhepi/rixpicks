@@ -10,7 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 
-UA = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) RixPicks/1.0'}
+UA = {'User-Agent': 'Python-urllib/3.12'}  # ESPN site.api 403s Mozilla/custom UAs (Sep 29); urllib/curl UA styles pass. CBS/Yahoo verified unaffected.
 
 # swamp 9/27 1:02 PT (main escalation): generic-sport RSS lanes cross-contaminate league
 # buckets (Euro men's soccer in NWSL/MLS, men's tennis in WTA). League-unique lanes only;
@@ -321,8 +321,16 @@ def main():
             a['image'] = opt_image(a.get('image') or '')
             _arts.append(a)
     validate_images(_arts)
+    _mix = {}
+    for _a in latest + [x for _l in leagues.values() for x in _l]:
+        _s = _a.get('source') or '?'
+        _mix[_s] = _mix.get(_s, 0) + 1
+    _degraded = [s for s in ('ESPN', 'CBS', 'YAHOO') if _mix.get(s, 0) == 0]
+    if _degraded:
+        print('SOURCE DEGRADED (zero items in artifact): %s' % ','.join(_degraded), file=sys.stderr)
     out = {'generated_at': datetime.now(timezone.utc).isoformat(),
-           'leagues': leagues, 'latest': latest}
+           'leagues': leagues, 'latest': latest,
+           'source_mix': _mix, 'degraded_sources': _degraded}
     with open('slates/news.json', 'w') as f:
         json.dump(out, f, indent=1)
     counts = {k: len(v) for k, v in leagues.items()}
