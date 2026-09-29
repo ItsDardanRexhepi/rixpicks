@@ -172,6 +172,21 @@ IMG_CACHE = 'slates/news_images.json'
 OG_RE = re.compile(r'<meta[^>]+(?:property|name)=["\'](?:og:image|twitter:image)["\'][^>]+content=["\']([^"\']+)["\']', re.I)
 OG_RE2 = re.compile(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name)=["\'](?:og:image|twitter:image)["\']', re.I)
 
+
+def opt_image(u):
+    """Right-size article art (user 6:34 'graphics not coming through' class): raw source
+    URLs from CBS/ESPN lanes are 2-3MB originals - on cellular they paint late or never.
+    Yahoo's own proxy already serves ~150KB optimized variants and stays direct. Everything
+    else routes through the images.weserv.nl optimizer (1200x675 cover, q78, webp) - the
+    producer rewrites once so EVERY client (even stale builds) gets light art. Fail-closed:
+    anything not https returns '' and the carousel hides the slot."""
+    import urllib.parse as _up
+    if not u or not isinstance(u, str) or not u.startswith('https://'):
+        return ''
+    if 'images.weserv.nl/' in u or 's.yimg.com/' in u:
+        return u
+    return 'https://images.weserv.nl/?url=' + _up.quote(u[len('https://'):], safe='') + '&w=1200&h=675&fit=cover&q=78&output=webp'
+
 def enrich_images(latest):
     """og:image pass for articles whose lane carried no art (carousel contract 10:51:
     per-article image URLs). Bounded: cache by link so a 5-min cron never re-fetches,
@@ -248,6 +263,15 @@ def main():
     latest.sort(key=ts_of, reverse=True)
     latest = latest[:40]
     enrich_images(latest)
+    # image optimizer pass (6:34 class): every surface - latest AND league buckets (shared refs
+    # cover the overlap; bucket-only entries get it here too)
+    _seen = set()
+    for lst in list(leagues.values()) + [latest]:
+        for a in lst:
+            if id(a) in _seen:
+                continue
+            _seen.add(id(a))
+            a['image'] = opt_image(a.get('image') or '')
     out = {'generated_at': datetime.now(timezone.utc).isoformat(),
            'leagues': leagues, 'latest': latest}
     with open('slates/news.json', 'w') as f:
