@@ -53,7 +53,8 @@ def main(out_path):
         try:
             req = urllib.request.Request(SB.format(lg=lg, d=d, prm=prm), headers=UA)
             sb = json.load(urllib.request.urlopen(req, timeout=20))
-        except Exception:
+        except Exception as e:
+            print("league %s fetch failed: %s" % (key, e), file=sys.stderr)
             continue  # fail-closed per league: omit, panel keeps the rest
         games = []
         for ev in sb.get("events", []):
@@ -103,6 +104,24 @@ def main(out_path):
             out_leagues.append({"league": key, "games": games})
             n_games += len(games)
         time.sleep(0.2)
+    if n_games == 0:
+        carded = False
+        try:
+            repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            man = json.load(open(os.path.join(repo_root, "manifest.json")))
+            pt_today = now.astimezone(timezone(timedelta(hours=-7))).strftime("%Y-%m-%d")
+            carded = bool(man.get("picks")) and str(man.get("date", "")) == pt_today
+        except Exception:
+            carded = False
+        prev_games = 0
+        try:
+            prev = json.load(open(out_path))
+            prev_games = sum(len(l.get("games", [])) for l in prev.get("leagues", []))
+        except Exception:
+            pass
+        if carded or prev_games:
+            print("REFUSING 0-game overwrite of %s (carded_today=%s, prev_games=%d) - keeping last file" % (out_path, carded, prev_games), file=sys.stderr)
+            sys.exit(1)
     out = {"version": 1, "generated_at": now.isoformat(), "leagues": out_leagues}
     json.dump(out, open(out_path, "w"), indent=1)
     n_to = sum(1 for L in out_leagues for g in L["games"] if g.get("away_to") is not None)
