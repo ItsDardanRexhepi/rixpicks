@@ -307,6 +307,14 @@ function carAll(){
    time, image + headline + first lines + source, vertical rotation, all sports sources, Prev/Next +
    counter + Pause/Play, hover/focus pause, reduced-motion, dedupe, last-valid fallback, View all) -
    replaces the old sidebar news list; renderNews keeps its name so every existing call site feeds it. */
+/* image optimizer, client layer (user 6:34 class): defense for stale cached payloads - the
+   producer already rewrites, but a cached news.json in an open tab can still hold raw 2-3MB
+   originals. Same rule: yimg + weserv stay direct, everything else routes through weserv. */
+function imgOpt(u){
+ if(typeof u!=='string'||!/^https:\/\//.test(u))return '';
+ if(u.indexOf('images.weserv.nl/')>=0||u.indexOf('s.yimg.com/')>=0)return u;
+ return 'https://images.weserv.nl/?url='+encodeURIComponent(u.slice(8))+'&w=1200&h=675&fit=cover&q=78&output=webp';
+}
 function renderNews(t,arts){
  var box=$('rpNewsCar');if(!box)return;
  if(t&&t.key!=='home'){box.innerHTML='';return;}  /* owner 12:54: News renders on Home only - no leaks, no per-tab feeds */
@@ -359,7 +367,7 @@ function renderNews(t,arts){
  var h='<div class="carvp"><div class="cartrack" id="rpCarTrack">';
  items.forEach(function(a){
   var u=a.link||'',src=a.source||'';
-  var img=(typeof a.image==='string'&&/^https:\/\//.test(a.image))?a.image:'';
+  var img=imgOpt(a.image);
   var blurb=(typeof a.blurb==='string')?a.blurb:'';
   var inner=(img?'<span class="carimg" style="background-image:url(\''+esc(img)+'\')"></span>':'')
    +'<span class="carbody"><span class="carhead">'+esc(unesc(a.headline||''))+'</span>'
