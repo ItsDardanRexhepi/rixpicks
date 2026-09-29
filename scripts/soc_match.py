@@ -101,15 +101,23 @@ def post_persons(text, title_ents):
 # R3 a historically-framed post (since 2021, career, all-time) NEVER pairs a breaking-event
 #    story (injury, trade, signing) - same person, different era = different story.
 PICKS_ARTICLE = re.compile(r'\b(picks?|props?|best bets|expert|parlay|bets|betting)\b', re.I)
+PREDICTION_ARTICLE = re.compile(r'\b(picks?|predictions?|props?|best bets?|betting preview)\b', re.I)
+# A post can discuss a game's preview without sharing a prediction. A declared
+# selection is required for a story whose headline advertises its pick/forecast.
+def selection_gate(title, post):
+    if PREDICTION_ARTICLE.search(title or '') and not DECLARED_PICK.search(post or ''):
+        return 'prediction/picks article: post gives no actual selection (records or inactives alone are not proof)'
+    return None
+
 PICK_EVIDENCE = re.compile(r"\b((?:over|under)\s*\d|yards?|yds|td|touchdown|receptions?|rushing|passing|receiving|interceptions?|ints?|sacks?|strikeouts?|anytime|scorer|prop|best bet|lock|taking the|picking the|picked the|my pick|i like the|give me|pick:|play:)\b", re.I)
 # Latest-tier picks stories need a declared selection, not merely football stats.
 # This is a DENY gate only; a passing post still needs the on-story probe.
 DECLARED_PICK = re.compile(r"\b(i(?:\s*am|['’]m)?\s+(?:picking|taking|betting|playing)|my\s+(?:pick|bet|play)|(?:our|the)\s+(?:best\s+)?pick\s*(?::|is)|pick\s*:\s*|play\s*:\s*|best\s+bet\s*(?::|is)|(?:over|under)\s+\d+(?:\.\d+)?|(?:[+-]\d+(?:\.\d+)?)\s*(?:spread|moneyline)|\b(?:anytime|first)\s+(?:td|touchdown)\s+scorer)\b", re.I)
 
 def latest_pick_gate(title, post):
-    if PICKS_ARTICLE.search(title or '') and HISTORICAL_POST.search(post or ''):
+    if PREDICTION_ARTICLE.search(title or '') and HISTORICAL_POST.search(post or ''):
         return 'current picks article: prior-season or retrospective post is not this selection'
-    if PICKS_ARTICLE.search(title or '') and not DECLARED_PICK.search(post or ''):
+    if PREDICTION_ARTICLE.search(title or '') and not DECLARED_PICK.search(post or ''):
         return 'expert-picks article: post makes no concrete selection (generic breakdown is not a pick)'
     return None
 
@@ -157,6 +165,9 @@ def story_type_gate(title, post):
     picks_art = bool(PICKS_ARTICLE.search(t))
     if picks_art and not PICK_EVIDENCE.search(p):
         return 'picks-type article: no article-pick evidence in post (generic odds/news is game overlap)'
+    selection = selection_gate(t, p)
+    if selection:
+        return selection
     if not picks_art and BET_SLIP_POST.search(p):
         return 'betting-slip post on a non-picks story'
     if HISTORICAL_POST.search(p) and BREAKING_ARTICLE.search(t):
@@ -369,7 +380,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v9-reason-freshness'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v10-prediction-selection'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
@@ -403,7 +414,7 @@ def verify(story, post):
     pre = probe_predeny(story, post)
     if pre:
         return pre
-    st = story_type_gate((story or '')[:200], post or '')
+    st = story_type_gate((story or '')[:600], post or '')
     if st:
         return ('REJECT', 'story-type gate: ' + st)
     # probe calibration (1:30): the product rule is "matching social posts ABOUT the story"
@@ -585,7 +596,7 @@ def main():
                                  'verdict': 'REJECT', 'gate': 'scope', 'reason': 'commercial/venue ad - never a news pair (QA 5:21 false-green class)'})
                 continue
             # deterministic pre-gates (eg2, owner 6:58 + guards 2/3): can only DENY
-            st_reason = story_type_gate(it.get('headline') or '', ptexts[j])
+            st_reason = story_type_gate(ntexts[i], ptexts[j])
             if st_reason:
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'REJECT', 'gate': 'scope', 'reason': 'story-type gate (eg2): ' + st_reason})
@@ -708,7 +719,7 @@ def main():
                     continue
                 # pre-gates, latest bar (eg2): same story-level bar as verified - one story
                 # entity, no foreign principal, story-type compatible (guard 2: badge or no badge)
-                if story_type_gate(it.get('headline') or '', ptexts[j]) or latest_pick_gate(it.get('headline') or '', ptexts[j]):
+                if story_type_gate(ntexts[i], ptexts[j]) or latest_pick_gate(ntexts[i], ptexts[j]):
                     continue
                 if t_ents and (entity_conflict(t_ents, ptexts[j], 1) or post_persons(ptexts[j], t_ents)):
                     continue
