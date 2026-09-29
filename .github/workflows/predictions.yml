@@ -33,9 +33,13 @@ jobs:
           git add slates/predictions.json predictions_ledger.json 2>/dev/null || exit 0
           git diff --cached --quiet && exit 0
           git commit -m "predictions $(date -u +%H:%M) UTC"
+          # same bash -e kill as x_feed (chain 36523387751): guard every fallible command.
           for i in 1 2 3 4 5; do
-            git pull --rebase --autostash -q && git push -q && exit 0
-            git rebase --abort 2>/dev/null
+            if git pull --rebase --autostash -q; then
+              if git push -q; then exit 0; fi
+            else
+              git rebase --abort 2>/dev/null || true
+            fi
             sleep 5
           done
           exit 1
