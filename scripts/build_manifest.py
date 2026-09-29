@@ -45,7 +45,13 @@ def _ikey(mc, side, obj):
 
 LEAGUE_KEY = {'baseball/mlb':'MLB','football/nfl':'NFL','football/college-football':'CFB',
               'basketball/wnba':'WNBA','basketball/nba':'NBA','hockey/nhl':'NHL',
-              'soccer/usa.1':'MLS','mma/ufc':'UFC'}  # values must match config_leagues.json keys
+              'soccer/usa.1':'MLS','mma/ufc':'UFC',
+              # all-13 standard (lane 6, 2026-09-29): remaining config_leagues.json espn paths.
+              # Boxing has espn:null (no espn_league to map); unknown slugs keep the loud
+              # UPPER fallback below, never a silent wrong key.
+              'basketball/mens-college-basketball':'NCAAB','soccer/usa.nwsl':'NWSL',
+              'tennis/atp':'ATP','tennis/wta':'WTA','golf/pga':'PGA',
+              'racing/nascar-premier':'NASCAR','racing/nascar':'NASCAR'}  # values must match config_leagues.json keys
 
 def _pick_content_hash(m):
     # VERBATIM contract copy of build_gh_page.py's gate - declared hash must equal its computed hash.
