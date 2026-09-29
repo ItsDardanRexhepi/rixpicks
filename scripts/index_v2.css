@@ -259,3 +259,9 @@ body.tab-home .ultrix-sync-line{display:block}
    Shows when the source has no art or the image URL fails at load time (probe swaps the class). */
 .carimg-fb{background:linear-gradient(135deg,#12211d 0%,#0b1513 55%,#101a24 100%);display:flex;align-items:center;justify-content:center;position:relative}
 .carimg-fb::after{content:attr(data-lg);font-size:13px;font-weight:800;letter-spacing:.14em;color:#2fbf9b;opacity:.85}
+
+/* Predictions by UltRix rail (owner 9/28) */
+.predrow{display:flex;flex-direction:column;padding:8px 0;border-bottom:1px solid var(--line)}
+.predrow:last-child{border-bottom:0;padding-bottom:0}
+.predtxt{font-size:13px;font-weight:600;line-height:1.35}
+.predmeta{color:var(--mut);font-size:11px;margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
