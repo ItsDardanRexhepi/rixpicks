@@ -40,6 +40,80 @@ MAX_ONS_PROBES = 90     # per-run on-story probe budget for the never-empty late
 TOP_CANDIDATES = 10
 MORE_CAP = 20
 
+# ---------------------------------------------------------------------------
+# Deterministic ENTITY-CONFLICT pre-gate (owner 6:58 + guard 2 incident, 9/28 ~7 PM):
+# the small probe model collapses broad thematic relation (Warriors-injuries story vs a
+# Ja Morant trade post; Clark Game-2 story vs a Steph-White history post), so a hard
+# entity check vets every candidate BEFORE cache/probe. It can only DENY - the badge is
+# still conferred exclusively by the probe's EXECUTE (owner 6:06:54, static gates never grant).
+# Layers: (1) a post must carry at least min(2,N) of the headline's distinctive entities
+# (person surnames from capitalized bigrams, capitalized tokens >=4 chars minus headline
+# boilerplate); (2) a post whose text introduces a foreign principal person (capitalized
+# bigram surname absent from the headline's entities, place/org words excluded) conflicts.
+# No extractable entities -> gate silent, probe decides. Latest tier uses layer 1 at need=1.
+ENTITY_GATE_VERSION = 'eg1'
+ENTITY_STOP = set('game games report reports season seasons preview previews recap recap watch video highlight highlights rumor rumors update updates news trade trades injury injuries week daily today tonight tomorrow yesterday best worst ranking rankings power draft pick picks odds line lines spread spreads over under win wins loss losses versus the after before says said new why how what who live score scores final first last early late big top free agent agents coach coaches team teams player players star stars fans fan take takes make makes get gets back down into with from will would could should must still just more most ever every next league playoff playoffs postseason championship title titles night match matches fight fights career future futures ready leads lead leading recalls sent check throws college football basketball baseball hockey soccer monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december chat discussion eve face home road looks remain unbeaten factor charge go years year state count counts props prop expert experts bets bet betting booed'.split())
+POST_PERSON_STOP = ENTITY_STOP | set('field stadium arena center centre park garden dome coliseum bowl classic series cup showdown invitational open masters nationals united city club fc sc ac cf real sporting athletics university kings queens islanders'.split())
+
+def title_entities(title):
+    toks = re.findall(r"[A-Za-z][A-Za-z'\-]*", title or '')
+    persons = set()
+    ents = set()
+    for a, b in zip(toks, toks[1:]):
+        if a[:1].isupper() and b[:1].isupper() and len(b) >= 3 and a.lower() not in ENTITY_STOP:
+            persons.add(b.lower().strip("'-"))
+    for t in toks:
+        tl = t.lower().strip("'-")
+        if t[:1].isupper() and len(t) >= 4 and tl not in ENTITY_STOP and tl not in persons:
+            ents.add(tl)
+    return ents | persons
+
+def entity_hits(ents, text):
+    p = ' ' + re.sub(r'[^a-z0-9 ]', ' ', (text or '').lower()) + ' '
+    return sum(1 for e in ents if (' ' + e + ' ') in p)
+
+def entity_conflict(ents, text, need):
+    """layer 1: too few of the story's distinctive entities present."""
+    return bool(ents) and entity_hits(ents, text) < min(need, len(ents))
+
+def post_persons(text, title_ents):
+    """layer 2: a foreign principal person in SUBJECT position (first 100 chars) - the
+    false-pair signature (Josh Hokit vs Rosas story, Steph White vs Clark Game-2 story).
+    Subject-position only: people quoted deeper in a genuinely on-story post stay eligible.
+    ALL-CAPS bigrams are team/league shouts (EAGLES @ BEARS), never person names."""
+    toks = re.findall(r"[A-Za-z][A-Za-z'\-]*", (text or '')[:100])
+    out = set()
+    for a, b in zip(toks, toks[1:]):
+        if a[:1].isupper() and b[:1].isupper() and not a.isupper() and not b.isupper():
+            la, lb = a.lower().strip("'-"), b.lower().strip("'-")
+            if len(lb) < 3 or la in POST_PERSON_STOP or lb in POST_PERSON_STOP:
+                continue
+            if la in title_ents or lb in title_ents:
+                continue
+            out.add(lb)
+    return out
+
+# Equivocal-YES abstain (guard 2, same incident): a YES whose own reasoning admits a
+# conflict ("YES - Different team.") is the model collapsing, not confirming. The parser
+# reads the whole response; an equivocal YES abstains - never cached, never badged.
+EQUIVOCAL = re.compile(r'\b(different (team|teams|player|players|game|story|stories|event|sport|fight|match|matchup|league)|not the same|unrelated|no overlap|does not (mention|discuss|cover)|not about|other (team|player|game)|main subject differs)\b', re.I)
+
+def parse_verification(text):
+    """tri-state: EXECUTE / REJECT / ABSTAIN (equivocal YES)."""
+    lines = [l.strip() for l in (text or '').splitlines() if l.strip()]
+    verdict_line = ''
+    for l in reversed(lines):
+        if l.upper().startswith('YES') or l.upper().startswith('NO'):
+            verdict_line = l
+            break
+    if not verdict_line:
+        verdict_line = lines[-1] if lines else ''
+    if verdict_line.upper().startswith('YES'):
+        if EQUIVOCAL.search(text or ''):
+            return 'ABSTAIN', ('equivocal YES: ' + verdict_line)[:160]
+        return 'EXECUTE', (verdict_line or text)[:160]
+    return 'REJECT', (verdict_line or text)[:160]
+
 # owner 1:26: the social feed itself renders sports-relevant, topic-matching posts only -
 # never a raw firehose. Relevance is decided by the SAME semantic layer (evidence gate):
 # each post is cosined against fixed league anchor phrases; below every anchor threshold =>
@@ -89,8 +163,8 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v5-story-relationship'  # probe wording is decision-changing: version MUST salt the verdict cache
-SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION])
+PROMPT_VERSION = 'v6-entity-gate'  # probe wording is decision-changing: version MUST salt the verdict cache
+SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
     return hashlib.sha1(t.encode('utf-8')).hexdigest()
@@ -145,20 +219,17 @@ def verify(story, post):
               '- Radio plugs, station kickoff promos, venue promotions, ticket resale, food or drink specials, '
               'viewing schedules, and sales CTAs are NEVER about the news story: NO.\n'
               '- A different player, team, game, or storyline as the MAIN subject is NOT a match.\n'
+              '- Sharing a named person is NOT enough: if the post is about the same person but a\n'
+              '  DIFFERENT event, timeframe, or situation than the story' + chr(39) + 's specific event: NO.\n'
+              '- A generic odds, spread, moneyline, or totals post with no named expert pick NEVER\n'
+              '  matches an expert-picks, best-bets, or player-props article: NO.\n'
+              '- Personal fan plans, attendance, travel, or watch-party posts are NEVER about the story: NO.\n'
+              '- Start the final line with YES only when every rule above passes; on ANY doubt start\n'
+              '  with NO and name the doubt.\n'
               'Answer: two Step-1 lines, then a final line starting with exactly YES or NO and one short reason.')
     out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
                'prompt': prompt, 'max_tokens': 200}, timeout=90)
-    text = out.get('text', '').strip()
-    # v3: verdict lives on the LAST non-empty line (step-1 subject lines come first)
-    lines = [l.strip() for l in text.splitlines() if l.strip()]
-    verdict_line = ''
-    for l in reversed(lines):
-        if l.upper().startswith('YES') or l.upper().startswith('NO'):
-            verdict_line = l
-            break
-    if not verdict_line:
-        verdict_line = lines[-1] if lines else ''
-    return verdict_line.upper().startswith('YES'), (verdict_line or text)[:160]
+    return parse_verification(out.get('text', '').strip())
 
 
 def onstory(story, post):
@@ -177,16 +248,7 @@ def onstory(story, post):
               'Answer: two Step-1 lines, then a final line starting with exactly YES or NO and one short reason.')
     out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
                'prompt': prompt, 'max_tokens': 160}, timeout=90)
-    text = out.get('text', '').strip()
-    lines = [l.strip() for l in text.splitlines() if l.strip()]
-    verdict_line = ''
-    for l in reversed(lines):
-        if l.upper().startswith('YES') or l.upper().startswith('NO'):
-            verdict_line = l
-            break
-    if not verdict_line:
-        verdict_line = lines[-1] if lines else ''
-    return verdict_line.upper().startswith('YES'), (verdict_line or text)[:160]
+    return parse_verification(out.get('text', '').strip())
 
 def key_news(it):
     # client resolvable: the exact link (or headline) string is the key - no hashing needed in JS
@@ -269,6 +331,7 @@ def main():
     stats = {'paired': 0, 'auto': 0, 'probe_confirmed': 0, 'abstained': 0, 'probe_rejected': 0, 'latest_filled': 0}
     for i, it in enumerate(items):
         nk = key_news(it)
+        t_ents = title_entities(it.get('headline') or '')
         scored = sorted(((cos(nv[i], pv[j]), j) for j in range(len(posts))), reverse=True)
         # league-first funnel (owner 3:09 architecture, all 13 leagues): matching happens WITHIN
         # the story's league. A candidate is excluded only on a KNOWN league mismatch (both sides
@@ -288,6 +351,13 @@ def main():
             if (RP_AD.search(ptexts[j]) or RP_AD2.search(ptexts[j]) or RP_PROMO_CAPS.search(ptexts[j])):
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'REJECT', 'gate': 'scope', 'reason': 'commercial/venue ad - never a news pair (QA 5:21 false-green class)'})
+                continue
+            # deterministic entity-conflict pre-gate (eg1, owner 6:58): can only DENY
+            if t_ents and (entity_conflict(t_ents, ptexts[j], 2) or post_persons(ptexts[j], t_ents)):
+                verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
+                                 'verdict': 'REJECT', 'gate': 'conflict',
+                                 'reason': 'entity conflict (deterministic eg1): story principals absent or foreign principal in post'})
+                stats['entity_conflicts'] = stats.get('entity_conflicts', 0) + 1
                 continue
             # six-gate decide() - owner 1:00/1:01 hard rule: EVERY link passes the full loop.
             # Cosine alone NEVER pairs (adversarial proof 1:03: different-team same-injury-pattern
@@ -317,17 +387,23 @@ def main():
                 break
             probes += 1
             try:
-                ok, why = verify(ntexts[i], ptexts[j])
+                vrd, why = verify(ntexts[i], ptexts[j])
             except Exception as e:
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'DEFER', 'gate': 'evidence', 'reason': 'probe failed: ' + str(e)[:80]})
                 continue
-            if ok:
+            if vrd == 'EXECUTE':
                 vcache[vk] = {'verdict': 'EXECUTE', 'reason': why}
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'EXECUTE', 'gate': 'conflict', 'reason': 'probe confirmed: ' + why})
                 confirmed.append((score, j))
                 stats['probe_confirmed'] += 1
+                continue
+            if vrd == 'ABSTAIN':
+                # equivocal YES (guard 2 parsing bug): never cached, never badged, not a reject
+                verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
+                                 'verdict': 'ABSTAIN', 'gate': 'conflict', 'reason': why})
+                stats['probe_abstained'] = stats.get('probe_abstained', 0) + 1
                 continue
             vcache[vk] = {'verdict': 'REJECT', 'reason': why}
             verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
@@ -370,6 +446,9 @@ def main():
                 pid = str(posts[j].get('id'))
                 if pid in used_posts or (RP_AD.search(ptexts[j]) or RP_AD2.search(ptexts[j]) or RP_PROMO_CAPS.search(ptexts[j])):
                     continue
+                # entity pre-gate, latest bar (eg1): at least one story entity, no foreign principal
+                if t_ents and (entity_conflict(t_ents, ptexts[j], 1) or post_persons(ptexts[j], t_ents)):
+                    continue
                 ck = 'ONS|' + SALT + '|' + nk + '|' + pid
                 pr2 = vcache.get(ck)
                 if pr2 is not None:
@@ -377,10 +456,12 @@ def main():
                 else:
                     ons_probes += 1
                     try:
-                        ok2, why2 = onstory(ntexts[i], ptexts[j])
+                        v2, why2 = onstory(ntexts[i], ptexts[j])
                     except Exception:
                         continue
-                    vcache[ck] = {'verdict': 'EXECUTE' if ok2 else 'REJECT', 'reason': why2}
+                    ok2 = v2 == 'EXECUTE'
+                    if v2 != 'ABSTAIN':  # equivocal on-story YES: never cached, never rendered
+                        vcache[ck] = {'verdict': 'EXECUTE' if ok2 else 'REJECT', 'reason': why2}
                 if ok2 and (best_on is None or (posts[j].get('ts') or '') > (best_on.get('ts') or '')):
                     best_on = posts[j]
             if best_on:
