@@ -425,7 +425,7 @@ function renderNews(t,arts){
   items=PAIRS.map(function(p){return p.a;});
  }
  if(!items.length){
-  if(CAR_UNIT){items=CAR_UNIT.items;PAIRS=CAR_UNIT.pairs.slice();} /* atomic: prior unit as ONE unit */
+  if(CAR_UNIT){items=CAR_UNIT.items;PAIRS=CAR_UNIT.pairs.map(function(p){return {a:p.a,post:p.post,kind:freshMap?p.kind:'latest',k:p.k};});} /* atomic: prior unit as ONE unit, no stale verification badge */
   else{CAR_LAST=[];PAIRS=[];} /* no good unit ever: BOTH carousels blank, never unpaired news */
  }
  if(items.length){CAR_LAST=items;CAR_UNIT={items:items,pairs:PAIRS.slice()};}
@@ -548,6 +548,7 @@ function socMore(){
 /* ULTRIX semantic match map (owner 12:37): built+cached by scripts/soc_match.py at feed-refresh time.
    Never per-pageview. Stale (>2h) or missing map => NO sync jump (abstain beats a wrong match, 1:00 rule). */
 var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={};
+var XFEED_GEN=null; /* generation of the X payload actually ingested, not the wall-clock fetch time */
 /* owner 1:26: social feed renders sports-relevant, topic-matching posts only - never a raw
    firehose. Fresh map: server relevance layer (URF evidence gate) decides per post. No fresh
    map: this keyword floor is the fallback so raw off-topic chatter never renders. */
@@ -579,7 +580,7 @@ function isPublishableNews(a){
 }
 var RP_SPORT_KW=/nfl|nba|mlb|nhl|wnba|ncaa|cfb|mls|nwsl|pga|nascar|ufc|mma|boxing|tennis|football|basketball|baseball|hockey|soccer|golf|sports|touchdown|quarterback|playoff|super bowl|world series|stanley cup|fantasy|draft pick|trade rumor|injury report|starting lineup|home run|slam dunk|shutout|knockout|title fight|grand slam|eagles|bears|chiefs|cowboys|packers|vikings|giants|jets|patriots|steelers|ravens|bengals|browns|texans|colts|jaguars|titans|broncos|raiders|chargers|rams|seahawks|49ers|cardinals|falcons|panthers|saints|buccaneers|commanders|lions|dolphins|bills|yankees|dodgers|red sox|cubs|braves|astros|phillies|mets|padres|mariners|lakers|celtics|warriors|knicks|nets|sixers|bulls|heat|bucks|nuggets|suns|mavericks|thunder|timberwolves|spurs|rockets|clippers|grizzlies|pelicans|kings|trail blazers|jazz|hawks|hornets|hornets|pacers|cavaliers|pistons|magic|wizards|raptors|maple leafs|bruins|canadiens|oilers|avalanche|lightning|panthers|rangers|penguins|capitals|flyers|red wings|blackhawks|wild|stars|predators|blues|jets|kraken|golden knights|sharks|ducks|kings|coyotes|hurricanes|blue jackets|devils|islanders|sabres|senators|flames|canucks/i;
 fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
- if(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs){SOC_MATCH=m;SOC_MATCH_OK=true;}
+ if(rpMapFresh(m)){SOC_MATCH=m;SOC_MATCH_OK=true;} /* stamped maps wait for matching served feed generations */
  SOC_MAP_DONE=true; /* settled = verdict reached (fresh map OR rejected); the feeds may now build */
  try{if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));renderSocial();socSync();}catch(e){}
 }).catch(function(){SOC_MATCH_OK=false;SOC_MAP_DONE=true;
@@ -721,7 +722,18 @@ try{var _up=sessionStorage.getItem('rpUpd');if(_up){sessionStorage.removeItem('r
 var RP_LOAD=Date.now();
 function carKey(a){return (a&&a.link)||String((a&&a.headline)||'');}
 function isNewIt(a){var t=Date.parse((a&&a.published)||0);return t&&t>RP_LOAD;}
-function rpMapFresh(m){return !!(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs);}
+function rpMapFresh(m,newsGen,xGen){
+ if(!(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs))return false;
+ /* Old maps have no generation stamps and retain their prior built_at-only behavior.
+    On stamped maps, an unavailable or different fetched generation is a mid-publish
+    boundary, not permission to pair a newer story/post against an older map. */
+ if(newsGen===undefined)newsGen=NEWSF&&NEWSF.generated_at;
+ if(xGen===undefined)xGen=XFEED_GEN;
+ function same(a,b){var x=Date.parse(a),y=Date.parse(b);return !!(a&&b&&isFinite(x)&&isFinite(y)&&x===y);}
+ if(m.news_generated_at&&!same(m.news_generated_at,newsGen))return false;
+ if(m.x_generated_at&&!same(m.x_generated_at,xGen))return false;
+ return true;
+}
 function rtPoll(){
  /* guard 5 live-loop class: news, x_feed and the map were three independent requests each
     committing as it landed - fresh news beside stale social, fresh X against an old map. Now one
@@ -743,8 +755,12 @@ function rtPoll(){
   var nj=rs[0].status==='fulfilled'?rs[0].value:null;
   var xj=rs[1].status==='fulfilled'?rs[1].value:null;
   var mj=rs[2].status==='fulfilled'?rs[2].value:null;
-  if(rpMapFresh(mj)){SOC_MATCH=mj;SOC_MATCH_OK=true;}
-  else{SOC_MATCH=null;SOC_MATCH_OK=false;} /* aged-out or unreadable map: verdicts revoked this tick */
+  /* Stage the fetched generations before accepting the map; do not briefly render
+     a new news/X artifact against the previous map while the matcher is still publishing. */
+  var nextNews=(nj&&nj.generated_at)||NEWSF&&NEWSF.generated_at;
+  var nextX=(xj&&Array.isArray(xj.items)&&xj.generated_at)||XFEED_GEN;
+  if(rpMapFresh(mj,nextNews,nextX)){SOC_MATCH=mj;SOC_MATCH_OK=true;}
+  else{SOC_MATCH=null;SOC_MATCH_OK=false;} /* stale, mismatched, or unreadable map: hold prior coherent unit */
   if(xj&&Array.isArray(xj.items)){ingestX(xj);XFEED_DONE=true;}
   if(nj&&nj.generated_at&&(!NEWSF||nj.generated_at!==NEWSF.generated_at)){NEWSF=nj;NEWSF_TS=Date.now();}
   if(typeof cur!=='undefined'&&cur&&cur.key==='home'){renderNews(cur,newsBucket(cur));renderSocial();socSync();}
@@ -753,6 +769,8 @@ function rtPoll(){
 setInterval(rtPoll,45000);
 window.__rpRT={poll:rtPoll,state:function(){return {gen:NEWSF&&NEWSF.generated_at,carIdx:CAR_IDX,carN:CAR_N,socN:SOC_N,curKey:typeof cur!=='undefined'&&cur&&cur.key};}};
 function ingestX(j){ /* single publishability-gated ingest path (guard 3): XNEWS holds vetted posts only */
+ XFEED_GEN=j.generated_at||null;
+ if(SOC_MATCH_OK&&!rpMapFresh(SOC_MATCH)){SOC_MATCH_OK=false;} /* independent first-load X fetch may outrun map */
  XNEWS=j.items.filter(function(p){return p&&/^[0-9]+$/.test(String(p.id||''))&&p.created_at&&p.text;}).map(function(p){var u=(typeof p.url==='string'&&/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/[A-Za-z0-9_]+\/status\/[0-9]+(?:\?.*)?$/.test(p.url)&&p.url.split('/status/')[1].split('?')[0]===String(p.id))?p.url:'';return {id:String(p.id),headline:String(p.text).slice(0,900),link:u,published:p.created_at,source:'X',author:typeof p.author_name==='string'?p.author_name.slice(0,80):''};}).filter(isPublishablePost);
  SOC_XIDX={};XNEWS.forEach(function(p,i){if(p.id)SOC_XIDX[p.id]=i;});
 }
@@ -880,7 +898,7 @@ function loadSide(t){
  else{
   fetch('slates/news.json', {cache:'no-store'})
    .then(function(r){if(!r.ok)throw 0;return r.json();})
-   .then(function(j){NEWSF=j;NEWSF_TS=Date.now();if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
+   .then(function(j){NEWSF=j;NEWSF_TS=Date.now();if(SOC_MATCH_OK&&!rpMapFresh(SOC_MATCH))SOC_MATCH_OK=false;if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
    .catch(function(){if(cur===t){renderNews(t,newsBucket(t));tickRender();}});
  }
  if(lg&&(!DNEWS_TS[t.key]||now-DNEWS_TS[t.key]>25000)){
