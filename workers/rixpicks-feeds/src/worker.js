@@ -46,6 +46,28 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname.replace(/^\//, '');
     if (path === 'health') return Response.json({ ok: true, ts: new Date().toISOString(), worker: 'rixpicks-feeds', phase: env.XFEED_DISPATCH === 'on' ? 'cutover' : 'shadow' });
+    if (path === 'diag') {
+      const targets = {
+        kalshi_series: 'https://api.elections.kalshi.com/trade-api/v2/markets?series_ticker=KXMLB&limit=2&status=open',
+        kalshi_tickers: 'https://api.elections.kalshi.com/trade-api/v2/markets?tickers=KXMLB-26-TB&limit=1',
+        poly_gamma: 'https://gamma-api.polymarket.com/events?slug=mlb-world-series-champion-2026',
+        espn_api: 'https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/news?limit=1',
+        yahoo_rss: 'https://sports.yahoo.com/mlb/rss.xml',
+        cbs_rss: 'https://www.cbssports.com/rss/headlines/mlb/',
+        espn_rss: 'https://www.espn.com/espn/rss/mlb/news',
+      };
+      const out = { ts: new Date().toISOString(), targets: {} };
+      for (const [name, u] of Object.entries(targets)) {
+        try {
+          const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 10000);
+          const r = await fetch(u, { headers: { 'User-Agent': 'rix/1.0' }, signal: ctl.signal });
+          clearTimeout(t);
+          const body = await r.text();
+          out.targets[name] = { status: r.status, bytes: body.length, head: body.slice(0, 120) };
+        } catch (e) { out.targets[name] = { error: String(e).slice(0, 120) }; }
+      }
+      return Response.json(out);
+    }
     const key = SERVE[path];
     if (!key) return new Response('not found', { status: 404 });
     const obj = await env.FEEDS.get(key);
