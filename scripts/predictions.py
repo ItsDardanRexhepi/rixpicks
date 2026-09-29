@@ -65,16 +65,18 @@ def parse_verdict(text):
         return None, 0.0, (text or '')[:120]
     return pick.group(1).strip(), float(prob.group(1)), (why.group(1).strip() if why else '')[:160]
 
+def _team_side(p, home, away):
+    """resolve a fuzzy team name to 'home'/'away' for THIS event; None = unverifiable."""
+    def norm(s): return re.sub(r'[^a-z0-9 ]', '', (s or '').lower()).strip()
+    p, h, w = norm(p), norm(home), norm(away)
+    if not p: return None
+    if h and (h in p or p in h): return 'home'
+    if w and (w in p or p in w): return 'away'
+    return None
+
 def same_side(p1, p2, home, away):
     """fuzzy team-name agreement: normalized substring either way against BOTH event teams."""
-    def norm(s): return re.sub(r'[^a-z0-9 ]', '', (s or '').lower()).strip()
-    a, b, h, w = norm(p1), norm(p2), norm(home), norm(away)
-    def side(p):
-        if not p: return None
-        if h and (h in p or p in h): return 'home'
-        if w and (w in p or p in w): return 'away'
-        return None
-    s1, s2 = side(a), side(b)
+    s1, s2 = _team_side(p1, home, away), _team_side(p2, home, away)
     return s1 if s1 and s1 == s2 else None
 
 def probe_once(prompt):
@@ -140,9 +142,15 @@ def settle(ledger):
             if st.get('state') != 'post': continue
             winner = next(((c.get('team') or {}).get('displayName') for c in comp.get('competitors', []) if c.get('winner')), None)
             if not winner: continue
-            side = same_side(p['pick_team'], winner, p['home'], p['away'])
-            if not side: continue
-            p['status'] = 'hit' if same_side(winner, p['pick_team'], p['home'], p['away']) else 'miss'
+            # auditor 9:41 HIGH grading integrity: same_side returns None on BOTH a real
+            # miss (resolved to different sides) and an unresolvable name - the old
+            # 'if not side: continue' made every verifiable LOSS silently void at 36h.
+            # Resolve each name separately: both resolved -> hit/miss; either
+            # unresolvable -> stays pending, void clock unchanged.
+            ps = _team_side(p['pick_team'], p['home'], p['away'])
+            ws = _team_side(winner, p['home'], p['away'])
+            if not ps or not ws: continue
+            p['status'] = 'hit' if ps == ws else 'miss'
             p['settled_at'] = now().isoformat()
             changed += 1
         except Exception as e:
