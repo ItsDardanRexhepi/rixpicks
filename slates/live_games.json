@@ -1,5 +1,19 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T15:50:01.009102+00:00",
- "leagues": []
+ "generated_at": "2026-09-29T16:04:59.648601+00:00",
+ "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401907965",
+     "matchup": "PHI @ ATL",
+     "commence": "2026-09-29T18:00Z",
+     "status": "pre",
+     "detail": "9/29 - 11:00 AM PT",
+     "score": "PHI 0 - ATL 0"
+    }
+   ]
+  }
+ ]
 }
