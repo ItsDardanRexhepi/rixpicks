@@ -353,6 +353,31 @@ def twin_selection_reason(story, post, selected_post):
     return None
 
 
+def demote_older_twins(verdicts, confirmed, posts, post_texts, story_text):
+    """Keep a newest verified headline twin; explain older twins as selections,
+    not false content rejections. Remove even EXECUTE twins before tier building.
+    """
+    if not confirmed:
+        return confirmed
+    best_j = confirmed[0][1]
+    best_time = posts[best_j].get('created_at') or posts[best_j].get('ts') or ''
+    by_id = {str(p.get('id')): j for j, p in enumerate(posts)}
+    demoted = set()
+    for v in verdicts:
+        if v.get('verdict') not in ('EXECUTE', 'REJECT', 'ABSTAIN') or v.get('gate') != 'conflict':
+            continue
+        old_j = by_id.get(str(v.get('post_id')))
+        if old_j is None or (posts[old_j].get('created_at') or posts[old_j].get('ts') or '') >= best_time:
+            continue
+        sel = twin_selection_reason(story_text, post_texts[old_j], post_texts[best_j])
+        if sel:
+            demoted.add(old_j)
+            v['verdict'] = 'NOT_SELECTED'
+            v['gate'] = 'selection'
+            v['reason'] = sel
+    return [(sc, j) for sc, j in confirmed if j not in demoted]
+
+
 def parse_verification(text, story='', post=''):
     """tri-state: EXECUTE / REJECT / ABSTAIN; only an evidenced final YES executes."""
     lines = [l.strip() for l in (text or '').splitlines() if l.strip()]
@@ -800,24 +825,9 @@ def main():
         # and its nearest/more candidates must come from this same qualified set.
         confirmed = [(sc, j) for sc, j in confirmed if not freshness_gate(it, posts[j]) and not event_time_gate(it, posts[j])
                      and str(posts[j].get('id')) not in used_posts]
-        # A truthful post-selection reason replaces a false source-mismatch
-        # claim only when a newer post was independently probe-verified and the
-        # older candidate's substantive headline is duplicated. It never grants
-        # the older post a verified tier, and never masks a genuine mismatch.
-        if confirmed:
-            best_j = confirmed[0][1]
-            best_time = posts[best_j].get('created_at') or posts[best_j].get('ts') or ''
-            for v in verdicts:
-                if v.get('verdict') not in ('REJECT', 'ABSTAIN') or v.get('gate') != 'conflict':
-                    continue
-                old_j = next((j for j, p in enumerate(posts) if str(p.get('id')) == str(v.get('post_id'))), None)
-                if old_j is None or (posts[old_j].get('created_at') or posts[old_j].get('ts') or '') >= best_time:
-                    continue
-                sel = twin_selection_reason(ntexts[i], ptexts[old_j], ptexts[best_j])
-                if sel:
-                    v['verdict'] = 'NOT_SELECTED'
-                    v['gate'] = 'selection'
-                    v['reason'] = sel
+        # Selection happens before nearest/more: a probe-verified older exact
+        # headline twin is still redundant beside the newest verified pin.
+        confirmed = demote_older_twins(verdicts, confirmed, posts, ptexts, ntexts[i])
         # nearest (guard 2 class kill): NEVER unprobed cosine - only a probe-EXECUTE candidate for
         # THIS exact story may hold the fallback slot. No second probe-confirmed post -> NO nearest
         # entry; the client abstains (1:00) instead of rendering an unprobed post beside the story.
