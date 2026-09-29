@@ -1,0 +1,54 @@
+name: cf-feeds-deploy
+# Lane 3 (Cloudflare migration): deploy the rixpicks-feeds worker. Shadow phase - the worker
+# writes R2 only and serves on workers.dev; NOTHING user-visible changes from this workflow.
+# Bucket provision + config seed are idempotent. Never touches DNS, routes, or other workers.
+on:
+  push:
+    branches: [main]
+    paths: ['workers/rixpicks-feeds/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cf-feeds-deploy
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: provision rixpicks-feeds R2 bucket (idempotent)
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -e
+          API="https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID"
+          R2=$(curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API/r2/buckets?per_page=100")
+          echo "$R2" | jq -e '.success' >/dev/null
+          if ! echo "$R2" | jq -e '.result.buckets[]? | select(.name=="rixpicks-feeds")' >/dev/null; then
+            C=$(curl -s -X POST -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" "$API/r2/buckets" -d '{"name":"rixpicks-feeds"}')
+            echo "$C" | jq -e '.success' >/dev/null || { echo "R2 CREATE FAIL: $C"; exit 1; }
+            echo "created rixpicks-feeds"
+          else echo "exists rixpicks-feeds"; fi
+      - name: deploy rixpicks-feeds worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: workers/rixpicks-feeds
+          command: deploy
+      - name: seed league config to R2 (single source while repo lives)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: r2 object put rixpicks-feeds/config/leagues.json --file=config_leagues.json --content-type application/json
+      - name: verify shadow deployment
+        run: |
+          for i in $(seq 1 12); do
+            H=$(curl -fsSL "https://rixpicks-feeds.itsdardanr.workers.dev/health?cb=$RANDOM" 2>/dev/null || true)
+            if echo "$H" | grep -q '"ok":true'; then echo "SHADOW WORKER LIVE: $H"; exit 0; fi
+            echo "attempt $i: health not up yet"; sleep 10
+          done
+          echo "SHADOW VERIFY FAILED"; exit 1
