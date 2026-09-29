@@ -16,7 +16,7 @@ search response itself (expansions=author_id - same single request, no extra bur
 must render text as plain escaped text (untrusted third-party posts, labeled X-sourced - these
 are PUBLIC posts matching slate queries, never the user's own posts).
 """
-import json, os, sys, time, urllib.request, urllib.parse, datetime
+import json, os, re, sys, time, urllib.request, urllib.parse, datetime
 
 BASE = 'https://api.x.com/2'
 TOKEN = os.environ.get('X_BEARER_TOKEN', '')
@@ -214,6 +214,7 @@ def main():
                    for t in terms]
     items = []
     seen = set()
+    fail_codes = []
     st = load_state()
     since_id = st.get('since_id')
     newest = since_id
@@ -254,8 +255,16 @@ def main():
                 newest = meta['newest_id']
         except Exception as e:
             print(f'pull FAIL ({q[:40]}...): {e}')
+            m = re.search(r'HTTP Error (\d+)', str(e))
+            if m: fail_codes.append(m.group(1))
       # end for q
       if not successful:
+          # Owner billing wall: a uniform 402 means paid access is exhausted, not an
+          # ingest bug. Skip the pull, preserve the frozen pool, and let the chain
+          # build the map so matcher verification is not held hostage to billing.
+          if fail_codes and set(fail_codes) == {'402'}:
+              print('X billing wall (402 on all pulls): pull skipped, prior feed timestamp and items preserved; chain continues on frozen pool')
+              return
           raise RuntimeError('X ingest stalled: no successful recent-search request; preserving prior feed timestamp and items')
       since_id = newest or since_id
       save_state({'since_id': since_id, 'updated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')})
