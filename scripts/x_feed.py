@@ -18,6 +18,8 @@ are PUBLIC posts matching slate queries, never the user's own posts).
 """
 import json, os, re, sys, time, urllib.request, urllib.parse, datetime
 
+import x_wall
+
 BASE = 'https://api.x.com/2'
 TOKEN = os.environ.get('X_BEARER_TOKEN', '')
 LEDGER = 'slates/x_burn.jsonl'
@@ -255,15 +257,15 @@ def main():
                 newest = meta['newest_id']
         except Exception as e:
             print(f'pull FAIL ({q[:40]}...): {e}')
-            m = re.search(r'HTTP Error (\d+)', str(e))
-            if m: fail_codes.append(m.group(1))
+            c = x_wall.http_code(e)
+            if c: fail_codes.append(c)
       # end for q
       if not successful:
-          # Owner billing wall: a uniform 402 means paid access is exhausted, not an
+          # Owner billing/access wall: uniform 402/403 is paid access denied, not an
           # ingest bug. Skip the pull, preserve the frozen pool, and let the chain
           # build the map so matcher verification is not held hostage to billing.
-          if fail_codes and set(fail_codes) == {'402'}:
-              print('X billing wall (402 on all pulls): pull skipped, prior feed timestamp and items preserved; chain continues on frozen pool')
+          if x_wall.is_wall(fail_codes):
+              x_wall.wall_skip('x_feed pull')
               return
           raise RuntimeError('X ingest stalled: no successful recent-search request; preserving prior feed timestamp and items')
       since_id = newest or since_id
