@@ -156,7 +156,7 @@ def _sanitize_man(man):
         if isinstance(r,dict) and r.get('link'): r['link']=_rawurl(r['link'])
 _sanitize_man(man)
 out=sys.argv[2] if len(sys.argv)>2 else '/home/sandbox/gh_page/index.html'
-BOOKS=[('BetRivers','BR'),('DraftKings','DK'),('FanDuel','FD'),('Hard Rock','HR'),('Kalshi','KAL'),('BetMGM','MGM'),('Polymarket','POLY'),('theScore','TSB')]  # alphabetical by displayed chip label (his Sep 25 9:19 AM spec: alphabetical chips; audit Sep 26 caught combo order regressed - root fix is the shared order, solo+combo read the same sequence)  # U-GEO-003: ESPN BET is DEAD - dropped at ingestion, never mapped (tester gate). theScore Bet is the single canonical arm (one chip per arm).
+BOOKS=[('BetRivers','BR'),('DraftKings','DK'),('Hard Rock','HR'),('Kalshi','KAL'),('BetMGM','MGM'),('Polymarket','POLY'),('theScore','TSB')]  # FD sportsbook removed site-wide (his standing 'FD removed' spec, scope settled 8:37 PM via main: no FD sportsbook chips anywhere; FD Predicts arm is a separate prediction-market row and stays)  # alphabetical by displayed chip label (his Sep 25 9:19 AM spec: alphabetical chips; audit Sep 26 caught combo order regressed - root fix is the shared order, solo+combo read the same sequence)  # U-GEO-003: ESPN BET is DEAD - dropped at ingestion, never mapped (tester gate). theScore Bet is the single canonical arm (one chip per arm).
 BKDOM={'DK':'draftkings.com','FD':'fanduel.com','TSB':'thescore.bet','HR':'hardrock.bet','MGM':'betmgm.com','BR':'betrivers.com','KAL':'kalshi.com','POLY':'polymarket.com','B365':'bet365.com','FAN':'fanatics.com','DKP':'predictions.draftkings.com','FDP':'fanduel.com'}
 _POLY_US_ABBR={'nyl':'ny'}
 _POLY_US_PRICED=False  # 9/27 P1 (main 8:31): .com-gamma quotes never label .us-linked POLY chips (Bengals -150 vs .us -163 class). Flip True ONLY when analysis ships verified .us-sourced quotes; until then POLY chips are destination-only and excluded from best-line.  # add entries ONLY after verifying the .us slug live; verified 9/27: nyl->ny
@@ -1460,7 +1460,7 @@ if man.get('parlay'):
         # Inspector ruling (Sep 26): no KAL/POLY combo chips - the exchanges have no native
         # parlay product, and per-leg chips on each pick already route to the real markets.
         # A priced chip linking to a homepage/category page is a defect; dead-combo pricing dies at the root here.
-        BKML=[('DK','draftkings',None),('FD','fanduel',None),('TSB','thescore',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]  # DK pm: fail closed pending verified state list
+        BKML=[('DK','draftkings',None),('TSB','thescore',None),('HR','hardrockbet',None),('MGM','betmgm',None),('BR','betrivers',None)]  # FD sportsbook removed (same spec)  # DK pm: fail closed pending verified state list
         for short,pk,pm in BKML:
             mls=[]; ok=True
             for p in lp:
@@ -2920,7 +2920,7 @@ def build_team_pages(man, css, build_sha):
         meta=info.get((lg,name)) or {}
         tid=meta.get('id'); abbr=meta.get('abbr',''); logo=meta.get('logo',''); rec=meta.get('record','')
         logo_html='<img src="%s" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()">'%html.escape(logo) if logo else ''
-        last5=[]; upcoming=[]; runs_for=0; runs_against=0; n_scored=0; streak=''
+        last5=[]; upcoming=[]; _scored=[]; streak=''
         if tid and lg:
             try:
                 sch=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams/%s/schedule'%(lg,tid))
@@ -2943,7 +2943,7 @@ def build_team_pages(man, css, build_sha):
                         if ms is None or os_ is None: continue
                         wl='W' if ms>os_ else ('L' if ms<os_ else 'T')
                         last5.append('%s %d-%d %s %s · %s'%(wl,ms,os_,loc,opp_nm,dt[5:]))
-                        runs_for+=ms; runs_against+=os_; n_scored+=1
+                        _scored.append((ms,os_))
                     else:
                         import datetime as _d
                         if dt >= str(_d.date.today()) and len(upcoming)<3: upcoming.append('%s %s · %s'%(loc,opp_nm,dt[5:]))
@@ -2972,7 +2972,8 @@ def build_team_pages(man, css, build_sha):
                     injuries.append('%s · %s%s'%(ath,stat,(' - '+det) if det else ''))
             except Exception: pass
         form_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in reversed(last5)) or '<div class="sub">No recent games found.</div>'
-        avgs_html=('<div class="sub" style="padding:7px 0">Scored %.1f &middot; allowed %.1f per game over last %d</div>'%(runs_for/n_scored,runs_against/n_scored,n_scored)) if n_scored else '<div class="sub">Not enough recent games.</div>'
+        _l10=_scored[-10:]; _n10=len(_l10)  # audit batch 7: 'last 10' section must BE last 10, not season-to-date
+        avgs_html=('<div class="sub" style="padding:7px 0">Scored %.1f &middot; allowed %.1f per game over last %d</div>'%(sum(a for a,_ in _l10)/_n10,sum(b for _,b in _l10)/_n10,_n10)) if _n10 else '<div class="sub">Not enough recent games.</div>'
         next_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in upcoming) or '<div class="sub">No upcoming games listed.</div>'
         inj_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in injuries) or '<div class="sub">None reported.</div>'
         tagline=' · '.join(x for x in [rec and ('Record '+rec), streak and ('Streak '+streak)] if x)
