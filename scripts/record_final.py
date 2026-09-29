@@ -11,7 +11,7 @@ For each request, in order:
 Apply: manifest record/units_pl, history.json day row (+day record/units), record_done.json.
 Writes NOTHING to any private ledger - that stays analysis-side.
 """
-import json, re, os, re, sys, urllib.request
+import json, re, re, os, re, sys, urllib.request
 from datetime import datetime, timezone
 from decimal import Decimal
 
@@ -117,6 +117,32 @@ def eod_day_close(p):
     json.dump(done, open(DONE, 'w'), indent=2)
     json.dump({'requests': []}, open(REQ, 'w'), indent=2)
     print(f'EOD DAY CLOSE: brief filled for {date} (record {day["record"]}, units {fmt_units(du)})')
+    # combo expiry wire: day close marks every combo dated on/before the cutoff as expired.
+    # MARK, never delete - the audit trail stays; the display layer filters on status too.
+    ce = p.get('combo_expiry')
+    if isinstance(ce, dict) and ce.get('action') == 'mark_expired':
+        target = ce.get('target'); cutoff = str(ce.get('expire_on_or_before') or '')
+        if not target or not re.match(r'^\d{4}-\d{2}-\d{2}$', cutoff):
+            print('  REFUSE combo_expiry: bad target or cutoff', file=sys.stderr)
+        else:
+            tp = os.path.join(ROOT, target)
+            try:
+                cj = json.load(open(tp))
+                n = 0
+                for c in cj.get('combos') or []:
+                    d = str(c.get('date') or c.get('game_date') or '')
+                    if not d:
+                        m = re.search(r'(\d{4})(\d{2})(\d{2})\s*$', str(c.get('id') or ''))
+                        d = '%s-%s-%s' % m.groups() if m else ''
+                    if d and d <= cutoff and c.get('status') != 'expired':
+                        c['status'] = 'expired'
+                        c['expired_at'] = datetime.now(timezone.utc).isoformat()
+                        n += 1
+                if n:
+                    json.dump(cj, open(tp, 'w'), indent=2)
+                print(f'  combo_expiry: {n} marked expired in {target} (cutoff {cutoff})')
+            except FileNotFoundError:
+                print(f'  combo_expiry: {target} absent - nothing to mark')
     return 0
 
 def main():

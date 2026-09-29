@@ -47,7 +47,7 @@ const ctx = vm.createContext({
   Date, JSON, Intl, RegExp, String, Number, Array, Object, isFinite, parseFloat, parseInt,
   NEWSF: null, XFEED_GEN: null,
   SOC_MATCH: null, SOC_MATCH_OK: false, SOC_MATCH_PENDING: null,
-  SOC_XIDX: {}, XNEWS: [], PAIRS: [],
+  SOC_XIDX: {}, XNEWS: [], PAIRS: [], FEED_FALLBACK: false, SYNC_LAST: false, SOC_N: 0, CAR_N: 0, CAR_LAST: [], CAR_IDX: 0, SOC_IDX: 0,
   renderNews: () => rendered.push('news'), renderSocial: () => rendered.push('social'),
   socSync: () => rendered.push('sync'),
   newsBucket: () => [story],
@@ -57,7 +57,8 @@ const ctx = vm.createContext({
 });
 vm.runInContext([
   extract('rpMapFresh'), extract('socMapRetry'), extract('ingestX'), extract('buildPairs'),
-extract('zeroPairFallback')].join('\n'), ctx);
+extract('zeroPairSocial'), extract('rpComboFresh')].join('\n'), ctx);
+vm.runInContext(extract('socSync').replace('function socSync(', 'function socSyncReal('), ctx);
 
 // A1: map fetched first, generations absent -> held, not promoted, not discarded
 vm.runInContext(`if(rpMapFresh(MAP)){SOC_MATCH=MAP;SOC_MATCH_OK=true;}else{SOC_MATCH_PENDING=MAP;}`, Object.assign(ctx, { MAP: map }));
@@ -125,13 +126,37 @@ check('second roll is a no-op', [el.textContent === h1, stHome.innerHTML === s1]
 
 if (failures) { console.error(failures + ' FAILURES'); process.exit(1); }
 
-// C: settled zero-pair map -> unpaired latest fallback, muted tier only
-vm.runInContext(`PAIRS=[];XNEWS=[{id:'p1'},{id:'p2'},{id:'p1'},{id:'p3'}];var ZF=zeroPairFallback([{link:'s1'},{link:'s2'},{link:'s3'}]);`, ctx);
-check('zero-pair fallback pairs latest stories with latest distinct posts', vm.runInContext(`ZF.map(p=>[p.a.link,p.post.id,p.kind]).join(';')`, ctx), 's1,p1,latest;s2,p2,latest;s3,p3,latest');
-check('fallback never emits a verified kind', vm.runInContext(`ZF.every(p=>p.kind==='latest')`, ctx), true);
-check('fallback keys stories for the shared-list machinery', vm.runInContext(`ZF.map(p=>p.k).join(',')`, ctx), 's1,s2,s3');
-vm.runInContext(`XNEWS=[];var ZF2=zeroPairFallback([{link:'s1'}]);`, ctx);
-check('empty X pool fails closed (no placeholders)', vm.runInContext(`ZF2.length`, ctx), 0);
-vm.runInContext(`XNEWS=[{id:'p9'}];var ZF3=zeroPairFallback([{link:'s1'},{link:'s2'}]);`, ctx);
-check('short X pool caps both feeds equally', vm.runInContext(`ZF3.length`, ctx), 1);
+// C: zero-pair mode = independent feeds, never positional pairing
+vm.runInContext(`XNEWS=[{id:'p1'},{id:'p2'},{id:'p1'},{id:'p3'}];var ZS=zeroPairSocial(12);`, ctx);
+check('zero-pair social shows latest distinct publishable posts', vm.runInContext(`ZS.map(p=>p.post.id).join(',')`, ctx), 'p1,p2,p3');
+check('fallback slides carry only the muted kind', vm.runInContext(`ZS.every(p=>p.kind==='latest')`, ctx), true);
+check('fallback slides carry NO story key (no positional correspondence)', vm.runInContext(`ZS.every(p=>p.nkey==='')`, ctx), true);
+vm.runInContext(`XNEWS=[];var ZS2=zeroPairSocial(12);`, ctx);
+check('empty X pool fails closed (no placeholders)', vm.runInContext(`ZS2.length`, ctx), 0);
+vm.runInContext(`XNEWS=[{id:'p9'},{id:'p8'}];var ZS3=zeroPairSocial(1);`, ctx);
+check('social list respects the cap independently', vm.runInContext(`ZS3.length`, ctx), 1);
+// C6: socSync never locks positions in fallback mode, even when counts coincide
+vm.runInContext(`FEED_FALLBACK=true;SYNC_LAST=true;SOC_N=3;CAR_N=3;CAR_LAST=[{link:'a'}];CAR_IDX=1;SOC_IDX=0;var r1=socSyncReal();`, Object.assign(ctx,{socApply:()=>{ctx.__applied=(ctx.__applied||0)+1;},socMatchPair:()=>-1}));
+check('fallback mode: socSync abstains even with equal counts', vm.runInContext(`r1`, ctx), false);
+check('fallback mode: no positional sync applied', vm.runInContext(`SYNC_LAST`, ctx), false);
+check('fallback mode: social index untouched', vm.runInContext(`SOC_IDX`, ctx), 0);
+vm.runInContext(`FEED_FALLBACK=false;var r2=socSyncReal();`, ctx);
+check('paired mode: socSync still aligns (existing behavior preserved)', [vm.runInContext(`r2`, ctx), vm.runInContext(`SOC_IDX`, ctx)], [true, 1]);
+// C7: combo freshness, fail closed
+const pt = new Date(new Date().toLocaleString('en-US',{timeZone:'America/Los_Angeles'}));
+const ymd = d => `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+const y0 = new Date(pt); y0.setDate(y0.getDate()-1);
+const tmr = new Date(pt); tmr.setDate(tmr.getDate()+1);
+vm.runInContext(`var F1=rpComboFresh({id:'idea-x-${y0.getFullYear()}${String(y0.getMonth()+1).padStart(2,'0')}${String(y0.getDate()).padStart(2,'0')}'});`, ctx);
+check('yesterday combo hidden', vm.runInContext(`F1`, ctx), false);
+vm.runInContext(`var F2=rpComboFresh({id:'idea-x-${ymd(pt)}'});`, ctx);
+check('today combo shown', vm.runInContext(`F2`, ctx), true);
+vm.runInContext(`var F3=rpComboFresh({id:'idea-x-${ymd(tmr)}'});`, ctx);
+check('future combo shown', vm.runInContext(`F3`, ctx), true);
+vm.runInContext(`var F4=rpComboFresh({id:'idea-mnf',date:'${tmr.getFullYear()}-${String(tmr.getMonth()+1).padStart(2,'0')}-${String(tmr.getDate()).padStart(2,'0')}'});`, ctx);
+check('explicit date field wins over id', vm.runInContext(`F4`, ctx), true);
+vm.runInContext(`var F5=rpComboFresh({id:'idea-nodate'});`, ctx);
+check('unparseable date fails closed (hidden)', vm.runInContext(`F5`, ctx), false);
+vm.runInContext(`var F6=rpComboFresh({id:'idea-x-${ymd(pt)}',status:'expired'});`, ctx);
+check('writer-expired combo hidden even with today date', vm.runInContext(`F6`, ctx), false);
 console.log('feed boot + date-roll class fixture: ALL PASS');

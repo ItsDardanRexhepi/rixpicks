@@ -283,6 +283,8 @@ var SYNC_STOP=['with','from','that','this','after','before','into','your','their
 var SYNC_LAST=false;
 function socSync(){
  SYNC_LAST=false;
+ if(FEED_FALLBACK)return false; /* independent feeds: no positional correspondence, ever */
+
  /* aligned mode (user 4:27): social index IS the news index - the feeds can never disagree
     on position or count. Slide content already carries verified/latest/scan honesty tiers. */
  if(SOC_N>0&&CAR_LAST.length>0&&SOC_N===CAR_N){
@@ -397,20 +399,28 @@ function buildPairs(base){
  if(PAIRS.length>12)PAIRS=PAIRS.slice(0,12); /* the 12-cap lives AFTER pairing, never before */
 }
 
-/* zero-pair fallback: a settled fresh map can legitimately admit ZERO pairs (no story holds a
-   verified/nearest/latest post). The feeds never go blank and never fabricate a match: render
-   the latest publishable stories and latest publishable posts positionally, EVERY slide on the
-   muted "Latest from the feed" tier. The verified badge stays exclusive to an algorithmic match.
-   Both feeds derive from the same returned array, so the shared-list invariant (same N, same
-   index, same counter) holds structurally. Empty pool on either side -> empty array, caller
-   fails closed to the last-good-unit / blank-atomically path. */
-function zeroPairFallback(base){
- var fs=base.slice(0,12);
- var fp=[],seenP={};
- for(var i=0;i<XNEWS.length&&fp.length<fs.length;i++){var p=XNEWS[i];if(p&&isPublishablePost(p)&&!seenP[p.id]){seenP[p.id]=1;fp.push(p);}}
- var n=Math.min(fs.length,fp.length),out=[];
- for(var j=0;j<n;j++)out.push({a:fs[j],post:fp[j],kind:'latest',k:carKey(fs[j])});
- return out;
+/* zero-pair mode: a settled fresh map can legitimately admit ZERO pairs. The feeds never go
+   blank and never imply a match: news shows the latest stories and social shows the latest
+   posts as INDEPENDENT feeds (own counts, own indices, no shared PAIRS unit, no positional
+   correspondence). Social slides carry the muted "Latest from the feed" tier; the verified
+   badge stays exclusive to an algorithmic match. */
+function zeroPairSocial(n){
+ var fp=[],seen={};
+ for(var i=0;i<XNEWS.length&&fp.length<n;i++){var p=XNEWS[i];if(p&&isPublishablePost(p)&&!seen[p.id]){seen[p.id]=1;fp.push(p);}}
+ return fp.map(function(p){return {post:p,kind:'latest',nkey:''};});
+}
+/* combo freshness (fail closed): a same-game combo renders only when its game date is today
+   or later (PT). Date from an explicit date/game_date field, else the -yyyymmdd id suffix;
+   no parseable current date -> hidden. A stale combo beside an unpublished card is worse
+   than no combo. */
+function rpComboFresh(c){
+ if(c&&c.status==='expired')return false; /* writer-marked at day close: can never serve */
+ var t=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Los_Angeles'}));
+ var today=t.getFullYear()*10000+(t.getMonth()+1)*100+t.getDate();
+ var d=c&&(c.date||c.game_date||''),n=0,m;
+ if(d&&(m=String(d).match(/(\d{4})-?(\d{2})-?(\d{2})/)))n=+(m[1]+m[2]+m[3]);
+ if(!n&&(m=String((c&&c.id)||'').match(/(\d{4})(\d{2})(\d{2})\s*$/)))n=+(m[1]+m[2]+m[3]);
+ return n>0&&n>=today;
 }
 /* EMPTY-STATE CLASS KILL (owner 6:58 9/28): the page NEVER renders empty-feed or
    loading/syncing strings. Last good content (this build only, so a stale badge from
@@ -466,13 +476,17 @@ function renderNews(t,arts){
   buildPairs(base);
   items=PAIRS.map(function(p){return p.a;});
  }
- if(!items.length){
-  if(freshMap){PAIRS=zeroPairFallback(base);items=PAIRS.map(function(p){return p.a;});} /* settled zero-pair map: unpaired latest on the muted tier, never blank */
-  if(!items.length&&CAR_UNIT){items=CAR_UNIT.items;PAIRS=CAR_UNIT.pairs.map(function(p){return {a:p.a,post:p.post,kind:freshMap?p.kind:'latest',k:p.k};});} /* atomic: prior unit as ONE unit, no stale verification badge */
-  if(!items.length){CAR_LAST=[];PAIRS=[];} /* both pools empty and no good unit ever: blank atomically, self-heals on poll */
+ FEED_FALLBACK=false;
+ if(!items.length&&freshMap){
+  items=base.slice(0,12); /* settled zero-pair map: independent latest-content feeds, no PAIRS unit, nothing implied */
+  FEED_FALLBACK=items.length>0;PAIRS=[];
  }
- if(items.length){CAR_LAST=items;CAR_UNIT={items:items,pairs:PAIRS.slice()};}
- NEWS_READY=true; /* load-race guard (user 3:52 screenshot + QA 3:51): social must know news has rendered before it judges pinned==0 */
+ if(!items.length&&CAR_UNIT){items=CAR_UNIT.items;PAIRS=CAR_UNIT.pairs.map(function(p){return {a:p.a,post:p.post,kind:freshMap?p.kind:'latest',k:p.k};});} /* atomic: prior unit as ONE unit, no stale verification badge */
+ if(!items.length){CAR_LAST=[];PAIRS=[];} /* both pools empty and no good unit ever: blank atomically, self-heals on poll */
+ if(items.length&&!FEED_FALLBACK){CAR_LAST=items;CAR_UNIT={items:items,pairs:PAIRS.slice()};}
+ else if(items.length){CAR_LAST=items;}
+ NEWS_READY=true;
+ try{document.body.classList.toggle('rp-nosync',!!FEED_FALLBACK);}catch(e){} /* load-race guard (user 3:52 screenshot + QA 3:51): social must know news has rendered before it judges pinned==0 */
  CAR_ALL=base.slice(0,40);
  /* class kill (user 4:27 + QA 4:33 verdict 1): BOTH feeds hold the loading state until news,
     x_feed AND the sync-map verdict have all settled - one feed's numbers never render beside
@@ -527,6 +541,7 @@ function renderNews(t,arts){
 /* X social section (owner 10:32: X posts out of news, own Home section; built 11:53 scope):
    renders the x_feed items XNEWS already normalizes; Home-only visibility via body.tab-home CSS. */
 var SOC_SIG='',SOC_IDX=0,SOC_N=0,SOC_LAST=[];
+var FEED_FALLBACK=false;
 function socMove(ci){
  var tr=$('rpSocTrack');if(!tr||!SOC_N)return;
  var sl=tr.children[ci];if(!sl)return;
@@ -674,7 +689,7 @@ function renderSocial(){
     no link claims the URF verdict without the full loop; the muted label makes that honest). */
  /* guard 1 shared array: social renders EXACTLY the resolved PAIRS - same order, same N,
     same index as the news carousel. No independent filtering here, no cascade, no fallback. */
- var items=PAIRS.map(function(p){return {post:p.post,kind:p.kind,nkey:p.k};});
+ var items=FEED_FALLBACK?zeroPairSocial(12):PAIRS.map(function(p){return {post:p.post,kind:p.kind,nkey:p.k};});
  var sig=items.map(function(it){return ((it.post&&it.post.id)||'-')+it.kind;}).join('|');
  if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
  SOC_SIG=sig;SOC_N=items.length;SOC_LAST=items;
