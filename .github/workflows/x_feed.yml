@@ -49,33 +49,31 @@ jobs:
       #   R4 IF a probe verdict lands THEN it caches salted by every decision-changing input.
       #   R5 IF a pair is found false THEN it is killed in map + verdict cache and the probe class
       #      is hardened (QA 5:21 pub-ad false green -> v4-commercial-gate).
-      # This guard is R1+R2's burn discipline: skip ONLY when the map covers live news AND every
-      # visible story already holds a verified pair.
-      - name: "freshness guard (IFTTT R1+R2 - skip only when map covers live news AND visible window fully verified)"
+      # Pairing still runs for every news completion. Paid X pulls have a minimum
+      # 15-minute gap, measured from the burn ledger's last actual request, not
+      # a map timestamp (a regenerated map proves nothing about new X posts).
+      - name: "X pull floor (at least 15 minutes between billed requests)"
         run: |
           python3 - <<'EOF'
-          import json, os, urllib.request
+          import datetime, json, os
+          now = datetime.datetime.now(datetime.timezone.utc)
+          last = None
           try:
-              req = urllib.request.Request('https://rix-picks.com/slates/news.json?cb=' + str(int(__import__('time').time())),
-                  headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36'})
-              news = json.loads(urllib.request.urlopen(req, timeout=20).read().decode())
-              mp = json.load(open('slates/soc_match.json'))
-          except Exception as e:
-              print('guard unreadable (%s) - chain runs' % str(e)[:60]); raise SystemExit(0)
-          ng = news.get('generated_at') or ''
-          mb = mp.get('built_at') or ''
-          def k(a): return (a.get('link') or '') or a.get('headline', '')
-          top = [k(a) for a in (news.get('latest') or [])[:15]]
-          ver = {kk for kk, v in (mp.get('pairs') or {}).items() if (v or {}).get('verified')}
-          unpaired = [kk for kk in top if kk not in ver]
-          if ng and mb and mb >= ng and not unpaired:
-              print(f'map {mb} covers news {ng} and all {len(top)} visible stories verified - skipping chain')
-              os.system("echo 'SKIP_CHAIN=1' >> $GITHUB_ENV")
-          else:
-              print(f'chain runs: map={mb} news={ng} unpaired-visible={len(unpaired)}/{len(top)}')
+              with open('slates/x_burn.jsonl') as f:
+                  for line in f:
+                      try:
+                          row = json.loads(line)
+                          dt = datetime.datetime.fromisoformat(row['ts'].replace('Z', '+00:00'))
+                          if dt.tzinfo and (last is None or dt > last): last = dt
+                      except (ValueError, KeyError, TypeError): pass
+          except FileNotFoundError: pass
+          due = not last or now - last >= datetime.timedelta(minutes=15)
+          print('X pull due:', due, 'last billed request:', last)
+          if not due:
+              with open(os.environ['GITHUB_ENV'], 'a') as f: f.write('SKIP_X_PULL=1\n')
           EOF
       - name: "x feed pull (burn-ledgered)"
-        if: env.SKIP_CHAIN != '1'
+        if: env.SKIP_X_PULL != '1'
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
           MODE: ${{ inputs.verify_only && 'verify' || 'pull' }}
@@ -85,7 +83,7 @@ jobs:
           fi
           python3 scripts/x_feed.py "$MODE"
       - name: "news-driven social pull (owner 1:11 + 1:15 - X API is the tap; trials route around until a path works)"
-        if: env.SKIP_CHAIN != '1'
+        if: env.SKIP_X_PULL != '1' && !inputs.verify_only
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
           NS_MODE: ${{ inputs.ns_mode || 'pull' }}
@@ -95,7 +93,6 @@ jobs:
           fi
           python3 scripts/news_social.py "$NS_MODE"
       - name: "semantic match build (URF six-gate, owner 1:00/1:01 - every link passes the full loop)"
-        if: env.SKIP_CHAIN != '1'
         env:
           NIM_CLIENT_TOKEN: ${{ secrets.NIM_CLIENT_TOKEN }}
         run: |
@@ -106,7 +103,6 @@ jobs:
           python3 scripts/soc_fixtures.py  # deterministic gate regressions - abort the chain before a bad map ships
           python3 scripts/soc_match.py
       - name: "commit feed + burn ledger"
-        if: env.SKIP_CHAIN != '1'
         run: |
           git config user.name "RixPicks Bot"
           git config user.email "rixpicks-bot@users.noreply.github.com"
