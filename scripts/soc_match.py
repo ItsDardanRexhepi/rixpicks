@@ -51,7 +51,7 @@ MORE_CAP = 20
 # boilerplate); (2) a post whose text introduces a foreign principal person (capitalized
 # bigram surname absent from the headline's entities, place/org words excluded) conflicts.
 # No extractable entities -> gate silent, probe decides. Latest tier uses layer 1 at need=1.
-ENTITY_GATE_VERSION = 'eg3'  # eg3: empty-entity hole killed - foreign-person fallback vs raw headline text
+ENTITY_GATE_VERSION = 'eg4'  # eg4: action+temporal gates R4-R8 (guard 2 9/28 7:59) + uniqueness sweep
 ENTITY_STOP = set('game games report reports season seasons preview previews recap recap watch video highlight highlights rumor rumors update updates news trade trades injury injuries week daily today tonight tomorrow yesterday best worst ranking rankings power draft pick picks odds line lines spread spreads over under win wins loss losses versus the after before says said new why how what who live score scores final first last early late big top free agent agents coach coaches team teams player players star stars fans fan take takes make makes get gets back down into with from will would could should must still just more most ever every next league playoff playoffs postseason championship title titles night match matches fight fights career future futures ready leads lead leading recalls sent check throws college football basketball baseball hockey soccer monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december chat discussion eve face home road looks remain unbeaten factor charge go years year state count counts props prop expert experts bets bet betting booed'.split())
 POST_PERSON_STOP = ENTITY_STOP | set('field stadium arena center centre park garden dome coliseum bowl classic series cup showdown invitational open masters nationals united city club fc sc ac cf real sporting athletics university kings queens islanders'.split())
 
@@ -103,8 +103,23 @@ def post_persons(text, title_ents):
 PICKS_ARTICLE = re.compile(r'\b(picks?|props?|best bets|expert|parlay|bets|betting)\b', re.I)
 PICK_EVIDENCE = re.compile(r"\b((?:over|under)\s*\d|yards?|yds|td|touchdown|receptions?|rushing|passing|receiving|interceptions?|ints?|sacks?|strikeouts?|anytime|scorer|prop|best bet|lock|taking the|picking the|picked the|my pick|i like the|give me|pick:|play:)\b", re.I)
 BET_SLIP_POST = re.compile(r'\[\d+(\.\d+)?u\]|[+-]\d{3,}[^.\n]{0,40}[+-]\d{3,}', re.I)
-HISTORICAL_POST = re.compile(r'\b(since (19|20)\d\d|career|all[- ]time|histor(?:y|ical)|last season|retrospective|looking back)\b', re.I)
-BREAKING_ARTICLE = re.compile(r'\b(leaves|sent|injured|injury|ruled out|exits?|carted|concussion|traded|trade|signs|signed|released|breaks|sidelined|questionable|doubtful|scratched|activated|waived|recalled)\b', re.I)
+HISTORICAL_POST = re.compile(r'\b(since (19|20)\d\d|career|all[- ]time|histor(?:y|ical)|last season|retrospective|looking back|this offseason|offseason|recruiting)\b', re.I)
+# R4-R8 action + temporal classes (guard 2 story-audit 9/28 7:59): entity overlap is not an
+# event match. The article's ACTION + TEMPORAL STATUS must match the post's - postgame recap
+# vs pregame hype, game thread vs sales CTA, availability update vs offseason interview,
+# preview analysis vs transaction report, editorial analysis vs trivia, betting content vs
+# non-betting story.
+RECAP_ARTICLE = re.compile(r"\b(second|third|fourth|game-winning|walk-?off)\b.{0,25}\b(td|touchdown|goal|shot|home run|pass)\b|\b(td|touchdown) pass\b|holding .{0,15}lead|\bfinal\b|recap|postgame", re.I)
+PREGAME_POST = re.compile(r"\b(tonight|my pick|i'?m picking|could be a|the script|pregame|tailgate|first start .{0,30}in \d+ years|hasn'?t .{0,30}(all season|yet|since \d+))\b", re.I)
+PREVIEW_ARTICLE = re.compile(r'\b(preview|looks to|how to watch|keys to|storylines)\b', re.I)
+TRANSACTION_POST = re.compile(r'\b(officially inactive|inactive for|placed on|activated from|listed as (out|doubtful|questionable)|waived|signed to)\b', re.I)
+CTA_POST = re.compile(r"\b(here are (the|our|my|your).{0,40}(picks|predictions)|tune in(to)?|listen (live|to)|promo code|bonus code|use code|link in (bio|comments)|sign up (and|to))\b", re.I)
+PROMO_ARTICLE = re.compile(r'\b(promo code|bonus code|bonus bets?|sign[- ]up (offer|bonus)|sportsbook (offer|promo))\b', re.I)
+TRIVIA_POST = re.compile(r'\b(jersey number|rock #|wear #|uniform number|new number)\b', re.I)
+ANALYSIS_ARTICLE = re.compile(r"\b(make sense|winners and losers|execs|coaches.{0,25}(explain|poll|rank)|breakdown|film study)\b", re.I)
+BETTING_CONTENT = re.compile(r'\b(ATS|against the spread|cover the|moneyline|over/under|betting trend|units? won)\b', re.I)
+
+BREAKING_ARTICLE = re.compile(r'\b(leaves|sent|injured|injury|injuries|ready to go|cleared|ruled out|exits?|carted|concussion|traded|trade|signs|signed|released|breaks|sidelined|questionable|doubtful|scratched|activated|waived|recalled)\b', re.I)
 
 
 def foreign_person_vs_title(title, text):
@@ -135,6 +150,21 @@ def story_type_gate(title, post):
         return 'betting-slip post on a non-picks story'
     if HISTORICAL_POST.search(p) and BREAKING_ARTICLE.search(t):
         return 'historical framing vs breaking-event story'
+    # R4 postgame/live recap story vs pregame-framed post (Keenum 2nd-TD vs Barkley bet/hype)
+    if RECAP_ARTICLE.search(t) and PREGAME_POST.search(p):
+        return 'pregame/hype post vs postgame recap story (temporal mismatch, guard 2)'
+    # R5 preview/analysis story vs transaction/inactive report (CBS preview vs Caleb inactive)
+    if PREVIEW_ARTICLE.search(t) and TRANSACTION_POST.search(p):
+        return 'transaction report vs preview-analysis story (action mismatch, guard 2)'
+    # R6 sales/promo CTA post vs non-promo story (picks CTA vs game thread; radio tune-in)
+    if CTA_POST.search(p) and not PROMO_ARTICLE.search(t):
+        return 'sales/promo CTA post vs non-promo story (guard 2)'
+    # R7 trivia (jersey/uniform numbers) vs analysis article (Giants trade analysis)
+    if ANALYSIS_ARTICLE.search(t) and TRIVIA_POST.search(p):
+        return 'trivia post vs analysis article (action mismatch, guard 2)'
+    # R8 betting-market content (ATS/trends) vs non-betting story
+    if BETTING_CONTENT.search(p) and not PICKS_ARTICLE.search(t):
+        return 'betting-market content vs non-betting story (guard 2)'
     return None
 
 
@@ -149,6 +179,37 @@ def probe_predeny(story, post):
     if PICKS_ARTICLE.search(head) and not PICK_EVIDENCE.search(post or ''):
         return ('REJECT', 'picks-type article, post declares no concrete pick/prop: same-event odds language is not a match (deterministic, guard 3)')
     return None
+
+def enforce_uniqueness(log):
+    """guard 2 (9/28 7:59): any post ID maps to at most ONE story across pins/more/nearest/
+    latest; repetition INSIDE one story is fine (the pin is its own story's nearest etc).
+    Priority pin > nearest > more > latest: first claim keeps the post, later tiers drop it.
+    Returns the violations stripped (also recorded into log['audit'])."""
+    seen = {}
+    viol = []
+    def claim(pid, nk, tier):
+        pid = str(pid)
+        if pid in seen and seen[pid] != nk:
+            viol.append({'post_id': pid, 'tier': tier, 'kept_story': seen[pid][:80], 'dropped_story': (nk or '')[:80]})
+            return False
+        seen.setdefault(pid, nk)
+        return True
+    for nk, pr in (log.get('pairs') or {}).items():
+        if pr.get('post_id'):
+            claim(pr['post_id'], nk, 'pin')
+    for nk in list((log.get('nearest') or {}).keys()):
+        v = log['nearest'][nk]
+        if v.get('post_id') and not claim(v['post_id'], nk, 'nearest'):
+            del log['nearest'][nk]
+    for nk in list((log.get('more') or {}).keys()):
+        log['more'][nk] = [x for x in log['more'][nk] if claim(x.get('post_id'), nk, 'more')]
+    for nk in list((log.get('latest') or {}).keys()):
+        v = log['latest'][nk]
+        if v.get('post_id') and not claim(v['post_id'], nk, 'latest'):
+            del log['latest'][nk]
+    if viol:
+        log.setdefault('audit', {})['uniqueness_stripped'] = viol
+    return viol
 
 # Equivocal-YES abstain (guard 2, same incident): a YES whose own reasoning admits a
 # conflict ("YES - Different team.") is the model collapsing, not confirming. The parser
@@ -220,7 +281,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v7-positive-match'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v8-action-temporal'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
@@ -254,6 +315,9 @@ def verify(story, post):
     pre = probe_predeny(story, post)
     if pre:
         return pre
+    st = story_type_gate((story or '')[:200], post or '')
+    if st:
+        return ('REJECT', 'story-type gate: ' + st)
     # probe calibration (1:30): the product rule is "matching social posts ABOUT the story"
     # (owner 1:11). Round 1's wording ("same specific story") over-abstained - it rejected a
     # fan's "My OFFICIAL 2026 MLB Playoff Predictions" against "2026 MLB playoff predictions:
@@ -288,7 +352,14 @@ def verify(story, post):
               '  itself recommends. Same event, same sport, shared odds vocabulary, or the absence\n'
               '  of contradiction is NEVER a match: NO.\n'
               '- Personal fan plans, attendance, travel, or watch-party posts are NEVER about the story: NO.\n'
-              '- Start the final line with YES only when every rule above passes; on ANY doubt start\n'
+              '- ACTION + TIMELINE proof (guard 2): name the story\'s action and where it sits in the\n'
+              '  event timeline (pregame preview, live thread, postgame play/recap, roster/injury update,\n'
+              '  offseason feature), then the post\'s. YES only when BOTH action and timeline match. A\n'
+              '  pregame pick or hype NEVER matches a postgame play or recap; an inactive/transaction\n'
+              '  report NEVER matches a game preview; an offseason interview NEVER matches an in-season\n'
+              '  availability update.\n'
+              '- The YES reason MUST name the single concrete shared event/action it proves.\n'
+              '  \'same event\', \'same game\', \'same health status\', or \'does not contradict\' are NOT proof.\n'              '- Start the final line with YES only when every rule above passes; on ANY doubt start\n'
               '  with NO and name the doubt.\n'
               'Answer: two Step-1 lines, then a final line starting with exactly YES or NO and one short reason.')
     out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
@@ -592,6 +663,9 @@ def main():
     except Exception:
         pass
     json.dump(vcache, open(VERD, 'w'))
+    viol = enforce_uniqueness(log)
+    if viol:
+        print(f'uniqueness sweep stripped {len(viol)} cross-story repeats', file=sys.stderr)
     json.dump(log, open('slates/soc_match.json', 'w'))
     print('soc_match built:', json.dumps(log['audit']))
     return 0
