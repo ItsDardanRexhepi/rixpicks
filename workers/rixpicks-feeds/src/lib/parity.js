@@ -3,19 +3,32 @@
 // per lane is the cutover gate (see CUTOVER_PLAN.md).
 async function getJson(url) { const r = await fetch(url); if (!r.ok) throw new Error('http ' + r.status); return r.json(); }
 
+// Age-aware recall (gate decision 9/29 09:15 PT, main+builder): a miss counts only if the
+// prod story is older than MISS_AGE_MIN at comparison time - both pollers get a fair window
+// on a fast lane before divergence counts against fidelity.
+const MISS_AGE_MIN = 15;
 function newsParity(mine, prod) {
   const key = a => (a.link || '') || a.headline || '';
-  const p15 = (prod.latest || []).slice(0, 15).map(key).filter(Boolean);
+  const p15arts = (prod.latest || []).slice(0, 15);
   const wall = new Set();
   for (const a of mine.latest || []) wall.add(key(a));
   for (const lst of Object.values(mine.leagues || {})) for (const a of lst) wall.add(key(a));
-  if (!p15.length || !wall.size) return { ok: false, reason: 'empty side', recall: 0 };
-  const hit = p15.filter(k => wall.has(k)).length;
-  const recall = hit / p15.length;
+  if (!p15arts.length || !wall.size) return { ok: false, reason: 'empty side', recall: 0 };
+  const now = Date.now();
+  let scored = 0, hit = 0; const misses = [];
+  for (const a of p15arts) {
+    const k = key(a); if (!k) continue;
+    const pub = Date.parse(a.published || '');
+    const ageMin = isNaN(pub) ? Infinity : (now - pub) / 60000;
+    if (wall.has(k)) { scored++; hit++; continue; }
+    if (ageMin <= MISS_AGE_MIN) continue; // inside the fair window - not scored
+    scored++;
+    misses.push({ src: a.source, league: a.league, age_min: Math.round(ageMin), headline: (a.headline || '').slice(0, 60) });
+  }
+  const recall = scored ? hit / scored : 1;
   const src = arr => arr.reduce((m, a) => { m[a.source] = (m[a.source] || 0) + 1; return m; }, {});
   const fresh = !prod.generated_at || (mine.generated_at || '') >= (prod.generated_at || '');
-  // worker must carry what prod serves (recall) and never be staler than prod
-  return { ok: recall >= 0.8 && fresh, recall: +recall.toFixed(3), fresh,
+  return { ok: recall >= 0.8 && fresh, recall: +recall.toFixed(3), scored, fresh, misses: misses.slice(0, 5),
     prod_sources: src(prod.latest || []), worker_sources: src(mine.latest || []),
     prod_degraded: prod.degraded_sources || null };
 }
