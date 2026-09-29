@@ -128,10 +128,44 @@ v, _ = sm.parse_verification('Story subject: Braves postseason discussion\nPost 
 if v != "ABSTAIN": fails.append("equivocal YES (different team) parsed as %s" % v)
 v, _ = sm.parse_verification('Story subject: Clark Game 2\nPost subject: unrelated\nYES - unrelated to the story.')
 if v != "ABSTAIN": fails.append("equivocal YES (unrelated) parsed as %s" % v)
-v, _ = sm.parse_verification('Story subject: X\nPost subject: X\nYES - exact headline quote with no contradiction.')
-if v != "EXECUTE": fails.append("clean YES parsed as %s" % v)
+v, _ = sm.parse_verification('YES - Keenum scored his second touchdown pass for Bears.', 'Keenum scored his second touchdown pass for Bears', 'Keenum scored his second touchdown pass for Bears')
+if v != "EXECUTE": fails.append("concrete action YES parsed as %s" % v)
 v, _ = sm.parse_verification('Story subject: X\nPost subject: Y\nNO - different player as main subject.')
 if v != "REJECT": fails.append("clean NO parsed as %s" % v)
+
+# Affirmative rationale must name an action that both source texts support.
+STORY = 'Case Keenum scored his second touchdown pass for the Bears against the Eagles'
+POST = 'Case Keenum scored his second touchdown pass tonight for the Bears'
+REASON_NEG = [
+    "YES - exact quote of the story's headline.",
+    'YES - They are about the same game and share a player.',
+    'YES - Keenum scored',
+    'YES - Caleb Williams scored a second touchdown pass for the Bears.',
+    'YES - The same event is discussed; no contradiction.',
+    'YES - Keenum and Bears are both mentioned in the post.',
+    'YES - "Keenum scored a fourth touchdown" for the Bears.',
+]
+for candidate in REASON_NEG:
+    v, _ = sm.parse_verification(candidate, STORY, POST)
+    if v not in ('ABSTAIN', 'REJECT'):
+        fails.append('fabricated/generic reason EXECUTEd: %s' % candidate)
+v, _ = sm.parse_verification('YES - Keenum scored his second touchdown pass for the Bears.', STORY, POST)
+if v != 'EXECUTE': fails.append('shared concrete action was not accepted: %s' % v)
+
+# Freshness parity: a 5h-old post is not current beside a new article. The
+# candidate set includes recent posts even when their cosine rank is lower.
+import datetime
+NOW = datetime.datetime.now(datetime.timezone.utc)
+def ago(hours): return (NOW - datetime.timedelta(hours=hours)).isoformat()
+if not sm.freshness_gate({'published': ago(.5)}, {'created_at': ago(5)}):
+    fails.append('fresh article paired with much older post')
+if sm.freshness_gate({'published': ago(.5)}, {'created_at': ago(.3)}):
+    fails.append('recent post rejected for fresh article')
+if not sm.freshness_gate({'published': ago(.5)}, {'created_at': None}):
+    fails.append('missing timestamp granted freshness')
+_pool = [{'created_at': ago(3)}, {'created_at': ago(.25)}]
+if sm.candidate_order([(.8, 0), (.65, 1)], _pool)[0][1] != 1:
+    fails.append('final candidates did not prioritize fresh post')
 
 # story_type_gate fixtures (eg2, guards 2+3 strips 7:10-7:11 PM): R1 picks-article needs
 # article-pick evidence; R2 bet-slip never pairs a non-picks story; R3 historical post
@@ -188,4 +222,4 @@ if fails:
     print("FIXTURE FAILURES:")
     [print(" -", f) for f in fails]
     sys.exit(1)
-print("fixtures PASS: %d entity negatives, %d positives, 4 parser fixtures, %d eg2 negatives, %d eg2 keeps, 2 source-order assertions" % (len(NEG), len(POS), len(EG2), len(EG2_KEEP)))
+print("fixtures PASS: %d entity negatives, %d positives, 4 parser fixtures + %d reason negatives + freshness, %d eg2 negatives, %d eg2 keeps, 2 source-order assertions" % (len(NEG), len(POS), len(REASON_NEG), len(EG2), len(EG2_KEEP)))
