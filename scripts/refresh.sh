@@ -96,7 +96,7 @@ python3 scripts/live_games.py slates/live_games.json || echo "live_games failed 
 RP_REFRESH=1 python3 scripts/build_gh_page_v2.py manifest.json index.html
 python3 scripts/backfill_history.py || true
 git add -N slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json 2>/dev/null || true
-if git diff --quiet -- index.html game-*.html futures.json slates/nfl_live.json slates/live_games.json slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json odds_moves.jsonl .odds_prev.json price_history.jsonl 2>/dev/null; then echo "no price movement - no commit"; exit 0; fi
+if git diff --quiet -- index.html game-*.html team-*.html futures.html futures.json slates/nfl_live.json slates/live_games.json slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json odds_moves.jsonl .odds_prev.json price_history.jsonl 2>/dev/null; then echo "no price movement - no commit"; exit 0; fi
 python3 -c "
 import json,datetime
 f='$COUNT_FILE'; d={}
