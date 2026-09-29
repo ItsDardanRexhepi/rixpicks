@@ -18,7 +18,7 @@ writes status=fallback to slates/soc_match_status.json (client token-matches whe
 import json, math, os, sys, time, hashlib, urllib.request, datetime, re
 
 # no tout/selling-access posts, ever (owner 1:39) - server mirror of the client RP_TOUT_KW filter
-RP_AD = re.compile(r'happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|reservation|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props', re.I)
+RP_AD = re.compile(r'happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|reservation|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props|deposit (bonus|match|offer)|bonus bets?', re.I)
 RP_TOUT = re.compile(r'discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|freebie|free picks? on|model.{0,20}(is )?(live|cashed)', re.I)
 
 NIM_URL = 'https://ultrix-core.itsdardanr.workers.dev/nim'
@@ -177,10 +177,13 @@ def main():
     # gate would deny - full payload (text + author branding + url), so even a stale client holding
     # an old map cannot render an ad/promo from it. Client guards are defense-in-depth, not the gate.
     def _pub(p):
-        t = ' '.join([p.get('text') or '', str(p.get('author_name') or ''), str(p.get('author_username') or ''), str(p.get('url') or '')])
+        import unicodedata
+        t = unicodedata.normalize('NFKC', ' '.join([p.get('text') or '', str(p.get('author_name') or ''), str(p.get('author_username') or ''), str(p.get('url') or '')]))
         if RP_AD.search(t) or RP_TOUT.search(t):
             return False
-        return not re.search(r'\b(bets|capper|cappers|handicapp)\b', str(p.get('author_name') or ''), re.I)
+        # sportsbook/operator brands banned at author AND handle (guard 3 Betfair class):
+        # operator-authored posts are operator content by construction, whatever the text says
+        return not re.search(r'\b(bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook)\\b', unicodedata.normalize('NFKC', str(p.get('author_name') or '') + ' ' + str(p.get('author_username') or '')), re.I)
     _pre = len(posts)
     posts = [p for p in posts if _pub(p)]
     if len(posts) != _pre:
