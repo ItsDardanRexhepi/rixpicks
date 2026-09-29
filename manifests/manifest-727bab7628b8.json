@@ -1,0 +1,200 @@
+{
+ "date": "2026-09-29",
+ "date_label": "Tuesday, Sep 29",
+ "updated": "Sep 29, 8:29 AM PT",
+ "record": "18-8",
+ "units_pl": "+5.05u",
+ "units_ledger": null,
+ "yesterday": "0-0 - no official picks",
+ "status_note": "Official picks by owner directive - sub-bar disclosure on file for all four legs.",
+ "preview": false,
+ "picks": [
+  {
+   "num": 1,
+   "name": "Maple Leafs ML",
+   "market_class": "ml",
+   "sub": "model 51.7",
+   "odds": "+100",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "Montreal Canadiens",
+    "home": "Toronto Maple Leafs",
+    "commence": "2026-09-29T23:00Z",
+    "eid": "401891827"
+   },
+   "espn_league": "hockey/nhl",
+   "league": "NHL",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxnhlgame/kxnhlgame-26sep29mtltor",
+    "cents": 50,
+    "team": "Toronto",
+    "gate_cents": 50,
+    "ticker": "KXNHLGAME-26SEP29MTLTOR-TOR"
+   },
+   "card_american": 100,
+   "card_source": "Kalshi ask at lock",
+   "card_ts": "2026-09-29T08:13:23-07:00",
+   "polymarket": null,
+   "dkp": null
+  },
+  {
+   "num": 2,
+   "name": "Bruins ML",
+   "market_class": "ml",
+   "sub": "model 51.1",
+   "odds": "+100",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "New York Rangers",
+    "home": "Boston Bruins",
+    "commence": "2026-09-30T00:00Z",
+    "eid": "401891774"
+   },
+   "espn_league": "hockey/nhl",
+   "league": "NHL",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxnhlgame/kxnhlgame-26sep29nyrbos",
+    "cents": 50,
+    "team": "Boston",
+    "gate_cents": 50,
+    "ticker": "KXNHLGAME-26SEP29NYRBOS-BOS"
+   },
+   "card_american": 100,
+   "card_source": "Kalshi ask at lock",
+   "card_ts": "2026-09-29T08:13:23-07:00",
+   "polymarket": null,
+   "dkp": null
+  },
+  {
+   "num": 3,
+   "name": "Loai Abushaar ML",
+   "market_class": "ml",
+   "sub": "model 26.5",
+   "odds": "+285",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "George Staines",
+    "home": "Loai Abushaar",
+    "commence": "2026-09-29T23:00Z",
+    "eid": null
+   },
+   "espn_league": "mma/ufc",
+   "league": "UFC",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxufcfight/kxufcfight-26sep29abusta",
+    "cents": 26,
+    "team": "Abushaar",
+    "gate_cents": 26,
+    "ticker": "KXUFCFIGHT-26SEP29ABUSTA-ABU"
+   },
+   "card_american": 285,
+   "card_source": "Kalshi ask at lock",
+   "card_ts": "2026-09-29T08:04:35-07:00",
+   "polymarket": null,
+   "dkp": null
+  },
+  {
+   "num": 4,
+   "name": "Braves ML",
+   "market_class": "ml",
+   "sub": "model 64.3",
+   "odds": "-178",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "Philadelphia Phillies",
+    "home": "Atlanta Braves",
+    "commence": "2026-09-29T18:00Z",
+    "eid": "401907965"
+   },
+   "espn_league": "baseball/mlb",
+   "league": "MLB",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxmlbgame/kxmlbgame-26sep291400phiatl",
+    "cents": 64,
+    "team": "Atlanta",
+    "gate_cents": 64,
+    "ticker": "KXMLBGAME-26SEP291400PHIATL-ATL"
+   },
+   "card_american": -178,
+   "card_source": "Kalshi ask at lock",
+   "card_ts": "2026-09-29T08:04:35-07:00",
+   "polymarket": null,
+   "dkp": null
+  },
+  {
+   "num": 5,
+   "name": "Yordan Alvarez over 1.5 hits",
+   "market_class": "prop",
+   "line": 1.5,
+   "player": "Yordan Alvarez",
+   "market": "bat_hits",
+   "sub": "vs White Sox - model 31.3",
+   "odds": "+270",
+   "units": "5u",
+   "side": "over",
+   "game": {
+    "away": "Chicago White Sox",
+    "home": "Houston Astros",
+    "commence": "2026-09-29T21:00Z",
+    "eid": "401907896"
+   },
+   "espn_league": "baseball/mlb",
+   "league": "MLB",
+   "best_book": "Kalshi",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxmlbhit/kxmlbhit-26sep291700cwshou",
+    "cents": 27,
+    "team": "Yordan Alvarez: 2+ hits",
+    "gate_cents": 27,
+    "ticker": "KXMLBHIT-26SEP291700CWSHOU-HOUYALVAREZ44-2"
+   },
+   "card_american": 270,
+   "card_source": "Kalshi ask at lock",
+   "card_ts": "2026-09-29T08:19:43-07:00",
+   "polymarket": null,
+   "dkp": null
+  }
+ ],
+ "parlay": {
+  "legs": [
+   "Maple Leafs ML",
+   "Bruins ML",
+   "Loai Abushaar ML",
+   "Braves ML",
+   "Yordan Alvarez over 1.5 hits"
+  ],
+  "label": "BUILD THIS PARLAY (+8799)",
+  "note": "Combined +8799 at publish-time prices.",
+  "kalshi_legs": [
+   {
+    "ticker": "KXNHLGAME-26SEP29MTLTOR",
+    "side": "TOR"
+   },
+   {
+    "ticker": "KXNHLGAME-26SEP29NYRBOS",
+    "side": "BOS"
+   },
+   {
+    "ticker": "KXUFCFIGHT-26SEP29ABUSTA",
+    "side": "ABU"
+   },
+   {
+    "ticker": "KXMLBGAME-26SEP291400PHIATL",
+    "side": "ATL"
+   },
+   {
+    "ticker": "KXMLBHIT-26SEP291700CWSHOU-HOUYALVAREZ44",
+    "side": "2"
+   }
+  ]
+ },
+ "pick_content_hash": "723ea9c7f4bdf7ab13fe5cae3d9ef6d02be034f8bda064b6e87828991420c98b"
+}
