@@ -239,7 +239,7 @@ body.tab-home .home-only{display:block}
 /* owner 12:43: news art cropped heads at 16/9 - bias the cover crop toward the upper third */
 .carimg{background-position:center 25%}
 .carnew{color:#2f8f7d;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.syncbadge{display:inline-block;background:#0d3b26;color:#3ddc84;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:99px;margin-bottom:6px}
+.syncbadge{display:inline-block;align-self:flex-start;background:#0d3b26;color:#3ddc84;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:99px;margin-bottom:6px}
 .syncscan{color:#7c8598;font-style:italic}
 
 .ultrix-sync-line{margin:14px 2px 0;font-size:11px;color:#8a8a91;letter-spacing:.02em}
@@ -254,4 +254,4 @@ body.tab-home .ultrix-sync-line{display:block}
 .pick.rp-empty .yesrec{color:#8a8f98;text-decoration:none;border-bottom:none;font-size:13px}
 .futpill{font-size:10px;font-weight:700;letter-spacing:.06em;color:#3aa895;border:1px solid rgba(58,168,149,.45);border-radius:999px;padding:3px 8px;white-space:nowrap}
 #rpGames.homeall{max-height:560px;overflow-y:auto}
-.synclatest{display:inline-block;background:#22263a;color:#8ea0c0;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:99px;margin-bottom:6px}
+.synclatest{display:inline-block;align-self:flex-start;background:#22263a;color:#8ea0c0;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:99px;margin-bottom:6px}
