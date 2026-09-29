@@ -186,14 +186,18 @@ def _payload(p):
 
 
 def _banned(p):
-    import re as _re
-    t = _payload(p)
-    return bool(TOUT_RE.search(t) or AD_RE.search(t) or _re.search(r'\b(bets|capper|cappers|handicapp)\b', str(p.get('author_name') or ''), _re.I))
+    import re as _re, unicodedata
+    t = unicodedata.normalize('NFKC', _payload(p))
+    if TOUT_RE.search(t) or AD_RE.search(t):
+        return True
+    # sportsbook/operator brands banned at author AND handle (guard 3 Betfair class)
+    who = unicodedata.normalize('NFKC', str(p.get('author_name') or '') + ' ' + str(p.get('author_username') or ''))
+    return bool(_re.search(r'\b(bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook)\b', who, _re.I))
 AD_RE = __import__('re').compile(
     r'tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|'
     r'price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|'
     r'vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|brought to you by|listen in now|'
-    r'tune in (now|tonight)|happy hour|dine[ -]?in|drink specials?|food specials?|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props', __import__('re').I)
+    r'tune in (now|tonight)|happy hour|dine[ -]?in|drink specials?|food specials?|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props|deposit (bonus|match|offer)|bonus bets?', __import__('re').I)
 
 def quality_ok(p):
     """anti-junk floor (main 1:29: random replies / low-content posts must not drive anything):
