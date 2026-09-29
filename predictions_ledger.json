@@ -24,5 +24,44 @@
   "kickoff_utc": "2026-09-29T21:00:00+00:00",
   "status": "pending",
   "created_at": "2026-09-29T03:00:33.433964+00:00"
+ },
+ {
+  "id": "ebeea3c045",
+  "event_id": "401891773",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Carolina Hurricanes",
+  "away": "Florida Panthers",
+  "pick_team": "Carolina Hurricanes",
+  "prediction": "Carolina Hurricanes beat Florida Panthers",
+  "kickoff_utc": "2026-09-29T21:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-29T03:20:17.807569+00:00"
+ },
+ {
+  "id": "ae501bebfe",
+  "event_id": "401891804",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Edmonton Oilers",
+  "away": "Vancouver Canucks",
+  "pick_team": "Edmonton Oilers",
+  "prediction": "Edmonton Oilers beat Vancouver Canucks",
+  "kickoff_utc": "2026-09-30T02:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-29T03:22:32.704955+00:00"
+ },
+ {
+  "id": "eddd91b0dc",
+  "event_id": "401891775",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Vegas Golden Knights",
+  "away": "Chicago Blackhawks",
+  "pick_team": "Vegas Golden Knights",
+  "prediction": "Vegas Golden Knights beat Chicago Blackhawks",
+  "kickoff_utc": "2026-09-30T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-29T03:22:55.922206+00:00"
  }
 ]
