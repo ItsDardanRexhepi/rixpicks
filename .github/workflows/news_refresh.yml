@@ -36,7 +36,26 @@ jobs:
           # push-race hardening (2:25 red-run kill): futures_ws listener lands commits every 75s,
           # so races are structural. autostash covers residual local edits (unstaged writes were
           # blocking the rebase); 5 tries with backoff.
-          for i in 1 2 3 4 5; do git push && break || { git pull --rebase --autostash; sleep 3; }; done
+          # bash -e/conflict class kill (guard 4 sweep 10:43, same as x-feed): every fallible
+          # command if-guarded, theirs-wins on generated slates, LOUD exit after 5 tries -
+          # the old loop exited GREEN with the commit dropped (silent data loss shape).
+          ok=0
+          for i in 1 2 3 4 5; do
+            if git pull --rebase --autostash -q; then
+              if git push -q; then ok=1; break; fi
+            else
+              if git status --porcelain | grep -q '^UU slates/'; then
+                git checkout --theirs -- slates/ || true
+                git add slates/ || true
+                if GIT_EDITOR=true git rebase --continue; then
+                  if git push -q; then ok=1; break; fi
+                fi
+              fi
+              git rebase --abort 2>/dev/null || true
+            fi
+            sleep 3
+          done
+          [ "$ok" = "1" ] || exit 1
       - name: "kalshi-quotes staleness watchdog"
         if: always()
         env:

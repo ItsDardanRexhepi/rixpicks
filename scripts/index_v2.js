@@ -107,7 +107,7 @@ document.querySelectorAll('nav.rpnav .tab').forEach(function(a){
 var navRecBtn=$('rpNavRec'),recPop=$('rpRecPop');
 if(navRecBtn&&recPop){
  var setPop=function(open){recPop.hidden=!open;navRecBtn.setAttribute('aria-expanded',open?'true':'false');};
- navRecBtn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();setPop(recPop.hidden);});
+ navRecBtn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();location.href='record.html';}); /* owner 9:58 (screenshot): the record chip taps THROUGH to the full day-by-day synopsis page - the popover replaced that in the header move and killed the click-through */
  document.addEventListener('click',function(e){if(!recPop.hidden&&!recPop.contains(e.target)&&!navRecBtn.contains(e.target))setPop(false);});
  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!recPop.hidden)setPop(false);});
 }
@@ -385,7 +385,10 @@ function feedCacheSave(){try{var s=JSON.stringify({v:RP_BUILD,t:Date.now(),items
 function feedCacheLoad(){try{var j=JSON.parse(localStorage.getItem('rp_feed_v2')||'null');
  if(!j||j.v!==RP_BUILD){j=JSON.parse(localStorage.getItem('rp_feed_stable')||'null');} /* cross-build hold (7:30 class): a deploy must never cold-boot to blank - the last coherent unit paints with badges suppressed regardless of which build saved it */
  if(!j)return null;
- if(Date.now()-(j.t||0)>900000)return null; /* 15-min TTL (guard 5 7:10): a stale snapshot is not permission */
+ /* no TTL (owner never-again mandate 10:40): the last coherent unit paints marked stale -
+    badges suppressed above, 30s poll re-verifies - through ANY feed gap. Blank only when no
+    coherent cache has ever existed. Revocation protection is badge suppression + the poll,
+    not blanking (the 15-min TTL re-created the blank-sections incident it predated). */
  /* guard 1 (7:20) source kill of the independent-filter incoherence: pairs are validated
     FIRST, items are DERIVED from the survivors - a cached snapshot can never boot News N
     beside Social N-1. Distinct post IDs only, and the story key must match its pair key. */
@@ -582,7 +585,7 @@ function isPublishableNews(a){
  return !RP_PROMO_NEWS.test(t);
 }
 var RP_SPORT_KW=/nfl|nba|mlb|nhl|wnba|ncaa|cfb|mls|nwsl|pga|nascar|ufc|mma|boxing|tennis|football|basketball|baseball|hockey|soccer|golf|sports|touchdown|quarterback|playoff|super bowl|world series|stanley cup|fantasy|draft pick|trade rumor|injury report|starting lineup|home run|slam dunk|shutout|knockout|title fight|grand slam|eagles|bears|chiefs|cowboys|packers|vikings|giants|jets|patriots|steelers|ravens|bengals|browns|texans|colts|jaguars|titans|broncos|raiders|chargers|rams|seahawks|49ers|cardinals|falcons|panthers|saints|buccaneers|commanders|lions|dolphins|bills|yankees|dodgers|red sox|cubs|braves|astros|phillies|mets|padres|mariners|lakers|celtics|warriors|knicks|nets|sixers|bulls|heat|bucks|nuggets|suns|mavericks|thunder|timberwolves|spurs|rockets|clippers|grizzlies|pelicans|kings|trail blazers|jazz|hawks|hornets|hornets|pacers|cavaliers|pistons|magic|wizards|raptors|maple leafs|bruins|canadiens|oilers|avalanche|lightning|panthers|rangers|penguins|capitals|flyers|red wings|blackhawks|wild|stars|predators|blues|jets|kraken|golden knights|sharks|ducks|kings|coyotes|hurricanes|blue jackets|devils|islanders|sabres|senators|flames|canucks/i;
-fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
+fetch('slates/soc_match.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
  if(rpMapFresh(m)){SOC_MATCH=m;SOC_MATCH_OK=true;} /* stamped maps wait for matching served feed generations */
  SOC_MAP_DONE=true; /* settled = verdict reached (fresh map OR rejected); the feeds may now build */
  try{if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));renderSocial();socSync();}catch(e){}
@@ -780,7 +783,7 @@ function ingestX(j){ /* single publishability-gated ingest path (guard 3): XNEWS
 function refreshX(){
  if(Date.now()-XNEWS_TS<60000)return;
  XNEWS_TS=Date.now();
- fetch('slates/x_feed.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
+ fetch('slates/x_feed.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
   if(!j||!Array.isArray(j.items))throw 0;
   ingestX(j);
   XFEED_DONE=true;
@@ -899,7 +902,7 @@ function loadSide(t){
 
  if(NEWSF&&now-NEWSF_TS<30000){renderNews(t,newsBucket(t));tickRender();}
  else{
-  fetch('slates/news.json', {cache:'no-store'})
+  fetch('slates/news.json?cb='+Date.now(), {cache:'no-store'})
    .then(function(r){if(!r.ok)throw 0;return r.json();})
    .then(function(j){NEWSF=j;NEWSF_TS=Date.now();if(SOC_MATCH_OK&&!rpMapFresh(SOC_MATCH))SOC_MATCH_OK=false;if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
    .catch(function(){if(cur===t){renderNews(t,newsBucket(t));tickRender();}});

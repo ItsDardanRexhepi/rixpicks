@@ -33,26 +33,37 @@ function quotesParity(mine, prod) {
   const priceOk = compared === 0 || close / compared >= 0.95;
   return { ok: cov >= 0.95 && priceOk, coverage: +cov.toFixed(3), price_close: compared ? +(close / compared).toFixed(3) : null };
 }
-function futuresParity(mine, prodRows) {
-  // prodRows: latest row per league from the repo ticks file (parsed by caller)
-  let keysP = new Set(), keysM = new Set(); let close = 0, compared = 0;
+// Hybrid decision (main 9/28 22:16 relay): Poly legs migrate to the worker; Kalshi legs stay
+// GHA-side until a non-CF relay exists. The futures GATE therefore evaluates the Poly leg;
+// the Kalshi leg is reported informationally and never gates.
+function futuresParity(mine, prodRows, quality) {
+  // illiquid books (spread > 25c) have no knowable mid - exclude from price agreement
+  const wide = new Set(Object.entries((quality || {}).spread_c || {}).filter(([, v]) => v > 25).map(([k]) => k));
   const mineByLeague = mine.leagues || {};
-  for (const [lg, prow] of Object.entries(prodRows)) {
-    const pb = prow.board || {}, mb = (mineByLeague[lg] || {}).board || {};
-    for (const k of Object.keys(pb)) {
-      keysP.add(lg + k);
-      if (k in mb) {
-        keysM.add(lg + k);
-        if (Math.abs((mb[k] || 0) - pb[k]) <= 2) close++;
-        compared++;
+  function evalLeg(prefix) {
+    let keysP = new Set(), keysM = new Set(); let close = 0, compared = 0;
+    for (const [lg, prow] of Object.entries(prodRows)) {
+      const pb = prow.board || {}, mb = (mineByLeague[lg] || {}).board || {};
+      for (const k of Object.keys(pb).filter(k => k.startsWith(prefix))) {
+        keysP.add(lg + k);
+        if (k in mb) {
+          keysM.add(lg + k);
+          if (prefix === 'P:' && wide.has(k)) continue; // illiquid: coverage counts, price doesn't
+          if (Math.abs((mb[k] || 0) - pb[k]) <= 2) close++;
+          compared++;
+        }
       }
+      for (const k of Object.keys(mb).filter(k => k.startsWith(prefix))) keysM.add(lg + k);
     }
-    for (const k of Object.keys(mb)) keysM.add(lg + k);
+    if (!keysP.size) return { ok: true, reason: 'prod empty' };
+    const cov = [...keysP].filter(k => keysM.has(k)).length / keysP.size;
+    const priceOk = compared === 0 || close / compared >= 0.95;
+    return { ok: cov >= 0.95 && priceOk, coverage: +cov.toFixed(3), price_close: compared ? +(close / compared).toFixed(3) : null };
   }
-  if (!keysP.size) return { ok: true, reason: 'prod empty' };
-  const cov = [...keysP].filter(k => keysM.has(k)).length / keysP.size;
-  const priceOk = compared === 0 || close / compared >= 0.95;
-  return { ok: cov >= 0.95 && priceOk, coverage: +cov.toFixed(3), price_close: compared ? +(close / compared).toFixed(3) : null };
+  const poly = evalLeg('P:');
+  const kalshi = evalLeg('K:');
+  poly.kalshi_leg = { delegated: 'gha', ...kalshi };
+  return poly;
 }
 
 export async function runParity(env, justRan) {
@@ -82,7 +93,11 @@ export async function runParity(env, justRan) {
           Object.assign(prodRows[r.league].board, r.board || {});
         }
       } catch (e) { report.lanes.futures = { ok: false, reason: 'prod ticks unreadable' }; }
-      if (!report.lanes.futures) report.lanes.futures = mine ? futuresParity(mine, prodRows) : { ok: false, reason: 'no worker artifact' };
+      if (!report.lanes.futures) {
+        let quality = null;
+        try { const qo = await env.FEEDS.get('futures/quality.json'); if (qo) quality = JSON.parse(await qo.text()); } catch (e) {}
+        report.lanes.futures = mine ? futuresParity(mine, prodRows, quality) : { ok: false, reason: 'no worker artifact' };
+      }
     }
   } catch (e) { report.error = String(e).slice(0, 120); }
   // rolling 24h window

@@ -102,11 +102,25 @@ jobs:
           git add slates/x_feed.json slates/x_burn.jsonl slates/x_feed_state.json slates/soc_trials.json 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -m "x ingest $(date -u +%H:%M) UTC"
+            # same bash -e/conflict class as the commit-feed step (chain 36526891590 died here
+            # 05:36Z on a rebase conflict, wasting a billed pull): if-guarded, theirs-wins.
+            ok=0
             for i in 1 2 3 4 5; do
-              git push -q && break
-              git pull --rebase --autostash -q || exit 1
+              if git pull --rebase --autostash -q; then
+                if git push -q; then ok=1; break; fi
+              else
+                if git status --porcelain | grep -q '^UU slates/'; then
+                  git checkout --theirs -- slates/ || true
+                  git add slates/ || true
+                  if GIT_EDITOR=true git rebase --continue; then
+                    if git push -q; then ok=1; break; fi
+                  fi
+                fi
+                git rebase --abort 2>/dev/null || true
+              fi
+              sleep 5
             done
-            git push -q || exit 1
+            [ "$ok" = "1" ] || exit 1
           fi
       - name: "semantic match build (URF six-gate, owner 1:00/1:01 - every link passes the full loop)"
         env:

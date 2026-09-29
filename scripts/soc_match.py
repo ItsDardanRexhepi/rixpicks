@@ -625,16 +625,17 @@ def main():
     # sync-at-all-times (user 4:27 class kill): match against the LIVE served news window,
     # not the minutes-old checkout snapshot - a stale snapshot pairs stories that have already
     # rotated out of the visible feed (0 verified slides observed 4:46 with a 52s-old map).
-    news = None
+    # never-again 10:58 (main): match against the news ARTIFACT in this run's own checkout -
+    # the map and the news it cites publish in the same deploy generation, so a CDN edge can
+    # never flap the page's fail-closed check with a live-fetch generation mix (the 10:58 blank:
+    # map stamped an edge's stale 05:35:25Z while other edges served 05:50:07Z). Mid-run rotation
+    # is covered by the news-completion chain re-run; the page-level last-good hold covers the gap.
     try:
-        req = urllib.request.Request('https://rix-picks.com/slates/news.json?cb=' + str(int(datetime.datetime.now().timestamp())),
-            headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36'})
-        with urllib.request.urlopen(req, timeout=20) as r:
-            news = json.loads(r.read().decode())
+        news = json.load(open('slates/news.json'))
     except Exception as e:
-        raise RuntimeError('live news fetch failed; keeping prior match map unchanged: ' + str(e)[:80])
+        raise RuntimeError('checkout news artifact unreadable; keeping prior match map unchanged: ' + str(e)[:80])
     if not isinstance(news, dict) or not news.get('latest') or not news.get('generated_at'):
-        raise RuntimeError('live news snapshot invalid or empty; keeping prior match map unchanged')
+        raise RuntimeError('checkout news artifact invalid or empty; keeping prior match map unchanged')
     x = json.load(open('slates/x_feed.json'))
     news_gen = news.get('generated_at')  # guard 5 coherence: stamp the exact news snapshot every verdict covers
     items = news.get('latest', [])

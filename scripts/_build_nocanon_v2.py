@@ -2616,6 +2616,19 @@ def _pt_label(iso):
     except Exception: return ''
 
 def build_game_pages(man, css, build_sha):
+    # record-integrity kill (main 10:42): a game page's lock comes from ITS OWN manifest's
+    # original card_ts. Module ENTRY_LOCK resolves from the BUILDING day's manifest - on an
+    # empty-day rebuild it falls through to manifest.updated and restamps yesterday's settled
+    # picks with today's timestamp, implying after-the-fact bets. Never again.
+    _gcts=[pp.get('card_ts') for pp in man.get('picks',[]) if pp.get('card_ts')]
+    _glock=None
+    if _gcts:
+        _gc0=min(_gcts)
+        from zoneinfo import ZoneInfo as _ZIg
+        _glock=_dtc.datetime.fromisoformat(_gc0.replace('Z','+00:00')).astimezone(_ZIg('America/Los_Angeles')).strftime('%b %d').replace(' 0',' ')+', '+_pt_time(_gc0)
+    def _game_stamp(p):
+        if _ODDS_CHECKED: return _stamp_html(p)
+        return html.escape((p.get('locked') or _glock or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))+' &middot; locked'
     "Per-game live-market pages (user, Sep 25 12:11 PM)."
     tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'game_page_template.html')).read()
     pages={}
@@ -2902,7 +2915,7 @@ def build_game_pages(man, css, build_sha):
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',abbr_a),('__HAB__',abbr_h),  # swamp 9/26: gpk registry blanks on unregistered games rendered UNLABELED arbiter-only scores - abbrs come from the same verified _meta_for source as the matchup display
             ('__EID__',html.escape(str(g.get('eid') or ''))),('__COUNTED__',' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else ''),
             ('__SIDE__',side),('__MKT__',mkt),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
-            ('__ODDS__',html.escape(p['odds'])),('__LOCK__',_stamp_html(p)),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
+            ('__ODDS__',html.escape(p['odds'])),('__LOCK__',_game_stamp(p)),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
             ('__MKTHDR__',_mkthdr),('__FOOTNOTE__',_foot),
             ('__CHIPS__',ch),('__MATCHUP__',matchup),('__TEAMLINKS__',teamlinks),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),('__ROOM__','g%s-%s'%(p['num'],(_pt_date(g.get('commence','')) or 'card'))),('__START__',g.get('commence','') or ''),
             ('__CHARTS__',charts_html),('__BUILD__',build_sha),('__RPARB__',ARB_INJECT),('__RPCONSTS__',RP_CONSTS+'\nlet RP_MARKETS='+json.dumps(_PM,separators=(',',':'))+';'),('__STATEOPTS__',STATE_OPTS),('__STATECODES__','['+','.join(chr(34)+c+chr(34) for c,_ in RP_STATES)+']')]:
@@ -2922,11 +2935,20 @@ def build_team_pages(man, css, build_sha):
     teams=set()
     # Preserve the existing evergreen team-page family when today's card is empty.
     # Identity comes from the page's own structured data, never from its stale date/score.
+    _oldmeta={}  # never-degrade rail (main 10:43): last served record/logo per team
     for old in __import__('glob').glob(os.path.join(os.path.dirname(out) or '.','team-*.html')):
         try:
             text=open(old).read()
             match=re.search(r'<div class="pick" data-espn="([^"]+)" data-team="([^"]+)"',text)
-            if match: teams.add((html.unescape(match.group(1)),html.unescape(match.group(2))))
+            if match:
+                _k=(html.unescape(match.group(1)),html.unescape(match.group(2)))
+                teams.add(_k)
+                _om={}
+                _rm=re.search(r'Record ([0-9]+-[0-9]+(?:-[0-9]+)?)',text)
+                if _rm: _om['rec']=_rm.group(1)
+                _lm=re.search(r'<img src="(https?://[^"]+)"[^>]*width:26px',text)
+                if _lm: _om['logo']=html.unescape(_lm.group(1))
+                if _om: _oldmeta[_k]=_om
         except Exception: pass
     for p in man.get('picks',[]):
         g=p.get('game') or {}
@@ -2960,6 +2982,24 @@ def build_team_pages(man, css, build_sha):
                     if candidate.get('displayName','').casefold()==name.casefold():
                         tid=candidate.get('id'); abbr=candidate.get('abbreviation',''); logo=candidate.get('logo',''); rec='';break
             except Exception: pass
+        if tid and lg and (not rec or not logo):
+            # meta-fill class kill (main 10:43): TEAM_META is empty on no-card days and the teams
+            # listing carries no record - pull record/logo from the ESPN team endpoint instead of
+            # shipping an empty header. A failed fetch falls through to the last served values.
+            try:
+                _tj=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams/%s'%(lg,tid))
+                _tt=_tj.get('team') or {}
+                if not logo:
+                    _tl=_tt.get('logos') or []
+                    if _tl and _tl[0].get('href'): logo=_tl[0]['href']
+                if not rec:
+                    for _ri in ((_tt.get('record') or {}).get('items') or []):
+                        if _ri.get('summary') and (_ri.get('type')=='total' or not rec): rec=_ri['summary']
+                        if _ri.get('type')=='total' and rec: break
+            except Exception: pass
+        _pv=_oldmeta.get((lg,name)) or {}
+        if not rec: rec=_pv.get('rec','')
+        if not logo: logo=_pv.get('logo','')
         logo_html='<img src="%s" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()">'%html.escape(logo) if logo else ''
         last5=[]; upcoming=[]; _scored=[]; streak=''
         if tid and lg:
