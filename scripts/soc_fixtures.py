@@ -53,6 +53,35 @@ for title, post in POS:
     if conflict:
         fails.append("POSITIVE killed by entity gate: %r (ents=%s)" % (title[:60], sorted(ents)))
 
+# Served findings are keyed to the exact story/post pair, never to a global
+# post-ID blacklist: the White/Clark post legitimately discusses a different
+# Stephanie White article while not matching the Booed-on-road Game 2 piece.
+SERVE_NEGATIVE_PAIRS = {
+    ('https://sports.yahoo.com/articles/booed-road-caitlin-clark-fever-224245838.html', '2104679415208698214'),
+    ('https://www.cbssports.com/betting/news/eagles-vs-bears-picks-player-props-experts-best-bets-for-monday-night-football-in-nfl-week-3/', '2104707840858362186'),
+}
+SERVE_ALLOWED_PAIR = ('https://sports.yahoo.com/articles/indiana-fever-stephanie-white-catch-015637083.html', '2104679415208698214')
+if SERVE_ALLOWED_PAIR in SERVE_NEGATIVE_PAIRS:
+    fails.append('story-scoped negative accidentally blacklisted a post globally')
+# Pure map-level audit on exact keyed pairs, including nearest/more/latest.
+def served_forbidden_pairs(match_map):
+    observed = set()
+    for tier in ('pairs', 'nearest', 'latest'):
+        for key, entry in (match_map.get(tier) or {}).items():
+            if entry and entry.get('post_id'):
+                observed.add((key, str(entry['post_id'])))
+    for key, entries in (match_map.get('more') or {}).items():
+        observed.update((key, str(e['post_id'])) for e in entries if e.get('post_id'))
+    return observed & SERVE_NEGATIVE_PAIRS
+
+sample = {'pairs': {SERVE_ALLOWED_PAIR[0]: {'post_id': SERVE_ALLOWED_PAIR[1]}}}
+if served_forbidden_pairs(sample):
+    fails.append('exact pair audit flagged a permissible post/story')
+for key, pid in SERVE_NEGATIVE_PAIRS:
+    if (key, pid) not in served_forbidden_pairs({'latest': {key: {'post_id': pid}}}):
+        fails.append('exact pair audit missed %s %s' % (key, pid))
+
+
 # guard 3 kill (9/28 7:51): TruGrit 2104707827759473125 vs the CBS expert-props article.
 # The judge EXECUTEd on "same event (MNF) and odds ... does not contradict" - noncontradiction
 # is not a match. The article-level test now demands a POSITIVE match to the article's
@@ -175,6 +204,8 @@ if sm.candidate_order([(.8, 0), (.65, 1)], _pool)[0][1] != 1:
 ROTO = "MNF Breakdown: Eagles @ Bears. Last season Chicago gashed Philly on the ground: Kyle Monangai posted 130 yds and a TD, D'Andre Swift added 125 yds and a score."
 if not sm.latest_pick_gate(CBS_PROPS, ROTO):
     fails.append('RotoWire generic breakdown was admitted to expert-picks latest')
+if not sm.latest_pick_gate(CBS_PROPS, 'Last season I picked Bears +3.5; this is a retrospective'):
+    fails.append('prior-season selection evaded current picks gate')
 if sm.latest_pick_gate(CBS_PROPS, "I am picking the Bears +3.5 tonight; my pick is Bears to cover"):
     fails.append('declared side wrongly killed at latest pre-gate')
 
