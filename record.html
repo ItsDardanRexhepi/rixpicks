@@ -42,7 +42,7 @@ h1 .tick,.od,.back{color:#3aa895}
 <h1><a href="index.html"><span class="tick">&rsquo;</span>RixPicks</a></h1>
 <div class="status">Overall record - day by day</div>
 <a class="back" href="index.html">&larr; Back to today&rsquo;s picks</a>
-<div class="dayhead"><span class="d">Overall</span><span class="r" id="rpOverall">18-8</span><span class="u" id="rpOverallU"></span></div><div class="dayhead"><span class="d">Sunday, Sep 27</span><span class="r">5-2</span><span class="u">+1.16u</span></div>
+<section id="rpToday" aria-live="polite"></section><div class="dayhead"><span class="d">Overall</span><span class="r" id="rpOverall">18-8</span><span class="u" id="rpOverallU"></span></div><div class="dayhead"><span class="d">Sunday, Sep 27</span><span class="r">5-2</span><span class="u">+1.16u</span></div>
 <div class="pk">
 <div class="pk-top"><span class="res W">W</span><span class="nm">Lions ML</span><span class="un">5u</span><span class="od">-270</span></div>
 <div class="gm">vs Jets</div>
@@ -211,6 +211,8 @@ h1 .tick,.od,.back{color:#3aa895}
 
 </div>
 <div class="brief"><span class="bt">What the system learned</span>Split the day 4-4 and still lost 14.44u. The three MLB losses were two shutouts and a blowout - read failures the gate has to catch earlier. The WNBA lesson was pure math: massive minus prices risk a lot to win pennies, and one overtime loss at -1011 cost more than six times what both WNBA wins paid. Chalk sizing rules tightened from this day.</div>
+<style>#rpToday .res.P,#rpToday .res.pending{background:#8a8f98}#rpToday .nt{overflow-wrap:anywhere}</style>
 <script>(function(){function up(j){if(!j)return;var m=/^([0-9]+)-([0-9]+)/.exec(j.record||'');if(!m)return;var el=document.getElementById('rpOverall');if(el)el.textContent=m[1]+'-'+m[2];var u=document.getElementById('rpOverallU');if(u&&j.units_pl){var v=parseFloat(String(j.units_pl).replace('u',''));if(!isNaN(v))u.textContent=(v>=0?'+':'')+v.toFixed(2)+'u';}}function go(){fetch('manifest.json?cb='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(up).catch(function(){});}go();setInterval(go,60000);})();</script>
+<script defer src="scripts/record_today.js"></script>
 <div class="foot">Bet responsibly.</div>
 </div></body></html>

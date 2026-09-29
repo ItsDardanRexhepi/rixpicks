@@ -3,7 +3,8 @@
 Runs at morning build + nightly grading; the 15-min odds Action does not touch these.
 Doctrine (user, Sep 25 9:54 AM): 'the app and system holding itself accountable in every
 aspect possible' - losses named plainly, lessons specific, no hindsight inflation."""
-import json,sys,html,re
+import json,sys,html,re,datetime
+from zoneinfo import ZoneInfo
 
 CSS = """
 *{margin:0;box-sizing:border-box}
@@ -52,14 +53,15 @@ def page(title, subtitle, body, live=False, slug=''):
 <h1><a href="index.html"><span class="tick">&rsquo;</span>RixPicks</a></h1>
 <div class="status">{html.escape(subtitle)}</div>
 <a class="back" href="index.html">&larr; Back to today&rsquo;s picks</a>
-{body}
-{LIVE_JS if live else ''}
+{body}{(chr(10) + TODAY_CSS + chr(10) + LIVE_JS + chr(10) + TODAY_JS) if live else ''}
 <div class="foot">Bet responsibly.</div>
 </div></body></html>"""
 
 
 # Live canonical record hydration (his order 9/26): record.html overall header hydrates from
 # same-origin manifest.json (ledger-verified served record; the worker mirror is stale - 9/27). 404/failure keeps baked values - fail closed.
+TODAY_JS = '<script defer src="scripts/record_today.js"></script>'
+TODAY_CSS = '<style>#rpToday .res.P,#rpToday .res.pending{background:#8a8f98}#rpToday .nt{overflow-wrap:anywhere}</style>'
 LIVE_JS = """<script>(function(){function up(j){if(!j)return;var m=/^([0-9]+)-([0-9]+)/.exec(j.record||'');if(!m)return;var el=document.getElementById('rpOverall');if(el)el.textContent=m[1]+'-'+m[2];var u=document.getElementById('rpOverallU');if(u&&j.units_pl){var v=parseFloat(String(j.units_pl).replace('u',''));if(!isNaN(v))u.textContent=(v>=0?'+':'')+v.toFixed(2)+'u';}}function go(){fetch('manifest.json?cb='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(up).catch(function(){});}go();setInterval(go,60000);})();</script>"""
 
 
@@ -129,8 +131,9 @@ def main(hist_path):
         pos=sum(1 for c in clvs if c>0)
         col='#2f8f7d' if avg>0 else '#c0392b'
         clv_line=f'<div style="font-size:13px;color:#6b6b72;margin-top:4px">CLV vs close: <b style="color:{col}">{avg:+.1f}%</b> avg &middot; beat the close on {pos}/{len(clvs)} graded picks</div>'
-    body = f'<div class="dayhead"><span class="d">Overall</span><span class="r" id="rpOverall">{tot_w}-{tot_l}</span><span class="u" id="rpOverallU"></span></div>{clv_line}'
-    body += ''.join(day_html(d, 'What the system learned') for d in reversed(days))
+    body = '<section id="rpToday" aria-live="polite"></section>' + f'<div class="dayhead"><span class="d">Overall</span><span class="r" id="rpOverall">{tot_w}-{tot_l}</span><span class="u" id="rpOverallU"></span></div>{clv_line}'
+    today = datetime.datetime.now(ZoneInfo('America/Los_Angeles')).date().isoformat()
+    body += ''.join(day_html(d, 'What the system learned') for d in reversed(days) if d.get('date') != today)
     open('record.html','w').write(page(
         f"Overall Record: {tot_w}-{tot_l}", "Overall record - day by day", body, live=True, slug='record.html'))
     print('wrote yesterday.html + record.html')
