@@ -102,6 +102,15 @@ def post_persons(text, title_ents):
 #    story (injury, trade, signing) - same person, different era = different story.
 PICKS_ARTICLE = re.compile(r'\b(picks?|props?|best bets|expert|parlay|bets|betting)\b', re.I)
 PICK_EVIDENCE = re.compile(r"\b((?:over|under)\s*\d|yards?|yds|td|touchdown|receptions?|rushing|passing|receiving|interceptions?|ints?|sacks?|strikeouts?|anytime|scorer|prop|best bet|lock|taking the|picking the|picked the|my pick|i like the|give me|pick:|play:)\b", re.I)
+# Latest-tier picks stories need a declared selection, not merely football stats.
+# This is a DENY gate only; a passing post still needs the on-story probe.
+DECLARED_PICK = re.compile(r"\b(i(?:\s*am|['’]m)?\s+(?:picking|taking|betting|playing)|my\s+(?:pick|bet|play)|(?:our|the)\s+(?:best\s+)?pick\s*(?::|is)|pick\s*:\s*|play\s*:\s*|best\s+bet\s*(?::|is)|(?:over|under)\s+\d+(?:\.\d+)?|(?:[+-]\d+(?:\.\d+)?)\s*(?:spread|moneyline)|\b(?:anytime|first)\s+(?:td|touchdown)\s+scorer)\b", re.I)
+
+def latest_pick_gate(title, post):
+    if PICKS_ARTICLE.search(title or '') and not DECLARED_PICK.search(post or ''):
+        return 'expert-picks article: post makes no concrete selection (generic breakdown is not a pick)'
+    return None
+
 BET_SLIP_POST = re.compile(r'\[\d+(\.\d+)?u\]|[+-]\d{3,}[^.\n]{0,40}[+-]\d{3,}', re.I)
 HISTORICAL_POST = re.compile(r'\b(since (19|20)\d\d|career|all[- ]time|histor(?:y|ical)|last season|retrospective|looking back|this offseason|offseason|recruiting)\b', re.I)
 # R4-R8 action + temporal classes (guard 2 story-audit 9/28 7:59): entity overlap is not an
@@ -694,7 +703,7 @@ def main():
                     continue
                 # pre-gates, latest bar (eg2): same story-level bar as verified - one story
                 # entity, no foreign principal, story-type compatible (guard 2: badge or no badge)
-                if story_type_gate(it.get('headline') or '', ptexts[j]):
+                if story_type_gate(it.get('headline') or '', ptexts[j]) or latest_pick_gate(it.get('headline') or '', ptexts[j]):
                     continue
                 if t_ents and (entity_conflict(t_ents, ptexts[j], 1) or post_persons(ptexts[j], t_ents)):
                     continue
@@ -715,10 +724,10 @@ def main():
                     ok2 = v2 == 'EXECUTE'
                     if v2 != 'ABSTAIN':  # equivocal on-story YES: never cached, never rendered
                         vcache[ck] = {'verdict': 'EXECUTE' if ok2 else 'REJECT', 'reason': why2}
-                if ok2 and (best_on is None or (posts[j].get('ts') or '') > (best_on.get('ts') or '')):
+                if ok2 and (best_on is None or (posts[j].get('created_at') or posts[j].get('ts') or '') > (best_on.get('created_at') or best_on.get('ts') or '')):
                     best_on = posts[j]
             if best_on:
-                latest[nk] = {'post_id': best_on.get('id'), 'ts': best_on.get('ts'), 'verified': False}
+                latest[nk] = {'post_id': best_on.get('id'), 'ts': best_on.get('created_at') or best_on.get('ts'), 'verified': False}
                 used_posts.add(str(best_on.get('id')))
                 stats['latest_filled'] += 1
         # "View more posts" (QA 3:53 systemic catch + owner 1:39 "very narrow"): VERIFIED-ONLY.
