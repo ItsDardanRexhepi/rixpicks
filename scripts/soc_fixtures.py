@@ -26,6 +26,9 @@ NEG = [
     # guard 2 strip 7:11 (2104668324403826776): same-club adjacent person, foreign person in
     # subject position (Ty France) vs a Stearns/Bichette/Baty/Senga roster story.
     ("What's next for Mets? David Stearns breaks down Bo Bichette, Brett Baty, Kodai Senga and 2027 roster", 'Completely fine if you think Ty France is the answer at 1b *but* there is no chance Ty France is coming to the Mets to b'),
+    # guard 2 strip 7:28 (2104681108113908031): generic CBS Top 25 update naming neither Kansas
+    # nor Tre White - entity conflict + foreign principal against the Kansas rankings article.
+    ('College basketball rankings: Kansas joins early Top 25 And 1 after Tre White cleared to play by court ruling', 'COLLEGE BASKETBALL RANKINGS: The 2026-27 @CBSSports Preseason Top 25 And 1 has been updated to reflect recent developments. \n\nVersion 28 \n\n1. Florida \n2. Duke \n3. Illinois \n4. UConn \n5. Texas \nhttps://t.co/kwB8r1rGhH'),
 ]
 POS = [
     ('College basketball rankings: Kansas joins early Top 25 And 1 after Tre White cleared to play by court ruling', 'College basketball rankings: Kansas joins early Top 25 And 1 after Tre White cleared to play by court ruling #kansasjayhawks #jayhawks https://t.co/yVGhegNGdn'),
@@ -69,6 +72,9 @@ EG2 = [
     (CONCUSSION_TITLE, 'NFL🏈 9/28/26 (MNF – EAGLES @ BEARS) \n\nBears +3.5 (-110) [4u] \n\nJalen Hurts OVER 0.5 INTs (+118) [2u] https://t.co/nysgJ9QM', 'betting-slip'),
     # guard 2 strip (2104708194119336029): career-retrospective post on a breaking injury story
     (BREAKING_TITLE, 'Jalen Hurts has been so good for Philadelphia since being named the starter in 2021... but he has struggled at times on Monday Night Football. 😬 \n\nHis 14 career interceptions on MNF are the most since 2020, and the Eagles have lost 3 of their last 4 MNF games. https://t.co/yNL6H3dtOF', 'historical'),
+    # guard 2 strip 7:28 (2104707979190685854): generic ATS-trend post on the expert-picks
+    # article - trend lines are not the article's concrete picks (R1).
+    (PICKS_TITLE, 'Philadelphia Eagles (2-0) vs. Chicago Bears (1-1) \nSeptember 28, 2026 8:15 pm EDT \n\nThe Eagles have been strong in this situation, going 4-0 ATS in the second of back-to-back road games and 4-1 ATS against NFC North opponents. Meanwhile, Chicago has struggled under the Monday night https://t.co/M5xmqCOorv', 'picks-type article'),
 ]
 for title, post, want in EG2:
     r = sm.story_type_gate(title, post)
