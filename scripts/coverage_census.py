@@ -7,9 +7,13 @@ pipeline invocation as hunt_v2.py, immediately after it, on the same two artifac
 
     python3 scripts/coverage_census.py /tmp/slate_day_<date>.json /tmp/hunt_v2_<date>.jsonl slates/coverage_census.json
 
-Same-run evidence: every slate row's instance_id must appear exactly once in the hunt log with
-matching league + commence_utc, and the log must carry no other ids. Any break = FAIL LOUD
-(exit 2, nothing written) - a census from mismatched runs is worse than none.
+Same-run evidence: every slate ROW must appear exactly once in the hunt log and the log must
+carry no other rows. The row identity is the triple (instance_id, league, commence_utc), not the
+bare instance_id: a golf tournament id recurs per tee-time row (distinct commence_utc) and the
+grouped tennis tours share an event id across ATP and WTA rows (distinct league). Bare-id
+uniqueness false-failed on both (2026-09-28 local replication). Any break in the triple
+correspondence = FAIL LOUD (exit 2, nothing written) - a census from mismatched runs is worse
+than none.
 
 13-league completeness: canonical league keys are read from config_leagues.json (single source of
 truth; ATP/WTA and UFC/Boxing are the grouped tennis and fight leagues of the owner's 13). A
@@ -61,35 +65,31 @@ def main():
         _fail('hunt output is not a row array - not a hunt_v2 log')
 
     # ---- row-by-row reconciliation (the same-run binding) ----
-    slate_ids = [r.get('instance_id') for r in rows]
-    if any(not i for i in slate_ids):
-        _fail('slate row without instance_id - every event instance must be identifiable')
-    dup_slate = [i for i, c in collections.Counter(slate_ids).items() if c > 1]
-    if dup_slate:
-        _fail(f'duplicate instance_id in slate: {dup_slate[:5]}')
-    hunt_by_id = {}
-    dup_hunt = []
-    for e in hunt:
-        i = e.get('instance_id')
-        if i in hunt_by_id: dup_hunt.append(i)
-        hunt_by_id[i] = e
-    missing = [i for i in slate_ids if i not in hunt_by_id]
-    extra = [i for i in hunt_by_id if i not in set(slate_ids)]
-    field_mismatch = []
+    # Row identity = (instance_id, league, commence_utc). Multiset correspondence, 1:1: each
+    # slate row's triple exactly once in the hunt log, no extras, no duplicates either side.
+    def _key(instance_id, league, commence):
+        return (str(instance_id), league or '', commence or '')
+    slate_keys = []
     for r in rows:
-        e = hunt_by_id.get(r['instance_id'])
-        if not e: continue
-        if e.get('league') != r.get('league') or e.get('commence_utc') != r.get('commence_utc'):
-            field_mismatch.append(r['instance_id'])
-    if dup_hunt or missing or extra or field_mismatch:
+        if not r.get('instance_id'):
+            _fail('slate row without instance_id - every event instance must be identifiable')
+        slate_keys.append(_key(r['instance_id'], r.get('league'), r.get('commence_utc')))
+    hunt_keys = [_key(e.get('instance_id'), e.get('league'), e.get('commence_utc')) for e in hunt]
+    slate_ctr, hunt_ctr = collections.Counter(slate_keys), collections.Counter(hunt_keys)
+    dup_slate = [k for k, c in slate_ctr.items() if c > 1]
+    dup_hunt = [k for k, c in hunt_ctr.items() if c > 1]
+    missing = [k for k in slate_ctr if k not in hunt_ctr]
+    extra = [k for k in hunt_ctr if k not in slate_ctr]
+    if dup_slate or dup_hunt or missing or extra:
         _fail('hunt log is not this slate run: '
-              f'duplicates={dup_hunt[:3]} missing_in_hunt={missing[:3]} extra_in_hunt={extra[:3]} field_mismatch={field_mismatch[:3]}')
+              f'dup_slate={dup_slate[:3]} dup_hunt={dup_hunt[:3]} missing_in_hunt={missing[:3]} extra_in_hunt={extra[:3]}')
+    hunt_by_key = {_key(e.get('instance_id'), e.get('league'), e.get('commence_utc')): e for e in hunt}
 
     # ---- per-league census ----
     leagues = {}
     for r in rows:
         lg = r['league']
-        e = hunt_by_id[r['instance_id']]
+        e = hunt_by_key[_key(r['instance_id'], r.get('league'), r.get('commence_utc'))]
         L = leagues.setdefault(lg, {'instances': 0, 'by_status': collections.Counter(),
                                     'by_verdict': collections.Counter(), 'by_class': collections.Counter()})
         L['instances'] += 1
@@ -115,7 +115,7 @@ def main():
                   'date': slate.get('date') or slate.get('slate_date'), 'rows': len(rows)},
         'hunt': {'path': os.path.basename(hunt_path), 'sha256': _sha(hunt_path), 'rows': len(hunt)},
         'reconciliation': {'ok': True, 'matched_rows': len(rows),
-                           'rule': 'every slate instance_id appears exactly once in the same-run hunt_v2 log with matching league+commence_utc; no extras, no duplicates'},
+                           'rule': 'every slate row (instance_id+league+commence_utc) appears exactly once in the same-run hunt_v2 log; no extras, no duplicates'},
         'canonical_leagues': canon,
         'leagues': {lg: {'instances': L['instances'],
                          'by_status': dict(L['by_status']),
@@ -137,8 +137,8 @@ def main():
         'rows': [{'instance_id': r['instance_id'], 'league': r['league'],
                   'match': r.get('match') or f"{r.get('away')} @ {r.get('home')}",
                   'commence_utc': r['commence_utc'], 'status': r['status'],
-                  'verdict': hunt_by_id[r['instance_id']].get('verdict'),
-                  'class': _reason_class(hunt_by_id[r['instance_id']])}
+                  'verdict': hunt_by_key[_key(r['instance_id'], r.get('league'), r.get('commence_utc'))].get('verdict'),
+                  'class': _reason_class(hunt_by_key[_key(r['instance_id'], r.get('league'), r.get('commence_utc'))])}
                  for r in rows],
     }
     os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
