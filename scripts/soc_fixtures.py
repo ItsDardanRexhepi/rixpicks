@@ -133,6 +133,10 @@ if v != "EXECUTE": fails.append("concrete action YES parsed as %s" % v)
 v, _ = sm.parse_verification('Story subject: X\nPost subject: Y\nNO - different player as main subject.')
 if v != "REJECT": fails.append("clean NO parsed as %s" % v)
 
+for malformed in ('- Post\'s main subject: College basketball rankings', '', 'Maybe the story is similar'):
+    v, _ = sm.parse_verification(malformed)
+    if v != 'ABSTAIN': fails.append('missing final YES/NO parsed as %s: %r' % (v, malformed))
+
 # Affirmative rationale must name an action that both source texts support.
 STORY = 'Case Keenum scored his second touchdown pass for the Bears against the Eagles'
 POST = 'Case Keenum scored his second touchdown pass tonight for the Bears'
