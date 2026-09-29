@@ -206,7 +206,7 @@ function newsBucket(t){
  out.sort(function(a,b){return (Date.parse(b.published||0)||0)-(Date.parse(a.published||0)||0);});
  var seen={},seenP={},ded=[];
  out.forEach(function(a){var n=normH(a.headline);if(!n)return;var pk=n.slice(0,40);if(seen[n]||seenP[pk])return;seen[n]=1;seenP[pk]=1;ded.push(a);});
- return ded;
+ return ded.filter(isPublishableNews);
 }
 var CAR_SIG='',CAR_IDX=0,CAR_N=0,CAR_TIMER=null,CAR_PAUSED=false,CAR_LAST=[],CAR_ALL=[];
 var CAR_RM=false;try{CAR_RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
@@ -311,7 +311,7 @@ function renderNews(t,arts){
  var box=$('rpNewsCar');if(!box)return;
  if(t&&t.key!=='home'){box.innerHTML='';return;}  /* owner 12:54: News renders on Home only - no leaks, no per-tab feeds */
 
- var base=(arts||[]);
+ var base=(arts||[]).filter(isPublishableNews);
  /* matched-only (owner 1:09/1:11 + 2:59 "factually synced at all times" + QA audit 6): with a
     fresh sync map the news carousel shows ONLY stories holding a URF-verified social pair;
     unmatched stories live in View all News. Counts are a CONSEQUENCE, never forced. No fresh
@@ -444,17 +444,29 @@ var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={};
    map: this keyword floor is the fallback so raw off-topic chatter never renders. */
 /* owner 1:39: NO tout/selling-access posts, ever - client layer mirrors the server filter so
    legacy pool items and no-map fallbacks are covered too. */
-var RP_AD_KW=/happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props/i;
+var RP_AD_KW=/happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props|deposit (bonus|match|offer)|bonus bets?/i;
 var RP_TOUT_KW=/discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|freebie|free picks? on|model.{0,20}(is )?(live|cashed)/i;
 /* guard 3+5 class kill: ONE publishability predicate on the COMPLETE post payload (text + link +
    author branding) - applied at XNEWS ingestion AND re-asserted at every display boundary
    (pin, nearest, bridge, more modal). Account branding counts (the Brownstone Bets class). */
+/* sportsbook/operator brands are banned at author AND handle (guard 3 Betfair class) - a
+   sportsbook-authored post is operator content by construction, whatever its text says. */
+var RP_OPERATOR='bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook';
 function isPublishablePost(p){
  if(!p)return false;
- var t=String(p.headline||'')+' '+String(p.link||'')+' '+String(p.author||'');
+ var t=(String(p.headline||'')+' '+String(p.link||'')+' '+String(p.author||'')).normalize('NFKC');
  if(RP_TOUT_KW.test(t)||RP_AD_KW.test(t))return false;
- if(/\b(bets|capper|cappers|handicapp)\b/i.test(String(p.author||'')))return false;
+ if(new RegExp('\\b('+RP_OPERATOR+')\\b','i').test(String(p.author||'').normalize('NFKC')))return false;
  return true;
+}
+/* guard 3 news-side default-deny (his 5:27/5:28 rule, one layer up): promo-code / bonus-bet /
+   free-bet inducement / sponsored-affiliate articles never render in ANY news surface -
+   carousel, ticker, View all News, league tabs, ESPN fallback. */
+var RP_PROMO_NEWS=/promo code|bonus bets?|free bets?|bet \$?[0-9]+.{0,25}(get|claim)|claim \$?[0-9]+|deposit (bonus|match|offer)|sign ?up (offer|bonus|promo)|new (user|customer)s? (offer|bonus|promo)|sponsored content/i;
+function isPublishableNews(a){
+ if(!a)return false;
+ var t=(String(a.headline||'')+' '+String(a.blurb||'')+' '+String(a.link||'')+' '+String(a.source||'')).normalize('NFKC');
+ return !RP_PROMO_NEWS.test(t);
 }
 var RP_SPORT_KW=/nfl|nba|mlb|nhl|wnba|ncaa|cfb|mls|nwsl|pga|nascar|ufc|mma|boxing|tennis|football|basketball|baseball|hockey|soccer|golf|sports|touchdown|quarterback|playoff|super bowl|world series|stanley cup|fantasy|draft pick|trade rumor|injury report|starting lineup|home run|slam dunk|shutout|knockout|title fight|grand slam|eagles|bears|chiefs|cowboys|packers|vikings|giants|jets|patriots|steelers|ravens|bengals|browns|texans|colts|jaguars|titans|broncos|raiders|chargers|rams|seahawks|49ers|cardinals|falcons|panthers|saints|buccaneers|commanders|lions|dolphins|bills|yankees|dodgers|red sox|cubs|braves|astros|phillies|mets|padres|mariners|lakers|celtics|warriors|knicks|nets|sixers|bulls|heat|bucks|nuggets|suns|mavericks|thunder|timberwolves|spurs|rockets|clippers|grizzlies|pelicans|kings|trail blazers|jazz|hawks|hornets|hornets|pacers|cavaliers|pistons|magic|wizards|raptors|maple leafs|bruins|canadiens|oilers|avalanche|lightning|panthers|rangers|penguins|capitals|flyers|red wings|blackhawks|wild|stars|predators|blues|jets|kraken|golden knights|sharks|ducks|kings|coyotes|hurricanes|blue jackets|devils|islanders|sabres|senators|flames|canucks/i;
 fetch('slates/soc_match.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
@@ -730,7 +742,7 @@ function tickRender(){
   if(!arts.length&&!kal.length){bar.style.display='none';tr.__h='';tr.innerHTML='';tickHalf=0;tickX=0;return;}
   bar.style.display='';
   var h='';
-  arts.slice(0,8).forEach(function(a){
+  arts.filter(isPublishableNews).slice(0,8).forEach(function(a){
    var u=a.link||'';
    var s=a.source||'ESPN';
    h+='<'+(u?'a class="titem" href="'+esc(u)+'" target="_blank" rel="noreferrer"':'span class="titem"')+'><span class="tsrc '+s.toLowerCase()+'">'+esc(s)+'</span><span class="tsrc">'+esc(a.league||'')+'</span>'+esc(unesc(a.headline||''))+'</'+(u?'a':'span')+'><span class="tsep">\u00b7</span>';
@@ -797,7 +809,7 @@ function loadSide(t){
  if(lg&&(!DNEWS_TS[t.key]||now-DNEWS_TS[t.key]>25000)){
   fetch('https://site.api.espn.com/apis/site/v2/sports/'+lg+'/news?limit=8',{cache:'no-store'})
    .then(function(r){if(!r.ok)throw 0;return r.json();})
-   .then(function(j){DNEWS[t.key]=(j.articles||[]).map(function(a){return {headline:a.headline||'',link:((a.links||{}).web||{}).href||'',published:a.published||'',source:'ESPN'};}).filter(function(a){return rpNewsOk(t,a.headline);});DNEWS_TS[t.key]=Date.now();if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
+   .then(function(j){DNEWS[t.key]=(j.articles||[]).map(function(a){return {headline:a.headline||'',link:((a.links||{}).web||{}).href||'',published:a.published||'',source:'ESPN'};}).filter(function(a){return rpNewsOk(t,a.headline)&&isPublishableNews(a);});DNEWS_TS[t.key]=Date.now();if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
    .catch(function(){DNEWS_TS[t.key]=Date.now()-10000;});  /* soft backoff, keeps last good */
  }
 }
