@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-29T02:37:50+00:00",
+ "generated_at": "2026-09-29T02:56:47+00:00",
  "source": "x_recent_search",
  "window": false,
  "items": [
@@ -38,25 +38,6 @@
     "retweet_count": 1
    },
    "url": "https://x.com/ESPNInsights/status/2104708194119336029",
-   "via": "news:S3-rotate",
-   "nk": "https://sports.yahoo.com/nfl/live/bears-vs-eagles-score-live-updates-highlights-stats-where-to-watch-week-3-monday-night-football-223000578.html"
-  },
-  {
-   "query": "(\"Eagles\" OR \"Bears\" OR \"Case Keenum\") lang:en -is:retweet -is:reply",
-   "id": "2104707979190685854",
-   "created_at": "2026-09-28T23:01:00.000Z",
-   "text": "Philadelphia Eagles (2-0) vs. Chicago Bears (1-1)\nSeptember 28, 2026 8:15 pm EDT\n\nThe Eagles have been strong in this situation, going 4-0 ATS in the second of back-to-back road games and 4-1 ATS against NFC North opponents. Meanwhile, Chicago has struggled under the Monday night https://t.co/M5xmqCOorv",
-   "author_username": "mcneilglen10",
-   "author_name": "Glen McNeil",
-   "public_metrics": {
-    "bookmark_count": 0,
-    "impression_count": 8,
-    "like_count": 0,
-    "quote_count": 0,
-    "reply_count": 0,
-    "retweet_count": 0
-   },
-   "url": "https://x.com/mcneilglen10/status/2104707979190685854",
    "via": "news:S3-rotate",
    "nk": "https://sports.yahoo.com/nfl/live/bears-vs-eagles-score-live-updates-highlights-stats-where-to-watch-week-3-monday-night-football-223000578.html"
   },
@@ -161,25 +142,6 @@
     "retweet_count": 0
    },
    "url": "https://x.com/JayhawksFandom/status/2104685738528747602",
-   "via": "news:S1",
-   "nk": "https://www.cbssports.com/college-basketball/news/college-basketball-rankings-kansas-early-top-25-and-1-tre-white/"
-  },
-  {
-   "query": "\"College basketball rankings\" lang:en -is:retweet -is:reply",
-   "id": "2104681108113908031",
-   "created_at": "2026-09-28T21:14:13.000Z",
-   "text": "COLLEGE BASKETBALL RANKINGS: The 2026-27 @CBSSports Preseason Top 25 And 1 has been updated to reflect recent developments.\n\nVersion 28\n\n1. Florida\n2. Duke\n3. Illinois\n4. UConn\n5. Texas\nhttps://t.co/kwB8r1rGhH",
-   "author_username": "GaryParrishCBS",
-   "author_name": "Gary Parrish",
-   "public_metrics": {
-    "bookmark_count": 0,
-    "impression_count": 3224,
-    "like_count": 5,
-    "quote_count": 2,
-    "reply_count": 1,
-    "retweet_count": 2
-   },
-   "url": "https://x.com/GaryParrishCBS/status/2104681108113908031",
    "via": "news:S1",
    "nk": "https://www.cbssports.com/college-basketball/news/college-basketball-rankings-kansas-early-top-25-and-1-tre-white/"
   },
@@ -628,6 +590,25 @@
     "retweet_count": 0
    },
    "url": "https://x.com/StooliePicks/status/2104707987101368646",
+   "via": "news:S3-rotate",
+   "nk": "https://sports.yahoo.com/nfl/live/bears-vs-eagles-score-live-updates-highlights-stats-where-to-watch-week-3-monday-night-football-223000578.html"
+  },
+  {
+   "query": "(\"Eagles\" OR \"Bears\" OR \"Case Keenum\") lang:en -is:retweet -is:reply",
+   "id": "2104707979190685854",
+   "created_at": "2026-09-28T23:01:00.000Z",
+   "text": "Philadelphia Eagles (2-0) vs. Chicago Bears (1-1)\nSeptember 28, 2026 8:15 pm EDT\n\nThe Eagles have been strong in this situation, going 4-0 ATS in the second of back-to-back road games and 4-1 ATS against NFC North opponents. Meanwhile, Chicago has struggled under the Monday night https://t.co/M5xmqCOorv",
+   "author_username": "mcneilglen10",
+   "author_name": "Glen McNeil",
+   "public_metrics": {
+    "bookmark_count": 0,
+    "impression_count": 8,
+    "like_count": 0,
+    "quote_count": 0,
+    "reply_count": 0,
+    "retweet_count": 0
+   },
+   "url": "https://x.com/mcneilglen10/status/2104707979190685854",
    "via": "news:S3-rotate",
    "nk": "https://sports.yahoo.com/nfl/live/bears-vs-eagles-score-live-updates-highlights-stats-where-to-watch-week-3-monday-night-football-223000578.html"
   },
@@ -2026,6 +2007,25 @@
    "author_username": "blockheadai",
    "author_name": "Blockhead",
    "url": "https://x.com/blockheadai/status/2104681322878754826"
+  },
+  {
+   "query": "\"College basketball rankings\" lang:en -is:retweet -is:reply",
+   "id": "2104681108113908031",
+   "created_at": "2026-09-28T21:14:13.000Z",
+   "text": "COLLEGE BASKETBALL RANKINGS: The 2026-27 @CBSSports Preseason Top 25 And 1 has been updated to reflect recent developments.\n\nVersion 28\n\n1. Florida\n2. Duke\n3. Illinois\n4. UConn\n5. Texas\nhttps://t.co/kwB8r1rGhH",
+   "author_username": "GaryParrishCBS",
+   "author_name": "Gary Parrish",
+   "public_metrics": {
+    "bookmark_count": 0,
+    "impression_count": 3224,
+    "like_count": 5,
+    "quote_count": 2,
+    "reply_count": 1,
+    "retweet_count": 2
+   },
+   "url": "https://x.com/GaryParrishCBS/status/2104681108113908031",
+   "via": "news:S1",
+   "nk": "https://www.cbssports.com/college-basketball/news/college-basketball-rankings-kansas-early-top-25-and-1-tre-white/"
   },
   {
    "query": "(\"Ranking\" OR \"MLB\" OR \"Yankees\") lang:en -is:retweet -is:reply",
