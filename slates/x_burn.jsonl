@@ -177,3 +177,22 @@
 {"ts": "2026-09-28T23:02:36+00:00", "endpoint": "/tweets/search/recent", "query": "\"PHI\" (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 3}
 {"ts": "2026-09-28T23:02:36+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Eagles Bears live\" lang:en -is:retweet -is:reply", "results": 0}
 {"ts": "2026-09-28T23:02:36+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Eagles\" OR \"Bears\" OR \"Case Keenum\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:34:19+00:00", "endpoint": "/tweets/search/recent", "query": "(\"BOS\" OR \"CAR\" OR \"CHW\" OR \"FLA\") (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-29T23:34:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Cowboys' Schottenheimer 'aligned'\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-29T23:34:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Riley's homer rallies\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-29T23:34:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Padres add Joe\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:34:19+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Padres\" OR \"Joe Musgrove\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:34:20+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Steelers' Ramsey broken\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:34:20+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Steelers' Ramsey\" OR \"Thursday\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:34:20+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Squarely hot seat\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:34:20+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Squarely\" OR \"Maryland's Locksley\" OR \"Nebraska\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:34:20+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Braves squander Chris\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:34:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Braves\" OR \"Chris Sale\" OR \"Phillies\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:34:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"What happened Alex\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-29T23:34:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Silver Black Pride\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:34:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Silver\" OR \"Black Pride Reacts Survey Week\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-29T23:34:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Oklahoma Sooners suffer\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-29T23:34:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Penn State Chase\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-29T23:34:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Penn State WR Chase Sowell\") lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-29T23:34:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Broncos staying ahead\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-29T23:34:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"NBA reviewing bids\" lang:en -is:retweet -is:reply", "results": 5}
