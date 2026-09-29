@@ -31,8 +31,11 @@ jobs:
           git add slates/official_video.json 2>/dev/null || exit 0
           git diff --cached --quiet && exit 0
           git commit -m "official video $(date -u +%H:%M) UTC"
+          # same bash -e kill as x_feed (chain 36523387751): guard every fallible command.
           for i in 1 2 3 4 5; do
-            git pull --rebase -q && git push -q && exit 0
+            if git pull --rebase -q; then
+              if git push -q; then exit 0; fi
+            fi
             sleep 5
           done
           exit 1
