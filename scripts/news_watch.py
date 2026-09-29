@@ -6,8 +6,16 @@ import json, os, re, sys, time, urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 
-ESPN_LEAGUES = ['football/nfl','baseball/mlb','basketball/nba','basketball/wnba','hockey/nhl']
-GN_QUERIES = ['NFL injury OR trade OR signing','NBA injury OR trade','MLB injury OR trade']
+# all-13 standard (lane 6, 2026-09-29): every league bucket of the owner's 13 with a live ESPN
+# news endpoint (each verified 2026-09-29: returns articles). NASCAR's racing/nascar-premier
+# endpoint resolves but carries zero articles - left out rather than wired dead; Boxing has no
+# ESPN API surface at all (config_leagues.json espn:null).
+ESPN_LEAGUES = ['football/nfl','baseball/mlb','basketball/nba','basketball/wnba','hockey/nhl',
+                'football/college-football','basketball/mens-college-basketball',
+                'soccer/usa.1','soccer/usa.nwsl','golf/pga','tennis/atp','tennis/wta','mma/ufc']
+GN_QUERIES = ['NFL injury OR trade OR signing','NBA injury OR trade','MLB injury OR trade',
+              'NHL injury OR trade','College football injury OR suspension',
+              'MLS injury OR transfer','NWSL injury OR trade']
 STATE = '/home/sandbox/rps_tmp/kb/news_seen.json'
 KEEP = 4000
 
