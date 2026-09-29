@@ -188,7 +188,8 @@ def _payload(p):
 def _banned(p):
     import re as _re, unicodedata
     t = unicodedata.normalize('NFKC', _payload(p))
-    if TOUT_RE.search(t) or AD_RE.search(t):
+    t = _re.sub(r'#\s+', '#', t)  # de-spaced hashtags: '# ad' is still '#ad' (guard 3 promo class)
+    if TOUT_RE.search(t) or AD_RE.search(t) or PROMO2_RE.search(t) or _re.search(r'\bFREE PICKS?\b', t):
         return True
     # sportsbook/operator brands banned at author AND handle (guard 3 Betfair class)
     who = unicodedata.normalize('NFKC', str(p.get('author_name') or '') + ' ' + str(p.get('author_username') or ''))
@@ -198,6 +199,10 @@ AD_RE = __import__('re').compile(
     r'price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|'
     r'vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|brought to you by|listen in now|'
     r'tune in (now|tonight)|happy hour|dine[ -]?in|drink specials?|food specials?|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props|deposit (bonus|match|offer)|bonus bets?', __import__('re').I)
+
+PROMO2_RE = __import__('re').compile(
+    r'#\s*(ad|ads|sponsored|sponsorship)\b|#\w*sale\b|#giveaway\b|follow\s+(us|me|@\w+)\b.{0,40}(to win|to enter|for a chance|giveaway)|(secure|reserve|book)\s+(a\s+|your\s+)table|(arrive|get (there|here)|come)\s+early\b[^.!?]{0,50}(secure|reserve|grab|book)\s+(a\s+|your\s+)?(table|spot|seat)|free picks?\s*(up|here|today|tonight|now|below|thread|incoming|alert|inside|drop)', __import__('re').I)
+
 
 def quality_ok(p):
     """anti-junk floor (main 1:29: random replies / low-content posts must not drive anything):
