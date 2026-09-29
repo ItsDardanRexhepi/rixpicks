@@ -178,6 +178,13 @@ if not sm.latest_pick_gate(CBS_PROPS, ROTO):
 if sm.latest_pick_gate(CBS_PROPS, "I am picking the Bears +3.5 tonight; my pick is Bears to cover"):
     fails.append('declared side wrongly killed at latest pre-gate')
 
+# Author/handle operator brands are banned at map generation, not just in client.
+for name, handle in [('Betfair', 'official'), ('Sportsbook News', 'tipster'), ('Tipster', 'BET365')]:
+    if not sm.operator_author(name, handle):
+        fails.append('operator author/handle escaped map gate: %r %r' % (name, handle))
+if sm.operator_author('David Malandra Jr', 'DaveMReports'):
+    fails.append('ordinary sports reporter misclassified as operator')
+
 # Ingest must fail closed on a failed paid request and never restamp an old feed.
 import tempfile, os, copy
 xspec = importlib.util.spec_from_file_location('x_feed_fixture', 'scripts/x_feed.py')
