@@ -528,19 +528,12 @@ function renderSocial(){
    items.push({post:np,kind:'latest',nkey:k});
    return;
   }
-  /* story-matched keyword bridge (owner 5:09: the post must be ABOUT the story - a generic
-     sports pool post is a mismatch with a label on it). Distinct content-word overlap between
-     the story headline and the post text; best overlap wins, ties break most recent. */
-  var sw=(String(a.headline||'').toLowerCase().match(/[a-z0-9]+/g)||[]).filter(function(w){return w.length>=4&&SYNC_STOP.indexOf(w)<0;});
-  var kb=null,kbs=1;
-  if(sw.length){for(var _q=0;_q<chrono.length;_q++){var pp=chrono[_q];
-   if(usedA[pp.id]||!isPublishablePost(pp))continue;
-   var ph=' '+String(pp.headline||'').toLowerCase()+' ';
-   var sc=0;for(var _w=0;_w<sw.length;_w++){if(ph.indexOf(' '+sw[_w])>=0||ph.indexOf(' '+sw[_w]+'s')>=0)sc++;}
-   var thr=(sw.some(function(w){return w.length>=7;}))?1:2;
-   if(sc>0&&sc>=thr&&sc>kbs-1&&sc>=kbs){if(sc>=kbs||!kb){kb=pp;kbs=sc;}}
-  }}
-  if(kb){usedA[kb.id]=1;items.push({post:kb,kind:'latest',nkey:k});return;}
+  /* keyword bridge REMOVED (his 6:00 video: word-overlap paired Kentucky-roster news with a
+     generic CBB rankings post, CFB power rankings with college BASKETBALL rankings, Harbaugh
+     with a wrong-Harbaugh joke post - word overlap is NOT story match, and a muted label does
+     not make a wrong story right). Guard 2's required shape stands: a slide renders ONLY a
+     probe-verified pin or a probe-confirmed nearest for this exact story key. Everything else
+     abstains; coverage is owned server-side by the per-story probe loop (R2). */
   /* fail-closed terminal (guards 1+2+3 class kill; 1:00: an abstain is not a failure, a wrong
      match is): NO league pool, NO raw chrono fallback. A slide renders only a probe-verified pin,
      a probe-confirmed nearest, or a story-matched keyword-bridge post - otherwise it abstains.
