@@ -1856,7 +1856,6 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     # 9:43 owner rule: exact market page or NOTHING - url:null renders an unlinked chip (venue label only), never a wrong-target link.
     r'var st="background:"+v[1]+";border-color:"+v[1]+";color:"+v[2]+";font-size:11px;padding:2px 10px";'
     r'chips+=l.url?(" <a class=\"chip\" style=\""+st+"\" href=\""+esc(l.url)+"\" target=\"_blank\" rel=\"noreferrer\">"+esc(l.venue)+(pr?" "+esc(pr):"")+"</a>"):(" <span class=\"chip\" style=\""+st+"\">"+esc(l.venue)+(pr?" "+esc(pr):"")+"</span>");});'
-    r'if(!chips)return;'
     r'h+="<div class=\"rpnpick\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+(i+1)+". "+esc(pk.player)+"</b><span style=\"color:#8a8f98;font-size:12px\">"+esc(pk.market)+"</span></div>"'
     r'+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(pk.matchup)+" &middot; "+esc(pk.time)+"</div><div class=\"rpdingtrk\" data-p=\""+esc(pk.player)+"\" data-m=\""+esc(pk.matchup)+"\" style=\"margin-top:3px;font-size:12px\"></div>"'
     r'+"<div style=\"margin-top:4px\">"+chips+"</div></div>";});'
