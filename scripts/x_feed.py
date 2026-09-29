@@ -217,10 +217,14 @@ def main():
     st = load_state()
     since_id = st.get('since_id')
     newest = since_id
-    deadline = time.time() + (13 * 60 if window else 0)  # burst: keep pulling inside one run
-    first_pass = True
-    while first_pass or (window and time.time() < deadline):
-      first_pass = False
+    # One bounded pass per workflow: a 13-minute burst blocked subsequent news
+    # completions behind Actions concurrency and delayed publishing the feed.
+    # The existing 15-minute workflow cadence owns the next pull.
+    successful = 0
+    if not queries:
+        print('x_feed: no scoped queries; prior feed and timestamp preserved')
+        return
+    for _pass in range(1):
       for q in queries[:4]:  # hard cap per cycle: burn discipline
         try:
             params = {'query': q, 'max_results': MAX_RESULTS,
@@ -232,6 +236,7 @@ def main():
             data = body.get('data') or []
             users = {u.get('id'): u for u in ((body.get('includes') or {}).get('users') or [])}
             log_burn('/tweets/search/recent', q, len(data))
+            successful += 1
             for tw in data:
                 tid = tw.get('id')
                 if not tid or tid in seen:
@@ -250,9 +255,11 @@ def main():
         except Exception as e:
             print(f'pull FAIL ({q[:40]}...): {e}')
       # end for q
+      if not successful:
+          raise RuntimeError('X ingest stalled: no successful recent-search request; preserving prior feed timestamp and items')
       since_id = newest or since_id
       save_state({'since_id': since_id, 'updated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')})
-      # merge this pass into the feed file so the site sees posts mid-burst.
+      # Merge a completed paid pull into the feed; zero results are valid, zero successful calls are not.
       # cap 50->150 (owner 2:09 coverage push): this script and news_social.py share
       # slates/x_feed.json - a 50-cap here truncated the match pool back down between
       # chain runs and could evict a URF-paired post (1:38 flicker class). Pinned ids
@@ -284,9 +291,6 @@ def main():
       out = {'generated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
              'source': 'x_recent_search', 'window': bool(window), 'items': merged_items}
       json.dump(out, open(OUT, 'w'), indent=1)
-      if window and time.time() < deadline:
-          print(f'burst pass: {len(items)} new, feed carries {len(merged_items)}; next pull in 120s')
-          time.sleep(120)
     print(f'x_feed: {len(items)} new posts, {len(queries[:4])} queries ({len(terms)} slate terms), window={bool(window)} -> {OUT}')
 
 if __name__ == '__main__':
