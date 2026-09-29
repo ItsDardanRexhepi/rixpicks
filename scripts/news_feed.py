@@ -6,6 +6,7 @@ CBS RSS (outlet-distinct second lane). Every lane fail-closed; a dead lane never
 the file. Dedup by normalized headline; blank beats wrong (empty list, no fabricated
 items). Client reads this one file instead of fanning out per-league."""
 import json, re, sys, urllib.request, xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 
@@ -226,6 +227,51 @@ def enrich_images(latest):
         print('  img cache write: %s' % e, file=sys.stderr)
 
 
+
+IMG_UA = {'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1',
+          'Accept': 'image/webp,image/avif,image/*,*/*;q=0.8'}
+
+def validate_images(arts):
+    """Owner 7:13 graphics kill-at-source: a served image URL must be LIVE at publish time,
+    checked end-to-end with the client UA (HEAD, GET-range fallback, one retry). Dead art is
+    stripped so the client league fallback engages only for genuinely art-less stories - never
+    for a URL the producer could have caught. Every check is logged to slates/img_check.json
+    so a fallback tile on site is always explainable from the repo."""
+    def check(a):
+        u = a.get('image') or ''
+        if not u:
+            return None
+        for _ in (1, 2):
+            try:
+                req = urllib.request.Request(u, headers=IMG_UA, method='HEAD')
+                with urllib.request.urlopen(req, timeout=6) as r:
+                    if r.status == 200 and 'image' in (r.headers.get('content-type') or ''):
+                        return None
+            except Exception:
+                try:
+                    req = urllib.request.Request(u, headers=dict(IMG_UA, Range='bytes=0-1023'))
+                    with urllib.request.urlopen(req, timeout=6) as r:
+                        if r.status in (200, 206):
+                            return None
+                except Exception:
+                    pass
+        return {'headline': (a.get('headline') or '')[:80], 'url': u[:200]}
+    cand = [a for a in arts if a.get('image')]
+    dead = []
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        for a, res in zip(cand, ex.map(check, cand)):
+            if res:
+                dead.append(res)
+                a['image'] = ''
+    try:
+        json.dump({'ts': datetime.now(timezone.utc).isoformat(),
+                   'checked': len(cand), 'dead_stripped': len(dead), 'dead': dead},
+                  open('slates/img_check.json', 'w'), indent=1)
+    except Exception as e:
+        print('  img_check write: %s' % e, file=sys.stderr)
+    if dead:
+        print('  img validate: %d of %d dead, stripped' % (len(dead), len(cand)), file=sys.stderr)
+
 def main():
 
     cfg = json.load(open('config_leagues.json'))['leagues']
@@ -266,12 +312,15 @@ def main():
     # image optimizer pass (6:34 class): every surface - latest AND league buckets (shared refs
     # cover the overlap; bucket-only entries get it here too)
     _seen = set()
+    _arts = []
     for lst in list(leagues.values()) + [latest]:
         for a in lst:
             if id(a) in _seen:
                 continue
             _seen.add(id(a))
             a['image'] = opt_image(a.get('image') or '')
+            _arts.append(a)
+    validate_images(_arts)
     out = {'generated_at': datetime.now(timezone.utc).isoformat(),
            'leagues': leagues, 'latest': latest}
     with open('slates/news.json', 'w') as f:
