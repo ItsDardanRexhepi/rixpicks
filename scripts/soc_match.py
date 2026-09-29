@@ -270,7 +270,7 @@ def _reason_tokens(s):
 def reason_integrity(reason, story='', post=''):
     """Default-deny incomplete, tautological and unsupported YES rationales."""
     r = (reason or '').strip()
-    if len(r) < 18 or len(r.split()) < 4 or r.endswith(('...', '…', ':', '-', ',')) or GENERIC_REASON.search(r):
+    if len(r) < 18 or len(r.split()) < 4 or r.endswith(('...', '…', ':', '-', ',')):
         return False
     # Quote claims are falsifiable: text in quotation marks must actually occur in
     # both the story and post, not merely be asserted by the judge.
@@ -287,11 +287,13 @@ def reason_integrity(reason, story='', post=''):
         rt = _reason_tokens(r); st = _reason_tokens(story); pt = _reason_tokens(post)
         # Names alone are never proof. At least an action in the reason must be
         # supported by each input. A conservative abstain is safer than a false badge.
-        if not (rt & st & pt & ACTION_WORDS):
+        common = rt & st & pt
+        if not (common & ACTION_WORDS) or len(common) < 2:
             return False
-        if len(rt & st & pt) < 2:
-            return False
-    return bool(_reason_tokens(r) & ACTION_WORDS)
+        # Generic framing is harmless only when it also cites a concrete action
+        # present in both source texts. Unsupported 'same event' remains denied.
+        return True
+    return not GENERIC_REASON.search(r) and bool(_reason_tokens(r) & ACTION_WORDS)
 
 def parse_verification(text, story='', post=''):
     """tri-state: EXECUTE / REJECT / ABSTAIN; only an evidenced final YES executes."""
@@ -404,7 +406,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v12-type-aware-freshness'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v13-reason-action-integrity'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
