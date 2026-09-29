@@ -150,6 +150,22 @@ function until(iso){
 function dayTime(iso){
  try{return new Date(iso).toLocaleString('en-US',{timeZone:'America/Los_Angeles',weekday:'short',hour:'numeric',minute:'2-digit'})+' PT';}catch(e){return '';}  /* all-times-PT rule (owner 9/27): sidebar game times render PT with explicit label, same convention as ptLabel elsewhere */
 }
+/* Predictions by UltRix (owner 9/27-28 spec, todo-01M3NDYDQG70VK9V6VYN2QD4JP): genuine
+   forward predictions as plain outcome forecasts. The gate and confidence NEVER render -
+   the artifact carries none. Fail-closed and isolated: any fetch/parse trouble hides the
+   section and never touches the feeds. Home rail only. */
+function renderPred(){
+ var w=$('rpPredWrap'),box=$('rpPred');if(!w||!box)return;
+ fetch('slates/predictions.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
+  var items=(j&&j.items)||[];
+  if(!items.length){w.style.display='none';return;}
+  var h='';
+  items.slice(0,6).forEach(function(p){
+   h+='<div class="predrow"><span class="predtxt">'+esc(p.prediction||'')+'</span><span class="predmeta">'+esc(p.league||'')+(p.kickoff_utc?' \u00b7 '+esc(dayTime(p.kickoff_utc)):'')+'</span></div>';
+  });
+  box.innerHTML=h;w.style.display='';
+ }).catch(function(){w.style.display='none';});
+}
 function renderGames(t,events){
  var box=$('rpGames');if(!box)return;
  if(!events||!events.length){box.innerHTML='<div class="empty">No games listed right now.</div>';return;}
@@ -891,4 +907,5 @@ if(!start){
 if(start)activate(start,true);
 else document.body.classList.add('rp-ready');
 if(!document.body.classList.contains('intro-on'))document.body.classList.add('rp-ready');
+renderPred();setInterval(renderPred,900000);
 })();
