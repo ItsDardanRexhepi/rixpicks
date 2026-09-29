@@ -182,6 +182,14 @@ body.tab-past .layout aside{display:none}
 .carblurb{font-size:12.5px;color:#8a8f98;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .carmeta{font-size:11px;color:#8a8f98}
 .home-only{display:none}
+/* owner 9/28 6:05 (screenshot): the Wooder page STARTS at PICKS FROM WOODER ICE - the Record
+   header line, Yesterday summaries, the date and the tap-any-book hint are Home-only. */
+body.tab-wooder .rpnav .rec{display:none}
+body.tab-wooder .rpRecPop{display:none}
+body.tab-wooder .home-yes{display:none}
+body.tab-wooder .rpdate{display:none}
+body.tab-wooder .intro{display:none}
+body.tab-wooder #st-wooder > .yesrec{display:none}
 body.tab-home .home-only{display:block}
 .social{padding:0;overflow:hidden}
 .social .sitem{padding:10px 14px;border-top:1px solid rgba(127,127,127,.15)}
