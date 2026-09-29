@@ -528,6 +528,13 @@ function renderSocial(){
    items.push({post:np,kind:'latest',nkey:k});
    return;
   }
+  var lt=(SOC_MATCH_OK&&SOC_MATCH&&SOC_MATCH.latest)?SOC_MATCH.latest[k]:null;
+  var lp=(lt&&lt.post_id&&SOC_XIDX[lt.post_id]!==undefined)?XNEWS[SOC_XIDX[lt.post_id]]:null;
+  if(lp&&!usedA[lp.id]&&isPublishablePost(lp)){
+   usedA[lp.id]=1;
+   items.push({post:lp,kind:'latest',nkey:k});
+   return;
+  }
   /* keyword bridge REMOVED (his 6:00 video: word-overlap paired Kentucky-roster news with a
      generic CBB rankings post, CFB power rankings with college BASKETBALL rankings, Harbaugh
      with a wrong-Harbaugh joke post - word overlap is NOT story match, and a muted label does
@@ -538,20 +545,21 @@ function renderSocial(){
      match is): NO league pool, NO raw chrono fallback. A slide renders only a probe-verified pin,
      a probe-confirmed nearest, or a story-matched keyword-bridge post - otherwise it abstains.
      Coverage is owned server-side (the chain probes per-story until verified, R2). */
-  items.push({post:null,kind:'none',nkey:k});
+  /* never-empty ruling (owner 6:08 via main): the abstain line NEVER renders. A story with
+     no algo-on-story post at any tier drops OUT of the social carousel; coverage is owned
+     server-side (the chain widens its search until a post verifies on-story). */
  });
  var sig=items.map(function(it){return ((it.post&&it.post.id)||'-')+it.kind;}).join('|');
  if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
  SOC_SIG=sig;SOC_N=items.length;SOC_LAST=items;
  SOC_RIDX={};items.forEach(function(it,i){if(it.post&&it.post.id)SOC_RIDX[it.post.id]=i;});
- SOC_IDX=CAR_IDX;if(SOC_IDX>=SOC_N)SOC_IDX=SOC_N-1;if(SOC_IDX<0)SOC_IDX=0;
+ var _ck=(CAR_LAST[CAR_IDX]&&carKey(CAR_LAST[CAR_IDX]))||'';SOC_IDX=0;
+ for(var _si=0;_si<items.length;_si++){if(items[_si].nkey===_ck){SOC_IDX=_si;break;}}
+ if(SOC_IDX>=SOC_N)SOC_IDX=SOC_N-1;if(SOC_IDX<0)SOC_IDX=0;
  var h='<div class="carvp socvp"><div class="cartrack" id="rpSocTrack">';
  items.forEach(function(it){
   var p=it.post;
-  if(!p){
-   h+='<div class="carslide socslide"><span class="carbody"><span class="stxt syncscan">No verified post about this story yet.</span></span></div>';
-   return;
-  }
+  if(!p)return; /* defensive: no slide ever renders the abstain line (owner 6:08) */
   var txt=String(p.headline||'');
   if(txt.length>280)txt=txt.slice(0,277)+'\u2026';
   var badge=it.kind==='verified'?'<span class="syncbadge">Verified by UltRix algorithm</span>':'<span class="synclatest">Latest from the feed</span>';
