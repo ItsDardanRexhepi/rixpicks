@@ -11,8 +11,8 @@
 const fs = require('fs'), path = require('path'), vm = require('vm');
 let JSDOM;
 try { ({ JSDOM } = require('jsdom')); } catch (e) { ({ JSDOM } = require('/tmp/node_modules/jsdom')); }
-const src = fs.readFileSync(path.join(__dirname, 'index_v2.js'), 'utf8');
-const css = fs.readFileSync(path.join(__dirname, 'index_v2.css'), 'utf8');
+const src = fs.readFileSync(process.env.RP_FIXTURE_JS || path.join(__dirname, 'index_v2.js'), 'utf8');
+const css = fs.readFileSync(process.env.RP_FIXTURE_CSS || path.join(__dirname, 'index_v2.css'), 'utf8');
 
 function extract(name) {
   const start = src.indexOf('function ' + name + '(');
