@@ -107,6 +107,8 @@ PICK_EVIDENCE = re.compile(r"\b((?:over|under)\s*\d|yards?|yds|td|touchdown|rece
 DECLARED_PICK = re.compile(r"\b(i(?:\s*am|['’]m)?\s+(?:picking|taking|betting|playing)|my\s+(?:pick|bet|play)|(?:our|the)\s+(?:best\s+)?pick\s*(?::|is)|pick\s*:\s*|play\s*:\s*|best\s+bet\s*(?::|is)|(?:over|under)\s+\d+(?:\.\d+)?|(?:[+-]\d+(?:\.\d+)?)\s*(?:spread|moneyline)|\b(?:anytime|first)\s+(?:td|touchdown)\s+scorer)\b", re.I)
 
 def latest_pick_gate(title, post):
+    if PICKS_ARTICLE.search(title or '') and HISTORICAL_POST.search(post or ''):
+        return 'current picks article: prior-season or retrospective post is not this selection'
     if PICKS_ARTICLE.search(title or '') and not DECLARED_PICK.search(post or ''):
         return 'expert-picks article: post makes no concrete selection (generic breakdown is not a pick)'
     return None
