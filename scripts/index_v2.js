@@ -908,4 +908,26 @@ if(start)activate(start,true);
 else document.body.classList.add('rp-ready');
 if(!document.body.classList.contains('intro-on'))document.body.classList.add('rp-ready');
 renderPred();setInterval(renderPred,900000);
+/* Strict event-bound score navigation. Do not guess event IDs from a team name.
+   The pick title and market links keep their original destinations. */
+(function(){
+ function linkFor(el){var row=el.closest('[data-espn][data-eid]');if(!row)return null;
+  var lg=row.dataset.espn||'',id=row.dataset.eid||'';
+  if(!RP_LIVE_OK[lg]||!/^[0-9]+$/.test(id))return null;
+  return 'live.html?espn='+encodeURIComponent(lg)+'&eid='+encodeURIComponent(id);
+ }
+ document.addEventListener('click',function(e){var score=e.target.closest('[data-ls]');if(!score)return;
+  var dest=linkFor(score);if(!dest)return;
+  e.preventDefault();e.stopPropagation();location.assign(dest);
+ },true);
+ document.addEventListener('keydown',function(e){if(e.key!=='Enter'&&e.key!==' ')return;
+  var score=e.target.closest('[data-ls]');if(!score)return;var dest=linkFor(score);if(!dest)return;
+  e.preventDefault();e.stopPropagation();location.assign(dest);
+ },true);
+ function tag(){document.querySelectorAll('[data-ls]').forEach(function(el){var dest=linkFor(el);if(!dest)return;
+  el.setAttribute('role','link');el.setAttribute('tabindex','0');el.setAttribute('aria-label','Open this game live view');el.classList.add('rplivescore');
+ });}
+ tag();new MutationObserver(function(m){if(m.some(function(x){return x.addedNodes.length;}))tag();}).observe(document.body,{childList:true,subtree:true});
+})();
+
 })();
