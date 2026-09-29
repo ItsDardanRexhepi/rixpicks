@@ -18,7 +18,7 @@ writes status=fallback to slates/soc_match_status.json (client token-matches whe
 import json, math, os, sys, time, hashlib, urllib.request, datetime, re
 
 # no tout/selling-access posts, ever (owner 1:39) - server mirror of the client RP_TOUT_KW filter
-RP_AD = re.compile(r'happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|reservation|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)', re.I)
+RP_AD = re.compile(r'happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|reservation|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props', re.I)
 RP_TOUT = re.compile(r'discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|freebie|free picks? on|model.{0,20}(is )?(live|cashed)', re.I)
 
 NIM_URL = 'https://ultrix-core.itsdardanr.workers.dev/nim'
@@ -81,7 +81,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v4-commercial-gate'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v5-story-relationship'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION])
 
 def thash(t):
@@ -123,15 +123,20 @@ def verify(story, post):
     prompt = ('You verify content pairings for a sports site. Work in two steps.\n'
               'NEWS STORY: ' + story[:600] + '\n'
               'SOCIAL POST: ' + post[:600] + '\n'
-              'Step 1: In one line each, name the main subject of the story (specific player/team/game/event) '
-              'and the main subject of the post. Ignore side mentions.\n'
-              'Step 2: Is the post about the same story or the same specific topic as the story? '
-              'Same specific topic counts (e.g. both are about 2026 MLB playoff predictions, or both about the same trade). '
-              'A different player, team, game, or storyline as the MAIN subject is NOT a match, even in the same sport. '
-              'Same broad sport alone is NOT enough. Sharing only the same GAME is NOT enough: if the post is an '
-              'advertisement or promotion (selling food, drinks, tickets, products, or promoting a venue or service), '
-              'it is NEVER about the news story - answer NO. A promo/bonus-bet article matches only posts actually '
-              'discussing that specific offer, not game commentary and not other ads.\n'
+              'Step 1: In one line each, name the story' + chr(39) + 's specific event or action AND the team or person it '
+              'affects, then the post' + chr(39) + 's main subject. Ignore side mentions.\n'
+              'Step 2: The primary relationship must be the article' + chr(39) + 's claim, offering, analysis angle, or '
+              'event - never merely the same game or the same sport. Rules:\n'
+              '- Cause and consequence of the SAME event are the same story (a player cleared to play AND his '
+              'team entering the rankings because of it): YES.\n'
+              '- An exact quote of the story' + chr(39) + 's headline or story URL with no contradiction: YES.\n'
+              '- A promo/bonus-bet article matches ONLY posts identifying THAT brand and THAT offer; other '
+              'sportsbooks, deposit bonuses, or game commentary: NO.\n'
+              '- A betting preview or picks article matches ONLY posts discussing THAT specific pick or odds '
+              'line; an unrelated pick or a sales CTA: NO.\n'
+              '- Radio plugs, station kickoff promos, venue promotions, ticket resale, food or drink specials, '
+              'viewing schedules, and sales CTAs are NEVER about the news story: NO.\n'
+              '- A different player, team, game, or storyline as the MAIN subject is NOT a match.\n'
               'Answer: two Step-1 lines, then a final line starting with exactly YES or NO and one short reason.')
     out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
                'prompt': prompt, 'max_tokens': 200}, timeout=90)
@@ -168,6 +173,18 @@ def main():
     x = json.load(open('slates/x_feed.json'))
     items = news.get('latest', [])
     posts = x.get('items', []) if isinstance(x, dict) else x
+    # canonical publishability at generation (guard 5): the map never references a post the intake
+    # gate would deny - full payload (text + author branding + url), so even a stale client holding
+    # an old map cannot render an ad/promo from it. Client guards are defense-in-depth, not the gate.
+    def _pub(p):
+        t = ' '.join([p.get('text') or '', str(p.get('author_name') or ''), str(p.get('author_username') or ''), str(p.get('url') or '')])
+        if RP_AD.search(t) or RP_TOUT.search(t):
+            return False
+        return not re.search(r'\b(bets|capper|cappers|handicapp)\b', str(p.get('author_name') or ''), re.I)
+    _pre = len(posts)
+    posts = [p for p in posts if _pub(p)]
+    if len(posts) != _pre:
+        print('publishability vet: dropped %d ad/promo posts at generation' % (_pre - len(posts)))
     log = {'built_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
            'model': EMBED_MODEL, 'framework': 'urf-six-gate',
            'news_count': len(items), 'post_count': len(posts),
@@ -276,20 +293,12 @@ def main():
                                     'post_id': posts[j].get('id'), 'post': posts[j].get('text', '')[:120],
                                     'score': round(score, 4), 'gate': 'conflict', 'reason': why})
             stats['probe_rejected'] += 1
-        # nearest-on-story fallback candidate: first by cosine that is unused, not probe-rejected
-        # for THIS story, and above a sanity floor. A probe REJECT is honored (never shown beside
-        # the story it failed); below-floor unprobed candidates are eligible with the muted label.
-        rejected_ids = {str(v.get('post_id')) for v in verdicts if v.get('verdict') == 'REJECT'}
-        for score, j in scored:
-            pid = str(posts[j].get('id'))
-            if score < 0.25:
-                break
-            if pid in used_posts or pid in rejected_ids:
-                continue
-            if RP_TOUT.search(ptexts[j]) or RP_AD.search(ptexts[j]):
-                continue
-            nearest[nk] = {'post_id': posts[j].get('id'), 'score': round(score, 4)}
-            break
+        # nearest (guard 2 class kill): NEVER unprobed cosine - only a probe-EXECUTE candidate for
+        # THIS exact story may hold the fallback slot. No second probe-confirmed post -> NO nearest
+        # entry; the client abstains (1:00) instead of rendering an unprobed post beside the story.
+        if len(confirmed) > 1:
+            _sc2, _j2 = confirmed[1]
+            nearest[nk] = {'post_id': posts[_j2].get('id'), 'score': round(_sc2, 4), 'verified': True}
         if confirmed:
             best = confirmed[0]
             pin_id = str(posts[best[1]].get('id'))
