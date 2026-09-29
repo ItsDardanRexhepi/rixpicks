@@ -5,12 +5,18 @@ async function getJson(url) { const r = await fetch(url); if (!r.ok) throw new E
 
 function newsParity(mine, prod) {
   const key = a => (a.link || '') || a.headline || '';
-  const m = new Set((prod.latest || []).slice(0, 15).map(key));
-  const w = (mine.latest || []).slice(0, 15).map(key);
-  if (!m.size || !w.length) return { ok: false, reason: 'empty side', overlap: 0 };
-  const hit = w.filter(k => m.has(k)).length;
-  const overlap = hit / Math.max(m.size, w.length);
-  return { ok: overlap >= 0.8, overlap: +overlap.toFixed(3), prod_latest: m.size, worker_latest: w.length };
+  const p15 = (prod.latest || []).slice(0, 15).map(key).filter(Boolean);
+  const wall = new Set();
+  for (const a of mine.latest || []) wall.add(key(a));
+  for (const lst of Object.values(mine.leagues || {})) for (const a of lst) wall.add(key(a));
+  if (!p15.length || !wall.size) return { ok: false, reason: 'empty side', recall: 0 };
+  const hit = p15.filter(k => wall.has(k)).length;
+  const recall = hit / p15.length;
+  const src = arr => arr.reduce((m, a) => { m[a.source] = (m[a.source] || 0) + 1; return m; }, {});
+  const fresh = !prod.generated_at || (mine.generated_at || '') >= (prod.generated_at || '');
+  // worker must carry what prod serves (recall) and never be staler than prod
+  return { ok: recall >= 0.8 && fresh, recall: +recall.toFixed(3), fresh,
+    prod_sources: src(prod.latest || []), worker_sources: src(mine.latest || []) };
 }
 function quotesParity(mine, prod) {
   const mq = mine.quotes || {}, pq = prod.quotes || {};
@@ -60,7 +66,8 @@ export async function runParity(env, justRan) {
     if (justRan.kalshi) {
       const o = await env.FEEDS.get('slates/nfl_kalshi_quotes.json'); const mine = o ? JSON.parse(await o.text()) : null;
       const prod = await getJson(env.PROD_BASE + '/slates/nfl_kalshi_quotes.json?cb=' + Date.now());
-      report.lanes.kalshi_quotes = mine ? quotesParity(mine, prod) : { ok: false, reason: 'no worker artifact' };
+      if (!mine && !Object.keys(prod.quotes || {}).length) report.lanes.kalshi_quotes = { ok: true, reason: 'both dormant' };
+      else report.lanes.kalshi_quotes = mine ? quotesParity(mine, prod) : { ok: false, reason: 'no worker artifact' };
     }
     if (justRan.futures) {
       const o = await env.FEEDS.get('futures/current.json'); const mine = o ? JSON.parse(await o.text()) : null;
@@ -68,7 +75,12 @@ export async function runParity(env, justRan) {
       try {
         const txt = await (await fetch(env.PROD_BASE + '/data/futures_ws_ticks.jsonl?cb=' + Date.now())).text();
         const lines = txt.trim().split('\n').filter(Boolean);
-        for (const ln of lines.slice(-400)) { const r = JSON.parse(ln); prodRows[r.league] = r; }
+        // prod rows are incremental (changed keys only) - replay to reconstruct current state
+        for (const ln of lines.slice(-3000)) {
+          const r = JSON.parse(ln);
+          if (!prodRows[r.league]) prodRows[r.league] = { board: {} };
+          Object.assign(prodRows[r.league].board, r.board || {});
+        }
       } catch (e) { report.lanes.futures = { ok: false, reason: 'prod ticks unreadable' }; }
       if (!report.lanes.futures) report.lanes.futures = mine ? futuresParity(mine, prodRows) : { ok: false, reason: 'no worker artifact' };
     }
