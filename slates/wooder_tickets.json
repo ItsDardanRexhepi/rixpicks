@@ -1,5 +1,32 @@
 {
  "version": 1,
- "generated_at": "2026-09-27T20:59:54-07:00",
- "tickets": []
+ "generated_at": "2026-09-29T09:41:00-07:00",
+ "tickets": [
+  {
+   "id": "t11",
+   "sport": "mlb",
+   "title": "3-leg HR SGP - FanDuel - +7919 as quoted on Wooder Ice's screenshot (not a live executable price)",
+   "status": "IDEA - NOT BOUGHT",
+   "legs": [
+    {
+     "player": "Yordan Alvarez",
+     "market": "To hit a home run",
+     "matchup": "CWS @ HOU",
+     "time": "Today 2:00 PM PT"
+    },
+    {
+     "player": "Munetaka Murakami",
+     "market": "To hit a home run",
+     "matchup": "CWS @ HOU",
+     "time": "Today 2:00 PM PT"
+    },
+    {
+     "player": "Christian Walker",
+     "market": "To hit a home run",
+     "matchup": "CWS @ HOU",
+     "time": "Today 2:00 PM PT"
+    }
+   ]
+  }
+ ]
 }
