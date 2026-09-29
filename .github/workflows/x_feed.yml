@@ -35,22 +35,40 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: freshness guard (skip X burn when the map already covers current news)
+      # IFTTT rule set (owner 5:24 "Make the social feed algo have an IFTTT protocol"):
+      #   R1 IF news rotates (news-refresh completes) THEN chain runs: pull -> match -> publish.
+      #   R2 IF a visible story lacks a verified pair THEN the chain keeps pulling per-story posts
+      #      and probing new candidates EVERY cycle until verified (owner 5:22 - muted label is a
+      #      waypoint, never the destination).
+      #   R3 IF the map regenerates THEN the live page upgrades slides/badges within one poll tick
+      #      (rtPoll 45s + sig-gated rebuild; no reload).
+      #   R4 IF a probe verdict lands THEN it caches salted by every decision-changing input.
+      #   R5 IF a pair is found false THEN it is killed in map + verdict cache and the probe class
+      #      is hardened (QA 5:21 pub-ad false green -> v4-commercial-gate).
+      # This guard is R1+R2's burn discipline: skip ONLY when the map covers live news AND every
+      # visible story already holds a verified pair.
+      - name: freshness guard (IFTTT R1+R2: skip only when map covers live news AND visible window fully verified)
         run: |
           python3 - <<'EOF'
-          import json, os, sys
+          import json, os, urllib.request
           try:
-              news = json.load(open('slates/news.json'))
+              req = urllib.request.Request('https://rix-picks.com/slates/news.json?cb=' + str(int(__import__('time').time())),
+                  headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36'})
+              news = json.loads(urllib.request.urlopen(req, timeout=20).read().decode())
               mp = json.load(open('slates/soc_match.json'))
-          except Exception:
-              sys.exit(0)  # unreadable state -> run the chain
+          except Exception as e:
+              print('guard unreadable (%s) - chain runs' % str(e)[:60]); raise SystemExit(0)
           ng = news.get('generated_at') or ''
           mb = mp.get('built_at') or ''
-          if ng and mb and mb >= ng:
-              print(f'map {mb} covers news {ng} - no rotation, skipping chain')
+          def k(a): return (a.get('link') or '') or a.get('headline', '')
+          top = [k(a) for a in (news.get('latest') or [])[:15]]
+          ver = {kk for kk, v in (mp.get('pairs') or {}).items() if (v or {}).get('verified')}
+          unpaired = [kk for kk in top if kk not in ver]
+          if ng and mb and mb >= ng and not unpaired:
+              print(f'map {mb} covers news {ng} and all {len(top)} visible stories verified - skipping chain')
               os.system("echo 'SKIP_CHAIN=1' >> $GITHUB_ENV")
           else:
-              print(f'news {ng} newer than map {mb} - chain runs')
+              print(f'chain runs: map={mb} news={ng} unpaired-visible={len(unpaired)}/{len(top)}')
           EOF
       - name: x feed pull (burn-ledgered)
         if: env.SKIP_CHAIN != '1'
