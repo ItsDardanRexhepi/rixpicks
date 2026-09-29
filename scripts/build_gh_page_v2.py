@@ -2712,6 +2712,10 @@ def _pt_label(iso):
         return d.strftime('%-I:%M %p PT')
     except Exception: return ''
 
+# Carded-event route map (owner 11:13 regression): eid -> built-out game page. Emitted every
+# build from the same manifest the pages are built from, so map and pages can never drift.
+_GAME_ROUTES={}
+
 def build_game_pages(man, css, build_sha):
     # record-integrity kill (main 10:42): a game page's lock comes from ITS OWN manifest's
     # original card_ts. Module ENTRY_LOCK resolves from the BUILDING day's manifest - on an
@@ -3018,6 +3022,11 @@ def build_game_pages(man, css, build_sha):
             ('__CHARTS__',charts_html),('__BUILD__',build_sha),('__RPARB__',ARB_INJECT),('__RPCONSTS__',RP_CONSTS+'\nlet RP_MARKETS='+json.dumps(_PM,separators=(',',':'))+';'),('__STATEOPTS__',STATE_OPTS),('__STATECODES__','['+','.join(chr(34)+c+chr(34) for c,_ in RP_STATES)+']')]:
             page_html=page_html.replace(tok,val)
         pages['game-%s.html'%p['num']]=page_html
+        _eid_rt=str(g.get('eid') or '')
+        if _eid_rt.isdecimal():
+            _prev_rt=_GAME_ROUTES.get(_eid_rt)
+            if not _prev_rt or int(str(p['num']))<int(_prev_rt.split('-')[1].split('.')[0]):
+                _GAME_ROUTES[_eid_rt]='game-%s.html'%p['num']
         _COLL[0]=_MARKETS  # restore the index collector for the next build phase
     return pages
 
@@ -3544,6 +3553,9 @@ for _fn,_html in build_game_pages(_game_manifest,_css,build_sha).items():
     open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(scrub_shipped(_html))
     print('written:',_fn,len(_html))
     _pages+=1
+os.makedirs(os.path.join(os.path.dirname(out) or '.','slates'),exist_ok=True)
+open(os.path.join(os.path.dirname(out) or '.','slates','game_routes.json'),'w').write(json.dumps(_GAME_ROUTES,sort_keys=True))
+print('written: slates/game_routes.json',len(_GAME_ROUTES),'carded routes')
 if os.environ.get('RP_PUBLISH')=='1':
     import datetime as _dt
     _ts=_dt.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')

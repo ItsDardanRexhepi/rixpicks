@@ -106,7 +106,7 @@ try: d=json.load(open(f))
 except: pass
 d['$TODAY']=d.get('$TODAY',0)+1
 json.dump(d,open(f,'w'))"
-git add index.html futures.html futures.json slates/nfl_live.json slates/live_games.json slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json manifest.json manifests/ "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html hist-*.json
+git add index.html futures.html futures.json slates/game_routes.json slates/nfl_live.json slates/live_games.json slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json manifest.json manifests/ "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html hist-*.json
 git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1)) today)"
 # chaos drill (Sep 26): a push racing the publish window must retry+rebase, never fail red
 for i in 1 2 3 4 5; do
