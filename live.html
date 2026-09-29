@@ -24,9 +24,14 @@ a.back{color:var(--acc);text-decoration:none;font-size:13px;font-weight:600}
 .foot{margin-top:16px;font-size:11px;color:var(--mut);text-align:center}
 .empty{color:var(--mut);font-size:13px;padding:14px;text-align:center}
 .err{color:var(--amber);font-size:13px;padding:14px;text-align:center}
+.team button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;max-width:100%}.team button:focus-visible,.mode:focus-visible{outline:2px solid var(--acc)}
+.team .ab{display:block}.team .nm{display:block}.hint{color:var(--mut);font-size:11px;text-align:center;margin-top:9px}.field{margin-top:9px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,#122420,#0c1618);padding:14px;min-height:135px;position:relative;overflow:hidden;cursor:pointer}.field svg{width:100%;height:116px}.field .token{position:absolute;top:51%;left:50%;transform:translate(-50%,-50%);font-size:23px;filter:drop-shadow(0 2px 3px #000)}.field-label{font-size:11px;color:var(--mut);margin-top:8px;text-align:center}.statgrid{display:grid;grid-template-columns:1fr auto 1fr;gap:7px;padding:10px 14px;border-top:1px solid var(--line);font-size:12px}.statgrid:first-child{border:0}.statgrid span:first-child{text-align:left}.statgrid span:nth-child(2){color:var(--mut);text-align:center}.statgrid span:last-child{text-align:right}.mode{border:1px solid var(--line);border-radius:30px;background:var(--panel);color:var(--txt);padding:7px 12px;margin:8px 6px 0 0;font-size:12px;cursor:pointer}.mode[aria-pressed=true]{border-color:var(--acc);color:var(--acc)}.graph{width:100%;height:116px;display:block}.small{font-size:11px;color:var(--mut);padding:0 14px 12px}
 </style></head><body><div class="wrap">
 <a class="back" href="index.html">&larr; RixPicks</a>
 <div class="scorecard" id="rpScore"><div class="empty">Loading&hellip;</div></div>
+<div class="sect">Game view</div><div class="field" id="rpField" role="button" tabindex="0" aria-label="Switch game view"><div class="empty">Loading…</div></div><div class="field-label" id="rpPoss"></div>
+<div class="sect">Team stats</div><div class="plays" id="rpStats"><div class="empty">Loading…</div></div>
+<div class="sect">Live graph / scoreboard</div><button class="mode" id="rpGraphMode" aria-pressed="true">Win chance</button><button class="mode" id="rpLinesMode" aria-pressed="false">Period scores</button><div class="plays" id="rpGraph"><div class="empty">Loading…</div></div>
 <div class="sect">Scoring</div>
 <div class="plays" id="rpPlays"><div class="empty">Loading&hellip;</div></div>
 <div class="foot">Live data: ESPN &middot; <span id="rpAge"></span></div>
@@ -39,8 +44,38 @@ function ptTime(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"
 var RP_LG_MAP={"football/nfl":1,"football/college-football":1,"basketball/nba":1,"basketball/wnba":1,"basketball/college-basketball":"basketball/mens-college-basketball","basketball/mens-college-basketball":1,"basketball/womens-college-basketball":1,"baseball/mlb":1,"hockey/nhl":1,"tennis/atp":1,"tennis/wta":1,"soccer/usa.1":1,"soccer/usa.nwsl":1,"golf/pga":1,"racing/nascar":"racing/nascar-premier","racing/nascar-premier":1,"mma/ufc":1};
 var q=new URLSearchParams(location.search),_m=RP_LG_MAP[q.get("espn")||""],espn=_m===1?q.get("espn"):(typeof _m==="string"?_m:""),eid=q.get("eid")||"";
 var scoreEl=document.getElementById("rpScore"),playsEl=document.getElementById("rpPlays"),ageEl=document.getElementById("rpAge");
-if(!espn||!eid){scoreEl.innerHTML='<div class="err">No game specified.</div>';playsEl.innerHTML='<div class="empty">-</div>';return;}
-var lastOk=0;
+if(!espn||!eid||!/^[0-9]+$/.test(eid)){scoreEl.innerHTML='<div class="err">No game specified.</div>';playsEl.innerHTML='<div class="empty">-</div>';return;}
+var lastOk=0,lastData=null,graphMode='win',fieldStep=0;
+var fieldEl=document.getElementById('rpField'),posEl=document.getElementById('rpPoss'),statsEl=document.getElementById('rpStats'),graphEl=document.getElementById('rpGraph');
+function teamSide(c){return ((c.team||{}).abbreviation)||((c.team||{}).shortDisplayName)||((c.team||{}).displayName)||((c.athlete||{}).displayName)||'?';}
+function scoreRows(comps){return comps.map(function(c){return {side:c.homeAway,values:c.linescores||[],label:teamSide(c)};});}
+function chooseMode(m){graphMode=m;document.getElementById('rpGraphMode').setAttribute('aria-pressed',m==='win');document.getElementById('rpLinesMode').setAttribute('aria-pressed',m==='lines');if(lastData)renderGraph(lastData);}
+document.getElementById('rpGraphMode').onclick=function(){chooseMode('win');};document.getElementById('rpLinesMode').onclick=function(){chooseMode('lines');};
+fieldEl.onclick=function(){fieldStep=(fieldStep+1)%3;if(lastData)renderField(lastData);};fieldEl.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fieldEl.click();}};
+function renderStats(j,side){var teams=(j.boxscore||{}).teams||[],t=teams.filter(function(x){return x.homeAway===side;})[0]||{},stats=t.statistics||[];
+ var flat=[];stats.forEach(function(x){if(x.stats)flat=flat.concat(x.stats);else flat.push(x);});
+ var usable=flat.filter(function(x){return x&&x.displayValue!=null&&x.displayValue!==''&&x.displayValue!=='-'&&x.displayValue!=='0.0'&&x.label!=='Streak';}).slice(0,10);
+ statsEl.innerHTML=usable.length?usable.map(function(x){return '<div class="statgrid"><span>'+esc(x.displayName||x.label||x.name||'Stat')+'</span><span></span><span>'+esc(x.displayValue)+'</span></div>';}).join(''):'<div class="empty">Team stats not available yet.</div>';
+ statsEl.setAttribute('aria-label',side==='home'?'Home team stats':'Away team stats');}
+function renderGraph(j){var c=((j.header||{}).competitions||[])[0]||{},rs=scoreRows(c.competitors||[]),a=rs.filter(function(x){return x.side==='away';})[0]||{},h=rs.filter(function(x){return x.side==='home';})[0]||{};
+ if(graphMode==='lines'){var n=Math.max((a.values||[]).length,(h.values||[]).length);graphEl.innerHTML=n?'<div class="statgrid"><b>'+esc(a.label)+'</b><span>Period</span><b style="text-align:right">'+esc(h.label)+'</b></div>'+Array.from({length:n},function(_,i){return '<div class="statgrid"><span>'+esc((a.values[i]||{}).displayValue||'—')+'</span><span>'+(i+1)+'</span><span>'+esc((h.values[i]||{}).displayValue||'—')+'</span></div>';}).join(''):'<div class="empty">Period scores not available yet.</div>';return;}
+ var raw=(j.winprobability||[]).filter(function(x){return typeof x.homeWinPercentage==='number'&&isFinite(x.homeWinPercentage);});if(raw.length<2){graphEl.innerHTML='<div class="empty">Live win chance graph not available for this game.</div>';return;}
+ var pts=raw.filter(function(_,i){return i%Math.max(1,Math.floor(raw.length/75))===0||i===raw.length-1;});var d=pts.map(function(x,i){return (i?'L':'M')+(8+i*584/Math.max(1,pts.length-1)).toFixed(1)+' '+(105-Math.max(0,Math.min(1,x.homeWinPercentage))*92).toFixed(1);}).join(' ');
+ graphEl.innerHTML='<svg class="graph" viewBox="0 0 600 116" role="img" aria-label="Home win chance history"><line x1="8" y1="59" x2="592" y2="59" stroke="#46615c" stroke-dasharray="4 5"/><path d="'+d+'" fill="none" stroke="#3ed6a7" stroke-width="3" vector-effect="non-scaling-stroke"/></svg><div class="small">'+esc(h.label)+' win chance: '+Math.round(raw[raw.length-1].homeWinPercentage*100)+'% · ESPN estimates, not a betting price</div>';}
+function renderField(j){var c=((j.header||{}).competitions||[])[0]||{},s=c.situation||j.situation||{},sport=espn.split('/')[0],status=(c.status||{}).type||{},away=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},home=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};
+ var possessing='',basis='';if(status.state==='in'){
+  var poss=s.possession||s.possessionTeam||((j.drives||{}).current||{}).team||{};var pid=typeof poss==='object'?(poss.id||poss.teamId||poss.abbreviation):poss;
+  if(pid){var hit=[away,home].filter(function(x){return String((x.team||{}).id)===String(pid)||String((x.team||{}).abbreviation).toLowerCase()===String(pid).toLowerCase();})[0];if(hit){possessing=teamSide(hit);basis='possession';}}
+  if(sport==='baseball'&&((c.status||{}).periodPrefix||s.inningHalf)){var top=/top/i.test((c.status||{}).periodPrefix||s.inningHalf),bot=/bottom/i.test((c.status||{}).periodPrefix||s.inningHalf);if(top||bot){possessing=teamSide(top?away:home);basis='at bat';}}
+  if(!possessing&&sport==='tennis'){var server=s.server||j.server;if(server){var sid=typeof server==='object'?(server.id||server.teamId):server;var sh=[away,home].filter(function(x){return String((x.team||{}).id)===String(sid);})[0];if(sh){possessing=teamSide(sh);basis='serving';}}}
+ }
+ var icon={football:'🏈',basketball:'🏀',baseball:'⚾',hockey:'🏒',soccer:'⚽',tennis:'🎾',golf:'⛳',racing:'🏁',mma:'🥊'}[sport]||'●';var field={football:'field',basketball:'court',baseball:'diamond',hockey:'rink',soccer:'pitch',tennis:'court',golf:'course',racing:'track',mma:'ring'}[sport]||'game';
+ var art=sport==='baseball'?'<path d="M300 12 L410 58 L300 106 L190 58 Z"/>':(sport==='racing'?'<ellipse cx="300" cy="58" rx="245" ry="42"/>':'<rect x="15" y="10" width="570" height="96" rx="'+(sport==='hockey'?45:7)+'"/><path d="M300 10 V106 M15 58 H585"/>');
+ fieldEl.innerHTML='<svg viewBox="0 0 600 116" aria-hidden="true"><g fill="none" stroke="#497467" stroke-width="2">'+art+'</g><text x="30" y="62" fill="#b5cfc5" font-size="14">'+esc(teamSide(away))+'</text><text x="530" y="62" fill="#b5cfc5" font-size="14">'+esc(teamSide(home))+'</text></svg>'+(possessing?'<span class="token" aria-hidden="true">'+icon+'</span>':'');
+ posEl.textContent=(possessing?possessing+' '+basis:(status.state==='in'?'Possession / active player not available from the live feed.':status.state==='pre'?'Game has not started.':status.name==='STATUS_CANCELED'?'Game canceled.':'Game complete.'))+' · '+field+' view · tap to explore';
+ if(possessing){var x=possessing===teamSide(away)?'25%':'75%';fieldEl.querySelector('.token').style.left=fieldStep===0?x:(fieldStep===1?'50%':x);}
+}
+var statSide='away';
 function ageTick(){if(!lastOk){ageEl.textContent="waiting for data";return;}var s=Math.max(0,Math.round((Date.now()-lastOk)/1000));ageEl.textContent="updated "+(s<5?"just now":s+"s ago");}
 setInterval(ageTick,1000);
 function render(j){
@@ -50,18 +85,18 @@ function render(j){
  var home=comps.filter(function(c){return c.homeAway==="home";})[0]||{};
  var an=((away.team||{}).abbreviation)||"AWY",hn=((home.team||{}).abbreviation)||"HOME";
  var state=st.state||"";
- var sct='-' ;if(state!=="pre"){sct=(away.score!=null?away.score:"0")+" - "+(home.score!=null?home.score:"0");}
+ var sct='-' ;if(state!=="pre"&&st.name!=="STATUS_CANCELED"){sct=(away.score!=null?away.score:"—")+" - "+(home.score!=null?home.score:"—");}
  var det=state==="pre"?("Starts "+ptTime(comp.date||hd.competitions&&hd.competitions[0]&&hd.competitions[0].date)):(st.shortDetail||st.detail||"");
  var sit=((comp.situation||{}).downDistanceText)||((comp.situation||{}).lastPlay&&(comp.situation.lastPlay.text||"").slice(0,120))||"";
- var h='<div class="teams"><div class="team"><div class="ab">'+esc(an)+'</div><div class="nm">'+esc((away.team||{}).displayName||"")+'</div></div>'
+ var h='<div class="teams"><div class="team"><button type="button" data-side="away" aria-label="Away team stats"><span class="ab">'+esc(an)+'</span><span class="nm">'+esc((away.team||{}).displayName||"")+'</span></button></div>'
   +'<div class="sc">'+esc(sct)+'</div>'
-  +'<div class="team"><div class="ab">'+esc(hn)+'</div><div class="nm">'+esc((home.team||{}).displayName||"")+'</div></div></div>'
+  +'<div class="team"><button type="button" data-side="home" aria-label="Home team stats"><span class="ab">'+esc(hn)+'</span><span class="nm">'+esc((home.team||{}).displayName||"")+'</span></button></div></div>'
   +'<div class="status">'+(state==="in"?'<span class="dot"></span>':"")+esc(det)+'</div>'
   +(sit?'<div class="sit">'+esc(sit)+'</div>':"");
- scoreEl.innerHTML=h;
+ scoreEl.innerHTML=h+'<div class="hint">Tap a team to see its stats</div>';scoreEl.querySelectorAll("button[data-side]").forEach(function(b){b.onclick=function(){statSide=b.dataset.side;renderStats(j,statSide);statsEl.scrollIntoView({behavior:"smooth",block:"nearest"});};});renderField(j);renderStats(j,statSide);renderGraph(j);
  var sp=j.scoringPlays||[];
  if(!sp.length){sp=(j.plays||[]).filter(function(p){return p&&p.scoringPlay===true;});}  /* swamp 1:28: MLB summaries carry scoring only in plays[] with scoringPlay=true - fall back instead of "No scoring yet" on a 7-run game */
- if(!sp.length){playsEl.innerHTML='<div class="empty">'+(state==="pre"?"Game has not started.":"No scoring yet.")+'</div>';}
+ if(!sp.length){playsEl.innerHTML='<div class="empty">'+(state==="pre"?"Game has not started.":st.name==="STATUS_CANCELED"?"Game canceled.":"No scoring yet.")+'</div>';}
  else{playsEl.innerHTML=sp.slice().reverse().map(function(p){
    return '<div class="play">'+(p.period&&p.clock?'<span class="ph">'+esc((p.period.displayValue||("P"+p.period.number))+" "+(p.clock.displayValue||""))+'</span>':"")+esc(p.text||"")+(p.awayScore!=null?' <span class="ph">'+p.awayScore+"-"+p.homeScore+"</span>":"")+'</div>';
   }).join("");}
@@ -69,8 +104,8 @@ function render(j){
 function tick(){
  fetch("https://site.api.espn.com/apis/site/v2/sports/"+espn+"/summary?event="+encodeURIComponent(eid)+"&cb="+Date.now(),{cache:"no-store"})
   .then(function(r){if(!r.ok)throw 0;return r.json();})
-  .then(function(j){lastOk=Date.now();render(j);})
-  .catch(function(){if(!lastOk){scoreEl.innerHTML='<div class="err">Live data unavailable right now.</div>';playsEl.innerHTML='<div class="empty">-</div>';}});
+  .then(function(j){if(!j||!j.header||!Array.isArray(j.header.competitions)||String((j.header.competitions[0]||{}).id||"")!==eid)throw 0;lastData=j;lastOk=Date.now();render(j);})
+  .catch(function(){if(lastOk){ageEl.textContent='Live feed paused; last update '+Math.round((Date.now()-lastOk)/1000)+'s ago.';}else{scoreEl.innerHTML='<div class="err">Live data unavailable or game ID not found. Check the game link.</div>';fieldEl.innerHTML='<div class="empty">No verified live view.</div>';statsEl.innerHTML='<div class="empty">-</div>';graphEl.innerHTML='<div class="empty">-</div>';playsEl.innerHTML='<div class="empty">-</div>';}});
 }
-tick();setInterval(tick,15000);
+tick();setInterval(tick,2000);
 })();</script></body></html>
