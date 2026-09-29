@@ -226,6 +226,27 @@ for false_name in ('Kansas Blue Devils', 'Tre Jayhawks'):
                              KANSAS_LIVE_STORY, KANSAS_LIVE_POST)[0] == 'EXECUTE':
         fails.append('fabricated composed name in YES rationale passed: %s' % false_name)
 
+# 04:22Z exact served-line reason regressions. A true relationship does not
+# license a false phase label, and a 160-character cutoff is not honest proof.
+KANSAS_V14_NEW_YES = ('YES, matching action + timeline: the story reports a pregame roster update '
+                      '(Tre White cleared to play), and the post is a pregame preview '
+                      '(college basketball ra')
+KANSAS_V14_OLD_YES = ('YES because the post shares the same specific event (Tre White cleared to play) '
+                      'as the article, which directly affects the Kansas Jayhaw')
+if sm.parse_verification(KANSAS_V14_NEW_YES, KANSAS_LIVE_STORY, KANSAS_LIVE_POST)[0] == 'EXECUTE':
+    fails.append('04:22Z invented pregame labels / cutoff rationale EXECUTEd')
+if sm.parse_verification(KANSAS_V14_OLD_YES, KANSAS_LIVE_STORY, KANSAS_OLD)[0] == 'EXECUTE':
+    fails.append('04:22Z truncated older-twin reason EXECUTEd')
+if sm.parse_verification('YES. Tre White cleared to play by court ruling.',
+                         KANSAS_LIVE_STORY, KANSAS_OLD)[0] != 'EXECUTE':
+    fails.append('older-twin shared action wrongly denied when reason is grounded')
+if sm.parse_verification('YES. Kansas Jayhawks cleared to play by court ruling.',
+                         KANSAS_LIVE_STORY, KANSAS_OLD)[0] == 'EXECUTE':
+    fails.append('fabricated proper-name reason accepted for older twin')
+if sm.parse_verification('YES. Tre White cleared to play in the pregame preview.',
+                         KANSAS_LIVE_STORY, KANSAS_OLD)[0] == 'EXECUTE':
+    fails.append('fabricated phase label accepted for otherwise grounded ranking action')
+
 # 04:12Z Bears postgame story vs a prospective under bet: reject before the
 # judge can misdescribe a completed 27-7 game as a pregame preview.
 BEARS_RECAP = ('Case Keenum finds Fountain of Youth as Chicago Bears Dominate Philadelphia Eagles '
