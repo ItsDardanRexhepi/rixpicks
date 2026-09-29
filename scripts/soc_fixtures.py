@@ -89,8 +89,21 @@ for title, post in EG2_KEEP:
     if r:
         fails.append("EG2 keep case killed: %r -> %s" % (title[:50], r))
 
+
+# guard 3 (7:21) stale-EXECUTE class assertions: the deterministic gate must run BEFORE any
+# cache read or probe, and the generic-odds probe rule must stay in the v6 prompt - if either
+# moves or is deleted, the stale-EXECUTE class reopens. Source-ordering is the assertion.
+_src = open('scripts/soc_match.py').read()
+_gate_at = _src.find('st_reason = story_type_gate')
+_cache_at = _src.find('prior = vcache.get(vk)')
+_probe_at = _src.find('vrd, why = verify(')
+if not (-1 < _gate_at < _cache_at < _probe_at):
+    fails.append("ordering broken: story_type_gate (%d) must precede cache read (%d) and probe (%d)" % (_gate_at, _cache_at, _probe_at))
+if 'A generic odds, spread, moneyline, or totals post with no named expert pick NEVER' not in _src:
+    fails.append("v6 probe generic-odds rule missing from prompt - TruGrit class can EXECUTE again")
+
 if fails:
     print("FIXTURE FAILURES:")
     [print(" -", f) for f in fails]
     sys.exit(1)
-print("fixtures PASS: %d entity negatives, %d positives, 4 parser fixtures, %d eg2 negatives, %d eg2 keeps" % (len(NEG), len(POS), len(EG2), len(EG2_KEEP)))
+print("fixtures PASS: %d entity negatives, %d positives, 4 parser fixtures, %d eg2 negatives, %d eg2 keeps, 2 source-order assertions" % (len(NEG), len(POS), len(EG2), len(EG2_KEEP)))
