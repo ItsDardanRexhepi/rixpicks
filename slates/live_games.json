@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T23:34:32.282272+00:00",
+ "generated_at": "2026-09-29T23:37:38.860573+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -54,7 +54,7 @@
      "matchup": "FLA @ CAR",
      "commence": "2026-09-29T21:00Z",
      "status": "in",
-     "detail": "9:00 - 3rd",
+     "detail": "6:23 - 3rd",
      "score": "FLA 0 - CAR 0",
      "away_to": null,
      "home_to": null
@@ -64,7 +64,7 @@
      "matchup": "MTL @ TOR",
      "commence": "2026-09-29T23:00Z",
      "status": "in",
-     "detail": "11:27 - 1st",
+     "detail": "10:50 - 1st",
      "score": "MTL 0 - TOR 1",
      "away_to": null,
      "home_to": null
