@@ -137,6 +137,19 @@ def story_type_gate(title, post):
         return 'historical framing vs breaking-event story'
     return None
 
+
+def probe_predeny(story, post):
+    """guard 3 kill (9/28 7:51, TruGrit 2104707827759473125 vs CBS expert-props): the
+    article-level test must demand a POSITIVE match to the article's concrete picks/props/
+    expert claim. Noncontradiction, same-event, or shared odds vocabulary is NEVER a match.
+    A picks-type article paired with a post declaring no concrete pick evidence is a
+    deterministic REJECT before the judge ever sees it. Default-DENY only (6:06:54): this
+    gate never grants - every EXECUTE still comes from the judge."""
+    head = (story or '')[:200]
+    if PICKS_ARTICLE.search(head) and not PICK_EVIDENCE.search(post or ''):
+        return ('REJECT', 'picks-type article, post declares no concrete pick/prop: same-event odds language is not a match (deterministic, guard 3)')
+    return None
+
 # Equivocal-YES abstain (guard 2, same incident): a YES whose own reasoning admits a
 # conflict ("YES - Different team.") is the model collapsing, not confirming. The parser
 # reads the whole response; an equivocal YES abstains - never cached, never badged.
@@ -207,7 +220,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v6-entity-gate'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v7-positive-match'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
@@ -238,6 +251,9 @@ def cos(a, b):
 
 def verify(story, post):
     """PROBE: smallest falsifying test - does this post talk about this story?"""
+    pre = probe_predeny(story, post)
+    if pre:
+        return pre
     # probe calibration (1:30): the product rule is "matching social posts ABOUT the story"
     # (owner 1:11). Round 1's wording ("same specific story") over-abstained - it rejected a
     # fan's "My OFFICIAL 2026 MLB Playoff Predictions" against "2026 MLB playoff predictions:
@@ -266,7 +282,11 @@ def verify(story, post):
               '- Sharing a named person is NOT enough: if the post is about the same person but a\n'
               '  DIFFERENT event, timeframe, or situation than the story' + chr(39) + 's specific event: NO.\n'
               '- A generic odds, spread, moneyline, or totals post with no named expert pick NEVER\n'
-              '  matches an expert-picks, best-bets, or player-props article: NO.\n'
+              '  matches an expert-picks, best-bets, or player-props article: NO.\n'              '- POSITIVE-match demand (guard 3): an expert-picks, best-bets, or player-props\n'
+              '  article matches ONLY a post that affirmatively states its own concrete pick, prop,\n'
+              '  or best bet AND that pick agrees with a concrete pick, prop, or line the article\n'
+              '  itself recommends. Same event, same sport, shared odds vocabulary, or the absence\n'
+              '  of contradiction is NEVER a match: NO.\n'
               '- Personal fan plans, attendance, travel, or watch-party posts are NEVER about the story: NO.\n'
               '- Start the final line with YES only when every rule above passes; on ANY doubt start\n'
               '  with NO and name the doubt.\n'
