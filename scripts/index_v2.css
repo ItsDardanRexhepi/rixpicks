@@ -265,3 +265,5 @@ body.tab-home .ultrix-sync-line{display:block}
 .predrow:last-child{border-bottom:0;padding-bottom:0}
 .predtxt{font-size:13px;font-weight:600;line-height:1.35}
 .predmeta{color:var(--mut);font-size:11px;margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
+
+.rplivescore{cursor:pointer;touch-action:manipulation}.rplivescore:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
