@@ -1,65 +1,65 @@
 {
- "generated_at": "2026-09-28T11:18:11",
+ "generated_at": "2026-09-28T20:26:51",
  "live_legs": [
   {
    "player": "Jalen Hurts",
    "market": "passing_yards",
    "line": 200,
-   "current": 0.0,
-   "progress": "0/200",
+   "current": 153.0,
+   "progress": "153/200",
    "matchup": "PHI @ CHI",
    "combo_id": "mnf-t1",
-   "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "5:15 PM PT"
+   "card_status": "lost",
+   "game_state": "post",
+   "game_detail": "Final"
   },
   {
    "player": "Saquon Barkley",
    "market": "rushing_yards",
    "line": 60,
-   "current": 0.0,
-   "progress": "0/60",
+   "current": 82.0,
+   "progress": "82/60",
    "matchup": "PHI @ CHI",
    "combo_id": "mnf-t1",
-   "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "5:15 PM PT"
+   "card_status": "won",
+   "game_state": "post",
+   "game_detail": "Final"
   },
   {
    "player": "D'Andre Swift",
    "market": "rushing_yards",
    "line": 60,
-   "current": 0.0,
-   "progress": "0/60",
+   "current": 84.0,
+   "progress": "84/60",
    "matchup": "PHI @ CHI",
    "combo_id": "mnf-t1",
-   "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "5:15 PM PT"
+   "card_status": "won",
+   "game_state": "post",
+   "game_detail": "Final"
   },
   {
    "player": "Zach Ertz",
    "market": "receiving_yards",
    "line": 20,
-   "current": 0.0,
-   "progress": "0/20",
+   "current": 9.0,
+   "progress": "9/20",
    "matchup": "PHI @ CHI",
    "combo_id": "mnf-t1",
-   "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "5:15 PM PT"
+   "card_status": "lost",
+   "game_state": "post",
+   "game_detail": "Final"
   },
   {
    "player": "DeVonta Smith",
    "market": "receiving_yards",
    "line": 50,
-   "current": 0.0,
-   "progress": "0/50",
+   "current": 65.0,
+   "progress": "65/50",
    "matchup": "PHI @ CHI",
    "combo_id": "mnf-t1",
-   "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "5:15 PM PT"
+   "card_status": "won",
+   "game_state": "post",
+   "game_detail": "Final"
   },
   {
    "player": "Saquon Barkley",
@@ -69,21 +69,21 @@
    "progress": "no TD yet",
    "matchup": "PHI @ CHI",
    "combo_id": "mnf-t1",
-   "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "5:15 PM PT"
+   "card_status": "lost",
+   "game_state": "post",
+   "game_detail": "Final"
   },
   {
    "player": "Eagles",
    "market": "spread",
    "line": 2.5,
    "current": null,
-   "progress": "PHI 0 - CHI 0 (+2.5) - COVERING",
+   "progress": "PHI 7 - CHI 27 (+2.5) - NOT COVERING",
    "matchup": "PHI @ CHI",
    "combo_id": "mnf-t1",
-   "card_status": "live",
-   "game_state": "pre",
-   "game_detail": "5:15 PM PT"
+   "card_status": "lost",
+   "game_state": "post",
+   "game_detail": "Final"
   }
  ]
 }
