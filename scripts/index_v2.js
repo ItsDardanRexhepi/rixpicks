@@ -356,6 +356,20 @@ var PAIRS=[];
 var CAR_UNIT=null; /* guard 1 atomic fallback (owner 7:11 "the same ones too"): the last fully
    rendered {story,post} unit. Fallback paths restore it AS ONE UNIT or blank BOTH carousels -
    unpaired news NEVER renders in the paired carousel (the 2-of-12 + empty-social class). */
+/* ROLLED-DATES CLASS (phonemsg-01M3M8JV437ST9S8NV18WYAH66 "site must show current day,
+   rolled dates"): the baked .rpdate header is the CARD's date; the site shows the current
+   PT day. At PT midnight the header rolls forward and the stale card area is replaced by
+   the honest not-published state (mirrors record_today.js) - yesterday's card never wears
+   today's date. When the morning manifest lands the baked date matches and this no-ops. */
+function rpDateRoll(){
+ var el=document.querySelector('.rpdate');if(!el)return;
+ var today=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'long',month:'short',day:'numeric'}).format(new Date());
+ if(el.textContent.trim()===today)return;
+ el.textContent=today;
+ var st=document.getElementById('st-home');
+ if(st)st.innerHTML='<div class="pick rp-empty"><div class="pick-head"><span class="name">Today\u2019s card has not published yet.</span></div></div>';
+}
+rpDateRoll();
 function buildPairs(base){
  PAIRS=[];
  if(!rpMapFresh(SOC_MATCH))return;
@@ -559,7 +573,17 @@ function socMore(){
    natural slide heights (12:21 clip fix), shared tick + shared pause via carStep/carPP. */
 /* ULTRIX semantic match map (owner 12:37): built+cached by scripts/soc_match.py at feed-refresh time.
    Never per-pageview. Stale (>2h) or missing map => NO sync jump (abstain beats a wrong match, 1:00 rule). */
-var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={};
+var SOC_MATCH=null,SOC_MATCH_OK=false,SOC_XIDX={},SOC_RIDX={},SOC_MATCH_PENDING=null;
+/* guard 1 (1:28 9/29) coherent first-load settle: the initial map fetch can land BEFORE the
+   news/X generations it must match, and discarding it forced a ~45s blank wait on rtPoll.
+   Hold the fetched map and revalidate the moment BOTH generations exist - one coherent
+   PAIRS unit paints as soon as the inputs are ready, no transient blank beyond network. */
+function socMapRetry(){
+ if(SOC_MATCH_OK||!SOC_MATCH_PENDING)return;
+ if(!rpMapFresh(SOC_MATCH_PENDING))return;
+ SOC_MATCH=SOC_MATCH_PENDING;SOC_MATCH_PENDING=null;SOC_MATCH_OK=true;
+ try{if(typeof cur!=='undefined'&&cur&&cur.key==='home')renderNews(cur,newsBucket(cur));renderSocial();socSync();}catch(e){}
+}
 var XFEED_GEN=null; /* generation of the X payload actually ingested, not the wall-clock fetch time */
 /* owner 1:26: social feed renders sports-relevant, topic-matching posts only - never a raw
    firehose. Fresh map: server relevance layer (URF evidence gate) decides per post. No fresh
@@ -593,6 +617,7 @@ function isPublishableNews(a){
 var RP_SPORT_KW=/nfl|nba|mlb|nhl|wnba|ncaa|cfb|mls|nwsl|pga|nascar|ufc|mma|boxing|tennis|football|basketball|baseball|hockey|soccer|golf|sports|touchdown|quarterback|playoff|super bowl|world series|stanley cup|fantasy|draft pick|trade rumor|injury report|starting lineup|home run|slam dunk|shutout|knockout|title fight|grand slam|eagles|bears|chiefs|cowboys|packers|vikings|giants|jets|patriots|steelers|ravens|bengals|browns|texans|colts|jaguars|titans|broncos|raiders|chargers|rams|seahawks|49ers|cardinals|falcons|panthers|saints|buccaneers|commanders|lions|dolphins|bills|yankees|dodgers|red sox|cubs|braves|astros|phillies|mets|padres|mariners|lakers|celtics|warriors|knicks|nets|sixers|bulls|heat|bucks|nuggets|suns|mavericks|thunder|timberwolves|spurs|rockets|clippers|grizzlies|pelicans|kings|trail blazers|jazz|hawks|hornets|hornets|pacers|cavaliers|pistons|magic|wizards|raptors|maple leafs|bruins|canadiens|oilers|avalanche|lightning|panthers|rangers|penguins|capitals|flyers|red wings|blackhawks|wild|stars|predators|blues|jets|kraken|golden knights|sharks|ducks|kings|coyotes|hurricanes|blue jackets|devils|islanders|sabres|senators|flames|canucks/i;
 fetch('slates/soc_match.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
  if(rpMapFresh(m)){SOC_MATCH=m;SOC_MATCH_OK=true;} /* stamped maps wait for matching served feed generations */
+ else{SOC_MATCH_PENDING=m;} /* guard 1: hold for generation arrival - socMapRetry promotes it */
  SOC_MAP_DONE=true; /* settled = verdict reached (fresh map OR rejected); the feeds may now build */
  try{if(cur&&cur.key==='home')renderNews(cur,newsBucket(cur));renderSocial();socSync();}catch(e){}
 }).catch(function(){SOC_MATCH_OK=false;SOC_MAP_DONE=true;
@@ -785,6 +810,7 @@ function ingestX(j){ /* single publishability-gated ingest path (guard 3): XNEWS
  if(SOC_MATCH_OK&&!rpMapFresh(SOC_MATCH)){SOC_MATCH_OK=false;} /* independent first-load X fetch may outrun map */
  XNEWS=j.items.filter(function(p){return p&&/^[0-9]+$/.test(String(p.id||''))&&p.created_at&&p.text;}).map(function(p){var u=(typeof p.url==='string'&&/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/[A-Za-z0-9_]+\/status\/[0-9]+(?:\?.*)?$/.test(p.url)&&p.url.split('/status/')[1].split('?')[0]===String(p.id))?p.url:'';return {id:String(p.id),headline:String(p.text).slice(0,900),link:u,published:p.created_at,source:'X',author:typeof p.author_name==='string'?p.author_name.slice(0,80):''};}).filter(isPublishablePost);
  SOC_XIDX={};XNEWS.forEach(function(p,i){if(p.id)SOC_XIDX[p.id]=i;});
+ socMapRetry(); /* X generation + post index settled - promote a held map the moment it coheres */
 }
 function refreshX(){
  if(Date.now()-XNEWS_TS<60000)return;
@@ -910,7 +936,7 @@ function loadSide(t){
  else{
   fetch('slates/news.json?cb='+Date.now(), {cache:'no-store'})
    .then(function(r){if(!r.ok)throw 0;return r.json();})
-   .then(function(j){NEWSF=j;NEWSF_TS=Date.now();if(SOC_MATCH_OK&&!rpMapFresh(SOC_MATCH))SOC_MATCH_OK=false;if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
+   .then(function(j){NEWSF=j;NEWSF_TS=Date.now();if(SOC_MATCH_OK&&!rpMapFresh(SOC_MATCH))SOC_MATCH_OK=false;socMapRetry();if(cur===t){renderNews(t,newsBucket(t));tickRender();}})
    .catch(function(){if(cur===t){renderNews(t,newsBucket(t));tickRender();}});
  }
  if(lg&&(!DNEWS_TS[t.key]||now-DNEWS_TS[t.key]>25000)){
