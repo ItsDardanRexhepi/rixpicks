@@ -93,6 +93,7 @@ python3 scripts/move_cause.py || true
 python3 scripts/futures_quotes.py futures.json --write || echo "futures_quotes failed - keeping last quotes" >&2
 python3 scripts/wooder_td_feed.py slates/nfl_latest.json slates/nfl_live.json || echo "wooder_td_feed failed - keeping last live file" >&2
 python3 scripts/live_games.py slates/live_games.json || echo "live_games failed - keeping last live_games file" >&2
+python3 scripts/polymarket_feed.py manifest.json || echo "polymarket_feed failed - keeping last manifest" >&2
 RP_REFRESH=1 python3 scripts/build_gh_page_v2.py manifest.json index.html
 python3 scripts/backfill_history.py || true
 git add -N slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json 2>/dev/null || true

@@ -14,6 +14,25 @@ and outcomes match team names). Pick side matched against outcome names.
 import json, sys, urllib.request, re, datetime
 from zoneinfo import ZoneInfo
 
+
+import hashlib as _hl
+def _pick_content_hash(m):
+    # EXACT MIRROR of build_gh_page_v2.py _pick_content_hash: the feed mutates pick slots, so it
+    # re-stamps the declared manifest hash. Drift between this copy and the builder's is
+    # fail-closed by construction (builder recomputes and refuses on mismatch).
+    _EXCL_TOP={'num','result','_final','polycents','card_ts','line_shop','books','books_sp','prop_books'}
+    def _canon(p):
+        c={k:v for k,v in p.items() if k not in _EXCL_TOP}
+        if isinstance(c.get('kalshi'),dict):
+            c['kalshi']={k:v for k,v in c['kalshi'].items() if k!='cents'}
+        c.pop('dkp_note',None)
+        if isinstance(c.get('dkp'),dict):
+            c['dkp']={k:v for k,v in c['dkp'].items() if k not in ('team_cents','home_cents','away_cents','derived','harvested')}
+            if not c['dkp']: c.pop('dkp')
+        return c
+    rows=sorted(json.dumps(_canon(p),sort_keys=True) for p in m.get('picks',[]))
+    return _hl.sha256('\n'.join(rows).encode()).hexdigest()
+
 GAMMA = "https://gamma-api.polymarket.com/events?slug="
 
 # full team name -> polymarket slug abbreviation (verified live Sep 27, 2026)
@@ -41,6 +60,15 @@ ABBR = {
  "texas rangers":"tex","atlanta braves":"atl","miami marlins":"mia","washington nationals":"wsh",
  "chicago cubs":"chc","cincinnati reds":"cin","pittsburgh pirates":"pit","arizona diamondbacks":"ari",
  "colorado rockies":"col","san diego padres":"sd",
+ # NHL (polymarket slug forms - mon not mtl, las not vgk; wrong-entry risk is fail-closed NOEVENT)
+ "anaheim ducks":"ana","boston bruins":"bos","buffalo sabres":"buf","calgary flames":"cgy",
+ "carolina hurricanes":"car","chicago blackhawks":"chi","colorado avalanche":"col","columbus blue jackets":"cbj",
+ "dallas stars":"dal","detroit red wings":"det","edmonton oilers":"edm","florida panthers":"fla",
+ "los angeles kings":"la","minnesota wild":"min","montreal canadiens":"mon","nashville predators":"nsh",
+ "new jersey devils":"njd","new york islanders":"nyi","new york rangers":"nyr","ottawa senators":"ott",
+ "philadelphia flyers":"phi","pittsburgh penguins":"pit","san jose sharks":"sj","seattle kraken":"sea",
+ "st. louis blues":"stl","tampa bay lightning":"tb","toronto maple leafs":"tor","utah mammoth":"uta",
+ "vancouver canucks":"van","vegas golden knights":"las","washington capitals":"wsh","winnipeg jets":"wpg",
 }
 LEAGUE_SLUG = {"football/nfl":"nfl","basketball/wnba":"wnba","baseball/mlb":"mlb",
                "football/college-football":"cfb","basketball/nba":"nba","hockey/nhl":"nhl"}
@@ -122,6 +150,10 @@ def feed(manifest_path, write=True):
             except Exception as ex:
                 print(f"HUB ERR {ulg}: {ex}", file=sys.stderr); hubs[ulg] = {}
         g = p.get('game') or {}
+        if p.get('side') not in ('home','away'):
+            # moneyline feed only: a prop pick (side over/under) must NEVER inherit the game's
+            # moneyline link/price - wrong market is a failure, abstain is not
+            print(f"SKIP {p.get('name')}: non-moneyline pick (side={p.get('side')})", file=sys.stderr); continue
         away, home, commence = g.get('away',''), g.get('home',''), g.get('commence','')
         lg = LEAGUE_SLUG.get(p.get('espn_league',''))
         a_abbr, h_abbr = ABBR.get(away.lower()), ABBR.get(home.lower())
@@ -170,6 +202,7 @@ def feed(manifest_path, write=True):
         n_ok += 1
         print(f"OK {p.get('name')}: {url} pick-side {cents}c gamma | .us {us_cents}c")
     if write:
+        man['pick_content_hash']=_pick_content_hash(man)
         json.dump(man, open(manifest_path,'w'), indent=1)
     print(f"fed {n_ok}/{len(man['picks'])} picks", file=sys.stderr)
 
