@@ -24,6 +24,8 @@ import json, math, os, sys, time, hashlib, urllib.request, datetime, re
 
 # no tout/selling-access posts, ever (owner 1:39) - server mirror of the client RP_TOUT_KW filter
 RP_AD = re.compile(r'happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|reservation|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props|deposit (bonus|match|offer)|bonus bets?', re.I)
+RP_AD2 = re.compile(r'#\s*(ad|ads|sponsored|sponsorship)\b|#\w*sale\b|#giveaway\b|follow\s+(us|me|@\w+)\b.{0,40}(to win|to enter|for a chance|giveaway)|(secure|reserve|book)\s+(a\s+|your\s+)table|(arrive|get (there|here)|come)\s+early\b[^.!?]{0,50}(secure|reserve|grab|book)\s+(a\s+|your\s+)?(table|spot|seat)|free picks?\s*(up|here|today|tonight|now|below|thread|incoming|alert|inside|drop)', re.I)
+RP_PROMO_CAPS = re.compile(r'\bFREE PICKS?\b')
 RP_TOUT = re.compile(r'discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|freebie|free picks? on|model.{0,20}(is )?(live|cashed)', re.I)
 
 NIM_URL = 'https://ultrix-core.itsdardanr.workers.dev/nim'
@@ -281,7 +283,7 @@ def main():
         for score, j in scored[:TOP_CANDIDATES]:
             if str(posts[j].get('id')) in used_posts:
                 continue
-            if RP_AD.search(ptexts[j]):
+            if (RP_AD.search(ptexts[j]) or RP_AD2.search(ptexts[j]) or RP_PROMO_CAPS.search(ptexts[j])):
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'REJECT', 'gate': 'scope', 'reason': 'commercial/venue ad - never a news pair (QA 5:21 false-green class)'})
                 continue
@@ -364,7 +366,7 @@ def main():
                 if score < MORE_FLOOR or ons_probes >= MAX_ONS_PROBES:
                     break
                 pid = str(posts[j].get('id'))
-                if pid in used_posts or RP_AD.search(ptexts[j]):
+                if pid in used_posts or (RP_AD.search(ptexts[j]) or RP_AD2.search(ptexts[j]) or RP_PROMO_CAPS.search(ptexts[j])):
                     continue
                 ck = 'ONS|' + SALT + '|' + nk + '|' + pid
                 pr2 = vcache.get(ck)
@@ -418,6 +420,13 @@ def main():
     cur_pids = {str(pp.get('id')) for pp in posts}
     vcache = {k: v for k, v in vcache.items()
               if k.split('|')[-2] in cur_keys and k.split('|')[-1] in cur_pids}
+    # guard 5 bootstrap kill: the version signal rides INSIDE soc_match.json, which every
+    # rtPoll tick already fetches - a behind client sees client_build > its own build and
+    # self-updates even if it predates the build.json mechanism. No viewer stranded again.
+    try:
+        log['client_build'] = json.load(open('slates/build.json')).get('build')
+    except Exception:
+        pass
     json.dump(vcache, open(VERD, 'w'))
     json.dump(log, open('slates/soc_match.json', 'w'))
     print('soc_match built:', json.dumps(log['audit']))
