@@ -1,19 +1,5 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T03:50:03.262480+00:00",
- "leagues": [
-  {
-   "league": "NFL",
-   "games": [
-    {
-     "espn_event_id": "401872963",
-     "matchup": "PHI @ CHI",
-     "commence": "2026-09-29T00:15Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "PHI 7 - CHI 27"
-    }
-   ]
-  }
- ]
+ "generated_at": "2026-09-29T04:05:05.345447+00:00",
+ "leagues": []
 }
