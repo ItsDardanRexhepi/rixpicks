@@ -212,6 +212,31 @@ for pid, post, yes in (
 v, _ = sm.parse_verification('YES - same event, no contradiction.', KANSAS_STORY, 'Kansas college basketball chatter')
 if v == 'EXECUTE': fails.append('generic same-event rationale without shared action EXECUTEd')
 
+# Reproduce the actual 04:12Z served verdict, not a paraphrased fixture:
+# Kansas is in the headline, Jayhawks in the blurb, and #kansasjayhawks in X.
+KANSAS_LIVE_STORY = ('College basketball rankings: Kansas joins early Top 25 And 1 after Tre White '
+                     'cleared to play by court ruling - White can play for the Jayhawks this season '
+                     'after a judge grants a preliminary injunction')
+KANSAS_LIVE_POST = (KANSAS_NEW + ' https://t.co/yVGhegNGdn')
+KANSAS_LIVE_YES = 'YES. Tre White cleared to play and the Kansas Jayhawks entering the rankings because of it.'
+if sm.parse_verification(KANSAS_LIVE_YES, KANSAS_LIVE_STORY, KANSAS_LIVE_POST)[0] != 'EXECUTE':
+    fails.append('04:12Z Kansas exact served YES rationale wrongly abstained')
+for false_name in ('Kansas Blue Devils', 'Tre Jayhawks'):
+    if sm.parse_verification('YES. %s cleared to play and entering the rankings.' % false_name,
+                             KANSAS_LIVE_STORY, KANSAS_LIVE_POST)[0] == 'EXECUTE':
+        fails.append('fabricated composed name in YES rationale passed: %s' % false_name)
+
+# 04:12Z Bears postgame story vs a prospective under bet: reject before the
+# judge can misdescribe a completed 27-7 game as a pregame preview.
+BEARS_RECAP = ('Case Keenum finds Fountain of Youth as Chicago Bears Dominate Philadelphia Eagles '
+               'on Monday Night Football - Chicago buried them 27-7 in a Case Keenum clinic')
+BEARS_PREGAME_BET = ("NFL Play 🦅🐻\n\nEagles/Bears Under 42.5 (+100)\n\nThis is the cleaner MNF angle.\n"
+                     "Chicago’s offense has to prove it can sustain drives, and Philly doesn’t need a track meet here.")
+if not sm.story_type_gate(BEARS_RECAP, BEARS_PREGAME_BET):
+    fails.append('04:12Z prospective Bears bet not denied against postgame domination recap')
+if sm.story_type_gate('Bears vs Eagles preview and game thread', BEARS_PREGAME_BET):
+    fails.append('prospective Bears bet wrongly denied on pregame game thread')
+
 # Freshness parity: a 5h-old post is not current beside a new article. The
 # candidate set includes recent posts even when their cosine rank is lower.
 import datetime
