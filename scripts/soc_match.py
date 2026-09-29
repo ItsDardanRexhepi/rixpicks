@@ -51,7 +51,7 @@ MORE_CAP = 20
 # boilerplate); (2) a post whose text introduces a foreign principal person (capitalized
 # bigram surname absent from the headline's entities, place/org words excluded) conflicts.
 # No extractable entities -> gate silent, probe decides. Latest tier uses layer 1 at need=1.
-ENTITY_GATE_VERSION = 'eg2b'  # eg2b: PICK_EVIDENCE recognizes side declarations (picking the X)
+ENTITY_GATE_VERSION = 'eg3'  # eg3: empty-entity hole killed - foreign-person fallback vs raw headline text
 ENTITY_STOP = set('game games report reports season seasons preview previews recap recap watch video highlight highlights rumor rumors update updates news trade trades injury injuries week daily today tonight tomorrow yesterday best worst ranking rankings power draft pick picks odds line lines spread spreads over under win wins loss losses versus the after before says said new why how what who live score scores final first last early late big top free agent agents coach coaches team teams player players star stars fans fan take takes make makes get gets back down into with from will would could should must still just more most ever every next league playoff playoffs postseason championship title titles night match matches fight fights career future futures ready leads lead leading recalls sent check throws college football basketball baseball hockey soccer monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december chat discussion eve face home road looks remain unbeaten factor charge go years year state count counts props prop expert experts bets bet betting booed'.split())
 POST_PERSON_STOP = ENTITY_STOP | set('field stadium arena center centre park garden dome coliseum bowl classic series cup showdown invitational open masters nationals united city club fc sc ac cf real sporting athletics university kings queens islanders'.split())
 
@@ -105,6 +105,26 @@ PICK_EVIDENCE = re.compile(r"\b((?:over|under)\s*\d|yards?|yds|td|touchdown|rece
 BET_SLIP_POST = re.compile(r'\[\d+(\.\d+)?u\]|[+-]\d{3,}[^.\n]{0,40}[+-]\d{3,}', re.I)
 HISTORICAL_POST = re.compile(r'\b(since (19|20)\d\d|career|all[- ]time|histor(?:y|ical)|last season|retrospective|looking back)\b', re.I)
 BREAKING_ARTICLE = re.compile(r'\b(leaves|sent|injured|injury|ruled out|exits?|carted|concussion|traded|trade|signs|signed|released|breaks|sidelined|questionable|doubtful|scratched|activated|waived|recalled)\b', re.I)
+
+
+def foreign_person_vs_title(title, text):
+    """eg3 hole kill (9/28 7:46, Fever/CC false pin 2104679415208698214): when title_entities
+    finds no entities the layer-2 check was SKIPPED - an unrecognized-entity story was an
+    unguarded surface, and a post about a different person paired freely. Fallback bar: a
+    subject-position person bigram whose surname appears nowhere in the headline text is a
+    foreign principal, whatever the entity extractor managed to recognize."""
+    t = (title or '').lower()
+    toks = re.findall(r"[A-Za-z][A-Za-z'\-]*", (text or '')[:100])
+    out = set()
+    for a, b in zip(toks, toks[1:]):
+        if a[:1].isupper() and b[:1].isupper() and not a.isupper() and not b.isupper():
+            la, lb = a.lower().strip("'-"), b.lower().strip("'-")
+            if len(lb) < 3 or la in POST_PERSON_STOP or lb in POST_PERSON_STOP:
+                continue
+            if la in t or lb in t:
+                continue
+            out.add(lb)
+    return out
 
 def story_type_gate(title, post):
     t, p = title or '', post or ''
@@ -389,6 +409,12 @@ def main():
                                  'reason': 'entity conflict (deterministic eg1): story principals absent or foreign principal in post'})
                 stats['entity_conflicts'] = stats.get('entity_conflicts', 0) + 1
                 continue
+            if not t_ents and foreign_person_vs_title(it.get('headline') or '', ptexts[j]):
+                verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
+                                 'verdict': 'REJECT', 'gate': 'conflict',
+                                 'reason': 'foreign principal vs headline text (deterministic eg3): entity extraction found no story principals, post subject person absent from headline'})
+                stats['entity_conflicts'] = stats.get('entity_conflicts', 0) + 1
+                continue
             # six-gate decide() - owner 1:00/1:01 hard rule: EVERY link passes the full loop.
             # Cosine alone NEVER pairs (adversarial proof 1:03: different-team same-injury-pattern
             # scored 0.628 > old 0.62 auto-accept). Every candidate >= floor takes the LLM probe
@@ -481,6 +507,8 @@ def main():
                 if story_type_gate(it.get('headline') or '', ptexts[j]):
                     continue
                 if t_ents and (entity_conflict(t_ents, ptexts[j], 1) or post_persons(ptexts[j], t_ents)):
+                    continue
+                if not t_ents and foreign_person_vs_title(it.get('headline') or '', ptexts[j]):
                     continue
                 ck = 'ONS|' + SALT + '|' + nk + '|' + pid
                 pr2 = vcache.get(ck)
