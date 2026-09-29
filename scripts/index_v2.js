@@ -306,7 +306,15 @@ function carStep(){
  var nb=$('rpNewsCar'),sb=$('rpSocial');
  if((nb&&(nb.matches(':hover')||nb.matches(':focus-within')))||(sb&&(sb.matches(':hover')||sb.matches(':focus-within'))))return;
  if(CAR_N>1)carAdv(1);
+ if(FEED_FALLBACK)return; /* independent feeds: social rotates on its own clock below - shared-tick rotation would imply pairing */
  if(!SYNC_LAST&&SOC_N>1)socAdv(1);
+}
+function socStep(){
+ if(document.hidden||CAR_PAUSED||CAR_RM)return;
+ if(SOC_N<2)return;
+ var sb=$('rpSocial');
+ if(sb&&(sb.matches(':hover')||sb.matches(':focus-within')))return;
+ socAdv(1);
 }
 function carGo(d){carAdv(d);}
 function carPP(){CAR_PAUSED=!CAR_PAUSED;var ids=['rpCarPP','rpSocPP'];for(var i=0;i<ids.length;i++){var b=$(ids[i]);if(b)b.textContent=CAR_PAUSED?'Play':'Pause';}}
@@ -542,6 +550,7 @@ function renderNews(t,arts){
    renders the x_feed items XNEWS already normalizes; Home-only visibility via body.tab-home CSS. */
 var SOC_SIG='',SOC_IDX=0,SOC_N=0,SOC_LAST=[];
 var FEED_FALLBACK=false;
+var SOC_TIMER=null;
 function socMove(ci){
  var tr=$('rpSocTrack');if(!tr||!SOC_N)return;
  var sl=tr.children[ci];if(!sl)return;
@@ -722,6 +731,8 @@ function renderSocial(){
  $('rpSocMore').addEventListener('click',function(e){e.preventDefault();socMore();});
  socApply();
  carObserve();
+ if(FEED_FALLBACK){if(SOC_N>1&&!SOC_TIMER)SOC_TIMER=setInterval(socStep,7000);} /* own clock, off the news tick */
+ else if(SOC_TIMER){clearInterval(SOC_TIMER);SOC_TIMER=null;}
  if((CAR_N>1||SOC_N>1)&&!CAR_TIMER)CAR_TIMER=setInterval(carStep,5500);
 }
 /* client replica of news_feed.py relevant() - the 25s instant lane merges straight into the

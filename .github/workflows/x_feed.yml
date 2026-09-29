@@ -133,6 +133,7 @@ jobs:
           python3 scripts/soc_fixtures.py  # deterministic gate regressions - abort the chain before a bad map ships
           node scripts/test_buildpairs_class.js  # buildPairs match-before-slice class fixture (guard 3, 1:08 9/29)
           node scripts/test_feed_boot_class.js  # first-load coherent settle + rolled-dates class fixture (guard 1, 1:28 9/29)
+          npm install --no-save --silent jsdom && node scripts/test_feed_fallback_dom.js  # zero-pair fallback independent-feeds render fixture (jsdom DOM)
           python3 scripts/test_mlb_form_fallback.py  # MLB Stats API form fallback fixture (Sep 29)
           python3 scripts/soc_match.py
       - name: "commit feed + burn ledger"
