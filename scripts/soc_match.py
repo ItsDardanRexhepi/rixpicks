@@ -128,7 +128,7 @@ HISTORICAL_POST = re.compile(r'\b(since (19|20)\d\d|career|all[- ]time|histor(?:
 # vs pregame hype, game thread vs sales CTA, availability update vs offseason interview,
 # preview analysis vs transaction report, editorial analysis vs trivia, betting content vs
 # non-betting story.
-RECAP_ARTICLE = re.compile(r"\b(second|third|fourth|game-winning|walk-?off)\b.{0,25}\b(td|touchdown|goal|shot|home run|pass)\b|\b(td|touchdown) pass\b|holding .{0,15}lead|\bfinal\b|recap|postgame", re.I)
+RECAP_ARTICLE = re.compile(r"\b(second|third|fourth|game-winning|walk-?off)\b.{0,25}\b(td|touchdown|goal|shot|home run|pass)\b|\b(td|touchdown) pass\b|holding .{0,15}lead|\bfinal\b|recap|postgame|dominat(?:e[sd]?|ion)|rout(?:e[sd]?|ing)", re.I)
 FINAL_RESULT_ARTICLE = re.compile(r'\b(final score|final result|final:|postgame|game recap)\b', re.I)
 COMPLETED_EVENT_POST = re.compile(r'\b(final score|final result|final:|postgame|game over|game is over|won|lost|defeated|beat|beats|beaten|finished|ended|score was)\b|\b\d{1,3}\s*[-–]\s*\d{1,3}\b', re.I)
 
@@ -149,7 +149,7 @@ def event_time_gate(story, post):
         return 'pre-report post does not mention completed event or outcome'
     return None
 
-PREGAME_POST = re.compile(r"\b(tonight|my pick|i'?m picking|could be a|the script|pregame|tailgate|first start .{0,30}in \d+ years|hasn'?t .{0,30}(all season|yet|since \d+))\b", re.I)
+PREGAME_POST = re.compile(r"\b(tonight|my pick|i'?m picking|could be a|the script|pregame|tailgate|first start .{0,30}in \d+ years|hasn'?t .{0,30}(all season|yet|since \d+)|has to prove|doesn'?t need)\b", re.I)
 PREVIEW_ARTICLE = re.compile(r'\b(preview|looks to|how to watch|keys to|storylines)\b', re.I)
 TRANSACTION_POST = re.compile(r'\b(officially inactive|inactive for|placed on|activated from|listed as (out|doubtful|questionable)|waived|signed to)\b', re.I)
 CTA_POST = re.compile(r"\b(here are (the|our|my|your).{0,40}(picks|predictions)|tune in(to)?|listen (live|to)|promo code|bonus code|use code|link in (bio|comments)|sign up (and|to))\b", re.I)
@@ -267,6 +267,20 @@ STOP_REASON = set('the and for with from into over under after before this that 
 def _reason_tokens(s):
     return set(re.findall(r"[a-z0-9]+", (s or '').lower())) - STOP_REASON
 
+def _grounded_name(name, story, post):
+    """Keep exact proper-name proof, except place+team-name across RSS fields
+    when the post itself joins both as one hashtag (Kansas / Jayhawks case).
+    This does not waive the separately required shared action evidence.
+    """
+    low = name.lower()
+    if low in story.lower() and low in post.lower():
+        return True
+    parts = low.split()
+    joined = ''.join(parts)
+    return (len(parts) == 2 and
+            all(re.search(r'\b' + re.escape(part) + r'\b', story, re.I) for part in parts) and
+            re.search(r'(?<![a-z0-9])#' + re.escape(joined) + r'\b', post, re.I) is not None)
+
 def reason_integrity(reason, story='', post=''):
     """Default-deny incomplete, tautological and unsupported YES rationales."""
     r = (reason or '').strip()
@@ -280,7 +294,7 @@ def reason_integrity(reason, story='', post=''):
     if story and post:
         # Proper-name and number claims cannot be supplied by the model alone.
         names = re.findall(r'\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+\b', r)
-        if any(n.lower() not in story.lower() or n.lower() not in post.lower() for n in names):
+        if any(not _grounded_name(n, story, post) for n in names):
             return False
         if any(n not in story or n not in post for n in re.findall(r'\b\d+(?:st|nd|rd|th)?\b', r, re.I)):
             return False
@@ -406,7 +420,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v13-reason-action-integrity'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v14-served-reason-and-recap'  # probe wording is decision-changing: version MUST salt the verdict cache
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
