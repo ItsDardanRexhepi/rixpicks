@@ -131,6 +131,19 @@ STRONG_MARKERS = {  # sport-owning tokens: presence in a foreign bucket => rejec
 }
 SPORT_OF = {'NFL':'NFL','CFB':'NFL','NBA':'NBA','NCAAB':'NBA','WNBA':'WNBA','MLB':'MLB','NHL':'NHL'}
 
+PROMO_NEWS = re.compile(
+    r'promo code|bonus bets?|free bets?|bet \$?[0-9]+.{0,25}(get|claim)|claim \$?[0-9]+|'
+    r'deposit (bonus|match|offer)|sign ?up (offer|bonus|promo)|new (user|customer)s? (offer|bonus|promo)|'
+    r'sponsored content', re.I)
+
+def publishable_news(a):
+    """guard 3 news-side default-deny (owner 5:27/5:28 zero ads/promos site-wide, one layer up):
+    promo-code / bonus-bet / free-bet inducement / sponsored-affiliate articles never enter ANY
+    bucket at the producer - carousel, ticker, View all News and league tabs all read from here."""
+    import unicodedata
+    t = unicodedata.normalize('NFKC', ' '.join(str(a.get(k) or '') for k in ('headline', 'summary', 'blurb', 'link', 'source')))
+    return not PROMO_NEWS.search(t)
+
 def relevant(key, headline):
     h = ' ' + (headline or '').lower() + ' '
     def has(tok): return tok in h
@@ -215,6 +228,7 @@ def main():
             n = norm(a['headline'])
             if not n or n in seen: continue
             if not relevant(key, a['headline']): continue
+            if not publishable_news(a): continue
             seen.add(n)
             a['league'] = key
             ded.append(a)
