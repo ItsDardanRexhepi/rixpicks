@@ -47,7 +47,7 @@ jobs:
       #      is hardened (QA 5:21 pub-ad false green -> v4-commercial-gate).
       # This guard is R1+R2's burn discipline: skip ONLY when the map covers live news AND every
       # visible story already holds a verified pair.
-      - name: freshness guard (IFTTT R1+R2: skip only when map covers live news AND visible window fully verified)
+      - name: freshness guard (IFTTT R1+R2 - skip only when map covers live news AND visible window fully verified)
         run: |
           python3 - <<'EOF'
           import json, os, urllib.request
