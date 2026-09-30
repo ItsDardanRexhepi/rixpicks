@@ -22,12 +22,12 @@ async function getJson(url, timeoutMs = 20000) {
 const toCents = f => { const c = Math.round(f * 1000) / 10; return c > 0 && c < 100 ? c : null; };
 
 async function polyBoard(slug) {
-  const board = {}; const quality = {};
+  const board = {}; const quality = {}; const book = {};
   try {
     const ev = await getJson(GAMMA + slug);
     const e = (ev || [])[0];
-    if (!e) return { board, quality };
-    if (e.endDate && e.endDate < new Date().toISOString()) return { board, quality }; // settled slug
+    if (!e) return { board, quality, book };
+    if (e.endDate && e.endDate < new Date().toISOString()) return { board, quality, book }; // settled slug
     for (const m of e.markets || []) {
       let prs = m.outcomePrices; if (typeof prs === 'string') { try { prs = JSON.parse(prs || '[]'); } catch { prs = []; } }
       if (prs && prs.length && prs.every(p => parseFloat(p) === 0 || parseFloat(p) === 1)) continue; // settled market
@@ -42,11 +42,11 @@ async function polyBoard(slug) {
       if (c) {
         board['P:' + q] = c;
         // illiquidity marker: a book wider than 25c has no knowable mid - parity excludes it
-        if (!isNaN(bb) && !isNaN(ba)) quality['P:' + q] = Math.round((ba - bb) * 1000) / 10;
+        if (!isNaN(bb) && !isNaN(ba)) { quality['P:' + q] = Math.round((ba - bb) * 1000) / 10; book['P:' + q] = [Math.round(bb * 1000) / 10, Math.round(ba * 1000) / 10]; }
       }
     }
   } catch (e) { console.error('poly discover/poll ERR', slug, String(e).slice(0, 100)); }
-  return { board, quality };
+  return { board, quality, book };
 }
 async function kalshiBoard(env, series) {
   const board = {}; let err429 = false;
@@ -75,14 +75,14 @@ export async function runFutures(env) {
       : JSON.parse(await (await fetch(env.PROD_BASE + '/config_leagues.json?cb=' + Date.now())).text()); }
   catch (e) { return { failed: 'config unreadable' }; }
   const ts = new Date().toISOString();
-  const rows = []; const current = {}; const errs = []; const qualityAll = {};
+  const rows = []; const current = {}; const errs = []; const qualityAll = {}; const bookAll = {};
   const kalshiCool = await kalshiCoolingDown(env);
   let prev = {};
   try { const o = await env.FEEDS.get('futures/current.json'); if (o) prev = (JSON.parse(await o.text())).leagues || {}; } catch (e) {}
   for (const [lg, ent] of Object.entries(cfg.leagues || {})) {
     const fut = ent.futures || {};
-    const pres = fut.poly_slug ? await polyBoard(fut.poly_slug) : { board: {}, quality: {} };
-    const pb = pres.board; Object.assign(qualityAll, pres.quality);
+    const pres = fut.poly_slug ? await polyBoard(fut.poly_slug) : { board: {}, quality: {}, book: {} };
+    const pb = pres.board; Object.assign(qualityAll, pres.quality); Object.assign(bookAll, pres.book);
     const kb = kalshiCool ? {} : await kalshiBoard(env, fut.kalshi);
     // last-good carry: a failed leg never blanks the board - previous keys ride until fresh data
     const prevBoard = (prev[lg] || {}).board || {};
@@ -100,7 +100,7 @@ export async function runFutures(env) {
   await Promise.all([
     env.FEEDS.put('futures/current.json', JSON.stringify({ ts, leagues: current }), { httpMetadata: { contentType: 'application/json' } }),
     env.FEEDS.put(`futures/ticks/${day}/${hhmm}.jsonl`, rows.join('\n') + '\n'),
-    env.FEEDS.put('futures/quality.json', JSON.stringify({ ts, spread_c: qualityAll })),
+    env.FEEDS.put('futures/quality.json', JSON.stringify({ ts, spread_c: qualityAll, book_c: bookAll })),
   ]);
   // heartbeat, same shape as the GHA listener's
   await env.FEEDS.put('futures/heartbeat.json', JSON.stringify({ ts, mode: 'cf-cron-poll', leagues: Object.keys(current).length, kalshi_cooldown: kalshiCool, leg_errors: errs }));

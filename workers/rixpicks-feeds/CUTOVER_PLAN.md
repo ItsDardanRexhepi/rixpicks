@@ -131,3 +131,14 @@ NWSL-style wide-spread (>25c) exclusion unchanged. Acceptance summary must list 
 key with last prod tick and excluded minutes. Evidence: Bell (NASCAR) prod 12.7c last tick
 20:34:11Z vs worker 9.9c vs Gamma mid ~10.2c. Applies from deploy forward; earlier history
 entries carry no per-key detail and are scored as recorded.
+
+### Futures gate: off-market-reference exemption v12 (main decision 9/30 4:37 PM PT)
+Not a tolerance change (still +/-2c). A Poly key is excluded from the PRICE comparison (coverage
+still counts) only when ALL hold: (1) prod value is outside the live [bid, ask] book of the same
+market from the worker's latest poll; (2) the key's last prod tick is older than 15 min; (3) the
+worker value is inside the live book (or within 0.1c of live mid). Worker also outside the book
+= real divergence, counts against parity. Exempted keys are recorded per cycle in the futures
+report as `exempt_offbook: [{key, prod, worker, bid, ask, last_prod_tick, age_min}]` and must all
+be listed in the acceptance summary with this rule stated. Stacks with the v11 >60-min stale rule
+(`exempt_stale`). Evidence: NASCAR Hamlin prod 36.0 vs ask 35, Elliott prod 5.7 vs ask 4.6.
+Futures 24h clock keeps its 22:25:09Z 9/30 anchor unless main re-anchors at the v12 deploy.

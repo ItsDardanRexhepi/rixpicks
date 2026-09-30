@@ -176,9 +176,19 @@ function quotesParity(mine, prod) {
 // report `exempt_stale` (key, last_prod_tick, age_min) - never silently dropped. No tolerance
 // change; the NWSL wide-spread (>25c) exclusion is unchanged. Acceptance math: a cycle's
 // price_close = close/compared with exempt and wide keys removed from `compared`.
+// v12 off-market-reference exemption (main 9/30 4:37 PM PT). ALL THREE required, per Poly key:
+//  (1) prod value sits OUTSIDE the live [bid, ask] book of the same market (worker's latest poll);
+//  (2) last prod tick for that key is more than OFFBOOK_MIN_AGE_MIN old;
+//  (3) worker value sits INSIDE the live book (or within 0.1c of the live mid).
+// If the worker is also outside the book it is a real divergence: not exempt, counts against
+// parity. Price comparison only (coverage still counts). Every exempted key is reported in
+// `exempt_offbook` with prod value, worker value, live bid/ask and last prod tick time, and
+// must be listed in the final acceptance summary. Tolerance unchanged (+/-2c).
+const OFFBOOK_MIN_AGE_MIN = 15;
 const STALE_PROD_MIN = 60;
 function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
-  const exempt = [];
+  const exempt = []; const exemptBook = [];
+  const bookC = (quality || {}).book_c || {};
   // illiquid books (spread > 25c) have no knowable mid - exclude from price agreement
   const wide = new Set(Object.entries((quality || {}).spread_c || {}).filter(([, v]) => v > 25).map(([k]) => k));
   const mineByLeague = mine.leagues || {};
@@ -195,6 +205,16 @@ function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
             const lt = lastTick[lg + k], ageMin = lt ? (nowMs - lt) / 60000 : Infinity;
             if (ageMin > STALE_PROD_MIN) { exempt.push({ key: lg + k, last_prod_tick: lt ? new Date(lt).toISOString() : null, age_min: isFinite(ageMin) ? Math.round(ageMin) : null }); continue; }
           }
+          if (prefix === 'P:' && lastTick && bookC[k]) {
+            const [bid, ask] = bookC[k], pv = pb[k], wv = mb[k];
+            const lt = lastTick[lg + k], ageMin = lt ? (nowMs - lt) / 60000 : Infinity;
+            const prodOut = pv < bid || pv > ask;
+            const workerIn = (wv >= bid && wv <= ask) || Math.abs(wv - (bid + ask) / 2) <= 0.1;
+            if (prodOut && ageMin > OFFBOOK_MIN_AGE_MIN && workerIn && Math.abs(wv - pv) > 2) {
+              exemptBook.push({ key: lg + k, prod: pv, worker: wv, bid, ask, last_prod_tick: lt ? new Date(lt).toISOString() : null, age_min: isFinite(ageMin) ? Math.round(ageMin) : null });
+              continue;
+            }
+          }
           if (Math.abs((mb[k] || 0) - pb[k]) <= 2) close++;
           compared++;
         }
@@ -210,6 +230,7 @@ function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
   const kalshi = evalLeg('K:');
   poly.kalshi_leg = { delegated: 'gha', ...kalshi };
   if (exempt.length) poly.exempt_stale = exempt.slice(0, 30);
+  if (exemptBook.length) poly.exempt_offbook = exemptBook.slice(0, 30);
   return poly;
 }
 
