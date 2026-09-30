@@ -704,6 +704,13 @@ def main():
             pkey = f"{eid}|{_mc}|{p['side']}"  # ml | spread+line | total+line | prop (s/t+props wired 9/27)
         if pkey in seen:
             continue
+        if p.get('espn_league') == 'mma/ufc':
+            # K19 guard (2026-09-30): espn_final's events/{eid}/competitions/{eid} shape 404s for
+            # MMA (only events/{ceid}/competitions/{fight_id} resolves), and a primary-fetch
+            # exception STOPS the grading chain (order guard). MMA grading runs through the record
+            # lane's own verified two-source path (tonight's G-20260929-UFC-01); skip here so an
+            # MMA pick with a ceid can never halt team-sport grading.
+            continue
         try:
             primary = espn_final(p.get('espn_league', 'football/college-football'), eid)
         except Exception as e:

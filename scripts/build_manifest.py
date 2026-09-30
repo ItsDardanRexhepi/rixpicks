@@ -14,6 +14,7 @@ back and verifies every appended row. Crash recovery: re-running with the same c
 idempotent (identical rows skip, manifest publishes); re-running with different candidates on
 the same key refuses closed rather than forking the card record."""
 import json, sys, datetime, os, fcntl, hashlib, re
+import urllib.request as _urlreq
 from zoneinfo import ZoneInfo
 sys.path.insert(0, '/home/sandbox/rix_tmp')
 from core.units import cents_to_american
@@ -73,6 +74,35 @@ PROD_MANIFEST_PATH = os.environ.get('RIX_PROD_MANIFEST', '/home/sandbox/rix_tmp/
 PREVIEW_LEDGER = PICKS_LEDGER.replace('picks.jsonl', 'picks.preview.jsonl')
 LOCK_PATH = PICKS_LEDGER + '.lock'
 
+
+# K19 root fix (MMA eid, 2026-09-30): ESPN MMA scoreboard events ARE the fight cards, so
+# game.eid for mma/ufc picks is the CARD event id (ceid) - the page's ceid fail-safe keys on
+# it. Resolve from the mma/ufc scoreboard by fighter-pair match across EVERY competition of
+# every event (fights, not just [0]); competitors are athletes, not teams. FAIL-CLOSED loud
+# when no unique match - same standard as st_card_candidates.resolve_eid. Manual/other-lane
+# rows arrive with eid null (the adapter skips MMA fail-closed upstream); this is the single
+# assembly-point backstop that covers every lane.
+_MMA_SB_CACHE = {}
+def _mma_ceid(c):
+    ymd = datetime.datetime.fromisoformat(c['commence'].replace('Z', '+00:00')).astimezone(ZoneInfo('America/Los_Angeles')).strftime('%Y%m%d')
+    if ymd not in _MMA_SB_CACHE:
+        _req = _urlreq.Request(
+            f'https://site.api.espn.com/apis/site/v2/sports/mma/ufc/scoreboard?dates={ymd}&limit=200',
+            headers={'User-Agent': 'python-urllib/3.10'})
+        with _urlreq.urlopen(_req, timeout=20) as _r:
+            _MMA_SB_CACHE[ymd] = json.load(_r).get('events', [])
+    _a, _h = (c.get('away') or '').casefold(), (c.get('home') or '').casefold()
+    hits = []
+    for _ev in _MMA_SB_CACHE[ymd]:
+        for _comp in _ev.get('competitions', []):
+            _names = {(((_x.get('athlete') or _x.get('team') or {}).get('displayName')) or '').casefold()
+                      for _x in _comp.get('competitors', [])}
+            if _a in _names and _h in _names:
+                hits.append(_ev.get('id'))
+                break
+    _uniq = list(dict.fromkeys(hits))
+    return _uniq[0] if len(_uniq) == 1 else None
+
 def main():
     cands = json.load(open(sys.argv[1]))
     preview = '--preview' in sys.argv
@@ -106,6 +136,11 @@ def main():
         # (finals_watch grades all three incl. push; fill_leak is market-class-aware). Refuse
         # anything without an explicit, known class; spread/total MUST carry a numeric line.
         mc = c.get('market_class')
+        if c.get('espn_league') == 'mma/ufc' and not c.get('eid'):
+            _ce = _mma_ceid(c)
+            if not _ce:
+                raise ValueError(f"fail closed: MMA candidate {c.get('name')} has no unique ESPN fight-card eid on the mma/ufc scoreboard (fighter-pair match across all competitions)")
+            c['eid'] = str(_ce)  # in-place: the ledger key pass below re-reads cands
         if mc not in ('ml', 'spread', 'total', 'prop'):
             raise ValueError(f"fail closed: candidate {c.get('name')} has market_class={mc!r} - must be explicit ml|spread|total|prop")
         if mc in ('spread', 'total', 'prop'):
