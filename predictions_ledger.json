@@ -315,5 +315,31 @@
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T14:07:05.296015+00:00"
+ },
+ {
+  "id": "82978f71da",
+  "event_id": "401872969",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Cincinnati Bengals",
+  "away": "Jacksonville Jaguars",
+  "pick_team": "Cincinnati Bengals",
+  "prediction": "Cincinnati Bengals beat Jacksonville Jaguars",
+  "kickoff_utc": "2026-10-04T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T14:35:50.504050+00:00"
+ },
+ {
+  "id": "dbd79be878",
+  "event_id": "401872967",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Houston Texans",
+  "away": "Dallas Cowboys",
+  "pick_team": "Dallas Cowboys",
+  "prediction": "Dallas Cowboys beat Houston Texans",
+  "kickoff_utc": "2026-10-04T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T14:36:23.030208+00:00"
  }
 ]
