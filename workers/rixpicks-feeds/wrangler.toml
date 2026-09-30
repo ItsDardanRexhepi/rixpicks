@@ -11,9 +11,13 @@ workers_dev = true
 binding = "FEEDS"
 bucket_name = "rixpicks-feeds"
 
+[[services]]
+binding = "DISPATCHER"
+service = "rixpicks-gh-dispatcher"
+
 [vars]
 PROD_BASE = "https://rix-picks.com"
-XFEED_DISPATCH = "off"      # "on" at news cutover: fire repository_dispatch x-feed-chain on rotation
+XFEED_DISPATCH = "on"       # Option A bridge: each news rotation fires x-feed-chain via the DISPATCHER binding. Set "off" to stop dispatch; full rollback = revert the bridge commit.
 
 # odd minutes: futures poll only. 5-minute marks: news + kalshi-quotes + parity (+ futures).
 [triggers]

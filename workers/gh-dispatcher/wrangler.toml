@@ -1,5 +1,6 @@
 name = "rixpicks-gh-dispatcher"
 main = "src/worker.js"
 compatibility_date = "2026-09-28"
+workers_dev = false   # cron + service-binding only; /dispatch must not be publicly reachable
 [triggers]
 crons = ["4,19,34,49 * * * *"]

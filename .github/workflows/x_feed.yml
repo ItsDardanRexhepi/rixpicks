@@ -5,7 +5,8 @@ on:
   repository_dispatch:
     # external time base (guard 4 scheduler class): the Cloudflare gh-dispatcher worker fires
     # every 15 min - GitHub hosted cron starves this repo and is a BACKSTOP signal only.
-    types: [external-tick]
+    # x-feed-chain: fired by the rixpicks-feeds worker on each news rotation (Lane 3 Option A).
+    types: [external-tick, x-feed-chain]
   schedule:
     # UNPARKED 15-min: his verbatim sign-off '15-min' (main 9:25), burn math presented (~$3.17/day vs $9.04 free, billing after). Balance-watch: ledger exits 1 under $2.00.
     - cron: '*/15 * * * *'
@@ -28,6 +29,7 @@ on:
         default: pull
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: x-feed
   cancel-in-progress: false
@@ -39,6 +41,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      # Lane 3 Option A bridge (main 9/30 4:04 PM PT): GH news-refresh is OFF; the worker's news
+      # is copied into slates/news.json here so the chain and the page stay generation-matched.
+      # It is committed together with the map in the final step (never ahead of it), with an
+      # always() safety commit if the chain dies first so news cannot go stale.
+      - name: "bridge: worker news -> slates/news.json"
+        run: python3 scripts/bridge_worker_news.py
       # IFTTT rule set (owner 5:24 "Make the social feed algo have an IFTTT protocol"):
       #   R1 IF news rotates (news-refresh completes) THEN chain runs: pull -> match -> publish.
       #   R2 IF a visible story lacks a verified pair THEN the chain keeps pulling per-story posts
@@ -125,7 +133,7 @@ jobs:
       # The dispatcher starts news-refresh and X-feed at the same time.
       # Ingest may publish now; the news-refresh completion builds the coherent map.
       - name: "semantic match build (URF six-gate, owner 1:00/1:01 - every link passes the full loop)"
-        if: github.event_name != 'repository_dispatch'
+        if: github.event_name != 'repository_dispatch' || github.event.action == 'x-feed-chain'
         env:
           NIM_CLIENT_TOKEN: ${{ secrets.NIM_CLIENT_TOKEN }}
         run: |
@@ -143,7 +151,7 @@ jobs:
         run: |
           git config user.name "RixPicks Bot"
           git config user.email "rixpicks-bot@users.noreply.github.com"
-          git add slates/x_feed.json slates/x_burn.jsonl slates/x_feed_state.json slates/soc_trials.json slates/soc_match.json slates/soc_vecs.json slates/soc_verdicts.json 2>/dev/null || exit 0
+          git add slates/news.json slates/x_feed.json slates/x_burn.jsonl slates/x_feed_state.json slates/soc_trials.json slates/soc_match.json slates/soc_vecs.json slates/soc_verdicts.json 2>/dev/null || exit 0
           git diff --cached --quiet && exit 0
           git commit -m "x feed $(date -u +%H:%M) UTC"
           # bash -e killed this loop on ANY push race: a failing && list at statement level
@@ -168,3 +176,48 @@ jobs:
             sleep 5
           done
           exit 1
+      # Safety net: if the chain failed before the final commit, still publish the bridged news
+      # (stale map is the pre-existing 'hold prior coherent unit' case; stale news is worse).
+      - name: "bridge safety commit (news only, if chain did not publish it)"
+        if: always()
+        run: |
+          git config user.name "RixPicks Bot"
+          git config user.email "rixpicks-bot@users.noreply.github.com"
+          git add slates/news.json 2>/dev/null || exit 0
+          git diff --cached --quiet && exit 0
+          git commit -m "news bridge $(date -u +%H:%M) UTC"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase --autostash -q; then
+              if git push -q; then exit 0; fi
+            else
+              if git status --porcelain | grep -q '^UU slates/'; then
+                git checkout --theirs -- slates/ || true
+                git add slates/ || true
+                if GIT_EDITOR=true git rebase --continue; then
+                  if git push -q; then exit 0; fi
+                fi
+              fi
+              git rebase --abort 2>/dev/null || true
+            fi
+            sleep 5
+          done
+          exit 1
+      # Moved from news-refresh (now disabled): kalshi-quotes is still GH-side, keep its watchdog.
+      - name: "kalshi-quotes staleness watchdog"
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          last=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/368490964/runs?per_page=1" \
+            | python3 -c "import json,sys; r=json.load(sys.stdin).get('workflow_runs',[]); print((r[0]['created_at']+' '+r[0]['status']) if r else '1970-01-01T00:00:00Z none')")
+          ts=$(echo "$last" | cut -d' ' -f1); st=$(echo "$last" | cut -d' ' -f2)
+          age=$(( $(date +%s) - $(date -d "$ts" +%s) ))
+          echo "newest kalshi-quotes run: $ts status=$st age=${age}s"
+          if [ "$st" = "queued" ] || [ "$st" = "in_progress" ]; then echo "run active - no dispatch"
+          elif [ "$age" -gt 600 ]; then
+            echo "stale >10min - dispatching kalshi-quotes"
+            curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/workflows/368490964/dispatches" \
+              -d '{"ref":"main"}'
+          else echo "fresh - no dispatch"; fi

@@ -1,0 +1,26 @@
+name: cf-dispatcher-deploy
+# Deploys the gh-dispatcher worker (cron external-tick + the /dispatch service-binding entry used
+# by rixpicks-feeds for the news bridge). Worker secrets (GH_DISPATCH_TOKEN) persist across
+# deploys. Never touches DNS, routes, Pages, or other workers.
+on:
+  push:
+    branches: [main]
+    paths: ['workers/gh-dispatcher/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cf-dispatcher-deploy
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: deploy rixpicks-gh-dispatcher
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: workers/gh-dispatcher
+          command: deploy

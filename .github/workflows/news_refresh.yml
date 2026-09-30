@@ -1,14 +1,10 @@
 name: news-refresh
+# Lane 3 Option A (main 9/30 4:04 PM PT): DISABLED. News is produced by the rixpicks-feeds
+# worker and bridged into slates/news.json by x-feed (scripts/bridge_worker_news.py).
+# Re-arm = restore the repository_dispatch + schedule triggers below (one revert commit):
+#   repository_dispatch: types: [external-tick]
+#   schedule: cron '*/2 13-23,0-6 * * *'
 on:
-  repository_dispatch:
-    # external time base (guard 4 scheduler class): the Cloudflare gh-dispatcher worker fires
-    # every 15 min - GitHub hosted cron starves this repo and is a BACKSTOP signal only.
-    types: [external-tick]
-  schedule:
-    # 5-min floor during active hours (1 PM-11 PM PT = 20:00-06:00 UTC PDT... widened
-    # 13:00-06:00 UTC to catch mornings) - the wake dispatcher also fires
-    # workflow_dispatch when slates/news.json generated_at is >2 min stale.
-    - cron: '*/2 13-23,0-6 * * *'
   workflow_dispatch:
 permissions:
   contents: write
