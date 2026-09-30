@@ -3202,6 +3202,8 @@ def build_team_pages(man, css, build_sha):
         if not logo: logo=_pv.get('logo','')
         logo_html='<img src="%s" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()">'%html.escape(logo) if logo else ''
         last5=[]; upcoming=[]; _scored=[]; streak=''
+        import datetime as _dtn
+        from zoneinfo import ZoneInfo as _ZI
         if tid and lg:
             try:
                 sch=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams/%s/schedule'%(lg,tid))
@@ -3213,7 +3215,7 @@ def build_team_pages(man, css, build_sha):
                     opp=next((c for c in comps if str((c.get('team') or {}).get('id'))!=str(tid)),{})
                     opp_nm=((opp.get('team') or {}).get('abbreviation')) or ((opp.get('team') or {}).get('displayName',''))
                     loc='vs' if me.get('homeAway')=='home' else '@'
-                    dt=str(ev.get('date',''))[:10]
+                    dt=_pt_date(str(ev.get('date','')))
                     if st.get('completed'):
                         def _sc(c):
                             v=c.get('score',0)
@@ -3226,8 +3228,7 @@ def build_team_pages(man, css, build_sha):
                         last5.append('%s %d-%d %s %s · %s'%(wl,ms,os_,loc,opp_nm,dt[5:]))
                         _scored.append((ms,os_))
                     else:
-                        import datetime as _d
-                        if dt >= str(_d.date.today()) and len(upcoming)<3: upcoming.append('%s %s · %s'%(loc,opp_nm,dt[5:]))
+                        if dt and dt >= _dtn.datetime.now(_ZI('America/Los_Angeles')).date().isoformat() and len(upcoming)<3: upcoming.append('%s %s · %s'%(loc,opp_nm,dt[5:]))
                 last5=last5[-5:]
                 if last5:
                     streak=last5[-1][0]
@@ -3237,15 +3238,24 @@ def build_team_pages(man, css, build_sha):
                         else: break
                     streak=streak+str(k)
             except Exception: pass
-        # ESPN schedule empty for MLB -> Stats API fallback
+        # ESPN schedule empty (or postseason-thin) for MLB -> Stats API fallback.
+        # K16 (Sep 29 audit): postseason ESPN yields only the completed playoff game(s);
+        # merging regular-season finals from statsapi keeps Last 5/Last 10 truthful.
         _fb_next=None
-        if lg=='baseball/mlb' and tid and not _scored:
+        if lg=='baseball/mlb' and tid and len(_scored)<5:
             try:
                 import datetime as _dml
                 from zoneinfo import ZoneInfo as _Zml
                 _fb=mlb_form_fallback(tid,_espn_get,_dml.datetime.now(_Zml('America/Los_Angeles')).date().isoformat())
                 if _fb:
-                    last5=_fb['last5'][-5:]; _scored=_fb['scored']
+                    _merged=[]; _seen=set()
+                    for r,s in zip(_fb['last5'],_fb['scored']):
+                        _k=r.rsplit(' · ',1)[-1]+'|'+' '.join(r.split()[:3])
+                        if _k not in _seen: _seen.add(_k); _merged.append((r,s))
+                    for r,s in zip(last5,_scored):
+                        _k=r.rsplit(' · ',1)[-1]+'|'+' '.join(r.split()[:3])
+                        if _k not in _seen: _seen.add(_k); _merged.append((r,s))
+                    last5=[r for r,_ in _merged][-5:]; _scored=[s for _,s in _merged]
                     if last5:
                         streak=last5[-1][0]; k=1
                         for r in reversed(last5[:-1]):
