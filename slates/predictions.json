@@ -1,4 +1,19 @@
 {
- "generated_at": "2026-09-30T11:04:32.879433+00:00",
- "items": []
+ "generated_at": "2026-09-30T11:22:01.425884+00:00",
+ "items": [
+  {
+   "id": "e8a990c552",
+   "league": "CFB",
+   "event": "Alabama Crimson Tide @ Mississippi State Bulldogs",
+   "prediction": "Alabama Crimson Tide beat Mississippi State Bulldogs",
+   "kickoff_utc": "2026-10-03T16:00:00+00:00"
+  },
+  {
+   "id": "d3de7fa66d",
+   "league": "CFB",
+   "event": "Vanderbilt Commodores @ Georgia Bulldogs",
+   "prediction": "Georgia Bulldogs beat Vanderbilt Commodores",
+   "kickoff_utc": "2026-10-03T16:45:00+00:00"
+  }
+ ]
 }
