@@ -263,5 +263,44 @@
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T13:36:19.719012+00:00"
+ },
+ {
+  "id": "8382c9e5bb",
+  "event_id": "401854016",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Seattle Reign FC",
+  "away": "North Carolina Courage",
+  "pick_team": "North Carolina Courage",
+  "prediction": "North Carolina Courage beat Seattle Reign FC",
+  "kickoff_utc": "2026-10-03T02:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T13:49:56.143184+00:00"
+ },
+ {
+  "id": "a9bbadcf93",
+  "event_id": "401856818",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "TCU Horned Frogs",
+  "away": "BYU Cougars",
+  "pick_team": "TCU Horned Frogs",
+  "prediction": "TCU Horned Frogs beat BYU Cougars",
+  "kickoff_utc": "2026-10-03T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T13:50:16.389972+00:00"
+ },
+ {
+  "id": "3be2ae28ea",
+  "event_id": "401872970",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Philadelphia Eagles",
+  "away": "Los Angeles Rams",
+  "pick_team": "Philadelphia Eagles",
+  "prediction": "Philadelphia Eagles beat Los Angeles Rams",
+  "kickoff_utc": "2026-10-04T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T13:51:37.763841+00:00"
  }
 ]
