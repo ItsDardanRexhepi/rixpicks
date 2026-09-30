@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T22:50:20.727481+00:00",
+ "generated_at": "2026-09-30T23:05:27.804092+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "CHW @ HOU",
      "commence": "2026-09-30T21:00Z",
      "status": "in",
-     "detail": "Bot 5th",
+     "detail": "Top 6th",
      "score": "CHW 4 - HOU 3"
     },
     {
@@ -30,9 +30,19 @@
      "espn_event_id": "401918019",
      "matchup": "ATL @ WAS",
      "commence": "2026-09-30T23:00Z",
+     "status": "in",
+     "detail": "9:38 - 1st",
+     "score": "ATL 0 - WAS 0",
+     "away_to": 5,
+     "home_to": 5
+    },
+    {
+     "espn_event_id": "401918020",
+     "matchup": "GS @ DAL",
+     "commence": "2026-10-01T01:00Z",
      "status": "pre",
-     "detail": "9/30 - 4:00 PM PT",
-     "score": "ATL 0 - WAS 0"
+     "detail": "9/30 - 6:00 PM PT",
+     "score": "GS 0 - DAL 0"
     }
    ]
   },
