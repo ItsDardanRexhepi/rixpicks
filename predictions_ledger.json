@@ -471,5 +471,18 @@
   "kickoff_utc": "2026-10-01T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T17:20:30.743261+00:00"
+ },
+ {
+  "id": "336709ab39",
+  "event_id": "401872977",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Seattle Seahawks",
+  "away": "Los Angeles Chargers",
+  "pick_team": "Seattle Seahawks",
+  "prediction": "Seattle Seahawks beat Los Angeles Chargers",
+  "kickoff_utc": "2026-10-04T20:25:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T17:37:30.331574+00:00"
  }
 ]
