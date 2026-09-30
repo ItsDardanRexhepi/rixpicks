@@ -11,7 +11,12 @@
 # regenerates from the new card. Fixture: scripts/test_push_race_guard.sh (real git race).
 set -u
 LANE_FILES="manifest.json"
-BASE=$(git rev-parse HEAD)
+# BASE must be the checkout-time upstream, NOT HEAD: refresh.sh commits its own regenerated
+# manifest.json before calling this script, so BASE=HEAD makes the lane-move check below
+# compare origin vs the run's OWN commit and misfire on every run whose odds actually
+# moved (Sep 30 runs 36747004985 + 36747211413: "race touched ... manifest.json" with no
+# lane push upstream at all). merge-base(HEAD, origin/main) is the true checkout base.
+BASE=$(git merge-base HEAD origin/main)
 for i in 1 2 3 4 5; do
   if git push; then exit 0; fi
   git pull --rebase -X theirs || { git rebase --abort; continue; }

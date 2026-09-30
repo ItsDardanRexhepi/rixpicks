@@ -38,4 +38,12 @@ printf 'picks: [WhiteSox]\nprice: 110\n' > manifest.json
 git add -A && git commit -qm 'refresh: clean regen'
 OUT=$(bash "$SCRIPT_UNDER_TEST" 2>&1) || { echo "FAIL: clean push should succeed: $OUT"; FAIL=1; }
 [ "$(git -C ../origin.git show main:manifest.json)" = "picks: [WhiteSox]"$'\n'"price: 110" ] || { echo 'FAIL: clean push content mismatch'; FAIL=1; }
-if [ $FAIL -eq 0 ]; then echo 'PASS push race guard (loud fail + reset + clean-push control)'; exit 0; else exit 1; fi
+# case (Sep 30 runs 36747004985/36747211413): the run's OWN commit changes manifest.json
+# (odds moved) while upstream lands a non-lane tick - the guard must NOT misfire.
+printf 'picks: [WhiteSox]\nprice: 112\n' > manifest.json
+git add -A && git commit -qm 'refresh: regenerated prices (own manifest change)'
+(cd ../lane && git pull -q origin main && printf 'tick %s\n' "$(date +%s)" > futures_tick.txt && git add -A && git commit -qm 'tick: futures only' && git push -q origin main)
+OUT=$(bash "$SCRIPT_UNDER_TEST" 2>&1) || { echo "FAIL: own-manifest-change + non-lane tick misfired loud: $OUT"; FAIL=1; }
+[ "$(git -C ../origin.git show main:manifest.json)" = "picks: [WhiteSox]"$'\n'"price: 112" ] || { echo 'FAIL: origin manifest lost the regenerated prices'; FAIL=1; }
+[ -f ../lane/futures_tick.txt ] || { echo 'FAIL: lane tick vanished'; FAIL=1; }
+if [ $FAIL -eq 0 ]; then echo 'PASS push race guard (loud fail + reset + clean-push control + own-manifest misfire case)'; exit 0; else exit 1; fi
