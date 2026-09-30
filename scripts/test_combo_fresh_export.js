@@ -195,6 +195,15 @@ check('combos module script found in page', !!modMatch);
       check('TD tracker: pregame renders blank, never "Game not started"', tdPre === '');
     }
   }
+  // futures bypass: season-long items (c.futures===true) survive day roll; expired still drops
+  {
+    const futLen = vm.runInContext('([{id:"idea-x-20200101",futures:true}]).filter(rpComboFresh).length', ctx);
+    const futExp = vm.runInContext('([{id:"idea-x-20200101",futures:true,status:"expired"}]).filter(rpComboFresh).length', ctx);
+    const staleIdea = vm.runInContext('([{id:"idea-x-20200101"}]).filter(rpComboFresh).length', ctx);
+    check('rpComboFresh: futures:true bypasses day-roll (stale-dated futures item stays)', futLen === 1);
+    check('rpComboFresh: expired still drops even with futures:true', futExp === 0);
+    check('rpComboFresh: non-futures stale-dated idea still drops', staleIdea === 0);
+  }
   if (failures) { console.error(failures + ' FAIL'); process.exit(1); }
   console.log('ALL OK (incl. race sim + badge/tag)');
 })();

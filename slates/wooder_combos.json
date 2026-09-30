@@ -1,6 +1,6 @@
 {
  "version": 4,
- "generated_at": "2026-09-30T11:04:19-07:00",
+ "generated_at": "2026-09-30T12:08:00-07:00",
  "combos": [
   {
    "id": "idea-mnf-phi-chi-20260928",
@@ -70,7 +70,7 @@
    "type": "idea",
    "date": "2026-09-30",
    "title": "Strikeouts Parlay (4 legs)",
-   "matchup": "PHI@ATL \u00b7 CWS@HOU \u00b7 BOS@NYY \u00b7 CHC@SD",
+   "matchup": "PHI@ATL · CWS@HOU · BOS@NYY · CHC@SD",
    "time": "from 11:00 AM PT",
    "sport": "mlb",
    "league": "MLB",
@@ -78,28 +78,28 @@
     {
      "player": "Cristopher Sanchez",
      "market": "7+ strikeouts vs ATL",
-     "kalshi": "+138 \u00b7 42c",
+     "kalshi": "+138 · 42c",
      "kalshi_note": "KXMLBKS-26SEP301400PHIATL-PHICSANCHEZ61-7",
      "fm": "strikeouts"
     },
     {
      "player": "Hunter Brown",
      "market": "7+ strikeouts vs CWS",
-     "kalshi": "+117 \u00b7 46c",
+     "kalshi": "+117 · 46c",
      "kalshi_note": "KXMLBKS-26SEP301700CWSHOU-HOUHBROWN58-7",
      "fm": "strikeouts"
     },
     {
      "player": "Max Fried",
      "market": "6+ strikeouts vs BOS",
-     "kalshi": "+117 \u00b7 46c",
+     "kalshi": "+117 · 46c",
      "kalshi_note": "KXMLBKS-26SEP302000BOSNYY-NYYMFRIED54-6",
      "fm": "strikeouts"
     },
     {
      "player": "Kevin Gausman",
      "market": "5+ strikeouts at SD",
-     "kalshi": "+117 \u00b7 46c",
+     "kalshi": "+117 · 46c",
      "kalshi_note": "KXMLBKS-26SEP302200CHCSD-CHCKGAUSMAN34-5",
      "fm": "strikeouts"
     }
@@ -114,7 +114,7 @@
    "type": "idea",
    "date": "2026-09-30",
    "title": "Hits Parlay Tracker (4 legs)",
-   "matchup": "PHI@ATL \u00b7 CWS@HOU \u00b7 BOS@NYY \u00b7 CHC@SD",
+   "matchup": "PHI@ATL · CWS@HOU · BOS@NYY · CHC@SD",
    "time": "from 11:00 AM PT",
    "sport": "mlb",
    "league": "MLB",
@@ -122,32 +122,99 @@
     {
      "player": "Trea Turner",
      "market": "1+ hit at ATL",
-     "kalshi": "-233 \u00b7 70c",
+     "kalshi": "-233 · 70c",
      "fm": "hits",
      "tag": "Confirmed leadoff"
     },
     {
      "player": "Yordan Alvarez",
      "market": "2+ hits vs CWS",
-     "kalshi": "+285 \u00b7 26c",
+     "kalshi": "+285 · 26c",
      "fm": "hits"
     },
     {
      "player": "Ben Rice",
      "market": "1+ hit vs BOS",
-     "kalshi": "-186 \u00b7 65c",
+     "kalshi": "-186 · 65c",
      "fm": "hits"
     },
     {
      "player": "Fernando Tatis Jr.",
      "market": "2+ hits vs CHC",
-     "kalshi": "+223 \u00b7 31c",
+     "kalshi": "+223 · 31c",
      "fm": "hits"
     }
    ],
    "estimate_note": "A double or home run counts as one hit.",
    "prices_note": "Kalshi Yes-ask snapshot 10:43 AM PT, American rounded before fees - reference, not sportsbook quotes or executable prices. No combined price quoted. Julian reports placing this ticket; receipt, stake and fill price unverified.",
    "badge": "PLACED - reported by Julian"
+  },
+  {
+   "id": "idea-nfl-rec1000-20260930",
+   "type": "idea",
+   "futures": true,
+   "title": "NFL Futures: 1000+ Receiving Yards (10 legs)",
+   "matchup": "NFL regular season",
+   "time": "Season-long",
+   "sport": "nfl",
+   "league": "NFL",
+   "badge": "IDEA · NOT BOUGHT",
+   "date": "2026-09-30",
+   "estimate": "No site odds shown for this 10-leg parlay - per-leg Kalshi orderbook prices only.",
+   "estimate_note": "Prices are a Kalshi orderbook snapshot, 10:51 AM PT Sep 30: bid/ask on thin books, not sportsbook-style quotes. No combined price.",
+   "prices_note": "Venue: Kalshi event KXNFLSEASONRECYDS-27C1000 - https://kalshi.com/markets/kxnflseasonrecyds",
+   "legs": [
+    {
+     "player": "Mike Evans",
+     "market": "1000+ regular season receiving yards",
+     "kalshi_note": "KAL 2¢/50¢ bid/ask · 10:51 AM PT"
+    },
+    {
+     "player": "Emeka Egbuka",
+     "market": "1000+ regular season receiving yards",
+     "kalshi_note": "KAL 5¢/22¢ bid/ask · 10:51 AM PT"
+    },
+    {
+     "player": "Tetairoa McMillan",
+     "market": "1000+ regular season receiving yards",
+     "kalshi_note": "KAL 7¢/72¢ bid/ask · 10:51 AM PT"
+    },
+    {
+     "player": "Trey McBride",
+     "market": "1000+ regular season receiving yards",
+     "kalshi_note": "KAL 26¢/66¢ bid/ask · 10:51 AM PT"
+    },
+    {
+     "player": "Zay Flowers",
+     "market": "1000+ regular season receiving yards",
+     "kalshi_note": "KAL 12¢/72¢ bid/ask · 10:51 AM PT"
+    },
+    {
+     "player": "Chris Olave",
+     "market": "1000+ regular season receiving yards",
+     "kalshi_note": "KAL 50¢/78¢ bid/ask · 10:51 AM PT"
+    },
+    {
+     "player": "Ladd McConkey",
+     "market": "1000+ regular season receiving yards",
+     "kalshi_note": "KAL 1¢/56¢ bid/ask · 10:51 AM PT"
+    },
+    {
+     "player": "Drake London",
+     "market": "1000+ regular season receiving yards",
+     "kalshi_note": "KAL 66¢/75¢ bid/ask · 10:51 AM PT"
+    },
+    {
+     "player": "Christian Watson",
+     "market": "1000+ regular season receiving yards",
+     "kalshi_note": "no Kalshi market - listed unpriced"
+    },
+    {
+     "player": "Wan'Dale Robinson",
+     "market": "1000+ regular season receiving yards",
+     "kalshi_note": "no Kalshi market - listed unpriced"
+    }
+   ]
   }
  ]
 }

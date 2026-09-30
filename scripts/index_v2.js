@@ -427,7 +427,8 @@ function zeroPairSocial(n){
    no parseable current date -> hidden. A stale combo beside an unpublished card is worse
    than no combo. */
 function rpComboFresh(c){
- if(c&&c.status==='expired')return false; /* writer-marked at day close: can never serve */
+ if(c&&c.status==='expired')return false;
+ if(c&&c.futures===true)return true; /* season-long futures items (Julian 9/30 NFL rec-yds idea): no day-roll expiry */ /* writer-marked at day close: can never serve */
  var t=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Los_Angeles'}));
  var today=t.getFullYear()*10000+(t.getMonth()+1)*100+t.getDate();
  var d=c&&(c.date||c.game_date||''),n=0,m;
