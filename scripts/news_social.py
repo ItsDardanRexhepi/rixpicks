@@ -187,6 +187,29 @@ def _payload(p):
     return ' '.join([p.get('text') or '', str(p.get('author_name') or ''), str(p.get('author_username') or ''), str(p.get('url') or '')])
 
 
+# feed guard 1 server mirror (Sep 29 zero-pair class): the shared pool admits genuine sports
+# posts only - same four-tier test as client isSportsPost (kill list / strong / team /
+# acronym-with-context / 2+ weak), byte-identical pattern text to index_v2.js. A poisoned pool
+# (wall-recovery backfill pulled 93 percent non-sports spam) burns embed spend and starves
+# every downstream gate; junk in the 24h carryover purges here on the next cycle.
+NONSPORT_KILL_RE = __import__('re').compile(r'only ?fans|lingerie|\bnudes?\b|nsfw|18\+|spicy content|hookup|escort|sext(ing)?\b|election|ballot|\bpresident\b|congress|senate|democrat|republican|midterms?|campaign rally|polling|immigration|ceasefire|stock tips|nasdaq|s&p 500|passive income|\bfashion\b|runway|\bootd\b|makeup|skincare|weight loss|diet pills|essay (help|service)|homework help', __import__('re').I)
+SPORT_ACRO_RE = __import__('re').compile(r'\b(nfl|nba|mlb|nhl|wnba|mls|nwsl|ncaa|cfb|ufc|mma|pga|atp|wta|nascar)\b', __import__('re').I)
+SPORT_STRONG_RE = __import__('re').compile(r'\b(formula 1|football|basketball|baseball|hoops|hockey|soccer|tennis|golf|boxing|quarterback|touchdown|pitcher|pitching|home run|homer|goalie|playoffs?|super bowl|stanley cup|world series|march madness|heisman|grand slam|wimbledon|daytona|heavyweight|knockout|innings?|dugout|bullpen|buzzer beater|free throw|field goal|batting|\bpuck\b|rbi|strikeout|power play|penalty kick|slam dunk|fastball|curveball|faceoff|hat trick)\b', __import__('re').I)
+SPORT_TEAMS_RE = __import__('re').compile(r'\b(yankees|red sox|dodgers|cubs|cardinals|braves|astros|mets|phillies|padres|rangers|orioles|blue jays|guardians|tigers|royals|twins|white sox|athletics|angels|mariners|marlins|nationals|pirates|\breds\b|brewers|diamondbacks|d-backs|rockies|lakers|celtics|warriors|knicks|\bnets\b|sixers|76ers|\bbulls\b|bucks|cavaliers|\bcavs\b|mavericks|\bmavs\b|nuggets|\bsuns\b|clippers|grizzlies|\bhawks\b|hornets|pacers|pistons|raptors|wizards|\bspurs\b|\bthunder\b|timberwolves|trail blazers|\bjazz\b|pelicans|rockets|chiefs|eagles|cowboys|packers|\bbears\b|lions|vikings|falcons|saints|buccaneers|\bbucs\b|\brams\b|seahawks|49ers|raiders|chargers|broncos|ravens|bengals|browns|steelers|\bcolts\b|jaguars|texans|titans|dolphins|patriots|commanders|bruins|maple leafs|canadiens|oilers|avalanche|golden knights|\bkraken\b|canucks|flames|predators|blackhawks|red wings|penguins|capitals|flyers|islanders|hurricanes|lightning|senators|sabres|blue jackets|\bgiants\b|\bjets\b|panthers|\bheat\b|timberwolves|\bwolves\b|\bkings\b|\bleafs\b|\bhabs\b|anaheim ducks|winnipeg|buffalo bills|seattle seahawks)\b', __import__('re').I)
+SPORT_WEAK_RE = __import__('re').compile(r'\bgames?\b|\bwins?\b|\bloss(es)?\b|\bscored?\b|\btraded?\b|\binjur(y|ed|ies)\b|\bcoach(ed)?\b|\broster\b|\bdraft(ed)?\b|\bseason\b|\bopener\b|\bovertime\b|\bot\b|\bhalftime\b|\bstadium\b|\barena\b|\bcontract\b|\bextension\b|\bsuspension\b|\bejected\b|\brankings?\b|\bmvp\b|\bdebut\b|\bstreak\b|\bcomeback\b|\bupset\b|\brivalry\b|\bchampionship\b|\btournament\b|\bspread\b|\bparlay\b|\bprops\b|\bodds\b|\blineups?\b', __import__('re').I)
+
+def _sports_post(p):
+    t = _payload(p)
+    if NONSPORT_KILL_RE.search(t):
+        return False
+    if SPORT_STRONG_RE.search(t) or SPORT_TEAMS_RE.search(t):
+        return True
+    acro = len(SPORT_ACRO_RE.findall(t))
+    weak = len(SPORT_WEAK_RE.findall(t))
+    if acro >= 2 and weak == 0:
+        return False  # bare-acronym stuffing is spam, not fandom
+    return acro >= 1 or weak >= 2
+
 def _banned(p):
     import re as _re, unicodedata
     t = unicodedata.normalize('NFKC', _payload(p))
@@ -196,7 +219,9 @@ def _banned(p):
     # sportsbook/operator brands banned at author AND handle (guard 3 Betfair class)
     who = unicodedata.normalize('NFKC', str(p.get('author_name') or '') + ' ' + str(p.get('author_username') or ''))
     who = _re.sub(r'[^A-Za-z0-9]+', ' ', who)  # crypto-handle class: split separators so Cry_Fortress-style handles tokenize
-    return bool(_re.search(r'\b(bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook|cry|crypto|forex|btc|eth|xrp|solana|memecoin|altcoins?|defi|web3|signals)\b', who, _re.I))
+    if _re.search(r'\b(bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook|cry|crypto|forex|btc|eth|xrp|solana|memecoin|altcoins?|defi|web3|signals)\b', who, _re.I):
+        return True
+    return not _sports_post(p)  # pool admits genuine sports posts only (feed guard 1 server mirror)
 AD_RE = __import__('re').compile(
     r'tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|'
     r'price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|'

@@ -68,6 +68,20 @@ def title_entities(title):
             ents.add(tl)
     return ents | persons
 
+def title_case_headline(headline):
+    """ESPN video-clip class (Sep 29 feed guard 3 zero-pair): title-case headlines
+    ('Dreams Come True: Puck Drops On New NHL Season') poison title_entities with false
+    principals - every capitalized bigram reads as a person, so eg1/eg3 kill even genuinely
+    on-story posts pre-probe. Detection: >=75 percent of len>=3 alpha tokens capitalized
+    (real clips run ~1.0; short sentence-case headlines ending in a person name peak ~0.6).
+    Sentence-case article headlines run far below that."""
+    toks = [t for t in re.findall(r"[A-Za-z][A-Za-z'\-]*", headline or '') if len(t) >= 3]
+    if len(toks) < 4:
+        return False
+    caps = sum(1 for t in toks if t[:1].isupper())
+    return caps / len(toks) >= 0.75
+
+
 def entity_hits(ents, text):
     p = ' ' + re.sub(r'[^a-z0-9 ]', ' ', (text or '').lower()) + ' '
     return sum(1 for e in ents if (' ' + e + ' ') in p)
@@ -723,6 +737,13 @@ def main():
     for i, it in enumerate(items):
         nk = key_news(it)
         t_ents = title_entities(it.get('headline') or '')
+        t_tc = title_case_headline(it.get('headline') or '')
+        if t_tc:
+            # title-case story: extraction is unreliable in BOTH directions - the documented
+            # no-entities path says gate silent, probe decides. Silence eg1 AND the eg3
+            # headline-text fallback (same poisoning) for this story class only.
+            t_ents = set()
+            stats['title_case_silenced'] = stats.get('title_case_silenced', 0) + 1
         scored = sorted(((cos(nv[i], pv[j]), j) for j in range(len(posts))), reverse=True)
         # league-first funnel (owner 3:09 architecture, all 13 leagues): matching happens WITHIN
         # the story's league. A candidate is excluded only on a KNOWN league mismatch (both sides
@@ -733,6 +754,8 @@ def main():
             scored = [(sc, j) for sc, j in scored
                       if (relevance.get(str(posts[j].get('id'))) or {}).get('league', '')
                          in ('', slg, 'SPORTS_GENERIC')]
+        stats['band_eligible'] = stats.get('band_eligible', 0) + sum(1 for sc, _j in scored if sc >= PROBE_FLOOR)
+        stats.setdefault('top_scores', []).append(round(scored[0][0], 4) if scored else 0.0)
         best = None
         verdicts = []
         confirmed = []  # every probe-confirmed candidate, score-ranked; [0] = pin, rest = verified more[]
@@ -761,7 +784,7 @@ def main():
                                  'reason': 'entity conflict (deterministic eg1): story principals absent or foreign principal in post'})
                 stats['entity_conflicts'] = stats.get('entity_conflicts', 0) + 1
                 continue
-            if not t_ents and foreign_person_vs_title(it.get('headline') or '', ptexts[j]):
+            if not t_ents and not t_tc and foreign_person_vs_title(it.get('headline') or '', ptexts[j]):
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'REJECT', 'gate': 'conflict',
                                  'reason': 'foreign principal vs headline text (deterministic eg3): entity extraction found no story principals, post subject person absent from headline'})
@@ -896,7 +919,7 @@ def main():
                     continue
                 if t_ents and (entity_conflict(t_ents, ptexts[j], 1) or post_persons(ptexts[j], t_ents)):
                     continue
-                if not t_ents and foreign_person_vs_title(it.get('headline') or '', ptexts[j]):
+                if not t_ents and not t_tc and foreign_person_vs_title(it.get('headline') or '', ptexts[j]):
                     continue
                 ck = 'ONS|' + SALT + '|' + nk + '|' + pid
                 pr2 = vcache.get(ck)
@@ -947,6 +970,19 @@ def main():
     log['nearest'] = nearest
     log['latest'] = latest
     stats['paired'] = sum(1 for v in log['pairs'].values() if (v or {}).get('verified'))
+    stats['top_score_max'] = max(stats.pop('top_scores'), default=0.0)
+    # feed guard 3 instrumentation (Sep 29): distinguish legitimate abstain from broken
+    # probe invocation at a glance - a zero-pair map must SAY why.
+    if stats['paired'] > 0:
+        stats['zero_pair_reason'] = 'ok'
+    elif stats.get('band_eligible', 0) == 0:
+        stats['zero_pair_reason'] = 'no_floor_candidates'  # legitimate abstain: nothing reached the probe bar
+    elif probes == 0 and stats.get('probe_confirmed', 0) == 0:
+        stats['zero_pair_reason'] = 'gate_killed_all'  # band candidates died at deterministic pre-gates - check gates, not the probe loop
+    elif stats.get('probe_confirmed', 0) == 0:
+        stats['zero_pair_reason'] = 'probe_rejected_all'  # probes ran and rejected all - honest abstain with evidence
+    else:
+        stats['zero_pair_reason'] = 'mixed'
     log['audit'] = {'thresholds': {'auto_accept': AUTO_ACCEPT, 'probe_floor': PROBE_FLOOR, 'more_floor': MORE_FLOOR},
                     'probes_used': probes, **stats,
                     'coverage_pct': round(100.0 * stats['paired'] / max(1, len(items)), 1)}
