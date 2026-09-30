@@ -1,27 +1,6 @@
 {
- "generated_at": "2026-09-30T23:20:33.084139+00:00",
+ "generated_at": "2026-09-30T23:35:37.603857+00:00",
  "items": [
-  {
-   "id": "dd2f80a249",
-   "league": "NHL",
-   "event": "New York Islanders @ Toronto Maple Leafs",
-   "prediction": "Toronto Maple Leafs beat New York Islanders",
-   "kickoff_utc": "2026-09-30T23:30:00+00:00"
-  },
-  {
-   "id": "c14aacd0e7",
-   "league": "MLS",
-   "event": "St. Louis CITY SC @ Red Bull New York",
-   "prediction": "St. Louis CITY SC beat Red Bull New York",
-   "kickoff_utc": "2026-09-30T23:30:00+00:00"
-  },
-  {
-   "id": "0884482240",
-   "league": "NHL",
-   "event": "Pittsburgh Penguins @ Philadelphia Flyers",
-   "prediction": "Pittsburgh Penguins beat Philadelphia Flyers",
-   "kickoff_utc": "2026-09-30T23:30:00+00:00"
-  },
   {
    "id": "413f06ab3f",
    "league": "MLB",
@@ -42,6 +21,27 @@
    "event": "Chicago Cubs @ San Diego Padres",
    "prediction": "San Diego Padres beat Chicago Cubs",
    "kickoff_utc": "2026-10-01T02:00:00+00:00"
+  },
+  {
+   "id": "0d0471a3a1",
+   "league": "NHL",
+   "event": "Los Angeles Kings @ Colorado Avalanche",
+   "prediction": "Colorado Avalanche beat Los Angeles Kings",
+   "kickoff_utc": "2026-10-01T02:00:00+00:00"
+  },
+  {
+   "id": "53ae48a051",
+   "league": "NFL",
+   "event": "Pittsburgh Steelers @ Cleveland Browns",
+   "prediction": "Pittsburgh Steelers beat Cleveland Browns",
+   "kickoff_utc": "2026-10-02T00:15:00+00:00"
+  },
+  {
+   "id": "91e64929a5",
+   "league": "NWSL",
+   "event": "San Diego Wave FC @ Orlando Pride",
+   "prediction": "Orlando Pride beat San Diego Wave FC",
+   "kickoff_utc": "2026-10-03T00:00:00+00:00"
   }
  ]
 }
