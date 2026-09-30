@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T18:46:00Z",
+ "updated": "2026-09-30T20:42:00Z",
  "source": "browser harvest (predictions.draftkings.com league boards) - datacenter IPs are Akamai-blocked, runner cannot self-harvest",
  "rows": [
   {
@@ -9,8 +9,8 @@
    "home": "Atlanta Braves",
    "date": "2026-09-30",
    "url": "https://predictions.draftkings.com/en/event/phi-phillies-%40-atl-braves/34746392",
-   "home_cents": 51,
-   "away_cents": 50
+   "home_cents": 56,
+   "away_cents": 45
   },
   {
    "venue": "dkp",
@@ -19,7 +19,7 @@
    "home": "Houston Astros",
    "date": "2026-09-30",
    "url": "https://predictions.draftkings.com/en/event/chi-white-sox-%40-hou-astros/34746408",
-   "home_cents": 59,
+   "home_cents": 60,
    "away_cents": 42
   },
   {
@@ -49,7 +49,7 @@
    "home": "Toronto Maple Leafs",
    "date": "2026-09-30",
    "url": "https://predictions.draftkings.com/en/event/ny-islanders-%40-tor-maple-leafs/34673776",
-   "home_cents": 55,
+   "home_cents": 56,
    "away_cents": 46
   },
   {
@@ -69,7 +69,7 @@
    "home": "Colorado Avalanche",
    "date": "2026-09-30",
    "url": "https://predictions.draftkings.com/en/event/la-kings-%40-col-avalanche/34400090",
-   "home_cents": 64,
+   "home_cents": 65,
    "away_cents": 37
   }
  ]
