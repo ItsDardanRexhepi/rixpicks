@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T20:49:44.849166+00:00",
+ "generated_at": "2026-09-30T21:04:43.427815+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,16 +10,21 @@
      "matchup": "PHI @ ATL",
      "commence": "2026-09-30T18:00Z",
      "status": "in",
-     "detail": "Top 9th",
-     "score": "PHI 3 - ATL 3"
-    },
+     "detail": "Top 10th",
+     "score": "PHI 4 - ATL 3"
+    }
+   ]
+  },
+  {
+   "league": "WNBA",
+   "games": [
     {
-     "espn_event_id": "401907897",
-     "matchup": "CHW @ HOU",
-     "commence": "2026-09-30T21:00Z",
+     "espn_event_id": "401918019",
+     "matchup": "ATL @ WAS",
+     "commence": "2026-09-30T23:00Z",
      "status": "pre",
-     "detail": "9/30 - 2:00 PM PT",
-     "score": "CHW 0 - HOU 0"
+     "detail": "9/30 - 4:00 PM PT",
+     "score": "ATL 0 - WAS 0"
     }
    ]
   }
