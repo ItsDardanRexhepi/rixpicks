@@ -94,5 +94,18 @@
   "kickoff_utc": "2026-10-03T16:45:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T11:21:14.092386+00:00"
+ },
+ {
+  "id": "f82d2d5d77",
+  "event_id": "401858250",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "North Carolina Tar Heels",
+  "away": "Notre Dame Fighting Irish",
+  "pick_team": "Notre Dame Fighting Irish",
+  "prediction": "Notre Dame Fighting Irish beat North Carolina Tar Heels",
+  "kickoff_utc": "2026-10-03T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T11:35:17.907497+00:00"
  }
 ]
