@@ -458,5 +458,18 @@
   "kickoff_utc": "2026-10-01T01:00:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T17:05:29.790278+00:00"
+ },
+ {
+  "id": "413f06ab3f",
+  "event_id": "401907963",
+  "league": "MLB",
+  "path": "baseball/mlb",
+  "home": "New York Yankees",
+  "away": "Boston Red Sox",
+  "pick_team": "Boston Red Sox",
+  "prediction": "Boston Red Sox beat New York Yankees",
+  "kickoff_utc": "2026-10-01T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T17:20:30.743261+00:00"
  }
 ]
