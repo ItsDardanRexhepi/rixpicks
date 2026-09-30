@@ -2,7 +2,7 @@
 """failure-watchdog: diagnose a failed writer run from its logs + budgeted auto-redispatch.
 Invoked by .github/workflows/watchdog.yml on workflow_run:completed with conclusion=failure.
 Env: GH_TOKEN, RUN_ID, WF_NAME, WF_ID, HEAD_SHA, REPO(optional)."""
-import json, os, subprocess, datetime
+import json, os, re, subprocess, datetime, urllib.request, urllib.error
 
 REPO = os.environ.get('REPO', 'ItsDardanRexhepi/rixpicks')
 RETRY_BUDGET_S = 1800  # one auto-retry per workflow per 30 min
@@ -15,6 +15,44 @@ def gh(path, method='GET', fields=None, raw=False):
     if r.returncode != 0:
         raise RuntimeError('gh ' + path + ': ' + r.stderr[:300])
     return r.stdout if raw else (json.loads(r.stdout) if r.stdout.strip() else {})
+
+
+_ESCAPES = re.compile(r'\x1b\[[0-?]*[ -/]*[@-~]|\x1b[@-Z\\-_]|[\x00-\x08\x0b-\x1f\x7f]')
+
+
+def strip_escapes(text):
+    """Drop terminal escape sequences and control characters, keeping tabs and newlines."""
+    return _ESCAPES.sub('', text)
+
+
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+def job_log(job_id, opener=None):
+    """The job's plain-text log. The logs endpoint answers 302 to a signed download
+    URL; the download is fetched without the token (a cross-host redirect must not
+    carry it) and the text is stripped of terminal escape sequences. `gh api` refuses
+    to print a body that contains them, which left every diagnosis without a tail."""
+    opener = opener or urllib.request.build_opener(_NoRedirect)
+    req = urllib.request.Request(
+        f'https://api.github.com/repos/{REPO}/actions/jobs/{job_id}/logs',
+        headers={'Authorization': 'Bearer ' + os.environ.get('GH_TOKEN', ''),
+                 'Accept': 'application/vnd.github+json',
+                 'User-Agent': 'rixpicks-watchdog'})
+    try:
+        resp = opener.open(req)
+        location = None
+        body = resp.read()
+    except urllib.error.HTTPError as e:
+        if e.code not in (301, 302, 303, 307, 308):
+            raise
+        location = e.headers.get('Location')
+        body = b''
+    if location:
+        body = opener.open(urllib.request.Request(location, headers={'User-Agent': 'rixpicks-watchdog'})).read()
+    return strip_escapes(body.decode('utf-8', 'replace'))
 
 
 BUDGET_COST = {'odds-refresh': 3, 'extras-sweep': 3, 'nfl-scores-confirm': 1}
@@ -70,7 +108,7 @@ jobs = gh(f'repos/{REPO}/actions/runs/{run_id}/jobs')
 job = (jobs.get('jobs') or [{}])[0]
 diag['failing_steps'] = [s['name'] for s in job.get('steps', []) if s.get('conclusion') == 'failure']
 try:
-    log = gh(f'repos/{REPO}/actions/jobs/{job["id"]}/logs', raw=True)
+    log = job_log(job['id'])
     lines = log.splitlines()
     hits = [l for l in lines if any(k in l.lower() for k in ('error', 'fail', 'conflict', 'fatal', 'traceback', 'refus'))]
     diag['error_tail'] = '\n'.join((hits[-6:] or lines[-6:]))[:1200]
