@@ -133,9 +133,20 @@ def settle(ledger):
         if age_h > 36:
             p['status'] = 'void'; changed += 1; continue
         try:
-            day = dt.strftime('%Y%m%d')
-            j = get_json(f"https://site.api.espn.com/apis/site/v2/sports/{p['path']}/scoreboard?dates={day}&limit=100")
-            ev = next((e for e in j.get('events', []) if str(e.get('id')) == p['event_id']), None)
+            # K20 (9/30 auditor): kickoff-UTC date != ESPN board date for late PT/ET games
+            # (a 7pm PT puck drop is the next UTC day, but boards key on the local date) -
+            # search every date that can carry the event instead of assuming kickoff-date.
+            from zoneinfo import ZoneInfo as _ZI
+            _days = []
+            for _d in (dt.astimezone(_ZI('America/New_York')).strftime('%Y%m%d'),
+                       dt.astimezone(_ZI('America/Los_Angeles')).strftime('%Y%m%d'),
+                       dt.strftime('%Y%m%d')):
+                if _d not in _days: _days.append(_d)
+            ev = None
+            for day in _days:
+                j = get_json(f"https://site.api.espn.com/apis/site/v2/sports/{p['path']}/scoreboard?dates={day}&limit=100")
+                ev = next((e for e in j.get('events', []) if str(e.get('id')) == p['event_id']), None)
+                if ev: break
             if not ev: continue
             comp = (ev.get('competitions') or [{}])[0]
             st = (comp.get('status') or {}).get('type') or {}
@@ -242,7 +253,8 @@ def main():
     far = now() + timedelta(hours=48)
     for ev in evs[:MAX_PROBES]:
         try:
-            ko = datetime.fromisoformat(ev['kickoff_utc'].replace('Z','+00:00'))
+            ko = ev.get('kickoff_utc')  # K21 (9/30 auditor): upcoming() returns kickoff under 'date' (a datetime) - a KeyError here silently skipped every genuine new candidate before probe()
+            ko = datetime.fromisoformat(ko.replace('Z', '+00:00')) if isinstance(ko, str) else ev['date']
             if ko > far: print(f"  NOTE {ev['away']}@{ev['home']}: >48h out - reduced information (lineups/injuries unset); concur gate + 0.70 floor arbitrate")
             r = probe(ev, news_context(ev['league']), miss_context(ledger, ev['league']))
         except Exception as e:
