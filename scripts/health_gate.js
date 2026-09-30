@@ -28,6 +28,12 @@ async function fetchText(u) {
     let fx = '';
     try { fx = execFileSync('node', ['scripts/test_combo_fresh_export.js'], { encoding: 'utf8' }); }
     catch (e) { fx = (e.stdout || '') + (e.stderr || ''); }
+    let yx = '';
+    try { yx = execFileSync('node', ['scripts/test_nfl_yards_counter.js'], { encoding: 'utf8' }); }
+    catch (e) { yx = (e.stdout || '') + (e.stderr || ''); }
+    check('yards counter fixture ALL OK', /ALL OK/.test(yx) && !/FAIL/.test(yx), 'NFL futures yards could render an invented number');
+    try { const yd = JSON.parse(fs.readFileSync('slates/nfl_rec_yards.json', 'utf8')); check('nfl_rec_yards.json parses with numeric players', Object.values(yd.players || {}).length > 0 && Object.values(yd.players).every(p => typeof p.yards === 'number'), 'yards counters would all show Unavailable'); }
+    catch (e) { check('nfl_rec_yards.json parses', false, 'yards counters would all show Unavailable: ' + e.message); }
     check('fixture suite ALL OK', /ALL OK/.test(fx) && !/^\d+ FAIL/m.test(fx), 'a tested display/data regression would ship');
     // 2. builder twins byte-identical
     let same = false;
@@ -90,6 +96,11 @@ async function fetchText(u) {
       const pt = JSON.parse(await fetchText(BASE + '/slates/past_tickets.json'));
       check('past_tickets parses (' + (pt.entries || []).length + ' entries)', (pt.entries || []).length > 0, 'past tickets page broken');
     } catch (e) { check('past_tickets parses', false, 'past tickets page broken: ' + e.message); }
+    try {
+      const yd = JSON.parse(await fetchText(BASE + '/slates/nfl_rec_yards.json'));
+      const ageH = (Date.now() - new Date(yd.fetched_at).getTime()) / 3600000;
+      check('served: nfl_rec_yards.json numeric + fresh (' + ageH.toFixed(1) + ' h)', Object.values(yd.players || {}).length > 0 && Object.values(yd.players).every(p => typeof p.yards === 'number') && ageH < 48, 'NFL futures yards counters show Unavailable');
+    } catch (e) { check('served: nfl_rec_yards.json', false, 'NFL futures yards counters show Unavailable: ' + e.message); }
   }
   console.log(failures.length ? failures.length + ' FAIL - HOLD ALL PUBLISHES (fixes excepted)' : 'HEALTH GATE PASS');
   process.exit(failures.length ? 1 : 0);
