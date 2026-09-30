@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-09-30T06:49:36.361197+00:00",
+ "generated_at": "2026-09-30T07:05:43.631856+00:00",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "The Red Sox were completely unprepared for Game 1 of the Wild Card series",
+    "link": "https://sports.yahoo.com/articles/red-sox-were-completely-unprepared-070035466.html",
+    "published": "2026-09-30T07:00:35+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/5a84fcbba4a7a3387654d590b9ba319a8484bee9be5b674512c25affa877af99/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fa4e74b64c277130cca672cfe4b565aad.jpg",
+    "blurb": "After that performance, everything needs to be called into question.",
+    "league": "MLB"
+   },
    {
     "headline": "Schlittler, Rice lead Yankees' rout of Red Sox in Game 1",
     "link": "https://www.espn.com/mlb/story/_/id/50064240/schlittler-rice-lead-yankees-rout-red-sox-game-1",
@@ -9,15 +18,6 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723765_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Cam Schlittler pitched another playoff gem against the Boston Red Sox, and Ben Rice also burned their hometown team with a late grand slam and six RBIs as the New York Yankees opened this AL Wild Card Series rematch with a 9-0 victory on Tuesday night.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Padres rout Cubs 8-0 in emphatic Wild Card opener with Tatis\u2019 leadoff homer, King\u2019s no-hit bid",
-    "link": "https://sports.yahoo.com/articles/padres-rout-cubs-8-0-060859680.html",
-    "published": "2026-09-30T06:08:59+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/fc2e7943e59fe62c0357395705a22d5a62b78e6ec79d46306d879c78757a20c8/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F8edf96614d7cb51a02860336cfbb11f6.jpg",
-    "blurb": "San Diego provided more than enough support for King, who struck out eight over seven stellar innings.",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Padres rout Cubs 8-0 in emphatic Wild Card opener with Tatis\u2019 leadoff homer, King\u2019s no-hit bid",
+    "link": "https://sports.yahoo.com/articles/padres-rout-cubs-8-0-060859680.html",
+    "published": "2026-09-30T06:08:59+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/fc2e7943e59fe62c0357395705a22d5a62b78e6ec79d46306d879c78757a20c8/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F8edf96614d7cb51a02860336cfbb11f6.jpg",
+    "blurb": "San Diego provided more than enough support for King, who struck out eight over seven stellar innings.",
+    "league": "MLB"
+   },
+   {
     "headline": "Padres pummel Cubs behind Tatis' leadoff blast, King's gem in Game 1",
     "link": "https://www.espn.com/mlb/story/_/id/50064499/padres-pummel-cubs-tatis-leadoff-blast-king-gem-game-1",
     "published": "2026-09-30T06:38:54Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723780_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Padres made an emphatic statement in their wild-card opener against the Cubs, getting a leadoff homer from Fernando Tatis Jr. and a brilliant effort on the mound from Michael King in an 8-0 win in Game 1.",
-    "league": "MLB"
-   },
-   {
-    "headline": "White Sox strike first in AL wild card, beating Astros 6-3 in Game 1",
-    "link": "https://sports.yahoo.com/articles/white-sox-strike-first-al-060016714.html",
-    "published": "2026-09-30T06:00:16+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/f08c9568af6503c222e2b1f81e1db369ebc682568b022d892c26c23f4161c0be/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2Fc6bb5a93b428a0a4417cc14d14e97753.jpg",
-    "blurb": "The White Sox, in the postseason for the first time since 2021, made a remarkable turnaround this year.",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "White Sox strike first in AL wild card, beating Astros 6-3 in Game 1",
+    "link": "https://sports.yahoo.com/articles/white-sox-strike-first-al-060016714.html",
+    "published": "2026-09-30T06:00:16+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "The White Sox, in the postseason for the first time since 2021, made a remarkable turnaround this year.",
+    "league": "MLB"
+   },
+   {
     "headline": "Red Sox OF Anthony (hand) exits early; Game 2 status unclear",
     "link": "https://www.espn.com/mlb/story/_/id/50064536/red-sox-anthony-hand-exits-early-game-2-status-unclear",
     "published": "2026-09-30T06:22:42Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723776_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "It's unclear whether Red Sox OF Roman Anthony will be available for Game 2 of their AL Wild Card Series after suffering an injury to the same hand that sidelined him for nearly four months.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Mattingly\u2019s decision to bring in Phillies closer Duran in the 7th inning backfires in loss to Braves",
-    "link": "https://sports.yahoo.com/articles/mattingly-decision-bring-phillies-closer-055443170.html",
-    "published": "2026-09-30T05:54:43+00:00",
-    "source": "YAHOO",
-    "image": "",
-    "blurb": "Unfortunately for Duran and the Phillies, Duran\u2019s second inning \u2014 the eighth \u2014 was not quick or successful.",
     "league": "MLB"
    },
    {
@@ -84,12 +84,12 @@
     "league": "MLB"
    },
    {
-    "headline": "2026 MLB wild-card series Day 1: Takeaways, analysis",
-    "link": "https://www.espn.com/mlb/story/_/id/50045947/mlb-playoffs-2026-wild-card-game-1-live-updates-analysis-takeaways",
-    "published": "2026-09-30T05:17:07Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723695_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Relive the action from a jam-packed opener of wild-card games.",
+    "headline": "Mattingly\u2019s decision to bring in Phillies closer Duran in the 7th inning backfires in loss to Braves",
+    "link": "https://sports.yahoo.com/articles/mattingly-decision-bring-phillies-closer-055443170.html",
+    "published": "2026-09-30T05:54:43+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "Unfortunately for Duran and the Phillies, Duran\u2019s second inning \u2014 the eighth \u2014 was not quick or successful.",
     "league": "MLB"
    }
   ],
@@ -281,10 +281,10 @@
    {
     "headline": "Reeve laments Lynx 'don't quite have right group' after latest playoff flop",
     "link": "https://www.espn.com/wnba/story/_/id/50064962/reeve-says-lynx-some-work-do-latest-playoff-flop",
-    "published": "2026-09-30T06:43:36Z",
+    "published": "2026-09-30T06:57:29Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723794_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Lynx became the first No. 1 seed in league history to get swept in its opening series, marking another heartbreaking playoff exit for the third straight year.",
+    "blurb": "The Lynx became the first No. 1 seed in league history to be swept in its opening series, marking another heartbreaking playoff exit for the third straight year.",
     "league": "WNBA"
    },
    {
@@ -555,12 +555,12 @@
   ],
   "basketball/mens-college-basketball": [
    {
-    "headline": "Gonzaga Announces Jersey Patch Sponsorship",
-    "link": "https://sports.yahoo.com/articles/gonzaga-announces-jersey-patch-sponsorship-031406217.html",
-    "published": "2026-09-30T03:14:06+00:00",
+    "headline": "Dayton men\u2019s basketball announces 2026-27 Atlantic 10 schedule",
+    "link": "https://sports.yahoo.com/articles/dayton-men-basketball-announces-2026-064349514.html",
+    "published": "2026-09-30T06:43:49+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/76f8a28d5b6d98543e1ead67a540446aa45efc44cdc61b5f4927d9d124493eb3/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff752e9e9eb76c48dd75212b6b8ba8970.jpg",
-    "blurb": "Plus, the 2026-27 roster on the GoZags website lists three currently ineligible players.",
+    "image": "https://s.yimg.com/lo/mysterio/api/215f81879fa6014d7f65aec1c3917abbb19cb510fae39957eb763fbe49e5d7fe/lightyear_networkapi/resizefill_w300_h200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fwhio_cox_articles_828%2F2db7278d37419a0c5c5dfbc61486ada4.jpg",
+    "blurb": "The University of Dayton men\u2019s basketball team and the Atlantic 10 released the full league schedule for the upcoming season on Tuesday.",
     "league": "NCAAB"
    },
    {
@@ -582,12 +582,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Kentucky basketball hosted a top PG target on an official visit",
-    "link": "https://sports.yahoo.com/articles/kentucky-basketball-hosted-top-pg-021647079.html",
-    "published": "2026-09-30T02:16:47+00:00",
+    "headline": "Gonzaga Announces Jersey Patch Sponsorship",
+    "link": "https://sports.yahoo.com/articles/gonzaga-announces-jersey-patch-sponsorship-031406217.html",
+    "published": "2026-09-30T03:14:06+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/f8d30e9e9b6d1007af7b1a641d00ac135c4b8511207ac7624039f237c4150804/lightyear_networkapi/resizefill_w912_h513%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fkentucky_wildcats_on_si_articles_603%2Fad39f5359dc70071db306ed312c77466.jpg",
-    "blurb": "2027 top 10 prospect Reese Alston made the trip to Lexington over the weekend.",
+    "image": "https://s.yimg.com/lo/mysterio/api/76f8a28d5b6d98543e1ead67a540446aa45efc44cdc61b5f4927d9d124493eb3/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff752e9e9eb76c48dd75212b6b8ba8970.jpg",
+    "blurb": "Plus, the 2026-27 roster on the GoZags website lists three currently ineligible players.",
     "league": "NCAAB"
    },
    {
@@ -609,12 +609,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Former Illinois Basketball Player Could Be Back in College Basketball",
-    "link": "https://sports.yahoo.com/articles/former-illinois-basketball-player-could-003004592.html",
-    "published": "2026-09-30T00:30:04+00:00",
+    "headline": "Kentucky basketball hosted a top PG target on an official visit",
+    "link": "https://sports.yahoo.com/articles/kentucky-basketball-hosted-top-pg-021647079.html",
+    "published": "2026-09-30T02:16:47+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "Former Illinois basketball player could be making a return to college basketball after receiving a temporary restraining order that makes him eligible to play this season.",
+    "blurb": "2027 top 10 prospect Reese Alston made the trip to Lexington over the weekend.",
     "league": "NCAAB"
    },
    {
@@ -636,12 +636,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Duke&#39;s Dame Sarr Gives Praise to Newcomer for How He&#39;s Handling America",
-    "link": "https://sports.yahoo.com/articles/dukes-dame-sarr-gives-praise-000051336.html",
-    "published": "2026-09-30T00:00:51+00:00",
+    "headline": "Former Illinois Basketball Player Could Be Back in College Basketball",
+    "link": "https://sports.yahoo.com/articles/former-illinois-basketball-player-could-003004592.html",
+    "published": "2026-09-30T00:30:04+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "Sarr knows what it takes to play in the states after last year.",
+    "blurb": "Former Illinois basketball player could be making a return to college basketball after receiving a temporary restraining order that makes him eligible to play this season.",
     "league": "NCAAB"
    }
   ],
@@ -810,6 +810,15 @@
   ],
   "racing/nascar-premier": [
    {
+    "headline": "Brad Keselowski could make NASCAR history in Truck Series in 2027",
+    "link": "https://sports.yahoo.com/articles/brad-keselowski-could-nascar-history-063535311.html",
+    "published": "2026-09-30T06:35:35+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "Brad Keselowski could make NASCAR history in the Truck Series during the 2027 season.",
+    "league": "NASCAR"
+   },
+   {
     "headline": "NASCAR reveals status of Ross Chastain&#39;s No. 1 car at R&D Center",
     "link": "https://sports.yahoo.com/articles/nascar-reveals-status-ross-chastains-052026026.html",
     "published": "2026-09-30T05:20:26+00:00",
@@ -859,7 +868,7 @@
     "link": "https://sports.yahoo.com/articles/nascar-suspends-2-people-indefinitely-014314627.html",
     "published": "2026-09-30T01:43:14+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/3b3183ea9c8df8fdcf1bfc6cb1597b79ee7972fa24738eac469d314612b759cb/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F386d7afba095d6247942aad61727db9b.jpg",
+    "image": "",
     "blurb": "NASCAR fined seven people for fighting at Martinsville on Saturday. Two people were suspended for attacking Brickyard 400 winner Corey Heim.",
     "league": "NASCAR"
    },
@@ -888,15 +897,6 @@
     "source": "YAHOO",
     "image": "",
     "blurb": "Denny Hamlin says Hendrick has passed Toyota on the 1.5-mile tracks. Kyle Larson isn&#39;t so sure after rain wiped out qualifying and put him on the front row at Kansas.",
-    "league": "NASCAR"
-   },
-   {
-    "headline": "NASCAR shrugs off fisticuffs and swearing, heads back to old tracks as it embraces its rugged past",
-    "link": "https://sports.yahoo.com/articles/nascar-shrugs-off-fisticuffs-swearing-191906940.html",
-    "published": "2026-09-29T19:19:06+00:00",
-    "source": "YAHOO",
-    "image": "",
-    "blurb": "The hats and flags and T-shirts carrying the No. 77 of NASCAR driver Carson Hocevar were flying unapologetically, and almost defiantly, over Kansas Speedway last weekend, days after a pit-road fracas at Bristol in which the up-and-coming Cup Series star traded a few haymakers wit",
     "league": "NASCAR"
    }
   ],
@@ -1087,6 +1087,24 @@
  },
  "latest": [
   {
+   "headline": "The Red Sox were completely unprepared for Game 1 of the Wild Card series",
+   "link": "https://sports.yahoo.com/articles/red-sox-were-completely-unprepared-070035466.html",
+   "published": "2026-09-30T07:00:35+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/5a84fcbba4a7a3387654d590b9ba319a8484bee9be5b674512c25affa877af99/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fa4e74b64c277130cca672cfe4b565aad.jpg",
+   "blurb": "After that performance, everything needs to be called into question.",
+   "league": "MLB"
+  },
+  {
+   "headline": "Reeve laments Lynx 'don't quite have right group' after latest playoff flop",
+   "link": "https://www.espn.com/wnba/story/_/id/50064962/reeve-says-lynx-some-work-do-latest-playoff-flop",
+   "published": "2026-09-30T06:57:29Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723794_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Lynx became the first No. 1 seed in league history to be swept in its opening series, marking another heartbreaking playoff exit for the third straight year.",
+   "league": "WNBA"
+  },
+  {
    "headline": "Schlittler, Rice lead Yankees' rout of Red Sox in Game 1",
    "link": "https://www.espn.com/mlb/story/_/id/50064240/schlittler-rice-lead-yankees-rout-red-sox-game-1",
    "published": "2026-09-30T06:44:04Z",
@@ -1096,13 +1114,13 @@
    "league": "MLB"
   },
   {
-   "headline": "Reeve laments Lynx 'don't quite have right group' after latest playoff flop",
-   "link": "https://www.espn.com/wnba/story/_/id/50064962/reeve-says-lynx-some-work-do-latest-playoff-flop",
-   "published": "2026-09-30T06:43:36Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723794_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Lynx became the first No. 1 seed in league history to get swept in its opening series, marking another heartbreaking playoff exit for the third straight year.",
-   "league": "WNBA"
+   "headline": "Dayton men\u2019s basketball announces 2026-27 Atlantic 10 schedule",
+   "link": "https://sports.yahoo.com/articles/dayton-men-basketball-announces-2026-064349514.html",
+   "published": "2026-09-30T06:43:49+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/215f81879fa6014d7f65aec1c3917abbb19cb510fae39957eb763fbe49e5d7fe/lightyear_networkapi/resizefill_w300_h200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fwhio_cox_articles_828%2F2db7278d37419a0c5c5dfbc61486ada4.jpg",
+   "blurb": "The University of Dayton men\u2019s basketball team and the Atlantic 10 released the full league schedule for the upcoming season on Tuesday.",
+   "league": "NCAAB"
   },
   {
    "headline": "Padres pummel Cubs behind Tatis' leadoff blast, King's gem in Game 1",
@@ -1112,6 +1130,15 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723780_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The Padres made an emphatic statement in their wild-card opener against the Cubs, getting a leadoff homer from Fernando Tatis Jr. and a brilliant effort on the mound from Michael King in an 8-0 win in Game 1.",
    "league": "MLB"
+  },
+  {
+   "headline": "Brad Keselowski could make NASCAR history in Truck Series in 2027",
+   "link": "https://sports.yahoo.com/articles/brad-keselowski-could-nascar-history-063535311.html",
+   "published": "2026-09-30T06:35:35+00:00",
+   "source": "YAHOO",
+   "image": "",
+   "blurb": "Brad Keselowski could make NASCAR history in the Truck Series during the 2027 season.",
+   "league": "NASCAR"
   },
   {
    "headline": "Ravens open as massive favorites in Week 4 vs. winless Titans",
@@ -1174,15 +1201,6 @@
    "source": "YAHOO",
    "image": "https://s.yimg.com/lo/mysterio/api/fc2e7943e59fe62c0357395705a22d5a62b78e6ec79d46306d879c78757a20c8/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F8edf96614d7cb51a02860336cfbb11f6.jpg",
    "blurb": "San Diego provided more than enough support for King, who struck out eight over seven stellar innings.",
-   "league": "MLB"
-  },
-  {
-   "headline": "White Sox strike first in AL wild card, beating Astros 6-3 in Game 1",
-   "link": "https://sports.yahoo.com/articles/white-sox-strike-first-al-060016714.html",
-   "published": "2026-09-30T06:00:16+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/f08c9568af6503c222e2b1f81e1db369ebc682568b022d892c26c23f4161c0be/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2Fc6bb5a93b428a0a4417cc14d14e97753.jpg",
-   "blurb": "The White Sox, in the postseason for the first time since 2021, made a remarkable turnaround this year.",
    "league": "MLB"
   },
   {
@@ -1348,15 +1366,6 @@
    "league": "NBA"
   },
   {
-   "headline": "Kentucky basketball hosted a top PG target on an official visit",
-   "link": "https://sports.yahoo.com/articles/kentucky-basketball-hosted-top-pg-021647079.html",
-   "published": "2026-09-30T02:16:47+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/f8d30e9e9b6d1007af7b1a641d00ac135c4b8511207ac7624039f237c4150804/lightyear_networkapi/resizefill_w912_h513%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fkentucky_wildcats_on_si_articles_603%2Fad39f5359dc70071db306ed312c77466.jpg",
-   "blurb": "2027 top 10 prospect Reese Alston made the trip to Lexington over the weekend.",
-   "league": "NCAAB"
-  },
-  {
    "headline": "Jerry Jones sounds off on Cowboys' coaching gaffes at end of Week 3 loss in Brazil: 'We made mistakes'",
    "link": "https://www.cbssports.com/nfl/news/jerry-jones-cowboys-coaching-gaffes-loss-to-ravens/",
    "published": "2026-09-30T02:14:34+00:00",
@@ -1391,15 +1400,6 @@
    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2Ff7ba62c5-1c85-44e0-837b-35e465722a8c%2Faja-wilson-imagn.png&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Wilson exchanged words with a Fever fan sitting behind the basket after a fourth-quarter foul",
    "league": "WNBA"
-  },
-  {
-   "headline": "NASCAR suspends 2 people indefinitely for attacking Corey Heim at Martinsville",
-   "link": "https://sports.yahoo.com/articles/nascar-suspends-2-people-indefinitely-014314627.html",
-   "published": "2026-09-30T01:43:14+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/3b3183ea9c8df8fdcf1bfc6cb1597b79ee7972fa24738eac469d314612b759cb/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F386d7afba095d6247942aad61727db9b.jpg",
-   "blurb": "NASCAR fined seven people for fighting at Martinsville on Saturday. Two people were suspended for attacking Brickyard 400 winner Corey Heim.",
-   "league": "NASCAR"
   },
   {
    "headline": "Ravens-Cowboys in Brazil averaged record 24.9M viewers",
@@ -1448,8 +1448,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 45,
-  "YAHOO": 70,
+  "YAHOO": 71,
+  "ESPN": 44,
   "CBS": 42
  },
  "degraded_sources": []
