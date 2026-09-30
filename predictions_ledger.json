@@ -146,5 +146,18 @@
   "kickoff_utc": "2026-10-03T20:15:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T12:06:27.183643+00:00"
+ },
+ {
+  "id": "5b97ca4281",
+  "event_id": "401858478",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "USC Trojans",
+  "away": "Washington Huskies",
+  "pick_team": "USC Trojans",
+  "prediction": "USC Trojans beat Washington Huskies",
+  "kickoff_utc": "2026-10-03T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T12:23:13.960758+00:00"
  }
 ]
