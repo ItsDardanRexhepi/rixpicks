@@ -154,6 +154,44 @@ check('combos module script found in page', !!modMatch);
     const r3 = await runSim(s3);
     check('no tag field renders no tag', !r3.box.innerHTML.includes('Confirmed leadoff'));
   }
+  // Dingers + anytime-TD trackers: unknown-not-zero rule (null count at in/post = Unavailable, never "No HR yet")
+  {
+    const pageSrc2 = fs.readFileSync('index.html', 'utf8');
+    const extractFn = (src, sig) => {
+      const i = src.indexOf(sig);
+      if (i < 0) return null;
+      let d = 0; const j = src.indexOf('{', i);
+      for (let k = j; k < src.length; k++) {
+        if (src[k] === '{') d++;
+        else if (src[k] === '}') { d--; if (!d) return src.slice(i, k + 1); }
+      }
+      return null;
+    };
+    const dotSrc = extractFn(pageSrc2, 'function dot(c)');
+    const dingSrc = extractFn(pageSrc2, 'function tS(count,state,det)');
+    const tdSrc = extractFn(pageSrc2, 'function tS(spec,count,state,det)');
+    check('dingers + TD tS functions extractable from built page', !!(dotSrc && dingSrc && tdSrc));
+    if (dotSrc && dingSrc && tdSrc) {
+      const sb2 = {};
+      vm.createContext(sb2);
+      vm.runInContext(dotSrc + '\n' + dingSrc, sb2);
+      const dPre = vm.runInContext('tS(null,"pre","")', sb2);
+      const dIn = vm.runInContext('tS(null,"in","")', sb2);
+      const dPost = vm.runInContext('tS(null,"post","")', sb2);
+      const dZero = vm.runInContext('tS(0,"in","")', sb2);
+      const dHit = vm.runInContext('tS(1,"in","")', sb2);
+      check('dingers: null count pregame still "Game not started"', dPre.includes('Game not started'));
+      check('dingers: null count in-game renders Unavailable (never invented zero)', dIn.includes('Unavailable') && !dIn.includes('No HR'));
+      check('dingers: null count at final renders Unavailable (never "No HR · Final")', dPost.includes('Unavailable') && !dPost.includes('No HR'));
+      check('dingers: live 0 HR honestly renders "No HR yet"', dZero.includes('No HR yet'));
+      check('dingers: live 1 HR renders HR with check', dHit.includes('HR') && dHit.includes('10003'));
+      vm.runInContext(tdSrc, sb2);
+      const tdIn = vm.runInContext('tS({target:1,label:"TD",td:true},null,"in","")', sb2);
+      const tdZero = vm.runInContext('tS({target:1,label:"TD",td:true},0,"in","")', sb2);
+      check('TD tracker: null count in-game renders Unavailable', tdIn.includes('Unavailable') && !tdIn.includes('No TD'));
+      check('TD tracker: live 0 TD honestly renders "No TD yet"', tdZero.includes('No TD yet'));
+    }
+  }
   if (failures) { console.error(failures + ' FAIL'); process.exit(1); }
   console.log('ALL OK (incl. race sim + badge/tag)');
 })();
