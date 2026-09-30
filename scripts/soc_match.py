@@ -530,7 +530,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v17-disagreement-on-story'  # probe wording is decision-changing: version MUST salt the verdict cache (v17: dispute-of-claim is on-story)
+PROMPT_VERSION = 'v18-component-actions'  # probe wording is decision-changing: version MUST salt the verdict cache (v18: one event's component actions share the action - Forsling banner-night false-reject)
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
@@ -610,6 +610,11 @@ def verify(story, post):
               '  pregame pick or hype NEVER matches a postgame play or recap; an inactive/transaction\n'
               '  report NEVER matches a game preview; an offseason interview NEVER matches an in-season\n'
               '  availability update.\n'
+              '- COMPONENT ACTIONS of one event (guard 1, 9/29 Forsling class): a story can name several\n'
+              '  component actions of ONE event together - a ceremony AND the decisive play, a milestone\n'
+              '  AND the final result. They are one event, not competing actions: a post sharing ANY\n'
+              '  concrete component action the story names, in the same timeline, SHARES the action.\n'
+              '  Splitting one event\'s components into "different actions" is a misread, never a NO.\n'
               '- YES and NO reasons must state only facts in the inputs, in under 120 characters. Do not say a post is only a link when it repeats a headline or court ruling.\n'
               '- Game-phase labels (pregame, postgame, live) must be explicit in the sources; a rankings/eligibility update is NOT a pregame game preview.\n'
               '  \'same event\', \'same game\', \'same health status\', or \'does not contradict\' are NOT proof.\n'              '- Start the final line with YES only when every rule above passes; on ANY doubt start\n'

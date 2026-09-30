@@ -60,8 +60,8 @@ check('eg3 still catches a true foreign principal',
 SRC = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'soc_match.py')).read()
 check('probe prompt carries dispute-is-on-story guidance',
       'DISPUTES the story' in SRC and 'agreement is not required' in SRC)
-check('prompt version bumped to v17 (stale disagree-NOs re-probe)',
-      "PROMPT_VERSION = 'v17-disagreement-on-story'" in SRC)
+check('prompt version bumped to v18 (stale v17 component-action NOs re-probe)',
+      "PROMPT_VERSION = 'v18-component-actions'" in SRC)
 check('SALT still derives from PROMPT_VERSION', 'PROMPT_VERSION, ENTITY_GATE_VERSION' in SRC)
 
 # --- fix 3: reason integrity + repair prompt ---

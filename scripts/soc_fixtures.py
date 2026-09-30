@@ -446,8 +446,32 @@ if not (-1 < _gate_at < _cache_at < _probe_at):
 if 'A generic odds, spread, moneyline, or totals post with no named expert pick NEVER' not in _src:
     fails.append("v6 probe generic-odds rule missing from prompt - TruGrit class can EXECUTE again")
 
+# guard 1 (9/29) Forsling banner-night false-reject class: story espn.com/nhl/story/_/id/50062937
+# x post x.com/johnalabban4629/status/2105101207245045783 - the v17 probe REJECTED "Different action
+# within the same event timeline", contradicting BOTH inputs (Forsling OT winner with 4.3s left +
+# spoiled banner raising named in each). Offline-assertable half: the deterministic pre-gates must
+# pass this verified positive, and the v18 component-actions clause must stay in the verify prompt
+# (the live judge verdict itself needs CI's NIM token; the v18 salt forces a re-probe).
+FORSLING_STORY = ("Panthers win in overtime, spoil Hurricanes' banner night - On a night when the "
+                  "NHL's last three title winners were on display, Gustav Forsling fired a shot past "
+                  "Brandon Bussi with 4.3 seconds left in OT, lifting the Florida Panthers past the "
+                  "Stanley Cup champion Carolina Hurricanes 1-0 in Tuesday's season opener.")
+FORSLING_POST = ("Forsling scores OT winner with 4.3 seconds left, Panthers spoil Hurricanes' banner "
+                 "raising https://t.co/BHMo2Zn4E8 \n\nWell, what a way to start the 2026-2027 season. \n\n"
+                 "Carolina raised their banner to the rafters for winning the 2026 Stanley Cup Final. "
+                 "But Florida raised their")
+if sm.probe_predeny(FORSLING_STORY, FORSLING_POST) is not None:
+    fails.append('Forsling banner-night positive killed by probe_predeny pre-gate')
+_fst = sm.story_type_gate(FORSLING_STORY[:600], FORSLING_POST)
+if _fst:
+    fails.append('Forsling banner-night positive killed by story_type_gate: %s' % _fst)
+if 'COMPONENT ACTIONS of one event' not in _src:
+    fails.append("v18 component-actions clause missing from verify prompt - Forsling/Kessler false-reject class reopens")
+if "PROMPT_VERSION = 'v18" not in _src:
+    fails.append("PROMPT_VERSION not at v18 - verdict cache would reuse v17 false-rejects")
+
 if fails:
     print("FIXTURE FAILURES:")
     [print(" -", f) for f in fails]
     sys.exit(1)
-print("fixtures PASS: %d entity negatives, %d positives, 4 parser fixtures + %d reason negatives + freshness, %d eg2 negatives, %d eg2 keeps, 2 source-order assertions" % (len(NEG), len(POS), len(REASON_NEG), len(EG2), len(EG2_KEEP)))
+print("fixtures PASS: %d entity negatives, %d positives, 4 parser fixtures + %d reason negatives + freshness, %d eg2 negatives, %d eg2 keeps, 2 source-order assertions + 2 Forsling pre-gate positives + 2 v18 prompt assertions" % (len(NEG), len(POS), len(REASON_NEG), len(EG2), len(EG2_KEEP)))
