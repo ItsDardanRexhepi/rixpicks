@@ -1157,6 +1157,7 @@ for p in man['picks']:
     _gk3=_gpk_for(g.get('away',''),g.get('home',''),g.get('commence',''))
     if g.get('gpk'): _gk3=(str(g['gpk']),_gk3[1],_gk3[2])
     _eid=str(g.get('eid') or '')
+    if not _eid and p.get('espn_league','')=='mma/ufc' and g.get('ceid'): _eid=str(g['ceid'])  # K19 (9/30 QA, Abushaar class): MMA card data can lack eid - bind the card event (ceid) so the row can resolve; comp below pins the exact fight
     _lga=p.get('espn_league','')
     _ma=_meta_for(_lga,g.get('away','')); _mh=_meta_for(_lga,g.get('home',''))
     def _avimg(mm,overlap=False):
@@ -1559,8 +1560,10 @@ if man.get('parlay'):
         if inst: l=l+' \u00b7 '+inst
         _gk3=_gpk_for(g.get('away',''),g.get('home',''),g.get('commence',''))
         if g.get('gpk'): _gk3=(str(g['gpk']),_gk3[1],_gk3[2])
-        return ('<li class="cxleg" data-espn="%s" data-eid="%s" data-gpk="%s" data-aab="%s" data-hab="%s" data-away="%s" data-home="%s" data-commence="%s" data-side="%s"><a href="game-%s.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">%s<span class="ls" data-ls></span></a></li>'
-                % (html.escape(p.get('espn_league','')), html.escape(str(g.get('eid') or '')), _gk3[0], _gk3[1], _gk3[2], html.escape(g.get('away','')), html.escape(g.get('home','')), html.escape(g.get('commence','')), html.escape(p.get('side','away')), p['num'], html.escape(l)))
+        _leid=str(g.get('eid') or '')
+        if not _leid and p.get('espn_league','')=='mma/ufc' and g.get('ceid'): _leid=str(g['ceid'])  # K19: combo legs bind the card event too
+        return ('<li class="cxleg" data-espn="%s" data-eid="%s" data-comp="%s" data-gpk="%s" data-aab="%s" data-hab="%s" data-away="%s" data-home="%s" data-commence="%s" data-side="%s"><a href="game-%s.html" style="display:block;color:inherit;text-decoration:none;margin:0 -8px;padding:2px 8px">%s<span class="ls" data-ls></span></a></li>'
+                % (html.escape(p.get('espn_league','')), html.escape(_leid), html.escape(str(g.get('comp') or '')), _gk3[0], _gk3[1], _gk3[2], html.escape(g.get('away','')), html.escape(g.get('home','')), html.escape(g.get('commence','')), html.escape(p.get('side','away')), p['num'], html.escape(l)))
     legs=''.join(_leg_li(l) for l in pl['legs'])
     # per-platform combo chips (his 9:08 AM directive): each chip carries the platform's combo
     # price and IS the build action - no separate build button. Verified prefill routes from the
@@ -2305,9 +2308,9 @@ _pk.__lsArbTs=Date.now();const _e4=_pk.querySelector('[data-ls]');if(_e4)_e4.sty
 function rpLsRender(pk,g){{const el=pk.querySelector('[data-ls]');if(!el)return;
  if(!g||g.state==='pre'){{el.className='ls';el.innerHTML='';return;}}
  if(g.state==='post'){{const side=pk.dataset.side||'away';
-  const win=(side==='away')?(g.as>g.hs):(g.hs>g.as);
+  const win=g.w?((side==='away')?(g.w==='a'):(g.w==='h')):((side==='away')?(g.as>g.hs):(g.hs>g.as));  /* K19: winner-flag verdict (MMA) beats the score read - a 0-0 fight is not a home loss by default */
   el.className='ls on '+(win?'won':'lost');
-  el.innerHTML='<b>'+(win?'W':'L')+'</b> &middot; '+g.a+' '+g.as+' - '+g.h+' '+g.hs+' Final';return;}}
+  el.innerHTML=(g.w&&!(g.as||g.hs))?('<b>'+(win?'W':'L')+'</b> &middot; '+(g.st||'Final')):('<b>'+(win?'W':'L')+'</b> &middot; '+g.a+' '+g.as+' - '+g.h+' '+g.hs+' Final');return;}}  /* K19: no fake 0-0 score on flag verdicts */
  el.className='ls on';
  const ba=(g.bat==='a')?RP_BAT:'',bh=(g.bat==='h')?RP_BAT:'';
  el.innerHTML=(g.state==='in'?'<span class="dot"></span>':'')+ba+g.a+' '+g.as+' - '+bh+g.h+' '+g.hs+' &middot; '+g.st;}}
@@ -2352,9 +2355,15 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
   byLg[lg].forEach(pk=>{{let found=null;const want=pk.dataset.eid||'';const _isMlb=pk.dataset.espn==='baseball/mlb';
    if(!want){{if(!_isMlb)rpLsRender(pk,null);return;}}
    (d.events||[]).forEach(e=>{{if(e.id!==want)return;
-    const cs=e.competitions[0].competitors;
+    /* K19 (9/30 QA, Abushaar class): rows carrying data-comp (MMA) bind their FIGHT inside the
+       card event - competitions[0] is whatever fight leads the card, not the pick's. And MMA
+       has no score: the verdict comes from the competitor winner flag, never a 0-0 read. */
+    const _comps=e.competitions||[];const _cp=(pk.dataset.comp&&_comps.length)?(_comps.find(c=>String(c.id)===String(pk.dataset.comp))||_comps[0]):_comps[0];
+    if(!_cp)return;
+    const cs=_cp.competitors||[];
     const aw=cs.find(c=>c.homeAway==='away'),hm=cs.find(c=>c.homeAway==='home');if(!aw||!hm)return;
-    found={{a:aw.team.abbreviation,h:hm.team.abbreviation,as:+aw.score||0,hs:+hm.score||0,st:e.status.type.shortDetail,state:e.status.type.state}};}});
+    const _cst=(_cp.status&&_cp.status.type)||e.status.type;
+    found={{a:(aw.team&&aw.team.abbreviation)||((aw.athlete&&aw.athlete.shortName)||''),h:(hm.team&&hm.team.abbreviation)||((hm.athlete&&hm.athlete.shortName)||''),as:+aw.score||0,hs:+hm.score||0,st:_cst.shortDetail,state:_cst.state,w:hm.winner===true?'h':(aw.winner===true?'a':'')}};}});
    if(!_isMlb){{
     if(!found){{rpLsMiss(pk);}}
     else{{const nr=rpLsRank[found.state]||0,pr=+(pk.dataset.lsrank||0);
