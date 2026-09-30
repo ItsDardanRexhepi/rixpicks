@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-09-30T10:04:42.699819+00:00",
+ "generated_at": "2026-09-30T10:19:50.602925+00:00",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Yankees electrified the Bronx crowd in the playoff opener against the Red Sox",
+    "link": "https://sports.yahoo.com/articles/yankees-electrified-bronx-crowd-playoff-100000183.html",
+    "published": "2026-09-30T10:00:00+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/80216a2021a0c873d1d75dd9c804945fafa17821027606792ac098c4541aa5f7/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc086272be8edd4e5dafb3037a6a04281.jpg",
+    "blurb": "Game 2 is on deck.",
+    "league": "MLB"
+   },
    {
     "headline": "Padres pummel Cubs behind Tatis' leadoff blast, King's gem in Game 1",
     "link": "https://www.espn.com/mlb/story/_/id/50064499/padres-pummel-cubs-tatis-leadoff-blast-king-gem-game-1",
@@ -9,15 +18,6 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723780_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Padres made an emphatic statement in their wild-card opener against the Cubs, getting a leadoff homer from Fernando Tatis Jr. and a brilliant effort on the mound from Michael King in an 8-0 win in Game 1.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Pirates Prospect update: Seth Hernandez named top MLB Prospect in FSL",
-    "link": "https://sports.yahoo.com/articles/pirates-prospect-seth-hernandez-named-092540624.html",
-    "published": "2026-09-30T09:25:40+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/be81ee4d6fa8847b895d12f23a9c09541877aa82452c1abc1f21669a22c69aa6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F93c414760b6782a8bf34a85e4b9cf5cd.jpg",
-    "blurb": "The Pirates\u2019 top prospect is atop the Florida State League!",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Pirates Prospect update: Seth Hernandez named top MLB Prospect in FSL",
+    "link": "https://sports.yahoo.com/articles/pirates-prospect-seth-hernandez-named-092540624.html",
+    "published": "2026-09-30T09:25:40+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/be81ee4d6fa8847b895d12f23a9c09541877aa82452c1abc1f21669a22c69aa6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F93c414760b6782a8bf34a85e4b9cf5cd.jpg",
+    "blurb": "The Pirates\u2019 top prospect is atop the Florida State League!",
+    "league": "MLB"
+   },
+   {
     "headline": "Schlittler and Rice torment hometown team as Yankees beat rival Red Sox 9-0 in playoff opener",
     "link": "http://www.espn.com/mlb/recap?gameId=401907924",
     "published": "2026-09-30T08:00:44Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907924.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "\u2014 Cam Schlittler pitched another playoff gem against the Boston Red Sox, and Ben Rice also burned their hometown team with a late grand slam and six RBI as the New York Yankees opened this Wild Card Series rematch with a 9-0 victory Tuesday night.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Yankees news: The Wild Card Series begins",
-    "link": "https://sports.yahoo.com/articles/yankees-news-wild-card-series-090000198.html",
-    "published": "2026-09-30T09:00:00+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/4d9a724fd033ef89a76111c33e46af7f79359b9ba3115cf2bb0f34ca125aea13/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd84df3fe942eab2e6793b50eda970e42.jpg",
-    "blurb": "Aaron Judge fails to convince Yankees he is healthy; breaking down the Wild Card",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Yankees news: The Wild Card Series begins",
+    "link": "https://sports.yahoo.com/articles/yankees-news-wild-card-series-090000198.html",
+    "published": "2026-09-30T09:00:00+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "Aaron Judge fails to convince Yankees he is healthy; breaking down the Wild Card",
+    "league": "MLB"
+   },
+   {
     "headline": "White Sox strike first in AL wild card, beating Astros 6-3 in Game 1",
     "link": "http://www.espn.com/mlb/recap?gameId=401907896",
     "published": "2026-09-30T07:59:03Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907896.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "\u2014 Colson Montgomery hit a solo homer and Sam Antonacci drove in two runs to lead the Chicago White Sox over the Houston Astros 6-3 in Game 1 of an AL Wild Card Series on Tuesday.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Ben Rice has Yankees on brink of ALDS with MVP-type performance in Game 1 win",
-    "link": "https://sports.yahoo.com/articles/ben-rice-puts-yankees-brink-072534020.html",
-    "published": "2026-09-30T07:25:34+00:00",
-    "source": "YAHOO",
-    "image": "",
-    "blurb": "Ben Rice did it all for the Yankees on Tuesday night. He provided the offense and turned their Game 1 win into a laugher to preserve the bullpen.",
     "league": "MLB"
    },
    {
@@ -84,16 +84,25 @@
     "league": "MLB"
    },
    {
-    "headline": "Schlittler, Rice lead Yankees' rout of Red Sox in Game 1",
-    "link": "https://www.espn.com/mlb/story/_/id/50064240/schlittler-rice-lead-yankees-rout-red-sox-game-1",
-    "published": "2026-09-30T06:44:04Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723765_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Cam Schlittler pitched another playoff gem against the Boston Red Sox, and Ben Rice also burned their hometown team with a late grand slam and six RBIs as the New York Yankees opened this AL Wild Card Series rematch with a 9-0 victory on Tuesday night.",
+    "headline": "Ben Rice has Yankees on brink of ALDS with MVP-type performance in Game 1 win",
+    "link": "https://sports.yahoo.com/articles/ben-rice-puts-yankees-brink-072534020.html",
+    "published": "2026-09-30T07:25:34+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "Ben Rice did it all for the Yankees on Tuesday night. He provided the offense and turned their Game 1 win into a laugher to preserve the bullpen.",
     "league": "MLB"
    }
   ],
   "football/nfl": [
+   {
+    "headline": "Patriots try out 2 edge rushers ahead of Bills game",
+    "link": "https://sports.yahoo.com/articles/patriots-try-2-edge-rushers-101048113.html",
+    "published": "2026-09-30T10:10:48+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/93d11febe2f9428b98d6840406898a2c3c42b1340134ea6449b7323a1192b524/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fee7b4e694bc912161ce41441c75e94d8.jpg",
+    "blurb": "The Patriots are looking at a pair of free agents heading into Week 4.",
+    "league": "NFL"
+   },
    {
     "headline": "Can the 0-3 Texans defy history again to make playoffs?",
     "link": "https://www.espn.com/nfl/story/_/id/50059548/houston-texans-0-3-start-again-defy-history-playoffs",
@@ -101,15 +110,6 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723470_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Houston became the first team in the common playoff format to make the postseason after starting 0-3 in 2025.",
-    "league": "NFL"
-   },
-   {
-    "headline": "13 NFL players who could be trade targets, including T.J. Watt and George Pickens",
-    "link": "https://sports.yahoo.com/articles/13-nfl-players-could-trade-095516851.html",
-    "published": "2026-09-30T09:55:16+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/38aab981bd4b133e4d1fca9124712954b33b8ca21219e3e52782deb70b0bb8c1/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fae1e309e9adbe3e937ae696ffca8476c.jpg",
-    "blurb": "The deadline to deal players is still six weeks away, and this could be a tough year to make swaps. But here&#39;s why Steelers OLB T.J. Watt and Cowboys WR George Pickens could be on the move.",
     "league": "NFL"
    },
    {
@@ -122,21 +122,21 @@
     "league": "NFL"
    },
    {
+    "headline": "NFLSU rookie check-in: Week 4 preview",
+    "link": "https://sports.yahoo.com/articles/nflsu-rookie-check-week-4-100000251.html",
+    "published": "2026-09-30T10:00:00+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/bf140a2c6c13f4eccee916083fc5ab540242c256d6c4324a530b0a2db23a25dc/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2a2de9d369ea6f2a73944cd9d69bddf2.jpg",
+    "blurb": "How did these former LSU Tigers perform this week?",
+    "league": "NFL"
+   },
+   {
     "headline": "Can the Broncos keep pulling off unlikely comeback victories?",
     "link": "https://www.espn.com/nfl/story/_/id/50060329/denver-broncos-comeback-victories-large-deficits-fourth-quarter-confidence",
     "published": "2026-09-30T10:00:11Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723575_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Somehow, the Broncos keep finding ways to overcome their slow first-half starts, pulling off frenetic second-half comeback wins -- including in Week 3 against the Rams.",
-    "league": "NFL"
-   },
-   {
-    "headline": "Through three games, Brock Purdy still hasn&#39;t been sacked",
-    "link": "https://sports.yahoo.com/articles/three-games-brock-purdy-still-084241964.html",
-    "published": "2026-09-30T08:42:41+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/bfa98113ddb5520e2681343238198fa55cdec7a9769cd7070d7a7638a9c14086/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F150d58d4693aa7daf242fa793bb8de1b.jpg",
-    "blurb": "The 49ers are the fourth team since 1990 to allow zero sacks in their first three games.",
     "league": "NFL"
    },
    {
@@ -149,21 +149,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Giants news: OBJ released, J.J. McCarthy fit, more",
+    "link": "https://sports.yahoo.com/articles/giants-news-obj-released-j-100000992.html",
+    "published": "2026-09-30T10:00:00+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "New York Giants headlines for Wednesday.",
+    "league": "NFL"
+   },
+   {
     "headline": "Why Geno Smith's hot start has been a bright spot for the Jets",
     "link": "https://www.espn.com/nfl/story/_/id/50056056/new-york-jets-geno-smith-hot-start-bright-spot",
     "published": "2026-09-30T10:00:01Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723258_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Despite being 1-2, the 35-year-old QB is completing over 75% of his passes.",
-    "league": "NFL"
-   },
-   {
-    "headline": "Golden Nuggets: We\u2019re on to Denver",
-    "link": "https://sports.yahoo.com/articles/golden-nuggets-denver-084000939.html",
-    "published": "2026-09-30T08:40:00+00:00",
-    "source": "YAHOO",
-    "image": "",
-    "blurb": "Your daily San Francisco 49ers news for Wednesday, September 30th, 2026",
     "league": "NFL"
    },
    {
@@ -176,23 +176,23 @@
     "league": "NFL"
    },
    {
-    "headline": "Christian Izien stars in strong defensive week for NFL stars with Africa ties",
-    "link": "https://www.espn.com/espn/story/_/id/50065515/christian-izien-stars-strong-defensive-week-nfl-stars-africa-ties",
-    "published": "2026-09-30T09:04:00Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723818_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Detroit Lions safety Christian Izien - who is from Far Rockaway, Queens, but has always proudly represented Nigeria too - was a standout among many NFL stars with ties to Africa who shone in Week 3.",
+    "headline": "Ravens open as massive favorites in Week 4 vs. winless Titans",
+    "link": "https://sports.yahoo.com/articles/ravens-open-massive-favorites-week-100000980.html",
+    "published": "2026-09-30T10:00:00+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "After a thrilling win in Brazil, the Ravens return home to Baltimore heavily expected to beat the Titans in Week 3.",
     "league": "NFL"
    }
   ],
   "football/college-football": [
    {
-    "headline": "Everything Georgia coach Kirby Smart said about Vanderbilt football",
-    "link": "https://sports.yahoo.com/articles/everything-georgia-coach-kirby-smart-094030942.html",
-    "published": "2026-09-30T09:40:30+00:00",
+    "headline": "Does On3 has Notre Dame as a top-5 seed in its latest CFP projections?",
+    "link": "https://sports.yahoo.com/articles/does-on3-notre-dame-top-100830738.html",
+    "published": "2026-09-30T10:08:30+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/5b5359133c5c53b35839706d9b61d5f9204a730da38ac408a2f85ad1d21b6d2e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fuga_wire_usa_today_articles_805%2F31e74f14e481ca12be716edcbcc9d8e7.jpg",
-    "blurb": "Georgia Bulldogs head coach Kirby Smart had a lot to say about quarterback Jared Curtis, a UGA decommit, and Vanderbilt football",
+    "image": "https://s.yimg.com/lo/mysterio/api/15097dfce86174af395b840c03852268c5b7337ce93cd4bd2e251c98b2a3096b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ffighting_irish_wire_usa_today_articles_281%2Fa448ed12b9b8e20716edfabd33e32d1a.jpg",
+    "blurb": "Many College Football Playoff projections have the Fighting Irish in and out as a top-five seed. Does On3 keep them in or out the top five?",
     "league": "CFB"
    },
    {
@@ -214,12 +214,12 @@
     "league": "CFB"
    },
    {
-    "headline": "One analyst believes Texas A&M&#39;s struggles fall &#39;100%&#39; on Mike Elko",
-    "link": "https://sports.yahoo.com/articles/one-analyst-believes-texas-ms-093113953.html",
-    "published": "2026-09-30T09:31:13+00:00",
+    "headline": "Comparing Texas A&M and Arkansas&#39; strengths, weaknesses before Week 5",
+    "link": "https://sports.yahoo.com/articles/comparing-texas-m-arkansas-strengths-100755895.html",
+    "published": "2026-09-30T10:07:55+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/cf00e5a7fb50f147a6b6ff80f1c677749c364776a35ba4acee62ca2512efc0ad/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2F225837738d4a9fdd0751a83ecd06ed97.jpg",
-    "blurb": "Sports analyst Aaron Torres believes that third-year coach Mike Elko&#39;s offseason decisions have directly led to Texas A&M&#39;s struggles.",
+    "image": "https://s.yimg.com/lo/mysterio/api/a65c2d7572e6cb72316ac53a508a9d7bf60d3d45625004ccfb7e798fb3315ad2/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2F1a005233e683f9813cd8be5a111999a6.jpg",
+    "blurb": "Here is how Texas A&M and Arkansas match up statistically ahead of Saturday&#39;s matchup.",
     "league": "CFB"
    },
    {
@@ -241,12 +241,12 @@
     "league": "CFB"
    },
    {
-    "headline": "Texas A&M defense is &#39;communicating more,&#39; per LB Noah Mikhail",
-    "link": "https://sports.yahoo.com/articles/texas-m-defense-communicating-more-091601617.html",
-    "published": "2026-09-30T09:16:01+00:00",
+    "headline": "Who will be &#39;College GameDay&#39; guest picker for Iowa-Ohio State? Predicting choices",
+    "link": "https://sports.yahoo.com/articles/college-gameday-guest-picker-iowa-100626842.html",
+    "published": "2026-09-30T10:06:26+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "Junior linebacker Noah Mikhail, Texas A&M&#39;s defense is communicating better and &#39;having fun with it&#39; in practice before hosting Arkansas.",
+    "blurb": "Who will be the guest picker for ESPN&#39;s &quot;College GameDay&quot; for Iowa-Ohio State? Here are a few options:",
     "league": "CFB"
    },
    {
@@ -268,23 +268,23 @@
     "league": "CFB"
    },
    {
-    "headline": "Protect College Sports? Senate just protected bad coaches instead | Opinion",
-    "link": "https://sports.yahoo.com/articles/protect-college-sports-senate-just-091310847.html",
-    "published": "2026-09-30T09:13:10+00:00",
+    "headline": "When is Florida football vs Missouri? Time, date, TV, prediction for Week 5",
+    "link": "https://sports.yahoo.com/articles/florida-football-vs-missouri-time-100524258.html",
+    "published": "2026-09-30T10:05:24+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "Shane Beamer, Brent Venables can relax. College football buyouts are safe in Protect College Sports Act.",
+    "blurb": "Florida plays Missouri this week on the 2026 college football schedule. What to know, including date, game time, TV schedule and predictions.",
     "league": "CFB"
    }
   ],
   "basketball/wnba": [
    {
-    "headline": "Stephanie White says Fever player \u2018changes the landscape\u2019 on the defensive end when she comes in",
-    "link": "https://sports.yahoo.com/articles/stephanie-white-says-fever-player-085500930.html",
-    "published": "2026-09-30T08:55:00+00:00",
+    "headline": "Again? Inside the Minnesota Lynx&#39;s latest playoff heartbreak and what went wrong",
+    "link": "https://sports.yahoo.com/articles/again-inside-minnesota-lynxs-latest-100827503.html",
+    "published": "2026-09-30T10:08:27+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/b0f7a9e26a24f8b0e96b93bc1acb645f8554d1a96fe6537cf5c33512f5768983/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhitc_articles_832%2F30fb724780b4709f173314f576d4560e.jpg",
-    "blurb": "Indiana Fever\u2019s hopes of reaching the next round of the WNBA playoffs remain after they managed to pick up a much-needed win in game two against the Las Vegas Aces. Likely to the surprise of very few people, Caitlin Clark was a top performer on the night, providing the most point",
+    "image": "https://s.yimg.com/lo/mysterio/api/de8988b2025dde6978e2f1b9e1408fc9d6fdb056dc51c7a8e0b4347b1f09328e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fcb122ba309d18801fe40ccab31066235.jpg",
+    "blurb": "The Lynx entered the WNBA playoffs looking to end their title drought, but after a shocking first-round upset, Minnesota is once again left heartbroken.",
     "league": "WNBA"
    },
    {
@@ -306,12 +306,12 @@
     "league": "WNBA"
    },
    {
-    "headline": "\u2018Point Gawds,\u2019 \u2018INDIANA BASKETBALL!\u2019 \u2014 Hoops World Buzzes As Caitlin Clark Joins Pacers Star Tyrese Haliburton in Exclusive Playoff Club",
-    "link": "https://sports.yahoo.com/articles/point-gawds-indiana-basketball-hoops-084053646.html",
-    "published": "2026-09-30T08:40:53+00:00",
+    "headline": "Stephanie White says Fever player \u2018changes the landscape\u2019 on the defensive end when she comes in",
+    "link": "https://sports.yahoo.com/articles/stephanie-white-says-fever-player-085500930.html",
+    "published": "2026-09-30T08:55:00+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/f6d90f15c9613a31f53fda1c1c65bec2b643b06ee9b288cf0dba4a2d131e02ff/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpro_football_network_512%2Fb1ffc581342f67530e72337168480b0c.jpg",
-    "blurb": "Caitlin Clark and Tyrese Haliburton have given Indiana basketball fans plenty to celebrate in recent years. Now, the two stars have something else in common, this time on the playoff stage.",
+    "image": "https://s.yimg.com/lo/mysterio/api/b0f7a9e26a24f8b0e96b93bc1acb645f8554d1a96fe6537cf5c33512f5768983/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhitc_articles_832%2F30fb724780b4709f173314f576d4560e.jpg",
+    "blurb": "Indiana Fever\u2019s hopes of reaching the next round of the WNBA playoffs remain after they managed to pick up a much-needed win in game two against the Las Vegas Aces. Likely to the surprise of very few people, Caitlin Clark was a top performer on the night, providing the most point",
     "league": "WNBA"
    },
    {
@@ -333,12 +333,12 @@
     "league": "WNBA"
    },
    {
-    "headline": "Stephanie White makes exciting Caitlin Clark prediction for Fever\u2019s third game against Aces",
-    "link": "https://sports.yahoo.com/articles/stephanie-white-makes-exciting-caitlin-075000673.html",
-    "published": "2026-09-30T07:50:00+00:00",
+    "headline": "\u2018Point Gawds,\u2019 \u2018INDIANA BASKETBALL!\u2019 \u2014 Hoops World Buzzes As Caitlin Clark Joins Pacers Star Tyrese Haliburton in Exclusive Playoff Club",
+    "link": "https://sports.yahoo.com/articles/point-gawds-indiana-basketball-hoops-084053646.html",
+    "published": "2026-09-30T08:40:53+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "The Indiana Fever were able to bounce back from disappointment in game one to take their first-round playoff series against the Las Vegas Aces to a decider. The Fever began the playoffs with a 102-85 loss this past Sunday, meaning they had to pick up a win on Tuesday or they were",
+    "blurb": "Caitlin Clark and Tyrese Haliburton have given Indiana basketball fans plenty to celebrate in recent years. Now, the two stars have something else in common, this time on the playoff stage.",
     "league": "WNBA"
    },
    {
@@ -360,12 +360,12 @@
     "league": "WNBA"
    },
    {
-    "headline": "Lynx news: Olivia Miles reflects on incredible rookie season despite sad end",
-    "link": "https://sports.yahoo.com/articles/lynx-news-olivia-miles-reflects-070712940.html",
-    "published": "2026-09-30T07:07:12+00:00",
+    "headline": "Stephanie White makes exciting Caitlin Clark prediction for Fever\u2019s third game against Aces",
+    "link": "https://sports.yahoo.com/articles/stephanie-white-makes-exciting-caitlin-075000673.html",
+    "published": "2026-09-30T07:50:00+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "It was not the ending Olivia Miles had hoped for in her rookie campaign, but she will only grow from it. Miles and the Minnesota Lynx were eliminated in the first round of the playoffs after losing to the New York Liberty in Game 2, 87-71, at Barclays Center on Tuesday. The Lynx ",
+    "blurb": "The Indiana Fever were able to bounce back from disappointment in game one to take their first-round playoff series against the Las Vegas Aces to a decider. The Fever began the playoffs with a 102-85 loss this past Sunday, meaning they had to pick up a win on Tuesday or they were",
     "league": "WNBA"
    }
   ],
@@ -463,21 +463,21 @@
   ],
   "hockey/nhl": [
    {
+    "headline": "Islanders Gameday News: Hockey\u2019s back!",
+    "link": "https://sports.yahoo.com/articles/islanders-gameday-news-hockey-back-100000443.html",
+    "published": "2026-09-30T10:00:00+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/0829b4df89cb40106df3596d6e6556da0937e90177a0cf321a405052ac718824/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Feb98e82b7efda3fd9095b87775f8dae9.jpg",
+    "blurb": "The NHL season is underway! Let us now enjoy all the ups, the downs and endless absurdities that are sure to follow with the \u201ctransition\u201d 2026-27 New York Islanders, including an extra two games of angst in the expanded 84-game schedule. They have an incredible Calder-winning def",
+    "league": "NHL"
+   },
+   {
     "headline": "Panthers in action against the Sharks following overtime victory",
     "link": "http://www.espn.com/nhl/preview?gameId=401891823",
     "published": "2026-09-30T08:11:54Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891823.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Florida Panthers vs. San Jose Sharks",
-    "league": "NHL"
-   },
-   {
-    "headline": "A Night to Remember: 3 Observations as Golden Knights Defeat Blackhawks in Home Opener",
-    "link": "https://sports.yahoo.com/articles/night-remember-3-observations-golden-073340794.html",
-    "published": "2026-09-30T07:33:40+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/9a89caf4268960f782decc93cfe6335abeb377469263ae6b6fdc4d9fedbeae71/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_las_vegas_golden_knights_articles_813%2Faeaf35de4051684f4c2e5dea11281c03.jpg",
-    "blurb": "Las Vegas, N.V.\u2013 With its legalized gambling, world-renowned restaurants, magic shows, and acrobatic circus acts, Las Vegas is widely viewed as the entertainment capital of the world. The Strip has something for everyone and attracts an unfathomable amount of foot traffic every d",
     "league": "NHL"
    },
    {
@@ -490,21 +490,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Pens Points: The 2026-27 season begins",
+    "link": "https://sports.yahoo.com/articles/pens-points-2026-27-season-100000486.html",
+    "published": "2026-09-30T10:00:00+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/5f63ea706236bd22904cc31b6735085314fe8c66038a93e6ca08e55c74b5ea8e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F17f2374615f630af611397e61384c3ae.jpg",
+    "blurb": "Here are your Pens Points for this Wednesday morning\u2026 Pittsburgh Penguins general manager Kyle Dubas said his focus entering the new season remains on improving the team rather than setting a specific goal such as a playoff berth or Stanley Cup title. Dubas said Pittsburgh will c",
+    "league": "NHL"
+   },
+   {
     "headline": "Vancouver hosts Edmonton following Cotter's 2-goal performance",
     "link": "http://www.espn.com/nhl/preview?gameId=401891829",
     "published": "2026-09-30T08:11:51Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891829.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Edmonton Oilers (0-0-1, in the Pacific Division) vs. Vancouver Canucks (1-0, in the Pacific Division)",
-    "league": "NHL"
-   },
-   {
-    "headline": "Jack Eichel Hits 700 Points, Earns Craig&#39;s Trust in Golden Knights&#39; Opening Win",
-    "link": "https://sports.yahoo.com/articles/jack-eichel-hits-700-points-062012611.html",
-    "published": "2026-09-30T06:20:12+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/e45fabd07965e38011c6095f5224e914b37e3d7810c2a43e06ff9779accd9f00/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_las_vegas_golden_knights_articles_813%2F646b7ada8c766fb17e8fab6005df4110.jpg",
-    "blurb": "Jack Eichel reached 700 career points in Vegas\u2019 5-2 opening win, earning Ryan Craig\u2019s praise as an elite 200-foot player. Yet Eichel shared the spotlight with Trevor Connelly, celebrating the rookie\u2019s NHL debut goal as the Golden Knights opened their season with milestones, leade",
     "league": "NHL"
    },
    {
@@ -517,21 +517,21 @@
     "league": "NHL"
    },
    {
+    "headline": "A Night to Remember: 3 Observations as Golden Knights Defeat Blackhawks in Home Opener",
+    "link": "https://sports.yahoo.com/articles/night-remember-3-observations-golden-073340794.html",
+    "published": "2026-09-30T07:33:40+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "Las Vegas, N.V.\u2013 With its legalized gambling, world-renowned restaurants, magic shows, and acrobatic circus acts, Las Vegas is widely viewed as the entertainment capital of the world. The Strip has something for everyone and attracts an unfathomable amount of foot traffic every d",
+    "league": "NHL"
+   },
+   {
     "headline": "Flames host the Kraken in season opener",
     "link": "http://www.espn.com/nhl/preview?gameId=401891777",
     "published": "2026-09-30T08:11:47Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891777.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Seattle Kraken vs. Calgary Flames",
-    "league": "NHL"
-   },
-   {
-    "headline": "Patrick Kane Scores In Return To Blackhawks, But Chicago Loses To Vegas 5-2 In Season Opener",
-    "link": "https://sports.yahoo.com/articles/patrick-kane-scores-return-blackhawks-054823719.html",
-    "published": "2026-09-30T05:48:23+00:00",
-    "source": "YAHOO",
-    "image": "",
-    "blurb": "The Vegas Golden Knights defeated the Chicago Blackhawks in the season opener, despite Patrick Kane&#39;s first goal back with the team.",
     "league": "NHL"
    },
    {
@@ -544,23 +544,23 @@
     "league": "NHL"
    },
    {
-    "headline": "Predators host the Wild in season opener",
-    "link": "http://www.espn.com/nhl/preview?gameId=401891816",
-    "published": "2026-09-30T08:11:43Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891816.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Minnesota Wild vs. Nashville Predators",
+    "headline": "Jack Eichel Hits 700 Points, Earns Craig&#39;s Trust in Golden Knights&#39; Opening Win",
+    "link": "https://sports.yahoo.com/articles/jack-eichel-hits-700-points-062012611.html",
+    "published": "2026-09-30T06:20:12+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "Jack Eichel reached 700 career points in Vegas\u2019 5-2 opening win, earning Ryan Craig\u2019s praise as an elite 200-foot player. Yet Eichel shared the spotlight with Trevor Connelly, celebrating the rookie\u2019s NHL debut goal as the Golden Knights opened their season with milestones, leade",
     "league": "NHL"
    }
   ],
   "basketball/mens-college-basketball": [
    {
-    "headline": "Dayton men\u2019s basketball announces 2026-27 Atlantic 10 schedule",
-    "link": "https://sports.yahoo.com/articles/dayton-men-basketball-announces-2026-064349514.html",
-    "published": "2026-09-30T06:43:49+00:00",
+    "headline": "Kentucky has an Achilles\u2019 heel it must remedy as SEC play heats up",
+    "link": "https://sports.yahoo.com/articles/kentucky-achilles-heel-must-remedy-100500103.html",
+    "published": "2026-09-30T10:05:00+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/215f81879fa6014d7f65aec1c3917abbb19cb510fae39957eb763fbe49e5d7fe/lightyear_networkapi/resizefill_w300_h200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fwhio_cox_articles_828%2F2db7278d37419a0c5c5dfbc61486ada4.jpg",
-    "blurb": "The University of Dayton men\u2019s basketball team and the Atlantic 10 released the full league schedule for the upcoming season on Tuesday.",
+    "image": "https://s.yimg.com/lo/mysterio/api/caab1e014ef7f39a3da457a69909a58aaf775b43ec1d26938297805103d23895/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Feef29ef1bc9f8189d98face1d17b08a0.jpg",
+    "blurb": "This has been a troubling stat so far.",
     "league": "NCAAB"
    },
    {
@@ -582,12 +582,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Gonzaga Announces Jersey Patch Sponsorship",
-    "link": "https://sports.yahoo.com/articles/gonzaga-announces-jersey-patch-sponsorship-031406217.html",
-    "published": "2026-09-30T03:14:06+00:00",
+    "headline": "Four takeaways from Illinois basketball\u2019s fall practice video",
+    "link": "https://sports.yahoo.com/articles/four-takeaways-illinois-basketball-fall-100000360.html",
+    "published": "2026-09-30T10:00:00+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/76f8a28d5b6d98543e1ead67a540446aa45efc44cdc61b5f4927d9d124493eb3/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff752e9e9eb76c48dd75212b6b8ba8970.jpg",
-    "blurb": "Plus, the 2026-27 roster on the GoZags website lists three currently ineligible players.",
+    "image": "https://s.yimg.com/lo/mysterio/api/a13bc858a9717aa1372b6193f96e4a53e9d4fd7ae843af2b2f32a5b79c350990/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F971de877efa7571fc71413357ce3209e.jpg",
+    "blurb": "Let\u2019s have some fun.",
     "league": "NCAAB"
    },
    {
@@ -609,12 +609,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Kentucky basketball hosted a top PG target on an official visit",
-    "link": "https://sports.yahoo.com/articles/kentucky-basketball-hosted-top-pg-021647079.html",
-    "published": "2026-09-30T02:16:47+00:00",
+    "headline": "Dayton men\u2019s basketball announces 2026-27 Atlantic 10 schedule",
+    "link": "https://sports.yahoo.com/articles/dayton-men-basketball-announces-2026-064349514.html",
+    "published": "2026-09-30T06:43:49+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "2027 top 10 prospect Reese Alston made the trip to Lexington over the weekend.",
+    "blurb": "The University of Dayton men\u2019s basketball team and the Atlantic 10 released the full league schedule for the upcoming season on Tuesday.",
     "league": "NCAAB"
    },
    {
@@ -636,12 +636,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Former Illinois Basketball Player Could Be Back in College Basketball",
-    "link": "https://sports.yahoo.com/articles/former-illinois-basketball-player-could-003004592.html",
-    "published": "2026-09-30T00:30:04+00:00",
+    "headline": "Gonzaga Announces Jersey Patch Sponsorship",
+    "link": "https://sports.yahoo.com/articles/gonzaga-announces-jersey-patch-sponsorship-031406217.html",
+    "published": "2026-09-30T03:14:06+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "Former Illinois basketball player could be making a return to college basketball after receiving a temporary restraining order that makes him eligible to play this season.",
+    "blurb": "Plus, the 2026-27 roster on the GoZags website lists three currently ineligible players.",
     "league": "NCAAB"
    }
   ],
@@ -1087,6 +1087,51 @@
  },
  "latest": [
   {
+   "headline": "Patriots try out 2 edge rushers ahead of Bills game",
+   "link": "https://sports.yahoo.com/articles/patriots-try-2-edge-rushers-101048113.html",
+   "published": "2026-09-30T10:10:48+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/93d11febe2f9428b98d6840406898a2c3c42b1340134ea6449b7323a1192b524/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fee7b4e694bc912161ce41441c75e94d8.jpg",
+   "blurb": "The Patriots are looking at a pair of free agents heading into Week 4.",
+   "league": "NFL"
+  },
+  {
+   "headline": "Does On3 has Notre Dame as a top-5 seed in its latest CFP projections?",
+   "link": "https://sports.yahoo.com/articles/does-on3-notre-dame-top-100830738.html",
+   "published": "2026-09-30T10:08:30+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/15097dfce86174af395b840c03852268c5b7337ce93cd4bd2e251c98b2a3096b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ffighting_irish_wire_usa_today_articles_281%2Fa448ed12b9b8e20716edfabd33e32d1a.jpg",
+   "blurb": "Many College Football Playoff projections have the Fighting Irish in and out as a top-five seed. Does On3 keep them in or out the top five?",
+   "league": "CFB"
+  },
+  {
+   "headline": "Again? Inside the Minnesota Lynx&#39;s latest playoff heartbreak and what went wrong",
+   "link": "https://sports.yahoo.com/articles/again-inside-minnesota-lynxs-latest-100827503.html",
+   "published": "2026-09-30T10:08:27+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/de8988b2025dde6978e2f1b9e1408fc9d6fdb056dc51c7a8e0b4347b1f09328e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fcb122ba309d18801fe40ccab31066235.jpg",
+   "blurb": "The Lynx entered the WNBA playoffs looking to end their title drought, but after a shocking first-round upset, Minnesota is once again left heartbroken.",
+   "league": "WNBA"
+  },
+  {
+   "headline": "Comparing Texas A&M and Arkansas&#39; strengths, weaknesses before Week 5",
+   "link": "https://sports.yahoo.com/articles/comparing-texas-m-arkansas-strengths-100755895.html",
+   "published": "2026-09-30T10:07:55+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/a65c2d7572e6cb72316ac53a508a9d7bf60d3d45625004ccfb7e798fb3315ad2/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2F1a005233e683f9813cd8be5a111999a6.jpg",
+   "blurb": "Here is how Texas A&M and Arkansas match up statistically ahead of Saturday&#39;s matchup.",
+   "league": "CFB"
+  },
+  {
+   "headline": "Kentucky has an Achilles\u2019 heel it must remedy as SEC play heats up",
+   "link": "https://sports.yahoo.com/articles/kentucky-achilles-heel-must-remedy-100500103.html",
+   "published": "2026-09-30T10:05:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/caab1e014ef7f39a3da457a69909a58aaf775b43ec1d26938297805103d23895/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Feef29ef1bc9f8189d98face1d17b08a0.jpg",
+   "blurb": "This has been a troubling stat so far.",
+   "league": "NCAAB"
+  },
+  {
    "headline": "Can the 0-3 Texans defy history again to make playoffs?",
    "link": "https://www.espn.com/nfl/story/_/id/50059548/houston-texans-0-3-start-again-defy-history-playoffs",
    "published": "2026-09-30T10:00:11Z",
@@ -1105,13 +1150,49 @@
    "league": "NFL"
   },
   {
-   "headline": "13 NFL players who could be trade targets, including T.J. Watt and George Pickens",
-   "link": "https://sports.yahoo.com/articles/13-nfl-players-could-trade-095516851.html",
-   "published": "2026-09-30T09:55:16+00:00",
+   "headline": "Yankees electrified the Bronx crowd in the playoff opener against the Red Sox",
+   "link": "https://sports.yahoo.com/articles/yankees-electrified-bronx-crowd-playoff-100000183.html",
+   "published": "2026-09-30T10:00:00+00:00",
    "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/38aab981bd4b133e4d1fca9124712954b33b8ca21219e3e52782deb70b0bb8c1/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fae1e309e9adbe3e937ae696ffca8476c.jpg",
-   "blurb": "The deadline to deal players is still six weeks away, and this could be a tough year to make swaps. But here&#39;s why Steelers OLB T.J. Watt and Cowboys WR George Pickens could be on the move.",
+   "image": "https://s.yimg.com/lo/mysterio/api/80216a2021a0c873d1d75dd9c804945fafa17821027606792ac098c4541aa5f7/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc086272be8edd4e5dafb3037a6a04281.jpg",
+   "blurb": "Game 2 is on deck.",
+   "league": "MLB"
+  },
+  {
+   "headline": "NFLSU rookie check-in: Week 4 preview",
+   "link": "https://sports.yahoo.com/articles/nflsu-rookie-check-week-4-100000251.html",
+   "published": "2026-09-30T10:00:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/bf140a2c6c13f4eccee916083fc5ab540242c256d6c4324a530b0a2db23a25dc/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2a2de9d369ea6f2a73944cd9d69bddf2.jpg",
+   "blurb": "How did these former LSU Tigers perform this week?",
    "league": "NFL"
+  },
+  {
+   "headline": "Islanders Gameday News: Hockey\u2019s back!",
+   "link": "https://sports.yahoo.com/articles/islanders-gameday-news-hockey-back-100000443.html",
+   "published": "2026-09-30T10:00:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/0829b4df89cb40106df3596d6e6556da0937e90177a0cf321a405052ac718824/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Feb98e82b7efda3fd9095b87775f8dae9.jpg",
+   "blurb": "The NHL season is underway! Let us now enjoy all the ups, the downs and endless absurdities that are sure to follow with the \u201ctransition\u201d 2026-27 New York Islanders, including an extra two games of angst in the expanded 84-game schedule. They have an incredible Calder-winning def",
+   "league": "NHL"
+  },
+  {
+   "headline": "Pens Points: The 2026-27 season begins",
+   "link": "https://sports.yahoo.com/articles/pens-points-2026-27-season-100000486.html",
+   "published": "2026-09-30T10:00:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/5f63ea706236bd22904cc31b6735085314fe8c66038a93e6ca08e55c74b5ea8e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F17f2374615f630af611397e61384c3ae.jpg",
+   "blurb": "Here are your Pens Points for this Wednesday morning\u2026 Pittsburgh Penguins general manager Kyle Dubas said his focus entering the new season remains on improving the team rather than setting a specific goal such as a playoff berth or Stanley Cup title. Dubas said Pittsburgh will c",
+   "league": "NHL"
+  },
+  {
+   "headline": "Four takeaways from Illinois basketball\u2019s fall practice video",
+   "link": "https://sports.yahoo.com/articles/four-takeaways-illinois-basketball-fall-100000360.html",
+   "published": "2026-09-30T10:00:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/a13bc858a9717aa1372b6193f96e4a53e9d4fd7ae843af2b2f32a5b79c350990/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F971de877efa7571fc71413357ce3209e.jpg",
+   "blurb": "Let\u2019s have some fun.",
+   "league": "NCAAB"
   },
   {
    "headline": "Padres pummel Cubs behind Tatis' leadoff blast, King's gem in Game 1",
@@ -1121,24 +1202,6 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723780_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The Padres made an emphatic statement in their wild-card opener against the Cubs, getting a leadoff homer from Fernando Tatis Jr. and a brilliant effort on the mound from Michael King in an 8-0 win in Game 1.",
    "league": "MLB"
-  },
-  {
-   "headline": "Everything Georgia coach Kirby Smart said about Vanderbilt football",
-   "link": "https://sports.yahoo.com/articles/everything-georgia-coach-kirby-smart-094030942.html",
-   "published": "2026-09-30T09:40:30+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/5b5359133c5c53b35839706d9b61d5f9204a730da38ac408a2f85ad1d21b6d2e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fuga_wire_usa_today_articles_805%2F31e74f14e481ca12be716edcbcc9d8e7.jpg",
-   "blurb": "Georgia Bulldogs head coach Kirby Smart had a lot to say about quarterback Jared Curtis, a UGA decommit, and Vanderbilt football",
-   "league": "CFB"
-  },
-  {
-   "headline": "One analyst believes Texas A&M&#39;s struggles fall &#39;100%&#39; on Mike Elko",
-   "link": "https://sports.yahoo.com/articles/one-analyst-believes-texas-ms-093113953.html",
-   "published": "2026-09-30T09:31:13+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/cf00e5a7fb50f147a6b6ff80f1c677749c364776a35ba4acee62ca2512efc0ad/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2F225837738d4a9fdd0751a83ecd06ed97.jpg",
-   "blurb": "Sports analyst Aaron Torres believes that third-year coach Mike Elko&#39;s offseason decisions have directly led to Texas A&M&#39;s struggles.",
-   "league": "CFB"
   },
   {
    "headline": "Pirates Prospect update: Seth Hernandez named top MLB Prospect in FSL",
@@ -1159,39 +1222,12 @@
    "league": "NFL"
   },
   {
-   "headline": "Yankees news: The Wild Card Series begins",
-   "link": "https://sports.yahoo.com/articles/yankees-news-wild-card-series-090000198.html",
-   "published": "2026-09-30T09:00:00+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/4d9a724fd033ef89a76111c33e46af7f79359b9ba3115cf2bb0f34ca125aea13/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd84df3fe942eab2e6793b50eda970e42.jpg",
-   "blurb": "Aaron Judge fails to convince Yankees he is healthy; breaking down the Wild Card",
-   "league": "MLB"
-  },
-  {
    "headline": "Stephanie White says Fever player \u2018changes the landscape\u2019 on the defensive end when she comes in",
    "link": "https://sports.yahoo.com/articles/stephanie-white-says-fever-player-085500930.html",
    "published": "2026-09-30T08:55:00+00:00",
    "source": "YAHOO",
    "image": "https://s.yimg.com/lo/mysterio/api/b0f7a9e26a24f8b0e96b93bc1acb645f8554d1a96fe6537cf5c33512f5768983/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhitc_articles_832%2F30fb724780b4709f173314f576d4560e.jpg",
    "blurb": "Indiana Fever\u2019s hopes of reaching the next round of the WNBA playoffs remain after they managed to pick up a much-needed win in game two against the Las Vegas Aces. Likely to the surprise of very few people, Caitlin Clark was a top performer on the night, providing the most point",
-   "league": "WNBA"
-  },
-  {
-   "headline": "Through three games, Brock Purdy still hasn&#39;t been sacked",
-   "link": "https://sports.yahoo.com/articles/three-games-brock-purdy-still-084241964.html",
-   "published": "2026-09-30T08:42:41+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/bfa98113ddb5520e2681343238198fa55cdec7a9769cd7070d7a7638a9c14086/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F150d58d4693aa7daf242fa793bb8de1b.jpg",
-   "blurb": "The 49ers are the fourth team since 1990 to allow zero sacks in their first three games.",
-   "league": "NFL"
-  },
-  {
-   "headline": "\u2018Point Gawds,\u2019 \u2018INDIANA BASKETBALL!\u2019 \u2014 Hoops World Buzzes As Caitlin Clark Joins Pacers Star Tyrese Haliburton in Exclusive Playoff Club",
-   "link": "https://sports.yahoo.com/articles/point-gawds-indiana-basketball-hoops-084053646.html",
-   "published": "2026-09-30T08:40:53+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/f6d90f15c9613a31f53fda1c1c65bec2b643b06ee9b288cf0dba4a2d131e02ff/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpro_football_network_512%2Fb1ffc581342f67530e72337168480b0c.jpg",
-   "blurb": "Caitlin Clark and Tyrese Haliburton have given Indiana basketball fans plenty to celebrate in recent years. Now, the two stars have something else in common, this time on the playoff stage.",
    "league": "WNBA"
   },
   {
@@ -1231,15 +1267,6 @@
    "league": "MLB"
   },
   {
-   "headline": "A Night to Remember: 3 Observations as Golden Knights Defeat Blackhawks in Home Opener",
-   "link": "https://sports.yahoo.com/articles/night-remember-3-observations-golden-073340794.html",
-   "published": "2026-09-30T07:33:40+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/9a89caf4268960f782decc93cfe6335abeb377469263ae6b6fdc4d9fedbeae71/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_las_vegas_golden_knights_articles_813%2Faeaf35de4051684f4c2e5dea11281c03.jpg",
-   "blurb": "Las Vegas, N.V.\u2013 With its legalized gambling, world-renowned restaurants, magic shows, and acrobatic circus acts, Las Vegas is widely viewed as the entertainment capital of the world. The Strip has something for everyone and attracts an unfathomable amount of foot traffic every d",
-   "league": "NHL"
-  },
-  {
    "headline": "NASCAR entry list for O&#39;Reilly race at Las Vegas in 2026 Chase",
    "link": "https://sports.yahoo.com/articles/nascar-entry-list-oreilly-race-070517284.html",
    "published": "2026-09-30T07:05:17+00:00",
@@ -1267,15 +1294,6 @@
    "league": "WNBA"
   },
   {
-   "headline": "Dayton men\u2019s basketball announces 2026-27 Atlantic 10 schedule",
-   "link": "https://sports.yahoo.com/articles/dayton-men-basketball-announces-2026-064349514.html",
-   "published": "2026-09-30T06:43:49+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/215f81879fa6014d7f65aec1c3917abbb19cb510fae39957eb763fbe49e5d7fe/lightyear_networkapi/resizefill_w300_h200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fwhio_cox_articles_828%2F2db7278d37419a0c5c5dfbc61486ada4.jpg",
-   "blurb": "The University of Dayton men\u2019s basketball team and the Atlantic 10 released the full league schedule for the upcoming season on Tuesday.",
-   "league": "NCAAB"
-  },
-  {
    "headline": "NASCAR Legend Says Ryan Blaney \u2018Deserved\u2019 Punch From Carson Hocevar",
    "link": "https://sports.yahoo.com/articles/nascar-legend-says-ryan-blaney-064215351.html",
    "published": "2026-09-30T06:42:15+00:00",
@@ -1292,15 +1310,6 @@
    "image": "",
    "blurb": "Brad Keselowski could make NASCAR history in the Truck Series during the 2027 season.",
    "league": "NASCAR"
-  },
-  {
-   "headline": "Jack Eichel Hits 700 Points, Earns Craig&#39;s Trust in Golden Knights&#39; Opening Win",
-   "link": "https://sports.yahoo.com/articles/jack-eichel-hits-700-points-062012611.html",
-   "published": "2026-09-30T06:20:12+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/e45fabd07965e38011c6095f5224e914b37e3d7810c2a43e06ff9779accd9f00/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_las_vegas_golden_knights_articles_813%2F646b7ada8c766fb17e8fab6005df4110.jpg",
-   "blurb": "Jack Eichel reached 700 career points in Vegas\u2019 5-2 opening win, earning Ryan Craig\u2019s praise as an elite 200-foot player. Yet Eichel shared the spotlight with Trevor Connelly, celebrating the rookie\u2019s NHL debut goal as the Golden Knights opened their season with milestones, leade",
-   "league": "NHL"
   },
   {
    "headline": "Aces, Fever set for winner-take-all game 3",
@@ -1375,15 +1384,6 @@
    "league": "PGA"
   },
   {
-   "headline": "Gonzaga Announces Jersey Patch Sponsorship",
-   "link": "https://sports.yahoo.com/articles/gonzaga-announces-jersey-patch-sponsorship-031406217.html",
-   "published": "2026-09-30T03:14:06+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/76f8a28d5b6d98543e1ead67a540446aa45efc44cdc61b5f4927d9d124493eb3/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff752e9e9eb76c48dd75212b6b8ba8970.jpg",
-   "blurb": "Plus, the 2026-27 roster on the GoZags website lists three currently ineligible players.",
-   "league": "NCAAB"
-  },
-  {
    "headline": "UFC fighter says he\u2019s \u2018disappointing\u2019 fellow US Marines",
    "link": "https://sports.yahoo.com/articles/ufc-fighter-says-disappointing-fellow-022948829.html",
    "published": "2026-09-30T02:29:48+00:00",
@@ -1448,8 +1448,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 45,
-  "YAHOO": 70,
+  "YAHOO": 73,
+  "ESPN": 42,
   "CBS": 42
  },
  "degraded_sources": []
