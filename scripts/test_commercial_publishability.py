@@ -42,6 +42,15 @@ TOUT_VARIANTS = [
     {'id': 'var4', 'text': 'POTD incoming \U0001f512 boosted parlay below https://t.co/a4', 'author_name': 'fan', 'author_username': 'fan4'},
     {'id': 'var5', 'text': 'leafs play of the day, tail free at https://t.co/a5', 'author_name': 'fan', 'author_username': 'fan5'},
 ]
+# free betting-sheet class (sentinel 9/29 7:38, TianaLocks verbatim): sport + Free + concrete
+# priced lines + acquisition links, no pick/play wording - rejected by the FREE+ODDS+link leg,
+# NEVER by the CTA regex. Ordinary free-agent/free-throw reporting stays publishable (ok5-ok7).
+SHEET_TOUTS = [
+    {'id': '2105097171011862752', 'author_username': 'TianaLocks', 'author_name': 'Tiana Locks',
+     'url': 'https://x.com/TianaLocks/status/2105097171011862752',
+     'text': "Today's Early MLB Free\n\nPHI ATL Over 6.5 -117\nPhillies TTO 2.5 -113\nBraves TTO 3.5 -108\nPHI ATL Over 8.5 +212\nPHI ATL Over 10.5 +426\n\nhttps://t.co/AcqLink1 https://t.co/AcqLink2"}
+]
+
 # handle-only tout class (sentinel 7:24 ingestX defect): clean text and display name, but the
 # HANDLE is operator branding - only reachable if ingestX retains author_username. Asserted
 # against _banned/isPublishablePost (operator rule), NOT _commercial (not a CTA/destination case).
@@ -57,6 +66,9 @@ INNOCUOUS = [
     {'id': 'ok2', 'text': 'Bruins power play looks lost. Fire the coach into the sun. #NHLBruins', 'author_name': 'Dee', 'author_username': 'dee_bos'},
     {'id': 'ok3', 'text': 'Unreal touchdown catch by Jefferson, Vikings win it at the death https://t.co/zz99 #SKOL', 'author_name': 'Sam', 'author_username': 'sam_mn'},
     {'id': 'ok4', 'text': 'Yankees bullpen blew another save, season is cooked', 'author_name': 'Mel', 'author_username': 'mel_ny'},
+    {'id': 'ok5', 'text': 'Max Scherzer is the top free agent this winter - Mets or Rangers? https://t.co/hotstove1', 'author_name': 'Kyle', 'author_username': 'kyle_mlb'},
+    {'id': 'ok6', 'text': 'Giannis went 12 of 14 at the free throw line, huge bounce back for the Bucks', 'author_name': 'Dee', 'author_username': 'dee_mke'},
+    {'id': 'ok7', 'text': 'NFL tickets were free for kids at the preseason game, great night https://t.co/fam1', 'author_name': 'Sam', 'author_username': 'sam_fam'},
 ]
 
 _xc = getattr(x_feed, '_commercial', None)          # missing on unfixed sources -> red, not crash
@@ -84,8 +96,12 @@ for p in INNOCUOUS:
 js = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'index_v2.js')).read()
 m_cta = re.search(r'var RP_COMM_CTA=/((?:[^/\\]|\\.)+)/i;', js)
 m_tag = re.search(r'var RP_COMM_TAG=/((?:[^/\\]|\\.)+)/i;', js)
+m_free = re.search(r'var RP_COMM_FREE=/((?:[^/\\]|\\.)+)/i;', js)
+m_odds = re.search(r'var RP_COMM_ODDS=/((?:[^/\\]|\\.)+)/g;', js)
 check('client RP_COMM_CTA present', bool(m_cta))
 check('client RP_COMM_TAG present', bool(m_tag))
+check('client RP_COMM_FREE present', bool(m_free))
+check('client RP_COMM_ODDS present', bool(m_odds))
 if m_cta:
     check('client CTA byte-parity with x_feed', bool(_xcta) and m_cta.group(1) == _xcta.pattern)
     cta = re.compile(m_cta.group(1), re.I)
@@ -94,6 +110,20 @@ if m_cta:
         check(f'client CTA rejects {p["id"]}', bool(cta.search(t)))
 if m_tag:
     check('client TAG byte-parity with x_feed', bool(_xtag) and m_tag.group(1) == _xtag.pattern)
+    _xfree = getattr(x_feed, 'COMMERCIAL_FREE_RE', None)
+    _xodds = getattr(x_feed, 'COMMERCIAL_ODDS_RE', None)
+    check('client FREE byte-parity with x_feed', bool(m_free and _xfree) and m_free.group(1) == _xfree.pattern)
+    check('client ODDS byte-parity with x_feed', bool(m_odds and _xodds) and m_odds.group(1) == _xodds.pattern)
+    if m_free and m_odds:
+        free_re = re.compile(m_free.group(1), re.I)
+        odds_re = re.compile(m_odds.group(1))
+        tiana = SHEET_TOUTS[0]
+        check('client sheet rule rejects Tiana', bool(free_re.search(tiana['text']))
+              and len(odds_re.findall(tiana['text'])) >= 2 and 'https://' in tiana['text'])
+        for cid in ('ok5', 'ok6', 'ok7'):
+            cp = [p for p in INNOCUOUS if p['id'] == cid][0]
+            hit = bool(free_re.search(cp['text'])) and len(odds_re.findall(cp['text'])) >= 2 and 'https://' in cp['text']
+            check(f'client sheet rule admits {cid}', not hit)
     tag = re.compile(m_tag.group(1), re.I)
     nick = TOUTS[3]
     check('client destination rule rejects nickmarshalli',
@@ -103,6 +133,13 @@ for p in INNOCUOUS:
     ok = not (m_cta and re.compile(m_cta.group(1), re.I).search(t))
     ok = ok and not (m_tag and re.compile(m_tag.group(1), re.I).search(t) and re.search(r'https?://', p['text']))
     check(f'client admits {p["id"]}', ok)
+
+# --- 2a: sheet fixtures - _commercial (sheet leg) + _banned reject, both mirrors
+for p in SHEET_TOUTS:
+    check(f'x_feed._commercial rejects sheet {p["id"]}', bool(_xc and _xc(p)))
+    check(f'x_feed._banned rejects sheet {p["id"]}', x_feed._banned(p))
+    check(f'news_social._commercial rejects sheet {p["id"]}', bool(_nc and _nc(p)))
+    check(f'news_social._banned rejects sheet {p["id"]}', news_social._banned(p))
 
 # --- 2b: handle-only fixtures - python mirror rejects via the who-rule
 for p in HANDLE_TOUTS:
@@ -115,8 +152,8 @@ import subprocess, tempfile
 HARN = r'''
 const fs=require('fs'),vm=require('vm');
 const src=fs.readFileSync(process.argv[2],'utf8');
-const varLines=src.split('\n').filter(l=>/^var (RP_AD_KW|RP_TOUT_KW|RP_OPERATOR|RP_NONSPORT_KILL|RP_SPORT_ACRO|RP_SPORT_STRONG|RP_SPORT_TEAMS|RP_SPORT_WEAK|RP_COMM_CTA|RP_COMM_TAG)=/.test(l)&&/;\s*$/.test(l));
-if(varLines.length!==10){console.log('FAIL rp-vars '+varLines.length);process.exit(1);}
+const varLines=src.split('\n').filter(l=>/^var (RP_AD_KW|RP_TOUT_KW|RP_OPERATOR|RP_NONSPORT_KILL|RP_SPORT_ACRO|RP_SPORT_STRONG|RP_SPORT_TEAMS|RP_SPORT_WEAK|RP_COMM_CTA|RP_COMM_TAG|RP_COMM_FREE|RP_COMM_ODDS)=/.test(l)&&/;\s*$/.test(l));
+if(varLines.length!==12){console.log('FAIL rp-vars '+varLines.length);process.exit(1);}
 function extractFn(name){const s=src.indexOf('function '+name+'(');if(s<0){console.log('FAIL missing '+name);process.exit(1);}let d=0,i=src.indexOf('{',s);for(;i<src.length;i++){if(src[i]==='{')d++;else if(src[i]==='}'){d--;if(!d)return src.slice(s,i+1);}}console.log('FAIL unterminated '+name);process.exit(1);}
 const ctx={console,Date,JSON};
 vm.createContext(ctx);
@@ -130,6 +167,9 @@ console.log(JSON.stringify({xnews:XNEWS.map(p=>({id:p.id,handle:p.handle||''})),
 pool = {'generated_at': '2026-09-30T02:00:00Z', 'items': []}
 for p in TOUTS:
     pool['items'].append({'id': p['id'], 'created_at': '2026-09-30T01:00:00Z', 'text': p['text'],
+                          'author_name': p.get('author_name',''), 'author_username': p.get('author_username',''), 'url': p.get('url','')})
+for p in SHEET_TOUTS:
+    pool['items'].append({'id': p['id'], 'created_at': '2026-09-30T01:00:30Z', 'text': p['text'],
                           'author_name': p.get('author_name',''), 'author_username': p.get('author_username',''), 'url': p.get('url','')})
 for p in HANDLE_TOUTS:
     pool['items'].append({'id': p['id'], 'created_at': '2026-09-30T01:01:00Z', 'text': p['text'],
@@ -152,7 +192,7 @@ try:
     if r.returncode == 0:
         res = json.loads(r.stdout.strip().splitlines()[-1])
         xids = {str(p['id']) for p in res['xnews']}
-        tout_all = {str(p['id']) for p in TOUTS} | {str(p['id']) for p in HANDLE_TOUTS}
+        tout_all = {str(p['id']) for p in TOUTS} | {str(p['id']) for p in HANDLE_TOUTS} | {str(p['id']) for p in SHEET_TOUTS}
         check('ingestX drops every tout + handle-tout id', not (xids & tout_all))
         check('ingestX retains the handle field', all('handle' in p for p in res['xnews']))
         check('latest-12 stays full from innocuous posts', len(res['zp']) == 12)
@@ -169,11 +209,11 @@ check('paired-slide take() re-checks isPublishablePost', 'if(p&&!usedA[p.id]&&is
 check('ingestX retains author_username as handle', "handle:typeof p.author_username==='string'?p.author_username.slice(0,80):''" in js)
 
 # --- 3: serialization-boundary simulation - gated carryover purges the fixtures from EVERY surface
-pool = TOUTS + INNOCUOUS  # as if all had entered yesterday's pool
+pool = TOUTS + SHEET_TOUTS + INNOCUOUS  # as if all had entered yesterday's pool
 gated = [pp for pp in pool if not x_feed._banned(pp)]  # the exact boundary filter expression
 gated_ids = {str(p['id']) for p in gated}
-tout_ids = {str(p['id']) for p in TOUTS}
-check('boundary purges all four fixture ids', not (gated_ids & tout_ids))
+tout_ids = {str(p['id']) for p in TOUTS} | {str(p['id']) for p in SHEET_TOUTS}
+check('boundary purges every tout fixture id', not (gated_ids & tout_ids))
 check('boundary keeps innocuous ids', {'ok1', 'ok2', 'ok3', 'ok4'} <= gated_ids)
 # downstream surfaces are built ONLY from the gated pool (soc_match pairs/more/nearest/latest/
 # admit + the client ticker reading x_feed.json) - assert no fixture id can appear in any of them

@@ -80,6 +80,11 @@ def _sports_post(p):
 
 COMMERCIAL_CTA_RE = __import__('re').compile(
     r'\bjoin up\b|link in\b[^.!?\n]{0,12}\bbio\b|\bfree ?(?:play|pick)s?\b|\bpotd\b|\bplay of the day\b|boosted (?:odds|parlays?)|@playbook\b', __import__('re').I)
+COMMERCIAL_FREE_RE = __import__('re').compile(
+    r'\b(?:mlb|nfl|nba|nhl|wnba|cfb|ncaa|ufc|mls)\b[^.!?\n]{0,16}\bfree(?![- ](?:agent|agency|throws?|kicks?|transfer))\b|\bfree(?![- ](?:agent|agency|throws?|kicks?|transfer))\b[^.!?\n]{0,16}\b(?:mlb|nfl|nba|nhl|wnba|cfb|ncaa|ufc|mls)\b', __import__('re').I)
+COMMERCIAL_ODDS_RE = __import__('re').compile(r'[-+]\d{3}\b')
+
+
 COMMERCIAL_TAG_RE = __import__('re').compile(
     r'#\s*(?:gamblingtwitter|gamblingx|prizepicks|freepicks?|sportsbetting|draftkings|fanduel|betmgm|bettingtips?|gambling)\b', __import__('re').I)
 
@@ -98,6 +103,14 @@ def _commercial(p):
     if COMMERCIAL_CTA_RE.search(t):
         return True
     if COMMERCIAL_TAG_RE.search(t) and _re.search(r'https?://', str(p.get('text') or '')):
+        return True
+    # free betting-sheet class (sentinel 9/29 7:38: "Today's Early MLB Free" + priced lines +
+    # acquisition links, no pick/play wording): sport-near-free AND >=2 concrete prices AND an
+    # outbound link. Ordinary "free" stays publishable: free-agent/free-throw/free-kick/
+    # free-transfer are whitelisted, and commentary without a priced sheet fails the odds leg.
+    txt = str(p.get('text') or '')
+    if (COMMERCIAL_FREE_RE.search(t) and len(COMMERCIAL_ODDS_RE.findall(txt)) >= 2
+            and _re.search(r'https?://', txt)):
         return True
     return False
 

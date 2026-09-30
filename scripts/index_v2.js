@@ -678,6 +678,8 @@ function isSportsPost(p){
 }
 var RP_COMM_CTA=/\bjoin up\b|link in\b[^.!?\n]{0,12}\bbio\b|\bfree ?(?:play|pick)s?\b|\bpotd\b|\bplay of the day\b|boosted (?:odds|parlays?)|@playbook\b/i;
 var RP_COMM_TAG=/#\s*(?:gamblingtwitter|gamblingx|prizepicks|freepicks?|sportsbetting|draftkings|fanduel|betmgm|bettingtips?|gambling)\b/i;
+var RP_COMM_FREE=/\b(?:mlb|nfl|nba|nhl|wnba|cfb|ncaa|ufc|mls)\b[^.!?\n]{0,16}\bfree(?![- ](?:agent|agency|throws?|kicks?|transfer))\b|\bfree(?![- ](?:agent|agency|throws?|kicks?|transfer))\b[^.!?\n]{0,16}\b(?:mlb|nfl|nba|nhl|wnba|cfb|ncaa|ufc|mls)\b/i;
+var RP_COMM_ODDS=/[-+]\d{3}\b/g;
 function isPublishablePost(p){
  if(!p)return false;
  var t=(String(p.headline||'')+' '+String(p.link||'')+' '+String(p.author||'')+' '+String(p.handle||'')).normalize('NFKC').replace(/#\s+/g,'#');
@@ -686,6 +688,9 @@ function isPublishablePost(p){
     x_feed._commercial / news_social._commercial - byte-identical pattern text. */
  if(RP_COMM_CTA.test(t))return false;
  if(RP_COMM_TAG.test(t)&&/https?:\/\//.test(String(p.headline||'')))return false;
+ /* free betting-sheet class (sentinel 9/29 7:38), mirror of _commercial: sport-near-free +
+    >=2 concrete prices + outbound link; free-agent/free-throw etc whitelisted via lookahead. */
+ if(RP_COMM_FREE.test(t)&&((String(p.headline||'').match(RP_COMM_ODDS)||[]).length>=2)&&/https?:\/\//.test(String(p.headline||'')))return false;
  if(new RegExp('\\b('+RP_OPERATOR+')\\b','i').test((String(p.author||'')+' '+String(p.handle||'')).normalize('NFKC').replace(/[^A-Za-z0-9]+/g,' ')))return false;
  return true;
 }
