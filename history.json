@@ -298,8 +298,8 @@
     {
       "date": "2026-09-29",
       "label": "Tuesday, Sep 29",
-      "record": "1-1",
-      "units": "-2.19u",
+      "record": "1-3",
+      "units": "-12.19u",
       "brief": "",
       "picks": [
         {
@@ -319,6 +319,26 @@
           "result": "L",
           "score": "CHW 6, HOU 3",
           "_delta": "-5.0"
+        },
+        {
+          "name": "Loai Abushaar ML",
+          "game": "vs Staines",
+          "odds": "+285",
+          "units": "5u",
+          "result": "L",
+          "score": "Staines def. Abushaar",
+          "_delta": "-5.0",
+          "learning": "User-directed pick carded by owner word at disclosed sub-bar economics (net -0.9c after fee) lost -5.0u. Provenance: owner-carded, not engine-certified. One fight is one outcome data point on the override class - no read conclusion drawn from it."
+        },
+        {
+          "name": "Maple Leafs ML",
+          "game": "vs Canadiens",
+          "odds": "+100",
+          "units": "5u",
+          "result": "L",
+          "score": "MTL 3, TOR 2",
+          "_delta": "-5.0",
+          "learning": "User-directed pick carded by owner word at disclosed sub-bar economics lost -5.0u (MTL 3 @ TOR 2). Provenance: owner-carded, not engine-certified. One game is one outcome data point on the override class - no read conclusion drawn from it."
         }
       ]
     }
