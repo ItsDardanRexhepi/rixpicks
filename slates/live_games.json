@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T02:04:30.810196+00:00",
+ "generated_at": "2026-09-30T02:19:34.414450+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,16 @@
      "matchup": "BOS @ NYY",
      "commence": "2026-09-30T00:00Z",
      "status": "in",
-     "detail": "Bot 6th",
+     "detail": "Top 7th",
      "score": "BOS 0 - NYY 2"
+    },
+    {
+     "espn_event_id": "401907974",
+     "matchup": "CHC @ SD",
+     "commence": "2026-09-30T02:00Z",
+     "status": "in",
+     "detail": "Bot 1st",
+     "score": "CHC 0 - SD 1"
     }
    ]
   },
@@ -31,9 +39,9 @@
      "matchup": "MIN @ NY",
      "commence": "2026-09-30T00:30Z",
      "status": "in",
-     "detail": "1:34 - 3rd",
-     "score": "MIN 49 - NY 63",
-     "away_to": 3,
+     "detail": "6:45 - 4th",
+     "score": "MIN 60 - NY 76",
+     "away_to": 2,
      "home_to": 2
     }
    ]
@@ -54,7 +62,7 @@
      "matchup": "NYR @ BOS",
      "commence": "2026-09-30T00:00Z",
      "status": "in",
-     "detail": "19:06 - 3rd",
+     "detail": "10:05 - 3rd",
      "score": "NYR 0 - BOS 0",
      "away_to": null,
      "home_to": null
@@ -64,7 +72,7 @@
      "matchup": "VAN @ EDM",
      "commence": "2026-09-30T02:00Z",
      "status": "in",
-     "detail": "Delayed",
+     "detail": "14:07 - 1st",
      "score": "VAN 0 - EDM 0",
      "away_to": null,
      "home_to": null
