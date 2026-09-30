@@ -1,8 +1,27 @@
 {
- "generated_at": "2026-09-30T04:04:46+00:00",
+ "generated_at": "2026-09-30T04:19:22+00:00",
  "source": "x_recent_search",
  "window": false,
  "items": [
+  {
+   "query": "(\"Panthers\" OR \"Hurricanes'\") lang:en -is:retweet -is:reply",
+   "id": "2105099805597016510",
+   "created_at": "2026-09-30T00:57:59.000Z",
+   "text": "64:55 OF SCORELESS HOCKEY\u2026 THEN FLORIDA ENDED IT.\n\nGustav Forsling scores with 5 seconds left in OT and the Panthers beat Carolina 1\u20130.\n\nJacob Markstrom finishes with a 15-save shutout.\n\nFlorida starts 1\u20130\u20130. https://t.co/IS9PS8kntw",
+   "author_username": "LinnyMaven",
+   "author_name": "Linny Maven",
+   "public_metrics": {
+    "bookmark_count": 0,
+    "impression_count": 3,
+    "like_count": 0,
+    "quote_count": 0,
+    "reply_count": 0,
+    "retweet_count": 0
+   },
+   "url": "https://x.com/LinnyMaven/status/2105099805597016510",
+   "via": "news:S3-rotate",
+   "nk": "https://www.espn.com/nhl/story/_/id/50062937/panthers-win-spoil-hurricanes-banner-night"
+  },
   {
    "query": "(\"Bruins\" OR \"Rangers\" OR \"NHL\") lang:en -is:retweet -is:reply",
    "id": "2105101319606583746",
@@ -971,25 +990,6 @@
    "url": "https://x.com/SITENYK/status/2105099810550513796",
    "via": "news:S3-rotate",
    "nk": "https://www.espn.com/nhl/story/_/id/50058720/nhl-opening-night-best-fits-outfits-style-fashion"
-  },
-  {
-   "query": "(\"Panthers\" OR \"Hurricanes'\") lang:en -is:retweet -is:reply",
-   "id": "2105099805597016510",
-   "created_at": "2026-09-30T00:57:59.000Z",
-   "text": "64:55 OF SCORELESS HOCKEY\u2026 THEN FLORIDA ENDED IT.\n\nGustav Forsling scores with 5 seconds left in OT and the Panthers beat Carolina 1\u20130.\n\nJacob Markstrom finishes with a 15-save shutout.\n\nFlorida starts 1\u20130\u20130. https://t.co/IS9PS8kntw",
-   "author_username": "LinnyMaven",
-   "author_name": "Linny Maven",
-   "public_metrics": {
-    "bookmark_count": 0,
-    "impression_count": 3,
-    "like_count": 0,
-    "quote_count": 0,
-    "reply_count": 0,
-    "retweet_count": 0
-   },
-   "url": "https://x.com/LinnyMaven/status/2105099805597016510",
-   "via": "news:S3-rotate",
-   "nk": "https://www.espn.com/nhl/story/_/id/50062937/panthers-win-spoil-hurricanes-banner-night"
   },
   {
    "query": "(\"Mattingly's\" OR \"Duran\" OR \"Phillies'\") lang:en -is:retweet -is:reply",
