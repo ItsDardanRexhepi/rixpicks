@@ -1399,6 +1399,7 @@ r'</div>'
 r'<script>(function(){'
 r'var box=document.getElementById("rpCmb");if(!box)return;'
 r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
+r'var rpCmbRan=false;function rpCmbGo(){if(rpCmbRan)return;rpCmbRan=true;'
 r'fetch("slates/wooder_combos.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
 r'var cs=((j&&j.combos)||[]).filter(rpComboFresh);'
 r'if(!cs.length){box.parentNode.style.display="none";return;}'
@@ -1421,6 +1422,9 @@ r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline
 r'+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(c.matchup||"")+(c.time?" &middot; "+esc(c.time):"")+"</div>"'
 r'+"</a>";}).join("");'
 r'}).catch(function(){box.parentNode.style.display="none";});'
+r'}'
+r'if(document.readyState==="complete"){setTimeout(rpCmbGo,0);}else if(window.addEventListener){window.addEventListener("load",function(){setTimeout(rpCmbGo,0);});}'
+r'setTimeout(rpCmbGo,4000);'
 r'})();</script>')
 # Wooder Ice's current tickets (main 9:05): additive ticket ledger shared by the guest -
 # client-hydrated from slates/wooder_tickets.json; section hides when no tickets exist.

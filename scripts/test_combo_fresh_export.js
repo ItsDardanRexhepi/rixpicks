@@ -48,5 +48,47 @@ check('consumer callback registered before utils script resolves rpComboFresh af
 const page = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 check('built index.html contains the window.rpComboFresh export', page.includes('window.rpComboFresh=rpComboFresh;'));
 
-if (failures) { console.error(failures + ' FAIL'); process.exit(1); }
-console.log('ALL OK');
+
+// (4) behavioral race simulation: the module's fetch chain must not run before the page's
+// last script can define rpComboFresh. Simulates a cache-hit fetch (resolves immediately,
+// .then runs in the between-scripts microtask checkpoint) with rpComboFresh NOT yet defined,
+// then fires load and asserts the module renders. Old (ungated) module: filter throws
+// ReferenceError -> catch hides -> FAIL here.
+const comboPage = fs.readFileSync(process.argv[2] || path.join(__dirname, '..', 'index.html'), 'utf8');
+const modMatch = comboPage.match(/<script>\(function\(\)\{var box=document\.getElementById\("rpCmb"\)[\s\S]*?<\/script>/);
+check('combos module script found in page', !!modMatch);
+(async () => {
+  if (modMatch) {
+    const modSrc = modMatch[0].replace(/^<script>/, '').replace(/<\/script>$/, '');
+    const sample = { combos: [{ id: 'idea-mlb-ks-20260930', type: 'idea', date: '2026-09-30',
+      title: 'Strikeouts Parlay (4 legs)', matchup: 'PHI@ATL', time: 'from 11:00 AM PT',
+      legs: [{ player: 'Cristopher Sanchez', market: '7+ strikeouts vs ATL', kalshi: '+138 · 42c' }],
+      estimate_note: 'note', prices_note: 'snap' }] };
+    const listeners = {}, timers = [];
+    const style = { display: '' };
+    const box = { innerHTML: '', parentNode: { style } };
+    const sandbox = {
+      document: { getElementById: () => box, readyState: 'loading' },
+      addEventListener: (ev, fn) => { (listeners[ev] = listeners[ev] || []).push(fn); },
+      fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve(sample) }),
+      setTimeout: (fn) => { timers.push(fn); return 1; },
+      Date, JSON, console,
+    };
+    sandbox.window = sandbox;
+    vm.createContext(sandbox);
+    vm.runInContext(modSrc, sandbox); // rpComboFresh intentionally NOT defined yet
+    for (let i = 0; i < 8; i++) await new Promise(r => setImmediate(r));
+    const renderedEarly = box.innerHTML.length > 0;
+    // now the utils script "runs": define the global, then fire load + timers
+    vm.runInContext(extract('rpComboFresh') + '\nwindow.rpComboFresh=rpComboFresh;', sandbox);
+    (listeners.load || []).forEach(fn => fn());
+    timers.forEach(fn => fn());
+    for (let i = 0; i < 8; i++) await new Promise(r => setImmediate(r));
+    check('module does not render before load when fetch resolves instantly', !renderedEarly);
+    check('module renders Strikeouts card after load with global present', box.innerHTML.includes('Strikeouts Parlay (4 legs)'));
+    check('module parent not hidden after successful render', style.display !== 'none');
+  }
+  if (failures) { console.error(failures + ' FAIL'); process.exit(1); }
+  console.log('ALL OK (incl. race sim)');
+})();
+
