@@ -44,6 +44,22 @@ const NONSPORT = [
 ];
 for (const [n, p] of SPORTS) check('isSportsPost passes ' + n, ctx.isSportsPost(p) === true);
 for (const [n, p] of NONSPORT) check('isSportsPost drops ' + n, ctx.isSportsPost(p) === false);
+const NONSPORT_LEAK = [
+  ['hashtag-stuffed relationship post (Emmagrace51 2105093648232882322)',
+   {id:'2105093648232882322', headline:'Why You Feel Attached to Someone After Only a Few Dates Read More Here : https://t.co/fz24tAouD5 #JackSmith #AustinRiley #RavenJohnson #SuperIntelligence #Schmitt #Astros #OlandriaxPFWSS27 #Duran #OlandriaxRevolveMag #DWCS #Braves #WhiteSox #Caitlin #Espada #Phillies', author:'Emma Grace', url:'https://x.com/Emmagrace51/status/2105093648232882322'}],
+  ['tech giants (Giants regex false hit)', {id:'l2', headline:'Apple, Microsoft and other tech giants report earnings this week', author:'Market Wire', url:'https://x.com/mw/status/l2'}],
+  ['fossil-fuel giants (Giants regex false hit)', {id:'l3', headline:'Fossil fuel giants face new emissions rules this year', author:'Climate Desk', url:'https://x.com/cd/status/l3'}],
+  ['team-hashtag stuffing on non-sports body', {id:'l4', headline:'New skincare routine changed my life #Yankees #Lakers #Chiefs', author:'Glow Up', url:'https://x.com/gu/status/l4'}],
+];
+const SPORTS_LEAK = [
+  ['body team + score (Judge)', {id:'g1', headline:'Judge sends one into the second deck, 3-0 Yankees', author:'NYY Fan', url:'https://x.com/nyy/status/g1'}],
+  ['body team + weak (Astros)', {id:'g2', headline:'Astros win it late, what a comeback! #Astros #LevelUp', author:'Stros Fan', url:'https://x.com/stros/status/g2'}],
+  ['body matchup (two teams)', {id:'g3', headline:'Yankees vs Red Sox tonight, who you got?', author:'Rivalry', url:'https://x.com/rv/status/g3'}],
+  ['genuine fan, hashtag-only sports signal dropped', {id:'g4', headline:'cannot believe what I just watched #Astros', author:'Fan', url:'https://x.com/f/status/g4', want:false}],
+];
+for (const [n, p] of NONSPORT_LEAK) check('leak fix drops ' + n, ctx.isSportsPost(p) === false);
+for (const [n, p] of SPORTS_LEAK) check('leak fix: ' + n, ctx.isSportsPost(p) === (p.want === false ? false : true));
+
 
 ctx.XNEWS = SPORTS.concat(NONSPORT).map(x => x[1]);
 const fp = ctx.zeroPairSocial(12);

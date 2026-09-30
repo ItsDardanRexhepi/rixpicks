@@ -367,6 +367,10 @@ with tempfile.TemporaryDirectory() as td:
         if 'no successful' not in str(exc): fails.append('unexpected ingest error: %s' % exc)
     if __import__('json').load(open(xf.OUT)) != initial:
         fails.append('failed X API restamped or changed the old feed')
+    # X-wall companion (Sep 29): an emptied pool must NOT restamp generated_at - the
+    # client's rpMapFresh exact-matches x_generated_at, so a fresh stamp on an empty feed
+    # re-mismatches the map between rebuilds. Empty->empty success preserves the stamp;
+    # the identical-empty write is then a no-op for the commit layer too.
     called = []
     def empty_req(*args):
         called.append(1)
@@ -374,8 +378,22 @@ with tempfile.TemporaryDirectory() as td:
     xf.req = empty_req
     xf.main()
     new = __import__('json').load(open(xf.OUT))
-    if len(called) != 1 or new.get('generated_at') == initial['generated_at']:
-        fails.append('single successful empty X request did not stamp the feed exactly once')
+    if len(called) != 1 or new.get('generated_at') != initial['generated_at'] or new.get('items') != []:
+        fails.append('empty->empty successful X request restamped or changed the empty feed')
+    # The companion direction: a successful pull WITH data must still stamp fresh exactly once.
+    called_data = []
+    def data_req(*args):
+        called_data.append(1)
+        return 200, {'data': [{'id': '1', 'created_at': ago(1),
+                               'text': 'Royals injury report: starter questionable for Monday',
+                               'author_id': '9'}],
+                     'includes': {'users': [{'id': '9', 'username': 'kcbeat', 'name': 'KC Beat'}]},
+                     'meta': {'newest_id': '1'}}
+    xf.req = data_req
+    xf.main()
+    new_data = __import__('json').load(open(xf.OUT))
+    if len(called_data) != 1 or new_data.get('generated_at') == initial['generated_at'] or len(new_data.get('items') or []) != 1:
+        fails.append('successful X request with data did not stamp the feed fresh exactly once')
 
 # story_type_gate fixtures (eg2, guards 2+3 strips 7:10-7:11 PM): R1 picks-article needs
 # article-pick evidence; R2 bet-slip never pairs a non-picks story; R3 historical post

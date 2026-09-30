@@ -10,6 +10,10 @@
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const src = fs.readFileSync(process.argv[2] || path.join(__dirname, 'index_v2.js'), 'utf8');
+// zeroPairSocial gates through isSportsPost (feed guard 3, commit 4): the vm sandbox needs
+// the real classifier and its RP_ constants, same extraction as test_social_sports_gate.js.
+const rpVars = src.split('\n').filter(l => /^var (RP_AD_KW|RP_TOUT_KW|RP_OPERATOR|RP_NONSPORT_KILL|RP_SPORT_ACRO|RP_SPORT_STRONG|RP_SPORT_TEAMS|RP_SPORT_WEAK)=/.test(l) && /;\s*$/.test(l));
+if (rpVars.length !== 8) { console.error('FAIL: expected 8 RP_ vars, got ' + rpVars.length); process.exit(1); }
 
 function extract(name) {
   const start = src.indexOf('function ' + name + '(');
@@ -55,9 +59,9 @@ const ctx = vm.createContext({
   isPublishablePost: p => !!p,
   document: { querySelector: () => null, getElementById: () => null },
 });
-vm.runInContext([
+vm.runInContext(rpVars.join('\n') + '\n' + [
   extract('rpMapFresh'), extract('socMapRetry'), extract('ingestX'), extract('buildPairs'),
-extract('zeroPairSocial'), extract('rpComboFresh')].join('\n'), ctx);
+extract('isSportsPost'), extract('zeroPairSocial'), extract('rpComboFresh')].join('\n'), ctx);
 vm.runInContext(extract('socSync').replace('function socSync(', 'function socSyncReal('), ctx);
 
 // A1: map fetched first, generations absent -> held, not promoted, not discarded

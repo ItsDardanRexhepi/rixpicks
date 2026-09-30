@@ -656,17 +656,25 @@ var RP_OPERATOR='bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|
    never re-gate on heuristics, and the no-forced-match rule stands. */
 var RP_NONSPORT_KILL=/only ?fans|lingerie|\bnudes?\b|nsfw|18\+|spicy content|hookup|escort|sext(ing)?\b|election|ballot|\bpresident\b|congress|senate|democrat|republican|midterms?|campaign rally|polling|immigration|ceasefire|stock tips|nasdaq|s&p 500|passive income|\bfashion\b|runway|\bootd\b|makeup|skincare|weight loss|diet pills|essay (help|service)|homework help/i;
 var RP_SPORT_ACRO=/\b(nfl|nba|mlb|nhl|wnba|mls|nwsl|ncaa|cfb|ufc|mma|pga|atp|wta|nascar)\b/gi;
-var RP_SPORT_STRONG=/\b(formula 1|football|basketball|baseball|hoops|hockey|soccer|tennis|golf|boxing|quarterback|touchdown|pitcher|pitching|home run|homer|goalie|playoffs?|super bowl|stanley cup|world series|march madness|heisman|grand slam|wimbledon|daytona|heavyweight|knockout|innings?|dugout|bullpen|buzzer beater|free throw|field goal|batting|\bpuck\b|rbi|strikeout|power play|penalty kick|slam dunk|fastball|curveball|faceoff|hat trick)\b/i;
+var RP_SPORT_STRONG=/\b(formula 1|football|basketball|baseball|hoops|hockey|soccer|tennis|golf|boxing|quarterback|touchdown|pitcher|pitching|home run|homer|goalie|playoffs?|super bowl|stanley cup|world series|march madness|heisman|grand slam|wimbledon|daytona|heavyweight|knockout|innings?|dugout|bullpen|buzzer beater|free throw|field goal|batting|\bpuck\b|rbi|strikeout|power play|penalty kick|slam dunk|fastball|curveball|faceoff|hat trick|slugger|halfcourt)\b/i;
 var RP_SPORT_TEAMS=/\b(yankees|red sox|dodgers|cubs|cardinals|braves|astros|mets|phillies|padres|rangers|orioles|blue jays|guardians|tigers|royals|twins|white sox|athletics|angels|mariners|marlins|nationals|pirates|\breds\b|brewers|diamondbacks|d-backs|rockies|lakers|celtics|warriors|knicks|\bnets\b|sixers|76ers|\bbulls\b|bucks|cavaliers|\bcavs\b|mavericks|\bmavs\b|nuggets|\bsuns\b|clippers|grizzlies|\bhawks\b|hornets|pacers|pistons|raptors|wizards|\bspurs\b|\bthunder\b|timberwolves|trail blazers|\bjazz\b|pelicans|rockets|chiefs|eagles|cowboys|packers|\bbears\b|lions|vikings|falcons|saints|buccaneers|\bbucs\b|\brams\b|seahawks|49ers|raiders|chargers|broncos|ravens|bengals|browns|steelers|\bcolts\b|jaguars|texans|titans|dolphins|patriots|commanders|bruins|maple leafs|canadiens|oilers|avalanche|golden knights|\bkraken\b|canucks|flames|predators|blackhawks|red wings|penguins|capitals|flyers|islanders|hurricanes|lightning|senators|sabres|blue jackets|\bgiants\b|\bjets\b|panthers|\bheat\b|timberwolves|\bwolves\b|\bkings\b|\bleafs\b|\bhabs\b|anaheim ducks|winnipeg|buffalo bills|seattle seahawks)\b/i;
-var RP_SPORT_WEAK=/\bgames?\b|\bwins?\b|\bloss(es)?\b|\bscored?\b|\btraded?\b|\binjur(y|ed|ies)\b|\bcoach(ed)?\b|\broster\b|\bdraft(ed)?\b|\bseason\b|\bopener\b|\bovertime\b|\bot\b|\bhalftime\b|\bstadium\b|\barena\b|\bcontract\b|\bextension\b|\bsuspension\b|\bejected\b|\brankings?\b|\bmvp\b|\bdebut\b|\bstreak\b|\bcomeback\b|\bupset\b|\brivalry\b|\bchampionship\b|\btournament\b|\bspread\b|\bparlay\b|\bprops\b|\bodds\b|\blineups?\b/gi;
+var RP_SPORT_WEAK=/\bgames?\b|\bwins?\b|\bloss(es)?\b|\bscored?\b|\btraded?\b|\binjur(y|ed|ies)\b|\bcoach(ed)?\b|\broster\b|\bdraft(ed)?\b|\bseason\b|\bopener\b|\bovertime\b|\bot\b|\bhalftime\b|\bstadium\b|\barena\b|\bcontract\b|\bextension\b|\bsuspension\b|\bejected\b|\brankings?\b|\bmvp\b|\bdebut\b|\bstreak\b|\bcomeback\b|\bupset\b|\brivalry\b|\bchampionship\b|\btournament\b|\bspread\b|\bparlay\b|\bprops\b|\bodds\b|\blineups?\b|\b\d{1,3}\s*[-–]\s*\d{1,3}\b/gi;
 function isSportsPost(p){
  if(!p)return false;
  var t=(String(p.headline||'')+' '+String(p.author||'')).normalize('NFKC');
- if(RP_NONSPORT_KILL.test(t))return false;
- if(RP_SPORT_STRONG.test(t)||RP_SPORT_TEAMS.test(t))return true;
- var acro=(t.match(RP_SPORT_ACRO)||[]).length, weak=(t.match(RP_SPORT_WEAK)||[]).length;
+ if(RP_NONSPORT_KILL.test(t))return false; /* deny-side keeps the full payload (author included) */
+ /* residual-leak fix (9/29, Emmagrace51 hashtag-stuffing + "tech giants" classes): sports
+    evidence must come from the substantive BODY - author, URL and hashtag tokens never
+    establish relevance, and a bare team word needs a second game signal (a matchup counts).
+    Mirrors x_feed._sports_post / news_social._sports_post byte-for-byte in logic. */
+ var body=String(p.headline||'').replace(/https?:\/\/\S+/g,' ').replace(/#\w+/g,' ').normalize('NFKC');
+ if(RP_SPORT_STRONG.test(body))return true;
+ /* RP_SPORT_TEAMS is /i (boolean-tested elsewhere): a plain .match counts full+capture, so a
+    single team word reads as 2. Count real occurrences with a /gi copy. */
+ var teams=(body.match(new RegExp(RP_SPORT_TEAMS.source,'gi'))||[]).length;
+ var acro=(body.match(RP_SPORT_ACRO)||[]).length, weak=(body.match(RP_SPORT_WEAK)||[]).length;
  if(acro>=2&&weak===0)return false; /* bare-acronym stuffing: "NFL NBA MLB" with no game context is spam, not fandom */
- return acro>=1||weak>=2;
+ return teams>=2||(teams>=1&&acro+weak>=1)||acro>=1||weak>=2;
 }
 function isPublishablePost(p){
  if(!p)return false;

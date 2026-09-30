@@ -194,21 +194,28 @@ def _payload(p):
 # every downstream gate; junk in the 24h carryover purges here on the next cycle.
 NONSPORT_KILL_RE = __import__('re').compile(r'only ?fans|lingerie|\bnudes?\b|nsfw|18\+|spicy content|hookup|escort|sext(ing)?\b|election|ballot|\bpresident\b|congress|senate|democrat|republican|midterms?|campaign rally|polling|immigration|ceasefire|stock tips|nasdaq|s&p 500|passive income|\bfashion\b|runway|\bootd\b|makeup|skincare|weight loss|diet pills|essay (help|service)|homework help', __import__('re').I)
 SPORT_ACRO_RE = __import__('re').compile(r'\b(nfl|nba|mlb|nhl|wnba|mls|nwsl|ncaa|cfb|ufc|mma|pga|atp|wta|nascar)\b', __import__('re').I)
-SPORT_STRONG_RE = __import__('re').compile(r'\b(formula 1|football|basketball|baseball|hoops|hockey|soccer|tennis|golf|boxing|quarterback|touchdown|pitcher|pitching|home run|homer|goalie|playoffs?|super bowl|stanley cup|world series|march madness|heisman|grand slam|wimbledon|daytona|heavyweight|knockout|innings?|dugout|bullpen|buzzer beater|free throw|field goal|batting|\bpuck\b|rbi|strikeout|power play|penalty kick|slam dunk|fastball|curveball|faceoff|hat trick)\b', __import__('re').I)
+SPORT_STRONG_RE = __import__('re').compile(r'\b(formula 1|football|basketball|baseball|hoops|hockey|soccer|tennis|golf|boxing|quarterback|touchdown|pitcher|pitching|home run|homer|goalie|playoffs?|super bowl|stanley cup|world series|march madness|heisman|grand slam|wimbledon|daytona|heavyweight|knockout|innings?|dugout|bullpen|buzzer beater|free throw|field goal|batting|\bpuck\b|rbi|strikeout|power play|penalty kick|slam dunk|fastball|curveball|faceoff|hat trick|slugger|halfcourt)\b', __import__('re').I)
 SPORT_TEAMS_RE = __import__('re').compile(r'\b(yankees|red sox|dodgers|cubs|cardinals|braves|astros|mets|phillies|padres|rangers|orioles|blue jays|guardians|tigers|royals|twins|white sox|athletics|angels|mariners|marlins|nationals|pirates|\breds\b|brewers|diamondbacks|d-backs|rockies|lakers|celtics|warriors|knicks|\bnets\b|sixers|76ers|\bbulls\b|bucks|cavaliers|\bcavs\b|mavericks|\bmavs\b|nuggets|\bsuns\b|clippers|grizzlies|\bhawks\b|hornets|pacers|pistons|raptors|wizards|\bspurs\b|\bthunder\b|timberwolves|trail blazers|\bjazz\b|pelicans|rockets|chiefs|eagles|cowboys|packers|\bbears\b|lions|vikings|falcons|saints|buccaneers|\bbucs\b|\brams\b|seahawks|49ers|raiders|chargers|broncos|ravens|bengals|browns|steelers|\bcolts\b|jaguars|texans|titans|dolphins|patriots|commanders|bruins|maple leafs|canadiens|oilers|avalanche|golden knights|\bkraken\b|canucks|flames|predators|blackhawks|red wings|penguins|capitals|flyers|islanders|hurricanes|lightning|senators|sabres|blue jackets|\bgiants\b|\bjets\b|panthers|\bheat\b|timberwolves|\bwolves\b|\bkings\b|\bleafs\b|\bhabs\b|anaheim ducks|winnipeg|buffalo bills|seattle seahawks)\b', __import__('re').I)
-SPORT_WEAK_RE = __import__('re').compile(r'\bgames?\b|\bwins?\b|\bloss(es)?\b|\bscored?\b|\btraded?\b|\binjur(y|ed|ies)\b|\bcoach(ed)?\b|\broster\b|\bdraft(ed)?\b|\bseason\b|\bopener\b|\bovertime\b|\bot\b|\bhalftime\b|\bstadium\b|\barena\b|\bcontract\b|\bextension\b|\bsuspension\b|\bejected\b|\brankings?\b|\bmvp\b|\bdebut\b|\bstreak\b|\bcomeback\b|\bupset\b|\brivalry\b|\bchampionship\b|\btournament\b|\bspread\b|\bparlay\b|\bprops\b|\bodds\b|\blineups?\b', __import__('re').I)
+SPORT_WEAK_RE = __import__('re').compile(r'\bgames?\b|\bwins?\b|\bloss(es)?\b|\bscored?\b|\btraded?\b|\binjur(y|ed|ies)\b|\bcoach(ed)?\b|\broster\b|\bdraft(ed)?\b|\bseason\b|\bopener\b|\bovertime\b|\bot\b|\bhalftime\b|\bstadium\b|\barena\b|\bcontract\b|\bextension\b|\bsuspension\b|\bejected\b|\brankings?\b|\bmvp\b|\bdebut\b|\bstreak\b|\bcomeback\b|\bupset\b|\brivalry\b|\bchampionship\b|\btournament\b|\bspread\b|\bparlay\b|\bprops\b|\bodds\b|\blineups?\b|\b\d{1,3}\s*[-–]\s*\d{1,3}\b', __import__('re').I)
 
 def _sports_post(p):
     t = _payload(p)
     if NONSPORT_KILL_RE.search(t):
         return False
-    if SPORT_STRONG_RE.search(t) or SPORT_TEAMS_RE.search(t):
+    # residual-leak fix (9/29, Emmagrace51 hashtag-stuffing + 'tech giants' classes): sports
+    # evidence must come from the substantive BODY - author branding, URLs and hashtag tokens
+    # never establish relevance, and a bare team word needs a second game signal.
+    import re as _re, unicodedata as _ud
+    body = _ud.normalize('NFKC', str(p.get('text') or ''))
+    body = _re.sub(r'#\w+', ' ', _re.sub(r'https?://\S+', ' ', body))
+    if SPORT_STRONG_RE.search(body):
         return True
-    acro = len(SPORT_ACRO_RE.findall(t))
-    weak = len(SPORT_WEAK_RE.findall(t))
+    teams = len(SPORT_TEAMS_RE.findall(body))
+    acro = len(SPORT_ACRO_RE.findall(body))
+    weak = len(SPORT_WEAK_RE.findall(body))
     if acro >= 2 and weak == 0:
         return False  # bare-acronym stuffing is spam, not fandom
-    return acro >= 1 or weak >= 2
+    return teams >= 2 or (teams >= 1 and acro + weak >= 1) or acro >= 1 or weak >= 2
 
 def _banned(p):
     import re as _re, unicodedata

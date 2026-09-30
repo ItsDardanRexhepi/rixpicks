@@ -46,6 +46,28 @@ for name, p in NONSPORT:
     check(f'x_feed._banned drops {name}', x_feed._banned(p))
     check(f'news_social._banned drops {name}', news_social._banned(p))
 
+# residual-leak fixtures (9/29): hashtag/author/URL hits never establish sports relevance;
+# a bare team word needs a second game signal. Emmagrace51 post text verbatim from the served pool.
+LEAK_DROP = [
+    ('hashtag-stuffed relationship post (Emmagrace51 2105093648232882322)',
+     S('2105093648232882322', 'Why You Feel Attached to Someone After Only a Few Dates\nRead More Here : https://t.co/fz24tAouD5\n\n#JackSmith #AustinRiley #RavenJohnson #SuperIntelligence #Schmitt #Astros #OlandriaxPFWSS27 #Duran #OlandriaxRevolveMag #DWCS #Braves #WhiteSox #Caitlin #Espada #Phillies', 'Emma Grace', 'Emmagrace51')),
+    ('tech giants (Giants regex false hit)', S('l2', 'Apple, Microsoft and other tech giants report earnings this week', 'Market Wire', 'marketwire')),
+    ('fossil-fuel giants (Giants regex false hit)', S('l3', 'Fossil fuel giants face new emissions rules this year', 'Climate Desk', 'climatedesk')),
+    ('team-hashtag stuffing on non-sports body', S('l4', 'New skincare routine changed my life #Yankees #Lakers #Chiefs', 'Glow Up', 'glowup')),
+    ('sports only in author handle', S('l5', 'My skincare morning routine, link below', 'Astros Talk', 'astrostalk')),
+]
+LEAK_KEEP = [
+    ('body team + score (Judge)', S('g1', 'Judge sends one into the second deck, 3-0 Yankees', 'NYY Fan', 'nyyfan')),
+    ('body team + weak (Astros)', S('g2', 'Astros win it late, what a comeback! #Astros #LevelUp', 'Stros Fan', 'strosfan')),
+    ('body matchup (two teams)', S('g3', 'Yankees vs Red Sox tonight, who you got?', 'Rivalry', 'rivalry')),
+]
+for name, p in LEAK_DROP:
+    check(f'leak fix drops {name}', not x_feed._sports_post(p))
+    check(f'leak fix drops {name} (news_social)', not news_social._sports_post(p))
+for name, p in LEAK_KEEP:
+    check(f'leak fix keeps {name}', x_feed._sports_post(p))
+    check(f'leak fix keeps {name} (news_social)', news_social._sports_post(p))
+
 # title-case detection (entity-gate silence class)
 check('title-case: NHL video clip headline', soc_match.title_case_headline('Dreams Come True: Puck Drops On New NHL Season') is True)
 check('title-case: sweater ranking clip', soc_match.title_case_headline('Every New Sweater For 2026-27 Ranked From Worst To First') is True)

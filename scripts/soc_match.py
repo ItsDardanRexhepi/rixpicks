@@ -21,6 +21,7 @@ Fail closed: any endpoint/credit failure leaves the previous soc_match.json unto
 writes status=fallback to slates/soc_match_status.json (client token-matches when map is stale).
 """
 import json, math, os, sys, time, hashlib, urllib.request, datetime, re
+import html as _html
 
 # no tout/selling-access posts, ever (owner 1:39) - server mirror of the client RP_TOUT_KW filter
 RP_AD = re.compile(r'happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|reservation|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props|deposit (bonus|match|offer)|bonus bets?', re.I)
@@ -53,18 +54,33 @@ MORE_CAP = 20
 # No extractable entities -> gate silent, probe decides. Latest tier uses layer 1 at need=1.
 ENTITY_GATE_VERSION = 'eg5'  # cache salt: freshness and reason-integrity checks
 ENTITY_STOP = set('game games report reports season seasons preview previews recap recap watch video highlight highlights rumor rumors update updates news trade trades injury injuries week daily today tonight tomorrow yesterday best worst ranking rankings power draft pick picks odds line lines spread spreads over under win wins loss losses versus the after before says said new why how what who live score scores final first last early late big top free agent agents coach coaches team teams player players star stars fans fan take takes make makes get gets back down into with from will would could should must still just more most ever every next league playoff playoffs postseason championship title titles night match matches fight fights career future futures ready leads lead leading recalls sent check throws college football basketball baseball hockey soccer monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december chat discussion eve face home road looks remain unbeaten factor charge go years year state count counts props prop expert experts bets bet betting booed'.split())
-POST_PERSON_STOP = ENTITY_STOP | set('field stadium arena center centre park garden dome coliseum bowl classic series cup showdown invitational open masters nationals united city club fc sc ac cf real sporting athletics university kings queens islanders'.split())
+POST_PERSON_STOP = ENTITY_STOP | set('field stadium arena center centre park garden dome coliseum bowl classic series cup showdown invitational open masters nationals united city club fc sc ac cf real sporting athletics university kings queens islanders post'.split())  # 'post': outlet names in subject position (The California Post) are not person principals
+
+def _norm_person(tok):
+    """Entity-token normalization (feed guard 2 zero-admission class, 9/29): HTML entities
+    and possessive suffixes made headline principals unmatchable - 'Mattingly&#039;s' or
+    "Forsling's" extracted as-is never hit the post's bare 'Mattingly'/'Forsling', so eg1
+    killed genuinely on-story candidates pre-probe. Both sides normalize to the base form."""
+    t = _html.unescape(str(tok or '')).lower().strip("'-")
+    return re.sub(r"(?:'s|')$", '', t)
+
+def _norm_text(text):
+    """Same normalization for free text before token matching: unescape HTML entities,
+    lowercase, fold possessive 's into its base token, non-alnum to spaces."""
+    t = _html.unescape(str(text or '')).lower()
+    t = re.sub(r"'s\b", '', t)
+    return re.sub(r'[^a-z0-9 ]', ' ', t)
 
 def title_entities(title):
-    toks = re.findall(r"[A-Za-z][A-Za-z'\-]*", title or '')
+    toks = re.findall(r"[A-Za-z][A-Za-z'\-]*", _html.unescape(title or ''))
     persons = set()
     ents = set()
     for a, b in zip(toks, toks[1:]):
-        if a[:1].isupper() and b[:1].isupper() and len(b) >= 3 and a.lower() not in ENTITY_STOP:
-            persons.add(b.lower().strip("'-"))
+        if a[:1].isupper() and b[:1].isupper() and len(_norm_person(b)) >= 3 and _norm_person(a) not in ENTITY_STOP:
+            persons.add(_norm_person(b))
     for t in toks:
-        tl = t.lower().strip("'-")
-        if t[:1].isupper() and len(t) >= 4 and tl not in ENTITY_STOP and tl not in persons:
+        tl = _norm_person(t)
+        if t[:1].isupper() and len(tl) >= 4 and tl not in ENTITY_STOP and tl not in persons:
             ents.add(tl)
     return ents | persons
 
@@ -83,26 +99,35 @@ def title_case_headline(headline):
 
 
 def entity_hits(ents, text):
-    p = ' ' + re.sub(r'[^a-z0-9 ]', ' ', (text or '').lower()) + ' '
+    p = ' ' + _norm_text(text) + ' '
     return sum(1 for e in ents if (' ' + e + ' ') in p)
 
 def entity_conflict(ents, text, need):
     """layer 1: too few of the story's distinctive entities present."""
     return bool(ents) and entity_hits(ents, text) < min(need, len(ents))
 
-def post_persons(text, title_ents):
+def post_persons(text, title_ents, blurb=''):
     """layer 2: a foreign principal person in SUBJECT position (first 100 chars) - the
     false-pair signature (Josh Hokit vs Rosas story, Steph White vs Clark Game-2 story).
     Subject-position only: people quoted deeper in a genuinely on-story post stay eligible.
-    ALL-CAPS bigrams are team/league shouts (EAGLES @ BEARS), never person names."""
-    toks = re.findall(r"[A-Za-z][A-Za-z'\-]*", (text or '')[:100])
+    ALL-CAPS bigrams are team/league shouts (EAGLES @ BEARS), never person names.
+    Blurb co-principals (feed guard 2, 9/29): the headline anchors the story's subject, but
+    the blurb often names a second principal (Brandon Bussi in the Forsling OT-goal story).
+    A post repeating that blurb read its exact full name as foreign and died here pre-probe.
+    Exemption: a candidate whose EXACT full name (first + last) appears in the story blurb is
+    a documented co-principal, not foreign. Never widens to surname-only or every blurb name,
+    and never grants admission - the semantic probe remains the decider."""
+    toks = re.findall(r"[A-Za-z][A-Za-z'\-]*", _html.unescape((text or '')[:100]))
+    bnorm = ' ' + _norm_text(blurb) + ' '
     out = set()
     for a, b in zip(toks, toks[1:]):
         if a[:1].isupper() and b[:1].isupper() and not a.isupper() and not b.isupper():
-            la, lb = a.lower().strip("'-"), b.lower().strip("'-")
+            la, lb = _norm_person(a), _norm_person(b)
             if len(lb) < 3 or la in POST_PERSON_STOP or lb in POST_PERSON_STOP:
                 continue
             if la in title_ents or lb in title_ents:
+                continue
+            if (' ' + la + ' ' + lb + ' ') in bnorm:
                 continue
             out.add(lb)
     return out
@@ -181,12 +206,12 @@ def foreign_person_vs_title(title, text):
     unguarded surface, and a post about a different person paired freely. Fallback bar: a
     subject-position person bigram whose surname appears nowhere in the headline text is a
     foreign principal, whatever the entity extractor managed to recognize."""
-    t = (title or '').lower()
-    toks = re.findall(r"[A-Za-z][A-Za-z'\-]*", (text or '')[:100])
+    t = _norm_text(title)
+    toks = re.findall(r"[A-Za-z][A-Za-z'\-]*", _html.unescape((text or '')[:100]))
     out = set()
     for a, b in zip(toks, toks[1:]):
         if a[:1].isupper() and b[:1].isupper() and not a.isupper() and not b.isupper():
-            la, lb = a.lower().strip("'-"), b.lower().strip("'-")
+            la, lb = _norm_person(a), _norm_person(b)
             if len(lb) < 3 or la in POST_PERSON_STOP or lb in POST_PERSON_STOP:
                 continue
             if la in t or lb in t:
@@ -505,7 +530,7 @@ def embed_all(texts):
 
 VECS = 'slates/soc_vecs.json'
 VERD = 'slates/soc_verdicts.json'
-PROMPT_VERSION = 'v16-bidirectional-reasons'  # probe wording is decision-changing: version MUST salt the verdict cache
+PROMPT_VERSION = 'v17-disagreement-on-story'  # probe wording is decision-changing: version MUST salt the verdict cache (v17: dispute-of-claim is on-story)
 SALT = '|'.join([str(AUTO_ACCEPT), str(PROBE_FLOOR), str(MORE_FLOOR), EMBED_MODEL, VERIFY_MODEL, PROMPT_VERSION, ENTITY_GATE_VERSION])
 
 def thash(t):
@@ -559,6 +584,9 @@ def verify(story, post):
               'event - never merely the same game or the same sport. Rules:\n'
               '- Cause and consequence of the SAME event are the same story (a player cleared to play AND his '
               'team entering the rankings because of it): YES.\n'
+              '- A reaction that DISPUTES the story' + chr(39) + 's exact claim is on-story: disagreeing with '
+              'the claim (calling it wrong, overrated, or soft) is still about the same claim, action, '
+              'and timeline - agreement is not required: YES.\n'
               '- A matching headline quote is not proof without the post sharing its concrete action.\n'
               '- A promo/bonus-bet article matches ONLY posts identifying THAT brand and THAT offer; other '
               'sportsbooks, deposit bonuses, or game commentary: NO.\n'
@@ -601,6 +629,8 @@ def repair_reason(story, post):
               '\nAnswer on ONE line: YES, followed by a concrete shared action under 110 characters, '
               'or NO with a short mismatch. Use only exact facts in BOTH inputs. '
               'Do not infer a game phase or a person/team name absent from either. '
+              'The reason must cite the concrete claim or action present in BOTH the story and '
+              'the post; a detail, slogan, or aside appearing only in the post is not a shared reason. '
               'An offseason rankings/eligibility update is not a pregame preview.')
     out = nim({'requester': REQUESTER, 'mode': 'language', 'model': VERIFY_MODEL,
                'prompt': prompt, 'max_tokens': 110}, timeout=90)
@@ -778,7 +808,7 @@ def main():
                                  'verdict': 'REJECT', 'gate': 'scope', 'reason': 'story-type gate (eg2): ' + st_reason})
                 stats['story_type_conflicts'] = stats.get('story_type_conflicts', 0) + 1
                 continue
-            if t_ents and (entity_conflict(t_ents, ptexts[j], 2) or post_persons(ptexts[j], t_ents)):
+            if t_ents and (entity_conflict(t_ents, ptexts[j], 2) or post_persons(ptexts[j], t_ents, it.get('blurb') or '')):
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'REJECT', 'gate': 'conflict',
                                  'reason': 'entity conflict (deterministic eg1): story principals absent or foreign principal in post'})
@@ -917,7 +947,7 @@ def main():
                 # entity, no foreign principal, story-type compatible (guard 2: badge or no badge)
                 if story_type_gate(ntexts[i], ptexts[j]) or latest_pick_gate(ntexts[i], ptexts[j]):
                     continue
-                if t_ents and (entity_conflict(t_ents, ptexts[j], 1) or post_persons(ptexts[j], t_ents)):
+                if t_ents and (entity_conflict(t_ents, ptexts[j], 1) or post_persons(ptexts[j], t_ents, it.get('blurb') or '')):
                     continue
                 if not t_ents and not t_tc and foreign_person_vs_title(it.get('headline') or '', ptexts[j]):
                     continue
