@@ -113,7 +113,9 @@ check('combos module script found in page', !!modMatch);
       { legId: 'k-sanchez', kind: 'pitcher_strikeouts', threshold: 7, player: { name: 'Cristopher Sánchez' }, current: 3, status: 'pending', freshness: { sourceTs: '2026-09-30T17:59:50Z' } },
       { legId: 'k-brown', kind: 'pitcher_strikeouts', threshold: 7, player: { name: 'Hunter Brown' }, current: 7, status: 'hit', freshness: { sourceTs: '2026-09-30T17:59:50Z' } },
       { legId: 'k-fried', kind: 'pitcher_strikeouts', threshold: 6, player: { name: 'Max Fried' }, current: null, status: 'pre', freshness: { sourceTs: null } },
-      { legId: 'k-gausman', kind: 'pitcher_strikeouts', threshold: 5, player: { name: 'Kevin Gausman' }, current: null, status: 'unavailable', freshness: { sourceTs: null } }] }] };
+      { legId: 'k-gausman', kind: 'pitcher_strikeouts', threshold: 5, player: { name: 'Kevin Gausman' }, current: null, status: 'unavailable', freshness: { sourceTs: null } }] },
+      { id: 'hits-tracker-2026-09-30', legs: [
+      { legId: 'h-turner', kind: 'batter_hits', threshold: 1, player: { name: 'Trea Turner' }, current: 1, status: 'hit', freshness: { sourceTs: '2026-09-30T18:25:00Z' } }] }] };
     const r1 = await runSim(s1, feed);
     check('module does not render before load when fetch resolves instantly', !r1.renderedEarly);
     check('module renders Strikeouts card after load with global present', r1.box.innerHTML.includes('Strikeouts Parlay (4 legs)'));
@@ -128,6 +130,11 @@ check('combos module script found in page', !!modMatch);
     check('feed wire: freshness timestamp shown', painted().includes('2026-09-30T17:59:50Z'));
     check('feed wire: accent-insensitive player match (Sanchez)', (r1.box._trk || []).some(e => e._p === 'Cristopher Sanchez' && e.innerHTML.includes('3 of 7 Ks')));
     check('feed wire: unmatched leg stays empty (fail-closed)', (r1.box._trk || []).some(e => e._p === 'Nobody Feedless' && e.innerHTML === ''));
+    const s4 = { combos: [{ id: 'idea-mlb-hits-20260930b', type: 'idea', date: '2026-09-30',
+      title: 'Hits', matchup: 'PHI@ATL', legs: [{ player: 'Trea Turner', market: '1+ hit', kalshi: '-233' }] }] };
+    const r4 = await runSim(s4, feed);
+    const painted4 = () => (r4.box._trk || []).map(e => e._p + '=>' + e.innerHTML).join('|');
+    check('feed wire: hits kind renders H suffix never HR', painted4().includes('1 of 1 H \u2713') && !painted4().includes('HR'));
     const s2 = { combos: [{ id: 'idea-mlb-hits-20260930', type: 'idea', date: '2026-09-30',
       title: 'Hits Parlay Tracker (4 legs)', matchup: 'PHI@ATL', time: 'from 11:00 AM PT',
       legs: [{ player: 'Trea Turner', market: '1+ hit at ATL', kalshi: '-233 · 70c', tag: 'Confirmed leadoff' }] }] };
