@@ -1,3 +1,29 @@
 {
-  "requests": []
+ "requests": [
+  {
+   "grade_id": "401891774|ml|home",
+   "event_id": "401891774",
+   "league": "hockey/nhl",
+   "pick": "Bruins ML",
+   "side": "home",
+   "result": "WON",
+   "score": "NYR 0 @ BOS 3",
+   "stake_units": "5u",
+   "locked_american": "+100",
+   "delta_units_exact": 5.0,
+   "record_after": "20-11",
+   "units_after_exact": -2.138047656525837,
+   "two_source": [
+    "espn_core post/Final",
+    "nhl-api-web official FINAL (CRIT->FINAL observed 7:41-7:43 PM PT)"
+   ],
+   "graded_pick": "Bruins ML W: NYR 0 @ BOS 3 (published-card basis)",
+   "source": "finals_watch J-118 live chain",
+   "queued_at": "2026-09-29 19:44 PDT",
+   "recomputed_note": "recomputed vs live baseline 19-11/-7.138048u cold-verified on rix-picks.com/slates/api_record.json 02:31:29Z (Abushaar+TOR rows already landed); chain printed stale 19-8/10.053 from pre-dispatch ledger. Emitted as ONE-row file per parent 7:42 instruction.",
+   "learning": "User-directed pick carded by owner word won +5.0u (NYR 0 @ BOS 3). Provenance: owner-carded, not engine-certified. One game is one outcome data point on the override class - no read conclusion drawn from it."
+  }
+ ],
+ "slate_closed": true,
+ "slate_closed_at": "2026-09-29 19:44 PDT"
 }
