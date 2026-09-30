@@ -484,5 +484,31 @@
   "kickoff_utc": "2026-10-04T20:25:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T17:37:30.331574+00:00"
+ },
+ {
+  "id": "523100e4d7",
+  "event_id": "401872974",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Minnesota Vikings",
+  "away": "Miami Dolphins",
+  "pick_team": "Minnesota Vikings",
+  "prediction": "Minnesota Vikings beat Miami Dolphins",
+  "kickoff_utc": "2026-10-04T20:05:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T18:06:00.313275+00:00"
+ },
+ {
+  "id": "24eaf777c9",
+  "event_id": "401872975",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "San Francisco 49ers",
+  "away": "Denver Broncos",
+  "pick_team": "San Francisco 49ers",
+  "prediction": "San Francisco 49ers beat Denver Broncos",
+  "kickoff_utc": "2026-10-04T20:25:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T18:06:09.385714+00:00"
  }
 ]
