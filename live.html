@@ -56,7 +56,7 @@ a.back{color:var(--acc);text-decoration:none;font-size:13px;font-weight:600}
 <div class="sect">Team stats</div><div class="plays" id="rpStats"><div class="empty">Loading&hellip;</div></div>
 <div class="sect">Win chance</div><div class="card" id="rpGraph"><div class="empty">Loading&hellip;</div></div>
 <div class="sect" id="rpShotSect" style="display:none">Shot chart</div><div class="shots" id="rpShots" style="display:none"></div><div class="small" id="rpShotCap"></div>
-<div class="foot">Live data: ESPN &middot; page polls every 2s; ESPN play data typically lags live action ~15-30s &middot; <span id="rpAge"></span></div>
+<div class="foot">Live data: ESPN &middot; page polls every 2s; ESPN play data can lag live action; delay varies by sport and feed &middot; <span id="rpAge"></span></div>
 </div>
 <script>(function(){
 function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}
@@ -64,15 +64,16 @@ function ptTime(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"
 /* league path whitelist (swamp 12:28): never encode the path (slash must survive), never allow arbitrary paths */
 /* whitelist + aliases verified live 12:30 (scoreboard 200 per route; boxing has no working ESPN route - rows never link it) */
 var RP_LG_MAP={"football/nfl":1,"football/college-football":1,"basketball/nba":1,"basketball/wnba":1,"basketball/college-basketball":"basketball/mens-college-basketball","basketball/mens-college-basketball":1,"basketball/womens-college-basketball":1,"baseball/mlb":1,"hockey/nhl":1,"tennis/atp":1,"tennis/wta":1,"soccer/usa.1":1,"soccer/usa.nwsl":1,"golf/pga":1,"racing/nascar":"racing/nascar-premier","racing/nascar-premier":1,"mma/ufc":1};
-var q=new URLSearchParams(location.search),_m=RP_LG_MAP[q.get("espn")||""],espn=_m===1?q.get("espn"):(typeof _m==="string"?_m:""),eid=q.get("eid")||"";
+var q=new URLSearchParams(location.search),_m=RP_LG_MAP[q.get("espn")||""],espn=_m===1?q.get("espn"):(typeof _m==="string"?_m:""),eid=q.get("eid")||"",ceid=q.get("ceid")||"",comp=q.get("comp")||"";
 var scoreEl=document.getElementById("rpScore"),playsEl=document.getElementById("rpPlays"),ageEl=document.getElementById("rpAge");
-if(!espn||!eid||!/^[0-9]+$/.test(eid)){scoreEl.innerHTML='<div class="err">No game specified.</div>';playsEl.innerHTML='<div class="empty">-</div>';return;}
+var compMode=!eid&&/^[0-9]+$/.test(ceid)&&/^[0-9]+$/.test(comp);
+if(!espn||(!eid&&!compMode)||(eid&&!/^[0-9]+$/.test(eid))){scoreEl.innerHTML='<div class="err">No game specified.</div>';playsEl.innerHTML='<div class="empty">-</div>';return;}
 var lastOk=0,lastData=null,lastSit=null;
 var lastMlb=null,mlbGpk=0; /* statsapi parity state (template rpMlbLive path) */
 var fieldEl=document.getElementById('rpField'),statsEl=document.getElementById('rpStats'),graphEl=document.getElementById('rpGraph'),tblEl=document.getElementById('rpScoreTbl'),pickEl=document.getElementById('rpPickLink');
 var shotSect=document.getElementById('rpShotSect'),shotEl=document.getElementById('rpShots'),shotCap=document.getElementById('rpShotCap');
 /* carded games tie back to their pick page (route map ships per build; fail-closed) */
-try{fetch('slates/game_routes.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){var p=j&&j[eid];if(p&&/^game-[0-9]+\.html$/.test(p)){pickEl.href=p;pickEl.style.display='block';}}).catch(function(){});}catch(e){}
+try{fetch('slates/game_routes.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){var p=j&&(j[eid]||j[comp]);if(p&&/^game-[0-9]+\.html$/.test(p)){pickEl.href=p;pickEl.style.display='block';}}).catch(function(){});}catch(e){}
 /* ---- per-league sport icons (ported from the game-page template, his 3:43 core-level icon order) ---- */
 var RP_BAT='<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin:0 3px 0 1px"><g transform="rotate(45 12 12)" fill="#e8b93c"><rect x="10.3" y="1.2" width="3.4" height="12" rx="1.7"/><rect x="11.1" y="12.8" width="1.8" height="7.4" rx="0.9"/><circle cx="12" cy="21.6" r="1.9"/></g></svg>';
 var RP_BASKETBALL='<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin:0 3px 0 1px"><g fill="#e8b93c"><circle cx="12" cy="12" r="9.4"/><path d="M12 2.6v18.8M2.6 12h18.8M5 4.6c3 2.2 3 12.6 0 14.8M19 4.6c-3 2.2-3 12.6 0 14.8" stroke="#0c0f14" stroke-width="1.6" fill="none"/></g></svg>';
@@ -342,5 +343,42 @@ function tick(){
    fin(j.situation);})
   .catch(function(){if(lastOk){ageEl.textContent='Live feed paused; last update '+Math.round((Date.now()-lastOk)/1000)+'s ago.';if(lastData)render(lastData);}else{scoreEl.innerHTML='<div class="err">Live data unavailable or game ID not found. Check the game link.</div>';fieldEl.innerHTML='<div class="empty">No verified live view.</div>';statsEl.innerHTML='<div class="empty">-</div>';graphEl.innerHTML='<div class="empty">-</div>';playsEl.innerHTML='<div class="empty">-</div>';}});
 }
-tick();setInterval(tick,2000);
+/* multi-fight card lane (Sep 29 J-comp class): fight = competition nested in the card event; scoreboard is the only working source (summary 404s on fight ids) */
+function renderCompFight(c,ev){
+ var st=(c.status||{}).type||{},live=st.state==='in';
+ var comps=c.competitors||[];
+ var f0=comps[0]||{},f1=comps[1]||{};
+ var nm=function(x){return ((x.athlete||{}).displayName)||((x.athlete||{}).shortName)||'?';};
+ var det=(st.shortDetail||st.detail||''),clk=(c.status||{}).displayClock||'',rnd=(c.status||{}).period;
+ var h='<div class="muhead"><div class="muteam"><span class="ab">'+esc(nm(f0))+(f0.winner===true?' <span style="color:#e8b93c">&#10003;</span>':'')+'</span></div>'
+  +'<div class="muscore">'+(live?'LIVE':(st.state==='post'?'Final':'-'))+'</div>'
+  +'<div class="muteam"><span class="ab">'+esc(nm(f1))+(f1.winner===true?' <span style="color:#e8b93c">&#10003;</span>':'')+'</span></div></div>'
+  +'<div class="mustatus">'+(live?'<span class="dot"></span>':'')+esc(det)+(clk&&clk!=='-'?' \u00b7 '+esc(clk):'')+((rnd&&live)?' \u00b7 R'+rnd:'')+'</div>';
+ scoreEl.innerHTML=h;
+ var bits=[];(function(){var vals=[],ok=true;(comps).forEach(function(x){var s2=(x.statistics||[]).filter(function(y){return y&&(y.name==='totalStrikes'||y.label==='totalStrikes'||y.name==='sigStrikes');})[0];vals.push(s2?s2.displayValue:null);});if(vals.length===2&&vals[0]!=null&&vals[1]!=null)bits.push('Strikes '+vals.join(' / '));})();
+ var fh='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+esc(nm(f0))+'</span></div>'
+  +'<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+esc(nm(f1))+'</span></div>'
+  +rpOctagonSvg();
+ if(bits.length)fh+='<div class="bits"><span>'+esc(bits.join(' \u00b7 '))+'</span></div>';
+ var dl=(c.details||[]),last=dl.length?dl[dl.length-1]:null;
+ if(last&&last.type&&last.type.text&&live)fh+='<div class="lastplay">'+esc(last.type.text)+'</div>';
+ if(st.state==='post')fh+='<div class="empty" style="padding:8px 0 0">Final.</div>';
+ fieldEl.innerHTML=fh;
+ tblEl.innerHTML=''; /* combat: no scoring table */
+ statsEl.innerHTML='<div class="empty">Per-fight stats appear here when ESPN carries them.</div>';
+ graphEl.innerHTML='<div class="empty">Live win chance graph not available for this fight.</div>';
+ var d2=(c.details||[]);
+ playsEl.innerHTML=d2.length?d2.slice().reverse().map(function(p2){return '<div class="play">'+esc((p2.type||{}).text||'')+'</div>';}).join(''):'<div class="empty">'+(st.state==='pre'?'Fight has not started.':'No fight events yet.')+'</div>';
+}
+function compTick(){
+ fetch("https://site.api.espn.com/apis/site/v2/sports/"+espn+"/scoreboard?cb="+Date.now(),{cache:"no-store"})
+  .then(function(r){if(!r.ok)throw 0;return r.json();})
+  .then(function(sb){
+   var ev=(sb.events||[]).filter(function(e){return String(e.id)===String(ceid);})[0];
+   var c=ev&&((ev.competitions||[]).filter(function(x){return String(x.id)===String(comp);})[0]);
+   if(!c)throw 0;
+   lastData=c;lastOk=Date.now();renderCompFight(c,ev);})
+  .catch(function(){if(lastOk){ageEl.textContent='Live feed paused; last update '+Math.round((Date.now()-lastOk)/1000)+'s ago.';}else{scoreEl.innerHTML='<div class="err">Live data unavailable for this fight.</div>';fieldEl.innerHTML='<div class="empty">No verified live view.</div>';}});
+}
+if(compMode){compTick();setInterval(compTick,2000);}else{tick();setInterval(tick,2000);}
 })();</script></body></html>

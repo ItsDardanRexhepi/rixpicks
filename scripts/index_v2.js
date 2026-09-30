@@ -1045,6 +1045,7 @@ renderPred();setInterval(renderPred,900000);
  function linkFor(el){var row=el.closest('[data-espn][data-eid]');if(!row)return null;
   var lg=row.dataset.espn||'',id=row.dataset.eid||'';
   var g=row.querySelector('a[href^="game-"]');if(g)return g.getAttribute('href');
+  var cid=row.dataset.comp||'';if(cid&&RP_GAME_ROUTES[cid])return RP_GAME_ROUTES[cid];  /* multi-fight cards: the fight's competition id owns the route */
   if(RP_GAME_ROUTES[id])return RP_GAME_ROUTES[id];
   if(!RP_LIVE_OK[lg]||!/^[0-9]+$/.test(id))return null;
   return 'live.html?espn='+encodeURIComponent(lg)+'&eid='+encodeURIComponent(id);
