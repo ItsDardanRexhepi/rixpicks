@@ -73,15 +73,27 @@ jobs:
         run: |
           git config user.name 'rixpicks-record-bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add manifest.json history.json record.html yesterday.html index.html game-*.html record_request.json record_done.json slates/api_record.json
+          # Full generated-output allowlist (9/29 run 36654629794): the rebuild fans out to
+          # futures.html + every team-*.html page, not just index/game-* - an unstaged tracked
+          # output makes pull --rebase REFUSE to start, and the abort then exits 128 (no rebase
+          # in progress) under bash -e. Enumerated empirically by running the exact rebuild
+          # (RP_REFRESH=1 _build_nocanon_v2.py + build_history.py) and listing modified files.
+          # Apply-step writes: manifest/history/record_done/record_request + slates/api_record.json
+          # (+ slates/wooder_combos.json when manifest carries a combo_expiry target).
+          git add manifest.json history.json record.html yesterday.html index.html futures.html game-*.html team-*.html record_request.json record_done.json slates/api_record.json slates/wooder_combos.json
           git commit -m "Record write: graded finals applied from record_request.json (ESPN-verified, ledger-exact) [record-final]"
           # competing-writer fix (9/29 run 36652984676): futures-ticks pushes main ~every 75s OUTSIDE the
           # site-main-writers group, so a bare push after a minutes-long build rejects non-fast-forward.
           # Same retry/rebase/readback pattern as nfl_scores.yml: rebase onto the moved tip, fail loud if
           # the rebase alters the generated record files, and read back that our HEAD actually landed.
+          # Tripwire: any tracked change outside the allowlist fails loud WITH NAMES here, instead of
+          # surfacing as an anonymous rebase refusal mid-loop. Never blanket add -A.
+          git diff --quiet || { echo 'UNSTAGED TRACKED OUTPUTS outside the add list - extend the allowlist:' >&2; git diff --name-only >&2; exit 1; }
           for i in 1 2 3; do
             if git push; then break; fi
-            git pull --rebase -X theirs || { git rebase --abort; continue; }
+            # abort must be nonfatal: a REFUSED pull leaves no rebase in progress (exit 128),
+            # while a conflicted rebase does - both paths must survive to the next retry.
+            git pull --rebase -X theirs || { git rebase --abort || true; continue; }
             OF=$(git show --pretty='' --name-only ORIG_HEAD)
             git diff --quiet ORIG_HEAD HEAD -- $OF || { echo 'REBASE GUARD: rebase altered generated content - failing loud' >&2; exit 1; }
           done
