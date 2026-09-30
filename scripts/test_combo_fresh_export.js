@@ -58,16 +58,32 @@ const comboPage = fs.readFileSync(process.argv[2] || path.join(__dirname, '..', 
 const modMatch = comboPage.match(/<script>\(function\(\)\{var box=document\.getElementById\("rpCmb"\)[\s\S]*?<\/script>/);
 check('combos module script found in page', !!modMatch);
 (async () => {
-  async function runSim(sample) {
+  let sandboxFeed = null;
+  async function runSim(sample, feedPayload) {
+    sandboxFeed = feedPayload ? () => Promise.resolve(feedPayload) : undefined;
     const modSrc = modMatch[0].replace(/^<script>/, '').replace(/<\/script>$/, '');
     const listeners = {}, timers = [];
     const style = { display: '' };
     const box = { innerHTML: '', parentNode: { style } };
+    box.querySelector = () => (box.innerHTML.includes('class="rpfeedtrk"') ? {} : null);
+    box.querySelectorAll = () => {
+      const out = [];
+      const re = /<div class="rpfeedtrk" data-p="([^"]*)"><\/div>/g;
+      let m;
+      while ((m = re.exec(box.innerHTML))) {
+        const el = { _p: m[1].replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>'), innerHTML: '', getAttribute(k) { return k === 'data-p' ? this._p : null; } };
+        out.push(el);
+      }
+      box._trk = out;
+      return out;
+    };
     const sandbox = {
-      document: { getElementById: () => box, readyState: 'loading' },
+      document: { getElementById: () => box, readyState: 'loading', createElement: () => ({ set src(v) {}, set onload(f) {} }), head: { appendChild() {} } },
       addEventListener: (ev, fn) => { (listeners[ev] = listeners[ev] || []).push(fn); },
       fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve(sample) }),
       setTimeout: (fn) => { timers.push(fn); return 1; },
+      setInterval: () => 1,
+      rpTicketFeed: sandboxFeed,
       Date, JSON, console,
     };
     sandbox.window = sandbox;
@@ -87,12 +103,31 @@ check('combos module script found in page', !!modMatch);
       matchup: 'PHI@ATL', time: 'from 11:00 AM PT',
       legs: [{ player: 'Cristopher Sanchez', market: '7+ strikeouts vs ATL', kalshi: '+138 · 42c' }],
       estimate_note: 'note', prices_note: 'snap' }] };
-    const r1 = await runSim(s1);
+    s1.combos[0].legs = [
+      { player: 'Cristopher Sanchez', market: '7+ strikeouts vs ATL', kalshi: '+138 · 42c' },
+      { player: 'Hunter Brown', market: '7+ strikeouts vs CWS', kalshi: '+117 · 46c' },
+      { player: 'Max Fried', market: '6+ strikeouts vs BOS', kalshi: '+117 · 46c' },
+      { player: 'Kevin Gausman', market: '5+ strikeouts at SD', kalshi: '+117 · 46c' },
+      { player: 'Nobody Feedless', market: '9+ strikeouts', kalshi: '+200' }];
+    const feed = { generatedAt: '2026-09-30T18:00:00Z', tickets: [{ id: 'k-parlay-2026-09-30', legs: [
+      { legId: 'k-sanchez', kind: 'pitcher_strikeouts', threshold: 7, player: { name: 'Cristopher Sánchez' }, current: 3, status: 'pending', freshness: { sourceTs: '2026-09-30T17:59:50Z' } },
+      { legId: 'k-brown', kind: 'pitcher_strikeouts', threshold: 7, player: { name: 'Hunter Brown' }, current: 7, status: 'hit', freshness: { sourceTs: '2026-09-30T17:59:50Z' } },
+      { legId: 'k-fried', kind: 'pitcher_strikeouts', threshold: 6, player: { name: 'Max Fried' }, current: null, status: 'pre', freshness: { sourceTs: null } },
+      { legId: 'k-gausman', kind: 'pitcher_strikeouts', threshold: 5, player: { name: 'Kevin Gausman' }, current: null, status: 'unavailable', freshness: { sourceTs: null } }] }] };
+    const r1 = await runSim(s1, feed);
     check('module does not render before load when fetch resolves instantly', !r1.renderedEarly);
     check('module renders Strikeouts card after load with global present', r1.box.innerHTML.includes('Strikeouts Parlay (4 legs)'));
     check('module parent not hidden after successful render', r1.style.display !== 'none');
     check('badge override renders (PLACED - reported by Julian)', r1.box.innerHTML.includes('PLACED - reported by Julian'));
     check('badge override replaces the default (no NOT BOUGHT)', !r1.box.innerHTML.includes('NOT BOUGHT'));
+    const painted = () => (r1.box._trk || []).map(e => e._p + '=>' + e.innerHTML).join('|');
+    check('feed wire: pending renders "3 of 7 Ks"', painted().includes('3 of 7 Ks'));
+    check('feed wire: hit renders "7 of 7 Ks" with check', painted().includes('7 of 7 Ks \u2713'));
+    check('feed wire: pre renders "Game not started" (never 0)', painted().includes('Game not started'));
+    check('feed wire: unavailable renders "Unavailable" (never 0)', painted().includes('Unavailable'));
+    check('feed wire: freshness timestamp shown', painted().includes('2026-09-30T17:59:50Z'));
+    check('feed wire: accent-insensitive player match (Sanchez)', (r1.box._trk || []).some(e => e._p === 'Cristopher Sanchez' && e.innerHTML.includes('3 of 7 Ks')));
+    check('feed wire: unmatched leg stays empty (fail-closed)', (r1.box._trk || []).some(e => e._p === 'Nobody Feedless' && e.innerHTML === ''));
     const s2 = { combos: [{ id: 'idea-mlb-hits-20260930', type: 'idea', date: '2026-09-30',
       title: 'Hits Parlay Tracker (4 legs)', matchup: 'PHI@ATL', time: 'from 11:00 AM PT',
       legs: [{ player: 'Trea Turner', market: '1+ hit at ATL', kalshi: '-233 · 70c', tag: 'Confirmed leadoff' }] }] };
