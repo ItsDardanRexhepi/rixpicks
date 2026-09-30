@@ -588,5 +588,31 @@
   "kickoff_utc": "2026-10-03T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T19:50:21.110356+00:00"
+ },
+ {
+  "id": "c14aacd0e7",
+  "event_id": "761833",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Red Bull New York",
+  "away": "St. Louis CITY SC",
+  "pick_team": "St. Louis CITY SC",
+  "prediction": "St. Louis CITY SC beat Red Bull New York",
+  "kickoff_utc": "2026-09-30T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T20:19:47.456809+00:00"
+ },
+ {
+  "id": "2edb1a37d0",
+  "event_id": "401872966",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "New York Giants",
+  "away": "Arizona Cardinals",
+  "pick_team": "Arizona Cardinals",
+  "prediction": "Arizona Cardinals beat New York Giants",
+  "kickoff_utc": "2026-10-04T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T20:20:07.755233+00:00"
  }
 ]
