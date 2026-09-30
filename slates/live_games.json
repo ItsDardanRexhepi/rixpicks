@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T01:19:31.603807+00:00",
+ "generated_at": "2026-09-30T01:34:35.174109+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "BOS @ NYY",
      "commence": "2026-09-30T00:00Z",
      "status": "in",
-     "detail": "Top 4th",
+     "detail": "Top 5th",
      "score": "BOS 0 - NYY 1"
     },
     {
@@ -39,10 +39,10 @@
      "matchup": "MIN @ NY",
      "commence": "2026-09-30T00:30Z",
      "status": "in",
-     "detail": "3:15 - 2nd",
-     "score": "MIN 32 - NY 40",
-     "away_to": 4,
-     "home_to": 4
+     "detail": "Halftime",
+     "score": "MIN 37 - NY 49",
+     "away_to": 3,
+     "home_to": 3
     }
    ]
   },
@@ -54,7 +54,7 @@
      "matchup": "MTL @ TOR",
      "commence": "2026-09-29T23:00Z",
      "status": "in",
-     "detail": "16:20 - 3rd",
+     "detail": "10:00 - 3rd",
      "score": "MTL 2 - TOR 1",
      "away_to": null,
      "home_to": null
@@ -64,7 +64,7 @@
      "matchup": "NYR @ BOS",
      "commence": "2026-09-30T00:00Z",
      "status": "in",
-     "detail": "11:06 - 2nd",
+     "detail": "4:45 - 2nd",
      "score": "NYR 0 - BOS 0",
      "away_to": null,
      "home_to": null
