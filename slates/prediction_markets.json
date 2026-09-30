@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T14:25:54Z",
+ "updated": "2026-09-30T16:29:00Z",
  "source": "browser harvest (predictions.draftkings.com league boards) - datacenter IPs are Akamai-blocked, runner cannot self-harvest",
  "rows": [
   {
@@ -10,7 +10,7 @@
    "date": "2026-09-30",
    "url": "https://predictions.draftkings.com/en/event/phi-phillies-%40-atl-braves/34746392",
    "home_cents": 49,
-   "away_cents": 52
+   "away_cents": 53
   },
   {
    "venue": "dkp",
