@@ -419,7 +419,7 @@ function buildPairs(base){
    badge stays exclusive to an algorithmic match. */
 function zeroPairSocial(n){
  var fp=[],seen={};
- for(var i=0;i<XNEWS.length&&fp.length<n;i++){var p=XNEWS[i];if(p&&isPublishablePost(p)&&!seen[p.id]){seen[p.id]=1;fp.push(p);}}
+ for(var i=0;i<XNEWS.length&&fp.length<n;i++){var p=XNEWS[i];if(p&&isPublishablePost(p)&&isSportsPost(p)&&!seen[p.id]){seen[p.id]=1;fp.push(p);}}
  return fp.map(function(p){return {post:p,kind:'latest',nkey:''};});
 }
 /* combo freshness (fail closed): a same-game combo renders only when its game date is today
@@ -647,6 +647,27 @@ var RP_TOUT_KW=/discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip 
 /* sportsbook/operator brands are banned at author AND handle (guard 3 Betfair class) - a
    sportsbook-authored post is operator content by construction, whatever its text says. */
 var RP_OPERATOR='bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook|cry|crypto|forex|btc|eth|xrp|solana|memecoin|altcoins?|defi|web3|signals';
+/* zero-pair fallback sports gate (feed guard 1, Sep 29): fallback Social renders UNPAIRED
+   posts, so candidates must be genuine sports posts - publishability kills touts/ads/operators
+   but not off-topic content (the finance-solicitation / politics / fashion / sexual-solicitation /
+   lost-luggage class observed in the first-12 X records). Positive sports context required
+   (strong sport term OR team name OR 2+ weak game terms); a non-sports kill list denies even
+   keyword-stuffed spam. Pair rendering (buildPairs take) is untouched: server-verified pairs
+   never re-gate on heuristics, and the no-forced-match rule stands. */
+var RP_NONSPORT_KILL=/only ?fans|lingerie|\bnudes?\b|nsfw|18\+|spicy content|hookup|escort|sext(ing)?\b|election|ballot|\bpresident\b|congress|senate|democrat|republican|immigration|ceasefire|stock tips|nasdaq|s&p 500|passive income|\bfashion\b|runway|\bootd\b|makeup|skincare|weight loss|diet pills|essay (help|service)|homework help/i;
+var RP_SPORT_ACRO=/\b(nfl|nba|mlb|nhl|wnba|mls|nwsl|ncaa|cfb|ufc|mma|pga|atp|wta|nascar)\b/gi;
+var RP_SPORT_STRONG=/\b(formula 1|football|basketball|baseball|hoops|hockey|soccer|tennis|golf|boxing|quarterback|touchdown|pitcher|pitching|home run|homer|goalie|playoffs?|super bowl|stanley cup|world series|march madness|heisman|grand slam|wimbledon|daytona|heavyweight|knockout|innings?|dugout|bullpen|buzzer beater|free throw|field goal|batting|\bpuck\b|rbi|strikeout|power play|penalty kick|slam dunk|fastball|curveball|faceoff|hat trick)\b/i;
+var RP_SPORT_TEAMS=/\b(yankees|red sox|dodgers|cubs|cardinals|braves|astros|mets|phillies|padres|rangers|orioles|blue jays|guardians|tigers|royals|twins|white sox|athletics|angels|mariners|marlins|nationals|pirates|\breds\b|brewers|diamondbacks|d-backs|rockies|lakers|celtics|warriors|knicks|\bnets\b|sixers|76ers|\bbulls\b|bucks|cavaliers|\bcavs\b|mavericks|\bmavs\b|nuggets|\bsuns\b|clippers|grizzlies|\bhawks\b|hornets|pacers|pistons|raptors|wizards|\bspurs\b|\bthunder\b|timberwolves|trail blazers|\bjazz\b|pelicans|rockets|chiefs|eagles|cowboys|packers|\bbears\b|lions|vikings|falcons|saints|buccaneers|\bbucs\b|\brams\b|seahawks|49ers|raiders|chargers|broncos|ravens|bengals|browns|steelers|\bcolts\b|jaguars|texans|titans|dolphins|patriots|commanders|bruins|maple leafs|canadiens|oilers|avalanche|golden knights|\bkraken\b|canucks|flames|predators|blackhawks|red wings|penguins|capitals|flyers|islanders|hurricanes|lightning|senators|sabres|blue jackets|\bgiants\b|\bjets\b|panthers|\bheat\b|timberwolves|\bwolves\b|\bkings\b|\bleafs\b|\bhabs\b|anaheim ducks|winnipeg|buffalo bills|seattle seahawks)\b/i;
+var RP_SPORT_WEAK=/\bgames?\b|\bwins?\b|\bloss(es)?\b|\bscored?\b|\btraded?\b|\binjur(y|ed|ies)\b|\bcoach(ed)?\b|\broster\b|\bdraft(ed)?\b|\bseason\b|\bopener\b|\bovertime\b|\bot\b|\bhalftime\b|\bstadium\b|\barena\b|\bcontract\b|\bextension\b|\bsuspension\b|\bejected\b|\brankings?\b|\bmvp\b|\bdebut\b|\bstreak\b|\bcomeback\b|\bupset\b|\brivalry\b|\bchampionship\b|\btournament\b|\bspread\b|\bparlay\b|\bprops\b|\bodds\b|\blineups?\b/gi;
+function isSportsPost(p){
+ if(!p)return false;
+ var t=(String(p.headline||'')+' '+String(p.author||'')).normalize('NFKC');
+ if(RP_NONSPORT_KILL.test(t))return false;
+ if(RP_SPORT_STRONG.test(t)||RP_SPORT_TEAMS.test(t))return true;
+ var acro=(t.match(RP_SPORT_ACRO)||[]).length, weak=(t.match(RP_SPORT_WEAK)||[]).length;
+ if(acro>=2&&weak===0)return false; /* bare-acronym stuffing: "NFL NBA MLB" with no game context is spam, not fandom */
+ return acro>=1||weak>=2;
+}
 function isPublishablePost(p){
  if(!p)return false;
  var t=(String(p.headline||'')+' '+String(p.link||'')+' '+String(p.author||'')).normalize('NFKC').replace(/#\s+/g,'#');

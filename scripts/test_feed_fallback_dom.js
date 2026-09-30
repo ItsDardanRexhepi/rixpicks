@@ -36,7 +36,20 @@ const stories = [];
 const LG = ['NBA','NFL','MLB','NHL'];
 for (let i = 1; i <= 12; i++) stories.push({ headline: LG[i%4] + ' playoff race shakes up after trade for star quarterback scorer ' + i, link: 'https://ex.com/s' + i, published: G1, source: 'CBS', blurb: 'basketball football baseball hockey ' + i, league: 'basketball/nba' });
 const xitems = [];
-for (let i = 1; i <= 20; i++) xitems.push({ id: String(900 + i), text: 'Post ' + i + ' about hoops', created_at: G2, url: 'https://x.com/x/status/' + (900 + i), author_name: 'Feed' });
+for (let i = 1; i <= 12; i++) xitems.push({ id: String(900 + i), text: 'Post ' + i + ' about basketball hoops', created_at: G2, url: 'https://x.com/x/status/' + (900 + i), author_name: 'Feed' });
+/* feed guard 1 (Sep 29): off-topic posts with valid format + clean authors must NEVER reach
+   the zero-pair Social path - the fallback renders only genuine sports posts. */
+const OFFTOPIC = [
+ ['921', 'NASDAQ ripping today, passive income stock tips inside'],
+ ['922', 'The president addressed congress on the election results tonight'],
+ ['923', 'New fashion drop just hit the runway, shop the look now'],
+ ['924', '18+ spicy content on my only fans page tonight'],
+ ['925', 'Airline lost my luggage again, worst travel day ever'],
+ ['926', 'Essay help and homework help, DM for rates'],
+ ['927', 'Weight loss diet pills that actually work fast'],
+ ['928', 'Thursday Silver Squarely NFL NBA MLB, big day'],
+];
+for (const [id, text] of OFFTOPIC) xitems.push({ id, text, created_at: G2, url: 'https://x.com/x/status/' + id, author_name: 'Feed' });
 
 const dom = new JSDOM('<body class="tab-home"><div id="rpNewsCar"></div><div id="rpSocial"></div><div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div></body>', { pretendToBeVisual: true });
 const styleEl = dom.window.document.createElement('style');
@@ -66,7 +79,7 @@ const ctx = vm.createContext({
   newsBucketAll: () => stories,
 });
 const NAMES = ['esc','unesc','ago','normH','isNewIt','isPublishableNews','isPublishablePost','imgOpt','carKey',
- 'rpMapFresh','buildPairs','zeroPairSocial','carClonify','carCloned','carMove','carNoTrans','carApply','socApply',
+ 'rpMapFresh','buildPairs','zeroPairSocial','isSportsPost','carClonify','carCloned','carMove','carNoTrans','carApply','socApply',
  'socMove','carAdv','socAdv','carStep','socStep','carObserve','feedCacheSave','socSync','socMapRetry','socMatchMore','ingestX','renderNews','renderSocial','socMatchPair'];
 /* real top-level RP_* constants (single-line regex/string decls) + league kw object */
 const varLines = src.split('\n').filter(l => /^var RP_[A-Z_]+=/.test(l) && /;\s*$/.test(l));
@@ -110,6 +123,16 @@ const badges = [...doc.querySelectorAll('#rpSocial .syncbadge')].length;
 const latest = [...doc.querySelectorAll('#rpSocial .socslide:not(.carclone) .synclatest')].length;
 check('zero verified badges in fallback', badges, 0);
 check('all social slides carry Latest-from-the-feed badge', latest, 12);
+const socHTML = dom.window.document.getElementById('rpSocial').innerHTML;
+check('fallback social shows sports post', socHTML.includes('Post 1 about basketball hoops'), true);
+check('fallback social hides finance solicitation', !socHTML.includes('NASDAQ'), true);
+check('fallback social hides politics', !socHTML.includes('president'), true);
+check('fallback social hides fashion promo', !socHTML.includes('fashion drop'), true);
+check('fallback social hides sexual solicitation', !socHTML.includes('spicy content'), true);
+check('fallback social hides lost-luggage post', !socHTML.includes('luggage'), true);
+check('fallback social hides essay spam', !socHTML.includes('homework help'), true);
+check('fallback social hides diet spam', !socHTML.includes('diet pills'), true);
+check('fallback social hides acronym-stuffer', !socHTML.includes('Silver Squarely'), true);
 /* (b) separate clocks */
 const carTimer = timers.filter(t => t.ms === 5500), socTimer = timers.filter(t => t.ms === 7000);
 check('news clock (5500ms) registered', carTimer.length >= 1, true);
