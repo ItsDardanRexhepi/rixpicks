@@ -162,7 +162,7 @@ function rpMlbEnrich(j,done){
     .then(function(m){
      var ls=(m.liveData||{}).linescore||{},off=ls.offense||{},cp=((m.liveData||{}).plays||{}).currentPlay||{},mu=cp.matchup||{};
      var aT=(ls.teams||{}).away||{},hT=(ls.teams||{}).home||{};
-     lastMlb={sit:{onFirst:!!off.first,onSecond:!!off.second,onThird:!!off.third,balls:ls.balls,strikes:ls.strikes,outs:ls.outs,inningHalf:ls.inningState,lastPlay:{text:((cp.result||{}).description)||''}},
+     lastMlb={ts:Date.now(),sit:{inn:ls.currentInningOrdinal||'',onFirst:!!off.first,onSecond:!!off.second,onThird:!!off.third,balls:ls.balls,strikes:ls.strikes,outs:ls.outs,inningHalf:ls.inningState,lastPlay:{text:((cp.result||{}).description)||''}},
       rhe:{a:{r:aT.runs,h:aT.hits,e:aT.errors},h:{r:hT.runs,h:hT.hits,e:hT.errors}},
       matchup:{p:((mu.pitcher||{}).fullName)||'',ab:((mu.batter||{}).fullName)||''}};
      done();})
@@ -177,6 +177,7 @@ function rpMlbEnrich(j,done){
     mlbGpk=g.gamePk;go();})
    .catch(function(){done();});
  }catch(e){done();}}
+function rpMlbFresh(){return !!(lastMlb&&lastMlb.ts&&(Date.now()-lastMlb.ts)<3*60*1000);} /* statsapi freshness gate: older than 3 min stops driving score/time (ESPN fallback) */
 /* ---- per-league scoring table (ported: MLB innings+R/H/E; NFL/CFB/NBA quarters(+OT); NCAAB halves(+OT); NHL periods(+OT/SO); soccer halves(+ET); tennis sets) ---- */
 function rpScoreHdrs(lg,n){var h=[],i;
  if(lg.indexOf('baseball')===0){for(i=0;i<n;i++)h.push(String(i+1));return h;}
@@ -189,10 +190,14 @@ function renderTable(j,comp,aw,hm){
  var sport=espn.split('/')[0];
  if(sport==='mma'||sport==='golf'||sport==='racing'){tblEl.innerHTML='';return;} /* combat/leaderboard sports: no table */
  var rs=[aw,hm].map(function(c){return {side:c.homeAway,vals:(c.linescores||[]).map(function(x){return x.displayValue!=null?x.displayValue:(x.value!=null?String(x.value):null);}),abbr:teamSide(c),logo:teamLogo(c),score:c.score};});
+ if(sport==='baseball'&&rpMlbFresh()&&lastMlb.rhe){ /* statsapi-primary: innings cells render only while they reconcile with the official score */
+  var _ok=rs.every(function(r){var _s=(lastMlb.rhe[r.side==='away'?'a':'h']||{}).r;if(_s==null)return true;var _t=0,i;for(i=0;i<(r.vals||[]).length;i++){var _v=r.vals[i];if(_v==='X'||_v==='x')continue;_t+=+_v||0;}return _t===+_s;});
+  if(!_ok)rs.forEach(function(r){r.vals=[];});
+ }
  var n=Math.max((rs[0].vals||[]).length,(rs[1].vals||[]).length);
- if(!n){tblEl.innerHTML='';return;}
+ if(!n){if(sport!=='baseball'||!(lastMlb&&lastMlb.rhe)){tblEl.innerHTML='';return;}} /* baseball with official R/H/E still renders its totals row */
  var hdrs=rpScoreHdrs(espn,n),tots=['T'];
- if(sport==='baseball'){tots=['R','H','E'];rs.forEach(function(r){var h=rpStat(j,r.side,'hits'),e=rpStat(j,r.side,'errors');var _rhe=lastMlb&&lastMlb.rhe?lastMlb.rhe[r.side]:null;if(h==null&&_rhe)h=_rhe.h;if(e==null&&_rhe)e=_rhe.e;r.tots=[r.score!=null?String(r.score):'',h,e];});}
+ if(sport==='baseball'){tots=['R','H','E'];rs.forEach(function(r){var h=rpStat(j,r.side,'hits'),e=rpStat(j,r.side,'errors');var _rhe=lastMlb&&lastMlb.rhe?lastMlb.rhe[r.side==='away'?'a':'h']:null;if(h==null&&_rhe)h=_rhe.h;if(e==null&&_rhe)e=_rhe.e;var _run=(rpMlbFresh()&&_rhe&&_rhe.r!=null)?String(_rhe.r):(r.score!=null?String(r.score):'');r.tots=[_run,h,e];});}
  else{rs.forEach(function(r){r.tots=[r.score!=null?String(r.score):''];});}
  var h='<div class="card" style="overflow-x:auto;padding:12px 14px"><div class="rpsc-hd" style="font-size:11px;font-weight:800;letter-spacing:1px;margin-bottom:6px">SCORING</div>';
  h+='<table style="width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:13px;text-align:center"><tr><th style="text-align:left"></th>';
@@ -219,8 +224,10 @@ function renderField(j,comp,st){
  if(sport==='baseball'&&lastMlb){var _ms={},_k;for(_k in sit)_ms[_k]=sit[_k];for(_k in lastMlb.sit){var _v=lastMlb.sit[_k];if(_v!=null&&_v!=='')_ms[_k]=_v;}if(lastMlb.sit.lastPlay&&lastMlb.sit.lastPlay.text)_ms.lastPlay=lastMlb.sit.lastPlay;sit=_ms;}
  if(sport==='baseball'&&state==='in'&&!poss){var _top=/top/i.test((comp.status||{}).periodPrefix||sit.inningHalf||''),_bot=/bot/i.test((comp.status||{}).periodPrefix||sit.inningHalf||'');if(_top||_bot)poss=_top?'away':'home';}  /* at-bat team wears the bat icon (his MLB pattern) */
  var icon=sport==='football'?RP_FOOTBALL:sport==='basketball'?RP_BASKETBALL:sport==='baseball'?RP_BAT:sport==='hockey'?RP_PUCK:sport==='soccer'?RP_SOCCERBALL:sport==='tennis'?RP_RACKET:sport==='golf'?RP_FLAG:sport==='mma'?RP_GLOVE:'';
- var h='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+esc(aAb)+(poss==='away'?icon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+esc(aw.score!=null?String(aw.score):'\u2014')+'</span></div>';
- h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+esc(hAb)+(poss==='home'?icon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+esc(hm.score!=null?String(hm.score):'\u2014')+'</span></div>';
+ var _aSc=aw.score!=null?String(aw.score):'\u2014',_hSc=hm.score!=null?String(hm.score):'\u2014';
+ if(sport==='baseball'&&state==='in'&&rpMlbFresh()&&lastMlb.rhe&&lastMlb.rhe.a.r!=null&&lastMlb.rhe.h.r!=null){_aSc=String(lastMlb.rhe.a.r);_hSc=String(lastMlb.rhe.h.r);} /* official-feed score, never mixed with statsapi situation */
+ var h='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+esc(aAb)+(poss==='away'?icon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+esc(_aSc)+'</span></div>';
+ h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+esc(hAb)+(poss==='home'?icon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+esc(_hSc)+'</span></div>';
  /* surface */
  if(sport==='basketball')h+=rpCourtSvg(poss,aAb,hAb);
  else if(sport==='hockey'){var pp=null;if(sit.onPowerPlay===true||sit.onPowerPlay==='true')pp=poss;h+=rpRinkSvg(pp,aAb,hAb);}
@@ -233,8 +240,11 @@ function renderField(j,comp,st){
  if(sport==='golf'||sport==='racing'){var _lb=j.leaderboard||{},_lr=_lb.rows||_lb.competitors||[],_b2=[];if(sport==='racing'&&(comp.status||{}).displayClock)_b2.push((comp.status||{}).displayClock);if(_lr.length)_b2.push(sport==='golf'?('Leaderboard: '+_lr.length+' on the card'):('Leaderboard live - '+_lr.length+' drivers'));if(_b2.length)h+='<div class="bits"><span>'+esc(_b2.join(' \u00b7 '))+'</span></div>';}
  /* baseball count + matchup */
  if(sport==='baseball'&&state==='in'){var ob=[];if(typeof sit.balls==='number'&&typeof sit.strikes==='number')ob.push(sit.balls+'-'+sit.strikes);if(typeof sit.outs==='number')ob.push(sit.outs+' out'+(sit.outs===1?'':'s'));
-  var half=/top/i.test((comp.status||{}).periodPrefix||sit.inningHalf||'')?'Top':(/bot/i.test((comp.status||{}).periodPrefix||sit.inningHalf||'')?'Bot':'');
-  if(half&&(comp.status||{}).period)ob.unshift(half+' '+(comp.status||{}).period);
+  var _useMlb=rpMlbFresh()&&sit.inn;
+  var _src=_useMlb?(lastMlb.sit.inningHalf||''):((comp.status||{}).periodPrefix||sit.inningHalf||'');
+  var half=/top/i.test(_src)?'Top':(/middle/i.test(_src)?'Mid':(/bot/i.test(_src)?'Bot':(/end/i.test(_src)?'End':'')));
+  var _per=_useMlb?sit.inn:(comp.status||{}).period;
+  if(half&&_per)ob.unshift(half+' '+_per);
   if(ob.length)h+='<div class="bits"><span>'+esc(ob.join(' \u00b7 '))+'</span></div>';
   if(lastMlb&&lastMlb.matchup){var _mp=lastMlb.matchup,_ml=[];if(_mp.p)_ml.push('P: '+_mp.p);if(_mp.ab)_ml.push('AB: '+_mp.ab);if(_ml.length)h+='<div class="bits"><span>'+esc(_ml.join(' \u00b7 '))+'</span></div>';}}
  /* football down+distance */
@@ -312,6 +322,13 @@ function render(j){
  var state=st.state||"";
  var sct='-';if(state!=="pre"&&st.name!=="STATUS_CANCELED"){sct=(away.score!=null?String(away.score):"\u2014")+" - "+(home.score!=null?String(home.score):"\u2014");}
  var det=state==="pre"?("Starts "+ptTime(comp.date)):(st.shortDetail||st.detail||"");
+ if(espn==='baseball/mlb'&&state==='in'&&rpMlbFresh()){ /* statsapi-primary: header score + inning label from the official feed so header, table and situation never mix feeds */
+  var _ra=lastMlb.rhe&&lastMlb.rhe.a,_rh=lastMlb.rhe&&lastMlb.rhe.h;
+  if(_ra&&_rh&&_ra.r!=null&&_rh.r!=null)sct=String(_ra.r)+" - "+String(_rh.r);
+  var _mih=(lastMlb.sit&&lastMlb.sit.inningHalf)||'',_min=(lastMlb.sit&&lastMlb.sit.inn)||'';
+  var _hw=/top/i.test(_mih)?'Top':(/middle/i.test(_mih)?'Mid':(/bottom/i.test(_mih)?'Bot':(/end/i.test(_mih)?'End':'')));
+  if(_hw&&_min)det=_hw+' '+_min;
+ }
  var sit=lastSit||comp.situation||{};
  var sitTxt=(sit.downDistanceText)||((sit.lastPlay&&(sit.lastPlay.text||"").slice(0,120)))||"";
  var logo=function(c,side){var u=teamLogo(c);return u?'<img src="'+esc(u)+'" alt="" onerror="this.remove()">':'';};
