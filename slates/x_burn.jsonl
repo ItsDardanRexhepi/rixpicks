@@ -234,3 +234,22 @@
 {"ts": "2026-09-30T00:19:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Why\" OR \"Jazz Chisholm\" OR \"Volpe\") lang:en -is:retweet -is:reply", "results": 99}
 {"ts": "2026-09-30T00:19:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"What time MLB\" lang:en -is:retweet -is:reply", "results": 0}
 {"ts": "2026-09-30T00:19:24+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"What\" OR \"MLB\" OR \"See\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T00:34:47+00:00", "endpoint": "/tweets/search/recent", "query": "(\"BOS\" OR \"CHC\" OR \"CHW\" OR \"EDM\") (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T00:34:47+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Kessler talks Lakers'\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T00:34:47+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Kessler\" OR \"Lakers'\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T00:34:48+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2026 MLB playoffs\" lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T00:34:48+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Mattingly's call Duran\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T00:34:48+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Mattingly's\" OR \"Duran\" OR \"Phillies'\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T00:34:48+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Patriots Power Rankings\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-30T00:34:48+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2026 MLB playoff\" lang:en -is:retweet -is:reply", "results": 85}
+{"ts": "2026-09-30T00:34:48+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Florida Panthers Carolina\" lang:en -is:retweet -is:reply", "results": 31}
+{"ts": "2026-09-30T00:34:49+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Forsling's blast lifts\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T00:34:49+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Forsling's OT\" OR \"Panthers\" OR \"Stanley Cup\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T00:34:49+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Forsling blast lifts\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T00:34:49+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Forsling\" OR \"Panthers\" OR \"Stanley Cup\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T00:34:49+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Former Auburn football\" lang:en -is:retweet -is:reply", "results": 18}
+{"ts": "2026-09-30T00:34:49+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Cowboys' Schottenheimer 'aligned'\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-30T00:34:50+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Case Keenum Monday\" lang:en -is:retweet -is:reply", "results": 23}
+{"ts": "2026-09-30T00:34:50+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Kai Trump college\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T00:34:50+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Kai Trump\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T00:34:50+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"NBA reviewing bids\" lang:en -is:retweet -is:reply", "results": 5}
