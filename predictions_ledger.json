@@ -614,5 +614,18 @@
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T20:20:07.755233+00:00"
+ },
+ {
+  "id": "0884482240",
+  "event_id": "401891821",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Philadelphia Flyers",
+  "away": "Pittsburgh Penguins",
+  "pick_team": "Pittsburgh Penguins",
+  "prediction": "Pittsburgh Penguins beat Philadelphia Flyers",
+  "kickoff_utc": "2026-09-30T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T20:49:39.700045+00:00"
  }
 ]
