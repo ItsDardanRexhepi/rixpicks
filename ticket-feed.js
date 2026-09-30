@@ -8,8 +8,8 @@
 'use strict';
 var FEED_FIELDS='metaData,timeStamp,gameData,status,abstractGameState,detailedState,teams,team,abbreviation,gameDate,liveData,boxscore,players,person,fullName,stats,batting,pitching,homeRuns,strikeOuts,hits';
 
-// Leg definitions from Julian's reports relayed by Main (Sep 30, verified peer).
-//   Placement status per Julian's 11:03 AM clarification (11:16 AM relay): the
+// Leg definitions from the ticket owner's reports relayed by Main (Sep 30, verified peer).
+//   Placement status per the owner's 11:03 AM clarification (11:16 AM relay): the
 //   strikeouts parlay and the HITS ticket are placed; the Dingers HR picks are an
 //   idea - NOT bought. Labels only; no threshold, leg, or value changes. No odds, stakes, or prices were supplied,
 //   so none exist here. Note: a double or HR counts as ONE hit.
@@ -20,7 +20,7 @@ var TICKETS=[
   {legId:'hr-rice',kind:'batter_home_run',player:{id:700250,name:'Ben Rice',team:'NYY'},gamePk:849848},
   {legId:'hr-tatis',kind:'batter_home_run',player:{id:665487,name:'Fernando Tatis Jr.',team:'SD'},gamePk:849842}
  ]},
- {id:'hits-tracker-2026-09-30',label:'Hits ticket (placed - reported by Julian)',legs:[
+ {id:'hits-tracker-2026-09-30',label:'Hits ticket (placed - reported by Wooder Ice)',legs:[
   {legId:'h-turner',kind:'batter_hits',threshold:1,player:{id:607208,name:'Trea Turner',team:'PHI'},gamePk:849841},
   {legId:'h-alvarez',kind:'batter_hits',threshold:2,player:{id:670541,name:'Yordan Alvarez',team:'HOU'},gamePk:849846},
   {legId:'h-rice',kind:'batter_hits',threshold:1,player:{id:700250,name:'Ben Rice',team:'NYY'},gamePk:849848},

@@ -99,7 +99,7 @@ check('combos module script found in page', !!modMatch);
   }
   if (modMatch) {
     const s1 = { combos: [{ id: 'idea-mlb-ks-20260930', type: 'idea', date: '2026-09-30',
-      title: 'Strikeouts Parlay (4 legs)', badge: 'PLACED - reported by Julian',
+      title: 'Strikeouts Parlay (4 legs)', badge: 'PLACED - reported by Wooder Ice',
       matchup: 'PHI@ATL', time: 'from 11:00 AM PT',
       legs: [{ player: 'Cristopher Sanchez', market: '7+ strikeouts vs ATL', kalshi: '+138 · 42c' }],
       estimate_note: 'note', prices_note: 'snap' }] };
@@ -122,7 +122,7 @@ check('combos module script found in page', !!modMatch);
     check('module does not render before load when fetch resolves instantly', !r1.renderedEarly);
     check('module renders Strikeouts card after load with global present', r1.box.innerHTML.includes('Strikeouts Parlay (4 legs)'));
     check('module parent not hidden after successful render', r1.style.display !== 'none');
-    check('badge override renders (PLACED - reported by Julian)', r1.box.innerHTML.includes('PLACED - reported by Julian'));
+    check('badge override renders (PLACED - reported by Wooder Ice)', r1.box.innerHTML.includes('PLACED - reported by Wooder Ice'));
     check('badge override replaces the default (no NOT BOUGHT)', !r1.box.innerHTML.includes('NOT BOUGHT'));
     const trk1 = r1.box._trk || [];
     const byName = n => { const e = trk1.find(x => x._p === n); return e ? e.innerHTML : null; };
@@ -138,7 +138,7 @@ check('combos module script found in page', !!modMatch);
     check('paint poll cadence is 15s (statsapi sanctioned 10s + margin)', modMatch[0].includes('setInterval(paint,15000)') && !modMatch[0].includes('setInterval(paint,60000)'));
     check('unmatched leg stays empty (fail-closed)', trk1.some(e => e._p === 'Nobody Feedless' && e.innerHTML === ''));
     check('card-level CASHED explainer removed (consolidated into the page note)', !r1.box.innerHTML.includes('CASHED = live stat threshold met'));
-    check('consolidated page note carries CASHED/price/PLACED/hit distinctions', /id="rpWNote"[^>]*>CASHED = live stat threshold met, not a verified payout\. Prices are reference snapshots, not executable quotes, and combined odds are estimates\. PLACED = reported by Julian/.test(require('fs').readFileSync(__dirname+'/../index.html','utf8')));
+    check('consolidated page note carries CASHED/price/PLACED/hit distinctions', /id="rpWNote"[^>]*>CASHED = live stat threshold met, not a verified payout\. Prices are reference snapshots, not executable quotes, and combined odds are estimates\. PLACED = reported by Wooder Ice/.test(require('fs').readFileSync(__dirname+'/../index.html','utf8')));
     const s4 = { combos: [{ id: 'idea-mlb-hits-20260930b', type: 'idea', date: '2026-09-30',
       title: 'Hits', matchup: 'PHI@ATL', legs: [{ player: 'Trea Turner', market: '1+ hit', kalshi: '-233' }] }] };
     const r4 = await runSim(s4, feed);

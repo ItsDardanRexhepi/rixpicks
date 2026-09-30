@@ -1280,7 +1280,7 @@ r'/* URF live-chip rule (main Sep-27 10:57 + 11:25): bare label = LIVE only when
 r'function empty(){box.innerHTML="<div style=\"color:#8a8f98;font-size:13px;padding:6px 0\">No NFL slate yet - Wooder Ice anytime TD picks land here Sundays.</div>";}'
 r'function rpAml(c){var q=c/100;if(q<=0||q>=1)return"";return q>=0.5?String(Math.round(-100*q/(1-q))):"+"+String(Math.round(100*(1-q)/q));}'
 r'function rpHM(ms){try{return new Date(ms).toLocaleString("en-US",{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"}).toLowerCase().replace(/\s/g,"");}catch(e){return"";}}'
-r'/* window countdown (Julian 12:18, design-approved via main): target = earliest game commence in nfl_live.json (ESPN), never hardcoded; fail-closed blank when no commence data; no negative countdown - post-kickoff shows games-underway. */'
+r'/* window countdown (design-approved via main): target = earliest game commence in nfl_live.json (ESPN), never hardcoded; fail-closed blank when no commence data; no negative countdown - post-kickoff shows games-underway. */'
 r'var RP_CD=null;'
 r'function cdFrom(j){var ts=[];(j.games||[]).forEach(function(g){var t=Date.parse(g.commence||"");if(!isNaN(t))ts.push(t);});RP_CD=ts.length?Math.min.apply(Math,ts):null;cdPaint();}'
 r'function cdPaint(){var el=document.getElementById("rpNflCd");if(!el)return;if(!RP_CD){el.innerHTML="";return;}var now=Date.now();if(now>=RP_CD){el.innerHTML="<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:#0b6e5f;margin-right:6px;vertical-align:1px\"></span><b style=\"color:#0b6e5f\">Games underway</b><span style=\"color:#8a8f98\"> &middot; tracking live</span>";return;}var s=Math.max(0,Math.floor((RP_CD-now)/1000));var hh=Math.floor(s/3600),mm=Math.floor((s%3600)/60),ss=s%60;el.innerHTML="<span style=\"color:#b07708\">First kickoff <b>"+esc(rpHM(RP_CD))+" PT</b> in <b>"+(hh?hh+"h ":"")+mm+"m "+("0"+ss).slice(-2)+"s</b></span>";}'
@@ -1350,7 +1350,7 @@ r'box.innerHTML="<div style=\"font-size:12px;color:#8a8f98;margin:3px 0 8px\">LA
 r'card.hidden=false;}).catch(function(){});})();</script>')
 # Wooder WNBA three-leg idea; separate from the NFL night idea and tickets.
 # Research snapshots remain marked as such when the source cannot be live rechecked.
-# PLACEMENT (Julian 9/27 4:34 PT via main, standing): his WNBA content always lives on the WNBA tab, never the Wooder tab.
+# PLACEMENT (9/27 4:34 PT via main, standing): his WNBA content always lives on the WNBA tab, never the Wooder tab.
 wnba_entry=(
 r'<div style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px" id="rpWnbaSgpCard" hidden>'
 r'<div class="rpwhead" style="margin-top:0">WNBA three-leg SGP idea</div><div id="rpWnbaSgp"></div></div>'
@@ -1477,7 +1477,7 @@ r'})();</script>')
 # slates/julian_record.json (analysis feed, rebuilt each wire cycle); 60s re-fetch; fail-closed
 # hide on missing/invalid. Pending renders as pending - never blank, never guessed.
 nfl_entry+=(
-r'<div id="rpWNote" style="font-size:11px;color:#8a8f98;margin-top:14px;line-height:1.45">CASHED = live stat threshold met, not a verified payout. Prices are reference snapshots, not executable quotes, and combined odds are estimates. PLACED = reported by Julian; receipt, stake and fill are not independently verified. A double or home run counts as one hit. Separate from the RixPicks card and record. Picks only, no wagers placed.</div>'
+r'<div id="rpWNote" style="font-size:11px;color:#8a8f98;margin-top:14px;line-height:1.45">CASHED = live stat threshold met, not a verified payout. Prices are reference snapshots, not executable quotes, and combined odds are estimates. PLACED = reported by Wooder Ice; receipt, stake and fill are not independently verified. A double or home run counts as one hit. Separate from the RixPicks card and record. Picks only, no wagers placed.</div>'
 r'<div id="rpWRecWrap" style="margin-top:14px;border:1px solid rgba(127,127,127,.35);border-radius:12px;padding:11px 12px">'
 r'<div id="rpWRecHead" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none"><div class="rpwhead">Rolling Record</div><span id="rpWRecChev" style="font-size:14px;font-weight:700;color:#8a8f98;padding:0 4px;line-height:1">v</span></div>'
 r'<div id="rpWRecBody" style="display:none">'
@@ -1723,7 +1723,7 @@ RP_HR=['AZ','CO','FL','IL','IN','MI','NJ','OH','TN','VA']
 RP_BR=['AZ','CO','CT','DE','DC','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','NH','NJ','NY','NC','OH','OR','PA','RI','TN','VT','VA','WV','WY']
 
 # --- shell: v2 dark redesign when RP_V2=1; otherwise the locked v1.2.0 markup, byte-for-byte.
-# 9/27 (Julian/Dardan): the Yesterday strip is PER-LEAGUE - a tab shows only its own league's
+# 9/27 (owner): the Yesterday strip is PER-LEAGUE - a tab shows only its own league's
 # results, from manifest yesterday_by_league {tab_key: "3-0 - ..."}. No entry for a tab = strip
 # hidden (never fabricate, never show another league's results). Legacy aggregate
 # man['yesterday'] stays data-only; v2 never renders it globally.
@@ -1826,7 +1826,7 @@ if _V2:
     _cxesp=','.join(sorted(set(re.findall(r'data-espn="([^"]+)"',parlay_html))))
     _combo_wrap=('<div id="rpComboTail" data-cx-espn="'+_cxesp+'">'+parlay_html+'</div>') if parlay_html else ''
     _fut_wrap=('<div id="rpFutTail">'+fut_watch_html+'</div>') if fut_watch_html else ''
-    # Wooder Ice guest tab (Julian 12:25 design-approved via main, scope settled 12:25:40): ALL Wooder NFL
+    # Wooder Ice guest tab (12:25 design-approved via main, scope settled 12:25:40): ALL Wooder NFL
     # guest content moves here from the NFL tab (slate+countdown, combos, tickets, Kincaid update, builders).
     # Shared data: same slates/*.json hydration, no divergent state. Dingers stays on the MLB tab.
     RP_TABS.append({'key':'wooder','label':'Picks from Wooder Ice','espn':''})
@@ -1835,7 +1835,7 @@ if _V2:
     # Home is a view over the existing league panels, not a second copy of card markup.
     # It therefore inherits the exact pick order, links, IDs and live updates from each tab.
     RP_TABS.insert(0, {'key':'home','label':'Home','espn':''})
-    # Past Tickets archive (Julian 1:33 spec via main, Dardan full-control): completed/removed picks
+    # Past Tickets archive (1:33 spec via main, owner full-control): completed/removed picks
     # and tickets with All/Won/Lost filters. Original selection, result, provenance preserved -
     # nothing deleted, just moved. BOUGHT stays visually distinct from SUGGESTED forever; voids render
     # as their own state, never forced Won/Lost; no settlement/payout implications. Client-hydrated
@@ -1908,8 +1908,9 @@ if _V2:
     r'<div style="border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
     r'<div class="lghead" style="margin-top:0">Dingers Only &#128293;</div>'
     r'<div id="rpDing"></div>'
+    r'</div>'
     r'<div style="font-size:11px;color:#8a8f98;margin-top:10px;line-height:1.45">Separate from the RixPicks card and record. Picks only, no wagers placed. CASHED = live stat threshold met, not a verified payout.</div>'
-    r'</div></div>'
+    r'</div>'
     r'<script>(function(){'
     r'var box=document.getElementById("rpDing");if(!box)return;'
     r'var VEN={};'

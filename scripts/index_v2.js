@@ -428,7 +428,7 @@ function zeroPairSocial(n){
    than no combo. */
 function rpComboFresh(c){
  if(c&&c.status==='expired')return false;
- if(c&&c.futures===true)return true; /* season-long futures items (Julian 9/30 NFL rec-yds idea): no day-roll expiry */ /* writer-marked at day close: can never serve */
+ if(c&&c.futures===true)return true; /* season-long futures items (9/30 NFL rec-yds idea): no day-roll expiry */ /* writer-marked at day close: can never serve */
  var t=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Los_Angeles'}));
  var today=t.getFullYear()*10000+(t.getMonth()+1)*100+t.getDate();
  var d=c&&(c.date||c.game_date||''),n=0,m;
@@ -954,7 +954,7 @@ function kalItemsFor(t,cb){
  });
  if(pend===0)fin();
 }
-/* ticker core (Julian stutter hunt 9/28): crawl driven by rAF at CONSTANT px/s in JS, never
+/* ticker core (stutter hunt 9/28): crawl driven by rAF at CONSTANT px/s in JS, never
    CSS animation. Root causes killed: (1) innerHTML swap on every tickRender (tab switch, 30s
    refresh, async KALSHI callback) restarted/jerked the loop - swap now only on real content
    change; (2) translateX(-50%) remapped pixel position on width change mid-loop - position
@@ -1048,7 +1048,7 @@ setInterval(function(){if(cur&&!document.hidden)loadSide(cur);},30000);
    countdown span from its own timestamp between the 30s/5min data refetches. */
 setInterval(function(){if(document.hidden)return;var n=document.querySelectorAll('[data-until]');for(var i=0;i<n.length;i++){n[i].textContent=until(n[i].getAttribute('data-until'));}},15000);
 setInterval(function(){if(cur&&!document.hidden&&NEWSF){renderNews(cur,newsBucket(cur));tickRender();}},30000);
-/* wordmark -> home (Julian 9/27 4:31 PT via main): tap logo from any tab lands home. Clear rp_tab + hash so boot's default-tab pick (home) wins and a later refresh stays home. */
+/* wordmark -> home (9/27 4:31 PT via main): tap logo from any tab lands home. Clear rp_tab + hash so boot's default-tab pick (home) wins and a later refresh stays home. */
 var _wmlogo=document.querySelector('nav.rpnav .logo');
 if(_wmlogo){_wmlogo.addEventListener('click',function(e){e.preventDefault();try{localStorage.removeItem('rp_tab');}catch(x){}try{history.replaceState(null,'',location.pathname);}catch(x){}location.href='index.html';});}
 /* ---- boot ---- */

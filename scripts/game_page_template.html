@@ -489,7 +489,7 @@ function rpLeagueCard(d,j,cfg){
  const _pc=_pst.open?rpPbpCapture():null;box.innerHTML=h;if(_pc)rpPbpRestore(_pc);if(live)window.__rpLiveOk=Date.now();  /* batch 15: ok stamps on verified-fresh live renders only - a frozen truthy summary stamps nothing */
 }
 function rpTeamAbbr(x){return ((x.team||{}).abbreviation)||(((x.athlete||{}).shortName)||((x.athlete||{}).displayName)||'').slice(0,12);}
-function rpBballFouls(j){ /* Julian Sep 30 10:21am ask: team foul counts + bonus. Totals from boxscore (feed-grounded); bonus derived from play-by-play - NBA/WNBA r12: 5th team foul in a quarter (OT: 4th), or 2nd in the final 2:00 if not yet in penalty; defensive + loose-ball fouls count, offensive/technical/flagrant do not. Fail-closed: no complete pbp -> totals only, no bonus label. */
+function rpBballFouls(j){ /* Sep 30 10:21am ask: team foul counts + bonus. Totals from boxscore (feed-grounded); bonus derived from play-by-play - NBA/WNBA r12: 5th team foul in a quarter (OT: 4th), or 2nd in the final 2:00 if not yet in penalty; defensive + loose-ball fouls count, offensive/technical/flagrant do not. Fail-closed: no complete pbp -> totals only, no bonus label. */
  const out={a:null,h:null,bonusA:false,bonusH:false};
  const ts=((j.boxscore||{}).teams)||[];
  const gv=function(side){for(const t of ts){if(t.homeAway===side){for(const s of (t.statistics||[])){if(s.name==='fouls')return s.displayValue;}}}return null;};
