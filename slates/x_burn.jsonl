@@ -272,3 +272,13 @@
 {"ts": "2026-09-30T01:04:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Five Plays\" OR \"Wake Forest Second Quarter\") lang:en -is:retweet -is:reply", "results": 90}
 {"ts": "2026-09-30T01:04:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2026 MLB playoff\" lang:en -is:retweet -is:reply", "results": 85}
 {"ts": "2026-09-30T01:04:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Former Auburn football\" lang:en -is:retweet -is:reply", "results": 18}
+{"ts": "2026-09-30T01:19:58+00:00", "endpoint": "/tweets/search/recent", "query": "(\"BOS\" OR \"CHC\" OR \"CHI\" OR \"EDM\") (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T01:19:58+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2026 MLB wild\" lang:en -is:retweet -is:reply", "results": 46}
+{"ts": "2026-09-30T01:19:58+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Panthers win overtime\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T01:19:59+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Panthers\" OR \"Hurricanes'\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T01:19:59+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Three time Star\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T01:19:59+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Three-time All-Star\" OR \"Liam Hendriks\") lang:en -is:retweet -is:reply", "results": 39}
+{"ts": "2026-09-30T01:19:59+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Indiana Fever Las\" lang:en -is:retweet -is:reply", "results": 19}
+{"ts": "2026-09-30T01:19:59+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Alex Bregman Cubs\" lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-30T01:19:59+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"UFC Fight Qatar\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T01:19:59+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"UFC Fight Qatar\" OR \"UFC\") lang:en -is:retweet -is:reply", "results": 100}
