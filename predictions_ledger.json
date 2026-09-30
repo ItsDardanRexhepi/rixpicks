@@ -378,8 +378,9 @@
   "pick_team": "Atlanta Braves",
   "prediction": "Atlanta Braves beat Philadelphia Phillies",
   "kickoff_utc": "2026-09-30T18:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T15:20:03.907515+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T15:20:03.907515+00:00",
+  "settled_at": "2026-09-30T21:34:29.423694+00:00"
  },
  {
   "id": "bb57473240",
