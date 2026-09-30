@@ -215,3 +215,22 @@
 {"ts": "2026-09-29T23:49:58+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Florida basketball news\" lang:en -is:retweet -is:reply", "results": 0}
 {"ts": "2026-09-29T23:49:58+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Florida\" OR \"Standout\" OR \"Gators\") lang:en -is:retweet -is:reply", "results": 100}
 {"ts": "2026-09-29T23:49:59+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"UFC Contender Series\" lang:en -is:retweet -is:reply", "results": 11}
+{"ts": "2026-09-30T00:19:20+00:00", "endpoint": "/tweets/search/recent", "query": "(\"CHC\" OR \"CHW\" OR \"EDM\" OR \"HOU\") (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-30T00:19:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2026 MLB wild\" lang:en -is:retweet -is:reply", "results": 45}
+{"ts": "2026-09-30T00:19:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Kessler talks Lakers'\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T00:19:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Kessler\" OR \"Lakers'\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T00:19:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Matthew Mayich's parents\" lang:en -is:retweet -is:reply", "results": 6}
+{"ts": "2026-09-30T00:19:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Cowboys' Schottenheimer 'aligned'\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-30T00:19:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Guard Sam Cosmi\" lang:en -is:retweet -is:reply", "results": 3}
+{"ts": "2026-09-30T00:19:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Riley's homer rallies\" lang:en -is:retweet -is:reply", "results": 3}
+{"ts": "2026-09-30T00:19:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Browns Steelers Week\" lang:en -is:retweet -is:reply", "results": 2}
+{"ts": "2026-09-30T00:19:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Leap Faith Dreams\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T00:19:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Leap Faith\" OR \"Dreams\" OR \"NHL\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T00:19:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Browns Tuesday practice\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T00:19:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Browns Tuesday\" OR \"Week\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T00:19:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"UFC Contender Series\" lang:en -is:retweet -is:reply", "results": 10}
+{"ts": "2026-09-30T00:19:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Ohio State football\" lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T00:19:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Why isn Jazz\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T00:19:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Why\" OR \"Jazz Chisholm\" OR \"Volpe\") lang:en -is:retweet -is:reply", "results": 99}
+{"ts": "2026-09-30T00:19:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"What time MLB\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T00:19:24+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"What\" OR \"MLB\" OR \"See\") lang:en -is:retweet -is:reply", "results": 100}
