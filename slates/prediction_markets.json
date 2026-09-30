@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T16:29:00Z",
+ "updated": "2026-09-30T18:46:00Z",
  "source": "browser harvest (predictions.draftkings.com league boards) - datacenter IPs are Akamai-blocked, runner cannot self-harvest",
  "rows": [
   {
@@ -9,8 +9,8 @@
    "home": "Atlanta Braves",
    "date": "2026-09-30",
    "url": "https://predictions.draftkings.com/en/event/phi-phillies-%40-atl-braves/34746392",
-   "home_cents": 49,
-   "away_cents": 53
+   "home_cents": 51,
+   "away_cents": 50
   },
   {
    "venue": "dkp",
@@ -59,7 +59,7 @@
    "home": "Philadelphia Flyers",
    "date": "2026-09-30",
    "url": "https://predictions.draftkings.com/en/event/pit-penguins-%40-phi-flyers/34400087",
-   "home_cents": 57,
+   "home_cents": 58,
    "away_cents": 44
   },
   {
