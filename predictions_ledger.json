@@ -510,5 +510,31 @@
   "kickoff_utc": "2026-10-04T20:25:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T18:06:09.385714+00:00"
+ },
+ {
+  "id": "ab4b3793db",
+  "event_id": "401872978",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Carolina Panthers",
+  "away": "Detroit Lions",
+  "pick_team": "Detroit Lions",
+  "prediction": "Detroit Lions beat Carolina Panthers",
+  "kickoff_utc": "2026-10-05T00:20:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T18:36:10.990567+00:00"
+ },
+ {
+  "id": "1382b5d824",
+  "event_id": "401872979",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "New Orleans Saints",
+  "away": "Atlanta Falcons",
+  "pick_team": "New Orleans Saints",
+  "prediction": "New Orleans Saints beat Atlanta Falcons",
+  "kickoff_utc": "2026-10-06T00:15:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T18:36:24.781624+00:00"
  }
 ]
