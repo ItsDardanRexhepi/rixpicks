@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T02:49:34.005757+00:00",
+ "generated_at": "2026-09-30T03:04:36.674327+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,16 +10,16 @@
      "matchup": "BOS @ NYY",
      "commence": "2026-09-30T00:00Z",
      "status": "in",
-     "detail": "Mid 8th",
-     "score": "BOS 0 - NYY 4"
+     "detail": "Bot 8th",
+     "score": "BOS 0 - NYY 5"
     },
     {
      "espn_event_id": "401907974",
      "matchup": "CHC @ SD",
      "commence": "2026-09-30T02:00Z",
      "status": "in",
-     "detail": "Bot 3rd",
-     "score": "CHC 0 - SD 2"
+     "detail": "Mid 4th",
+     "score": "CHC 0 - SD 3"
     }
    ]
   },
@@ -40,14 +40,6 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401891827",
-     "matchup": "MTL @ TOR",
-     "commence": "2026-09-29T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "MTL 3 - TOR 2"
-    },
-    {
      "espn_event_id": "401891774",
      "matchup": "NYR @ BOS",
      "commence": "2026-09-30T00:00Z",
@@ -60,7 +52,7 @@
      "matchup": "VAN @ EDM",
      "commence": "2026-09-30T02:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "20:00 - 2nd",
      "score": "VAN 1 - EDM 1",
      "away_to": null,
      "home_to": null
@@ -70,8 +62,8 @@
      "matchup": "CHI @ VGK",
      "commence": "2026-09-30T02:45Z",
      "status": "in",
-     "detail": "17:25 - 1st",
-     "score": "CHI 0 - VGK 0",
+     "detail": "8:43 - 1st",
+     "score": "CHI 0 - VGK 1",
      "away_to": null,
      "home_to": null
     }
