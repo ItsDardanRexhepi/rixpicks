@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T18:34:41.600588+00:00",
+ "generated_at": "2026-09-30T18:49:39.109943+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "PHI @ ATL",
      "commence": "2026-09-30T18:00Z",
      "status": "in",
-     "detail": "Bot 1st",
-     "score": "PHI 1 - ATL 0"
+     "detail": "Bot 2nd",
+     "score": "PHI 1 - ATL 1"
     }
    ]
   }
