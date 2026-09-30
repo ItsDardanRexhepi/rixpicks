@@ -138,6 +138,32 @@ function rpDiamondSvg(sit,aAb,hAb){ /* MLB diamond: occupied bases light gold, a
 function teamSide(c){return ((c.team||{}).abbreviation)||((c.team||{}).shortDisplayName)||((c.athlete||{}).displayName)||'?';}
 function teamLogo(c){return (c.team||{}).logo||((c.team||{}).logos&&c.team.logos[0]&&c.team.logos[0].href)||'';}
 function teamColor(c){var col=(c.team||{}).color;return col?('#'+String(col).replace('#','')):'';}
+function rpBballFouls(j){ /* Julian Sep 30 10:21am ask: team foul counts + bonus. Totals from boxscore; bonus from play-by-play - NBA/WNBA r12: 5th team foul in a quarter (OT: 4th), or 2nd in the final 2:00 if not yet in penalty; defensive + loose-ball fouls count, offensive/technical/flagrant do not. Fail-closed: incomplete pbp -> totals only. */
+ var out={a:null,h:null,bonusA:false,bonusH:false};
+ var gv=function(side){var ts=(j.boxscore||{}).teams||[];for(var i=0;i<ts.length;i++){if(ts[i].homeAway===side){var ss=ts[i].statistics||[];for(var k=0;k<ss.length;k++){if(ss[k].name==='fouls')return ss[k].displayValue;}}}return null;};
+ out.a=gv('away');out.h=gv('home');
+ try{
+  var comp=((j.header||{}).competitions||[])[0]||{},st=comp.status||{};
+  var per=(st.period)|0;
+  var plays=j.plays||[];
+  if(per>0&&plays.length&&(((plays[0].period)||{}).number===1)){
+   var CT={'Personal Foul':1,'Shooting Foul':1,'Personal Blocking Foul':1,'Loose Ball Foul':1,'Away from Play Foul':1,'Personal Take Foul':1,'Clear Path Foul':1};
+   var ids={};(comp.competitors||[]).forEach(function(c){ids[String((c.team||{}).id)]=c.homeAway;});
+   var ca=0,ch=0,caLate=0,chLate=0;
+   plays.forEach(function(p){
+    if((((p.period)||{}).number|0)!==per)return;
+    if(!CT[(p.type||{}).text])return;
+    var side=ids[String((p.team||{}).id)];if(!side)return;
+    var _cv=String((p.clock||{}).displayValue||''),cm=_cv.match(/^(\d+):(\d+)/);
+    var late=cm?((+cm[1])*60+(+cm[2])<=120):(isNaN(parseFloat(_cv))?false:parseFloat(_cv)<=120);
+    if(side==='away'){ca++;if(late)caLate++;}else{ch++;if(late)chLate++;}
+   });
+   var th=per>4?4:5;
+   out.bonusA=ca>=th||(ca<th&&caLate>=2);out.bonusH=ch>=th||(ch<th&&chLate>=2);
+  }
+ }catch(e){}
+ return out;
+}
 function rpStat(j,side,name){var ts=(j.boxscore||{}).teams||[];for(var i=0;i<ts.length;i++){if((ts[i].homeAway||'')!==side)continue;var flat=[];(ts[i].statistics||[]).forEach(function(x){if(x&&x.stats)flat=flat.concat(x.stats);else if(x)flat.push(x);});for(var k=0;k<flat.length;k++){if(flat[k].name===name||flat[k].label===name)return flat[k].displayValue;}}return null;}
 function possSide(j,comp,aw,hm){var s=lastSit||j.situation||comp.situation||{};var id=s.possession||(s.possessionTeam&&(s.possessionTeam.id||s.possessionTeam));if(id==null)return null;
  if(aw.team&&String(aw.team.id)===String(id))return 'away';if(hm.team&&String(hm.team.id)===String(id))return 'home';
@@ -251,7 +277,7 @@ function renderField(j,comp,st){
  if(sport==='football'&&sit.downDistanceText)h+='<div class="bits"><span>'+esc(sit.downDistanceText)+'</span></div>';
  /* stat bits (both teams, comparison style) */
  var bits=[];
- if(sport==='basketball'){var a=rpStat(j,'away','fieldGoalPct'),b=rpStat(j,'home','fieldGoalPct');if(a&&b)bits.push('FG% '+a+' / '+b);var ar=rpStat(j,'away','totalRebounds'),hr=rpStat(j,'home','totalRebounds');if(ar&&hr)bits.push('REB '+ar+' / '+hr);}
+ if(sport==='basketball'){var a=rpStat(j,'away','fieldGoalPct'),b=rpStat(j,'home','fieldGoalPct');if(a&&b)bits.push('FG% '+a+' / '+b);var ar=rpStat(j,'away','totalRebounds'),hr=rpStat(j,'home','totalRebounds');if(ar&&hr)bits.push('REB '+ar+' / '+hr);var _fb=rpBballFouls(j);if(_fb.a!=null&&_fb.h!=null){bits.push('Fouls '+_fb.a+' / '+_fb.h);var _bs=[];if(_fb.bonusA)_bs.push(aAb);if(_fb.bonusH)_bs.push(hAb);if(_bs.length)bits.push('Bonus: '+_bs.join(' / '));}}
  if(sport==='hockey'){var sa=rpStat(j,'away','shotsOnGoal')||rpStat(j,'away','shots'),sh=rpStat(j,'home','shotsOnGoal')||rpStat(j,'home','shots');if(sa&&sh)bits.push('SOG '+sa+' / '+sh);}
  if(sport==='soccer'){var pa=rpStat(j,'away','possessionPct'),ph=rpStat(j,'home','possessionPct');if(pa&&ph)bits.push('Possession '+pa+'% / '+ph+'%');var ta=rpStat(j,'away','totalShots'),th=rpStat(j,'home','totalShots');if(ta&&th)bits.push('Shots '+ta+' / '+th);}
  if(sport==='mma'){var ma=rpStat(j,'away','totalStrikes'),mh=rpStat(j,'home','totalStrikes');if(ma&&mh)bits.push('Strikes '+ma+' / '+mh);}

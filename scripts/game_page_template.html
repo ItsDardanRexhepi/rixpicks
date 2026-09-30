@@ -27,7 +27,7 @@
 <div id="rpPtr" style="display:none;text-align:center;font-size:12px;color:#8a8f98;padding:8px 0"><span style="display:inline-block;width:14px;height:14px;border:2px solid #2a4a44;border-top-color:#3aa895;border-radius:50%;animation:rpspin .8s linear infinite;vertical-align:-2px"></span> <span id="rpPtrTxt">refreshing&hellip;</span></div>
 <div class="sect" style="margin-top:18px">Game __NUM____INST__</div>
 __MATCHUP__
-<div class="pick" data-espn="__ESPN__" data-eid="__EID__" data-ceid="__CEID__" data-comp="__COMP__" data-gpk="__GPK__" data-aab="__AAB__" data-hab="__HAB__" data-room="__ROOM__" data-away="__AWAY__" data-home="__HOME__" data-side="__SIDE__" data-market="__MKT__"__COUNTED__>
+<div class="pick" data-espn="__ESPN__" data-eid="__EID__" data-gpk="__GPK__" data-aab="__AAB__" data-hab="__HAB__" data-room="__ROOM__" data-away="__AWAY__" data-home="__HOME__" data-side="__SIDE__" data-market="__MKT__"__COUNTED__>
   <div class="pick-head"><span class="num">__NUM__.</span><span class="name">__NAME__</span><span class="units">__UNITS__</span><span class="odds">__ODDS__</span><span class="oddslock">__LOCK__</span></div>
   <div class="sub">__SUB__</div>
   <div class="score" id="rpScore">__WHEN__</div>
@@ -285,7 +285,7 @@ function rpLiveBox(){try{
  if(_lg.indexOf('hockey/')===0){rpLeagueLive(d,RP_CFG_HK);return;}
  if(_lg.indexOf('soccer/')===0){rpLeagueLive(d,RP_CFG_SO);return;}
  if(_lg.indexOf('tennis/')===0){rpLeagueLive(d,RP_CFG_TE);return;}
- if(_lg.indexOf('mma/')===0){if(d.dataset.comp&&d.dataset.ceid){rpMmaCompLive(d);return;}rpLeagueLive(d,RP_CFG_MMA);return;}
+ if(_lg.indexOf('mma/')===0){rpLeagueLive(d,RP_CFG_MMA);return;}
  if(_lg.indexOf('golf/')===0){rpLeagueLive(d,RP_CFG_GOLF);return;}
  if(_lg.indexOf('racing/')===0){rpLeagueLive(d,RP_CFG_NASCAR);return;}
  rpEspnPanel(d); /* boxing: registry has no ESPN feed - this honest panel renders whatever summary exists, else nothing (never fabricated) */
@@ -489,6 +489,33 @@ function rpLeagueCard(d,j,cfg){
  const _pc=_pst.open?rpPbpCapture():null;box.innerHTML=h;if(_pc)rpPbpRestore(_pc);if(live)window.__rpLiveOk=Date.now();  /* batch 15: ok stamps on verified-fresh live renders only - a frozen truthy summary stamps nothing */
 }
 function rpTeamAbbr(x){return ((x.team||{}).abbreviation)||(((x.athlete||{}).shortName)||((x.athlete||{}).displayName)||'').slice(0,12);}
+function rpBballFouls(j){ /* Julian Sep 30 10:21am ask: team foul counts + bonus. Totals from boxscore (feed-grounded); bonus derived from play-by-play - NBA/WNBA r12: 5th team foul in a quarter (OT: 4th), or 2nd in the final 2:00 if not yet in penalty; defensive + loose-ball fouls count, offensive/technical/flagrant do not. Fail-closed: no complete pbp -> totals only, no bonus label. */
+ const out={a:null,h:null,bonusA:false,bonusH:false};
+ const ts=((j.boxscore||{}).teams)||[];
+ const gv=function(side){for(const t of ts){if(t.homeAway===side){for(const s of (t.statistics||[])){if(s.name==='fouls')return s.displayValue;}}}return null;};
+ out.a=gv('away');out.h=gv('home');
+ try{
+  const comp=((j.header||{}).competitions||[])[0]||{},st=comp.status||{};
+  const per=(st.period)|0,clk=(st.displayClock)||'';
+  const plays=j.plays||[];
+  if(per>0&&plays.length&&(((plays[0].period)||{}).number===1)){
+   const CT={'Personal Foul':1,'Shooting Foul':1,'Personal Blocking Foul':1,'Loose Ball Foul':1,'Away from Play Foul':1,'Personal Take Foul':1,'Clear Path Foul':1};
+   const ids={};(comp.competitors||[]).forEach(function(c){ids[String((c.team||{}).id)]=c.homeAway;});
+   let ca=0,ch=0,caLate=0,chLate=0;
+   plays.forEach(function(p){
+    if((((p.period)||{}).number|0)!==per)return;
+    if(!CT[(p.type||{}).text])return;
+    const side=ids[String((p.team||{}).id)];if(!side)return;
+    const _cv=String((p.clock||{}).displayValue||''),cm=_cv.match(/^(\d+):(\d+)/);
+    const late=cm?((+cm[1])*60+(+cm[2])<=120):(isNaN(parseFloat(_cv))?false:parseFloat(_cv)<=120);
+    if(side==='away'){ca++;if(late)caLate++;}else{ch++;if(late)chLate++;}
+   });
+   const th=per>4?4:5;
+   out.bonusA=ca>=th||(ca<th&&caLate>=2);out.bonusH=ch>=th||(ch<th&&chLate>=2);
+  }
+ }catch(e){}
+ return out;
+}
 function rpStat(j,side,name){ /* boxscore stat lookup, fail-closed */
  const ts=((j.boxscore||{}).teams)||[];
  for(let i=0;i<ts.length;i++){if((ts[i].homeAway||'')!==side)continue;const ss=ts[i].statistics||[];
@@ -511,7 +538,10 @@ const RP_CFG_BB={icon:RP_BASKETBALL,abbr:rpTeamAbbr,
   if(aw.team&&String(aw.team.id)===String(id))return 'away';if(hm.team&&String(hm.team.id)===String(id))return 'home';return null;},
  surface:function(j,comp,aw,hm,poss,aAb,hAb){return rpCourtSvg(poss,aAb,hAb);},
  bits:function(j){const a=rpStat(j,'away','fieldGoalPct'),h=rpStat(j,'home','fieldGoalPct');
-  const b=[];if(a&&h)b.push('FG% '+a+' / '+h);const ar=rpStat(j,'away','totalRebounds'),hr=rpStat(j,'home','totalRebounds');if(ar&&hr)b.push('REB '+ar+' / '+hr);return b;},
+  const b=[];if(a&&h)b.push('FG% '+a+' / '+h);const ar=rpStat(j,'away','totalRebounds'),hr=rpStat(j,'home','totalRebounds');if(ar&&hr)b.push('REB '+ar+' / '+hr);
+  const _f=rpBballFouls(j);if(_f.a!=null&&_f.h!=null){b.push('Fouls '+_f.a+' / '+_f.h);
+   if(_f.bonusA||_f.bonusH){const _cm=((j.header||{}).competitions||[])[0]||{};let _bs=[];(_cm.competitors||[]).forEach(function(c){if((c.homeAway==='away'&&_f.bonusA)||(c.homeAway==='home'&&_f.bonusH))_bs.push((c.team||{}).abbreviation||c.homeAway);});if(_bs.length)b.push('Bonus: '+_bs.join(' / '));}}
+  return b;},
  lastPlay:function(){return '';}};
 const RP_CFG_HK={icon:RP_PUCK,abbr:rpTeamAbbr,scoringLabel:'GOALS',
  possession:function(){return null;}, /* no possession feed; puck icon reserved for power play below */
@@ -540,37 +570,6 @@ const RP_CFG_TE={icon:RP_RACKET,abbr:rpTeamAbbr,scoringLabel:'BREAKS',
  surface:function(j,comp,aw,hm,poss,aAb,hAb){return rpTennisSvg(poss,aAb,hAb);},
  bits:function(){return [];},
  lastPlay:function(){return '';}};
-function rpCompStats(c,name){ /* defensive: per-fighter stats only when BOTH sides carry the named stat */
- const out=[];(c.competitors||[]).forEach(function(x){const st=(x.statistics||[]).find(function(s){return s&&(s.name===name||s.label===name);});out.push(st?st.displayValue:null);});
- return out.length===2&&out[0]!=null&&out[1]!=null?out:null;}
-async function rpMmaCompLive(d){ /* multi-fight card lane (Sep 29 J-comp class): the fight is a competition nested in the card event - tracked from the scoreboard's nested competitions; the summary endpoint 404s on fight ids, so it is never used here */
- window.__rpLbF=0;
- const _e=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
- try{
- const _ac=new AbortController();setTimeout(function(){_ac.abort();},8000);
- const sb=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard?cb='+Date.now(),{signal:_ac.signal})).json();
- const ev=(sb.events||[]).find(function(e){return String(e.id)===String(d.dataset.ceid);});
- const c=ev&&((ev.competitions||[]).find(function(x){return String(x.id)===String(d.dataset.comp);}));
- const box=document.getElementById('rpLive');if(!box)return;
- if(!c){window.__rpDownSince=window.__rpDownSince||Date.now();return;}  /* card/fight missing this cycle: keep the last good render, count the outage - never blank into a fabricated state */
- const st=(c.status||{}).type||{};
- if(st.state==='pre'){box.innerHTML='';return;}
- const live=st.state==='in';
- const det=(st.shortDetail||st.detail||'');const clk=(c.status||{}).displayClock||'';const rnd=(c.status||{}).period;
- let h='<div id="rpLiveCard" style="margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
- h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':'')+'<span style="font-size:12px;color:#8a8f98">'+_e(det)+(clk&&clk!=='-'?' &middot; '+_e(clk):'')+((rnd&&live)?' &middot; R'+rnd:'')+'</span></div>';
- (c.competitors||[]).forEach(function(x){const nm=((x.athlete||{}).displayName)||((x.athlete||{}).shortName)||'?';
-  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+_e(nm)+(x.winner===true?' <span style="color:#e8b93c">&#10003;</span>':'')+'</span>'+(x.score!=null?'<span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+_e(x.score)+'</span>':'')+'</div>';});
- h+=rpOctagonSvg();
- const bits=[];const sk=rpCompStats(c,'totalStrikes')||rpCompStats(c,'sigStrikes');if(sk)bits.push('Strikes '+sk.join(' / '));
- if(bits.length)h+='<div style="font-size:12px;color:#8a8f98;margin-top:6px">'+bits.join(' &middot; ')+'</div>';
- const dl=(c.details||[]);const last=dl.length?dl[dl.length-1]:null;
- if(last&&last.type&&last.type.text&&live)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+_e(last.type.text)+'</div>';
- if(st.state==='post')h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">Final.</div>';
- h+='</div>';
- box.innerHTML=h;
- }catch(e){window.__rpDownSince=window.__rpDownSince||Date.now();}
-}
 const RP_CFG_MMA={icon:RP_GLOVE,abbr:rpTeamAbbr,scoringLabel:'FINISHES',
  possession:function(){return null;},
  surface:function(){return rpOctagonSvg();},
