@@ -1,0 +1,74 @@
+name: cf-drill-preview
+# Lane 3 PHASE B rollback drill (CUTOVER_PLAN.md). Preview-only: deploys to Pages PREVIEW branch
+# alias "drill" (https://drill.rix-picks.pages.dev). Never touches production branch main, DNS,
+# routes, or GHA producers. Nothing user-visible.
+#   1. FLIP    - preview artifact with the news feed base pointed at the worker; timed.
+#   2. HOLD    - preview serves worker-backed site for `hold_minutes` (render check window).
+#   3. REVERT  - redeploy the same alias from the unmodified tree (GH-pipeline pointer); timed.
+on:
+  workflow_dispatch:
+    inputs:
+      hold_minutes:
+        description: minutes to hold the worker-pointed preview for render verification
+        default: '8'
+permissions:
+  contents: read
+concurrency:
+  group: cf-drill-preview
+  cancel-in-progress: false
+jobs:
+  drill:
+    runs-on: ubuntu-latest
+    env:
+      WORKER_NEWS: https://rixpicks-feeds.itsdardanr.workers.dev/feeds/news.json
+      ALIAS_URL: https://drill.rix-picks.pages.dev
+    steps:
+      - uses: actions/checkout@v4
+      - name: build worker-pointed artifact
+        run: |
+          set -e
+          mkdir -p /tmp/site-worker /tmp/site-prod
+          rsync -a --exclude .git --exclude workers --exclude data ./ /tmp/site-worker/
+          rsync -a --exclude .git --exclude workers --exclude data ./ /tmp/site-prod/
+          N=$(grep -c "slates/news.json" /tmp/site-worker/index.html)
+          echo "news pointer occurrences: $N"
+          test "$N" -ge 2
+          sed -i "s#'slates/news.json#'${WORKER_NEWS}#g" /tmp/site-worker/index.html
+          grep -c "$WORKER_NEWS" /tmp/site-worker/index.html
+          curl -sI "$WORKER_NEWS" | tr -d '\r' | grep -i '^access-control-allow-origin: \*'
+      - name: FLIP (deploy worker-pointed preview)
+        id: flip
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy /tmp/site-worker --project-name=rix-picks --branch=drill --commit-dirty=true
+      - name: verify FLIP serving worker pointer
+        run: |
+          echo "FLIP_DEPLOY_DONE $(date -u +%FT%TZ)"
+          for i in $(seq 1 30); do
+            if curl -fsSL "$ALIAS_URL/?cb=$RANDOM" | grep -q "rixpicks-feeds.itsdardanr.workers.dev/feeds/news.json"; then
+              echo "FLIP_SERVING $(date -u +%FT%TZ)"; exit 0; fi
+            sleep 5
+          done
+          echo "FLIP_VERIFY_FAILED"; exit 1
+      - name: HOLD for render verification
+        run: |
+          echo "HOLD_START $(date -u +%FT%TZ) until +${{ github.event.inputs.hold_minutes }}m"
+          sleep $(( ${{ github.event.inputs.hold_minutes }} * 60 ))
+      - name: REVERT (redeploy unmodified tree to same alias)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy /tmp/site-prod --project-name=rix-picks --branch=drill --commit-dirty=true
+      - name: verify REVERT serving GH-pipeline pointer
+        run: |
+          echo "REVERT_DEPLOY_DONE $(date -u +%FT%TZ)"
+          for i in $(seq 1 30); do
+            B=$(curl -fsSL "$ALIAS_URL/?cb=$RANDOM" || true)
+            if echo "$B" | grep -q "slates/news.json" && ! echo "$B" | grep -q "workers.dev/feeds/news.json"; then
+              echo "REVERT_SERVING $(date -u +%FT%TZ)"; exit 0; fi
+            sleep 5
+          done
+          echo "REVERT_VERIFY_FAILED"; exit 1
