@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-28T04:44:00-07:00",
+ "generated_at": "2026-09-30T01:03:00-07:00",
  "entries": [
   {
    "id": "t5",
@@ -1014,6 +1014,91 @@
    "reason": "Idea won - all three legs won (Bonner 4 reb, Austin 2 ast, Gray 22 pts), game final",
    "provenance": "ESPN official box score, event 401918013 (Final: ATL 92, WAS 77); Kalshi KXWNBA-26SEP27WSHATL finals corroborate Austin/Gray legs (Bonner leg ESPN single-source, no Kalshi market), Sep 27.",
    "removed_label": "Sep 28, 4:44 AM PT"
+  },
+  {
+   "id": "t11",
+   "kind": "ticket",
+   "origin": "suggested",
+   "title": "3-leg HR SGP idea (+7919 source-slip screenshot quote, not a live executable price)",
+   "result": "lost",
+   "detail": "CWS 6 @ HOU 3 Final. All 3 HR legs dead (0 HR each). ESPN event 401907896 + MLB statsapi gamePk 849849 agree.",
+   "legs": [
+    {
+     "player": "Yordan Alvarez",
+     "market": "To hit a home run",
+     "matchup": "CWS @ HOU",
+     "time": "Sep 29, 2:00 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Munetaka Murakami",
+     "market": "To hit a home run",
+     "matchup": "CWS @ HOU",
+     "time": "Sep 29, 2:00 PM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Christian Walker",
+     "market": "To hit a home run",
+     "matchup": "CWS @ HOU",
+     "time": "Sep 29, 2:00 PM PT",
+     "status": "lost"
+    }
+   ],
+   "provenance": "ESPN boxscore event 401907896; MLB statsapi gamePk 849849 (two-source agree)"
+  },
+  {
+   "id": "t12",
+   "kind": "ticket",
+   "origin": "suggested",
+   "title": "6-leg SGP idea (+9492 original five-leg screenshot quote; no six-leg quote exists)",
+   "result": "lost",
+   "detail": "PHI 3 @ ATL 5 Final. Legs 3-2 (Sale 9K W, Dubon 1H W, Luzardo 6K W; Schwarber 0HR L, Olson 0HR L, Turner 0TB L). ESPN event 401907965 + MLB statsapi gamePk 849845 agree.",
+   "legs": [
+    {
+     "player": "Kyle Schwarber",
+     "market": "To hit a home run",
+     "matchup": "PHI @ ATL",
+     "time": "Sep 29, 11:00 AM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Matt Olson",
+     "market": "To hit a home run",
+     "matchup": "PHI @ ATL",
+     "time": "Sep 29, 11:00 AM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Chris Sale",
+     "market": "6+ strikeouts (ALT)",
+     "matchup": "PHI @ ATL",
+     "time": "Sep 29, 11:00 AM PT",
+     "status": "won"
+    },
+    {
+     "player": "Trea Turner",
+     "market": "To record 2+ total bases",
+     "matchup": "PHI @ ATL",
+     "time": "Sep 29, 11:00 AM PT",
+     "status": "lost"
+    },
+    {
+     "player": "Mauricio Dubon",
+     "market": "To record a hit",
+     "matchup": "PHI @ ATL",
+     "time": "Sep 29, 11:00 AM PT",
+     "status": "won"
+    },
+    {
+     "player": "Jesus Luzardo",
+     "market": "5+ strikeouts",
+     "matchup": "PHI @ ATL",
+     "time": "Sep 29, 11:00 AM PT",
+     "status": "won"
+    }
+   ],
+   "provenance": "ESPN boxscore event 401907965; MLB statsapi gamePk 849845 (two-source agree)"
   }
  ]
 }

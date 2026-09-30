@@ -581,8 +581,10 @@ function socAdv(d){
 }
 function socGo(d){
  /* one shared index (QA 4:33 verdict 2): social Prev/Next drives the SAME index as news -
-    carAdv moves CAR_IDX and carMove's sync call pulls social along via socSync. */
- if(SOC_N>0&&SOC_N===CAR_N){carAdv(d);return;}
+    carAdv moves CAR_IDX and carMove's sync call pulls social along via socSync.
+    feed guard 1 (9/30 12:04 AM pixel repro): in fallback the feeds are independent - equal
+    counts are coincidence, carAdv would advance NEWS and leave SOCIAL stuck. Fallback always socAdv. */
+ if(!FEED_FALLBACK&&SOC_N>0&&SOC_N===CAR_N){carAdv(d);return;}
  socAdv(d);
 }
 /* owner 2:55 clip kill (permanent): slide offsets measured before late reflows (font swap, image

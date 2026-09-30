@@ -80,7 +80,7 @@ const ctx = vm.createContext({
 });
 const NAMES = ['esc','unesc','ago','normH','isNewIt','isPublishableNews','isPublishablePost','imgOpt','carKey',
  'rpMapFresh','buildPairs','zeroPairSocial','isSportsPost','carClonify','carCloned','carMove','carNoTrans','carApply','socApply',
- 'socMove','carAdv','socAdv','carStep','socStep','carObserve','feedCacheSave','socSync','socMapRetry','socMatchMore','ingestX','renderNews','renderSocial','socMatchPair'];
+ 'socMove','carAdv','socAdv','socGo','carStep','socStep','carObserve','feedCacheSave','socSync','socMapRetry','socMatchMore','ingestX','renderNews','renderSocial','socMatchPair'];
 /* real top-level RP_* constants (single-line regex/string decls) + league kw object */
 const varLines = src.split('\n').filter(l => /^var RP_[A-Z_]+=/.test(l) && /;\s*$/.test(l));
 function extractVar(name){
@@ -147,6 +147,18 @@ check('news clock does NOT move social counter', (doc.getElementById('rpSocCount
 vm.runInContext('socStep();', ctx);
 check('social clock advances social', ctx.SOC_IDX === (socIdx0 + 1) % 12, true);
 check('social clock does NOT move news index', ctx.CAR_IDX, (carIdx0 + 1) % 12);
+
+/* feed guard 1 (9/30 12:04 AM pixel repro, build 1790750987): Social Next in fallback with equal
+   feed counts must advance SOCIAL, not delegate to carAdv (which moved NEWS and stuck SOCIAL at 2/12). */
+vm.runInContext('CAR_IDX=0;SOC_IDX=0;', ctx);
+const carBefore = ctx.CAR_IDX, socBefore = ctx.SOC_IDX;
+check('fixture feeds are equal-count (repro condition)', ctx.SOC_N > 0 && ctx.SOC_N === ctx.CAR_N, true);
+vm.runInContext('socGo(1);', ctx);
+check('fallback Social Next advances SOCIAL index', ctx.SOC_IDX, (socBefore + 1) % ctx.SOC_N);
+check('fallback Social Next does NOT move NEWS index', ctx.CAR_IDX, carBefore);
+vm.runInContext('socGo(-1);', ctx);
+check('fallback Social Prev returns SOCIAL index', ctx.SOC_IDX, socBefore);
+check('fallback Social Prev does NOT move NEWS index', ctx.CAR_IDX, carBefore);
 
 check('zero-note caption present', !!dom.window.document.getElementById('rpZeroNote'), true);
 check('zero-note caption visible in zero-pair', dom.window.document.getElementById('rpZeroNote') ? dom.window.document.getElementById('rpZeroNote').style.display!=='none' : false, true);
