@@ -137,7 +137,8 @@ check('combos module script found in page', !!modMatch);
     check('accent-insensitive player match (Sanchez)', (byName('Cristopher Sanchez') || '').includes('3 of 7 Ks'));
     check('paint poll cadence is 15s (statsapi sanctioned 10s + margin)', modMatch[0].includes('setInterval(paint,15000)') && !modMatch[0].includes('setInterval(paint,60000)'));
     check('unmatched leg stays empty (fail-closed)', trk1.some(e => e._p === 'Nobody Feedless' && e.innerHTML === ''));
-    check('card-level CASHED explainer present', r1.box.innerHTML.includes('CASHED = live stat threshold met, not a verified venue payout'));
+    check('card-level CASHED explainer removed (consolidated into the page note)', !r1.box.innerHTML.includes('CASHED = live stat threshold met'));
+    check('consolidated page note carries CASHED/price/PLACED/hit distinctions', /id="rpWNote"[^>]*>CASHED = live stat threshold met, not a verified payout\. Prices are reference snapshots, not executable quotes, and combined odds are estimates\. PLACED = reported by Julian/.test(require('fs').readFileSync(__dirname+'/../index.html','utf8')));
     const s4 = { combos: [{ id: 'idea-mlb-hits-20260930b', type: 'idea', date: '2026-09-30',
       title: 'Hits', matchup: 'PHI@ATL', legs: [{ player: 'Trea Turner', market: '1+ hit', kalshi: '-233' }] }] };
     const r4 = await runSim(s4, feed);

@@ -1260,7 +1260,6 @@ r'<div class="sect" style="margin-top:22px">Picks from Wooder Ice<span style="di
 r'<div style="border:1px dashed rgba(127,127,127,.35);border-radius:12px;padding:11px 12px">'
 r'<div id="rpNflHead"></div>'
 r'<div class="rpwhead">Anytime TD Scorers</div>'
-r'<div style="font-size:12px;color:#8a8f98;margin:2px 0 8px">Separate from the RixPicks card and record. Picks only, no wagers placed.</div>'
 r'<div id="rpNfl"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div>'
 r'</div>'
 r'<style>.rpnpick{padding:12px 0;border-top:1px solid #e4e2de}.rpwhead{font-size:20px;font-weight:800;letter-spacing:.05em;margin:0 0 2px}'
@@ -1329,7 +1328,7 @@ r'})();</script>')
 # okUrl uses indexOf, not a /\/// regex: scrub_shipped strips '//' comments - adjacent slashes
 # get eaten as a comment and truncate the whole tab body (3:42 truncation bug).
 nfl_entry+=(
-r'''<div style="border:1px dashed rgba(127,127,127,.35);border-radius:12px;padding:11px 12px;margin-top:14px"><div id="rpNightHead"></div><div class="rpwhead">Anytime TD Scorers - Night</div><div style="font-size:12px;color:#8a8f98;margin:2px 0 8px">Separate from the RixPicks card and record. Picks only, no wagers placed.</div><div id="rpNight"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div></div>'''
+r'''<div style="border:1px dashed rgba(127,127,127,.35);border-radius:12px;padding:11px 12px;margin-top:14px"><div id="rpNightHead"></div><div class="rpwhead">Anytime TD Scorers - Night</div><div id="rpNight"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div></div>'''
 r"""<script>(function(){var box=document.getElementById("rpNight");if(!box)return;function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}function okUrl(u){return (typeof u==="string"&&u.indexOf("https://")===0)?u:null;}function rpAml(c){var q=c/100;if(q<=0||q>=1)return"";return q>=0.5?String(Math.round(-100*q/(1-q))):"+"+String(Math.round(100*(1-q)/q));}function rpHM(ms){try{return new Date(ms).toLocaleString("en-US",{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"}).toLowerCase().replace(/\s/g,"");}catch(e){return"";}}function ptLabel(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",weekday:"short",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return"";}}function chip(bk,label,url){if(!url)return "";return '<span class="chip rpnontap" data-bk="'+bk+'" data-book="'+bk+'" data-sb="'+esc(url)+'">'+esc(label)+"</span>";}function RPKEY(p2,t2){return((p2||"")+"|"+(t2||"")).toLowerCase();}var RP_KO=null;function cdPaint(){var el=document.getElementById("rpNightCd");if(!el)return;if(!RP_KO){el.innerHTML="";return;}var now=Date.now();if(now>=RP_KO){el.innerHTML="";return;}var s=Math.max(0,Math.floor((RP_KO-now)/1000));var hh=Math.floor(s/3600),mm=Math.floor((s%3600)/60),ss=s%60;el.innerHTML='<span style="color:#b07708">Kickoff <b>'+esc(rpHM(RP_KO))+' PT</b> in <b>'+(hh?hh+"h ":"")+mm+"m "+("0"+ss).slice(-2)+"s</b></span>";}function render(j){var singles=((j.dk||{}).singles)||[];var gl=((j.kalshi||{}).game_lines)||[];var sgp=j.sgp_idea||null;if(!singles.length&&!gl.length&&!sgp){box.innerHTML='<div style="color:#8a8f98;font-size:13px;padding:6px 0">No night slate yet.</div>';return;}var hd=document.getElementById("rpNightHead");if(hd){hd.innerHTML='<div style="font-size:20px;font-weight:800;letter-spacing:.05em;margin:0 0 1px">NIGHT PICKS</div><div id="rpNightCd" style="font-size:13px;margin:0 0 6px;min-height:16px"></div>';}RP_KO=j.kickoff?Date.parse(j.kickoff):null;cdPaint();setInterval(cdPaint,1000);var h='<div style="font-size:12px;color:#8a8f98;margin:2px 0 4px">'+(j.kickoff?esc(ptLabel(j.kickoff)):esc(j.window_label||""))+(j.generated_at?" &middot; posted "+esc(ptLabel(j.generated_at)):"")+"</div>";if(singles.length){var sao=j.generated_at?rpHM(Date.parse(j.generated_at)):"";h+='<div class="sect" style="margin-top:10px">DraftKings singles'+(sao?" &middot; as of "+esc(sao)+" PT":"")+"</div>";singles.forEach(function(s,i){var pc=(typeof s.price_c==="number"&&s.price_c>=1&&s.price_c<=99&&s.price_type==="contract_cents")?s.price_c:null;if(pc===null)return;var chips=chip("DKP","DKP "+rpAml(pc),okUrl(s.link));h+='<div class="rpnpick"><div class="pick-head"><span class="gamelink" style="cursor:default"><span class="num">'+(i+1)+'.</span><span class="name"><b>'+esc(s.player)+'</b> anytime TD</span></span><span class="uo"><span class="odds">'+esc(rpAml(pc))+'</span></span></div>'+'<div class="sub">'+esc(s.matchup||"")+'</div><div class="sub rpntrk" data-trk="'+esc(RPKEY(s.player,s.team))+'" style="margin-top:3px;font-size:12px"></div>'+(chips?'<div class="chips">'+chips+"</div>":"")+"</div>";});}if(sgp&&(sgp.legs||[]).length){var names=sgp.legs.map(function(l){return esc(l.player);}).join(" + ");var ev=okUrl((singles[0]||{}).link);var sc=chip("DKP","DKP",ev);h+='<div class="rpnpick"><div class="pick-head"><span class="gamelink" style="cursor:default"><span class="name"><b>'+esc(sgp.title||"Same Game Parlay idea")+'</b></span></span></div>'+'<div class="sub">'+names+" "+esc(sgp.market||"")+"</div>"+(sgp.note?'<div class="sub">'+esc(sgp.note)+"</div>":"")+(sc?'<div class="chips">'+sc+"</div>":"")+"</div>";}if(gl.length){var cap=gl[0].captured_at?rpHM(Date.parse(gl[0].captured_at)):"";h+='<div class="sect" style="margin-top:14px">Kalshi game lines'+(cap?" &middot; as of "+esc(cap)+" PT":"")+"</div>";gl.forEach(function(g){var pc=(typeof g.price_c==="number"&&g.price_c>=1&&g.price_c<=99)?g.price_c:null;if(pc===null)return;var kc=chip("KAL","KAL "+rpAml(pc)+(cap?" · "+cap:""),okUrl(g.link));h+='<div class="rpnpick"><div class="pick-head"><span class="gamelink" style="cursor:default"><span class="name"><b>'+esc(g.title)+'</b></span></span><span class="uo"><span class="odds">'+esc(rpAml(pc))+'</span></span></div>'+'<div class="sub">'+esc(g.market||"")+" &middot; LAR @ DEN</div>"+(kc?'<div class="chips">'+kc+"</div>":"")+"</div>";});}box.innerHTML=h;try{if(window.rpFilter)rpFilter(localStorage.getItem("rp_state"));}catch(e){}}fetch("slates/nfl_night.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(!j||j.version!==1||j.window!=="sun-night")return;render(j);}).catch(function(){});})();</script>"""
 )
 # Wooder night eight-leg DK idea; distinct from the eight ATD singles and four-TD text idea.
@@ -1412,16 +1411,14 @@ r'box.innerHTML=cs.map(function(c,i){'
 r'if(c&&c.type==="idea"){'
 r'return "<div class=\"rpnpick\">"'
 r'+"<div class=\"rpwhead\">"+esc(c.title||"Idea")+" <span style=\"background:rgba(216,162,58,.18);color:#b07708;border-radius:8px;font-size:10px;font-weight:700;padding:1px 7px;vertical-align:2px;letter-spacing:.05em\">"+esc(c.badge||"IDEA · NOT BOUGHT")+"</span></div>"'
-r'+"<div style=\"font-size:11px;color:#8a8f98;margin-top:2px\">"+esc(c.matchup||"")+(c.time?" &middot; "+esc(c.time):"")+" &middot; Separate from the RixPicks card and record. Picks only, no wagers placed.</div>"'
+r'+"<div style=\"font-size:11px;color:#8a8f98;margin-top:2px\">"+esc(c.matchup||"")+(c.time?" &middot; "+esc(c.time):"")+"</div>"'
 r'+(c.legs||[]).map(function(l,li){'
 r'var px=l.yds!=null?"<span style=\"font-size:12px;font-weight:700;color:#8a8f98;white-space:nowrap\">"+esc(ydTxt(l.player,l.yds))+"</span>":l.unavailable?"<span style=\"color:#b07708;font-size:11px;font-weight:700;white-space:nowrap\">UNAVAILABLE on DK Predictions &amp; Kalshi</span>":("<span style=\"font-size:12px;color:#8a8f98;white-space:nowrap\">"+(l.dk?"DK "+esc(l.dk):"")+(l.dk&&l.kalshi?" &middot; ":"")+(l.kalshi?"KAL "+esc(l.kalshi):"")+(l.kalshi_note?(l.dk||l.kalshi?" &middot; ":"")+esc(l.kalshi_note):"")+"</span>");'
 r'return "<div style=\"display:flex;justify-content:space-between;gap:10px;align-items:baseline;font-size:13px;margin-top:6px\"><span>"+(li+1)+". <b>"+esc(l.player)+"</b> "+esc(l.market)+(l.tag?" <span style=\"color:#0a7c5c;font-size:11px;font-weight:700\">"+esc(l.tag)+"</span>":"")+"</span>"+px+"</div>"'
 r'+"<div class=\"rpfeedtrk\" data-p=\""+esc(l.player||"")+"\"></div>"+(l.unavailable?"":"<div class=\"rptixtrk\" data-p=\""+esc(l.fp||l.player||"")+"\" data-m=\""+esc(c.matchup||"")+"\" data-mkt=\""+esc(l.market||"")+"\" data-fm=\""+esc(l.fm||"")+"\" style=\"margin-top:1px;font-size:12px\"></div>");'
 r'}).join("")'
 r'+((c.legs||[]).some(function(l){return l.yds!=null;})&&YD&&YD.fetched_at?"<div style=\"font-size:10px;color:#8a8f98;margin-top:6px\">Yards: "+esc(YD.source||"ESPN")+", as of "+esc(new Date(Date.parse(YD.fetched_at)).toLocaleString("en-US",{timeZone:"America/Los_Angeles",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}))+" PT</div>":"")'
-r'+"<div style=\"font-size:10px;color:#8a8f98;margin-top:6px\">CASHED = live stat threshold met, not a verified venue payout. The full parlay pays only if every leg wins.</div>"+(c.estimate?"<div style=\"font-size:12px;margin-top:8px\">"+esc(c.estimate)+"</div>":"")'
-r'+(c.estimate_note?"<div style=\"font-size:11px;color:#8a8f98;margin-top:2px\">"+esc(c.estimate_note)+"</div>":"")'
-r'+(c.prices_note?"<div style=\"font-size:11px;color:#8a8f98;margin-top:2px\">"+esc(c.prices_note)+"</div>":"")'
+r'+(c.estimate?"<div style=\"font-size:12px;margin-top:8px\">"+esc(c.estimate)+"</div>":"")'
 r'+"</div>";}'
 r'return "<a class=\"rpnpick\" style=\"display:block;text-decoration:none;color:inherit\" href=\""+esc(c.url)+"\" target=\"_blank\" rel=\"noreferrer\">"'
 r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+(i+1)+". "+esc((c.legs||[]).join(" + "))+"</b><span style=\"color:#0a7c5c;font-size:11px;font-weight:700;white-space:nowrap\">KAL &#8250;</span></div>"'
@@ -1480,6 +1477,7 @@ r'})();</script>')
 # slates/julian_record.json (analysis feed, rebuilt each wire cycle); 60s re-fetch; fail-closed
 # hide on missing/invalid. Pending renders as pending - never blank, never guessed.
 nfl_entry+=(
+r'<div id="rpWNote" style="font-size:11px;color:#8a8f98;margin-top:14px;line-height:1.45">CASHED = live stat threshold met, not a verified payout. Prices are reference snapshots, not executable quotes, and combined odds are estimates. PLACED = reported by Julian; receipt, stake and fill are not independently verified. A double or home run counts as one hit. Separate from the RixPicks card and record. Picks only, no wagers placed.</div>'
 r'<div id="rpWRecWrap" style="margin-top:14px;border:1px solid rgba(127,127,127,.35);border-radius:12px;padding:11px 12px">'
 r'<div id="rpWRecHead" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none"><div class="rpwhead">Rolling Record</div><span id="rpWRecChev" style="font-size:14px;font-weight:700;color:#8a8f98;padding:0 4px;line-height:1">v</span></div>'
 r'<div id="rpWRecBody" style="display:none">'
@@ -1509,9 +1507,9 @@ r'})();</script>')
 wnba_entry+=(
 r'<div style="margin-top:22px">'
 r'<div class="sect">Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div>'
-r'<div style="font-size:12px;color:#8a8f98;margin:2px 0 8px">Separate from the RixPicks card and record. Picks only, no wagers placed.</div>'
 r'<div style="border:1px solid rgba(216,162,58,.45);border-radius:12px;padding:11px 12px">'
 r'<div id="rpTixW"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div>'
+r'<div style="font-size:11px;color:#8a8f98;margin-top:10px;line-height:1.45">Separate from the RixPicks card and record. Picks only, no wagers placed. CASHED = live stat threshold met, not a verified payout.</div>'
 r'</div></div>')
 
 fut_watch_html=''
@@ -1909,8 +1907,8 @@ if _V2:
     r'<div class="sect">Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div>'
     r'<div style="border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
     r'<div class="lghead" style="margin-top:0">Dingers Only &#128293;</div>'
-    r'<div class="sub" style="margin-bottom:8px">Separate from the RixPicks card and record. Picks only, no wagers placed.</div>'
     r'<div id="rpDing"></div>'
+    r'<div style="font-size:11px;color:#8a8f98;margin-top:10px;line-height:1.45">Separate from the RixPicks card and record. Picks only, no wagers placed. CASHED = live stat threshold met, not a verified payout.</div>'
     r'</div></div>'
     r'<script>(function(){'
     r'var box=document.getElementById("rpDing");if(!box)return;'
@@ -1980,7 +1978,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     # NEVER hides the wrap - renderPred owns visibility for the forecasts, we only unhide when linked
     # rows exist. Empty/absent ultrix feed = our div removed, forecasts untouched (regression guard
     # for the 60s refetch). 60s refetch, cache-busted; failures only drop our own block.
-    _SHELL+=('\\n<script>(function(){'
+    _SHELL+=('\n<script>(function(){'
     r'var wrap=document.getElementById("rpPredWrap");var box=document.getElementById("rpPred");if(!wrap||!box)return;'
     r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
     r'function pill(p){var st=String(p.status||p.result||"").toLowerCase();var m={won:["#0b6e5f","W"],lost:["#e5484d","L"],push:["#8a8f98","P"]};var x=m[st];if(x)return "<span style=\"color:"+x[0]+";font-size:11px;font-weight:700\">"+x[1]+"</span>";return "<span style=\"color:#b07708;font-size:11px;font-weight:700\">"+esc(st||"open")+"</span>";}'

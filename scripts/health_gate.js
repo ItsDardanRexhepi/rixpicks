@@ -34,6 +34,10 @@ async function fetchText(u) {
     check('yards counter fixture ALL OK', /ALL OK/.test(yx) && !/FAIL/.test(yx), 'NFL futures yards could render an invented number');
     try { const yd = JSON.parse(fs.readFileSync('slates/nfl_rec_yards.json', 'utf8')); check('nfl_rec_yards.json parses with numeric players', Object.values(yd.players || {}).length > 0 && Object.values(yd.players).every(p => typeof p.yards === 'number'), 'yards counters would all show Unavailable'); }
     catch (e) { check('nfl_rec_yards.json parses', false, 'yards counters would all show Unavailable: ' + e.message); }
+    try { const ix = fs.readFileSync('index.html', 'utf8');
+      check('no literal \\n text leak at page bottom', !ix.includes('</div>\\n<script>'), 'a stray backslash-n shows above the ticker');
+      check('ticket boxes carry no repeated fine print (one note above Rolling Record)', !ix.includes('c.estimate_note') && !ix.includes('c.prices_note') && ix.includes('id="rpWNote"') && ix.indexOf('id="rpWNote"') < ix.indexOf('id="rpWRecWrap"'), 'cluttered ticket boxes or the consolidated note missing'); }
+    catch (e) { check('index.html readable for clutter check', false, e.message); }
     check('fixture suite ALL OK', /ALL OK/.test(fx) && !/^\d+ FAIL/m.test(fx), 'a tested display/data regression would ship');
     // 2. builder twins byte-identical
     let same = false;
