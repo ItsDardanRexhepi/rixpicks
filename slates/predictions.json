@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-30T19:21:13.544861+00:00",
+ "generated_at": "2026-09-30T19:35:48.926888+00:00",
  "items": [
   {
    "id": "6b04f4964a",
@@ -7,6 +7,13 @@
    "event": "Chicago White Sox @ Houston Astros",
    "prediction": "Chicago White Sox beat Houston Astros",
    "kickoff_utc": "2026-09-30T21:00:00+00:00"
+  },
+  {
+   "id": "dd2f80a249",
+   "league": "NHL",
+   "event": "New York Islanders @ Toronto Maple Leafs",
+   "prediction": "Toronto Maple Leafs beat New York Islanders",
+   "kickoff_utc": "2026-09-30T23:30:00+00:00"
   },
   {
    "id": "413f06ab3f",
@@ -35,13 +42,6 @@
    "event": "Los Angeles Kings @ Colorado Avalanche",
    "prediction": "Colorado Avalanche beat Los Angeles Kings",
    "kickoff_utc": "2026-10-01T02:00:00+00:00"
-  },
-  {
-   "id": "53ae48a051",
-   "league": "NFL",
-   "event": "Pittsburgh Steelers @ Cleveland Browns",
-   "prediction": "Pittsburgh Steelers beat Cleveland Browns",
-   "kickoff_utc": "2026-10-02T00:15:00+00:00"
   }
  ]
 }
