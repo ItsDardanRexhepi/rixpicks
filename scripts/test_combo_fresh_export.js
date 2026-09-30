@@ -58,12 +58,8 @@ const comboPage = fs.readFileSync(process.argv[2] || path.join(__dirname, '..', 
 const modMatch = comboPage.match(/<script>\(function\(\)\{var box=document\.getElementById\("rpCmb"\)[\s\S]*?<\/script>/);
 check('combos module script found in page', !!modMatch);
 (async () => {
-  if (modMatch) {
+  async function runSim(sample) {
     const modSrc = modMatch[0].replace(/^<script>/, '').replace(/<\/script>$/, '');
-    const sample = { combos: [{ id: 'idea-mlb-ks-20260930', type: 'idea', date: '2026-09-30',
-      title: 'Strikeouts Parlay (4 legs)', matchup: 'PHI@ATL', time: 'from 11:00 AM PT',
-      legs: [{ player: 'Cristopher Sanchez', market: '7+ strikeouts vs ATL', kalshi: '+138 · 42c' }],
-      estimate_note: 'note', prices_note: 'snap' }] };
     const listeners = {}, timers = [];
     const style = { display: '' };
     const box = { innerHTML: '', parentNode: { style } };
@@ -79,16 +75,36 @@ check('combos module script found in page', !!modMatch);
     vm.runInContext(modSrc, sandbox); // rpComboFresh intentionally NOT defined yet
     for (let i = 0; i < 8; i++) await new Promise(r => setImmediate(r));
     const renderedEarly = box.innerHTML.length > 0;
-    // now the utils script "runs": define the global, then fire load + timers
     vm.runInContext(extract('rpComboFresh') + '\nwindow.rpComboFresh=rpComboFresh;', sandbox);
     (listeners.load || []).forEach(fn => fn());
     timers.forEach(fn => fn());
     for (let i = 0; i < 8; i++) await new Promise(r => setImmediate(r));
-    check('module does not render before load when fetch resolves instantly', !renderedEarly);
-    check('module renders Strikeouts card after load with global present', box.innerHTML.includes('Strikeouts Parlay (4 legs)'));
-    check('module parent not hidden after successful render', style.display !== 'none');
+    return { box, style, renderedEarly };
+  }
+  if (modMatch) {
+    const s1 = { combos: [{ id: 'idea-mlb-ks-20260930', type: 'idea', date: '2026-09-30',
+      title: 'Strikeouts Parlay (4 legs)', badge: 'PLACED - reported by Julian',
+      matchup: 'PHI@ATL', time: 'from 11:00 AM PT',
+      legs: [{ player: 'Cristopher Sanchez', market: '7+ strikeouts vs ATL', kalshi: '+138 · 42c' }],
+      estimate_note: 'note', prices_note: 'snap' }] };
+    const r1 = await runSim(s1);
+    check('module does not render before load when fetch resolves instantly', !r1.renderedEarly);
+    check('module renders Strikeouts card after load with global present', r1.box.innerHTML.includes('Strikeouts Parlay (4 legs)'));
+    check('module parent not hidden after successful render', r1.style.display !== 'none');
+    check('badge override renders (PLACED - reported by Julian)', r1.box.innerHTML.includes('PLACED - reported by Julian'));
+    check('badge override replaces the default (no NOT BOUGHT)', !r1.box.innerHTML.includes('NOT BOUGHT'));
+    const s2 = { combos: [{ id: 'idea-mlb-hits-20260930', type: 'idea', date: '2026-09-30',
+      title: 'Hits Parlay Tracker (4 legs)', matchup: 'PHI@ATL', time: 'from 11:00 AM PT',
+      legs: [{ player: 'Trea Turner', market: '1+ hit at ATL', kalshi: '-233 · 70c', tag: 'Confirmed leadoff' }] }] };
+    const r2 = await runSim(s2);
+    check('default badge renders without override (IDEA · NOT BOUGHT)', r2.box.innerHTML.includes('IDEA · NOT BOUGHT'));
+    check('leg tag renders (Confirmed leadoff)', r2.box.innerHTML.includes('Confirmed leadoff'));
+    const s3 = { combos: [{ id: 'idea-plain-20260930', type: 'idea', date: '2026-09-30',
+      title: 'Plain', matchup: 'X', legs: [{ player: 'P', market: 'm', kalshi: '+100' }] }] };
+    const r3 = await runSim(s3);
+    check('no tag field renders no tag', !r3.box.innerHTML.includes('Confirmed leadoff'));
   }
   if (failures) { console.error(failures + ' FAIL'); process.exit(1); }
-  console.log('ALL OK (incl. race sim)');
+  console.log('ALL OK (incl. race sim + badge/tag)');
 })();
 

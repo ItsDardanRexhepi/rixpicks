@@ -1,6 +1,6 @@
 {
- "version": 3,
- "generated_at": "2026-09-30T10:46:16-07:00",
+ "version": 4,
+ "generated_at": "2026-09-30T11:04:19-07:00",
  "combos": [
   {
    "id": "idea-mnf-phi-chi-20260928",
@@ -106,7 +106,8 @@
    ],
    "estimate": "Est. 4 legs combined ~+2350",
    "estimate_note": "Estimated from individual prices; not a quoted combo price.",
-   "prices_note": "Kalshi-only reviewed source snapshot, quoted 10:26 AM PT - reference, not executable prices."
+   "prices_note": "Kalshi-only reviewed source snapshot, quoted 10:26 AM PT - reference, not executable prices. Julian reports placing this ticket; receipt, stake and fill price unverified.",
+   "badge": "PLACED - reported by Julian"
   },
   {
    "id": "idea-mlb-hits-20260930",
@@ -122,7 +123,8 @@
      "player": "Trea Turner",
      "market": "1+ hit at ATL",
      "kalshi": "-233 \u00b7 70c",
-     "fm": "hits"
+     "fm": "hits",
+     "tag": "Confirmed leadoff"
     },
     {
      "player": "Yordan Alvarez",
@@ -144,7 +146,8 @@
     }
    ],
    "estimate_note": "A double or home run counts as one hit.",
-   "prices_note": "Kalshi Yes-ask snapshot 10:43 AM PT, American rounded before fees - reference, not sportsbook quotes or executable prices. No combined price quoted."
+   "prices_note": "Kalshi Yes-ask snapshot 10:43 AM PT, American rounded before fees - reference, not sportsbook quotes or executable prices. No combined price quoted. Julian reports placing this ticket; receipt, stake and fill price unverified.",
+   "badge": "PLACED - reported by Julian"
   }
  ]
 }
