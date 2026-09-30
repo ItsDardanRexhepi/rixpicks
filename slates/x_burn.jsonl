@@ -253,3 +253,22 @@
 {"ts": "2026-09-30T00:34:50+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Kai Trump college\" lang:en -is:retweet -is:reply", "results": 0}
 {"ts": "2026-09-30T00:34:50+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Kai Trump\") lang:en -is:retweet -is:reply", "results": 100}
 {"ts": "2026-09-30T00:34:50+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"NBA reviewing bids\" lang:en -is:retweet -is:reply", "results": 5}
+{"ts": "2026-09-30T01:04:19+00:00", "endpoint": "/tweets/search/recent", "query": "(\"BOS\" OR \"CHC\" OR \"CHI\" OR \"EDM\") (injury OR inactive OR scratch OR lineup OR ruled out) lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T01:04:20+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Guard Sam Cosmi\" lang:en -is:retweet -is:reply", "results": 3}
+{"ts": "2026-09-30T01:04:20+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"White Sox top\" lang:en -is:retweet -is:reply", "results": 30}
+{"ts": "2026-09-30T01:04:20+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Mattingly's call Duran\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T01:04:20+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Mattingly's\" OR \"Duran\" OR \"Phillies'\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T01:04:20+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Panthers win overtime\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T01:04:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Panthers\" OR \"Hurricanes'\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T01:04:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Bruins Rangers lead\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T01:04:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Bruins\" OR \"Rangers\" OR \"NHL\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T01:04:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Cowboys' Schottenheimer 'aligned'\" lang:en -is:retweet -is:reply", "results": 1}
+{"ts": "2026-09-30T01:04:21+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Josh Allen remains\" lang:en -is:retweet -is:reply", "results": 5}
+{"ts": "2026-09-30T01:04:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"MSU Nick Sheridan\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T01:04:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"MSU OC Nick Sheridan\" OR \"Wisconsin\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T01:04:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Kessler talks Lakers'\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T01:04:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Kessler\" OR \"Lakers'\") lang:en -is:retweet -is:reply", "results": 100}
+{"ts": "2026-09-30T01:04:22+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Five Plays Wake\" lang:en -is:retweet -is:reply", "results": 0}
+{"ts": "2026-09-30T01:04:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:(\"Five Plays\" OR \"Wake Forest Second Quarter\") lang:en -is:retweet -is:reply", "results": 90}
+{"ts": "2026-09-30T01:04:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"2026 MLB playoff\" lang:en -is:retweet -is:reply", "results": 85}
+{"ts": "2026-09-30T01:04:23+00:00", "endpoint": "/tweets/search/recent", "query": "news:\"Former Auburn football\" lang:en -is:retweet -is:reply", "results": 18}
