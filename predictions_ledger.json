@@ -159,5 +159,31 @@
   "kickoff_utc": "2026-10-03T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T12:23:13.960758+00:00"
+ },
+ {
+  "id": "e07235134f",
+  "event_id": "401858246",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "SMU Mustangs",
+  "away": "Boston College Eagles",
+  "pick_team": "SMU Mustangs",
+  "prediction": "SMU Mustangs beat Boston College Eagles",
+  "kickoff_utc": "2026-10-03T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T12:50:35.276835+00:00"
+ },
+ {
+  "id": "b222b8af14",
+  "event_id": "401856708",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Missouri Tigers",
+  "away": "Florida Gators",
+  "pick_team": "Florida Gators",
+  "prediction": "Florida Gators beat Missouri Tigers",
+  "kickoff_utc": "2026-10-03T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T12:51:30.389046+00:00"
  }
 ]

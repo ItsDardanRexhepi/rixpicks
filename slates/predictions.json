@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-30T12:23:14.460922+00:00",
+ "generated_at": "2026-09-30T12:53:49.635258+00:00",
  "items": [
   {
    "id": "53ae48a051",
@@ -30,18 +30,18 @@
    "kickoff_utc": "2026-10-03T16:00:00+00:00"
   },
   {
+   "id": "e07235134f",
+   "league": "CFB",
+   "event": "Boston College Eagles @ SMU Mustangs",
+   "prediction": "SMU Mustangs beat Boston College Eagles",
+   "kickoff_utc": "2026-10-03T16:00:00+00:00"
+  },
+  {
    "id": "d3de7fa66d",
    "league": "CFB",
    "event": "Vanderbilt Commodores @ Georgia Bulldogs",
    "prediction": "Georgia Bulldogs beat Vanderbilt Commodores",
    "kickoff_utc": "2026-10-03T16:45:00+00:00"
-  },
-  {
-   "id": "07ce955e9f",
-   "league": "CFB",
-   "event": "Kentucky Wildcats @ South Carolina Gamecocks",
-   "prediction": "Kentucky Wildcats beat South Carolina Gamecocks",
-   "kickoff_utc": "2026-10-03T20:15:00+00:00"
   }
  ]
 }
