@@ -7,8 +7,17 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 : "${THE_ODDS_API_KEY:?THE_ODDS_API_KEY missing}"
 # free gate: any NFL game in progress right now?
-live=$(curl -sS --max-time 15 "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard" \
-  | python3 -c "import json,sys; d=json.load(sys.stdin); print(sum(1 for e in d.get('events',[]) if e['status']['type']['state']=='in'))")
+live=""
+for attempt in 1 2 3; do
+  if live=$(curl -sS --max-time 15 "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard" \
+    | python3 -c "import json,sys; d=json.load(sys.stdin); print(sum(1 for e in d.get('events',[]) if e['status']['type']['state']=='in'))"); then
+    break
+  fi
+  echo "ESPN gate probe attempt $attempt failed - retrying in 5s" >&2
+  sleep 5
+done
+# gate unreachable after retries: skip the cycle free (no credit spent) - next cron tick re-probes
+if [ -z "$live" ]; then echo "ESPN gate unavailable after 3 attempts - skipping cycle, no credit spent"; exit 0; fi
 if [ "$live" = "0" ]; then echo "no live NFL - no credit spent"; exit 0; fi
 HDR=$(mktemp); trap 'rm -f "$HDR"' EXIT
 curl -sS --max-time 25 -D "$HDR" -o nfl_scores_raw.json \
