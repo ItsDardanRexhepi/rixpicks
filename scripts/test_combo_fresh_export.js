@@ -185,7 +185,11 @@ check('combos module script found in page', !!modMatch);
       check('dingers: null count in-game renders Unavailable (never invented zero)', dIn.includes('Unavailable') && !dIn.includes('No HR'));
       check('dingers: null count at final renders Unavailable (never "No HR · Final")', dPost.includes('Unavailable') && !dPost.includes('No HR'));
       check('dingers: live 0 HR honestly renders "No HR yet"', dZero.includes('No HR yet'));
-      check('dingers: live 1 HR renders HR with check', dHit.includes('HR') && dHit.includes('10003'));
+      const dOver = vm.runInContext('tS(2,"in","")', sb2);
+      const dPostHit = vm.runInContext('tS(1,"post","")', sb2);
+      check('dingers: met threshold renders "1 of 1 HR - CASHED" midnight-green pill (no check char, no Pending)', dHit.includes('1 of 1 HR - CASHED') && dHit.includes('#0b3d2e') && dHit.includes('#8ff0c8') && !dHit.includes('10003') && !/pending/i.test(dHit));
+      check('dingers: over-threshold truthful "2 of 1 HR - CASHED"', dOver.includes('2 of 1 HR - CASHED'));
+      check('dingers: met at final still renders the CASHED pill', dPostHit.includes('1 of 1 HR - CASHED'));
       vm.runInContext(tdSrc, sb2);
       const tdIn = vm.runInContext('tS({target:1,label:"TD",td:true},null,"in","")', sb2);
       const tdZero = vm.runInContext('tS({target:1,label:"TD",td:true},0,"in","")', sb2);
@@ -193,6 +197,10 @@ check('combos module script found in page', !!modMatch);
       check('TD tracker: live 0 TD honestly renders "No TD yet"', tdZero.includes('No TD yet'));
       const tdPre = vm.runInContext('tS({target:1,label:"TD",td:true},null,"pre","")', sb2);
       check('TD tracker: pregame renders blank, never "Game not started"', tdPre === '');
+      const tdHit = vm.runInContext('tS({target:1,label:"TD",td:true},1,"in","")', sb2);
+      const tdOver = vm.runInContext('tS({target:1,label:"TD",td:true},2,"in","")', sb2);
+      check('TD tracker: met threshold renders "1 of 1 TD - CASHED" midnight-green pill', tdHit.includes('1 of 1 TD - CASHED') && tdHit.includes('#0b3d2e') && !tdHit.includes('10003'));
+      check('TD tracker: over-threshold truthful "2 of 1 TD - CASHED"', tdOver.includes('2 of 1 TD - CASHED'));
     }
   }
   // futures bypass: season-long items (c.futures===true) survive day roll; expired still drops
