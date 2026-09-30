@@ -1,25 +1,17 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T00:49:30.435680+00:00",
+ "generated_at": "2026-09-30T01:04:27.963024+00:00",
  "leagues": [
   {
    "league": "MLB",
    "games": [
     {
-     "espn_event_id": "401907896",
-     "matchup": "CHW @ HOU",
-     "commence": "2026-09-29T21:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "CHW 6 - HOU 3"
-    },
-    {
      "espn_event_id": "401907924",
      "matchup": "BOS @ NYY",
      "commence": "2026-09-30T00:00Z",
      "status": "in",
-     "detail": "Bot 2nd",
-     "score": "BOS 0 - NYY 0"
+     "detail": "Top 3rd",
+     "score": "BOS 0 - NYY 1"
     },
     {
      "espn_event_id": "401907974",
@@ -47,10 +39,10 @@
      "matchup": "MIN @ NY",
      "commence": "2026-09-30T00:30Z",
      "status": "in",
-     "detail": "4:45 - 1st",
-     "score": "MIN 7 - NY 15",
+     "detail": "9:23 - 2nd",
+     "score": "MIN 21 - NY 26",
      "away_to": 4,
-     "home_to": 5
+     "home_to": 4
     }
    ]
   },
@@ -58,19 +50,11 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401891773",
-     "matchup": "FLA @ CAR",
-     "commence": "2026-09-29T21:00Z",
-     "status": "post",
-     "detail": "Final/OT",
-     "score": "FLA 1 - CAR 0"
-    },
-    {
      "espn_event_id": "401891827",
      "matchup": "MTL @ TOR",
      "commence": "2026-09-29T23:00Z",
      "status": "in",
-     "detail": "2:20 - 2nd",
+     "detail": "End of 2nd",
      "score": "MTL 2 - TOR 1",
      "away_to": null,
      "home_to": null
@@ -80,7 +64,7 @@
      "matchup": "NYR @ BOS",
      "commence": "2026-09-30T00:00Z",
      "status": "in",
-     "detail": "0:53 - 1st",
+     "detail": "End of 1st",
      "score": "NYR 0 - BOS 0",
      "away_to": null,
      "home_to": null
