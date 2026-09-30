@@ -435,6 +435,9 @@ function rpComboFresh(c){
  if(!n&&(m=String((c&&c.id)||'').match(/(\d{4})(\d{2})(\d{2})\s*$/)))n=+(m[1]+m[2]+m[3]);
  return n>0&&n>=today;
 }
+/* the Same Game Parlays module (separate script, async fetch callback) reads this as a
+   global; without the export the IIFE scope hides it and the module fail-closes hidden. */
+window.rpComboFresh=rpComboFresh;
 /* EMPTY-STATE CLASS KILL (owner 6:58 9/28): the page NEVER renders empty-feed or
    loading/syncing strings. Last good content (this build only, so a stale badge from
    pre-fix code can never resurrect) is held through every transient: fetch failure,

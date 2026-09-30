@@ -1,6 +1,6 @@
 {
- "version": 2,
- "generated_at": "2026-09-30T10:34:44-07:00",
+ "version": 3,
+ "generated_at": "2026-09-30T10:46:16-07:00",
  "combos": [
   {
    "id": "idea-mnf-phi-chi-20260928",
@@ -107,6 +107,44 @@
    "estimate": "Est. 4 legs combined ~+2350",
    "estimate_note": "Estimated from individual prices; not a quoted combo price.",
    "prices_note": "Kalshi-only reviewed source snapshot, quoted 10:26 AM PT - reference, not executable prices."
+  },
+  {
+   "id": "idea-mlb-hits-20260930",
+   "type": "idea",
+   "date": "2026-09-30",
+   "title": "Hits Parlay Tracker (4 legs)",
+   "matchup": "PHI@ATL \u00b7 CWS@HOU \u00b7 BOS@NYY \u00b7 CHC@SD",
+   "time": "from 11:00 AM PT",
+   "sport": "mlb",
+   "league": "MLB",
+   "legs": [
+    {
+     "player": "Trea Turner",
+     "market": "1+ hit at ATL",
+     "kalshi": "-233 \u00b7 70c",
+     "fm": "hits"
+    },
+    {
+     "player": "Yordan Alvarez",
+     "market": "2+ hits vs CWS",
+     "kalshi": "+285 \u00b7 26c",
+     "fm": "hits"
+    },
+    {
+     "player": "Ben Rice",
+     "market": "1+ hit vs BOS",
+     "kalshi": "-186 \u00b7 65c",
+     "fm": "hits"
+    },
+    {
+     "player": "Fernando Tatis Jr.",
+     "market": "2+ hits vs CHC",
+     "kalshi": "+223 \u00b7 31c",
+     "fm": "hits"
+    }
+   ],
+   "estimate_note": "A double or home run counts as one hit.",
+   "prices_note": "Kalshi Yes-ask snapshot 10:43 AM PT, American rounded before fees - reference, not sportsbook quotes or executable prices. No combined price quoted."
   }
  ]
 }
