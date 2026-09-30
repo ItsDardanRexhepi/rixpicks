@@ -1,3 +1,47 @@
 {
-  "requests": []
+ "requests": [
+  {
+   "grade_id": "401907965|ml|home",
+   "event_id": "401907965",
+   "league": "baseball/mlb",
+   "pick": "Braves ML",
+   "side": "home",
+   "result": "WON",
+   "score": "Philadelphia Phillies 3 @ Atlanta Braves 5",
+   "stake_units": "5u",
+   "locked_american": "-178",
+   "delta_units_exact": 2.808988764044944,
+   "record_after": "19-8",
+   "units_after_exact": 7.861952343474163,
+   "two_source": [
+    "espn_core completed",
+    "mlb-statsapi (official)"
+   ],
+   "graded_pick": "Braves ML W: Philadelphia Phillies 3 @ Atlanta Braves 5 (published-card basis)",
+   "source": "finals_watch J-118 live chain",
+   "queued_at": "2026-09-29 13:47 PDT"
+  },
+  {
+   "grade_id": "401907896|prop|yordanalvarez|bat_hits|over|1.5",
+   "event_id": "401907896",
+   "league": "baseball/mlb",
+   "pick": "Yordan Alvarez over 1.5 hits",
+   "side": "over",
+   "result": "LOST",
+   "score": "Chicago White Sox 6 @ Houston Astros 3",
+   "stake_units": "5u",
+   "locked_american": "+270",
+   "delta_units_exact": -5.0,
+   "record_after": "19-9",
+   "units_after_exact": 2.8619523434741634,
+   "two_source": [
+    "espn_core completed",
+    "mlb-statsapi (official)"
+   ],
+   "graded_pick": "Yordan Alvarez over 1.5 hits L: Chicago White Sox 6 @ Houston Astros 3 (published-card basis)",
+   "source": "finals_watch J-118 live chain",
+   "queued_at": "2026-09-29 17:24 PDT",
+   "recomputed_note": "recomputed vs post-Braves baseline 19-8/+7.861952u (builder sequential-chain check)"
+  }
+ ]
 }

@@ -224,9 +224,13 @@ def merge_feed(new_items):
         print(f'quality floor: dropped {len(dropped)} low-engagement/short posts')
     new_items = [p for p in new_items if quality_ok(p)]
     try:
-        prev = json.load(open(OUT)).get('items', [])
+        prev_doc = json.load(open(OUT))
+        prev = prev_doc.get('items', [])
     except Exception:
         prev = []
+        prev_gen = None
+    else:
+        prev_gen = prev_doc.get('generated_at')
     # owner 5:28 structural default-deny: carryover items pass the same gate (see x_feed.py)
     prev = [pp for pp in prev if not _banned(pp)]
     merged = {str(p.get('id')): p for p in (new_items + prev) if p.get('id')}
@@ -247,7 +251,12 @@ def merge_feed(new_items):
     rest = [p for p in items if str(p.get('id')) not in keep_ids]
     items = (pinned + rest)[:150]  # pool 50->150 (owner 2:09 coverage push): more candidates
     # per story = more honest verified-pair chances; pinned ids still never evicted
-    out = {'generated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
+    # X-wall companion (Sep 29): an emptied pool must NOT bump generated_at - the
+    # client's rpMapFresh exact-matches x_generated_at, so a fresh stamp on an empty
+    # feed re-mismatches the map between rebuilds. Preserve the prior stamp.
+    gen = (prev_gen if not items and prev_gen else
+           datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'))
+    out = {'generated_at': gen,
            'source': 'x_recent_search', 'window': False, 'items': items}
     json.dump(out, open(OUT, 'w'), indent=1)
     return len(items)

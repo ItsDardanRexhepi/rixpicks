@@ -660,8 +660,32 @@ def main():
            'news_count': len(items), 'post_count': len(posts),
            'news_generated_at': news_gen, 'x_generated_at': x.get('generated_at') if isinstance(x, dict) else None,
            'pairs': {}, 'more': {}, 'nearest': {}, 'rejected': [], 'audit': {}}
-    if not items or not posts:
-        raise RuntimeError('empty served news or X feed; keeping prior match map unchanged')
+    if not items:
+        raise RuntimeError('empty served news; keeping prior match map unchanged')
+    if not posts:
+        # X-wall class (Sep 29 credits wall): an empty X pool must NOT hold the prior map -
+        # served rpMapFresh exact-matches x_generated_at, so a held stale generation blanks
+        # BOTH paired carousels on cold clients while news keeps advancing. Build an honest
+        # empty map in this run's own generation instead: pairs/more/nearest/latest empty,
+        # post_count 0, degraded marker, and NO embed/probe calls (zero NIM spend on an
+        # empty candidate pool). This is exactly the designed FEED_FALLBACK zero-pair client
+        # path (test_feed_fallback_dom.js): feeds render independently, no pairing claims.
+        # News-empty stays a hard raise - an empty news map is never publishable.
+        log['latest'] = {}
+        log['admit'] = []
+        log['relevance'] = {}
+        log['degraded'] = 'x_feed_empty'
+        log['audit'] = {'thresholds': {'auto_accept': AUTO_ACCEPT, 'probe_floor': PROBE_FLOOR, 'more_floor': MORE_FLOOR},
+                        'probes_used': 0, 'paired': 0, 'auto': 0, 'probe_confirmed': 0,
+                        'abstained': 0, 'probe_rejected': 0, 'latest_filled': 0,
+                        'coverage_pct': 0.0, 'degraded': 'x_feed_empty'}
+        try:
+            log['client_build'] = json.load(open('slates/build.json')).get('build')
+        except Exception:
+            pass
+        json.dump(log, open('slates/soc_match.json', 'w'))
+        print('soc_match built EMPTY (degraded=x_feed_empty): generation-matched zero-pair map, no NIM spend')
+        return 0
 
     ntexts = [(it.get('headline', '') + ' - ' + (it.get('blurb') or ''))[:1800] for it in items]
     ptexts = [p.get('text', '')[:1800] for p in posts]

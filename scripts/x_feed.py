@@ -277,9 +277,12 @@ def main():
       # (paired/admitted in the current soc_match map) are never evicted.
       # owner 2:49: the match horizon is the past 24 hours - posts older than 24h age out here.
       try:
-          prev = json.load(open(OUT)).get('items', [])
+          prev_doc = json.load(open(OUT))
+          prev = prev_doc.get('items', [])
+          prev_gen = prev_doc.get('generated_at')
       except Exception:
           prev = []
+          prev_gen = None
       # owner 1:39 (QA audit 2): tout/sales pitches must never enter the shared pool from
       # THIS path either - news_social.py already filters its own pull; same regex, same rule.
       items = [pp for pp in items if not _banned(pp)]
@@ -299,7 +302,13 @@ def main():
       pinned = [pp for pp in merged_items if str(pp.get('id')) in keep_ids]
       rest = [pp for pp in merged_items if str(pp.get('id')) not in keep_ids]
       merged_items = (pinned + rest)[:150]
-      out = {'generated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
+      # X-wall companion (Sep 29): an emptied pool must NOT bump generated_at - the
+      # client's rpMapFresh exact-matches x_generated_at, so a fresh stamp on an empty
+      # feed re-mismatches the map between rebuilds. Preserve the prior stamp; the
+      # identical-empty write is then a no-op for the commit layer too.
+      gen = (prev_gen if not merged_items and prev_gen else
+             datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'))
+      out = {'generated_at': gen,
              'source': 'x_recent_search', 'window': bool(window), 'items': merged_items}
       json.dump(out, open(OUT, 'w'), indent=1)
     print(f'x_feed: {len(items)} new posts, {len(queries[:4])} queries ({len(terms)} slate terms), window={bool(window)} -> {OUT}')

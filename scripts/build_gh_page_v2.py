@@ -1909,9 +1909,11 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
 
     # Predictions by UltRix (todo-01M3QBSB8S3YA86RQTDC5MKDK8, Dardan 12:55 via main: UltRix core-level
     # across the site): hydrates the aside panel from the analysis lane's ultrix_record.json dual-emit
-    # (identical to julian_record.json). Fail-closed HIDDEN when no linked/resolved predictions exist -
-    # pre-first-ask the feed carries explicit empty arrays (contract from analysis 3:02 PM). 60s
-    # refetch, cache-busted; any fetch/shape failure hides the panel (blank beats wrong).
+    # (identical to julian_record.json). Coexists with renderPred (index_v2.js, predictions.json):
+    # linked/resolved rows render in a dedicated rpPredLinked div prepended inside #rpPred; this code
+    # NEVER hides the wrap - renderPred owns visibility for the forecasts, we only unhide when linked
+    # rows exist. Empty/absent ultrix feed = our div removed, forecasts untouched (regression guard
+    # for the 60s refetch). 60s refetch, cache-busted; failures only drop our own block.
     _SHELL+=('\\n<script>(function(){'
     r'var wrap=document.getElementById("rpPredWrap");var box=document.getElementById("rpPred");if(!wrap||!box)return;'
     r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
@@ -1920,13 +1922,16 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     r'function row(p){var who=esc(p.player||p.team||"");var mk=esc(MM[p.market]||p.market||"");var mu=p.matchup?(" &middot; "+esc(p.matchup)):"";var vn=p.venue?esc(p.venue):"";var pr=(p.price!=null?esc(String(p.price)):"");'
     r'return "<div style=\"display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-top:4px\"><span><b>"+who+"</b> <span style=\"color:#8a8f98\">"+mk+mu+"</span></span><span style=\"white-space:nowrap\">"+(vn?("<span style=\"color:#8a8f98;font-size:11px\">"+vn+(pr?" "+pr:"")+"</span> "):"")+pill(p)+"</span></div>";}'
     r'function paint(j){var u=(j&&j.ultrix)||{};var lp=u.linked_predictions||[];var rs=u.resolved||[];'
-    r'if(!lp.length&&!rs.length){wrap.style.display="none";return;}'
+    r'var old=document.getElementById("rpPredLinked");if(old)old.parentNode.removeChild(old);'
+    r'if(!lp.length&&!rs.length){return;}'
     r'var h="";'
     r'if(lp.length){h+="<div style=\"font-size:12px;color:#8a8f98;margin:2px 0 4px\">Live from UltRix-linked sources</div>"+lp.map(row).join("");}'
     r'if(rs.length){h+="<div style=\"margin-top:10px;border-top:1px solid #e4e2de;padding-top:8px\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#8a8f98\">Resolved</div>"+rs.slice(0,5).map(row).join("")+"</div>";}'
     r'if(u.linked_asks!=null||u.resolution_verified!=null){h+="<div style=\"font-size:11px;color:#8a8f98;margin-top:6px\">"+(u.linked_asks||0)+" linked &middot; "+(u.resolution_verified||0)+" verified</div>";}'
-    r'box.innerHTML=h;wrap.style.display="";}'
-    r'function load(){fetch("slates/ultrix_record.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){paint(j||{});}).catch(function(){wrap.style.display="none";});}'
+    r'var d=document.createElement("div");d.id="rpPredLinked";d.innerHTML=h;'
+    r'if(box.firstChild)box.insertBefore(d,box.firstChild);else box.appendChild(d);'
+    r'wrap.style.display="";}'
+    r'function load(){fetch("slates/ultrix_record.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){paint(j||{});}).catch(function(){var old=document.getElementById("rpPredLinked");if(old)old.parentNode.removeChild(old);});}'
     r'load();setInterval(load,60000);'
     r'})();</script>')
     _kal_watch=[]
