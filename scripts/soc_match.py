@@ -52,8 +52,8 @@ MORE_CAP = 20
 # boilerplate); (2) a post whose text introduces a foreign principal person (capitalized
 # bigram surname absent from the headline's entities, place/org words excluded) conflicts.
 # No extractable entities -> gate silent, probe decides. Latest tier uses layer 1 at need=1.
-ENTITY_GATE_VERSION = 'eg5'  # cache salt: freshness and reason-integrity checks
-ENTITY_STOP = set('game games report reports season seasons preview previews recap recap watch video highlight highlights rumor rumors update updates news trade trades injury injuries week daily today tonight tomorrow yesterday best worst ranking rankings power draft pick picks odds line lines spread spreads over under win wins loss losses versus the after before says said new why how what who live score scores final first last early late big top free agent agents coach coaches team teams player players star stars fans fan take takes make makes get gets back down into with from will would could should must still just more most ever every next league playoff playoffs postseason championship title titles night match matches fight fights career future futures ready leads lead leading recalls sent check throws college football basketball baseball hockey soccer monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december chat discussion eve face home road looks remain unbeaten factor charge go years year state count counts props prop expert experts bets bet betting booed'.split())
+ENTITY_GATE_VERSION = 'eg6'  # cache salt: freshness and reason-integrity checks
+ENTITY_STOP = set('this these those that one two three four five it its our your their there here'.split()) | set('game games report reports season seasons preview previews recap recap watch video highlight highlights rumor rumors update updates news trade trades injury injuries week daily today tonight tomorrow yesterday best worst ranking rankings power draft pick picks odds line lines spread spreads over under win wins loss losses versus the after before says said new why how what who live score scores final first last early late big top free agent agents coach coaches team teams player players star stars fans fan take takes make makes get gets back down into with from will would could should must still just more most ever every next league playoff playoffs postseason championship title titles night match matches fight fights career future futures ready leads lead leading recalls sent check throws college football basketball baseball hockey soccer monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december chat discussion eve face home road looks remain unbeaten factor charge go years year state count counts props prop expert experts bets bet betting booed'.split())
 POST_PERSON_STOP = ENTITY_STOP | set('field stadium arena center centre park garden dome coliseum bowl classic series cup showdown invitational open masters nationals united city club fc sc ac cf real sporting athletics university kings queens islanders post'.split())  # 'post': outlet names in subject position (The California Post) are not person principals
 
 def _norm_person(tok):
@@ -76,7 +76,7 @@ def title_entities(title):
     persons = set()
     ents = set()
     for a, b in zip(toks, toks[1:]):
-        if a[:1].isupper() and b[:1].isupper() and len(_norm_person(b)) >= 3 and _norm_person(a) not in ENTITY_STOP:
+        if a[:1].isupper() and b[:1].isupper() and len(_norm_person(b)) >= 3 and _norm_person(a) not in ENTITY_STOP and _norm_person(b) not in ENTITY_STOP:
             persons.add(_norm_person(b))
     for t in toks:
         tl = _norm_person(t)
@@ -300,7 +300,7 @@ EQUIVOCAL = re.compile(r'\b(different (team|teams|player|players|game|story|stor
 # A YES is admissible only when its final line gives an actual action supported by
 # both inputs. The model's rationale is evidence to check, never evidence by itself.
 GENERIC_REASON = re.compile(r'\b(same (?:event|game|story|topic|subject|health status)|related to|about the same|both (?:mention|discuss|refer to)|shares? (?:the )?(?:name|team|player)|no contradiction|does not contradict|exact quote of (?:the )?(?:story.s )?headline|headline quote|same person)\b', re.I)
-ACTION_WORDS = set('score scores scored scoring wins won loses lost leads led beats beat signs signed signing trades traded trading injured injury cleared clears clearing ruled inactive activates activated returns returned returning starts started starting exits exited breaks broke throws threw thrown passes passed passing hits hit homers homered shoots shot retires retired retirement cuts cut waived waive suspended suspends drafts drafted fired hired hiring extends extended extension announces announced announce reports reported report confirms confirmed files filed qualifies qualified advances advanced predicts predicted predicts prediction recommends recommended picks picked picking bets bet betting changes changed updates updated update discusses discussed explains explained analyzes analysed analysis'.split())
+ACTION_WORDS = set('competes competing competition trains training practice practices practiced score scores scored scoring wins won loses lost leads led beats beat signs signed signing trades traded trading injured injury cleared clears clearing ruled inactive activates activated returns returned returning starts started starting exits exited breaks broke throws threw thrown passes passed passing hits hit homers homered shoots shot retires retired retirement cuts cut waived waive suspended suspends drafts drafted fired hired hiring extends extended extension announces announced announce reports reported report confirms confirmed files filed qualifies qualified advances advanced predicts predicted predicts prediction recommends recommended picks picked picking bets bet betting changes changed updates updated update discusses discussed explains explained analyzes analysed analysis'.split())
 STOP_REASON = set('the and for with from into over under after before this that they their his her its are was were about story news post article social both same main team player game event match matching headline quote exact says mentions discussion directly specific concrete shared action because as also has have had'.split())
 
 def _reason_tokens(s):
@@ -834,6 +834,7 @@ def main():
                                  'verdict': 'ABSTAIN', 'gate': 'evidence', 'reason': 'below probe floor'})
                 continue
             vk = SALT + '|' + nk + '|' + str(posts[j].get('id'))
+            stats['probe_gate_passed'] = stats.get('probe_gate_passed', 0) + 1
             prior = vcache.get(vk)
             if prior:
                 if prior.get('verdict') == 'EXECUTE' and not reason_integrity(re.sub(r'^YES\b[\s:.-]*', '', prior.get('reason', ''), flags=re.I), ntexts[i], ptexts[j]):
@@ -844,6 +845,7 @@ def main():
                     prior = None
                     vcache.pop(vk, None)
             if prior:
+                stats['probe_cache_hits'] = stats.get('probe_cache_hits', 0) + 1
                 if prior.get('verdict') == 'EXECUTE':
                     verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                      'verdict': 'EXECUTE', 'gate': 'conflict', 'reason': 'probe confirmed (cached): ' + prior.get('reason', '')})
@@ -865,8 +867,10 @@ def main():
                 if vrd == 'ABSTAIN' and probes < MAX_PROBES and (
                         why.startswith('probe gave no final YES/NO') or why.startswith('unsupported YES reason') or why.startswith('unsupported NO reason')):
                     probes += 1
+                    stats['reason_repairs'] = stats.get('reason_repairs', 0) + 1
                     vrd, why = repair_reason(ntexts[i], ptexts[j])
             except Exception as e:
+                stats['probe_transport_failures'] = stats.get('probe_transport_failures', 0) + 1
                 verdicts.append({'post_id': posts[j].get('id'), 'score': round(score, 4),
                                  'verdict': 'DEFER', 'gate': 'evidence', 'reason': 'probe failed: ' + str(e)[:80]})
                 continue
@@ -1019,7 +1023,7 @@ def main():
     else:
         stats['zero_pair_reason'] = 'mixed'
     log['audit'] = {'thresholds': {'auto_accept': AUTO_ACCEPT, 'probe_floor': PROBE_FLOOR, 'more_floor': MORE_FLOOR},
-                    'probes_used': probes, **stats,
+                    'probes_used': probes, 'onstory_probes_used': ons_probes, **stats,
                     'coverage_pct': round(100.0 * stats['paired'] / max(1, len(items)), 1)}
     cur_keys = {key_news(it) for it in items}
     cur_pids = {str(pp.get('id')) for pp in posts}

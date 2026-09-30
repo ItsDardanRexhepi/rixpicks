@@ -446,6 +446,28 @@ if not (-1 < _gate_at < _cache_at < _probe_at):
 if 'A generic odds, spread, moneyline, or totals post with no named expert pick NEVER' not in _src:
     fails.append("v6 probe generic-odds rule missing from prompt - TruGrit class can EXECUTE again")
 
+# Exact served false-negative, 2026-09-30 03:05Z, X 2105100216793801109.
+# Boilerplate "This" must not become a principal requiring a literal post match.
+_training_title = "&#39;This is a meritocracy&#39;: Lakers open training camp with mandate of competition"
+_training_blurb = "Coach JJ Redick expects training camp to be a proving ground for players who want start and be part of the rotation. The first practice proved that to be true."
+_training_post = "JJ Redick's excited about the competition at training camp. Lakers fans are already drawing up playoff brackets before the first whistle blows!"
+_training_ents = sm.title_entities(_training_title)
+if _training_ents != {'lakers'}:
+    fails.append("training-camp boilerplate entities: %r" % _training_ents)
+if sm.entity_conflict(_training_ents, _training_post, 2) or sm.post_persons(_training_post, _training_ents, _training_blurb):
+    fails.append("exact training-camp post wrongly denied before probe")
+if sm.title_entities('2026 MLB wild-card series Day 1: Live updates, lineups, analysis'):
+    fails.append("Live boilerplate became a person principal")
+if sm.title_entities('RAMalytics: One reason why Rams’ passing game feels anemic') != {'ramalytics', 'rams'}:
+    fails.append("One boilerplate became a principal")
+
+# A model verdict about actual training-camp competition must not fail a
+# vocabulary-only wall. This is parser plumbing, not an algorithm YES claim.
+if sm.parse_verification('YES, Lakers training camp competition.', _training_title + ' - ' + _training_blurb, _training_post)[0] != 'EXECUTE':
+    fails.append("grounded training-camp competition reason denied")
+if sm.parse_verification('YES, Lakers training camp competition.', _training_title + ' - ' + _training_blurb, 'Lakers won the game tonight.')[0] == 'EXECUTE':
+    fails.append("training-camp reason admitted unrelated Lakers game post")
+
 # guard 1 (9/29) Forsling banner-night false-reject class: story espn.com/nhl/story/_/id/50062937
 # x post x.com/johnalabban4629/status/2105101207245045783 - the v17 probe REJECTED "Different action
 # within the same event timeline", contradicting BOTH inputs (Forsling OT winner with 4.3s left +

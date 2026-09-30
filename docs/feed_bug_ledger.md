@@ -38,3 +38,12 @@ Evidence anchors: [served news](https://rix-picks.com/slates/news.json), [served
 3. Run guards 1-8 against the same served snapshot and inspect the specific falsifying examples in each open row. Record run URL, served timestamps, counts and verdict/post IDs when closing a row.
 4. Keep any unresolved row open, even if a patch was merged. Do not erase history; mark it serve-verified dead with evidence and date.
 5. Completion requires 12 consecutive clean 15-minute cycles spanning at least 3 hours across guards 1-8. Reset the consecutive count on any hiccup; one green snapshot cannot close F15.
+
+## F18 / G3 zero-admission investigation, 2026-09-29 20:19 PDT
+Status: patch sent, open pending served algorithm verdict.
+
+The 03:05:00Z served map had 40 unpaired stories, 49 band-eligible candidates, 29 entity rejects, 18 probe rejects, two probe abstentions and 14 live probes. `abstained=40` counts stories, not a fixed evaluation cap. Probe budget was not exhausted. Replay of the served news/X/vector snapshots found one concrete false entity rejection: article `https://sports.yahoo.com/articles/meritocracy-lakers-open-training-camp-232241645.html`, headline `'This is a meritocracy': Lakers open training camp with mandate of competition`, versus X 2105100216793801109, score 0.613349. The extractor required the boilerplate word `This` alongside `Lakers`. The post names JJ Redick, training camp and competition; Redick is explicitly in the article blurb. A second parser-only wall omitted training/practice/competition from the common-action vocabulary.
+
+The eg6 patch removes pronoun/count boilerplate principals, prevents stopwords from re-entering as a capitalized-bigram surname, adds training-camp action vocabulary and audit counters (probe gate passes, cache hits, repairs, transport failures, on-story probes). The decision salt changes; caches are not purged. Full offline fixtures pass, including exact served positive and unrelated-Lakers negative. Across this snapshot, exactly one floor-qualified, league-qualified pair changes entity eligibility. A simulated parser YES is only plumbing evidence, not an actual algorithm verdict.
+
+Closure requires an integrated build, actual algorithm evaluation of the exact pair if still in the pool, complete truthful reason and served coverage evidence. Do not force an admit, reduce the cosine threshold, increase paid-X cadence or claim the three-hour streak from this patch. Other current pool posts often have no matching story action, so this does not explain all zero coverage.
