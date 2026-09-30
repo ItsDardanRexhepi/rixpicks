@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T00:19:31.923086+00:00",
+ "generated_at": "2026-09-30T00:34:32.420978+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,8 +9,8 @@
      "espn_event_id": "401907896",
      "matchup": "CHW @ HOU",
      "commence": "2026-09-29T21:00Z",
-     "status": "in",
-     "detail": "Bot 9th",
+     "status": "post",
+     "detail": "Final",
      "score": "CHW 6 - HOU 3"
     },
     {
@@ -18,7 +18,7 @@
      "matchup": "BOS @ NYY",
      "commence": "2026-09-30T00:00Z",
      "status": "in",
-     "detail": "Top 1st",
+     "detail": "Bot 1st",
      "score": "BOS 0 - NYY 0"
     },
     {
@@ -39,18 +39,10 @@
      "matchup": "LV @ IND",
      "commence": "2026-09-29T22:30Z",
      "status": "in",
-     "detail": "7:34 - 4th",
-     "score": "LV 71 - IND 76",
+     "detail": "3:31 - 4th",
+     "score": "LV 83 - IND 90",
      "away_to": 3,
      "home_to": 2
-    },
-    {
-     "espn_event_id": "401918017",
-     "matchup": "MIN @ NY",
-     "commence": "2026-09-30T00:30Z",
-     "status": "pre",
-     "detail": "9/29 - 5:30 PM PT",
-     "score": "MIN 0 - NY 0"
     }
    ]
   },
@@ -70,8 +62,8 @@
      "matchup": "MTL @ TOR",
      "commence": "2026-09-29T23:00Z",
      "status": "in",
-     "detail": "18:55 - 2nd",
-     "score": "MTL 1 - TOR 1",
+     "detail": "11:07 - 2nd",
+     "score": "MTL 2 - TOR 1",
      "away_to": null,
      "home_to": null
     },
@@ -80,7 +72,7 @@
      "matchup": "NYR @ BOS",
      "commence": "2026-09-30T00:00Z",
      "status": "in",
-     "detail": "16:24 - 1st",
+     "detail": "9:33 - 1st",
      "score": "NYR 0 - BOS 0",
      "away_to": null,
      "home_to": null
@@ -92,6 +84,14 @@
      "status": "pre",
      "detail": "9/29 - 7:00 PM PT",
      "score": "VAN 0 - EDM 0"
+    },
+    {
+     "espn_event_id": "401891775",
+     "matchup": "CHI @ VGK",
+     "commence": "2026-09-30T02:30Z",
+     "status": "pre",
+     "detail": "9/29 - 7:30 PM PT",
+     "score": "CHI 0 - VGK 0"
     }
    ]
   }
