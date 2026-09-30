@@ -38,7 +38,7 @@ TOUT_RE = __import__('re').compile(
     r'discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|'
     r'picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|'
     r'free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|'
-    r'freebie|free picks? on|model.{0,20}(is )?(live|cashed)', __import__('re').I)
+    r'freebie|free picks? on|model.{0,20}(is )?(live|cashed)|free signals?|vip[- ]?[0-9]* ?trades?|take[- ]?profits?|\btp[1-4]\b|stop[- ]?loss|(?:crypto|forex|trading) signals?|bitcoin|\b(?:btc|eth|xrp|doge|pepe|shib)\b|solana|memecoins?|altcoins?|binance|bybit|bitget|kucoin|\bokx\b|\bmexc\b|airdrops?|pump[ -]?fun|long setup|short setup|\b(?:50|100)x\b|\$(?:BTC|ETH|XRP|SOL|DOGE|ADA|PEPE|SHIB)\b', __import__('re').I)
 
 
 def _payload(p):
@@ -51,11 +51,12 @@ def _banned(p):
     import re as _re, unicodedata
     t = unicodedata.normalize('NFKC', _payload(p))
     t = _re.sub(r'#\s+', '#', t)  # de-spaced hashtags: '# ad' is still '#ad' (guard 3 promo class)
-    if TOUT_RE.search(t) or AD_RE.search(t) or PROMO2_RE.search(t) or _re.search(r'\bFREE PICKS?\b', t):
+    if TOUT_RE.search(t) or AD_RE.search(t) or PROMO2_RE.search(t) or _re.search(r'\bFREE (PICKS?|SIGNALS?)\b', t):
         return True
     # sportsbook/operator brands banned at author AND handle (guard 3 Betfair class)
     who = unicodedata.normalize('NFKC', str(p.get('author_name') or '') + ' ' + str(p.get('author_username') or ''))
-    return bool(_re.search(r'\b(bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook)\b', who, _re.I))
+    who = _re.sub(r'[^A-Za-z0-9]+', ' ', who)  # crypto-handle class: split separators so Cry_Fortress-style handles tokenize
+    return bool(_re.search(r'\b(bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook|cry|crypto|forex|btc|eth|xrp|solana|memecoin|altcoins?|defi|web3|signals)\b', who, _re.I))
 AD_RE = __import__('re').compile(
     r'tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|'
     r'price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|'

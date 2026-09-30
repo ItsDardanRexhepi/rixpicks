@@ -640,18 +640,18 @@ var XFEED_GEN=null; /* generation of the X payload actually ingested, not the wa
 /* owner 1:39: NO tout/selling-access posts, ever - client layer mirrors the server filter so
    legacy pool items and no-map fallbacks are covered too. */
 var RP_AD_KW=/happy hour|dine[ -]?in|grab a (table|seat|cold one)|tall domestics|half rack|drink specials?|food specials?|come watch|watch party|patio|\$\d+(\.\d+)? (tall|pint|wing|slice|pitcher)|book a table|now open|grand opening|tickets? (to see|for|available)|[0-9]x tickets|seats? (available|for sale)|get rid of|price.{0,12}negotiable|send me a dm|dm if you|selling (my|[0-9])|face value|stubhub|vivid ?seats|seatgeek|tickpick|ticketmaster|gametime|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|cashed some|brought to you by|listen in now|tune in (now|tonight)|[0-9]{2,3}\.[0-9] ?fm|[0-9]{3,4} ?am\b|get-in (price|as)|best free|top [0-9]+ (player )?props|deposit (bonus|match|offer)|bonus bets?|#\s*(ad|ads|sponsored|sponsorship)\b|#\w*sale\b|#giveaway\b|follow\s+(us|me|@\w+)\b.{0,40}(to win|to enter|for a chance|giveaway)|(secure|reserve|book)\s+(a\s+|your\s+)table|(arrive|get (there|here)|come)\s+early\b[^.!?]{0,50}(secure|reserve|grab|book)\s+(a\s+|your\s+)?(table|spot|seat)|free picks?\s*(up|here|today|tonight|now|below|thread|incoming|alert|inside|drop)/i;
-var RP_TOUT_KW=/discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|freebie|free picks? on|model.{0,20}(is )?(live|cashed)/i;
+var RP_TOUT_KW=/discord|telegram|dubclub|patreon|link in bio|dm (me|us) for|vip (picks|plays|access)|picks package|premium picks|paywall|subscribe for|promo code|join my|tap in with|free (play|pick)s? (today|daily)|lock of the day|guaranteed (winner|play)|freebie|free picks? on|model.{0,20}(is )?(live|cashed)|free signals?|vip[- ]?[0-9]* ?trades?|take[- ]?profits?|\btp[1-4]\b|stop[- ]?loss|(?:crypto|forex|trading) signals?|bitcoin|\b(?:btc|eth|xrp|doge|pepe|shib)\b|solana|memecoins?|altcoins?|binance|bybit|bitget|kucoin|\bokx\b|\bmexc\b|airdrops?|pump[ -]?fun|long setup|short setup|\b(?:50|100)x\b|\$(?:BTC|ETH|XRP|SOL|DOGE|ADA|PEPE|SHIB)\b/i;
 /* guard 3+5 class kill: ONE publishability predicate on the COMPLETE post payload (text + link +
    author branding) - applied at XNEWS ingestion AND re-asserted at every display boundary
    (pin, nearest, bridge, more modal). Account branding counts (the Brownstone Bets class). */
 /* sportsbook/operator brands are banned at author AND handle (guard 3 Betfair class) - a
    sportsbook-authored post is operator content by construction, whatever its text says. */
-var RP_OPERATOR='bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook';
+var RP_OPERATOR='bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook|cry|crypto|forex|btc|eth|xrp|solana|memecoin|altcoins?|defi|web3|signals';
 function isPublishablePost(p){
  if(!p)return false;
  var t=(String(p.headline||'')+' '+String(p.link||'')+' '+String(p.author||'')).normalize('NFKC').replace(/#\s+/g,'#');
- if(RP_TOUT_KW.test(t)||RP_AD_KW.test(t)||/\bFREE PICKS?\b/.test(t))return false;
- if(new RegExp('\\b('+RP_OPERATOR+')\\b','i').test(String(p.author||'').normalize('NFKC')))return false;
+ if(RP_TOUT_KW.test(t)||RP_AD_KW.test(t)||/\bFREE (PICKS?|SIGNALS?)\b/.test(t))return false;
+ if(new RegExp('\\b('+RP_OPERATOR+')\\b','i').test(String(p.author||'').normalize('NFKC').replace(/[^A-Za-z0-9]+/g,' ')))return false;
  return true;
 }
 /* guard 3 news-side default-deny (his 5:27/5:28 rule, one layer up): promo-code / bonus-bet /
