@@ -66,55 +66,47 @@
    ]
   },
   {
-   "id": "idea-mlb-ks-20260930",
+   "id": "idea-mlb-ks3-20260930",
    "type": "idea",
    "date": "2026-09-30",
-   "title": "Strikeouts Parlay (4 legs)",
-   "matchup": "PHI@ATL · CWS@HOU · BOS@NYY · CHC@SD",
+   "title": "Strikeouts Parlay (3 legs)",
+   "matchup": "CWS@HOU \u00b7 BOS@NYY \u00b7 CHC@SD",
    "time": "from 11:00 AM PT",
    "sport": "mlb",
    "league": "MLB",
    "legs": [
     {
-     "player": "Cristopher Sanchez",
-     "market": "7+ strikeouts vs ATL",
-     "kalshi": "+138 · 42c",
-     "kalshi_note": "KXMLBKS-26SEP301400PHIATL-PHICSANCHEZ61-7",
-     "fm": "strikeouts"
-    },
-    {
      "player": "Hunter Brown",
      "market": "7+ strikeouts vs CWS",
-     "kalshi": "+117 · 46c",
+     "kalshi": "+117 \u00b7 46c",
      "kalshi_note": "KXMLBKS-26SEP301700CWSHOU-HOUHBROWN58-7",
      "fm": "strikeouts"
     },
     {
      "player": "Max Fried",
      "market": "6+ strikeouts vs BOS",
-     "kalshi": "+117 · 46c",
+     "kalshi": "+117 \u00b7 46c",
      "kalshi_note": "KXMLBKS-26SEP302000BOSNYY-NYYMFRIED54-6",
      "fm": "strikeouts"
     },
     {
      "player": "Kevin Gausman",
      "market": "5+ strikeouts at SD",
-     "kalshi": "+117 · 46c",
+     "kalshi": "+117 \u00b7 46c",
      "kalshi_note": "KXMLBKS-26SEP302200CHCSD-CHCKGAUSMAN34-5",
      "fm": "strikeouts"
     }
    ],
-   "estimate": "Est. 4 legs combined ~+2350",
-   "estimate_note": "Estimated from individual prices; not a quoted combo price.",
-   "prices_note": "Kalshi-only reviewed source snapshot, quoted 10:26 AM PT - reference, not executable prices. Wooder Ice reports placing this ticket; receipt, stake and fill price unverified.",
-   "badge": "PLACED - reported by Wooder Ice"
+   "estimate": "Est. 3 legs combined ~+927",
+   "estimate_note": "ESTIMATE from the three Kalshi per-leg reference prices (46c each; 0.46 x 0.46 x 0.46 = 9.7%, about +927). Not an executable quote.",
+   "prices_note": "Kalshi-only reviewed source snapshot, quoted 10:26 AM PT - reference, not executable prices."
   },
   {
    "id": "idea-mlb-hits-20260930",
    "type": "idea",
    "date": "2026-09-30",
    "title": "Hits Parlay Tracker (4 legs)",
-   "matchup": "PHI@ATL · CWS@HOU · BOS@NYY · CHC@SD",
+   "matchup": "PHI@ATL \u00b7 CWS@HOU \u00b7 BOS@NYY \u00b7 CHC@SD",
    "time": "from 11:00 AM PT",
    "sport": "mlb",
    "league": "MLB",
@@ -122,26 +114,26 @@
     {
      "player": "Trea Turner",
      "market": "1+ hit at ATL",
-     "kalshi": "-233 · 70c",
+     "kalshi": "-233 \u00b7 70c",
      "fm": "hits",
      "tag": "Confirmed leadoff"
     },
     {
      "player": "Yordan Alvarez",
      "market": "2+ hits vs CWS",
-     "kalshi": "+285 · 26c",
+     "kalshi": "+285 \u00b7 26c",
      "fm": "hits"
     },
     {
      "player": "Ben Rice",
      "market": "1+ hit vs BOS",
-     "kalshi": "-186 · 65c",
+     "kalshi": "-186 \u00b7 65c",
      "fm": "hits"
     },
     {
      "player": "Fernando Tatis Jr.",
      "market": "2+ hits vs CHC",
-     "kalshi": "+223 · 31c",
+     "kalshi": "+223 \u00b7 31c",
      "fm": "hits"
     }
    ],
@@ -158,7 +150,7 @@
    "time": "Season-long",
    "sport": "nfl",
    "league": "NFL",
-   "badge": "IDEA · NOT BOUGHT",
+   "badge": "IDEA \u00b7 NOT BOUGHT",
    "date": "2026-09-30",
    "estimate_note": "Prices are a Kalshi orderbook snapshot, 10:51 AM PT Sep 30: bid/ask on thin books, not sportsbook-style quotes. No combined price.",
    "prices_note": "Venue: Kalshi event KXNFLSEASONRECYDS-27C1000 - https://kalshi.com/markets/kxnflseasonrecyds",
