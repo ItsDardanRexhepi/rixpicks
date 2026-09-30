@@ -122,3 +122,12 @@ Preconditions (the retirement checklist, section 5) all green, then:
 10. [ ] Full archive (git mirror + issues/PRs) in R2 + private repo, restore-tested
 11. [ ] Owner's final go relayed by main (his approval covers deleting THIS repo only)
 12. [ ] Delete repo; verify site + feeds + api unaffected for 24h post-deletion
+
+### Futures gate: prod-staleness exemption (main decision 9/30 15:22 PT)
+Prod's futures_ws_ticks.jsonl is changed-keys-only. A Poly key whose last prod tick is older
+than 60 min is excluded from the price comparison (coverage still counts) and recorded in the
+futures report as `exempt_stale: [{key, last_prod_tick, age_min}]`. Tolerance stays +/-2c;
+NWSL-style wide-spread (>25c) exclusion unchanged. Acceptance summary must list every exempted
+key with last prod tick and excluded minutes. Evidence: Bell (NASCAR) prod 12.7c last tick
+20:34:11Z vs worker 9.9c vs Gamma mid ~10.2c. Applies from deploy forward; earlier history
+entries carry no per-key detail and are scored as recorded.

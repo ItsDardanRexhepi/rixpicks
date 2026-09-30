@@ -170,7 +170,15 @@ function quotesParity(mine, prod) {
 // Hybrid decision (main 9/28 22:16 relay): Poly legs migrate to the worker; Kalshi legs stay
 // GHA-side until a non-CF relay exists. The futures GATE therefore evaluates the Poly leg;
 // the Kalshi leg is reported informationally and never gates.
-function futuresParity(mine, prodRows, quality) {
+// Prod-staleness exemption (main 9/30 15:22 PT): prod's tick file is changed-keys-only, so a Poly
+// key whose last prod tick is older than STALE_PROD_MIN is prod lag, not a worker defect. Such
+// keys are excluded from the PRICE comparison only (coverage still counts) and are listed in
+// report `exempt_stale` (key, last_prod_tick, age_min) - never silently dropped. No tolerance
+// change; the NWSL wide-spread (>25c) exclusion is unchanged. Acceptance math: a cycle's
+// price_close = close/compared with exempt and wide keys removed from `compared`.
+const STALE_PROD_MIN = 60;
+function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
+  const exempt = [];
   // illiquid books (spread > 25c) have no knowable mid - exclude from price agreement
   const wide = new Set(Object.entries((quality || {}).spread_c || {}).filter(([, v]) => v > 25).map(([k]) => k));
   const mineByLeague = mine.leagues || {};
@@ -183,6 +191,10 @@ function futuresParity(mine, prodRows, quality) {
         if (k in mb) {
           keysM.add(lg + k);
           if (prefix === 'P:' && wide.has(k)) continue; // illiquid: coverage counts, price doesn't
+          if (prefix === 'P:' && lastTick) {
+            const lt = lastTick[lg + k], ageMin = lt ? (nowMs - lt) / 60000 : Infinity;
+            if (ageMin > STALE_PROD_MIN) { exempt.push({ key: lg + k, last_prod_tick: lt ? new Date(lt).toISOString() : null, age_min: isFinite(ageMin) ? Math.round(ageMin) : null }); continue; }
+          }
           if (Math.abs((mb[k] || 0) - pb[k]) <= 2) close++;
           compared++;
         }
@@ -197,6 +209,7 @@ function futuresParity(mine, prodRows, quality) {
   const poly = evalLeg('P:');
   const kalshi = evalLeg('K:');
   poly.kalshi_leg = { delegated: 'gha', ...kalshi };
+  if (exempt.length) poly.exempt_stale = exempt.slice(0, 30);
   return poly;
 }
 
@@ -241,13 +254,15 @@ export async function runParity(env, justRan) {
     }
     if (justRan.futures) {
       const o = await env.FEEDS.get('futures/current.json'); const mine = o ? JSON.parse(await o.text()) : null;
-      let prodRows = {};
+      let prodRows = {}; const lastTick = {};
       try {
         const txt = await (await fetch(env.PROD_BASE + '/data/futures_ws_ticks.jsonl?cb=' + now)).text();
         const lines = txt.trim().split('\n').filter(Boolean);
         // prod rows are incremental (changed keys only) - replay to reconstruct current state
         for (const ln of lines.slice(-3000)) {
           const r = JSON.parse(ln);
+          const rt = Date.parse(r.ts);
+          if (!isNaN(rt)) for (const k of Object.keys(r.board || {})) lastTick[r.league + k] = rt;
           if (!prodRows[r.league]) prodRows[r.league] = { board: {} };
           Object.assign(prodRows[r.league].board, r.board || {});
         }
@@ -255,7 +270,7 @@ export async function runParity(env, justRan) {
       if (!report.lanes.futures) {
         let quality = null;
         try { const qo = await env.FEEDS.get('futures/quality.json'); if (qo) quality = JSON.parse(await qo.text()); } catch (e) {}
-        report.lanes.futures = mine ? futuresParity(mine, prodRows, quality) : { ok: false, reason: 'no worker artifact' };
+        report.lanes.futures = mine ? futuresParity(mine, prodRows, quality, lastTick, now) : { ok: false, reason: 'no worker artifact' };
       }
     }
   } catch (e) { report.error = String(e).slice(0, 120); }
