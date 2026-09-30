@@ -40,7 +40,7 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add incidents/ watchdog_state.json
           git commit -m "watchdog: diagnosis for run ${{ github.event.workflow_run.id }}" || echo 'no changes'
-          for i in 1 2; do
-            if git push; then break; fi
-            git pull --rebase -X theirs || { git rebase --abort; continue; }
-          done
+          # K22 (Sep 30, run 36730127672): hardened push guard - resets HEAD on loud-fail
+          # (the on-failure hook pushes HEAD) and fails loud when upstream moved a
+          # lane-shipped file mid-run; -X theirs alone silently discarded lane pushes.
+          bash scripts/push_with_guard.sh

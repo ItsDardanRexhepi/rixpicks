@@ -30,12 +30,10 @@ jobs:
           git config user.name 'extras-sweep'; git config user.email 'actions@users.noreply.github.com'
           git add extras_books.json
           git commit -m "extras: book sweep $(date -u '+%Y-%m-%d %H:%M UTC')" || echo 'no changes'
-          for i in 1 2; do
-            if git push; then break; fi
-          git pull --rebase -X theirs || { git rebase --abort; continue; }
-            OF=$(git show --pretty='' --name-only ORIG_HEAD)
-            git diff --quiet ORIG_HEAD HEAD -- $OF || { echo 'REBASE GUARD: rebase altered generated content - failing loud; next cycle regenerates' >&2; exit 1; }
-          done
+          # K22 (Sep 30, run 36730127672): hardened push guard - resets HEAD on loud-fail
+          # (the on-failure hook pushes HEAD) and fails loud when upstream moved a
+          # lane-shipped file mid-run; -X theirs alone silently discarded lane pushes.
+          bash scripts/push_with_guard.sh
           git ls-remote origin main | grep -q "$(git rev-parse HEAD)" || { echo 'PUSH READBACK FAILED: origin/main != HEAD' >&2; exit 1; }
       - name: on-failure instant marker
         if: failure()
@@ -43,4 +41,7 @@ jobs:
           mkdir -p incidents
           printf '# FAILURE extras-sweep in-run %s\nsha: %s\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" > "incidents/${GITHUB_RUN_ID}-inrun.md"
           git config user.name 'incident-hook'; git config user.email 'actions@users.noreply.github.com'
+          # K22 (Sep 30, run 36730127672): this hook pushes HEAD - reset first so a mid-run
+          # generated/merged worktree never ships.
+          git fetch origin main && git reset --hard origin/main
           git add incidents/ && git commit -m "incident: extras-sweep in-run failure $GITHUB_RUN_ID" && git push || true

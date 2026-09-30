@@ -58,12 +58,10 @@ jobs:
           if ! diff -q /tmp/old_live.json /tmp/new_live.json >/dev/null || ! diff -q /tmp/old_fut.json /tmp/new_fut.json >/dev/null || [ "$(cat /tmp/fut_beat 2>/dev/null)" = "1" ]; then
             git add slates/nfl_live.json futures.json
             git commit -m "fast loop: td tracker + futures quotes $(date -u +'%H:%M') UTC"
-            for i in 1 2; do
-              if git push; then break; fi
-            git pull --rebase -X theirs origin main || { git rebase --abort; continue; }
-              OF=$(git show --pretty='' --name-only ORIG_HEAD)
-              git diff --quiet ORIG_HEAD HEAD -- $OF || { echo 'REBASE GUARD: rebase altered generated content - failing loud; next cycle regenerates' >&2; exit 1; }
-            done
+            # K22 (Sep 30, run 36730127672): hardened push guard - resets HEAD on loud-fail
+            # (the on-failure hook pushes HEAD) and fails loud when upstream moved a
+            # lane-shipped file mid-run; -X theirs alone silently discarded lane pushes.
+            bash scripts/push_with_guard.sh
             git ls-remote origin main | grep -q "$(git rev-parse HEAD)" || { echo 'PUSH READBACK FAILED: origin/main != HEAD' >&2; exit 1; }
           else
             echo "idle - feeds unchanged"
