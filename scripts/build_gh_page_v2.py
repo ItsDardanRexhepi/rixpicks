@@ -1703,9 +1703,30 @@ _yestr=''
 _YBL=man.get('yesterday_by_league') or {}
 _cnote_html=('<div class="cardnote">'+html.escape(str(man['card_note']))+'</div>') if man.get('card_note') else ''
 _cnote_home='' if globals().get('_cnote_folded') else _cnote_html  # 2:55: no double empty-state on home
-_home_yes=(('<a class="yesrec home-yes" href="yesterday.html">Yesterday: '+html.escape(str(man['yesterday']))+'</a>') if man.get('yesterday') else '')  # owner 3:02: Yesterday record sits ABOVE today's date on home
+# K18 (9/30 midnight QA): the Yesterday line must follow the BUILD date, not the manifest's bake
+# date - after midnight the static man['yesterday'] lies (the Sep 29 card read "0-0 - no official
+# picks" into Sep 30). Home line computes from the canonical history.json ledger for build-PT-date
+# minus one; no entry means the day genuinely had no official picks. League strips hide while the
+# manifest is stale (never show another day's results, the strip's own rule).
+def _hist_yesterday(today=None):
+    try:
+        from zoneinfo import ZoneInfo as _ZI2
+        _td = today or _dtc.datetime.now(_ZI2('America/Los_Angeles')).date().isoformat()
+        _yd = (_dtc.date.fromisoformat(_td) - _dtc.timedelta(days=1)).isoformat()
+        _hp = os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), 'history.json')
+        _days = json.load(open(_hp)).get('days') or []
+        _d = next((x for x in _days if x.get('date') == _yd), None)
+        if not _d or not _d.get('picks'):
+            return '0-0 - no official picks'
+        _rec = str(_d.get('record') or '0-0')
+        return _rec + ' \u00b7 ' + ' \u00b7 '.join(str(p.get('name','')).strip() + ' ' + str(p.get('result','')).strip() for p in _d['picks'] if p.get('name') and p.get('result'))
+    except Exception:
+        return None
+_hy = _hist_yesterday()
+_mstale = str(man.get('date') or '') < _dtc.datetime.now(__import__('zoneinfo').ZoneInfo('America/Los_Angeles')).date().isoformat()
+_home_yes=(('<a class="yesrec home-yes" href="yesterday.html">Yesterday: '+html.escape(str(_hy or man['yesterday']))+'</a>') if (_hy or man.get('yesterday')) else '')  # owner 3:02: Yesterday record sits ABOVE today's date on home; K18: computed from history.json at build time
 def _ystr_for(_tab):
-    _s=_YBL.get(_tab)
+    _s=None if _mstale else _YBL.get(_tab)  # K18: stale manifest = another day's results - hide
     return ('<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: '+html.escape(_s)+'</a>') if _s else ''
 _units_line=(f'<div class="yesrec unitspl" id="rpUnits" data-bu="{html.escape(re.sub(r"[^0-9.+-]","",man["units_pl"]))}">Units: {html.escape(man["units_pl"])}</div>' if man.get('units_pl') else '')
 _rw,_rl=man['record'].split('-')[0],man['record'].split('-')[1]
