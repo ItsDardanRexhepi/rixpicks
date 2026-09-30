@@ -180,7 +180,8 @@ check('combos module script found in page', !!modMatch);
       const dPost = vm.runInContext('tS(null,"post","")', sb2);
       const dZero = vm.runInContext('tS(0,"in","")', sb2);
       const dHit = vm.runInContext('tS(1,"in","")', sb2);
-      check('dingers: null count pregame still "Game not started"', dPre.includes('Game not started'));
+      const dZeroPre = vm.runInContext('tS(0,"pre","")', sb2);
+      check('dingers: pregame renders blank, never "Game not started" (Julian blank-pregame spec)', dPre === '' && dZeroPre === '' && !dPre.includes('Game not started'));
       check('dingers: null count in-game renders Unavailable (never invented zero)', dIn.includes('Unavailable') && !dIn.includes('No HR'));
       check('dingers: null count at final renders Unavailable (never "No HR · Final")', dPost.includes('Unavailable') && !dPost.includes('No HR'));
       check('dingers: live 0 HR honestly renders "No HR yet"', dZero.includes('No HR yet'));
@@ -190,6 +191,8 @@ check('combos module script found in page', !!modMatch);
       const tdZero = vm.runInContext('tS({target:1,label:"TD",td:true},0,"in","")', sb2);
       check('TD tracker: null count in-game renders Unavailable', tdIn.includes('Unavailable') && !tdIn.includes('No TD'));
       check('TD tracker: live 0 TD honestly renders "No TD yet"', tdZero.includes('No TD yet'));
+      const tdPre = vm.runInContext('tS({target:1,label:"TD",td:true},null,"pre","")', sb2);
+      check('TD tracker: pregame renders blank, never "Game not started"', tdPre === '');
     }
   }
   if (failures) { console.error(failures + ' FAIL'); process.exit(1); }
