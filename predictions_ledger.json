@@ -185,5 +185,44 @@
   "kickoff_utc": "2026-10-03T19:30:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T12:51:30.389046+00:00"
+ },
+ {
+  "id": "62f0dadeee",
+  "event_id": "401858473",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Iowa Hawkeyes",
+  "away": "Ohio State Buckeyes",
+  "pick_team": "Iowa Hawkeyes",
+  "prediction": "Iowa Hawkeyes beat Ohio State Buckeyes",
+  "kickoff_utc": "2026-10-03T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T13:20:34.057417+00:00"
+ },
+ {
+  "id": "cdc22b50ec",
+  "event_id": "401858249",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Clemson Tigers",
+  "away": "Miami Hurricanes",
+  "pick_team": "Clemson Tigers",
+  "prediction": "Clemson Tigers beat Miami Hurricanes",
+  "kickoff_utc": "2026-10-03T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T13:21:01.380157+00:00"
+ },
+ {
+  "id": "4506c0fc38",
+  "event_id": "401860898",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Boise State Broncos",
+  "away": "Utah State Aggies",
+  "pick_team": "Boise State Broncos",
+  "prediction": "Boise State Broncos beat Utah State Aggies",
+  "kickoff_utc": "2026-10-03T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T13:21:14.587306+00:00"
  }
 ]
