@@ -278,7 +278,7 @@ def poly_price(url,kw,won_ok=False):
                     if c==0: return 0      # resolved loss - leg is dead; combo marks dead, chip is NEVER dropped (class fix 9/25: leg close = status update only)
     except Exception: return None
     return None
-def _load_prefill(path, wrap=False):
+def _load_prefill(path, wrap=False, demote=False):
     out={}
     def _deesc(x):
         if isinstance(x,str): return _rawurl(x)
@@ -292,7 +292,13 @@ def _load_prefill(path, wrap=False):
     except Exception as e:
         # Sep 26 chaos-drill fix: a missing/unreadable prefill must NEVER be silent (empty odds column class) -
         # chips degrade to manifest-only books and the build log says so loudly.
-        print(f'PREFILL WARNING: {path} unavailable ({type(e).__name__}) - sportsbook chips degrade to manifest-only books', file=sys.stderr)
+        # Sep 30 (parent 10:00 AM): when the caller proves the manifest's books_sp seam covers
+        # every non-prop pick, an ABSENT file is the steady state (no producer exists) - demote
+        # to info. Corrupt/unreadable files and partial coverage stay loud.
+        if demote:
+            print(f'prefill info: {path} absent - manifest books_sp covers all non-prop picks (Sep 29 seam), chips render from the card', file=sys.stderr)
+        else:
+            print(f'PREFILL WARNING: {path} unavailable ({type(e).__name__}) - sportsbook chips degrade to manifest-only books', file=sys.stderr)
         return out
     print(f'prefill: {sum(len(v) for v in out.values())} slates from {path}', file=sys.stderr)
     return out
@@ -385,7 +391,17 @@ def team_meta(man):
 TEAM_META={}
 
 
-pre_sp=_load_prefill(_prefill_path('odds_prefill_sp.json'), wrap=True)
+# Sep 30 (parent 10:00 AM): no refresh-chain producer has ever written odds_prefill_sp.json, so
+# the warning above fired every run as noise. The Sep 29 standing-order seam carries books_sp in
+# the manifest and _merge_manifest_books folds it under live prefill - a missing file only costs
+# live-price freshness, never chips. Demote iff the manifest covers books_sp for all non-prop picks.
+def _sp_covered(man_):
+    for _p in man_.get('picks',[]):
+        if _p.get('market_class')=='prop' or not _p.get('game'): continue
+        if not (isinstance(_p.get('books_sp'),dict) and _p.get('books_sp')): return False
+    return True
+_sp_path=_prefill_path('odds_prefill_sp.json')
+pre_sp=_load_prefill(_sp_path, wrap=True, demote=(_sp_covered(man) and not os.path.exists(_sp_path)))
 
 # Sep 29 standing order (phonemsg-01M3PXTWRCN8EE6YQ8WS2H6Z66): all-books pricing rides IN the manifest
 # (analysis books_prefill_pull.py seam, exact prefill shapes) - a missing/stale prefill file can never
