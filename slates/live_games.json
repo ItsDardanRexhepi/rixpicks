@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T18:49:39.109943+00:00",
+ "generated_at": "2026-09-30T19:05:18.170307+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,16 @@
      "matchup": "PHI @ ATL",
      "commence": "2026-09-30T18:00Z",
      "status": "in",
-     "detail": "Bot 2nd",
+     "detail": "Bot 3rd",
      "score": "PHI 1 - ATL 1"
+    },
+    {
+     "espn_event_id": "401907897",
+     "matchup": "CHW @ HOU",
+     "commence": "2026-09-30T21:00Z",
+     "status": "pre",
+     "detail": "9/30 - 2:00 PM PT",
+     "score": "CHW 0 - HOU 0"
     }
    ]
   }
