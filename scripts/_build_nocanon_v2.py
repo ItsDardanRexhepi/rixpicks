@@ -2361,7 +2361,7 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
     const _comps=e.competitions||[];const _cp=(pk.dataset.comp&&_comps.length)?(_comps.find(c=>String(c.id)===String(pk.dataset.comp))||_comps[0]):_comps[0];
     if(!_cp)return;
     const cs=_cp.competitors||[];
-    const aw=cs.find(c=>c.homeAway==='away'),hm=cs.find(c=>c.homeAway==='home');if(!aw||!hm)return;
+    const aw=cs.find(c=>c.homeAway==='away')||cs.find(c=>((c.athlete||{{}}).displayName||'')===(pk.dataset.away||'')),hm=cs.find(c=>c.homeAway==='home')||cs.find(c=>((c.athlete||{{}}).displayName||'')===(pk.dataset.home||''));if(!aw||!hm)return;  /* K19b (9/30 serve-verify): real ESPN MMA competitors carry NO homeAway - athletes resolve by name vs the row's data-away/data-home */
     const _cst=(_cp.status&&_cp.status.type)||e.status.type;
     found={{a:(aw.team&&aw.team.abbreviation)||((aw.athlete&&aw.athlete.shortName)||''),h:(hm.team&&hm.team.abbreviation)||((hm.athlete&&hm.athlete.shortName)||''),as:+aw.score||0,hs:+hm.score||0,st:_cst.shortDetail,state:_cst.state,w:hm.winner===true?'h':(aw.winner===true?'a':'')}};}});
    if(!_isMlb){{

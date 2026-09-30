@@ -50,6 +50,31 @@ for (const B of ['build_gh_page_v2.py', '_build_nocanon_v2.py']) {
   pk = fakePick('away');
   ctx.rpLsRender(pk, { a: 'PHI', h: 'ATL', as: 3, hs: 5, st: 'Final', state: 'post' });
   check(`${B}: score verdict keeps score text`, pk.__el.innerHTML.includes('PHI 3 - ATL 5 Final') && pk.__el.className === 'ls on lost', true);
+  // K19b: the resolution loop must handle the REAL ESPN MMA competitor shape - no homeAway,
+  // no score, athletes keyed by displayName (serve-verified live shape, DWCS 600060739/401891663).
+  // The original fixture mocked rpLsRender directly and never exercised resolution - the exact
+  // blind spot that shipped the homeAway-only find. These checks close that class.
+
+    const line = "const aw=cs.find(c=>c.homeAway==='away')||cs.find(c=>((c.athlete||{{}}).displayName||'')===(pk.dataset.away||'')),hm=cs.find(c=>c.homeAway==='home')||cs.find(c=>((c.athlete||{{}}).displayName||'')===(pk.dataset.home||''));";
+    check(`${B}: resolution falls back to athlete-name match when homeAway is absent`, src.includes(line), true);
+    // functional: run the real resolution expression against the live-shaped competitors
+    const ctx2 = vm.createContext({});
+    ctx2.cs = [
+      { id: 'a1', type: 'athlete', order: 2, winner: true,  athlete: { displayName: 'George Staines', shortName: 'Staines' } },
+      { id: 'a2', type: 'athlete', order: 1, winner: false, athlete: { displayName: 'Loai Abushaar', shortName: 'Abushaar' } }
+    ];
+    ctx2.pk = { dataset: { away: 'George Staines', home: 'Loai Abushaar' } };
+    const expr = line.replace(/^const /, '').replace(/;$/, '').replace(/\{\{/g, '{').replace(/\}\}/g, '}');  // raw source carries Python-template doubled braces
+    vm.runInContext('var ' + expr + ';', ctx2);  // var binds to the vm context; const/let stay script-scoped
+    check(`${B}: away resolves to Staines`, ctx2.aw && ctx2.aw.athlete.displayName, 'George Staines');
+    check(`${B}: home resolves to Abushaar`, ctx2.hm && ctx2.hm.athlete.displayName, 'Loai Abushaar');
+    check(`${B}: winner flag maps away (home-side pick loses)`, (ctx2.hm.winner===true?'h':(ctx2.aw.winner===true?'a':'')), 'a');
+    check(`${B}: unresolved names stay null (fail-closed, no paint)`, (() => {
+      const c3 = vm.createContext({});
+      c3.cs = ctx2.cs; c3.pk = { dataset: { away: 'Nobody', home: 'No One' } };
+      vm.runInContext('var ' + expr + ';', c3);
+      return !c3.aw && !c3.hm;
+    })(), true);
 }
 console.log(failures ? 'FAILURES: ' + failures : 'ALL CHECKS PASS');
 process.exit(failures ? 1 : 0);
