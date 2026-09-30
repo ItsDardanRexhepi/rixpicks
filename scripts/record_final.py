@@ -57,6 +57,64 @@ def espn_verify(league, eid, away_score, home_score):
         print(f'  verify {eid}: espn error {type(e).__name__}: {e}', file=sys.stderr)
         return None
 
+
+def espn_verify_mma(league, eid, comp_id, q):
+    """MMA independent check (9/29 Abushaar DWCS class): ESPN core MMA carries NO point scores
+    and NO home/away assignment, so the generic score-compare cannot run. Verification is:
+    competition completed + exactly 2 fighters with exactly one winner flag + the row's picked
+    fighter identified uniquely by displayName inside the pick text + result consistent with
+    the winner flag + opponent identity bound to the attested graded_pick text. competition_id
+    is REQUIRED: MMA event ids and competition ids differ (event 600060739, comp 401891663)."""
+    if not comp_id:
+        print('  verify mma: competition_id required - MMA event ids and competition ids differ', file=sys.stderr)
+        return None
+    lg = league.replace('/', '/leagues/')
+    base = f'https://sports.core.api.espn.com/v2/sports/{lg}/events/{eid}/competitions/{comp_id}'
+    try:
+        c = _get(base)
+        st = _deref(c.get('status', {})).get('type', {})
+        if not st.get('completed'):
+            print(f'  verify mma {eid}/{comp_id}: not completed ({st.get("name")})', file=sys.stderr)
+            return None
+        fighters = []
+        for comp in c.get('competitors', []):
+            comp = _deref(comp)
+            ath = _deref(comp.get('athlete', comp.get('team', {})))
+            fighters.append({'name': ath.get('displayName', ''), 'winner': bool(comp.get('winner'))})
+        if len(fighters) != 2 or sum(1 for f in fighters if f['winner']) != 1:
+            print(f'  verify mma {eid}/{comp_id}: need 2 fighters and exactly one winner, got {fighters}', file=sys.stderr)
+            return None
+        def _name_hit(fname, text, other):
+            # attestation texts may carry last names only ("Staines def. Abushaar"): word-bounded
+            # full-name hit, else word-bounded last-name hit when the two fighters' last names
+            # differ (fail-closed; bare substring would false-hit "Schmabushaar").
+            t = (text or '').lower()
+            full = (fname or '').lower()
+            if full and re.search(r'\b' + re.escape(full) + r'\b', t):
+                return True
+            last, olast = full.split()[-1], (other or '').lower().split()[-1]
+            return bool(last) and last != olast and bool(re.search(r'\b' + re.escape(last) + r'\b', t))
+        pick_txt = q.get('pick') or ''
+        picked = [f for f in fighters if f['name'] and _name_hit(f['name'], pick_txt, next(g['name'] for g in fighters if g is not f))]
+        if len(picked) != 1:
+            print(f'  verify mma {eid}/{comp_id}: picked fighter not uniquely identified in {q.get("pick")!r}', file=sys.stderr)
+            return None
+        picked = picked[0]
+        opp = next(f for f in fighters if f is not picked)
+        res = q.get('result')
+        if (res == 'WON' and not picked['winner']) or (res == 'LOST' and picked['winner']):
+            print(f'  verify mma {eid}/{comp_id}: result {res} contradicts winner flags {fighters}', file=sys.stderr)
+            return None
+        gp = q.get('graded_pick') or ''
+        if not _name_hit(opp['name'], gp, picked['name']):
+            print(f'  verify mma {eid}/{comp_id}: opponent {opp["name"]!r} absent from attested graded_pick', file=sys.stderr)
+            return None
+        return {'picked': picked['name'], 'opp': opp['name'],
+                'winner': next(f['name'] for f in fighters if f['winner'])}
+    except Exception as e:
+        print(f'  verify mma {eid}/{comp_id}: espn error {type(e).__name__}: {e}', file=sys.stderr)
+        return None
+
 SCORE_RE = re.compile(r'^([A-Z]{2,4})\s+(\d+)\s*@\s*([A-Z]{2,4})\s+(\d+)$')
 
 def fmt_units(d):
@@ -174,10 +232,31 @@ def main():
             print(f'  REFUSE {gid}: unparseable score {q["score"]!r}', file=sys.stderr)
             return 3
         away_ab, away_sc, home_ab, home_sc = m.group(1), int(m.group(2)), m.group(3), int(m.group(4))
-        comp = espn_verify(q['league'], q['event_id'], away_sc, home_sc)
-        if comp is None:
-            print(f'  REFUSE {gid}: independent verification failed - chain stops, no write', file=sys.stderr)
+        # per-pick learnings (his 6:41 directive): optional, display-only, fail-closed on malformed.
+        if 'learning' in q and (not isinstance(q['learning'], str) or not q['learning'].strip() or len(q['learning']) > 400):
+            print(f'  REFUSE {gid}: learning must be a non-empty string <= 400 chars', file=sys.stderr)
             return 3
+        if str(q.get('league') or '').startswith('mma/'):
+            # MMA rows: winner-flag verification, no score compare (ESPN carries no MMA scores).
+            info = espn_verify_mma(q['league'], q['event_id'], q.get('competition_id'), q)
+            if info is None:
+                print(f'  REFUSE {gid}: independent verification failed - chain stops, no write', file=sys.stderr)
+                return 3
+            if sorted((away_sc, home_sc)) != [0, 1]:
+                print(f'  REFUSE {gid}: mma score convention is winner 1 / loser 0, got {q["score"]!r}', file=sys.stderr)
+                return 3
+            game = 'vs ' + nick(info['opp'])
+            # display truth (main 6:46): the 1-0 encoding is a machine convention, never a shown
+            # score - the stored/served row carries "Winner def. Loser" (build_history renders
+            # the score field verbatim, so the display string lives in the data).
+            _loser = info['picked'] if info['winner'] != info['picked'] else info['opp']
+            score_txt = f'{nick(info["winner"])} def. {nick(_loser)}'
+        else:
+            comp = espn_verify(q['league'], q['event_id'], away_sc, home_sc)
+            if comp is None:
+                print(f'  REFUSE {gid}: independent verification failed - chain stops, no write', file=sys.stderr)
+                return 3
+            game = None  # computed after res, from comp, below
         res = q['result']
         if res == 'WON': rw += 1
         elif res == 'LOST': rl += 1
@@ -189,9 +268,10 @@ def main():
             print(f'  REFUSE {gid}: chain mismatch - running {rw}-{rl} != record_after {expected}', file=sys.stderr)
             return 3
         # history day row
-        opp = comp['away' if q['side'] == 'home' else 'home']['name']
-        game = ('vs ' if q['side'] == 'home' else 'at ') + nick(opp)
-        score_txt = f'{away_ab} {away_sc}, {home_ab} {home_sc}'
+        if game is None:
+            opp = comp['away' if q['side'] == 'home' else 'home']['name']
+            game = ('vs ' if q['side'] == 'home' else 'at ') + nick(opp)
+            score_txt = f'{away_ab} {away_sc}, {home_ab} {home_sc}'
         day_date = man.get('date') or datetime.now(timezone.utc).strftime('%Y-%m-%d')
         days = hist['days']
         day = days[-1] if days and days[-1]['date'] == day_date else None
@@ -201,9 +281,12 @@ def main():
                    'brief': '', 'picks': []}
             days.append(day)
         if not any(p.get('name') == q['pick'] and p.get('score') == score_txt for p in day['picks']):
-            day['picks'].append({'name': q['pick'], 'game': game, 'odds': q['locked_american'],
-                                 'units': q['stake_units'], 'result': {'WON': 'W', 'LOST': 'L', 'PUSH': 'P'}[res],
-                                 'score': score_txt, '_delta': str(Decimal(str(q['delta_units_exact'])))})
+            _row = {'name': q['pick'], 'game': game, 'odds': q['locked_american'],
+                    'units': q['stake_units'], 'result': {'WON': 'W', 'LOST': 'L', 'PUSH': 'P'}[res],
+                    'score': score_txt, '_delta': str(Decimal(str(q['delta_units_exact'])))}
+            if isinstance(q.get('learning'), str) and q['learning'].strip():
+                _row['learning'] = q['learning'].strip()
+            day['picks'].append(_row)
         dw = sum(1 for p in day['picks'] if p['result'] == 'W')
         dl = sum(1 for p in day['picks'] if p['result'] == 'L')
         day['record'] = f'{dw}-{dl}'
