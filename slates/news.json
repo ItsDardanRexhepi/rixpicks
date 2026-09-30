@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-09-30T13:04:41.742016+00:00",
+ "generated_at": "2026-09-30T13:19:41.071608+00:00",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Detroit Tigers News: Zack Gelof lawsuit, Kevin McGonigle, MLB Wild Card, Postseason",
+    "link": "https://sports.yahoo.com/articles/detroit-tigers-news-zack-gelof-130000071.html",
+    "published": "2026-09-30T13:00:00+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/ec5dfa0ad0660be925d126bbe4646a5beea51c499f1eef730db39f70a00db10c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fbbbcfb508a0cdf1af52234242e94f6f0.jpg",
+    "blurb": "Plus, Aaron Judge is off the Wild Card roster",
+    "league": "MLB"
+   },
    {
     "headline": "Astros frustrated by boos from sparse crowd during wild-card opener",
     "link": "https://www.espn.com/mlb/story/_/id/50066623/astros-frustrated-boos-sparse-crowd-wild-card-opener",
@@ -21,12 +30,12 @@
     "league": "MLB"
    },
    {
-    "headline": "Kansas City Royals news: Alec Zumwalt is out",
-    "link": "https://sports.yahoo.com/articles/kansas-city-royals-news-alec-124611971.html",
-    "published": "2026-09-30T12:46:11+00:00",
+    "headline": "The Red Sox season hinges on Sonny Gray",
+    "link": "https://sports.yahoo.com/articles/red-sox-season-hinges-sonny-130000445.html",
+    "published": "2026-09-30T13:00:00+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/be5f5558241d155a55d6c83e7a37097ee0843cc80b03ef82dfa4f958d8068f3f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2fcdce0edb13af04e19a06d7d2d90975.jpg",
-    "blurb": "Will anything change?",
+    "image": "https://s.yimg.com/lo/mysterio/api/910b4e4fb2bc14cda662bbb2fdf1b3976875fbfe2eba70114c85c19f28bf3984/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0c4a11a74921b8c4129dadf302e8ed03.jpg",
+    "blurb": "The Red Sox are up against the wall. Cam Schlittler, once again, shoved against the Red Sox in game one, throwing 117 pitches in a 6.1-inning shutout before handing it over to the bullpen. Paul Blackburn and John Schreiber shut the door, keeping the Red Sox off the scoreboard to ",
     "league": "MLB"
    },
    {
@@ -48,12 +57,12 @@
     "league": "MLB"
    },
    {
-    "headline": "AL Wild Card Series Game 2 Preview: New York Yankees vs. Boston Red Sox",
-    "link": "https://sports.yahoo.com/articles/al-wild-card-series-game-124500982.html",
-    "published": "2026-09-30T12:45:00+00:00",
+    "headline": "Padres 8, Cubs 0: Matthew Boyd gets crushed by three long balls",
+    "link": "https://sports.yahoo.com/articles/padres-8-cubs-0-matthew-130000719.html",
+    "published": "2026-09-30T13:00:00+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/05ec6a21db60e082abfd49b6c4f1c2093e3b15a74422782b40416fc572f017e3/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F81cceff7e325d33d82e4b805c0fd40f1.jpg",
-    "blurb": "The Yankees look to end the Red Sox season and advance to the ALDS tonight.",
+    "image": "",
+    "blurb": "That was uglier than ugly.",
     "league": "MLB"
    },
    {
@@ -75,40 +84,31 @@
     "league": "MLB"
    },
    {
-    "headline": "Astros players express anger after fans boo team during wild-card loss to White Sox: &#39;We want their support.&#39;",
-    "link": "https://sports.yahoo.com/mlb/article/astros-players-express-anger-after-fans-boo-team-during-wild-card-loss-to-white-sox-we-want-their-support-124319881.html",
-    "published": "2026-09-30T12:43:19+00:00",
+    "headline": "What did you think of the Duran decision?",
+    "link": "https://sports.yahoo.com/articles/did-think-duran-decision-130000865.html",
+    "published": "2026-09-30T13:00:00+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "Christian Walker and Bennett Sousa weren&#39;t happy to be booed at home.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Red Sox OF Anthony (hand) exits early; Game 2 status unclear",
-    "link": "https://www.espn.com/mlb/story/_/id/50064536/red-sox-anthony-hand-exits-early-game-2-status-unclear",
-    "published": "2026-09-30T11:12:19Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723776_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "It's unclear whether Red Sox OF Roman Anthony will be available for Game 2 of their AL Wild Card Series after suffering an injury to the same hand that sidelined him for nearly four months.",
+    "blurb": "The result was not good. But was the process to blame?",
     "league": "MLB"
    }
   ],
   "football/nfl": [
    {
-    "headline": "NFL team grades for September includes only one &#39;A&#39; \u2013 and a lone &#39;F&#39;",
-    "link": "https://sports.yahoo.com/articles/nfl-team-grades-september-includes-125056947.html",
-    "published": "2026-09-30T12:50:56+00:00",
+    "headline": "3 bold reasons the Bengals will bounce back and beat the Jaguars",
+    "link": "https://sports.yahoo.com/articles/3-bold-reasons-bengals-bounce-130500968.html",
+    "published": "2026-09-30T13:05:00+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/ad3adde4541f7b8da3f7d1e989c01fae79de3b1a358a96a3c1c2e8f971d1497c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F791a76d9612d374ed0ef046576f31c86.jpg",
-    "blurb": "The first month of the 2026 NFL regular season is complete, so it&#39;s time for early grades for all 32 teams. Who earned the top mark, and who flunked?",
+    "image": "https://s.yimg.com/lo/mysterio/api/49ccd48affa9994e900a54405e7e40fe0f3f3f73a72b8876acfe9fcf59088e57/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F07935e219d34f5c05b63eddc4e6d4d58.jpg",
+    "blurb": "The Bengals should be ready for a rebound performance after their debacle in Pittsburgh.",
     "league": "NFL"
    },
    {
     "headline": "Fantasy football consistency ratings: 2024 to 2026",
     "link": "https://www.espn.com/fantasy/football/story/_/id/49954186/fantasy-football-rankings-consistency-ratings-start-sit-value",
-    "published": "2026-09-30T12:48:48Z",
+    "published": "2026-09-30T13:02:04Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0916%2Fr1717401_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0923%2Fr1720966_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The consistency ratings weigh both how consistent and how start-worthy players have been from 2024 to 2026.",
     "league": "NFL"
    },
@@ -122,12 +122,12 @@
     "league": "NFL"
    },
    {
-    "headline": "Report: Ravens C Jovaughn Gwyn has a fractured fibula",
-    "link": "https://sports.yahoo.com/articles/report-ravens-c-jovaughn-gwyn-124838756.html",
-    "published": "2026-09-30T12:48:38+00:00",
+    "headline": "Patriots opponent preview: Get to know the Bills",
+    "link": "https://sports.yahoo.com/articles/patriots-opponent-preview-know-bills-130407460.html",
+    "published": "2026-09-30T13:04:07+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/91f7ed44beaa1537fc65379c71af1ccd7d203b7c17f518d77d2a58be941881c5/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Fea82cff935b37d768e071bb931f713a7.jpg",
-    "blurb": "Ravens head coach Jesse Minter said this week that center Jovaugh Gwyn will be out for an extended period of time and a report on Wednesday sheds more light on the nature of his injury.",
+    "image": "https://s.yimg.com/lo/mysterio/api/8c5b2fd58accfe710d4eb85549b72e892affc302465990b4b98ed259ac4effea/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F89dcc93085f5829628a9c31fcb0312a8.jpg",
+    "blurb": "Players to watch, stats, injuries, and more for the Patriots\u2019 opponent on Sunday.",
     "league": "NFL"
    },
    {
@@ -149,12 +149,12 @@
     "league": "NFL"
    },
    {
-    "headline": "For the Colts to win, Daniel Jones must be better",
-    "link": "https://sports.yahoo.com/articles/colts-win-daniel-jones-must-123700899.html",
-    "published": "2026-09-30T12:37:00+00:00",
+    "headline": "Jaguars Reacts Survey: Can Jacksonville go 3-0 in its next three games?",
+    "link": "https://sports.yahoo.com/articles/jaguars-reacts-survey-jacksonville-3-130232486.html",
+    "published": "2026-09-30T13:02:32+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "The Colts\u2019 success depends on Jones taking care of the ball.",
+    "blurb": "Was Sunday\u2019s victory the start of another long win streak for the Jaguars?",
     "league": "NFL"
    },
    {
@@ -176,23 +176,23 @@
     "league": "NFL"
    },
    {
-    "headline": "Eagles News: An undesirable new franchise record",
-    "link": "https://sports.yahoo.com/articles/eagles-news-undesirable-franchise-record-122021293.html",
-    "published": "2026-09-30T12:20:21+00:00",
+    "headline": "Lions mailbag: What\u2019s with Jack Campbell\u2019s slow start?",
+    "link": "https://sports.yahoo.com/articles/lions-mailbag-jack-campbell-slow-130000436.html",
+    "published": "2026-09-30T13:00:00+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "Philadelphia Eagles news and links for 9/30/26.",
+    "blurb": "Diagnosing Jack Campbell\u2019s problems in the Detroit Lions\u2019 slow defensive start.",
     "league": "NFL"
    }
   ],
   "football/college-football": [
    {
-    "headline": "LSU football gets timeline for return of tight end Trey&#39;Dez Green",
-    "link": "https://sports.yahoo.com/articles/lsu-football-gets-timeline-return-124940066.html",
-    "published": "2026-09-30T12:49:40+00:00",
+    "headline": "KIRK SPEAKS: Ohio State",
+    "link": "https://sports.yahoo.com/articles/kirk-speaks-ohio-state-130204647.html",
+    "published": "2026-09-30T13:02:04+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/d20f1098543c4a8e2f6c8dee2971171509c40d2c65c61bda1e96836463ef61a4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Flsu_tigers_wire_usa_today_articles_909%2Fb0cabe5c5457849aa1e6cc4da7679652.jpg",
-    "blurb": "LSU football will be without star tight end Trey&#39;Dez Green for the immediate future, but he could return for a massive November game.",
+    "image": "https://s.yimg.com/lo/mysterio/api/1ab3ad9bfd5dc0cc50befea36b34437db8d971e674fefec6d361e3df3eba56d5/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe167c00330685610e1fbf36c8fb66a70.jpg",
+    "blurb": "Iowa faces its toughest challenge all year in Week 5",
     "league": "CFB"
    },
    {
@@ -214,12 +214,12 @@
     "league": "CFB"
    },
    {
-    "headline": "BC vs SMU: Mustangs Offense/Defense Preview",
-    "link": "https://sports.yahoo.com/articles/bc-vs-smu-mustangs-offense-124726798.html",
-    "published": "2026-09-30T12:47:26+00:00",
+    "headline": "Razorback Report Card: Texas A&M",
+    "link": "https://sports.yahoo.com/articles/razorback-report-card-texas-m-130057138.html",
+    "published": "2026-09-30T13:00:57+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/535bfb9a2b62772b750ca28f77c7dc05f768bf3e7b94783d9aae6c8c61515dde/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F895cffe9bb848b225bef6dafd2e11565.jpg",
-    "blurb": "SMU enters Week 5 against Boston College at 3-1 overall, 1-1 in-conference, and ranked #21. Rhett Lashlee\u2019s team had a close win to start over Florida State, routed UC Davis, lost in a shootout at Louisville, and most recently rebounded from a sloppy start to beat Missouri State ",
+    "image": "https://s.yimg.com/lo/mysterio/api/bff691a4186ded1596319f74da0512e68898fb29c5eb38452e9e93d743d5c057/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Flast_word_on_sports_293%2F44cff005dd5d3d859d4b9b4044f7f9cf.jpg",
+    "blurb": "Arkansas has momentum. Now it has to prove that momentum can travel. The Razorbacks\u2019 34-6 win over Tulsa gave Ryan Silverfield\u2019s team something it had lacked through the first three weeks: clarity. KJ Jackson looked settled at quarterback. Chris Marshall emerged as an elite recei",
     "league": "CFB"
    },
    {
@@ -241,12 +241,12 @@
     "league": "CFB"
    },
    {
-    "headline": "ESPN&#39;s FPI predicts LSU football&#39;s playoff chances after Week 4 win",
-    "link": "https://sports.yahoo.com/articles/espns-fpi-predicts-lsu-footballs-124406693.html",
-    "published": "2026-09-30T12:44:06+00:00",
+    "headline": "Has LSU\u2019s passing attack finally arrived?",
+    "link": "https://sports.yahoo.com/articles/lsu-passing-attack-finally-arrived-130000684.html",
+    "published": "2026-09-30T13:00:00+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "LSU football is a contender for the College Football Playoff. Here&#39;s where LSU&#39;s odds stack up, according to ESPN&#39;s FPI.",
+    "blurb": "Sam Leavitt had his best passing performance of the season. Has the Tigers\u2019 passing attack finally found its rhythm?",
     "league": "CFB"
    },
    {
@@ -268,12 +268,12 @@
     "league": "CFB"
    },
    {
-    "headline": "What are the odds? LSU sitting as 48.5-point favorites in their Week 5 matchup vs. McNeese State",
-    "link": "https://sports.yahoo.com/articles/odds-lsu-sitting-48-5-123914747.html",
-    "published": "2026-09-30T12:39:14+00:00",
+    "headline": "Syracuse vs UConn: TV/streaming, time, odds, history & more",
+    "link": "https://sports.yahoo.com/articles/syracuse-vs-uconn-tv-streaming-130000777.html",
+    "published": "2026-09-30T13:00:00+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "Lane Kiffin and the Tigers are back home again in Death Valley for Week 5",
+    "blurb": "What kind of Miracle will we associate with this game?",
     "league": "CFB"
    }
   ],
@@ -380,12 +380,12 @@
     "league": "NBA"
    },
    {
-    "headline": "An Older Teammate Praises Memphis Grizzly Cameron Boozer",
-    "link": "https://sports.yahoo.com/articles/older-teammate-praises-memphis-grizzly-110000088.html",
+    "headline": "Open Thread: Dylan Harper continues to roll back his \u201cI ain\u2019t coming off no bench\u201d comment",
+    "link": "https://sports.yahoo.com/articles/open-thread-dylan-harper-continues-110000822.html",
     "published": "2026-09-30T11:00:00+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/db298af8cc95df852f4b3d02b2a17a4624c2fb1b2a4febf56d76d472c36ece5a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd537880f041a63ae1901ff7692052449.jpg",
-    "blurb": "Everyone who has dealt with NBA rookie Cameron Boozer has come away impressed.",
+    "image": "https://s.yimg.com/lo/mysterio/api/225c0e24d0522fe0f66103afce803362e5b24d1d2215b1e4065f4ea88336b16f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Febe2e1f0b88f6c49dc2566830b94256a.jpg",
+    "blurb": "Media Day brought out many questions as to who will be the Spurs starting five this season",
     "league": "NBA"
    },
    {
@@ -407,12 +407,12 @@
     "league": "NBA"
    },
    {
-    "headline": "Jayson Tatum looked up to Paul George growing up",
-    "link": "https://sports.yahoo.com/articles/jayson-tatum-looked-paul-george-100000930.html",
-    "published": "2026-09-30T10:00:00+00:00",
+    "headline": "An Older Teammate Praises Memphis Grizzly Cameron Boozer",
+    "link": "https://sports.yahoo.com/articles/older-teammate-praises-memphis-grizzly-110000088.html",
+    "published": "2026-09-30T11:00:00+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/5b7aae33b7b83b352dc03253d66a4bffeebdf061530e114d0d04aa7a6df662c2/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F5e6d65eca54d0bae04e11309f16e6d55.jpg",
-    "blurb": "Jayson Tatum and the Celtics plan to learn from Paul George and Mike Conley as they join the team this season.",
+    "image": "https://s.yimg.com/lo/mysterio/api/db298af8cc95df852f4b3d02b2a17a4624c2fb1b2a4febf56d76d472c36ece5a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd537880f041a63ae1901ff7692052449.jpg",
+    "blurb": "Everyone who has dealt with NBA rookie Cameron Boozer has come away impressed.",
     "league": "NBA"
    },
    {
@@ -434,12 +434,12 @@
     "league": "NBA"
    },
    {
-    "headline": "What\u2019s a fair expectation for Amen Thompson\u2019s 2026-2027 jumper?",
-    "link": "https://sports.yahoo.com/articles/fair-expectation-amen-thompson-2026-093830366.html",
-    "published": "2026-09-30T09:38:30+00:00",
+    "headline": "Buy low, play now: Why NBA teams should be begging the Wizards for Justin Champagnie",
+    "link": "https://sports.yahoo.com/articles/buy-low-play-now-why-110000646.html",
+    "published": "2026-09-30T11:00:00+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "Expectations are high, but what\u2019s realistic for the Houston Rockets star?",
+    "blurb": "Back in May, I asked if the end of the tanking era would usher in minutes for Justin Champagnie. My thinking on Champagnie hasn\u2019t changed, but my answer has. Which is to say, I still think Champagnie is an average NBA player, and that if the Wizards hold an open competition for f",
     "league": "NBA"
    },
    {
@@ -564,12 +564,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "What is the Protect College Sports Act? What would the bill do?",
-    "link": "https://www.espn.com/college-football/story/_/id/50001346/protect-college-sports-act-truths-myths-congress",
-    "published": "2026-09-30T12:22:18Z",
+    "headline": "Chris Holtmann, DePaul agree to contract extension",
+    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50062379/chris-holtmann-depaul-agree-contract-extension",
+    "published": "2026-09-29T23:27:11Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0922%2Fr1720224_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "As the Senate passes the landmark bill, we sort the truths about the Protect College Sports Act from the myths.",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2024%2F0314%2Fr1305100_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "DePaul coach Chris Holtmann has agreed to a contract extension that runs through the 2030-31 season.",
     "league": "NCAAB"
    },
    {
@@ -591,12 +591,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Chris Holtmann, DePaul agree to contract extension",
-    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50062379/chris-holtmann-depaul-agree-contract-extension",
-    "published": "2026-09-29T23:27:11Z",
+    "headline": "Judge grants injunction for Denzel Aberdeen to play for Florida",
+    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50060102/judge-grants-injunction-denzel-aberdeen-play-florida",
+    "published": "2026-09-29T18:49:17Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2024%2F0314%2Fr1305100_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "DePaul coach Chris Holtmann has agreed to a contract extension that runs through the 2030-31 season.",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0902%2Fr1710345_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Guard Denzel Aberdeen, who is projected to start for preseason No. 1 Florida, was granted a temporary injunction to play for the Gators this season.",
     "league": "NCAAB"
    },
    {
@@ -618,12 +618,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Judge grants injunction for Denzel Aberdeen to play for Florida",
-    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50060102/judge-grants-injunction-denzel-aberdeen-play-florida",
-    "published": "2026-09-29T18:49:17Z",
+    "headline": "U.S. Senate votes 77-22 to pass Protect College Sports Act",
+    "link": "https://www.espn.com/college-sports/story/_/id/50056206/us-senate-votes-77-22-pass-protect-college-sports-act",
+    "published": "2026-09-29T13:37:08Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0902%2Fr1710345_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Guard Denzel Aberdeen, who is projected to start for preseason No. 1 Florida, was granted a temporary injunction to play for the Gators this season.",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723259_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Protect College Sports Act, a federal bill aimed at reshaping the industry, took a step toward to becoming law Monday when the U.S. Senate voted 77-22 to pass it, with Ted Cruz saying, \"This bill puts an end to the chaos plaguing college athletics.\"",
     "league": "NCAAB"
    },
    {
@@ -819,6 +819,15 @@
     "league": "NASCAR"
    },
    {
+    "headline": "NASCAR Announces Multiple Punishments After Corey Heim-Bryant Racing Altercation",
+    "link": "https://sports.yahoo.com/articles/nascar-announces-multiple-punishments-corey-100100713.html",
+    "published": "2026-09-30T10:01:00+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/71384aa8ff76003c6d9f599cdcec5db9da2114caeb16daf15d3a02e0b7a61ef7/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fathlon_sports_articles_610%2F809e1e2188fa3d40b903df72a20d4db9.jpg",
+    "blurb": "NASCAR issued suspensions and fines to multiple Chad Bryant Racing members after they attacked Corey Heim at Martinsville.",
+    "league": "NASCAR"
+   },
+   {
     "headline": "NASCAR entry list for O&#39;Reilly race at Las Vegas in 2026 Chase",
     "link": "https://sports.yahoo.com/articles/nascar-entry-list-oreilly-race-070517284.html",
     "published": "2026-09-30T07:05:17+00:00",
@@ -889,25 +898,16 @@
     "image": "",
     "blurb": "NASCAR has revealed the status of Denny Hamlin&#39;s No. 11 car for Joe Gibbs Racing at the RD Center after Kansas Speedway in the 2026 Chase.",
     "league": "NASCAR"
-   },
-   {
-    "headline": "NASCAR Hands Down Punishments to 7 After Wild Martinsville Fight",
-    "link": "https://sports.yahoo.com/articles/nascar-hands-down-punishments-7-015428617.html",
-    "published": "2026-09-30T01:54:28+00:00",
-    "source": "YAHOO",
-    "image": "",
-    "blurb": "NASCAR handed down punishments to seven people following a wild fight at Martinsville, with multiple penalties. The post NASCAR Hands Down Punishments to 7 After Wild Martinsville Fight appeared first on HEAVY.",
-    "league": "NASCAR"
    }
   ],
   "mma/ufc": [
    {
-    "headline": "Johnny Walker ready to reveal full potential in UFC 332 heavyweight debut: \u2018I suffered a lot\u2019",
+    "headline": "Johnny Walker ready to reveal full potential in UFC 332 Heavyweight debut: \u2018I suffered a lot\u2019",
     "link": "https://sports.yahoo.com/articles/johnny-walker-ready-reveal-full-110440331.html",
     "published": "2026-09-30T11:04:40+00:00",
     "source": "YAHOO",
     "image": "https://s.yimg.com/lo/mysterio/api/dbf5874b3174d1c16fc2e988018de4ca0d0b56510e4dd60df5b1ccdb1f936075/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff88a254dd3141da47b575f634203b6ac.jpg",
-    "blurb": "Johnny Walker arrived at the UFC in 2019 with a lot of hype, winning his first three fights in spectacular fashion: all via wild knockout, all earning him a Performance of the Night bonus. But things got wobbly from there. He\u2019d win some, he\u2019d lose some. He\u2019d injure himself perfor",
+    "blurb": "Johnny Walker arrived in Ultimate Fighting Championship (UFC) back in 2019 with a lot of hype, winning his first three fights in spectacular fashion: all via wild knockout (like this), earning him a slew of \u201cPerformance of the Night\u201d bonuses. But, things got wobbly from there. He",
     "league": "UFC"
    },
    {
@@ -1087,6 +1087,69 @@
  },
  "latest": [
   {
+   "headline": "3 bold reasons the Bengals will bounce back and beat the Jaguars",
+   "link": "https://sports.yahoo.com/articles/3-bold-reasons-bengals-bounce-130500968.html",
+   "published": "2026-09-30T13:05:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/49ccd48affa9994e900a54405e7e40fe0f3f3f73a72b8876acfe9fcf59088e57/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F07935e219d34f5c05b63eddc4e6d4d58.jpg",
+   "blurb": "The Bengals should be ready for a rebound performance after their debacle in Pittsburgh.",
+   "league": "NFL"
+  },
+  {
+   "headline": "Patriots opponent preview: Get to know the Bills",
+   "link": "https://sports.yahoo.com/articles/patriots-opponent-preview-know-bills-130407460.html",
+   "published": "2026-09-30T13:04:07+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/8c5b2fd58accfe710d4eb85549b72e892affc302465990b4b98ed259ac4effea/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F89dcc93085f5829628a9c31fcb0312a8.jpg",
+   "blurb": "Players to watch, stats, injuries, and more for the Patriots\u2019 opponent on Sunday.",
+   "league": "NFL"
+  },
+  {
+   "headline": "Fantasy football consistency ratings: 2024 to 2026",
+   "link": "https://www.espn.com/fantasy/football/story/_/id/49954186/fantasy-football-rankings-consistency-ratings-start-sit-value",
+   "published": "2026-09-30T13:02:04Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0923%2Fr1720966_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The consistency ratings weigh both how consistent and how start-worthy players have been from 2024 to 2026.",
+   "league": "NFL"
+  },
+  {
+   "headline": "KIRK SPEAKS: Ohio State",
+   "link": "https://sports.yahoo.com/articles/kirk-speaks-ohio-state-130204647.html",
+   "published": "2026-09-30T13:02:04+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/1ab3ad9bfd5dc0cc50befea36b34437db8d971e674fefec6d361e3df3eba56d5/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe167c00330685610e1fbf36c8fb66a70.jpg",
+   "blurb": "Iowa faces its toughest challenge all year in Week 5",
+   "league": "CFB"
+  },
+  {
+   "headline": "Razorback Report Card: Texas A&M",
+   "link": "https://sports.yahoo.com/articles/razorback-report-card-texas-m-130057138.html",
+   "published": "2026-09-30T13:00:57+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/bff691a4186ded1596319f74da0512e68898fb29c5eb38452e9e93d743d5c057/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Flast_word_on_sports_293%2F44cff005dd5d3d859d4b9b4044f7f9cf.jpg",
+   "blurb": "Arkansas has momentum. Now it has to prove that momentum can travel. The Razorbacks\u2019 34-6 win over Tulsa gave Ryan Silverfield\u2019s team something it had lacked through the first three weeks: clarity. KJ Jackson looked settled at quarterback. Chris Marshall emerged as an elite recei",
+   "league": "CFB"
+  },
+  {
+   "headline": "Detroit Tigers News: Zack Gelof lawsuit, Kevin McGonigle, MLB Wild Card, Postseason",
+   "link": "https://sports.yahoo.com/articles/detroit-tigers-news-zack-gelof-130000071.html",
+   "published": "2026-09-30T13:00:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/ec5dfa0ad0660be925d126bbe4646a5beea51c499f1eef730db39f70a00db10c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fbbbcfb508a0cdf1af52234242e94f6f0.jpg",
+   "blurb": "Plus, Aaron Judge is off the Wild Card roster",
+   "league": "MLB"
+  },
+  {
+   "headline": "The Red Sox season hinges on Sonny Gray",
+   "link": "https://sports.yahoo.com/articles/red-sox-season-hinges-sonny-130000445.html",
+   "published": "2026-09-30T13:00:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/910b4e4fb2bc14cda662bbb2fdf1b3976875fbfe2eba70114c85c19f28bf3984/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0c4a11a74921b8c4129dadf302e8ed03.jpg",
+   "blurb": "The Red Sox are up against the wall. Cam Schlittler, once again, shoved against the Red Sox in game one, throwing 117 pitches in a 6.1-inning shutout before handing it over to the bullpen. Paul Blackburn and John Schreiber shut the door, keeping the Red Sox off the scoreboard to ",
+   "league": "MLB"
+  },
+  {
    "headline": "Astros frustrated by boos from sparse crowd during wild-card opener",
    "link": "https://www.espn.com/mlb/story/_/id/50066623/astros-frustrated-boos-sparse-crowd-wild-card-opener",
    "published": "2026-09-30T12:55:23Z",
@@ -1105,75 +1168,12 @@
    "league": "WNBA"
   },
   {
-   "headline": "NFL team grades for September includes only one &#39;A&#39; \u2013 and a lone &#39;F&#39;",
-   "link": "https://sports.yahoo.com/articles/nfl-team-grades-september-includes-125056947.html",
-   "published": "2026-09-30T12:50:56+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/ad3adde4541f7b8da3f7d1e989c01fae79de3b1a358a96a3c1c2e8f971d1497c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F791a76d9612d374ed0ef046576f31c86.jpg",
-   "blurb": "The first month of the 2026 NFL regular season is complete, so it&#39;s time for early grades for all 32 teams. Who earned the top mark, and who flunked?",
-   "league": "NFL"
-  },
-  {
-   "headline": "LSU football gets timeline for return of tight end Trey&#39;Dez Green",
-   "link": "https://sports.yahoo.com/articles/lsu-football-gets-timeline-return-124940066.html",
-   "published": "2026-09-30T12:49:40+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/d20f1098543c4a8e2f6c8dee2971171509c40d2c65c61bda1e96836463ef61a4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Flsu_tigers_wire_usa_today_articles_909%2Fb0cabe5c5457849aa1e6cc4da7679652.jpg",
-   "blurb": "LSU football will be without star tight end Trey&#39;Dez Green for the immediate future, but he could return for a massive November game.",
-   "league": "CFB"
-  },
-  {
-   "headline": "Fantasy football consistency ratings: 2024 to 2026",
-   "link": "https://www.espn.com/fantasy/football/story/_/id/49954186/fantasy-football-rankings-consistency-ratings-start-sit-value",
-   "published": "2026-09-30T12:48:48Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0916%2Fr1717401_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The consistency ratings weigh both how consistent and how start-worthy players have been from 2024 to 2026.",
-   "league": "NFL"
-  },
-  {
-   "headline": "Report: Ravens C Jovaughn Gwyn has a fractured fibula",
-   "link": "https://sports.yahoo.com/articles/report-ravens-c-jovaughn-gwyn-124838756.html",
-   "published": "2026-09-30T12:48:38+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/91f7ed44beaa1537fc65379c71af1ccd7d203b7c17f518d77d2a58be941881c5/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Fea82cff935b37d768e071bb931f713a7.jpg",
-   "blurb": "Ravens head coach Jesse Minter said this week that center Jovaugh Gwyn will be out for an extended period of time and a report on Wednesday sheds more light on the nature of his injury.",
-   "league": "NFL"
-  },
-  {
    "headline": "Wild Card Series Game 1 winners, losers: Cam Schlittler shows ace stuff for Yankees; Cubs offense vanishes",
    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-wild-card-series-game-1-winners-losers/",
    "published": "2026-09-30T12:47:39+00:00",
    "source": "CBS",
    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2F02eed516-3981-4fc2-b088-0dbec57b3307%2Fschlittler-getty-1.png&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The Braves, White Sox, Yankees and Padres have all taken 1-0 series leads after Tuesday's kickoff slate",
-   "league": "MLB"
-  },
-  {
-   "headline": "BC vs SMU: Mustangs Offense/Defense Preview",
-   "link": "https://sports.yahoo.com/articles/bc-vs-smu-mustangs-offense-124726798.html",
-   "published": "2026-09-30T12:47:26+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/535bfb9a2b62772b750ca28f77c7dc05f768bf3e7b94783d9aae6c8c61515dde/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F895cffe9bb848b225bef6dafd2e11565.jpg",
-   "blurb": "SMU enters Week 5 against Boston College at 3-1 overall, 1-1 in-conference, and ranked #21. Rhett Lashlee\u2019s team had a close win to start over Florida State, routed UC Davis, lost in a shootout at Louisville, and most recently rebounded from a sloppy start to beat Missouri State ",
-   "league": "CFB"
-  },
-  {
-   "headline": "Kansas City Royals news: Alec Zumwalt is out",
-   "link": "https://sports.yahoo.com/articles/kansas-city-royals-news-alec-124611971.html",
-   "published": "2026-09-30T12:46:11+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/be5f5558241d155a55d6c83e7a37097ee0843cc80b03ef82dfa4f958d8068f3f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2fcdce0edb13af04e19a06d7d2d90975.jpg",
-   "blurb": "Will anything change?",
-   "league": "MLB"
-  },
-  {
-   "headline": "AL Wild Card Series Game 2 Preview: New York Yankees vs. Boston Red Sox",
-   "link": "https://sports.yahoo.com/articles/al-wild-card-series-game-124500982.html",
-   "published": "2026-09-30T12:45:00+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/05ec6a21db60e082abfd49b6c4f1c2093e3b15a74422782b40416fc572f017e3/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F81cceff7e325d33d82e4b805c0fd40f1.jpg",
-   "blurb": "The Yankees look to end the Red Sox season and advance to the ALDS tonight.",
    "league": "MLB"
   },
   {
@@ -1249,15 +1249,6 @@
    "league": "NCAAB"
   },
   {
-   "headline": "What is the Protect College Sports Act? What would the bill do?",
-   "link": "https://www.espn.com/college-football/story/_/id/50001346/protect-college-sports-act-truths-myths-congress",
-   "published": "2026-09-30T12:22:18Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0922%2Fr1720224_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "As the Senate passes the landmark bill, we sort the truths about the Protect College Sports Act from the myths.",
-   "league": "NCAAB"
-  },
-  {
    "headline": "1 Day Until Opening Night: The History OF Jersey #1",
    "link": "https://sports.yahoo.com/articles/1-day-until-opening-night-122005814.html",
    "published": "2026-09-30T12:20:05+00:00",
@@ -1330,12 +1321,12 @@
    "league": "NASCAR"
   },
   {
-   "headline": "Johnny Walker ready to reveal full potential in UFC 332 heavyweight debut: \u2018I suffered a lot\u2019",
+   "headline": "Johnny Walker ready to reveal full potential in UFC 332 Heavyweight debut: \u2018I suffered a lot\u2019",
    "link": "https://sports.yahoo.com/articles/johnny-walker-ready-reveal-full-110440331.html",
    "published": "2026-09-30T11:04:40+00:00",
    "source": "YAHOO",
    "image": "https://s.yimg.com/lo/mysterio/api/dbf5874b3174d1c16fc2e988018de4ca0d0b56510e4dd60df5b1ccdb1f936075/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff88a254dd3141da47b575f634203b6ac.jpg",
-   "blurb": "Johnny Walker arrived at the UFC in 2019 with a lot of hype, winning his first three fights in spectacular fashion: all via wild knockout, all earning him a Performance of the Night bonus. But things got wobbly from there. He\u2019d win some, he\u2019d lose some. He\u2019d injure himself perfor",
+   "blurb": "Johnny Walker arrived in Ultimate Fighting Championship (UFC) back in 2019 with a lot of hype, winning his first three fights in spectacular fashion: all via wild knockout (like this), earning him a slew of \u201cPerformance of the Night\u201d bonuses. But, things got wobbly from there. He",
    "league": "UFC"
   },
   {
@@ -1345,6 +1336,15 @@
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723772_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "As training camps get underway across the league, Bobby Marks examines roster, contract and fit questions for all 30 teams.",
+   "league": "NBA"
+  },
+  {
+   "headline": "Open Thread: Dylan Harper continues to roll back his \u201cI ain\u2019t coming off no bench\u201d comment",
+   "link": "https://sports.yahoo.com/articles/open-thread-dylan-harper-continues-110000822.html",
+   "published": "2026-09-30T11:00:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/225c0e24d0522fe0f66103afce803362e5b24d1d2215b1e4065f4ea88336b16f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Febe2e1f0b88f6c49dc2566830b94256a.jpg",
+   "blurb": "Media Day brought out many questions as to who will be the Spurs starting five this season",
    "league": "NBA"
   },
   {
@@ -1384,13 +1384,13 @@
    "league": "NHL"
   },
   {
-   "headline": "Jayson Tatum looked up to Paul George growing up",
-   "link": "https://sports.yahoo.com/articles/jayson-tatum-looked-paul-george-100000930.html",
-   "published": "2026-09-30T10:00:00+00:00",
+   "headline": "NASCAR Announces Multiple Punishments After Corey Heim-Bryant Racing Altercation",
+   "link": "https://sports.yahoo.com/articles/nascar-announces-multiple-punishments-corey-100100713.html",
+   "published": "2026-09-30T10:01:00+00:00",
    "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/5b7aae33b7b83b352dc03253d66a4bffeebdf061530e114d0d04aa7a6df662c2/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F5e6d65eca54d0bae04e11309f16e6d55.jpg",
-   "blurb": "Jayson Tatum and the Celtics plan to learn from Paul George and Mike Conley as they join the team this season.",
-   "league": "NBA"
+   "image": "https://s.yimg.com/lo/mysterio/api/71384aa8ff76003c6d9f599cdcec5db9da2114caeb16daf15d3a02e0b7a61ef7/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fathlon_sports_articles_610%2F809e1e2188fa3d40b903df72a20d4db9.jpg",
+   "blurb": "NASCAR issued suspensions and fines to multiple Chad Bryant Racing members after they attacked Corey Heim at Martinsville.",
+   "league": "NASCAR"
   },
   {
    "headline": "South Korean golfers trying to win Asian Games to be free from military duty",
@@ -1448,9 +1448,9 @@
   }
  ],
  "source_mix": {
-  "ESPN": 46,
-  "CBS": 42,
-  "YAHOO": 69
+  "YAHOO": 71,
+  "ESPN": 44,
+  "CBS": 42
  },
  "degraded_sources": []
 }
