@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-09-30T20:50:02.910159+00:00",
+ "generated_at": "2026-09-30T21:04:47.513179+00:00",
  "items": [
-  {
-   "id": "6b04f4964a",
-   "league": "MLB",
-   "event": "Chicago White Sox @ Houston Astros",
-   "prediction": "Chicago White Sox beat Houston Astros",
-   "kickoff_utc": "2026-09-30T21:00:00+00:00"
-  },
   {
    "id": "fb762116e8",
    "league": "WNBA",
@@ -42,6 +35,13 @@
    "event": "Boston Red Sox @ New York Yankees",
    "prediction": "Boston Red Sox beat New York Yankees",
    "kickoff_utc": "2026-10-01T00:00:00+00:00"
+  },
+  {
+   "id": "34b134c98c",
+   "league": "WNBA",
+   "event": "Golden State Valkyries @ Dallas Wings",
+   "prediction": "Golden State Valkyries beat Dallas Wings",
+   "kickoff_utc": "2026-10-01T01:00:00+00:00"
   }
  ]
 }
