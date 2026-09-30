@@ -52,7 +52,7 @@ MORE_CAP = 20
 # boilerplate); (2) a post whose text introduces a foreign principal person (capitalized
 # bigram surname absent from the headline's entities, place/org words excluded) conflicts.
 # No extractable entities -> gate silent, probe decides. Latest tier uses layer 1 at need=1.
-ENTITY_GATE_VERSION = 'eg6'  # cache salt: freshness and reason-integrity checks
+ENTITY_GATE_VERSION = 'eg7-draft-rank'  # cache salt: freshness and reason-integrity checks
 ENTITY_STOP = set('this these those that one two three four five it its our your their there here'.split()) | set('game games report reports season seasons preview previews recap recap watch video highlight highlights rumor rumors update updates news trade trades injury injuries week daily today tonight tomorrow yesterday best worst ranking rankings power draft pick picks odds line lines spread spreads over under win wins loss losses versus the after before says said new why how what who live score scores final first last early late big top free agent agents coach coaches team teams player players star stars fans fan take takes make makes get gets back down into with from will would could should must still just more most ever every next league playoff playoffs postseason championship title titles night match matches fight fights career future futures ready leads lead leading recalls sent check throws college football basketball baseball hockey soccer monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december chat discussion eve face home road looks remain unbeaten factor charge go years year state count counts props prop expert experts bets bet betting booed'.split())
 POST_PERSON_STOP = ENTITY_STOP | set('field stadium arena center centre park garden dome coliseum bowl classic series cup showdown invitational open masters nationals united city club fc sc ac cf real sporting athletics university kings queens islanders post'.split())  # 'post': outlet names in subject position (The California Post) are not person principals
 
@@ -139,12 +139,22 @@ def post_persons(text, title_ents, blurb=''):
 # R2 a betting-slip post (units, +/- lines, prop parlays) NEVER pairs a non-picks story.
 # R3 a historically-framed post (since 2021, career, all-time) NEVER pairs a breaking-event
 #    story (injury, trade, signing) - same person, different era = different story.
+# Draft ranks are personnel facts, not betting selections. Remove only the
+# complete rank phrase; real picks/props/bets elsewhere in the story still count.
+DRAFT_RANK_PHRASE = re.compile(
+    r"\b(?:no\.?\s*|number\s+|#\s*)?(?:\d+(?:st|nd|rd|th)?|first|second|third)\s+overall\s+(?:draft\s+)?picks?\b"
+    r"|\b(?:first|second|third|\d+(?:st|nd|rd|th)?)[- ]round\s+(?:draft\s+)?picks?\b"
+    r"|\bdraft\s+picks?\b", re.I)
+
+def betting_intent_text(text):
+    return DRAFT_RANK_PHRASE.sub('draft selection', _html.unescape(text or ''))
+
 PICKS_ARTICLE = re.compile(r'\b(picks?|props?|best bets|expert|parlay|bets|betting)\b', re.I)
 PREDICTION_ARTICLE = re.compile(r'\b(picks?|predictions?|props?|best bets?|betting preview)\b', re.I)
 # A post can discuss a game's preview without sharing a prediction. A declared
 # selection is required for a story whose headline advertises its pick/forecast.
 def selection_gate(title, post):
-    if PREDICTION_ARTICLE.search(title or '') and not DECLARED_PICK.search(post or ''):
+    if PREDICTION_ARTICLE.search(betting_intent_text(title)) and not DECLARED_PICK.search(post or ''):
         return 'prediction/picks article: post gives no actual selection (records or inactives alone are not proof)'
     return None
 
@@ -154,9 +164,9 @@ PICK_EVIDENCE = re.compile(r"\b((?:over|under)\s*\d|yards?|yds|td|touchdown|rece
 DECLARED_PICK = re.compile(r"\b(i(?:\s*am|['’]m)?\s+(?:picking|taking|betting|playing)|my\s+(?:pick|bet|play)|(?:our|the)\s+(?:best\s+)?pick\s*(?::|is)|pick\s*:\s*|play\s*:\s*|best\s+bet\s*(?::|is)|(?:over|under)\s+\d+(?:\.\d+)?|(?:[+-]\d+(?:\.\d+)?)\s*(?:spread|moneyline)|\b(?:anytime|first)\s+(?:td|touchdown)\s+scorer)\b", re.I)
 
 def latest_pick_gate(title, post):
-    if PREDICTION_ARTICLE.search(title or '') and HISTORICAL_POST.search(post or ''):
+    if PREDICTION_ARTICLE.search(betting_intent_text(title)) and HISTORICAL_POST.search(post or ''):
         return 'current picks article: prior-season or retrospective post is not this selection'
-    if PREDICTION_ARTICLE.search(title or '') and not DECLARED_PICK.search(post or ''):
+    if PREDICTION_ARTICLE.search(betting_intent_text(title)) and not DECLARED_PICK.search(post or ''):
         return 'expert-picks article: post makes no concrete selection (generic breakdown is not a pick)'
     return None
 
@@ -221,7 +231,7 @@ def foreign_person_vs_title(title, text):
 
 def story_type_gate(title, post):
     t, p = title or '', post or ''
-    picks_art = bool(PICKS_ARTICLE.search(t))
+    picks_art = bool(PICKS_ARTICLE.search(betting_intent_text(t)))
     if picks_art and not PICK_EVIDENCE.search(p):
         return 'picks-type article: no article-pick evidence in post (generic odds/news is game overlap)'
     selection = selection_gate(t, p)
@@ -244,7 +254,7 @@ def story_type_gate(title, post):
     if ANALYSIS_ARTICLE.search(t) and TRIVIA_POST.search(p):
         return 'trivia post vs analysis article (action mismatch, guard 2)'
     # R8 betting-market content (ATS/trends) vs non-betting story
-    if BETTING_CONTENT.search(p) and not PICKS_ARTICLE.search(t):
+    if BETTING_CONTENT.search(p) and not PICKS_ARTICLE.search(betting_intent_text(t)):
         return 'betting-market content vs non-betting story (guard 2)'
     return None
 
@@ -257,7 +267,7 @@ def probe_predeny(story, post):
     deterministic REJECT before the judge ever sees it. Default-DENY only (6:06:54): this
     gate never grants - every EXECUTE still comes from the judge."""
     head = (story or '')[:200]
-    if PICKS_ARTICLE.search(head) and not PICK_EVIDENCE.search(post or ''):
+    if PICKS_ARTICLE.search(betting_intent_text(head)) and not PICK_EVIDENCE.search(post or ''):
         return ('REJECT', 'picks-type article, post declares no concrete pick/prop: same-event odds language is not a match (deterministic, guard 3)')
     return None
 
@@ -671,6 +681,23 @@ def operator_author(author_name, author_username):
     who = re.sub(r'[^A-Za-z0-9]+', ' ', who)  # crypto-handle class: split separators so Cry_Fortress-style handles tokenize
     return bool(re.search(r'\b(bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook|cry|crypto|forex|btc|eth|xrp|solana|memecoin|altcoins?|defi|web3|signals)\b', who, re.I))
 
+def zero_pair_reason(stats, probes):
+    """Classify semantic outcomes including cache hits, not only network calls."""
+    if stats.get('paired', 0) > 0:
+        return 'ok'
+    if stats.get('band_eligible', 0) == 0:
+        return 'no_floor_candidates'
+    confirmed = stats.get('probe_confirmed', 0)
+    rejected = stats.get('probe_rejected', 0)
+    abstained = stats.get('probe_abstained', 0)
+    if probes == 0 and confirmed + rejected + abstained == 0:
+        return 'gate_killed_all'
+    if confirmed == 0:
+        if probes == 0 and rejected > 0 and abstained == 0:
+            return 'cached_probe_rejected_all'
+        return 'probe_rejected_all'
+    return 'mixed'
+
 def main():
     # sync-at-all-times (user 4:27 class kill): match against the LIVE served news window,
     # not the minutes-old checkout snapshot - a stale snapshot pairs stories that have already
@@ -1012,16 +1039,7 @@ def main():
     stats['top_score_max'] = max(stats.pop('top_scores'), default=0.0)
     # feed guard 3 instrumentation (Sep 29): distinguish legitimate abstain from broken
     # probe invocation at a glance - a zero-pair map must SAY why.
-    if stats['paired'] > 0:
-        stats['zero_pair_reason'] = 'ok'
-    elif stats.get('band_eligible', 0) == 0:
-        stats['zero_pair_reason'] = 'no_floor_candidates'  # legitimate abstain: nothing reached the probe bar
-    elif probes == 0 and stats.get('probe_confirmed', 0) == 0:
-        stats['zero_pair_reason'] = 'gate_killed_all'  # band candidates died at deterministic pre-gates - check gates, not the probe loop
-    elif stats.get('probe_confirmed', 0) == 0:
-        stats['zero_pair_reason'] = 'probe_rejected_all'  # probes ran and rejected all - honest abstain with evidence
-    else:
-        stats['zero_pair_reason'] = 'mixed'
+    stats['zero_pair_reason'] = zero_pair_reason(stats, probes)
     log['audit'] = {'thresholds': {'auto_accept': AUTO_ACCEPT, 'probe_floor': PROBE_FLOOR, 'more_floor': MORE_FLOOR},
                     'probes_used': probes, 'onstory_probes_used': ons_probes, **stats,
                     'coverage_pct': round(100.0 * stats['paired'] / max(1, len(items)), 1)}

@@ -492,6 +492,24 @@ if 'COMPONENT ACTIONS of one event' not in _src:
 if "PROMPT_VERSION = 'v18" not in _src:
     fails.append("PROMPT_VERSION not at v18 - verdict cache would reuse v17 false-rejects")
 
+# Exact ESPN draft-noun false reject from the 07:20Z served pool.
+_MCKENNA_STORY = "McKenna tops 15 minutes in NHL debut as Maple Leafs fall - No. 1 overall pick Gavin McKenna, 18, made his NHL debut Tuesday night, when the Toronto Maple Leafs fell to the Montreal Canadiens 3-2 in the season opener."
+_MCKENNA_POST = "Gavin McKenna made his NHL debut tonight and his Mom can't believe it"
+for _story in [_MCKENNA_STORY, 'First overall draft pick Gavin McKenna makes NHL debut', 'First-round pick Gavin McKenna makes NHL debut', 'Draft pick Gavin McKenna makes NHL debut']:
+    if sm.story_type_gate(_story, _MCKENNA_POST) or sm.selection_gate(_story, _MCKENNA_POST) or sm.latest_pick_gate(_story, _MCKENNA_POST) or sm.probe_predeny(_story, _MCKENNA_POST):
+        fails.append("draft rank confused with betting intent: " + _story)
+for _story in ['No. 1 overall pick McKenna: expert picks and best bets', 'First-round pick McKenna player props', 'Draft pick McKenna predictions: best bets']:
+    if not sm.story_type_gate(_story, 'McKenna is playing tonight'):
+        fails.append("draft exemption weakened real picks/props/prediction gate: " + _story)
+for _stats, _probes, _want in [
+    ({'paired': 0, 'band_eligible': 30, 'probe_rejected': 6}, 0, 'cached_probe_rejected_all'),
+    ({'paired': 0, 'band_eligible': 30}, 0, 'gate_killed_all'),
+    ({'paired': 0, 'band_eligible': 30, 'probe_rejected': 6}, 6, 'probe_rejected_all'),
+    ({'paired': 0, 'band_eligible': 0}, 0, 'no_floor_candidates'),
+    ({'paired': 1, 'band_eligible': 30}, 0, 'ok')]:
+    if sm.zero_pair_reason(_stats, _probes) != _want:
+        fails.append("cached/fresh audit classification failed: " + _want)
+
 if fails:
     print("FIXTURE FAILURES:")
     [print(" -", f) for f in fails]
