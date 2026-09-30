@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-09-30T09:04:42.510355+00:00",
+ "generated_at": "2026-09-30T09:19:39.967659+00:00",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Yankees news: The Wild Card Series begins",
+    "link": "https://sports.yahoo.com/articles/yankees-news-wild-card-series-090000198.html",
+    "published": "2026-09-30T09:00:00+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/4d9a724fd033ef89a76111c33e46af7f79359b9ba3115cf2bb0f34ca125aea13/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd84df3fe942eab2e6793b50eda970e42.jpg",
+    "blurb": "Aaron Judge fails to convince Yankees he is healthy; breaking down the Wild Card",
+    "league": "MLB"
+   },
    {
     "headline": "Schlittler and Rice torment hometown team as Yankees beat rival Red Sox 9-0 in playoff opener",
     "link": "http://www.espn.com/mlb/recap?gameId=401907924",
@@ -9,15 +18,6 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907924.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "\u2014 Cam Schlittler pitched another playoff gem against the Boston Red Sox, and Ben Rice also burned their hometown team with a late grand slam and six RBI as the New York Yankees opened this Wild Card Series rematch with a 9-0 victory Tuesday night.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Ben Rice has Yankees on brink of ALDS with MVP-type performance in Game 1 win",
-    "link": "https://sports.yahoo.com/articles/ben-rice-puts-yankees-brink-072534020.html",
-    "published": "2026-09-30T07:25:34+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/374cceb5ac1c4f52068390b4e2409881a25e91c44000740a951740c930efbb42/lightyear_networkapi/resizefill_w444_h250%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsny_articles_235%2F56fdb90d2bd788f4585a1cf4b1a6eb01.jpg",
-    "blurb": "Ben Rice did it all for the Yankees on Tuesday night. He provided the offense and turned their Game 1 win into a laugher to preserve the bullpen.",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Ben Rice has Yankees on brink of ALDS with MVP-type performance in Game 1 win",
+    "link": "https://sports.yahoo.com/articles/ben-rice-puts-yankees-brink-072534020.html",
+    "published": "2026-09-30T07:25:34+00:00",
+    "source": "YAHOO",
+    "image": "https://s.yimg.com/lo/mysterio/api/374cceb5ac1c4f52068390b4e2409881a25e91c44000740a951740c930efbb42/lightyear_networkapi/resizefill_w444_h250%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsny_articles_235%2F56fdb90d2bd788f4585a1cf4b1a6eb01.jpg",
+    "blurb": "Ben Rice did it all for the Yankees on Tuesday night. He provided the offense and turned their Game 1 win into a laugher to preserve the bullpen.",
+    "league": "MLB"
+   },
+   {
     "headline": "White Sox strike first in AL wild card, beating Astros 6-3 in Game 1",
     "link": "http://www.espn.com/mlb/recap?gameId=401907896",
     "published": "2026-09-30T07:59:03Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907896.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "\u2014 Colson Montgomery hit a solo homer and Sam Antonacci drove in two runs to lead the Chicago White Sox over the Houston Astros 6-3 in Game 1 of an AL Wild Card Series on Tuesday.",
-    "league": "MLB"
-   },
-   {
-    "headline": "The Red Sox were completely unprepared for Game 1 of the Wild Card series",
-    "link": "https://sports.yahoo.com/articles/red-sox-were-completely-unprepared-070035466.html",
-    "published": "2026-09-30T07:00:35+00:00",
-    "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/5a84fcbba4a7a3387654d590b9ba319a8484bee9be5b674512c25affa877af99/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fa4e74b64c277130cca672cfe4b565aad.jpg",
-    "blurb": "After that performance, everything needs to be called into question.",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "The Red Sox were completely unprepared for Game 1 of the Wild Card series",
+    "link": "https://sports.yahoo.com/articles/red-sox-were-completely-unprepared-070035466.html",
+    "published": "2026-09-30T07:00:35+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "After that performance, everything needs to be called into question.",
+    "league": "MLB"
+   },
+   {
     "headline": "Padres pummel Cubs behind Tatis' leadoff blast, King's gem in Game 1",
     "link": "https://www.espn.com/mlb/story/_/id/50064499/padres-pummel-cubs-tatis-leadoff-blast-king-gem-game-1",
     "published": "2026-09-30T07:50:12Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723780_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Padres made an emphatic statement in their wild-card opener against the Cubs, getting a leadoff homer from Fernando Tatis Jr. and a brilliant effort on the mound from Michael King in an 8-0 win in Game 1.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Padres rout Cubs 8-0 in emphatic Wild Card opener with Tatis\u2019 leadoff homer, King\u2019s no-hit bid",
-    "link": "https://sports.yahoo.com/articles/padres-rout-cubs-8-0-060859680.html",
-    "published": "2026-09-30T06:08:59+00:00",
-    "source": "YAHOO",
-    "image": "",
-    "blurb": "San Diego provided more than enough support for King, who struck out eight over seven stellar innings.",
     "league": "MLB"
    },
    {
@@ -84,12 +84,12 @@
     "league": "MLB"
    },
    {
-    "headline": "Schlittler, Rice lead Yankees' rout of Red Sox in Game 1",
-    "link": "https://www.espn.com/mlb/story/_/id/50064240/schlittler-rice-lead-yankees-rout-red-sox-game-1",
-    "published": "2026-09-30T06:44:04Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723765_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Cam Schlittler pitched another playoff gem against the Boston Red Sox, and Ben Rice also burned their hometown team with a late grand slam and six RBIs as the New York Yankees opened this AL Wild Card Series rematch with a 9-0 victory on Tuesday night.",
+    "headline": "Padres rout Cubs 8-0 in emphatic Wild Card opener with Tatis\u2019 leadoff homer, King\u2019s no-hit bid",
+    "link": "https://sports.yahoo.com/articles/padres-rout-cubs-8-0-060859680.html",
+    "published": "2026-09-30T06:08:59+00:00",
+    "source": "YAHOO",
+    "image": "",
+    "blurb": "San Diego provided more than enough support for King, who struck out eight over seven stellar innings.",
     "league": "MLB"
    }
   ],
@@ -97,7 +97,7 @@
    {
     "headline": "Christian Izien stars in strong defensive week for NFL stars with Africa ties",
     "link": "https://www.espn.com/espn/story/_/id/50065515/christian-izien-stars-strong-defensive-week-nfl-stars-africa-ties",
-    "published": "2026-09-30T08:46:35Z",
+    "published": "2026-09-30T09:04:00Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723818_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Detroit Lions safety Christian Izien - who is from Far Rockaway, Queens, but has always proudly represented Nigeria too - was a standout among many NFL stars with ties to Africa who shone in Week 3.",
@@ -187,12 +187,12 @@
   ],
   "football/college-football": [
    {
-    "headline": "College football risers, fallers: Florida is for real, Lincoln Riley is not",
-    "link": "https://sports.yahoo.com/articles/college-football-risers-fallers-florida-084758131.html",
-    "published": "2026-09-30T08:47:58+00:00",
+    "headline": "Michigan football was supposed to have an elite run game. What happened?",
+    "link": "https://sports.yahoo.com/articles/michigan-football-supposed-elite-run-090849969.html",
+    "published": "2026-09-30T09:08:49+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/32e37ebecf0f199bd6f66bde22e8c59b8ad5641949e9dcca71a25913f6620e0f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Ff67a05194e462a4fecf9fa8815c36bf8.jpg",
-    "blurb": "Florida Gators&#39; rout of Ole Miss shook up the CFP race, while USC football and Penn State stumbled. Here are Week 5&#39;s biggest risers and fallers.",
+    "image": "https://s.yimg.com/lo/mysterio/api/625260aeed15635b3561c964938d06b1c3a681375a20426a4a200b4256e3fdd3/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fdetroit_free_press_usa_today_sports_articles_655%2F20f1619ab2d2487f6ce4ead34d4a5632.jpg",
+    "blurb": "The Michigan Wolverines are struggling to run the football, which is startling for two reasons.",
     "league": "CFB"
    },
    {
@@ -214,12 +214,12 @@
     "league": "CFB"
    },
    {
-    "headline": "20 Shore football alums making their mark with Division I college programs",
-    "link": "https://sports.yahoo.com/articles/20-shore-football-alums-making-084239764.html",
-    "published": "2026-09-30T08:42:39+00:00",
+    "headline": "UCLA football is real threat to USC, not Lincoln Riley&#39;s $70 million buyout",
+    "link": "https://sports.yahoo.com/articles/ucla-football-real-threat-usc-090616367.html",
+    "published": "2026-09-30T09:06:16+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/1ce992b231b25af2b837c6c4f06d0ded6db6cd3091c1d46b177a3aa33c2d8673/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fapp-com-asbury-park-press%2F10b335921114747cd922dc3818dfedd6.jpg",
-    "blurb": "See how former Jersey Shore high school stars are making an impact on the college gridiron this season.",
+    "image": "https://s.yimg.com/lo/mysterio/api/d4d939ef58928ebcbd10b0df6626aa6c664f59171f9685d43b3cac134c9b267b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fd073c7466a98766014985b3146ef9003.jpg",
+    "blurb": "USC\u2019s Lincoln Riley problem isn\u2019t just losses. As Bob Chesney rapidly rebuilds UCLA, the Bruins are becoming a threat the Trojans can\u2019t ignore.",
     "league": "CFB"
    },
    {
@@ -241,12 +241,12 @@
     "league": "CFB"
    },
    {
-    "headline": "Jaxon Smith-Njigba names the NFL-bound college player just \u2018like Lebron James\u2019",
-    "link": "https://sports.yahoo.com/articles/jaxon-smith-njigba-names-nfl-083205858.html",
-    "published": "2026-09-30T08:32:05+00:00",
+    "headline": "Tennessee football has enough offense for Auburn, other SEC picks | Adams",
+    "link": "https://sports.yahoo.com/articles/tennessee-football-enough-offense-auburn-090514057.html",
+    "published": "2026-09-30T09:05:14+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "Jaxon Smith-Njigba has picked up from where he left off last season as the best wide receiver in the NFL. The question as to who is the overall best wideout in the league is still a debate, but there is currently no other player showing the same form as the Seattle Seahawks star.",
+    "blurb": "Tennessee football\u2019s easy nonconference schedule was a gateway to a fast start. It seemed ideal for a team breaking in a freshman quarterback and defensive coordinator.",
     "league": "CFB"
    },
    {
@@ -268,23 +268,23 @@
     "league": "CFB"
    },
    {
-    "headline": "Nebraska coach Matt Rhule talks about improvement before Homecoming",
-    "link": "https://sports.yahoo.com/articles/nebraska-coach-matt-rhule-talks-083203607.html",
-    "published": "2026-09-30T08:32:03+00:00",
+    "headline": "Texas A&M predicted to face 2024 National Champion in bowl game",
+    "link": "https://sports.yahoo.com/articles/texas-m-predicted-face-2024-090315756.html",
+    "published": "2026-09-30T09:03:15+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "Nebraska hosts Maryland at Memorial Stadium this Saturday for the 2026 Homecoming game.",
+    "blurb": "Will Texas A&M reach bowl eligibility? If so, the Aggies are still predicted to play in the Music City Bowl.",
     "league": "CFB"
    }
   ],
   "basketball/wnba": [
    {
-    "headline": "Stephanie White makes exciting Caitlin Clark prediction for Fever\u2019s third game against Aces",
-    "link": "https://sports.yahoo.com/articles/stephanie-white-makes-exciting-caitlin-075000673.html",
-    "published": "2026-09-30T07:50:00+00:00",
+    "headline": "Stephanie White says Fever player \u2018changes the landscape\u2019 on the defensive end when she comes in",
+    "link": "https://sports.yahoo.com/articles/stephanie-white-says-fever-player-085500930.html",
+    "published": "2026-09-30T08:55:00+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/645230615a267bf69fee8cbf1bd71c539d6a1d161d33033d98c38c3cf892c0d7/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhitc_articles_832%2F9ef1fc644351d921635cf949190cc5f4.jpg",
-    "blurb": "The Indiana Fever were able to bounce back from disappointment in game one to take their first-round playoff series against the Las Vegas Aces to a decider. The Fever began the playoffs with a 102-85 loss this past Sunday, meaning they had to pick up a win on Tuesday or they were",
+    "image": "https://s.yimg.com/lo/mysterio/api/b0f7a9e26a24f8b0e96b93bc1acb645f8554d1a96fe6537cf5c33512f5768983/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhitc_articles_832%2F30fb724780b4709f173314f576d4560e.jpg",
+    "blurb": "Indiana Fever\u2019s hopes of reaching the next round of the WNBA playoffs remain after they managed to pick up a much-needed win in game two against the Las Vegas Aces. Likely to the surprise of very few people, Caitlin Clark was a top performer on the night, providing the most point",
     "league": "WNBA"
    },
    {
@@ -306,12 +306,12 @@
     "league": "WNBA"
    },
    {
-    "headline": "Lynx news: Olivia Miles reflects on incredible rookie season despite sad end",
-    "link": "https://sports.yahoo.com/articles/lynx-news-olivia-miles-reflects-070712940.html",
-    "published": "2026-09-30T07:07:12+00:00",
+    "headline": "\u2018Point Gawds,\u2019 \u2018INDIANA BASKETBALL!\u2019 \u2014 Hoops World Buzzes As Caitlin Clark Joins Pacers Star Tyrese Haliburton in Exclusive Playoff Club",
+    "link": "https://sports.yahoo.com/articles/point-gawds-indiana-basketball-hoops-084053646.html",
+    "published": "2026-09-30T08:40:53+00:00",
     "source": "YAHOO",
-    "image": "https://s.yimg.com/lo/mysterio/api/6dcbff259a26e375c4ac42aa8d1ce2da84564673400f0ea4d27b8a7e899e2f14/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2F53ac3d2f2dadcaaf1bb03446388864ed.jpg",
-    "blurb": "It was not the ending Olivia Miles had hoped for in her rookie campaign, but she will only grow from it. Miles and the Minnesota Lynx were eliminated in the first round of the playoffs after losing to the New York Liberty in Game 2, 87-71, at Barclays Center on Tuesday. The Lynx ",
+    "image": "https://s.yimg.com/lo/mysterio/api/f6d90f15c9613a31f53fda1c1c65bec2b643b06ee9b288cf0dba4a2d131e02ff/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpro_football_network_512%2Fb1ffc581342f67530e72337168480b0c.jpg",
+    "blurb": "Caitlin Clark and Tyrese Haliburton have given Indiana basketball fans plenty to celebrate in recent years. Now, the two stars have something else in common, this time on the playoff stage.",
     "league": "WNBA"
    },
    {
@@ -333,12 +333,12 @@
     "league": "WNBA"
    },
    {
-    "headline": "Kayla McBride hints Napheesa Collier is leaving Minnesota Lynx with post-game hug explanation",
-    "link": "https://sports.yahoo.com/articles/kayla-mcbride-hints-napheesa-collier-063015434.html",
-    "published": "2026-09-30T06:30:15+00:00",
+    "headline": "Stephanie White makes exciting Caitlin Clark prediction for Fever\u2019s third game against Aces",
+    "link": "https://sports.yahoo.com/articles/stephanie-white-makes-exciting-caitlin-075000673.html",
+    "published": "2026-09-30T07:50:00+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "After their shocking 0-2 series upset against the New York Liberty, Kayla McBride suggested that Napheesa Collier was set to leave the Minnesota Lynx. The Lynx were swept by the Liberty despite being the #1 seed in the WNBA playoffs, marking one of the biggest upsets in WNBA play",
+    "blurb": "The Indiana Fever were able to bounce back from disappointment in game one to take their first-round playoff series against the Las Vegas Aces to a decider. The Fever began the playoffs with a 102-85 loss this past Sunday, meaning they had to pick up a win on Tuesday or they were",
     "league": "WNBA"
    },
    {
@@ -360,12 +360,12 @@
     "league": "WNBA"
    },
    {
-    "headline": "Liberty news: Sabrina Ionescu drops truth bomb after taking out Lynx",
-    "link": "https://sports.yahoo.com/articles/liberty-news-sabrina-ionescu-drops-062137755.html",
-    "published": "2026-09-30T06:21:37+00:00",
+    "headline": "Lynx news: Olivia Miles reflects on incredible rookie season despite sad end",
+    "link": "https://sports.yahoo.com/articles/lynx-news-olivia-miles-reflects-070712940.html",
+    "published": "2026-09-30T07:07:12+00:00",
     "source": "YAHOO",
     "image": "",
-    "blurb": "New York Liberty guard Sabrina Ionescu fell into an awful slump in the first weeks of the season as she struggled in her return from a foot injury. She heard all the negativity, including being called washed. But she never folded. She stayed the course. She continued to trust her",
+    "blurb": "It was not the ending Olivia Miles had hoped for in her rookie campaign, but she will only grow from it. Miles and the Minnesota Lynx were eliminated in the first round of the playoffs after losing to the New York Liberty in Game 2, 87-71, at Barclays Center on Tuesday. The Lynx ",
     "league": "WNBA"
    }
   ],
@@ -1087,22 +1087,49 @@
  },
  "latest": [
   {
-   "headline": "College football risers, fallers: Florida is for real, Lincoln Riley is not",
-   "link": "https://sports.yahoo.com/articles/college-football-risers-fallers-florida-084758131.html",
-   "published": "2026-09-30T08:47:58+00:00",
+   "headline": "Michigan football was supposed to have an elite run game. What happened?",
+   "link": "https://sports.yahoo.com/articles/michigan-football-supposed-elite-run-090849969.html",
+   "published": "2026-09-30T09:08:49+00:00",
    "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/32e37ebecf0f199bd6f66bde22e8c59b8ad5641949e9dcca71a25913f6620e0f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Ff67a05194e462a4fecf9fa8815c36bf8.jpg",
-   "blurb": "Florida Gators&#39; rout of Ole Miss shook up the CFP race, while USC football and Penn State stumbled. Here are Week 5&#39;s biggest risers and fallers.",
+   "image": "https://s.yimg.com/lo/mysterio/api/625260aeed15635b3561c964938d06b1c3a681375a20426a4a200b4256e3fdd3/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fdetroit_free_press_usa_today_sports_articles_655%2F20f1619ab2d2487f6ce4ead34d4a5632.jpg",
+   "blurb": "The Michigan Wolverines are struggling to run the football, which is startling for two reasons.",
+   "league": "CFB"
+  },
+  {
+   "headline": "UCLA football is real threat to USC, not Lincoln Riley&#39;s $70 million buyout",
+   "link": "https://sports.yahoo.com/articles/ucla-football-real-threat-usc-090616367.html",
+   "published": "2026-09-30T09:06:16+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/d4d939ef58928ebcbd10b0df6626aa6c664f59171f9685d43b3cac134c9b267b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fd073c7466a98766014985b3146ef9003.jpg",
+   "blurb": "USC\u2019s Lincoln Riley problem isn\u2019t just losses. As Bob Chesney rapidly rebuilds UCLA, the Bruins are becoming a threat the Trojans can\u2019t ignore.",
    "league": "CFB"
   },
   {
    "headline": "Christian Izien stars in strong defensive week for NFL stars with Africa ties",
    "link": "https://www.espn.com/espn/story/_/id/50065515/christian-izien-stars-strong-defensive-week-nfl-stars-africa-ties",
-   "published": "2026-09-30T08:46:35Z",
+   "published": "2026-09-30T09:04:00Z",
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723818_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Detroit Lions safety Christian Izien - who is from Far Rockaway, Queens, but has always proudly represented Nigeria too - was a standout among many NFL stars with ties to Africa who shone in Week 3.",
    "league": "NFL"
+  },
+  {
+   "headline": "Yankees news: The Wild Card Series begins",
+   "link": "https://sports.yahoo.com/articles/yankees-news-wild-card-series-090000198.html",
+   "published": "2026-09-30T09:00:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/4d9a724fd033ef89a76111c33e46af7f79359b9ba3115cf2bb0f34ca125aea13/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd84df3fe942eab2e6793b50eda970e42.jpg",
+   "blurb": "Aaron Judge fails to convince Yankees he is healthy; breaking down the Wild Card",
+   "league": "MLB"
+  },
+  {
+   "headline": "Stephanie White says Fever player \u2018changes the landscape\u2019 on the defensive end when she comes in",
+   "link": "https://sports.yahoo.com/articles/stephanie-white-says-fever-player-085500930.html",
+   "published": "2026-09-30T08:55:00+00:00",
+   "source": "YAHOO",
+   "image": "https://s.yimg.com/lo/mysterio/api/b0f7a9e26a24f8b0e96b93bc1acb645f8554d1a96fe6537cf5c33512f5768983/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhitc_articles_832%2F30fb724780b4709f173314f576d4560e.jpg",
+   "blurb": "Indiana Fever\u2019s hopes of reaching the next round of the WNBA playoffs remain after they managed to pick up a much-needed win in game two against the Las Vegas Aces. Likely to the surprise of very few people, Caitlin Clark was a top performer on the night, providing the most point",
+   "league": "WNBA"
   },
   {
    "headline": "Through three games, Brock Purdy still hasn&#39;t been sacked",
@@ -1114,13 +1141,13 @@
    "league": "NFL"
   },
   {
-   "headline": "20 Shore football alums making their mark with Division I college programs",
-   "link": "https://sports.yahoo.com/articles/20-shore-football-alums-making-084239764.html",
-   "published": "2026-09-30T08:42:39+00:00",
+   "headline": "\u2018Point Gawds,\u2019 \u2018INDIANA BASKETBALL!\u2019 \u2014 Hoops World Buzzes As Caitlin Clark Joins Pacers Star Tyrese Haliburton in Exclusive Playoff Club",
+   "link": "https://sports.yahoo.com/articles/point-gawds-indiana-basketball-hoops-084053646.html",
+   "published": "2026-09-30T08:40:53+00:00",
    "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/1ce992b231b25af2b837c6c4f06d0ded6db6cd3091c1d46b177a3aa33c2d8673/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fapp-com-asbury-park-press%2F10b335921114747cd922dc3818dfedd6.jpg",
-   "blurb": "See how former Jersey Shore high school stars are making an impact on the college gridiron this season.",
-   "league": "CFB"
+   "image": "https://s.yimg.com/lo/mysterio/api/f6d90f15c9613a31f53fda1c1c65bec2b643b06ee9b288cf0dba4a2d131e02ff/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpro_football_network_512%2Fb1ffc581342f67530e72337168480b0c.jpg",
+   "blurb": "Caitlin Clark and Tyrese Haliburton have given Indiana basketball fans plenty to celebrate in recent years. Now, the two stars have something else in common, this time on the playoff stage.",
+   "league": "WNBA"
   },
   {
    "headline": "Golden Nuggets: We\u2019re on to Denver",
@@ -1177,15 +1204,6 @@
    "league": "MLB"
   },
   {
-   "headline": "Stephanie White makes exciting Caitlin Clark prediction for Fever\u2019s third game against Aces",
-   "link": "https://sports.yahoo.com/articles/stephanie-white-makes-exciting-caitlin-075000673.html",
-   "published": "2026-09-30T07:50:00+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/645230615a267bf69fee8cbf1bd71c539d6a1d161d33033d98c38c3cf892c0d7/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhitc_articles_832%2F9ef1fc644351d921635cf949190cc5f4.jpg",
-   "blurb": "The Indiana Fever were able to bounce back from disappointment in game one to take their first-round playoff series against the Las Vegas Aces to a decider. The Fever began the playoffs with a 102-85 loss this past Sunday, meaning they had to pick up a win on Tuesday or they were",
-   "league": "WNBA"
-  },
-  {
    "headline": "A Night to Remember: 3 Observations as Golden Knights Defeat Blackhawks in Home Opener",
    "link": "https://sports.yahoo.com/articles/night-remember-3-observations-golden-073340794.html",
    "published": "2026-09-30T07:33:40+00:00",
@@ -1204,15 +1222,6 @@
    "league": "MLB"
   },
   {
-   "headline": "Lynx news: Olivia Miles reflects on incredible rookie season despite sad end",
-   "link": "https://sports.yahoo.com/articles/lynx-news-olivia-miles-reflects-070712940.html",
-   "published": "2026-09-30T07:07:12+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/6dcbff259a26e375c4ac42aa8d1ce2da84564673400f0ea4d27b8a7e899e2f14/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2F53ac3d2f2dadcaaf1bb03446388864ed.jpg",
-   "blurb": "It was not the ending Olivia Miles had hoped for in her rookie campaign, but she will only grow from it. Miles and the Minnesota Lynx were eliminated in the first round of the playoffs after losing to the New York Liberty in Game 2, 87-71, at Barclays Center on Tuesday. The Lynx ",
-   "league": "WNBA"
-  },
-  {
    "headline": "NASCAR entry list for O&#39;Reilly race at Las Vegas in 2026 Chase",
    "link": "https://sports.yahoo.com/articles/nascar-entry-list-oreilly-race-070517284.html",
    "published": "2026-09-30T07:05:17+00:00",
@@ -1229,15 +1238,6 @@
    "image": "https://s.yimg.com/lo/mysterio/api/073456f69f3c98ea528aaa749e19bcec158e192af0f2c5bf3323a8b7ff49850d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsports_wire_articles_990%2Fd1a452a13486024b2fd6329c9eee6695.jpg",
    "blurb": "Check out the NASCAR Cup Series entry list for the 2026 South Point 400 at Las Vegas Motor Speedway, including the most notable drivers!",
    "league": "NASCAR"
-  },
-  {
-   "headline": "The Red Sox were completely unprepared for Game 1 of the Wild Card series",
-   "link": "https://sports.yahoo.com/articles/red-sox-were-completely-unprepared-070035466.html",
-   "published": "2026-09-30T07:00:35+00:00",
-   "source": "YAHOO",
-   "image": "https://s.yimg.com/lo/mysterio/api/5a84fcbba4a7a3387654d590b9ba319a8484bee9be5b674512c25affa877af99/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fa4e74b64c277130cca672cfe4b565aad.jpg",
-   "blurb": "After that performance, everything needs to be called into question.",
-   "league": "MLB"
   },
   {
    "headline": "Reeve laments Lynx 'don't quite have right group' after latest playoff flop",
@@ -1448,8 +1448,8 @@
   }
  ],
  "source_mix": {
-  "YAHOO": 70,
-  "ESPN": 45,
+  "YAHOO": 71,
+  "ESPN": 44,
   "CBS": 42
  },
  "degraded_sources": []
