@@ -179,7 +179,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <div id="rpPtr" style="display:none;text-align:center;font-size:12px;color:#8a8f98;padding:8px 0"><span style="display:inline-block;width:14px;height:14px;border:2px solid #2a4a44;border-top-color:#3aa895;border-radius:50%;animation:rpspin .8s linear infinite;vertical-align:-2px"></span> <span id="rpPtrTxt">refreshing&hellip;</span></div>
 <div class="sect" style="margin-top:18px">Game 4</div>
 <div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 4px;text-align:center"><a href="team-philadelphia-phillies.html" style="flex:1;text-decoration:none;color:inherit"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/phi.png" alt="" style="width:54px;height:54px;object-fit:contain" onerror="this.remove()"><div style="font-weight:700;margin-top:4px">PHI</div></a><div style="flex:1.6"><div style="font-size:18px;font-weight:800">Phillies vs Braves</div><div class="sub" style="margin-top:3px">11:00 AM PT</div></div><a href="team-atlanta-braves.html" style="flex:1;text-decoration:none;color:inherit"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/atl.png" alt="" style="width:54px;height:54px;object-fit:contain" onerror="this.remove()"><div style="font-weight:700;margin-top:4px">ATL</div></a></div>
-<div class="pick" data-espn="baseball/mlb" data-eid="401907965" data-gpk="849845" data-aab="PHI" data-hab="ATL" data-room="g4-2026-09-29" data-away="Philadelphia Phillies" data-home="Atlanta Braves" data-side="home" data-market="ml">
+<div class="pick" data-espn="baseball/mlb" data-eid="401907965" data-ceid="" data-comp="" data-gpk="849845" data-aab="PHI" data-hab="ATL" data-room="g4-2026-09-29" data-away="Philadelphia Phillies" data-home="Atlanta Braves" data-side="home" data-market="ml">
   <div class="pick-head"><span class="num">4.</span><span class="name">Braves ML</span><span class="units">5u</span><span class="odds">-178</span><span class="oddslock">8:04 AM &middot; locked</span></div>
   <div class="sub">model 64.3</div>
   <div class="score" id="rpScore">2026-09-29 · 11:00 AM PT</div>
@@ -211,7 +211,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
-const RP_BUILD='1790730279';const RP_ROOM='g4-2026-09-29';const RP_START='2026-09-29T18:00Z';
+const RP_BUILD='1790731184';const RP_ROOM='g4-2026-09-29';const RP_START='2026-09-29T18:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
@@ -434,7 +434,7 @@ function rpLiveBox(){try{
  if(_lg.indexOf('hockey/')===0){rpLeagueLive(d,RP_CFG_HK);return;}
  if(_lg.indexOf('soccer/')===0){rpLeagueLive(d,RP_CFG_SO);return;}
  if(_lg.indexOf('tennis/')===0){rpLeagueLive(d,RP_CFG_TE);return;}
- if(_lg.indexOf('mma/')===0){rpLeagueLive(d,RP_CFG_MMA);return;}
+ if(_lg.indexOf('mma/')===0){if(d.dataset.comp&&d.dataset.ceid){rpMmaCompLive(d);return;}rpLeagueLive(d,RP_CFG_MMA);return;}
  if(_lg.indexOf('golf/')===0){rpLeagueLive(d,RP_CFG_GOLF);return;}
  if(_lg.indexOf('racing/')===0){rpLeagueLive(d,RP_CFG_NASCAR);return;}
  rpEspnPanel(d); /* */
@@ -689,6 +689,37 @@ const RP_CFG_TE={icon:RP_RACKET,abbr:rpTeamAbbr,scoringLabel:'BREAKS',
  surface:function(j,comp,aw,hm,poss,aAb,hAb){return rpTennisSvg(poss,aAb,hAb);},
  bits:function(){return [];},
  lastPlay:function(){return '';}};
+function rpCompStats(c,name){ /* defensive: per-fighter stats only when BOTH sides carry the named stat */
+ const out=[];(c.competitors||[]).forEach(function(x){const st=(x.statistics||[]).find(function(s){return s&&(s.name===name||s.label===name);});out.push(st?st.displayValue:null);});
+ return out.length===2&&out[0]!=null&&out[1]!=null?out:null;}
+async function rpMmaCompLive(d){ /* */
+ window.__rpLbF=0;
+ const _e=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+ try{
+ const _ac=new AbortController();setTimeout(function(){_ac.abort();},8000);
+ const sb=await (await fetch('https://site.api.espn.com/apis/site/v2/sports/'+d.dataset.espn+'/scoreboard?cb='+Date.now(),{signal:_ac.signal})).json();
+ const ev=(sb.events||[]).find(function(e){return String(e.id)===String(d.dataset.ceid);});
+ const c=ev&&((ev.competitions||[]).find(function(x){return String(x.id)===String(d.dataset.comp);}));
+ const box=document.getElementById('rpLive');if(!box)return;
+ if(!c){window.__rpDownSince=window.__rpDownSince||Date.now();return;}  /* */
+ const st=(c.status||{}).type||{};
+ if(st.state==='pre'){box.innerHTML='';return;}
+ const live=st.state==='in';
+ const det=(st.shortDetail||st.detail||'');const clk=(c.status||{}).displayClock||'';const rnd=(c.status||{}).period;
+ let h='<div id="rpLiveCard" style="margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
+ h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':'')+'<span style="font-size:12px;color:#8a8f98">'+_e(det)+(clk&&clk!=='-'?' &middot; '+_e(clk):'')+((rnd&&live)?' &middot; R'+rnd:'')+'</span></div>';
+ (c.competitors||[]).forEach(function(x){const nm=((x.athlete||{}).displayName)||((x.athlete||{}).shortName)||'?';
+  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+_e(nm)+(x.winner===true?' <span style="color:#e8b93c">&#10003;</span>':'')+'</span>'+(x.score!=null?'<span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+_e(x.score)+'</span>':'')+'</div>';});
+ h+=rpOctagonSvg();
+ const bits=[];const sk=rpCompStats(c,'totalStrikes')||rpCompStats(c,'sigStrikes');if(sk)bits.push('Strikes '+sk.join(' / '));
+ if(bits.length)h+='<div style="font-size:12px;color:#8a8f98;margin-top:6px">'+bits.join(' &middot; ')+'</div>';
+ const dl=(c.details||[]);const last=dl.length?dl[dl.length-1]:null;
+ if(last&&last.type&&last.type.text&&live)h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">'+_e(last.type.text)+'</div>';
+ if(st.state==='post')h+='<div style="font-size:12px;color:#8a8f98;margin-top:8px">Final.</div>';
+ h+='</div>';
+ box.innerHTML=h;
+ }catch(e){window.__rpDownSince=window.__rpDownSince||Date.now();}
+}
 const RP_CFG_MMA={icon:RP_GLOVE,abbr:rpTeamAbbr,scoringLabel:'FINISHES',
  possession:function(){return null;},
  surface:function(){return rpOctagonSvg();},
