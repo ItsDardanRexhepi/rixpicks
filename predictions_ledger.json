@@ -224,5 +224,44 @@
   "kickoff_utc": "2026-10-03T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T13:21:14.587306+00:00"
+ },
+ {
+  "id": "bfa3259643",
+  "event_id": "401856710",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Tennessee Volunteers",
+  "away": "Auburn Tigers",
+  "pick_team": "Auburn Tigers",
+  "prediction": "Auburn Tigers beat Tennessee Volunteers",
+  "kickoff_utc": "2026-10-03T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T13:35:30.573743+00:00"
+ },
+ {
+  "id": "25b34128ff",
+  "event_id": "401856706",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "LSU Tigers",
+  "away": "McNeese Cowboys",
+  "pick_team": "LSU Tigers",
+  "prediction": "LSU Tigers beat McNeese Cowboys",
+  "kickoff_utc": "2026-10-03T23:45:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T13:35:58.162294+00:00"
+ },
+ {
+  "id": "82305d8fd1",
+  "event_id": "401872971",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Buffalo Bills",
+  "away": "New England Patriots",
+  "pick_team": "Buffalo Bills",
+  "prediction": "Buffalo Bills beat New England Patriots",
+  "kickoff_utc": "2026-10-04T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T13:36:19.719012+00:00"
  }
 ]
