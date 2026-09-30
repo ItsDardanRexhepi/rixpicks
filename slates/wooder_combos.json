@@ -1,6 +1,6 @@
 {
- "version": 1,
- "generated_at": "2026-09-28T11:07:30-07:00",
+ "version": 2,
+ "generated_at": "2026-09-30T10:34:44-07:00",
  "combos": [
   {
    "id": "idea-mnf-phi-chi-20260928",
@@ -64,6 +64,49 @@
      "fm": "anytime_td"
     }
    ]
+  },
+  {
+   "id": "idea-mlb-ks-20260930",
+   "type": "idea",
+   "date": "2026-09-30",
+   "title": "Strikeouts Parlay (4 legs)",
+   "matchup": "PHI@ATL \u00b7 CWS@HOU \u00b7 BOS@NYY \u00b7 CHC@SD",
+   "time": "from 11:00 AM PT",
+   "sport": "mlb",
+   "league": "MLB",
+   "legs": [
+    {
+     "player": "Cristopher Sanchez",
+     "market": "7+ strikeouts vs ATL",
+     "kalshi": "+138 \u00b7 42c",
+     "kalshi_note": "KXMLBKS-26SEP301400PHIATL-PHICSANCHEZ61-7",
+     "fm": "strikeouts"
+    },
+    {
+     "player": "Hunter Brown",
+     "market": "7+ strikeouts vs CWS",
+     "kalshi": "+117 \u00b7 46c",
+     "kalshi_note": "KXMLBKS-26SEP301700CWSHOU-HOUHBROWN58-7",
+     "fm": "strikeouts"
+    },
+    {
+     "player": "Max Fried",
+     "market": "6+ strikeouts vs BOS",
+     "kalshi": "+117 \u00b7 46c",
+     "kalshi_note": "KXMLBKS-26SEP302000BOSNYY-NYYMFRIED54-6",
+     "fm": "strikeouts"
+    },
+    {
+     "player": "Kevin Gausman",
+     "market": "5+ strikeouts at SD",
+     "kalshi": "+117 \u00b7 46c",
+     "kalshi_note": "KXMLBKS-26SEP302200CHCSD-CHCKGAUSMAN34-5",
+     "fm": "strikeouts"
+    }
+   ],
+   "estimate": "Est. 4 legs combined ~+2350",
+   "estimate_note": "Estimated from individual prices; not a quoted combo price.",
+   "prices_note": "Kalshi-only reviewed source snapshot, quoted 10:26 AM PT - reference, not executable prices."
   }
  ]
 }
