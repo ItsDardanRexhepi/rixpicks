@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-29T23:49:33.376409+00:00",
+ "generated_at": "2026-09-30T00:04:37.579782+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -11,15 +11,15 @@
      "commence": "2026-09-29T21:00Z",
      "status": "in",
      "detail": "Bot 8th",
-     "score": "CHW 6 - HOU 2"
+     "score": "CHW 6 - HOU 3"
     },
     {
-     "espn_event_id": "401907924",
-     "matchup": "BOS @ NYY",
-     "commence": "2026-09-30T00:00Z",
+     "espn_event_id": "401907974",
+     "matchup": "CHC @ SD",
+     "commence": "2026-09-30T02:00Z",
      "status": "pre",
-     "detail": "9/29 - 5:00 PM PT",
-     "score": "BOS 0 - NYY 0"
+     "detail": "9/29 - 7:00 PM PT",
+     "score": "CHC 0 - SD 0"
     }
    ]
   },
@@ -31,10 +31,10 @@
      "matchup": "LV @ IND",
      "commence": "2026-09-29T22:30Z",
      "status": "in",
-     "detail": "6:00 - 3rd",
-     "score": "LV 47 - IND 54",
+     "detail": "45.6 - 3rd",
+     "score": "LV 54 - IND 69",
      "away_to": 3,
-     "home_to": 4
+     "home_to": 3
     },
     {
      "espn_event_id": "401918017",
@@ -53,29 +53,27 @@
      "espn_event_id": "401891773",
      "matchup": "FLA @ CAR",
      "commence": "2026-09-29T21:00Z",
-     "status": "in",
-     "detail": "0:49 - 3rd",
-     "score": "FLA 0 - CAR 0",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final/OT",
+     "score": "FLA 1 - CAR 0"
     },
     {
      "espn_event_id": "401891827",
      "matchup": "MTL @ TOR",
      "commence": "2026-09-29T23:00Z",
      "status": "in",
-     "detail": "4:11 - 1st",
+     "detail": "End of 1st",
      "score": "MTL 1 - TOR 1",
      "away_to": null,
      "home_to": null
     },
     {
-     "espn_event_id": "401891774",
-     "matchup": "NYR @ BOS",
-     "commence": "2026-09-30T00:00Z",
+     "espn_event_id": "401891804",
+     "matchup": "VAN @ EDM",
+     "commence": "2026-09-30T02:00Z",
      "status": "pre",
-     "detail": "9/29 - 5:00 PM PT",
-     "score": "NYR 0 - BOS 0"
+     "detail": "9/29 - 7:00 PM PT",
+     "score": "VAN 0 - EDM 0"
     }
    ]
   }

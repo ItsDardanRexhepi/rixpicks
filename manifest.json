@@ -38,7 +38,7 @@
    "card_ts": "2026-09-29T08:13:23-07:00",
    "polymarket": {
     "url": "https://polymarket.com/event/nhl-mon-tor-2026-09-29",
-    "cents": 52
+    "cents": 50
    },
    "dkp": {
     "url": "https://predictions.draftkings.com/en/event/mtl-canadiens-%40-tor-maple-leafs/34400013",
@@ -566,7 +566,7 @@
     "cents": 51,
     "verified": true
    },
-   "polycents": 52
+   "polycents": 50
   },
   {
    "num": 2,
@@ -2412,5 +2412,5 @@
    }
   ]
  },
- "pick_content_hash": "6f0111e281e0386bbe917f17a5518b933437617cdacd254e8a68b3235229fd50"
+ "pick_content_hash": "3881e1fff7d210039bf3410501bc61315bdb9d38d52b00ab6b456f1f1d690988"
 }
