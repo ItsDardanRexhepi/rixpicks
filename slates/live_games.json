@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T03:34:33.149244+00:00",
+ "generated_at": "2026-09-30T03:49:31.650692+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -18,8 +18,8 @@
      "matchup": "CHC @ SD",
      "commence": "2026-09-30T02:00Z",
      "status": "in",
-     "detail": "Bot 5th",
-     "score": "CHC 0 - SD 4"
+     "detail": "Mid 6th",
+     "score": "CHC 0 - SD 7"
     }
    ]
   },
@@ -52,7 +52,7 @@
      "matchup": "VAN @ EDM",
      "commence": "2026-09-30T02:00Z",
      "status": "in",
-     "detail": "4:50 - 2nd",
+     "detail": "End of 2nd",
      "score": "VAN 2 - EDM 2",
      "away_to": null,
      "home_to": null
@@ -62,7 +62,7 @@
      "matchup": "CHI @ VGK",
      "commence": "2026-09-30T02:45Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "15:08 - 2nd",
      "score": "CHI 0 - VGK 2",
      "away_to": null,
      "home_to": null
