@@ -4,8 +4,8 @@
 // luggage, essay/diet spam, bare-acronym stuffing) is dropped. Run: node scripts/test_social_sports_gate.js
 const fs = require('fs'), vm = require('vm');
 const src = fs.readFileSync(__dirname + '/index_v2.js', 'utf8');
-const varLines = src.split('\n').filter(l => /^var (RP_AD_KW|RP_TOUT_KW|RP_OPERATOR|RP_NONSPORT_KILL|RP_SPORT_ACRO|RP_SPORT_STRONG|RP_SPORT_TEAMS|RP_SPORT_WEAK)=/.test(l) && /;\s*$/.test(l));
-if (varLines.length !== 8) { console.log('FAIL expected 8 RP_ vars, got ' + varLines.length); process.exit(1); }
+const varLines = src.split('\n').filter(l => /^var (RP_AD_KW|RP_TOUT_KW|RP_OPERATOR|RP_NONSPORT_KILL|RP_SPORT_ACRO|RP_SPORT_STRONG|RP_SPORT_TEAMS|RP_SPORT_WEAK|RP_COMM_CTA|RP_COMM_TAG)=/.test(l) && /;\s*$/.test(l));
+if (varLines.length !== 10) { console.log('FAIL expected 10 RP_ vars (incl. RP_COMM_CTA/RP_COMM_TAG), got ' + varLines.length); process.exit(1); }
 function extractFn(name){
   const start = src.indexOf('function ' + name + '(');
   if (start < 0) throw new Error(name + ' not found');

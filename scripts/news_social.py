@@ -217,12 +217,38 @@ def _sports_post(p):
         return False  # bare-acronym stuffing is spam, not fandom
     return teams >= 2 or (teams >= 1 and acro + weak >= 1) or acro >= 1 or weak >= 2
 
+
+COMMERCIAL_CTA_RE = __import__('re').compile(
+    r'\bjoin up\b|link in\b[^.!?\n]{0,12}\bbio\b|\bfree ?(?:play|pick)s?\b|\bpotd\b|\bplay of the day\b|boosted (?:odds|parlays?)|@playbook\b', __import__('re').I)
+COMMERCIAL_TAG_RE = __import__('re').compile(
+    r'#\s*(?:gamblingtwitter|gamblingx|prizepicks|freepicks?|sportsbetting|draftkings|fanduel|betmgm|bettingtips?|gambling)\b', __import__('re').I)
+
+
+def _commercial(p):
+    """commercial-publishability predicate (promo-sentinel 9/29 7:07 class): betting tout /
+    acquisition posts must never enter the shared pool. Text-plus-author CTA rules
+    (free-play/POTD, join-up, link-in-bio variants, boosted-odds, @Playbook mentions) and a
+    destination rule (acquisition gambling hashtags + an outbound link in the post text).
+    Fail-closed: a genuine post wrongly rejected is a blank, never a wrong render.
+    Mirrors: index_v2.js isPublishablePost (RP_COMM_CTA/RP_COMM_TAG) and the news_social.py
+    copy - byte-identical pattern text across all three."""
+    import re as _re, unicodedata as _ud
+    t = _ud.normalize('NFKC', _payload(p))
+    t = _re.sub(r'#\s+', '#', t)
+    if COMMERCIAL_CTA_RE.search(t):
+        return True
+    if COMMERCIAL_TAG_RE.search(t) and _re.search(r'https?://', str(p.get('text') or '')):
+        return True
+    return False
+
 def _banned(p):
     import re as _re, unicodedata
     t = unicodedata.normalize('NFKC', _payload(p))
     t = _re.sub(r'#\s+', '#', t)  # de-spaced hashtags: '# ad' is still '#ad' (guard 3 promo class)
     if TOUT_RE.search(t) or AD_RE.search(t) or PROMO2_RE.search(t) or _re.search(r'\bFREE (PICKS?|SIGNALS?)\b', t):
         return True
+    if _commercial(p):
+        return True  # promo-sentinel 9/29 class: tout/acquisition posts never enter the pool
     # sportsbook/operator brands banned at author AND handle (guard 3 Betfair class)
     who = unicodedata.normalize('NFKC', str(p.get('author_name') or '') + ' ' + str(p.get('author_username') or ''))
     who = _re.sub(r'[^A-Za-z0-9]+', ' ', who)  # crypto-handle class: split separators so Cry_Fortress-style handles tokenize

@@ -676,11 +676,17 @@ function isSportsPost(p){
  if(acro>=2&&weak===0)return false; /* bare-acronym stuffing: "NFL NBA MLB" with no game context is spam, not fandom */
  return teams>=2||(teams>=1&&acro+weak>=1)||acro>=1||weak>=2;
 }
+var RP_COMM_CTA=/\bjoin up\b|link in\b[^.!?\n]{0,12}\bbio\b|\bfree ?(?:play|pick)s?\b|\bpotd\b|\bplay of the day\b|boosted (?:odds|parlays?)|@playbook\b/i;
+var RP_COMM_TAG=/#\s*(?:gamblingtwitter|gamblingx|prizepicks|freepicks?|sportsbetting|draftkings|fanduel|betmgm|bettingtips?|gambling)\b/i;
 function isPublishablePost(p){
  if(!p)return false;
- var t=(String(p.headline||'')+' '+String(p.link||'')+' '+String(p.author||'')).normalize('NFKC').replace(/#\s+/g,'#');
+ var t=(String(p.headline||'')+' '+String(p.link||'')+' '+String(p.author||'')+' '+String(p.handle||'')).normalize('NFKC').replace(/#\s+/g,'#');
  if(RP_TOUT_KW.test(t)||RP_AD_KW.test(t)||/\bFREE (PICKS?|SIGNALS?)\b/.test(t))return false;
- if(new RegExp('\\b('+RP_OPERATOR+')\\b','i').test(String(p.author||'').normalize('NFKC').replace(/[^A-Za-z0-9]+/g,' ')))return false;
+ /* promo-sentinel 9/29 7:07 class: tout/acquisition CTA + destination rules, mirror of
+    x_feed._commercial / news_social._commercial - byte-identical pattern text. */
+ if(RP_COMM_CTA.test(t))return false;
+ if(RP_COMM_TAG.test(t)&&/https?:\/\//.test(String(p.headline||'')))return false;
+ if(new RegExp('\\b('+RP_OPERATOR+')\\b','i').test((String(p.author||'')+' '+String(p.handle||'')).normalize('NFKC').replace(/[^A-Za-z0-9]+/g,' ')))return false;
  return true;
 }
 /* guard 3 news-side default-deny (his 5:27/5:28 rule, one layer up): promo-code / bonus-bet /
@@ -885,10 +891,10 @@ function rtPoll(){
 }
 setInterval(rtPoll,45000);
 window.__rpRT={poll:rtPoll,state:function(){return {gen:NEWSF&&NEWSF.generated_at,carIdx:CAR_IDX,carN:CAR_N,socN:SOC_N,curKey:typeof cur!=='undefined'&&cur&&cur.key};}};
-function ingestX(j){ /* single publishability-gated ingest path (guard 3): XNEWS holds vetted posts only */
+function ingestX(j){ /* single publishability-gated ingest path (guard 3): XNEWS holds vetted posts only; author NAME + HANDLE both retained (sentinel 9/29 7:24: a name-only copy hides tout handles like *Lockz from the predicate) */
  XFEED_GEN=j.generated_at||null;
  if(SOC_MATCH_OK&&!rpMapFresh(SOC_MATCH)){SOC_MATCH_OK=false;} /* independent first-load X fetch may outrun map */
- XNEWS=j.items.filter(function(p){return p&&/^[0-9]+$/.test(String(p.id||''))&&p.created_at&&p.text;}).map(function(p){var u=(typeof p.url==='string'&&/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/[A-Za-z0-9_]+\/status\/[0-9]+(?:\?.*)?$/.test(p.url)&&p.url.split('/status/')[1].split('?')[0]===String(p.id))?p.url:'';return {id:String(p.id),headline:String(p.text).slice(0,900),link:u,published:p.created_at,source:'X',author:typeof p.author_name==='string'?p.author_name.slice(0,80):''};}).filter(isPublishablePost);
+ XNEWS=j.items.filter(function(p){return p&&/^[0-9]+$/.test(String(p.id||''))&&p.created_at&&p.text;}).map(function(p){var u=(typeof p.url==='string'&&/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/[A-Za-z0-9_]+\/status\/[0-9]+(?:\?.*)?$/.test(p.url)&&p.url.split('/status/')[1].split('?')[0]===String(p.id))?p.url:'';return {id:String(p.id),headline:String(p.text).slice(0,900),link:u,published:p.created_at,source:'X',author:typeof p.author_name==='string'?p.author_name.slice(0,80):'',handle:typeof p.author_username==='string'?p.author_username.slice(0,80):''};}).filter(isPublishablePost);
  SOC_XIDX={};XNEWS.forEach(function(p,i){if(p.id)SOC_XIDX[p.id]=i;});
  socMapRetry(); /* X generation + post index settled - promote a held map the moment it coheres */
 }
