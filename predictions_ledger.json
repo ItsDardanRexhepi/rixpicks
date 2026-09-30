@@ -536,5 +536,18 @@
   "kickoff_utc": "2026-10-06T00:15:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T18:36:24.781624+00:00"
+ },
+ {
+  "id": "6d2d37181e",
+  "event_id": "401872968",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Tampa Bay Buccaneers",
+  "away": "Green Bay Packers",
+  "pick_team": "Green Bay Packers",
+  "prediction": "Green Bay Packers beat Tampa Bay Buccaneers",
+  "kickoff_utc": "2026-10-04T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T19:21:13.044597+00:00"
  }
 ]
