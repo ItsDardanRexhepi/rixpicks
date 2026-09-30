@@ -109,12 +109,9 @@ json.dump(d,open(f,'w'))"
 git add index.html futures.html futures.json slates/game_routes.json slates/nfl_live.json slates/live_games.json slates/odds_prefill.json slates/odds_prefill_st.json slates/odds_prefill_st_pregame.json slates/odds_prefill_props.json manifest.json manifests/ "$COUNT_FILE" odds_moves.jsonl .odds_prev.json price_history.jsonl game-*.html team-*.html hist-*.json
 git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1)) today)"
 # chaos drill (Sep 26): a push racing the publish window must retry+rebase, never fail red
-for i in 1 2 3 4 5; do
-  if git push; then break; fi
-  git pull --rebase -X theirs || { git rebase --abort; continue; }
-  OF=$(git show --pretty='' --name-only ORIG_HEAD)
-  git diff --quiet ORIG_HEAD HEAD -- $OF || { echo 'REBASE GUARD: rebase altered generated content - failing loud; next cycle regenerates' >&2; exit 1; }
-done
+# K22 (Sep 30): loop lives in push_with_guard.sh - every loud-fail path resets HEAD to
+# origin/main first, because the on-failure incident hook pushes HEAD (run 36730127672).
+bash scripts/push_with_guard.sh
 git ls-remote origin main | grep -q "$(git rev-parse HEAD)" || { echo 'PUSH READBACK FAILED: origin/main != HEAD' >&2; exit 1; }
 echo "rebuilt and pushed"
 

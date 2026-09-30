@@ -38,4 +38,7 @@ jobs:
           mkdir -p incidents
           printf '# FAILURE odds-refresh in-run %s\nsha: %s\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" > "incidents/${GITHUB_RUN_ID}-inrun.md"
           git config user.name 'incident-hook'; git config user.email 'actions@users.noreply.github.com'
+          # K22 (Sep 30, run 36730127672): this hook pushes HEAD - reset first so a mid-run
+          # generated/merged worktree (e.g. a rebase-race Frankenstein manifest) never ships.
+          git fetch origin main && git reset --hard origin/main
           git add incidents/ && git commit -m "incident: odds-refresh in-run failure $GITHUB_RUN_ID" && git push || true

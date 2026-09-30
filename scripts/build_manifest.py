@@ -56,7 +56,10 @@ LEAGUE_KEY = {'baseball/mlb':'MLB','football/nfl':'NFL','football/college-footba
 
 def _pick_content_hash(m):
     # VERBATIM contract copy of build_gh_page.py's gate - declared hash must equal its computed hash.
-    _EXCL_TOP={'num','result','_final','polycents','card_ts'}
+    _EXCL_TOP={'num','result','_final','polycents','card_ts','line_shop','books','books_sp','prop_books'}
+    # Sep 30 K23 drift kill: this copy had drifted from the builder's gate (missing the Sep 29
+    # line-shop pricing-snapshot exclusions) - every lane manifest failed the page build closed.
+    # scripts/test_hash_canon_parity.py now asserts all four copies hash identically.
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
