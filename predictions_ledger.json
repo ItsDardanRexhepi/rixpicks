@@ -419,5 +419,18 @@
   "kickoff_utc": "2026-10-04T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-09-30T15:35:53.668736+00:00"
+ },
+ {
+  "id": "f6454a2674",
+  "event_id": "401872972",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Chicago Bears",
+  "away": "New York Jets",
+  "pick_team": "Chicago Bears",
+  "prediction": "Chicago Bears beat New York Jets",
+  "kickoff_utc": "2026-10-04T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-09-30T15:52:17.049648+00:00"
  }
 ]
