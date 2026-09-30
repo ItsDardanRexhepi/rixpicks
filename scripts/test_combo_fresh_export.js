@@ -108,33 +108,41 @@ check('combos module script found in page', !!modMatch);
       { player: 'Hunter Brown', market: '7+ strikeouts vs CWS', kalshi: '+117 · 46c' },
       { player: 'Max Fried', market: '6+ strikeouts vs BOS', kalshi: '+117 · 46c' },
       { player: 'Kevin Gausman', market: '5+ strikeouts at SD', kalshi: '+117 · 46c' },
+      { player: 'Zac Gallen', market: '7+ strikeouts at LAD', kalshi: '+120' },
       { player: 'Nobody Feedless', market: '9+ strikeouts', kalshi: '+200' }];
     const feed = { generatedAt: '2026-09-30T18:00:00Z', tickets: [{ id: 'k-parlay-2026-09-30', legs: [
       { legId: 'k-sanchez', kind: 'pitcher_strikeouts', threshold: 7, player: { name: 'Cristopher Sánchez' }, current: 3, status: 'pending', freshness: { sourceTs: '2026-09-30T17:59:50Z' } },
       { legId: 'k-brown', kind: 'pitcher_strikeouts', threshold: 7, player: { name: 'Hunter Brown' }, current: 7, status: 'hit', freshness: { sourceTs: '2026-09-30T17:59:50Z' } },
+      { legId: 'k-gallen', kind: 'pitcher_strikeouts', threshold: 7, player: { name: 'Zac Gallen' }, current: 4, status: 'final_miss', freshness: { sourceTs: '20260930_183550' } },
       { legId: 'k-fried', kind: 'pitcher_strikeouts', threshold: 6, player: { name: 'Max Fried' }, current: null, status: 'pre', freshness: { sourceTs: null } },
-      { legId: 'k-gausman', kind: 'pitcher_strikeouts', threshold: 5, player: { name: 'Kevin Gausman' }, current: null, status: 'unavailable', freshness: { sourceTs: null } }] },
+      { legId: 'k-gausman', kind: 'pitcher_strikeouts', threshold: 5, player: { name: 'Kevin Gausman' }, current: null, status: 'unavailable', freshness: { sourceTs: null, fetchedAt: '2026-09-30T18:00:00Z' } }] },
       { id: 'hits-tracker-2026-09-30', legs: [
-      { legId: 'h-turner', kind: 'batter_hits', threshold: 1, player: { name: 'Trea Turner' }, current: 1, status: 'hit', freshness: { sourceTs: '2026-09-30T18:25:00Z' } }] }] };
+      { legId: 'h-turner', kind: 'batter_hits', threshold: 1, player: { name: 'Trea Turner' }, current: 2, status: 'hit', freshness: { sourceTs: '2026-09-30T18:25:00Z' } }] }] };
     const r1 = await runSim(s1, feed);
     check('module does not render before load when fetch resolves instantly', !r1.renderedEarly);
     check('module renders Strikeouts card after load with global present', r1.box.innerHTML.includes('Strikeouts Parlay (4 legs)'));
     check('module parent not hidden after successful render', r1.style.display !== 'none');
     check('badge override renders (PLACED - reported by Julian)', r1.box.innerHTML.includes('PLACED - reported by Julian'));
     check('badge override replaces the default (no NOT BOUGHT)', !r1.box.innerHTML.includes('NOT BOUGHT'));
-    const painted = () => (r1.box._trk || []).map(e => e._p + '=>' + e.innerHTML).join('|');
-    check('feed wire: pending renders "3 of 7 Ks"', painted().includes('3 of 7 Ks'));
-    check('feed wire: hit renders "7 of 7 Ks" with check', painted().includes('7 of 7 Ks \u2713'));
-    check('feed wire: pre renders "Game not started" (never 0)', painted().includes('Game not started'));
-    check('feed wire: unavailable renders "Unavailable" (never 0)', painted().includes('Unavailable'));
-    check('feed wire: freshness timestamp shown', painted().includes('2026-09-30T17:59:50Z'));
-    check('feed wire: accent-insensitive player match (Sanchez)', (r1.box._trk || []).some(e => e._p === 'Cristopher Sanchez' && e.innerHTML.includes('3 of 7 Ks')));
-    check('feed wire: unmatched leg stays empty (fail-closed)', (r1.box._trk || []).some(e => e._p === 'Nobody Feedless' && e.innerHTML === ''));
+    const trk1 = r1.box._trk || [];
+    const byName = n => { const e = trk1.find(x => x._p === n); return e ? e.innerHTML : null; };
+    const allPainted = () => trk1.map(e => e._p + '=>' + e.innerHTML).join('|');
+    check('met leg: midnight-green pill + "7 of 7 Ks - CASHED"', (byName('Hunter Brown') || '').includes('#0b3d2e') && (byName('Hunter Brown') || '').includes('7 of 7 Ks - CASHED'));
+    check('active below-threshold: bare "3 of 7 Ks", neutral (no pill, no CASHED, no Pending)', (byName('Cristopher Sanchez') || '').includes('3 of 7 Ks') && !(byName('Cristopher Sanchez') || '').includes('- Pending') && !(byName('Cristopher Sanchez') || '').includes('#0b3d2e') && !(byName('Cristopher Sanchez') || '').includes('CASHED'));
+    check('pregame leg renders blank (no Game-not-started text, no counts)', byName('Max Fried') !== null && !byName('Max Fried').includes('Game not started') && !byName('Max Fried').includes(' of '));
+    check('stale/unknown leg: explicit Unavailable marker (never 0, never blank)', (byName('Kevin Gausman') || '').includes('Unavailable'));
+    check('fetchedAt alone never renders a stamp or data', !(byName('Kevin Gausman') || '').includes('2026'));
+    check('final-missed leg: red + "Missed · Final 4 of 7 Ks"', (byName('Zac Gallen') || '').includes('Missed \u00b7 Final 4 of 7 Ks') && (byName('Zac Gallen') || '').includes('229,72,77'));
+    check('no visible timestamp anywhere on painted legs', !allPainted().includes('Updated') && !allPainted().includes('2026-09-30T'));
+    check('accent-insensitive player match (Sanchez)', (byName('Cristopher Sanchez') || '').includes('3 of 7 Ks'));
+    check('paint poll cadence is 15s (statsapi sanctioned 10s + margin)', modMatch[0].includes('setInterval(paint,15000)') && !modMatch[0].includes('setInterval(paint,60000)'));
+    check('unmatched leg stays empty (fail-closed)', trk1.some(e => e._p === 'Nobody Feedless' && e.innerHTML === ''));
+    check('card-level CASHED explainer present', r1.box.innerHTML.includes('CASHED = live stat threshold met, not a verified venue payout'));
     const s4 = { combos: [{ id: 'idea-mlb-hits-20260930b', type: 'idea', date: '2026-09-30',
       title: 'Hits', matchup: 'PHI@ATL', legs: [{ player: 'Trea Turner', market: '1+ hit', kalshi: '-233' }] }] };
     const r4 = await runSim(s4, feed);
     const painted4 = () => (r4.box._trk || []).map(e => e._p + '=>' + e.innerHTML).join('|');
-    check('feed wire: hits kind renders H suffix never HR', painted4().includes('1 of 1 H \u2713') && !painted4().includes('HR'));
+    check('over-threshold met count truthful: "2 of 1 Hit - CASHED", never HR', painted4().includes('2 of 1 Hit - CASHED') && !painted4().includes('HR'));
     const s2 = { combos: [{ id: 'idea-mlb-hits-20260930', type: 'idea', date: '2026-09-30',
       title: 'Hits Parlay Tracker (4 legs)', matchup: 'PHI@ATL', time: 'from 11:00 AM PT',
       legs: [{ player: 'Trea Turner', market: '1+ hit at ATL', kalshi: '-233 · 70c', tag: 'Confirmed leadoff' }] }] };

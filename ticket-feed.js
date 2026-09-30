@@ -36,7 +36,7 @@ var TICKETS=[
 
 function fetchGame(gamePk){
  var url='https://statsapi.mlb.com/api/v1.1/game/'+gamePk+'/feed/live?fields='+FEED_FIELDS;
- return fetch(url).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();});
+ return fetch(url,{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();});
 }
 
 function legFromGame(leg,j){
