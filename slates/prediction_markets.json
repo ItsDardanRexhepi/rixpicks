@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T07:44:39Z",
+ "updated": "2026-09-30T14:25:54Z",
  "source": "browser harvest (predictions.draftkings.com league boards) - datacenter IPs are Akamai-blocked, runner cannot self-harvest",
  "rows": [
   {
@@ -9,7 +9,7 @@
    "home": "Atlanta Braves",
    "date": "2026-09-30",
    "url": "https://predictions.draftkings.com/en/event/phi-phillies-%40-atl-braves/34746392",
-   "home_cents": 50,
+   "home_cents": 49,
    "away_cents": 52
   },
   {
@@ -19,8 +19,8 @@
    "home": "Houston Astros",
    "date": "2026-09-30",
    "url": "https://predictions.draftkings.com/en/event/chi-white-sox-%40-hou-astros/34746408",
-   "home_cents": 60,
-   "away_cents": 43
+   "home_cents": 59,
+   "away_cents": 42
   },
   {
    "venue": "dkp",
@@ -29,7 +29,7 @@
    "home": "New York Yankees",
    "date": "2026-09-30",
    "url": "https://predictions.draftkings.com/en/event/bos-red-sox-%40-ny-yankees/34746417",
-   "home_cents": 57,
+   "home_cents": 56,
    "away_cents": 45
   },
   {
@@ -39,8 +39,38 @@
    "home": "San Diego Padres",
    "date": "2026-09-30",
    "url": "https://predictions.draftkings.com/en/event/chi-cubs-%40-sd-padres/34746424",
-   "home_cents": 58,
-   "away_cents": 45
+   "home_cents": 57,
+   "away_cents": 44
+  },
+  {
+   "venue": "dkp",
+   "league": "hockey/nhl",
+   "away": "New York Islanders",
+   "home": "Toronto Maple Leafs",
+   "date": "2026-09-30",
+   "url": "https://predictions.draftkings.com/en/event/ny-islanders-%40-tor-maple-leafs/34673776",
+   "home_cents": 55,
+   "away_cents": 46
+  },
+  {
+   "venue": "dkp",
+   "league": "hockey/nhl",
+   "away": "Pittsburgh Penguins",
+   "home": "Philadelphia Flyers",
+   "date": "2026-09-30",
+   "url": "https://predictions.draftkings.com/en/event/pit-penguins-%40-phi-flyers/34400087",
+   "home_cents": 57,
+   "away_cents": 44
+  },
+  {
+   "venue": "dkp",
+   "league": "hockey/nhl",
+   "away": "Los Angeles Kings",
+   "home": "Colorado Avalanche",
+   "date": "2026-09-30",
+   "url": "https://predictions.draftkings.com/en/event/la-kings-%40-col-avalanche/34400090",
+   "home_cents": 64,
+   "away_cents": 37
   }
  ]
 }
