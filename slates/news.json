@@ -1,13 +1,13 @@
 {
- "generated_at": "2026-10-01T02:51:32.634Z",
+ "generated_at": "2026-10-01T02:56:31.195Z",
  "leagues": {
   "baseball/mlb": [
    {
-    "headline": "Follow live: Yankees opening up Game 2 lead with ALDS on the line",
-    "link": "https://www.espn.com/mlb/story/_/id/50045993/mlb-playoffs-2026-wild-card-game-2-live-updates-analysis-takeaways",
-    "published": "2026-10-01T03:18:08.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724219_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "null",
+    "headline": "Harper rebounds from gaffe, sets up Bohm's season-saving HR",
+    "link": "https://www.espn.com/mlb/story/_/id/50071368/alec-bohm-home-run-caps-phillies-rally-forces-game-3-vs-braves",
+    "published": "2026-10-01T03:50:46.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1724163_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Alec Bohm put Philadelphia ahead with a two-out home run in the 10th inning, and the Phillies beat the Braves to force a decisive Game 3 in their National League Wild Card Series.",
     "source": "ESPN",
     "league": "MLB"
    },
@@ -30,12 +30,12 @@
     "league": "MLB"
    },
    {
-    "headline": "Padres' Ethan Salas becomes youngest ever to catch playoff game",
-    "link": "https://www.espn.com/mlb/story/_/id/50071794/padres-salas-set-become-youngest-ever-catch-playoff-game",
-    "published": "2026-10-01T02:46:10Z",
+    "headline": "Anthony taken off Red Sox's ALWC roster, says hand was never 100 percent",
+    "link": "https://www.espn.com/mlb/story/_/id/50070582/roman-anthony-hand-red-sox-lineup-game-2-alwcs",
+    "published": "2026-10-01T03:50:46.000Z",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723776_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Red Sox outfielder Roman Anthony sustained \"additional damage to some muscles\" in his right hand and wrist in Tuesday's Game 1 loss and has been removed from the team's wild-card series roster.",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0917%2Fr1717941_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Ethan Salas became the youngest player to catch in a major league postseason game when he started for the Padres in Game 2 of their Wild Card Series with the Cubs.",
     "league": "MLB"
    },
    {
@@ -44,6 +44,33 @@
     "published": "2026-10-01T02:19:52.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/c7434534803869fd845ec0787d38e58a84e3890e04a921834bef11187cc18de3/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fa3ee74d62809d3408440365c04ef1eb7.jpg",
     "blurb": "Last year's Cy Young contender Garrett Crochet was tagged with four runs in Boston's MLB playoff loss.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
+    "headline": "Wild Card Series Game 2 winners and losers: Alec Bohm saves the day; White Sox's Cinderella story continues",
+    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-wild-card-series-game-2-winners-losers/",
+    "published": "2026-10-01T00:17:36.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2F0ff25365-0570-4df0-a3f5-b606f513b90f%2Fbohm-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Phillies staved off elimination, while the White Sox cruised to their first playoff series win since 2005",
+    "source": "CBS",
+    "league": "MLB"
+   },
+   {
+    "headline": "Padres' Salas, 20, becomes youngest to catch playoff game",
+    "link": "https://www.espn.com/mlb/story/_/id/50071794/padres-salas-set-become-youngest-ever-catch-playoff-game",
+    "published": "2026-10-01T03:50:46.000Z",
+    "image": "",
+    "blurb": "Ethan Salas became the youngest player to catch in a major league postseason game when he started for the Padres in Game 2 of their Wild Card Series with the Cubs.",
+    "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "Yankees coach ridiculed for runner thrown out at home vs. Red Sox",
+    "link": "https://sports.yahoo.com/articles/yankees-coach-ridiculed-runner-thrown-020630395.html",
+    "published": "2026-10-01T02:06:30.000Z",
+    "image": "",
+    "blurb": "Controversial decision to send runner in tight MLB playoff game gets coach ridiculed.",
     "source": "YAHOO",
     "league": "MLB"
    },
@@ -57,45 +84,18 @@
     "league": "MLB"
    },
    {
-    "headline": "2026 MLB wild-card series Day 2: Live updates, lineups, analysis",
-    "link": "https://www.espn.com/mlb/story/_/id/50045993/mlb-playoffs-2026-wild-card-game-2-live-updates-analysis-takeaways",
-    "published": "2026-10-01T02:43:31Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1001%2Fr1724219_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Which teams will sweep and which will force a Game 3? We've got it all covered for you.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Yankees coach ridiculed for runner thrown out at home vs. Red Sox",
-    "link": "https://sports.yahoo.com/articles/yankees-coach-ridiculed-runner-thrown-020630395.html",
-    "published": "2026-10-01T02:06:30.000Z",
+    "headline": "MLB attendance up for 4th straight year, boosted by Rays",
+    "link": "https://www.espn.com/mlb/story/_/id/50069105/mlb-attendance-4th-straight-year-boosted-rays",
+    "published": "2026-10-01T03:50:46.000Z",
     "image": "",
-    "blurb": "Controversial decision to send runner in tight MLB playoff game gets coach ridiculed.",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "The Red Sox need Roman Anthony vs. the Yankees, but a nagging hand injury has likely ended his season",
-    "link": "https://www.cbssports.com/mlb/news/red-sox-roman-anthony-yankees-nagging-hand-injury/",
-    "published": "2026-09-30T21:28:41.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2Fcf01e33d-e532-43c5-9bda-f2d06bf9962c%2Froman-anthony-getty-3.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Anthony, who exited Game 1 early on Tuesday night, was removed from Boston's roster on Wednesday",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "White Sox sweep Astros for first playoff series win since 2005",
-    "link": "https://www.espn.com/mlb/story/_/id/50072595/white-sox-sweep-astros-first-playoff-series-win-2005",
-    "published": "2026-10-01T02:43:15Z",
+    "blurb": "Major League Baseball attendance rose for the fourth straight year to 71.75 million, reaching its highest total since 2017, with a boost from the",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1001%2Fr1724207_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Just two years removed from a 121-loss season, the White Sox finished off the Astros with a 7-3 win Wednesday to secure their first playoff series win since beating Houston in the 2005 World Series.",
     "league": "MLB"
    }
   ],
   "football/nfl": [
    {
-    "headline": "Mike Tomlin shows off extensive 12-year virtual build of Minecraft city",
+    "headline": "Mike Tomlin shows off extensive 12-year build of Minecraft city",
     "link": "https://www.espn.com/nfl/story/_/id/50073098/former-steelers-coach-mike-tomlin-minecraft-city-12-year-reveal",
     "published": "2026-10-01T03:36:45.000Z",
     "image": "",
@@ -104,11 +104,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Steelers at Browns 'Thursday Night Football' betting odds, picks and predictions: Best bets, player props",
-    "link": "https://sports.yahoo.com/nfl/betting/article/steelers-at-browns-thursday-night-football-betting-odds-picks-and-predictions-best-bets-player-props-023158073.html",
-    "published": "2026-10-01T02:31:58.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/1ff0ca8483aa18d71153c80f3342cf357a3618358d1ace4407bf40388a34ab82/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F1a32fe37-4533-430d-9ad6-68c3bec6cde3",
-    "blurb": "Our NFL handicapper break downs his favorite bets in the Steelers-Browns matchup on \"Thursday Night Football.\"",
+    "headline": "Marcus Mariota voted FedEx Air Player of the Week after clutch performance",
+    "link": "https://sports.yahoo.com/articles/marcus-mariota-voted-fedex-air-024053224.html",
+    "published": "2026-10-01T02:40:53.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/343795f8f79991328c4fbb944faf4ab8d5737b479c6d0b9b6266d48bcb928a09/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F07defe0e2390854b376288b5ff104b46.jpg",
+    "blurb": "Talk about stepping up when your number is called!",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -131,10 +131,10 @@
     "league": "NFL"
    },
    {
-    "headline": "Steelers vs. Browns 'Thursday Night Football' betting odds, picks and predictions: Best bets, player props",
-    "link": "https://sports.yahoo.com/nfl/betting/article/steelers-vs-browns-thursday-night-football-betting-odds-picks-and-predictions-best-bets-player-props-023100695.html",
-    "published": "2026-10-01T02:31:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/8c3fe23ae9bf7cc8dffbdb0f230171703c32b7f69fe14920f39cdbf3f26abc9f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F348ac023-3a1d-4b14-9c53-eccdaeaac636",
+    "headline": "Steelers at Browns 'Thursday Night Football' betting odds, picks and predictions: Best bets, player props",
+    "link": "https://sports.yahoo.com/nfl/betting/article/steelers-at-browns-thursday-night-football-betting-odds-picks-and-predictions-best-bets-player-props-023158073.html",
+    "published": "2026-10-01T02:31:58.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/1ff0ca8483aa18d71153c80f3342cf357a3618358d1ace4407bf40388a34ab82/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F1a32fe37-4533-430d-9ad6-68c3bec6cde3",
     "blurb": "Our NFL handicapper break downs his favorite bets in the Steelers-Browns matchup on \"Thursday Night Football.\"",
     "source": "YAHOO",
     "league": "NFL"
@@ -158,11 +158,11 @@
     "league": "NFL"
    },
    {
-    "headline": "The Rams defense isn\u2019t the problem",
-    "link": "https://sports.yahoo.com/articles/rams-defense-isn-t-problem-022433260.html",
-    "published": "2026-10-01T02:24:33.000Z",
+    "headline": "Steelers vs. Browns 'Thursday Night Football' betting odds, picks and predictions: Best bets, player props",
+    "link": "https://sports.yahoo.com/nfl/betting/article/steelers-vs-browns-thursday-night-football-betting-odds-picks-and-predictions-best-bets-player-props-023100695.html",
+    "published": "2026-10-01T02:31:00.000Z",
     "image": "",
-    "blurb": "Rams defense ranks 7th overall in PFF grade and 3rd against the pass",
+    "blurb": "Our NFL handicapper break downs his favorite bets in the Steelers-Browns matchup on \"Thursday Night Football.\"",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -187,11 +187,11 @@
   ],
   "football/college-football": [
    {
-    "headline": "Nick Saban faces backlash after defending Protect College Sports Act",
-    "link": "https://sports.yahoo.com/articles/nick-saban-faces-backlash-defending-022600032.html",
-    "published": "2026-10-01T02:26:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/48cddde5bab252dbb21335b4a8a54b9ce6c6e59df35e4c5ce1c56d6eb5d7eb07/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2F3d7f725bba5540c24e25c5259f5b982a",
-    "blurb": "The former Tide coach wants players NIL limits, but coaches have a free market.",
+    "headline": "Michigan State vs Wisconsin Prediction: Are the Badgers Good at College Football Now?",
+    "link": "https://sports.yahoo.com/articles/michigan-state-vs-wisconsin-prediction-024544222.html",
+    "published": "2026-10-01T02:45:44.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6aca69e62ed74ce0af56d848e0cdf087c1248d2ef11ac69c3b670705502200c6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcollege_football_news_725%2F8b37cf2f0f1de806f6ffb78e208473d5.jpg",
+    "blurb": "Wisconsin might have just turned a corner after a huge win, but Michigan State is good enough to put a stop to that fast. Here's the CFN preview and prediction.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -214,11 +214,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Where did Joel Klatt place Notre Dame among his 2026 elite teams?",
-    "link": "https://sports.yahoo.com/articles/where-did-joel-klatt-place-022024604.html",
-    "published": "2026-10-01T02:20:24.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/8fd30e758c330625247bf3a8c3031437729111ef1940a3f55a1544d137c7d916/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ffighting_irish_wire_usa_today_articles_281%2F2af63803d6f8bbef59355affc1db7cb7.jpg",
-    "blurb": "Joel Klatt has been one of many experts confident that Notre Dame can make a deep postseason. Where did the Irish land in Klatt's top-10 list?",
+    "headline": "Nick Saban faces backlash after defending Protect College Sports Act",
+    "link": "https://sports.yahoo.com/articles/nick-saban-faces-backlash-defending-022600032.html",
+    "published": "2026-10-01T02:26:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/48cddde5bab252dbb21335b4a8a54b9ce6c6e59df35e4c5ce1c56d6eb5d7eb07/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2F3d7f725bba5540c24e25c5259f5b982a",
+    "blurb": "The former Tide coach wants players NIL limits, but coaches have a free market.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -241,11 +241,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Where LSU football QB Sam Leavitt ranks in QBR ahead of Week 5",
-    "link": "https://sports.yahoo.com/articles/where-lsu-football-qb-sam-021134647.html",
-    "published": "2026-10-01T02:11:34.000Z",
+    "headline": "Where did Joel Klatt place Notre Dame among his 2026 elite teams?",
+    "link": "https://sports.yahoo.com/articles/where-did-joel-klatt-place-022024604.html",
+    "published": "2026-10-01T02:20:24.000Z",
     "image": "",
-    "blurb": "LSU football QB Sam Leavitt has had an up and down 2026. Here's where ESPN's QBR ranks the LSU passer.",
+    "blurb": "Joel Klatt has been one of many experts confident that Notre Dame can make a deep postseason. Where did the Irish land in Klatt's top-10 list?",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -268,11 +268,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Deion Sanders Experiment At Colorado Appears to Be Collapsing",
-    "link": "https://sports.yahoo.com/articles/deion-sanders-experiment-colorado-appears-021048437.html",
-    "published": "2026-10-01T02:10:48.000Z",
+    "headline": "Where LSU football QB Sam Leavitt ranks in QBR ahead of Week 5",
+    "link": "https://sports.yahoo.com/articles/where-lsu-football-qb-sam-021134647.html",
+    "published": "2026-10-01T02:11:34.000Z",
     "image": "",
-    "blurb": "Deion Sanders has lost his team and possibly his program heading into a pivotal game vs. Texas Tech. Deion Sanders [\u2026]",
+    "blurb": "LSU football QB Sam Leavitt has had an up and down 2026. Here's where ESPN's QBR ranks the LSU passer.",
     "source": "YAHOO",
     "league": "CFB"
    }
@@ -1087,7 +1087,25 @@
  },
  "latest": [
   {
-   "headline": "Mike Tomlin shows off extensive 12-year virtual build of Minecraft city",
+   "headline": "Harper rebounds from gaffe, sets up Bohm's season-saving HR",
+   "link": "https://www.espn.com/mlb/story/_/id/50071368/alec-bohm-home-run-caps-phillies-rally-forces-game-3-vs-braves",
+   "published": "2026-10-01T03:50:46.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1724163_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Alec Bohm put Philadelphia ahead with a two-out home run in the 10th inning, and the Phillies beat the Braves to force a decisive Game 3 in their National League Wild Card Series.",
+   "source": "ESPN",
+   "league": "MLB"
+  },
+  {
+   "headline": "Anthony taken off Red Sox's ALWC roster, says hand was never 100 percent",
+   "link": "https://www.espn.com/mlb/story/_/id/50070582/roman-anthony-hand-red-sox-lineup-game-2-alwcs",
+   "published": "2026-10-01T03:50:46.000Z",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723776_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Red Sox outfielder Roman Anthony sustained \"additional damage to some muscles\" in his right hand and wrist in Tuesday's Game 1 loss and has been removed from the team's wild-card series roster.",
+   "source": "ESPN",
+   "league": "MLB"
+  },
+  {
+   "headline": "Mike Tomlin shows off extensive 12-year build of Minecraft city",
    "link": "https://www.espn.com/nfl/story/_/id/50073098/former-steelers-coach-mike-tomlin-minecraft-city-12-year-reveal",
    "published": "2026-10-01T03:36:45.000Z",
    "image": "",
@@ -1103,15 +1121,6 @@
    "blurb": "Why, yes, that was Matthew Stafford. Here's why all signs pointed to the reigning NFL MVP's music video cameo.",
    "source": "ESPN",
    "league": "NFL"
-  },
-  {
-   "headline": "Follow live: Yankees opening up Game 2 lead with ALDS on the line",
-   "link": "https://www.espn.com/mlb/story/_/id/50045993/mlb-playoffs-2026-wild-card-game-2-live-updates-analysis-takeaways",
-   "published": "2026-10-01T03:18:08.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724219_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "null",
-   "source": "ESPN",
-   "league": "MLB"
   },
   {
    "headline": "Flyers and Penguins renew the Battle of Pennsylvania",
@@ -1132,13 +1141,13 @@
    "league": "NHL"
   },
   {
-   "headline": "Padres' Ethan Salas becomes youngest ever to catch playoff game",
-   "link": "https://www.espn.com/mlb/story/_/id/50071794/padres-salas-set-become-youngest-ever-catch-playoff-game",
-   "published": "2026-10-01T02:46:10Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0917%2Fr1717941_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Ethan Salas became the youngest player to catch in a major league postseason game when he started for the Padres in Game 2 of their Wild Card Series with the Cubs.",
-   "league": "MLB"
+   "headline": "Michigan State vs Wisconsin Prediction: Are the Badgers Good at College Football Now?",
+   "link": "https://sports.yahoo.com/articles/michigan-state-vs-wisconsin-prediction-024544222.html",
+   "published": "2026-10-01T02:45:44.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/6aca69e62ed74ce0af56d848e0cdf087c1248d2ef11ac69c3b670705502200c6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcollege_football_news_725%2F8b37cf2f0f1de806f6ffb78e208473d5.jpg",
+   "blurb": "Wisconsin might have just turned a corner after a huge win, but Michigan State is good enough to put a stop to that fast. Here's the CFN preview and prediction.",
+   "source": "YAHOO",
+   "league": "CFB"
   },
   {
    "headline": "Gray-led Dream into semis for 1st time since '18",
@@ -1159,6 +1168,15 @@
    "league": "WNBA"
   },
   {
+   "headline": "Marcus Mariota voted FedEx Air Player of the Week after clutch performance",
+   "link": "https://sports.yahoo.com/articles/marcus-mariota-voted-fedex-air-024053224.html",
+   "published": "2026-10-01T02:40:53.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/343795f8f79991328c4fbb944faf4ab8d5737b479c6d0b9b6266d48bcb928a09/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F07defe0e2390854b376288b5ff104b46.jpg",
+   "blurb": "Talk about stepping up when your number is called!",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "Penguins crush Flyers 7-0 as Arturs Silovs earns a shutout in Philadelphia",
    "link": "https://sports.yahoo.com/articles/penguins-crush-flyers-7-0-023901213.html",
    "published": "2026-10-01T02:39:01.000Z",
@@ -1172,15 +1190,6 @@
    "link": "https://sports.yahoo.com/nfl/betting/article/steelers-at-browns-thursday-night-football-betting-odds-picks-and-predictions-best-bets-player-props-023158073.html",
    "published": "2026-10-01T02:31:58.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/1ff0ca8483aa18d71153c80f3342cf357a3618358d1ace4407bf40388a34ab82/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F1a32fe37-4533-430d-9ad6-68c3bec6cde3",
-   "blurb": "Our NFL handicapper break downs his favorite bets in the Steelers-Browns matchup on \"Thursday Night Football.\"",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
-   "headline": "Steelers vs. Browns 'Thursday Night Football' betting odds, picks and predictions: Best bets, player props",
-   "link": "https://sports.yahoo.com/nfl/betting/article/steelers-vs-browns-thursday-night-football-betting-odds-picks-and-predictions-best-bets-player-props-023100695.html",
-   "published": "2026-10-01T02:31:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/8c3fe23ae9bf7cc8dffbdb0f230171703c32b7f69fe14920f39cdbf3f26abc9f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F348ac023-3a1d-4b14-9c53-eccdaeaac636",
    "blurb": "Our NFL handicapper break downs his favorite bets in the Steelers-Browns matchup on \"Thursday Night Football.\"",
    "source": "YAHOO",
    "league": "NFL"
@@ -1200,15 +1209,6 @@
    "published": "2026-10-01T02:26:00.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/48cddde5bab252dbb21335b4a8a54b9ce6c6e59df35e4c5ce1c56d6eb5d7eb07/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2F3d7f725bba5540c24e25c5259f5b982a",
    "blurb": "The former Tide coach wants players NIL limits, but coaches have a free market.",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
-   "headline": "Where did Joel Klatt place Notre Dame among his 2026 elite teams?",
-   "link": "https://sports.yahoo.com/articles/where-did-joel-klatt-place-022024604.html",
-   "published": "2026-10-01T02:20:24.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/8fd30e758c330625247bf3a8c3031437729111ef1940a3f55a1544d137c7d916/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ffighting_irish_wire_usa_today_articles_281%2F2af63803d6f8bbef59355affc1db7cb7.jpg",
-   "blurb": "Joel Klatt has been one of many experts confident that Notre Dame can make a deep postseason. Where did the Irish land in Klatt's top-10 list?",
    "source": "YAHOO",
    "league": "CFB"
   },
@@ -1339,6 +1339,15 @@
    "league": "MLB"
   },
   {
+   "headline": "Wild Card Series Game 2 winners and losers: Alec Bohm saves the day; White Sox's Cinderella story continues",
+   "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-wild-card-series-game-2-winners-losers/",
+   "published": "2026-10-01T00:17:36.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2F0ff25365-0570-4df0-a3f5-b606f513b90f%2Fbohm-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Phillies staved off elimination, while the White Sox cruised to their first playoff series win since 2005",
+   "source": "CBS",
+   "league": "MLB"
+  },
+  {
    "headline": "Russell Wilson explains why Giants' controversial J.J. McCarthy trade could be a 'great' fit",
    "link": "https://www.cbssports.com/nfl/news/jj-mccarthy-trade-giants-russell-wilson/",
    "published": "2026-10-01T00:13:50.000Z",
@@ -1391,15 +1400,6 @@
    "blurb": "Here are seven boys golfers from around Peoria who shined in the first round of the 2026 IHSA playoffs at regionals across Illinois.",
    "source": "YAHOO",
    "league": "PGA"
-  },
-  {
-   "headline": "Bryce Harper saves Phillies' season with massive home run vs. Braves after ugly misplay earlier in game",
-   "link": "https://www.cbssports.com/mlb/news/phillies-bryce-harper-misplay-home-run-braves-wild-card-series/",
-   "published": "2026-09-30T22:13:11.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2Fcbe05036-bb57-45cc-b13d-61778d86e858%2Fharper-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The questionable Phillies defense was on full display in Wednesday's Game 2, but the sluggers came through to force a Game 3",
-   "source": "CBS",
-   "league": "MLB"
   },
   {
    "headline": "Off career year, Maxey wants to be judged by 76ers' success",
