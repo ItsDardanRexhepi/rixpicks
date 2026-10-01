@@ -189,7 +189,7 @@ const OFFBOOK_MIN_AGE_MIN = 15;
 const EXEMPT_RETAIN_DAYS = 7; // v15: retention for parity/exempt/<ts>.json audit files
 const STALE_PROD_MIN = 60;
 function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
-  const exempt = []; const exemptBook = []; const mism = [];
+  const exempt = []; const exemptBook = []; const mism = []; const exemptV16 = []; let v16Close = 0, v16Compared = 0;
   const bookC = (quality || {}).book_c || {};
   // illiquid books (spread > 25c) have no knowable mid - exclude from price agreement
   const wide = new Set(Object.entries((quality || {}).spread_c || {}).filter(([, v]) => v > 25).map(([k]) => k));
@@ -217,6 +217,18 @@ function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
               continue;
             }
           }
+          if (prefix === 'P:' && lastTick && Array.isArray(bookC[k]) && bookC[k].length === 2 && isFinite(bookC[k][0]) && isFinite(bookC[k][1]) && bookC[k][0] <= bookC[k][1] && isFinite(mb[k]) && isFinite(pb[k])) {
+            // v16 (Julian approved 10/1): worker strictly inside a VERIFIED live bid/ask AND prod tick older than
+            // OFFBOOK_MIN_AGE_MIN AND gap over 2c = prod staleness on a book wider than the band. Logged, never silent.
+            // No book quote (or unusable one) = no exemption; worker outside the book stays a miss. Old-rule tallies kept alongside.
+            const [bid, ask] = bookC[k], pv = pb[k], wv = mb[k];
+            const lt = lastTick[lg + k], ageMin = lt ? (nowMs - lt) / 60000 : Infinity;
+            if (wv >= bid && wv <= ask && ageMin > OFFBOOK_MIN_AGE_MIN && Math.abs(wv - pv) > 2) {
+              exemptV16.push({ key: lg + k, prod: pv, worker: wv, gap: +Math.abs(wv - pv).toFixed(2), bid, ask, last_prod_tick: lt ? new Date(lt).toISOString() : null, age_min: isFinite(ageMin) ? Math.round(ageMin) : null });
+              v16Compared++; // old rule: this key is compared and misses
+              continue;
+            }
+          }
           if (Math.abs((mb[k] || 0) - pb[k]) <= 2) close++;
           else if (prefix === 'P:') {
             // v14 diagnostic (main 10/1 1:27 PM PT): non-exempt compared keys that miss the 2c band
@@ -231,7 +243,8 @@ function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
     if (!keysP.size) return { ok: true, reason: 'prod empty' };
     const cov = [...keysP].filter(k => keysM.has(k)).length / keysP.size;
     const priceOk = compared === 0 || close / compared >= 0.95;
-    return { ok: cov >= 0.95 && priceOk, coverage: +cov.toFixed(3), price_close: compared ? +(close / compared).toFixed(3) : null };
+    const cmpOld = compared + v16Compared, priceOkOld = cmpOld === 0 || close / cmpOld >= 0.95;
+    return { ok: cov >= 0.95 && priceOk, coverage: +cov.toFixed(3), price_close: compared ? +(close / compared).toFixed(3) : null, price_close_old: cmpOld ? +(close / cmpOld).toFixed(3) : null, ok_old: cov >= 0.95 && priceOkOld };
   }
   const poly = evalLeg('P:');
   const kalshi = evalLeg('K:');
@@ -245,7 +258,9 @@ function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
   if (exemptBook.length) poly.exempt_offbook = exemptBook.slice(0, 30);
   poly.mismatch_n = mism.length;
   if (mism.length) poly.mismatch = mism.slice(0, 30);
-  poly._exempt_full = { stale: exempt, offbook: exemptBook, mismatch: mism };
+  poly.exempt_v16_n = exemptV16.length;
+  if (exemptV16.length) poly.exempt_v16 = exemptV16.slice(0, 30);
+  poly._exempt_full = { stale: exempt, offbook: exemptBook, mismatch: mism, v16: exemptV16 };
   return poly;
 }
 
@@ -318,13 +333,16 @@ export async function runParity(env, justRan) {
           const nS = fl.exempt_stale_n, nB = fl.exempt_offbook_n;
           if (nS || nB) sum.cycles_with_exempt++;
           const nM = fl.mismatch_n || 0; if (nM) sum.cycles_with_mismatch = (sum.cycles_with_mismatch || 0) + 1;
-          sum.cycle_counts.push([report.ts, nS, nB, fl.price_close, nM]);
+          const nV = fl.exempt_v16_n || 0; if (nV) sum.cycles_with_v16 = (sum.cycles_with_v16 || 0) + 1;
+          sum.rules.v16 = 'v16 (10/1): worker strictly inside verified live bid/ask AND prod tick>15min AND gap>2c; no book quote = no exemption; logged. price_close_old/ok_old = same cycle under the pre-v16 rule';
+          sum.cycle_counts.push([report.ts, nS, nB, fl.price_close, nM, nV, fl.price_close_old == null ? null : fl.price_close_old]);
           if (sum.cycle_counts.length > 800) sum.cycle_counts = sum.cycle_counts.slice(-800);
           for (const e of (full && full.stale) || []) { const k = sum.keys[e.key] = sum.keys[e.key] || { stale_cycles: 0, offbook_cycles: 0 }; k.stale_cycles++; k.last_prod_tick = e.last_prod_tick; k.max_stale_age_min = Math.max(k.max_stale_age_min || 0, e.age_min || 0); k.last_seen = report.ts; }
           for (const e of (full && full.offbook) || []) { const k = sum.keys[e.key] = sum.keys[e.key] || { stale_cycles: 0, offbook_cycles: 0 }; k.offbook_cycles++; k.last_offbook = { prod: e.prod, worker: e.worker, bid: e.bid, ask: e.ask, last_prod_tick: e.last_prod_tick, ts: report.ts }; k.last_seen = report.ts; }
+          for (const e of (full && full.v16) || []) { const k = sum.keys[e.key] = sum.keys[e.key] || { stale_cycles: 0, offbook_cycles: 0 }; k.v16_cycles = (k.v16_cycles || 0) + 1; k.last_v16 = { prod: e.prod, worker: e.worker, gap: e.gap, bid: e.bid, ask: e.ask, last_prod_tick: e.last_prod_tick, ts: report.ts }; k.last_seen = report.ts; }
           for (const e of (full && full.mismatch) || []) { const k = sum.keys[e.key] = sum.keys[e.key] || { stale_cycles: 0, offbook_cycles: 0 }; k.mismatch_cycles = (k.mismatch_cycles || 0) + 1; k.max_gap = Math.max(k.max_gap || 0, e.gap); k.last_mismatch = { prod: e.prod, worker: e.worker, bid: e.bid, ask: e.ask, prod_tick_age_min: e.prod_tick_age_min, ts: report.ts }; k.last_seen = report.ts; }
           const puts = [env.FEEDS.put('parity/exempt_summary.json', JSON.stringify(sum))];
-          if (nS || nB || nM) puts.push(env.FEEDS.put('parity/exempt/' + report.ts + '.json', JSON.stringify({ ts: report.ts, price_close: fl.price_close, stale: full.stale, offbook: full.offbook, mismatch: full.mismatch })));
+          if (nS || nB || nM || nV) puts.push(env.FEEDS.put('parity/exempt/' + report.ts + '.json', JSON.stringify({ ts: report.ts, price_close: fl.price_close, stale: full.stale, offbook: full.offbook, v16: full.v16, mismatch: full.mismatch })));
           await Promise.all(puts);
         }
       } catch (e) { console.error('exempt audit store error:', String(e).slice(0, 100)); }
@@ -352,6 +370,7 @@ export async function runParity(env, justRan) {
     if (!runs.length) { summary.lanes[lane] = null; continue; }
     const okN = runs.filter(r => r.ok).length;
     summary.lanes[lane] = { cycles: runs.length, in_parity: okN, pct: +(100 * okN / runs.length).toFixed(1), gate_95: okN / runs.length >= 0.95 };
+    if (lane === 'futures') { const okOld = runs.filter(r => ('ok_old' in r) ? r.ok_old : r.ok).length; summary.lanes[lane].in_parity_old_rule = okOld; summary.lanes[lane].pct_old_rule = +(100 * okOld / runs.length).toFixed(1); }
   }
   await Promise.all([
     env.FEEDS.put('parity/history.json', JSON.stringify(hist)),
