@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-01T04:05:24.294969+00:00",
+ "generated_at": "2026-10-01T04:20:26.547816+00:00",
  "items": [
   {
    "id": "53ae48a051",
@@ -7,6 +7,13 @@
    "event": "Pittsburgh Steelers @ Cleveland Browns",
    "prediction": "Pittsburgh Steelers beat Cleveland Browns",
    "kickoff_utc": "2026-10-02T00:15:00+00:00"
+  },
+  {
+   "id": "f35fdd35c7",
+   "league": "WNBA",
+   "event": "Indiana Fever @ Las Vegas Aces",
+   "prediction": "Las Vegas Aces beat Indiana Fever",
+   "kickoff_utc": "2026-10-02T01:00:00+00:00"
   },
   {
    "id": "91e64929a5",
@@ -34,13 +41,6 @@
    "league": "CFB",
    "event": "Notre Dame Fighting Irish @ North Carolina Tar Heels",
    "prediction": "Notre Dame Fighting Irish beat North Carolina Tar Heels",
-   "kickoff_utc": "2026-10-03T16:00:00+00:00"
-  },
-  {
-   "id": "233f8d6981",
-   "league": "CFB",
-   "event": "UCF Knights @ Houston Cougars",
-   "prediction": "UCF Knights beat Houston Cougars",
    "kickoff_utc": "2026-10-03T16:00:00+00:00"
   }
  ]
