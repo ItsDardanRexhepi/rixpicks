@@ -6,6 +6,11 @@ on:
     # Standing rule 9/27: no daily cap; only tripwire is the plan's 20K credits/mo hard limit, fail-loud.
     - cron: '*/15 15-23,0-6 * * *'
   workflow_dispatch:
+    inputs:
+      hold_bypass:
+        description: 'REPAIR ONLY: set to the word repair to override a posting hold (logged loudly with actor)'
+        type: string
+        default: ''
   # guard 4 starvation class (9/28 7:40 slip: hosted cron 56 min late): the CF dispatcher's
   # external-tick is the reliable 15-min time base; hosted cron stays as backstop signal only.
   repository_dispatch:
@@ -26,16 +31,11 @@ jobs:
       held: ${{ steps.hc.outputs.held }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            scripts/health_gate.js
-            .github/actions
-          sparse-checkout-cone-mode: false
       - id: hc
         uses: ./.github/actions/hold-check
   refresh:
     needs: hold-check
-    if: ${{ !cancelled() && needs.hold-check.outputs.held != 'true' }}
+    if: ${{ !cancelled() && needs.hold-check.result == 'success' && needs.hold-check.outputs.held == 'false' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

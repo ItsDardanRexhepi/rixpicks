@@ -1,12 +1,22 @@
 name: hold-check
 description: >
-  Posting-job auto-hold (Julian 9/30). Runs the STRUCTURAL health gate (node scripts/health_gate.js --hold)
-  against the served site. Output held=true only on a proven structural FAIL (exit 1). Data outages
-  (blank X feed, stale quotes) are alert-only and never hold. Network/5xx/gate error = not held.
-  Manual workflow_dispatch runs are exempt (fix path).
+  Posting-job auto-hold (Julian 9/30). Runs the STRUCTURAL health gate (node scripts/health_gate.js --hold):
+  local-tree structural checks PLUS served-site structural checks. Output held=true on a proven structural
+  FAIL (exit 1) OR a gate error (exit != 0/1, fail closed). Data outages (blank X feed, stale quotes) are
+  alert-only and never hold. A host/network outage (UNKNOWN) does not hold because the local-tree checks
+  still run. Manual dispatch is gated too; the ONLY bypass is the explicit dispatch input hold_bypass=repair,
+  which runs the gate anyway and logs loudly.
 inputs:
   base:
     description: site base URL to probe (default https://rix-picks.com)
+    required: false
+    default: ''
+  bypass:
+    description: selftest override for hold_bypass
+    required: false
+    default: ''
+  force_error:
+    description: selftest hook, forces a gate error
     required: false
     default: ''
 outputs:
@@ -20,25 +30,29 @@ runs:
       shell: bash
       env:
         HC_BASE: ${{ inputs.base }}
+        HC_BYPASS: ${{ inputs.bypass || github.event.inputs.hold_bypass }}
+        HC_ACTOR: ${{ github.actor }}
+        HC_EVENT: ${{ github.event_name }}
+        HOLD_SELFTEST_ERROR: ${{ inputs.force_error }}
       run: |
+        ARGS="--hold"; [ -n "$HC_BASE" ] && ARGS="$ARGS --base=$HC_BASE"
+        set +e; node scripts/health_gate.js $ARGS > /tmp/hold.log 2>&1; rc=$?; set -e
+        cat /tmp/hold.log
         held=false
-        if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] && [ -z "$HC_BASE" ]; then
-          echo "hold-check: manual dispatch is exempt (fix path)"
-        else
-          ARGS="--hold"; [ -n "$HC_BASE" ] && ARGS="$ARGS --base=$HC_BASE"
-          set +e; node scripts/health_gate.js $ARGS > /tmp/hold.log 2>&1; rc=$?; set -e
-          cat /tmp/hold.log
-          if [ "$rc" = "1" ]; then
-            held=true
-            {
-              echo "## HELD: posting job did not run (structural health FAIL on the served site)"
-              echo "What broke / what users cannot see (from the gate):"
-              grep '^FAIL' /tmp/hold.log | sed 's/^/- /' || true
-              echo "Cause: established by the check named above, root cause unknown until a fix lands. Repair: fix commits are exempt from the hold; the hold lifts on the next run after the gate passes."
-            } >> "$GITHUB_STEP_SUMMARY"
-            echo "::warning title=HELD::structural health FAIL - posting job held, see summary"
-          elif [ "$rc" != "0" ]; then
-            echo "hold-check: gate exited $rc (error/unknown) - NOT holding"
-          fi
+        if [ "$rc" = "1" ]; then held=true; kind="structural FAIL"
+        elif [ "$rc" != "0" ]; then held=true; kind="GATE ERROR (exit $rc), failing closed"; fi
+        if [ "$held" = "true" ] && [ "$HC_BYPASS" = "repair" ]; then
+          { echo "## HOLD BYPASSED (repair dispatch)"; echo "actor=$HC_ACTOR event=$HC_EVENT reason=hold_bypass=repair; gate result was: $kind"; grep '^FAIL' /tmp/hold.log | sed 's/^/- /' || true; } >> "$GITHUB_STEP_SUMMARY"
+          echo "::warning title=HOLD BYPASSED::repair dispatch by $HC_ACTOR overrode a $kind"
+          held=false
+        elif [ "$held" = "true" ]; then
+          {
+            echo "## HELD: posting job did not run ($kind)"
+            echo "What broke / what users cannot see (from the gate):"
+            grep '^FAIL' /tmp/hold.log | sed 's/^/- /' || true
+            grep '^GATE ERROR' /tmp/hold.log | sed 's/^/- /' || true
+            echo "Cause: established by the check named above; root cause unknown until a fix lands. Repair: fix commits are not workflow runs and are unaffected; a manual dispatch with hold_bypass=repair is the only override and is logged. The hold lifts on the next run after the gate passes."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::warning title=HELD::$kind - posting job held, see summary"
         fi
         echo "held=$held" >> "$GITHUB_OUTPUT"

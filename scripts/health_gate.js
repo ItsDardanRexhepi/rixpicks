@@ -37,7 +37,8 @@ async function fetchText(u) {
 const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOWN ' + name + ' (' + e.message + ') - not counted as a failure'); else check(name, false, impact); };
 
 (async () => {
-  if (!SERVE) {
+  if (process.env.HOLD_SELFTEST_ERROR === '1') throw new Error('forced gate error (selftest hook)');
+  if (!SERVE || HOLD) {
     // 1. fixture suite (combo freshness, feed wire, CASHED spec, dingers/TD trackers, futures bypass)
     let fx = '';
     try { fx = execFileSync('node', ['scripts/test_combo_fresh_export.js'], { encoding: 'utf8' }); }
@@ -84,7 +85,8 @@ const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOW
       if (name.startsWith('blank-pregame')) check(name, !page.includes('Game not started'), impact);
       else check(name, needle ? page.includes(needle) : false, impact);
     }
-  } else {
+  }
+  if (SERVE) {
     // --serve: cold checks against the live site
     let page = '';
     try { page = await fetchText(BASE + '/'); } catch (e) { failOrUnknown(e, 'home page serves', 'site down: ' + e.message); }

@@ -7,6 +7,10 @@ name: record-final
 on:
   workflow_dispatch:
     inputs:
+      hold_bypass:
+        description: 'REPAIR ONLY: set to the word repair to override a posting hold (logged loudly with actor)'
+        type: string
+        default: ''
       force_rebuild:
         description: 'rebuild+ship site pages from current manifest even with no pending grades (true/false)'
         required: true
@@ -33,16 +37,11 @@ jobs:
       held: ${{ steps.hc.outputs.held }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            scripts/health_gate.js
-            .github/actions
-          sparse-checkout-cone-mode: false
       - id: hc
         uses: ./.github/actions/hold-check
   write:
     needs: hold-check
-    if: ${{ !cancelled() && needs.hold-check.outputs.held != 'true' }}
+    if: ${{ !cancelled() && needs.hold-check.result == 'success' && needs.hold-check.outputs.held == 'false' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

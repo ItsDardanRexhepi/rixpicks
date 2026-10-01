@@ -5,6 +5,11 @@ on:
     # 3 credits/run, 6/day, inside the shared 16-call/day free-tier discipline.
     - cron: '30 18,0 * * *'
   workflow_dispatch:
+    inputs:
+      hold_bypass:
+        description: 'REPAIR ONLY: set to the word repair to override a posting hold (logged loudly with actor)'
+        type: string
+        default: ''
 permissions:
   contents: write
 concurrency:
@@ -20,16 +25,11 @@ jobs:
       held: ${{ steps.hc.outputs.held }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            scripts/health_gate.js
-            .github/actions
-          sparse-checkout-cone-mode: false
       - id: hc
         uses: ./.github/actions/hold-check
   extras:
     needs: hold-check
-    if: ${{ !cancelled() && needs.hold-check.outputs.held != 'true' }}
+    if: ${{ !cancelled() && needs.hold-check.result == 'success' && needs.hold-check.outputs.held == 'false' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -1,7 +1,8 @@
 name: hold-selftest
-# Proves the posting-job auto-hold bites inside Actions: serves a deliberately broken copy of the
-# site, runs the real hold-check action against it, and asserts (a) held=true, (b) a guarded job
-# is SKIPPED. Runs only when the trigger file changes (or manually).
+# Proves the posting-job auto-hold matrix inside Actions, running the REAL hold-check action:
+#  structural FAIL -> held; gate ERROR -> held (fail closed); repair bypass -> not held (logged);
+#  host UNKNOWN with healthy local tree -> not held; plus a guarded job proven SKIPPED when held.
+# Runs only when the trigger file changes (or manually).
 on:
   push:
     paths:
@@ -10,7 +11,7 @@ on:
 permissions:
   contents: read
 jobs:
-  hold-check:
+  structural-fail:
     runs-on: ubuntu-latest
     outputs:
       held: ${{ steps.hc.outputs.held }}
@@ -30,17 +31,66 @@ jobs:
         uses: ./.github/actions/hold-check
         with:
           base: http://localhost:8123
+  gate-error:
+    runs-on: ubuntu-latest
+    outputs:
+      held: ${{ steps.hc.outputs.held }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: hc
+        uses: ./.github/actions/hold-check
+        with:
+          force_error: '1'
+  repair-bypass:
+    runs-on: ubuntu-latest
+    outputs:
+      held: ${{ steps.hc.outputs.held }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: serve a deliberately broken copy of the site
+        run: |
+          mkdir -p /tmp/bad && cp -r index.html ticket-feed.js slates /tmp/bad/
+          python3 - <<'PY'
+          s=open('/tmp/bad/index.html').read()
+          s=s.replace('<script>','<script>var x = (;',1)
+          open('/tmp/bad/index.html','w').write(s)
+          PY
+          (cd /tmp/bad && nohup python3 -m http.server 8123 >/dev/null 2>&1 &)
+          sleep 2
+      - id: hc
+        uses: ./.github/actions/hold-check
+        with:
+          base: http://localhost:8123
+          bypass: repair
+  host-unknown:
+    runs-on: ubuntu-latest
+    outputs:
+      held: ${{ steps.hc.outputs.held }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: hc
+        uses: ./.github/actions/hold-check
+        with:
+          base: http://localhost:8109
+  healthy:
+    runs-on: ubuntu-latest
+    outputs:
+      held: ${{ steps.hc.outputs.held }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: hc
+        uses: ./.github/actions/hold-check
   guarded:
-    needs: hold-check
-    if: ${{ !cancelled() && needs.hold-check.outputs.held != 'true' }}
+    needs: structural-fail
+    if: ${{ !cancelled() && needs.structural-fail.result == 'success' && needs.structural-fail.outputs.held == 'false' }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "GUARDED JOB RAN - hold did not bite" && exit 1
   verify:
-    needs: [hold-check, guarded]
+    needs: [structural-fail, gate-error, repair-bypass, host-unknown, healthy, guarded]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "held=${{ needs.hold-check.outputs.held }} guarded=${{ needs.guarded.result }}"
-          [ "${{ needs.hold-check.outputs.held }}" = "true" ] && [ "${{ needs.guarded.result }}" = "skipped" ]
+          echo "structural-fail=${{ needs.structural-fail.outputs.held }} gate-error=${{ needs.gate-error.outputs.held }} repair-bypass=${{ needs.repair-bypass.outputs.held }} host-unknown=${{ needs.host-unknown.outputs.held }} healthy=${{ needs.healthy.outputs.held }} guarded=${{ needs.guarded.result }}"
+          [ "${{ needs.structural-fail.outputs.held }}" = "true" ] && [ "${{ needs.gate-error.outputs.held }}" = "true" ] && [ "${{ needs.repair-bypass.outputs.held }}" = "false" ] && [ "${{ needs.host-unknown.outputs.held }}" = "false" ] && [ "${{ needs.healthy.outputs.held }}" = "false" ] && [ "${{ needs.guarded.result }}" = "skipped" ]
