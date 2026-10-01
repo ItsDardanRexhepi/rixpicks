@@ -10,8 +10,9 @@ name: pages-gated-deploy
 # FAIL or lock = no deploy; the last good version keeps serving.
 on:
   push:
-    paths:
-      - '.github/pages_gate_selftest.trigger'
+    branches: [main]
+  schedule:
+    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       force:
