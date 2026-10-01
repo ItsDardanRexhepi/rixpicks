@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T23:50:21.224337+00:00",
+ "generated_at": "2026-10-01T00:05:22.318109+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,16 +10,16 @@
      "matchup": "CHW @ HOU",
      "commence": "2026-09-30T21:00Z",
      "status": "in",
-     "detail": "Bot 8th",
+     "detail": "Top 9th",
      "score": "CHW 7 - HOU 3"
     },
     {
-     "espn_event_id": "401907963",
-     "matchup": "BOS @ NYY",
-     "commence": "2026-10-01T00:00Z",
+     "espn_event_id": "401907975",
+     "matchup": "CHC @ SD",
+     "commence": "2026-10-01T02:00Z",
      "status": "pre",
-     "detail": "9/30 - 5:00 PM PT",
-     "score": "BOS 0 - NYY 0"
+     "detail": "9/30 - 7:00 PM PT",
+     "score": "CHC 0 - SD 0"
     }
    ]
   },
@@ -31,8 +31,8 @@
      "matchup": "ATL @ WAS",
      "commence": "2026-09-30T23:00Z",
      "status": "in",
-     "detail": "2:53 - 2nd",
-     "score": "ATL 36 - WAS 25",
+     "detail": "Halftime",
+     "score": "ATL 41 - WAS 35",
      "away_to": 4,
      "home_to": 4
     },
@@ -54,7 +54,7 @@
      "matchup": "PIT @ PHI",
      "commence": "2026-09-30T23:30Z",
      "status": "in",
-     "detail": "11:14 - 1st",
+     "detail": "5:29 - 1st",
      "score": "PIT 1 - PHI 0",
      "away_to": null,
      "home_to": null
@@ -64,10 +64,18 @@
      "matchup": "NYI @ TOR",
      "commence": "2026-09-30T23:30Z",
      "status": "in",
-     "detail": "18:04 - 1st",
-     "score": "NYI 0 - TOR 0",
+     "detail": "9:59 - 1st",
+     "score": "NYI 0 - TOR 1",
      "away_to": null,
      "home_to": null
+    },
+    {
+     "espn_event_id": "401891780",
+     "matchup": "LA @ COL",
+     "commence": "2026-10-01T02:00Z",
+     "status": "pre",
+     "detail": "9/30 - 7:00 PM PT",
+     "score": "LA 0 - COL 0"
     }
    ]
   },
@@ -79,7 +87,7 @@
      "matchup": "STL @ RBNY",
      "commence": "2026-09-30T23:30Z",
      "status": "in",
-     "detail": "10'",
+     "detail": "25'",
      "score": "STL 1 - RBNY 0"
     }
    ]
