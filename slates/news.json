@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-01T10:10:34.643Z",
+ "generated_at": "2026-10-01T10:15:35.799Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Padres silence Cubs' bats again, finish off 2-game wild-card sweep",
+    "link": "https://www.espn.com/mlb/story/_/id/50074597/padres-silence-cubs-bats-again-finish-2-game-wild-card-sweep",
+    "published": "2026-10-01T10:06:31Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1001%2Fr1724327_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Five Padres pitchers combined on a five-hitter and Gavin Sheets hit a pinch-hit two-run homer, as San Diego swept the Cubs out of the NL Wild Card Series with a 4-1 win.",
+    "league": "MLB"
+   },
    {
     "headline": "The Yankees made quick work of their ALDS warm-up",
     "link": "https://sports.yahoo.com/articles/yankees-made-quick-alds-warm-100000907.html",
@@ -9,15 +18,6 @@
     "image": "https://s.yimg.com/lo/mysterio/api/77d3c114225ed2ff3475e99455e1ad3389758307f9b4ed4a228928225c8b1097/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0e981cc57fd432f5cbc4973c1b8f2239.jpg",
     "blurb": "After sweating through last year\u2019s Wild Card Series, the Yankees managed to turn it into a laugher this time around.",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "White Sox pounce early, finish sweep of Astros for first playoff series win since 2005",
-    "link": "http://www.espn.com/mlb/recap?gameId=401907897",
-    "published": "2026-10-01T08:22:43Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907897.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 From 100 losses to their first playoff series win in two decades, these scrappy Chicago White Sox just keep outdoing themselves.",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "White Sox pounce early, finish sweep of Astros for first playoff series win since 2005",
+    "link": "http://www.espn.com/mlb/recap?gameId=401907897",
+    "published": "2026-10-01T08:22:43Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907897.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 From 100 losses to their first playoff series win in two decades, these scrappy Chicago White Sox just keep outdoing themselves.",
+    "league": "MLB"
+   },
+   {
     "headline": "Yankees news: Clarke Schmidt shut down for the season",
     "link": "https://sports.yahoo.com/articles/yankees-news-clarke-schmidt-shut-090000093.html",
     "published": "2026-10-01T09:00:00.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/22cfa55caf111070fb7e6869700f4141829280209b48344931109797023b8674/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F411dd2bfcad1898292d58447587b323d.jpg",
     "blurb": "Yankees shut down Schmidt; Judge hits live pitching again; The AFL starts up; Rice has blossomed into an elite analytical hitter.",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Fried, Bellinger and Garc\u00eda lead Yankees over Red Sox 9-2 for 2-game Wild Card Series sweep",
-    "link": "http://www.espn.com/mlb/recap?gameId=401907963",
-    "published": "2026-10-01T08:20:22Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907963.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 One year after rallying past the Red Sox to win an AL Wild Card Series, the New York Yankees battered Boston.",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Fried, Bellinger and Garc\u00eda lead Yankees over Red Sox 9-2 for 2-game Wild Card Series sweep",
+    "link": "http://www.espn.com/mlb/recap?gameId=401907963",
+    "published": "2026-10-01T08:20:22Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907963.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 One year after rallying past the Red Sox to win an AL Wild Card Series, the New York Yankees battered Boston.",
+    "league": "MLB"
+   },
+   {
     "headline": "Gavin Sheets\u2019 pinch-hit homer propels dominant Padres past Cubs 4-1 for 2-game Wild Card sweep",
     "link": "https://sports.yahoo.com/articles/gavin-sheets-pinch-hit-homer-081908404.html",
     "published": "2026-10-01T08:19:08.000Z",
     "image": "",
     "blurb": "Pete Crow-Armstrong and Alex Bregman struggled mightily atop the Cubs\u2019 lineup, going a combined 0 for 15 with a walk and eight strikeouts over the two games.",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "MLB playoffs 2026: First-look preview of division series matchups",
-    "link": "https://www.espn.com/mlb/story/_/id/50070369/mlb-playoffs-2026-first-look-preview-division-series-matchups-brewers-dodgers-rays-guardians",
-    "published": "2026-10-01T07:01:55Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1001%2Fr1724230_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The ALDS and NLDS are taking shape. Here's who has the edge -- and who should be on upset watch.",
     "league": "MLB"
    },
    {
@@ -84,16 +84,25 @@
     "league": "MLB"
    },
    {
-    "headline": "How to watch Phillies vs. Braves Game 3 of 2026 MLB Wild Card Series: TV channel/ streaming info, schedule",
-    "link": "https://sports.yahoo.com/articles/watch-phillies-vs-braves-game-080005623.html",
-    "published": "2026-10-01T08:00:05.000Z",
-    "image": "",
-    "blurb": "After thrilling finishes to Games 1 and 2, the Philadelphia Phillies and Atlanta Braves meet for a winner-take-all Game 3 on Thursday at 8pm ET on NBC and Peacock.",
-    "source": "YAHOO",
+    "headline": "MLB playoffs 2026: First-look preview of division series matchups",
+    "link": "https://www.espn.com/mlb/story/_/id/50070369/mlb-playoffs-2026-first-look-preview-division-series-matchups-brewers-dodgers-rays-guardians",
+    "published": "2026-10-01T07:01:55Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1001%2Fr1724230_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The ALDS and NLDS are taking shape. Here's who has the edge -- and who should be on upset watch.",
     "league": "MLB"
    }
   ],
   "football/nfl": [
+   {
+    "headline": "Packers' O-line leaves Jordan Love under constant pressure",
+    "link": "https://www.espn.com/nfl/story/_/id/50071255/nfl-green-bay-packers-jordan-love-offensive-line-pressure",
+    "published": "2026-10-01T10:00:02Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1724155_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Packers have allowed more \"quick pressures\" against Love than any team in the NFL -- and it's not close.",
+    "league": "NFL"
+   },
    {
     "headline": "Cleveland Browns news: The battle for first place is tonight!",
     "link": "https://sports.yahoo.com/articles/cleveland-browns-news-battle-first-100000814.html",
@@ -101,15 +110,6 @@
     "image": "https://s.yimg.com/lo/mysterio/api/80099bd0d1688e3bfa43b6eb22774fd3350c39a8e6dc9d055903036ec92a6f96/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F310876804718c8306b2f8eb195acb3f1.jpg",
     "blurb": "The latest Cleveland Browns news and notes from around the NFL in the October 1 edition of the Daily Dawg Chow.",
     "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "Aaron Rodgers' 2026 NFL season: Tracking records, milestones",
-    "link": "https://www.espn.com/nfl/story/_/id/49907062/aaron-rodgers-2026-nfl-season-steelers-packers-jets-tracking-records-milestones",
-    "published": "2026-10-01T09:40:31Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0909%2Fnfl_rodgers-final-season_16x9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Steelers QB is chasing records in his 22nd NFL season, and ESPN is chronicling his \"last rodeo.\"",
     "league": "NFL"
    },
    {
@@ -122,21 +122,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Browns' QB situation takes a turn as Deshaun Watson finds his footing",
+    "link": "https://www.espn.com/nfl/story/_/id/50065872/cleveland-browns-quarterback-situation-deshaun-watson-shedeur-sanders-tnf",
+    "published": "2026-10-01T10:00:02Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fnfl_browns-watson_16x9_608x342.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Cleveland's 2-1 start and the QB's late-game performances have helped to shift the conversation around the future of the position.",
+    "league": "NFL"
+   },
+   {
     "headline": "Pittsburgh Steelers vs. Cleveland Browns: How to watch, TV schedule, history, betting odds and more",
     "link": "https://sports.yahoo.com/articles/pittsburgh-steelers-vs-cleveland-browns-100000354.html",
     "published": "2026-10-01T10:00:00.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/5796e86a5c444b66d2bfc2d4aae8c8cf5883e263a269c3d8d1c1aeba4c0290ad/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fcb6feaeca63a0ca46df0ed530db00b12.jpg",
     "blurb": "Which cities get to watch the game on TV? What uniforms will the Browns wear? And a little bit of history between the two teams.",
     "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "Taylor Swift tried to tell us Matthew Stafford would be in 'Patient Zero' video",
-    "link": "https://www.espn.com/nfl/story/_/id/50052555/matthew-stafford-taylor-swift-rams-aries-patient-zero-music-video-cameo",
-    "published": "2026-10-01T09:07:22.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0929%252Fr1723040_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Why, yes, that was Matthew Stafford. Here's why all signs pointed to the reigning NFL MVP's music video cameo.",
-    "source": "ESPN",
     "league": "NFL"
    },
    {
@@ -149,21 +149,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Why Darnell Washington has become the Steelers' X factor",
+    "link": "https://www.espn.com/nfl/story/_/id/50071416/pittsburgh-steelers-darnell-washington-viral-x-factor",
+    "published": "2026-10-01T10:00:01Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723889_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "At 6-foot-7 and nearly 300 pounds, the Pittsburgh tight end is more than a viral hurdle highlight reel.",
+    "league": "NFL"
+   },
+   {
     "headline": "Houston Texans News: Thursday October 1, 2026",
     "link": "https://sports.yahoo.com/articles/houston-texans-news-thursday-october-100000180.html",
     "published": "2026-10-01T10:00:00.000Z",
     "image": "",
     "blurb": "Your one-stop shop for Houston Texans, local sports, and news from around the league for Thursday October 1, 2026.",
     "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "Grading in-season NFL trades: Does adding Joey Porter Jr. make sense for the Cowboys?",
-    "link": "https://www.espn.com/nfl/story/_/id/50043542/2026-trade-deadline-grades-latest-best-worst-deals",
-    "published": "2026-10-01T06:23:30.000Z",
-    "image": "",
-    "blurb": "Can Joey Porter Jr. clean up the Cowboys' defense? Will J.J. McCarthy improve the Giants' QB situation? We're grading NFL trades ahead of November's deadline.",
-    "source": "ESPN",
     "league": "NFL"
    },
    {
@@ -176,12 +176,12 @@
     "league": "NFL"
    },
    {
-    "headline": "Broncos defense bracing for tough matchup versus versatile 49ers offense",
-    "link": "https://sports.yahoo.com/articles/broncos-defense-bracing-tough-matchup-100000981.html",
-    "published": "2026-10-01T10:00:00.000Z",
-    "image": "",
-    "blurb": "The Denver Broncos will have a big challenge going up the well-coached and versatile offense of the San Francisco 49ers.",
-    "source": "YAHOO",
+    "headline": "Aaron Rodgers' 2026 NFL season: Tracking records, milestones",
+    "link": "https://www.espn.com/nfl/story/_/id/49907062/aaron-rodgers-2026-nfl-season-steelers-packers-jets-tracking-records-milestones",
+    "published": "2026-10-01T09:40:31Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0909%2Fnfl_rodgers-final-season_16x9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Steelers QB is chasing records in his 22nd NFL season, and ESPN is chronicling his \"last rodeo.\"",
     "league": "NFL"
    }
   ],
@@ -398,11 +398,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Southeast Division watch: the Heat reloaded with Giannis, Klay",
-    "link": "https://sports.yahoo.com/articles/southeast-division-watch-heat-reloaded-070749325.html",
-    "published": "2026-10-01T07:07:49.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/3757e3076a5b23d14c04d3ae0604e2cc33a40fbdc17eab5746da43776ac6c1ce/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F56da70eb35fd2cd1130c929de641b5fd.jpg",
-    "blurb": "Let\u2019s check out the Southeast Division Dub Nation, a spicy part of the NBA this year. Last season, the Warriors split two with Miami, and only one of them still stings. The Heat took the first one 110-96 in November, against a Golden State roster so short-handed it looked like a ",
+    "headline": "Reading the training camp tea leaves",
+    "link": "https://sports.yahoo.com/articles/reading-training-camp-tea-leaves-080000948.html",
+    "published": "2026-10-01T08:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6f39297ea89ca23fd406b3dea136641a89a8db2d09539060a59a2815e601e7a1/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F8684c039ae21a460a5a33fc31f768922.jpg",
+    "blurb": "Interviews and social media interviews are giving us a glimpse of what could be at the start of the regular season.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -425,11 +425,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Atlantic Division watch: All hail the New York Knicks, world champs",
-    "link": "https://sports.yahoo.com/articles/atlantic-division-watch-hail-york-052143270.html",
-    "published": "2026-10-01T05:21:43.000Z",
+    "headline": "Southeast Division watch: the Heat reloaded with Giannis, Klay",
+    "link": "https://sports.yahoo.com/articles/southeast-division-watch-heat-reloaded-070749325.html",
+    "published": "2026-10-01T07:07:49.000Z",
     "image": "",
-    "blurb": "Wellp we did it Dub Nation, we took a look at the entire Atlantic divison to start the season. And we end it with the champions. The Golden State Warriors went 1-1 against the New York Knicks last season, winning 126-113 at home in January and dropping a 110-107 game at the Garde",
+    "blurb": "Let\u2019s check out the Southeast Division Dub Nation, a spicy part of the NBA this year. Last season, the Warriors split two with Miami, and only one of them still stings. The Heat took the first one 110-96 in November, against a Golden State roster so short-handed it looked like a ",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -452,11 +452,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Can Frank Vogel provide a jolt to Warriors\u2019 lackluster defense?",
-    "link": "https://sports.yahoo.com/articles/frank-vogel-jolt-warriors-lackluster-040311349.html",
-    "published": "2026-10-01T04:03:11.000Z",
+    "headline": "Atlantic Division watch: All hail the New York Knicks, world champs",
+    "link": "https://sports.yahoo.com/articles/atlantic-division-watch-hail-york-052143270.html",
+    "published": "2026-10-01T05:21:43.000Z",
     "image": "",
-    "blurb": "The word on the street coming out of the islands is Golden State Warriors head coach Steve Kerr spent the first day of camp in Laie, Hawaii, drilling transition defense. He called the live work controlled, with possessions going up and back maybe three times max. Let\u2019s hope that ",
+    "blurb": "Wellp we did it Dub Nation, we took a look at the entire Atlantic divison to start the season. And we end it with the champions. The Golden State Warriors went 1-1 against the New York Knicks last season, winning 126-113 at home in January and dropping a 110-107 game at the Garde",
     "source": "YAHOO",
     "league": "NBA"
    }
@@ -1077,6 +1077,15 @@
  },
  "latest": [
   {
+   "headline": "Padres silence Cubs' bats again, finish off 2-game wild-card sweep",
+   "link": "https://www.espn.com/mlb/story/_/id/50074597/padres-silence-cubs-bats-again-finish-2-game-wild-card-sweep",
+   "published": "2026-10-01T10:06:31Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1001%2Fr1724327_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Five Padres pitchers combined on a five-hitter and Gavin Sheets hit a pinch-hit two-run homer, as San Diego swept the Cubs out of the NL Wild Card Series with a 4-1 win.",
+   "league": "MLB"
+  },
+  {
    "headline": "Kamario Taylor, Keelon Russell lead college football breakout stars from first month",
    "link": "https://sports.yahoo.com/articles/kamario-taylor-keelon-russell-lead-100248527.html",
    "published": "2026-10-01T10:02:48.000Z",
@@ -1093,6 +1102,24 @@
    "blurb": "What college football games are on tonight? Here's a look at the full Week 5 schedule for Thursday, Oct. 1.",
    "source": "YAHOO",
    "league": "CFB"
+  },
+  {
+   "headline": "Packers' O-line leaves Jordan Love under constant pressure",
+   "link": "https://www.espn.com/nfl/story/_/id/50071255/nfl-green-bay-packers-jordan-love-offensive-line-pressure",
+   "published": "2026-10-01T10:00:02Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1724155_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Packers have allowed more \"quick pressures\" against Love than any team in the NFL -- and it's not close.",
+   "league": "NFL"
+  },
+  {
+   "headline": "Browns' QB situation takes a turn as Deshaun Watson finds his footing",
+   "link": "https://www.espn.com/nfl/story/_/id/50065872/cleveland-browns-quarterback-situation-deshaun-watson-shedeur-sanders-tnf",
+   "published": "2026-10-01T10:00:02Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fnfl_browns-watson_16x9_608x342.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Cleveland's 2-1 start and the QB's late-game performances have helped to shift the conversation around the future of the position.",
+   "league": "NFL"
   },
   {
    "headline": "The Yankees made quick work of their ALDS warm-up",
@@ -1140,15 +1167,6 @@
    "league": "NHL"
   },
   {
-   "headline": "Aaron Rodgers' 2026 NFL season: Tracking records, milestones",
-   "link": "https://www.espn.com/nfl/story/_/id/49907062/aaron-rodgers-2026-nfl-season-steelers-packers-jets-tracking-records-milestones",
-   "published": "2026-10-01T09:40:31Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0909%2Fnfl_rodgers-final-season_16x9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Steelers QB is chasing records in his 22nd NFL season, and ESPN is chronicling his \"last rodeo.\"",
-   "league": "NFL"
-  },
-  {
    "headline": "Former boxing world champion Liam Smith charged with GBH",
    "link": "https://sports.yahoo.com/articles/former-boxing-world-champion-liam-093829259.html",
    "published": "2026-10-01T09:38:29.000Z",
@@ -1167,15 +1185,6 @@
    "league": "NBA"
   },
   {
-   "headline": "Taylor Swift tried to tell us Matthew Stafford would be in 'Patient Zero' video",
-   "link": "https://www.espn.com/nfl/story/_/id/50052555/matthew-stafford-taylor-swift-rams-aries-patient-zero-music-video-cameo",
-   "published": "2026-10-01T09:07:22.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0929%252Fr1723040_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Why, yes, that was Matthew Stafford. Here's why all signs pointed to the reigning NFL MVP's music video cameo.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
    "headline": "Yankees news: Clarke Schmidt shut down for the season",
    "link": "https://sports.yahoo.com/articles/yankees-news-clarke-schmidt-shut-090000093.html",
    "published": "2026-10-01T09:00:00.000Z",
@@ -1191,15 +1200,6 @@
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907897.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "\u2014 From 100 losses to their first playoff series win in two decades, these scrappy Chicago White Sox just keep outdoing themselves.",
-   "league": "MLB"
-  },
-  {
-   "headline": "Fried, Bellinger and Garc\u00eda lead Yankees over Red Sox 9-2 for 2-game Wild Card Series sweep",
-   "link": "http://www.espn.com/mlb/recap?gameId=401907963",
-   "published": "2026-10-01T08:20:22Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907963.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "\u2014 One year after rallying past the Red Sox to win an AL Wild Card Series, the New York Yankees battered Boston.",
    "league": "MLB"
   },
   {
@@ -1221,6 +1221,15 @@
    "league": "NHL"
   },
   {
+   "headline": "Reading the training camp tea leaves",
+   "link": "https://sports.yahoo.com/articles/reading-training-camp-tea-leaves-080000948.html",
+   "published": "2026-10-01T08:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/6f39297ea89ca23fd406b3dea136641a89a8db2d09539060a59a2815e601e7a1/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F8684c039ae21a460a5a33fc31f768922.jpg",
+   "blurb": "Interviews and social media interviews are giving us a glimpse of what could be at the start of the regular season.",
+   "source": "YAHOO",
+   "league": "NBA"
+  },
+  {
    "headline": "Preview: UFC 332 \u2018Silva vs. Wang\u2019",
    "link": "https://sports.yahoo.com/articles/preview-ufc-332-silva-vs-071208132.html",
    "published": "2026-10-01T07:12:08.000Z",
@@ -1228,15 +1237,6 @@
    "blurb": "The Ultimate Fighting Championship returns to Utah for UFC 332, a solid enough card badly in need of a main event. The headliner, which sees Natalia Silva take on Cong Wang for the freshly vacant women\u2019s flyweight title, is stretched thin as a main event, but the rest of the main",
    "source": "YAHOO",
    "league": "UFC"
-  },
-  {
-   "headline": "Southeast Division watch: the Heat reloaded with Giannis, Klay",
-   "link": "https://sports.yahoo.com/articles/southeast-division-watch-heat-reloaded-070749325.html",
-   "published": "2026-10-01T07:07:49.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/3757e3076a5b23d14c04d3ae0604e2cc33a40fbdc17eab5746da43776ac6c1ce/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F56da70eb35fd2cd1130c929de641b5fd.jpg",
-   "blurb": "Let\u2019s check out the Southeast Division Dub Nation, a spicy part of the NBA this year. Last season, the Warriors split two with Miami, and only one of them still stings. The Heat took the first one 110-96 in November, against a Golden State roster so short-handed it looked like a ",
-   "source": "YAHOO",
-   "league": "NBA"
   },
   {
    "headline": "Alex Pereira Teases Massive UFC Fight News: \u2018Big Challenge\u2019",
@@ -1438,8 +1438,8 @@
   }
  ],
  "source_mix": {
-  "YAHOO": 71,
-  "ESPN": 50,
+  "ESPN": 52,
+  "YAHOO": 69,
   "CBS": 35
  },
  "degraded_sources": []
