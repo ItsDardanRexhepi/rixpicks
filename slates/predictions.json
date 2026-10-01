@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-01T00:50:18.224847+00:00",
+ "generated_at": "2026-10-01T01:05:24.563585+00:00",
  "items": [
-  {
-   "id": "34b134c98c",
-   "league": "WNBA",
-   "event": "Golden State Valkyries @ Dallas Wings",
-   "prediction": "Golden State Valkyries beat Dallas Wings",
-   "kickoff_utc": "2026-10-01T01:00:00+00:00"
-  },
   {
    "id": "bb57473240",
    "league": "MLB",
@@ -42,6 +35,13 @@
    "event": "North Carolina Courage @ Seattle Reign FC",
    "prediction": "North Carolina Courage beat Seattle Reign FC",
    "kickoff_utc": "2026-10-03T02:00:00+00:00"
+  },
+  {
+   "id": "e8a990c552",
+   "league": "CFB",
+   "event": "Alabama Crimson Tide @ Mississippi State Bulldogs",
+   "prediction": "Alabama Crimson Tide beat Mississippi State Bulldogs",
+   "kickoff_utc": "2026-10-03T16:00:00+00:00"
   }
  ]
 }
