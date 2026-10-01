@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-01T06:21:48.266Z",
+ "generated_at": "2026-10-01T06:26:45.529Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -279,21 +279,21 @@
   ],
   "basketball/wnba": [
    {
+    "headline": "Golden State, Dallas set for game 3 matchup",
+    "link": "http://www.espn.com/wnba/preview?gameId=401918294",
+    "published": "2026-10-01T06:09:29Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbasketball%2Fwnba%2Fevents%2F401918294.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Dallas Wings (27-17, 13-10 Western Conference) at Golden State Valkyries (32-12, 15-8 Western Conference)",
+    "league": "WNBA"
+   },
+   {
     "headline": "\u2018Angel (Reese) Looking Guilty,\u2019 \u2018(DeWanna Bonner) Really the Mom\u2019 \u2014 Hoops World Loses It as Dream Vet Stops Teammates\u2019 Mystics Trolling After Series Sweep",
     "link": "https://sports.yahoo.com/articles/angel-reese-looking-guilty-dewanna-055512423.html",
     "published": "2026-10-01T05:55:12.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/4cee5b8c332ab37e1fff000685e3bd2d827f8674c21f50b82608fc23e83894c9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpro_football_network_512%2Fa2c4d8eb71491a92df1eafe6d4d69ad4.jpg",
     "blurb": "The Atlanta Dream swept the Washington Mystics in two games to open the WNBA playoffs. They sealed the series with an emphatic 93-75 win on Wednesday.",
     "source": "YAHOO",
-    "league": "WNBA"
-   },
-   {
-    "headline": "Ogunbowale saves Wings' season, breaks playoff record with 45 in OT classic",
-    "link": "https://www.espn.com/wnba/story/_/id/50074355/wings-ogunbowale-scores-record-45-force-game-3-vs-valkyries",
-    "published": "2026-10-01T05:25:44.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724312_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Arike Ogunbowale delivered a record-breaking performance with the Wings' season on the line, scoring 45 points, including a tying 3-pointer to force overtime, to help Dallas force a deciding Game 3 against the Valkyries.",
-    "source": "ESPN",
     "league": "WNBA"
    },
    {
@@ -306,21 +306,21 @@
     "league": "WNBA"
    },
    {
+    "headline": "Ogunbowale saves Wings' season, breaks playoff record with 45 in OT classic",
+    "link": "https://www.espn.com/wnba/story/_/id/50074355/wings-ogunbowale-scores-record-45-force-game-3-vs-valkyries",
+    "published": "2026-10-01T05:25:44.000Z",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724312_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Arike Ogunbowale delivered a record-breaking performance with the Wings' season on the line, scoring 45 points, including a tying 3-pointer to force overtime, to help Dallas force a deciding Game 3 against the Valkyries.",
+    "source": "ESPN",
+    "league": "WNBA"
+   },
+   {
     "headline": "Wings news: Arike Ogunbowale sets bonkers record to save Dallas in Game 2",
     "link": "https://sports.yahoo.com/articles/wings-news-arike-ogunbowale-sets-052143867.html",
     "published": "2026-10-01T05:21:43.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/ac2edb61be88221a689daffdb856a61e59c73f8ba1eeb3bac6e421297bdfb115/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2F20c61b7db70b5ca50c4b6ca6c7d99a60.jpg",
     "blurb": "Someone should call the fire department because Dallas Wings guard Arike Ogunbowale is still aflame after her fiery performance against the Golden State Valkyries in Game 2 of their first-round series in the playoffs at College Park Center on Wednesday. Ogunbowale went Human Torc",
     "source": "YAHOO",
-    "league": "WNBA"
-   },
-   {
-    "headline": "Gray-led Dream into semis for 1st time since '18",
-    "link": "https://www.espn.com/wnba/story/_/id/50073272/allisha-gray-leads-dream-mystics-wnba-semifinals",
-    "published": "2026-10-01T05:25:44.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724244_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Allisha Gray scored 22 points, Jordin Canada had 13 of her 19 points in the fourth quarter, and the Dream advanced to the semifinals of the WNBA playoffs for the first time since 2018, beating the Mystics 93-75 in Game 2.",
-    "source": "ESPN",
     "league": "WNBA"
    },
    {
@@ -333,21 +333,21 @@
     "league": "WNBA"
    },
    {
+    "headline": "Gray-led Dream into semis for 1st time since '18",
+    "link": "https://www.espn.com/wnba/story/_/id/50073272/allisha-gray-leads-dream-mystics-wnba-semifinals",
+    "published": "2026-10-01T05:25:44.000Z",
+    "image": "",
+    "blurb": "Allisha Gray scored 22 points, Jordin Canada had 13 of her 19 points in the fourth quarter, and the Dream advanced to the semifinals of the WNBA playoffs for the first time since 2018, beating the Mystics 93-75 in Game 2.",
+    "source": "ESPN",
+    "league": "WNBA"
+   },
+   {
     "headline": "Sophie Cunningham Trolls A\u2019ja Wilson After Heated Fan Confrontation",
     "link": "https://sports.yahoo.com/articles/sophie-cunningham-trolls-ja-wilson-045225017.html",
     "published": "2026-10-01T04:52:25.000Z",
     "image": "",
     "blurb": "Sophie Cunningham added fresh tension to the Fever-Aces playoff series. A day after the Indiana Fever beat the Las Vegas Aces 99-89 in Game 2, the guard posted a TikTok that poked fun at A\u2019ja Wilson. The clip spread quickly on X and arrived just before a deciding Game 3. Here is ",
     "source": "YAHOO",
-    "league": "WNBA"
-   },
-   {
-    "headline": "Clark helps keep Fever alive with 'pretty incredible' Game 2 display vs. Aces",
-    "link": "https://www.espn.com/wnba/story/_/id/50063312/clark-monster-effort-helps-fever-force-game-3-aces",
-    "published": "2026-10-01T05:25:44.000Z",
-    "image": "",
-    "blurb": "Caitlin Clark became the first player in WNBA history with at least 25 points and 15 assists in a game (regular season or playoffs), helping the Fever stay alive with a 99-89 victory over the Aces at Gainbridge Fieldhouse.",
-    "source": "ESPN",
     "league": "WNBA"
    },
    {
@@ -360,12 +360,12 @@
     "league": "WNBA"
    },
    {
-    "headline": "\u201cLines Gets Crossed, And It Seems to Happen Here\u201d: Becky Hammon Doesn't Hold Back Her Thoughts Around A\u2019ja Wilson\u2019s Viral Fan Confrontation",
-    "link": "https://sports.yahoo.com/articles/lines-gets-crossed-seems-happen-031244255.html",
-    "published": "2026-10-01T03:12:44.000Z",
+    "headline": "Clark helps keep Fever alive with 'pretty incredible' Game 2 display vs. Aces",
+    "link": "https://www.espn.com/wnba/story/_/id/50063312/clark-monster-effort-helps-fever-force-game-3-aces",
+    "published": "2026-10-01T05:25:44.000Z",
     "image": "",
-    "blurb": "The Indiana Fever needed to answer back to the Aces in a must-win Game 2. They did just that, and Caitlin Clark made WNBA playoff history.",
-    "source": "YAHOO",
+    "blurb": "Caitlin Clark became the first player in WNBA history with at least 25 points and 15 assists in a game (regular season or playoffs), helping the Fever stay alive with a 99-89 victory over the Aces at Gainbridge Fieldhouse.",
+    "source": "ESPN",
     "league": "WNBA"
    }
   ],
@@ -1113,6 +1113,15 @@
    "league": "NFL"
   },
   {
+   "headline": "Golden State, Dallas set for game 3 matchup",
+   "link": "http://www.espn.com/wnba/preview?gameId=401918294",
+   "published": "2026-10-01T06:09:29Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbasketball%2Fwnba%2Fevents%2F401918294.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Dallas Wings (27-17, 13-10 Western Conference) at Golden State Valkyries (32-12, 15-8 Western Conference)",
+   "league": "WNBA"
+  },
+  {
    "headline": "Was Red Sox summer of love a mirage? Yankees beatdown exposes Boston | Opinion",
    "link": "https://sports.yahoo.com/articles/red-sox-summer-love-mirage-060923926.html",
    "published": "2026-10-01T06:09:23.000Z",
@@ -1199,15 +1208,6 @@
    "published": "2026-10-01T05:25:44.000Z",
    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724312_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Arike Ogunbowale delivered a record-breaking performance with the Wings' season on the line, scoring 45 points, including a tying 3-pointer to force overtime, to help Dallas force a deciding Game 3 against the Valkyries.",
-   "source": "ESPN",
-   "league": "WNBA"
-  },
-  {
-   "headline": "Gray-led Dream into semis for 1st time since '18",
-   "link": "https://www.espn.com/wnba/story/_/id/50073272/allisha-gray-leads-dream-mystics-wnba-semifinals",
-   "published": "2026-10-01T05:25:44.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724244_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Allisha Gray scored 22 points, Jordin Canada had 13 of her 19 points in the fourth quarter, and the Dream advanced to the semifinals of the WNBA playoffs for the first time since 2018, beating the Mystics 93-75 in Game 2.",
    "source": "ESPN",
    "league": "WNBA"
   },
@@ -1438,8 +1438,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 51,
-  "YAHOO": 70,
+  "ESPN": 52,
+  "YAHOO": 69,
   "CBS": 35
  },
  "degraded_sources": []
