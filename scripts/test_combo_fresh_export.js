@@ -9,6 +9,16 @@
    consumer callback registered BEFORE the utils script executes still resolves the global
    afterwards, (3) the built page carries the export. Run: node scripts/test_combo_fresh_export.js */
 'use strict';
+/* Pinned test clock: every card/feed date below is the fixed day 2026-09-30, so the suite must run
+   at a fixed instant, not the real wall clock (13 false FAILs at the Oct 1 rollover froze the gate).
+   Override with RP_FIXTURE_NOW to probe other instants. */
+const PINNED_NOW = Date.parse(process.env.RP_FIXTURE_NOW || '2026-09-30T18:30:00Z');
+const RealDate = Date;
+class PinnedDate extends RealDate {
+  constructor(...a) { if (a.length === 0) super(PINNED_NOW); else super(...a); }
+  static now() { return PINNED_NOW; }
+}
+
 const fs = require('fs'), path = require('path'), vm = require('vm');
 let failures = 0;
 function check(label, ok) { if (!ok) failures++; console.log((ok ? 'OK   ' : 'FAIL ') + label); }
@@ -34,7 +44,7 @@ function extract(name) {
   }
   console.error('FAIL: unbalanced ' + name); process.exit(1);
 }
-const ctx = vm.createContext({ Date, JSON, RegExp, String, Number });
+const ctx = vm.createContext({ Date: PinnedDate, JSON, RegExp, String, Number });
 ctx.window = ctx; // classic-script global proxy
 vm.runInContext(`var later=null; function consumer(){ later=function(){ return (([{id:'idea-x-20990101'}]).filter(rpComboFresh)).length; }; } consumer();`, ctx);
 // the utils script's relevant slice: the def, then (per the patch) the export line
@@ -84,7 +94,7 @@ check('combos module script found in page', !!modMatch);
       setTimeout: (fn) => { timers.push(fn); return 1; },
       setInterval: () => 1,
       rpTicketFeed: sandboxFeed,
-      Date, JSON, console,
+      Date: PinnedDate, JSON, console,
     };
     sandbox.window = sandbox;
     vm.createContext(sandbox);
