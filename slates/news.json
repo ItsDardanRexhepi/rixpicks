@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-01T10:25:33.259Z",
+ "generated_at": "2026-10-01T10:30:33.287Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -187,10 +187,64 @@
   ],
   "football/college-football": [
    {
+    "headline": "Texas A&M vs. Arkansas: Everything to know about the Razorbacks",
+    "link": "https://sports.yahoo.com/articles/texas-m-vs-arkansas-everything-101634268.html",
+    "published": "2026-10-01T10:16:34.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/0728c608cc9f1ad1e58f39ca9f512ecfdcdb1d33d5ffcc14d04063f57100e07e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2F221dd0ff9877400c0b9072bd4df37b02.jpg",
+    "blurb": "Will Texas A&M football rebound against Arkansas? Here is a full preview of what the Razorbacks bring to Kyle Field in Week 5.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "Taking stock of college football's coaching changes and what's next",
+    "link": "https://www.espn.com/college-football/story/_/id/50068029/college-football-coaching-change-coordinators-hot-seat-updates",
+    "published": "2026-10-01T10:10:44Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723960_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "So far, internal hires aren't working at a few spots while other coaches have elevated their profiles.",
+    "league": "CFB"
+   },
+   {
+    "headline": "Western Kentucky vs. New Mexico State live stream, where to watch, CBS Sports Network channel finder, odds",
+    "link": "https://www.cbssports.com/college-football/news/western-kentucky-at-new-mexico-st-live-stream-where-to-watch-online-cbs-sports-network-channel-finder-odds/",
+    "published": "2026-09-30T21:16:34.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2Fc3789e5b-3900-41f2-968a-a2ab52f2c271%2Fnmsu-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "A full weekend of football on CBS Sports Network kicks off on Thursday night",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
+    "headline": "Nyck Harbor will present a major test for Kentucky defense",
+    "link": "https://sports.yahoo.com/articles/nyck-harbor-present-major-test-101500943.html",
+    "published": "2026-10-01T10:15:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6af0972d81e121972b704ad3d8eefe0b663701d71b8ac18efd5a5b04e38d3cfe/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6ae8e5b8a9727e0bbae5e6834465bf77.jpg",
+    "blurb": "Nyck Harbor has the potential to be a game wrecker. And it just so happens to be a weakness for Kentucky Football.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "Can North Dakota State carry its winning pedigree to FBS?",
+    "link": "https://www.espn.com/college-football/story/_/id/50067268/north-dakota-state-rise-fcs-fbs-college-football-playoff-2026",
+    "published": "2026-10-01T10:07:52Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723902_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "After dominating the FCS ranks for years, can the Bison do the same in the Mountain West?",
+    "league": "CFB"
+   },
+   {
+    "headline": "Big Ten CFP race tightening as conference cannibalization threatens four-bid playoff hopes",
+    "link": "https://www.cbssports.com/college-football/news/big-ten-cfp-race-cannibalization-four-bid-playoff/",
+    "published": "2026-09-30T19:59:34.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2Fef82beb7-1bac-46f7-9d64-9fc18998f0da%2Fducks.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "A couple of unexpected CFP hopefuls have emerged in the Big Ten after Week 4 in what's been an unpredictable start to the season",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
     "headline": "TV channel, kickoff time for Georgia football at Alabama",
     "link": "https://sports.yahoo.com/articles/tv-channel-kickoff-time-georgia-101124031.html",
     "published": "2026-10-01T10:11:24.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/f3b1b3bcd20178dabbaf9343534410ff6770698f1d6ca01ed81d081fcc06341d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fuga_wire_usa_today_articles_805%2Fee7fc40c33afb9b4891ef8951f6c58ca.jpg",
+    "image": "",
     "blurb": "No. 2 Georgia and No. 7 Alabama meet in a primetime showdown with two of the nation's top-five scoring offenses. Here is how to watch the SEC clash.",
     "source": "YAHOO",
     "league": "CFB"
@@ -205,60 +259,6 @@
     "league": "CFB"
    },
    {
-    "headline": "Western Kentucky vs. New Mexico State live stream, where to watch, CBS Sports Network channel finder, odds",
-    "link": "https://www.cbssports.com/college-football/news/western-kentucky-at-new-mexico-st-live-stream-where-to-watch-online-cbs-sports-network-channel-finder-odds/",
-    "published": "2026-09-30T21:16:34.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2Fc3789e5b-3900-41f2-968a-a2ab52f2c271%2Fnmsu-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "A full weekend of football on CBS Sports Network kicks off on Thursday night",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "College football games on TV this week, Week 5 TV schedule for Saturday",
-    "link": "https://sports.yahoo.com/articles/college-football-games-tv-week-101016314.html",
-    "published": "2026-10-01T10:10:16.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/f92b75a46e17b9ed6dba41faaf7d3e50cd3e3f429330ad03f315ae589e01242d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2Fa6c6bf2b1543a7216d76f730254a7885.jpg",
-    "blurb": "See the college football Week 5 TV schedule for this weekend's games.",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
-    "headline": "How will South Carolina handle pressure of must-win matchup vs. Kentucky?",
-    "link": "https://www.espn.com/video/clip/_/id/50073379/how-south-carolina-handle-pressure-win-matchup-vs-kentucky",
-    "published": "2026-10-01T01:55:08Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F0930%2Fdm_260930_SEC_NCF_Analysis_Kentucky_south_carolina_preview_260930%2Fdm_260930_SEC_NCF_Analysis_Kentucky_south_carolina_preview_260930.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "SEC Network's Gene Chizik discusses why the pressure is so high for the Gamecocks after their performance vs. Alabama and what they must do if they want to defeat the Wildcats.",
-    "league": "CFB"
-   },
-   {
-    "headline": "Big Ten CFP race tightening as conference cannibalization threatens four-bid playoff hopes",
-    "link": "https://www.cbssports.com/college-football/news/big-ten-cfp-race-cannibalization-four-bid-playoff/",
-    "published": "2026-09-30T19:59:34.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F29%2Fef82beb7-1bac-46f7-9d64-9fc18998f0da%2Fducks.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "A couple of unexpected CFP hopefuls have emerged in the Big Ten after Week 4 in what's been an unpredictable start to the season",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "3 areas to watch in Texas A&M football's Week 5 showdown vs. Arkansas",
-    "link": "https://sports.yahoo.com/articles/3-areas-watch-texas-m-100944001.html",
-    "published": "2026-10-01T10:09:44.000Z",
-    "image": "",
-    "blurb": "Which three areas must Texas A&M football improve to defeat Arkansas in Week 5?",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
-    "headline": "Texas AD says Longhorns' vulgar celebrations 'embarrassing'",
-    "link": "https://www.espn.com/college-football/story/_/id/50068724/texas-ad-calls-longhorns-vulgar-celebrations-embarrassing",
-    "published": "2026-10-01T01:36:15.000Z",
-    "image": "",
-    "blurb": "Texas athletic director Chris Del Conte apologized for the top-ranked Longhorns' vulgar on-field celebrations during their win over Tennessee and called them \"embarrassing\" for the school.",
-    "source": "ESPN",
-    "league": "CFB"
-   },
-   {
     "headline": "Lincoln Riley, Brent Venables among college football coaches who didn't earn their paychecks in September",
     "link": "https://www.cbssports.com/college-football/news/lincoln-riley-brent-venables-college-football-coaches-paychecks-september/",
     "published": "2026-09-30T19:05:31.000Z",
@@ -268,11 +268,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Deion Sanders roster moves expose Protect College Sports Act 'hypocrisy,' critics say",
-    "link": "https://sports.yahoo.com/articles/deion-sanders-roster-moves-expose-100923520.html",
-    "published": "2026-10-01T10:09:23.000Z",
+    "headline": "College football games on TV this week, Week 5 TV schedule for Saturday",
+    "link": "https://sports.yahoo.com/articles/college-football-games-tv-week-101016314.html",
+    "published": "2026-10-01T10:10:16.000Z",
     "image": "",
-    "blurb": "Deion Sanders' endorsement of the Protect College Sports Act highlights the hypocrisy and power given to coaches by bill in Congress, critics say",
+    "blurb": "See the college football Week 5 TV schedule for this weekend's games.",
     "source": "YAHOO",
     "league": "CFB"
    }
@@ -1077,11 +1077,20 @@
  },
  "latest": [
   {
-   "headline": "TV channel, kickoff time for Georgia football at Alabama",
-   "link": "https://sports.yahoo.com/articles/tv-channel-kickoff-time-georgia-101124031.html",
-   "published": "2026-10-01T10:11:24.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/f3b1b3bcd20178dabbaf9343534410ff6770698f1d6ca01ed81d081fcc06341d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fuga_wire_usa_today_articles_805%2Fee7fc40c33afb9b4891ef8951f6c58ca.jpg",
-   "blurb": "No. 2 Georgia and No. 7 Alabama meet in a primetime showdown with two of the nation's top-five scoring offenses. Here is how to watch the SEC clash.",
+   "headline": "Texas A&M vs. Arkansas: Everything to know about the Razorbacks",
+   "link": "https://sports.yahoo.com/articles/texas-m-vs-arkansas-everything-101634268.html",
+   "published": "2026-10-01T10:16:34.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/0728c608cc9f1ad1e58f39ca9f512ecfdcdb1d33d5ffcc14d04063f57100e07e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2F221dd0ff9877400c0b9072bd4df37b02.jpg",
+   "blurb": "Will Texas A&M football rebound against Arkansas? Here is a full preview of what the Razorbacks bring to Kyle Field in Week 5.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "Nyck Harbor will present a major test for Kentucky defense",
+   "link": "https://sports.yahoo.com/articles/nyck-harbor-present-major-test-101500943.html",
+   "published": "2026-10-01T10:15:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/6af0972d81e121972b704ad3d8eefe0b663701d71b8ac18efd5a5b04e38d3cfe/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6ae8e5b8a9727e0bbae5e6834465bf77.jpg",
+   "blurb": "Nyck Harbor has the potential to be a game wrecker. And it just so happens to be a weakness for Kentucky Football.",
    "source": "YAHOO",
    "league": "CFB"
   },
@@ -1095,12 +1104,12 @@
    "league": "NFL"
   },
   {
-   "headline": "College football games on TV this week, Week 5 TV schedule for Saturday",
-   "link": "https://sports.yahoo.com/articles/college-football-games-tv-week-101016314.html",
-   "published": "2026-10-01T10:10:16.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/f92b75a46e17b9ed6dba41faaf7d3e50cd3e3f429330ad03f315ae589e01242d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2Fa6c6bf2b1543a7216d76f730254a7885.jpg",
-   "blurb": "See the college football Week 5 TV schedule for this weekend's games.",
-   "source": "YAHOO",
+   "headline": "Taking stock of college football's coaching changes and what's next",
+   "link": "https://www.espn.com/college-football/story/_/id/50068029/college-football-coaching-change-coordinators-hot-seat-updates",
+   "published": "2026-10-01T10:10:44Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723960_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "So far, internal hires aren't working at a few spots while other coaches have elevated their profiles.",
    "league": "CFB"
   },
   {
@@ -1113,6 +1122,15 @@
    "league": "NFL"
   },
   {
+   "headline": "Can North Dakota State carry its winning pedigree to FBS?",
+   "link": "https://www.espn.com/college-football/story/_/id/50067268/north-dakota-state-rise-fcs-fbs-college-football-playoff-2026",
+   "published": "2026-10-01T10:07:52Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723902_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "After dominating the FCS ranks for years, can the Bison do the same in the Mountain West?",
+   "league": "CFB"
+  },
+  {
    "headline": "Padres silence Cubs' bats again, finish off 2-game wild-card sweep",
    "link": "https://www.espn.com/mlb/story/_/id/50074597/padres-silence-cubs-bats-again-finish-2-game-wild-card-sweep",
    "published": "2026-10-01T10:06:31Z",
@@ -1120,15 +1138,6 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1001%2Fr1724327_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Five Padres pitchers combined on a five-hitter and Gavin Sheets hit a pinch-hit two-run homer, as San Diego swept the Cubs out of the NL Wild Card Series with a 4-1 win.",
    "league": "MLB"
-  },
-  {
-   "headline": "Game Day kickoff: An epic QB showcase in Starkville and the best of the rest of Week 5",
-   "link": "https://www.espn.com/college-football/story/_/page/gamedaykickoff100126/2026-gameday-kickoff-week-5-preview-top-games-mississippi-state-alabama",
-   "published": "2026-10-01T10:06:25Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723940_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Mississippi State and Kamario Taylor will face their biggest test yet, plus, teams on upset watch and other games to watch.",
-   "league": "CFB"
   },
   {
    "headline": "Kentucky\u2019s presence was felt throughout NBA Media Days",
@@ -1336,15 +1345,6 @@
    "blurb": "Mark Pope and the Kentucky Basketball program welcomed a big-time recruit on a surprise visit this weekend, and it could spell good fortune for the future of the program. The post Kentucky Basketball Earns Surprise Visit From Top-10 Recruit appeared first on Stadium Rant.",
    "source": "YAHOO",
    "league": "NCAAB"
-  },
-  {
-   "headline": "How will South Carolina handle pressure of must-win matchup vs. Kentucky?",
-   "link": "https://www.espn.com/video/clip/_/id/50073379/how-south-carolina-handle-pressure-win-matchup-vs-kentucky",
-   "published": "2026-10-01T01:55:08Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F0930%2Fdm_260930_SEC_NCF_Analysis_Kentucky_south_carolina_preview_260930%2Fdm_260930_SEC_NCF_Analysis_Kentucky_south_carolina_preview_260930.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "SEC Network's Gene Chizik discusses why the pressure is so high for the Gamecocks after their performance vs. Alabama and what they must do if they want to defeat the Wildcats.",
-   "league": "CFB"
   },
   {
    "headline": "NASCAR Announces Qualifying Decision For $11.2 Million Race Sunday",
