@@ -1,6 +1,13 @@
 {
- "generated_at": "2026-10-01T15:06:14.630499+00:00",
+ "generated_at": "2026-10-01T15:21:08.456998+00:00",
  "items": [
+  {
+   "id": "dba23aaf94",
+   "league": "MLB",
+   "event": "Philadelphia Phillies @ Atlanta Braves",
+   "prediction": "Atlanta Braves beat Philadelphia Phillies",
+   "kickoff_utc": "2026-10-02T00:00:00+00:00"
+  },
   {
    "id": "53ae48a051",
    "league": "NFL",
@@ -35,13 +42,6 @@
    "event": "San Diego Wave FC @ Orlando Pride",
    "prediction": "Orlando Pride beat San Diego Wave FC",
    "kickoff_utc": "2026-10-03T00:00:00+00:00"
-  },
-  {
-   "id": "8382c9e5bb",
-   "league": "NWSL",
-   "event": "North Carolina Courage @ Seattle Reign FC",
-   "prediction": "North Carolina Courage beat Seattle Reign FC",
-   "kickoff_utc": "2026-10-03T02:00:00+00:00"
   }
  ]
 }
