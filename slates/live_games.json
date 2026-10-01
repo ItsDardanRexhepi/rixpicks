@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T02:35:35.679470+00:00",
+ "generated_at": "2026-10-01T02:50:30.387881+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,16 +10,16 @@
      "matchup": "BOS @ NYY",
      "commence": "2026-10-01T00:00Z",
      "status": "in",
-     "detail": "Bot 7th",
-     "score": "BOS 2 - NYY 8"
+     "detail": "Top 8th",
+     "score": "BOS 2 - NYY 9"
     },
     {
      "espn_event_id": "401907975",
      "matchup": "CHC @ SD",
      "commence": "2026-10-01T02:00Z",
      "status": "in",
-     "detail": "Bot 2nd",
-     "score": "CHC 0 - SD 0"
+     "detail": "Top 3rd",
+     "score": "CHC 0 - SD 2"
     }
    ]
   },
@@ -39,9 +39,9 @@
      "matchup": "GS @ DAL",
      "commence": "2026-10-01T01:00Z",
      "status": "in",
-     "detail": "4:25 - 3rd",
-     "score": "GS 62 - DAL 59",
-     "away_to": 4,
+     "detail": "8:52 - 4th",
+     "score": "GS 76 - DAL 72",
+     "away_to": 3,
      "home_to": 4
     }
    ]
@@ -70,8 +70,8 @@
      "matchup": "LA @ COL",
      "commence": "2026-10-01T02:00Z",
      "status": "in",
-     "detail": "12:07 - 1st",
-     "score": "LA 0 - COL 1",
+     "detail": "4:17 - 1st",
+     "score": "LA 1 - COL 1",
      "away_to": null,
      "home_to": null
     }
