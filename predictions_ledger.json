@@ -602,8 +602,9 @@
   "pick_team": "St. Louis CITY SC",
   "prediction": "St. Louis CITY SC beat Red Bull New York",
   "kickoff_utc": "2026-09-30T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T20:19:47.456809+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T20:19:47.456809+00:00",
+  "settled_at": "2026-10-01T02:05:20.610652+00:00"
  },
  {
   "id": "2edb1a37d0",
