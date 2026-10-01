@@ -12,7 +12,7 @@ from core.units import display_units
 ALLOWED_ROW_KEYS = {'grade_id', 'date', 'record', 'win_pct', 'units', 'units_exact', 'basis', 'graded_pick', 'source'}
 SITE_URL = 'https://api.rix-picks.com/record/update'
 SITE_GET = 'https://api.rix-picks.com/record'
-BASIS = 'card stake at locked price, $15/u'
+BASIS = 'units: card stake at locked price, 1u = $1,000 bankroll'
 
 def build_record_row(grade_id, date, record, win_pct, units_exact, basis, graded_pick=None, source=None):
     row = {'grade_id': grade_id, 'date': date, 'record': record, 'win_pct': win_pct,
