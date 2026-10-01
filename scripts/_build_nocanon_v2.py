@@ -3379,12 +3379,12 @@ FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="vie
 <div id="rpPull"></div>
 <div class="wrap">
 <h1><a href="index.html"><span class="tick">&rsquo;</span>RixPicks</a></h1>
-<div class="status">Futures &middot; __COUNT__ picks &middot; live Kalshi tracking vs carded entry</div>
+<div class="status">Futures &middot; __COUNT__ picks &middot; prices labeled by source (Kalshi ask or Polymarket) vs carded entry</div>
 <div class="intro">Entry = the price we carded. Live = current market. Arrow shows movement since entry.</div>
 <div class="intro"><span id="rpFutPre">Live quotes as of </span><span id="rpFutAsOf">__FUTASOF__</span><span id="rpFutTail"> PT &middot; refresh every ~5 min</span></div>
 __ROWS__
 <div id="rpFd" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(0,0,0,.78);align-items:flex-end;justify-content:center" onclick="if(event.target===this)rpFdClose()"><div id="rpFdBox" style="background:#000000;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;padding:16px;color:#ECECF1"></div></div>
-<div class="unitmath" style="margin-top:18px">Live prices via Kalshi &middot; refresh live &middot; build __BUILD__</div>
+<div class="unitmath" style="margin-top:18px">Each price is labeled with its source (Kalshi ask or Polymarket) &middot; refresh live &middot; build __BUILD__</div>
 </div>
 <script>
 async function rpFutTick(){
@@ -3416,7 +3416,7 @@ async function rpFutTick(){
     var c=p*100;
     var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
     var el=r.querySelector('.futlive');
-    el.textContent=(ml>0?'+':'')+ml;
+    el.textContent=(ml>0?'+':'')+ml;var _sl=r.querySelector('.futsrc');if(_sl)_sl.textContent='POLYMARKET';
     var entry=r.dataset.entry||'+0';
     var eMl=parseInt(entry.replace('+',''),10)||100;
     var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
@@ -3490,7 +3490,7 @@ function rpFutOpen(fid){
    var eMl=parseInt(String(entry).replace('+',''),10)||100;var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
    var d=(p-eImp)*100;
    var arrow=d>0.5?'<span style="color:#3ecf6f">&#9650; '+d.toFixed(1)+' pts since entry</span>':(d<-0.5?'<span style="color:#e5484d">&#9660; '+Math.abs(d).toFixed(1)+' pts since entry</span>':'flat vs entry');
-   b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow;
+   b.innerHTML='Live on Polymarket <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow;
   }).catch(function(){if(window.__rpFdFid!==_fid)return;var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
   return;}
  if((window.__rpFutMkts||{})[slug]){rpFdRenderLive(r);return;}
@@ -3531,7 +3531,7 @@ function rpFdRenderLive(r){
   var v24=m.volume24hr?('$'+Math.round(m.volume24hr).toLocaleString()+' traded in last 24h'):'';
   var liq=m.liquidity?(' &middot; $'+Math.round(m.liquidity).toLocaleString()+' liquidity'):'';
   var d1=(m.oneDayPriceChange!=null)?((m.oneDayPriceChange*100>=0?'+':'')+(m.oneDayPriceChange*100).toFixed(1)+' pts last 24h'):'';
-  b.dataset.live='1';b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow+'<div style="margin-top:4px;color:#9A9AA3">'+[d1,v24+liq].filter(Boolean).join(' &middot; ')+'</div>';
+  b.dataset.live='1';b.innerHTML='Live on Polymarket <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow+'<div style="margin-top:4px;color:#9A9AA3">'+[d1,v24+liq].filter(Boolean).join(' &middot; ')+'</div>';
  }catch(e){b.textContent='live data unavailable';}
 }
 </script>
@@ -3573,11 +3573,11 @@ def build_futures_page(css,build_sha):
         _pcom=(f.get('polymarket_com') or {})
         _flink=''
         if _furl:
-            _flbl='POLY'+((' '+c2ml(_pus['cents'])) if isinstance(_pus.get('cents'),(int,float)) else '')
+            _flbl='Polymarket'+((' '+c2ml(_pus['cents'])) if isinstance(_pus.get('cents'),(int,float)) else '')
             _flink=('<div style="margin-top:6px"><a class="chip futpoly"%s href="%s" data-book="POLY" data-sb="%s" target="_blank" rel="noreferrer">%s</a></div>'%(bkstyle('POLY'),html.escape(_furl),html.escape(_furl),html.escape(_flbl)))
         elif _pcom.get('url') and _pcom.get('verified') and isinstance(_pcom.get('cents'),(int,float)) and 0<_pcom['cents']<100:
             if _link_alive(_pcom['url']):
-                _flink=('<div style="margin-top:6px"><a class="chip futpoly"%s href="%s" data-book="POLY" data-sb="%s" target="_blank" rel="noreferrer">POLY %s</a></div>'%(bkstyle('POLY'),html.escape(_pcom['url']),html.escape(_pcom['url']),html.escape(c2ml(_pcom['cents']))))
+                _flink=('<div style="margin-top:6px"><a class="chip futpoly"%s href="%s" data-book="POLY" data-sb="%s" target="_blank" rel="noreferrer">Polymarket %s</a></div>'%(bkstyle('POLY'),html.escape(_pcom['url']),html.escape(_pcom['url']),html.escape(c2ml(_pcom['cents']))))
             else:
                 print(f"LINK DROP: futures {f.get('team')} dead/generic .com destination: {_pcom['url']}", file=sys.stderr)
         # 9/27 owner instruction: futures odds live on-site. Server-seeded Kalshi ask (futures_quotes.py
@@ -3600,14 +3600,14 @@ def build_futures_page(css,build_sha):
         rows.append(('<div class="futrow" data-fid="%s" data-pslug="%s" data-pkw="%s" data-kalticker="%s"%s data-entry="%s" data-team="%s" data-mkt="%s" data-fair="%s" data-prob="%s" data-res="%s" data-units="%s" data-note="%s" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.15)">'
         '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">'
         '<span style="font-weight:700">'+('<img src="https://a.espncdn.com/i/teamlogos/'+_REGALL.get(f.get('league',''),{}).get('logo_dir','')+'/500/'+f.get('abbr','')+'.png" style="width:20px;height:20px;vertical-align:-4px;margin-right:7px" onerror="this.remove()">' if f.get('abbr') and _REGALL.get(f.get('league',''),{}).get('logo_dir') else '')+'%s</span>'
-        '<span style="white-space:nowrap"><span class="futlive" style="font-weight:700;color:#3aa895;opacity:%s">%s</span><button class="futdots" onclick="rpFutOpen(this.getAttribute(\'data-f\'))" data-f="%s" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div>'
+        '<span style="white-space:nowrap"><span class="futsrc" style="font-size:10px;color:#8a8f98;font-weight:600;letter-spacing:.04em;margin-right:6px;vertical-align:1px">%s</span><span class="futlive" style="font-weight:700;color:#3aa895;opacity:%s">%s</span><button class="futdots" onclick="rpFutOpen(this.getAttribute(\'data-f\'))" data-f="%s" style="background:none;border:none;color:#8a8f98;font-size:16px;padding:2px 2px 2px 8px;cursor:pointer;vertical-align:1px">&#8943;</button></span></div>'
         '<div style="font-size:12px;color:#8a8f98;margin-top:2px">%s &middot; entry %s &middot; %su%s</div>'
         + ('<div style="font-size:12px;margin-top:3px;color:#d8a23a">&#8646; pick changed from %s (%s)</div>'%(html.escape(f['changed_from']['team']),html.escape(f['changed_from']['odds'])) if f.get('changed_from') else '')
         + '%s'
         + '<div class="futmove" style="font-size:12px;margin-top:3px;color:#8a8f98">%s</div></div>')
         %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(_ktick),_kqattrs,html.escape(f['odds']),
           html.escape(f['team']),html.escape(f['market']),html.escape(f.get('fair','')),html.escape(str(f.get('prob',''))),html.escape(f.get('res','')),str(f.get('units',2)),html.escape(f.get('note','')),
-          html.escape(f['team']),('' if _kqok else '.55'),html.escape(_fut_live),html.escape(f['id']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else ''),_flink,_futmove))
+          html.escape(f['team']),('KALSHI ASK' if _kqok else 'CARDED ENTRY'),('' if _kqok else '.55'),html.escape(_fut_live),html.escape(f['id']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else ''),_flink,_futmove))
     if settled_rows:
         rows.append('<div class="sect" style="margin-top:18px">Settled</div>')
         rows.extend(settled_rows)
@@ -3629,7 +3629,7 @@ function rpFutPoll(){fetch("futures.json?cb="+Date.now(),{cache:"no-store"}).the
   if(kq.quoted_at&&kq.quoted_at>asof)asof=kq.quoted_at;
   var pc=f.polymarket_com;
   if(pc&&pc.quoted_at&&pc.quoted_at>asof)asof=pc.quoted_at;
-  if(pc&&pc.verified&&typeof pc.cents==="number"&&pc.cents>0&&pc.cents<100){var pel=el.querySelector(".futpoly");if(pel)pel.textContent="POLY "+_faml(pc.cents);}
+  if(pc&&pc.verified&&typeof pc.cents==="number"&&pc.cents>0&&pc.cents<100){var pel=el.querySelector(".futpoly");if(pel)pel.textContent="Polymarket "+_faml(pc.cents);}
  });
  if(asof){
   var age=Date.now()-new Date(asof).getTime();
