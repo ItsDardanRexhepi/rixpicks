@@ -156,3 +156,6 @@ overnight prod ticks make the gate noisy (a data-sparsity artifact, not a parity
 
 ### v14 diagnostic (main decision 10/1 1:27 PM PT, no rule or threshold change)
 Each futures cycle also records `mismatch_n` and a capped-30 `mismatch` list: non-exempt compared Poly keys outside the 2c band (key, prod, worker, gap, live bid/ask, prod tick age). The full list is stored in `parity/exempt/<ts>.json` (field `mismatch`), and `parity/exempt_summary.json` gains per-key `mismatch_cycles`, `max_gap`, `last_mismatch`, plus `cycles_with_mismatch` and a 5th element in `cycle_counts`. Cycles before the v14 deploy carry no mismatch data.
+
+### v15 retention (main decision 10/1 3:29 PM PT)
+`parity/exempt/<ts>.json` files older than 7 days are pruned (hourly, max 100 deletes per run, oldest first). `parity/exempt_summary.json` and the `parity/` prefix are never touched. Nothing is deleted in the first 7 days after v13 deploy (9:28Z 10/1), so the acceptance evidence stays until at least 10/8.

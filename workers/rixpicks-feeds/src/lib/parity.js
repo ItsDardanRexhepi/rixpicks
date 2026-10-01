@@ -186,6 +186,7 @@ function quotesParity(mine, prod) {
 // must be listed in the final acceptance summary. Tolerance unchanged (+/-2c).
 function fnv(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h.toString(16).padStart(8, '0'); }
 const OFFBOOK_MIN_AGE_MIN = 15;
+const EXEMPT_RETAIN_DAYS = 7; // v15: retention for parity/exempt/<ts>.json audit files
 const STALE_PROD_MIN = 60;
 function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
   const exempt = []; const exemptBook = []; const mism = [];
@@ -327,6 +328,18 @@ export async function runParity(env, justRan) {
           await Promise.all(puts);
         }
       } catch (e) { console.error('exempt audit store error:', String(e).slice(0, 100)); }
+      // v15 retention (main 10/1 3:29 PM PT): prune per-cycle audit files older than 7 days. Keys are
+      // ISO-timestamped so list order is chronological; stop at the first file inside the window.
+      // Once an hour, at most 100 deletes. exempt_summary.json and the parity/ prefix are never touched.
+      try {
+        if (new Date(report.ts).getUTCMinutes() < 2) {
+          const cutoff = new Date(Date.parse(report.ts) - EXEMPT_RETAIN_DAYS * 86400000).toISOString();
+          const lst = await env.FEEDS.list({ prefix: 'parity/exempt/', limit: 100 });
+          const old = [];
+          for (const o of lst.objects || []) { const t = o.key.slice('parity/exempt/'.length, -'.json'.length); if (t < cutoff) old.push(o.key); else break; }
+          if (old.length) await env.FEEDS.delete(old);
+        }
+      } catch (e) { console.error('exempt prune error:', String(e).slice(0, 100)); }
     }
   } catch (e) { report.error = String(e).slice(0, 120); }
   // rolling 24h window
