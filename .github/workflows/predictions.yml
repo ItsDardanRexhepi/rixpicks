@@ -9,7 +9,25 @@ concurrency:
   group: predictions
   cancel-in-progress: false
 jobs:
+  hold-check:
+    # posting-job auto-hold: structural FAIL only (Julian 9/30). Fails open on unknown/error.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      held: ${{ steps.hc.outputs.held }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            scripts/health_gate.js
+            .github/actions
+          sparse-checkout-cone-mode: false
+      - id: hc
+        uses: ./.github/actions/hold-check
   predict:
+    needs: hold-check
+    if: ${{ !cancelled() && needs.hold-check.outputs.held != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
