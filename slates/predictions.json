@@ -1,6 +1,13 @@
 {
- "generated_at": "2026-10-01T15:51:01.941327+00:00",
+ "generated_at": "2026-10-01T16:05:56.413753+00:00",
  "items": [
+  {
+   "id": "52af531c67",
+   "league": "NHL",
+   "event": "Tampa Bay Lightning @ New York Rangers",
+   "prediction": "Tampa Bay Lightning beat New York Rangers",
+   "kickoff_utc": "2026-10-01T23:00:00+00:00"
+  },
   {
    "id": "dba23aaf94",
    "league": "MLB",
@@ -35,13 +42,6 @@
    "event": "Chicago Blackhawks @ Utah Mammoth",
    "prediction": "Utah Mammoth beat Chicago Blackhawks",
    "kickoff_utc": "2026-10-02T01:30:00+00:00"
-  },
-  {
-   "id": "91e64929a5",
-   "league": "NWSL",
-   "event": "San Diego Wave FC @ Orlando Pride",
-   "prediction": "Orlando Pride beat San Diego Wave FC",
-   "kickoff_utc": "2026-10-03T00:00:00+00:00"
   }
  ]
 }

@@ -715,5 +715,18 @@
   "kickoff_utc": "2026-10-02T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-01T15:20:37.707761+00:00"
+ },
+ {
+  "id": "52af531c67",
+  "event_id": "401891819",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "New York Rangers",
+  "away": "Tampa Bay Lightning",
+  "pick_team": "Tampa Bay Lightning",
+  "prediction": "Tampa Bay Lightning beat New York Rangers",
+  "kickoff_utc": "2026-10-01T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-01T16:05:26.485789+00:00"
  }
 ]
