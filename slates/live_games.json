@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T23:05:02.194443+00:00",
+ "generated_at": "2026-10-01T23:20:03.006734+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -65,6 +65,36 @@
   {
    "league": "NHL",
    "games": [
+    {
+     "espn_event_id": "401891781",
+     "matchup": "BUF @ CBJ",
+     "commence": "2026-10-01T23:00Z",
+     "status": "in",
+     "detail": "18:01 - 1st",
+     "score": "BUF 0 - CBJ 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401891817",
+     "matchup": "PHI @ NJ",
+     "commence": "2026-10-01T23:00Z",
+     "status": "in",
+     "detail": "13:40 - 1st",
+     "score": "PHI 0 - NJ 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401891819",
+     "matchup": "TB @ NYR",
+     "commence": "2026-10-01T23:00Z",
+     "status": "in",
+     "detail": "18:40 - 1st",
+     "score": "TB 0 - NYR 0",
+     "away_to": null,
+     "home_to": null
+    },
     {
      "espn_event_id": "401891816",
      "matchup": "MIN @ NSH",
