@@ -27,6 +27,11 @@ if [ "$(git rev-parse HEAD)" = "$BASE" ]; then
 fi
 for i in 1 2 3 4 5; do
   if git push; then exit 0; fi
+  # Re-derive the base for THIS attempt. After a first rebase our commits sit on top of the
+  # upstream we already pulled; a base frozen at checkout time would count that upstream
+  # content as "our files" on attempt 2 and fail loud on the next tick (Sep 30 odds-refresh
+  # 36821687100: two ticks landed between three push attempts).
+  BASE=$(git merge-base HEAD origin/main)
   git pull --rebase -X theirs || { git rebase --abort; continue; }
   MOVED=""
   for f in $LANE_FILES; do

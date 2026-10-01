@@ -53,4 +53,24 @@ cd .. && git clone -q -b main origin.git runner2 && (cd runner2 && git config us
 (cd ../lane && git pull -q origin main && printf 'tick2 %s\n' "$(date +%s)" > futures_tick.txt && git add -A && git commit -qm 'tick: futures only 2' && git push -q origin main)
 OUT=$(bash "$SCRIPT_UNDER_TEST" 2>&1); RC2=$?
 [ $RC2 -eq 0 ] || { echo "FAIL: no-commit run misfired loud (rc=$RC2): $OUT"; FAIL=1; }
-if [ $FAIL -eq 0 ]; then echo 'PASS push race guard (loud fail + reset + clean-push control + own-manifest misfire case + no-commit case)'; exit 0; else exit 1; fi
+# case (Sep 30 odds-refresh 36821687100): two non-lane ticks land between three push attempts
+# (a pre-push hook injects a real lane push before the first two attempts). The run's own commit
+# must still land and both ticks must survive; no loud fail.
+cd .. && git clone -q -b main origin.git runner3 && cd runner3 || exit 2
+git config user.email t@t && git config user.name t
+printf 'odds 1\n' > odds_file.txt && git add -A && git commit -qm 'refresh: own odds commit'
+printf '0' > "$SCRATCH/hookcount"
+cat > .git/hooks/pre-push <<HOOK
+#!/bin/bash
+n=\$(cat "$SCRATCH/hookcount"); n=\$((n+1)); printf '%s' "\$n" > "$SCRATCH/hookcount"
+if [ "\$n" -le 2 ]; then
+  (cd "$SCRATCH/lane" && git pull -q origin main && printf 'race tick %s\n' "\$n" >> futures_tick.txt && git add -A && git commit -qm "tick: race \$n" && git push -q origin main)
+fi
+exit 0
+HOOK
+chmod +x .git/hooks/pre-push
+OUT=$(bash "$SCRIPT_UNDER_TEST" 2>&1); RC3=$?
+[ $RC3 -eq 0 ] || { echo "FAIL: two-tick race failed loud (rc=$RC3): $(echo "$OUT" | tail -3)"; FAIL=1; }
+[ "$(git -C ../origin.git show main:odds_file.txt 2>/dev/null)" = "odds 1" ] || { echo 'FAIL: own odds commit did not land'; FAIL=1; }
+[ "$(git -C ../origin.git show main:futures_tick.txt | grep -c 'race tick')" = "2" ] || { echo 'FAIL: race ticks lost'; FAIL=1; }
+if [ $FAIL -eq 0 ]; then echo 'PASS push race guard (loud fail + reset + clean-push control + own-manifest misfire case + no-commit case + two-tick race)'; exit 0; else exit 1; fi
