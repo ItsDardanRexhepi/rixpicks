@@ -1,55 +1,33 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T03:50:35.403872+00:00",
+ "generated_at": "2026-10-01T21:04:27.595244+00:00",
  "leagues": [
-  {
-   "league": "MLB",
-   "games": [
-    {
-     "espn_event_id": "401907963",
-     "matchup": "BOS @ NYY",
-     "commence": "2026-10-01T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "BOS 2 - NYY 9"
-    },
-    {
-     "espn_event_id": "401907975",
-     "matchup": "CHC @ SD",
-     "commence": "2026-10-01T02:00Z",
-     "status": "in",
-     "detail": "Bot 5th",
-     "score": "CHC 1 - SD 4"
-    }
-   ]
-  },
-  {
-   "league": "WNBA",
-   "games": [
-    {
-     "espn_event_id": "401918020",
-     "matchup": "GS @ DAL",
-     "commence": "2026-10-01T01:00Z",
-     "status": "in",
-     "detail": "21.9 - OT",
-     "score": "GS 100 - DAL 106",
-     "away_to": 1,
-     "home_to": 2
-    }
-   ]
-  },
   {
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401891780",
-     "matchup": "LA @ COL",
-     "commence": "2026-10-01T02:00Z",
-     "status": "in",
-     "detail": "3:59 - 2nd",
-     "score": "LA 2 - COL 4",
-     "away_to": null,
-     "home_to": null
+     "espn_event_id": "401891781",
+     "matchup": "BUF @ CBJ",
+     "commence": "2026-10-01T23:00Z",
+     "status": "pre",
+     "detail": "10/1 - 4:00 PM PT",
+     "score": "BUF 0 - CBJ 0"
+    },
+    {
+     "espn_event_id": "401891817",
+     "matchup": "PHI @ NJ",
+     "commence": "2026-10-01T23:00Z",
+     "status": "pre",
+     "detail": "10/1 - 4:00 PM PT",
+     "score": "PHI 0 - NJ 0"
+    },
+    {
+     "espn_event_id": "401891819",
+     "matchup": "TB @ NYR",
+     "commence": "2026-10-01T23:00Z",
+     "status": "pre",
+     "detail": "10/1 - 4:00 PM PT",
+     "score": "TB 0 - NYR 0"
     }
    ]
   }
