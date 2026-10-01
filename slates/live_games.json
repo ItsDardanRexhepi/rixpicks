@@ -1,7 +1,33 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T21:49:34.519751+00:00",
+ "generated_at": "2026-10-01T22:04:32.893896+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401907973",
+     "matchup": "PHI @ ATL",
+     "commence": "2026-10-02T00:00Z",
+     "status": "pre",
+     "detail": "10/1 - 5:00 PM PT",
+     "score": "PHI 0 - ATL 0"
+    }
+   ]
+  },
+  {
+   "league": "CFB",
+   "games": [
+    {
+     "espn_event_id": "401871049",
+     "matchup": "WKU @ NMSU",
+     "commence": "2026-10-02T00:00Z",
+     "status": "pre",
+     "detail": "10/1 - 5:00 PM PT",
+     "score": "WKU 0 - NMSU 0"
+    }
+   ]
+  },
   {
    "league": "NHL",
    "games": [
@@ -28,6 +54,14 @@
      "status": "pre",
      "detail": "10/1 - 4:00 PM PT",
      "score": "TB 0 - NYR 0"
+    },
+    {
+     "espn_event_id": "401891816",
+     "matchup": "MIN @ NSH",
+     "commence": "2026-10-02T00:00Z",
+     "status": "pre",
+     "detail": "10/1 - 5:00 PM PT",
+     "score": "MIN 0 - NSH 0"
     }
    ]
   }
