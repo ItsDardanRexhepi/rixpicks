@@ -5,6 +5,8 @@ on:
   push:
     paths:
       - '.github/workflows/**'
+      - '.github/actions/**'
+      - 'scripts/test_hold_wiring.py'
   workflow_dispatch:
 jobs:
   parse:
@@ -12,6 +14,8 @@ jobs:
     steps:
       - name: "checkout"
         uses: actions/checkout@v4
+      - name: "hold wiring fixture (posting-job auto-hold) + bite proof"
+        run: python3 scripts/test_hold_wiring.py --selfbite
       - name: "yaml parse gate + actionlint"
         run: |
           python3 - <<'EOF'

@@ -15,6 +15,10 @@ inputs:
     description: selftest override for hold_bypass
     required: false
     default: ''
+  note:
+    description: workflow-specific consequence of a hold, printed in the HELD summary
+    required: false
+    default: ''
   force_error:
     description: selftest hook, forces a gate error
     required: false
@@ -32,6 +36,7 @@ runs:
         HC_BASE: ${{ inputs.base }}
         HC_BYPASS: ${{ inputs.bypass || github.event.inputs.hold_bypass }}
         HC_ACTOR: ${{ github.actor }}
+        HC_NOTE: ${{ inputs.note }}
         HC_EVENT: ${{ github.event_name }}
         HOLD_SELFTEST_ERROR: ${{ inputs.force_error }}
       run: |
@@ -51,6 +56,7 @@ runs:
             echo "What broke / what users cannot see (from the gate):"
             grep '^FAIL' /tmp/hold.log | sed 's/^/- /' || true
             grep '^GATE ERROR' /tmp/hold.log | sed 's/^/- /' || true
+            [ -n "$HC_NOTE" ] && echo "Consequence of this hold: $HC_NOTE"
             echo "Cause: established by the check named above; root cause unknown until a fix lands. Repair: fix commits are not workflow runs and are unaffected; a manual dispatch with hold_bypass=repair is the only override and is logged. The hold lifts on the next run after the gate passes."
           } >> "$GITHUB_STEP_SUMMARY"
           echo "::warning title=HELD::$kind - posting job held, see summary"

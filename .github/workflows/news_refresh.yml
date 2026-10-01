@@ -29,6 +29,8 @@ jobs:
       - uses: actions/checkout@v4
       - id: hc
         uses: ./.github/actions/hold-check
+        with:
+          note: 'news_refresh is held, so its kalshi-quotes staleness watchdog (the backstop dispatch inside this job) also does not run this cycle. kalshi-quotes has its own schedule and is not gated, so a missing backstop dispatch is expected here, not a new failure.'
   news:
     needs: hold-check
     if: ${{ !cancelled() && needs.hold-check.result == 'success' && needs.hold-check.outputs.held == 'false' }}
