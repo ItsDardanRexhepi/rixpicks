@@ -753,6 +753,14 @@ function renderSocial(){
  /* guard 1 shared array: social renders EXACTLY the resolved PAIRS - same order, same N,
     same index as the news carousel. No independent filtering here, no cascade, no fallback. */
  var items=FEED_FALLBACK?zeroPairSocial(12):PAIRS.map(function(p){return {post:p.post,kind:p.kind,nkey:p.k};});
+ /* zero AVAILABLE posts (feed down) is NOT zero MATCHING pairs: say the feed is unavailable, render no controls and no caption implying posts exist (owner/guard 1, 10/1 12:13 AM visuals). Self-heals when posts return. */
+ if(!items.length){
+  box.innerHTML='<div id="rpSocUnavail" class="rp-socunavail" role="status" style="padding:14px 12px;color:var(--muted,#9aa4ad);font-size:13px;line-height:1.4">Social feed temporarily unavailable. Check back soon.</div>';
+  SOC_SIG='';SOC_N=0;SOC_LAST=[];SOC_RIDX={};
+  if(SOC_TIMER){clearInterval(SOC_TIMER);SOC_TIMER=null;}
+  try{var _zu=$('rpZeroNote');if(_zu)_zu.style.display='none';}catch(e){}
+  return;
+ }
  var sig=items.map(function(it){return ((it.post&&it.post.id)||'-')+it.kind;}).join('|');
  if(sig===SOC_SIG&&$('rpSocTrack')){socApply();return;}
  SOC_SIG=sig;SOC_N=items.length;SOC_LAST=items;

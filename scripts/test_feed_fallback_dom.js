@@ -163,5 +163,15 @@ check('fallback Social Prev does NOT move NEWS index', ctx.CAR_IDX, carBefore);
 check('zero-note caption present', !!dom.window.document.getElementById('rpZeroNote'), true);
 check('zero-note caption visible in zero-pair', dom.window.document.getElementById('rpZeroNote') ? dom.window.document.getElementById('rpZeroNote').style.display!=='none' : false, true);
 check('zero-note caption text honest', (dom.window.document.getElementById('rpZeroNote')||{textContent:''}).textContent, 'No verified matches yet - latest from the feeds');
+
+/* feed down (10/1 12:13 AM visuals): zero AVAILABLE posts must say unavailable, no controls, no zero-note */
+vm.runInContext('ingestX(XP0);XFEED_DONE=true;SOC_SIG="";renderNews({key:"home"}, newsBucket());', Object.assign(ctx, { XP0: { generated_at: G2, items: [] } }));
+const sbox = dom.window.document.getElementById('rpSocial');
+check('empty feed: unavailable message shown', !!dom.window.document.getElementById('rpSocUnavail') && /temporarily unavailable/.test(sbox.textContent), true);
+check('empty feed: no carousel controls', sbox.querySelectorAll('button').length, 0);
+check('empty feed: no "No verified matches" implication', /No verified matches/.test(sbox.textContent), false);
+check('empty feed: zero-note hidden', (dom.window.document.getElementById('rpZeroNote')||{style:{display:'none'}}).style.display, 'none');
+vm.runInContext('ingestX(XP);SOC_SIG="";renderNews({key:"home"}, newsBucket());', ctx);
+check('feed back: posts and controls return', sbox.querySelectorAll('.socslide').length > 0 && sbox.querySelectorAll('button').length > 0 && !dom.window.document.getElementById('rpSocUnavail'), true);
 console.log(failures ? ('FAILURES: ' + failures) : 'ALL CHECKS PASS');
 process.exit(failures ? 1 : 0);
