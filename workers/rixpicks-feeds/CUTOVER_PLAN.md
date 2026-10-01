@@ -153,3 +153,6 @@ offbook_cycles, last prod tick, last off-book prod/worker/bid/ask) plus per-cycl
 last 800 cycles. History before the v13 deploy carries only the capped lists. The acceptance
 summary must state the v11 and v12 rules, count exempted keys per cycle, and note that sparse
 overnight prod ticks make the gate noisy (a data-sparsity artifact, not a parity regression).
+
+### v14 diagnostic (main decision 10/1 1:27 PM PT, no rule or threshold change)
+Each futures cycle also records `mismatch_n` and a capped-30 `mismatch` list: non-exempt compared Poly keys outside the 2c band (key, prod, worker, gap, live bid/ask, prod tick age). The full list is stored in `parity/exempt/<ts>.json` (field `mismatch`), and `parity/exempt_summary.json` gains per-key `mismatch_cycles`, `max_gap`, `last_mismatch`, plus `cycles_with_mismatch` and a 5th element in `cycle_counts`. Cycles before the v14 deploy carry no mismatch data.

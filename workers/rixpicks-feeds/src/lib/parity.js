@@ -188,7 +188,7 @@ function fnv(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h
 const OFFBOOK_MIN_AGE_MIN = 15;
 const STALE_PROD_MIN = 60;
 function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
-  const exempt = []; const exemptBook = [];
+  const exempt = []; const exemptBook = []; const mism = [];
   const bookC = (quality || {}).book_c || {};
   // illiquid books (spread > 25c) have no knowable mid - exclude from price agreement
   const wide = new Set(Object.entries((quality || {}).spread_c || {}).filter(([, v]) => v > 25).map(([k]) => k));
@@ -217,6 +217,11 @@ function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
             }
           }
           if (Math.abs((mb[k] || 0) - pb[k]) <= 2) close++;
+          else if (prefix === 'P:') {
+            // v14 diagnostic (main 10/1 1:27 PM PT): non-exempt compared keys that miss the 2c band
+            const lt = lastTick && lastTick[lg + k], ageMin = lt ? (nowMs - lt) / 60000 : null, bk = bookC[k];
+            mism.push({ key: lg + k, prod: pb[k], worker: mb[k], gap: +Math.abs((mb[k] || 0) - pb[k]).toFixed(2), bid: bk ? bk[0] : null, ask: bk ? bk[1] : null, prod_tick_age_min: ageMin != null && isFinite(ageMin) ? Math.round(ageMin) : null });
+          }
           compared++;
         }
       }
@@ -237,7 +242,9 @@ function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
   poly.exempt_offbook_n = exemptBook.length;
   if (exempt.length) { poly.exempt_stale = exempt.slice(0, 30); poly.exempt_stale_keys_hash = fnv(exempt.map(e => e.key).sort().join('|')); }
   if (exemptBook.length) poly.exempt_offbook = exemptBook.slice(0, 30);
-  poly._exempt_full = { stale: exempt, offbook: exemptBook };
+  poly.mismatch_n = mism.length;
+  if (mism.length) poly.mismatch = mism.slice(0, 30);
+  poly._exempt_full = { stale: exempt, offbook: exemptBook, mismatch: mism };
   return poly;
 }
 
@@ -309,12 +316,14 @@ export async function runParity(env, justRan) {
           sum.cycles++; sum.updated = report.ts;
           const nS = fl.exempt_stale_n, nB = fl.exempt_offbook_n;
           if (nS || nB) sum.cycles_with_exempt++;
-          sum.cycle_counts.push([report.ts, nS, nB, fl.price_close]);
+          const nM = fl.mismatch_n || 0; if (nM) sum.cycles_with_mismatch = (sum.cycles_with_mismatch || 0) + 1;
+          sum.cycle_counts.push([report.ts, nS, nB, fl.price_close, nM]);
           if (sum.cycle_counts.length > 800) sum.cycle_counts = sum.cycle_counts.slice(-800);
           for (const e of (full && full.stale) || []) { const k = sum.keys[e.key] = sum.keys[e.key] || { stale_cycles: 0, offbook_cycles: 0 }; k.stale_cycles++; k.last_prod_tick = e.last_prod_tick; k.max_stale_age_min = Math.max(k.max_stale_age_min || 0, e.age_min || 0); k.last_seen = report.ts; }
           for (const e of (full && full.offbook) || []) { const k = sum.keys[e.key] = sum.keys[e.key] || { stale_cycles: 0, offbook_cycles: 0 }; k.offbook_cycles++; k.last_offbook = { prod: e.prod, worker: e.worker, bid: e.bid, ask: e.ask, last_prod_tick: e.last_prod_tick, ts: report.ts }; k.last_seen = report.ts; }
+          for (const e of (full && full.mismatch) || []) { const k = sum.keys[e.key] = sum.keys[e.key] || { stale_cycles: 0, offbook_cycles: 0 }; k.mismatch_cycles = (k.mismatch_cycles || 0) + 1; k.max_gap = Math.max(k.max_gap || 0, e.gap); k.last_mismatch = { prod: e.prod, worker: e.worker, bid: e.bid, ask: e.ask, prod_tick_age_min: e.prod_tick_age_min, ts: report.ts }; k.last_seen = report.ts; }
           const puts = [env.FEEDS.put('parity/exempt_summary.json', JSON.stringify(sum))];
-          if (nS || nB) puts.push(env.FEEDS.put('parity/exempt/' + report.ts + '.json', JSON.stringify({ ts: report.ts, price_close: fl.price_close, stale: full.stale, offbook: full.offbook })));
+          if (nS || nB || nM) puts.push(env.FEEDS.put('parity/exempt/' + report.ts + '.json', JSON.stringify({ ts: report.ts, price_close: fl.price_close, stale: full.stale, offbook: full.offbook, mismatch: full.mismatch })));
           await Promise.all(puts);
         }
       } catch (e) { console.error('exempt audit store error:', String(e).slice(0, 100)); }
