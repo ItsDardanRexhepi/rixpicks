@@ -35,20 +35,25 @@ async function getText(url, timeoutMs = 12000, headers = UA) {
 }
 
 const ESPN_API_UA = { 'User-Agent': 'Python-urllib/3.12 RixPicks/1.0' };
-async function espnApi(path) {
+async function espnApi(path, st) {
   for (let attempt = 0; attempt < 2; attempt++) try {
     if (attempt) await new Promise(r => setTimeout(r, 2000)); // 403s are egress-IP dependent - retry once
     const j = JSON.parse(await getText(`https://site.api.espn.com/apis/site/v2/sports/${path}/news?limit=10`, 12000, ESPN_API_UA));
-    return (j.articles || []).map(a => ({ headline: a.headline || '', link: ((a.links || {}).web || {}).href || '',
+    const arts = (j.articles || []).map(a => ({ headline: a.headline || '', link: ((a.links || {}).web || {}).href || '',
       published: a.published || '', source: 'ESPN', image: (a.images && a.images[0] && a.images[0].url) || '', blurb: a.description || '' }));
+    if (st) st.ok++; // v17: successful read recorded
+    return arts;
   } catch (e) { if (attempt === 1) console.error('lane espn-api', path, String(e).slice(0, 80)); }
+  if (st) st.fail++;
   return [];
 }
-async function rss(url, source) {
+async function rss(url, source, st) {
   try {
     const xml = await getText(url);
-    return parseFeed(xml).map(it => ({ ...it, published: isoDate(it.published), source }));
-  } catch (e) { console.error('lane rss', url, String(e).slice(0, 80)); return []; }
+    const its = parseFeed(xml).map(it => ({ ...it, published: isoDate(it.published), source }));
+    if (st) st.ok++; // v17: successful, parsed read recorded
+    return its;
+  } catch (e) { console.error('lane rss', url, String(e).slice(0, 80)); if (st) st.fail++; return []; }
 }
 
 function relevant(key, headline) {
@@ -139,14 +144,16 @@ async function loadConfig(env) {
 
 export async function runNews(env) {
   const cfg = await loadConfig(env);
-  const leagues = {}; let latest = [];
+  const leagues = {}; let latest = []; const reads = {};
   for (const [key, v] of Object.entries(cfg.leagues)) {
+    const st = { ok: 0, fail: 0 };
     const path = v.espn; const jkey = path || key.toLowerCase();
     let items = [];
-    if (path) items = items.concat(await espnApi(path));
-    if (ESPN_RSS[key]) items = items.concat(await rss(`https://www.espn.com/espn/rss/${ESPN_RSS[key]}/news`, 'ESPN'));
-    if (CBS_RSS[key]) items = items.concat(await rss(`https://www.cbssports.com/rss/headlines/${CBS_RSS[key]}/`, 'CBS'));
-    if (YAHOO_RSS[key]) items = items.concat(await rss(`https://sports.yahoo.com/${YAHOO_RSS[key]}/rss.xml`, 'YAHOO'));
+    if (path) items = items.concat(await espnApi(path, st));
+    if (ESPN_RSS[key]) items = items.concat(await rss(`https://www.espn.com/espn/rss/${ESPN_RSS[key]}/news`, 'ESPN', st));
+    if (CBS_RSS[key]) items = items.concat(await rss(`https://www.cbssports.com/rss/headlines/${CBS_RSS[key]}/`, 'CBS', st));
+    if (YAHOO_RSS[key]) items = items.concat(await rss(`https://sports.yahoo.com/${YAHOO_RSS[key]}/rss.xml`, 'YAHOO', st));
+    reads[jkey] = { ok: st.ok, fail: st.fail, n_raw: items.length, n_relevant: items.filter(a => norm(a.headline) && relevant(key, a.headline)).length };
     const seen = new Set(); const ded = [];
     for (const a of items.sort((x, y) => tsOf(y) - tsOf(x))) {
       const n = norm(a.headline);
@@ -191,6 +198,6 @@ export async function runNews(env) {
 
   const out = { generated_at: new Date().toISOString(), leagues, latest, source_mix: sourceMix, degraded_sources: degraded };
   const put = (k, v) => env.FEEDS.put(k, JSON.stringify(v, null, 1), { httpMetadata: { contentType: 'application/json' } });
-  await Promise.all([put('slates/news.json', out), put('slates/news_images.json', cache), put('slates/img_check.json', imgCheck)]);
+  await Promise.all([put('slates/news.json', out), put('slates/news_reads.json', { generated_at: out.generated_at, reads }), put('slates/news_images.json', cache), put('slates/img_check.json', imgCheck)]);
   return { generated_at: out.generated_at, buckets: Object.keys(leagues).length, latest: latest.length };
 }

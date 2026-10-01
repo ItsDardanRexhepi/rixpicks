@@ -89,7 +89,17 @@ function newsGate(mine, prod, ctx, now) {
   // (2) bucket coverage
   const bucketGaps = Object.entries(prod.leagues || {}).filter(([, l]) => l.length > 0)
     .map(([k]) => k).filter(k => !((mine.leagues || {})[k] || []).length);
-  checks.buckets = { ok: bucketGaps.length === 0, gaps: bucketGaps };
+  // news bucket rule (relayed by main 10/1 3:33 PM PT; prospective only): a bucket gap is skipped ONLY when the worker's own
+  // reads for that bucket this cycle all succeeded (ok > 0, fail = 0) and found zero relevant items, taken from
+  // slates/news_reads.json stamped with the same generated_at as the artifact judged. Missing, mismatched, failed
+  // or unverifiable reads fail closed. Source items with an empty worker bucket still fail. No headline-age exemption.
+  const rd = ctx.reads && ctx.reads.generated_at === mine.generated_at ? ctx.reads.reads || {} : null;
+  const skipped = [], remaining = [];
+  for (const k of bucketGaps) {
+    const r = rd && rd[k];
+    if (r && r.fail === 0 && r.ok > 0 && r.n_relevant === 0) skipped.push({ bucket: k, ...r }); else remaining.push(k);
+  }
+  checks.buckets = { ok: remaining.length === 0, gaps: remaining, rule: "verified-zero", ok_v9: bucketGaps.length === 0, gaps_v9: bucketGaps, skipped_verified_zero: skipped, reads_stamp_match: !!rd };
   // (3) freshness
   const wAges = agesMin(mine.latest || [], now), pAges = agesMin(prod.latest || [], now);
   const wMed = median(wAges), pMed = median(pAges), wP90 = p90(wAges);
@@ -277,6 +287,7 @@ export async function runParity(env, justRan) {
   try {
     if (justRan.news) {
       const o = await env.FEEDS.get('slates/news.json'); const mine = o ? JSON.parse(await o.text()) : null;
+      let newsReads = null; try { const ro = await env.FEEDS.get('slates/news_reads.json'); if (ro) newsReads = JSON.parse(await ro.text()); } catch (e) {}
       const prod = await getJson(env.PROD_BASE + '/slates/news.json?cb=' + now);
       if (mine) {
         // gate ctx: 1h of recalls (outage guard), rolling per-source + total baselines (7d series)
@@ -294,7 +305,7 @@ export async function runParity(env, justRan) {
           const tots = vs.map(r => r.total).filter(n => n != null);
           if (tots.length >= 12) var totalBaseline = med(tots);
         }
-        report.lanes.news = newsGate(mine, prod, { recentRecalls, mixBaseline, totalBaseline: typeof totalBaseline !== 'undefined' ? totalBaseline : null }, now);
+        report.lanes.news = newsGate(mine, prod, { reads: newsReads, recentRecalls, mixBaseline, totalBaseline: typeof totalBaseline !== 'undefined' ? totalBaseline : null }, now);
         volSeries.push({ ts: report.ts, total: report.lanes.news.worker_total, mix: report.lanes.news.worker_mix });
         volSeries = volSeries.filter(r => Date.parse(r.ts) >= d7).slice(-2200);
       } else report.lanes.news = { ok: false, reason: 'no worker artifact' };
