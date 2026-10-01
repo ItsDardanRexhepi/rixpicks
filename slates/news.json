@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-01T23:31:09.911Z",
+ "generated_at": "2026-10-01T23:35:53.407Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -95,6 +95,15 @@
   ],
   "football/nfl": [
    {
+    "headline": "Joey Porter Jr. embraces fresh start with Cowboys after feeling 'disrespected' by Steelers",
+    "link": "https://www.cbssports.com/nfl/news/joey-porter-jr-embraces-fresh-start-cowboys-steelers/",
+    "published": "2026-10-01T23:22:35.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F75c234b2-6cfd-4264-8e40-1a817cc70699%2Fgettyimages-2256269976.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Porter Jr. couldn't help but grin from ear to ear when talking about now being a Dallas Cowboy",
+    "source": "CBS",
+    "league": "NFL"
+   },
+   {
     "headline": "NFL Week 4's best arrivals, led by Cleveland Browns mascot",
     "link": "https://www.espn.com/nfl/story/_/id/50079780/nfl-week-4-fashionable-arrivals",
     "published": "2026-10-01T23:21:46Z",
@@ -131,11 +140,11 @@
     "league": "NFL"
    },
    {
-    "headline": "DeVonta Smith injury: Eagles wide receiver expected to not play in Rams game [UPDATE]",
-    "link": "https://sports.yahoo.com/articles/devonta-smith-injury-eagles-wide-204710617.html",
-    "published": "2026-10-01T23:10:14.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/f19025a69ec76967310ae91f93f43b53e4103671e28af3b3781eb8a4967360bb/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F133a6bd531fe2b9b4b8e08a9a22bc540.jpg",
-    "blurb": "Not comforting news for the Birds.",
+    "headline": "Broncos vs. 49ers practice report: Thursday",
+    "link": "https://sports.yahoo.com/articles/broncos-vs-49ers-practice-report-231458212.html",
+    "published": "2026-10-01T23:14:58.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/5a3066ec9f9f599d24dc49f9e991a00822fb0e9c5b2abef003498b69b1fac50e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2824bce2bc2052866a5216fec2d0fa86.jpg",
+    "blurb": "The Denver Broncos had no changes to their injury report other than Zach Allen moving from a rest day to a full participation day. D.J. Jones got himself a rest day today. Running back J.K. Dobbins, wide receiver Jaylen Waddle, and wide receiver Marvin Mims Jr. were all full part",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -158,11 +167,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Aaron Donald remains out of practice; Puka Nacua still limited",
-    "link": "https://sports.yahoo.com/articles/aaron-donald-remains-practice-puka-230949205.html",
-    "published": "2026-10-01T23:09:49.000Z",
+    "headline": "DeVonta Smith injury: Eagles wide receiver expected to not play in Rams game [UPDATE]",
+    "link": "https://sports.yahoo.com/articles/devonta-smith-injury-eagles-wide-204710617.html",
+    "published": "2026-10-01T23:10:14.000Z",
     "image": "",
-    "blurb": "The Rams' injury report remained the same as on Wednesday aside from wide receiver Davante Adams returning from a rest day and nose tackle Poona Ford taking a rest day.",
+    "blurb": "Not comforting news for the Birds.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -173,15 +182,6 @@
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F01%2F10%2F0a603707-5312-459b-bd7f-85f2b0014bd1%2Fjaylen-warren-pittsburgh-steelers-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "We'll go over the prediction markets at Kalshi for the first touchdown scorer in Steelers vs. Browns on TNF",
     "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "'I'm a Cowboy': Porter hopes to make debut for Dallas on Sunday",
-    "link": "https://www.espn.com/nfl/story/_/id/50079466/joey-porter-happy-fresh-start-cowboys-eyes-sunday-debut",
-    "published": "2026-10-01T23:08:11.000Z",
-    "image": "",
-    "blurb": "Joey Porter Jr. says he hopes to make his debut for the Cowboys on Sunday, when they play the Texans.",
-    "source": "ESPN",
     "league": "NFL"
    }
   ],
@@ -1186,6 +1186,15 @@
    "league": "MLB"
   },
   {
+   "headline": "Joey Porter Jr. embraces fresh start with Cowboys after feeling 'disrespected' by Steelers",
+   "link": "https://www.cbssports.com/nfl/news/joey-porter-jr-embraces-fresh-start-cowboys-steelers/",
+   "published": "2026-10-01T23:22:35.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F75c234b2-6cfd-4264-8e40-1a817cc70699%2Fgettyimages-2256269976.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Porter Jr. couldn't help but grin from ear to ear when talking about now being a Dallas Cowboy",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
    "headline": "NFL Week 4's best arrivals, led by Cleveland Browns mascot",
    "link": "https://www.espn.com/nfl/story/_/id/50079780/nfl-week-4-fashionable-arrivals",
    "published": "2026-10-01T23:21:46Z",
@@ -1213,6 +1222,15 @@
    "league": "NFL"
   },
   {
+   "headline": "Broncos vs. 49ers practice report: Thursday",
+   "link": "https://sports.yahoo.com/articles/broncos-vs-49ers-practice-report-231458212.html",
+   "published": "2026-10-01T23:14:58.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/5a3066ec9f9f599d24dc49f9e991a00822fb0e9c5b2abef003498b69b1fac50e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2824bce2bc2052866a5216fec2d0fa86.jpg",
+   "blurb": "The Denver Broncos had no changes to their injury report other than Zach Allen moving from a rest day to a full participation day. D.J. Jones got himself a rest day today. Running back J.K. Dobbins, wide receiver Jaylen Waddle, and wide receiver Marvin Mims Jr. were all full part",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "NASCAR Gets Encouraging Sign 4 Races Into Return of the Chase",
    "link": "https://sports.yahoo.com/articles/nascar-gets-encouraging-sign-4-231452490.html",
    "published": "2026-10-01T23:14:52.000Z",
@@ -1227,15 +1245,6 @@
    "published": "2026-10-01T23:14:31.000Z",
    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F9d46b54d-6056-44b1-9707-bd47120004b5%2Fsteelers-browns.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "How to watch the 'Thursday Night Football' matchup, plus a prediction and what to know",
-   "source": "CBS",
-   "league": "NFL"
-  },
-  {
-   "headline": "Jerry Jeudy has disappeared from Browns offense: Five teams that could trade for WR",
-   "link": "https://www.cbssports.com/nfl/news/browns-trade-jerry-jeudy-2026-destinations/",
-   "published": "2026-10-01T23:13:13.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F7a8270c4-039b-4e90-88dd-5b1ee82f587e%2Fgettyimages-2248135263-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Jeudy looks like the odd man out in a wide receiver group that features KC Concepcion and Denzel Boston",
    "source": "CBS",
    "league": "NFL"
   },
@@ -1256,15 +1265,6 @@
    "blurb": "Caitlin Clark's signature shoe and clothing line lands Thursday. The Fever guard and a Nike designer shared details with ESPN.",
    "source": "ESPN",
    "league": "WNBA"
-  },
-  {
-   "headline": "DeVonta Smith injury: Eagles wide receiver expected to not play in Rams game [UPDATE]",
-   "link": "https://sports.yahoo.com/articles/devonta-smith-injury-eagles-wide-204710617.html",
-   "published": "2026-10-01T23:10:14.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/f19025a69ec76967310ae91f93f43b53e4103671e28af3b3781eb8a4967360bb/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F133a6bd531fe2b9b4b8e08a9a22bc540.jpg",
-   "blurb": "Not comforting news for the Birds.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "UFC 332 press conference faceoffs: Deiveson Figueiredo shoves Payton Talbott",
@@ -1448,9 +1448,9 @@
   }
  ],
  "source_mix": {
-  "ESPN": 59,
+  "ESPN": 58,
   "YAHOO": 63,
-  "CBS": 35
+  "CBS": 36
  },
  "degraded_sources": []
 }
