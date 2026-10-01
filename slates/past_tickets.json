@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-30T13:55:00-07:00",
+ "generated_at": "2026-10-01T14:45:00-07:00",
  "entries": [
   {
    "id": "t5",
@@ -1143,6 +1143,102 @@
    "reason": "Ticket removed from live page and archived after Sanchez missed (final 6 of 7). A new three-leg ticket replaces it.",
    "provenance": "ESPN boxscore event 401907972 (PHI @ ATL, in progress, Bot 9th at check): Sanchez 6.2 IP 6 K; Painter 1.0 IP. https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/summary?event=401907972",
    "removed_label": "Sep 30, 1:55 PM PT"
+  },
+  {
+   "id": "ding-0929-olson",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Matt Olson - Home Run",
+   "result": "lost",
+   "detail": "PHI AT ATL \u00b7 11:00 AM PT \u00b7 DKP",
+   "archived_at": "2026-10-01T14:45:00-07:00",
+   "reason": "Home run pick lost - 0 HR in the game (ESPN final box score)",
+   "provenance": "Original Wooder Ice Dingers card, Sep 29. Result from ESPN official box score, event 401907965 (Final).",
+   "removed_label": "Oct 1, 2:45 PM PT"
+  },
+  {
+   "id": "ding-0929-alvarez",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Yordan Alvarez - Home Run",
+   "result": "lost",
+   "detail": "CWS AT HOU \u00b7 2:00 PM PT \u00b7 DKP",
+   "archived_at": "2026-10-01T14:45:00-07:00",
+   "reason": "Home run pick lost - 0 HR in the game (ESPN final box score)",
+   "provenance": "Original Wooder Ice Dingers card, Sep 29. Result from ESPN official box score, event 401907896 (Final).",
+   "removed_label": "Oct 1, 2:45 PM PT"
+  },
+  {
+   "id": "ding-0929-contreras",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Willson Contreras - Home Run",
+   "result": "lost",
+   "detail": "BOS AT NYY \u00b7 5:00 PM PT \u00b7 DKP",
+   "archived_at": "2026-10-01T14:45:00-07:00",
+   "reason": "Home run pick lost - 0 HR in the game (ESPN final box score)",
+   "provenance": "Original Wooder Ice Dingers card, Sep 29. Result from ESPN official box score, event 401907924 (Final).",
+   "removed_label": "Oct 1, 2:45 PM PT"
+  },
+  {
+   "id": "ding-0929-crowarmstrong",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Pete Crow-Armstrong - Home Run",
+   "result": "lost",
+   "detail": "CHC AT SD \u00b7 7:00 PM PT \u00b7 DKP",
+   "archived_at": "2026-10-01T14:45:00-07:00",
+   "reason": "Home run pick lost - 0 HR in the game (ESPN final box score)",
+   "provenance": "Original Wooder Ice Dingers card, Sep 29. Result from ESPN official box score, event 401907974 (Final).",
+   "removed_label": "Oct 1, 2:45 PM PT"
+  },
+  {
+   "id": "ding-0930-schwarber",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Kyle Schwarber - Home Run",
+   "result": "won",
+   "detail": "PHI at ATL \u00b7 11:00 AM PT \u00b7 DKP",
+   "archived_at": "2026-10-01T14:45:00-07:00",
+   "reason": "Home run pick won - homered in the game (ESPN final box score)",
+   "provenance": "Original Wooder Ice Dingers card, Sep 30. Result from ESPN official box score, event 401907972 (Final).",
+   "removed_label": "Oct 1, 2:45 PM PT"
+  },
+  {
+   "id": "ding-0930-alvarez",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Yordan Alvarez - Home Run",
+   "result": "lost",
+   "detail": "CWS at HOU \u00b7 2:00 PM PT \u00b7 DKP",
+   "archived_at": "2026-10-01T14:45:00-07:00",
+   "reason": "Home run pick lost - 0 HR in the game (ESPN final box score)",
+   "provenance": "Original Wooder Ice Dingers card, Sep 30. Result from ESPN official box score, event 401907897 (Final).",
+   "removed_label": "Oct 1, 2:45 PM PT"
+  },
+  {
+   "id": "ding-0930-rice",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Ben Rice - Home Run",
+   "result": "lost",
+   "detail": "BOS at NYY \u00b7 5:00 PM PT \u00b7 DKP",
+   "archived_at": "2026-10-01T14:45:00-07:00",
+   "reason": "Home run pick lost - 0 HR in the game (ESPN final box score)",
+   "provenance": "Original Wooder Ice Dingers card, Sep 30. Result from ESPN official box score, event 401907963 (Final).",
+   "removed_label": "Oct 1, 2:45 PM PT"
+  },
+  {
+   "id": "ding-0930-tatis",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Fernando Tatis Jr. - Home Run",
+   "result": "lost",
+   "detail": "CHC at SD \u00b7 7:00 PM PT \u00b7 DKP",
+   "archived_at": "2026-10-01T14:45:00-07:00",
+   "reason": "Home run pick lost - 0 HR in the game (ESPN final box score)",
+   "provenance": "Original Wooder Ice Dingers card, Sep 30. Result from ESPN official box score, event 401907975 (Final).",
+   "removed_label": "Oct 1, 2:45 PM PT"
   }
  ]
 }
