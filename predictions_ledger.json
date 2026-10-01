@@ -471,8 +471,9 @@
   "pick_team": "Boston Red Sox",
   "prediction": "Boston Red Sox beat New York Yankees",
   "kickoff_utc": "2026-10-01T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T17:20:30.743261+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T17:20:30.743261+00:00",
+  "settled_at": "2026-10-01T03:20:18.902249+00:00"
  },
  {
   "id": "336709ab39",
