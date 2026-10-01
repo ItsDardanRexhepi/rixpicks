@@ -2,7 +2,9 @@
 """failure-watchdog: diagnose a failed writer run from its logs + budgeted auto-redispatch.
 Invoked by .github/workflows/watchdog.yml on workflow_run:completed with conclusion=failure.
 Env: GH_TOKEN, RUN_ID, WF_NAME, WF_ID, HEAD_SHA, REPO(optional)."""
-import json, os, re, subprocess, datetime, urllib.request, urllib.error
+import json, os, re, subprocess, datetime, urllib.request, urllib.error, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from watchdog_diag import pick_failed_jobs, failing_steps, error_tail
 
 REPO = os.environ.get('REPO', 'ItsDardanRexhepi/rixpicks')
 RETRY_BUDGET_S = 1800  # one auto-retry per workflow per 30 min
@@ -105,13 +107,15 @@ now = datetime.datetime.now(datetime.timezone.utc)
 diag = {'run_id': run_id, 'workflow': wf, 'head': sha, 'ts': now.isoformat()}
 
 jobs = gh(f'repos/{REPO}/actions/runs/{run_id}/jobs')
-job = (jobs.get('jobs') or [{}])[0]
-diag['failing_steps'] = [s['name'] for s in job.get('steps', []) if s.get('conclusion') == 'failure']
+failed_jobs = pick_failed_jobs(jobs.get('jobs'))
+diag['failing_steps'] = failing_steps(failed_jobs)
+diag['failed_jobs'] = [j.get('name', '?') for j in failed_jobs]
 try:
-    log = job_log(job['id'])
-    lines = log.splitlines()
-    hits = [l for l in lines if any(k in l.lower() for k in ('error', 'fail', 'conflict', 'fatal', 'traceback', 'refus'))]
-    diag['error_tail'] = '\n'.join((hits[-6:] or lines[-6:]))[:1200]
+    tails = []
+    for j in failed_jobs[:2]:
+        lines = job_log(j['id']).splitlines()
+        tails.append(('[job: %s]\n' % j.get('name', '?')) + error_tail(lines))
+    diag['error_tail'] = '\n'.join(tails)[:2400] or 'no failed job found'
 except Exception as e:
     diag['error_tail'] = 'log fetch failed: ' + str(e)[:200]
 
@@ -153,7 +157,7 @@ else:
 json.dump(state, open('watchdog_state.json', 'w'), indent=1)
 os.makedirs('incidents', exist_ok=True)
 with open(f'incidents/{run_id}-diag.md', 'w') as f:
-    f.write('# watchdog diagnosis: %s run %s\n\n- head: %s\n- failing steps: %s\n- decision: %s\n- url: https://github.com/%s/actions/runs/%s\n\n## error tail\n```\n%s\n```\n'
-            % (wf, run_id, sha, ', '.join(diag['failing_steps']) or 'unknown', diag['decision'], REPO, run_id, diag['error_tail']))
+    f.write('# watchdog diagnosis: %s run %s\n\n- head: %s\n- failed jobs: %s\n- failing steps: %s\n- decision: %s\n- url: https://github.com/%s/actions/runs/%s\n\n## error tail\n```\n%s\n```\n'
+            % (wf, run_id, sha, ', '.join(diag['failed_jobs']) or 'unknown', ', '.join(diag['failing_steps']) or 'unknown', diag['decision'], REPO, run_id, diag['error_tail']))
 print(json.dumps(diag, indent=1))
 

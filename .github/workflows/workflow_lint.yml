@@ -9,6 +9,9 @@ on:
       - 'scripts/test_hold_wiring.py'
       - 'scripts/push_with_guard.sh'
       - 'scripts/test_push_race_guard.sh'
+      - 'scripts/watchdog.py'
+      - 'scripts/watchdog_diag.py'
+      - 'scripts/test_watchdog_diag.py'
   workflow_dispatch:
 jobs:
   parse:
@@ -22,6 +25,8 @@ jobs:
         run: |
           git config --global user.email ci@example.com && git config --global user.name ci
           bash scripts/test_push_race_guard.sh
+      - name: "watchdog diagnosis fixture (quotes the failed job)"
+        run: python3 scripts/test_watchdog_diag.py
       - name: "yaml parse gate + actionlint"
         run: |
           python3 - <<'EOF'
