@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T03:35:29.132693+00:00",
+ "generated_at": "2026-10-01T03:50:35.403872+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -18,7 +18,7 @@
      "matchup": "CHC @ SD",
      "commence": "2026-10-01T02:00Z",
      "status": "in",
-     "detail": "End 4th",
+     "detail": "Bot 5th",
      "score": "CHC 1 - SD 4"
     }
    ]
@@ -31,9 +31,9 @@
      "matchup": "GS @ DAL",
      "commence": "2026-10-01T01:00Z",
      "status": "in",
-     "detail": "3:23 - OT",
-     "score": "GS 95 - DAL 98",
-     "away_to": 2,
+     "detail": "21.9 - OT",
+     "score": "GS 100 - DAL 106",
+     "away_to": 1,
      "home_to": 2
     }
    ]
@@ -46,7 +46,7 @@
      "matchup": "LA @ COL",
      "commence": "2026-10-01T02:00Z",
      "status": "in",
-     "detail": "11:19 - 2nd",
+     "detail": "3:59 - 2nd",
      "score": "LA 2 - COL 4",
      "away_to": null,
      "home_to": null
