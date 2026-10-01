@@ -7,6 +7,8 @@ on:
       - '.github/workflows/**'
       - '.github/actions/**'
       - 'scripts/test_hold_wiring.py'
+      - 'scripts/push_with_guard.sh'
+      - 'scripts/test_push_race_guard.sh'
   workflow_dispatch:
 jobs:
   parse:
@@ -16,6 +18,10 @@ jobs:
         uses: actions/checkout@v4
       - name: "hold wiring fixture (posting-job auto-hold) + bite proof"
         run: python3 scripts/test_hold_wiring.py --selfbite
+      - name: "push guard fixture (real git race, incl. no-commit run)"
+        run: |
+          git config --global user.email ci@example.com && git config --global user.name ci
+          bash scripts/test_push_race_guard.sh
       - name: "yaml parse gate + actionlint"
         run: |
           python3 - <<'EOF'

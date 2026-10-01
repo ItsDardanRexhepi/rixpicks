@@ -46,4 +46,11 @@ git add -A && git commit -qm 'refresh: regenerated prices (own manifest change)'
 OUT=$(bash "$SCRIPT_UNDER_TEST" 2>&1) || { echo "FAIL: own-manifest-change + non-lane tick misfired loud: $OUT"; FAIL=1; }
 [ "$(git -C ../origin.git show main:manifest.json)" = "picks: [WhiteSox]"$'\n'"price: 112" ] || { echo 'FAIL: origin manifest lost the regenerated prices'; FAIL=1; }
 [ -f ../lane/futures_tick.txt ] || { echo 'FAIL: lane tick vanished'; FAIL=1; }
-if [ $FAIL -eq 0 ]; then echo 'PASS push race guard (loud fail + reset + clean-push control + own-manifest misfire case)'; exit 0; else exit 1; fi
+# case (Sep 30 runs 36813762832/36813810976): run made NO commit, upstream moved while it
+# ran (a file the runner's last checkout commit also touched) - must exit 0, not fail loud.
+(cd ../lane && git pull -q origin main && printf 'tick1 %s\n' "$(date +%s)" > futures_tick.txt && git add -A && git commit -qm 'tick: futures only 1' && git push -q origin main)
+cd .. && git clone -q -b main origin.git runner2 && (cd runner2 && git config user.email t@t && git config user.name t) && cd runner2 || exit 2
+(cd ../lane && git pull -q origin main && printf 'tick2 %s\n' "$(date +%s)" > futures_tick.txt && git add -A && git commit -qm 'tick: futures only 2' && git push -q origin main)
+OUT=$(bash "$SCRIPT_UNDER_TEST" 2>&1); RC2=$?
+[ $RC2 -eq 0 ] || { echo "FAIL: no-commit run misfired loud (rc=$RC2): $OUT"; FAIL=1; }
+if [ $FAIL -eq 0 ]; then echo 'PASS push race guard (loud fail + reset + clean-push control + own-manifest misfire case + no-commit case)'; exit 0; else exit 1; fi

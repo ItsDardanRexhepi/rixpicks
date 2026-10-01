@@ -17,6 +17,14 @@ LANE_FILES="manifest.json"
 # moved (Sep 30 runs 36747004985 + 36747211413: "race touched ... manifest.json" with no
 # lane push upstream at all). merge-base(HEAD, origin/main) is the true checkout base.
 BASE=$(git merge-base HEAD origin/main)
+# Nothing of our own to publish (run found no changes): there is no content to protect or
+# race. Without this, a no-commit run whose push is rejected because main moved fast-forwards,
+# then the guard below compared the PREVIOUS commit's files (ORIG_HEAD) against upstream and
+# failed loud on a harmless tick (Sep 30 runs 36813762832 + 36813810976, nfl-scores-confirm).
+if [ "$(git rev-parse HEAD)" = "$BASE" ]; then
+  echo "PUSH GUARD: no local commits to publish - nothing to do"
+  exit 0
+fi
 for i in 1 2 3 4 5; do
   if git push; then exit 0; fi
   git pull --rebase -X theirs || { git rebase --abort; continue; }
@@ -26,7 +34,8 @@ for i in 1 2 3 4 5; do
     WAS=$(git rev-parse -q --verify "$BASE:$f" 2>/dev/null || true)
     [ "$UP" != "$WAS" ] && MOVED="$MOVED $f"
   done
-  OF=$(git show --pretty='' --name-only ORIG_HEAD)
+  # files changed by THIS run's own commits only (checkout base..pre-rebase tip)
+  OF=$(git diff --name-only "$BASE" ORIG_HEAD)
   if [ -n "$MOVED" ] || ! git diff --quiet ORIG_HEAD HEAD -- $OF; then
     echo "REBASE GUARD: race touched lane-shipped/generated content ($MOVED) - reset to origin/main, fail loud; next cycle regenerates" >&2
     git reset --hard origin/main
