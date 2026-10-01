@@ -130,10 +130,13 @@ jobs:
             done
             [ "$ok" = "1" ] || exit 1
           fi
-      # The dispatcher starts news-refresh and X-feed at the same time.
-      # Ingest may publish now; the news-refresh completion builds the coherent map.
+      # Post-Option-A flow (main 9/30 5:53 PM PT): GH news-refresh is off, so NOTHING else builds the
+      # map. Every run that publishes a new X generation in the step above (15-min external-tick,
+      # x-feed-chain from the worker's news rotation, schedule, workflow_run) must also build the
+      # map here, so x_feed.json and soc_match.json never sit on different generations.
+      # (Was gated to x-feed-chain only: ticks published a new X generation with no map until the
+      # next chain run - the guard-5 mismatch window.)
       - name: "semantic match build (URF six-gate, owner 1:00/1:01 - every link passes the full loop)"
-        if: github.event_name != 'repository_dispatch' || github.event.action == 'x-feed-chain'
         env:
           NIM_CLIENT_TOKEN: ${{ secrets.NIM_CLIENT_TOKEN }}
         run: |
