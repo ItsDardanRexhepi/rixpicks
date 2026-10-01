@@ -1,577 +1,577 @@
 {
- "date": "2026-09-30",
- "date_label": "Wednesday, Sep 30",
- "updated": "Sep 30, 7:05 AM PT",
- "record": "20-11",
- "units_pl": "-2.14u",
- "units_ledger": null,
- "yesterday": "2-3 - Braves W, Bruins W, Leafs L, Abushaar L, Yordan o1.5 L",
- "status_note": "Official pick by owner directive - sub-bar disclosure on file (fair 46.7c below the 60c card band; net +3.0c clears the 2c floor)",
- "preview": false,
- "picks": [
-  {
-   "num": 1,
-   "name": "White Sox ML",
-   "market_class": "ml",
-   "sub": "model 46.7",
-   "odds": "+138",
-   "units": "5u",
-   "side": "away",
-   "game": {
-    "away": "Chicago White Sox",
-    "home": "Houston Astros",
-    "commence": "2026-09-30T21:00Z",
-    "eid": "401907897"
-   },
-   "espn_league": "baseball/mlb",
-   "league": "MLB",
-   "best_book": "Kalshi",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep301700cwshou",
-    "cents": 42,
-    "team": "Chicago WS",
-    "gate_cents": 42,
-    "ticker": "KXMLBGAME-26SEP301700CWSHOU-CWS"
-   },
-   "card_american": 138,
-   "card_source": "Kalshi ask at lock",
-   "card_ts": "2026-09-30T07:04:26-07:00",
-   "polymarket": null,
-   "dkp": {
-    "url": "https://predictions.draftkings.com/en/event/chi-white-sox-%40-hou-astros/34746408",
-    "team_cents": 61,
-    "home_cents": 40,
-    "away_cents": 61,
-    "harvested": "2026-09-30T23:04:00Z"
-   },
-   "line_shop": {
-    "as_of": "2026-09-30T13:51:32+00:00",
-    "source": "st_books_2026-09-30.json",
-    "pick_market": "ml",
-    "pick_side": "away",
-    "books": {
-     "draftkings": {
-      "h2h": [
-       {
-        "side": "away",
-        "price": 122
-       },
-       {
-        "side": "home",
-        "price": -147
-       }
-      ],
-      "spreads": [
-       {
-        "side": "away",
-        "point": 1.5,
-        "price": -191
-       },
-       {
-        "side": "home",
-        "point": -1.5,
-        "price": 157
-       }
-      ],
-      "totals": [
-       {
-        "side": "over",
-        "point": 7.5,
-        "price": -108
-       },
-       {
-        "side": "under",
-        "point": 7.5,
-        "price": -112
-       }
-      ]
-     },
-     "fanduel": {
-      "h2h": [
-       {
-        "side": "away",
-        "price": 122
-       },
-       {
-        "side": "home",
-        "price": -144
-       }
-      ],
-      "spreads": [
-       {
-        "side": "away",
-        "point": 1.5,
-        "price": -182
-       },
-       {
-        "side": "home",
-        "point": -1.5,
-        "price": 150
-       }
-      ],
-      "totals": [
-       {
-        "side": "over",
-        "point": 7.5,
-        "price": -110
-       },
-       {
-        "side": "under",
-        "point": 7.5,
-        "price": -110
-       }
-      ]
-     },
-     "mybookieag": {
-      "h2h": [
-       {
-        "side": "away",
-        "price": 126
-       },
-       {
-        "side": "home",
-        "price": -149
-       }
-      ],
-      "spreads": [
-       {
-        "side": "away",
-        "point": 1.5,
-        "price": -183
-       },
-       {
-        "side": "home",
-        "point": -1.5,
-        "price": 156
-       }
-      ],
-      "totals": [
-       {
-        "side": "over",
-        "point": 7.5,
-        "price": -106
-       },
-       {
-        "side": "under",
-        "point": 7.5,
-        "price": -115
-       }
-      ]
-     },
-     "williamhill_us": {
-      "h2h": [
-       {
-        "side": "away",
-        "price": 128
-       },
-       {
-        "side": "home",
-        "price": -150
-       }
-      ],
-      "spreads": [
-       {
-        "side": "away",
-        "point": 1.5,
-        "price": -182
-       },
-       {
-        "side": "home",
-        "point": -1.5,
-        "price": 153
-       }
-      ],
-      "totals": [
-       {
-        "side": "over",
-        "point": 7.5,
-        "price": -110
-       },
-       {
-        "side": "under",
-        "point": 7.5,
-        "price": -108
-       }
-      ]
-     },
-     "betmgm": {
-      "h2h": [
-       {
-        "side": "away",
-        "price": 125
-       },
-       {
-        "side": "home",
-        "price": -150
-       }
-      ],
-      "spreads": [
-       {
-        "side": "away",
-        "point": 1.5,
-        "price": -185
-       },
-       {
-        "side": "home",
-        "point": -1.5,
-        "price": 150
-       }
-      ],
-      "totals": [
-       {
-        "side": "over",
-        "point": 7.5,
-        "price": -110
-       },
-       {
-        "side": "under",
-        "point": 7.5,
-        "price": -110
-       }
-      ]
-     },
-     "lowvig": {
-      "h2h": [
-       {
-        "side": "away",
-        "price": 132
-       },
-       {
-        "side": "home",
-        "price": -146
-       }
-      ],
-      "spreads": [
-       {
-        "side": "away",
-        "point": 1.5,
-        "price": -170
-       },
-       {
-        "side": "home",
-        "point": -1.5,
-        "price": 150
-       }
-      ],
-      "totals": [
-       {
-        "side": "over",
-        "point": 7.5,
-        "price": -107
-       },
-       {
-        "side": "under",
-        "point": 7.5,
-        "price": -107
-       }
-      ]
-     },
-     "betonlineag": {
-      "h2h": [
-       {
-        "side": "away",
-        "price": 132
-       },
-       {
-        "side": "home",
-        "price": -146
-       }
-      ],
-      "spreads": [
-       {
-        "side": "away",
-        "point": 1.5,
-        "price": -170
-       },
-       {
-        "side": "home",
-        "point": -1.5,
-        "price": 149
-       }
-      ],
-      "totals": [
-       {
-        "side": "over",
-        "point": 7.5,
-        "price": -110
-       },
-       {
-        "side": "under",
-        "point": 7.5,
-        "price": -110
-       }
-      ]
-     },
-     "betrivers": {
-      "h2h": [
-       {
-        "side": "away",
-        "price": 123
-       },
-       {
-        "side": "home",
-        "price": -148
-       }
-      ],
-      "spreads": [
-       {
-        "side": "away",
-        "point": 1.5,
-        "price": -175
-       },
-       {
-        "side": "home",
-        "point": -1.5,
-        "price": 140
-       }
-      ],
-      "totals": [
-       {
-        "side": "over",
-        "point": 7.5,
-        "price": -113
-       },
-       {
-        "side": "under",
-        "point": 7.5,
-        "price": -108
-       }
-      ]
-     },
-     "betus": {
-      "h2h": [
-       {
-        "side": "away",
-        "price": 131
-       },
-       {
-        "side": "home",
-        "price": -146
-       }
-      ],
-      "spreads": [
-       {
-        "side": "away",
-        "point": 1.5,
-        "price": -170
-       },
-       {
-        "side": "home",
-        "point": -1.5,
-        "price": 148
-       }
-      ],
-      "totals": [
-       {
-        "side": "over",
-        "point": 7.5,
-        "price": -110
-       },
-       {
-        "side": "under",
-        "point": 7.5,
-        "price": -110
-       }
-      ]
-     },
-     "bovada": {
-      "h2h": [
-       {
-        "side": "away",
-        "price": 128
-       },
-       {
-        "side": "home",
-        "price": -153
-       }
-      ],
-      "spreads": [
-       {
-        "side": "away",
-        "point": 1.5,
-        "price": -175
-       },
-       {
-        "side": "home",
-        "point": -1.5,
-        "price": 150
-       }
-      ],
-      "totals": [
-       {
-        "side": "over",
-        "point": 7.5,
-        "price": -110
-       },
-       {
-        "side": "under",
-        "point": 7.5,
-        "price": -110
-       }
-      ]
-     },
-     "fanatics": {
-      "h2h": [
-       {
-        "side": "away",
-        "price": 125
-       },
-       {
-        "side": "home",
-        "price": -150
-       }
-      ],
-      "spreads": [
-       {
-        "side": "away",
-        "point": 1.5,
-        "price": -180
-       },
-       {
-        "side": "home",
-        "point": -1.5,
-        "price": 145
-       }
-      ],
-      "totals": [
-       {
-        "side": "over",
-        "point": 7.5,
-        "price": -110
-       },
-       {
-        "side": "under",
-        "point": 7.5,
-        "price": -110
-       }
-      ]
-     }
-    }
-   },
-   "books": {
-    "draftkings": {
-     "event": "https://sportsbook.draftkings.com/event/34746408",
-     "away_link": "https://sportsbook.draftkings.com/?outcomes=0ML86519316_3",
-     "home_link": "https://sportsbook.draftkings.com/?outcomes=0ML86519316_1",
-     "away_ml": 122,
-     "home_ml": -147
-    },
-    "fanduel": {
-     "event": "https://sportsbook.fanduel.com/baseball/mlb/chicago-white-sox-%28s-burke%29-%40-houston-astros-%28h-brown%29-36126314",
-     "away_link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611880693&selectionId=5408012",
-     "home_link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611880693&selectionId=29170",
-     "away_ml": 122,
-     "home_ml": -144
-    },
-    "state_templates": {
-     "betmgm": {
-      "event": "https://sports.{state}.betmgm.com/en/sports/events/chicago-white-sox-at-houston-astros-19972077",
-      "away_link": "https://sports.{state}.betmgm.com/en/sports?options=19972077-1562098168-2306453854&type=Single",
-      "home_link": "https://sports.{state}.betmgm.com/en/sports?options=19972077-1562098168-2306453855&type=Single",
-      "away_ml": 125,
-      "home_ml": -150
-     },
-     "betrivers": {
-      "event": "https://{state}.betrivers.com/?page=sportsbook#event/1029293852",
-      "away_link": "https://{state}.betrivers.com/?page=sportsbook#event/1029293852?coupon={pickType}|4356044541|{wagerAmount}",
-      "home_link": "https://{state}.betrivers.com/?page=sportsbook#event/1029293852?coupon={pickType}|4356044540|{wagerAmount}",
-      "away_ml": 123,
-      "home_ml": -148
-     }
-    },
-    "espnbet": {
-     "event": "https://sportsbook.thescore.bet/sport/baseball/organization/united-states/competition/mlb/event/066eb0e7-d2c7-4b1f-b04d-42232cc32e11",
-     "away_link": "https://sportsbook.thescore.bet/?market_selection_id[0]=1b4f88e2-a01e-4939-ab46-e044d198473f&odds_numerator[0]=2&odds_denominator[0]=1",
-     "home_link": "https://sportsbook.thescore.bet/?market_selection_id[0]=63f893ad-8e79-4edb-87da-70d2e712a286&odds_numerator[0]=2&odds_denominator[0]=1",
-     "away_ml": 125,
-     "home_ml": -145
-    },
-    "hardrockbet": {
-     "event": "https://app.hardrock.bet/home/competition/mlb/5403355303272120730",
-     "away_link": "https://app.hardrock.bet/?deep_link_value=betslip/9114112845766853019",
-     "home_link": "https://app.hardrock.bet/?deep_link_value=betslip/4762509705820111259",
-     "away_ml": 125,
-     "home_ml": -150
-    }
-   },
-   "books_sp": {
-    "draftkings": {
-     "away": {
-      "price": -191,
-      "point": 1.5,
-      "link": "https://sportsbook.draftkings.com/?outcomes=0HC86519316P150_3"
-     },
-     "home": {
-      "price": 157,
-      "point": -1.5,
-      "link": "https://sportsbook.draftkings.com/?outcomes=0HC86519316N150_1"
-     }
-    },
-    "fanduel": {
-     "away": {
-      "price": -182,
-      "point": 1.5,
-      "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611880692&selectionId=5408012"
-     },
-     "home": {
-      "price": 150,
-      "point": -1.5,
-      "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611880692&selectionId=29170"
-     }
-    },
-    "state_templates": {
-     "betmgm": {
-      "away": {
-       "price": -185,
-       "point": 1.5,
-       "link": "https://sports.{state}.betmgm.com/en/sports?options=19972077-1562098170-2306453858&type=Single"
+  "date": "2026-09-30",
+  "date_label": "Wednesday, Sep 30",
+  "updated": "Sep 30, 5:32 PM PT",
+  "record": "21-11",
+  "units_pl": "+4.76u",
+  "units_ledger": null,
+  "yesterday": "2-3 - Braves W, Bruins W, Leafs L, Abushaar L, Yordan o1.5 L",
+  "status_note": "Official pick by owner directive - sub-bar disclosure on file (fair 46.7c below the 60c card band; net +3.0c clears the 2c floor)",
+  "preview": false,
+  "picks": [
+    {
+      "num": 1,
+      "name": "White Sox ML",
+      "market_class": "ml",
+      "sub": "model 46.7",
+      "odds": "+138",
+      "units": "5u",
+      "side": "away",
+      "game": {
+        "away": "Chicago White Sox",
+        "home": "Houston Astros",
+        "commence": "2026-09-30T21:00Z",
+        "eid": "401907897"
       },
-      "home": {
-       "price": 150,
-       "point": -1.5,
-       "link": "https://sports.{state}.betmgm.com/en/sports?options=19972077-1562098170-2306453859&type=Single"
-      }
-     },
-     "betrivers": {
-      "away": {
-       "price": -175,
-       "point": 1.5,
-       "link": "https://{state}.betrivers.com/?page=sportsbook#event/1029293852?coupon={pickType}|4356036120|{wagerAmount}"
+      "espn_league": "baseball/mlb",
+      "league": "MLB",
+      "best_book": "Kalshi",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxmlbgame/professional-baseball-game/kxmlbgame-26sep301700cwshou",
+        "cents": 42,
+        "team": "Chicago WS",
+        "gate_cents": 42,
+        "ticker": "KXMLBGAME-26SEP301700CWSHOU-CWS"
       },
-      "home": {
-       "price": 140,
-       "point": -1.5,
-       "link": "https://{state}.betrivers.com/?page=sportsbook#event/1029293852?coupon={pickType}|4356036121|{wagerAmount}"
+      "card_american": 138,
+      "card_source": "Kalshi ask at lock",
+      "card_ts": "2026-09-30T07:04:26-07:00",
+      "polymarket": null,
+      "dkp": {
+        "url": "https://predictions.draftkings.com/en/event/chi-white-sox-%40-hou-astros/34746408",
+        "team_cents": 61,
+        "home_cents": 40,
+        "away_cents": 61,
+        "harvested": "2026-09-30T23:04:00Z"
+      },
+      "line_shop": {
+        "as_of": "2026-09-30T13:51:32+00:00",
+        "source": "st_books_2026-09-30.json",
+        "pick_market": "ml",
+        "pick_side": "away",
+        "books": {
+          "draftkings": {
+            "h2h": [
+              {
+                "side": "away",
+                "price": 122
+              },
+              {
+                "side": "home",
+                "price": -147
+              }
+            ],
+            "spreads": [
+              {
+                "side": "away",
+                "point": 1.5,
+                "price": -191
+              },
+              {
+                "side": "home",
+                "point": -1.5,
+                "price": 157
+              }
+            ],
+            "totals": [
+              {
+                "side": "over",
+                "point": 7.5,
+                "price": -108
+              },
+              {
+                "side": "under",
+                "point": 7.5,
+                "price": -112
+              }
+            ]
+          },
+          "fanduel": {
+            "h2h": [
+              {
+                "side": "away",
+                "price": 122
+              },
+              {
+                "side": "home",
+                "price": -144
+              }
+            ],
+            "spreads": [
+              {
+                "side": "away",
+                "point": 1.5,
+                "price": -182
+              },
+              {
+                "side": "home",
+                "point": -1.5,
+                "price": 150
+              }
+            ],
+            "totals": [
+              {
+                "side": "over",
+                "point": 7.5,
+                "price": -110
+              },
+              {
+                "side": "under",
+                "point": 7.5,
+                "price": -110
+              }
+            ]
+          },
+          "mybookieag": {
+            "h2h": [
+              {
+                "side": "away",
+                "price": 126
+              },
+              {
+                "side": "home",
+                "price": -149
+              }
+            ],
+            "spreads": [
+              {
+                "side": "away",
+                "point": 1.5,
+                "price": -183
+              },
+              {
+                "side": "home",
+                "point": -1.5,
+                "price": 156
+              }
+            ],
+            "totals": [
+              {
+                "side": "over",
+                "point": 7.5,
+                "price": -106
+              },
+              {
+                "side": "under",
+                "point": 7.5,
+                "price": -115
+              }
+            ]
+          },
+          "williamhill_us": {
+            "h2h": [
+              {
+                "side": "away",
+                "price": 128
+              },
+              {
+                "side": "home",
+                "price": -150
+              }
+            ],
+            "spreads": [
+              {
+                "side": "away",
+                "point": 1.5,
+                "price": -182
+              },
+              {
+                "side": "home",
+                "point": -1.5,
+                "price": 153
+              }
+            ],
+            "totals": [
+              {
+                "side": "over",
+                "point": 7.5,
+                "price": -110
+              },
+              {
+                "side": "under",
+                "point": 7.5,
+                "price": -108
+              }
+            ]
+          },
+          "betmgm": {
+            "h2h": [
+              {
+                "side": "away",
+                "price": 125
+              },
+              {
+                "side": "home",
+                "price": -150
+              }
+            ],
+            "spreads": [
+              {
+                "side": "away",
+                "point": 1.5,
+                "price": -185
+              },
+              {
+                "side": "home",
+                "point": -1.5,
+                "price": 150
+              }
+            ],
+            "totals": [
+              {
+                "side": "over",
+                "point": 7.5,
+                "price": -110
+              },
+              {
+                "side": "under",
+                "point": 7.5,
+                "price": -110
+              }
+            ]
+          },
+          "lowvig": {
+            "h2h": [
+              {
+                "side": "away",
+                "price": 132
+              },
+              {
+                "side": "home",
+                "price": -146
+              }
+            ],
+            "spreads": [
+              {
+                "side": "away",
+                "point": 1.5,
+                "price": -170
+              },
+              {
+                "side": "home",
+                "point": -1.5,
+                "price": 150
+              }
+            ],
+            "totals": [
+              {
+                "side": "over",
+                "point": 7.5,
+                "price": -107
+              },
+              {
+                "side": "under",
+                "point": 7.5,
+                "price": -107
+              }
+            ]
+          },
+          "betonlineag": {
+            "h2h": [
+              {
+                "side": "away",
+                "price": 132
+              },
+              {
+                "side": "home",
+                "price": -146
+              }
+            ],
+            "spreads": [
+              {
+                "side": "away",
+                "point": 1.5,
+                "price": -170
+              },
+              {
+                "side": "home",
+                "point": -1.5,
+                "price": 149
+              }
+            ],
+            "totals": [
+              {
+                "side": "over",
+                "point": 7.5,
+                "price": -110
+              },
+              {
+                "side": "under",
+                "point": 7.5,
+                "price": -110
+              }
+            ]
+          },
+          "betrivers": {
+            "h2h": [
+              {
+                "side": "away",
+                "price": 123
+              },
+              {
+                "side": "home",
+                "price": -148
+              }
+            ],
+            "spreads": [
+              {
+                "side": "away",
+                "point": 1.5,
+                "price": -175
+              },
+              {
+                "side": "home",
+                "point": -1.5,
+                "price": 140
+              }
+            ],
+            "totals": [
+              {
+                "side": "over",
+                "point": 7.5,
+                "price": -113
+              },
+              {
+                "side": "under",
+                "point": 7.5,
+                "price": -108
+              }
+            ]
+          },
+          "betus": {
+            "h2h": [
+              {
+                "side": "away",
+                "price": 131
+              },
+              {
+                "side": "home",
+                "price": -146
+              }
+            ],
+            "spreads": [
+              {
+                "side": "away",
+                "point": 1.5,
+                "price": -170
+              },
+              {
+                "side": "home",
+                "point": -1.5,
+                "price": 148
+              }
+            ],
+            "totals": [
+              {
+                "side": "over",
+                "point": 7.5,
+                "price": -110
+              },
+              {
+                "side": "under",
+                "point": 7.5,
+                "price": -110
+              }
+            ]
+          },
+          "bovada": {
+            "h2h": [
+              {
+                "side": "away",
+                "price": 128
+              },
+              {
+                "side": "home",
+                "price": -153
+              }
+            ],
+            "spreads": [
+              {
+                "side": "away",
+                "point": 1.5,
+                "price": -175
+              },
+              {
+                "side": "home",
+                "point": -1.5,
+                "price": 150
+              }
+            ],
+            "totals": [
+              {
+                "side": "over",
+                "point": 7.5,
+                "price": -110
+              },
+              {
+                "side": "under",
+                "point": 7.5,
+                "price": -110
+              }
+            ]
+          },
+          "fanatics": {
+            "h2h": [
+              {
+                "side": "away",
+                "price": 125
+              },
+              {
+                "side": "home",
+                "price": -150
+              }
+            ],
+            "spreads": [
+              {
+                "side": "away",
+                "point": 1.5,
+                "price": -180
+              },
+              {
+                "side": "home",
+                "point": -1.5,
+                "price": 145
+              }
+            ],
+            "totals": [
+              {
+                "side": "over",
+                "point": 7.5,
+                "price": -110
+              },
+              {
+                "side": "under",
+                "point": 7.5,
+                "price": -110
+              }
+            ]
+          }
+        }
+      },
+      "books": {
+        "draftkings": {
+          "event": "https://sportsbook.draftkings.com/event/34746408",
+          "away_link": "https://sportsbook.draftkings.com/?outcomes=0ML86519316_3",
+          "home_link": "https://sportsbook.draftkings.com/?outcomes=0ML86519316_1",
+          "away_ml": 122,
+          "home_ml": -147
+        },
+        "fanduel": {
+          "event": "https://sportsbook.fanduel.com/baseball/mlb/chicago-white-sox-%28s-burke%29-%40-houston-astros-%28h-brown%29-36126314",
+          "away_link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611880693&selectionId=5408012",
+          "home_link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611880693&selectionId=29170",
+          "away_ml": 122,
+          "home_ml": -144
+        },
+        "state_templates": {
+          "betmgm": {
+            "event": "https://sports.{state}.betmgm.com/en/sports/events/chicago-white-sox-at-houston-astros-19972077",
+            "away_link": "https://sports.{state}.betmgm.com/en/sports?options=19972077-1562098168-2306453854&type=Single",
+            "home_link": "https://sports.{state}.betmgm.com/en/sports?options=19972077-1562098168-2306453855&type=Single",
+            "away_ml": 125,
+            "home_ml": -150
+          },
+          "betrivers": {
+            "event": "https://{state}.betrivers.com/?page=sportsbook#event/1029293852",
+            "away_link": "https://{state}.betrivers.com/?page=sportsbook#event/1029293852?coupon={pickType}|4356044541|{wagerAmount}",
+            "home_link": "https://{state}.betrivers.com/?page=sportsbook#event/1029293852?coupon={pickType}|4356044540|{wagerAmount}",
+            "away_ml": 123,
+            "home_ml": -148
+          }
+        },
+        "espnbet": {
+          "event": "https://sportsbook.thescore.bet/sport/baseball/organization/united-states/competition/mlb/event/066eb0e7-d2c7-4b1f-b04d-42232cc32e11",
+          "away_link": "https://sportsbook.thescore.bet/?market_selection_id[0]=1b4f88e2-a01e-4939-ab46-e044d198473f&odds_numerator[0]=2&odds_denominator[0]=1",
+          "home_link": "https://sportsbook.thescore.bet/?market_selection_id[0]=63f893ad-8e79-4edb-87da-70d2e712a286&odds_numerator[0]=2&odds_denominator[0]=1",
+          "away_ml": 125,
+          "home_ml": -145
+        },
+        "hardrockbet": {
+          "event": "https://app.hardrock.bet/home/competition/mlb/5403355303272120730",
+          "away_link": "https://app.hardrock.bet/?deep_link_value=betslip/9114112845766853019",
+          "home_link": "https://app.hardrock.bet/?deep_link_value=betslip/4762509705820111259",
+          "away_ml": 125,
+          "home_ml": -150
+        }
+      },
+      "books_sp": {
+        "draftkings": {
+          "away": {
+            "price": -191,
+            "point": 1.5,
+            "link": "https://sportsbook.draftkings.com/?outcomes=0HC86519316P150_3"
+          },
+          "home": {
+            "price": 157,
+            "point": -1.5,
+            "link": "https://sportsbook.draftkings.com/?outcomes=0HC86519316N150_1"
+          }
+        },
+        "fanduel": {
+          "away": {
+            "price": -182,
+            "point": 1.5,
+            "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611880692&selectionId=5408012"
+          },
+          "home": {
+            "price": 150,
+            "point": -1.5,
+            "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.611880692&selectionId=29170"
+          }
+        },
+        "state_templates": {
+          "betmgm": {
+            "away": {
+              "price": -185,
+              "point": 1.5,
+              "link": "https://sports.{state}.betmgm.com/en/sports?options=19972077-1562098170-2306453858&type=Single"
+            },
+            "home": {
+              "price": 150,
+              "point": -1.5,
+              "link": "https://sports.{state}.betmgm.com/en/sports?options=19972077-1562098170-2306453859&type=Single"
+            }
+          },
+          "betrivers": {
+            "away": {
+              "price": -175,
+              "point": 1.5,
+              "link": "https://{state}.betrivers.com/?page=sportsbook#event/1029293852?coupon={pickType}|4356036120|{wagerAmount}"
+            },
+            "home": {
+              "price": 140,
+              "point": -1.5,
+              "link": "https://{state}.betrivers.com/?page=sportsbook#event/1029293852?coupon={pickType}|4356036121|{wagerAmount}"
+            }
+          }
+        },
+        "espnbet": {
+          "away": {
+            "price": -180,
+            "point": 1.5,
+            "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=460fc2e5-a0bc-4786-8f29-30affe33380a&odds_numerator[0]=2&odds_denominator[0]=1"
+          },
+          "home": {
+            "price": 150,
+            "point": -1.5,
+            "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=c8baa86f-ebe1-446f-9d50-d3a7d322a574&odds_numerator[0]=2&odds_denominator[0]=1"
+          }
+        },
+        "hardrockbet": {
+          "away": {
+            "price": -180,
+            "point": 1.5,
+            "link": "https://app.hardrock.bet/?deep_link_value=betslip/743409327473295764"
+          },
+          "home": {
+            "price": 150,
+            "point": -1.5,
+            "link": "https://app.hardrock.bet/?deep_link_value=betslip/295301164549931412"
+          }
+        }
       }
-     }
-    },
-    "espnbet": {
-     "away": {
-      "price": -180,
-      "point": 1.5,
-      "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=460fc2e5-a0bc-4786-8f29-30affe33380a&odds_numerator[0]=2&odds_denominator[0]=1"
-     },
-     "home": {
-      "price": 150,
-      "point": -1.5,
-      "link": "https://sportsbook.thescore.bet/?market_selection_id[0]=c8baa86f-ebe1-446f-9d50-d3a7d322a574&odds_numerator[0]=2&odds_denominator[0]=1"
-     }
-    },
-    "hardrockbet": {
-     "away": {
-      "price": -180,
-      "point": 1.5,
-      "link": "https://app.hardrock.bet/?deep_link_value=betslip/743409327473295764"
-     },
-     "home": {
-      "price": 150,
-      "point": -1.5,
-      "link": "https://app.hardrock.bet/?deep_link_value=betslip/295301164549931412"
-     }
     }
-   }
-  }
- ],
- "parlay": null,
- "pick_content_hash": "532bfa4bd832a2f728e4c3b47e6012424eb114826ef4cff299ba42060a976cbe"
+  ],
+  "parlay": null,
+  "pick_content_hash": "532bfa4bd832a2f728e4c3b47e6012424eb114826ef4cff299ba42060a976cbe"
 }

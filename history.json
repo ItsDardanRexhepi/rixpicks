@@ -351,6 +351,24 @@
           "learning": "User-directed pick carded by owner word won +5.0u (NYR 0 @ BOS 3). Provenance: owner-carded, not engine-certified. One game is one outcome data point on the override class - no read conclusion drawn from it."
         }
       ]
+    },
+    {
+      "date": "2026-09-30",
+      "label": "Wednesday, Sep 30",
+      "record": "1-0",
+      "units": "+6.90u",
+      "brief": "",
+      "picks": [
+        {
+          "name": "White Sox ML",
+          "game": "at Astros",
+          "odds": "+138",
+          "units": "5u",
+          "result": "W",
+          "score": "CHW 7, HOU 3",
+          "_delta": "6.9"
+        }
+      ]
     }
   ]
 }
