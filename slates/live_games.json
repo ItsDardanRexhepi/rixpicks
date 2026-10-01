@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T23:20:03.006734+00:00",
+ "generated_at": "2026-10-01T23:35:02.687224+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -70,8 +70,8 @@
      "matchup": "BUF @ CBJ",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "18:01 - 1st",
-     "score": "BUF 0 - CBJ 0",
+     "detail": "10:14 - 1st",
+     "score": "BUF 1 - CBJ 0",
      "away_to": null,
      "home_to": null
     },
@@ -80,8 +80,8 @@
      "matchup": "PHI @ NJ",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "13:40 - 1st",
-     "score": "PHI 0 - NJ 0",
+     "detail": "6:49 - 1st",
+     "score": "PHI 1 - NJ 0",
      "away_to": null,
      "home_to": null
     },
@@ -90,8 +90,8 @@
      "matchup": "TB @ NYR",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "18:40 - 1st",
-     "score": "TB 0 - NYR 0",
+     "detail": "11:18 - 1st",
+     "score": "TB 0 - NYR 1",
      "away_to": null,
      "home_to": null
     },
@@ -110,6 +110,27 @@
      "status": "pre",
      "detail": "10/1 - 6:00 PM PT",
      "score": "SEA 0 - CGY 0"
+    },
+    {
+     "espn_event_id": "401891828",
+     "matchup": "CHI @ UTA",
+     "commence": "2026-10-02T01:30Z",
+     "status": "pre",
+     "detail": "10/1 - 6:30 PM PT",
+     "score": "CHI 0 - UTA 0"
+    }
+   ]
+  },
+  {
+   "league": "MLS",
+   "games": [
+    {
+     "espn_event_id": "761798",
+     "matchup": "SKC @ SEA",
+     "commence": "2026-10-02T01:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "SKC 0 - SEA 0"
     }
    ]
   }
