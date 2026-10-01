@@ -1,21 +1,23 @@
 name: pages-gated-deploy
-# HARD DEPLOY LOCK (Julian 9/30 6:26 PM, option A). DORMANT until the repo Pages source is switched to
-# "GitHub Actions" (Settings > Pages > Source). Until then rix-picks.com is still served by branch
-# Pages and this workflow only runs its self-test (trigger file) or manually; the deploy job is OFF.
+# HARD DEPLOY LOCK (owner option A, 9/30). Deploys the gate-verified tip to GitHub Pages ONLY when
+# the Pages source is "GitHub Actions" AND the marker file .github/PAGES_ACTIVE exists.
+# Without the marker the deploy job is skipped, so this file is inert on a branch-served site.
 #
-# What it enforces once active: nothing reaches the public site unless (1) no slates-level lock file
-# DEPLOY_LOCK exists at the repo root and (2) the structural pre-publish gate passes on the EXACT tree
-# being published. On FAIL or lock, no deploy: the last good version keeps serving.
-#
-# ACTIVATION (one commit after the setting flip): add `push: branches: [main]` + a 5-min `schedule`
-# below and flip the deploy job `if:` from `false` to the expression in its comment.
-# OPEN RISK to resolve at activation: futures ticks are committed with [skip ci]; with Actions-source
-# Pages a skipped run means no deploy, so the 5-min schedule (deploys tip when it changed) is required.
+# Flow: gate (health gate on the exact tip, pins that sha; DEPLOY_LOCK honored; change-detect vs the
+# last SUCCESSFUL github-pages deployment) -> package (artifact of THAT sha) -> deploy.
+# Futures ticks are committed [skip ci] and by GITHUB_TOKEN (no push event), so the 5-min schedule
+# is what carries them to the site once active; push covers PAT/manual commits.
+# FAIL or lock = no deploy; the last good version keeps serving.
 on:
   push:
     paths:
       - '.github/pages_gate_selftest.trigger'
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'treat the tip as changed (test run; still needs marker file to actually deploy)'
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -24,21 +26,38 @@ concurrency:
 jobs:
   gate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: read
     outputs:
       ok: ${{ steps.g.outputs.ok }}
       locked: ${{ steps.g.outputs.locked }}
+      active: ${{ steps.g.outputs.active }}
+      sha: ${{ steps.g.outputs.sha }}
+      changed: ${{ steps.c.outputs.changed }}
     steps:
       - uses: actions/checkout@v4
       - id: g
         shell: bash
         run: |
-          ok=false; locked=false
+          ok=false; locked=false; active=false
           [ -e DEPLOY_LOCK ] && locked=true
+          [ -e .github/PAGES_ACTIVE ] && active=true
           set +e; node scripts/health_gate.js > /tmp/gate.log 2>&1; rc=$?; set -e
           cat /tmp/gate.log
           [ "$rc" = "0" ] && ok=true
           echo "ok=$ok" >> "$GITHUB_OUTPUT"; echo "locked=$locked" >> "$GITHUB_OUTPUT"
-          { echo "## gate ok=$ok locked=$locked"; grep '^FAIL' /tmp/gate.log | sed 's/^/- /' || true; } >> "$GITHUB_STEP_SUMMARY"
+          echo "active=$active" >> "$GITHUB_OUTPUT"; echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          { echo "## gate ok=$ok locked=$locked marker=$active sha=$(git rev-parse --short HEAD)"; grep '^FAIL' /tmp/gate.log | sed 's/^/- /' || true; } >> "$GITHUB_STEP_SUMMARY"
+      - id: c
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TIP: ${{ steps.g.outputs.sha }}
+          FORCE: ${{ inputs.force }}
+        run: |
+          python3 scripts/pages_changed.py | tee /tmp/changed.log
+          { echo "- change-detect: $(cat /tmp/changed.log)"; } >> "$GITHUB_STEP_SUMMARY"
   gate-bites:
     # self-test: a deliberately broken copy of the tree MUST fail the same gate (proves it bites)
     runs-on: ubuntu-latest
@@ -53,17 +72,19 @@ jobs:
           if node scripts/health_gate.js > /tmp/g2.log 2>&1; then echo "GATE DID NOT BITE"; exit 1; else echo "gate bit as expected"; grep '^FAIL' /tmp/g2.log | head -3; fi
   package:
     needs: gate
-    if: ${{ needs.gate.outputs.ok == 'true' && needs.gate.outputs.locked != 'true' }}
+    if: ${{ needs.gate.outputs.ok == 'true' && needs.gate.outputs.locked != 'true' && needs.gate.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
     steps:
+      # the exact tree the gate checked, not whatever main moved to since
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.gate.outputs.sha }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
   deploy:
-    # DORMANT: replace `false` with  ${{ github.ref == 'refs/heads/main' && needs.package.result == 'success' }}  at activation
-    needs: package
-    if: ${{ false }}
+    needs: [gate, package]
+    if: ${{ needs.package.result == 'success' && needs.gate.outputs.active == 'true' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     permissions:
       pages: write

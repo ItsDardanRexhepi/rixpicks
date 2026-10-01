@@ -10,6 +10,8 @@ on:
       - 'scripts/push_with_guard.sh'
       - 'scripts/test_push_race_guard.sh'
       - 'scripts/watchdog.py'
+      - 'scripts/pages_changed.py'
+      - 'scripts/test_pages_changed.py'
       - 'scripts/watchdog_diag.py'
       - 'scripts/test_watchdog_diag.py'
   workflow_dispatch:
@@ -27,6 +29,8 @@ jobs:
           bash scripts/test_push_race_guard.sh
       - name: "watchdog diagnosis fixture (quotes the failed job)"
         run: python3 scripts/test_watchdog_diag.py
+      - name: "pages change-detect fixture"
+        run: python3 scripts/test_pages_changed.py
       - name: "yaml parse gate + actionlint"
         run: |
           python3 - <<'EOF'
