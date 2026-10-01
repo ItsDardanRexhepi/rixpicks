@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T22:50:03.215869+00:00",
+ "generated_at": "2026-10-01T23:05:02.194443+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -38,6 +38,27 @@
      "status": "pre",
      "detail": "10/1 - 5:00 PM PT",
      "score": "WKU 0 - NMSU 0"
+    },
+    {
+     "espn_event_id": "401862786",
+     "matchup": "UNT @ TLSA",
+     "commence": "2026-10-02T01:00Z",
+     "status": "pre",
+     "detail": "10/1 - 6:00 PM PT",
+     "score": "UNT 0 - TLSA 0"
+    }
+   ]
+  },
+  {
+   "league": "WNBA",
+   "games": [
+    {
+     "espn_event_id": "401918022",
+     "matchup": "IND @ LV",
+     "commence": "2026-10-02T01:00Z",
+     "status": "pre",
+     "detail": "10/1 - 6:00 PM PT",
+     "score": "IND 0 - LV 0"
     }
    ]
   },
@@ -45,36 +66,20 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401891781",
-     "matchup": "BUF @ CBJ",
-     "commence": "2026-10-01T23:00Z",
-     "status": "pre",
-     "detail": "10/1 - 4:00 PM PT",
-     "score": "BUF 0 - CBJ 0"
-    },
-    {
-     "espn_event_id": "401891817",
-     "matchup": "PHI @ NJ",
-     "commence": "2026-10-01T23:00Z",
-     "status": "pre",
-     "detail": "10/1 - 4:00 PM PT",
-     "score": "PHI 0 - NJ 0"
-    },
-    {
-     "espn_event_id": "401891819",
-     "matchup": "TB @ NYR",
-     "commence": "2026-10-01T23:00Z",
-     "status": "pre",
-     "detail": "10/1 - 4:00 PM PT",
-     "score": "TB 0 - NYR 0"
-    },
-    {
      "espn_event_id": "401891816",
      "matchup": "MIN @ NSH",
      "commence": "2026-10-02T00:00Z",
      "status": "pre",
      "detail": "10/1 - 5:00 PM PT",
      "score": "MIN 0 - NSH 0"
+    },
+    {
+     "espn_event_id": "401891777",
+     "matchup": "SEA @ CGY",
+     "commence": "2026-10-02T01:00Z",
+     "status": "pre",
+     "detail": "10/1 - 6:00 PM PT",
+     "score": "SEA 0 - CGY 0"
     }
    ]
   }
