@@ -422,6 +422,7 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
                     used += 1
                     c = x_wall.http_code(e)
                     if c: fail_codes.append(c)
+                    print(f'news pull FAIL ({aq[:40]}...): {str(e)[:160]}')  # diagnosable: per-request error class was previously invisible in pull mode
                     if trial_log is not None:
                         trial_log.append({'headline': it.get('headline', '')[:100], 'nk': nk,
                                           'strategy': tag, 'query': aq, 'error': str(e)[:160],
@@ -432,7 +433,7 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
         if x_wall.is_wall(fail_codes):
             x_wall.wall_skip('news_social pull')
             return [], used
-        raise RuntimeError('news-driven X ingest stalled: no successful recent-search request; preserving feed')
+        raise RuntimeError('news-driven X ingest stalled: no successful recent-search request; preserving feed (codes=%s)' % (sorted(set(fail_codes)) or 'none-http'))
     return items, used
 
 def main():
