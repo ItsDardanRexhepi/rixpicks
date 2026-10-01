@@ -1,0 +1,74 @@
+name: pages-gated-deploy
+# HARD DEPLOY LOCK (Julian 9/30 6:26 PM, option A). DORMANT until the repo Pages source is switched to
+# "GitHub Actions" (Settings > Pages > Source). Until then rix-picks.com is still served by branch
+# Pages and this workflow only runs its self-test (trigger file) or manually; the deploy job is OFF.
+#
+# What it enforces once active: nothing reaches the public site unless (1) no slates-level lock file
+# DEPLOY_LOCK exists at the repo root and (2) the structural pre-publish gate passes on the EXACT tree
+# being published. On FAIL or lock, no deploy: the last good version keeps serving.
+#
+# ACTIVATION (one commit after the setting flip): add `push: branches: [main]` + a 5-min `schedule`
+# below and flip the deploy job `if:` from `false` to the expression in its comment.
+# OPEN RISK to resolve at activation: futures ticks are committed with [skip ci]; with Actions-source
+# Pages a skipped run means no deploy, so the 5-min schedule (deploys tip when it changed) is required.
+on:
+  push:
+    paths:
+      - '.github/pages_gate_selftest.trigger'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages-gated-deploy
+  cancel-in-progress: false
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      ok: ${{ steps.g.outputs.ok }}
+      locked: ${{ steps.g.outputs.locked }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: g
+        shell: bash
+        run: |
+          ok=false; locked=false
+          [ -e DEPLOY_LOCK ] && locked=true
+          set +e; node scripts/health_gate.js > /tmp/gate.log 2>&1; rc=$?; set -e
+          cat /tmp/gate.log
+          [ "$rc" = "0" ] && ok=true
+          echo "ok=$ok" >> "$GITHUB_OUTPUT"; echo "locked=$locked" >> "$GITHUB_OUTPUT"
+          { echo "## gate ok=$ok locked=$locked"; grep '^FAIL' /tmp/gate.log | sed 's/^/- /'; } >> "$GITHUB_STEP_SUMMARY"
+  gate-bites:
+    # self-test: a deliberately broken copy of the tree MUST fail the same gate (proves it bites)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - shell: bash
+        run: |
+          rm -rf /tmp/broken && mkdir /tmp/broken && cp -r . /tmp/broken/ && cd /tmp/broken
+          python3 - <<'PY'
+          s=open('index.html').read(); s=s.replace('<script>','<script>var x = (;',1); open('index.html','w').write(s)
+          PY
+          if node scripts/health_gate.js > /tmp/g2.log 2>&1; then echo "GATE DID NOT BITE"; exit 1; else echo "gate bit as expected"; grep '^FAIL' /tmp/g2.log | head -3; fi
+  package:
+    needs: gate
+    if: ${{ needs.gate.outputs.ok == 'true' && needs.gate.outputs.locked != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+  deploy:
+    # DORMANT: replace `false` with  ${{ github.ref == 'refs/heads/main' && needs.package.result == 'success' }}  at activation
+    needs: package
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/deploy-pages@v4
