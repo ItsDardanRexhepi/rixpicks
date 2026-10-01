@@ -741,5 +741,18 @@
   "kickoff_utc": "2026-10-02T02:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-01T17:35:43.804863+00:00"
+ },
+ {
+  "id": "0bdc3e058f",
+  "event_id": "401891816",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Nashville Predators",
+  "away": "Minnesota Wild",
+  "pick_team": "Minnesota Wild",
+  "prediction": "Minnesota Wild beat Nashville Predators",
+  "kickoff_utc": "2026-10-02T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-01T18:20:30.970512+00:00"
  }
 ]
