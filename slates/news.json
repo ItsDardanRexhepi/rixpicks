@@ -1,14 +1,23 @@
 {
- "generated_at": "2026-10-01T04:06:41.218Z",
+ "generated_at": "2026-10-01T04:11:39.179Z",
  "leagues": {
   "baseball/mlb": [
    {
-    "headline": "Follow live: Padres taking control in Game 2 with spot in NLDS on the line",
+    "headline": "Follow live: Padres in control in Game 2 with spot in NLDS on the line",
     "link": "https://www.espn.com/mlb/story/_/id/50045993/mlb-playoffs-2026-wild-card-game-2-live-updates-analysis-takeaways",
-    "published": "2026-10-01T04:49:09.000Z",
+    "published": "2026-10-01T05:04:54.000Z",
     "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724219_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "null",
     "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "Braves News: Game 3 drama, Tyler Mahle, more",
+    "link": "https://sports.yahoo.com/articles/braves-news-game-3-drama-040100196.html",
+    "published": "2026-10-01T04:01:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/e537322a0fe5f2396b38c12272f7706c308c82f5b8866f7216da520369210366/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F32412647255ffdf900084d404554db17.jpg",
+    "blurb": "Atlanta Braves news and notes from Wednesday",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -21,21 +30,21 @@
     "league": "MLB"
    },
    {
-    "headline": "Yankees ride balanced attack, advance to ALDS with Game 2 throttling of Red Sox",
-    "link": "https://sports.yahoo.com/articles/yankees-ride-balanced-attack-advance-034213644.html",
-    "published": "2026-10-01T03:42:13.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/26d2d6a61472d64e7193a750b8ee421d09d8597cab2ffec19d4124731127d8dd/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F1e24627c06b1b79cddef3f7a281ba98b.jpg",
-    "blurb": "There were heroes aplenty on Wednesday night as the Yankees brushed the Red Sox aside.",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
     "headline": "Yankees hammer Red Sox again to cruise into ALDS",
     "link": "https://www.espn.com/mlb/story/_/id/50074123/yankees-send-red-sox-home-again-move-face-rays-alds",
     "published": "2026-10-01T04:41:13.000Z",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724294_1024x576_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Yankees finished their AL Wild Card series outscoring the Red Sox 18-2 in a dominate display against their division rivals.",
     "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "Watch White Sox rookie's amazing beer-soaked interview: 'I'm drunk'",
+    "link": "https://sports.yahoo.com/articles/watch-white-sox-rookies-amazing-035332073.html",
+    "published": "2026-10-01T03:53:32.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/05f1f2f4a83b6d93f4459be3117c40b97326c85aa1b835f01d6fac4d78fda6f9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F74fab4f8ba5e0d991f714169c4986b13.jpg",
+    "blurb": "White Sox rookie ditches his translator and announces he's drunk in forgettable interview.",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -48,15 +57,6 @@
     "league": "MLB"
    },
    {
-    "headline": "Yankees cruise to 9-2 win in Game 2, send Red Sox home for second straight season",
-    "link": "https://sports.yahoo.com/articles/yankees-cruise-9-2-win-033726300.html",
-    "published": "2026-10-01T03:37:26.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/beb67ea9ea91ad812477ece75c5f0f401a013085f1d5c712bbc793530a748297/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F630428cfbb87f13e3dfb72dc61009f6c.jpg",
-    "blurb": "Yankees use home runs from Luis Garcia Jr. and Cody Bellinger to beat Red Sox",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
     "headline": "White Sox continue to 'believe,' score 1st playoff series win since 2005",
     "link": "https://www.espn.com/mlb/story/_/id/50072595/white-sox-sweep-astros-first-playoff-series-win-2005",
     "published": "2026-10-01T04:41:13.000Z",
@@ -66,21 +66,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Yankees ride balanced attack, advance to ALDS with Game 2 throttling of Red Sox",
+    "link": "https://sports.yahoo.com/articles/yankees-ride-balanced-attack-advance-034213644.html",
+    "published": "2026-10-01T03:42:13.000Z",
+    "image": "",
+    "blurb": "There were heroes aplenty on Wednesday night as the Yankees brushed the Red Sox aside.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Wild Card Series Game 2 winners and losers: Yankees, White Sox advance; Alec Bohm saves the day",
     "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-wild-card-series-game-2-winners-losers/",
     "published": "2026-10-01T03:17:23.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F8d2afaad-3f66-4899-afe1-fe597a651eac%2Fgarcia-imagn.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Phillies staved off elimination, while the White Sox cruised to their first playoff series win since 2005",
     "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "Cody Bellinger drives in four to power Yankees' Wild Card Series sweep of Red Sox",
-    "link": "https://sports.yahoo.com/articles/cody-bellinger-drives-four-power-032101517.html",
-    "published": "2026-10-01T03:21:01.000Z",
-    "image": "",
-    "blurb": "Max Fried threw six strong innings, and Luis Garc\u00eda Jr. and Cody Bellinger slammed home runs Wednesday night as the Yankees blew out the Red Sox, 9-2, in Game 2 of the AL Wild Card Series at Yankee Stadium.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -104,11 +104,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Steelers trade Joey Porter Jr. to the Cowboys",
-    "link": "https://sports.yahoo.com/articles/steelers-trade-joey-porter-jr-035431593.html",
-    "published": "2026-10-01T03:54:31.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/3a86816f9203755c8bc0ea95853206f57aa19f163a2235c3ee097af7248e8122/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Fd312fe3dd1298c96f6759ab57d5c4b42.jpg",
-    "blurb": "Contract impasse ends with Porter being sent to a new team.",
+    "headline": "Croskey-Merritt on London: \u201cJust want to win and go home\u201d \u2013 All aTwitter",
+    "link": "https://sports.yahoo.com/articles/croskey-merritt-london-just-want-040000228.html",
+    "published": "2026-10-01T04:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/994cc17e27efe39b1b677fe7506d66d7dfd7a88e67faa2c6c05294487d8b302c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F3116e6cc60ff1bfe83833f3a154303bf.jpg",
+    "blurb": "We follow Twitter so you don\u2019t have to",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -131,11 +131,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Cowboys trading for Steelers' Joey Porter Jr. in midseason deal. See the details",
-    "link": "https://sports.yahoo.com/articles/cowboys-trading-steelers-joey-porter-035045029.html",
-    "published": "2026-10-01T03:50:45.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/23bae5b93e11a8f6abf96055236f3b482562cd775a12c7f86bfee87acc9902a5/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F2d9a4ded6f491fb24f5c1f8790276123.jpg",
-    "blurb": "The Pittsburgh Steelers are trading CB Joey Porter Jr. to the Dallas Cowboys in a Week 4 move. Here's what we know so far:",
+    "headline": "Steelers trade Joey Porter Jr to Cowboys",
+    "link": "https://sports.yahoo.com/articles/steelers-trade-joey-porter-jr-035743253.html",
+    "published": "2026-10-01T03:57:43.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/daa7e5ab327632560e7aaf38e0c5bf839830ef1a8a1961f154975ea32491f339/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6a0567404ce393c82899e7ec26b0c976.jpg",
+    "blurb": "Steelers trade CB Joey Porter Jr to Cowboys",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -158,11 +158,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Chicago Bears Offensive Line Analysis vs. Eagles",
-    "link": "https://sports.yahoo.com/articles/chicago-bears-offensive-line-analysis-034911096.html",
-    "published": "2026-10-01T03:49:11.000Z",
+    "headline": "Panthers are all sorts of banged up heading into Week 4",
+    "link": "https://sports.yahoo.com/articles/panthers-sorts-banged-heading-week-035500839.html",
+    "published": "2026-10-01T03:55:00.000Z",
     "image": "",
-    "blurb": "No sacks to break down this week, so @wiltfongjr is using Sackwatch to share some stuff on the Bears' o-line.",
+    "blurb": "The Carolina Panthers are working through a lot of injuries ahead of prime time against the Lions.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -306,12 +306,12 @@
     "league": "WNBA"
    },
    {
-    "headline": "Washington Mystics vs. Atlanta Dream - Game Highlights",
-    "link": "https://www.espn.com/video/clip/_/id/50074065/washington-mystics-vs-atlanta-dream-game-highlights",
-    "published": "2026-10-01T03:51:38Z",
+    "headline": "Gray-led Dream into semis for 1st time since '18",
+    "link": "https://www.espn.com/wnba/story/_/id/50073272/allisha-gray-leads-dream-mystics-wnba-semifinals",
+    "published": "2026-10-01T02:42:39.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724244_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Allisha Gray scored 22 points, Jordin Canada had 13 of her 19 points in the fourth quarter, and the Dream advanced to the semifinals of the WNBA playoffs for the first time since 2018, beating the Mystics 93-75 in Game 2.",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F0930%2Fss_20260930_233240603_3680496%2Fss_20260930_233240603_3680496.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Washington Mystics vs. Atlanta Dream - Game Highlights",
     "league": "WNBA"
    },
    {
@@ -333,11 +333,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Gray-led Dream into semis for 1st time since '18",
-    "link": "https://www.espn.com/wnba/story/_/id/50073272/allisha-gray-leads-dream-mystics-wnba-semifinals",
+    "headline": "Clark helps keep Fever alive with 'pretty incredible' Game 2 display vs. Aces",
+    "link": "https://www.espn.com/wnba/story/_/id/50063312/clark-monster-effort-helps-fever-force-game-3-aces",
     "published": "2026-10-01T02:42:39.000Z",
     "image": "",
-    "blurb": "Allisha Gray scored 22 points, Jordin Canada had 13 of her 19 points in the fourth quarter, and the Dream advanced to the semifinals of the WNBA playoffs for the first time since 2018, beating the Mystics 93-75 in Game 2.",
+    "blurb": "Caitlin Clark became the first player in WNBA history with at least 25 points and 15 assists in a game (regular season or playoffs), helping the Fever stay alive with a 99-89 victory over the Aces at Gainbridge Fieldhouse.",
     "source": "ESPN",
     "league": "WNBA"
    },
@@ -360,11 +360,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Clark helps keep Fever alive with 'pretty incredible' Game 2 display vs. Aces",
-    "link": "https://www.espn.com/wnba/story/_/id/50063312/clark-monster-effort-helps-fever-force-game-3-aces",
+    "headline": "Aces' Wilson T'd up for confronting fan, fumes over 'unacceptable' behavior",
+    "link": "https://www.espn.com/wnba/story/_/id/50064172/aces-wilson-td-confronting-fan-game-2-loss-fever",
     "published": "2026-10-01T02:42:39.000Z",
     "image": "",
-    "blurb": "Caitlin Clark became the first player in WNBA history with at least 25 points and 15 assists in a game (regular season or playoffs), helping the Fever stay alive with a 99-89 victory over the Aces at Gainbridge Fieldhouse.",
+    "blurb": "Aces center A'ja Wilson had to be pulled away by teammates after she confronted a fan she said stepped toward her and pointed at her late in Tuesday's Game 2 loss at Gainbridge Fieldhouse.",
     "source": "ESPN",
     "league": "WNBA"
    }
@@ -463,21 +463,21 @@
   ],
   "hockey/nhl": [
    {
+    "headline": "Canadiens' Jakub Dobes Poised For Even Better Season?",
+    "link": "https://sports.yahoo.com/articles/canadiens-jakub-dobes-poised-even-034303769.html",
+    "published": "2026-10-01T03:43:03.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/02fc7812be9fdd8f64e682b967f06963dafe4c018c5c9eff26269ae8f8f9c06b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_montreal_canadiens_articles_443%2F58613ff9e5fa0900f0fcdc425f2dce25.jpg",
+    "blurb": "Will Dobes be even better for the Canadiens this season?",
+    "source": "YAHOO",
+    "league": "NHL"
+   },
+   {
     "headline": "Flyers and Penguins renew the Battle of Pennsylvania",
     "link": "https://www.espn.com/nhl/story/_/id/50059344/nhl-2026-27-tonight-games-schedule-matchups-stats-top-players-betting",
     "published": "2026-10-01T03:14:44.000Z",
     "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0428%252Fr1650237_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Here's what you need to know for the matchups this evening, plus stat leaders and more.",
     "source": "ESPN",
-    "league": "NHL"
-   },
-   {
-    "headline": "Flyers Eviscerated by Penguins in Brutal 7-0 Home Opener Loss",
-    "link": "https://sports.yahoo.com/articles/flyers-eviscerated-penguins-brutal-7-031103339.html",
-    "published": "2026-10-01T03:11:03.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/bda97d01c502c50bd904305f634e616769c7945bef3f008250fad1bca61895dd/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_philadelphia_flyers_articles_543%2Fbc1b7f2c18f675fa5eb51d308280a910.jpg",
-    "blurb": "The Flyers never stood a chance.",
-    "source": "YAHOO",
     "league": "NHL"
    },
    {
@@ -490,21 +490,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Flyers Eviscerated by Penguins in Brutal 7-0 Home Opener Loss",
+    "link": "https://sports.yahoo.com/articles/flyers-eviscerated-penguins-brutal-7-031103339.html",
+    "published": "2026-10-01T03:11:03.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/bda97d01c502c50bd904305f634e616769c7945bef3f008250fad1bca61895dd/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_philadelphia_flyers_articles_543%2Fbc1b7f2c18f675fa5eb51d308280a910.jpg",
+    "blurb": "The Flyers never stood a chance.",
+    "source": "YAHOO",
+    "league": "NHL"
+   },
+   {
     "headline": "Predictions for every team's finish: Why the Panthers will win the Cup",
     "link": "https://www.espn.com/nhl/story/_/id/50059814/nhl-2026-27-standings-predictions-picks-top-teams-playoffs-stanley-cup-winners",
     "published": "2026-10-01T03:14:43.000Z",
     "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723823_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Some fans will wait to watch all the games this season. Readers of this story won't need to!",
     "source": "ESPN",
-    "league": "NHL"
-   },
-   {
-    "headline": "Islanders score late, but open season with 2-1 loss to Maple Leafs",
-    "link": "https://sports.yahoo.com/articles/islanders-score-open-season-2-024321906.html",
-    "published": "2026-10-01T02:43:21.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/6a198bcf260bb0d3d00f207e135a2ea2d51d67aff553bc6a319b3a1673b18b77/lightyear_networkapi/resizefill_w444_h250%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsny_articles_235%2Fb7c66c73a31845839f54d05fcd61108e.jpg",
-    "blurb": "Easton Cowan had a goal and an assist in the first period and the Toronto Maple Leafs beat the New York Islanders 2-1 on Wednesday night for their first victory under coach Jim Hiller.",
-    "source": "YAHOO",
     "league": "NHL"
    },
    {
@@ -517,21 +517,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Islanders score late, but open season with 2-1 loss to Maple Leafs",
+    "link": "https://sports.yahoo.com/articles/islanders-score-open-season-2-024321906.html",
+    "published": "2026-10-01T02:43:21.000Z",
+    "image": "",
+    "blurb": "Easton Cowan had a goal and an assist in the first period and the Toronto Maple Leafs beat the New York Islanders 2-1 on Wednesday night for their first victory under coach Jim Hiller.",
+    "source": "YAHOO",
+    "league": "NHL"
+   },
+   {
     "headline": "Maple Leafs beat the Islanders 2-1 to rebound from opening loss",
     "link": "http://www.espn.com/nhl/recap?gameId=401892431",
     "published": "2026-10-01T02:36:30Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892431.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "\u2014 Easton Cowan had a goal and an assist in the first period and the Toronto Maple Leafs beat the New York Islanders 2-1 on Wednesday night for their first victory under coach Jim Hiller.",
-    "league": "NHL"
-   },
-   {
-    "headline": "Penguins crush Flyers 7-0 as Arturs Silovs earns a shutout in Philadelphia",
-    "link": "https://sports.yahoo.com/articles/penguins-crush-flyers-7-0-023901213.html",
-    "published": "2026-10-01T02:39:01.000Z",
-    "image": "",
-    "blurb": "Evgeni Malkin, Hendrix Lapierre and Filip Hallander scored in the second period and Arturs Silovs stopped 19 shots to help the Pittsburgh Penguins steamroll the Philadelphia Flyers 7-0 on Wednesday night. Silovs posted his third career shutout in his 57th start. Nick Robertson sc",
-    "source": "YAHOO",
     "league": "NHL"
    },
    {
@@ -544,12 +544,12 @@
     "league": "NHL"
    },
    {
-    "headline": "Who has scored the most goals in NHL history?",
-    "link": "https://www.espn.com/nhl/story/_/id/41589293/who-scored-most-goals-nhl-history",
-    "published": "2026-10-01T02:33:46Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F0406%2Fr1474583_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Alex Ovechkin holds the record for the most individual career goals in NHL history. Which other players are at the top of the list?",
+    "headline": "Penguins crush Flyers 7-0 as Arturs Silovs earns a shutout in Philadelphia",
+    "link": "https://sports.yahoo.com/articles/penguins-crush-flyers-7-0-023901213.html",
+    "published": "2026-10-01T02:39:01.000Z",
+    "image": "",
+    "blurb": "Evgeni Malkin, Hendrix Lapierre and Filip Hallander scored in the second period and Arturs Silovs stopped 19 shots to help the Pittsburgh Penguins steamroll the Philadelphia Flyers 7-0 on Wednesday night. Silovs posted his third career shutout in his 57th start. Nick Robertson sc",
+    "source": "YAHOO",
     "league": "NHL"
    }
   ],
@@ -1087,9 +1087,9 @@
  },
  "latest": [
   {
-   "headline": "Follow live: Padres taking control in Game 2 with spot in NLDS on the line",
+   "headline": "Follow live: Padres in control in Game 2 with spot in NLDS on the line",
    "link": "https://www.espn.com/mlb/story/_/id/50045993/mlb-playoffs-2026-wild-card-game-2-live-updates-analysis-takeaways",
-   "published": "2026-10-01T04:49:09.000Z",
+   "published": "2026-10-01T05:04:54.000Z",
    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724219_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "null",
    "source": "ESPN",
@@ -1132,31 +1132,40 @@
    "league": "WNBA"
   },
   {
-   "headline": "Steelers trade Joey Porter Jr. to the Cowboys",
-   "link": "https://sports.yahoo.com/articles/steelers-trade-joey-porter-jr-035431593.html",
-   "published": "2026-10-01T03:54:31.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/3a86816f9203755c8bc0ea95853206f57aa19f163a2235c3ee097af7248e8122/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Fd312fe3dd1298c96f6759ab57d5c4b42.jpg",
-   "blurb": "Contract impasse ends with Porter being sent to a new team.",
+   "headline": "Braves News: Game 3 drama, Tyler Mahle, more",
+   "link": "https://sports.yahoo.com/articles/braves-news-game-3-drama-040100196.html",
+   "published": "2026-10-01T04:01:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/e537322a0fe5f2396b38c12272f7706c308c82f5b8866f7216da520369210366/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F32412647255ffdf900084d404554db17.jpg",
+   "blurb": "Atlanta Braves news and notes from Wednesday",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
+   "headline": "Croskey-Merritt on London: \u201cJust want to win and go home\u201d \u2013 All aTwitter",
+   "link": "https://sports.yahoo.com/articles/croskey-merritt-london-just-want-040000228.html",
+   "published": "2026-10-01T04:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/994cc17e27efe39b1b677fe7506d66d7dfd7a88e67faa2c6c05294487d8b302c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F3116e6cc60ff1bfe83833f3a154303bf.jpg",
+   "blurb": "We follow Twitter so you don\u2019t have to",
    "source": "YAHOO",
    "league": "NFL"
   },
   {
-   "headline": "Washington Mystics vs. Atlanta Dream - Game Highlights",
-   "link": "https://www.espn.com/video/clip/_/id/50074065/washington-mystics-vs-atlanta-dream-game-highlights",
-   "published": "2026-10-01T03:51:38Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F0930%2Fss_20260930_233240603_3680496%2Fss_20260930_233240603_3680496.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Washington Mystics vs. Atlanta Dream - Game Highlights",
-   "league": "WNBA"
-  },
-  {
-   "headline": "Cowboys trading for Steelers' Joey Porter Jr. in midseason deal. See the details",
-   "link": "https://sports.yahoo.com/articles/cowboys-trading-steelers-joey-porter-035045029.html",
-   "published": "2026-10-01T03:50:45.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/23bae5b93e11a8f6abf96055236f3b482562cd775a12c7f86bfee87acc9902a5/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F2d9a4ded6f491fb24f5c1f8790276123.jpg",
-   "blurb": "The Pittsburgh Steelers are trading CB Joey Porter Jr. to the Dallas Cowboys in a Week 4 move. Here's what we know so far:",
+   "headline": "Steelers trade Joey Porter Jr to Cowboys",
+   "link": "https://sports.yahoo.com/articles/steelers-trade-joey-porter-jr-035743253.html",
+   "published": "2026-10-01T03:57:43.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/daa7e5ab327632560e7aaf38e0c5bf839830ef1a8a1961f154975ea32491f339/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6a0567404ce393c82899e7ec26b0c976.jpg",
+   "blurb": "Steelers trade CB Joey Porter Jr to Cowboys",
    "source": "YAHOO",
    "league": "NFL"
+  },
+  {
+   "headline": "Watch White Sox rookie's amazing beer-soaked interview: 'I'm drunk'",
+   "link": "https://sports.yahoo.com/articles/watch-white-sox-rookies-amazing-035332073.html",
+   "published": "2026-10-01T03:53:32.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/05f1f2f4a83b6d93f4459be3117c40b97326c85aa1b835f01d6fac4d78fda6f9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F74fab4f8ba5e0d991f714169c4986b13.jpg",
+   "blurb": "White Sox rookie ditches his translator and announces he's drunk in forgettable interview.",
+   "source": "YAHOO",
+   "league": "MLB"
   },
   {
    "headline": "What's next for the Red Sox? Boston's roller coaster season ends at hands of rival Yankees -- again",
@@ -1168,22 +1177,13 @@
    "league": "MLB"
   },
   {
-   "headline": "Yankees ride balanced attack, advance to ALDS with Game 2 throttling of Red Sox",
-   "link": "https://sports.yahoo.com/articles/yankees-ride-balanced-attack-advance-034213644.html",
-   "published": "2026-10-01T03:42:13.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/26d2d6a61472d64e7193a750b8ee421d09d8597cab2ffec19d4124731127d8dd/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F1e24627c06b1b79cddef3f7a281ba98b.jpg",
-   "blurb": "There were heroes aplenty on Wednesday night as the Yankees brushed the Red Sox aside.",
+   "headline": "Canadiens' Jakub Dobes Poised For Even Better Season?",
+   "link": "https://sports.yahoo.com/articles/canadiens-jakub-dobes-poised-even-034303769.html",
+   "published": "2026-10-01T03:43:03.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/02fc7812be9fdd8f64e682b967f06963dafe4c018c5c9eff26269ae8f8f9c06b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_montreal_canadiens_articles_443%2F58613ff9e5fa0900f0fcdc425f2dce25.jpg",
+   "blurb": "Will Dobes be even better for the Canadiens this season?",
    "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
-   "headline": "Yankees cruise to 9-2 win in Game 2, send Red Sox home for second straight season",
-   "link": "https://sports.yahoo.com/articles/yankees-cruise-9-2-win-033726300.html",
-   "published": "2026-10-01T03:37:26.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/beb67ea9ea91ad812477ece75c5f0f401a013085f1d5c712bbc793530a748297/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F630428cfbb87f13e3dfb72dc61009f6c.jpg",
-   "blurb": "Yankees use home runs from Luis Garcia Jr. and Cody Bellinger to beat Red Sox",
-   "source": "YAHOO",
-   "league": "MLB"
+   "league": "NHL"
   },
   {
    "headline": "NFL Week 4 injuries: Steelers' Joey Porter Jr. ruled out, Rams' Aaron Donald sits out of practice",
@@ -1294,13 +1294,13 @@
    "league": "NCAAB"
   },
   {
-   "headline": "Islanders score late, but open season with 2-1 loss to Maple Leafs",
-   "link": "https://sports.yahoo.com/articles/islanders-score-open-season-2-024321906.html",
-   "published": "2026-10-01T02:43:21.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/6a198bcf260bb0d3d00f207e135a2ea2d51d67aff553bc6a319b3a1673b18b77/lightyear_networkapi/resizefill_w444_h250%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsny_articles_235%2Fb7c66c73a31845839f54d05fcd61108e.jpg",
-   "blurb": "Easton Cowan had a goal and an assist in the first period and the Toronto Maple Leafs beat the New York Islanders 2-1 on Wednesday night for their first victory under coach Jim Hiller.",
-   "source": "YAHOO",
-   "league": "NHL"
+   "headline": "Gray-led Dream into semis for 1st time since '18",
+   "link": "https://www.espn.com/wnba/story/_/id/50073272/allisha-gray-leads-dream-mystics-wnba-semifinals",
+   "published": "2026-10-01T02:42:39.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724244_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Allisha Gray scored 22 points, Jordin Canada had 13 of her 19 points in the fourth quarter, and the Dream advanced to the semifinals of the WNBA playoffs for the first time since 2018, beating the Mystics 93-75 in Game 2.",
+   "source": "ESPN",
+   "league": "WNBA"
   },
   {
    "headline": "Ryan Nembhard Is off to The Mile-High City",
@@ -1448,8 +1448,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 54,
-  "YAHOO": 68,
+  "ESPN": 53,
+  "YAHOO": 69,
   "CBS": 35
  },
  "degraded_sources": []
