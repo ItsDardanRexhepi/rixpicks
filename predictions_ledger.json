@@ -676,5 +676,18 @@
   "kickoff_utc": "2026-10-02T01:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-01T04:20:26.047559+00:00"
+ },
+ {
+  "id": "ab01ff509a",
+  "event_id": "761798",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Seattle Sounders FC",
+  "away": "Sporting Kansas City",
+  "pick_team": "Seattle Sounders FC",
+  "prediction": "Seattle Sounders FC beat Sporting Kansas City",
+  "kickoff_utc": "2026-10-02T01:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-01T07:35:35.298294+00:00"
  }
 ]

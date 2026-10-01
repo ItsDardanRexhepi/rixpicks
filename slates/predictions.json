@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-01T06:50:24.394428+00:00",
+ "generated_at": "2026-10-01T07:35:35.798557+00:00",
  "items": [
   {
    "id": "53ae48a051",
@@ -14,6 +14,13 @@
    "event": "Indiana Fever @ Las Vegas Aces",
    "prediction": "Las Vegas Aces beat Indiana Fever",
    "kickoff_utc": "2026-10-02T01:00:00+00:00"
+  },
+  {
+   "id": "ab01ff509a",
+   "league": "MLS",
+   "event": "Sporting Kansas City @ Seattle Sounders FC",
+   "prediction": "Seattle Sounders FC beat Sporting Kansas City",
+   "kickoff_utc": "2026-10-02T01:30:00+00:00"
   },
   {
    "id": "91e64929a5",
@@ -34,13 +41,6 @@
    "league": "CFB",
    "event": "Alabama Crimson Tide @ Mississippi State Bulldogs",
    "prediction": "Alabama Crimson Tide beat Mississippi State Bulldogs",
-   "kickoff_utc": "2026-10-03T16:00:00+00:00"
-  },
-  {
-   "id": "f82d2d5d77",
-   "league": "CFB",
-   "event": "Notre Dame Fighting Irish @ North Carolina Tar Heels",
-   "prediction": "Notre Dame Fighting Irish beat North Carolina Tar Heels",
    "kickoff_utc": "2026-10-03T16:00:00+00:00"
   }
  ]
