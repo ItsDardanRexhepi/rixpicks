@@ -105,6 +105,31 @@ async function fetchText(u) {
       const ageH = (Date.now() - new Date(yd.fetched_at).getTime()) / 3600000;
       check('served: nfl_rec_yards.json numeric + fresh (' + ageH.toFixed(1) + ' h)', Object.values(yd.players || {}).length > 0 && Object.values(yd.players).every(p => typeof p.yards === 'number') && ageH < 48, 'NFL futures yards counters show Unavailable');
     } catch (e) { check('served: nfl_rec_yards.json', false, 'NFL futures yards counters show Unavailable: ' + e.message); }
+    // X feed emptiness (guard 4, 9/30 6:07 PM PT): alert-only class check, no behavior change.
+    // The served pool legitimately ages to 0 under the owner's 24h horizon when X pulls are
+    // walled (402). FAIL loud only on the TRANSITION (latest x_feed.json commit emptied a
+    // non-empty prior within the last 60 min); otherwise a standing ALERT line, never a hold.
+    try {
+      const xf = JSON.parse(await fetchText(BASE + '/slates/x_feed.json'));
+      const nItems = (xf.items || []).length;
+      let msg = 'served: x_feed.json items=' + nItems;
+      if (nItems > 0) { check(msg + ' (non-empty)', true); }
+      else {
+        let dropped = false, detail = 'no git history available';
+        try {
+          const lg = execFileSync('git', ['log', '-2', '--format=%H %ct', '--', 'slates/x_feed.json'], { encoding: 'utf8' }).trim().split('\n');
+          if (lg.length === 2) {
+            const [newH, newT] = lg[0].split(' '), prevH = lg[1].split(' ')[0];
+            const prevN = (JSON.parse(execFileSync('git', ['show', prevH + ':slates/x_feed.json'], { encoding: 'utf8', maxBuffer: 1 << 26 })).items || []).length;
+            const ageMin = (Date.now() / 1000 - Number(newT)) / 60;
+            dropped = prevN > 0 && ageMin < 60;
+            detail = 'prior x_feed.json commit ' + prevH.slice(0, 8) + ' had ' + prevN + ' items; latest change ' + newH.slice(0, 8) + ' ' + ageMin.toFixed(0) + ' min ago';
+          }
+        } catch (e) { detail = 'git history check failed: ' + e.message.split('\n')[0]; }
+        if (dropped) check(msg + ' (dropped from non-empty: ' + detail + ')', false, 'X posts column empty; pool aged out past the 24h horizon or the ingest wiped it - check X 402 wall vs ingest before assuming');
+        else console.log('ALERT served: x_feed.json items=0 - X posts column empty (not a hold; ' + detail + '). Known cause 9/30: X 402 billing wall + 24h horizon age-out.');
+      }
+    } catch (e) { check('served: x_feed.json parses', false, 'X posts column broken: ' + e.message); }
   }
   console.log(failures.length ? failures.length + ' FAIL - HOLD ALL PUBLISHES (fixes excepted)' : 'HEALTH GATE PASS');
   process.exit(failures.length ? 1 : 0);
