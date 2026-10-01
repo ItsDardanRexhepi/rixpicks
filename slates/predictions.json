@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-01T20:05:19.619042+00:00",
+ "generated_at": "2026-10-01T20:20:59.027698+00:00",
  "items": [
   {
    "id": "52af531c67",
@@ -37,11 +37,11 @@
    "kickoff_utc": "2026-10-02T01:00:00+00:00"
   },
   {
-   "id": "ab01ff509a",
-   "league": "MLS",
-   "event": "Sporting Kansas City @ Seattle Sounders FC",
-   "prediction": "Seattle Sounders FC beat Sporting Kansas City",
-   "kickoff_utc": "2026-10-02T01:30:00+00:00"
+   "id": "5e144ffcc8",
+   "league": "NHL",
+   "event": "Seattle Kraken @ Calgary Flames",
+   "prediction": "Calgary Flames beat Seattle Kraken",
+   "kickoff_utc": "2026-10-02T01:00:00+00:00"
   }
  ]
 }

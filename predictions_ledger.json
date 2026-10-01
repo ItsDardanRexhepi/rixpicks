@@ -754,5 +754,18 @@
   "kickoff_utc": "2026-10-02T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-01T18:20:30.970512+00:00"
+ },
+ {
+  "id": "5e144ffcc8",
+  "event_id": "401891777",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Calgary Flames",
+  "away": "Seattle Kraken",
+  "pick_team": "Calgary Flames",
+  "prediction": "Calgary Flames beat Seattle Kraken",
+  "kickoff_utc": "2026-10-02T01:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-01T20:20:54.109010+00:00"
  }
 ]
