@@ -142,3 +142,14 @@ report as `exempt_offbook: [{key, prod, worker, bid, ask, last_prod_tick, age_mi
 be listed in the acceptance summary with this rule stated. Stacks with the v11 >60-min stale rule
 (`exempt_stale`). Evidence: NASCAR Hamlin prod 36.0 vs ask 35, Elliott prod 5.7 vs ask 4.6.
 Futures 24h clock keeps its 22:25:09Z 9/30 anchor unless main re-anchors at the v12 deploy.
+
+### Futures gate audit store v13 (main decision 9/30 ~11:25 PM PT)
+The report's `exempt_stale` / `exempt_offbook` lists are capped at 30 for history size; each cycle
+also records `exempt_stale_n`, `exempt_offbook_n` and `exempt_stale_keys_hash` (FNV-1a of the sorted
+full key set). The FULL per-cycle lists are written to R2 `parity/exempt/<ts>.json` (served at
+`/parity/exempt/<ts>.json`) whenever any key is exempted, and `parity/exempt_summary.json`
+(served at `/parity/exempt_summary.json`) keeps a running per-key table (stale_cycles,
+offbook_cycles, last prod tick, last off-book prod/worker/bid/ask) plus per-cycle counts for the
+last 800 cycles. History before the v13 deploy carries only the capped lists. The acceptance
+summary must state the v11 and v12 rules, count exempted keys per cycle, and note that sparse
+overnight prod ticks make the gate noisy (a data-sparsity artifact, not a parity regression).

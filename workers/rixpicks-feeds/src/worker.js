@@ -14,6 +14,7 @@ const SERVE = {
   'feeds/img_check.json': 'slates/img_check.json',
   'feeds/futures/current.json': 'futures/current.json',
   'parity/latest.json': 'parity/latest.json',
+  'parity/exempt_summary.json': 'parity/exempt_summary.json',
   'parity/history.json': 'parity/history.json',
 };
 
@@ -71,6 +72,11 @@ export default {
         } catch (e) { out.targets[name] = { error: String(e).slice(0, 120) }; }
       }
       return Response.json(out);
+    }
+    if (/^parity\/exempt\/[0-9TZ:.\-]+\.json$/.test(path)) {
+      const eo = await env.FEEDS.get(path);
+      if (!eo) return new Response('not found', { status: 404 });
+      return new Response(eo.body, { headers: { 'content-type': 'application/json', 'cache-control': 'no-store', 'access-control-allow-origin': '*' } });
     }
     const key = SERVE[path];
     if (!key) return new Response('not found', { status: 404 });

@@ -184,6 +184,7 @@ function quotesParity(mine, prod) {
 // parity. Price comparison only (coverage still counts). Every exempted key is reported in
 // `exempt_offbook` with prod value, worker value, live bid/ask and last prod tick time, and
 // must be listed in the final acceptance summary. Tolerance unchanged (+/-2c).
+function fnv(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h.toString(16).padStart(8, '0'); }
 const OFFBOOK_MIN_AGE_MIN = 15;
 const STALE_PROD_MIN = 60;
 function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
@@ -229,8 +230,14 @@ function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
   const poly = evalLeg('P:');
   const kalshi = evalLeg('K:');
   poly.kalshi_leg = { delegated: 'gha', ...kalshi };
-  if (exempt.length) poly.exempt_stale = exempt.slice(0, 30);
+  // v13 audit (main 9/30 ~11:25 PM PT): history lists stay capped at 30 but the counts and a hash of
+  // the FULL key set are always recorded; the full per-cycle lists ride on a transient field that
+  // runParity moves to R2 (parity/exempt/<ts>.json) and into parity/exempt_summary.json.
+  poly.exempt_stale_n = exempt.length;
+  poly.exempt_offbook_n = exemptBook.length;
+  if (exempt.length) { poly.exempt_stale = exempt.slice(0, 30); poly.exempt_stale_keys_hash = fnv(exempt.map(e => e.key).sort().join('|')); }
   if (exemptBook.length) poly.exempt_offbook = exemptBook.slice(0, 30);
+  poly._exempt_full = { stale: exempt, offbook: exemptBook };
   return poly;
 }
 
@@ -293,6 +300,24 @@ export async function runParity(env, justRan) {
         try { const qo = await env.FEEDS.get('futures/quality.json'); if (qo) quality = JSON.parse(await qo.text()); } catch (e) {}
         report.lanes.futures = mine ? futuresParity(mine, prodRows, quality, lastTick, now) : { ok: false, reason: 'no worker artifact' };
       }
+      // v13 audit store: full exempt lists per cycle (R2) + running per-key summary
+      try {
+        const fl = report.lanes.futures; const full = fl && fl._exempt_full; if (fl) delete fl._exempt_full;
+        if (fl && 'exempt_stale_n' in fl) {
+          let sum = { since: report.ts, rules: { stale_min: STALE_PROD_MIN, offbook_min_age_min: OFFBOOK_MIN_AGE_MIN, note: 'v11 stale>60min; v12 off-book (prod outside live bid/ask, tick>15min, worker inside book)' }, cycles: 0, cycles_with_exempt: 0, keys: {}, cycle_counts: [] };
+          try { const so = await env.FEEDS.get('parity/exempt_summary.json'); if (so) sum = JSON.parse(await so.text()); } catch (e) {}
+          sum.cycles++; sum.updated = report.ts;
+          const nS = fl.exempt_stale_n, nB = fl.exempt_offbook_n;
+          if (nS || nB) sum.cycles_with_exempt++;
+          sum.cycle_counts.push([report.ts, nS, nB, fl.price_close]);
+          if (sum.cycle_counts.length > 800) sum.cycle_counts = sum.cycle_counts.slice(-800);
+          for (const e of (full && full.stale) || []) { const k = sum.keys[e.key] = sum.keys[e.key] || { stale_cycles: 0, offbook_cycles: 0 }; k.stale_cycles++; k.last_prod_tick = e.last_prod_tick; k.max_stale_age_min = Math.max(k.max_stale_age_min || 0, e.age_min || 0); k.last_seen = report.ts; }
+          for (const e of (full && full.offbook) || []) { const k = sum.keys[e.key] = sum.keys[e.key] || { stale_cycles: 0, offbook_cycles: 0 }; k.offbook_cycles++; k.last_offbook = { prod: e.prod, worker: e.worker, bid: e.bid, ask: e.ask, last_prod_tick: e.last_prod_tick, ts: report.ts }; k.last_seen = report.ts; }
+          const puts = [env.FEEDS.put('parity/exempt_summary.json', JSON.stringify(sum))];
+          if (nS || nB) puts.push(env.FEEDS.put('parity/exempt/' + report.ts + '.json', JSON.stringify({ ts: report.ts, price_close: fl.price_close, stale: full.stale, offbook: full.offbook })));
+          await Promise.all(puts);
+        }
+      } catch (e) { console.error('exempt audit store error:', String(e).slice(0, 100)); }
     }
   } catch (e) { report.error = String(e).slice(0, 120); }
   // rolling 24h window
