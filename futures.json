@@ -240,6 +240,19 @@
    "market_label": "Minnesota Lynx",
    "source": "gamma",
    "quoted_at": "2026-09-30T04:34:34+00:00"
+  },
+  "settlement": {
+   "status": "SETTLED",
+   "result": "LOST",
+   "settled_date": "2026-09-29",
+   "units_result": -2,
+   "note": "Settled NO 9/29 (Liberty swept Lynx 2-0, Kalshi finalized NO)",
+   "scope": "signal tracking, tracked-not-bet; not money",
+   "sources": [
+    "Kalshi KXWNBA-26-MIN status finalized result no, close 2026-09-30T03:11:26Z",
+    "Polymarket wnba-2026-champion-464 Will Minnesota Lynx win the 2026 WNBA Finals? closed, resolved No"
+   ],
+   "recorded": "2026-10-01"
   }
  }
 ]

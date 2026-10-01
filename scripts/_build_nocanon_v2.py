@@ -1252,7 +1252,7 @@ if FUT:
     fut_entry=('<div class="sect" style="margin-top:22px">Futures</div>'
       '<a href="futures.html?v={build_sha}" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit">'
       '<span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span>'
-      '<span style="color:#8a8f98;font-size:12px">'+str(len(FUT))+' live &rsaquo;</span></a>')
+      '<span style="color:#8a8f98;font-size:12px">'+str(len([_x for _x in FUT if not _x.get('settlement')]))+' live &rsaquo;</span></a>')
 # guest NFL anytime-TD slate (contract slates/schema_v1.json) - home section hydrates from
 # slates/nfl_latest.json; empty state until the first slate lands; stale slates (4d+) fall back to empty
 nfl_entry=(
@@ -1522,6 +1522,7 @@ if FUT:
         _LGMAP={k:(v['espn'],v.get('logo_dir')) for k,v in _REG.items() if v.get('espn') and v.get('futures')}
         _held={}
         for _f in FUT:
+            if _f.get('settlement'): continue  # settled ticket: never a live-today card
             if _f.get('league') not in _LGMAP or not _f.get('abbr'): continue
             _held.setdefault(_f['team'],{'abbr':_f['abbr'],'mkts':[],'lg':_f['league']})
             _lbl='SB' if 'Super Bowl' in _f['market'] else (_f['market'][:-9] if _f['market'].endswith(' Champion') else _f['market'])
@@ -1559,6 +1560,7 @@ if FUT:
         _fw2=[]
         _tola=_dt.datetime.now(_ZI('America/Los_Angeles')).date().isoformat()
         for _f in FUT:
+            if _f.get('settlement'): continue
             if _f.get('placed')!=_tola or _f.get('league') not in _LGMAP or not _f.get('abbr'): continue
             if _f['team'] in _fwgot: continue  # game-day card already carries them
             _fwgot.add(_f['team'])
@@ -3536,7 +3538,22 @@ def build_futures_page(css,build_sha):
     BALL={'NFL':'&#127944;','MLB':'&#9918;','NBA':'&#127936;','NHL':'&#127954;','WTA':'&#127934;','ATP':'&#127934;','CFB':'&#127944;','WNBA':'&#127936;','NCAAB':'&#127936;','MLS':'&#9917;','NWSL':'&#9917;','PGA':'&#9971;','NASCAR':'&#127950;','UFC':'&#129354;','Boxing':'&#129354;'}
     rows=[]
     seen_lg=set()
+    settled_rows=[]
     for f in FUT:
+        _st=f.get('settlement')
+        if _st:
+            # append-only settlement record: the original entry fields stay as carded; live quotes are never rendered for a settled ticket
+            _res=str(_st.get('result','')).upper()
+            _col='#e5484d' if _res=='LOST' else ('#3ecf6f' if _res=='WON' else '#8a8f98')
+            _ur=_st.get('units_result')
+            _urs=('%+gu'%_ur) if isinstance(_ur,(int,float)) else ''
+            settled_rows.append('<div class="futrow" data-fid="%s" data-settled="1" style="padding:12px 0;border-bottom:1px solid rgba(127,127,127,.18)">'
+              '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-weight:700">%s &middot; %s</span>'
+              '<span style="font-weight:700;color:%s;white-space:nowrap">SETTLED - %s</span></div>'
+              '<div style="font-size:12px;color:#8a8f98;margin-top:2px">%s &middot; entry %s &middot; %su%s</div>'
+              '<div style="font-size:12px;margin-top:3px;color:#8a8f98">%s</div></div>'
+              %(html.escape(f['id']),html.escape(f['team']),html.escape(f['market']),_col,html.escape(_res),html.escape(f['league']),html.escape(f['odds']),f.get('units',2),(' &middot; result '+_urs+' (signal tracking, not money)') if _urs else '',html.escape(_st.get('note',''))))
+            continue
         lg=f.get('league','Other')
         if lg not in seen_lg:
             seen_lg.add(lg)
@@ -3586,6 +3603,9 @@ def build_futures_page(css,build_sha):
         %(html.escape(f['id']),html.escape(f.get('poly_slug','')),html.escape(f.get('poly_kw','')),html.escape(_ktick),_kqattrs,html.escape(f['odds']),
           html.escape(f['team']),html.escape(f['market']),html.escape(f.get('fair','')),html.escape(str(f.get('prob',''))),html.escape(f.get('res','')),str(f.get('units',2)),html.escape(f.get('note','')),
           html.escape(f['team']),('' if _kqok else '.55'),html.escape(_fut_live),html.escape(f['id']),html.escape(f['market']),html.escape(f['odds']),f.get('units',2),(' &middot; '+html.escape(f['note']) if f.get('note') else ''),_flink,_futmove))
+    if settled_rows:
+        rows.append('<div class="sect" style="margin-top:18px">Settled</div>')
+        rows.extend(settled_rows)
     _FUTPOLL="""<script>(function(){
 function _faml(c){var q=c/100;if(!(q>0&&q<1))return"";return q>=0.5?String(Math.round(-100*q/(1-q))):"+"+String(Math.round(100*(1-q)/q));}
 function _fpt(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"});}catch(e){return"";}}
@@ -3638,7 +3658,7 @@ rpFutPoll();setInterval(rpFutPoll,60000); /* server fast-loop owns the file; pag
         _asof=_dt2.datetime.fromisoformat(max(_qts)).astimezone(_ZI2('America/Los_Angeles')).strftime('%I:%M %p').lstrip('0') if _qts else 'unavailable'
     except Exception: _asof='unavailable'
     pg=FUTURES_TMPL
-    for tok,val in [('__CSS__',css),('__FUTASOF__',_asof),('__FUTPOLL__',_FUTPOLL),('__ROWS__',''.join(rows)),('__COUNT__',str(len(FUT))),('__BUILD__',build_sha),('__RPARB__',ARB_INJECT)]:
+    for tok,val in [('__CSS__',css),('__FUTASOF__',_asof),('__FUTPOLL__',_FUTPOLL),('__ROWS__',''.join(rows)),('__COUNT__',str(len([_x for _x in FUT if not _x.get('settlement')]))),('__BUILD__',build_sha),('__RPARB__',ARB_INJECT)]:
         pg=pg.replace(tok,val)
     return pg
 _fp=build_futures_page(_css,build_sha)
