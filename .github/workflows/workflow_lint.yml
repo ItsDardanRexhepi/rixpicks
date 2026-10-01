@@ -14,6 +14,8 @@ on:
       - 'scripts/test_pages_changed.py'
       - 'scripts/watchdog_diag.py'
       - 'scripts/test_watchdog_diag.py'
+      - 'scripts/futures_window.js'
+      - 'scripts/test_futures_window.js'
   workflow_dispatch:
 jobs:
   parse:
@@ -29,6 +31,8 @@ jobs:
           bash scripts/test_push_race_guard.sh
       - name: "watchdog diagnosis fixture (quotes the failed job)"
         run: python3 scripts/test_watchdog_diag.py
+      - name: "futures freshness window fixture"
+        run: node scripts/test_futures_window.js
       - name: "pages change-detect fixture"
         run: python3 scripts/test_pages_changed.py
       - name: "yaml parse gate + actionlint"

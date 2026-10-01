@@ -109,7 +109,7 @@ const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOW
       const fut = JSON.parse(await fetchText(BASE + '/futures.json'));
       const qs = (Array.isArray(fut) ? fut : []).map(r => (r.kalshi_quote || {}).quoted_at).filter(Boolean).sort().reverse();
       const ageMin = qs.length ? (Date.now() - new Date(qs[0]).getTime()) / 60000 : Infinity;
-      check('futures.json quoted_at fresh (' + (qs.length ? ageMin.toFixed(1) + ' min' : 'no quotes') + ')', qs.length > 0 && ageMin < 20, 'futures quotes stale beyond the 12-min gate pattern');
+      check('futures.json quoted_at fresh (' + (qs.length ? ageMin.toFixed(1) + ' min' : 'no quotes') + ')', qs.length > 0 && require('./futures_window.js').futuresFresh(Date.now(), qs.length ? new Date(qs[0]).getTime() : NaN), 'futures quotes stale beyond the 12-min gate pattern (window-aware: quoter runs 9 AM-11:59 PM PT)');
     } catch (e) { check('futures.json parses', false, 'futures page broken: ' + e.message); }
     try {
       const tf = await fetchText(BASE + '/ticket-feed.js');
