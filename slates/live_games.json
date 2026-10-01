@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T01:20:24.697872+00:00",
+ "generated_at": "2026-10-01T01:35:34.106332+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "BOS @ NYY",
      "commence": "2026-10-01T00:00Z",
      "status": "in",
-     "detail": "Bot 4th",
+     "detail": "Mid 5th",
      "score": "BOS 0 - NYY 1"
     },
     {
@@ -39,8 +39,8 @@
      "matchup": "GS @ DAL",
      "commence": "2026-10-01T01:00Z",
      "status": "in",
-     "detail": "5:19 - 1st",
-     "score": "GS 12 - DAL 8",
+     "detail": "End of 1st",
+     "score": "GS 26 - DAL 23",
      "away_to": 5,
      "home_to": 5
     }
@@ -54,7 +54,7 @@
      "matchup": "PIT @ PHI",
      "commence": "2026-09-30T23:30Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "17:46 - 3rd",
      "score": "PIT 5 - PHI 0",
      "away_to": null,
      "home_to": null
@@ -86,9 +86,9 @@
      "espn_event_id": "761833",
      "matchup": "STL @ RBNY",
      "commence": "2026-09-30T23:30Z",
-     "status": "in",
-     "detail": "83'",
-     "score": "STL 1 - RBNY 0"
+     "status": "post",
+     "detail": "FT",
+     "score": "STL 3 - RBNY 0"
     }
    ]
   }
