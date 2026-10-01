@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T22:04:32.893896+00:00",
+ "generated_at": "2026-10-01T22:19:30.115579+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -12,6 +12,19 @@
      "status": "pre",
      "detail": "10/1 - 5:00 PM PT",
      "score": "PHI 0 - ATL 0"
+    }
+   ]
+  },
+  {
+   "league": "NFL",
+   "games": [
+    {
+     "espn_event_id": "401872964",
+     "matchup": "PIT @ CLE",
+     "commence": "2026-10-02T00:15Z",
+     "status": "pre",
+     "detail": "10/1 - 5:15 PM PT",
+     "score": "PIT 0 - CLE 0"
     }
    ]
   },
