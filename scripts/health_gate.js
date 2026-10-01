@@ -13,14 +13,28 @@ const fs = require('fs'), vm = require('vm'), { execSync, execFileSync } = requi
 const failures = [];
 const check = (name, cond, impact) => { console.log((cond ? 'OK   ' : 'FAIL ') + name + (cond ? '' : (impact ? '  [user impact: ' + impact + ']' : ''))); if (!cond) failures.push(name); };
 
-const SERVE = process.argv.includes('--serve');
+const SERVE = process.argv.includes('--serve') || process.argv.includes('--hold');
+// --hold (workflow auto-hold, Julian 9/30 6:25 PM: structural failures only; data outages such as a
+// blank X feed or stale quotes are alert-only and must never stop posting). Implies --serve.
+// Exit 0 pass/unknown, 1 = proven structural FAIL (hold), 2 = gate error (never holds).
+const HOLD = process.argv.includes('--hold');
 const BASE = (process.argv.find(a => a.startsWith('--base=')) || '').slice(7) || 'https://rix-picks.com';
 
 async function fetchText(u) {
-  const r = await fetch(u + (u.includes('?') ? '&' : '?') + 'cb=' + Date.now(), { cache: 'no-store' });
-  if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + u);
-  return r.text();
+  let last;
+  for (let i = 0; i < 3; i++) {
+    try {
+      const r = await fetch(u + (u.includes('?') ? '&' : '?') + 'cb=' + Date.now(), { cache: 'no-store' });
+      if (r.status >= 500) { last = new Error('HTTP ' + r.status + ' ' + u); last.net = true; }
+      else if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + u);
+      else return await r.text();
+    } catch (e) { if (e.message.startsWith('HTTP ') && !e.net) throw e; last = last || e; last.net = true; }
+    await new Promise(res => setTimeout(res, 2000));
+  }
+  throw last;
 }
+// transient network/5xx = UNKNOWN (never a hold: holding cannot fix a host outage); proven bad content/404 = FAIL
+const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOWN ' + name + ' (' + e.message + ') - not counted as a failure'); else check(name, false, impact); };
 
 (async () => {
   if (!SERVE) {
@@ -73,20 +87,23 @@ async function fetchText(u) {
   } else {
     // --serve: cold checks against the live site
     let page = '';
-    try { page = await fetchText(BASE + '/'); } catch (e) { check('home page serves', false, 'site down: ' + e.message); }
+    try { page = await fetchText(BASE + '/'); } catch (e) { failOrUnknown(e, 'home page serves', 'site down: ' + e.message); }
     if (page) {
       check('home page serves (>100KB)', page.length > 100000, 'site down or truncated');
       check('served: combos module present', page.includes('rpCmbGo'), 'Wooder Ice ideas/combos card hidden on live site');
       check('served: feed wire present', page.includes('rpFeedWire'), 'live trackers dead on live site');
       check('served: no Game-not-started text', !page.includes('Game not started'), 'pregame spec regression live');
       check('served: unknown-not-zero guard live', page.includes('if(count==null&&(state==="in"||state==="post"))'), 'invented-zero regression live');
+      { let ok = true, n = 0; const re = /<script>([\s\S]*?)<\/script>/g; let m;
+        while ((m = re.exec(page))) { n++; try { new Function(m[1]); } catch (e) { ok = false; } }
+        check('served: all ' + n + ' script blocks parse', ok && n > 0, 'a syntax error blanks whole page modules on the live site'); }
     }
     try {
       const combos = JSON.parse(await fetchText(BASE + '/slates/wooder_combos.json'));
       const n = (combos.combos || []).length;
-      check('combos slate parses with entries (' + n + ')', n > 0, 'ideas/combos card empty');
-    } catch (e) { check('combos slate parses', false, 'ideas/combos card broken: ' + e.message); }
-    try {
+      check('combos slate parses' + (HOLD ? '' : ' with entries (' + n + ')'), HOLD ? true : n > 0, 'ideas/combos card empty');
+    } catch (e) { failOrUnknown(e, 'combos slate parses', 'ideas/combos card broken: ' + e.message); }
+    if (!HOLD) try {
       const fut = JSON.parse(await fetchText(BASE + '/futures.json'));
       const qs = (Array.isArray(fut) ? fut : []).map(r => (r.kalshi_quote || {}).quoted_at).filter(Boolean).sort().reverse();
       const ageMin = qs.length ? (Date.now() - new Date(qs[0]).getTime()) / 60000 : Infinity;
@@ -95,12 +112,12 @@ async function fetchText(u) {
     try {
       const tf = await fetchText(BASE + '/ticket-feed.js');
       check('ticket-feed.js serves', tf.length > 5000, 'live ticket trackers dead');
-    } catch (e) { check('ticket-feed.js serves', false, 'live ticket trackers dead: ' + e.message); }
+    } catch (e) { failOrUnknown(e, 'ticket-feed.js serves', 'live ticket trackers dead: ' + e.message); }
     try {
       const pt = JSON.parse(await fetchText(BASE + '/slates/past_tickets.json'));
-      check('past_tickets parses (' + (pt.entries || []).length + ' entries)', (pt.entries || []).length > 0, 'past tickets page broken');
-    } catch (e) { check('past_tickets parses', false, 'past tickets page broken: ' + e.message); }
-    try {
+      check('past_tickets parses (' + (pt.entries || []).length + ' entries)', HOLD ? Array.isArray(pt.entries) : (pt.entries || []).length > 0, 'past tickets page broken');
+    } catch (e) { failOrUnknown(e, 'past_tickets parses', 'past tickets page broken: ' + e.message); }
+    if (!HOLD) try {
       const yd = JSON.parse(await fetchText(BASE + '/slates/nfl_rec_yards.json'));
       const ageH = (Date.now() - new Date(yd.fetched_at).getTime()) / 3600000;
       check('served: nfl_rec_yards.json numeric + fresh (' + ageH.toFixed(1) + ' h)', Object.values(yd.players || {}).length > 0 && Object.values(yd.players).every(p => typeof p.yards === 'number') && ageH < 48, 'NFL futures yards counters show Unavailable');
@@ -109,7 +126,7 @@ async function fetchText(u) {
     // The served pool legitimately ages to 0 under the owner's 24h horizon when X pulls are
     // walled (402). FAIL loud only on the TRANSITION (latest x_feed.json commit emptied a
     // non-empty prior within the last 60 min); otherwise a standing ALERT line, never a hold.
-    try {
+    if (!HOLD) try {
       const xf = JSON.parse(await fetchText(BASE + '/slates/x_feed.json'));
       const nItems = (xf.items || []).length;
       let msg = 'served: x_feed.json items=' + nItems;
@@ -126,11 +143,12 @@ async function fetchText(u) {
             detail = 'prior x_feed.json commit ' + prevH.slice(0, 8) + ' had ' + prevN + ' items; latest change ' + newH.slice(0, 8) + ' ' + ageMin.toFixed(0) + ' min ago';
           }
         } catch (e) { detail = 'git history check failed: ' + e.message.split('\n')[0]; }
-        if (dropped) check(msg + ' (dropped from non-empty: ' + detail + ')', false, 'X posts column empty; pool aged out past the 24h horizon or the ingest wiped it - check X 402 wall vs ingest before assuming');
+        // Julian 9/30 6:25 PM: "X feed being out shouldn't stop posting. That's not core site functionality." Alert-only always.
+        if (dropped) console.log('ALERT served: x_feed.json items=0 JUST EMPTIED (not a hold; ' + detail + '). X posts column empty; pool aged out past the 24h horizon or the ingest wiped it - check X 402 wall vs ingest before assuming.');
         else console.log('ALERT served: x_feed.json items=0 - X posts column empty (not a hold; ' + detail + '). Known cause 9/30: X 402 billing wall + 24h horizon age-out.');
       }
-    } catch (e) { check('served: x_feed.json parses', false, 'X posts column broken: ' + e.message); }
+    } catch (e) { console.log('ALERT served: x_feed.json unreadable (not a hold): ' + e.message); }
   }
   console.log(failures.length ? failures.length + ' FAIL - HOLD ALL PUBLISHES (fixes excepted)' : 'HEALTH GATE PASS');
   process.exit(failures.length ? 1 : 0);
-})();
+})().catch(e => { console.log('GATE ERROR (not a hold): ' + e.message); process.exit(2); });

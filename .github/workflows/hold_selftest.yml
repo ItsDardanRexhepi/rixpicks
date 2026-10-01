@@ -1,0 +1,46 @@
+name: hold-selftest
+# Proves the posting-job auto-hold bites inside Actions: serves a deliberately broken copy of the
+# site, runs the real hold-check action against it, and asserts (a) held=true, (b) a guarded job
+# is SKIPPED. Runs only when the trigger file changes (or manually).
+on:
+  push:
+    paths:
+      - '.github/hold_selftest.trigger'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hold-check:
+    runs-on: ubuntu-latest
+    outputs:
+      held: ${{ steps.hc.outputs.held }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: serve a deliberately broken copy of the site
+        run: |
+          mkdir -p /tmp/bad && cp -r index.html ticket-feed.js slates /tmp/bad/
+          python3 - <<'PY'
+          s=open('/tmp/bad/index.html').read()
+          s=s.replace('<script>','<script>var x = (;',1)
+          open('/tmp/bad/index.html','w').write(s)
+          PY
+          (cd /tmp/bad && nohup python3 -m http.server 8123 >/dev/null 2>&1 &)
+          sleep 2
+      - id: hc
+        uses: ./.github/actions/hold-check
+        with:
+          base: http://localhost:8123
+  guarded:
+    needs: hold-check
+    if: ${{ !cancelled() && needs.hold-check.outputs.held != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "GUARDED JOB RAN - hold did not bite" && exit 1
+  verify:
+    needs: [hold-check, guarded]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "held=${{ needs.hold-check.outputs.held }} guarded=${{ needs.guarded.result }}"
+          [ "${{ needs.hold-check.outputs.held }}" = "true" ] && [ "${{ needs.guarded.result }}" = "skipped" ]

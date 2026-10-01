@@ -1,0 +1,44 @@
+name: hold-check
+description: >
+  Posting-job auto-hold (Julian 9/30). Runs the STRUCTURAL health gate (node scripts/health_gate.js --hold)
+  against the served site. Output held=true only on a proven structural FAIL (exit 1). Data outages
+  (blank X feed, stale quotes) are alert-only and never hold. Network/5xx/gate error = not held.
+  Manual workflow_dispatch runs are exempt (fix path).
+inputs:
+  base:
+    description: site base URL to probe (default https://rix-picks.com)
+    required: false
+    default: ''
+outputs:
+  held:
+    description: 'true when the job must hold'
+    value: ${{ steps.h.outputs.held }}
+runs:
+  using: composite
+  steps:
+    - id: h
+      shell: bash
+      env:
+        HC_BASE: ${{ inputs.base }}
+      run: |
+        held=false
+        if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] && [ -z "$HC_BASE" ]; then
+          echo "hold-check: manual dispatch is exempt (fix path)"
+        else
+          ARGS="--hold"; [ -n "$HC_BASE" ] && ARGS="$ARGS --base=$HC_BASE"
+          set +e; node scripts/health_gate.js $ARGS > /tmp/hold.log 2>&1; rc=$?; set -e
+          cat /tmp/hold.log
+          if [ "$rc" = "1" ]; then
+            held=true
+            {
+              echo "## HELD: posting job did not run (structural health FAIL on the served site)"
+              echo "What broke / what users cannot see (from the gate):"
+              grep '^FAIL' /tmp/hold.log | sed 's/^/- /'
+              echo "Cause: established by the check named above, root cause unknown until a fix lands. Repair: fix commits are exempt from the hold; the hold lifts on the next run after the gate passes."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::warning title=HELD::structural health FAIL - posting job held, see summary"
+          elif [ "$rc" != "0" ]; then
+            echo "hold-check: gate exited $rc (error/unknown) - NOT holding"
+          fi
+        fi
+        echo "held=$held" >> "$GITHUB_OUTPUT"
