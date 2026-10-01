@@ -3609,12 +3609,14 @@ function rpFutPoll(){fetch("futures.json?cb="+Date.now(),{cache:"no-store"}).the
  if(asof){
   var age=Date.now()-new Date(asof).getTime();
   var stale=!(age>=0&&age<12*60*1000); /* promise is ~5 min - 12 min = honest slack, never stale-as-live */
+  var _nw=new Date(),_off=_nw.getUTCHours()>=7&&_nw.getUTCHours()<16,_cl=Date.UTC(_nw.getUTCFullYear(),_nw.getUTCMonth(),_nw.getUTCDate(),7);
+  var paused=stale&&_off&&new Date(asof).getTime()>=_cl-20*60*1000; /* quoter runs 9 AM - midnight PT; last quote is from that window = scheduled pause, not a delay */
   /* tester 9:57: never replace the parent node - it deleted #rpFutAsOf and the label could
      never recover on fresh quotes. Preserve the spans, update text only. */
   var iv=document.getElementById("rpFutAsOf"),_fpre=document.getElementById("rpFutPre"),_ftl=document.getElementById("rpFutTail");
   if(iv){iv.textContent=_fpt(asof);
     if(_fpre)_fpre.textContent=stale?'Quotes as of ':'Live quotes as of ';
-    if(_ftl)_ftl.innerHTML=stale?' PT &middot; refresh delayed - showing last verified prices':' PT &middot; refresh every ~5 min';}
+    if(_ftl)_ftl.innerHTML=paused?' PT &middot; quotes refresh 9 AM - midnight PT, showing last verified prices':(stale?' PT &middot; refresh delayed - showing last verified prices':' PT &middot; refresh every ~5 min');}
   var fl=document.querySelectorAll(".futlive,.futmove,.futpoly");
   for(var i=0;i<fl.length;i++)fl[i].style.opacity=stale?".55":"";
  }
