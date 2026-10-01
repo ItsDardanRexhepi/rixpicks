@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T03:20:28.696387+00:00",
+ "generated_at": "2026-10-01T03:35:29.132693+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -18,8 +18,8 @@
      "matchup": "CHC @ SD",
      "commence": "2026-10-01T02:00Z",
      "status": "in",
-     "detail": "Mid 4th",
-     "score": "CHC 1 - SD 2"
+     "detail": "End 4th",
+     "score": "CHC 1 - SD 4"
     }
    ]
   },
@@ -31,10 +31,10 @@
      "matchup": "GS @ DAL",
      "commence": "2026-10-01T01:00Z",
      "status": "in",
-     "detail": "14.6 - 4th",
-     "score": "GS 93 - DAL 90",
+     "detail": "3:23 - OT",
+     "score": "GS 95 - DAL 98",
      "away_to": 2,
-     "home_to": 1
+     "home_to": 2
     }
    ]
   },
@@ -42,43 +42,14 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401891821",
-     "matchup": "PIT @ PHI",
-     "commence": "2026-09-30T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "PIT 7 - PHI 0"
-    },
-    {
-     "espn_event_id": "401892431",
-     "matchup": "NYI @ TOR",
-     "commence": "2026-09-30T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "NYI 1 - TOR 2"
-    },
-    {
      "espn_event_id": "401891780",
      "matchup": "LA @ COL",
      "commence": "2026-10-01T02:00Z",
      "status": "in",
-     "detail": "19:24 - 2nd",
-     "score": "LA 1 - COL 3",
+     "detail": "11:19 - 2nd",
+     "score": "LA 2 - COL 4",
      "away_to": null,
      "home_to": null
-    }
-   ]
-  },
-  {
-   "league": "MLS",
-   "games": [
-    {
-     "espn_event_id": "761833",
-     "matchup": "STL @ RBNY",
-     "commence": "2026-09-30T23:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "STL 3 - RBNY 0"
     }
    ]
   }
