@@ -1953,6 +1953,11 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     r'}).catch(hide);'
     r'})();</script>')
     mlb_entry=mlb_entry.replace('var VEN={};','var VEN='+json.dumps({k:[v[0],v[1],v[2],v[3]] for k,v in _DING_VENUES.items()},separators=(',',':'))+';')
+    # Empty-card day: no MLB tab exists (tabs render only for leagues with picks), so the Wooder Dingers
+    # module would never mount. Mount it on the empty Home panel instead. It self-hides on missing,
+    # empty or wrong-date data, so a stale file never shows. Gate + fixtures need the container present.
+    if not man.get('picks'):
+        _panels_html=_panels_html.replace(_home_misc+'</div>\n',_home_misc+mlb_entry+'</div>\n',1)
 
     for t in RP_TABS:
         if t['key']=='home': continue  # home projects the canonical league panels below
