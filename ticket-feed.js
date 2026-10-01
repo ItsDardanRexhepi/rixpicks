@@ -42,6 +42,8 @@ function fetchGame(gamePk){
 function legFromGame(leg,j){
  var gd=j.gameData||{},st=gd.status||{};
  var state=st.abstractGameState||null; // Preview | Live | Final
+ // statsapi reports abstractGameState=Live during Warmup/Pre-Game; no in-game data exists yet, so fail closed to Preview
+ if(state==='Live'&&/^(Warmup|Pre-Game|Scheduled|Delayed Start)/i.test(st.detailedState||''))state='Preview';
  var out={
   legId:leg.legId,kind:leg.kind,player:leg.player,
   threshold:leg.threshold!=null?leg.threshold:null,
