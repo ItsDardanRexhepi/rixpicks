@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-01T22:50:09.969559+00:00",
+ "generated_at": "2026-10-01T23:04:54.562943+00:00",
  "items": [
-  {
-   "id": "52af531c67",
-   "league": "NHL",
-   "event": "Tampa Bay Lightning @ New York Rangers",
-   "prediction": "Tampa Bay Lightning beat New York Rangers",
-   "kickoff_utc": "2026-10-01T23:00:00+00:00"
-  },
   {
    "id": "dba23aaf94",
    "league": "MLB",
@@ -42,6 +35,13 @@
    "event": "Seattle Kraken @ Calgary Flames",
    "prediction": "Calgary Flames beat Seattle Kraken",
    "kickoff_utc": "2026-10-02T01:00:00+00:00"
+  },
+  {
+   "id": "ab01ff509a",
+   "league": "MLS",
+   "event": "Sporting Kansas City @ Seattle Sounders FC",
+   "prediction": "Seattle Sounders FC beat Sporting Kansas City",
+   "kickoff_utc": "2026-10-02T01:30:00+00:00"
   }
  ]
 }
