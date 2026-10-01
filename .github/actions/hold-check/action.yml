@@ -33,7 +33,7 @@ runs:
             {
               echo "## HELD: posting job did not run (structural health FAIL on the served site)"
               echo "What broke / what users cannot see (from the gate):"
-              grep '^FAIL' /tmp/hold.log | sed 's/^/- /'
+              grep '^FAIL' /tmp/hold.log | sed 's/^/- /' || true
               echo "Cause: established by the check named above, root cause unknown until a fix lands. Repair: fix commits are exempt from the hold; the hold lifts on the next run after the gate passes."
             } >> "$GITHUB_STEP_SUMMARY"
             echo "::warning title=HELD::structural health FAIL - posting job held, see summary"

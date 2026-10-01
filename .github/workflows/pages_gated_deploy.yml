@@ -38,7 +38,7 @@ jobs:
           cat /tmp/gate.log
           [ "$rc" = "0" ] && ok=true
           echo "ok=$ok" >> "$GITHUB_OUTPUT"; echo "locked=$locked" >> "$GITHUB_OUTPUT"
-          { echo "## gate ok=$ok locked=$locked"; grep '^FAIL' /tmp/gate.log | sed 's/^/- /'; } >> "$GITHUB_STEP_SUMMARY"
+          { echo "## gate ok=$ok locked=$locked"; grep '^FAIL' /tmp/gate.log | sed 's/^/- /' || true; } >> "$GITHUB_STEP_SUMMARY"
   gate-bites:
     # self-test: a deliberately broken copy of the tree MUST fail the same gate (proves it bites)
     runs-on: ubuntu-latest
