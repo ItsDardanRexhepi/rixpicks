@@ -767,5 +767,18 @@
   "kickoff_utc": "2026-10-02T01:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-01T20:20:54.109010+00:00"
+ },
+ {
+  "id": "eb1c4161f7",
+  "event_id": "401891829",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Vancouver Canucks",
+  "away": "Edmonton Oilers",
+  "pick_team": "Edmonton Oilers",
+  "prediction": "Edmonton Oilers beat Vancouver Canucks",
+  "kickoff_utc": "2026-10-02T02:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-01T22:35:17.301720+00:00"
  }
 ]
