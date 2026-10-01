@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T02:50:30.387881+00:00",
+ "generated_at": "2026-10-01T03:05:32.191235+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "BOS @ NYY",
      "commence": "2026-10-01T00:00Z",
      "status": "in",
-     "detail": "Top 8th",
+     "detail": "Top 9th",
      "score": "BOS 2 - NYY 9"
     },
     {
@@ -18,7 +18,7 @@
      "matchup": "CHC @ SD",
      "commence": "2026-10-01T02:00Z",
      "status": "in",
-     "detail": "Top 3rd",
+     "detail": "End 3rd",
      "score": "CHC 0 - SD 2"
     }
    ]
@@ -27,22 +27,14 @@
    "league": "WNBA",
    "games": [
     {
-     "espn_event_id": "401918019",
-     "matchup": "ATL @ WAS",
-     "commence": "2026-09-30T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "ATL 93 - WAS 75"
-    },
-    {
      "espn_event_id": "401918020",
      "matchup": "GS @ DAL",
      "commence": "2026-10-01T01:00Z",
      "status": "in",
-     "detail": "8:52 - 4th",
-     "score": "GS 76 - DAL 72",
+     "detail": "3:32 - 4th",
+     "score": "GS 87 - DAL 84",
      "away_to": 3,
-     "home_to": 4
+     "home_to": 3
     }
    ]
   },
@@ -70,8 +62,8 @@
      "matchup": "LA @ COL",
      "commence": "2026-10-01T02:00Z",
      "status": "in",
-     "detail": "4:17 - 1st",
-     "score": "LA 1 - COL 1",
+     "detail": "End of 1st",
+     "score": "LA 1 - COL 2",
      "away_to": null,
      "home_to": null
     }
