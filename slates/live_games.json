@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T01:50:28.446385+00:00",
+ "generated_at": "2026-10-01T02:05:30.778007+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,16 +10,8 @@
      "matchup": "BOS @ NYY",
      "commence": "2026-10-01T00:00Z",
      "status": "in",
-     "detail": "Top 6th",
-     "score": "BOS 0 - NYY 2"
-    },
-    {
-     "espn_event_id": "401907975",
-     "matchup": "CHC @ SD",
-     "commence": "2026-10-01T02:00Z",
-     "status": "pre",
-     "detail": "9/30 - 7:00 PM PT",
-     "score": "CHC 0 - SD 0"
+     "detail": "Bot 6th",
+     "score": "BOS 1 - NYY 2"
     }
    ]
   },
@@ -39,8 +31,8 @@
      "matchup": "GS @ DAL",
      "commence": "2026-10-01T01:00Z",
      "status": "in",
-     "detail": "6:01 - 2nd",
-     "score": "GS 36 - DAL 33",
+     "detail": "3.3 - 2nd",
+     "score": "GS 45 - DAL 50",
      "away_to": 4,
      "home_to": 4
     }
@@ -54,8 +46,8 @@
      "matchup": "PIT @ PHI",
      "commence": "2026-09-30T23:30Z",
      "status": "in",
-     "detail": "9:40 - 3rd",
-     "score": "PIT 5 - PHI 0",
+     "detail": "3:23 - 3rd",
+     "score": "PIT 7 - PHI 0",
      "away_to": null,
      "home_to": null
     },
@@ -64,18 +56,10 @@
      "matchup": "NYI @ TOR",
      "commence": "2026-09-30T23:30Z",
      "status": "in",
-     "detail": "13:01 - 3rd",
-     "score": "NYI 0 - TOR 2",
+     "detail": "5:51 - 3rd",
+     "score": "NYI 1 - TOR 2",
      "away_to": null,
      "home_to": null
-    },
-    {
-     "espn_event_id": "401891780",
-     "matchup": "LA @ COL",
-     "commence": "2026-10-01T02:00Z",
-     "status": "pre",
-     "detail": "9/30 - 7:00 PM PT",
-     "score": "LA 0 - COL 0"
     }
    ]
   },
