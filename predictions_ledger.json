@@ -458,8 +458,9 @@
   "pick_team": "Golden State Valkyries",
   "prediction": "Golden State Valkyries beat Dallas Wings",
   "kickoff_utc": "2026-10-01T01:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T17:05:29.790278+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T17:05:29.790278+00:00",
+  "settled_at": "2026-10-01T04:05:23.072411+00:00"
  },
  {
   "id": "413f06ab3f",
