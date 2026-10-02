@@ -70,6 +70,54 @@ for rel in ('scripts/finals_watch.py', 'previews/overlay/scripts/finals_watch.py
     r, pnl = fw.grade(pick, {'home_score': 3, 'away_score': 1})
     check('%s: win at -205 is 2*100/205 u' % rel, r == 'W' and float(fw.units.pnl_to_units(pnl)) == float(Decimal(200) / 205))
 
+# a push (spread/total/prop/ML tie) grades to 0 dollars before any dollar size is read; turning it
+# into units still needs the size, so with the size unset the chain must stop with the same clear
+# fail-closed WARN as a W/L grade - never an uncaught traceback (privacy review of the env move)
+import contextlib, io, json, tempfile
+from datetime import datetime
+from zoneinfo import ZoneInfo
+for rel in ('scripts/finals_watch.py', 'previews/overlay/scripts/finals_watch.py'):
+    os.environ.pop(ENV, None)
+    fw = load(os.path.join(ROOT, rel), 'fwpush_' + rel.replace('/', '_').replace('.', '_'))
+    tmp = tempfile.mkdtemp(prefix='fw_push_')
+    man = {'date': datetime.now(ZoneInfo('America/Los_Angeles')).strftime('%Y-%m-%d'), 'date_label': 'fixture', 'picks': [
+        {'name': 'Aces -11', 'market_class': 'spread', 'line': -11, 'side': 'home', 'odds': '-110', 'units': '5u',
+         'espn_league': 'basketball/wnba', 'kalshi': {'cents': 52},
+         'game': {'away': 'Indiana Fever', 'home': 'Las Vegas Aces', 'commence': '2026-10-02T02:00Z', 'eid': '401918022'}}]}
+    json.dump(man, open(os.path.join(tmp, 'manifest.json'), 'w'))
+    fw.MANIFEST = os.path.join(tmp, 'manifest.json'); fw.STATE = os.path.join(tmp, 'seen.json'); fw.LEDGER = os.path.join(tmp, 'rows.jsonl')
+    fw.TOKEN_PATH = os.path.join(tmp, 'no_token')
+    fw.load_seen = lambda: {}
+    fw.record_pipe.verified_grade_ids = lambda ledger: []
+    fw.record_pipe.current_state = lambda ledger: (21, 11, Decimal('4.761952343474163'))
+    fw.espn_final = lambda lg, eid: {'home_score': 94, 'away_score': 83, 'completed': True}
+    fw.second_source = lambda pick, primary, commence: {'source': 'fixture second source'}
+    fw.two_source_ok = lambda primary, secondary: True
+    argv0 = sys.argv; sys.argv = ['finals_watch.py', '--dry-run']
+    out = io.StringIO()
+    try:
+        with contextlib.redirect_stdout(out):
+            fw.main()
+        crashed = None
+    except Exception as e:
+        crashed = '%s: %s' % (type(e).__name__, e)
+    finally:
+        sys.argv = argv0
+    log = out.getvalue()
+    check('%s: a spread push with the size unset stops the chain cleanly (no traceback)' % rel, crashed is None, crashed)
+    check('%s: the push stop says why (%s, fail closed)' % (rel, ENV), 'chain STOPS' in log and ENV in log and 'FINAL-CHAIN' not in log, log[-300:])
+    os.environ[ENV] = TEST_SIZE
+    out = io.StringIO(); sys.argv = ['finals_watch.py', '--dry-run']
+    try:
+        with contextlib.redirect_stdout(out):
+            fw.main()
+    finally:
+        sys.argv = argv0
+    check('%s: with the size set the push grades (P, record unchanged, 0 units)' % rel,
+          'FINAL-CHAIN(dry) 401918022|spread|home|-11' in out.getvalue() and '-> PUSH 21-11' in out.getvalue(), out.getvalue()[-300:])
+    os.environ.pop(ENV, None)
+    import shutil; shutil.rmtree(tmp, ignore_errors=True)
+
 tracked = subprocess.run(['git', '-C', ROOT, 'ls-files'], capture_output=True, text=True).stdout.split('\n')
 pyc = [p for p in tracked if '__pycache__/' in p]
 check('no tracked __pycache__ files (compiled copies of the old constant)', not pyc, pyc[:3])
