@@ -107,7 +107,13 @@ def provider_remaining(path=QUOTA_FILE, now=None):
     except Exception:
         return None
 
-_CREDIT_RE = re.compile(r'(?i)(x-requests-remaining:?\s*|credits? remaining:?\s*|credits used\s*\d+,\s*remaining\s*|"?(?:last_remaining|credits_remaining)"?\s*[:=]\s*)\d+')
+# Every form a count can take in a log: the provider's headers (x-requests-used gives the count
+# away as plan minus used), the lanes' 'credits remaining N' lines, JSON or dict keys (including
+# this script's own printed provider_remaining), and refresh.sh's shell forms under a set -x
+# trace (LASTREM=N, LASTREM_PRE=N, int('N')).
+_CREDIT_RE = re.compile(r'(?i)(x-requests-(?:remaining|used):?\s*|credits? remaining:?\s*|credits used\s*\d+,\s*remaining\s*'
+                        r'|["\']?(?:last_remaining|credits_remaining|provider_remaining)["\']?\s*[:=]\s*(?:int\(\s*["\']?)?'
+                        r'|\bLASTREM(?:_PRE)?=["\']?|\bint\(\s*["\'])\d+')
 
 def redact_credits(text):
     """The incident note is committed (served); the provider's credit count never goes there."""

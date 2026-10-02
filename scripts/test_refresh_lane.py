@@ -74,7 +74,7 @@ STUBBED = ('odds_prefill.py', 'odds_prefill_st.py', 'odds_prefill_props.py', 'mo
            'backfill_history.py')
 DATA = {'manifest.json': {'date': TODAY, 'record': '21-11', 'units_pl': '+4.76u', 'picks': [{'name': 'Under 38.5', 'league': 'NFL'}]},
         'config_leagues.json': {'leagues': {'NFL': {'espn': 'football/nfl', 'odds_api': 'americanfootball_nfl'}}},
-        '.odds_refresh_count.json': {'2026-09-30': 100, 'last_remaining': 19362},
+        '.odds_refresh_count.json': {'2026-09-30': 100, 'last_remaining': 16842},  # made-up legacy reading (every repo path is served)
         'futures.json': {'tick': '0'}, 'slates/nfl_live.json': {}, 'slates/live_games.json': {'tick': '0'},
         'slates/odds_prefill.json': [], 'slates/odds_prefill_st.json': [], 'slates/odds_prefill_st_pregame.json': [],
         'slates/odds_prefill_props.json': [], 'slates/game_routes.json': {}, '.odds_prev.json': {}, 'hist-1.json': {},

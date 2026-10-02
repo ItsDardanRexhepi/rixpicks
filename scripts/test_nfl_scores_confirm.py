@@ -38,7 +38,7 @@ with open(os.path.join(fx, 'calls.log'), 'a') as f:
     f.write(url.split('apiKey=')[0] + '\n')
 body = open(os.path.join(fx, 'espn.json' if 'site.api.espn.com' in url else 'odds.json')).read()
 if hdr:
-    open(hdr, 'w').write('HTTP/2 200\r\nx-requests-used: 663\r\nx-requests-remaining: 19337\r\n\r\n')
+    open(hdr, 'w').write('HTTP/2 200\r\nx-requests-used: 2481\r\nx-requests-remaining: 17519\r\n\r\n')
 if out:
     open(out, 'w').write(body)
 else:
@@ -128,7 +128,7 @@ check('E live game: file written', w is not None, True)
 for case_w in (w,):
     keys = set((case_w or {}).keys())
     check('F public nfl_scores.json has no credit count', sorted(k for k in keys if 'credit' in k or 'remaining' in k), [])
-check('F credit count stays visible in the run log', 'credits remaining: 19337' in log, True)
+check('F credit count stays visible in the run log', 'credits remaining: 17519' in log, True)
 
 # H-K (F5): the chase spends a pull only on a game ESPN reports in progress or played to a final;
 # a postponed, canceled, still-'pre' or unlisted game is never chased (it used to pull every cycle
