@@ -4,8 +4,10 @@ phonemsg-01M3GMJBQVQX5099CH3AN4TB3E): card_american converts from the KALSHI ASK
 consumed (units.cents_to_american), card_source = 'Kalshi ask at lock', and the card shows the
 gate's own numbers (model vs Kalshi ask, gross/net edge) - never book-consensus display.
 Forward-only: previously published cards keep their published prices.
-Usage: build_manifest.py candidates.json out_manifest.json [--preview]
-candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker},model,gross_c,net_c}
+Usage: build_manifest.py candidates.json out_manifest.json [--preview] [--meta meta.json]
+                         [--owner-directive '{"num": N, "rules": ["vegas"|"units"], "words": "<his verbatim words>"}' ...]
+candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker},model,gross_c,net_c[,owner_directive]}
+Owner rules (Vegas teams, J-096 unit ladder) refuse closed unless an owner directive covers them.
 
 PUBLICATION SHAPE (swamp rounds 4): a preview NEVER touches the production ledger - it writes
 to picks.preview.jsonl. Production publication holds a single-writer flock, reads the ledger
@@ -78,6 +80,112 @@ def _pick_content_hash(m, legacy=False):
     rows=sorted(json.dumps(_canon(p),sort_keys=True) for p in m.get('picks',[]))
     return hashlib.sha256('\n'.join(rows).encode()).hexdigest()
 
+# OWNER RULES (RUNBOOK_daily_card 2.5 and 2.8), enforced where a card is assembled. The page
+# builder renders whatever card has landed and carries no such gate.
+#  - Vegas (L-VEGAS-GATE-001, Sep 25): "never gamble on or against any Vegas teams ever" and
+#    "Exclude A's going forward from today too". A pick in a game involving a Las Vegas team is
+#    refused: Raiders (NFL), Golden Knights (NHL), Aces (WNBA), Athletics/A's (MLB), UNLV
+#    (college). A nickname counts only inside its own league (Texas Tech Red Raiders is CFB), and
+#    a team named for Las Vegas counts in any league.
+#  - Units (J-096): 5u, 10u, 15u or 100u - no other size.
+# A pick breaking either passes only on an explicit owner directive that names the rule and
+# carries his verbatim words - on the candidate row ('owner_directive') or on the command line
+# (--owner-directive JSON, repeatable, keyed by pick num) - and the directive is recorded on the
+# manifest pick as owner_directive. Anything else refuses closed before any write.
+UNIT_LADDER = (5, 10, 15, 100)
+_VEGAS_NICK = {'football/nfl': ('raiders',), 'hockey/nhl': ('golden knights',), 'basketball/wnba': ('aces',),
+               'baseball/mlb': ('athletics', "a's"), 'football/college-football': ('unlv',),
+               'basketball/mens-college-basketball': ('unlv',), 'basketball/womens-college-basketball': ('unlv',)}
+_VEGAS_ANY = ('las vegas', 'vegas')
+OWNER_RULES = ('vegas', 'units')
+
+def _words(s):
+    return ' ' + re.sub(r"[^a-z0-9']+", ' ', str(s or '').lower().replace('\u2019', "'")) + ' '
+
+def vegas_hit(c):
+    """Which field puts a Las Vegas team on this candidate (on it or against it), else None."""
+    names = _VEGAS_ANY + _VEGAS_NICK.get(str(c.get('espn_league') or ''), ())
+    for field in ('home', 'away', 'name'):
+        w = _words(c.get(field))
+        if any(' ' + n + ' ' in w for n in names):
+            return f"{field} {c.get(field)!r}"
+    return None
+
+def units_rung(u):
+    """The J-096 rung a units value names (5u -> 5), else None."""
+    if isinstance(u, bool):
+        return None
+    if isinstance(u, (int, float)):
+        v = float(u)
+    else:
+        m = re.fullmatch(r'\s*(\d+(?:\.\d+)?)\s*u?\s*', str(u or ''), re.I)
+        if not m:
+            return None
+        v = float(m.group(1))
+    return int(v) if v in UNIT_LADDER else None
+
+def owner_directive(d, via):
+    """A well-formed owner directive {'rules': [...], 'words': <his verbatim words>}, else None."""
+    if not isinstance(d, dict):
+        return None
+    words = d.get('words')
+    rules = d.get('rules')
+    rules = [rules] if isinstance(rules, str) else rules
+    if not isinstance(words, str) or not words.strip() or not isinstance(rules, list) or not rules \
+            or not set(rules) <= set(OWNER_RULES):
+        return None
+    out = {'rules': sorted(set(rules)), 'words': words, 'via': via}
+    if d.get('at'):
+        out['at'] = str(d['at'])
+    return out
+
+def owner_rules_gate(cands, argv):
+    """{candidate index: directive} for the picks that pass; ValueError (nothing written) otherwise."""
+    cli = {}
+    for i, a in enumerate(argv):
+        if a == '--owner-directive':
+            try:
+                raw = json.loads(argv[i + 1])
+            except (IndexError, ValueError):
+                raise ValueError('fail closed: --owner-directive needs a JSON object {"num", "rules", "words"}')
+            d = owner_directive(raw, 'cli')
+            if d is None or not isinstance(raw.get('num'), int):
+                raise ValueError(f'fail closed: --owner-directive {argv[i + 1]!r} must carry num, rules (vegas|units) and his verbatim words')
+            if raw['num'] in cli:
+                raise ValueError(f"fail closed: two --owner-directive entries for pick #{raw['num']}")
+            cli[raw['num']] = d
+    nums = {c.get('num') for c in cands}
+    stray = sorted(n for n in cli if n not in nums)
+    if stray:
+        raise ValueError(f'fail closed: --owner-directive for pick(s) {stray} not in the candidates')
+    out, problems = {}, []
+    for i, c in enumerate(cands):
+        d = None
+        if 'owner_directive' in c:
+            d = owner_directive(c['owner_directive'], 'candidate')
+            if d is None:
+                problems.append(f"#{c.get('num')} {c.get('name')}: owner_directive must name rules (vegas|units) and carry his verbatim words")
+                continue
+            if c.get('num') in cli:
+                problems.append(f"#{c.get('num')} {c.get('name')}: owner directive given twice (candidate row and --owner-directive)")
+                continue
+        d = d or cli.get(c.get('num'))
+        broken = []
+        v = vegas_hit(c)
+        if v:
+            broken.append(('vegas', f'Las Vegas team ({v}): never on or against a Vegas team'))
+        if units_rung(c.get('units')) is None:
+            broken.append(('units', f"units {c.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)"))
+        missing = [msg for rule, msg in broken if not (d and rule in d['rules'])]
+        if missing:
+            problems.append(f"#{c.get('num')} {c.get('name')}: " + '; '.join(missing))
+        elif d:
+            out[i] = d
+    if problems:
+        raise ValueError('fail closed (owner rules, runbook 2.5/2.8): ' + ' | '.join(problems)
+                         + ' - passes only on an owner directive naming the rule with his verbatim words')
+    return out
+
 PROD_MANIFEST_PATH = os.environ.get('RIX_PROD_MANIFEST', '/home/sandbox/rix_tmp/manifest.json')  # env override = test-isolation hook (same pattern as RIX_PICKS_LEDGER); non-preview publishes mirror here (Sep 29 stale-grader fix)
 
 PREVIEW_LEDGER = PICKS_LEDGER.replace('picks.jsonl', 'picks.preview.jsonl')
@@ -119,6 +227,7 @@ def main():
     meta = {}
     if '--meta' in sys.argv:
         meta = json.load(open(sys.argv[sys.argv.index('--meta')+1]))
+    directives = owner_rules_gate(cands, sys.argv)  # before any lookup or write
     now = datetime.datetime.now(ZoneInfo('America/Los_Angeles')).isoformat(timespec='seconds')
     ledger = PREVIEW_LEDGER if preview else PICKS_LEDGER
     # card_ts canon (restamp fork fix, third surfacing): card_ts is the FIRST-LOCK time and must
@@ -140,7 +249,7 @@ def main():
                     _prod_ts[(str(_g['eid']),) + _ikey(_p.get('market_class', 'ml'), _p.get('side'), _p)] = _p['card_ts']
         except Exception: pass
     picks = []
-    for c in cands:
+    for ci, c in enumerate(cands):
         # market-class gate (s/t wired 9/27): ml | spread | total are buildable end to end
         # (finals_watch grades all three incl. push; fill_leak is market-class-aware). Refuse
         # anything without an explicit, known class; spread/total MUST carry a numeric line.
@@ -195,7 +304,8 @@ def main():
             'card_ts': _ts_map.get((str(c['eid']),) + _ikey(mc, c['side'], c))
                        or _prod_ts.get((str(c['eid']),) + _ikey(mc, c['side'], c))
                        or now,  # first lock only; regenerations inherit, never restamp
-            'polymarket': c.get('polymarket'), 'dkp': c.get('dkp')})
+            'polymarket': c.get('polymarket'), 'dkp': c.get('dkp'),
+            **({'owner_directive': directives[ci]} if ci in directives else {})})
     # FULL MANIFEST CONTRACT (swamp round 8): build_gh_page.py (publish.yml publish path) reads
     # date_label, status_note, record, updated, units_pl, units_ledger, yesterday, parlay and
     # verifies pick_content_hash against its own canonicalization. Metadata comes from --meta
