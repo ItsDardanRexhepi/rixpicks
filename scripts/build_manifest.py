@@ -7,7 +7,9 @@ Forward-only: previously published cards keep their published prices.
 Usage: build_manifest.py candidates.json out_manifest.json [--preview] [--meta meta.json]
                          [--owner-directive '{"num": N, "rules": ["vegas"|"units"], "words": "<his verbatim words>"}' ...]
 candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker},model,gross_c,net_c[,owner_directive]}
-Owner rules (Vegas teams, J-096 unit ladder) refuse closed unless an owner directive covers them.
+Owner rules (Vegas teams, J-096 unit ladder) refuse closed unless an owner directive covers them. His
+directive's verbatim words never reach the served manifest: the manifest pick carries only
+{rules, via, ref}, and the words go to the private picks ledger row beside the same ref.
 
 PUBLICATION SHAPE (swamp rounds 4): a preview NEVER touches the production ledger - it writes
 to picks.preview.jsonl. Production publication holds a single-writer flock, reads the ledger
@@ -90,8 +92,11 @@ def _pick_content_hash(m, legacy=False):
 #  - Units (J-096): 5u, 10u, 15u or 100u - no other size.
 # A pick breaking either passes only on an explicit owner directive that names the rule and
 # carries his verbatim words - on the candidate row ('owner_directive') or on the command line
-# (--owner-directive JSON, repeatable, keyed by pick num) - and the directive is recorded on the
-# manifest pick as owner_directive. Anything else refuses closed before any write.
+# (--owner-directive JSON, repeatable, keyed by pick num). Anything else refuses closed before any
+# write. manifest.json (and every manifests/ snapshot of it) is served publicly, so the manifest
+# pick records owner_directive as {rules, via, ref} only - ref is the first 12 hex digits of the
+# sha256 of his words - and his verbatim words (with 'at' when given) are written only to the
+# private picks ledger row (RIX_PICKS_LEDGER), beside the same ref. No message prints his words.
 UNIT_LADDER = (5, 10, 15, 100)
 _VEGAS_NICK = {'football/nfl': ('raiders',), 'hockey/nhl': ('golden knights',), 'basketball/wnba': ('aces',),
                'baseball/mlb': ('athletics', "a's"), 'football/college-football': ('unlv',),
@@ -124,8 +129,17 @@ def units_rung(u):
         v = float(m.group(1))
     return int(v) if v in UNIT_LADDER else None
 
+def directive_ref(words):
+    """The public handle of his directive: the first 12 hex digits of sha256(his words)."""
+    return hashlib.sha256(words.encode('utf-8')).hexdigest()[:12]
+
+def public_directive(d):
+    """What the served manifest may say about a directive: the rules it covers, how it came, its ref."""
+    return {'rules': d['rules'], 'via': d['via'], 'ref': d['ref']}
+
 def owner_directive(d, via):
-    """A well-formed owner directive {'rules': [...], 'words': <his verbatim words>}, else None."""
+    """A well-formed owner directive {'rules': [...], 'words': <his verbatim words>}, else None.
+    The result is private (it carries his words): only public_directive() of it may be published."""
     if not isinstance(d, dict):
         return None
     words = d.get('words')
@@ -134,7 +148,7 @@ def owner_directive(d, via):
     if not isinstance(words, str) or not words.strip() or not isinstance(rules, list) or not rules \
             or not set(rules) <= set(OWNER_RULES):
         return None
-    out = {'rules': sorted(set(rules)), 'words': words, 'via': via}
+    out = {'rules': sorted(set(rules)), 'via': via, 'ref': directive_ref(words), 'words': words}
     if d.get('at'):
         out['at'] = str(d['at'])
     return out
@@ -142,15 +156,18 @@ def owner_directive(d, via):
 def owner_rules_gate(cands, argv):
     """{candidate index: directive} for the picks that pass; ValueError (nothing written) otherwise."""
     cli = {}
+    nth = 0
     for i, a in enumerate(argv):
         if a == '--owner-directive':
+            nth += 1
             try:
                 raw = json.loads(argv[i + 1])
             except (IndexError, ValueError):
                 raise ValueError('fail closed: --owner-directive needs a JSON object {"num", "rules", "words"}')
             d = owner_directive(raw, 'cli')
             if d is None or not isinstance(raw.get('num'), int):
-                raise ValueError(f'fail closed: --owner-directive {argv[i + 1]!r} must carry num, rules (vegas|units) and his verbatim words')
+                # never echo the argument: it carries his words
+                raise ValueError(f'fail closed: --owner-directive #{nth} must carry num, rules (vegas|units) and his verbatim words')
             if raw['num'] in cli:
                 raise ValueError(f"fail closed: two --owner-directive entries for pick #{raw['num']}")
             cli[raw['num']] = d
@@ -305,7 +322,7 @@ def main():
                        or _prod_ts.get((str(c['eid']),) + _ikey(mc, c['side'], c))
                        or now,  # first lock only; regenerations inherit, never restamp
             'polymarket': c.get('polymarket'), 'dkp': c.get('dkp'),
-            **({'owner_directive': directives[ci]} if ci in directives else {})})
+            **({'owner_directive': public_directive(directives[ci])} if ci in directives else {})})
     # FULL MANIFEST CONTRACT (swamp round 8): build_gh_page.py (publish.yml publish path) reads
     # date_label, status_note, record, updated, units_pl, units_ledger, yesterday, parlay and
     # verifies pick_content_hash against its own canonicalization. Metadata comes from --meta
@@ -368,8 +385,12 @@ def main():
         dupes = {k for k in keys if keys.count(k) > 1}
         if dupes: raise ValueError(f"fail closed: duplicate candidates in batch for {sorted(dupes)} - refusing to build")
         ledger_rows = []
-        for c, p in zip(cands, picks):
+        for ci, (c, p) in enumerate(zip(cands, picks)):
             key = (str(c['eid']),) + _ikey(c.get('market_class','ml'), c['side'], c)
+            # his directive (verbatim words) lives on the private ledger row only; its identity
+            # (ref + rules) is part of the row, so other words for a published pick never fork it
+            d_new = directives.get(ci)
+            _did = lambda d: ((d or {}).get('ref'), sorted((d or {}).get('rules') or []))
             same = [r for r in existing if r.get('kind')=='pick' and str(r.get('event_id'))==key[0]
                     and _ikey(r.get('market_class','ml'), r.get('side'), r) == key[1:]]
             if len(same) > 1:
@@ -385,7 +406,8 @@ def main():
                           'kalshi_ticker':p['kalshi']['ticker'],'commence':c['commence'],
                           **({'line': c.get('line')} if key[1] in ('spread','total','prop') else {}),
                           **({'player': c.get('player'), 'market': c.get('market')} if key[1] == 'prop' else {})}
-                identical = all(r.get(f) == v for f, v in newrow.items())
+                same_dir = _did(r.get('owner_directive')) == _did(d_new)
+                identical = same_dir and all(r.get(f) == v for f, v in newrow.items())
                 if identical and not r.get('preview'):
                     continue  # idempotent re-run: finishes an interrupted publish or no-ops a completed one
                 if identical and r.get('preview') and not preview:
@@ -403,6 +425,8 @@ def main():
                     existing = [x for x in existing if x is not r]  # preview ledger: replace freely, previews are disposable
                 else:
                     diffs = {f: (r.get(f), v) for f, v in newrow.items() if r.get(f) != v}
+                    if not same_dir:  # refs only: his words are never printed
+                        diffs['owner_directive ref'] = ((r.get('owner_directive') or {}).get('ref'), (d_new or {}).get('ref'))
                     raise ValueError(f"fail closed: conflicting canonical pick row for {key} - fields differ {diffs} - refusing to fork the card record")
             ledger_rows.append({'kind':'pick','event_id':key[0],'market_class':key[1],'side':key[2],
                                 'name':c['name'],'units':c['units'],
@@ -411,6 +435,7 @@ def main():
                                 'kalshi_ticker':p['kalshi']['ticker'],'commence':c['commence'],
                                 **({'line': c.get('line')} if key[1] in ('spread','total','prop') else {}),
                                 **({'player': c.get('player'), 'market': c.get('market')} if key[1] == 'prop' else {}),
+                                **({'owner_directive': d_new} if d_new else {}),
                                 'preview':preview})
         # stage manifest + whole ledger; commit ledger first, then publish manifest
         tmp = out + '.tmp'
