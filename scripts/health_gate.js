@@ -89,6 +89,9 @@ const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOW
       if (name.startsWith('blank-pregame')) check(name, !page.includes('Game not started'), impact);
       else check(name, needle ? page.includes(needle) : false, impact);
     }
+    // Dingers mounts exactly once on every card: on the MLB tab when the card has an MLB pick,
+    // otherwise as a Home panel (a non-MLB card is a normal card, never a hold).
+    check('dingers module mounted exactly once', (page.match(/slates\/wooder_dingers\.json/g) || []).length === 1, 'Dingers card missing or rendered twice');
   }
   if (SERVE) {
     // --serve: cold checks against the live site
