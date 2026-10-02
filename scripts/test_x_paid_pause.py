@@ -73,7 +73,7 @@ job = wf['jobs']['feed']
 steps = job.get('steps') or []
 runs = lambda s: str(s.get('run') or '')
 named = lambda frag: next((i for i, s in enumerate(steps) if frag in runs(s) or frag in str(s.get('name') or '')), -1)
-check('job env carries X_PAID_PULLS from the repo variable', (job.get('env') or {}).get('X_PAID_PULLS') == '${{ vars.X_PAID_PULLS }}', job.get('env'))
+check('job env carries X_PAID_PULLS from the repo variable, paused (off) when unset', (job.get('env') or {}).get('X_PAID_PULLS') == "${{ vars.X_PAID_PULLS || 'off' }}", job.get('env'))
 check('X_PAID_PULLS is set in one place (job env key + its vars value)', json.dumps(wf).count('X_PAID_PULLS') == 2, json.dumps(wf).count('X_PAID_PULLS'))
 i_bridge, i_gate = named('bridge_worker_news.py'), named('scripts/x_budget.py gate')
 i_x, i_ns, i_pub = named('scripts/x_feed.py'), named('scripts/news_social.py'), named('publish X feed')
