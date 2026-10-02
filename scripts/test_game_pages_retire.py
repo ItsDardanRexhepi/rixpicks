@@ -6,7 +6,8 @@
 # Runs the real builder end to end in a scratch copy of the site with a canned, offline network:
 #  A. a 1-pick card retires game-2..4 (fixed notice, no event id, no market); the builder never
 #     writes hist-*.json (record-final stages only the pages it rebuilds), and
-#     backfill_history.py finds no market left to pull for a retired page
+#     backfill_history.py finds no market left to pull for a retired page and empties its stale
+#     hist-N.json once (a second run leaves it alone)
 #  B. a rebuild leaves the notices byte-identical (no commit churn every refresh)
 #  C. the empty-card hold keeps the last card's page once the strays are retired
 #  D. an empty card whose numbered pages match no snapshot serves no stale game page
@@ -124,7 +125,10 @@ for B in BUILDERS:
           all(read(P('hist-%d.json' % n)) == HIST_DUP for n in (1, 2, 3, 4)))
     bf = backfill()
     check(f'{B} A backfill_history.py pulls no market history for retired pages',
-          not re.search(r'game-[234]\.html', bf) and all(read(P('hist-%d.json' % n)) == HIST_DUP for n in (2, 3, 4)))
+          not re.search(r'game-[234]\.html (->\s*\{|kal ERR|poly ERR)', bf))
+    check(f'{B} A backfill_history.py empties the retired pages\' stale hist-N.json',
+          all(read(P('hist-%d.json' % n)) == '{}' for n in (2, 3, 4)) and len(re.findall(r'game-[234]\.html -> retired, hist emptied', bf)) == 3)
+    check(f'{B} A a second backfill run leaves the emptied files alone', not re.search(r'game-[234]\.html', backfill()))
     routes = json.load(open(P('slates/game_routes.json')))
     check(f'{B} A routes map only the live page', routes == {EID: 'game-1.html'})
 
@@ -145,7 +149,8 @@ for B in BUILDERS:
     build([], 'D empty card, no matching snapshot')
     check(f'{B} D no stale game page survives an unmatched empty card', all(retired(n) for n in (1, 2, 3, 4, 5)))
     bf = backfill()
-    check(f'{B} D backfill_history.py no longer feeds hist-1 and hist-5 from one market', not re.search(r'game-[15]\.html', bf))
+    check(f'{B} D backfill_history.py no longer feeds hist-1 and hist-5 from one market',
+          not re.search(r'game-[15]\.html (->\s*\{|kal ERR|poly ERR)', bf) and read(P('hist-1.json')) == '{}' and read(P('hist-5.json')) == '{}')
 
     # E. LS-10: the prop's locked Kalshi price must not land on the Houston side of the board
     build([ML, PROP], 'E prop on a game-winner market')
