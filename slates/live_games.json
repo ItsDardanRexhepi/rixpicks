@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-02T02:50:06.379139+00:00",
+ "generated_at": "2026-10-02T03:05:02.511563+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,8 +9,8 @@
      "espn_event_id": "401907973",
      "matchup": "PHI @ ATL",
      "commence": "2026-10-02T00:00Z",
-     "status": "in",
-     "detail": "Bot 8th",
+     "status": "post",
+     "detail": "Final",
      "score": "PHI 2 - ATL 6"
     }
    ]
@@ -23,10 +23,10 @@
      "matchup": "PIT @ CLE",
      "commence": "2026-10-02T00:15Z",
      "status": "in",
-     "detail": "14:19 - 4th",
-     "score": "PIT 10 - CLE 21",
+     "detail": "7:39 - 4th",
+     "score": "PIT 16 - CLE 21",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     }
    ]
   },
@@ -38,7 +38,7 @@
      "matchup": "WKU @ NMSU",
      "commence": "2026-10-02T00:00Z",
      "status": "in",
-     "detail": "9:47 - 4th",
+     "detail": "6:33 - 4th",
      "score": "WKU 13 - NMSU 27",
      "away_to": 2,
      "home_to": 1
@@ -63,9 +63,9 @@
      "matchup": "IND @ LV",
      "commence": "2026-10-02T01:00Z",
      "status": "in",
-     "detail": "5.6 - 3rd",
-     "score": "IND 65 - LV 70",
-     "away_to": 3,
+     "detail": "6:10 - 4th",
+     "score": "IND 70 - LV 79",
+     "away_to": 2,
      "home_to": 3
     }
    ]
@@ -73,30 +73,6 @@
   {
    "league": "NHL",
    "games": [
-    {
-     "espn_event_id": "401891781",
-     "matchup": "BUF @ CBJ",
-     "commence": "2026-10-01T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "BUF 3 - CBJ 6"
-    },
-    {
-     "espn_event_id": "401891817",
-     "matchup": "PHI @ NJ",
-     "commence": "2026-10-01T23:00Z",
-     "status": "post",
-     "detail": "Final/OT",
-     "score": "PHI 2 - NJ 3"
-    },
-    {
-     "espn_event_id": "401891819",
-     "matchup": "TB @ NYR",
-     "commence": "2026-10-01T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "TB 1 - NYR 5"
-    },
     {
      "espn_event_id": "401891816",
      "matchup": "MIN @ NSH",
@@ -110,7 +86,7 @@
      "matchup": "SEA @ CGY",
      "commence": "2026-10-02T01:00Z",
      "status": "in",
-     "detail": "2:56 - 2nd",
+     "detail": "End of 2nd",
      "score": "SEA 3 - CGY 0",
      "away_to": null,
      "home_to": null
@@ -120,8 +96,8 @@
      "matchup": "CHI @ UTA",
      "commence": "2026-10-02T01:30Z",
      "status": "in",
-     "detail": "12:30 - 2nd",
-     "score": "CHI 0 - UTA 2",
+     "detail": "5:06 - 2nd",
+     "score": "CHI 0 - UTA 4",
      "away_to": null,
      "home_to": null
     },
@@ -130,7 +106,7 @@
      "matchup": "FLA @ SJ",
      "commence": "2026-10-02T02:00Z",
      "status": "in",
-     "detail": "0:22 - 1st",
+     "detail": "End of 1st",
      "score": "FLA 0 - SJ 1",
      "away_to": null,
      "home_to": null
@@ -140,8 +116,8 @@
      "matchup": "EDM @ VAN",
      "commence": "2026-10-02T02:00Z",
      "status": "in",
-     "detail": "2:25 - 1st",
-     "score": "EDM 3 - VAN 0",
+     "detail": "End of 1st",
+     "score": "EDM 4 - VAN 0",
      "away_to": null,
      "home_to": null
     }
@@ -155,7 +131,7 @@
      "matchup": "SKC @ SEA",
      "commence": "2026-10-02T01:30Z",
      "status": "in",
-     "detail": "53'",
+     "detail": "68'",
      "score": "SKC 1 - SEA 1"
     }
    ]
