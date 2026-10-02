@@ -1,0 +1,713 @@
+{
+ "_fixture": "Trimmed from the real ESPN site.api soccer/usa.1 summary for event 761518 (read-only fetch, 2026-10-02): header competitors, both rosters (athlete id and names only) and every key event (type, period, clock, scoringPlay, text).",
+ "header": {
+  "competitions": [
+   {
+    "date": "2026-04-04T23:30Z",
+    "competitors": [
+     {
+      "homeAway": "home",
+      "score": "0",
+      "team": {
+       "id": "193",
+       "displayName": "D.C. United",
+       "abbreviation": "DC"
+      }
+     },
+     {
+      "homeAway": "away",
+      "score": "4",
+      "team": {
+       "id": "185",
+       "displayName": "FC Dallas",
+       "abbreviation": "DAL"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "boxscore": {
+  "teams": []
+ },
+ "rosters": [
+  {
+   "homeAway": "home",
+   "team": {
+    "id": "193",
+    "displayName": "D.C. United",
+    "abbreviation": "DC"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "141316",
+      "displayName": "Sean Johnson",
+      "fullName": "Sean Johnson",
+      "shortName": "S. Johnson"
+     }
+    },
+    {
+     "athlete": {
+      "id": "230822",
+      "displayName": "Sean Nealis",
+      "fullName": "Sean Nealis",
+      "shortName": "S. Nealis"
+     }
+    },
+    {
+     "athlete": {
+      "id": "333699",
+      "displayName": "Lucas Bartlett",
+      "fullName": "Lucas Bartlett",
+      "shortName": "L. Bartlett"
+     }
+    },
+    {
+     "athlete": {
+      "id": "288348",
+      "displayName": "Keisuke Kurokawa",
+      "fullName": "Keisuke Kurokawa",
+      "shortName": "K. Kurokawa"
+     }
+    },
+    {
+     "athlete": {
+      "id": "227891",
+      "displayName": "Silvan Hefti",
+      "fullName": "Silvan Hefti",
+      "shortName": "S. Hefti"
+     }
+    },
+    {
+     "athlete": {
+      "id": "269158",
+      "displayName": "Brandon Servania",
+      "fullName": "Brandon Servania",
+      "shortName": "B. Servania"
+     }
+    },
+    {
+     "athlete": {
+      "id": "320300",
+      "displayName": "Matti Peltola",
+      "fullName": "Matti Peltola",
+      "shortName": "M. Peltola"
+     }
+    },
+    {
+     "athlete": {
+      "id": "297079",
+      "displayName": "João Peglow",
+      "fullName": "João Peglow",
+      "shortName": "J. Peglow"
+     }
+    },
+    {
+     "athlete": {
+      "id": "307475",
+      "displayName": "Gabriel Pirani",
+      "fullName": "Gabriel Pirani",
+      "shortName": "G. Pirani"
+     }
+    },
+    {
+     "athlete": {
+      "id": "324048",
+      "displayName": "Jackson Hopkins",
+      "fullName": "Jackson Hopkins",
+      "shortName": "J. Hopkins"
+     }
+    },
+    {
+     "athlete": {
+      "id": "313068",
+      "displayName": "Tai Baribo",
+      "fullName": "Tai Baribo",
+      "shortName": "T. Baribo"
+     }
+    },
+    {
+     "athlete": {
+      "id": "418069",
+      "displayName": "Nikola Markovic",
+      "fullName": "Nikola Markovic",
+      "shortName": "N. Markovic"
+     }
+    },
+    {
+     "athlete": {
+      "id": "302991",
+      "displayName": "Caden Clark",
+      "fullName": "Caden Clark",
+      "shortName": "C. Clark"
+     }
+    },
+    {
+     "athlete": {
+      "id": "273974",
+      "displayName": "Conner Antley",
+      "fullName": "Conner Antley",
+      "shortName": "C. Antley"
+     }
+    },
+    {
+     "athlete": {
+      "id": "286999",
+      "displayName": "Louis Munteanu",
+      "fullName": "Louis Munteanu",
+      "shortName": "L. Munteanu"
+     }
+    },
+    {
+     "athlete": {
+      "id": "271884",
+      "displayName": "Jared Stroud",
+      "fullName": "Jared Stroud",
+      "shortName": "J. Stroud"
+     }
+    },
+    {
+     "athlete": {
+      "id": "256210",
+      "displayName": "Aaron Herrera",
+      "fullName": "Aaron Herrera",
+      "shortName": "A. Herrera"
+     }
+    },
+    {
+     "athlete": {
+      "id": "217514",
+      "displayName": "Alex Bono",
+      "fullName": "Alex Bono",
+      "shortName": "A. Bono"
+     }
+    },
+    {
+     "athlete": {
+      "id": "336970",
+      "displayName": "Gavin Turner",
+      "fullName": "Gavin Turner",
+      "shortName": "G. Turner"
+     }
+    },
+    {
+     "athlete": {
+      "id": "380712",
+      "displayName": "Jacob Murrell",
+      "fullName": "Jacob Murrell",
+      "shortName": "J. Murrell"
+     }
+    }
+   ]
+  },
+  {
+   "homeAway": "away",
+   "team": {
+    "id": "185",
+    "displayName": "FC Dallas",
+    "abbreviation": "DAL"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "379566",
+      "displayName": "Michael Collodi",
+      "fullName": "Michael Collodi",
+      "shortName": "M. Collodi"
+     }
+    },
+    {
+     "athlete": {
+      "id": "268731",
+      "displayName": "Osaze Urhoghide",
+      "fullName": "Osaze Urhoghide",
+      "shortName": "O. Urhoghide"
+     }
+    },
+    {
+     "athlete": {
+      "id": "356357",
+      "displayName": "Nolan Norris",
+      "fullName": "Nolan Norris",
+      "shortName": "N. Norris"
+     }
+    },
+    {
+     "athlete": {
+      "id": "233460",
+      "displayName": "Sebastien Ibeagha",
+      "fullName": "Sebastien Ibeagha",
+      "shortName": "S. Ibeagha"
+     }
+    },
+    {
+     "athlete": {
+      "id": "297142",
+      "displayName": "Patrickson Delgado",
+      "fullName": "Patrickson Delgado",
+      "shortName": "P. Delgado"
+     }
+    },
+    {
+     "athlete": {
+      "id": "380441",
+      "displayName": "Kaick",
+      "fullName": "Kaick",
+      "shortName": "Kaick"
+     }
+    },
+    {
+     "athlete": {
+      "id": "157285",
+      "displayName": "Ramiro",
+      "fullName": "Ramiro",
+      "shortName": "Ramiro"
+     }
+    },
+    {
+     "athlete": {
+      "id": "318373",
+      "displayName": "Bernard Kamungo",
+      "fullName": "Bernard Kamungo",
+      "shortName": "B. Kamungo"
+     }
+    },
+    {
+     "athlete": {
+      "id": "219275",
+      "displayName": "Shaq Moore",
+      "fullName": "Shaq Moore",
+      "shortName": "S. Moore"
+     }
+    },
+    {
+     "athlete": {
+      "id": "348870",
+      "displayName": "Logan Farrington",
+      "fullName": "Logan Farrington",
+      "shortName": "L. Farrington"
+     }
+    },
+    {
+     "athlete": {
+      "id": "277128",
+      "displayName": "Petar Musa",
+      "fullName": "Petar Musa",
+      "shortName": "P. Musa"
+     }
+    },
+    {
+     "athlete": {
+      "id": "303555",
+      "displayName": "Jonathan Sirois",
+      "fullName": "Jonathan Sirois",
+      "shortName": "J. Sirois"
+     }
+    },
+    {
+     "athlete": {
+      "id": "359922",
+      "displayName": "Joaquín Valiente",
+      "fullName": "Joaquín Valiente",
+      "shortName": "J. Valiente"
+     }
+    },
+    {
+     "athlete": {
+      "id": "285201",
+      "displayName": "Santiago Moreno",
+      "fullName": "Santiago Moreno",
+      "shortName": "S. Moreno"
+     }
+    },
+    {
+     "athlete": {
+      "id": "283864",
+      "displayName": "Christian Cappis",
+      "fullName": "Christian Cappis",
+      "shortName": "C. Cappis"
+     }
+    },
+    {
+     "athlete": {
+      "id": "365850",
+      "displayName": "Nicholas Simmonds",
+      "fullName": "Nicholas Simmonds",
+      "shortName": "N. Simmonds"
+     }
+    },
+    {
+     "athlete": {
+      "id": "291608",
+      "displayName": "Louicius Deedson",
+      "fullName": "Louicius Deedson",
+      "shortName": "L. Deedson"
+     }
+    },
+    {
+     "athlete": {
+      "id": "251801",
+      "displayName": "Lalas Abubakar",
+      "fullName": "Lalas Abubakar",
+      "shortName": "L. Abubakar"
+     }
+    },
+    {
+     "athlete": {
+      "id": "348652",
+      "displayName": "Samuel Sarver",
+      "fullName": "Samuel Sarver",
+      "shortName": "S. Sarver"
+     }
+    },
+    {
+     "athlete": {
+      "id": "362657",
+      "displayName": "Ran Binyamin",
+      "fullName": "Ran Binyamin",
+      "shortName": "R. Binyamin"
+     }
+    }
+   ]
+  }
+ ],
+ "keyEvents": [
+  {
+   "type": {
+    "id": "80",
+    "text": "Kickoff",
+    "type": "kickoff"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 0.0,
+    "displayValue": ""
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 918.0,
+    "displayValue": "16'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! D.C. United 0, FC Dallas 1. Logan Farrington (FC Dallas) left footed shot from the centre of the box to the bottom left corner. Assisted by Ramiro with a through ball following a fast break."
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2679.0,
+    "displayValue": "45'"
+   },
+   "scoringPlay": false,
+   "text": "Lucas Bartlett (D.C. United) is shown the yellow card for a bad foul."
+  },
+  {
+   "type": {
+    "id": "138",
+    "text": "Goal - Free-kick",
+    "type": "goal---free-kick"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'+1'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! D.C. United 0, FC Dallas 2. Patrickson Delgado (FC Dallas) from a free kick with a right footed shot to the top left corner."
+  },
+  {
+   "type": {
+    "id": "81",
+    "text": "Halftime",
+    "type": "halftime"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'+3'"
+   },
+   "scoringPlay": false,
+   "text": "First Half ends, D.C. United 0, FC Dallas 2."
+  },
+  {
+   "type": {
+    "id": "82",
+    "text": "Start 2nd Half",
+    "type": "start-2nd-half"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3584.0,
+    "displayValue": "60'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, D.C. United. Aarón Herrera replaces Sean Nealis because of an injury."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3604.0,
+    "displayValue": "61'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, D.C. United. Louis Munteanu replaces Jackson Hopkins."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3970.0,
+    "displayValue": "67'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, FC Dallas. Christian Cappis replaces Patrickson Delgado."
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3992.0,
+    "displayValue": "67'"
+   },
+   "scoringPlay": false,
+   "text": "Nolan Norris (FC Dallas) is shown the yellow card for a bad foul."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4025.0,
+    "displayValue": "68'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, D.C. United. Jacob Murrell replaces Tai Baribo because of an injury."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4238.0,
+    "displayValue": "71'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, FC Dallas. Joaquín Valiente replaces Nolan Norris."
+  },
+  {
+   "type": {
+    "id": "137",
+    "text": "Goal - Header",
+    "type": "goal---header"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4670.0,
+    "displayValue": "78'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! D.C. United 0, FC Dallas 3. Osaze Urhoghide (FC Dallas) header from the centre of the box to the bottom left corner. Assisted by Joaquín Valiente with a cross following a corner."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4861.0,
+    "displayValue": "82'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, D.C. United. Caden Clark replaces Gabriel Pirani."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4864.0,
+    "displayValue": "82'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, D.C. United. Jared Stroud replaces Brandon Servania."
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4926.0,
+    "displayValue": "83'"
+   },
+   "scoringPlay": false,
+   "text": "Aarón Herrera (D.C. United) is shown the yellow card for a bad foul."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5067.0,
+    "displayValue": "85'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, FC Dallas. Santiago Moreno replaces Logan Farrington."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5075.0,
+    "displayValue": "85'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, FC Dallas. Sam Sarver replaces Ramiro."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5082.0,
+    "displayValue": "85'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, FC Dallas. Ran Binyamin replaces Kaick."
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+1'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! D.C. United 0, FC Dallas 4. Petar Musa (FC Dallas) left footed shot from the centre of the box to the bottom right corner."
+  },
+  {
+   "type": {
+    "id": "83",
+    "text": "End Regular Time",
+    "type": "end-regular-time"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+6'"
+   },
+   "scoringPlay": false,
+   "text": null
+  }
+ ]
+}

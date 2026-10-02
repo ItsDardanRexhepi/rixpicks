@@ -347,6 +347,35 @@ refused('MLS a name two roster players share is refused', [soc_req('Gomez', 'any
 refused('MLS last goal on a tied stoppage-time clock is refused', [soc_req('Jamal Thiar\u00e9', 'last_goal', 'WON', '761845', 'MIA 1 @ CLB 2')],
         'independent prop verification failed', snaps=SOC_SNAP)
 
+# MLS scorer props on D.C. United and St. Louis CITY SC games (Oct 2 re-check): ESPN's goal text is
+# 'Goal! <home> <n>, <away> <n>. <Scorer> (<Team>) ...', and the first '. ' can fall inside a team
+# name ('D.C. United', 'St. Louis City SC'), so the scorer is read after the scoreline, never after
+# the first '. '. Trimmed real ESPN summaries: 761518 FC Dallas 4 at D.C. United 0 (Farrington 16',
+# Delgado 45+1', Urhoghide 78', Musa 90+1') and 761439 Charlotte FC 1 at St. Louis 1 (Hartel 60', Biel 73').
+FIXDIR = os.path.join(os.path.dirname(HERE), 'tests', 'fixtures')
+FIX[CORE.format(lg='soccer/leagues/usa.1', e='761518', c='761518')] = core('FC Dallas', 4, 'D.C. United', 0)
+FIX[SITE.format(lg=SOC_LG, e='761518')] = json.load(open(os.path.join(FIXDIR, 'soccer_summary_dc_761518.json')))
+FIX[CORE.format(lg='soccer/leagues/usa.1', e='761439', c='761439')] = core('Charlotte FC', 1, 'St. Louis CITY SC', 1)
+FIX[SITE.format(lg=SOC_LG, e='761439')] = json.load(open(os.path.join(FIXDIR, 'soccer_summary_stl_761439.json')))
+REAL_MLS = {  # eid -> (card date, commence, away, home, final score, plays)
+    '761518': ('2026-04-04', '2026-04-04T23:30Z', 'FC Dallas', 'D.C. United', 'DAL 4 @ DC 0', [
+        ('Petar Musa', 'anytime_goal', 'WON'), ('Logan Farrington', 'first_goal', 'WON'),
+        ('Petar Musa', 'last_goal', 'WON'), ('Logan Farrington', 'last_goal', 'LOST'), ('Tai Baribo', 'anytime_goal', 'LOST')]),
+    '761439': ('2026-02-21', '2026-02-21T19:30Z', 'Charlotte FC', 'St. Louis CITY SC', 'CLT 1 @ STL 1', [
+        ('Marcel Hartel', 'first_goal', 'WON'), ('Pep Biel', 'last_goal', 'WON'),
+        ('Marcel Hartel', 'anytime_goal', 'WON'), ('Marcel Hartel', 'last_goal', 'LOST')])}
+for eid, (cdate, commence, away, home, score, plays) in REAL_MLS.items():
+    snap = {f'manifests/manifest-{eid}eeeeee.json': {'date': cdate, 'record': '21-11', 'units_pl': '+4.76u', 'picks': [
+        pick(f'{pl} {SOC_MKT[mk]}', eid, SOC_LG, away, home, commence, '+150', '5u', 'over', 'prop', line=0.5, player=pl, market=mk)
+        for pl, mk, _ in plays]}}
+    for player, market, result in plays:
+        code, st, err = run([soc_req(player, market, result, eid, score)], snaps=snap)
+        check(f'MLS real {eid} {player} {market} {result} lands', (code, err.strip()), (0, ''))
+        check(f'MLS real {eid} {player} {market}: row filed on the {cdate} card', [(p['name'], p['result'], p['score'])
+              for p in (day(st, cdate) or {}).get('picks', [])], [(f'{player} {SOC_MKT[market]}', result[0], score.replace(' @', ','))])
+        refused(f'MLS real {eid} {player} {market}: the opposite label', [soc_req(player, market, 'LOST' if result == 'WON' else 'WON', eid, score)],
+                'contradicts the verified final', snaps=snap)
+
 # MMA: a PUSH label on a fight with a winner flag is a contradiction
 rf = load()
 rf._get = fake_get

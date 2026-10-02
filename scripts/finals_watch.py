@@ -429,6 +429,7 @@ def _prop_stat(pick):
     return val
 
 _GOAL_NAME = re.compile(r'^(?:Own Goal by )?(.+?) \(([^()]*)\)')
+_SCORELINE_END = re.compile(r'(?<=\d)\. ')  # the '. ' after the away score, never one inside a team name
 
 def _roster_alias_map(d):
     # normalized name alias -> athlete id, over both teams' rosters
@@ -460,7 +461,9 @@ def _soccer_scorer_stat(d, player, market):
         if p.get('type', {}).get('type') == 'own-goal': continue
         if (p.get('period', {}) or {}).get('number') not in (1, 2): continue  # no shootout/ET
         text = p.get('text') or ''
-        mm = _GOAL_NAME.search(text.split('. ', 1)[-1])
+        # 'Goal! <home> <n>, <away> <n>. <Scorer> (<Team>) ...': the scorer follows the scoreline,
+        # never the first '. ' - that can fall inside a team name ('D.C. United', 'St. Louis City SC')
+        mm = _GOAL_NAME.search(_SCORELINE_END.split(text, maxsplit=1)[-1])
         if not mm:
             raise ValueError(f'goal event text unparsable ({text[:80]!r}) - REFUSING to grade (fail closed)')
         gids = aliases.get(_norm_name(mm.group(1)), set())

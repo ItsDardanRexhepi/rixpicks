@@ -309,6 +309,7 @@ PROP_GROUP_SCOPED = {  # MLB: batting keys also appear in the pitching group - s
 
 SOCCER_SCORER_MARKETS = ('anytime_goal', 'first_goal', 'last_goal')
 _GOAL_NAME = re.compile(r'^(?:Own Goal by )?(.+?) \(([^()]*)\)')
+_SCORELINE_END = re.compile(r'(?<=\d)\. ')  # the '. ' after the away score, never one inside a team name
 
 def _soccer_scorer(d, player, market):
     """Soccer scorer props (MLS): ESPN's soccer summary carries no player stat tables, so the check
@@ -347,7 +348,9 @@ def _soccer_scorer(d, player, market):
         if (ev.get('period') or {}).get('number') not in (1, 2):
             continue
         text = ev.get('text') or ''
-        mm = _GOAL_NAME.search(text.split('. ', 1)[-1])
+        # 'Goal! <home> <n>, <away> <n>. <Scorer> (<Team>) ...': the scorer follows the scoreline,
+        # never the first '. ' - that can fall inside a team name ('D.C. United', 'St. Louis City SC')
+        mm = _GOAL_NAME.search(_SCORELINE_END.split(text, maxsplit=1)[-1])
         if not mm:
             raise ValueError(f'goal event text unparsable ({text[:80]!r})')
         gids = aliases.get(_norm_name(mm.group(1)), set())
