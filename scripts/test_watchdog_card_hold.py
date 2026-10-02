@@ -5,8 +5,10 @@ refresh.sh exits 3 with a CARD HOLD line when the card is refused: manifest.json
 match its declared pick_content_hash, or the builder refuses it. A retry refuses the same card
 again, and an odds-refresh retry used to pay for the odds pulls first: the watchdog redispatched
 run 111 (failing step "refresh odds and rebuild") with "auto-redispatched once (30-min budget)".
-When the failed job's log tail carries the CARD HOLD marker the decision is no retry; any other
-failure keeps the budgeted retry.
+When the failed job's log carries a CARD HOLD line anywhere (not only in the quoted tail: on the
+late hold path a failed data-only push prints its git and guard output after it) the decision is
+no retry; a line that only names the marker is no hold, and any other failure keeps the budgeted
+retry.
 
 Runs the real scripts/watchdog.py, offline: a stub `gh` on PATH answers the API and records the
 dispatch POST, and the job log is served by a stand-in for the signed-URL download.
@@ -105,6 +107,28 @@ try:
                                 'CARD HOLD: build_gh_page_v2.py - pages not rebuilt, manifest.json not committed; re-stamp or fix the card with build_manifest.py'))
     check('B a builder hold is not auto-retried either', 'card held' in W['diag'].get('decision', '') and not any(c.endswith('/dispatches') for c in W['calls']),
           (W['diag'].get('decision'), W['calls']))
+
+    # D. late hold path (r3 review): the card is held after the paid pulls, the data-only commit's
+    #    push then fails in push_with_guard (set -e, exit 1), and its git and guard output pushes the
+    #    CARD HOLD line far out of the 14 lines before ##[error]. The whole failed log is searched.
+    late = (['BUILD FAILED: Kalshi market unresolved for Rangers ML team \'NYR\' under KXNHLGAME',
+             'CARD HOLD: the builder refused the card (exit 3, see BUILD FAILED above)',
+             '[main 1a2b3c4] odds refresh 10:15 PT (call 7 today) - live data only, card held']
+            + ['To github.com:example/rixpicks.git ! [rejected] HEAD -> main (fetch first)'] * 12
+            + ['REBASE GUARD: race touched lane-shipped/generated content ( manifest.json) - reset to origin/main, fail loud; next cycle regenerates',
+               'HEAD is now at 9f8e7d6 odds refresh 10:16 PT (call 8 today)'] * 4)
+    W = watchdog('D', log_lines(*late))
+    check('D the late-path hold is far outside the quoted tail (the fixture bites)', 'CARD HOLD' not in W['note'].split('## error tail', 1)[-1],
+          W['note'][-600:])
+    check('D a hold anywhere in the failed log is not auto-retried', 'card held' in W['diag'].get('decision', '')
+          and not any(c.endswith('/dispatches') for c in W['calls']) and 'odds-refresh' not in (W['state'] or {}),
+          (W['diag'].get('decision'), W['calls'], W['state']))
+    # E. the marker counts only as refresh.sh prints it (a line that is the CARD HOLD line), never as a
+    #    word inside another line: a commit subject or a quoted script that names it is no hold
+    W = watchdog('E', log_lines('git log: 5c4d3e2 docs: what a CARD HOLD means for the watchdog', 'grep -c "CARD HOLD" refresh.sh',
+                                'odds_prefill.py: urllib.error.URLError: <urlopen error timed out>'))
+    check('E a line that only mentions CARD HOLD is no hold: the ordinary failure is retried once',
+          W['diag'].get('decision') == 'auto-redispatched once (30-min budget)', W['diag'].get('decision'))
 
     # C. control: any other failure keeps the budgeted retry (the fixture bites only the hold)
     W = watchdog('C', log_lines('odds_prefill.py: urllib.error.URLError: <urlopen error timed out>'))

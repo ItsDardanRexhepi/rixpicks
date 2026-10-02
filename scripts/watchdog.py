@@ -59,6 +59,9 @@ def job_log(job_id, opener=None):
 
 BUDGET_COST = {'odds-refresh': 3, 'extras-sweep': 3, 'nfl-scores-confirm': 1}
 CARD_HOLD_MARK = 'CARD HOLD'  # refresh.sh's line for a refused card (feeds' hash check or the builder, exit 3)
+# refresh.sh prints the marker as its own line ('CARD HOLD: ...'); the runner prefixes a timestamp.
+# A line that only names the marker (a commit subject, a quoted script) is no hold.
+_CARD_HOLD_LINE = re.compile(r'^(?:\d{4}-\d{2}-\d{2}T[0-9:.]+Z\s+)?' + re.escape(CARD_HOLD_MARK) + ':')
 SOFT_DAILY_TARGET = 100  # soft discipline target across consumers (main 12:11) - NOT a hard cap; audits: over-target runs are valid. Hard guardrail = provider x-requests-remaining floor.
 
 def odds_spend_today():
@@ -131,11 +134,15 @@ jobs = gh(f'repos/{REPO}/actions/runs/{run_id}/jobs')
 failed_jobs = pick_failed_jobs(jobs.get('jobs'))
 diag['failing_steps'] = failing_steps(failed_jobs)
 diag['failed_jobs'] = [j.get('name', '?') for j in failed_jobs]
+card_held = False
 try:
     tails = []
     for j in failed_jobs[:2]:
         lines = job_log(j['id']).splitlines()
         tails.append(('[job: %s]\n' % j.get('name', '?')) + error_tail(lines))
+        # the whole failed log, not just the quoted tail: on refresh.sh's late hold path a failed
+        # data-only push prints its git and guard output after the CARD HOLD line, past the tail
+        card_held = card_held or any(_CARD_HOLD_LINE.match(l) for l in lines)
     diag['error_tail'] = '\n'.join(tails)[:2400] or 'no failed job found'
 except Exception as e:
     diag['error_tail'] = 'log fetch failed: ' + str(e)[:200]
@@ -148,8 +155,9 @@ rec = state.get(wf, {})
 skip = []
 # A held card (refresh.sh's CARD HOLD, exit 3: the card's picks do not match its declared hash, or
 # the builder refused it) is refused again by any retry, and an odds-refresh retry pays for its
-# odds pulls first. The next scheduled run re-checks the card on its own.
-if CARD_HOLD_MARK in diag['error_tail']:
+# odds pulls first. The next scheduled run re-checks the card on its own. The marker is looked for
+# in the whole failed log (card_held above), wherever the run went after printing it.
+if card_held:
     skip.append('card held (CARD HOLD in the failed log) - a retry would refuse the same card')
 last = rec.get('last_retry_at')
 if last and (now - datetime.datetime.fromisoformat(last)).total_seconds() < RETRY_BUDGET_S:
