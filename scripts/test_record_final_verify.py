@@ -323,6 +323,35 @@ for label, brief in [('regenerated brief text', 'Sep 29 closed 2-1 (regenerated 
     check(f'EOD re-sent for a closed day ({label}): history.json untouched', st['history.json'], HIST_EOD_CLOSED)
 refused('EOD a filed brief with no eod receipt still refuses', [], 'never replaced', hist=HIST_EOD_CLOSED,
         payload=eod('2026-09-29', 'Sep 29 closed 2-1 (regenerated wording).'))
+# r3 review: finals_watch appends its grades to the same record_request.json, so an eod payload can
+# carry queued grades in 'requests'. The eod paths cleared the file to {'requests': []} and dropped
+# them. No queued grade is ever dropped: they stay queued and are processed right after the eod.
+HIST_EOD_OCT1 = copy.deepcopy(HIST_EOD_CLOSED); HIST_EOD_OCT1['days'].append(copy.deepcopy(HIST['days'][0]))
+for label, done_, hist_, brief in [('re-sent for a closed day', DONE_EOD, HIST_EOD_OCT1, 'Sep 29 closed 2-1 (regenerated wording).'),
+                                   ('filling an empty brief', DONE, dict(HIST_EOD_OCT1, days=[HIST_EOD['days'][1]] + HIST_EOD_OCT1['days'][2:]),
+                                    'Sep 29 closed 2-1.')]:
+    code, st, err = run([], hist=hist_, done=done_, payload=dict(eod('2026-09-29', brief), requests=[devils()]))
+    check(f'EOD {label} with a queued Oct 1 grade: exit 0', (code, 'REFUSE' in err), (0, False))
+    check(f'EOD {label} with a queued Oct 1 grade: the grade lands on its card (never dropped)',
+          [(p['name'], p['result']) for p in (day(st, '2026-10-01') or {}).get('picks', [])], [('Devils ML', 'W')])
+    check(f'EOD {label} with a queued Oct 1 grade: record, units and grade receipt move',
+          (st['manifest.json']['record'], st['manifest.json']['units_pl'], '401891817|ml|home' in st['record_done.json']['processed']),
+          ('22-11', '+7.85u', True))
+    check(f'EOD {label} with a queued Oct 1 grade: the Sep 29 brief is the closed one',
+          (day(st, '2026-09-29') or {}).get('brief'), 'Sep 29 closed 2-1.')
+    check(f'EOD {label} with a queued Oct 1 grade: eod receipt kept', 'eod_day_close:2026-09-29' in st['record_done.json']['processed'], True)
+    check(f'EOD {label} with a queued Oct 1 grade: queue drained only of what landed', st['record_request.json'], {'requests': []})
+# a queued grade that refuses is kept queued (exit 3, the run fails loud), and so is the one after it
+code, st, err = run([], hist=HIST_EOD_OCT1, done=DONE_EOD,
+                    payload=dict(eod('2026-09-29', 'Sep 29 closed 2-1.'), requests=[devils(delta=-7.5, ua=U0 - 7.5), aces()]))
+check('EOD with a queued grade that refuses: exit 3 for the grade', (code, 'does not follow from' in err), (3, True))
+check('EOD with a queued grade that refuses: both grades still queued (never dropped)',
+      [q['grade_id'] for q in st['record_request.json'].get('requests', [])], ['401891817|ml|home', '401918022|spread|home|-11'])
+check('EOD with a queued grade that refuses: nothing graded', (st['manifest.json']['record'], day(st, '2026-10-01')), ('21-11', None))
+# an eod that refuses keeps the whole file, its queued grades too
+code, st, err = run([], hist=HIST_EOD_CLOSED, payload=dict(eod('2026-09-29', 'Sep 29 closed 2-1 (regenerated wording).'), requests=[devils()]))
+check('EOD refused with a queued grade: exit 3, the file kept as sent', (code, st['record_request.json']),
+      (3, dict(eod('2026-09-29', 'Sep 29 closed 2-1 (regenerated wording).'), requests=[devils()])))
 
 # MLS scorer props (Oct 2 review): build_manifest cards anytime/first/last goal and finals_watch grades
 # them from the ESPN summary's goal events; the record write checks them the same way (scoringPlay

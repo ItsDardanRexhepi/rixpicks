@@ -513,15 +513,16 @@ def eod_day_close(p):
     if pu != du and pu != du.quantize(Decimal('0.01')):
         print(f'  REFUSE eod_day_close: units anchor {pu} != exact day sum {du}', file=sys.stderr)
         return 3
-    # a day eod already closed (its receipt is in record_done.json) is skipped and the request
-    # cleared, whatever brief text the re-send carries - nothing is written either way
+    # a day eod already closed (its receipt is in record_done.json) is skipped and the eod part of
+    # the request cleared, whatever brief text the re-send carries - nothing is written either way.
+    # Grades finals_watch queued into the same file stay queued (main() processes them next).
     gid = 'eod_day_close:' + date
     done = {'processed': [], 'at': None}
     if os.path.exists(DONE):
         done = json.load(open(DONE))
     if gid in done.get('processed', []):
         print(f'  skip {gid}: already processed')
-        json.dump({'requests': []}, open(REQ, 'w'), indent=2)
+        json.dump({'requests': p.get('requests') or []}, open(REQ, 'w'), indent=2)
         return 0
     # append-only: the fill writes an EMPTY brief only. A day whose brief was filed another way
     # (Sep 27: brief on the row, no eod receipt) keeps it - a stored note is never replaced.
@@ -533,7 +534,7 @@ def eod_day_close(p):
     done.setdefault('processed', []).append(gid)
     done['at'] = datetime.now(timezone.utc).isoformat()
     json.dump(done, open(DONE, 'w'), indent=2)
-    json.dump({'requests': []}, open(REQ, 'w'), indent=2)
+    json.dump({'requests': p.get('requests') or []}, open(REQ, 'w'), indent=2)  # queued grades are never dropped
     print(f'EOD DAY CLOSE: brief filled for {date} (record {day["record"]}, units {fmt_units(du)})')
     # combo expiry wire: day close marks every combo dated on/before the cutoff as expired.
     # MARK, never delete - the audit trail stays; the display layer filters on status too.
@@ -569,7 +570,14 @@ def main():
         return 0
     payload = json.load(open(REQ))
     if payload.get('kind') == 'eod_day_close':
-        return eod_day_close(payload)
+        # finals_watch appends its grades to this same file, so an eod payload can carry queued
+        # grades in 'requests'. No queued grade is ever dropped: the eod writes them back as the
+        # queue and they are processed right after it, in this run. An eod that refuses leaves the
+        # whole file as it was.
+        rc = eod_day_close(payload)
+        if rc != 0 or not (payload.get('requests') or []):
+            return rc
+        payload = {'requests': payload.get('requests') or []}
     reqs = payload.get('requests') or []
     if not reqs:
         print('record_request.json empty - nothing to do')
