@@ -4,7 +4,9 @@
 // Run: node scripts/test_client_spam.js
 const fs = require('fs'), vm = require('vm');
 const src = fs.readFileSync(__dirname + '/index_v2.js', 'utf8');
-const varLines = src.split('\n').filter(l => /^var (RP_AD_KW|RP_TOUT_KW|RP_OPERATOR)=/.test(l) && /;\s*$/.test(l));
+// isPublishablePost also reads the commercial CTA/tag/free-sheet patterns (promo-sentinel 9/29)
+const varLines = src.split('\n').filter(l => /^var (RP_AD_KW|RP_TOUT_KW|RP_OPERATOR|RP_COMM_CTA|RP_COMM_TAG|RP_COMM_FREE|RP_COMM_ODDS)=/.test(l) && /;\s*$/.test(l));
+if (varLines.length !== 7) { console.log('FAIL expected 7 RP_ vars (incl. RP_COMM_*), got ' + varLines.length); process.exit(1); }
 function extractFn(name){
   const start = src.indexOf('function ' + name + '(');
   if (start < 0) throw new Error(name + ' not found');

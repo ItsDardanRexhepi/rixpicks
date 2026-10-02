@@ -227,9 +227,19 @@ def probe(ev, news, misses):
     return {'id': hashlib.sha1((ev['id'] + '|winner').encode()).hexdigest()[:10],
             'event_id': ev['id'], 'league': ev['league'], 'path': ev['path'],
             'home': ev['home'], 'away': ev['away'], 'pick_team': team,
-            'prediction': f'{team} beat {other}' if ev['league'] in ('MLS','NWSL') else f'{team} beat {other}',
+            'prediction': f'{team} to beat {other}',
             'kickoff_utc': ev['date'].isoformat(), 'status': 'pending',
             'created_at': now().isoformat()}
+
+def forecast_text(p):
+    """Public wording of a pending prediction (J-103 narrative truth, Oct 1): a game not yet
+    played reads as a forecast - 'X to beat Y' - never the past-tense 'X beat Y' that ledger rows
+    written before Oct 1 carry. The ledger keeps its stored text; only the artifact wording is
+    derived. Falls back to the stored text when the teams cannot be resolved."""
+    team, home, away = p.get('pick_team'), p.get('home'), p.get('away')
+    if team and home and away and team in (home, away) and home != away:
+        return f"{team} to beat {away if team == home else home}"
+    return p.get('prediction', '')
 
 def main():
     force = '--force' in sys.argv
@@ -271,7 +281,7 @@ def main():
         if dt <= now(): continue
         items.append({'id': p['id'], 'league': p['league'],
                       'event': f"{p['away']} @ {p['home']}",
-                      'prediction': p['prediction'],
+                      'prediction': forecast_text(p),
                       'kickoff_utc': p['kickoff_utc']})
     items.sort(key=lambda x: x['kickoff_utc'])
     json.dump({'generated_at': now().isoformat(), 'items': items[:MAX_ITEMS]},
