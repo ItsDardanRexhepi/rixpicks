@@ -142,7 +142,7 @@ def run(reqs, hist=HIST, done=DONE, live=LIVE, payload=None, snaps=None):
                 code = rf.main()
             except Exception as e:  # a crash is not a refusal
                 code = f'raised {type(e).__name__}'
-        state = {f: json.load(open(os.path.join(tmp, f))) for f in ('manifest.json', 'history.json', 'record_done.json')}
+        state = {f: json.load(open(os.path.join(tmp, f))) for f in ('manifest.json', 'history.json', 'record_done.json', 'record_request.json')}
         return code, state, err.getvalue()
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
@@ -286,6 +286,19 @@ check('EOD an empty day brief is filled (exit 0)', code, 0)
 check('EOD the filled brief is the payload brief', (day(st, '2026-09-29') or {}).get('brief'), 'Sep 29 closed 2-1.')
 check('EOD the other day\'s filed brief is untouched', (day(st, '2026-09-27') or {}).get('brief'), HIST_EOD['days'][0]['brief'])
 check('EOD receipt recorded', 'eod_day_close:2026-09-29' in st['record_done.json'].get('processed', []), True)
+# an eod re-sent for a day eod already closed (receipt in record_done.json) is skipped - exit 0, the
+# request cleared - even when its brief text was regenerated; it used to be refused (exit 3, a red
+# record-final run, the payload left queued). The day with a filed brief and no receipt still refuses.
+DONE_EOD = dict(DONE, processed=DONE['processed'] + ['eod_day_close:2026-09-29'])
+HIST_EOD_CLOSED = copy.deepcopy(HIST_EOD)
+HIST_EOD_CLOSED['days'][1]['brief'] = 'Sep 29 closed 2-1.'
+for label, brief in [('regenerated brief text', 'Sep 29 closed 2-1 (regenerated wording).'), ('the same brief text', 'Sep 29 closed 2-1.')]:
+    code, st, err = run([], hist=HIST_EOD_CLOSED, done=DONE_EOD, payload=eod('2026-09-29', brief))
+    check(f'EOD re-sent for a closed day ({label}): skipped, exit 0', (code, 'REFUSE' in err), (0, False))
+    check(f'EOD re-sent for a closed day ({label}): request cleared', st['record_request.json'], {'requests': []})
+    check(f'EOD re-sent for a closed day ({label}): history.json untouched', st['history.json'], HIST_EOD_CLOSED)
+refused('EOD a filed brief with no eod receipt still refuses', [], 'never replaced', hist=HIST_EOD_CLOSED,
+        payload=eod('2026-09-29', 'Sep 29 closed 2-1 (regenerated wording).'))
 
 # MLS scorer props (Oct 2 review): build_manifest cards anytime/first/last goal and finals_watch grades
 # them from the ESPN summary's goal events; the record write checks them the same way (scoringPlay

@@ -470,11 +470,8 @@ def eod_day_close(p):
     if pu != du and pu != du.quantize(Decimal('0.01')):
         print(f'  REFUSE eod_day_close: units anchor {pu} != exact day sum {du}', file=sys.stderr)
         return 3
-    # append-only: the fill writes an EMPTY brief only. A day whose brief was filed another way
-    # (Sep 27: brief on the row, no eod receipt) keeps it - a stored note is never replaced.
-    if (day.get('brief') or '').strip() and day['brief'] != brief:
-        print(f'  REFUSE eod_day_close: {date} already carries a filed brief - a stored note is never replaced', file=sys.stderr)
-        return 3
+    # a day eod already closed (its receipt is in record_done.json) is skipped and the request
+    # cleared, whatever brief text the re-send carries - nothing is written either way
     gid = 'eod_day_close:' + date
     done = {'processed': [], 'at': None}
     if os.path.exists(DONE):
@@ -483,6 +480,11 @@ def eod_day_close(p):
         print(f'  skip {gid}: already processed')
         json.dump({'requests': []}, open(REQ, 'w'), indent=2)
         return 0
+    # append-only: the fill writes an EMPTY brief only. A day whose brief was filed another way
+    # (Sep 27: brief on the row, no eod receipt) keeps it - a stored note is never replaced.
+    if (day.get('brief') or '').strip() and day['brief'] != brief:
+        print(f'  REFUSE eod_day_close: {date} already carries a filed brief - a stored note is never replaced', file=sys.stderr)
+        return 3
     day['brief'] = brief
     json.dump(hist, open(HIST, 'w'), indent=2)
     done.setdefault('processed', []).append(gid)
