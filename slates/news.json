@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-02T02:16:03.984Z",
+ "generated_at": "2026-10-02T02:21:06.503Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -104,12 +104,30 @@
     "league": "NFL"
    },
    {
-    "headline": "Thursday Night Football: Deshaun Watson, Browns lead Steelers 21-10 at halftime",
-    "link": "https://sports.yahoo.com/articles/thursday-night-football-deshaun-watson-015707492.html",
-    "published": "2026-10-02T01:57:07.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/5257780df96cfe107e84dc72a0d2e552c12f809da4d6958eecbecd5b09af7cfe/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Ff1520e3bbe996f969391de507438ad20.jpg",
-    "blurb": "The Browns quarterback is 14-of-17 for 181 yards and a touchdown.",
+    "headline": "Browns' Mason Graham exits Steelers game with knee injury, will not return",
+    "link": "https://www.cbssports.com/nfl/news/mason-graham-injury-update-browns-steelers/",
+    "published": "2026-10-02T02:16:52.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F4e624df1-5306-4d65-b364-c6575342bf91%2Fmason-graham.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The standout defensive tackle was injured during Pittsburgh's opening possession and is questionable to return",
+    "source": "CBS",
+    "league": "NFL"
+   },
+   {
+    "headline": "Mike Hall questionable with an ankle injury; Mason Graham ruled out",
+    "link": "https://sports.yahoo.com/articles/mike-hall-questionable-ankle-injury-021225093.html",
+    "published": "2026-10-02T02:12:25.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/3c98c439430ecf3869d8a6158f0b047b8f577b3feede419ebd0516f77430f04d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F2c268f35f5b788caf2f03b60d518923c.jpg",
+    "blurb": "Browns defensive tackle Mike Hall, who replaced the injured Mason Graham in the first quarter, left late in the second quarter.",
     "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
+    "headline": "Steelers-Browns on TNF Week 4: Highlights, key plays",
+    "link": "https://www.espn.com/nfl/story/_/id/50078973/nfl-week-4-steelers-browns-top-plays-tnf",
+    "published": "2026-10-02T02:13:40Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fr1724767_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Check out the biggest touchdowns and highlight-reel plays from Thursday night's AFC North showdown.",
     "league": "NFL"
    },
    {
@@ -122,30 +140,12 @@
     "league": "NFL"
    },
    {
-    "headline": "Steelers-Browns on TNF Week 4: Highlights, key plays",
-    "link": "https://www.espn.com/nfl/story/_/id/50078973/nfl-week-4-steelers-browns-top-plays-tnf",
-    "published": "2026-10-02T01:53:08Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fr1724767_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Check out the biggest touchdowns and highlight-reel plays from Thursday night's AFC North showdown.",
-    "league": "NFL"
-   },
-   {
-    "headline": "Aaron Rodgers has vulgar on-field exchange with Mike McCarthy",
-    "link": "https://sports.yahoo.com/articles/aaron-rodgers-vulgar-field-exchange-015601124.html",
-    "published": "2026-10-02T01:56:01.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/54ed6f42675f0c24af327488d2f4942098606e6cfcb79997d591e9348ddbd8fb/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F6622ff9cd856e6f866682e34fd90e337.jpg",
-    "blurb": "Mike McCarthy and Aaron Rodgers had a tense moment late in the first quarter of \"Thursday Night Football.\"",
+    "headline": "Thursday Night Football: Deshaun Watson, Browns lead Steelers 21-10 at halftime",
+    "link": "https://sports.yahoo.com/articles/thursday-night-football-deshaun-watson-015707492.html",
+    "published": "2026-10-02T01:57:07.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/5257780df96cfe107e84dc72a0d2e552c12f809da4d6958eecbecd5b09af7cfe/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Ff1520e3bbe996f969391de507438ad20.jpg",
+    "blurb": "The Browns quarterback is 14-of-17 for 181 yards and a touchdown.",
     "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "Browns' Mason Graham exits Steelers game with knee injury, questionable to return",
-    "link": "https://www.cbssports.com/nfl/news/mason-graham-injury-update-browns-steelers/",
-    "published": "2026-10-02T01:00:33.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F4e624df1-5306-4d65-b364-c6575342bf91%2Fmason-graham.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The standout defensive tackle was injured during Pittsburgh's opening possession and is questionable to return",
-    "source": "CBS",
     "league": "NFL"
    },
    {
@@ -158,21 +158,21 @@
     "league": "NFL"
    },
    {
-    "headline": "Browns DTs Mason Graham, Mike Hall injured vs Steelers on Thursday Night Football",
-    "link": "https://sports.yahoo.com/articles/browns-dt-mason-graham-injured-003825689.html",
-    "published": "2026-10-02T01:48:00.000Z",
-    "image": "",
-    "blurb": "The Cleveland Browns and Pittsburgh Steelers squared off for Thursday Night Football. DT Mason Graham, Mike Hall injured",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
     "headline": "Joey Porter Jr. embraces fresh start with Cowboys after feeling 'disrespected' by Steelers",
     "link": "https://www.cbssports.com/nfl/news/joey-porter-jr-embraces-fresh-start-cowboys-steelers/",
     "published": "2026-10-01T23:22:35.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F75c234b2-6cfd-4264-8e40-1a817cc70699%2Fgettyimages-2256269976.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Porter Jr. couldn't help but grin from ear to ear when talking about now being a Dallas Cowboy",
     "source": "CBS",
+    "league": "NFL"
+   },
+   {
+    "headline": "Aaron Rodgers has vulgar on-field exchange with Mike McCarthy",
+    "link": "https://sports.yahoo.com/articles/aaron-rodgers-vulgar-field-exchange-015601124.html",
+    "published": "2026-10-02T01:56:01.000Z",
+    "image": "",
+    "blurb": "Mike McCarthy and Aaron Rodgers had a tense moment late in the first quarter of \"Thursday Night Football.\"",
+    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -196,11 +196,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Opponent Q&A: USC Trojans",
-    "link": "https://sports.yahoo.com/articles/opponent-q-usc-trojans-014234084.html",
-    "published": "2026-10-02T01:42:34.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/52f303cc3318ca178766e556895efd99113bf7fd0e2957728652c7d10e2d61be/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fb2e379d31c4073ad50d515355b4945cc.jpg",
-    "blurb": "Ryan Kartje of the LA Times joins me to talk USC Trojans football!",
+    "headline": "Greg Johnson gave Washington tough competition to open Big Ten play",
+    "link": "https://sports.yahoo.com/articles/greg-johnson-gave-washington-tough-020032525.html",
+    "published": "2026-10-02T02:00:32.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/53df4886cb40be77336e04381e18979b26fa1893b12a5a8a58317823367bfe6e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhuskies_wire_articles_664%2F7b9caf3b19d0408b3dd919ff9e8255a6.jpg",
+    "blurb": "The Washington Huskies faced a big challenge in offensive lineman Greg Johnson against Minnesota, a projected first round pick.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -223,11 +223,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Four-star edge rusher Jalanie George commits to Wisconsin, Luke Fickell",
-    "link": "https://sports.yahoo.com/articles/four-star-edge-rusher-jalanie-013546257.html",
-    "published": "2026-10-02T01:35:46.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/c2b0068aedc5a3a72ce02b9430211f332a35645acfcef2322445ec42d2e90d97/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmilwaukee_journal_sentinel_natl_articles_362%2F3fc442c145db1a0208e285431fd40ef4.jpg",
-    "blurb": "Jalanie George, who had more than 40 scholarship offers, announced his commitment to the Badgers Oct. 1. Here is why he chose Wisconsin.",
+    "headline": "Opponent Q&A: USC Trojans",
+    "link": "https://sports.yahoo.com/articles/opponent-q-usc-trojans-014234084.html",
+    "published": "2026-10-02T01:42:34.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/52f303cc3318ca178766e556895efd99113bf7fd0e2957728652c7d10e2d61be/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fb2e379d31c4073ad50d515355b4945cc.jpg",
+    "blurb": "Ryan Kartje of the LA Times joins me to talk USC Trojans football!",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Wisconsin RB Bryan Jackson upgraded for Michigan State game Oct. 3",
-    "link": "https://sports.yahoo.com/articles/wisconsin-rb-bryan-jackson-upgraded-010632740.html",
-    "published": "2026-10-02T01:06:32.000Z",
+    "headline": "Four-star edge rusher Jalanie George commits to Wisconsin, Luke Fickell",
+    "link": "https://sports.yahoo.com/articles/four-star-edge-rusher-jalanie-013546257.html",
+    "published": "2026-10-02T01:35:46.000Z",
     "image": "",
-    "blurb": "The first update to this week's Wisconsin-Michigan State availability report included one change for the teams' game Oct. 3 at Camp Randall Stadium.",
+    "blurb": "Jalanie George, who had more than 40 scholarship offers, announced his commitment to the Badgers Oct. 1. Here is why he chose Wisconsin.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -1132,6 +1132,33 @@
    "league": "MLB"
   },
   {
+   "headline": "Browns' Mason Graham exits Steelers game with knee injury, will not return",
+   "link": "https://www.cbssports.com/nfl/news/mason-graham-injury-update-browns-steelers/",
+   "published": "2026-10-02T02:16:52.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F4e624df1-5306-4d65-b364-c6575342bf91%2Fmason-graham.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The standout defensive tackle was injured during Pittsburgh's opening possession and is questionable to return",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
+   "headline": "Steelers-Browns on TNF Week 4: Highlights, key plays",
+   "link": "https://www.espn.com/nfl/story/_/id/50078973/nfl-week-4-steelers-browns-top-plays-tnf",
+   "published": "2026-10-02T02:13:40Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fr1724767_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Check out the biggest touchdowns and highlight-reel plays from Thursday night's AFC North showdown.",
+   "league": "NFL"
+  },
+  {
+   "headline": "Mike Hall questionable with an ankle injury; Mason Graham ruled out",
+   "link": "https://sports.yahoo.com/articles/mike-hall-questionable-ankle-injury-021225093.html",
+   "published": "2026-10-02T02:12:25.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/3c98c439430ecf3869d8a6158f0b047b8f577b3feede419ebd0516f77430f04d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F2c268f35f5b788caf2f03b60d518923c.jpg",
+   "blurb": "Browns defensive tackle Mike Hall, who replaced the injured Mason Graham in the first quarter, left late in the second quarter.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "See Ozzie Albies pile it on Phillies with electric home run in NL wild card",
    "link": "https://sports.yahoo.com/articles/see-ozzie-albies-pile-phillies-020356415.html",
    "published": "2026-10-02T02:03:56.000Z",
@@ -1159,6 +1186,15 @@
    "league": "CFB"
   },
   {
+   "headline": "Greg Johnson gave Washington tough competition to open Big Ten play",
+   "link": "https://sports.yahoo.com/articles/greg-johnson-gave-washington-tough-020032525.html",
+   "published": "2026-10-02T02:00:32.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/53df4886cb40be77336e04381e18979b26fa1893b12a5a8a58317823367bfe6e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhuskies_wire_articles_664%2F7b9caf3b19d0408b3dd919ff9e8255a6.jpg",
+   "blurb": "The Washington Huskies faced a big challenge in offensive lineman Greg Johnson against Minnesota, a projected first round pick.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
    "headline": "Caitlin Clark hit with second playoff technical after incident with former teammate",
    "link": "https://sports.yahoo.com/articles/caitlin-clark-hit-second-playoff-020009272.html",
    "published": "2026-10-02T02:00:09.000Z",
@@ -1174,24 +1210,6 @@
    "image": "https://s.yimg.com/lo/mysterio/api/5257780df96cfe107e84dc72a0d2e552c12f809da4d6958eecbecd5b09af7cfe/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Ff1520e3bbe996f969391de507438ad20.jpg",
    "blurb": "The Browns quarterback is 14-of-17 for 181 yards and a touchdown.",
    "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
-   "headline": "Aaron Rodgers has vulgar on-field exchange with Mike McCarthy",
-   "link": "https://sports.yahoo.com/articles/aaron-rodgers-vulgar-field-exchange-015601124.html",
-   "published": "2026-10-02T01:56:01.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/54ed6f42675f0c24af327488d2f4942098606e6cfcb79997d591e9348ddbd8fb/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F6622ff9cd856e6f866682e34fd90e337.jpg",
-   "blurb": "Mike McCarthy and Aaron Rodgers had a tense moment late in the first quarter of \"Thursday Night Football.\"",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
-   "headline": "Steelers-Browns on TNF Week 4: Highlights, key plays",
-   "link": "https://www.espn.com/nfl/story/_/id/50078973/nfl-week-4-steelers-browns-top-plays-tnf",
-   "published": "2026-10-02T01:53:08Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fr1724767_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Check out the biggest touchdowns and highlight-reel plays from Thursday night's AFC North showdown.",
    "league": "NFL"
   },
   {
@@ -1211,15 +1229,6 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fr1724764_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Zach Bauchou birdied his last two holes Thursday for a career-best 9-under 62, giving him a one-shot lead on a day of low scoring at the Bank of Utah Championship.",
    "league": "PGA"
-  },
-  {
-   "headline": "Four-star edge rusher Jalanie George commits to Wisconsin, Luke Fickell",
-   "link": "https://sports.yahoo.com/articles/four-star-edge-rusher-jalanie-013546257.html",
-   "published": "2026-10-02T01:35:46.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/c2b0068aedc5a3a72ce02b9430211f332a35645acfcef2322445ec42d2e90d97/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmilwaukee_journal_sentinel_natl_articles_362%2F3fc442c145db1a0208e285431fd40ef4.jpg",
-   "blurb": "Jalanie George, who had more than 40 scholarship offers, announced his commitment to the Badgers Oct. 1. Here is why he chose Wisconsin.",
-   "source": "YAHOO",
-   "league": "CFB"
   },
   {
    "headline": "Wisconsin Badgers vs. Indiana Hoosiers Game Thread: Can UW extend its winning streak?",
@@ -1283,15 +1292,6 @@
    "blurb": "ESPN analyst A.J. Mleczko made a comment about Jack Hughes' injury history. He called it \"a weird joke.\"",
    "source": "YAHOO",
    "league": "NHL"
-  },
-  {
-   "headline": "Browns' Mason Graham exits Steelers game with knee injury, questionable to return",
-   "link": "https://www.cbssports.com/nfl/news/mason-graham-injury-update-browns-steelers/",
-   "published": "2026-10-02T01:00:33.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F4e624df1-5306-4d65-b364-c6575342bf91%2Fmason-graham.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The standout defensive tackle was injured during Pittsburgh's opening possession and is questionable to return",
-   "source": "CBS",
-   "league": "NFL"
   },
   {
    "headline": "Simon Edvinsson Saga Is Latest Missed Chance for Red Wings to Change the Conversation",
@@ -1449,8 +1449,8 @@
  ],
  "source_mix": {
   "ESPN": 58,
-  "YAHOO": 61,
-  "CBS": 38
+  "CBS": 38,
+  "YAHOO": 61
  },
  "degraded_sources": []
 }
