@@ -616,7 +616,7 @@ def grade(pick, primary):
     u = Decimal(str(pick.get('units', '0u')).rstrip('u'))
     if not u:
         raise ValueError('missing units in manifest - grade manually')
-    stake = u * Decimal(15)  # exact from the first multiplication
+    stake = u * units.unit_dollars()  # exact from the first multiplication; 1u dollar size from env (private, fail closed)
     return ('W' if won else 'L'), (units.stake_pnl_american(stake, card_am) if won else -stake)
 
 def _parse_ts(s):
@@ -783,11 +783,14 @@ def main():
         try:
             result, pnl = grade(p, primary)
             score_text(primary)  # the queued score must parse in record_final - checked before any write
+            # a push grades to 0 dollars before any size is read; its units still need the private
+            # 1u size, so an unset size stops the chain here with the same WARN as a W/L grade
+            du = units.pnl_to_units(pnl)
         except ValueError as e:
             print(f'{stamp} WARN: {pkey} {e} - chain STOPS')
             break
         w2, l2 = W + (result == 'W'), L + (result == 'L')
-        u2 = U + units.pnl_to_units(pnl)
+        u2 = U + du
         rec = f'{w2}-{l2}'
         pct = f'{100*w2/(w2+l2):.2f}%' if (w2 + l2) else '0.00%'
         if dry:

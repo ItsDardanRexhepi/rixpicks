@@ -1,8 +1,29 @@
 """UNIT BASIS: canonical = card stake at locked price; the record is unit-denominated.
-UNIT_DOLLARS below is only the legacy card-dollar P&L conversion constant, not the public basis label.
+The legacy card-dollar P&L conversion size (unit_dollars) is private: it is read from the RIX_UNIT_DOLLARS
+environment variable at grade time and never committed, so no served file carries it.
 Store exact, display half-up 2dp. Actual-cash fills live in positions ledger only, never public record."""
-from decimal import Decimal, ROUND_HALF_UP
-UNIT_DOLLARS = Decimal('15')
+import os
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
+UNIT_DOLLARS_ENV = 'RIX_UNIT_DOLLARS'
+def unit_dollars():
+    """Private card-dollar size of 1u, read from the environment at call time. Unset or invalid
+    raises ValueError (fail closed: the grader stops the chain instead of writing a guessed number).
+    An integral size comes back as an exponent-0 Decimal, so trailing zeros in the setting never change
+    the exact math.
+    The value is never echoed in errors or logs."""
+    raw = os.environ.get(UNIT_DOLLARS_ENV, '').strip()
+    try:
+        v = Decimal(raw)
+    except InvalidOperation:
+        raise ValueError(f'{UNIT_DOLLARS_ENV} unset or not a number - REFUSING to convert dollars to units (fail closed)') from None
+    if not v.is_finite() or v <= 0:
+        raise ValueError(f'{UNIT_DOLLARS_ENV} must be a positive finite number - REFUSING to convert dollars to units (fail closed)')
+    return Decimal(int(v)) if v == v.to_integral_value() else v
+def __getattr__(name):
+    # legacy readers of units.UNIT_DOLLARS keep working, now sourced from the environment
+    if name == 'UNIT_DOLLARS':
+        return unit_dollars()
+    raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
 def _price(p):
     p = Decimal(str(p))
     if not p.is_finite() or not (Decimal(0) < p <= Decimal(100)):
@@ -15,7 +36,7 @@ def _stake(s):
     return s
 def pnl_to_units(pnl_dollars):
     """Exact units from a card-stake dollar P&L. No rounding - store this value."""
-    return Decimal(str(pnl_dollars)) / UNIT_DOLLARS
+    return Decimal(str(pnl_dollars)) / unit_dollars()
 def stake_pnl(stake_dollars, price_c):
     """P&L of a WIN at locked price (cents of a 100c contract). Validates inputs."""
     s, p = _stake(stake_dollars), _price(price_c)

@@ -33,6 +33,9 @@ tmp = tempfile.mkdtemp(prefix='rixtest_')
 os.environ['RIX_PICKS_LEDGER'] = f'{tmp}/picks.jsonl'
 os.environ['RIX_PROD_MANIFEST'] = f'{tmp}/prod_manifest.json'  # never read or mirror the grader's manifest
 os.environ.setdefault('RIX_CONFIG_PROPS', os.path.join(ROOT, 'config_props.json'))  # props adapter config from this checkout
+# grading suites compare result letters only: any positive 1u dollar size works, so a placeholder
+# stands in when the private RIX_UNIT_DOLLARS is not set (the real size never lives in the repo)
+os.environ.setdefault('RIX_UNIT_DOLLARS', '1')
 LEDGER = f'{tmp}/picks.preview.jsonl'
 
 # ---------- 1. adapter gates ----------

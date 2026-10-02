@@ -88,6 +88,8 @@ nav.rpnav button.rec:hover b{text-decoration:underline}
 .recpop .unitmath{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
 .yesrec{color:var(--mut);font-size:13px;margin-top:2px}
 .unitmath{color:var(--mut);font-size:12px;margin-top:8px}
+.rphead .unitbasis{margin:0 0 8px} /* Home: the unit basis is the first line under the nav record strip */
+@media(min-width:900px){.rphead .unitbasis{text-align:right}} /* desktop: the record strip sits top-right */
 .foot{margin-top:26px;color:var(--mut);font-size:11px;line-height:1.6}
 .rpstate-link{color:var(--acc);cursor:pointer;text-decoration:underline}
 /* Wooder Ice guest block */

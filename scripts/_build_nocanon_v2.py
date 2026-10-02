@@ -2131,6 +2131,11 @@ _recpop_html=('<div class="recpop" id="rpRecPop" hidden>'
     '<div class="rpPopRec" id="rpRec" data-bw="'+html.escape(str(_rw))+'" data-bl="'+html.escape(str(_rl))+'">&rsquo;RixPicks Overall Record: '+html.escape(man['record'])+'</div>'
     +wl_pct_line(man['record'])+_units_line+
     '<div class="unitmath">1u = $5 per $1,000 in bankroll</div></div>')
+# Unit basis on Home (owner design, Oct 2): the line above lives in the record popover, which
+# nothing opens since the record chip taps through to record.html, so no visitor saw it. It is
+# also the first line of the page head, right under the nav record strip, on Home only
+# (.home-only): the Past Tickets view keeps showing no bankroll wording (PAST_HIDE_MONEY).
+_unit_basis_home='<div class="unitmath unitbasis home-only" id="rpUnitBasis">1u = $5 per $1,000 in bankroll</div>'
 _tail_html=('<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>')
 if _V2:
     INDEX_V2_CSS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.css')).read()
@@ -2336,7 +2341,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
     '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><button type="button" class="rec" id="rpNavRec" aria-haspopup="true" aria-expanded="false" aria-controls="rpRecPop" aria-label="View overall record"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</button>'+_recpop_html+'</nav>\n'
-    '<div class="layout"><div class="rphead">'+_home_yes+'<div class="rpdate" data-date="'+html.escape(_RPDATE_ISO)+'">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
+    '<div class="layout"><div class="rphead">'+_unit_basis_home+_home_yes+'<div class="rpdate" data-date="'+html.escape(_RPDATE_ISO)+'">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Upcoming Events</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div id="rpPredWrap" class="home-only" style="display:none"><div class="col-head" style="margin-top:18px"><div class="sect">Predictions by UltRix</div></div><div class="card" id="rpPred"></div></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
@@ -3816,7 +3821,28 @@ import time
 build_sha=str(int(time.time()))
 page=page.replace('{build_sha}',build_sha)
 os.makedirs(os.path.dirname(out) or '.',exist_ok=True)
-open(out,'w').write(scrub_shipped(page))
+# index_nocanon.html is retired (Oct 2): it was an orphaned second copy of the homepage, served
+# publicly and read by nothing. A build aimed at that path writes this fixed notice instead -
+# noindex, the homepage as canonical, an instant hop there - so no twin run can bring the
+# duplicate back. Byte-stable across builds; every other output of the run is unchanged.
+_RETIRED_HOME='''<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://rix-picks.com/">
+<meta http-equiv="refresh" content="0; url=./">
+<title>&rsquo;RixPicks</title>
+<style>body{margin:0;background:#000;color:#f2f5f4;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}.wrap{max-width:560px;margin:0 auto;padding:40px 22px}a{color:#2aa88f}</style>
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head><body>
+<div class="wrap" data-retired="1">Today&rsquo;s picks are on the <a href="./">&rsquo;RixPicks home page</a>.</div>
+</body></html>
+'''
+if os.path.basename(out)=='index_nocanon.html':
+    open(out,'w').write(_RETIRED_HOME)
+    print('retired: index_nocanon.html (duplicate homepage) - noindex notice, canonical https://rix-picks.com/')
+else:
+    open(out,'w').write(scrub_shipped(page))
 _css=page.split('<style>')[1].split('</style>')[0]
 
 FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
