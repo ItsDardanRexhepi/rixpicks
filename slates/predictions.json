@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-02T00:04:55.874184+00:00",
+ "generated_at": "2026-10-02T00:19:57.450240+00:00",
  "items": [
-  {
-   "id": "53ae48a051",
-   "league": "NFL",
-   "event": "Pittsburgh Steelers @ Cleveland Browns",
-   "prediction": "Pittsburgh Steelers beat Cleveland Browns",
-   "kickoff_utc": "2026-10-02T00:15:00+00:00"
-  },
   {
    "id": "f35fdd35c7",
    "league": "WNBA",
@@ -41,6 +34,13 @@
    "league": "NHL",
    "event": "Florida Panthers @ San Jose Sharks",
    "prediction": "San Jose Sharks beat Florida Panthers",
+   "kickoff_utc": "2026-10-02T02:00:00+00:00"
+  },
+  {
+   "id": "eb1c4161f7",
+   "league": "NHL",
+   "event": "Edmonton Oilers @ Vancouver Canucks",
+   "prediction": "Edmonton Oilers beat Vancouver Canucks",
    "kickoff_utc": "2026-10-02T02:00:00+00:00"
   }
  ]
