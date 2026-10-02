@@ -2100,7 +2100,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
 
     # Predictions by UltRix (todo-01M3QBSB8S3YA86RQTDC5MKDK8, Dardan 12:55 via main: UltRix core-level
     # across the site): hydrates the aside panel from the analysis lane's ultrix_record.json dual-emit
-    # (identical to julian_record.json). Coexists with renderPred (index_v2.js, predictions.json):
+    # (same record shape as wooder_record.json). Coexists with renderPred (index_v2.js, predictions.json):
     # linked/resolved rows render in a dedicated rpPredLinked div prepended inside #rpPred; this code
     # NEVER hides the wrap - renderPred owns visibility for the forecasts, we only unhide when linked
     # rows exist. Empty/absent ultrix feed = our div removed, forecasts untouched (regression guard

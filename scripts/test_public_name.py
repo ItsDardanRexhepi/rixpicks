@@ -10,10 +10,7 @@ import hashlib, os, re, subprocess, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIGEST = 'ce0fee7e61f9c74f1110f0e5940a80b4f059f189217d0c3d26bb41960d4bf597'
 TEXT = ('.py', '.js', '.yml', '.yaml', '.md', '.sh', '.txt', '.toml', '.css', '.trigger')
-PENDING = {
-    # handoff: builder comment (the twin is synced from the builder) and gate comments
-    'scripts/build_gh_page_v2.py', 'scripts/_build_nocanon_v2.py', 'scripts/health_gate.js',
-}
+PENDING = set()
 PENDING_BY_DIGEST = {
     # owner decision: the two superseded slates/ feed copies (wooder_* replaced them; served, read by
     # nothing). Listed by SHA-256 of the path because the file names carry the name.
