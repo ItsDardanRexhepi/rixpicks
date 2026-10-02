@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-02T00:06:35.785158+00:00",
+ "generated_at": "2026-10-02T00:20:02.050048+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401907973",
+     "matchup": "PHI @ ATL",
+     "commence": "2026-10-02T00:00Z",
+     "status": "in",
+     "detail": "Top 1st",
+     "score": "PHI 0 - ATL 0"
+    }
+   ]
+  },
   {
    "league": "NFL",
    "games": [
@@ -9,9 +22,11 @@
      "espn_event_id": "401872964",
      "matchup": "PIT @ CLE",
      "commence": "2026-10-02T00:15Z",
-     "status": "pre",
-     "detail": "10/1 - 5:15 PM PT",
-     "score": "PIT 0 - CLE 0"
+     "status": "in",
+     "detail": "12:47 - 1st",
+     "score": "PIT 0 - CLE 0",
+     "away_to": 3,
+     "home_to": 3
     }
    ]
   },
@@ -23,8 +38,8 @@
      "matchup": "WKU @ NMSU",
      "commence": "2026-10-02T00:00Z",
      "status": "in",
-     "detail": "13:42 - 1st",
-     "score": "WKU 0 - NMSU 0",
+     "detail": "7:55 - 1st",
+     "score": "WKU 3 - NMSU 3",
      "away_to": 3,
      "home_to": 3
     },
@@ -59,8 +74,8 @@
      "matchup": "BUF @ CBJ",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "End of 1st",
-     "score": "BUF 1 - CBJ 3",
+     "detail": "17:59 - 2nd",
+     "score": "BUF 2 - CBJ 3",
      "away_to": null,
      "home_to": null
     },
@@ -69,7 +84,7 @@
      "matchup": "PHI @ NJ",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "20:00 - 2nd",
+     "detail": "10:17 - 2nd",
      "score": "PHI 1 - NJ 0",
      "away_to": null,
      "home_to": null
@@ -79,8 +94,18 @@
      "matchup": "TB @ NYR",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "18:20 - 2nd",
      "score": "TB 0 - NYR 2",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401891816",
+     "matchup": "MIN @ NSH",
+     "commence": "2026-10-02T00:00Z",
+     "status": "in",
+     "detail": "13:38 - 1st",
+     "score": "MIN 0 - NSH 0",
      "away_to": null,
      "home_to": null
     },
