@@ -119,8 +119,10 @@ def day_html(d, with_brief_title, hidden=False):
 <div class="brief"><span class="bt">{html.escape(with_brief_title)}</span>{html.escape(brief) if brief.strip() else NO_BRIEF}</div></div>"""
 
 # yesterday.html at VIEW time (K18 rule, same as the Home line): show the row for the viewer's
-# PT yesterday; with no row that day had no official picks - say so and show the last graded
-# day under its own name. Without JS the page reads 'Last graded day', true at any hour.
+# PT yesterday. With no row, same-origin manifest.json decides what to say: while it is still
+# yesterday's card and carries picks, they are ungraded - results pending; otherwise that day had
+# no official picks. An unreadable manifest makes no claim either way. The last graded day shows
+# under its own name. Without JS the page reads 'Last graded day', true at any hour.
 YESTERDAY_JS = """<script>(function(){var bs=[].slice.call(document.querySelectorAll('.rpday[data-date]'));if(!bs.length)return;
 var t=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 var y=new Date(t+'T12:00:00Z');y.setUTCDate(y.getUTCDate()-1);y=y.toISOString().slice(0,10);
@@ -128,8 +130,10 @@ var hit=null,last=null;bs.forEach(function(b){var d=b.getAttribute('data-date');
 var show=hit||last;bs.forEach(function(b){b.hidden=b!==show;});
 var st=document.querySelector('.status'),nt=document.getElementById('rpYdNone');
 if(hit){if(st)st.textContent='Yesterday - '+hit.getAttribute('data-label');document.title='Yesterday: '+hit.getAttribute('data-record')+" - 'RixPicks";return;}
-if(nt){nt.textContent='Yesterday, '+new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'long',month:'short',day:'numeric'}).format(new Date(y+'T12:00:00Z'))+': 0-0 - no official picks.';nt.hidden=false;}
-if(st)st.textContent=show?'Last graded day - '+show.getAttribute('data-label'):'No graded day before today';})();</script>"""
+if(st)st.textContent=show?'Last graded day - '+show.getAttribute('data-label'):'No graded day before today';
+if(!nt)return;var lab='Yesterday, '+new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'long',month:'short',day:'numeric'}).format(new Date(y+'T12:00:00Z'))+': ';
+try{fetch('manifest.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(m){if(!m)return;
+nt.textContent=lab+(m.date===y&&Array.isArray(m.picks)&&m.picks.length?'results pending.':'0-0 - no official picks.');nt.hidden=false;}).catch(function(){});}catch(e){}})();</script>"""
 
 def main(hist_path):
     h = json.load(open(hist_path))
@@ -139,7 +143,7 @@ def main(hist_path):
         for _p in _d['picks']:
             _p['note']=_coherent_note(_p.get('note'),_res)
     # yesterday.html: the last two graded days, newest shown; the view-time script picks the
-    # viewer's PT yesterday (or states it had no official picks) - see YESTERDAY_JS
+    # viewer's PT yesterday (or states its results are pending, or that it had no official picks) - see YESTERDAY_JS
     yd = days[-1]
     ybody = '<div class="nt" id="rpYdNone" hidden></div>' + ''.join(
         day_html(d, 'What the system learned', hidden=i > 0) for i, d in enumerate(reversed(days[-2:]))) + YESTERDAY_JS

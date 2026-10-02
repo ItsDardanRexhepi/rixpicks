@@ -58,6 +58,20 @@ for B in ('build_gh_page_v2.py', '_build_nocanon_v2.py'):
     _days.append({'date': '2026-10-01', 'label': 'Thursday, Oct 1', 'record': '1-0', 'units': '+3.09u', 'brief': '', 'picks': [_row('Devils ML')]})
     json.dump({'days': _days}, open(os.path.join(d2, 'history.json'), 'w'))
     check(f'{B}: a yesterday.html without the line\'s day (Oct 1) links the full record', yh('2026-10-02'), 'record.html')
+    # Oct 2 review: no history row for yesterday is not proof of 'no official picks' - when the
+    # manifest is still yesterday's card and it carries picks, they are ungraded: results pending
+    d3 = tempfile.mkdtemp(prefix='rp-yline-pend-')
+    json.dump({'days': _days[:2]}, open(os.path.join(d3, 'history.json'), 'w'))  # Sep 29, Sep 30; no Oct 1 row
+    sys.argv = ['b', os.path.join(d3, 'manifest.json')]
+    for mdate, mpicks, want, why in [('2026-10-01', [{'name': 'Devils ML'}], 'results pending', "manifest is Oct 1's card with picks"),
+                                     ('2026-10-01', [], '0-0 - no official picks', "manifest is Oct 1's card with no picks"),
+                                     ('2026-10-02', [{'name': 'Rangers ML'}], '0-0 - no official picks', "manifest is already Oct 2's card")]:
+        json.dump({'date': mdate, 'picks': mpicks}, open(os.path.join(d3, 'manifest.json'), 'w'))
+        check(f'{B}: Oct 2 build, no Oct 1 row, {why}', ns['_hist_yesterday']('2026-10-02'), want)
+    json.dump({'date': '2026-10-01', 'picks': [{'name': 'Devils ML'}]}, open(os.path.join(d3, 'manifest.json'), 'w'))
+    check(f'{B}: a graded yesterday row still reads from the ledger', ns['_hist_yesterday']('2026-10-01'),
+          '1-0 \u00b7 White Sox ML W')
+    shutil.rmtree(d3, ignore_errors=True)
     shutil.rmtree(d2, ignore_errors=True)
     shutil.rmtree(d, ignore_errors=True)
     sys.argv = argv0  # helper reads sys.argv[1] at CALL time - restore only after the calls

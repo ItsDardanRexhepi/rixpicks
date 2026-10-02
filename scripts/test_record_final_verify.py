@@ -142,7 +142,9 @@ def run(reqs, hist=HIST, done=DONE, live=LIVE, payload=None, snaps=None):
                 code = rf.main()
             except Exception as e:  # a crash is not a refusal
                 code = f'raised {type(e).__name__}'
-        state = {f: json.load(open(os.path.join(tmp, f))) for f in ('manifest.json', 'history.json', 'record_done.json')}
+        state = {f: json.load(open(os.path.join(tmp, f))) for f in ('manifest.json', 'history.json', 'record_done.json', 'record_request.json')}
+        mirror = os.path.join(tmp, 'slates', 'api_record.json')
+        state['slates/api_record.json'] = json.load(open(mirror)) if os.path.exists(mirror) else None
         return code, state, err.getvalue()
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
@@ -261,6 +263,28 @@ refused('chain: next run 0.004u off the exact anchor', [aces(rec='22-12', ua=U0 
 code, _, _ = run([aces(rec='22-12', ua=U0 + D_DEV - 6)], live=nxt_live, done=st['record_done.json'])
 check('chain: next run on the exact anchor lands', code, 0)
 
+# displayed units round half-up (the owner's rule in core/units; record_today.js shows 3.125 as +3.13u),
+# and a total in (-0.005, 0] prints '+0.00u' - '+-0.00u' was written to manifest units_pl and every
+# later grade then refused it as unparsable (exit 3) until a manual fix
+_rf = load()
+from decimal import Decimal as _D
+check('units display: half-up and a signed zero', [_rf.fmt_units(_D(v)) for v in
+      ('3.125', '-3.125', '0.005', '-0.005', '-0.0049999', '-0.004', '-0.001', '-0', '0', '0.004', '2.124999')],
+      ['+3.13u', '-3.13u', '+0.01u', '-0.01u', '+0.00u', '+0.00u', '+0.00u', '+0.00u', '+0.00u', '+0.00u', '+2.12u'])
+LIVE_6 = dict(LIVE, record='21-11', units_pl='+6.00u')
+DONE_6 = dict(DONE, record_after='21-11', units_after_exact='5.997')
+code, st, err = run([under(rec='21-12', ua=5.997 - 6)], live=LIVE_6, done=DONE_6)
+check('units display: a grade leaving -0.003u running lands', (code, err.strip()), (0, ''))
+check("units display: manifest units_pl reads '+0.00u', never '+-0.00u'", st['manifest.json']['units_pl'], '+0.00u')
+check('units display: the api mirror carries units 0.0, never -0.0', str(st['slates/api_record.json']['units']), '0.0')
+code, st2, err = run([devils(rec='22-12', ua=5.997 - 6 + D_DEV)], live=st['manifest.json'], done=st['record_done.json'])
+check('units display: the next grade continues the chain from +0.00u', (code, err.strip(), st2['manifest.json']['units_pl']),
+      (0, '', '+3.08u'))
+code, st, _ = run([devils(delta=D_DEV, ua=3.125)], live=dict(LIVE, units_pl='+0.04u'),
+                  done=dict(DONE, record_after='21-11', units_after_exact=str(3.125 - D_DEV)))
+check('units display: manifest and api mirror agree, half-up (3.125 exactly)', (code, st['manifest.json']['units_pl'],
+      st['slates/api_record.json']['units']), (0, '+3.13u', 3.13))
+
 # DI-06: a pick already on its card date's row is refused, never double counted
 hist_dup = copy.deepcopy(HIST)
 hist_dup['days'].append({'date': '2026-10-01', 'label': 'Thursday, Oct 1', 'record': '1-0', 'units': '+3.09u', 'brief': '',
@@ -286,6 +310,19 @@ check('EOD an empty day brief is filled (exit 0)', code, 0)
 check('EOD the filled brief is the payload brief', (day(st, '2026-09-29') or {}).get('brief'), 'Sep 29 closed 2-1.')
 check('EOD the other day\'s filed brief is untouched', (day(st, '2026-09-27') or {}).get('brief'), HIST_EOD['days'][0]['brief'])
 check('EOD receipt recorded', 'eod_day_close:2026-09-29' in st['record_done.json'].get('processed', []), True)
+# an eod re-sent for a day eod already closed (receipt in record_done.json) is skipped - exit 0, the
+# request cleared - even when its brief text was regenerated; it used to be refused (exit 3, a red
+# record-final run, the payload left queued). The day with a filed brief and no receipt still refuses.
+DONE_EOD = dict(DONE, processed=DONE['processed'] + ['eod_day_close:2026-09-29'])
+HIST_EOD_CLOSED = copy.deepcopy(HIST_EOD)
+HIST_EOD_CLOSED['days'][1]['brief'] = 'Sep 29 closed 2-1.'
+for label, brief in [('regenerated brief text', 'Sep 29 closed 2-1 (regenerated wording).'), ('the same brief text', 'Sep 29 closed 2-1.')]:
+    code, st, err = run([], hist=HIST_EOD_CLOSED, done=DONE_EOD, payload=eod('2026-09-29', brief))
+    check(f'EOD re-sent for a closed day ({label}): skipped, exit 0', (code, 'REFUSE' in err), (0, False))
+    check(f'EOD re-sent for a closed day ({label}): request cleared', st['record_request.json'], {'requests': []})
+    check(f'EOD re-sent for a closed day ({label}): history.json untouched', st['history.json'], HIST_EOD_CLOSED)
+refused('EOD a filed brief with no eod receipt still refuses', [], 'never replaced', hist=HIST_EOD_CLOSED,
+        payload=eod('2026-09-29', 'Sep 29 closed 2-1 (regenerated wording).'))
 
 # MLS scorer props (Oct 2 review): build_manifest cards anytime/first/last goal and finals_watch grades
 # them from the ESPN summary's goal events; the record write checks them the same way (scoringPlay
@@ -346,6 +383,70 @@ check('MLS scorer prop game label is the player\'s own team (Messi is away)', [p
 refused('MLS a name two roster players share is refused', [soc_req('Gomez', 'anytime_goal', 'LOST')], 'independent prop verification failed', snaps=SOC_SNAP)
 refused('MLS last goal on a tied stoppage-time clock is refused', [soc_req('Jamal Thiar\u00e9', 'last_goal', 'WON', '761845', 'MIA 1 @ CLB 2')],
         'independent prop verification failed', snaps=SOC_SNAP)
+
+# MLS scorer props on D.C. United and St. Louis CITY SC games (Oct 2 re-check): ESPN's goal text is
+# 'Goal! <home> <n>, <away> <n>. <Scorer> (<Team>) ...', and the first '. ' can fall inside a team
+# name ('D.C. United', 'St. Louis City SC'), so the scorer is read after the scoreline, never after
+# the first '. '. Trimmed real ESPN summaries: 761518 FC Dallas 4 at D.C. United 0 (Farrington 16',
+# Delgado 45+1', Urhoghide 78', Musa 90+1') and 761439 Charlotte FC 1 at St. Louis 1 (Hartel 60', Biel 73').
+FIXDIR = os.path.join(os.path.dirname(HERE), 'tests', 'fixtures')
+FIX[CORE.format(lg='soccer/leagues/usa.1', e='761518', c='761518')] = core('FC Dallas', 4, 'D.C. United', 0)
+FIX[SITE.format(lg=SOC_LG, e='761518')] = json.load(open(os.path.join(FIXDIR, 'soccer_summary_dc_761518.json')))
+FIX[CORE.format(lg='soccer/leagues/usa.1', e='761439', c='761439')] = core('Charlotte FC', 1, 'St. Louis CITY SC', 1)
+FIX[SITE.format(lg=SOC_LG, e='761439')] = json.load(open(os.path.join(FIXDIR, 'soccer_summary_stl_761439.json')))
+REAL_MLS = {  # eid -> (card date, commence, away, home, final score, plays)
+    '761518': ('2026-04-04', '2026-04-04T23:30Z', 'FC Dallas', 'D.C. United', 'DAL 4 @ DC 0', [
+        ('Petar Musa', 'anytime_goal', 'WON'), ('Logan Farrington', 'first_goal', 'WON'),
+        ('Petar Musa', 'last_goal', 'WON'), ('Logan Farrington', 'last_goal', 'LOST'), ('Tai Baribo', 'anytime_goal', 'LOST')]),
+    '761439': ('2026-02-21', '2026-02-21T19:30Z', 'Charlotte FC', 'St. Louis CITY SC', 'CLT 1 @ STL 1', [
+        ('Marcel Hartel', 'first_goal', 'WON'), ('Pep Biel', 'last_goal', 'WON'),
+        ('Marcel Hartel', 'anytime_goal', 'WON'), ('Marcel Hartel', 'last_goal', 'LOST')])}
+for eid, (cdate, commence, away, home, score, plays) in REAL_MLS.items():
+    snap = {f'manifests/manifest-{eid}eeeeee.json': {'date': cdate, 'record': '21-11', 'units_pl': '+4.76u', 'picks': [
+        pick(f'{pl} {SOC_MKT[mk]}', eid, SOC_LG, away, home, commence, '+150', '5u', 'over', 'prop', line=0.5, player=pl, market=mk)
+        for pl, mk, _ in plays]}}
+    for player, market, result in plays:
+        code, st, err = run([soc_req(player, market, result, eid, score)], snaps=snap)
+        check(f'MLS real {eid} {player} {market} {result} lands', (code, err.strip()), (0, ''))
+        check(f'MLS real {eid} {player} {market}: row filed on the {cdate} card', [(p['name'], p['result'], p['score'])
+              for p in (day(st, cdate) or {}).get('picks', [])], [(f'{player} {SOC_MKT[market]}', result[0], score.replace(' @', ','))])
+        refused(f'MLS real {eid} {player} {market}: the opposite label', [soc_req(player, market, 'LOST' if result == 'WON' else 'WON', eid, score)],
+                'contradicts the verified final', snaps=snap)
+
+# MMA hardening (Oct 2 review): a K19 card pick carries game.eid = the ESPN fight-card event id, and
+# a grade for it must name that event - a different event for the same fighter name (a later fight)
+# was graded against the old card pick as a new row. A fighter carded on two dates needs card_date.
+def mma_core(winner, loser):
+    return {'status': {'type': {'completed': True}},
+            'competitors': [{'athlete': {'displayName': loser}, 'winner': False}, {'athlete': {'displayName': winner}, 'winner': True}]}
+FIX[CORE.format(lg='mma/leagues/ufc', e='600070001', c='401900001')] = mma_core('Jon Doe', 'Rick Roe')
+FIX[CORE.format(lg='mma/leagues/ufc', e='600070002', c='401900002')] = mma_core('Sam Poe', 'Jon Doe')
+FIX[CORE.format(lg='mma/leagues/ufc', e='600070003', c='401900003')] = mma_core('Loai Abushaar', 'Max Moe')
+def mma_pick(name, opp, eid, commence):
+    return {'name': name, 'market_class': 'ml', 'side': 'home', 'odds': '+150', 'card_american': 150, 'units': '5u',
+            'espn_league': 'mma/ufc', 'game': {'away': opp, 'home': name[:-3], 'commence': commence, 'eid': eid}}
+MMA_OCT24 = {'manifests/manifest-1024ffffffff.json': {'date': '2026-10-24', 'record': '21-11', 'units_pl': '+4.76u', 'picks': [
+    mma_pick('Jon Doe ML', 'Rick Roe', '600070001', '2026-10-25T02:00Z'),
+    mma_pick('Loai Abushaar ML', 'Max Moe', '600070003', '2026-10-25T03:00Z')]}}
+def mma_req(pick_, eid, comp, result, graded, **x):
+    delta, rec, score = {'WON': (7.5, '22-11', 'DOE 1 @ ROE 0'), 'LOST': (-5.0, '21-12', 'POE 1 @ DOE 0')}[result]
+    return req(f'G-{eid}', eid, 'mma/ufc', pick_, 'home', result, score, '+150', '5u', delta, rec, U0 + delta,
+               competition_id=comp, graded_pick=graded, **x)
+code, st, err = run([mma_req('Jon Doe ML', '600070001', '401900001', 'WON', 'Doe def. Roe')], snaps=MMA_OCT24)
+check('MMA grade naming the card pick\'s own event lands', (code, err.strip()), (0, ''))
+check('MMA row filed on its Oct 24 card', [(p['name'], p['result'], p['score']) for p in (day(st, '2026-10-24') or {}).get('picks', [])],
+      [('Jon Doe ML', 'W', 'Doe def. Roe')])
+refused('MMA grade for another event (a later fight) against a card pick bound to its own event',
+        [mma_req('Jon Doe ML', '600070002', '401900002', 'LOST', 'Poe def. Doe')], 'not on any published card', snaps=MMA_OCT24)
+# Abushaar is on the Sep 29 card (no event id, before K19) and on the Oct 24 card (bound to its event)
+refused('MMA fighter carded on two dates: a grade without card_date is refused',
+        [mma_req('Loai Abushaar ML', '600070003', '401900003', 'WON', 'Abushaar def. Moe')], 'card_date', snaps=MMA_OCT24)
+code, st, err = run([mma_req('Loai Abushaar ML', '600070003', '401900003', 'WON', 'Abushaar def. Moe', card_date='2026-10-24')], snaps=MMA_OCT24)
+check('MMA fighter carded on two dates: a grade naming its card_date lands on that card', (code, err.strip(),
+      [(p['name'], p['result']) for p in (day(st, '2026-10-24') or {}).get('picks', [])]), (0, '', [('Loai Abushaar ML', 'W')]))
+refused('MMA fighter carded on two dates: the bound card refuses another event even with its card_date',
+        [mma_req('Loai Abushaar ML', '600060739', '401891663', 'LOST', 'Staines def. Abushaar', card_date='2026-10-24')],
+        'not on any published card dated 2026-10-24', snaps=MMA_OCT24)
 
 # MMA: a PUSH label on a fight with a winner flag is a contradiction
 rf = load()

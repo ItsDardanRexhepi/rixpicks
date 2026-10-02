@@ -229,6 +229,45 @@ for fx, why in [('soccer_summary_bad_text', 'unparseable goal text'), ('soccer_s
         fw.grade(pk, {'home_score':3,'away_score':0}); got = 'NOT-REFUSED'
     except Exception: got = 'REFUSED'
     check(f'grade mls: {why} REFUSED (fail closed)', got, 'REFUSED')
+# D.C. United and St. Louis CITY SC (Oct 2 re-check): the goal text's first '. ' can fall inside a
+# team name ('Goal! D.C. United 0, FC Dallas 1. Logan Farrington (FC Dallas) ...'), so the scorer is
+# read after the scoreline. Trimmed real ESPN summaries: 761518 FC Dallas 4 at D.C. United 0 and
+# 761439 Charlotte FC 1 at St. Louis 1; record_final.py reads the same events (kept in step below).
+realvars = [('761518', 'Petar Musa', 'anytime_goal', 'W'), ('761518', 'Logan Farrington', 'first_goal', 'W'),
+            ('761518', 'Petar Musa', 'last_goal', 'W'), ('761518', 'Logan Farrington', 'last_goal', 'L'),
+            ('761518', 'Tai Baribo', 'anytime_goal', 'L'), ('761439', 'Marcel Hartel', 'first_goal', 'W'),
+            ('761439', 'Pep Biel', 'last_goal', 'W'), ('761439', 'Marcel Hartel', 'anytime_goal', 'W'),
+            ('761439', 'Marcel Hartel', 'last_goal', 'L')]
+REALSUM = {'761518': json.load(open(f'{FIX}/soccer_summary_dc_761518.json')),
+           '761439': json.load(open(f'{FIX}/soccer_summary_stl_761439.json'))}
+with open(LEDGER, 'a') as f:
+    for eid, player, market, _ in realvars:
+        f.write(json.dumps({'kind':'pick','event_id':eid,'market_class':'prop','player':player,'market':market,'line':0.5,
+                            'side':'over','entry_c':60,'card_american':-150,'name':'t','units':'5u','card_ts':'x',
+                            'kalshi_ticker':'T','commence':'c','preview':True}) + '\n')
+for eid, d in REALSUM.items():
+    fw._PROP_BOX[('soccer/usa.1', eid)] = d
+for eid, player, market, want in realvars:
+    pk = P(eid,60,-150,'5u',market_class='prop',espn_league='soccer/usa.1',player=player,market=market,line=0.5,side='over')
+    try: got = fw.grade(pk, {'home_score':0,'away_score':4})[0]
+    except Exception as e: got = f'RAISED: {e}'
+    check(f'grade mls real {eid}: {player} {market}', got, want)
+# both record writers read a scorer prop the same way: every rostered player, every market, both games
+rf = load('rf', f'{SCRIPTS}/record_final.py')
+def _both(fn, *a):
+    try: return float(fn(*a) if fn is fw._soccer_scorer_stat else fn(*a)[0])
+    except ValueError as e: return 'REFUSED'
+mism, n = [], 0
+for eid, d in REALSUM.items():
+    for ros in d['rosters']:
+        for e in ros['roster']:
+            for market in ('anytime_goal', 'first_goal', 'last_goal'):
+                nm = e['athlete']['displayName']; n += 1
+                a, b = _both(fw._soccer_scorer_stat, d, nm, market), _both(rf._soccer_scorer, d, nm, market)
+                if a != b: mism.append((eid, nm, market, a, b))
+check(f'finals_watch and record_final agree on all {n} real scorer reads', mism, [])
+check('real scorer reads are graded, not refused', sum(1 for eid, d in REALSUM.items() for ros in d['rosters'] for e in ros['roster']
+      if _both(rf._soccer_scorer, d, e['athlete']['displayName'], 'anytime_goal') == 'REFUSED'), 0)
 
 check('anchor: away-cover NO ask = 1 - yes_bid', abs(r['alt']['kalshi']['ask'] - 0.50) < 1e-9, True)
 

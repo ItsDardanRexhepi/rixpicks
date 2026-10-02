@@ -1846,7 +1846,8 @@ _cnote_home='' if globals().get('_cnote_folded') else _cnote_html  # 2:55: no do
 # K18 (9/30 midnight QA): the Yesterday line must follow the BUILD date, not the manifest's bake
 # date - after midnight the static man['yesterday'] lies (the Sep 29 card read "0-0 - no official
 # picks" into Sep 30). Home line computes from the canonical history.json ledger for build-PT-date
-# minus one; no entry means the day genuinely had no official picks. League strips hide while the
+# minus one; no entry means results pending while the manifest is still that day's card with picks,
+# else the day had no official picks. League strips hide while the
 # manifest is stale (never show another day's results, the strip's own rule).
 def _hist_yesterday(today=None):
     try:
@@ -1857,6 +1858,15 @@ def _hist_yesterday(today=None):
         _days = json.load(open(_hp)).get('days') or []
         _d = next((x for x in _days if x.get('date') == _yd), None)
         if not _d or not _d.get('picks'):
+            # no graded row is not proof of no picks: while the manifest is still yesterday's card
+            # and carries picks, they are ungraded (a grade can land after midnight, or the
+            # in-order record write can be held) - say so, never '0-0 - no official picks'
+            try:
+                _ym = json.load(open(os.path.abspath(sys.argv[1])))
+            except Exception:
+                _ym = {}
+            if _ym.get('date') == _yd and _ym.get('picks'):
+                return 'results pending'
             return '0-0 - no official picks'
         _rec = str(_d.get('record') or '0-0')
         return _rec + ' \u00b7 ' + ' \u00b7 '.join(str(p.get('name','')).strip() + ' ' + str(p.get('result','')).strip() for p in _d['picks'] if p.get('name') and p.get('result'))

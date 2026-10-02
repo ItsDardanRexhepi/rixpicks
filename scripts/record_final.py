@@ -26,7 +26,7 @@ Writes NOTHING to any private ledger - that stays analysis-side.
 """
 import glob, json, os, re, sys, urllib.request
 from datetime import datetime, timezone, timedelta
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from zoneinfo import ZoneInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -137,7 +137,11 @@ def espn_verify_mma(league, eid, comp_id, q):
 SCORE_RE = re.compile(r'^([A-Z]{2,4})\s+(\d+)\s*@\s*([A-Z]{2,4})\s+(\d+)$')
 
 def fmt_units(d):
-    d = Decimal(d).quantize(Decimal('0.01'))
+    # the owner's display rule (core/units.display_units): half-up to the cent; a total that rounds
+    # to zero prints '+0.00u', never '+-0.00u' (units_anchor reads this text back from the manifest)
+    d = Decimal(d).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+    if d == 0:
+        d = abs(d)
     return ('+' if d >= 0 else '') + f'{d}u'
 
 _TWO_WORD_NICKS = ('White Sox', 'Red Sox', 'Blue Jays', 'Maple Leafs', 'Red Wings', 'Blue Jackets',
@@ -193,9 +197,11 @@ def card_pick(q):
     nothing on it is graded. A pick is filed under its card's date, even when its own game starts
     after midnight PT (its PT date is the card's date or the next day); a pick whose game began
     before the card's date is not on that card. Every build snapshots the manifest it published
-    into manifests/; the live manifest.json counts too."""
+    into manifests/; the live manifest.json counts too. An MMA pick binds on league + pick text and,
+    when the card row carries game.eid, on that event too; an MMA pick on cards of several dates
+    needs the request's card_date."""
     mma = str(q.get('league') or '').startswith('mma/')
-    found = {}
+    found, mma_named = {}, set()
     for path in sorted(glob.glob(os.path.join(MANIFESTS, 'manifest-*.json'))) + [MAN]:
         try:
             snap = json.load(open(path))
@@ -208,15 +214,24 @@ def card_pick(q):
         for p in snap.get('picks') or []:
             if not isinstance(p, dict):
                 continue
-            if mma:  # MMA card rows carry no event id: bind on league + exact pick text
+            pd = _pt_date((p.get('game') or {}).get('commence'))
+            if mma:
+                # MMA rows bind on league + exact pick text; a K19 row also carries game.eid (the ESPN
+                # fight-card event id) and then counts only for a grade of that same event - a later
+                # fight of the same fighter is never graded against this card's pick
                 hit = str(p.get('espn_league') or '').startswith('mma/') and p.get('name') == q.get('pick')
+                if hit and pd and day <= pd <= nxt:
+                    mma_named.add(day)
+                ceid = (p.get('game') or {}).get('eid')
+                hit = hit and (not ceid or str(ceid) == str(q.get('event_id')))
             else:
                 hit = card_key(p) == str(q.get('grade_id'))
             # the pick's own game must be on the card's date, or start after midnight PT into the
             # next day - a game that began before the card's date was never this card's pick
-            pd = _pt_date((p.get('game') or {}).get('commence'))
             if hit and pd and day <= pd <= nxt:
                 found.setdefault(day, []).append(p)
+    if mma and len(mma_named) > 1 and q.get('card_date') is None:
+        return None, f'carded on several dates {sorted(mma_named)} - an MMA grade must name its card_date'
     if q.get('card_date') is not None:
         found = {d: v for d, v in found.items() if d == q['card_date']}
     if len(found) != 1:
@@ -309,6 +324,7 @@ PROP_GROUP_SCOPED = {  # MLB: batting keys also appear in the pitching group - s
 
 SOCCER_SCORER_MARKETS = ('anytime_goal', 'first_goal', 'last_goal')
 _GOAL_NAME = re.compile(r'^(?:Own Goal by )?(.+?) \(([^()]*)\)')
+_SCORELINE_END = re.compile(r'(?<=\d)\. ')  # the '. ' after the away score, never one inside a team name
 
 def _soccer_scorer(d, player, market):
     """Soccer scorer props (MLS): ESPN's soccer summary carries no player stat tables, so the check
@@ -347,7 +363,9 @@ def _soccer_scorer(d, player, market):
         if (ev.get('period') or {}).get('number') not in (1, 2):
             continue
         text = ev.get('text') or ''
-        mm = _GOAL_NAME.search(text.split('. ', 1)[-1])
+        # 'Goal! <home> <n>, <away> <n>. <Scorer> (<Team>) ...': the scorer follows the scoreline,
+        # never the first '. ' - that can fall inside a team name ('D.C. United', 'St. Louis City SC')
+        mm = _GOAL_NAME.search(_SCORELINE_END.split(text, maxsplit=1)[-1])
         if not mm:
             raise ValueError(f'goal event text unparsable ({text[:80]!r})')
         gids = aliases.get(_norm_name(mm.group(1)), set())
@@ -467,11 +485,8 @@ def eod_day_close(p):
     if pu != du and pu != du.quantize(Decimal('0.01')):
         print(f'  REFUSE eod_day_close: units anchor {pu} != exact day sum {du}', file=sys.stderr)
         return 3
-    # append-only: the fill writes an EMPTY brief only. A day whose brief was filed another way
-    # (Sep 27: brief on the row, no eod receipt) keeps it - a stored note is never replaced.
-    if (day.get('brief') or '').strip() and day['brief'] != brief:
-        print(f'  REFUSE eod_day_close: {date} already carries a filed brief - a stored note is never replaced', file=sys.stderr)
-        return 3
+    # a day eod already closed (its receipt is in record_done.json) is skipped and the request
+    # cleared, whatever brief text the re-send carries - nothing is written either way
     gid = 'eod_day_close:' + date
     done = {'processed': [], 'at': None}
     if os.path.exists(DONE):
@@ -480,6 +495,11 @@ def eod_day_close(p):
         print(f'  skip {gid}: already processed')
         json.dump({'requests': []}, open(REQ, 'w'), indent=2)
         return 0
+    # append-only: the fill writes an EMPTY brief only. A day whose brief was filed another way
+    # (Sep 27: brief on the row, no eod receipt) keeps it - a stored note is never replaced.
+    if (day.get('brief') or '').strip() and day['brief'] != brief:
+        print(f'  REFUSE eod_day_close: {date} already carries a filed brief - a stored note is never replaced', file=sys.stderr)
+        return 3
     day['brief'] = brief
     json.dump(hist, open(HIST, 'w'), indent=2)
     done.setdefault('processed', []).append(gid)
@@ -567,6 +587,7 @@ def main():
         mma = str(q.get('league') or '').startswith('mma/')
         if (q.get('pick') != cp.get('name') or str(q.get('league')) != str(cp.get('espn_league'))
                 or (not mma and (str(q.get('event_id')) != str(cp['game']['eid']) or q.get('side') != cp.get('side')))
+                or (mma and (cp.get('game') or {}).get('eid') and str(q.get('event_id')) != str(cp['game']['eid']))
                 or ('market_class' in q and q['market_class'] != mc)
                 or ('line' in q and not _same_num(q['line'], cp.get('line')))):
             print(f'  REFUSE {gid}: request disagrees with the {card_date} card pick {cp.get("name")!r}', file=sys.stderr)
@@ -718,7 +739,7 @@ def main():
     mirror = {
         'w': rw, 'l': rl,
         'pct': float((Decimal(rw * 100) / (rw + rl)).quantize(Decimal('0.1'))) if (rw + rl) else 0.0,
-        'units': float(Decimal(str(last['units_after_exact'])).quantize(Decimal('0.01'))),
+        'units': float(fmt_units(Decimal(str(last['units_after_exact'])))[:-1]),  # the manifest's own display value
         'updated': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
     }
     if last.get('graded_pick'):

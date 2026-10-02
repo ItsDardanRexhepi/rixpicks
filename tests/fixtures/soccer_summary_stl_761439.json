@@ -1,0 +1,681 @@
+{
+ "_fixture": "Trimmed from the real ESPN site.api soccer/usa.1 summary for event 761439 (read-only fetch, 2026-10-02): header competitors, both rosters (athlete id and names only) and every key event (type, period, clock, scoringPlay, text).",
+ "header": {
+  "competitions": [
+   {
+    "date": "2026-02-21T19:30Z",
+    "competitors": [
+     {
+      "homeAway": "home",
+      "score": "1",
+      "team": {
+       "id": "21812",
+       "displayName": "St. Louis CITY SC",
+       "abbreviation": "STL"
+      }
+     },
+     {
+      "homeAway": "away",
+      "score": "1",
+      "team": {
+       "id": "21300",
+       "displayName": "Charlotte FC",
+       "abbreviation": "CLT"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "boxscore": {
+  "teams": []
+ },
+ "rosters": [
+  {
+   "homeAway": "home",
+   "team": {
+    "id": "21812",
+    "displayName": "St. Louis CITY SC",
+    "abbreviation": "STL"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "175906",
+      "displayName": "Roman Bürki",
+      "fullName": "Roman Bürki",
+      "shortName": "R. Bürki"
+     }
+    },
+    {
+     "athlete": {
+      "id": "198189",
+      "displayName": "Timo Baumgartl",
+      "fullName": "Timo Baumgartl",
+      "shortName": "T. Baumgartl"
+     }
+    },
+    {
+     "athlete": {
+      "id": "296222",
+      "displayName": "Dante Polvara",
+      "fullName": "Dante Polvara",
+      "shortName": "D. Polvara"
+     }
+    },
+    {
+     "athlete": {
+      "id": "308481",
+      "displayName": "Jaziel Orozco",
+      "fullName": "Jaziel Orozco",
+      "shortName": "J. Orozco"
+     }
+    },
+    {
+     "athlete": {
+      "id": "220478",
+      "displayName": "Christopher Durkin",
+      "fullName": "Christopher Durkin",
+      "shortName": "C. Durkin"
+     }
+    },
+    {
+     "athlete": {
+      "id": "304164",
+      "displayName": "Daniel Edelman",
+      "fullName": "Daniel Edelman",
+      "shortName": "D. Edelman"
+     }
+    },
+    {
+     "athlete": {
+      "id": "203974",
+      "displayName": "Rafael Santos",
+      "fullName": "Rafael Santos",
+      "shortName": "R. Santos"
+     }
+    },
+    {
+     "athlete": {
+      "id": "312934",
+      "displayName": "Conrad Wallem",
+      "fullName": "Conrad Wallem",
+      "shortName": "C. Wallem"
+     }
+    },
+    {
+     "athlete": {
+      "id": "208341",
+      "displayName": "Simon Becher",
+      "fullName": "Simon Becher",
+      "shortName": "S. Becher"
+     }
+    },
+    {
+     "athlete": {
+      "id": "234125",
+      "displayName": "Marcel Hartel",
+      "fullName": "Marcel Hartel",
+      "shortName": "M. Hartel"
+     }
+    },
+    {
+     "athlete": {
+      "id": "297256",
+      "displayName": "Jeong Sang-Bin",
+      "fullName": "Jeong Sang-Bin",
+      "shortName": "J. Sang-Bin"
+     }
+    },
+    {
+     "athlete": {
+      "id": "346651",
+      "displayName": "Mykhi Joyner",
+      "fullName": "Mykhi Joyner",
+      "shortName": "M. Joyner"
+     }
+    },
+    {
+     "athlete": {
+      "id": "334716",
+      "displayName": "Lukas MacNaughton",
+      "fullName": "Lukas MacNaughton",
+      "shortName": "L. MacNaughton"
+     }
+    },
+    {
+     "athlete": {
+      "id": "213499",
+      "displayName": "Cedric Teuchert",
+      "fullName": "Cedric Teuchert",
+      "shortName": "C. Teuchert"
+     }
+    },
+    {
+     "athlete": {
+      "id": "178054",
+      "displayName": "Benjamin Lundt",
+      "fullName": "Benjamin Lundt",
+      "shortName": "B. Lundt"
+     }
+    },
+    {
+     "athlete": {
+      "id": "385759",
+      "displayName": "Brendan McSorley",
+      "fullName": "Brendan McSorley",
+      "shortName": "B. McSorley"
+     }
+    },
+    {
+     "athlete": {
+      "id": "252749",
+      "displayName": "Tomas Totland",
+      "fullName": "Tomas Totland",
+      "shortName": "T. Totland"
+     }
+    },
+    {
+     "athlete": {
+      "id": "338133",
+      "displayName": "Miguel Perez",
+      "fullName": "Miguel Perez",
+      "shortName": "M. Perez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "319055",
+      "displayName": "Kyle Hiebert",
+      "fullName": "Kyle Hiebert",
+      "shortName": "K. Hiebert"
+     }
+    },
+    {
+     "athlete": {
+      "id": "338135",
+      "displayName": "Célio Pompeu",
+      "fullName": "Célio Pompeu",
+      "shortName": "C. Pompeu"
+     }
+    }
+   ]
+  },
+  {
+   "homeAway": "away",
+   "team": {
+    "id": "21300",
+    "displayName": "Charlotte FC",
+    "abbreviation": "CLT"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "221408",
+      "displayName": "Kristijan Kahlina",
+      "fullName": "Kristijan Kahlina",
+      "shortName": "K. Kahlina"
+     }
+    },
+    {
+     "athlete": {
+      "id": "146290",
+      "displayName": "Tim Ream",
+      "fullName": "Tim Ream",
+      "shortName": "T. Ream"
+     }
+    },
+    {
+     "athlete": {
+      "id": "319014",
+      "displayName": "Andrew Privett",
+      "fullName": "Andrew Privett",
+      "shortName": "A. Privett"
+     }
+    },
+    {
+     "athlete": {
+      "id": "172833",
+      "displayName": "Harry Toffolo",
+      "fullName": "Harry Toffolo",
+      "shortName": "H. Toffolo"
+     }
+    },
+    {
+     "athlete": {
+      "id": "156506",
+      "displayName": "Nathan Byrne",
+      "fullName": "Nathan Byrne",
+      "shortName": "N. Byrne"
+     }
+    },
+    {
+     "athlete": {
+      "id": "268604",
+      "displayName": "Pep Biel",
+      "fullName": "Pep Biel",
+      "shortName": "P. Biel"
+     }
+    },
+    {
+     "athlete": {
+      "id": "7567",
+      "displayName": "Ashley Westwood",
+      "fullName": "Ashley Westwood",
+      "shortName": "A. Westwood"
+     }
+    },
+    {
+     "athlete": {
+      "id": "225609",
+      "displayName": "Luca de la Torre",
+      "fullName": "Luca de la Torre",
+      "shortName": "L. de la Torre"
+     }
+    },
+    {
+     "athlete": {
+      "id": "340698",
+      "displayName": "Idan Toklomati",
+      "fullName": "Idan Toklomati",
+      "shortName": "I. Toklomati"
+     }
+    },
+    {
+     "athlete": {
+      "id": "146324",
+      "displayName": "Wilfried Zaha",
+      "fullName": "Wilfried Zaha",
+      "shortName": "W. Zaha"
+     }
+    },
+    {
+     "athlete": {
+      "id": "312976",
+      "displayName": "Liel Abada",
+      "fullName": "Liel Abada",
+      "shortName": "L. Abada"
+     }
+    },
+    {
+     "athlete": {
+      "id": "314343",
+      "displayName": "Archie Goodwin",
+      "fullName": "Archie Goodwin",
+      "shortName": "A. Goodwin"
+     }
+    },
+    {
+     "athlete": {
+      "id": "419242",
+      "displayName": "Morrison Agyemang",
+      "fullName": "Morrison Agyemang",
+      "shortName": "M. Agyemang"
+     }
+    },
+    {
+     "athlete": {
+      "id": "340596",
+      "displayName": "Kerwin Vargas",
+      "fullName": "Kerwin Vargas",
+      "shortName": "K. Vargas"
+     }
+    },
+    {
+     "athlete": {
+      "id": "246371",
+      "displayName": "Brandt Bronico",
+      "fullName": "Brandt Bronico",
+      "shortName": "B. Bronico"
+     }
+    },
+    {
+     "athlete": {
+      "id": "360934",
+      "displayName": "Jack Neeley",
+      "fullName": "Jack Neeley",
+      "shortName": "J. Neeley"
+     }
+    },
+    {
+     "athlete": {
+      "id": "282755",
+      "displayName": "Djibril Diani",
+      "fullName": "Djibril Diani",
+      "shortName": "D. Diani"
+     }
+    },
+    {
+     "athlete": {
+      "id": "271242",
+      "displayName": "David Schnegg",
+      "fullName": "David Schnegg",
+      "shortName": "D. Schnegg"
+     }
+    },
+    {
+     "athlete": {
+      "id": "383890",
+      "displayName": "Tyger Smalls",
+      "fullName": "Tyger Smalls",
+      "shortName": "T. Smalls"
+     }
+    },
+    {
+     "athlete": {
+      "id": "219661",
+      "displayName": "Tyler Miller",
+      "fullName": "Tyler Miller",
+      "shortName": "T. Miller"
+     }
+    }
+   ]
+  }
+ ],
+ "keyEvents": [
+  {
+   "type": {
+    "id": "80",
+    "text": "Kickoff",
+    "type": "kickoff"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 0.0,
+    "displayValue": ""
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 365.0,
+    "displayValue": "7'"
+   },
+   "scoringPlay": false,
+   "text": "Andrew Privett (Charlotte FC) is shown the yellow card for a bad foul."
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2390.0,
+    "displayValue": "40'"
+   },
+   "scoringPlay": false,
+   "text": "Timo Baumgartl (St. Louis City SC) is shown the yellow card for a bad foul."
+  },
+  {
+   "type": {
+    "id": "81",
+    "text": "Halftime",
+    "type": "halftime"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'+2'"
+   },
+   "scoringPlay": false,
+   "text": "First Half ends, St. Louis City SC 0, Charlotte FC 0."
+  },
+  {
+   "type": {
+    "id": "82",
+    "text": "Start 2nd Half",
+    "type": "start-2nd-half"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3507.0,
+    "displayValue": "59'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, St. Louis City SC. Brendan McSorley replaces Jeong Sang-Bin."
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3569.0,
+    "displayValue": "60'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! St. Louis City SC 1, Charlotte FC 0. Marcel Hartel (St. Louis City SC) right footed shot from outside the box to the bottom left corner. Assisted by Simon Becher."
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3956.0,
+    "displayValue": "66'"
+   },
+   "scoringPlay": false,
+   "text": "Jaziel Orozco (St. Louis City SC) is shown the yellow card for a bad foul."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4123.0,
+    "displayValue": "69'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Charlotte FC. David Schnegg replaces Harry Toffolo."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4123.0,
+    "displayValue": "69'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Charlotte FC. Djibril Diani replaces Luca de la Torre."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4140.0,
+    "displayValue": "69'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Charlotte FC. Kerwin Vargas replaces Liel Abada."
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4217.0,
+    "displayValue": "71'"
+   },
+   "scoringPlay": false,
+   "text": "Wilfried Zaha (Charlotte FC) is shown the yellow card."
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4353.0,
+    "displayValue": "73'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! St. Louis City SC 1, Charlotte FC 1. Pep Biel (Charlotte FC) left footed shot from a difficult angle on the left to the bottom right corner. Assisted by Wilfried Zaha."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4973.0,
+    "displayValue": "83'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, St. Louis City SC. Miguel Perez replaces Chris Durkin because of an injury."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4993.0,
+    "displayValue": "84'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, St. Louis City SC. Lukas MacNaughton replaces Dante Polvara."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5222.0,
+    "displayValue": "88'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Charlotte FC. Tyger Smalls replaces Idan Toklomati."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+3'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, St. Louis City SC. Cedric Teuchert replaces Simon Becher."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+4'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, St. Louis City SC. Tomas Totland replaces Rafael Santos."
+  },
+  {
+   "type": {
+    "id": "83",
+    "text": "End Regular Time",
+    "type": "end-regular-time"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+8'"
+   },
+   "scoringPlay": false,
+   "text": "Second Half ends, St. Louis City SC 1, Charlotte FC 1."
+  }
+ ]
+}
