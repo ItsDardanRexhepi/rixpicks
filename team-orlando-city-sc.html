@@ -16,7 +16,7 @@ h1 .tick{color:#3BEBF5}
 .lghead span{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}.sect{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}
 .pick{padding:18px 0;border-top:1px solid #e4e2de}
 .pick:first-of-type{border-top:none}
-.pick-head{display:flex;align-items:center;gap:10px}.gamelink{flex:1;min-width:0}.meta-grp{display:inline-flex;align-items:center;gap:8px;flex:none}.rpmetalink{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}.uo{display:inline-flex;align-items:center;gap:8px}.oddslock{font-size:10px;letter-spacing:.4px;color:#8a8f98;text-transform:uppercase;white-space:nowrap}.rpchatlink{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}
+.pick-head{display:flex;align-items:center;gap:10px}.gamelink{flex:1;min-width:0}.meta-grp{display:inline-flex;align-items:center;gap:8px;flex:none}.rpmetalink{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}.uo{display:inline-flex;align-items:center;gap:8px}.oddslock{font-size:10px;letter-spacing:.4px;color:#8a8f98;text-transform:uppercase;white-space:nowrap}@media (max-width:600px){.oddslock .lkbr{display:block;height:0;overflow:hidden}.oddslock{text-align:right}}.rpchatlink{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}
 .gamelink{display:flex;align-items:center;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}
 .chev{color:#55555c;text-decoration:none}
 .mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}
@@ -74,6 +74,7 @@ h1 .tick{color:#3BEBF5}
 .ls .dot{width:6px;height:6px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite}
 .ls.won{color:#3ecf6f}
 .ls.lost{color:#e5484d}
+.ls.push{color:#8a8f98}
 @keyframes rpblink{0%,100%{opacity:1}50%{opacity:.25}}
 #rpPull{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}
 .spin{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}
@@ -122,22 +123,22 @@ h1 .tick{color:#3BEBF5}
 <div class="sect" style="margin-top:18px">Team</div>
 <div class="pick" data-espn="soccer/usa.1" data-team="Orlando City SC" data-abbr="ORL" data-eid="" data-game-day="">
   <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/soccer/500/12011.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Orlando City SC</span><span class="odds">10-4-13</span></div>
-  <div class="sub">Record 10-4-13 · Streak L3</div>
+  <div class="sub">Record 10-4-13 · Streak L2</div>
   <div class="score" id="rpScore"></div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 1-2 vs RBNY · 02-21</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 2-4 vs MIA · 03-01</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 0-5 @ NYC · 03-07</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 2-1 vs MTL · 03-14</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 0-5 @ NSH · 03-21</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 2-4 @ PHI · 09-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 2-4 @ NE · 09-19</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 3-0 vs TOR · 09-12</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 3-2 @ ATL · 09-09</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 1-0 vs SD · 09-05</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 1.2 &middot; allowed 2.9 per game over last 10</div>
+<div class="sub" style="padding:7px 0">Scored 2.0 &middot; allowed 2.0 per game over last 10</div>
 <div class="sect">Next up</div>
 <div class="sub">No upcoming games listed.</div>
 <div class="sect">Injuries</div>
-<div class="sub">None reported.</div>
+<div class="sub">Injury data unavailable.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790974216';
+const RP_BUILD='1790974315';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}

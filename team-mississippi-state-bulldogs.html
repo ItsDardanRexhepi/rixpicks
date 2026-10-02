@@ -16,7 +16,7 @@ h1 .tick{color:#3BEBF5}
 .lghead span{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}.sect{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}
 .pick{padding:18px 0;border-top:1px solid #e4e2de}
 .pick:first-of-type{border-top:none}
-.pick-head{display:flex;align-items:center;gap:10px}.gamelink{flex:1;min-width:0}.meta-grp{display:inline-flex;align-items:center;gap:8px;flex:none}.rpmetalink{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}.uo{display:inline-flex;align-items:center;gap:8px}.oddslock{font-size:10px;letter-spacing:.4px;color:#8a8f98;text-transform:uppercase;white-space:nowrap}.rpchatlink{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}
+.pick-head{display:flex;align-items:center;gap:10px}.gamelink{flex:1;min-width:0}.meta-grp{display:inline-flex;align-items:center;gap:8px;flex:none}.rpmetalink{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}.uo{display:inline-flex;align-items:center;gap:8px}.oddslock{font-size:10px;letter-spacing:.4px;color:#8a8f98;text-transform:uppercase;white-space:nowrap}@media (max-width:600px){.oddslock .lkbr{display:block;height:0;overflow:hidden}.oddslock{text-align:right}}.rpchatlink{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}
 .gamelink{display:flex;align-items:center;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}
 .chev{color:#55555c;text-decoration:none}
 .mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}
@@ -74,6 +74,7 @@ h1 .tick{color:#3BEBF5}
 .ls .dot{width:6px;height:6px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite}
 .ls.won{color:#3ecf6f}
 .ls.lost{color:#e5484d}
+.ls.push{color:#8a8f98}
 @keyframes rpblink{0%,100%{opacity:1}50%{opacity:.25}}
 #rpPull{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}
 .spin{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}
@@ -120,24 +121,24 @@ h1 .tick{color:#3BEBF5}
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
-<div class="pick" data-espn="football/college-football" data-team="Mississippi State Bulldogs" data-abbr="" data-eid="" data-game-day="">
-  <div class="pick-head"><span class="name">Mississippi State Bulldogs</span><span class="odds"></span></div>
-  <div class="sub"></div>
-  <div class="score" id="rpScore"></div>
+<div class="pick" data-espn="football/college-football" data-team="Mississippi State Bulldogs" data-abbr="MSST" data-eid="401856707" data-game-day="2026-10-03">
+  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/344.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Mississippi State Bulldogs</span><span class="odds">4-0</span></div>
+  <div class="sub">Record 4-0 · Streak W4</div>
+  <div class="score" id="rpScore">Next up: vs Alabama Crimson Tide · Sat, Oct 3, 9:00 AM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub">No recent games found.</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 31-24 vs MIZ · 09-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 41-34 @ SC · 09-19</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 38-13 @ MINN · 09-12</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 62-13 vs ULM · 09-05</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub">Not enough recent games.</div>
+<div class="sub" style="padding:7px 0">Scored 43.0 &middot; allowed 21.0 per game over last 4</div>
 <div class="sect">Next up</div>
-<div class="sub">No upcoming games listed.</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs ALA · 10-03</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ LSU · 10-16</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs OU · 10-23</div>
 <div class="sect">Injuries</div>
-<div class="sub">None reported.</div>
+<div class="sub">Injury data unavailable.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790974216';
+const RP_BUILD='1790974315';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}
