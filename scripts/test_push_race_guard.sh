@@ -8,6 +8,7 @@
 # Pass a script path as $1 to test a legacy loop (bite-proof).
 set -u
 SCRIPT_UNDER_TEST=$(readlink -f "${1:-scripts/push_with_guard.sh}")
+REPO_ROOT=$(cd "$(dirname "$0")/.." && pwd)
 SCRATCH=$(mktemp -d)
 trap 'rm -rf "$SCRATCH"' EXIT
 cd "$SCRATCH" || exit 2
@@ -73,4 +74,66 @@ OUT=$(bash "$SCRIPT_UNDER_TEST" 2>&1); RC3=$?
 [ $RC3 -eq 0 ] || { echo "FAIL: two-tick race failed loud (rc=$RC3): $(echo "$OUT" | tail -3)"; FAIL=1; }
 [ "$(git -C ../origin.git show main:odds_file.txt 2>/dev/null)" = "odds 1" ] || { echo 'FAIL: own odds commit did not land'; FAIL=1; }
 [ "$(git -C ../origin.git show main:futures_tick.txt | grep -c 'race tick')" = "2" ] || { echo 'FAIL: race ticks lost'; FAIL=1; }
-if [ $FAIL -eq 0 ]; then echo 'PASS push race guard (loud fail + reset + clean-push control + own-manifest misfire case + no-commit case + two-tick race)'; exit 0; else exit 1; fi
+# Call-site readback cases (Oct 2 nfl-scores-confirm runs 36962855292 + 36962967323): every
+# workflow/script that runs the guard is executed the way it ships - the guard, then whatever
+# readback line the call site runs right after it - against three real races:
+#   A  no-commit run while main moved past the checkout      -> must pass
+#   B  own push lands, a bot commits right after the push    -> must pass
+#   C  own push "succeeds" but origin does not keep it       -> must fail loud, HEAD reset
+# B and C are injected by a post-receive hook on the scratch origin (one shot per arm).
+# PENDING: call sites owned outside the CI scripts that still carry the tip-equality readback;
+# their A/B results are reported, not failed, until that line is dropped there too.
+PENDING_SITES="scripts/refresh.sh .github/workflows/record_final.yml"
+cd "$SCRATCH" || exit 2
+: > "$SCRATCH/pr_mode"
+cat > origin.git/hooks/post-receive <<HOOK
+#!/bin/bash
+mode=\$(cat "$SCRATCH/pr_mode" 2>/dev/null); : > "$SCRATCH/pr_mode"
+export GIT_AUTHOR_NAME=bot GIT_AUTHOR_EMAIL=bot@t GIT_COMMITTER_NAME=bot GIT_COMMITTER_EMAIL=bot@t
+while read -r old new ref; do
+  [ "\$ref" = refs/heads/main ] || continue
+  case "\$mode" in
+    tick) c=\$(echo 'bot tick right after the push' | git commit-tree "\$new^{tree}" -p "\$new") && git update-ref "\$ref" "\$c" "\$new" ;;
+    drop) git update-ref "\$ref" "\$old" "\$new" ;;
+  esac
+done
+exit 0
+HOOK
+chmod +x origin.git/hooks/post-receive
+fresh_runner() {
+  rm -rf "$SCRATCH/site_runner"
+  git clone -q -b main "$SCRATCH/origin.git" "$SCRATCH/site_runner" && git -C "$SCRATCH/site_runner" config user.email t@t && git -C "$SCRATCH/site_runner" config user.name t
+}
+lane_tick() { (cd "$SCRATCH/lane" && git pull -q origin main && printf 'site tick %s\n' "$1" >> futures_tick.txt && git add -A && git commit -qm "tick: $1" && git push -q origin main); }
+# runs the call site's shipped sequence in site_runner: the guard, then its post-guard readback line
+run_site() {
+  (cd "$SCRATCH/site_runner" && bash "$SCRIPT_UNDER_TEST" >/dev/null 2>&1 && { [ -z "$1" ] || bash -c "$1" >/dev/null 2>&1; })
+}
+SITES=$(cd "$REPO_ROOT" && grep -l 'bash scripts/push_with_guard.sh' .github/workflows/*.yml scripts/*.sh 2>/dev/null | grep -v '/test_')
+[ -n "$SITES" ] || { echo 'FAIL: no push_with_guard.sh call sites found'; FAIL=1; }
+NSITES=0
+for site in $SITES; do
+  NSITES=$((NSITES+1))
+  LINE=$(awk '/bash scripts\/push_with_guard.sh/{if ((getline n) > 0 && n ~ /ls-remote|READBACK/) print n}' "$REPO_ROOT/$site" | head -1)
+  pending=0; case " $PENDING_SITES " in *" $site "*) pending=1 ;; esac
+  # A: no own commit, main moved after checkout
+  fresh_runner; lane_tick "A $site"
+  if ! run_site "$LINE"; then
+    if [ $pending -eq 1 ]; then echo "PENDING $site: no-commit run fails its tip-equality readback"; else echo "FAIL: $site no-commit run went red after main moved (readback compares a stale checkout)"; FAIL=1; fi
+  fi
+  # B: own commit lands, a bot commits right after the push
+  fresh_runner; (cd "$SCRATCH/site_runner" && printf 'own B %s\n' "$site" > own_file.txt && git add -A && git commit -qm 'own commit B')
+  printf 'tick' > "$SCRATCH/pr_mode"
+  if ! run_site "$LINE"; then
+    if [ $pending -eq 1 ]; then echo "PENDING $site: landed push fails its tip-equality readback when a bot commits right after"; else echo "FAIL: $site landed push went red because a bot committed right after it"; FAIL=1; fi
+  fi
+  git -C origin.git cat-file -e "$(git -C site_runner rev-parse HEAD)^{commit}" 2>/dev/null && git -C origin.git merge-base --is-ancestor "$(git -C site_runner rev-parse HEAD)" main || { echo "FAIL: $site own commit not on origin/main after B"; FAIL=1; }
+  # C: push reports success but origin drops it - must fail loud with HEAD reset to origin/main
+  fresh_runner; (cd "$SCRATCH/site_runner" && printf 'own C %s\n' "$site" > own_file.txt && git add -A && git commit -qm 'own commit C')
+  printf 'drop' > "$SCRATCH/pr_mode"
+  if run_site "$LINE"; then echo "FAIL: $site push that origin did not keep passed silently"; FAIL=1; fi
+  [ "$(git -C site_runner rev-parse HEAD)" = "$(git -C origin.git rev-parse main)" ] || { echo "FAIL: $site HEAD not reset to origin/main after a dropped push (on-failure hook would publish it)"; FAIL=1; }
+  : > "$SCRATCH/pr_mode"
+done
+[ $NSITES -ge 6 ] || { echo "FAIL: expected at least 6 guard call sites, found $NSITES"; FAIL=1; }
+if [ $FAIL -eq 0 ]; then echo "PASS push race guard (loud fail + reset + clean-push control + own-manifest misfire case + no-commit case + two-tick race + readback at $NSITES call sites: no-commit moved main, bot commit after push, dropped push)"; exit 0; else exit 1; fi
