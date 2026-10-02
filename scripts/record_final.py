@@ -208,6 +208,8 @@ def card_pick(q):
     return day, rows[0]
 
 def _same_num(a, b):
+    if a is None or b is None:
+        return a is None and b is None  # a moneyline carries no line on either side
     try:
         return Decimal(str(a)) == Decimal(str(b))
     except (InvalidOperation, ValueError):

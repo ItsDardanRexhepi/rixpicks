@@ -176,6 +176,11 @@ check('CP-07 filed under 2026-10-01, not the live manifest date', [d['date'] for
 check('CP-07 day row label is the card date', (day(st, '2026-10-01') or {}).get('label'), 'Thursday, Oct 1')
 check('CP-07 manifest record + units move', (st['manifest.json']['record'], st['manifest.json']['units_pl']), ('22-11', '+7.85u'))
 
+code, st, _ = run([devils(market_class='ml', line=None, card_date='2026-10-01'),
+                   under(rec='22-12', ua=U0 + D_DEV - 6, market_class='total', line=38.5, card_date='2026-10-01')])
+check('CP-07 requests carrying market_class/line/card_date that match the card land', code, 0)
+refused('CP-05 request line differing from the card line', [under(market_class='total', line=40.5)], 'disagrees with the')
+
 # CP-16: a total records the matchup, not 'at <home>'
 code, st, _ = run([under()])
 check('CP-16 Under 38.5 LOST lands', code, 0)
