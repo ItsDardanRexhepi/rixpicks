@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-02T03:35:02.995404+00:00",
+ "generated_at": "2026-10-02T03:50:05.729899+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -22,11 +22,9 @@
      "espn_event_id": "401872964",
      "matchup": "PIT @ CLE",
      "commence": "2026-10-02T00:15Z",
-     "status": "in",
-     "detail": "1:11 - 4th",
-     "score": "PIT 24 - CLE 24",
-     "away_to": 2,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "PIT 24 - CLE 27"
     }
    ]
   },
@@ -38,8 +36,8 @@
      "matchup": "UNT @ TLSA",
      "commence": "2026-10-02T01:00Z",
      "status": "in",
-     "detail": "6:13 - 3rd",
-     "score": "UNT 31 - TLSA 17",
+     "detail": "4:14 - 3rd",
+     "score": "UNT 31 - TLSA 24",
      "away_to": 1,
      "home_to": 2
     },
@@ -81,18 +79,16 @@
      "espn_event_id": "401891777",
      "matchup": "SEA @ CGY",
      "commence": "2026-10-02T01:00Z",
-     "status": "in",
-     "detail": "7:57 - 3rd",
-     "score": "SEA 5 - CGY 0",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "SEA 6 - CGY 1"
     },
     {
      "espn_event_id": "401891828",
      "matchup": "CHI @ UTA",
      "commence": "2026-10-02T01:30Z",
      "status": "in",
-     "detail": "20:00 - 3rd",
+     "detail": "12:32 - 3rd",
      "score": "CHI 0 - UTA 5",
      "away_to": null,
      "home_to": null
@@ -102,7 +98,7 @@
      "matchup": "FLA @ SJ",
      "commence": "2026-10-02T02:00Z",
      "status": "in",
-     "detail": "8:20 - 2nd",
+     "detail": "3:02 - 2nd",
      "score": "FLA 0 - SJ 3",
      "away_to": null,
      "home_to": null
@@ -112,7 +108,7 @@
      "matchup": "EDM @ VAN",
      "commence": "2026-10-02T02:00Z",
      "status": "in",
-     "detail": "8:30 - 2nd",
+     "detail": "0:52 - 2nd",
      "score": "EDM 8 - VAN 2",
      "away_to": null,
      "home_to": null
