@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-02T00:20:02.050048+00:00",
+ "generated_at": "2026-10-02T00:35:05.774686+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "PHI @ ATL",
      "commence": "2026-10-02T00:00Z",
      "status": "in",
-     "detail": "Top 1st",
-     "score": "PHI 0 - ATL 0"
+     "detail": "Bot 1st",
+     "score": "PHI 0 - ATL 3"
     }
    ]
   },
@@ -23,7 +23,7 @@
      "matchup": "PIT @ CLE",
      "commence": "2026-10-02T00:15Z",
      "status": "in",
-     "detail": "12:47 - 1st",
+     "detail": "6:31 - 1st",
      "score": "PIT 0 - CLE 0",
      "away_to": 3,
      "home_to": 3
@@ -38,8 +38,8 @@
      "matchup": "WKU @ NMSU",
      "commence": "2026-10-02T00:00Z",
      "status": "in",
-     "detail": "7:55 - 1st",
-     "score": "WKU 3 - NMSU 3",
+     "detail": "2:35 - 1st",
+     "score": "WKU 3 - NMSU 6",
      "away_to": 3,
      "home_to": 3
     },
@@ -74,8 +74,8 @@
      "matchup": "BUF @ CBJ",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "17:59 - 2nd",
-     "score": "BUF 2 - CBJ 3",
+     "detail": "11:39 - 2nd",
+     "score": "BUF 2 - CBJ 4",
      "away_to": null,
      "home_to": null
     },
@@ -84,7 +84,7 @@
      "matchup": "PHI @ NJ",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "10:17 - 2nd",
+     "detail": "3:54 - 2nd",
      "score": "PHI 1 - NJ 0",
      "away_to": null,
      "home_to": null
@@ -94,8 +94,8 @@
      "matchup": "TB @ NYR",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "18:20 - 2nd",
-     "score": "TB 0 - NYR 2",
+     "detail": "10:35 - 2nd",
+     "score": "TB 1 - NYR 3",
      "away_to": null,
      "home_to": null
     },
@@ -104,8 +104,8 @@
      "matchup": "MIN @ NSH",
      "commence": "2026-10-02T00:00Z",
      "status": "in",
-     "detail": "13:38 - 1st",
-     "score": "MIN 0 - NSH 0",
+     "detail": "6:39 - 1st",
+     "score": "MIN 1 - NSH 0",
      "away_to": null,
      "home_to": null
     },
