@@ -130,14 +130,24 @@ check('second roll is a no-op', [el.textContent === h1, stHome.innerHTML === s1]
 
 if (failures) { console.error(failures + ' FAILURES'); process.exit(1); }
 
-// C: zero-pair mode = independent feeds, never positional pairing
-vm.runInContext(`XNEWS=[{id:'p1'},{id:'p2'},{id:'p1'},{id:'p3'}];var ZS=zeroPairSocial(12);`, ctx);
+// C: zero-pair mode = independent feeds, never positional pairing. zeroPairSocial keeps only
+// genuine sports posts (isSportsPost, body evidence), so the fixture posts carry real sports text
+// (the passing cases of test_social_sports_gate.js); bare {id} posts are dropped by the gate.
+const SP = {
+  p1: 'Yordan Alvarez goes deep AGAIN. Third homer in two games for the Astros slugger.',
+  p2: 'Willson Contreras batting third and playing first for the Red Sox tonight in the Bronx',
+  p3: 'Judge sends one into the second deck, 3-0 Yankees',
+  p8: 'Leafs and Habs renew the rivalry Saturday night',
+  p9: 'UCLA survives in OT, what a comeback win',
+};
+const posts = ids => JSON.stringify(ids.map(id => ({ id, headline: SP[id] })));
+vm.runInContext(`XNEWS=${posts(['p1', 'p2', 'p1', 'p3'])};var ZS=zeroPairSocial(12);`, ctx);
 check('zero-pair social shows latest distinct publishable posts', vm.runInContext(`ZS.map(p=>p.post.id).join(',')`, ctx), 'p1,p2,p3');
 check('fallback slides carry only the muted kind', vm.runInContext(`ZS.every(p=>p.kind==='latest')`, ctx), true);
 check('fallback slides carry NO story key (no positional correspondence)', vm.runInContext(`ZS.every(p=>p.nkey==='')`, ctx), true);
 vm.runInContext(`XNEWS=[];var ZS2=zeroPairSocial(12);`, ctx);
 check('empty X pool fails closed (no placeholders)', vm.runInContext(`ZS2.length`, ctx), 0);
-vm.runInContext(`XNEWS=[{id:'p9'},{id:'p8'}];var ZS3=zeroPairSocial(1);`, ctx);
+vm.runInContext(`XNEWS=${posts(['p9', 'p8'])};var ZS3=zeroPairSocial(1);`, ctx);
 check('social list respects the cap independently', vm.runInContext(`ZS3.length`, ctx), 1);
 // C6: socSync never locks positions in fallback mode, even when counts coincide
 vm.runInContext(`FEED_FALLBACK=true;SYNC_LAST=true;SOC_N=3;CAR_N=3;CAR_LAST=[{link:'a'}];CAR_IDX=1;SOC_IDX=0;var r1=socSyncReal();`, Object.assign(ctx,{socApply:()=>{ctx.__applied=(ctx.__applied||0)+1;},socMatchPair:()=>-1}));
@@ -163,4 +173,6 @@ vm.runInContext(`var F5=rpComboFresh({id:'idea-nodate'});`, ctx);
 check('unparseable date fails closed (hidden)', vm.runInContext(`F5`, ctx), false);
 vm.runInContext(`var F6=rpComboFresh({id:'idea-x-${ymd(pt)}',status:'expired'});`, ctx);
 check('writer-expired combo hidden even with today date', vm.runInContext(`F6`, ctx), false);
+// sections C, C6 and C7 run after the first gate: any FAIL above must still fail the run
+if (failures) { console.error(failures + ' FAILURES'); process.exit(1); }
 console.log('feed boot + date-roll class fixture: ALL PASS');
