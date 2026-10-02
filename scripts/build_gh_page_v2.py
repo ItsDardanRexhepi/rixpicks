@@ -1986,13 +1986,13 @@ if _V2:
     r'var st=(l.status||"").toLowerCase();'
     r'var dot=st==="won"?"#0b6e5f":(st==="lost"?"#e5484d":(st?"#8a8f98":""));'
     r'var dt=dot?("<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:"+dot+";margin-right:6px;vertical-align:1px\"></span>"):"";'
-    r'return "<div style=\"font-size:13px;padding:3px 0\">"+dt+"<b>"+esc(l.player)+"</b>"+(l.market?(" <span style=\"color:#8a8f98\">"+esc(l.market)+"</span>"):"")+(l.matchup?(" <span style=\"color:#8a8f98\">&middot; "+esc(l.matchup)+"</span>"):"")+(l.time?(" <span style=\"color:#8a8f98\">&middot; "+esc(l.time)+"</span>"):"")+"</div>";'
+    r'return "<div style=\"font-size:13px;padding:3px 0\">"+dt+"<b>"+esc(l.player)+"</b>"+(l.market?(" <span style=\"color:#8a8f98\">"+esc(l.market)+"</span>"):"")+(l.matchup?(" <span style=\"color:#8a8f98\">&middot; "+esc(l.matchup)+"</span>"):"")+(l.time?(" <span style=\"color:#8a8f98\">&middot; "+esc(String(l.time).replace(/^(today|tonight|tomorrow)\s+/i,""))+"</span>"):"")+"</div>";'
     r'}).join("");'
     r'h+="<div style=\"border:1px solid rgba(127,127,127,.22);border-radius:12px;padding:11px 12px;margin-bottom:10px\">"'
     r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px\"><span style=\"min-width:0\"><b>"+esc(e.title)+"</b>"+badge(e)+"</span><span style=\"flex:0 0 auto;margin-left:auto;padding-left:8px\">"+rbadge(e.result)+"</span></div>"'
     r'+(e.detail?("<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(e.detail)+"</div>"):"")'
     r'+(legs?("<div style=\"margin-top:6px\">"+legs+"</div>"):"")'
-    r'+"<div style=\"font-size:11px;color:#8a8f98;margin-top:8px\">Removed "+esc(e.removed_label||e.archived_at||"")+" &middot; "+esc(e.reason||"")+"</div>"'
+    r'+((e.removed_label||e.archived_at)?("<div style=\"font-size:11px;color:#8a8f98;margin-top:8px\">Removed "+esc(e.removed_label||e.archived_at)+(e.reason?(" &middot; "+esc(e.reason)):"")+"</div>"):"")'
     r'+(e.provenance?("<div style=\"font-size:11px;color:#8a8f98;opacity:.8;margin-top:2px\">Source: "+esc(e.provenance)+"</div>"):"")'
     r'+"</div>";});'
     r'box.innerHTML=h||"<div class=\"sub\">Nothing archived in this view yet.</div>";}'
@@ -2581,7 +2581,7 @@ async function rpRecLive(){{const rec=document.getElementById('rpRec');if(!rec)r
  try{{const r=await fetch('manifest.json?cb='+_now);if(r.ok){{const j=await r.json();const m=/^([0-9]+)-([0-9]+)/.exec((j&&j.record)||'');if(m){{rec.dataset.bw=m[1];rec.dataset.bl=m[2];const u0=document.getElementById('rpUnits');if(u0&&j.units_pl){{const up=parseFloat(String(j.units_pl).replace('u',''));if(!isNaN(up))u0.dataset.bu=up;}}}}}}}}catch(e){{}}}}
  const w=parseInt(rec.dataset.bw||'0'),l=parseInt(rec.dataset.bl||'0');
  rec.innerHTML='&rsquo;RixPicks Overall Record: '+w+'-'+l;
- const pct=document.getElementById('rpWlPct');if(pct&&(w+l)>0)pct.textContent='W/L: '+(100*w/(w+l)).toFixed(1)+'%';
+ const pct=document.getElementById('rpWlPct');if(pct&&(w+l)>0)pct.textContent='W/L: '+(window.rpPct?window.rpPct(w,l,1):(100*w/(w+l)).toFixed(1))+'%';
  const uEl=document.getElementById('rpUnits');if(uEl){{const u=parseFloat(uEl.dataset.bu||'0');uEl.textContent='Units: '+(u>=0?'+':'')+u.toFixed(2)+'u';}}
 }}
 function rpFinalsTop(){{document.querySelectorAll('.pick').forEach(function(pk){{

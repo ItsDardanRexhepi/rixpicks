@@ -9,7 +9,6 @@ cd "$(dirname "$0")/.." || exit 2
 # file -> reason it is not run here (keep each reason true; remove the entry once it is fixed)
 SKIP="
 scripts/test_manifest_chips_class.py|content check of a built page: needs manifest.json + index.html args
-scripts/test_client_spam.js|stale extractor misses RP_COMM_* (sweep finding F10)
 scripts/test_feed_fallback_dom.js|needs jsdom; runs in x-feed with the pinned install
 scripts/test_state_gate_pm_path.js|needs jsdom; not yet verified green anywhere
 tests/run_tests.py|needs the RIX_CONFIG_PROPS hook in scripts/props_card_candidates.py
