@@ -385,6 +385,7 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None, budget=N
     used = 0
     successful = 0
     fail_codes = []
+    outcome_codes = []  # every failed request: HTTP code or 'error' (x_wall sustained-wall streak)
     spent_out = False
     for it in headlines:
         if used >= requests_cap or spent_out:
@@ -432,6 +433,7 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None, budget=N
                     used += 1
                     c = x_wall.http_code(e)
                     if c: fail_codes.append(c)
+                    outcome_codes.append(c or 'error')
                     print(f'news pull FAIL ({aq[:40]}...): {str(e)[:160]}')  # diagnosable: per-request error class was previously invisible in pull mode
                     if trial_log is not None:
                         trial_log.append({'headline': it.get('headline', '')[:100], 'nk': nk,
@@ -439,6 +441,7 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None, budget=N
                                           'note': 'request failed - rotating'})
     st['news_since'] = since
     save_state(st)
+    x_wall.record_outcome('news_social', used, successful, outcome_codes)
     if used and not successful:
         if x_wall.is_wall(fail_codes):
             x_wall.wall_skip('news_social pull')

@@ -126,6 +126,7 @@ jobs:
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
           MODE: ${{ inputs.verify_only && 'verify' || 'pull' }}
+          X_RUN_OUTCOME: ${{ runner.temp }}/x_run_outcome.jsonl
         run: |
           if [ -z "$X_BEARER_TOKEN" ]; then
             echo "X_BEARER_TOKEN not set - dormant cycle (fill pending)"; exit 0
@@ -136,11 +137,22 @@ jobs:
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
           NS_MODE: ${{ inputs.ns_mode || 'pull' }}
+          X_RUN_OUTCOME: ${{ runner.temp }}/x_run_outcome.jsonl
         run: |
           if [ -z "$X_BEARER_TOKEN" ]; then
             echo "X_BEARER_TOKEN not set - news_social dormant"; exit 0
           fi
           python3 scripts/news_social.py "$NS_MODE"
+      # Sustained-wall alert (Oct 2): the wall skip above ends a run green, so 402 on every request
+      # for ~68 h reached no alert. Both pulls record their request outcome; this step counts due runs
+      # in a row on which X denied EVERY request (401/402/403) in slates/x_wall_state.json (committed
+      # with the feed). At 4 it sets X_WALL_ALERT and the LAST step fails the run, after news and the
+      # commits, so incident-hook records it; it repeats every 6 h while the wall lasts, not every run.
+      - name: "X wall streak (every request denied on 4 due runs in a row -> alert)"
+        if: ${{ !cancelled() && env.SKIP_X_PULL != '1' && !inputs.verify_only }}
+        env:
+          X_RUN_OUTCOME: ${{ runner.temp }}/x_run_outcome.jsonl
+        run: python3 scripts/x_wall.py streak
       # Publish the successful X ingest before embedding/probe work can keep the job
       # busy for minutes. Matcher publishes its map in the later commit step.
       - name: "publish X feed and paid-pull ledger before matcher"
@@ -204,6 +216,8 @@ jobs:
           git config user.name "RixPicks Bot"
           git config user.email "rixpicks-bot@users.noreply.github.com"
           git add slates/news.json slates/x_feed.json slates/x_burn.jsonl slates/x_feed_state.json slates/soc_trials.json slates/soc_match.json slates/soc_vecs.json slates/soc_verdicts.json 2>/dev/null || exit 0
+          # own guarded add: a missing wall-state file must never make the add above drop the feed commit
+          if [ -f slates/x_wall_state.json ]; then git add slates/x_wall_state.json; fi
           git diff --cached --quiet && exit 0
           git commit -m "x feed $(date -u +%H:%M) UTC"
           # bash -e killed this loop on ANY push race: a failing && list at statement level
@@ -273,3 +287,11 @@ jobs:
               "https://api.github.com/repos/${{ github.repository }}/actions/workflows/368490964/dispatches" \
               -d '{"ref":"main"}'
           else echo "fresh - no dispatch"; fi
+      # Sustained-wall alert: the LAST step, so the news bridge, the feed commit and the news safety
+      # commit above have all run. It fails the run on purpose (incident-hook captures x-feed failures).
+      - name: "X wall alert (fails the run so incident-hook records it; news already published)"
+        if: ${{ !cancelled() && env.X_WALL_ALERT == '1' }}
+        run: |
+          echo "::error title=X API wall::$X_WALL_MSG"
+          echo "X WALL ALERT - error, run failed on purpose so incident-hook records it: $X_WALL_MSG"
+          exit 1

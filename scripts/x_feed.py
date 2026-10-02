@@ -297,6 +297,8 @@ def main():
     items = []
     seen = set()
     fail_codes = []
+    attempts = 0
+    outcome_codes = []  # every failed request: HTTP code or 'error' (x_wall sustained-wall streak)
     st = load_state()
     since_id = st.get('since_id')
     newest = since_id
@@ -326,6 +328,7 @@ def main():
                       'expansions': 'author_id', 'user.fields': 'username,name'}
             if since_id:
                 params['since_id'] = since_id  # incremental: only NEW posts billed
+            attempts += 1
             status, body = req('/tweets/search/recent', params)
             data = body.get('data') or []
             users = {u.get('id'): u for u in ((body.get('includes') or {}).get('users') or [])}
@@ -351,7 +354,9 @@ def main():
             print(f'pull FAIL ({q[:40]}...): {e}')
             c = x_wall.http_code(e)
             if c: fail_codes.append(c)
+            outcome_codes.append(c or 'error')
       # end for q
+      x_wall.record_outcome('x_feed', attempts, successful, outcome_codes)
       if not successful:
           # Owner billing/access wall: uniform 402/403 is paid access denied, not an
           # ingest bug. Skip the pull, preserve the frozen pool, and let the chain
