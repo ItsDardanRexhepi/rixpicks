@@ -14,8 +14,12 @@ on:
       - 'scripts/test_pages_changed.py'
       - 'scripts/watchdog_diag.py'
       - 'scripts/test_watchdog_diag.py'
+      - 'scripts/test_watchdog_provider_remaining.py'
+      - 'tests/test_watchdog_log_tail.py'
       - 'scripts/futures_window.js'
       - 'scripts/test_futures_window.js'
+      - 'scripts/test_workflow_run_names.py'
+      - 'scripts/test_workflow_npm_pins.py'
   workflow_dispatch:
 jobs:
   parse:
@@ -31,10 +35,18 @@ jobs:
           bash scripts/test_push_race_guard.sh
       - name: "watchdog diagnosis fixture (quotes the failed job)"
         run: python3 scripts/test_watchdog_diag.py
+      - name: "watchdog log tail fixture (signed-URL log fetch, escapes stripped)"
+        run: python3 tests/test_watchdog_log_tail.py
+      - name: "watchdog quota floor fixture (reads the odds-refresh counter)"
+        run: python3 scripts/test_watchdog_provider_remaining.py
       - name: "futures freshness window fixture"
         run: node scripts/test_futures_window.js
       - name: "pages change-detect fixture"
         run: python3 scripts/test_pages_changed.py
+      - name: "workflow_run names resolve + failure hooks watch every site writer"
+        run: python3 scripts/test_workflow_run_names.py
+      - name: "fixture npm installs pinned, scripts off, no secrets in env"
+        run: python3 scripts/test_workflow_npm_pins.py
       - name: "yaml parse gate + actionlint"
         run: |
           python3 - <<'EOF'

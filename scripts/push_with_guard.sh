@@ -11,6 +11,29 @@
 # regenerates from the new card. Fixture: scripts/test_push_race_guard.sh (real git race).
 set -u
 LANE_FILES="manifest.json"
+# Readback after a successful push: origin/main must CONTAIN the pushed HEAD (ancestry), not
+# equal it. The call sites' old `ls-remote | grep -q HEAD` demanded tip equality, so it went red
+# whenever any bot committed between the push and the check (main moves about once a minute),
+# and on every no-commit run once main had moved past the trigger commit (Oct 2 runs
+# 36962855292 + 36962967323 nfl-scores-confirm). A push that origin did not keep still fails
+# loud, and HEAD is reset first so the on-failure hook never publishes it.
+readback() {
+  for r in 1 2 3; do
+    if git fetch -q origin main; then
+      if git merge-base --is-ancestor HEAD FETCH_HEAD; then
+        echo "PUSH READBACK OK: origin/main contains $(git rev-parse --short HEAD)"
+        return 0
+      fi
+      echo "PUSH READBACK FAILED: origin/main does not contain HEAD $(git rev-parse --short HEAD) - reset to origin/main, fail loud" >&2
+      git reset --hard origin/main
+      return 1
+    fi
+    sleep 3
+  done
+  echo 'PUSH READBACK FAILED: origin/main could not be fetched - reset to origin/main, fail loud' >&2
+  git reset --hard origin/main
+  return 1
+}
 # BASE must be the checkout-time upstream, NOT HEAD: refresh.sh commits its own regenerated
 # manifest.json before calling this script, so BASE=HEAD makes the lane-move check below
 # compare origin vs the run's OWN commit and misfire on every run whose odds actually
@@ -26,7 +49,7 @@ if [ "$(git rev-parse HEAD)" = "$BASE" ]; then
   exit 0
 fi
 for i in 1 2 3 4 5; do
-  if git push; then exit 0; fi
+  if git push; then readback; exit $?; fi
   # Re-derive the base for THIS attempt. After a first rebase our commits sit on top of the
   # upstream we already pulled; a base frozen at checkout time would count that upstream
   # content as "our files" on attempt 2 and fail loud on the next tick (Sep 30 odds-refresh

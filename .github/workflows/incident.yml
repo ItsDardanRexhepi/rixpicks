@@ -5,7 +5,11 @@ name: incident-hook
 # failure does. The agent-side 5-min failure scout polls incidents/ + run list as the floor.
 on:
   workflow_run:
-    workflows: ["odds-refresh", "publish-card", "pages build and deployment"]
+    # Names must match the run list exactly (scripts/test_workflow_run_names.py): the Pages
+    # workflow is the dynamic "pages-build-deployment" - the old "pages build and deployment"
+    # matched nothing, so Pages failures 36667637766 + 36758537436 left no incident. x-feed and
+    # record-final are captured here only (no auto-redispatch of the record writer or the feed).
+    workflows: ["odds-refresh", "publish-card", "pages-build-deployment", "record-final", "x-feed"]
     types: [completed]
 permissions:
   actions: read

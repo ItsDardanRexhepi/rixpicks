@@ -1,0 +1,44 @@
+name: tests
+# Every standing fixture runs on every code change (sweep F12, Oct 2: 20 of 32 test files ran in
+# no workflow and no gate, which is how four of them went stale unnoticed). Bots never touch these
+# paths, so data commits never trigger it. Hermetic: read-only token, no secrets, and the fixture
+# step routes HTTP(S) to a dead local proxy so no fixture can reach the network.
+on:
+  push:
+    paths:
+      - 'scripts/**'
+      - 'tests/**'
+      - 'core/**'
+      - '.github/workflows/**'
+      - '.github/actions/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tests
+  cancel-in-progress: true
+jobs:
+  fixtures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: "checkout"
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: "fixture dependencies (pyyaml)"
+        run: |
+          pip install -q pyyaml
+          git config --global user.email ci@example.com && git config --global user.name ci
+      - name: "all standing fixtures (network blocked)"
+        env:
+          http_proxy: 'http://127.0.0.1:9'
+          https_proxy: 'http://127.0.0.1:9'
+          HTTP_PROXY: 'http://127.0.0.1:9'
+          HTTPS_PROXY: 'http://127.0.0.1:9'
+          no_proxy: ''
+          NO_PROXY: ''
+        run: bash scripts/run_fixtures.sh

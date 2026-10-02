@@ -43,7 +43,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 350
     steps:
+      # ref: main - a run that waited in the concurrency group (the */30 backstop queues behind a
+      # live window) must listen from the CURRENT tip. Its queued-at sha is hours stale and every
+      # tick push fails its rebase on the previous window's ticks: run 36841505656 (queued 09:15Z
+      # on 35b3a5a9, started 11:35Z) failed all 238 pushes, no ticks 11:35Z-17:17Z on Oct 1.
+      # Fixture: scripts/test_futures_ws_checkout.py.
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
