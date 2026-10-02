@@ -29,17 +29,28 @@ def espn_url(note):
     m = re.search(r'https://site\.api\.espn\.com/\S+', str(note))
     return m.group(0).rstrip(' ;') if m else None
 
-def our_side(summary, pick_name):
-    """Return (side, team_name) - home/away matching the picked team."""
+def our_side(summary, pick_name, side=None):
+    """Return (side, team_name, competitors) of the picked team; (None, None, competitors) when
+    the pick names no single team - a gap the note states, never a guess. An explicit card side
+    (home/away) wins. Otherwise only the pick's own words count: the text before any '@'/'vs'/
+    'at' opponent clause, matched on whole words - 'Bengals ML @ Steelers' is the Bengals (away),
+    never the home team named after the '@' (Sep 27: the home-first substring hit published the
+    Steelers' and Giants' closing lines and win probability as the Bengals' and Dodgers').
+    A total (Over/Under) has no team side."""
     comp = summary.get('header',{}).get('competitions',[{}])[0]
     comps = comp.get('competitors',[])
-    pick_l = pick_name.lower()
-    for c in comps:
-        names = [c.get('team',{}).get('displayName',''), c.get('team',{}).get('shortDisplayName',''),
-                 c.get('team',{}).get('name',''), c.get('team',{}).get('abbreviation','')]
-        if any(n and n.lower() in pick_l for n in names):
-            return c.get('homeAway'), c.get('team',{}).get('displayName'), comps
-    return None, None, comps
+    if side in ('home', 'away'):
+        c = next((c for c in comps if c.get('homeAway') == side), None)
+        return (side, c.get('team',{}).get('displayName'), comps) if c else (None, None, comps)
+    head = re.split(r'\s(?:@|vs\.?|v\.?|at)\s', pick_name or '', maxsplit=1, flags=re.I)[0].lower()
+    if re.match(r'\s*(over|under)\b', head):
+        return None, None, comps
+    hits = [c for c in comps if any(n and re.search(r'\b' + re.escape(n.lower()) + r'\b', head)
+                                     for n in (c.get('team',{}).get('displayName',''), c.get('team',{}).get('shortDisplayName',''),
+                                               c.get('team',{}).get('name',''), c.get('team',{}).get('abbreviation','')))]
+    if len(hits) != 1:
+        return None, None, comps
+    return hits[0].get('homeAway'), hits[0].get('team',{}).get('displayName'), comps
 
 def pick_note(p, summary):
     """Engine per-pick note. Every field from system data; gaps stated."""
@@ -49,7 +60,7 @@ def pick_note(p, summary):
     units_txt = f"{'+' if u>=0 else ''}{round(u,2)}u on {p.get('units','5u')} at the {card} published card price"
     if not summary:
         return f"{units_txt}. ESPN summary unavailable - game-state depth not on file.", {}
-    side, team, comps = our_side(summary, p.get('pick',''))
+    side, team, comps = our_side(summary, p.get('pick',''), p.get('side'))
     facts = {'clv_pp': None, 'min_wp': None, 'headline': None}
     # CLV: card vs closing moneyline (pickcenter)
     clv_txt = 'no closing moneyline on file'
