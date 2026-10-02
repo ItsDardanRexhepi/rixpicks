@@ -46,6 +46,10 @@ const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOW
     let yx = '';
     try { yx = execFileSync('node', ['scripts/test_nfl_yards_counter.js'], { encoding: 'utf8' }); }
     catch (e) { yx = (e.stdout || '') + (e.stderr || ''); }
+    let vz = '';
+    try { vz = execFileSync('node', ['scripts/test_news_verified_zero.js'], { encoding: 'utf8' }); }
+    catch (e) { vz = (e.stdout || '') + (e.stderr || ''); }
+    check('news verified-zero fixture ALL OK', /ALL OK/.test(vz) && !/FAIL/.test(vz), 'the news bucket skip rule could pass on an unverified read');
     check('yards counter fixture ALL OK', /ALL OK/.test(yx) && !/FAIL/.test(yx), 'NFL futures yards could render an invented number');
     try { const yd = JSON.parse(fs.readFileSync('slates/nfl_rec_yards.json', 'utf8')); check('nfl_rec_yards.json parses with numeric players', Object.values(yd.players || {}).length > 0 && Object.values(yd.players).every(p => typeof p.yards === 'number'), 'yards counters would all show Unavailable'); }
     catch (e) { check('nfl_rec_yards.json parses', false, 'yards counters would all show Unavailable: ' + e.message); }
