@@ -753,8 +753,9 @@
   "pick_team": "Minnesota Wild",
   "prediction": "Minnesota Wild beat Nashville Predators",
   "kickoff_utc": "2026-10-02T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-01T18:20:30.970512+00:00"
+  "status": "hit",
+  "created_at": "2026-10-01T18:20:30.970512+00:00",
+  "settled_at": "2026-10-02T02:49:52.728973+00:00"
  },
  {
   "id": "5e144ffcc8",
