@@ -18,6 +18,7 @@ are PUBLIC posts matching slate queries, never the user's own posts).
 """
 import json, os, re, sys, time, urllib.request, urllib.parse, datetime
 
+import x_budget
 import x_wall
 
 BASE = 'https://api.x.com/2'
@@ -28,9 +29,9 @@ LIVE_GAMES = 'slates/live_games.json'
 STATE = 'slates/x_feed_state.json'
 CREDITS = 9.04          # his reported balance 9/27 9:25 PM PT
 ALERT_FLOOR = 2.00      # main 9:25 balance-watch: alert main before free credits run out
-# MEASURED pricing (X console, Sep 28 9:22 AM PT: 190 events / $0.97 / 29 requests over 30d):
-COST_PER_REQUEST = 0.033
-COST_PER_POST = 0.005
+# MEASURED pricing lives in x_budget.py (one copy: the daily spend ceiling prices the same ledger).
+COST_PER_REQUEST = x_budget.COST_PER_REQUEST
+COST_PER_POST = x_budget.COST_PER_POST
 MAX_RESULTS = 10        # tight per handoff
 GAME_WINDOW_H = 36      # slate-relevant = commences within +/-36h
 
@@ -264,6 +265,10 @@ def main():
         return
     mode = sys.argv[1] if len(sys.argv) > 1 else 'pull'
     if mode == 'verify':
+        vb = x_budget.Budget.load(LEDGER)
+        if not vb.fits(0):
+            print('verify: SKIPPED - one request would pass the X daily spend cap (' + vb.status() + ')')
+            return
         try:
             status, body = req('/users/by/username/XDevelopers')
         except urllib.error.HTTPError as e:
@@ -299,10 +304,21 @@ def main():
     if not queries:
         print('x_feed: no scoped queries; prior feed and timestamp preserved')
         return
+    # daily spend ceiling (x_budget.py): project this pull's worst case before any request and
+    # shrink or skip it so the trailing-24h spend never passes X_DAILY_CAP_USD ($3.00 default).
+    budget = x_budget.Budget.load(LEDGER)
+    n_ok, max_results = budget.plan('x_feed', len(queries[:4]), MAX_RESULTS)
+    if not n_ok:
+        print('x_feed: no request this cycle (X daily spend cap); prior feed and timestamp preserved')
+        return
+    queries = queries[:n_ok]
     for _pass in range(1):
-      for q in queries[:4]:  # hard cap per cycle: burn discipline
+      for k, q in enumerate(queries[:4]):  # hard cap per cycle: burn discipline
+        if not budget.fits(max_results):
+            budget.stop('x_feed', k, max_results)
+            break
         try:
-            params = {'query': q, 'max_results': MAX_RESULTS,
+            params = {'query': q, 'max_results': max_results,
                       'tweet.fields': 'created_at,author_id,public_metrics',
                       'expansions': 'author_id', 'user.fields': 'username,name'}
             if since_id:
@@ -311,6 +327,7 @@ def main():
             data = body.get('data') or []
             users = {u.get('id'): u for u in ((body.get('includes') or {}).get('users') or [])}
             log_burn('/tweets/search/recent', q, len(data))
+            budget.charge(len(data))
             successful += 1
             for tw in data:
                 tid = tw.get('id')

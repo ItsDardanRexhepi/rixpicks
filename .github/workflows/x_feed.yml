@@ -10,6 +10,8 @@ on:
   schedule:
     # UNPARKED 15-min: his verbatim sign-off '15-min' (main 9:25), burn math presented (~$3.17/day vs $9.04 free, billing after). Balance-watch: ledger exits 1 under $2.00.
     - cron: '*/15 * * * *'
+    # Spend ceiling (Oct 2): the ledger later showed $3.25-$4.45 per cycle, so scripts/x_budget.py now
+    # holds the trailing-24h X spend under the repo variable X_DAILY_CAP_USD ($3.00 when unset).
   workflow_run:
     # sync-at-all-times (user 4:27 class kill): the pair map tracks the news feed by CONSTRUCTION -
     # every news-refresh completion re-runs the chain. The freshness guard below exits before any
@@ -53,6 +55,11 @@ jobs:
     needs: hold-check
     if: ${{ !cancelled() && needs.hold-check.result == 'success' && needs.hold-check.outputs.held == 'false' }}
     runs-on: ubuntu-latest
+    # X spend control, a repo variable (Settings > Secrets and variables > Actions > Variables) that
+    # the scripts only read: X_DAILY_CAP_USD = daily ceiling for paid X pulls in dollars, $3.00 (the
+    # signed-off figure) when unset or unreadable.
+    env:
+      X_DAILY_CAP_USD: ${{ vars.X_DAILY_CAP_USD }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -64,6 +71,20 @@ jobs:
       # always() safety commit if the chain dies first so news cannot go stale.
       - name: "bridge: worker news -> slates/news.json"
         run: python3 scripts/bridge_worker_news.py
+      # X spend gate (Oct 2): spend = the burn ledger's trailing 24h at the code's rates, ceiling =
+      # X_DAILY_CAP_USD. The ledger is first synced with main's newest copy: a run queued before the
+      # previous run published its ledger would otherwise neither count nor keep that spend. When not
+      # even the smallest request fits, every paid step is skipped (SKIP_X_PULL) while news, the
+      # matcher and the commits still run; each script also shrinks its own pull to what is left.
+      - name: "X spend gate (daily cap, ledger synced with main)"
+        run: |
+          main_ledger=""
+          if git fetch -q origin main && git show FETCH_HEAD:slates/x_burn.jsonl > "$RUNNER_TEMP/x_burn_main.jsonl"; then
+            main_ledger="$RUNNER_TEMP/x_burn_main.jsonl"
+          else
+            echo "::warning::main's burn ledger could not be read - spend is counted from this checkout's ledger only"
+          fi
+          python3 scripts/x_budget.py gate ${main_ledger:+--main-ledger "$main_ledger"}
       # IFTTT rule set (owner 5:24 "Make the social feed algo have an IFTTT protocol"):
       #   R1 IF news rotates (news-refresh completes) THEN chain runs: pull -> match -> publish.
       #   R2 IF a visible story lacks a verified pair THEN the chain keeps pulling per-story posts
