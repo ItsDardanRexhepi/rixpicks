@@ -1,7 +1,7 @@
 # K18 fixture (9/30 midnight QA): the home Yesterday line must follow the BUILD date and come
 # from the canonical history.json ledger - a static manifest field lies after midnight.
 # Bite-proof: fails against builders that render man['yesterday'] directly.
-import json, os, re, subprocess, sys, tempfile
+import json, os, re, shutil, subprocess, sys, tempfile
 import datetime as _dtc
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +41,25 @@ for B in ('build_gh_page_v2.py', '_build_nocanon_v2.py'):
     check(f'{B}: Oct 1 build links yesterday.html (it shows Sep 30)', yh('2026-10-01'), 'yesterday.html')
     check(f'{B}: Oct 2 build (no Oct 1 row) links the full record, never the Sep 30 page', yh('2026-10-02'), 'record.html')
     check(f'{B}: Sep 30 build (line is Sep 29, page shows Sep 30) links the full record', yh('2026-09-30'), 'record.html')
+    # yesterday.html as build_history.py now writes it: the latest graded days as data-date blocks,
+    # the viewer's PT yesterday picked at view time (static heading 'Last graded day - ...')
+    d2 = tempfile.mkdtemp(prefix='rp-yline-bh-')
+    _row = lambda n: {'name': n, 'game': 'at Astros', 'odds': '+138', 'units': '5u', 'result': 'W', 'score': 'CHW 7, HOU 3'}
+    _days = [{'date': '2026-09-29', 'label': 'Tuesday, Sep 29', 'record': '1-0', 'units': '+6.90u', 'brief': '', 'picks': [_row('Braves ML')]},
+             {'date': '2026-09-30', 'label': 'Wednesday, Sep 30', 'record': '1-0', 'units': '+6.90u', 'brief': '', 'picks': [_row('White Sox ML')]}]
+    json.dump({'days': _days}, open(os.path.join(d2, 'history.json'), 'w'))
+    subprocess.run([sys.executable, os.path.join(ROOT, 'scripts', 'build_history.py'), 'history.json'], cwd=d2,
+                   capture_output=True, text=True, check=True)
+    sys.argv = ['b', os.path.join(d2, 'manifest.json')]
+    check(f'{B}: Oct 1 build links the view-time yesterday.html (it carries Sep 30)', yh('2026-10-01'), 'yesterday.html')
+    check(f'{B}: Sep 30 build links the view-time yesterday.html (it carries Sep 29)', yh('2026-09-30'), 'yesterday.html')
+    check(f'{B}: Oct 2 build (no Oct 1 row) still links the full record', yh('2026-10-02'), 'record.html')
+    # F2: an Oct 1 row lands, but the page was rebuilt before history (old record-final order)
+    _days.append({'date': '2026-10-01', 'label': 'Thursday, Oct 1', 'record': '1-0', 'units': '+3.09u', 'brief': '', 'picks': [_row('Devils ML')]})
+    json.dump({'days': _days}, open(os.path.join(d2, 'history.json'), 'w'))
+    check(f'{B}: a yesterday.html without the line\'s day (Oct 1) links the full record', yh('2026-10-02'), 'record.html')
+    shutil.rmtree(d2, ignore_errors=True)
+    shutil.rmtree(d, ignore_errors=True)
     sys.argv = argv0  # helper reads sys.argv[1] at CALL time - restore only after the calls
     check(f'{B}: home strip renders the computed line', '_hy or man[' in src, True)
     check(f'{B}: home strip link is computed, not fixed to yesterday.html', '<a class="yesrec home-yes" href="\'+_yesterday_href()+\'">' in src, True)

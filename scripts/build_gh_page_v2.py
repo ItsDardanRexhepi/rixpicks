@@ -1861,6 +1861,9 @@ def _yesterday_href(today=None):
     # The Home Yesterday line links to yesterday.html only while that page shows the day the line
     # describes. yesterday.html is rebuilt by record-final alone, so after PT midnight, and on a day
     # with no graded picks, it still shows an older day: the line then links to the full record.
+    # build_history.py writes the latest graded days as data-date blocks and picks the viewer's PT
+    # yesterday at view time, so a page carrying the line's day shows it; an older page carries a
+    # static 'Yesterday - <label>' heading. record-final runs build_history.py before this builder.
     try:
         import html as _hy_html
         from zoneinfo import ZoneInfo as _ZI2
@@ -1870,7 +1873,8 @@ def _yesterday_href(today=None):
         _days = json.load(open(os.path.join(_base, 'history.json'))).get('days') or []
         _d = next((x for x in _days if x.get('date') == _yd), None)
         if _d and _d.get('picks') and _d.get('label'):
-            if ('Yesterday - ' + _hy_html.escape(str(_d['label']))) in open(os.path.join(_base, 'yesterday.html')).read():
+            _yp = open(os.path.join(_base, 'yesterday.html')).read()
+            if ('data-date="%s"' % _hy_html.escape(_yd)) in _yp or ('Yesterday - ' + _hy_html.escape(str(_d['label']))) in _yp:
                 return 'yesterday.html'
     except Exception:
         pass
