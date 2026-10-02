@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-02T02:40:59.172Z",
+ "generated_at": "2026-10-02T02:46:00.710Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -371,6 +371,15 @@
   ],
   "basketball/nba": [
    {
+    "headline": "Jalen Duren, Pistons reportedly agree to five-year, $200 million contract, ending monthslong stalemate",
+    "link": "https://www.cbssports.com/nba/news/jalen-duren-detroit-pistons-contract-extension/",
+    "published": "2026-10-02T02:37:34.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2Fe2b911cf-ced0-47a0-9d92-589d80fb28c1%2Funtitled-design-4.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "After a lengthy standoff in restricted free agency, Detroit and Duren finally struck a deal on Thursday",
+    "source": "CBS",
+    "league": "NBA"
+   },
+   {
     "headline": "76ers envision LeBron James' role being 'offense creator'",
     "link": "https://www.espn.com/nba/story/_/id/50079853/76ers-envision-lebron-james-role-being-offense-creator",
     "published": "2026-10-02T02:31:59Z",
@@ -450,15 +459,6 @@
     "blurb": "The winning bid for the Las Vegas expansion team is expected to exceed $12 billion",
     "source": "CBS",
     "league": "NBA"
-   },
-   {
-    "headline": "Nurse envisions LeBron setting the table for Sixers' offense",
-    "link": "https://www.espn.com/nba/story/_/id/50079853/76ers-envision-lebron-james-role-being-offense-creator",
-    "published": "2026-10-01T23:45:08.000Z",
-    "image": "",
-    "blurb": "Sixers coach Nick Nurse envisions LeBron James setting the table for the offense this season. \"I consider him a great offense creator,\" Nurse said.",
-    "source": "ESPN",
-    "league": "NBA"
    }
   ],
   "hockey/nhl": [
@@ -467,7 +467,7 @@
     "link": "https://www.espn.com/nhl/story/_/id/50081336/rangers-igor-shesterkin-becomes-18th-nhl-goalie-score-goal",
     "published": "2026-10-02T03:30:26.000Z",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1002%252Fr1724774_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Igor Shesterkin of the Rangers became the 18th different goaltender in NHL history to score a goal on Thursday night.",
+    "blurb": "Igor Shesterkin of the Rangers became the 18th goaltender in NHL history to score a goal Thursday night.",
     "source": "ESPN",
     "league": "NHL"
    },
@@ -831,7 +831,7 @@
     "headline": "\u201cIt\u2019s Worse Now\u201d- Tony Stewart Claims NASCAR\u2019s \u2018Deaf Ears\u2019 Mindset Has Stunted the Sport\u2019s Growth for Last 20 Years",
     "link": "https://sports.yahoo.com/articles/worse-now-tony-stewart-claims-222751461.html",
     "published": "2026-10-01T22:27:51.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/4b7c634d5b0566fb03d3b5eef00ae5411771b7393215c6e1157153acca7ec455/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fessentiallysports_articles_591%2F2fd8b5f90738e33dc2ca3d6c62340e26.jpg",
+    "image": "",
     "blurb": "Ever since NASCAR rolled out the Next-Gen race car, ex-drivers, veterans and even experts have raised questions regarding the platform\u2019s glaring shortcomings. There\u2019s a reason why NASCAR is constantly tweaking the packages, be it short-track or superspeedways.",
     "source": "YAHOO",
     "league": "NASCAR"
@@ -1109,7 +1109,7 @@
    "link": "https://www.espn.com/nhl/story/_/id/50081336/rangers-igor-shesterkin-becomes-18th-nhl-goalie-score-goal",
    "published": "2026-10-02T03:30:26.000Z",
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1002%252Fr1724774_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Igor Shesterkin of the Rangers became the 18th different goaltender in NHL history to score a goal on Thursday night.",
+   "blurb": "Igor Shesterkin of the Rangers became the 18th goaltender in NHL history to score a goal Thursday night.",
    "source": "ESPN",
    "league": "NHL"
   },
@@ -1139,6 +1139,15 @@
    "blurb": "Cleveland Browns defensive tackle Mason Graham has been ruled out for the remainder of Thursday night's home game against the Pittsburgh Steelers because of a knee injury.",
    "source": "ESPN",
    "league": "NFL"
+  },
+  {
+   "headline": "Jalen Duren, Pistons reportedly agree to five-year, $200 million contract, ending monthslong stalemate",
+   "link": "https://www.cbssports.com/nba/news/jalen-duren-detroit-pistons-contract-extension/",
+   "published": "2026-10-02T02:37:34.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2Fe2b911cf-ced0-47a0-9d92-589d80fb28c1%2Funtitled-design-4.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "After a lengthy standoff in restricted free agency, Detroit and Duren finally struck a deal on Thursday",
+   "source": "CBS",
+   "league": "NBA"
   },
   {
    "headline": "Reviewing the Bears\u2019 PFN grades from Week 3 vs. Eagles",
@@ -1436,21 +1445,12 @@
    "blurb": "Calipari has been one of the most outspoken college coaches about the Protect College Sports Act",
    "source": "CBS",
    "league": "NCAAB"
-  },
-  {
-   "headline": "\u201cIt\u2019s Worse Now\u201d- Tony Stewart Claims NASCAR\u2019s \u2018Deaf Ears\u2019 Mindset Has Stunted the Sport\u2019s Growth for Last 20 Years",
-   "link": "https://sports.yahoo.com/articles/worse-now-tony-stewart-claims-222751461.html",
-   "published": "2026-10-01T22:27:51.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/4b7c634d5b0566fb03d3b5eef00ae5411771b7393215c6e1157153acca7ec455/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fessentiallysports_articles_591%2F2fd8b5f90738e33dc2ca3d6c62340e26.jpg",
-   "blurb": "Ever since NASCAR rolled out the Next-Gen race car, ex-drivers, veterans and even experts have raised questions regarding the platform\u2019s glaring shortcomings. There\u2019s a reason why NASCAR is constantly tweaking the packages, be it short-track or superspeedways.",
-   "source": "YAHOO",
-   "league": "NASCAR"
   }
  ],
  "source_mix": {
-  "ESPN": 58,
-  "YAHOO": 61,
-  "CBS": 38
+  "ESPN": 57,
+  "CBS": 40,
+  "YAHOO": 60
  },
  "degraded_sources": []
 }
