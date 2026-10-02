@@ -420,6 +420,51 @@ function rpDateRoll(){
  var cx=document.getElementById('rpComboTail');if(cx&&document.body.classList.contains('tab-home'))cx.style.display='none';
 }
 rpDateRoll();
+/* A card's date by the builder's rule (_card_date_of; record_final.card_date_of): the most common PT
+   date across its picks' commence (a game after PT midnight stays on its card), its own ISO date only
+   when no pick has a readable, zoned start. No picks, or a preview, is no official card: ''. */
+function rpCardDate(m){
+ if(!m||m.preview===true||!Array.isArray(m.picks)||!m.picks.length)return '';
+ var F=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'});
+ var c={},o=[],b='',n=0;
+ m.picks.forEach(function(p){
+  var s=String((p&&p.game&&p.game.commence)||''),x=/(Z|[+-][0-9]{2}:?[0-9]{2})$/i.test(s)?Date.parse(s):NaN;
+  if(isNaN(x))return;
+  var d=F.format(new Date(x));if(!(d in c)){c[d]=0;o.push(d);}c[d]++;
+ });
+ o.forEach(function(d){if(c[d]>n){n=c[d];b=d;}});
+ return b||(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(String(m.date||''))?String(m.date):'');
+}
+/* The Home Yesterday line at VIEW time (r3 review). The builder bakes it for the build's PT yesterday
+   (data-ydate) with the card dates that carried official picks and have no graded row (data-pending:
+   manifests/ snapshots and the live card). A viewer on a later PT day gets it recomputed for their own
+   PT yesterday from same-origin history.json: the graded row (linking yesterday.html while that page
+   carries the day - its last two graded days), else 'results pending' when that date is a pending card
+   date or the live manifest.json is that date's card, else '0-0 - no official picks'. history.json
+   unreadable: the line is hidden, never left standing for another day. Same words as the builder's
+   _hist_yesterday (scripts/test_home_yesterday_view.js). */
+function rpYesterdayLine(){
+ var a=document.querySelector('.home-yes');if(!a)return;
+ var yd=a.getAttribute('data-ydate')||'';if(!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(yd))return;
+ var t=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+ var y=new Date(t+'T12:00:00Z');y.setUTCDate(y.getUTCDate()-1);y=y.toISOString().slice(0,10);
+ if(y===yd)return;
+ var pend=(a.getAttribute('data-pending')||'').split(' ');
+ var g=function(u){return fetch(u+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});};
+ Promise.all([g('history.json'),g('manifest.json')]).then(function(r){
+  var days=r[0]&&Array.isArray(r[0].days)?r[0].days:null;
+  if(!days){a.style.display='none';return;}
+  var ix=-1;days.forEach(function(d,i){if(d&&d.date===y)ix=i;});
+  var row=ix>=0?days[ix]:null,txt,href='record.html';
+  if(row&&Array.isArray(row.picks)&&row.picks.length){
+   txt=String(row.record||'0-0')+' · '+row.picks.filter(function(p){return p&&p.name&&p.result;}).map(function(p){return String(p.name).trim()+' '+String(p.result).trim();}).join(' · ');
+   if(ix>=days.length-2&&row.label)href='yesterday.html';
+  }else if(pend.indexOf(y)>=0||rpCardDate(r[1])===y)txt='results pending';
+  else txt='0-0 - no official picks';
+  a.textContent='Yesterday: '+txt;a.setAttribute('href',href);a.setAttribute('data-ydate',y);
+ });
+}
+rpYesterdayLine();
 function buildPairs(base){
  PAIRS=[];
  if(!rpMapFresh(SOC_MATCH))return;

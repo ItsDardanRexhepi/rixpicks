@@ -7,7 +7,10 @@ Nothing here reads the wall clock: these pages are rebuilt only on record writes
 baked against 'today' goes stale at the PT date flip. record.html lists EVERY graded day (the
 live Today section hides the static block for the date it paints), and yesterday.html carries
 the latest graded days and picks the one for the viewer's PT yesterday at view time."""
-import json,sys,html,re
+import glob,json,os,sys,html,re
+from collections import Counter
+from datetime import datetime as _DT  # parses card times only: nothing here reads the wall clock
+from zoneinfo import ZoneInfo
 
 CSS = """
 *{margin:0;box-sizing:border-box}
@@ -118,13 +121,53 @@ def day_html(d, with_brief_title, hidden=False):
 {rows}
 <div class="brief"><span class="bt">{html.escape(with_brief_title)}</span>{html.escape(brief) if brief.strip() else NO_BRIEF}</div></div>"""
 
+# Card dates that carried official picks and have no graded row (r3 review: once the next card
+# replaced manifest.json, an ungraded yesterday read '0-0 - no official picks'). The builder's rule
+# (build_gh_page_v2._card_date_of, record_final.card_date_of): a card's date is the most common PT
+# date across its picks' commence; a card with no readable commence counts under its own ISO date.
+# Every manifests/ snapshot counts, and so does the live manifest.json; a card with no picks, or a
+# preview, is no official card. build_gh_page_v2._yesterday_pending bakes the same set into the
+# Home line on every build.
+def card_date(m):
+    if not isinstance(m, dict) or m.get('preview') is True:
+        return None
+    ps = [p for p in (m.get('picks') or []) if isinstance(p, dict)]
+    if not ps:
+        return None
+    ds = []
+    for p in ps:
+        try:
+            t = _DT.fromisoformat(str((p.get('game') or {}).get('commence') or '').replace('Z', '+00:00'))
+        except ValueError:
+            continue
+        if t.tzinfo is not None:
+            ds.append(t.astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat())
+    if ds:
+        return Counter(ds).most_common(1)[0][0]
+    md = str(m.get('date') or '')
+    return md if re.fullmatch(r'\d{4}-\d{2}-\d{2}', md) else None
+
+def pending_dates(base, days):
+    carded = set()
+    for f in sorted(glob.glob(os.path.join(base, 'manifests', 'manifest-*.json'))) + [os.path.join(base, 'manifest.json')]:
+        try:
+            c = card_date(json.load(open(f)))
+        except Exception:
+            continue
+        if c:
+            carded.add(c)
+    return sorted(carded - {str(d.get('date')) for d in days if d.get('picks')})
+
 # yesterday.html at VIEW time (K18 rule, same as the Home line): show the row for the viewer's
-# PT yesterday. With no row, same-origin manifest.json decides what to say: while it is still
-# yesterday's card and carries picks, they are ungraded - results pending; otherwise that day had
-# no official picks. An unreadable manifest makes no claim either way. The last graded day shows
-# under its own name. Without JS the page reads 'Last graded day', true at any hour.
+# PT yesterday. With no row: results pending when that date carried official picks - it is in the
+# card dates baked into this page (#rpYdNone data-pending), or in the ones the Home page carries
+# (index.html, rebuilt by every build, so it knows a card published after this page was built),
+# or the live manifest.json is that date's card by the builder's rule (cd below); otherwise that day
+# had no official picks, said only once the Home page's dates were read. Nothing readable makes no
+# claim either way. The last graded day shows under its own name. Without JS the page reads 'Last
+# graded day', true at any hour.
 YESTERDAY_JS = """<script>(function(){var bs=[].slice.call(document.querySelectorAll('.rpday[data-date]'));if(!bs.length)return;
-var t=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+var F=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'});var t=F.format(new Date());
 var y=new Date(t+'T12:00:00Z');y.setUTCDate(y.getUTCDate()-1);y=y.toISOString().slice(0,10);
 var hit=null,last=null;bs.forEach(function(b){var d=b.getAttribute('data-date');if(d===y)hit=b;if(!last&&d<t)last=b;});
 var show=hit||last;bs.forEach(function(b){b.hidden=b!==show;});
@@ -132,8 +175,17 @@ var st=document.querySelector('.status'),nt=document.getElementById('rpYdNone');
 if(hit){if(st)st.textContent='Yesterday - '+hit.getAttribute('data-label');document.title='Yesterday: '+hit.getAttribute('data-record')+" - 'RixPicks";return;}
 if(st)st.textContent=show?'Last graded day - '+show.getAttribute('data-label'):'No graded day before today';
 if(!nt)return;var lab='Yesterday, '+new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'long',month:'short',day:'numeric'}).format(new Date(y+'T12:00:00Z'))+': ';
-try{fetch('manifest.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(m){if(!m)return;
-nt.textContent=lab+(m.date===y&&Array.isArray(m.picks)&&m.picks.length?'results pending.':'0-0 - no official picks.');nt.hidden=false;}).catch(function(){});}catch(e){}})();</script>"""
+var say=function(s){nt.textContent=lab+s;nt.hidden=false;};
+if((nt.getAttribute('data-pending')||'').split(' ').indexOf(y)>=0){say('results pending.');return;}
+var cd=function(m){if(!m||m.preview===true||!Array.isArray(m.picks)||!m.picks.length)return '';var c={},o=[],b='',n=0;
+m.picks.forEach(function(p){var s=String((p&&p.game&&p.game.commence)||''),x=/(Z|[+-][0-9]{2}:?[0-9]{2})$/i.test(s)?Date.parse(s):NaN;if(isNaN(x))return;
+var d=F.format(new Date(x));if(!(d in c)){c[d]=0;o.push(d);}c[d]++;});o.forEach(function(d){if(c[d]>n){n=c[d];b=d;}});
+return b||(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(String(m.date||''))?String(m.date):'');};
+var g=function(u,k){return fetch(u+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r[k]():null;}).catch(function(){return null;});};
+try{Promise.all([g('manifest.json','json'),g('index.html','text')]).then(function(r){var m=r[0],ix=r[1],hp=null;
+var a=typeof ix==='string'&&ix.match(/<a class="yesrec home-yes"[^>]*>/),q=a&&a[0].match(/data-pending="([^"]*)"/);if(q)hp=q[1].split(' ');
+if((hp&&hp.indexOf(y)>=0)||(m&&cd(m)===y)){say('results pending.');return;}
+if(hp)say('0-0 - no official picks.');}).catch(function(){});}catch(e){}})();</script>"""
 
 def main(hist_path):
     h = json.load(open(hist_path))
@@ -142,10 +194,12 @@ def main(hist_path):
     for _d in days:
         for _p in _d['picks']:
             _p['note']=_coherent_note(_p.get('note'),_res)
-    # yesterday.html: the last two graded days, newest shown; the view-time script picks the
-    # viewer's PT yesterday (or states its results are pending, or that it had no official picks) - see YESTERDAY_JS
+    # yesterday.html: the last two graded days, newest shown, and the card dates still waiting for
+    # grades; the view-time script picks the viewer's PT yesterday (or states its results are
+    # pending, or that it had no official picks) - see YESTERDAY_JS
     yd = days[-1]
-    ybody = '<div class="nt" id="rpYdNone" hidden></div>' + ''.join(
+    pend = pending_dates(os.path.dirname(os.path.abspath(hist_path)), days)
+    ybody = f'<div class="nt" id="rpYdNone" data-pending="{html.escape(" ".join(pend))}" hidden></div>' + ''.join(
         day_html(d, 'What the system learned', hidden=i > 0) for i, d in enumerate(reversed(days[-2:]))) + YESTERDAY_JS
     open('yesterday.html','w').write(page(
         f"Last graded day: {yd['record']}", f"Last graded day - {yd['label']}", ybody, slug='yesterday.html'))

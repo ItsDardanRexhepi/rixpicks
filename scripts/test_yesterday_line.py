@@ -71,12 +71,49 @@ for B in ('build_gh_page_v2.py', '_build_nocanon_v2.py'):
     json.dump({'date': '2026-10-01', 'picks': [{'name': 'Devils ML'}]}, open(os.path.join(d3, 'manifest.json'), 'w'))
     check(f'{B}: a graded yesterday row still reads from the ledger', ns['_hist_yesterday']('2026-10-01'),
           '1-0 \u00b7 White Sox ML W')
+    # r3 review (yday-1): once the next card replaces manifest.json, an ungraded yesterday read
+    # '0-0 - no official picks' again. The card dates that carried picks come from the manifests/
+    # snapshots (each one's card date by the builder's rule: the most common PT date across its picks'
+    # commence) plus the live manifest; such a date with no graded row reads 'results pending'.
+    d4 = tempfile.mkdtemp(prefix='rp-yline-snap-')
+    os.makedirs(os.path.join(d4, 'manifests'))
+    json.dump({'days': _days[:2]}, open(os.path.join(d4, 'history.json'), 'w'))  # Sep 29, Sep 30 graded
+    _pk = lambda n, c: {'name': n, 'game': {'commence': c}}
+    def snap(name, m):
+        json.dump(m, open(os.path.join(d4, 'manifests', name), 'w'))
+    # the Oct 2 card (puck drop after PT midnight on one pick: still the Oct 2 card), no Oct 2 row
+    snap('manifest-0c02aaaaaaaa.json', {'date': '2026-10-02', 'picks': [_pk('Devils ML', '2026-10-02T23:00Z'), _pk('Under 38.5', '2026-10-03T00:15Z'),
+                                                                        _pk('Kraken ML', '2026-10-03T07:05Z')]})
+    snap('manifest-0c01bbbbbbbb.json', {'date': '2026-10-01', 'picks': []})        # Oct 1: an empty card
+    snap('manifest-0c04cccccccc.json', {'date': '2026-10-04', 'preview': True,     # a preview is no official card
+                                        'picks': [_pk('Jets ML', '2026-10-04T17:00Z')]})
+    snap('manifest-0c05dddddddd.json', {'date': '2026-10-06', 'picks': [_pk('Rams ML', '2026-10-06T00:15Z')]})  # dated by its picks: Oct 5 PT
+    snap('manifest-broken00000.json', {'date': '2026-10-07'})                       # no picks key at all
+    open(os.path.join(d4, 'manifests', 'manifest-notjson00000.json'), 'w').write('{not json')
+    json.dump({'date': '2026-10-03', 'picks': [_pk('Rangers ML', '2026-10-03T23:00Z')]}, open(os.path.join(d4, 'manifest.json'), 'w'))
+    sys.argv = ['b', os.path.join(d4, 'manifest.json')]
+    hy = ns['_hist_yesterday']
+    check(f'{B}: Oct 3 build, the Oct 3 card live, Oct 2 snapshot with picks and no Oct 2 row: results pending', hy('2026-10-03'), 'results pending')
+    check(f'{B}: Oct 2 build, Oct 1 had only an empty card: 0-0', hy('2026-10-02'), '0-0 - no official picks')
+    check(f'{B}: Oct 4 build, the live Oct 3 card has no row yet: results pending', hy('2026-10-04'), 'results pending')
+    check(f'{B}: Oct 5 build, Oct 4 had only a preview: 0-0', hy('2026-10-05'), '0-0 - no official picks')
+    check(f'{B}: Oct 6 build, the snapshot dated Oct 6 is the Oct 5 card by its picks: results pending', hy('2026-10-06'), 'results pending')
+    check(f'{B}: Oct 7 build, Oct 6 carried no card by the builder\'s rule: 0-0', hy('2026-10-07'), '0-0 - no official picks')
+    check(f'{B}: Oct 1 build, a graded Sep 30 row still reads from the ledger', hy('2026-10-01'), '1-0 \u00b7 White Sox ML W')
+    yp = ns.get('_yesterday_pending') or (lambda: 'missing')
+    check(f'{B}: pending card dates: carded (snapshots + live card), no graded row', yp(), ['2026-10-02', '2026-10-03', '2026-10-05'])
+    ya = ns.get('_home_yes_attrs') or (lambda t=None: 'missing')
+    check(f'{B}: the Home line carries its date and the pending card dates for the view-time recompute', ya('2026-10-03'),
+          ' data-ydate="2026-10-02" data-pending="2026-10-02 2026-10-03 2026-10-05"')
+    shutil.rmtree(d4, ignore_errors=True)
     shutil.rmtree(d3, ignore_errors=True)
     shutil.rmtree(d2, ignore_errors=True)
     shutil.rmtree(d, ignore_errors=True)
     sys.argv = argv0  # helper reads sys.argv[1] at CALL time - restore only after the calls
     check(f'{B}: home strip renders the computed line', '_hy or man[' in src, True)
-    check(f'{B}: home strip link is computed, not fixed to yesterday.html', '<a class="yesrec home-yes" href="\'+_yesterday_href()+\'">' in src, True)
+    check(f'{B}: home strip link is computed, not fixed to yesterday.html', '<a class="yesrec home-yes" href="\'+_yesterday_href()+\'"' in src, True)
+    check(f'{B}: home strip carries its date and the pending card dates (view-time recompute)',
+          '<a class="yesrec home-yes" href="\'+_yesterday_href()+\'"\'+_home_yes_attrs()+\'>' in src, True)
     check(f'{B}: league strips hide on stale manifest', '_s=None if _mstale else _YBL.get(_tab)' in src, True)
 
 print('FAILURES: ' + str(failures) if failures else 'ALL CHECKS PASS')

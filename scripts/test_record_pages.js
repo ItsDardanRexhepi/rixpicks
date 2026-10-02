@@ -6,7 +6,9 @@
      for the date it paints live (only while it shows picks), so no day is shown twice or lost;
    - a pick's display-only learning shows in the live Today section too;
    - yesterday.html picks the viewer's PT yesterday at view time; with no row it says the day's
-     results are pending while manifest.json is still that day's card with picks, else that it had
+     results are pending when that date carried official picks (the card dates build_history bakes
+     from manifests/ snapshots and the live card, the ones the Home page carries, or the live card
+     itself by the builder's date rule), else - once the Home page's dates were read - that it had
      no official picks, and shows the last graded day under its own name.
    Offline: fake DOM, fetch and clock. Bite-proof: red on the pre-fix record_today.js and
    build_history.py. Run: node scripts/test_record_pages.js */
@@ -125,19 +127,28 @@ const HIST_TODAY = { days: [
 
   /* ---------- yesterday.html view-time selector (built by build_history.py) ---------- */
   const day = (date, label, record, name) => ({ date, label, record, units: '+0.00u', brief: '', picks: [{ name, result: 'W', score: 'A 1, B 2' }] });
-  const yesterdayPage = days => {
+  // files: other repo files present when build_history runs (manifests/ snapshots, manifest.json)
+  const yesterdayPage = (days, files = {}) => {
     const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'rp_pages_'));
     try {
       fs.writeFileSync(path.join(tmp, 'history.json'), JSON.stringify({ days }));
+      for (const [rel, obj] of Object.entries(files)) {
+        fs.mkdirSync(path.dirname(path.join(tmp, rel)), { recursive: true });
+        fs.writeFileSync(path.join(tmp, rel), typeof obj === 'string' ? obj : JSON.stringify(obj));
+      }
       execFileSync('python3', [path.join(__dirname, 'build_history.py'), 'history.json'], { cwd: tmp, stdio: 'ignore' });
       return fs.readFileSync(path.join(tmp, 'yesterday.html'), 'utf8');
     } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
   };
   const viewer = yhtml => {
     const script = (yhtml.match(/<script>(\(function\(\)\{var bs=[\s\S]*?)<\/script>/) || [])[1];
-    // manifest: what same-origin manifest.json serves at view time (null = the fetch fails)
-    return { script, run: async (at, manifest = { date: at.slice(0, 10), picks: [] }) => {
+    // manifest: what same-origin manifest.json serves at view time (null = the fetch fails);
+    // index: what index.html serves (null = the fetch fails)
+    return { script, run: async (at, manifest = { date: at.slice(0, 10), picks: [] }, index = null) => {
       const clock = clockAt(at), status = el('div'), none = el('div'); none.hidden = true;
+      const pend = yhtml.match(/<div class="nt" id="rpYdNone"([^>]*)>/);
+      const pm = pend && pend[1].match(/data-pending="([^"]*)"/);
+      if (pm) none.attrs['data-pending'] = pm[1];
       status.textContent = (yhtml.match(/<div class="status">([^<]*)<\/div>/) || [])[1];
       const blocks = [...yhtml.matchAll(/<div class="rpday" data-date="([^"]*)" data-label="([^"]*)" data-record="([^"]*)"( hidden)?>/g)]
         .map(m => Object.assign(block(m[1], m[2], m[3]), { hidden: !!m[4] }));
@@ -145,6 +156,8 @@ const HIST_TODAY = { days: [
         querySelector: s => (s === '.status' ? status : null), getElementById: id => (id === 'rpYdNone' ? none : null) };
       const fetch = url => (url.split('?')[0] === 'manifest.json' && manifest
         ? Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(JSON.parse(JSON.stringify(manifest))) })
+        : url.split('?')[0] === 'index.html' && index != null
+        ? Promise.resolve({ ok: true, status: 200, text: () => Promise.resolve(index) })
         : Promise.reject(new Error('offline')));
       if (script) vm.runInContext(script, vm.createContext({ document, fetch, Date: clock.Date, Intl }));
       await flush(); await flush();
@@ -152,12 +165,15 @@ const HIST_TODAY = { days: [
                shown: blocks.filter(b => !b.hidden).map(b => b.attrs['data-date']) };
     } };
   };
+  // index.html as the builder serves it: its Home line carries the card dates still waiting for grades
+  // (data-pending); yesterday.html says '0-0 - no official picks' only once it has read them
+  const homePage = pend => '<div class="rphead"><a class="yesrec home-yes" href="record.html" data-ydate="2026-10-01" data-pending="' + pend + '">Yesterday: x</a></div>';
   {
     const { script, run } = viewer(yesterdayPage([day('2026-09-29', 'Tuesday, Sep 29', '2-3', 'Braves ML'), day('2026-09-30', 'Wednesday, Sep 30', '1-0', 'White Sox ML')]));
     check('yesterday.html carries the view-time selector', !!script, true);
     check('yesterday.html on Oct 1 PT shows Sep 30 as Yesterday', await run('2026-10-01T19:00:00Z'),
       { status: 'Yesterday - Wednesday, Sep 30', title: "Yesterday: 1-0 - 'RixPicks", none: '', shown: ['2026-09-30'] });
-    check('yesterday.html on Oct 2 PT says Oct 1 had no official picks, Sep 30 as last graded day', await run('2026-10-02T19:00:00Z'),
+    check('yesterday.html on Oct 2 PT says Oct 1 had no official picks, Sep 30 as last graded day', await run('2026-10-02T19:00:00Z', undefined, homePage('')),
       { status: 'Last graded day - Wednesday, Sep 30', title: '', none: 'Yesterday, Thursday, Oct 1: 0-0 - no official picks.', shown: ['2026-09-30'] });
     check('yesterday.html on Sep 30 PT evening (Sep 30 already graded) shows Sep 29, never today', await run('2026-10-01T02:00:00Z'),
       { status: 'Yesterday - Tuesday, Sep 29', title: "Yesterday: 2-3 - 'RixPicks", none: '', shown: ['2026-09-29'] });
@@ -167,15 +183,62 @@ const HIST_TODAY = { days: [
       { date: '2026-10-01', picks: [{ name: 'Devils ML' }, { name: 'Kraken ML' }] }),
       { status: 'Last graded day - Wednesday, Sep 30', title: '', none: 'Yesterday, Thursday, Oct 1: results pending.', shown: ['2026-09-30'] });
     check('yesterday.html on Oct 2 PT, manifest the Oct 1 card with no picks: no official picks', await run('2026-10-02T07:30:00Z',
-      { date: '2026-10-01', picks: [] }),
+      { date: '2026-10-01', picks: [] }, homePage('2026-10-02')),
       { status: 'Last graded day - Wednesday, Sep 30', title: '', none: 'Yesterday, Thursday, Oct 1: 0-0 - no official picks.', shown: ['2026-09-30'] });
     check('yesterday.html on Oct 2 PT, manifest unreadable: no claim about Oct 1 either way', await run('2026-10-02T07:30:00Z', null),
       { status: 'Last graded day - Wednesday, Sep 30', title: '', none: '', shown: ['2026-09-30'] });
+    // the live card alone is not proof of no picks (the card that had them may be gone already): with the
+    // Home page unreadable, or carrying no dates, no '0-0' claim is made
+    check('yesterday.html on Oct 2 PT, the Oct 2 card live, Home page unreadable: no 0-0 claim', await run('2026-10-02T19:00:00Z',
+      { date: '2026-10-02', picks: [{ name: 'Rangers ML' }] }, null),
+      { status: 'Last graded day - Wednesday, Sep 30', title: '', none: '', shown: ['2026-09-30'] });
+    check('yesterday.html on Oct 2 PT, the Home line carries no dates (an older build): no 0-0 claim', await run('2026-10-02T19:00:00Z',
+      { date: '2026-10-02', picks: [{ name: 'Rangers ML' }] }, '<a class="yesrec home-yes" href="record.html">Yesterday: x</a>'),
+      { status: 'Last graded day - Wednesday, Sep 30', title: '', none: '', shown: ['2026-09-30'] });
+  }
+  {
+    // r3 review (yday-2): once the next card replaced manifest.json, an ungraded yesterday read '0-0 - no
+    // official picks'. build_history bakes the card dates that carried picks with no graded row (manifests/
+    // snapshots, each dated by the builder's rule, plus the live card) into the page; at view time the Home
+    // page's own baked dates (index.html, rebuilt by every build) and the live card count too.
+    const sox = { name: 'White Sox ML', game: { commence: '2026-09-30T21:00Z' } };
+    const files = { 'manifests/manifest-0930aaaaaaaa.json': { date: '2026-09-30', picks: [sox] },
+                    'manifests/manifest-0928bbbbbbbb.json': { date: '2026-09-28', picks: [] },
+                    'manifests/manifest-1004cccccccc.json': { date: '2026-10-04', preview: true, picks: [{ name: 'Jets ML', game: { commence: '2026-10-04T17:00Z' } }] },
+                    'manifest.json': { date: '2026-09-30', picks: [sox] } };
+    const yh = yesterdayPage([day('2026-09-29', 'Tuesday, Sep 29', '2-3', 'Braves ML')], files);
+    const { run } = viewer(yh);
+    const OCT1 = { date: '2026-10-01', picks: [{ name: 'Devils ML', game: { commence: '2026-10-01T23:00Z' } }] };
+    check('yesterday.html bakes the pending card dates (Sep 30: carded, no row; no empty card, no preview)',
+      (yh.match(/id="rpYdNone" data-pending="([^"]*)"/) || [])[1], '2026-09-30');
+    check('yesterday.html on Oct 1 PT, the Oct 1 card live, Sep 30 carded and ungraded: results pending', await run('2026-10-01T17:00:00Z', OCT1),
+      { status: 'Last graded day - Tuesday, Sep 29', title: '', none: 'Yesterday, Wednesday, Sep 30: results pending.', shown: ['2026-09-29'] });
+    check('yesterday.html on Oct 1 PT, nothing fetchable: the baked dates still say results pending', await run('2026-10-01T17:00:00Z', null),
+      { status: 'Last graded day - Tuesday, Sep 29', title: '', none: 'Yesterday, Wednesday, Sep 30: results pending.', shown: ['2026-09-29'] });
+    check('yesterday.html on Sep 29 PT (Sep 28 had only an empty card): no official picks', await run('2026-09-29T17:00:00Z', OCT1, homePage('2026-09-30')),
+      { status: 'No graded day before today', title: '', none: 'Yesterday, Monday, Sep 28: 0-0 - no official picks.', shown: [] });
+    check('yesterday.html on Oct 5 PT (Oct 4 had only a preview): no official picks', await run('2026-10-05T17:00:00Z', OCT1, homePage('2026-09-30')),
+      { status: 'Last graded day - Tuesday, Sep 29', title: '', none: 'Yesterday, Sunday, Oct 4: 0-0 - no official picks.', shown: ['2026-09-29'] });
+    // a card published after this page was built, and already replaced by the next card: the Home
+    // page's baked dates say so (its line carries them, rebuilt by every build)
+    const HOME = d => '<a class="yesrec home-yes" href="record.html" data-ydate="2026-10-01" data-pending="' + d + '">Yesterday: results pending</a>';
+    const OCT3 = { date: '2026-10-03', picks: [{ name: 'Rangers ML', game: { commence: '2026-10-03T23:00Z' } }] };
+    check('yesterday.html on Oct 3 PT, Oct 2 carded after this page was built and replaced by Oct 3: the Home page\'s dates say results pending',
+      await run('2026-10-03T17:00:00Z', OCT3, HOME('2026-09-30 2026-10-02 2026-10-03')),
+      { status: 'Last graded day - Tuesday, Sep 29', title: '', none: 'Yesterday, Friday, Oct 2: results pending.', shown: ['2026-09-29'] });
+    check('yesterday.html on Oct 3 PT, the Home page lists no Oct 2 card: no official picks', await run('2026-10-03T17:00:00Z', OCT3, HOME('2026-09-30 2026-10-03')),
+      { status: 'Last graded day - Tuesday, Sep 29', title: '', none: 'Yesterday, Friday, Oct 2: 0-0 - no official picks.', shown: ['2026-09-29'] });
+    // the live card's date is the builder's: the most common PT date across its picks (a late game after
+    // PT midnight stays on its card), its ISO date only when no pick has a readable start
+    const LATE = { date: '2026-10-02', picks: [{ name: 'Devils ML', game: { commence: '2026-10-02T02:00Z' } }, { name: 'Kraken ML', game: { commence: '2026-10-02T03:00Z' } },
+                                              { name: 'Sharks ML', game: { commence: '2026-10-02T07:30Z' } }] };
+    check('yesterday.html on Oct 2 PT, the live card is the Oct 1 card by its picks (dated Oct 2): results pending', await run('2026-10-02T17:00:00Z', LATE, ''),
+      { status: 'Last graded day - Tuesday, Sep 29', title: '', none: 'Yesterday, Thursday, Oct 1: results pending.', shown: ['2026-09-29'] });
   }
   {
     // today graded already and yesterday had no card: the last graded day BEFORE today is shown
     const { run } = viewer(yesterdayPage([day('2026-09-27', 'Sunday, Sep 27', '5-2', 'Lions ML'), day('2026-09-30', 'Wednesday, Sep 30', '1-0', 'White Sox ML')]));
-    check('yesterday.html on Sep 30 PT evening, no Sep 29 card: says so, shows Sep 27, never today', await run('2026-10-01T02:00:00Z', { date: '2026-09-30', picks: [{ name: 'White Sox ML' }] }),
+    check('yesterday.html on Sep 30 PT evening, no Sep 29 card: says so, shows Sep 27, never today', await run('2026-10-01T02:00:00Z', { date: '2026-09-30', picks: [{ name: 'White Sox ML' }] }, homePage('2026-09-30')),
       { status: 'Last graded day - Sunday, Sep 27', title: '', none: 'Yesterday, Tuesday, Sep 29: 0-0 - no official picks.', shown: ['2026-09-27'] });
   }
 

@@ -1871,9 +1871,11 @@ _cnote_home='' if globals().get('_cnote_folded') else _cnote_html  # 2:55: no do
 # K18 (9/30 midnight QA): the Yesterday line must follow the BUILD date, not the manifest's bake
 # date - after midnight the static man['yesterday'] lies (the Sep 29 card read "0-0 - no official
 # picks" into Sep 30). Home line computes from the canonical history.json ledger for build-PT-date
-# minus one; no entry means results pending while the manifest is still that day's card with picks,
-# else the day had no official picks. League strips hide while the
-# manifest is stale (never show another day's results, the strip's own rule).
+# minus one; no entry means results pending when that date carried official picks (a card date in
+# _yesterday_pending: the manifests/ snapshots and the live card, whatever card has replaced it
+# since), else the day had no official picks. The line carries its date and those pending card
+# dates for index_v2.js rpYesterdayLine, which recomputes it for a viewer on a later PT day.
+# League strips hide while the manifest is stale (never show another day's results, the strip's own rule).
 def _hist_yesterday(today=None):
     try:
         from zoneinfo import ZoneInfo as _ZI2
@@ -1883,20 +1885,70 @@ def _hist_yesterday(today=None):
         _days = json.load(open(_hp)).get('days') or []
         _d = next((x for x in _days if x.get('date') == _yd), None)
         if not _d or not _d.get('picks'):
-            # no graded row is not proof of no picks: while the manifest is still yesterday's card
-            # and carries picks, they are ungraded (a grade can land after midnight, or the
-            # in-order record write can be held) - say so, never '0-0 - no official picks'
-            try:
-                _ym = json.load(open(os.path.abspath(sys.argv[1])))
-            except Exception:
-                _ym = {}
-            if _ym.get('date') == _yd and _ym.get('picks'):
+            # no graded row is not proof of no picks: a date that carried official picks (its card in
+            # manifests/ or still live, even after the next card replaced it) is ungraded - a grade
+            # can land after midnight, or the in-order record write can be held - say so, never
+            # '0-0 - no official picks'
+            if _yd in _yesterday_pending():
                 return 'results pending'
             return '0-0 - no official picks'
         _rec = str(_d.get('record') or '0-0')
         return _rec + ' \u00b7 ' + ' \u00b7 '.join(str(p.get('name','')).strip() + ' ' + str(p.get('result','')).strip() for p in _d['picks'] if p.get('name') and p.get('result'))
     except Exception:
         return None
+def _yesterday_pending():
+    # Card dates that carried official picks and have no graded history.json row (r3 review: once the
+    # next card replaced manifest.json, an ungraded yesterday read '0-0 - no official picks'). Each
+    # manifests/ snapshot counts under its card date by the builder's rule (_card_date_of: the most
+    # common PT date across its picks' commence; a card with no readable commence counts under its
+    # own ISO date), and so does the live manifest; a card with no picks, or a preview, is no
+    # official card. Self-contained (test_yesterday_line.py runs it from source).
+    import glob as _yg, re as _yre
+    from collections import Counter as _YC
+    from zoneinfo import ZoneInfo as _YZ
+    _base = os.path.dirname(os.path.abspath(sys.argv[1]))
+    def _cdate(m):
+        if not isinstance(m, dict) or m.get('preview') is True:
+            return None
+        _ps = [p for p in (m.get('picks') or []) if isinstance(p, dict)]
+        if not _ps:
+            return None
+        _ds = []
+        for p in _ps:
+            try:
+                _t = _dtc.datetime.fromisoformat(str((p.get('game') or {}).get('commence') or '').replace('Z', '+00:00'))
+            except ValueError:
+                continue
+            if _t.tzinfo is not None:
+                _ds.append(_t.astimezone(_YZ('America/Los_Angeles')).date().isoformat())
+        if _ds:
+            return _YC(_ds).most_common(1)[0][0]
+        _md = str(m.get('date') or '')
+        return _md if _yre.fullmatch(r'\d{4}-\d{2}-\d{2}', _md) else None
+    _carded = set()
+    for _f in sorted(_yg.glob(os.path.join(_base, 'manifests', 'manifest-*.json'))) + [os.path.abspath(sys.argv[1])]:
+        try:
+            _c = _cdate(json.load(open(_f)))
+        except Exception:
+            continue
+        if _c:
+            _carded.add(_c)
+    try:
+        _graded = {str(x.get('date')) for x in (json.load(open(os.path.join(_base, 'history.json'))).get('days') or []) if x.get('picks')}
+    except Exception:
+        _graded = set()
+    return sorted(_carded - _graded)
+def _home_yes_attrs(today=None):
+    # the Home line's own date (build PT date minus one) and the pending card dates, for the
+    # view-time recompute (index_v2.js rpYesterdayLine); nothing when they cannot be worked out
+    try:
+        import html as _ya_html
+        from zoneinfo import ZoneInfo as _ZI2
+        _td = today or _dtc.datetime.now(_ZI2('America/Los_Angeles')).date().isoformat()
+        _yd = (_dtc.date.fromisoformat(_td) - _dtc.timedelta(days=1)).isoformat()
+        return ' data-ydate="%s" data-pending="%s"' % (_ya_html.escape(_yd), _ya_html.escape(' '.join(_yesterday_pending())))
+    except Exception:
+        return ''
 def _yesterday_href(today=None):
     # The Home Yesterday line links to yesterday.html only while that page shows the day the line
     # describes. yesterday.html is rebuilt by record-final alone, so after PT midnight, and on a day
@@ -1921,7 +1973,7 @@ def _yesterday_href(today=None):
     return 'record.html'
 _hy = _hist_yesterday()
 _mstale = str(man.get('date') or '') < _dtc.datetime.now(__import__('zoneinfo').ZoneInfo('America/Los_Angeles')).date().isoformat()
-_home_yes=(('<a class="yesrec home-yes" href="'+_yesterday_href()+'">Yesterday: '+html.escape(str(_hy or man['yesterday']))+'</a>') if (_hy or man.get('yesterday')) else '')  # owner 3:02: Yesterday record sits ABOVE today's date on home; K18: computed from history.json at build time
+_home_yes=(('<a class="yesrec home-yes" href="'+_yesterday_href()+'"'+_home_yes_attrs()+'>Yesterday: '+html.escape(str(_hy or man['yesterday']))+'</a>') if (_hy or man.get('yesterday')) else '')  # owner 3:02: Yesterday record sits ABOVE today's date on home; K18: computed from history.json at build time
 def _ystr_for(_tab):
     _s=None if _mstale else _YBL.get(_tab)  # K18: stale manifest = another day's results - hide
     return ('<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: '+html.escape(_s)+'</a>') if _s else ''
