@@ -3,8 +3,8 @@
 must REFUSE (exit 3, nothing written) a grade whose result contradicts the verified final, whose
 unit delta does not follow from the card price and stake, whose units chain does not continue,
 whose pick was never on a published card, or that repeats a pick already on its day's row. It
-files each grade under the pick's own card date (not the date the live manifest carries when the
-grade lands), and labels totals and props from the game, not from the over/under side.
+files each grade under its card's date (the builder's _card_date_of, not the date the live manifest
+carries when the grade lands, and not a late game's own date), and labels totals and props from the game, not from the over/under side.
 Offline: every ESPN read is served from the fixtures below.
 Bite-proof: red on the pre-fix record_final.py (any well-formed request that chained W-L landed).
 Run: python3 scripts/test_record_final_verify.py"""
@@ -34,6 +34,8 @@ FIX = {
     CORE.format(lg='football/leagues/nfl', e='401872964', c='401872964'): core('Pittsburgh Steelers', 24, 'Cleveland Browns', 27),
     CORE.format(lg='basketball/leagues/wnba', e='401918022', c='401918022'): core('Indiana Fever', 83, 'Las Vegas Aces', 94),
     CORE.format(lg='baseball/leagues/mlb', e='401907896', c='401907896'): core('Chicago White Sox', 6, 'Houston Astros', 3),
+    CORE.format(lg='hockey/leagues/nhl', e='401891900', c='401891900'): core('Vancouver Canucks', 1, 'Seattle Kraken', 4),
+    CORE.format(lg='baseball/leagues/mlb', e='401907897', c='401907897'): core('Chicago White Sox', 7, 'Houston Astros', 3),
     CORE.format(lg='mma/leagues/ufc', e='600060739', c='401891663'): {
         'status': {'type': {'completed': True}},
         'competitors': [{'athlete': {'displayName': 'Loai Abushaar'}, 'winner': False},
@@ -50,6 +52,7 @@ FIX = {
                 {'keys': ['hits-atBats', 'atBats', 'runs', 'hits'],
                  'athletes': [{'athlete': {'id': '33', 'displayName': 'Yordan Alvarez'}, 'stats': ['1-4', '4', '0', '1']}]}]}]}},
 }
+FIX[SITE.format(lg='baseball/mlb', e='401907897')] = FIX[SITE.format(lg='baseball/mlb', e='401907896')]
 
 def fake_get(url, *a, **k):
     if url not in FIX:
@@ -66,12 +69,23 @@ def pick(name, eid, league, away, home, commence, odds, units, side, mc='ml', **
 OCT1 = {'date': '2026-10-01', 'record': '21-11', 'units_pl': '+4.76u', 'picks': [
     pick('Devils ML', '401891817', 'hockey/nhl', 'Philadelphia Flyers', 'New Jersey Devils', '2026-10-01T23:00Z', '-162', '5u', 'home'),
     pick('Under 38.5', '401872964', 'football/nfl', 'Pittsburgh Steelers', 'Cleveland Browns', '2026-10-02T00:15Z', '-115', '6u', 'under', 'total', line=38.5),
-    pick('Aces -11', '401918022', 'basketball/wnba', 'Indiana Fever', 'Las Vegas Aces', '2026-10-02T02:00Z', '-110', '5u', 'home', 'spread', line=-11)]}
+    pick('Aces -11', '401918022', 'basketball/wnba', 'Indiana Fever', 'Las Vegas Aces', '2026-10-02T02:00Z', '-110', '5u', 'home', 'spread', line=-11),
+    # published on the Oct 1 card, puck drop 12:05 AM PT Oct 2: the card's date is the builder's
+    # _card_date_of (the most common PT game date across the card), not this pick's own date
+    pick('Kraken ML', '401891900', 'hockey/nhl', 'Vancouver Canucks', 'Seattle Kraken', '2026-10-02T07:05Z', '-140', '5u', 'home')]}
 SEP29 = {'date': '2026-09-29', 'record': '19-8', 'units_pl': '+10.05u', 'picks': [
     pick('Yordan Alvarez over 1.5 hits', '401907896', 'baseball/mlb', 'Chicago White Sox', 'Houston Astros', '2026-09-29T21:00Z',
          '+270', '5u', 'over', 'prop', line=1.5, player='Yordan Alvarez', market='bat_hits'),
     {'name': 'Loai Abushaar ML', 'market_class': 'ml', 'side': 'home', 'odds': '+285', 'card_american': 285, 'units': '5u',
      'espn_league': 'mma/ufc', 'game': {'away': 'George Staines', 'home': 'Loai Abushaar', 'commence': '2026-09-29T23:00Z', 'eid': None}}]}
+# manifest-388bdcec23a0 shape: an archive copy dated Sep 30 carrying Sep 29's picks, one of them
+# re-bound to the Sep 30 game (eid 401907897). Its picks say Sep 29, its date says Sep 30: it is no
+# card, so nothing on it is graded - even a row whose price agrees with itself.
+CORRUPT930 = {'date': '2026-09-30', 'record': '19-8', 'units_pl': '+10.05u', 'picks': [
+    pick('Braves ML', '401907965', 'baseball/mlb', 'Philadelphia Phillies', 'Atlanta Braves', '2026-09-29T23:15Z', '-125', '5u', 'home'),
+    SEP29['picks'][1],
+    pick('Yordan Alvarez over 1.5 hits', '401907897', 'baseball/mlb', 'Chicago White Sox', 'Houston Astros', '2026-09-30T23:10Z',
+         '+270', '5u', 'over', 'prop', line=1.5, player='Yordan Alvarez', market='bat_hits')]}
 # the next morning's card already replaced manifest.json when the Oct 1 grades land
 LIVE = {'date': '2026-10-02', 'record': '21-11', 'units_pl': '+4.76u', 'picks': []}
 HIST = {'days': [{'date': '2026-09-30', 'label': 'Wednesday, Sep 30', 'record': '1-0', 'units': '+6.90u', 'brief': '',
@@ -105,7 +119,7 @@ def load():
     spec.loader.exec_module(m)
     return m
 
-def run(reqs, hist=HIST, done=DONE, live=LIVE, payload=None):
+def run(reqs, hist=HIST, done=DONE, live=LIVE, payload=None, snaps=None):
     tmp = tempfile.mkdtemp(prefix='rf_verify_')
     try:
         os.makedirs(os.path.join(tmp, 'manifests'))
@@ -113,6 +127,7 @@ def run(reqs, hist=HIST, done=DONE, live=LIVE, payload=None):
         files = {'manifest.json': live, 'history.json': hist, 'record_done.json': done,
                  'record_request.json': payload if payload is not None else {'requests': reqs},
                  'manifests/manifest-0c7101aaaaaa.json': OCT1, 'manifests/manifest-0929bbbbbbbb.json': SEP29}
+        files.update(snaps or {})
         for rel, obj in files.items():
             json.dump(obj, open(os.path.join(tmp, rel), 'w'), indent=2)
         rf = load()
@@ -175,6 +190,28 @@ check('CP-07 filed under 2026-10-01, not the live manifest date', [d['date'] for
       ['2026-09-30', '2026-10-01'])
 check('CP-07 day row label is the card date', (day(st, '2026-10-01') or {}).get('label'), 'Thursday, Oct 1')
 check('CP-07 manifest record + units move', (st['manifest.json']['record'], st['manifest.json']['units_pl']), ('22-11', '+7.85u'))
+
+# F1: a pick published on the Oct 1 card whose game starts after midnight PT belongs to the Oct 1 card
+D_KRAKEN = 5 * 100 / 140
+def kraken(**x):
+    return req('401891900|ml|home', '401891900', 'hockey/nhl', 'Kraken ML', 'home', 'WON', 'VAN 1 @ SEA 4', '-140', '5u',
+               D_KRAKEN, '22-11', U0 + D_KRAKEN, **x)
+code, st, err = run([kraken()])
+check('F1 after-midnight pick on the Oct 1 card lands', (code, err.strip()), (0, ''))
+check('F1 filed under the card date 2026-10-01, not its own game date', [d['date'] for d in st['history.json']['days']],
+      ['2026-09-30', '2026-10-01'])
+check('F1 row on the Oct 1 day', [(p['name'], p['result']) for p in (day(st, '2026-10-01') or {}).get('picks', [])], [('Kraken ML', 'W')])
+code, st, _ = run([kraken(card_date='2026-10-01', market_class='ml', line=None)])
+check('F1 request carrying the card date 2026-10-01 lands', code, 0)
+refused('F1 request dating it by its own game day (2026-10-02)', [kraken(card_date='2026-10-02')],
+        'not on any published card dated 2026-10-02')
+# the corrupted Sep 30 archive copy stays refused, by membership (its price agrees with itself here)
+refused('F1 row of the corrupted Sep 30 archive copy', [req('401907897|prop|yordanalvarez|bat_hits|over|1.5', '401907897', 'baseball/mlb',
+        'Yordan Alvarez over 1.5 hits', 'over', 'LOST', 'CHW 7 @ HOU 3', '+270', '5u', -5.0, '21-12', U0 - 5)],
+        'not on any published card', snaps={'manifests/manifest-388bdcec23a0.json': CORRUPT930})
+code, st, _ = run([yordan()], snaps={'manifests/manifest-388bdcec23a0.json': CORRUPT930})
+check('F1 the real Sep 29 card still grades its own pick beside the corrupted copy', (code, [d['date'] for d in st['history.json']['days']]),
+      (0, ['2026-09-29', '2026-09-30']))
 
 code, st, _ = run([devils(market_class='ml', line=None, card_date='2026-10-01'),
                    under(rec='22-12', ua=U0 + D_DEV - 6, market_class='total', line=38.5, card_date='2026-10-01')])

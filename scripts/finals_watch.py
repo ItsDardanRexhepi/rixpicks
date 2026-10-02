@@ -15,7 +15,6 @@ Usage: finals_watch.py [--dry-run]"""
 import json, os, re, sys, urllib.request
 sys.path.insert(0, '/home/sandbox/rix_tmp')
 from datetime import datetime, timezone, timedelta
-from zoneinfo import ZoneInfo
 from decimal import Decimal
 from core import record_pipe, units, budget, fill_leak
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -579,7 +578,7 @@ def load_seen():
     except Exception: return {}
 
 
-def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary, stamp):
+def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary, stamp, card_date=None):
     """Append the builder-consumed record write request (same cycle as the grade).
     This + the instant parent relay is the write path while the direct POST token is dead."""
     path = os.path.join(HERE, '..', 'record_request.json')
@@ -590,12 +589,10 @@ def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary
     g = p.get('game', {})
     # grade() returns W | L | PUSH; a push must travel as PUSH (record_final derives the result
     # from the verified final and refuses a push labeled LOST). market_class/line/card_date let
-    # record_final cross-check the request against the published card pick.
-    try:
-        card_date = (datetime.fromisoformat(str(g.get('commence')).replace('Z', '+00:00'))
-                     .astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat())
-    except ValueError:
-        card_date = None  # record_final derives it from the published card
+    # record_final cross-check the request against the published card pick. card_date is the date
+    # of the card the pick was graded from (the manifest's date), not the game's own PT date: a
+    # game starting after midnight PT still belongs to the card it was published on. None lets
+    # record_final derive it from the published card.
     d.setdefault('requests', []).append({
         'grade_id': pkey, 'event_id': eid, 'league': p.get('espn_league', ''),
         'pick': p.get('name', ''), 'side': p.get('side', ''),
@@ -760,7 +757,7 @@ def main():
             if res['chain'] != 'complete':
                 # direct POST dead/degraded: ledger row is appended (resumable), so queue
                 # the builder-consumed write + relay INSTANTLY, mark unverified, CONTINUE.
-                _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary, stamp)
+                _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary, stamp, card_date=m.get('date'))
                 seen[pkey] = {'unverified': True, 'relayed_at': stamp, 'result': result, 'record': rec,
                               'post_status': res.get('stages', {}).get('post')}
                 os.makedirs(os.path.dirname(STATE), exist_ok=True)

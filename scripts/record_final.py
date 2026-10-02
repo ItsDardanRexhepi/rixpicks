@@ -8,8 +8,9 @@ For each request, in order (any failure -> stop, exit 3, NO write at all; in-ord
 later finals wait for the next fire):
   1. CARD: the grade must belong to a pick on a published card - a manifests/ snapshot (every
      build leaves one) or the live manifest - matched on its grade key. The card date is the
-     pick's own game date (PT), the builder's card-date rule; the row is filed under it, never
-     under whatever date the manifest carries now.
+     builder's card-date rule (most common PT game date across the card's picks, which must equal
+     the snapshot's date); the row is filed under it, never under whatever date the manifest
+     carries now, and never under a late game's own date.
   2. INDEPENDENT verify against ESPN core (completed + scores match), and the result must follow
      from the verified score, side and line (ml/spread/total), from the ESPN box score (props),
      or from the winner flags (MMA). The request's own label is never taken on trust.
@@ -174,18 +175,31 @@ def _pt_date(iso):
         return None
     return dt.astimezone(PT).date().isoformat() if dt.tzinfo else None
 
+def card_date_of(snap):
+    """The builder's _card_date_of: a card's date is the most common PT game date across its picks
+    (so a game starting after midnight PT still belongs to the card it was published on)."""
+    from collections import Counter
+    ds = [_pt_date((p.get('game') or {}).get('commence')) for p in snap.get('picks') or [] if isinstance(p, dict)]
+    ds = [d for d in ds if d]
+    return Counter(ds).most_common(1)[0][0] if ds else None
+
 def card_pick(q):
     """(card_date, published card pick) this grade belongs to, else (None, reason).
-    The card date belongs to the CARD (builder _card_date_of): the pick's own game date in PT.
-    Only a card dated that day counts - an archive copy filed under another date (the Sep 30
-    snapshot carrying Sep 29's picks) is not the pick's card. Every build snapshots the manifest
-    it published into manifests/; the live manifest.json counts too."""
+    The card date belongs to the CARD (builder _card_date_of): the most common PT game date across
+    the snapshot's picks, and the snapshot counts only when its own date agrees - an archive copy
+    filed under another date (the Sep 30 snapshot carrying Sep 29's picks) is no card at all, so
+    nothing on it is graded. A pick is filed under its card's date, even when its own game starts
+    after midnight PT. Every build snapshots the manifest it published into manifests/; the live
+    manifest.json counts too."""
     mma = str(q.get('league') or '').startswith('mma/')
     found = {}
     for path in sorted(glob.glob(os.path.join(MANIFESTS, 'manifest-*.json'))) + [MAN]:
         try:
             snap = json.load(open(path))
         except (OSError, ValueError):
+            continue
+        day = card_date_of(snap)
+        if not day or snap.get('date') != day:
             continue
         for p in snap.get('picks') or []:
             if not isinstance(p, dict):
@@ -194,8 +208,7 @@ def card_pick(q):
                 hit = str(p.get('espn_league') or '').startswith('mma/') and p.get('name') == q.get('pick')
             else:
                 hit = card_key(p) == str(q.get('grade_id'))
-            day = _pt_date((p.get('game') or {}).get('commence'))
-            if hit and day and snap.get('date') == day:
+            if hit:
                 found.setdefault(day, []).append(p)
     if q.get('card_date') is not None:
         found = {d: v for d, v in found.items() if d == q['card_date']}
