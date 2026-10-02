@@ -16,6 +16,7 @@ on:
       - 'scripts/test_watchdog_diag.py'
       - 'scripts/futures_window.js'
       - 'scripts/test_futures_window.js'
+      - 'scripts/test_workflow_run_names.py'
   workflow_dispatch:
 jobs:
   parse:
@@ -35,6 +36,8 @@ jobs:
         run: node scripts/test_futures_window.js
       - name: "pages change-detect fixture"
         run: python3 scripts/test_pages_changed.py
+      - name: "workflow_run names resolve + failure hooks watch every site writer"
+        run: python3 scripts/test_workflow_run_names.py
       - name: "yaml parse gate + actionlint"
         run: |
           python3 - <<'EOF'
