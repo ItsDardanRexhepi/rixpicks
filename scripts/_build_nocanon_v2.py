@@ -515,17 +515,29 @@ _POSTED_LBL=_iso_lock_label(_POSTED_AT) if _POSTED_AT else ''
 _LOCK_KNOWN=bool((_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or _POSTED_LBL or _ct_lock)
 ENTRY_LOCK=(_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or _POSTED_LBL or _ct_lock or man.get('updated','')
 _ODDS_CHECKED=man.get('stamp_label')=='odds_checked'  # reconstructed/archive card: odds-check evidence only, no lock event - render "Odds checked <stamp>", never "locked" (main ruling Sep 27)
+def _own_card_ts(p):
+    # A pick's own first lock (build_manifest card_ts: ledger -> production manifest -> the build that
+    # carded it; never restamped). posted_at is the card's NEWEST card_ts, so a pick added later moves
+    # it past the earlier picks' locks (r3 review: Yankees carded 9:00 AM for a 1:05 PM first pitch read
+    # 'Posted 4:00 PM - after start' once Dodgers was added at 4:00 PM). '' when absent, unreadable or zoneless.
+    _ts=str(p.get('card_ts') or '')
+    return _ts if _iso_lock_label(_ts) else ''
 def _posted_after_start(p,posted=None):
     # posted: the posted_at of the card this pick belongs to (default: the building card's). A game
-    # page rebuilt from an earlier card's snapshot passes that card's own posted_at.
-    posted=_POSTED_AT if posted is None else posted
+    # page rebuilt from an earlier card's snapshot passes that card's own posted_at. A pick with its
+    # own card_ts is judged by that alone: after start only when it was carded at or after its start.
+    posted=_own_card_ts(p) or (_POSTED_AT if posted is None else posted)
     if not _iso_lock_label(posted): return False
     try:
         _gc=_dtc.datetime.fromisoformat(((p.get('game') or {}).get('commence') or '').replace('Z','+00:00'))
         return _gc.tzinfo is not None and _dtc.datetime.fromisoformat(posted.replace('Z','+00:00'))>=_gc
     except Exception: return False
 def _stamp_html(p,posted=None):
-    posted=_POSTED_AT if posted is None else posted
+    # Each pick is stamped from its OWN card_ts: 'after start' only when card_ts >= its own commence,
+    # else locked at card_ts. posted_at (the card's) stamps only a pick with no card_ts. The index row
+    # and the pick's game page read this same function (build_game_pages), so they never disagree.
+    _own=_own_card_ts(p)
+    posted=_own or (_POSTED_AT if posted is None else posted)
     if _posted_after_start(p,posted):
         # published after this game began: never a lock claim. Short, and on phones the separator
         # becomes a line break (CSS .lkbr): the old 'Posted Oct 2, 12:30 PM PT - after start' sat
@@ -534,6 +546,8 @@ def _stamp_html(p,posted=None):
         return 'Posted '+html.escape(_ptime)+'<span class="lkbr"> &middot; </span>after start'
     if _ODDS_CHECKED:
         return 'Odds checked '+html.escape(ENTRY_LOCK)
+    if _own:
+        return html.escape(_iso_lock_label(_own).split(', ')[-1].replace(' PT',''))+' &middot; locked'
     if not (p.get('locked') or _LOCK_KNOWN):
         return ''  # no lock provenance (no pin, entry_locked, posted_at or card_ts): no lock time is claimed
     return html.escape((p.get('locked') or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))+' &middot; locked'
@@ -3012,9 +3026,16 @@ def build_game_pages(man, css, build_sha):
     # rebuild from the last card's snapshot, whose posted_at says which of its games began first;
     # the building card's posted_at never stamps another card's picks
     _gposted=str(man.get('posted_at') or '')
+    _gposted_lbl=_iso_lock_label(_gposted) if _gposted else ''
+    # the building card's own game pages wear exactly the index stamp (same function, same inputs);
+    # a page rebuilt from an earlier card's snapshot reads that card's posted_at and card_ts
+    _same_card=man is globals().get('man')
     def _game_stamp(p):
-        if _ODDS_CHECKED or _posted_after_start(p,_gposted) or not (p.get('locked') or _glock or _LOCK_KNOWN): return _stamp_html(p,_gposted)  # same honesty rules as the index stamp
-        return html.escape((p.get('locked') or _glock or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))+' &middot; locked'
+        if _same_card: return _stamp_html(p)
+        # a pick with its own card_ts is stamped from it alone (after start, or locked at card_ts)
+        if _own_card_ts(p) or _ODDS_CHECKED or _posted_after_start(p,_gposted) or not (p.get('locked') or _gposted_lbl or _glock or _LOCK_KNOWN): return _stamp_html(p,_gposted)  # same honesty rules as the index stamp
+        # no card_ts: its card's posted_at, before the card's earliest card_ts (another pick's lock)
+        return html.escape((p.get('locked') or _gposted_lbl or _glock or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))+' &middot; locked'
     "Per-game live-market pages (user, Sep 25 12:11 PM)."
     tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'game_page_template.html')).read()
     pages={}

@@ -18,7 +18,11 @@ feed lookup fails fast, nothing leaves the machine), and checks the built index.
   is longer than the '12:30 PM · locked' stamp that fits at 320px. A game page reads ITS OWN
   card's posted_at: after the PT day rolls to an empty card, the last card's game pages (rebuilt
   from its manifests/ snapshot) keep 'after start' for a game that began before that card was
-  posted, and an empty card's own posted_at never stamps them.
+  posted, and an empty card's own posted_at never stamps them. Each pick is stamped from its OWN
+  card_ts (r3 review: a pick added later moved posted_at, so the earlier Yankees pick read 'Posted
+  4:00 PM - after start' and the added Dodgers pick's game page read the card's earliest 9:00 AM): after
+  start only when card_ts >= its own commence, else locked at card_ts, the same on the index and its
+  game page; posted_at stamps only a pick with no card_ts.
 - W/L percent: the baked nav and popover values use the client's half-up rule (21-11 = 65.63%).
 - Date roll (Oct 2 review): the .rpdate header carries the card's ISO date (data-date: manifest date,
   else the builder's _card_date_of), which rpDateRoll compares with today's PT date.
@@ -238,6 +242,50 @@ for B in BUILDERS:
     got = [gstamp('game-1.html'), gstamp('game-2.html')]
     check(f'{tag}: rolled day: an empty card\'s posted_at never stamps the last card\'s game pages (got {got})',
           got == ['8:00 AM &middot; locked', '8:00 AM &middot; locked'])
+    # r3 review: on the last card's snapshot too, a pick is stamped from its own card_ts (Devils carded
+    # 8:00 AM, before its 4 PM start, though the card was last posted at 5:30 PM), and a pick with no
+    # card_ts from its card's posted_at - never from another pick's earlier card_ts
+    ACE_NOTS = {k: v for k, v in ACE_E.items() if k != 'card_ts'}
+    seed3 = dict(seed, **{'manifests/manifest-2099-10-01.json': json.dumps(card([dict(DEV_E, card_ts='2099-10-01T08:00:00-07:00'), ACE_NOTS],
+                                                                                posted_at='2099-10-02T00:30:00Z'))})
+    rc, page, log = build(B, card([], date='2099-10-02', date_label='Friday, Oct 2'), FRESH, seed=seed3)
+    got = [gstamp('game-1.html'), gstamp('game-2.html')]
+    check(f'{tag}: rolled day: the snapshot\'s picks read their own card_ts, else its posted_at (got {got})',
+          got == ['8:00 AM &middot; locked', '5:30 PM &middot; locked'])
+
+    # 6. a pick added to the card later (r3 review, shapes-1/addpick): each pick is stamped from its OWN
+    #    card_ts, never the card's posted_at (the newest card_ts) or its earliest card_ts. Yankees ML was
+    #    carded at 9:00 AM PT for a 1:05 PM first pitch and Dodgers ML added at 4:00 PM PT; posted_at is
+    #    4:00 PM. Rays ML was added at 4:00 PM for a game that began at 1:10 PM: after start.
+    YANKS = dict(SOX, num=1, name='Yankees ML', sub='BOS @ NYY', side='home', odds='-150', card_ts='2099-10-01T09:00:00-07:00',
+                 game={'away': 'Boston Red Sox', 'home': 'New York Yankees', 'commence': '2099-10-01T20:05Z', 'eid': '401990201'})
+    DODG = dict(SOX, num=2, name='Dodgers ML', sub='SD @ LAD', side='home', odds='-140', card_ts='2099-10-01T16:00:00-07:00',
+                game={'away': 'San Diego Padres', 'home': 'Los Angeles Dodgers', 'commence': '2099-10-02T02:10Z', 'eid': '401990202'})
+    RAYS = dict(SOX, num=3, name='Rays ML', sub='TB @ TOR', side='away', odds='+120', card_ts='2099-10-01T16:00:00-07:00',
+                game={'away': 'Tampa Bay Rays', 'home': 'Toronto Blue Jays', 'commence': '2099-10-01T20:10Z', 'eid': '401990203'})
+    ADD = [ml_entry('Boston Red Sox', 'New York Yankees', '2099-10-01T20:05Z', -150, 130, 'ML_NYY'),
+           ml_entry('San Diego Padres', 'Los Angeles Dodgers', '2099-10-02T02:10Z', -140, 120, 'ML_LAD'),
+           ml_entry('Tampa Bay Rays', 'Toronto Blue Jays', '2099-10-01T20:10Z', -140, 120, 'ML_TB')]
+    def gp_stamp(away):  # the game page carrying this game (pages are numbered in card display order)
+        gp = next((h for h in GAME_PAGES.values() if re.search(r'<div class="pick"[^>]*data-away="%s"' % re.escape(away), h)), '')
+        m = re.search(r'class="oddslock">(.*?)</span></div>', gp)
+        return re.sub(r'<[^>]+>', '', m.group(1)) if m else None
+    rc, page, log = build(B, card([YANKS, DODG, RAYS], posted_at='2099-10-01T23:00:00Z'), ADD)
+    ist = {a: (lambda m: re.sub(r'<[^>]+>', '', m.group(1)) if m else None)(re.search(r'class="oddslock">(.*?)</span></a>', row(page, a)))
+           for a in ('Boston Red Sox', 'San Diego Padres', 'Tampa Bay Rays')}
+    gst = [gp_stamp(a) for a in ('Boston Red Sox', 'San Diego Padres', 'Tampa Bay Rays')]
+    want = ['9:00 AM &middot; locked', '4:00 PM &middot; locked', 'Posted 4:00 PM &middot; after start']
+    check(f'{tag}: added pick: each index stamp is its own card_ts (got {list(ist.values())})', rc == 0 and list(ist.values()) == want)
+    check(f'{tag}: added pick: each game page stamp is its own card_ts, the same as the index (got {gst})', gst == want)
+    # a card with no card_ts on any pick still reads posted_at (section 2), and a pick with no card_ts on
+    # a card whose other picks carry one reads posted_at too
+    NOTS = {k: v for k, v in RAYS.items() if k != 'card_ts'}
+    rc, page, log = build(B, card([YANKS, NOTS], posted_at='2099-10-01T23:00:00Z'), ADD)
+    ist = [(lambda m: re.sub(r'<[^>]+>', '', m.group(1)) if m else None)(re.search(r'class="oddslock">(.*?)</span></a>', row(page, a)))
+           for a in ('Boston Red Sox', 'Tampa Bay Rays')]
+    gst = [gp_stamp(a) for a in ('Boston Red Sox', 'Tampa Bay Rays')]
+    check(f'{tag}: a pick with no card_ts reads the card\'s posted_at, on the index and its game page (got {ist}, {gst})',
+          ist == gst == ['9:00 AM &middot; locked', 'Posted 4:00 PM &middot; after start'])
 
     # DI-18: a manifest stamped before the polymarket-cents exclusion still verifies; a mismatch still fails closed
     hf = None
