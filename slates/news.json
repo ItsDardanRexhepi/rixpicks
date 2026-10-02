@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-02T20:21:07.677Z",
+ "generated_at": "2026-10-02T20:25:58.033Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -97,7 +97,7 @@
    {
     "headline": "49ers owner York suspended six games, fined $500,000 for personal conduct violation",
     "link": "https://www.espn.com/nfl/story/_/id/50085721/49ers-owner-jed-york-suspended-six-games-fined-500k-nfl",
-    "published": "2026-10-02T20:36:51.000Z",
+    "published": "2026-10-02T21:18:28.000Z",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0825%252Fr1706628_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "49ers owner Jed York has been suspended for six games and fined $500,000 for violating the NFL's personal conduct policy stemming from his August arrest after he tried to engage in prostitution in Ohio.",
     "source": "ESPN",
@@ -124,7 +124,7 @@
    {
     "headline": "Rams DT Donald out, WR Nacua returns against Eagles",
     "link": "https://www.espn.com/nfl/story/_/id/50085994/aaron-donald-puka-nacua-play-rams-game-vs-eagles",
-    "published": "2026-10-02T20:36:51.000Z",
+    "published": "2026-10-02T21:18:28.000Z",
     "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0831%252Fr1709564_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Rams defensive tackle Aaron Donald will not play against the Eagles as he deals with back soreness, while wide receiver Puka Nacua will return from a hip injury after missing the past two games.",
     "source": "ESPN",
@@ -149,11 +149,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Commanders' Daniels again ruled out; Mariota to start vs. Colts",
-    "link": "https://www.espn.com/nfl/story/_/id/50084552/commanders-qb-jayden-daniels-elbow-ruled-vs-colts",
-    "published": "2026-10-02T20:36:51.000Z",
+    "headline": "Vikings' Jefferson to sit vs. Dolphins, hoping to return in Week 5",
+    "link": "https://www.espn.com/nfl/story/_/id/50086081/vikings-justin-jefferson-vs-dolphins-ankle-injury",
+    "published": "2026-10-02T21:18:28.000Z",
     "image": "",
-    "blurb": "Commanders QB Jayden Daniels was ruled out of Sunday's game vs. the Colts, causing him to miss a second consecutive game because of a dislocated left elbow.",
+    "blurb": "Vikings WR Justin Jefferson won't play against the Dolphins because of a sprained left ankle, but coach Kevin O'Connell is hopeful he can return in Week 5 vs. the Saints.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -176,16 +176,25 @@
     "league": "NFL"
    },
    {
-    "headline": "Ravens' Hendrickson has surgery on finger, out vs. Titans",
-    "link": "https://www.espn.com/nfl/story/_/id/50085727/ravens-trey-hendrickson-surgery-finger-vs-titans",
-    "published": "2026-10-02T20:36:51.000Z",
+    "headline": "Eagles WR Smith out vs. Rams due to lingering hamstring injury",
+    "link": "https://www.espn.com/nfl/story/_/id/50086150/eagles-devonta-smith-vs-rams-hamstring-injury",
+    "published": "2026-10-02T21:18:28.000Z",
     "image": "",
-    "blurb": "The Ravens will be without top pass rusher Trey Hendrickson against the Titans on Sunday after the outside linebacker had surgery for a broken finger.",
+    "blurb": "Eagles WR DeVonta Smith will miss Sunday's game due to a lingering hamstring injury and will be joined on the sideline by linebacker Zack Baun (concussion).",
     "source": "ESPN",
     "league": "NFL"
    }
   ],
   "football/college-football": [
+   {
+    "headline": "Jeff Lebby details No. 16 Mississippi State's success this season",
+    "link": "https://www.espn.com/video/clip/_/id/50086163/jeff-lebby-details-no-16-mississippi-state-success-season",
+    "published": "2026-10-02T20:11:06Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F1002%2Fdm_261002_SEC_NCF_Interview_Lebby_MSST_PFS_261002%2Fdm_261002_SEC_NCF_Interview_Lebby_MSST_PFS_261002.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Lebby joins The Paul Finebaum Show and explains what has led to the 4-0 start for the Bulldogs as they are set to host No. 7 Alabama.",
+    "league": "CFB"
+   },
    {
     "headline": "Syracuse vs. UConn football: TV info, keys to the game, behind the numbers",
     "link": "https://sports.yahoo.com/articles/syracuse-vs-uconn-football-tv-200812955.html",
@@ -265,15 +274,6 @@
     "image": "",
     "blurb": "Kamario Taylor and MSU will face their biggest test yet. Plus: teams on upset watch and other games to watch.",
     "source": "ESPN",
-    "league": "CFB"
-   },
-   {
-    "headline": "Loghan Thomas In Beast Mode Might Be Notre Dame\u2019s Biggest 2026 Surprise",
-    "link": "https://sports.yahoo.com/articles/loghan-thomas-beast-mode-might-195717901.html",
-    "published": "2026-10-02T19:57:17.000Z",
-    "image": "",
-    "blurb": "Loghan Thomas has impressed Notre Dame Fighting Irish football fans in his 65 snaps during the 2026 season, but One Foot Down readers would still be very surprised if he supplants Boubacar Traore or Bryce Young in sacks this year. Thomas has two sacks and two hurries in the Irish",
-    "source": "YAHOO",
     "league": "CFB"
    }
   ],
@@ -463,21 +463,21 @@
   ],
   "hockey/nhl": [
    {
+    "headline": "Game #1: Ducks vs. Golden Knights Gameday Preview (10/02/26)",
+    "link": "https://sports.yahoo.com/articles/game-1-ducks-vs-golden-195738134.html",
+    "published": "2026-10-02T19:57:38.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/df438ad9c1e840cfef5fcae3fa92032f70c75c923e46b4379d7ae9a921a13c18/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_anaheim_ducks_articles_460%2Fc06e37f12a0e7171634497d1d5e2fcf5.jpg",
+    "blurb": "The Hockey News' Derek Lee previews the Anaheim Ducks' matchup against the Vegas Golden Knights.",
+    "source": "YAHOO",
+    "league": "NHL"
+   },
+   {
     "headline": "Today's top games to watch, best bets, odds: Penn State at Northwestern, Pitt at Virginia Tech, NHL and more",
     "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-penn-state-at-northwestern-pitt-at-virginia-tech-nhl-and-more/",
     "published": "2026-10-02T19:31:38.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F84982ac6-94e3-4345-9e95-77901c13a5af%2Fjames-peoples-penn-state.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Find best bets and props for the biggest games in sports on Friday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
-    "league": "NHL"
-   },
-   {
-    "headline": "Two Canadiens In Celebrini\u2019s Top-5 Players Under 23 Years Old",
-    "link": "https://sports.yahoo.com/articles/two-canadiens-celebrini-top-5-193028856.html",
-    "published": "2026-10-02T19:30:28.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/711f02cf365a3111de3d9d77d0527923d27566b8e1d6cb9f662c73a2b0b07568/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_montreal_canadiens_articles_443%2F3b9345328cf90a4dbcea26d45a77316e.jpg",
-    "blurb": "A few young Montreal Canadiens players received very high praise from high places this week. Find out which ones and why right here.",
-    "source": "YAHOO",
     "league": "NHL"
    },
    {
@@ -490,21 +490,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Two Canadiens In Celebrini\u2019s Top-5 Players Under 23 Years Old",
+    "link": "https://sports.yahoo.com/articles/two-canadiens-celebrini-top-5-193028856.html",
+    "published": "2026-10-02T19:30:28.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/711f02cf365a3111de3d9d77d0527923d27566b8e1d6cb9f662c73a2b0b07568/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_montreal_canadiens_articles_443%2F3b9345328cf90a4dbcea26d45a77316e.jpg",
+    "blurb": "A few young Montreal Canadiens players received very high praise from high places this week. Find out which ones and why right here.",
+    "source": "YAHOO",
+    "league": "NHL"
+   },
+   {
     "headline": "Today's top games to watch, best bets, odds: Braves-Phillies Game 3, Steelers at Browns and more",
     "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-braves-phillies-game-3-steelers-at-browns-and-more/",
     "published": "2026-10-01T19:33:00.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F41850823-b7af-46d8-9ac7-cf122bede80a%2F2026-09-30t211431z-1311658691-mt1usatoday29961160-rtrmadp-3-mlb-wildcard-philadelphia-phillies-at-atlanta-braves-jpg.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Find best bets and props for the biggest games in sports on Thursday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
-    "league": "NHL"
-   },
-   {
-    "headline": "Avalanche Set to Face Familiar Foe in Fiery Ball Arena Showdown",
-    "link": "https://sports.yahoo.com/articles/avalanche-set-face-familiar-foe-192809688.html",
-    "published": "2026-10-02T19:28:09.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/cbbc3a048d6c3ed4b2bfd968195665dc3cbf81d919a4b99fc8fd6639bbb59fec/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_colorado_avalanche_articles_301%2F3651abd2207e6537ccc32b2cb0ea41f5.jpg",
-    "blurb": "The Avalanche are coming off an eight-goal opener, but Saturday brings a familiar rival and plenty of history to Ball Arena.",
-    "source": "YAHOO",
     "league": "NHL"
    },
    {
@@ -517,21 +517,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Avalanche Set to Face Familiar Foe in Fiery Ball Arena Showdown",
+    "link": "https://sports.yahoo.com/articles/avalanche-set-face-familiar-foe-192809688.html",
+    "published": "2026-10-02T19:28:09.000Z",
+    "image": "",
+    "blurb": "The Avalanche are coming off an eight-goal opener, but Saturday brings a familiar rival and plenty of history to Ball Arena.",
+    "source": "YAHOO",
+    "league": "NHL"
+   },
+   {
     "headline": "Today's top games to watch, best bets, odds: Cubs vs. Padres, Red Sox vs. Yankees and more",
     "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-cubs-vs-padres-red-sox-vs-yankees-and-more/",
     "published": "2026-09-30T19:30:55.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F03%2F12%2F9251d0a1-f57c-4470-8840-ab4acf704da8%2Fnick-pivetta.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Find best bets for the biggest games in sports on Wednesday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
-    "league": "NHL"
-   },
-   {
-    "headline": "'He'll Remember That One': Luca Cagnoni Scores Unforgettable First NHL Goal",
-    "link": "https://sports.yahoo.com/articles/hell-remember-one-luca-cagnoni-191521280.html",
-    "published": "2026-10-02T19:15:21.000Z",
-    "image": "",
-    "blurb": "While every player's first career NHL goal is memorable in its own way, some are undoubtedly more memorable than others. Luca Cagnoni's first career goal may be one that San Jose Sharks fans never forget.",
-    "source": "YAHOO",
     "league": "NHL"
    },
    {
@@ -544,12 +544,12 @@
     "league": "NHL"
    },
    {
-    "headline": "NHL Power Rankings: Avalanche, Panthers enter new season with Stanley Cup aspirations",
-    "link": "https://www.cbssports.com/nhl/news/nhl-power-rankings-avalanche-panthers-stanley-cup-final/",
-    "published": "2026-09-30T14:16:46.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2Fd20444ab-7d59-4e78-9f0b-737636c4bdd1%2Fnathan-mackinnon-avs-power-rankings-september-2026.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Avs and Panthers face the most pressure entering the 2026-27 season",
-    "source": "CBS",
+    "headline": "'He'll Remember That One': Luca Cagnoni Scores Unforgettable First NHL Goal",
+    "link": "https://sports.yahoo.com/articles/hell-remember-one-luca-cagnoni-191521280.html",
+    "published": "2026-10-02T19:15:21.000Z",
+    "image": "",
+    "blurb": "While every player's first career NHL goal is memorable in its own way, some are undoubtedly more memorable than others. Luca Cagnoni's first career goal may be one that San Jose Sharks fans never forget.",
+    "source": "YAHOO",
     "league": "NHL"
    }
   ],
@@ -1087,6 +1087,24 @@
  },
  "latest": [
   {
+   "headline": "49ers owner York suspended six games, fined $500,000 for personal conduct violation",
+   "link": "https://www.espn.com/nfl/story/_/id/50085721/49ers-owner-jed-york-suspended-six-games-fined-500k-nfl",
+   "published": "2026-10-02T21:18:28.000Z",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0825%252Fr1706628_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "49ers owner Jed York has been suspended for six games and fined $500,000 for violating the NFL's personal conduct policy stemming from his August arrest after he tried to engage in prostitution in Ohio.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
+   "headline": "Rams DT Donald out, WR Nacua returns against Eagles",
+   "link": "https://www.espn.com/nfl/story/_/id/50085994/aaron-donald-puka-nacua-play-rams-game-vs-eagles",
+   "published": "2026-10-02T21:18:28.000Z",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0831%252Fr1709564_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Rams defensive tackle Aaron Donald will not play against the Eagles as he deals with back soreness, while wide receiver Puka Nacua will return from a hip injury after missing the past two games.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
    "headline": "Draft guide: All you need to win your league this season",
    "link": "https://www.espn.com/fantasy/basketball/story/_/id/50075156/fantasy-basketball-draft-guide-rankings-mock-drafts-sleepers-projections-analysis",
    "published": "2026-10-02T20:41:06.000Z",
@@ -1105,24 +1123,6 @@
    "league": "NBA"
   },
   {
-   "headline": "49ers owner York suspended six games, fined $500,000 for personal conduct violation",
-   "link": "https://www.espn.com/nfl/story/_/id/50085721/49ers-owner-jed-york-suspended-six-games-fined-500k-nfl",
-   "published": "2026-10-02T20:36:51.000Z",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0825%252Fr1706628_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "49ers owner Jed York has been suspended for six games and fined $500,000 for violating the NFL's personal conduct policy stemming from his August arrest after he tried to engage in prostitution in Ohio.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Rams DT Donald out, WR Nacua returns against Eagles",
-   "link": "https://www.espn.com/nfl/story/_/id/50085994/aaron-donald-puka-nacua-play-rams-game-vs-eagles",
-   "published": "2026-10-02T20:36:51.000Z",
-   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0831%252Fr1709564_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Rams defensive tackle Aaron Donald will not play against the Eagles as he deals with back soreness, while wide receiver Puka Nacua will return from a hip injury after missing the past two games.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
    "headline": "Bryan Cook, Dalton Risner listed as questionable for Bengals",
    "link": "https://sports.yahoo.com/articles/bryan-cook-dalton-risner-listed-201134683.html",
    "published": "2026-10-02T20:11:34.000Z",
@@ -1139,6 +1139,15 @@
    "blurb": "LOS ANGELES \u2014 The Dodgers will have a familiar face and voice on the field before Saturday\u2019s opener of the National League Division Series at Dodger Stadium, as Keith Williams Jr. is slated to sing the national anthem before Game 1 against the Atlanta Braves. It\u2019s the 14th postse",
    "source": "YAHOO",
    "league": "MLB"
+  },
+  {
+   "headline": "Jeff Lebby details No. 16 Mississippi State's success this season",
+   "link": "https://www.espn.com/video/clip/_/id/50086163/jeff-lebby-details-no-16-mississippi-state-success-season",
+   "published": "2026-10-02T20:11:06Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F1002%2Fdm_261002_SEC_NCF_Interview_Lebby_MSST_PFS_261002%2Fdm_261002_SEC_NCF_Interview_Lebby_MSST_PFS_261002.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Lebby joins The Paul Finebaum Show and explains what has led to the 4-0 start for the Bulldogs as they are set to host No. 7 Alabama.",
+   "league": "CFB"
   },
   {
    "headline": "Rams' Aaron Donald to miss Week 4 game vs. Eagles, Puka Nacua's status updated",
@@ -1204,6 +1213,15 @@
    "league": "MLB"
   },
   {
+   "headline": "Game #1: Ducks vs. Golden Knights Gameday Preview (10/02/26)",
+   "link": "https://sports.yahoo.com/articles/game-1-ducks-vs-golden-195738134.html",
+   "published": "2026-10-02T19:57:38.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/df438ad9c1e840cfef5fcae3fa92032f70c75c923e46b4379d7ae9a921a13c18/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_anaheim_ducks_articles_460%2Fc06e37f12a0e7171634497d1d5e2fcf5.jpg",
+   "blurb": "The Hockey News' Derek Lee previews the Anaheim Ducks' matchup against the Vegas Golden Knights.",
+   "source": "YAHOO",
+   "league": "NHL"
+  },
+  {
    "headline": "UFC 332 full card predictions: Nat\u00e1lia Silva or Wang Cong \u2014 who becomes the new flyweight champ?",
    "link": "https://sports.yahoo.com/mma/article/ufc-332-full-card-predictions-natalia-silva-or-wang-cong-who-becomes-the-new-flyweight-champ-195521618.html",
    "published": "2026-10-02T19:55:21.000Z",
@@ -1265,15 +1283,6 @@
    "blurb": "Whoever owns the new Las Vegas team will build a new arena, which will take time.",
    "source": "YAHOO",
    "league": "NBA"
-  },
-  {
-   "headline": "Avalanche Set to Face Familiar Foe in Fiery Ball Arena Showdown",
-   "link": "https://sports.yahoo.com/articles/avalanche-set-face-familiar-foe-192809688.html",
-   "published": "2026-10-02T19:28:09.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/cbbc3a048d6c3ed4b2bfd968195665dc3cbf81d919a4b99fc8fd6639bbb59fec/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_colorado_avalanche_articles_301%2F3651abd2207e6537ccc32b2cb0ea41f5.jpg",
-   "blurb": "The Avalanche are coming off an eight-goal opener, but Saturday brings a familiar rival and plenty of history to Ball Arena.",
-   "source": "YAHOO",
-   "league": "NHL"
   },
   {
    "headline": "Bryson DeChambeau Left Speechless as YouTube Golfer Defeats Him in the $100,000 Challenge",
@@ -1436,21 +1445,12 @@
    "blurb": "NASCAR's Mike Forde says changes to the rainout qualifying formula are likely after the season. He said NASCAR won't change rules in the middle of the Chase.",
    "source": "YAHOO",
    "league": "NASCAR"
-  },
-  {
-   "headline": "Saban fires up Iowa crowd with early prediction vs. Ohio State",
-   "link": "https://www.espn.com/video/clip/_/id/50085381/saban-fires-iowa-crowd-early-prediction-vs-ohio-state",
-   "published": "2026-10-02T17:07:33Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F1002%2Fss_20261002_124523181_3681714773%2Fss_20261002_124523181_3681714773.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Saban fires up Iowa crowd with early prediction vs. Ohio State",
-   "league": "CFB"
   }
  ],
  "source_mix": {
-  "ESPN": 51,
+  "ESPN": 52,
   "YAHOO": 66,
-  "CBS": 40
+  "CBS": 39
  },
  "degraded_sources": []
 }
