@@ -1857,9 +1857,27 @@ def _hist_yesterday(today=None):
         return _rec + ' \u00b7 ' + ' \u00b7 '.join(str(p.get('name','')).strip() + ' ' + str(p.get('result','')).strip() for p in _d['picks'] if p.get('name') and p.get('result'))
     except Exception:
         return None
+def _yesterday_href(today=None):
+    # The Home Yesterday line links to yesterday.html only while that page shows the day the line
+    # describes. yesterday.html is rebuilt by record-final alone, so after PT midnight, and on a day
+    # with no graded picks, it still shows an older day: the line then links to the full record.
+    try:
+        import html as _hy_html
+        from zoneinfo import ZoneInfo as _ZI2
+        _td = today or _dtc.datetime.now(_ZI2('America/Los_Angeles')).date().isoformat()
+        _yd = (_dtc.date.fromisoformat(_td) - _dtc.timedelta(days=1)).isoformat()
+        _base = os.path.dirname(os.path.abspath(sys.argv[1]))
+        _days = json.load(open(os.path.join(_base, 'history.json'))).get('days') or []
+        _d = next((x for x in _days if x.get('date') == _yd), None)
+        if _d and _d.get('picks') and _d.get('label'):
+            if ('Yesterday - ' + _hy_html.escape(str(_d['label']))) in open(os.path.join(_base, 'yesterday.html')).read():
+                return 'yesterday.html'
+    except Exception:
+        pass
+    return 'record.html'
 _hy = _hist_yesterday()
 _mstale = str(man.get('date') or '') < _dtc.datetime.now(__import__('zoneinfo').ZoneInfo('America/Los_Angeles')).date().isoformat()
-_home_yes=(('<a class="yesrec home-yes" href="yesterday.html">Yesterday: '+html.escape(str(_hy or man['yesterday']))+'</a>') if (_hy or man.get('yesterday')) else '')  # owner 3:02: Yesterday record sits ABOVE today's date on home; K18: computed from history.json at build time
+_home_yes=(('<a class="yesrec home-yes" href="'+_yesterday_href()+'">Yesterday: '+html.escape(str(_hy or man['yesterday']))+'</a>') if (_hy or man.get('yesterday')) else '')  # owner 3:02: Yesterday record sits ABOVE today's date on home; K18: computed from history.json at build time
 def _ystr_for(_tab):
     _s=None if _mstale else _YBL.get(_tab)  # K18: stale manifest = another day's results - hide
     return ('<a class="yesrec" href="yesterday.html" style="display:block;text-decoration:none;color:inherit">Yesterday: '+html.escape(_s)+'</a>') if _s else ''
