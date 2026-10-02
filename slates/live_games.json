@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-02T00:35:05.774686+00:00",
+ "generated_at": "2026-10-02T00:50:08.150278+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "PHI @ ATL",
      "commence": "2026-10-02T00:00Z",
      "status": "in",
-     "detail": "Bot 1st",
+     "detail": "Bot 2nd",
      "score": "PHI 0 - ATL 3"
     }
    ]
@@ -23,8 +23,8 @@
      "matchup": "PIT @ CLE",
      "commence": "2026-10-02T00:15Z",
      "status": "in",
-     "detail": "6:31 - 1st",
-     "score": "PIT 0 - CLE 0",
+     "detail": "1:21 - 1st",
+     "score": "PIT 7 - CLE 0",
      "away_to": 3,
      "home_to": 3
     }
@@ -38,10 +38,10 @@
      "matchup": "WKU @ NMSU",
      "commence": "2026-10-02T00:00Z",
      "status": "in",
-     "detail": "2:35 - 1st",
+     "detail": "12:13 - 2nd",
      "score": "WKU 3 - NMSU 6",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401862786",
@@ -74,8 +74,8 @@
      "matchup": "BUF @ CBJ",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "11:39 - 2nd",
-     "score": "BUF 2 - CBJ 4",
+     "detail": "2:28 - 2nd",
+     "score": "BUF 3 - CBJ 4",
      "away_to": null,
      "home_to": null
     },
@@ -84,8 +84,8 @@
      "matchup": "PHI @ NJ",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "3:54 - 2nd",
-     "score": "PHI 1 - NJ 0",
+     "detail": "End of 2nd",
+     "score": "PHI 1 - NJ 1",
      "away_to": null,
      "home_to": null
     },
@@ -94,7 +94,7 @@
      "matchup": "TB @ NYR",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "10:35 - 2nd",
+     "detail": "5:18 - 2nd",
      "score": "TB 1 - NYR 3",
      "away_to": null,
      "home_to": null
@@ -104,8 +104,8 @@
      "matchup": "MIN @ NSH",
      "commence": "2026-10-02T00:00Z",
      "status": "in",
-     "detail": "6:39 - 1st",
-     "score": "MIN 1 - NSH 0",
+     "detail": "0:04 - 1st",
+     "score": "MIN 2 - NSH 0",
      "away_to": null,
      "home_to": null
     },
