@@ -1,15 +1,16 @@
 #!/usr/bin/env node
-/* W/L % rounding parity fixture (Oct 1 sweep, LS-17 / DI-13).
-   The builder bakes the nav W/L % with Python '%.2f' (21-11 = 65.625 -> '65.62%'); the page's
-   navRec() then rewrote it with toFixed(2) -> '65.63%', so the figure changed on load. Python
-   rounds an exact binary tie to even, toFixed rounds it up. One rule everywhere: the page must
-   print the digits the builder bakes for every record.
-   Extracts the real rpFixed/navRec from scripts/index_v2.js (vm sandbox) and compares against
-   python3 '%.1f' / '%.2f' over every W-L record up to 120-120.
-   Run: node scripts/test_wl_pct_rounding.js */
+/* W/L % rounding parity fixture (Oct 1 sweep, LS-17 / DI-13 / OS-12).
+   The builder baked the nav W/L % with Python '%.2f' (21-11 = 65.625 -> '65.62%'); the page's
+   navRec() then rewrote it with toFixed(2) -> '65.63%', so the figure changed on load. One rule
+   everywhere: the builder now bakes with _pct_half_up (exact integer arithmetic, an exact tie
+   rounds up), and the page must print the digits the builder bakes for every record.
+   Extracts the real rpPct/navRec from scripts/index_v2.js (vm sandbox) and the real _pct_half_up
+   from scripts/build_gh_page_v2.py, and compares them over every W-L record up to 120-120.
+   Run: node scripts/test_wl_pct_rounding.js [index_v2.js] [build_gh_page_v2.py] */
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm'), { execFileSync } = require('child_process');
 const src = fs.readFileSync(process.argv[2] || path.join(__dirname, 'index_v2.js'), 'utf8');
+const builder = process.argv[3] || path.join(__dirname, 'build_gh_page_v2.py');
 
 let failures = 0;
 function check(label, got, want) {
@@ -28,42 +29,50 @@ function extract(name) {
   failures++; console.log('FAIL ' + name + ' balanced'); return '';
 }
 
-// navRec as the page runs it: #rpRec carries the canonical counts, #rpNavPct shows the percent
+// the builder's own formatter, every record up to 120-120 at 1 and 2 dp
+const N = 120;
+const py = JSON.parse(execFileSync('python3', ['-c', [
+  'import ast, json, sys, warnings',
+  'warnings.simplefilter("ignore")',
+  'src = open(sys.argv[1]).read()',
+  'ns = {}',
+  'for node in ast.parse(src).body:',
+  '    if isinstance(node, ast.FunctionDef) and node.name == "_pct_half_up":',
+  '        exec(compile(ast.Module(body=[node], type_ignores=[]), sys.argv[1], "exec"), ns)',
+  'fn = ns["_pct_half_up"]',
+  `print(json.dumps({"%d-%d" % (w, l): [fn(w, l, 1), fn(w, l, 2), "%.1f" % (100.0*w/(w+l)), "%.2f" % (100.0*w/(w+l))] for w in range(${N}+1) for l in range(${N}+1) if w + l}))`,
+].join('\n'), builder], { encoding: 'utf8', maxBuffer: 64 << 20 }));
+
+// navRec as the page runs it: #rpRec carries the canonical counts, #rpNavPct shows the baked percent
 const els = {
   rpRec: { dataset: { bw: '21', bl: '11' } }, rpUnits: { dataset: { bu: '+4.76' } },
   rpNavRecW: { textContent: '21' }, rpNavRecL: { textContent: '11' }, rpNavU: { textContent: '+4.76u' },
-  rpNavPct: { textContent: '65.62%' },   // what build_gh_page_v2.py bakes ('%.2f' % 65.625)
+  rpNavPct: { textContent: py['21-11'][1] + '%' },   // what build_gh_page_v2.py bakes
 };
 const ctx = vm.createContext({ Math, Number, String, parseInt, parseFloat, $: id => els[id] || null });
-vm.runInContext(extract('rpFixed') + '\n' + extract('navRec'), ctx);
+vm.runInContext(extract('rpPct') + '\n' + extract('navRec'), ctx);
+check('the builder bakes 21-11 as 65.63%', py['21-11'][1], '65.63');
 try { ctx.navRec(); } catch (e) { failures++; console.log('FAIL navRec runs: ' + e.message); }
-check('21-11 nav W/L keeps the baked 65.62% after load', els.rpNavPct.textContent, '65.62%');
+check('21-11 nav W/L keeps the baked 65.63% after load', els.rpNavPct.textContent, '65.63%');
 check('nav W/L-record mirror unchanged', [els.rpNavRecW.textContent, els.rpNavRecL.textContent], ['21', '11']);
 
-// full parity with the builder's Python formatting, same arithmetic (100.0*w/(w+l))
-const N = 120;
-const py = JSON.parse(execFileSync('python3', ['-c',
-  `import json\nN=${N}\nprint(json.dumps({'%d-%d'%(w,l):['%.1f'%(100.0*w/(w+l)),'%.2f'%(100.0*w/(w+l))] for w in range(N+1) for l in range(N+1) if w+l}))`],
-  { encoding: 'utf8', maxBuffer: 64 << 20 }));
 let bad1 = [], bad2 = [], ties = 0;
 for (const k of Object.keys(py)) {
-  const [w, l] = k.split('-').map(Number), x = 100 * w / (w + l);
-  if (x.toFixed(2) !== py[k][1] || x.toFixed(1) !== py[k][0]) ties++;
+  const [w, l] = k.split('-').map(Number);
+  if (py[k][0] !== py[k][2] || py[k][1] !== py[k][3]) ties++;
   let g1, g2;
-  try { g1 = ctx.rpFixed(x, 1); g2 = ctx.rpFixed(x, 2); } catch (e) { g1 = g2 = 'THROW'; }
+  try { g1 = ctx.rpPct(w, l, 1); g2 = ctx.rpPct(w, l, 2); } catch (e) { g1 = g2 = 'THROW'; }
   if (g1 !== py[k][0]) bad1.push(k + ' ' + g1 + '!=' + py[k][0]);
   if (g2 !== py[k][1]) bad2.push(k + ' ' + g2 + '!=' + py[k][1]);
 }
-check('grid holds exact-tie records where toFixed and Python differ', ties > 0, true);
-check(`rpFixed(x,2) == Python '%.2f' for every record to ${N}-${N}`, bad2.slice(0, 5), []);
-check(`rpFixed(x,1) == Python '%.1f' for every record to ${N}-${N}`, bad1.slice(0, 5), []);
-// doubles off the tie: toFixed already agrees with Python (0.025 is stored just above the tie)
-for (const [x, dp, want] of [[0.025, 2, '0.03'], [2.675, 2, '2.67'], [1.005, 2, '1.00'], [0.125, 2, '0.12'],
-  [0.375, 2, '0.38'], [2.5, 0, '2'], [3.5, 0, '4'], [12.25, 1, '12.2'], [12.75, 1, '12.8'], [100, 2, '100.00'], [0, 2, '0.00']]) {
-  let g; try { g = ctx.rpFixed(x, dp); } catch (e) { g = 'THROW'; }
-  check(`rpFixed(${x},${dp}) == Python '%.${dp}f'`, g, want);
+check("grid holds exact-tie records where Python '%.Nf' rounds to even", ties > 0, true);
+check(`rpPct(w,l,2) == builder _pct_half_up for every record to ${N}-${N}`, bad2.slice(0, 5), []);
+check(`rpPct(w,l,1) == builder _pct_half_up for every record to ${N}-${N}`, bad1.slice(0, 5), []);
+for (const [w, l, dp, want] of [[1, 15, 1, '6.3'], [21, 11, 1, '65.6'], [1, 0, 2, '100.00'], [0, 1, 2, '0.00'], [0, 0, 2, '']]) {
+  let g; try { g = ctx.rpPct(w, l, dp); } catch (e) { g = 'THROW'; }
+  check(`rpPct(${w},${l},${dp})`, g, want);
 }
-check('rpFixed exported for the record popover script', /window\.rpFixed=rpFixed;/.test(src), true);
+check('rpPct exported for the record popover script', /window\.rpPct=rpPct;/.test(src), true);
 
 if (failures) { console.error(failures + ' FAILURES'); process.exit(1); }
 console.log('W/L pct rounding parity fixture: ALL PASS');

@@ -114,22 +114,21 @@ if(navRecBtn&&recPop){
 var burger=$('burger');
 if(burger)burger.addEventListener('click',function(){document.body.classList.toggle('menu-open');});
 /* one rounding rule for W/L % (Oct 1, 21-11 read 65.62% baked, 65.63% after load): the builder
-   formats with Python '%.Nf', which rounds an exact binary tie to even (65.625 -> 65.62);
-   toFixed rounds that tie up. rpFixed gives Python's digits for every double: a tie only counts
-   when the double IS the decimal tie (its digits divide by 5^(dp+1)); otherwise toFixed agrees. */
-function rpFixed(x,dp){
- var s=x.toFixed(dp),t=x.toFixed(dp+1);
- if(t.charAt(t.length-1)!=='5'||Number(t)!==x)return s;
- if(Number(t.replace(/[-.]/g,''))%Math.pow(5,dp+1)!==0)return s;
- var lo=t.slice(0,-1).replace(/\.$/,'');
- return (+lo.charAt(lo.length-1))%2===0?lo:s;
+   bakes the percent with _pct_half_up (exact integer arithmetic, an exact tie rounds up, so
+   21-11 = 65.625 -> 65.63%); rpPct is the same arithmetic, so the baked figure holds after load
+   for every record. */
+function rpPct(w,l,dp){
+ var n=w+l;if(!(n>0))return '';
+ var sc=Math.pow(10,dp),p=200*sc*w+n,d=2*n,q=(p-p%d)/d;
+ var f=String(q%sc);while(f.length<dp)f='0'+f;
+ return String((q-q%sc)/sc)+(dp?'.'+f:'');
 }
-window.rpFixed=rpFixed; /* the record popover script (rpRecLive) formats W/L with the same rule */
+window.rpPct=rpPct; /* the record popover script (rpRecLive) formats W/L with the same rule */
 /* ---- nav record mirror (canonical values live on #rpRec/#rpUnits datasets) ---- */
 function navRec(){
  var r=$('rpRec'),u=$('rpUnits'),w=$('rpNavRecW'),l=$('rpNavRecL'),uu=$('rpNavU'),pc=$('rpNavPct');
  if(r&&w&&l){w.textContent=r.dataset.bw||'';l.textContent=r.dataset.bl||'';}
- if(r&&pc){var bw=parseInt(r.dataset.bw||'0',10),bl=parseInt(r.dataset.bl||'0',10);if(bw+bl>0)pc.textContent=rpFixed(100*bw/(bw+bl),2)+'%';}
+ if(r&&pc){var bw=parseInt(r.dataset.bw||'0',10),bl=parseInt(r.dataset.bl||'0',10);if(bw+bl>0)pc.textContent=rpPct(bw,bl,2)+'%';}
  if(u&&uu){var uv=parseFloat(u.dataset.bu||'0');uu.textContent=(uv>=0?'+':'')+uv.toFixed(2)+'u';}
 }
 navRec();
