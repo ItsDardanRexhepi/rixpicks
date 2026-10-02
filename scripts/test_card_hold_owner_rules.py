@@ -6,8 +6,12 @@ build_manifest.py refuses such a card, but a manifest.json can land another way 
 publish.yml, refresh.sh and record_final.yml build whatever card has landed. So the page builder (both twins)
 holds the CURRENT card - exit 3, the CARD HOLD path refresh.sh reports loudly, nothing written - when a pick is on
 or against a Las Vegas team (Raiders, Golden Knights, Aces, Athletics/A's, UNLV; a nickname counts only inside
-its own league, and the individual sports have no teams) or its units are off the J-096 ladder (5u, 10u, 15u,
-100u, written exactly so).
+its own league, and the individual sports have no teams), its units are off the J-096 ladder (5u, 10u, 15u,
+100u, written exactly so), or it breaks a numeric standing bar (rulings (1), (2), (4)): fair < 60c, card ask
+>= 85c, gross < 2c, net below the class bar, units over the J-096 rung of its fair, a card_american that is not
+the best ask of its recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from the
+pick's "model X" sub (or its best_ask), the card price from card_american; a pick whose fair/price cannot be read
+is left unchecked on the numeric bars.
  - An empty card builds, and so does the live manifest.json.
  - An earlier card's manifests/ snapshot, rebuilt for its game pages after the day rolls to an empty card, is
    not gated: those pages belong to a card already published.
@@ -58,10 +62,13 @@ BASE = {'date': '2099-10-04', 'date_label': 'Sunday, Oct 4', 'updated': 'Oct 4, 
         'units_pl': '+4.76u', 'units_ledger': None, 'yesterday': '', 'status_note': '', 'preview': False, 'parlay': None}
 LEAGUE = {'football/nfl': 'NFL', 'hockey/nhl': 'NHL', 'basketball/wnba': 'WNBA', 'baseball/mlb': 'MLB',
           'football/college-football': 'CFB', 'basketball/mens-college-basketball': 'NCAAB'}
-def pick(num, name, league, away, home, units='5u', side='home', eid=''):
-    return {'num': num, 'name': name, 'market_class': 'ml', 'sub': 'fixture - model 66.0', 'odds': '-150', 'units': units,
-            'side': side, 'game': {'away': away, 'home': home, 'commence': '2099-10-04T20:25Z', 'eid': eid},
-            'espn_league': league, 'league': LEAGUE[league], 'best_book': 'DraftKings'}
+def pick(num, name, league, away, home, units='5u', side='home', eid='', model=66.0, american=-150, **extra):
+    p = {'num': num, 'name': name, 'market_class': 'ml', 'sub': f'fixture - model {model:.1f}', 'odds': f'{american:+d}',
+         'card_american': american, 'units': units,
+         'side': side, 'game': {'away': away, 'home': home, 'commence': '2099-10-04T20:25Z', 'eid': eid},
+         'espn_league': league, 'league': LEAGUE[league], 'best_book': 'Kalshi', 'card_source': 'Kalshi ask at lock'}
+    p.update(extra)
+    return p
 def card(picks, **kw):
     m = copy.deepcopy(BASE); m['picks'] = copy.deepcopy(picks); m.update(kw); return m
 
@@ -101,9 +108,46 @@ for B in BUILDERS:
 
     rc, log, written, _ = build(B, card([pick(1, 'Red Raiders ML', 'football/college-football', 'Baylor Bears', 'Texas Tech Red Raiders'),
                                          pick(2, 'Purple Aces ML', 'basketball/mens-college-basketball', 'Murray State Racers', 'Evansville Purple Aces'),
-                                         pick(3, 'Rangers ML', 'baseball/mlb', 'Texas Rangers', 'Seattle Mariners', units='100u')]))
-    check(f'{tag}: Texas Tech Red Raiders (CFB) and Evansville Purple Aces (NCAAB) are no Vegas teams; 100u is on the ladder',
+                                         pick(3, 'Rangers ML', 'baseball/mlb', 'Texas Rangers', 'Seattle Mariners', units='100u', model=92.0)]))
+    check(f'{tag}: Texas Tech Red Raiders (CFB) and Evansville Purple Aces (NCAAB) are no Vegas teams; 100u (at its fair) is on the ladder',
           rc == 0 and 'index.html' in written, log[-300:])
+
+    # numeric standing bars on the CURRENT card (owner rulings 2026-10-02 (1), (2), (4)): the fair is read from
+    # each pick's "model X" sub, the card price from card_american. A clean numeric card builds; each bar held.
+    rc, log, written, _ = build(B, card([pick(1, 'Clean ML', 'hockey/nhl', 'A', 'B', model=66.0, american=-150)]))
+    check(f'{tag}: a clean numeric card builds', rc == 0 and 'index.html' in written, log[-300:])
+    NUM = [
+        ('fair 55c below the 60c band', pick(1, 'SubFair ML', 'hockey/nhl', 'A', 'B', model=55.0, american=-150), '60c card band'),
+        ('card ask 85c at the cut', pick(1, 'Fav ML', 'hockey/nhl', 'A', 'B', units='100u', model=96.0, american=-567), '85c cut'),
+        ('gross 1.0c below the 2c bar', pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=61.0, american=-150), 'gross'),
+        ('fair 66c carded at 10u (rung 5u)', pick(1, 'OffRung ML', 'hockey/nhl', 'A', 'B', units='10u', model=66.0, american=-150), 'J-096 rung'),
+    ]
+    for label, p, token in NUM:
+        rc, log, written, _ = build(B, card([p]))
+        check(f'{tag}: {label}: the card is held (exit 3), nothing written',
+              rc == 3 and 'BUILD FAILED' in log and token in log and written == [], (rc, log[-300:], written))
+    # spread net below the 2c bar: fair 63.5c against Kalshi 60c (-150) -> net 3.5 - fee(60)=1.68 = 1.82c
+    sp = pick(1, 'Home1 -1.5', 'hockey/nhl', 'A', 'B', model=63.5, american=-150)
+    sp['market_class'] = 'spread'; sp['line'] = -1.5
+    rc, log, written, _ = build(B, card([sp]))
+    check(f'{tag}: spread net below the 2c bar is held', rc == 3 and 'net' in log and written == [], (rc, log[-300:], written))
+    # card_american that is not the best ask of the recorded venues (DK -150 is 60c; card claims -130 = 56.5c)
+    ba = pick(1, 'BadAm ML', 'hockey/nhl', 'A', 'B', model=66.0, american=-130)
+    ba['best_ask'] = {'venue': 'dk', 'price': -150, 'read_at': '2099-10-04T14:51:00Z', 'cost_c': 60.0, 'fee_c': 0.0,
+                      'gross_c': 6.0, 'net_c': 6.0, 'compared': [{'venue': 'dk', 'price': -150, 'read_at': '2099-10-04T14:51:00Z'},
+                                                                 {'venue': 'kalshi', 'price': 61, 'read_at': '2099-10-04T14:51:00Z'}]}
+    ba['kalshi'] = {'cents': 61, 'team': 'B', 'ticker': 'KXFIX-1'}
+    rc, log, written, _ = build(B, card([ba]))
+    check(f'{tag}: a card_american that is not the best recorded ask is held', rc == 3 and 'best recorded ask' in log and written == [], (rc, log[-300:], written))
+    # a parlay failing the 2c/2c bar: two legs that clear on their own (fair 63c, net 1.32c) but combine to net 1.65c
+    l1 = pick(1, 'Leg1 ML', 'hockey/nhl', 'A1', 'B1', model=63.0, american=-150)
+    l2 = pick(2, 'Leg2 ML', 'hockey/nhl', 'A2', 'B2', model=63.0, american=-150)
+    rc, log, written, _ = build(B, card([l1, l2], parlay={'legs': ['Leg1 ML', 'Leg2 ML'], 'note': ''}))
+    check(f'{tag}: a parlay short of the 2c/2c bar is held', rc == 3 and 'parlay' in log and written == [], (rc, log[-300:], written))
+    # an over-length parlay (5 legs) is held
+    legs5 = [pick(i, f'P{i} ML', 'hockey/nhl', f'A{i}', f'B{i}', units='100u', model=92.0, american=-150) for i in range(1, 6)]
+    rc, log, written, _ = build(B, card(legs5, parlay={'legs': [p['name'] for p in legs5], 'note': ''}))
+    check(f'{tag}: an over-length parlay (5 legs) is held', rc == 3 and 'J-098' in log and written == [], (rc, log[-300:], written))
 
     rc, log, written, _ = build(B, card([], status_note='No official picks today'))
     check(f'{tag}: an empty card builds', rc == 0 and 'index.html' in written, log[-300:])

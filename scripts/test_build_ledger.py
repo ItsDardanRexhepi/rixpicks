@@ -7,9 +7,12 @@ ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 tmp=tempfile.mkdtemp()
 prod_ledger=f'{tmp}/picks.jsonl'
 MAN=f'{tmp}/manifest.json'  # stable production manifest path for this test
+# model 66.0 (fair) so the 5u rung and every bar clear with room: the owner-rules gate recomputes gross/net from
+# the card price now, so the fair must carry the size after the recompute (owner ruling 2026-10-02 (1)/(4)).
 CAND=[{'num':1,'name':'Test ML','side':'home','away':'AAA','home':'BBB','commence':'2026-09-28T00:00Z',
  'eid':999001,'espn_league':'MLB','units':'5u','date':'2026-09-28',
- 'kalshi':{'cents':57,'team':'BBB','ticker':'KXT-BBB'},'model':60.7,'gross_c':3.7,'net_c':2.0,'market_class':'ml'}]
+ 'kalshi':{'cents':57,'team':'BBB','ticker':'KXT-BBB'},'model':66.0,'gross_c':9.0,'net_c':7.3,'market_class':'ml'}]
+T0='2026-09-27T14:51:00Z'  # best_ask read time
 cf=f'{tmp}/cands.json'
 S=os.path.join(ROOT,'scripts','build_manifest.py')
 env=dict(os.environ); env['PYTHONPATH']=ROOT; env['RIX_PICKS_LEDGER']=prod_ledger; env['RIX_PROD_MANIFEST']=MAN
@@ -22,7 +25,14 @@ def run(args,expect_ok=True):
     if not expect_ok and r.returncode==0: fails.append(f'run should have failed: {args}')
     return r
 def rows(p=prod_ledger): return [json.loads(l) for l in open(p)] if os.path.exists(p) else []
-def write_cands(c): json.dump(c,open(cf,'w'))
+def write_cands(c):
+    # owner ruling 2026-10-02 (1): a non-preview card must carry a best_ask block, so give each candidate a Kalshi
+    # best_ask at its own cents (rebuilt from the current cents so a mutated price is never compared to a stale one).
+    for x in c:
+        cents = x.get('kalshi',{}).get('cents') if isinstance(x.get('kalshi'),dict) else None
+        if isinstance(cents,int) and not isinstance(cents,bool):
+            x['best_ask']={'venue':'kalshi','price':cents,'read_at':T0,'compared':[{'venue':'kalshi','price':cents,'read_at':T0}]}
+    json.dump(c,open(cf,'w'))
 
 # T1 preview isolation
 write_cands(CAND); r=run([cf,f'{tmp}/prev.json','--preview'])
@@ -79,7 +89,8 @@ print('T8 OK')
 os.remove(prod_ledger); os.remove(MAN)
 # hand-write a canonical row as the crashed publish left it
 row={'kind':'pick','event_id':'999001','market_class':'ml','side':'home','name':'Test ML','units':'5u',
- 'entry_c':57,'card_american':-133,'card_source':'Kalshi ask at lock','card_ts':'2026-09-26T22:30:00-07:00',
+ 'entry_c':57,'card_american':-133,'card_source':f'Kalshi ask at {T0}','card_ts':'2026-09-26T22:30:00-07:00',
+ 'card_venue':'kalshi','card_read_at':T0,'card_compared':[{'venue':'kalshi','price':57,'read_at':T0}],
  'kalshi_ticker':'KXT-BBB','commence':'2026-09-28T00:00Z','preview':False}
 open(prod_ledger,'w').write(json.dumps(row)+'\n')
 write_cands(CAND); r=run([cf,MAN])

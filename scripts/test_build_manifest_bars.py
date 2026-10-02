@@ -8,8 +8,10 @@ verbatim by muse on MeshTrix, 15:35Z).
      odds as its implied probability; equal cost: the lower fee). card_american is that venue's price,
      card_source '<venue> ask at <read_at>', best_book the venue. The edge is measured again from the
      fair against that cost, with that venue's own fee (the Kalshi taker fee only for Kalshi; Polymarket
-     and the books pay 0). Manifest pick and ledger row record the venue, its read time and every venue
-     compared. With no best_ask block the card is priced from Kalshi exactly as before.
+     and the books pay 0), and ALWAYS from the card price - never the candidate's self-reported gross_c/net_c.
+     Manifest pick and ledger row record the venue, its read time and every venue compared. A NON-preview pick
+     with no best_ask block refuses closed (build_manifest never silently ships a non-compared Kalshi price);
+     only a --preview build may skip it, priced from Kalshi exactly as before.
  (2) "Parlay breakeven room: use the system's own rules." A parlay clears 2c gross and 2c net: combined
      fair (product of the legs' fairs) against the product of the legs' card prices, or a venue's quoted
      parlay price (parlay.best_ask) when that is cheaper. 2-4 legs (J-098), every leg a pick on the card.
@@ -36,7 +38,17 @@ def check(name, ok, detail=''):
 META = {'record': '21-11', 'units_pl': '+4.76u', 'units_ledger': None, 'yesterday': '', 'status_note': '', 'parlay': None}
 T0 = '2099-10-04T14:51:00Z'
 
+def kfee(c):
+    """The Kalshi taker fee in cents a candidate priced at Kalshi c cents pays (build_manifest.kalshi_fee_c)."""
+    a = c / 100.0
+    return 7 * a * (1 - a)
+
 def cand(num, name, model, gross, net, units, cents=61, mc='ml', league='hockey/nhl', **extra):
+    # owner ruling 2026-10-02 (1): a non-preview card must carry a best_ask block, so by default a candidate gets
+    # a Kalshi best_ask at its own cents (nothing cheaper compared) - the card price is then the Kalshi ask and the
+    # edge is recomputed from the fair against it, exactly as a legacy Kalshi pick priced before. Pass best_ask=...
+    # for a real cross-venue best ask, or best_ask=None to build a no-best_ask candidate (preview only).
+    ba = extra.pop('best_ask', 'auto')
     c = {'num': num, 'date': '2099-10-04', 'market_class': mc, 'name': name, 'side': 'home',
          'away': f'Away{num} Club', 'home': f'Home{num} Club', 'commence': '2099-10-04T23:00Z',
          'eid': str(401995000 + num), 'espn_league': league, 'units': units,
@@ -48,6 +60,12 @@ def cand(num, name, model, gross, net, units, cents=61, mc='ml', league='hockey/
     if mc == 'prop':
         c.update(player=f'Player {num}', market='points', side='over')
     c.update(extra)
+    if ba == 'auto':
+        if isinstance(cents, int) and not isinstance(cents, bool):
+            c['best_ask'] = {'venue': 'kalshi', 'price': cents, 'read_at': T0,
+                             'compared': [{'venue': 'kalshi', 'price': cents, 'read_at': T0}]}
+    elif ba is not None:
+        c['best_ask'] = ba
     return c
 
 def run_seq(runs):
@@ -78,6 +96,24 @@ def run_seq(runs):
 def build(cands, **meta_kw):
     return run_seq([(cands, dict(META, **meta_kw))])[0]
 
+def build_preview(cands, **meta_kw):
+    """Build in --preview mode (legacy Kalshi-only pricing is allowed; nothing mirrors to production)."""
+    d = tempfile.mkdtemp(prefix='rp-bm-bars-prev-')
+    try:
+        os.makedirs(os.path.join(d, 'ledger')); os.makedirs(os.path.join(d, 'prod'))
+        cf, mf, out = (os.path.join(d, x) for x in ('cands.json', 'meta.json', 'prev.json'))
+        ledger = os.path.join(d, 'ledger', 'picks.jsonl')
+        env = dict(os.environ, PYTHONPATH=ROOT, RIX_PICKS_LEDGER=ledger,
+                   RIX_PROD_MANIFEST=os.path.join(d, 'prod', 'manifest.json'),
+                   http_proxy='http://127.0.0.1:9', https_proxy='http://127.0.0.1:9')
+        json.dump(cands, open(cf, 'w')); json.dump(dict(META, **meta_kw), open(mf, 'w'))
+        r = subprocess.run([sys.executable, os.path.join(HERE, 'build_manifest.py'), cf, out, '--preview', '--meta', mf],
+                           capture_output=True, text=True, env=env, timeout=120)
+        raw = open(out).read() if os.path.exists(out) else ''
+        return {'rc': r.returncode, 'log': r.stdout + r.stderr, 'man': json.loads(raw) if raw else None}
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
 def refused(label, cands, whys, **meta_kw):
     r = build(cands, **meta_kw)
     check(f'{label}: refused (exit nonzero)', r['rc'] != 0, r['log'])
@@ -99,17 +135,20 @@ built('a pick that clears every bar', [OK5])
 refused('fair 59.9c (below the 60c card band)', [cand(1, 'Home1 ML', 59.9, 3.0, 1.3, '5u', cents=56)], ['60c card band', RULING4])
 refused('card ask 85c (the 85c cut)', [cand(1, 'Home1 ML', 92.0, 7.0, 6.1, '100u', cents=85)], ['85c', RULING4])
 refused('gross 1.9c', [cand(1, 'Home1 ML', 62.9, 1.9, 0.6, '5u')], ['gross', '2c', RULING4])
-refused('ml net 0.4c', [cand(1, 'Home1 ML', 63.0, 2.0, 0.4, '5u')], ['net', '0.5c'])
-built('ml net 0.5c (the ml bar)', [cand(1, 'Home1 ML', 63.0, 2.0, 0.5, '5u')])
-for mc in ('spread', 'total', 'prop'):
-    refused(f'{mc} net 1.9c', [cand(1, f'Home1 {mc}', 66.0, 5.0, 1.9, '5u', mc=mc)], ['net', '2c'])
-    built(f'{mc} net 2.0c (the {mc} bar)', [cand(1, f'Home1 {mc}', 66.0, 5.0, 2.0, '5u', mc=mc)])
+# net is recomputed from the fair against the Kalshi 61c ask (fee 1.67c), never the candidate's net_c: a fair of
+# 63.0 nets 2.0 - 1.67 = 0.33c (below the 0.5c ml bar), 63.2 nets 0.53c (at it)
+refused('ml net below the 0.5c bar (fair 63.0c -> net 0.33c)', [cand(1, 'Home1 ML', 63.0, 2.0, 0.4, '5u')], ['net', '0.5c'])
+built('ml net at the 0.5c bar (fair 63.2c -> net 0.53c)', [cand(1, 'Home1 ML', 63.2, 2.2, 0.5, '5u')])
+for mc in ('spread', 'total', 'prop'):  # fair 64.5c -> net 1.83c (below the 2c bar); 64.7c -> net 2.03c (at it)
+    refused(f'{mc} net below the 2c bar', [cand(1, f'Home1 {mc}', 64.5, 3.5, 1.9, '5u', mc=mc)], ['net', '2c'])
+    built(f'{mc} net at the 2c bar', [cand(1, f'Home1 {mc}', 64.7, 3.7, 2.0, '5u', mc=mc)])
 
 # units: the J-096 rung computed from fair and gross, nothing else
 refused('fair 66c carded at 10u (rung 5u)', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '10u')], ['J-096 rung', '5u'])
 refused('fair 61c carded at 100u (the probe: rung 5u)', [cand(1, 'Home1 ML', 61.0, 2.5, 0.8, '100u', cents=58)], ['J-096 rung', RULING4])
-refused('fair 74c, gross 2.9c, carded at 10u (10u needs gross >= 3c)', [cand(1, 'Home1 ML', 74.0, 2.9, 1.2, '10u', cents=71)], ['J-096 rung', '5u'])
-built('fair 74c, gross 2.9c at 5u', [cand(1, 'Home1 ML', 74.0, 2.9, 1.2, '5u', cents=71)])
+# gross is recomputed as fair - Kalshi ask: fair 73.9c against 71c is 2.9c (< 3c, so the 70-79 rung is 5u not 10u)
+refused('fair 73.9c, gross 2.9c, carded at 10u (10u needs gross >= 3c)', [cand(1, 'Home1 ML', 73.9, 2.9, 1.2, '10u', cents=71)], ['J-096 rung', '5u'])
+built('fair 73.9c, gross 2.9c at 5u', [cand(1, 'Home1 ML', 73.9, 2.9, 1.2, '5u', cents=71)])
 built('fair 74c, gross 3.0c at 10u', [cand(1, 'Home1 ML', 74.0, 3.0, 1.3, '10u', cents=71)])
 built('fair 84c at 15u', [cand(1, 'Home1 ML', 84.0, 4.0, 2.9, '15u', cents=80)])
 built('fair 92c at 100u', [cand(1, 'Home1 ML', 92.0, 8.0, 7.3, '100u', cents=84)])
@@ -213,15 +252,27 @@ refused('a book-only market (no kalshi block) never cards', [nok], ['Kalshi'])
 nok = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -150, [DK150])); nok['kalshi'] = {'cents': 61, 'team': 'x'}
 refused('a kalshi block with no ticker', [nok], ['ticker'])
 
-# with no best_ask block the card is priced from Kalshi exactly as before
-r = built('no best_ask block', [OK5])
-p = (r['man'] or {'picks': [{}]})['picks'][0]
-row = (r['ledger'] or [{}])[0]
-check("no best_ask: Kalshi price, 'Kalshi ask at lock', no best_ask on the pick",
+# B1 (owner ruling 2026-10-02 (1)): a non-preview pick with no best_ask block refuses closed - build_manifest
+# never silently ships a non-compared Kalshi price. The candidate clears every other bar, so the missing
+# best_ask is the only reason to refuse.
+NOBA = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=None)
+check('no best_ask on OK5 would refuse non-preview (B1 is wired)', 'best_ask' not in NOBA, NOBA)
+refused('a non-preview pick with no best_ask block', [NOBA], ['best_ask', '2026-10-02 (1)'])
+# a --preview build may still skip best_ask: the card is then priced from Kalshi exactly as before
+pr = build_preview([NOBA])
+check('a preview build with no best_ask builds', pr['rc'] == 0 and pr['man'] is not None, pr['log'])
+p = (pr['man'] or {'picks': [{}]})['picks'][0]
+check("preview no best_ask: Kalshi price, 'Kalshi ask at lock', no best_ask on the pick",
       p.get('card_american') == -156 and p.get('best_book') == 'Kalshi' and p.get('card_source') == 'Kalshi ask at lock' and 'best_ask' not in p, p)
-check('no best_ask: the ledger row keeps exactly its old fields',
-      sorted(row) == sorted(['kind', 'event_id', 'market_class', 'side', 'name', 'units', 'entry_c', 'card_american', 'card_source',
-                             'card_ts', 'kalshi_ticker', 'commence', 'preview']), sorted(row))
+# B2 (owner ruling 2026-10-02 (1)/(4)): gross and net are always recomputed from the fair against the card price,
+# never the candidate's self-reported gross_c/net_c. Candidate net_c 0.9 clears the 0.5c ml bar, but the recompute
+# from Kalshi 61c (2.0 - fee 1.67 = 0.33c) is below it - preview refuses just as a production best-ask pick would.
+_b2 = build_preview([cand(1, 'Home1 ML', 63.0, 2.0, 0.9, '5u', best_ask=None)])
+check('a preview legacy pick whose candidate net clears the bar but recomputes below is refused',
+      _b2['rc'] != 0 and _b2['man'] is None and 'net' in _b2['log'] and '0.5c' in _b2['log'], _b2['log'])
+built_preview_clears = build_preview([cand(1, 'Home1 ML', 63.3, 2.0, 0.0, '5u', best_ask=None)])  # 63.3-61-1.67=0.63 >= 0.5
+check('a preview legacy pick whose recomputed net clears builds (candidate net_c 0.0 ignored)',
+      built_preview_clears['rc'] == 0 and built_preview_clears['man'] is not None, built_preview_clears['log'])
 
 # the ledger: an identical re-run adds nothing; a new best venue on a published key is a fork
 c = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -150, [K61, DK150]))

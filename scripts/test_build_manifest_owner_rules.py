@@ -39,12 +39,19 @@ def check(name, ok, detail=''):
         failures += 1
 
 META = {'record': '21-11', 'units_pl': '+4.76u', 'units_ledger': None, 'yesterday': '', 'status_note': '', 'parlay': None}
+# owner ruling 2026-10-02 (1): a non-preview card must carry a best_ask block, so every real candidate gets a
+# Kalshi best_ask at its own cents (nothing cheaper compared) unless the case passes one explicitly.
+T0 = '2099-10-04T14:51:00Z'
 def cand(num, name, league, away, home, units='5u', mc='ml', side='home', **extra):
     c = {'num': num, 'date': '2099-10-04', 'market_class': mc, 'name': name, 'side': side, 'away': away, 'home': home,
          'commence': '2099-10-04T20:25Z', 'eid': str(401990000 + num), 'espn_league': league, 'units': units,
          'model': 66.0, 'gross_c': 3.0, 'net_c': 2.2, 'sub_context': 'fixture',
          'kalshi': {'cents': 61, 'team': home, 'ticker': 'KXFIX-99OCT04-%d' % num}}
     c.update(extra)
+    cents = c.get('kalshi', {}).get('cents')
+    if 'best_ask' not in extra and isinstance(cents, int) and not isinstance(cents, bool):
+        c['best_ask'] = {'venue': 'kalshi', 'price': cents, 'read_at': T0,
+                         'compared': [{'venue': 'kalshi', 'price': cents, 'read_at': T0}]}
     return c
 
 # distinctive tokens: none of them occurs anywhere else in a built manifest, so any hit is a leak

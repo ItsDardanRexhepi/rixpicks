@@ -10,10 +10,12 @@ price as its implied probability; on equal cost the lower fee wins); card_americ
 card_source '<venue> ask at <read_at>', best_book the venue, and the edge is measured again from the fair
 against that cost with that venue's own fee (the Kalshi taker fee only for Kalshi; Polymarket and the books 0).
 The manifest pick (best_ask) and the ledger row (card_venue, card_read_at, card_compared) record the venue, its
-read time and every venue compared. A candidate with no best_ask block is priced exactly as before (his call
-9/26 10:14 PM PT, phonemsg-01M3GMJBQVQX5099CH3AN4TB3E): card_american from the KALSHI ASK the gate consumed
-(units.cents_to_american), card_source 'Kalshi ask at lock'. Never book-consensus display. Forward-only:
-previously published cards keep their published prices.
+read time and every venue compared. A NON-preview pick MUST carry a best_ask block (owner ruling 2026-10-02 (1):
+build_manifest never silently ships a non-compared Kalshi price); the card refuses closed otherwise. Only a
+--preview build may skip it and be priced Kalshi-only (card_american from the KALSHI ASK the gate consumed via
+units.cents_to_american, card_source 'Kalshi ask at lock'). Either way the edge is measured from the fair against
+the CARD price with the winning venue's fee, never a candidate's self-reported gross_c/net_c. Never book-consensus
+display. Forward-only: previously published cards keep their published prices.
 Usage: build_manifest.py candidates.json out_manifest.json [--preview] [--meta meta.json]
 candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker},model,gross_c,net_c,
                 [best_ask:{venue,price,read_at,compared:[...]}], [fragility]}
@@ -289,11 +291,10 @@ def bar_problems(c, pr):
         return [f"missing {', '.join(missing)} (a number each): a pick carries its fair and its gross and net edge, "
                 'or it cannot be checked against the bars']
     fair = vals['model']
-    if pr['legacy']:
-        gross, net = vals['gross_c'], vals['net_c']
-    else:  # ruling (1): the edge against the best ask, with that venue's own fee
-        gross = fair - pr['cost_c']; net = gross - pr['fee_c']
-    gross, net = round(gross, 6), round(net, 6)
+    # ruling (1)/(4): the edge is ALWAYS measured from the fair against the CARD price (the best ask, or the
+    # Kalshi ask on a preview-only legacy pick), with the winning venue's own fee - never the candidate's
+    # self-reported gross_c/net_c. The J-096 rung below is computed from that fair and gross.
+    gross, net = round(fair - pr['cost_c'], 6), round(fair - pr['cost_c'] - pr['fee_c'], 6)
     mc = c.get('market_class')
     net_bar = NET_BAR_C.get(mc, 2.0)
     out = []
@@ -373,10 +374,12 @@ def parlay_problems(parlay, cands, priced):
 
 _SUB_BAR_NOTE = re.compile(r'owner[\s_-]*directive|sub[\s_-]*bar', re.I)
 
-def owner_rules_gate(cands, argv, parlay=None, status_note=None):
+def owner_rules_gate(cands, argv, parlay=None, status_note=None, preview=False):
     """Refuse closed (ValueError, nothing written) on any pick that breaks an owner rule or a standing bar, on a
     parlay short of its bar, on a status_note announcing a sub-bar card, on any owner-directive override
-    (removed: owner ruling 2026-10-02), or on two picks sharing a num. Returns each candidate's card price."""
+    (removed: owner ruling 2026-10-02), on a non-preview pick with no best_ask block (owner ruling 2026-10-02
+    (1): the card price is the best ask compared across venues, never a silently non-compared Kalshi price), or
+    on two picks sharing a num. Returns each candidate's card price."""
     # never echo the argument or the field: they were meant to carry his words
     if any(a == REMOVED_FLAG or a.startswith(REMOVED_FLAG + '=') for a in argv):
         raise ValueError(f'fail closed: {REMOVED_FLAG} does not exist - {HARD_GATES}')
@@ -404,6 +407,10 @@ def owner_rules_gate(cands, argv, parlay=None, status_note=None):
             broken.append(f'card price: {e}')
         priced.append(pr)
         if pr is not None:
+            if not preview and pr['legacy']:
+                broken.append('no best_ask block: a non-preview card price must be the best ask compared across '
+                              'venues (best_ask {venue, price, read_at, compared}) whose cheapest-to-buy is the card '
+                              'price (owner ruling 2026-10-02 (1)); only a --preview build may ship a Kalshi-only price')
             broken += bar_problems(c, pr)
         if broken:
             problems.append(f"#{c.get('num')} {c.get('name')}: " + '; '.join(broken))
@@ -506,7 +513,7 @@ def main():
     parlay = meta.get('parlay', inherit.get('parlay'))
     status_note = meta['status_note'] if 'status_note' in meta else inherit.get('status_note')
     # every standing rule and bar, before any lookup or write; each candidate's card price (ruling (1))
-    priced = owner_rules_gate(cands, sys.argv, parlay=parlay, status_note=status_note)
+    priced = owner_rules_gate(cands, sys.argv, parlay=parlay, status_note=status_note, preview=preview)
     now_utc = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
     now = now_utc.astimezone(ZoneInfo('America/Los_Angeles')).isoformat(timespec='seconds')
     ledger = PREVIEW_LEDGER if preview else PICKS_LEDGER

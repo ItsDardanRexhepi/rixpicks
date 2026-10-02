@@ -170,20 +170,76 @@ _sanitize_man(man)
 # rule. Vegas rule, ladder sizes, all of it: hard gates, no exceptions."). build_manifest.py refuses such a card,
 # but a manifest.json can land another way, and every build path (publish.yml, refresh.sh, record_final.yml)
 # builds whatever card has landed. So the CURRENT card (this manifest) is held - exit 3, refresh.sh's CARD HOLD,
-# nothing written - when a pick is on or against a Las Vegas team or its units are not exactly a J-096 rung.
-# The Vegas rule is build_manifest.vegas_hit's: Raiders (NFL), Golden Knights (NHL), Aces (WNBA), Athletics/A's
-# (MLB), UNLV (college); a nickname counts only inside its own league (Texas Tech Red Raiders is no Vegas team),
-# 'Las Vegas', 'Vegas' and UNLV in any league, and the individual sports (racing, golf, tennis, MMA, boxing)
-# have no teams. An earlier card's manifests/ snapshot, rebuilt below for its game pages, is not gated.
+# nothing written - when a pick is on or against a Las Vegas team, its units are not exactly a J-096 rung, or it
+# breaks a numeric standing bar (owner rulings 2026-10-02 (1), (2), (4)): fair < 60c, card ask >= 85c, gross < 2c,
+# net below the class bar, units over the J-096 rung of its fair, a card_american that is not the best ask of its
+# recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from each pick's "model X"
+# sub (build_manifest's own shape) or its best_ask block; a pick whose fair and card price cannot be read is left
+# unchecked on the numeric bars (never falsely held). The Vegas rule is build_manifest.vegas_hit's: Raiders (NFL),
+# Golden Knights (NHL), Aces (WNBA), Athletics/A's (MLB), UNLV (college); a nickname counts only inside its own
+# league (Texas Tech Red Raiders is no Vegas team), 'Las Vegas', 'Vegas' and UNLV in any league, and the individual
+# sports (racing, golf, tennis, MMA, boxing) have no teams. An earlier card's manifests/ snapshot, rebuilt below for
+# its game pages, is not gated.
 _VEGAS_NICK={'football/nfl':('raiders',),'hockey/nhl':('golden knights',),'basketball/wnba':('aces',),
              'baseball/mlb':('athletics',"a's"),'football/college-football':('unlv',),
              'basketball/mens-college-basketball':('unlv',),'basketball/womens-college-basketball':('unlv',)}
 _VEGAS_ANY=('las vegas','vegas','unlv')
 _UNIT_LADDER=('5u','10u','15u','100u')
+# numeric bars, mirroring build_manifest.py (bar_problems / j096_rung); the page builder re-checks them
+# from the manifest's own fields because a sub-bar card.json can land outside build_manifest.
+_CARD_BAND_C,_ASK_CUT_C,_GROSS_BAR_C=60.0,85.0,2.0
+_NET_BAR_C={'ml':0.5}  # spread/total/prop: 2c
+_RUNG_INT={'5u':5,'10u':10,'15u':15,'100u':100}
+_EXCH_VENUES={'kalshi','poly','polymarket'}
+def _rnum(v):
+    return float(v) if isinstance(v,(int,float)) and not isinstance(v,bool) else None
+def _kfee_c(c):
+    a=c/100.0; return 7*a*(1-a)
+def _cost_from_american(am):
+    am=_rnum(am)
+    if am is None: return None
+    if am<=-101: return 100.0*(-am)/(-am+100)
+    if am>=100: return 100.0*100/(am+100)
+    return None
+def _as_american(p):
+    am=_rnum(p.get('card_american'))
+    if am is not None: return int(am)
+    mo=re.fullmatch(r"\s*([+-]?\d+)\s*",str(p.get('odds') or ''))
+    return int(mo.group(1)) if mo else None
+def _fair_of(p):
+    mo=re.search(r"model\s+([0-9]+(?:\.[0-9]+)?)",str(p.get('sub') or ''))
+    if mo: return float(mo.group(1))
+    ba=p.get('best_ask')
+    if isinstance(ba,dict):
+        cost,gross=_rnum(ba.get('cost_c')),_rnum(ba.get('gross_c'))
+        if cost is not None and gross is not None: return round(cost+gross,4)
+    return None
+def _card_cost_of(p):
+    ba=p.get('best_ask')
+    if isinstance(ba,dict):
+        c=_rnum(ba.get('cost_c'))
+        if c is not None: return c
+    return _cost_from_american(_as_american(p))
+def _is_kalshi_priced(p):
+    ba=p.get('best_ask')
+    if isinstance(ba,dict): return str(ba.get('venue') or '').strip().lower()=='kalshi'
+    return True  # legacy / no best_ask: the card price is the Kalshi ask
+def _venue_cost(venue,price):
+    v=str(venue or '').strip().lower()
+    if v in _EXCH_VENUES:
+        c=_rnum(price); return c if c is not None and 1<=c<=99 else None
+    return _cost_from_american(price)
+def _j096_rung(fair,gross):
+    if fair>=90: return 100
+    if fair>=80: return 15
+    if fair>=70: return 10 if gross>=3 else 5
+    if fair>=60: return 5
+    return 0
 def _standing_rule_holds(m):
     out=[]
-    for i,p in enumerate(m.get('picks') or [],1):
-        if not isinstance(p,dict): continue
+    picks=[p for p in (m.get('picks') or []) if isinstance(p,dict)]
+    for i,p in enumerate(picks,1):
+        who=f"pick {i} {p.get('name')!r}"
         lg=str(p.get('espn_league') or '').strip().lower()
         g=p.get('game') if isinstance(p.get('game'),dict) else {}
         if lg.split('/')[0] not in ('racing','golf','tennis','mma','boxing'):
@@ -191,9 +247,58 @@ def _standing_rule_holds(m):
             for f,v in (('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))):
                 w=' '+re.sub(r"[^a-z0-9']+",' ',str(v or '').lower().replace('\u2019',"'"))+' '
                 if any(' '+n+' ' in w for n in names):
-                    out.append(f"pick {i} {p.get('name')!r}: Las Vegas team ({f} {v!r}) - never on or against a Vegas team"); break
+                    out.append(f"{who}: Las Vegas team ({f} {v!r}) - never on or against a Vegas team"); break
         if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
-            out.append(f"pick {i} {p.get('name')!r}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)")
+            out.append(f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)")
+        # numeric standing bars (read the fair and the card price from this pick's own fields)
+        fair,cost=_fair_of(p),_card_cost_of(p)
+        if fair is None or cost is None:
+            continue  # cannot read the fair or the card price: leave the numeric bars unchecked
+        gross=round(fair-cost,6)
+        net=round(gross-(_kfee_c(cost) if _is_kalshi_priced(p) else 0.0),6)
+        net_bar=_NET_BAR_C.get(p.get('market_class'),2.0)
+        if fair<_CARD_BAND_C: out.append(f"{who}: fair {fair:g}c below the 60c card band")
+        if cost>=_ASK_CUT_C: out.append(f"{who}: card ask {cost:g}c at or above the 85c cut")
+        if gross<_GROSS_BAR_C: out.append(f"{who}: gross {gross:g}c below the 2c bar")
+        if net<net_bar: out.append(f"{who}: net {net:g}c below the {net_bar:g}c bar")
+        u,base=_RUNG_INT.get(p.get('units')),_j096_rung(fair,gross)
+        if u is not None and base and u>base:
+            out.append(f"{who}: units {p.get('units')!r} over the J-096 rung {base}u of its fair (fair {fair:g}c, gross {gross:g}c)")
+        ba=p.get('best_ask')  # card_american must equal the best ask of its recorded venues
+        if isinstance(ba,dict) and isinstance(ba.get('compared'),list) and ba['compared']:
+            costs=[c for c in (_venue_cost(q.get('venue'),q.get('price')) for q in ba['compared'] if isinstance(q,dict)) if c is not None]
+            kb=p.get('kalshi')
+            if isinstance(kb,dict) and _rnum(kb.get('cents')) is not None: costs.append(float(kb['cents']))
+            cardc=_cost_from_american(_as_american(p))
+            if costs and cardc is not None and abs(cardc-min(costs))>1.0:
+                out.append(f"{who}: card price {cardc:g}c is not the best recorded ask {min(costs):g}c")
+    # parlay: 2-4 legs (J-098), each a pick on the card, clearing 2c gross and 2c net (ruling (2))
+    par=m.get('parlay')
+    legs=par.get('legs') if isinstance(par,dict) else None
+    if isinstance(legs,list) and len(legs)>=2 and all(isinstance(x,str) and x for x in legs):
+        if len(legs)>4:
+            out.append(f"parlay: {len(legs)} legs - J-098 allows 2-4")
+        by={}
+        for p in picks: by.setdefault(p.get('name'),[]).append(p)
+        lp=[by[l][0] for l in legs if len(by.get(l,[]))==1]
+        if len(lp)==len(legs):
+            dec=all_in=fp=1.0; ok=True
+            for p in lp:
+                am,f,cost=_as_american(p),_fair_of(p),_card_cost_of(p)
+                if am is None or f is None or cost is None: ok=False; break
+                d=(1+100/abs(am)) if am<0 else (1+am/100)
+                dec*=d; all_in*=(cost+(_kfee_c(cost) if _is_kalshi_priced(p) else 0.0))/100; fp*=f/100
+            if ok:
+                pcost,pfee=100/dec,None; pfee=100*all_in-pcost
+                q=par.get('best_ask')
+                if isinstance(q,dict):
+                    qc=_venue_cost(q.get('venue'),q.get('price'))
+                    if qc is not None:
+                        qfee=_kfee_c(qc) if str(q.get('venue') or '').strip().lower()=='kalshi' else 0.0
+                        if (qc,qfee)<(pcost,pfee): pcost,pfee=qc,qfee
+                pg,pn=round(100*fp-pcost,6),round(100*fp-pcost-pfee,6)
+                if pg<2: out.append(f"parlay: gross {pg:g}c below the 2c parlay bar")
+                if pn<2: out.append(f"parlay: net {pn:g}c below the 2c parlay bar")
     return out
 _RULE_HOLDS=_standing_rule_holds(man)
 if _RULE_HOLDS:
