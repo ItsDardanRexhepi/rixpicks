@@ -1,14 +1,23 @@
 {
- "generated_at": "2026-10-02T03:55:54.741Z",
+ "generated_at": "2026-10-02T04:01:19.506Z",
  "leagues": {
   "baseball/mlb": [
    {
     "headline": "Analysis, updates from Braves' wild-card win",
     "link": "https://www.espn.com/mlb/story/_/id/50046007/mlb-playoffs-2026-wild-card-game-3-live-updates-analysis-takeaways-phillies-braves",
-    "published": "2026-10-02T04:44:45.000Z",
+    "published": "2026-10-02T04:46:59.000Z",
     "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0929%252Fr1723468_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "With a dominant win on Thursday, the Braves sealed their spot in the division series. Relive all the acton.",
     "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "2026 MLB playoff bracket: Schedule, scores as Braves advance to NLDS to face Dodgers",
+    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
+    "published": "2026-10-02T03:54:34.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Braves ousted the Phillies in Game 3 of the Wild Card Series on Thursday night",
+    "source": "CBS",
     "league": "MLB"
    },
    {
@@ -21,21 +30,21 @@
     "league": "MLB"
    },
    {
-    "headline": "2026 MLB playoff bracket: Schedule, scores as Braves advance to NLDS to face Dodgers",
-    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
-    "published": "2026-10-02T03:02:52.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Braves ousted the Phillies in Game 3 of the Wild Card Series on Thursday night",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
     "headline": "Braves homer 3 times, turn to Sale to close out Phils in wild-card clincher",
     "link": "https://www.espn.com/mlb/story/_/id/50081908/braves-homer-3-s-turn-sale-close-phils-wild-card-clincher",
     "published": "2026-10-02T04:28:19.000Z",
     "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1002%252Fr1724796_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Braves won a postseason series for the first time since the 2021 World Series after beating the Phillies 6-2 on Thursday night in the decisive Game 3 of the NL Wild-Card Series.",
+    "blurb": "The Braves won a postseason series for the first time since the 2021 World Series after beating the Phillies 6-2 on Thursday night in the decisive Game 3 of the NL Wild Card Series.",
     "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "Where do Phillies go from here? Aging core falls short again, leaving questions about lineup, manager, more",
+    "link": "https://www.cbssports.com/mlb/news/where-do-phillies-go-from-here-aging-core-falls-short-again/",
+    "published": "2026-10-02T03:50:14.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2F0a3825c9-2cb4-4e5d-adcb-8c44f6cc1fd3%2Fharper-phillies-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Phillies were eliminated from the playoffs on Thursday night, and their championship window keeps closing",
+    "source": "CBS",
     "league": "MLB"
    },
    {
@@ -48,15 +57,6 @@
     "league": "MLB"
    },
    {
-    "headline": "Braves vs. Phillies Game 3: Where to watch, expert picks, predictions with NLDS spot on the line",
-    "link": "https://www.cbssports.com/mlb/news/braves-phillies-game-3-predictions-expert-picks/",
-    "published": "2026-10-02T00:03:02.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F76a02926-bd72-41f1-bc56-d48d6e531aeb%2Fbraves-phils-game-3-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The first two games of the best-of-three series have been hotly contested",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
     "headline": "D-backs signing winningest manager Lovullo to new deal",
     "link": "https://www.espn.com/mlb/story/_/id/50078535/source-diamondbacks-retain-torey-lovullo-11th-season",
     "published": "2026-10-02T04:28:19.000Z",
@@ -66,21 +66,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Braves vs. Phillies Game 3: Where to watch, expert picks, predictions with NLDS spot on the line",
+    "link": "https://www.cbssports.com/mlb/news/braves-phillies-game-3-predictions-expert-picks/",
+    "published": "2026-10-02T00:03:02.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F76a02926-bd72-41f1-bc56-d48d6e531aeb%2Fbraves-phils-game-3-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The first two games of the best-of-three series have been hotly contested",
+    "source": "CBS",
+    "league": "MLB"
+   },
+   {
     "headline": "Wild Card roundup: White Sox sweep while Cubs sleep",
     "link": "https://sports.yahoo.com/articles/wild-card-roundup-white-sox-033357524.html",
     "published": "2026-10-02T03:33:57.000Z",
     "image": "",
     "blurb": "The South Siders take care of the Astros as the Yankees, Padres and Braves keep their October plans alive",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Today's top games to watch, best bets, odds: Braves-Phillies Game 3, Steelers at Browns and more",
-    "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-braves-phillies-game-3-steelers-at-browns-and-more/",
-    "published": "2026-10-01T19:33:00.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F41850823-b7af-46d8-9ac7-cf122bede80a%2F2026-09-30t211431z-1311658691-mt1usatoday29961160-rtrmadp-3-mlb-wildcard-philadelphia-phillies-at-atlanta-braves-jpg.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Find best bets and props for the biggest games in sports on Thursday from the SportsLine Projection Model and top CBS Sports experts",
-    "source": "CBS",
     "league": "MLB"
    },
    {
@@ -97,7 +97,7 @@
    {
     "headline": "Browns cement win over Steelers with Rodgers interception, lead AFC North",
     "link": "https://www.espn.com/nfl/story/_/id/50078973/nfl-week-4-steelers-browns-top-plays-tnf",
-    "published": "2026-10-02T04:50:31.000Z",
+    "published": "2026-10-02T04:54:19.000Z",
     "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724695_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "null",
     "source": "ESPN",
@@ -122,12 +122,12 @@
     "league": "NFL"
    },
    {
-    "headline": "Steelers-Browns on TNF Week 4: Highlights, key plays",
-    "link": "https://www.espn.com/nfl/story/_/id/50078973/nfl-week-4-steelers-browns-top-plays-tnf",
-    "published": "2026-10-02T03:51:57Z",
+    "headline": "Browns fend off Steelers' late surge to prevail on TNF",
+    "link": "https://www.espn.com/video/clip/_/id/50082179/browns-fend-steelers-late-surge-prevail-tnf",
+    "published": "2026-10-02T04:00:17Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fr1724785_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Look back at the biggest TDs and highlights from Thursday night's Browns' win their AFC North rival.",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1002%2Fc55a602e-c339-46d9-a90f-45c33652d539%2Fc55a602e-c339-46d9-a90f-45c33652d539.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Browns fend off Steelers' late surge to prevail on TNF",
     "league": "NFL"
    },
    {
@@ -149,12 +149,12 @@
     "league": "NFL"
    },
    {
-    "headline": "Browns DT Mason Graham leaves game with knee injury",
-    "link": "https://www.espn.com/nfl/story/_/id/50081421/browns-dt-mason-graham-leaves-game-knee-injury",
-    "published": "2026-10-02T03:51:38Z",
+    "headline": "Steelers-Browns on TNF Week 4: Highlights, key plays",
+    "link": "https://www.espn.com/nfl/story/_/id/50078973/nfl-week-4-steelers-browns-top-plays-tnf",
+    "published": "2026-10-02T03:57:50Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fr1724772_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Cleveland Browns defensive tackle Mason Graham has been ruled out for the remainder of Thursday night's home game against the Pittsburgh Steelers because of a knee injury.",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fr1724785_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Look back at the biggest TDs and highlights from Thursday night's Browns' win their AFC North rival.",
     "league": "NFL"
    },
    {
@@ -176,12 +176,12 @@
     "league": "NFL"
    },
    {
-    "headline": "'I'm a Cowboy': Porter hopes to make debut for Dallas on Sunday",
-    "link": "https://www.espn.com/nfl/story/_/id/50079466/joey-porter-happy-fresh-start-cowboys-eyes-sunday-debut",
-    "published": "2026-10-02T03:25:38.000Z",
-    "image": "",
-    "blurb": "Joey Porter Jr. says he hopes to make his debut for the Cowboys on Sunday, when they play the Texans.",
+    "headline": "Watson leads another game-winning drive, Szmyt hits 56-yard FG and Browns beat Steelers 27-24",
+    "link": "http://www.espn.com/nfl/recap?gameId=401872964",
+    "published": "2026-10-02T03:55:46Z",
     "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fnfl%2Fevents%2F401872964.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 Deshaun Watson passed for 268 yards and moved the Browns into position for Andre Szmyt's career-long 56-yard field goal with 10 seconds remaining that gave Cleveland a 27-24 win over the Pittsburgh Steelers on Thursday night.",
     "league": "NFL"
    }
   ],
@@ -279,20 +279,20 @@
   ],
   "basketball/wnba": [
    {
-    "headline": "Takeaways from Aces Game 3 win over Fever",
+    "headline": "Defending champs are back in the semifinals: How the Aces eliminated the Fever",
     "link": "https://www.espn.com/wnba/story/_/id/50069597/2026-wnba-playoffs-fever-aces-scores-results-takeaways-analysis",
-    "published": "2026-10-02T04:51:06.000Z",
+    "published": "2026-10-02T04:58:06.000Z",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724324_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Las Vegas hosts Indiana on Thursday with the winner advancing to the WNBA semifinals. We're live courtside.",
+    "blurb": "Las Vegas eliminated Indiana to return to the WNBA semifinals.",
     "source": "ESPN",
     "league": "WNBA"
    },
    {
-    "headline": "Caitlin Clark and Fever\u2019s historic season ends with a painfully familiar villain",
-    "link": "https://sports.yahoo.com/articles/caitlin-clark-fever-historic-season-033717276.html",
-    "published": "2026-10-02T03:37:17.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/1ae3402d7abfd7c0da9ae851968153845c9c0e048dd81936e7f34e67d6359456/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2Fe6d64934a51cd6bb2b2876a2a4caab66",
-    "blurb": "Take a look at all the dates, times, locations and TV coverage for the divisional series in Major League Baseball.",
+    "headline": "TST Images: Aces defeat Fever, 94-83, in Las Vegas",
+    "link": "https://sports.yahoo.com/articles/tst-images-aces-defeat-fever-035202139.html",
+    "published": "2026-10-02T03:52:02.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/3ddcc10539d78d7c21b35bef0af7d4e05ea12a666fa4207d537038a1a26afefe/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_tribune_articles_423%2F0dfc4046fa8e63c47fdcacb99ada5a07.jpg",
+    "blurb": "LAS VEGAS -- The Aces defeated the Fever, 94-83, in a WNBA game at Michelob ULTRA Arena on October 1, 2026, and The Sporting Tribune's Paige Kuwata was there to capture the following Images.",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -315,11 +315,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Caitlin Clark bloodied after taking elbow to face in Fever-Aces",
-    "link": "https://sports.yahoo.com/articles/caitlin-clark-bloodied-taking-elbow-032545247.html",
-    "published": "2026-10-02T03:25:45.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/6fcf72d1c419294a0a5943a1cc81cbac03f3bcb7c3ccc7163ee7f3bd7967c808/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2F2c6eaf98becfb2a5990eb3041c76a434.jpg",
-    "blurb": "Fever star Caitlin Clark was hit with an elbow in the fourth quarter against the Aces and was bloodied after it.",
+    "headline": "Caitlin Clark and Fever\u2019s historic season ends with a painfully familiar villain",
+    "link": "https://sports.yahoo.com/articles/caitlin-clark-fever-historic-season-033717276.html",
+    "published": "2026-10-02T03:37:17.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/1ae3402d7abfd7c0da9ae851968153845c9c0e048dd81936e7f34e67d6359456/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2Fe6d64934a51cd6bb2b2876a2a4caab66",
+    "blurb": "Take a look at all the dates, times, locations and TV coverage for the divisional series in Major League Baseball.",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -342,11 +342,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Caitlin Clark hit with second playoff technical after incident with former teammate",
-    "link": "https://sports.yahoo.com/articles/caitlin-clark-hit-second-playoff-020009272.html",
-    "published": "2026-10-02T02:00:09.000Z",
+    "headline": "Caitlin Clark bloodied after taking elbow to face in Fever-Aces",
+    "link": "https://sports.yahoo.com/articles/caitlin-clark-bloodied-taking-elbow-032545247.html",
+    "published": "2026-10-02T03:25:45.000Z",
     "image": "",
-    "blurb": "Caitlin Clark and Brianna Turner received double technical fouls in Game 3 of the first-round playoff series between the Las Vegas Aces and Indiana Fever.",
+    "blurb": "Fever star Caitlin Clark was hit with an elbow in the fourth quarter against the Aces and was bloodied after it.",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -1087,22 +1087,31 @@
  },
  "latest": [
   {
-   "headline": "Takeaways from Aces Game 3 win over Fever",
+   "headline": "Defending champs are back in the semifinals: How the Aces eliminated the Fever",
    "link": "https://www.espn.com/wnba/story/_/id/50069597/2026-wnba-playoffs-fever-aces-scores-results-takeaways-analysis",
-   "published": "2026-10-02T04:51:06.000Z",
+   "published": "2026-10-02T04:58:06.000Z",
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724324_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Las Vegas hosts Indiana on Thursday with the winner advancing to the WNBA semifinals. We're live courtside.",
+   "blurb": "Las Vegas eliminated Indiana to return to the WNBA semifinals.",
    "source": "ESPN",
    "league": "WNBA"
   },
   {
    "headline": "Browns cement win over Steelers with Rodgers interception, lead AFC North",
    "link": "https://www.espn.com/nfl/story/_/id/50078973/nfl-week-4-steelers-browns-top-plays-tnf",
-   "published": "2026-10-02T04:50:31.000Z",
+   "published": "2026-10-02T04:54:19.000Z",
    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724695_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "null",
    "source": "ESPN",
    "league": "NFL"
+  },
+  {
+   "headline": "Analysis, updates from Braves' wild-card win",
+   "link": "https://www.espn.com/mlb/story/_/id/50046007/mlb-playoffs-2026-wild-card-game-3-live-updates-analysis-takeaways-phillies-braves",
+   "published": "2026-10-02T04:46:59.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0929%252Fr1723468_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "With a dominant win on Thursday, the Braves sealed their spot in the division series. Relive all the acton.",
+   "source": "ESPN",
+   "league": "MLB"
   },
   {
    "headline": "Duren accepts 5-year, $200M deal as lengthy standoff with Pistons ends",
@@ -1123,21 +1132,30 @@
    "league": "NBA"
   },
   {
-   "headline": "Analysis, updates from Braves' wild-card win",
-   "link": "https://www.espn.com/mlb/story/_/id/50046007/mlb-playoffs-2026-wild-card-game-3-live-updates-analysis-takeaways-phillies-braves",
-   "published": "2026-10-02T04:44:45.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0929%252Fr1723468_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "With a dominant win on Thursday, the Braves sealed their spot in the division series. Relive all the acton.",
-   "source": "ESPN",
-   "league": "MLB"
-  },
-  {
    "headline": "Braves homer 3 times, turn to Sale to close out Phils in wild-card clincher",
    "link": "https://www.espn.com/mlb/story/_/id/50081908/braves-homer-3-s-turn-sale-close-phils-wild-card-clincher",
    "published": "2026-10-02T04:28:19.000Z",
    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1002%252Fr1724796_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Braves won a postseason series for the first time since the 2021 World Series after beating the Phillies 6-2 on Thursday night in the decisive Game 3 of the NL Wild-Card Series.",
+   "blurb": "The Braves won a postseason series for the first time since the 2021 World Series after beating the Phillies 6-2 on Thursday night in the decisive Game 3 of the NL Wild Card Series.",
    "source": "ESPN",
+   "league": "MLB"
+  },
+  {
+   "headline": "Browns fend off Steelers' late surge to prevail on TNF",
+   "link": "https://www.espn.com/video/clip/_/id/50082179/browns-fend-steelers-late-surge-prevail-tnf",
+   "published": "2026-10-02T04:00:17Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1002%2Fc55a602e-c339-46d9-a90f-45c33652d539%2Fc55a602e-c339-46d9-a90f-45c33652d539.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Browns fend off Steelers' late surge to prevail on TNF",
+   "league": "NFL"
+  },
+  {
+   "headline": "2026 MLB playoff bracket: Schedule, scores as Braves advance to NLDS to face Dodgers",
+   "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
+   "published": "2026-10-02T03:54:34.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Braves ousted the Phillies in Game 3 of the Wild Card Series on Thursday night",
+   "source": "CBS",
    "league": "MLB"
   },
   {
@@ -1150,13 +1168,13 @@
    "league": "NHL"
   },
   {
-   "headline": "Steelers-Browns on TNF Week 4: Highlights, key plays",
-   "link": "https://www.espn.com/nfl/story/_/id/50078973/nfl-week-4-steelers-browns-top-plays-tnf",
-   "published": "2026-10-02T03:51:57Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fr1724785_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Look back at the biggest TDs and highlights from Thursday night's Browns' win their AFC North rival.",
-   "league": "NFL"
+   "headline": "TST Images: Aces defeat Fever, 94-83, in Las Vegas",
+   "link": "https://sports.yahoo.com/articles/tst-images-aces-defeat-fever-035202139.html",
+   "published": "2026-10-02T03:52:02.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/3ddcc10539d78d7c21b35bef0af7d4e05ea12a666fa4207d537038a1a26afefe/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_tribune_articles_423%2F0dfc4046fa8e63c47fdcacb99ada5a07.jpg",
+   "blurb": "LAS VEGAS -- The Aces defeated the Fever, 94-83, in a WNBA game at Michelob ULTRA Arena on October 1, 2026, and The Sporting Tribune's Paige Kuwata was there to capture the following Images.",
+   "source": "YAHOO",
+   "league": "WNBA"
   },
   {
    "headline": "Son of NBA legend Olajuwon commits to SMU's class of '27",
@@ -1175,6 +1193,15 @@
    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1002%2F8cf88d27-f681-40c1-b7df-2cd9653666bf%2F8cf88d27-f681-40c1-b7df-2cd9653666bf.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Watch the Game Highlights from Las Vegas Aces vs. Indiana Fever, 10/01/2026",
    "league": "WNBA"
+  },
+  {
+   "headline": "Where do Phillies go from here? Aging core falls short again, leaving questions about lineup, manager, more",
+   "link": "https://www.cbssports.com/mlb/news/where-do-phillies-go-from-here-aging-core-falls-short-again/",
+   "published": "2026-10-02T03:50:14.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2F0a3825c9-2cb4-4e5d-adcb-8c44f6cc1fd3%2Fharper-phillies-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Phillies were eliminated from the playoffs on Thursday night, and their championship window keeps closing",
+   "source": "CBS",
+   "league": "MLB"
   },
   {
    "headline": "Jones has 155 yards rushing and a TD, Peters adds pick-6, New Mexico State beats Western Kentucky",
@@ -1240,15 +1267,6 @@
    "league": "NHL"
   },
   {
-   "headline": "Caitlin Clark bloodied after taking elbow to face in Fever-Aces",
-   "link": "https://sports.yahoo.com/articles/caitlin-clark-bloodied-taking-elbow-032545247.html",
-   "published": "2026-10-02T03:25:45.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/6fcf72d1c419294a0a5943a1cc81cbac03f3bcb7c3ccc7163ee7f3bd7967c808/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2F2c6eaf98becfb2a5990eb3041c76a434.jpg",
-   "blurb": "Fever star Caitlin Clark was hit with an elbow in the fourth quarter against the Aces and was bloodied after it.",
-   "source": "YAHOO",
-   "league": "WNBA"
-  },
-  {
    "headline": "Zach Charbonnet back at practice",
    "link": "https://sports.yahoo.com/articles/zach-charbonnet-back-practice-031714346.html",
    "published": "2026-10-02T03:17:14.000Z",
@@ -1265,15 +1283,6 @@
    "blurb": "The Steelers had minus-6 yards passing in the third quarter as the Browns had two sacks of Aaron Rodgers.",
    "source": "YAHOO",
    "league": "NFL"
-  },
-  {
-   "headline": "2026 MLB playoff bracket: Schedule, scores as Braves advance to NLDS to face Dodgers",
-   "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
-   "published": "2026-10-02T03:02:52.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Braves ousted the Phillies in Game 3 of the Wild Card Series on Thursday night",
-   "source": "CBS",
-   "league": "MLB"
   },
   {
    "headline": "Igor Shesterkin becomes first Rangers goalie to score in 5-1 win over Lightning in home opener",
@@ -1402,15 +1411,6 @@
    "league": "WNBA"
   },
   {
-   "headline": "Braves vs. Phillies Game 3: Where to watch, expert picks, predictions with NLDS spot on the line",
-   "link": "https://www.cbssports.com/mlb/news/braves-phillies-game-3-predictions-expert-picks/",
-   "published": "2026-10-02T00:03:02.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F76a02926-bd72-41f1-bc56-d48d6e531aeb%2Fbraves-phils-game-3-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The first two games of the best-of-three series have been hotly contested",
-   "source": "CBS",
-   "league": "MLB"
-  },
-  {
    "headline": "Kansas State, Jerome Tang reportedly near $12M settlement following for-cause firing, per report",
    "link": "https://www.cbssports.com/college-basketball/news/kansas-state-jerome-tang-settlement-firing-with-cause/",
    "published": "2026-10-01T23:47:06.000Z",
@@ -1449,8 +1449,8 @@
  ],
  "source_mix": {
   "ESPN": 61,
-  "YAHOO": 58,
-  "CBS": 38
+  "CBS": 38,
+  "YAHOO": 58
  },
  "degraded_sources": []
 }
