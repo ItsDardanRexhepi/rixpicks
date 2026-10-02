@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-02T23:41:39.286153+00:00",
+ "generated_at": "2026-10-02T23:50:12.074597+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,8 +10,8 @@
      "matchup": "PITT @ VT",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "5:02 - 1st",
-     "score": "PITT 0 - VT 14",
+     "detail": "0:10 - 1st",
+     "score": "PITT 7 - VT 14",
      "away_to": 3,
      "home_to": 3
     },
@@ -20,7 +20,7 @@
      "matchup": "LIB @ DEL",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "12:21 - 2nd",
+     "detail": "8:34 - 2nd",
      "score": "LIB 6 - DEL 0",
      "away_to": 3,
      "home_to": 3
@@ -56,7 +56,7 @@
      "matchup": "NYR @ DET",
      "commence": "2026-10-02T22:30Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "17:52 - 2nd",
      "score": "NYR 1 - DET 0",
      "away_to": null,
      "home_to": null
@@ -66,7 +66,7 @@
      "matchup": "WAS @ CAR",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "4:53 - 1st",
+     "detail": "End of 1st",
      "score": "WAS 3 - CAR 0",
      "away_to": null,
      "home_to": null
