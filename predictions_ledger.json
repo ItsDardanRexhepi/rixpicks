@@ -881,5 +881,18 @@
   "kickoff_utc": "2026-10-03T20:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-02T16:35:19.847862+00:00"
+ },
+ {
+  "id": "40016fbb9a",
+  "event_id": "401892433",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Vegas Golden Knights",
+  "away": "Anaheim Ducks",
+  "pick_team": "Vegas Golden Knights",
+  "prediction": "Vegas Golden Knights beat Anaheim Ducks",
+  "kickoff_utc": "2026-10-03T02:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-02T20:20:30.885031+00:00"
  }
 ]
