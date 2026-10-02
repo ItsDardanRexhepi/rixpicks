@@ -13,6 +13,8 @@ feed lookup fails fast, nothing leaves the machine), and checks the built index.
 - CP-10: a card with no lock provenance never claims "locked" from manifest.updated; posted_at
   marks picks whose game began before the card was published; a normal card_ts card is unchanged.
 - W/L percent: the baked nav and popover values use the client's half-up rule (21-11 = 65.63%).
+- Date roll (Oct 2 review): the .rpdate header carries the card's ISO date (data-date: manifest date,
+  else the builder's _card_date_of), which rpDateRoll compares with today's PT date.
 - Away spread (Oct 2 review): the pipeline stores a spread pick's line as the HOME spread (record_final,
   finals_watch, st_card_candidates); the page grades with the picked side's own line. An away-cover
   pick 'Lynx +4' (line -4) emits data-line 4 on its row, combo leg and game page, prices its away
@@ -156,6 +158,7 @@ for B in BUILDERS:
     check(f'{tag}: CP-10 no lock claim from manifest.updated when nothing records the lock',
           len(stamps) == 3 and not any('locked' in s or '8:42' in s for s in stamps))
     check(f'{tag}: W/L nav percent bakes the client value 65.63% (half-up)', 'id="rpNavPct">65.63%<' in page)
+    check(f'{tag}: the date header carries the card\'s ISO date for the PT roll', '<div class="rpdate" data-date="2099-10-01">Thursday, Oct 1</div>' in page)
 
     # 2. same card published late: posted_at 5:30 PM PT Oct 1 (after Devils and Under began, before Aces)
     rc, page, log = build(B, card([DEVILS, ACES, UNDER], posted_at='2099-10-02T00:30:00Z'), FRESH)
