@@ -53,9 +53,11 @@ jobs:
       - name: nothing pending check
         id: gate
         run: |
+          # any apply-step write counts: an eod_day_close brief fill touches history.json only
+          # (manifest unchanged) and must still rebuild the record pages and commit
           if [ "${{ inputs.force_rebuild }}" = "true" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
-          elif git diff --quiet -- manifest.json history.json record_request.json record_done.json 2>/dev/null && [ ! -f record_done.json ] || git diff --quiet -- manifest.json; then
+          elif git diff --quiet -- manifest.json history.json record_request.json record_done.json 2>/dev/null; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
