@@ -17,10 +17,14 @@
  - A pick num names one pick (a CLI directive is keyed by it): two candidates sharing a num refuse.
  - The card date is the builder's _card_date_of rule (the most common PT game date across the
    picks, which record_final.card_date_of also uses), never the first-listed candidate's date.
+ - A production card records posted_at (UTC ISO): the newest card_ts of its picks, which is the
+   build time for a new card and is never restamped by a regeneration (a pick added later moves it
+   to that pick's lock, so no pick claims a lock from before it was carded). The page builder
+   prefers posted_at and says "after start" for a game that began before it. A preview has none.
  The page builder carries no such gate (it renders whatever card has landed): see
  test_card_shapes_build.py, which builds a card with an Aces pick.
 Run: python3 scripts/test_build_manifest_owner_rules.py"""
-import copy, hashlib, json, os, re, shutil, subprocess, sys, tempfile
+import copy, datetime, hashlib, json, os, re, shutil, subprocess, sys, tempfile, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -52,8 +56,8 @@ def leaked(text, *phrases):
     return sorted({t for ph in phrases for t in re.findall(r'[a-z0-9]{3,}', ph.lower()) if t in low})
 
 def build_runs(runs):
-    """Runs build_manifest once per (cands, extra_args) in ONE throwaway tree: the ledger, the prod
-    mirror and the published manifest carry over between runs, as on the box."""
+    """Runs build_manifest once per (cands, extra_args[, pause_s]) in ONE throwaway tree: the ledger,
+    the prod mirror and the published manifest carry over between runs, as on the box."""
     d = tempfile.mkdtemp(prefix='rp-bm-owner-')
     try:
         os.makedirs(os.path.join(d, 'ledger')); os.makedirs(os.path.join(d, 'prod'))
@@ -63,7 +67,9 @@ def build_runs(runs):
                    RIX_PROD_MANIFEST=os.path.join(d, 'prod', 'manifest.json'),
                    http_proxy='http://127.0.0.1:9', https_proxy='http://127.0.0.1:9')
         results = []
-        for cands, extra_args in runs:
+        for spec in runs:
+            cands, extra_args = spec[0], spec[1]
+            if len(spec) > 2: time.sleep(spec[2])
             json.dump(cands, open(cf, 'w')); json.dump(META, open(mf, 'w'))
             r = subprocess.run([sys.executable, os.path.join(HERE, 'build_manifest.py'), cf, out, '--meta', mf, *extra_args],
                                capture_output=True, text=True, env=env, timeout=120)
@@ -202,6 +208,32 @@ check('the manifest date is the one record_final files the card under', bool(man
       man and RF.card_date_of(man))
 refused('a card with no timezone-aware commence cannot be dated', [cand(1, 'Chiefs ML', 'football/nfl', 'Denver Broncos', 'Kansas City Chiefs',
         commence='2099-10-04T20:25')], 'card date')
+
+# posted_at: a production card records when it was posted (UTC ISO); the builder prefers it, so a
+# late card says "after start" for a game that began before it instead of claiming a lock
+def utc(s):
+    try:
+        return datetime.datetime.fromisoformat(str(s).replace('Z', '+00:00')) if re.fullmatch(r'\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ', str(s)) else None
+    except ValueError:
+        return None
+t0 = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
+LATE_CARD = cand(1, 'Chiefs ML', 'football/nfl', 'Denver Broncos', 'Kansas City Chiefs', commence='2020-10-04T17:00Z')  # began before the build
+rc, log, man, _ = build([LATE_CARD])
+t1 = datetime.datetime.now(datetime.timezone.utc)
+pa = utc((man or {}).get('posted_at'))
+check('a production card records posted_at as UTC ISO (YYYY-MM-DDTHH:MM:SSZ) at build time', rc == 0 and pa is not None and t0 <= pa <= t1,
+      (man or {}).get('posted_at') or log)
+check('posted_at of a late card is after its game began (the builder says "after start", never "locked")',
+      pa is not None and pa >= utc('2020-10-04T17:00:00Z'), (man or {}).get('posted_at'))
+rc, log, man, _ = build([CLEAN], '--preview')
+check('a preview card carries no posted_at', rc == 0 and man is not None and 'posted_at' not in man, man and man.get('posted_at'))
+BILLS = cand(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills')
+g1, g2, g3 = build_runs([([CLEAN], ()), ([CLEAN], (), 1.2), ([CLEAN, BILLS], (), 1.2)])
+p1, p2, p3 = (utc((g['man'] or {}).get('posted_at')) for g in (g1, g2, g3))
+check('a regeneration keeps posted_at (never restamped)', p1 is not None and p2 == p1, [g['man'] and g['man'].get('posted_at') for g in (g1, g2)])
+check('a pick added later moves posted_at to that pick\'s own lock', p3 is not None and p1 is not None and p3 > p1
+      and p3 == datetime.datetime.fromisoformat(g3['man']['picks'][1]['card_ts']).astimezone(datetime.timezone.utc)
+      and g3['man']['picks'][0]['card_ts'] == g1['man']['picks'][0]['card_ts'], [g3['man'] and g3['man'].get('posted_at'), g3['log'][-300:]])
 
 print('FAILURES: ' + str(failures) if failures else 'ALL CHECKS PASS')
 sys.exit(1 if failures else 0)

@@ -263,6 +263,24 @@ def card_date_of(picks):
             ds.append(dt.astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat())
     return Counter(ds).most_common(1)[0][0] if ds else None
 
+def posted_at_of(picks, now_utc):
+    """posted_at (UTC ISO) of a production card: the newest card_ts across its picks. card_ts is each
+    pick's first lock (ledger -> production manifest -> this build), so for a new card this is the
+    build time, a regeneration keeps it (never restamped), and a pick added later moves it to that
+    pick's own lock - no pick ever claims a lock from before it was carded. The page builder prefers
+    posted_at and marks a game that began before it "after start" instead of "locked". An unreadable
+    or zoneless card_ts counts as this build."""
+    newest = None
+    for p in picks:
+        try:
+            dt = datetime.datetime.fromisoformat(str(p.get('card_ts') or '').replace('Z', '+00:00'))
+        except ValueError:
+            dt = None
+        if dt is None or dt.tzinfo is None:
+            dt = now_utc
+        newest = dt if newest is None or dt > newest else newest
+    return (newest or now_utc).astimezone(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+
 def main():
     cands = json.load(open(sys.argv[1]))
     preview = '--preview' in sys.argv
@@ -271,7 +289,8 @@ def main():
     if '--meta' in sys.argv:
         meta = json.load(open(sys.argv[sys.argv.index('--meta')+1]))
     directives = owner_rules_gate(cands, sys.argv)  # before any lookup or write
-    now = datetime.datetime.now(ZoneInfo('America/Los_Angeles')).isoformat(timespec='seconds')
+    now_utc = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
+    now = now_utc.astimezone(ZoneInfo('America/Los_Angeles')).isoformat(timespec='seconds')
     ledger = PREVIEW_LEDGER if preview else PICKS_LEDGER
     # card_ts canon (restamp fork fix, third surfacing): card_ts is the FIRST-LOCK time and must
     # never be restamped on regeneration. Resolve per pick: existing canonical ledger row card_ts ->
@@ -378,6 +397,7 @@ def main():
     manifest = {
         'date': date_s, 'date_label': meta.get('date_label', dlab),
         'updated': meta.get('updated', dpt.strftime('%b %-d, %-I:%M %p PT')),
+        **({} if preview else {'posted_at': posted_at_of(picks, now_utc)}),
         'record': _field('record'), 'units_pl': _field('units_pl'),
         'units_ledger': _field('units_ledger', required=False),
         'yesterday': _field('yesterday', required=False),
