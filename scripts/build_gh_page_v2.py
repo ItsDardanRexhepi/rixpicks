@@ -3152,8 +3152,9 @@ def build_game_pages(man, css, build_sha):
             # Unpicked side may show the live quote; the card side is always the lock.
             _lk=(p.get('kalshi') or {}).get('cents')
             if _lk and am and hm:
+                # a prop pick (side over/under) owns no side of this board: its lock never lands on one
                 if side=='away': am=(am[0],am[1],_lk)
-                else: hm=(hm[0],hm[1],_lk)
+                elif side=='home': hm=(hm[0],hm[1],_lk)
             if am and hm:
                 kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
                     '<span class="side"><a '+rt('KAL',base+'-'+am[1].lower(),False)+'>'+html.escape(away)+'</a></span>'
@@ -3286,9 +3287,64 @@ def build_game_pages(man, css, build_sha):
         _COLL[0]=_MARKETS  # restore the index collector for the next build phase
     return pages
 
+# game-N.html is reused by every card, so a number this build does not rebuild (the card has
+# fewer picks, or the empty-card hold found no exact snapshot) kept serving an older card's game
+# as if current, and backfill_history.py kept refreshing its hist-N.json from that old market.
+# Such a page becomes a fixed notice: the URL keeps resolving, and it carries no event id and no
+# market, so nothing keeps pulling history for it (data-retired marks it for backfill_history.py).
+# hist-*.json is left alone here: record-final stages only the pages it rebuilds, and an extra
+# modified file would trip its unstaged-output check. The notice is byte-stable across rebuilds.
+_RETIRED_GAME_TMPL='''<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Past game - &rsquo;RixPicks</title>
+<style>__CSS__</style>
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head><body>
+<div class="wrap">
+<a class="back" href="./">&larr; Today&rsquo;s picks</a>
+<div class="sect" style="margin-top:18px">Past game</div>
+<div class="pick" data-retired="1"><div class="sub">This game page belonged to an earlier card and is no longer updated. Every graded pick and its final result is on the record.</div></div>
+<div class="foot"><a href="record.html">Full record</a> &middot; <a href="./">Today&rsquo;s picks</a></div>
+</div>
+</body></html>'''
+
+def _retire_game_pages(out_dir, keep, css):
+    stub=scrub_shipped(_RETIRED_GAME_TMPL.replace('__CSS__',css))
+    retired=[]
+    for path in sorted(__import__('glob').glob(os.path.join(out_dir,'game-*.html'))):
+        fn=os.path.basename(path)
+        m=re.match(r'game-([0-9]+)\.html$',fn)
+        if not m or fn in keep: continue
+        try: cur=open(path).read()
+        except Exception: cur=None
+        if cur!=stub: open(path,'w').write(stub)
+        retired.append(fn)
+    return retired
+
 
 def team_slug(name):
     return re.sub(r'[^a-z0-9]+','-',name.lower()).strip('-')
+
+def _team_from_listing(listing,name):
+    # Cards name college and MLS sides by short forms ('UCLA', 'Penn State', 'Atlanta United')
+    # that never equal ESPN's displayName ('UCLA Bruins', 'Atlanta United FC'), which left those
+    # team pages blank. Exact displayName wins; otherwise exactly ONE team must carry the name as
+    # its short name, location, nickname or abbreviation, or as its displayName without a
+    # trailing FC/SC/CF. An ambiguous name resolves to no team rather than a guessed one.
+    want=(name or '').casefold().strip()
+    if not want: return None
+    rows=[(r.get('team') or {}) for r in ((((listing or {}).get('sports') or [{}])[0].get('leagues') or [{}])[0].get('teams') or [])]
+    for t in rows:
+        if (t.get('displayName') or '').casefold().strip()==want: return t
+    def _club(s): return re.sub(r'\s+(fc|sc|cf)$','',(s or '').casefold().strip())
+    hits={}
+    for t in rows:
+        forms={(t.get(k) or '').casefold().strip() for k in ('shortDisplayName','location','nickname','abbreviation')}
+        if want in forms or (_club(t.get('displayName')) and _club(t.get('displayName'))==_club(want)):
+            hits[str(t.get('id'))]=t
+    return next(iter(hits.values())) if len(hits)==1 else None
 
 def build_team_pages(man, css, build_sha):
     "Per-team stat pages, tappable from game pages (user, Sep 25 12:23 PM)."
@@ -3337,12 +3393,11 @@ def build_team_pages(man, css, build_sha):
         tid=meta.get('id'); abbr=meta.get('abbr',''); logo=meta.get('logo',''); rec=meta.get('record','')
         if not tid and lg:
             try:
-                if lg not in _team_listing: _team_listing[lg]=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams'%lg)
-                listing=_team_listing[lg]
-                for row in ((listing.get('sports') or [{}])[0].get('leagues') or [{}])[0].get('teams',[]):
-                    candidate=row.get('team') or {}
-                    if candidate.get('displayName','').casefold()==name.casefold():
-                        tid=candidate.get('id'); abbr=candidate.get('abbreviation',''); logo=candidate.get('logo',''); rec='';break
+                # limit: ESPN's listing stops at 50 teams by default (college football has 700+)
+                if lg not in _team_listing: _team_listing[lg]=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams?limit=1000'%lg)
+                candidate=_team_from_listing(_team_listing[lg],name)
+                if candidate:
+                    tid=candidate.get('id'); abbr=candidate.get('abbreviation',''); logo=candidate.get('logo',''); rec=''
             except Exception: pass
         if tid and lg and (not rec or not logo):
             # meta-fill class kill (main 10:43): TEAM_META is empty on no-card days and the teams
@@ -3369,7 +3424,9 @@ def build_team_pages(man, css, build_sha):
         if tid and lg:
             try:
                 sch=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams/%s/schedule'%(lg,tid))
-                for ev in sch.get('events',[]):
+                # oldest first: ESPN serves soccer schedules newest-first, and the [-5:]/[-10:]
+                # slices and the streak below read the END of this list as the latest games
+                for ev in sorted(sch.get('events',[]),key=lambda e:str(e.get('date') or '')):
                     comp=(ev.get('competitions') or [{}])[0]
                     st=(comp.get('status') or {}).get('type') or {}
                     comps=comp.get('competitors',[])
@@ -3427,26 +3484,33 @@ def build_team_pages(man, css, build_sha):
                     if not upcoming: upcoming=_fb['upcoming']
                     _fb_next=_fb['next']
             except Exception: pass
-        injuries=[]
+        # None = the source gave no answer (error, no team id, or the bare {} the site API returns):
+        # the page says the data is unavailable. Only a list the source actually returned, empty,
+        # may read 'None reported.'
+        injuries=None
         if tid and lg:
             try:
                 inj=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams/%s/injuries'%(lg,tid))
-                items=inj.get('items') or inj.get('injuries') or []
-                if items and isinstance(items[0],dict) and 'injuries' in items[0]:
-                    flat=[]
-                    for it in items: flat+=it.get('injuries') or []
-                    items=flat
-                for it in items[:6]:
-                    ath=(it.get('athlete') or {}).get('displayName','?')
-                    stat=str(it.get('status') or '')
-                    det=str(it.get('type') or it.get('description') or '')[:60]
-                    injuries.append('%s · %s%s'%(ath,stat,(' - '+det) if det else ''))
-            except Exception: pass
+                _lists=[v for v in (inj.get('items'),inj.get('injuries')) if isinstance(v,list)]
+                if _lists:
+                    items=next((v for v in _lists if v),[])
+                    if items and isinstance(items[0],dict) and 'injuries' in items[0]:
+                        flat=[]
+                        for it in items: flat+=it.get('injuries') or []
+                        items=flat
+                    _inj=[]
+                    for it in items[:6]:
+                        ath=(it.get('athlete') or {}).get('displayName','?')
+                        stat=str(it.get('status') or '')
+                        det=str(it.get('type') or it.get('description') or '')[:60]
+                        _inj.append('%s · %s%s'%(ath,stat,(' - '+det) if det else ''))
+                    injuries=_inj
+            except Exception: injuries=None
         form_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in reversed(last5)) or '<div class="sub">No recent games found.</div>'
         _l10=_scored[-10:]; _n10=len(_l10)  # audit batch 7: 'last 10' section must BE last 10, not season-to-date
         avgs_html=('<div class="sub" style="padding:7px 0">Scored %.1f &middot; allowed %.1f per game over last %d</div>'%(sum(a for a,_ in _l10)/_n10,sum(b for _,b in _l10)/_n10,_n10)) if _n10 else '<div class="sub">Not enough recent games.</div>'
         next_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in upcoming) or '<div class="sub">No upcoming games listed.</div>'
-        inj_html=''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in injuries) or '<div class="sub">None reported.</div>'
+        inj_html=(''.join('<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">%s</div>'%html.escape(r) for r in injuries) or '<div class="sub">None reported.</div>') if injuries is not None else '<div class="sub">Injury data unavailable.</div>'
         tagline=' · '.join(x for x in [rec and ('Record '+rec), streak and ('Streak '+streak)] if x)
         today=''; current_game=None
         import datetime as _dt_team
@@ -3847,10 +3911,13 @@ if not man.get('picks'):
             except Exception: pass
         if _matches: _game_manifest=max(_matches,key=lambda x:x[0])[1]
         else: print('HISTORICAL GAME HOLD: no exact event-set snapshot for numbered pages',file=sys.stderr)
-for _fn,_html in build_game_pages(_game_manifest,_css,build_sha).items():
+_game_pages=build_game_pages(_game_manifest,_css,build_sha)
+for _fn,_html in _game_pages.items():
     open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(scrub_shipped(_html))
     print('written:',_fn,len(_html))
     _pages+=1
+for _fn in _retire_game_pages(os.path.dirname(out) or '.',set(_game_pages),_css):
+    print('retired:',_fn,'(not on the current card)')
 os.makedirs(os.path.join(os.path.dirname(out) or '.','slates'),exist_ok=True)
 open(os.path.join(os.path.dirname(out) or '.','slates','game_routes.json'),'w').write(json.dumps(_GAME_ROUTES,sort_keys=True))
 print('written: slates/game_routes.json',len(_GAME_ROUTES),'carded routes')
