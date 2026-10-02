@@ -1,20 +1,7 @@
 {
  "version": 1,
- "generated_at": "2026-10-01T23:50:05.705835+00:00",
+ "generated_at": "2026-10-02T00:05:07.396939+00:00",
  "leagues": [
-  {
-   "league": "MLB",
-   "games": [
-    {
-     "espn_event_id": "401907973",
-     "matchup": "PHI @ ATL",
-     "commence": "2026-10-02T00:00Z",
-     "status": "pre",
-     "detail": "10/1 - 5:00 PM PT",
-     "score": "PHI 0 - ATL 0"
-    }
-   ]
-  },
   {
    "league": "NFL",
    "games": [
@@ -35,9 +22,11 @@
      "espn_event_id": "401871049",
      "matchup": "WKU @ NMSU",
      "commence": "2026-10-02T00:00Z",
-     "status": "pre",
-     "detail": "10/1 - 5:00 PM PT",
-     "score": "WKU 0 - NMSU 0"
+     "status": "in",
+     "detail": "14:50 - 1st",
+     "score": "WKU 0 - NMSU 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401862786",
@@ -70,8 +59,8 @@
      "matchup": "BUF @ CBJ",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "2:07 - 1st",
-     "score": "BUF 1 - CBJ 1",
+     "detail": "End of 1st",
+     "score": "BUF 1 - CBJ 3",
      "away_to": null,
      "home_to": null
     },
@@ -80,7 +69,7 @@
      "matchup": "PHI @ NJ",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "20:00 - 2nd",
      "score": "PHI 1 - NJ 0",
      "away_to": null,
      "home_to": null
@@ -90,18 +79,10 @@
      "matchup": "TB @ NYR",
      "commence": "2026-10-01T23:00Z",
      "status": "in",
-     "detail": "3:05 - 1st",
+     "detail": "End of 1st",
      "score": "TB 0 - NYR 2",
      "away_to": null,
      "home_to": null
-    },
-    {
-     "espn_event_id": "401891816",
-     "matchup": "MIN @ NSH",
-     "commence": "2026-10-02T00:00Z",
-     "status": "pre",
-     "detail": "10/1 - 5:00 PM PT",
-     "score": "MIN 0 - NSH 0"
     },
     {
      "espn_event_id": "401891777",
@@ -118,6 +99,22 @@
      "status": "pre",
      "detail": "10/1 - 6:30 PM PT",
      "score": "CHI 0 - UTA 0"
+    },
+    {
+     "espn_event_id": "401891823",
+     "matchup": "FLA @ SJ",
+     "commence": "2026-10-02T02:00Z",
+     "status": "pre",
+     "detail": "10/1 - 7:00 PM PT",
+     "score": "FLA 0 - SJ 0"
+    },
+    {
+     "espn_event_id": "401891829",
+     "matchup": "EDM @ VAN",
+     "commence": "2026-10-02T02:00Z",
+     "status": "pre",
+     "detail": "10/1 - 7:00 PM PT",
+     "score": "EDM 0 - VAN 0"
     }
    ]
   },
