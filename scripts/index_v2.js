@@ -136,8 +136,14 @@ var RP_GAME_ROUTES={};
 fetch('slates/game_routes.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){RP_GAME_ROUTES=j||{};if(cur&&SB[cur.key])renderGames(cur,SB[cur.key]);}).catch(function(){});
 function lgpath(t){return t.espn||'';}
 function ordinal(p){p=parseInt(p,10);if(!p)return '';if(p<=4)return p+(['th','st','nd','rd'][p]||'th');return p===5?'OT':(p-4)+'OT';}
+/* future-dated feed times (Oct 1: ESPN RSS stamps its refresh time labelled EST, putting stories
+   30-60 min in the future, so they read '1m ago' + NEW and sorted first). A time more than 5 min
+   ahead of this clock is unknown, not new: no age label, no NEW marker, sorted as undated. */
+var RP_FUTURE_SKEW=300000;
+function pubT(iso){var t=Date.parse(iso||'');return (t&&t<=Date.now()+RP_FUTURE_SKEW)?t:0;}
+function newsBlurb(a){var b=a&&a.blurb;return (typeof b==='string'&&!/^\s*(null|undefined|none)\s*$/i.test(b))?b:'';} /* a feed's literal 'null' is no blurb, never content */
 function ago(iso){
- var t=Date.parse(iso);if(!t)return '';
+ var t=pubT(iso);if(!t)return '';
  var s=Math.max(0,(Date.now()-t)/1000);
  if(s<90)return '1m ago';
  if(s<3600)return Math.round(s/60)+'m ago';
@@ -227,7 +233,7 @@ function newsBucket(t){
  }
  out=out.concat(DNEWS[t.key]||[]);
  /* XNEWS intentionally NOT merged: X posts get their own Home social section (owner 10:32); news is articles only. XNEWS stays populated for that consumer. */
- out.sort(function(a,b){return (Date.parse(b.published||0)||0)-(Date.parse(a.published||0)||0);});
+ out.sort(function(a,b){return pubT(b.published)-pubT(a.published);});
  var seen={},seenP={},ded=[];
  out.forEach(function(a){var n=normH(a.headline);if(!n)return;var pk=n.slice(0,40);if(seen[n]||seenP[pk])return;seen[n]=1;seenP[pk]=1;ded.push(a);});
  return ded.filter(isPublishableNews);
@@ -531,13 +537,13 @@ function renderNews(t,arts){
   var u=a.link||'',src=a.source||'';
   var img=imgOpt(a.image);
   var lg=String(a.league||'').split('/').pop().toUpperCase()||'SPORTS';
-  var blurb=(typeof a.blurb==='string')?a.blurb:'';
+  var blurb=newsBlurb(a),_age=ago(a.published);
   /* owner 6:59 graphics class kill: a card ALWAYS carries art - the real image, or the
      designed league fallback when the source has none or the URL dies at load time. */
   var inner=(img?'<span class="carimg" style="background-image:url(\''+esc(img)+'\')"><img src="'+esc(img)+'" data-rsrc="'+esc(img)+'" data-lg="'+esc(lg)+'" alt="" style="display:none" onerror="RPimgErr(this)"></span>':'<span class="carimg carimg-fb" data-lg="'+esc(lg)+'"></span>')
    +'<span class="carbody"><span class="carhead">'+esc(unesc(a.headline||''))+'</span>'
    +(blurb?'<span class="carblurb">'+esc(unesc(blurb))+'</span>':'')
-   +'<span class="carmeta"><span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span> \u00b7 '+esc(ago(a.published))+(isNewIt(a)?' <span class="carnew">new</span>':'')+'</span></span>';
+   +'<span class="carmeta"><span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span>'+(_age?' \u00b7 '+esc(_age):'')+(isNewIt(a)?' <span class="carnew">new</span>':'')+'</span></span>';
   h+='<div class="carslide" data-nkey="'+esc(u||String(a.headline||''))+'">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer" aria-label="'+esc(unesc(a.headline||''))+'">'+inner+'</a>':inner)+'</div>';
  });
  h+='</div></div><div class="carctl"><button type="button" id="rpCarPrev" aria-label="previous article">\u2039 Prev</button>'
@@ -873,7 +879,7 @@ try{var _up=sessionStorage.getItem('rpUpd');if(_up){sessionStorage.removeItem('r
    The match map stays build-time cached (12:37) - clients never touch the NIM endpoint. */
 var RP_LOAD=Date.now();
 function carKey(a){return (a&&a.link)||String((a&&a.headline)||'');}
-function isNewIt(a){var t=Date.parse((a&&a.published)||0);return t&&t>RP_LOAD;}
+function isNewIt(a){var t=pubT(a&&a.published);return t&&t>RP_LOAD;}
 function rpMapFresh(m,newsGen,xGen){
  if(!(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs))return false;
  /* Old maps have no generation stamps and retain their prior built_at-only behavior.

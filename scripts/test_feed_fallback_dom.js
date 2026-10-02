@@ -78,7 +78,7 @@ const ctx = vm.createContext({
   newsBucket: () => stories,
   newsBucketAll: () => stories,
 });
-const NAMES = ['esc','unesc','ago','normH','isNewIt','isPublishableNews','isPublishablePost','imgOpt','carKey',
+const NAMES = ['esc','unesc','pubT','ago','newsBlurb','normH','isNewIt','isPublishableNews','isPublishablePost','imgOpt','carKey',
  'rpMapFresh','buildPairs','zeroPairSocial','isSportsPost','carClonify','carCloned','carMove','carNoTrans','carApply','socApply',
  'socMove','carAdv','socAdv','socGo','carStep','socStep','carObserve','feedCacheSave','socSync','socMapRetry','socMatchMore','ingestX','renderNews','renderSocial','socMatchPair'];
 /* real top-level RP_* constants (single-line regex/string decls) + league kw object */
