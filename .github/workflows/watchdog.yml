@@ -24,6 +24,14 @@ jobs:
         run: |
           pip install -q pyyaml
           python3 scripts/check_workflows.py
+      # the odds provider's last credit reading (the quota floor below) is ops state kept outside
+      # the served checkout; odds-refresh saves it to the Actions cache after each pull
+      - name: restore odds quota state
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.rixpicks-ops
+          key: odds-quota-watchdog-${{ github.run_id }}
+          restore-keys: odds-quota-
       - name: diagnose + budgeted auto-retry
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

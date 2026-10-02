@@ -42,6 +42,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      # The provider's last credit reading (refresh.sh's hard-cap tripwire, the watchdog's quota
+      # floor) is ops state, never site content: every file in the checkout is served, so it lives
+      # in ~/.rixpicks-ops and travels between runs in the Actions cache (LS-22).
+      - name: restore odds quota state
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.rixpicks-ops
+          key: odds-quota-${{ github.run_id }}
+          restore-keys: odds-quota-
+      - name: mark restored quota state
+        run: mkdir -p ~/.rixpicks-ops && touch ~/.rixpicks-ops/.restored
       - name: refresh odds and rebuild
         env:
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
@@ -50,6 +61,17 @@ jobs:
         run: |
           pip install -q cryptography
           bash scripts/refresh.sh
+      - name: new quota reading this run
+        id: quota
+        if: ${{ !cancelled() }}
+        run: |
+          if [ ~/.rixpicks-ops/odds_quota.json -nt ~/.rixpicks-ops/.restored ]; then echo "fresh=true" >> "$GITHUB_OUTPUT"; else echo "fresh=false" >> "$GITHUB_OUTPUT"; fi
+      - name: save odds quota state
+        if: ${{ !cancelled() && steps.quota.outputs.fresh == 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.rixpicks-ops
+          key: odds-quota-${{ github.run_id }}-${{ github.run_attempt }}
       - name: on-failure instant marker
         if: failure()
         run: |

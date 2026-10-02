@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """The watchdog's provider-quota floor (skip the auto-retry when the-odds-api credits are nearly
-gone) must keep a live reading after nfl_scores.json stopped carrying the credit count (LS-22:
-the public file no longer exposes it). The reading now comes from the odds-refresh lane's own
-counter, .odds_refresh_count.json last_remaining - the value refresh.sh's hard-cap tripwire
-already trusts - and only while that lane has counted a call today (PT).
+gone) must keep a live reading without any served file carrying the credit count (LS-22:
+nfl_scores.json and then .odds_refresh_count.json exposed it). The reading is ops state kept
+outside the checkout - refresh.sh writes the provider's last x-requests-remaining to
+$RP_OPS_STATE/odds_quota.json (default ~/.rixpicks-ops), the workflows carry it between runs in
+the Actions cache - and it counts only when taken today (PT).
 Run: python3 scripts/test_watchdog_provider_remaining.py   (exit 1 on any failure)
 """
 import ast, datetime, json, os, sys, tempfile
@@ -18,7 +19,7 @@ keep = []
 for node in tree.body:
     if isinstance(node, (ast.Import, ast.ImportFrom)) and not (isinstance(node, ast.ImportFrom) and node.module == 'watchdog_diag'):
         keep.append(node)
-    elif isinstance(node, ast.Assign) and any(getattr(t, 'id', '') in ('REPO', 'COUNT_FILE') for t in node.targets):
+    elif isinstance(node, ast.Assign) and any(getattr(t, 'id', '') in ('REPO', 'COUNT_FILE', 'QUOTA_FILE') for t in node.targets):
         keep.append(node)
     elif isinstance(node, ast.FunctionDef) and node.name == 'provider_remaining':
         keep.append(node)
@@ -43,7 +44,7 @@ def check(label, got, want):
 pr = ns['provider_remaining']
 NOW = datetime.datetime(2026, 10, 2, 4, 30, tzinfo=datetime.timezone.utc)   # 2026-10-01 21:30 PT
 tmp = tempfile.mkdtemp(prefix='wdpr_')
-cf = os.path.join(tmp, '.odds_refresh_count.json')
+qf = os.path.join(tmp, 'odds_quota.json')
 
 def call(**kw):
     try:
@@ -51,22 +52,32 @@ def call(**kw):
     except TypeError:
         return pr()   # legacy signature (reads nfl_scores.json through gh)
 
-json.dump({'2026-09-30': 100, '2026-10-01': 87, 'last_remaining': 19337}, open(cf, 'w'))
-check('reading from the odds-refresh counter while it counted a call today (PT)', call(path=cf, now=NOW), 19337)
+json.dump({'pt_date': '2026-10-01', 'last_remaining': 19337}, open(qf, 'w'))
+check('reading from the ops quota state taken today (PT)', call(path=qf, now=NOW), 19337)
 check('nfl_scores.json is not consulted for the count', gh_calls, [])
 
-json.dump({'2026-09-29': 92, '2026-09-30': 100, 'last_remaining': 19400}, open(cf, 'w'))
-check('stale counter (no call counted today PT) gives no reading', call(path=cf, now=NOW), None)
+json.dump({'pt_date': '2026-09-30', 'last_remaining': 19400}, open(qf, 'w'))
+check('stale reading (taken before today PT) gives no reading', call(path=qf, now=NOW), None)
 
-json.dump({'2026-10-01': 3, 'last_remaining': 57}, open(cf, 'w'))
-check('low quota reads through (watchdog skips the retry under 100)', call(path=cf, now=NOW), 57)
+json.dump({'pt_date': '2026-10-01', 'last_remaining': 57}, open(qf, 'w'))
+check('low quota reads through (watchdog skips the retry under 100)', call(path=qf, now=NOW), 57)
 
-check('missing counter gives no reading', call(path=os.path.join(tmp, 'absent.json'), now=NOW), None)
-open(cf, 'w').write('{corrupt')
-check('unreadable counter gives no reading', call(path=cf, now=NOW), None)
+check('missing state gives no reading', call(path=os.path.join(tmp, 'absent.json'), now=NOW), None)
+open(qf, 'w').write('{corrupt')
+check('unreadable state gives no reading', call(path=qf, now=NOW), None)
 
-check('default path is the repo-root counter', os.path.abspath(ns.get('COUNT_FILE', '')), os.path.join(ROOT, '.odds_refresh_count.json'))
+# the served counter is never the source, even while it still carries a legacy count
+cf = os.path.join(tmp, '.odds_refresh_count.json')
+json.dump({'2026-10-01': 87, 'last_remaining': 19337}, open(cf, 'w'))
+check('the served run counter is not a quota source', call(path=cf, now=NOW), None)
 
+qdef = ns.get('QUOTA_FILE') or ''
+qdef = os.path.abspath(qdef) if qdef else ''
+check('default state lives outside the checkout (nothing in the repo is unserved)', bool(qdef) and not qdef.startswith(ROOT + os.sep), True)
+check('default state is ~/.rixpicks-ops/odds_quota.json unless RP_OPS_STATE says otherwise',
+      qdef == os.path.join(os.environ.get('RP_OPS_STATE') or os.path.expanduser('~/.rixpicks-ops'), 'odds_quota.json'), True)
+wf = open(os.path.join(ROOT, '.github', 'workflows', 'watchdog.yml')).read()
+check('failure-watchdog restores the odds quota state from the Actions cache', 'actions/cache/restore@' in wf and 'odds-quota-' in wf, True)
 if failures:
     print(f'WATCHDOG PROVIDER REMAINING: {len(failures)} FAILURES')
     sys.exit(1)

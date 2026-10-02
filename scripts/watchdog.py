@@ -87,18 +87,20 @@ def odds_spend_today():
     return max(git_max, est)
 
 
-COUNT_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.odds_refresh_count.json')
+# The provider's last credit reading is ops state, never site content: refresh.sh keeps it outside
+# the checkout (every file in the repo is served) and the workflows carry it in the Actions cache.
+QUOTA_FILE = os.path.join(os.environ.get('RP_OPS_STATE') or os.path.expanduser('~/.rixpicks-ops'), 'odds_quota.json')
 
-def provider_remaining(path=COUNT_FILE, now=None):
+def provider_remaining(path=QUOTA_FILE, now=None):
     """Authoritative provider quota: the odds-refresh lane's last x-requests-remaining reading
-    (.odds_refresh_count.json last_remaining, the value refresh.sh's hard-cap tripwire reads).
-    nfl_scores.json no longer carries the count (public file, LS-22). None when unavailable or
-    when that lane has not counted a call today (PT), so a stale reading never blocks a retry."""
+    ({'pt_date', 'last_remaining'} in the ops state file, the value refresh.sh's hard-cap tripwire
+    reads). No served file carries the count (LS-22). None when unavailable or when the reading
+    was not taken today (PT), so a stale reading never blocks a retry."""
     try:
         from zoneinfo import ZoneInfo
         d = json.load(open(path))
         now = now or datetime.datetime.now(datetime.timezone.utc)
-        if not d.get(now.astimezone(ZoneInfo('America/Los_Angeles')).strftime('%Y-%m-%d')):
+        if d.get('pt_date') != now.astimezone(ZoneInfo('America/Los_Angeles')).strftime('%Y-%m-%d'):
             return None
         rem = d.get('last_remaining')
         return int(rem) if rem is not None else None
