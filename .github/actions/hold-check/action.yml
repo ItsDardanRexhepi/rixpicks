@@ -1,6 +1,6 @@
 name: hold-check
 description: >
-  Posting-job auto-hold (Julian 9/30). Runs the STRUCTURAL health gate (node scripts/health_gate.js --hold):
+  Posting-job auto-hold (9/30). Runs the STRUCTURAL health gate (node scripts/health_gate.js --hold):
   local-tree structural checks PLUS served-site structural checks. Output held=true on a proven structural
   FAIL (exit 1) OR a gate error (exit != 0/1, fail closed). Data outages (blank X feed, stale quotes) are
   alert-only and never hold. A host/network outage (UNKNOWN) does not hold because the local-tree checks

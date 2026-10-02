@@ -52,7 +52,7 @@ for _lk,_esp in [('FIFA_WC','soccer/fifa.world'),('EPL','soccer/eng.1')]:
         _RP_SPORT_CLOCK.setdefault(_esp,{'period_seconds':_sc['period_seconds'],'counts_down':_sc['counts_down']})
 ARB_INJECT=_ARB_SRC+'\nvar RP_SPORT_CLOCK='+json.dumps(_RP_SPORT_CLOCK,separators=(',',':'))+';\n' 
 
-_V2=os.environ.get('RP_V2')=='1'  # v2 dark shell (Julian-approved mock, Sep 27): builds the redesign candidate. Default (flag off) reproduces v1.2.0 EXACTLY - cron/refresh builds never jump the Julian/user publish gate.
+_V2=os.environ.get('RP_V2')=='1'  # v2 dark shell (approved mock, Sep 27): builds the redesign candidate. Default (flag off) reproduces v1.2.0 EXACTLY - cron/refresh builds never jump the owner publish gate.
 RP_DESIGN='2.0.0' if _V2 else '1.2.0'  # locked design system version - bump only on user-approved design change. v1.1.0 (user, Sep 25 12:35 AM): match visitor system appearance - light (default, unchanged) + dark via prefers-color-scheme. v1.2.0 (user, Sep 25 8:46 AM): current page shape approved as THE standing daily template - header without FINAL line, tap-any-book intro, per-pick chips + units, combo section, record + unit line, minimal footer (reference commit fbec1c1). Every morning build reproduces this exact shape; changes only on his explicit instruction.
 
 def _pt_date(iso):

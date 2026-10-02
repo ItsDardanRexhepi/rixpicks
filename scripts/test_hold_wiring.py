@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static wiring fixture for the posting-job auto-hold (Julian 9/30). No side effects.
+"""Static wiring fixture for the posting-job auto-hold (9/30). No side effects.
 Every posting workflow must: have a hold-check job using ./.github/actions/hold-check; gate its
 main job with needs: hold-check and the exact fail-closed condition; expose the hold_bypass dispatch
 input. The composite action must not exempt manual dispatch. --selfbite proves each check bites by

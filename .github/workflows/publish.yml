@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   hold-check:
-    # posting-job auto-hold: structural FAIL only (Julian 9/30). Fails open on unknown/error.
+    # posting-job auto-hold: structural FAIL only (9/30). Fails open on unknown/error.
     runs-on: ubuntu-latest
     permissions:
       contents: read
