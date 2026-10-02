@@ -5,11 +5,11 @@ consumed (units.cents_to_american), card_source = 'Kalshi ask at lock', and the 
 gate's own numbers (model vs Kalshi ask, gross/net edge) - never book-consensus display.
 Forward-only: previously published cards keep their published prices.
 Usage: build_manifest.py candidates.json out_manifest.json [--preview] [--meta meta.json]
-                         [--owner-directive '{"num": N, "rules": ["vegas"|"units"], "words": "<his verbatim words>"}' ...]
-candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker},model,gross_c,net_c[,owner_directive]}
-Owner rules (Vegas teams, J-096 unit ladder) refuse closed unless an owner directive covers them. His
-directive's verbatim words never reach the served manifest: the manifest pick carries only
-{rules, via, ref}, and the words go to the private picks ledger row beside the same ref.
+candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker},model,gross_c,net_c}
+Owner rules (Vegas teams, J-096 unit ladder) are hard gates with no override (owner ruling 2026-10-02:
+"NO - an owner-approved card cannot break a standing rule. Vegas rule, ladder sizes, all of it: hard
+gates, no exceptions."). A candidate row carrying owner_directive, or an --owner-directive argument,
+is an error: the override no longer exists.
 
 PUBLICATION SHAPE (swamp rounds 4): a preview NEVER touches the production ledger - it writes
 to picks.preview.jsonl. Production publication holds a single-writer flock, reads the ledger
@@ -92,20 +92,19 @@ def _pick_content_hash(m, legacy=False):
 #    sports (racing, golf, tennis, MMA, boxing) skip it - a NASCAR race at Las Vegas Motor
 #    Speedway is no Vegas team - and any other league, listed or not, keeps it.
 #  - Units (J-096): 5u, 10u, 15u or 100u - no other size.
-# A pick breaking either passes only on an explicit owner directive that names the rule and
-# carries his verbatim words - on the candidate row ('owner_directive') or on the command line
-# (--owner-directive JSON, repeatable, keyed by pick num). Anything else refuses closed before any
-# write. manifest.json (and every manifests/ snapshot of it) is served publicly, so the manifest
-# pick records owner_directive as {rules, via, ref} only - ref is the first 12 hex digits of the
-# sha256 of his words - and his verbatim words (with 'at' when given) are written only to the
-# private picks ledger row (RIX_PICKS_LEDGER), beside the same ref. No message prints his words.
+# Both are hard gates (owner ruling 2026-10-02: "an owner-approved card cannot break a standing rule
+# ... hard gates, no exceptions"): a pick breaking either refuses the card closed before any write,
+# and nothing overrides it. The old override (an owner_directive on the candidate row or an
+# --owner-directive argument) is gone; either one given is an error, and its words are never printed.
 UNIT_LADDER = (5, 10, 15, 100)
 _VEGAS_NICK = {'football/nfl': ('raiders',), 'hockey/nhl': ('golden knights',), 'basketball/wnba': ('aces',),
                'baseball/mlb': ('athletics', "a's"), 'football/college-football': ('unlv',),
                'basketball/mens-college-basketball': ('unlv',), 'basketball/womens-college-basketball': ('unlv',)}
 _VEGAS_ANY = ('las vegas', 'vegas')
 _INDIVIDUAL_SPORTS = ('racing', 'golf', 'tennis', 'mma', 'boxing')  # espn_league's sport segment
-OWNER_RULES = ('vegas', 'units')
+HARD_GATES = ('Vegas and the J-096 unit ladder are hard gates with no override '
+              '(owner ruling 2026-10-02: an owner-approved card cannot break a standing rule)')
+REMOVED_FLAG = '--owner-directive'
 
 def _words(s):
     return ' ' + re.sub(r"[^a-z0-9']+", ' ', str(s or '').lower().replace('\u2019', "'")) + ' '
@@ -134,84 +133,32 @@ def units_rung(u):
         v = float(m.group(1))
     return int(v) if v in UNIT_LADDER else None
 
-def directive_ref(words):
-    """The public handle of his directive: the first 12 hex digits of sha256(his words)."""
-    return hashlib.sha256(words.encode('utf-8')).hexdigest()[:12]
-
-def public_directive(d):
-    """What the served manifest may say about a directive: the rules it covers, how it came, its ref."""
-    return {'rules': d['rules'], 'via': d['via'], 'ref': d['ref']}
-
-def owner_directive(d, via):
-    """A well-formed owner directive {'rules': [...], 'words': <his verbatim words>}, else None.
-    The result is private (it carries his words): only public_directive() of it may be published."""
-    if not isinstance(d, dict):
-        return None
-    words = d.get('words')
-    rules = d.get('rules')
-    rules = [rules] if isinstance(rules, str) else rules
-    if not isinstance(words, str) or not words.strip() or not isinstance(rules, list) or not rules \
-            or not set(rules) <= set(OWNER_RULES):
-        return None
-    out = {'rules': sorted(set(rules)), 'via': via, 'ref': directive_ref(words), 'words': words}
-    if d.get('at'):
-        out['at'] = str(d['at'])
-    return out
-
 def owner_rules_gate(cands, argv):
-    """{candidate index: directive} for the picks that pass; ValueError (nothing written) otherwise."""
-    # a pick num names exactly one pick: an --owner-directive is keyed by it and must never cover two
+    """Refuse closed (ValueError, nothing written) on any pick that breaks an owner rule, on any
+    owner-directive override (removed: owner ruling 2026-10-02), or on two picks sharing a num."""
+    # never echo the argument or the field: they were meant to carry his words
+    if any(a == REMOVED_FLAG or a.startswith(REMOVED_FLAG + '=') for a in argv):
+        raise ValueError(f'fail closed: {REMOVED_FLAG} does not exist - {HARD_GATES}')
+    # a pick num names exactly one pick on the card
     _nums = [c.get('num') for c in cands]
     _shared = sorted({repr(n) for n in _nums if _nums.count(n) > 1})
     if _shared:
         raise ValueError(f"fail closed: pick num {', '.join(_shared)} is on more than one candidate - a pick num names one pick")
-    cli = {}
-    nth = 0
-    for i, a in enumerate(argv):
-        if a == '--owner-directive':
-            nth += 1
-            try:
-                raw = json.loads(argv[i + 1])
-            except (IndexError, ValueError):
-                raise ValueError('fail closed: --owner-directive needs a JSON object {"num", "rules", "words"}')
-            d = owner_directive(raw, 'cli')
-            if d is None or not isinstance(raw.get('num'), int) or isinstance(raw.get('num'), bool):
-                # never echo the argument: it carries his words
-                raise ValueError(f'fail closed: --owner-directive #{nth} must carry num, rules (vegas|units) and his verbatim words')
-            if raw['num'] in cli:
-                raise ValueError(f"fail closed: two --owner-directive entries for pick #{raw['num']}")
-            cli[raw['num']] = d
-    nums = {c.get('num') for c in cands}
-    stray = sorted(n for n in cli if n not in nums)
-    if stray:
-        raise ValueError(f'fail closed: --owner-directive for pick(s) {stray} not in the candidates')
-    out, problems = {}, []
-    for i, c in enumerate(cands):
-        d = None
+    problems = []
+    for c in cands:
         if 'owner_directive' in c:
-            d = owner_directive(c['owner_directive'], 'candidate')
-            if d is None:
-                problems.append(f"#{c.get('num')} {c.get('name')}: owner_directive must name rules (vegas|units) and carry his verbatim words")
-                continue
-            if c.get('num') in cli:
-                problems.append(f"#{c.get('num')} {c.get('name')}: owner directive given twice (candidate row and --owner-directive)")
-                continue
-        d = d or cli.get(c.get('num'))
+            problems.append(f"#{c.get('num')} {c.get('name')}: owner_directive is not accepted")
+            continue
         broken = []
         v = vegas_hit(c)
         if v:
-            broken.append(('vegas', f'Las Vegas team ({v}): never on or against a Vegas team'))
+            broken.append(f'Las Vegas team ({v}): never on or against a Vegas team')
         if units_rung(c.get('units')) is None:
-            broken.append(('units', f"units {c.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)"))
-        missing = [msg for rule, msg in broken if not (d and rule in d['rules'])]
-        if missing:
-            problems.append(f"#{c.get('num')} {c.get('name')}: " + '; '.join(missing))
-        elif d:
-            out[i] = d
+            broken.append(f"units {c.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)")
+        if broken:
+            problems.append(f"#{c.get('num')} {c.get('name')}: " + '; '.join(broken))
     if problems:
-        raise ValueError('fail closed (owner rules, runbook 2.5/2.8): ' + ' | '.join(problems)
-                         + ' - passes only on an owner directive naming the rule with his verbatim words')
-    return out
+        raise ValueError('fail closed (owner rules, runbook 2.5/2.8): ' + ' | '.join(problems) + f' - {HARD_GATES}')
 
 PROD_MANIFEST_PATH = os.environ.get('RIX_PROD_MANIFEST', '/home/sandbox/rix_tmp/manifest.json')  # env override = test-isolation hook (same pattern as RIX_PICKS_LEDGER); non-preview publishes mirror here (Sep 29 stale-grader fix)
 
@@ -288,7 +235,7 @@ def main():
     meta = {}
     if '--meta' in sys.argv:
         meta = json.load(open(sys.argv[sys.argv.index('--meta')+1]))
-    directives = owner_rules_gate(cands, sys.argv)  # before any lookup or write
+    owner_rules_gate(cands, sys.argv)  # before any lookup or write
     now_utc = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
     now = now_utc.astimezone(ZoneInfo('America/Los_Angeles')).isoformat(timespec='seconds')
     ledger = PREVIEW_LEDGER if preview else PICKS_LEDGER
@@ -311,7 +258,7 @@ def main():
                     _prod_ts[(str(_g['eid']),) + _ikey(_p.get('market_class', 'ml'), _p.get('side'), _p)] = _p['card_ts']
         except Exception: pass
     picks = []
-    for ci, c in enumerate(cands):
+    for c in cands:
         # market-class gate (s/t wired 9/27): ml | spread | total are buildable end to end
         # (finals_watch grades all three incl. push; fill_leak is market-class-aware). Refuse
         # anything without an explicit, known class; spread/total MUST carry a numeric line.
@@ -366,8 +313,7 @@ def main():
             'card_ts': _ts_map.get((str(c['eid']),) + _ikey(mc, c['side'], c))
                        or _prod_ts.get((str(c['eid']),) + _ikey(mc, c['side'], c))
                        or now,  # first lock only; regenerations inherit, never restamp
-            'polymarket': c.get('polymarket'), 'dkp': c.get('dkp'),
-            **({'owner_directive': public_directive(directives[ci])} if ci in directives else {})})
+            'polymarket': c.get('polymarket'), 'dkp': c.get('dkp')})
     # FULL MANIFEST CONTRACT (swamp round 8): build_gh_page.py (publish.yml publish path) reads
     # date_label, status_note, record, updated, units_pl, units_ledger, yesterday, parlay and
     # verifies pick_content_hash against its own canonicalization. Metadata comes from --meta
@@ -438,12 +384,8 @@ def main():
         dupes = {k for k in keys if keys.count(k) > 1}
         if dupes: raise ValueError(f"fail closed: duplicate candidates in batch for {sorted(dupes)} - refusing to build")
         ledger_rows = []
-        for ci, (c, p) in enumerate(zip(cands, picks)):
+        for c, p in zip(cands, picks):
             key = (str(c['eid']),) + _ikey(c.get('market_class','ml'), c['side'], c)
-            # his directive (verbatim words) lives on the private ledger row only; its identity
-            # (ref + rules) is part of the row, so other words for a published pick never fork it
-            d_new = directives.get(ci)
-            _did = lambda d: ((d or {}).get('ref'), sorted((d or {}).get('rules') or []))
             same = [r for r in existing if r.get('kind')=='pick' and str(r.get('event_id'))==key[0]
                     and _ikey(r.get('market_class','ml'), r.get('side'), r) == key[1:]]
             if len(same) > 1:
@@ -459,8 +401,7 @@ def main():
                           'kalshi_ticker':p['kalshi']['ticker'],'commence':c['commence'],
                           **({'line': c.get('line')} if key[1] in ('spread','total','prop') else {}),
                           **({'player': c.get('player'), 'market': c.get('market')} if key[1] == 'prop' else {})}
-                same_dir = _did(r.get('owner_directive')) == _did(d_new)
-                identical = same_dir and all(r.get(f) == v for f, v in newrow.items())
+                identical = all(r.get(f) == v for f, v in newrow.items())
                 if identical and not r.get('preview'):
                     continue  # idempotent re-run: finishes an interrupted publish or no-ops a completed one
                 if identical and r.get('preview') and not preview:
@@ -478,8 +419,6 @@ def main():
                     existing = [x for x in existing if x is not r]  # preview ledger: replace freely, previews are disposable
                 else:
                     diffs = {f: (r.get(f), v) for f, v in newrow.items() if r.get(f) != v}
-                    if not same_dir:  # refs only: his words are never printed
-                        diffs['owner_directive ref'] = ((r.get('owner_directive') or {}).get('ref'), (d_new or {}).get('ref'))
                     raise ValueError(f"fail closed: conflicting canonical pick row for {key} - fields differ {diffs} - refusing to fork the card record")
             ledger_rows.append({'kind':'pick','event_id':key[0],'market_class':key[1],'side':key[2],
                                 'name':c['name'],'units':c['units'],
@@ -488,7 +427,6 @@ def main():
                                 'kalshi_ticker':p['kalshi']['ticker'],'commence':c['commence'],
                                 **({'line': c.get('line')} if key[1] in ('spread','total','prop') else {}),
                                 **({'player': c.get('player'), 'market': c.get('market')} if key[1] == 'prop' else {}),
-                                **({'owner_directive': d_new} if d_new else {}),
                                 'preview':preview})
         # stage manifest + whole ledger; commit ledger first, then publish manifest
         tmp = out + '.tmp'

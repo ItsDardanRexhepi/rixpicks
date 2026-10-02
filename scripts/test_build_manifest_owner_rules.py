@@ -6,15 +6,15 @@
    manifest, no ledger, no prod mirror). A nickname counts only inside its own league: Texas Tech
    Red Raiders (CFB) and Evansville Purple Aces (NCAAB) are not Vegas teams.
  - Units: only the J-096 ladder, 5u, 10u, 15u, 100u.
- - Either passes only on an explicit owner directive naming the rule with his verbatim words, on
-   the candidate row or via --owner-directive. manifest.json is served publicly, so the manifest pick
-   records only owner_directive {rules, via, ref} (ref = the first 12 hex digits of sha256 of his
-   words); his verbatim words go only to the private picks ledger row (RIX_PICKS_LEDGER), beside the
-   same ref. No word of his directive may appear anywhere in the written manifest, and no refusal
-   echoes his words.
+ - Both are hard gates with no override (owner ruling 2026-10-02, relayed verbatim by muse: "NO - an
+   owner-approved card cannot break a standing rule. Vegas rule, ladder sizes, all of it: hard gates,
+   no exceptions."). The owner-directive override is gone: a candidate row carrying owner_directive, or
+   an --owner-directive argument in any form, is an error (exit nonzero, nothing written), even on a
+   card that breaks no rule; no refusal echoes the words it was given, and no manifest pick or ledger
+   row carries owner_directive.
  - The Vegas rule is about teams: it skips the individual sports (racing, golf, tennis, MMA, boxing),
    so a NASCAR race at Las Vegas Motor Speedway builds; any other league keeps the rule.
- - A pick num names one pick (a CLI directive is keyed by it): two candidates sharing a num refuse.
+ - A pick num names one pick on the card: two candidates sharing a num refuse.
  - The card date is the builder's _card_date_of rule (the most common PT game date across the
    picks, which record_final.card_date_of also uses), never the first-listed candidate's date.
  - A production card records posted_at (UTC ISO): the newest card_ts of its picks, which is the
@@ -25,7 +25,7 @@
  The page builder carries no such gate (it renders whatever card has landed): see
  test_card_shapes_build.py, which builds a card with an Aces pick.
 Run: python3 scripts/test_build_manifest_owner_rules.py"""
-import copy, datetime, hashlib, json, os, re, shutil, subprocess, sys, tempfile, time
+import copy, datetime, json, os, re, shutil, subprocess, sys, tempfile, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -48,9 +48,6 @@ def cand(num, name, league, away, home, units='5u', mc='ml', side='home', **extr
 
 # distinctive tokens: none of them occurs anywhere else in a built manifest, so any hit is a leak
 WORDS = "Quokka trellis, marzipan zanzibar okapi"
-WORDS2 = "Pangolin harpsichord, kumquat gazebo"
-def ref_of(words):
-    return hashlib.sha256(words.encode('utf-8')).hexdigest()[:12]
 def leaked(text, *phrases):
     """Every directive token (3+ letters) found in text, case-insensitive."""
     low = (text or '').lower()
@@ -127,65 +124,38 @@ rc, log, man, _ = build([cand(i, f'Team{i} ML', 'hockey/nhl', f'Away{i} Club', f
 check('5u, 10u, 15u and 100u build', rc == 0 and man and [p['units'] for p in man['picks']] == ['5u', '10u', '15u', '100u'], log)
 check('a card that breaks no rule carries no owner_directive', bool(man) and all('owner_directive' not in p for p in man['picks']), man and man['picks'][0])
 
-# owner directives: per pick and on the command line. The public manifest pick records {rules, via,
-# ref}; his verbatim words go only to the private ledger row, beside the same ref.
-rc, log, man, _ = build([dict(cand(1, 'Raiders ML', 'football/nfl', 'Denver Broncos', 'Las Vegas Raiders'),
-                              owner_directive={'rules': ['vegas'], 'words': WORDS, 'at': '2099-10-04T15:00:00Z'})])
-check('a per-pick owner directive naming the Vegas rule passes', rc == 0 and man is not None, log)
-check('the manifest pick records the directive as rules, via and ref only (no words, no time)',
-      (man or {'picks': [{}]})['picks'][0].get('owner_directive') == {'rules': ['vegas'], 'via': 'candidate', 'ref': ref_of(WORDS)},
-      (man or {'picks': [{}]})['picks'][0].get('owner_directive'))
-check('no word of his directive appears anywhere in the written manifest', bool(LAST['raw']) and leaked(LAST['raw'], WORDS) == [],
-      leaked(LAST['raw'], WORDS))
-check('the private ledger row carries his verbatim words beside the same ref',
-      ledger_row('401990001').get('owner_directive') == {'rules': ['vegas'], 'via': 'candidate', 'ref': ref_of(WORDS),
-                                                         'words': WORDS, 'at': '2099-10-04T15:00:00Z'},
-      ledger_row('401990001').get('owner_directive'))
-check('the build log does not print his words', leaked(log, WORDS) == [], leaked(log, WORDS))
-refused('a directive for the units rule does not cover a Vegas pick',
-        [dict(cand(1, 'Raiders ML', 'football/nfl', 'Denver Broncos', 'Las Vegas Raiders'), owner_directive={'rules': ['units'], 'words': WORDS})],
-        'Vegas team')
-refused('a directive without his words is no directive',
-        [dict(cand(1, 'Raiders ML', 'football/nfl', 'Denver Broncos', 'Las Vegas Raiders'), owner_directive={'rules': ['vegas'], 'words': '  '})],
-        'verbatim words')
-rc, log, man, _ = build([CLEAN, cand(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', '6u')],
-                        '--owner-directive', json.dumps({'num': 2, 'rules': ['units'], 'words': WORDS}))
-check('a CLI owner directive naming the units rule passes a 6u pick', rc == 0 and man is not None, log)
-check('the CLI directive is recorded on that pick only, as rules, via and ref',
-      man is not None and man['picks'][1].get('owner_directive') == {'rules': ['units'], 'via': 'cli', 'ref': ref_of(WORDS)}
-      and 'owner_directive' not in man['picks'][0], man and [p.get('owner_directive') for p in man['picks']])
-check('no word of a CLI directive appears in the written manifest', bool(LAST['raw']) and leaked(LAST['raw'], WORDS) == [],
-      leaked(LAST['raw'], WORDS))
-check('the CLI directive\'s words sit on that pick\'s ledger row only, beside the same ref',
-      ledger_row('401990002').get('owner_directive') == {'rules': ['units'], 'via': 'cli', 'ref': ref_of(WORDS), 'words': WORDS}
-      and 'owner_directive' not in ledger_row('401990001'), [ledger_row(e).get('owner_directive') for e in ('401990001', '401990002')])
-rc, log, man, written = build([CLEAN], '--owner-directive', json.dumps({'rules': ['units'], 'words': WORDS}))
-check('a CLI directive without a num is refused, nothing written', rc != 0 and man is None and written == [], log)
-check('that refusal does not echo his words', leaked(log, WORDS) == [], leaked(log, WORDS))
-
-# re-runs: the same directive is idempotent; different words for a published pick never fork his record
+# owner ruling 2026-10-02: no owner directive passes a pick - the override, per pick and on the command
+# line, is gone, and giving either one is an error (nothing written), whatever the card
 RAIDERS = cand(1, 'Raiders ML', 'football/nfl', 'Denver Broncos', 'Las Vegas Raiders')
-r1, r2, r3 = build_runs([([dict(RAIDERS, owner_directive={'rules': ['vegas'], 'words': WORDS})], ()),
-                         ([dict(RAIDERS, owner_directive={'rules': ['vegas'], 'words': WORDS})], ()),
-                         ([dict(RAIDERS, owner_directive={'rules': ['vegas'], 'words': WORDS2})], ())])
-check('a re-run with the same directive appends no ledger row and keeps the ref',
-      r1['rc'] == 0 and r2['rc'] == 0 and len(r2['ledger']) == 1 and r2['ledger'] == r1['ledger']
-      and (r2['man'] or {}).get('picks') == (r1['man'] or {}).get('picks'), [r1['log'], r2['log']])
-check('a re-run with other words for a published pick refuses closed (his recorded words never change)',
-      r3['rc'] != 0 and 'refusing to fork' in r3['log'] and r3['ledger'] == r2['ledger'] and r3['raw'] == r2['raw'], r3['log'])
-check('that refusal names refs, never words', leaked(r3['log'], WORDS, WORDS2) == [], leaked(r3['log'], WORDS, WORDS2))
-refused('a CLI directive for a pick that is not on the card', [CLEAN], 'not in the candidates',
-        '--owner-directive', json.dumps({'num': 9, 'rules': ['units'], 'words': WORDS}))
-refused('a CLI directive that is not JSON', [CLEAN], 'needs a JSON object', '--owner-directive', 'yes do it')
+SIX_U = cand(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', '6u')
+DIRECTIVE = {'rules': ['vegas', 'units'], 'words': WORDS, 'at': '2099-10-04T15:00:00Z'}
+for label, c in (('a Vegas pick', RAIDERS), ('a 6u pick', SIX_U), ('a pick that breaks no rule', CLEAN)):
+    refused(f'a per-pick owner_directive on {label} is an error', [dict(c, owner_directive=DIRECTIVE)], 'owner_directive is not accepted')
+    rc, log, man, written = build([dict(c, owner_directive=DIRECTIVE)])
+    check(f'that refusal ({label}) names the hard gates and does not echo his words', 'hard gates' in log and leaked(log, WORDS) == [],
+          [log[-200:], leaked(log, WORDS)])
+for label, cands in (('a Vegas pick', [RAIDERS]), ('a 6u pick', [CLEAN, SIX_U]), ('a card that breaks no rule', [CLEAN])):
+    for form in (['--owner-directive', json.dumps({'num': cands[-1]['num'], 'rules': ['vegas', 'units'], 'words': WORDS})],
+                 ['--owner-directive=' + json.dumps({'num': cands[-1]['num'], 'rules': ['vegas', 'units'], 'words': WORDS})],
+                 ['--owner-directive', 'yes do it']):
+        refused(f'--owner-directive ({form[0][:19]}...) with {label} is an error', cands, '--owner-directive does not exist', *form)
+        rc, log, man, written = build(cands, *form)
+        check(f'that refusal ({label}) names the hard gates and does not echo his words', 'hard gates' in log and leaked(log, WORDS) == [],
+              [log[-200:], leaked(log, WORDS)])
+rc, log, man, written = build([RAIDERS, SIX_U])
+check('a Vegas pick and a 6u pick refuse together, each named, with no override offered',
+      rc != 0 and 'Raiders ML' in log and 'Bills ML' in log and 'hard gates' in log and 'directive' not in log.lower() and written == [], log)
+rc, log, man, _ = build([CLEAN])
+check('a clean card writes no owner_directive on its manifest pick or its ledger row',
+      rc == 0 and man and 'owner_directive' not in LAST['raw'] and all('owner_directive' not in r for r in LAST['ledger']), log)
+SRC = open(os.path.join(HERE, 'build_manifest.py')).read()
+check('build_manifest.py carries no override path (no directive parser, no public record, no private words)',
+      all(x not in SRC for x in ('def owner_directive', 'def public_directive', 'def directive_ref', "'words'")),
+      [x for x in ('def owner_directive', 'def public_directive', 'def directive_ref', "'words'") if x in SRC])
 
-# a pick num names one pick: a CLI directive keyed by num must never cover two picks
+# a pick num names one pick on the card
 refused('two candidates sharing a pick num', [CLEAN, cand(1, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', eid='401990777')],
         'pick num')
-refused('a CLI directive for a num two candidates share', [cand(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', '6u'),
-        cand(2, 'Jets ML', 'football/nfl', 'Miami Dolphins', 'New York Jets', '6u', eid='401990778')], 'pick num',
-        '--owner-directive', json.dumps({'num': 2, 'rules': ['units'], 'words': WORDS}))
-refused('a CLI directive whose num is true (not a pick num)', [cand(1, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', '6u')],
-        'must carry num', '--owner-directive', json.dumps({'num': True, 'rules': ['units'], 'words': WORDS}))
 
 # the Vegas rule is about teams: individual sports skip it, every other league keeps it
 rc, log, man, _ = build([cand(1, 'Kyle Larson to win', 'racing/nascar-premier', 'South Point 400', 'Las Vegas Motor Speedway')])
