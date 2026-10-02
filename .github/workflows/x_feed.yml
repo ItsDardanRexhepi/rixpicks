@@ -55,11 +55,13 @@ jobs:
     needs: hold-check
     if: ${{ !cancelled() && needs.hold-check.result == 'success' && needs.hold-check.outputs.held == 'false' }}
     runs-on: ubuntu-latest
-    # X spend control, a repo variable (Settings > Secrets and variables > Actions > Variables) that
+    # X spend controls, repo variables (Settings > Secrets and variables > Actions > Variables) that
     # the scripts only read: X_DAILY_CAP_USD = daily ceiling for paid X pulls in dollars, $3.00 (the
-    # signed-off figure) when unset or unreadable.
+    # signed-off figure) when unset or unreadable; X_PAID_PULLS=off = no paid X request at all (news
+    # bridging, the matcher and the commits keep running).
     env:
       X_DAILY_CAP_USD: ${{ vars.X_DAILY_CAP_USD }}
+      X_PAID_PULLS: ${{ vars.X_PAID_PULLS }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -71,12 +73,13 @@ jobs:
       # always() safety commit if the chain dies first so news cannot go stale.
       - name: "bridge: worker news -> slates/news.json"
         run: python3 scripts/bridge_worker_news.py
-      # X spend gate (Oct 2): spend = the burn ledger's trailing 24h at the code's rates, ceiling =
-      # X_DAILY_CAP_USD. The ledger is first synced with main's newest copy: a run queued before the
-      # previous run published its ledger would otherwise neither count nor keep that spend. When not
-      # even the smallest request fits, every paid step is skipped (SKIP_X_PULL) while news, the
-      # matcher and the commits still run; each script also shrinks its own pull to what is left.
-      - name: "X spend gate (daily cap, ledger synced with main)"
+      # X spend gate (Oct 2): X_PAID_PULLS=off skips every paid step. Otherwise spend = the burn
+      # ledger's trailing 24h at the code's rates, ceiling = X_DAILY_CAP_USD. The ledger is first
+      # synced with main's newest copy: a run queued before the previous run published its ledger
+      # would otherwise neither count nor keep that spend. When not even the smallest request fits,
+      # every paid step is skipped (SKIP_X_PULL) while news, the matcher and the commits still run;
+      # each script also shrinks its own pull to what is left.
+      - name: "X spend gate (pause switch, daily cap, ledger synced with main)"
         run: |
           main_ledger=""
           if git fetch -q origin main && git show FETCH_HEAD:slates/x_burn.jsonl > "$RUNNER_TEMP/x_burn_main.jsonl"; then

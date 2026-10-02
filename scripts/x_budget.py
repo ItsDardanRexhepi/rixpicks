@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""X API daily spend ceiling, shared by scripts/x_feed.py, scripts/news_social.py and the x-feed
-workflow's spend gate step.
+"""X API daily spend ceiling and paid-pull switch, shared by scripts/x_feed.py,
+scripts/news_social.py and the x-feed workflow's spend gate step.
 
 Why: the X API is pay-per-use. The signed-off burn is about $3/day (x_feed.yml cron note), but at
 news_social's 18 x 100-post settings the burn ledger shows $3.25-$4.45 per 15-minute cycle, and
@@ -15,6 +15,9 @@ each priced at the code's measured rates: COST_PER_REQUEST plus COST_PER_POST pe
 A trailing window keeps every calendar day (UTC or PT) under the ceiling. A row that cannot be
 dated counts as today; a row that cannot be sized counts as a full 100-post request.
 
+Switch: X_PAID_PULLS=off (repo variable; also OFF, false, 0, no, pause, paused) skips every paid X
+request; unset or any other value leaves pulls on. News bridging and the matcher do not depend on it.
+
 Projection: before a pull, its worst case (every request returns max_results posts) is set against
 what is left. A pull that would cross the ceiling is shrunk (fewer requests; when not even one full
 request fits, one request with fewer posts) or skipped, and the log says why. Every request is
@@ -25,7 +28,8 @@ CLI (the x-feed workflow's spend gate step):
   python3 scripts/x_budget.py gate [--main-ledger PATH]
 adds the rows of main's newest ledger that this checkout lacks (a run that checked out before the
 previous run published its ledger would otherwise neither see nor keep that spend), then writes
-SKIP_X_PULL=1 to $GITHUB_ENV when not even the smallest request fits. It never fails the run.
+SKIP_X_PULL=1 to $GITHUB_ENV when paid pulls are paused or not even the smallest request fits.
+It never fails the run.
 """
 import collections, datetime, decimal, json, os, re, sys
 
@@ -41,6 +45,17 @@ MAX_RESULTS = 100
 WINDOW = datetime.timedelta(hours=24)
 UTC = datetime.timezone.utc
 _AMOUNT = re.compile(r'^\$?\s*(\d+(?:\.\d*)?|\.\d+)$')
+PAUSE_VALUES = ('off', 'false', '0', 'no', 'pause', 'paused')
+
+
+def paid_pulls_on(env=None):
+    """False when the X_PAID_PULLS switch is off: then no paid X request may be made."""
+    env = os.environ if env is None else env
+    return (env.get('X_PAID_PULLS') or '').strip().lower() not in PAUSE_VALUES
+
+
+def paused_note(label):
+    return f'{label}: paid X pulls paused (X_PAID_PULLS=off) - no X request made; prior feed preserved'
 
 
 def usd(mills):
@@ -204,6 +219,9 @@ def gate(argv):
     main = argv[argv.index('--main-ledger') + 1] if '--main-ledger' in argv[:-1] else None
     if main:
         print(f'X spend gate: ledger synced with main (+{merge_ledger(LEDGER, main)} rows this checkout lacked)')
+    if not paid_pulls_on():
+        _skip('paused by the X_PAID_PULLS=off switch')
+        return 0
     b = Budget.load(LEDGER)
     if not b.fits(MIN_RESULTS):
         _skip(f'daily cap reached, the smallest request costs up to {usd(b.worst(MIN_RESULTS))}; {b.status()}')

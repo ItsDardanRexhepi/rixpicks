@@ -451,6 +451,9 @@ def main():
         print('X_BEARER_TOKEN secret not set - dormant')
         return
     mode = sys.argv[1] if len(sys.argv) > 1 else 'pull'
+    if not x_budget.paid_pulls_on():
+        print(x_budget.paused_note('news_social ' + mode))  # owner switch: no paid X request at all
+        return
     if mode == 'trial':
         # sentient integration trials (owner 1:15): every strategy gets its shot on live data,
         # every failure routes around, everything logged. Winner decided by soc_match verdicts.

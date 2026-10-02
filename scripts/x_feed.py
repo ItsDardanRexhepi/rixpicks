@@ -264,6 +264,9 @@ def main():
         print('X_BEARER_TOKEN secret not set - feed dormant')
         return
     mode = sys.argv[1] if len(sys.argv) > 1 else 'pull'
+    if not x_budget.paid_pulls_on():
+        print(x_budget.paused_note('x_feed ' + mode))  # owner switch: no paid X request at all
+        return
     if mode == 'verify':
         vb = x_budget.Budget.load(LEDGER)
         if not vb.fits(0):
