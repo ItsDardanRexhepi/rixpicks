@@ -54,11 +54,14 @@ def call(**kw):
     except TypeError:
         return pr()   # legacy signature (reads nfl_scores.json through gh)
 
-json.dump({'pt_date': '2026-10-01', 'last_remaining': 19337}, open(qf, 'w'))
-check('reading from the ops quota state taken today (PT)', call(path=qf, now=NOW), 19337)
+# made-up readings throughout: every repo path is served, so no fixture carries a real provider count
+json.dump({'pt_date': '2026-10-01', 'last_remaining': 17204}, open(qf, 'w'))
+check('reading from the ops quota state taken today (PT)', call(path=qf, now=NOW), 17204)
+json.dump({'pt_date': '2026-10-01', 'month': '2026-10', 'last_remaining': 17203}, open(qf, 'w'))
+check('a reading recorded with its month reads the same', call(path=qf, now=NOW), 17203)
 check('nfl_scores.json is not consulted for the count', gh_calls, [])
 
-json.dump({'pt_date': '2026-09-30', 'last_remaining': 19400}, open(qf, 'w'))
+json.dump({'pt_date': '2026-09-30', 'last_remaining': 17600}, open(qf, 'w'))
 check('stale reading (taken before today PT) gives no reading', call(path=qf, now=NOW), None)
 
 json.dump({'pt_date': '2026-10-01', 'last_remaining': 57}, open(qf, 'w'))
@@ -70,7 +73,7 @@ check('unreadable state gives no reading', call(path=qf, now=NOW), None)
 
 # the served counter is never the source, even while it still carries a legacy count
 cf = os.path.join(tmp, '.odds_refresh_count.json')
-json.dump({'2026-10-01': 87, 'last_remaining': 19337}, open(cf, 'w'))
+json.dump({'2026-10-01': 87, 'last_remaining': 17204}, open(cf, 'w'))
 check('the served run counter is not a quota source', call(path=cf, now=NOW), None)
 
 qdef = ns.get('QUOTA_FILE') or ''
@@ -82,10 +85,18 @@ check('default state is ~/.rixpicks-ops/odds_quota.json unless RP_OPS_STATE says
 src = open(SRC).read()
 check('the quota-low decision does not print the count', "provider quota low: %s" not in src and '% prem' not in src, True)
 rc = ns.get('redact_credits') or (lambda t: t)
-tail = ('americanfootball_nfl: 14 events, credits remaining 19337\nnfl/401: credits used 3, remaining 19334\n'
-        'x-requests-remaining: 19330\nnfl_scores.json: 2 games, credits remaining: 19328\n{"last_remaining": 19327}\nBUILD FAILED: card 21-11')
+tail = ('americanfootball_nfl: 14 events, credits remaining 17204\nnfl/401: credits used 3, remaining 17201\n'
+        'x-requests-remaining: 17197\nnfl_scores.json: 2 games, credits remaining: 17195\n{"last_remaining": 17194}\n'
+        # the forms a set -x trace of refresh.sh or the watchdog's printed diagnosis would carry
+        '+ LASTREM=17193\n+ LASTREM_PRE=17192\n'
+        "+ python3 -c 'json.dump({'pt_date':'2026-10-01','last_remaining':int('17191')},open(QUOTA_FILE,'w'))'\n"
+        ' "provider_remaining": 17190,\n{\'provider_remaining\': 17189}\nx-requests-used: 2811\n'
+        'BUILD FAILED: card 21-11')
 red = rc(tail)
-check('incident log tail is written with every credit count redacted', [n for n in ('19337', '19334', '19330', '19328', '19327') if n in red], [])
+check('incident log tail is written with every credit count redacted',
+      [n for n in ('17204', '17201', '17197', '17195', '17194', '17193', '17192', '17191', '17190', '17189', '2811') if n in red], [])
+check('the LASTREM=, provider_remaining and int(...) forms read N',
+      [f for f in ('LASTREM=N', 'LASTREM_PRE=N', "int('N')", '"provider_remaining": N', "'provider_remaining': N", 'x-requests-used: N') if f not in red], [])
 check('the rest of the tail stays readable', 'BUILD FAILED: card 21-11' in red and 'credits remaining N' in red, True)
 check('the incident note writes the redacted tail', 'redact_credits(diag[\'error_tail\'])' in src, True)
 wf = open(os.path.join(ROOT, '.github', 'workflows', 'watchdog.yml')).read()

@@ -14,13 +14,38 @@ on:
 permissions:
   actions: read
   contents: write
+# One capture at a time per failed workflow, none cancelled: captures of the same workflow never
+# race each other's push, and a burst across workflows is not dropped (a single group would cancel
+# all but one pending run). Pushes that still race (bots, other workflows) retry below.
+concurrency:
+  group: incident-hook-${{ github.event.workflow_run.name }}
+  cancel-in-progress: false
 jobs:
   capture:
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ubuntu-latest
     steps:
+      # Loop guard: every incident commit starts a Pages build (Pages run 36962994684 was started by
+      # the incident-hook commit for run 36962967323), so while Pages deploys fail, capturing the
+      # failed build of an incident-hook or failure-watchdog commit would commit the next note that
+      # starts the next failing build. Those builds are not captured; every other failure is
+      # (scripts/test_incident_hook.py).
+      - name: "loop guard (a failed Pages build of an incident or watchdog commit is not captured)"
+        id: guard
+        env:
+          RUN_NAME: ${{ github.event.workflow_run.name }}
+          HEAD_AUTHOR: ${{ github.event.workflow_run.head_commit.author.name }}
+        run: |
+          if [ "$RUN_NAME" = "pages-build-deployment" ] && { [ "$HEAD_AUTHOR" = "incident-hook" ] || [ "$HEAD_AUTHOR" = "failure-watchdog" ]; }; then
+            echo "loop guard: the failed Pages build is of a $HEAD_AUTHOR commit - not captured (a capture commit would start another Pages build)"
+            echo "capture=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "capture=true" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/checkout@v4
+        if: steps.guard.outputs.capture == 'true'
       - name: capture failed run logs
+        if: steps.guard.outputs.capture == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUN_ID: ${{ github.event.workflow_run.id }}
@@ -52,9 +77,23 @@ jobs:
             done
           } > "$F" || true
       - name: commit incident report
+        if: steps.guard.outputs.capture == 'true'
+        env:
+          RUN_NAME: ${{ github.event.workflow_run.name }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
         run: |
           git config user.name 'incident-hook'
           git config user.email 'actions@users.noreply.github.com'
           git add incidents/
-          git commit -m "incident: ${{ github.event.workflow_run.name }} run ${{ github.event.workflow_run.id }} failure captured" || echo 'nothing to commit'
-          git push || true
+          git commit -m "incident: ${RUN_NAME} run ${RUN_ID} failure captured" || echo 'nothing to commit'
+          # main moves about once a minute: a rejected push rebases the note (a new file under
+          # incidents/) onto main and retries; a note that still cannot land fails the run loudly
+          # (was `git push || true`, which dropped a racing note without a trace)
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            [ "$i" = 5 ] && break
+            sleep "$i"
+            git pull --rebase origin main || git rebase --abort || true
+          done
+          echo "incident note for ${RUN_NAME} run ${RUN_ID} not pushed after 5 attempts" >&2
+          exit 1

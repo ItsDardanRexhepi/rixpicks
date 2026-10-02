@@ -58,6 +58,7 @@ def job_log(job_id, opener=None):
 
 
 BUDGET_COST = {'odds-refresh': 3, 'extras-sweep': 3, 'nfl-scores-confirm': 1}
+CARD_HOLD_MARK = 'CARD HOLD'  # refresh.sh's line for a refused card (feeds' hash check or the builder, exit 3)
 SOFT_DAILY_TARGET = 100  # soft discipline target across consumers (main 12:11) - NOT a hard cap; audits: over-target runs are valid. Hard guardrail = provider x-requests-remaining floor.
 
 def odds_spend_today():
@@ -107,7 +108,13 @@ def provider_remaining(path=QUOTA_FILE, now=None):
     except Exception:
         return None
 
-_CREDIT_RE = re.compile(r'(?i)(x-requests-remaining:?\s*|credits? remaining:?\s*|credits used\s*\d+,\s*remaining\s*|"?(?:last_remaining|credits_remaining)"?\s*[:=]\s*)\d+')
+# Every form a count can take in a log: the provider's headers (x-requests-used gives the count
+# away as plan minus used), the lanes' 'credits remaining N' lines, JSON or dict keys (including
+# this script's own printed provider_remaining), and refresh.sh's shell forms under a set -x
+# trace (LASTREM=N, LASTREM_PRE=N, int('N')).
+_CREDIT_RE = re.compile(r'(?i)(x-requests-(?:remaining|used):?\s*|credits? remaining:?\s*|credits used\s*\d+,\s*remaining\s*'
+                        r'|["\']?(?:last_remaining|credits_remaining|provider_remaining)["\']?\s*[:=]\s*(?:int\(\s*["\']?)?'
+                        r'|\bLASTREM(?:_PRE)?=["\']?|\bint\(\s*["\'])\d+')
 
 def redact_credits(text):
     """The incident note is committed (served); the provider's credit count never goes there."""
@@ -137,6 +144,11 @@ except Exception:
     state = {}
 rec = state.get(wf, {})
 skip = []
+# A held card (refresh.sh's CARD HOLD, exit 3: the card's picks do not match its declared hash, or
+# the builder refused it) is refused again by any retry, and an odds-refresh retry pays for its
+# odds pulls first. The next scheduled run re-checks the card on its own.
+if CARD_HOLD_MARK in diag['error_tail']:
+    skip.append('card held (CARD HOLD in the failed log) - a retry would refuse the same card')
 last = rec.get('last_retry_at')
 if last and (now - datetime.datetime.fromisoformat(last)).total_seconds() < RETRY_BUDGET_S:
     skip.append('already auto-retried within 30 min')

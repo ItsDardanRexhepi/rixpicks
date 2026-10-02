@@ -228,5 +228,18 @@ def feed(manifest_path, write=True):
         json.dump(man, open(manifest_path,'w'), indent=1)
     print(f"fed {n_ok}/{len(man['picks'])} picks", file=sys.stderr)
 
+def verify_hash(manifest_path):
+    # refresh.sh runs this before any paid odds pull: the same declared-hash check feed() applies,
+    # local only (no network, no write), so a card the feeds would refuse is held before it costs
+    # credits - and before the watchdog's retry of it costs them again.
+    man = json.load(open(manifest_path))
+    if not _declared_ok(man):
+        print(f"REFUSED: manifest pick_content_hash {str(man.get('pick_content_hash'))[:12]}... does not match its picks", file=sys.stderr)
+        sys.exit(3)
+
 if __name__ == '__main__':
-    args=[a for a in sys.argv[1:] if not a.startswith('--')]; feed(args[0] if args else 'manifest.json', write='--check' not in sys.argv)
+    args=[a for a in sys.argv[1:] if not a.startswith('--')]
+    if '--verify-hash' in sys.argv:
+        verify_hash(args[0] if args else 'manifest.json')
+    else:
+        feed(args[0] if args else 'manifest.json', write='--check' not in sys.argv)
