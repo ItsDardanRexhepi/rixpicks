@@ -51,7 +51,7 @@ def espn_api(path):
                         'link': ((a.get('links') or {}).get('web') or {}).get('href', ''),
                         'published': a.get('published', ''), 'source': 'ESPN',
                         'image': (imgs[0].get('url', '') if imgs else ''),
-                        'blurb': a.get('description', '')})
+                        'blurb': clean_blurb(a.get('description'))})
     except Exception as e:
         print('  lane espn-api %s: %s' % (path, e), file=sys.stderr)
     return out
@@ -73,10 +73,15 @@ def item_image(it, atom=False):
             return enc.get('url')
     return ''
 
+def clean_blurb(d):
+    """A feed's literal 'null' (ESPN RSS ships <description>null</description>) is no blurb."""
+    d = str(d or '').strip()
+    return '' if d.lower() in ('null', 'undefined', 'none') else d
+
 def item_blurb(it, atom=False):
     d = (it.findtext(ATOM + 'summary') if atom else it.findtext('description')) or ''
     d = re.sub(r'<[^>]+>', ' ', d)
-    return re.sub(r'\s+', ' ', d).strip()[:280]
+    return clean_blurb(re.sub(r'\s+', ' ', d).strip()[:280])
 
 def rss(url, source):
     out = []
@@ -167,6 +172,31 @@ def ts_of(a):
         return datetime.fromisoformat((a.get('published') or '').replace('Z', '+00:00')).timestamp()
     except Exception:
         return 0
+
+# Story times (Oct 1): ESPN RSS stamps many items with the feed's refresh time, labelled EST
+# while Eastern is on EDT, so stories landed 30-60 min in the future and read '1m ago NEW' on
+# the page. The ESPN API lane carries the real publish time for the same story (same /id/ in
+# the link, slug may differ). Prefer it; a time still ahead of now is unknown - blank, never
+# presented as new.
+FUTURE_SKEW_S = 300
+
+def story_key(link):
+    m = re.search(r'espn\.com/.*?/id/(\d+)', link or '')
+    return 'espn:' + m.group(1) if m else (link or '').rstrip('/')  # query kept: recap?gameId=N links differ only there
+
+def story_times(items, api, now_ts):
+    when = {}
+    for a in api:
+        k = story_key(a.get('link'))
+        if k and ts_of(a):
+            when.setdefault(k, a['published'])
+    for a in items:
+        k = story_key(a.get('link'))
+        if k and k in when:
+            a['published'] = when[k]
+        if ts_of(a) > now_ts + FUTURE_SKEW_S:
+            a['published'] = ''
+    return items
 
 
 IMG_CACHE = 'slates/news_images.json'
@@ -279,11 +309,12 @@ def main():
     for key, v in cfg.items():
         path = v.get('espn')
         jkey = path or key.lower()
-        items = []
-        if path: items += espn_api(path)
+        api = espn_api(path) if path else []
+        items = list(api)
         if key in ESPN_RSS: items += rss('https://www.espn.com/espn/rss/%s/news' % ESPN_RSS[key], 'ESPN')
         if key in CBS_RSS: items += rss('https://www.cbssports.com/rss/headlines/%s/' % CBS_RSS[key], 'CBS')
         if key in YAHOO_RSS: items += rss('https://sports.yahoo.com/%s/rss.xml' % YAHOO_RSS[key], 'YAHOO')
+        story_times(items, api, datetime.now(timezone.utc).timestamp())
         seen, ded = set(), []
         for a in sorted(items, key=ts_of, reverse=True):
             n = norm(a['headline'])
