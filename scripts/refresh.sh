@@ -12,8 +12,10 @@ COUNT=0
 T="${RP_TMP:-/tmp}"
 # The provider's last x-requests-remaining reading is ops state, not site content: every file in
 # the checkout is served (Pages + the Cloudflare mirror), so it lives outside it, carried between
-# runs by odds_refresh.yml's cache step. .odds_refresh_count.json served the paid API's credit
-# count (LS-22); it now carries the run-count telemetry only.
+# runs by odds_refresh.yml (its quota-state job restores the Actions cache with no secrets and
+# passes out only a validated reading, which the refresh job seeds here; the refresh job saves a
+# new reading back). .odds_refresh_count.json served the paid API's credit count (LS-22); it now
+# carries the run-count telemetry only.
 # Each reading is stored with its PT month (scripts/ops_quota.py): the provider resets credits on
 # the first of every month, so a reading from an earlier month is ignored. With no reading for
 # this month (an Actions cache miss, a new month), the free GET /v4/sports reading is taken before

@@ -33,8 +33,56 @@ jobs:
       - uses: actions/checkout@v4
       - id: hc
         uses: ./.github/actions/hold-check
-  refresh:
+  # The provider's last credit reading (refresh.sh's hard-cap tripwire, the watchdog's quota floor)
+  # is ops state, never site content: every file in the checkout is served, so it lives in
+  # ~/.rixpicks-ops and travels between runs in the Actions cache (LS-22). Any job on main can write
+  # an odds-quota-* entry and a cache archive can overwrite workspace files before they run, so the
+  # archive is unpacked only here: no secrets, no token permissions, no checkout. Only a validated
+  # integer reading, its PT month and its PT date leave this job; the refresh job, which holds the
+  # odds and Polymarket secrets, never unpacks a cache. scripts/test_quota_state_jobs.py checks this.
+  quota-state:
     needs: hold-check
+    if: ${{ !cancelled() && needs.hold-check.result == 'success' && needs.hold-check.outputs.held == 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    outputs:
+      remaining: ${{ steps.read.outputs.remaining }}
+      month: ${{ steps.read.outputs.month }}
+      pt_date: ${{ steps.read.outputs.pt_date }}
+    steps:
+      - name: "restore odds quota state"
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.rixpicks-ops
+          key: odds-quota-${{ github.run_id }}
+          restore-keys: odds-quota-
+      - name: "validate the reading (integer count, PT month, PT date; anything else gives none)"
+        id: read
+        run: |
+          /usr/bin/python3 -I - >> "$GITHUB_OUTPUT" <<'PY'
+          import json, os, re, stat
+          rem = month = day = ''
+          try:
+              q = os.path.expanduser('~/.rixpicks-ops/odds_quota.json')
+              if stat.S_ISREG(os.lstat(q).st_mode):
+                  with open(q, 'rb') as f:
+                      d = json.loads(f.read(4096).decode('utf-8'))
+                  r, p = d.get('last_remaining'), d.get('pt_date')
+                  m = d.get('month', p[:7] if isinstance(p, str) else None)
+                  if (type(r) is int and 0 <= r <= 999999999
+                          and isinstance(m, str) and re.fullmatch(r'20[0-9]{2}-(0[1-9]|1[0-2])', m)
+                          and (p is None or (isinstance(p, str) and p[:7] == m
+                                             and re.fullmatch(r'20[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])', p)))):
+                      rem, month, day = str(r), m, p or ''
+          except Exception:
+              pass
+          print('remaining=' + rem)
+          print('month=' + month)
+          print('pt_date=' + day)
+          PY
+  refresh:
+    needs: [hold-check, quota-state]
     if: ${{ !cancelled() && needs.hold-check.result == 'success' && needs.hold-check.outputs.held == 'false' }}
     runs-on: ubuntu-latest
     steps:
@@ -42,17 +90,20 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      # The provider's last credit reading (refresh.sh's hard-cap tripwire, the watchdog's quota
-      # floor) is ops state, never site content: every file in the checkout is served, so it lives
-      # in ~/.rixpicks-ops and travels between runs in the Actions cache (LS-22).
-      - name: restore odds quota state
-        uses: actions/cache/restore@v4
-        with:
-          path: ~/.rixpicks-ops
-          key: odds-quota-${{ github.run_id }}
-          restore-keys: odds-quota-
-      - name: mark restored quota state
-        run: mkdir -p ~/.rixpicks-ops && touch ~/.rixpicks-ops/.restored
+      # The quota-state job's outputs come in through env only and are validated again before they
+      # seed the ops state. No reading (cache miss, malformed) seeds nothing, and refresh.sh then
+      # takes the free GET /v4/sports reading before any paid pull. The tripwire clears by itself in
+      # a new PT month; to clear it mid-month, delete the odds-quota-* cache entries
+      # (gh cache list --key odds-quota-, gh cache delete <id>) - see scripts/refresh.sh.
+      - name: "seed the validated quota reading (no cache is unpacked in this job)"
+        env:
+          QUOTA_REMAINING: ${{ needs.quota-state.outputs.remaining }}
+          QUOTA_MONTH: ${{ needs.quota-state.outputs.month }}
+          QUOTA_PT_DATE: ${{ needs.quota-state.outputs.pt_date }}
+        run: |
+          mkdir -p ~/.rixpicks-ops
+          python3 scripts/ops_quota.py seed ~/.rixpicks-ops/odds_quota.json
+          touch ~/.rixpicks-ops/.restored
       - name: refresh odds and rebuild
         env:
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}

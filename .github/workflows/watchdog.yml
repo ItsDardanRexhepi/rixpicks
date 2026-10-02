@@ -10,8 +10,55 @@ concurrency:
   group: failure-watchdog
   cancel-in-progress: false
 jobs:
-  triage:
+  # The odds provider's last credit reading (the quota floor below) is ops state kept outside the
+  # served checkout; odds-refresh saves it to the Actions cache after each pull. The cache archive
+  # is unpacked only in this job - no secrets, no token permissions, no checkout - and only a
+  # validated integer reading, its PT month and its PT date leave it. The triage job, which holds
+  # a token with actions:write and contents:write, never unpacks a cache (the same step as
+  # odds_refresh.yml's quota-state job; scripts/test_quota_state_jobs.py checks both).
+  quota-state:
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    outputs:
+      remaining: ${{ steps.read.outputs.remaining }}
+      month: ${{ steps.read.outputs.month }}
+      pt_date: ${{ steps.read.outputs.pt_date }}
+    steps:
+      - name: "restore odds quota state"
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.rixpicks-ops
+          key: odds-quota-watchdog-${{ github.run_id }}
+          restore-keys: odds-quota-
+      - name: "validate the reading (integer count, PT month, PT date; anything else gives none)"
+        id: read
+        run: |
+          /usr/bin/python3 -I - >> "$GITHUB_OUTPUT" <<'PY'
+          import json, os, re, stat
+          rem = month = day = ''
+          try:
+              q = os.path.expanduser('~/.rixpicks-ops/odds_quota.json')
+              if stat.S_ISREG(os.lstat(q).st_mode):
+                  with open(q, 'rb') as f:
+                      d = json.loads(f.read(4096).decode('utf-8'))
+                  r, p = d.get('last_remaining'), d.get('pt_date')
+                  m = d.get('month', p[:7] if isinstance(p, str) else None)
+                  if (type(r) is int and 0 <= r <= 999999999
+                          and isinstance(m, str) and re.fullmatch(r'20[0-9]{2}-(0[1-9]|1[0-2])', m)
+                          and (p is None or (isinstance(p, str) and p[:7] == m
+                                             and re.fullmatch(r'20[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])', p)))):
+                      rem, month, day = str(r), m, p or ''
+          except Exception:
+              pass
+          print('remaining=' + rem)
+          print('month=' + month)
+          print('pt_date=' + day)
+          PY
+  triage:
+    needs: quota-state
+    if: ${{ !cancelled() && github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,14 +71,14 @@ jobs:
         run: |
           pip install -q pyyaml
           python3 scripts/check_workflows.py
-      # the odds provider's last credit reading (the quota floor below) is ops state kept outside
-      # the served checkout; odds-refresh saves it to the Actions cache after each pull
-      - name: restore odds quota state
-        uses: actions/cache/restore@v4
-        with:
-          path: ~/.rixpicks-ops
-          key: odds-quota-watchdog-${{ github.run_id }}
-          restore-keys: odds-quota-
+      # the quota-state job's outputs come in through env only and are validated again before they
+      # seed the ops state watchdog.py reads; no reading seeds nothing (the floor then reads none)
+      - name: "seed the validated quota reading (no cache is unpacked in this job)"
+        env:
+          QUOTA_REMAINING: ${{ needs.quota-state.outputs.remaining }}
+          QUOTA_MONTH: ${{ needs.quota-state.outputs.month }}
+          QUOTA_PT_DATE: ${{ needs.quota-state.outputs.pt_date }}
+        run: python3 scripts/ops_quota.py seed ~/.rixpicks-ops/odds_quota.json
       - name: diagnose + budgeted auto-retry
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

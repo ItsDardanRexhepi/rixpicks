@@ -18,6 +18,10 @@ is never one taken before the reset.
       store a reading taken now, with its PT date and month
   ops_quota.py header <headers file>
       print the x-requests-remaining value of a curl -D header dump, or nothing
+  ops_quota.py seed <quota.json>
+      store the reading a workflow's quota-state job passed out (env QUOTA_REMAINING, QUOTA_MONTH,
+      QUOTA_PT_DATE). That job unpacked the Actions cache with no secrets; nothing from it is
+      trusted here, so every value is validated again and anything malformed seeds nothing.
 
 Every command exits 0 on a missing or malformed reading (it gives no reading); refresh.sh
 decides what no reading means. A count is never printed except as the bare value refresh.sh reads.
@@ -103,6 +107,23 @@ def header_remaining(text):
     return int(m.group(1)) if m else None
 
 
+def seed(path, env=None):
+    env = os.environ if env is None else env
+    rem, month, day = env.get('QUOTA_REMAINING', ''), env.get('QUOTA_MONTH', ''), env.get('QUOTA_PT_DATE', '')
+    if not rem and not month and not day:
+        print('ops quota: no reading from the quota-state job (cache miss) - none seeded')
+        return False
+    ok = (_INT.fullmatch(rem) is not None and int(rem) <= MAX_CREDITS and _MONTH.fullmatch(month) is not None
+          and (day == '' or (_DATE.fullmatch(day) is not None and day[:7] == month)))
+    if not ok:
+        print('ops quota: the quota-state job passed a malformed reading - none seeded', file=sys.stderr)
+        return False
+    rec = {'pt_date': day, 'month': month, 'last_remaining': int(rem)} if day else {'month': month, 'last_remaining': int(rem)}
+    _write(path, rec)
+    print('ops quota: seeded the reading for %s from the quota-state job' % month)
+    return True
+
+
 def main(argv):
     if len(argv) < 2:
         sys.exit(__doc__)
@@ -124,6 +145,8 @@ def main(argv):
             n = None
         if n is not None:
             print(n)
+    elif cmd == 'seed':
+        seed(path)
     else:
         sys.exit(__doc__)
 
