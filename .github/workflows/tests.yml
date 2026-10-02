@@ -34,11 +34,12 @@ jobs:
           pip install -q pyyaml
           git config --global user.email ci@example.com && git config --global user.name ci
       - name: "all standing fixtures (network blocked)"
+        # GitHub treats env names case-insensitively (http_proxy and HTTP_PROXY collide and the
+        # workflow fails to parse), so set the lowercase names here and export the uppercase ones.
         env:
           http_proxy: 'http://127.0.0.1:9'
           https_proxy: 'http://127.0.0.1:9'
-          HTTP_PROXY: 'http://127.0.0.1:9'
-          HTTPS_PROXY: 'http://127.0.0.1:9'
           no_proxy: ''
-          NO_PROXY: ''
-        run: bash scripts/run_fixtures.sh
+        run: |
+          export HTTP_PROXY="$http_proxy" HTTPS_PROXY="$https_proxy" NO_PROXY="$no_proxy"
+          bash scripts/run_fixtures.sh
