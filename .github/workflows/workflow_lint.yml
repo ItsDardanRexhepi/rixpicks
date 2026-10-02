@@ -19,6 +19,7 @@ on:
       - 'scripts/futures_window.js'
       - 'scripts/test_futures_window.js'
       - 'scripts/test_workflow_run_names.py'
+      - 'scripts/test_workflow_npm_pins.py'
   workflow_dispatch:
 jobs:
   parse:
@@ -44,6 +45,8 @@ jobs:
         run: python3 scripts/test_pages_changed.py
       - name: "workflow_run names resolve + failure hooks watch every site writer"
         run: python3 scripts/test_workflow_run_names.py
+      - name: "fixture npm installs pinned, scripts off, no secrets in env"
+        run: python3 scripts/test_workflow_npm_pins.py
       - name: "yaml parse gate + actionlint"
         run: |
           python3 - <<'EOF'
