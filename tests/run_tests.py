@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """RIX core regression gate (stage 0 of the core merge, 9/27). Self-contained: adapters ->
 build_manifest preview (isolated ledger) -> finals_watch grading suites. Exit 1 on any failure.
-Run: python3 rix_tmp/tests/run_tests.py"""
+Run: python3 tests/run_tests.py (from any checkout; RIX_SCRIPTS overrides the scripts dir)"""
 import importlib.util, json, os, subprocess, sys, tempfile
 
-HOME = '/home/sandbox'
-SCRIPTS = f'{HOME}/rix_tmp/scripts'
+# Paths follow this checkout (was hardcoded to /home/sandbox/rix_tmp, so the gate could not run
+# from a repo clone or in Actions). The repo root goes on the import path for core/, both here
+# and for the adapter/builder subprocesses.
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SCRIPTS = os.environ.get('RIX_SCRIPTS', os.path.join(ROOT, 'scripts'))
+sys.path.insert(0, ROOT)
+os.environ['PYTHONPATH'] = ROOT + (os.pathsep + os.environ['PYTHONPATH'] if os.environ.get('PYTHONPATH') else '')
 FIX = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fixtures')
 failures = []
 
@@ -26,6 +31,8 @@ def run_adapter(script, rows, eid_map, extra=()):
 
 tmp = tempfile.mkdtemp(prefix='rixtest_')
 os.environ['RIX_PICKS_LEDGER'] = f'{tmp}/picks.jsonl'
+os.environ['RIX_PROD_MANIFEST'] = f'{tmp}/prod_manifest.json'  # never read or mirror the grader's manifest
+os.environ.setdefault('RIX_CONFIG_PROPS', os.path.join(ROOT, 'config_props.json'))  # props adapter config from this checkout
 LEDGER = f'{tmp}/picks.preview.jsonl'
 
 # ---------- 1. adapter gates ----------

@@ -1,5 +1,9 @@
 import json, os, subprocess, sys, tempfile, shutil
 
+# Paths follow this checkout (was hardcoded to /home/sandbox/rix_tmp). MAN is this test's
+# production manifest path: RIX_PROD_MANIFEST points the builder at it, so a non-preview publish
+# is never mirrored onto the grader's real manifest.json.
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 tmp=tempfile.mkdtemp()
 prod_ledger=f'{tmp}/picks.jsonl'
 MAN=f'{tmp}/manifest.json'  # stable production manifest path for this test
@@ -7,8 +11,8 @@ CAND=[{'num':1,'name':'Test ML','side':'home','away':'AAA','home':'BBB','commenc
  'eid':999001,'espn_league':'MLB','units':5,'date':'2026-09-28',
  'kalshi':{'cents':57,'team':'BBB','ticker':'KXT-BBB'},'model':60.7,'gross_c':3.7,'net_c':2.0,'market_class':'ml'}]
 cf=f'{tmp}/cands.json'
-S='/home/sandbox/rix_tmp/scripts/build_manifest.py'
-env=dict(os.environ); env['PYTHONPATH']='/home/sandbox/rix_tmp'; env['RIX_PICKS_LEDGER']=prod_ledger
+S=os.path.join(ROOT,'scripts','build_manifest.py')
+env=dict(os.environ); env['PYTHONPATH']=ROOT; env['RIX_PICKS_LEDGER']=prod_ledger; env['RIX_PROD_MANIFEST']=MAN
 META={'record':'13-6','units_pl':'+3.89u','units_ledger':'test ledger','yesterday':'3-0 sweep','status_note':'test note','parlay':None}
 mp=f'{tmp}/meta.json'; json.dump(META,open(mp,'w'))
 fails=[]
@@ -83,7 +87,7 @@ if len(rows())!=1: fails.append('T9 appended a duplicate')
 if not os.path.exists(MAN): fails.append('T9 manifest not published')
 print('T9 OK')
 # T10 preview refuses production manifest path
-r=run([cf,'/home/sandbox/rix_tmp/manifest.json','--preview'],expect_ok=False)
+r=run([cf,MAN,'--preview'],expect_ok=False)
 if 'refuses production manifest path' not in r.stderr+r.stdout: fails.append('T10 no path refusal')
 print('T10 OK')
 # T11 units change on published key -> refuse (swamp round 7 repro)
@@ -102,22 +106,24 @@ print('T12 OK')
 os.remove(MAN)  # T12's corrupt manifest; identical rerun exercises the T9 resume path
 write_cands(CAND); run([cf,MAN])
 html_out=f'{tmp}/index.html'
-r=subprocess.run(['python3','/home/sandbox/rix_tmp/scripts/build_gh_page.py',MAN,html_out],
-                 capture_output=True,text=True,env=dict(os.environ))
+r=subprocess.run(['python3',os.path.join(ROOT,'scripts','build_gh_page.py'),MAN,html_out],
+                 capture_output=True,text=True,env=env)
 # hermetic level: format contract must carry it to the live-market gate (fake ticker KXT dies THERE,
 # by design); a contract break shows as KeyError/JSONDecodeError before that point.
 st=r.stderr+r.stdout
 if 'KeyError' in st or 'JSONDecodeError' in st: fails.append(f'T13 format contract broken: {st[-300:]}')
 if 'Kalshi market unresolved' not in st and r.returncode!=0: fails.append(f'T13 unexpected failure: {st[-300:]}')
 print('T13 OK' if not any(x.startswith('T13') for x in fails) else 'T13 FAILED')
-# T14 market_class gate: spread candidate refused loud, nothing written
+# T14 market_class gate (ml|spread|total|prop contract): a spread candidate without a numeric
+# line is refused loud, nothing written; a missing market_class is refused loud
 c6=[dict(CAND[0])]; c6[0]['market_class']='spread'
 write_cands(c6); r=run([cf,MAN],expect_ok=False)
-if "only explicit 'ml'" not in r.stderr+r.stdout: fails.append('T14 no ml-only refusal')
+if 'missing numeric line' not in r.stderr+r.stdout: fails.append('T14 spread without a line not refused')
 if len(rows())!=1: fails.append('T14 ledger mutated')
 c7=[dict(CAND[0])]; c7[0].pop('market_class',None)
 write_cands(c7); r=run([cf,MAN],expect_ok=False)
-if "only explicit 'ml'" not in r.stderr+r.stdout: fails.append('T14b missing market_class not refused')
+if 'must be explicit ml|spread|total|prop' not in r.stderr+r.stdout: fails.append('T14b missing market_class not refused')
+if len(rows())!=1: fails.append('T14b ledger mutated')
 print('T14 OK')
 print('FAILS:',fails if fails else 'none')
 shutil.rmtree(tmp)
