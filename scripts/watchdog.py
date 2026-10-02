@@ -110,10 +110,12 @@ def provider_remaining(path=QUOTA_FILE, now=None):
 
 # Every form a count can take in a log: the provider's headers (x-requests-used gives the count
 # away as plan minus used), the lanes' 'credits remaining N' lines, JSON or dict keys (including
-# this script's own printed provider_remaining), and refresh.sh's shell forms under a set -x
-# trace (LASTREM=N, LASTREM_PRE=N, int('N')).
+# this script's own printed provider_remaining), refresh.sh's shell forms under a set -x
+# trace (LASTREM=N, LASTREM_PRE=N, int('N')), the triage seed step's env dump, which the runner
+# prints in the step log (QUOTA_REMAINING: N), and a bare remaining=N / remaining: N reading.
 _CREDIT_RE = re.compile(r'(?i)(x-requests-(?:remaining|used):?\s*|credits? remaining:?\s*|credits used\s*\d+,\s*remaining\s*'
                         r'|["\']?(?:last_remaining|credits_remaining|provider_remaining)["\']?\s*[:=]\s*(?:int\(\s*["\']?)?'
+                        r'|\bQUOTA_REMAINING["\']?\s*[:=]\s*["\']?|\bremaining["\']?\s*[:=]\s*["\']?'
                         r'|\bLASTREM(?:_PRE)?=["\']?|\bint\(\s*["\'])\d+')
 
 def redact_credits(text):

@@ -98,6 +98,18 @@ check('incident log tail is written with every credit count redacted',
 check('the LASTREM=, provider_remaining and int(...) forms read N',
       [f for f in ('LASTREM=N', 'LASTREM_PRE=N', "int('N')", '"provider_remaining": N', "'provider_remaining': N", 'x-requests-used: N') if f not in red], [])
 check('the rest of the tail stays readable', 'BUILD FAILED: card 21-11' in red and 'credits remaining N' in red, True)
+# r3 review: the seed step's env dump (the runner prints a step's env in its log) and the
+# quota-state reading's own 'remaining=N' line came back unredacted
+tail2 = ('  env:\n    QUOTA_REMAINING: 17188\n    QUOTA_MONTH: 2026-10\n    QUOTA_PT_DATE: 2026-10-01\n'
+         'remaining=17187\n+ QUOTA_REMAINING=17186\nremaining = 17185\n"remaining": 17184\nREMAINING=17183\n'
+         'quota floor: 100\nexit code 3')
+red2 = rc(tail2)
+check('the env dump QUOTA_REMAINING: N and the remaining=N forms are redacted',
+      [n for n in ('17188', '17187', '17186', '17185', '17184', '17183') if n in red2], [])
+check('those forms read N', [f for f in ('QUOTA_REMAINING: N', 'remaining=N', 'QUOTA_REMAINING=N', 'remaining = N', 'REMAINING=N')
+                             if f not in red2], [])
+check('the month, PT date, floor and exit code next to them stay readable',
+      all(s in red2 for s in ('QUOTA_MONTH: 2026-10', 'QUOTA_PT_DATE: 2026-10-01', 'quota floor: 100', 'exit code 3')), True)
 check('the incident note writes the redacted tail', 'redact_credits(diag[\'error_tail\'])' in src, True)
 wf = open(os.path.join(ROOT, '.github', 'workflows', 'watchdog.yml')).read()
 check('failure-watchdog restores the odds quota state from the Actions cache', 'actions/cache/restore@' in wf and 'odds-quota-' in wf, True)
