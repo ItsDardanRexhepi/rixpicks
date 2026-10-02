@@ -479,6 +479,9 @@ def _card_date_of(m):
     _ds=[d for d in _ds if d]
     return _Ct(_ds).most_common(1)[0][0] if _ds else _dtc.date.today().isoformat()
 _CARD_DATE=_card_date_of(man)
+# the date header's ISO date (rpDateRoll compares it with today's PT date, never the label text):
+# the manifest date the label names, else the card's own date
+_RPDATE_ISO=str(man.get('date') or '') if re.fullmatch(r'\d{4}-\d{2}-\d{2}',str(man.get('date') or '')) else _CARD_DATE
 _MAN_SHA=_PC_HASH  # card identity: canonical pick-content hash (tester hold Sep 27) - volatile
 # operational fields (num/result/_final/polycents/kalshi.cents/dkp snapshots, updated stamp,
 # formatting) never move it, so a same-card rebuild keeps the pin; real pick content moves it.
@@ -512,15 +515,23 @@ _POSTED_LBL=_iso_lock_label(_POSTED_AT) if _POSTED_AT else ''
 _LOCK_KNOWN=bool((_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or _POSTED_LBL or _ct_lock)
 ENTRY_LOCK=(_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or _POSTED_LBL or _ct_lock or man.get('updated','')
 _ODDS_CHECKED=man.get('stamp_label')=='odds_checked'  # reconstructed/archive card: odds-check evidence only, no lock event - render "Odds checked <stamp>", never "locked" (main ruling Sep 27)
-def _posted_after_start(p):
-    if not _POSTED_LBL: return False
+def _posted_after_start(p,posted=None):
+    # posted: the posted_at of the card this pick belongs to (default: the building card's). A game
+    # page rebuilt from an earlier card's snapshot passes that card's own posted_at.
+    posted=_POSTED_AT if posted is None else posted
+    if not _iso_lock_label(posted): return False
     try:
         _gc=_dtc.datetime.fromisoformat(((p.get('game') or {}).get('commence') or '').replace('Z','+00:00'))
-        return _gc.tzinfo is not None and _dtc.datetime.fromisoformat(_POSTED_AT.replace('Z','+00:00'))>=_gc
+        return _gc.tzinfo is not None and _dtc.datetime.fromisoformat(posted.replace('Z','+00:00'))>=_gc
     except Exception: return False
-def _stamp_html(p):
-    if _posted_after_start(p):
-        return 'Posted '+html.escape(_POSTED_LBL)+' &middot; after start'  # published after this game began: never a lock claim
+def _stamp_html(p,posted=None):
+    posted=_POSTED_AT if posted is None else posted
+    if _posted_after_start(p,posted):
+        # published after this game began: never a lock claim. Short, and on phones the separator
+        # becomes a line break (CSS .lkbr): the old 'Posted Oct 2, 12:30 PM PT - after start' sat
+        # in a nowrap, non-shrinking meta group and pushed a 320px page to 381px (game page 397px)
+        _ptime=_iso_lock_label(posted).split(', ')[-1].replace(' PT','')  # '12:30 PM', as the locked stamp shows its time
+        return 'Posted '+html.escape(_ptime)+'<span class="lkbr"> &middot; </span>after start'
     if _ODDS_CHECKED:
         return 'Odds checked '+html.escape(ENTRY_LOCK)
     if not (p.get('locked') or _LOCK_KNOWN):
@@ -2112,7 +2123,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
     '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><button type="button" class="rec" id="rpNavRec" aria-haspopup="true" aria-expanded="false" aria-controls="rpRecPop" aria-label="View overall record"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</button>'+_recpop_html+'</nav>\n'
-    '<div class="layout"><div class="rphead">'+_home_yes+'<div class="rpdate">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
+    '<div class="layout"><div class="rphead">'+_home_yes+'<div class="rpdate" data-date="'+html.escape(_RPDATE_ISO)+'">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Upcoming Events</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div id="rpPredWrap" class="home-only" style="display:none"><div class="col-head" style="margin-top:18px"><div class="sect">Predictions by UltRix</div></div><div class="card" id="rpPred"></div></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
@@ -2212,7 +2223,7 @@ h1 .tick{{color:#3BEBF5}}
 .lghead span{{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}}.sect{{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}}
 .pick{{padding:18px 0;border-top:1px solid #e4e2de}}
 .pick:first-of-type{{border-top:none}}
-.pick-head{{display:flex;align-items:center;gap:10px}}.gamelink{{flex:1;min-width:0}}.meta-grp{{display:inline-flex;align-items:center;gap:8px;flex:none}}.rpmetalink{{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}}.uo{{display:inline-flex;align-items:center;gap:8px}}.oddslock{{font-size:10px;letter-spacing:.4px;color:#8a8f98;text-transform:uppercase;white-space:nowrap}}.rpchatlink{{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}}
+.pick-head{{display:flex;align-items:center;gap:10px}}.gamelink{{flex:1;min-width:0}}.meta-grp{{display:inline-flex;align-items:center;gap:8px;flex:none}}.rpmetalink{{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}}.uo{{display:inline-flex;align-items:center;gap:8px}}.oddslock{{font-size:10px;letter-spacing:.4px;color:#8a8f98;text-transform:uppercase;white-space:nowrap}}@media (max-width:600px){{.oddslock .lkbr{{display:block;height:0;overflow:hidden}}.oddslock{{text-align:right}}}}.rpchatlink{{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}}
 .gamelink{{display:flex;align-items:center;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}}
 .chev{{color:#55555c;text-decoration:none}}
 .mrow{{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}}
@@ -2997,8 +3008,12 @@ def build_game_pages(man, css, build_sha):
         _gc0=min(_gcts)
         from zoneinfo import ZoneInfo as _ZIg
         _glock=_dtc.datetime.fromisoformat(_gc0.replace('Z','+00:00')).astimezone(_ZIg('America/Los_Angeles')).strftime('%b %d').replace(' 0',' ')+', '+_pt_time(_gc0)
+    # posted_at likewise comes from ITS OWN manifest: after the day rolls to an empty card these pages
+    # rebuild from the last card's snapshot, whose posted_at says which of its games began first;
+    # the building card's posted_at never stamps another card's picks
+    _gposted=str(man.get('posted_at') or '')
     def _game_stamp(p):
-        if _ODDS_CHECKED or _posted_after_start(p) or not (p.get('locked') or _glock or _LOCK_KNOWN): return _stamp_html(p)  # same honesty rules as the index stamp
+        if _ODDS_CHECKED or _posted_after_start(p,_gposted) or not (p.get('locked') or _glock or _LOCK_KNOWN): return _stamp_html(p,_gposted)  # same honesty rules as the index stamp
         return html.escape((p.get('locked') or _glock or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))+' &middot; locked'
     "Per-game live-market pages (user, Sep 25 12:11 PM)."
     tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'game_page_template.html')).read()

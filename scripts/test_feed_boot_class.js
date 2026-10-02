@@ -4,7 +4,10 @@
    A. A generation-stamped map fetched before the news/X generations exist must NOT be
       discarded - it promotes the moment both generations arrive (no ~45s blank wait).
    B. The baked .rpdate header rolls to the current PT day at midnight; yesterday's card
-      never wears today's date.
+      never wears today's date. The roll compares the card's ISO date (.rpdate data-date) with
+      today's PT date and fires only for a card dated BEFORE today: a card posted before PT
+      midnight for the next day keeps its picks on Home (Oct 2 review), and a rolled panel's
+      "Today's picks" heading no longer sits under its "From the <day> card" note.
    Extracts the real functions from scripts/index_v2.js and runs them in a vm sandbox.
    Run: node scripts/test_feed_boot_class.js  (wired into x_feed.yml) */
 'use strict';
@@ -103,7 +106,7 @@ check('generation-mismatched held map fails closed', ctx3.SOC_MATCH_OK, false);
 
 // C: rolled dates - stale baked header rolls to current PT day with honest state
 const ptToday = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', weekday: 'long', month: 'short', day: 'numeric' }).format(new Date());
-const el = { textContent: 'Monday, Sep 28' };
+const el = { textContent: 'Monday, Sep 28', getAttribute: k => (k === 'data-date' ? '2026-09-28' : null) };
 const stHome = { innerHTML: '<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div><div class="sub cnote">MNF Eagles @ Bears, 5:15 PM PT.</div></div>' };
 // M3 (Oct 1): the stale card's league panels stop projecting onto Home and name their card; the
 // Dingers panel (no .pick) and the combo tail outside Home are left alone
@@ -142,6 +145,50 @@ if (before === 'stale') {
 const h1 = el.textContent, s1 = stHome.innerHTML;
 vm.runInContext('rpDateRoll();', ctx4);
 check('second roll is a no-op', [el.textContent === h1, stHome.innerHTML === s1], [true, true]);
+
+
+// C2 (Oct 2 review): ISO date roll on a fixed clock. Before, rpDateRoll compared the label text, so
+// a card posted before PT midnight for the NEXT day read as stale and its picks left Home.
+function rollAt(nowIso, cardIso, cardLabel) {
+  const FIXED = Date.parse(nowIso);
+  class FakeDate extends Date { constructor(...a) { if (a.length) super(...a); else super(FIXED); } static now() { return FIXED; } }
+  const hd = { textContent: cardLabel, getAttribute: k => (k === 'data-date' ? cardIso : null) };
+  const home = { innerHTML: '<div class="pick">card picks</div>' };
+  const sect = { textContent: 'Today\u2019s picks' };
+  const pnl = { attrs: { 'data-home-league': '1' }, kids: [sect], removeAttribute(k) { delete this.attrs[k]; },
+    querySelector: sel => (sel === '.pick' ? {} : (sel === '.sect' ? sect : null)),
+    get firstChild() { return this.kids[0] || null; }, insertBefore(n) { this.kids.unshift(n); } };
+  const w = {};
+  const c = vm.createContext({
+    Date: FakeDate, JSON, Intl, window: w,
+    document: {
+      querySelector: sel => (sel === '.rpdate' ? hd : null),
+      getElementById: id => (id === 'st-home' ? home : null),
+      querySelectorAll: sel => (sel === '.state[data-home-league]' && 'data-home-league' in pnl.attrs ? [pnl] : []),
+      createElement: () => ({ className: '', textContent: '' }),
+      body: { classList: { contains: c2 => c2 === 'tab-home' } },
+    },
+  });
+  vm.runInContext(extract('rpDateRoll'), c);
+  vm.runInContext('rpDateRoll();', c);
+  const once = { header: hd.textContent, home: home.innerHTML, stale: !!w.RP_CARD_STALE, onHome: 'data-home-league' in pnl.attrs,
+                 panel: pnl.kids.map(k => k.textContent) };
+  vm.runInContext('rpDateRoll();', c);
+  once.idempotent = hd.textContent === once.header && home.innerHTML === once.home && pnl.kids.length === once.panel.length;
+  return once;
+}
+const KEEP = (label) => ({ header: label, home: '<div class="pick">card picks</div>', stale: false, onHome: true,
+                           panel: ['Today\u2019s picks'], idempotent: true });
+// 23:30 PT Oct 1: the Oct 2 card is already posted - tomorrow's card is not stale
+check('card dated tomorrow (posted 23:30 PT the night before) does not roll', rollAt('2026-10-02T06:30:00Z', '2026-10-02', 'Friday, Oct 2'), KEEP('Friday, Oct 2'));
+check('card dated today does not roll', rollAt('2026-10-02T19:00:00Z', '2026-10-02', 'Friday, Oct 2'), KEEP('Friday, Oct 2'));
+check('today\'s card with a custom date label does not roll (dates compare, not label text)',
+      rollAt('2026-10-02T19:00:00Z', '2026-10-02', 'Fri Oct 2 - NFL week 5'), KEEP('Fri Oct 2 - NFL week 5'));
+const ROLLED = { header: 'Friday, Oct 2', home: '<div class="pick rp-empty"><div class="pick-head"><span class="name">Today\u2019s card has not published yet.</span></div></div>',
+                 stale: true, onHome: false, panel: ['From the Thursday, Oct 1 card', 'Picks'], idempotent: true };
+check('card dated yesterday rolls at PT midnight (00:00 PDT Oct 2)', rollAt('2026-10-02T07:00:00Z', '2026-10-01', 'Thursday, Oct 1'), ROLLED);
+check('card dated yesterday rolls at noon; its panel heading no longer says Today\'s picks', rollAt('2026-10-02T19:00:00Z', '2026-10-01', 'Thursday, Oct 1'), ROLLED);
+check('a card with no ISO date does not roll (the header keeps the card\'s own date)', rollAt('2026-10-02T19:00:00Z', null, 'Thursday, Oct 1'), KEEP('Thursday, Oct 1'));
 
 if (failures) { console.error(failures + ' FAILURES'); process.exit(1); }
 

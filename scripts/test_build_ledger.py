@@ -61,7 +61,7 @@ if len(rows())!=1: fails.append('T6 mutated')
 print('T6 OK')
 # T7 batch duplicate rejection (fresh ledger)
 os.remove(prod_ledger)
-dup=[dict(CAND[0]),dict(CAND[0])]
+dup=[dict(CAND[0]),dict(CAND[0],num=2)]  # same pick key under two nums (a shared num refuses earlier, in the owner-rules gate)
 write_cands(dup); r=run([cf,MAN],expect_ok=False)
 if 'duplicate candidates' not in r.stderr+r.stdout: fails.append('T7 no dupe refusal')
 if rows(): fails.append('T7 wrote rows')

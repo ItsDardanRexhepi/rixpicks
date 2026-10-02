@@ -392,21 +392,29 @@ var CAR_UNIT=null; /* guard 1 atomic fallback (owner 7:11 "the same ones too"): 
    rolled dates"): the baked .rpdate header is the CARD's date; the site shows the current
    PT day. At PT midnight the header rolls forward and the stale card area is replaced by
    the honest not-published state (mirrors record_today.js) - yesterday's card never wears
-   today's date. When the morning manifest lands the baked date matches and this no-ops. */
+   today's date. The roll compares ISO dates (the header's data-date with today's PT date) and
+   fires only for a card dated BEFORE today: a card posted before PT midnight for the next day
+   is not stale (Oct 2 review: the label-text compare hid its picks). A header with no ISO date
+   keeps the card's own date. */
 function rpDateRoll(){
- var el=document.querySelector('.rpdate');if(!el)return;
+ var el=document.querySelector('.rpdate');if(!el||window.RP_CARD_STALE)return;
+ var card=(el.getAttribute&&el.getAttribute('data-date'))||'';
+ var pt={};new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).forEach(function(x){pt[x.type]=x.value;});
+ var todayIso=pt.year+'-'+pt.month+'-'+pt.day;
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(card)||card>=todayIso)return;
  var today=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'long',month:'short',day:'numeric'}).format(new Date());
- if(el.textContent.trim()===today)return;
  var cardDay=el.textContent.trim();
  el.textContent=today;
  window.RP_CARD_STALE=true;
  var st=document.getElementById('st-home');
  if(st)st.innerHTML='<div class="pick rp-empty"><div class="pick-head"><span class="name">Today\u2019s card has not published yet.</span></div></div>';
  /* the stale card's league panels stop projecting onto Home (they kept showing under the new date)
-    and say which card they belong to; its combo leaves Home too */
+    and say which card they belong to; their "Today's picks" heading becomes "Picks"; its combo
+    leaves Home too */
  document.querySelectorAll('.state[data-home-league]').forEach(function(p){
   if(!p.querySelector('.pick'))return;
   p.removeAttribute('data-home-league');
+  var h=p.querySelector('.sect');if(h&&/^Today/.test(h.textContent))h.textContent='Picks';
   var n=document.createElement('div');n.className='cardnote';n.textContent='From the '+cardDay+' card';p.insertBefore(n,p.firstChild);
  });
  var cx=document.getElementById('rpComboTail');if(cx&&document.body.classList.contains('tab-home'))cx.style.display='none';
