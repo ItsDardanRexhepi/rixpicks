@@ -674,8 +674,9 @@
   "pick_team": "Las Vegas Aces",
   "prediction": "Las Vegas Aces beat Indiana Fever",
   "kickoff_utc": "2026-10-02T01:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-01T04:20:26.047559+00:00"
+  "status": "hit",
+  "created_at": "2026-10-01T04:20:26.047559+00:00",
+  "settled_at": "2026-10-02T03:34:55.121412+00:00"
  },
  {
   "id": "ab01ff509a",
