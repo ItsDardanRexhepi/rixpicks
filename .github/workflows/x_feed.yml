@@ -61,7 +61,7 @@ jobs:
     # bridging, the matcher and the commits keep running).
     env:
       X_DAILY_CAP_USD: ${{ vars.X_DAILY_CAP_USD }}
-      X_PAID_PULLS: ${{ vars.X_PAID_PULLS }}
+      X_PAID_PULLS: ${{ vars.X_PAID_PULLS || 'off' }}  # paused unless the owner sets it to on
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
