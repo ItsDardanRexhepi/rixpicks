@@ -3023,8 +3023,9 @@ def build_game_pages(man, css, build_sha):
             # Unpicked side may show the live quote; the card side is always the lock.
             _lk=(p.get('kalshi') or {}).get('cents')
             if _lk and am and hm:
+                # a prop pick (side over/under) owns no side of this board: its lock never lands on one
                 if side=='away': am=(am[0],am[1],_lk)
-                else: hm=(hm[0],hm[1],_lk)
+                elif side=='home': hm=(hm[0],hm[1],_lk)
             if am and hm:
                 kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
                     '<span class="side"><a '+rt('KAL',base+'-'+am[1].lower(),False)+'>'+html.escape(away)+'</a></span>'
@@ -3156,6 +3157,42 @@ def build_game_pages(man, css, build_sha):
                 _GAME_ROUTES[_comp_rt]='game-%s.html'%p['num']
         _COLL[0]=_MARKETS  # restore the index collector for the next build phase
     return pages
+
+# game-N.html is reused by every card, so a number this build does not rebuild (the card has
+# fewer picks, or the empty-card hold found no exact snapshot) kept serving an older card's game
+# as if current, and backfill_history.py kept refreshing its hist-N.json from that old market.
+# Such a page becomes a fixed notice: the URL keeps resolving, and it carries no event id and no
+# market, so nothing keeps pulling history for it (data-retired marks it for backfill_history.py).
+# hist-*.json is left alone here: record-final stages only the pages it rebuilds, and an extra
+# modified file would trip its unstaged-output check. The notice is byte-stable across rebuilds.
+_RETIRED_GAME_TMPL='''<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Past game - &rsquo;RixPicks</title>
+<style>__CSS__</style>
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head><body>
+<div class="wrap">
+<a class="back" href="./">&larr; Today&rsquo;s picks</a>
+<div class="sect" style="margin-top:18px">Past game</div>
+<div class="pick" data-retired="1"><div class="sub">This game page belonged to an earlier card and is no longer updated. Every graded pick and its final result is on the record.</div></div>
+<div class="foot"><a href="record.html">Full record</a> &middot; <a href="./">Today&rsquo;s picks</a></div>
+</div>
+</body></html>'''
+
+def _retire_game_pages(out_dir, keep, css):
+    stub=scrub_shipped(_RETIRED_GAME_TMPL.replace('__CSS__',css))
+    retired=[]
+    for path in sorted(__import__('glob').glob(os.path.join(out_dir,'game-*.html'))):
+        fn=os.path.basename(path)
+        m=re.match(r'game-([0-9]+)\.html$',fn)
+        if not m or fn in keep: continue
+        try: cur=open(path).read()
+        except Exception: cur=None
+        if cur!=stub: open(path,'w').write(stub)
+        retired.append(fn)
+    return retired
 
 
 def team_slug(name):
@@ -3733,10 +3770,13 @@ if not man.get('picks'):
             except Exception: pass
         if _matches: _game_manifest=max(_matches,key=lambda x:x[0])[1]
         else: print('HISTORICAL GAME HOLD: no exact event-set snapshot for numbered pages',file=sys.stderr)
-for _fn,_html in build_game_pages(_game_manifest,_css,build_sha).items():
+_game_pages=build_game_pages(_game_manifest,_css,build_sha)
+for _fn,_html in _game_pages.items():
     open(os.path.join(os.path.dirname(out) or '.',_fn),'w').write(scrub_shipped(_html))
     print('written:',_fn,len(_html))
     _pages+=1
+for _fn in _retire_game_pages(os.path.dirname(out) or '.',set(_game_pages),_css):
+    print('retired:',_fn,'(not on the current card)')
 os.makedirs(os.path.join(os.path.dirname(out) or '.','slates'),exist_ok=True)
 open(os.path.join(os.path.dirname(out) or '.','slates','game_routes.json'),'w').write(json.dumps(_GAME_ROUTES,sort_keys=True))
 print('written: slates/game_routes.json',len(_GAME_ROUTES),'carded routes')
