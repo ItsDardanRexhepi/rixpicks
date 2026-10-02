@@ -2202,6 +2202,10 @@ if _V2:
     # nothing deleted, just moved. BOUGHT stays visually distinct from SUGGESTED forever; voids render
     # as their own state, never forced Won/Lost; no settlement/payout implications. Client-hydrated
     # from slates/past_tickets.json; honest empty/unavailable states, nothing invented.
+    # PAST_HIDE_MONEY (public-card rule, owner option): True hides dollar amounts (a " - " clause
+    # carrying one is dropped, venue/odds kept) and bankroll wording at RENDER time only - the
+    # archived entries stay exactly as stored. False shows the stored text verbatim.
+    PAST_HIDE_MONEY = True
     past_entry=(
     r'<div style="margin-top:6px">'
     r'<div class="sect">Past Tickets</div>'
@@ -2211,7 +2215,9 @@ if _V2:
     r'</div>'
     r'<script>(function(){'
     r'var box=document.getElementById("rpPastBox"),bar=document.getElementById("rpPastBar");if(!box||!bar)return;'
-    r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
+    r'var HIDE='+('1' if PAST_HIDE_MONEY else '0')+r',MONEY=/\$\s?\d/;'
+    r'function pub(s){s=String(s==null?"":s);if(HIDE!=1)return s;if(MONEY.test(s))s=s.split(" - ").filter(function(p){return !MONEY.test(p);}).join(" - ");return s.replace(/\bbankroll\s+builder\b/gi,"Combo").replace(/\s*\bbankroll\b\s*/gi," ").replace(/\s{2,}/g," ").trim();}'
+    r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return pub(s).replace(/[&<>"]/g,function(c){return M[c];});}'
     r'var ALL=[],FILT="all";'
     r'function badge(e){if(e.origin==="bought")return "<span style=\"display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px\">BOUGHT TICKET</span>";if(e.origin==="suggested")return "<span style=\"display:inline-block;border:1px solid rgba(127,127,127,.4);color:#8a8f98;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px\">SUGGESTED</span>";return "";}'
     r'function rbadge(r){r=(r||"").toLowerCase();if(r==="won")return "<b style=\"color:#0b6e5f\">WON</b>";if(r==="lost")return "<b style=\"color:#e5484d\">LOST</b>";if(r==="void")return "<b style=\"color:#8a8f98\">VOID</b>";return "<b style=\"color:#8a8f98\">"+esc(r.toUpperCase())+"</b>";}'
@@ -2227,7 +2233,7 @@ if _V2:
     r'}).join("");'
     r'h+="<div style=\"border:1px solid rgba(127,127,127,.22);border-radius:12px;padding:11px 12px;margin-bottom:10px\">"'
     r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px\"><span style=\"min-width:0\"><b>"+esc(e.title)+"</b>"+badge(e)+"</span><span style=\"flex:0 0 auto;margin-left:auto;padding-left:8px\">"+rbadge(e.result)+"</span></div>"'
-    r'+(e.detail?("<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(e.detail)+"</div>"):"")'
+    r'+(pub(e.detail)?("<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(e.detail)+"</div>"):"")'
     r'+(legs?("<div style=\"margin-top:6px\">"+legs+"</div>"):"")'
     r'+((e.removed_label||e.archived_at)?("<div style=\"font-size:11px;color:#8a8f98;margin-top:8px\">Removed "+esc(e.removed_label||e.archived_at)+(e.reason?(" &middot; "+esc(e.reason)):"")+"</div>"):"")'
     r'+(e.provenance?("<div style=\"font-size:11px;color:#8a8f98;opacity:.8;margin-top:2px\">Source: "+esc(e.provenance)+"</div>"):"")'

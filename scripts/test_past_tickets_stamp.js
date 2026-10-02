@@ -12,11 +12,15 @@
 const path = require('path'), vm = require('vm'), { execFileSync } = require('child_process');
 const builder = process.argv[2] || path.join(__dirname, 'build_gh_page_v2.py');
 const html = execFileSync('python3', ['-c', [
-  'import ast,sys',
+  'import ast,sys,textwrap',
   'src=open(sys.argv[1]).read()',
   'i=src.index("past_entry=(")',
-  'tree=ast.parse(src[i:].split("\\n    _tabs_html=")[0])',
-  'print(ast.literal_eval(tree.body[0].value))'].join('\n'), builder], { encoding: 'utf8' });
+  'o=src.rfind("PAST_HIDE_MONEY =",0,i)',  // the owner option, when present, sits just above the literal
+  'i=o if o>=0 and i-o<400 else i',
+  'i=src.rfind("\\n",0,i)+1',
+  'ns={}',
+  'exec(textwrap.dedent(src[i:].split("\\n    _tabs_html=")[0]),ns)',
+  'print(ns["past_entry"])'].join('\n'), builder], { encoding: 'utf8' });
 const script = (html.match(/<script>([\s\S]*?)<\/script>/) || [])[1] || '';
 
 let failures = 0;
