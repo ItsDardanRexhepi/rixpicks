@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-02T01:49:56.259572+00:00",
+ "generated_at": "2026-10-02T02:04:55.550448+00:00",
  "items": [
-  {
-   "id": "cccb9a4c40",
-   "league": "NHL",
-   "event": "Florida Panthers @ San Jose Sharks",
-   "prediction": "San Jose Sharks beat Florida Panthers",
-   "kickoff_utc": "2026-10-02T02:00:00+00:00"
-  },
-  {
-   "id": "eb1c4161f7",
-   "league": "NHL",
-   "event": "Edmonton Oilers @ Vancouver Canucks",
-   "prediction": "Edmonton Oilers beat Vancouver Canucks",
-   "kickoff_utc": "2026-10-02T02:00:00+00:00"
-  },
   {
    "id": "91e64929a5",
    "league": "NWSL",
@@ -41,6 +27,20 @@
    "league": "CFB",
    "event": "Notre Dame Fighting Irish @ North Carolina Tar Heels",
    "prediction": "Notre Dame Fighting Irish beat North Carolina Tar Heels",
+   "kickoff_utc": "2026-10-03T16:00:00+00:00"
+  },
+  {
+   "id": "233f8d6981",
+   "league": "CFB",
+   "event": "UCF Knights @ Houston Cougars",
+   "prediction": "UCF Knights beat Houston Cougars",
+   "kickoff_utc": "2026-10-03T16:00:00+00:00"
+  },
+  {
+   "id": "e07235134f",
+   "league": "CFB",
+   "event": "Boston College Eagles @ SMU Mustangs",
+   "prediction": "SMU Mustangs beat Boston College Eagles",
    "kickoff_utc": "2026-10-03T16:00:00+00:00"
   }
  ]
