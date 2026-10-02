@@ -4,16 +4,27 @@ a workflow, secrets never move; GITHUB_TOKEN commits). Self-contained: no privat
 
 Input: record_request.json at repo root (analysis drops graded, ledger-verified requests;
 each carries result, exact unit delta, record_after, units_after_exact, two-source attestation).
-For each request, in order:
-  1. INDEPENDENT verify against ESPN core (completed + scores match). Mismatch/stale -> stop,
-     exit 3, no write. In-order processing: later finals wait for the next fire.
-  2. Running record from manifest must chain into request.record_after exactly.
+For each request, in order (any failure -> stop, exit 3, NO write at all; in-order processing:
+later finals wait for the next fire):
+  1. CARD: the grade must belong to a pick on a published card - a manifests/ snapshot (every
+     build leaves one) or the live manifest - matched on its grade key. The card date is the
+     pick's own game date (PT), the builder's card-date rule; the row is filed under it, never
+     under whatever date the manifest carries now.
+  2. INDEPENDENT verify against ESPN core (completed + scores match), and the result must follow
+     from the verified score, side and line (ml/spread/total), from the ESPN box score (props),
+     or from the winner flags (MMA). The request's own label is never taken on trust.
+  3. Units: the delta must follow from the card price, card stake and result; units_after_exact
+     must continue the running units (exact anchor kept in record_done.json).
+  4. Running record from manifest must chain into request.record_after exactly.
+  5. A pick already on its card date's row (same pick and final score) is refused; a grade key
+     already in record_done.json is skipped, never applied twice.
 Apply: manifest record/units_pl, history.json day row (+day record/units), record_done.json.
 Writes NOTHING to any private ledger - that stays analysis-side.
 """
-import json, re, re, os, re, sys, urllib.request
+import glob, json, os, re, sys, urllib.request
 from datetime import datetime, timezone
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
+from zoneinfo import ZoneInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..')
@@ -21,9 +32,12 @@ REQ = os.path.join(ROOT, 'record_request.json')
 MAN = os.path.join(ROOT, 'manifest.json')
 HIST = os.path.join(ROOT, 'history.json')
 DONE = os.path.join(ROOT, 'record_done.json')
+MANIFESTS = os.path.join(ROOT, 'manifests')
+PT = ZoneInfo('America/Los_Angeles')
+EXACT = Decimal('0.000001')  # float transport noise on full-precision ledger values
 
-def _get(url, timeout=20):
-    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+def _get(url, timeout=20, ua='Mozilla/5.0'):
+    req = urllib.request.Request(url, headers={'User-Agent': ua})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.load(r)
 
@@ -102,7 +116,9 @@ def espn_verify_mma(league, eid, comp_id, q):
         picked = picked[0]
         opp = next(f for f in fighters if f is not picked)
         res = q.get('result')
-        if (res == 'WON' and not picked['winner']) or (res == 'LOST' and picked['winner']):
+        # exactly one winner flag: the picked fighter WON or LOST - nothing else (a PUSH label
+        # on a fight with a winner is a contradiction, not a pass)
+        if res != ('WON' if picked['winner'] else 'LOST'):
             print(f'  verify mma {eid}/{comp_id}: result {res} contradicts winner flags {fighters}', file=sys.stderr)
             return None
         gp = q.get('graded_pick') or ''
@@ -121,10 +137,213 @@ def fmt_units(d):
     d = Decimal(d).quantize(Decimal('0.01'))
     return ('+' if d >= 0 else '') + f'{d}u'
 
+_TWO_WORD_NICKS = ('White Sox', 'Red Sox', 'Blue Jays', 'Maple Leafs', 'Red Wings', 'Blue Jackets',
+                   'Golden Knights', 'Trail Blazers')
+
 def nick(display):
-    # "New York Jets" -> "Jets"; "New York Liberty" -> "Liberty"
+    # "New York Jets" -> "Jets"; "New York Liberty" -> "Liberty"; "Chicago White Sox" -> "White Sox"
+    for t in _TWO_WORD_NICKS:
+        if display == t or display.endswith(' ' + t):
+            return t
     parts = display.split()
     return parts[-1] if parts else display
+
+
+def _norm_name(x):
+    return re.sub(r'[^a-z0-9]', '', (x or '').lower())
+
+def _market_class(p):
+    # explicit class wins; a classless row is a moneyline only when it names no other market
+    return p.get('market_class') or (None if p.get('market') else 'ml')
+
+def card_key(p):
+    """Grade key of a published card pick - the key finals_watch grades it under."""
+    eid, mc = (p.get('game') or {}).get('eid'), _market_class(p)
+    if not eid or mc is None:
+        return None
+    if mc == 'prop':
+        return f"{eid}|prop|{_norm_name(p.get('player'))}|{p.get('market')}|{p.get('side')}|{p.get('line')}"
+    if mc in ('spread', 'total'):
+        return f"{eid}|{mc}|{p.get('side')}|{p.get('line')}"
+    return f"{eid}|{mc}|{p.get('side')}"
+
+def _pt_date(iso):
+    try:
+        dt = datetime.fromisoformat(str(iso).replace('Z', '+00:00'))
+    except (TypeError, ValueError):
+        return None
+    return dt.astimezone(PT).date().isoformat() if dt.tzinfo else None
+
+def card_pick(q):
+    """(card_date, published card pick) this grade belongs to, else (None, reason).
+    The card date belongs to the CARD (builder _card_date_of): the pick's own game date in PT.
+    Only a card dated that day counts - an archive copy filed under another date (the Sep 30
+    snapshot carrying Sep 29's picks) is not the pick's card. Every build snapshots the manifest
+    it published into manifests/; the live manifest.json counts too."""
+    mma = str(q.get('league') or '').startswith('mma/')
+    found = {}
+    for path in sorted(glob.glob(os.path.join(MANIFESTS, 'manifest-*.json'))) + [MAN]:
+        try:
+            snap = json.load(open(path))
+        except (OSError, ValueError):
+            continue
+        for p in snap.get('picks') or []:
+            if not isinstance(p, dict):
+                continue
+            if mma:  # MMA card rows carry no event id: bind on league + exact pick text
+                hit = str(p.get('espn_league') or '').startswith('mma/') and p.get('name') == q.get('pick')
+            else:
+                hit = card_key(p) == str(q.get('grade_id'))
+            day = _pt_date((p.get('game') or {}).get('commence'))
+            if hit and day and snap.get('date') == day:
+                found.setdefault(day, []).append(p)
+    if q.get('card_date') is not None:
+        found = {d: v for d, v in found.items() if d == q['card_date']}
+    if len(found) != 1:
+        return None, ('not on any published card' + (f" dated {q['card_date']}" if q.get('card_date') else '')
+                      if not found else f'on published cards for several dates {sorted(found)}')
+    day, rows = next(iter(found.items()))
+    if len({(r.get('name'), str(r.get('odds')), str(r.get('card_american')), str(r.get('units'))) for r in rows}) != 1:
+        return None, f'published copies of the {day} card disagree on name, price or stake'
+    return day, rows[0]
+
+def _same_num(a, b):
+    try:
+        return Decimal(str(a)) == Decimal(str(b))
+    except (InvalidOperation, ValueError):
+        return False
+
+def american(v):
+    if v is None or isinstance(v, bool):
+        return None
+    s = str(v).strip()
+    if not re.fullmatch(r'[+-]?\d+', s):
+        return None
+    a = int(s)
+    return a if (a >= 100 or a <= -100) else None
+
+def stake_of(v):
+    try:
+        u = Decimal(str(v).strip().rstrip('u'))
+    except (InvalidOperation, ValueError):
+        return None
+    return u if u > 0 else None
+
+def expected_delta(res, price, stake):
+    """Card-price grading: win pays stake at the published American price, loss -stake, push 0."""
+    if res == 'WON':
+        return stake * Decimal(100) / Decimal(-price) if price < 0 else stake * Decimal(price) / Decimal(100)
+    return -stake if res == 'LOST' else Decimal(0)
+
+def score_result(mc, side, line, away_sc, home_sc):
+    """WON/LOST/PUSH from the verified final (line = HOME spread / game total, the card's
+    convention). None when the market, side or line cannot be graded from a score."""
+    if mc in ('ml', 'spread') and side not in ('home', 'away'):
+        return None
+    if mc == 'total' and side not in ('over', 'under'):
+        return None
+    if mc == 'ml':
+        if home_sc == away_sc:
+            return 'PUSH'
+        won = (side == 'home') == (home_sc > away_sc)
+    elif mc in ('spread', 'total'):
+        try:
+            ln = Decimal(str(line))
+        except (InvalidOperation, ValueError):
+            return None
+        if mc == 'spread':
+            diff = Decimal(home_sc) + ln - Decimal(away_sc)  # >0 home covers
+            if diff == 0:
+                return 'PUSH'
+            won = (side == 'home') == (diff > 0)
+        else:
+            tot = Decimal(home_sc + away_sc)
+            if tot == ln:
+                return 'PUSH'
+            won = (side == 'over') == (tot > ln)
+    else:
+        return None
+    return 'WON' if won else 'LOST'
+
+# Box-score prop check: the same verified market map finals_watch grades with. Markets outside
+# it (soccer scorer props) have no independent check here and are refused, never trusted.
+PROP_STAT_KEYS = {
+    'passing_yards': ('passingYards',), 'pass_td': ('passingTouchdowns',),
+    'rushing_yards': ('rushingYards',), 'rush_attempts': ('rushingAttempts',),
+    'receiving_yards': ('receivingYards',), 'receptions': ('receptions',),
+    'reception_tds': ('receivingTouchdowns',), 'rush_tds': ('rushingTouchdowns',),
+    'points': ('points',), 'rebounds': ('rebounds',), 'assists': ('assists',),
+    'threes': ('threePointFieldGoalsMade-threePointFieldGoalsAttempted',),
+    'goals': ('goals',), 'shots_on_goal': ('shotsTotal',),
+    'saves': ('saves',), 'blocked_shots': ('blockedShots',)}
+PROP_GROUP_SCOPED = {  # MLB: batting keys also appear in the pitching group - scope by marker key
+    'bat_hits': ('atBats', 'hits'), 'bat_home_runs': ('atBats', 'homeRuns'),
+    'bat_rbis': ('atBats', 'RBIs'), 'bat_runs': ('atBats', 'runs'),
+    'bat_walks': ('atBats', 'walks'), 'bat_strikeouts': ('atBats', 'strikeouts'),
+    'pit_strikeouts': ('earnedRuns', 'strikeouts'), 'pit_hits_allowed': ('earnedRuns', 'hits'),
+    'pit_walks': ('earnedRuns', 'walks'), 'pit_earned_runs': ('earnedRuns', 'earnedRuns'),
+    'pit_outs': ('earnedRuns', 'fullInnings.partInnings')}
+
+def espn_prop(league, eid, player, market):
+    """Independent prop check: (stat value, home|away of the player's team) from the ESPN box
+    score, or None. Strict identity: exactly one athlete, on a team the header places home/away."""
+    if market not in PROP_STAT_KEYS and market not in PROP_GROUP_SCOPED and market not in ('anytime_td', 'hockey_points'):
+        print(f'  verify prop {eid}: market {market!r} has no box-score check here', file=sys.stderr)
+        return None
+    try:
+        d = _get(f'https://site.api.espn.com/apis/site/v2/sports/{league}/summary?event={eid}', ua='python-urllib/3')
+        sides = {str((c.get('team') or {}).get('id')): c.get('homeAway')
+                 for c in ((d.get('header') or {}).get('competitions') or [{}])[0].get('competitors', [])}
+        want = _norm_name(player)
+        ids, rows = {}, []
+        for team in (d.get('boxscore') or {}).get('players', []):
+            tside = sides.get(str((team.get('team') or {}).get('id')))
+            for grp in team.get('statistics', []):
+                for ath in grp.get('athletes', []):
+                    a = ath.get('athlete') or {}
+                    nm = _norm_name(a.get('displayName'))
+                    if want and nm and (nm == want or want in nm or nm in want):
+                        ids[a.get('id') or a.get('displayName')] = tside
+                        rows.append((grp.get('keys') or [], ath.get('stats') or []))
+        if len(ids) != 1 or next(iter(ids.values())) not in ('home', 'away'):
+            print(f'  verify prop {eid}: player {player!r} not uniquely placed in the box score ({ids})', file=sys.stderr)
+            return None
+        def stat(key, marker=None):
+            for keys, stats in rows:
+                if key in keys and (marker is None or marker in keys) and keys.index(key) < len(stats):
+                    return stats[keys.index(key)]
+            return None
+        if market == 'pit_outs':
+            raw = stat('fullInnings.partInnings', 'earnedRuns')
+            full, _, part = str(raw).partition('.')
+            if raw is None or not full.isdigit() or (part or '0') not in ('0', '1', '2'):
+                raise ValueError(f'innings line {raw!r}')
+            val = Decimal(int(full) * 3 + int(part or 0))
+        elif market in ('anytime_td', 'hockey_points'):
+            parts = [stat(k) for k in (('rushingTouchdowns', 'receivingTouchdowns') if market == 'anytime_td' else ('goals', 'assists'))]
+            if (market == 'hockey_points' and None in parts) or all(v is None for v in parts):
+                raise ValueError(f'stat line missing {parts}')
+            val = sum((Decimal(str(v).split('-')[0]) for v in parts if v is not None), Decimal(0))
+        else:
+            marker, key = PROP_GROUP_SCOPED[market] if market in PROP_GROUP_SCOPED else (None, PROP_STAT_KEYS[market][0])
+            raw = stat(key, marker)
+            if raw is None:
+                raise ValueError('stat line missing (DNP or group absent)')
+            val = Decimal(str(raw).split('-')[0])  # compound made-attempted -> made
+        return val, next(iter(ids.values()))
+    except Exception as e:
+        print(f'  verify prop {eid}: {type(e).__name__}: {e}', file=sys.stderr)
+        return None
+
+def units_anchor(man, done):
+    """(exact running units the next grade must continue, tolerance). The exact value this job
+    last wrote is kept in record_done.json; it is used while the manifest still shows that same
+    record and units. Otherwise the displayed manifest units bound the exact value to half a cent."""
+    shown = Decimal(str(man.get('units_pl') or '').strip().rstrip('u'))
+    ex = done.get('units_after_exact')
+    if ex is not None and done.get('record_after') == man.get('record') and fmt_units(Decimal(str(ex))) == fmt_units(shown):
+        return Decimal(str(ex)), EXACT
+    return shown, Decimal('0.005') + EXACT
 
 
 def eod_day_close(p):
@@ -221,7 +440,13 @@ def main():
         done = json.load(open(DONE))
 
     rw, rl = [int(x) for x in man['record'].split('-')[:2]]
+    try:
+        units_run, units_tol = units_anchor(man, done)
+    except (InvalidOperation, ValueError):
+        print(f'  REFUSE: manifest units {man.get("units_pl")!r} unparsable - no units chain to continue', file=sys.stderr)
+        return 3
     processed = []
+    touched = []
     for q in reqs:
         gid = q['grade_id']
         if gid in done.get('processed', []):
@@ -236,7 +461,49 @@ def main():
         if 'learning' in q and (not isinstance(q['learning'], str) or not q['learning'].strip() or len(q['learning']) > 400):
             print(f'  REFUSE {gid}: learning must be a non-empty string <= 400 chars', file=sys.stderr)
             return 3
-        if str(q.get('league') or '').startswith('mma/'):
+        res = q.get('result')
+        if res not in ('WON', 'LOST', 'PUSH'):
+            print(f'  REFUSE {gid}: unknown result {res!r}', file=sys.stderr)
+            return 3
+        # 1. CARD: only a published pick is graded, and it is filed under its own card date
+        card_date, cp = card_pick(q)
+        if card_date is None:
+            print(f'  REFUSE {gid}: {q.get("pick")!r} {cp} - only published picks are graded', file=sys.stderr)
+            return 3
+        mc = _market_class(cp)
+        mma = str(q.get('league') or '').startswith('mma/')
+        if (q.get('pick') != cp.get('name') or str(q.get('league')) != str(cp.get('espn_league'))
+                or (not mma and (str(q.get('event_id')) != str(cp['game']['eid']) or q.get('side') != cp.get('side')))
+                or ('market_class' in q and q['market_class'] != mc)
+                or ('line' in q and not _same_num(q['line'], cp.get('line')))):
+            print(f'  REFUSE {gid}: request disagrees with the {card_date} card pick {cp.get("name")!r}', file=sys.stderr)
+            return 3
+        # 3a. price and stake are the card's; the delta must follow from them
+        price = american(cp.get('card_american')) if cp.get('card_american') is not None else american(cp.get('odds'))
+        if price is None or (cp.get('card_american') is not None and american(cp.get('odds')) not in (None, price)):
+            print(f'  REFUSE {gid}: card price missing or forked ({cp.get("odds")!r} vs {cp.get("card_american")!r})', file=sys.stderr)
+            return 3
+        stake = stake_of(cp.get('units'))
+        if stake is None or american(q.get('locked_american')) != price or stake_of(q.get('stake_units')) != stake:
+            print(f'  REFUSE {gid}: request price/stake {q.get("locked_american")!r} {q.get("stake_units")!r} '
+                  f'!= card {price:+d} {cp.get("units")!r}', file=sys.stderr)
+            return 3
+        try:
+            delta = Decimal(str(q['delta_units_exact']))
+            units_after = Decimal(str(q['units_after_exact']))
+        except (KeyError, InvalidOperation, ValueError):
+            print(f'  REFUSE {gid}: delta_units_exact / units_after_exact missing or unparsable', file=sys.stderr)
+            return 3
+        want_delta = expected_delta(res, price, stake)
+        if abs(delta - want_delta) > EXACT:
+            print(f'  REFUSE {gid}: delta {delta} does not follow from {res} at {price:+d} on {stake}u (want {want_delta})', file=sys.stderr)
+            return 3
+        # 3b. units chain: prior exact running units + this delta == units_after_exact
+        if abs(units_after - (units_run + delta)) > units_tol:
+            print(f'  REFUSE {gid}: units chain broken - running {units_run} + {delta} != units_after_exact {units_after}', file=sys.stderr)
+            return 3
+        units_run, units_tol = units_after, EXACT
+        if mma:
             # MMA rows: winner-flag verification, no score compare (ESPN carries no MMA scores).
             info = espn_verify_mma(q['league'], q['event_id'], q.get('competition_id'), q)
             if info is None:
@@ -256,42 +523,68 @@ def main():
             if comp is None:
                 print(f'  REFUSE {gid}: independent verification failed - chain stops, no write', file=sys.stderr)
                 return 3
-            game = None  # computed after res, from comp, below
-        res = q['result']
+            # 2. the result must follow from the verified final - never from the request's label
+            away_nm, home_nm = nick(comp['away']['name']), nick(comp['home']['name'])
+            if mc == 'prop':
+                if cp.get('side') not in ('over', 'under'):
+                    print(f'  REFUSE {gid}: prop side {cp.get("side")!r} must be over|under', file=sys.stderr)
+                    return 3
+                pv = espn_prop(q['league'], q['event_id'], cp.get('player'), cp.get('market'))
+                try:
+                    ln = Decimal(str(cp.get('line')))
+                except (InvalidOperation, ValueError):
+                    pv = None
+                if pv is None:
+                    print(f'  REFUSE {gid}: independent prop verification failed - chain stops, no write', file=sys.stderr)
+                    return 3
+                val, pside = pv
+                want_res = 'PUSH' if val == ln else ('WON' if (cp['side'] == 'over') == (val > ln) else 'LOST')
+                # a prop's game context is the player's own team, not the over/under side
+                game = ('vs ' + away_nm) if pside == 'home' else ('at ' + home_nm)
+            else:
+                want_res = score_result(mc, cp.get('side'), cp.get('line'), away_sc, home_sc)
+                if mc == 'total':
+                    game = f'{away_nm} at {home_nm}'
+                else:
+                    game = ('vs ' + away_nm) if cp.get('side') == 'home' else ('at ' + home_nm)
+            if want_res is None or res != want_res:
+                print(f'  REFUSE {gid}: result {res} contradicts the verified final ({mc} {cp.get("side")} '
+                      f'{cp.get("line")} on {q["score"]!r} -> {want_res})', file=sys.stderr)
+                return 3
+            score_txt = f'{away_ab} {away_sc}, {home_ab} {home_sc}'
         if res == 'WON': rw += 1
         elif res == 'LOST': rl += 1
-        elif res != 'PUSH':
-            print(f'  REFUSE {gid}: unknown result {res!r}', file=sys.stderr)
-            return 3
         expected = q['record_after']
         if f'{rw}-{rl}' != expected:
             print(f'  REFUSE {gid}: chain mismatch - running {rw}-{rl} != record_after {expected}', file=sys.stderr)
             return 3
-        # history day row
-        if game is None:
-            opp = comp['away' if q['side'] == 'home' else 'home']['name']
-            game = ('vs ' if q['side'] == 'home' else 'at ') + nick(opp)
-            score_txt = f'{away_ab} {away_sc}, {home_ab} {home_sc}'
-        day_date = man.get('date') or datetime.now(timezone.utc).strftime('%Y-%m-%d')
+        # 5. a pick already on its card date's row (same pick, same final) is never counted twice;
+        # across days the grade key in record_done.json and the card-date filing above hold
         days = hist['days']
-        day = days[-1] if days and days[-1]['date'] == day_date else None
+        if any(p.get('name') == q['pick'] and p.get('score') == score_txt
+               for d in days if d.get('date') == card_date for p in d['picks']):
+            print(f'  REFUSE {gid}: {q["pick"]} {score_txt} is already on the record - duplicate', file=sys.stderr)
+            return 3
+        # history day row: the pick's own card date, inserted in date order when new
+        day = next((d for d in days if d.get('date') == card_date), None)
         if day is None:
-            d0 = datetime.strptime(day_date, '%Y-%m-%d')
-            day = {'date': day_date, 'label': d0.strftime('%A, %b %-d'), 'record': '0-0', 'units': '+0.00u',
+            d0 = datetime.strptime(card_date, '%Y-%m-%d')
+            day = {'date': card_date, 'label': d0.strftime('%A, %b %-d'), 'record': '0-0', 'units': '+0.00u',
                    'brief': '', 'picks': []}
-            days.append(day)
-        if not any(p.get('name') == q['pick'] and p.get('score') == score_txt for p in day['picks']):
-            _row = {'name': q['pick'], 'game': game, 'odds': q['locked_american'],
-                    'units': q['stake_units'], 'result': {'WON': 'W', 'LOST': 'L', 'PUSH': 'P'}[res],
-                    'score': score_txt, '_delta': str(Decimal(str(q['delta_units_exact'])))}
-            if isinstance(q.get('learning'), str) and q['learning'].strip():
-                _row['learning'] = q['learning'].strip()
-            day['picks'].append(_row)
+            days.insert(next((i for i, d in enumerate(days) if str(d.get('date')) > card_date), len(days)), day)
+        _row = {'name': q['pick'], 'game': game, 'odds': q['locked_american'],
+                'units': q['stake_units'], 'result': {'WON': 'W', 'LOST': 'L', 'PUSH': 'P'}[res],
+                'score': score_txt, '_delta': str(Decimal(str(q['delta_units_exact'])))}
+        if isinstance(q.get('learning'), str) and q['learning'].strip():
+            _row['learning'] = q['learning'].strip()
+        day['picks'].append(_row)
         dw = sum(1 for p in day['picks'] if p['result'] == 'W')
         dl = sum(1 for p in day['picks'] if p['result'] == 'L')
         day['record'] = f'{dw}-{dl}'
+        if not any(t is day for t in touched):
+            touched.append(day)
         processed.append((q, Decimal(str(q['delta_units_exact']))))
-        print(f'  graded {gid}: {q["pick"]} {res} {score_txt} -> record {rw}-{rl}')
+        print(f'  graded {gid}: {q["pick"]} {res} {score_txt} [{card_date} card] -> record {rw}-{rl}')
 
     if not processed:
         print('nothing new processed')
@@ -299,11 +592,11 @@ def main():
     # ROUND-ONCE CORE RULE (main 9/27 3:19): deltas and units_after_exact travel at FULL
     # ledger precision; every displayed total is computed from exact canonical values and
     # quantized ONCE at display time. Never sum pre-rounded deltas - one-cent drift results.
-    # day units = exact sum of per-pick deltas graded into this day
-    day = hist['days'][-1]
-    du = sum((Decimal(p['_delta']) for p in day['picks'] if '_delta' in p), Decimal('0'))
-    if any('_delta' in p for p in day['picks']):
-        day['units'] = fmt_units(du)
+    # day units = exact sum of per-pick deltas graded into each day this run wrote to
+    for day in touched:
+        du = sum((Decimal(p['_delta']) for p in day['picks'] if '_delta' in p), Decimal('0'))
+        if any('_delta' in p for p in day['picks']):
+            day['units'] = fmt_units(du)
 
     last = processed[-1][0]
     man['record'] = last['record_after']
@@ -316,6 +609,9 @@ def main():
     man['updated']=re.sub(r'(\d), 0', r'\1, ', _now.strftime('%b %d, %I:%M %p PT').replace(' 0',' '))
     done.setdefault('processed', []).extend(q['grade_id'] for q, _ in processed)
     done['at'] = datetime.now(timezone.utc).isoformat()
+    # exact units anchor for the next grade's chain check (the manifest shows units rounded)
+    done['record_after'] = last['record_after']
+    done['units_after_exact'] = str(Decimal(str(last['units_after_exact'])))
     remaining = [q for q in reqs if q['grade_id'] not in done['processed']]
 
     json.dump(man, open(MAN, 'w'), indent=2)
