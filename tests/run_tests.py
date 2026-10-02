@@ -252,7 +252,62 @@ for eid, player, market, want in realvars:
     try: got = fw.grade(pk, {'home_score':0,'away_score':4})[0]
     except Exception as e: got = f'RAISED: {e}'
     check(f'grade mls real {eid}: {player} {market}', got, want)
-# both record writers read a scorer prop the same way: every rostered player, every market, both games
+# Scorers ESPN's goal text names differently from its roster (Oct 2 review: 40 of 571 goals in 187
+# real games, so 34 games refused every scorer prop): 'Guilherme' is roster Guilherme Augusto, 'Luighi'
+# is Luighi Hanri, 'Christian Ramirez' is Christian Ramírez, 'Tomás Ostrák' is Tomas Ostrak. The
+# scorer is the key event's own participants[0] athlete id; the text name only cross-checks it, and
+# names match with accents folded. Trimmed real ESPN summaries, participants kept: 761674 Seattle 1 at
+# Austin 3, 761469 Houston 2 at New England 0, 761722 Philadelphia 3 at NYCFC 2, 761688 Colorado 0 at St. Louis 1.
+namevars = [('761674', 'Myrto Uzuni', 'anytime_goal', 'W'), ('761674', 'Ilie Sánchez', 'first_goal', 'W'),
+            ('761674', 'Christian Ramírez', 'last_goal', 'W'), ('761674', 'Christian Ramírez', 'anytime_goal', 'W'),
+            ('761674', 'Paul Rothrock', 'anytime_goal', 'W'), ('761674', 'Myrto Uzuni', 'first_goal', 'L'),
+            ('761469', 'Agustín Resch', 'anytime_goal', 'W'), ('761469', 'Guilherme Augusto', 'first_goal', 'W'),
+            ('761469', 'Agustín Resch', 'last_goal', 'W'), ('761469', 'Guilherme Augusto', 'last_goal', 'L'),
+            ('761722', 'Bruno Damiani', 'anytime_goal', 'W'), ('761722', 'Bruno Damiani', 'last_goal', 'W'),
+            ('761722', 'Bénie Traoré', 'first_goal', 'W'), ('761722', 'Luighi Hanri', 'anytime_goal', 'W'),
+            ('761722', 'Danley Jean Jacques', 'first_goal', 'L'),
+            ('761688', 'Tomás Ostrák', 'anytime_goal', 'W'), ('761688', 'Tomás Ostrák', 'first_goal', 'W'),
+            ('761688', 'Tomas Ostrak', 'last_goal', 'W'), ('761688', 'Tomas Totland', 'anytime_goal', 'L')]
+NAMESUM = {'761674': json.load(open(f'{FIX}/soccer_summary_atx_761674.json')),
+           '761469': json.load(open(f'{FIX}/soccer_summary_hou_761469.json')),
+           '761722': json.load(open(f'{FIX}/soccer_summary_nyc_761722.json')),
+           '761688': json.load(open(f'{FIX}/soccer_summary_stl_761688.json'))}
+def _doctored(eid, edit):
+    d = json.loads(json.dumps(NAMESUM[eid]))
+    edit([e for e in d['keyEvents'] if e.get('scoringPlay') is True])
+    return d
+def _swap_id(goals):  # Resch's goal (text 'Agustin Resch') credited to Guilherme Augusto's id
+    goals[1]['participants'][0]['athlete']['id'] = goals[0]['participants'][0]['athlete']['id']
+def _unrostered(goals):
+    goals[0]['participants'][0]['athlete']['id'] = '999999999'
+def _no_participants(goals):  # with no participant id the text must resolve, as before: 'Guilherme' does not
+    for g in goals: g.pop('participants', None)
+def _own_goal_text(goals):  # an own goal typed as a goal is never credited to the player who put it in
+    goals[1]['text'] = 'Own Goal by Agustin Resch, Houston Dynamo FC. New England Revolution 1, Houston Dynamo FC 1.'
+DOCTORED = {'761469-swap': _doctored('761469', _swap_id), '761469-unrostered': _doctored('761469', _unrostered),
+            '761469-noparts': _doctored('761469', _no_participants), '761469-owngoal': _doctored('761469', _own_goal_text)}
+with open(LEDGER, 'a') as f:
+    for eid, player, market, _ in namevars + [(k, 'Agustín Resch', 'anytime_goal', None) for k in DOCTORED]:
+        f.write(json.dumps({'kind':'pick','event_id':eid,'market_class':'prop','player':player,'market':market,'line':0.5,
+                            'side':'over','entry_c':60,'card_american':-150,'name':'t','units':'5u','card_ts':'x',
+                            'kalshi_ticker':'T','commence':'c','preview':True}) + '\n')
+for eid, d in list(NAMESUM.items()) + list(DOCTORED.items()):
+    fw._PROP_BOX[('soccer/usa.1', eid)] = d
+for eid, player, market, want in namevars:
+    pk = P(eid,60,-150,'5u',market_class='prop',espn_league='soccer/usa.1',player=player,market=market,line=0.5,side='over')
+    try: got = fw.grade(pk, {'home_score':0,'away_score':0})[0]
+    except Exception as e: got = f'RAISED: {e}'
+    check(f'grade mls real {eid}: {player} {market} (scorer by ESPN id)', got, want)
+for eid, why in [('761469-swap', 'a participant id the goal text names as someone else'),
+                 ('761469-unrostered', 'a participant id on neither roster'),
+                 ('761469-noparts', 'no participant id and a goal text name the rosters spell differently'),
+                 ('761469-owngoal', 'own-goal text on a goal-typed event')]:
+    pk = P(eid,60,-150,'5u',market_class='prop',espn_league='soccer/usa.1',player='Agustín Resch',market='anytime_goal',line=0.5,side='over')
+    try: fw.grade(pk, {'home_score':0,'away_score':0}); got = 'NOT-REFUSED'
+    except Exception: got = 'REFUSED'
+    check(f'grade mls: {why} REFUSED (fail closed)', got, 'REFUSED')
+REALSUM.update(NAMESUM)
+# both record writers read a scorer prop the same way: every rostered player, every market, every game
 rf = load('rf', f'{SCRIPTS}/record_final.py')
 def _both(fn, *a):
     try: return float(fn(*a) if fn is fw._soccer_scorer_stat else fn(*a)[0])
@@ -266,8 +321,11 @@ for eid, d in REALSUM.items():
                 a, b = _both(fw._soccer_scorer_stat, d, nm, market), _both(rf._soccer_scorer, d, nm, market)
                 if a != b: mism.append((eid, nm, market, a, b))
 check(f'finals_watch and record_final agree on all {n} real scorer reads', mism, [])
-check('real scorer reads are graded, not refused', sum(1 for eid, d in REALSUM.items() for ros in d['rosters'] for e in ros['roster']
-      if _both(rf._soccer_scorer, d, e['athlete']['displayName'], 'anytime_goal') == 'REFUSED'), 0)
+# every rostered player is graded, but one: in 761722 Philadelphia's 'N. Pierre' (Neil Pierre) sits
+# inside 'Kevin Pierre', so NYCFC's Kevin Pierre is not one player on the rosters and stays refused
+check('real scorer reads are graded, not refused', [(eid, e['athlete']['displayName']) for eid, d in REALSUM.items()
+      for ros in d['rosters'] for e in ros['roster']
+      if _both(rf._soccer_scorer, d, e['athlete']['displayName'], 'anytime_goal') == 'REFUSED'], [('761722', 'Kevin Pierre')])
 
 check('anchor: away-cover NO ask = 1 - yes_bid', abs(r['alt']['kalshi']['ask'] - 0.50) < 1e-9, True)
 

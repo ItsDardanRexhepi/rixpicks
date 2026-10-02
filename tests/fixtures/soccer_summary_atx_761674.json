@@ -1,0 +1,1241 @@
+{
+ "_fixture": "Trimmed from the real ESPN site.api soccer/usa.1 summary for event 761674 (read-only fetch, 2026-10-02): header competitors, both rosters (athlete id and names only) and every key event (type, period, clock, scoringPlay, text, and its participants: athlete id and name).",
+ "header": {
+  "competitions": [
+   {
+    "date": "2026-07-23T01:30Z",
+    "competitors": [
+     {
+      "homeAway": "home",
+      "score": "3",
+      "team": {
+       "id": "20906",
+       "displayName": "Austin FC",
+       "abbreviation": "ATX"
+      }
+     },
+     {
+      "homeAway": "away",
+      "score": "1",
+      "team": {
+       "id": "9726",
+       "displayName": "Seattle Sounders FC",
+       "abbreviation": "SEA"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "boxscore": {
+  "teams": []
+ },
+ "rosters": [
+  {
+   "homeAway": "home",
+   "team": {
+    "id": "20906",
+    "displayName": "Austin FC",
+    "abbreviation": "ATX"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "183780",
+      "displayName": "Brad Stuver",
+      "fullName": "Brad Stuver",
+      "shortName": "B. Stuver"
+     }
+    },
+    {
+     "athlete": {
+      "id": "196666",
+      "displayName": "Oleksandr Svatok",
+      "fullName": "Oleksandr Svatok",
+      "shortName": "O. Svatok"
+     }
+    },
+    {
+     "athlete": {
+      "id": "304696",
+      "displayName": "Guilherme Biro",
+      "fullName": "Guilherme Biro",
+      "shortName": "G. Biro"
+     }
+    },
+    {
+     "athlete": {
+      "id": "238438",
+      "displayName": "Brendan Hines-Ike",
+      "fullName": "Brendan Hines-Ike",
+      "shortName": "B. Hines-Ike"
+     }
+    },
+    {
+     "athlete": {
+      "id": "225834",
+      "displayName": "Besard Sabovic",
+      "fullName": "Besard Sabovic",
+      "shortName": "B. Sabovic"
+     }
+    },
+    {
+     "athlete": {
+      "id": "150185",
+      "displayName": "Ilie Sánchez",
+      "fullName": "Ilie Sánchez",
+      "shortName": "I. Sánchez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "231047",
+      "displayName": "Jon Gallagher",
+      "fullName": "Jon Gallagher",
+      "shortName": "J. Gallagher"
+     }
+    },
+    {
+     "athlete": {
+      "id": "286669",
+      "displayName": "Joseph Rosales",
+      "fullName": "Joseph Rosales",
+      "shortName": "J. Rosales"
+     }
+    },
+    {
+     "athlete": {
+      "id": "228620",
+      "displayName": "Brandon Vázquez",
+      "fullName": "Brandon Vázquez",
+      "shortName": "B. Vázquez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "275500",
+      "displayName": "Myrto Uzuni",
+      "fullName": "Myrto Uzuni",
+      "shortName": "M. Uzuni"
+     }
+    },
+    {
+     "athlete": {
+      "id": "67518",
+      "displayName": "Facundo Torres",
+      "fullName": "Facundo Torres",
+      "shortName": "F. Torres"
+     }
+    },
+    {
+     "athlete": {
+      "id": "297379",
+      "displayName": "Damian Las",
+      "fullName": "Damian Las",
+      "shortName": "D. Las"
+     }
+    },
+    {
+     "athlete": {
+      "id": "322966",
+      "displayName": "Mateja Djordjevic",
+      "fullName": "Mateja Djordjevic",
+      "shortName": "M. Djordjevic"
+     }
+    },
+    {
+     "athlete": {
+      "id": "259805",
+      "displayName": "Zan Kolmanic",
+      "fullName": "Zan Kolmanic",
+      "shortName": "Z. Kolmanic"
+     }
+    },
+    {
+     "athlete": {
+      "id": "235061",
+      "displayName": "Christian Ramírez",
+      "fullName": "Christian Ramírez",
+      "shortName": "C. Ramírez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "287466",
+      "displayName": "Przemyslaw Placheta",
+      "fullName": "Przemyslaw Placheta",
+      "shortName": "P. Placheta"
+     }
+    },
+    {
+     "athlete": {
+      "id": "280612",
+      "displayName": "Jayden Nelson",
+      "fullName": "Jayden Nelson",
+      "shortName": "J. Nelson"
+     }
+    },
+    {
+     "athlete": {
+      "id": "377602",
+      "displayName": "Nicolás Dubersarsky",
+      "fullName": "Nicolás Dubersarsky",
+      "shortName": "N. Dubersarsky"
+     }
+    },
+    {
+     "athlete": {
+      "id": "304535",
+      "displayName": "Owen Wolff",
+      "fullName": "Owen Wolff",
+      "shortName": "O. Wolff"
+     }
+    },
+    {
+     "athlete": {
+      "id": "381219",
+      "displayName": "Ervin Torres",
+      "fullName": "Ervin Torres",
+      "shortName": "E. Torres"
+     }
+    }
+   ]
+  },
+  {
+   "homeAway": "away",
+   "team": {
+    "id": "9726",
+    "displayName": "Seattle Sounders FC",
+    "abbreviation": "SEA"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "268173",
+      "displayName": "Andy Thomas",
+      "fullName": "Andy Thomas",
+      "shortName": "A. Thomas"
+     }
+    },
+    {
+     "athlete": {
+      "id": "254383",
+      "displayName": "Jackson Ragen",
+      "fullName": "Jackson Ragen",
+      "shortName": "J. Ragen"
+     }
+    },
+    {
+     "athlete": {
+      "id": "371080",
+      "displayName": "Stuart Hawkins",
+      "fullName": "Stuart Hawkins",
+      "shortName": "S. Hawkins"
+     }
+    },
+    {
+     "athlete": {
+      "id": "252474",
+      "displayName": "Nouhou Tolo",
+      "fullName": "Nouhou Tolo",
+      "shortName": "N. Tolo"
+     }
+    },
+    {
+     "athlete": {
+      "id": "272039",
+      "displayName": "Peter Kingston",
+      "fullName": "Peter Kingston",
+      "shortName": "P. Kingston"
+     }
+    },
+    {
+     "athlete": {
+      "id": "171573",
+      "displayName": "Albert Rusnák",
+      "fullName": "Albert Rusnák",
+      "shortName": "A. Rusnák"
+     }
+    },
+    {
+     "athlete": {
+      "id": "245570",
+      "displayName": "Hassani Dotson",
+      "fullName": "Hassani Dotson",
+      "shortName": "H. Dotson"
+     }
+    },
+    {
+     "athlete": {
+      "id": "384356",
+      "displayName": "Snyder Brunell",
+      "fullName": "Snyder Brunell",
+      "shortName": "S. Brunell"
+     }
+    },
+    {
+     "athlete": {
+      "id": "256450",
+      "displayName": "Daniel Musovski",
+      "fullName": "Daniel Musovski",
+      "shortName": "D. Musovski"
+     }
+    },
+    {
+     "athlete": {
+      "id": "254382",
+      "displayName": "Paul Rothrock",
+      "fullName": "Paul Rothrock",
+      "shortName": "P. Rothrock"
+     }
+    },
+    {
+     "athlete": {
+      "id": "251571",
+      "displayName": "Jesús Ferreira",
+      "fullName": "Jesús Ferreira",
+      "shortName": "J. Ferreira"
+     }
+    },
+    {
+     "athlete": {
+      "id": "159491",
+      "displayName": "Paul Arriola",
+      "fullName": "Paul Arriola",
+      "shortName": "P. Arriola"
+     }
+    },
+    {
+     "athlete": {
+      "id": "399948",
+      "displayName": "Sebastian Gomez",
+      "fullName": "Sebastian Gomez",
+      "shortName": "S. Gomez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "319045",
+      "displayName": "Kalani Kossa-Rienzi",
+      "fullName": "Kalani Kossa-Rienzi",
+      "shortName": "K. Kossa-Rienzi"
+     }
+    },
+    {
+     "athlete": {
+      "id": "301856",
+      "displayName": "Osaze De Rosario",
+      "fullName": "Osaze De Rosario",
+      "shortName": "O. De Rosario"
+     }
+    },
+    {
+     "athlete": {
+      "id": "206682",
+      "displayName": "Yeimar Gómez",
+      "fullName": "Yeimar Gómez",
+      "shortName": "Y. Gómez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "399992",
+      "displayName": "Gallatin Sandnes",
+      "fullName": "Gallatin Sandnes",
+      "shortName": "G. Sandnes"
+     }
+    },
+    {
+     "athlete": {
+      "id": "131979",
+      "displayName": "Stefan Frei",
+      "fullName": "Stefan Frei",
+      "shortName": "S. Frei"
+     }
+    },
+    {
+     "athlete": {
+      "id": "341343",
+      "displayName": "Max Anchor",
+      "fullName": "Max Anchor",
+      "shortName": "M. Anchor"
+     }
+    },
+    {
+     "athlete": {
+      "id": "299188",
+      "displayName": "Antino Lopez",
+      "fullName": "Antino Lopez",
+      "shortName": "A. Lopez"
+     }
+    }
+   ]
+  }
+ ],
+ "keyEvents": [
+  {
+   "type": {
+    "id": "80",
+    "text": "Kickoff",
+    "type": "kickoff"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 0.0,
+    "displayValue": ""
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 334.0,
+    "displayValue": "6'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match because of an injury Albert Rusnák (Seattle Sounders FC)."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 334.0,
+    "displayValue": "6'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 401.0,
+    "displayValue": "7'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 401.0,
+    "displayValue": "7'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "137",
+    "text": "Goal - Header",
+    "type": "goal---header"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 655.0,
+    "displayValue": "11'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! Austin FC 1, Seattle Sounders FC 0. Ilie Sánchez (Austin FC) header from very close range to the bottom right corner. Assisted by Besard Sabovic with a cross following a corner.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "150185",
+      "displayName": "Ilie Sánchez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "225834",
+      "displayName": "Besard Sabovic"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1504.0,
+    "displayValue": "26'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! Austin FC 1, Seattle Sounders FC 1. Paul Rothrock (Seattle Sounders FC) right footed shot from very close range to the bottom left corner.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "254382",
+      "displayName": "Paul Rothrock"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1786.0,
+    "displayValue": "30'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match for a drinks break."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1786.0,
+    "displayValue": "30'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1907.0,
+    "displayValue": "32'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1907.0,
+    "displayValue": "32'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "81",
+    "text": "Halftime",
+    "type": "halftime"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'+5'"
+   },
+   "scoringPlay": false,
+   "text": "First Half ends, Austin FC 1, Seattle Sounders FC 1."
+  },
+  {
+   "type": {
+    "id": "82",
+    "text": "Start 2nd Half",
+    "type": "start-2nd-half"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'"
+   },
+   "scoringPlay": false,
+   "text": "Second Half begins Austin FC 1, Seattle Sounders FC 1."
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3486.0,
+    "displayValue": "59'"
+   },
+   "scoringPlay": false,
+   "text": "Jackson Ragen (Seattle Sounders FC) is shown the yellow card for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "254383",
+      "displayName": "Jackson Ragen"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3592.0,
+    "displayValue": "60'"
+   },
+   "scoringPlay": false,
+   "text": "Besard Sabovic (Austin FC) is shown the yellow card for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "225834",
+      "displayName": "Besard Sabovic"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3705.0,
+    "displayValue": "62'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Seattle Sounders FC. Osaze De Rosario replaces Danny Musovski.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "301856",
+      "displayName": "Osaze De Rosario"
+     }
+    },
+    {
+     "athlete": {
+      "id": "256450",
+      "displayName": "Daniel Musovski"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3710.0,
+    "displayValue": "62'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Austin FC. Owen Wolff replaces Besard Sabovic.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "304535",
+      "displayName": "Owen Wolff"
+     }
+    },
+    {
+     "athlete": {
+      "id": "225834",
+      "displayName": "Besard Sabovic"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3718.0,
+    "displayValue": "62'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Austin FC. Przemyslaw Placheta replaces Joseph Rosales.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "287466",
+      "displayName": "Przemyslaw Placheta"
+     }
+    },
+    {
+     "athlete": {
+      "id": "286669",
+      "displayName": "Joseph Rosales"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3726.0,
+    "displayValue": "63'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Austin FC. Mateja Djordevic replaces Brendan Hines-Ike.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "322966",
+      "displayName": "Mateja Djordjevic"
+     }
+    },
+    {
+     "athlete": {
+      "id": "238438",
+      "displayName": "Brendan Hines-Ike"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3841.0,
+    "displayValue": "65'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match because of an injury Peter Kingston (Seattle Sounders FC)."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3841.0,
+    "displayValue": "65'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3868.0,
+    "displayValue": "65'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3868.0,
+    "displayValue": "65'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3948.0,
+    "displayValue": "66'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Seattle Sounders FC. Kalani Kossa-Rienzi replaces Peter Kingston because of an injury.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "319045",
+      "displayName": "Kalani Kossa-Rienzi"
+     }
+    },
+    {
+     "athlete": {
+      "id": "272039",
+      "displayName": "Peter Kingston"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3966.0,
+    "displayValue": "67'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Seattle Sounders FC. Paul Arriola replaces Snyder Brunell.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "159491",
+      "displayName": "Paul Arriola"
+     }
+    },
+    {
+     "athlete": {
+      "id": "384356",
+      "displayName": "Snyder Brunell"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4070.0,
+    "displayValue": "68'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match because of an injury Nouhou Tolo (Seattle Sounders FC)."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4070.0,
+    "displayValue": "68'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4142.0,
+    "displayValue": "70'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4142.0,
+    "displayValue": "70'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4487.0,
+    "displayValue": "75'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match for a drinks break."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4487.0,
+    "displayValue": "75'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4600.0,
+    "displayValue": "77'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4600.0,
+    "displayValue": "77'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4975.0,
+    "displayValue": "83'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Austin FC. Christian Ramirez replaces Brandon Vázquez.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "235061",
+      "displayName": "Christian Ramírez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "228620",
+      "displayName": "Brandon Vázquez"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4980.0,
+    "displayValue": "83'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Austin FC. Ervin Torres replaces Facundo Torres.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "381219",
+      "displayName": "Ervin Torres"
+     }
+    },
+    {
+     "athlete": {
+      "id": "67518",
+      "displayName": "Facundo Torres"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5150.0,
+    "displayValue": "86'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! Austin FC 2, Seattle Sounders FC 1. Myrto Uzuni (Austin FC) left footed shot from the centre of the box to the bottom right corner. Assisted by Ervin Torres with a through ball.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "275500",
+      "displayName": "Myrto Uzuni"
+     }
+    },
+    {
+     "athlete": {
+      "id": "381219",
+      "displayName": "Ervin Torres"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5230.0,
+    "displayValue": "88'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Seattle Sounders FC. Sebastian Gomez replaces Nouhou Tolo.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "399948",
+      "displayName": "Sebastian Gomez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "252474",
+      "displayName": "Nouhou Tolo"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5232.0,
+    "displayValue": "88'"
+   },
+   "scoringPlay": false,
+   "text": "Myrto Uzuni (Austin FC) is shown the yellow card for excessive celebration.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "275500",
+      "displayName": "Myrto Uzuni"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+1'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! Austin FC 3, Seattle Sounders FC 1. Christian Ramirez (Austin FC) right footed shot from the right side of the six yard box to the bottom left corner. Assisted by Ervin Torres.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "235061",
+      "displayName": "Christian Ramírez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "381219",
+      "displayName": "Ervin Torres"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "93",
+    "text": "Red Card",
+    "type": "red-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+4'"
+   },
+   "scoringPlay": false,
+   "text": "Second yellow card to Jackson Ragen (Seattle Sounders FC) for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "254383",
+      "displayName": "Jackson Ragen"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "83",
+    "text": "End Regular Time",
+    "type": "end-regular-time"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+8'"
+   },
+   "scoringPlay": false,
+   "text": null
+  }
+ ]
+}

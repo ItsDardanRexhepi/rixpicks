@@ -1,0 +1,1051 @@
+{
+ "_fixture": "Trimmed from the real ESPN site.api soccer/usa.1 summary for event 761722 (read-only fetch, 2026-10-02): header competitors, both rosters (athlete id and names only) and every key event (type, period, clock, scoringPlay, text, and its participants: athlete id and name).",
+ "header": {
+  "competitions": [
+   {
+    "date": "2026-08-16T22:00Z",
+    "competitors": [
+     {
+      "homeAway": "home",
+      "score": "2",
+      "team": {
+       "id": "17606",
+       "displayName": "New York City FC",
+       "abbreviation": "NYC"
+      }
+     },
+     {
+      "homeAway": "away",
+      "score": "3",
+      "team": {
+       "id": "10739",
+       "displayName": "Philadelphia Union",
+       "abbreviation": "PHI"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "boxscore": {
+  "teams": []
+ },
+ "rosters": [
+  {
+   "homeAway": "home",
+   "team": {
+    "id": "17606",
+    "displayName": "New York City FC",
+    "abbreviation": "NYC"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "252974",
+      "displayName": "Matt Freese",
+      "fullName": "Matt Freese",
+      "shortName": "M. Freese"
+     }
+    },
+    {
+     "athlete": {
+      "id": "258855",
+      "displayName": "James Sands",
+      "fullName": "James Sands",
+      "shortName": "J. Sands"
+     }
+    },
+    {
+     "athlete": {
+      "id": "328865",
+      "displayName": "Max Murray",
+      "fullName": "Max Murray",
+      "shortName": "M. Murray"
+     }
+    },
+    {
+     "athlete": {
+      "id": "400718",
+      "displayName": "Nico Cavallo",
+      "fullName": "Nico Cavallo",
+      "shortName": "N. Cavallo"
+     }
+    },
+    {
+     "athlete": {
+      "id": "297380",
+      "displayName": "Tayvon Gray",
+      "fullName": "Tayvon Gray",
+      "shortName": "T. Gray"
+     }
+    },
+    {
+     "athlete": {
+      "id": "268192",
+      "displayName": "Keaton Parks",
+      "fullName": "Keaton Parks",
+      "shortName": "K. Parks"
+     }
+    },
+    {
+     "athlete": {
+      "id": "259199",
+      "displayName": "Andrés Perea",
+      "fullName": "Andrés Perea",
+      "shortName": "A. Perea"
+     }
+    },
+    {
+     "athlete": {
+      "id": "358680",
+      "displayName": "Jonathan Shore",
+      "fullName": "Jonathan Shore",
+      "shortName": "J. Shore"
+     }
+    },
+    {
+     "athlete": {
+      "id": "376480",
+      "displayName": "Luighi Hanri",
+      "fullName": "Luighi Hanri",
+      "shortName": "Luighi Hanri"
+     }
+    },
+    {
+     "athlete": {
+      "id": "312850",
+      "displayName": "Bénie Traoré",
+      "fullName": "Bénie Traoré",
+      "shortName": "B. Traoré"
+     }
+    },
+    {
+     "athlete": {
+      "id": "337149",
+      "displayName": "Agustin Ojeda",
+      "fullName": "Agustin Ojeda",
+      "shortName": "A. Ojeda"
+     }
+    },
+    {
+     "athlete": {
+      "id": "3127712",
+      "displayName": "El Hadij Samb",
+      "fullName": "El Hadij Samb",
+      "shortName": "E. Samb"
+     }
+    },
+    {
+     "athlete": {
+      "id": "321979",
+      "displayName": "Mitja Ilenic",
+      "fullName": "Mitja Ilenic",
+      "shortName": "M. Ilenic"
+     }
+    },
+    {
+     "athlete": {
+      "id": "419228",
+      "displayName": "Kevin Pierre",
+      "fullName": "Kevin Pierre",
+      "shortName": "K. Pierre"
+     }
+    },
+    {
+     "athlete": {
+      "id": "288930",
+      "displayName": "Talles Magno",
+      "fullName": "Talles Magno",
+      "shortName": "Talles Magno"
+     }
+    },
+    {
+     "athlete": {
+      "id": "276051",
+      "displayName": "Raul Gustavo",
+      "fullName": "Raul Gustavo",
+      "shortName": "Raul Gustavo"
+     }
+    },
+    {
+     "athlete": {
+      "id": "254450",
+      "displayName": "Kevin O'Toole",
+      "fullName": "Kevin O'Toole",
+      "shortName": "K. O'Toole"
+     }
+    },
+    {
+     "athlete": {
+      "id": "184786",
+      "displayName": "Tomas Romero",
+      "fullName": "Tomas Romero",
+      "shortName": "T. Romero"
+     }
+    },
+    {
+     "athlete": {
+      "id": "379908",
+      "displayName": "Malachi Jones",
+      "fullName": "Malachi Jones",
+      "shortName": "M. Jones"
+     }
+    },
+    {
+     "athlete": {
+      "id": "358681",
+      "displayName": "Maxi Carrizo",
+      "fullName": "Maxi Carrizo",
+      "shortName": "M. Carrizo"
+     }
+    }
+   ]
+  },
+  {
+   "homeAway": "away",
+   "team": {
+    "id": "10739",
+    "displayName": "Philadelphia Union",
+    "abbreviation": "PHI"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "186943",
+      "displayName": "Andre Blake",
+      "fullName": "Andre Blake",
+      "shortName": "A. Blake"
+     }
+    },
+    {
+     "athlete": {
+      "id": "286778",
+      "displayName": "Nathan Harriel",
+      "fullName": "Nathan Harriel",
+      "shortName": "N. Harriel"
+     }
+    },
+    {
+     "athlete": {
+      "id": "366558",
+      "displayName": "Neil Pierre",
+      "fullName": "Neil Pierre",
+      "shortName": "N. Pierre"
+     }
+    },
+    {
+     "athlete": {
+      "id": "261317",
+      "displayName": "Kai Wagner",
+      "fullName": "Kai Wagner",
+      "shortName": "K. Wagner"
+     }
+    },
+    {
+     "athlete": {
+      "id": "366034",
+      "displayName": "Frankie Westfield",
+      "fullName": "Frankie Westfield",
+      "shortName": "F. Westfield"
+     }
+    },
+    {
+     "athlete": {
+      "id": "322063",
+      "displayName": "Jovan Lukic",
+      "fullName": "Jovan Lukic",
+      "shortName": "J. Lukic"
+     }
+    },
+    {
+     "athlete": {
+      "id": "333939",
+      "displayName": "Danley Jean Jacques",
+      "fullName": "Danley Jean Jacques",
+      "shortName": "D. Jean Jacques"
+     }
+    },
+    {
+     "athlete": {
+      "id": "266026",
+      "displayName": "Indiana Vassilev",
+      "fullName": "Indiana Vassilev",
+      "shortName": "I. Vassilev"
+     }
+    },
+    {
+     "athlete": {
+      "id": "384397",
+      "displayName": "Cavan Sullivan",
+      "fullName": "Cavan Sullivan",
+      "shortName": "C. Sullivan"
+     }
+    },
+    {
+     "athlete": {
+      "id": "263585",
+      "displayName": "Milan Iloski",
+      "fullName": "Milan Iloski",
+      "shortName": "M. Iloski"
+     }
+    },
+    {
+     "athlete": {
+      "id": "322680",
+      "displayName": "Bruno Damiani",
+      "fullName": "Bruno Damiani",
+      "shortName": "B. Damiani"
+     }
+    },
+    {
+     "athlete": {
+      "id": "304130",
+      "displayName": "Quinn Sullivan",
+      "fullName": "Quinn Sullivan",
+      "shortName": "Q. Sullivan"
+     }
+    },
+    {
+     "athlete": {
+      "id": "288688",
+      "displayName": "Japhet Sery",
+      "fullName": "Japhet Sery",
+      "shortName": "J. Sery"
+     }
+    },
+    {
+     "athlete": {
+      "id": "288060",
+      "displayName": "Ben Bender",
+      "fullName": "Ben Bender",
+      "shortName": "B. Bender"
+     }
+    },
+    {
+     "athlete": {
+      "id": "365853",
+      "displayName": "Andrew Rick",
+      "fullName": "Andrew Rick",
+      "shortName": "A. Rick"
+     }
+    },
+    {
+     "athlete": {
+      "id": "399426",
+      "displayName": "Ezekiel Alladoh",
+      "fullName": "Ezekiel Alladoh",
+      "shortName": "E. Alladoh"
+     }
+    },
+    {
+     "athlete": {
+      "id": "271536",
+      "displayName": "Jesús Bueno",
+      "fullName": "Jesús Bueno",
+      "shortName": "J. Bueno"
+     }
+    },
+    {
+     "athlete": {
+      "id": "364774",
+      "displayName": "Augustin Anello",
+      "fullName": "Augustin Anello",
+      "shortName": "A. Anello"
+     }
+    },
+    {
+     "athlete": {
+      "id": "274002",
+      "displayName": "Jeremy Rafanello",
+      "fullName": "Jeremy Rafanello",
+      "shortName": "J. Rafanello"
+     }
+    },
+    {
+     "athlete": {
+      "id": "134066",
+      "displayName": "Alejandro Bedoya",
+      "fullName": "Alejandro Bedoya",
+      "shortName": "A. Bedoya"
+     }
+    }
+   ]
+  }
+ ],
+ "keyEvents": [
+  {
+   "type": {
+    "id": "80",
+    "text": "Kickoff",
+    "type": "kickoff"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 0.0,
+    "displayValue": ""
+   },
+   "scoringPlay": false,
+   "text": "First Half begins."
+  },
+  {
+   "type": {
+    "id": "98",
+    "text": "Penalty - Scored",
+    "type": "penalty---scored"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 232.0,
+    "displayValue": "4'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! New York City FC 1, Philadelphia Union 0. Bénie Traoré (New York City FC) converts the penalty with a right footed shot to the bottom left corner.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "312850",
+      "displayName": "Bénie Traoré"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 935.0,
+    "displayValue": "16'"
+   },
+   "scoringPlay": false,
+   "text": "Nathan Harriel (Philadelphia Union) is shown the yellow card for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "286778",
+      "displayName": "Nathan Harriel"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1057.0,
+    "displayValue": "18'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match because of an injury Kai Wagner (Philadelphia Union)."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1057.0,
+    "displayValue": "18'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1096.0,
+    "displayValue": "19'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1096.0,
+    "displayValue": "19'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2557.0,
+    "displayValue": "43'"
+   },
+   "scoringPlay": false,
+   "text": "Luighi (New York City FC) is shown the yellow card for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "376480",
+      "displayName": "Luighi Hanri"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2611.0,
+    "displayValue": "44'"
+   },
+   "scoringPlay": false,
+   "text": "Jovan Lukic (Philadelphia Union) is shown the yellow card.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "322063",
+      "displayName": "Jovan Lukic"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "98",
+    "text": "Penalty - Scored",
+    "type": "penalty---scored"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'+2'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! New York City FC 2, Philadelphia Union 0. Luighi (New York City FC) converts the penalty with a right footed shot to the bottom right corner.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "376480",
+      "displayName": "Luighi Hanri"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "81",
+    "text": "Halftime",
+    "type": "halftime"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'+8'"
+   },
+   "scoringPlay": false,
+   "text": "First Half ends, New York City FC 2, Philadelphia Union 0."
+  },
+  {
+   "type": {
+    "id": "82",
+    "text": "Start 2nd Half",
+    "type": "start-2nd-half"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2861.0,
+    "displayValue": "48'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! New York City FC 2, Philadelphia Union 1. Danley Jean Jacques (Philadelphia Union) right footed shot from the centre of the box to the bottom left corner. Assisted by Cavan Sullivan with a headed pass following a set piece situation.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "333939",
+      "displayName": "Danley Jean Jacques"
+     }
+    },
+    {
+     "athlete": {
+      "id": "384397",
+      "displayName": "Cavan Sullivan"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2996.0,
+    "displayValue": "50'"
+   },
+   "scoringPlay": false,
+   "text": "Milan Iloski (Philadelphia Union) is shown the yellow card for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "263585",
+      "displayName": "Milan Iloski"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3558.0,
+    "displayValue": "60'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, New York City FC. Máximo Carrizo replaces Jonathan Shore.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "358681",
+      "displayName": "Maxi Carrizo"
+     }
+    },
+    {
+     "athlete": {
+      "id": "358680",
+      "displayName": "Jonathan Shore"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3563.0,
+    "displayValue": "60'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, New York City FC. Kevin O'Toole replaces Keaton Parks.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "254450",
+      "displayName": "Kevin O'Toole"
+     }
+    },
+    {
+     "athlete": {
+      "id": "268192",
+      "displayName": "Keaton Parks"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3671.0,
+    "displayValue": "62'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Philadelphia Union. Jesús Bueno replaces Jovan Lukic.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "271536",
+      "displayName": "Jesús Bueno"
+     }
+    },
+    {
+     "athlete": {
+      "id": "322063",
+      "displayName": "Jovan Lukic"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3993.0,
+    "displayValue": "67'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, New York City FC. Talles Magno replaces Luighi.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "288930",
+      "displayName": "Talles Magno"
+     }
+    },
+    {
+     "athlete": {
+      "id": "376480",
+      "displayName": "Luighi Hanri"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4003.0,
+    "displayValue": "67'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, New York City FC. Malachi Jones replaces Bénie Traoré.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "379908",
+      "displayName": "Malachi Jones"
+     }
+    },
+    {
+     "athlete": {
+      "id": "312850",
+      "displayName": "Bénie Traoré"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4099.0,
+    "displayValue": "69'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! New York City FC 2, Philadelphia Union 2. Bruno Damiani (Philadelphia Union) left footed shot from the centre of the box to the bottom left corner. Assisted by Cavan Sullivan following a fast break.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "322680",
+      "displayName": "Bruno Damiani"
+     }
+    },
+    {
+     "athlete": {
+      "id": "384397",
+      "displayName": "Cavan Sullivan"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4175.0,
+    "displayValue": "70'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Philadelphia Union. Quinn Sullivan replaces Indiana Vassilev.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "304130",
+      "displayName": "Quinn Sullivan"
+     }
+    },
+    {
+     "athlete": {
+      "id": "266026",
+      "displayName": "Indiana Vassilev"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4492.0,
+    "displayValue": "75'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! New York City FC 2, Philadelphia Union 3. Bruno Damiani (Philadelphia Union) left footed shot from the centre of the box to the bottom left corner. Assisted by Quinn Sullivan following a fast break.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "322680",
+      "displayName": "Bruno Damiani"
+     }
+    },
+    {
+     "athlete": {
+      "id": "304130",
+      "displayName": "Quinn Sullivan"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4624.0,
+    "displayValue": "78'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, New York City FC. Raul Gustavo replaces Max Murray.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "276051",
+      "displayName": "Raul Gustavo"
+     }
+    },
+    {
+     "athlete": {
+      "id": "328865",
+      "displayName": "Max Murray"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4691.0,
+    "displayValue": "79'"
+   },
+   "scoringPlay": false,
+   "text": "Tayvon Gray (New York City FC) is shown the yellow card for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "297380",
+      "displayName": "Tayvon Gray"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4776.0,
+    "displayValue": "80'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Philadelphia Union. Alejandro Bedoya replaces Cavan Sullivan.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "134066",
+      "displayName": "Alejandro Bedoya"
+     }
+    },
+    {
+     "athlete": {
+      "id": "384397",
+      "displayName": "Cavan Sullivan"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5098.0,
+    "displayValue": "85'"
+   },
+   "scoringPlay": false,
+   "text": "Kai Wagner (Philadelphia Union) is shown the yellow card for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "261317",
+      "displayName": "Kai Wagner"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5385.0,
+    "displayValue": "90'"
+   },
+   "scoringPlay": false,
+   "text": "Malachi Jones (New York City FC) is shown the yellow card.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "379908",
+      "displayName": "Malachi Jones"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "83",
+    "text": "End Regular Time",
+    "type": "end-regular-time"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+6'"
+   },
+   "scoringPlay": false,
+   "text": "Second Half ends, New York City FC 2, Philadelphia Union 3."
+  }
+ ]
+}

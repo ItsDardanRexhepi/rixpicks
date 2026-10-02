@@ -24,7 +24,7 @@ later finals wait for the next fire):
 Apply: manifest record/units_pl, history.json day row (+day record/units), record_done.json.
 Writes NOTHING to any private ledger - that stays analysis-side.
 """
-import glob, json, os, re, sys, urllib.request
+import glob, json, os, re, sys, unicodedata, urllib.request
 from datetime import datetime, timezone, timedelta
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from zoneinfo import ZoneInfo
@@ -158,6 +158,13 @@ def nick(display):
 
 def _norm_name(x):
     return re.sub(r'[^a-z0-9]', '', (x or '').lower())
+
+def _fold_name(x):
+    """_norm_name with accents folded first ('Tomás Ostrák' -> 'tomasostrak'): ESPN spells one player
+    both ways across its rosters and goal text, and a card name may differ from both. Used only to
+    match names; grade keys keep _norm_name, so no queued or processed key changes."""
+    x = unicodedata.normalize('NFKD', str(x or '')).encode('ascii', 'ignore').decode('ascii')
+    return re.sub(r'[^a-z0-9]', '', x.lower())
 
 def _market_class(p):
     # explicit class wins; a classless row is a moneyline only when it names no other market
@@ -325,12 +332,42 @@ PROP_GROUP_SCOPED = {  # MLB: batting keys also appear in the pitching group - s
 SOCCER_SCORER_MARKETS = ('anytime_goal', 'first_goal', 'last_goal')
 _GOAL_NAME = re.compile(r'^(?:Own Goal by )?(.+?) \(([^()]*)\)')
 _SCORELINE_END = re.compile(r'(?<=\d)\. ')  # the '. ' after the away score, never one inside a team name
+_OWN_GOAL_TEXT = re.compile(r'\s*own goal\b', re.I)
+
+def _goal_scorer_id(ev, aliases, rostered):
+    """Scorer of one goal event: ESPN's own participants[0] athlete id, which must be on a roster. The
+    goal text's name (after the scoreline, 'Goal! <home> <n>, <away> <n>. <Scorer> (<Team>) ...' - the
+    first '. ' can fall inside 'D.C. United' or 'St. Louis City SC') only cross-checks it: a name that
+    resolves on the rosters to anyone else refuses, while a name the rosters spell differently
+    ('Guilherme' for Guilherme Augusto, 'Luighi' for Luighi Hanri) leaves the id standing. With no
+    participant id the name must resolve to exactly one rostered player. Raises ValueError."""
+    text = ev.get('text') or ''
+    if _OWN_GOAL_TEXT.match(text):
+        raise ValueError(f'goal event text names an own goal ({text[:80]!r})')
+    parts = ev.get('participants')
+    first = parts[0] if isinstance(parts, list) and parts and isinstance(parts[0], dict) else {}
+    ath = first.get('athlete') if isinstance(first.get('athlete'), dict) else {}
+    sid = str(ath.get('id') or '')
+    mm = _GOAL_NAME.search(_SCORELINE_END.split(text, maxsplit=1)[-1])
+    named = aliases.get(_fold_name(mm.group(1)), set()) if mm else set()
+    if sid:
+        if sid not in rostered:
+            raise ValueError(f'goal scorer id {sid} not on the rosters')
+        if named and sid not in named:
+            raise ValueError(f'goal scorer id {sid} is not the goal text\'s {mm.group(1)!r}')
+        return sid
+    if not mm:
+        raise ValueError(f'goal event text unparsable ({text[:80]!r})')
+    if len(named) != 1:
+        raise ValueError(f'goal scorer {mm.group(1)!r} not uniquely on the rosters ({len(named)} matches)')
+    return next(iter(named))
 
 def _soccer_scorer(d, player, market):
     """Soccer scorer props (MLS): ESPN's soccer summary carries no player stat tables, so the check
     reads the same source with the same rules finals_watch grades by - keyEvents with scoringPlay
-    true, own goals never credit, periods 1-2 only (no extra time or shootout), the pick's player and
-    every scorer resolved strictly against the two rosters, and a tied clock on first/last refused.
+    true, own goals never credit, periods 1-2 only (no extra time or shootout), each goal's scorer by
+    ESPN's athlete id (_goal_scorer_id), the pick's player resolved strictly against the two rosters
+    with accents folded, and a tied clock on first/last refused.
     Returns (goal count, or 1/0 for first/last, as Decimal; home|away of the player's roster); raises
     ValueError when any of it cannot be established."""
     aliases, side_of, sides = {}, {}, []
@@ -338,17 +375,17 @@ def _soccer_scorer(d, player, market):
         sides.append(r.get('homeAway'))
         for e in r.get('roster') or []:
             a = e.get('athlete') or {}
-            aid = a.get('id')
+            aid = str(a.get('id') or '')
             if not aid:
                 continue
             side_of.setdefault(aid, set()).add(r.get('homeAway'))
             for nm in (a.get('displayName'), a.get('fullName'), a.get('shortName')):
-                n = _norm_name(nm)
+                n = _fold_name(nm)
                 if n:
                     aliases.setdefault(n, set()).add(aid)
     if sorted(map(str, sides)) != ['away', 'home']:
         raise ValueError(f'rosters are not one home and one away ({sides})')
-    want = _norm_name(player)
+    want = _fold_name(player)
     ids = {aid for alias, aids in aliases.items() if want and (alias == want or want in alias or alias in want) for aid in aids}
     if len(ids) != 1:
         raise ValueError(f'player {player!r} not uniquely on the rosters ({len(ids)} matches)')
@@ -362,16 +399,7 @@ def _soccer_scorer(d, player, market):
             continue
         if (ev.get('period') or {}).get('number') not in (1, 2):
             continue
-        text = ev.get('text') or ''
-        # 'Goal! <home> <n>, <away> <n>. <Scorer> (<Team>) ...': the scorer follows the scoreline,
-        # never the first '. ' - that can fall inside a team name ('D.C. United', 'St. Louis City SC')
-        mm = _GOAL_NAME.search(_SCORELINE_END.split(text, maxsplit=1)[-1])
-        if not mm:
-            raise ValueError(f'goal event text unparsable ({text[:80]!r})')
-        gids = aliases.get(_norm_name(mm.group(1)), set())
-        if len(gids) != 1:
-            raise ValueError(f'goal scorer {mm.group(1)!r} not uniquely on the rosters ({len(gids)} matches)')
-        goals.append(((ev.get('clock') or {}).get('value'), next(iter(gids))))
+        goals.append(((ev.get('clock') or {}).get('value'), _goal_scorer_id(ev, aliases, side_of)))
     if market == 'anytime_goal':
         val = sum(1 for _, aid in goals if aid == pid)
     elif not goals:

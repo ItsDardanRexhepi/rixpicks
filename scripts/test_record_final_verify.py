@@ -413,6 +413,59 @@ for eid, (cdate, commence, away, home, score, plays) in REAL_MLS.items():
         refused(f'MLS real {eid} {player} {market}: the opposite label', [soc_req(player, market, 'LOST' if result == 'WON' else 'WON', eid, score)],
                 'contradicts the verified final', snaps=snap)
 
+# MLS scorers ESPN's goal text names differently from its roster (Oct 2 review: 40 of 571 goals in 187
+# real games, so every scorer prop in 34 games was refused): 'Guilherme' is roster Guilherme Augusto,
+# 'Luighi' is Luighi Hanri, 'Christian Ramirez' is Christian Ramírez, 'Tomás Ostrák' is Tomas Ostrak.
+# The scorer is the key event's own participants[0] athlete id; the text name only cross-checks it,
+# and names match with accents folded. Trimmed real ESPN summaries with participants kept:
+# 761674 Seattle 1 at Austin 3 (Sánchez 11', Rothrock 26', Uzuni 86', Ramírez 90+1'), 761469 Houston 2
+# at New England 0 (Guilherme 45+1', Resch 63'), 761722 Philadelphia 3 at NYCFC 2 (Traoré 4',
+# Luighi 45+2', Jean Jacques 48', Damiani 69' and 75'), 761688 Colorado 0 at St. Louis 1 (Ostrák 83').
+NAMED_MLS = {  # eid -> (fixture, card date, commence, away, a_sc, home, h_sc, final score, plays)
+    '761674': ('soccer_summary_atx_761674.json', '2026-07-22', '2026-07-23T01:30Z', 'Seattle Sounders FC', 1, 'Austin FC', 3, 'SEA 1 @ ATX 3', [
+        ('Myrto Uzuni', 'anytime_goal', 'WON'), ('Ilie Sánchez', 'first_goal', 'WON'), ('Christian Ramírez', 'last_goal', 'WON'),
+        ('Paul Rothrock', 'anytime_goal', 'WON'), ('Myrto Uzuni', 'first_goal', 'LOST')]),
+    '761469': ('soccer_summary_hou_761469.json', '2026-08-08', '2026-08-08T20:30Z', 'Houston Dynamo FC', 2, 'New England Revolution', 0, 'HOU 2 @ NE 0', [
+        ('Agustín Resch', 'anytime_goal', 'WON'), ('Guilherme Augusto', 'first_goal', 'WON'), ('Agustín Resch', 'last_goal', 'WON')]),
+    '761722': ('soccer_summary_nyc_761722.json', '2026-08-16', '2026-08-16T22:00Z', 'Philadelphia Union', 3, 'New York City FC', 2, 'PHI 3 @ NYC 2', [
+        ('Bruno Damiani', 'anytime_goal', 'WON'), ('Bruno Damiani', 'last_goal', 'WON'), ('Luighi Hanri', 'anytime_goal', 'WON'),
+        ('Bénie Traoré', 'first_goal', 'WON')]),
+    '761688': ('soccer_summary_stl_761688.json', '2026-07-25', '2026-07-26T00:30Z', 'Colorado Rapids', 0, 'St. Louis CITY SC', 1, 'COL 0 @ STL 1', [
+        ('Tomás Ostrák', 'anytime_goal', 'WON'), ('Tomás Ostrák', 'last_goal', 'WON')])}
+def named_snap(eid):
+    _, cdate, commence, away, _a, home, _h, _, plays = NAMED_MLS[eid]
+    return {f'manifests/manifest-{eid}ffffff.json': {'date': cdate, 'record': '21-11', 'units_pl': '+4.76u', 'picks': [
+        pick(f'{pl} {SOC_MKT[mk]}', eid, SOC_LG, away, home, commence, '+150', '5u', 'over', 'prop', line=0.5, player=pl, market=mk)
+        for pl, mk, _ in plays]}}
+for eid, (fx, cdate, commence, away, a_sc, home, h_sc, score, plays) in NAMED_MLS.items():
+    FIX[CORE.format(lg='soccer/leagues/usa.1', e=eid, c=eid)] = core(away, a_sc, home, h_sc)
+    FIX[SITE.format(lg=SOC_LG, e=eid)] = json.load(open(os.path.join(FIXDIR, fx)))
+    for player, market, result in plays:
+        code, st, err = run([soc_req(player, market, result, eid, score)], snaps=named_snap(eid))
+        check(f'MLS named {eid} {player} {market} {result} lands', (code, err.strip()), (0, ''))
+        check(f'MLS named {eid} {player} {market}: row filed on the {cdate} card', [(p['name'], p['result'], p['score'])
+              for p in (day(st, cdate) or {}).get('picks', [])], [(f'{player} {SOC_MKT[market]}', result[0], score.replace(' @', ','))])
+        refused(f'MLS named {eid} {player} {market}: the opposite label', [soc_req(player, market, 'LOST' if result == 'WON' else 'WON', eid, score)],
+                'contradicts the verified final', snaps=named_snap(eid))
+# the participant id is checked, never taken on trust: Houston's two goals, doctored
+HOU = FIX[SITE.format(lg=SOC_LG, e='761469')]
+def hou_doctored(edit):
+    d = copy.deepcopy(HOU)
+    edit([e for e in d['keyEvents'] if e.get('scoringPlay') is True])
+    return d
+def _swap_id(g): g[1]['participants'][0]['athlete']['id'] = g[0]['participants'][0]['athlete']['id']
+def _unrostered(g): g[0]['participants'][0]['athlete']['id'] = '999999999'
+def _no_parts(g): [x.pop('participants', None) for x in g]
+def _own_goal_text(g): g[1]['text'] = 'Own Goal by Agustin Resch, Houston Dynamo FC. New England Revolution 1, Houston Dynamo FC 1.'
+for edit, why in [(_swap_id, 'a participant id the goal text names as someone else (Resch\'s goal on Guilherme\'s id)'),
+                  (_unrostered, 'a participant id on neither roster'),
+                  (_no_parts, 'no participant id and a goal text name the rosters spell differently (\'Guilherme\')'),
+                  (_own_goal_text, 'own-goal text on a goal-typed event')]:
+    FIX[SITE.format(lg=SOC_LG, e='761469')] = hou_doctored(edit)
+    refused(f'MLS {why}', [soc_req('Agustín Resch', 'anytime_goal', 'WON', '761469', 'HOU 2 @ NE 0')],
+            'independent prop verification failed', snaps=named_snap('761469'))
+FIX[SITE.format(lg=SOC_LG, e='761469')] = HOU
+
 # MMA hardening (Oct 2 review): a K19 card pick carries game.eid = the ESPN fight-card event id, and
 # a grade for it must name that event - a different event for the same fighter name (a later fight)
 # was graded against the old card pick as a new row. A fighter carded on two dates needs card_date.
