@@ -15,6 +15,7 @@ Usage: finals_watch.py [--dry-run]"""
 import json, os, re, sys, urllib.request
 sys.path.insert(0, '/home/sandbox/rix_tmp')
 from datetime import datetime, timezone, timedelta
+from zoneinfo import ZoneInfo
 from decimal import Decimal
 from core import record_pipe, units, budget, fill_leak
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -587,16 +588,26 @@ def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary
     if any(r.get('grade_id') == pkey for r in d.get('requests', [])):
         return False
     g = p.get('game', {})
+    # grade() returns W | L | PUSH; a push must travel as PUSH (record_final derives the result
+    # from the verified final and refuses a push labeled LOST). market_class/line/card_date let
+    # record_final cross-check the request against the published card pick.
+    try:
+        card_date = (datetime.fromisoformat(str(g.get('commence')).replace('Z', '+00:00'))
+                     .astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat())
+    except ValueError:
+        card_date = None  # record_final derives it from the published card
     d.setdefault('requests', []).append({
         'grade_id': pkey, 'event_id': eid, 'league': p.get('espn_league', ''),
         'pick': p.get('name', ''), 'side': p.get('side', ''),
-        'result': 'WON' if result == 'W' else 'LOST',
+        'market_class': p.get('market_class') or 'ml', 'line': p.get('line'),
+        'card_date': card_date,
+        'result': {'W': 'WON', 'L': 'LOST', 'PUSH': 'PUSH'}[result],
         'score': f"{g.get('away','away')} {primary['away_score']} @ {g.get('home','home')} {primary['home_score']}",
         'stake_units': p.get('units', '?'), 'locked_american': p.get('odds', '?'),
         'delta_units_exact': float(units.pnl_to_units(pnl)),
         'record_after': rec, 'units_after_exact': float(u2),
         'two_source': ['espn_core completed', secondary['source']],
-        'graded_pick': (f"{p.get('name','')} {'W' if result=='W' else 'L'}: "
+        'graded_pick': (f"{p.get('name','')} {({'W': 'W', 'L': 'L', 'PUSH': 'P'})[result]}: "
                         f"{g.get('away','away')} {primary['away_score']} @ {g.get('home','home')} {primary['home_score']} "
                         f"(published-card basis)"),
         'source': 'finals_watch J-118 live chain',
