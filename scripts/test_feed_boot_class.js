@@ -105,11 +105,21 @@ check('generation-mismatched held map fails closed', ctx3.SOC_MATCH_OK, false);
 const ptToday = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', weekday: 'long', month: 'short', day: 'numeric' }).format(new Date());
 const el = { textContent: 'Monday, Sep 28' };
 const stHome = { innerHTML: '<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div><div class="sub cnote">MNF Eagles @ Bears, 5:15 PM PT.</div></div>' };
+// M3 (Oct 1): the stale card's league panels stop projecting onto Home and name their card; the
+// Dingers panel (no .pick) and the combo tail outside Home are left alone
+const panel = (hasPick) => ({ attrs: { 'data-home-league': '1' }, kids: [],
+  removeAttribute(k) { delete this.attrs[k]; }, querySelector: sel => (sel === '.pick' && hasPick ? {} : null),
+  get firstChild() { return this.kids[0] || null; }, insertBefore(n) { this.kids.unshift(n); } });
+const nflPanel = panel(true), dingPanel = panel(false), comboTail = { style: { display: '' } };
+const win4 = {};
 const ctx4 = vm.createContext({
-  Date, JSON, Intl,
+  Date, JSON, Intl, window: win4,
   document: {
     querySelector: sel => (sel === '.rpdate' ? el : null),
-    getElementById: id => (id === 'st-home' ? stHome : null),
+    getElementById: id => (id === 'st-home' ? stHome : (id === 'rpComboTail' ? comboTail : null)),
+    querySelectorAll: sel => (sel === '.state[data-home-league]' ? [nflPanel, dingPanel] : []),
+    createElement: () => ({ className: '', textContent: '' }),
+    body: { classList: { contains: c => c === 'tab-home' } },
   },
 });
 vm.runInContext(extract('rpDateRoll'), ctx4);
@@ -119,6 +129,11 @@ if (before === 'stale') {
   check('stale header rolls to current PT day', el.textContent, ptToday);
   check('stale card replaced with honest not-published state', /has not published yet/.test(stHome.innerHTML), true);
   check('stale game note is gone', /MNF Eagles/.test(stHome.innerHTML), false);
+  check('stale card flagged for the combo tail filter', win4.RP_CARD_STALE, true);
+  check('stale league panel stops projecting onto Home', 'data-home-league' in nflPanel.attrs, false);
+  check('stale league panel names its card', (nflPanel.kids[0] || {}).textContent, 'From the Monday, Sep 28 card');
+  check('panel without picks (Dingers) untouched', ['data-home-league' in dingPanel.attrs, dingPanel.kids.length], [true, 0]);
+  check('stale combo leaves Home', comboTail.style.display, 'none');
 } else {
   check('same-day header is a no-op', el.textContent, ptToday);
   check('same-day card area untouched', /MNF Eagles/.test(stHome.innerHTML), true);

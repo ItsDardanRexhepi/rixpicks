@@ -2979,7 +2979,7 @@ def build_game_pages(man, css, build_sha):
         from zoneinfo import ZoneInfo as _ZIg
         _glock=_dtc.datetime.fromisoformat(_gc0.replace('Z','+00:00')).astimezone(_ZIg('America/Los_Angeles')).strftime('%b %d').replace(' 0',' ')+', '+_pt_time(_gc0)
     def _game_stamp(p):
-        if _ODDS_CHECKED: return _stamp_html(p)
+        if _ODDS_CHECKED or _posted_after_start(p) or not (p.get('locked') or _glock or _LOCK_KNOWN): return _stamp_html(p)  # same honesty rules as the index stamp
         return html.escape((p.get('locked') or _glock or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))+' &middot; locked'
     "Per-game live-market pages (user, Sep 25 12:11 PM)."
     tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'game_page_template.html')).read()
@@ -3238,7 +3238,9 @@ def build_game_pages(man, css, build_sha):
         HIST[(away,home)]=hrow
         ch=_chips_fn(p)
         espn=html.escape(p.get('espn_league',''))
-        mkt='spread' if p.get('market')=='spread' else 'ml'
+        mkt=_pick_mclass(p)
+        _gln=_pick_line(p)
+        _glnattr=(' data-line="%g"'%_gln) if (_gln is not None and mkt in ('spread','total')) else ''  # game-page verdict input (rpGameGrade)
         when=(_pt_date(g.get('commence','')) or 'Date unavailable')+' · '+_pt_label(g.get('commence',''))
         if g.get('eid') and _pt_date(g.get('commence',''))<_dtc.datetime.now(__import__('zoneinfo').ZoneInfo('America/Los_Angeles')).date().isoformat():
             try:
@@ -3267,7 +3269,7 @@ def build_game_pages(man, css, build_sha):
         for tok,val in [('__TITLE__',html.escape(away+' at '+home)),('__CSS__',css),('__NUM__',str(p['num'])),
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',abbr_a),('__HAB__',abbr_h),  # swamp 9/26: gpk registry blanks on unregistered games rendered UNLABELED arbiter-only scores - abbrs come from the same verified _meta_for source as the matchup display
             ('__EID__',html.escape(str(g.get('eid') or ''))),('__CEID__',html.escape(str(g.get('ceid') or ''))),('__COMP__',html.escape(str(g.get('comp') or ''))),('__COUNTED__',' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else ''),
-            ('__SIDE__',side),('__MKT__',mkt),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
+            ('__SIDE__',side),('__MKT__',mkt),('__LINEATTR__',_glnattr),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
             ('__ODDS__',html.escape(p['odds'])),('__LOCK__',_game_stamp(p)),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
             ('__MKTHDR__',_mkthdr),('__FOOTNOTE__',_foot),
             ('__CHIPS__',ch),('__MATCHUP__',matchup),('__TEAMLINKS__',teamlinks),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),('__ROOM__','g%s-%s'%(p['num'],(_pt_date(g.get('commence','')) or 'card'))),('__START__',g.get('commence','') or ''),

@@ -51,7 +51,7 @@ function tailFilter(key){
   var lgs=(cw.getAttribute('data-cx-espn')||'').split(',').filter(function(x){return x;});
   var ok=false;
   for(var i=0;i<lgs.length;i++)if(TABOF[lgs[i]]===key){ok=true;break;}
-  cw.style.display=(key==='home'||ok)?'':'none';
+  cw.style.display=((key==='home'&&!window.RP_CARD_STALE)||ok)?'':'none';
  }
  var ft=document.getElementById('rpFutTail');
  if(ft){
@@ -397,9 +397,19 @@ function rpDateRoll(){
  var el=document.querySelector('.rpdate');if(!el)return;
  var today=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'long',month:'short',day:'numeric'}).format(new Date());
  if(el.textContent.trim()===today)return;
+ var cardDay=el.textContent.trim();
  el.textContent=today;
+ window.RP_CARD_STALE=true;
  var st=document.getElementById('st-home');
  if(st)st.innerHTML='<div class="pick rp-empty"><div class="pick-head"><span class="name">Today\u2019s card has not published yet.</span></div></div>';
+ /* the stale card's league panels stop projecting onto Home (they kept showing under the new date)
+    and say which card they belong to; its combo leaves Home too */
+ document.querySelectorAll('.state[data-home-league]').forEach(function(p){
+  if(!p.querySelector('.pick'))return;
+  p.removeAttribute('data-home-league');
+  var n=document.createElement('div');n.className='cardnote';n.textContent='From the '+cardDay+' card';p.insertBefore(n,p.firstChild);
+ });
+ var cx=document.getElementById('rpComboTail');if(cx&&document.body.classList.contains('tab-home'))cx.style.display='none';
 }
 rpDateRoll();
 function buildPairs(base){
@@ -1061,7 +1071,7 @@ function loadSide(t){
    var _days=rpEspnDays(4),_reqs=[];
    games.forEach(function(x){var b='https://site.api.espn.com/apis/site/v2/sports/'+x.espn+'/scoreboard?limit=50';if(RP_DAY_LG[x.espn])_days.forEach(function(d){_reqs.push({x:x,u:b+'&dates='+d});});else _reqs.push({x:x,u:b});});
    var _acc=[],_seenG={},_pend=_reqs.length;
-   var _rowH=function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var _an=(a.team||{}).abbreviation||(a.team||{}).shortDisplayName||(a.team||{}).displayName||(a.athlete||{}).shortName||(a.athlete||{}).displayName||'',_hn=(h.team||{}).abbreviation||(h.team||{}).shortDisplayName||(h.team||{}).displayName||(h.athlete||{}).shortName||(h.athlete||{}).displayName||'';var title=(_an&&_hn)?(esc(_an)+' @ '+esc(_hn)):esc(g.event.shortName||g.event.name||'');var _row='<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when" data-until="'+esc(g.event.date||'')+'">'+esc(until(g.event.date))+'</span></div>';var _gr=RP_GAME_ROUTES[g.event.id];return _gr?('<a class="growtap" href="'+_gr+'" style="display:block;text-decoration:none;color:inherit">'+_row+'</a>'):_row;};
+   var _rowH=function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var _an=(a.team||{}).abbreviation||(a.team||{}).shortDisplayName||(a.team||{}).displayName||(a.athlete||{}).shortName||(a.athlete||{}).displayName||'',_hn=(h.team||{}).abbreviation||(h.team||{}).shortDisplayName||(h.team||{}).displayName||(h.athlete||{}).shortName||(h.athlete||{}).displayName||'';var title=(_an&&_hn)?(esc(_an)+(c.neutralSite?' vs ':' @ ')+esc(_hn)):esc(g.event.shortName||g.event.name||'');var _row='<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when" data-until="'+esc(g.event.date||'')+'">'+esc(until(g.event.date))+'</span></div>';var _gr=RP_GAME_ROUTES[g.event.id];return _gr?('<a class="growtap" href="'+_gr+'" style="display:block;text-decoration:none;color:inherit">'+_row+'</a>'):_row;};
    var _paint=function(){if(cur!==t||!gb)return;var all=_acc.slice().sort(function(p,q){return Date.parse(p.event.date||0)-Date.parse(q.event.date||0);});gb.innerHTML=all.map(_rowH).join('')||(_pend?'<div class="empty">Loading upcoming events&hellip;</div>':'<div class="empty">No upcoming events listed right now.</div>');};
    HOME_GAMES_PAINT=_paint;
    _paint();

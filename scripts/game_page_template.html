@@ -27,7 +27,7 @@
 <div id="rpPtr" style="display:none;text-align:center;font-size:12px;color:#8a8f98;padding:8px 0"><span style="display:inline-block;width:14px;height:14px;border:2px solid #2a4a44;border-top-color:#3aa895;border-radius:50%;animation:rpspin .8s linear infinite;vertical-align:-2px"></span> <span id="rpPtrTxt">refreshing&hellip;</span></div>
 <div class="sect" style="margin-top:18px">Game __NUM____INST__</div>
 __MATCHUP__
-<div class="pick" data-espn="__ESPN__" data-eid="__EID__" data-gpk="__GPK__" data-aab="__AAB__" data-hab="__HAB__" data-room="__ROOM__" data-away="__AWAY__" data-home="__HOME__" data-side="__SIDE__" data-market="__MKT__"__COUNTED__>
+<div class="pick" data-espn="__ESPN__" data-eid="__EID__" data-gpk="__GPK__" data-aab="__AAB__" data-hab="__HAB__" data-room="__ROOM__" data-away="__AWAY__" data-home="__HOME__" data-side="__SIDE__" data-market="__MKT__"__LINEATTR____COUNTED__>
   <div class="pick-head"><span class="num">__NUM__.</span><span class="name">__NAME__</span><span class="units">__UNITS__</span><span class="odds">__ODDS__</span><span class="oddslock">__LOCK__</span></div>
   <div class="sub">__SUB__</div>
   <div class="score" id="rpScore">__WHEN__</div>
@@ -59,6 +59,16 @@ __CHARTS__
 <button id="rpShareLoc" onclick="rpShareLoc()">Share my location</button>
 </div></div>
 <script>
+function rpGameGrade(d,a,h){ /* market-aware final verdict 'W'|'L'|'P', or null (no verdict): totals grade the combined score, spreads the pick-side margin plus the line, an exact landing pushes */
+ a=+a;h=+h;if(!isFinite(a)||!isFinite(h))return null;
+ const side=d.dataset.side||'away',mk=d.dataset.market||'ml';
+ if(mk==='ml')return ((side==='away')?(a>h):(h>a))?'W':'L';
+ const ln=parseFloat(d.dataset.line);if(!isFinite(ln))return null;
+ if(mk==='total'){if(side!=='over'&&side!=='under')return null;const t=a+h;if(t===ln)return 'P';return ((side==='over')===(t>ln))?'W':'L';}
+ if(mk==='spread'){if(side!=='away'&&side!=='home')return null;const m=((side==='away')?(a-h):(h-a))+ln;if(m===0)return 'P';return m>0?'W':'L';}
+ return null;}
+function rpGameBadge(v){return v?'<span style="font-size:12px;font-weight:800;color:'+(v==='W'?'#3ecf6f':(v==='L'?'#e5484d':'#8a8f98'))+'">'+v+'</span> ':'';}
+
 const RP_BUILD='__BUILD__';const RP_ROOM='__ROOM__';const RP_START='__START__';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
@@ -327,8 +337,7 @@ async function rpMlbLive(d){
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  const isFinal=det==='Final'||det==='Game Over';
  let wl='';
- if(isFinal){const side=d.dataset.side||'away';const win=(side==='away')?(aR>hR):(hR>aR);
-  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}
+ if(isFinal){wl=rpGameBadge(rpGameGrade(d,aR,hR));}
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+det.toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+inn+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
  h+='<div style="display:flex;align-items:center;gap:12px">';
  const batA=live&&(ls.inningState==='Top'||ls.inningState==='End'),batH=live&&(ls.inningState==='Bottom'||ls.inningState==='Middle');
@@ -464,9 +473,7 @@ function rpLeagueCard(d,j,cfg){
  const _pst=rpPbpSt(d.dataset.eid||'');
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  let wl='';
- if(isFinal){const side=d.dataset.side||'away';const _aN=parseFloat(aR),_hN=parseFloat(hR);
-  if(isFinite(_aN)&&isFinite(_hN)){const win=(side==='away')?(_aN>_hN):(_hN>_aN);
-  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}  /* batch 17 */
+ if(isFinal){wl=rpGameBadge(rpGameGrade(d,parseFloat(aR),parseFloat(hR)));}  /* batch 17 */
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+(st.shortDetail||'FINAL').toUpperCase()+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+(live?(st.shortDetail||''):'')+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+aAb+(poss==='away'?cfg.icon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+aR+'</span></div>';
  h+='<div style="display:flex;justify-content:space-between;font-size:16px;padding:3px 0"><span style="font-weight:600">'+hAb+(poss==='home'?cfg.icon:'')+'</span><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:18px">'+hR+'</span></div>';
@@ -695,9 +702,7 @@ async function rpFbLive(d){
  let h='<div id="rpLiveCard" onclick="rpPbpToggle()" style="cursor:pointer;margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  const isFinal=st.state==='post';
  let wl='';
- if(isFinal){const side=d.dataset.side||'away';const _aN=parseFloat(aR),_hN=parseFloat(hR);
-  if(isFinite(_aN)&&isFinite(_hN)){const win=(side==='away')?(_aN>_hN):(_hN>_aN);
-  wl='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}  /* batch 17: unknown scores suppress the W/L badge - a score outage never declares a result */
+ if(isFinal){wl=rpGameBadge(rpGameGrade(d,parseFloat(aR),parseFloat(hR)));}  /* batch 17: unknown scores suppress the W/L badge - a score outage never declares a result */
  const _clk=live?rpLiveClock(d,j,st):'';const _cdet=(st.shortDetail||'').replace(/^\d+:\d+\s*-?\s*/,'');
  const _brk=live&&/halftime|end of|delay|postponed/i.test(String(st.detail||st.shortDetail||''));  /* batch 2: a declared break is not live action - no red pulse, no frozen 20:00; the break itself renders from verified status detail */
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+((live&&!_brk)?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl+'<span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#8a8f98">'+(_brk?String(st.detail||st.shortDetail||'Break').toUpperCase():(st.shortDetail||'FINAL').toUpperCase())+'</span>')+'<span style="font-size:12px;color:#8a8f98">'+((live&&!_brk)?(_clk?(_clk+(_cdet?' - '+_cdet:'')):(st.shortDetail||'')):'')+'</span><span style="margin-left:auto;font-size:10px;color:#8a8f98">tap for plays</span></div>';
@@ -835,10 +840,8 @@ async function rpEspnPanel(d){
  const _cnP=rpCanonScore(d.dataset.eid,_awP.score,_hmP.score);  /* batch 19: this panel paints the canonical page moment too */
  let h='<div style="margin-top:10px;padding:12px 14px;border:1px solid rgba(127,127,127,.22);border-radius:12px">';
  let wl2='';
- if(st.state==='post'){const side=d.dataset.side||'away';
-  const _sA=_cnP?_cnP.a:+_awP.score,_sH=_cnP?_cnP.h:+_hmP.score;
-  if(isFinite(_sA)&&isFinite(_sH)){const win=(side==='away')?(_sA>_sH):(_sH>_sA);
-  wl2='<span style="font-size:12px;font-weight:800;color:'+(win?'#3ecf6f':'#e5484d')+'">'+(win?'W':'L')+'</span> ';}}
+ if(st.state==='post'){const _sA=_cnP?_cnP.a:+_awP.score,_sH=_cnP?_cnP.h:+_hmP.score;
+  wl2=rpGameBadge(rpGameGrade(d,_sA,_sH));}
  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+(live?'<span style="width:7px;height:7px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite"></span><span style="font-size:11px;font-weight:800;letter-spacing:1px;color:#e5484d">LIVE</span>':wl2)+'<span style="font-size:12px;color:#8a8f98">'+rpStatusText(d,j,st)+'</span></div>';
  (comp.competitors||[]).forEach(function(c){
   const ab=(c.team||{}).abbreviation||'';const sc=_cnP?String(c.homeAway==='away'?_cnP.a:_cnP.h):(c.score!=null?c.score:'\u2014');  /* batch 4 sweep: unknown != 0 */
