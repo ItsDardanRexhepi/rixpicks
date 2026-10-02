@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-02T22:20:09.251827+00:00",
+ "generated_at": "2026-10-02T22:35:08.992359+00:00",
  "items": [
-  {
-   "id": "9ae9b246a8",
-   "league": "NHL",
-   "event": "New York Rangers @ Detroit Red Wings",
-   "prediction": "New York Rangers to beat Detroit Red Wings",
-   "kickoff_utc": "2026-10-02T22:30:00+00:00"
-  },
   {
    "id": "35059ac038",
    "league": "NHL",
@@ -41,6 +34,13 @@
    "league": "NWSL",
    "event": "North Carolina Courage @ Seattle Reign FC",
    "prediction": "North Carolina Courage to beat Seattle Reign FC",
+   "kickoff_utc": "2026-10-03T02:00:00+00:00"
+  },
+  {
+   "id": "40016fbb9a",
+   "league": "NHL",
+   "event": "Anaheim Ducks @ Vegas Golden Knights",
+   "prediction": "Vegas Golden Knights to beat Anaheim Ducks",
    "kickoff_utc": "2026-10-03T02:00:00+00:00"
   }
  ]
