@@ -788,5 +788,18 @@
   "kickoff_utc": "2026-10-02T02:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-01T22:35:17.301720+00:00"
+ },
+ {
+  "id": "ccf4301b44",
+  "event_id": "401918294",
+  "league": "WNBA",
+  "path": "basketball/wnba",
+  "home": "Golden State Valkyries",
+  "away": "Dallas Wings",
+  "pick_team": "Golden State Valkyries",
+  "prediction": "Golden State Valkyries beat Dallas Wings",
+  "kickoff_utc": "2026-10-03T01:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-02T04:35:04.642547+00:00"
  }
 ]

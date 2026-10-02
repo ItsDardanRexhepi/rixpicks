@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-02T04:20:11.273008+00:00",
+ "generated_at": "2026-10-02T04:35:05.142831+00:00",
  "items": [
   {
    "id": "91e64929a5",
@@ -7,6 +7,13 @@
    "event": "San Diego Wave FC @ Orlando Pride",
    "prediction": "Orlando Pride beat San Diego Wave FC",
    "kickoff_utc": "2026-10-03T00:00:00+00:00"
+  },
+  {
+   "id": "ccf4301b44",
+   "league": "WNBA",
+   "event": "Dallas Wings @ Golden State Valkyries",
+   "prediction": "Golden State Valkyries beat Dallas Wings",
+   "kickoff_utc": "2026-10-03T01:00:00+00:00"
   },
   {
    "id": "8382c9e5bb",
@@ -34,13 +41,6 @@
    "league": "CFB",
    "event": "UCF Knights @ Houston Cougars",
    "prediction": "UCF Knights beat Houston Cougars",
-   "kickoff_utc": "2026-10-03T16:00:00+00:00"
-  },
-  {
-   "id": "e07235134f",
-   "league": "CFB",
-   "event": "Boston College Eagles @ SMU Mustangs",
-   "prediction": "SMU Mustangs beat Boston College Eagles",
    "kickoff_utc": "2026-10-03T16:00:00+00:00"
   }
  ]
