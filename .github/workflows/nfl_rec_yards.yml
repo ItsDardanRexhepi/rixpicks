@@ -31,5 +31,6 @@ jobs:
           git add slates/nfl_rec_yards.json
           if git diff --cached --quiet; then echo "no change - no commit"; exit 0; fi
           git commit -m "nfl rec-yards sidecar $(date '+%m-%d %H:%M PT')"
+          # The guard also reads the push back (origin/main must contain HEAD); a run with
+          # nothing to commit has nothing to read back (Oct 2 runs 36962855292 + 36962967323).
           bash scripts/push_with_guard.sh
-          git ls-remote origin main | grep -q "$(git rev-parse HEAD)" || { echo 'PUSH READBACK FAILED: origin/main != HEAD' >&2; exit 1; }
