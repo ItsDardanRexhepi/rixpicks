@@ -7,6 +7,8 @@ F3 (Oct 2 TNF): the lane pulled only while an ESPN event was 'in', so the last g
 live window was frozen mid-game (PIT @ CLE 7-7, completed false) and never recorded final.
 A game the file holds as started-but-not-completed, kicked off within the chase window, gets
 one more pull per cycle until the-odds-api reports it completed.
+F5 (ci review): the chase is bounded to games ESPN reports in progress or final; a postponed,
+canceled, still-'pre' or unlisted game never spends a pull.
 LS-22: the public nfl_scores.json must not carry the API credit count.
 Run: python3 scripts/test_nfl_scores_confirm.py   (exit 1 on any failure)
 """
@@ -60,8 +62,8 @@ def run(case, espn_states, prior_games, odds_games):
         bindir = os.path.join(root, 'bin'); os.makedirs(bindir)
         open(os.path.join(bindir, 'curl'), 'w').write('#!' + sys.executable + '\n' + STUB_CURL.split('\n', 1)[1])
         os.chmod(os.path.join(bindir, 'curl'), 0o755)
-        json.dump({'events': [{'id': str(i), 'status': {'type': {'state': s}}} for i, s in enumerate(espn_states)]},
-                  open(os.path.join(fx, 'espn.json'), 'w'))
+        json.dump({'events': [ev if isinstance(ev, dict) else {'id': str(i), 'status': {'type': {'state': ev}}}
+                              for i, ev in enumerate(espn_states)]}, open(os.path.join(fx, 'espn.json'), 'w'))
         json.dump(odds_games, open(os.path.join(fx, 'odds.json'), 'w'))
         prior = os.path.join(root, 'nfl_scores.json')
         if prior_games is not None:
@@ -82,13 +84,22 @@ def run(case, espn_states, prior_games, odds_games):
     finally:
         shutil.rmtree(root, ignore_errors=True)
 
+def espn(home, away, state, completed=False, name=None, desc=None):
+    # ESPN scoreboard event shape: the chase binds the file's game to it by home and away team
+    return {'id': home[:3] + away[:3], 'date': ISO(NOW), 'status': {'type': {
+                'state': state, 'completed': completed, 'name': name or {'pre': 'STATUS_SCHEDULED', 'in': 'STATUS_IN_PROGRESS', 'post': 'STATUS_FINAL'}[state],
+                'description': desc or ''}},
+            'competitions': [{'competitors': [{'homeAway': 'home', 'team': {'displayName': home}},
+                                              {'homeAway': 'away', 'team': {'displayName': away}}]}]}
+
 TNF_KO = NOW - timedelta(hours=3, minutes=50)
 LIVE = game('tnf', 'Cleveland Browns', 'Pittsburgh Steelers', TNF_KO, False, (7, 7))
 FINAL = game('tnf', 'Cleveland Browns', 'Pittsburgh Steelers', TNF_KO, True, (27, 24))
 UPCOMING = game('sun1', 'Detroit Lions', 'Chicago Bears', NOW + timedelta(days=3), False, None)
 
 # A (F3): no ESPN event 'in' any more, the file froze TNF mid-game -> one more pull lands the final
-pulls, w, log = run('A', ['post'], [LIVE, UPCOMING], [FINAL, UPCOMING])
+TNF_FINAL_ESPN = espn('Cleveland Browns', 'Pittsburgh Steelers', 'post', True, 'STATUS_FINAL', 'Final')
+pulls, w, log = run('A', [TNF_FINAL_ESPN], [LIVE, UPCOMING], [FINAL, UPCOMING])
 check('A final whistle: one chase pull after the game left the live state', pulls, 1)
 g = next((x for x in (w or {}).get('games', []) if x.get('id') == 'tnf'), {})
 check('A final recorded: completed true', g.get('completed'), True)
@@ -118,6 +129,22 @@ for case_w in (w,):
     keys = set((case_w or {}).keys())
     check('F public nfl_scores.json has no credit count', sorted(k for k in keys if 'credit' in k or 'remaining' in k), [])
 check('F credit count stays visible in the run log', 'credits remaining: 19337' in log, True)
+
+# H-K (F5): the chase spends a pull only on a game ESPN reports in progress or played to a final;
+# a postponed, canceled, still-'pre' or unlisted game is never chased (it used to pull every cycle
+# for the whole 5h window: up to 20 paid pulls on a game that never started)
+for case, ev, why in (
+        ('H', espn('Cleveland Browns', 'Pittsburgh Steelers', 'post', True, 'STATUS_POSTPONED', 'Postponed'), 'postponed (ESPN post, completed)'),
+        ('H2', espn('Cleveland Browns', 'Pittsburgh Steelers', 'post', False, 'STATUS_POSTPONED', 'Postponed'), 'postponed (ESPN post, not completed)'),
+        ('I', espn('Cleveland Browns', 'Pittsburgh Steelers', 'post', True, 'STATUS_CANCELED', 'Canceled'), 'canceled'),
+        ('J', espn('Cleveland Browns', 'Pittsburgh Steelers', 'pre', False, 'STATUS_DELAYED', 'Delayed'), "still 'pre' (delayed start)"),
+        ('K', espn('Detroit Lions', 'Chicago Bears', 'pre'), 'not on the ESPN board')):
+    pulls, w, log = run(case, [ev], [LIVE, UPCOMING], [FINAL, UPCOMING])
+    check(f'{case} game the file holds as kicked off but ESPN reports {why}: no pull', pulls, 0)
+    check(f'{case} {why}: file untouched', w, None)
+check('K the skipped chase says why in the run log', 'chase skipped: Pittsburgh Steelers @ Cleveland Browns' in log, True)
+pulls, w, log = run('L', [espn('Cleveland Browns', 'Pittsburgh Steelers', 'in')], [LIVE, UPCOMING], [LIVE, UPCOMING])
+check('L the same game ESPN reports in progress: one pull', pulls, 1)
 
 # G: no prior file (first run) with nothing live - free
 pulls, w, log = run('G', ['post'], None, [FINAL])
