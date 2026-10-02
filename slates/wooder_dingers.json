@@ -1,24 +1,4 @@
 {
     "date": "2026-10-01",
-    "picks": [
-        {
-            "player": "Bryce Harper",
-            "team": "PHI",
-            "matchup": "PHI at ATL",
-            "time": "5:00 PM PT",
-            "market": "Home Run",
-            "links": [
-                {
-                    "venue": "DKP",
-                    "url": null,
-                    "american": "+525"
-                },
-                {
-                    "venue": "KAL",
-                    "url": null
-                }
-            ],
-            "price_note": "+525 is converted from the DK Predictions 16% display as of 4:13 PM PT. It is not a venue-quoted American line and not a current executable quote."
-        }
-    ]
+    "picks": []
 }

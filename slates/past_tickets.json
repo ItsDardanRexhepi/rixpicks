@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-01T14:45:00-07:00",
+ "generated_at": "2026-10-01T20:05:00-07:00",
  "entries": [
   {
    "id": "t5",
@@ -1239,6 +1239,18 @@
    "reason": "Home run pick lost - 0 HR in the game (ESPN final box score)",
    "provenance": "Original Wooder Ice Dingers card, Sep 30. Result from ESPN official box score, event 401907975 (Final).",
    "removed_label": "Oct 1, 2:45 PM PT"
+  },
+  {
+   "id": "ding-1001-harper",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Bryce Harper - Home Run",
+   "result": "lost",
+   "detail": "PHI at ATL \u00b7 5:00 PM PT \u00b7 DKP",
+   "archived_at": "2026-10-01T20:05:00-07:00",
+   "reason": "Home run pick lost - 0 HR in the game (ESPN final box score: 1-for-4, 2 K; Braves 6, Phillies 2)",
+   "provenance": "Wooder Ice Dingers card, Oct 1. Result from ESPN official box score, event 401907973 (Final), confirmed against MLB Stats gamePk 849844.",
+   "removed_label": "Oct 1, 8:05 PM PT"
   }
  ]
 }
