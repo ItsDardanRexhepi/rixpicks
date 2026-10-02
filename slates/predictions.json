@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-02T01:19:58.837157+00:00",
+ "generated_at": "2026-10-02T01:34:56.725634+00:00",
  "items": [
-  {
-   "id": "ab01ff509a",
-   "league": "MLS",
-   "event": "Sporting Kansas City @ Seattle Sounders FC",
-   "prediction": "Seattle Sounders FC beat Sporting Kansas City",
-   "kickoff_utc": "2026-10-02T01:30:00+00:00"
-  },
-  {
-   "id": "fb39f3b48f",
-   "league": "NHL",
-   "event": "Chicago Blackhawks @ Utah Mammoth",
-   "prediction": "Utah Mammoth beat Chicago Blackhawks",
-   "kickoff_utc": "2026-10-02T01:30:00+00:00"
-  },
   {
    "id": "cccb9a4c40",
    "league": "NHL",
@@ -42,6 +28,20 @@
    "event": "North Carolina Courage @ Seattle Reign FC",
    "prediction": "North Carolina Courage beat Seattle Reign FC",
    "kickoff_utc": "2026-10-03T02:00:00+00:00"
+  },
+  {
+   "id": "e8a990c552",
+   "league": "CFB",
+   "event": "Alabama Crimson Tide @ Mississippi State Bulldogs",
+   "prediction": "Alabama Crimson Tide beat Mississippi State Bulldogs",
+   "kickoff_utc": "2026-10-03T16:00:00+00:00"
+  },
+  {
+   "id": "f82d2d5d77",
+   "league": "CFB",
+   "event": "Notre Dame Fighting Irish @ North Carolina Tar Heels",
+   "prediction": "Notre Dame Fighting Irish beat North Carolina Tar Heels",
+   "kickoff_utc": "2026-10-03T16:00:00+00:00"
   }
  ]
 }
