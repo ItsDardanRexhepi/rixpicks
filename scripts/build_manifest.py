@@ -54,7 +54,7 @@ LEAGUE_KEY = {'baseball/mlb':'MLB','football/nfl':'NFL','football/college-footba
               'tennis/atp':'ATP','tennis/wta':'WTA','golf/pga':'PGA',
               'racing/nascar-premier':'NASCAR','racing/nascar':'NASCAR'}  # values must match config_leagues.json keys
 
-def _pick_content_hash(m):
+def _pick_content_hash(m, legacy=False):
     # VERBATIM contract copy of build_gh_page.py's gate - declared hash must equal its computed hash.
     _EXCL_TOP={'num','result','_final','polycents','card_ts','line_shop','books','books_sp','prop_books'}
     # Sep 30 K23 drift kill: this copy had drifted from the builder's gate (missing the Sep 29
@@ -64,6 +64,12 @@ def _pick_content_hash(m):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
             c['kalshi']={k:v for k,v in c['kalshi'].items() if k!='cents'}
+        # polymarket(.us) cents = per-refresh price snapshots, excluded like kalshi.cents (mirror of the
+        # builder); legacy=True is the canonicalization before that exclusion.
+        if not legacy:
+            for _pk in ('polymarket','polymarket_us'):
+                if isinstance(c.get(_pk),dict):
+                    c[_pk]={k:v for k,v in c[_pk].items() if k!='cents'}
         c.pop('dkp_note',None)
         if isinstance(c.get('dkp'),dict):
             c['dkp']={k:v for k,v in c['dkp'].items() if k not in ('team_cents','home_cents','away_cents','derived','harvested')}

@@ -30,7 +30,9 @@ PICK = {
                'gate_cents': 42, 'ticker': 'KXMLBGAME-X-CWS'},
     'card_american': 138, 'card_source': 'Kalshi ask at lock',
     'card_ts': '2026-09-30T07:04:26-07:00',
-    'polymarket': None, 'polycents': 42,
+    'polymarket': {'url': 'https://polymarket.com/event/mlb-cws-hou-2026-09-30', 'cents': 42},
+    'polymarket_us': {'url': 'https://polymarket.us/sports/mlb/mlb-cws-hou-2026-09-30', 'cents': 42, 'verified': True},
+    'polycents': 42,
     'dkp': {'url': 'https://predictions.draftkings.com/en/event/x/1', 'team_cents': 42,
             'home_cents': 59, 'away_cents': 42, 'derived': False, 'harvested': '2026-09-30T14:25:54Z'},
     'line_shop': {'as_of': 't', 'books': {'draftkings': {'h2h': [{'side': 'away', 'price': 138}]}}},
@@ -59,6 +61,27 @@ v['picks'][0]['result'] = 'hit'
 v['picks'][0]['books'] = {'other': 9}
 checks.append(('volatile snapshots (line_shop/books/cents/card_ts/result/num) do not move the hash',
                all(fn(v) == h for (f, fn), h in zip(fns.items(), hashes.values()))))
+
+# DI-18 (Sep 30 - Oct 1): the feed re-prices polymarket/polymarket_us cents every refresh; those
+# snapshots moved the card identity on nearly every odds refresh (b310924c, 5cf9c373, 1ff24cea ...)
+p = man([copy.deepcopy(PICK)])
+p['picks'][0]['polymarket']['cents'] = 57
+p['picks'][0]['polymarket_us']['cents'] = 58
+checks.append(('polymarket/polymarket_us cents ticks do not move the hash',
+               all(fn(p) == h for fn, h in zip(fns.values(), hashes.values()))))
+# an arm appearing or disappearing is still a content change (url stays in the hash)
+a = man([copy.deepcopy(PICK)])
+a['picks'][0]['polymarket_us']['url'] = 'https://polymarket.us/sports/mlb/mlb-cws-hou-2026-10-01'
+checks.append(('a changed market url still moves the hash', all(fn(a) != h for fn, h in zip(fns.values(), hashes.values()))))
+# legacy=True is exactly the canonicalization the Sep 30 manifests were stamped under (pinned value
+# computed with the pre-change function), so their declared hashes keep verifying
+LEGACY_PIN = '5b3f43e38468b304e91c3729fd4d9ae92bdf8a644b86763d6e0aca3a88b14ec3'
+def _legacy(fn, m):
+    try: return fn(m, legacy=True)
+    except TypeError: return None  # copy without the legacy canonicalization
+for f, fn in fns.items():
+    checks.append((f'{f}: legacy canonicalization reproduces the pre-change hash',
+                   _legacy(fn, man([copy.deepcopy(PICK)])) == LEGACY_PIN))
 
 # real content MUST move the hash
 c = man([copy.deepcopy(PICK)])

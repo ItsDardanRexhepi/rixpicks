@@ -16,7 +16,7 @@ from zoneinfo import ZoneInfo
 
 
 import hashlib as _hl
-def _pick_content_hash(m):
+def _pick_content_hash(m, legacy=False):
     # EXACT MIRROR of build_gh_page_v2.py _pick_content_hash: the feed mutates pick slots, so it
     # re-stamps the declared manifest hash. Drift between this copy and the builder's is
     # fail-closed by construction (builder recomputes and refuses on mismatch).
@@ -25,6 +25,12 @@ def _pick_content_hash(m):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
             c['kalshi']={k:v for k,v in c['kalshi'].items() if k!='cents'}
+        # polymarket(.us) cents = per-refresh price snapshots, excluded like kalshi.cents (mirror of the
+        # builder); legacy=True is the canonicalization before that exclusion.
+        if not legacy:
+            for _pk in ('polymarket','polymarket_us'):
+                if isinstance(c.get(_pk),dict):
+                    c[_pk]={k:v for k,v in c[_pk].items() if k!='cents'}
         c.pop('dkp_note',None)
         if isinstance(c.get('dkp'),dict):
             c['dkp']={k:v for k,v in c['dkp'].items() if k not in ('team_cents','home_cents','away_cents','derived','harvested')}
@@ -139,8 +145,23 @@ def resolve_us(pick, hub):
         return url, cents
     return None, None
 
+def _declared_ok(man):
+    # A feed only mutates (and re-stamps) a manifest whose declared pick_content_hash matches its
+    # picks. A mismatch means the pick list is not the one that was certified (e.g. a rebase merged
+    # another day's picks in): refuse, so the builder's own integrity gate fails the build closed.
+    d = man.get('pick_content_hash')
+    return (not d) or d in (_pick_content_hash(man), _pick_content_hash(man, legacy=True))
+
+def _market_class(p):
+    # build_manifest.py writes market_class; legacy hand manifests mark spreads with market:'spread'
+    return p.get('market_class') or ('spread' if p.get('market') == 'spread' else 'ml')
+
 def feed(manifest_path, write=True):
     man = json.load(open(manifest_path))
+    if not _declared_ok(man):
+        print(f"REFUSED: manifest pick_content_hash {str(man.get('pick_content_hash'))[:12]}... does not match its picks - not mutating or re-stamping it", file=sys.stderr)
+        sys.exit(3)
+    declared = bool(man.get('pick_content_hash'))
     n_ok = 0
     hubs = {}
     for p in man['picks']:
@@ -150,10 +171,10 @@ def feed(manifest_path, write=True):
             except Exception as ex:
                 print(f"HUB ERR {ulg}: {ex}", file=sys.stderr); hubs[ulg] = {}
         g = p.get('game') or {}
-        if p.get('side') not in ('home','away'):
-            # moneyline feed only: a prop pick (side over/under) must NEVER inherit the game's
-            # moneyline link/price - wrong market is a failure, abstain is not
-            print(f"SKIP {p.get('name')}: non-moneyline pick (side={p.get('side')})", file=sys.stderr); continue
+        if p.get('side') not in ('home','away') or _market_class(p) != 'ml':
+            # moneyline feed only: a prop/total pick (side over/under) or a spread pick (side home/away)
+            # must NEVER inherit the game's moneyline link/price - wrong market is a failure, abstain is not
+            print(f"SKIP {p.get('name')}: non-moneyline pick (market_class={_market_class(p)}, side={p.get('side')})", file=sys.stderr); continue
         away, home, commence = g.get('away',''), g.get('home',''), g.get('commence','')
         lg = LEAGUE_SLUG.get(p.get('espn_league',''))
         a_abbr, h_abbr = ABBR.get(away.lower()), ABBR.get(home.lower())
@@ -202,7 +223,8 @@ def feed(manifest_path, write=True):
         n_ok += 1
         print(f"OK {p.get('name')}: {url} pick-side {cents}c gamma | .us {us_cents}c")
     if write:
-        man['pick_content_hash']=_pick_content_hash(man)
+        if declared:  # re-stamp only a hash that verified before this feed touched the picks
+            man['pick_content_hash']=_pick_content_hash(man)
         json.dump(man, open(manifest_path,'w'), indent=1)
     print(f"fed {n_ok}/{len(man['picks'])} picks", file=sys.stderr)
 

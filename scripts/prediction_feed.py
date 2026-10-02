@@ -5,19 +5,26 @@ The sidecar is harvested off-runner (browser; predictions.draftkings.com Akamai-
 datacenter IPs) and committed. This matcher runs in refresh.sh before the build:
 team-name + ET-date match, moneyline picks only (prop picks never inherit a game ML
 link - wrong market is a failure, abstain is not). Fail-closed: no confident row match
--> slot stays null, no chip. Re-stamps pick_content_hash (mirror of the builder gate).
+-> slot stays null, no chip. Re-stamps pick_content_hash (mirror of the builder gate) only when
+the declared hash verified before the feed touched the picks; a mismatch refuses (exit 3).
 """
 import json, sys, re, datetime
 from zoneinfo import ZoneInfo
 import hashlib as _hl
 
-def _pick_content_hash(m):
+def _pick_content_hash(m, legacy=False):
     # EXACT MIRROR of build_gh_page_v2.py _pick_content_hash (drift fails closed at the builder).
     _EXCL_TOP={'num','result','_final','polycents','card_ts','line_shop','books','books_sp','prop_books'}
     def _canon(p):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
             c['kalshi']={k:v for k,v in c['kalshi'].items() if k!='cents'}
+        # polymarket(.us) cents = per-refresh price snapshots, excluded like kalshi.cents (mirror of the
+        # builder); legacy=True is the canonicalization before that exclusion.
+        if not legacy:
+            for _pk in ('polymarket','polymarket_us'):
+                if isinstance(c.get(_pk),dict):
+                    c[_pk]={k:v for k,v in c[_pk].items() if k!='cents'}
         c.pop('dkp_note',None)
         if isinstance(c.get('dkp'),dict):
             c['dkp']={k:v for k,v in c['dkp'].items() if k not in ('team_cents','home_cents','away_cents','derived','harvested')}
@@ -32,6 +39,12 @@ def main():
     manifest_path=sys.argv[1] if len(sys.argv)>1 else 'manifest.json'
     sidecar_path=sys.argv[2] if len(sys.argv)>2 else 'slates/prediction_markets.json'
     man=json.load(open(manifest_path))
+    declared=man.get('pick_content_hash')
+    if declared and declared not in (_pick_content_hash(man), _pick_content_hash(man, legacy=True)):
+        # never mutate or re-certify a pick list that does not match its declared hash - the
+        # builder's integrity gate then fails the build closed instead of shipping it
+        print(f'REFUSED: manifest pick_content_hash {declared[:12]}... does not match its picks - not mutating or re-stamping it', file=sys.stderr)
+        sys.exit(3)
     try: side=json.load(open(sidecar_path))
     except FileNotFoundError:
         print('prediction_feed: no sidecar - slots untouched', file=sys.stderr); return
@@ -40,6 +53,7 @@ def main():
     n=0
     for p in man['picks']:
         if p.get('side') not in ('home','away'): continue  # moneyline-only (prop guard)
+        if (p.get('market_class') or ('spread' if p.get('market')=='spread' else 'ml'))!='ml': continue  # spread/total picks never take a moneyline arm
         g=p.get('game') or {}
         away, home = g.get('away',''), g.get('home','')
         if not away or not home: continue
@@ -57,7 +71,7 @@ def main():
             print(f"OK {p.get('name')}: {r['url']} pick-side {cents}c dkp")
             break
     if n:
-        man['pick_content_hash']=_pick_content_hash(man)
+        if declared: man['pick_content_hash']=_pick_content_hash(man)  # re-stamp only a hash that verified above
         json.dump(man,open(manifest_path,'w'),indent=1)
     print(f"dkp-fed {n}/{len(man['picks'])} picks", file=sys.stderr)
 

@@ -71,7 +71,7 @@ man=json.load(open(sys.argv[1]))
 # A manifest display_only flag is NEVER honored: absence of the shipped hash takes the normal
 # publish path with full condition eval - only a hash match can skip it.
 import hashlib as _hl
-def _pick_content_hash(m):
+def _pick_content_hash(m, legacy=False):
     # Full-object hashing (hunter reject 3): hash the canonical FULL pick object so any content
     # field - current or future - is covered automatically. EXCLUSION LIST (volatile/non-content
     # operational fields, audit before extending): num (build-assigned display order), result and
@@ -86,6 +86,14 @@ def _pick_content_hash(m):
         c={k:v for k,v in p.items() if k not in _EXCL_TOP}
         if isinstance(c.get('kalshi'),dict):
             c['kalshi']={k:v for k,v in c['kalshi'].items() if k!='cents'}
+        # polymarket.cents / polymarket_us.cents are the feed's per-refresh price snapshots (same class
+        # as kalshi.cents and the dkp cents): a price tick must never move the card identity. The market
+        # url and verified flag stay - a new or dropped arm is a content change. legacy=True is the
+        # canonicalization before this exclusion, so manifests stamped under it still verify.
+        if not legacy:
+            for _pk in ('polymarket','polymarket_us'):
+                if isinstance(c.get(_pk),dict):
+                    c[_pk]={k:v for k,v in c[_pk].items() if k!='cents'}
         # d03ba56 contract: dkp harvest snapshots are volatile like kalshi.cents - prices/harvest
         # metadata excluded; the market URL stays (a new arm = content change = full gate).
         c.pop('dkp_note',None)
@@ -97,7 +105,7 @@ def _pick_content_hash(m):
     return _hl.sha256('\n'.join(rows).encode()).hexdigest()
 _PC_HASH=_pick_content_hash(man)
 _DECLARED_HASH=man.get('pick_content_hash')
-if _DECLARED_HASH and _DECLARED_HASH!=_PC_HASH:
+if _DECLARED_HASH and _DECLARED_HASH not in (_PC_HASH,_pick_content_hash(man,legacy=True)):
     print(f'BUILD FAILED: manifest pick_content_hash {_DECLARED_HASH[:12]}... != computed {_PC_HASH[:12]}... - manifest integrity', file=sys.stderr)
     sys.exit(3)
 _HASHF=os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])),'shipped_pick_hash.txt')
