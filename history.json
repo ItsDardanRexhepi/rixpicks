@@ -383,6 +383,51 @@
           "_delta": "6.9"
         }
       ]
+    },
+    {
+      "date": "2026-10-01",
+      "label": "Thursday, Oct 1",
+      "record": "3-1",
+      "units": "+3.93u",
+      "brief": "",
+      "picks": [
+        {
+          "name": "Devils ML",
+          "game": "vs Flyers",
+          "odds": "-162",
+          "units": "5u",
+          "result": "W",
+          "score": "PHI 2, NJ 3",
+          "_delta": "3.0864197530864197"
+        },
+        {
+          "name": "Under 38.5",
+          "game": "Steelers at Browns",
+          "odds": "-115",
+          "units": "6u",
+          "result": "L",
+          "score": "PIT 24, CLE 27",
+          "_delta": "-6.0"
+        },
+        {
+          "name": "Aces -4.5",
+          "game": "vs Fever",
+          "odds": "-110",
+          "units": "5u",
+          "result": "W",
+          "score": "IND 83, LV 94",
+          "_delta": "4.545454545454546"
+        },
+        {
+          "name": "Mammoth ML",
+          "game": "vs Blackhawks",
+          "odds": "-218",
+          "units": "5u",
+          "result": "W",
+          "score": "CHI 0, UTA 6",
+          "_delta": "2.293577981651376"
+        }
+      ]
     }
   ]
 }
