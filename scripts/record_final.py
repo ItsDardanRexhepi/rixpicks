@@ -10,7 +10,8 @@ later finals wait for the next fire):
      build leaves one) or the live manifest - matched on its grade key. The card date is the
      builder's card-date rule (most common PT game date across the card's picks, which must equal
      the snapshot's date); the row is filed under it, never under whatever date the manifest
-     carries now, and never under a late game's own date.
+     carries now, and never under a late game's own date. A pick counts only when its own PT game
+     date is the card's date or the next day (an after-midnight start), never an earlier game.
   2. INDEPENDENT verify against ESPN core (completed + scores match), and the result must follow
      from the verified score, side and line (ml/spread/total), from the ESPN box score (props),
      or from the winner flags (MMA). The request's own label is never taken on trust.
@@ -23,7 +24,7 @@ Apply: manifest record/units_pl, history.json day row (+day record/units), recor
 Writes NOTHING to any private ledger - that stays analysis-side.
 """
 import glob, json, os, re, sys, urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from decimal import Decimal, InvalidOperation
 from zoneinfo import ZoneInfo
 
@@ -189,8 +190,9 @@ def card_pick(q):
     the snapshot's picks, and the snapshot counts only when its own date agrees - an archive copy
     filed under another date (the Sep 30 snapshot carrying Sep 29's picks) is no card at all, so
     nothing on it is graded. A pick is filed under its card's date, even when its own game starts
-    after midnight PT. Every build snapshots the manifest it published into manifests/; the live
-    manifest.json counts too."""
+    after midnight PT (its PT date is the card's date or the next day); a pick whose game began
+    before the card's date is not on that card. Every build snapshots the manifest it published
+    into manifests/; the live manifest.json counts too."""
     mma = str(q.get('league') or '').startswith('mma/')
     found = {}
     for path in sorted(glob.glob(os.path.join(MANIFESTS, 'manifest-*.json'))) + [MAN]:
@@ -201,6 +203,7 @@ def card_pick(q):
         day = card_date_of(snap)
         if not day or snap.get('date') != day:
             continue
+        nxt = (datetime.strptime(day, '%Y-%m-%d') + timedelta(days=1)).date().isoformat()
         for p in snap.get('picks') or []:
             if not isinstance(p, dict):
                 continue
@@ -208,7 +211,10 @@ def card_pick(q):
                 hit = str(p.get('espn_league') or '').startswith('mma/') and p.get('name') == q.get('pick')
             else:
                 hit = card_key(p) == str(q.get('grade_id'))
-            if hit:
+            # the pick's own game must be on the card's date, or start after midnight PT into the
+            # next day - a game that began before the card's date was never this card's pick
+            pd = _pt_date((p.get('game') or {}).get('commence'))
+            if hit and pd and day <= pd <= nxt:
                 found.setdefault(day, []).append(p)
     if q.get('card_date') is not None:
         found = {d: v for d, v in found.items() if d == q['card_date']}

@@ -213,6 +213,24 @@ code, st, _ = run([yordan()], snaps={'manifests/manifest-388bdcec23a0.json': COR
 check('F1 the real Sep 29 card still grades its own pick beside the corrupted copy', (code, [d['date'] for d in st['history.json']['days']]),
       (0, ['2026-09-29', '2026-09-30']))
 
+# F1 review (Oct 2): a game that began BEFORE the card's date is not on that card, even when the
+# card's own picks carry its date - a pick copied onto the Oct 2 card after its Oct 1 game started
+# is never graded and filed under Oct 2 (the record is append-only; a wrong-date row stays wrong)
+FIX[CORE.format(lg='hockey/leagues/nhl', e='401891950', c='401891950')] = core('New York Islanders', 1, 'New Jersey Devils', 4)
+OCT2 = {'date': '2026-10-02', 'record': '21-11', 'units_pl': '+4.76u', 'picks': [
+    pick('Rangers ML', '401891960', 'hockey/nhl', 'Boston Bruins', 'New York Rangers', '2026-10-02T23:00Z', '-130', '5u', 'home'),
+    pick('Kings ML', '401891961', 'hockey/nhl', 'Anaheim Ducks', 'Los Angeles Kings', '2026-10-03T02:00Z', '-150', '5u', 'home'),
+    pick('Devils ML', '401891950', 'hockey/nhl', 'New York Islanders', 'New Jersey Devils', '2026-10-01T23:00Z', '-162', '5u', 'home')]}
+def stale_devils(**x):
+    return req('401891950|ml|home', '401891950', 'hockey/nhl', 'Devils ML', 'home', 'WON', 'NYI 1 @ NJ 4', '-162', '5u',
+               D_DEV, '22-11', U0 + D_DEV, **x)
+refused('F1 a pick whose game began the day before its card is not on that card', [stale_devils()],
+        'not on any published card', snaps={'manifests/manifest-1002cccccccc.json': OCT2})
+refused('F1 the same stale pick requested under the card date', [stale_devils(card_date='2026-10-02')],
+        'not on any published card dated 2026-10-02', snaps={'manifests/manifest-1002cccccccc.json': OCT2})
+refused('F1 the same stale pick on the live manifest', [stale_devils(card_date='2026-10-02')],
+        'not on any published card dated 2026-10-02', live=dict(LIVE, picks=OCT2['picks']))
+
 code, st, _ = run([devils(market_class='ml', line=None, card_date='2026-10-01'),
                    under(rec='22-12', ua=U0 + D_DEV - 6, market_class='total', line=38.5, card_date='2026-10-01')])
 check('CP-07 requests carrying market_class/line/card_date that match the card land', code, 0)
