@@ -33,10 +33,14 @@ try:
     fw.HERE = os.path.join(tmp, 'scripts')
     REQ = os.path.join(tmp, 'record_request.json')
 
+    ABBR = {'Vancouver Canucks': 'VAN', 'Seattle Kraken': 'SEA', 'Indiana Fever': 'IND', 'Las Vegas Aces': 'LV'}
     def queue(p, result, card_date, pkey, pnl):
         if os.path.exists(REQ):
             os.remove(REQ)
-        fw._queue_record_request(p, p['game']['eid'], pkey, result, {'away_score': 1, 'home_score': 4}, '22-11', 7.0,
+        g = p['game']  # primary as espn_final returns it: names, ESPN abbreviations, scores
+        primary = {'away': g['away'], 'home': g['home'], 'away_abbr': ABBR[g['away']], 'home_abbr': ABBR[g['home']],
+                   'away_score': 1, 'home_score': 4}
+        fw._queue_record_request(p, g['eid'], pkey, result, primary, '22-11', 7.0,
                                  pnl, {'source': 'fixture'}, '2026-10-02 00:30 PDT', card_date=card_date)
         return json.load(open(REQ))['requests'][-1]
 
@@ -59,6 +63,24 @@ try:
     check('L travels as LOST', r['result'], 'LOST')
     r = queue(spread, 'W', None, '401918022|spread|home|-11', 0)
     check('no card date given: record_final derives it from the published card', r['card_date'], None)
+
+    # the score travels in record_final's format: ESPN abbreviations, never full team names (Oct 2 review:
+    # 'Vancouver Canucks 1 @ Seattle Kraken 4' was refused as unparseable by record_final's SCORE_RE)
+    r = queue(late, 'W', '2026-10-01', '401891900|ml|home', 0)
+    check('score queued as ESPN abbreviations', r['score'], 'VAN 1 @ SEA 4')
+    rspec = importlib.util.spec_from_file_location('record_final_for_queue', os.path.join(HERE, 'record_final.py'))
+    rf = importlib.util.module_from_spec(rspec)
+    rspec.loader.exec_module(rf)
+    check("record_final's score format parses it", bool(rf.SCORE_RE.match(r['score'])), True)
+    check("an abbreviation with a non-letter is put in that format ('TA&M' -> 'TAM')",
+          fw.score_text({'away_abbr': 'TA&M', 'home_abbr': 'lsu', 'away_score': 17, 'home_score': 20}), 'TAM 17 @ LSU 20')
+    for bad in ('', None, 'A', 'ABCDE'):
+        try:
+            fw.score_text({'away_abbr': bad, 'home_abbr': 'SEA', 'away_score': 1, 'home_score': 4})
+            got = 'queued'
+        except ValueError:
+            got = 'refused'
+        check(f'no usable abbreviation ({bad!r}) is never queued', got, 'refused')
 
     src = open(os.path.join(HERE, 'finals_watch.py')).read()
     check("main() passes the manifest's card date", bool(re.search(r"_queue_record_request\([^)]*card_date=m\.get\('date'\)\)", src)), True)

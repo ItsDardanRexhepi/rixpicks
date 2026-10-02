@@ -41,16 +41,33 @@ def espn_final(league, eid):
         return None
     sc = {}
     names = {}
+    abbrs = {}
     for x in c.get('competitors', []):
         s2 = _deref(x.get('score', {}))
         v = s2.get('value') if isinstance(s2, dict) else None
         sc[x.get('homeAway')] = int(float(v)) if v is not None else None
         team = _deref(x.get('team', {}))
         names[x.get('homeAway')] = team.get('displayName') or team.get('name') or ''
+        abbrs[x.get('homeAway')] = team.get('abbreviation') or ''
     if sc.get('home') is None or sc.get('away') is None:
         return None
     return {'home': names.get('home', ''), 'away': names.get('away', ''),
+            'home_abbr': abbrs.get('home', ''), 'away_abbr': abbrs.get('away', ''),
             'home_score': sc['home'], 'away_score': sc['away']}
+
+def score_text(primary):
+    """The record write's score: '<AWAY> <n> @ <HOME> <n>' in ESPN's team abbreviations, the exact
+    format record_final.py parses (2-4 capital letters a side). Full team names were queued before and
+    record_final refused every one as unparseable, stopping the in-order record write. Raises
+    ValueError when an abbreviation cannot be put in that format (fail closed: never queued)."""
+    ab = {}
+    for side in ('away', 'home'):
+        a = re.sub(r'[^A-Z]', '', str(primary.get(f'{side}_abbr') or '').upper())  # 'TA&M' -> 'TAM'
+        if not 2 <= len(a) <= 4:
+            raise ValueError(f"no usable ESPN abbreviation for the {side} team ({primary.get(f'{side}_abbr')!r}) - "
+                             'REFUSING to queue a score record_final cannot parse (fail closed)')
+        ab[side] = a
+    return f"{ab['away']} {primary['away_score']} @ {ab['home']} {primary['home_score']}"
 
 CBS_SLUG = {'football/college-football': 'college-football', 'football/nfl': 'nfl',
             'basketball/nba': 'nba', 'basketball/ncaab': 'college-basketball', 'basketball/wnba': 'wnba',
@@ -602,7 +619,7 @@ def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary
         'market_class': p.get('market_class') or 'ml', 'line': p.get('line'),
         'card_date': card_date,
         'result': {'W': 'WON', 'L': 'LOST', 'PUSH': 'PUSH'}[result],
-        'score': f"{g.get('away','away')} {primary['away_score']} @ {g.get('home','home')} {primary['home_score']}",
+        'score': score_text(primary),
         'stake_units': p.get('units', '?'), 'locked_american': p.get('odds', '?'),
         'delta_units_exact': float(units.pnl_to_units(pnl)),
         'record_after': rec, 'units_after_exact': float(u2),
@@ -736,6 +753,7 @@ def main():
             break  # order guard: later finals wait
         try:
             result, pnl = grade(p, primary)
+            score_text(primary)  # the queued score must parse in record_final - checked before any write
         except ValueError as e:
             print(f'{stamp} WARN: {pkey} {e} - chain STOPS')
             break
