@@ -212,7 +212,7 @@ function srcDom(s){return s==='X'?'via X':(s==='CBS'?'cbssports.com':(s==='YAHOO
 function unesc(s){var t=document.createElement('textarea');t.innerHTML=String(s==null?'':s);return t.value;}  /* swamp 1:09: feeds ship HTML-encoded headlines (Jets&#39;) - decode before esc() or they double-escape */
 function normH(h){return String(h||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').replace(/^\s+|\s+$/g,'');}
 function newsBucket(t){
- /* instant lane (Dardan 1:13: no lag on news dropping): the visible league's bucket merges
+ /* instant lane (owner: no lag on news dropping): the visible league's bucket merges
     the 5-min server file with a direct 25s ESPN poll from the page - new ESPN stories render
     within ~30s of publish; CBS/Yahoo lanes arrive on the server cadence. */
  var out=[];

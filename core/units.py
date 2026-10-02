@@ -1,4 +1,5 @@
-"""UNIT BASIS (final, 9/26 8:33 PM via main): canonical = card stake at locked price, record is unit-denominated (owner-stated 9/25: "1u = $5 per $1,000 in bankroll"). NOTE: UNIT_DOLLARS below is only the legacy card-dollar P&L conversion constant, not the public basis label.
+"""UNIT BASIS: canonical = card stake at locked price; the record is unit-denominated.
+UNIT_DOLLARS below is only the legacy card-dollar P&L conversion constant, not the public basis label.
 Store exact, display half-up 2dp. Actual-cash fills live in positions ledger only, never public record."""
 from decimal import Decimal, ROUND_HALF_UP
 UNIT_DOLLARS = Decimal('15')
