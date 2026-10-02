@@ -205,10 +205,11 @@ def card_pick(q):
     after midnight PT (its PT date is the card's date or the next day); a pick whose game began
     before the card's date is not on that card. Every build snapshots the manifest it published
     into manifests/; the live manifest.json counts too. An MMA pick binds on league + pick text and,
-    when the card row carries game.eid, on that event too; an MMA pick on cards of several dates
-    needs the request's card_date."""
+    when any copy of that day's row carries game.eid, on that event too (a copy without one never
+    stands in for it, and copies naming different events bind none); an MMA pick on cards of
+    several dates needs the request's card_date."""
     mma = str(q.get('league') or '').startswith('mma/')
-    found, mma_named = {}, set()
+    found, mma_rows = {}, {}
     for path in sorted(glob.glob(os.path.join(MANIFESTS, 'manifest-*.json'))) + [MAN]:
         try:
             snap = json.load(open(path))
@@ -222,29 +223,42 @@ def card_pick(q):
             if not isinstance(p, dict):
                 continue
             pd = _pt_date((p.get('game') or {}).get('commence'))
-            if mma:
-                # MMA rows bind on league + exact pick text; a K19 row also carries game.eid (the ESPN
-                # fight-card event id) and then counts only for a grade of that same event - a later
-                # fight of the same fighter is never graded against this card's pick
-                hit = str(p.get('espn_league') or '').startswith('mma/') and p.get('name') == q.get('pick')
-                if hit and pd and day <= pd <= nxt:
-                    mma_named.add(day)
-                ceid = (p.get('game') or {}).get('eid')
-                hit = hit and (not ceid or str(ceid) == str(q.get('event_id')))
-            else:
-                hit = card_key(p) == str(q.get('grade_id'))
             # the pick's own game must be on the card's date, or start after midnight PT into the
             # next day - a game that began before the card's date was never this card's pick
-            if hit and pd and day <= pd <= nxt:
+            if not (pd and day <= pd <= nxt):
+                continue
+            if mma:
+                # MMA rows bind on league + exact pick text; the event is bound per day below
+                if str(p.get('espn_league') or '').startswith('mma/') and p.get('name') == q.get('pick'):
+                    mma_rows.setdefault(day, []).append(p)
+            elif card_key(p) == str(q.get('grade_id')):
                 found.setdefault(day, []).append(p)
-    if mma and len(mma_named) > 1 and q.get('card_date') is None:
-        return None, f'carded on several dates {sorted(mma_named)} - an MMA grade must name its card_date'
+    forked = set()
+    for day, rows in mma_rows.items():
+        # a K19 row carries game.eid (the ESPN fight-card event id). When any copy of the day's row
+        # carries one, the grade must name that event - a later fight of the same fighter is never
+        # graded against this card's pick, and a copy with no eid (a hand-landed or older copy) never
+        # lets another event through. Copies naming different events bind none. With no eid on any
+        # copy (before K19) the row binds on league + pick text, as it always has.
+        eids = {str(r['game']['eid']) for r in rows if (r.get('game') or {}).get('eid')}
+        if not eids:
+            found[day] = rows
+        elif len(eids) > 1:
+            if str(q.get('event_id')) in eids:
+                found[day], forked = rows, forked | {day}
+        elif eids == {str(q.get('event_id'))}:
+            # the bound copy first: main() checks the request's event against the row it is given
+            found[day] = sorted(rows, key=lambda r: not (r.get('game') or {}).get('eid'))
+    if mma and len(mma_rows) > 1 and q.get('card_date') is None:
+        return None, f'carded on several dates {sorted(mma_rows)} - an MMA grade must name its card_date'
     if q.get('card_date') is not None:
         found = {d: v for d, v in found.items() if d == q['card_date']}
     if len(found) != 1:
         return None, ('not on any published card' + (f" dated {q['card_date']}" if q.get('card_date') else '')
                       if not found else f'on published cards for several dates {sorted(found)}')
     day, rows = next(iter(found.items()))
+    if day in forked:
+        return None, f'published copies of the {day} card disagree on the event this MMA pick is bound to'
     if len({(r.get('name'), str(r.get('odds')), str(r.get('card_american')), str(r.get('units'))) for r in rows}) != 1:
         return None, f'published copies of the {day} card disagree on name, price or stake'
     return day, rows[0]

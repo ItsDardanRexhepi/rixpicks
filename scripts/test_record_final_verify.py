@@ -529,6 +529,31 @@ check('MMA fighter carded on two dates: a grade naming its card_date lands on th
 refused('MMA fighter carded on two dates: the bound card refuses another event even with its card_date',
         [mma_req('Loai Abushaar ML', '600060739', '401891663', 'LOST', 'Staines def. Abushaar', card_date='2026-10-24')],
         'not on any published card dated 2026-10-24', snaps=MMA_OCT24)
+# r3 review: a copy of the same card whose row carries no event id (a hand-landed or older copy)
+# bypassed the binding - card_pick returned that copy and main()'s event check was skipped, so a
+# later fight was graded onto the Oct 24 card. When any copy of the day's row carries an event id,
+# the grade must name it; a copy without one never stands in for it.
+MMA_OCT24_NOEID = dict(MMA_OCT24, **{'manifests/manifest-1024aaaaaaaa.json': {'date': '2026-10-24', 'record': '21-11', 'units_pl': '+4.76u', 'picks': [
+    mma_pick('Jon Doe ML', 'Rick Roe', None, '2026-10-25T02:00Z'), mma_pick('Loai Abushaar ML', 'Max Moe', None, '2026-10-25T03:00Z')]}})
+refused('MMA a copy of the card with no event id does not let another event through',
+        [mma_req('Jon Doe ML', '600070002', '401900002', 'LOST', 'Poe def. Doe')], 'not on any published card', snaps=MMA_OCT24_NOEID)
+refused('MMA a copy with no event id: another event naming the card_date is refused too',
+        [mma_req('Jon Doe ML', '600070002', '401900002', 'LOST', 'Poe def. Doe', card_date='2026-10-24')],
+        'not on any published card dated 2026-10-24', snaps=MMA_OCT24_NOEID)
+code, st, err = run([mma_req('Jon Doe ML', '600070001', '401900001', 'WON', 'Doe def. Roe')], snaps=MMA_OCT24_NOEID)
+check('MMA a copy with no event id: the bound event still lands on its card', (code, err.strip(),
+      [(p['name'], p['result']) for p in (day(st, '2026-10-24') or {}).get('picks', [])]), (0, '', [('Jon Doe ML', 'W')]))
+# copies that carry two different event ids for the same row disagree: no event is bound
+MMA_OCT24_FORK = dict(MMA_OCT24, **{'manifests/manifest-1024bbbbbbbb.json': {'date': '2026-10-24', 'record': '21-11', 'units_pl': '+4.76u', 'picks': [
+    mma_pick('Jon Doe ML', 'Rick Roe', '600070009', '2026-10-25T02:00Z')]}})
+refused('MMA copies of the card bound to different events: refused, no event is chosen',
+        [mma_req('Jon Doe ML', '600070001', '401900001', 'WON', 'Doe def. Roe')], 'disagree on the event', snaps=MMA_OCT24_FORK)
+# before K19 (no copy carries an event id): the Sep 29 Abushaar row binds on league + pick text as before
+code, st, err = run([req('G-600060739', '600060739', 'mma/ufc', 'Loai Abushaar ML', 'home', 'LOST', 'STA 1 @ ABU 0', '+285', '5u',
+                         -5.0, '21-12', U0 - 5, competition_id='401891663', graded_pick='Staines def. Abushaar')])
+check('MMA a pre-K19 row (no event id on any copy) still binds on league + pick text', (code, err.strip(),
+      [(p['name'], p['result'], p['score']) for p in (day(st, '2026-09-29') or {}).get('picks', [])]),
+      (0, '', [('Loai Abushaar ML', 'L', 'Staines def. Abushaar')]))
 
 # MMA: a PUSH label on a fight with a winner flag is a contradiction
 rf = load()
