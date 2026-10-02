@@ -21,7 +21,9 @@ for node in tree.body:
         keep.append(node)
     elif isinstance(node, ast.Assign) and any(getattr(t, 'id', '') in ('REPO', 'COUNT_FILE', 'QUOTA_FILE') for t in node.targets):
         keep.append(node)
-    elif isinstance(node, ast.FunctionDef) and node.name == 'provider_remaining':
+    elif isinstance(node, ast.FunctionDef) and node.name in ('provider_remaining', 'redact_credits'):
+        keep.append(node)
+    elif isinstance(node, ast.Assign) and any(getattr(t, 'id', '') == '_CREDIT_RE' for t in node.targets):
         keep.append(node)
 gh_calls = []
 def gh(path, *a, **k):
@@ -76,6 +78,16 @@ qdef = os.path.abspath(qdef) if qdef else ''
 check('default state lives outside the checkout (nothing in the repo is unserved)', bool(qdef) and not qdef.startswith(ROOT + os.sep), True)
 check('default state is ~/.rixpicks-ops/odds_quota.json unless RP_OPS_STATE says otherwise',
       qdef == os.path.join(os.environ.get('RP_OPS_STATE') or os.path.expanduser('~/.rixpicks-ops'), 'odds_quota.json'), True)
+# the committed incident note never carries the count: not in the decision, not in the log tail
+src = open(SRC).read()
+check('the quota-low decision does not print the count', "provider quota low: %s" not in src and '% prem' not in src, True)
+rc = ns.get('redact_credits') or (lambda t: t)
+tail = ('americanfootball_nfl: 14 events, credits remaining 19337\nnfl/401: credits used 3, remaining 19334\n'
+        'x-requests-remaining: 19330\nnfl_scores.json: 2 games, credits remaining: 19328\n{"last_remaining": 19327}\nBUILD FAILED: card 21-11')
+red = rc(tail)
+check('incident log tail is written with every credit count redacted', [n for n in ('19337', '19334', '19330', '19328', '19327') if n in red], [])
+check('the rest of the tail stays readable', 'BUILD FAILED: card 21-11' in red and 'credits remaining N' in red, True)
+check('the incident note writes the redacted tail', 'redact_credits(diag[\'error_tail\'])' in src, True)
 wf = open(os.path.join(ROOT, '.github', 'workflows', 'watchdog.yml')).read()
 check('failure-watchdog restores the odds quota state from the Actions cache', 'actions/cache/restore@' in wf and 'odds-quota-' in wf, True)
 if failures:

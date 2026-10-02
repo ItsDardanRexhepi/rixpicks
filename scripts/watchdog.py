@@ -107,6 +107,12 @@ def provider_remaining(path=QUOTA_FILE, now=None):
     except Exception:
         return None
 
+_CREDIT_RE = re.compile(r'(?i)(x-requests-remaining:?\s*|credits? remaining:?\s*|credits used\s*\d+,\s*remaining\s*|"?(?:last_remaining|credits_remaining)"?\s*[:=]\s*)\d+')
+
+def redact_credits(text):
+    """The incident note is committed (served); the provider's credit count never goes there."""
+    return _CREDIT_RE.sub(lambda m: m.group(1) + 'N', text or '')
+
 run_id, wf, wf_id = os.environ['RUN_ID'], os.environ['WF_NAME'], os.environ['WF_ID']
 sha = os.environ.get('HEAD_SHA', '')[:8]
 now = datetime.datetime.now(datetime.timezone.utc)
@@ -142,7 +148,7 @@ if not skip:
     prem = provider_remaining()
     diag['provider_remaining'] = prem
     if prem is not None and prem < 100:
-        skip.append('provider quota low: %s remaining (authoritative header)' % prem)
+        skip.append('provider quota low: under 100 credits remaining (authoritative header)')  # the count stays in the run log
 if wf in BUDGET_COST:
     spend = odds_spend_today()
     diag['odds_spend_today'] = spend
@@ -164,6 +170,6 @@ json.dump(state, open('watchdog_state.json', 'w'), indent=1)
 os.makedirs('incidents', exist_ok=True)
 with open(f'incidents/{run_id}-diag.md', 'w') as f:
     f.write('# watchdog diagnosis: %s run %s\n\n- head: %s\n- failed jobs: %s\n- failing steps: %s\n- decision: %s\n- url: https://github.com/%s/actions/runs/%s\n\n## error tail\n```\n%s\n```\n'
-            % (wf, run_id, sha, ', '.join(diag['failed_jobs']) or 'unknown', ', '.join(diag['failing_steps']) or 'unknown', diag['decision'], REPO, run_id, diag['error_tail']))
+            % (wf, run_id, sha, ', '.join(diag['failed_jobs']) or 'unknown', ', '.join(diag['failing_steps']) or 'unknown', diag['decision'], REPO, run_id, redact_credits(diag['error_tail'])))
 print(json.dumps(diag, indent=1))
 
