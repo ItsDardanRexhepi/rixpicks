@@ -14,15 +14,34 @@ T="${RP_TMP:-/tmp}"
 # the checkout is served (Pages + the Cloudflare mirror), so it lives outside it, carried between
 # runs by odds_refresh.yml's cache step. .odds_refresh_count.json served the paid API's credit
 # count (LS-22); it now carries the run-count telemetry only.
+# Each reading is stored with its PT month (scripts/ops_quota.py): the provider resets credits on
+# the first of every month, so a reading from an earlier month is ignored. With no reading for
+# this month (an Actions cache miss, a new month), the free GET /v4/sports reading is taken before
+# any paid pull (free_reading below).
+# Clearing the tripwire: it clears by itself in the first run of a new PT month (last month's
+# reading is ignored, the free reading replaces it). To clear it mid-month (credits added, plan
+# changed), delete the cached ops state - gh cache list --key odds-quota- then
+# gh cache delete <id> for each entry - and, while .odds_refresh_count.json still carries a
+# legacy last_remaining for this month, remove that key; the next run then takes a free reading.
 OPS_DIR="${RP_OPS_STATE:-$HOME/.rixpicks-ops}"
 QUOTA_FILE="$OPS_DIR/odds_quota.json"
 [ -f "$COUNT_FILE" ] && COUNT=$(python3 -c "import json;d=json.load(open('$COUNT_FILE'));print(d.get('$TODAY',0))")
 # 33/day lane cap REMOVED 9/27 (standing rule: no cap unless hard cap ever); COUNT is telemetry in the commit message
-# legacy fallback (first runs after the move, before the cache holds a reading): the committed
-# counter's last value, which the next counted run drops
-LASTREM_PRE=$(python3 -c "import json;d=json.load(open('$QUOTA_FILE'));print(int(d.get('last_remaining') or 0))" 2>/dev/null \
-  || python3 -c "import json;d=json.load(open('$COUNT_FILE'));print(int(d.get('last_remaining') or 0))" 2>/dev/null || echo 0)
-if [ "${LASTREM_PRE:-0}" -gt 0 ] && [ "$LASTREM_PRE" -lt 200 ]; then echo "HARD CAP TRIPWIRE: provider monthly quota nearly exhausted (200 remaining, authoritative x-requests-remaining) - fail loud per standing rule 9/27" >&2; exit 1; fi
+# this month's reading: the ops state, else (first runs after the move, before the cache holds a
+# reading) the committed counter's legacy value, which the next counted run drops; empty = none
+LASTREM_PRE=$(python3 scripts/ops_quota.py reading "$QUOTA_FILE" "$COUNT_FILE" 2>/dev/null || true)
+tripwire() {
+  if [ -n "$1" ] && [ "$1" -lt 200 ]; then echo "HARD CAP TRIPWIRE: provider monthly quota nearly exhausted (200 remaining, authoritative x-requests-remaining) - fail loud per standing rule 9/27" >&2; exit 1; fi
+}
+tripwire "$LASTREM_PRE"
+# The free reading: GET /v4/sports "does not count against the usage quota" and returns
+# x-requests-remaining (the-odds-api v4 docs, GET sports). Prints the count, or nothing.
+free_reading() {
+  local h="$T/odds_sports_headers.txt"
+  : > "$h"
+  curl -sS --max-time 20 -o /dev/null -D "$h" "https://api.the-odds-api.com/v4/sports/?apiKey=${THE_ODDS_API_KEY}" >/dev/null 2>&1 || true
+  python3 scripts/ops_quota.py header "$h" 2>/dev/null || true
+}
 # Game window check: any picked game live or starting within 2h (ESPN, free)
 # chaos drill (Sep 26): set -e killed quiet windows as red failures before GAME_WINDOW captured
 set +e
@@ -67,6 +86,17 @@ if [ $HRC -eq 3 ]; then
   echo "CARD HOLD: manifest.json pick_content_hash does not match its picks - held before any paid odds pull; pages not rebuilt, manifest.json not committed; re-stamp or fix the card with build_manifest.py" >&2
   exit 3
 elif [ $HRC -ne 0 ]; then echo "pre-pull card check failed (exit $HRC) - the feeds and the builder check the card again" >&2; fi
+# The hard cap needs a reading before any paid pull: with none for this month, take the free one.
+if [ -z "$LASTREM_PRE" ]; then
+  LASTREM_PRE=$(free_reading)
+  if [ -z "$LASTREM_PRE" ]; then
+    echo "QUOTA READING UNAVAILABLE: no provider credit reading for this month (ops state, legacy counter) and the free GET /v4/sports reading failed - no paid pull without one" >&2
+    exit 1
+  fi
+  python3 scripts/ops_quota.py record "$QUOTA_FILE" "$LASTREM_PRE" || echo "free quota reading not recorded" >&2
+  echo "quota: free reading taken (GET /v4/sports, not counted against the quota) and recorded for this month"
+  tripwire "$LASTREM_PRE"
+fi
 SPORTS=$(python3 -c "
 import json
 m=json.load(open('manifest.json'))
@@ -102,9 +132,7 @@ while read -r line; do
   else cat "$T/props_err.txt" >&2; fi
 done < "$T/props_args.txt"
 LASTREM=$(grep -o 'credits remaining [0-9]*' "$T/odds_prefill.err" 2>/dev/null | tail -1 | grep -o '[0-9]*$' || true)
-if [ -n "${LASTREM:-}" ]; then mkdir -p "$OPS_DIR" && python3 -c "
-import json
-json.dump({'pt_date':'$TODAY','last_remaining':int('$LASTREM')},open('$QUOTA_FILE','w'))"; fi
+if [ -n "${LASTREM:-}" ]; then python3 scripts/ops_quota.py record "$QUOTA_FILE" "$LASTREM" || echo "quota reading not recorded" >&2; fi
 # run-count telemetry (the commit message's 'call N today'); the credit count never goes here
 bump_count() { python3 -c "
 import json
