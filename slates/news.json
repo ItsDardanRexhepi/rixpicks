@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-02T14:41:15.098Z",
+ "generated_at": "2026-10-02T14:46:11.832Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -187,6 +187,15 @@
   ],
   "football/college-football": [
    {
+    "headline": "Why Iowa's Kinnick Stadium is top-10 teams' worst nightmare",
+    "link": "https://www.espn.com/college-football/story/_/id/50079773/iowa-kinnick-stadium-upset-ohio-state",
+    "published": "2026-10-02T14:36:06Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F0819%2Fr1533877_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Hawkeyes will have some unique home-field factors -- and recent history -- on their side Saturday when they look to take down Ohio State.",
+    "league": "CFB"
+   },
+   {
     "headline": "Five Reason Nebraska Will Win: Maryland",
     "link": "https://sports.yahoo.com/articles/five-reason-nebraska-win-maryland-143300965.html",
     "published": "2026-10-02T14:33:00.000Z",
@@ -235,7 +244,7 @@
     "headline": "Connelly: These top teams should be on upset alert this weekend",
     "link": "https://www.espn.com/college-football/story/_/id/50077717/connelly-alabama-ohio-state-college-football-week-5-ranked-teams-upset-alert",
     "published": "2026-10-02T13:36:11.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724525_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Alabama, Ohio State and Florida all face ranked road tests. How can they get home with victories?",
     "source": "ESPN",
     "league": "CFB"
@@ -265,15 +274,6 @@
     "image": "",
     "blurb": "Kamario Taylor and Mississippi State will face their biggest test yet. Plus: teams on upset watch and other games to watch.",
     "source": "ESPN",
-    "league": "CFB"
-   },
-   {
-    "headline": "BSD Mailbag 10.2.26",
-    "link": "https://sports.yahoo.com/articles/bsd-mailbag-10-2-26-142800895.html",
-    "published": "2026-10-02T14:28:00.000Z",
-    "image": "",
-    "blurb": "The Nittany Lions look to rebound this week, and so do we!",
-    "source": "YAHOO",
     "league": "CFB"
    }
   ],
@@ -371,12 +371,12 @@
   ],
   "basketball/nba": [
    {
-    "headline": "Vegas first? Seattle on hold? Where NBA expansion stands ahead of the 2026-27 season",
-    "link": "https://www.espn.com/nba/story/_/id/50079137/nba-expansion-las-vegas-seattle",
-    "published": "2026-10-02T14:40:53.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2022%252F1206%252Fr1103138_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "As NBA training camps begin for 30 teams, here's the latest intel on the potential for the 31st and 32nd teams.",
+    "headline": "NBA preseason buzz: Latest on trades, news and intel",
+    "link": "https://www.espn.com/nba/story/_/id/50028196/2026-27-nba-buzz-latest-live-updates-news-intel-trades-deals",
+    "published": "2026-10-02T14:42:03Z",
     "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723601_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The NBA regular season is less than a month away, and we're tracking all the news, deals, and trades across the league.",
     "league": "NBA"
    },
    {
@@ -398,11 +398,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Wemby won't promote betting sites: 'I want to inspire in a good way'",
-    "link": "https://www.espn.com/nba/story/_/id/50078401/spurs-victor-wembanyama-not-interested-promoting-betting-sites",
-    "published": "2026-10-02T13:47:32.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724574_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Spurs star Victor Wembanyama said Thursday that he isn't interested in promoting sports betting sites.",
+    "headline": "Vegas first? Seattle on hold? Where NBA expansion stands ahead of the 2026-27 season",
+    "link": "https://www.espn.com/nba/story/_/id/50079137/nba-expansion-las-vegas-seattle",
+    "published": "2026-10-02T14:40:53.000Z",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2022%252F1206%252Fr1103138_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "As NBA training camps begin for 30 teams, here's the latest intel on the potential for the 31st and 32nd teams.",
     "source": "ESPN",
     "league": "NBA"
    },
@@ -425,11 +425,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Trail Blazers quickly fire new announcer over social media posts from 2012-13",
-    "link": "https://www.espn.com/nba/story/_/id/50084279/trail-blazers-fire-new-announcer-inappropriate-posts",
+    "headline": "Wemby won't promote betting sites: 'I want to inspire in a good way'",
+    "link": "https://www.espn.com/nba/story/_/id/50078401/spurs-victor-wembanyama-not-interested-promoting-betting-sites",
     "published": "2026-10-02T13:47:32.000Z",
     "image": "",
-    "blurb": "The Trail Blazers hired then on the same day fired Braiden Bell as their play-by-play announcer after a series of inappropriate social media posts from when he was a teenager came to light.",
+    "blurb": "Spurs star Victor Wembanyama said Thursday that he isn't interested in promoting sports betting sites.",
     "source": "ESPN",
     "league": "NBA"
    },
@@ -452,11 +452,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Nurse envisions LeBron setting the table for Sixers' offense",
-    "link": "https://www.espn.com/nba/story/_/id/50079853/76ers-envision-lebron-james-role-being-offense-creator",
+    "headline": "Trail Blazers quickly fire new announcer over social media posts from 2012-13",
+    "link": "https://www.espn.com/nba/story/_/id/50084279/trail-blazers-fire-new-announcer-inappropriate-posts",
     "published": "2026-10-02T13:47:32.000Z",
     "image": "",
-    "blurb": "Sixers coach Nick Nurse envisions LeBron James setting the table for the offense this season. \"I consider him a great offense creator,\" Nurse said.",
+    "blurb": "The Trail Blazers hired then on the same day fired Braiden Bell as their play-by-play announcer after a series of inappropriate social media posts from when he was a teenager came to light.",
     "source": "ESPN",
     "league": "NBA"
    }
@@ -1123,6 +1123,15 @@
    "league": "MLB"
   },
   {
+   "headline": "NBA preseason buzz: Latest on trades, news and intel",
+   "link": "https://www.espn.com/nba/story/_/id/50028196/2026-27-nba-buzz-latest-live-updates-news-intel-trades-deals",
+   "published": "2026-10-02T14:42:03Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fr1723601_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The NBA regular season is less than a month away, and we're tracking all the news, deals, and trades across the league.",
+   "league": "NBA"
+  },
+  {
    "headline": "Vegas first? Seattle on hold? Where NBA expansion stands ahead of the 2026-27 season",
    "link": "https://www.espn.com/nba/story/_/id/50079137/nba-expansion-las-vegas-seattle",
    "published": "2026-10-02T14:40:53.000Z",
@@ -1130,6 +1139,15 @@
    "blurb": "As NBA training camps begin for 30 teams, here's the latest intel on the potential for the 31st and 32nd teams.",
    "source": "ESPN",
    "league": "NBA"
+  },
+  {
+   "headline": "Why Iowa's Kinnick Stadium is top-10 teams' worst nightmare",
+   "link": "https://www.espn.com/college-football/story/_/id/50079773/iowa-kinnick-stadium-upset-ohio-state",
+   "published": "2026-10-02T14:36:06Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F0819%2Fr1533877_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Hawkeyes will have some unique home-field factors -- and recent history -- on their side Saturday when they look to take down Ohio State.",
+   "league": "CFB"
   },
   {
    "headline": "Five Reason Nebraska Will Win: Maryland",
@@ -1321,15 +1339,6 @@
    "league": "MLB"
   },
   {
-   "headline": "Wemby won't promote betting sites: 'I want to inspire in a good way'",
-   "link": "https://www.espn.com/nba/story/_/id/50078401/spurs-victor-wembanyama-not-interested-promoting-betting-sites",
-   "published": "2026-10-02T13:47:32.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724574_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Spurs star Victor Wembanyama said Thursday that he isn't interested in promoting sports betting sites.",
-   "source": "ESPN",
-   "league": "NBA"
-  },
-  {
    "headline": "2027 recruiting class rankings: Iowa State's gains push Cyclones into top 50",
    "link": "https://www.espn.com/college-football/recruiting/story/_/id/48503376/2027-college-football-recruiting-class-rankings-top-teams-schools",
    "published": "2026-10-02T13:44:37.000Z",
@@ -1354,15 +1363,6 @@
    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F24931ef0-95fd-444d-b513-1134908f6635%2Fjadan-baugh-florida.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Our college football betting guide tells you where to bet on CFB Week 5, gives odds, betting trends, schedule, promo offers, and more",
    "source": "CBS",
-   "league": "CFB"
-  },
-  {
-   "headline": "Connelly: These top teams should be on upset alert this weekend",
-   "link": "https://www.espn.com/college-football/story/_/id/50077717/connelly-alabama-ohio-state-college-football-week-5-ranked-teams-upset-alert",
-   "published": "2026-10-02T13:36:11.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724525_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Alabama, Ohio State and Florida all face ranked road tests. How can they get home with victories?",
-   "source": "ESPN",
    "league": "CFB"
   },
   {
@@ -1448,8 +1448,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 59,
-  "YAHOO": 61,
+  "ESPN": 60,
+  "YAHOO": 60,
   "CBS": 37
  },
  "degraded_sources": []
