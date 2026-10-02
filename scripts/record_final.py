@@ -364,7 +364,8 @@ def units_anchor(man, done):
 def eod_day_close(p):
     """EOD DAY CLOSE wire (analysis, Sep 28): the brief travels IN the payload.
     eod_day_close.py itself can NEVER run here - its sheet reads shell out to the
-    analysis runtime. Verify anchors fail-closed, then fill the day-row brief ONLY.
+    analysis runtime. Verify anchors fail-closed, then fill the day-row brief ONLY, and only
+    while it is empty - a brief already on the row is never replaced (append-only record).
     Canonical pick rows and _delta fields are never touched; no row creation."""
     date = p.get('date')
     brief = p.get('brief')
@@ -393,6 +394,11 @@ def eod_day_close(p):
         return 3
     if pu != du and pu != du.quantize(Decimal('0.01')):
         print(f'  REFUSE eod_day_close: units anchor {pu} != exact day sum {du}', file=sys.stderr)
+        return 3
+    # append-only: the fill writes an EMPTY brief only. A day whose brief was filed another way
+    # (Sep 27: brief on the row, no eod receipt) keeps it - a stored note is never replaced.
+    if (day.get('brief') or '').strip() and day['brief'] != brief:
+        print(f'  REFUSE eod_day_close: {date} already carries a filed brief - a stored note is never replaced', file=sys.stderr)
         return 3
     gid = 'eod_day_close:' + date
     done = {'processed': [], 'at': None}

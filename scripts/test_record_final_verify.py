@@ -250,6 +250,25 @@ hist_dup['days'].append({'date': '2026-10-01', 'label': 'Thursday, Oct 1', 'reco
                                     'score': 'PHI 2, NJ 3', '_delta': str(D_DEV)}]})
 refused('DI-06 re-grade of a pick already on its day row', [devils()], 'duplicate', hist=hist_dup)
 
+# eod_day_close (Oct 2 review): the brief fill writes only an EMPTY day brief. A day whose brief was
+# filed another way (Sep 27: _delta rows + brief, no eod receipt) keeps it - a stored note is never replaced.
+def _eod_day(date, label, brief):
+    return {'date': date, 'label': label, 'record': '2-1', 'units': '+0.09u', 'brief': brief, 'picks': [
+        {'name': 'Lions ML', 'game': 'vs Jets', 'odds': '-162', 'units': '5u', 'result': 'W', 'score': 'NYJ 24, DET 31', '_delta': '3.086419753'},
+        {'name': 'Phillies ML', 'game': 'vs Rays', 'odds': '+100', 'units': '2u', 'result': 'W', 'score': 'TB 1, PHI 4', '_delta': '2.0'},
+        {'name': 'Bengals ML', 'game': 'at Steelers', 'odds': '-120', 'units': '5u', 'result': 'L', 'score': 'CIN 27, PIT 30', '_delta': '-5.0'}]}
+HIST_EOD = {'days': [_eod_day('2026-09-27', 'Sunday, Sep 27', '2-1, +0.09u on the day. The brief already filed for this day.'),
+                     _eod_day('2026-09-29', 'Tuesday, Sep 29', '')]}
+def eod(date, brief):
+    return {'kind': 'eod_day_close', 'date': date, 'record': '2-1', 'units': '+0.09u', 'brief': brief}
+err = refused('EOD a brief already filed on a past day is never replaced', [], 'never replaced',
+              hist=HIST_EOD, payload=eod('2026-09-27', 'Replacement brief text for a day that already has one.'))
+code, st, err = run([], hist=HIST_EOD, payload=eod('2026-09-29', 'Sep 29 closed 2-1.'))
+check('EOD an empty day brief is filled (exit 0)', code, 0)
+check('EOD the filled brief is the payload brief', (day(st, '2026-09-29') or {}).get('brief'), 'Sep 29 closed 2-1.')
+check('EOD the other day\'s filed brief is untouched', (day(st, '2026-09-27') or {}).get('brief'), HIST_EOD['days'][0]['brief'])
+check('EOD receipt recorded', 'eod_day_close:2026-09-29' in st['record_done.json'].get('processed', []), True)
+
 # MMA: a PUSH label on a fight with a winner flag is a contradiction
 rf = load()
 rf._get = fake_get
