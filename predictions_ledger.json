@@ -689,8 +689,9 @@
   "pick_team": "Seattle Sounders FC",
   "prediction": "Seattle Sounders FC beat Sporting Kansas City",
   "kickoff_utc": "2026-10-02T01:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-01T07:35:35.298294+00:00"
+  "status": "hit",
+  "created_at": "2026-10-01T07:35:35.298294+00:00",
+  "settled_at": "2026-10-02T04:04:54.981715+00:00"
  },
  {
   "id": "fb39f3b48f",
