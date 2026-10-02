@@ -120,6 +120,58 @@ for rel in ('scripts/finals_watch.py', 'previews/overlay/scripts/finals_watch.py
     os.environ.pop(ENV, None)
     import shutil; shutil.rmtree(tmp, ignore_errors=True)
 
+# Nothing that runs in GitHub Actions needs the private size, so it lives only on the grading host:
+# record_final.py (the Actions record write) never imports core.units, no workflow names the env,
+# and no script a workflow runs - followed through the shell scripts it calls and every repo module
+# it imports - reads the size. (Importing core.units for cents_to_american/display_units is fine:
+# that needs no size.) The fixtures tests.yml runs set their own placeholder.
+import ast, glob
+SIZE_READ = re.compile(r'\bunit_dollars\s*\(|\bpnl_to_units\s*\(|\bUNIT_DOLLARS\b')
+def _mod_files(name, here):
+    parts = name.split('.')
+    cands = (os.path.join(ROOT, *parts) + '.py', os.path.join(ROOT, *parts, '__init__.py'),
+             os.path.join(here, *parts) + '.py', os.path.join(ROOT, 'scripts', *parts) + '.py')
+    return [c for c in cands if os.path.exists(c)]
+def _closure(start):
+    seen, todo = set(), [start]
+    while todo:
+        f = todo.pop()
+        if f in seen: continue
+        seen.add(f)
+        src = open(f, encoding='utf-8', errors='ignore').read()
+        if f.endswith('.sh'):
+            todo += [os.path.join(ROOT, m) for m in re.findall(r'((?:scripts|core)/[\w/.-]+\.(?:py|sh))', src)
+                     if os.path.exists(os.path.join(ROOT, m))]
+            continue
+        try:
+            import warnings
+            with warnings.catch_warnings():
+                warnings.simplefilter('ignore')
+                tree = ast.parse(src)
+        except SyntaxError:
+            continue
+        for n in ast.walk(tree):
+            if isinstance(n, ast.Import):
+                for a in n.names: todo += _mod_files(a.name, os.path.dirname(f))
+            elif isinstance(n, ast.ImportFrom) and n.module and not n.level:
+                todo += _mod_files(n.module, os.path.dirname(f))
+                for a in n.names: todo += _mod_files(n.module + '.' + a.name, os.path.dirname(f))
+    return seen
+UNITS_PY = os.path.join(ROOT, 'core', 'units.py')
+check('record_final.py never imports core.units (directly or through its imports)',
+      UNITS_PY not in _closure(os.path.join(ROOT, 'scripts', 'record_final.py')))
+wf_named, wf_reads = [], []
+for wf in sorted(glob.glob(os.path.join(ROOT, '.github', 'workflows', '*.yml'))):
+    txt = open(wf).read()
+    if ENV in txt: wf_named.append(os.path.basename(wf))
+    for m in set(re.findall(r'((?:scripts|core|previews)/[\w/.-]+\.(?:py|sh))', txt)):
+        if not os.path.exists(os.path.join(ROOT, m)): continue
+        for f in _closure(os.path.join(ROOT, m)):
+            if f != UNITS_PY and SIZE_READ.search(open(f, encoding='utf-8', errors='ignore').read()):
+                wf_reads.append('%s -> %s -> %s' % (os.path.basename(wf), m, os.path.relpath(f, ROOT)))
+check('no workflow names %s' % ENV, not wf_named, wf_named)
+check('no script any workflow runs reads the size (so Actions never needs the env)', not wf_reads, sorted(set(wf_reads))[:4])
+
 tracked = subprocess.run(['git', '-C', ROOT, 'ls-files'], capture_output=True, text=True).stdout.split('\n')
 pyc = [p for p in tracked if '__pycache__/' in p]
 check('no tracked __pycache__ files (compiled copies of the old constant)', not pyc, pyc[:3])
