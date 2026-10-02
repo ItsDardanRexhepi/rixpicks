@@ -1,130 +1,17 @@
 {
  "version": 1,
- "generated_at": "2026-10-02T03:50:05.729899+00:00",
+ "generated_at": "2026-10-02T20:35:10.319717+00:00",
  "leagues": [
-  {
-   "league": "MLB",
-   "games": [
-    {
-     "espn_event_id": "401907973",
-     "matchup": "PHI @ ATL",
-     "commence": "2026-10-02T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "PHI 2 - ATL 6"
-    }
-   ]
-  },
-  {
-   "league": "NFL",
-   "games": [
-    {
-     "espn_event_id": "401872964",
-     "matchup": "PIT @ CLE",
-     "commence": "2026-10-02T00:15Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "PIT 24 - CLE 27"
-    }
-   ]
-  },
-  {
-   "league": "CFB",
-   "games": [
-    {
-     "espn_event_id": "401862786",
-     "matchup": "UNT @ TLSA",
-     "commence": "2026-10-02T01:00Z",
-     "status": "in",
-     "detail": "4:14 - 3rd",
-     "score": "UNT 31 - TLSA 24",
-     "away_to": 1,
-     "home_to": 2
-    },
-    {
-     "espn_event_id": "401871049",
-     "matchup": "WKU @ NMSU",
-     "commence": "2026-10-02T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "WKU 13 - NMSU 34"
-    }
-   ]
-  },
-  {
-   "league": "WNBA",
-   "games": [
-    {
-     "espn_event_id": "401918022",
-     "matchup": "IND @ LV",
-     "commence": "2026-10-02T01:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "IND 83 - LV 94"
-    }
-   ]
-  },
   {
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401891816",
-     "matchup": "MIN @ NSH",
-     "commence": "2026-10-02T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "MIN 3 - NSH 1"
-    },
-    {
-     "espn_event_id": "401891777",
-     "matchup": "SEA @ CGY",
-     "commence": "2026-10-02T01:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "SEA 6 - CGY 1"
-    },
-    {
-     "espn_event_id": "401891828",
-     "matchup": "CHI @ UTA",
-     "commence": "2026-10-02T01:30Z",
-     "status": "in",
-     "detail": "12:32 - 3rd",
-     "score": "CHI 0 - UTA 5",
-     "away_to": null,
-     "home_to": null
-    },
-    {
-     "espn_event_id": "401891823",
-     "matchup": "FLA @ SJ",
-     "commence": "2026-10-02T02:00Z",
-     "status": "in",
-     "detail": "3:02 - 2nd",
-     "score": "FLA 0 - SJ 3",
-     "away_to": null,
-     "home_to": null
-    },
-    {
-     "espn_event_id": "401891829",
-     "matchup": "EDM @ VAN",
-     "commence": "2026-10-02T02:00Z",
-     "status": "in",
-     "detail": "0:52 - 2nd",
-     "score": "EDM 8 - VAN 2",
-     "away_to": null,
-     "home_to": null
-    }
-   ]
-  },
-  {
-   "league": "MLS",
-   "games": [
-    {
-     "espn_event_id": "761798",
-     "matchup": "SKC @ SEA",
-     "commence": "2026-10-02T01:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "SKC 1 - SEA 2"
+     "espn_event_id": "401891803",
+     "matchup": "NYR @ DET",
+     "commence": "2026-10-02T22:30Z",
+     "status": "pre",
+     "detail": "10/2 - 3:30 PM PT",
+     "score": "NYR 0 - DET 0"
     }
    ]
   }
