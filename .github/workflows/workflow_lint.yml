@@ -23,6 +23,7 @@ on:
       - 'scripts/test_watchdog_card_hold.py'
       - 'scripts/ops_quota.py'
       - 'scripts/test_quota_state_jobs.py'
+      - 'scripts/test_incident_hook.py'
   workflow_dispatch:
 jobs:
   parse:
@@ -54,6 +55,8 @@ jobs:
         run: python3 scripts/test_watchdog_card_hold.py
       - name: "odds quota cache unpacked only in a job with no secrets; outputs validated twice"
         run: python3 scripts/test_quota_state_jobs.py
+      - name: "incident hook loop guard, concurrency, push retry"
+        run: python3 scripts/test_incident_hook.py
       - name: "yaml parse gate + actionlint"
         run: |
           python3 - <<'EOF'
