@@ -20,7 +20,8 @@
  - A production card records posted_at (UTC ISO): the newest card_ts of its picks, which is the
    build time for a new card and is never restamped by a regeneration (a pick added later moves it
    to that pick's lock, so no pick claims a lock from before it was carded). The page builder
-   prefers posted_at and says "after start" for a game that began before it. A preview has none.
+   prefers posted_at and says "after start" for a game that began before it. A preview has none,
+   and neither has an empty card (no pick to lock).
  The page builder carries no such gate (it renders whatever card has landed): see
  test_card_shapes_build.py, which builds a card with an Aces pick.
 Run: python3 scripts/test_build_manifest_owner_rules.py"""
@@ -227,6 +228,9 @@ check('posted_at of a late card is after its game began (the builder says "after
       pa is not None and pa >= utc('2020-10-04T17:00:00Z'), (man or {}).get('posted_at'))
 rc, log, man, _ = build([CLEAN], '--preview')
 check('a preview card carries no posted_at', rc == 0 and man is not None and 'posted_at' not in man, man and man.get('posted_at'))
+rc, log, man, _ = build([])
+check('an empty card carries no posted_at (no pick to lock; its time must not reach the last card\'s game pages)',
+      rc == 0 and man is not None and man['picks'] == [] and 'posted_at' not in man, man and man.get('posted_at') or log)
 BILLS = cand(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills')
 g1, g2, g3 = build_runs([([CLEAN], ()), ([CLEAN], (), 1.2), ([CLEAN, BILLS], (), 1.2)])
 p1, p2, p3 = (utc((g['man'] or {}).get('posted_at')) for g in (g1, g2, g3))

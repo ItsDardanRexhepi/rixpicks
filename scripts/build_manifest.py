@@ -397,7 +397,8 @@ def main():
     manifest = {
         'date': date_s, 'date_label': meta.get('date_label', dlab),
         'updated': meta.get('updated', dpt.strftime('%b %-d, %-I:%M %p PT')),
-        **({} if preview else {'posted_at': posted_at_of(picks, now_utc)}),
+        # an empty card has no pick to lock: no posted_at (the day's game pages are the last card's)
+        **({} if preview or not picks else {'posted_at': posted_at_of(picks, now_utc)}),
         'record': _field('record'), 'units_pl': _field('units_pl'),
         'units_ledger': _field('units_ledger', required=False),
         'yesterday': _field('yesterday', required=False),

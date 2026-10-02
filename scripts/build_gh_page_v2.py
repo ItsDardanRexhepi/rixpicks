@@ -512,22 +512,26 @@ def _iso_lock_label(iso):
         return _d.astimezone(_ZIp('America/Los_Angeles')).strftime('%b %d').replace(' 0',' ')+', '+_pt_time(iso)
     except Exception: return ''
 _POSTED_LBL=_iso_lock_label(_POSTED_AT) if _POSTED_AT else ''
-_POSTED_TIME=_POSTED_LBL.split(', ')[-1].replace(' PT','') if _POSTED_LBL else ''  # '12:30 PM', as the locked stamp shows its time
 _LOCK_KNOWN=bool((_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or _POSTED_LBL or _ct_lock)
 ENTRY_LOCK=(_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or _POSTED_LBL or _ct_lock or man.get('updated','')
 _ODDS_CHECKED=man.get('stamp_label')=='odds_checked'  # reconstructed/archive card: odds-check evidence only, no lock event - render "Odds checked <stamp>", never "locked" (main ruling Sep 27)
-def _posted_after_start(p):
-    if not _POSTED_LBL: return False
+def _posted_after_start(p,posted=None):
+    # posted: the posted_at of the card this pick belongs to (default: the building card's). A game
+    # page rebuilt from an earlier card's snapshot passes that card's own posted_at.
+    posted=_POSTED_AT if posted is None else posted
+    if not _iso_lock_label(posted): return False
     try:
         _gc=_dtc.datetime.fromisoformat(((p.get('game') or {}).get('commence') or '').replace('Z','+00:00'))
-        return _gc.tzinfo is not None and _dtc.datetime.fromisoformat(_POSTED_AT.replace('Z','+00:00'))>=_gc
+        return _gc.tzinfo is not None and _dtc.datetime.fromisoformat(posted.replace('Z','+00:00'))>=_gc
     except Exception: return False
-def _stamp_html(p):
-    if _posted_after_start(p):
+def _stamp_html(p,posted=None):
+    posted=_POSTED_AT if posted is None else posted
+    if _posted_after_start(p,posted):
         # published after this game began: never a lock claim. Short, and on phones the separator
         # becomes a line break (CSS .lkbr): the old 'Posted Oct 2, 12:30 PM PT - after start' sat
         # in a nowrap, non-shrinking meta group and pushed a 320px page to 381px (game page 397px)
-        return 'Posted '+html.escape(_POSTED_TIME)+'<span class="lkbr"> &middot; </span>after start'
+        _ptime=_iso_lock_label(posted).split(', ')[-1].replace(' PT','')  # '12:30 PM', as the locked stamp shows its time
+        return 'Posted '+html.escape(_ptime)+'<span class="lkbr"> &middot; </span>after start'
     if _ODDS_CHECKED:
         return 'Odds checked '+html.escape(ENTRY_LOCK)
     if not (p.get('locked') or _LOCK_KNOWN):
@@ -2994,8 +2998,12 @@ def build_game_pages(man, css, build_sha):
         _gc0=min(_gcts)
         from zoneinfo import ZoneInfo as _ZIg
         _glock=_dtc.datetime.fromisoformat(_gc0.replace('Z','+00:00')).astimezone(_ZIg('America/Los_Angeles')).strftime('%b %d').replace(' 0',' ')+', '+_pt_time(_gc0)
+    # posted_at likewise comes from ITS OWN manifest: after the day rolls to an empty card these pages
+    # rebuild from the last card's snapshot, whose posted_at says which of its games began first;
+    # the building card's posted_at never stamps another card's picks
+    _gposted=str(man.get('posted_at') or '')
     def _game_stamp(p):
-        if _ODDS_CHECKED or _posted_after_start(p) or not (p.get('locked') or _glock or _LOCK_KNOWN): return _stamp_html(p)  # same honesty rules as the index stamp
+        if _ODDS_CHECKED or _posted_after_start(p,_gposted) or not (p.get('locked') or _glock or _LOCK_KNOWN): return _stamp_html(p,_gposted)  # same honesty rules as the index stamp
         return html.escape((p.get('locked') or _glock or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))+' &middot; locked'
     "Per-game live-market pages (user, Sep 25 12:11 PM)."
     tmpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'game_page_template.html')).read()
