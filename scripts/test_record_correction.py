@@ -12,8 +12,9 @@ and writes nothing. Built on the real Sep 25 shape (Orioles +105 5u W, Guardians
     with every file byte-identical
   - a win scales by the card price; a pick with a stored _delta has it recomputed, and a _delta that
     does not follow from its stake refuses
-  - live repo: every line of slates/record_corrections.jsonl sits on its history.json row and the
-    pick now carries the corrected value."""
+  - live repo: every line of slates/record_corrections.jsonl sits on its history.json row; the
+    latest correction of a pick carries its value now, and an earlier one chains into the reversal
+    that superseded it."""
 import copy, json, os, shutil, subprocess, sys, tempfile
 from datetime import datetime, timezone
 from decimal import Decimal
@@ -181,18 +182,26 @@ refuses('stored _delta does not follow from its stake', {**DECL, 'date': '2026-0
 live_log = os.path.join(ROOT, 'slates', 'record_corrections.jsonl')
 if os.path.exists(live_log):
     lh = json.load(open(os.path.join(ROOT, 'history.json')))
-    for line in open(live_log):
-        if not line.strip():
-            continue
-        e = json.loads(line)
-        row = next((x for x in lh['days'] if x.get('date') == e['id'].split('|')[0]), None)
+    entries = [json.loads(line) for line in open(live_log) if line.strip()]
+    # A later correction of the same pick and field (a reversal) supersedes an earlier one: the
+    # earlier entry must chain into it (its 'to' is the next one's 'from'), and only the latest
+    # entry's value is what the pick carries now.
+    for i, e in enumerate(entries):
+        key = (e['id'].split('|')[0], e['pick'], e['field'])
+        nxt = next((n for n in entries[i + 1:] if (n['id'].split('|')[0], n['pick'], n['field']) == key), None)
+        row = next((x for x in lh['days'] if x.get('date') == key[0]), None)
         on_row = bool(row) and any(c.get('id') == e['id'] for c in row.get('corrections') or [])
         pk = next((p for p in (row or {}).get('picks') or [] if p.get('name') == e['pick']), None)
         last = bool(row) and (row.get('corrections') or [{}])[-1].get('id') == e['id']
-        check(f"live: {e['id']} on its history row, pick now {e['to']}, day units follow from its picks",
-              on_row and pk is not None and pk.get(e['field']) == e['to']
-              and (not last or row.get('units') == e['day_units_to'])
-              and rf.fmt_units(rc.day_exact(row)) == row.get('units'), (row or {}).get('units'))
+        if nxt is None:
+            check(f"live: {e['id']} on its history row, pick now {e['to']}, day units follow from its picks",
+                  on_row and pk is not None and pk.get(e['field']) == e['to']
+                  and (not last or row.get('units') == e['day_units_to'])
+                  and rf.fmt_units(rc.day_exact(row)) == row.get('units'), (row or {}).get('units'))
+        else:
+            check(f"live: {e['id']} on its history row, superseded by {nxt['id']} (chains {e['to']})",
+                  on_row and nxt['from'] == e['to'] and nxt.get('day_units_from') == e['day_units_to'],
+                  nxt['id'])
 
 print('FAILURES: ' + str(failures) if failures else 'ALL CHECKS PASS')
 sys.exit(1 if failures else 0)
