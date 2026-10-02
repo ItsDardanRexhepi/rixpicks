@@ -3821,7 +3821,28 @@ import time
 build_sha=str(int(time.time()))
 page=page.replace('{build_sha}',build_sha)
 os.makedirs(os.path.dirname(out) or '.',exist_ok=True)
-open(out,'w').write(scrub_shipped(page))
+# index_nocanon.html is retired (Oct 2): it was an orphaned second copy of the homepage, served
+# publicly and read by nothing. A build aimed at that path writes this fixed notice instead -
+# noindex, the homepage as canonical, an instant hop there - so no twin run can bring the
+# duplicate back. Byte-stable across builds; every other output of the run is unchanged.
+_RETIRED_HOME='''<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://rix-picks.com/">
+<meta http-equiv="refresh" content="0; url=./">
+<title>&rsquo;RixPicks</title>
+<style>body{margin:0;background:#000;color:#f2f5f4;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}.wrap{max-width:560px;margin:0 auto;padding:40px 22px}a{color:#2aa88f}</style>
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head><body>
+<div class="wrap" data-retired="1">Today&rsquo;s picks are on the <a href="./">&rsquo;RixPicks home page</a>.</div>
+</body></html>
+'''
+if os.path.basename(out)=='index_nocanon.html':
+    open(out,'w').write(_RETIRED_HOME)
+    print('retired: index_nocanon.html (duplicate homepage) - noindex notice, canonical https://rix-picks.com/')
+else:
+    open(out,'w').write(scrub_shipped(page))
 _css=page.split('<style>')[1].split('</style>')[0]
 
 FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">

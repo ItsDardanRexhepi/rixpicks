@@ -62,8 +62,8 @@ const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOW
     let same = false;
     try { execSync('cmp -s scripts/build_gh_page_v2.py scripts/_build_nocanon_v2.py'); same = true; } catch (e) {}
     check('builder twins byte-identical', same, 'canonical/nocanon pages would drift apart silently');
-    // 3. built pages: every script block parses
-    for (const f of ['index.html', 'index_nocanon.html']) {
+    // 3. built page: every script block parses
+    for (const f of ['index.html']) {
       let ok = true, n = 0;
       if (fs.existsSync(f)) {
         const s = fs.readFileSync(f, 'utf8'), re = /<script>([\s\S]*?)<\/script>/g; let m;
@@ -71,6 +71,15 @@ const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOW
       } else ok = false;
       check(f + ': all ' + n + ' script blocks parse', ok && n > 0, 'a syntax error blanks whole page modules');
     }
+    // index_nocanon.html is retired (Oct 2): an orphaned second copy of the homepage, served publicly.
+    // The builder writes a fixed noindex notice canonical to / for that path; absent is fine too.
+    // A full homepage there again is a duplicate of the home page that search engines can index.
+    if (fs.existsSync('index_nocanon.html')) {
+      const nc = fs.readFileSync('index_nocanon.html', 'utf8');
+      check('index_nocanon.html is the retired notice (noindex, canonical to /, no homepage)',
+        nc.includes('<meta name="robots" content="noindex">') && nc.includes('<link rel="canonical" href="https://rix-picks.com/">') && !/<script/i.test(nc),
+        'a duplicate homepage is served at /index_nocanon.html and can be indexed');
+    } else check('index_nocanon.html retired (absent)', true);
     // 4. critical functionality markers in the built page
     const page = fs.existsSync('index.html') ? fs.readFileSync('index.html', 'utf8') : '';
     const markers = [
