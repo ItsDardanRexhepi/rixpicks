@@ -29,14 +29,19 @@ jobs:
       # the incident-hook commit for run 36962967323), so while Pages deploys fail, capturing the
       # failed build of an incident-hook or failure-watchdog commit would commit the next note that
       # starts the next failing build. Those builds are not captured; every other failure is
-      # (scripts/test_incident_hook.py).
+      # (scripts/test_incident_hook.py). A Pages run is known by its path or by either name: the
+      # workflow is "pages-build-deployment", but each of its runs - the workflow_run.name here - is
+      # "pages build and deployment" (run 36962994684 too).
       - name: "loop guard (a failed Pages build of an incident or watchdog commit is not captured)"
         id: guard
         env:
           RUN_NAME: ${{ github.event.workflow_run.name }}
+          RUN_PATH: ${{ github.event.workflow_run.path }}
           HEAD_AUTHOR: ${{ github.event.workflow_run.head_commit.author.name }}
         run: |
-          if [ "$RUN_NAME" = "pages-build-deployment" ] && { [ "$HEAD_AUTHOR" = "incident-hook" ] || [ "$HEAD_AUTHOR" = "failure-watchdog" ]; }; then
+          PAGES=false
+          if [ "$RUN_PATH" = "dynamic/pages/pages-build-deployment" ] || [ "$RUN_NAME" = "pages build and deployment" ] || [ "$RUN_NAME" = "pages-build-deployment" ]; then PAGES=true; fi
+          if [ "$PAGES" = true ] && { [ "$HEAD_AUTHOR" = "incident-hook" ] || [ "$HEAD_AUTHOR" = "failure-watchdog" ]; }; then
             echo "loop guard: the failed Pages build is of a $HEAD_AUTHOR commit - not captured (a capture commit would start another Pages build)"
             echo "capture=false" >> "$GITHUB_OUTPUT"
           else

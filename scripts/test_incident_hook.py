@@ -7,7 +7,10 @@ incident.yml listens to pages-build-deployment, and every incident commit starts
 failing build. Now:
  - a failed Pages build whose head commit is an incident-hook or failure-watchdog commit is not
    captured (every other failure still is, an incident-hook commit's failure in any other
-   workflow included);
+   workflow included). The guard knows a Pages run by its path, dynamic/pages/pages-build-deployment,
+   or by either name: the workflow is "pages-build-deployment", but every run of it - the
+   workflow_run.name the event carries - is "pages build and deployment" (run 36962994684 itself),
+   so a guard on the workflow name alone never fired;
  - captures for one workflow run one at a time (a concurrency group, nothing cancelled);
  - the note's push retries with a rebase onto main, and fails loud when it cannot land (was
    `git push || true`, which dropped a racing note without a trace).
@@ -38,32 +41,48 @@ commit = next((s for s in steps if 'git commit' in str(s.get('run') or '')), Non
 check('capture runs on a failed run only', job.get('if') == "${{ github.event.workflow_run.conclusion == 'failure' }}", job.get('if'))
 check('a loop-guard step runs first', bool(steps) and guard is steps[0], [s.get('name') for s in steps[:2]])
 genv = (guard or {}).get('env') or {}
-check('the guard reads the run name and its head commit author through env',
+check('the guard reads the run name, its workflow path and its head commit author through env',
       genv.get('RUN_NAME') == '${{ github.event.workflow_run.name }}'
+      and genv.get('RUN_PATH') == '${{ github.event.workflow_run.path }}'
       and genv.get('HEAD_AUTHOR') == '${{ github.event.workflow_run.head_commit.author.name }}', genv)
 gated = [s.get('name') or s.get('uses') for s in steps[1:] if s.get('if') != "steps.guard.outputs.capture == 'true'"]
 check('every later step runs only when the guard says capture', bool(steps[1:]) and gated == [], gated)
 
 roots = []
-def run_guard(run_name, author):
+def run_guard(run_name, author, path=''):
     root = tempfile.mkdtemp(prefix='rp-incident-guard-')
     roots.append(root)
     out = os.path.join(root, 'out')
     open(out, 'w').close()
-    env = {'PATH': os.environ.get('PATH', ''), 'GITHUB_OUTPUT': out, 'RUN_NAME': run_name, 'HEAD_AUTHOR': author}
+    env = {'PATH': os.environ.get('PATH', ''), 'GITHUB_OUTPUT': out, 'RUN_NAME': run_name, 'RUN_PATH': path, 'HEAD_AUTHOR': author}
     r = subprocess.run(['bash', '-e', '-c', str((guard or {}).get('run') or 'exit 9')], env=env, capture_output=True, text=True, timeout=30)
     return r.returncode, open(out).read().splitlines()
 
-for run_name, author, want in (
-        ('pages-build-deployment', 'incident-hook', 'false'),
-        ('pages-build-deployment', 'failure-watchdog', 'false'),
-        ('pages-build-deployment', 'RixPicks Bot', 'true'),
-        ('pages-build-deployment', '', 'true'),
-        ('odds-refresh', 'incident-hook', 'true'),
-        ('record-final', 'failure-watchdog', 'true'),
-        ('pages-build-deployment', 'incident-hook2', 'true')):
-    rc, lines = run_guard(run_name, author)
-    check(f'guard: failed {run_name} at a commit by {author or "(none)"!r} -> capture={want}', rc == 0 and lines == ['capture=' + want], (rc, lines))
+PAGES_RUN, PAGES_PATH = 'pages build and deployment', 'dynamic/pages/pages-build-deployment'  # as run 36962994684 carries them
+for run_name, author, path, want in (
+        # a real Pages run: its name and its path, as the workflow_run event carries them
+        (PAGES_RUN, 'incident-hook', PAGES_PATH, 'false'),
+        (PAGES_RUN, 'failure-watchdog', PAGES_PATH, 'false'),
+        (PAGES_RUN, 'RixPicks Bot', PAGES_PATH, 'true'),
+        (PAGES_RUN, '', PAGES_PATH, 'true'),
+        (PAGES_RUN, 'incident-hook2', PAGES_PATH, 'true'),
+        # either alone still marks a Pages run: the run name with no path, the path under another name
+        (PAGES_RUN, 'incident-hook', '', 'false'),
+        ('pages-build-deployment', 'failure-watchdog', PAGES_PATH, 'false'),
+        ('Pages build', 'incident-hook', PAGES_PATH, 'false'),
+        # the workflow's own name, as the trigger list spells it
+        ('pages-build-deployment', 'incident-hook', '', 'false'),
+        ('pages-build-deployment', 'failure-watchdog', '', 'false'),
+        ('pages-build-deployment', 'RixPicks Bot', '', 'true'),
+        ('pages-build-deployment', '', '', 'true'),
+        ('pages-build-deployment', 'incident-hook2', '', 'true'),
+        # every other workflow is captured, an incident-hook or watchdog commit's failure included
+        ('odds-refresh', 'incident-hook', '.github/workflows/odds_refresh.yml', 'true'),
+        ('record-final', 'failure-watchdog', '.github/workflows/record_final.yml', 'true'),
+        ('x-feed', 'incident-hook', '.github/workflows/x_feed.yml', 'true')):
+    rc, lines = run_guard(run_name, author, path)
+    check(f'guard: failed {run_name!r} ({path or "no path"}) at a commit by {author or "(none)"!r} -> capture={want}',
+          rc == 0 and lines == ['capture=' + want], (rc, lines))
 
 # 2. one capture at a time per failed workflow, nothing cancelled
 conc = WF.get('concurrency') or {}
