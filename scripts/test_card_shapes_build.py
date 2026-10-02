@@ -13,6 +13,11 @@ feed lookup fails fast, nothing leaves the machine), and checks the built index.
 - CP-10: a card with no lock provenance never claims "locked" from manifest.updated; posted_at
   marks picks whose game began before the card was published; a normal card_ts card is unchanged.
 - W/L percent: the baked nav and popover values use the client's half-up rule (21-11 = 65.63%).
+- Away spread (Oct 2 review): the pipeline stores a spread pick's line as the HOME spread (record_final,
+  finals_watch, st_card_candidates); the page grades with the picked side's own line. An away-cover
+  pick 'Lynx +4' (line -4) emits data-line 4 on its row, combo leg and game page, prices its away
+  chips from the +4 quotes, and the built page's verdict agrees with record_final.score_result on
+  every final (85-84 W, 82-84 W, 80-84 P, 70-84 L).
 Run: python3 scripts/test_card_shapes_build.py [builder.py ...]   (default: both twins)
 """
 import ast, copy, json, os, re, shutil, subprocess, sys, tempfile, warnings
@@ -44,8 +49,12 @@ def build(builder, manifest, slates_prefill, root_prefill=None):
     r = subprocess.run([sys.executable, os.path.join(d, 'scripts', 'build_gh_page_v2.py'), 'manifest.json', 'index.html'],
                        cwd=d, env=env, capture_output=True, text=True, timeout=600)
     page = open(os.path.join(d, 'index.html')).read() if os.path.exists(os.path.join(d, 'index.html')) else ''
+    GAME_PAGES.clear()
+    for f in os.listdir(d):
+        if re.fullmatch(r'game-\d+\.html', f): GAME_PAGES[f] = open(os.path.join(d, f)).read()
     shutil.rmtree(d, ignore_errors=True)
     return r.returncode, page, r.stderr
+GAME_PAGES = {}  # game-N.html of the last build
 
 def row(page, away):
     i = page.find('data-away="%s"' % away)
@@ -71,6 +80,13 @@ UNDER = {'num': 3, 'name': 'Under 38.5', 'market_class': 'total', 'line': 38.5, 
 SOX = {'num': 1, 'name': 'White Sox ML', 'market_class': 'ml', 'sub': 'CWS @ HOU', 'odds': '+138', 'units': '5u', 'side': 'away',
        'game': {'away': 'Chicago White Sox', 'home': 'Houston Astros', 'commence': '2099-09-30T21:00Z', 'eid': ''},
        'espn_league': 'baseball/mlb', 'league': 'MLB', 'best_book': 'DraftKings', 'card_ts': '2099-09-30T07:04:26-07:00'}
+# build_manifest shape of an away-cover spread (st_card_candidates.adapt_alt): line is the HOME spread
+LYNX = {'num': 1, 'name': 'Lynx +4', 'market_class': 'spread', 'line': -4, 'sub': 'MIN @ NY - away cover', 'odds': '-110', 'units': '5u',
+        'side': 'away', 'game': {'away': 'Minnesota Lynx', 'home': 'New York Liberty', 'commence': '2099-10-01T23:30Z', 'eid': ''},
+        'espn_league': 'basketball/wnba', 'league': 'WNBA', 'best_book': 'DraftKings',
+        'books_sp': {'draftkings': {'away': {'price': -110, 'point': 4, 'link': 'https://sportsbook.draftkings.com/?outcomes=SP_LYNX_DK'},
+                                    'home': {'price': -110, 'point': -4, 'link': 'https://sportsbook.draftkings.com/?outcomes=SP_LIB_DK'}},
+                     'hardrockbet': {'away': {'price': -115, 'point': 4, 'link': 'https://app.hardrock.bet/?deep_link_value=betslip/SP_LYNX_HR'}}}}
 def ml_entry(away, home, commence, hml, aml, tag):
     return {'away': away, 'home': home, 'commence': commence, 'books': {'draftkings': {
         'home_ml': hml, 'away_ml': aml, 'event': 'https://sportsbook.draftkings.com/event/' + tag,
@@ -84,6 +100,33 @@ STALE = [ml_entry('Philadelphia Flyers', 'New Jersey Devils', '2099-10-01T23:00Z
 
 def card(picks, **kw):
     m = copy.deepcopy(BASE); m['picks'] = copy.deepcopy(picks); m.update(kw); return m
+
+def js_fn(src, name):
+    i = src.find('function ' + name + '(')
+    if i < 0: return ''
+    d = 0
+    for k in range(src.find('{', i), len(src)):
+        if src[k] == '{': d += 1
+        elif src[k] == '}':
+            d -= 1
+            if not d: return src[i:k + 1]
+    return ''
+
+def page_verdicts(page, game_page, side, line, finals):
+    # the built pages' own verdict code: index rpGrade (pick rows + combo legs) and game-page rpGameGrade
+    code = js_fn(page, 'rpGrade') + '\n' + js_fn(game_page, 'rpGameGrade') + '\n' + (
+        'const F=%s;console.log(JSON.stringify([F.map(f=>rpGrade("spread",%s,%s,f[0],f[1])),'
+        'F.map(f=>rpGameGrade({dataset:{side:%s,market:"spread",line:%s}},f[0],f[1]))]));'
+        % (json.dumps(finals), json.dumps(side), json.dumps(line), json.dumps(side), json.dumps(line)))
+    r = subprocess.run(['node', '-e', code], capture_output=True, text=True)
+    try: return json.loads(r.stdout)
+    except ValueError: return [None, None]
+
+def _load_record_final():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('record_final_for_cardshape', os.path.join(SD, 'record_final.py'))
+    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
+RF = _load_record_final()
 
 for B in BUILDERS:
     tag = os.path.basename(B)
@@ -130,6 +173,28 @@ for B in BUILDERS:
           n_ding == 1 and 'id="st-ding"' not in page and page.rfind('<div class="state"', 0, ding_at) == page.find('<div class="state" id="st-mlb"'))
     check(f'{tag}: CP-10 card_ts card keeps its lock stamp', re.findall(r'class="oddslock">([^<]*)<', page) == ['7:04 AM &middot; locked'])
     check(f'{tag}: W/L popover rounds the 6.25% tie half-up like the client (6.3%)', 'id="rpWlPct">W/L: 6.3%<' in page and 'id="rpNavPct">6.25%<' in page)
+
+    # 4. away-cover spread from the pipeline manifest (line -4 = home spread) beside a home spread, in a parlay
+    rc, page, log = build(B, card([LYNX, dict(ACES, num=2)], parlay={'legs': ['Lynx +4', 'Aces -4.5'], 'note': ''}), FRESH)
+    lynx, gp = row(page, 'Minnesota Lynx'), GAME_PAGES.get('game-1.html', '')
+    check(f'{tag}: away spread card builds', rc == 0 and len(page) > 10000 and bool(gp))
+    check(f'{tag}: away spread row carries the picked side\'s own line (data-line="4", not the home -4)',
+          'data-side="away" data-market="spread" data-line="4"' in lynx)
+    legs = re.findall(r'<li class="cxleg"[^>]*>', page)
+    check(f'{tag}: away spread combo leg carries data-line="4"',
+          any('data-away="Minnesota Lynx"' in l and 'data-side="away" data-market="spread" data-line="4"' in l for l in legs))
+    gpick = re.search(r'<div class="pick"[^>]*>', gp)
+    check(f'{tag}: away spread game page carries data-line="4"', bool(gpick) and 'data-side="away"' in gpick.group(0)
+          and 'data-market="spread" data-line="4"' in gpick.group(0))
+    check(f'{tag}: away spread prices its away chips from the +4 quotes (DK -110, HR -115)',
+          'SP_LYNX_DK' in lynx and 'DK -110' in lynx and 'SP_LYNX_HR' in lynx and 'SP_LIB_DK' not in lynx)
+    m = re.search(r'data-line="([^"]+)"', lynx)
+    finals = [[85, 84], [82, 84], [80, 84], [70, 84]]
+    want = [{'WON': 'W', 'LOST': 'L', 'PUSH': 'P'}[RF.score_result('spread', 'away', LYNX['line'], a, h)] for a, h in finals]
+    check(f'{tag}: record_final grades Lynx +4 (home line -4) W, W, P, L on 85-84, 82-84, 80-84, 70-84', want == ['W', 'W', 'P', 'L'])
+    ix, gv = page_verdicts(page, gp, 'away', m.group(1) if m else '', finals)
+    check(f'{tag}: Home row and combo verdict match the record on every final (got {ix})', ix == want)
+    check(f'{tag}: game page verdict matches the record on every final (got {gv})', gv == want)
 
     # DI-18: a manifest stamped before the polymarket-cents exclusion still verifies; a mismatch still fails closed
     hf = None

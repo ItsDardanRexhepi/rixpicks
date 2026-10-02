@@ -778,10 +778,15 @@ def _pick_mclass(p):
     if p.get('side') in ('over','under'): return 'total'
     return 'ml'
 def _pick_line(p):
-    # numeric line for spread/total picks: the manifest 'line', else the trailing number of the
-    # pick name ('Aces -4.5', 'Under 38.5'); None when neither exists (no line, no graded verdict)
+    # numeric line for spread/total picks, always the PICKED side's own number (what the page grades
+    # with: pick-side margin + line). The manifest 'line' of a spread is the HOME spread (build_manifest,
+    # st_card_candidates.adapt_alt, finals_watch, record_final.score_result), so an away-cover pick
+    # 'Lynx +4' stored as line -4 reads +4. Without a manifest line, the trailing number of the pick
+    # name ('Aces -4.5', 'Under 38.5'), already side-relative; None when neither exists (no verdict).
     try:
-        if p.get('line') is not None: return float(p['line'])
+        if p.get('line') is not None:
+            ln=float(p['line'])
+            return (0.0-ln) if (_pick_mclass(p)=='spread' and p.get('side')=='away') else ln  # 0.0-ln: a pick'em never reads -0
     except (TypeError, ValueError): return None
     m=re.search(r'([+-]?\d+(?:\.\d+)?)\s*$', str(p.get('name') or ''))
     return float(m.group(1)) if m else None
