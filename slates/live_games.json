@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-02T21:50:12.819048+00:00",
+ "generated_at": "2026-10-02T22:05:13.650393+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -20,6 +20,14 @@
      "status": "pre",
      "detail": "10/2 - 4:00 PM PT",
      "score": "LIB 0 - DEL 0"
+    },
+    {
+     "espn_event_id": "401858476",
+     "matchup": "PSU @ NU",
+     "commence": "2026-10-03T00:00Z",
+     "status": "pre",
+     "detail": "10/2 - 5:00 PM PT",
+     "score": "PSU 0 - NU 0"
     }
    ]
   },
@@ -41,6 +49,27 @@
      "status": "pre",
      "detail": "10/2 - 4:00 PM PT",
      "score": "WAS 0 - CAR 0"
+    },
+    {
+     "espn_event_id": "401891831",
+     "matchup": "BOS @ WPG",
+     "commence": "2026-10-03T00:00Z",
+     "status": "pre",
+     "detail": "10/2 - 5:00 PM PT",
+     "score": "BOS 0 - WPG 0"
+    }
+   ]
+  },
+  {
+   "league": "NWSL",
+   "games": [
+    {
+     "espn_event_id": "401854015",
+     "matchup": "SD @ ORL",
+     "commence": "2026-10-03T00:00Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "SD 0 - ORL 0"
     }
    ]
   }
