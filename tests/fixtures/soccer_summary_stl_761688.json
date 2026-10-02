@@ -1,0 +1,1019 @@
+{
+ "_fixture": "Trimmed from the real ESPN site.api soccer/usa.1 summary for event 761688 (read-only fetch, 2026-10-02): header competitors, both rosters (athlete id and names only) and every key event (type, period, clock, scoringPlay, text, and its participants: athlete id and name).",
+ "header": {
+  "competitions": [
+   {
+    "date": "2026-07-26T00:30Z",
+    "competitors": [
+     {
+      "homeAway": "home",
+      "score": "1",
+      "team": {
+       "id": "21812",
+       "displayName": "St. Louis CITY SC",
+       "abbreviation": "STL"
+      }
+     },
+     {
+      "homeAway": "away",
+      "score": "0",
+      "team": {
+       "id": "184",
+       "displayName": "Colorado Rapids",
+       "abbreviation": "COL"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "boxscore": {
+  "teams": []
+ },
+ "rosters": [
+  {
+   "homeAway": "home",
+   "team": {
+    "id": "21812",
+    "displayName": "St. Louis CITY SC",
+    "abbreviation": "STL"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "175906",
+      "displayName": "Roman Bürki",
+      "fullName": "Roman Bürki",
+      "shortName": "R. Bürki"
+     }
+    },
+    {
+     "athlete": {
+      "id": "198189",
+      "displayName": "Timo Baumgartl",
+      "fullName": "Timo Baumgartl",
+      "shortName": "T. Baumgartl"
+     }
+    },
+    {
+     "athlete": {
+      "id": "296222",
+      "displayName": "Dante Polvara",
+      "fullName": "Dante Polvara",
+      "shortName": "D. Polvara"
+     }
+    },
+    {
+     "athlete": {
+      "id": "308481",
+      "displayName": "Jaziel Orozco",
+      "fullName": "Jaziel Orozco",
+      "shortName": "J. Orozco"
+     }
+    },
+    {
+     "athlete": {
+      "id": "304164",
+      "displayName": "Daniel Edelman",
+      "fullName": "Daniel Edelman",
+      "shortName": "D. Edelman"
+     }
+    },
+    {
+     "athlete": {
+      "id": "220478",
+      "displayName": "Christopher Durkin",
+      "fullName": "Christopher Durkin",
+      "shortName": "C. Durkin"
+     }
+    },
+    {
+     "athlete": {
+      "id": "252749",
+      "displayName": "Tomas Totland",
+      "fullName": "Tomas Totland",
+      "shortName": "T. Totland"
+     }
+    },
+    {
+     "athlete": {
+      "id": "312934",
+      "displayName": "Conrad Wallem",
+      "fullName": "Conrad Wallem",
+      "shortName": "C. Wallem"
+     }
+    },
+    {
+     "athlete": {
+      "id": "208341",
+      "displayName": "Simon Becher",
+      "fullName": "Simon Becher",
+      "shortName": "S. Becher"
+     }
+    },
+    {
+     "athlete": {
+      "id": "234125",
+      "displayName": "Marcel Hartel",
+      "fullName": "Marcel Hartel",
+      "shortName": "M. Hartel"
+     }
+    },
+    {
+     "athlete": {
+      "id": "297256",
+      "displayName": "Jeong Sang-Bin",
+      "fullName": "Jeong Sang-Bin",
+      "shortName": "J. Sang-Bin"
+     }
+    },
+    {
+     "athlete": {
+      "id": "346651",
+      "displayName": "Mykhi Joyner",
+      "fullName": "Mykhi Joyner",
+      "shortName": "M. Joyner"
+     }
+    },
+    {
+     "athlete": {
+      "id": "289938",
+      "displayName": "Tomas Ostrak",
+      "fullName": "Tomas Ostrak",
+      "shortName": "T. Ostrak"
+     }
+    },
+    {
+     "athlete": {
+      "id": "178054",
+      "displayName": "Benjamin Lundt",
+      "fullName": "Benjamin Lundt",
+      "shortName": "B. Lundt"
+     }
+    },
+    {
+     "athlete": {
+      "id": "338133",
+      "displayName": "Miguel Perez",
+      "fullName": "Miguel Perez",
+      "shortName": "M. Perez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "203974",
+      "displayName": "Rafael Santos",
+      "fullName": "Rafael Santos",
+      "shortName": "R. Santos"
+     }
+    },
+    {
+     "athlete": {
+      "id": "334716",
+      "displayName": "Lukas MacNaughton",
+      "fullName": "Lukas MacNaughton",
+      "shortName": "L. MacNaughton"
+     }
+    },
+    {
+     "athlete": {
+      "id": "355253",
+      "displayName": "Fallou Fall",
+      "fullName": "Fallou Fall",
+      "shortName": "F. Fall"
+     }
+    },
+    {
+     "athlete": {
+      "id": "189505",
+      "displayName": "Eduard Löwen",
+      "fullName": "Eduard Löwen",
+      "shortName": "E. Löwen"
+     }
+    },
+    {
+     "athlete": {
+      "id": "337005",
+      "displayName": "Palmer Ault",
+      "fullName": "Palmer Ault",
+      "shortName": "P. Ault"
+     }
+    }
+   ]
+  },
+  {
+   "homeAway": "away",
+   "team": {
+    "id": "184",
+    "displayName": "Colorado Rapids",
+    "abbreviation": "COL"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "293342",
+      "displayName": "Nico Hansen",
+      "fullName": "Nico Hansen",
+      "shortName": "N. Hansen"
+     }
+    },
+    {
+     "athlete": {
+      "id": "218188",
+      "displayName": "Rob Holding",
+      "fullName": "Rob Holding",
+      "shortName": "R. Holding"
+     }
+    },
+    {
+     "athlete": {
+      "id": "392320",
+      "displayName": "Lucas Herrington",
+      "fullName": "Lucas Herrington",
+      "shortName": "L. Herrington"
+     }
+    },
+    {
+     "athlete": {
+      "id": "324001",
+      "displayName": "Loic Williams",
+      "fullName": "Loic Williams",
+      "shortName": "L. Williams"
+     }
+    },
+    {
+     "athlete": {
+      "id": "251369",
+      "displayName": "Reggie Cannon",
+      "fullName": "Reggie Cannon",
+      "shortName": "R. Cannon"
+     }
+    },
+    {
+     "athlete": {
+      "id": "277851",
+      "displayName": "Joshua Atencio",
+      "fullName": "Joshua Atencio",
+      "shortName": "J. Atencio"
+     }
+    },
+    {
+     "athlete": {
+      "id": "298078",
+      "displayName": "Hamzat Ojediran",
+      "fullName": "Hamzat Ojediran",
+      "shortName": "H. Ojediran"
+     }
+    },
+    {
+     "athlete": {
+      "id": "304129",
+      "displayName": "Paxten Aaronson",
+      "fullName": "Paxten Aaronson",
+      "shortName": "P. Aaronson"
+     }
+    },
+    {
+     "athlete": {
+      "id": "288791",
+      "displayName": "Rafael Navarro",
+      "fullName": "Rafael Navarro",
+      "shortName": "R. Navarro"
+     }
+    },
+    {
+     "athlete": {
+      "id": "307221",
+      "displayName": "Dante Sealy",
+      "fullName": "Dante Sealy",
+      "shortName": "D. Sealy"
+     }
+    },
+    {
+     "athlete": {
+      "id": "304623",
+      "displayName": "Darren Yapi",
+      "fullName": "Darren Yapi",
+      "shortName": "D. Yapi"
+     }
+    },
+    {
+     "athlete": {
+      "id": "385082",
+      "displayName": "Donavan Phillip",
+      "fullName": "Donavan Phillip",
+      "shortName": "D. Phillip"
+     }
+    },
+    {
+     "athlete": {
+      "id": "319389",
+      "displayName": "Kosi Thompson",
+      "fullName": "Kosi Thompson",
+      "shortName": "K. Thompson"
+     }
+    },
+    {
+     "athlete": {
+      "id": "233045",
+      "displayName": "Keegan Rosenberry",
+      "fullName": "Keegan Rosenberry",
+      "shortName": "K. Rosenberry"
+     }
+    },
+    {
+     "athlete": {
+      "id": "360855",
+      "displayName": "Adam Beaudry",
+      "fullName": "Adam Beaudry",
+      "shortName": "A. Beaudry"
+     }
+    },
+    {
+     "athlete": {
+      "id": "319441",
+      "displayName": "Noah Cobb",
+      "fullName": "Noah Cobb",
+      "shortName": "N. Cobb"
+     }
+    },
+    {
+     "athlete": {
+      "id": "362501",
+      "displayName": "Georgi Minoungou",
+      "fullName": "Georgi Minoungou",
+      "shortName": "G. Minoungou"
+     }
+    },
+    {
+     "athlete": {
+      "id": "179245",
+      "displayName": "Alex Harris",
+      "fullName": "Alex Harris",
+      "shortName": "A. Harris"
+     }
+    },
+    {
+     "athlete": {
+      "id": "285613",
+      "displayName": "Miguel Navarro",
+      "fullName": "Miguel Navarro",
+      "shortName": "M. Navarro"
+     }
+    },
+    {
+     "athlete": {
+      "id": "380600",
+      "displayName": "Wayne Frederick",
+      "fullName": "Wayne Frederick",
+      "shortName": "W. Frederick"
+     }
+    }
+   ]
+  }
+ ],
+ "keyEvents": [
+  {
+   "type": {
+    "id": "80",
+    "text": "Kickoff",
+    "type": "kickoff"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 0.0,
+    "displayValue": ""
+   },
+   "scoringPlay": false,
+   "text": "First Half begins."
+  },
+  {
+   "type": {
+    "id": "93",
+    "text": "Red Card",
+    "type": "red-card"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 689.0,
+    "displayValue": "12'"
+   },
+   "scoringPlay": false,
+   "text": "Rob Holding (Colorado Rapids) is shown the red card.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "218188",
+      "displayName": "Rob Holding"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 996.0,
+    "displayValue": "17'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Colorado Rapids. Miguel Navarro replaces Dante Sealy.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "285613",
+      "displayName": "Miguel Navarro"
+     }
+    },
+    {
+     "athlete": {
+      "id": "307221",
+      "displayName": "Dante Sealy"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1151.0,
+    "displayValue": "20'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match because of an injury Nicolas Hansen (Colorado Rapids)."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1151.0,
+    "displayValue": "20'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1260.0,
+    "displayValue": "21'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1260.0,
+    "displayValue": "21'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1491.0,
+    "displayValue": "25'"
+   },
+   "scoringPlay": false,
+   "text": "Hamzat Ojediran (Colorado Rapids) is shown the yellow card for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "298078",
+      "displayName": "Hamzat Ojediran"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1759.0,
+    "displayValue": "30'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match because of an injury Miguel Navarro (Colorado Rapids)."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1759.0,
+    "displayValue": "30'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1805.0,
+    "displayValue": "31'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1805.0,
+    "displayValue": "31'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'+3'"
+   },
+   "scoringPlay": false,
+   "text": "Chris Durkin (St. Louis City SC) is shown the yellow card for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "220478",
+      "displayName": "Christopher Durkin"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "81",
+    "text": "Halftime",
+    "type": "halftime"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'+5'"
+   },
+   "scoringPlay": false,
+   "text": "First Half ends, St. Louis City SC 0, Colorado Rapids 0."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Colorado Rapids. Georgi Minoungou replaces Darren Yapi.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "362501",
+      "displayName": "Georgi Minoungou"
+     }
+    },
+    {
+     "athlete": {
+      "id": "304623",
+      "displayName": "Darren Yapi"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Colorado Rapids. Noah Cobb replaces Reggie Cannon.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "319441",
+      "displayName": "Noah Cobb"
+     }
+    },
+    {
+     "athlete": {
+      "id": "251369",
+      "displayName": "Reggie Cannon"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "82",
+    "text": "Start 2nd Half",
+    "type": "start-2nd-half"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'"
+   },
+   "scoringPlay": false,
+   "text": "Second Half begins St. Louis City SC 0, Colorado Rapids 0."
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3299.0,
+    "displayValue": "55'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Colorado Rapids. Kosi Thompson replaces Hamzat Ojediran.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "319389",
+      "displayName": "Kosi Thompson"
+     }
+    },
+    {
+     "athlete": {
+      "id": "298078",
+      "displayName": "Hamzat Ojediran"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3454.0,
+    "displayValue": "58'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, St. Louis City SC. Eduard Löwen replaces Jeong Sang-Bin.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "189505",
+      "displayName": "Eduard Löwen"
+     }
+    },
+    {
+     "athlete": {
+      "id": "297256",
+      "displayName": "Jeong Sang-Bin"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4041.0,
+    "displayValue": "68'"
+   },
+   "scoringPlay": false,
+   "text": "Josh Atencio (Colorado Rapids) is shown the yellow card for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "277851",
+      "displayName": "Joshua Atencio"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4084.0,
+    "displayValue": "69'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Colorado Rapids. Wayne Frederick replaces Josh Atencio.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "380600",
+      "displayName": "Wayne Frederick"
+     }
+    },
+    {
+     "athlete": {
+      "id": "277851",
+      "displayName": "Joshua Atencio"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4515.0,
+    "displayValue": "76'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, St. Louis City SC. Palmer Ault replaces Simon Becher.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "337005",
+      "displayName": "Palmer Ault"
+     }
+    },
+    {
+     "athlete": {
+      "id": "208341",
+      "displayName": "Simon Becher"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4521.0,
+    "displayValue": "76'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, St. Louis City SC. Tomás Ostrák replaces Chris Durkin.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "289938",
+      "displayName": "Tomas Ostrak"
+     }
+    },
+    {
+     "athlete": {
+      "id": "220478",
+      "displayName": "Christopher Durkin"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4959.0,
+    "displayValue": "83'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! St. Louis City SC 1, Colorado Rapids 0. Tomás Ostrák (St. Louis City SC) right footed shot from outside the box to the top right corner. Assisted by Tomas Totland with a headed pass.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "289938",
+      "displayName": "Tomas Ostrak"
+     }
+    },
+    {
+     "athlete": {
+      "id": "252749",
+      "displayName": "Tomas Totland"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5197.0,
+    "displayValue": "87'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, St. Louis City SC. Miguel Perez replaces Marcel Hartel.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "338133",
+      "displayName": "Miguel Perez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "234125",
+      "displayName": "Marcel Hartel"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5198.0,
+    "displayValue": "87'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, St. Louis City SC. Lukas MacNaughton replaces Jaziel Orozco because of an injury.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "334716",
+      "displayName": "Lukas MacNaughton"
+     }
+    },
+    {
+     "athlete": {
+      "id": "308481",
+      "displayName": "Jaziel Orozco"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "83",
+    "text": "End Regular Time",
+    "type": "end-regular-time"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+6'"
+   },
+   "scoringPlay": false,
+   "text": "Second Half ends, St. Louis City SC 1, Colorado Rapids 0."
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+6'"
+   },
+   "scoringPlay": false,
+   "text": "Kosi Thompson (Colorado Rapids) is shown the yellow card.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "319389",
+      "displayName": "Kosi Thompson"
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -29,7 +29,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   hold-check:
-    # posting-job auto-hold: structural FAIL only (Julian 9/30). Fails open on unknown/error.
+    # posting-job auto-hold: structural FAIL only (9/30). Fails open on unknown/error.
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -53,9 +53,11 @@ jobs:
       - name: nothing pending check
         id: gate
         run: |
+          # any apply-step write counts: an eod_day_close brief fill touches history.json only
+          # (manifest unchanged) and must still rebuild the record pages and commit
           if [ "${{ inputs.force_rebuild }}" = "true" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
-          elif git diff --quiet -- manifest.json history.json record_request.json record_done.json 2>/dev/null && [ ! -f record_done.json ] || git diff --quiet -- manifest.json; then
+          elif git diff --quiet -- manifest.json history.json record_request.json record_done.json 2>/dev/null; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -67,8 +69,10 @@ jobs:
           # RP_REFRESH=1 (Sep 29 Leafs incident): record-final rebuilds are refresh-class - record/units
           # come from the just-graded manifest (canonical), and a post-entry market drift quarantines
           # instead of killing the record write. Entry ship gates stay with publish.yml.
-          RP_REFRESH=1 python3 scripts/_build_nocanon_v2.py manifest.json index.html 2>&1 | tee /tmp/build.log
+          # record pages first: the site builder reads yesterday.html to decide where the Home
+          # Yesterday line links, so it must see the page this write produces (CP-06)
           python3 scripts/build_history.py history.json
+          RP_REFRESH=1 python3 scripts/_build_nocanon_v2.py manifest.json index.html 2>&1 | tee /tmp/build.log
       - name: syntax-sweep emitted script blocks
         if: steps.gate.outputs.changed == 'true'
         run: |
@@ -109,5 +113,6 @@ jobs:
           # K22 (Sep 30, run 36730127672): hardened push guard - resets HEAD on loud-fail
           # (the on-failure hook pushes HEAD) and fails loud when upstream moved a
           # lane-shipped file mid-run; -X theirs alone silently discarded lane pushes.
+          # The guard also reads the push back (origin/main must contain HEAD); a run with
+          # nothing to commit has nothing to read back (Oct 2 runs 36962855292 + 36962967323).
           bash scripts/push_with_guard.sh
-          git ls-remote origin main | grep -q "$(git rev-parse HEAD)" || { echo 'PUSH READBACK FAILED: origin/main != HEAD' >&2; exit 1; }

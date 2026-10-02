@@ -67,7 +67,10 @@ var RP_LG_MAP={"football/nfl":1,"football/college-football":1,"basketball/nba":1
 var q=new URLSearchParams(location.search),_m=RP_LG_MAP[q.get("espn")||""],espn=_m===1?q.get("espn"):(typeof _m==="string"?_m:""),eid=q.get("eid")||"",ceid=q.get("ceid")||"",comp=q.get("comp")||"";
 var scoreEl=document.getElementById("rpScore"),playsEl=document.getElementById("rpPlays"),ageEl=document.getElementById("rpAge");
 var compMode=!eid&&/^[0-9]+$/.test(ceid)&&/^[0-9]+$/.test(comp);
-if(!espn||(!eid&&!compMode)||(eid&&!/^[0-9]+$/.test(eid))){scoreEl.innerHTML='<div class="err">No game specified.</div>';playsEl.innerHTML='<div class="empty">-</div>';return;}
+if(!espn||(!eid&&!compMode)||(eid&&!/^[0-9]+$/.test(eid))){scoreEl.innerHTML='<div class="err">No game specified.</div>';
+ /* no game = nothing will ever load: hide every live panel and the polling footer instead of leaving them on Loading forever */
+ Array.prototype.forEach.call(document.querySelectorAll('.sect,#rpField,#rpScoreTbl,#rpPlays,#rpStats,#rpGraph,.foot'),function(el){el.style.display='none';});
+ return;}
 var lastOk=0,lastData=null,lastSit=null;
 var lastMlb=null,mlbGpk=0; /* statsapi parity state (template rpMlbLive path) */
 var fieldEl=document.getElementById('rpField'),statsEl=document.getElementById('rpStats'),graphEl=document.getElementById('rpGraph'),tblEl=document.getElementById('rpScoreTbl'),pickEl=document.getElementById('rpPickLink');

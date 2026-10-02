@@ -681,6 +681,32 @@ def operator_author(author_name, author_username):
     who = re.sub(r'[^A-Za-z0-9]+', ' ', who)  # crypto-handle class: split separators so Cry_Fortress-style handles tokenize
     return bool(re.search(r'\b(bets|capper|cappers|handicapp|betfair|bet99|draftkings|fanduel|kalshi|betmgm|caesars|bet365|pointsbet|betrivers|unibet|betway|polymarket|sportsbook|cry|crypto|forex|btc|eth|xrp|solana|memecoin|altcoins?|defi|web3|signals)\b', who, re.I))
 
+MAP_PATH = 'slates/soc_match.json'
+# rpMapFresh (index_v2.js) trusts a map for 2h by built_at; a content-identical map is re-stamped
+# at most every MAP_HEARTBEAT_S so that window never lapses on a quiet feed.
+MAP_HEARTBEAT_S = 1800
+
+def write_map(log, path=MAP_PATH):
+    """Write the match map unless the only difference from the served map is built_at and the
+    served built_at is younger than MAP_HEARTBEAT_S (live-site M2, Oct 2: ~1 in 4 x-feed commits,
+    e.g. 975e299b, changed nothing but this timestamp - a commit, a Pages rebuild and a moved
+    main per run). Returns True when the file was written."""
+    try:
+        prev = json.load(open(path))
+        if isinstance(prev, dict) and prev.get('built_at'):
+            cur = json.loads(json.dumps(log))
+            same = ({k: v for k, v in prev.items() if k != 'built_at'} ==
+                    {k: v for k, v in cur.items() if k != 'built_at'})
+            age = (datetime.datetime.fromisoformat(cur['built_at']) -
+                   datetime.datetime.fromisoformat(prev['built_at'])).total_seconds()
+            if same and 0 <= age < MAP_HEARTBEAT_S:
+                print('soc_match content unchanged since %s - served map kept (heartbeat %ds)' % (prev['built_at'], MAP_HEARTBEAT_S))
+                return False
+    except Exception:
+        pass
+    json.dump(log, open(path, 'w'))
+    return True
+
 def zero_pair_reason(stats, probes):
     """Classify semantic outcomes including cache hits, not only network calls."""
     if stats.get('paired', 0) > 0:
@@ -760,7 +786,7 @@ def main():
             log['client_build'] = json.load(open('slates/build.json')).get('build')
         except Exception:
             pass
-        json.dump(log, open('slates/soc_match.json', 'w'))
+        write_map(log)
         print('soc_match built EMPTY (degraded=x_feed_empty): generation-matched zero-pair map, no NIM spend')
         return 0
 
@@ -1064,7 +1090,7 @@ def main():
     surviving.update(str(e['post_id']) for lst in log['more'].values() for e in lst if e.get('post_id'))
     surviving.update(str(v['post_id']) for v in log['latest'].values() if v.get('post_id'))
     log['admit'] = sorted(set(log['admit']) & surviving)
-    json.dump(log, open('slates/soc_match.json', 'w'))
+    write_map(log)
     print('soc_match built:', json.dumps(log['audit']))
     return 0
 

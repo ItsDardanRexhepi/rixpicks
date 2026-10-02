@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Player-props FAIR MODEL (props pipeline step 2, mirrors st_fair.py) - canonical schema:
-consumes the GHA-side odds_prefill_props payload {sport_key, markets, props[]} (Julian-side
-producer, accepted 16:14). Rows: player/player_key/market/book/point + over/under OR yes/no
+consumes the GHA-side odds_prefill_props payload {sport_key, markets, props[]} (producer
+accepted 16:14). Rows: player/player_key/market/book/point + over/under OR yes/no
 (anytime_td is yes/no, no line). MLB keys are batter_*/pitcher_* per provider docs.
 Per player+market: consensus line (median), two-way devig at each book's own line, fair =
 median devigged prob among books at consensus line (WIDENED flag if <2), Kalshi player-prop

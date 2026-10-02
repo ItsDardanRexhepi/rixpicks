@@ -1,14 +1,21 @@
 import json, os, subprocess, sys, tempfile, shutil
 
+# Paths follow this checkout (was hardcoded to /home/sandbox/rix_tmp). MAN is this test's
+# production manifest path: RIX_PROD_MANIFEST points the builder at it, so a non-preview publish
+# is never mirrored onto the grader's real manifest.json.
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 tmp=tempfile.mkdtemp()
 prod_ledger=f'{tmp}/picks.jsonl'
 MAN=f'{tmp}/manifest.json'  # stable production manifest path for this test
+# model 66.0 (fair) so the 5u rung and every bar clear with room: the owner-rules gate recomputes gross/net from
+# the card price now, so the fair must carry the size after the recompute (owner ruling 2026-10-02 (1)/(4)).
 CAND=[{'num':1,'name':'Test ML','side':'home','away':'AAA','home':'BBB','commence':'2026-09-28T00:00Z',
- 'eid':999001,'espn_league':'MLB','units':5,'date':'2026-09-28',
- 'kalshi':{'cents':57,'team':'BBB','ticker':'KXT-BBB'},'model':60.7,'gross_c':3.7,'net_c':2.0,'market_class':'ml'}]
+ 'eid':999001,'espn_league':'MLB','units':'5u','date':'2026-09-28',
+ 'kalshi':{'cents':57,'team':'BBB','ticker':'KXT-BBB'},'model':66.0,'gross_c':9.0,'net_c':7.3,'market_class':'ml'}]
+T0='2026-09-27T14:51:00Z'  # best_ask read time
 cf=f'{tmp}/cands.json'
-S='/home/sandbox/rix_tmp/scripts/build_manifest.py'
-env=dict(os.environ); env['PYTHONPATH']='/home/sandbox/rix_tmp'; env['RIX_PICKS_LEDGER']=prod_ledger
+S=os.path.join(ROOT,'scripts','build_manifest.py')
+env=dict(os.environ); env['PYTHONPATH']=ROOT; env['RIX_PICKS_LEDGER']=prod_ledger; env['RIX_PROD_MANIFEST']=MAN
 META={'record':'13-6','units_pl':'+3.89u','units_ledger':'test ledger','yesterday':'3-0 sweep','status_note':'test note','parlay':None}
 mp=f'{tmp}/meta.json'; json.dump(META,open(mp,'w'))
 fails=[]
@@ -18,7 +25,14 @@ def run(args,expect_ok=True):
     if not expect_ok and r.returncode==0: fails.append(f'run should have failed: {args}')
     return r
 def rows(p=prod_ledger): return [json.loads(l) for l in open(p)] if os.path.exists(p) else []
-def write_cands(c): json.dump(c,open(cf,'w'))
+def write_cands(c):
+    # owner ruling 2026-10-02 (1): a non-preview card must carry a best_ask block, so give each candidate a Kalshi
+    # best_ask at its own cents (rebuilt from the current cents so a mutated price is never compared to a stale one).
+    for x in c:
+        cents = x.get('kalshi',{}).get('cents') if isinstance(x.get('kalshi'),dict) else None
+        if isinstance(cents,int) and not isinstance(cents,bool):
+            x['best_ask']={'venue':'kalshi','price':cents,'read_at':T0,'compared':[{'venue':'kalshi','price':cents,'read_at':T0}]}
+    json.dump(c,open(cf,'w'))
 
 # T1 preview isolation
 write_cands(CAND); r=run([cf,f'{tmp}/prev.json','--preview'])
@@ -57,7 +71,7 @@ if len(rows())!=1: fails.append('T6 mutated')
 print('T6 OK')
 # T7 batch duplicate rejection (fresh ledger)
 os.remove(prod_ledger)
-dup=[dict(CAND[0]),dict(CAND[0])]
+dup=[dict(CAND[0]),dict(CAND[0],num=2)]  # same pick key under two nums (a shared num refuses earlier, in the owner-rules gate)
 write_cands(dup); r=run([cf,MAN],expect_ok=False)
 if 'duplicate candidates' not in r.stderr+r.stdout: fails.append('T7 no dupe refusal')
 if rows(): fails.append('T7 wrote rows')
@@ -74,8 +88,9 @@ print('T8 OK')
 # T9 interrupted publish + IDENTICAL candidates finishes (no new row, manifest published)
 os.remove(prod_ledger); os.remove(MAN)
 # hand-write a canonical row as the crashed publish left it
-row={'kind':'pick','event_id':'999001','market_class':'ml','side':'home','name':'Test ML','units':5,
- 'entry_c':57,'card_american':-133,'card_source':'Kalshi ask at lock','card_ts':'2026-09-26T22:30:00-07:00',
+row={'kind':'pick','event_id':'999001','market_class':'ml','side':'home','name':'Test ML','units':'5u',
+ 'entry_c':57,'card_american':-133,'card_source':f'Kalshi ask at {T0}','card_ts':'2026-09-26T22:30:00-07:00',
+ 'card_venue':'kalshi','card_read_at':T0,'card_compared':[{'venue':'kalshi','price':57,'read_at':T0}],
  'kalshi_ticker':'KXT-BBB','commence':'2026-09-28T00:00Z','preview':False}
 open(prod_ledger,'w').write(json.dumps(row)+'\n')
 write_cands(CAND); r=run([cf,MAN])
@@ -83,14 +98,15 @@ if len(rows())!=1: fails.append('T9 appended a duplicate')
 if not os.path.exists(MAN): fails.append('T9 manifest not published')
 print('T9 OK')
 # T10 preview refuses production manifest path
-r=run([cf,'/home/sandbox/rix_tmp/manifest.json','--preview'],expect_ok=False)
+r=run([cf,MAN,'--preview'],expect_ok=False)
 if 'refuses production manifest path' not in r.stderr+r.stdout: fails.append('T10 no path refusal')
 print('T10 OK')
-# T11 units change on published key -> refuse (swamp round 7 repro)
-c5=[dict(CAND[0])]; c5[0]['units']=100
+# T11 units change on published key -> refuse (swamp round 7 repro). The size must be its pick's J-096
+# rung (owner ruling 2026-10-02 (4)), so the re-size comes with a fair that carries it: 72.0 and gross 3.7 = 10u
+c5=[dict(CAND[0])]; c5[0]['units']='10u'; c5[0]['model']=72.0
 write_cands(c5); r=run([cf,MAN],expect_ok=False)
 if 'refusing to fork' not in r.stderr+r.stdout: fails.append('T11 no fork refusal on units change')
-if rows()[0]['units']!=5: fails.append('T11 ledger re-sized')
+if rows()[0]['units']!='5u': fails.append('T11 ledger re-sized')
 print('T11 OK')
 # T12 corrupt manifest -> fail closed BEFORE any ledger rewrite
 open(MAN,'w').write('{corrupt json')
@@ -102,22 +118,26 @@ print('T12 OK')
 os.remove(MAN)  # T12's corrupt manifest; identical rerun exercises the T9 resume path
 write_cands(CAND); run([cf,MAN])
 html_out=f'{tmp}/index.html'
-r=subprocess.run(['python3','/home/sandbox/rix_tmp/scripts/build_gh_page.py',MAN,html_out],
-                 capture_output=True,text=True,env=dict(os.environ))
+# cwd=tmp: the builder writes its manifests/ snapshot under the working directory, never into this checkout
+# (with the card's units written '5u' the build now runs to the end instead of stopping on an integer size)
+r=subprocess.run(['python3',os.path.join(ROOT,'scripts','build_gh_page.py'),MAN,html_out],
+                 capture_output=True,text=True,env=env,cwd=tmp)
 # hermetic level: format contract must carry it to the live-market gate (fake ticker KXT dies THERE,
 # by design); a contract break shows as KeyError/JSONDecodeError before that point.
 st=r.stderr+r.stdout
 if 'KeyError' in st or 'JSONDecodeError' in st: fails.append(f'T13 format contract broken: {st[-300:]}')
 if 'Kalshi market unresolved' not in st and r.returncode!=0: fails.append(f'T13 unexpected failure: {st[-300:]}')
 print('T13 OK' if not any(x.startswith('T13') for x in fails) else 'T13 FAILED')
-# T14 market_class gate: spread candidate refused loud, nothing written
+# T14 market_class gate (ml|spread|total|prop contract): a spread candidate without a numeric
+# line is refused loud, nothing written; a missing market_class is refused loud
 c6=[dict(CAND[0])]; c6[0]['market_class']='spread'
 write_cands(c6); r=run([cf,MAN],expect_ok=False)
-if "only explicit 'ml'" not in r.stderr+r.stdout: fails.append('T14 no ml-only refusal')
+if 'missing numeric line' not in r.stderr+r.stdout: fails.append('T14 spread without a line not refused')
 if len(rows())!=1: fails.append('T14 ledger mutated')
 c7=[dict(CAND[0])]; c7[0].pop('market_class',None)
 write_cands(c7); r=run([cf,MAN],expect_ok=False)
-if "only explicit 'ml'" not in r.stderr+r.stdout: fails.append('T14b missing market_class not refused')
+if 'must be explicit ml|spread|total|prop' not in r.stderr+r.stdout: fails.append('T14b missing market_class not refused')
+if len(rows())!=1: fails.append('T14b ledger mutated')
 print('T14 OK')
 print('FAILS:',fails if fails else 'none')
 shutil.rmtree(tmp)

@@ -7,6 +7,10 @@ import importlib.util, json, os, sys, tempfile
 from unittest import mock
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+# Hermetic: the engine's committed slates/props_jobs.json (18 NFL markets) overrides
+# MARKETS_BY_SPORT in markets_for(), so T2/T3/T4/T6 failed whenever it existed. Point the
+# jobs file at a path that cannot exist; T7 covers the jobs-file path explicitly.
+os.environ['ODDS_PROPS_JOBS'] = os.path.join(tempfile.mkdtemp(), 'no_props_jobs.json')
 spec = importlib.util.spec_from_file_location('odds_prefill_props', os.path.join(HERE, 'odds_prefill_props.py'))
 m = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
@@ -106,6 +110,22 @@ check('markets=' + ','.join(m.MARKETS_BY_SPORT['americanfootball_nfl']) in url, 
 check('apiKey=fixture-key' in url, 'T6 env key used')
 check(ev['id'] == 'a512a48a58c4329048174217b2cc7ce0', 'T6 event parsed')
 print('T6 OK')
+
+# T7 engine jobs file: when present, its per-sport market list drives the request and the
+# worst-case credit estimate (the production NFL list is the engine's, not MARKETS_BY_SPORT)
+jobs = os.path.join(tmp, 'props_jobs.json')
+ENGINE_NFL = ['player_pass_yds', 'player_rush_yds', 'player_receptions', 'player_pass_attempts']
+json.dump({'leagues': {'nfl': {'sport': 'americanfootball_nfl', 'markets': ENGINE_NFL}}}, open(jobs, 'w'))
+m.JOBS, m._JOBS_CACHE, m._K = jobs, 'unset', None
+check(m.markets_for('americanfootball_nfl') == ENGINE_NFL, 'T7 jobs file drives the NFL market list')
+check(m.markets_for('baseball_mlb') == [], 'T7 sport absent from the jobs file requests no markets (engine owns the list)')
+with mock.patch('core.budget.check_and_log') as guard, \
+     mock.patch('urllib.request.urlopen', return_value=FakeResp()) as net:
+    m.fetch_event('americanfootball_nfl', 'a512a48a58c4329048174217b2cc7ce0')
+check('markets=' + ','.join(ENGINE_NFL) in net.call_args[0][0].full_url, 'T7 jobs-file markets requested')
+check(guard.call_args[0][2] == len(ENGINE_NFL), 'T7 worst-case credits follow the jobs file')
+m.JOBS, m._JOBS_CACHE = os.environ['ODDS_PROPS_JOBS'], 'unset'
+print('T7 OK')
 
 os.environ.pop('THE_ODDS_API_KEY', None)
 if fails:

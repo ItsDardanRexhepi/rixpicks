@@ -4,7 +4,10 @@
    A. A generation-stamped map fetched before the news/X generations exist must NOT be
       discarded - it promotes the moment both generations arrive (no ~45s blank wait).
    B. The baked .rpdate header rolls to the current PT day at midnight; yesterday's card
-      never wears today's date.
+      never wears today's date. The roll compares the card's ISO date (.rpdate data-date) with
+      today's PT date and fires only for a card dated BEFORE today: a card posted before PT
+      midnight for the next day keeps its picks on Home (Oct 2 review), and a rolled panel's
+      "Today's picks" heading no longer sits under its "From the <day> card" note.
    Extracts the real functions from scripts/index_v2.js and runs them in a vm sandbox.
    Run: node scripts/test_feed_boot_class.js  (wired into x_feed.yml) */
 'use strict';
@@ -103,13 +106,23 @@ check('generation-mismatched held map fails closed', ctx3.SOC_MATCH_OK, false);
 
 // C: rolled dates - stale baked header rolls to current PT day with honest state
 const ptToday = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', weekday: 'long', month: 'short', day: 'numeric' }).format(new Date());
-const el = { textContent: 'Monday, Sep 28' };
+const el = { textContent: 'Monday, Sep 28', getAttribute: k => (k === 'data-date' ? '2026-09-28' : null) };
 const stHome = { innerHTML: '<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div><div class="sub cnote">MNF Eagles @ Bears, 5:15 PM PT.</div></div>' };
+// M3 (Oct 1): the stale card's league panels stop projecting onto Home and name their card; the
+// Dingers panel (no .pick) and the combo tail outside Home are left alone
+const panel = (hasPick) => ({ attrs: { 'data-home-league': '1' }, kids: [],
+  removeAttribute(k) { delete this.attrs[k]; }, querySelector: sel => (sel === '.pick' && hasPick ? {} : null),
+  get firstChild() { return this.kids[0] || null; }, insertBefore(n) { this.kids.unshift(n); } });
+const nflPanel = panel(true), dingPanel = panel(false), comboTail = { style: { display: '' } };
+const win4 = {};
 const ctx4 = vm.createContext({
-  Date, JSON, Intl,
+  Date, JSON, Intl, window: win4,
   document: {
     querySelector: sel => (sel === '.rpdate' ? el : null),
-    getElementById: id => (id === 'st-home' ? stHome : null),
+    getElementById: id => (id === 'st-home' ? stHome : (id === 'rpComboTail' ? comboTail : null)),
+    querySelectorAll: sel => (sel === '.state[data-home-league]' ? [nflPanel, dingPanel] : []),
+    createElement: () => ({ className: '', textContent: '' }),
+    body: { classList: { contains: c => c === 'tab-home' } },
   },
 });
 vm.runInContext(extract('rpDateRoll'), ctx4);
@@ -119,6 +132,11 @@ if (before === 'stale') {
   check('stale header rolls to current PT day', el.textContent, ptToday);
   check('stale card replaced with honest not-published state', /has not published yet/.test(stHome.innerHTML), true);
   check('stale game note is gone', /MNF Eagles/.test(stHome.innerHTML), false);
+  check('stale card flagged for the combo tail filter', win4.RP_CARD_STALE, true);
+  check('stale league panel stops projecting onto Home', 'data-home-league' in nflPanel.attrs, false);
+  check('stale league panel names its card', (nflPanel.kids[0] || {}).textContent, 'From the Monday, Sep 28 card');
+  check('panel without picks (Dingers) untouched', ['data-home-league' in dingPanel.attrs, dingPanel.kids.length], [true, 0]);
+  check('stale combo leaves Home', comboTail.style.display, 'none');
 } else {
   check('same-day header is a no-op', el.textContent, ptToday);
   check('same-day card area untouched', /MNF Eagles/.test(stHome.innerHTML), true);
@@ -128,16 +146,70 @@ const h1 = el.textContent, s1 = stHome.innerHTML;
 vm.runInContext('rpDateRoll();', ctx4);
 check('second roll is a no-op', [el.textContent === h1, stHome.innerHTML === s1], [true, true]);
 
+
+// C2 (Oct 2 review): ISO date roll on a fixed clock. Before, rpDateRoll compared the label text, so
+// a card posted before PT midnight for the NEXT day read as stale and its picks left Home.
+function rollAt(nowIso, cardIso, cardLabel) {
+  const FIXED = Date.parse(nowIso);
+  class FakeDate extends Date { constructor(...a) { if (a.length) super(...a); else super(FIXED); } static now() { return FIXED; } }
+  const hd = { textContent: cardLabel, getAttribute: k => (k === 'data-date' ? cardIso : null) };
+  const home = { innerHTML: '<div class="pick">card picks</div>' };
+  const sect = { textContent: 'Today\u2019s picks' };
+  const pnl = { attrs: { 'data-home-league': '1' }, kids: [sect], removeAttribute(k) { delete this.attrs[k]; },
+    querySelector: sel => (sel === '.pick' ? {} : (sel === '.sect' ? sect : null)),
+    get firstChild() { return this.kids[0] || null; }, insertBefore(n) { this.kids.unshift(n); } };
+  const w = {};
+  const c = vm.createContext({
+    Date: FakeDate, JSON, Intl, window: w,
+    document: {
+      querySelector: sel => (sel === '.rpdate' ? hd : null),
+      getElementById: id => (id === 'st-home' ? home : null),
+      querySelectorAll: sel => (sel === '.state[data-home-league]' && 'data-home-league' in pnl.attrs ? [pnl] : []),
+      createElement: () => ({ className: '', textContent: '' }),
+      body: { classList: { contains: c2 => c2 === 'tab-home' } },
+    },
+  });
+  vm.runInContext(extract('rpDateRoll'), c);
+  vm.runInContext('rpDateRoll();', c);
+  const once = { header: hd.textContent, home: home.innerHTML, stale: !!w.RP_CARD_STALE, onHome: 'data-home-league' in pnl.attrs,
+                 panel: pnl.kids.map(k => k.textContent) };
+  vm.runInContext('rpDateRoll();', c);
+  once.idempotent = hd.textContent === once.header && home.innerHTML === once.home && pnl.kids.length === once.panel.length;
+  return once;
+}
+const KEEP = (label) => ({ header: label, home: '<div class="pick">card picks</div>', stale: false, onHome: true,
+                           panel: ['Today\u2019s picks'], idempotent: true });
+// 23:30 PT Oct 1: the Oct 2 card is already posted - tomorrow's card is not stale
+check('card dated tomorrow (posted 23:30 PT the night before) does not roll', rollAt('2026-10-02T06:30:00Z', '2026-10-02', 'Friday, Oct 2'), KEEP('Friday, Oct 2'));
+check('card dated today does not roll', rollAt('2026-10-02T19:00:00Z', '2026-10-02', 'Friday, Oct 2'), KEEP('Friday, Oct 2'));
+check('today\'s card with a custom date label does not roll (dates compare, not label text)',
+      rollAt('2026-10-02T19:00:00Z', '2026-10-02', 'Fri Oct 2 - NFL week 5'), KEEP('Fri Oct 2 - NFL week 5'));
+const ROLLED = { header: 'Friday, Oct 2', home: '<div class="pick rp-empty"><div class="pick-head"><span class="name">Today\u2019s card has not published yet.</span></div></div>',
+                 stale: true, onHome: false, panel: ['From the Thursday, Oct 1 card', 'Picks'], idempotent: true };
+check('card dated yesterday rolls at PT midnight (00:00 PDT Oct 2)', rollAt('2026-10-02T07:00:00Z', '2026-10-01', 'Thursday, Oct 1'), ROLLED);
+check('card dated yesterday rolls at noon; its panel heading no longer says Today\'s picks', rollAt('2026-10-02T19:00:00Z', '2026-10-01', 'Thursday, Oct 1'), ROLLED);
+check('a card with no ISO date does not roll (the header keeps the card\'s own date)', rollAt('2026-10-02T19:00:00Z', null, 'Thursday, Oct 1'), KEEP('Thursday, Oct 1'));
+
 if (failures) { console.error(failures + ' FAILURES'); process.exit(1); }
 
-// C: zero-pair mode = independent feeds, never positional pairing
-vm.runInContext(`XNEWS=[{id:'p1'},{id:'p2'},{id:'p1'},{id:'p3'}];var ZS=zeroPairSocial(12);`, ctx);
+// C: zero-pair mode = independent feeds, never positional pairing. zeroPairSocial keeps only
+// genuine sports posts (isSportsPost, body evidence), so the fixture posts carry real sports text
+// (the passing cases of test_social_sports_gate.js); bare {id} posts are dropped by the gate.
+const SP = {
+  p1: 'Yordan Alvarez goes deep AGAIN. Third homer in two games for the Astros slugger.',
+  p2: 'Willson Contreras batting third and playing first for the Red Sox tonight in the Bronx',
+  p3: 'Judge sends one into the second deck, 3-0 Yankees',
+  p8: 'Leafs and Habs renew the rivalry Saturday night',
+  p9: 'UCLA survives in OT, what a comeback win',
+};
+const posts = ids => JSON.stringify(ids.map(id => ({ id, headline: SP[id] })));
+vm.runInContext(`XNEWS=${posts(['p1', 'p2', 'p1', 'p3'])};var ZS=zeroPairSocial(12);`, ctx);
 check('zero-pair social shows latest distinct publishable posts', vm.runInContext(`ZS.map(p=>p.post.id).join(',')`, ctx), 'p1,p2,p3');
 check('fallback slides carry only the muted kind', vm.runInContext(`ZS.every(p=>p.kind==='latest')`, ctx), true);
 check('fallback slides carry NO story key (no positional correspondence)', vm.runInContext(`ZS.every(p=>p.nkey==='')`, ctx), true);
 vm.runInContext(`XNEWS=[];var ZS2=zeroPairSocial(12);`, ctx);
 check('empty X pool fails closed (no placeholders)', vm.runInContext(`ZS2.length`, ctx), 0);
-vm.runInContext(`XNEWS=[{id:'p9'},{id:'p8'}];var ZS3=zeroPairSocial(1);`, ctx);
+vm.runInContext(`XNEWS=${posts(['p9', 'p8'])};var ZS3=zeroPairSocial(1);`, ctx);
 check('social list respects the cap independently', vm.runInContext(`ZS3.length`, ctx), 1);
 // C6: socSync never locks positions in fallback mode, even when counts coincide
 vm.runInContext(`FEED_FALLBACK=true;SYNC_LAST=true;SOC_N=3;CAR_N=3;CAR_LAST=[{link:'a'}];CAR_IDX=1;SOC_IDX=0;var r1=socSyncReal();`, Object.assign(ctx,{socApply:()=>{ctx.__applied=(ctx.__applied||0)+1;},socMatchPair:()=>-1}));
@@ -163,4 +235,6 @@ vm.runInContext(`var F5=rpComboFresh({id:'idea-nodate'});`, ctx);
 check('unparseable date fails closed (hidden)', vm.runInContext(`F5`, ctx), false);
 vm.runInContext(`var F6=rpComboFresh({id:'idea-x-${ymd(pt)}',status:'expired'});`, ctx);
 check('writer-expired combo hidden even with today date', vm.runInContext(`F6`, ctx), false);
+// sections C, C6 and C7 run after the first gate: any FAIL above must still fail the run
+if (failures) { console.error(failures + ' FAILURES'); process.exit(1); }
 console.log('feed boot + date-roll class fixture: ALL PASS');

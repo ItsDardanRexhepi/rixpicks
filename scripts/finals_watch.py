@@ -12,7 +12,7 @@ Guards (swamp 9:23-9:25 PM):
 - tie = PUSH: 0 pnl, no W/L.
 - seen[pick_key] written ONLY on a verified chain; dry-run touches NO production state.
 Usage: finals_watch.py [--dry-run]"""
-import json, os, re, sys, urllib.request
+import json, os, re, sys, unicodedata, urllib.request
 sys.path.insert(0, '/home/sandbox/rix_tmp')
 from datetime import datetime, timezone, timedelta
 from decimal import Decimal
@@ -41,16 +41,33 @@ def espn_final(league, eid):
         return None
     sc = {}
     names = {}
+    abbrs = {}
     for x in c.get('competitors', []):
         s2 = _deref(x.get('score', {}))
         v = s2.get('value') if isinstance(s2, dict) else None
         sc[x.get('homeAway')] = int(float(v)) if v is not None else None
         team = _deref(x.get('team', {}))
         names[x.get('homeAway')] = team.get('displayName') or team.get('name') or ''
+        abbrs[x.get('homeAway')] = team.get('abbreviation') or ''
     if sc.get('home') is None or sc.get('away') is None:
         return None
     return {'home': names.get('home', ''), 'away': names.get('away', ''),
+            'home_abbr': abbrs.get('home', ''), 'away_abbr': abbrs.get('away', ''),
             'home_score': sc['home'], 'away_score': sc['away']}
+
+def score_text(primary):
+    """The record write's score: '<AWAY> <n> @ <HOME> <n>' in ESPN's team abbreviations, the exact
+    format record_final.py parses (2-4 capital letters a side). Full team names were queued before and
+    record_final refused every one as unparseable, stopping the in-order record write. Raises
+    ValueError when an abbreviation cannot be put in that format (fail closed: never queued)."""
+    ab = {}
+    for side in ('away', 'home'):
+        a = re.sub(r'[^A-Z]', '', str(primary.get(f'{side}_abbr') or '').upper())  # 'TA&M' -> 'TAM'
+        if not 2 <= len(a) <= 4:
+            raise ValueError(f"no usable ESPN abbreviation for the {side} team ({primary.get(f'{side}_abbr')!r}) - "
+                             'REFUSING to queue a score record_final cannot parse (fail closed)')
+        ab[side] = a
+    return f"{ab['away']} {primary['away_score']} @ {ab['home']} {primary['home_score']}"
 
 CBS_SLUG = {'football/college-football': 'college-football', 'football/nfl': 'nfl',
             'basketball/nba': 'nba', 'basketball/ncaab': 'college-basketball', 'basketball/wnba': 'wnba',
@@ -290,7 +307,7 @@ def two_source_ok(primary, secondary):
             and secondary.get('away_score') == primary.get('away_score'))
 
 # --- PLAYER PROPS (props-on-card wiring 9/27, his 6:48:03 PM PT "Include player props too") ---
-# Verified ESPN boxscore keys only (same machinery as the Julian leg graders, verified vs real
+# Verified ESPN boxscore keys only (same machinery as the Wooder leg graders, verified vs real
 # boxscores 9/27). A market outside this map is UNGRADEABLE - the adapter refuses to card it and
 # grade() refuses to grade it, both fail closed.
 PROP_STAT_KEYS = {
@@ -330,6 +347,13 @@ _PROP_BOX = {}  # per-run boxscore cache keyed by (league, eid)
 
 def _norm_name(x):
     return re.sub(r'[^a-z0-9]', '', (x or '').lower())
+
+def _fold_name(x):
+    # _norm_name with accents folded first ('Tomás Ostrák' -> 'tomasostrak'): ESPN spells one player
+    # both ways across its rosters and goal text, and a card name may differ from both. Used only to
+    # match soccer scorer names (same rule as record_final.py); grade keys keep _norm_name.
+    x = unicodedata.normalize('NFKD', str(x or '')).encode('ascii', 'ignore').decode('ascii')
+    return re.sub(r'[^a-z0-9]', '', x.lower())
 
 def _prop_boxscore(league, eid):
     key = (league, str(eid))
@@ -429,23 +453,54 @@ def _prop_stat(pick):
     return val
 
 _GOAL_NAME = re.compile(r'^(?:Own Goal by )?(.+?) \(([^()]*)\)')
+_SCORELINE_END = re.compile(r'(?<=\d)\. ')  # the '. ' after the away score, never one inside a team name
+_OWN_GOAL_TEXT = re.compile(r'\s*own goal\b', re.I)
 
 def _roster_alias_map(d):
-    # normalized name alias -> athlete id, over both teams' rosters
+    # accent-folded name alias -> athlete id (as str), over both teams' rosters
     m = {}
     for r in d.get('rosters', []) or []:
         for e in r.get('roster', []) or []:
             a = e.get('athlete', {})
-            aid = a.get('id')
+            aid = str(a.get('id') or '')
             if not aid: continue
             for nm in (a.get('displayName'), a.get('fullName'), a.get('shortName')):
-                n = _norm_name(nm)
+                n = _fold_name(nm)
                 if n: m.setdefault(n, set()).add(aid)
     return m
 
+def _goal_scorer_id(p, aliases, rostered):
+    # Scorer of one goal event: ESPN's own participants[0] athlete id, which must be on a roster
+    # (same rule as record_final.py). The goal text's name (after the scoreline, 'Goal! <home> <n>,
+    # <away> <n>. <Scorer> (<Team>) ...' - the first '. ' can fall inside 'D.C. United' or 'St. Louis
+    # City SC') only cross-checks it: a name that resolves on the rosters to anyone else refuses, a
+    # name the rosters spell differently ('Guilherme' for Guilherme Augusto, 'Luighi' for Luighi
+    # Hanri) leaves the id standing. With no participant id the name must resolve to one player.
+    text = p.get('text') or ''
+    if _OWN_GOAL_TEXT.match(text):
+        raise ValueError(f'goal event text names an own goal ({text[:80]!r}) - REFUSING to grade (fail closed)')
+    parts = p.get('participants')
+    first = parts[0] if isinstance(parts, list) and parts and isinstance(parts[0], dict) else {}
+    ath = first.get('athlete') if isinstance(first.get('athlete'), dict) else {}
+    sid = str(ath.get('id') or '')
+    mm = _GOAL_NAME.search(_SCORELINE_END.split(text, maxsplit=1)[-1])
+    named = aliases.get(_fold_name(mm.group(1)), set()) if mm else set()
+    if sid:
+        if sid not in rostered:
+            raise ValueError(f'goal scorer id {sid} not on the rosters - REFUSING to grade (fail closed)')
+        if named and sid not in named:
+            raise ValueError(f'goal scorer id {sid} is not the goal text\'s {mm.group(1)!r} - REFUSING to grade (fail closed)')
+        return sid
+    if not mm:
+        raise ValueError(f'goal event text unparsable ({text[:80]!r}) - REFUSING to grade (fail closed)')
+    if len(named) != 1:
+        raise ValueError(f'goal scorer {mm.group(1)!r} unresolved/ambiguous on rosters '
+                         f'({len(named)} matches) - REFUSING to grade (fail closed)')
+    return next(iter(named))
+
 def _soccer_scorer_stat(d, player, market):
     aliases = _roster_alias_map(d)
-    want = _norm_name(player)
+    want = _fold_name(player)
     if not want:
         raise ValueError('prop pick missing player name - REFUSING to grade (fail closed)')
     ids = {aid for alias, aids in aliases.items()
@@ -454,20 +509,14 @@ def _soccer_scorer_stat(d, player, market):
         raise ValueError(f'player identity ambiguous/unresolved ({len(ids)} roster matches for '
                          f'{player!r}) - REFUSING to grade (fail closed)')
     pid = next(iter(ids))
+    rostered = {str((e.get('athlete') or {}).get('id') or '') for r in d.get('rosters', []) or []
+                for e in r.get('roster', []) or []} - {''}
     goals = []  # (clock_seconds, athlete_id) credit events; own goals + shootout excluded
     for p in d.get('keyEvents', []) or []:
         if p.get('scoringPlay') is not True: continue
         if p.get('type', {}).get('type') == 'own-goal': continue
         if (p.get('period', {}) or {}).get('number') not in (1, 2): continue  # no shootout/ET
-        text = p.get('text') or ''
-        mm = _GOAL_NAME.search(text.split('. ', 1)[-1])
-        if not mm:
-            raise ValueError(f'goal event text unparsable ({text[:80]!r}) - REFUSING to grade (fail closed)')
-        gids = aliases.get(_norm_name(mm.group(1)), set())
-        if len(gids) != 1:
-            raise ValueError(f'goal scorer {mm.group(1)!r} unresolved/ambiguous on rosters '
-                             f'({len(gids)} matches) - REFUSING to grade (fail closed)')
-        goals.append(((p.get('clock', {}) or {}).get('value', 0.0), next(iter(gids))))
+        goals.append(((p.get('clock', {}) or {}).get('value', 0.0), _goal_scorer_id(p, aliases, rostered)))
     if market == 'anytime_goal':
         return float(sum(1 for _, aid in goals if aid == pid))
     if not goals:
@@ -578,7 +627,7 @@ def load_seen():
     except Exception: return {}
 
 
-def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary, stamp):
+def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary, stamp, card_date=None):
     """Append the builder-consumed record write request (same cycle as the grade).
     This + the instant parent relay is the write path while the direct POST token is dead."""
     path = os.path.join(HERE, '..', 'record_request.json')
@@ -587,16 +636,24 @@ def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary
     if any(r.get('grade_id') == pkey for r in d.get('requests', [])):
         return False
     g = p.get('game', {})
+    # grade() returns W | L | PUSH; a push must travel as PUSH (record_final derives the result
+    # from the verified final and refuses a push labeled LOST). market_class/line/card_date let
+    # record_final cross-check the request against the published card pick. card_date is the date
+    # of the card the pick was graded from (the manifest's date), not the game's own PT date: a
+    # game starting after midnight PT still belongs to the card it was published on. None lets
+    # record_final derive it from the published card.
     d.setdefault('requests', []).append({
         'grade_id': pkey, 'event_id': eid, 'league': p.get('espn_league', ''),
         'pick': p.get('name', ''), 'side': p.get('side', ''),
-        'result': 'WON' if result == 'W' else 'LOST',
-        'score': f"{g.get('away','away')} {primary['away_score']} @ {g.get('home','home')} {primary['home_score']}",
+        'market_class': p.get('market_class') or 'ml', 'line': p.get('line'),
+        'card_date': card_date,
+        'result': {'W': 'WON', 'L': 'LOST', 'PUSH': 'PUSH'}[result],
+        'score': score_text(primary),
         'stake_units': p.get('units', '?'), 'locked_american': p.get('odds', '?'),
         'delta_units_exact': float(units.pnl_to_units(pnl)),
         'record_after': rec, 'units_after_exact': float(u2),
         'two_source': ['espn_core completed', secondary['source']],
-        'graded_pick': (f"{p.get('name','')} {'W' if result=='W' else 'L'}: "
+        'graded_pick': (f"{p.get('name','')} {({'W': 'W', 'L': 'L', 'PUSH': 'P'})[result]}: "
                         f"{g.get('away','away')} {primary['away_score']} @ {g.get('home','home')} {primary['home_score']} "
                         f"(published-card basis)"),
         'source': 'finals_watch J-118 live chain',
@@ -725,6 +782,7 @@ def main():
             break  # order guard: later finals wait
         try:
             result, pnl = grade(p, primary)
+            score_text(primary)  # the queued score must parse in record_final - checked before any write
         except ValueError as e:
             print(f'{stamp} WARN: {pkey} {e} - chain STOPS')
             break
@@ -749,7 +807,7 @@ def main():
             if res['chain'] != 'complete':
                 # direct POST dead/degraded: ledger row is appended (resumable), so queue
                 # the builder-consumed write + relay INSTANTLY, mark unverified, CONTINUE.
-                _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary, stamp)
+                _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary, stamp, card_date=m.get('date'))
                 seen[pkey] = {'unverified': True, 'relayed_at': stamp, 'result': result, 'record': rec,
                               'post_status': res.get('stages', {}).get('post')}
                 os.makedirs(os.path.dirname(STATE), exist_ok=True)

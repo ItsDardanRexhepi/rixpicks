@@ -370,7 +370,7 @@ def two_source_ok(primary, secondary):
             and secondary.get('away_score') == primary.get('away_score'))
 
 # --- PLAYER PROPS (props-on-card wiring 9/27, his 6:48:03 PM PT "Include player props too") ---
-# Verified ESPN boxscore keys only (same machinery as the Julian leg graders, verified vs real
+# Verified ESPN boxscore keys only (same machinery as the Wooder leg graders, verified vs real
 # boxscores 9/27). A market outside this map is UNGRADEABLE - the adapter refuses to card it and
 # grade() refuses to grade it, both fail closed.
 PROP_STAT_KEYS = {

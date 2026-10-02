@@ -39,7 +39,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   hold-check:
-    # posting-job auto-hold: structural FAIL only (Julian 9/30). Fails open on unknown/error.
+    # posting-job auto-hold: structural FAIL only (9/30). Fails open on unknown/error.
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -147,6 +147,14 @@ jobs:
             done
             [ "$ok" = "1" ] || exit 1
           fi
+      # DOM fixture in its own step, still ahead of the matcher so a failure aborts the chain before
+      # a map ships: jsdom pinned to the version the chain has been green on (30.1.1), lifecycle
+      # scripts skipped, and no secret in this step's environment (the matcher token stays in the
+      # match step). Guarded by scripts/test_workflow_npm_pins.py in workflow-lint.
+      - name: "zero-pair fallback DOM fixture (jsdom pinned, no secrets in env)"
+        run: |
+          npm install --no-save --ignore-scripts --no-audit --no-fund --silent jsdom@30.1.1
+          node scripts/test_feed_fallback_dom.js  # zero-pair fallback independent-feeds render fixture (jsdom DOM)
       # Post-Option-A flow (main 9/30 5:53 PM PT): GH news-refresh is off, so NOTHING else builds the
       # map. Every run that publishes a new X generation in the step above (15-min external-tick,
       # x-feed-chain from the worker's news rotation, schedule, workflow_run) must also build the
@@ -164,7 +172,7 @@ jobs:
           python3 scripts/soc_fixtures.py  # deterministic gate regressions - abort the chain before a bad map ships
           node scripts/test_buildpairs_class.js  # buildPairs match-before-slice class fixture (guard 3, 1:08 9/29)
           node scripts/test_feed_boot_class.js  # first-load coherent settle + rolled-dates class fixture (guard 1, 1:28 9/29)
-          npm install --no-save --silent jsdom && node scripts/test_feed_fallback_dom.js  # zero-pair fallback independent-feeds render fixture (jsdom DOM)
+          node scripts/test_client_spam.js  # client isPublishablePost spam/commercial gate fixture (crypto-spam class, Sep 29)
           python3 scripts/test_mlb_form_fallback.py  # MLB Stats API form fallback fixture (Sep 29)
           python3 scripts/soc_match.py
       - name: "commit feed + burn ledger"

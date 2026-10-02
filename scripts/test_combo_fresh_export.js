@@ -192,7 +192,7 @@ check('combos module script found in page', !!modMatch);
       const dZero = vm.runInContext('tS(0,"in","")', sb2);
       const dHit = vm.runInContext('tS(1,"in","")', sb2);
       const dZeroPre = vm.runInContext('tS(0,"pre","")', sb2);
-      check('dingers: pregame renders blank, never "Game not started" (Julian blank-pregame spec)', dPre === '' && dZeroPre === '' && !dPre.includes('Game not started'));
+      check('dingers: pregame renders blank, never "Game not started" (blank-pregame spec)', dPre === '' && dZeroPre === '' && !dPre.includes('Game not started'));
       check('dingers: null count in-game renders Unavailable (never invented zero)', dIn.includes('Unavailable') && !dIn.includes('No HR'));
       check('dingers: null count at final renders Unavailable (never "No HR · Final")', dPost.includes('Unavailable') && !dPost.includes('No HR'));
       check('dingers: live 0 HR honestly renders "No HR yet"', dZero.includes('No HR yet'));

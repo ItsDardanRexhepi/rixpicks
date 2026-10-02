@@ -51,7 +51,7 @@ function tailFilter(key){
   var lgs=(cw.getAttribute('data-cx-espn')||'').split(',').filter(function(x){return x;});
   var ok=false;
   for(var i=0;i<lgs.length;i++)if(TABOF[lgs[i]]===key){ok=true;break;}
-  cw.style.display=(key==='home'||ok)?'':'none';
+  cw.style.display=((key==='home'&&!window.RP_CARD_STALE)||ok)?'':'none';
  }
  var ft=document.getElementById('rpFutTail');
  if(ft){
@@ -113,11 +113,22 @@ if(navRecBtn&&recPop){
 }
 var burger=$('burger');
 if(burger)burger.addEventListener('click',function(){document.body.classList.toggle('menu-open');});
+/* one rounding rule for W/L % (Oct 1, 21-11 read 65.62% baked, 65.63% after load): the builder
+   bakes the percent with _pct_half_up (exact integer arithmetic, an exact tie rounds up, so
+   21-11 = 65.625 -> 65.63%); rpPct is the same arithmetic, so the baked figure holds after load
+   for every record. */
+function rpPct(w,l,dp){
+ var n=w+l;if(!(n>0))return '';
+ var sc=Math.pow(10,dp),p=200*sc*w+n,d=2*n,q=(p-p%d)/d;
+ var f=String(q%sc);while(f.length<dp)f='0'+f;
+ return String((q-q%sc)/sc)+(dp?'.'+f:'');
+}
+window.rpPct=rpPct; /* the record popover script (rpRecLive) formats W/L with the same rule */
 /* ---- nav record mirror (canonical values live on #rpRec/#rpUnits datasets) ---- */
 function navRec(){
  var r=$('rpRec'),u=$('rpUnits'),w=$('rpNavRecW'),l=$('rpNavRecL'),uu=$('rpNavU'),pc=$('rpNavPct');
  if(r&&w&&l){w.textContent=r.dataset.bw||'';l.textContent=r.dataset.bl||'';}
- if(r&&pc){var bw=parseInt(r.dataset.bw||'0',10),bl=parseInt(r.dataset.bl||'0',10);if(bw+bl>0)pc.textContent=(100*bw/(bw+bl)).toFixed(2)+'%';}
+ if(r&&pc){var bw=parseInt(r.dataset.bw||'0',10),bl=parseInt(r.dataset.bl||'0',10);if(bw+bl>0)pc.textContent=rpPct(bw,bl,2)+'%';}
  if(u&&uu){var uv=parseFloat(u.dataset.bu||'0');uu.textContent=(uv>=0?'+':'')+uv.toFixed(2)+'u';}
 }
 navRec();
@@ -136,8 +147,14 @@ var RP_GAME_ROUTES={};
 fetch('slates/game_routes.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){RP_GAME_ROUTES=j||{};if(cur&&SB[cur.key])renderGames(cur,SB[cur.key]);}).catch(function(){});
 function lgpath(t){return t.espn||'';}
 function ordinal(p){p=parseInt(p,10);if(!p)return '';if(p<=4)return p+(['th','st','nd','rd'][p]||'th');return p===5?'OT':(p-4)+'OT';}
+/* future-dated feed times (Oct 1: ESPN RSS stamps its refresh time labelled EST, putting stories
+   30-60 min in the future, so they read '1m ago' + NEW and sorted first). A time more than 5 min
+   ahead of this clock is unknown, not new: no age label, no NEW marker, sorted as undated. */
+var RP_FUTURE_SKEW=300000;
+function pubT(iso){var t=Date.parse(iso||'');return (t&&t<=Date.now()+RP_FUTURE_SKEW)?t:0;}
+function newsBlurb(a){var b=a&&a.blurb;return (typeof b==='string'&&!/^\s*(null|undefined|none)\s*$/i.test(b))?b:'';} /* a feed's literal 'null' is no blurb, never content */
 function ago(iso){
- var t=Date.parse(iso);if(!t)return '';
+ var t=pubT(iso);if(!t)return '';
  var s=Math.max(0,(Date.now()-t)/1000);
  if(s<90)return '1m ago';
  if(s<3600)return Math.round(s/60)+'m ago';
@@ -227,7 +244,7 @@ function newsBucket(t){
  }
  out=out.concat(DNEWS[t.key]||[]);
  /* XNEWS intentionally NOT merged: X posts get their own Home social section (owner 10:32); news is articles only. XNEWS stays populated for that consumer. */
- out.sort(function(a,b){return (Date.parse(b.published||0)||0)-(Date.parse(a.published||0)||0);});
+ out.sort(function(a,b){return pubT(b.published)-pubT(a.published);});
  var seen={},seenP={},ded=[];
  out.forEach(function(a){var n=normH(a.headline);if(!n)return;var pk=n.slice(0,40);if(seen[n]||seenP[pk])return;seen[n]=1;seenP[pk]=1;ded.push(a);});
  return ded.filter(isPublishableNews);
@@ -375,16 +392,79 @@ var CAR_UNIT=null; /* guard 1 atomic fallback (owner 7:11 "the same ones too"): 
    rolled dates"): the baked .rpdate header is the CARD's date; the site shows the current
    PT day. At PT midnight the header rolls forward and the stale card area is replaced by
    the honest not-published state (mirrors record_today.js) - yesterday's card never wears
-   today's date. When the morning manifest lands the baked date matches and this no-ops. */
+   today's date. The roll compares ISO dates (the header's data-date with today's PT date) and
+   fires only for a card dated BEFORE today: a card posted before PT midnight for the next day
+   is not stale (Oct 2 review: the label-text compare hid its picks). A header with no ISO date
+   keeps the card's own date. */
 function rpDateRoll(){
- var el=document.querySelector('.rpdate');if(!el)return;
+ var el=document.querySelector('.rpdate');if(!el||window.RP_CARD_STALE)return;
+ var card=(el.getAttribute&&el.getAttribute('data-date'))||'';
+ var pt={};new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).forEach(function(x){pt[x.type]=x.value;});
+ var todayIso=pt.year+'-'+pt.month+'-'+pt.day;
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(card)||card>=todayIso)return;
  var today=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'long',month:'short',day:'numeric'}).format(new Date());
- if(el.textContent.trim()===today)return;
+ var cardDay=el.textContent.trim();
  el.textContent=today;
+ window.RP_CARD_STALE=true;
  var st=document.getElementById('st-home');
  if(st)st.innerHTML='<div class="pick rp-empty"><div class="pick-head"><span class="name">Today\u2019s card has not published yet.</span></div></div>';
+ /* the stale card's league panels stop projecting onto Home (they kept showing under the new date)
+    and say which card they belong to; their "Today's picks" heading becomes "Picks"; its combo
+    leaves Home too */
+ document.querySelectorAll('.state[data-home-league]').forEach(function(p){
+  if(!p.querySelector('.pick'))return;
+  p.removeAttribute('data-home-league');
+  var h=p.querySelector('.sect');if(h&&/^Today/.test(h.textContent))h.textContent='Picks';
+  var n=document.createElement('div');n.className='cardnote';n.textContent='From the '+cardDay+' card';p.insertBefore(n,p.firstChild);
+ });
+ var cx=document.getElementById('rpComboTail');if(cx&&document.body.classList.contains('tab-home'))cx.style.display='none';
 }
 rpDateRoll();
+/* A card's date by the builder's rule (_card_date_of; record_final.card_date_of): the most common PT
+   date across its picks' commence (a game after PT midnight stays on its card), its own ISO date only
+   when no pick has a readable, zoned start. No picks, or a preview, is no official card: ''. */
+function rpCardDate(m){
+ if(!m||m.preview===true||!Array.isArray(m.picks)||!m.picks.length)return '';
+ var F=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'});
+ var c={},o=[],b='',n=0;
+ m.picks.forEach(function(p){
+  var s=String((p&&p.game&&p.game.commence)||''),x=/(Z|[+-][0-9]{2}:?[0-9]{2})$/i.test(s)?Date.parse(s):NaN;
+  if(isNaN(x))return;
+  var d=F.format(new Date(x));if(!(d in c)){c[d]=0;o.push(d);}c[d]++;
+ });
+ o.forEach(function(d){if(c[d]>n){n=c[d];b=d;}});
+ return b||(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(String(m.date||''))?String(m.date):'');
+}
+/* The Home Yesterday line at VIEW time (r3 review). The builder bakes it for the build's PT yesterday
+   (data-ydate) with the card dates that carried official picks and have no graded row (data-pending:
+   manifests/ snapshots and the live card). A viewer on a later PT day gets it recomputed for their own
+   PT yesterday from same-origin history.json: the graded row (linking yesterday.html while that page
+   carries the day - its last two graded days), else 'results pending' when that date is a pending card
+   date or the live manifest.json is that date's card, else '0-0 - no official picks'. history.json
+   unreadable: the line is hidden, never left standing for another day. Same words as the builder's
+   _hist_yesterday (scripts/test_home_yesterday_view.js). */
+function rpYesterdayLine(){
+ var a=document.querySelector('.home-yes');if(!a)return;
+ var yd=a.getAttribute('data-ydate')||'';if(!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(yd))return;
+ var t=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+ var y=new Date(t+'T12:00:00Z');y.setUTCDate(y.getUTCDate()-1);y=y.toISOString().slice(0,10);
+ if(y===yd)return;
+ var pend=(a.getAttribute('data-pending')||'').split(' ');
+ var g=function(u){return fetch(u+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});};
+ Promise.all([g('history.json'),g('manifest.json')]).then(function(r){
+  var days=r[0]&&Array.isArray(r[0].days)?r[0].days:null;
+  if(!days){a.style.display='none';return;}
+  var ix=-1;days.forEach(function(d,i){if(d&&d.date===y)ix=i;});
+  var row=ix>=0?days[ix]:null,txt,href='record.html';
+  if(row&&Array.isArray(row.picks)&&row.picks.length){
+   txt=String(row.record||'0-0')+' · '+row.picks.filter(function(p){return p&&p.name&&p.result;}).map(function(p){return String(p.name).trim()+' '+String(p.result).trim();}).join(' · ');
+   if(ix>=days.length-2&&row.label)href='yesterday.html';
+  }else if(pend.indexOf(y)>=0||rpCardDate(r[1])===y)txt='results pending';
+  else txt='0-0 - no official picks';
+  a.textContent='Yesterday: '+txt;a.setAttribute('href',href);a.setAttribute('data-ydate',y);
+ });
+}
+rpYesterdayLine();
 function buildPairs(base){
  PAIRS=[];
  if(!rpMapFresh(SOC_MATCH))return;
@@ -531,13 +611,13 @@ function renderNews(t,arts){
   var u=a.link||'',src=a.source||'';
   var img=imgOpt(a.image);
   var lg=String(a.league||'').split('/').pop().toUpperCase()||'SPORTS';
-  var blurb=(typeof a.blurb==='string')?a.blurb:'';
+  var blurb=newsBlurb(a),_age=ago(a.published);
   /* owner 6:59 graphics class kill: a card ALWAYS carries art - the real image, or the
      designed league fallback when the source has none or the URL dies at load time. */
   var inner=(img?'<span class="carimg" style="background-image:url(\''+esc(img)+'\')"><img src="'+esc(img)+'" data-rsrc="'+esc(img)+'" data-lg="'+esc(lg)+'" alt="" style="display:none" onerror="RPimgErr(this)"></span>':'<span class="carimg carimg-fb" data-lg="'+esc(lg)+'"></span>')
    +'<span class="carbody"><span class="carhead">'+esc(unesc(a.headline||''))+'</span>'
    +(blurb?'<span class="carblurb">'+esc(unesc(blurb))+'</span>':'')
-   +'<span class="carmeta"><span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span> \u00b7 '+esc(ago(a.published))+(isNewIt(a)?' <span class="carnew">new</span>':'')+'</span></span>';
+   +'<span class="carmeta"><span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span>'+(_age?' \u00b7 '+esc(_age):'')+(isNewIt(a)?' <span class="carnew">new</span>':'')+'</span></span>';
   h+='<div class="carslide" data-nkey="'+esc(u||String(a.headline||''))+'">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer" aria-label="'+esc(unesc(a.headline||''))+'">'+inner+'</a>':inner)+'</div>';
  });
  h+='</div></div><div class="carctl"><button type="button" id="rpCarPrev" aria-label="previous article">\u2039 Prev</button>'
@@ -852,7 +932,17 @@ function rpNewsOk(t,headline){
  for(var i=0;i<ks.length;i++)if(rpNewsOkKey(ks[i],headline))return true;
  return false;
 }
-var NEWSF=null,NEWSF_TS=0,XNEWS=[],XNEWS_TS=0,HOME_GAMES_TS=0,NEWS_READY=false,SOC_MAP_DONE=false,XFEED_DONE=false;
+var NEWSF=null,NEWSF_TS=0,XNEWS=[],XNEWS_TS=0,HOME_GAMES_TS=0,HOME_GAMES_PAINT=null,NEWS_READY=false,SOC_MAP_DONE=false,XFEED_DONE=false;
+/* ESPN scoreboard days for day-scoped leagues (Oct 1: MLB/NHL rows never appeared - the bare
+   scoreboard is ESPN's current day, which still reads yesterday's finals after midnight ET, and a
+   dates=A-B range answers 400). ESPN files games under US Eastern calendar days. */
+function rpEspnDays(n){
+ var t=new Date(),y=0,m=0,d=0,out=[],i,u;
+ try{var p={};new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'numeric',day:'numeric'}).formatToParts(t).forEach(function(x){p[x.type]=x.value;});y=+p.year;m=+p.month;d=+p.day;}catch(e){}
+ if(!y){y=t.getUTCFullYear();m=t.getUTCMonth()+1;d=t.getUTCDate();}
+ for(i=0;i<n;i++){u=new Date(Date.UTC(y,m-1,d+i));out.push(String(u.getUTCFullYear())+('0'+(u.getUTCMonth()+1)).slice(-2)+('0'+u.getUTCDate()).slice(-2));}
+ return out;
+}
 /* guard 5 open-session class: the client knows its own build (stamped in this document by the
    builder) and self-updates when rtPoll sees a newer slates/build.json - a behind client never
    keeps old gates. Scroll position survives the controlled same-tab refresh. */
@@ -863,7 +953,7 @@ try{var _up=sessionStorage.getItem('rpUpd');if(_up){sessionStorage.removeItem('r
    The match map stays build-time cached (12:37) - clients never touch the NIM endpoint. */
 var RP_LOAD=Date.now();
 function carKey(a){return (a&&a.link)||String((a&&a.headline)||'');}
-function isNewIt(a){var t=Date.parse((a&&a.published)||0);return t&&t>RP_LOAD;}
+function isNewIt(a){var t=pubT(a&&a.published);return t&&t>RP_LOAD;}
 function rpMapFresh(m,newsGen,xGen){
  if(!(m&&m.built_at&&(Date.now()-Date.parse(m.built_at))<2*3600*1000&&m.pairs))return false;
  /* Old maps have no generation stamps and retain their prior built_at-only behavior.
@@ -1014,7 +1104,16 @@ function loadSide(t){
    else{fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?limit=50',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){SB[t.key]=j.events||[];SB_TS[t.key]=Date.now();if(cur===t)renderGames(t,SB[t.key]);}).catch(function(){if(cur===t)renderGames(t,SB[t.key]||null);});}
   }
   if(t.key==='home'){
-   var gb=$('rpGames'),games=[{label:'NFL',espn:'football/nfl'},{label:'CFB',espn:'football/college-football'},{label:'NBA',espn:'basketball/nba'},{label:'WNBA',espn:'basketball/wnba'},{label:'MLB',espn:'baseball/mlb'},{label:'NHL',espn:'hockey/nhl'},{label:'NCAAB',espn:'basketball/mens-college-basketball'},{label:'MLS',espn:'soccer/usa.1'},{label:'NWSL',espn:'soccer/usa.nwsl'},{label:'PGA',espn:'golf/pga'},{label:'NASCAR',espn:'racing/nascar'},{label:'UFC',espn:'mma/ufc'},{label:'ATP',espn:'tennis/atp'},{label:'WTA',espn:'tennis/wta'}];
+   var gb=$('rpGames'),games=[{label:'NFL',espn:'football/nfl'},{label:'CFB',espn:'football/college-football'},{label:'NBA',espn:'basketball/nba'},{label:'WNBA',espn:'basketball/wnba'},{label:'MLB',espn:'baseball/mlb'},{label:'NHL',espn:'hockey/nhl'},{label:'NCAAB',espn:'basketball/mens-college-basketball'},{label:'MLS',espn:'soccer/usa.1'},{label:'NWSL',espn:'soccer/usa.nwsl'},{label:'PGA',espn:'golf/pga'},{label:'NASCAR',espn:'racing/nascar-premier'},{label:'UFC',espn:'mma/ufc'},{label:'ATP',espn:'tennis/atp'},{label:'WTA',espn:'tennis/wta'}];
+   /* day-scoped leagues read one ESPN day per request, today through +3 (the 72h window); week
+      (NFL/CFB) and event (golf/racing/UFC/tennis) boards already span it. racing/nascar 400s
+      on every load; racing/nascar-premier is the live route (same alias live.html uses). */
+   var RP_DAY_LG={'basketball/nba':1,'basketball/wnba':1,'baseball/mlb':1,'hockey/nhl':1,'basketball/mens-college-basketball':1,'soccer/usa.1':1,'soccer/usa.nwsl':1};
+   if(gb&&Date.now()-HOME_GAMES_TS<=300000&&HOME_GAMES_PAINT&&!gb.classList.contains('homeall')){
+    /* back on Home inside the 5-min refetch guard: another tab left its rows (or its Loading
+       line) in the shared panel - repaint the rows already fetched instead of waiting it out. */
+    gb.classList.add('homeall');HOME_GAMES_PAINT();
+   }
    if(gb&&Date.now()-HOME_GAMES_TS>300000){
    HOME_GAMES_TS=Date.now();
    /* owner 2:12: 72h window, EVERY covered league, no count cap (was 48h + slice(0,9)).
@@ -1022,13 +1121,16 @@ function loadSide(t){
       SLOWEST league fetch with NO timeout - one hung ESPN call stalled every row. Now each
       league gets a 7s abort and paints progressively as it lands. */
    gb.classList.add('homeall');
-   var _acc=[],_seenG={},_pend=games.length;
-   var _rowH=function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var _an=(a.team||{}).abbreviation||(a.team||{}).shortDisplayName||(a.team||{}).displayName||(a.athlete||{}).shortName||(a.athlete||{}).displayName||'',_hn=(h.team||{}).abbreviation||(h.team||{}).shortDisplayName||(h.team||{}).displayName||(h.athlete||{}).shortName||(h.athlete||{}).displayName||'';var title=(_an&&_hn)?(esc(_an)+' @ '+esc(_hn)):esc(g.event.shortName||g.event.name||'');var _row='<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when" data-until="'+esc(g.event.date||'')+'">'+esc(until(g.event.date))+'</span></div>';var _gr=RP_GAME_ROUTES[g.event.id];return _gr?('<a class="growtap" href="'+_gr+'" style="display:block;text-decoration:none;color:inherit">'+_row+'</a>'):_row;};
+   var _days=rpEspnDays(4),_reqs=[];
+   games.forEach(function(x){var b='https://site.api.espn.com/apis/site/v2/sports/'+x.espn+'/scoreboard?limit=50';if(RP_DAY_LG[x.espn])_days.forEach(function(d){_reqs.push({x:x,u:b+'&dates='+d});});else _reqs.push({x:x,u:b});});
+   var _acc=[],_seenG={},_pend=_reqs.length;
+   var _rowH=function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var _an=(a.team||{}).abbreviation||(a.team||{}).shortDisplayName||(a.team||{}).displayName||(a.athlete||{}).shortName||(a.athlete||{}).displayName||'',_hn=(h.team||{}).abbreviation||(h.team||{}).shortDisplayName||(h.team||{}).displayName||(h.athlete||{}).shortName||(h.athlete||{}).displayName||'';var title=(_an&&_hn)?(esc(_an)+(c.neutralSite?' vs ':' @ ')+esc(_hn)):esc(g.event.shortName||g.event.name||'');var _row='<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when" data-until="'+esc(g.event.date||'')+'">'+esc(until(g.event.date))+'</span></div>';var _gr=RP_GAME_ROUTES[g.event.id];return _gr?('<a class="growtap" href="'+_gr+'" style="display:block;text-decoration:none;color:inherit">'+_row+'</a>'):_row;};
    var _paint=function(){if(cur!==t||!gb)return;var all=_acc.slice().sort(function(p,q){return Date.parse(p.event.date||0)-Date.parse(q.event.date||0);});gb.innerHTML=all.map(_rowH).join('')||(_pend?'<div class="empty">Loading upcoming events&hellip;</div>':'<div class="empty">No upcoming events listed right now.</div>');};
+   HOME_GAMES_PAINT=_paint;
    _paint();
-   games.forEach(function(x){
-    var _ctl=new AbortController();var _to=setTimeout(function(){_ctl.abort();},7000);
-    fetch('https://site.api.espn.com/apis/site/v2/sports/'+x.espn+'/scoreboard?limit=50',{cache:'no-store',signal:_ctl.signal}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){(j.events||[]).forEach(function(e){if(_seenG[e.id])return;var st=(((e.competitions||[])[0]||{}).status||{}).type||{};if(st.state==='pre'&&Date.parse(e.date||0)>=Date.now()-3600000&&Date.parse(e.date||0)<Date.now()+259200000){_seenG[e.id]=1;_acc.push({league:x.label,event:e});}});}).catch(function(){}).finally(function(){_pend--;clearTimeout(_to);_paint();});
+   _reqs.forEach(function(q){
+    var x=q.x,_ctl=new AbortController();var _to=setTimeout(function(){_ctl.abort();},7000);
+    fetch(q.u,{cache:'no-store',signal:_ctl.signal}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){(j.events||[]).forEach(function(e){if(_seenG[e.id])return;var st=(((e.competitions||[])[0]||{}).status||{}).type||{};if(st.state==='pre'&&Date.parse(e.date||0)>=Date.now()-3600000&&Date.parse(e.date||0)<Date.now()+259200000){_seenG[e.id]=1;_acc.push({league:x.label,event:e});}});}).catch(function(){}).finally(function(){_pend--;clearTimeout(_to);_paint();});
    });
    }
   }

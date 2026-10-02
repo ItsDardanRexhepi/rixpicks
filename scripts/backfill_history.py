@@ -11,6 +11,14 @@ START=NOW-36*3600
 for f in sorted(glob.glob('game-*.html')):
     n=re.search(r'game-(\d+)\.html',f).group(1)
     h=open(f).read()
+    if 'data-retired="1"' in h:
+        # retired game page (an earlier card's number the page builder no longer rebuilds): no
+        # market left, so its history file must not keep the old card's prices or a copy of
+        # another page's market
+        if os.path.exists(f'hist-{n}.json') and open(f'hist-{n}.json').read()!='{}':
+            open(f'hist-{n}.json','w').write('{}')
+            print(f,'-> retired, hist emptied')
+        continue
     out={}
     kt=re.search(r'data-kalticker="([^"]+)"',h)
     ks=re.search(r'data-kalside="([^"]+)"',h)

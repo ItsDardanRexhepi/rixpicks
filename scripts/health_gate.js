@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* RixPicks pre-publish health gate (Julian 9/30 order-of-operations: "Things need to be
+/* RixPicks pre-publish health gate (9/30 order-of-operations: "Things need to be
    fixed before updates push. We cant be trying to push changes to a broke site. The site
    functionality comes first").
    TWO MODES:
@@ -14,7 +14,7 @@ const failures = [];
 const check = (name, cond, impact) => { console.log((cond ? 'OK   ' : 'FAIL ') + name + (cond ? '' : (impact ? '  [user impact: ' + impact + ']' : ''))); if (!cond) failures.push(name); };
 
 const SERVE = process.argv.includes('--serve') || process.argv.includes('--hold');
-// --hold (workflow auto-hold, Julian 9/30 6:25 PM: structural failures only; data outages such as a
+// --hold (workflow auto-hold, 9/30 6:25 PM: structural failures only; data outages such as a
 // blank X feed or stale quotes are alert-only and must never stop posting). Implies --serve.
 // Exit 0 pass/unknown, 1 = proven structural FAIL (hold), 2 = gate error (never holds).
 const HOLD = process.argv.includes('--hold');
@@ -89,6 +89,9 @@ const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOW
       if (name.startsWith('blank-pregame')) check(name, !page.includes('Game not started'), impact);
       else check(name, needle ? page.includes(needle) : false, impact);
     }
+    // Dingers mounts exactly once on every card: on the MLB tab when the card has an MLB pick,
+    // otherwise as a Home panel (a non-MLB card is a normal card, never a hold).
+    check('dingers module mounted exactly once', (page.match(/slates\/wooder_dingers\.json/g) || []).length === 1, 'Dingers card missing or rendered twice');
   }
   if (SERVE) {
     // --serve: cold checks against the live site
@@ -149,7 +152,7 @@ const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOW
             detail = 'prior x_feed.json commit ' + prevH.slice(0, 8) + ' had ' + prevN + ' items; latest change ' + newH.slice(0, 8) + ' ' + ageMin.toFixed(0) + ' min ago';
           }
         } catch (e) { detail = 'git history check failed: ' + e.message.split('\n')[0]; }
-        // Julian 9/30 6:25 PM: "X feed being out shouldn't stop posting. That's not core site functionality." Alert-only always.
+        // 9/30 6:25 PM: "X feed being out shouldn't stop posting. That's not core site functionality." Alert-only always.
         if (dropped) console.log('ALERT served: x_feed.json items=0 JUST EMPTIED (not a hold; ' + detail + '). X posts column empty; pool aged out past the 24h horizon or the ingest wiped it - check X 402 wall vs ingest before assuming.');
         else console.log('ALERT served: x_feed.json items=0 - X posts column empty (not a hold; ' + detail + '). Known cause 9/30: X 402 billing wall + 24h horizon age-out.');
       }

@@ -1,0 +1,1139 @@
+{
+ "_fixture": "Trimmed from the real ESPN site.api soccer/usa.1 summary for event 761469 (read-only fetch, 2026-10-02): header competitors, both rosters (athlete id and names only) and every key event (type, period, clock, scoringPlay, text, and its participants: athlete id and name).",
+ "header": {
+  "competitions": [
+   {
+    "date": "2026-08-08T20:30Z",
+    "competitors": [
+     {
+      "homeAway": "home",
+      "score": "0",
+      "team": {
+       "id": "189",
+       "displayName": "New England Revolution",
+       "abbreviation": "NE"
+      }
+     },
+     {
+      "homeAway": "away",
+      "score": "2",
+      "team": {
+       "id": "6077",
+       "displayName": "Houston Dynamo FC",
+       "abbreviation": "HOU"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "boxscore": {
+  "teams": []
+ },
+ "rosters": [
+  {
+   "homeAway": "home",
+   "team": {
+    "id": "189",
+    "displayName": "New England Revolution",
+    "abbreviation": "NE"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "303794",
+      "displayName": "Matt Turner",
+      "fullName": "Matt Turner",
+      "shortName": "M. Turner"
+     }
+    },
+    {
+     "athlete": {
+      "id": "164551",
+      "displayName": "Mamadou Fofana",
+      "fullName": "Mamadou Fofana",
+      "shortName": "M. Fofana"
+     }
+    },
+    {
+     "athlete": {
+      "id": "360133",
+      "displayName": "Ethan Kohler",
+      "fullName": "Ethan Kohler",
+      "shortName": "E. Kohler"
+     }
+    },
+    {
+     "athlete": {
+      "id": "334227",
+      "displayName": "William Sands",
+      "fullName": "William Sands",
+      "shortName": "W. Sands"
+     }
+    },
+    {
+     "athlete": {
+      "id": "216609",
+      "displayName": "Matt Polster",
+      "fullName": "Matt Polster",
+      "shortName": "M. Polster"
+     }
+    },
+    {
+     "athlete": {
+      "id": "152168",
+      "displayName": "Carles Gil",
+      "fullName": "Carles Gil",
+      "shortName": "C. Gil"
+     }
+    },
+    {
+     "athlete": {
+      "id": "276684",
+      "displayName": "Alhassan Yusuf",
+      "fullName": "Alhassan Yusuf",
+      "shortName": "A. Yusuf"
+     }
+    },
+    {
+     "athlete": {
+      "id": "329364",
+      "displayName": "Brooklyn Raines",
+      "fullName": "Brooklyn Raines",
+      "shortName": "B. Raines"
+     }
+    },
+    {
+     "athlete": {
+      "id": "305755",
+      "displayName": "Dor Turgeman",
+      "fullName": "Dor Turgeman",
+      "shortName": "D. Turgeman"
+     }
+    },
+    {
+     "athlete": {
+      "id": "404655",
+      "displayName": "Marcos Zambrano-Delgado",
+      "fullName": "Marcos Zambrano-Delgado",
+      "shortName": "M. Zambrano-Delgado"
+     }
+    },
+    {
+     "athlete": {
+      "id": "376513",
+      "displayName": "Peyton Miller",
+      "fullName": "Peyton Miller",
+      "shortName": "P. Miller"
+     }
+    },
+    {
+     "athlete": {
+      "id": "400745",
+      "displayName": "Eric Klein",
+      "fullName": "Eric Klein",
+      "shortName": "E. Klein"
+     }
+    },
+    {
+     "athlete": {
+      "id": "199850",
+      "displayName": "Jack Harrison",
+      "fullName": "Jack Harrison",
+      "shortName": "J. Harrison"
+     }
+    },
+    {
+     "athlete": {
+      "id": "286757",
+      "displayName": "Griffin Yow",
+      "fullName": "Griffin Yow",
+      "shortName": "G. Yow"
+     }
+    },
+    {
+     "athlete": {
+      "id": "231150",
+      "displayName": "Tanner Beason",
+      "fullName": "Tanner Beason",
+      "shortName": "T. Beason"
+     }
+    },
+    {
+     "athlete": {
+      "id": "251806",
+      "displayName": "Jackson Yueill",
+      "fullName": "Jackson Yueill",
+      "shortName": "J. Yueill"
+     }
+    },
+    {
+     "athlete": {
+      "id": "272161",
+      "displayName": "Wilson Harris",
+      "fullName": "Wilson Harris",
+      "shortName": "W. Harris"
+     }
+    },
+    {
+     "athlete": {
+      "id": "396928",
+      "displayName": "Donovan Parisian",
+      "fullName": "Donovan Parisian",
+      "shortName": "D. Parisian"
+     }
+    },
+    {
+     "athlete": {
+      "id": "318520",
+      "displayName": "Cody Baker",
+      "fullName": "Cody Baker",
+      "shortName": "C. Baker"
+     }
+    },
+    {
+     "athlete": {
+      "id": "156187",
+      "displayName": "Diego Fagundez",
+      "fullName": "Diego Fagundez",
+      "shortName": "D. Fagundez"
+     }
+    }
+   ]
+  },
+  {
+   "homeAway": "away",
+   "team": {
+    "id": "6077",
+    "displayName": "Houston Dynamo FC",
+    "abbreviation": "HOU"
+   },
+   "roster": [
+    {
+     "athlete": {
+      "id": "65434",
+      "displayName": "Jonathan Bond",
+      "fullName": "Jonathan Bond",
+      "shortName": "J. Bond"
+     }
+    },
+    {
+     "athlete": {
+      "id": "419253",
+      "displayName": "Agustín Resch",
+      "fullName": "Agustín Resch",
+      "shortName": "A. Resch"
+     }
+    },
+    {
+     "athlete": {
+      "id": "266281",
+      "displayName": "Lucas Halter",
+      "fullName": "Lucas Halter",
+      "shortName": "L. Halter"
+     }
+    },
+    {
+     "athlete": {
+      "id": "323199",
+      "displayName": "Lawrence Ennali",
+      "fullName": "Lawrence Ennali",
+      "shortName": "L. Ennali"
+     }
+    },
+    {
+     "athlete": {
+      "id": "315455",
+      "displayName": "Felipe Andrade",
+      "fullName": "Felipe Andrade",
+      "shortName": "F. Andrade"
+     }
+    },
+    {
+     "athlete": {
+      "id": "303512",
+      "displayName": "Jack McGlynn",
+      "fullName": "Jack McGlynn",
+      "shortName": "J. McGlynn"
+     }
+    },
+    {
+     "athlete": {
+      "id": "146866",
+      "displayName": "Héctor Herrera",
+      "fullName": "Héctor Herrera",
+      "shortName": "H. Herrera"
+     }
+    },
+    {
+     "athlete": {
+      "id": "236342",
+      "displayName": "Artur",
+      "fullName": "Artur",
+      "shortName": "Artur"
+     }
+    },
+    {
+     "athlete": {
+      "id": "194553",
+      "displayName": "Ezequiel Ponce",
+      "fullName": "Ezequiel Ponce",
+      "shortName": "E. Ponce"
+     }
+    },
+    {
+     "athlete": {
+      "id": "233578",
+      "displayName": "Guilherme Augusto",
+      "fullName": "Guilherme Augusto",
+      "shortName": "Guilherme Augusto"
+     }
+    },
+    {
+     "athlete": {
+      "id": "287841",
+      "displayName": "Mateusz Bogusz",
+      "fullName": "Mateusz Bogusz",
+      "shortName": "M. Bogusz"
+     }
+    },
+    {
+     "athlete": {
+      "id": "218058",
+      "displayName": "Erik Sviatchenko",
+      "fullName": "Erik Sviatchenko",
+      "shortName": "E. Sviatchenko"
+     }
+    },
+    {
+     "athlete": {
+      "id": "331136",
+      "displayName": "Blake Gillingham",
+      "fullName": "Blake Gillingham",
+      "shortName": "B. Gillingham"
+     }
+    },
+    {
+     "athlete": {
+      "id": "182070",
+      "displayName": "Duane Holmes",
+      "fullName": "Duane Holmes",
+      "shortName": "D. Holmes"
+     }
+    },
+    {
+     "athlete": {
+      "id": "287444",
+      "displayName": "Ibrahim Aliyu",
+      "fullName": "Ibrahim Aliyu",
+      "shortName": "I. Aliyu"
+     }
+    },
+    {
+     "athlete": {
+      "id": "257090",
+      "displayName": "Ondrej Lingr",
+      "fullName": "Ondrej Lingr",
+      "shortName": "O. Lingr"
+     }
+    },
+    {
+     "athlete": {
+      "id": "242613",
+      "displayName": "Franco Negri",
+      "fullName": "Franco Negri",
+      "shortName": "F. Negri"
+     }
+    },
+    {
+     "athlete": {
+      "id": "233725",
+      "displayName": "Agustín Bouzat",
+      "fullName": "Agustín Bouzat",
+      "shortName": "A. Bouzat"
+     }
+    },
+    {
+     "athlete": {
+      "id": "219466",
+      "displayName": "Diadie Samassekou",
+      "fullName": "Diadie Samassekou",
+      "shortName": "D. Samassekou"
+     }
+    },
+    {
+     "athlete": {
+      "id": "294071",
+      "displayName": "Duncan McGuire",
+      "fullName": "Duncan McGuire",
+      "shortName": "D. McGuire"
+     }
+    }
+   ]
+  }
+ ],
+ "keyEvents": [
+  {
+   "type": {
+    "id": "80",
+    "text": "Kickoff",
+    "type": "kickoff"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 0.0,
+    "displayValue": ""
+   },
+   "scoringPlay": false,
+   "text": "First Half begins."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 325.0,
+    "displayValue": "6'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match because of an injury Carles Gil (New England Revolution)."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 325.0,
+    "displayValue": "6'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 411.0,
+    "displayValue": "7'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 411.0,
+    "displayValue": "7'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1857.0,
+    "displayValue": "31'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match for a drinks break."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1857.0,
+    "displayValue": "31'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1988.0,
+    "displayValue": "34'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1988.0,
+    "displayValue": "34'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'+1'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! New England Revolution 0, Houston Dynamo FC 1. Guilherme (Houston Dynamo FC) right footed shot from the centre of the box to the bottom right corner.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "233578",
+      "displayName": "Guilherme Augusto"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "81",
+    "text": "Halftime",
+    "type": "halftime"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'+6'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "82",
+    "text": "Start 2nd Half",
+    "type": "start-2nd-half"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2700.0,
+    "displayValue": "45'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2987.0,
+    "displayValue": "50'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match because of an injury Carles Gil (New England Revolution)."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 2987.0,
+    "displayValue": "50'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3009.0,
+    "displayValue": "51'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3009.0,
+    "displayValue": "51'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "94",
+    "text": "Yellow Card",
+    "type": "yellow-card"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3196.0,
+    "displayValue": "54'"
+   },
+   "scoringPlay": false,
+   "text": "Lawrence Ennali (Houston Dynamo FC) is shown the yellow card for a bad foul.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "323199",
+      "displayName": "Lawrence Ennali"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3232.0,
+    "displayValue": "54'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, New England Revolution. Jack Harrison replaces Marcos Zambrano.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "199850",
+      "displayName": "Jack Harrison"
+     }
+    },
+    {
+     "athlete": {
+      "id": "404655",
+      "displayName": "Marcos Zambrano-Delgado"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3235.0,
+    "displayValue": "54'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, New England Revolution. Cody Baker replaces Matt Polster.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "318520",
+      "displayName": "Cody Baker"
+     }
+    },
+    {
+     "athlete": {
+      "id": "216609",
+      "displayName": "Matt Polster"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "137",
+    "text": "Goal - Header",
+    "type": "goal---header"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3761.0,
+    "displayValue": "63'"
+   },
+   "scoringPlay": true,
+   "text": "Goal! New England Revolution 0, Houston Dynamo FC 2. Agustin Resch (Houston Dynamo FC) header from the centre of the box to the bottom right corner. Assisted by Jack McGlynn with a cross following a corner.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "419253",
+      "displayName": "Agustín Resch"
+     }
+    },
+    {
+     "athlete": {
+      "id": "303512",
+      "displayName": "Jack McGlynn"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3824.0,
+    "displayValue": "64'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match because of an injury Matt Turner (New England Revolution)."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3824.0,
+    "displayValue": "64'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3880.0,
+    "displayValue": "65'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3880.0,
+    "displayValue": "65'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4290.0,
+    "displayValue": "72'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Houston Dynamo FC. Agustín Bouzat replaces Jack McGlynn.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "233725",
+      "displayName": "Agustín Bouzat"
+     }
+    },
+    {
+     "athlete": {
+      "id": "303512",
+      "displayName": "Jack McGlynn"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4563.0,
+    "displayValue": "77'"
+   },
+   "scoringPlay": false,
+   "text": "Delay in match for a drinks break."
+  },
+  {
+   "type": {
+    "id": "129",
+    "text": "Start Delay",
+    "type": "start-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4563.0,
+    "displayValue": "77'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4701.0,
+    "displayValue": "79'"
+   },
+   "scoringPlay": false,
+   "text": "Delay over. They are ready to continue."
+  },
+  {
+   "type": {
+    "id": "130",
+    "text": "End Delay",
+    "type": "end-delay"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4701.0,
+    "displayValue": "79'"
+   },
+   "scoringPlay": false,
+   "text": null
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4722.0,
+    "displayValue": "79'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, New England Revolution. Diego Fagúndez replaces Alhassan Yusuf.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "156187",
+      "displayName": "Diego Fagundez"
+     }
+    },
+    {
+     "athlete": {
+      "id": "276684",
+      "displayName": "Alhassan Yusuf"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4723.0,
+    "displayValue": "79'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, New England Revolution. Griffin Yow replaces Peyton Miller.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "286757",
+      "displayName": "Griffin Yow"
+     }
+    },
+    {
+     "athlete": {
+      "id": "376513",
+      "displayName": "Peyton Miller"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4804.0,
+    "displayValue": "81'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Houston Dynamo FC. Ibrahim Aliyu replaces Mateusz Bogusz.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "287444",
+      "displayName": "Ibrahim Aliyu"
+     }
+    },
+    {
+     "athlete": {
+      "id": "287841",
+      "displayName": "Mateusz Bogusz"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4805.0,
+    "displayValue": "81'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Houston Dynamo FC. Duncan McGuire replaces Ezequiel Ponce.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "294071",
+      "displayName": "Duncan McGuire"
+     }
+    },
+    {
+     "athlete": {
+      "id": "194553",
+      "displayName": "Ezequiel Ponce"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5176.0,
+    "displayValue": "87'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, New England Revolution. Wilson Harris replaces Will Sands.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "272161",
+      "displayName": "Wilson Harris"
+     }
+    },
+    {
+     "athlete": {
+      "id": "334227",
+      "displayName": "William Sands"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5302.0,
+    "displayValue": "89'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Houston Dynamo FC. Diadié Samassékou replaces Héctor Herrera.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "219466",
+      "displayName": "Diadie Samassekou"
+     }
+    },
+    {
+     "athlete": {
+      "id": "146866",
+      "displayName": "Héctor Herrera"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "76",
+    "text": "Substitution",
+    "type": "substitution"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5304.0,
+    "displayValue": "89'"
+   },
+   "scoringPlay": false,
+   "text": "Substitution, Houston Dynamo FC. Ondrej Lingr replaces Guilherme.",
+   "participants": [
+    {
+     "athlete": {
+      "id": "257090",
+      "displayName": "Ondrej Lingr"
+     }
+    },
+    {
+     "athlete": {
+      "id": "233578",
+      "displayName": "Guilherme Augusto"
+     }
+    }
+   ]
+  },
+  {
+   "type": {
+    "id": "83",
+    "text": "End Regular Time",
+    "type": "end-regular-time"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+8'"
+   },
+   "scoringPlay": false,
+   "text": null
+  }
+ ]
+}

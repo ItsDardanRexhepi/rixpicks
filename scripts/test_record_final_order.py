@@ -1,5 +1,7 @@
 """Standing guard: record_final.yml must apply graded finals (record_final.py writes
 history.json/manifest.json) BEFORE rebuilding record.html/yesterday.html (build_history.py),
+build_history.py must run before the site builder (which reads yesterday.html for the Home
+Yesterday link),
 and the commit allowlist must stage both the ledger inputs and the regenerated record pages.
 Incident class: record.html built before the history row lands serves a stale record.
 Bite-proven: reordering the steps or dropping an allowlist entry fails this test."""
@@ -22,6 +24,10 @@ if build_i is None: fails.append('_build_nocanon_v2.py rebuild step missing')
 if None not in (apply_i, hist_i, build_i):
     if not (apply_i < build_i and apply_i < hist_i):
         fails.append('ORDER: record_final.py must run before the page rebuilds (stale record.html class)')
+    # the builder reads yesterday.html to decide where the Home Yesterday line links: it must see
+    # the page build_history.py just rewrote, not the one about to change under it (CP-06)
+    if not hist_i < build_i:
+        fails.append('ORDER: build_history.py must run before the site builder (Home Yesterday line links a page that then changes)')
 # record.html/yesterday.html must be produced AFTER the row write, i.e. by the post-apply
 # rebuild step, and staged in the same commit as history.json.
 add_m = re.search(r'git add ([^\n]+)', yml)
