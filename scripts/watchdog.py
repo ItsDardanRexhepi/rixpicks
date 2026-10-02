@@ -87,17 +87,21 @@ def odds_spend_today():
     return max(git_max, est)
 
 
-def provider_remaining():
-    """Authoritative provider quota from nfl_scores.json credits_remaining (written each
-    NFL-window tick from x-requests-remaining). None when unavailable/stale (>3h)."""
+COUNT_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.odds_refresh_count.json')
+
+def provider_remaining(path=COUNT_FILE, now=None):
+    """Authoritative provider quota: the odds-refresh lane's last x-requests-remaining reading
+    (.odds_refresh_count.json last_remaining, the value refresh.sh's hard-cap tripwire reads).
+    nfl_scores.json no longer carries the count (public file, LS-22). None when unavailable or
+    when that lane has not counted a call today (PT), so a stale reading never blocks a retry."""
     try:
-        import base64 as _b64
-        d = gh(f'repos/{REPO}/contents/nfl_scores.json')
-        j = json.loads(_b64.b64decode(d['content']))
-        pulled = datetime.datetime.fromisoformat(j['pulled_at_utc'].replace('Z', '+00:00'))
-        if (datetime.datetime.now(datetime.timezone.utc) - pulled).total_seconds() > 10800:
+        from zoneinfo import ZoneInfo
+        d = json.load(open(path))
+        now = now or datetime.datetime.now(datetime.timezone.utc)
+        if not d.get(now.astimezone(ZoneInfo('America/Los_Angeles')).strftime('%Y-%m-%d')):
             return None
-        return j.get('credits_remaining')
+        rem = d.get('last_remaining')
+        return int(rem) if rem is not None else None
     except Exception:
         return None
 
