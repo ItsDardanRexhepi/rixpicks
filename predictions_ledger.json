@@ -118,8 +118,9 @@
   "pick_team": "Pittsburgh Steelers",
   "prediction": "Pittsburgh Steelers beat Cleveland Browns",
   "kickoff_utc": "2026-10-02T00:15:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T11:49:56.010210+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T11:49:56.010210+00:00",
+  "settled_at": "2026-10-02T03:49:52.614169+00:00"
  },
  {
   "id": "233f8d6981",
@@ -769,8 +770,9 @@
   "pick_team": "Calgary Flames",
   "prediction": "Calgary Flames beat Seattle Kraken",
   "kickoff_utc": "2026-10-02T01:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-01T20:20:54.109010+00:00"
+  "status": "miss",
+  "created_at": "2026-10-01T20:20:54.109010+00:00",
+  "settled_at": "2026-10-02T03:49:52.703463+00:00"
  },
  {
   "id": "eb1c4161f7",
