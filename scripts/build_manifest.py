@@ -1,15 +1,32 @@
 #!/usr/bin/env python3
-"""Durable card manifest builder. CARD PRICE BASIS (his call 9/26 10:14 PM PT,
-phonemsg-01M3GMJBQVQX5099CH3AN4TB3E): card_american converts from the KALSHI ASK the gate
-consumed (units.cents_to_american), card_source = 'Kalshi ask at lock', and the card shows the
-gate's own numbers (model vs Kalshi ask, gross/net edge) - never book-consensus display.
-Forward-only: previously published cards keep their published prices.
+"""Durable card manifest builder.
+CARD PRICE BASIS. Owner ruling 2026-10-02 (1), relayed verbatim: "Card price is the ASK across ALL markets,
+not just Kalshi - compare everywhere, take the ask." A candidate may carry a best_ask block
+{venue, price, read_at, compared:[{venue, price, read_at}]} (venues as in RixPicksSystem scripts/hand/edge.py:
+kalshi and poly in cents, the books dk fd mgm czr espnbet br fanatics b365 in American odds). The market must
+still be on Kalshi: every candidate carries the kalshi block (ticker + cents), the eligibility test (J-122).
+The card price is the cheapest cost to buy across kalshi.cents and every venue compared (a book's American
+price as its implied probability; on equal cost the lower fee wins); card_american is that venue's own price,
+card_source '<venue> ask at <read_at>', best_book the venue, and the edge is measured again from the fair
+against that cost with that venue's own fee (the Kalshi taker fee only for Kalshi; Polymarket and the books 0).
+The manifest pick (best_ask) and the ledger row (card_venue, card_read_at, card_compared) record the venue, its
+read time and every venue compared. A candidate with no best_ask block is priced exactly as before (his call
+9/26 10:14 PM PT, phonemsg-01M3GMJBQVQX5099CH3AN4TB3E): card_american from the KALSHI ASK the gate consumed
+(units.cents_to_american), card_source 'Kalshi ask at lock'. Never book-consensus display. Forward-only:
+previously published cards keep their published prices.
 Usage: build_manifest.py candidates.json out_manifest.json [--preview] [--meta meta.json]
-candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker},model,gross_c,net_c}
-Owner rules (Vegas teams, J-096 unit ladder) are hard gates with no override (owner ruling 2026-10-02:
-"NO - an owner-approved card cannot break a standing rule. Vegas rule, ladder sizes, all of it: hard
-gates, no exceptions."). A candidate row carrying owner_directive, or an --owner-directive argument,
-is an error: the override no longer exists.
+candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker},model,gross_c,net_c,
+                [best_ask:{venue,price,read_at,compared:[...]}], [fragility]}
+STANDING RULES ARE HARD GATES (owner ruling 2026-10-02 (4): "NO - an owner-approved card cannot break a standing
+rule. Vegas rule, ladder sizes, all of it: hard gates, no exceptions."). The card refuses closed, nothing
+written, on a pick on or against a Las Vegas team, units off the J-096 ladder, and on every standing bar:
+fair (model) < 60c, card ask >= 85c, gross < 2c, net < 0.5c (ml) or < 2c (spread, total, prop), units other
+than the J-096 rung of its fair and gross (60-69 = 5u; 70-79 = 10u with gross >= 3c else 5u; 80-89 = 15u;
+90+ = 100u; fragility 2 one rung lower, fragility 3 refuses; tennis capped at 5u), a candidate missing model,
+gross_c or net_c, and a parlay short of 2c gross and 2c net (ruling (2), 2-4 legs, J-098). Every violation on
+the card is named in one refusal. An owner-forced sub-bar pick is impossible, and a status_note cannot carry
+one. A candidate row carrying owner_directive, or an --owner-directive argument, is an error: the override no
+longer exists.
 
 PUBLICATION SHAPE (swamp rounds 4): a preview NEVER touches the production ledger - it writes
 to picks.preview.jsonl. Production publication holds a single-writer flock, reads the ledger
@@ -17,7 +34,7 @@ INSIDE the lock, appends canonical rows, publishes the manifest via os.replace, 
 back and verifies every appended row. Crash recovery: re-running with the same candidates is
 idempotent (identical rows skip, manifest publishes); re-running with different candidates on
 the same key refuses closed rather than forking the card record."""
-import json, sys, datetime, os, fcntl, hashlib, re
+import json, sys, datetime, os, fcntl, hashlib, math, re
 import urllib.request as _urlreq
 from zoneinfo import ZoneInfo
 sys.path.insert(0, '/home/sandbox/rix_tmp')
@@ -83,27 +100,32 @@ def _pick_content_hash(m, legacy=False):
     return hashlib.sha256('\n'.join(rows).encode()).hexdigest()
 
 # OWNER RULES (RUNBOOK_daily_card 2.5 and 2.8), enforced where a card is assembled. The page
-# builder renders whatever card has landed and carries no such gate.
+# builder (build_gh_page_v2.py and its twin) holds a landed card that breaks the Vegas rule or the ladder
+# (exit 3, CARD HOLD); every other bar below is checked here, where the fair and the edge are known.
 #  - Vegas (L-VEGAS-GATE-001, Sep 25): "never gamble on or against any Vegas teams ever" and
 #    "Exclude A's going forward from today too". A pick in a game involving a Las Vegas team is
 #    refused: Raiders (NFL), Golden Knights (NHL), Aces (WNBA), Athletics/A's (MLB), UNLV
 #    (college). A nickname counts only inside its own league (Texas Tech Red Raiders is CFB), and
-#    a team named for Las Vegas counts in any league. The rule is about teams: the individual
-#    sports (racing, golf, tennis, MMA, boxing) skip it - a NASCAR race at Las Vegas Motor
-#    Speedway is no Vegas team - and any other league, listed or not, keeps it.
-#  - Units (J-096): 5u, 10u, 15u or 100u - no other size.
-# Both are hard gates (owner ruling 2026-10-02: "an owner-approved card cannot break a standing rule
-# ... hard gates, no exceptions"): a pick breaking either refuses the card closed before any write,
-# and nothing overrides it. The old override (an owner_directive on the candidate row or an
+#    a team named for Las Vegas, or UNLV, counts in any league (the league is read case- and
+#    space-blind). The rule is about teams: the individual sports (racing, golf, tennis, MMA,
+#    boxing) skip it - a NASCAR race at Las Vegas Motor Speedway is no Vegas team - and any other
+#    league, listed or not, keeps it.
+#  - Units (J-096): 5u, 10u, 15u or 100u - no other size, and exactly the rung of the pick's fair and gross.
+#  - The standing bars (RUNBOOK 2.3, J-096/J-097/J-098, owner rulings 2026-10-02 (1) and (2)): see bar_problems
+#    and parlay_problems.
+# All are hard gates (owner ruling 2026-10-02 (4): "an owner-approved card cannot break a standing rule
+# ... hard gates, no exceptions"): a pick breaking any refuses the card closed before any write, and
+# nothing overrides it. The old override (an owner_directive on the candidate row or an
 # --owner-directive argument) is gone; either one given is an error, and its words are never printed.
 UNIT_LADDER = (5, 10, 15, 100)
 _VEGAS_NICK = {'football/nfl': ('raiders',), 'hockey/nhl': ('golden knights',), 'basketball/wnba': ('aces',),
                'baseball/mlb': ('athletics', "a's"), 'football/college-football': ('unlv',),
                'basketball/mens-college-basketball': ('unlv',), 'basketball/womens-college-basketball': ('unlv',)}
-_VEGAS_ANY = ('las vegas', 'vegas')
+_VEGAS_ANY = ('las vegas', 'vegas', 'unlv')  # UNLV is a Las Vegas team in every college league
 _INDIVIDUAL_SPORTS = ('racing', 'golf', 'tennis', 'mma', 'boxing')  # espn_league's sport segment
-HARD_GATES = ('Vegas and the J-096 unit ladder are hard gates with no override '
-              '(owner ruling 2026-10-02: an owner-approved card cannot break a standing rule)')
+HARD_GATES = ('Vegas, the J-096 unit ladder and every standing bar are hard gates with no override (owner ruling '
+              '2026-10-02 (4): an owner-approved card cannot break a standing rule): an owner-forced sub-bar pick is '
+              'impossible, and a status_note cannot carry one')
 REMOVED_FLAG = '--owner-directive'
 
 def _words(s):
@@ -111,9 +133,10 @@ def _words(s):
 
 def vegas_hit(c):
     """Which field puts a Las Vegas team on this candidate (on it or against it), else None."""
-    if str(c.get('espn_league') or '').split('/')[0] in _INDIVIDUAL_SPORTS:
+    lg = str(c.get('espn_league') or '').strip().lower()  # 'Hockey/NHL ' is still the NHL
+    if lg.split('/')[0] in _INDIVIDUAL_SPORTS:
         return None  # no teams: a venue or event named for Las Vegas is not a Vegas team
-    names = _VEGAS_ANY + _VEGAS_NICK.get(str(c.get('espn_league') or ''), ())
+    names = _VEGAS_ANY + _VEGAS_NICK.get(lg, ())
     for field in ('home', 'away', 'name'):
         w = _words(c.get(field))
         if any(' ' + n + ' ' in w for n in names):
@@ -133,9 +156,227 @@ def units_rung(u):
         v = float(m.group(1))
     return int(v) if v in UNIT_LADDER else None
 
-def owner_rules_gate(cands, argv):
-    """Refuse closed (ValueError, nothing written) on any pick that breaks an owner rule, on any
-    owner-directive override (removed: owner ruling 2026-10-02), or on two picks sharing a num."""
+# ---- the card price: the best ask across venues (owner ruling 2026-10-02 (1)) ----
+# venue key -> (name as best_book and card_source spell it - the page builder's chip names, so the best-line
+# star lands on that venue's chip - and kind). Keys and aliases are RixPicksSystem scripts/hand/edge.py's.
+VENUES = {'kalshi': ('Kalshi', 'exchange'), 'poly': ('Polymarket', 'exchange'),
+          'dk': ('DraftKings', 'book'), 'fd': ('FanDuel', 'book'), 'mgm': ('BetMGM', 'book'), 'czr': ('Caesars', 'book'),
+          'espnbet': ('theScore', 'book'), 'br': ('BetRivers', 'book'), 'fanatics': ('Fanatics', 'book'),
+          'b365': ('bet365', 'book')}
+VENUE_ALIASES = {'polymarket': 'poly', 'draftkings': 'dk', 'fanduel': 'fd', 'betmgm': 'mgm', 'caesars': 'czr',
+                 'betrivers': 'br', 'bet365': 'b365'}
+_VENUE_ORDER = list(VENUES)
+
+def kalshi_fee_c(ask_c):
+    """Kalshi taker fee in cents per contract, 0.07 x ask x (1 - ask) (st_fair.fee, edge.py fee_c)."""
+    a = ask_c / 100
+    return 7 * a * (1 - a)
+
+def _real(v):
+    """A finite int or float (never a bool or a string), as float, else None."""
+    if isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v):
+        return None
+    return float(v)
+
+def _read_time(s, where):
+    if s is None:
+        return None
+    try:
+        t = datetime.datetime.fromisoformat(str(s).replace('Z', '+00:00')) if isinstance(s, str) else None
+    except ValueError:
+        t = None
+    if t is None or t.tzinfo is None:
+        raise ValueError(f"{where}.read_at {s!r} is not ISO 8601 with a zone (e.g. 2026-10-02T14:51Z)")
+    return s
+
+def venue_quote(q, where):
+    """{venue, price, read_at} -> its cost to buy: {venue, name, price, read_at, cost_c, fee_c, american}.
+    An exchange (kalshi, poly) quotes cents 1-99; a book quotes whole American odds (>= +100 or <= -101)."""
+    if not isinstance(q, dict):
+        raise ValueError(f'{where}: not an object {{venue, price, read_at}}')
+    raw = str(q.get('venue') or '').strip().lower()
+    v = VENUE_ALIASES.get(raw, raw)
+    if v not in VENUES:
+        raise ValueError(f"{where}: unknown venue {q.get('venue')!r} (known: {', '.join(VENUES)})")
+    name, kind = VENUES[v]
+    price = q.get('price')
+    if kind == 'exchange':
+        c = _real(price)
+        if c is None or not 1 <= c <= 99:
+            raise ValueError(f'{where}: a {v} ask is cents from 1 to 99, got {price!r}')
+        cost, fee, am = c, (kalshi_fee_c(c) if v == 'kalshi' else 0.0), cents_to_american(c)
+    else:
+        am = price if type(price) is int else (int(price) if isinstance(price, str) and re.fullmatch(r'\s*[+-]?\d+\s*', price) else None)
+        if am is None or not (am >= 100 or am <= -101):
+            raise ValueError(f'{where}: a {v} price is whole American odds as quoted (-162, +150), got {price!r}')
+        cost, fee, price = (100 * -am / (-am + 100) if am < 0 else 100 * 100 / (am + 100)), 0.0, am
+    return {'venue': v, 'name': name, 'price': price, 'read_at': _read_time(q.get('read_at'), where),
+            'cost_c': cost, 'fee_c': fee, 'american': am}
+
+def price_card(c):
+    """The card price of one candidate: the cheapest ask to buy across Kalshi and every venue its best_ask
+    block compared (owner ruling 2026-10-02 (1)). ValueError on anything that cannot be trusted."""
+    k = c.get('kalshi')
+    if not isinstance(k, dict):
+        raise ValueError('no kalshi block: the market must be on Kalshi (J-122) - a book-only market never cards')
+    if not isinstance(k.get('ticker'), str) or not k['ticker'].strip():
+        raise ValueError('the kalshi block has no ticker: the market must be on Kalshi (J-122)')
+    cents = k.get('cents')
+    if type(cents) is not int or not (1 <= cents <= 99):  # strict: bool is not int here
+        raise ValueError(f'bad kalshi cents {cents!r}')
+    kal = venue_quote({'venue': 'kalshi', 'price': cents}, 'kalshi')
+    ba = c.get('best_ask')
+    if ba is None:
+        return dict(kal, legacy=True, compared=None)
+    if not isinstance(ba, dict):
+        raise ValueError('best_ask is not an object {venue, price, read_at, compared}')
+    comp = ba.get('compared')
+    if not isinstance(comp, list):
+        raise ValueError('best_ask.compared must list every venue read, [{venue, price, read_at}, ...]')
+    pool, seen = {'kalshi': kal}, set()
+    for i, q in enumerate(comp + [ba]):
+        declared = i == len(comp)
+        where = 'best_ask' if declared else f'best_ask.compared[{i}]'
+        qq = venue_quote({'venue': q.get('venue'), 'price': q.get('price'), 'read_at': q.get('read_at')}
+                         if isinstance(q, dict) else q, where)
+        v = qq['venue']
+        if not declared:
+            if v in seen:
+                raise ValueError(f'{where}: venue {v} compared twice - one ask per venue for one market')
+            seen.add(v)
+        if v == 'kalshi' and qq['cost_c'] != cents:
+            raise ValueError(f"{where}: the Kalshi ask {qq['price']!r} is not the kalshi block's {cents}c")
+        have = pool.get(v)
+        if have is None:
+            pool[v] = qq
+            continue
+        if have['cost_c'] != qq['cost_c']:
+            raise ValueError(f"{where}: {v} at {qq['price']!r} disagrees with {v} at {have['price']!r} in compared")
+        if have['read_at'] and qq['read_at'] and have['read_at'] != qq['read_at']:
+            raise ValueError(f"{where}: {v} read at {qq['read_at']!r} disagrees with {have['read_at']!r} in compared")
+        have['read_at'] = have['read_at'] or qq['read_at']
+    ranked = sorted(pool.values(), key=lambda q: (q['cost_c'], q['fee_c'], _VENUE_ORDER.index(q['venue'])))
+    best = ranked[0]
+    named = VENUE_ALIASES.get(str(ba.get('venue') or '').strip().lower(), str(ba.get('venue') or '').strip().lower())
+    if named != best['venue']:
+        raise ValueError(f"best_ask names {named} ({pool[named]['cost_c']:.2f}c to buy) but {best['venue']} is cheaper "
+                         f"({best['cost_c']:.2f}c) - the card price is the cheapest ask")
+    if not best['read_at']:
+        raise ValueError(f"best_ask.read_at is missing: record when the {best['venue']} ask was read (owner ruling 2026-10-02 (1))")
+    return dict(best, legacy=False, compared=[{'venue': q['venue'], 'price': q['price'], 'read_at': q['read_at']} for q in ranked])
+
+# ---- the standing bars (RUNBOOK 2.3, J-096/J-097/J-098, owner rulings 2026-10-02) ----
+CARD_BAND_C, ASK_CUT_C, GROSS_BAR_C = 60, 85, 2.0
+NET_BAR_C = {'ml': 0.5}  # spread, total and prop: 2c
+_RUNG_DOWN = {100: 15, 15: 10, 10: 5, 5: 5}  # fragility 2: one rung lower (5u is the lowest card rung)
+
+def j096_rung(fair_c, gross_c):
+    """J-096: 60-69 = 5u, 70-79 = 10u when gross >= 3c else 5u, 80-89 = 15u, 90+ = 100u; below 60, 0."""
+    if fair_c >= 90: return 100
+    if fair_c >= 80: return 15
+    if fair_c >= 70: return 10 if gross_c >= 3 else 5
+    if fair_c >= 60: return 5
+    return 0
+
+def _c(x):
+    return f'{round(x, 2):g}c'
+
+def bar_problems(c, pr):
+    """Every standing bar this pick fails, at its card price pr (price_card)."""
+    vals = {k: _real(c.get(k)) for k in ('model', 'gross_c', 'net_c')}
+    missing = [k for k, v in vals.items() if v is None]
+    if missing:
+        return [f"missing {', '.join(missing)} (a number each): a pick carries its fair and its gross and net edge, "
+                'or it cannot be checked against the bars']
+    fair = vals['model']
+    if pr['legacy']:
+        gross, net = vals['gross_c'], vals['net_c']
+    else:  # ruling (1): the edge against the best ask, with that venue's own fee
+        gross = fair - pr['cost_c']; net = gross - pr['fee_c']
+    gross, net = round(gross, 6), round(net, 6)
+    mc = c.get('market_class')
+    net_bar = NET_BAR_C.get(mc, 2.0)
+    out = []
+    if fair < CARD_BAND_C:
+        out.append(f'fair {_c(fair)} below the {CARD_BAND_C}c card band')
+    if pr['cost_c'] >= ASK_CUT_C:
+        out.append(f"card ask {_c(pr['cost_c'])} at or above the {ASK_CUT_C}c cut")
+    if gross < GROSS_BAR_C:
+        out.append(f'gross {_c(gross)} below the 2c bar')
+    if net < net_bar:
+        out.append(f"net {_c(net)} below the {net_bar:g}c {'ml' if mc == 'ml' else 'spread/total/prop'} bar")
+    frag = c.get('fragility')
+    if frag is not None and (type(frag) is not int or frag < 0):
+        out.append(f'fragility {frag!r} is not a whole number from 0 (J-097)')
+        frag = None
+    if frag is not None and frag >= 3:
+        out.append(f'fragility {frag} refuses the pick (J-097)')
+    rung = j096_rung(fair, gross)
+    if rung and units_rung(c.get('units')) is not None and not (frag is not None and frag >= 3):
+        notes = []
+        if frag == 2:
+            rung = _RUNG_DOWN[rung]; notes.append('fragility 2: one rung lower')
+        if str(c.get('espn_league') or '').split('/')[0] == 'tennis' and rung > 5:
+            rung = 5; notes.append('tennis capped at 5u')
+        want = f'{rung}u'
+        if units_rung(c.get('units')) != rung:
+            out.append(f"units {c.get('units')!r} is not the J-096 rung {want} (fair {_c(fair)}, gross {_c(gross)}"
+                       + ''.join('; ' + n for n in notes) + ')')
+        elif c.get('units') != want:
+            out.append(f"units {c.get('units')!r} must be written {want!r}")
+    return out
+
+def parlay_problems(parlay, cands, priced):
+    """Ruling (2): a parlay clears 2c gross and 2c net, 2-4 legs (J-098), every leg one pick on this card. Price =
+    the cheaper of the product of the legs' card prices (each leg paying its own venue fee) and parlay.best_ask."""
+    if parlay in (None, {}):
+        return []
+    legs = parlay.get('legs') if isinstance(parlay, dict) else None
+    if not isinstance(legs, list) or len(legs) < 2 or not all(isinstance(x, str) and x for x in legs):
+        return [f'a parlay needs 2-4 named legs (J-098), got {legs!r} - set parlay to null for no parlay']
+    out = []
+    if len(set(legs)) != len(legs):
+        out.append(f'duplicate legs {legs}')
+    if len(legs) > 4:
+        out.append(f'{len(legs)} legs: J-098 allows 2-4')
+    picked = []
+    for leg in legs:
+        hits = [i for i, c in enumerate(cands) if c.get('name') == leg]
+        if len(hits) != 1:
+            out.append(f"leg {leg!r} is {'not a pick' if not hits else 'more than one pick'} on this card")
+        else:
+            picked.append(hits[0])
+    if out:
+        return out
+    dec, all_in, fair = 1.0, 1.0, 1.0
+    for i in picked:
+        am, fee = priced[i]['american'], priced[i]['fee_c']
+        d = (1 + 100 / abs(am)) if am < 0 else (1 + am / 100)
+        dec *= d; all_in *= (100 / d + fee) / 100; fair *= _real(cands[i].get('model')) / 100
+    best = {'cost_c': 100 / dec, 'fee_c': 100 * all_in - 100 / dec, 'what': "the product of the legs' card prices"}
+    q = parlay.get('best_ask')
+    if q is not None:
+        try:
+            qq = venue_quote(q, 'parlay.best_ask')
+        except ValueError as e:
+            return [str(e)]
+        if not qq['read_at']:
+            return [f"parlay.best_ask.read_at is missing: record when the {qq['venue']} parlay price was read"]
+        if (qq['cost_c'], qq['fee_c']) < (best['cost_c'], best['fee_c']):
+            best = dict(qq, what=f"the {qq['name']} parlay price {qq['american']:+d}")
+    gross = round(100 * fair - best['cost_c'], 6); net = round(gross - best['fee_c'], 6)
+    for what, v in (('gross', gross), ('net', net)):
+        if v < 2:
+            out.append(f"{what} {_c(v)} below the 2c parlay bar (combined fair {_c(100 * fair)} against {best['what']}, "
+                       f"{_c(best['cost_c'])} to buy, fee {_c(best['fee_c'])})")
+    return out
+
+_SUB_BAR_NOTE = re.compile(r'owner[\s_-]*directive|sub[\s_-]*bar', re.I)
+
+def owner_rules_gate(cands, argv, parlay=None, status_note=None):
+    """Refuse closed (ValueError, nothing written) on any pick that breaks an owner rule or a standing bar, on a
+    parlay short of its bar, on a status_note announcing a sub-bar card, on any owner-directive override
+    (removed: owner ruling 2026-10-02), or on two picks sharing a num. Returns each candidate's card price."""
     # never echo the argument or the field: they were meant to carry his words
     if any(a == REMOVED_FLAG or a.startswith(REMOVED_FLAG + '=') for a in argv):
         raise ValueError(f'fail closed: {REMOVED_FLAG} does not exist - {HARD_GATES}')
@@ -144,10 +385,11 @@ def owner_rules_gate(cands, argv):
     _shared = sorted({repr(n) for n in _nums if _nums.count(n) > 1})
     if _shared:
         raise ValueError(f"fail closed: pick num {', '.join(_shared)} is on more than one candidate - a pick num names one pick")
-    problems = []
+    problems, priced = [], []
     for c in cands:
         if 'owner_directive' in c:
             problems.append(f"#{c.get('num')} {c.get('name')}: owner_directive is not accepted")
+            priced.append(None)
             continue
         broken = []
         v = vegas_hit(c)
@@ -155,10 +397,23 @@ def owner_rules_gate(cands, argv):
             broken.append(f'Las Vegas team ({v}): never on or against a Vegas team')
         if units_rung(c.get('units')) is None:
             broken.append(f"units {c.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)")
+        try:
+            pr = price_card(c)
+        except ValueError as e:
+            pr = None
+            broken.append(f'card price: {e}')
+        priced.append(pr)
+        if pr is not None:
+            broken += bar_problems(c, pr)
         if broken:
             problems.append(f"#{c.get('num')} {c.get('name')}: " + '; '.join(broken))
+    if not problems:
+        problems += [f'parlay: {p}' for p in parlay_problems(parlay, cands, priced)]
+    if isinstance(status_note, str) and _SUB_BAR_NOTE.search(status_note):
+        problems.append('status_note announces an owner-directive or sub-bar pick: a status_note cannot carry a sub-bar card')
     if problems:
-        raise ValueError('fail closed (owner rules, runbook 2.5/2.8): ' + ' | '.join(problems) + f' - {HARD_GATES}')
+        raise ValueError('fail closed (standing rules, runbook 2.3/2.5/2.8): ' + ' | '.join(problems) + f' - {HARD_GATES}')
+    return priced
 
 PROD_MANIFEST_PATH = os.environ.get('RIX_PROD_MANIFEST', '/home/sandbox/rix_tmp/manifest.json')  # env override = test-isolation hook (same pattern as RIX_PICKS_LEDGER); non-preview publishes mirror here (Sep 29 stale-grader fix)
 
@@ -228,6 +483,14 @@ def posted_at_of(picks, now_utc):
         newest = dt if newest is None or dt > newest else newest
     return (newest or now_utc).astimezone(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
 
+def _card_venue_fields(p, compared=True):
+    """Ledger fields of a best-ask card price (ruling (1)): the venue, its read time and (on the row) every venue
+    compared. A Kalshi-priced pick with no best_ask block adds none, so its row is exactly as before."""
+    ba = p.get('best_ask')
+    if not ba:
+        return {}
+    return {'card_venue': ba['venue'], 'card_read_at': ba['read_at'], **({'card_compared': ba['compared']} if compared else {})}
+
 def main():
     cands = json.load(open(sys.argv[1]))
     preview = '--preview' in sys.argv
@@ -235,7 +498,15 @@ def main():
     meta = {}
     if '--meta' in sys.argv:
         meta = json.load(open(sys.argv[sys.argv.index('--meta')+1]))
-    owner_rules_gate(cands, sys.argv)  # before any lookup or write
+    # the production manifest a field not in --meta inherits from (read only; a preview inherits nothing)
+    inherit = {}
+    if not preview and os.path.exists(PROD_MANIFEST_PATH):
+        try: inherit = json.load(open(PROD_MANIFEST_PATH))
+        except Exception: inherit = {}
+    parlay = meta.get('parlay', inherit.get('parlay'))
+    status_note = meta['status_note'] if 'status_note' in meta else inherit.get('status_note')
+    # every standing rule and bar, before any lookup or write; each candidate's card price (ruling (1))
+    priced = owner_rules_gate(cands, sys.argv, parlay=parlay, status_note=status_note)
     now_utc = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
     now = now_utc.astimezone(ZoneInfo('America/Los_Angeles')).isoformat(timespec='seconds')
     ledger = PREVIEW_LEDGER if preview else PICKS_LEDGER
@@ -291,10 +562,9 @@ def main():
                 raise ValueError(f"fail closed: prop candidate {c.get('name')} market {c.get('market')!r} not in the verified gradeable map")
             if c.get('side') not in ('over', 'under'):
                 raise ValueError(f"fail closed: prop candidate {c.get('name')} side {c.get('side')!r} - must be over|under")
-        cents = c['kalshi']['cents']
-        if type(cents) is not int or not (1 <= cents <= 99):  # strict: bool is not int here
-            raise ValueError(f"fail closed: bad kalshi cents {cents!r} on {c.get('name')}")
-        am = cents_to_american(cents)
+        cents = c['kalshi']['cents']  # checked (strict int 1-99, bool refused) by the gate's price_card
+        pr = priced[len(picks)]
+        am = pr['american']  # the card price: the best ask (ruling (1)); the Kalshi ask when no best_ask block
         picks.append({
             'num': c['num'], 'name': c['name'],
             'market_class': mc,
@@ -305,11 +575,18 @@ def main():
             'game': {'away': c['away'], 'home': c['home'], 'commence': c['commence'], 'eid': c['eid']},
             'espn_league': c['espn_league'],
             'league': LEAGUE_KEY.get(c['espn_league'], c['espn_league'].split('/')[-1].upper()),  # refresh.sh SPORTS derivation reads p['league'] (config_leagues.json key) - Sep 27: NFL/WNBA got zero prefill when this was absent
-            'best_book': 'Kalshi',
+            'best_book': pr['name'],
             'kalshi': {'url': c['kalshi'].get('url') or 'https://kalshi.com/markets/{}/{}'.format(c['kalshi']['ticker'].split('-')[0].lower(), c['kalshi']['ticker'].rsplit('-',1)[0].lower()),  # event-level URL: build_gh_page resolves the gate via the LAST segment (event ticker)
                        'cents': cents, 'team': c['kalshi']['team'], 'gate_cents': cents,
                        'ticker': c['kalshi']['ticker']},
-            'card_american': am, 'card_source': 'Kalshi ask at lock',
+            'card_american': am,
+            'card_source': 'Kalshi ask at lock' if pr['legacy'] else f"{pr['name']} ask at {pr['read_at']}",
+            # ruling (1): the venue, its read time, every venue compared and the edge against that price
+            **({} if pr['legacy'] else {'best_ask': {
+                'venue': pr['venue'], 'price': pr['price'], 'read_at': pr['read_at'],
+                'cost_c': round(pr['cost_c'], 2), 'fee_c': round(pr['fee_c'], 2),
+                'gross_c': round(c['model'] - pr['cost_c'], 2), 'net_c': round(c['model'] - pr['cost_c'] - pr['fee_c'], 2),
+                'compared': pr['compared']}}),
             'card_ts': _ts_map.get((str(c['eid']),) + _ikey(mc, c['side'], c))
                        or _prod_ts.get((str(c['eid']),) + _ikey(mc, c['side'], c))
                        or now,  # first lock only; regenerations inherit, never restamp
@@ -331,10 +608,6 @@ def main():
         dlab = datetime.datetime.strptime(date_s, '%Y-%m-%d').strftime('%A, %b %-d') if date_s else dpt.strftime('%A, %b %-d')
     except Exception:
         dlab = dpt.strftime('%A, %b %-d')
-    inherit = {}
-    if not preview and os.path.exists(PROD_MANIFEST_PATH):
-        try: inherit = json.load(open(PROD_MANIFEST_PATH))
-        except Exception: inherit = {}
     def _field(name, required=True):
         if name in meta: return meta[name]
         if name in inherit: return inherit[name]
@@ -349,7 +622,7 @@ def main():
         'units_ledger': _field('units_ledger', required=False),
         'yesterday': _field('yesterday', required=False),
         'status_note': _field('status_note', required=False),
-        'parlay': meta.get('parlay', inherit.get('parlay')),
+        'parlay': parlay,
         'preview': preview, 'picks': picks}
     manifest['pick_content_hash'] = _pick_content_hash(manifest)
 
@@ -400,7 +673,8 @@ def main():
                           'entry_c':p['kalshi']['cents'],'card_american':p['card_american'],
                           'kalshi_ticker':p['kalshi']['ticker'],'commence':c['commence'],
                           **({'line': c.get('line')} if key[1] in ('spread','total','prop') else {}),
-                          **({'player': c.get('player'), 'market': c.get('market')} if key[1] == 'prop' else {})}
+                          **({'player': c.get('player'), 'market': c.get('market')} if key[1] == 'prop' else {}),
+                          **_card_venue_fields(p, compared=False)}
                 identical = all(r.get(f) == v for f, v in newrow.items())
                 if identical and not r.get('preview'):
                     continue  # idempotent re-run: finishes an interrupted publish or no-ops a completed one
@@ -423,7 +697,8 @@ def main():
             ledger_rows.append({'kind':'pick','event_id':key[0],'market_class':key[1],'side':key[2],
                                 'name':c['name'],'units':c['units'],
                                 'entry_c':p['kalshi']['cents'],'card_american':p['card_american'],
-                                'card_source':'Kalshi ask at lock','card_ts':p['card_ts'],
+                                'card_source':p['card_source'],'card_ts':p['card_ts'],
+                                **_card_venue_fields(p),
                                 'kalshi_ticker':p['kalshi']['ticker'],'commence':c['commence'],
                                 **({'line': c.get('line')} if key[1] in ('spread','total','prop') else {}),
                                 **({'player': c.get('player'), 'market': c.get('market')} if key[1] == 'prop' else {}),
@@ -462,5 +737,8 @@ def main():
         print(f"wrote {out}: {len(picks)} picks, preview={preview} | ledger rows appended: {len(ledger_rows)} -> {ledger} (readback verified)")
     finally:
         fcntl.flock(lockf, fcntl.LOCK_UN); lockf.close()
-    for p in picks: print(f"  #{p['num']} {p['name']} {p['units']} @{p['odds']} (Kalshi {p['kalshi']['cents']}c) | {p['sub']}")
+    for p in picks:
+        _ba = p.get('best_ask')
+        _px = f"{p['card_source']}; Kalshi {p['kalshi']['cents']}c" if _ba else f"Kalshi {p['kalshi']['cents']}c"
+        print(f"  #{p['num']} {p['name']} {p['units']} @{p['odds']} ({_px}) | {p['sub']}")
 if __name__ == '__main__': main()

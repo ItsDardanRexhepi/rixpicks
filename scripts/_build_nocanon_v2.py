@@ -2,6 +2,7 @@
 """Generate a self-contained index.html ('RixPicks picks page) for GitHub Pages from a manifest JSON.
 Usage: build_gh_page.py manifest.json [outfile]
 Manifest: {date_label, status_note, record, updated, picks:[{num,name,sub,odds,best_book,side,game:{away,home}|null,espn_league}], parlay:{legs:[...],note}|null}
+A card with a pick on or against a Las Vegas team, or units off the J-096 ladder, is held (exit 3): owner ruling 2026-10-02 (4).
 DESIGN LOCKED (user, Sep 24 10:50 PM): this template IS the app design system. Daily builds change picks
 content only - never layout, chip styling, terminology logic. Bump RP_DESIGN only on an approved design change.
 Chips resolved from /tmp/odds_prefill.json (+ _sp) when present; NO chips render without a game-level link.
@@ -165,6 +166,41 @@ def _sanitize_man(man):
     for r in (pl.get('routes') or {}).values():
         if isinstance(r,dict) and r.get('link'): r['link']=_rawurl(r['link'])
 _sanitize_man(man)
+# --- standing-rules card hold (owner ruling 2026-10-02 (4): "NO - an owner-approved card cannot break a standing
+# rule. Vegas rule, ladder sizes, all of it: hard gates, no exceptions."). build_manifest.py refuses such a card,
+# but a manifest.json can land another way, and every build path (publish.yml, refresh.sh, record_final.yml)
+# builds whatever card has landed. So the CURRENT card (this manifest) is held - exit 3, refresh.sh's CARD HOLD,
+# nothing written - when a pick is on or against a Las Vegas team or its units are not exactly a J-096 rung.
+# The Vegas rule is build_manifest.vegas_hit's: Raiders (NFL), Golden Knights (NHL), Aces (WNBA), Athletics/A's
+# (MLB), UNLV (college); a nickname counts only inside its own league (Texas Tech Red Raiders is no Vegas team),
+# 'Las Vegas', 'Vegas' and UNLV in any league, and the individual sports (racing, golf, tennis, MMA, boxing)
+# have no teams. An earlier card's manifests/ snapshot, rebuilt below for its game pages, is not gated.
+_VEGAS_NICK={'football/nfl':('raiders',),'hockey/nhl':('golden knights',),'basketball/wnba':('aces',),
+             'baseball/mlb':('athletics',"a's"),'football/college-football':('unlv',),
+             'basketball/mens-college-basketball':('unlv',),'basketball/womens-college-basketball':('unlv',)}
+_VEGAS_ANY=('las vegas','vegas','unlv')
+_UNIT_LADDER=('5u','10u','15u','100u')
+def _standing_rule_holds(m):
+    out=[]
+    for i,p in enumerate(m.get('picks') or [],1):
+        if not isinstance(p,dict): continue
+        lg=str(p.get('espn_league') or '').strip().lower()
+        g=p.get('game') if isinstance(p.get('game'),dict) else {}
+        if lg.split('/')[0] not in ('racing','golf','tennis','mma','boxing'):
+            names=_VEGAS_ANY+_VEGAS_NICK.get(lg,())
+            for f,v in (('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))):
+                w=' '+re.sub(r"[^a-z0-9']+",' ',str(v or '').lower().replace('\u2019',"'"))+' '
+                if any(' '+n+' ' in w for n in names):
+                    out.append(f"pick {i} {p.get('name')!r}: Las Vegas team ({f} {v!r}) - never on or against a Vegas team"); break
+        if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
+            out.append(f"pick {i} {p.get('name')!r}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)")
+    return out
+_RULE_HOLDS=_standing_rule_holds(man)
+if _RULE_HOLDS:
+    print('BUILD FAILED: card hold - standing rules are hard gates with no override (owner ruling 2026-10-02 (4)): '
+          +' | '.join(_RULE_HOLDS)+' - rebuild the card with build_manifest.py', file=sys.stderr)
+    _urf("ABORT","C=3 F=0 R=3 U=1 V=3 CE=0 T=high","standing-rules card hold",f"{len(_RULE_HOLDS)} violation(s) on the landed card; nothing written")
+    sys.exit(3)
 out=sys.argv[2] if len(sys.argv)>2 else '/home/sandbox/gh_page/index.html'
 BOOKS=[('BetRivers','BR'),('DraftKings','DK'),('Hard Rock','HR'),('Kalshi','KAL'),('BetMGM','MGM'),('Polymarket','POLY'),('theScore','TSB')]  # FD sportsbook removed site-wide (his standing 'FD removed' spec, scope settled 8:37 PM via main: no FD sportsbook chips anywhere; FD Predicts arm is a separate prediction-market row and stays)  # alphabetical by displayed chip label (his Sep 25 9:19 AM spec: alphabetical chips; audit Sep 26 caught combo order regressed - root fix is the shared order, solo+combo read the same sequence)  # U-GEO-003: ESPN BET is DEAD - dropped at ingestion, never mapped (tester gate). theScore Bet is the single canonical arm (one chip per arm).
 BKDOM={'DK':'draftkings.com','FD':'fanduel.com','TSB':'thescore.bet','HR':'hardrock.bet','MGM':'betmgm.com','BR':'betrivers.com','KAL':'kalshi.com','POLY':'polymarket.com','B365':'bet365.com','FAN':'fanatics.com','DKP':'predictions.draftkings.com','FDP':'fanduel.com'}

@@ -22,8 +22,9 @@
    to that pick's lock, so no pick claims a lock from before it was carded). The page builder
    prefers posted_at and says "after start" for a game that began before it. A preview has none,
    and neither has an empty card (no pick to lock).
- The page builder carries no such gate (it renders whatever card has landed): see
- test_card_shapes_build.py, which builds a card with an Aces pick.
+ The standing bars (fair, ask, gross, net, the rung of each pick, the parlay bar) and the best-ask card price
+ are in test_build_manifest_bars.py. The page builder holds a landed card with a Vegas pick or an off-ladder
+ size (exit 3): test_card_hold_owner_rules.py.
 Run: python3 scripts/test_build_manifest_owner_rules.py"""
 import copy, datetime, json, os, re, shutil, subprocess, sys, tempfile, time
 
@@ -96,7 +97,7 @@ def refused(label, cands, why, *args):
     check(f'{label}: refused for the stated reason ({why})', why in log, log)
     check(f'{label}: nothing written (no manifest, ledger or prod mirror)', man is None and written == [], written)
 
-CLEAN = cand(1, 'Chiefs ML', 'football/nfl', 'Denver Broncos', 'Kansas City Chiefs', '10u')
+CLEAN = cand(1, 'Chiefs ML', 'football/nfl', 'Denver Broncos', 'Kansas City Chiefs', '10u', model=74.0)  # 70-79 with gross >= 3c: the 10u rung
 
 # Vegas teams, on and against, every league the rule names
 refused('Raiders ML (NFL, on)', [cand(1, 'Raiders ML', 'football/nfl', 'Denver Broncos', 'Las Vegas Raiders')], 'never on or against a Vegas team')
@@ -110,6 +111,10 @@ refused('UNLV game (CFB)', [cand(1, 'Under 55.5', 'football/college-football', '
         'Vegas team')
 refused('a Vegas prop: the game involves the Aces', [cand(1, "A'ja Wilson over 24.5 points", 'basketball/wnba', 'Indiana Fever', 'Las Vegas Aces',
         mc='prop', side='over', line=24.5, player="A'ja Wilson", market='points')], 'Vegas team')
+refused('a Vegas team with its league written in capitals (the page builder holds it too)',
+        [cand(1, 'Kings ML', 'Hockey/NHL ', 'Los Angeles Kings', 'Golden Knights', side='away')], 'Vegas team')
+refused('UNLV in a college league the nickname table does not list', [cand(1, 'Rebels ML', 'baseball/college-baseball', 'UNLV Rebels', 'Fresno State Bulldogs')],
+        'Vegas team')
 refused('one Vegas pick refuses the whole card', [CLEAN, cand(2, 'Raiders ML', 'football/nfl', 'Denver Broncos', 'Las Vegas Raiders')], 'Raiders ML')
 
 # nicknames only inside their own league
@@ -120,7 +125,9 @@ check('Texas Tech Red Raiders (CFB) and Evansville Purple Aces (NCAAB) are not V
 # the J-096 ladder
 for u in ('6u', '7u', '8u', '2u', '20u', 'max'):
     refused(f'units {u} off the ladder', [cand(1, 'Chiefs ML', 'football/nfl', 'Denver Broncos', 'Kansas City Chiefs', u)], 'not on the J-096 ladder')
-rc, log, man, _ = build([cand(i, f'Team{i} ML', 'hockey/nhl', f'Away{i} Club', f'Home{i} Club', u) for i, u in enumerate(('5u', '10u', '15u', '100u'), 1)])
+# each at the J-096 rung of its fair (build_manifest also refuses a size that is not its pick's rung: test_build_manifest_bars.py)
+rc, log, man, _ = build([cand(i, f'Team{i} ML', 'hockey/nhl', f'Away{i} Club', f'Home{i} Club', u, model=m)
+                         for i, (u, m) in enumerate((('5u', 66.0), ('10u', 74.0), ('15u', 84.0), ('100u', 92.0)), 1)])
 check('5u, 10u, 15u and 100u build', rc == 0 and man and [p['units'] for p in man['picks']] == ['5u', '10u', '15u', '100u'], log)
 check('a card that breaks no rule carries no owner_directive', bool(man) and all('owner_directive' not in p for p in man['picks']), man and man['picks'][0])
 

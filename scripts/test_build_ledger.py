@@ -8,7 +8,7 @@ tmp=tempfile.mkdtemp()
 prod_ledger=f'{tmp}/picks.jsonl'
 MAN=f'{tmp}/manifest.json'  # stable production manifest path for this test
 CAND=[{'num':1,'name':'Test ML','side':'home','away':'AAA','home':'BBB','commence':'2026-09-28T00:00Z',
- 'eid':999001,'espn_league':'MLB','units':5,'date':'2026-09-28',
+ 'eid':999001,'espn_league':'MLB','units':'5u','date':'2026-09-28',
  'kalshi':{'cents':57,'team':'BBB','ticker':'KXT-BBB'},'model':60.7,'gross_c':3.7,'net_c':2.0,'market_class':'ml'}]
 cf=f'{tmp}/cands.json'
 S=os.path.join(ROOT,'scripts','build_manifest.py')
@@ -78,7 +78,7 @@ print('T8 OK')
 # T9 interrupted publish + IDENTICAL candidates finishes (no new row, manifest published)
 os.remove(prod_ledger); os.remove(MAN)
 # hand-write a canonical row as the crashed publish left it
-row={'kind':'pick','event_id':'999001','market_class':'ml','side':'home','name':'Test ML','units':5,
+row={'kind':'pick','event_id':'999001','market_class':'ml','side':'home','name':'Test ML','units':'5u',
  'entry_c':57,'card_american':-133,'card_source':'Kalshi ask at lock','card_ts':'2026-09-26T22:30:00-07:00',
  'kalshi_ticker':'KXT-BBB','commence':'2026-09-28T00:00Z','preview':False}
 open(prod_ledger,'w').write(json.dumps(row)+'\n')
@@ -90,11 +90,12 @@ print('T9 OK')
 r=run([cf,MAN,'--preview'],expect_ok=False)
 if 'refuses production manifest path' not in r.stderr+r.stdout: fails.append('T10 no path refusal')
 print('T10 OK')
-# T11 units change on published key -> refuse (swamp round 7 repro)
-c5=[dict(CAND[0])]; c5[0]['units']=100
+# T11 units change on published key -> refuse (swamp round 7 repro). The size must be its pick's J-096
+# rung (owner ruling 2026-10-02 (4)), so the re-size comes with a fair that carries it: 72.0 and gross 3.7 = 10u
+c5=[dict(CAND[0])]; c5[0]['units']='10u'; c5[0]['model']=72.0
 write_cands(c5); r=run([cf,MAN],expect_ok=False)
 if 'refusing to fork' not in r.stderr+r.stdout: fails.append('T11 no fork refusal on units change')
-if rows()[0]['units']!=5: fails.append('T11 ledger re-sized')
+if rows()[0]['units']!='5u': fails.append('T11 ledger re-sized')
 print('T11 OK')
 # T12 corrupt manifest -> fail closed BEFORE any ledger rewrite
 open(MAN,'w').write('{corrupt json')
@@ -106,8 +107,10 @@ print('T12 OK')
 os.remove(MAN)  # T12's corrupt manifest; identical rerun exercises the T9 resume path
 write_cands(CAND); run([cf,MAN])
 html_out=f'{tmp}/index.html'
+# cwd=tmp: the builder writes its manifests/ snapshot under the working directory, never into this checkout
+# (with the card's units written '5u' the build now runs to the end instead of stopping on an integer size)
 r=subprocess.run(['python3',os.path.join(ROOT,'scripts','build_gh_page.py'),MAN,html_out],
-                 capture_output=True,text=True,env=env)
+                 capture_output=True,text=True,env=env,cwd=tmp)
 # hermetic level: format contract must carry it to the live-market gate (fake ticker KXT dies THERE,
 # by design); a contract break shows as KeyError/JSONDecodeError before that point.
 st=r.stderr+r.stdout

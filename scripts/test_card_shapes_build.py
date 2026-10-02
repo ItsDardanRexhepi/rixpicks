@@ -84,13 +84,13 @@ BASE = {'date': '2099-10-01', 'date_label': 'Thursday, Oct 1', 'updated': 'Oct 1
 DEVILS = {'num': 1, 'name': 'Devils ML', 'market_class': 'ml', 'sub': 'PHI @ NJ', 'odds': '-162', 'units': '5u', 'side': 'home',
           'game': {'away': 'Philadelphia Flyers', 'home': 'New Jersey Devils', 'commence': '2099-10-01T23:00Z', 'eid': ''},
           'espn_league': 'hockey/nhl', 'league': 'NHL', 'best_book': 'DraftKings'}
-ACES = {'num': 2, 'name': 'Aces -4.5', 'market_class': 'spread', 'line': -4.5, 'sub': 'IND @ LV', 'odds': '-110', 'units': '5u', 'side': 'home',
-        'game': {'away': 'Indiana Fever', 'home': 'Las Vegas Aces', 'commence': '2099-10-02T01:00Z', 'eid': ''},
-        'espn_league': 'basketball/wnba', 'league': 'WNBA', 'best_book': 'DraftKings',
-        'books_sp': {'draftkings': {'home': {'price': -110, 'point': -4.5, 'link': 'https://sportsbook.draftkings.com/?outcomes=SP_ACES_DK'},
-                                    'away': {'price': -110, 'point': 4.5, 'link': 'https://sportsbook.draftkings.com/?outcomes=SP_FEVER_DK'}},
-                     'hardrockbet': {'home': {'price': -105, 'point': -5.5, 'link': 'https://app.hardrock.bet/?deep_link_value=betslip/SP_ACES_HR_OTHERLINE'}}}}
-UNDER = {'num': 3, 'name': 'Under 38.5', 'market_class': 'total', 'line': 38.5, 'sub': 'PIT @ CLE', 'odds': '-115', 'units': '6u', 'side': 'under',
+MERCURY = {'num': 2, 'name': 'Mercury -4.5', 'market_class': 'spread', 'line': -4.5, 'sub': 'IND @ PHX', 'odds': '-110', 'units': '5u', 'side': 'home',
+           'game': {'away': 'Indiana Fever', 'home': 'Phoenix Mercury', 'commence': '2099-10-02T01:00Z', 'eid': ''},
+           'espn_league': 'basketball/wnba', 'league': 'WNBA', 'best_book': 'DraftKings',
+           'books_sp': {'draftkings': {'home': {'price': -110, 'point': -4.5, 'link': 'https://sportsbook.draftkings.com/?outcomes=SP_MERC_DK'},
+                                       'away': {'price': -110, 'point': 4.5, 'link': 'https://sportsbook.draftkings.com/?outcomes=SP_FEVER_DK'}},
+                        'hardrockbet': {'home': {'price': -105, 'point': -5.5, 'link': 'https://app.hardrock.bet/?deep_link_value=betslip/SP_MERC_HR_OTHERLINE'}}}}
+UNDER = {'num': 3, 'name': 'Under 38.5', 'market_class': 'total', 'line': 38.5, 'sub': 'PIT @ CLE', 'odds': '-115', 'units': '5u', 'side': 'under',
          'game': {'away': 'Pittsburgh Steelers', 'home': 'Cleveland Browns', 'commence': '2099-10-02T00:15Z', 'eid': ''},
          'espn_league': 'football/nfl', 'league': 'NFL', 'best_book': 'DraftKings'}
 SOX = {'num': 1, 'name': 'White Sox ML', 'market_class': 'ml', 'sub': 'CWS @ HOU', 'odds': '+138', 'units': '5u', 'side': 'away',
@@ -108,7 +108,7 @@ def ml_entry(away, home, commence, hml, aml, tag):
         'home_ml': hml, 'away_ml': aml, 'event': 'https://sportsbook.draftkings.com/event/' + tag,
         'home_link': 'https://sportsbook.draftkings.com/?outcomes=%s_HOME' % tag, 'away_link': 'https://sportsbook.draftkings.com/?outcomes=%s_AWAY' % tag}}}
 FRESH = [ml_entry('Philadelphia Flyers', 'New Jersey Devils', '2099-10-01T23:00Z', -162, 140, 'ML_DEVILS_FRESH'),
-         ml_entry('Indiana Fever', 'Las Vegas Aces', '2099-10-02T01:00Z', -250, 205, 'ML_ACES'),
+         ml_entry('Indiana Fever', 'Phoenix Mercury', '2099-10-02T01:00Z', -250, 205, 'ML_MERC'),
          ml_entry('Pittsburgh Steelers', 'Cleveland Browns', '2099-10-02T00:15Z', -140, 120, 'ML_PITCLE'),
          ml_entry('Chicago White Sox', 'Houston Astros', '2099-09-30T21:00Z', -160, 138, 'ML_SOX')]
 # frozen repo-root copy: a stale Devils price plus the same moneyline entries for the other games
@@ -147,18 +147,18 @@ RF = _load_record_final()
 for B in BUILDERS:
     tag = os.path.basename(B)
     # 1. Oct 1 shape: NFL total + WNBA spread + NHL ML, no MLB pick, no lock provenance
-    rc, page, log = build(B, card([DEVILS, ACES, UNDER], parlay={'legs': ['Under 38.5', 'Aces -4.5', 'Devils ML'], 'note': ''}), FRESH, STALE)
+    rc, page, log = build(B, card([DEVILS, MERCURY, UNDER], parlay={'legs': ['Under 38.5', 'Mercury -4.5', 'Devils ML'], 'note': ''}), FRESH, STALE)
     check(f'{tag}: non-MLB card builds', rc == 0 and len(page) > 10000)
     n_ding = len(re.findall(r'slates/wooder_dingers\.json', page))
     check(f'{tag}: CP-02 non-MLB card mounts the Dingers module exactly once', n_ding == 1)
     ding_at = page.find('slates/wooder_dingers.json'); panel = page.rfind('<div class="state"', 0, ding_at)
     check(f'{tag}: CP-02 Dingers sits in a Home-projected panel after the league panels',
           page[panel:panel + 60].startswith('<div class="state" id="st-ding" data-home-league="1">') and panel > page.find('id="st-wnba"') > 0)
-    aces, under, devils = row(page, 'Indiana Fever'), row(page, 'Pittsburgh Steelers'), row(page, 'Philadelphia Flyers')
-    check(f'{tag}: CP-08 spread row carries data-market="spread" data-line="-4.5"', 'data-market="spread" data-line="-4.5"' in aces)
-    check(f'{tag}: CP-08 spread pick never shows the moneyline price or link', '-250' not in aces and 'ML_ACES' not in aces)
-    check(f'{tag}: CP-08 spread pick prices from its own line (DK -110)', 'SP_ACES_DK' in aces and 'DK -110' in aces)
-    check(f'{tag}: CP-08 a book quoting another point is not shown as this line', 'SP_ACES_HR_OTHERLINE' not in aces and '-105' not in aces)
+    merc, under, devils = row(page, 'Indiana Fever'), row(page, 'Pittsburgh Steelers'), row(page, 'Philadelphia Flyers')
+    check(f'{tag}: CP-08 spread row carries data-market="spread" data-line="-4.5"', 'data-market="spread" data-line="-4.5"' in merc)
+    check(f'{tag}: CP-08 spread pick never shows the moneyline price or link', '-250' not in merc and 'ML_MERC' not in merc)
+    check(f'{tag}: CP-08 spread pick prices from its own line (DK -110)', 'SP_MERC_DK' in merc and 'DK -110' in merc)
+    check(f'{tag}: CP-08 a book quoting another point is not shown as this line', 'SP_MERC_HR_OTHERLINE' not in merc and '-105' not in merc)
     check(f'{tag}: CP-08 total row carries data-market="total" data-line="38.5"', 'data-market="total" data-line="38.5"' in under)
     check(f'{tag}: CP-08 total pick never takes a moneyline price or link', 'ML_PITCLE' not in under and '-140' not in under and '+120' not in under)
     legs = re.findall(r'<li class="cxleg"[^>]*>', page)
@@ -174,8 +174,8 @@ for B in BUILDERS:
     check(f'{tag}: W/L nav percent bakes the client value 65.63% (half-up)', 'id="rpNavPct">65.63%<' in page)
     check(f'{tag}: the date header carries the card\'s ISO date for the PT roll', '<div class="rpdate" data-date="2099-10-01">Thursday, Oct 1</div>' in page)
 
-    # 2. same card published late: posted_at 5:30 PM PT Oct 1 (after Devils and Under began, before Aces)
-    rc, page, log = build(B, card([DEVILS, ACES, UNDER], posted_at='2099-10-02T00:30:00Z'), FRESH)
+    # 2. same card published late: posted_at 5:30 PM PT Oct 1 (after Devils and Under began, before Mercury)
+    rc, page, log = build(B, card([DEVILS, MERCURY, UNDER], posted_at='2099-10-02T00:30:00Z'), FRESH)
     raw = {a: re.search(r'class="oddslock">(.*?)</span></a>', row(page, a)) for a in ('Philadelphia Flyers', 'Indiana Fever', 'Pittsburgh Steelers')}
     raw = {a: (m.group(1) if m else '') for a, m in raw.items()}
     st = {a: re.sub(r'<[^>]+>', '', v) for a, v in raw.items()}
@@ -203,7 +203,7 @@ for B in BUILDERS:
     check(f'{tag}: W/L popover rounds the 6.25% tie half-up like the client (6.3%)', 'id="rpWlPct">W/L: 6.3%<' in page and 'id="rpNavPct">6.25%<' in page)
 
     # 4. away-cover spread from the pipeline manifest (line -4 = home spread) beside a home spread, in a parlay
-    rc, page, log = build(B, card([LYNX, dict(ACES, num=2)], parlay={'legs': ['Lynx +4', 'Aces -4.5'], 'note': ''}), FRESH)
+    rc, page, log = build(B, card([LYNX, dict(MERCURY, num=2)], parlay={'legs': ['Lynx +4', 'Mercury -4.5'], 'note': ''}), FRESH)
     lynx, gp = row(page, 'Minnesota Lynx'), GAME_PAGES.get('game-1.html', '')
     check(f'{tag}: away spread card builds', rc == 0 and len(page) > 10000 and bool(gp))
     check(f'{tag}: away spread row carries the picked side\'s own line (data-line="4", not the home -4)',
@@ -227,17 +227,17 @@ for B in BUILDERS:
     # 5. the PT day rolls to an empty card: the numbered game pages rebuild from the last card's snapshot,
     #    and each reads ITS OWN card's posted_at, never the building card's
     DEV_E = dict(DEVILS, game=dict(DEVILS['game'], eid='401990101'), card_ts='2099-10-01T17:30:00-07:00')
-    ACE_E = dict(ACES, game=dict(ACES['game'], eid='401990102'), card_ts='2099-10-01T17:30:00-07:00')
+    MERC_E = dict(MERCURY, game=dict(MERCURY['game'], eid='401990102'), card_ts='2099-10-01T17:30:00-07:00')
     seed = {'game-1.html': '<div class="pick" data-eid="401990101"></div>', 'game-2.html': '<div class="pick" data-eid="401990102"></div>',
             # build_manifest's late card: card_ts and posted_at 5:30 PM PT Oct 1, after the 4 PM Devils start
-            'manifests/manifest-2099-10-01.json': json.dumps(card([DEV_E, ACE_E], posted_at='2099-10-02T00:30:00Z'))}
+            'manifests/manifest-2099-10-01.json': json.dumps(card([DEV_E, MERC_E], posted_at='2099-10-02T00:30:00Z'))}
     gstamp = lambda f: (lambda m: re.sub(r'<[^>]+>', '', m.group(1)) if m else None)(re.search(r'class="oddslock">(.*?)</span></div>', GAME_PAGES.get(f, '')))
     rc, page, log = build(B, card([], date='2099-10-02', date_label='Friday, Oct 2'), FRESH, seed=seed)
     got = [gstamp('game-1.html'), gstamp('game-2.html')]
     check(f'{tag}: rolled day: the last card\'s game pages keep their own "after start" (got {got})',
           got == ['Posted 5:30 PM &middot; after start', '5:30 PM &middot; locked'])
     seed2 = dict(seed, **{'manifests/manifest-2099-10-01.json': json.dumps(card([dict(DEV_E, card_ts='2099-10-01T08:00:00-07:00'),
-                                                                                 dict(ACE_E, card_ts='2099-10-01T08:00:00-07:00')]))})
+                                                                                 dict(MERC_E, card_ts='2099-10-01T08:00:00-07:00')]))})
     rc, page, log = build(B, card([], date='2099-10-02', date_label='Friday, Oct 2', posted_at='2099-10-02T16:00:00Z'), FRESH, seed=seed2)
     got = [gstamp('game-1.html'), gstamp('game-2.html')]
     check(f'{tag}: rolled day: an empty card\'s posted_at never stamps the last card\'s game pages (got {got})',
@@ -245,8 +245,8 @@ for B in BUILDERS:
     # r3 review: on the last card's snapshot too, a pick is stamped from its own card_ts (Devils carded
     # 8:00 AM, before its 4 PM start, though the card was last posted at 5:30 PM), and a pick with no
     # card_ts from its card's posted_at - never from another pick's earlier card_ts
-    ACE_NOTS = {k: v for k, v in ACE_E.items() if k != 'card_ts'}
-    seed3 = dict(seed, **{'manifests/manifest-2099-10-01.json': json.dumps(card([dict(DEV_E, card_ts='2099-10-01T08:00:00-07:00'), ACE_NOTS],
+    MERC_NOTS = {k: v for k, v in MERC_E.items() if k != 'card_ts'}
+    seed3 = dict(seed, **{'manifests/manifest-2099-10-01.json': json.dumps(card([dict(DEV_E, card_ts='2099-10-01T08:00:00-07:00'), MERC_NOTS],
                                                                                 posted_at='2099-10-02T00:30:00Z'))})
     rc, page, log = build(B, card([], date='2099-10-02', date_label='Friday, Oct 2'), FRESH, seed=seed3)
     got = [gstamp('game-1.html'), gstamp('game-2.html')]
