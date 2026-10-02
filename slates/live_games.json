@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-02T02:20:03.796762+00:00",
+ "generated_at": "2026-10-02T02:35:04.535201+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "PHI @ ATL",
      "commence": "2026-10-02T00:00Z",
      "status": "in",
-     "detail": "Top 7th",
-     "score": "PHI 1 - ATL 5"
+     "detail": "Top 8th",
+     "score": "PHI 1 - ATL 6"
     }
    ]
   },
@@ -23,7 +23,7 @@
      "matchup": "PIT @ CLE",
      "commence": "2026-10-02T00:15Z",
      "status": "in",
-     "detail": "10:10 - 3rd",
+     "detail": "3:29 - 3rd",
      "score": "PIT 10 - CLE 21",
      "away_to": 3,
      "home_to": 3
@@ -38,9 +38,9 @@
      "matchup": "WKU @ NMSU",
      "commence": "2026-10-02T00:00Z",
      "status": "in",
-     "detail": "6:18 - 3rd",
+     "detail": "End of 3rd",
      "score": "WKU 13 - NMSU 27",
-     "away_to": 3,
+     "away_to": 2,
      "home_to": 2
     },
     {
@@ -48,8 +48,8 @@
      "matchup": "UNT @ TLSA",
      "commence": "2026-10-02T01:00Z",
      "status": "in",
-     "detail": "6:39 - 2nd",
-     "score": "UNT 3 - TLSA 14",
+     "detail": "2:00 - 2nd",
+     "score": "UNT 10 - TLSA 14",
      "away_to": 2,
      "home_to": 2
     }
@@ -63,8 +63,8 @@
      "matchup": "IND @ LV",
      "commence": "2026-10-02T01:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "IND 48 - LV 54",
+     "detail": "6:46 - 3rd",
+     "score": "IND 53 - LV 63",
      "away_to": 4,
      "home_to": 3
     }
@@ -102,7 +102,7 @@
      "matchup": "MIN @ NSH",
      "commence": "2026-10-02T00:00Z",
      "status": "in",
-     "detail": "11:58 - 3rd",
+     "detail": "4:07 - 3rd",
      "score": "MIN 3 - NSH 1",
      "away_to": null,
      "home_to": null
@@ -112,7 +112,7 @@
      "matchup": "SEA @ CGY",
      "commence": "2026-10-02T01:00Z",
      "status": "in",
-     "detail": "18:51 - 2nd",
+     "detail": "11:32 - 2nd",
      "score": "SEA 3 - CGY 0",
      "away_to": null,
      "home_to": null
@@ -122,7 +122,7 @@
      "matchup": "CHI @ UTA",
      "commence": "2026-10-02T01:30Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "20:00 - 2nd",
      "score": "CHI 0 - UTA 2",
      "away_to": null,
      "home_to": null
@@ -132,7 +132,7 @@
      "matchup": "FLA @ SJ",
      "commence": "2026-10-02T02:00Z",
      "status": "in",
-     "detail": "15:30 - 1st",
+     "detail": "8:22 - 1st",
      "score": "FLA 0 - SJ 0",
      "away_to": null,
      "home_to": null
@@ -142,8 +142,8 @@
      "matchup": "EDM @ VAN",
      "commence": "2026-10-02T02:00Z",
      "status": "in",
-     "detail": "16:36 - 1st",
-     "score": "EDM 0 - VAN 0",
+     "detail": "9:55 - 1st",
+     "score": "EDM 1 - VAN 0",
      "away_to": null,
      "home_to": null
     }
@@ -157,8 +157,8 @@
      "matchup": "SKC @ SEA",
      "commence": "2026-10-02T01:30Z",
      "status": "in",
-     "detail": "39'",
-     "score": "SKC 0 - SEA 0"
+     "detail": "HT",
+     "score": "SKC 1 - SEA 0"
     }
    ]
   }
