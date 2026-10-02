@@ -148,7 +148,7 @@
       "date": "2026-09-25",
       "label": "Friday, Sep 25",
       "record": "2-1",
-      "units": "-0.87u",
+      "units": "+3.13u",
       "picks": [
         {
           "name": "Orioles ML",
@@ -172,13 +172,27 @@
           "name": "Astros ML",
           "game": "at Athletics",
           "odds": "-172",
-          "units": "10u",
+          "units": "6u",
           "result": "L",
           "score": "ATH 6, HOU 5",
           "note": "Led 1-0 into the 6th, then ATH hung six. Rallied from 6-1 down to 6-5, but Smith K stranded the tying run on third in the 8th, and a 9th-inning walk died on a game-ending double play vs Harris (17th save). Beat the close, bad outcome."
         }
       ],
-      "brief": "2-1, -0.87u. Baltimore and Cleveland were clean reads that won; Houston was the right price at the wrong outcome - led 1-0, gave up six in the 6th, rallied from 6-1 down to 6-5, and the last two threats died on a strikeout with the tying run on third and a game-ending double play. The +437 parlay died with the Houston leg. Pricing discipline held: all three picks beat or matched the Kalshi close."
+      "brief": "2-1, -0.87u. Baltimore and Cleveland were clean reads that won; Houston was the right price at the wrong outcome - led 1-0, gave up six in the 6th, rallied from 6-1 down to 6-5, and the last two threats died on a strikeout with the tying run on third and a game-ending double play. The +437 parlay died with the Houston leg. Pricing discipline held: all three picks beat or matched the Kalshi close.",
+      "corrections": [
+        {
+          "id": "2026-09-25|Astros ML|units|10u->6u",
+          "pick": "Astros ML",
+          "field": "units",
+          "from": "10u",
+          "to": "6u",
+          "basis": "The published X card (x.com/Rix_Picks/status/2103489524815024523) and the ledger both carry Astros ML at 6u; the record stored 10u. Units only: the result (L) and the W-L are unchanged.",
+          "approved": "owner, in chat, 2026-10-02",
+          "applied_at": "2026-10-02T21:34:36.902550Z",
+          "day_units_from": "-0.87u",
+          "day_units_to": "+3.13u"
+        }
+      ]
     },
     {
       "date": "2026-09-26",
