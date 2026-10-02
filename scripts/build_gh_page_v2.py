@@ -3638,6 +3638,18 @@ function rpFdRenderLive(r){
 }
 </script>
 __FUTPOLL__<script src="myprofile.js?v=__BUILD__"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></body></html>'''
+def _fut_gate_js(table):
+    # Futures-page offer gate: the same arm-level legality table and state resolution as Home
+    # (rpBookLive / rpFreshState). A Polymarket chip renders only where that arm is live for the
+    # visitor's verified state; an unresolved state gets the prediction-market default set, as on
+    # Home. Entry and tracked prices on each row are record prose, not offers, and stay visible.
+    return ('<script>(function(){var RP_LEGAL_STATE='+json.dumps(table,sort_keys=True)+',RP_PM_DEFAULT=["KAL","POLY","DKP","FDP"];'
+      'function rpBookLive(b,st){if(!st)return RP_PM_DEFAULT.indexOf(b)!==-1;var L=RP_LEGAL_STATE[st];return L?L.indexOf(b)!==-1:false;}'
+      'function rpFreshState(){try{var st=localStorage.getItem("rp_state"),src=localStorage.getItem("rp_state_src"),ts=+(localStorage.getItem("rp_state_ts")||0);return (st&&src==="gps"&&ts&&Date.now()-ts<=43200000)?st:"";}catch(e){return "";}}'
+      'function rpFutGate(st){var hid=0;Array.prototype.forEach.call(document.querySelectorAll(".futpoly[data-book]"),function(a){var on=rpBookLive(a.getAttribute("data-book"),st);var w=a.parentNode;var t=(w&&w.children&&w.children.length===1)?w:a;t.style.display=on?"":"none";if(!on)hid++;});return hid;}'
+      'window.rpFutGate=rpFutGate;rpFutGate(rpFreshState());'
+      'window.addEventListener("storage",function(e){if(e.key==="rp_state"||e.key==="rp_state_src"||e.key==="rp_state_ts")rpFutGate(rpFreshState());});'
+      '})();</script>')
 def build_futures_page(css,build_sha):
     if not FUT: return None
     import os as _os2
@@ -3756,7 +3768,7 @@ function rpFutPoll(){fetch("futures.json?cb="+Date.now(),{cache:"no-store"}).the
  for(var i=0;i<fl.length;i++)fl[i].style.opacity=".55";
 });}
 rpFutPoll();setInterval(rpFutPoll,60000); /* server fast-loop owns the file; page just mirrors it - never ticks the exchange directly */
-})();</script>"""
+})();</script>"""+_fut_gate_js(TABLE)
     try:
         import datetime as _dt2
         from zoneinfo import ZoneInfo as _ZI2
