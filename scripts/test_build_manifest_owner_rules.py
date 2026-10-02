@@ -12,6 +12,11 @@
    words); his verbatim words go only to the private picks ledger row (RIX_PICKS_LEDGER), beside the
    same ref. No word of his directive may appear anywhere in the written manifest, and no refusal
    echoes his words.
+ - The Vegas rule is about teams: it skips the individual sports (racing, golf, tennis, MMA, boxing),
+   so a NASCAR race at Las Vegas Motor Speedway builds; any other league keeps the rule.
+ - A pick num names one pick (a CLI directive is keyed by it): two candidates sharing a num refuse.
+ - The card date is the builder's _card_date_of rule (the most common PT game date across the
+   picks, which record_final.card_date_of also uses), never the first-listed candidate's date.
  The page builder carries no such gate (it renders whatever card has landed): see
  test_card_shapes_build.py, which builds a card with an Aces pick.
 Run: python3 scripts/test_build_manifest_owner_rules.py"""
@@ -165,6 +170,38 @@ check('that refusal names refs, never words', leaked(r3['log'], WORDS, WORDS2) =
 refused('a CLI directive for a pick that is not on the card', [CLEAN], 'not in the candidates',
         '--owner-directive', json.dumps({'num': 9, 'rules': ['units'], 'words': WORDS}))
 refused('a CLI directive that is not JSON', [CLEAN], 'needs a JSON object', '--owner-directive', 'yes do it')
+
+# a pick num names one pick: a CLI directive keyed by num must never cover two picks
+refused('two candidates sharing a pick num', [CLEAN, cand(1, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', eid='401990777')],
+        'pick num')
+refused('a CLI directive for a num two candidates share', [cand(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', '6u'),
+        cand(2, 'Jets ML', 'football/nfl', 'Miami Dolphins', 'New York Jets', '6u', eid='401990778')], 'pick num',
+        '--owner-directive', json.dumps({'num': 2, 'rules': ['units'], 'words': WORDS}))
+refused('a CLI directive whose num is true (not a pick num)', [cand(1, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', '6u')],
+        'must carry num', '--owner-directive', json.dumps({'num': True, 'rules': ['units'], 'words': WORDS}))
+
+# the Vegas rule is about teams: individual sports skip it, every other league keeps it
+rc, log, man, _ = build([cand(1, 'Kyle Larson to win', 'racing/nascar-premier', 'South Point 400', 'Las Vegas Motor Speedway')])
+check('a NASCAR race at Las Vegas Motor Speedway is not a Vegas team pick', rc == 0 and man and len(man['picks']) == 1, log)
+refused('an unlisted league keeps the Vegas rule (fails closed)', [cand(1, 'Cannons ML', 'lacrosse/pll', 'Las Vegas Desert Dogs', 'Boston Cannons')],
+        'Vegas team')
+
+# the card date: the builder's _card_date_of (most common PT game date), not the first candidate's date
+def _record_final():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('record_final_for_owner_rules', os.path.join(HERE, 'record_final.py'))
+    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
+RF = _record_final()
+LATE_FIRST = [cand(1, 'Sharks ML', 'hockey/nhl', 'Anaheim Ducks', 'San Jose Sharks', commence='2099-10-03T07:30Z', date='2099-10-03'),  # 00:30 PT Oct 3
+              cand(2, 'Rangers ML', 'hockey/nhl', 'Boston Bruins', 'New York Rangers', commence='2099-10-02T23:00Z', date='2099-10-02'),
+              cand(3, 'Kings ML', 'hockey/nhl', 'Seattle Kraken', 'Los Angeles Kings', commence='2099-10-03T02:00Z', date='2099-10-02')]
+rc, log, man, _ = build(LATE_FIRST)
+check('a card whose first-listed pick starts after PT midnight is dated by its most common PT game date (Oct 2)',
+      rc == 0 and man and man['date'] == '2099-10-02' and man['date_label'] == 'Friday, Oct 2', (man or {}).get('date') or log)
+check('the manifest date is the one record_final files the card under', bool(man) and RF.card_date_of(man) == man['date'],
+      man and RF.card_date_of(man))
+refused('a card with no timezone-aware commence cannot be dated', [cand(1, 'Chiefs ML', 'football/nfl', 'Denver Broncos', 'Kansas City Chiefs',
+        commence='2099-10-04T20:25')], 'card date')
 
 print('FAILURES: ' + str(failures) if failures else 'ALL CHECKS PASS')
 sys.exit(1 if failures else 0)

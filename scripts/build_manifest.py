@@ -88,7 +88,9 @@ def _pick_content_hash(m, legacy=False):
 #    "Exclude A's going forward from today too". A pick in a game involving a Las Vegas team is
 #    refused: Raiders (NFL), Golden Knights (NHL), Aces (WNBA), Athletics/A's (MLB), UNLV
 #    (college). A nickname counts only inside its own league (Texas Tech Red Raiders is CFB), and
-#    a team named for Las Vegas counts in any league.
+#    a team named for Las Vegas counts in any league. The rule is about teams: the individual
+#    sports (racing, golf, tennis, MMA, boxing) skip it - a NASCAR race at Las Vegas Motor
+#    Speedway is no Vegas team - and any other league, listed or not, keeps it.
 #  - Units (J-096): 5u, 10u, 15u or 100u - no other size.
 # A pick breaking either passes only on an explicit owner directive that names the rule and
 # carries his verbatim words - on the candidate row ('owner_directive') or on the command line
@@ -102,6 +104,7 @@ _VEGAS_NICK = {'football/nfl': ('raiders',), 'hockey/nhl': ('golden knights',), 
                'baseball/mlb': ('athletics', "a's"), 'football/college-football': ('unlv',),
                'basketball/mens-college-basketball': ('unlv',), 'basketball/womens-college-basketball': ('unlv',)}
 _VEGAS_ANY = ('las vegas', 'vegas')
+_INDIVIDUAL_SPORTS = ('racing', 'golf', 'tennis', 'mma', 'boxing')  # espn_league's sport segment
 OWNER_RULES = ('vegas', 'units')
 
 def _words(s):
@@ -109,6 +112,8 @@ def _words(s):
 
 def vegas_hit(c):
     """Which field puts a Las Vegas team on this candidate (on it or against it), else None."""
+    if str(c.get('espn_league') or '').split('/')[0] in _INDIVIDUAL_SPORTS:
+        return None  # no teams: a venue or event named for Las Vegas is not a Vegas team
     names = _VEGAS_ANY + _VEGAS_NICK.get(str(c.get('espn_league') or ''), ())
     for field in ('home', 'away', 'name'):
         w = _words(c.get(field))
@@ -155,6 +160,11 @@ def owner_directive(d, via):
 
 def owner_rules_gate(cands, argv):
     """{candidate index: directive} for the picks that pass; ValueError (nothing written) otherwise."""
+    # a pick num names exactly one pick: an --owner-directive is keyed by it and must never cover two
+    _nums = [c.get('num') for c in cands]
+    _shared = sorted({repr(n) for n in _nums if _nums.count(n) > 1})
+    if _shared:
+        raise ValueError(f"fail closed: pick num {', '.join(_shared)} is on more than one candidate - a pick num names one pick")
     cli = {}
     nth = 0
     for i, a in enumerate(argv):
@@ -165,7 +175,7 @@ def owner_rules_gate(cands, argv):
             except (IndexError, ValueError):
                 raise ValueError('fail closed: --owner-directive needs a JSON object {"num", "rules", "words"}')
             d = owner_directive(raw, 'cli')
-            if d is None or not isinstance(raw.get('num'), int):
+            if d is None or not isinstance(raw.get('num'), int) or isinstance(raw.get('num'), bool):
                 # never echo the argument: it carries his words
                 raise ValueError(f'fail closed: --owner-directive #{nth} must carry num, rules (vegas|units) and his verbatim words')
             if raw['num'] in cli:
@@ -236,6 +246,22 @@ def _mma_ceid(c):
                 break
     _uniq = list(dict.fromkeys(hits))
     return _uniq[0] if len(_uniq) == 1 else None
+
+def card_date_of(picks):
+    """The builder's _card_date_of (record_final.card_date_of is the same rule): a card's date is the
+    most common PT game date across its picks, so a game starting after PT midnight stays on the card
+    it was published with, whatever order the candidates came in. None when no pick has a
+    timezone-aware commence."""
+    from collections import Counter
+    ds = []
+    for p in picks:
+        try:
+            dt = datetime.datetime.fromisoformat(str((p.get('game') or {}).get('commence') or '').replace('Z', '+00:00'))
+        except ValueError:
+            continue
+        if dt.tzinfo is not None:
+            ds.append(dt.astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat())
+    return Counter(ds).most_common(1)[0][0] if ds else None
 
 def main():
     cands = json.load(open(sys.argv[1]))
@@ -328,7 +354,13 @@ def main():
     # verifies pick_content_hash against its own canonicalization. Metadata comes from --meta
     # (pipeline-supplied, record tab canonical per J-100) with inherit-from-production fallback;
     # a required field available from neither fails closed - the record is never invented.
-    date_s = cands[0].get('date') if cands else None
+    # the card date is the builder's rule (most common PT game date), never cands[0]['date']: a card
+    # whose first-listed pick starts after PT midnight was dated a day late and every grade refused
+    date_s = card_date_of(picks) if picks else None
+    if picks and not date_s:
+        raise ValueError('fail closed: no pick has a timezone-aware commence - the card date (most common PT game date) cannot be set')
+    if cands and cands[0].get('date') and cands[0].get('date') != date_s:
+        print(f"card date {date_s} (most common PT game date across {len(picks)} picks), not the first candidate's {cands[0].get('date')}")
     dpt = datetime.datetime.now(ZoneInfo('America/Los_Angeles'))
     try:
         dlab = datetime.datetime.strptime(date_s, '%Y-%m-%d').strftime('%A, %b %-d') if date_s else dpt.strftime('%A, %b %-d')
