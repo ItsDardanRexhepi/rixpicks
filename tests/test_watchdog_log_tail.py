@@ -15,6 +15,9 @@ import ast, io, os, sys, types, urllib.error
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'scripts', 'watchdog.py')
+# watchdog.py imports its sibling watchdog_diag after a sys.path insert that the node filter
+# below drops (f0d1c73c); put scripts/ on the path so the kept imports resolve from any cwd.
+sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 
 # The script runs its diagnosis at import time, so only its helpers are loaded here:
 # the module-level imports, REPO, and the three log-fetch definitions.
