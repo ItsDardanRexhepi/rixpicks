@@ -90,7 +90,9 @@ for rel in ('scripts/finals_watch.py', 'previews/overlay/scripts/finals_watch.py
     fw.load_seen = lambda: {}
     fw.record_pipe.verified_grade_ids = lambda ledger: []
     fw.record_pipe.current_state = lambda ledger: (21, 11, Decimal('4.761952343474163'))
-    fw.espn_final = lambda lg, eid: {'home_score': 94, 'away_score': 83, 'completed': True}
+    # ESPN core gives each side's abbreviation with the score; finals_watch refuses a final without them
+    # (the queued score must parse in record_final), so the stub carries them as the real final does
+    fw.espn_final = lambda lg, eid: {'home_score': 94, 'away_score': 83, 'completed': True, 'home_abbr': 'LV', 'away_abbr': 'IND'}
     fw.second_source = lambda pick, primary, commence: {'source': 'fixture second source'}
     fw.two_source_ok = lambda primary, secondary: True
     argv0 = sys.argv; sys.argv = ['finals_watch.py', '--dry-run']
