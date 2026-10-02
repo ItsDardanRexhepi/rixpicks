@@ -197,9 +197,11 @@ def card_pick(q):
     nothing on it is graded. A pick is filed under its card's date, even when its own game starts
     after midnight PT (its PT date is the card's date or the next day); a pick whose game began
     before the card's date is not on that card. Every build snapshots the manifest it published
-    into manifests/; the live manifest.json counts too."""
+    into manifests/; the live manifest.json counts too. An MMA pick binds on league + pick text and,
+    when the card row carries game.eid, on that event too; an MMA pick on cards of several dates
+    needs the request's card_date."""
     mma = str(q.get('league') or '').startswith('mma/')
-    found = {}
+    found, mma_named = {}, set()
     for path in sorted(glob.glob(os.path.join(MANIFESTS, 'manifest-*.json'))) + [MAN]:
         try:
             snap = json.load(open(path))
@@ -212,15 +214,24 @@ def card_pick(q):
         for p in snap.get('picks') or []:
             if not isinstance(p, dict):
                 continue
-            if mma:  # MMA card rows carry no event id: bind on league + exact pick text
+            pd = _pt_date((p.get('game') or {}).get('commence'))
+            if mma:
+                # MMA rows bind on league + exact pick text; a K19 row also carries game.eid (the ESPN
+                # fight-card event id) and then counts only for a grade of that same event - a later
+                # fight of the same fighter is never graded against this card's pick
                 hit = str(p.get('espn_league') or '').startswith('mma/') and p.get('name') == q.get('pick')
+                if hit and pd and day <= pd <= nxt:
+                    mma_named.add(day)
+                ceid = (p.get('game') or {}).get('eid')
+                hit = hit and (not ceid or str(ceid) == str(q.get('event_id')))
             else:
                 hit = card_key(p) == str(q.get('grade_id'))
             # the pick's own game must be on the card's date, or start after midnight PT into the
             # next day - a game that began before the card's date was never this card's pick
-            pd = _pt_date((p.get('game') or {}).get('commence'))
             if hit and pd and day <= pd <= nxt:
                 found.setdefault(day, []).append(p)
+    if mma and len(mma_named) > 1 and q.get('card_date') is None:
+        return None, f'carded on several dates {sorted(mma_named)} - an MMA grade must name its card_date'
     if q.get('card_date') is not None:
         found = {d: v for d, v in found.items() if d == q['card_date']}
     if len(found) != 1:
@@ -576,6 +587,7 @@ def main():
         mma = str(q.get('league') or '').startswith('mma/')
         if (q.get('pick') != cp.get('name') or str(q.get('league')) != str(cp.get('espn_league'))
                 or (not mma and (str(q.get('event_id')) != str(cp['game']['eid']) or q.get('side') != cp.get('side')))
+                or (mma and (cp.get('game') or {}).get('eid') and str(q.get('event_id')) != str(cp['game']['eid']))
                 or ('market_class' in q and q['market_class'] != mc)
                 or ('line' in q and not _same_num(q['line'], cp.get('line')))):
             print(f'  REFUSE {gid}: request disagrees with the {card_date} card pick {cp.get("name")!r}', file=sys.stderr)

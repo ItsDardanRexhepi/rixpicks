@@ -413,6 +413,41 @@ for eid, (cdate, commence, away, home, score, plays) in REAL_MLS.items():
         refused(f'MLS real {eid} {player} {market}: the opposite label', [soc_req(player, market, 'LOST' if result == 'WON' else 'WON', eid, score)],
                 'contradicts the verified final', snaps=snap)
 
+# MMA hardening (Oct 2 review): a K19 card pick carries game.eid = the ESPN fight-card event id, and
+# a grade for it must name that event - a different event for the same fighter name (a later fight)
+# was graded against the old card pick as a new row. A fighter carded on two dates needs card_date.
+def mma_core(winner, loser):
+    return {'status': {'type': {'completed': True}},
+            'competitors': [{'athlete': {'displayName': loser}, 'winner': False}, {'athlete': {'displayName': winner}, 'winner': True}]}
+FIX[CORE.format(lg='mma/leagues/ufc', e='600070001', c='401900001')] = mma_core('Jon Doe', 'Rick Roe')
+FIX[CORE.format(lg='mma/leagues/ufc', e='600070002', c='401900002')] = mma_core('Sam Poe', 'Jon Doe')
+FIX[CORE.format(lg='mma/leagues/ufc', e='600070003', c='401900003')] = mma_core('Loai Abushaar', 'Max Moe')
+def mma_pick(name, opp, eid, commence):
+    return {'name': name, 'market_class': 'ml', 'side': 'home', 'odds': '+150', 'card_american': 150, 'units': '5u',
+            'espn_league': 'mma/ufc', 'game': {'away': opp, 'home': name[:-3], 'commence': commence, 'eid': eid}}
+MMA_OCT24 = {'manifests/manifest-1024ffffffff.json': {'date': '2026-10-24', 'record': '21-11', 'units_pl': '+4.76u', 'picks': [
+    mma_pick('Jon Doe ML', 'Rick Roe', '600070001', '2026-10-25T02:00Z'),
+    mma_pick('Loai Abushaar ML', 'Max Moe', '600070003', '2026-10-25T03:00Z')]}}
+def mma_req(pick_, eid, comp, result, graded, **x):
+    delta, rec, score = {'WON': (7.5, '22-11', 'DOE 1 @ ROE 0'), 'LOST': (-5.0, '21-12', 'POE 1 @ DOE 0')}[result]
+    return req(f'G-{eid}', eid, 'mma/ufc', pick_, 'home', result, score, '+150', '5u', delta, rec, U0 + delta,
+               competition_id=comp, graded_pick=graded, **x)
+code, st, err = run([mma_req('Jon Doe ML', '600070001', '401900001', 'WON', 'Doe def. Roe')], snaps=MMA_OCT24)
+check('MMA grade naming the card pick\'s own event lands', (code, err.strip()), (0, ''))
+check('MMA row filed on its Oct 24 card', [(p['name'], p['result'], p['score']) for p in (day(st, '2026-10-24') or {}).get('picks', [])],
+      [('Jon Doe ML', 'W', 'Doe def. Roe')])
+refused('MMA grade for another event (a later fight) against a card pick bound to its own event',
+        [mma_req('Jon Doe ML', '600070002', '401900002', 'LOST', 'Poe def. Doe')], 'not on any published card', snaps=MMA_OCT24)
+# Abushaar is on the Sep 29 card (no event id, before K19) and on the Oct 24 card (bound to its event)
+refused('MMA fighter carded on two dates: a grade without card_date is refused',
+        [mma_req('Loai Abushaar ML', '600070003', '401900003', 'WON', 'Abushaar def. Moe')], 'card_date', snaps=MMA_OCT24)
+code, st, err = run([mma_req('Loai Abushaar ML', '600070003', '401900003', 'WON', 'Abushaar def. Moe', card_date='2026-10-24')], snaps=MMA_OCT24)
+check('MMA fighter carded on two dates: a grade naming its card_date lands on that card', (code, err.strip(),
+      [(p['name'], p['result']) for p in (day(st, '2026-10-24') or {}).get('picks', [])]), (0, '', [('Loai Abushaar ML', 'W')]))
+refused('MMA fighter carded on two dates: the bound card refuses another event even with its card_date',
+        [mma_req('Loai Abushaar ML', '600060739', '401891663', 'LOST', 'Staines def. Abushaar', card_date='2026-10-24')],
+        'not on any published card dated 2026-10-24', snaps=MMA_OCT24)
+
 # MMA: a PUSH label on a fight with a winner flag is a contradiction
 rf = load()
 rf._get = fake_get
