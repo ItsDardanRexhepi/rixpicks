@@ -512,6 +512,7 @@ def _iso_lock_label(iso):
         return _d.astimezone(_ZIp('America/Los_Angeles')).strftime('%b %d').replace(' 0',' ')+', '+_pt_time(iso)
     except Exception: return ''
 _POSTED_LBL=_iso_lock_label(_POSTED_AT) if _POSTED_AT else ''
+_POSTED_TIME=_POSTED_LBL.split(', ')[-1].replace(' PT','') if _POSTED_LBL else ''  # '12:30 PM', as the locked stamp shows its time
 _LOCK_KNOWN=bool((_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or _POSTED_LBL or _ct_lock)
 ENTRY_LOCK=(_cardprev.get('locked') if _pin_ok else None) or man.get('entry_locked') or _POSTED_LBL or _ct_lock or man.get('updated','')
 _ODDS_CHECKED=man.get('stamp_label')=='odds_checked'  # reconstructed/archive card: odds-check evidence only, no lock event - render "Odds checked <stamp>", never "locked" (main ruling Sep 27)
@@ -523,7 +524,10 @@ def _posted_after_start(p):
     except Exception: return False
 def _stamp_html(p):
     if _posted_after_start(p):
-        return 'Posted '+html.escape(_POSTED_LBL)+' &middot; after start'  # published after this game began: never a lock claim
+        # published after this game began: never a lock claim. Short, and on phones the separator
+        # becomes a line break (CSS .lkbr): the old 'Posted Oct 2, 12:30 PM PT - after start' sat
+        # in a nowrap, non-shrinking meta group and pushed a 320px page to 381px (game page 397px)
+        return 'Posted '+html.escape(_POSTED_TIME)+'<span class="lkbr"> &middot; </span>after start'
     if _ODDS_CHECKED:
         return 'Odds checked '+html.escape(ENTRY_LOCK)
     if not (p.get('locked') or _LOCK_KNOWN):
@@ -2205,7 +2209,7 @@ h1 .tick{{color:#3BEBF5}}
 .lghead span{{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}}.sect{{margin:16px 0 4px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b6b72}}
 .pick{{padding:18px 0;border-top:1px solid #e4e2de}}
 .pick:first-of-type{{border-top:none}}
-.pick-head{{display:flex;align-items:center;gap:10px}}.gamelink{{flex:1;min-width:0}}.meta-grp{{display:inline-flex;align-items:center;gap:8px;flex:none}}.rpmetalink{{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}}.uo{{display:inline-flex;align-items:center;gap:8px}}.oddslock{{font-size:10px;letter-spacing:.4px;color:#8a8f98;text-transform:uppercase;white-space:nowrap}}.rpchatlink{{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}}
+.pick-head{{display:flex;align-items:center;gap:10px}}.gamelink{{flex:1;min-width:0}}.meta-grp{{display:inline-flex;align-items:center;gap:8px;flex:none}}.rpmetalink{{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:inherit}}.uo{{display:inline-flex;align-items:center;gap:8px}}.oddslock{{font-size:10px;letter-spacing:.4px;color:#8a8f98;text-transform:uppercase;white-space:nowrap}}@media (max-width:600px){{.oddslock .lkbr{{display:block;height:0;overflow:hidden}}.oddslock{{text-align:right}}}}.rpchatlink{{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#8a8f98;font-size:11px;line-height:1;margin-left:-2px}}
 .gamelink{{display:flex;align-items:center;gap:10px;flex:1;color:inherit;text-decoration:none;min-width:0}}
 .chev{{color:#55555c;text-decoration:none}}
 .mrow{{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #e4e2de;font-size:14px}}

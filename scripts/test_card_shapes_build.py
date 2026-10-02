@@ -12,6 +12,10 @@ feed lookup fails fast, nothing leaves the machine), and checks the built index.
 - CP-09: the refresh run's own pull (slates/odds_prefill.json) beats a frozen repo-root copy.
 - CP-10: a card with no lock provenance never claims "locked" from manifest.updated; posted_at
   marks picks whose game began before the card was published; a normal card_ts card is unchanged.
+  The late stamp is short ('Posted 5:30 PM · after start') and breaks into two lines on phones
+  (Oct 2 review: 'Posted Oct 2, 12:30 PM PT · after start' in a nowrap, non-shrinking meta group
+  pushed the index to 381px and the game page to 397px at a 320px viewport); neither phone line
+  is longer than the '12:30 PM · locked' stamp that fits at 320px.
 - W/L percent: the baked nav and popover values use the client's half-up rule (21-11 = 65.63%).
 - Date roll (Oct 2 review): the .rpdate header carries the card's ISO date (data-date: manifest date,
   else the builder's _card_date_of), which rpDateRoll compares with today's PT date.
@@ -162,11 +166,22 @@ for B in BUILDERS:
 
     # 2. same card published late: posted_at 5:30 PM PT Oct 1 (after Devils and Under began, before Aces)
     rc, page, log = build(B, card([DEVILS, ACES, UNDER], posted_at='2099-10-02T00:30:00Z'), FRESH)
-    st = {a: re.search(r'class="oddslock">([^<]*)<', row(page, a)) for a in ('Philadelphia Flyers', 'Indiana Fever', 'Pittsburgh Steelers')}
-    st = {a: (m.group(1) if m else None) for a, m in st.items()}
-    check(f'{tag}: CP-10 posted_at after a game began says so (never "locked")',
-          st['Philadelphia Flyers'] == 'Posted Oct 1, 5:30 PM PT &middot; after start' and st['Pittsburgh Steelers'] == 'Posted Oct 1, 5:30 PM PT &middot; after start')
+    raw = {a: re.search(r'class="oddslock">(.*?)</span></a>', row(page, a)) for a in ('Philadelphia Flyers', 'Indiana Fever', 'Pittsburgh Steelers')}
+    raw = {a: (m.group(1) if m else '') for a, m in raw.items()}
+    st = {a: re.sub(r'<[^>]+>', '', v) for a, v in raw.items()}
+    check(f'{tag}: CP-10 posted_at after a game began says so (never "locked"), short: "Posted 5:30 PM · after start"',
+          st['Philadelphia Flyers'] == 'Posted 5:30 PM &middot; after start' and st['Pittsburgh Steelers'] == 'Posted 5:30 PM &middot; after start')
     check(f'{tag}: CP-10 posted_at before a game began is that pick\'s lock time', st['Indiana Fever'] == '5:30 PM &middot; locked')
+    lines = [x for x in re.split(r'<span class="lkbr">.*?</span>', raw['Philadelphia Flyers']) if x]
+    check(f'{tag}: CP-10 the late stamp breaks into two lines on phones, neither longer than "12:30 PM · locked" ({lines})',
+          lines == ['Posted 5:30 PM', 'after start'] and max(len(x) for x in lines) <= len('12:30 PM \u00b7 locked')
+          and re.search(r'@media \(max-width:600px\)\{[^}]*\.oddslock \.lkbr\{display:block;height:0;overflow:hidden\}', page) is not None)
+    gp1, gp2 = GAME_PAGES.get('game-1.html', ''), GAME_PAGES.get('game-2.html', '')
+    gst = re.search(r'class="oddslock">(.*?)</span></div>', gp1)
+    check(f'{tag}: CP-10 the game page wears the same short late stamp and phone line break',
+          bool(gst) and gst.group(1) == 'Posted 5:30 PM<span class="lkbr"> &middot; </span>after start'
+          and re.search(r'@media \(max-width:600px\)\{[^}]*\.oddslock \.lkbr\{display:block;height:0;overflow:hidden\}', gp1) is not None
+          and 'class="oddslock">5:30 PM &middot; locked<' in gp2)
 
     # 3. normal MLB card with card_ts: Dingers stays on the MLB tab, lock stamp unchanged
     rc, page, log = build(B, card([SOX], record='1-15'), FRESH)
