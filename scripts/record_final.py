@@ -13,8 +13,9 @@ later finals wait for the next fire):
      carries now, and never under a late game's own date. A pick counts only when its own PT game
      date is the card's date or the next day (an after-midnight start), never an earlier game.
   2. INDEPENDENT verify against ESPN core (completed + scores match), and the result must follow
-     from the verified score, side and line (ml/spread/total), from the ESPN box score (props),
-     or from the winner flags (MMA). The request's own label is never taken on trust.
+     from the verified score, side and line (ml/spread/total), from the ESPN box score (props;
+     soccer scorer props from the summary's goal events), or from the winner flags (MMA). The
+     request's own label is never taken on trust.
   3. Units: the delta must follow from the card price, card stake and result; units_after_exact
      must continue the running units (exact anchor kept in record_done.json).
   4. Running record from manifest must chain into request.record_after exactly.
@@ -286,8 +287,9 @@ def score_result(mc, side, line, away_sc, home_sc):
         return None
     return 'WON' if won else 'LOST'
 
-# Box-score prop check: the same verified market map finals_watch grades with. Markets outside
-# it (soccer scorer props) have no independent check here and are refused, never trusted.
+# Box-score prop check: the same verified market map finals_watch grades with. Soccer scorer
+# props read the summary's goal events (see _soccer_scorer). Markets outside the map have no
+# independent check here and are refused, never trusted.
 PROP_STAT_KEYS = {
     'passing_yards': ('passingYards',), 'pass_td': ('passingTouchdowns',),
     'rushing_yards': ('rushingYards',), 'rush_attempts': ('rushingAttempts',),
@@ -305,14 +307,78 @@ PROP_GROUP_SCOPED = {  # MLB: batting keys also appear in the pitching group - s
     'pit_walks': ('earnedRuns', 'walks'), 'pit_earned_runs': ('earnedRuns', 'earnedRuns'),
     'pit_outs': ('earnedRuns', 'fullInnings.partInnings')}
 
+SOCCER_SCORER_MARKETS = ('anytime_goal', 'first_goal', 'last_goal')
+_GOAL_NAME = re.compile(r'^(?:Own Goal by )?(.+?) \(([^()]*)\)')
+
+def _soccer_scorer(d, player, market):
+    """Soccer scorer props (MLS): ESPN's soccer summary carries no player stat tables, so the check
+    reads the same source with the same rules finals_watch grades by - keyEvents with scoringPlay
+    true, own goals never credit, periods 1-2 only (no extra time or shootout), the pick's player and
+    every scorer resolved strictly against the two rosters, and a tied clock on first/last refused.
+    Returns (goal count, or 1/0 for first/last, as Decimal; home|away of the player's roster); raises
+    ValueError when any of it cannot be established."""
+    aliases, side_of, sides = {}, {}, []
+    for r in d.get('rosters') or []:
+        sides.append(r.get('homeAway'))
+        for e in r.get('roster') or []:
+            a = e.get('athlete') or {}
+            aid = a.get('id')
+            if not aid:
+                continue
+            side_of.setdefault(aid, set()).add(r.get('homeAway'))
+            for nm in (a.get('displayName'), a.get('fullName'), a.get('shortName')):
+                n = _norm_name(nm)
+                if n:
+                    aliases.setdefault(n, set()).add(aid)
+    if sorted(map(str, sides)) != ['away', 'home']:
+        raise ValueError(f'rosters are not one home and one away ({sides})')
+    want = _norm_name(player)
+    ids = {aid for alias, aids in aliases.items() if want and (alias == want or want in alias or alias in want) for aid in aids}
+    if len(ids) != 1:
+        raise ValueError(f'player {player!r} not uniquely on the rosters ({len(ids)} matches)')
+    pid = next(iter(ids))
+    pside = side_of[pid]
+    if len(pside) != 1:
+        raise ValueError(f'player {player!r} on both rosters')
+    goals = []  # (clock seconds, scorer athlete id); own goals, extra time and shootout excluded
+    for ev in d.get('keyEvents') or []:
+        if ev.get('scoringPlay') is not True or (ev.get('type') or {}).get('type') == 'own-goal':
+            continue
+        if (ev.get('period') or {}).get('number') not in (1, 2):
+            continue
+        text = ev.get('text') or ''
+        mm = _GOAL_NAME.search(text.split('. ', 1)[-1])
+        if not mm:
+            raise ValueError(f'goal event text unparsable ({text[:80]!r})')
+        gids = aliases.get(_norm_name(mm.group(1)), set())
+        if len(gids) != 1:
+            raise ValueError(f'goal scorer {mm.group(1)!r} not uniquely on the rosters ({len(gids)} matches)')
+        goals.append(((ev.get('clock') or {}).get('value'), next(iter(gids))))
+    if market == 'anytime_goal':
+        val = sum(1 for _, aid in goals if aid == pid)
+    elif not goals:
+        val = 0  # no credited goal: a first/last scorer prop loses
+    else:
+        if any(isinstance(c, bool) or not isinstance(c, (int, float)) for c, _ in goals):
+            raise ValueError(f'{market}: a goal event carries no clock - order unknown')
+        edge = (min if market == 'first_goal' else max)(c for c, _ in goals)
+        if sum(1 for c, _ in goals if c == edge) > 1:
+            raise ValueError(f'{market} order ambiguous (tied clock)')
+        val = 1 if any(c == edge and aid == pid for c, aid in goals) else 0
+    return Decimal(val), next(iter(pside))
+
 def espn_prop(league, eid, player, market):
     """Independent prop check: (stat value, home|away of the player's team) from the ESPN box
-    score, or None. Strict identity: exactly one athlete, on a team the header places home/away."""
-    if market not in PROP_STAT_KEYS and market not in PROP_GROUP_SCOPED and market not in ('anytime_td', 'hockey_points'):
+    score, or None. Strict identity: exactly one athlete, on a team the header places home/away.
+    Soccer scorer props read the summary's goal events and rosters instead (_soccer_scorer)."""
+    if (market not in PROP_STAT_KEYS and market not in PROP_GROUP_SCOPED and market not in ('anytime_td', 'hockey_points')
+            and market not in SOCCER_SCORER_MARKETS):
         print(f'  verify prop {eid}: market {market!r} has no box-score check here', file=sys.stderr)
         return None
     try:
         d = _get(f'https://site.api.espn.com/apis/site/v2/sports/{league}/summary?event={eid}', ua='python-urllib/3')
+        if market in SOCCER_SCORER_MARKETS:
+            return _soccer_scorer(d, player, market)
         sides = {str((c.get('team') or {}).get('id')): c.get('homeAway')
                  for c in ((d.get('header') or {}).get('competitions') or [{}])[0].get('competitors', [])}
         want = _norm_name(player)

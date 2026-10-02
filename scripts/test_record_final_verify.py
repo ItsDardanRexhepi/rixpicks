@@ -287,6 +287,66 @@ check('EOD the filled brief is the payload brief', (day(st, '2026-09-29') or {})
 check('EOD the other day\'s filed brief is untouched', (day(st, '2026-09-27') or {}).get('brief'), HIST_EOD['days'][0]['brief'])
 check('EOD receipt recorded', 'eod_day_close:2026-09-29' in st['record_done.json'].get('processed', []), True)
 
+# MLS scorer props (Oct 2 review): build_manifest cards anytime/first/last goal and finals_watch grades
+# them from the ESPN summary's goal events; the record write checks them the same way (scoringPlay
+# events, own goals never credit, periods 1-2 only, strict roster identity, tied first/last clock
+# refused) instead of refusing every one and stalling the in-order queue behind it.
+SOC_LG = 'soccer/usa.1'
+def _goal(clock, period, text, typ='goal'):
+    return {'scoringPlay': True, 'type': {'type': typ}, 'period': {'number': period}, 'clock': {'value': clock}, 'text': text}
+def _roster(side, tid, team, names):
+    return {'homeAway': side, 'team': {'id': tid, 'displayName': team},
+            'roster': [{'athlete': {'id': f'{tid}-{i}', 'displayName': n}} for i, n in enumerate(names)]}
+def soc_summary(goals):
+    return {'header': {'competitions': [{'competitors': [{'homeAway': 'home', 'team': {'id': '183'}}, {'homeAway': 'away', 'team': {'id': '20232'}}]}]},
+            'boxscore': {'teams': []},
+            'rosters': [_roster('home', '183', 'Columbus Crew', ['Josef Mart\u00ednez', 'Jamal Thiar\u00e9', 'Carlos Gomez']),
+                        _roster('away', '20232', 'Inter Miami CF', ['Lionel Messi', 'Jordi Alba', 'Luis Su\u00e1rez', 'Luis Gomez'])],
+            'keyEvents': [{'scoringPlay': False, 'type': {'type': 'yellow-card'}, 'period': {'number': 1}, 'clock': {'value': 900.0}, 'text': 'Jordi Alba (Inter Miami CF) is shown the yellow card.'}] + goals}
+SOC_GOALS = [
+    _goal(1634.0, 1, 'Goal! Columbus Crew 1, Inter Miami CF 0. Josef Mart\u00ednez (Columbus Crew) converts the penalty with a right footed shot.', 'penalty---scored'),
+    _goal(1976.0, 1, 'Goal! Columbus Crew 1, Inter Miami CF 1. Lionel Messi (Inter Miami CF) from a free kick with a left footed shot.', 'goal---free-kick'),
+    _goal(3100.0, 2, 'Own Goal by Jordi Alba, Inter Miami CF. Columbus Crew 2, Inter Miami CF 1.', 'own-goal'),
+    _goal(5400.0, 2, 'Goal! Columbus Crew 3, Inter Miami CF 1. Jamal Thiar\u00e9 (Columbus Crew) right footed shot from the centre of the box.', 'goal---volley'),
+    _goal(5700.0, 5, 'Goal! Luis Su\u00e1rez (Inter Miami CF) scores in the shootout.')]
+FIX[CORE.format(lg='soccer/leagues/usa.1', e='761844', c='761844')] = core('Inter Miami CF', 1, 'Columbus Crew', 3)
+FIX[SITE.format(lg=SOC_LG, e='761844')] = soc_summary(SOC_GOALS)
+FIX[CORE.format(lg='soccer/leagues/usa.1', e='761845', c='761845')] = core('Inter Miami CF', 1, 'Columbus Crew', 2)
+FIX[SITE.format(lg=SOC_LG, e='761845')] = soc_summary([  # two stoppage-time goals share the 90' clock value
+    _goal(1976.0, 1, 'Goal! Columbus Crew 0, Inter Miami CF 1. Lionel Messi (Inter Miami CF) left footed shot.'),
+    _goal(5400.0, 2, 'Goal! Columbus Crew 1, Inter Miami CF 1. Josef Mart\u00ednez (Columbus Crew) header.'),
+    _goal(5400.0, 2, 'Goal! Columbus Crew 2, Inter Miami CF 1. Jamal Thiar\u00e9 (Columbus Crew) right footed shot.')])
+SOC_MKT = {'anytime_goal': 'anytime goal', 'first_goal': '1st goal', 'last_goal': 'last goal'}
+def soc_pick(player, market, eid='761844'):
+    return pick(f'{player} {SOC_MKT[market]}', eid, SOC_LG, 'Inter Miami CF', 'Columbus Crew', '2026-09-27T23:30Z', '+150', '5u', 'over', 'prop',
+                line=0.5, player=player, market=market)
+SOC_PLAYS = [('Lionel Messi', 'anytime_goal'), ('Josef Mart\u00ednez', 'first_goal'), ('Jamal Thiar\u00e9', 'last_goal'), ('Lionel Messi', 'first_goal'),
+             ('Jordi Alba', 'anytime_goal'), ('Luis Su\u00e1rez', 'anytime_goal'), ('Gomez', 'anytime_goal')]
+SOC_CARD = {'date': '2026-09-27', 'record': '13-6', 'units_pl': '+3.89u',
+            'picks': [soc_pick(pl, mk) for pl, mk in SOC_PLAYS] + [soc_pick('Jamal Thiar\u00e9', 'last_goal', '761845')]}
+SOC_SNAP = {'manifests/manifest-0927dddddddd.json': SOC_CARD}
+def soc_req(player, market, result, eid='761844', score='MIA 1 @ CLB 3'):
+    gid = f"{eid}|prop|{''.join(ch for ch in player.lower() if ch.isascii() and ch.isalnum())}|{market}|over|0.5"
+    delta, rec = {'WON': (7.5, '22-11'), 'LOST': (-5.0, '21-12')}[result]
+    return req(gid, eid, SOC_LG, f'{player} {SOC_MKT[market]}', 'over', result, score, '+150', '5u', delta, rec, U0 + delta)
+for player, market, result, label in [('Lionel Messi', 'anytime_goal', 'WON', 'anytime goal by the away scorer'),
+                                      ('Josef Mart\u00ednez', 'first_goal', 'WON', 'first goal (earliest clock)'),
+                                      ('Jamal Thiar\u00e9', 'last_goal', 'WON', 'last goal (latest clock)'),
+                                      ('Lionel Messi', 'first_goal', 'LOST', 'first goal by another player'),
+                                      ('Jordi Alba', 'anytime_goal', 'LOST', 'an own goal never credits its scorer'),
+                                      ('Luis Su\u00e1rez', 'anytime_goal', 'LOST', 'a shootout goal is not a goal')]:
+    code, st, err = run([soc_req(player, market, result)], snaps=SOC_SNAP)
+    check(f'MLS {label}: {result} lands', (code, err.strip()), (0, ''))
+    check(f'MLS {label}: row filed on the Sep 27 card', [(p['name'], p['result']) for p in (day(st, '2026-09-27') or {}).get('picks', [])],
+          [(f'{player} {SOC_MKT[market]}', result[0])])
+    refused(f'MLS {label}: the opposite label', [soc_req(player, market, 'LOST' if result == 'WON' else 'WON')],
+            'contradicts the verified final', snaps=SOC_SNAP)
+code, st, _ = run([soc_req('Lionel Messi', 'anytime_goal', 'WON')], snaps=SOC_SNAP)
+check('MLS scorer prop game label is the player\'s own team (Messi is away)', [p['game'] for p in (day(st, '2026-09-27') or {}).get('picks', [])], ['at Crew'])
+refused('MLS a name two roster players share is refused', [soc_req('Gomez', 'anytime_goal', 'LOST')], 'independent prop verification failed', snaps=SOC_SNAP)
+refused('MLS last goal on a tied stoppage-time clock is refused', [soc_req('Jamal Thiar\u00e9', 'last_goal', 'WON', '761845', 'MIA 1 @ CLB 2')],
+        'independent prop verification failed', snaps=SOC_SNAP)
+
 # MMA: a PUSH label on a fight with a winner flag is a contradiction
 rf = load()
 rf._get = fake_get
