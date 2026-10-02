@@ -58,6 +58,7 @@ def job_log(job_id, opener=None):
 
 
 BUDGET_COST = {'odds-refresh': 3, 'extras-sweep': 3, 'nfl-scores-confirm': 1}
+CARD_HOLD_MARK = 'CARD HOLD'  # refresh.sh's line for a refused card (feeds' hash check or the builder, exit 3)
 SOFT_DAILY_TARGET = 100  # soft discipline target across consumers (main 12:11) - NOT a hard cap; audits: over-target runs are valid. Hard guardrail = provider x-requests-remaining floor.
 
 def odds_spend_today():
@@ -143,6 +144,11 @@ except Exception:
     state = {}
 rec = state.get(wf, {})
 skip = []
+# A held card (refresh.sh's CARD HOLD, exit 3: the card's picks do not match its declared hash, or
+# the builder refused it) is refused again by any retry, and an odds-refresh retry pays for its
+# odds pulls first. The next scheduled run re-checks the card on its own.
+if CARD_HOLD_MARK in diag['error_tail']:
+    skip.append('card held (CARD HOLD in the failed log) - a retry would refuse the same card')
 last = rec.get('last_retry_at')
 if last and (now - datetime.datetime.fromisoformat(last)).total_seconds() < RETRY_BUDGET_S:
     skip.append('already auto-retried within 30 min')

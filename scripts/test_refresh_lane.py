@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """odds-refresh lane fixture (Oct 1 sweep follow-ups): runs the real scripts/refresh.sh and
-scripts/push_with_guard.sh in a scratch git repo against a scratch origin, with every python step
-stubbed and the ESPN game-window probe answered 'live', fully offline.
- Card hold (builder review of the feed hash guard): a feed's exit 3 means manifest.json's picks do
-   not match its declared pick_content_hash. That card must never be swallowed as an ordinary feed
-   failure or rebuilt; the live data unrelated to the card (futures, live games, odds pulls) still
-   ships in a data-only commit, and the run then fails loud (exit 3). The builder's own exit 3 is
-   held the same way. An ordinary feed failure keeps the last manifest and the run carries on.
+scripts/push_with_guard.sh in a scratch git repo against a scratch origin, with every paid or
+network python step stubbed and the ESPN game-window probe answered 'live', fully offline.
+ Card hold before any paid pull (ci review, spend): manifest.json's picks must match its declared
+   pick_content_hash. refresh.sh runs the feeds' own check (polymarket_feed.py --verify-hash, no
+   network, no write) before the paid odds pulls and holds right there (exit 3, nothing pulled,
+   nothing pushed), so a held card - and the watchdog's retry of it - never pays for odds.
+ Card hold after the pulls (builder review of the feed hash guard): a feed's or the builder's
+   exit 3 later in the run is never swallowed as an ordinary feed failure or rebuilt; the live data
+   unrelated to the card (futures, live games, the odds already pulled) still ships in a data-only
+   commit, and the run then fails loud (exit 3). An ordinary feed failure keeps the last manifest
+   and the run carries on.
  Credit count (LS-22): the paid API's x-requests-remaining never lands in a served file - the
    committed .odds_refresh_count.json carries the run count only (a legacy last_remaining is
    dropped by the next counted run); the reading lives in the ops state file outside the checkout
@@ -24,6 +28,9 @@ TODAY = datetime.now(ZoneInfo('America/Los_Angeles')).strftime('%Y-%m-%d')
 REM = 18763  # a distinctive credit count: must appear in no served file
 failures = 0
 
+sys.path.insert(0, HERE)
+from polymarket_feed import _pick_content_hash   # the feeds' own canonical hash (mirror of the builder)
+
 def check(name, ok, detail=''):
     global failures
     print(('OK   ' if ok else 'FAIL ') + name + ('' if ok or detail == '' else '  [' + str(detail)[:400] + ']'))
@@ -32,6 +39,14 @@ def check(name, ok, detail=''):
 
 STUB = r'''import json, os, sys, time
 name = os.path.basename(sys.argv[0]); T = os.environ['RP_TMP']
+if name == 'polymarket_feed.py' and '--verify-hash' in sys.argv:
+    # the pre-pull card check runs the REAL feed script (local hash check only: no network, no write)
+    open(os.path.join(T, 'calls.txt'), 'a').write('verify-hash:' + name + '\n')
+    import runpy
+    real = os.path.join(os.environ['STUB_REAL_SCRIPTS'], name)
+    sys.argv = [real] + sys.argv[1:]
+    runpy.run_path(real, run_name='__main__')
+    sys.exit(0)
 open(os.path.join(T, 'calls.txt'), 'a').write(name + '\n')
 tick = str(time.time())
 def rc(var):
@@ -72,7 +87,9 @@ exec "%s" "$@"
 STUBBED = ('odds_prefill.py', 'odds_prefill_st.py', 'odds_prefill_props.py', 'move_cause.py', 'futures_quotes.py',
            'wooder_td_feed.py', 'live_games.py', 'polymarket_feed.py', 'prediction_feed.py', 'build_gh_page_v2.py',
            'backfill_history.py')
-DATA = {'manifest.json': {'date': TODAY, 'record': '21-11', 'units_pl': '+4.76u', 'picks': [{'name': 'Under 38.5', 'league': 'NFL'}]},
+PAID = ('odds_prefill.py', 'odds_prefill_st.py', 'odds_prefill_props.py')
+MANIFEST = {'date': TODAY, 'record': '21-11', 'units_pl': '+4.76u', 'picks': [{'name': 'Under 38.5', 'league': 'NFL'}]}
+DATA = {'manifest.json': MANIFEST,
         'config_leagues.json': {'leagues': {'NFL': {'espn': 'football/nfl', 'odds_api': 'americanfootball_nfl'}}},
         '.odds_refresh_count.json': {'2026-09-30': 100, 'last_remaining': 16842},  # made-up legacy reading (every repo path is served)
         'futures.json': {'tick': '0'}, 'slates/nfl_live.json': {}, 'slates/live_games.json': {'tick': '0'},
@@ -85,7 +102,7 @@ TEXT = {'index.html': '<html>last verified build</html>', 'futures.html': '<html
 def git(cwd, *a, check_=True):
     return subprocess.run(['git', *a], cwd=cwd, capture_output=True, text=True, check=check_)
 
-def lane(env_extra, ops_state=None, counter=None):
+def lane(env_extra, ops_state=None, counter=None, manifest=None):
     """One refresh run in a fresh scratch repo against a scratch origin."""
     root = tempfile.mkdtemp(prefix='rp-refresh-lane-')
     origin, work, tmp, ops, bin_ = (os.path.join(root, x) for x in ('origin.git', 'work', 'tmp', 'ops', 'bin'))
@@ -101,6 +118,8 @@ def lane(env_extra, ops_state=None, counter=None):
     data = dict(DATA)
     if counter is not None:
         data['.odds_refresh_count.json'] = counter
+    if manifest is not None:
+        data['manifest.json'] = manifest
     for rel, obj in data.items():
         json.dump(obj, open(os.path.join(work, rel), 'w'), indent=1)
     for rel, txt in TEXT.items():
@@ -113,7 +132,7 @@ def lane(env_extra, ops_state=None, counter=None):
     git(work, 'remote', 'add', 'origin', origin); git(work, 'push', '-q', 'origin', 'main'); git(work, 'branch', '-q', '-u', 'origin/main')
     env = {k: v for k, v in os.environ.items() if not k.startswith('GIT_')}
     env.update(PATH=bin_ + os.pathsep + env['PATH'], RP_TMP=tmp, RP_OPS_STATE=ops, THE_ODDS_API_KEY='fixture-placeholder',
-               HOME=root, GIT_CONFIG_NOSYSTEM='1', STUB_REMAINING=str(REM), **env_extra)
+               HOME=root, GIT_CONFIG_NOSYSTEM='1', STUB_REMAINING=str(REM), STUB_REAL_SCRIPTS=HERE, **env_extra)
     r = subprocess.run(['bash', 'scripts/refresh.sh'], cwd=work, env=env, capture_output=True, text=True, timeout=300)
     roots.append(root)
     return {'rc': r.returncode, 'out': r.stdout, 'err': r.stderr, 'origin': origin, 'tmp': tmp, 'ops': ops}
@@ -135,6 +154,9 @@ def changed_in_tip(origin):
 def served_hits(origin, needle):
     r = subprocess.run(['git', '--git-dir', origin, 'grep', '-l', needle, 'main'], capture_output=True, text=True)
     return r.stdout.split()
+
+def paid(L):
+    return [c for c in calls(L['tmp']) if c in PAID]
 
 roots = []
 try:
@@ -158,7 +180,22 @@ try:
     check('B2 tripwire: legacy counter reading under 200 still fails loud before any pull (transition)',
           L['rc'] == 1 and 'HARD CAP TRIPWIRE' in L['err'] and 'odds_prefill.py' not in calls(L['tmp']), (L['rc'], L['err'][-300:]))
 
-    # C. a feed refuses the card (pick_content_hash mismatch)
+    # P. the card is held before any paid pull: manifest.json's picks do not match its declared hash
+    bad = dict(MANIFEST, pick_content_hash='f' * 64)
+    L = lane({}, manifest=bad)
+    check('P hash mismatch: held (exit 3, CARD HOLD) before any paid pull',
+          L['rc'] == 3 and 'CARD HOLD' in L['err'] and paid(L) == [], (L['rc'], calls(L['tmp']), L['err'][-400:]))
+    check('P the check is the feeds\' own (polymarket_feed.py --verify-hash)', 'verify-hash:polymarket_feed.py' in calls(L['tmp']), calls(L['tmp']))
+    check('P no feed and no build run', not ({'polymarket_feed.py', 'prediction_feed.py', 'build_gh_page_v2.py'} & set(calls(L['tmp']))), calls(L['tmp']))
+    check('P nothing pushed (no live-data commit either)', origin_log(L['origin']) == ['seed'], origin_log(L['origin']))
+    check('P the last log line carries the CARD HOLD marker the watchdog reads',
+          [l for l in L['err'].splitlines() if l.strip()][-1:] and 'CARD HOLD' in [l for l in L['err'].splitlines() if l.strip()][-1], L['err'][-300:])
+    good = dict(MANIFEST, pick_content_hash=_pick_content_hash(MANIFEST))
+    L = lane({}, manifest=good)
+    check('P2 a declared hash that matches passes the check: refreshed as usual',
+          L['rc'] == 0 and 'rebuilt and pushed' in L['out'] and 'verify-hash:polymarket_feed.py' in calls(L['tmp']), (L['rc'], L['err'][-300:]))
+
+    # C. a feed refuses the card later in the run (pick_content_hash mismatch after the pulls)
     L = lane({'STUB_POLY_RC': '3'})
     tip = changed_in_tip(L['origin'])
     check('C feed exit 3: the run fails loud (exit 3, CARD HOLD)', L['rc'] == 3 and 'CARD HOLD' in L['err'], (L['rc'], L['err'][-400:]))
@@ -187,6 +224,19 @@ try:
     # F. any other builder failure still stops the run with nothing pushed
     L = lane({'STUB_BUILD_RC': '2'})
     check('F builder exit 2: the run stops, nothing pushed', L['rc'] == 2 and origin_log(L['origin']) == ['seed'], (L['rc'], origin_log(L['origin'])))
+
+    # V. the check itself (the real polymarket_feed.py): local only - it never writes the manifest
+    vroot = tempfile.mkdtemp(prefix='rp-verify-hash-')
+    roots.append(vroot)
+    venv = {k: v for k, v in os.environ.items()}
+    venv.update(http_proxy='http://127.0.0.1:9', https_proxy='http://127.0.0.1:9', HTTP_PROXY='http://127.0.0.1:9', HTTPS_PROXY='http://127.0.0.1:9')
+    for case, man, want in (('mismatch', bad, 3), ('match', good, 0), ('no declared hash', dict(MANIFEST, picks=[]), 0)):
+        mp = os.path.join(vroot, case.replace(' ', '_') + '.json')
+        open(mp, 'w').write(json.dumps(man))
+        before = open(mp, 'rb').read()
+        r = subprocess.run([REAL_PY, os.path.join(HERE, 'polymarket_feed.py'), mp, '--verify-hash'], capture_output=True, text=True, env=venv, timeout=60)
+        check(f'V --verify-hash on a {case} manifest exits {want} and leaves the file as it was',
+              r.returncode == want and open(mp, 'rb').read() == before, (r.returncode, r.stderr[-300:]))
 finally:
     for r in roots:
         shutil.rmtree(r, ignore_errors=True)

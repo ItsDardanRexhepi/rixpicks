@@ -56,6 +56,17 @@ GAME_WINDOW=$?
 set -e
 if [ $GAME_WINDOW -ne 0 ]; then echo "no live/imminent game - skip"; exit 0; fi
 if [ -z "$THE_ODDS_API_KEY" ]; then echo "THE_ODDS_API_KEY secret missing - skip (page keeps last build prices)"; exit 0; fi
+# Card hold before any paid pull: the feeds refuse (exit 3) a manifest.json whose picks do not
+# match its declared pick_content_hash, and the builder refuses it too, so such a run could only
+# end in a CARD HOLD. Their own check runs first (local, no network, no write) and holds the card
+# right here: nothing is pulled or paid for, nothing is committed, and the CARD HOLD line below is
+# the marker the failure-watchdog reads to skip its auto-retry.
+HRC=0
+python3 scripts/polymarket_feed.py manifest.json --verify-hash || HRC=$?
+if [ $HRC -eq 3 ]; then
+  echo "CARD HOLD: manifest.json pick_content_hash does not match its picks - held before any paid odds pull; pages not rebuilt, manifest.json not committed; re-stamp or fix the card with build_manifest.py" >&2
+  exit 3
+elif [ $HRC -ne 0 ]; then echo "pre-pull card check failed (exit $HRC) - the feeds and the builder check the card again" >&2; fi
 SPORTS=$(python3 -c "
 import json
 m=json.load(open('manifest.json'))
