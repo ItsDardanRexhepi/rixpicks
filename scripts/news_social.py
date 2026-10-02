@@ -21,6 +21,7 @@ the run: simplify -> reorder -> league fallback. Route log written to the trial 
 """
 import json, os, re, sys, time, urllib.request, urllib.parse, datetime
 
+import x_budget
 import x_wall
 
 BASE = 'https://api.x.com/2'
@@ -32,8 +33,8 @@ STATE = 'slates/x_feed_state.json'
 TRIALS = 'slates/soc_trials.json'
 CREDITS = 9.04
 ALERT_FLOOR = 2.00
-COST_PER_REQUEST = 0.033
-COST_PER_POST = 0.005
+COST_PER_REQUEST = x_budget.COST_PER_REQUEST   # measured rates: one copy, in x_budget.py
+COST_PER_POST = x_budget.COST_PER_POST
 MAX_RESULTS = 100      # 10->100 (owner 2:09/2:49 coverage): same request count, up to 10x posts per query - burn is per REQUEST
 NEWS_QUERIES_PER_RUN = 18      # hard cap per run (burn discipline; 12->18 owner 2:09 coverage push)
 MAX_HEADLINE_AGE_H = 18       # only fresh headlines drive pulls
@@ -333,8 +334,8 @@ def merge_feed(new_items):
     json.dump(out, open(OUT, 'w'), indent=1)
     return len(items)
 
-def pull_query(q, since_id=None):
-    params = {'query': q, 'max_results': MAX_RESULTS,
+def pull_query(q, since_id=None, max_results=None):
+    params = {'query': q, 'max_results': max_results or MAX_RESULTS,
               'tweet.fields': 'created_at,author_id,public_metrics',
               'expansions': 'author_id', 'user.fields': 'username,name'}
     if since_id:
@@ -373,21 +374,26 @@ def fresh_headlines(limit):
 
 BACKFILL = False   # set by main when the pool does not span the full 24h horizon (owner 2:49)
 
-def run_strategies(headlines, strategies, requests_cap, trial_log=None):
-    """Core pull loop with route-around. Returns (items, requests_used)."""
+def run_strategies(headlines, strategies, requests_cap, trial_log=None, budget=None, max_results=None):
+    """Core pull loop with route-around. Returns (items, requests_used).
+    Every request first passes the X daily spend ceiling (x_budget.py) at its worst case."""
+    budget = budget or x_budget.Budget.load(LEDGER)
+    mr = max_results or MAX_RESULTS
     st = load_state()
     since = st.get('news_since', {})
     items = []
     used = 0
     successful = 0
     fail_codes = []
+    outcome_codes = []  # every failed request: HTTP code or 'error' (x_wall sustained-wall streak)
+    spent_out = False
     for it in headlines:
-        if used >= requests_cap:
+        if used >= requests_cap or spent_out:
             break
         nk = headline_key(it)
         placed = False
         for strategy in strategies:
-            if placed or used >= requests_cap:
+            if placed or used >= requests_cap or spent_out:
                 break
             qs = build_queries(it, strategy)
             if not qs:
@@ -397,8 +403,13 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
             for tag, aq in attempts[:ROUTE_ATTEMPTS]:
                 if used >= requests_cap:
                     break
+                if not budget.fits(mr):
+                    budget.stop('news_social', used, mr)
+                    spent_out = True
+                    break
                 try:
-                    got, newest = pull_query(aq, None if BACKFILL else since.get(aq))  # backfill: no since_id so the full 24h window is matchable
+                    got, newest = pull_query(aq, None if BACKFILL else since.get(aq), mr)  # backfill: no since_id so the full 24h window is matchable
+                    budget.charge(len(got))
                     used += 1
                     successful += 1
                     if newest:
@@ -422,6 +433,7 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
                     used += 1
                     c = x_wall.http_code(e)
                     if c: fail_codes.append(c)
+                    outcome_codes.append(c or 'error')
                     print(f'news pull FAIL ({aq[:40]}...): {str(e)[:160]}')  # diagnosable: per-request error class was previously invisible in pull mode
                     if trial_log is not None:
                         trial_log.append({'headline': it.get('headline', '')[:100], 'nk': nk,
@@ -429,6 +441,7 @@ def run_strategies(headlines, strategies, requests_cap, trial_log=None):
                                           'note': 'request failed - rotating'})
     st['news_since'] = since
     save_state(st)
+    x_wall.record_outcome('news_social', used, successful, outcome_codes)
     if used and not successful:
         if x_wall.is_wall(fail_codes):
             x_wall.wall_skip('news_social pull')
@@ -441,13 +454,21 @@ def main():
         print('X_BEARER_TOKEN secret not set - dormant')
         return
     mode = sys.argv[1] if len(sys.argv) > 1 else 'pull'
+    if not x_budget.paid_pulls_on():
+        print(x_budget.paused_note('news_social ' + mode))  # owner switch: no paid X request at all
+        return
     if mode == 'trial':
         # sentient integration trials (owner 1:15): every strategy gets its shot on live data,
         # every failure routes around, everything logged. Winner decided by soc_match verdicts.
         trial_log = []
+        budget = x_budget.Budget.load(LEDGER)
+        n_ok, mr = budget.plan('news_social trial', NEWS_QUERIES_PER_RUN + 4, MAX_RESULTS)
+        if not n_ok:
+            print('trial: no request this cycle (X daily spend cap); feed and trial log preserved')
+            return
         headlines = fresh_headlines(6)
         items, used = run_strategies(headlines, ['S1', 'S2', 'S3', 'S4'],
-                                     NEWS_QUERIES_PER_RUN + 4, trial_log)
+                                     n_ok, trial_log, budget=budget, max_results=mr)
         total = merge_feed(items)
         rec = {'ran_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
                'mode': 'trial', 'headlines': len(headlines), 'requests': used,
@@ -497,8 +518,15 @@ def main():
             print('backfill: pool does not span 24h - pulling without since_id this run')
     except Exception:
         globals()['BACKFILL'] = False
+    # daily spend ceiling (x_budget.py): project the worst case (every request returns MAX_RESULTS
+    # posts) before any request; shrink or skip so the trailing-24h spend stays under X_DAILY_CAP_USD.
+    budget = x_budget.Budget.load(LEDGER)
+    n_ok, mr = budget.plan('news_social', NEWS_QUERIES_PER_RUN, MAX_RESULTS)
+    if not n_ok:
+        print(f'pull[{strategy}]: no request this cycle (X daily spend cap); feed preserved')
+        return
     headlines = fresh_headlines(NEWS_QUERIES_PER_RUN)
-    items, used = run_strategies(headlines, [strategy, 'S2', 'S3'], NEWS_QUERIES_PER_RUN)
+    items, used = run_strategies(headlines, [strategy, 'S2', 'S3'], n_ok, budget=budget, max_results=mr)
     if used:
         total = merge_feed(items)
     else:

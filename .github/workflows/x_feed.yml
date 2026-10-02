@@ -10,6 +10,8 @@ on:
   schedule:
     # UNPARKED 15-min: his verbatim sign-off '15-min' (main 9:25), burn math presented (~$3.17/day vs $9.04 free, billing after). Balance-watch: ledger exits 1 under $2.00.
     - cron: '*/15 * * * *'
+    # Spend ceiling (Oct 2): the ledger later showed $3.25-$4.45 per cycle, so scripts/x_budget.py now
+    # holds the trailing-24h X spend under the repo variable X_DAILY_CAP_USD ($3.00 when unset).
   workflow_run:
     # sync-at-all-times (user 4:27 class kill): the pair map tracks the news feed by CONSTRUCTION -
     # every news-refresh completion re-runs the chain. The freshness guard below exits before any
@@ -53,6 +55,13 @@ jobs:
     needs: hold-check
     if: ${{ !cancelled() && needs.hold-check.result == 'success' && needs.hold-check.outputs.held == 'false' }}
     runs-on: ubuntu-latest
+    # X spend controls, repo variables (Settings > Secrets and variables > Actions > Variables) that
+    # the scripts only read: X_DAILY_CAP_USD = daily ceiling for paid X pulls in dollars, $3.00 (the
+    # signed-off figure) when unset or unreadable; X_PAID_PULLS=off = no paid X request at all (news
+    # bridging, the matcher and the commits keep running).
+    env:
+      X_DAILY_CAP_USD: ${{ vars.X_DAILY_CAP_USD }}
+      X_PAID_PULLS: ${{ vars.X_PAID_PULLS }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -64,6 +73,21 @@ jobs:
       # always() safety commit if the chain dies first so news cannot go stale.
       - name: "bridge: worker news -> slates/news.json"
         run: python3 scripts/bridge_worker_news.py
+      # X spend gate (Oct 2): X_PAID_PULLS=off skips every paid step. Otherwise spend = the burn
+      # ledger's trailing 24h at the code's rates, ceiling = X_DAILY_CAP_USD. The ledger is first
+      # synced with main's newest copy: a run queued before the previous run published its ledger
+      # would otherwise neither count nor keep that spend. When not even the smallest request fits,
+      # every paid step is skipped (SKIP_X_PULL) while news, the matcher and the commits still run;
+      # each script also shrinks its own pull to what is left.
+      - name: "X spend gate (pause switch, daily cap, ledger synced with main)"
+        run: |
+          main_ledger=""
+          if git fetch -q origin main && git show FETCH_HEAD:slates/x_burn.jsonl > "$RUNNER_TEMP/x_burn_main.jsonl"; then
+            main_ledger="$RUNNER_TEMP/x_burn_main.jsonl"
+          else
+            echo "::warning::main's burn ledger could not be read - spend is counted from this checkout's ledger only"
+          fi
+          python3 scripts/x_budget.py gate ${main_ledger:+--main-ledger "$main_ledger"}
       # IFTTT rule set (owner 5:24 "Make the social feed algo have an IFTTT protocol"):
       #   R1 IF news rotates (news-refresh completes) THEN chain runs: pull -> match -> publish.
       #   R2 IF a visible story lacks a verified pair THEN the chain keeps pulling per-story posts
@@ -102,6 +126,7 @@ jobs:
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
           MODE: ${{ inputs.verify_only && 'verify' || 'pull' }}
+          X_RUN_OUTCOME: ${{ runner.temp }}/x_run_outcome.jsonl
         run: |
           if [ -z "$X_BEARER_TOKEN" ]; then
             echo "X_BEARER_TOKEN not set - dormant cycle (fill pending)"; exit 0
@@ -112,11 +137,22 @@ jobs:
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
           NS_MODE: ${{ inputs.ns_mode || 'pull' }}
+          X_RUN_OUTCOME: ${{ runner.temp }}/x_run_outcome.jsonl
         run: |
           if [ -z "$X_BEARER_TOKEN" ]; then
             echo "X_BEARER_TOKEN not set - news_social dormant"; exit 0
           fi
           python3 scripts/news_social.py "$NS_MODE"
+      # Sustained-wall alert (Oct 2): the wall skip above ends a run green, so 402 on every request
+      # for ~68 h reached no alert. Both pulls record their request outcome; this step counts due runs
+      # in a row on which X denied EVERY request (401/402/403) in slates/x_wall_state.json (committed
+      # with the feed). At 4 it sets X_WALL_ALERT and the LAST step fails the run, after news and the
+      # commits, so incident-hook records it; it repeats every 6 h while the wall lasts, not every run.
+      - name: "X wall streak (every request denied on 4 due runs in a row -> alert)"
+        if: ${{ !cancelled() && env.SKIP_X_PULL != '1' && !inputs.verify_only }}
+        env:
+          X_RUN_OUTCOME: ${{ runner.temp }}/x_run_outcome.jsonl
+        run: python3 scripts/x_wall.py streak
       # Publish the successful X ingest before embedding/probe work can keep the job
       # busy for minutes. Matcher publishes its map in the later commit step.
       - name: "publish X feed and paid-pull ledger before matcher"
@@ -180,6 +216,8 @@ jobs:
           git config user.name "RixPicks Bot"
           git config user.email "rixpicks-bot@users.noreply.github.com"
           git add slates/news.json slates/x_feed.json slates/x_burn.jsonl slates/x_feed_state.json slates/soc_trials.json slates/soc_match.json slates/soc_vecs.json slates/soc_verdicts.json 2>/dev/null || exit 0
+          # own guarded add: a missing wall-state file must never make the add above drop the feed commit
+          if [ -f slates/x_wall_state.json ]; then git add slates/x_wall_state.json; fi
           git diff --cached --quiet && exit 0
           git commit -m "x feed $(date -u +%H:%M) UTC"
           # bash -e killed this loop on ANY push race: a failing && list at statement level
@@ -249,3 +287,11 @@ jobs:
               "https://api.github.com/repos/${{ github.repository }}/actions/workflows/368490964/dispatches" \
               -d '{"ref":"main"}'
           else echo "fresh - no dispatch"; fi
+      # Sustained-wall alert: the LAST step, so the news bridge, the feed commit and the news safety
+      # commit above have all run. It fails the run on purpose (incident-hook captures x-feed failures).
+      - name: "X wall alert (fails the run so incident-hook records it; news already published)"
+        if: ${{ !cancelled() && env.X_WALL_ALERT == '1' }}
+        run: |
+          echo "::error title=X API wall::$X_WALL_MSG"
+          echo "X WALL ALERT - error, run failed on purpose so incident-hook records it: $X_WALL_MSG"
+          exit 1

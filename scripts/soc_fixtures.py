@@ -352,6 +352,13 @@ xspec.loader.exec_module(xf)
 with tempfile.TemporaryDirectory() as td:
     xf.OUT = os.path.join(td, 'feed.json')
     xf.STATE = os.path.join(td, 'state.json')
+    # The spend gate (x_budget.py) reads a fixture ledger and the default ceiling with pulls on,
+    # never today's real ledger or the run's X_DAILY_CAP_USD / X_PAID_PULLS: these checks are about
+    # ingest, and they run inside the x-feed matcher step, where a spent day or the owner's pause
+    # must not abort the chain.
+    xf.LEDGER = os.path.join(td, 'burn.jsonl')
+    os.environ.pop('X_DAILY_CAP_USD', None)
+    os.environ.pop('X_PAID_PULLS', None)
     xf.TOKEN = 'test-only'
     xf.slate_terms = lambda: ['Kansas']
     xf.game_window = lambda: False
