@@ -111,7 +111,8 @@ git commit -m "odds refresh $(date '+%H:%M PT') (call $((COUNT+1)) today)"
 # chaos drill (Sep 26): a push racing the publish window must retry+rebase, never fail red
 # K22 (Sep 30): loop lives in push_with_guard.sh - every loud-fail path resets HEAD to
 # origin/main first, because the on-failure incident hook pushes HEAD (run 36730127672).
+# The guard also reads the push back (origin/main must contain HEAD); a run with
+# nothing to commit has nothing to read back (Oct 2 runs 36962855292 + 36962967323).
 bash scripts/push_with_guard.sh
-git ls-remote origin main | grep -q "$(git rev-parse HEAD)" || { echo 'PUSH READBACK FAILED: origin/main != HEAD' >&2; exit 1; }
 echo "rebuilt and pushed"
 

@@ -83,7 +83,7 @@ OUT=$(bash "$SCRIPT_UNDER_TEST" 2>&1); RC3=$?
 # B and C are injected by a post-receive hook on the scratch origin (one shot per arm).
 # PENDING: call sites owned outside the CI scripts that still carry the tip-equality readback;
 # their A/B results are reported, not failed, until that line is dropped there too.
-PENDING_SITES="scripts/refresh.sh .github/workflows/record_final.yml"
+PENDING_SITES=""
 cd "$SCRATCH" || exit 2
 : > "$SCRATCH/pr_mode"
 cat > origin.git/hooks/post-receive <<HOOK

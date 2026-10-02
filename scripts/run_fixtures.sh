@@ -11,7 +11,6 @@ SKIP="
 scripts/test_manifest_chips_class.py|content check of a built page: needs manifest.json + index.html args
 scripts/test_feed_fallback_dom.js|needs jsdom; runs in x-feed with the pinned install
 scripts/test_state_gate_pm_path.js|needs jsdom; not yet verified green anywhere
-tests/run_tests.py|needs the RIX_CONFIG_PROPS hook in scripts/props_card_candidates.py
 "
 skip_reason() { printf '%s\n' "$SKIP" | awk -F'|' -v f="$1" '$1==f {print $2}'; }
 PASS=0; FAILED=""; SKIPPED=0

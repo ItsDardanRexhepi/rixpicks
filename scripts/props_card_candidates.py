@@ -10,11 +10,13 @@ verdict row) - a row missing espn_id skips LOUD, never resolves by name guessing
 Markets: only finals_watch's verified gradeable map cards; anything else skips LOUD.
 IN : path to verdict feed (default /tmp/props_candidates.json)
 OUT: JSON list of build_manifest candidates."""
-import json, sys
+import json, os, sys
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-CFG = json.load(open('/home/sandbox/rix_tmp/config_props.json'))['leagues']
+# env override = test-isolation hook (same pattern as build_manifest's RIX_PICKS_LEDGER /
+# RIX_PROD_MANIFEST): tests/run_tests.py points it at its own checkout's config.
+CFG = json.load(open(os.environ.get('RIX_CONFIG_PROPS', '/home/sandbox/rix_tmp/config_props.json')))['leagues']
 # engine market -> gradeable market (finals_watch.PROP_STAT_KEYS + specials; keep in sync)
 MARKET_MAP = {
     'player_pass_yds': 'passing_yards', 'player_pass_tds': 'pass_td',

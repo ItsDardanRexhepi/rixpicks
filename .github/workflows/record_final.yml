@@ -111,5 +111,6 @@ jobs:
           # K22 (Sep 30, run 36730127672): hardened push guard - resets HEAD on loud-fail
           # (the on-failure hook pushes HEAD) and fails loud when upstream moved a
           # lane-shipped file mid-run; -X theirs alone silently discarded lane pushes.
+          # The guard also reads the push back (origin/main must contain HEAD); a run with
+          # nothing to commit has nothing to read back (Oct 2 runs 36962855292 + 36962967323).
           bash scripts/push_with_guard.sh
-          git ls-remote origin main | grep -q "$(git rev-parse HEAD)" || { echo 'PUSH READBACK FAILED: origin/main != HEAD' >&2; exit 1; }
