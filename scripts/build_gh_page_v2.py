@@ -2223,6 +2223,7 @@ h1 .tick{{color:#3BEBF5}}
 .ls .dot{{width:6px;height:6px;border-radius:50%;background:#e5484d;animation:rpblink 1.2s infinite}}
 .ls.won{{color:#3ecf6f}}
 .ls.lost{{color:#e5484d}}
+.ls.push{{color:#8a8f98}}
 @keyframes rpblink{{0%,100%{{opacity:1}}50%{{opacity:.25}}}}
 #rpPull{{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:#f7f6f4;color:#2f8f7d;font-size:13px;font-weight:600;transform:translateY(-100%);z-index:60;pointer-events:none}}
 .spin{{width:14px;height:14px;border:2px solid #cde3dd;border-top-color:#2f8f7d;border-radius:50%;animation:rpSpin .8s linear infinite;margin-right:8px;display:inline-block}}
@@ -2429,12 +2430,20 @@ function rpLsEnrichEspn(_pk,_f,_seq){{ /* degradation lane when the worker feed 
   const _nf={{a:_f.a,h:_f.h,as:_fa,hs:_fh,st:_st2x,state:'in',arb:true}};  /* per-side canonical floor - lane takeover never lowers displayed scores */
 _pk.__lsArbTs=Date.now();const _e4=_pk.querySelector('[data-ls]');if(_e4)_e4.style.opacity='';_pk.__lsLast=_nf;rpLsRender(_pk,_nf);
  }}).catch(()=>{{}});}}
+function rpGrade(mk,side,line,as,hs){{  /* spread/total final verdict 'W'|'L'|'P', or null = no verdict: totals grade the combined score against the line, spreads the pick-side margin plus the line, an exact landing pushes */
+ as=+as;hs=+hs;if(!isFinite(as)||!isFinite(hs))return null;
+ const ln=parseFloat(line);if(!isFinite(ln))return null;
+ if(mk==='total'){{if(side!=='over'&&side!=='under')return null;const t=as+hs;if(t===ln)return 'P';return ((side==='over')===(t>ln))?'W':'L';}}
+ if(mk==='spread'){{if(side!=='away'&&side!=='home')return null;const m=((side==='away')?(as-hs):(hs-as))+ln;if(m===0)return 'P';return m>0?'W':'L';}}
+ return null;}}
 function rpLsRender(pk,g){{const el=pk.querySelector('[data-ls]');if(!el)return;
  if(!g||g.state==='pre'){{el.className='ls';el.innerHTML='';return;}}
- if(g.state==='post'){{const side=pk.dataset.side||'away';
-  const win=g.w?((side==='away')?(g.w==='a'):(g.w==='h')):((side==='away')?(g.as>g.hs):(g.hs>g.as));  /* K19: winner-flag verdict (MMA) beats the score read - a 0-0 fight is not a home loss by default */
-  el.className='ls on '+(win?'won':'lost');
-  el.innerHTML=(g.w&&!(g.as||g.hs))?('<b>'+(win?'W':'L')+'</b> &middot; '+(g.st||'Final')):('<b>'+(win?'W':'L')+'</b> &middot; '+g.a+' '+g.as+' - '+g.h+' '+g.hs+' Final');return;}}  /* K19: no fake 0-0 score on flag verdicts */
+ if(g.state==='post'){{const side=pk.dataset.side||'away',mk=pk.dataset.market||'ml';
+  const v=(mk==='ml')?((g.w?((side==='away')?(g.w==='a'):(g.w==='h')):((side==='away')?(g.as>g.hs):(g.hs>g.as)))?'W':'L'):((typeof rpGrade==='function')?rpGrade(mk,side,pk.dataset.line,g.as,g.hs):null);  /* K19: winner-flag verdict (MMA) beats the score read - a 0-0 fight is not a home loss by default; the flag only grades a moneyline */
+  const sc=g.a+' '+g.as+' - '+g.h+' '+g.hs+' Final';
+  if(!v){{el.className='ls on fin';el.innerHTML=(g.w&&!(g.as||g.hs))?(g.st||'Final'):sc;return;}}  /* market the page cannot grade (prop, missing line): the final shows, a verdict never does */
+  el.className='ls on '+(v==='W'?'won':(v==='L'?'lost':'push'));
+  el.innerHTML=(g.w&&!(g.as||g.hs))?('<b>'+v+'</b> &middot; '+(g.st||'Final')):('<b>'+v+'</b> &middot; '+sc);return;}}  /* K19: no fake 0-0 score on flag verdicts */
  el.className='ls on';
  const ba=(g.bat==='a')?RP_BAT:'',bh=(g.bat==='h')?RP_BAT:'';
  el.innerHTML=(g.state==='in'?'<span class="dot"></span>':'')+ba+g.a+' '+g.as+' - '+bh+g.h+' '+g.hs+' &middot; '+g.st;}}
@@ -2527,14 +2536,15 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
   }});}}catch(e){{}}}}
 }}
 function rpCxLive(){{const legs=[...document.querySelectorAll('.cxleg')];const el=document.getElementById('rpCxLive');if(!el||!legs.length)return;
- let w=0,l=0,live=0;
+ let w=0,l=0,p=0,u=0,live=0;
  legs.forEach(x=>{{const sp=x.querySelector('[data-ls]');if(!sp)return;
-  if(sp.classList.contains('won'))w++;else if(sp.classList.contains('lost'))l++;else if(sp.classList.contains('on'))live++;}});
- if(!w&&!l&&!live){{el.style.display='none';return;}}
+  if(sp.classList.contains('won'))w++;else if(sp.classList.contains('lost'))l++;else if(sp.classList.contains('push'))p++;else if(sp.classList.contains('fin'))u++;else if(sp.classList.contains('on'))live++;}});
+ if(!w&&!l&&!p&&!u&&!live){{el.style.display='none';return;}}
  el.style.display='';
  if(l>0){{el.innerHTML='<span style="color:#e5484d;font-weight:700">Combo dead</span> - '+w+' of '+legs.length+' legs home';return;}}
  if(w===legs.length){{el.innerHTML='<span style="color:#3ecf6f;font-weight:700">Combo cashed</span> - all '+legs.length+' legs home';return;}}
- el.textContent=w+' of '+legs.length+' legs home'+(live?' \u00b7 '+live+' live':'')+(legs.length-w-l-live>0?' \u00b7 '+(legs.length-w-l-live)+' upcoming':'');}}
+ if(w+p===legs.length){{el.innerHTML=w?('<span style="color:#3ecf6f;font-weight:700">Combo cashed</span> - '+w+' of '+legs.length+' legs home, '+p+' push'):'<span style="color:#8a8f98;font-weight:700">Combo push</span> - every leg pushed';return;}}  /* a pushed leg drops out of the combo; it is never counted home */
+ el.textContent=w+' of '+legs.length+' legs home'+(p?' \u00b7 '+p+' push':'')+(u?' \u00b7 '+u+' final, not graded here':'')+(live?' \u00b7 '+live+' live':'')+(legs.length-w-l-p-u-live>0?' \u00b7 '+(legs.length-w-l-p-u-live)+' upcoming':'');}}
 let _rpRecLast=0;
 async function rpRecLive(){{const rec=document.getElementById('rpRec');if(!rec)return;
  /* Live canonical record: hydrate from same-origin manifest.json - the ledger-verified served record written by record_final (one record, one source, every surface - main 9/27; the api.rix-picks.com/record worker is a stale mirror, keeper-side). 404/failure keeps baked last-build values: fail closed, never invent. Page finals are still NEVER added locally. */
@@ -2548,7 +2558,7 @@ async function rpRecLive(){{const rec=document.getElementById('rpRec');if(!rec)r
 }}
 function rpFinalsTop(){{document.querySelectorAll('.pick').forEach(function(pk){{
  var sp=pk.querySelector('[data-ls]');if(!sp)return;
- var done=sp.classList.contains('won')||sp.classList.contains('lost');if(!done||pk.dataset.fin)return;
+ var done=sp.classList.contains('won')||sp.classList.contains('lost')||sp.classList.contains('push')||sp.classList.contains('fin');if(!done||pk.dataset.fin)return;
  pk.dataset.fin='1';
  var h=pk.previousElementSibling;while(h&&!h.classList.contains('lghead'))h=h.previousElementSibling;
  if(h&&h.parentNode===pk.parentNode)h.parentNode.insertBefore(pk,h.nextElementSibling);
