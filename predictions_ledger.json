@@ -829,5 +829,18 @@
   "kickoff_utc": "2026-10-04T00:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-02T15:36:52.431769+00:00"
+ },
+ {
+  "id": "35059ac038",
+  "event_id": "401892432",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Carolina Hurricanes",
+  "away": "Washington Capitals",
+  "pick_team": "Carolina Hurricanes",
+  "prediction": "Carolina Hurricanes beat Washington Capitals",
+  "kickoff_utc": "2026-10-02T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-02T15:50:09.345210+00:00"
  }
 ]

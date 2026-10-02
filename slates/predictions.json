@@ -1,6 +1,13 @@
 {
- "generated_at": "2026-10-02T15:36:52.931992+00:00",
+ "generated_at": "2026-10-02T15:50:38.499530+00:00",
  "items": [
+  {
+   "id": "35059ac038",
+   "league": "NHL",
+   "event": "Washington Capitals @ Carolina Hurricanes",
+   "prediction": "Carolina Hurricanes beat Washington Capitals",
+   "kickoff_utc": "2026-10-02T23:00:00+00:00"
+  },
   {
    "id": "91e64929a5",
    "league": "NWSL",
@@ -34,13 +41,6 @@
    "league": "CFB",
    "event": "Notre Dame Fighting Irish @ North Carolina Tar Heels",
    "prediction": "Notre Dame Fighting Irish beat North Carolina Tar Heels",
-   "kickoff_utc": "2026-10-03T16:00:00+00:00"
-  },
-  {
-   "id": "233f8d6981",
-   "league": "CFB",
-   "event": "UCF Knights @ Houston Cougars",
-   "prediction": "UCF Knights beat Houston Cougars",
    "kickoff_utc": "2026-10-03T16:00:00+00:00"
   }
  ]
