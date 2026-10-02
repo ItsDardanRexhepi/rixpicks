@@ -26,7 +26,7 @@ Writes NOTHING to any private ledger - that stays analysis-side.
 """
 import glob, json, os, re, sys, urllib.request
 from datetime import datetime, timezone, timedelta
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from zoneinfo import ZoneInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -137,7 +137,11 @@ def espn_verify_mma(league, eid, comp_id, q):
 SCORE_RE = re.compile(r'^([A-Z]{2,4})\s+(\d+)\s*@\s*([A-Z]{2,4})\s+(\d+)$')
 
 def fmt_units(d):
-    d = Decimal(d).quantize(Decimal('0.01'))
+    # the owner's display rule (core/units.display_units): half-up to the cent; a total that rounds
+    # to zero prints '+0.00u', never '+-0.00u' (units_anchor reads this text back from the manifest)
+    d = Decimal(d).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+    if d == 0:
+        d = abs(d)
     return ('+' if d >= 0 else '') + f'{d}u'
 
 _TWO_WORD_NICKS = ('White Sox', 'Red Sox', 'Blue Jays', 'Maple Leafs', 'Red Wings', 'Blue Jackets',
@@ -723,7 +727,7 @@ def main():
     mirror = {
         'w': rw, 'l': rl,
         'pct': float((Decimal(rw * 100) / (rw + rl)).quantize(Decimal('0.1'))) if (rw + rl) else 0.0,
-        'units': float(Decimal(str(last['units_after_exact'])).quantize(Decimal('0.01'))),
+        'units': float(fmt_units(Decimal(str(last['units_after_exact'])))[:-1]),  # the manifest's own display value
         'updated': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
     }
     if last.get('graded_pick'):

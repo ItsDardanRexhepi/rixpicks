@@ -143,6 +143,8 @@ def run(reqs, hist=HIST, done=DONE, live=LIVE, payload=None, snaps=None):
             except Exception as e:  # a crash is not a refusal
                 code = f'raised {type(e).__name__}'
         state = {f: json.load(open(os.path.join(tmp, f))) for f in ('manifest.json', 'history.json', 'record_done.json', 'record_request.json')}
+        mirror = os.path.join(tmp, 'slates', 'api_record.json')
+        state['slates/api_record.json'] = json.load(open(mirror)) if os.path.exists(mirror) else None
         return code, state, err.getvalue()
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
@@ -260,6 +262,28 @@ refused('chain: next run 0.004u off the exact anchor', [aces(rec='22-12', ua=U0 
         live=nxt_live, done=st['record_done.json'])
 code, _, _ = run([aces(rec='22-12', ua=U0 + D_DEV - 6)], live=nxt_live, done=st['record_done.json'])
 check('chain: next run on the exact anchor lands', code, 0)
+
+# displayed units round half-up (the owner's rule in core/units; record_today.js shows 3.125 as +3.13u),
+# and a total in (-0.005, 0] prints '+0.00u' - '+-0.00u' was written to manifest units_pl and every
+# later grade then refused it as unparsable (exit 3) until a manual fix
+_rf = load()
+from decimal import Decimal as _D
+check('units display: half-up and a signed zero', [_rf.fmt_units(_D(v)) for v in
+      ('3.125', '-3.125', '0.005', '-0.005', '-0.0049999', '-0.004', '-0.001', '-0', '0', '0.004', '2.124999')],
+      ['+3.13u', '-3.13u', '+0.01u', '-0.01u', '+0.00u', '+0.00u', '+0.00u', '+0.00u', '+0.00u', '+0.00u', '+2.12u'])
+LIVE_6 = dict(LIVE, record='21-11', units_pl='+6.00u')
+DONE_6 = dict(DONE, record_after='21-11', units_after_exact='5.997')
+code, st, err = run([under(rec='21-12', ua=5.997 - 6)], live=LIVE_6, done=DONE_6)
+check('units display: a grade leaving -0.003u running lands', (code, err.strip()), (0, ''))
+check("units display: manifest units_pl reads '+0.00u', never '+-0.00u'", st['manifest.json']['units_pl'], '+0.00u')
+check('units display: the api mirror carries units 0.0, never -0.0', str(st['slates/api_record.json']['units']), '0.0')
+code, st2, err = run([devils(rec='22-12', ua=5.997 - 6 + D_DEV)], live=st['manifest.json'], done=st['record_done.json'])
+check('units display: the next grade continues the chain from +0.00u', (code, err.strip(), st2['manifest.json']['units_pl']),
+      (0, '', '+3.08u'))
+code, st, _ = run([devils(delta=D_DEV, ua=3.125)], live=dict(LIVE, units_pl='+0.04u'),
+                  done=dict(DONE, record_after='21-11', units_after_exact=str(3.125 - D_DEV)))
+check('units display: manifest and api mirror agree, half-up (3.125 exactly)', (code, st['manifest.json']['units_pl'],
+      st['slates/api_record.json']['units']), (0, '+3.13u', 3.13))
 
 # DI-06: a pick already on its card date's row is refused, never double counted
 hist_dup = copy.deepcopy(HIST)
