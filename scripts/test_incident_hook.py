@@ -11,7 +11,9 @@ failing build. Now:
    or by either name: the workflow is "pages-build-deployment", but every run of it - the
    workflow_run.name the event carries - is "pages build and deployment" (run 36962994684 itself),
    so a guard on the workflow name alone never fired;
- - captures for one workflow run one at a time (a concurrency group, nothing cancelled);
+ - no capture is replaced by a later run: the concurrency group sits on the capture job, keyed
+   by the failed run's id (a workflow-level group let a success-triggered run replace a pending
+   failure capture), nothing cancelled;
  - the note's push retries with a rebase onto main, and fails loud when it cannot land (was
    `git push || true`, which dropped a racing note without a trace).
 Runs the workflow's own step scripts in scratch repos, offline.
@@ -84,11 +86,14 @@ for run_name, author, path, want in (
     check(f'guard: failed {run_name!r} ({path or "no path"}) at a commit by {author or "(none)"!r} -> capture={want}',
           rc == 0 and lines == ['capture=' + want], (rc, lines))
 
-# 2. one capture at a time per failed workflow, nothing cancelled
-conc = WF.get('concurrency') or {}
-check('incident.yml has a concurrency group keyed by the failed workflow, nothing cancelled',
-      isinstance(conc, dict) and str(conc.get('group', '')).startswith('incident-hook')
-      and 'github.event.workflow_run.name' in str(conc.get('group', '')) and conc.get('cancel-in-progress') is False, conc)
+# 2. no capture is replaced: the group sits on the capture job (a success-triggered run, whose job
+#    is skipped, never enters it), keyed by the failed run id, nothing cancelled
+#    (scripts/test_failure_capture_concurrency.py checks failure-watchdog too)
+conc = job.get('concurrency') or {}
+check('incident.yml: no workflow-level group; the capture job\'s group is keyed by the failed run id, nothing cancelled',
+      'concurrency' not in WF and isinstance(conc, dict) and str(conc.get('group', '')).startswith('incident-hook')
+      and 'github.event.workflow_run.id' in str(conc.get('group', '')) and conc.get('cancel-in-progress') is False,
+      (WF.get('concurrency'), conc))
 
 # 3. the note's push: retry with a rebase onto main, loud when it cannot land
 crun = str((commit or {}).get('run') or '')

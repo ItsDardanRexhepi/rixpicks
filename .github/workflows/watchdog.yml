@@ -6,9 +6,6 @@ on:
 permissions:
   contents: write
   actions: write
-concurrency:
-  group: failure-watchdog
-  cancel-in-progress: false
 jobs:
   # The odds provider's last credit reading (the quota floor below) is ops state kept outside the
   # served checkout; odds-refresh saves it to the Actions cache after each pull. The cache archive
@@ -59,6 +56,15 @@ jobs:
   triage:
     needs: quota-state
     if: ${{ !cancelled() && github.event.workflow_run.conclusion == 'failure' }}
+    # One triage at a time (it reads and writes watchdog_state.json, the 30-minute retry budget),
+    # and only failures queue for it: the group sits on this job, not on the workflow. GitHub keeps
+    # one running and one pending run per group and replaces the pending one when another arrives;
+    # at workflow level every completion of a watched workflow entered the group (kalshi-quotes and
+    # wooder-td complete every 5 minutes), so a pending failure's triage could be replaced by a
+    # success's run and its diagnosis dropped (scripts/test_failure_capture_concurrency.py).
+    concurrency:
+      group: failure-watchdog
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

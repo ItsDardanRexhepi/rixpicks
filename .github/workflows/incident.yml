@@ -14,15 +14,19 @@ on:
 permissions:
   actions: read
   contents: write
-# One capture at a time per failed workflow, none cancelled: captures of the same workflow never
-# race each other's push, and a burst across workflows is not dropped (a single group would cancel
-# all but one pending run). Pushes that still race (bots, other workflows) retry below.
-concurrency:
-  group: incident-hook-${{ github.event.workflow_run.name }}
-  cancel-in-progress: false
 jobs:
   capture:
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    # No capture is ever replaced. GitHub keeps one running and one pending run per concurrency
+    # group and replaces the pending one when another arrives, whatever cancel-in-progress says. A
+    # workflow-level group took in every run here, success-triggered ones too (their capture is
+    # skipped), so a pending failure capture could be replaced by a later success's run and its
+    # note dropped. The group sits on this job (a skipped job never enters it) and is keyed by the
+    # failed run's id, so captures never wait on or replace one another; each note is its own file
+    # and its push retries with a rebase onto main below (scripts/test_failure_capture_concurrency.py).
+    concurrency:
+      group: incident-hook-${{ github.event.workflow_run.id }}
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     steps:
       # Loop guard: every incident commit starts a Pages build (Pages run 36962994684 was started by
