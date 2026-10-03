@@ -595,8 +595,9 @@
   "pick_team": "Orlando Pride",
   "prediction": "Orlando Pride beat San Diego Wave FC",
   "kickoff_utc": "2026-10-03T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T19:50:21.110356+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T19:50:21.110356+00:00",
+  "settled_at": "2026-10-03T02:34:57.017238+00:00"
  },
  {
   "id": "c14aacd0e7",
