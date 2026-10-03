@@ -105,8 +105,9 @@
   "pick_team": "Notre Dame Fighting Irish",
   "prediction": "Notre Dame Fighting Irish beat North Carolina Tar Heels",
   "kickoff_utc": "2026-10-03T16:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T11:35:17.907497+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T11:35:17.907497+00:00",
+  "settled_at": "2026-10-03T19:19:59.817156+00:00"
  },
  {
   "id": "53ae48a051",
