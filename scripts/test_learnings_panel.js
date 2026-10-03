@@ -3,7 +3,9 @@
    The builder bakes the first paint; the page re-reads history.json on load and every 120 s while
    visible, cache-busted and no-store, and repaints #rpLearn only when its content changed:
      - same content as on the page: no repaint;
-     - changed content: one repaint, escaped (a hostile note is text, never markup);
+     - changed content: one repaint, escaped (a hostile note is text, never markup), each day under
+       its own label with its own brief;
+     - a pick graded later by the chain (its lesson as `learning`, no note) repaints at the top of its day;
      - a failed read, an HTTP error, unparseable or wrong-shaped JSON: the page keeps what it shows;
      - a readable ledger with nothing to show: heading and box hidden, shown again when there is;
      - no #rpLearn on the page (the build had nothing to show): nothing fetched.
@@ -38,6 +40,10 @@ const LEDGER_A = { days: [{ date: '2026-10-01', label: 'Thursday, Oct 1', record
   picks: [pk('Devils ML', 'W', 'Form read held.')] }] };
 const LEDGER_B = { days: LEDGER_A.days.concat([{ date: '2026-10-02', label: 'Friday, Oct 2', record: '0-1', units: '-5.00u', brief: '',
   picks: [pk('Rangers ML', 'L', '<img src=x onerror=alert(1)>', { added_after_kickoff: true })] }]) };
+// the record_final chain appends a later-graded row to Oct 2: its lesson rides as `learning`, no note
+const LEDGER_C = { days: [LEDGER_B.days[0], Object.assign({}, LEDGER_B.days[1], { record: '1-1', units: '0.00u',
+  picks: LEDGER_B.days[1].picks.concat([{ name: 'Knicks ML', game: 'vs Celtics', odds: '+120', units: '5u', result: 'W', score: 'BOS 99, NYK 104',
+    _delta: '6.0', learning: 'Chain lesson: the pace read held.' }]) })] };
 const LEDGER_QUIET = { days: [{ date: '2026-10-02', label: 'Friday, Oct 2', record: '1-0', units: '+1.00u', brief: '', picks: [pk('Quiet ML', 'W')] }] };
 
 function page(opts) {
@@ -91,9 +97,18 @@ function page(opts) {
   check('newest day first after the repaint', p.html.indexOf('Friday, Oct 2') >= 0 && p.html.indexOf('Friday, Oct 2') < p.html.indexOf('Thursday, Oct 1'));
   check('hostile note is text, never markup', p.html.indexOf('<img') < 0 && p.html.indexOf('&lt;img src=x onerror=alert(1)&gt;') >= 0);
   check('added-after-kickoff tag shown', p.html.indexOf('<span class="lntag">added after kickoff</span>') >= 0);
-  check('the brief is the latest graded day\'s (none filed): the older brief is not shown', p.html.indexOf('First brief.') < 0);
+  check('each day shows its own brief: Oct 1 its own under its label, Oct 2 (none filed) none',
+    p.html.indexOf('<div class="lnday">Thursday, Oct 1</div><div class="lnbrief">First brief.</div>') >= 0
+    && p.html.indexOf('<div class="lnday">Friday, Oct 2</div><div class="lnitem">') >= 0 && p.html.split('lnbrief').length === 2);
   await p.run();
   check('next tick, same ledger: no further repaint', p.sets === 1, p.sets);
+
+  // the chain grades another Oct 2 pick (learning, no note): one repaint, newest-graded first in its day
+  p.answer = LEDGER_C;
+  await p.run();
+  const kn = p.html.indexOf('Knicks ML'), rg = p.html.indexOf('Rangers ML');
+  check('chain-graded pick: one more repaint, its learning shown', p.sets === 2 && p.html.indexOf('Chain lesson: the pace read held.') >= 0, p.sets);
+  check('chain-graded pick sits first in its day (newest graded first)', kn >= 0 && rg > kn && rg < p.html.indexOf('Thursday, Oct 1'));
 
   // failures keep what the page shows
   for (const [why, ans] of [['fetch rejected', 'reject'], ['HTTP 500', 'http500'], ['unparseable JSON', 'badjson'],

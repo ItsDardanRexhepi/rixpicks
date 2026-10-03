@@ -2138,17 +2138,23 @@ _recpop_html=('<div class="recpop" id="rpRecPop" hidden>'
 _unit_basis_home='<div class="unitmath unitbasis home-only" id="rpUnitBasis">1u = $5 per $1,000 in bankroll</div>'
 # What the system is learning (owner directive, Oct 2: the site shows what the system is learning,
 # in real time, as picks grade). A Home-only section next to News, read from the public ledger
-# history.json: the latest graded day's brief, then the newest graded picks' notes, newest day first,
-# at most 6 picks, each with its result and units, under its day label. This is the first paint;
-# index_v2.js (rpLearnHtml/rpLearnPanel) re-reads history.json every 120 s while the page is visible
-# and repaints the box by the same rules when the content changed. Public ledger fields only (pick
-# name, result, units, note, day brief and label); a text carrying a dollar sign is left out whole,
-# never cut into half a sentence. Every value is HTML-escaped and its slashes entity-encoded, so no
-# ledger text can read as markup or as a comment to scrub_shipped. history.json missing, unreadable
+# history.json. Day groups newest day first, at most 3; under each group's day label that day's own
+# brief, then its graded picks' lessons newest-graded first (reverse ledger order: the grading chain
+# appends as picks grade), at most 6 picks in all, each with its result and units. A day counts only
+# when it has a graded pick (W/L/P); a graded day with a brief and no pick text still shows its brief;
+# once 6 picks are shown no further day is opened. A pick's lesson is its `note` (learn_brief) or,
+# when that is missing or left out, its `learning` (the record_final grading chain). This is the first
+# paint; index_v2.js (rpLearnHtml/rpLearnPanel) re-reads history.json every 120 s while the page is
+# visible and repaints the box by the same rules when the content changed. Public ledger fields only
+# (pick name, result, units, note/learning, day brief and label). A text is left out whole, never cut
+# into half a sentence, when it names money ('$', fullwidth U+FF04, small U+FE69, or the words
+# dollar(s) / USD) or cannot be written as UTF-8 (a lone surrogate would crash the page write); a
+# left-out text renders as if absent. Every value is HTML-escaped and its slashes entity-encoded, so
+# no ledger text can read as markup or as a comment to scrub_shipped. history.json missing, unreadable
 # or with nothing to show renders nothing: no heading, no empty box. Self-contained
 # (scripts/test_learnings_panel.py runs it from source and checks the client renders the same).
-def _learnings_html(hist_path, max_picks=6):
-    import html as _lh, json as _lj
+def _learnings_html(hist_path, max_picks=6, max_days=3):
+    import html as _lh, json as _lj, re as _lr
     try:
         with open(hist_path) as _f:
             _days = _lj.load(_f).get('days')
@@ -2158,33 +2164,45 @@ def _learnings_html(hist_path, max_picks=6):
         return ''
     _days = sorted((d for d in _days if isinstance(d, dict) and isinstance(d.get('picks'), list)),
                    key=lambda d: str(d.get('date') or ''), reverse=True)
+    # ASCII word boundaries and case folding, the same as the client's /.../i
+    _money = _lr.compile(r'[$\uff04\ufe69]|\b(?:dollars?|usd)\b', _lr.I | _lr.A)
     def _t(v):
-        s = v.strip() if isinstance(v, str) else ''
-        return '' if '$' in s else s
+        # the client's trim set: str.isspace() plus U+FEFF (JS trim() plus U+001C-U+001F, U+0085)
+        s = _lr.sub(r'^[\s\ufeff]+|[\s\ufeff]+\Z', '', v) if isinstance(v, str) else ''
+        try:
+            s.encode('utf-8')
+        except UnicodeEncodeError:
+            return ''
+        return '' if _money.search(s) else s
     def _e(s):
         return _lh.escape(s, quote=True).replace('/', '&#47;')
     def _graded(p):
         return isinstance(p, dict) and p.get('result') in ('W', 'L', 'P')
-    _latest = next((d for d in _days if any(_graded(p) for p in d['picks'])), None)
-    out, n = '', 0
+    out, n, g = '', 0, 0
     for d in _days:
-        if n >= max_picks:
+        if n >= max_picks or g >= max_days:
             break
-        body = ('<div class="lnbrief">' + _e(_t(d.get('brief'))) + '</div>') if (d is _latest and _t(d.get('brief'))) else ''
-        for p in d['picks']:
+        if not any(_graded(p) for p in d['picks']):
+            continue
+        body = ('<div class="lnbrief">' + _e(_t(d.get('brief'))) + '</div>') if _t(d.get('brief')) else ''
+        for p in reversed(d['picks']):
             if n >= max_picks:
                 break
-            if not (_graded(p) and _t(p.get('name')) and _t(p.get('note'))):
+            if not _graded(p):
+                continue
+            name, text = _t(p.get('name')), (_t(p.get('note')) or _t(p.get('learning')))
+            if not (name and text):
                 continue
             r = p['result']
             body += ('<div class="lnitem"><div class="lnhead"><span class="lnres ' + r + '">' + r + '</span>'
-                     '<span class="lnname">' + _e(_t(p.get('name'))) + '</span>'
+                     '<span class="lnname">' + _e(name) + '</span>'
                      + (('<span class="lnunits">' + _e(_t(p.get('units'))) + '</span>') if _t(p.get('units')) else '')
                      + ('<span class="lntag">added after kickoff</span>' if p.get('added_after_kickoff') is True else '')
-                     + '</div><div class="lnnote">' + _e(_t(p.get('note'))) + '</div></div>')
+                     + '</div><div class="lnnote">' + _e(text) + '</div></div>')
             n += 1
         if body:
             out += '<div class="lnday">' + _e(_t(d.get('label')) or _t(d.get('date'))) + '</div>' + body
+            g += 1
     if not out:
         return ''
     return ('<div class="sect home-only" id="rpLearnHead" style="margin-top:18px">What the system is learning</div>\n'
