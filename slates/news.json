@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-03T11:31:25.666Z",
+ "generated_at": "2026-10-03T11:36:02.453Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Dodgers' Ohtani admits he won't be fully healthy in playoffs",
+    "link": "https://www.espn.com/mlb/story/_/id/50087725/dodgers-ohtani-admits-fully-healthy-playoffs",
+    "published": "2026-10-03T11:30:57Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0902%2Fr1710261_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Dodgers star Shohei Ohtani says the left knee and right biceps ailments that compromised him throughout the summer are issues he's \"just going to have to manage\" in the postseason.",
+    "league": "MLB"
+   },
    {
     "headline": "MLB Trade Rumors estimates Tigers arbitration raises for 2027",
     "link": "https://sports.yahoo.com/articles/mlb-trade-rumors-estimates-tigers-110500715.html",
@@ -9,15 +18,6 @@
     "image": "https://s.yimg.com/lo/mysterio/api/17c02d2739eae7b07f6ea1ca5578071b8d591b2523ae8cc0162b36b752190050/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F358feec80b31a4ea0473348006412a99.jpg",
     "blurb": "Arbitration increase projections really lay out the main tasks for the Tigers front office this offseason.",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Guardians and White Sox meet to begin ALDS",
-    "link": "http://www.espn.com/mlb/preview?gameId=401907990",
-    "published": "2026-10-03T08:01:39Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907990.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Chicago White Sox (84-78, second in the AL Central during the regular season) vs. Cleveland Guardians (85-77, first in the AL Central during the regular season)",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Guardians and White Sox meet to begin ALDS",
+    "link": "http://www.espn.com/mlb/preview?gameId=401907990",
+    "published": "2026-10-03T08:01:39Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907990.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Chicago White Sox (84-78, second in the AL Central during the regular season) vs. Cleveland Guardians (85-77, first in the AL Central during the regular season)",
+    "league": "MLB"
+   },
+   {
     "headline": "Dodgers vs Braves schedule and game times for NLDS showdown",
     "link": "https://sports.yahoo.com/articles/dodgers-vs-braves-schedule-game-110337091.html",
     "published": "2026-10-03T11:03:37.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/1389516fd1e82083da0bbb87af4ff0a3a9de7c3f2b6b6f173bb497fe19d6cf55/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F95fcb59abce4c515f23d1e34c9398ba3.jpg",
     "blurb": "The Dodgers and Braves face off for spot in the NL Championship Series.",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Brewers and Padres square off to begin NLDS",
-    "link": "http://www.espn.com/mlb/preview?gameId=401908002",
-    "published": "2026-10-03T08:01:36Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908002.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "San Diego Padres (91-71, second in the NL West during the regular season) vs. Milwaukee Brewers (103-59, first in the NL Central during the regular season)",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Brewers and Padres square off to begin NLDS",
+    "link": "http://www.espn.com/mlb/preview?gameId=401908002",
+    "published": "2026-10-03T08:01:36Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908002.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "San Diego Padres (91-71, second in the NL West during the regular season) vs. Milwaukee Brewers (103-59, first in the NL Central during the regular season)",
+    "league": "MLB"
+   },
+   {
     "headline": "Brewers vs Padres schedule and game times for NLDS showdown",
     "link": "https://sports.yahoo.com/articles/brewers-vs-padres-schedule-game-110326618.html",
     "published": "2026-10-03T11:03:26.000Z",
     "image": "",
     "blurb": "Brewers and Padres face off for spot in the NL Championship Series.",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Dodgers and Braves meet to begin NLDS",
-    "link": "http://www.espn.com/mlb/preview?gameId=401908007",
-    "published": "2026-10-03T08:01:29Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908007.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Atlanta Braves (94-68, first in the NL East during the regular season) vs. Los Angeles Dodgers (100-62, first in the NL West during the regular season)",
     "league": "MLB"
    },
    {
@@ -84,16 +84,25 @@
     "league": "MLB"
    },
    {
-    "headline": "Phillies news: Dave Dombrowski, Trea Turner, Division Series",
-    "link": "https://sports.yahoo.com/articles/phillies-news-dave-dombrowski-trea-110000782.html",
-    "published": "2026-10-03T11:00:00.000Z",
-    "image": "",
-    "blurb": "Welcome to the offseason",
-    "source": "YAHOO",
+    "headline": "Dodgers and Braves meet to begin NLDS",
+    "link": "http://www.espn.com/mlb/preview?gameId=401908007",
+    "published": "2026-10-03T08:01:29Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908007.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Atlanta Braves (94-68, first in the NL East during the regular season) vs. Los Angeles Dodgers (100-62, first in the NL West during the regular season)",
     "league": "MLB"
    }
   ],
   "football/nfl": [
+   {
+    "headline": "Inactives watch: Daniels, DeVonta to sit; McConkey questionable",
+    "link": "https://www.espn.com/fantasy/football/story/_/page/FFSundayInactives-50077553/fantasy-football-injuries-nfl-week-4-inactive-active",
+    "published": "2026-10-03T12:30:09.000Z",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1002%252Fr1724907_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Updated inactives and analysis based on the latest reports and official announcements leading up to kickoff.",
+    "source": "ESPN",
+    "league": "NFL"
+   },
    {
     "headline": "Chargers vs. Seahawks: How to watch, prediction and betting odds",
     "link": "https://sports.yahoo.com/articles/chargers-vs-seahawks-watch-prediction-110000137.html",
@@ -101,15 +110,6 @@
     "image": "https://s.yimg.com/lo/mysterio/api/847ffbb4f6ca2c515036187d31a37fdc53554921ac4868049dbb4892d98a6009/lightyear_networkapi/resizefill_w840_h560%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fla_times_articles_853%2F6d495e61a21129ad4765295230ca012c.jpg",
     "blurb": "Everything you need to know about the Rams facing the Seattle Seahawks on Sunday, including start time, TV channel, injury updates and betting odds.",
     "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "Why Bill Parcells considers Jacoby Brissett to be like a son",
-    "link": "https://www.espn.com/nfl/story/_/id/50086531/bill-parcells-cardinals-jacoby-brissett-friendship",
-    "published": "2026-10-03T10:32:22Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723968_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Bill Parcells has been a mentor to Jacoby Brissett since high school, guiding him through football and life decisions.",
     "league": "NFL"
    },
    {
@@ -122,21 +122,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Buzz: How will absence of DeVonta Smith affect other Eagles?",
+    "link": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+    "published": "2026-10-03T12:30:08.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1002%252Fr1724962_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Philly's top wideout will miss Sunday's game. Matt Bowen provides pickup options and how to value other Eagles.",
+    "source": "ESPN",
+    "league": "NFL"
+   },
+   {
     "headline": "From 0-3 to the playoffs: History offers Chargers some hope for a comeback",
     "link": "https://sports.yahoo.com/articles/0-3-playoffs-history-offers-110000471.html",
     "published": "2026-10-03T11:00:00.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/7389fc2290eeb0adc1c2446b2e1e51dd6c5296c160d94499d1686b1670ecd9c4/lightyear_networkapi/resizefill_w840_h560%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fla_times_articles_853%2F2bec0f4e7c7c0fb64b505e7864e21c9b.jpg",
     "blurb": "The Chargers are searching for answers amid a winless start as they head into a showdown with the Seattle Seahawks, but their situation isn't hopeless.",
     "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "The history of Harbaugh, Herbert and a spiraling 0-3 Chargers team",
-    "link": "https://www.espn.com/nfl/story/_/id/50073934/la-chargers-jim-harbaugh-justin-herbert-struggles",
-    "published": "2026-10-03T10:00:21Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1001%2Fr1724283_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "After a troubling start to the 2026 season, here's a realistic look at the current Chargers' state of affairs.\ufeff",
     "league": "NFL"
    },
    {
@@ -149,21 +149,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Why Bill Parcells considers Jacoby Brissett to be like a son",
+    "link": "https://www.espn.com/nfl/story/_/id/50086531/bill-parcells-cardinals-jacoby-brissett-friendship",
+    "published": "2026-10-03T10:32:22Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723968_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Bill Parcells has been a mentor to Jacoby Brissett since high school, guiding him through football and life decisions.",
+    "league": "NFL"
+   },
+   {
     "headline": "New York Jets Flight Connections 10/03/26",
     "link": "https://sports.yahoo.com/articles/york-jets-flight-connections-10-110000685.html",
     "published": "2026-10-03T11:00:00.000Z",
     "image": "",
     "blurb": "Happy Saturday, Jets fans! The Jets are one day away from a game in Chicago against the Bears. With a win, the Jets can get to 2-2 with a chance to go .500 in a Week 5 home date against the surprising Cleveland Browns. A loss would drop the Jets to 1-3 and once again [\u2026]",
     "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "All-time rosters for 23 teams with multiple Super Bowls",
-    "link": "https://www.espn.com/nfl/story/_/id/50051837/nfl-super-bowl-all-teams-hall-fame",
-    "published": "2026-10-03T10:00:17Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0929%2Fnfl_sb-roster_16x9_608x342.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "This was no small task, but 13 players ended up making more than one all-time SB roster.",
     "league": "NFL"
    },
    {
@@ -176,12 +176,12 @@
     "league": "NFL"
    },
    {
-    "headline": "Cowboys news: Joey Porter Jr. on track to play Sunday vs. Texans",
-    "link": "https://sports.yahoo.com/articles/cowboys-news-joey-porter-jr-110000148.html",
-    "published": "2026-10-03T11:00:00.000Z",
-    "image": "",
-    "blurb": "Here is today's Dallas Cowboys news.",
-    "source": "YAHOO",
+    "headline": "The history of Harbaugh, Herbert and a spiraling 0-3 Chargers team",
+    "link": "https://www.espn.com/nfl/story/_/id/50073934/la-chargers-jim-harbaugh-justin-herbert-struggles",
+    "published": "2026-10-03T10:00:21Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1001%2Fr1724283_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "After a troubling start to the 2026 season, here's a realistic look at the current Chargers' state of affairs.\ufeff",
     "league": "NFL"
    }
   ],
@@ -196,11 +196,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Miami vs. Clemson: How to watch today's NCAA college football game, where to stream and more",
-    "link": "https://sports.yahoo.com/nfl/article/miami-vs-clemson-how-to-watch-todays-ncaa-college-football-game-where-to-stream-and-more-111500869.html",
-    "published": "2026-10-03T11:15:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/36a85d1d19fc20f2308e49b3a4a627b4327fa224ad54e595598ce73421c4a0a4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-09%2Fcb2fd709-2293-4ad7-a88b-71aa51747aa5",
-    "blurb": "How to watch Miami vs. Clemson this Saturday.",
+    "headline": "Is Vanderbilt QB Jared Curtis playing against Georgia football?",
+    "link": "https://sports.yahoo.com/articles/vanderbilt-qb-jared-curtis-playing-113058470.html",
+    "published": "2026-10-03T11:30:58.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/43c5dee8aaee57aa9c268c58890736fd3923536a9a7a79c0712e2cd082610c18/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fuga_wire_usa_today_articles_805%2F9d1f7d3933cf14e46dad3fdf551ed917.jpg",
+    "blurb": "Vanderbilt quarterback Jared Curtis, who decommitted from the Georgia Bulldogs, is a game-time decision",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -223,11 +223,11 @@
     "league": "CFB"
    },
    {
-    "headline": "What channel is UNC's October 3 battle with Notre Dame on?",
-    "link": "https://sports.yahoo.com/articles/channel-uncs-october-3-battle-110319693.html",
-    "published": "2026-10-03T11:03:19.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/61b30acc4ca6e9f5b2cbab5472dc9330b18102120e8d1f269ce29a4851662034/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ftar_heels_wire_usa_today_articles_552%2Fb753b5cefcc713a53425767658d04817.png",
-    "blurb": "What channel is the UNC football team's Saturday battle with Notre Dame on? Here's how to watch, including TV schedule, streaming info and odds.",
+    "headline": "Miami vs. Clemson: How to watch today's NCAA college football game, where to stream and more",
+    "link": "https://sports.yahoo.com/nfl/article/miami-vs-clemson-how-to-watch-todays-ncaa-college-football-game-where-to-stream-and-more-111500869.html",
+    "published": "2026-10-03T11:15:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/36a85d1d19fc20f2308e49b3a4a627b4327fa224ad54e595598ce73421c4a0a4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-09%2Fcb2fd709-2293-4ad7-a88b-71aa51747aa5",
+    "blurb": "How to watch Miami vs. Clemson this Saturday.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Texas A&M vs. Arkansas live updates: Score, highlights, analysis",
-    "link": "https://sports.yahoo.com/articles/texas-m-vs-arkansas-live-110148244.html",
-    "published": "2026-10-03T11:01:48.000Z",
+    "headline": "What channel is UNC's October 3 battle with Notre Dame on?",
+    "link": "https://sports.yahoo.com/articles/channel-uncs-october-3-battle-110319693.html",
+    "published": "2026-10-03T11:03:19.000Z",
     "image": "",
-    "blurb": "Texas A&M plays Arkansas in a pivotal SEC showdown. Follow live score updates, highlights, injury news, key plays, and instant analysis.",
+    "blurb": "What channel is the UNC football team's Saturday battle with Notre Dame on? Here's how to watch, including TV schedule, streaming info and odds.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -1078,6 +1078,24 @@
  },
  "latest": [
   {
+   "headline": "Inactives watch: Daniels, DeVonta to sit; McConkey questionable",
+   "link": "https://www.espn.com/fantasy/football/story/_/page/FFSundayInactives-50077553/fantasy-football-injuries-nfl-week-4-inactive-active",
+   "published": "2026-10-03T12:30:09.000Z",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1002%252Fr1724907_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Updated inactives and analysis based on the latest reports and official announcements leading up to kickoff.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
+   "headline": "Buzz: How will absence of DeVonta Smith affect other Eagles?",
+   "link": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+   "published": "2026-10-03T12:30:08.000Z",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1002%252Fr1724962_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Philly's top wideout will miss Sunday's game. Matt Bowen provides pickup options and how to value other Eagles.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
    "headline": "Northwestern opens 'electric' Ryan Field with upset of Penn State",
    "link": "https://www.espn.com/college-football/story/_/id/50088510/penn-state-no-match-northwestern-ryan-field-opener",
    "published": "2026-10-03T12:22:02.000Z",
@@ -1105,6 +1123,24 @@
    "league": "PGA"
   },
   {
+   "headline": "Is Vanderbilt QB Jared Curtis playing against Georgia football?",
+   "link": "https://sports.yahoo.com/articles/vanderbilt-qb-jared-curtis-playing-113058470.html",
+   "published": "2026-10-03T11:30:58.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/43c5dee8aaee57aa9c268c58890736fd3923536a9a7a79c0712e2cd082610c18/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fuga_wire_usa_today_articles_805%2F9d1f7d3933cf14e46dad3fdf551ed917.jpg",
+   "blurb": "Vanderbilt quarterback Jared Curtis, who decommitted from the Georgia Bulldogs, is a game-time decision",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "Dodgers' Ohtani admits he won't be fully healthy in playoffs",
+   "link": "https://www.espn.com/mlb/story/_/id/50087725/dodgers-ohtani-admits-fully-healthy-playoffs",
+   "published": "2026-10-03T11:30:57Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0902%2Fr1710261_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Dodgers star Shohei Ohtani says the left knee and right biceps ailments that compromised him throughout the summer are issues he's \"just going to have to manage\" in the postseason.",
+   "league": "MLB"
+  },
+  {
    "headline": "Miami vs. Clemson: How to watch today's NCAA college football game, where to stream and more",
    "link": "https://sports.yahoo.com/nfl/article/miami-vs-clemson-how-to-watch-todays-ncaa-college-football-game-where-to-stream-and-more-111500869.html",
    "published": "2026-10-03T11:15:00.000Z",
@@ -1130,15 +1166,6 @@
    "blurb": "The Dodgers and Braves face off for spot in the NL Championship Series.",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "What channel is UNC's October 3 battle with Notre Dame on?",
-   "link": "https://sports.yahoo.com/articles/channel-uncs-october-3-battle-110319693.html",
-   "published": "2026-10-03T11:03:19.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/61b30acc4ca6e9f5b2cbab5472dc9330b18102120e8d1f269ce29a4851662034/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ftar_heels_wire_usa_today_articles_552%2Fb753b5cefcc713a53425767658d04817.png",
-   "blurb": "What channel is the UNC football team's Saturday battle with Notre Dame on? Here's how to watch, including TV schedule, streaming info and odds.",
-   "source": "YAHOO",
-   "league": "CFB"
   },
   {
    "headline": "Game 2: Canadiens vs. Penguins: Moving On Up",
@@ -1177,15 +1204,6 @@
    "league": "NCAAB"
   },
   {
-   "headline": "Why Bill Parcells considers Jacoby Brissett to be like a son",
-   "link": "https://www.espn.com/nfl/story/_/id/50086531/bill-parcells-cardinals-jacoby-brissett-friendship",
-   "published": "2026-10-03T10:32:22Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723968_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Bill Parcells has been a mentor to Jacoby Brissett since high school, guiding him through football and life decisions.",
-   "league": "NFL"
-  },
-  {
    "headline": "\u201cRigged\u201d: Arike Ogunbowale Doesn\u2019t Hold Back With Her Comments Around Paige Bueckers Following Playoff Loss",
    "link": "https://sports.yahoo.com/articles/rigged-arike-ogunbowale-doesn-t-103000955.html",
    "published": "2026-10-03T10:30:00.000Z",
@@ -1202,15 +1220,6 @@
    "blurb": "The Focused Health 302 NASCAR O'Reilly Auto Parts Series race takes place on Saturday at Las Vegas Motor Speedway.",
    "source": "YAHOO",
    "league": "NASCAR"
-  },
-  {
-   "headline": "The history of Harbaugh, Herbert and a spiraling 0-3 Chargers team",
-   "link": "https://www.espn.com/nfl/story/_/id/50073934/la-chargers-jim-harbaugh-justin-herbert-struggles",
-   "published": "2026-10-03T10:00:21Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1001%2Fr1724283_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "After a troubling start to the 2026 season, here's a realistic look at the current Chargers' state of affairs.\ufeff",
-   "league": "NFL"
   },
   {
    "headline": "YouTube Gold: Larry Bird vs. Dr. J In the 1980 Playoffs",
@@ -1282,15 +1291,6 @@
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907990.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Chicago White Sox (84-78, second in the AL Central during the regular season) vs. Cleveland Guardians (85-77, first in the AL Central during the regular season)",
-   "league": "MLB"
-  },
-  {
-   "headline": "Brewers and Padres square off to begin NLDS",
-   "link": "http://www.espn.com/mlb/preview?gameId=401908002",
-   "published": "2026-10-03T08:01:36Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908002.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "San Diego Padres (91-71, second in the NL West during the regular season) vs. Milwaukee Brewers (103-59, first in the NL Central during the regular season)",
    "league": "MLB"
   },
   {
@@ -1439,8 +1439,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 60,
-  "YAHOO": 65,
+  "ESPN": 62,
+  "YAHOO": 63,
   "CBS": 31
  },
  "degraded_sources": []
