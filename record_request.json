@@ -1,3 +1,104 @@
 {
-  "requests": []
+ "requests": [
+  {
+   "grade_id": "401891782|total|under|6.5",
+   "event_id": "401891782",
+   "league": "hockey/nhl",
+   "pick": "Under 6.5",
+   "side": "under",
+   "market_class": "total",
+   "line": 6.5,
+   "card_date": "2026-10-02",
+   "result": "WON",
+   "score": "STL 4 @ DAL 0",
+   "stake_units": "5u",
+   "locked_american": "-133",
+   "delta_units_exact": 3.7593984962406015,
+   "record_after": "25-12",
+   "units_after_exact": 12.446822214338203,
+   "two_source": [
+    "espn_core completed",
+    "espn site.api summary STATUS_FINAL"
+   ],
+   "graded_pick": "Under 6.5 W: STL 4 @ DAL 0 (published-card basis)",
+   "learning": "Owner-directed position (sub-bar disclosure), posted 6:11 PM PT before the 6:18 PM PT opening faceoff (start delayed). Won: STL 4 @ DAL 0, 4 goals vs 6.5. The red team had killed it that morning: a ~2c calibration bias in the NHL totals model put the fair at 59.9, under the 60c band, with St. Louis' goalie unconfirmed.",
+   "source": "Oct 2 published card (owner-directed)",
+   "queued_at": "2026-10-02 20:59 PDT"
+  },
+  {
+   "grade_id": "401854015|total|under|3.5",
+   "event_id": "401854015",
+   "league": "soccer/usa.nwsl",
+   "pick": "Under 3.5",
+   "side": "under",
+   "market_class": "total",
+   "line": 3.5,
+   "card_date": "2026-10-02",
+   "result": "WON",
+   "score": "SD 2 @ ORL 1",
+   "stake_units": "5u",
+   "locked_american": "-170",
+   "delta_units_exact": 2.9411764705882355,
+   "record_after": "26-12",
+   "units_after_exact": 15.387998684926439,
+   "two_source": [
+    "espn_core completed",
+    "espn site.api summary STATUS_FINAL"
+   ],
+   "graded_pick": "Under 3.5 W: SD 2 @ ORL 1 (published-card basis)",
+   "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Won: SD 2 @ ORL 1, 3 goals vs 3.5. The red team had killed it pre-game: Orlando's last four under its interim coach all went over the model. One result does not validate a killed pick.",
+   "source": "Oct 2 published card (owner-directed)",
+   "queued_at": "2026-10-02 20:59 PDT"
+  },
+  {
+   "grade_id": "401858476|total|over|43.5",
+   "event_id": "401858476",
+   "league": "football/college-football",
+   "pick": "Over 43.5",
+   "side": "over",
+   "market_class": "total",
+   "line": 43.5,
+   "card_date": "2026-10-02",
+   "result": "WON",
+   "score": "PSU 13 @ NU 34",
+   "stake_units": "5u",
+   "locked_american": "-138",
+   "delta_units_exact": 3.6231884057971016,
+   "record_after": "27-12",
+   "units_after_exact": 19.01118709072354,
+   "two_source": [
+    "espn_core completed",
+    "espn site.api summary STATUS_FINAL"
+   ],
+   "graded_pick": "Over 43.5 W: PSU 13 @ NU 34 (published-card basis)",
+   "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Won: PSU 13 @ NU 34, 47 points vs 43.5. The red team had killed it: only 0.09c over the bar on a hand-set number, 15 mph wind, market moving down. A hand-set edge that wins is still not an edge.",
+   "source": "Oct 2 published card (owner-directed)",
+   "queued_at": "2026-10-02 20:59 PDT"
+  },
+  {
+   "grade_id": "401858245|total|under|54.5",
+   "event_id": "401858245",
+   "league": "football/college-football",
+   "pick": "Under 54.5",
+   "side": "under",
+   "market_class": "total",
+   "line": 54.5,
+   "card_date": "2026-10-02",
+   "result": "LOST",
+   "score": "PITT 35 @ VT 33",
+   "stake_units": "5u",
+   "locked_american": "-104",
+   "delta_units_exact": -5.0,
+   "record_after": "27-13",
+   "units_after_exact": 14.01118709072354,
+   "two_source": [
+    "espn_core completed",
+    "espn site.api summary STATUS_FINAL"
+   ],
+   "graded_pick": "Under 54.5 L: PITT 35 @ VT 33 (published-card basis)",
+   "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Lost: PITT 35 @ VT 33, 68 points vs 54.5. The red team had killed it: the edge rested on hand-set scoring means from 2-3 games each; regressed, it fell under the band. No fair without a real sample.",
+   "source": "Oct 2 published card (owner-directed)",
+   "queued_at": "2026-10-02 20:59 PDT"
+  }
+ ]
 }
