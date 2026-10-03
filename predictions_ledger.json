@@ -595,8 +595,9 @@
   "pick_team": "Orlando Pride",
   "prediction": "Orlando Pride beat San Diego Wave FC",
   "kickoff_utc": "2026-10-03T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T19:50:21.110356+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T19:50:21.110356+00:00",
+  "settled_at": "2026-10-03T02:34:57.017238+00:00"
  },
  {
   "id": "c14aacd0e7",
@@ -801,8 +802,9 @@
   "pick_team": "Golden State Valkyries",
   "prediction": "Golden State Valkyries beat Dallas Wings",
   "kickoff_utc": "2026-10-03T01:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-02T04:35:04.642547+00:00"
+  "status": "hit",
+  "created_at": "2026-10-02T04:35:04.642547+00:00",
+  "settled_at": "2026-10-03T03:34:54.934143+00:00"
  },
  {
   "id": "6602782221",
@@ -840,8 +842,9 @@
   "pick_team": "Carolina Hurricanes",
   "prediction": "Carolina Hurricanes beat Washington Capitals",
   "kickoff_utc": "2026-10-02T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-02T15:50:09.345210+00:00"
+  "status": "miss",
+  "created_at": "2026-10-02T15:50:09.345210+00:00",
+  "settled_at": "2026-10-03T01:49:54.088684+00:00"
  },
  {
   "id": "9ae9b246a8",
@@ -853,8 +856,9 @@
   "pick_team": "New York Rangers",
   "prediction": "New York Rangers beat Detroit Red Wings",
   "kickoff_utc": "2026-10-02T22:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-02T16:05:03.065396+00:00"
+  "status": "hit",
+  "created_at": "2026-10-02T16:05:03.065396+00:00",
+  "settled_at": "2026-10-03T01:34:56.216643+00:00"
  },
  {
   "id": "86faa0cbe9",

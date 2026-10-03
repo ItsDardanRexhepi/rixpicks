@@ -1,39 +1,17 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T01:20:11.573361+00:00",
+ "generated_at": "2026-10-03T03:50:12.866776+00:00",
  "leagues": [
   {
    "league": "CFB",
    "games": [
     {
-     "espn_event_id": "401858245",
-     "matchup": "PITT @ VT",
-     "commence": "2026-10-02T23:00Z",
-     "status": "in",
-     "detail": "12:14 - 3rd",
-     "score": "PITT 21 - VT 24",
-     "away_to": 3,
-     "home_to": 3
-    },
-    {
-     "espn_event_id": "401871050",
-     "matchup": "LIB @ DEL",
-     "commence": "2026-10-02T23:00Z",
-     "status": "in",
-     "detail": "4:09 - 3rd",
-     "score": "LIB 20 - DEL 0",
-     "away_to": 0,
-     "home_to": 1
-    },
-    {
      "espn_event_id": "401858476",
      "matchup": "PSU @ NU",
      "commence": "2026-10-03T00:00Z",
-     "status": "in",
-     "detail": "9:15 - 2nd",
-     "score": "PSU 7 - NU 17",
-     "away_to": 3,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "PSU 13 - NU 34"
     }
    ]
   },
@@ -44,11 +22,9 @@
      "espn_event_id": "401918294",
      "matchup": "DAL @ GS",
      "commence": "2026-10-03T01:00Z",
-     "status": "in",
-     "detail": "2:34 - 1st",
-     "score": "DAL 15 - GS 10",
-     "away_to": 5,
-     "home_to": 5
+     "status": "post",
+     "detail": "Final",
+     "score": "DAL 73 - GS 77"
     }
    ]
   },
@@ -56,40 +32,20 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401891803",
-     "matchup": "NYR @ DET",
-     "commence": "2026-10-02T22:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "NYR 2 - DET 0"
-    },
-    {
-     "espn_event_id": "401892432",
-     "matchup": "WAS @ CAR",
-     "commence": "2026-10-02T23:00Z",
-     "status": "in",
-     "detail": "12:41 - 3rd",
-     "score": "WAS 5 - CAR 1",
-     "away_to": null,
-     "home_to": null
-    },
-    {
      "espn_event_id": "401891831",
      "matchup": "BOS @ WPG",
      "commence": "2026-10-03T00:00Z",
-     "status": "in",
-     "detail": "17:50 - 2nd",
-     "score": "BOS 2 - WPG 2",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final/OT",
+     "score": "BOS 4 - WPG 3"
     },
     {
      "espn_event_id": "401891782",
      "matchup": "STL @ DAL",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "18:26 - 1st",
-     "score": "STL 1 - DAL 0",
+     "detail": "3:40 - 3rd",
+     "score": "STL 2 - DAL 0",
      "away_to": null,
      "home_to": null
     },
@@ -97,9 +53,11 @@
      "espn_event_id": "401892433",
      "matchup": "ANA @ VGK",
      "commence": "2026-10-03T02:00Z",
-     "status": "pre",
-     "detail": "10/2 - 7:00 PM PT",
-     "score": "ANA 0 - VGK 0"
+     "status": "in",
+     "detail": "End of 2nd",
+     "score": "ANA 4 - VGK 0",
+     "away_to": null,
+     "home_to": null
     }
    ]
   },
@@ -110,17 +68,17 @@
      "espn_event_id": "401854015",
      "matchup": "SD @ ORL",
      "commence": "2026-10-03T00:00Z",
-     "status": "in",
-     "detail": "54'",
+     "status": "post",
+     "detail": "FT",
      "score": "SD 2 - ORL 1"
     },
     {
      "espn_event_id": "401854016",
      "matchup": "NC @ SEA",
      "commence": "2026-10-03T02:00Z",
-     "status": "pre",
-     "detail": "Scheduled",
-     "score": "NC 0 - SEA 0"
+     "status": "in",
+     "detail": "86'",
+     "score": "NC 1 - SEA 0"
     }
    ]
   }

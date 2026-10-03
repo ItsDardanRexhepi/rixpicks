@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-03T01:20:02.759468+00:00",
+ "generated_at": "2026-10-03T03:49:55.890608+00:00",
  "items": [
-  {
-   "id": "8382c9e5bb",
-   "league": "NWSL",
-   "event": "North Carolina Courage @ Seattle Reign FC",
-   "prediction": "North Carolina Courage to beat Seattle Reign FC",
-   "kickoff_utc": "2026-10-03T02:00:00+00:00"
-  },
-  {
-   "id": "40016fbb9a",
-   "league": "NHL",
-   "event": "Anaheim Ducks @ Vegas Golden Knights",
-   "prediction": "Vegas Golden Knights to beat Anaheim Ducks",
-   "kickoff_utc": "2026-10-03T02:00:00+00:00"
-  },
   {
    "id": "e8a990c552",
    "league": "CFB",
@@ -42,6 +28,20 @@
    "event": "Boston College Eagles @ SMU Mustangs",
    "prediction": "SMU Mustangs to beat Boston College Eagles",
    "kickoff_utc": "2026-10-03T16:00:00+00:00"
+  },
+  {
+   "id": "d3de7fa66d",
+   "league": "CFB",
+   "event": "Vanderbilt Commodores @ Georgia Bulldogs",
+   "prediction": "Georgia Bulldogs to beat Vanderbilt Commodores",
+   "kickoff_utc": "2026-10-03T16:45:00+00:00"
+  },
+  {
+   "id": "a44d1b3a55",
+   "league": "MLB",
+   "event": "Chicago White Sox @ Cleveland Guardians",
+   "prediction": "Chicago White Sox to beat Cleveland Guardians",
+   "kickoff_utc": "2026-10-03T17:00:00+00:00"
   }
  ]
 }
