@@ -853,8 +853,9 @@
   "pick_team": "New York Rangers",
   "prediction": "New York Rangers beat Detroit Red Wings",
   "kickoff_utc": "2026-10-02T22:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-02T16:05:03.065396+00:00"
+  "status": "hit",
+  "created_at": "2026-10-02T16:05:03.065396+00:00",
+  "settled_at": "2026-10-03T01:34:56.216643+00:00"
  },
  {
   "id": "86faa0cbe9",
