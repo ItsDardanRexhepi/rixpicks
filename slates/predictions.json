@@ -1,34 +1,6 @@
 {
- "generated_at": "2026-10-03T23:20:21.445029+00:00",
+ "generated_at": "2026-10-03T23:35:35.882413+00:00",
  "items": [
-  {
-   "id": "5b97ca4281",
-   "league": "CFB",
-   "event": "Washington Huskies @ USC Trojans",
-   "prediction": "USC Trojans to beat Washington Huskies",
-   "kickoff_utc": "2026-10-03T23:30:00+00:00"
-  },
-  {
-   "id": "cdc22b50ec",
-   "league": "CFB",
-   "event": "Miami Hurricanes @ Clemson Tigers",
-   "prediction": "Clemson Tigers to beat Miami Hurricanes",
-   "kickoff_utc": "2026-10-03T23:30:00+00:00"
-  },
-  {
-   "id": "4506c0fc38",
-   "league": "CFB",
-   "event": "Utah State Aggies @ Boise State Broncos",
-   "prediction": "Boise State Broncos to beat Utah State Aggies",
-   "kickoff_utc": "2026-10-03T23:30:00+00:00"
-  },
-  {
-   "id": "cd57d8c22a",
-   "league": "CFB",
-   "event": "Texas Tech Red Raiders @ Colorado Buffaloes",
-   "prediction": "Colorado Buffaloes to beat Texas Tech Red Raiders",
-   "kickoff_utc": "2026-10-03T23:30:00+00:00"
-  },
   {
    "id": "25b34128ff",
    "league": "CFB",
@@ -42,6 +14,34 @@
    "event": "Indiana Hoosiers @ Rutgers Scarlet Knights",
    "prediction": "Indiana Hoosiers to beat Rutgers Scarlet Knights",
    "kickoff_utc": "2026-10-04T00:00:00+00:00"
+  },
+  {
+   "id": "ec54ef6346",
+   "league": "NHL",
+   "event": "Boston Bruins @ Minnesota Wild",
+   "prediction": "Boston Bruins to beat Minnesota Wild",
+   "kickoff_utc": "2026-10-04T00:00:00+00:00"
+  },
+  {
+   "id": "ccb3f012d7",
+   "league": "NHL",
+   "event": "Dallas Stars @ Nashville Predators",
+   "prediction": "Nashville Predators to beat Dallas Stars",
+   "kickoff_utc": "2026-10-04T00:00:00+00:00"
+  },
+  {
+   "id": "38e40a9ec4",
+   "league": "MLB",
+   "event": "San Diego Padres @ Milwaukee Brewers",
+   "prediction": "Milwaukee Brewers to beat San Diego Padres",
+   "kickoff_utc": "2026-10-04T00:30:00+00:00"
+  },
+  {
+   "id": "32d7e7e5c9",
+   "league": "NWSL",
+   "event": "Boston Legacy FC @ Portland Thorns FC",
+   "prediction": "Portland Thorns FC to beat Boston Legacy FC",
+   "kickoff_utc": "2026-10-04T00:45:00+00:00"
   }
  ]
 }
