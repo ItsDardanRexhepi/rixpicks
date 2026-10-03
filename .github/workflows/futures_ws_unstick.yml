@@ -1,0 +1,45 @@
+name: futures-ws-unstick
+# Oct 3 2026: futures-ws run 37141230638 sat in_progress for 5h with its listener hung after the
+# last tick commit (17:51Z). The listener's */30 backstop cannot revive a feed while a hung run
+# holds the futures-ws-listener concurrency group, and the guard job never even starts behind it.
+# This workflow lives outside that group: when an in_progress listener run is older than 30 min
+# AND the heartbeat commit on main is older than 25 min, cancel that run so the queued successor
+# starts on the current tip. A healthy window pushes a heartbeat every ~75 s, so this never
+# touches a live listener.
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/futures_ws_unstick.yml'
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: futures-ws-unstick
+  cancel-in-progress: false
+jobs:
+  unstick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Cancel a hung futures-ws listener run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          repo="${{ github.repository }}"
+          now=$(date -u +%s)
+          hb=$(gh api "repos/$repo/commits?path=data/futures_ws_heartbeat.json&per_page=1" --jq '.[0].commit.committer.date')
+          hb_s=$(date -u -d "$hb" +%s)
+          hb_age=$(( (now - hb_s) / 60 ))
+          echo "heartbeat commit $hb age=${hb_age}m"
+          gh api "repos/$repo/actions/workflows/futures_ws.yml/runs?status=in_progress" --jq '.workflow_runs[] | "\(.id) \(.run_started_at)"' | while read -r id started; do
+            st_s=$(date -u -d "$started" +%s)
+            run_age=$(( (now - st_s) / 60 ))
+            echo "run $id age=${run_age}m"
+            if [ "$run_age" -gt 30 ] && [ "$hb_age" -gt 25 ]; then
+              echo "run $id hung (age ${run_age}m, heartbeat ${hb_age}m old): cancelling"
+              gh api -X POST "repos/$repo/actions/runs/$id/cancel" || gh api -X POST "repos/$repo/actions/runs/$id/force-cancel" || true
+            fi
+          done
