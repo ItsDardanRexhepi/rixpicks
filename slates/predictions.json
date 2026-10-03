@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-03T19:50:54.726395+00:00",
+ "generated_at": "2026-10-03T20:05:36.390751+00:00",
  "items": [
-  {
-   "id": "bc6f22d34d",
-   "league": "MLB",
-   "event": "Atlanta Braves @ Los Angeles Dodgers",
-   "prediction": "Los Angeles Dodgers to beat Atlanta Braves",
-   "kickoff_utc": "2026-10-03T20:00:00+00:00"
-  },
   {
    "id": "07ce955e9f",
    "league": "CFB",
@@ -41,6 +34,13 @@
    "league": "NBA",
    "event": "Miami Heat @ Toronto Raptors",
    "prediction": "Miami Heat to beat Toronto Raptors",
+   "kickoff_utc": "2026-10-03T23:00:00+00:00"
+  },
+  {
+   "id": "f69038ab57",
+   "league": "NHL",
+   "event": "Washington Capitals @ Tampa Bay Lightning",
+   "prediction": "Tampa Bay Lightning to beat Washington Capitals",
    "kickoff_utc": "2026-10-03T23:00:00+00:00"
   }
  ]

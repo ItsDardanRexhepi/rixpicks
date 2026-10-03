@@ -93,8 +93,9 @@
   "pick_team": "Georgia Bulldogs",
   "prediction": "Georgia Bulldogs beat Vanderbilt Commodores",
   "kickoff_utc": "2026-10-03T16:45:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T11:21:14.092386+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T11:21:14.092386+00:00",
+  "settled_at": "2026-10-03T20:04:55.864789+00:00"
  },
  {
   "id": "f82d2d5d77",
@@ -916,8 +917,9 @@
   "pick_team": "Chicago White Sox",
   "prediction": "Chicago White Sox to beat Cleveland Guardians",
   "kickoff_utc": "2026-10-03T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-03T01:20:02.259196+00:00"
+  "status": "hit",
+  "created_at": "2026-10-03T01:20:02.259196+00:00",
+  "settled_at": "2026-10-03T20:04:55.971121+00:00"
  },
  {
   "id": "957e53916d",
