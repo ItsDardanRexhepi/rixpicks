@@ -898,8 +898,9 @@
   "pick_team": "Vegas Golden Knights",
   "prediction": "Vegas Golden Knights beat Anaheim Ducks",
   "kickoff_utc": "2026-10-03T02:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-02T20:20:30.885031+00:00"
+  "status": "miss",
+  "created_at": "2026-10-02T20:20:30.885031+00:00",
+  "settled_at": "2026-10-03T04:49:51.582591+00:00"
  },
  {
   "id": "a44d1b3a55",
