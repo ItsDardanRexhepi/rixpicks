@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T18:38:26.314625+00:00",
+ "generated_at": "2026-10-03T18:50:20.050055+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "CHW @ CLE",
      "commence": "2026-10-03T17:00Z",
      "status": "in",
-     "detail": "Top 5th",
+     "detail": "End 5th",
      "score": "CHW 2 - CLE 0"
     },
     {
@@ -31,8 +31,8 @@
      "matchup": "ND @ UNC",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "13:20 - 4th",
-     "score": "ND 34 - UNC 20",
+     "detail": "7:05 - 4th",
+     "score": "ND 37 - UNC 20",
      "away_to": 3,
      "home_to": 0
     },
@@ -41,8 +41,8 @@
      "matchup": "ALA @ MSST",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "4:00 - 3rd",
-     "score": "ALA 42 - MSST 17",
+     "detail": "15:00 - 4th",
+     "score": "ALA 42 - MSST 23",
      "away_to": 0,
      "home_to": 1
     },
@@ -51,8 +51,8 @@
      "matchup": "UCF @ HOU",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "1:13 - 3rd",
-     "score": "UCF 17 - HOU 7",
+     "detail": "13:46 - 4th",
+     "score": "UCF 17 - HOU 14",
      "away_to": 1,
      "home_to": 0
     },
@@ -61,7 +61,7 @@
      "matchup": "BC @ SMU",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "15:00 - 4th",
+     "detail": "10:51 - 4th",
      "score": "BC 10 - SMU 19",
      "away_to": 1,
      "home_to": 0
@@ -71,9 +71,9 @@
      "matchup": "MTSU @ KU",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "13:37 - 4th",
-     "score": "MTSU 0 - KU 34",
-     "away_to": 1,
+     "detail": "11:30 - 4th",
+     "score": "MTSU 0 - KU 41",
+     "away_to": 0,
      "home_to": 2
     },
     {
@@ -81,8 +81,8 @@
      "matchup": "WVU @ ISU",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "15:00 - 3rd",
-     "score": "WVU 28 - ISU 28",
+     "detail": "9:15 - 4th",
+     "score": "WVU 28 - ISU 31",
      "away_to": 2,
      "home_to": 1
     },
@@ -91,8 +91,8 @@
      "matchup": "STAN @ WAKE",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "End of 3rd",
-     "score": "STAN 3 - WAKE 43",
+     "detail": "10:43 - 4th",
+     "score": "STAN 3 - WAKE 50",
      "away_to": 2,
      "home_to": 0
     },
@@ -101,7 +101,7 @@
      "matchup": "SYR @ CONN",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "3:37 - 3rd",
+     "detail": "2:08 - 3rd",
      "score": "SYR 34 - CONN 20",
      "away_to": 1,
      "home_to": 1
@@ -111,7 +111,7 @@
      "matchup": "MICH @ MINN",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "13:44 - 4th",
+     "detail": "8:47 - 4th",
      "score": "MICH 14 - MINN 20",
      "away_to": 2,
      "home_to": 1
@@ -121,7 +121,7 @@
      "matchup": "NAVY @ AFA",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "13:02 - 4th",
+     "detail": "7:34 - 4th",
      "score": "NAVY 9 - AFA 14",
      "away_to": 3,
      "home_to": 1
@@ -131,7 +131,7 @@
      "matchup": "MSU @ WIS",
      "commence": "2026-10-03T16:30Z",
      "status": "in",
-     "detail": "8:32 - 3rd",
+     "detail": "4:11 - 3rd",
      "score": "MSU 3 - WIS 24",
      "away_to": 1,
      "home_to": 1
@@ -141,8 +141,8 @@
      "matchup": "VAN @ UGA",
      "commence": "2026-10-03T16:45Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "VAN 14 - UGA 21",
+     "detail": "8:21 - 3rd",
+     "score": "VAN 14 - UGA 27",
      "away_to": 2,
      "home_to": 2
     },
@@ -151,7 +151,7 @@
      "matchup": "WMU @ BUFF",
      "commence": "2026-10-03T17:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "10:52 - 3rd",
      "score": "WMU 10 - BUFF 14",
      "away_to": 1,
      "home_to": 1
@@ -161,7 +161,7 @@
      "matchup": "TOL @ BALL",
      "commence": "2026-10-03T18:00Z",
      "status": "in",
-     "detail": "2:57 - 1st",
+     "detail": "13:49 - 2nd",
      "score": "TOL 6 - BALL 7",
      "away_to": 3,
      "home_to": 3
@@ -181,14 +181,6 @@
      "status": "pre",
      "detail": "10/3 - 12:30 PM PT",
      "score": "OSU 0 - IOWA 0"
-    },
-    {
-     "espn_event_id": "401856708",
-     "matchup": "FLA @ MIZ",
-     "commence": "2026-10-03T19:30Z",
-     "status": "pre",
-     "detail": "10/3 - 12:30 PM PT",
-     "score": "FLA 0 - MIZ 0"
     },
     {
      "espn_event_id": "401856710",
@@ -285,6 +277,14 @@
      "status": "pre",
      "detail": "10/3 - 12:45 PM PT",
      "score": "MRSH 0 - JMU 0"
+    },
+    {
+     "espn_event_id": "401856708",
+     "matchup": "FLA @ MIZ",
+     "commence": "2026-10-03T19:50Z",
+     "status": "pre",
+     "detail": "10/3 - 12:50 PM PT",
+     "score": "FLA 0 - MIZ 0"
     },
     {
      "espn_event_id": "401858475",
