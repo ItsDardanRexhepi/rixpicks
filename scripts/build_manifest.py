@@ -17,7 +17,7 @@ units.cents_to_american, card_source 'Kalshi ask at lock'). Either way the edge 
 the CARD price with the winning venue's fee, never a candidate's self-reported gross_c/net_c. Never book-consensus
 display. Forward-only: previously published cards keep their published prices.
 Usage: build_manifest.py candidates.json out_manifest.json [--preview] [--meta meta.json]
-candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker},model,gross_c,net_c,
+candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker,[side]},model,gross_c,net_c,
                 [best_ask:{venue,price,read_at,compared:[...]}], [fragility]}
 STANDING RULES ARE HARD GATES (owner ruling 2026-10-02 (4): "NO - an owner-approved card cannot break a standing
 rule. Vegas rule, ladder sizes, all of it: hard gates, no exceptions."). The card refuses closed, nothing
@@ -223,6 +223,10 @@ def price_card(c):
         raise ValueError('no kalshi block: the market must be on Kalshi (J-122) - a book-only market never cards')
     if not isinstance(k.get('ticker'), str) or not k['ticker'].strip():
         raise ValueError('the kalshi block has no ticker: the market must be on Kalshi (J-122)')
+    if 'side' in k and k['side'] not in ('yes', 'no'):
+        # explicit side (an Under is the NO side of an Over market): kalshi.cents is THAT side's ask, and the
+        # page builder prices the exact market ticker from it. Anything but yes|no is refused, never guessed.
+        raise ValueError(f"kalshi side {k['side']!r}: an explicit side is 'yes' or 'no'")
     cents = k.get('cents')
     if type(cents) is not int or not (1 <= cents <= 99):  # strict: bool is not int here
         raise ValueError(f'bad kalshi cents {cents!r}')
@@ -585,7 +589,8 @@ def main():
             'best_book': pr['name'],
             'kalshi': {'url': c['kalshi'].get('url') or 'https://kalshi.com/markets/{}/{}'.format(c['kalshi']['ticker'].split('-')[0].lower(), c['kalshi']['ticker'].rsplit('-',1)[0].lower()),  # event-level URL: build_gh_page resolves the gate via the LAST segment (event ticker)
                        'cents': cents, 'team': c['kalshi']['team'], 'gate_cents': cents,
-                       'ticker': c['kalshi']['ticker']},
+                       'ticker': c['kalshi']['ticker'],
+                       **({'side': c['kalshi']['side']} if 'side' in c['kalshi'] else {})},  # explicit market side (yes|no): build_gh_page prices that side's ask
             'card_american': am,
             'card_source': 'Kalshi ask at lock' if pr['legacy'] else f"{pr['name']} ask at {pr['read_at']}",
             # ruling (1): the venue, its read time, every venue compared and the edge against that price

@@ -901,6 +901,61 @@ def kal_market(tick, team_display):
             return (sfx, round(d*100) if 0<d<=1 else None)
     return ('',None)
 
+# Explicit-market Kalshi picks (Oct 2: an Under 6.5 is the NO side of "Over 6.5 goals" - the team match
+# above can only price a YES ask, and a total has no team text). A kalshi block that names its side,
+# {ticker: <full market ticker>, side: 'yes'|'no'}, prices that exact market from that side's ask on
+# every surface: chip label, data-cents, ship ceiling, game page rows and the client tick (data-kalpx).
+# The path is keyed on 'side': build_manifest.py has written kalshi.ticker WITHOUT a side on every carded
+# pick since Sep 29, and those picks keep the team-matched path byte-for-byte.
+_KAL_TICKER_RE=re.compile(r'[A-Z0-9][A-Z0-9._]*(?:-[A-Z0-9._]+)+')
+def _kal_explicit(kb):
+    """(market_ticker, 'yes'|'no') for a kalshi block that names its side, else None. A side without a
+    full market ticker, or a side other than yes/no, fails the build (exit 3): never price a guessed side."""
+    if not isinstance(kb,dict) or kb.get('side') is None: return None
+    side=str(kb.get('side')).strip().lower()
+    tick=str(kb.get('ticker') or '').strip().upper()
+    if side not in ('yes','no') or not _KAL_TICKER_RE.fullmatch(tick):
+        print(f"BUILD FAILED: kalshi block side {kb.get('side')!r} ticker {kb.get('ticker')!r} - an explicit side needs side yes|no and the full market ticker", file=sys.stderr)
+        sys.exit(3)
+    return (tick, side)
+_KALMKT={}
+def kal_market_side(ticker, side):
+    # Returns (market_suffix, cents) for exactly this market: the picked side's ask (no_ask_dollars for a
+    # NO pick, yes_ask_dollars for YES). A missing or zero ask is unresolved, the same as kal_market.
+    if ticker not in _KALMKT:
+        try:
+            import urllib.request
+            req=urllib.request.Request(f'https://api.elections.kalshi.com/trade-api/v2/markets/{ticker}',headers={'User-Agent':'Mozilla/5.0'})
+            with urllib.request.urlopen(req,timeout=8) as r: _KALMKT[ticker]=json.load(r).get('market') or {}
+        except Exception: _KALMKT[ticker]={}
+    m=_KALMKT[ticker]
+    if str(m.get('ticker') or '').upper()!=ticker: return ('',None)
+    try:
+        d=float(m.get(f'{side}_ask_dollars') or 0)
+    except Exception: d=0
+    return (ticker.rsplit('-',1)[-1], round(d*100) if 0<d<=1 else None)
+def _kal_rec(kx):
+    # canonical market record identity (event, market, side) of an explicit-market pick
+    return (kx[0].rsplit('-',1)[0], kx[0], kx[1])
+def _kal_tick_attrs(kx, tick, kside):
+    # The client tick fetches /markets/<data-kalticker>-<data-kalside>. An explicit-market chip splits its
+    # own full ticker so the pair rebuilds it exactly, and data-kalpx names the side it prices and settles.
+    if kx:
+        ev,sfx=kx[0].rsplit('-',1)
+        return f' data-kalticker="{html.escape(ev)}" data-kalside="{html.escape(sfx)}" data-kalpx="{kx[1]}"'
+    return f' data-kalticker="{tick}" data-kalside="{kside}"'
+_KAL_EXPLICIT_CARD=any(_kal_explicit(_p.get('kalshi')) for _p in man.get('picks',[]))
+def _kal_js(explicit):
+    # Client tick expressions (index rpKalTick and the game page template). A page with no explicit-side
+    # chip gets the original YES-only expressions byte-for-byte; with one, each chip settles and prices
+    # from its own data-kalpx side (a chip without data-kalpx still reads YES).
+    if not explicit: return {'win':"'yes'",'lose':"'no'",'ask':'m.yes_ask_dollars'}
+    return {'win':"(a.dataset.kalpx==='no'?'no':'yes')",'lose':"(a.dataset.kalpx==='no'?'yes':'no')",
+            'ask':"m[(a.dataset.kalpx==='no'?'no':'yes')+'_ask_dollars']"}
+_KAL_JS=_kal_js(_KAL_EXPLICIT_CARD)
+_KAL_WIN,_KAL_LOSE,_KAL_ASK=_KAL_JS['win'],_KAL_JS['lose'],_KAL_JS['ask']
+_KAL_TMPL_ASK='const d=parseFloat(m.yes_ask_dollars);'  # game_page_template.html rpKalTick price line
+
 def _finalize_chip_rows(out, records):
     """Select the best displayed survivor and range from its canonical price record."""
     values=[]
@@ -1047,8 +1102,16 @@ def chips(p):
         if name=='Kalshi' and p.get('kalshi'):
             link=p['kalshi']['url']
             tick=p['kalshi']['url'].rstrip('/').split('/')[-1].upper()
-            _kside=(p.get('kalshi') or {}).get('team','')
-            _sfx,_kc=kal_market(tick,_kside)
+            _kx=_kal_explicit(p.get('kalshi'))
+            if _kx:
+                # explicit market + side: that market's own side ask, never a team match (the ship
+                # ceiling below compares the same side's ask)
+                _kwhat=f'market {_kx[0]} side {_kx[1]}'
+                _sfx,_kc=kal_market_side(*_kx)
+            else:
+                _kside=(p.get('kalshi') or {}).get('team','')
+                _kwhat=f'team {_kside!r}'
+                _sfx,_kc=kal_market(tick,_kside)
             _gate=(p.get('kalshi') or {}).get('gate_cents')
             if _gate is not None and _kc is not None and _kc>_gate:
                 # ship condition (main, Sep 26 7:17 AM): pick ships only at gate_cents-or-better executable ask.
@@ -1106,7 +1169,7 @@ def chips(p):
                     _kc=None
                 else:
                     # Sep 26 hunter ruling: a stale price posing as fresh is worse than no build.
-                    print(f"BUILD FAILED: Kalshi market unresolved for {p.get('name')} team {_kside!r} under {tick}", file=sys.stderr)
+                    print(f"BUILD FAILED: Kalshi market unresolved for {p.get('name')} {_kwhat} under {tick}", file=sys.stderr)
                     _urf("ABORT","C=3 F=0 R=3 U=2 V=3 CE=0 T=high","pre-game NEW content hard-fail",f"{p.get('name')} under {tick}: no live market, no pin, not underway - shipping would pose an unverified price as fresh (hunter ruling Sep 26)")
                     sys.exit(3)
             # LOCKED-PRICE BAKE (Sep 27 7:47 tester NO-GO, main directive): the picked chip always
@@ -1122,8 +1185,8 @@ def chips(p):
             _kside_html=html.escape(_sfx)  # Kalshi-scoped: never rebind the pick side
             _pr.append((len(out), c2ml_int(_kc) if _kc else None))
             _kcattr=f' data-cents="{_kc}"' if _kc else ''
-            _kcattr+=_mkrec('Kalshi',tick,tick+'-'+_kside_html,_kside_html,cents=_kc,link=link,ph=_ph,ts=(((SHIPPED.get(_sk) or {}).get('Kalshi') or {}).get('ts') or '') if _uw else '',st=('ok' if _kc else 'unknown'))
-            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="KAL" data-kalticker="{tick}" data-kalside="{_kside_html}"{_dm}{_kcattr} target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{label}</a>')
+            _kcattr+=_mkrec('Kalshi',*(_kal_rec(_kx) if _kx else (tick,tick+'-'+_kside_html,_kside_html)),cents=_kc,link=link,ph=_ph,ts=(((SHIPPED.get(_sk) or {}).get('Kalshi') or {}).get('ts') or '') if _uw else '',st=('ok' if _kc else 'unknown'))
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="KAL"{_kal_tick_attrs(_kx,tick,_kside_html)}{_dm}{_kcattr} target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{label}</a>')
             continue
         if name=='Polymarket':
             if not p.get('polymarket'): continue
@@ -1261,7 +1324,7 @@ def chips(p):
             _o=re.sub(r' onclick="[^"]*"','',_o)
             _o=re.sub(r' target="_blank" rel="noreferrer"','',_o)
             # frozen chips must leave every live-tick selection set (sentinel, Sep 26)
-            _o=re.sub(r' data-(kalticker|kalside|polyslug|polysub|polykw|pm|pmapp|sb|app|book)="[^"]*"','',_o)
+            _o=re.sub(r' data-(kalticker|kalside|kalpx|polyslug|polysub|polykw|pm|pmapp|sb|app|book)="[^"]*"','',_o)
             _o=_o.replace('</a>','</span>')
             print(f"LINK FROZEN: {p.get('name')} settled chip, retired destination: {_dead[0]}", file=sys.stderr)
         else:
@@ -2381,6 +2444,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
             _g=_p.get('game') or {}
             _lg=_p.get('espn_league') or ''
             if not (_u and _g.get('eid') and _lg and isinstance(_k.get('cents'),(int,float))): continue
+            if (_kal_explicit(_k) or ('',''))[1]=='no': continue  # the watch line reads a team market's YES ask: a NO-side entry is not that price
             _awa=(_meta_for(_lg,_g.get('away','')).get('abbr') or '').upper()
             _hom=(_meta_for(_lg,_g.get('home','')).get('abbr') or '').upper()
             _kt=_k.get('team','') or ''
@@ -3085,9 +3149,9 @@ function rpKalTick(){{try{{
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){{
    const m=j&&j.market;if(!m)return;
    window.__rpKalOk=Date.now();
-   if(m.result==='yes'){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('KAL');return;}}
-   if(m.result==='no'){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('KAL');return;}}
-   const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<=1))return;  /* $1.00 ask is a real quote (Sep 26 root fix) */
+   if(m.result==={_KAL_WIN}){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('KAL');return;}}
+   if(m.result==={_KAL_LOSE}){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('KAL');return;}}
+   const d=parseFloat({_KAL_ASK});if(!(d>0&&d<=1))return;  /* $1.00 ask is a real quote (Sep 26 root fix) */
    const c=Math.round(d*100);
    /* URF dormant-market gate (swamp Sep 27: Jeanty/Jones/Irving early tickets quoted >6h stale):
       a market whose updated_time is >6h old must never re-stamp a bare live price - it wears the
@@ -3349,6 +3413,8 @@ def build_game_pages(man, css, build_sha):
             books_present.append(short)
         # Kalshi full board (user, Sep 25 12:19 PM): both sides, live-ticked. Fallback: single-side tap row.
         kal_html=''
+        _kx=_kal_explicit(p.get('kalshi'))  # explicit market + side: rows name that market and price its side
+        _kteam=(carded_team or str(p.get('name') or '')) if _kx else carded_team  # a total/prop has no carded team
         if p.get('kalshi'):
             kurl=p['kalshi']['url']; tick=kurl.rstrip('/').split('/')[-1].upper()
             board=[]; et=tick; kvol=0.0
@@ -3359,8 +3425,8 @@ def build_game_pages(man, css, build_sha):
                 # honestly unpriced. No snapshot at all -> the picked side ships honestly unpriced too.
                 _kc=((_shk.get('Kalshi') or {}).get('cents')) or (p.get('kalshi') or {}).get('cents')
                 kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
-                    '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(carded_team)+'</a></span>'
-                    '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+html.escape(p['kalshi'].get('team',''))+'"'+(f' data-cents="{round(_kc)}"' if _kc else '')+_pmk('Kalshi',tick,tick,side,cents=_kc,link=kurl,st=('ok' if _kc else 'unknown'))+' '+rt('KAL',kurl,False)+'>'+(f'KAL {c2ml(_kc)}' if _kc else 'KAL')+'</a></span>'
+                    '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(_kteam)+'</a></span>'
+                    '<span class="pr"><a'+_kal_tick_attrs(_kx,tick,html.escape(p['kalshi'].get('team','')))+(f' data-cents="{round(_kc)}"' if _kc else '')+_pmk('Kalshi',*(_kal_rec(_kx) if _kx else (tick,tick,side)),cents=_kc,link=kurl,st=('ok' if _kc else 'unknown'))+' '+rt('KAL',kurl,False)+'>'+(f'KAL {c2ml(_kc)}' if _kc else 'KAL')+'</a></span>'
                     '<span class="side" style="text-align:right;color:#8a8f98">pre-game snapshot</span><span class="pr"></span></div>')
                 hrow['kal_a']=_kc if side=='away' else None
                 hrow['kal_h']=_kc if side=='home' else None
@@ -3405,6 +3471,10 @@ def build_game_pages(man, css, build_sha):
             if hm and not am and len(board)==2:
                 o=[b for b in board if b[1]!=hm[0]]
                 if o: am=(o[0][1],o[0][2],o[0][3])
+            if _kx and not (_kx[1]=='yes' and side in ('away','home') and ((am if side=='away' else hm) or ('',))[0]==_kx[0]):
+                # explicit market + side: the YES-ask board stands only when the picked side's board market
+                # IS this YES market; a NO side, a total or a prop renders the exact single-side row below
+                am=hm=None
             base=kurl if et==tick else kurl.rsplit('-',1)[0]
             # LOCKED-PRICE BAKE (Sep 27 7:47, tester NO-GO): the picked side's baked price is the
             # LOCKED card price from the manifest, never the live board quote pulled at build time.
@@ -3424,8 +3494,8 @@ def build_game_pages(man, css, build_sha):
             else:
                 kside=html.escape(p['kalshi'].get('team',''))
                 kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
-                    '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(carded_team)+'</a></span>'
-                    '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+kside+'" data-cents="'+str(round(p['kalshi']['cents']))+'"'+_pmk('Kalshi',tick,tick,side,cents=p['kalshi']['cents'],link=kurl)+' '+rt('KAL',kurl,False)+'>KAL '+str(c2ml(p['kalshi']['cents']))+'</a></span>'
+                    '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(_kteam)+'</a></span>'
+                    '<span class="pr"><a'+_kal_tick_attrs(_kx,tick,kside)+' data-cents="'+str(round(p['kalshi']['cents']))+'"'+_pmk('Kalshi',*(_kal_rec(_kx) if _kx else (tick,tick,side)),cents=p['kalshi']['cents'],link=kurl)+' '+rt('KAL',kurl,False)+'>KAL '+str(c2ml(p['kalshi']['cents']))+'</a></span>'
                     '<span class="side" style="text-align:right;color:#8a8f98">full board on Kalshi</span><span class="pr"></span></div>')
                 cc=p['kalshi']['cents']
                 hrow['kal_a']=cc if side=='away' else None
@@ -3525,6 +3595,13 @@ def build_game_pages(man, css, build_sha):
             if _sb_rows: _bits.append('sportsbook rows refresh with each page rebuild')
             _foot=('Prices update live: '+'; '.join(_bits)+'. Tap a price to open the market.') if _bits else 'No live market rows on this page yet - tap a pick chip to open the market.'
         page_html=tmpl
+        if _kx:
+            # explicit-side page: the template tick prices each Kalshi anchor from its own data-kalpx side
+            # (every other page keeps the template's YES-only line byte-for-byte)
+            if page_html.count(_KAL_TMPL_ASK)!=1:
+                print(f"BUILD FAILED: game page template Kalshi tick line not found once ({_KAL_TMPL_ASK!r}) - an explicit-side row would tick the YES ask", file=sys.stderr)
+                sys.exit(3)
+            page_html=page_html.replace(_KAL_TMPL_ASK,'const d=parseFloat('+_kal_js(True)['ask']+');')
         for tok,val in [('__TITLE__',html.escape(away+' at '+home)),('__CSS__',css),('__NUM__',str(p['num'])),
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',abbr_a),('__HAB__',abbr_h),  # swamp 9/26: gpk registry blanks on unregistered games rendered UNLABELED arbiter-only scores - abbrs come from the same verified _meta_for source as the matchup display
             ('__EID__',html.escape(str(g.get('eid') or ''))),('__CEID__',html.escape(str(g.get('ceid') or ''))),('__COMP__',html.escape(str(g.get('comp') or ''))),('__COUNTED__',' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else ''),
