@@ -1,27 +1,6 @@
 {
- "generated_at": "2026-10-03T19:20:36.197234+00:00",
+ "generated_at": "2026-10-03T19:36:08.512214+00:00",
  "items": [
-  {
-   "id": "b222b8af14",
-   "league": "CFB",
-   "event": "Florida Gators @ Missouri Tigers",
-   "prediction": "Florida Gators to beat Missouri Tigers",
-   "kickoff_utc": "2026-10-03T19:30:00+00:00"
-  },
-  {
-   "id": "62f0dadeee",
-   "league": "CFB",
-   "event": "Ohio State Buckeyes @ Iowa Hawkeyes",
-   "prediction": "Iowa Hawkeyes to beat Ohio State Buckeyes",
-   "kickoff_utc": "2026-10-03T19:30:00+00:00"
-  },
-  {
-   "id": "bfa3259643",
-   "league": "CFB",
-   "event": "Auburn Tigers @ Tennessee Volunteers",
-   "prediction": "Auburn Tigers to beat Tennessee Volunteers",
-   "kickoff_utc": "2026-10-03T19:30:00+00:00"
-  },
   {
    "id": "bc6f22d34d",
    "league": "MLB",
@@ -42,6 +21,27 @@
    "event": "New York Yankees @ Tampa Bay Rays",
    "prediction": "Tampa Bay Rays to beat New York Yankees",
    "kickoff_utc": "2026-10-03T22:30:00+00:00"
+  },
+  {
+   "id": "957e53916d",
+   "league": "NWSL",
+   "event": "Bay FC @ Kansas City Current",
+   "prediction": "Kansas City Current to beat Bay FC",
+   "kickoff_utc": "2026-10-03T22:30:00+00:00"
+  },
+  {
+   "id": "a9bbadcf93",
+   "league": "CFB",
+   "event": "BYU Cougars @ TCU Horned Frogs",
+   "prediction": "TCU Horned Frogs to beat BYU Cougars",
+   "kickoff_utc": "2026-10-03T23:00:00+00:00"
+  },
+  {
+   "id": "9b9a28ec28",
+   "league": "NBA",
+   "event": "Miami Heat @ Toronto Raptors",
+   "prediction": "Miami Heat to beat Toronto Raptors",
+   "kickoff_utc": "2026-10-03T23:00:00+00:00"
   }
  ]
 }
