@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T03:05:11.659856+00:00",
+ "generated_at": "2026-10-03T03:20:13.147927+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,9 +10,9 @@
      "matchup": "PSU @ NU",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "9:27 - 4th",
-     "score": "PSU 7 - NU 31",
-     "away_to": 1,
+     "detail": "4:38 - 4th",
+     "score": "PSU 13 - NU 31",
+     "away_to": 0,
      "home_to": 1
     }
    ]
@@ -25,10 +25,10 @@
      "matchup": "DAL @ GS",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "2:55 - 4th",
-     "score": "DAL 72 - GS 67",
-     "away_to": 1,
-     "home_to": 1
+     "detail": "6.9 - 4th",
+     "score": "DAL 73 - GS 76",
+     "away_to": 0,
+     "home_to": 0
     }
    ]
   },
@@ -48,7 +48,7 @@
      "matchup": "STL @ DAL",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "17:11 - 3rd",
      "score": "STL 2 - DAL 0",
      "away_to": null,
      "home_to": null
@@ -58,8 +58,8 @@
      "matchup": "ANA @ VGK",
      "commence": "2026-10-03T02:00Z",
      "status": "in",
-     "detail": "18:27 - 2nd",
-     "score": "ANA 2 - VGK 0",
+     "detail": "11:01 - 2nd",
+     "score": "ANA 4 - VGK 0",
      "away_to": null,
      "home_to": null
     }
@@ -81,8 +81,8 @@
      "matchup": "NC @ SEA",
      "commence": "2026-10-03T02:00Z",
      "status": "in",
-     "detail": "HT",
-     "score": "NC 0 - SEA 0"
+     "detail": "56'",
+     "score": "NC 1 - SEA 0"
     }
    ]
   }
