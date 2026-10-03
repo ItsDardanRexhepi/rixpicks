@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-02T23:50:12.074597+00:00",
+ "generated_at": "2026-10-03T00:05:12.677922+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,8 +10,8 @@
      "matchup": "PITT @ VT",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "0:10 - 1st",
-     "score": "PITT 7 - VT 14",
+     "detail": "9:24 - 2nd",
+     "score": "PITT 7 - VT 17",
      "away_to": 3,
      "home_to": 3
     },
@@ -20,18 +20,10 @@
      "matchup": "LIB @ DEL",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "8:34 - 2nd",
-     "score": "LIB 6 - DEL 0",
+     "detail": "2:14 - 2nd",
+     "score": "LIB 13 - DEL 0",
      "away_to": 3,
      "home_to": 3
-    },
-    {
-     "espn_event_id": "401858476",
-     "matchup": "PSU @ NU",
-     "commence": "2026-10-03T00:00Z",
-     "status": "pre",
-     "detail": "10/2 - 5:00 PM PT",
-     "score": "PSU 0 - NU 0"
     }
    ]
   },
@@ -56,7 +48,7 @@
      "matchup": "NYR @ DET",
      "commence": "2026-10-02T22:30Z",
      "status": "in",
-     "detail": "17:52 - 2nd",
+     "detail": "9:55 - 2nd",
      "score": "NYR 1 - DET 0",
      "away_to": null,
      "home_to": null
@@ -72,20 +64,20 @@
      "home_to": null
     },
     {
-     "espn_event_id": "401891831",
-     "matchup": "BOS @ WPG",
-     "commence": "2026-10-03T00:00Z",
-     "status": "pre",
-     "detail": "10/2 - 5:00 PM PT",
-     "score": "BOS 0 - WPG 0"
-    },
-    {
      "espn_event_id": "401891782",
      "matchup": "STL @ DAL",
      "commence": "2026-10-03T01:00Z",
      "status": "pre",
      "detail": "10/2 - 6:00 PM PT",
      "score": "STL 0 - DAL 0"
+    },
+    {
+     "espn_event_id": "401892433",
+     "matchup": "ANA @ VGK",
+     "commence": "2026-10-03T02:00Z",
+     "status": "pre",
+     "detail": "10/2 - 7:00 PM PT",
+     "score": "ANA 0 - VGK 0"
     }
    ]
   },
@@ -93,12 +85,12 @@
    "league": "NWSL",
    "games": [
     {
-     "espn_event_id": "401854015",
-     "matchup": "SD @ ORL",
-     "commence": "2026-10-03T00:00Z",
+     "espn_event_id": "401854016",
+     "matchup": "NC @ SEA",
+     "commence": "2026-10-03T02:00Z",
      "status": "pre",
      "detail": "Scheduled",
-     "score": "SD 0 - ORL 0"
+     "score": "NC 0 - SEA 0"
     }
    ]
   }
