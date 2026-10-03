@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T01:50:14.612627+00:00",
+ "generated_at": "2026-10-03T02:05:13.530347+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,8 +10,8 @@
      "matchup": "PITT @ VT",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "End of 3rd",
-     "score": "PITT 28 - VT 24",
+     "detail": "11:02 - 4th",
+     "score": "PITT 35 - VT 26",
      "away_to": 2,
      "home_to": 3
     },
@@ -20,7 +20,7 @@
      "matchup": "LIB @ DEL",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "9:38 - 4th",
+     "detail": "5:18 - 4th",
      "score": "LIB 30 - DEL 6",
      "away_to": 0,
      "home_to": 1
@@ -45,8 +45,8 @@
      "matchup": "DAL @ GS",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "2:54 - 2nd",
-     "score": "DAL 33 - GS 35",
+     "detail": "Halftime",
+     "score": "DAL 44 - GS 37",
      "away_to": 4,
      "home_to": 4
     }
@@ -77,7 +77,7 @@
      "commence": "2026-10-03T00:00Z",
      "status": "in",
      "detail": "End of 2nd",
-     "score": "BOS 2 - WPG 2",
+     "score": "BOS 2 - WPG 3",
      "away_to": null,
      "home_to": null
     },
@@ -86,18 +86,10 @@
      "matchup": "STL @ DAL",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "1:29 - 1st",
+     "detail": "End of 1st",
      "score": "STL 1 - DAL 0",
      "away_to": null,
      "home_to": null
-    },
-    {
-     "espn_event_id": "401892433",
-     "matchup": "ANA @ VGK",
-     "commence": "2026-10-03T02:00Z",
-     "status": "pre",
-     "detail": "10/2 - 7:00 PM PT",
-     "score": "ANA 0 - VGK 0"
     }
    ]
   },
@@ -109,16 +101,8 @@
      "matchup": "SD @ ORL",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "84'",
+     "detail": "90'+9'",
      "score": "SD 2 - ORL 1"
-    },
-    {
-     "espn_event_id": "401854016",
-     "matchup": "NC @ SEA",
-     "commence": "2026-10-03T02:00Z",
-     "status": "pre",
-     "detail": "Scheduled",
-     "score": "NC 0 - SEA 0"
     }
    ]
   }
