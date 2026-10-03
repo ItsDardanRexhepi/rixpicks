@@ -1076,5 +1076,18 @@
   "kickoff_utc": "2026-10-04T18:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-03T19:05:43.277874+00:00"
+ },
+ {
+  "id": "1771b6b801",
+  "event_id": "401892437",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Edmonton Oilers",
+  "away": "Seattle Kraken",
+  "pick_team": "Edmonton Oilers",
+  "prediction": "Edmonton Oilers to beat Seattle Kraken",
+  "kickoff_utc": "2026-10-03T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-03T21:05:44.750673+00:00"
  }
 ]
