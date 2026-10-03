@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-03T20:05:36.390751+00:00",
+ "generated_at": "2026-10-03T20:20:29.260888+00:00",
  "items": [
-  {
-   "id": "07ce955e9f",
-   "league": "CFB",
-   "event": "Kentucky Wildcats @ South Carolina Gamecocks",
-   "prediction": "Kentucky Wildcats to beat South Carolina Gamecocks",
-   "kickoff_utc": "2026-10-03T20:15:00+00:00"
-  },
   {
    "id": "6602782221",
    "league": "MLB",
@@ -41,6 +34,13 @@
    "league": "NHL",
    "event": "Washington Capitals @ Tampa Bay Lightning",
    "prediction": "Tampa Bay Lightning to beat Washington Capitals",
+   "kickoff_utc": "2026-10-03T23:00:00+00:00"
+  },
+  {
+   "id": "3a4188ed07",
+   "league": "NHL",
+   "event": "Carolina Hurricanes @ Philadelphia Flyers",
+   "prediction": "Carolina Hurricanes to beat Philadelphia Flyers",
    "kickoff_utc": "2026-10-03T23:00:00+00:00"
   }
  ]
