@@ -1,29 +1,27 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T02:35:11.586295+00:00",
+ "generated_at": "2026-10-03T02:50:07.423975+00:00",
  "leagues": [
   {
    "league": "CFB",
    "games": [
     {
-     "espn_event_id": "401858245",
-     "matchup": "PITT @ VT",
-     "commence": "2026-10-02T23:00Z",
-     "status": "in",
-     "detail": "2:02 - 4th",
-     "score": "PITT 35 - VT 33",
-     "away_to": 2,
-     "home_to": 3
-    },
-    {
      "espn_event_id": "401858476",
      "matchup": "PSU @ NU",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "4:15 - 3rd",
-     "score": "PSU 7 - NU 24",
+     "detail": "15:00 - 3rd",
+     "score": "PSU 7 - NU 31",
      "away_to": 1,
      "home_to": 1
+    },
+    {
+     "espn_event_id": "401858245",
+     "matchup": "PITT @ VT",
+     "commence": "2026-10-02T23:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "PITT 35 - VT 33"
     },
     {
      "espn_event_id": "401871050",
@@ -43,9 +41,9 @@
      "matchup": "DAL @ GS",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "56.2 - 3rd",
-     "score": "DAL 57 - GS 49",
-     "away_to": 3,
+     "detail": "6:24 - 4th",
+     "score": "DAL 65 - GS 65",
+     "away_to": 2,
      "home_to": 2
     }
    ]
@@ -66,8 +64,8 @@
      "matchup": "BOS @ WPG",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "8:09 - 3rd",
-     "score": "BOS 2 - WPG 3",
+     "detail": "0:53 - 3rd",
+     "score": "BOS 3 - WPG 3",
      "away_to": null,
      "home_to": null
     },
@@ -76,8 +74,8 @@
      "matchup": "STL @ DAL",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "8:37 - 2nd",
-     "score": "STL 1 - DAL 0",
+     "detail": "0:34 - 2nd",
+     "score": "STL 2 - DAL 0",
      "away_to": null,
      "home_to": null
     },
@@ -86,8 +84,8 @@
      "matchup": "ANA @ VGK",
      "commence": "2026-10-03T02:00Z",
      "status": "in",
-     "detail": "4:28 - 1st",
-     "score": "ANA 0 - VGK 0",
+     "detail": "End of 1st",
+     "score": "ANA 1 - VGK 0",
      "away_to": null,
      "home_to": null
     }
@@ -109,7 +107,7 @@
      "matchup": "NC @ SEA",
      "commence": "2026-10-03T02:00Z",
      "status": "in",
-     "detail": "26'",
+     "detail": "41'",
      "score": "NC 0 - SEA 0"
     }
    ]
