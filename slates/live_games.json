@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T16:35:16.390972+00:00",
+ "generated_at": "2026-10-03T16:50:49.222977+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -33,7 +33,7 @@
      "matchup": "ND @ UNC",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "6:26 - 1st",
+     "detail": "15:00 - 1st",
      "score": "ND 14 - UNC 7",
      "away_to": 3,
      "home_to": 3
@@ -43,9 +43,9 @@
      "matchup": "ALA @ MSST",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "3:26 - 1st",
-     "score": "ALA 14 - MSST 7",
-     "away_to": 3,
+     "detail": "14:53 - 2nd",
+     "score": "ALA 21 - MSST 7",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -53,7 +53,7 @@
      "matchup": "UCF @ HOU",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "3:28 - 1st",
+     "detail": "14:20 - 2nd",
      "score": "UCF 7 - HOU 0",
      "away_to": 3,
      "home_to": 3
@@ -63,9 +63,9 @@
      "matchup": "BC @ SMU",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "5:43 - 1st",
-     "score": "BC 3 - SMU 6",
-     "away_to": 2,
+     "detail": "0:33 - 1st",
+     "score": "BC 10 - SMU 6",
+     "away_to": 1,
      "home_to": 3
     },
     {
@@ -73,8 +73,8 @@
      "matchup": "MTSU @ KU",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "2:16 - 1st",
-     "score": "MTSU 0 - KU 3",
+     "detail": "13:13 - 2nd",
+     "score": "MTSU 0 - KU 10",
      "away_to": 3,
      "home_to": 3
     },
@@ -83,8 +83,8 @@
      "matchup": "WVU @ ISU",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "4:12 - 1st",
-     "score": "WVU 7 - ISU 0",
+     "detail": "13:36 - 2nd",
+     "score": "WVU 7 - ISU 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -93,8 +93,8 @@
      "matchup": "STAN @ WAKE",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "2:28 - 1st",
-     "score": "STAN 0 - WAKE 13",
+     "detail": "11:26 - 2nd",
+     "score": "STAN 0 - WAKE 15",
      "away_to": 3,
      "home_to": 3
     },
@@ -103,8 +103,8 @@
      "matchup": "SYR @ CONN",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "3:41 - 1st",
-     "score": "SYR 6 - CONN 7",
+     "detail": "13:39 - 2nd",
+     "score": "SYR 13 - CONN 7",
      "away_to": 2,
      "home_to": 3
     },
@@ -113,8 +113,8 @@
      "matchup": "MICH @ MINN",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "2:45 - 1st",
-     "score": "MICH 0 - MINN 7",
+     "detail": "13:46 - 2nd",
+     "score": "MICH 6 - MINN 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -123,7 +123,7 @@
      "matchup": "NAVY @ AFA",
      "commence": "2026-10-03T16:00Z",
      "status": "in",
-     "detail": "4:05 - 1st",
+     "detail": "11:08 - 2nd",
      "score": "NAVY 0 - AFA 0",
      "away_to": 3,
      "home_to": 3
@@ -133,8 +133,8 @@
      "matchup": "MSU @ WIS",
      "commence": "2026-10-03T16:30Z",
      "status": "in",
-     "detail": "12:29 - 1st",
-     "score": "MSU 0 - WIS 0",
+     "detail": "6:23 - 1st",
+     "score": "MSU 0 - WIS 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -142,9 +142,11 @@
      "espn_event_id": "401856705",
      "matchup": "VAN @ UGA",
      "commence": "2026-10-03T16:45Z",
-     "status": "pre",
-     "detail": "10/3 - 9:45 AM PT",
-     "score": "VAN 0 - UGA 0"
+     "status": "in",
+     "detail": "14:08 - 1st",
+     "score": "VAN 0 - UGA 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401866432",
