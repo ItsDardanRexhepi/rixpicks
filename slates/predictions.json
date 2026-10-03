@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-02T23:50:06.540769+00:00",
+ "generated_at": "2026-10-03T00:05:02.919697+00:00",
  "items": [
-  {
-   "id": "91e64929a5",
-   "league": "NWSL",
-   "event": "San Diego Wave FC @ Orlando Pride",
-   "prediction": "Orlando Pride to beat San Diego Wave FC",
-   "kickoff_utc": "2026-10-03T00:00:00+00:00"
-  },
   {
    "id": "ccf4301b44",
    "league": "WNBA",
@@ -41,6 +34,13 @@
    "league": "CFB",
    "event": "Alabama Crimson Tide @ Mississippi State Bulldogs",
    "prediction": "Alabama Crimson Tide to beat Mississippi State Bulldogs",
+   "kickoff_utc": "2026-10-03T16:00:00+00:00"
+  },
+  {
+   "id": "f82d2d5d77",
+   "league": "CFB",
+   "event": "Notre Dame Fighting Irish @ North Carolina Tar Heels",
+   "prediction": "Notre Dame Fighting Irish to beat North Carolina Tar Heels",
    "kickoff_utc": "2026-10-03T16:00:00+00:00"
   }
  ]
