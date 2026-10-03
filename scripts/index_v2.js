@@ -480,7 +480,7 @@ function rpLearnHtml(j){
  var days=j&&Array.isArray(j.days)?j.days:null;if(!days)return null;
  days=days.filter(function(d){return !!d&&typeof d==='object'&&Array.isArray(d.picks);});
  days.sort(function(a,b){var x=String(a.date||''),y=String(b.date||'');return x<y?1:(x>y?-1:0);});
- var money=/[$\uff04\ufe69]|\b(?:dollars?|usd)\b/i,lone=/[\ud800-\udbff](?![\udc00-\udfff])|(?:^|[^\ud800-\udbff])[\udc00-\udfff]/;
+ var money=/[$\uff04\ufe69]|(?:^|[^A-Za-z])(?:dollars?|usd)(?![A-Za-z])/i,lone=/[\ud800-\udbff](?![\udc00-\udfff])|(?:^|[^\ud800-\udbff])[\udc00-\udfff]/;
  var ws=/^[\s\x1c-\x1f\x85]+|[\s\x1c-\x1f\x85]+$/g;/* the builder's strip set: JS whitespace plus U+001C-U+001F, U+0085 */
  var t=function(v){var s=typeof v==='string'?v.replace(ws,''):'';return (lone.test(s)||money.test(s))?'':s;};
  var graded=function(p){return !!p&&typeof p==='object'&&(p.result==='W'||p.result==='L'||p.result==='P');};

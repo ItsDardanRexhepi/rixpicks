@@ -135,7 +135,7 @@ FIX_SURR = {'days': [{'date': '2026-10-02', 'label': 'Friday, Oct 2', 'record': 
                                 pick('Reversed Pair ML', 'W', 'low then high \udc00\ud800 are two lone halves')]}]}
 WANT_SURR = [('day', 'Friday, Oct 2'), ('item', 'Pair ML')]
 # money, each spelling in a brief, a note and a learning: the text goes, the clean pick stays
-MONEY = ['Risked $40 to win $15.', 'Risked \uff0440 on it.', 'Risked \ufe6940 on it.', 'Down forty dollars.', 'One dollar back.',
+MONEY = ['Risked $40 to win $15.', 'Risked 40USD to win 15USD.', 'Down 5dollars on the close.', 'USD40 risked.', 'Risked \uff0440 on it.', 'Risked \ufe6940 on it.', 'Down forty dollars.', 'One dollar back.',
          'Paid 40 USD.', 'paid in usd today', 'DOLLARS and cents.', 'Dollar-for-dollar value.', 'Odds (Usd) moved.',
          'Caf\u00e9dollar sale.']  # the last: word boundaries are ASCII in both renderers (e-acute is no word character)
 def money_ledger(v):
@@ -167,7 +167,7 @@ def notes(out):
     return re.findall(r'<span class="lnname">([^<]*)</span>.*?<div class="lnnote">([^<]*)</div>', out)
 def item_of(out, name):
     return next((c for c in out.split('<div class="lnitem">')[1:] if '>' + name + '<' in c), '')
-MONEY_RE = re.compile(r'[$\uff04\ufe69]|\b(?:dollars?|usd)\b', re.I | re.A)
+MONEY_RE = re.compile(r'[$\uff04\ufe69]|(?<![A-Za-z])(?:dollars?|usd)(?![A-Za-z])', re.I | re.A)
 
 def scrub_fn(src):
     ns = {}

@@ -2165,7 +2165,7 @@ def _learnings_html(hist_path, max_picks=6, max_days=3):
     _days = sorted((d for d in _days if isinstance(d, dict) and isinstance(d.get('picks'), list)),
                    key=lambda d: str(d.get('date') or ''), reverse=True)
     # ASCII word boundaries and case folding, the same as the client's /.../i
-    _money = _lr.compile(r'[$\uff04\ufe69]|\b(?:dollars?|usd)\b', _lr.I | _lr.A)
+    _money = _lr.compile(r'[$\uff04\ufe69]|(?<![A-Za-z])(?:dollars?|usd)(?![A-Za-z])', _lr.I | _lr.A)
     def _t(v):
         # the client's trim set: str.isspace() plus U+FEFF (JS trim() plus U+001C-U+001F, U+0085)
         s = _lr.sub(r'^[\s\ufeff]+|[\s\ufeff]+\Z', '', v) if isinstance(v, str) else ''
