@@ -202,8 +202,9 @@
   "pick_team": "Iowa Hawkeyes",
   "prediction": "Iowa Hawkeyes beat Ohio State Buckeyes",
   "kickoff_utc": "2026-10-03T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T13:20:34.057417+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T13:20:34.057417+00:00",
+  "settled_at": "2026-10-03T23:04:54.706672+00:00"
  },
  {
   "id": "cdc22b50ec",
@@ -241,8 +242,9 @@
   "pick_team": "Auburn Tigers",
   "prediction": "Auburn Tigers beat Tennessee Volunteers",
   "kickoff_utc": "2026-10-03T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T13:35:30.573743+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T13:35:30.573743+00:00",
+  "settled_at": "2026-10-03T23:04:54.893705+00:00"
  },
  {
   "id": "25b34128ff",
@@ -890,8 +892,9 @@
   "pick_team": "Los Angeles Dodgers",
   "prediction": "Los Angeles Dodgers beat Atlanta Braves",
   "kickoff_utc": "2026-10-03T20:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-02T16:35:19.847862+00:00"
+  "status": "hit",
+  "created_at": "2026-10-02T16:35:19.847862+00:00",
+  "settled_at": "2026-10-03T23:04:55.014296+00:00"
  },
  {
   "id": "40016fbb9a",
