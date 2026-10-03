@@ -917,8 +917,19 @@ def _kal_explicit(kb):
     if side not in ('yes','no') or not _KAL_TICKER_RE.fullmatch(tick):
         print(f"BUILD FAILED: kalshi block side {kb.get('side')!r} ticker {kb.get('ticker')!r} - an explicit side needs side yes|no and the full market ticker", file=sys.stderr)
         sys.exit(3)
+    # the chip links kalshi.url and the price comes from kalshi.ticker: the ticker must be a market of the
+    # url's event, or the chip would open one market while wearing another market's price
+    ev=str(kb.get('url') or '').rstrip('/').split('/')[-1].upper()
+    if not (ev and tick.startswith(ev+'-')):
+        print(f"BUILD FAILED: kalshi ticker {tick} is not a market of the url's event {ev or '(none)'} ({kb.get('url')!r}) - an explicit side prices the market its chip links", file=sys.stderr)
+        sys.exit(3)
     return (tick, side)
 _KALMKT={}
+def _kal_ask(m, side):
+    # one side's ask in cents from a Kalshi market object; a missing, zero or out-of-range ask is None
+    try: d=float(m.get(f'{side}_ask_dollars') or 0)
+    except Exception: d=0
+    return round(d*100) if 0<d<=1 else None
 def kal_market_side(ticker, side):
     # Returns (market_suffix, cents) for exactly this market: the picked side's ask (no_ask_dollars for a
     # NO pick, yes_ask_dollars for YES). A missing or zero ask is unresolved, the same as kal_market.
@@ -930,10 +941,45 @@ def kal_market_side(ticker, side):
         except Exception: _KALMKT[ticker]={}
     m=_KALMKT[ticker]
     if str(m.get('ticker') or '').upper()!=ticker: return ('',None)
-    try:
-        d=float(m.get(f'{side}_ask_dollars') or 0)
-    except Exception: d=0
-    return (ticker.rsplit('-',1)[-1], round(d*100) if 0<d<=1 else None)
+    return (ticker.rsplit('-',1)[-1], _kal_ask(m, side))
+# Side vs lock sanity, pre-game publish only (the caller skips display-only, settled, refresh and in-play
+# builds, which keep their existing paths). kalshi.cents is the lock: the picked side's ask when the card
+# locked. A side swapped in the data (lock read off YES, side says NO) or a pick bound to the wrong market
+# would otherwise ship that market's price under the lock, so at publish:
+#  - a total on a market whose title/subtitle names one direction ("Over 6.5 goals") must take YES for that
+#    direction and NO for the other (an Under on an Over market is NO); a title naming neither or both
+#    directions is not read;
+#  - the picked side's live ask must sit within _KAL_LOCK_TOL of the lock, and the other side's ask must not
+#    sit closer to the lock than the picked side's (that is the swapped-side signature, even in a 50/50
+#    market where both asks are near the lock).
+# 6c: the ship ceiling in chips() refuses an ask above gate_cents (build_manifest writes gate_cents = the
+# lock), so this mostly bounds a move in the pick's favour. A publish runs minutes after its lock, and a
+# liquid market moves a few cents in that window; a neighbouring line of the same event (Over 5.5 vs Over
+# 6.5) or the other side of a market priced away from 50/50 sits well beyond 6c, and so does a lock read off
+# the wrong market. A move past 6c means the lock no longer describes the market: re-lock the card rather
+# than publish the stale number.
+_KAL_LOCK_TOL=6
+def _kal_publish_check(p, kx, kc):
+    name=p.get('name'); m=_KALMKT.get(kx[0]) or {}
+    if _pick_mclass(p)=='total':
+        want=str(p.get('side') or '').strip().lower()
+        if want not in ('over','under'): want=(str(name or '').split() or [''])[0].lower()
+        dirs={w.lower() for f in ('title','subtitle','yes_sub_title') for w in re.findall(r'\b(over|under)\b',str(m.get(f) or ''),re.I)}
+        if want in ('over','under') and len(dirs)==1:
+            need='yes' if want in dirs else 'no'
+            if kx[1]!=need:
+                print(f"BUILD FAILED: {name} is the {want} on {kx[0]}, whose YES is the {next(iter(dirs))} - its side is {need}, the kalshi block says {kx[1]}", file=sys.stderr)
+                sys.exit(3)
+    lock=(p.get('kalshi') or {}).get('cents')
+    if isinstance(lock,bool) or not isinstance(lock,(int,float)): return
+    if abs(kc-lock)>_KAL_LOCK_TOL:
+        print(f"BUILD FAILED: {name} Kalshi {kx[1].upper()} ask {kc}c on {kx[0]} is {abs(kc-lock):g}c from the {lock:g}c lock (tolerance {_KAL_LOCK_TOL}c) - wrong market or a stale lock, re-lock before publishing", file=sys.stderr)
+        sys.exit(3)
+    opp='yes' if kx[1]=='no' else 'no'
+    oc=_kal_ask(m,opp)
+    if oc is not None and abs(oc-lock)<abs(kc-lock):
+        print(f"BUILD FAILED: {name} {opp.upper()} ask {oc}c on {kx[0]} is closer to the {lock:g}c lock than the picked {kx[1].upper()} ask {kc}c - the lock reads like the {opp.upper()} side, check kalshi.side", file=sys.stderr)
+        sys.exit(3)
 def _kal_rec(kx):
     # canonical market record identity (event, market, side) of an explicit-market pick
     return (kx[0].rsplit('-',1)[0], kx[0], kx[1])
@@ -1136,6 +1182,8 @@ def chips(p):
                 else:
                     print(f"BUILD FAILED: {p.get('name')} Kalshi ask {_kc}c exceeds ship-condition ceiling {_gate}c", file=sys.stderr)
                     sys.exit(3)
+            if _kx and _kc is not None and not (_DISPLAY_ONLY or p.get('result') or p.get('_final') or os.environ.get('RP_REFRESH')=='1' or _uw):
+                _kal_publish_check(p,_kx,_kc)  # pre-game publish: the declared side must fit the lock and the market's direction
             if _uw:
                 # in play (never-blank + phase provenance, Sep 26): freeze the last PRE-GAME snapshot -
                 # SHIPPED carryover first, manifest ship cents as fallback; never a live in-play ask
@@ -3330,7 +3378,11 @@ def build_game_pages(man, css, build_sha):
         side=p.get('side','away')
         carded_team=g.get(side,'')
         _uw=_is_underway(g)
-        _sk=f"{away}|{home}|{(g.get('commence') or '')[:10]}"
+        _kx=_kal_explicit(p.get('kalshi'))  # explicit market + side: rows name that market and price its side
+        # an explicit-side pick reads its pins under the key chips() writes them (_ship_key: a total or prop adds
+        # its class and line), never the game-key pin of a moneyline on the same game; every other pick keeps
+        # the game key (for a moneyline the two keys are equal)
+        _sk=_ship_key(p) if _kx else f"{away}|{home}|{(g.get('commence') or '')[:10]}"
         _shk=(SHIPPED.get(_sk) or {}) if _uw else {}
         _gph='last_pre_game' if _uw else 'pre_game'
         _fqt=_pt_label(((_shk.get('Kalshi') or _shk.get('Polymarket') or {}).get('ts')) or '') if _uw else ''
@@ -3413,7 +3465,6 @@ def build_game_pages(man, css, build_sha):
             books_present.append(short)
         # Kalshi full board (user, Sep 25 12:19 PM): both sides, live-ticked. Fallback: single-side tap row.
         kal_html=''
-        _kx=_kal_explicit(p.get('kalshi'))  # explicit market + side: rows name that market and price its side
         _kteam=(carded_team or str(p.get('name') or '')) if _kx else carded_team  # a total/prop has no carded team
         if p.get('kalshi'):
             kurl=p['kalshi']['url']; tick=kurl.rstrip('/').split('/')[-1].upper()

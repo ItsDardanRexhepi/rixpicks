@@ -25,9 +25,20 @@ responses (sitecustomize stub; every other host fails fast, nothing leaves the m
     tick reads no_ask too.
  G. a malformed explicit side fails the build (exit 3); build_manifest.py carries kalshi.side into the
     manifest pick (only when given, yes|no only) and the page built from that manifest prices the NO ask.
+ H. a game carrying a moneyline and a NO-side total, in play: the total's game page reads its own shipped pin
+    (market class + line key, 57c NO) and never the moneyline's game-key pin (41c); the moneyline's page keeps it.
+ I. side vs lock at pre-game publish (lock = kalshi.cents, tolerance 6c): the Oct 2 card ships; an Under declared
+    YES or an Over declared NO on an "Over 6.5" market fails (and the reverse on an "Under 6.5" market); a title
+    naming no single direction is not read; a picked ask past 6c from the lock fails (the neighbouring line at
+    18c, a 7c move), 6c ships; the other side's ask sitting closer to the lock fails (a tie ships); refresh,
+    in-play, settled and display-only builds keep their existing paths.
+ J. an explicit ticker that is not a market of the url's event (another event, a prefix, no url) fails (exit 3);
+    an old pick is not held to it.
+ K. build_gh_page.py (the v1 preview builder) refuses any pick whose kalshi block names a side (exit 3) and
+    still builds a card without one.
 Run: python3 scripts/test_kalshi_no_side.py [builder.py ...]   (default: both twins)
 """
-import copy, datetime, json, os, re, shutil, subprocess, sys, tempfile, warnings
+import copy, datetime, hashlib, json, os, re, shutil, subprocess, sys, tempfile, warnings
 warnings.simplefilter("ignore", SyntaxWarning)
 
 SD = os.path.dirname(os.path.abspath(__file__))
@@ -66,6 +77,8 @@ TK = EV + '-7'
 KURL = 'https://kalshi.com/markets/kxnhltotal/' + EV.lower()
 LEV = 'KXNHLGAME-26OCT02MTLTOR'
 LURL = 'https://kalshi.com/markets/kxnhlgame/' + LEV.lower()
+GEV = 'KXNHLGAME-26OCT02STLDAL'
+GURL = 'https://kalshi.com/markets/kxnhlgame/' + GEV.lower()
 
 def total_mkt(sfx, ya, na, **kw):
     return dict({'ticker': EV + '-' + sfx, 'title': 'Over %s goals' % sfx, 'yes_sub_title': 'Over %d.5 goals scored' % (int(sfx) - 1),
@@ -73,12 +86,14 @@ def total_mkt(sfx, ya, na, **kw):
 LEAFS_MKTS = [{'ticker': LEV + '-TOR', 'title': 'Toronto', 'yes_sub_title': 'Toronto', 'yes_ask_dollars': '0.50', 'no_ask_dollars': '0.51'},
               {'ticker': LEV + '-MTL', 'title': 'Montreal', 'yes_sub_title': 'Montreal', 'yes_ask_dollars': '0.51', 'no_ask_dollars': '0.50'}]
 
-def routes(seven=None, poison=True):
+def routes(seven=None, poison=True, extra=()):
     """seven: the KXNHLTOTAL ...-7 market (None = the API has no such market). poison: the Leafs single-market
-    endpoint answers 99c both sides - a team-matched pick that reached it would change its chip."""
+    endpoint answers 99c both sides - a team-matched pick that reached it would change its chip. extra: more
+    markets answered by the single-market endpoint (a pick bound to another line of the event)."""
     rows = [total_mkt('6', '0.62', '0.39'), total_mkt('8', '0.27', '0.74')] + ([seven] if seven else [])
     r = [[r'markets\?event_ticker=' + EV + '&', {'markets': rows}]]
     if seven: r.append([r'trade-api/v2/markets/' + TK + r'(\?|$)', {'market': seven}])
+    for m in extra: r.append([r'trade-api/v2/markets/' + m['ticker'] + r'(\?|$)', {'market': m}])
     r.append([r'markets\?event_ticker=' + LEV + '&', {'markets': LEAFS_MKTS}])
     for m in LEAFS_MKTS:
         r.append([r'trade-api/v2/markets/' + m['ticker'] + r'(\?|$)', {'market': dict(m, yes_ask_dollars='0.99', no_ask_dollars='0.99') if poison else m}])
@@ -105,12 +120,14 @@ def card(*picks):
     return m
 
 GAME_PAGES = {}
-def build(builder, manifest, rts, refresh=False):
+def build(builder, manifest, rts, refresh=False, files=None, as_name='build_gh_page_v2.py'):
+    """files: {name: text} written at the tree root before the build (shipped_books.json, shipped_pick_hash.txt).
+    as_name: the builder's file name in the tree (build_gh_page.py for the v1 preview builder)."""
     d = tempfile.mkdtemp(prefix='rp-kalno-')
     try:
         os.makedirs(os.path.join(d, 'scripts')); os.makedirs(os.path.join(d, 'slates')); os.makedirs(os.path.join(d, '_net'))
         bsrc = os.path.dirname(builder)
-        shutil.copy(builder, os.path.join(d, 'scripts', 'build_gh_page_v2.py'))
+        shutil.copy(builder, os.path.join(d, 'scripts', as_name))
         for f in ('index_v2.js', 'index_v2.css', 'game_page_template.html', 'team_page_template.html', 'poly_us.py'):
             shutil.copy(os.path.join(bsrc if os.path.exists(os.path.join(bsrc, f)) else SD, f), os.path.join(d, 'scripts', f))
         for f in ('feed_arbiter.js', 'feed_registry.json', 'config_leagues.json'):
@@ -119,11 +136,12 @@ def build(builder, manifest, rts, refresh=False):
         json.dump([], open(os.path.join(d, 'slates', 'odds_prefill.json'), 'w'))
         open(os.path.join(d, '_net', 'sitecustomize.py'), 'w').write(FAKENET)
         json.dump(rts, open(os.path.join(d, '_net', 'routes.json'), 'w'))
+        for fn, body in (files or {}).items(): open(os.path.join(d, fn), 'w').write(body)
         env = dict(os.environ, http_proxy=DEAD, https_proxy=DEAD, HTTP_PROXY=DEAD, HTTPS_PROXY=DEAD, NO_PROXY='',
                    PYTHONPATH=os.path.join(d, '_net'), RP_FAKENET=os.path.join(d, '_net', 'routes.json'), PYTHONWARNINGS='ignore')
         for k in ('RP_REFRESH', 'RP_PUBLISH', 'RP_KAL_TICKER'): env.pop(k, None)
         if refresh: env['RP_REFRESH'] = '1'
-        r = subprocess.run([sys.executable, os.path.join(d, 'scripts', 'build_gh_page_v2.py'), 'manifest.json', 'index.html'],
+        r = subprocess.run([sys.executable, os.path.join(d, 'scripts', as_name), 'manifest.json', 'index.html'],
                            cwd=d, env=env, capture_output=True, text=True, timeout=600)
         page = open(os.path.join(d, 'index.html')).read() if os.path.exists(os.path.join(d, 'index.html')) else ''
         GAME_PAGES.clear()
@@ -298,6 +316,124 @@ for B in BUILDERS:
     bad = copy.deepcopy(UNDER); bad['kalshi'].pop('ticker')
     rc, page, log = build(B, card(bad), routes(SEVEN))
     check(f'{tag}: G a side without the market ticker fails the build (exit 3)', rc == 3 and 'an explicit side needs side yes|no' in log, log[-400:])
+
+    # H. same game, a moneyline and a NO-side total, in play: each game page reads its own shipped pin
+    BLUES = {'num': 1, 'name': 'Blues ML', 'market_class': 'ml', 'sub': 'STL @ DAL', 'odds': '+144', 'units': '5u', 'side': 'away',
+             'game': {'away': 'St. Louis Blues', 'home': 'Dallas Stars', 'commence': PAST, 'eid': ''},
+             'espn_league': 'hockey/nhl', 'league': 'NHL', 'best_book': 'Kalshi',
+             'kalshi': {'url': GURL, 'cents': 41, 'team': 'St. Louis', 'gate_cents': 41, 'ticker': GEV + '-STL'}}
+    GK = 'St. Louis Blues|Dallas Stars|' + PAST[:10]
+    shipped = {GK: {'Kalshi': {'link': GURL, 'cents': 41, 'commence': PAST}},
+               GK + '|total|6.5': {'Kalshi': {'link': KURL, 'cents': 57, 'commence': PAST}}}
+    rc, page, log = build(B, card(BLUES, U_LIVE), routes(SEVEN), refresh=True, files={'shipped_books.json': json.dumps(shipped)})
+    gp_ml, gp_tot = GAME_PAGES.get('game-1.html', ''), GAME_PAGES.get('game-2.html', '')
+    row = kal_row(gp_tot)
+    check(f'{tag}: H in play, the total\'s game page shows its own pinned NO price (KAL -133, 57c), not the moneyline\'s 41c (+144)',
+          rc == 0 and '>Under 6.5</a>' in row and '>KAL -133</a>' in row and 'data-kalpx="no" data-cents="57"' in row
+          and 'pre-game snapshot' in row and '+144' not in row, log[-600:] + row)
+    m = re.search(r' data-mr="(\d+)"', row)
+    rec = records(gp_tot)[int(m.group(1))] if m else {}
+    check(f'{tag}: H the total\'s game page market record is (event, exact market, side no) at its own 57c pin',
+          (rec.get('src'), rec.get('ev'), rec.get('mkt'), rec.get('side'), rec.get('c')) == ('Kalshi', EV, TK, 'no', 57), rec)
+    row = kal_row(gp_ml)
+    check(f'{tag}: H the moneyline\'s game page keeps its game-key pin (Blues, KAL +144, 41c, no data-kalpx)',
+          '>St. Louis Blues</a>' in row and '>KAL +144</a>' in row and 'data-cents="41"' in row and 'kalpx' not in row, row)
+    check(f'{tag}: H the index chips agree (Under KAL -133, Blues KAL +144)',
+          label(chip_for(page, KURL)) == 'KAL -133' and label(chip_for(page, GURL)) == 'KAL +144', [label(x) for x in kal_chips(page)])
+
+    # I. side vs lock sanity at pre-game publish (lock = kalshi.cents; tolerance 6c)
+    rc, page, log = build(B, card(UNDER), routes(SEVEN))
+    check(f'{tag}: I the Oct 2 card passes: Under 6.5, NO ask 57c, lock 57, YES 44c (KAL -133)',
+          rc == 0 and label(chip_for(page, KURL)) == 'KAL -133' and 'BUILD FAILED' not in log, log[-400:])
+    u = copy.deepcopy(UNDER); u['kalshi']['side'] = 'yes'
+    rc, page, log = build(B, card(u), routes(SEVEN))
+    check(f'{tag}: I an Under declared YES on an "Over 6.5" market fails (exit 3): an Under there is NO',
+          rc == 3 and 'BUILD FAILED: Under 6.5 is the under on %s, whose YES is the over - its side is no, the kalshi block says yes' % TK in log, log[-600:])
+    o = copy.deepcopy(OVER); o['kalshi'].update(side='no', cents=57, gate_cents=57)
+    rc, page, log = build(B, card(o), routes(SEVEN))
+    check(f'{tag}: I an Over declared NO on an "Over 6.5" market fails (exit 3) though its NO ask equals the lock',
+          rc == 3 and 'BUILD FAILED: Over 6.5 is the over on %s, whose YES is the over - its side is yes, the kalshi block says no' % TK in log, log[-600:])
+    UNDER_MKT = total_mkt('7', '0.57', '0.44', title='Under 7 goals', yes_sub_title='Under 6.5 goals scored')
+    u = copy.deepcopy(UNDER); u['kalshi']['side'] = 'yes'
+    rc, page, log = build(B, card(u), routes(UNDER_MKT))
+    ch = chip_for(page, KURL)
+    check(f'{tag}: I on an "Under 6.5" market the Under is YES: side yes at the 57c YES ask ships (KAL -133, data-kalpx yes)',
+          rc == 0 and label(ch) == 'KAL -133' and attr(ch, 'kalpx') == 'yes', log[-400:] + ch)
+    rc, page, log = build(B, card(UNDER), routes(UNDER_MKT))
+    check(f'{tag}: I on an "Under 6.5" market an Under declared NO fails (exit 3)',
+          rc == 3 and 'whose YES is the under - its side is yes, the kalshi block says no' in log, log[-600:])
+    for title, ysub in (('St. Louis at Dallas: Total Goals', '7 or more goals'), ('Over/Under 6.5 goals', 'Over/Under 6.5 goals')):
+        amb = total_mkt('7', '0.44', '0.57', title=title, yes_sub_title=ysub)
+        rc, page, log = build(B, card(UNDER), routes(amb))
+        check(f'{tag}: I a title naming no single direction ({title!r}) is not read: the NO Under at its lock ships',
+              rc == 0 and label(chip_for(page, KURL)) == 'KAL -133', log[-400:])
+    rc, page, log = build(B, card(u), routes(total_mkt('7', '0.44', '0.57', title='Total Goals', yes_sub_title='7 or more goals')))
+    check(f'{tag}: I direction unread, the lock still catches a swapped side: YES 44c is 13c from the 57c lock (exit 3)',
+          rc == 3 and 'BUILD FAILED: Under 6.5 Kalshi YES ask 44c on %s is 13c from the 57c lock (tolerance 6c)' % TK in log, log[-600:])
+    SIX = total_mkt('6', '0.62', '0.39')
+    wrong = copy.deepcopy(UNDER); wrong['kalshi']['ticker'] = EV + '-6'
+    rc, page, log = build(B, card(wrong), routes(SEVEN, extra=[SIX]))
+    check(f'{tag}: I a pick bound to the neighbouring line (Over 5.5, NO 39c) fails: 18c from the 57c lock (exit 3)',
+          rc == 3 and 'BUILD FAILED: Under 6.5 Kalshi NO ask 39c on %s-6 is 18c from the 57c lock (tolerance 6c)' % EV in log, log[-600:])
+    rc, page, log = build(B, card(UNDER), routes(total_mkt('7', '0.30', '0.51')))
+    check(f'{tag}: I a NO ask 6c under the lock is inside the tolerance and ships at the lock (KAL -133)',
+          rc == 0 and label(chip_for(page, KURL)) == 'KAL -133', log[-400:])
+    rc, page, log = build(B, card(UNDER), routes(total_mkt('7', '0.30', '0.50')))
+    check(f'{tag}: I a NO ask 7c under the lock is past the tolerance (exit 3)',
+          rc == 3 and 'NO ask 50c on %s is 7c from the 57c lock (tolerance 6c)' % TK in log, log[-600:])
+    swp = copy.deepcopy(LEAFS); swp['kalshi'].update(side='yes', cents=51, gate_cents=51)
+    rc, page, log = build(B, card(swp), routes(SEVEN, poison=False))
+    check(f'{tag}: I a 51c lock on a YES 50c / NO 51c market declared YES fails: the NO ask is the closer one (exit 3)',
+          rc == 3 and 'BUILD FAILED: Maple Leafs ML NO ask 51c on %s-TOR is closer to the 51c lock than the picked YES ask 50c' % LEV in log, log[-600:])
+    u = copy.deepcopy(UNDER); u['kalshi'].update(cents=50, gate_cents=51)
+    rc, page, log = build(B, card(u), routes(total_mkt('7', '0.50', '0.51')))
+    check(f'{tag}: I a NO pick locked at 50c on a YES 50c / NO 51c market fails: the YES ask sits on the lock (exit 3)',
+          rc == 3 and 'YES ask 50c on %s is closer to the 50c lock than the picked NO ask 51c' % TK in log, log[-600:])
+    LEAFS_YES_TIE = copy.deepcopy(LEAFS); LEAFS_YES_TIE['kalshi']['side'] = 'yes'
+    tie = [[r'trade-api/v2/markets/' + LEV + r'-TOR(\?|$)', {'market': dict(LEAFS_MKTS[0], no_ask_dollars='0.50')}]] + routes(SEVEN, poison=False)
+    rc, page, log = build(B, card(LEAFS_YES_TIE), tie)  # first matching route wins: TOR answers YES 50c / NO 50c
+    check(f'{tag}: I an explicit YES at a 50c lock on a YES 50c / NO 50c market ships (a tie is not closer)',
+          rc == 0 and attr(chip_for(page, LURL), 'kalpx') == 'yes' and attr(chip_for(page, LURL), 'cents') == '50', log[-400:])
+    # the publish checks stay out of every non-publish path: the wrong-line pick builds and wears its lock
+    for what, mf, kw in (('refresh', card(wrong), {'refresh': True}),
+                         ('in play', card(dict(copy.deepcopy(wrong), game=dict(wrong['game'], commence=PAST))), {}),
+                         ('settled', card(dict(copy.deepcopy(wrong), result='WIN')), {})):
+        rc, page, log = build(B, mf, routes(SEVEN, extra=[SIX]), **kw)
+        check(f'{tag}: I {what} build of the wrong-line pick keeps its existing path (exit 0, chip at the 57c lock)',
+              rc == 0 and label(chip_for(page, KURL)) == 'KAL -133' and 'from the 57c lock' not in log, log[-600:])
+    src = open(B).read(); i = src.index('def _pick_content_hash'); ns = {'json': json, '_hl': hashlib}
+    exec(src[i:src.index('\n_PC_HASH=', i)], ns)
+    mf = card(wrong)
+    rc, page, log = build(B, mf, routes(SEVEN, extra=[SIX]), files={'shipped_pick_hash.txt': ns['_pick_content_hash'](mf) + '\n'})
+    check(f'{tag}: I display-only build of the wrong-line pick keeps its existing path (exit 0, chip at the 57c lock)',
+          rc == 0 and 'DISPLAY-ONLY' in log and label(chip_for(page, KURL)) == 'KAL -133' and 'from the 57c lock' not in log, log[-600:])
+
+    # J. the explicit ticker must be a market of the url's event
+    for what, url in (("another event's url", LURL), ('an event url that is only a prefix of the ticker', 'https://kalshi.com/markets/kxnhltotal/kxnhltotal-26oct02stl'),
+                      ('no url', None)):
+        bad = copy.deepcopy(UNDER)
+        if url: bad['kalshi']['url'] = url
+        else: bad['kalshi'].pop('url')
+        rc, page, log = build(B, card(bad), routes(SEVEN))
+        check(f'{tag}: J {what} fails the build (exit 3)',
+              rc == 3 and 'BUILD FAILED: kalshi ticker %s is not a market of the url\'s event' % TK in log and not page, log[-600:])
+    old = copy.deepcopy(LEAFS); old['kalshi']['ticker'] = TK
+    rc, page, log = build(B, card(old), routes(SEVEN))
+    check(f'{tag}: J an old pick (no side) is not held to it: a foreign ticker still builds the team-matched chip',
+          rc == 0 and attr(chip_for(page, LURL), 'kalside') == 'TOR' and attr(chip_for(page, LURL), 'cents') == '50', log[-400:])
+
+# K. the v1 preview builder (card_chain_preview.sh) cannot price a side: it refuses any pick that names one
+V1 = os.path.join(SD, 'build_gh_page.py')
+rc, page, log = build(V1, card(LEAFS, UNDER), routes(SEVEN), as_name='build_gh_page.py')
+check('K build_gh_page.py refuses a card with a kalshi.side pick (exit 3, names the pick, no page written)',
+      rc == 3 and 'BUILD FAILED: kalshi.side on Under 6.5 - this builder prices Kalshi from a team-matched YES ask' in log and not page, log[-600:])
+yes_only = copy.deepcopy(LEAFS); yes_only['kalshi']['side'] = 'yes'
+rc, page, log = build(V1, card(yes_only), routes(SEVEN), as_name='build_gh_page.py')
+check('K build_gh_page.py refuses a YES side too (it reads a team match, never the named market)',
+      rc == 3 and 'BUILD FAILED: kalshi.side on Maple Leafs ML' in log and not page, log[-600:])
+rc, page, log = build(V1, card(LEAFS), routes(SEVEN), as_name='build_gh_page.py')
+check('K build_gh_page.py still builds a card without a side (old pick, team-matched chip)',
+      rc == 0 and 'kalshi.side' not in log and 'data-book="KAL"' in page, log[-600:])
 
 # G. build_manifest.py carries the side through to the manifest, and the page prices it
 T0 = (NOW - datetime.timedelta(minutes=5)).strftime('%Y-%m-%dT%H:%M:%SZ')
