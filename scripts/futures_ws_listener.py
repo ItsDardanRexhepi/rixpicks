@@ -306,34 +306,53 @@ async def flusher():
         ST.immediate.clear()
         flush_rows()
 
+GIT_TIMEOUT = 45   # hang guard: a git call that never returns froze the pusher for 5h on Oct 3 (last tick 17:51Z)
+GIT_ENV = dict(os.environ, GIT_TERMINAL_PROMPT='0', GIT_EDITOR='true', GIT_HTTP_LOW_SPEED_LIMIT='1000', GIT_HTTP_LOW_SPEED_TIME='20')
+
+def _git(args, **kw):
+    return subprocess.run(['git'] + args, cwd=REPO, capture_output=True, text=True,
+                          timeout=GIT_TIMEOUT, env=GIT_ENV, **kw)
+
 def git_push():
     try:
-        subprocess.run(['git', 'add', 'data/futures_ws_ticks.jsonl', 'data/futures_ws_heartbeat.json'],
-                       cwd=REPO, check=True, capture_output=True)
-        r = subprocess.run(['git', 'commit', '-m', 'futures ws ticks ' + now_iso() + ' [skip ci]'],  # skip-ci: tick churn must not starve legacy Pages deploys (publish starvation class 03:32Z)
-                           cwd=REPO, capture_output=True, text=True)
+        _git(['add', 'data/futures_ws_ticks.jsonl', 'data/futures_ws_heartbeat.json'], check=True)
+        r = _git(['commit', '-m', 'futures ws ticks ' + now_iso() + ' [skip ci]'])  # skip-ci: tick churn must not starve legacy Pages deploys (publish starvation class 03:32Z)
         if r.returncode != 0:
             return 'nothing-to-commit'
+        p = None
         for _ in range(4):
-            subprocess.run(['git', 'pull', '--rebase', '--autostash', 'origin', 'main'], cwd=REPO, capture_output=True)
-            p = subprocess.run(['git', 'push', 'origin', 'main'], cwd=REPO, capture_output=True, text=True)
-            if p.returncode == 0:
-                return 'pushed'
+            try:
+                pr = _git(['pull', '--rebase', '--autostash', 'origin', 'main'])
+                if pr.returncode != 0:
+                    _git(['rebase', '--abort'])  # never leave a half-finished rebase blocking the next cycle
+                p = _git(['push', 'origin', 'main'])
+                if p.returncode == 0:
+                    return 'pushed'
+            except subprocess.TimeoutExpired as ex:
+                p = None
+                try:
+                    _git(['rebase', '--abort'])
+                except Exception:
+                    pass
+                log('git timeout:', ' '.join(map(str, ex.cmd))[:80])
             time.sleep(2)
-        return 'push-failed: ' + (p.stderr or '')[:120]
+        return 'push-failed: ' + ((p.stderr if p is not None else 'timeout') or '')[:120]
     except Exception as ex:
         return 'push-err: ' + repr(ex)[:120]
 
 async def pusher():
     while True:
         await asyncio.sleep(PUSH_EVERY)
-        flush_rows()
-        heart = {'ts': now_iso(), 'connected': ST.connected, 'reconnects': ST.reconnects,
-                 'last_msg_age_s': {k: (round(time.time() - v, 1) if v else None) for k, v in ST.last_msg.items()},
-                 'keys_tracked': len(ST.board), 'rows_written': ST.rows_written}
-        json.dump(heart, open(HEART, 'w'), indent=1)
-        res = await asyncio.to_thread(git_push)
-        log('push:', res, '| keys', len(ST.board), 'rows', ST.rows_written)
+        try:
+            flush_rows()
+            heart = {'ts': now_iso(), 'connected': ST.connected, 'reconnects': ST.reconnects,
+                     'last_msg_age_s': {k: (round(time.time() - v, 1) if v else None) for k, v in ST.last_msg.items()},
+                     'keys_tracked': len(ST.board), 'rows_written': ST.rows_written}
+            json.dump(heart, open(HEART, 'w'), indent=1)
+            res = await asyncio.wait_for(asyncio.to_thread(git_push), 240)
+            log('push:', res, '| keys', len(ST.board), 'rows', ST.rows_written)
+        except Exception as ex:
+            log('pusher cycle ERR (loop continues):', repr(ex)[:160])
 
 async def rediscovery(leagues_ref):
     while True:
@@ -362,7 +381,10 @@ async def main():
     heart = {'ts': now_iso(), 'connected': ST.connected, 'reconnects': ST.reconnects,
              'keys_tracked': len(ST.board), 'rows_written': ST.rows_written, 'final': True}
     json.dump(heart, open(HEART, 'w'), indent=1)
-    await asyncio.to_thread(git_push)
+    try:
+        await asyncio.wait_for(asyncio.to_thread(git_push), 240)
+    except Exception as ex:
+        log('final push ERR:', repr(ex)[:120])
     for t in tasks:
         t.cancel()
     log('listener window complete - clean exit for respawn')
