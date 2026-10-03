@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T01:05:11.233604+00:00",
+ "generated_at": "2026-10-03T01:20:11.573361+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,7 +10,7 @@
      "matchup": "PITT @ VT",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "12:14 - 3rd",
      "score": "PITT 21 - VT 24",
      "away_to": 3,
      "home_to": 3
@@ -20,7 +20,7 @@
      "matchup": "LIB @ DEL",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "8:39 - 3rd",
+     "detail": "4:09 - 3rd",
      "score": "LIB 20 - DEL 0",
      "away_to": 0,
      "home_to": 1
@@ -30,8 +30,8 @@
      "matchup": "PSU @ NU",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "13:00 - 2nd",
-     "score": "PSU 0 - NU 10",
+     "detail": "9:15 - 2nd",
+     "score": "PSU 7 - NU 17",
      "away_to": 3,
      "home_to": 2
     }
@@ -45,8 +45,8 @@
      "matchup": "DAL @ GS",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "9:38 - 1st",
-     "score": "DAL 0 - GS 0",
+     "detail": "2:34 - 1st",
+     "score": "DAL 15 - GS 10",
      "away_to": 5,
      "home_to": 5
     }
@@ -59,18 +59,16 @@
      "espn_event_id": "401891803",
      "matchup": "NYR @ DET",
      "commence": "2026-10-02T22:30Z",
-     "status": "in",
-     "detail": "7:54 - 3rd",
-     "score": "NYR 1 - DET 0",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "NYR 2 - DET 0"
     },
     {
      "espn_event_id": "401892432",
      "matchup": "WAS @ CAR",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "12:41 - 3rd",
      "score": "WAS 5 - CAR 1",
      "away_to": null,
      "home_to": null
@@ -80,8 +78,18 @@
      "matchup": "BOS @ WPG",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "End of 1st",
-     "score": "BOS 2 - WPG 1",
+     "detail": "17:50 - 2nd",
+     "score": "BOS 2 - WPG 2",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401891782",
+     "matchup": "STL @ DAL",
+     "commence": "2026-10-03T01:00Z",
+     "status": "in",
+     "detail": "18:26 - 1st",
+     "score": "STL 1 - DAL 0",
      "away_to": null,
      "home_to": null
     },
@@ -103,8 +111,8 @@
      "matchup": "SD @ ORL",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "HT",
-     "score": "SD 2 - ORL 0"
+     "detail": "54'",
+     "score": "SD 2 - ORL 1"
     },
     {
      "espn_event_id": "401854016",
