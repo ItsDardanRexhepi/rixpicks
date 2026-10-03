@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T14:20:15.856735+00:00",
+ "generated_at": "2026-10-03T14:35:12.105508+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -92,6 +92,14 @@
      "status": "pre",
      "detail": "10/3 - 9:00 AM PT",
      "score": "NAVY 0 - AFA 0"
+    },
+    {
+     "espn_event_id": "401858479",
+     "matchup": "MSU @ WIS",
+     "commence": "2026-10-03T16:30Z",
+     "status": "pre",
+     "detail": "10/3 - 9:30 AM PT",
+     "score": "MSU 0 - WIS 0"
     }
    ]
   }
