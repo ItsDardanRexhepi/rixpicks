@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-03T23:35:35.882413+00:00",
+ "generated_at": "2026-10-03T23:50:18.997697+00:00",
  "items": [
-  {
-   "id": "25b34128ff",
-   "league": "CFB",
-   "event": "McNeese Cowboys @ LSU Tigers",
-   "prediction": "LSU Tigers to beat McNeese Cowboys",
-   "kickoff_utc": "2026-10-03T23:45:00+00:00"
-  },
   {
    "id": "4e42f58a59",
    "league": "CFB",
@@ -42,6 +35,13 @@
    "event": "Boston Legacy FC @ Portland Thorns FC",
    "prediction": "Portland Thorns FC to beat Boston Legacy FC",
    "kickoff_utc": "2026-10-04T00:45:00+00:00"
+  },
+  {
+   "id": "80be8c5d72",
+   "league": "NHL",
+   "event": "St. Louis Blues @ Colorado Avalanche",
+   "prediction": "Colorado Avalanche to beat St. Louis Blues",
+   "kickoff_utc": "2026-10-04T01:00:00+00:00"
   }
  ]
 }
