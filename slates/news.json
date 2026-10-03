@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-03T23:05:54.396Z",
+ "generated_at": "2026-10-03T23:10:55.690Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -12,30 +12,12 @@
     "league": "MLB"
    },
    {
-    "headline": "Division Series Game 1 winners and losers: Teoscar Hern\u00e1ndez strikes again, Munetaka Murakami gets his moment",
-    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-division-series-game-1-winners-losers/",
-    "published": "2026-10-03T22:53:32.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2F9cb0eb4e-a3d5-4fdd-b0db-489ce910e348%2Fteoscar-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The White Sox and Dodgers cruised to easy wins over the Guardians and Braves, respectively, in the early slate on Saturday",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
     "headline": "Dodgers home runs back Tarik Skubal, beat Braves in NLDS Game 1",
     "link": "https://sports.yahoo.com/articles/dodgers-home-runs-back-tarik-225327702.html",
     "published": "2026-10-03T22:53:27.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/d76423d5f94904762b15aadfd969bfe8fe20f33812d19f73eedbf470666144fa/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff7f36f4a231afc047b3b8ffd19270c3e.jpg",
     "blurb": "LOS ANGELES \u2014 It took a while for the Dodgers offense to get going, but they eventually did feast on the underbelly of the Atlanta Braves relief corps, backing a strong start by Tarik Skubal in a 5-3 win in Game 1 of the National League Division Series on a toasty Saturday aftern",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "White Sox shut down Guardians to win Game 1 of ALDS",
-    "link": "https://www.espn.com/mlb/story/_/id/50092957/white-sox-hold-guardians-three-hits-alds-game-1-win",
-    "published": "2026-10-03T23:53:36.000Z",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%2Fi%2Fteamlogos%2Fmlb%2F500%2Fcle.png%26w%3D110%26h%3D110%26transparent%3Dtrue&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The White Sox shut out the Guardians to win Game 1 of their AL Division Series 3-0 on Saturday.",
-    "source": "ESPN",
     "league": "MLB"
    },
    {
@@ -48,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "White Sox shut down Guardians to win Game 1 of ALDS",
+    "link": "https://www.espn.com/mlb/story/_/id/50092957/white-sox-hold-guardians-three-hits-alds-game-1-win",
+    "published": "2026-10-03T23:53:36.000Z",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%2Fi%2Fteamlogos%2Fmlb%2F500%2Fcle.png%26w%3D110%26h%3D110%26transparent%3Dtrue&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The White Sox shut out the Guardians to win Game 1 of their AL Division Series 3-0 on Saturday.",
+    "source": "ESPN",
+    "league": "MLB"
+   },
+   {
     "headline": "Happy Birthday Dave Winfield",
     "link": "https://sports.yahoo.com/articles/happy-birthday-dave-winfield-221011872.html",
     "published": "2026-10-03T22:10:11.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/263a0f98772b0606f8db631f1ed25a2799f8175cac5538807bcad5ac42143d32/lightyear_networkapi/resizefill_w1002_h689%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F183fd56eab8367ac8d95f971c425f463.jpg",
     "blurb": "Today marks Dave Winfield\u2019s 75th birthday. Winfield enjoyed a remarkable 22-year Major League Baseball career, earning a spot in the Hall of Fame and playing a memorable season with the Blue Jays. In 1992, at age 40, Dave joined the Blue Jays as a free agent. The team was strong ",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Judge not on Yankees' roster for ALDS vs. Rays",
-    "link": "https://www.espn.com/mlb/story/_/id/50090418/source-aaron-judge-not-yankees-roster-alds-vs-rays",
-    "published": "2026-10-03T23:53:36.000Z",
-    "image": "",
-    "blurb": "Aaron Judge is not on the Yankees' roster for the American League Division Series against the Rays.",
-    "source": "ESPN",
     "league": "MLB"
    },
    {
@@ -75,12 +57,30 @@
     "league": "MLB"
    },
    {
+    "headline": "Judge not on Yankees' roster for ALDS vs. Rays",
+    "link": "https://www.espn.com/mlb/story/_/id/50090418/source-aaron-judge-not-yankees-roster-alds-vs-rays",
+    "published": "2026-10-03T23:53:36.000Z",
+    "image": "",
+    "blurb": "Aaron Judge is not on the Yankees' roster for the American League Division Series against the Rays.",
+    "source": "ESPN",
+    "league": "MLB"
+   },
+   {
     "headline": "MLB Division Series: Yankees at Rays, Padres at Brewers",
     "link": "https://sports.yahoo.com/articles/mlb-division-series-yankees-rays-220000465.html",
     "published": "2026-10-03T22:00:00.000Z",
     "image": "",
     "blurb": "Here\u2019s all the info for Saturday\u2019s Division Series night games.",
     "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
+    "headline": "Biggest question for every LDS matchup: Can Yankees defense handle Rays' offense? When will Chris Sale pitch?",
+    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-lds-biggest-question/",
+    "published": "2026-10-03T15:30:38.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2F7de9b613-340e-4c5b-ae60-de0502e3df21%2Fsale-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "All four League Division Series get underway on Saturday and there are clear storylines that could determine the outcomes",
+    "source": "CBS",
     "league": "MLB"
    },
    {
@@ -113,11 +113,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Seahawks vs. Chargers: NFL Week 4 TV coverage map and CBS commentators",
-    "link": "https://sports.yahoo.com/articles/seahawks-vs-chargers-nfl-week-224601039.html",
-    "published": "2026-10-03T22:46:01.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/94f46f3b946acda3f00433db1c94d9cb47f3bbef210cb065e55b74c7ccf92336/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe4d7522583da4045d64352b98ea10c94.jpg",
-    "blurb": "Only a small portion of the country will receive Seahawks vs. Chargers.",
+    "headline": "Cowboys vs Texans: Writer predictions for Week 4",
+    "link": "https://sports.yahoo.com/articles/cowboys-vs-texans-writer-predictions-230000521.html",
+    "published": "2026-10-03T23:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/26f5f79ba031c102f10efcf0ab51c74499bca1f62dc3b306edd1e55da62d7ce9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F669bce1a2db958a5e32b97213d5b2907.jpg",
+    "blurb": "What do you think will be the final score on Sunday?",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -140,11 +140,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Jaguars vs. Bengals: Staff roundtable and game picks for Week 4",
-    "link": "https://sports.yahoo.com/articles/jaguars-vs-bengals-staff-roundtable-224541828.html",
-    "published": "2026-10-03T22:45:41.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/d984acd4cdb7524909ac5b8cf1fb0a90982d3aaecec36dddd7068c030d0ffb05/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff59a2bb1390ea6b33c2f3a96a8a1ab0e.jpg",
-    "blurb": "Big Cat Country previews the Jaguars\u2019 Week 4 matchup against the Bengals.",
+    "headline": "Ravens discussion: score prediction, X-factors for Week 4 vs. Titans",
+    "link": "https://sports.yahoo.com/articles/ravens-discussion-score-prediction-x-225747387.html",
+    "published": "2026-10-03T22:57:47.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/7a14d68c7d21db58d5b3bccb521906205a0d53ad5a044e8cb234e1752f2f7c09/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F18716ba66872d2c3db3c0b7bab0f1ed0.jpg",
+    "blurb": "Baltimore Beatdown\u2019s staff makes their predictions for the Ravens\u2019 Week 4 matchup with the Titans.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -167,11 +167,11 @@
     "league": "NFL"
    },
    {
-    "headline": "How would you grade the Steelers\u2019 Joey Porter Jr. trade?",
-    "link": "https://sports.yahoo.com/articles/grade-steelers-joey-porter-jr-223202458.html",
-    "published": "2026-10-03T22:32:02.000Z",
+    "headline": "Seahawks vs. Chargers: NFL Week 4 TV coverage map and CBS commentators",
+    "link": "https://sports.yahoo.com/articles/seahawks-vs-chargers-nfl-week-224601039.html",
+    "published": "2026-10-03T22:46:01.000Z",
     "image": "",
-    "blurb": "Steelers news and notes for Saturday, Oct. 3.",
+    "blurb": "Only a small portion of the country will receive Seahawks vs. Chargers.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -196,21 +196,21 @@
     "league": "CFB"
    },
    {
-    "headline": "Jeremiah Smith snags more Ohio State records, hits Heisman pose after setting TD, receptions marks",
-    "link": "https://www.cbssports.com/college-football/news/ohio-state-jeremiah-smith-all-time-receiving-records-iowa/",
-    "published": "2026-10-03T22:59:50.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2F5bb58779-4af0-4da1-974f-0bb431f19cd7%2Fbuckeyes.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The junior wideout needed only 34 career games to pass Chris Olave for touchdowns and Emeka Egbuka, whom he also passed for career receptions on Saturday",
-    "source": "CBS",
+    "headline": "No. 25 Missouri spoils No. 8 Florida's brief time near the top of the AP poll with a dominant 45-17 win",
+    "link": "https://sports.yahoo.com/college-football/breaking-news/article/no-25-missouri-spoils-no-8-floridas-brief-time-near-the-top-of-the-ap-poll-with-a-dominant-45-17-win-230428784.html",
+    "published": "2026-10-03T23:04:28.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/e91a64926615593a891583decc603b176a75dd84ecb31693e79c2e293d5785f0/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F3d2c0952-9efa-4680-a31c-01e55a20188b",
+    "blurb": "The Tigers scored 35 straight points in the blowout.",
+    "source": "YAHOO",
     "league": "CFB"
    },
    {
-    "headline": "Ohio State v Iowa recap, results: Jeremiah Smith sets Buckeyes records for TDs, catches in win",
-    "link": "https://sports.yahoo.com/articles/ohio-state-v-iowa-recap-225101478.html",
-    "published": "2026-10-03T22:51:01.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/abdfb9152552734e9ffca69aa766135de5ace596c355b38f5d8ea656b6faa409/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F953edcc7b1c34e8e30c6557953ba5904.jpg",
-    "blurb": "The wide receiver continued to make his case for the Heisman Trophy with the fifth-ranked Buckeyes.",
-    "source": "YAHOO",
+    "headline": "Jeremiah Smith snags more Ohio State records, hits Heisman pose after setting school TD, receptions marks",
+    "link": "https://www.cbssports.com/college-football/news/ohio-state-jeremiah-smith-all-time-receiving-records-iowa/",
+    "published": "2026-10-03T23:01:10.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2F5bb58779-4af0-4da1-974f-0bb431f19cd7%2Fbuckeyes.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The junior wideout needed only 34 career games to pass Chris Olave for touchdowns and Emeka Egbuka, whom he also passed for career receptions on Saturday",
+    "source": "CBS",
     "league": "CFB"
    },
    {
@@ -223,21 +223,21 @@
     "league": "CFB"
    },
    {
+    "headline": "Jeremiah Smith set multiple Ohio State records in dominant win over Iowa",
+    "link": "https://sports.yahoo.com/articles/jeremiah-smith-set-multiple-ohio-230416211.html",
+    "published": "2026-10-03T23:04:16.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/5b1dec203cbb7300d6a934274c4131843dcba64df74bfd08b41c9359b9aaf299/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2F547437da9ab51fa16cc16c0c100869d3.jpg",
+    "blurb": "Jeremiah Smith set two more Ohio State records on Saturday.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
     "headline": "Should Michigan bench Bryce Underwood? Noise grows louder after Wolverines sputter to 0-2 in Big Ten play",
     "link": "https://www.cbssports.com/college-football/news/michigan-bryce-underwood-bench/",
     "published": "2026-10-03T21:09:53.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2Fa91be61e-2bb8-4578-aad9-b0ce19cc8871%2Fbryce-underwood-bench-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "A miserable outing against Minnesota has the Wolverines sitting at 0-2 in Big Ten play as Kyle Whittingham evaluates making a quarterback change during the bye week",
     "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "USC football legend Matt Leinart hits program with disappointing \u2018stuck in mud\u2019 quip",
-    "link": "https://sports.yahoo.com/articles/usc-football-legend-matt-leinart-224719638.html",
-    "published": "2026-10-03T22:47:19.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/9e2d9a1d68873b78a5310e93444fd74bb7d1eb68863543b32d96704f27cb4113/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2Fb6f26736e566b98ab7117f9ce20f9b5c.jpg",
-    "blurb": "The USC football program is reeling after a home loss to Oregon that caused Joel Klatt to send a chilling warning to coach Lincoln Riley. A knee injury to star wideout Corey Simms has complicated matters further amid program legend Matt Leinart\u2019s recent comments on the rough stat",
-    "source": "YAHOO",
     "league": "CFB"
    },
    {
@@ -250,21 +250,21 @@
     "league": "CFB"
    },
    {
+    "headline": "Notre Dame bludgeons North Carolina with unlikely source powering running game",
+    "link": "https://sports.yahoo.com/articles/notre-dame-bludgeons-north-carolina-225619799.html",
+    "published": "2026-10-03T22:56:19.000Z",
+    "image": "",
+    "blurb": "Pushed into a tight game against North Carolina, the Notre Dame running game carried the load that might pay bigger dividends down the road.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
     "headline": "Pitt QB Mason Heintschel suffers season-ending knee injury amid Panthers' 5-0 start",
     "link": "https://www.cbssports.com/college-football/news/mason-heintschel-injury-updates-pitt-qb/",
     "published": "2026-10-03T21:03:17.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2Fed7fecc8-16c8-4d50-8955-bcd1cc6667b6%2Fpitt.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Heintschel went down during the Panthers' win over Virginia Tech on Friday night",
     "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "How to watch McNeese State vs LSU: Live stream College Football, NCAA, TV channel",
-    "link": "https://sports.yahoo.com/articles/watch-mcneese-state-vs-lsu-224500826.html",
-    "published": "2026-10-03T22:45:00.000Z",
-    "image": "",
-    "blurb": "The No. 11 LSU Tigers will take on the McNeese Cowboys on Saturday at Tiger Stadium in a Week 5 college football matchup. How to Watch McNeese State vs LSU LSU (3-1) has had a strange start to its season,\u2026",
-    "source": "YAHOO",
     "league": "CFB"
    },
    {
@@ -884,21 +884,21 @@
   ],
   "mma/ufc": [
    {
+    "headline": "UFC 332: Live results, analysis for Silva vs. Wang",
+    "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
+    "published": "2026-10-03T23:03:23Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723967_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
+    "league": "UFC"
+   },
+   {
     "headline": "LIVE UFC 332: Silva vs. Wang Results & Highlights",
     "link": "https://sports.yahoo.com/articles/live-ufc-332-silva-vs-140000613.html",
     "published": "2026-10-03T22:52:29.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/b6e404ed183fe4f6d75fc2257e6c800d64263a7af96c5847307ffa45919c864b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F4cdaa80e7f9eb133c58b2adb11837ae9.jpg",
     "blurb": "On Saturday the action heads to Utah as the leading MMA promotion presents UFC 332. The card will take place [\u2026]",
     "source": "YAHOO",
-    "league": "UFC"
-   },
-   {
-    "headline": "UFC 332: Live results, analysis for Natalia Silva vs. Wang Cong",
-    "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
-    "published": "2026-10-03T22:16:45.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723967_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
-    "source": "ESPN",
     "league": "UFC"
    },
    {
@@ -911,21 +911,21 @@
     "league": "UFC"
    },
    {
+    "headline": "UFC 332: Live results, analysis for Natalia Silva vs. Wang Cong",
+    "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
+    "published": "2026-10-03T22:16:45.000Z",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723967_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
+    "source": "ESPN",
+    "league": "UFC"
+   },
+   {
     "headline": "UFC 332 video: Anthony Wint calls out Sean Sharaf after 23-second TKO",
     "link": "https://sports.yahoo.com/articles/ufc-332-video-anthony-wint-222543517.html",
     "published": "2026-10-03T22:25:43.000Z",
     "image": "",
     "blurb": "Anthony Wint made light work of Lucas Armand on the UFC 332 prelims, then cut an A+ promo.",
     "source": "YAHOO",
-    "league": "UFC"
-   },
-   {
-    "headline": "UFC 332 preview and picks: Why haven't there been more women's fights?",
-    "link": "https://www.espn.com/espn/story/_/id/50077602/ufc-332-preview-predictions-natalia-silva-vs-wang-cong",
-    "published": "2026-10-03T22:16:45.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724515_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Top storylines and coaches' analysis for UFC 332 in Salt Lake City.",
-    "source": "ESPN",
     "league": "UFC"
    },
    {
@@ -938,21 +938,21 @@
     "league": "UFC"
    },
    {
+    "headline": "UFC 332 preview and picks: Why haven't there been more women's fights?",
+    "link": "https://www.espn.com/espn/story/_/id/50077602/ufc-332-preview-predictions-natalia-silva-vs-wang-cong",
+    "published": "2026-10-03T22:16:45.000Z",
+    "image": "",
+    "blurb": "Top storylines and coaches' analysis for UFC 332 in Salt Lake City.",
+    "source": "ESPN",
+    "league": "UFC"
+   },
+   {
     "headline": "UFC 332 results: Johnny Walker destroys Mick Parkin with absurd knee KO in heavyweight debut",
     "link": "https://sports.yahoo.com/mma/article/ufc-332-results-johnny-walker-destroys-mick-parkin-with-absurd-knee-ko-in-heavyweight-debut-220542963.html",
     "published": "2026-10-03T22:05:42.000Z",
     "image": "",
     "blurb": "Johnny Walker may have found himself a proper new home at heavyweight.",
     "source": "YAHOO",
-    "league": "UFC"
-   },
-   {
-    "headline": "UFC 332: Live results, analysis for Silva vs. Wang",
-    "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
-    "published": "2026-10-03T22:01:08Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723967_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
     "league": "UFC"
    },
    {
@@ -965,12 +965,12 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 video: Johnny Walker leaves Mick Parkin snoring after brutal knee knockout",
-    "link": "https://sports.yahoo.com/articles/ufc-332-video-johnny-walker-220433072.html",
-    "published": "2026-10-03T22:04:33.000Z",
+    "headline": "UFC bantamweight Barcelos released from hospital after health scare",
+    "link": "https://www.espn.com/mma/story/_/id/50068433/ufc-bantamweight-barcelos-hospital-health-scare",
+    "published": "2026-09-30T17:08:45.000Z",
     "image": "",
-    "blurb": "Is this one of the most violent knee knockouts in UFC history?",
-    "source": "YAHOO",
+    "blurb": "UFC bantamweight Raoni Barcelos has been discharged from the hospital, following a frightening incident at UFC Fight Night on Sept. 26 in Las Vegas.",
+    "source": "ESPN",
     "league": "UFC"
    }
   ],
@@ -1141,6 +1141,42 @@
    "league": "NFL"
   },
   {
+   "headline": "No. 25 Missouri spoils No. 8 Florida's brief time near the top of the AP poll with a dominant 45-17 win",
+   "link": "https://sports.yahoo.com/college-football/breaking-news/article/no-25-missouri-spoils-no-8-floridas-brief-time-near-the-top-of-the-ap-poll-with-a-dominant-45-17-win-230428784.html",
+   "published": "2026-10-03T23:04:28.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/e91a64926615593a891583decc603b176a75dd84ecb31693e79c2e293d5785f0/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F3d2c0952-9efa-4680-a31c-01e55a20188b",
+   "blurb": "The Tigers scored 35 straight points in the blowout.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "Jeremiah Smith set multiple Ohio State records in dominant win over Iowa",
+   "link": "https://sports.yahoo.com/articles/jeremiah-smith-set-multiple-ohio-230416211.html",
+   "published": "2026-10-03T23:04:16.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/5b1dec203cbb7300d6a934274c4131843dcba64df74bfd08b41c9359b9aaf299/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2F547437da9ab51fa16cc16c0c100869d3.jpg",
+   "blurb": "Jeremiah Smith set two more Ohio State records on Saturday.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "UFC 332: Live results, analysis for Silva vs. Wang",
+   "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
+   "published": "2026-10-03T23:03:23Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723967_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
+   "league": "UFC"
+  },
+  {
+   "headline": "Jeremiah Smith snags more Ohio State records, hits Heisman pose after setting school TD, receptions marks",
+   "link": "https://www.cbssports.com/college-football/news/ohio-state-jeremiah-smith-all-time-receiving-records-iowa/",
+   "published": "2026-10-03T23:01:10.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2F5bb58779-4af0-4da1-974f-0bb431f19cd7%2Fbuckeyes.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The junior wideout needed only 34 career games to pass Chris Olave for touchdowns and Emeka Egbuka, whom he also passed for career receptions on Saturday",
+   "source": "CBS",
+   "league": "CFB"
+  },
+  {
    "headline": "NFL Week 4 player prop bets: Raiders' Brock Bowers among best anytime TD bets",
    "link": "https://www.cbssports.com/nfl/news/nfl-week-4-player-prop-bets/",
    "published": "2026-10-03T23:01:01.000Z",
@@ -1150,22 +1186,22 @@
    "league": "NFL"
   },
   {
-   "headline": "Jeremiah Smith snags more Ohio State records, hits Heisman pose after setting TD, receptions marks",
-   "link": "https://www.cbssports.com/college-football/news/ohio-state-jeremiah-smith-all-time-receiving-records-iowa/",
-   "published": "2026-10-03T22:59:50.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2F5bb58779-4af0-4da1-974f-0bb431f19cd7%2Fbuckeyes.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The junior wideout needed only 34 career games to pass Chris Olave for touchdowns and Emeka Egbuka, whom he also passed for career receptions on Saturday",
-   "source": "CBS",
-   "league": "CFB"
+   "headline": "Cowboys vs Texans: Writer predictions for Week 4",
+   "link": "https://sports.yahoo.com/articles/cowboys-vs-texans-writer-predictions-230000521.html",
+   "published": "2026-10-03T23:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/26f5f79ba031c102f10efcf0ab51c74499bca1f62dc3b306edd1e55da62d7ce9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F669bce1a2db958a5e32b97213d5b2907.jpg",
+   "blurb": "What do you think will be the final score on Sunday?",
+   "source": "YAHOO",
+   "league": "NFL"
   },
   {
-   "headline": "Division Series Game 1 winners and losers: Teoscar Hern\u00e1ndez strikes again, Munetaka Murakami gets his moment",
-   "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-division-series-game-1-winners-losers/",
-   "published": "2026-10-03T22:53:32.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2F9cb0eb4e-a3d5-4fdd-b0db-489ce910e348%2Fteoscar-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The White Sox and Dodgers cruised to easy wins over the Guardians and Braves, respectively, in the early slate on Saturday",
-   "source": "CBS",
-   "league": "MLB"
+   "headline": "Ravens discussion: score prediction, X-factors for Week 4 vs. Titans",
+   "link": "https://sports.yahoo.com/articles/ravens-discussion-score-prediction-x-225747387.html",
+   "published": "2026-10-03T22:57:47.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/7a14d68c7d21db58d5b3bccb521906205a0d53ad5a044e8cb234e1752f2f7c09/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F18716ba66872d2c3db3c0b7bab0f1ed0.jpg",
+   "blurb": "Baltimore Beatdown\u2019s staff makes their predictions for the Ravens\u2019 Week 4 matchup with the Titans.",
+   "source": "YAHOO",
+   "league": "NFL"
   },
   {
    "headline": "Dodgers home runs back Tarik Skubal, beat Braves in NLDS Game 1",
@@ -1195,15 +1231,6 @@
    "league": "UFC"
   },
   {
-   "headline": "Ohio State v Iowa recap, results: Jeremiah Smith sets Buckeyes records for TDs, catches in win",
-   "link": "https://sports.yahoo.com/articles/ohio-state-v-iowa-recap-225101478.html",
-   "published": "2026-10-03T22:51:01.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/abdfb9152552734e9ffca69aa766135de5ace596c355b38f5d8ea656b6faa409/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F953edcc7b1c34e8e30c6557953ba5904.jpg",
-   "blurb": "The wide receiver continued to make his case for the Heisman Trophy with the fifth-ranked Buckeyes.",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
    "headline": "Lyle Odelein, Stanley Cup winning defenseman who played for several NHL organizations, dies at 58",
    "link": "https://sports.yahoo.com/articles/lyle-odelein-stanley-cup-winning-224920874.html",
    "published": "2026-10-03T22:49:20.000Z",
@@ -1213,39 +1240,12 @@
    "league": "NHL"
   },
   {
-   "headline": "USC football legend Matt Leinart hits program with disappointing \u2018stuck in mud\u2019 quip",
-   "link": "https://sports.yahoo.com/articles/usc-football-legend-matt-leinart-224719638.html",
-   "published": "2026-10-03T22:47:19.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/9e2d9a1d68873b78a5310e93444fd74bb7d1eb68863543b32d96704f27cb4113/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2Fb6f26736e566b98ab7117f9ce20f9b5c.jpg",
-   "blurb": "The USC football program is reeling after a home loss to Oregon that caused Joel Klatt to send a chilling warning to coach Lincoln Riley. A knee injury to star wideout Corey Simms has complicated matters further amid program legend Matt Leinart\u2019s recent comments on the rough stat",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
    "headline": "NFL Week 4 picks and score predictions: Texans get first win, Bengals edge Jaguars",
    "link": "https://www.cbssports.com/nfl/news/nfl-week-4-picks-and-score-predictions-breech/",
    "published": "2026-10-03T22:46:51.000Z",
    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F22%2F030688f2-337c-4ce4-b3e9-9eae536ba61d%2Fgettyimages-2296291027-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Here's your weekly dose of John Breech's NFL picks",
    "source": "CBS",
-   "league": "NFL"
-  },
-  {
-   "headline": "Seahawks vs. Chargers: NFL Week 4 TV coverage map and CBS commentators",
-   "link": "https://sports.yahoo.com/articles/seahawks-vs-chargers-nfl-week-224601039.html",
-   "published": "2026-10-03T22:46:01.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/94f46f3b946acda3f00433db1c94d9cb47f3bbef210cb065e55b74c7ccf92336/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe4d7522583da4045d64352b98ea10c94.jpg",
-   "blurb": "Only a small portion of the country will receive Seahawks vs. Chargers.",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
-   "headline": "Jaguars vs. Bengals: Staff roundtable and game picks for Week 4",
-   "link": "https://sports.yahoo.com/articles/jaguars-vs-bengals-staff-roundtable-224541828.html",
-   "published": "2026-10-03T22:45:41.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/d984acd4cdb7524909ac5b8cf1fb0a90982d3aaecec36dddd7068c030d0ffb05/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff59a2bb1390ea6b33c2f3a96a8a1ab0e.jpg",
-   "blurb": "Big Cat Country previews the Jaguars\u2019 Week 4 matchup against the Bengals.",
-   "source": "YAHOO",
    "league": "NFL"
   },
   {
@@ -1299,15 +1299,6 @@
    "published": "2026-10-03T22:16:45.000Z",
    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723967_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
-   "source": "ESPN",
-   "league": "UFC"
-  },
-  {
-   "headline": "UFC 332 preview and picks: Why haven't there been more women's fights?",
-   "link": "https://www.espn.com/espn/story/_/id/50077602/ufc-332-preview-predictions-natalia-silva-vs-wang-cong",
-   "published": "2026-10-03T22:16:45.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1001%252Fr1724515_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Top storylines and coaches' analysis for UFC 332 in Salt Lake City.",
    "source": "ESPN",
    "league": "UFC"
   },
@@ -1420,6 +1411,15 @@
    "league": "WNBA"
   },
   {
+   "headline": "Aaron Judge left off of Yankees' ALDS roster vs. Rays: Three-time MVP still recovering from calf injury",
+   "link": "https://www.cbssports.com/mlb/news/yankees-aaron-judge-injury-update-alds-rays-mlb-playoffs/",
+   "published": "2026-10-03T20:17:32.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2Fc7bbcf9c-cb0d-475f-85cf-f3f2a13428ad%2Fjudge-wcs-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Judge has been on the injured list since Sept. 16 and missed New York's two-game Wild Card Series sweep over the Red Sox",
+   "source": "CBS",
+   "league": "MLB"
+  },
+  {
    "headline": "Fever's Mitchell says she'll be 'selfish' with free agency decision",
    "link": "https://www.espn.com/wnba/story/_/id/50091891/fever-mitchell-says-selfish-free-agency-decision",
    "published": "2026-10-03T19:41:07.000Z",
@@ -1430,9 +1430,9 @@
   }
  ],
  "source_mix": {
-  "ESPN": 54,
-  "CBS": 36,
-  "YAHOO": 65
+  "ESPN": 55,
+  "YAHOO": 64,
+  "CBS": 36
  },
  "degraded_sources": []
 }
