@@ -1,14 +1,23 @@
 {
- "generated_at": "2026-10-03T22:05:59.171Z",
+ "generated_at": "2026-10-03T22:16:00.666Z",
  "leagues": {
   "baseball/mlb": [
    {
-    "headline": "Follow live: Kyle Tucker crushes a two-run HR to pad Dodgers' lead",
-    "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
-    "published": "2026-10-03T22:57:14.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723993_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "null",
+    "headline": "Best World Series matchups for every type of MLB fan",
+    "link": "https://www.espn.com/mlb/story/_/id/50048129/mlb-playoffs-2026-best-world-series-matchup-every-type-fan",
+    "published": "2026-10-03T23:11:36.000Z",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0928%252Fr1722770_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The playoffs are about to begin! Here's what Fall Classic matchup you should be pulling for if your squad isn't playing in October.",
     "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "2026 MLB playoff bracket: Schedule, scores as Division Series kick off",
+    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
+    "published": "2026-10-03T22:02:59.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Every LDS matchup opens on Saturday with a jam-packed four-game slate",
+    "source": "CBS",
     "league": "MLB"
    },
    {
@@ -21,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Follow live: Kyle Tucker, Max Muncy homer to pad Dodgers' lead",
+    "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
+    "published": "2026-10-03T23:01:13.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723993_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "null",
+    "source": "ESPN",
+    "league": "MLB"
+   },
+   {
     "headline": "Aaron Judge left off of Yankees' ALDS roster vs. Rays: Three-time MVP still recovering from calf injury",
     "link": "https://www.cbssports.com/mlb/news/yankees-aaron-judge-injury-update-alds-rays-mlb-playoffs/",
     "published": "2026-10-03T20:17:32.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2Fc7bbcf9c-cb0d-475f-85cf-f3f2a13428ad%2Fjudge-wcs-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Judge has been on the injured list since Sept. 16 and missed New York's two-game Wild Card Series sweep over the Red Sox",
     "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "2026 MLB division series Day 1: Live updates, lineups, analysis",
-    "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
-    "published": "2026-10-03T22:02:23Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1003%2Fr1725379_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "All eight teams are in action Saturday. Which clubs will come out strong?",
     "league": "MLB"
    },
    {
@@ -48,30 +57,12 @@
     "league": "MLB"
    },
    {
-    "headline": "2026 MLB playoff bracket: Schedule, scores as League Division Series kick off",
-    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
-    "published": "2026-10-03T19:58:20.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Every LDS matchup opens on Saturday with a jam-packed four-game slate",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "Aaron Judge not on Yankees' roster for ALDS vs. Rays",
-    "link": "https://www.espn.com/mlb/story/_/id/50090418/source-aaron-judge-not-yankees-roster-alds-vs-rays",
-    "published": "2026-10-03T21:58:35Z",
+    "headline": "2026 MLB division series Day 1: Live updates, lineups, analysis",
+    "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
+    "published": "2026-10-03T22:02:23Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0916%2Fr1717725_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Aaron Judge is not on the Yankees' roster for the American League Division Series against the Rays.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Yankees vs. Rays live updates, starting pitchers, where to watch: Gerrit Cole, Drew Rasmussen take the mound in Game 1 of ALDS",
-    "link": "https://sports.yahoo.com/mlb/live/yankees-rays-score-live-updates-starting-pitchers-news-highlights-stats-where-to-watch-mlb-wild-card-213000257.html",
-    "published": "2026-10-03T21:30:00.000Z",
-    "image": "",
-    "blurb": "After winning the AL East and finishing 4.5 games ahead of the Yankees, the Rays face their division rivals in the ALDS.",
-    "source": "YAHOO",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1003%2Fr1725379_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "All eight teams are in action Saturday. Which clubs will come out strong?",
     "league": "MLB"
    },
    {
@@ -84,22 +75,31 @@
     "league": "MLB"
    },
    {
-    "headline": "White Sox shut down Guardians to win Game 1 of ALDS",
-    "link": "https://www.espn.com/mlb/story/_/id/50092957/white-sox-hold-guardians-three-hits-alds-game-1-win",
-    "published": "2026-10-03T21:40:25.000Z",
+    "headline": "Yankees vs. Rays live updates, starting pitchers, where to watch: Gerrit Cole, Drew Rasmussen take the mound in Game 1 of ALDS",
+    "link": "https://sports.yahoo.com/mlb/live/yankees-rays-score-live-updates-starting-pitchers-news-highlights-stats-where-to-watch-mlb-wild-card-213000257.html",
+    "published": "2026-10-03T21:30:00.000Z",
     "image": "",
-    "blurb": "The White Sox shut out the Guardians to win Game 1 of their AL Division Series 3-0 on Saturday.",
+    "blurb": "After winning the AL East and finishing 4.5 games ahead of the Yankees, the Rays face their division rivals in the ALDS.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
+    "headline": "Aaron Judge not on Yankees' roster for ALDS vs. Rays",
+    "link": "https://www.espn.com/mlb/story/_/id/50090418/source-aaron-judge-not-yankees-roster-alds-vs-rays",
+    "published": "2026-10-03T21:58:35Z",
     "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0916%2Fr1717725_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Aaron Judge is not on the Yankees' roster for the American League Division Series against the Rays.",
     "league": "MLB"
    }
   ],
   "football/nfl": [
    {
-    "headline": "Football and football? London game to be soccer fan Mariota's third at prominent ground",
-    "link": "https://www.espn.com/nfl/story/_/id/50071152/marcus-mariota-washington-commanders-london-game-soccer-tottenham-hotspur",
-    "published": "2026-10-03T22:27:30.000Z",
-    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1724120_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "For Mariota, who grew up playing soccer, Sunday's game against the Indianapolis Colts at Tottenham Hotspur Stadium is a chance to combine his love of both sports.",
+    "headline": "Patriots preaching patience when it comes to receiver Romeo Doubs' modest start to 2026",
+    "link": "https://www.espn.com/nfl/story/_/id/50087681/patriots-romeo-doubs-bills-game",
+    "published": "2026-10-03T23:07:36.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1003%252Fr1725165_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "After the Patriots signed him to a four-year deal in March, Doubs is searching for his footing in the offense entering Week 4.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -122,11 +122,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Our guide to every NFL Week 4 game: Matchup previews, predictions, picks and nuggets",
-    "link": "https://www.espn.com/nfl/story/_/id/50067784/week-4-picks-predictions-schedule-fantasy-odds-2026",
-    "published": "2026-10-03T22:26:18.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1724029_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Trevor Lawrence vs. Joe Burrow? New England looking to bounce back? There are 15 more games in Week 4, and we have picks, predictions and more for all of them.",
+    "headline": "Football and football? London game to be soccer fan Mariota's third at prominent ground",
+    "link": "https://www.espn.com/nfl/story/_/id/50071152/marcus-mariota-washington-commanders-london-game-soccer-tottenham-hotspur",
+    "published": "2026-10-03T22:27:30.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1724120_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "For Mariota, who grew up playing soccer, Sunday's game against the Indianapolis Colts at Tottenham Hotspur Stadium is a chance to combine his love of both sports.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -149,11 +149,11 @@
     "league": "NFL"
    },
    {
-    "headline": "15 predictions for this weekend's NFL games",
-    "link": "https://www.espn.com/nfl/story/_/id/50077462/week-4-predictions-upsets-fantasy-sleepers-stats-2026",
+    "headline": "Our guide to every NFL Week 4 game: Matchup previews, predictions, picks and nuggets",
+    "link": "https://www.espn.com/nfl/story/_/id/50067784/week-4-picks-predictions-schedule-fantasy-odds-2026",
     "published": "2026-10-03T22:26:18.000Z",
     "image": "",
-    "blurb": "Touchdowns for Lamar Jackson and Jameson Williams? The Cowboys pulling an upset of the Texans?",
+    "blurb": "Trevor Lawrence vs. Joe Burrow? New England looking to bounce back? There are 15 more games in Week 4, and we have picks, predictions and more for all of them.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -176,16 +176,43 @@
     "league": "NFL"
    },
    {
-    "headline": "Inactives watch: Daniels, DeVonta to sit; McConkey questionable",
-    "link": "https://www.espn.com/fantasy/football/story/_/page/FFSundayInactives-50077553/fantasy-football-injuries-nfl-week-4-inactive-active",
-    "published": "2026-10-03T22:24:24.000Z",
+    "headline": "15 predictions for this weekend's NFL games",
+    "link": "https://www.espn.com/nfl/story/_/id/50077462/week-4-predictions-upsets-fantasy-sleepers-stats-2026",
+    "published": "2026-10-03T22:26:18.000Z",
     "image": "",
-    "blurb": "Updated inactives and analysis based on the latest reports and official announcements leading up to kickoff.",
+    "blurb": "Touchdowns for Lamar Jackson and Jameson Williams? The Cowboys pulling an upset of the Texans?",
     "source": "ESPN",
     "league": "NFL"
    }
   ],
   "football/college-football": [
+   {
+    "headline": "2027 recruiting class rankings: Iowa State's gains push Cyclones into top 50",
+    "link": "https://www.espn.com/college-football/recruiting/story/_/id/48503376/2027-college-football-recruiting-class-rankings-top-teams-schools",
+    "published": "2026-10-03T23:08:39.000Z",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723979_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Where the top 50 classes stand as the latest cycle hits the home stretch.",
+    "source": "ESPN",
+    "league": "CFB"
+   },
+   {
+    "headline": "Most receiving touchdowns in Ohio State history: Jeremiah Smith goes atop elite list with TD vs. Iowa",
+    "link": "https://sports.yahoo.com/articles/most-receiving-touchdowns-ohio-state-220356884.html",
+    "published": "2026-10-03T22:03:56.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/5ba6dc8861b36221e9c60a48cbeea9b1f2a941adbf767ce4a9d92e4c8996b5da/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2Fed4b15221645709644a6e62f3747989a",
+    "blurb": "He continues to put his name in the Ohio State record books.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "Should Michigan bench Bryce Underwood? Noise grows louder after Wolverines sputter to 0-2 in Big Ten play",
+    "link": "https://www.cbssports.com/college-football/news/michigan-bryce-underwood-bench/",
+    "published": "2026-10-03T21:09:53.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2Fa91be61e-2bb8-4578-aad9-b0ce19cc8871%2Fbryce-underwood-bench-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "A miserable outing against Minnesota has the Wolverines sitting at 0-2 in Big Ten play as Kyle Whittingham evaluates making a quarterback change during the bye week",
+    "source": "CBS",
+    "league": "CFB"
+   },
    {
     "headline": "\ud83d\udd2e Who's on the right side and wrong side of the CFP bubble?",
     "link": "https://www.espn.com/college-football/story/_/id/50043905/college-football-playoff-2026-week-4-bubble-watch",
@@ -205,33 +232,6 @@
     "league": "CFB"
    },
    {
-    "headline": "Should Michigan bench Bryce Underwood? Noise grows louder after Wolverines sputter to 0-2 in Big Ten play",
-    "link": "https://www.cbssports.com/college-football/news/michigan-bryce-underwood-bench/",
-    "published": "2026-10-03T21:09:53.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2Fa91be61e-2bb8-4578-aad9-b0ce19cc8871%2Fbryce-underwood-bench-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "A miserable outing against Minnesota has the Wolverines sitting at 0-2 in Big Ten play as Kyle Whittingham evaluates making a quarterback change during the bye week",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "Russell outduels Taylor in battle of SEC's elite QBs as Alabama rolls",
-    "link": "https://www.espn.com/college-football/story/_/id/50093571/keelon-russell-outduels-kamario-taylor-alabama-cruises",
-    "published": "2026-10-03T22:59:26.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1003%252Fr1725469_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Mississippi State's Kamario Taylor entered Saturday as the SEC's top Heisman Trophy candidate through four games, but Alabama's Keelon Russell catapulted past him as the sophomore threw three touchdowns in the Crimson Tide's 56-23 win over the Bulldogs.",
-    "source": "ESPN",
-    "league": "CFB"
-   },
-   {
-    "headline": "How to watch Georgia Southern vs Coastal Carolina: Live stream NCAA College Football, TV channel",
-    "link": "https://sports.yahoo.com/articles/watch-georgia-southern-vs-coastal-215000855.html",
-    "published": "2026-10-03T21:50:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/9d99cd780de8043c4c47eb2cfa519c911766386baf048eaa5e8e176353ff2829/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2F3ad344a0831a1ffc9617161f63394063.jpg",
-    "blurb": "The Georgia Southern Eagles visit the Coastal Carolina Chanticleers on Saturday night at Brooks Stadium as both teams open Sun Belt play. The matchup kicks off at 7:00 PM ET on ESPN+, with both programs entering conference action at 1-3.\u2026",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
     "headline": "Pitt QB Mason Heintschel suffers season-ending knee injury amid Panthers' 5-0 start",
     "link": "https://www.cbssports.com/college-football/news/mason-heintschel-injury-updates-pitt-qb/",
     "published": "2026-10-03T21:03:17.000Z",
@@ -241,20 +241,20 @@
     "league": "CFB"
    },
    {
-    "headline": "Sources: Pitt QB Heintschel out for season with torn ACL",
-    "link": "https://www.espn.com/college-football/story/_/id/50093457/pitt-qb-mason-heintschel-season-torn-acl",
+    "headline": "Russell outduels Taylor in battle of SEC's elite QBs as Alabama rolls",
+    "link": "https://www.espn.com/college-football/story/_/id/50093571/keelon-russell-outduels-kamario-taylor-alabama-cruises",
     "published": "2026-10-03T22:59:26.000Z",
     "image": "",
-    "blurb": "Pitt quarterback Mason Heintschel, one of the top young quarterbacks in college football, will miss the remainder of the year with a torn ACL, sources told ESPN on Saturday.",
+    "blurb": "Mississippi State's Kamario Taylor entered Saturday as the SEC's top Heisman Trophy candidate through four games, but Alabama's Keelon Russell catapulted past him as the sophomore threw three touchdowns in the Crimson Tide's 56-23 win over the Bulldogs.",
     "source": "ESPN",
     "league": "CFB"
    },
    {
-    "headline": "Big Blue takes on Johnson C. Smith today",
-    "link": "https://sports.yahoo.com/articles/big-blue-takes-johnson-c-214700069.html",
-    "published": "2026-10-03T21:47:00.000Z",
+    "headline": "How to watch Georgia Southern vs Coastal Carolina: Live stream NCAA College Football, TV channel",
+    "link": "https://sports.yahoo.com/articles/watch-georgia-southern-vs-coastal-215000855.html",
+    "published": "2026-10-03T21:50:00.000Z",
     "image": "",
-    "blurb": "BLUEFIELD \u2014 Bluefield State University\u2019s football team continues to search for its first win of the regular season, hoping they\u2019ll located it at home today when the Big Blue clashes with Johnson C. Smith University at Mitchell Stadium. Bluefield State (0-5 overall, 0-3 CIAA) is c",
+    "blurb": "The Georgia Southern Eagles visit the Coastal Carolina Chanticleers on Saturday night at Brooks Stadium as both teams open Sun Belt play. The matchup kicks off at 7:00 PM ET on ESPN+, with both programs entering conference action at 1-3.\u2026",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -268,11 +268,11 @@
     "league": "CFB"
    },
    {
-    "headline": "QB Taylor 'day-to-day' after Heisman contender struggles vs. Tide",
-    "link": "https://www.espn.com/college-football/story/_/id/50091209/mississippi-state-rb-bothwell-exits-vs-alabama-one-carry",
+    "headline": "Sources: Pitt QB Heintschel out for season with torn ACL",
+    "link": "https://www.espn.com/college-football/story/_/id/50093457/pitt-qb-mason-heintschel-season-torn-acl",
     "published": "2026-10-03T22:59:26.000Z",
     "image": "",
-    "blurb": "Mississippi State star QB Kamario Taylor, a Heisman Trophy contender, is \"day-to-day\" after heading to the locker room early in the fourth quarter vs. Alabama.",
+    "blurb": "Pitt quarterback Mason Heintschel, one of the top young quarterbacks in college football, will miss the remainder of the year with a torn ACL, sources told ESPN on Saturday.",
     "source": "ESPN",
     "league": "CFB"
    }
@@ -371,21 +371,21 @@
   ],
   "basketball/nba": [
    {
+    "headline": "Cal QB Jaron-Keawe Sagapolutele injury update after scary hit",
+    "link": "https://sports.yahoo.com/articles/cal-qb-jaron-keawe-sagapolutele-220202780.html",
+    "published": "2026-10-03T22:02:02.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/1c56a460cdeeed00c1168daf82c8ec7ef108a44b26c0d54f67665fd2994125c5/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fdca4d2f7b4fa3d254593ec2d2c5b42f8.jpg",
+    "blurb": "Cal QB Jaron-Keawe Sagapolutele suffered a scary injury in Cal's game vs UNLV. Here are updates:",
+    "source": "YAHOO",
+    "league": "NBA"
+   },
+   {
     "headline": "LeBron, Brown scrimmage for 76ers as fans flock for first look",
     "link": "https://www.espn.com/nba/story/_/id/50092448/lebron-james-calls-scrimmage-great-first-step-new-look-76ers",
     "published": "2026-10-03T20:58:06.000Z",
     "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0928%252Fr1723110_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Throngs of fans waited in lines more than 10-deep to watch LeBron James, Jaylen Brown and the rest of the 76ers take part in Saturday's scrimmage.",
     "source": "ESPN",
-    "league": "NBA"
-   },
-   {
-    "headline": "Rockets waive two-way center Rafael Castro",
-    "link": "https://sports.yahoo.com/articles/rockets-waive-two-way-center-191416264.html",
-    "published": "2026-10-03T19:14:16.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/a65e0a80ca634a4e6b1677f1695773ec9fa49f1eb40341746c60ada52b721d72/lightyear_networkapi/resizefill_w862_h1203%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F41087ab86d20705b212f45bf1ace920a.png",
-    "blurb": "Rafael Castro, a two-way player, was waived by the Houston Rockets, leaving one roster space available.",
-    "source": "YAHOO",
     "league": "NBA"
    },
    {
@@ -398,21 +398,21 @@
     "league": "NBA"
    },
    {
+    "headline": "Rockets waive two-way center Rafael Castro",
+    "link": "https://sports.yahoo.com/articles/rockets-waive-two-way-center-191416264.html",
+    "published": "2026-10-03T19:14:16.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/a65e0a80ca634a4e6b1677f1695773ec9fa49f1eb40341746c60ada52b721d72/lightyear_networkapi/resizefill_w862_h1203%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F41087ab86d20705b212f45bf1ace920a.png",
+    "blurb": "Rafael Castro, a two-way player, was waived by the Houston Rockets, leaving one roster space available.",
+    "source": "YAHOO",
+    "league": "NBA"
+   },
+   {
     "headline": "Sources: Grizzlies waive guard Hawkins 3 weeks after trade",
     "link": "https://www.espn.com/nba/story/_/id/50087727/sources-grizzlies-waive-jordan-hawkins-weeks-pels-trade",
     "published": "2026-10-03T20:58:06.000Z",
     "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2023%252F1117%252Fr1254480_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Memphis Grizzlies and guard Jordan Hawkins have agreed to part ways via waivers, allowing the 2023 lottery pick to find a new home in free agency, sources told ESPN's Shams Charania.",
     "source": "ESPN",
-    "league": "NBA"
-   },
-   {
-    "headline": "Plenty of encouraging signs from Sixers\u2019 Blue x White scrimmage",
-    "link": "https://sports.yahoo.com/articles/plenty-encouraging-signs-sixers-blue-191306263.html",
-    "published": "2026-10-03T19:13:06.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/482c6ae4070b06b8a6a1d0848bb33013518a93207e00a20bec4dd0650fb0d07e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F3ff23d7ddb2f02bac391730f39be1599.jpg",
-    "blurb": "Xfinity Mobile Arena was packed for the Sixers\u2019 annual scrimmage and anyone watching has to be excited for the season ahead.",
-    "source": "YAHOO",
     "league": "NBA"
    },
    {
@@ -425,21 +425,21 @@
     "league": "NBA"
    },
    {
+    "headline": "Plenty of encouraging signs from Sixers\u2019 Blue x White scrimmage",
+    "link": "https://sports.yahoo.com/articles/plenty-encouraging-signs-sixers-blue-191306263.html",
+    "published": "2026-10-03T19:13:06.000Z",
+    "image": "",
+    "blurb": "Xfinity Mobile Arena was packed for the Sixers\u2019 annual scrimmage and anyone watching has to be excited for the season ahead.",
+    "source": "YAHOO",
+    "league": "NBA"
+   },
+   {
     "headline": "Duren accepts 5-year, $200M deal as lengthy standoff with Pistons ends",
     "link": "https://www.espn.com/nba/story/_/id/50081576/jalen-duren-accepts-5-year-200m-deal-pistons-agent-says",
     "published": "2026-10-03T20:58:06.000Z",
     "image": "",
     "blurb": "Jalen Duren agreed to a five-year, $200 million fully guaranteed contract to return to the Pistons, agent Chafie Fields told ESPN's Shams Charania ahead of a Thursday night deadline the All-NBA center had to accept a 1-year qualifying offer.",
     "source": "ESPN",
-    "league": "NBA"
-   },
-   {
-    "headline": "Knicks' Mike Brown challenges Mo Diawara to 'take a step forward' in 2026-27",
-    "link": "https://sports.yahoo.com/articles/knicks-mike-brown-challenges-mo-185624959.html",
-    "published": "2026-10-03T18:56:24.000Z",
-    "image": "",
-    "blurb": "Knicks head coach Mike Brown is challenging second-year swingman Mohamed Diawara to 'take a step forward' during the 2026-27 NBA season.",
-    "source": "YAHOO",
     "league": "NBA"
    },
    {
@@ -452,12 +452,12 @@
     "league": "NBA"
    },
    {
-    "headline": "Wemby won't promote betting sites: 'I want to inspire in a good way'",
-    "link": "https://www.espn.com/nba/story/_/id/50078401/spurs-victor-wembanyama-not-interested-promoting-betting-sites",
-    "published": "2026-10-03T20:58:06.000Z",
+    "headline": "Knicks' Mike Brown challenges Mo Diawara to 'take a step forward' in 2026-27",
+    "link": "https://sports.yahoo.com/articles/knicks-mike-brown-challenges-mo-185624959.html",
+    "published": "2026-10-03T18:56:24.000Z",
     "image": "",
-    "blurb": "Spurs star Victor Wembanyama said Thursday that he isn't interested in promoting sports betting sites.",
-    "source": "ESPN",
+    "blurb": "Knicks head coach Mike Brown is challenging second-year swingman Mohamed Diawara to 'take a step forward' during the 2026-27 NBA season.",
+    "source": "YAHOO",
     "league": "NBA"
    }
   ],
@@ -792,11 +792,11 @@
   ],
   "racing/nascar-premier": [
    {
-    "headline": "RFK Racing Drivers React to Keselowski Split",
-    "link": "https://sports.yahoo.com/articles/rfk-racing-drivers-react-keselowski-213404789.html",
-    "published": "2026-10-03T21:34:04.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/522420db070e6cd5c1473157c0c99c20294e2dd31e7fbeefd31874e75177b262/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_nascar_272%2F74aa313ba85071690f77696e3811bc8e.jpg",
-    "blurb": "RFK Racing drivers Chris Buescher and Ryan Preece reacted to teammate and boss Brad Keselowski announcing his split from the organization for 2027 in the middle of their Chase for the NASCAR Cup Series championship.",
+    "headline": "Joey Logano Questions NASCAR\u2019s New Chase Format: Has the Chase Become Redundant?",
+    "link": "https://sports.yahoo.com/articles/joey-logano-questions-nascar-chase-215316490.html",
+    "published": "2026-10-03T21:53:16.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/5d427ddd5bd12beca5c5753a9bc24b6416fb6c9319235b8e8844a0242d6534a6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F7c3c55d9f1fc5e62144164945601e047.jpg",
+    "blurb": "Joey Logano has noticed something about NASCAR\u2019s new Chase format compared to the previous one: wins matter more than ever. Speaking [\u2026]",
     "source": "YAHOO",
     "league": "NASCAR"
    },
@@ -807,6 +807,15 @@
     "image": "",
     "blurb": "\"I think it's Toyota's championship to lose,\" Bubba Wallace said. \"Based on how many races we've won, it would be a shame if we didn't seal the deal.\"",
     "source": "ESPN",
+    "league": "NASCAR"
+   },
+   {
+    "headline": "RFK Racing Drivers React to Keselowski Split",
+    "link": "https://sports.yahoo.com/articles/rfk-racing-drivers-react-keselowski-213404789.html",
+    "published": "2026-10-03T21:34:04.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/522420db070e6cd5c1473157c0c99c20294e2dd31e7fbeefd31874e75177b262/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_nascar_272%2F74aa313ba85071690f77696e3811bc8e.jpg",
+    "blurb": "RFK Racing drivers Chris Buescher and Ryan Preece reacted to teammate and boss Brad Keselowski announcing his split from the organization for 2027 in the middle of their Chase for the NASCAR Cup Series championship.",
+    "source": "YAHOO",
     "league": "NASCAR"
    },
    {
@@ -840,7 +849,7 @@
     "headline": "How to Watch NASCAR Race Today at Las Vegas Motor Speedway: TV Coverage and Streaming",
     "link": "https://sports.yahoo.com/articles/watch-nascar-race-today-las-185140029.html",
     "published": "2026-10-03T18:51:40.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/8affce4996bb922266a52b52de61f243c1e39d5e684d3458334c909eecf70da4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2F115bf4d8b00b862ca756526d42d01234.jpg",
+    "image": "",
     "blurb": "Saturday\u2019s NASCAR schedule at Las Vegas Motor Speedway is packed, with a national-series race and several track sessions taking place throughout the afternoon, October 3. The NASCAR O\u2019Reilly Auto Parts Series takes the green flag in the Focused Health 302 tonight, making it the o",
     "source": "YAHOO",
     "league": "NASCAR"
@@ -871,15 +880,6 @@
     "blurb": "Ryan Blaney has started 24th or worse in three of the first four Chase races because of NASCAR's qualifying metric. Now he wants NASCAR to pick one system and stick with it.",
     "source": "YAHOO",
     "league": "NASCAR"
-   },
-   {
-    "headline": "Is There a NASCAR Race Tonight? Las Vegas Motor Speedway Weekend Schedule and Times",
-    "link": "https://sports.yahoo.com/articles/nascar-race-tonight-las-vegas-114506428.html",
-    "published": "2026-10-03T11:45:06.000Z",
-    "image": "",
-    "blurb": "Find out if there's a NASCAR race tonight, plus the full Las Vegas Motor Speedway schedule and start times for this weekend.",
-    "source": "YAHOO",
-    "league": "NASCAR"
    }
   ],
   "mma/ufc": [
@@ -893,11 +893,11 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 video: Jacobe Smith KOs Bruce Whitehead after violent low blow",
-    "link": "https://sports.yahoo.com/articles/ufc-332-video-jacobe-smith-213759914.html",
-    "published": "2026-10-03T21:37:59.000Z",
-    "image": "",
-    "blurb": "Jacobe Smith said he's \"ready for anybody in this division\" after moving to 13-0 at UFC 332.",
+    "headline": "UFC 332 results: Johnny Walker destroys Mick Parkin with absurd knee KO in heavyweight debut",
+    "link": "https://sports.yahoo.com/mma/article/ufc-332-results-johnny-walker-destroys-mick-parkin-with-absurd-knee-ko-in-heavyweight-debut-220542963.html",
+    "published": "2026-10-03T22:05:42.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/3c09a433f879d1c9f3c11c20717b22ddd136b9fe604a4d925ccde8cf42cefd00/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2Fd21f79f4-1d1b-4fea-951e-3128ac9d070b",
+    "blurb": "Johnny Walker may have found himself a proper new home at heavyweight.",
     "source": "YAHOO",
     "league": "UFC"
    },
@@ -922,7 +922,7 @@
    {
     "headline": "LIVE UFC 332: Silva vs. Wang Results & Highlights",
     "link": "https://sports.yahoo.com/articles/live-ufc-332-silva-vs-140000613.html",
-    "published": "2026-10-03T21:35:36.000Z",
+    "published": "2026-10-03T21:47:39.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/b6e404ed183fe4f6d75fc2257e6c800d64263a7af96c5847307ffa45919c864b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F4cdaa80e7f9eb133c58b2adb11837ae9.jpg",
     "blurb": "On Saturday the action heads to Utah as the leading MMA promotion presents UFC 332. The card will take place [\u2026]",
     "source": "YAHOO",
@@ -940,18 +940,18 @@
    {
     "headline": "UFC 332: Live results, analysis for Silva vs. Wang",
     "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
-    "published": "2026-10-03T20:09:37Z",
+    "published": "2026-10-03T22:01:08Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723967_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 video: Alexander Hernandez finishes Rafael dos Anjos",
-    "link": "https://sports.yahoo.com/articles/ufc-332-video-alexander-hernandez-213026250.html",
-    "published": "2026-10-03T21:30:26.000Z",
+    "headline": "UFC 332 video: Jacobe Smith KOs Bruce Whitehead after violent low blow",
+    "link": "https://sports.yahoo.com/articles/ufc-332-video-jacobe-smith-213759914.html",
+    "published": "2026-10-03T21:37:59.000Z",
     "image": "",
-    "blurb": "Rafael dos Anjos hadn't fought in the UFC since 2024.",
+    "blurb": "Jacobe Smith said he's \"ready for anybody in this division\" after moving to 13-0 at UFC 332.",
     "source": "YAHOO",
     "league": "UFC"
    },
@@ -1069,6 +1069,42 @@
  },
  "latest": [
   {
+   "headline": "Best World Series matchups for every type of MLB fan",
+   "link": "https://www.espn.com/mlb/story/_/id/50048129/mlb-playoffs-2026-best-world-series-matchup-every-type-fan",
+   "published": "2026-10-03T23:11:36.000Z",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0928%252Fr1722770_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The playoffs are about to begin! Here's what Fall Classic matchup you should be pulling for if your squad isn't playing in October.",
+   "source": "ESPN",
+   "league": "MLB"
+  },
+  {
+   "headline": "2027 recruiting class rankings: Iowa State's gains push Cyclones into top 50",
+   "link": "https://www.espn.com/college-football/recruiting/story/_/id/48503376/2027-college-football-recruiting-class-rankings-top-teams-schools",
+   "published": "2026-10-03T23:08:39.000Z",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723979_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Where the top 50 classes stand as the latest cycle hits the home stretch.",
+   "source": "ESPN",
+   "league": "CFB"
+  },
+  {
+   "headline": "Patriots preaching patience when it comes to receiver Romeo Doubs' modest start to 2026",
+   "link": "https://www.espn.com/nfl/story/_/id/50087681/patriots-romeo-doubs-bills-game",
+   "published": "2026-10-03T23:07:36.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1003%252Fr1725165_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "After the Patriots signed him to a four-year deal in March, Doubs is searching for his footing in the offense entering Week 4.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
+   "headline": "Follow live: Kyle Tucker, Max Muncy homer to pad Dodgers' lead",
+   "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
+   "published": "2026-10-03T23:01:13.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723993_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "null",
+   "source": "ESPN",
+   "league": "MLB"
+  },
+  {
    "headline": "\ud83d\udd2e Who's on the right side and wrong side of the CFP bubble?",
    "link": "https://www.espn.com/college-football/story/_/id/50043905/college-football-playoff-2026-week-4-bubble-watch",
    "published": "2026-10-03T22:59:27.000Z",
@@ -1078,38 +1114,11 @@
    "league": "CFB"
   },
   {
-   "headline": "Russell outduels Taylor in battle of SEC's elite QBs as Alabama rolls",
-   "link": "https://www.espn.com/college-football/story/_/id/50093571/keelon-russell-outduels-kamario-taylor-alabama-cruises",
-   "published": "2026-10-03T22:59:26.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1003%252Fr1725469_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Mississippi State's Kamario Taylor entered Saturday as the SEC's top Heisman Trophy candidate through four games, but Alabama's Keelon Russell catapulted past him as the sophomore threw three touchdowns in the Crimson Tide's 56-23 win over the Bulldogs.",
-   "source": "ESPN",
-   "league": "CFB"
-  },
-  {
-   "headline": "Follow live: Kyle Tucker crushes a two-run HR to pad Dodgers' lead",
-   "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
-   "published": "2026-10-03T22:57:14.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723993_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "null",
-   "source": "ESPN",
-   "league": "MLB"
-  },
-  {
    "headline": "Football and football? London game to be soccer fan Mariota's third at prominent ground",
    "link": "https://www.espn.com/nfl/story/_/id/50071152/marcus-mariota-washington-commanders-london-game-soccer-tottenham-hotspur",
    "published": "2026-10-03T22:27:30.000Z",
    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1724120_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "For Mariota, who grew up playing soccer, Sunday's game against the Indianapolis Colts at Tottenham Hotspur Stadium is a chance to combine his love of both sports.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Our guide to every NFL Week 4 game: Matchup previews, predictions, picks and nuggets",
-   "link": "https://www.espn.com/nfl/story/_/id/50067784/week-4-picks-predictions-schedule-fantasy-odds-2026",
-   "published": "2026-10-03T22:26:18.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1724029_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Trevor Lawrence vs. Joe Burrow? New England looking to bounce back? There are 15 more games in Week 4, and we have picks, predictions and more for all of them.",
    "source": "ESPN",
    "league": "NFL"
   },
@@ -1132,13 +1141,40 @@
    "league": "UFC"
   },
   {
-   "headline": "2026 MLB division series Day 1: Live updates, lineups, analysis",
-   "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
-   "published": "2026-10-03T22:02:23Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1003%2Fr1725379_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "All eight teams are in action Saturday. Which clubs will come out strong?",
+   "headline": "UFC 332 results: Johnny Walker destroys Mick Parkin with absurd knee KO in heavyweight debut",
+   "link": "https://sports.yahoo.com/mma/article/ufc-332-results-johnny-walker-destroys-mick-parkin-with-absurd-knee-ko-in-heavyweight-debut-220542963.html",
+   "published": "2026-10-03T22:05:42.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/3c09a433f879d1c9f3c11c20717b22ddd136b9fe604a4d925ccde8cf42cefd00/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2Fd21f79f4-1d1b-4fea-951e-3128ac9d070b",
+   "blurb": "Johnny Walker may have found himself a proper new home at heavyweight.",
+   "source": "YAHOO",
+   "league": "UFC"
+  },
+  {
+   "headline": "Most receiving touchdowns in Ohio State history: Jeremiah Smith goes atop elite list with TD vs. Iowa",
+   "link": "https://sports.yahoo.com/articles/most-receiving-touchdowns-ohio-state-220356884.html",
+   "published": "2026-10-03T22:03:56.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/5ba6dc8861b36221e9c60a48cbeea9b1f2a941adbf767ce4a9d92e4c8996b5da/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2Fed4b15221645709644a6e62f3747989a",
+   "blurb": "He continues to put his name in the Ohio State record books.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "2026 MLB playoff bracket: Schedule, scores as Division Series kick off",
+   "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
+   "published": "2026-10-03T22:02:59.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Every LDS matchup opens on Saturday with a jam-packed four-game slate",
+   "source": "CBS",
    "league": "MLB"
+  },
+  {
+   "headline": "Cal QB Jaron-Keawe Sagapolutele injury update after scary hit",
+   "link": "https://sports.yahoo.com/articles/cal-qb-jaron-keawe-sagapolutele-220202780.html",
+   "published": "2026-10-03T22:02:02.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/1c56a460cdeeed00c1168daf82c8ec7ef108a44b26c0d54f67665fd2994125c5/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fdca4d2f7b4fa3d254593ec2d2c5b42f8.jpg",
+   "blurb": "Cal QB Jaron-Keawe Sagapolutele suffered a scary injury in Cal's game vs UNLV. Here are updates:",
+   "source": "YAHOO",
+   "league": "NBA"
   },
   {
    "headline": "90-year-old Sandy Koufax braves 100 degree heat at Dodger Stadium",
@@ -1150,20 +1186,20 @@
    "league": "MLB"
   },
   {
+   "headline": "Joey Logano Questions NASCAR\u2019s New Chase Format: Has the Chase Become Redundant?",
+   "link": "https://sports.yahoo.com/articles/joey-logano-questions-nascar-chase-215316490.html",
+   "published": "2026-10-03T21:53:16.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/5d427ddd5bd12beca5c5753a9bc24b6416fb6c9319235b8e8844a0242d6534a6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F7c3c55d9f1fc5e62144164945601e047.jpg",
+   "blurb": "Joey Logano has noticed something about NASCAR\u2019s new Chase format compared to the previous one: wins matter more than ever. Speaking [\u2026]",
+   "source": "YAHOO",
+   "league": "NASCAR"
+  },
+  {
    "headline": "Kyle Whittingham Makes Stunning Admission After Michigan Loss",
    "link": "https://sports.yahoo.com/articles/kyle-whittingham-makes-stunning-admission-215053989.html",
    "published": "2026-10-03T21:50:53.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/33df6fb9837d38b617de4dddc67f3b73ffbde1367c847f6f2cd013c4a865c7a4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fdetroit_sports_nation_articles_492%2F21edbe024346f85702f0b38dbd37354b.jpg",
    "blurb": "Kyle Whittingham called Michigan perhaps the biggest challenge of his 40-plus-year coaching career after a 20-14 loss to Minnesota.",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
-   "headline": "How to watch Georgia Southern vs Coastal Carolina: Live stream NCAA College Football, TV channel",
-   "link": "https://sports.yahoo.com/articles/watch-georgia-southern-vs-coastal-215000855.html",
-   "published": "2026-10-03T21:50:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/9d99cd780de8043c4c47eb2cfa519c911766386baf048eaa5e8e176353ff2829/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2F3ad344a0831a1ffc9617161f63394063.jpg",
-   "blurb": "The Georgia Southern Eagles visit the Coastal Carolina Chanticleers on Saturday night at Brooks Stadium as both teams open Sun Belt play. The matchup kicks off at 7:00 PM ET on ESPN+, with both programs entering conference action at 1-3.\u2026",
    "source": "YAHOO",
    "league": "CFB"
   },
@@ -1175,6 +1211,15 @@
    "blurb": "Anthony Wint, who played linebacker for the New York Jetsin 2018, will head into the octagon in the prelims of UFC 332 Saturday, Oct. 3.",
    "source": "YAHOO",
    "league": "NFL"
+  },
+  {
+   "headline": "LIVE UFC 332: Silva vs. Wang Results & Highlights",
+   "link": "https://sports.yahoo.com/articles/live-ufc-332-silva-vs-140000613.html",
+   "published": "2026-10-03T21:47:39.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/b6e404ed183fe4f6d75fc2257e6c800d64263a7af96c5847307ffa45919c864b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F4cdaa80e7f9eb133c58b2adb11837ae9.jpg",
+   "blurb": "On Saturday the action heads to Utah as the leading MMA promotion presents UFC 332. The card will take place [\u2026]",
+   "source": "YAHOO",
+   "league": "UFC"
   },
   {
    "headline": "Fever's Sophie Cunningham weighs in on Aces' A'ja Wilson-fan incident",
@@ -1202,24 +1247,6 @@
    "blurb": "Teoscar Hern\u00e1ndez gave the Dodgers a huge lift with a fourth inning home run shot vs Braves. Watch the Dodgers highlight here.",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "UFC 332 video: Jacobe Smith KOs Bruce Whitehead after violent low blow",
-   "link": "https://sports.yahoo.com/articles/ufc-332-video-jacobe-smith-213759914.html",
-   "published": "2026-10-03T21:37:59.000Z",
-   "image": "",
-   "blurb": "Jacobe Smith said he's \"ready for anybody in this division\" after moving to 13-0 at UFC 332.",
-   "source": "YAHOO",
-   "league": "UFC"
-  },
-  {
-   "headline": "LIVE UFC 332: Silva vs. Wang Results & Highlights",
-   "link": "https://sports.yahoo.com/articles/live-ufc-332-silva-vs-140000613.html",
-   "published": "2026-10-03T21:35:36.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/b6e404ed183fe4f6d75fc2257e6c800d64263a7af96c5847307ffa45919c864b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F4cdaa80e7f9eb133c58b2adb11837ae9.jpg",
-   "blurb": "On Saturday the action heads to Utah as the leading MMA promotion presents UFC 332. The card will take place [\u2026]",
-   "source": "YAHOO",
-   "league": "UFC"
   },
   {
    "headline": "RFK Racing Drivers React to Keselowski Split",
@@ -1339,15 +1366,6 @@
    "league": "MLB"
   },
   {
-   "headline": "2026 MLB playoff bracket: Schedule, scores as League Division Series kick off",
-   "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
-   "published": "2026-10-03T19:58:20.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Every LDS matchup opens on Saturday with a jam-packed four-game slate",
-   "source": "CBS",
-   "league": "MLB"
-  },
-  {
    "headline": "NASCAR O'Reilly Series Las Vegas lineup, TV schedule for Saturday's race",
    "link": "https://sports.yahoo.com/articles/nascar-oreilly-series-las-vegas-194737953.html",
    "published": "2026-10-03T19:47:37.000Z",
@@ -1402,15 +1420,6 @@
    "league": "NBA"
   },
   {
-   "headline": "Plenty of encouraging signs from Sixers\u2019 Blue x White scrimmage",
-   "link": "https://sports.yahoo.com/articles/plenty-encouraging-signs-sixers-blue-191306263.html",
-   "published": "2026-10-03T19:13:06.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/482c6ae4070b06b8a6a1d0848bb33013518a93207e00a20bec4dd0650fb0d07e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F3ff23d7ddb2f02bac391730f39be1599.jpg",
-   "blurb": "Xfinity Mobile Arena was packed for the Sixers\u2019 annual scrimmage and anyone watching has to be excited for the season ahead.",
-   "source": "YAHOO",
-   "league": "NBA"
-  },
-  {
    "headline": "\u2018I\u2019m Broke!\u2019: Golf Star Reveals Brutal Financial Reality Despite Finishing 4th on Money List",
    "link": "https://sports.yahoo.com/articles/m-broke-golf-star-reveals-185817185.html",
    "published": "2026-10-03T18:58:17.000Z",
@@ -1418,20 +1427,11 @@
    "blurb": "Former professional golfer Kurt Slattery once ranked fourth on the Outlaw Tour money list, earning his spot through powerful performances across developmental tours. He even reached the PGA Tour, but despite those accomplishments, the Western Illinois University alum struggled fi",
    "source": "YAHOO",
    "league": "PGA"
-  },
-  {
-   "headline": "How to Watch NASCAR Race Today at Las Vegas Motor Speedway: TV Coverage and Streaming",
-   "link": "https://sports.yahoo.com/articles/watch-nascar-race-today-las-185140029.html",
-   "published": "2026-10-03T18:51:40.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/8affce4996bb922266a52b52de61f243c1e39d5e684d3458334c909eecf70da4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2F115bf4d8b00b862ca756526d42d01234.jpg",
-   "blurb": "Saturday\u2019s NASCAR schedule at Las Vegas Motor Speedway is packed, with a national-series race and several track sessions taking place throughout the afternoon, October 3. The NASCAR O\u2019Reilly Auto Parts Series takes the green flag in the Focused Health 302 tonight, making it the o",
-   "source": "YAHOO",
-   "league": "NASCAR"
   }
  ],
  "source_mix": {
-  "ESPN": 56,
-  "YAHOO": 63,
+  "ESPN": 55,
+  "YAHOO": 64,
   "CBS": 36
  },
  "degraded_sources": []
