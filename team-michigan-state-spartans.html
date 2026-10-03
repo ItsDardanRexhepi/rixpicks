@@ -124,7 +124,7 @@ h1 .tick{color:#3BEBF5}
 <div class="pick" data-espn="football/college-football" data-team="Michigan State Spartans" data-abbr="MSU" data-eid="401858479" data-game-day="2026-10-03">
   <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/127.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Michigan State Spartans</span><span class="odds">2-2</span></div>
   <div class="sub">Record 2-2 · Streak L2</div>
-  <div class="score" id="rpScore">Next up: @ Wisconsin Badgers · Sat, Oct 3, 9:30 AM PT</div>
+  <div class="score" id="rpScore">Today: @ Wisconsin Badgers · 9:30 AM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
@@ -138,7 +138,7 @@ h1 .tick{color:#3BEBF5}
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1791010218';
+const RP_BUILD='1791011114';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}
