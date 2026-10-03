@@ -870,8 +870,9 @@
   "pick_team": "St. Louis Blues",
   "prediction": "St. Louis Blues beat Dallas Stars",
   "kickoff_utc": "2026-10-03T01:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-02T16:35:06.481361+00:00"
+  "status": "hit",
+  "created_at": "2026-10-02T16:35:06.481361+00:00",
+  "settled_at": "2026-10-03T04:04:54.675098+00:00"
  },
  {
   "id": "bc6f22d34d",
