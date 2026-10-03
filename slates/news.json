@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-03T01:40:56.405Z",
+ "generated_at": "2026-10-03T01:45:57.077Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Dodgers' Ohtani not 100%: Need to 'manage' injuries in playoffs",
+    "link": "https://www.espn.com/mlb/story/_/id/50087725/dodgers-ohtani-not-100-need-manage-injuries-playoffs",
+    "published": "2026-10-03T01:43:38Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0902%2Fr1710261_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Dodgers star Shohei Ohtani said the left knee and right bicep ailments that compromised him throughout the summer are issues he's \"just going to have to manage\" in the postseason.",
+    "league": "MLB"
+   },
    {
     "headline": "Shohei Ohtani says he's still figuring out 'root cause' of knee, biceps and neck issues, will manage them during playoffs",
     "link": "https://sports.yahoo.com/mlb/article/shohei-ohtani-says-hes-still-figuring-out-root-cause-of-knee-biceps-and-neck-issues-will-manage-them-during-playoffs-235918753.html",
@@ -9,15 +18,6 @@
     "image": "https://s.yimg.com/lo/mysterio/api/0df6567c362e0c3c6a01a8fbef3bec6eb2f1907d60a8c7b7e6d7d85e6d697739/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F027ede88-191e-4c38-8df6-d4c2c5924bf5",
     "blurb": "But other than that, the Dodgers star is doing fine.",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Guardians, White Sox renew AL Central rivalry as Division Series opens in Cleveland",
-    "link": "http://www.espn.com/mlb/preview?gameId=401907990",
-    "published": "2026-10-02T23:58:30Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907990.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 Stephen Vogt and Will Venable don't need to pore over extra scouting reports as the Cleveland Guardians get set to host the Chicago White Sox in Saturday's Game 1 of the AL Division Series.",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Guardians, White Sox renew AL Central rivalry as Division Series opens in Cleveland",
+    "link": "http://www.espn.com/mlb/preview?gameId=401907990",
+    "published": "2026-10-02T23:58:30Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907990.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 Stephen Vogt and Will Venable don't need to pore over extra scouting reports as the Cleveland Guardians get set to host the Chicago White Sox in Saturday's Game 1 of the AL Division Series.",
+    "league": "MLB"
+   },
+   {
     "headline": "An early look at the Yankees\u2019 ALDS roster: Who makes the cut?",
     "link": "https://sports.yahoo.com/articles/early-look-yankees-alds-roster-230629713.html",
     "published": "2026-10-02T23:06:29.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/c0cfeedf8540b887d58ff9c622524c8a20b8ceafe5085679cfe5b31b0706d43d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc6137af4f15ea054f1aec66dab74b2e7.jpg",
     "blurb": "Who will make the postseason roster to face the Rays in the Division Series?",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Best World Series matchups for every type of MLB fan",
-    "link": "https://www.espn.com/mlb/story/_/id/50048129/mlb-playoffs-2026-best-world-series-matchup-every-type-fan",
-    "published": "2026-10-02T23:50:57.000Z",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0928%252Fr1722770_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The playoffs are about to begin! Here's what Fall Classic matchup you should be pulling for if your squad isn't playing in October.",
-    "source": "ESPN",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Best World Series matchups for every type of MLB fan",
+    "link": "https://www.espn.com/mlb/story/_/id/50048129/mlb-playoffs-2026-best-world-series-matchup-every-type-fan",
+    "published": "2026-10-02T23:50:57.000Z",
+    "image": "",
+    "blurb": "The playoffs are about to begin! Here's what Fall Classic matchup you should be pulling for if your squad isn't playing in October.",
+    "source": "ESPN",
+    "league": "MLB"
+   },
+   {
     "headline": "Atlanta Braves NLDS eve chat and discussion, October 2",
     "link": "https://sports.yahoo.com/articles/atlanta-braves-nlds-eve-chat-230000001.html",
     "published": "2026-10-02T23:00:00.000Z",
     "image": "",
     "blurb": "Happy Victory Friday, Braves Country. The thing that tickles me about the photo above is the bespoke \u201cLet It Fly / Wild Card Won\u201d sticker on that champagne bottle. It\u2019s been a beautiful, mostly stress-free day of enjoying the satisfaction of last night\u2019s cathartic win and all the",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "A casual fan's guide to the MLB postseason",
-    "link": "https://www.espn.com/mlb/story/_/id/50080902/mlb-postseason-casual-fans-guide-2026",
-    "published": "2026-10-02T23:50:57.000Z",
-    "image": "",
-    "blurb": "It's not everything you'll need to know. But we strive to provide as strong of an initial primer for a fan returning to the sport for October as you'll find.",
-    "source": "ESPN",
     "league": "MLB"
    },
    {
@@ -84,12 +84,12 @@
     "league": "MLB"
    },
    {
-    "headline": "Dodgers name Tarik Skubal as NLDS Game 1 starter over Yoshinobu Yamamoto",
-    "link": "https://sports.yahoo.com/mlb/article/dodgers-name-tarik-skubal-as-nlds-game-1-starter-over-yoshinobu-yamamoto-221946142.html",
-    "published": "2026-10-02T22:19:46.000Z",
+    "headline": "A casual fan's guide to the MLB postseason",
+    "link": "https://www.espn.com/mlb/story/_/id/50080902/mlb-postseason-casual-fans-guide-2026",
+    "published": "2026-10-02T23:50:57.000Z",
     "image": "",
-    "blurb": "The Dodgers' big trade deadline acquisition will open their postseason, rather than last year's World Series hero.",
-    "source": "YAHOO",
+    "blurb": "It's not everything you'll need to know. But we strive to provide as strong of an initial primer for a fan returning to the sport for October as you'll find.",
+    "source": "ESPN",
     "league": "MLB"
    }
   ],
@@ -187,11 +187,11 @@
   ],
   "football/college-football": [
    {
-    "headline": "Nick Saban has eyes on BYU to possibly run away with Big 12",
-    "link": "https://sports.yahoo.com/articles/nick-saban-eyes-byu-possibly-012458350.html",
-    "published": "2026-10-03T01:24:58.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/06d4477088232365277d61d08e85038c7b49fb0abe189826a0357338abecdb80/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2Ffee548f1f51558f5a6816d0bf938c70b.jpg",
-    "blurb": "BYU football missed out on cracking into the College Football Playoffs in 2025. Now the Cougars rank No. 8 in the ClutchPoints power rankings . But count Nick Saban as someone who\u2019s high on coach Kalani Sitake and his team. The legendary college football head coach turned ESPN an",
+    "headline": "Buckeyes starting OT ruled out for Iowa game",
+    "link": "https://sports.yahoo.com/articles/buckeyes-starting-ot-ruled-iowa-013912485.html",
+    "published": "2026-10-03T01:39:12.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/cfeee6a001418490291f37592ecc2eab4b1d4ff121824c6079258ed1c50f38c1/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2Fcc749066328f9c87cf7e07ec523c440a.jpg",
+    "blurb": "Ohio State football is a considerable favorite according to Nick Saban and the oddsmakers heading into Week 5\u2019s game at Iowa. The Buckeyes are high in the latest college football power rankings , but will be forced to face Iowa without one of their best offensive lineman accordin",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -214,11 +214,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Mason Heintschel injury updates: Latest on Pitt QB's leg after going down vs VT",
-    "link": "https://sports.yahoo.com/articles/mason-heintschel-injury-updates-latest-012416708.html",
-    "published": "2026-10-03T01:24:16.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/f6a384b5039c2ed3297ac41e82cdaace1c758c4b65a4ce533a047bd45886d365/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F88215fc313a99b0518e612aa33bc4c65.jpg",
-    "blurb": "Mason Heintschel suffered a seemingly severe leg injury early in the second half after a scramble against Virginia Tech.",
+    "headline": "Houston unveils \u201cGridiron Galaxy\u201d helmets, with 10 different variations, for UCF game",
+    "link": "https://sports.yahoo.com/articles/houston-unveils-gridiron-galaxy-helmets-013206576.html",
+    "published": "2026-10-03T01:32:06.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/110d9159e61e34fd7cf4e40b09e5c67a1e8d915d19d594683f58b69d9fe6e368/lightyear_networkapi/resizefill_w1080_h574%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fbe7f897ceeb007508656cc2d9d604fcf.png",
+    "blurb": "The Space Race is on. While Houston and UCF is not an official rivalry, it\u2019s certainly heading in that direction. UCF has branded itself as \u201cSpace U\u201d since 2017, famously hosting an annual Space Game in Orlando. Last November, Houston became the first team to spoil UCF\u2019s perfect ",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -241,11 +241,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Wisconsin RB Abu Sama's status remains in question for Michigan State",
-    "link": "https://sports.yahoo.com/articles/wisconsin-rb-abu-samas-status-010744670.html",
-    "published": "2026-10-03T01:07:44.000Z",
+    "headline": "Nick Saban has eyes on BYU to possibly run away with Big 12",
+    "link": "https://sports.yahoo.com/articles/nick-saban-eyes-byu-possibly-012458350.html",
+    "published": "2026-10-03T01:24:58.000Z",
     "image": "",
-    "blurb": "The Friday Oct. 2 update to the Big Ten availability report shows no improvement for Badgers running back Abu Sama.",
+    "blurb": "BYU football missed out on cracking into the College Football Playoffs in 2025. Now the Cougars rank No. 8 in the ClutchPoints power rankings . But count Nick Saban as someone who\u2019s high on coach Kalani Sitake and his team. The legendary college football head coach turned ESPN an",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -268,22 +268,22 @@
     "league": "CFB"
    },
    {
-    "headline": "LSU coaches watching Texas Five-Star Plus+ WR commit Easton Royal as flip talks persist",
-    "link": "https://sports.yahoo.com/articles/lsu-coaches-watching-texas-five-010434648.html",
-    "published": "2026-10-03T01:04:34.000Z",
+    "headline": "Mason Heintschel injury updates: Latest on Pitt QB's leg after going down vs VT",
+    "link": "https://sports.yahoo.com/articles/mason-heintschel-injury-updates-latest-012416708.html",
+    "published": "2026-10-03T01:24:16.000Z",
     "image": "",
-    "blurb": "The recruitment of New Orleans Brother Martin Five-Star Plus+ wide receiver Easton Royal remains red-hot. Despite being committed to Texas since last November, Royal has kept his options open and he\u2019s been on the road this fall. From the jump, LSU has been doing all it can to fli",
+    "blurb": "Mason Heintschel suffered a seemingly severe leg injury early in the second half after a scramble against Virginia Tech.",
     "source": "YAHOO",
     "league": "CFB"
    }
   ],
   "basketball/wnba": [
    {
-    "headline": "A\u2019ja Wilson cracks up at Becky Hammon\u2019s blunt answer to Fever-Aces comparison",
-    "link": "https://sports.yahoo.com/articles/ja-wilson-cracks-becky-hammon-011002842.html",
-    "published": "2026-10-03T01:10:02.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/bf2635fe920fa43beba60d429560d6299787c1df212d65b53872dbf12160f81c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fawful_announcing_173%2F10744ddff463281fdba657a16dfbd397.jpg",
-    "blurb": "The defending champion Las Vegas Aces ended the Indiana Fever\u2019s season on Thursday night with a 94-83 Game 3 win in their WNBA Playoff series. After the game, Aces head coach Becky Hammon was asked if Indiana\u2019s Big Three (Caitlin Clark, Aliyah Boston, and Kelsey Mitchell) remind ",
+    "headline": "How \u2019embracing\u2019 struggles fueled Liberty\u2019s historic Lynx sweep",
+    "link": "https://sports.yahoo.com/articles/embracing-struggles-fueled-liberty-historic-012940513.html",
+    "published": "2026-10-03T01:29:40.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/094a905f7edc86f41a1b7244ab8da71dae19673efbb934c1e7bd9ac0c6f0963a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2F93283cb7f69117a44da95d6ca1c4c346.jpg",
+    "blurb": "NEW YORK \u2014 Ahead of his first playoff series as a WNBA head coach, Chris DeMarco guaranteed his New York Liberty would be ready to go against the Minnesota Lynx. The group followed the bold claim up by making history , becoming the first No. 8 seed in WNBA postseason history to u",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -306,11 +306,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Ex-ESPN Host Reveals What Went Wrong for Caitlin Clark as Fever Teammates Failed to Keep Up in Fourth Quarter vs. Aces",
-    "link": "https://sports.yahoo.com/articles/ex-espn-host-reveals-went-002204652.html",
-    "published": "2026-10-03T00:22:04.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/953e86e5074c43505cadaf310b0f44952bbb821b495940f5cc6fe1133afe7b32/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fessentiallysports_articles_591%2Fb59e65aaf03e77619f6240eebbc9cbcb.jpg",
-    "blurb": "Looking back at Thursday night\u2019s Fever-Aces game, the numbers clearly show that the Indiana Fever fell behind in shooting. Former ESPN host Linda Cohn also believes poor shooting did, to a large extent, impact the Fever\u2019s game.",
+    "headline": "A\u2019ja Wilson cracks up at Becky Hammon\u2019s blunt answer to Fever-Aces comparison",
+    "link": "https://sports.yahoo.com/articles/ja-wilson-cracks-becky-hammon-011002842.html",
+    "published": "2026-10-03T01:10:02.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/bf2635fe920fa43beba60d429560d6299787c1df212d65b53872dbf12160f81c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fawful_announcing_173%2F10744ddff463281fdba657a16dfbd397.jpg",
+    "blurb": "The defending champion Las Vegas Aces ended the Indiana Fever\u2019s season on Thursday night with a 94-83 Game 3 win in their WNBA Playoff series. After the game, Aces head coach Becky Hammon was asked if Indiana\u2019s Big Three (Caitlin Clark, Aliyah Boston, and Kelsey Mitchell) remind ",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -333,11 +333,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Final Injury Report for Wings-Valkyries: Will Awak Kuier, Alanna Smith Play?",
-    "link": "https://sports.yahoo.com/articles/final-injury-report-wings-valkyries-210000334.html",
-    "published": "2026-10-02T21:00:00.000Z",
+    "headline": "Ex-ESPN Host Reveals What Went Wrong for Caitlin Clark as Fever Teammates Failed to Keep Up in Fourth Quarter vs. Aces",
+    "link": "https://sports.yahoo.com/articles/ex-espn-host-reveals-went-002204652.html",
+    "published": "2026-10-03T00:22:04.000Z",
     "image": "",
-    "blurb": "The Dallas Wings may be without multiple key players in Friday night\u2019s game against the Golden State Valkyries.",
+    "blurb": "Looking back at Thursday night\u2019s Fever-Aces game, the numbers clearly show that the Indiana Fever fell behind in shooting. Former ESPN host Linda Cohn also believes poor shooting did, to a large extent, impact the Fever\u2019s game.",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -360,11 +360,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Caitlin Clark\u2019s Teammate Issues Public Apology After Taunting A\u2019ja Wilson in Round 1 of the Playoffs",
-    "link": "https://sports.yahoo.com/articles/caitlin-clark-teammate-issues-public-202807444.html",
-    "published": "2026-10-02T20:28:07.000Z",
+    "headline": "Final Injury Report for Wings-Valkyries: Will Awak Kuier, Alanna Smith Play?",
+    "link": "https://sports.yahoo.com/articles/final-injury-report-wings-valkyries-210000334.html",
+    "published": "2026-10-02T21:00:00.000Z",
     "image": "",
-    "blurb": "Caitlin Clark and the Indiana Fever have officially crashed out of the first round at the hands of the Las Vegas Aces. But the series generated perhaps the most storylines, while both teams decided the series in three games.",
+    "blurb": "The Dallas Wings may be without multiple key players in Friday night\u2019s game against the Golden State Valkyries.",
     "source": "YAHOO",
     "league": "WNBA"
    }
@@ -555,11 +555,11 @@
   ],
   "basketball/mens-college-basketball": [
    {
-    "headline": "Michigan State Shows Off in 89-59 Exhibition Win Over UIW",
-    "link": "https://sports.yahoo.com/articles/michigan-state-shows-off-89-011009981.html",
-    "published": "2026-10-03T01:10:09.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/ec70b4364f2e4aa1867825116351d615f1b4f59f140a6d498b6bee6d351755e6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_michigan_state_articles_990%2Fd5d676716cd20a95ff4aa3ae360385ef.jpg",
-    "blurb": "Jesse McCullough and Jordan Scott ignited a high-flying offensive clinic while Jeremy Fears orchestrated a dominant performance, showcasing a re-energized roster and a promising influx of freshman talent.",
+    "headline": "Former Tar Heel and ACC Tournament MVP hired by Monmouth Basketball",
+    "link": "https://sports.yahoo.com/articles/former-tar-heel-acc-tournament-013543354.html",
+    "published": "2026-10-03T01:35:43.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/a0a8f5f98ed6e1df631a78a875f11269c211ae2435b2dfbd6dd190494b22aa4d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ftar_heels_wire_usa_today_articles_552%2F0eec2ba046d1fbddbf760ff939cbbde6.jpg",
+    "blurb": "Shammond Williams and King Rice used to play for Dean Smith. Now, the two former Tar Heels are coaching together in New Jersey.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -582,11 +582,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Kansas State's Casey Alexander Has To Keep Pushing Forward After Missing Out On Top Recruit",
-    "link": "https://sports.yahoo.com/articles/kansas-states-casey-alexander-keep-005905276.html",
-    "published": "2026-10-03T00:59:05.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/5fb6154320d284c13d8803ed59431735624d96b64067351234e16f122b599487/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_kansas_state_299%2F53e2d4e4dae0ab89c7c8a422833ed901.jpg",
-    "blurb": "Top recruit Malik Olajuwon had Kansas State as one of his six finalists but chose SMU earlier this week",
+    "headline": "Michigan State Shows Off in 89-59 Exhibition Win Over UIW",
+    "link": "https://sports.yahoo.com/articles/michigan-state-shows-off-89-011009981.html",
+    "published": "2026-10-03T01:10:09.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/ec70b4364f2e4aa1867825116351d615f1b4f59f140a6d498b6bee6d351755e6/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_michigan_state_articles_990%2Fd5d676716cd20a95ff4aa3ae360385ef.jpg",
+    "blurb": "Jesse McCullough and Jordan Scott ignited a high-flying offensive clinic while Jeremy Fears orchestrated a dominant performance, showcasing a re-energized roster and a promising influx of freshman talent.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -609,11 +609,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Kansas Looks to Get Back on Track Against Middle Tennessee",
-    "link": "https://sports.yahoo.com/articles/kansas-looks-back-track-against-000036117.html",
-    "published": "2026-10-03T00:00:36.000Z",
+    "headline": "Kansas State's Casey Alexander Has To Keep Pushing Forward After Missing Out On Top Recruit",
+    "link": "https://sports.yahoo.com/articles/kansas-states-casey-alexander-keep-005905276.html",
+    "published": "2026-10-03T00:59:05.000Z",
     "image": "",
-    "blurb": "Kansas Looks to Get Back on Track Against Middle Tennessee",
+    "blurb": "Top recruit Malik Olajuwon had Kansas State as one of his six finalists but chose SMU earlier this week",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -636,11 +636,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Indiana Women's Basketball Lands 5-Star Commit Azy Jackson",
-    "link": "https://sports.yahoo.com/articles/indiana-womens-basketball-lands-5-204241807.html",
-    "published": "2026-10-02T20:42:41.000Z",
+    "headline": "Kansas Looks to Get Back on Track Against Middle Tennessee",
+    "link": "https://sports.yahoo.com/articles/kansas-looks-back-track-against-000036117.html",
+    "published": "2026-10-03T00:00:36.000Z",
     "image": "",
-    "blurb": "Teri Moren secures a generational, positionless talent as this historic commitment signals the program\u2019s evolution into a premier destination for the nation's most elite blue-chip recruits.",
+    "blurb": "Kansas Looks to Get Back on Track Against Middle Tennessee",
     "source": "YAHOO",
     "league": "NCAAB"
    }
@@ -1096,6 +1096,33 @@
    "league": "PGA"
   },
   {
+   "headline": "Dodgers' Ohtani not 100%: Need to 'manage' injuries in playoffs",
+   "link": "https://www.espn.com/mlb/story/_/id/50087725/dodgers-ohtani-not-100-need-manage-injuries-playoffs",
+   "published": "2026-10-03T01:43:38Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0902%2Fr1710261_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Dodgers star Shohei Ohtani said the left knee and right bicep ailments that compromised him throughout the summer are issues he's \"just going to have to manage\" in the postseason.",
+   "league": "MLB"
+  },
+  {
+   "headline": "Buckeyes starting OT ruled out for Iowa game",
+   "link": "https://sports.yahoo.com/articles/buckeyes-starting-ot-ruled-iowa-013912485.html",
+   "published": "2026-10-03T01:39:12.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/cfeee6a001418490291f37592ecc2eab4b1d4ff121824c6079258ed1c50f38c1/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2Fcc749066328f9c87cf7e07ec523c440a.jpg",
+   "blurb": "Ohio State football is a considerable favorite according to Nick Saban and the oddsmakers heading into Week 5\u2019s game at Iowa. The Buckeyes are high in the latest college football power rankings , but will be forced to face Iowa without one of their best offensive lineman accordin",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "Former Tar Heel and ACC Tournament MVP hired by Monmouth Basketball",
+   "link": "https://sports.yahoo.com/articles/former-tar-heel-acc-tournament-013543354.html",
+   "published": "2026-10-03T01:35:43.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/a0a8f5f98ed6e1df631a78a875f11269c211ae2435b2dfbd6dd190494b22aa4d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ftar_heels_wire_usa_today_articles_552%2F0eec2ba046d1fbddbf760ff939cbbde6.jpg",
+   "blurb": "Shammond Williams and King Rice used to play for Dean Smith. Now, the two former Tar Heels are coaching together in New Jersey.",
+   "source": "YAHOO",
+   "league": "NCAAB"
+  },
+  {
    "headline": "NBA preseason buzz: Latest on trades, news and intel",
    "link": "https://www.espn.com/nba/story/_/id/50028196/2026-27-nba-buzz-latest-live-updates-news-intel-trades-deals",
    "published": "2026-10-03T01:34:43Z",
@@ -1114,13 +1141,22 @@
    "league": "NHL"
   },
   {
-   "headline": "Nick Saban has eyes on BYU to possibly run away with Big 12",
-   "link": "https://sports.yahoo.com/articles/nick-saban-eyes-byu-possibly-012458350.html",
-   "published": "2026-10-03T01:24:58.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/06d4477088232365277d61d08e85038c7b49fb0abe189826a0357338abecdb80/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2Ffee548f1f51558f5a6816d0bf938c70b.jpg",
-   "blurb": "BYU football missed out on cracking into the College Football Playoffs in 2025. Now the Cougars rank No. 8 in the ClutchPoints power rankings . But count Nick Saban as someone who\u2019s high on coach Kalani Sitake and his team. The legendary college football head coach turned ESPN an",
+   "headline": "Houston unveils \u201cGridiron Galaxy\u201d helmets, with 10 different variations, for UCF game",
+   "link": "https://sports.yahoo.com/articles/houston-unveils-gridiron-galaxy-helmets-013206576.html",
+   "published": "2026-10-03T01:32:06.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/110d9159e61e34fd7cf4e40b09e5c67a1e8d915d19d594683f58b69d9fe6e368/lightyear_networkapi/resizefill_w1080_h574%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fbe7f897ceeb007508656cc2d9d604fcf.png",
+   "blurb": "The Space Race is on. While Houston and UCF is not an official rivalry, it\u2019s certainly heading in that direction. UCF has branded itself as \u201cSpace U\u201d since 2017, famously hosting an annual Space Game in Orlando. Last November, Houston became the first team to spoil UCF\u2019s perfect ",
    "source": "YAHOO",
    "league": "CFB"
+  },
+  {
+   "headline": "How \u2019embracing\u2019 struggles fueled Liberty\u2019s historic Lynx sweep",
+   "link": "https://sports.yahoo.com/articles/embracing-struggles-fueled-liberty-historic-012940513.html",
+   "published": "2026-10-03T01:29:40.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/094a905f7edc86f41a1b7244ab8da71dae19673efbb934c1e7bd9ac0c6f0963a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2F93283cb7f69117a44da95d6ca1c4c346.jpg",
+   "blurb": "NEW YORK \u2014 Ahead of his first playoff series as a WNBA head coach, Chris DeMarco guaranteed his New York Liberty would be ready to go against the Minnesota Lynx. The group followed the bold claim up by making history , becoming the first No. 8 seed in WNBA postseason history to u",
+   "source": "YAHOO",
+   "league": "WNBA"
   },
   {
    "headline": "ASU asks ex-state justice to lead review of hockey player's collapse",
@@ -1130,15 +1166,6 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0825%2Fr1706867_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Arizona State has asked a former chief justice of the Arizona Supreme Court to lead an independent review of the collapse of hockey player Matthew Mayich during an outdoor workout in August.",
    "league": "NHL"
-  },
-  {
-   "headline": "Mason Heintschel injury updates: Latest on Pitt QB's leg after going down vs VT",
-   "link": "https://sports.yahoo.com/articles/mason-heintschel-injury-updates-latest-012416708.html",
-   "published": "2026-10-03T01:24:16.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/f6a384b5039c2ed3297ac41e82cdaace1c758c4b65a4ce533a047bd45886d365/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F88215fc313a99b0518e612aa33bc4c65.jpg",
-   "blurb": "Mason Heintschel suffered a seemingly severe leg injury early in the second half after a scramble against Virginia Tech.",
-   "source": "YAHOO",
-   "league": "CFB"
   },
   {
    "headline": "2026 Bank of Utah Championship: Jackson Koivun birdies final hole to make cut on the number",
@@ -1195,15 +1222,6 @@
    "league": "NFL"
   },
   {
-   "headline": "Kansas State's Casey Alexander Has To Keep Pushing Forward After Missing Out On Top Recruit",
-   "link": "https://sports.yahoo.com/articles/kansas-states-casey-alexander-keep-005905276.html",
-   "published": "2026-10-03T00:59:05.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/5fb6154320d284c13d8803ed59431735624d96b64067351234e16f122b599487/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_kansas_state_299%2F53e2d4e4dae0ab89c7c8a422833ed901.jpg",
-   "blurb": "Top recruit Malik Olajuwon had Kansas State as one of his six finalists but chose SMU earlier this week",
-   "source": "YAHOO",
-   "league": "NCAAB"
-  },
-  {
    "headline": "49ers WR Mike Evans a game-time decision with rib injury",
    "link": "https://www.espn.com/nfl/story/_/id/50086883/49ers-wr-mike-evans-game-decision-rib-injury",
    "published": "2026-10-03T00:52:17Z",
@@ -1258,15 +1276,6 @@
    "league": "NASCAR"
   },
   {
-   "headline": "Ex-ESPN Host Reveals What Went Wrong for Caitlin Clark as Fever Teammates Failed to Keep Up in Fourth Quarter vs. Aces",
-   "link": "https://sports.yahoo.com/articles/ex-espn-host-reveals-went-002204652.html",
-   "published": "2026-10-03T00:22:04.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/953e86e5074c43505cadaf310b0f44952bbb821b495940f5cc6fe1133afe7b32/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fessentiallysports_articles_591%2Fb59e65aaf03e77619f6240eebbc9cbcb.jpg",
-   "blurb": "Looking back at Thursday night\u2019s Fever-Aces game, the numbers clearly show that the Indiana Fever fell behind in shooting. Former ESPN host Linda Cohn also believes poor shooting did, to a large extent, impact the Fever\u2019s game.",
-   "source": "YAHOO",
-   "league": "WNBA"
-  },
-  {
    "headline": "More Bad News: Flyers Prospect Maksim Sokolovskii Out With an Injury",
    "link": "https://sports.yahoo.com/articles/more-bad-news-flyers-prospect-001541736.html",
    "published": "2026-10-03T00:15:41.000Z",
@@ -1291,15 +1300,6 @@
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907990.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "\u2014 Stephen Vogt and Will Venable don't need to pore over extra scouting reports as the Cleveland Guardians get set to host the Chicago White Sox in Saturday's Game 1 of the AL Division Series.",
-   "league": "MLB"
-  },
-  {
-   "headline": "Best World Series matchups for every type of MLB fan",
-   "link": "https://www.espn.com/mlb/story/_/id/50048129/mlb-playoffs-2026-best-world-series-matchup-every-type-fan",
-   "published": "2026-10-02T23:50:57.000Z",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0928%252Fr1722770_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The playoffs are about to begin! Here's what Fall Classic matchup you should be pulling for if your squad isn't playing in October.",
-   "source": "ESPN",
    "league": "MLB"
   },
   {
@@ -1448,8 +1448,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 54,
-  "YAHOO": 66,
+  "ESPN": 55,
+  "YAHOO": 65,
   "CBS": 37
  },
  "degraded_sources": []
