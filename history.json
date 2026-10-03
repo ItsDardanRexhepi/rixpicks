@@ -326,7 +326,7 @@
       "label": "Tuesday, Sep 29",
       "record": "2-3",
       "units": "-7.19u",
-      "brief": "",
+      "brief": "2-3, -7.19u. The morning read found no qualifying edge, and at 7:24 AM PT the site said no card. Later that morning five picks went up by owner directive, before the first game, with a sub-bar disclosure on the card. The card showed the model on each: Braves 64.3%, Maple Leafs 51.7%, Bruins 51.1%, Yordan Alvarez two-plus hits 31.3%, Abushaar 26.5%. Only the Braves sat inside the 60% band, and the Braves won; of the four below it, only the Bruins won. Five picks on one day are too few to judge owner-directed picks, so the day is graded on results and no read conclusion is drawn.",
       "picks": [
         {
           "name": "Braves ML",
@@ -335,7 +335,8 @@
           "units": "5u",
           "result": "W",
           "score": "PHI 3, ATL 5",
-          "_delta": "2.808988764044944"
+          "_delta": "2.808988764044944",
+          "learning": "Carded by owner directive after the morning read found no qualifying edge. The card put the model at 64.3% against a 64c price: inside the 60% band, but with almost no edge over the price. Won 5-3 over the Phillies for +2.81u. A win at a price that matches the model shows the result, not an edge."
         },
         {
           "name": "Yordan Alvarez over 1.5 hits",
@@ -344,7 +345,8 @@
           "units": "5u",
           "result": "L",
           "score": "CHW 6, HOU 3",
-          "_delta": "-5.0"
+          "_delta": "-5.0",
+          "learning": "Carded by owner directive after the morning read found no qualifying edge. The card put the model at 31.3% for two or more hits against a 27c price (+270), a long shot far below the 60% band. Alvarez went 1-for-4 and Houston lost 6-3 to the White Sox. At 31% this misses about seven times in ten, so one miss says little either way."
         },
         {
           "name": "Loai Abushaar ML",
@@ -383,7 +385,7 @@
       "label": "Wednesday, Sep 30",
       "record": "1-0",
       "units": "+6.90u",
-      "brief": "",
+      "brief": "1-0, +6.90u on a one-pick day. White Sox ML at Houston (+138) went up by owner directive with the sub-bar disclosure on the card: the model had Chicago at 46.7%, below the 60% band, though the price edge cleared the 2c floor. It was posted on the site at 7:34 AM PT and on Instagram before the 2:00 PM PT first pitch, and it won 7-3. One underdog win is one result; it does not show the band is set wrong.",
       "picks": [
         {
           "name": "White Sox ML",
@@ -392,7 +394,8 @@
           "units": "5u",
           "result": "W",
           "score": "CHW 7, HOU 3",
-          "_delta": "6.9"
+          "_delta": "6.9",
+          "learning": "Owner-directed pick with a sub-bar disclosure on the card: the model had the White Sox at 46.7%, below the 60% band, against a 42c price (+138). Won 7-3 at Houston for +6.90u, posted on the site and on Instagram before first pitch. One underdog win is one data point on owner-directed picks, not a verdict on the band."
         }
       ]
     },
@@ -401,7 +404,7 @@
       "label": "Thursday, Oct 1",
       "record": "3-1",
       "units": "+3.93u",
-      "brief": "",
+      "brief": "3-1, +3.93u. The Devils (3-2 in OT), Aces -4.5 (won by 11) and Mammoth (6-0) won; Under 38.5 lost, with Steelers-Browns going for 51. This card was built by hand outside the system's process: no fair values recorded, prices that were not the Kalshi ask, a Las Vegas team (the Aces) and a 6u stake that is not on the ladder. It ran on Instagram only, at 8:03 AM PT before the first game, while the site said no official picks; the row was filed a day late and kept by the owner's ruling. Its 'Yesterday 2-0, Overall 6-4' line was wrong too (it was 1-0 and 21-11). The Vegas rule and the ladder are now hard stops in the card builder.",
       "picks": [
         {
           "name": "Devils ML",
@@ -410,7 +413,8 @@
           "units": "5u",
           "result": "W",
           "score": "PHI 2, NJ 3",
-          "_delta": "3.0864197530864197"
+          "_delta": "3.0864197530864197",
+          "learning": "Won 3-2 in overtime over the Flyers for +3.09u. No fair value or pre-game notes were recorded for this hand-built card, and its -162 price matched sportsbook pricing, not the Kalshi ask. The win is real, but without a recorded fair there is no read to grade it against."
         },
         {
           "name": "Under 38.5",
@@ -419,7 +423,8 @@
           "units": "6u",
           "result": "L",
           "score": "PIT 24, CLE 27",
-          "_delta": "-6.0"
+          "_delta": "-6.0",
+          "learning": "Lost: Browns 27, Steelers 24, 51 points against a 38.5 total. Staked 6u, a size that is not on the ladder; at the ladder's 5u it would have lost 1u less. The -115 was a sportsbook price while Kalshi offered about -108, and no fair value was recorded."
         },
         {
           "name": "Aces -4.5",
@@ -428,7 +433,8 @@
           "units": "5u",
           "result": "W",
           "score": "IND 83, LV 94",
-          "_delta": "4.545454545454546"
+          "_delta": "4.545454545454546",
+          "learning": "Won 94-83, covering by 6.5 for +4.55u, but it should not have been carded: the Aces are a Las Vegas team, and the standing rule keeps Vegas teams off the card on either side. The -4.5 line was not a Kalshi market either. A rule break that wins is still a process failure; the card builder now refuses Vegas-team picks."
         },
         {
           "name": "Mammoth ML",
@@ -437,7 +443,8 @@
           "units": "5u",
           "result": "W",
           "score": "CHI 0, UTA 6",
-          "_delta": "2.293577981651376"
+          "_delta": "2.293577981651376",
+          "learning": "Won 6-0 over the Blackhawks for +2.29u. The -218 card price was not the Kalshi ask: Kalshi's ask that morning was 67c, about -203, so the card showed a worse price than was available. No fair value was recorded, so the win grades the result, not a read."
         }
       ]
     },
@@ -446,7 +453,7 @@
       "label": "Friday, Oct 2",
       "record": "3-1",
       "units": "+5.32u",
-      "brief": "",
+      "brief": "No official picks cleared the bars this morning. Hand research found four candidates and the red team killed all four: edges too thin or too uncertain, fair values under the 60% band once corrected, inputs set by hand on tiny samples. The owner then put his own four positions on the record. Blues-Stars Under 6.5 went up before the delayed opening faceoff; the other three were added by owner override after their finals, results known, and are labeled so. Results: Under 6.5 W, Under 3.5 W, Over 43.5 W, Under 54.5 L. The killed four went 3-1, but a kill says an edge is too thin to card, not that the pick will lose, and four games cannot show the bars are too strict or prove them right.",
       "picks": [
         {
           "name": "Under 6.5",
