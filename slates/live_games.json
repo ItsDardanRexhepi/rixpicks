@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T13:50:09.067939+00:00",
+ "generated_at": "2026-10-03T14:05:09.488076+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -12,6 +12,86 @@
      "status": "pre",
      "detail": "10/3 - 8:00 AM PT",
      "score": "MEM 0 - CLT 0"
+    },
+    {
+     "espn_event_id": "401858250",
+     "matchup": "ND @ UNC",
+     "commence": "2026-10-03T16:00Z",
+     "status": "pre",
+     "detail": "10/3 - 9:00 AM PT",
+     "score": "ND 0 - UNC 0"
+    },
+    {
+     "espn_event_id": "401856707",
+     "matchup": "ALA @ MSST",
+     "commence": "2026-10-03T16:00Z",
+     "status": "pre",
+     "detail": "10/3 - 9:00 AM PT",
+     "score": "ALA 0 - MSST 0"
+    },
+    {
+     "espn_event_id": "401856819",
+     "matchup": "UCF @ HOU",
+     "commence": "2026-10-03T16:00Z",
+     "status": "pre",
+     "detail": "10/3 - 9:00 AM PT",
+     "score": "UCF 0 - HOU 0"
+    },
+    {
+     "espn_event_id": "401858246",
+     "matchup": "BC @ SMU",
+     "commence": "2026-10-03T16:00Z",
+     "status": "pre",
+     "detail": "10/3 - 9:00 AM PT",
+     "score": "BC 0 - SMU 0"
+    },
+    {
+     "espn_event_id": "401856807",
+     "matchup": "MTSU @ KU",
+     "commence": "2026-10-03T16:00Z",
+     "status": "pre",
+     "detail": "10/3 - 9:00 AM PT",
+     "score": "MTSU 0 - KU 0"
+    },
+    {
+     "espn_event_id": "401856822",
+     "matchup": "WVU @ ISU",
+     "commence": "2026-10-03T16:00Z",
+     "status": "pre",
+     "detail": "10/3 - 9:00 AM PT",
+     "score": "WVU 0 - ISU 0"
+    },
+    {
+     "espn_event_id": "401858251",
+     "matchup": "STAN @ WAKE",
+     "commence": "2026-10-03T16:00Z",
+     "status": "pre",
+     "detail": "10/3 - 9:00 AM PT",
+     "score": "STAN 0 - WAKE 0"
+    },
+    {
+     "espn_event_id": "401858252",
+     "matchup": "SYR @ CONN",
+     "commence": "2026-10-03T16:00Z",
+     "status": "pre",
+     "detail": "10/3 - 9:00 AM PT",
+     "score": "SYR 0 - CONN 0"
+    },
+    {
+     "espn_event_id": "401858474",
+     "matchup": "MICH @ MINN",
+     "commence": "2026-10-03T16:00Z",
+     "status": "pre",
+     "detail": "10/3 - 9:00 AM PT",
+     "score": "MICH 0 - MINN 0"
+    },
+    {
+     "espn_event_id": "401862791",
+     "matchup": "NAVY @ AFA",
+     "commence": "2026-10-03T16:00Z",
+     "status": "pre",
+     "detail": "10/3 - 9:00 AM PT",
+     "score": "NAVY 0 - AFA 0"
     }
    ]
   }
