@@ -273,3 +273,18 @@ body.rp-nosync .ultrix-sync-line{display:none}
 .predmeta{color:var(--mut);font-size:11px;margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
 
 .rplivescore{cursor:pointer;touch-action:manipulation}.rplivescore:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+/* What the system is learning (Home): newest graded notes from history.json */
+.learn .lnday{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin:12px 0 4px}
+.learn .lnday:first-child{margin-top:0}
+.learn .lnbrief{font-size:13px;line-height:1.5;color:#c9c9d1;border-left:3px solid var(--acc);border-radius:0 8px 8px 0;background:rgba(127,127,127,.06);padding:8px 10px;margin:4px 0 6px;overflow-wrap:anywhere}
+.learn .lnitem{padding:8px 0;border-top:1px solid rgba(127,127,127,.15)}
+.learn .lnday+.lnitem{border-top:0;padding-top:4px}
+.learn .lnhead{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;font-size:13.5px}
+.learn .lnres{font-size:11px;font-weight:700;min-width:11px}
+.learn .lnres.W{color:var(--acc)}
+.learn .lnres.L{color:var(--red)}
+.learn .lnres.P{color:var(--mut)}
+.learn .lnname{font-weight:600;min-width:0;overflow-wrap:anywhere}
+.learn .lnunits{font-size:12px;color:var(--mut)}
+.learn .lntag{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(224,179,86,.45);border-radius:999px;padding:1px 7px}
+.learn .lnnote{font-size:12.5px;line-height:1.45;color:#b9bec7;margin-top:3px;overflow-wrap:anywhere}

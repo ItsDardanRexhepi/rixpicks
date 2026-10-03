@@ -2136,6 +2136,60 @@ _recpop_html=('<div class="recpop" id="rpRecPop" hidden>'
 # also the first line of the page head, right under the nav record strip, on Home only
 # (.home-only): the Past Tickets view keeps showing no bankroll wording (PAST_HIDE_MONEY).
 _unit_basis_home='<div class="unitmath unitbasis home-only" id="rpUnitBasis">1u = $5 per $1,000 in bankroll</div>'
+# What the system is learning (owner directive, Oct 2: the site shows what the system is learning,
+# in real time, as picks grade). A Home-only section next to News, read from the public ledger
+# history.json: the latest graded day's brief, then the newest graded picks' notes, newest day first,
+# at most 6 picks, each with its result and units, under its day label. This is the first paint;
+# index_v2.js (rpLearnHtml/rpLearnPanel) re-reads history.json every 120 s while the page is visible
+# and repaints the box by the same rules when the content changed. Public ledger fields only (pick
+# name, result, units, note, day brief and label); a text carrying a dollar sign is left out whole,
+# never cut into half a sentence. Every value is HTML-escaped and its slashes entity-encoded, so no
+# ledger text can read as markup or as a comment to scrub_shipped. history.json missing, unreadable
+# or with nothing to show renders nothing: no heading, no empty box. Self-contained
+# (scripts/test_learnings_panel.py runs it from source and checks the client renders the same).
+def _learnings_html(hist_path, max_picks=6):
+    import html as _lh, json as _lj
+    try:
+        with open(hist_path) as _f:
+            _days = _lj.load(_f).get('days')
+    except Exception:
+        return ''
+    if not isinstance(_days, list):
+        return ''
+    _days = sorted((d for d in _days if isinstance(d, dict) and isinstance(d.get('picks'), list)),
+                   key=lambda d: str(d.get('date') or ''), reverse=True)
+    def _t(v):
+        s = v.strip() if isinstance(v, str) else ''
+        return '' if '$' in s else s
+    def _e(s):
+        return _lh.escape(s, quote=True).replace('/', '&#47;')
+    def _graded(p):
+        return isinstance(p, dict) and p.get('result') in ('W', 'L', 'P')
+    _latest = next((d for d in _days if any(_graded(p) for p in d['picks'])), None)
+    out, n = '', 0
+    for d in _days:
+        if n >= max_picks:
+            break
+        body = ('<div class="lnbrief">' + _e(_t(d.get('brief'))) + '</div>') if (d is _latest and _t(d.get('brief'))) else ''
+        for p in d['picks']:
+            if n >= max_picks:
+                break
+            if not (_graded(p) and _t(p.get('name')) and _t(p.get('note'))):
+                continue
+            r = p['result']
+            body += ('<div class="lnitem"><div class="lnhead"><span class="lnres ' + r + '">' + r + '</span>'
+                     '<span class="lnname">' + _e(_t(p.get('name'))) + '</span>'
+                     + (('<span class="lnunits">' + _e(_t(p.get('units'))) + '</span>') if _t(p.get('units')) else '')
+                     + ('<span class="lntag">added after kickoff</span>' if p.get('added_after_kickoff') is True else '')
+                     + '</div><div class="lnnote">' + _e(_t(p.get('note'))) + '</div></div>')
+            n += 1
+        if body:
+            out += '<div class="lnday">' + _e(_t(d.get('label')) or _t(d.get('date'))) + '</div>' + body
+    if not out:
+        return ''
+    return ('<div class="sect home-only" id="rpLearnHead" style="margin-top:18px">What the system is learning</div>\n'
+            '<div class="card learn home-only" id="rpLearn" aria-live="polite">' + out + '</div>\n')
+_learn_html = _learnings_html(os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), 'history.json'))
 _tail_html=('<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>')
 if _V2:
     INDEX_V2_CSS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.css')).read()
@@ -2341,7 +2395,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
     '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><button type="button" class="rec" id="rpNavRec" aria-haspopup="true" aria-expanded="false" aria-controls="rpRecPop" aria-label="View overall record"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</button>'+_recpop_html+'</nav>\n'
-    '<div class="layout"><div class="rphead">'+_unit_basis_home+_home_yes+'<div class="rpdate" data-date="'+html.escape(_RPDATE_ISO)+'">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
+    '<div class="layout"><div class="rphead">'+_unit_basis_home+_home_yes+'<div class="rpdate" data-date="'+html.escape(_RPDATE_ISO)+'">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_learn_html+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Upcoming Events</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div id="rpPredWrap" class="home-only" style="display:none"><div class="col-head" style="margin-top:18px"><div class="sect">Predictions by UltRix</div></div><div class="card" id="rpPred"></div></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'

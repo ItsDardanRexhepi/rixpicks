@@ -465,6 +465,46 @@ function rpYesterdayLine(){
  });
 }
 rpYesterdayLine();
+/* What the system is learning (Home). The builder bakes the first paint (_learnings_html); here the
+   same-origin history.json is re-read on load and every 120 s while the page is visible, and the box is
+   repainted by the same rules only when its content changed: the latest graded day's brief, then the
+   newest graded picks' notes, newest day first, at most 6, each under its day label. Every value goes
+   through esc(); a text carrying a dollar sign is left out whole. A failed read, or a file of the wrong
+   shape, keeps what is on the page; a readable ledger with nothing to show hides the section.
+   scripts/test_learnings_panel.py checks both renderers agree; test_learnings_panel.js the repaint. */
+function rpLearnHtml(j){
+ var days=j&&Array.isArray(j.days)?j.days:null;if(!days)return null;
+ days=days.filter(function(d){return !!d&&typeof d==='object'&&Array.isArray(d.picks);});
+ days.sort(function(a,b){var x=String(a.date||''),y=String(b.date||'');return x<y?1:(x>y?-1:0);});
+ var t=function(v){var s=typeof v==='string'?v.trim():'';return s.indexOf('$')>=0?'':s;};
+ var graded=function(p){return !!p&&typeof p==='object'&&(p.result==='W'||p.result==='L'||p.result==='P');};
+ var latest=null;for(var i=0;i<days.length&&!latest;i++){if(days[i].picks.some(graded))latest=days[i];}
+ var out='',n=0;
+ for(var k=0;k<days.length&&n<6;k++){
+  var d=days[k],body=(d===latest&&t(d.brief))?'<div class="lnbrief">'+esc(t(d.brief))+'</div>':'';
+  for(var q=0;q<d.picks.length&&n<6;q++){
+   var p=d.picks[q];if(!(graded(p)&&t(p.name)&&t(p.note)))continue;
+   body+='<div class="lnitem"><div class="lnhead"><span class="lnres '+p.result+'">'+p.result+'</span>'
+    +'<span class="lnname">'+esc(t(p.name))+'</span>'
+    +(t(p.units)?'<span class="lnunits">'+esc(t(p.units))+'</span>':'')
+    +(p.added_after_kickoff===true?'<span class="lntag">added after kickoff</span>':'')
+    +'</div><div class="lnnote">'+esc(t(p.note))+'</div></div>';
+   n++;
+  }
+  if(body)out+='<div class="lnday">'+esc(t(d.label)||t(d.date))+'</div>'+body;
+ }
+ return out;
+}
+function rpLearnPanel(){
+ var box=$('rpLearn');if(!box)return;var hd=$('rpLearnHead');
+ fetch('history.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
+  var h=rpLearnHtml(j);if(h==null)return;
+  box.style.display=h?'':'none';if(hd)hd.style.display=h?'':'none';if(!h)return;
+  var tp=document.createElement('template');tp.innerHTML=h;if(tp.innerHTML===box.innerHTML)return;
+  box.innerHTML=h;
+ }).catch(function(){});
+}
+rpLearnPanel();setInterval(function(){if(!document.hidden)rpLearnPanel();},120000);
 function buildPairs(base){
  PAIRS=[];
  if(!rpMapFresh(SOC_MATCH))return;
