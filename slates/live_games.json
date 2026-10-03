@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T01:20:11.573361+00:00",
+ "generated_at": "2026-10-03T01:35:13.904960+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,9 +10,9 @@
      "matchup": "PITT @ VT",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "12:14 - 3rd",
-     "score": "PITT 21 - VT 24",
-     "away_to": 3,
+     "detail": "6:09 - 3rd",
+     "score": "PITT 28 - VT 24",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -20,8 +20,8 @@
      "matchup": "LIB @ DEL",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "4:09 - 3rd",
-     "score": "LIB 20 - DEL 0",
+     "detail": "14:54 - 4th",
+     "score": "LIB 23 - DEL 0",
      "away_to": 0,
      "home_to": 1
     },
@@ -30,7 +30,7 @@
      "matchup": "PSU @ NU",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "9:15 - 2nd",
+     "detail": "2:00 - 2nd",
      "score": "PSU 7 - NU 17",
      "away_to": 3,
      "home_to": 2
@@ -45,8 +45,8 @@
      "matchup": "DAL @ GS",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "2:34 - 1st",
-     "score": "DAL 15 - GS 10",
+     "detail": "6:36 - 2nd",
+     "score": "DAL 26 - GS 19",
      "away_to": 5,
      "home_to": 5
     }
@@ -68,8 +68,8 @@
      "matchup": "WAS @ CAR",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "12:41 - 3rd",
-     "score": "WAS 5 - CAR 1",
+     "detail": "4:42 - 3rd",
+     "score": "WAS 5 - CAR 2",
      "away_to": null,
      "home_to": null
     },
@@ -78,7 +78,7 @@
      "matchup": "BOS @ WPG",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "17:50 - 2nd",
+     "detail": "9:46 - 2nd",
      "score": "BOS 2 - WPG 2",
      "away_to": null,
      "home_to": null
@@ -88,7 +88,7 @@
      "matchup": "STL @ DAL",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "18:26 - 1st",
+     "detail": "9:36 - 1st",
      "score": "STL 1 - DAL 0",
      "away_to": null,
      "home_to": null
@@ -111,7 +111,7 @@
      "matchup": "SD @ ORL",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "54'",
+     "detail": "69'",
      "score": "SD 2 - ORL 1"
     },
     {
