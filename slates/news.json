@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-03T03:40:54.537Z",
+ "generated_at": "2026-10-03T03:46:02.442Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -187,6 +187,15 @@
   ],
   "football/college-football": [
    {
+    "headline": "Pitt emerges as top threat to Miami in ACC as Pat Narduzzi rips AP voters following win over Virginia Tech",
+    "link": "https://www.cbssports.com/college-football/news/pitt-threat-miami-acc-pat-narduzzi-ap-voters-win-virginia-tech/",
+    "published": "2026-10-03T03:36:37.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2Fc47e7758-a97f-4078-bc91-b2a473f320b0%2Fpitt-vt-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Panthers stunned Virginia Tech when a reliable Hokies kicker missed a 36-yarder on the final play",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
     "headline": "Nebraska high school football QB-WR duo puts up insane numbers in blowout win",
     "link": "https://sports.yahoo.com/articles/nebraska-high-school-football-qb-032421075.html",
     "published": "2026-10-03T03:24:21.000Z",
@@ -265,15 +274,6 @@
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F4e8db47a-f6eb-409b-b7bd-1d617c734d39%2Fliberty-football-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "A full weekend of football on CBS Sports Network kicks off on Thursday night",
     "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "Did Virginia Tech get robbed? Missed field goal call stuns Hokies in loss to Pitt",
-    "link": "https://sports.yahoo.com/articles/did-virginia-tech-robbed-missed-030611692.html",
-    "published": "2026-10-03T03:06:11.000Z",
-    "image": "",
-    "blurb": "A disputed field goal by Virginia Tech kicker John Love has college football fans debating whether Pitt escaped with a win.",
-    "source": "YAHOO",
     "league": "CFB"
    }
   ],
@@ -463,12 +463,12 @@
   ],
   "hockey/nhl": [
    {
-    "headline": "JJ Peterka scores in OT to lift the Bruins past the Jets, 4-3",
-    "link": "http://www.espn.com/nhl/recap?gameId=401891831",
-    "published": "2026-10-03T03:28:30Z",
+    "headline": "Dylan Garand makes 22 saves for 1st career shutout as Rangers beat Red Wings 2-0",
+    "link": "http://www.espn.com/nhl/recap?gameId=401891803",
+    "published": "2026-10-03T03:43:29Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891831.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 Elias Lindholm tied it on a tip with 1:38 left in regulation and JJ Peterka scored at 3:21 of overtime to give the Boston Bruins a 4-3 victory over the Winnipeg Jets on Friday night.",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891803.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 Dylan Garand made 22 saves for his first career shutout and the New York Rangers spoiled the Detroit Red Wings' opener with a 2-0 victory on Friday.",
     "league": "NHL"
    },
    {
@@ -490,12 +490,12 @@
     "league": "NHL"
    },
    {
-    "headline": "Boston Bruins vs. Winnipeg Jets: Game Highlights",
-    "link": "https://www.espn.com/video/clip/_/id/50088194/game-highlights",
-    "published": "2026-10-03T03:25:50Z",
+    "headline": "JJ Peterka scores in OT to lift the Bruins past the Jets, 4-3",
+    "link": "http://www.espn.com/nhl/recap?gameId=401891831",
+    "published": "2026-10-03T03:28:30Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1003%2F79e7cee3-6dbb-4b64-a9e0-14788c7be51b%2F79e7cee3-6dbb-4b64-a9e0-14788c7be51b.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Boston Bruins vs. Winnipeg Jets: Game Highlights",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891831.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 Elias Lindholm tied it on a tip with 1:38 left in regulation and JJ Peterka scored at 3:21 of overtime to give the Boston Bruins a 4-3 victory over the Winnipeg Jets on Friday night.",
     "league": "NHL"
    },
    {
@@ -517,20 +517,20 @@
     "league": "NHL"
    },
    {
-    "headline": "Larkin off to IR, booed loudly by Red Wings fans before loss",
-    "link": "https://www.espn.com/nhl/story/_/id/50087005/amid-trade-request-red-wings-move-larkin-injured-reserve",
-    "published": "2026-10-03T02:46:16Z",
+    "headline": "Boston Bruins vs. Winnipeg Jets: Game Highlights",
+    "link": "https://www.espn.com/video/clip/_/id/50088194/game-highlights",
+    "published": "2026-10-03T03:25:50Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fr1725120_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "As they continue to mull his trade request, the Detroit Red Wings moved Dylan Larkin to a non-roster injured reserve spot before Friday's 2-0 loss to the New York Rangers, a game the former captain was booed loudly in when he was shown on the video board.",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1003%2F79e7cee3-6dbb-4b64-a9e0-14788c7be51b%2F79e7cee3-6dbb-4b64-a9e0-14788c7be51b.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Boston Bruins vs. Winnipeg Jets: Game Highlights",
     "league": "NHL"
    },
    {
-    "headline": "More Bad News: Flyers Prospect Maksim Sokolovskii Out With an Injury",
-    "link": "https://sports.yahoo.com/articles/more-bad-news-flyers-prospect-001541736.html",
-    "published": "2026-10-03T00:15:41.000Z",
+    "headline": "Dylan Garand makes 23 saves for 1st career shutout as Rangers beat Red Wings 2-0",
+    "link": "https://sports.yahoo.com/articles/dylan-garand-makes-23-saves-013154760.html",
+    "published": "2026-10-03T01:31:54.000Z",
     "image": "",
-    "blurb": "The Flyers and their early-season injuries.",
+    "blurb": "DETROIT (AP) \u2014 Dylan Garand made 23 saves for his first career shutout and the New York Rangers spoiled the Detroit Red Wings' opener with a 2-0 victory on Friday.Garand was making his first start after going 2-0-1 in three appearances with the Rangers last season.",
     "source": "YAHOO",
     "league": "NHL"
    },
@@ -544,12 +544,12 @@
     "league": "NHL"
    },
    {
-    "headline": "New York Rangers vs. Detroit Red Wings: Game Highlights",
-    "link": "https://www.espn.com/video/clip/_/id/50087814/game-highlights",
-    "published": "2026-10-03T02:10:43Z",
+    "headline": "Larkin off to IR, booed loudly by Red Wings fans before loss",
+    "link": "https://www.espn.com/nhl/story/_/id/50087005/amid-trade-request-red-wings-move-larkin-injured-reserve",
+    "published": "2026-10-03T02:46:16Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1003%2Fd99cad3a-f775-47fa-bb88-7d4eb0e355c2%2Fd99cad3a-f775-47fa-bb88-7d4eb0e355c2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "New York Rangers vs. Detroit Red Wings: Game Highlights",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fr1725120_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "As they continue to mull his trade request, the Detroit Red Wings moved Dylan Larkin to a non-roster injured reserve spot before Friday's 2-0 loss to the New York Rangers, a game the former captain was booed loudly in when he was shown on the video board.",
     "league": "NHL"
    }
   ],
@@ -1114,6 +1114,24 @@
    "league": "NFL"
   },
   {
+   "headline": "Dylan Garand makes 22 saves for 1st career shutout as Rangers beat Red Wings 2-0",
+   "link": "http://www.espn.com/nhl/recap?gameId=401891803",
+   "published": "2026-10-03T03:43:29Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891803.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "\u2014 Dylan Garand made 22 saves for his first career shutout and the New York Rangers spoiled the Detroit Red Wings' opener with a 2-0 victory on Friday.",
+   "league": "NHL"
+  },
+  {
+   "headline": "Pitt emerges as top threat to Miami in ACC as Pat Narduzzi rips AP voters following win over Virginia Tech",
+   "link": "https://www.cbssports.com/college-football/news/pitt-threat-miami-acc-pat-narduzzi-ap-voters-win-virginia-tech/",
+   "published": "2026-10-03T03:36:37.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2Fc47e7758-a97f-4078-bc91-b2a473f320b0%2Fpitt-vt-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Panthers stunned Virginia Tech when a reliable Hokies kicker missed a 36-yarder on the final play",
+   "source": "CBS",
+   "league": "CFB"
+  },
+  {
    "headline": "Golden State Valkyries vs. Dallas Wings - Game Highlights",
    "link": "https://www.espn.com/video/clip/_/id/50088235/golden-state-valkyries-vs-dallas-wings-game-highlights",
    "published": "2026-10-03T03:33:28Z",
@@ -1129,15 +1147,6 @@
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891831.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "\u2014 Elias Lindholm tied it on a tip with 1:38 left in regulation and JJ Peterka scored at 3:21 of overtime to give the Boston Bruins a 4-3 victory over the Winnipeg Jets on Friday night.",
-   "league": "NHL"
-  },
-  {
-   "headline": "Boston Bruins vs. Winnipeg Jets: Game Highlights",
-   "link": "https://www.espn.com/video/clip/_/id/50088194/game-highlights",
-   "published": "2026-10-03T03:25:50Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1003%2F79e7cee3-6dbb-4b64-a9e0-14788c7be51b%2F79e7cee3-6dbb-4b64-a9e0-14788c7be51b.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Boston Bruins vs. Winnipeg Jets: Game Highlights",
    "league": "NHL"
   },
   {
@@ -1417,15 +1426,6 @@
    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F853bf4b8-704c-4ab6-a49a-a46d0ea98982%2Fmark-mitchell-mizzou-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The eligibility battle for Missouri star Mark Mitchell and several other prominent college basketball players seeking a fifth season got more complicated Friday, when a Kentucky Court of Appeals dissolved a temporary injunction that had been the basis for their eligibility",
    "source": "CBS",
-   "league": "CFB"
-  },
-  {
-   "headline": "Court ruling leaves Mark Mitchell, other fifth-year college athletes in eligibility limbo",
-   "link": "https://www.cbssports.com/college-basketball/news/court-ruling-mark-mitchell-eligibility/",
-   "published": "2026-10-02T22:07:13.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F853bf4b8-704c-4ab6-a49a-a46d0ea98982%2Fmark-mitchell-mizzou-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The eligibility battle for Missouri star Mark Mitchell and several other prominent college basketball players seeking a fifth season got more complicated Friday, when a Kentucky Court of Appeals dissolved a temporary injunction that had been the basis for their eligibility",
-   "source": "CBS",
    "league": "NCAAB"
   },
   {
@@ -1449,8 +1449,8 @@
  ],
  "source_mix": {
   "ESPN": 56,
-  "YAHOO": 65,
-  "CBS": 36
+  "CBS": 37,
+  "YAHOO": 64
  },
  "degraded_sources": []
 }
