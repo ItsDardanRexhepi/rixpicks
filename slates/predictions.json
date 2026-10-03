@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-03T22:20:26.824696+00:00",
+ "generated_at": "2026-10-03T22:36:17.755738+00:00",
  "items": [
-  {
-   "id": "6602782221",
-   "league": "MLB",
-   "event": "New York Yankees @ Tampa Bay Rays",
-   "prediction": "Tampa Bay Rays to beat New York Yankees",
-   "kickoff_utc": "2026-10-03T22:30:00+00:00"
-  },
-  {
-   "id": "957e53916d",
-   "league": "NWSL",
-   "event": "Bay FC @ Kansas City Current",
-   "prediction": "Kansas City Current to beat Bay FC",
-   "kickoff_utc": "2026-10-03T22:30:00+00:00"
-  },
   {
    "id": "a9bbadcf93",
    "league": "CFB",
@@ -41,6 +27,20 @@
    "league": "NHL",
    "event": "Carolina Hurricanes @ Philadelphia Flyers",
    "prediction": "Carolina Hurricanes to beat Philadelphia Flyers",
+   "kickoff_utc": "2026-10-03T23:00:00+00:00"
+  },
+  {
+   "id": "a760dfe90e",
+   "league": "NHL",
+   "event": "Chicago Blackhawks @ Buffalo Sabres",
+   "prediction": "Chicago Blackhawks to beat Buffalo Sabres",
+   "kickoff_utc": "2026-10-03T23:00:00+00:00"
+  },
+  {
+   "id": "75101ccd77",
+   "league": "NHL",
+   "event": "Ottawa Senators @ Toronto Maple Leafs",
+   "prediction": "Toronto Maple Leafs to beat Ottawa Senators",
    "kickoff_utc": "2026-10-03T23:00:00+00:00"
   }
  ]
