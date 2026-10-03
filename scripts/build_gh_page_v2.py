@@ -3,6 +3,7 @@
 Usage: build_gh_page.py manifest.json [outfile]
 Manifest: {date_label, status_note, record, updated, picks:[{num,name,sub,odds,best_book,side,game:{away,home}|null,espn_league}], parlay:{legs:[...],note}|null}
 A card with a pick on or against a Las Vegas team, or units off the J-096 ladder, is held (exit 3): owner ruling 2026-10-02 (4).
+Only its numeric bars can be waived, for logged picks (name, eid, units) played on one date with the disclosure in card_note, by a logged owner suspension (slates/owner_rule_suspensions.jsonl).
 DESIGN LOCKED (user, Sep 24 10:50 PM): this template IS the app design system. Daily builds change picks
 content only - never layout, chip styling, terminology logic. Bump RP_DESIGN only on an approved design change.
 Chips resolved from /tmp/odds_prefill.json (+ _sp) when present; NO chips render without a game-level link.
@@ -179,7 +180,7 @@ _sanitize_man(man)
 # Golden Knights (NHL), Aces (WNBA), Athletics/A's (MLB), UNLV (college); a nickname counts only inside its own
 # league (Texas Tech Red Raiders is no Vegas team), 'Las Vegas', 'Vegas' and UNLV in any league, and the individual
 # sports (racing, golf, tennis, MMA, boxing) have no teams. An earlier card's manifests/ snapshot, rebuilt below for
-# its game pages, is not gated.
+# its game pages, is not gated. The one exception is logged, narrow and numeric-only: see the owner suspension below.
 _VEGAS_NICK={'football/nfl':('raiders',),'hockey/nhl':('golden knights',),'basketball/wnba':('aces',),
              'baseball/mlb':('athletics',"a's"),'football/college-football':('unlv',),
              'basketball/mens-college-basketball':('unlv',),'basketball/womens-college-basketball':('unlv',)}
@@ -247,9 +248,9 @@ def _standing_rule_holds(m):
             for f,v in (('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))):
                 w=' '+re.sub(r"[^a-z0-9']+",' ',str(v or '').lower().replace('\u2019',"'"))+' '
                 if any(' '+n+' ' in w for n in names):
-                    out.append(f"{who}: Las Vegas team ({f} {v!r}) - never on or against a Vegas team"); break
+                    out.append((p.get('name'),'vegas',f"{who}: Las Vegas team ({f} {v!r}) - never on or against a Vegas team")); break
         if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
-            out.append(f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)")
+            out.append((p.get('name'),'units_ladder',f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)"))
         # numeric standing bars (read the fair and the card price from this pick's own fields)
         fair,cost=_fair_of(p),_card_cost_of(p)
         if fair is None or cost is None:
@@ -257,13 +258,13 @@ def _standing_rule_holds(m):
         gross=round(fair-cost,6)
         net=round(gross-(_kfee_c(cost) if _is_kalshi_priced(p) else 0.0),6)
         net_bar=_NET_BAR_C.get(p.get('market_class'),2.0)
-        if fair<_CARD_BAND_C: out.append(f"{who}: fair {fair:g}c below the 60c card band")
-        if cost>=_ASK_CUT_C: out.append(f"{who}: card ask {cost:g}c at or above the 85c cut")
-        if gross<_GROSS_BAR_C: out.append(f"{who}: gross {gross:g}c below the 2c bar")
-        if net<net_bar: out.append(f"{who}: net {net:g}c below the {net_bar:g}c bar")
+        if fair<_CARD_BAND_C: out.append((p.get('name'),'fair_band',f"{who}: fair {fair:g}c below the 60c card band"))
+        if cost>=_ASK_CUT_C: out.append((p.get('name'),'ask_cut',f"{who}: card ask {cost:g}c at or above the 85c cut"))
+        if gross<_GROSS_BAR_C: out.append((p.get('name'),'gross_bar',f"{who}: gross {gross:g}c below the 2c bar"))
+        if net<net_bar: out.append((p.get('name'),'net_bar',f"{who}: net {net:g}c below the {net_bar:g}c bar"))
         u,base=_RUNG_INT.get(p.get('units')),_j096_rung(fair,gross)
         if u is not None and base and u>base:
-            out.append(f"{who}: units {p.get('units')!r} over the J-096 rung {base}u of its fair (fair {fair:g}c, gross {gross:g}c)")
+            out.append((p.get('name'),'units_over_rung',f"{who}: units {p.get('units')!r} over the J-096 rung {base}u of its fair (fair {fair:g}c, gross {gross:g}c)"))
         ba=p.get('best_ask')  # card_american must equal the best ask of its recorded venues
         if isinstance(ba,dict) and isinstance(ba.get('compared'),list) and ba['compared']:
             costs=[c for c in (_venue_cost(q.get('venue'),q.get('price')) for q in ba['compared'] if isinstance(q,dict)) if c is not None]
@@ -271,13 +272,13 @@ def _standing_rule_holds(m):
             if isinstance(kb,dict) and _rnum(kb.get('cents')) is not None: costs.append(float(kb['cents']))
             cardc=_cost_from_american(_as_american(p))
             if costs and cardc is not None and abs(cardc-min(costs))>1.0:
-                out.append(f"{who}: card price {cardc:g}c is not the best recorded ask {min(costs):g}c")
+                out.append((p.get('name'),'best_ask',f"{who}: card price {cardc:g}c is not the best recorded ask {min(costs):g}c"))
     # parlay: 2-4 legs (J-098), each a pick on the card, clearing 2c gross and 2c net (ruling (2))
     par=m.get('parlay')
     legs=par.get('legs') if isinstance(par,dict) else None
     if isinstance(legs,list) and len(legs)>=2 and all(isinstance(x,str) and x for x in legs):
         if len(legs)>4:
-            out.append(f"parlay: {len(legs)} legs - J-098 allows 2-4")
+            out.append((None,'parlay_length',f"parlay: {len(legs)} legs - J-098 allows 2-4"))
         by={}
         for p in picks: by.setdefault(p.get('name'),[]).append(p)
         lp=[by[l][0] for l in legs if len(by.get(l,[]))==1]
@@ -297,15 +298,95 @@ def _standing_rule_holds(m):
                         qfee=_kfee_c(qc) if str(q.get('venue') or '').strip().lower()=='kalshi' else 0.0
                         if (qc,qfee)<(pcost,pfee): pcost,pfee=qc,qfee
                 pg,pn=round(100*fp-pcost,6),round(100*fp-pcost-pfee,6)
-                if pg<2: out.append(f"parlay: gross {pg:g}c below the 2c parlay bar")
-                if pn<2: out.append(f"parlay: net {pn:g}c below the 2c parlay bar")
+                if pg<2: out.append((None,'parlay_gross',f"parlay: gross {pg:g}c below the 2c parlay bar"))
+                if pn<2: out.append((None,'parlay_net',f"parlay: net {pn:g}c below the 2c parlay bar"))
     return out
+# --- owner suspension of ruling 2026-10-02 (4), numeric bars only (owner, typed in the operator chat 2026-10-03
+# about 7:20 AM PT, option B: suspend rule (4) for that day so the named owner-directed picks with a sub-bar
+# disclosure can post; card corrected by the owner to six picks about 7:44 AM PT). The hold above stays a hard
+# gate: this is a narrow, logged waiver, never a removal.
+# slates/owner_rule_suspensions.jsonl is append-only, one JSON object per line: {date, rule, scope, picks,
+# approved, logged_at}, every pick an object {name, eid, units} (non-empty strings). A held item is waived ONLY
+# when a line has date == this manifest's date (exact string), rule == "2026-10-02 (4)" and scope == "numeric",
+# the item is a numeric bar (fair below the 60c band, gross below the 2c bar, net below the class bar, units over
+# the J-096 rung of its fair) and its pick name is exactly a logged name - and the whole waiver is refused (nothing
+# waived) unless ALL of these hold: the card_note, the note the page actually renders, carries the disclosure
+# ("owner-directed" or "owner directive", and "sub-bar", any case); no logged name is on more than one card pick
+# and no name is logged twice with different entries; and every waived pick plays on the logged date (its
+# game.commence in Pacific time) and carries exactly its logged eid (game.eid) and units. Never suspendable: a Las
+# Vegas team, units off the ladder, a card ask at or above the 85c cut, a card price that is not the best recorded
+# ask, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly
+# as before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record) waives
+# nothing. The log is read only for a held card, so a card with no holds builds identically.
+_SUSPEND_RULE='2026-10-02 (4)'
+_SUSPEND_KINDS=frozenset(('fair_band','gross_bar','net_bar','units_over_rung'))
+_SUSPEND_LOG=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','slates','owner_rule_suspensions.jsonl')
+def _suspension_records(path):
+    # -> (records, None), or (None, why) when the log cannot be trusted as a whole (fail closed)
+    try: raw=open(path,encoding='utf-8').read()
+    except FileNotFoundError: return [],None
+    except Exception as e: return None,f'unreadable ({type(e).__name__})'
+    _s=lambda v: isinstance(v,str) and bool(v.strip())
+    recs=[]
+    for n,ln in enumerate(raw.splitlines(),1):
+        try: r=json.loads(ln)
+        except Exception: return None,f'line {n} is not JSON'
+        if not (isinstance(r,dict) and all(_s(r.get(k)) for k in ('date','rule','scope','approved','logged_at'))
+                and isinstance(r.get('picks'),list) and r['picks']
+                and all(isinstance(x,dict) and all(_s(x.get(k)) for k in ('name','eid','units')) for x in r['picks'])):
+            return None,f'line {n} is not a well-formed suspension record'
+        recs.append(r)
+    return recs,None
+def _owner_waivers(m,holds):
+    # -> ([(held item, approved)], note when a suspension for this date exists but waives nothing, or None)
+    recs,bad=_suspension_records(_SUSPEND_LOG)
+    if recs is None: return [],f'slates/owner_rule_suspensions.jsonl {bad} - nothing waived'
+    d=m.get('date')
+    lines=[r for r in recs if isinstance(d,str) and r['date']==d and r['rule']==_SUSPEND_RULE and r['scope']=='numeric']
+    if not lines: return [],None
+    cn=m.get('card_note').lower() if isinstance(m.get('card_note'),str) else ''
+    if not (('owner-directed' in cn or 'owner directive' in cn) and 'sub-bar' in cn):
+        return [],f'the {d} suspension needs the card_note disclosure ("owner-directed" or "owner directive", and "sub-bar") - nothing waived'
+    logged={}
+    for r in lines:
+        for e in r['picks']:
+            k=(e['eid'],e['units'])
+            if logged.setdefault(e['name'],(k,r['approved']))[0]!=k:
+                return [],f"pick {e['name']!r} is logged twice with different entries - nothing waived"
+    cards=[p for p in (m.get('picks') or []) if isinstance(p,dict)]
+    dup=sorted(n for n in logged if sum(1 for p in cards if p.get('name')==n)>1)
+    if dup: return [],f"logged pick name(s) on more than one card pick: {', '.join(repr(n) for n in dup)} - nothing waived"
+    out=[]
+    for it in holds:
+        name,kind,_msg=it
+        if kind not in _SUSPEND_KINDS or not isinstance(name,str) or name not in logged: continue
+        (eid,units),appr=logged[name]
+        p=next((p for p in cards if p.get('name')==name),{})
+        g=p.get('game') if isinstance(p.get('game'),dict) else {}
+        pd=_pt_date(g.get('commence')) if isinstance(g.get('commence'),str) else ''
+        if pd!=d: return [],f"pick {name!r} plays on {pd or 'no date'} (Pacific), not the logged {d} - nothing waived"
+        if g.get('eid')!=eid or p.get('units')!=units:
+            return [],(f"pick {name!r} (eid {g.get('eid')!r}, units {p.get('units')!r}) does not match its logged entry "
+                       f"(eid {eid!r}, units {units!r}) - nothing waived")
+        out.append((it,appr))
+    return out,None
 _RULE_HOLDS=_standing_rule_holds(man)
 if _RULE_HOLDS:
-    print('BUILD FAILED: card hold - standing rules are hard gates with no override (owner ruling 2026-10-02 (4)): '
-          +' | '.join(_RULE_HOLDS)+' - rebuild the card with build_manifest.py', file=sys.stderr)
-    _urf("ABORT","C=3 F=0 R=3 U=1 V=3 CE=0 T=high","standing-rules card hold",f"{len(_RULE_HOLDS)} violation(s) on the landed card; nothing written")
-    sys.exit(3)
+    _WAIVED,_WAIVE_NOTE=_owner_waivers(man,_RULE_HOLDS)
+    if _WAIVED and len(_WAIVED)==len(_RULE_HOLDS):
+        print(f"OWNER SUSPENSION: rule {_SUSPEND_RULE} suspended for {man.get('date')} (approved: "
+              +' ; '.join(dict.fromkeys(a for _,a in _WAIVED))+') - waived: '+' | '.join(it[2] for it,_ in _WAIVED), file=sys.stderr)
+        _urf("EXECUTE","C=3 F=2 R=2 U=1 V=3 CE=0 T=high","owner suspension of standing rule 2026-10-02 (4)",
+             f"{len(_WAIVED)} numeric hold(s) waived for {man.get('date')} by the logged owner approval in slates/owner_rule_suspensions.jsonl "
+             "(logged picks only, each unique on the card, played that day, bound to its logged eid and units; owner-directed sub-bar "
+             "disclosure in the rendered card_note); the Vegas, ladder, 85c-cut, best-ask and parlay rules stay hard")
+    else:
+        if _WAIVED: _WAIVE_NOTE=f"the {man.get('date')} suspension covers {len(_WAIVED)} of {len(_RULE_HOLDS)} held item(s); the rest hold the card - nothing waived"
+        if _WAIVE_NOTE: print(f'owner suspension not applied: {_WAIVE_NOTE}', file=sys.stderr)
+        print('BUILD FAILED: card hold - standing rules are hard gates with no override (owner ruling 2026-10-02 (4)): '
+              +' | '.join(it[2] for it in _RULE_HOLDS)+' - rebuild the card with build_manifest.py', file=sys.stderr)
+        _urf("ABORT","C=3 F=0 R=3 U=1 V=3 CE=0 T=high","standing-rules card hold",f"{len(_RULE_HOLDS)} violation(s) on the landed card; nothing written")
+        sys.exit(3)
 out=sys.argv[2] if len(sys.argv)>2 else '/home/sandbox/gh_page/index.html'
 BOOKS=[('BetRivers','BR'),('DraftKings','DK'),('Hard Rock','HR'),('Kalshi','KAL'),('BetMGM','MGM'),('Polymarket','POLY'),('theScore','TSB')]  # FD sportsbook removed site-wide (his standing 'FD removed' spec, scope settled 8:37 PM via main: no FD sportsbook chips anywhere; FD Predicts arm is a separate prediction-market row and stays)  # alphabetical by displayed chip label (his Sep 25 9:19 AM spec: alphabetical chips; audit Sep 26 caught combo order regressed - root fix is the shared order, solo+combo read the same sequence)  # U-GEO-003: ESPN BET is DEAD - dropped at ingestion, never mapped (tester gate). theScore Bet is the single canonical arm (one chip per arm).
 BKDOM={'DK':'draftkings.com','FD':'fanduel.com','TSB':'thescore.bet','HR':'hardrock.bet','MGM':'betmgm.com','BR':'betrivers.com','KAL':'kalshi.com','POLY':'polymarket.com','B365':'bet365.com','FAN':'fanatics.com','DKP':'predictions.draftkings.com','FDP':'fanduel.com'}
