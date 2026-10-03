@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T02:20:06.885555+00:00",
+ "generated_at": "2026-10-03T02:22:07.876353+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,7 +10,7 @@
      "matchup": "PITT @ VT",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "7:25 - 4th",
+     "detail": "5:32 - 4th",
      "score": "PITT 35 - VT 33",
      "away_to": 2,
      "home_to": 3
@@ -20,17 +20,17 @@
      "matchup": "LIB @ DEL",
      "commence": "2026-10-02T23:00Z",
      "status": "in",
-     "detail": "1:34 - 4th",
+     "detail": "1:21 - 4th",
      "score": "LIB 30 - DEL 14",
      "away_to": 0,
-     "home_to": 1
+     "home_to": 0
     },
     {
      "espn_event_id": "401858476",
      "matchup": "PSU @ NU",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "9:46 - 3rd",
+     "detail": "9:51 - 3rd",
      "score": "PSU 7 - NU 24",
      "away_to": 1,
      "home_to": 2
@@ -45,8 +45,8 @@
      "matchup": "DAL @ GS",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "7:06 - 3rd",
-     "score": "DAL 48 - GS 37",
+     "detail": "5:55 - 3rd",
+     "score": "DAL 53 - GS 37",
      "away_to": 4,
      "home_to": 3
     }
@@ -76,7 +76,7 @@
      "matchup": "BOS @ WPG",
      "commence": "2026-10-03T00:00Z",
      "status": "in",
-     "detail": "16:04 - 3rd",
+     "detail": "14:59 - 3rd",
      "score": "BOS 2 - WPG 3",
      "away_to": null,
      "home_to": null
@@ -86,7 +86,7 @@
      "matchup": "STL @ DAL",
      "commence": "2026-10-03T01:00Z",
      "status": "in",
-     "detail": "16:32 - 2nd",
+     "detail": "14:44 - 2nd",
      "score": "STL 1 - DAL 0",
      "away_to": null,
      "home_to": null
@@ -96,7 +96,7 @@
      "matchup": "ANA @ VGK",
      "commence": "2026-10-03T02:00Z",
      "status": "in",
-     "detail": "11:32 - 1st",
+     "detail": "10:41 - 1st",
      "score": "ANA 0 - VGK 0",
      "away_to": null,
      "home_to": null
@@ -119,7 +119,7 @@
      "matchup": "NC @ SEA",
      "commence": "2026-10-03T02:00Z",
      "status": "in",
-     "detail": "11'",
+     "detail": "13'",
      "score": "NC 0 - SEA 0"
     }
    ]
