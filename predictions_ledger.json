@@ -1005,5 +1005,31 @@
   "kickoff_utc": "2026-10-04T20:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-03T15:25:06.445990+00:00"
+ },
+ {
+  "id": "a760dfe90e",
+  "event_id": "401891776",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Buffalo Sabres",
+  "away": "Chicago Blackhawks",
+  "pick_team": "Chicago Blackhawks",
+  "prediction": "Chicago Blackhawks to beat Buffalo Sabres",
+  "kickoff_utc": "2026-10-03T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-03T16:20:08.271538+00:00"
+ },
+ {
+  "id": "75101ccd77",
+  "event_id": "401892434",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Toronto Maple Leafs",
+  "away": "Ottawa Senators",
+  "pick_team": "Toronto Maple Leafs",
+  "prediction": "Toronto Maple Leafs to beat Ottawa Senators",
+  "kickoff_utc": "2026-10-03T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-03T16:20:18.061316+00:00"
  }
 ]
