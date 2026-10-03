@@ -1031,5 +1031,18 @@
   "kickoff_utc": "2026-10-03T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-03T16:20:18.061316+00:00"
+ },
+ {
+  "id": "ccb3f012d7",
+  "event_id": "401892438",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Nashville Predators",
+  "away": "Dallas Stars",
+  "pick_team": "Nashville Predators",
+  "prediction": "Nashville Predators to beat Dallas Stars",
+  "kickoff_utc": "2026-10-04T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-03T17:05:33.009345+00:00"
  }
 ]

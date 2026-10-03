@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-03T16:39:26.343620+00:00",
+ "generated_at": "2026-10-03T17:06:14.171512+00:00",
  "items": [
-  {
-   "id": "d3de7fa66d",
-   "league": "CFB",
-   "event": "Vanderbilt Commodores @ Georgia Bulldogs",
-   "prediction": "Georgia Bulldogs to beat Vanderbilt Commodores",
-   "kickoff_utc": "2026-10-03T16:45:00+00:00"
-  },
-  {
-   "id": "a44d1b3a55",
-   "league": "MLB",
-   "event": "Chicago White Sox @ Cleveland Guardians",
-   "prediction": "Chicago White Sox to beat Cleveland Guardians",
-   "kickoff_utc": "2026-10-03T17:00:00+00:00"
-  },
   {
    "id": "b222b8af14",
    "league": "CFB",
@@ -42,6 +28,20 @@
    "event": "Atlanta Braves @ Los Angeles Dodgers",
    "prediction": "Los Angeles Dodgers to beat Atlanta Braves",
    "kickoff_utc": "2026-10-03T20:00:00+00:00"
+  },
+  {
+   "id": "07ce955e9f",
+   "league": "CFB",
+   "event": "Kentucky Wildcats @ South Carolina Gamecocks",
+   "prediction": "Kentucky Wildcats to beat South Carolina Gamecocks",
+   "kickoff_utc": "2026-10-03T20:15:00+00:00"
+  },
+  {
+   "id": "6602782221",
+   "league": "MLB",
+   "event": "New York Yankees @ Tampa Bay Rays",
+   "prediction": "Tampa Bay Rays to beat New York Yankees",
+   "kickoff_utc": "2026-10-03T22:30:00+00:00"
   }
  ]
 }
