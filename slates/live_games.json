@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T14:20:15.856735+00:00",
+ "generated_at": "2026-10-03T15:50:10.694893+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401907990",
+     "matchup": "CHW @ CLE",
+     "commence": "2026-10-03T17:00Z",
+     "status": "pre",
+     "detail": "10/3 - 10:00 AM PT",
+     "score": "CHW 0 - CLE 0"
+    }
+   ]
+  },
   {
    "league": "CFB",
    "games": [
@@ -9,9 +22,11 @@
      "espn_event_id": "401862787",
      "matchup": "MEM @ CLT",
      "commence": "2026-10-03T15:00Z",
-     "status": "pre",
-     "detail": "10/3 - 8:00 AM PT",
-     "score": "MEM 0 - CLT 0"
+     "status": "in",
+     "detail": "14:26 - 2nd",
+     "score": "MEM 20 - CLT 0",
+     "away_to": 2,
+     "home_to": 3
     },
     {
      "espn_event_id": "401858250",
@@ -92,6 +107,30 @@
      "status": "pre",
      "detail": "10/3 - 9:00 AM PT",
      "score": "NAVY 0 - AFA 0"
+    },
+    {
+     "espn_event_id": "401858479",
+     "matchup": "MSU @ WIS",
+     "commence": "2026-10-03T16:30Z",
+     "status": "pre",
+     "detail": "10/3 - 9:30 AM PT",
+     "score": "MSU 0 - WIS 0"
+    },
+    {
+     "espn_event_id": "401856705",
+     "matchup": "VAN @ UGA",
+     "commence": "2026-10-03T16:45Z",
+     "status": "pre",
+     "detail": "10/3 - 9:45 AM PT",
+     "score": "VAN 0 - UGA 0"
+    },
+    {
+     "espn_event_id": "401866432",
+     "matchup": "WMU @ BUFF",
+     "commence": "2026-10-03T17:00Z",
+     "status": "pre",
+     "detail": "10/3 - 10:00 AM PT",
+     "score": "WMU 0 - BUFF 0"
     }
    ]
   }
