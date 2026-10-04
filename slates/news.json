@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-04T00:21:02.316Z",
+ "generated_at": "2026-10-04T00:25:53.391Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -30,12 +30,12 @@
     "league": "MLB"
    },
    {
-    "headline": "2026 MLB division series Day 1: Live updates, lineups, analysis",
-    "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
-    "published": "2026-10-04T00:20:01Z",
+    "headline": "Dominant Skubal shuts down Braves' bats, stakes Dodgers to 1-0 NLDS lead",
+    "link": "https://www.espn.com/mlb/story/_/id/50094243/skubal-shuts-braves-bats-stakes-dodgers-1-0-nlds-lead",
+    "published": "2026-10-04T00:18:54.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1003%252Fr1725494_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Tarik Skubal allowed one run in six dominant innings, and the Dodgers beat the Braves 5-3 on Saturday in Game 1 of their NL Division Series.",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1003%2Fr1725424_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "All eight teams are in action Saturday, with two games down and two to go. Which clubs will come out strong?",
     "league": "MLB"
    },
    {
@@ -57,11 +57,11 @@
     "league": "MLB"
    },
    {
-    "headline": "Dominant Skubal shuts down Braves' bats, stakes Dodgers to 1-0 NLDS lead",
-    "link": "https://www.espn.com/mlb/story/_/id/50094243/skubal-shuts-braves-bats-stakes-dodgers-1-0-nlds-lead",
+    "headline": "White Sox shut down Guardians to win Game 1 of ALDS",
+    "link": "https://www.espn.com/mlb/story/_/id/50092957/white-sox-hold-guardians-three-hits-alds-game-1-win",
     "published": "2026-10-04T00:18:54.000Z",
     "image": "",
-    "blurb": "Tarik Skubal allowed one run in six dominant innings, and the Dodgers beat the Braves 5-3 on Saturday in Game 1 of their NL Division Series.",
+    "blurb": "The White Sox shut out the Guardians to win Game 1 of their AL Division Series 3-0 on Saturday.",
     "source": "ESPN",
     "league": "MLB"
    },
@@ -84,11 +84,11 @@
     "league": "MLB"
    },
    {
-    "headline": "White Sox shut down Guardians to win Game 1 of ALDS",
-    "link": "https://www.espn.com/mlb/story/_/id/50092957/white-sox-hold-guardians-three-hits-alds-game-1-win",
+    "headline": "Judge not on Yankees' roster for ALDS vs. Rays",
+    "link": "https://www.espn.com/mlb/story/_/id/50090418/source-aaron-judge-not-yankees-roster-alds-vs-rays",
     "published": "2026-10-04T00:18:54.000Z",
     "image": "",
-    "blurb": "The White Sox shut out the Guardians to win Game 1 of their AL Division Series 3-0 on Saturday.",
+    "blurb": "Aaron Judge is not on the Yankees' roster for the American League Division Series against the Rays.",
     "source": "ESPN",
     "league": "MLB"
    }
@@ -191,7 +191,7 @@
     "link": "https://www.espn.com/college-football/story/_/id/50093457/pitt-qb-mason-heintschel-season-torn-acl",
     "published": "2026-10-04T00:31:23.000Z",
     "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fi%252Fespn%252Fespn_logos%252Fespn_red.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Pitt quarterback Mason Heintschel, one of the top young quarterbacks in college football, will miss the remainder of the season with a torn ACL, sources told ESPN on Saturday.",
+    "blurb": "Pitt quarterback Mason Heintschel, one of the top young quarterbacks in college football, will miss the remainder of the season with a torn ACL, the team said.",
     "source": "ESPN",
     "league": "CFB"
    },
@@ -884,21 +884,21 @@
   ],
   "mma/ufc": [
    {
+    "headline": "UFC 332: Live results, analysis for Silva vs. Wang",
+    "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
+    "published": "2026-10-04T00:15:18Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723967_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
+    "league": "UFC"
+   },
+   {
     "headline": "UFC 332 video: Imanol Rodriguez teep kick causes Alden Coria scream",
     "link": "https://sports.yahoo.com/articles/ufc-332-video-imanol-rodriguez-001040239.html",
     "published": "2026-10-04T00:10:40.000Z",
     "image": "",
     "blurb": "Imanol Rodriguez's toes were fully submerged in Alden Coria's gut at UFC 332.",
     "source": "YAHOO",
-    "league": "UFC"
-   },
-   {
-    "headline": "UFC 332: Live results, analysis for Silva vs. Wang",
-    "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
-    "published": "2026-10-03T23:03:23Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723967_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
     "league": "UFC"
    },
    {
@@ -911,21 +911,21 @@
     "league": "UFC"
    },
    {
-    "headline": "LIVE UFC 332: Silva vs. Wang Results & Highlights",
-    "link": "https://sports.yahoo.com/articles/live-ufc-332-silva-vs-140000613.html",
-    "published": "2026-10-03T23:49:21.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/b6e404ed183fe4f6d75fc2257e6c800d64263a7af96c5847307ffa45919c864b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F4cdaa80e7f9eb133c58b2adb11837ae9.jpg",
-    "blurb": "On Saturday the action heads to Utah as the leading MMA promotion presents UFC 332. The card will take place [\u2026]",
-    "source": "YAHOO",
-    "league": "UFC"
-   },
-   {
     "headline": "UFC 332: Live results, analysis for Natalia Silva vs. Wang Cong",
     "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
     "published": "2026-10-03T22:16:45.000Z",
     "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1723967_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
     "source": "ESPN",
+    "league": "UFC"
+   },
+   {
+    "headline": "LIVE UFC 332: Silva vs. Wang Results & Highlights",
+    "link": "https://sports.yahoo.com/articles/live-ufc-332-silva-vs-140000613.html",
+    "published": "2026-10-03T23:49:21.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/b6e404ed183fe4f6d75fc2257e6c800d64263a7af96c5847307ffa45919c864b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F4cdaa80e7f9eb133c58b2adb11837ae9.jpg",
+    "blurb": "On Saturday the action heads to Utah as the leading MMA promotion presents UFC 332. The card will take place [\u2026]",
+    "source": "YAHOO",
     "league": "UFC"
    },
    {
@@ -938,21 +938,21 @@
     "league": "UFC"
    },
    {
-    "headline": "Court McGee Retires Following UFC 332 After 25 Fights in the UFC",
-    "link": "https://sports.yahoo.com/articles/court-mcgee-retires-following-ufc-232601706.html",
-    "published": "2026-10-03T23:26:01.000Z",
-    "image": "",
-    "blurb": "Long-time UFC welterweight fighter Court McGee retired from MMA following a loss to Eric Nolan in the opening preliminary bout at UFC 332.McGee, a 41-year-old native of Utah, lost via TKO in the third round to Nolan at UFC 332. Immediately after the fight was over, he took off hi",
-    "source": "YAHOO",
-    "league": "UFC"
-   },
-   {
     "headline": "UFC 332 preview and picks: Why haven't there been more women's fights?",
     "link": "https://www.espn.com/espn/story/_/id/50077602/ufc-332-preview-predictions-natalia-silva-vs-wang-cong",
     "published": "2026-10-03T22:16:45.000Z",
     "image": "",
     "blurb": "Top storylines and coaches' analysis for UFC 332 in Salt Lake City.",
     "source": "ESPN",
+    "league": "UFC"
+   },
+   {
+    "headline": "Court McGee Retires Following UFC 332 After 25 Fights in the UFC",
+    "link": "https://sports.yahoo.com/articles/court-mcgee-retires-following-ufc-232601706.html",
+    "published": "2026-10-03T23:26:01.000Z",
+    "image": "",
+    "blurb": "Long-time UFC welterweight fighter Court McGee retired from MMA following a loss to Eric Nolan in the opening preliminary bout at UFC 332.McGee, a 41-year-old native of Utah, lost via TKO in the third round to Nolan at UFC 332. Immediately after the fight was over, he took off hi",
+    "source": "YAHOO",
     "league": "UFC"
    },
    {
@@ -965,12 +965,12 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 video: Damian Pinas KOs Andrey Pulyaev with sick uppercut",
-    "link": "https://sports.yahoo.com/articles/ufc-332-video-damian-pinas-231840518.html",
-    "published": "2026-10-03T23:18:40.000Z",
+    "headline": "UFC bantamweight Barcelos released from hospital after health scare",
+    "link": "https://www.espn.com/mma/story/_/id/50068433/ufc-bantamweight-barcelos-hospital-health-scare",
+    "published": "2026-09-30T17:08:45.000Z",
     "image": "",
-    "blurb": "Damian Pinas continued to put fear into everyone after another highlight-reel knockout at UFC 332.",
-    "source": "YAHOO",
+    "blurb": "UFC bantamweight Raoni Barcelos has been discharged from the hospital, following a frightening incident at UFC Fight Night on Sept. 26 in Las Vegas.",
+    "source": "ESPN",
     "league": "UFC"
    }
   ],
@@ -1109,7 +1109,7 @@
    "link": "https://www.espn.com/college-football/story/_/id/50093457/pitt-qb-mason-heintschel-season-torn-acl",
    "published": "2026-10-04T00:31:23.000Z",
    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fi%252Fespn%252Fespn_logos%252Fespn_red.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Pitt quarterback Mason Heintschel, one of the top young quarterbacks in college football, will miss the remainder of the season with a torn ACL, sources told ESPN on Saturday.",
+   "blurb": "Pitt quarterback Mason Heintschel, one of the top young quarterbacks in college football, will miss the remainder of the season with a torn ACL, the team said.",
    "source": "ESPN",
    "league": "CFB"
   },
@@ -1123,15 +1123,6 @@
    "league": "CFB"
   },
   {
-   "headline": "2026 MLB division series Day 1: Live updates, lineups, analysis",
-   "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
-   "published": "2026-10-04T00:20:01Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1003%2Fr1725424_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "All eight teams are in action Saturday, with two games down and two to go. Which clubs will come out strong?",
-   "league": "MLB"
-  },
-  {
    "headline": "Who made the all-time rosters for 23 teams with multiple Super Bowls?",
    "link": "https://www.espn.com/nfl/story/_/id/50051837/nfl-super-bowl-all-teams-hall-fame",
    "published": "2026-10-04T00:19:51.000Z",
@@ -1141,6 +1132,15 @@
    "league": "NFL"
   },
   {
+   "headline": "Dominant Skubal shuts down Braves' bats, stakes Dodgers to 1-0 NLDS lead",
+   "link": "https://www.espn.com/mlb/story/_/id/50094243/skubal-shuts-braves-bats-stakes-dodgers-1-0-nlds-lead",
+   "published": "2026-10-04T00:18:54.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1003%252Fr1725494_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Tarik Skubal allowed one run in six dominant innings, and the Dodgers beat the Braves 5-3 on Saturday in Game 1 of their NL Division Series.",
+   "source": "ESPN",
+   "league": "MLB"
+  },
+  {
    "headline": "Jeremiah Smith makes Heisman statement with latest outing in win over No. 14 Iowa: 'I'm the best player in the country'",
    "link": "https://sports.yahoo.com/college-football/breaking-news/article/jeremiah-smith-makes-heisman-statement-with-latest-outing-in-win-over-no-14-iowa-im-the-best-player-in-the-country-001721099.html",
    "published": "2026-10-04T00:17:21.000Z",
@@ -1148,6 +1148,15 @@
    "blurb": "Jeremiah Smith has racked up 423 receiving yards and six touchdowns in the past two weeks for the Buckeyes.",
    "source": "YAHOO",
    "league": "CFB"
+  },
+  {
+   "headline": "UFC 332: Live results, analysis for Silva vs. Wang",
+   "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
+   "published": "2026-10-04T00:15:18Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723967_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
+   "league": "UFC"
   },
   {
    "headline": "UFC 332 video: Imanol Rodriguez teep kick causes Alden Coria scream",
@@ -1283,15 +1292,6 @@
    "blurb": "The third-year point guard has worked to be a better communicator, facilitator and defender this summer and at training camp.",
    "source": "YAHOO",
    "league": "NBA"
-  },
-  {
-   "headline": "UFC 332: Live results, analysis for Silva vs. Wang",
-   "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
-   "published": "2026-10-03T23:03:23Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0930%2Fr1723967_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Natalia Silva and Wang Cong clash for the vacant women's flyweight title at the Delta Center in Salt Lake City.",
-   "league": "UFC"
   },
   {
    "headline": "Jeremiah Smith snags more Ohio State records, hits Heisman pose after setting school TD, receptions marks",
@@ -1430,8 +1430,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 54,
-  "YAHOO": 65,
+  "ESPN": 55,
+  "YAHOO": 64,
   "CBS": 36
  },
  "degraded_sources": []
