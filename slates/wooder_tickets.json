@@ -1,5 +1,191 @@
 {
  "version": 1,
- "generated_at": "2026-09-30T01:07:00-07:00",
- "tickets": []
+ "generated_at": "2026-10-04T08:50:00-07:00",
+ "tickets": [
+  {
+   "id": "t13",
+   "sport": "nfl",
+   "title": "6-market rushing combo · Kalshi",
+   "status": "PLACED - reported by Wooder Ice",
+   "legs": [
+    {
+     "player": "Jordan Love",
+     "market": "30+ rushing yards",
+     "matchup": "GB @ TB",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi multiplier not shown"
+    },
+    {
+     "player": "Derrick Henry",
+     "market": "100+ rushing yards",
+     "matchup": "TEN @ BAL",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.01x"
+    },
+    {
+     "player": "Najee Harris",
+     "market": "25+ rushing yards",
+     "matchup": "ARI @ NYG",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.97x"
+    },
+    {
+     "player": "Jeremiyah Love",
+     "market": "70+ rushing yards",
+     "matchup": "ARI @ NYG",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.01x"
+    },
+    {
+     "player": "Blake Corum",
+     "market": "40+ rushing yards",
+     "matchup": "LAR @ PHI",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.93x"
+    },
+    {
+     "player": "Javonte Williams",
+     "market": "60+ rushing yards",
+     "matchup": "DAL @ HOU",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.97x"
+    }
+   ]
+  },
+  {
+   "id": "t14",
+   "sport": "nfl",
+   "title": "9-market moneyline combo · Kalshi",
+   "status": "PLACED - reported by Wooder Ice",
+   "legs": [
+    {
+     "player": "Chicago Bears",
+     "market": "To win",
+     "matchup": "NYJ @ CHI",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.52x"
+    },
+    {
+     "player": "Arizona Cardinals",
+     "market": "To win",
+     "matchup": "ARI @ NYG",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.70x"
+    },
+    {
+     "player": "Dallas Cowboys",
+     "market": "To win",
+     "matchup": "DAL @ HOU",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.24x"
+    },
+    {
+     "player": "Jacksonville Jaguars",
+     "market": "To win",
+     "matchup": "JAX @ CIN",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.24x"
+    },
+    {
+     "player": "Seattle Seahawks",
+     "market": "To win",
+     "matchup": "LAC @ SEA",
+     "time": "Today 1:25 PM PT",
+     "note": "Kalshi 1.29x"
+    },
+    {
+     "player": "Baltimore Ravens",
+     "market": "To win",
+     "matchup": "TEN @ BAL",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.15x"
+    },
+    {
+     "player": "Green Bay Packers",
+     "market": "To win",
+     "matchup": "GB @ TB",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.62x"
+    },
+    {
+     "player": "Minnesota Vikings",
+     "market": "To win",
+     "matchup": "MIA @ MIN",
+     "time": "Today 1:05 PM PT",
+     "note": "Kalshi 1.19x"
+    },
+    {
+     "player": "Buffalo Bills",
+     "market": "To win",
+     "matchup": "NE @ BUF",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.33x"
+    }
+   ]
+  },
+  {
+   "id": "t15",
+   "sport": "nfl",
+   "title": "8-market touchdowns combo · Kalshi",
+   "status": "PLACED - reported by Wooder Ice",
+   "legs": [
+    {
+     "player": "David Montgomery",
+     "market": "1+ touchdowns",
+     "matchup": "DAL @ HOU",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.79x"
+    },
+    {
+     "player": "Christian Watson",
+     "market": "1+ touchdowns",
+     "matchup": "GB @ TB",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.66x"
+    },
+    {
+     "player": "Chase Brown",
+     "market": "1+ touchdowns",
+     "matchup": "JAX @ CIN",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.70x"
+    },
+    {
+     "player": "Kenneth Walker III",
+     "market": "1+ touchdowns",
+     "matchup": "KC @ LV",
+     "time": "Today 1:25 PM PT",
+     "note": "Kalshi 1.67x"
+    },
+    {
+     "player": "James Cook III",
+     "market": "1+ touchdowns",
+     "matchup": "NE @ BUF",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.79x"
+    },
+    {
+     "player": "D'Andre Swift",
+     "market": "1+ touchdowns",
+     "matchup": "NYJ @ CHI",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.97x"
+    },
+    {
+     "player": "Derrick Henry",
+     "market": "1+ touchdowns",
+     "matchup": "TEN @ BAL",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.46x"
+    },
+    {
+     "player": "Trey McBride",
+     "market": "1+ touchdowns",
+     "matchup": "ARI @ NYG",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.52x"
+    }
+   ]
+  }
+ ]
 }
