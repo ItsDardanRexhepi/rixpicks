@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T16:35:15.841138+00:00",
+ "generated_at": "2026-10-04T16:50:11.958525+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -9,11 +9,9 @@
      "espn_event_id": "401872965",
      "matchup": "IND @ WAS",
      "commence": "2026-10-04T13:30Z",
-     "status": "in",
-     "detail": "1:57 - 4th",
-     "score": "IND 30 - WAS 13",
-     "away_to": 2,
-     "home_to": 3
+     "status": "post",
+     "detail": "Final",
+     "score": "IND 30 - WAS 13"
     },
     {
      "espn_event_id": "401872971",
