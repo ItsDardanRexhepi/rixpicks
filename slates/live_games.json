@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T21:05:11.367288+00:00",
+ "generated_at": "2026-10-04T21:20:15.170573+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "SD @ MIL",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "Mid 4th",
+     "detail": "Top 5th",
      "score": "SD 1 - MIL 0"
     }
    ]
@@ -23,7 +23,7 @@
      "matchup": "MIA @ MIN",
      "commence": "2026-10-04T20:05Z",
      "status": "in",
-     "detail": "7:08 - 2nd",
+     "detail": "4:12 - 2nd",
      "score": "MIA 0 - MIN 6",
      "away_to": 2,
      "home_to": 3
@@ -33,7 +33,7 @@
      "matchup": "KC @ LV",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "12:51 - 2nd",
+     "detail": "5:25 - 2nd",
      "score": "KC 7 - LV 7",
      "away_to": 3,
      "home_to": 3
@@ -43,7 +43,7 @@
      "matchup": "DEN @ SF",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "12:36 - 2nd",
+     "detail": "5:17 - 2nd",
      "score": "DEN 3 - SF 0",
      "away_to": 3,
      "home_to": 2
@@ -53,10 +53,10 @@
      "matchup": "LAC @ SEA",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "3:16 - 1st",
+     "detail": "13:36 - 2nd",
      "score": "LAC 3 - SEA 7",
      "away_to": 2,
-     "home_to": 3
+     "home_to": 2
     }
    ]
   },
@@ -76,9 +76,9 @@
      "matchup": "LV @ GS",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "LV 31 - GS 34",
-     "away_to": 4,
+     "detail": "3:52 - 3rd",
+     "score": "LV 40 - GS 47",
+     "away_to": 3,
      "home_to": 4
     }
    ]
@@ -125,7 +125,7 @@
      "matchup": "DEN @ CHI",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "HT",
+     "detail": "53'",
      "score": "DEN 2 - CHI 0"
     },
     {
