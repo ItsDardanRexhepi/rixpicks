@@ -525,8 +525,9 @@
   "pick_team": "Minnesota Vikings",
   "prediction": "Minnesota Vikings beat Miami Dolphins",
   "kickoff_utc": "2026-10-04T20:05:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T18:06:00.313275+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T18:06:00.313275+00:00",
+  "settled_at": "2026-10-04T23:04:54.907951+00:00"
  },
  {
   "id": "24eaf777c9",
