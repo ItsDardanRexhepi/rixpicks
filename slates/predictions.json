@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-04T00:20:27.656745+00:00",
+ "generated_at": "2026-10-04T00:35:22.121712+00:00",
  "items": [
-  {
-   "id": "38e40a9ec4",
-   "league": "MLB",
-   "event": "San Diego Padres @ Milwaukee Brewers",
-   "prediction": "Milwaukee Brewers to beat San Diego Padres",
-   "kickoff_utc": "2026-10-04T00:30:00+00:00"
-  },
   {
    "id": "32d7e7e5c9",
    "league": "NWSL",
@@ -41,6 +34,13 @@
    "league": "NFL",
    "event": "Los Angeles Rams @ Philadelphia Eagles",
    "prediction": "Philadelphia Eagles to beat Los Angeles Rams",
+   "kickoff_utc": "2026-10-04T17:00:00+00:00"
+  },
+  {
+   "id": "e7705f18b8",
+   "league": "NFL",
+   "event": "Tennessee Titans @ Baltimore Ravens",
+   "prediction": "Baltimore Ravens to beat Tennessee Titans",
    "kickoff_utc": "2026-10-04T17:00:00+00:00"
   }
  ]
