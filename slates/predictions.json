@@ -1,27 +1,6 @@
 {
- "generated_at": "2026-10-04T20:20:23.395974+00:00",
+ "generated_at": "2026-10-04T20:35:07.884494+00:00",
  "items": [
-  {
-   "id": "3513df763a",
-   "league": "NFL",
-   "event": "Kansas City Chiefs @ Las Vegas Raiders",
-   "prediction": "Kansas City Chiefs to beat Las Vegas Raiders",
-   "kickoff_utc": "2026-10-04T20:25:00+00:00"
-  },
-  {
-   "id": "336709ab39",
-   "league": "NFL",
-   "event": "Los Angeles Chargers @ Seattle Seahawks",
-   "prediction": "Seattle Seahawks to beat Los Angeles Chargers",
-   "kickoff_utc": "2026-10-04T20:25:00+00:00"
-  },
-  {
-   "id": "24eaf777c9",
-   "league": "NFL",
-   "event": "Denver Broncos @ San Francisco 49ers",
-   "prediction": "San Francisco 49ers to beat Denver Broncos",
-   "kickoff_utc": "2026-10-04T20:25:00+00:00"
-  },
   {
    "id": "948adbdb83",
    "league": "NHL",
@@ -42,6 +21,27 @@
    "event": "Utah Jazz @ Denver Nuggets",
    "prediction": "Denver Nuggets to beat Utah Jazz",
    "kickoff_utc": "2026-10-04T23:00:00+00:00"
+  },
+  {
+   "id": "f95f4f2d43",
+   "league": "MLB",
+   "event": "Atlanta Braves @ Los Angeles Dodgers",
+   "prediction": "Los Angeles Dodgers to beat Atlanta Braves",
+   "kickoff_utc": "2026-10-05T00:00:00+00:00"
+  },
+  {
+   "id": "0ab133f7ac",
+   "league": "NHL",
+   "event": "Florida Panthers @ Anaheim Ducks",
+   "prediction": "Anaheim Ducks to beat Florida Panthers",
+   "kickoff_utc": "2026-10-05T00:00:00+00:00"
+  },
+  {
+   "id": "ffe3ef3b97",
+   "league": "NHL",
+   "event": "Calgary Flames @ Seattle Kraken",
+   "prediction": "Seattle Kraken to beat Calgary Flames",
+   "kickoff_utc": "2026-10-05T00:00:00+00:00"
   }
  ]
 }
