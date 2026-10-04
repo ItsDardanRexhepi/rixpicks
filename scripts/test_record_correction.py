@@ -14,7 +14,8 @@ and writes nothing. Built on the real Sep 25 shape (Orioles +105 5u W, Guardians
     does not follow from its stake refuses
   - live repo: every line of slates/record_corrections.jsonl sits on its history.json row; the
     latest correction of a pick carries its value now, and an earlier one chains into the reversal
-    that superseded it."""
+    that superseded it; an owner-ordered line+odds entry leaves its pick under the corrected name at
+    the corrected odds, its delta following from that price."""
 import copy, json, os, shutil, subprocess, sys, tempfile
 from datetime import datetime, timezone
 from decimal import Decimal
@@ -193,7 +194,21 @@ if os.path.exists(live_log):
         on_row = bool(row) and any(c.get('id') == e['id'] for c in row.get('corrections') or [])
         pk = next((p for p in (row or {}).get('picks') or [] if p.get('name') == e['pick']), None)
         last = bool(row) and (row.get('corrections') or [{}])[-1].get('id') == e['id']
-        if nxt is None:
+        if nxt is None and e['field'] == 'line+odds':
+            # an owner-ordered line+odds fix ('+2.5 -194' -> '+1.5 -122') renames the pick by its
+            # line and reprices it: the row carries pick_to at the corrected odds and no longer the
+            # published name, the pick's delta follows from its result at that price and stake, and
+            # the day units follow from its picks
+            (ln_from, _), (ln_to, odds_to) = e['from'].split(), e['to'].split()
+            pk = next((p for p in (row or {}).get('picks') or [] if p.get('name') == e.get('pick_to')), None)
+            check(f"live: {e['id']} on its history row, pick now {e.get('pick_to')} {odds_to}, day units follow from its picks",
+                  on_row and pk is not None and e['pick'].rsplit(' ', 1)[-1] == ln_from
+                  and e['pick_to'] == e['pick'].rsplit(' ', 1)[0] + ' ' + ln_to and pk.get('odds') == odds_to
+                  and not any(p.get('name') == e['pick'] for p in row.get('picks') or [])
+                  and abs(rc.pick_exact(pk) - rf.expected_delta(rc.RES[pk['result']], rf.american(odds_to), rf.stake_of(pk['units']))) <= rf.EXACT
+                  and (not last or row.get('units') == e['day_units_to'])
+                  and rf.fmt_units(rc.day_exact(row)) == row.get('units'), (row or {}).get('units'))
+        elif nxt is None:
             check(f"live: {e['id']} on its history row, pick now {e['to']}, day units follow from its picks",
                   on_row and pk is not None and pk.get(e['field']) == e['to']
                   and (not last or row.get('units') == e['day_units_to'])
