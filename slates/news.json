@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-04T23:50:58.953Z",
+ "generated_at": "2026-10-04T23:55:56.917Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "NL Division Series Game Discussion: Braves vs Dodgers Sunday Night",
+    "link": "https://sports.yahoo.com/articles/nl-division-series-game-discussion-235000761.html",
+    "published": "2026-10-04T23:50:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/af1544cc5ee20ac606e44bab1b421b56c73c3c7053448fc8a83344d2cb094608/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F4562e5a8b9311a8f6566872f153b50ea.jpg",
+    "blurb": "It\u2019s game 2 between the Atlanta Braves and Los Angeles Dodgers Sunday night in LA. Blake Snell gets the start for the billionaires Dodgers while the Braves have yet to announce their starter. First pitch scheduled for 7pm central time and the game broadcast will be available via ",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
    {
     "headline": "NLDS Game 2 winners and losers: Brewers magic strikes again in walk-off win; Mason Miller implodes",
     "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-nlds-game-2-winners-losers/",
@@ -9,15 +18,6 @@
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fac1effed-5e05-4fc8-9782-7dd7b2896c13%2Fchourio-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Milwaukee worked three walks against the Padres closer in the ninth inning before Jackson Chourio called game",
     "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "Jackson Chourio, Brewers walk it off against Mason Miller",
-    "link": "https://sports.yahoo.com/articles/jackson-chourio-brewers-walk-off-233805796.html",
-    "published": "2026-10-04T23:38:05.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/7642e6c5df34372702f41c6fefe4e5389d6a6c199947668908e284396cfc16b2/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2d62737d6911a5910ac82b4737572f60.png",
-    "blurb": "The Brewers are one win away from the NLCS after this walk-off win over the Padres",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Jackson Chourio, Brewers walk it off against Mason Miller",
+    "link": "https://sports.yahoo.com/articles/jackson-chourio-brewers-walk-off-233805796.html",
+    "published": "2026-10-04T23:38:05.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/7642e6c5df34372702f41c6fefe4e5389d6a6c199947668908e284396cfc16b2/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2d62737d6911a5910ac82b4737572f60.png",
+    "blurb": "The Brewers are one win away from the NLCS after this walk-off win over the Padres",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "2026 MLB playoff bracket: Schedule, scores, where to watch with Division Series underway",
     "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
     "published": "2026-10-04T23:24:44.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Eight teams remain in the 2026 MLB playoffs, with the best-of-five LDS round underway",
     "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "Braves vs. Dodgers live updates, starting pitchers, where to watch: Blake Snell, Ray Kerr to start Game 2 of NLDS",
-    "link": "https://sports.yahoo.com/mlb/live/dodgers-braves-score-live-updates-game-2-starting-pitchers-nlds-news-highlights-stats-where-to-watch-230000740.html",
-    "published": "2026-10-04T23:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/4f851fc0a8f1271bdbdf34cb933db0599d251220cc8d68479d32afe81cd69b34/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F03993b42-d74b-4e41-a4f5-8fd2be033e57",
-    "blurb": "The Dodgers took Game 1 with a 5-3 win over the Braves on Saturday.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Braves vs. Dodgers live updates, starting pitchers, where to watch: Blake Snell, Ray Kerr to start Game 2 of NLDS",
+    "link": "https://sports.yahoo.com/mlb/live/dodgers-braves-score-live-updates-game-2-starting-pitchers-nlds-news-highlights-stats-where-to-watch-230000740.html",
+    "published": "2026-10-04T23:00:00.000Z",
+    "image": "",
+    "blurb": "The Dodgers took Game 1 with a 5-3 win over the Braves on Saturday.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Chris Sale won't start NLDS Game 2 vs. Dodgers as Braves go with another bullpen game",
     "link": "https://www.cbssports.com/mlb/news/chris-sale-nlds-game-2-dodgers-braves/",
     "published": "2026-10-04T21:53:21.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F167b4547-057c-4400-b8ce-c62d6bd1f316%2Fchris-sale-getty-7.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Sale came out of the bullpen on Thursday against the Phillies and will not start on Sunday",
     "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "Walt Weiss confirms Game 3 start for Chris Sale, plus more pregame news and notes",
-    "link": "https://sports.yahoo.com/articles/walt-weiss-confirms-game-3-223623839.html",
-    "published": "2026-10-04T22:36:23.000Z",
-    "image": "",
-    "blurb": "Ronald Acu\u00f1a Jr. and Ha-Seong Kim also shared some thoughts ahead of a crucial NLDS Game 2 in LA for the Braves",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,12 +84,12 @@
     "league": "MLB"
    },
    {
-    "headline": "Brewers will have open stadium roof for NLDS Game 2 after controversial ending vs. Padres",
-    "link": "https://www.cbssports.com/mlb/news/brewers-open-stadium-roof-nlds-game-2-controversial-ending-padres/",
-    "published": "2026-10-04T18:01:21.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F78d4d3f1-aae9-494c-81f5-adf5e3cd60be%2Famfam-field-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The roof will be open at American Family Field on Sunday afternoon as the Brewers try to take a 2-0 series lead",
-    "source": "CBS",
+    "headline": "Walt Weiss confirms Game 3 start for Chris Sale, plus more pregame news and notes",
+    "link": "https://sports.yahoo.com/articles/walt-weiss-confirms-game-3-223623839.html",
+    "published": "2026-10-04T22:36:23.000Z",
+    "image": "",
+    "blurb": "Ronald Acu\u00f1a Jr. and Ha-Seong Kim also shared some thoughts ahead of a crucial NLDS Game 2 in LA for the Braves",
+    "source": "YAHOO",
     "league": "MLB"
    }
   ],
@@ -104,21 +104,21 @@
     "league": "NFL"
    },
    {
-    "headline": "After Raiders coach Klint Kubiak proclaims his team was going to win, the Chiefs find a way to another clutch victory",
-    "link": "https://sports.yahoo.com/nfl/article/after-raiders-coach-klint-kubiak-proclaims-his-team-was-going-to-win-the-chiefs-find-a-way-to-another-clutch-victory-234444816.html",
-    "published": "2026-10-04T23:44:44.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/f6613117b8a59beaa6140a087518391b4a32eadcd41654963b011ab9a215afef/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F04b9b81b-c576-4115-bc8b-e9e69fb797ba",
-    "blurb": "The Raiders lost to the Chiefs, but it wasn't a familiar story.",
-    "source": "YAHOO",
+    "headline": "Week 4 overreactions: Should Rams still be Super Bowl favorites? Cowboys to win NFC East?",
+    "link": "https://www.cbssports.com/nfl/news/nfl-week-4-overreactions-rams-jaguars-cowboys-win-nfc-east/",
+    "published": "2026-10-04T23:53:22.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F61aa4237-d4ea-47fe-958f-a1fcb1e5bf6f%2Fsean-mcvay-rams-3.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Plus, why Ben Johnson won't win Coach of the Year",
+    "source": "CBS",
     "league": "NFL"
    },
    {
-    "headline": "Tyquan Thornton exits with gruesome ankle injury after monster game for Chiefs",
-    "link": "https://www.cbssports.com/nfl/news/chiefs-tyquan-thornton-ankle-injury-raiders/",
-    "published": "2026-10-04T23:36:15.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F4efe1fc7-e896-4351-b0dd-1ef49cf52285%2Ftyquan-thornton.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Thornton had already established career highs in receiving yards and touchdowns before exiting late in the fourth quarter",
-    "source": "CBS",
+    "headline": "Seahawks-Chargers score: 3-1! Seahawks hold on for flag-filled, sloppy win over Chargers",
+    "link": "https://sports.yahoo.com/articles/seahawks-chargers-score-3-1-235014407.html",
+    "published": "2026-10-04T23:50:14.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/1d834429e0f23fb37993cd2dde5573f9777de2037740dcbcf62ab8f98de5cb37/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F80c0c1f1dbe6bbcde66bd73965341f32.jpg",
+    "blurb": "The Seahawks beat the Chargers and the referees probably threw another flag on the play as we wrote this up.",
+    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -131,21 +131,21 @@
     "league": "NFL"
    },
    {
-    "headline": "Aaron Glenn faces his first defining moment as Jets fall to 1-3",
-    "link": "https://sports.yahoo.com/articles/aaron-glenn-faces-first-defining-233827513.html",
-    "published": "2026-10-04T23:38:27.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/181bb992157c05f32af31256b150edf2416b483f67c1548c2c37e38dacd93252/lightyear_networkapi/resizefill_w444_h250%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsny_articles_235%2F206c8555954a7ab19f78db0eeadab942.jpg",
-    "blurb": "The Jets fell to 1-3 after a lopsided 23-12 loss to the Bears, raising questions about Aaron Glenn's rebuild.",
-    "source": "YAHOO",
+    "headline": "Tyquan Thornton exits with gruesome ankle injury after monster game for Chiefs",
+    "link": "https://www.cbssports.com/nfl/news/chiefs-tyquan-thornton-ankle-injury-raiders/",
+    "published": "2026-10-04T23:52:36.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F4efe1fc7-e896-4351-b0dd-1ef49cf52285%2Ftyquan-thornton.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Thornton had already established career highs in receiving yards and touchdowns before exiting late in the fourth quarter",
+    "source": "CBS",
     "league": "NFL"
    },
    {
-    "headline": "Jayden Daniels update: Dan Quinn says 'the hope' is for Commanders QB to return in Week 5",
-    "link": "https://www.cbssports.com/nfl/news/commanders-jayden-daniels-update-hope-week-5-return/",
-    "published": "2026-10-04T23:06:51.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F555c9c74-a55a-4ec6-9555-f1ce3fcfd769%2Fjayden-daniels-commanders-16.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The plan is for Daniels to practice in full this week",
-    "source": "CBS",
+    "headline": "Instant reaction: Broncos falter in Week 4 loss to 49ers",
+    "link": "https://sports.yahoo.com/articles/instant-reaction-broncos-falter-week-234619340.html",
+    "published": "2026-10-04T23:46:19.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/e53190dd65e280383a6dfec4e1942abd640f3ec1b9a35344a659af1265020d45/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F7b2b79ab3183e3b4c350380f0d64a831.jpg",
+    "blurb": "The Denver Broncos lost 24-14 against the San Francisco 49ers. Here are instant reactions from today\u2019s game.",
+    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -158,21 +158,21 @@
     "league": "NFL"
    },
    {
-    "headline": "George Kittle and the 49ers outrun the Broncos to stay undefeated",
-    "link": "https://sports.yahoo.com/articles/george-kittle-49ers-outrun-broncos-233805010.html",
-    "published": "2026-10-04T23:38:05.000Z",
-    "image": "",
-    "blurb": "The 49ers offense woke up in the second half, while their defense shut down Bo Nix and the Broncos in a 24-14 victory.",
-    "source": "YAHOO",
+    "headline": "Jayden Daniels update: Dan Quinn says 'the hope' is for Commanders QB to return in Week 5",
+    "link": "https://www.cbssports.com/nfl/news/commanders-jayden-daniels-update-hope-week-5-return/",
+    "published": "2026-10-04T23:06:51.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F555c9c74-a55a-4ec6-9555-f1ce3fcfd769%2Fjayden-daniels-commanders-16.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The plan is for Daniels to practice in full this week",
+    "source": "CBS",
     "league": "NFL"
    },
    {
-    "headline": "Panthers vs. Lions picks, prediction, player props: Expert's NFL Week 4 best bets for Sunday Night Football",
-    "link": "https://www.cbssports.com/betting/news/panthers-vs-lions-picks-prediction-player-props-experts-nfl-week-4-best-bets-for-sunday-night-football/",
-    "published": "2026-10-04T23:01:09.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Ffc5f6714-111b-4e6e-9ee2-cfb867db9b3f%2Fpanthers.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Targeting a high-scoring shootout in Charlotte, our betting picks back Jahmyr Gibbs in the passing game and Darren Waller to stay heavily involved",
-    "source": "CBS",
+    "headline": "After Raiders coach Klint Kubiak proclaims his team was going to win, the Chiefs find a way to another clutch victory",
+    "link": "https://sports.yahoo.com/nfl/article/after-raiders-coach-klint-kubiak-proclaims-his-team-was-going-to-win-the-chiefs-find-a-way-to-another-clutch-victory-234444816.html",
+    "published": "2026-10-04T23:44:44.000Z",
+    "image": "",
+    "blurb": "The Raiders lost to the Chiefs, but it wasn't a familiar story.",
+    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -669,11 +669,11 @@
   ],
   "golf/pga": [
    {
-    "headline": "Brooks Koepka eagles final hole at St. Andrews to wrap up season",
-    "link": "https://sports.yahoo.com/articles/brooks-koepka-eagles-final-hole-195432186.html",
-    "published": "2026-10-04T19:54:32.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/6db84bcbb13202977886af37ed49fdb9641f58bd9777207f2754721e9f3bda4d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fgolf_channel_versant_464%2F27ba8020aa004a4860604c893fbf29eb.jpg",
-    "blurb": "Brooks Koepka wrapped up his season with an eagle on the 18th hole on the Old Course at St. Andrews.",
+    "headline": "Yuta Sugiura Needed a PGA Tour Card Push. He Shot 58.",
+    "link": "https://sports.yahoo.com/articles/yuta-sugiura-needed-pga-tour-204054821.html",
+    "published": "2026-10-04T20:40:54.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/99a25f205355c1a3f1879168432b61e3acac858ffbf61fcb0e39c51540a16c6a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fathlon_sports_articles_610%2F9f440cb2780ce2fcbd6a153c0cdcdbdc.jpg",
+    "blurb": "One spot outside the promotion cutoff, Sugiura made 11 birdies and an eagle in a historic Korn Ferry Tour round that included a bogey.",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -696,11 +696,11 @@
     "league": "PGA"
    },
    {
-    "headline": "Adrian Meronk of LIV Golf rallies to win Dunhill Links and secure European tour membership",
-    "link": "https://sports.yahoo.com/articles/adrian-meronk-liv-golf-rallies-170923898.html",
-    "published": "2026-10-04T17:09:23.000Z",
-    "image": "",
-    "blurb": "ANDREWS, Scotland (AP) \u2014 Adrian Meronk caught up quickly and pulled ahead on the mistakes of Casey Jarvis to win the Dunhill Links Championship on Sunday with a 4-under 68, giving the 33-year-old from Poland a full card on the European tour when he desperately needed it.Meronk wa",
+    "headline": "Brooks Koepka eagles final hole at St. Andrews to wrap up season",
+    "link": "https://sports.yahoo.com/articles/brooks-koepka-eagles-final-hole-195432186.html",
+    "published": "2026-10-04T19:54:32.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6db84bcbb13202977886af37ed49fdb9641f58bd9777207f2754721e9f3bda4d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fgolf_channel_versant_464%2F27ba8020aa004a4860604c893fbf29eb.jpg",
+    "blurb": "Brooks Koepka wrapped up his season with an eagle on the 18th hole on the Old Course at St. Andrews.",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -723,11 +723,11 @@
     "league": "PGA"
    },
    {
-    "headline": "\u2018Stupidest Rule Change Ever\u2019: Veteran PGA Tour Golfer Rips Into Long Putter Ban",
-    "link": "https://sports.yahoo.com/articles/stupidest-rule-change-ever-veteran-151749805.html",
-    "published": "2026-10-04T15:17:49.000Z",
+    "headline": "Adrian Meronk of LIV Golf rallies to win Dunhill Links and secure European tour membership",
+    "link": "https://sports.yahoo.com/articles/adrian-meronk-liv-golf-rallies-170923898.html",
+    "published": "2026-10-04T17:09:23.000Z",
     "image": "",
-    "blurb": "13 years have passed since golf\u2019s rule-makers outlawed anchored putting, yet Rocco Mediate remains unconvinced that the ban was necessary. The PGA Tour veteran used a long putter to win before sparking controversy in the anchored putting debate, and he believes the rule-makers in",
+    "blurb": "ANDREWS, Scotland (AP) \u2014 Adrian Meronk caught up quickly and pulled ahead on the mistakes of Casey Jarvis to win the Dunhill Links Championship on Sunday with a 4-under 68, giving the 33-year-old from Poland a full card on the European tour when he desperately needed it.Meronk wa",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -750,11 +750,11 @@
     "league": "PGA"
    },
    {
-    "headline": "Jim Furyk won't play in his PGA Tour Champions event for first time",
-    "link": "https://sports.yahoo.com/articles/jim-furyk-wont-play-pga-140138678.html",
-    "published": "2026-10-04T14:01:38.000Z",
+    "headline": "\u2018Stupidest Rule Change Ever\u2019: Veteran PGA Tour Golfer Rips Into Long Putter Ban",
+    "link": "https://sports.yahoo.com/articles/stupidest-rule-change-ever-veteran-151749805.html",
+    "published": "2026-10-04T15:17:49.000Z",
     "image": "",
-    "blurb": "Jim Furyk has been able to play in the PGA Tour Champions event he hosts in the first five years. He's bowing out of competition this year.",
+    "blurb": "13 years have passed since golf\u2019s rule-makers outlawed anchored putting, yet Rocco Mediate remains unconvinced that the ban was necessary. The PGA Tour veteran used a long putter to win before sparking controversy in the anchored putting debate, and he believes the rule-makers in",
     "source": "YAHOO",
     "league": "PGA"
    }
@@ -804,7 +804,7 @@
     "headline": "NASCAR Cup Series Las Vegas race live updates, highlights, leaderboard for South Point 400",
     "link": "https://sports.yahoo.com/articles/nascar-cup-series-las-vegas-191252975.html",
     "published": "2026-10-04T19:12:52.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/2dcb83080d6728dc887e0161b21684bbc373a10082af97627bcc6f0c3c4f236f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2F9c733ee645b72e7fc63fd547bc9e6970.jpg",
+    "image": "",
     "blurb": "The NASCAR Cup Series continues the 2026 season with the South Point 400 at Las Vegas. Follow our NASCAR race updates here.",
     "source": "YAHOO",
     "league": "NASCAR"
@@ -1096,6 +1096,24 @@
    "league": "WNBA"
   },
   {
+   "headline": "Week 4 overreactions: Should Rams still be Super Bowl favorites? Cowboys to win NFC East?",
+   "link": "https://www.cbssports.com/nfl/news/nfl-week-4-overreactions-rams-jaguars-cowboys-win-nfc-east/",
+   "published": "2026-10-04T23:53:22.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F61aa4237-d4ea-47fe-958f-a1fcb1e5bf6f%2Fsean-mcvay-rams-3.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Plus, why Ben Johnson won't win Coach of the Year",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
+   "headline": "Tyquan Thornton exits with gruesome ankle injury after monster game for Chiefs",
+   "link": "https://www.cbssports.com/nfl/news/chiefs-tyquan-thornton-ankle-injury-raiders/",
+   "published": "2026-10-04T23:52:36.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F4efe1fc7-e896-4351-b0dd-1ef49cf52285%2Ftyquan-thornton.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Thornton had already established career highs in receiving yards and touchdowns before exiting late in the fourth quarter",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
    "headline": "Spurs forward Harris to miss preseason with calf strain",
    "link": "https://www.espn.com/nba/story/_/id/50104825/spurs-tobias-harris-miss-preseason-left-calf-strain",
    "published": "2026-10-04T23:50:39.000Z",
@@ -1114,20 +1132,29 @@
    "league": "NBA"
   },
   {
-   "headline": "After Raiders coach Klint Kubiak proclaims his team was going to win, the Chiefs find a way to another clutch victory",
-   "link": "https://sports.yahoo.com/nfl/article/after-raiders-coach-klint-kubiak-proclaims-his-team-was-going-to-win-the-chiefs-find-a-way-to-another-clutch-victory-234444816.html",
-   "published": "2026-10-04T23:44:44.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/f6613117b8a59beaa6140a087518391b4a32eadcd41654963b011ab9a215afef/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F04b9b81b-c576-4115-bc8b-e9e69fb797ba",
-   "blurb": "The Raiders lost to the Chiefs, but it wasn't a familiar story.",
+   "headline": "Seahawks-Chargers score: 3-1! Seahawks hold on for flag-filled, sloppy win over Chargers",
+   "link": "https://sports.yahoo.com/articles/seahawks-chargers-score-3-1-235014407.html",
+   "published": "2026-10-04T23:50:14.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/1d834429e0f23fb37993cd2dde5573f9777de2037740dcbcf62ab8f98de5cb37/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F80c0c1f1dbe6bbcde66bd73965341f32.jpg",
+   "blurb": "The Seahawks beat the Chargers and the referees probably threw another flag on the play as we wrote this up.",
    "source": "YAHOO",
    "league": "NFL"
   },
   {
-   "headline": "Aaron Glenn faces his first defining moment as Jets fall to 1-3",
-   "link": "https://sports.yahoo.com/articles/aaron-glenn-faces-first-defining-233827513.html",
-   "published": "2026-10-04T23:38:27.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/181bb992157c05f32af31256b150edf2416b483f67c1548c2c37e38dacd93252/lightyear_networkapi/resizefill_w444_h250%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsny_articles_235%2F206c8555954a7ab19f78db0eeadab942.jpg",
-   "blurb": "The Jets fell to 1-3 after a lopsided 23-12 loss to the Bears, raising questions about Aaron Glenn's rebuild.",
+   "headline": "NL Division Series Game Discussion: Braves vs Dodgers Sunday Night",
+   "link": "https://sports.yahoo.com/articles/nl-division-series-game-discussion-235000761.html",
+   "published": "2026-10-04T23:50:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/af1544cc5ee20ac606e44bab1b421b56c73c3c7053448fc8a83344d2cb094608/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F4562e5a8b9311a8f6566872f153b50ea.jpg",
+   "blurb": "It\u2019s game 2 between the Atlanta Braves and Los Angeles Dodgers Sunday night in LA. Blake Snell gets the start for the billionaires Dodgers while the Braves have yet to announce their starter. First pitch scheduled for 7pm central time and the game broadcast will be available via ",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
+   "headline": "Instant reaction: Broncos falter in Week 4 loss to 49ers",
+   "link": "https://sports.yahoo.com/articles/instant-reaction-broncos-falter-week-234619340.html",
+   "published": "2026-10-04T23:46:19.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/e53190dd65e280383a6dfec4e1942abd640f3ec1b9a35344a659af1265020d45/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F7b2b79ab3183e3b4c350380f0d64a831.jpg",
+   "blurb": "The Denver Broncos lost 24-14 against the San Francisco 49ers. Here are instant reactions from today\u2019s game.",
    "source": "YAHOO",
    "league": "NFL"
   },
@@ -1148,15 +1175,6 @@
    "blurb": "The Brewers are one win away from the NLCS after this walk-off win over the Padres",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "Tyquan Thornton exits with gruesome ankle injury after monster game for Chiefs",
-   "link": "https://www.cbssports.com/nfl/news/chiefs-tyquan-thornton-ankle-injury-raiders/",
-   "published": "2026-10-04T23:36:15.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F4efe1fc7-e896-4351-b0dd-1ef49cf52285%2Ftyquan-thornton.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Thornton had already established career highs in receiving yards and touchdowns before exiting late in the fourth quarter",
-   "source": "CBS",
-   "league": "NFL"
   },
   {
    "headline": "Braves have 'zero regrets' about pitching Chris Sale in relief",
@@ -1195,15 +1213,6 @@
    "league": "UFC"
   },
   {
-   "headline": "Jayden Daniels update: Dan Quinn says 'the hope' is for Commanders QB to return in Week 5",
-   "link": "https://www.cbssports.com/nfl/news/commanders-jayden-daniels-update-hope-week-5-return/",
-   "published": "2026-10-04T23:06:51.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F555c9c74-a55a-4ec6-9555-f1ce3fcfd769%2Fjayden-daniels-commanders-16.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The plan is for Daniels to practice in full this week",
-   "source": "CBS",
-   "league": "NFL"
-  },
-  {
    "headline": "Colorado playbook allegedly found at hotel bar by opposing fan amid offensive woes",
    "link": "https://www.cbssports.com/college-football/news/colorado-playbook-allegedly-found-at-hotel-bar-by-opposing-fan-amid-offensive-woes/",
    "published": "2026-10-04T23:04:45.000Z",
@@ -1220,15 +1229,6 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0921%2Fr1719812_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The Crimson Tide opened as rare home underdogs to Georgia but they very quickly resumed favorite status.",
    "league": "CFB"
-  },
-  {
-   "headline": "Braves vs. Dodgers live updates, starting pitchers, where to watch: Blake Snell, Ray Kerr to start Game 2 of NLDS",
-   "link": "https://sports.yahoo.com/mlb/live/dodgers-braves-score-live-updates-game-2-starting-pitchers-nlds-news-highlights-stats-where-to-watch-230000740.html",
-   "published": "2026-10-04T23:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/4f851fc0a8f1271bdbdf34cb933db0599d251220cc8d68479d32afe81cd69b34/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F03993b42-d74b-4e41-a4f5-8fd2be033e57",
-   "blurb": "The Dodgers took Game 1 with a 5-3 win over the Braves on Saturday.",
-   "source": "YAHOO",
-   "league": "MLB"
   },
   {
    "headline": "SEC Football Power Rankings Week 6",
@@ -1330,6 +1330,15 @@
    "league": "WNBA"
   },
   {
+   "headline": "Yuta Sugiura Needed a PGA Tour Card Push. He Shot 58.",
+   "link": "https://sports.yahoo.com/articles/yuta-sugiura-needed-pga-tour-204054821.html",
+   "published": "2026-10-04T20:40:54.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/99a25f205355c1a3f1879168432b61e3acac858ffbf61fcb0e39c51540a16c6a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fathlon_sports_articles_610%2F9f440cb2780ce2fcbd6a153c0cdcdbdc.jpg",
+   "blurb": "One spot outside the promotion cutoff, Sugiura made 11 birdies and an eagle in a historic Korn Ferry Tour round that included a bogey.",
+   "source": "YAHOO",
+   "league": "PGA"
+  },
+  {
    "headline": "Melvin Council Jr. Announces His Return to Kansas",
    "link": "https://sports.yahoo.com/articles/melvin-council-jr-announces-return-203943874.html",
    "published": "2026-10-04T20:39:43.000Z",
@@ -1409,21 +1418,12 @@
    "blurb": "Ready to watch NASCAR in 2026 and want NASCAR TV and streaming programming this week? Here is this week&#92;&#92;&#92;\"s NASCAR broadcast schedule. All times listed are ET. HOW TO WATCH Key information: FOX, FS1, FS2 | Prime Video | TNT Sports | Max in-car cameras | NBC, USA | Th",
    "source": "YAHOO",
    "league": "NASCAR"
-  },
-  {
-   "headline": "NASCAR Cup Series Las Vegas race live updates, highlights, leaderboard for South Point 400",
-   "link": "https://sports.yahoo.com/articles/nascar-cup-series-las-vegas-191252975.html",
-   "published": "2026-10-04T19:12:52.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/2dcb83080d6728dc887e0161b21684bbc373a10082af97627bcc6f0c3c4f236f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2F9c733ee645b72e7fc63fd547bc9e6970.jpg",
-   "blurb": "The NASCAR Cup Series continues the 2026 season with the South Point 400 at Las Vegas. Follow our NASCAR race updates here.",
-   "source": "YAHOO",
-   "league": "NASCAR"
   }
  ],
  "source_mix": {
   "ESPN": 53,
-  "YAHOO": 61,
-  "CBS": 40
+  "CBS": 39,
+  "YAHOO": 62
  },
  "degraded_sources": []
 }
