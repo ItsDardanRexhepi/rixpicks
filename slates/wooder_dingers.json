@@ -1,75 +1,39 @@
 {
-    "date": "2026-10-03",
-    "picks": [
+  "date": "2026-10-04",
+  "picks": [
+    {
+      "player": "Fernando Tatis Jr.",
+      "team": "SD",
+      "matchup": "SD at MIL",
+      "time": "1:00 PM PT",
+      "market": "Home Run",
+      "links": [
         {
-            "player": "Jose Ramirez",
-            "team": "CLE",
-            "matchup": "CWS at CLE",
-            "time": "10:00 AM PT",
-            "market": "Home Run",
-            "links": [
-                {
-                    "venue": "DKP",
-                    "url": null
-                },
-                {
-                    "venue": "KAL",
-                    "url": null
-                }
-            ],
-            "price_note": "Posted after first pitch."
+          "venue": "DKP",
+          "url": null
         },
         {
-            "player": "Shohei Ohtani",
-            "team": "LAD",
-            "matchup": "ATL at LAD",
-            "time": "1:00 PM PT",
-            "market": "Home Run",
-            "links": [
-                {
-                    "venue": "DKP",
-                    "url": null
-                },
-                {
-                    "venue": "KAL",
-                    "url": null
-                }
-            ],
-            "price_note": "Posted after first pitch."
-        },
-        {
-            "player": "Ben Rice",
-            "team": "NYY",
-            "matchup": "NYY at TB",
-            "time": "3:30 PM PT",
-            "market": "Home Run",
-            "links": [
-                {
-                    "venue": "DKP",
-                    "url": null
-                },
-                {
-                    "venue": "KAL",
-                    "url": null
-                }
-            ]
-        },
-        {
-            "player": "William Contreras",
-            "team": "MIL",
-            "matchup": "SD at MIL",
-            "time": "5:30 PM PT",
-            "market": "Home Run",
-            "links": [
-                {
-                    "venue": "DKP",
-                    "url": null
-                },
-                {
-                    "venue": "KAL",
-                    "url": null
-                }
-            ]
+          "venue": "KAL",
+          "url": null
         }
-    ]
+      ]
+    },
+    {
+      "player": "Mookie Betts",
+      "team": "LAD",
+      "matchup": "ATL at LAD",
+      "time": "5:00 PM PT",
+      "market": "Home Run",
+      "links": [
+        {
+          "venue": "DKP",
+          "url": null
+        },
+        {
+          "venue": "KAL",
+          "url": null
+        }
+      ]
+    }
+  ]
 }
