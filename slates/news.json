@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-04T01:50:55.444Z",
+ "generated_at": "2026-10-04T01:55:55.731Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -792,11 +792,11 @@
   ],
   "racing/nascar-premier": [
    {
-    "headline": "NASCAR Cup Las Vegas Chase race starting lineup: Denny Hamlin earns pole in JGR 1-2-3-4",
-    "link": "https://sports.yahoo.com/articles/nascar-cup-las-vegas-chase-223213438.html",
-    "published": "2026-10-03T22:32:13.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/6aee6e3c2a8301fb55907e06db716b4e96ec007897505fb63028e39af9b2b353/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2F23a48d8674c86aeacd9aa3507c2a614c.jpg",
-    "blurb": "Joe Gibbs Racing was back on top in Las Vegas qualifying, with Hamlin leading a sweep of the top four positions by JGR cars",
+    "headline": "Joe Gibbs Racing Makes History With Impressive Las Vegas Qualifying Outing",
+    "link": "https://sports.yahoo.com/articles/joe-gibbs-racing-makes-history-013214148.html",
+    "published": "2026-10-04T01:32:14.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/7015b693edc46215313fe721ca071f1919545040c170b7735b7749d0b8c7ca11/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2F081f7f55dae9d0dc810ef9348aa85326.jpg",
+    "blurb": "Joe Gibbs Racing put together a historic NASCAR Cup Series qualifying run on Saturday at Las Vegas Motor Speedway. For the first time in the team\u2019s history, JGR will have its four cars start 1-2-3-4 following an impressive showing in Saturday\u2019s qualifying session. Denny Hamlin, w",
     "source": "YAHOO",
     "league": "NASCAR"
    },
@@ -807,6 +807,15 @@
     "image": "",
     "blurb": "\"I think it's Toyota's championship to lose,\" Bubba Wallace said. \"Based on how many races we've won, it would be a shame if we didn't seal the deal.\"",
     "source": "ESPN",
+    "league": "NASCAR"
+   },
+   {
+    "headline": "NASCAR Cup Las Vegas Chase race starting lineup: Denny Hamlin earns pole in JGR 1-2-3-4",
+    "link": "https://sports.yahoo.com/articles/nascar-cup-las-vegas-chase-223213438.html",
+    "published": "2026-10-03T22:32:13.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6aee6e3c2a8301fb55907e06db716b4e96ec007897505fb63028e39af9b2b353/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2F23a48d8674c86aeacd9aa3507c2a614c.jpg",
+    "blurb": "Joe Gibbs Racing was back on top in Las Vegas qualifying, with Hamlin leading a sweep of the top four positions by JGR cars",
+    "source": "YAHOO",
     "league": "NASCAR"
    },
    {
@@ -831,7 +840,7 @@
     "headline": "Is it time for NASCAR to look at the intermediate track rules package?",
     "link": "https://sports.yahoo.com/articles/time-nascar-look-intermediate-track-222004222.html",
     "published": "2026-10-03T22:20:04.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/1ac9e3b7a8882cea4f4334b0db2b6f077b5515477b89ca46dc0122f50a3fb7f0/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2F1658cb96f9fc8991a4c0374456d60010.jpg",
+    "image": "",
     "blurb": "So much is made about short tracks and superspeedways but ...",
     "source": "YAHOO",
     "league": "NASCAR"
@@ -869,15 +878,6 @@
     "published": "2026-10-03T21:31:50.000Z",
     "image": "",
     "blurb": "In mid-July, right before the North Wilkesboro race, NASCAR made a rule adjustment to the Next Gen car. The sanctioning body mandated that teams add struts to the front splitter.",
-    "source": "YAHOO",
-    "league": "NASCAR"
-   },
-   {
-    "headline": "Racing Insights: Who will hit the jackpot in Las Vegas?",
-    "link": "https://sports.yahoo.com/articles/racing-insights-hit-jackpot-las-195032562.html",
-    "published": "2026-10-03T19:50:32.000Z",
-    "image": "",
-    "blurb": "Thirty-six aces are heading to Sin City this weekend. But only one will hit the jackpot. The NASCAR Cup Series rolls to Las Vegas Motor Speedway on Sunday (5:30 p.m. ET, USA Network, HBO Max, PRN Radio, SiriusXM NASCAR Radio) as The Chase presented by Mobil 1 reaches the halfway ",
     "source": "YAHOO",
     "league": "NASCAR"
    }
@@ -1195,6 +1195,15 @@
    "league": "UFC"
   },
   {
+   "headline": "Joe Gibbs Racing Makes History With Impressive Las Vegas Qualifying Outing",
+   "link": "https://sports.yahoo.com/articles/joe-gibbs-racing-makes-history-013214148.html",
+   "published": "2026-10-04T01:32:14.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/7015b693edc46215313fe721ca071f1919545040c170b7735b7749d0b8c7ca11/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2F081f7f55dae9d0dc810ef9348aa85326.jpg",
+   "blurb": "Joe Gibbs Racing put together a historic NASCAR Cup Series qualifying run on Saturday at Las Vegas Motor Speedway. For the first time in the team\u2019s history, JGR will have its four cars start 1-2-3-4 following an impressive showing in Saturday\u2019s qualifying session. Denny Hamlin, w",
+   "source": "YAHOO",
+   "league": "NASCAR"
+  },
+  {
    "headline": "UFC 332: Live results, analysis for Silva vs. Wang",
    "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
    "published": "2026-10-04T01:23:49Z",
@@ -1416,15 +1425,6 @@
    "published": "2026-10-03T22:21:55.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/bc988f017f891c1897f57b31fdc38189a73cbcd38b38c38c03bc62009a1ec3a7/lightyear_networkapi/resizefill_w768_h512%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorbiscuit_articles_333%2F05994c895ab241d980b16f73700f8103.jpg",
    "blurb": "Full results from NASCAR Cup Series qualifying at Las Vegas.",
-   "source": "YAHOO",
-   "league": "NASCAR"
-  },
-  {
-   "headline": "Is it time for NASCAR to look at the intermediate track rules package?",
-   "link": "https://sports.yahoo.com/articles/time-nascar-look-intermediate-track-222004222.html",
-   "published": "2026-10-03T22:20:04.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/1ac9e3b7a8882cea4f4334b0db2b6f077b5515477b89ca46dc0122f50a3fb7f0/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2F1658cb96f9fc8991a4c0374456d60010.jpg",
-   "blurb": "So much is made about short tracks and superspeedways but ...",
    "source": "YAHOO",
    "league": "NASCAR"
   }
