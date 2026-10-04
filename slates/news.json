@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-04T00:55:56.003Z",
+ "generated_at": "2026-10-04T01:01:32.353Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -32,7 +32,7 @@
    {
     "headline": "2026 MLB division series Day 1: Live updates, lineups, analysis",
     "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
-    "published": "2026-10-04T00:49:51Z",
+    "published": "2026-10-04T00:55:45Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1003%2Fr1725424_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "All eight teams are in action Saturday, with two games down and two to go. Which clubs will come out strong?",
@@ -187,12 +187,39 @@
   ],
   "football/college-football": [
    {
-    "headline": "Youngstown State Penguins vs. Southern Illinois Salukis: Full Highlights",
-    "link": "https://www.espn.com/video/clip/_/id/50095209/full-highlights",
-    "published": "2026-10-04T00:44:42Z",
+    "headline": "Jacobo Echeverria Lozano, Antonio Harris propel Purdue to 24-17 victory over Illinois",
+    "link": "http://www.espn.com/ncf/recap?gameId=401858472",
+    "published": "2026-10-04T00:56:32Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1004%2F8f4133be-0186-4664-a860-5ce8e1f94131%2F8f4133be-0186-4664-a860-5ce8e1f94131.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Youngstown State Penguins vs. Southern Illinois Salukis: Full Highlights",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fcollege-football%2Fevents%2F401858472.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 Freshman kicker Jacobo Echeverria Lozano booted three field goals and Antonio Harris scored a late touchdown on a 1-yard run as Purdue defeated Illinois 24-17 Saturday in a Big Ten Conference game.",
+    "league": "CFB"
+   },
+   {
+    "headline": "Jeremiah Smith struck a Heisman pose after breaking yet another Ohio State record",
+    "link": "https://sports.yahoo.com/articles/jeremiah-smith-struck-heisman-pose-004314462.html",
+    "published": "2026-10-04T00:43:14.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/cd968f2cc43e37a023969ade22ab8abb46b1b85c299e6a0a3be4167d612f15e4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fftw_outdoors_usa_today_article_609%2Fe32a5f8b81c99cdf6eb3d6da7fe5eb26.jpg",
+    "blurb": "After his second touchdown of the day against Iowa made him Ohio State's all-time leader, Jeremiah Smith struck a fitting celebratory pose.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "Josh Heupel made the hard call benching former 5-star Faizon Brandon, but what happens next for Tennessee?",
+    "link": "https://www.cbssports.com/college-football/news/josh-heupel-benches-5-star-faizon-brandon-tennessee/",
+    "published": "2026-10-04T00:10:03.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2F00d49688-2843-485d-8eb1-5e4bd4e8a86e%2Fgettyimages-2298440467-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Vols chose George MacIntyre's floor over Faizon Brandon's ceiling in a win over Auburn. Now they face a crossroads",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
+    "headline": "Dwayne McDougle's pick-6 turns game Nebraska's way in a 48-23 victory over Maryland",
+    "link": "http://www.espn.com/ncf/recap?gameId=401858475",
+    "published": "2026-10-04T00:54:28Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fcollege-football%2Fevents%2F401858475.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 Dwayne McDougle III's 81-yard interception return for a touchdown sparked Nebraska in the first half, and the Cornhuskers all but shut down Maryland after that in a penalty-filled 48-23 victory Saturday.",
     "league": "CFB"
    },
    {
@@ -201,6 +228,33 @@
     "published": "2026-10-04T00:38:42.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/59643db80c72395590515dde58bb5567fb9922717ad16e62299bf126685d9094/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2F71ed6d920ca39a5cba9bd2a2102b1d6a",
     "blurb": "A loud thud for the home team in their homecoming game.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "College football winners, losers in Week 5: Keelon Russell sparks Alabama to new level, Florida collapses",
+    "link": "https://www.cbssports.com/college-football/news/college-football-winners-losers-week-5-2026-scores-results/",
+    "published": "2026-10-04T00:07:15.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F06ed0fe5-a1b3-44c2-bb67-7ef38d1c956b%2Fkeelon-russell-bama.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Russell sparks the Crimson Tide in a blowout road win, while the Gators collapse against Missouri and Bryce Underwood struggles in Michigan's upset loss",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
+    "headline": "Keelon Russell's 3-TD game propels Alabama to historic road win",
+    "link": "https://www.espn.com/video/clip/_/id/50095247/keelon-russell-3-td-game-propels-alabama-historic-road-win",
+    "published": "2026-10-04T00:53:48Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F1003%2Fss_20261003_204938160_3684210%2Fss_20261003_204938160_3684210.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Keelon Russell's 3-TD game propels Alabama to historic road win",
+    "league": "CFB"
+   },
+   {
+    "headline": "Rebels beat Cal in battle of big plays",
+    "link": "https://sports.yahoo.com/articles/rebels-beat-cal-battle-big-003802496.html",
+    "published": "2026-10-04T00:38:02.000Z",
+    "image": "",
+    "blurb": "QB Jackson Arnold delivered with 287 yards total offense and five touchdowns in the 39-31 win over the Golden Bears.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -214,66 +268,12 @@
     "league": "CFB"
    },
    {
-    "headline": "Kentucky Wildcats vs. South Carolina Gamecocks: Full Highlights",
-    "link": "https://www.espn.com/video/clip/_/id/50095116/full-highlights",
-    "published": "2026-10-04T00:44:29Z",
+    "headline": "Youngstown State Penguins vs. Southern Illinois Salukis: Full Highlights",
+    "link": "https://www.espn.com/video/clip/_/id/50095209/full-highlights",
+    "published": "2026-10-04T00:44:42Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1004%2Fbf3fbee7-1fba-413b-97ad-28f457468a5a%2Fbf3fbee7-1fba-413b-97ad-28f457468a5a.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Kentucky Wildcats vs. South Carolina Gamecocks: Full Highlights",
-    "league": "CFB"
-   },
-   {
-    "headline": "Rebels beat Cal in battle of big plays",
-    "link": "https://sports.yahoo.com/articles/rebels-beat-cal-battle-big-003802496.html",
-    "published": "2026-10-04T00:38:02.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/31e9bb18dcc21097bdf826dd98452ed12f8d0afc3626572e0f51078e5b61ad87/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_tribune_articles_423%2Fc99bf7f6e7ee1e505ab14e1e2b515903.jpg",
-    "blurb": "QB Jackson Arnold delivered with 287 yards total offense and five touchdowns in the 39-31 win over the Golden Bears.",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
-    "headline": "Should Michigan bench Bryce Underwood? Noise grows louder after Wolverines sputter to 0-2 in Big Ten play",
-    "link": "https://www.cbssports.com/college-football/news/michigan-bryce-underwood-bench/",
-    "published": "2026-10-03T21:09:53.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2Fa91be61e-2bb8-4578-aad9-b0ce19cc8871%2Fbryce-underwood-bench-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "A miserable outing against Minnesota has the Wolverines sitting at 0-2 in Big Ten play as Kyle Whittingham evaluates making a quarterback change during the bye week",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "New Haven Chargers vs. Austin Peay Governors: Full Highlights",
-    "link": "https://www.espn.com/video/clip/_/id/50095204/full-highlights",
-    "published": "2026-10-04T00:43:51Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1004%2Fa60d4639-6ff4-43e7-803d-fa8977839898%2Fa60d4639-6ff4-43e7-803d-fa8977839898.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "New Haven Chargers vs. Austin Peay Governors: Full Highlights",
-    "league": "CFB"
-   },
-   {
-    "headline": "Ohio State coach Ryan Day reveals \u2018most amazing thing\u2019 about Jeremiah Smith",
-    "link": "https://sports.yahoo.com/articles/ohio-state-coach-ryan-day-003540169.html",
-    "published": "2026-10-04T00:35:40.000Z",
-    "image": "",
-    "blurb": "The Ohio State Buckeyes put the clamps on Iowa in Iowa City, winning 31-14 on a record-setting day for Jeremiah Smith . Coach Ryan Day made a classy gesture to the Iowa program before sharing his thoughts on Smith\u2019s best attribute after the big win. Day spoke to a reporter after ",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
-    "headline": "Pitt QB Mason Heintschel suffers season-ending knee injury amid Panthers' 5-0 start",
-    "link": "https://www.cbssports.com/college-football/news/mason-heintschel-injury-updates-pitt-qb/",
-    "published": "2026-10-03T21:03:17.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2Fed7fecc8-16c8-4d50-8955-bcd1cc6667b6%2Fpitt.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Heintschel went down during the Panthers' win over Virginia Tech on Friday night",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "Jackson Arnold accounts for 5 TDs as UNLV beats California 39-31",
-    "link": "http://www.espn.com/ncf/recap?gameId=401858247",
-    "published": "2026-10-04T00:42:33Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fcollege-football%2Fevents%2F401858247.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 Jackson Arnold passed and ran for 287 yards and five touchdowns to lead UNLV to a 39-31 victory over short-handed California on Saturday.",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1004%2F8f4133be-0186-4664-a860-5ce8e1f94131%2F8f4133be-0186-4664-a860-5ce8e1f94131.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Youngstown State Penguins vs. Southern Illinois Salukis: Full Highlights",
     "league": "CFB"
    }
   ],
@@ -708,7 +708,7 @@
     "headline": "\u2018Doesn\u2019t Take a Scientist\u2019: PGA Tour Veteran Bluntly Disagrees With USGA and R&A\u2019s Golf Ball Rollback Plan",
     "link": "https://sports.yahoo.com/articles/doesn-t-scientist-pga-tour-211443449.html",
     "published": "2026-10-03T21:14:43.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/b026217c182c67b202d68d00319442dfda270e1abc4aa3063c4e8ec7bc943873/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fessentiallysports_articles_591%2F7701381f6a303f1d52399899b896b99b.jpg",
+    "image": "",
     "blurb": "The USGA and R&A, alongside the PGA Tour and DP World Tour, announced in June 2026 that the golf-ball rollback would no longer be phased in. Instead, the governing bodies set a single implementation date of January 2030, giving them more time to reassess the issue.",
     "source": "YAHOO",
     "league": "PGA"
@@ -965,11 +965,11 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 video: Imanol Rodriguez teep kick causes Alden Coria scream",
-    "link": "https://sports.yahoo.com/articles/ufc-332-video-imanol-rodriguez-001040239.html",
-    "published": "2026-10-04T00:10:40.000Z",
+    "headline": "LIVE UFC 332: Silva vs. Wang Results & Highlights",
+    "link": "https://sports.yahoo.com/articles/live-ufc-332-silva-vs-140000613.html",
+    "published": "2026-10-04T00:38:44.000Z",
     "image": "",
-    "blurb": "Imanol Rodriguez's toes were fully submerged in Alden Coria's gut at UFC 332.",
+    "blurb": "On Saturday the action heads to Utah as the leading MMA promotion presents UFC 332. The card will take place [\u2026]",
     "source": "YAHOO",
     "league": "UFC"
    }
@@ -1114,6 +1114,33 @@
    "league": "NHL"
   },
   {
+   "headline": "Jacobo Echeverria Lozano, Antonio Harris propel Purdue to 24-17 victory over Illinois",
+   "link": "http://www.espn.com/ncf/recap?gameId=401858472",
+   "published": "2026-10-04T00:56:32Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fcollege-football%2Fevents%2F401858472.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "\u2014 Freshman kicker Jacobo Echeverria Lozano booted three field goals and Antonio Harris scored a late touchdown on a 1-yard run as Purdue defeated Illinois 24-17 Saturday in a Big Ten Conference game.",
+   "league": "CFB"
+  },
+  {
+   "headline": "2026 MLB division series Day 1: Live updates, lineups, analysis",
+   "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
+   "published": "2026-10-04T00:55:45Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1003%2Fr1725424_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "All eight teams are in action Saturday, with two games down and two to go. Which clubs will come out strong?",
+   "league": "MLB"
+  },
+  {
+   "headline": "Dwayne McDougle's pick-6 turns game Nebraska's way in a 48-23 victory over Maryland",
+   "link": "http://www.espn.com/ncf/recap?gameId=401858475",
+   "published": "2026-10-04T00:54:28Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fcollege-football%2Fevents%2F401858475.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "\u2014 Dwayne McDougle III's 81-yard interception return for a touchdown sparked Nebraska in the first half, and the Cornhuskers all but shut down Maryland after that in a penalty-filled 48-23 victory Saturday.",
+   "league": "CFB"
+  },
+  {
    "headline": "Fantasy football last-minute pickups for Week 4: Raymond, Waller among top options",
    "link": "https://www.espn.com/fantasy/football/story/_/id/50069246/fantasy-football-streamers-last-minute-pickups-week-4",
    "published": "2026-10-04T00:51:59Z",
@@ -1121,15 +1148,6 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1001%2Fr1724661_3_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "If injuries or tough matchups have you seeking help, Matt Bowen provides options at each key position.",
    "league": "NFL"
-  },
-  {
-   "headline": "2026 MLB division series Day 1: Live updates, lineups, analysis",
-   "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
-   "published": "2026-10-04T00:49:51Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1003%2Fr1725424_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "All eight teams are in action Saturday, with two games down and two to go. Which clubs will come out strong?",
-   "league": "MLB"
   },
   {
    "headline": "UFC 332 results: Roman Kopylov upsets Ateba Gautier with massive first-round knockout",
@@ -1141,24 +1159,6 @@
    "league": "UFC"
   },
   {
-   "headline": "Youngstown State Penguins vs. Southern Illinois Salukis: Full Highlights",
-   "link": "https://www.espn.com/video/clip/_/id/50095209/full-highlights",
-   "published": "2026-10-04T00:44:42Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1004%2F8f4133be-0186-4664-a860-5ce8e1f94131%2F8f4133be-0186-4664-a860-5ce8e1f94131.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Youngstown State Penguins vs. Southern Illinois Salukis: Full Highlights",
-   "league": "CFB"
-  },
-  {
-   "headline": "Kentucky Wildcats vs. South Carolina Gamecocks: Full Highlights",
-   "link": "https://www.espn.com/video/clip/_/id/50095116/full-highlights",
-   "published": "2026-10-04T00:44:29Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1004%2Fbf3fbee7-1fba-413b-97ad-28f457468a5a%2Fbf3fbee7-1fba-413b-97ad-28f457468a5a.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Kentucky Wildcats vs. South Carolina Gamecocks: Full Highlights",
-   "league": "CFB"
-  },
-  {
    "headline": "UFC 332 video: Roman Kopylov TKOs hyped Ateba Gautier in Round 1",
    "link": "https://sports.yahoo.com/articles/ufc-332-video-roman-kopylov-004418458.html",
    "published": "2026-10-04T00:44:18.000Z",
@@ -1166,6 +1166,15 @@
    "blurb": "Roman Kopylov dented the armor of Ateba Gautier with a first-round finish to open the UFC 332 main card.",
    "source": "YAHOO",
    "league": "UFC"
+  },
+  {
+   "headline": "Jeremiah Smith struck a Heisman pose after breaking yet another Ohio State record",
+   "link": "https://sports.yahoo.com/articles/jeremiah-smith-struck-heisman-pose-004314462.html",
+   "published": "2026-10-04T00:43:14.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/cd968f2cc43e37a023969ade22ab8abb46b1b85c299e6a0a3be4167d612f15e4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fftw_outdoors_usa_today_article_609%2Fe32a5f8b81c99cdf6eb3d6da7fe5eb26.jpg",
+   "blurb": "After his second touchdown of the day against Iowa made him Ohio State's all-time leader, Jeremiah Smith struck a fitting celebratory pose.",
+   "source": "YAHOO",
+   "league": "CFB"
   },
   {
    "headline": "Lakers' Ziaire Williams proposes to longtime girlfriend at Bruno Mars tour",
@@ -1182,15 +1191,6 @@
    "published": "2026-10-04T00:38:42.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/59643db80c72395590515dde58bb5567fb9922717ad16e62299bf126685d9094/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2F71ed6d920ca39a5cba9bd2a2102b1d6a",
    "blurb": "A loud thud for the home team in their homecoming game.",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
-   "headline": "Rebels beat Cal in battle of big plays",
-   "link": "https://sports.yahoo.com/articles/rebels-beat-cal-battle-big-003802496.html",
-   "published": "2026-10-04T00:38:02.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/31e9bb18dcc21097bdf826dd98452ed12f8d0afc3626572e0f51078e5b61ad87/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_tribune_articles_423%2Fc99bf7f6e7ee1e505ab14e1e2b515903.jpg",
-   "blurb": "QB Jackson Arnold delivered with 287 yards total offense and five touchdowns in the 39-31 win over the Golden Bears.",
    "source": "YAHOO",
    "league": "CFB"
   },
@@ -1238,6 +1238,24 @@
    "blurb": "Case Keenum will take a seat on the bench, after beating the Eagles on Monday night.",
    "source": "YAHOO",
    "league": "NFL"
+  },
+  {
+   "headline": "Josh Heupel made the hard call benching former 5-star Faizon Brandon, but what happens next for Tennessee?",
+   "link": "https://www.cbssports.com/college-football/news/josh-heupel-benches-5-star-faizon-brandon-tennessee/",
+   "published": "2026-10-04T00:10:03.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2F00d49688-2843-485d-8eb1-5e4bd4e8a86e%2Fgettyimages-2298440467-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Vols chose George MacIntyre's floor over Faizon Brandon's ceiling in a win over Auburn. Now they face a crossroads",
+   "source": "CBS",
+   "league": "CFB"
+  },
+  {
+   "headline": "College football winners, losers in Week 5: Keelon Russell sparks Alabama to new level, Florida collapses",
+   "link": "https://www.cbssports.com/college-football/news/college-football-winners-losers-week-5-2026-scores-results/",
+   "published": "2026-10-04T00:07:15.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F06ed0fe5-a1b3-44c2-bb67-7ef38d1c956b%2Fkeelon-russell-bama.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Russell sparks the Crimson Tide in a blowout road win, while the Gators collapse against Missouri and Bryce Underwood struggles in Michigan's upset loss",
+   "source": "CBS",
+   "league": "CFB"
   },
   {
    "headline": "Last-minute best bets for NFL Week 4: Cowboys welcome Joey Porter Jr. with upset win, Rams edge out Eagles",
@@ -1310,15 +1328,6 @@
    "blurb": "The third-year point guard has worked to be a better communicator, facilitator and defender this summer and at training camp.",
    "source": "YAHOO",
    "league": "NBA"
-  },
-  {
-   "headline": "Jeremiah Smith snags more Ohio State records, hits Heisman pose after setting school TD, receptions marks",
-   "link": "https://www.cbssports.com/college-football/news/ohio-state-jeremiah-smith-all-time-receiving-records-iowa/",
-   "published": "2026-10-03T23:01:10.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F03%2F5bb58779-4af0-4da1-974f-0bb431f19cd7%2Fbuckeyes.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The junior wideout needed only 34 career games to pass Chris Olave for touchdowns and Emeka Egbuka, whom he also passed for career receptions on Saturday",
-   "source": "CBS",
-   "league": "CFB"
   },
   {
    "headline": "Division Series Game 1 winners and losers: Teoscar Hern\u00e1ndez strikes again, Munetaka Murakami gets his moment",
@@ -1418,21 +1427,12 @@
    "blurb": "Sophie Cunningham may not score many points, grab many rebounds, or do much else on the court, but the Indiana Fever player has some strong feedback for four-time WNBA MVP and current league scoring leader A\u2019ja Wilson. Appearing on the revised version of her podcast, Cunningham s",
    "source": "YAHOO",
    "league": "WNBA"
-  },
-  {
-   "headline": "\u2018Doesn\u2019t Take a Scientist\u2019: PGA Tour Veteran Bluntly Disagrees With USGA and R&A\u2019s Golf Ball Rollback Plan",
-   "link": "https://sports.yahoo.com/articles/doesn-t-scientist-pga-tour-211443449.html",
-   "published": "2026-10-03T21:14:43.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/b026217c182c67b202d68d00319442dfda270e1abc4aa3063c4e8ec7bc943873/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fessentiallysports_articles_591%2F7701381f6a303f1d52399899b896b99b.jpg",
-   "blurb": "The USGA and R&A, alongside the PGA Tour and DP World Tour, announced in June 2026 that the golf-ball rollback would no longer be phased in. Instead, the governing bodies set a single implementation date of January 2030, giving them more time to reassess the issue.",
-   "source": "YAHOO",
-   "league": "PGA"
   }
  ],
  "source_mix": {
   "ESPN": 56,
-  "YAHOO": 64,
-  "CBS": 35
+  "YAHOO": 63,
+  "CBS": 36
  },
  "degraded_sources": []
 }
