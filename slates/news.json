@@ -1,7 +1,34 @@
 {
- "generated_at": "2026-10-04T18:46:07.634Z",
+ "generated_at": "2026-10-04T18:51:10.538Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Ray Kerr, not Chris Sale, starting Game 2 of NLDS for Braves in Los Angeles",
+    "link": "https://sports.yahoo.com/articles/ray-kerr-not-chris-sale-183839083.html",
+    "published": "2026-10-04T18:38:39.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/850ffd28ddfa20248ce4a8dd9097d7209ebd752203a67989181d710f4482f89f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fb5566bf4c0713bee039f7ccb3a93ffa4.jpg",
+    "blurb": "Another pitching matchup stacked against the Braves\u2019 favor in Game 2.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
+    "headline": "Brewers will have open stadium roof for NLDS Game 2 after controversial ending vs. Padres",
+    "link": "https://www.cbssports.com/mlb/news/brewers-open-stadium-roof-nlds-game-2-controversial-ending-padres/",
+    "published": "2026-10-04T18:01:21.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F78d4d3f1-aae9-494c-81f5-adf5e3cd60be%2Famfam-field-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The roof will be open at American Family Field on Sunday afternoon as the Brewers try to take a 2-0 series lead",
+    "source": "CBS",
+    "league": "MLB"
+   },
+   {
+    "headline": "Is this finally Milwaukee's year? Examining why Brewers' way will (or won't) work in playoffs",
+    "link": "https://www.espn.com/mlb/story/_/id/50093592/mlb-2026-playoffs-milwaukee-brewers-postseason-different",
+    "published": "2026-10-04T17:08:59.000Z",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725719_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Brew Crew dominated the regular season. But will the lack of power that has doomed Milwaukee before dash its World Series dreams?",
+    "source": "ESPN",
+    "league": "MLB"
+   },
    {
     "headline": "A (Brief) History of Balls Hitting The Roof",
     "link": "https://sports.yahoo.com/articles/brief-history-balls-hitting-roof-180942227.html",
@@ -21,19 +48,19 @@
     "league": "MLB"
    },
    {
-    "headline": "Is this finally Milwaukee's year? Examining why Brewers' way will (or won't) work in playoffs",
-    "link": "https://www.espn.com/mlb/story/_/id/50093592/mlb-2026-playoffs-milwaukee-brewers-postseason-different",
-    "published": "2026-10-04T17:08:59.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725719_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Brew Crew dominated the regular season. But will the lack of power that has doomed Milwaukee before dash its World Series dreams?",
+    "headline": "Every team's odds to win the World Series: Dodgers still favorites as ALDS and NLDS begin",
+    "link": "https://www.espn.com/espn/betting/story/_/id/46793185/espn-mlb-betting-odds-futures-bets-world-series-american-national-league",
+    "published": "2026-10-04T16:01:23Z",
     "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F1102%2Fr1569497_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Every MLB team's odds to win the 2026 World Series as the playoffs begin.",
     "league": "MLB"
    },
    {
     "headline": "Blake Snell\u2019s time to shine",
     "link": "https://sports.yahoo.com/articles/blake-snell-time-shine-180000701.html",
     "published": "2026-10-04T18:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/24db1ad78821e5813682f5f36490b030e20e7d4f1eff38343756443bd5496f91/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fcece6c049b5261b91a85239a52a2d73f.jpg",
+    "image": "",
     "blurb": "If it isn't broken, don\u2019t fix it; the Dodgers send another left-handed star pitcher to face the Braves in the NLDS",
     "source": "YAHOO",
     "league": "MLB"
@@ -48,33 +75,6 @@
     "league": "MLB"
    },
    {
-    "headline": "Every team's odds to win the World Series: Dodgers still favorites as ALDS and NLDS begin",
-    "link": "https://www.espn.com/espn/betting/story/_/id/46793185/espn-mlb-betting-odds-futures-bets-world-series-american-national-league",
-    "published": "2026-10-04T16:01:23Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F1102%2Fr1569497_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Every MLB team's odds to win the 2026 World Series as the playoffs begin.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Dodgers 2026 injured list tracker",
-    "link": "https://sports.yahoo.com/articles/dodgers-2026-injured-list-tracker-193821483.html",
-    "published": "2026-10-04T17:02:24.000Z",
-    "image": "",
-    "blurb": "This is your one-stop shop for every Dodgers stint on the injured list during the 2026 season. We\u2019ll also include every time a player misses time on the paternity list, bereavement leave, or is on the family medical emergency list as well. Basically any time a player misses time ",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Were Padres robbed of go-ahead homer vs. Brewers? Why Ty France's ninth-inning fly ball was ruled an out",
-    "link": "https://www.cbssports.com/mlb/news/padres-brewers-ty-france-home-run-american-family-field-ground-rules/",
-    "published": "2026-10-04T05:37:53.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F3053dd5f-b62b-4250-a21f-6e7a83856a80%2Fty-france-2-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Some controversy arose as Milwaukee tried to close out a Game 1 win over San Diego in the NLDS at American Family Field",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
     "headline": "Brewers escape Padres in Game 1 after wild roof-aided out in 9th",
     "link": "https://www.espn.com/mlb/story/_/id/50097188/brewers-escape-game-1-roof-aided-ends-padres-hopes",
     "published": "2026-10-04T12:42:32Z",
@@ -84,11 +84,11 @@
     "league": "MLB"
    },
    {
-    "headline": "Every Dodgers transaction throughout 2026 season",
-    "link": "https://sports.yahoo.com/articles/every-dodgers-transaction-throughout-2026-192830669.html",
-    "published": "2026-10-04T16:59:14.000Z",
+    "headline": "Dodgers 2026 injured list tracker",
+    "link": "https://sports.yahoo.com/articles/dodgers-2026-injured-list-tracker-193821483.html",
+    "published": "2026-10-04T17:02:24.000Z",
     "image": "",
-    "blurb": "Keeping track of the 40-man roster, one roster move at a time.",
+    "blurb": "This is your one-stop shop for every Dodgers stint on the injured list during the 2026 season. We\u2019ll also include every time a player misses time on the paternity list, bereavement leave, or is on the family medical emergency list as well. Basically any time a player misses time ",
     "source": "YAHOO",
     "league": "MLB"
    }
@@ -189,7 +189,7 @@
    {
     "headline": "Colorado State DC leaves sideline in first half, fired by Mora after game",
     "link": "https://www.espn.com/college-football/story/_/id/50097925/colorado-state-defensive-coordinator-leaves-sideline-fired-game",
-    "published": "2026-10-04T19:35:38.000Z",
+    "published": "2026-10-04T19:38:25.000Z",
     "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F1124%252Fr1579873_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Colorado State coach Jim Mora said defensive coordinator Tyson Summers was \"no longer with the program\" after he was relieved of his playcalling duties in the first half and left the sideline.",
     "source": "ESPN",
@@ -223,11 +223,11 @@
     "league": "CFB"
    },
    {
-    "headline": "ClutchPoints\u2019 Week 6 2026 College Football Top 25 Power Rankings",
-    "link": "https://sports.yahoo.com/articles/clutchpoints-week-6-2026-college-183257930.html",
-    "published": "2026-10-04T18:32:57.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/0cfbc6c5954562bf05c36c90eb4fdd91d5f79cab69e6181eefc0d8f68352f068/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2F487360ecf0164d8fa2b1e7f4e281764e.jpg",
-    "blurb": "Week 5 of the College Football season has come to an end. This was the first week with many teams being out of action and on open weeks. It was also one of the first weeks without a major shakeup in the Top 10. The top-ranked team to lose was Florida, as Missouri dominated the Ga",
+    "headline": "Washington football nowhere to be found on US LBM Coaches Poll",
+    "link": "https://sports.yahoo.com/articles/washington-football-nowhere-found-us-183529001.html",
+    "published": "2026-10-04T18:35:29.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/f3ad27f6059ec5f1dbfe9abc691ec2455b02c7bbf40be917158c0a93c2c3cc56/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhuskies_wire_articles_664%2Fd6ec879567ce739fd58ddd022a764f58.jpg",
+    "blurb": "The Washington Huskies were nowhere to be found in the latest US LBM Coaches Poll, nor should they be anywhere near it.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "The Winning Smart Victory Post #122",
-    "link": "https://sports.yahoo.com/articles/winning-smart-victory-post-122-183248174.html",
-    "published": "2026-10-04T18:32:48.000Z",
+    "headline": "ClutchPoints\u2019 Week 6 2026 College Football Top 25 Power Rankings",
+    "link": "https://sports.yahoo.com/articles/clutchpoints-week-6-2026-college-183257930.html",
+    "published": "2026-10-04T18:32:57.000Z",
     "image": "",
-    "blurb": "You probably don\u2019t remember, but my plus one last year for the home opener was my eldest great-nephew. He\u2019s now 15 (with his permit!), and a freshman in high school. Watching him watch the game was every bit as entertaining as the game itself, because he was studying the game. He",
+    "blurb": "Week 5 of the College Football season has come to an end. This was the first week with many teams being out of action and on open weeks. It was also one of the first weeks without a major shakeup in the Top 10. The top-ranked team to lose was Florida, as Missouri dominated the Ga",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -279,11 +279,11 @@
   ],
   "basketball/wnba": [
    {
-    "headline": "Valkyries' Salaun named unanimous 6th Player of the Year",
-    "link": "https://www.espn.com/wnba/story/_/id/50100731/valkyries-janelle-salaun-unanimous-6th-player-year",
-    "published": "2026-10-04T19:31:38.000Z",
-    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0723%252Fr1522445_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Valkyries forward Janelle Sala\u00fcn has been unanimously voted the WNBA's Sixth Player of the Year. The second-year player led all reserves with 12.7 points per game.",
+    "headline": "Nakase ready to coach Valkyries, acknowledges wake-up call of on-court collapse",
+    "link": "https://www.espn.com/wnba/story/_/id/50101237/valkyries-coach-natalie-nakase-adjusting-routine-collapse",
+    "published": "2026-10-04T19:39:37.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0818%252Fr1703288_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Valkyries coach Natalie Nakase is well enough to coach in the WNBA semifinals but said she is taking steps to deal with her extreme work ethic after she went down on the sideline in the first round.",
     "source": "ESPN",
     "league": "WNBA"
    },
@@ -306,11 +306,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Fever's Mitchell says she'll be 'selfish' with free agency decision",
-    "link": "https://www.espn.com/wnba/story/_/id/50091891/fever-mitchell-says-selfish-free-agency-decision",
-    "published": "2026-10-04T19:31:38.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0929%252Fr1723280_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Retaining unrestricted free agent Kelsey Mitchell is a top offseason priority for the Fever, according to general manager Amber Cox and coach Stephanie White.",
+    "headline": "Valkyries' Salaun named unanimous 6th Player of the Year",
+    "link": "https://www.espn.com/wnba/story/_/id/50100731/valkyries-janelle-salaun-unanimous-6th-player-year",
+    "published": "2026-10-04T19:39:37.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0723%252Fr1522445_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Valkyries forward Janelle Sala\u00fcn has been unanimously voted the WNBA's Sixth Player of the Year. The second-year player led all reserves with 12.7 points per game.",
     "source": "ESPN",
     "league": "WNBA"
    },
@@ -333,11 +333,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "'Big shot Gabby' leads Valkyries' charge from 16 down, ousts Wings in Game 3",
-    "link": "https://www.espn.com/wnba/story/_/id/50088302/valkyries-rally-16-stun-wings-1st-playoff-series-win",
-    "published": "2026-10-04T19:31:38.000Z",
+    "headline": "Fever's Mitchell says she'll be 'selfish' with free agency decision",
+    "link": "https://www.espn.com/wnba/story/_/id/50091891/fever-mitchell-says-selfish-free-agency-decision",
+    "published": "2026-10-04T19:39:37.000Z",
     "image": "",
-    "blurb": "Gabby Williams scored 11 of her 19 points in the fourth quarter to help the Valkyries erase a 16-point second-half deficit and secure a spot in the WNBA semifinals with a 77-73 win over the Wings.",
+    "blurb": "Retaining unrestricted free agent Kelsey Mitchell is a top offseason priority for the Fever, according to general manager Amber Cox and coach Stephanie White.",
     "source": "ESPN",
     "league": "WNBA"
    },
@@ -360,11 +360,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Valkyries say Nakase OK after collapsing, not expected to miss time",
-    "link": "https://www.espn.com/wnba/story/_/id/50088772/valkyries-say-nakase-ok-collapsing-late-game-3-win",
-    "published": "2026-10-04T19:31:38.000Z",
+    "headline": "\ud83c\udfc0 Offseason guides for every eliminated team",
+    "link": "https://www.espn.com/wnba/story/_/id/49860363/wnba-offseason-2026-playoffs-eliminated-teams-draft-trade-free-agency-guides",
+    "published": "2026-10-04T19:39:37.000Z",
     "image": "",
-    "blurb": "The Valkyries said coach Natalie Nakase was feeling lightheaded and exhausted when she collapsed on the court late in their Game 3 win but said she was fine after the game and is expected to coach Sunday's Game 1 of the semifinals.",
+    "blurb": "With 2026 playoff teams decided, we break down the priorities and needs for each eliminated WNBA team.",
     "source": "ESPN",
     "league": "WNBA"
    }
@@ -584,10 +584,10 @@
    {
     "headline": "Jordan Page picks UConn, joins Bowman as five-stars to Huskies",
     "link": "https://www.espn.com/mens-college-basketball/story/_/id/50101146/jordan-page-picks-uconn-joins-bowman-five-stars-huskies",
-    "published": "2026-10-04T18:23:58Z",
+    "published": "2026-10-04T18:44:15Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2021%2F1207%2Fr948057_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Five-star wing Jordan Page has announced his commitment to UConn, giving the Huskies their first recruiting class with two ESPN five-star prospects in at least 20 years.",
+    "blurb": "Five-star wing Jordan Page announced his commitment to UConn men's basketball on Sunday, giving the Huskies their first recruiting class with two ESPN five-star prospects in at least 20 years.",
     "league": "NCAAB"
    },
    {
@@ -1078,9 +1078,27 @@
    "league": "NCAAB"
   },
   {
+   "headline": "Nakase ready to coach Valkyries, acknowledges wake-up call of on-court collapse",
+   "link": "https://www.espn.com/wnba/story/_/id/50101237/valkyries-coach-natalie-nakase-adjusting-routine-collapse",
+   "published": "2026-10-04T19:39:37.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0818%252Fr1703288_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Valkyries coach Natalie Nakase is well enough to coach in the WNBA semifinals but said she is taking steps to deal with her extreme work ethic after she went down on the sideline in the first round.",
+   "source": "ESPN",
+   "league": "WNBA"
+  },
+  {
+   "headline": "Valkyries' Salaun named unanimous 6th Player of the Year",
+   "link": "https://www.espn.com/wnba/story/_/id/50100731/valkyries-janelle-salaun-unanimous-6th-player-year",
+   "published": "2026-10-04T19:39:37.000Z",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0723%252Fr1522445_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Valkyries forward Janelle Sala\u00fcn has been unanimously voted the WNBA's Sixth Player of the Year. The second-year player led all reserves with 12.7 points per game.",
+   "source": "ESPN",
+   "league": "WNBA"
+  },
+  {
    "headline": "Colorado State DC leaves sideline in first half, fired by Mora after game",
    "link": "https://www.espn.com/college-football/story/_/id/50097925/colorado-state-defensive-coordinator-leaves-sideline-fired-game",
-   "published": "2026-10-04T19:35:38.000Z",
+   "published": "2026-10-04T19:38:25.000Z",
    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F1124%252Fr1579873_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Colorado State coach Jim Mora said defensive coordinator Tyson Summers was \"no longer with the program\" after he was relieved of his playcalling duties in the first half and left the sideline.",
    "source": "ESPN",
@@ -1114,24 +1132,6 @@
    "league": "NFL"
   },
   {
-   "headline": "Valkyries' Salaun named unanimous 6th Player of the Year",
-   "link": "https://www.espn.com/wnba/story/_/id/50100731/valkyries-janelle-salaun-unanimous-6th-player-year",
-   "published": "2026-10-04T19:31:38.000Z",
-   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0723%252Fr1522445_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Valkyries forward Janelle Sala\u00fcn has been unanimously voted the WNBA's Sixth Player of the Year. The second-year player led all reserves with 12.7 points per game.",
-   "source": "ESPN",
-   "league": "WNBA"
-  },
-  {
-   "headline": "Fever's Mitchell says she'll be 'selfish' with free agency decision",
-   "link": "https://www.espn.com/wnba/story/_/id/50091891/fever-mitchell-says-selfish-free-agency-decision",
-   "published": "2026-10-04T19:31:38.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0929%252Fr1723280_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Retaining unrestricted free agent Kelsey Mitchell is a top offseason priority for the Fever, according to general manager Amber Cox and coach Stephanie White.",
-   "source": "ESPN",
-   "league": "WNBA"
-  },
-  {
    "headline": "Seeking 4th LPGA Tour victory of season, Thitikul leads in Honolulu",
    "link": "https://www.espn.com/golf/story/_/id/50096595/leader-jeeno-thitikul-seeks-4th-lpga-tour-victory-season",
    "published": "2026-10-04T19:00:45.000Z",
@@ -1139,6 +1139,15 @@
    "blurb": "Second-ranked Jeeno Thitikul of Thailand took a three-stroke lead in the LOTTE Championship in a bid for her fourth LPGA Tour victory of the season.",
    "source": "ESPN",
    "league": "PGA"
+  },
+  {
+   "headline": "Jordan Page picks UConn, joins Bowman as five-stars to Huskies",
+   "link": "https://www.espn.com/mens-college-basketball/story/_/id/50101146/jordan-page-picks-uconn-joins-bowman-five-stars-huskies",
+   "published": "2026-10-04T18:44:15Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2021%2F1207%2Fr948057_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Five-star wing Jordan Page announced his commitment to UConn men's basketball on Sunday, giving the Huskies their first recruiting class with two ESPN five-star prospects in at least 20 years.",
+   "league": "NCAAB"
   },
   {
    "headline": "Daniel Cormier: UFC 332 winner Damian Pinas is 'single biggest power puncher' ever",
@@ -1159,6 +1168,15 @@
    "league": "NFL"
   },
   {
+   "headline": "Ray Kerr, not Chris Sale, starting Game 2 of NLDS for Braves in Los Angeles",
+   "link": "https://sports.yahoo.com/articles/ray-kerr-not-chris-sale-183839083.html",
+   "published": "2026-10-04T18:38:39.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/850ffd28ddfa20248ce4a8dd9097d7209ebd752203a67989181d710f4482f89f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fb5566bf4c0713bee039f7ccb3a93ffa4.jpg",
+   "blurb": "Another pitching matchup stacked against the Braves\u2019 favor in Game 2.",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
    "headline": "Tyler Loop 64-yard field goal gives Ravens 24-7 halftime lead over Titans",
    "link": "https://sports.yahoo.com/articles/tyler-loop-64-yard-field-183810317.html",
    "published": "2026-10-04T18:38:10.000Z",
@@ -1177,11 +1195,11 @@
    "league": "CFB"
   },
   {
-   "headline": "ClutchPoints\u2019 Week 6 2026 College Football Top 25 Power Rankings",
-   "link": "https://sports.yahoo.com/articles/clutchpoints-week-6-2026-college-183257930.html",
-   "published": "2026-10-04T18:32:57.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/0cfbc6c5954562bf05c36c90eb4fdd91d5f79cab69e6181eefc0d8f68352f068/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2F487360ecf0164d8fa2b1e7f4e281764e.jpg",
-   "blurb": "Week 5 of the College Football season has come to an end. This was the first week with many teams being out of action and on open weeks. It was also one of the first weeks without a major shakeup in the Top 10. The top-ranked team to lose was Florida, as Missouri dominated the Ga",
+   "headline": "Washington football nowhere to be found on US LBM Coaches Poll",
+   "link": "https://sports.yahoo.com/articles/washington-football-nowhere-found-us-183529001.html",
+   "published": "2026-10-04T18:35:29.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/f3ad27f6059ec5f1dbfe9abc691ec2455b02c7bbf40be917158c0a93c2c3cc56/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhuskies_wire_articles_664%2Fd6ec879567ce739fd58ddd022a764f58.jpg",
+   "blurb": "The Washington Huskies were nowhere to be found in the latest US LBM Coaches Poll, nor should they be anywhere near it.",
    "source": "YAHOO",
    "league": "CFB"
   },
@@ -1202,15 +1220,6 @@
    "blurb": "It was a missed opportunity for everyone not named Corey Day",
    "source": "YAHOO",
    "league": "NASCAR"
-  },
-  {
-   "headline": "Jordan Page picks UConn, joins Bowman as five-stars to Huskies",
-   "link": "https://www.espn.com/mens-college-basketball/story/_/id/50101146/jordan-page-picks-uconn-joins-bowman-five-stars-huskies",
-   "published": "2026-10-04T18:23:58Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2021%2F1207%2Fr948057_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Five-star wing Jordan Page has announced his commitment to UConn, giving the Huskies their first recruiting class with two ESPN five-star prospects in at least 20 years.",
-   "league": "NCAAB"
   },
   {
    "headline": "Dana White came for UFC 332's 'so-called experts' \u2014 but they weren't exactly wrong",
@@ -1258,12 +1267,12 @@
    "league": "NHL"
   },
   {
-   "headline": "Blake Snell\u2019s time to shine",
-   "link": "https://sports.yahoo.com/articles/blake-snell-time-shine-180000701.html",
-   "published": "2026-10-04T18:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/24db1ad78821e5813682f5f36490b030e20e7d4f1eff38343756443bd5496f91/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fcece6c049b5261b91a85239a52a2d73f.jpg",
-   "blurb": "If it isn't broken, don\u2019t fix it; the Dodgers send another left-handed star pitcher to face the Braves in the NLDS",
-   "source": "YAHOO",
+   "headline": "Brewers will have open stadium roof for NLDS Game 2 after controversial ending vs. Padres",
+   "link": "https://www.cbssports.com/mlb/news/brewers-open-stadium-roof-nlds-game-2-controversial-ending-padres/",
+   "published": "2026-10-04T18:01:21.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F78d4d3f1-aae9-494c-81f5-adf5e3cd60be%2Famfam-field-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The roof will be open at American Family Field on Sunday afternoon as the Brewers try to take a 2-0 series lead",
+   "source": "CBS",
    "league": "MLB"
   },
   {
@@ -1418,15 +1427,6 @@
    "blurb": "The NASCAR Cup Series heads back to Las Vegas Motor Speedway today for the South Point 400, putting the spotlight on the Cup Series under the desert lights.The NASCAR Cup Series race starts at 5:30 p.m. ET on USA Network and HBO Max, with additional coverage on PRN and SiriusXM N",
    "source": "YAHOO",
    "league": "NASCAR"
-  },
-  {
-   "headline": "Why Aaron Boone liked what he saw in Giancarlo Stanton's first at-bat since April despite strikeout",
-   "link": "https://www.cbssports.com/mlb/news/aaron-boone-giancarlo-stanton-first-at-bat-since-april-yankees/",
-   "published": "2026-10-04T15:04:54.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fdda9ddaa-72a0-45f2-94a3-ac7055163cf4%2Fstanton-getty-1.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Stanton was called on as a pinch-hitter in the ninth inning of the Yankees' Game 1 loss to the Rays on Saturday",
-   "source": "CBS",
-   "league": "MLB"
   }
  ],
  "source_mix": {
