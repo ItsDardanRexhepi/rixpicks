@@ -1039,8 +1039,9 @@
   "pick_team": "Las Vegas Aces",
   "prediction": "Las Vegas Aces to beat Golden State Valkyries",
   "kickoff_utc": "2026-10-04T20:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-03T15:25:06.445990+00:00"
+  "status": "miss",
+  "created_at": "2026-10-03T15:25:06.445990+00:00",
+  "settled_at": "2026-10-04T22:34:54.829288+00:00"
  },
  {
   "id": "a760dfe90e",
@@ -1136,8 +1137,9 @@
   "pick_team": "Chicago Stars FC",
   "prediction": "Chicago Stars FC to beat Denver Summit FC",
   "kickoff_utc": "2026-10-04T20:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-04T09:05:12.360021+00:00"
+  "status": "miss",
+  "created_at": "2026-10-04T09:05:12.360021+00:00",
+  "settled_at": "2026-10-04T22:34:54.964278+00:00"
  },
  {
   "id": "7461789a93",
