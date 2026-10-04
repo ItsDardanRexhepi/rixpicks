@@ -40,7 +40,7 @@ function paint(date,picks,graded,extra,complete){
    var g=p.game||{};child(box,'div','gm',(p.league||text(p.espn_league).split('/').pop().toUpperCase()||'Pick')+(g.home||g.away?' · '+(p.side==='away'?'at '+g.home:p.side==='home'?'vs '+g.away:[g.away,g.home].filter(Boolean).join(' vs ')):'') );
    if(x&&x.score)child(box,'div','sc',x.score);
    if(r){var note='';if(x&&x.note)note=text(x.note);else if(r==='P')note='Push · 0.00u at the published card price.';else if(s!=null&&a!=null)note=fmt(r==='L'?-s:s*(a>0?a/100:100/Math.abs(a)))+' on '+p.units+' at the '+(a>0?'+':'')+a+' published card price.';else note='Result posted; units pending verified card price.';
-    child(box,'div','nt',note);
+    child(box,'div','nt',note);if(x&&x.learning)child(box,'div','nt',text(x.learning));
     if(x&&x.close!=null&&x.clv!=null&&Number.isFinite(Number(x.clv))){var c=Number(x.clv),cl=child(box,'div','clv','close '+x.close+' · CLV '+(c>=0?'+':'')+c.toFixed(1)+'% · '+(c>.05?'beat the close':c<-.05?'gave back vs the close':'matched the close'));cl.style.cssText='font-size:12px;color:#8a8f98;margin-top:4px';}
    }else child(box,'div','nt','Pending · units settle at the published card price.');
  });

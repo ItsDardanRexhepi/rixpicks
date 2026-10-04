@@ -739,7 +739,8 @@ def main():
         _row = {'name': q['pick'], 'game': game, 'odds': q['locked_american'],
                 'units': q['stake_units'], 'result': {'WON': 'W', 'LOST': 'L', 'PUSH': 'P'}[res],
                 'score': score_txt, '_delta': str(Decimal(str(q['delta_units_exact'])))}
-        # Oct 3: per-pick learning text is internal; validated above but never written to history.json (served).
+        if isinstance(q.get('learning'), str) and q['learning'].strip():
+            _row['learning'] = q['learning'].strip()
         day['picks'].append(_row)
         dw = sum(1 for p in day['picks'] if p['result'] == 'W')
         dl = sum(1 for p in day['picks'] if p['result'] == 'L')

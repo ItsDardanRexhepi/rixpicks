@@ -81,7 +81,7 @@ const HIST_TODAY = { days: [
   check('DI-03 static Oct 1 block hidden while Today paints Oct 1 picks', r.blocks[0].hidden, true);
   check('DI-03 static Sep 30 block stays visible', r.blocks[1].hidden, false);
   // DI-M2: the pick's learning shows in the Today section
-  check('DI-M2 learning is internal: not shown under the graded pick in Today (Oct 3 rule)', textOf(r.mount).includes('Owner-carded override: one data point.'), false);
+  check('DI-M2 learning shown under the graded pick in Today', textOf(r.mount).includes('Owner-carded override: one data point.'), true);
   // a 200 today_record.json keeps being read every cycle
   r = runToday({ manifest: { date: '2026-10-01', picks: [DEVILS] }, history: HIST_TODAY, liveStatus: 200 });
   await flush(); r.clock.now += 15000; r.tick(); await flush();

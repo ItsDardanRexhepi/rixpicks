@@ -106,6 +106,7 @@ def pick_html(p):
 <div class="gm">{html.escape(p.get('game',''))}</div>
 <div class="sc">{html.escape(p.get('score',''))}</div>
 {f'<div class="nt">{html.escape(p["note"])}</div>' if p.get('note') else ''}
+{f'<div class="nt">{html.escape(str(p["learning"]))}</div>' if p.get('learning') else ''}
 {clv_html(p)}
 </div>"""
 
