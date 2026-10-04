@@ -1,153 +1,25 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T07:50:10.091803+00:00",
+ "generated_at": "2026-10-04T09:20:11.714843+00:00",
  "leagues": [
   {
    "league": "WTA",
    "games": [
     {
-     "espn_event_id": "183281",
-     "matchup": "TBD @ TBD",
+     "espn_event_id": "186280",
+     "matchup": "Elena Micic @ Mariia Golovina",
      "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
+     "status": "in",
+     "detail": "1st",
+     "score": "Elena Micic 0 - Mariia Golovina 0"
     },
     {
-     "espn_event_id": "183282",
-     "matchup": "TBD @ TBD",
+     "espn_event_id": "186282",
+     "matchup": "Ilay Yoruk @ Noma Noha Akugue",
      "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183283",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183284",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183285",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183286",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183287",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183288",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183289",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183290",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183291",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183280",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183292",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183293",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183294",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183295",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183296",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "183297",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-04T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
+     "status": "in",
+     "detail": "1st",
+     "score": "Ilay Yoruk 0 - Noma Noha Akugue 0"
     }
    ]
   }
