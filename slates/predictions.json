@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-04T00:35:22.121712+00:00",
+ "generated_at": "2026-10-04T00:50:26.639888+00:00",
  "items": [
-  {
-   "id": "32d7e7e5c9",
-   "league": "NWSL",
-   "event": "Boston Legacy FC @ Portland Thorns FC",
-   "prediction": "Portland Thorns FC to beat Boston Legacy FC",
-   "kickoff_utc": "2026-10-04T00:45:00+00:00"
-  },
   {
    "id": "80be8c5d72",
    "league": "NHL",
@@ -41,6 +34,13 @@
    "league": "NFL",
    "event": "Tennessee Titans @ Baltimore Ravens",
    "prediction": "Baltimore Ravens to beat Tennessee Titans",
+   "kickoff_utc": "2026-10-04T17:00:00+00:00"
+  },
+  {
+   "id": "82978f71da",
+   "league": "NFL",
+   "event": "Jacksonville Jaguars @ Cincinnati Bengals",
+   "prediction": "Cincinnati Bengals to beat Jacksonville Jaguars",
    "kickoff_utc": "2026-10-04T17:00:00+00:00"
   }
  ]
