@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-04T21:50:07.935753+00:00",
+ "generated_at": "2026-10-04T22:05:04.961974+00:00",
  "items": [
-  {
-   "id": "948adbdb83",
-   "league": "NHL",
-   "event": "Utah Mammoth @ New York Rangers",
-   "prediction": "Utah Mammoth to beat New York Rangers",
-   "kickoff_utc": "2026-10-04T22:00:00+00:00"
-  },
   {
    "id": "c5f2f04f18",
    "league": "NBA",
@@ -42,6 +35,13 @@
    "event": "Calgary Flames @ Seattle Kraken",
    "prediction": "Seattle Kraken to beat Calgary Flames",
    "kickoff_utc": "2026-10-05T00:00:00+00:00"
+  },
+  {
+   "id": "ab4b3793db",
+   "league": "NFL",
+   "event": "Detroit Lions @ Carolina Panthers",
+   "prediction": "Detroit Lions to beat Carolina Panthers",
+   "kickoff_utc": "2026-10-05T00:20:00+00:00"
   }
  ]
 }
