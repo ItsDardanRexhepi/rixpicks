@@ -298,8 +298,9 @@
   "pick_team": "TCU Horned Frogs",
   "prediction": "TCU Horned Frogs beat BYU Cougars",
   "kickoff_utc": "2026-10-03T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T13:50:16.389972+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T13:50:16.389972+00:00",
+  "settled_at": "2026-10-04T02:19:58.806763+00:00"
  },
  {
   "id": "3be2ae28ea",
