@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T18:20:14.070091+00:00",
+ "generated_at": "2026-10-04T18:35:09.651854+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -23,38 +23,38 @@
      "matchup": "NE @ BUF",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "0:29 - 2nd",
-     "score": "NE 14 - BUF 14",
-     "away_to": 2,
-     "home_to": 2
+     "detail": "Halftime",
+     "score": "NE 14 - BUF 17",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401872972",
      "matchup": "NYJ @ CHI",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "0:52 - 2nd",
-     "score": "NYJ 3 - CHI 10",
-     "away_to": 1,
-     "home_to": 2
+     "detail": "Halftime",
+     "score": "NYJ 3 - CHI 13",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401872969",
      "matchup": "JAX @ CIN",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "1:23 - 2nd",
+     "detail": "Halftime",
      "score": "JAX 13 - CIN 3",
      "away_to": 3,
-     "home_to": 0
+     "home_to": 3
     },
     {
      "espn_event_id": "401872966",
      "matchup": "ARI @ NYG",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "2:00 - 2nd",
-     "score": "ARI 14 - NYG 19",
+     "detail": "Halftime",
+     "score": "ARI 17 - NYG 19",
      "away_to": 3,
      "home_to": 3
     },
@@ -63,19 +63,19 @@
      "matchup": "LAR @ PHI",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "1:55 - 2nd",
-     "score": "LAR 10 - PHI 13",
+     "detail": "Halftime",
+     "score": "LAR 10 - PHI 20",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401872968",
      "matchup": "GB @ TB",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "0:34 - 2nd",
-     "score": "GB 7 - TB 7",
-     "away_to": 1,
+     "detail": "Halftime",
+     "score": "GB 10 - TB 7",
+     "away_to": 3,
      "home_to": 3
     },
     {
@@ -83,9 +83,9 @@
      "matchup": "TEN @ BAL",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "1:29 - 2nd",
-     "score": "TEN 7 - BAL 21",
-     "away_to": 2,
+     "detail": "Halftime",
+     "score": "TEN 7 - BAL 24",
+     "away_to": 3,
      "home_to": 3
     },
     {
@@ -93,10 +93,10 @@
      "matchup": "DAL @ HOU",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "1:29 - 2nd",
-     "score": "DAL 6 - HOU 13",
-     "away_to": 2,
-     "home_to": 2
+     "detail": "Halftime",
+     "score": "DAL 6 - HOU 16",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401872974",
@@ -105,6 +105,30 @@
      "status": "pre",
      "detail": "10/4 - 1:05 PM PT",
      "score": "MIA 0 - MIN 0"
+    },
+    {
+     "espn_event_id": "401872976",
+     "matchup": "KC @ LV",
+     "commence": "2026-10-04T20:25Z",
+     "status": "pre",
+     "detail": "10/4 - 1:25 PM PT",
+     "score": "KC 0 - LV 0"
+    },
+    {
+     "espn_event_id": "401872975",
+     "matchup": "DEN @ SF",
+     "commence": "2026-10-04T20:25Z",
+     "status": "pre",
+     "detail": "10/4 - 1:25 PM PT",
+     "score": "DEN 0 - SF 0"
+    },
+    {
+     "espn_event_id": "401872977",
+     "matchup": "LAC @ SEA",
+     "commence": "2026-10-04T20:25Z",
+     "status": "pre",
+     "detail": "10/4 - 1:25 PM PT",
+     "score": "LAC 0 - SEA 0"
     }
    ]
   },
@@ -116,8 +140,8 @@
      "matchup": "NY @ ATL",
      "commence": "2026-10-04T18:00Z",
      "status": "in",
-     "detail": "3:59 - 1st",
-     "score": "NY 15 - ATL 14",
+     "detail": "7:30 - 2nd",
+     "score": "NY 29 - ATL 27",
      "away_to": 5,
      "home_to": 4
     },
@@ -139,7 +163,7 @@
      "matchup": "WPG @ DET",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "11:31 - 2nd",
+     "detail": "3:29 - 2nd",
      "score": "WPG 3 - DET 0",
      "away_to": null,
      "home_to": null
@@ -154,8 +178,8 @@
      "matchup": "LA @ GFC",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "53'",
-     "score": "LA 0 - GFC 0"
+     "detail": "68'",
+     "score": "LA 0 - GFC 1"
     },
     {
      "espn_event_id": "401854090",
