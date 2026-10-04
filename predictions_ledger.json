@@ -163,8 +163,9 @@
   "pick_team": "USC Trojans",
   "prediction": "USC Trojans beat Washington Huskies",
   "kickoff_utc": "2026-10-03T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T12:23:13.960758+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T12:23:13.960758+00:00",
+  "settled_at": "2026-10-04T03:19:53.452647+00:00"
  },
  {
   "id": "e07235134f",
@@ -218,8 +219,9 @@
   "pick_team": "Clemson Tigers",
   "prediction": "Clemson Tigers beat Miami Hurricanes",
   "kickoff_utc": "2026-10-03T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T13:21:01.380157+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T13:21:01.380157+00:00",
+  "settled_at": "2026-10-04T03:19:53.581208+00:00"
  },
  {
   "id": "4506c0fc38",
@@ -259,8 +261,9 @@
   "pick_team": "LSU Tigers",
   "prediction": "LSU Tigers beat McNeese Cowboys",
   "kickoff_utc": "2026-10-03T23:45:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T13:35:58.162294+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T13:35:58.162294+00:00",
+  "settled_at": "2026-10-04T03:19:53.716487+00:00"
  },
  {
   "id": "82305d8fd1",
@@ -434,8 +437,9 @@
   "pick_team": "Indiana Hoosiers",
   "prediction": "Indiana Hoosiers beat Rutgers Scarlet Knights",
   "kickoff_utc": "2026-10-04T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T15:35:53.668736+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T15:35:53.668736+00:00",
+  "settled_at": "2026-10-04T03:19:53.875705+00:00"
  },
  {
   "id": "f6454a2674",
@@ -955,8 +959,9 @@
   "pick_team": "Portland Thorns FC",
   "prediction": "Portland Thorns FC to beat Boston Legacy FC",
   "kickoff_utc": "2026-10-04T00:45:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-03T09:05:05.167154+00:00"
+  "status": "miss",
+  "created_at": "2026-10-03T09:05:05.167154+00:00",
+  "settled_at": "2026-10-04T03:19:54.214992+00:00"
  },
  {
   "id": "f69038ab57",
