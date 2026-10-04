@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-01T20:05:00-07:00",
+ "generated_at": "2026-10-04T09:35:00-07:00",
  "entries": [
   {
    "id": "t5",
@@ -1251,6 +1251,54 @@
    "reason": "Home run pick lost - 0 HR in the game (ESPN final box score: 1-for-4, 2 K; Braves 6, Phillies 2)",
    "provenance": "Wooder Ice Dingers card, Oct 1. Result from ESPN official box score, event 401907973 (Final), confirmed against MLB Stats gamePk 849844.",
    "removed_label": "Oct 1, 8:05 PM PT"
+  },
+  {
+   "id": "ding-1003-ramirez",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Jose Ramirez - Home Run",
+   "result": "lost",
+   "detail": "CWS at CLE \u00b7 10:00 AM PT \u00b7 DKP",
+   "archived_at": "2026-10-04T09:35:00-07:00",
+   "reason": "Home run pick lost - 0 HR in the game (ESPN final box score: 0-for-3, 1 K; White Sox 3, Guardians 0)",
+   "provenance": "Wooder Ice Dingers card, Oct 3. Result from ESPN official box score, event 401907990 (Final).",
+   "removed_label": "Oct 4, 9:35 AM PT"
+  },
+  {
+   "id": "ding-1003-ohtani",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Shohei Ohtani - Home Run",
+   "result": "lost",
+   "detail": "ATL at LAD \u00b7 1:00 PM PT \u00b7 DKP",
+   "archived_at": "2026-10-04T09:35:00-07:00",
+   "reason": "Home run pick lost - 0 HR in the game (ESPN final box score: 1-for-4; Dodgers 5, Braves 3)",
+   "provenance": "Wooder Ice Dingers card, Oct 3. Result from ESPN official box score, event 401908007 (Final).",
+   "removed_label": "Oct 4, 9:35 AM PT"
+  },
+  {
+   "id": "ding-1003-rice",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "Ben Rice - Home Run",
+   "result": "lost",
+   "detail": "NYY at TB \u00b7 3:30 PM PT \u00b7 DKP",
+   "archived_at": "2026-10-04T09:35:00-07:00",
+   "reason": "Home run pick lost - 0 HR in the game (ESPN final box score: 0-for-3, 2 K; Rays 1, Yankees 0)",
+   "provenance": "Wooder Ice Dingers card, Oct 3. Result from ESPN official box score, event 401907985 (Final).",
+   "removed_label": "Oct 4, 9:35 AM PT"
+  },
+  {
+   "id": "ding-1003-contreras",
+   "kind": "pick",
+   "origin": "suggested",
+   "title": "William Contreras - Home Run",
+   "result": "won",
+   "detail": "SD at MIL \u00b7 5:30 PM PT \u00b7 DKP",
+   "archived_at": "2026-10-04T09:35:00-07:00",
+   "reason": "Home run pick won - homered in the game (ESPN final box score: 1-for-3, 1 HR; Brewers 3, Padres 2)",
+   "provenance": "Wooder Ice Dingers card, Oct 3. Result from ESPN official box score, event 401908002 (Final).",
+   "removed_label": "Oct 4, 9:35 AM PT"
   }
  ]
 }
