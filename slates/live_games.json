@@ -1,148 +1,153 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T03:50:07.337701+00:00",
+ "generated_at": "2026-10-04T04:05:26.224158+00:00",
  "leagues": [
   {
-   "league": "MLB",
+   "league": "WTA",
    "games": [
     {
-     "espn_event_id": "401908002",
-     "matchup": "SD @ MIL",
-     "commence": "2026-10-04T00:30Z",
-     "status": "in",
-     "detail": "Bot 8th",
-     "score": "SD 2 - MIL 3"
-    }
-   ]
-  },
-  {
-   "league": "CFB",
-   "games": [
-    {
-     "espn_event_id": "401860921",
-     "matchup": "FRES @ WSU",
-     "commence": "2026-10-04T01:30Z",
-     "status": "in",
-     "detail": "9:41 - 3rd",
-     "score": "FRES 13 - WSU 6",
-     "away_to": 2,
-     "home_to": 1
-    },
-    {
-     "espn_event_id": "401856817",
-     "matchup": "BAY @ ASU",
-     "commence": "2026-10-04T02:30Z",
-     "status": "in",
-     "detail": "5:03 - 2nd",
-     "score": "BAY 21 - ASU 6",
-     "away_to": 3,
-     "home_to": 2
-    },
-    {
-     "espn_event_id": "401860900",
-     "matchup": "TXST @ SDSU",
-     "commence": "2026-10-04T02:30Z",
-     "status": "in",
-     "detail": "2:44 - 2nd",
-     "score": "TXST 17 - SDSU 3",
-     "away_to": 3,
-     "home_to": 2
-    },
-    {
-     "espn_event_id": "401856820",
-     "matchup": "CIN @ ARIZ",
-     "commence": "2026-10-04T03:00Z",
-     "status": "in",
-     "detail": "13:50 - 2nd",
-     "score": "CIN 0 - ARIZ 7",
-     "away_to": 3,
-     "home_to": 3
-    },
-    {
-     "espn_event_id": "401858477",
-     "matchup": "IU @ RUTG",
-     "commence": "2026-10-04T00:00Z",
+     "espn_event_id": "183281",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
      "status": "post",
-     "detail": "Final",
-     "score": "IU 47 - RUTG 15"
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
     },
     {
-     "espn_event_id": "401869932",
-     "matchup": "ARST @ UL",
-     "commence": "2026-10-04T00:00Z",
+     "espn_event_id": "183282",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
      "status": "post",
-     "detail": "Final",
-     "score": "ARST 20 - UL 23"
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
     },
     {
-     "espn_event_id": "401864513",
-     "matchup": "SJSU @ HAW",
-     "commence": "2026-10-04T03:59Z",
-     "status": "pre",
-     "detail": "10/3 - 8:59 PM PT",
-     "score": "SJSU 0 - HAW 0"
-    }
-   ]
-  },
-  {
-   "league": "NHL",
-   "games": [
-    {
-     "espn_event_id": "401891814",
-     "matchup": "BOS @ MIN",
-     "commence": "2026-10-04T00:00Z",
+     "espn_event_id": "183283",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
      "status": "post",
-     "detail": "Final",
-     "score": "BOS 1 - MIN 4"
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
     },
     {
-     "espn_event_id": "401892438",
-     "matchup": "DAL @ NSH",
-     "commence": "2026-10-04T00:00Z",
+     "espn_event_id": "183284",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
      "status": "post",
-     "detail": "Final",
-     "score": "DAL 1 - NSH 2"
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
     },
     {
-     "espn_event_id": "401892439",
-     "matchup": "STL @ COL",
-     "commence": "2026-10-04T01:00Z",
+     "espn_event_id": "183285",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
      "status": "post",
-     "detail": "Final",
-     "score": "STL 1 - COL 6"
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
     },
     {
-     "espn_event_id": "401892440",
-     "matchup": "CGY @ VAN",
-     "commence": "2026-10-04T02:00Z",
-     "status": "in",
-     "detail": "4:35 - 2nd",
-     "score": "CGY 1 - VAN 0",
-     "away_to": null,
-     "home_to": null
-    },
-    {
-     "espn_event_id": "401892441",
-     "matchup": "LA @ SJ",
-     "commence": "2026-10-04T02:00Z",
-     "status": "in",
-     "detail": "End of 2nd",
-     "score": "LA 1 - SJ 3",
-     "away_to": null,
-     "home_to": null
-    }
-   ]
-  },
-  {
-   "league": "NWSL",
-   "games": [
-    {
-     "espn_event_id": "401854089",
-     "matchup": "BOS @ POR",
-     "commence": "2026-10-04T00:52Z",
+     "espn_event_id": "183286",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
      "status": "post",
-     "detail": "FT",
-     "score": "BOS 4 - POR 2"
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183287",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183288",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183289",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183290",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183291",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183280",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183292",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183293",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183294",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183295",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183296",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "183297",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-04T04:00Z",
+     "status": "post",
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
     }
    ]
   }
