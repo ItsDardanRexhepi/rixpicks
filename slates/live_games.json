@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T15:50:09.428365+00:00",
+ "generated_at": "2026-10-04T16:05:14.658777+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,7 +10,7 @@
      "matchup": "IND @ WAS",
      "commence": "2026-10-04T13:30Z",
      "status": "in",
-     "detail": "4:56 - 3rd",
+     "detail": "14:20 - 4th",
      "score": "IND 20 - WAS 13",
      "away_to": 3,
      "home_to": 3
@@ -78,6 +78,19 @@
      "status": "pre",
      "detail": "10/4 - 10:00 AM PT",
      "score": "DAL 0 - HOU 0"
+    }
+   ]
+  },
+  {
+   "league": "WNBA",
+   "games": [
+    {
+     "espn_event_id": "401918295",
+     "matchup": "NY @ ATL",
+     "commence": "2026-10-04T18:00Z",
+     "status": "pre",
+     "detail": "10/4 - 11:00 AM PT",
+     "score": "NY 0 - ATL 0"
     }
    ]
   },
