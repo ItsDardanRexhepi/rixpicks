@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T23:35:15.095540+00:00",
+ "generated_at": "2026-10-04T23:50:22.441768+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -27,42 +27,36 @@
    "league": "NFL",
    "games": [
     {
-     "espn_event_id": "401872976",
-     "matchup": "KC @ LV",
-     "commence": "2026-10-04T20:25Z",
-     "status": "in",
-     "detail": "1:16 - 4th",
-     "score": "KC 30 - LV 27",
-     "away_to": 3,
-     "home_to": 0
-    },
-    {
-     "espn_event_id": "401872975",
-     "matchup": "DEN @ SF",
-     "commence": "2026-10-04T20:25Z",
-     "status": "in",
-     "detail": "1:14 - 4th",
-     "score": "DEN 14 - SF 24",
-     "away_to": 1,
-     "home_to": 3
-    },
-    {
-     "espn_event_id": "401872977",
-     "matchup": "LAC @ SEA",
-     "commence": "2026-10-04T20:25Z",
-     "status": "in",
-     "detail": "2:09 - 4th",
-     "score": "LAC 23 - SEA 30",
-     "away_to": 2,
-     "home_to": 2
-    },
-    {
      "espn_event_id": "401872974",
      "matchup": "MIA @ MIN",
      "commence": "2026-10-04T20:05Z",
      "status": "post",
      "detail": "Final",
      "score": "MIA 10 - MIN 15"
+    },
+    {
+     "espn_event_id": "401872976",
+     "matchup": "KC @ LV",
+     "commence": "2026-10-04T20:25Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "KC 30 - LV 27"
+    },
+    {
+     "espn_event_id": "401872975",
+     "matchup": "DEN @ SF",
+     "commence": "2026-10-04T20:25Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "DEN 14 - SF 24"
+    },
+    {
+     "espn_event_id": "401872977",
+     "matchup": "LAC @ SEA",
+     "commence": "2026-10-04T20:25Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "LAC 23 - SEA 30"
     },
     {
      "espn_event_id": "401872978",
@@ -95,8 +89,8 @@
      "matchup": "UTAH @ DEN",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "1:25 - 1st",
-     "score": "UTAH 26 - DEN 20",
+     "detail": "7:01 - 2nd",
+     "score": "UTAH 39 - DEN 33",
      "away_to": 5,
      "home_to": 6
     },
@@ -105,8 +99,8 @@
      "matchup": "GS @ LAC",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "2:42 - 1st",
-     "score": "GS 20 - LAC 21",
+     "detail": "8:09 - 2nd",
+     "score": "GS 28 - LAC 34",
      "away_to": 6,
      "home_to": 5
     }
@@ -120,7 +114,7 @@
      "matchup": "UTA @ NYR",
      "commence": "2026-10-04T22:00Z",
      "status": "in",
-     "detail": "5:04 - 2nd",
+     "detail": "End of 2nd",
      "score": "UTA 1 - NYR 1",
      "away_to": null,
      "home_to": null
@@ -167,7 +161,7 @@
      "matchup": "WAS @ HOU",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "26'",
+     "detail": "41'",
      "score": "WAS 1 - HOU 0"
     }
    ]
