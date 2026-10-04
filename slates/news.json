@@ -1,14 +1,23 @@
 {
- "generated_at": "2026-10-04T22:50:58.227Z",
+ "generated_at": "2026-10-04T22:56:00.196Z",
  "leagues": {
   "baseball/mlb": [
    {
     "headline": "Follow live: Brewers get one back on Padres' error as Game 2 goes down to the wire",
     "link": "https://www.espn.com/mlb/game/_/gameId/401908003/padres-brewers",
-    "published": "2026-10-04T23:43:11.000Z",
+    "published": "2026-10-04T23:46:37.000Z",
     "image": "",
     "blurb": "null",
     "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "Walt Weiss confirms Game 3 start for Chris Sale, plus more pregame news and notes",
+    "link": "https://sports.yahoo.com/articles/walt-weiss-confirms-game-3-223623839.html",
+    "published": "2026-10-04T22:36:23.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/8b2252305d2e56e48a2eac9cd9d18087f00caf5169db30194355558a3a4c8200/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F1c517270fccd166266eca1e5acc0c729.jpg",
+    "blurb": "Ronald Acu\u00f1a Jr. and Ha-Seong Kim also shared some thoughts ahead of a crucial NLDS Game 2 in LA for the Braves",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -21,21 +30,21 @@
     "league": "MLB"
    },
    {
-    "headline": "Watch Fernando Tatis Jr. make amazing sliding catch for Padres vs Brewers",
-    "link": "https://sports.yahoo.com/articles/watch-fernando-tatis-jr-amazing-214857697.html",
-    "published": "2026-10-04T21:48:57.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/f59598693cc394fd431b066b6b451d3c485df0cc9ee1fecc0fffe3cfc13248c1/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F8ba7a05eafb7eb172968aa5abb34cd49.jpg",
-    "blurb": "Watch as San Diego Padres outfielder Fernando Tatis Jr. makes acrobatic sliding catch vs Milwaukee Brewers in Game 1 of NLDS.",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
     "headline": "Braves switch to Kerr for Game 2 vs. Dodgers, push Sale to Game 3",
     "link": "https://www.espn.com/mlb/story/_/id/50101965/braves-start-ray-kerr-game-2-vs-dodgers-chris-sale-game-3",
     "published": "2026-10-04T20:00:25.000Z",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1002%252Fr1724706_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Braves have adjusted their pitching plans against the Dodgers, instead starting Ray Kerr in Game 2 on Sunday and pushing back Chris Sale to Game 3.",
     "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "Watch Fernando Tatis Jr. make amazing sliding catch for Padres vs Brewers",
+    "link": "https://sports.yahoo.com/articles/watch-fernando-tatis-jr-amazing-214857697.html",
+    "published": "2026-10-04T21:48:57.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/f59598693cc394fd431b066b6b451d3c485df0cc9ee1fecc0fffe3cfc13248c1/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F8ba7a05eafb7eb172968aa5abb34cd49.jpg",
+    "blurb": "Watch as San Diego Padres outfielder Fernando Tatis Jr. makes acrobatic sliding catch vs Milwaukee Brewers in Game 1 of NLDS.",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -48,15 +57,6 @@
     "league": "MLB"
    },
    {
-    "headline": "Lane Thomas returns to Braves lineup for Game 2 of NLDS",
-    "link": "https://sports.yahoo.com/articles/lane-thomas-returns-braves-lineup-211213420.html",
-    "published": "2026-10-04T21:12:13.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/f9f49576f53294d4a2b5cae52f0a5828e8adaec81487b0386d62716c9bc83a59/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F070abe9cb247e3df36e83c03ae6ebbe2.jpg",
-    "blurb": "The platoon is back in full effect.",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
     "headline": "Brewers escape as Padres' potential go-ahead HR hits roof, falls for out",
     "link": "https://www.espn.com/mlb/story/_/id/50097188/brewers-escape-game-1-roof-aided-ends-padres-hopes",
     "published": "2026-10-04T20:00:25.000Z",
@@ -66,21 +66,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Lane Thomas returns to Braves lineup for Game 2 of NLDS",
+    "link": "https://sports.yahoo.com/articles/lane-thomas-returns-braves-lineup-211213420.html",
+    "published": "2026-10-04T21:12:13.000Z",
+    "image": "",
+    "blurb": "The platoon is back in full effect.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "2026 MLB playoff bracket: Schedule, scores, where to watch with Division Series underway",
     "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
     "published": "2026-10-04T17:41:24.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Eight teams remain in the 2026 MLB playoffs, with the best-of-five LDS round underway",
     "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "Miguel Rojas is in for Max Muncy in the Game 2 lineup",
-    "link": "https://sports.yahoo.com/articles/miguel-rojas-max-muncy-game-203545604.html",
-    "published": "2026-10-04T20:35:45.000Z",
-    "image": "",
-    "blurb": "After a homer-happy affair in the series opener, the Dodgers make only one lineup change for the second game of the NLDS",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -95,20 +95,20 @@
   ],
   "football/nfl": [
    {
-    "headline": "Star WR Chase suffers concussion in Bengals' loss to Jaguars",
-    "link": "https://www.espn.com/nfl/story/_/id/50101891/bengals-star-wr-jamarr-chase-suffers-concussion-vs-jaguars",
-    "published": "2026-10-04T23:32:14.000Z",
-    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725865_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Bengals wide receivers Ja'Marr Chase and Tee Higgins both suffered injuries in Sunday's loss to the Jaguars.",
+    "headline": "'You see the 'bink bink?': Travis Hunter's juke drops Tee Higgins on nullified pick",
+    "link": "https://www.espn.com/nfl/story/_/id/50104142/jaguars-travis-hunter-interception-tee-higgins",
+    "published": "2026-10-04T23:48:11.000Z",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1726036_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Jacksonville's two-way star showed off his open-field agility before a penalty negated the play.",
     "source": "ESPN",
     "league": "NFL"
    },
    {
-    "headline": "Broncos vs. 49ers: Week 4 Live Fan Discussion",
-    "link": "https://sports.yahoo.com/articles/broncos-vs-49ers-week-4-200000941.html",
-    "published": "2026-10-04T22:43:38.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/c030581ea7784e4a70d472fba025779951c5e87f322fbf3b239b96f05f136b4a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ffc7f5984e4905db098fa60fbe6c2f267.jpg",
-    "blurb": "Join Mile High Report to discuss the action from this Week 4 game between the Denver Broncos and San Francisco 49ers.",
+    "headline": "Beaks & Geeks: Cardinals, Giants Winners & Losers: Arizona on the doorstep again",
+    "link": "https://sports.yahoo.com/articles/beaks-geeks-cardinals-giants-winners-224422361.html",
+    "published": "2026-10-04T22:44:22.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/aaa67f22495336822c2d0bcaf09cd272060d5e2d9a4857121f21292aa36f1631/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd792476ef3ccc2e58dd15d0ca8023338.jpg",
+    "blurb": "The season just may teeter on this one game",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -122,20 +122,20 @@
     "league": "NFL"
    },
    {
-    "headline": "Relieved Maye rebounds in win vs. Bills that gets Patriots 'back in race'",
-    "link": "https://www.espn.com/nfl/story/_/id/50104577/drake-maye-rebounds-patriots-hand-bills-first-defeat",
-    "published": "2026-10-04T23:32:14.000Z",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1726018_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Drake Maye snapped out of his early-season slide with a clutch performance as the New England Patriots upset the Buffalo Bills, 29-26, at Highmark Stadium in a result that coach Mike Vrabel highlighted as critical for the defending AFC champions.",
+    "headline": "Lamar leaves stadium in boot after hurting ankle in Ravens' win",
+    "link": "https://www.espn.com/nfl/story/_/id/50102378/ravens-qb-lamar-jackson-leaves-game-vs-titans-ankle-injury",
+    "published": "2026-10-04T23:46:14.000Z",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725921_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Lamar Jackson left the Ravens' game against the Titans on Sunday with an ankle injury.",
     "source": "ESPN",
     "league": "NFL"
    },
    {
-    "headline": "49ers recover fumble, take 10-3 lead in Denver",
-    "link": "https://sports.yahoo.com/articles/49ers-recover-fumble-10-3-223818579.html",
-    "published": "2026-10-04T22:38:18.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/ce993b4f1eee707cf6fc8d63534eabd100e66b49a948950d4071de7ecdb33e19/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F2be817725d61253cbce07b367dd665ae.jpg",
-    "blurb": "We finally have a touchdown in Denver.",
+    "headline": "Broncos vs. 49ers: Week 4 Live Fan Discussion",
+    "link": "https://sports.yahoo.com/articles/broncos-vs-49ers-week-4-200000941.html",
+    "published": "2026-10-04T22:43:38.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/c030581ea7784e4a70d472fba025779951c5e87f322fbf3b239b96f05f136b4a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ffc7f5984e4905db098fa60fbe6c2f267.jpg",
+    "blurb": "Join Mile High Report to discuss the action from this Week 4 game between the Denver Broncos and San Francisco 49ers.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -149,20 +149,20 @@
     "league": "NFL"
    },
    {
-    "headline": "Chiefs WR Rice injures right hamstring, doubtful to return",
-    "link": "https://www.espn.com/nfl/story/_/id/50104571/chiefs-rule-rashee-rice-doubtful-return-injury",
-    "published": "2026-10-04T23:32:14.000Z",
+    "headline": "Bengals' top WRs Chase, Higgins suffer injuries in loss to Jags",
+    "link": "https://www.espn.com/nfl/story/_/id/50101891/bengals-star-wr-jamarr-chase-suffers-concussion-vs-jaguars",
+    "published": "2026-10-04T23:46:14.000Z",
     "image": "",
-    "blurb": "Kansas City Chiefs receiver Rashee Rice sustained a right hamstring injury in the first quarter of Sunday's game against the Las Vegas Raiders, and was ruled doubtful to return after halftime.",
+    "blurb": "Bengals wide receivers Ja'Marr Chase and Tee Higgins both suffered injuries in Sunday's loss to the Jaguars.",
     "source": "ESPN",
     "league": "NFL"
    },
    {
-    "headline": "'It starts with the man in the mirror': Geno Smith, Jets seek rebound after loss at Bears",
-    "link": "https://sports.yahoo.com/articles/starts-man-mirror-geno-smith-223651663.html",
-    "published": "2026-10-04T22:36:51.000Z",
+    "headline": "Ladd McConkey injury update as Chargers WR is ruled out vs. Seahawks",
+    "link": "https://sports.yahoo.com/articles/ladd-mcconkey-injury-chargers-wr-224315449.html",
+    "published": "2026-10-04T22:43:15.000Z",
     "image": "",
-    "blurb": "Aaron Glenn voiced frustration after the Jets' 23-12 loss to the Bears, highlighting penalties, offensive struggles and a lack of complementary football as New York fell to 1-3 with its third straight defeat.",
+    "blurb": "Wide receiver Ladd McConkey has been ruled out for the rest of the Los Angeles Chargers' game against the Seattle Seahawks. Here's the latest.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -176,11 +176,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Eagles RB Barkley suffers hamstring injury in loss to Rams",
-    "link": "https://www.espn.com/nfl/story/_/id/50101243/eagles-rb-saquon-barkley-leaves-game-hamstring-injury",
-    "published": "2026-10-04T23:32:14.000Z",
+    "headline": "Relieved Maye rebounds in win vs. Bills that gets Patriots 'back in race'",
+    "link": "https://www.espn.com/nfl/story/_/id/50104577/drake-maye-rebounds-patriots-hand-bills-first-defeat",
+    "published": "2026-10-04T23:46:14.000Z",
     "image": "",
-    "blurb": "Eagles running back Saquon Barkley has been ruled out of Sunday's game against the Rams with a hamstring injury.",
+    "blurb": "Drake Maye snapped out of his early-season slide with a clutch performance as the New England Patriots upset the Buffalo Bills, 29-26, at Highmark Stadium in a result that coach Mike Vrabel highlighted as critical for the defending AFC champions.",
     "source": "ESPN",
     "league": "NFL"
    }
@@ -1060,29 +1060,29 @@
  },
  "latest": [
   {
+   "headline": "'You see the 'bink bink?': Travis Hunter's juke drops Tee Higgins on nullified pick",
+   "link": "https://www.espn.com/nfl/story/_/id/50104142/jaguars-travis-hunter-interception-tee-higgins",
+   "published": "2026-10-04T23:48:11.000Z",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1726036_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Jacksonville's two-way star showed off his open-field agility before a penalty negated the play.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
    "headline": "Follow live: Brewers get one back on Padres' error as Game 2 goes down to the wire",
    "link": "https://www.espn.com/mlb/game/_/gameId/401908003/padres-brewers",
-   "published": "2026-10-04T23:43:11.000Z",
+   "published": "2026-10-04T23:46:37.000Z",
    "image": "",
    "blurb": "null",
    "source": "ESPN",
    "league": "MLB"
   },
   {
-   "headline": "Star WR Chase suffers concussion in Bengals' loss to Jaguars",
-   "link": "https://www.espn.com/nfl/story/_/id/50101891/bengals-star-wr-jamarr-chase-suffers-concussion-vs-jaguars",
-   "published": "2026-10-04T23:32:14.000Z",
-   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725865_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Bengals wide receivers Ja'Marr Chase and Tee Higgins both suffered injuries in Sunday's loss to the Jaguars.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Relieved Maye rebounds in win vs. Bills that gets Patriots 'back in race'",
-   "link": "https://www.espn.com/nfl/story/_/id/50104577/drake-maye-rebounds-patriots-hand-bills-first-defeat",
-   "published": "2026-10-04T23:32:14.000Z",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1726018_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Drake Maye snapped out of his early-season slide with a clutch performance as the New England Patriots upset the Buffalo Bills, 29-26, at Highmark Stadium in a result that coach Mike Vrabel highlighted as critical for the defending AFC champions.",
+   "headline": "Lamar leaves stadium in boot after hurting ankle in Ravens' win",
+   "link": "https://www.espn.com/nfl/story/_/id/50102378/ravens-qb-lamar-jackson-leaves-game-vs-titans-ankle-injury",
+   "published": "2026-10-04T23:46:14.000Z",
+   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725921_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Lamar Jackson left the Ravens' game against the Titans on Sunday with an ankle injury.",
    "source": "ESPN",
    "league": "NFL"
   },
@@ -1112,6 +1112,15 @@
    "blurb": "The Crimson Tide opened as rare home underdogs to Georgia, as they look to repeat their 2024 upset win.",
    "source": "ESPN",
    "league": "CFB"
+  },
+  {
+   "headline": "Beaks & Geeks: Cardinals, Giants Winners & Losers: Arizona on the doorstep again",
+   "link": "https://sports.yahoo.com/articles/beaks-geeks-cardinals-giants-winners-224422361.html",
+   "published": "2026-10-04T22:44:22.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/aaa67f22495336822c2d0bcaf09cd272060d5e2d9a4857121f21292aa36f1631/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd792476ef3ccc2e58dd15d0ca8023338.jpg",
+   "blurb": "The season just may teeter on this one game",
+   "source": "YAHOO",
+   "league": "NFL"
   },
   {
    "headline": "CFB Week 5: Hot Seat Meltdowns + Heisman Race Breakdown",
@@ -1150,13 +1159,13 @@
    "league": "CFB"
   },
   {
-   "headline": "49ers recover fumble, take 10-3 lead in Denver",
-   "link": "https://sports.yahoo.com/articles/49ers-recover-fumble-10-3-223818579.html",
-   "published": "2026-10-04T22:38:18.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/ce993b4f1eee707cf6fc8d63534eabd100e66b49a948950d4071de7ecdb33e19/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F2be817725d61253cbce07b367dd665ae.jpg",
-   "blurb": "We finally have a touchdown in Denver.",
+   "headline": "Walt Weiss confirms Game 3 start for Chris Sale, plus more pregame news and notes",
+   "link": "https://sports.yahoo.com/articles/walt-weiss-confirms-game-3-223623839.html",
+   "published": "2026-10-04T22:36:23.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/8b2252305d2e56e48a2eac9cd9d18087f00caf5169db30194355558a3a4c8200/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F1c517270fccd166266eca1e5acc0c729.jpg",
+   "blurb": "Ronald Acu\u00f1a Jr. and Ha-Seong Kim also shared some thoughts ahead of a crucial NLDS Game 2 in LA for the Braves",
    "source": "YAHOO",
-   "league": "NFL"
+   "league": "MLB"
   },
   {
    "headline": "Mike Vrabel calls out official after being penalized during Patriots win over Bills",
@@ -1236,15 +1245,6 @@
    "published": "2026-10-04T21:48:57.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/f59598693cc394fd431b066b6b451d3c485df0cc9ee1fecc0fffe3cfc13248c1/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F8ba7a05eafb7eb172968aa5abb34cd49.jpg",
    "blurb": "Watch as San Diego Padres outfielder Fernando Tatis Jr. makes acrobatic sliding catch vs Milwaukee Brewers in Game 1 of NLDS.",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
-   "headline": "Lane Thomas returns to Braves lineup for Game 2 of NLDS",
-   "link": "https://sports.yahoo.com/articles/lane-thomas-returns-braves-lineup-211213420.html",
-   "published": "2026-10-04T21:12:13.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/f9f49576f53294d4a2b5cae52f0a5828e8adaec81487b0386d62716c9bc83a59/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F070abe9cb247e3df36e83c03ae6ebbe2.jpg",
-   "blurb": "The platoon is back in full effect.",
    "source": "YAHOO",
    "league": "MLB"
   },
