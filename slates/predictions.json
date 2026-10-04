@@ -1,34 +1,6 @@
 {
- "generated_at": "2026-10-04T19:53:05.481787+00:00",
+ "generated_at": "2026-10-04T20:20:23.395974+00:00",
  "items": [
-  {
-   "id": "0ebfc88094",
-   "league": "WNBA",
-   "event": "Las Vegas Aces @ Golden State Valkyries",
-   "prediction": "Las Vegas Aces to beat Golden State Valkyries",
-   "kickoff_utc": "2026-10-04T20:00:00+00:00"
-  },
-  {
-   "id": "0d6bb12567",
-   "league": "NWSL",
-   "event": "Denver Summit FC @ Chicago Stars FC",
-   "prediction": "Chicago Stars FC to beat Denver Summit FC",
-   "kickoff_utc": "2026-10-04T20:00:00+00:00"
-  },
-  {
-   "id": "0060d9301a",
-   "league": "MLB",
-   "event": "San Diego Padres @ Milwaukee Brewers",
-   "prediction": "Milwaukee Brewers to beat San Diego Padres",
-   "kickoff_utc": "2026-10-04T20:00:00+00:00"
-  },
-  {
-   "id": "523100e4d7",
-   "league": "NFL",
-   "event": "Miami Dolphins @ Minnesota Vikings",
-   "prediction": "Minnesota Vikings to beat Miami Dolphins",
-   "kickoff_utc": "2026-10-04T20:05:00+00:00"
-  },
   {
    "id": "3513df763a",
    "league": "NFL",
@@ -42,6 +14,34 @@
    "event": "Los Angeles Chargers @ Seattle Seahawks",
    "prediction": "Seattle Seahawks to beat Los Angeles Chargers",
    "kickoff_utc": "2026-10-04T20:25:00+00:00"
+  },
+  {
+   "id": "24eaf777c9",
+   "league": "NFL",
+   "event": "Denver Broncos @ San Francisco 49ers",
+   "prediction": "San Francisco 49ers to beat Denver Broncos",
+   "kickoff_utc": "2026-10-04T20:25:00+00:00"
+  },
+  {
+   "id": "948adbdb83",
+   "league": "NHL",
+   "event": "Utah Mammoth @ New York Rangers",
+   "prediction": "Utah Mammoth to beat New York Rangers",
+   "kickoff_utc": "2026-10-04T22:00:00+00:00"
+  },
+  {
+   "id": "c5f2f04f18",
+   "league": "NBA",
+   "event": "Golden State Warriors @ LA Clippers",
+   "prediction": "Golden State Warriors to beat LA Clippers",
+   "kickoff_utc": "2026-10-04T23:00:00+00:00"
+  },
+  {
+   "id": "db05804aae",
+   "league": "NBA",
+   "event": "Utah Jazz @ Denver Nuggets",
+   "prediction": "Denver Nuggets to beat Utah Jazz",
+   "kickoff_utc": "2026-10-04T23:00:00+00:00"
   }
  ]
 }

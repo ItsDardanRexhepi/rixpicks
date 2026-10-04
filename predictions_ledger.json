@@ -275,8 +275,9 @@
   "pick_team": "Buffalo Bills",
   "prediction": "Buffalo Bills beat New England Patriots",
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T13:36:19.719012+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T13:36:19.719012+00:00",
+  "settled_at": "2026-10-04T20:19:56.926104+00:00"
  },
  {
   "id": "8382c9e5bb",
@@ -316,8 +317,9 @@
   "pick_team": "Philadelphia Eagles",
   "prediction": "Philadelphia Eagles beat Los Angeles Rams",
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T13:51:37.763841+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T13:51:37.763841+00:00",
+  "settled_at": "2026-10-04T20:19:57.190062+00:00"
  },
  {
   "id": "e7705f18b8",
@@ -329,8 +331,9 @@
   "pick_team": "Baltimore Ravens",
   "prediction": "Baltimore Ravens beat Tennessee Titans",
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T14:07:05.296015+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T14:07:05.296015+00:00",
+  "settled_at": "2026-10-04T20:19:57.281980+00:00"
  },
  {
   "id": "82978f71da",
@@ -342,8 +345,9 @@
   "pick_team": "Cincinnati Bengals",
   "prediction": "Cincinnati Bengals beat Jacksonville Jaguars",
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T14:35:50.504050+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T14:35:50.504050+00:00",
+  "settled_at": "2026-10-04T20:19:57.424673+00:00"
  },
  {
   "id": "dbd79be878",
@@ -355,8 +359,9 @@
   "pick_team": "Dallas Cowboys",
   "prediction": "Dallas Cowboys beat Houston Texans",
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T14:36:23.030208+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T14:36:23.030208+00:00",
+  "settled_at": "2026-10-04T20:19:57.809990+00:00"
  },
  {
   "id": "cd57d8c22a",
@@ -451,8 +456,9 @@
   "pick_team": "Chicago Bears",
   "prediction": "Chicago Bears beat New York Jets",
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T15:52:17.049648+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T15:52:17.049648+00:00",
+  "settled_at": "2026-10-04T20:19:57.990433+00:00"
  },
  {
   "id": "6b04f4964a",
@@ -571,8 +577,9 @@
   "pick_team": "Green Bay Packers",
   "prediction": "Green Bay Packers beat Tampa Bay Buccaneers",
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T19:21:13.044597+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T19:21:13.044597+00:00",
+  "settled_at": "2026-10-04T20:19:58.062386+00:00"
  },
  {
   "id": "dd2f80a249",
@@ -640,8 +647,9 @@
   "pick_team": "Arizona Cardinals",
   "prediction": "Arizona Cardinals beat New York Giants",
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T20:20:07.755233+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T20:20:07.755233+00:00",
+  "settled_at": "2026-10-04T20:19:58.140535+00:00"
  },
  {
   "id": "0884482240",
