@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T19:20:11.680549+00:00",
+ "generated_at": "2026-10-04T19:35:10.442656+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -23,7 +23,7 @@
      "matchup": "NE @ BUF",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "2:29 - 3rd",
+     "detail": "13:31 - 4th",
      "score": "NE 21 - BUF 17",
      "away_to": 3,
      "home_to": 3
@@ -33,8 +33,8 @@
      "matchup": "NYJ @ CHI",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "15:00 - 4th",
-     "score": "NYJ 6 - CHI 20",
+     "detail": "9:16 - 4th",
+     "score": "NYJ 12 - CHI 23",
      "away_to": 3,
      "home_to": 3
     },
@@ -43,7 +43,7 @@
      "matchup": "JAX @ CIN",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "14:10 - 4th",
+     "detail": "10:29 - 4th",
      "score": "JAX 16 - CIN 10",
      "away_to": 2,
      "home_to": 3
@@ -53,7 +53,7 @@
      "matchup": "ARI @ NYG",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "1:38 - 3rd",
+     "detail": "11:08 - 4th",
      "score": "ARI 24 - NYG 27",
      "away_to": 3,
      "home_to": 3
@@ -63,7 +63,7 @@
      "matchup": "LAR @ PHI",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "3:31 - 3rd",
+     "detail": "12:56 - 4th",
      "score": "LAR 10 - PHI 20",
      "away_to": 3,
      "home_to": 3
@@ -73,7 +73,7 @@
      "matchup": "GB @ TB",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "13:31 - 4th",
+     "detail": "4:59 - 4th",
      "score": "GB 17 - TB 14",
      "away_to": 3,
      "home_to": 3
@@ -83,7 +83,7 @@
      "matchup": "TEN @ BAL",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "1:18 - 3rd",
+     "detail": "11:25 - 4th",
      "score": "TEN 10 - BAL 24",
      "away_to": 3,
      "home_to": 3
@@ -93,9 +93,9 @@
      "matchup": "DAL @ HOU",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "15:00 - 4th",
-     "score": "DAL 20 - HOU 23",
-     "away_to": 3,
+     "detail": "10:53 - 4th",
+     "score": "DAL 27 - HOU 23",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -140,9 +140,9 @@
      "matchup": "NY @ ATL",
      "commence": "2026-10-04T18:00Z",
      "status": "in",
-     "detail": "5:35 - 3rd",
-     "score": "NY 44 - ATL 52",
-     "away_to": 3,
+     "detail": "End of 3rd",
+     "score": "NY 55 - ATL 69",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -163,7 +163,7 @@
      "matchup": "WPG @ DET",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "9:42 - 3rd",
+     "detail": "1:09 - 3rd",
      "score": "WPG 3 - DET 2",
      "away_to": null,
      "home_to": null
