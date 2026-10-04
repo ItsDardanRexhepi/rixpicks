@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-04T00:50:26.639888+00:00",
+ "generated_at": "2026-10-04T01:05:08.392568+00:00",
  "items": [
-  {
-   "id": "80be8c5d72",
-   "league": "NHL",
-   "event": "St. Louis Blues @ Colorado Avalanche",
-   "prediction": "Colorado Avalanche to beat St. Louis Blues",
-   "kickoff_utc": "2026-10-04T01:00:00+00:00"
-  },
   {
    "id": "a1408f8cb9",
    "league": "NFL",
@@ -41,6 +34,13 @@
    "league": "NFL",
    "event": "Jacksonville Jaguars @ Cincinnati Bengals",
    "prediction": "Cincinnati Bengals to beat Jacksonville Jaguars",
+   "kickoff_utc": "2026-10-04T17:00:00+00:00"
+  },
+  {
+   "id": "dbd79be878",
+   "league": "NFL",
+   "event": "Dallas Cowboys @ Houston Texans",
+   "prediction": "Dallas Cowboys to beat Houston Texans",
    "kickoff_utc": "2026-10-04T17:00:00+00:00"
   }
  ]
