@@ -1141,5 +1141,18 @@
   "kickoff_utc": "2026-10-07T00:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-04T10:20:12.586006+00:00"
+ },
+ {
+  "id": "376035ba06",
+  "event_id": "401854019",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Gotham FC",
+  "away": "Angel City FC",
+  "pick_team": "Angel City FC",
+  "prediction": "Angel City FC to beat Gotham FC",
+  "kickoff_utc": "2026-10-04T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-04T10:50:11.531642+00:00"
  }
 ]
