@@ -335,8 +335,7 @@
           "units": "5u",
           "result": "W",
           "score": "PHI 3, ATL 5",
-          "_delta": "2.808988764044944",
-          "learning": "Carded by owner directive after the morning read found no qualifying edge. The card put the model at 64.3% against a 64c price: inside the 60% band, but with almost no edge over the price. Won 5-3 over the Phillies for +2.81u. A win at a price that matches the model shows the result, not an edge."
+          "_delta": "2.808988764044944"
         },
         {
           "name": "Yordan Alvarez over 1.5 hits",
@@ -345,8 +344,7 @@
           "units": "5u",
           "result": "L",
           "score": "CHW 6, HOU 3",
-          "_delta": "-5.0",
-          "learning": "Carded by owner directive after the morning read found no qualifying edge. The card put the model at 31.3% for two or more hits against a 27c price (+270), a long shot far below the 60% band. Alvarez went 1-for-4 and Houston lost 6-3 to the White Sox. At 31% this misses about seven times in ten, so one miss says little either way."
+          "_delta": "-5.0"
         },
         {
           "name": "Loai Abushaar ML",
@@ -355,8 +353,7 @@
           "units": "5u",
           "result": "L",
           "score": "Staines def. Abushaar",
-          "_delta": "-5.0",
-          "learning": "User-directed pick carded by owner word at disclosed sub-bar economics (net -0.9c after fee) lost -5.0u. Provenance: owner-carded, not engine-certified. One fight is one outcome data point on the override class - no read conclusion drawn from it."
+          "_delta": "-5.0"
         },
         {
           "name": "Maple Leafs ML",
@@ -365,8 +362,7 @@
           "units": "5u",
           "result": "L",
           "score": "MTL 3, TOR 2",
-          "_delta": "-5.0",
-          "learning": "User-directed pick carded by owner word at disclosed sub-bar economics lost -5.0u (MTL 3 @ TOR 2). Provenance: owner-carded, not engine-certified. One game is one outcome data point on the override class - no read conclusion drawn from it."
+          "_delta": "-5.0"
         },
         {
           "name": "Bruins ML",
@@ -375,8 +371,7 @@
           "units": "5u",
           "result": "W",
           "score": "NYR 0, BOS 3",
-          "_delta": "5.0",
-          "learning": "User-directed pick carded by owner word won +5.0u (NYR 0 @ BOS 3). Provenance: owner-carded, not engine-certified. One game is one outcome data point on the override class - no read conclusion drawn from it."
+          "_delta": "5.0"
         }
       ]
     },
@@ -394,8 +389,7 @@
           "units": "5u",
           "result": "W",
           "score": "CHW 7, HOU 3",
-          "_delta": "6.9",
-          "learning": "Owner-directed pick with a sub-bar disclosure on the card: the model had the White Sox at 46.7%, below the 60% band, against a 42c price (+138). Won 7-3 at Houston for +6.90u, posted on the site and on Instagram before first pitch. One underdog win is one data point on owner-directed picks, not a verdict on the band."
+          "_delta": "6.9"
         }
       ]
     },
@@ -413,8 +407,7 @@
           "units": "5u",
           "result": "W",
           "score": "PHI 2, NJ 3",
-          "_delta": "3.0864197530864197",
-          "learning": "Won 3-2 in overtime over the Flyers for +3.09u. No fair value or pre-game notes were recorded for this hand-built card, and its -162 price matched sportsbook pricing, not the Kalshi ask. The win is real, but without a recorded fair there is no read to grade it against."
+          "_delta": "3.0864197530864197"
         },
         {
           "name": "Under 38.5",
@@ -423,8 +416,7 @@
           "units": "6u",
           "result": "L",
           "score": "PIT 24, CLE 27",
-          "_delta": "-6.0",
-          "learning": "Lost: Browns 27, Steelers 24, 51 points against a 38.5 total. Staked 6u, a size that is not on the ladder; at the ladder's 5u it would have lost 1u less. The -115 was a sportsbook price while Kalshi offered about -108, and no fair value was recorded."
+          "_delta": "-6.0"
         },
         {
           "name": "Aces -4.5",
@@ -433,8 +425,7 @@
           "units": "5u",
           "result": "W",
           "score": "IND 83, LV 94",
-          "_delta": "4.545454545454546",
-          "learning": "Won 94-83, covering by 6.5 for +4.55u, but it should not have been carded: the Aces are a Las Vegas team, and the standing rule keeps Vegas teams off the card on either side. The -4.5 line was not a Kalshi market either. A rule break that wins is still a process failure; the card builder now refuses Vegas-team picks."
+          "_delta": "4.545454545454546"
         },
         {
           "name": "Mammoth ML",
@@ -443,8 +434,7 @@
           "units": "5u",
           "result": "W",
           "score": "CHI 0, UTA 6",
-          "_delta": "2.293577981651376",
-          "learning": "Won 6-0 over the Blackhawks for +2.29u. The -218 card price was not the Kalshi ask: Kalshi's ask that morning was 67c, about -203, so the card showed a worse price than was available. No fair value was recorded, so the win grades the result, not a read."
+          "_delta": "2.293577981651376"
         }
       ]
     },
@@ -462,8 +452,7 @@
           "units": "5u",
           "result": "W",
           "score": "STL 4, DAL 0",
-          "_delta": "3.7593984962406015",
-          "learning": "Owner-directed position (sub-bar disclosure), posted 6:11 PM PT before the 6:18 PM PT opening faceoff (start delayed). Won: STL 4 @ DAL 0, 4 goals vs 6.5. The red team had killed it that morning: a ~2c calibration bias in the NHL totals model put the fair at 59.9, under the 60c band, with St. Louis' goalie unconfirmed."
+          "_delta": "3.7593984962406015"
         },
         {
           "name": "Under 3.5",
@@ -472,8 +461,7 @@
           "units": "5u",
           "result": "W",
           "score": "SD 2, ORL 1",
-          "_delta": "2.9411764705882355",
-          "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Won: SD 2 @ ORL 1, 3 goals vs 3.5. The red team had killed it pre-game: Orlando's last four under its interim coach all went over the model. One result does not validate a killed pick."
+          "_delta": "2.9411764705882355"
         },
         {
           "name": "Over 43.5",
@@ -482,8 +470,7 @@
           "units": "5u",
           "result": "W",
           "score": "PSU 13, NU 34",
-          "_delta": "3.6231884057971016",
-          "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Won: PSU 13 @ NU 34, 47 points vs 43.5. The red team had killed it: only 0.09c over the bar on a hand-set number, 15 mph wind, market moving down. A hand-set edge that wins is still not an edge."
+          "_delta": "3.6231884057971016"
         },
         {
           "name": "Under 54.5",
@@ -492,8 +479,7 @@
           "units": "5u",
           "result": "L",
           "score": "PITT 35, VT 33",
-          "_delta": "-5.0",
-          "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Lost: PITT 35 @ VT 33, 68 points vs 54.5. The red team had killed it: the edge rested on hand-set scoring means from 2-3 games each; regressed, it fell under the band. No fair without a real sample."
+          "_delta": "-5.0"
         }
       ]
     },
@@ -511,8 +497,7 @@
           "units": "5u",
           "result": "W",
           "score": "NYY 0, TB 1",
-          "_delta": "3.937007874015748",
-          "learning": "Owner-directed, sub-bar: the morning fair was 55% against a 56c price, below the 60c band with no edge, so it never reached the card on its own. Won: NYY 0 @ TB 1."
+          "_delta": "3.937007874015748"
         },
         {
           "name": "White Sox +1.5",
@@ -521,8 +506,7 @@
           "units": "5u",
           "result": "W",
           "score": "CHW 3, CLE 0",
-          "_delta": "3.067484662576687",
-          "learning": "Owner-directed, sub-bar. The red team killed it that morning: only 0.2c over the bar on a hand-adjusted fair, under the 60c band at the low end of the range, with Cleveland's starter on one MLB start. Won: CHW 3 @ CLE 0."
+          "_delta": "3.067484662576687"
         },
         {
           "name": "Padres +2.5",
@@ -531,8 +515,7 @@
           "units": "5u",
           "result": "W",
           "score": "SD 2, MIL 3",
-          "_delta": "2.577319587628866",
-          "learning": "Owner-directed, sub-bar. The red team killed it that morning: the whole edge came from a hand-set 2-point postseason cut, and the model sat under the market at every Milwaukee margin line. Won: SD 2 @ MIL 3."
+          "_delta": "2.577319587628866"
         },
         {
           "name": "Lightning ML",
@@ -541,8 +524,7 @@
           "units": "5u",
           "result": "W",
           "score": "WSH 1, TB 3",
-          "_delta": "2.6881720430107525",
-          "learning": "Owner-directed, sub-bar. The red team killed it that morning: net edge about 1c, under the 2c bar, with the starting goalie unconfirmed; the price then moved from 60c to 65c before it was posted at -186. Won: WSH 1 @ TB 3."
+          "_delta": "2.6881720430107525"
         },
         {
           "name": "Kraken-Oilers Over 4.5",
@@ -551,8 +533,7 @@
           "units": "5u",
           "result": "L",
           "score": "SEA 1, EDM 3",
-          "_delta": "-5.0",
-          "learning": "Owner-directed, sub-bar. The red team killed it that morning: the NHL totals model ran about 3c high on Over 4.5 across the slate, and adjusted for that the edge was under 1c, with both goalies only projected. Lost: SEA 1 @ EDM 3, 4 goals against 4.5."
+          "_delta": "-5.0"
         },
         {
           "name": "Capitals-Lightning Over 4.5",
@@ -561,8 +542,7 @@
           "units": "5u",
           "result": "L",
           "score": "WSH 1, TB 3",
-          "_delta": "-5.0",
-          "learning": "Owner-directed, sub-bar. The red team killed it that morning: the same NHL totals bias, a zero margin over the bar, a projected goalie and a market that had traded 3 contracts. Lost: WSH 1 @ TB 3, 4 goals against 4.5."
+          "_delta": "-5.0"
         }
       ]
     }

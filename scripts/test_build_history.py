@@ -87,7 +87,7 @@ check('unfiled briefs say so plainly (Sep 29, Sep 30)', rec.count('No brief file
 check('filed brief still renders', 'Two picks, one lesson: the close moved against the loser.' in rec, True)
 
 # DI-M2: per-pick learning rendered, escaped
-check('per-pick learning rendered (escaped)', 'Owner-carded &lt;override&gt; class: one data point.' in rec, True)
+check('per-pick learning is internal: never rendered on the record page (Oct 3 rule)', 'one data point' in rec, False)
 check('per-pick learning never raw HTML', '<override>' in rec, False)
 check('pick note still renders', 'Controlled from the first drive.' in rec, True)
 

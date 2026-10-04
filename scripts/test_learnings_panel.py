@@ -209,6 +209,8 @@ for B in TWINS:
         continue
     check(f'{B}: the call reads history.json beside the manifest',
           "_learn_html = _learnings_html(os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), 'history.json'))" in src)
+    check(f'{B}: panel is OFF unless RP_LEARN_PANEL=1 (Oct 3 rule: internal learnings never on the site)',
+          "if os.environ.get('RP_LEARN_PANEL') != '1': _learn_html = ''" in src)
     check(f'{B}: the section sits right before News in the Home shell',
           "+fut_entry+'\\n'+_learn_html+'<div class=\"sect home-only\" style=\"margin-top:18px\">News</div>" in src)
 
@@ -358,7 +360,7 @@ def build(builder):
         json.dump(CARD, open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
         json.dump(BUILD_HIST, open(os.path.join(d, 'history.json'), 'w'), indent=1)
         json.dump([], open(os.path.join(d, 'slates', 'odds_prefill.json'), 'w'))
-        env = dict(os.environ, RP_REFRESH='1', http_proxy=DEAD, https_proxy=DEAD, HTTP_PROXY=DEAD, HTTPS_PROXY=DEAD)
+        env = dict(os.environ, RP_LEARN_PANEL='1', RP_REFRESH='1', http_proxy=DEAD, https_proxy=DEAD, HTTP_PROXY=DEAD, HTTPS_PROXY=DEAD)
         r = subprocess.run([sys.executable, os.path.join(d, 'scripts', 'build_gh_page_v2.py'), 'manifest.json', 'index.html'],
                            cwd=d, env=env, capture_output=True, text=True, timeout=600)
         ip = os.path.join(d, 'index.html')

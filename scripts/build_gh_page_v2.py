@@ -2288,7 +2288,10 @@ def _learnings_html(hist_path, max_picks=6, max_days=3):
         return ''
     return ('<div class="sect home-only" id="rpLearnHead" style="margin-top:18px">What the system is learning</div>\n'
             '<div class="card learn home-only" id="rpLearn" aria-live="polite">' + out + '</div>\n')
+# Oct 3 owner rule (relayed by main 9:15 PM): internal learnings are never on the site. The panel is OFF by default;
+# restore only on the owner's ruling with RP_LEARN_PANEL=1 (the renderers and their tests stay as they were).
 _learn_html = _learnings_html(os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), 'history.json'))
+if os.environ.get('RP_LEARN_PANEL') != '1': _learn_html = ''
 _tail_html=('<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>')
 if _V2:
     INDEX_V2_CSS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.css')).read()
