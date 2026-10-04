@@ -1046,8 +1046,9 @@
   "pick_team": "Toronto Maple Leafs",
   "prediction": "Toronto Maple Leafs to beat Ottawa Senators",
   "kickoff_utc": "2026-10-03T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-03T16:20:18.061316+00:00"
+  "status": "miss",
+  "created_at": "2026-10-03T16:20:18.061316+00:00",
+  "settled_at": "2026-10-04T02:04:56.641700+00:00"
  },
  {
   "id": "ccb3f012d7",
