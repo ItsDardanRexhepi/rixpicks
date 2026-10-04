@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T18:35:09.651854+00:00",
+ "generated_at": "2026-10-04T18:40:06.562595+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -66,14 +66,14 @@
      "detail": "Halftime",
      "score": "LAR 10 - PHI 20",
      "away_to": 3,
-     "home_to": 2
+     "home_to": 3
     },
     {
      "espn_event_id": "401872968",
      "matchup": "GB @ TB",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "12:04 - 3rd",
      "score": "GB 10 - TB 7",
      "away_to": 3,
      "home_to": 3
@@ -140,9 +140,9 @@
      "matchup": "NY @ ATL",
      "commence": "2026-10-04T18:00Z",
      "status": "in",
-     "detail": "7:30 - 2nd",
-     "score": "NY 29 - ATL 27",
-     "away_to": 5,
+     "detail": "5:41 - 2nd",
+     "score": "NY 31 - ATL 32",
+     "away_to": 4,
      "home_to": 4
     },
     {
@@ -163,8 +163,8 @@
      "matchup": "WPG @ DET",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "3:29 - 2nd",
-     "score": "WPG 3 - DET 0",
+     "detail": "1:24 - 2nd",
+     "score": "WPG 3 - DET 1",
      "away_to": null,
      "home_to": null
     }
@@ -178,7 +178,7 @@
      "matchup": "LA @ GFC",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "68'",
+     "detail": "73'",
      "score": "LA 0 - GFC 1"
     },
     {
