@@ -149,8 +149,9 @@
   "pick_team": "Kentucky Wildcats",
   "prediction": "Kentucky Wildcats beat South Carolina Gamecocks",
   "kickoff_utc": "2026-10-03T20:15:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T12:06:27.183643+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T12:06:27.183643+00:00",
+  "settled_at": "2026-10-04T00:04:56.904082+00:00"
  },
  {
   "id": "5b97ca4281",

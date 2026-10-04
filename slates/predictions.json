@@ -1,27 +1,6 @@
 {
- "generated_at": "2026-10-03T23:50:18.997697+00:00",
+ "generated_at": "2026-10-04T00:05:29.914829+00:00",
  "items": [
-  {
-   "id": "4e42f58a59",
-   "league": "CFB",
-   "event": "Indiana Hoosiers @ Rutgers Scarlet Knights",
-   "prediction": "Indiana Hoosiers to beat Rutgers Scarlet Knights",
-   "kickoff_utc": "2026-10-04T00:00:00+00:00"
-  },
-  {
-   "id": "ec54ef6346",
-   "league": "NHL",
-   "event": "Boston Bruins @ Minnesota Wild",
-   "prediction": "Boston Bruins to beat Minnesota Wild",
-   "kickoff_utc": "2026-10-04T00:00:00+00:00"
-  },
-  {
-   "id": "ccb3f012d7",
-   "league": "NHL",
-   "event": "Dallas Stars @ Nashville Predators",
-   "prediction": "Nashville Predators to beat Dallas Stars",
-   "kickoff_utc": "2026-10-04T00:00:00+00:00"
-  },
   {
    "id": "38e40a9ec4",
    "league": "MLB",
@@ -42,6 +21,27 @@
    "event": "St. Louis Blues @ Colorado Avalanche",
    "prediction": "Colorado Avalanche to beat St. Louis Blues",
    "kickoff_utc": "2026-10-04T01:00:00+00:00"
+  },
+  {
+   "id": "a1408f8cb9",
+   "league": "NFL",
+   "event": "Indianapolis Colts @ Washington Commanders",
+   "prediction": "Indianapolis Colts to beat Washington Commanders",
+   "kickoff_utc": "2026-10-04T13:30:00+00:00"
+  },
+  {
+   "id": "82305d8fd1",
+   "league": "NFL",
+   "event": "New England Patriots @ Buffalo Bills",
+   "prediction": "Buffalo Bills to beat New England Patriots",
+   "kickoff_utc": "2026-10-04T17:00:00+00:00"
+  },
+  {
+   "id": "3be2ae28ea",
+   "league": "NFL",
+   "event": "Los Angeles Rams @ Philadelphia Eagles",
+   "prediction": "Philadelphia Eagles to beat Los Angeles Rams",
+   "kickoff_utc": "2026-10-04T17:00:00+00:00"
   }
  ]
 }
