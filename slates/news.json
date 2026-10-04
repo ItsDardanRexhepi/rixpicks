@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-04T09:11:00.789Z",
+ "generated_at": "2026-10-04T09:16:05.056Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Yankees News: Drew Rasmussen and Rays take Round 1",
+    "link": "https://sports.yahoo.com/articles/yankees-news-drew-rasmussen-rays-090000173.html",
+    "published": "2026-10-04T09:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/431996be58b2b79886d5db07d21f5abda5d8621c68df023f787cfc90c1d73422/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F708f1bd0108e00d8d7dc204ecc42de3c.jpg",
+    "blurb": "Yankees blanked in ALDS opener; why Cole got the Game 1 nod; Matt Blake\u2019s contract set to expire after season.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
    {
     "headline": "Brewers lead Padres 1-0 heading into NLDS Game 2",
     "link": "http://www.espn.com/mlb/preview?gameId=401908003",
@@ -9,15 +18,6 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908003.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "San Diego Padres (91-71, second in the NL West during the regular season) vs. Milwaukee Brewers (103-59, first in the NL Central during the regular season)",
-    "league": "MLB"
-   },
-   {
-    "headline": "With Jacob Misiorowski missing his A-game, Brewers rally to take NLDS Game 1 via the long ball",
-    "link": "https://sports.yahoo.com/mlb/article/with-jacob-misiorowski-missing-his-a-game-brewers-rally-to-take-nlds-game-1-via-the-long-ball-065427262.html",
-    "published": "2026-10-04T06:54:27.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/0dd965614c375c0945de7ac284dd823276d3d413a02cf3a55bd89e5b016b8d49/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F47e15106-d86a-4f67-ab97-013bb8a4e209",
-    "blurb": "Milwaukee were 28th in MLB in home runs this season, but that didn't stop Jackson Chourio and William Contreras on Saturday.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "With Jacob Misiorowski missing his A-game, Brewers rally to take NLDS Game 1 via the long ball",
+    "link": "https://sports.yahoo.com/mlb/article/with-jacob-misiorowski-missing-his-a-game-brewers-rally-to-take-nlds-game-1-via-the-long-ball-065427262.html",
+    "published": "2026-10-04T06:54:27.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/0dd965614c375c0945de7ac284dd823276d3d413a02cf3a55bd89e5b016b8d49/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F47e15106-d86a-4f67-ab97-013bb8a4e209",
+    "blurb": "Milwaukee were 28th in MLB in home runs this season, but that didn't stop Jackson Chourio and William Contreras on Saturday.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Brewers escape Padres in Game 1 after wild roof-aided out in 9th",
     "link": "https://www.espn.com/mlb/story/_/id/50097188/brewers-escape-game-1-roof-aided-ends-padres-hopes",
     "published": "2026-10-04T07:28:16Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1004%2Fr1725612_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Brewers eked out a Game 1 win in their NLDS series after the American Family Field roof impeded what the Padres thought was going to be a go-ahead home run in the ninth.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Jackson Chourio, William Contreras lift Brewers to Game 1 win that comes down to the wire",
-    "link": "https://sports.yahoo.com/articles/jackson-chourio-william-contreras-lift-052520280.html",
-    "published": "2026-10-04T05:25:20.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/9f1fdde73772c3519351c5ca91315c6b0235e2f5d1d4529c73e5b24bb9168f4d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9bbf78138a520ffb3f85deeb5ebd2ad0.jpg",
-    "blurb": "The Brewers get a 3-2 win over the Padres in Game 1 with some heroics from two of their biggest stars.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Jackson Chourio, William Contreras lift Brewers to Game 1 win that comes down to the wire",
+    "link": "https://sports.yahoo.com/articles/jackson-chourio-william-contreras-lift-052520280.html",
+    "published": "2026-10-04T05:25:20.000Z",
+    "image": "",
+    "blurb": "The Brewers get a 3-2 win over the Padres in Game 1 with some heroics from two of their biggest stars.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "2026 MLB division series Day 1: Takeaways, analysis",
     "link": "https://www.espn.com/mlb/story/_/id/50090503/2026-mlb-division-series-day-1-updates-lineups-analysis",
     "published": "2026-10-04T06:30:57Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1003%2Fr1725424_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "All eight teams were in action Saturday. Relive every moment of the division series openers.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Brewers edge Padres 3-2 in NLDS opener that features bizarre play in 9th inning",
-    "link": "https://sports.yahoo.com/articles/brewers-edge-padres-3-2-051429964.html",
-    "published": "2026-10-04T05:14:29.000Z",
-    "image": "",
-    "blurb": "San Diego had a runner on first with one out in the ninth inning when France hit a towering flyball that struck a railing on the roof before Chourio caught it in fair territory on the left-field warning track.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,16 +84,25 @@
     "league": "MLB"
    },
    {
-    "headline": "Brewers escape as Padres' potential go-ahead HR hits roof, falls for out",
-    "link": "https://www.espn.com/mlb/story/_/id/50097188/brewers-escape-game-1-roof-aided-ends-padres-hopes",
-    "published": "2026-10-04T05:57:03.000Z",
+    "headline": "Brewers edge Padres 3-2 in NLDS opener that features bizarre play in 9th inning",
+    "link": "https://sports.yahoo.com/articles/brewers-edge-padres-3-2-051429964.html",
+    "published": "2026-10-04T05:14:29.000Z",
     "image": "",
-    "blurb": "The Brewers eked out a Game 1 win in their NLDS series after the American Family Field roof impeded what the Padres thought was going to be a go-ahead home run in the ninth.",
-    "source": "ESPN",
+    "blurb": "San Diego had a runner on first with one out in the ninth inning when France hit a towering flyball that struck a railing on the roof before Chourio caught it in fair territory on the left-field warning track.",
+    "source": "YAHOO",
     "league": "MLB"
    }
   ],
   "football/nfl": [
+   {
+    "headline": "What NFL games are on today? Week 4 TV channels, Sunday schedule, results",
+    "link": "https://sports.yahoo.com/articles/nfl-games-today-week-4-090635963.html",
+    "published": "2026-10-04T09:06:35.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/e23957066b17e3484a1a62e9392379db38ed31b192139da7b5c76215dc835643/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fe292127608085d0302928a0a6293f62e.jpg",
+    "blurb": "The NFL season is off to a wild start. Here's how you can watch all of the Sunday action in Week 4.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
    {
     "headline": "Our guide to every NFL Week 4 game: Matchup previews, predictions, picks and nuggets",
     "link": "https://www.espn.com/nfl/story/_/id/50067784/week-4-picks-predictions-schedule-fantasy-odds-2026",
@@ -101,15 +110,6 @@
     "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0930%252Fr1724029_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Trevor Lawrence vs. Joe Burrow? New England looking to bounce back? There are 15 more games in Week 4, and we have picks, predictions and more for all of them.",
     "source": "ESPN",
-    "league": "NFL"
-   },
-   {
-    "headline": "Daily Norseman Staff NFL Picks, Week 4",
-    "link": "https://sports.yahoo.com/articles/daily-norseman-staff-nfl-picks-070000299.html",
-    "published": "2026-10-04T07:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/9f535bea05bb518487c03cf7a618033108edfcb3a9e4b9c0401f735bb7cb15b5/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6b9a896ac6811b453109e7d511013ec4.jpg",
-    "blurb": "Who do we have this week?",
-    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -122,21 +122,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Jalon Daniels: \"Dream come true\" to be starting QB for the Buccaneers today",
+    "link": "https://sports.yahoo.com/articles/jalon-daniels-dream-come-true-090535920.html",
+    "published": "2026-10-04T09:05:35.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/a0767ecdb0146d94a9cd2fe59d5dfe2285bce150ea9df6c045559dc571c07a4a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F6c7e438287baa38f8367532de9777253.jpg",
+    "blurb": "The undrafted rookie will start today against the Packers with Baker Mayfield out.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Inside Commanders owner Josh Harris' day with fans at London bar",
     "link": "https://www.espn.com/nfl/story/_/id/50092718/washington-commanders-josh-harris-london-bar",
     "published": "2026-10-04T04:51:02.000Z",
     "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1003%252Fr1725431_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Commanders' owner covered drinks for a crowd of approximately 3,000 fans at the BrewDog in London.",
     "source": "ESPN",
-    "league": "NFL"
-   },
-   {
-    "headline": "Packers-Buccaneers Preview: Green Bay travels to Tampa Bay",
-    "link": "https://sports.yahoo.com/articles/packers-buccaneers-preview-green-bay-043832173.html",
-    "published": "2026-10-04T04:38:32.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/9cf21cfece14362ebcee9a541d32655ad711b2f76de385d07f071bcb69ceb8d8/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F16bc4d9fca70adafdbe88e71a473df12.jpg",
-    "blurb": "A preview of the Packers\u2019 game against the Buccaneers in Week 4",
-    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -149,21 +149,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Patriots vs. Bills: How to watch New England\u2019s Week 4 game on Sunday",
+    "link": "https://sports.yahoo.com/articles/patriots-vs-bills-watch-england-090000775.html",
+    "published": "2026-10-04T09:00:00.000Z",
+    "image": "",
+    "blurb": "Everything you need to know about watching the Patriots\u2019 fourth game of the season.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Football and football? London game to be soccer fan Mariota's third at prominent ground",
     "link": "https://www.espn.com/nfl/story/_/id/50071152/marcus-mariota-washington-commanders-london-game-soccer-tottenham-hotspur",
     "published": "2026-10-04T04:51:01.000Z",
     "image": "",
     "blurb": "For Mariota, who grew up playing soccer, Sunday's game against the Indianapolis Colts at Tottenham Hotspur Stadium is a chance to combine his love of both sports.",
     "source": "ESPN",
-    "league": "NFL"
-   },
-   {
-    "headline": "Bears vs. Jets: How to watch and listen, previews, odds, and more",
-    "link": "https://sports.yahoo.com/articles/bears-vs-jets-watch-listen-041510990.html",
-    "published": "2026-10-04T04:15:10.000Z",
-    "image": "",
-    "blurb": "Here\u2019s all you need to know about the Bears vs. Jets game.",
-    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -176,22 +176,22 @@
     "league": "NFL"
    },
    {
-    "headline": "Inactives watch: Daniels, DeVonta, Price to sit; McConkey, Coker questionable",
-    "link": "https://www.espn.com/fantasy/football/story/_/page/FFSundayInactives-50077553/fantasy-football-injuries-nfl-week-4-inactive-active",
-    "published": "2026-10-04T04:49:52.000Z",
+    "headline": "Daily Norseman Staff NFL Picks, Week 4",
+    "link": "https://sports.yahoo.com/articles/daily-norseman-staff-nfl-picks-070000299.html",
+    "published": "2026-10-04T07:00:00.000Z",
     "image": "",
-    "blurb": "Updated inactives and analysis based on the latest reports and official announcements leading up to kickoff.",
-    "source": "ESPN",
+    "blurb": "Who do we have this week?",
+    "source": "YAHOO",
     "league": "NFL"
    }
   ],
   "football/college-football": [
    {
-    "headline": "Iowa State Star Aiden Flora: The Best Unknown Player",
-    "link": "https://sports.yahoo.com/articles/iowa-state-star-aiden-flora-052041044.html",
-    "published": "2026-10-04T08:59:41.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/9a1e807a2116b1f60bdbddb202e669efb98bcd5bb0b975f413886be08105bc9a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F34d9ff29fbce01da0a09c765fab9b8b2.jpg",
-    "blurb": "Iowa State has an incredible budding superstar in Aiden Flora. Iowa State needed a big win on Homecoming Saturday vs. [\u2026]",
+    "headline": "SEC Power Rankings: Where Alabama, Georgia sit ahead of Week 6 matchup",
+    "link": "https://sports.yahoo.com/articles/sec-power-rankings-where-alabama-090747785.html",
+    "published": "2026-10-04T09:07:47.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/1806634e42cc0d8f6eef1534a3cfb962df8200cfe7ced6024791ed61b427fd24/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froll_tide_wire_usa_today_articles_214%2Fc30b3d5d1db060f56bea338152ea14da.jpg",
+    "blurb": "Both of Alabama and Missouri are on the rise following huge wins this past Saturday. Check out the latest SEC power rankings coming out of Week 5.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -214,11 +214,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Jeremiah Smith is The Best Player in College Football",
-    "link": "https://sports.yahoo.com/articles/jeremiah-smith-best-player-college-045639394.html",
-    "published": "2026-10-04T08:59:39.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/d63fe8a7130ef8d7802babf95ac0d5947c83144ec7b934097df8206d664bb8d4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F7c521d4e2e4d940d144dbb38dc4e635c.jpg",
-    "blurb": "Jeremiah Smith showed why he is the frontrunner for the Heisman Trophy in a big road win over Iowa. Jeremiah [\u2026]",
+    "headline": "Auburn a better indicator than Texas about where Tennessee football stands | Adams",
+    "link": "https://sports.yahoo.com/articles/auburn-better-indicator-texas-where-090254901.html",
+    "published": "2026-10-04T09:02:54.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6090e8b31b86891506720d683faa793f908ad6b0f8e75c5608039bf8d7b5bcc9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2Fe305e7201e9d0ec05f63f1e541e27a23.jpg",
+    "blurb": "Tennessee passing game remains a work in progress. Most defenses will struggle to stop DeSean Bishop. Tennessee defense owes Penn State a thank-you.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -241,11 +241,11 @@
     "league": "CFB"
    },
    {
-    "headline": "\u2018Total Destruction,\u2019 \u2018Reverse Psychology Is a Beautiful Drug\u2019 \u2014 Heisman Winner, CFB World Erupt As Missouri Torches Florida 45\u201317",
-    "link": "https://sports.yahoo.com/articles/total-destruction-reverse-psychology-beautiful-081024494.html",
-    "published": "2026-10-04T08:10:24.000Z",
+    "headline": "Iowa State Star Aiden Flora: The Best Unknown Player",
+    "link": "https://sports.yahoo.com/articles/iowa-state-star-aiden-flora-052041044.html",
+    "published": "2026-10-04T08:59:41.000Z",
     "image": "",
-    "blurb": "No. 8 Florida was hoping to cruise past No.",
+    "blurb": "Iowa State has an incredible budding superstar in Aiden Flora. Iowa State needed a big win on Homecoming Saturday vs. [\u2026]",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -268,22 +268,22 @@
     "league": "CFB"
    },
    {
-    "headline": "Greg Schiano faces 'tough decisions' at Rutgers football's bye week",
-    "link": "https://sports.yahoo.com/articles/greg-schiano-faces-tough-decisions-080202753.html",
-    "published": "2026-10-04T08:02:02.000Z",
+    "headline": "Jeremiah Smith is The Best Player in College Football",
+    "link": "https://sports.yahoo.com/articles/jeremiah-smith-best-player-college-045639394.html",
+    "published": "2026-10-04T08:59:39.000Z",
     "image": "",
-    "blurb": "Rutgers football is 1-4 and coach Greg Schiano vowed to examine just about everything during the team's upcoming bye week.",
+    "blurb": "Jeremiah Smith showed why he is the frontrunner for the Heisman Trophy in a big road win over Iowa. Jeremiah [\u2026]",
     "source": "YAHOO",
     "league": "CFB"
    }
   ],
   "basketball/wnba": [
    {
-    "headline": "Will Kelsey Mitchell re-sign with Indiana Fever in 2027? Why she needs to be 'selfish'",
-    "link": "https://sports.yahoo.com/articles/kelsey-mitchell-sign-indiana-fever-085614103.html",
-    "published": "2026-10-04T08:56:14.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/92af8e9f40463636a133a1d196829b6bcc9679e9059d464b0472ab858e8e7be3/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Findianapolis_star_natl_articles_522%2Fe1433d99ad57f0b84d477e3c6664ed3c.jpg",
-    "blurb": "Kelsey Mitchell has only played for the Indiana Fever, who have to navigate the salary cap. Inside a complicated path for a reunion.",
+    "headline": "\u2018I hope to\u2026\u2019 \u2013 Stephanie White reveals what she wants to do after Indiana Fever\u2019s first-round exit",
+    "link": "https://sports.yahoo.com/articles/hope-stephanie-white-reveals-she-090407625.html",
+    "published": "2026-10-04T09:04:07.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/3ccbe306eb75814770369a261ef8382ee6ba3c420e2552c04dde848ab46f30e9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhitc_articles_832%2Fb0de9d1614c54cdecf04395b8437b91c.jpg",
+    "blurb": "Stephanie White breaks silence on her future after the Indiana Fever\u2019s disappointing 2026 WNBA postseason run. Before the playoffs, the Indiana Fever were expected to shake things up in the 2026 WNBA playoffs, but they failed to impress fans.",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -306,11 +306,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "\u201cLong overdue speech\u201d \u2013 Dave Portnoy Backs GM Amber Cox Pushing Back On Media Scrutiny Of Fever Fans",
-    "link": "https://sports.yahoo.com/articles/long-overdue-speech-dave-portnoy-084503026.html",
-    "published": "2026-10-04T08:45:03.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/1d4b6d590beafb030eeade222e5017bd7b63741decdcfafb2ff8e96a3cec0781/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcollege_football_network_979%2Fe5f412c3537cce56ffc52f2368b793bb.png",
-    "blurb": "Members of the Indiana Fever organization held exit interviews on Saturday. Among them was Fever COO and GM Amber Cox, who had a special message for the Fever fanbase and the media.",
+    "headline": "Will Kelsey Mitchell re-sign with Indiana Fever in 2027? Why she needs to be 'selfish'",
+    "link": "https://sports.yahoo.com/articles/kelsey-mitchell-sign-indiana-fever-085614103.html",
+    "published": "2026-10-04T08:56:14.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/92af8e9f40463636a133a1d196829b6bcc9679e9059d464b0472ab858e8e7be3/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Findianapolis_star_natl_articles_522%2Fe1433d99ad57f0b84d477e3c6664ed3c.jpg",
+    "blurb": "Kelsey Mitchell has only played for the Indiana Fever, who have to navigate the salary cap. Inside a complicated path for a reunion.",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -333,11 +333,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "\u2018She\u2019s not weak\u2019 \u2013 Jason Whitlock sympathises with Kelsey Mitchell\u2019s emotional Fever admission",
-    "link": "https://sports.yahoo.com/articles/she-not-weak-jason-whitlock-084215037.html",
-    "published": "2026-10-04T08:42:15.000Z",
+    "headline": "\u201cLong overdue speech\u201d \u2013 Dave Portnoy Backs GM Amber Cox Pushing Back On Media Scrutiny Of Fever Fans",
+    "link": "https://sports.yahoo.com/articles/long-overdue-speech-dave-portnoy-084503026.html",
+    "published": "2026-10-04T08:45:03.000Z",
     "image": "",
-    "blurb": "Jason Whitlock has defended Kelsey Mitchell after the Indiana Fever star opened up about the pressure she has faced from fans during a difficult season. Mitchell recently admitted that \u201cshowing up every day to compete for fans that may or may not like you is hard\u201d, while also rev",
+    "blurb": "Members of the Indiana Fever organization held exit interviews on Saturday. Among them was Fever COO and GM Amber Cox, who had a special message for the Fever fanbase and the media.",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -360,11 +360,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "\u2018Fire Amber Cox,\u2019 \u2018Fire Stephanie White\u2019 \u2014 Ex-Indiana Coach Demands Fever Clean House Around Caitlin Clark",
-    "link": "https://sports.yahoo.com/articles/fire-amber-cox-fire-stephanie-072459060.html",
-    "published": "2026-10-04T07:24:59.000Z",
+    "headline": "\u2018She\u2019s not weak\u2019 \u2013 Jason Whitlock sympathises with Kelsey Mitchell\u2019s emotional Fever admission",
+    "link": "https://sports.yahoo.com/articles/she-not-weak-jason-whitlock-084215037.html",
+    "published": "2026-10-04T08:42:15.000Z",
     "image": "",
-    "blurb": "The Indiana Fever\u2019s season may be over, but the debate over how the franchise is handling the Caitlin Clark era isn\u2019t slowing down. This time, the focus has shifted from what happened on the court to the people calling the shots.",
+    "blurb": "Jason Whitlock has defended Kelsey Mitchell after the Indiana Fever star opened up about the pressure she has faced from fans during a difficult season. Mitchell recently admitted that \u201cshowing up every day to compete for fans that may or may not like you is hard\u201d, while also rev",
     "source": "YAHOO",
     "league": "WNBA"
    }
@@ -884,11 +884,11 @@
   ],
   "mma/ufc": [
    {
-    "headline": "Natalia Silva Beats Wang Cong To Claim The Vacant UFC Women\u2019s Flyweight Title At UFC 332",
-    "link": "https://sports.yahoo.com/articles/natalia-silva-beats-wang-cong-084743552.html",
-    "published": "2026-10-04T08:47:43.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/47710e49b552306c49a761c1a2448738b0ef177afbfef805de31570c4cee2fbf/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Flast_word_on_sports_293%2F10ccd3d8d0772061d2c7844dd0d157ea.jpg",
-    "blurb": "Brazil's Natalia Silva (21-5-1) secured a hard-fought unanimous decision win over China's Wang Cong (10-2-0) at UFC 332 in Salt Lake City. This victory makes Silva the 4th undisputed UFC women's flyweight champion after Nicco Montano, Valentina Shevchenko, and Alexa Grasso. Natal",
+    "headline": "UFC 335 Fight Card Takes Shape With Charles Oliveira, Alex Pereira and Diego Lopes",
+    "link": "https://sports.yahoo.com/articles/ufc-335-fight-card-takes-085725921.html",
+    "published": "2026-10-04T08:57:25.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/48e19fa0cd797b821556d5ecbf7259d6a41bc259d6b70209503739dc470ce54b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Flast_word_on_sports_293%2F4d4bfa42d6333c0d73727edd651433db.jpg",
+    "blurb": "UFC 335's key fights have been announced, and the card looks like a firecracker. The event will be the last numbered UFC card of the year and will take place at T-Mobile Arena in Las Vegas on 12th December. The main event will feature Charles Oliveira (37-11-0-1 NC) defending his",
     "source": "YAHOO",
     "league": "UFC"
    },
@@ -911,11 +911,11 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 Bonuses Revealed Following Action-Packed Event",
-    "link": "https://sports.yahoo.com/articles/ufc-332-bonuses-revealed-following-062308348.html",
-    "published": "2026-10-04T06:23:08.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/7849d75eef0093d8e2b5011c9ecf42561b524184829682e2dc0e442ed069f957/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2Fbcc4451fc4943cfacb50318f39aecb87.jpg",
-    "blurb": "After Saturday\u2019s UFC 332 card, the organization revealed who the recipients of the post-fight bonuses following the action-packed event were. Check out all of the bonus winners from UFC 332 below. Performance of the Night ($100,000 to the fighter): Roman Kopylov In a middleweight",
+    "headline": "Natalia Silva Beats Wang Cong To Claim The Vacant UFC Women\u2019s Flyweight Title At UFC 332",
+    "link": "https://sports.yahoo.com/articles/natalia-silva-beats-wang-cong-084743552.html",
+    "published": "2026-10-04T08:47:43.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/47710e49b552306c49a761c1a2448738b0ef177afbfef805de31570c4cee2fbf/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Flast_word_on_sports_293%2F10ccd3d8d0772061d2c7844dd0d157ea.jpg",
+    "blurb": "Brazil's Natalia Silva (21-5-1) secured a hard-fought unanimous decision win over China's Wang Cong (10-2-0) at UFC 332 in Salt Lake City. This victory makes Silva the 4th undisputed UFC women's flyweight champion after Nicco Montano, Valentina Shevchenko, and Alexa Grasso. Natal",
     "source": "YAHOO",
     "league": "UFC"
    },
@@ -938,11 +938,11 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 post-fight show: Reaction to Natalia Silva\u2019s title win, knockouts galore",
-    "link": "https://sports.yahoo.com/articles/ufc-332-post-fight-show-051823221.html",
-    "published": "2026-10-04T05:18:23.000Z",
+    "headline": "UFC 332 Bonuses Revealed Following Action-Packed Event",
+    "link": "https://sports.yahoo.com/articles/ufc-332-bonuses-revealed-following-062308348.html",
+    "published": "2026-10-04T06:23:08.000Z",
     "image": "",
-    "blurb": "UFC 332 was exactly what we thought it would be",
+    "blurb": "After Saturday\u2019s UFC 332 card, the organization revealed who the recipients of the post-fight bonuses following the action-packed event were. Check out all of the bonus winners from UFC 332 below. Performance of the Night ($100,000 to the fighter): Roman Kopylov In a middleweight",
     "source": "YAHOO",
     "league": "UFC"
    },
@@ -965,11 +965,11 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 takeaways: Nat\u00e1lia Silva won, but it'll take more than that to be seen as the true UFC champ",
-    "link": "https://sports.yahoo.com/mma/article/ufc-332-takeaways-natalia-silva-won-but-itll-take-more-than-that-to-be-seen-as-the-true-ufc-champ-045957498.html",
-    "published": "2026-10-04T04:59:57.000Z",
+    "headline": "UFC 332 post-fight show: Reaction to Natalia Silva\u2019s title win, knockouts galore",
+    "link": "https://sports.yahoo.com/articles/ufc-332-post-fight-show-051823221.html",
+    "published": "2026-10-04T05:18:23.000Z",
     "image": "",
-    "blurb": "Five biggest takeaways from UFC 332 in Salt Lake City, an event that saw a record 11 knockouts and a new UFC champion crowned.",
+    "blurb": "UFC 332 was exactly what we thought it would be",
     "source": "YAHOO",
     "league": "UFC"
    }
@@ -1069,22 +1069,67 @@
  },
  "latest": [
   {
-   "headline": "Iowa State Star Aiden Flora: The Best Unknown Player",
-   "link": "https://sports.yahoo.com/articles/iowa-state-star-aiden-flora-052041044.html",
-   "published": "2026-10-04T08:59:41.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/9a1e807a2116b1f60bdbddb202e669efb98bcd5bb0b975f413886be08105bc9a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F34d9ff29fbce01da0a09c765fab9b8b2.jpg",
-   "blurb": "Iowa State has an incredible budding superstar in Aiden Flora. Iowa State needed a big win on Homecoming Saturday vs. [\u2026]",
+   "headline": "SEC Power Rankings: Where Alabama, Georgia sit ahead of Week 6 matchup",
+   "link": "https://sports.yahoo.com/articles/sec-power-rankings-where-alabama-090747785.html",
+   "published": "2026-10-04T09:07:47.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/1806634e42cc0d8f6eef1534a3cfb962df8200cfe7ced6024791ed61b427fd24/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froll_tide_wire_usa_today_articles_214%2Fc30b3d5d1db060f56bea338152ea14da.jpg",
+   "blurb": "Both of Alabama and Missouri are on the rise following huge wins this past Saturday. Check out the latest SEC power rankings coming out of Week 5.",
    "source": "YAHOO",
    "league": "CFB"
   },
   {
-   "headline": "Jeremiah Smith is The Best Player in College Football",
-   "link": "https://sports.yahoo.com/articles/jeremiah-smith-best-player-college-045639394.html",
-   "published": "2026-10-04T08:59:39.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/d63fe8a7130ef8d7802babf95ac0d5947c83144ec7b934097df8206d664bb8d4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F7c521d4e2e4d940d144dbb38dc4e635c.jpg",
-   "blurb": "Jeremiah Smith showed why he is the frontrunner for the Heisman Trophy in a big road win over Iowa. Jeremiah [\u2026]",
+   "headline": "What NFL games are on today? Week 4 TV channels, Sunday schedule, results",
+   "link": "https://sports.yahoo.com/articles/nfl-games-today-week-4-090635963.html",
+   "published": "2026-10-04T09:06:35.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/e23957066b17e3484a1a62e9392379db38ed31b192139da7b5c76215dc835643/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fe292127608085d0302928a0a6293f62e.jpg",
+   "blurb": "The NFL season is off to a wild start. Here's how you can watch all of the Sunday action in Week 4.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
+   "headline": "Jalon Daniels: \"Dream come true\" to be starting QB for the Buccaneers today",
+   "link": "https://sports.yahoo.com/articles/jalon-daniels-dream-come-true-090535920.html",
+   "published": "2026-10-04T09:05:35.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/a0767ecdb0146d94a9cd2fe59d5dfe2285bce150ea9df6c045559dc571c07a4a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F6c7e438287baa38f8367532de9777253.jpg",
+   "blurb": "The undrafted rookie will start today against the Packers with Baker Mayfield out.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
+   "headline": "\u2018I hope to\u2026\u2019 \u2013 Stephanie White reveals what she wants to do after Indiana Fever\u2019s first-round exit",
+   "link": "https://sports.yahoo.com/articles/hope-stephanie-white-reveals-she-090407625.html",
+   "published": "2026-10-04T09:04:07.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/3ccbe306eb75814770369a261ef8382ee6ba3c420e2552c04dde848ab46f30e9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhitc_articles_832%2Fb0de9d1614c54cdecf04395b8437b91c.jpg",
+   "blurb": "Stephanie White breaks silence on her future after the Indiana Fever\u2019s disappointing 2026 WNBA postseason run. Before the playoffs, the Indiana Fever were expected to shake things up in the 2026 WNBA playoffs, but they failed to impress fans.",
+   "source": "YAHOO",
+   "league": "WNBA"
+  },
+  {
+   "headline": "Auburn a better indicator than Texas about where Tennessee football stands | Adams",
+   "link": "https://sports.yahoo.com/articles/auburn-better-indicator-texas-where-090254901.html",
+   "published": "2026-10-04T09:02:54.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/6090e8b31b86891506720d683faa793f908ad6b0f8e75c5608039bf8d7b5bcc9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2Fe305e7201e9d0ec05f63f1e541e27a23.jpg",
+   "blurb": "Tennessee passing game remains a work in progress. Most defenses will struggle to stop DeSean Bishop. Tennessee defense owes Penn State a thank-you.",
    "source": "YAHOO",
    "league": "CFB"
+  },
+  {
+   "headline": "Yankees News: Drew Rasmussen and Rays take Round 1",
+   "link": "https://sports.yahoo.com/articles/yankees-news-drew-rasmussen-rays-090000173.html",
+   "published": "2026-10-04T09:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/431996be58b2b79886d5db07d21f5abda5d8621c68df023f787cfc90c1d73422/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F708f1bd0108e00d8d7dc204ecc42de3c.jpg",
+   "blurb": "Yankees blanked in ALDS opener; why Cole got the Game 1 nod; Matt Blake\u2019s contract set to expire after season.",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
+   "headline": "UFC 335 Fight Card Takes Shape With Charles Oliveira, Alex Pereira and Diego Lopes",
+   "link": "https://sports.yahoo.com/articles/ufc-335-fight-card-takes-085725921.html",
+   "published": "2026-10-04T08:57:25.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/48e19fa0cd797b821556d5ecbf7259d6a41bc259d6b70209503739dc470ce54b/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Flast_word_on_sports_293%2F4d4bfa42d6333c0d73727edd651433db.jpg",
+   "blurb": "UFC 335's key fights have been announced, and the card looks like a firecracker. The event will be the last numbered UFC card of the year and will take place at T-Mobile Arena in Las Vegas on 12th December. The main event will feature Charles Oliveira (37-11-0-1 NC) defending his",
+   "source": "YAHOO",
+   "league": "UFC"
   },
   {
    "headline": "Will Kelsey Mitchell re-sign with Indiana Fever in 2027? Why she needs to be 'selfish'",
@@ -1103,15 +1148,6 @@
    "blurb": "Brazil's Natalia Silva (21-5-1) secured a hard-fought unanimous decision win over China's Wang Cong (10-2-0) at UFC 332 in Salt Lake City. This victory makes Silva the 4th undisputed UFC women's flyweight champion after Nicco Montano, Valentina Shevchenko, and Alexa Grasso. Natal",
    "source": "YAHOO",
    "league": "UFC"
-  },
-  {
-   "headline": "\u201cLong overdue speech\u201d \u2013 Dave Portnoy Backs GM Amber Cox Pushing Back On Media Scrutiny Of Fever Fans",
-   "link": "https://sports.yahoo.com/articles/long-overdue-speech-dave-portnoy-084503026.html",
-   "published": "2026-10-04T08:45:03.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/1d4b6d590beafb030eeade222e5017bd7b63741decdcfafb2ff8e96a3cec0781/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcollege_football_network_979%2Fe5f412c3537cce56ffc52f2368b793bb.png",
-   "blurb": "Members of the Indiana Fever organization held exit interviews on Saturday. Among them was Fever COO and GM Amber Cox, who had a special message for the Fever fanbase and the media.",
-   "source": "YAHOO",
-   "league": "WNBA"
   },
   {
    "headline": "Vegas first? Seattle on hold? Where NBA expansion stands ahead of the 2026-27 season",
@@ -1204,15 +1240,6 @@
    "league": "UFC"
   },
   {
-   "headline": "Daily Norseman Staff NFL Picks, Week 4",
-   "link": "https://sports.yahoo.com/articles/daily-norseman-staff-nfl-picks-070000299.html",
-   "published": "2026-10-04T07:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/9f535bea05bb518487c03cf7a618033108edfcb3a9e4b9c0401f735bb7cb15b5/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6b9a896ac6811b453109e7d511013ec4.jpg",
-   "blurb": "Who do we have this week?",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
    "headline": "With Jacob Misiorowski missing his A-game, Brewers rally to take NLDS Game 1 via the long ball",
    "link": "https://sports.yahoo.com/mlb/article/with-jacob-misiorowski-missing-his-a-game-brewers-rally-to-take-nlds-game-1-via-the-long-ball-065427262.html",
    "published": "2026-10-04T06:54:27.000Z",
@@ -1220,15 +1247,6 @@
    "blurb": "Milwaukee were 28th in MLB in home runs this season, but that didn't stop Jackson Chourio and William Contreras on Saturday.",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "UFC 332 Bonuses Revealed Following Action-Packed Event",
-   "link": "https://sports.yahoo.com/articles/ufc-332-bonuses-revealed-following-062308348.html",
-   "published": "2026-10-04T06:23:08.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/7849d75eef0093d8e2b5011c9ecf42561b524184829682e2dc0e442ed069f957/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2Fbcc4451fc4943cfacb50318f39aecb87.jpg",
-   "blurb": "After Saturday\u2019s UFC 332 card, the organization revealed who the recipients of the post-fight bonuses following the action-packed event were. Check out all of the bonus winners from UFC 332 below. Performance of the Night ($100,000 to the fighter): Roman Kopylov In a middleweight",
-   "source": "YAHOO",
-   "league": "UFC"
   },
   {
    "headline": "PGA Tour Champions Leaderboard Features Michael Block In Front",
@@ -1256,15 +1274,6 @@
    "blurb": "Just two games into the San Jose Sharks' new season, the long familiar \"Beat LA\" chants were being belted out at the SAP Center as they hosted the Los Angeles Kings on Saturday night.",
    "source": "YAHOO",
    "league": "NHL"
-  },
-  {
-   "headline": "Jackson Chourio, William Contreras lift Brewers to Game 1 win that comes down to the wire",
-   "link": "https://sports.yahoo.com/articles/jackson-chourio-william-contreras-lift-052520280.html",
-   "published": "2026-10-04T05:25:20.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/9f1fdde73772c3519351c5ca91315c6b0235e2f5d1d4529c73e5b24bb9168f4d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9bbf78138a520ffb3f85deeb5ebd2ad0.jpg",
-   "blurb": "The Brewers get a 3-2 win over the Padres in Game 1 with some heroics from two of their biggest stars.",
-   "source": "YAHOO",
-   "league": "MLB"
   },
   {
    "headline": "Tomorrow's Top 25 Today: Alabama joins top five in college football rankings as Georgia showdown looms",
@@ -1319,15 +1328,6 @@
    "blurb": "Drew Rasmussen's gem was aided by a poor baserunning decision from Wells, while a fortunate ninth-inning carom may have saved the Brewers",
    "source": "CBS",
    "league": "MLB"
-  },
-  {
-   "headline": "Packers-Buccaneers Preview: Green Bay travels to Tampa Bay",
-   "link": "https://sports.yahoo.com/articles/packers-buccaneers-preview-green-bay-043832173.html",
-   "published": "2026-10-04T04:38:32.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/9cf21cfece14362ebcee9a541d32655ad711b2f76de385d07f071bcb69ceb8d8/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F16bc4d9fca70adafdbe88e71a473df12.jpg",
-   "blurb": "A preview of the Packers\u2019 game against the Buccaneers in Week 4",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "Sabres' Jiri Kulich celebrates return from blood clot issues by scoring game-winner against Chicago",
@@ -1430,8 +1430,8 @@
   }
  ],
  "source_mix": {
-  "YAHOO": 63,
-  "ESPN": 57,
+  "YAHOO": 65,
+  "ESPN": 55,
   "CBS": 35
  },
  "degraded_sources": []
