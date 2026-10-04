@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-04T16:50:39.812322+00:00",
+ "generated_at": "2026-10-04T17:05:15.591298+00:00",
  "items": [
   {
-   "id": "82305d8fd1",
-   "league": "NFL",
-   "event": "New England Patriots @ Buffalo Bills",
-   "prediction": "Buffalo Bills to beat New England Patriots",
-   "kickoff_utc": "2026-10-04T17:00:00+00:00"
+   "id": "faac1a0c6c",
+   "league": "WNBA",
+   "event": "New York Liberty @ Atlanta Dream",
+   "prediction": "New York Liberty to beat Atlanta Dream",
+   "kickoff_utc": "2026-10-04T18:00:00+00:00"
   },
   {
-   "id": "3be2ae28ea",
-   "league": "NFL",
-   "event": "Los Angeles Rams @ Philadelphia Eagles",
-   "prediction": "Philadelphia Eagles to beat Los Angeles Rams",
-   "kickoff_utc": "2026-10-04T17:00:00+00:00"
+   "id": "0ebfc88094",
+   "league": "WNBA",
+   "event": "Las Vegas Aces @ Golden State Valkyries",
+   "prediction": "Las Vegas Aces to beat Golden State Valkyries",
+   "kickoff_utc": "2026-10-04T20:00:00+00:00"
   },
   {
-   "id": "e7705f18b8",
-   "league": "NFL",
-   "event": "Tennessee Titans @ Baltimore Ravens",
-   "prediction": "Baltimore Ravens to beat Tennessee Titans",
-   "kickoff_utc": "2026-10-04T17:00:00+00:00"
+   "id": "0d6bb12567",
+   "league": "NWSL",
+   "event": "Denver Summit FC @ Chicago Stars FC",
+   "prediction": "Chicago Stars FC to beat Denver Summit FC",
+   "kickoff_utc": "2026-10-04T20:00:00+00:00"
   },
   {
-   "id": "82978f71da",
-   "league": "NFL",
-   "event": "Jacksonville Jaguars @ Cincinnati Bengals",
-   "prediction": "Cincinnati Bengals to beat Jacksonville Jaguars",
-   "kickoff_utc": "2026-10-04T17:00:00+00:00"
+   "id": "0060d9301a",
+   "league": "MLB",
+   "event": "San Diego Padres @ Milwaukee Brewers",
+   "prediction": "Milwaukee Brewers to beat San Diego Padres",
+   "kickoff_utc": "2026-10-04T20:00:00+00:00"
   },
   {
-   "id": "dbd79be878",
+   "id": "523100e4d7",
    "league": "NFL",
-   "event": "Dallas Cowboys @ Houston Texans",
-   "prediction": "Dallas Cowboys to beat Houston Texans",
-   "kickoff_utc": "2026-10-04T17:00:00+00:00"
+   "event": "Miami Dolphins @ Minnesota Vikings",
+   "prediction": "Minnesota Vikings to beat Miami Dolphins",
+   "kickoff_utc": "2026-10-04T20:05:00+00:00"
   },
   {
-   "id": "f6454a2674",
+   "id": "3513df763a",
    "league": "NFL",
-   "event": "New York Jets @ Chicago Bears",
-   "prediction": "Chicago Bears to beat New York Jets",
-   "kickoff_utc": "2026-10-04T17:00:00+00:00"
+   "event": "Kansas City Chiefs @ Las Vegas Raiders",
+   "prediction": "Kansas City Chiefs to beat Las Vegas Raiders",
+   "kickoff_utc": "2026-10-04T20:25:00+00:00"
   }
  ]
 }
