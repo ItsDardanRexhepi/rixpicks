@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T21:35:11.894696+00:00",
+ "generated_at": "2026-10-04T21:50:11.552078+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "SD @ MIL",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "End 5th",
+     "detail": "Top 6th",
      "score": "SD 2 - MIL 1"
     }
    ]
@@ -23,7 +23,7 @@
      "matchup": "MIA @ MIN",
      "commence": "2026-10-04T20:05Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "14:50 - 3rd",
      "score": "MIA 0 - MIN 9",
      "away_to": 3,
      "home_to": 3
@@ -33,18 +33,18 @@
      "matchup": "KC @ LV",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "1:30 - 2nd",
-     "score": "KC 7 - LV 10",
-     "away_to": 2,
-     "home_to": 1
+     "detail": "Halftime",
+     "score": "KC 10 - LV 13",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401872975",
      "matchup": "DEN @ SF",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "1:43 - 2nd",
-     "score": "DEN 3 - SF 0",
+     "detail": "0:30 - 2nd",
+     "score": "DEN 3 - SF 3",
      "away_to": 0,
      "home_to": 2
     },
@@ -53,7 +53,7 @@
      "matchup": "LAC @ SEA",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "6:12 - 2nd",
+     "detail": "1:25 - 2nd",
      "score": "LAC 3 - SEA 13",
      "away_to": 2,
      "home_to": 2
@@ -76,10 +76,10 @@
      "matchup": "LV @ GS",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "8:10 - 4th",
-     "score": "LV 53 - GS 59",
-     "away_to": 3,
-     "home_to": 3
+     "detail": "2:58 - 4th",
+     "score": "LV 58 - GS 67",
+     "away_to": 2,
+     "home_to": 2
     }
    ]
   },
@@ -125,8 +125,8 @@
      "matchup": "DEN @ CHI",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "68'",
-     "score": "DEN 2 - CHI 0"
+     "detail": "83'",
+     "score": "DEN 3 - CHI 0"
     },
     {
      "espn_event_id": "401854020",
