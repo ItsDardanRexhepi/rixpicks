@@ -183,7 +183,7 @@ var RP_SPORT_CLOCK={"football/nfl":{"period_seconds":900,"counts_down":true},"fo
 <div class="pick" data-espn="baseball/mlb" data-eid="401908002" data-gpk="849830" data-aab="SD" data-hab="MIL" data-room="g3-2026-10-03" data-away="San Diego Padres" data-home="Milwaukee Brewers" data-side="away" data-market="spread" data-line="2.5">
   <div class="pick-head"><span class="num">3.</span><span class="name">Padres +2.5</span><span class="units">5u</span><span class="odds">-194</span><span class="oddslock">9:07 AM &middot; locked</span></div>
   <div class="sub">owner position · model 69.1</div>
-  <div class="score" id="rpScore">2026-10-03 · 5:30 PM PT</div>
+  <div class="score" id="rpScore">Final · San Diego Padres 2 - Milwaukee Brewers 3 · 2026-10-03 · 5:30 PM PT</div>
   <div id="rpLive"></div>
   <div id="rpScoreTbl"></div>
   <div class="chips" style="margin-top:12px"><span class="chip rpnontap rpunpriced" data-bk="BR" style="background:#e3f5fc;border-color:#e3f5fc;color:#0278a6" data-book="BR" data-market="spread" data-mr="0"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betrivers.com&sz=128" alt="" onerror="this.remove()">BR —</span><span class="chip rpnontap rpunpriced" data-bk="DK" style="background:#0b0e11;border-color:#0b0e11;color:#53d337" data-book="DK" data-market="spread" data-mr="1"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=draftkings.com&sz=128" alt="" onerror="this.remove()">DK —</span><span class="chip rpnontap rpunpriced" data-bk="HR" style="background:#faf3dd;border-color:#faf3dd;color:#8a6d1a" data-book="HR" data-market="spread" data-mr="2"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=hardrock.bet&sz=128" alt="" onerror="this.remove()">HR —</span><span class="chip rpnontap rpunpriced" data-bk="KAL" style="background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c" data-book="KAL" data-market="spread" data-mr="3"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=kalshi.com&sz=128" alt="" onerror="this.remove()">KAL —</span><span class="chip rpnontap rpunpriced" data-bk="MGM" style="background:#f5f0e4;border-color:#f5f0e4;color:#7a6226" data-book="MGM" data-market="spread" data-mr="4"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=betmgm.com&sz=128" alt="" onerror="this.remove()">MGM —</span><span class="chip rpnontap rpunpriced" data-bk="TSB" style="background:#0d1b2e;border-color:#0d1b2e;color:#4d94ff" data-book="TSB" data-market="spread" data-mr="5"><img class="bklogo" src="https://www.google.com/s2/favicons?domain=thescore.bet&sz=128" alt="" onerror="this.remove()">TSB —</span></div>
@@ -222,7 +222,7 @@ function rpGameGrade(d,a,h){ /* market-aware final verdict 'W'|'L'|'P', or null 
  return null;}
 function rpGameBadge(v){return v?'<span style="font-size:12px;font-weight:800;color:'+(v==='W'?'#3ecf6f':(v==='L'?'#e5484d':'#8a8f98'))+'">'+v+'</span> ':'';}
 
-const RP_BUILD='1791096624';const RP_ROOM='g3-2026-10-03';const RP_START='2026-10-04T00:30Z';
+const RP_BUILD='1791097520';const RP_ROOM='g3-2026-10-03';const RP_START='2026-10-04T00:30Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{

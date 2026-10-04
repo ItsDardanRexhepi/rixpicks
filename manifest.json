@@ -105,16 +105,7 @@
     "gate_cents": 65,
     "ticker": "KXNHLGAME-26OCT03WSHTB-TB"
    },
-   "polymarket": {
-    "url": "https://polymarket.com/event/nhl-wsh-tb-2026-10-03",
-    "cents": 100
-   },
-   "polymarket_us": {
-    "url": "https://polymarket.us/sports/nhl/nhl-was-tb-2026-10-03",
-    "cents": 65,
-    "verified": true
-   },
-   "polycents": 100
+   "polymarket": null
   },
   {
    "num": 5,
@@ -160,6 +151,6 @@
   }
  ],
  "parlay": null,
- "pick_content_hash": "996e5f0e15eb71fce84a3c5fb0581431adfbfd5241219eef87ebfebab1ed549a",
+ "pick_content_hash": "4b36ed98945c026b958a634a6ed3475f59a4fc39385c217dcf2188971aeb8b9c",
  "card_note": "Owner-directed picks: none of today's six survived this morning's full process (standing bars plus red team); sub-bar disclosure."
 }
