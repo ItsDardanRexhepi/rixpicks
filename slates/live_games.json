@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T22:50:11.839547+00:00",
+ "generated_at": "2026-10-04T23:05:06.542988+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "SD @ MIL",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "Top 8th",
+     "detail": "Mid 9th",
      "score": "SD 3 - MIL 2"
     },
     {
@@ -30,19 +30,17 @@
      "espn_event_id": "401872974",
      "matchup": "MIA @ MIN",
      "commence": "2026-10-04T20:05Z",
-     "status": "in",
-     "detail": "3:43 - 4th",
-     "score": "MIA 10 - MIN 15",
-     "away_to": 2,
-     "home_to": 3
+     "status": "post",
+     "detail": "Final",
+     "score": "MIA 10 - MIN 15"
     },
     {
      "espn_event_id": "401872976",
      "matchup": "KC @ LV",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "12:35 - 4th",
-     "score": "KC 17 - LV 13",
+     "detail": "4:53 - 4th",
+     "score": "KC 17 - LV 19",
      "away_to": 3,
      "home_to": 2
     },
@@ -51,8 +49,8 @@
      "matchup": "DEN @ SF",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "14:56 - 4th",
-     "score": "DEN 3 - SF 10",
+     "detail": "8:52 - 4th",
+     "score": "DEN 6 - SF 17",
      "away_to": 3,
      "home_to": 3
     },
@@ -61,7 +59,7 @@
      "matchup": "LAC @ SEA",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "1:19 - 3rd",
+     "detail": "11:26 - 4th",
      "score": "LAC 13 - SEA 30",
      "away_to": 3,
      "home_to": 2
@@ -90,27 +88,6 @@
    ]
   },
   {
-   "league": "NBA",
-   "games": [
-    {
-     "espn_event_id": "401914127",
-     "matchup": "UTAH @ DEN",
-     "commence": "2026-10-04T23:00Z",
-     "status": "pre",
-     "detail": "10/4 - 4:00 PM PT",
-     "score": "UTAH 0 - DEN 0"
-    },
-    {
-     "espn_event_id": "401918010",
-     "matchup": "GS @ LAC",
-     "commence": "2026-10-04T23:00Z",
-     "status": "pre",
-     "detail": "10/4 - 4:00 PM PT",
-     "score": "GS 0 - LAC 0"
-    }
-   ]
-  },
-  {
    "league": "NHL",
    "games": [
     {
@@ -118,7 +95,7 @@
      "matchup": "UTA @ NYR",
      "commence": "2026-10-04T22:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "18:52 - 2nd",
      "score": "UTA 0 - NYR 1",
      "away_to": null,
      "home_to": null
@@ -138,6 +115,14 @@
      "status": "pre",
      "detail": "10/4 - 5:00 PM PT",
      "score": "CGY 0 - SEA 0"
+    },
+    {
+     "espn_event_id": "401892444",
+     "matchup": "VGK @ VAN",
+     "commence": "2026-10-05T01:00Z",
+     "status": "pre",
+     "detail": "10/4 - 6:00 PM PT",
+     "score": "VGK 0 - VAN 0"
     }
    ]
   },
@@ -151,14 +136,6 @@
      "status": "post",
      "detail": "FT",
      "score": "DEN 3 - CHI 0"
-    },
-    {
-     "espn_event_id": "401854020",
-     "matchup": "WAS @ HOU",
-     "commence": "2026-10-04T23:00Z",
-     "status": "pre",
-     "detail": "Scheduled",
-     "score": "WAS 0 - HOU 0"
     }
    ]
   }
