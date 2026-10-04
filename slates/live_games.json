@@ -1,25 +1,17 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T17:05:45.701325+00:00",
+ "generated_at": "2026-10-04T17:20:11.712723+00:00",
  "leagues": [
   {
    "league": "NFL",
    "games": [
     {
-     "espn_event_id": "401872965",
-     "matchup": "IND @ WAS",
-     "commence": "2026-10-04T13:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "IND 30 - WAS 13"
-    },
-    {
      "espn_event_id": "401872971",
      "matchup": "NE @ BUF",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "13:48 - 1st",
-     "score": "NE 0 - BUF 0",
+     "detail": "6:15 - 1st",
+     "score": "NE 7 - BUF 0",
      "away_to": 3,
      "home_to": 3
     },
@@ -28,9 +20,9 @@
      "matchup": "NYJ @ CHI",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "13:20 - 1st",
+     "detail": "9:18 - 1st",
      "score": "NYJ 0 - CHI 0",
-     "away_to": 3,
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -38,7 +30,7 @@
      "matchup": "JAX @ CIN",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "14:08 - 1st",
+     "detail": "4:28 - 1st",
      "score": "JAX 0 - CIN 0",
      "away_to": 3,
      "home_to": 3
@@ -48,8 +40,8 @@
      "matchup": "ARI @ NYG",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "13:52 - 1st",
-     "score": "ARI 0 - NYG 0",
+     "detail": "6:36 - 1st",
+     "score": "ARI 7 - NYG 3",
      "away_to": 3,
      "home_to": 3
     },
@@ -58,8 +50,8 @@
      "matchup": "LAR @ PHI",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "13:33 - 1st",
-     "score": "LAR 0 - PHI 0",
+     "detail": "8:38 - 1st",
+     "score": "LAR 0 - PHI 3",
      "away_to": 3,
      "home_to": 3
     },
@@ -68,7 +60,7 @@
      "matchup": "GB @ TB",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "14:25 - 1st",
+     "detail": "6:32 - 1st",
      "score": "GB 0 - TB 0",
      "away_to": 3,
      "home_to": 3
@@ -78,8 +70,8 @@
      "matchup": "TEN @ BAL",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "14:08 - 1st",
-     "score": "TEN 0 - BAL 0",
+     "detail": "6:44 - 1st",
+     "score": "TEN 0 - BAL 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -88,10 +80,18 @@
      "matchup": "DAL @ HOU",
      "commence": "2026-10-04T17:00Z",
      "status": "in",
-     "detail": "14:09 - 1st",
-     "score": "DAL 0 - HOU 0",
+     "detail": "5:10 - 1st",
+     "score": "DAL 3 - HOU 7",
      "away_to": 3,
      "home_to": 3
+    },
+    {
+     "espn_event_id": "401872965",
+     "matchup": "IND @ WAS",
+     "commence": "2026-10-04T13:30Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "IND 30 - WAS 13"
     }
    ]
   },
@@ -105,6 +105,34 @@
      "status": "pre",
      "detail": "10/4 - 11:00 AM PT",
      "score": "NY 0 - ATL 0"
+    }
+   ]
+  },
+  {
+   "league": "NHL",
+   "games": [
+    {
+     "espn_event_id": "401892442",
+     "matchup": "WPG @ DET",
+     "commence": "2026-10-04T17:00Z",
+     "status": "in",
+     "detail": "13:01 - 1st",
+     "score": "WPG 0 - DET 0",
+     "away_to": null,
+     "home_to": null
+    }
+   ]
+  },
+  {
+   "league": "NWSL",
+   "games": [
+    {
+     "espn_event_id": "401854019",
+     "matchup": "LA @ GFC",
+     "commence": "2026-10-04T17:00Z",
+     "status": "in",
+     "detail": "11'",
+     "score": "LA 0 - GFC 0"
     }
    ]
   }
