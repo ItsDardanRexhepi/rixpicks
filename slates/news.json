@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-04T13:11:08.886Z",
+ "generated_at": "2026-10-04T13:16:10.347Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Mets Morning News: \u201cEverything changed when I got traded\u201d",
+    "link": "https://sports.yahoo.com/articles/mets-morning-news-everything-changed-130000226.html",
+    "published": "2026-10-04T13:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/35ce16c190b751af611b70e35a7a5efbe927ac86ce3f711ff38a9b2c18906cd0/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F494aea50ec7d639fb4db018a30d562c3.jpg",
+    "blurb": "Your Sunday morning dose of New York Mets and MLB news, notes, and links.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
    {
     "headline": "Brewers escape Padres in Game 1 after wild roof-aided out in 9th",
     "link": "https://www.espn.com/mlb/story/_/id/50097188/brewers-escape-game-1-roof-aided-ends-padres-hopes",
@@ -9,15 +18,6 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1004%2Fr1725612_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Brewers eked out a Game 1 NLDS win after the American Family Field roof impeded what the Padres thought was going to be a go-ahead home run in the ninth inning.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Today in Blue Jays History: Encarnacion\u2019s Walk-Off Homer",
-    "link": "https://sports.yahoo.com/articles/today-blue-jays-history-encarnacion-123800493.html",
-    "published": "2026-10-04T12:38:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/6d9abe3ed571269b90a5aba4e87c40f7f749c37693c58120f788089fdb975c2e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd522305c5df64b99c3bc35a382861593.jpg",
-    "blurb": "Remembering the Blue Jays\u2019 Wild Card Walk-Off ten years ago today. In the 11th inning of the Blue Jays\u2019 Wild Card matchup, Edwin Encarnacion delivered a dramatic one-out home run, sealing a thrilling 5-2 walk-off victory over the Orioles. In the 11th inning, with the Orioles best",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "How did the Cardinals do compared to your expectations?",
+    "link": "https://sports.yahoo.com/articles/did-cardinals-compared-expectations-130000442.html",
+    "published": "2026-10-04T13:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/5200ebae46be4bdd2b9eac5aef6bfb8e3024e53168a6881721067fd1ffb89298/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe64f160ccb43389d0df851d733bef5fb.jpg",
+    "blurb": "Now that the St. Louis Cardinals season is over, it is now fair to look at the entire year together and evaluate the team\u2019s performance rather than grading the season with games left to play. According to basically every respected outlet that produces baseball content, the Cardin",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Is this finally Milwaukee's year? Examining why Brewers' way will (or won't) work",
     "link": "https://www.espn.com/mlb/story/_/id/50093592/mlb-2026-playoffs-milwaukee-brewers-postseason-different",
     "published": "2026-10-04T12:33:49.000Z",
     "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725719_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Will the lack of power that has doomed Milwaukee before dash its World Series dreams?",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "MLB playoff schedule: NLDS gets the Sunday stage",
-    "link": "https://sports.yahoo.com/articles/mlb-playoff-schedule-nlds-gets-122500888.html",
-    "published": "2026-10-04T12:25:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/5796951e4531ac0add30284472cce769297ba77147dce74e5fc33bfe73f7be7a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F449d473cab17f3b77b93357dc2ab56ce.jpg",
-    "blurb": "LOS ANGELES \u2014 After a four-game Saturday, the National League has Sunday to itself with a pair of Games 2 of the NLDS first in Milwaukee and then in Los Angeles. After winning Game 1 in 100-degree heat on Saturday afternoon behind Tarik Skubal, the Dodgers turn to Blake Snell for",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Today in Blue Jays History: Encarnacion\u2019s Walk-Off Homer",
+    "link": "https://sports.yahoo.com/articles/today-blue-jays-history-encarnacion-123800493.html",
+    "published": "2026-10-04T12:38:00.000Z",
+    "image": "",
+    "blurb": "Remembering the Blue Jays\u2019 Wild Card Walk-Off ten years ago today. In the 11th inning of the Blue Jays\u2019 Wild Card matchup, Edwin Encarnacion delivered a dramatic one-out home run, sealing a thrilling 5-2 walk-off victory over the Orioles. In the 11th inning, with the Orioles best",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Brewers edge Padres 3-2 in NLDS opener that features bizarre play in 9th inning",
     "link": "http://www.espn.com/mlb/recap?gameId=401908002",
     "published": "2026-10-04T12:19:11Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908002.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "\u2014 William Contreras hit a tiebreaking homer in the seventh inning and the Milwaukee Brewers hung on to beat San Diego 3-2 in their NL Division Series opener Saturday night after a potential...",
-    "league": "MLB"
-   },
-   {
-    "headline": "Guardians News: Home Runs Win Playoff Games",
-    "link": "https://sports.yahoo.com/articles/guardians-news-home-runs-win-121050294.html",
-    "published": "2026-10-04T12:10:50.000Z",
-    "image": "",
-    "blurb": "News and Notes for Sunday, October 4th, 2026",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,12 +84,12 @@
     "league": "MLB"
    },
    {
-    "headline": "Rasmussen has no-hit bid for 7 2/3 innings, Rays open AL Division Series with a 1-0 win over Yanks",
-    "link": "http://www.espn.com/mlb/recap?gameId=401907985",
-    "published": "2026-10-04T12:18:08Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907985.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 Drew Rasmussen walked into the interview room while manager Kevin Cash was showering him with praise.",
+    "headline": "MLB playoff schedule: NLDS gets the Sunday stage",
+    "link": "https://sports.yahoo.com/articles/mlb-playoff-schedule-nlds-gets-122500888.html",
+    "published": "2026-10-04T12:25:00.000Z",
+    "image": "",
+    "blurb": "LOS ANGELES \u2014 After a four-game Saturday, the National League has Sunday to itself with a pair of Games 2 of the NLDS first in Milwaukee and then in Los Angeles. After winning Game 1 in 100-degree heat on Saturday afternoon behind Tarik Skubal, the Dodgers turn to Blake Snell for",
+    "source": "YAHOO",
     "league": "MLB"
    }
   ],
@@ -104,21 +104,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Steelers DL Derrick Harmon is expected to miss multiple weeks with foot injury",
+    "link": "https://sports.yahoo.com/articles/steelers-dl-derrick-harmon-expected-130838058.html",
+    "published": "2026-10-04T13:08:38.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/170e181ec20ad8b076f33524e54cb032761168236447aa414195ffcc6c580cd4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F9be18b50eb8ac58d2eb28b36f7acf06a.jpg",
+    "blurb": "Steelers defensive lineman Derrick Harmon had to be carted off during Thursday night's loss to the Browns and it looks like it will be a little while before he's back on the field.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Week 4 NFL betting promos: Claim nearly $3,000 in bonuses from top online betting apps, sportsbooks",
     "link": "https://www.cbssports.com/betting/news/week-4-nfl-betting-promos-claim-nearly-3000-in-bonuses-from-top-online-betting-apps-sportsbooks/",
     "published": "2026-10-04T13:07:02.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F14%2F7137957a-5895-47cf-909f-af21c05a3631%2Fpatrick-mahomes.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Top Week 4 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
     "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Joey Porter Jr. expected to play for Cowboys in Week 4 after missing start of season with back injury",
-    "link": "https://sports.yahoo.com/nfl/article/joey-porter-jr-expected-to-play-for-cowboys-in-week-4-after-missing-start-of-season-with-back-injury-130252319.html",
-    "published": "2026-10-04T13:02:52.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/266e7e1411a64fdef89e53e720ec5220cd55e061203d62f2eb9a5627ba754f09/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-09%2Fd36db6ba-108a-4718-8aec-899e0a23bae1",
-    "blurb": "Joey Porter Jr. is feeling better after a mid-week trade to the Cowboys.",
-    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -131,21 +131,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Joey Porter Jr. expected to play for Cowboys in Week 4 after missing start of season with back injury",
+    "link": "https://sports.yahoo.com/nfl/article/joey-porter-jr-expected-to-play-for-cowboys-in-week-4-after-missing-start-of-season-with-back-injury-130252319.html",
+    "published": "2026-10-04T13:02:52.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/266e7e1411a64fdef89e53e720ec5220cd55e061203d62f2eb9a5627ba754f09/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-09%2Fd36db6ba-108a-4718-8aec-899e0a23bae1",
+    "blurb": "Joey Porter Jr. is feeling better after a mid-week trade to the Cowboys.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Week 4 NFL odds, picks, predictions: Computer model backs Giants and Seahawks",
     "link": "https://www.cbssports.com/betting/news/week-4-2026-nfl-odds-lines-spreads-game-picks-predictions-best-bets-today/",
     "published": "2026-10-04T13:04:21.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F09%2F8d3851c5-e272-49eb-911d-d45203a473a1%2Fdarnold.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "SportsLine's advanced model has simulated every game in the Week 4 NFL schedule 10,000 times and locked in its NFL best bets today",
     "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "5 things to watch when the Cowboys play the Texans",
-    "link": "https://sports.yahoo.com/articles/5-things-watch-cowboys-play-130000815.html",
-    "published": "2026-10-04T13:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/5d6f9e732b2d5d384b18412760ddc88832295b421545f8fa799d1831248cffba/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F7b584a843ba43ae588848523b9d51a5b.jpg",
-    "blurb": "What are you going to be paying the most attention to today?",
-    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -158,21 +158,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Report: Lions, Sam LaPorta break off contract extension talks",
+    "link": "https://sports.yahoo.com/articles/report-lions-sam-laporta-break-130133887.html",
+    "published": "2026-10-04T13:01:33.000Z",
+    "image": "",
+    "blurb": "The chances of tight end Sam LaPorta hitting free agency next year are reportedly looking a little better.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "How to bet on 2026 NFL Week 4: Betting odds, game previews, schedule, trends, tips, sportsbook promos, offers",
     "link": "https://www.cbssports.com/betting/news/how-to-bet-on-2026-nfl-week-4-betting-odds-game-previews-schedule-trends-tips-sportsbook-promos-offers/",
     "published": "2026-10-04T12:51:35.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F13%2F8f3082e8-1f8a-41e3-827c-c41f8c936f79%2Fdak-prescott-usa-today-sports.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Our NFL betting guide tells you where to bet on NFL Week 4, while providing odds, betting trends, schedule, promo offers, and more",
     "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Rams\u2019 keys to victory: Slow Saquon",
-    "link": "https://sports.yahoo.com/articles/rams-keys-victory-slow-saquon-130000503.html",
-    "published": "2026-10-04T13:00:00.000Z",
-    "image": "",
-    "blurb": "Sean McVay MUST commit to his running game against Philadelphia",
-    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -223,11 +223,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Happy Homecoming",
-    "link": "https://sports.yahoo.com/articles/happy-homecoming-130100425.html",
-    "published": "2026-10-04T13:01:00.000Z",
-    "image": "",
-    "blurb": "MISSOULA \u2014 Here\u2019s to streaks, and to streaks ending. The Montana Grizzlies kept a couple trends going Saturday, in a satisfying 36-14 football win over Big Sky Conference foe Northern Colorado. They ran their Homecoming win streak to seven, for example. They\u2019re 3-0 in the Big Sky",
+    "headline": "Alabama stock report: 3 players rising after win vs. Mississippi State",
+    "link": "https://sports.yahoo.com/articles/alabama-stock-report-3-players-130120587.html",
+    "published": "2026-10-04T13:01:20.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/edfe96d50642900c5e20e406c2ee18ab05e825abbb2951f1135264fd1b424c7f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froll_tide_wire_usa_today_articles_214%2Fffadad70c4146c4241ba961557d65cc1.jpg",
+    "blurb": "Headlined by quarterback Keelon Russell, there are three Alabama players who are trending up following the Tide's Week 5 win at Mississippi State.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Wilson, Thompson lead Montana Tech past Dakota State",
-    "link": "https://sports.yahoo.com/articles/wilson-thompson-lead-montana-tech-130100578.html",
+    "headline": "Happy Homecoming",
+    "link": "https://sports.yahoo.com/articles/happy-homecoming-130100425.html",
     "published": "2026-10-04T13:01:00.000Z",
     "image": "",
-    "blurb": "MADISON, S.D. \u2014 Northwest Montana products were all over the field for Montana Tech on Saturday. Polson product Jarrett Wilson had a hand in three touchdowns and former Flathead standout Anders Thompson punched in two 1-yard scores to lead No. 6 Montana Tech over No. 22 Dakota St",
+    "blurb": "MISSOULA \u2014 Here\u2019s to streaks, and to streaks ending. The Montana Grizzlies kept a couple trends going Saturday, in a satisfying 36-14 football win over Big Sky Conference foe Northern Colorado. They ran their Homecoming win streak to seven, for example. They\u2019re 3-0 in the Big Sky",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -884,11 +884,11 @@
   ],
   "mma/ufc": [
    {
-    "headline": "Valentina Shevchenko reacts to UFC 332 title fight: 'Don't get too comfortable'",
-    "link": "https://sports.yahoo.com/articles/valentina-shevchenko-reacts-ufc-332-125018090.html",
-    "published": "2026-10-04T12:50:18.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/d61da8c085edd28946084450d88a4e95ecb374d6d74b83be8c36d923d269f73e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmma_junkie_usa_today_articles_344%2F065142638ff5f9fc519e088042bf69d9.jpg",
-    "blurb": "Valentina Shevchenko had a clear message for Natalia Silva after UFC 332.",
+    "headline": "Valentina Shevchenko crashes Natalia Silva\u2019s UFC title celebration \u2014 \u2018Keep my belt warm\u2019",
+    "link": "https://sports.yahoo.com/articles/valentina-shevchenko-crashes-natalia-silva-130000030.html",
+    "published": "2026-10-04T13:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/53e86ebd4b7c8f46bfcb7aad375d11d73c16c40d5cfe4fc5e59410234ac38fd9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F7534a2cbb67732a5ebb4f7f611eef046.jpg",
+    "blurb": "Keep it warm for \u201cBullet.\u201d Natalia Silva finally captured Ultimate Fighting Championship (UFC) gold last night (Sat., Oct. 3, 2026), defeating Wang Cong via unanimous decision in UFC 332\u2019s main event from inside Delta Center in Salt Lake City, Utah. After five competitive rounds,",
     "source": "YAHOO",
     "league": "UFC"
    },
@@ -911,11 +911,11 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 332: 3 Takeaways From Surprisingly Fun Event",
-    "link": "https://sports.yahoo.com/articles/ufc-332-3-takeaways-surprisingly-121420538.html",
-    "published": "2026-10-04T12:14:20.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/1325f45694d18fa4cbaeef6228674e36ef27049844af8de70fe5031433f0621e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fstadium_rant_681%2F24167ddadde38a2bc5d6ac9763bfa0c4.jpg",
-    "blurb": "Saturday\u2019s UFC 332 saw history made, as Natalia Silva clinched the vacant flyweight title via a unanimous decision against Cong Wang to cap off a highly underrated night. Meanwhile, a record-breaking 11 fights ended in knockouts, nine of them in the first round, also a record in ",
+    "headline": "Valentina Shevchenko reacts to UFC 332 title fight: 'Don't get too comfortable'",
+    "link": "https://sports.yahoo.com/articles/valentina-shevchenko-reacts-ufc-332-125018090.html",
+    "published": "2026-10-04T12:50:18.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/d61da8c085edd28946084450d88a4e95ecb374d6d74b83be8c36d923d269f73e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmma_junkie_usa_today_articles_344%2F065142638ff5f9fc519e088042bf69d9.jpg",
+    "blurb": "Valentina Shevchenko had a clear message for Natalia Silva after UFC 332.",
     "source": "YAHOO",
     "league": "UFC"
    },
@@ -938,11 +938,11 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 Promotional Guidelines Compliance pay: Headliners take home most",
-    "link": "https://sports.yahoo.com/articles/ufc-332-promotional-guidelines-compliance-120256800.html",
-    "published": "2026-10-04T12:02:56.000Z",
+    "headline": "UFC 332: 3 Takeaways From Surprisingly Fun Event",
+    "link": "https://sports.yahoo.com/articles/ufc-332-3-takeaways-surprisingly-121420538.html",
+    "published": "2026-10-04T12:14:20.000Z",
     "image": "",
-    "blurb": "UFC 332 delivered one of the healthier Promotional Guidelines Compliance program payouts of any event in 2026 so far.",
+    "blurb": "Saturday\u2019s UFC 332 saw history made, as Natalia Silva clinched the vacant flyweight title via a unanimous decision against Cong Wang to cap off a highly underrated night. Meanwhile, a record-breaking 11 fights ended in knockouts, nine of them in the first round, also a record in ",
     "source": "YAHOO",
     "league": "UFC"
    },
@@ -965,11 +965,11 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 335 Fight Card Takes Shape With Charles Oliveira, Alex Pereira and Diego Lopes",
-    "link": "https://sports.yahoo.com/articles/ufc-335-fight-card-takes-085725921.html",
-    "published": "2026-10-04T08:57:25.000Z",
+    "headline": "UFC 332 Promotional Guidelines Compliance pay: Headliners take home most",
+    "link": "https://sports.yahoo.com/articles/ufc-332-promotional-guidelines-compliance-120256800.html",
+    "published": "2026-10-04T12:02:56.000Z",
     "image": "",
-    "blurb": "UFC 335's key fights have been announced, and the card looks like a firecracker. The event will be the last numbered UFC card of the year and will take place at T-Mobile Arena in Las Vegas on 12th December. The main event will feature Charles Oliveira (37-11-0-1 NC) defending his",
+    "blurb": "UFC 332 delivered one of the healthier Promotional Guidelines Compliance program payouts of any event in 2026 so far.",
     "source": "YAHOO",
     "league": "UFC"
    }
@@ -1114,6 +1114,15 @@
    "league": "CFB"
   },
   {
+   "headline": "Steelers DL Derrick Harmon is expected to miss multiple weeks with foot injury",
+   "link": "https://sports.yahoo.com/articles/steelers-dl-derrick-harmon-expected-130838058.html",
+   "published": "2026-10-04T13:08:38.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/170e181ec20ad8b076f33524e54cb032761168236447aa414195ffcc6c580cd4/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F9be18b50eb8ac58d2eb28b36f7acf06a.jpg",
+   "blurb": "Steelers defensive lineman Derrick Harmon had to be carted off during Thursday night's loss to the Browns and it looks like it will be a little while before he's back on the field.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "Week 4 NFL betting promos: Claim nearly $3,000 in bonuses from top online betting apps, sportsbooks",
    "link": "https://www.cbssports.com/betting/news/week-4-nfl-betting-promos-claim-nearly-3000-in-bonuses-from-top-online-betting-apps-sportsbooks/",
    "published": "2026-10-04T13:07:02.000Z",
@@ -1150,22 +1159,40 @@
    "league": "CFB"
   },
   {
-   "headline": "Happy Homecoming",
-   "link": "https://sports.yahoo.com/articles/happy-homecoming-130100425.html",
-   "published": "2026-10-04T13:01:00.000Z",
-   "image": "",
-   "blurb": "MISSOULA \u2014 Here\u2019s to streaks, and to streaks ending. The Montana Grizzlies kept a couple trends going Saturday, in a satisfying 36-14 football win over Big Sky Conference foe Northern Colorado. They ran their Homecoming win streak to seven, for example. They\u2019re 3-0 in the Big Sky",
+   "headline": "Alabama stock report: 3 players rising after win vs. Mississippi State",
+   "link": "https://sports.yahoo.com/articles/alabama-stock-report-3-players-130120587.html",
+   "published": "2026-10-04T13:01:20.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/edfe96d50642900c5e20e406c2ee18ab05e825abbb2951f1135264fd1b424c7f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froll_tide_wire_usa_today_articles_214%2Fffadad70c4146c4241ba961557d65cc1.jpg",
+   "blurb": "Headlined by quarterback Keelon Russell, there are three Alabama players who are trending up following the Tide's Week 5 win at Mississippi State.",
    "source": "YAHOO",
    "league": "CFB"
   },
   {
-   "headline": "5 things to watch when the Cowboys play the Texans",
-   "link": "https://sports.yahoo.com/articles/5-things-watch-cowboys-play-130000815.html",
+   "headline": "Mets Morning News: \u201cEverything changed when I got traded\u201d",
+   "link": "https://sports.yahoo.com/articles/mets-morning-news-everything-changed-130000226.html",
    "published": "2026-10-04T13:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/5d6f9e732b2d5d384b18412760ddc88832295b421545f8fa799d1831248cffba/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F7b584a843ba43ae588848523b9d51a5b.jpg",
-   "blurb": "What are you going to be paying the most attention to today?",
+   "image": "https://s.yimg.com/lo/mysterio/api/35ce16c190b751af611b70e35a7a5efbe927ac86ce3f711ff38a9b2c18906cd0/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F494aea50ec7d639fb4db018a30d562c3.jpg",
+   "blurb": "Your Sunday morning dose of New York Mets and MLB news, notes, and links.",
    "source": "YAHOO",
-   "league": "NFL"
+   "league": "MLB"
+  },
+  {
+   "headline": "How did the Cardinals do compared to your expectations?",
+   "link": "https://sports.yahoo.com/articles/did-cardinals-compared-expectations-130000442.html",
+   "published": "2026-10-04T13:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/5200ebae46be4bdd2b9eac5aef6bfb8e3024e53168a6881721067fd1ffb89298/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe64f160ccb43389d0df851d733bef5fb.jpg",
+   "blurb": "Now that the St. Louis Cardinals season is over, it is now fair to look at the entire year together and evaluate the team\u2019s performance rather than grading the season with games left to play. According to basically every respected outlet that produces baseball content, the Cardin",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
+   "headline": "Valentina Shevchenko crashes Natalia Silva\u2019s UFC title celebration \u2014 \u2018Keep my belt warm\u2019",
+   "link": "https://sports.yahoo.com/articles/valentina-shevchenko-crashes-natalia-silva-130000030.html",
+   "published": "2026-10-04T13:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/53e86ebd4b7c8f46bfcb7aad375d11d73c16c40d5cfe4fc5e59410234ac38fd9/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F7534a2cbb67732a5ebb4f7f611eef046.jpg",
+   "blurb": "Keep it warm for \u201cBullet.\u201d Natalia Silva finally captured Ultimate Fighting Championship (UFC) gold last night (Sat., Oct. 3, 2026), defeating Wang Cong via unanimous decision in UFC 332\u2019s main event from inside Delta Center in Salt Lake City, Utah. After five competitive rounds,",
+   "source": "YAHOO",
+   "league": "UFC"
   },
   {
    "headline": "\ud83d\ude08 'Not enough cowbells': Alabama's Mississippi State troll leads top jabs of CFB Week 5",
@@ -1195,15 +1222,6 @@
    "league": "MLB"
   },
   {
-   "headline": "Today in Blue Jays History: Encarnacion\u2019s Walk-Off Homer",
-   "link": "https://sports.yahoo.com/articles/today-blue-jays-history-encarnacion-123800493.html",
-   "published": "2026-10-04T12:38:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/6d9abe3ed571269b90a5aba4e87c40f7f749c37693c58120f788089fdb975c2e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd522305c5df64b99c3bc35a382861593.jpg",
-   "blurb": "Remembering the Blue Jays\u2019 Wild Card Walk-Off ten years ago today. In the 11th inning of the Blue Jays\u2019 Wild Card matchup, Edwin Encarnacion delivered a dramatic one-out home run, sealing a thrilling 5-2 walk-off victory over the Orioles. In the 11th inning, with the Orioles best",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
    "headline": "Is this finally Milwaukee's year? Examining why Brewers' way will (or won't) work",
    "link": "https://www.espn.com/mlb/story/_/id/50093592/mlb-2026-playoffs-milwaukee-brewers-postseason-different",
    "published": "2026-10-04T12:33:49.000Z",
@@ -1222,15 +1240,6 @@
    "league": "CFB"
   },
   {
-   "headline": "MLB playoff schedule: NLDS gets the Sunday stage",
-   "link": "https://sports.yahoo.com/articles/mlb-playoff-schedule-nlds-gets-122500888.html",
-   "published": "2026-10-04T12:25:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/5796951e4531ac0add30284472cce769297ba77147dce74e5fc33bfe73f7be7a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F449d473cab17f3b77b93357dc2ab56ce.jpg",
-   "blurb": "LOS ANGELES \u2014 After a four-game Saturday, the National League has Sunday to itself with a pair of Games 2 of the NLDS first in Milwaukee and then in Los Angeles. After winning Game 1 in 100-degree heat on Saturday afternoon behind Tarik Skubal, the Dodgers turn to Blake Snell for",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
    "headline": "Dante Moore injury: Explaining the NCAA's concussion protocol and if Oregon QB will play vs. UCLA",
    "link": "https://www.cbssports.com/college-football/news/dante-moore-injury-explaining-the-ncaas-concussion-protocol-and-if-oregon-qb-can-play-vs-ucla/",
    "published": "2026-10-04T12:18:19.000Z",
@@ -1238,15 +1247,6 @@
    "blurb": "The latest on Moore's attempted return from a head injury suffered against USC",
    "source": "CBS",
    "league": "CFB"
-  },
-  {
-   "headline": "UFC 332: 3 Takeaways From Surprisingly Fun Event",
-   "link": "https://sports.yahoo.com/articles/ufc-332-3-takeaways-surprisingly-121420538.html",
-   "published": "2026-10-04T12:14:20.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/1325f45694d18fa4cbaeef6228674e36ef27049844af8de70fe5031433f0621e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fstadium_rant_681%2F24167ddadde38a2bc5d6ac9763bfa0c4.jpg",
-   "blurb": "Saturday\u2019s UFC 332 saw history made, as Natalia Silva clinched the vacant flyweight title via a unanimous decision against Cong Wang to cap off a highly underrated night. Meanwhile, a record-breaking 11 fights ended in knockouts, nine of them in the first round, also a record in ",
-   "source": "YAHOO",
-   "league": "UFC"
   },
   {
    "headline": "Grades for every NBA offseason signing: Why the Pistons get a 'B' for Duren's deal",
@@ -1430,9 +1430,9 @@
   }
  ],
  "source_mix": {
-  "ESPN": 56,
-  "CBS": 36,
-  "YAHOO": 63
+  "ESPN": 55,
+  "YAHOO": 64,
+  "CBS": 36
  },
  "degraded_sources": []
 }
