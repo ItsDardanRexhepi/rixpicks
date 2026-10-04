@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T21:58:37.959293+00:00",
+ "generated_at": "2026-10-04T22:05:15.408438+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,16 @@
      "matchup": "SD @ MIL",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "Bot 6th",
+     "detail": "End 6th",
      "score": "SD 2 - MIL 1"
+    },
+    {
+     "espn_event_id": "401908014",
+     "matchup": "ATL @ LAD",
+     "commence": "2026-10-05T00:00Z",
+     "status": "pre",
+     "detail": "10/4 - 5:00 PM PT",
+     "score": "ATL 0 - LAD 0"
     }
    ]
   },
@@ -23,7 +31,7 @@
      "matchup": "MIA @ MIN",
      "commence": "2026-10-04T20:05Z",
      "status": "in",
-     "detail": "11:30 - 3rd",
+     "detail": "6:35 - 3rd",
      "score": "MIA 3 - MIN 9",
      "away_to": 3,
      "home_to": 3
@@ -33,7 +41,7 @@
      "matchup": "KC @ LV",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "11:41 - 3rd",
      "score": "KC 10 - LV 13",
      "away_to": 3,
      "home_to": 3
@@ -53,10 +61,10 @@
      "matchup": "LAC @ SEA",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "0:18 - 2nd",
-     "score": "LAC 3 - SEA 20",
-     "away_to": 0,
-     "home_to": 1
+     "detail": "Halftime",
+     "score": "LAC 6 - SEA 20",
+     "away_to": 3,
+     "home_to": 3
     }
    ]
   },
@@ -64,22 +72,12 @@
    "league": "WNBA",
    "games": [
     {
-     "espn_event_id": "401918295",
-     "matchup": "NY @ ATL",
-     "commence": "2026-10-04T18:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "NY 82 - ATL 92"
-    },
-    {
      "espn_event_id": "401918296",
      "matchup": "LV @ GS",
      "commence": "2026-10-04T20:00Z",
-     "status": "in",
-     "detail": "53.4 - 4th",
-     "score": "LV 60 - GS 71",
-     "away_to": 1,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "LV 60 - GS 71"
     }
    ]
   },
@@ -108,12 +106,20 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401892443",
-     "matchup": "UTA @ NYR",
-     "commence": "2026-10-04T22:00Z",
+     "espn_event_id": "401891778",
+     "matchup": "FLA @ ANA",
+     "commence": "2026-10-05T00:00Z",
      "status": "pre",
-     "detail": "10/4 - 3:00 PM PT",
-     "score": "UTA 0 - NYR 0"
+     "detail": "10/4 - 5:00 PM PT",
+     "score": "FLA 0 - ANA 0"
+    },
+    {
+     "espn_event_id": "401891824",
+     "matchup": "CGY @ SEA",
+     "commence": "2026-10-05T00:00Z",
+     "status": "pre",
+     "detail": "10/4 - 5:00 PM PT",
+     "score": "CGY 0 - SEA 0"
     }
    ]
   },
@@ -124,8 +130,8 @@
      "espn_event_id": "401854090",
      "matchup": "DEN @ CHI",
      "commence": "2026-10-04T20:00Z",
-     "status": "in",
-     "detail": "90'+1'",
+     "status": "post",
+     "detail": "FT",
      "score": "DEN 3 - CHI 0"
     },
     {
