@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T20:20:09.845879+00:00",
+ "generated_at": "2026-10-04T20:35:10.453100+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "SD @ MIL",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "Mid 1st",
+     "detail": "Top 2nd",
      "score": "SD 1 - MIL 0"
     }
    ]
@@ -19,29 +19,43 @@
    "league": "NFL",
    "games": [
     {
-     "espn_event_id": "401872969",
-     "matchup": "JAX @ CIN",
-     "commence": "2026-10-04T17:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "JAX 22 - CIN 17"
-    },
-    {
-     "espn_event_id": "401872970",
-     "matchup": "LAR @ PHI",
-     "commence": "2026-10-04T17:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "LAR 24 - PHI 20"
-    },
-    {
      "espn_event_id": "401872974",
      "matchup": "MIA @ MIN",
      "commence": "2026-10-04T20:05Z",
      "status": "in",
-     "detail": "8:41 - 1st",
-     "score": "MIA 0 - MIN 0",
+     "detail": "2:39 - 1st",
+     "score": "MIA 0 - MIN 3",
      "away_to": 3,
+     "home_to": 3
+    },
+    {
+     "espn_event_id": "401872976",
+     "matchup": "KC @ LV",
+     "commence": "2026-10-04T20:25Z",
+     "status": "in",
+     "detail": "10:26 - 1st",
+     "score": "KC 0 - LV 0",
+     "away_to": 3,
+     "home_to": 3
+    },
+    {
+     "espn_event_id": "401872975",
+     "matchup": "DEN @ SF",
+     "commence": "2026-10-04T20:25Z",
+     "status": "in",
+     "detail": "10:22 - 1st",
+     "score": "DEN 0 - SF 0",
+     "away_to": 3,
+     "home_to": 2
+    },
+    {
+     "espn_event_id": "401872977",
+     "matchup": "LAC @ SEA",
+     "commence": "2026-10-04T20:25Z",
+     "status": "in",
+     "detail": "12:30 - 1st",
+     "score": "LAC 0 - SEA 0",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -61,12 +75,28 @@
      "score": "NYJ 12 - CHI 23"
     },
     {
+     "espn_event_id": "401872969",
+     "matchup": "JAX @ CIN",
+     "commence": "2026-10-04T17:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "JAX 22 - CIN 17"
+    },
+    {
      "espn_event_id": "401872966",
      "matchup": "ARI @ NYG",
      "commence": "2026-10-04T17:00Z",
      "status": "post",
      "detail": "Final",
      "score": "ARI 24 - NYG 36"
+    },
+    {
+     "espn_event_id": "401872970",
+     "matchup": "LAR @ PHI",
+     "commence": "2026-10-04T17:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "LAR 24 - PHI 20"
     },
     {
      "espn_event_id": "401872968",
@@ -91,30 +121,6 @@
      "status": "post",
      "detail": "Final",
      "score": "DAL 34 - HOU 30"
-    },
-    {
-     "espn_event_id": "401872976",
-     "matchup": "KC @ LV",
-     "commence": "2026-10-04T20:25Z",
-     "status": "pre",
-     "detail": "10/4 - 1:25 PM PT",
-     "score": "KC 0 - LV 0"
-    },
-    {
-     "espn_event_id": "401872975",
-     "matchup": "DEN @ SF",
-     "commence": "2026-10-04T20:25Z",
-     "status": "pre",
-     "detail": "10/4 - 1:25 PM PT",
-     "score": "DEN 0 - SF 0"
-    },
-    {
-     "espn_event_id": "401872977",
-     "matchup": "LAC @ SEA",
-     "commence": "2026-10-04T20:25Z",
-     "status": "pre",
-     "detail": "10/4 - 1:25 PM PT",
-     "score": "LAC 0 - SEA 0"
     }
    ]
   },
@@ -134,9 +140,9 @@
      "matchup": "LV @ GS",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "1:42 - 1st",
-     "score": "LV 16 - GS 17",
-     "away_to": 5,
+     "detail": "6:27 - 2nd",
+     "score": "LV 21 - GS 29",
+     "away_to": 4,
      "home_to": 4
     }
    ]
@@ -178,8 +184,8 @@
      "matchup": "DEN @ CHI",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "12'",
-     "score": "DEN 1 - CHI 0"
+     "detail": "27'",
+     "score": "DEN 2 - CHI 0"
     }
    ]
   }
