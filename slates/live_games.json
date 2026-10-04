@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T21:20:15.170573+00:00",
+ "generated_at": "2026-10-04T21:35:11.894696+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "SD @ MIL",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "Top 5th",
-     "score": "SD 1 - MIL 0"
+     "detail": "End 5th",
+     "score": "SD 2 - MIL 1"
     }
    ]
   },
@@ -23,9 +23,9 @@
      "matchup": "MIA @ MIN",
      "commence": "2026-10-04T20:05Z",
      "status": "in",
-     "detail": "4:12 - 2nd",
-     "score": "MIA 0 - MIN 6",
-     "away_to": 2,
+     "detail": "Halftime",
+     "score": "MIA 0 - MIN 9",
+     "away_to": 3,
      "home_to": 3
     },
     {
@@ -33,19 +33,19 @@
      "matchup": "KC @ LV",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "5:25 - 2nd",
-     "score": "KC 7 - LV 7",
-     "away_to": 3,
-     "home_to": 3
+     "detail": "1:30 - 2nd",
+     "score": "KC 7 - LV 10",
+     "away_to": 2,
+     "home_to": 1
     },
     {
      "espn_event_id": "401872975",
      "matchup": "DEN @ SF",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "5:17 - 2nd",
+     "detail": "1:43 - 2nd",
      "score": "DEN 3 - SF 0",
-     "away_to": 3,
+     "away_to": 0,
      "home_to": 2
     },
     {
@@ -53,8 +53,8 @@
      "matchup": "LAC @ SEA",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "13:36 - 2nd",
-     "score": "LAC 3 - SEA 7",
+     "detail": "6:12 - 2nd",
+     "score": "LAC 3 - SEA 13",
      "away_to": 2,
      "home_to": 2
     }
@@ -76,10 +76,10 @@
      "matchup": "LV @ GS",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "3:52 - 3rd",
-     "score": "LV 40 - GS 47",
+     "detail": "8:10 - 4th",
+     "score": "LV 53 - GS 59",
      "away_to": 3,
-     "home_to": 4
+     "home_to": 3
     }
    ]
   },
@@ -125,7 +125,7 @@
      "matchup": "DEN @ CHI",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "53'",
+     "detail": "68'",
      "score": "DEN 2 - CHI 0"
     },
     {
