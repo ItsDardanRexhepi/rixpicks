@@ -1193,5 +1193,31 @@
   "kickoff_utc": "2026-10-05T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-04T15:50:25.642364+00:00"
+ },
+ {
+  "id": "0060d9301a",
+  "event_id": "401908003",
+  "league": "MLB",
+  "path": "baseball/mlb",
+  "home": "Milwaukee Brewers",
+  "away": "San Diego Padres",
+  "pick_team": "Milwaukee Brewers",
+  "prediction": "Milwaukee Brewers to beat San Diego Padres",
+  "kickoff_utc": "2026-10-04T20:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-04T16:20:05.605538+00:00"
+ },
+ {
+  "id": "0ab133f7ac",
+  "event_id": "401891778",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Anaheim Ducks",
+  "away": "Florida Panthers",
+  "pick_team": "Anaheim Ducks",
+  "prediction": "Anaheim Ducks to beat Florida Panthers",
+  "kickoff_utc": "2026-10-05T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-04T16:20:18.231353+00:00"
  }
 ]
