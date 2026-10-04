@@ -222,7 +222,7 @@ function rpGameGrade(d,a,h){ /* market-aware final verdict 'W'|'L'|'P', or null 
  return null;}
 function rpGameBadge(v){return v?'<span style="font-size:12px;font-weight:800;color:'+(v==='W'?'#3ecf6f':(v==='L'?'#e5484d':'#8a8f98'))+'">'+v+'</span> ':'';}
 
-const RP_BUILD='1791091280';const RP_ROOM='g4-2026-10-03';const RP_START='2026-10-03T23:00Z';
+const RP_BUILD='1791092152';const RP_ROOM='g4-2026-10-03';const RP_START='2026-10-03T23:00Z';
 /* build-check self-reload (iOS PWA caches pages) - one reload per build, target the FRESH build */
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname,build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(function(){});}catch(e){}
 window.addEventListener('pageshow',function(){try{
