@@ -496,6 +496,75 @@
           "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Lost: PITT 35 @ VT 33, 68 points vs 54.5. The red team had killed it: the edge rested on hand-set scoring means from 2-3 games each; regressed, it fell under the band. No fair without a real sample."
         }
       ]
+    },
+    {
+      "date": "2026-10-03",
+      "label": "Saturday, Oct 3",
+      "record": "4-2",
+      "units": "+2.27u",
+      "brief": "",
+      "picks": [
+        {
+          "name": "Rays ML",
+          "game": "vs Yankees",
+          "odds": "-127",
+          "units": "5u",
+          "result": "W",
+          "score": "NYY 0, TB 1",
+          "_delta": "3.937007874015748",
+          "learning": "Owner-directed, sub-bar: the morning fair was 55% against a 56c price, below the 60c band with no edge, so it never reached the card on its own. Won: NYY 0 @ TB 1."
+        },
+        {
+          "name": "White Sox +1.5",
+          "game": "at Guardians",
+          "odds": "-163",
+          "units": "5u",
+          "result": "W",
+          "score": "CHW 3, CLE 0",
+          "_delta": "3.067484662576687",
+          "learning": "Owner-directed, sub-bar. The red team killed it that morning: only 0.2c over the bar on a hand-adjusted fair, under the 60c band at the low end of the range, with Cleveland's starter on one MLB start. Won: CHW 3 @ CLE 0."
+        },
+        {
+          "name": "Padres +2.5",
+          "game": "at Brewers",
+          "odds": "-194",
+          "units": "5u",
+          "result": "W",
+          "score": "SD 2, MIL 3",
+          "_delta": "2.577319587628866",
+          "learning": "Owner-directed, sub-bar. The red team killed it that morning: the whole edge came from a hand-set 2-point postseason cut, and the model sat under the market at every Milwaukee margin line. Won: SD 2 @ MIL 3."
+        },
+        {
+          "name": "Lightning ML",
+          "game": "vs Capitals",
+          "odds": "-186",
+          "units": "5u",
+          "result": "W",
+          "score": "WSH 1, TB 3",
+          "_delta": "2.6881720430107525",
+          "learning": "Owner-directed, sub-bar. The red team killed it that morning: net edge about 1c, under the 2c bar, with the starting goalie unconfirmed; the price then moved from 60c to 65c before it was posted at -186. Won: WSH 1 @ TB 3."
+        },
+        {
+          "name": "Kraken-Oilers Over 4.5",
+          "game": "Kraken at Oilers",
+          "odds": "-426",
+          "units": "5u",
+          "result": "L",
+          "score": "SEA 1, EDM 3",
+          "_delta": "-5.0",
+          "learning": "Owner-directed, sub-bar. The red team killed it that morning: the NHL totals model ran about 3c high on Over 4.5 across the slate, and adjusted for that the edge was under 1c, with both goalies only projected. Lost: SEA 1 @ EDM 3, 4 goals against 4.5."
+        },
+        {
+          "name": "Capitals-Lightning Over 4.5",
+          "game": "Capitals at Lightning",
+          "odds": "-400",
+          "units": "5u",
+          "result": "L",
+          "score": "WSH 1, TB 3",
+          "_delta": "-5.0",
+          "learning": "Owner-directed, sub-bar. The red team killed it that morning: the same NHL totals bias, a zero margin over the bar, a projected goalie and a market that had traded 3 contracts. Lost: WSH 1 @ TB 3, 4 goals against 4.5."
+        }
+      ]
     }
   ]
 }
