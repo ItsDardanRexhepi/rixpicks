@@ -231,8 +231,9 @@
   "pick_team": "Boise State Broncos",
   "prediction": "Boise State Broncos beat Utah State Aggies",
   "kickoff_utc": "2026-10-03T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T13:21:14.587306+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T13:21:14.587306+00:00",
+  "settled_at": "2026-10-04T03:04:57.564955+00:00"
  },
  {
   "id": "bfa3259643",
@@ -364,8 +365,9 @@
   "pick_team": "Colorado Buffaloes",
   "prediction": "Colorado Buffaloes beat Texas Tech Red Raiders",
   "kickoff_utc": "2026-10-03T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T14:51:01.722222+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T14:51:01.722222+00:00",
+  "settled_at": "2026-10-04T03:04:57.951459+00:00"
  },
  {
   "id": "3513df763a",
