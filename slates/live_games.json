@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-04T22:35:07.174618+00:00",
+ "generated_at": "2026-10-04T22:50:11.839547+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "SD @ MIL",
      "commence": "2026-10-04T20:00Z",
      "status": "in",
-     "detail": "Bot 7th",
-     "score": "SD 3 - MIL 1"
+     "detail": "Top 8th",
+     "score": "SD 3 - MIL 2"
     },
     {
      "espn_event_id": "401908014",
@@ -31,9 +31,9 @@
      "matchup": "MIA @ MIN",
      "commence": "2026-10-04T20:05Z",
      "status": "in",
-     "detail": "8:12 - 4th",
-     "score": "MIA 10 - MIN 12",
-     "away_to": 3,
+     "detail": "3:43 - 4th",
+     "score": "MIA 10 - MIN 15",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -41,17 +41,17 @@
      "matchup": "KC @ LV",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "0:30 - 3rd",
-     "score": "KC 10 - LV 13",
+     "detail": "12:35 - 4th",
+     "score": "KC 17 - LV 13",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401872975",
      "matchup": "DEN @ SF",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "4:15 - 3rd",
+     "detail": "14:56 - 4th",
      "score": "DEN 3 - SF 10",
      "away_to": 3,
      "home_to": 3
@@ -61,8 +61,8 @@
      "matchup": "LAC @ SEA",
      "commence": "2026-10-04T20:25Z",
      "status": "in",
-     "detail": "5:05 - 3rd",
-     "score": "LAC 6 - SEA 27",
+     "detail": "1:19 - 3rd",
+     "score": "LAC 13 - SEA 30",
      "away_to": 3,
      "home_to": 2
     },
@@ -118,8 +118,8 @@
      "matchup": "UTA @ NYR",
      "commence": "2026-10-04T22:00Z",
      "status": "in",
-     "detail": "4:26 - 1st",
-     "score": "UTA 0 - NYR 0",
+     "detail": "End of 1st",
+     "score": "UTA 0 - NYR 1",
      "away_to": null,
      "home_to": null
     },
