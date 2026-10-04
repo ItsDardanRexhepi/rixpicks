@@ -387,8 +387,9 @@
   "pick_team": "Kansas City Chiefs",
   "prediction": "Kansas City Chiefs beat Las Vegas Raiders",
   "kickoff_utc": "2026-10-04T20:25:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T14:53:04.666529+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T14:53:04.666529+00:00",
+  "settled_at": "2026-10-04T23:49:53.783017+00:00"
  },
  {
   "id": "98b92b7e0f",
@@ -512,8 +513,9 @@
   "pick_team": "Seattle Seahawks",
   "prediction": "Seattle Seahawks beat Los Angeles Chargers",
   "kickoff_utc": "2026-10-04T20:25:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T17:37:30.331574+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T17:37:30.331574+00:00",
+  "settled_at": "2026-10-04T23:49:53.825298+00:00"
  },
  {
   "id": "523100e4d7",
@@ -539,8 +541,9 @@
   "pick_team": "San Francisco 49ers",
   "prediction": "San Francisco 49ers beat Denver Broncos",
   "kickoff_utc": "2026-10-04T20:25:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T18:06:09.385714+00:00"
+  "status": "hit",
+  "created_at": "2026-09-30T18:06:09.385714+00:00",
+  "settled_at": "2026-10-04T23:49:53.869495+00:00"
  },
  {
   "id": "ab4b3793db",
