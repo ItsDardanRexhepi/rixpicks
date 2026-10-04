@@ -848,8 +848,9 @@
   "pick_team": "Milwaukee Brewers",
   "prediction": "Milwaukee Brewers beat San Diego Padres",
   "kickoff_utc": "2026-10-04T00:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-02T15:36:52.431769+00:00"
+  "status": "hit",
+  "created_at": "2026-10-02T15:36:52.431769+00:00",
+  "settled_at": "2026-10-04T04:19:57.667284+00:00"
  },
  {
   "id": "35059ac038",
