@@ -1236,8 +1236,9 @@
   "pick_team": "Anaheim Ducks",
   "prediction": "Anaheim Ducks to beat Florida Panthers",
   "kickoff_utc": "2026-10-05T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-04T16:20:18.231353+00:00"
+  "status": "hit",
+  "created_at": "2026-10-04T16:20:18.231353+00:00",
+  "settled_at": "2026-10-05T03:04:56.084555+00:00"
  },
  {
   "id": "db05804aae",
@@ -1263,7 +1264,8 @@
   "pick_team": "Seattle Kraken",
   "prediction": "Seattle Kraken to beat Calgary Flames",
   "kickoff_utc": "2026-10-05T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-04T19:21:39.374452+00:00"
+  "status": "hit",
+  "created_at": "2026-10-04T19:21:39.374452+00:00",
+  "settled_at": "2026-10-05T03:04:56.113088+00:00"
  }
 ]
