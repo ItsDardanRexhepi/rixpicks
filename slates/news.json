@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-05T10:01:52.363Z",
+ "generated_at": "2026-10-05T10:06:10.274Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -16,7 +16,7 @@
     "link": "http://www.espn.com/mlb/preview?gameId=401907991",
     "published": "2026-10-05T08:02:32Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907991.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Chicago White Sox (84-78, second in the AL Central during the regular season) vs. Cleveland Guardians (85-77, first in the AL Central during the regular season)",
     "league": "MLB"
    },
@@ -24,7 +24,7 @@
     "headline": "NLDS Game 2 winners and losers: Brewers magic strikes again in walk-off win; Braves put on pitching clinic",
     "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-nlds-game-2-winners-losers/",
     "published": "2026-10-05T03:22:40.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fac1effed-5e05-4fc8-9782-7dd7b2896c13%2Fchourio-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Brewers took a 2-0 series lead over the Padres, while the Braves evened their own series against the Dodgers",
     "source": "CBS",
     "league": "MLB"
@@ -43,7 +43,7 @@
     "link": "http://www.espn.com/mlb/preview?gameId=401907986",
     "published": "2026-10-05T08:02:29Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907986.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "New York Yankees (93-68, second in the AL East during the regular season) vs. Tampa Bay Rays (98-64, first in the AL East during the regular season)",
     "league": "MLB"
    },
@@ -51,7 +51,7 @@
     "headline": "2026 MLB playoff bracket: Schedule, scores, where to watch with Division Series underway",
     "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
     "published": "2026-10-05T03:22:05.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Eight teams remain in the 2026 MLB playoffs, with the best-of-five LDS round underway",
     "source": "CBS",
     "league": "MLB"
@@ -70,7 +70,7 @@
     "link": "http://www.espn.com/mlb/recap?gameId=401908003",
     "published": "2026-10-05T07:51:49Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908003.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "\u2014 Jackson Chourio hit a two-run single off hard-throwing Mason Miller with two outs in the ninth inning and the Milwaukee Brewers rallied past the San Diego Padres for the straight day, a 4-3 victory Sunday for a 2-0 NL Division Series lead.",
     "league": "MLB"
    },
@@ -78,7 +78,7 @@
     "headline": "Chris Sale won't start NLDS Game 2 vs. Dodgers as Braves go with another bullpen game",
     "link": "https://www.cbssports.com/mlb/news/chris-sale-nlds-game-2-dodgers-braves/",
     "published": "2026-10-04T21:53:21.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F167b4547-057c-4400-b8ce-c62d6bd1f316%2Fchris-sale-getty-7.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Sale came out of the bullpen on Thursday against the Phillies and will not start on Sunday",
     "source": "CBS",
     "league": "MLB"
@@ -95,6 +95,15 @@
   ],
   "football/nfl": [
    {
+    "headline": "2027 NFL draft order projections for Round 1, chances for top pick, more",
+    "link": "https://www.espn.com/nfl/draft2027/story/_/id/49794361/2027-nfl-draft-order-projections-first-round-picks",
+    "published": "2026-10-05T10:00:29Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0601%2Fr1666608_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "ESPN's Football Power Index projects the 2027 NFL draft order for Round 1, complete with each team's chances to pick in the top five, in the top 10 and at No. 1.",
+    "league": "NFL"
+   },
+   {
     "headline": "Patriots vs. Raiders opening odds: Bookmakers regain confidence in New England",
     "link": "https://sports.yahoo.com/articles/patriots-vs-raiders-opening-odds-093000247.html",
     "published": "2026-10-05T09:30:00.000Z",
@@ -104,21 +113,21 @@
     "league": "NFL"
    },
    {
-    "headline": "'Everything just clicked' with McMillan, Young in Panthers' primetime win",
-    "link": "https://www.espn.com/nfl/story/_/id/50107710/tetairoa-mcmillan-bryce-young-star-panthers-defeat-lions",
-    "published": "2026-10-05T07:37:46.000Z",
-    "image": "",
-    "blurb": "Carolina receiver Tetairoa McMillan was dominant in his team's 32-36 win over Detroit Lions Sunday night, catching 14 passes for 192 yards and two touchdowns from teammate Bryce Young, who threw for 329 yards to help the Panthers even their record at 2-2.",
-    "source": "ESPN",
-    "league": "NFL"
-   },
-   {
     "headline": "NFL Week 4 grades for all 32 teams: Ben Johnson, Bears earn 'A-' despite injury woes; Bengals slip again",
     "link": "https://www.cbssports.com/nfl/news/nfl-week-4-grades-for-all-32-teams-bears-bengals-patriots-rams/",
     "published": "2026-10-05T04:01:21.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fb8f72fbc-6429-46f5-98ce-c0b132c84da0%2Fchicago-bears.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "We're handing out grades for every Week 4 game",
     "source": "CBS",
+    "league": "NFL"
+   },
+   {
+    "headline": "2026 NFL playoff picture: AFC, NFC seed projections, chances to make postseason",
+    "link": "https://www.espn.com/nfl/story/_/id/49745176/2026-nfl-playoff-predictions-afc-nfc-odds-super-bowl",
+    "published": "2026-10-05T10:00:21Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0806%2Fnfl_probs_v1_1296x729.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "We're looking ahead to how the 14-team playoff picture could line up -- and who will win divisions -- en route to the Super Bowl.",
     "league": "NFL"
    },
    {
@@ -131,21 +140,21 @@
     "league": "NFL"
    },
    {
-    "headline": "Campbell, players back DC Sheppard after Lions defensive woes continue",
-    "link": "https://www.espn.com/nfl/story/_/id/50107855/lions-campbell-discuss-dismissing-dc-sheppard-loss",
-    "published": "2026-10-05T07:37:46.000Z",
-    "image": "",
-    "blurb": "Despite the Lions' defense's continued slide, Dan Campbell and his players refused to blame second-year defensive coordinator Kelvin Sheppard after their loss Sunday night to the Panthers.",
-    "source": "ESPN",
-    "league": "NFL"
-   },
-   {
     "headline": "Chiefs very interested in a Tyreek Hill reunion amid injuries at receiver, per report",
     "link": "https://www.cbssports.com/nfl/news/chiefs-interested-tyreek-hill-reunion-amid-injuries-at-receiver/",
     "published": "2026-10-05T02:54:36.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F05%2F07d90e87-f55d-4230-9b47-869dcc784b2b%2Fhill.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Kansas City has reportedly reached out to Hill's agent",
     "source": "CBS",
+    "league": "NFL"
+   },
+   {
+    "headline": "Cowboys flip script after Rio loss with key win over Texans",
+    "link": "https://www.espn.com/nfl/story/_/id/50105860/dallas-cowboys-ceedee-lamb-dak-texans",
+    "published": "2026-10-05T10:00:11Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1005%2Fr1726143_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "A week after everything went wrong late against the Ravens, Dallas rebounded with a winning drive Sunday.",
     "league": "NFL"
    },
    {
@@ -158,30 +167,21 @@
     "league": "NFL"
    },
    {
-    "headline": "NFL looking into official apparently cursing at Cards TE McBride",
-    "link": "https://www.espn.com/nfl/story/_/id/50105514/nfl-looking-official-apparently-cursing-cardinals-mcbride",
-    "published": "2026-10-05T07:37:46.000Z",
-    "image": "",
-    "blurb": "The NFL says it is reviewing an official's apparent use of profanity directed at Cardinals tight end Trey McBride in Sunday's game against the Giants.",
-    "source": "ESPN",
-    "league": "NFL"
-   },
-   {
     "headline": "NFL reviewing heated exchange between referee, Vikings' Eric Wilson",
     "link": "https://www.cbssports.com/nfl/news/nfl-reviews-heated-exchange-referee-vikings-eric-wilson/",
     "published": "2026-10-05T02:29:47.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F05%2F78c0ff52-21d3-464f-910e-8646607417dc%2Fgettyimages-2250762641-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The league is looking into two separate incidents involving a player and an official during Week 4",
     "source": "CBS",
     "league": "NFL"
    },
    {
-    "headline": "Colts-Steelers opening odds:\u00a0\u00a0Steal one in the Steel City",
-    "link": "https://sports.yahoo.com/articles/colts-steelers-opening-odds-steal-084545762.html",
-    "published": "2026-10-05T08:45:45.000Z",
-    "image": "",
-    "blurb": "The Colts could put the league on notice with a win.",
-    "source": "YAHOO",
+    "headline": "How Steve Gleason's punt block unified New Orleans, Falcons-Saints rivalry",
+    "link": "https://www.espn.com/nfl/story/_/id/50103536/new-orleans-saints-falcons-gleason-20-years-mnf-rivalry",
+    "published": "2026-10-05T10:00:11Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1002%2Fnfl_superdome_16x9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Ahead of Monday's Falcons-Saints game, players and coaches reflect on the storm, the game and a play from 20 years ago.",
     "league": "NFL"
    }
   ],
@@ -199,7 +199,7 @@
     "headline": "Colorado playbook allegedly found at hotel bar by opposing fan amid offensive woes",
     "link": "https://www.cbssports.com/college-football/news/colorado-playbook-allegedly-found-at-hotel-bar-by-opposing-fan-amid-offensive-woes/",
     "published": "2026-10-04T23:04:45.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F504aa8fd-f261-4311-8f22-d39e166e6218%2Fgettyimages-2297900660-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Colorado doesn't need to give opposing defenses additional help these days",
     "source": "CBS",
     "league": "CFB"
@@ -209,7 +209,7 @@
     "link": "https://www.espn.com/espn/betting/story/_/id/49921234/college-football-betting-buzz-odds-updates-line-moves-spreads",
     "published": "2026-10-04T23:00:33Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0921%2Fr1719812_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Crimson Tide opened as rare home underdogs to Georgia but they very quickly resumed favorite status.",
     "league": "CFB"
    },
@@ -226,7 +226,7 @@
     "headline": "Bill Belichick joins Giants' 1986 reunion following North Carolina's loss to Notre Dame",
     "link": "https://www.cbssports.com/nfl/news/bill-belichick-joins-giants-reunion-following-north-carolinas-loss/",
     "published": "2026-10-04T22:01:50.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F25%2F65f0798c-54f3-4cbb-8b2d-1ef7b0fd8004%2Fbbelichick.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Belichick quickly revisited one of his biggest NFL moments",
     "source": "CBS",
     "league": "CFB"
@@ -253,7 +253,7 @@
     "headline": "AP Top 25 poll: Alabama leaps Indiana, sits just outside top five ahead of pivotal SEC clash with Georgia",
     "link": "https://www.cbssports.com/college-football/news/ap-top-25-college-football-rankings-alabama-indiana/",
     "published": "2026-10-04T19:19:55.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F20872e8e-191a-4d65-b263-dbcfbaf2ddd3%2Fbama-rankings.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Crimson Tide sit just outside the top five before hosting the Dawgs, while Missouri surges 11 spots and Pittsburgh enters the rankings",
     "source": "CBS",
     "league": "CFB"
@@ -292,7 +292,7 @@
     "link": "https://www.espn.com/espn/story/_/id/50107968/nigerian-connection-runs-mystics-rise-kiki-iriafen-breaks-playoff-run",
     "published": "2026-10-05T07:39:47Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0628%2Fr1681287_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Fresh from helping team USA win the World Cup last month, Kiki Iriafen's second WNBA season ended with a first round elimination to the Atlanta Dream.",
     "league": "WNBA"
    },
@@ -300,7 +300,7 @@
     "headline": "Fever players address additional public scrutiny of playing with Caitlin Clark, while GM defends fans",
     "link": "https://www.cbssports.com/wnba/news/fever-fans-caitlin-clark-amber-cox/",
     "published": "2026-10-04T20:46:22.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F52566c26-eab6-44eb-81a4-17d3016d1f77%2Ffever-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Former Fever forward Brianna Turner, however, said that players have 'repeatedly' complained about the fanbase",
     "source": "CBS",
     "league": "WNBA"
@@ -318,7 +318,7 @@
     "headline": "Lacob lauds Williams as world's best after she outduels Wilson, Aces",
     "link": "https://www.espn.com/wnba/story/_/id/50105545/lacob-lauds-williams-world-best-valkyries-game-1-win",
     "published": "2026-10-05T01:11:01.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1726095_1024x576_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Gabby Williams scored 25 points and played lockdown defense in a performance that led Valkyries owner Joe Lacob to declare her the \"best player in the world.\"",
     "source": "ESPN",
     "league": "WNBA"
@@ -327,7 +327,7 @@
     "headline": "Valkyries vs. Wings predictions: Expert picks for winner-take-all Game 3 as Golden State tries to avoid upset",
     "link": "https://www.cbssports.com/wnba/news/wnba-playoffs-valkyries-wings-game-3-predictions-expert-picks/",
     "published": "2026-10-02T15:42:50.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F9fddf43e-8983-45d1-8c2e-769d6fae5b5e%2Fwings-valks-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "A spot in the semifinals against the reigning champion Aces is on the line",
     "source": "CBS",
     "league": "WNBA"
@@ -354,7 +354,7 @@
     "headline": "Caitlin Clark skipping LPGA Pro-Am after Fever's season ends with playoff loss",
     "link": "https://www.cbssports.com/wnba/news/caitlin-clark-skipping-lpga-pro-am/",
     "published": "2026-10-02T15:14:42.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2Fcfd53fca-f113-48ae-91da-db112121508d%2Fcaitlin.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Clark drew attention to the event last year with Fever teammates Sophie Cunningham and Lexie Hull joining her as caddies",
     "source": "CBS",
     "league": "WNBA"
@@ -384,7 +384,7 @@
     "link": "https://www.espn.com/video/clip/_/id/50106572/game-highlights",
     "published": "2026-10-05T01:54:01Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1005%2F1274de8d-cbfa-4b27-bff7-d605feb6c974%2F1274de8d-cbfa-4b27-bff7-d605feb6c974.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Golden State Warriors vs. LA Clippers: Game Highlights",
     "league": "NBA"
    },
@@ -392,7 +392,7 @@
     "headline": "Jalen Duren says he wants 'to be a Piston for life' despite contentious free agency, trade rumors",
     "link": "https://www.cbssports.com/nba/news/jalen-duren-piston-for-life-free-agency/",
     "published": "2026-10-04T20:21:30.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fe8a399e1-371e-42b7-bce1-cdc8838f2341%2Fduren-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Duren eventually accepted Detroit's five-year, $200 million offer, but not before leaks of a fractured team-player relationship",
     "source": "CBS",
     "league": "NBA"
@@ -411,7 +411,7 @@
     "link": "https://www.espn.com/video/clip/_/id/50106547/game-highlights",
     "published": "2026-10-05T01:53:24Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1005%2F96f93cb7-9e57-4ef2-9056-fe6edce0f32a%2F96f93cb7-9e57-4ef2-9056-fe6edce0f32a.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Utah Jazz vs. Denver Nuggets: Game Highlights",
     "league": "NBA"
    },
@@ -419,7 +419,7 @@
     "headline": "The Blazers have a starting lineup dilemma with a clear solution: Bring Ja Morant off the bench",
     "link": "https://www.cbssports.com/nba/news/blazers-ja-morant-starting-lineup-dilemma-damian-lillard-deni-avdija/",
     "published": "2026-10-02T20:46:01.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F8cfed68a-ede2-46c0-a0f6-e24d1af771ea%2Fmorant-blazers-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Putting Morant in the backcourt with Damian Lillard in a starting group with Deni Avdija makes little sense",
     "source": "CBS",
     "league": "NBA"
@@ -446,7 +446,7 @@
     "headline": "Grading Jalen Duren's $200 million contract: Pistons pay up to keep All-NBA center",
     "link": "https://www.cbssports.com/nba/news/grading-jalen-duren-contract-pistons-pay-up/",
     "published": "2026-10-02T12:30:06.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2Fe176af1d-e303-46fe-b17a-127c0af2c28f%2Fjalen-duren-getty-5.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Pistons and Duren ended their contractual standoff on Thursday night, so how did each side do?",
     "source": "CBS",
     "league": "NBA"
@@ -463,12 +463,30 @@
   ],
   "hockey/nhl": [
    {
+    "headline": "Former Golden Knights Star Is Showing Vegas Exactly What It Lost",
+    "link": "https://sports.yahoo.com/articles/former-golden-knights-star-showing-093809422.html",
+    "published": "2026-10-05T09:38:09.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6ae5dad2404ab8f16a91dd46bedd1db3c638a8bcee2aad2e8c7fe59317922400/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_las_vegas_golden_knights_articles_813%2F484ec2d117757b6950c9e899eed1cc65.jpg",
+    "blurb": "Former Golden Knights star Chandler Stephenson is off to a fast start in Seattle this season, already racking up four points through two games.",
+    "source": "YAHOO",
+    "league": "NHL"
+   },
+   {
     "headline": "Jets visit the Penguins after Connor's 2-goal game",
     "link": "http://www.espn.com/nhl/preview?gameId=401892447",
     "published": "2026-10-05T08:11:53Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892447.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Winnipeg Jets (1-0-1, in the Central Division) vs. Pittsburgh Penguins (2-0, in the Metropolitan Division)",
+    "league": "NHL"
+   },
+   {
+    "headline": "Today's top games to watch, best bets, odds: Penn State at Northwestern, Pitt at Virginia Tech, NHL and more",
+    "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-penn-state-at-northwestern-pitt-at-virginia-tech-nhl-and-more/",
+    "published": "2026-10-02T19:31:38.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F84982ac6-94e3-4345-9e95-77901c13a5af%2Fjames-peoples-penn-state.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Find best bets and props for the biggest games in sports on Friday from the SportsLine Projection Model and top CBS Sports experts",
+    "source": "CBS",
     "league": "NHL"
    },
    {
@@ -481,39 +499,30 @@
     "league": "NHL"
    },
    {
-    "headline": "Today's top games to watch, best bets, odds: Penn State at Northwestern, Pitt at Virginia Tech, NHL and more",
-    "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-penn-state-at-northwestern-pitt-at-virginia-tech-nhl-and-more/",
-    "published": "2026-10-02T19:31:38.000Z",
-    "image": "",
-    "blurb": "Find best bets and props for the biggest games in sports on Friday from the SportsLine Projection Model and top CBS Sports experts",
-    "source": "CBS",
-    "league": "NHL"
-   },
-   {
     "headline": "Carolina visits Montreal after Aho's 2-goal game",
     "link": "http://www.espn.com/nhl/preview?gameId=401891815",
     "published": "2026-10-05T08:11:50Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891815.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Carolina Hurricanes (1-1-1, in the Metropolitan Division) vs. Montreal Canadiens (1-0-1, in the Atlantic Division)",
-    "league": "NHL"
-   },
-   {
-    "headline": "Former Avalanche Forward Is Lighting The World On Fire Since Returning To Vegas",
-    "link": "https://sports.yahoo.com/articles/former-avalanche-forward-lighting-world-071255850.html",
-    "published": "2026-10-05T07:12:55.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/9235f9c26691d23417d8ca0ce7892dac94eaf4ae9e728d6533d3cf8b4c80ca2c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_colorado_avalanche_articles_301%2Fb8690a59d0a238890746df60ebc72e2b.jpg",
-    "blurb": "Former Avalanche forward Victor Olofsson is lighting it up since returning to Vegas, scoring two goals and three points in his first three games.",
-    "source": "YAHOO",
     "league": "NHL"
    },
    {
     "headline": "Today's top games to watch, best bets, odds: Braves-Phillies Game 3, Steelers at Browns and more",
     "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-braves-phillies-game-3-steelers-at-browns-and-more/",
     "published": "2026-10-01T19:33:00.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2F41850823-b7af-46d8-9ac7-cf122bede80a%2F2026-09-30t211431z-1311658691-mt1usatoday29961160-rtrmadp-3-mlb-wildcard-philadelphia-phillies-at-atlanta-braves-jpg.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Find best bets and props for the biggest games in sports on Thursday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
+    "league": "NHL"
+   },
+   {
+    "headline": "Former Avalanche Forward Is Lighting The World On Fire Since Returning To Vegas",
+    "link": "https://sports.yahoo.com/articles/former-avalanche-forward-lighting-world-071255850.html",
+    "published": "2026-10-05T07:12:55.000Z",
+    "image": "",
+    "blurb": "Former Avalanche forward Victor Olofsson is lighting it up since returning to Vegas, scoring two goals and three points in his first three games.",
+    "source": "YAHOO",
     "league": "NHL"
    },
    {
@@ -521,8 +530,17 @@
     "link": "http://www.espn.com/nhl/preview?gameId=401891779",
     "published": "2026-10-05T08:11:47Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891779.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "St. Louis Blues (1-1, in the Central Division) vs. Chicago Blackhawks (0-3, in the Central Division)",
+    "league": "NHL"
+   },
+   {
+    "headline": "Today's top games to watch, best bets, odds: Cubs vs. Padres, Red Sox vs. Yankees and more",
+    "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-cubs-vs-padres-red-sox-vs-yankees-and-more/",
+    "published": "2026-09-30T19:30:55.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F03%2F12%2F9251d0a1-f57c-4470-8840-ab4acf704da8%2Fnick-pivetta.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Find best bets for the biggest games in sports on Wednesday from the SportsLine Projection Model and top CBS Sports experts",
+    "source": "CBS",
     "league": "NHL"
    },
    {
@@ -532,24 +550,6 @@
     "image": "",
     "blurb": "The Mammoth scored three power-play goals and stayed perfect at 2-0 with a 4-1 win over Columbus.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Today's top games to watch, best bets, odds: Cubs vs. Padres, Red Sox vs. Yankees and more",
-    "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-cubs-vs-padres-red-sox-vs-yankees-and-more/",
-    "published": "2026-09-30T19:30:55.000Z",
-    "image": "",
-    "blurb": "Find best bets for the biggest games in sports on Wednesday from the SportsLine Projection Model and top CBS Sports experts",
-    "source": "CBS",
-    "league": "NHL"
-   },
-   {
-    "headline": "Toronto takes on Nashville in a non-conference matchup",
-    "link": "http://www.espn.com/nhl/preview?gameId=401892449",
-    "published": "2026-10-05T08:11:43Z",
-    "source": "ESPN",
-    "image": "",
-    "blurb": "Nashville Predators (1-1, in the Central Division) vs. Toronto Maple Leafs (1-2, in the Atlantic Division)",
     "league": "NHL"
    }
   ],
@@ -567,7 +567,7 @@
     "headline": "LSU's Wade lands first 2027 five-star in guard Gibson",
     "link": "https://www.espn.com/mens-college-basketball/story/_/id/50106762/lsu-wade-lands-first-2027-5-star-guard-king-gibson",
     "published": "2026-10-05T03:36:00.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fi%252Fespn%252Fespn_logos%252Fespn_red.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "LSU landed five-star guard King Gibson after the No. 13-ranked prospect in 2027 chose the Tigers over Arkansas, Louisville and Providence.",
     "source": "ESPN",
     "league": "NCAAB"
@@ -576,7 +576,7 @@
     "headline": "Five-star Jordan Page commits to UConn: Dan Hurley lands another 2027 prize recruit",
     "link": "https://www.cbssports.com/college-basketball/news/jordan-page-uconn-commitment-dan-hurley/",
     "published": "2026-10-04T17:30:11.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fec54a4f5-0606-44b1-862e-2eb5efea90f6%2Fgettyimages-2283648156.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Dan Hurley and the Huskies earned Page's pledge over finalists North Carolina, NC State and others",
     "source": "CBS",
     "league": "NCAAB"
@@ -595,7 +595,7 @@
     "link": "https://www.espn.com/mens-college-basketball/story/_/id/50106762/lsu-wade-lands-first-2027-5-star-guard-king-gibson",
     "published": "2026-10-05T02:36:00Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fi%252Fespn%252Fespn_logos%252Fespn_red.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "LSU landed five-star guard King Gibson after the No. 13-ranked prospect in 2027 chose the Tigers over Arkansas, Louisville and Providence.",
     "league": "NCAAB"
    },
@@ -603,7 +603,7 @@
     "headline": "Big East spends big amid leadership change: New commissioner, new standards ahead of new NCAA Tournament era",
     "link": "https://www.cbssports.com/college-basketball/news/big-east-conference-spending-new-commissioner/",
     "published": "2026-10-02T22:45:49.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F708a9330-1cf8-49e6-bc64-24b3d9dd207c%2Fbemd26.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The league is looking to catapult back after UConn salvaged the worst regular-season in conference history",
     "source": "CBS",
     "league": "NCAAB"
@@ -630,7 +630,7 @@
     "headline": "Court ruling leaves Mark Mitchell, other fifth-year college athletes in eligibility limbo",
     "link": "https://www.cbssports.com/college-basketball/news/court-ruling-mark-mitchell-eligibility/",
     "published": "2026-10-02T22:07:13.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F853bf4b8-704c-4ab6-a49a-a46d0ea98982%2Fmark-mitchell-mizzou-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The eligibility battle for Missouri star Mark Mitchell and several other prominent college basketball players seeking a fifth season got more complicated Friday, when a Kentucky Court of Appeals dissolved a temporary injunction that had been the basis for their eligibility",
     "source": "CBS",
     "league": "NCAAB"
@@ -651,7 +651,7 @@
     "link": "https://www.espn.com/soccer/story/_/id/50051629/mls-power-rankings-no-cavan-sullivan-no-problem-surging-philadelphia-union",
     "published": "2026-09-28T15:35:49Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0928%2Fr1722956_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Philadelphia lost three star youngsters to international duty, yet the Union continued their march toward the top of ESPN's MLS Power Rankings.",
     "league": "MLS"
    }
@@ -662,7 +662,7 @@
     "link": "https://www.espn.com/soccer/story/_/id/50097236/nwsl-savannah-demelo-debinha-sophia-racing-louisville-utah",
     "published": "2026-10-04T04:48:18Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1004%2Fr1725615_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Brecken Mozingo scored late in stoppage time to pull the Utah Royals into a 1-1 draw with Racing Louisville on Saturday in a match that saw the return of Savannah DeMelo, who collapsed during a game last season.",
     "league": "NWSL"
    }
@@ -672,7 +672,7 @@
     "headline": "Smotherman captures first PGA Tour title in 100th career start",
     "link": "https://www.espn.com/golf/story/_/id/50105931/austin-smotherman-wins-pga-tour-bank-utah-championship",
     "published": "2026-10-05T05:51:57.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1726136_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "- Austin Smotherman recovered from his lone blunder with two great shots and was able to cruise home to a 3-under 68 on Sunday to win the Bank of Utah Championship, his first PGA Tour victory in his 100th career start.",
     "source": "ESPN",
     "league": "PGA"
@@ -690,7 +690,7 @@
     "headline": "Caitlin Clark skipping LPGA Pro-Am after Fever's season ends with playoff loss",
     "link": "https://www.cbssports.com/wnba/news/caitlin-clark-skipping-lpga-pro-am/",
     "published": "2026-10-02T15:14:42.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2Fcfd53fca-f113-48ae-91da-db112121508d%2Fcaitlin.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Clark drew attention to the event last year with Fever teammates Sophie Cunningham and Lexie Hull joining her as caddies",
     "source": "CBS",
     "league": "PGA"
@@ -700,7 +700,7 @@
     "link": "https://www.espn.com/golf/story/_/id/50105931/austin-smotherman-wins-pga-tour-bank-utah-championship",
     "published": "2026-10-05T04:51:57Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1005%2Fr1726136_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "- Austin Smotherman recovered from his lone blunder with two great shots and was able to cruise home to a 3-under 68 on Sunday to win the Bank of Utah Championship, his first PGA Tour victory in his 100th career start.",
     "league": "PGA"
    },
@@ -717,7 +717,7 @@
     "headline": "J.J. Spaun becomes 3rd American to win BMW PGA Championship as Rory McIlroy falls short",
     "link": "https://www.cbssports.com/golf/news/bmw-pga-championship-2026-leaderboard-jj-spaun-rory-milroy/",
     "published": "2026-09-20T18:32:56.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F20%2F77dcda66-80be-4f0d-b0eb-91b31aa786ef%2Fjj-spaun-bmw-pga-g.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Spaun's triumph comes after being passed over for the U.S. Presidents Cup team a couple of weeks ago",
     "source": "CBS",
     "league": "PGA"
@@ -744,7 +744,7 @@
     "headline": "2026 BMW PGA Championship leaderboard: Rory McIlroy's late eagle puts him in contention after Round 3",
     "link": "https://www.cbssports.com/golf/news/2026-bmw-pga-championship-leaderboard-rory-mcilroy-round-3/",
     "published": "2026-09-19T16:41:28.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F19%2F42775139-9f1b-4ace-b672-4ae7ea5ac977%2Frory.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "A wild Moving Day at Wentworth created some massive changes on the BMW PGA leaderboard",
     "source": "CBS",
     "league": "PGA"
@@ -765,7 +765,7 @@
     "link": "https://www.espn.com/tennis/story/_/id/50013424/indian-tennis-player-parikshit-somani-suspended-4-years-doping-case-similar-russian-skater-kamila-valieva",
     "published": "2026-09-23T15:18:41Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2024%2F0905%2Fr1382406_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Indian tennis player Parikshit Somani was banned for four years in a doping case Wednesday after judges dismissed an explanation he gave that was similar to the case of Russian figure skater Kamila Valieva.",
     "league": "ATP"
    }
@@ -776,7 +776,7 @@
     "link": "https://www.espn.com/tennis/story/_/id/50077242/wta-passes-major-milestone-equal-prize-money-wta-1000s",
     "published": "2026-10-01T18:50:02Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2020%2F0316%2Fr679951_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Italian Open will offer women the same amount of total prize money as men in 2027 as part of a \"major milestone\" initiative from the WTA Tour.",
     "league": "WTA"
    }
@@ -822,7 +822,7 @@
     "headline": "Race Results: 2026 NASCAR Cup Series South Point 400 at Las Vegas",
     "link": "https://sports.yahoo.com/articles/race-results-2026-nascar-cup-005915267.html",
     "published": "2026-10-05T00:59:15.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/ed118bc5fcc0f18a9cda7ab904eba52c8497f6402c8a2ba63506b826eb7df1cc/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ftoby_christie_717%2F6fc15a00eb958824f766f522b507fbe2.jpg",
+    "image": "",
     "blurb": "Chase Briscoe was dominant in Sunday\u2019s NASCAR Cup Series South Point 400 at Las Vegas Motor Speedway as he led 175 laps and swept the wins in Stages 1 and 2. In the closing laps, the driver of the No. 19 Joe Gibbs Racing Toyota was able to hold off a plethora of hard-charging cha",
     "source": "YAHOO",
     "league": "NASCAR"
@@ -831,7 +831,7 @@
     "headline": "Chase Briscoe wins Las Vegas NASCAR Cup as Larson and Reddick crash across finish line",
     "link": "https://sports.yahoo.com/articles/chase-briscoe-wins-las-vegas-005050801.html",
     "published": "2026-10-05T00:50:50.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/bc769f1b7e96bf286756619f66426c9b13fbcea0a104e808b3f56b746a22f87c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2Fcfd7e9d6c44cea005eace1d86ac75c5b.jpg",
+    "image": "",
     "blurb": "Briscoe held off a four-car fight in the closing laps, while Kyle Larson hit the wall and Tyler Reddick spun across the infield at the finish",
     "source": "YAHOO",
     "league": "NASCAR"
@@ -875,6 +875,15 @@
   ],
   "mma/ufc": [
    {
+    "headline": "UFC 332 takeaways: Talbott, Silva validate their top billing",
+    "link": "https://www.espn.com/mma/story/_/id/50093793/ufc-332-takeaways-payton-talbott-natalia-silva-validate-their-top-billing",
+    "published": "2026-10-05T11:01:15.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725556_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Payton Talbott finished another former champion in Deiveson Figueiredo on a night full of knockouts at UFC 332.",
+    "source": "ESPN",
+    "league": "UFC"
+   },
+   {
     "headline": "Natalia Silva crowned women\u2019s flyweight champion at UFC 332 as Valentina Shevchenko issues warning",
     "link": "https://sports.yahoo.com/articles/natalia-silva-crowned-women-flyweight-081224191.html",
     "published": "2026-10-05T08:12:24.000Z",
@@ -884,21 +893,21 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 takeaways: Talbott, Silva validate their top billing",
-    "link": "https://www.espn.com/mma/story/_/id/50093793/ufc-332-takeaways-payton-talbott-natalia-silva-validate-their-top-billing",
-    "published": "2026-10-04T07:00:03.000Z",
-    "image": "",
-    "blurb": "Payton Talbott finished another former champion in Deiveson Figueiredo on a night full of knockouts at UFC 332.",
-    "source": "ESPN",
-    "league": "UFC"
-   },
-   {
     "headline": "UFC Fight Night odds, lines, predictions, time: Sterling vs. Zalal picks from elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-fight-night-odds-lines-fight-card-top-predictions-time-sterling-zalal-picks-best-bets/",
     "published": "2026-08-12T12:55:32.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F04%2F25%2F0ed6bfb3-6e77-4c74-8bb4-5ce602c189bf%2Faljamain-sterling-ufc-mma-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC Fight Night fight card from Las Vegas on Paramount+, featuring Aljamain Sterling vs. Youssef Zalal in a featherweight matchup",
     "source": "CBS",
+    "league": "UFC"
+   },
+   {
+    "headline": "UFC 332 results: Natalia Silva wins women's flyweight title in record-setting night",
+    "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
+    "published": "2026-10-05T11:01:15.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725577_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Natalia Silva defeated Wang Cong to claim the vacant women's flyweight title in the UFC 332 main event.",
+    "source": "ESPN",
     "league": "UFC"
    },
    {
@@ -911,30 +920,12 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 results: Natalia Silva wins women's flyweight title in record-setting night",
-    "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
-    "published": "2026-10-04T07:00:03.000Z",
-    "image": "",
-    "blurb": "Natalia Silva defeated Wang Cong to claim the vacant women's flyweight title in the UFC 332 main event.",
-    "source": "ESPN",
-    "league": "UFC"
-   },
-   {
     "headline": "UFC Fight Night odds, lines, predictions, time: Della Maddalena vs. Prates picks from elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-fight-night-odds-lines-australia-fight-card-predictions-start-time-della-maddalena-prates-picks/",
     "published": "2026-08-12T12:54:36.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F05%2F01%2F9b7b6cd1-721f-4c71-a699-796f7e5c9d07%2Fjack-della-maddalena-ufc-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC Fight Night fight card from Perth, Australia, on Paramount+, featuring Jack Della Maddalena vs. Carlos Prates in a welterweight matchup",
     "source": "CBS",
-    "league": "UFC"
-   },
-   {
-    "headline": "UFC 332 Full Event Highlights: A night of finishes",
-    "link": "https://sports.yahoo.com/articles/ufc-332-full-event-highlights-023937399.html",
-    "published": "2026-10-05T02:39:37.000Z",
-    "image": "",
-    "blurb": "Watch the UFC 332 full card highlights from Saturday's event in Salt Lake City.",
-    "source": "YAHOO",
     "league": "UFC"
    },
    {
@@ -947,21 +938,30 @@
     "league": "UFC"
    },
    {
+    "headline": "UFC 332 Full Event Highlights: A night of finishes",
+    "link": "https://sports.yahoo.com/articles/ufc-332-full-event-highlights-023937399.html",
+    "published": "2026-10-05T02:39:37.000Z",
+    "image": "",
+    "blurb": "Watch the UFC 332 full card highlights from Saturday's event in Salt Lake City.",
+    "source": "YAHOO",
+    "league": "UFC"
+   },
+   {
     "headline": "UFC 328 odds, lines, predictions, time: Khamzat Chimaev vs. Sean Strickland picks from elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-328-odds-lines-main-fight-card-predictions-time-khamzat-chimaev-sean-strickland-picks-best-bets/",
     "published": "2026-08-12T12:52:02.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F05%2F09%2Fe7ef8bcf-f094-4ad9-99f3-adaa621f20b6%2Fsean-strickland-ufc-mma-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC 328 card from Prudential Center in Newark, N.J., on Paramount+, featuring Khamzat Chimaev vs. Sean Strickland in a middleweight matchup",
     "source": "CBS",
     "league": "UFC"
    },
    {
-    "headline": "UFC 332 Post-Fight Press Conference",
-    "link": "https://sports.yahoo.com/articles/ufc-332-post-fight-press-022813433.html",
-    "published": "2026-10-05T02:28:13.000Z",
+    "headline": "All-time UFC women's flyweight champions",
+    "link": "https://www.espn.com/mma/story/_/id/24149628/all-ufc-women-flyweight-champions",
+    "published": "2026-10-04T04:56:04.000Z",
     "image": "",
-    "blurb": "Following the UFC 332 fights in Salt Lake City, tune into the post-fight press conference.",
-    "source": "YAHOO",
+    "blurb": "Check out which fighter has held the belt -- and how long she held it -- in the women's 125-pound division.",
+    "source": "ESPN",
     "league": "UFC"
    }
   ],
@@ -988,7 +988,7 @@
     "headline": "Zuffa Boxing 11 start time, fight card, predictions and where to watch Johnny Fisher vs. Michael Pirotton",
     "link": "https://www.cbssports.com/boxing/news/zuffa-boxing-11-johnny-fisher-vs-michael-pirotton-start-time-fight-card-date-predictions/",
     "published": "2026-09-26T13:21:16.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F25%2Fca6dc5d0-afc1-471b-8f9a-0ef0ebd90a4a%2Fjohnny-fisher-michael-pirotton-presser.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The rising heavyweight prospect makes his Zuffa Boxing debut in front of his countrymen and women on Saturday",
     "source": "CBS",
     "league": "Boxing"
@@ -1015,7 +1015,7 @@
     "headline": "Zuffa Boxing: Ranking the 10 best fights of the first 10 numbered events in 2026",
     "link": "https://www.cbssports.com/boxing/news/zuffa-boxing-best-fights-highlights-knockouts/",
     "published": "2026-09-24T15:15:55.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F24%2F45b271ba-a449-471f-ab9d-9e100c6f1c22%2Fchris-billam-smith-rozicki.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "From dramatic slugfests to thrilling comebacks, Zuffa Boxing has had a little bit of everything through its first 10 numbered shows",
     "source": "CBS",
     "league": "Boxing"
@@ -1042,7 +1042,7 @@
     "headline": "Tyson Fury vs. Anthony Joshua: English heavyweight super fight set for December in Cardiff, Wales",
     "link": "https://www.cbssports.com/boxing/news/tyson-fury-vs-anthony-joshua-fight-date-location-news/",
     "published": "2026-09-24T12:54:58.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F08%2F18%2Ff4744e29-0eab-42aa-8932-dd7b4073a550%2Ftyson-fury-anthony-joshua-ring.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The pair of former world champions finally meet after a decade of back and forth",
     "source": "CBS",
     "league": "Boxing"
@@ -1059,6 +1059,51 @@
   ]
  },
  "latest": [
+  {
+   "headline": "UFC 332 takeaways: Talbott, Silva validate their top billing",
+   "link": "https://www.espn.com/mma/story/_/id/50093793/ufc-332-takeaways-payton-talbott-natalia-silva-validate-their-top-billing",
+   "published": "2026-10-05T11:01:15.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725556_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Payton Talbott finished another former champion in Deiveson Figueiredo on a night full of knockouts at UFC 332.",
+   "source": "ESPN",
+   "league": "UFC"
+  },
+  {
+   "headline": "UFC 332 results: Natalia Silva wins women's flyweight title in record-setting night",
+   "link": "https://www.espn.com/mma/story/_/id/50068663/ufc-332-live-results-analysis-natalia-silva-vs-wang-cong",
+   "published": "2026-10-05T11:01:15.000Z",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725577_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Natalia Silva defeated Wang Cong to claim the vacant women's flyweight title in the UFC 332 main event.",
+   "source": "ESPN",
+   "league": "UFC"
+  },
+  {
+   "headline": "2027 NFL draft order projections for Round 1, chances for top pick, more",
+   "link": "https://www.espn.com/nfl/draft2027/story/_/id/49794361/2027-nfl-draft-order-projections-first-round-picks",
+   "published": "2026-10-05T10:00:29Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0601%2Fr1666608_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "ESPN's Football Power Index projects the 2027 NFL draft order for Round 1, complete with each team's chances to pick in the top five, in the top 10 and at No. 1.",
+   "league": "NFL"
+  },
+  {
+   "headline": "2026 NFL playoff picture: AFC, NFC seed projections, chances to make postseason",
+   "link": "https://www.espn.com/nfl/story/_/id/49745176/2026-nfl-playoff-predictions-afc-nfc-odds-super-bowl",
+   "published": "2026-10-05T10:00:21Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0806%2Fnfl_probs_v1_1296x729.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "We're looking ahead to how the 14-team playoff picture could line up -- and who will win divisions -- en route to the Super Bowl.",
+   "league": "NFL"
+  },
+  {
+   "headline": "Former Golden Knights Star Is Showing Vegas Exactly What It Lost",
+   "link": "https://sports.yahoo.com/articles/former-golden-knights-star-showing-093809422.html",
+   "published": "2026-10-05T09:38:09.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/6ae5dad2404ab8f16a91dd46bedd1db3c638a8bcee2aad2e8c7fe59317922400/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_las_vegas_golden_knights_articles_813%2F484ec2d117757b6950c9e899eed1cc65.jpg",
+   "blurb": "Former Golden Knights star Chandler Stephenson is off to a fast start in Seattle this season, already racking up four points through two games.",
+   "source": "YAHOO",
+   "league": "NHL"
+  },
   {
    "headline": "Where to watch White Sox vs Guardians today, prediction for ALDS Game 2",
    "link": "https://sports.yahoo.com/articles/where-watch-white-sox-vs-093055400.html",
@@ -1127,7 +1172,7 @@
    "link": "http://www.espn.com/nhl/preview?gameId=401892447",
    "published": "2026-10-05T08:11:53Z",
    "source": "ESPN",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892447.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Winnipeg Jets (1-0-1, in the Central Division) vs. Pittsburgh Penguins (2-0, in the Metropolitan Division)",
    "league": "NHL"
   },
@@ -1136,7 +1181,7 @@
    "link": "http://www.espn.com/nhl/preview?gameId=401891815",
    "published": "2026-10-05T08:11:50Z",
    "source": "ESPN",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401891815.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Carolina Hurricanes (1-1-1, in the Metropolitan Division) vs. Montreal Canadiens (1-0-1, in the Atlantic Division)",
    "league": "NHL"
   },
@@ -1145,7 +1190,7 @@
    "link": "http://www.espn.com/mlb/preview?gameId=401907991",
    "published": "2026-10-05T08:02:32Z",
    "source": "ESPN",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907991.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Chicago White Sox (84-78, second in the AL Central during the regular season) vs. Cleveland Guardians (85-77, first in the AL Central during the regular season)",
    "league": "MLB"
   },
@@ -1154,7 +1199,7 @@
    "link": "http://www.espn.com/mlb/preview?gameId=401907986",
    "published": "2026-10-05T08:02:29Z",
    "source": "ESPN",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401907986.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "New York Yankees (93-68, second in the AL East during the regular season) vs. Tampa Bay Rays (98-64, first in the AL East during the regular season)",
    "league": "MLB"
   },
@@ -1181,36 +1226,9 @@
    "link": "https://www.espn.com/espn/story/_/id/50107968/nigerian-connection-runs-mystics-rise-kiki-iriafen-breaks-playoff-run",
    "published": "2026-10-05T07:39:47Z",
    "source": "ESPN",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0628%2Fr1681287_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Fresh from helping team USA win the World Cup last month, Kiki Iriafen's second WNBA season ended with a first round elimination to the Atlanta Dream.",
    "league": "WNBA"
-  },
-  {
-   "headline": "'Everything just clicked' with McMillan, Young in Panthers' primetime win",
-   "link": "https://www.espn.com/nfl/story/_/id/50107710/tetairoa-mcmillan-bryce-young-star-panthers-defeat-lions",
-   "published": "2026-10-05T07:37:46.000Z",
-   "image": "",
-   "blurb": "Carolina receiver Tetairoa McMillan was dominant in his team's 32-36 win over Detroit Lions Sunday night, catching 14 passes for 192 yards and two touchdowns from teammate Bryce Young, who threw for 329 yards to help the Panthers even their record at 2-2.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Campbell, players back DC Sheppard after Lions defensive woes continue",
-   "link": "https://www.espn.com/nfl/story/_/id/50107855/lions-campbell-discuss-dismissing-dc-sheppard-loss",
-   "published": "2026-10-05T07:37:46.000Z",
-   "image": "",
-   "blurb": "Despite the Lions' defense's continued slide, Dan Campbell and his players refused to blame second-year defensive coordinator Kelvin Sheppard after their loss Sunday night to the Panthers.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Former Avalanche Forward Is Lighting The World On Fire Since Returning To Vegas",
-   "link": "https://sports.yahoo.com/articles/former-avalanche-forward-lighting-world-071255850.html",
-   "published": "2026-10-05T07:12:55.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/9235f9c26691d23417d8ca0ce7892dac94eaf4ae9e728d6533d3cf8b4c80ca2c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_colorado_avalanche_articles_301%2Fb8690a59d0a238890746df60ebc72e2b.jpg",
-   "blurb": "Former Avalanche forward Victor Olofsson is lighting it up since returning to Vegas, scoring two goals and three points in his first three games.",
-   "source": "YAHOO",
-   "league": "NHL"
   },
   {
    "headline": "Preseason Game Preview: Knicks at 76ers, October 5, 2026",
@@ -1225,7 +1243,7 @@
    "headline": "Smotherman captures first PGA Tour title in 100th career start",
    "link": "https://www.espn.com/golf/story/_/id/50105931/austin-smotherman-wins-pga-tour-bank-utah-championship",
    "published": "2026-10-05T05:51:57.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1726136_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "- Austin Smotherman recovered from his lone blunder with two great shots and was able to cruise home to a 3-under 68 on Sunday to win the Bank of Utah Championship, his first PGA Tour victory in his 100th career start.",
    "source": "ESPN",
    "league": "PGA"
@@ -1235,7 +1253,7 @@
    "link": "https://www.espn.com/golf/story/_/id/50105931/austin-smotherman-wins-pga-tour-bank-utah-championship",
    "published": "2026-10-05T04:51:57Z",
    "source": "ESPN",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1005%2Fr1726136_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "- Austin Smotherman recovered from his lone blunder with two great shots and was able to cruise home to a 3-under 68 on Sunday to win the Bank of Utah Championship, his first PGA Tour victory in his 100th career start.",
    "league": "PGA"
   },
@@ -1288,7 +1306,7 @@
    "headline": "NFL Week 4 grades for all 32 teams: Ben Johnson, Bears earn 'A-' despite injury woes; Bengals slip again",
    "link": "https://www.cbssports.com/nfl/news/nfl-week-4-grades-for-all-32-teams-bears-bengals-patriots-rams/",
    "published": "2026-10-05T04:01:21.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fb8f72fbc-6429-46f5-98ce-c0b132c84da0%2Fchicago-bears.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "We're handing out grades for every Week 4 game",
    "source": "CBS",
    "league": "NFL"
@@ -1297,7 +1315,7 @@
    "headline": "LSU's Wade lands first 2027 five-star in guard Gibson",
    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50106762/lsu-wade-lands-first-2027-5-star-guard-king-gibson",
    "published": "2026-10-05T03:36:00.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fi%252Fespn%252Fespn_logos%252Fespn_red.png&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "LSU landed five-star guard King Gibson after the No. 13-ranked prospect in 2027 chose the Tigers over Arkansas, Louisville and Providence.",
    "source": "ESPN",
    "league": "NCAAB"
@@ -1315,7 +1333,7 @@
    "headline": "NLDS Game 2 winners and losers: Brewers magic strikes again in walk-off win; Braves put on pitching clinic",
    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-nlds-game-2-winners-losers/",
    "published": "2026-10-05T03:22:40.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fac1effed-5e05-4fc8-9782-7dd7b2896c13%2Fchourio-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The Brewers took a 2-0 series lead over the Padres, while the Braves evened their own series against the Dodgers",
    "source": "CBS",
    "league": "MLB"
@@ -1324,7 +1342,7 @@
    "headline": "2026 MLB playoff bracket: Schedule, scores, where to watch with Division Series underway",
    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
    "published": "2026-10-05T03:22:05.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Eight teams remain in the 2026 MLB playoffs, with the best-of-five LDS round underway",
    "source": "CBS",
    "league": "MLB"
@@ -1333,7 +1351,7 @@
    "headline": "Chiefs very interested in a Tyreek Hill reunion amid injuries at receiver, per report",
    "link": "https://www.cbssports.com/nfl/news/chiefs-interested-tyreek-hill-reunion-amid-injuries-at-receiver/",
    "published": "2026-10-05T02:54:36.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F05%2F07d90e87-f55d-4230-9b47-869dcc784b2b%2Fhill.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Kansas City has reportedly reached out to Hill's agent",
    "source": "CBS",
    "league": "NFL"
@@ -1343,7 +1361,7 @@
    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50106762/lsu-wade-lands-first-2027-5-star-guard-king-gibson",
    "published": "2026-10-05T02:36:00Z",
    "source": "ESPN",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fi%252Fespn%252Fespn_logos%252Fespn_red.png&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "LSU landed five-star guard King Gibson after the No. 13-ranked prospect in 2027 chose the Tigers over Arkansas, Louisville and Providence.",
    "league": "NCAAB"
   },
@@ -1352,7 +1370,7 @@
    "link": "https://www.espn.com/video/clip/_/id/50106572/game-highlights",
    "published": "2026-10-05T01:54:01Z",
    "source": "ESPN",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1005%2F1274de8d-cbfa-4b27-bff7-d605feb6c974%2F1274de8d-cbfa-4b27-bff7-d605feb6c974.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Golden State Warriors vs. LA Clippers: Game Highlights",
    "league": "NBA"
   },
@@ -1361,7 +1379,7 @@
    "link": "https://www.espn.com/video/clip/_/id/50106547/game-highlights",
    "published": "2026-10-05T01:53:24Z",
    "source": "ESPN",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1005%2F96f93cb7-9e57-4ef2-9056-fe6edce0f32a%2F96f93cb7-9e57-4ef2-9056-fe6edce0f32a.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Utah Jazz vs. Denver Nuggets: Game Highlights",
    "league": "NBA"
   },
@@ -1387,7 +1405,7 @@
    "headline": "Lacob lauds Williams as world's best after she outduels Wilson, Aces",
    "link": "https://www.espn.com/wnba/story/_/id/50105545/lacob-lauds-williams-world-best-valkyries-game-1-win",
    "published": "2026-10-05T01:11:01.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1726095_1024x576_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Gabby Williams scored 25 points and played lockdown defense in a performance that led Valkyries owner Joe Lacob to declare her the \"best player in the world.\"",
    "source": "ESPN",
    "league": "WNBA"
@@ -1400,29 +1418,11 @@
    "blurb": "Kyle Larson extended his NASCAR Chase lead to 40 points over Denny Hamlin after Las Vegas, while race winner Chase Briscoe made a major move with five races remaining.",
    "source": "YAHOO",
    "league": "NASCAR"
-  },
-  {
-   "headline": "Race Results: 2026 NASCAR Cup Series South Point 400 at Las Vegas",
-   "link": "https://sports.yahoo.com/articles/race-results-2026-nascar-cup-005915267.html",
-   "published": "2026-10-05T00:59:15.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/ed118bc5fcc0f18a9cda7ab904eba52c8497f6402c8a2ba63506b826eb7df1cc/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ftoby_christie_717%2F6fc15a00eb958824f766f522b507fbe2.jpg",
-   "blurb": "Chase Briscoe was dominant in Sunday\u2019s NASCAR Cup Series South Point 400 at Las Vegas Motor Speedway as he led 175 laps and swept the wins in Stages 1 and 2. In the closing laps, the driver of the No. 19 Joe Gibbs Racing Toyota was able to hold off a plethora of hard-charging cha",
-   "source": "YAHOO",
-   "league": "NASCAR"
-  },
-  {
-   "headline": "Chase Briscoe wins Las Vegas NASCAR Cup as Larson and Reddick crash across finish line",
-   "link": "https://sports.yahoo.com/articles/chase-briscoe-wins-las-vegas-005050801.html",
-   "published": "2026-10-05T00:50:50.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/bc769f1b7e96bf286756619f66426c9b13fbcea0a104e808b3f56b746a22f87c/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2Fcfd7e9d6c44cea005eace1d86ac75c5b.jpg",
-   "blurb": "Briscoe held off a four-car fight in the closing laps, while Kyle Larson hit the wall and Tyler Reddick spun across the infield at the finish",
-   "source": "YAHOO",
-   "league": "NASCAR"
   }
  ],
  "source_mix": {
-  "YAHOO": 67,
-  "ESPN": 53,
+  "ESPN": 56,
+  "YAHOO": 64,
   "CBS": 34
  },
  "degraded_sources": []
