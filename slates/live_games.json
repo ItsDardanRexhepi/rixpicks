@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T09:35:13.510242+00:00",
+ "generated_at": "2026-10-05T09:50:13.050264+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -22,19 +22,11 @@
      "score": "Pavel Kotov 0 - Martin Damm 0"
     },
     {
-     "espn_event_id": "186297",
-     "matchup": "Yoshihito Nishioka @ Aleksandr Shevchenko",
-     "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Yoshihito Nishioka 0 - Aleksandr Shevchenko 0"
-    },
-    {
      "espn_event_id": "186294",
      "matchup": "Tristan Schoolkate @ Dane Sweeny",
      "commence": "2026-10-05T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Tristan Schoolkate 0 - Dane Sweeny 0"
     },
     {
