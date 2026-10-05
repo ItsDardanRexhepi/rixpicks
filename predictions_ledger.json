@@ -1529,5 +1529,44 @@
   "kickoff_utc": "2026-10-05T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T15:21:00.284646+00:00"
+ },
+ {
+  "id": "dac9e7407c",
+  "event_id": "401914101",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Philadelphia 76ers",
+  "away": "New York Knicks",
+  "pick_team": "Philadelphia 76ers",
+  "prediction": "Philadelphia 76ers to beat New York Knicks",
+  "kickoff_utc": "2026-10-05T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T15:50:32.268366+00:00"
+ },
+ {
+  "id": "e2ea2c8ac9",
+  "event_id": "401892446",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Boston Bruins",
+  "away": "Ottawa Senators",
+  "pick_team": "Boston Bruins",
+  "prediction": "Boston Bruins to beat Ottawa Senators",
+  "kickoff_utc": "2026-10-05T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T15:50:37.543534+00:00"
+ },
+ {
+  "id": "d7521452f6",
+  "event_id": "401898716",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Sacramento Kings",
+  "away": "Los Angeles Lakers",
+  "pick_team": "Los Angeles Lakers",
+  "prediction": "Los Angeles Lakers to beat Sacramento Kings",
+  "kickoff_utc": "2026-10-06T02:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T15:50:59.432085+00:00"
  }
 ]
