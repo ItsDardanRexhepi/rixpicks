@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-05T23:20:07.441545+00:00",
+ "generated_at": "2026-10-05T23:35:05.220766+00:00",
  "items": [
-  {
-   "id": "e2ea2c8ac9",
-   "league": "NHL",
-   "event": "Ottawa Senators @ Boston Bruins",
-   "prediction": "Boston Bruins to beat Ottawa Senators",
-   "kickoff_utc": "2026-10-05T23:30:00+00:00"
-  },
-  {
-   "id": "d742cbc779",
-   "league": "NHL",
-   "event": "Winnipeg Jets @ Pittsburgh Penguins",
-   "prediction": "Pittsburgh Penguins to beat Winnipeg Jets",
-   "kickoff_utc": "2026-10-05T23:30:00+00:00"
-  },
   {
    "id": "d97be2d950",
    "league": "NBA",
@@ -42,6 +28,20 @@
    "event": "Atlanta Falcons @ New Orleans Saints",
    "prediction": "New Orleans Saints to beat Atlanta Falcons",
    "kickoff_utc": "2026-10-06T00:15:00+00:00"
+  },
+  {
+   "id": "d7521452f6",
+   "league": "NBA",
+   "event": "Los Angeles Lakers @ Sacramento Kings",
+   "prediction": "Los Angeles Lakers to beat Sacramento Kings",
+   "kickoff_utc": "2026-10-06T02:00:00+00:00"
+  },
+  {
+   "id": "7461789a93",
+   "league": "MLS",
+   "event": "Vancouver Whitecaps @ Chicago Fire FC",
+   "prediction": "Chicago Fire FC to beat Vancouver Whitecaps",
+   "kickoff_utc": "2026-10-07T00:30:00+00:00"
   }
  ]
 }
