@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T00:47:56.442134+00:00",
+ "generated_at": "2026-10-05T00:50:09.698054+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -23,7 +23,7 @@
      "matchup": "DET @ CAR",
      "commence": "2026-10-05T00:20Z",
      "status": "in",
-     "detail": "5:50 - 1st",
+     "detail": "5:31 - 1st",
      "score": "DET 3 - CAR 0",
      "away_to": 2,
      "home_to": 3
@@ -38,8 +38,8 @@
      "matchup": "UTAH @ DEN",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "5:13 - 3rd",
-     "score": "UTAH 76 - DEN 66",
+     "detail": "4:49 - 3rd",
+     "score": "UTAH 76 - DEN 68",
      "away_to": 3,
      "home_to": 4
     },
@@ -48,8 +48,8 @@
      "matchup": "GS @ LAC",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "3:36 - 3rd",
-     "score": "GS 63 - LAC 70",
+     "detail": "2:23 - 3rd",
+     "score": "GS 69 - LAC 70",
      "away_to": 4,
      "home_to": 3
     }
@@ -71,7 +71,7 @@
      "matchup": "FLA @ ANA",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "1:22 - 1st",
+     "detail": "End of 1st",
      "score": "FLA 1 - ANA 1",
      "away_to": null,
      "home_to": null
@@ -81,7 +81,7 @@
      "matchup": "CGY @ SEA",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "3:03 - 1st",
+     "detail": "2:58 - 1st",
      "score": "CGY 0 - SEA 3",
      "away_to": null,
      "home_to": null
@@ -104,7 +104,7 @@
      "matchup": "WAS @ HOU",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "82'",
+     "detail": "84'",
      "score": "WAS 2 - HOU 2"
     }
    ]
