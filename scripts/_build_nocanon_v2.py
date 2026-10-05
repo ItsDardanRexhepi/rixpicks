@@ -2526,10 +2526,19 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     if _nfl_synth: nfl_ideas_entry='<style>body.tab-nfl main>.cardnote{display:none}</style>'+nfl_ideas_entry
     nfl_ideas_entry=nfl_ideas_entry.replace('var VEN={};','var VEN='+json.dumps({k:[v[0],v[1],v[2],v[3]] for k,v in _DING_VENUES.items()},separators=(',',':'))+';')
 
+    # Wooder Ice batch tickets (Oct 5): additive panel under the Wooder Ice tab, same hydration, venue map and
+    # cents->American conversion as the NFL ideas panel; reads slates/wooder_batch.json; hides on a missing,
+    # empty or wrong-date file. Per leg only, no combined price. Never touches wooder_dingers.json.
+    wooder_batch_entry=nfl_ideas_entry
+    if wooder_batch_entry.startswith('<style>'): wooder_batch_entry=wooder_batch_entry[wooder_batch_entry.index('</style>')+8:]
+    wooder_batch_entry=(wooder_batch_entry.replace('PICKS FROM RIX','Wooder Ice tickets').replace('rpNflIdeas','rpBatchIdeas').replace('rpNflTab','rpBatchTab')
+      .replace('slates/nfl_ideas.json','slates/wooder_batch.json').replace('<div class=\\"sub\\">No NFL ideas today.</div>','')
+      .replace(r'<div class=\"rpnpick\" style=', r'<div class=\"rpnpick\" id=\"tk-"+esc(cd.id||"")+"\" style='))
+    assert 'rpBatchIdeas' in wooder_batch_entry and 'tk-' in wooder_batch_entry and 'wooder_batch.json' in wooder_batch_entry
     for t in RP_TABS:
         if t['key']=='home': continue  # home projects the canonical league panels below
         _prows=''.join(_panels.get(t['key']) or [])
-        _body=((_prows+nfl_ideas_entry) if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
+        _body=((_prows+nfl_ideas_entry) if t['key']=='nfl' else (((nfl_entry+wooder_batch_entry) if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
