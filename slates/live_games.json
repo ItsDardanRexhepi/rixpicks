@@ -1,66 +1,10 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T07:50:14.155351+00:00",
+ "generated_at": "2026-10-05T08:05:13.285008+00:00",
  "leagues": [
   {
    "league": "ATP",
    "games": [
-    {
-     "espn_event_id": "186308",
-     "matchup": "Nikoloz Basilashvili @ Andre Ilagan",
-     "commence": "2026-10-05T04:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "Nikoloz Basilashvili 0 - Andre Ilagan 0"
-    },
-    {
-     "espn_event_id": "186309",
-     "matchup": "Liam Draxl @ Hugo Gaston",
-     "commence": "2026-10-05T04:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "Liam Draxl 0 - Hugo Gaston 0"
-    },
-    {
-     "espn_event_id": "186312",
-     "matchup": "Shintaro Mochizuki @ Taro Daniel",
-     "commence": "2026-10-05T04:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "Shintaro Mochizuki 0 - Taro Daniel 0"
-    },
-    {
-     "espn_event_id": "186313",
-     "matchup": "Alexis Galarneau @ Roman Safiullin",
-     "commence": "2026-10-05T04:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "Alexis Galarneau 0 - Roman Safiullin 0"
-    },
-    {
-     "espn_event_id": "186314",
-     "matchup": "Federico Cina @ Xiao Linang",
-     "commence": "2026-10-05T04:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "Federico Cina 0 - Xiao Linang 0"
-    },
-    {
-     "espn_event_id": "186315",
-     "matchup": "Aziz Dougaz @ Lorenzo Sonego",
-     "commence": "2026-10-05T04:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "Aziz Dougaz 0 - Lorenzo Sonego 0"
-    },
-    {
-     "espn_event_id": "186292",
-     "matchup": "Nicolas Mejia @ Chun-Hsin Tseng",
-     "commence": "2026-10-05T04:00Z",
-     "status": "post",
-     "detail": "Retired",
-     "score": "Nicolas Mejia 0 - Chun-Hsin Tseng 0"
-    },
     {
      "espn_event_id": "186303",
      "matchup": "Bernard Tomic @ Terence Atmane",
@@ -68,14 +12,6 @@
      "status": "in",
      "detail": "3rd",
      "score": "Bernard Tomic 0 - Terence Atmane 0"
-    },
-    {
-     "espn_event_id": "186296",
-     "matchup": "Ilia Simakin @ Luka Pavlovic",
-     "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "3rd",
-     "score": "Ilia Simakin 0 - Luka Pavlovic 0"
     },
     {
      "espn_event_id": "186305",
@@ -98,7 +34,7 @@
      "matchup": "Te Rigele @ Adam Walton",
      "commence": "2026-10-05T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Te Rigele 0 - Adam Walton 0"
     },
     {
@@ -106,7 +42,7 @@
      "matchup": "Rei Sakamoto @ SeongChan Hong",
      "commence": "2026-10-05T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Rei Sakamoto 0 - SeongChan Hong 0"
     }
    ]
