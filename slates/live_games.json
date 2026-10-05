@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T06:20:12.995453+00:00",
+ "generated_at": "2026-10-05T06:35:15.751127+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -9,8 +9,8 @@
      "espn_event_id": "186308",
      "matchup": "Nikoloz Basilashvili @ Andre Ilagan",
      "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "3rd",
+     "status": "post",
+     "detail": "Final",
      "score": "Nikoloz Basilashvili 0 - Andre Ilagan 0"
     },
     {
@@ -60,6 +60,30 @@
      "status": "in",
      "detail": "1st",
      "score": "Nicolas Mejia 0 - Chun-Hsin Tseng 0"
+    },
+    {
+     "espn_event_id": "186303",
+     "matchup": "Bernard Tomic @ Terence Atmane",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Bernard Tomic 0 - Terence Atmane 0"
+    },
+    {
+     "espn_event_id": "186296",
+     "matchup": "Ilia Simakin @ Luka Pavlovic",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Ilia Simakin 0 - Luka Pavlovic 0"
+    },
+    {
+     "espn_event_id": "186305",
+     "matchup": "Federico Agustin Gomez @ Michael Zheng",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Federico Agustin Gomez 0 - Michael Zheng 0"
     }
    ]
   }
