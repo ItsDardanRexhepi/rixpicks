@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T23:20:14.287734+00:00",
+ "generated_at": "2026-10-05T23:35:13.349796+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "CHW @ CLE",
      "commence": "2026-10-05T21:00Z",
      "status": "in",
-     "detail": "Bot 6th",
+     "detail": "Mid 7th",
      "score": "CHW 4 - CLE 2"
     },
     {
@@ -44,18 +44,18 @@
      "matchup": "MEM @ ATL",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "7:47 - 1st",
-     "score": "MEM 9 - ATL 17",
+     "detail": "2:32 - 1st",
+     "score": "MEM 24 - ATL 27",
      "away_to": 6,
-     "home_to": 7
+     "home_to": 6
     },
     {
      "espn_event_id": "401908947",
      "matchup": "PHX @ DET",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "7:23 - 1st",
-     "score": "PHX 11 - DET 9",
+     "detail": "4:05 - 1st",
+     "score": "PHX 21 - DET 14",
      "away_to": 7,
      "home_to": 7
     },
@@ -64,9 +64,9 @@
      "matchup": "NY @ PHI",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "7:06 - 1st",
-     "score": "NY 12 - PHI 10",
-     "away_to": 7,
+     "detail": "1:14 - 1st",
+     "score": "NY 30 - PHI 26",
+     "away_to": 6,
      "home_to": 6
     },
     {
@@ -87,26 +87,10 @@
      "matchup": "PHI @ TB",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "13:28 - 1st",
+     "detail": "5:51 - 1st",
      "score": "PHI 0 - TB 0",
      "away_to": null,
      "home_to": null
-    },
-    {
-     "espn_event_id": "401892446",
-     "matchup": "OTT @ BOS",
-     "commence": "2026-10-05T23:30Z",
-     "status": "pre",
-     "detail": "10/5 - 4:30 PM PT",
-     "score": "OTT 0 - BOS 0"
-    },
-    {
-     "espn_event_id": "401892447",
-     "matchup": "WPG @ PIT",
-     "commence": "2026-10-05T23:30Z",
-     "status": "pre",
-     "detail": "10/5 - 4:30 PM PT",
-     "score": "WPG 0 - PIT 0"
     },
     {
      "espn_event_id": "401892448",
