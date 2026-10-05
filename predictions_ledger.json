@@ -1373,5 +1373,31 @@
   "kickoff_utc": "2026-10-10T01:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T05:50:09.116580+00:00"
+ },
+ {
+  "id": "c5b16a03c4",
+  "event_id": "401856825",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Kansas State Wildcats",
+  "away": "Houston Cougars",
+  "pick_team": "Kansas State Wildcats",
+  "prediction": "Kansas State Wildcats to beat Houston Cougars",
+  "kickoff_utc": "2026-10-10T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T06:06:59.852608+00:00"
+ },
+ {
+  "id": "ed6e5b24cd",
+  "event_id": "401856713",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Arkansas Razorbacks",
+  "away": "Tennessee Volunteers",
+  "pick_team": "Tennessee Volunteers",
+  "prediction": "Tennessee Volunteers to beat Arkansas Razorbacks",
+  "kickoff_utc": "2026-10-10T20:15:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T06:07:13.803834+00:00"
  }
 ]
