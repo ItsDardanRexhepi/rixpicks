@@ -1399,5 +1399,44 @@
   "kickoff_utc": "2026-10-10T20:15:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T06:07:13.803834+00:00"
+ },
+ {
+  "id": "720a58b70a",
+  "event_id": "401856714",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Florida Gators",
+  "away": "South Carolina Gamecocks",
+  "pick_team": "Florida Gators",
+  "prediction": "Florida Gators to beat South Carolina Gamecocks",
+  "kickoff_utc": "2026-10-10T16:45:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T06:35:19.370125+00:00"
+ },
+ {
+  "id": "227247841d",
+  "event_id": "401856712",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Alabama Crimson Tide",
+  "away": "Georgia Bulldogs",
+  "pick_team": "Georgia Bulldogs",
+  "prediction": "Georgia Bulldogs to beat Alabama Crimson Tide",
+  "kickoff_utc": "2026-10-10T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T06:35:39.073508+00:00"
+ },
+ {
+  "id": "30941d5fa6",
+  "event_id": "401856827",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Utah Utes",
+  "away": "Kansas Jayhawks",
+  "pick_team": "Utah Utes",
+  "prediction": "Utah Utes to beat Kansas Jayhawks",
+  "kickoff_utc": "2026-10-11T02:15:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T06:35:50.935829+00:00"
  }
 ]
