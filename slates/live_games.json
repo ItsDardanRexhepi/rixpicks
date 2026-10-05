@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T05:35:51.545024+00:00",
+ "generated_at": "2026-10-05T05:50:14.747817+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -10,7 +10,7 @@
      "matchup": "Nikoloz Basilashvili @ Andre Ilagan",
      "commence": "2026-10-05T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Nikoloz Basilashvili 0 - Andre Ilagan 0"
     },
     {
@@ -52,6 +52,14 @@
      "status": "in",
      "detail": "2nd",
      "score": "Aziz Dougaz 0 - Lorenzo Sonego 0"
+    },
+    {
+     "espn_event_id": "186292",
+     "matchup": "Nicolas Mejia @ Chun-Hsin Tseng",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Nicolas Mejia 0 - Chun-Hsin Tseng 0"
     }
    ]
   }
