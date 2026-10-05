@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-05T15:02:02.178Z",
+ "generated_at": "2026-10-05T15:06:05.503Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -187,6 +187,33 @@
   ],
   "football/college-football": [
    {
+    "headline": "A journey through the Mississippi town that produced Kamario Taylor",
+    "link": "https://www.espn.com/college-football/story/_/id/50106231/kamario-taylor-mississippi-state-hometown-alabama",
+    "published": "2026-10-05T16:00:19.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0928%252Fr1723138_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "It was a deflating Saturday for Mississippi State and QB Kamario Taylor, who had energized his hometown of Macon, just 40 minutes from campus.",
+    "source": "ESPN",
+    "league": "CFB"
+   },
+   {
+    "headline": "Play USA TODAY's College Football Shuffle",
+    "link": "https://sports.yahoo.com/articles/play-usa-todays-college-football-145725409.html",
+    "published": "2026-10-05T14:57:25.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/d6c5feb731c6e461394b5a3696aec95abb9564029bcb721cfdfec30dd49129af/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fftw_outdoors_usa_today_article_609%2F20e93c65ed9239b383e04b66b758971c.jpg",
+    "blurb": "Solve the shuffled words, match each one to the right headline and see how well you know the week in college football.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "What's wrong with Washington? Tougher schedule, pedestrian QB play have Huskies off to disappointing start",
+    "link": "https://www.cbssports.com/college-football/news/washington-analysis-jedd-fisch-demond-williams-jr-big-ten/",
+    "published": "2026-10-05T14:50:28.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fdcf69f78-b545-4d83-b2fb-f7941faddd2a%2Fgettyimages-2241878651-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Huskies have faltered after leaving the 2025 season with serious momentum",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
     "headline": "Mizzou rises, Florida falls after showdown; AP top 5 stand pat",
     "link": "https://www.espn.com/college-football/story/_/id/50101357/missouri-jumps-14th-ap-top-25-florida-tumbles-8-spots",
     "published": "2026-10-05T15:48:06.000Z",
@@ -205,33 +232,6 @@
     "league": "CFB"
    },
    {
-    "headline": "What's wrong with Washington? Tougher schedule, pedestrian QB play have Huskies off to disappointing start",
-    "link": "https://www.cbssports.com/college-football/news/washington-analysis-jedd-fisch-demond-williams-jr-big-ten/",
-    "published": "2026-10-05T14:50:28.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fdcf69f78-b545-4d83-b2fb-f7941faddd2a%2Fgettyimages-2241878651-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Huskies have faltered after leaving the 2025 season with serious momentum",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "Sooners questioning QB Mateer ahead of showdown vs. No. 1 Horns",
-    "link": "https://www.espn.com/college-football/story/_/id/50102462/oklahoma-questioning-qb-john-mateer-ahead-showdown-vs-texas",
-    "published": "2026-10-05T15:48:06.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0813%252Fr1701327_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Starting QB John Mateer's stock has plummeted with six turnovers in three games, leaving Oklahoma with questions prior to its showdown vs. No. 1 Texas.",
-    "source": "ESPN",
-    "league": "CFB"
-   },
-   {
-    "headline": "Top 10 transfer portal impact players of Week 5",
-    "link": "https://sports.yahoo.com/articles/top-10-transfer-portal-impact-144458257.html",
-    "published": "2026-10-05T14:44:58.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/1fd8d00b0c765f71e5f35feeaa7c3058fa5c40489a17aff5b4e6cec2a55678ec/lightyear_networkapi/resizefill_w1024_h537%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fon3_transfer_portal_articles_263%2Fba289bad8a5efb08f282efd2f334dd10.png",
-    "blurb": "In the new era of college football, the transfer portal has become a significant component of roster construction. Throughout the 2026 college football season, On3 is breaking down the top 10 transfer portal impact players based on weekly performances. Here are the most impactful",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
     "headline": "CBS Sports 138: Alabama joins Texas, Georgia in top four as SEC teams headline college football rankings",
     "link": "https://www.cbssports.com/college-football/news/cbs-sports-138-college-football-rankings-alabama-sec-teams/",
     "published": "2026-10-05T13:59:39.000Z",
@@ -241,20 +241,20 @@
     "league": "CFB"
    },
    {
-    "headline": "Buckeyes' Smith to Heisman voters after record day: 'I'm the best player'",
-    "link": "https://www.espn.com/college-football/story/_/id/50093777/smith-sets-ohio-state-career-receptions-receiving-td-records",
+    "headline": "Sooners questioning QB Mateer ahead of showdown vs. No. 1 Horns",
+    "link": "https://www.espn.com/college-football/story/_/id/50102462/oklahoma-questioning-qb-john-mateer-ahead-showdown-vs-texas",
     "published": "2026-10-05T15:48:06.000Z",
     "image": "",
-    "blurb": "Jeremiah Smith likely cemented himself as the Heisman front-runner with another monster performance in which he also became Ohio State's career receptions and touchdown receptions leader during a 31-14 win over Iowa.",
+    "blurb": "Starting QB John Mateer's stock has plummeted with six turnovers in three games, leaving Oklahoma with questions prior to its showdown vs. No. 1 Texas.",
     "source": "ESPN",
     "league": "CFB"
    },
    {
-    "headline": "Florida takes a plunge in USA TODAY Sports' Week 5 re-rank",
-    "link": "https://sports.yahoo.com/articles/florida-takes-plunge-usa-today-144015098.html",
-    "published": "2026-10-05T14:40:15.000Z",
+    "headline": "Top 10 transfer portal impact players of Week 5",
+    "link": "https://sports.yahoo.com/articles/top-10-transfer-portal-impact-144458257.html",
+    "published": "2026-10-05T14:44:58.000Z",
     "image": "",
-    "blurb": "Florida football's Week 5 road loss to the Missouri Tigers sent the Gators tumbling down USA TODAY Sports' re-rank.",
+    "blurb": "In the new era of college football, the transfer portal has become a significant component of roster construction. Throughout the 2026 college football season, On3 is breaking down the top 10 transfer portal impact players based on weekly performances. Here are the most impactful",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -268,11 +268,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Deion to reevaluate Buffs' QBs after blowout loss: 'Got to play better'",
-    "link": "https://www.espn.com/college-football/story/_/id/50099569/colorado-needs-qb-step-blowout-loss-texas-tech",
+    "headline": "Buckeyes' Smith to Heisman voters after record day: 'I'm the best player'",
+    "link": "https://www.espn.com/college-football/story/_/id/50093777/smith-sets-ohio-state-career-receptions-receiving-td-records",
     "published": "2026-10-05T15:48:06.000Z",
     "image": "",
-    "blurb": "Coach Deion Sanders says Colorado will consider all three quarterback options -- Isaac Wilson, Kaneal Sweetwyne and highly touted prospect Julian \"JuJu\" Lewis -- during its bye week.",
+    "blurb": "Jeremiah Smith likely cemented himself as the Heisman front-runner with another monster performance in which he also became Ohio State's career receptions and touchdown receptions leader during a 31-14 win over Iowa.",
     "source": "ESPN",
     "league": "CFB"
    }
@@ -1060,20 +1060,20 @@
  },
  "latest": [
   {
+   "headline": "A journey through the Mississippi town that produced Kamario Taylor",
+   "link": "https://www.espn.com/college-football/story/_/id/50106231/kamario-taylor-mississippi-state-hometown-alabama",
+   "published": "2026-10-05T16:00:19.000Z",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0928%252Fr1723138_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "It was a deflating Saturday for Mississippi State and QB Kamario Taylor, who had energized his hometown of Macon, just 40 minutes from campus.",
+   "source": "ESPN",
+   "league": "CFB"
+  },
+  {
    "headline": "Mizzou rises, Florida falls after showdown; AP top 5 stand pat",
    "link": "https://www.espn.com/college-football/story/_/id/50101357/missouri-jumps-14th-ap-top-25-florida-tumbles-8-spots",
    "published": "2026-10-05T15:48:06.000Z",
    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725887_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Missouri jumped to No. 14 in the AP Top 25 following its rout of Florida, while the Gators dropped eight spots to No. 16 and were replaced by LSU in the top 10.",
-   "source": "ESPN",
-   "league": "CFB"
-  },
-  {
-   "headline": "Sooners questioning QB Mateer ahead of showdown vs. No. 1 Horns",
-   "link": "https://www.espn.com/college-football/story/_/id/50102462/oklahoma-questioning-qb-john-mateer-ahead-showdown-vs-texas",
-   "published": "2026-10-05T15:48:06.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0813%252Fr1701327_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Starting QB John Mateer's stock has plummeted with six turnovers in three games, leaving Oklahoma with questions prior to its showdown vs. No. 1 Texas.",
    "source": "ESPN",
    "league": "CFB"
   },
@@ -1112,6 +1112,15 @@
    "blurb": "In the era of the long ball, the Rays want to win with something a little closer to home.",
    "source": "ESPN",
    "league": "MLB"
+  },
+  {
+   "headline": "Play USA TODAY's College Football Shuffle",
+   "link": "https://sports.yahoo.com/articles/play-usa-todays-college-football-145725409.html",
+   "published": "2026-10-05T14:57:25.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/d6c5feb731c6e461394b5a3696aec95abb9564029bcb721cfdfec30dd49129af/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fftw_outdoors_usa_today_article_609%2F20e93c65ed9239b383e04b66b758971c.jpg",
+   "blurb": "Solve the shuffled words, match each one to the right headline and see how well you know the week in college football.",
+   "source": "YAHOO",
+   "league": "CFB"
   },
   {
    "headline": "Big Ten football power rankings after Week 5 of 2026 season",
@@ -1157,15 +1166,6 @@
    "blurb": "The Nationals had a similar record at home and on the road but the way they got there was bizarre",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "Top 10 transfer portal impact players of Week 5",
-   "link": "https://sports.yahoo.com/articles/top-10-transfer-portal-impact-144458257.html",
-   "published": "2026-10-05T14:44:58.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/1fd8d00b0c765f71e5f35feeaa7c3058fa5c40489a17aff5b4e6cec2a55678ec/lightyear_networkapi/resizefill_w1024_h537%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fon3_transfer_portal_articles_263%2Fba289bad8a5efb08f282efd2f334dd10.png",
-   "blurb": "In the new era of college football, the transfer portal has become a significant component of roster construction. Throughout the 2026 college football season, On3 is breaking down the top 10 transfer portal impact players based on weekly performances. Here are the most impactful",
-   "source": "YAHOO",
-   "league": "CFB"
   },
   {
    "headline": "Eagles' offense sputters with 68 net passing yards, 0-12 on third down vs. Rams",
