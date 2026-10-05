@@ -1,6 +1,13 @@
 {
- "generated_at": "2026-10-05T15:07:13.360564+00:00",
+ "generated_at": "2026-10-05T15:22:12.497384+00:00",
  "items": [
+  {
+   "id": "b51bbfb986",
+   "league": "NHL",
+   "event": "Philadelphia Flyers @ Tampa Bay Lightning",
+   "prediction": "Tampa Bay Lightning to beat Philadelphia Flyers",
+   "kickoff_utc": "2026-10-05T23:00:00+00:00"
+  },
   {
    "id": "d97be2d950",
    "league": "NBA",
@@ -35,13 +42,6 @@
    "event": "Iowa State Cyclones @ BYU Cougars",
    "prediction": "BYU Cougars to beat Iowa State Cyclones",
    "kickoff_utc": "2026-10-10T02:15:00+00:00"
-  },
-  {
-   "id": "0877588209",
-   "league": "CFB",
-   "event": "Texas A&M Aggies @ Missouri Tigers",
-   "prediction": "Missouri Tigers to beat Texas A&M Aggies",
-   "kickoff_utc": "2026-10-10T16:00:00+00:00"
   }
  ]
 }

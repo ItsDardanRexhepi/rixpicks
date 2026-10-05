@@ -1516,5 +1516,18 @@
   "kickoff_utc": "2026-10-06T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T15:06:36.395920+00:00"
+ },
+ {
+  "id": "b51bbfb986",
+  "event_id": "401892445",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Tampa Bay Lightning",
+  "away": "Philadelphia Flyers",
+  "pick_team": "Tampa Bay Lightning",
+  "prediction": "Tampa Bay Lightning to beat Philadelphia Flyers",
+  "kickoff_utc": "2026-10-05T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T15:21:00.284646+00:00"
  }
 ]
