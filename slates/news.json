@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-05T00:41:07.021Z",
+ "generated_at": "2026-10-05T00:46:01.867Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -96,9 +96,9 @@
   "football/nfl": [
    {
     "headline": "Follow live: Lions, Panthers go head-to-head in Charlotte",
-    "link": "https://www.espn.com/nfl/game/_/gameId/401872978/lions-panthers",
-    "published": "2026-10-05T01:26:05.000Z",
-    "image": "",
+    "link": "https://www.espn.com/nfl/story/_/id/50085799/week-4-highlights-best-plays-touchdowns-2026",
+    "published": "2026-10-05T01:38:36.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1726005_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "null",
     "source": "ESPN",
     "league": "NFL"
@@ -567,7 +567,7 @@
     "headline": "UConn picks up second five-star recruit as Page commits to Huskies",
     "link": "https://www.espn.com/mens-college-basketball/story/_/id/50101146/jordan-page-picks-uconn-joins-bowman-five-stars-huskies",
     "published": "2026-10-04T19:44:15.000Z",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2021%252F1207%252Fr948057_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Five-star wing Jordan Page announced his commitment to UConn men's basketball on Sunday, giving the Huskies their first recruiting class with two ESPN five-star prospects in at least 20 years.",
     "source": "ESPN",
     "league": "NCAAB"
@@ -783,11 +783,11 @@
   ],
   "racing/nascar-premier": [
    {
-    "headline": "How to watch NASCAR in 2026: Weekly listings guide",
-    "link": "https://sports.yahoo.com/articles/watch-nascar-2026-weekly-listings-163201173.html",
-    "published": "2026-10-04T19:15:01.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/775aaa36ad903e34ad2f4d0204453a09905fb3c331060c9f53bf6b7ffee8dcf0/lightyear_networkapi/resizefill_w320_h170%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnascar.com%2F94d600e617a53b5716283501a802879f.jpg",
-    "blurb": "Ready to watch NASCAR in 2026 and want NASCAR TV and streaming programming this week? Here is this week&#92;&#92;&#92;\"s NASCAR broadcast schedule. All times listed are ET. HOW TO WATCH Key information: FOX, FS1, FS2 | Prime Video | TNT Sports | Max in-car cameras | NBC, USA | Th",
+    "headline": "NASCAR points standings, Cup Series points update after Las Vegas race, Chase picture",
+    "link": "https://sports.yahoo.com/articles/nascar-points-standings-cup-series-003319122.html",
+    "published": "2026-10-05T00:33:19.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/18b779bf6aefd28fdf41d4dba58d749f3d1898ebbb3f7a3151491416e775c086/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2F289a316bc807e8f230bb7e7d54735cf1.jpg",
+    "blurb": "Chase Briscoe inched closer to the NASCAR points lead after winning the South Point 400 on Oct. 4 at Las Vegas.",
     "source": "YAHOO",
     "league": "NASCAR"
    },
@@ -801,11 +801,11 @@
     "league": "NASCAR"
    },
    {
-    "headline": "NASCAR Cup Series Las Vegas race live updates, highlights, leaderboard for South Point 400",
-    "link": "https://sports.yahoo.com/articles/nascar-cup-series-las-vegas-191252975.html",
-    "published": "2026-10-04T19:12:52.000Z",
-    "image": "",
-    "blurb": "The NASCAR Cup Series continues the 2026 season with the South Point 400 at Las Vegas. Follow our NASCAR race updates here.",
+    "headline": "Who won NASCAR Las Vegas race? Winner is Chase Briscoe plus full results",
+    "link": "https://sports.yahoo.com/articles/won-nascar-las-vegas-race-003105690.html",
+    "published": "2026-10-05T00:31:05.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/04ffd5e3800bdbd2d21d10611fed1b4057d408f4f56a76e85c774e05942ded4d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2F01b9903cac6e53906f20c1a7d68496bd.jpg",
+    "blurb": "Who won the NASCAR Las Vegas race, plus full NASCAR Cup results from the South Point 400 on Oct. 4.",
     "source": "YAHOO",
     "league": "NASCAR"
    },
@@ -816,6 +816,33 @@
     "image": "",
     "blurb": "\"I think it's Toyota's championship to lose,\" Bubba Wallace said. \"Based on how many races we've won, it would be a shame if we didn't seal the deal.\"",
     "source": "ESPN",
+    "league": "NASCAR"
+   },
+   {
+    "headline": "NASCAR Standings after Today: Cup Series The Chase Points Leaders Right Now",
+    "link": "https://sports.yahoo.com/articles/nascar-standings-today-cup-series-002608499.html",
+    "published": "2026-10-05T00:26:08.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/54962822d75bd32830c6cd25286125f9c0b601d1ba2373e137c8eb01504e5d6f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F3d67c7ade977d58f9f4491e3e3adf6b8.jpg",
+    "blurb": "Sunday\u2019s South Point 400 at Las Vegas Motor Speedway marked the fifth race of The Chase. It means we\u2019re now [\u2026]",
+    "source": "YAHOO",
+    "league": "NASCAR"
+   },
+   {
+    "headline": "How to watch NASCAR in 2026: Weekly listings guide",
+    "link": "https://sports.yahoo.com/articles/watch-nascar-2026-weekly-listings-163201173.html",
+    "published": "2026-10-04T19:15:01.000Z",
+    "image": "",
+    "blurb": "Ready to watch NASCAR in 2026 and want NASCAR TV and streaming programming this week? Here is this week&#92;&#92;&#92;\"s NASCAR broadcast schedule. All times listed are ET. HOW TO WATCH Key information: FOX, FS1, FS2 | Prime Video | TNT Sports | Max in-car cameras | NBC, USA | Th",
+    "source": "YAHOO",
+    "league": "NASCAR"
+   },
+   {
+    "headline": "NASCAR Cup Series Las Vegas race live updates, highlights, leaderboard for South Point 400",
+    "link": "https://sports.yahoo.com/articles/nascar-cup-series-las-vegas-191252975.html",
+    "published": "2026-10-04T19:12:52.000Z",
+    "image": "",
+    "blurb": "The NASCAR Cup Series continues the 2026 season with the South Point 400 at Las Vegas. Follow our NASCAR race updates here.",
+    "source": "YAHOO",
     "league": "NASCAR"
    },
    {
@@ -842,33 +869,6 @@
     "published": "2026-10-04T15:09:00.000Z",
     "image": "",
     "blurb": "The former Xfinity Series has a new name but promises to bring the same thrills in 2026. Here's how to tune in to every race.",
-    "source": "YAHOO",
-    "league": "NASCAR"
-   },
-   {
-    "headline": "How to Watch NASCAR Cup Series at Las Vegas Motor Speedway Today: TV Coverage and Streaming",
-    "link": "https://sports.yahoo.com/articles/watch-nascar-cup-series-las-150707179.html",
-    "published": "2026-10-04T15:07:07.000Z",
-    "image": "",
-    "blurb": "The NASCAR Cup Series heads back to Las Vegas Motor Speedway today for the South Point 400, putting the spotlight on the Cup Series under the desert lights.The NASCAR Cup Series race starts at 5:30 p.m. ET on USA Network and HBO Max, with additional coverage on PRN and SiriusXM N",
-    "source": "YAHOO",
-    "league": "NASCAR"
-   },
-   {
-    "headline": "NASCAR race today, live updates: Leaderboard, highlights for Las Vegas",
-    "link": "https://sports.yahoo.com/articles/nascar-race-today-las-vegas-110111089.html",
-    "published": "2026-10-04T11:01:11.000Z",
-    "image": "",
-    "blurb": "NASCAR returns to Las Vegas for the fifth race in the Chase. Denny Hamlin sits on the pole for a race that will be full of tributes to Kyle Busch.",
-    "source": "YAHOO",
-    "league": "NASCAR"
-   },
-   {
-    "headline": "NASCAR Cup Series at Las Vegas: Starting lineup, TV schedule for today's race",
-    "link": "https://sports.yahoo.com/articles/nascar-cup-series-las-vegas-100611203.html",
-    "published": "2026-10-04T10:06:11.000Z",
-    "image": "",
-    "blurb": "The 2026 NASCAR Cup Series season continues with the South Point 400 at Las Vegas Motor Speedway on Sunday. See the starting lineup here for today's race.",
     "source": "YAHOO",
     "league": "NASCAR"
    }
@@ -1061,9 +1061,9 @@
  "latest": [
   {
    "headline": "Follow live: Lions, Panthers go head-to-head in Charlotte",
-   "link": "https://www.espn.com/nfl/game/_/gameId/401872978/lions-panthers",
-   "published": "2026-10-05T01:26:05.000Z",
-   "image": "",
+   "link": "https://www.espn.com/nfl/story/_/id/50085799/week-4-highlights-best-plays-touchdowns-2026",
+   "published": "2026-10-05T01:38:36.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1726005_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "null",
    "source": "ESPN",
    "league": "NFL"
@@ -1141,6 +1141,15 @@
    "league": "NFL"
   },
   {
+   "headline": "NASCAR points standings, Cup Series points update after Las Vegas race, Chase picture",
+   "link": "https://sports.yahoo.com/articles/nascar-points-standings-cup-series-003319122.html",
+   "published": "2026-10-05T00:33:19.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/18b779bf6aefd28fdf41d4dba58d749f3d1898ebbb3f7a3151491416e775c086/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2F289a316bc807e8f230bb7e7d54735cf1.jpg",
+   "blurb": "Chase Briscoe inched closer to the NASCAR points lead after winning the South Point 400 on Oct. 4 at Las Vegas.",
+   "source": "YAHOO",
+   "league": "NASCAR"
+  },
+  {
    "headline": "Winners and Losers from the Denver Broncos\u2019 24-14 loss to the San Francisco 49ers",
    "link": "https://sports.yahoo.com/articles/winners-losers-denver-broncos-24-003241951.html",
    "published": "2026-10-05T00:32:41.000Z",
@@ -1148,6 +1157,24 @@
    "blurb": "Well, that sucked. The Denver Broncos started slow, suffered some tough injuries, did not have luck go their way, and could not complete the 4th quarter comeback vs. the 49ers. It was a tough game, but a winnable one for the Broncos that they let slip away late. They are now 2-2 ",
    "source": "YAHOO",
    "league": "NFL"
+  },
+  {
+   "headline": "Who won NASCAR Las Vegas race? Winner is Chase Briscoe plus full results",
+   "link": "https://sports.yahoo.com/articles/won-nascar-las-vegas-race-003105690.html",
+   "published": "2026-10-05T00:31:05.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/04ffd5e3800bdbd2d21d10611fed1b4057d408f4f56a76e85c774e05942ded4d/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2F01b9903cac6e53906f20c1a7d68496bd.jpg",
+   "blurb": "Who won the NASCAR Las Vegas race, plus full NASCAR Cup results from the South Point 400 on Oct. 4.",
+   "source": "YAHOO",
+   "league": "NASCAR"
+  },
+  {
+   "headline": "NASCAR Standings after Today: Cup Series The Chase Points Leaders Right Now",
+   "link": "https://sports.yahoo.com/articles/nascar-standings-today-cup-series-002608499.html",
+   "published": "2026-10-05T00:26:08.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/54962822d75bd32830c6cd25286125f9c0b601d1ba2373e137c8eb01504e5d6f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsportsnaut_articles_397%2F3d67c7ade977d58f9f4491e3e3adf6b8.jpg",
+   "blurb": "Sunday\u2019s South Point 400 at Las Vegas Motor Speedway marked the fifth race of The Chase. It means we\u2019re now [\u2026]",
+   "source": "YAHOO",
+   "league": "NASCAR"
   },
   {
    "headline": "Pistons' Jalen Duren happy to return despite prolonged talks",
@@ -1391,38 +1418,11 @@
    "blurb": "Matisse Thybulle says practice is sure to be tougher than games when he gets pushed by offensive savants Luka Doncic and Austin Reaves.",
    "source": "YAHOO",
    "league": "NBA"
-  },
-  {
-   "headline": "Kyle Connor scores a pair of power-play goals as Jets squeak past Red Wings 3-2",
-   "link": "http://www.espn.com/nhl/recap?gameId=401892442",
-   "published": "2026-10-04T19:52:31Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892442.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "\u2014 Kyle Connor scored two of Winnipeg's three power-play goals and added an assist on the third as the Jets held off the Detroit Red Wings 3-2 on Sunday.",
-   "league": "NHL"
-  },
-  {
-   "headline": "UConn picks up second five-star recruit as Page commits to Huskies",
-   "link": "https://www.espn.com/mens-college-basketball/story/_/id/50101146/jordan-page-picks-uconn-joins-bowman-five-stars-huskies",
-   "published": "2026-10-04T19:44:15.000Z",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2021%252F1207%252Fr948057_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Five-star wing Jordan Page announced his commitment to UConn men's basketball on Sunday, giving the Huskies their first recruiting class with two ESPN five-star prospects in at least 20 years.",
-   "source": "ESPN",
-   "league": "NCAAB"
-  },
-  {
-   "headline": "How to watch NASCAR in 2026: Weekly listings guide",
-   "link": "https://sports.yahoo.com/articles/watch-nascar-2026-weekly-listings-163201173.html",
-   "published": "2026-10-04T19:15:01.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/775aaa36ad903e34ad2f4d0204453a09905fb3c331060c9f53bf6b7ffee8dcf0/lightyear_networkapi/resizefill_w320_h170%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnascar.com%2F94d600e617a53b5716283501a802879f.jpg",
-   "blurb": "Ready to watch NASCAR in 2026 and want NASCAR TV and streaming programming this week? Here is this week&#92;&#92;&#92;\"s NASCAR broadcast schedule. All times listed are ET. HOW TO WATCH Key information: FOX, FS1, FS2 | Prime Video | TNT Sports | Max in-car cameras | NBC, USA | Th",
-   "source": "YAHOO",
-   "league": "NASCAR"
   }
  ],
  "source_mix": {
-  "ESPN": 55,
-  "YAHOO": 61,
+  "ESPN": 53,
+  "YAHOO": 63,
   "CBS": 38
  },
  "degraded_sources": []
