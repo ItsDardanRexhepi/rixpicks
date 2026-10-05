@@ -2349,6 +2349,11 @@ if _V2:
     # Wooder Ice guest tab (12:25 design-approved via main, scope settled 12:25:40): ALL Wooder NFL
     # guest content moves here from the NFL tab (slate+countdown, combos, tickets, Kincaid update, builders).
     # Shared data: same slates/*.json hydration, no divergent state. Dingers stays on the MLB tab.
+    # Oct 5: NFL tab shows only on days with NFL content - a card pick (tab already built above) OR a dated,
+    # non-empty slates/nfl_ideas.json (client-checked; the tab link ships hidden and is revealed only then).
+    # Keeps the 9/27 9:40:49 pick-days-only rule: no NFL content, no visible NFL tab.
+    _nfl_synth=not any(t['key']=='nfl' for t in RP_TABS)
+    if _nfl_synth: RP_TABS.append({'key':'nfl','label':'NFL','espn':'football/nfl'})
     RP_TABS.append({'key':'wooder','label':'Picks from Wooder Ice','espn':''})
 
     RP_TABS.append({'key':'past','label':'Past Tickets','espn':''})
@@ -2408,7 +2413,7 @@ if _V2:
     r'Array.prototype.forEach.call(bar.querySelectorAll("a"),function(a){a.onclick=function(ev){ev.preventDefault();FILT=a.getAttribute("data-f");barDraw();draw();};});}'
     r'fetch("slates/past_tickets.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){ALL=(j&&j.entries)||[];barDraw();draw();}).catch(function(){box.innerHTML="<div class=\"sub\">Archive unavailable right now.</div>";});'
     r'})();</script>')
-    _tabs_html=''.join('<a class="tab" data-tab="'+t['key']+'" href="#'+t['key']+'">'+html.escape(t['label'])+'</a>' for t in RP_TABS)
+    _tabs_html=''.join('<a class="tab"'+(' id="rpNflTab" style="display:none"' if (t['key']=='nfl' and _nfl_synth) else '')+' data-tab="'+t['key']+'" href="#'+t['key']+'">'+html.escape(t['label'])+'</a>' for t in RP_TABS)
     _home_pick_tabs={_tab_of_lg(p.get('espn_league',''))[0] for p in man['picks']}
     # The builder's zero-card defense stores its honest empty row under 'other'.
     # Render that row (including Yesterday) on Home. Any genuinely league-less picks
@@ -2478,10 +2483,52 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     r'})();</script>')
     mlb_entry=mlb_entry.replace('var VEN={};','var VEN='+json.dumps({k:[v[0],v[1],v[2],v[3]] for k,v in _DING_VENUES.items()},separators=(',',':'))+';')
 
+    # NFL ideas (Oct 5): client-hydrated from slates/nfl_ideas.json, same pattern and venue map as Dingers Only.
+    # Contract venues only (KAL/DKP), cents -> American by conversion, never an invented price, never a combo
+    # price. Hides (and keeps the tab hidden) on a missing, empty or wrong-date file. Not-placed ideas, no wagers.
+    nfl_ideas_entry=(
+    r'<div style="margin-top:6px">'
+    r'<div class="sect" style="margin-top:2px">NFL ideas</div>'
+    r'<div id="rpNflIdeas"></div>'
+    r'<div style="font-size:11px;color:#8a8f98;margin-top:10px;line-height:1.45">Ideas only, not placed. Prices are per leg from the venue named, as of the time shown, converted from cents to American. No combined price is quoted.</div>'
+    r'</div>'
+    r'<script>(function(){'
+    r'var box=document.getElementById("rpNflIdeas"),tab=document.getElementById("rpNflTab");if(!box)return;'
+    r'var VEN={};'
+    r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
+    r'function c2ml(c){c=+c;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}'
+    r'function ptDate(){try{return new Date().toLocaleDateString("en-CA",{timeZone:"America/Los_Angeles"});}catch(e){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}}'
+    r'function none(){box.innerHTML="<div class=\"sub\">No NFL ideas today.</div>";}'
+    r'fetch("slates/nfl_ideas.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
+    r'var cs=(j&&j.cards)||[];if(!cs.length||(j.date||"")!==ptDate()){none();return;}'
+    r'var h="";'
+    r'cs.slice(0,10).forEach(function(cd){'
+    r'if(!cd.title||!(cd.legs||[]).length)return;'
+    r'var lh="";'
+    r'cd.legs.slice(0,12).forEach(function(lg){'
+    r'if(!lg.player||!lg.market)return;'
+    r'var chips="";'
+    r'(lg.links||[]).forEach(function(l){var v=VEN[l.venue];if(!v||l.cents==null||!v[3])return;var c=+l.cents;if(!(c>0&&c<100))return;'
+    r'var ml=c2ml(c);var st="background:"+v[1]+";border-color:"+v[1]+";color:"+v[2]+";font-size:11px;padding:2px 10px";'
+    r'chips+=" <span class=\"chip\" style=\""+st+"\">"+esc(l.venue)+" "+(ml>0?"+":"")+ml+"</span>";});'
+    r'var un=(lg.unlisted||[]).length?"<span style=\"color:#8a8f98;font-size:11px;margin-left:6px\">Not listed on "+esc(lg.unlisted.join(", "))+"</span>":"";'
+    r'lh+="<div style=\"padding:6px 0;border-top:1px solid rgba(127,127,127,.18)\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+esc(lg.player)+"</b><span style=\"color:#8a8f98;font-size:12px\">"+esc(lg.market)+"</span></div>"'
+    r'+(lg.note?"<div style=\"font-size:11px;color:#8a8f98;margin-top:2px\">"+esc(lg.note)+"</div>":"")+"<div style=\"margin-top:4px\">"+chips+un+"</div></div>";});'
+    r'if(!lh)return;'
+    r'h+="<div class=\"rpnpick\" style=\"border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px;margin-top:10px\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+esc(cd.title)+"</b><span style=\"background:#2a2f36;color:#c9ced6;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px\">NOT PLACED</span></div>"'
+    r'+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(cd.matchup||"")+(cd.time?" &middot; "+esc(cd.time):"")+"</div>"+lh'
+    r'+(cd.asof?"<div style=\"font-size:11px;color:#8a8f98;margin-top:6px;line-height:1.4\">"+esc(cd.asof)+"</div>":"")'
+    r'+(cd.assumptions?"<div style=\"font-size:11px;color:#8a8f98;margin-top:4px;line-height:1.4\">"+esc(cd.assumptions)+"</div>":"")+"</div>";});'
+    r'if(!h){none();return;}'
+    r'box.innerHTML=h;if(tab)tab.style.display="";'
+    r'}).catch(none);'
+    r'})();</script>')
+    nfl_ideas_entry=nfl_ideas_entry.replace('var VEN={};','var VEN='+json.dumps({k:[v[0],v[1],v[2],v[3]] for k,v in _DING_VENUES.items()},separators=(',',':'))+';')
+
     for t in RP_TABS:
         if t['key']=='home': continue  # home projects the canonical league panels below
         _prows=''.join(_panels.get(t['key']) or [])
-        _body=(_prows if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
+        _body=((_prows+nfl_ideas_entry) if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
