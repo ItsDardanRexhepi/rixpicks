@@ -5,7 +5,7 @@
    "id": "t6",
    "title": "Soccer 3-leg",
    "matchup": "UEFA Nations League, Oct 5",
-   "time": "LIVE: kicked off 11:45 AM PT",
+   "time": "FINAL per ESPN (kicked off 11:45 AM PT)",
    "legs": [
     {
      "player": "Ousmane Dembele",
@@ -13,7 +13,7 @@
      "note": "Kalshi counts regulation, stoppage and extra time.",
      "links": [],
      "unlisted": [
-      "Kalshi (market inactive at 1:18 PM PT, no live ask)",
+      "Kalshi (market inactive at the 1:18 PM PT snapshot, no ask)",
       "DraftKings Predictions"
      ]
     },
@@ -23,7 +23,7 @@
      "note": "Changed from score-or-assist at Wooder Ice request: \"Dont skip it. Barcola any time goal.\" Kalshi counts regulation, stoppage and extra time.",
      "links": [],
      "unlisted": [
-      "Kalshi (market inactive at 1:18 PM PT, no live ask)",
+      "Kalshi (market inactive at the 1:18 PM PT snapshot, no ask)",
       "DraftKings Predictions"
      ]
     },
@@ -38,25 +38,20 @@
      ]
     }
    ],
-   "asof": "Live prices re-pulled 1:18 PM PT Oct 5. France v Belgium in the second half (ESPN: France 1, Belgium 0 at about 75 min). Two of three legs priced on Kalshi (live asks, converted from cents to American; tickers KXUEFANLGOAL-26OCT05FRABEL-FRAODEMBE10-1 and -FRABBARCO29-1). Gyokeres is unavailable on both venues. DraftKings Predictions has no goalscorer markets for these matches (moneyline only).",
+   "asof": "Final. France v Belgium: France 4, Belgium 1 (ESPN). Romania v Sweden: Romania 0, Sweden 1 (ESPN). No live prices: these matches are over. Historical snapshots: 12:15 PM PT first post, 1:18 PM PT re-pull (Dembele and Barcola Kalshi markets inactive then; Gyokeres unavailable on both venues; DraftKings Predictions has no goalscorer markets for these matches). Not graded here; scores only.",
    "assumptions": "Wooder Ice note: \"France is sitting some of the key guys. If I see Michael Olise get subbed in or Rayan Cherki get subbed in\u2026. I am def running a score or assist bet on them!\" This is commentary, not a lineup report."
   },
   {
    "id": "t7",
    "title": "Four over 2.5 total goals",
    "matchup": "UEFA Nations League, Oct 5",
-   "time": "LIVE: kicked off 11:45 AM PT",
+   "time": "FINAL per ESPN (kicked off 11:45 AM PT)",
    "legs": [
     {
      "player": "Romania v Sweden",
      "market": "Over 2.5 total goals",
-     "note": "Kalshi counts 90 minutes plus stoppage, no extra time.",
-     "links": [
-      {
-       "venue": "KAL",
-       "cents": 13
-      }
-     ],
+     "note": "Final per ESPN: Romania 0, Sweden 1. Historical snapshot at 1:18 PM PT, not current: KAL +669. Kalshi counts 90 minutes plus stoppage, no extra time.",
+     "links": [],
      "unlisted": [
       "DraftKings Predictions"
      ]
@@ -64,13 +59,8 @@
     {
      "player": "Montenegro v Armenia",
      "market": "Over 2.5 total goals",
-     "note": "Kalshi counts 90 minutes plus stoppage, no extra time.",
-     "links": [
-      {
-       "venue": "KAL",
-       "cents": 2
-      }
-     ],
+     "note": "Final per ESPN: Montenegro 0, Armenia 0. Historical snapshot at 1:18 PM PT, not current: KAL +4900. Kalshi counts 90 minutes plus stoppage, no extra time.",
+     "links": [],
      "unlisted": [
       "DraftKings Predictions"
      ]
@@ -78,29 +68,23 @@
     {
      "player": "Italy v Turkiye",
      "market": "Over 2.5 total goals",
-     "note": "Kalshi counts 90 minutes plus stoppage, no extra time.",
+     "note": "Final per ESPN: Italy 3, Turkiye 1. Historical snapshot at 1:18 PM PT, not current: Kalshi ask 100c. Kalshi counts 90 minutes plus stoppage, no extra time.",
      "links": [],
      "unlisted": [
-      "Kalshi (ask 100c, effectively settled: 3 goals scored per ESPN, Italy 2 Turkiye 1)",
       "DraftKings Predictions"
      ]
     },
     {
      "player": "France v Belgium",
      "market": "Over 2.5 total goals",
-     "note": "Kalshi counts 90 minutes plus stoppage, no extra time.",
-     "links": [
-      {
-       "venue": "KAL",
-       "cents": 23
-      }
-     ],
+     "note": "Final per ESPN: France 4, Belgium 1. Historical snapshot at 1:18 PM PT, not current: KAL +335. Kalshi counts 90 minutes plus stoppage, no extra time.",
+     "links": [],
      "unlisted": [
       "DraftKings Predictions"
      ]
     }
    ],
-   "asof": "Live prices re-pulled 1:18 PM PT Oct 5. All four kicked off 11:45 AM PT and were in the second half (about 75 min; ESPN scores: Romania 1, Sweden 0; Montenegro 0, Armenia 0; Italy 2, Turkiye 1; France 1, Belgium 0). Kalshi live asks (KXUEFANLTOTAL-26OCT05[ROUSWE|MNEARM|ITATUR|FRABEL]-3) converted from cents to American. Not listed on DraftKings Predictions (moneyline only)."
+   "asof": "Final. ESPN finals (checked 3:05 PM PT): France 4, Belgium 1; Romania 0, Sweden 1; Italy 3, Turkiye 1; Montenegro 0, Armenia 0. No live prices: these matches are over. Historical snapshots on each leg (1:18 PM PT re-pull; the 12:15 PM PT first post is superseded). Not listed on DraftKings Predictions (moneyline only). Scores only, not graded here."
   },
   {
    "id": "t8",
@@ -175,7 +159,7 @@
    "id": "t3",
    "title": "Montgomery HR single",
    "matchup": "CWS at CLE, Oct 5",
-   "time": "First pitch 2:00 PM PT",
+   "time": "Started 2:00 PM PT (ESPN at 3:05 PM PT: Cleveland 2, Chicago 0, bottom of the 3rd)",
    "legs": [
     {
      "player": "Colson Montgomery",
@@ -193,13 +177,13 @@
      "note": "Kalshi: must start and get a plate appearance, else fair price. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
     }
    ],
-   "asof": "Not placed. Single only, separate from the Montgomery plus Ramirez ticket and from the daily Ramirez/Rice card. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+   "asof": "Game started: prices below are the 12:23 PM PT pregame snapshot, not live. Not placed. Single only, separate from the Montgomery plus Ramirez ticket and from the daily Ramirez/Rice card. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
   },
   {
    "id": "t4",
    "title": "Dingers only: Montgomery + Ramirez HR (2 legs)",
    "matchup": "CWS at CLE, Oct 5",
-   "time": "First pitch 2:00 PM PT",
+   "time": "Started 2:00 PM PT (ESPN at 3:05 PM PT: Cleveland 2, Chicago 0, bottom of the 3rd)",
    "legs": [
     {
      "player": "Colson Montgomery",
@@ -232,7 +216,7 @@
      "note": "Same starter rule. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
     }
    ],
-   "asof": "Not placed. Two-leg dingers-only ticket, separate from the Montgomery single and from the daily Ramirez/Rice card. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+   "asof": "Game started: prices below are the 12:23 PM PT pregame snapshot, not live. Not placed. Two-leg dingers-only ticket, separate from the Montgomery single and from the daily Ramirez/Rice card. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
   },
   {
    "id": "t5",
@@ -307,7 +291,7 @@
    "id": "t2",
    "title": "CWS at CLE 8 legs: Montgomery HR plus 1+ hit each (mixed, not Dingers only)",
    "matchup": "CWS at CLE, Oct 5",
-   "time": "First pitch 2:00 PM PT",
+   "time": "Started 2:00 PM PT (ESPN at 3:05 PM PT: Cleveland 2, Chicago 0, bottom of the 3rd)",
    "legs": [
     {
      "player": "Colson Montgomery",
@@ -430,7 +414,7 @@
      "note": "Same starter rule. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
     }
    ],
-   "asof": "Not placed. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+   "asof": "Game started: prices below are the 12:23 PM PT pregame snapshot, not live. Not placed. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
   },
   {
    "id": "t1",
