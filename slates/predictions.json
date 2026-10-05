@@ -1,6 +1,13 @@
 {
- "generated_at": "2026-10-05T14:50:08.446550+00:00",
+ "generated_at": "2026-10-05T15:07:13.360564+00:00",
  "items": [
+  {
+   "id": "d97be2d950",
+   "league": "NBA",
+   "event": "Minnesota Timberwolves @ Milwaukee Bucks",
+   "prediction": "Milwaukee Bucks to beat Minnesota Timberwolves",
+   "kickoff_utc": "2026-10-06T00:00:00+00:00"
+  },
   {
    "id": "1382b5d824",
    "league": "NFL",
@@ -34,13 +41,6 @@
    "league": "CFB",
    "event": "Texas A&M Aggies @ Missouri Tigers",
    "prediction": "Missouri Tigers to beat Texas A&M Aggies",
-   "kickoff_utc": "2026-10-10T16:00:00+00:00"
-  },
-  {
-   "id": "03027e0ede",
-   "league": "CFB",
-   "event": "UCF Knights @ Oklahoma State Cowboys",
-   "prediction": "Oklahoma State Cowboys to beat UCF Knights",
    "kickoff_utc": "2026-10-10T16:00:00+00:00"
   }
  ]

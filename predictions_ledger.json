@@ -1503,5 +1503,18 @@
   "kickoff_utc": "2026-10-11T02:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T12:50:14.947231+00:00"
+ },
+ {
+  "id": "d97be2d950",
+  "event_id": "401914102",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Milwaukee Bucks",
+  "away": "Minnesota Timberwolves",
+  "pick_team": "Milwaukee Bucks",
+  "prediction": "Milwaukee Bucks to beat Minnesota Timberwolves",
+  "kickoff_utc": "2026-10-06T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T15:06:36.395920+00:00"
  }
 ]
