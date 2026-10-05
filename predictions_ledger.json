@@ -1334,5 +1334,31 @@
   "kickoff_utc": "2026-10-10T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T04:52:06.477553+00:00"
+ },
+ {
+  "id": "6feb607ac7",
+  "event_id": "401858484",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Oregon Ducks",
+  "away": "UCLA Bruins",
+  "pick_team": "Oregon Ducks",
+  "prediction": "Oregon Ducks to beat UCLA Bruins",
+  "kickoff_utc": "2026-10-10T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T05:22:48.879456+00:00"
+ },
+ {
+  "id": "93e30d6f15",
+  "event_id": "401858485",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Penn State Nittany Lions",
+  "away": "USC Trojans",
+  "pick_team": "USC Trojans",
+  "prediction": "USC Trojans to beat Penn State Nittany Lions",
+  "kickoff_utc": "2026-10-10T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T05:23:43.802698+00:00"
  }
 ]
