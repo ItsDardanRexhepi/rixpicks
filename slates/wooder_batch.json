@@ -10,7 +10,7 @@
     {
      "player": "Ousmane Dembele",
      "market": "Anytime goal, France v Belgium",
-     "note": "Kalshi counts regulation, stoppage and extra time.",
+     "note": "Did not score per ESPN (France 4, Belgium 1; France scorers per ESPN: Doue, Cherki, Olise 2). Kalshi counts regulation, stoppage and extra time.",
      "links": [],
      "unlisted": [
       "Kalshi (market inactive at the 1:18 PM PT snapshot, no ask)",
@@ -20,7 +20,7 @@
     {
      "player": "Bradley Barcola",
      "market": "Anytime goal, France v Belgium",
-     "note": "Changed from score-or-assist at Wooder Ice request: \"Dont skip it. Barcola any time goal.\" Kalshi counts regulation, stoppage and extra time.",
+     "note": "Did not score per ESPN (France 4, Belgium 1; France scorers per ESPN: Doue, Cherki, Olise 2). Changed from score-or-assist at Wooder Ice request: \"Dont skip it. Barcola any time goal.\" Kalshi counts regulation, stoppage and extra time.",
      "links": [],
      "unlisted": [
       "Kalshi (market inactive at the 1:18 PM PT snapshot, no ask)",
@@ -30,15 +30,15 @@
     {
      "player": "Viktor Gyokeres",
      "market": "Anytime goal, Romania v Sweden",
-     "note": "Wooder Ice request: \"And Gyokeres any time goal.\" Unavailable: no Gyokeres market on either venue, shown here rather than dropped.",
+     "note": "Scored per ESPN: Viktor Gyokeres, 13' (Romania 0, Sweden 1 at full time). Wooder Ice request: \"And Gyokeres any time goal.\" At the 1:18 PM PT snapshot no Gyokeres market was listed on either venue (historical).",
      "links": [],
      "unlisted": [
-      "Kalshi",
-      "DraftKings Predictions"
+      "Kalshi (no market at the 1:18 PM PT snapshot)",
+      "DraftKings Predictions (no market at the snapshot)"
      ]
     }
    ],
-   "asof": "Final. France v Belgium: France 4, Belgium 1 (ESPN). Romania v Sweden: Romania 0, Sweden 1 (ESPN). No live prices: these matches are over. Historical snapshots: 12:15 PM PT first post, 1:18 PM PT re-pull (Dembele and Barcola Kalshi markets inactive then; Gyokeres unavailable on both venues; DraftKings Predictions has no goalscorer markets for these matches). Not graded here; scores only.",
+   "asof": "Final. France v Belgium: France 4, Belgium 1 (ESPN). Romania v Sweden: Romania 0, Sweden 1 (ESPN). Leg results are scorer facts from the ESPN match summaries: Dembele no, Barcola no, Gyokeres yes (13'). No live prices: these matches are over. Historical snapshots: 12:15 PM PT first post, 1:18 PM PT re-pull (Dembele and Barcola Kalshi markets inactive then; DraftKings Predictions has no goalscorer markets for these matches). Scores only, nothing graded or settled here.",
    "assumptions": "Wooder Ice note: \"France is sitting some of the key guys. If I see Michael Olise get subbed in or Rayan Cherki get subbed in\u2026. I am def running a score or assist bet on them!\" This is commentary, not a lineup report."
   },
   {
@@ -90,7 +90,7 @@
    "id": "t8",
    "title": "PLACED - reported by Wooder Ice: NHL 4 anytime goals",
    "matchup": "Hagel PHI@TB, Batherson OTT@BOS, Connor WPG@PIT, Hintz SJ@DAL",
-   "time": "DKP lists 4:10, 4:40, 4:40, 5:10 PM PT (ESPN scheduled 4:00, 4:30, 4:30, 5:00)",
+   "time": "Started per ESPN at 4:08 PM PT: PHI at TB in progress (1st period, 0-0); OTT at BOS, WPG at PIT, SJ at DAL scheduled 4:30, 4:30, 5:00 PM PT",
    "legs": [
     {
      "player": "Brandon Hagel",
@@ -153,7 +153,7 @@
      "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
     }
    ],
-   "asof": "Placed as reported by Wooder Ice, not a verified fill. No games started at post time (ESPN: scheduled). Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+   "asof": "Snapshot, not live: prices below are the 12:23 PM PT pregame snapshot and are historical. Placed as reported by Wooder Ice, not a verified fill. No games started at post time (ESPN: scheduled). Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
   },
   {
    "id": "t3",
@@ -222,7 +222,7 @@
    "id": "t5",
    "title": "NHL 4 anytime goals",
    "matchup": "Kucherov PHI@TB, Pastrnak OTT@BOS, Connor WPG@PIT, Johnston SJ@DAL",
-   "time": "DKP lists 4:10, 4:40, 4:40, 5:10 PM PT (ESPN scheduled 4:00, 4:30, 4:30, 5:00)",
+   "time": "Started per ESPN at 4:08 PM PT: PHI at TB in progress (1st period, 0-0); OTT at BOS, WPG at PIT, SJ at DAL scheduled 4:30, 4:30, 5:00 PM PT",
    "legs": [
     {
      "player": "Nikita Kucherov",
@@ -285,7 +285,7 @@
      "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
     }
    ],
-   "asof": "Not placed. No games started at post time. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+   "asof": "Snapshot, not live: prices below are the 12:23 PM PT pregame snapshot and are historical. Not placed. No games started at post time. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
   },
   {
    "id": "t2",
@@ -420,7 +420,7 @@
    "id": "t1",
    "title": "NBA preseason 5 legs",
    "matchup": "Spreads are 'wins by over 1.5'; Timberwolves moneyline",
-   "time": "Tip-offs 4:00 PM (PHX-DET, MEM-ATL, NYK-PHI), 5:00 PM (MIN-MIL), 7:00 PM PT (LAL-SAC) per ESPN",
+   "time": "ESPN at 4:08 PM PT: all five games still Scheduled (listed tips 4:00 PM PT for three, 5:00 and 7:00 PM PT for the others)",
    "legs": [
     {
      "player": "Pistons -1.5 vs PHX",
@@ -498,7 +498,7 @@
      "note": "Kalshi: Minnesota wins. DKP rule read: wins the game incl. overtime, official result."
     }
    ],
-   "asof": "Not placed. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+   "asof": "Snapshot, not live: prices below are the 12:23 PM PT pregame snapshot. Not placed. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
   }
  ]
 }
