@@ -580,6 +580,35 @@
           "day_units_to": "+3.79u"
         }
       ]
+    },
+    {
+      "date": "2026-10-04",
+      "label": "Sunday, Oct 4",
+      "record": "2-0",
+      "units": "+7.00u",
+      "brief": "",
+      "picks": [
+        {
+          "name": "Dream ML",
+          "game": "vs Liberty",
+          "odds": "-163",
+          "units": "5u",
+          "result": "W",
+          "score": "NY 82, ATL 92",
+          "_delta": "3.067484662576687",
+          "learning": "Owner-directed, sub-bar: the morning fair was 65% vs a 62c Kalshi price, net about 1.35c, under the 2c bar. Won: NY 82 @ ATL 92."
+        },
+        {
+          "name": "Brewers ML",
+          "game": "vs Padres",
+          "odds": "-127",
+          "units": "5u",
+          "result": "W",
+          "score": "SD 3, MIL 4",
+          "_delta": "3.937007874015748",
+          "learning": "Owner-directed, posted under a one-day suspension of the 60c band: the morning fair was 59.4%, just under the band. Won: SD 3 @ MIL 4."
+        }
+      ]
     }
   ]
 }
