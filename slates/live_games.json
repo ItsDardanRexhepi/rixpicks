@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T23:35:13.349796+00:00",
+ "generated_at": "2026-10-05T23:50:12.899355+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "CHW @ CLE",
      "commence": "2026-10-05T21:00Z",
      "status": "in",
-     "detail": "Mid 7th",
+     "detail": "Bot 8th",
      "score": "CHW 4 - CLE 2"
     },
     {
@@ -44,28 +44,28 @@
      "matchup": "MEM @ ATL",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "2:32 - 1st",
-     "score": "MEM 24 - ATL 27",
+     "detail": "9:20 - 2nd",
+     "score": "MEM 48 - ATL 43",
      "away_to": 6,
-     "home_to": 6
+     "home_to": 5
     },
     {
      "espn_event_id": "401908947",
      "matchup": "PHX @ DET",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "4:05 - 1st",
-     "score": "PHX 21 - DET 14",
+     "detail": "11:29 - 2nd",
+     "score": "PHX 35 - DET 21",
      "away_to": 7,
-     "home_to": 7
+     "home_to": 5
     },
     {
      "espn_event_id": "401914101",
      "matchup": "NY @ PHI",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "1:14 - 1st",
-     "score": "NY 30 - PHI 26",
+     "detail": "7:51 - 2nd",
+     "score": "NY 42 - PHI 46",
      "away_to": 6,
      "home_to": 6
     },
@@ -87,8 +87,28 @@
      "matchup": "PHI @ TB",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "5:51 - 1st",
-     "score": "PHI 0 - TB 0",
+     "detail": "End of 1st",
+     "score": "PHI 0 - TB 1",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892446",
+     "matchup": "OTT @ BOS",
+     "commence": "2026-10-05T23:30Z",
+     "status": "in",
+     "detail": "15:10 - 1st",
+     "score": "OTT 0 - BOS 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892447",
+     "matchup": "WPG @ PIT",
+     "commence": "2026-10-05T23:30Z",
+     "status": "in",
+     "detail": "15:37 - 1st",
+     "score": "WPG 0 - PIT 0",
      "away_to": null,
      "home_to": null
     },
