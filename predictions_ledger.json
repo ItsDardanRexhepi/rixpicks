@@ -1607,5 +1607,18 @@
   "kickoff_utc": "2026-10-06T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T16:20:22.196977+00:00"
+ },
+ {
+  "id": "4bae28357a",
+  "event_id": "401918298",
+  "league": "WNBA",
+  "path": "basketball/wnba",
+  "home": "Golden State Valkyries",
+  "away": "Las Vegas Aces",
+  "pick_team": "Las Vegas Aces",
+  "prediction": "Las Vegas Aces to beat Golden State Valkyries",
+  "kickoff_utc": "2026-10-08T01:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T16:35:34.825034+00:00"
  }
 ]
