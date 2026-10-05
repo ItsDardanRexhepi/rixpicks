@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-05T16:31:24.409Z",
+ "generated_at": "2026-10-05T16:36:03.544Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -187,6 +187,24 @@
   ],
   "football/college-football": [
    {
+    "headline": "College football overreactions after Week 5: Mike Norvell\u2019s hot seat is cooling",
+    "link": "https://sports.yahoo.com/articles/college-football-overreactions-week-5-162947672.html",
+    "published": "2026-10-05T16:29:47.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/ebb0da299f3acfcc93a04ad9d6cd9316c529d555e6adaed47261984a2817616a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2Ffba81198edd84ca64b1d6e53f0ee0a1b.jpg",
+    "blurb": "Mike Norvell suddenly has FSU playing like a real football team.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "College Football Power Rankings: Ohio State up to No. 2 after Jeremiah Smith's historic day, Florida falls",
+    "link": "https://www.cbssports.com/college-football/news/college-football-power-rankings-ohio-state-florida/",
+    "published": "2026-10-05T16:27:02.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F05%2F0abee052-7739-4e11-8b7b-34f279ebe2f0%2Fohio-state-power.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Missouri surges, Florida tumbles and only 15 undefeated teams remain after a chaotic weekend that cleared the way for Ohio State to climb to No. 2",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
     "headline": "Jamal Roberts gives massive compliment to Mizzou O-line",
     "link": "https://www.espn.com/video/clip/_/id/50110065/jamal-roberts-gives-massive-compliment-mizzou-o-line",
     "published": "2026-10-05T16:06:18Z",
@@ -196,11 +214,11 @@
     "league": "CFB"
    },
    {
-    "headline": "SI gives Oklahoma an interesting matchup in latest bowl projections",
-    "link": "https://sports.yahoo.com/articles/si-gives-oklahoma-interesting-matchup-160137846.html",
-    "published": "2026-10-05T16:01:37.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/dc8079ddd1f01fea656a5ebe516c0c2b8abab5d7fbeb6579f629d48202d48032/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsooners_wire_usa_today_articles_466%2F59000ea788885334eea4d20fc9a21224.jpg",
-    "blurb": "Sports Illustrated gives Sooners an intriguing matchup in new bowl picks.",
+    "headline": "What Josh Heupel said about Tennessee football starting quarterback vs Arkansas",
+    "link": "https://sports.yahoo.com/articles/josh-heupel-said-tennessee-football-162319304.html",
+    "published": "2026-10-05T16:23:19.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/fd215a58e7710c472ffbd5caf18ebdbb239a3902f5076c81afaff2d45ffc1aac/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2Fde9d03907a6cbada67ef03a5a8d31a87.jpg",
+    "blurb": "Josh Heupel was asked about Tennessee's starting quarterback vs. Arkansas. Here's what Heupel said at his weekly press conference on Oct. 5.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -223,11 +241,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Stock Up, Stock Down (10.5.26)",
-    "link": "https://sports.yahoo.com/articles/stock-stock-down-10-5-160100436.html",
-    "published": "2026-10-05T16:01:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/dfbf83d870c3599a29aa106a2a1c3bbe2606d7b663e563813cd61ed1423a9d3e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6ea0346921c2873e35fa7e20e2afd7cd.jpg",
-    "blurb": "STOCK UP Jeremiah Smith In a college football world where it doesn\u2019t feel like any one team is head and shoulders above everyone else, that doesn\u2019t necessarily seem to be the case when it comes to the individual players because what Jeremiah Smith is doing right now is ridiculous",
+    "headline": "SI gives Oklahoma an interesting matchup in latest bowl projections",
+    "link": "https://sports.yahoo.com/articles/si-gives-oklahoma-interesting-matchup-160137846.html",
+    "published": "2026-10-05T16:01:37.000Z",
+    "image": "",
+    "blurb": "Sports Illustrated gives Sooners an intriguing matchup in new bowl picks.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,30 +268,12 @@
     "league": "CFB"
    },
    {
-    "headline": "PAC-12 Power Rankings: Week 5",
-    "link": "https://sports.yahoo.com/articles/pac-12-power-rankings-week-160000276.html",
-    "published": "2026-10-05T16:00:00.000Z",
+    "headline": "Stock Up, Stock Down (10.5.26)",
+    "link": "https://sports.yahoo.com/articles/stock-stock-down-10-5-160100436.html",
+    "published": "2026-10-05T16:01:00.000Z",
     "image": "",
-    "blurb": "Did the first week of conference play cause a shake up in the power rankings?",
+    "blurb": "STOCK UP Jeremiah Smith In a college football world where it doesn\u2019t feel like any one team is head and shoulders above everyone else, that doesn\u2019t necessarily seem to be the case when it comes to the individual players because what Jeremiah Smith is doing right now is ridiculous",
     "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
-    "headline": "CBS Sports 138: Alabama joins Texas, Georgia in top four as SEC teams headline college football rankings",
-    "link": "https://www.cbssports.com/college-football/news/cbs-sports-138-college-football-rankings-alabama-sec-teams/",
-    "published": "2026-10-05T13:59:39.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F05%2F33d187b2-8a77-428c-a205-c43cec2903b7%2Falabama-138.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The SEC claims three of the top four spots, while a massive logjam complicates the middle of our comprehensive FBS rankings",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "Sooners questioning QB Mateer ahead of showdown vs. No. 1 Horns",
-    "link": "https://www.espn.com/college-football/story/_/id/50102462/oklahoma-questioning-qb-john-mateer-ahead-showdown-vs-texas",
-    "published": "2026-10-05T15:48:06.000Z",
-    "image": "",
-    "blurb": "Starting QB John Mateer's stock has plummeted with six turnovers in three games, leaving Oklahoma with questions prior to its showdown vs. No. 1 Texas.",
-    "source": "ESPN",
     "league": "CFB"
    }
   ],
@@ -660,10 +660,10 @@
    {
     "headline": "NWSL Power Rankings: San Diego clinches playoff spot, leapfrogs Gotham at No. 1",
     "link": "https://www.espn.com/soccer/story/_/id/50109186/nwsl-power-rankings-san-diego-wave-clinch-playoff-spot-leapfrogs-nj-ny-gotham-fc-no-1",
-    "published": "2026-10-05T15:11:36Z",
+    "published": "2026-10-05T16:17:55Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1005%2Fr1726353_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The San Diego Wave have clinched their postseason place, and how did they celebrate? By going top of this week's edition of ESPN's NWSL Power Rankings",
+    "blurb": "The San Diego Wave have clinched their postseason place, and how did they celebrate? By topping this week's edition of ESPN's NWSL Power Rankings.",
     "league": "NWSL"
    },
    {
@@ -1095,6 +1095,33 @@
    "league": "NHL"
   },
   {
+   "headline": "College football overreactions after Week 5: Mike Norvell\u2019s hot seat is cooling",
+   "link": "https://sports.yahoo.com/articles/college-football-overreactions-week-5-162947672.html",
+   "published": "2026-10-05T16:29:47.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/ebb0da299f3acfcc93a04ad9d6cd9316c529d555e6adaed47261984a2817616a/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2Ffba81198edd84ca64b1d6e53f0ee0a1b.jpg",
+   "blurb": "Mike Norvell suddenly has FSU playing like a real football team.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "College Football Power Rankings: Ohio State up to No. 2 after Jeremiah Smith's historic day, Florida falls",
+   "link": "https://www.cbssports.com/college-football/news/college-football-power-rankings-ohio-state-florida/",
+   "published": "2026-10-05T16:27:02.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F05%2F0abee052-7739-4e11-8b7b-34f279ebe2f0%2Fohio-state-power.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Missouri surges, Florida tumbles and only 15 undefeated teams remain after a chaotic weekend that cleared the way for Ohio State to climb to No. 2",
+   "source": "CBS",
+   "league": "CFB"
+  },
+  {
+   "headline": "What Josh Heupel said about Tennessee football starting quarterback vs Arkansas",
+   "link": "https://sports.yahoo.com/articles/josh-heupel-said-tennessee-football-162319304.html",
+   "published": "2026-10-05T16:23:19.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/fd215a58e7710c472ffbd5caf18ebdbb239a3902f5076c81afaff2d45ffc1aac/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2Fde9d03907a6cbada67ef03a5a8d31a87.jpg",
+   "blurb": "Josh Heupel was asked about Tennessee's starting quarterback vs. Arkansas. Here's what Heupel said at his weekly press conference on Oct. 5.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
    "headline": "Broncos WR Pat Bryant suffered a sprained ankle and will miss a \u201cfew weeks\u201d",
    "link": "https://sports.yahoo.com/articles/broncos-wr-pat-bryant-suffered-162027272.html",
    "published": "2026-10-05T16:20:27.000Z",
@@ -1111,6 +1138,15 @@
    "blurb": "Pittsburgh adds a veteran defensive back.",
    "source": "YAHOO",
    "league": "NFL"
+  },
+  {
+   "headline": "NWSL Power Rankings: San Diego clinches playoff spot, leapfrogs Gotham at No. 1",
+   "link": "https://www.espn.com/soccer/story/_/id/50109186/nwsl-power-rankings-san-diego-wave-clinch-playoff-spot-leapfrogs-nj-ny-gotham-fc-no-1",
+   "published": "2026-10-05T16:17:55Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1005%2Fr1726353_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The San Diego Wave have clinched their postseason place, and how did they celebrate? By topping this week's edition of ESPN's NWSL Power Rankings.",
+   "league": "NWSL"
   },
   {
    "headline": "Evgeni Malkin responds to Alex Ovechkin\u2019s retirement announcment",
@@ -1165,24 +1201,6 @@
    "blurb": "What obstacles does the Protect College Sports Act face to become law? Time is a big one.",
    "source": "ESPN",
    "league": "NCAAB"
-  },
-  {
-   "headline": "SI gives Oklahoma an interesting matchup in latest bowl projections",
-   "link": "https://sports.yahoo.com/articles/si-gives-oklahoma-interesting-matchup-160137846.html",
-   "published": "2026-10-05T16:01:37.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/dc8079ddd1f01fea656a5ebe516c0c2b8abab5d7fbeb6579f629d48202d48032/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsooners_wire_usa_today_articles_466%2F59000ea788885334eea4d20fc9a21224.jpg",
-   "blurb": "Sports Illustrated gives Sooners an intriguing matchup in new bowl picks.",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
-   "headline": "Stock Up, Stock Down (10.5.26)",
-   "link": "https://sports.yahoo.com/articles/stock-stock-down-10-5-160100436.html",
-   "published": "2026-10-05T16:01:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/dfbf83d870c3599a29aa106a2a1c3bbe2606d7b663e563813cd61ed1423a9d3e/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6ea0346921c2873e35fa7e20e2afd7cd.jpg",
-   "blurb": "STOCK UP Jeremiah Smith In a college football world where it doesn\u2019t feel like any one team is head and shoulders above everyone else, that doesn\u2019t necessarily seem to be the case when it comes to the individual players because what Jeremiah Smith is doing right now is ridiculous",
-   "source": "YAHOO",
-   "league": "CFB"
   },
   {
    "headline": "A journey through the Mississippi town that produced Kamario Taylor",
@@ -1311,15 +1329,6 @@
    "league": "MLB"
   },
   {
-   "headline": "NWSL Power Rankings: San Diego clinches playoff spot, leapfrogs Gotham at No. 1",
-   "link": "https://www.espn.com/soccer/story/_/id/50109186/nwsl-power-rankings-san-diego-wave-clinch-playoff-spot-leapfrogs-nj-ny-gotham-fc-no-1",
-   "published": "2026-10-05T15:11:36Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1005%2Fr1726353_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The San Diego Wave have clinched their postseason place, and how did they celebrate? By going top of this week's edition of ESPN's NWSL Power Rankings",
-   "league": "NWSL"
-  },
-  {
    "headline": "2026 MLB playoff bracket: Schedule, scores, where to watch with Division Series underway",
    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
    "published": "2026-10-05T15:07:34.000Z",
@@ -1363,15 +1372,6 @@
    "blurb": "In the era of the long ball, the Rays want to win with something a little closer to home.",
    "source": "ESPN",
    "league": "MLB"
-  },
-  {
-   "headline": "What's wrong with Washington? Tougher schedule, pedestrian QB play have Huskies off to disappointing start",
-   "link": "https://www.cbssports.com/college-football/news/washington-analysis-jedd-fisch-demond-williams-jr-big-ten/",
-   "published": "2026-10-05T14:50:28.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fdcf69f78-b545-4d83-b2fb-f7941faddd2a%2Fgettyimages-2241878651-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Huskies have faltered after leaving the 2025 season with serious momentum",
-   "source": "CBS",
-   "league": "CFB"
   },
   {
    "headline": "Legend who cornered King Green at UFC 332 OK with Herb Dean's stoppage",
@@ -1420,8 +1420,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 53,
-  "YAHOO": 63,
+  "ESPN": 52,
+  "YAHOO": 64,
   "CBS": 38
  },
  "degraded_sources": []
