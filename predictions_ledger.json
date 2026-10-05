@@ -1209,8 +1209,9 @@
   "pick_team": "Los Angeles Dodgers",
   "prediction": "Los Angeles Dodgers to beat Atlanta Braves",
   "kickoff_utc": "2026-10-05T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-04T15:50:25.642364+00:00"
+  "status": "miss",
+  "created_at": "2026-10-04T15:50:25.642364+00:00",
+  "settled_at": "2026-10-05T03:34:54.257317+00:00"
  },
  {
   "id": "0060d9301a",
