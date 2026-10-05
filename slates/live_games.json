@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T22:05:23.543107+00:00",
+ "generated_at": "2026-10-05T22:20:08.978436+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "CHW @ CLE",
      "commence": "2026-10-05T21:00Z",
      "status": "in",
-     "detail": "Bot 3rd",
-     "score": "CHW 0 - CLE 2"
+     "detail": "Top 4th",
+     "score": "CHW 1 - CLE 2"
     },
     {
      "espn_event_id": "401907986",
@@ -20,6 +20,19 @@
      "status": "pre",
      "detail": "10/5 - 5:00 PM PT",
      "score": "NYY 0 - TB 0"
+    }
+   ]
+  },
+  {
+   "league": "NFL",
+   "games": [
+    {
+     "espn_event_id": "401872979",
+     "matchup": "ATL @ NO",
+     "commence": "2026-10-06T00:15Z",
+     "status": "pre",
+     "detail": "10/5 - 5:15 PM PT",
+     "score": "ATL 0 - NO 0"
     }
    ]
   },
