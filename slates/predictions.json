@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-05T09:51:17.974389+00:00",
+ "generated_at": "2026-10-05T10:05:30.710595+00:00",
  "items": [
   {
    "id": "1382b5d824",
@@ -23,6 +23,13 @@
    "kickoff_utc": "2026-10-10T01:00:00+00:00"
   },
   {
+   "id": "a933b5fae0",
+   "league": "CFB",
+   "event": "Iowa State Cyclones @ BYU Cougars",
+   "prediction": "BYU Cougars to beat Iowa State Cyclones",
+   "kickoff_utc": "2026-10-10T02:15:00+00:00"
+  },
+  {
    "id": "0877588209",
    "league": "CFB",
    "event": "Texas A&M Aggies @ Missouri Tigers",
@@ -34,13 +41,6 @@
    "league": "CFB",
    "event": "UCF Knights @ Oklahoma State Cowboys",
    "prediction": "Oklahoma State Cowboys to beat UCF Knights",
-   "kickoff_utc": "2026-10-10T16:00:00+00:00"
-  },
-  {
-   "id": "8f374da414",
-   "league": "CFB",
-   "event": "North Carolina Tar Heels @ Pittsburgh Panthers",
-   "prediction": "North Carolina Tar Heels to beat Pittsburgh Panthers",
    "kickoff_utc": "2026-10-10T16:00:00+00:00"
   }
  ]
