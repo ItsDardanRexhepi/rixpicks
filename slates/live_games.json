@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T07:20:17.858680+00:00",
+ "generated_at": "2026-10-05T07:35:10.897498+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -66,7 +66,7 @@
      "matchup": "Bernard Tomic @ Terence Atmane",
      "commence": "2026-10-05T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Bernard Tomic 0 - Terence Atmane 0"
     },
     {
@@ -74,7 +74,7 @@
      "matchup": "Ilia Simakin @ Luka Pavlovic",
      "commence": "2026-10-05T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Ilia Simakin 0 - Luka Pavlovic 0"
     },
     {
@@ -82,7 +82,7 @@
      "matchup": "Federico Agustin Gomez @ Michael Zheng",
      "commence": "2026-10-05T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Federico Agustin Gomez 0 - Michael Zheng 0"
     },
     {
@@ -100,6 +100,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Te Rigele 0 - Adam Walton 0"
+    },
+    {
+     "espn_event_id": "186310",
+     "matchup": "Rei Sakamoto @ SeongChan Hong",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Rei Sakamoto 0 - SeongChan Hong 0"
     }
    ]
   }
