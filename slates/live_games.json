@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T01:05:13.138741+00:00",
+ "generated_at": "2026-10-05T01:20:13.474106+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "ATL @ LAD",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "Bot 3rd",
+     "detail": "Top 4th",
      "score": "ATL 1 - LAD 0"
     }
    ]
@@ -23,9 +23,9 @@
      "matchup": "DET @ CAR",
      "commence": "2026-10-05T00:20Z",
      "status": "in",
-     "detail": "13:45 - 2nd",
-     "score": "DET 3 - CAR 7",
-     "away_to": 2,
+     "detail": "8:08 - 2nd",
+     "score": "DET 6 - CAR 13",
+     "away_to": 1,
      "home_to": 3
     }
    ]
@@ -38,20 +38,20 @@
      "matchup": "UTAH @ DEN",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "10:16 - 4th",
-     "score": "UTAH 91 - DEN 80",
+     "detail": "3:46 - 4th",
+     "score": "UTAH 102 - DEN 89",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401918010",
      "matchup": "GS @ LAC",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "9:11 - 4th",
-     "score": "GS 82 - LAC 79",
-     "away_to": 4,
-     "home_to": 3
+     "detail": "3:57 - 4th",
+     "score": "GS 92 - LAC 91",
+     "away_to": 3,
+     "home_to": 2
     }
    ]
   },
@@ -71,8 +71,8 @@
      "matchup": "FLA @ ANA",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "End of 1st",
-     "score": "FLA 1 - ANA 1",
+     "detail": "13:59 - 2nd",
+     "score": "FLA 1 - ANA 2",
      "away_to": null,
      "home_to": null
     },
@@ -81,7 +81,7 @@
      "matchup": "CGY @ SEA",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "14:57 - 2nd",
      "score": "CGY 0 - SEA 3",
      "away_to": null,
      "home_to": null
@@ -91,7 +91,7 @@
      "matchup": "VGK @ VAN",
      "commence": "2026-10-05T01:00Z",
      "status": "in",
-     "detail": "20:00 - 1st",
+     "detail": "13:08 - 1st",
      "score": "VGK 0 - VAN 0",
      "away_to": null,
      "home_to": null
