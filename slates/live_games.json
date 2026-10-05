@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T19:20:50.460558+00:00",
+ "generated_at": "2026-10-05T21:25:47.434280+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,9 +9,51 @@
      "espn_event_id": "401907991",
      "matchup": "CHW @ CLE",
      "commence": "2026-10-05T21:00Z",
-     "status": "pre",
-     "detail": "10/5 - 2:00 PM PT",
+     "status": "in",
+     "detail": "Bot 1st",
      "score": "CHW 0 - CLE 0"
+    }
+   ]
+  },
+  {
+   "league": "NBA",
+   "games": [
+    {
+     "espn_event_id": "401898388",
+     "matchup": "MEM @ ATL",
+     "commence": "2026-10-05T23:00Z",
+     "status": "pre",
+     "detail": "10/5 - 4:00 PM PT",
+     "score": "MEM 0 - ATL 0"
+    },
+    {
+     "espn_event_id": "401908947",
+     "matchup": "PHX @ DET",
+     "commence": "2026-10-05T23:00Z",
+     "status": "pre",
+     "detail": "10/5 - 4:00 PM PT",
+     "score": "PHX 0 - DET 0"
+    },
+    {
+     "espn_event_id": "401914101",
+     "matchup": "NY @ PHI",
+     "commence": "2026-10-05T23:00Z",
+     "status": "pre",
+     "detail": "10/5 - 4:00 PM PT",
+     "score": "NY 0 - PHI 0"
+    }
+   ]
+  },
+  {
+   "league": "NHL",
+   "games": [
+    {
+     "espn_event_id": "401892445",
+     "matchup": "PHI @ TB",
+     "commence": "2026-10-05T23:00Z",
+     "status": "pre",
+     "detail": "10/5 - 4:00 PM PT",
+     "score": "PHI 0 - TB 0"
     }
    ]
   }
