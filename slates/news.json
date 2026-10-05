@@ -1,7 +1,25 @@
 {
- "generated_at": "2026-10-04T23:55:56.917Z",
+ "generated_at": "2026-10-05T00:01:23.767Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Jackson Chourio walk-off single lifts Brewers to 2-0 NLDS edge",
+    "link": "https://www.espn.com/mlb/story/_/id/50105344/jackson-chourio-walk-single-lifts-brewers-2-0-nlds-edge",
+    "published": "2026-10-04T23:59:16Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1004%2Fr1726105_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Jackson Chourio hit a two-run single off Padres closer Mason Miller with two outs in the ninth inning as the Brewers rallied past the Padres for a 2-0 NLDS lead.",
+    "league": "MLB"
+   },
+   {
+    "headline": "NLDS Game 2 winners and losers: Brewers magic strikes again in walk-off win; Mason Miller implodes",
+    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-nlds-game-2-winners-losers/",
+    "published": "2026-10-04T23:57:11.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fac1effed-5e05-4fc8-9782-7dd7b2896c13%2Fchourio-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Milwaukee worked three walks against the Padres closer in the ninth inning before Jackson Chourio called game",
+    "source": "CBS",
+    "league": "MLB"
+   },
    {
     "headline": "NL Division Series Game Discussion: Braves vs Dodgers Sunday Night",
     "link": "https://sports.yahoo.com/articles/nl-division-series-game-discussion-235000761.html",
@@ -9,15 +27,6 @@
     "image": "https://s.yimg.com/lo/mysterio/api/af1544cc5ee20ac606e44bab1b421b56c73c3c7053448fc8a83344d2cb094608/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F4562e5a8b9311a8f6566872f153b50ea.jpg",
     "blurb": "It\u2019s game 2 between the Atlanta Braves and Los Angeles Dodgers Sunday night in LA. Blake Snell gets the start for the billionaires Dodgers while the Braves have yet to announce their starter. First pitch scheduled for 7pm central time and the game broadcast will be available via ",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "NLDS Game 2 winners and losers: Brewers magic strikes again in walk-off win; Mason Miller implodes",
-    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-nlds-game-2-winners-losers/",
-    "published": "2026-10-04T23:38:19.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fac1effed-5e05-4fc8-9782-7dd7b2896c13%2Fchourio-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Milwaukee worked three walks against the Padres closer in the ninth inning before Jackson Chourio called game",
-    "source": "CBS",
     "league": "MLB"
    },
    {
@@ -30,21 +39,21 @@
     "league": "MLB"
    },
    {
-    "headline": "Jackson Chourio, Brewers walk it off against Mason Miller",
-    "link": "https://sports.yahoo.com/articles/jackson-chourio-brewers-walk-off-233805796.html",
-    "published": "2026-10-04T23:38:05.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/7642e6c5df34372702f41c6fefe4e5389d6a6c199947668908e284396cfc16b2/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2d62737d6911a5910ac82b4737572f60.png",
-    "blurb": "The Brewers are one win away from the NLCS after this walk-off win over the Padres",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
     "headline": "2026 MLB playoff bracket: Schedule, scores, where to watch with Division Series underway",
     "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
     "published": "2026-10-04T23:24:44.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Eight teams remain in the 2026 MLB playoffs, with the best-of-five LDS round underway",
     "source": "CBS",
+    "league": "MLB"
+   },
+   {
+    "headline": "Jackson Chourio, Brewers walk it off against Mason Miller",
+    "link": "https://sports.yahoo.com/articles/jackson-chourio-brewers-walk-off-233805796.html",
+    "published": "2026-10-04T23:38:05.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/7642e6c5df34372702f41c6fefe4e5389d6a6c199947668908e284396cfc16b2/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2d62737d6911a5910ac82b4737572f60.png",
+    "blurb": "The Brewers are one win away from the NLCS after this walk-off win over the Padres",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +66,21 @@
     "league": "MLB"
    },
    {
-    "headline": "Braves vs. Dodgers live updates, starting pitchers, where to watch: Blake Snell, Ray Kerr to start Game 2 of NLDS",
-    "link": "https://sports.yahoo.com/mlb/live/dodgers-braves-score-live-updates-game-2-starting-pitchers-nlds-news-highlights-stats-where-to-watch-230000740.html",
-    "published": "2026-10-04T23:00:00.000Z",
-    "image": "",
-    "blurb": "The Dodgers took Game 1 with a 5-3 win over the Braves on Saturday.",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
     "headline": "Chris Sale won't start NLDS Game 2 vs. Dodgers as Braves go with another bullpen game",
     "link": "https://www.cbssports.com/mlb/news/chris-sale-nlds-game-2-dodgers-braves/",
     "published": "2026-10-04T21:53:21.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2F167b4547-057c-4400-b8ce-c62d6bd1f316%2Fchris-sale-getty-7.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Sale came out of the bullpen on Thursday against the Phillies and will not start on Sunday",
     "source": "CBS",
+    "league": "MLB"
+   },
+   {
+    "headline": "Braves vs. Dodgers live updates, starting pitchers, where to watch: Blake Snell, Ray Kerr to start Game 2 of NLDS",
+    "link": "https://sports.yahoo.com/mlb/live/dodgers-braves-score-live-updates-game-2-starting-pitchers-nlds-news-highlights-stats-where-to-watch-230000740.html",
+    "published": "2026-10-04T23:00:00.000Z",
+    "image": "",
+    "blurb": "The Dodgers took Game 1 with a 5-3 win over the Braves on Saturday.",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -82,24 +91,15 @@
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0927%2Fr1722566_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "We have your one-stop shop for everything you need to keep up with all the action this October.",
     "league": "MLB"
-   },
-   {
-    "headline": "Walt Weiss confirms Game 3 start for Chris Sale, plus more pregame news and notes",
-    "link": "https://sports.yahoo.com/articles/walt-weiss-confirms-game-3-223623839.html",
-    "published": "2026-10-04T22:36:23.000Z",
-    "image": "",
-    "blurb": "Ronald Acu\u00f1a Jr. and Ha-Seong Kim also shared some thoughts ahead of a crucial NLDS Game 2 in LA for the Braves",
-    "source": "YAHOO",
-    "league": "MLB"
    }
   ],
   "football/nfl": [
    {
-    "headline": "Week 4 winners and losers: CeeDee Lamb dominates Texans; D'Andre Swift struggles",
-    "link": "https://www.espn.com/fantasy/football/story/_/page/FFSundayHighLows-50102250/nfl-week-4-fantasy-football-winners-losers-injuries-rankings-more",
-    "published": "2026-10-05T00:42:04.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1726014_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "CeeDee Lamb and Kyren Williams came up big in Week 4, while D'Andre Swift and Trevor Lawrence had a disappointing day.",
+    "headline": "Lamar leaves stadium in boot after hurting ankle in Ravens' win",
+    "link": "https://www.espn.com/nfl/story/_/id/50102378/ravens-qb-lamar-jackson-leaves-game-vs-titans-ankle-injury",
+    "published": "2026-10-05T00:50:55.000Z",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725921_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Lamar Jackson left the Ravens' game against the Titans on Sunday with an ankle injury.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -122,11 +122,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Fantasy football: Leading scorers through Sunday's early games",
-    "link": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
-    "published": "2026-10-05T00:42:04.000Z",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725965_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Here are the leading fantasy scorers through Sunday's 1 p.m. ET games.",
+    "headline": "Bengals' top WRs Chase, Higgins suffer injuries in loss to Jags",
+    "link": "https://www.espn.com/nfl/story/_/id/50101891/bengals-star-wr-jamarr-chase-suffers-concussion-vs-jaguars",
+    "published": "2026-10-05T00:50:55.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725865_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Bengals wide receivers Ja'Marr Chase and Tee Higgins both suffered injuries in Sunday's loss to the Jaguars.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -149,11 +149,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Lamar leaves stadium in boot after hurting ankle in Ravens' win",
-    "link": "https://www.espn.com/nfl/story/_/id/50102378/ravens-qb-lamar-jackson-leaves-game-vs-titans-ankle-injury",
-    "published": "2026-10-05T00:14:11.000Z",
+    "headline": "Chiefs WR Rice injures right hamstring, doubtful to return",
+    "link": "https://www.espn.com/nfl/story/_/id/50104571/chiefs-rule-rashee-rice-doubtful-return-injury",
+    "published": "2026-10-05T00:50:55.000Z",
     "image": "",
-    "blurb": "Lamar Jackson left the Ravens' game against the Titans on Sunday with an ankle injury.",
+    "blurb": "After hauling in a 55-yard pass from quarterback Patrick Mahomes, Kansas City Chiefs wide receiver Tyquan Thornton suffered a gruesome-looking injury to his left leg during the fourth quarter of his team's 30-27 win over the Las Vegas Raiders on Sunday.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -176,11 +176,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Bengals' top WRs Chase, Higgins suffer injuries in loss to Jags",
-    "link": "https://www.espn.com/nfl/story/_/id/50101891/bengals-star-wr-jamarr-chase-suffers-concussion-vs-jaguars",
-    "published": "2026-10-05T00:14:11.000Z",
+    "headline": "Cowboys' Lamb returns home, wows with 17-catch day: Means 'everything'",
+    "link": "https://www.espn.com/nfl/story/_/id/50104876/ceedee-lamb-17-catches-go-ahead-score-power-cowboys",
+    "published": "2026-10-05T00:50:55.000Z",
     "image": "",
-    "blurb": "Bengals wide receivers Ja'Marr Chase and Tee Higgins both suffered injuries in Sunday's loss to the Jaguars.",
+    "blurb": "CeeDee Lamb returned to Houston and caught 17 passes for 189 yards, including the game-winning, 12-yard touchdown with 40 seconds to go, as a large number of family members watched from the stands.",
     "source": "ESPN",
     "league": "NFL"
    }
@@ -463,21 +463,21 @@
   ],
   "hockey/nhl": [
    {
+    "headline": "NHL Tonight: Mammoth, Rangers square off in key interconference matchup",
+    "link": "https://www.espn.com/nhl/story/_/id/50091102/nhl-2026-27-tonight-games-schedule-matchups-stats-top-players-betting",
+    "published": "2026-10-05T00:55:21.000Z",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1003%252Fr1725376_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "There are five games on the NHL calendar on Sunday. Here's what to watch in each of them.",
+    "source": "ESPN",
+    "league": "NHL"
+   },
+   {
     "headline": "Lineup Notes: Lankinen Expected To Return As Canucks Wrap Up Back-To-Back Against The Golden Knights",
     "link": "https://sports.yahoo.com/articles/lineup-notes-lankinen-expected-return-220005386.html",
     "published": "2026-10-04T22:00:05.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/6b5e5a1d90c09b79674901528ef14847c48e807afa2795bbea639a8117b1bec7/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_vancouver_canucks_articles_867%2Fb6f4326dd8fc747b22fc69680e79ada6.jpg",
     "blurb": "The Canucks will face the Vegas Golden Knights in the second half of their weekend back-to-back.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Kyle Connor scores a pair of power-play goals as Jets squeak past Red Wings 3-2",
-    "link": "http://www.espn.com/nhl/recap?gameId=401892442",
-    "published": "2026-10-04T19:52:31Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892442.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 Kyle Connor scored two of Winnipeg's three power-play goals and added an assist on the third as the Jets held off the Detroit Red Wings 3-2 on Sunday.",
     "league": "NHL"
    },
    {
@@ -490,21 +490,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Kyle Connor scores a pair of power-play goals as Jets squeak past Red Wings 3-2",
+    "link": "http://www.espn.com/nhl/recap?gameId=401892442",
+    "published": "2026-10-04T19:52:31Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892442.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 Kyle Connor scored two of Winnipeg's three power-play goals and added an assist on the third as the Jets held off the Detroit Red Wings 3-2 on Sunday.",
+    "league": "NHL"
+   },
+   {
     "headline": "Ex-Sabres Report - Levi Could Have Inside Track Of Oilers Starting Job",
     "link": "https://sports.yahoo.com/articles/ex-sabres-report-levi-could-205734395.html",
     "published": "2026-10-04T20:57:34.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/5804f0b894a7484ba06c8d60fb9bce9c843a34ac5139cb33ab038bb4c68b6ecd/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_buffalo_sabres_articles_890%2Fe48827fac2cf038afcac0b221361cc6a.jpg",
     "blurb": "Former Buffalo goalie earns second win for Edmonton against Seattle",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Winnipeg Jets vs. Detroit Red Wings: Game Highlights",
-    "link": "https://www.espn.com/video/clip/_/id/50102598/game-highlights",
-    "published": "2026-10-04T19:48:25Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1004%2F76e8bfa0-3750-42cb-932e-67084a4d45a5%2F76e8bfa0-3750-42cb-932e-67084a4d45a5.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Winnipeg Jets vs. Detroit Red Wings: Game Highlights",
     "league": "NHL"
    },
    {
@@ -517,21 +517,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Winnipeg Jets vs. Detroit Red Wings: Game Highlights",
+    "link": "https://www.espn.com/video/clip/_/id/50102598/game-highlights",
+    "published": "2026-10-04T19:48:25Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1004%2F76e8bfa0-3750-42cb-932e-67084a4d45a5%2F76e8bfa0-3750-42cb-932e-67084a4d45a5.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Winnipeg Jets vs. Detroit Red Wings: Game Highlights",
+    "league": "NHL"
+   },
+   {
     "headline": "Red Wings Finally Find Offense, But Penalty Kill Falters In 3-2 Loss To Jets",
     "link": "https://sports.yahoo.com/articles/red-wings-finally-offense-penalty-203417470.html",
     "published": "2026-10-04T20:34:17.000Z",
     "image": "",
     "blurb": "The Red Wings finally found some offense, but were let down by their penalty killing during their 3-2 loss to the Jets on Sunday afternoon.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "NHL Tonight: Mammoth, Rangers square off in key interconference matchup",
-    "link": "https://www.espn.com/nhl/story/_/id/50091102/nhl-2026-27-tonight-games-schedule-matchups-stats-top-players-betting",
-    "published": "2026-10-04T14:13:13Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1003%2Fr1725376_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "There are five games on the NHL calendar on Sunday. Here's what to watch in each of them.",
     "league": "NHL"
    },
    {
@@ -544,12 +544,12 @@
     "league": "NHL"
    },
    {
-    "headline": "Blues' Toropchenko To Miss Minimum Six Weeks With Upper-Body Injury",
-    "link": "https://sports.yahoo.com/articles/blues-toropchenko-miss-minimum-six-193134741.html",
-    "published": "2026-10-04T19:31:34.000Z",
+    "headline": "Panthers captain Barkov, who missed all of 2025-26, to IR after 2 games",
+    "link": "https://www.espn.com/nhl/story/_/id/50091843/panthers-put-aleksander-barkov-long-term-ir-leg-injury",
+    "published": "2026-10-04T13:53:19.000Z",
     "image": "",
-    "blurb": "Forward will be re-evaluated after injuring what appeared to be right shoulder in season-opening 4-0 win in Dallas",
-    "source": "YAHOO",
+    "blurb": "Panthers center Aleksander Barkov has been placed on long-term injured reserve, meaning the injury to his left leg will keep him sidelined for at least the next 10 games.",
+    "source": "ESPN",
     "league": "NHL"
    }
   ],
@@ -1060,20 +1060,29 @@
  },
  "latest": [
   {
-   "headline": "Week 4 winners and losers: CeeDee Lamb dominates Texans; D'Andre Swift struggles",
-   "link": "https://www.espn.com/fantasy/football/story/_/page/FFSundayHighLows-50102250/nfl-week-4-fantasy-football-winners-losers-injuries-rankings-more",
-   "published": "2026-10-05T00:42:04.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1726014_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "CeeDee Lamb and Kyren Williams came up big in Week 4, while D'Andre Swift and Trevor Lawrence had a disappointing day.",
+   "headline": "NHL Tonight: Mammoth, Rangers square off in key interconference matchup",
+   "link": "https://www.espn.com/nhl/story/_/id/50091102/nhl-2026-27-tonight-games-schedule-matchups-stats-top-players-betting",
+   "published": "2026-10-05T00:55:21.000Z",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1003%252Fr1725376_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "There are five games on the NHL calendar on Sunday. Here's what to watch in each of them.",
+   "source": "ESPN",
+   "league": "NHL"
+  },
+  {
+   "headline": "Lamar leaves stadium in boot after hurting ankle in Ravens' win",
+   "link": "https://www.espn.com/nfl/story/_/id/50102378/ravens-qb-lamar-jackson-leaves-game-vs-titans-ankle-injury",
+   "published": "2026-10-05T00:50:55.000Z",
+   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725921_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Lamar Jackson left the Ravens' game against the Titans on Sunday with an ankle injury.",
    "source": "ESPN",
    "league": "NFL"
   },
   {
-   "headline": "Fantasy football: Leading scorers through Sunday's early games",
-   "link": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
-   "published": "2026-10-05T00:42:04.000Z",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725965_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Here are the leading fantasy scorers through Sunday's 1 p.m. ET games.",
+   "headline": "Bengals' top WRs Chase, Higgins suffer injuries in loss to Jags",
+   "link": "https://www.espn.com/nfl/story/_/id/50101891/bengals-star-wr-jamarr-chase-suffers-concussion-vs-jaguars",
+   "published": "2026-10-05T00:50:55.000Z",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1004%252Fr1725865_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Bengals wide receivers Ja'Marr Chase and Tee Higgins both suffered injuries in Sunday's loss to the Jaguars.",
    "source": "ESPN",
    "league": "NFL"
   },
@@ -1094,6 +1103,24 @@
    "blurb": "DeWanna Bonner's fiery halftime message spurs Dream in 92-82 win over Liberty in Game 1 of their series.",
    "source": "ESPN",
    "league": "WNBA"
+  },
+  {
+   "headline": "Jackson Chourio walk-off single lifts Brewers to 2-0 NLDS edge",
+   "link": "https://www.espn.com/mlb/story/_/id/50105344/jackson-chourio-walk-single-lifts-brewers-2-0-nlds-edge",
+   "published": "2026-10-04T23:59:16Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1004%2Fr1726105_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Jackson Chourio hit a two-run single off Padres closer Mason Miller with two outs in the ninth inning as the Brewers rallied past the Padres for a 2-0 NLDS lead.",
+   "league": "MLB"
+  },
+  {
+   "headline": "NLDS Game 2 winners and losers: Brewers magic strikes again in walk-off win; Mason Miller implodes",
+   "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-nlds-game-2-winners-losers/",
+   "published": "2026-10-04T23:57:11.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fac1effed-5e05-4fc8-9782-7dd7b2896c13%2Fchourio-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Milwaukee worked three walks against the Padres closer in the ninth inning before Jackson Chourio called game",
+   "source": "CBS",
+   "league": "MLB"
   },
   {
    "headline": "Week 4 overreactions: Should Rams still be Super Bowl favorites? Cowboys to win NFC East?",
@@ -1159,15 +1186,6 @@
    "league": "NFL"
   },
   {
-   "headline": "NLDS Game 2 winners and losers: Brewers magic strikes again in walk-off win; Mason Miller implodes",
-   "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoffs-nlds-game-2-winners-losers/",
-   "published": "2026-10-04T23:38:19.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fac1effed-5e05-4fc8-9782-7dd7b2896c13%2Fchourio-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Milwaukee worked three walks against the Padres closer in the ninth inning before Jackson Chourio called game",
-   "source": "CBS",
-   "league": "MLB"
-  },
-  {
    "headline": "Jackson Chourio, Brewers walk it off against Mason Miller",
    "link": "https://sports.yahoo.com/articles/jackson-chourio-brewers-walk-off-233805796.html",
    "published": "2026-10-04T23:38:05.000Z",
@@ -1183,15 +1201,6 @@
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0928%2Fr1723016_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Braves manager Walt Weiss has \"zero regrets\" about Chris Sale pitching out of the bullpen in the prior round, even though it kept him from starting Game 2 of the NLDS.",
-   "league": "MLB"
-  },
-  {
-   "headline": "San Diego Padres vs. Milwaukee Brewers: Game Highlights",
-   "link": "https://www.espn.com/video/clip/_/id/50105151/game-highlights",
-   "published": "2026-10-04T23:33:15Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1004%2Fd0a9d54d-4c21-4b74-a2ed-f4afafff6f41%2Fd0a9d54d-4c21-4b74-a2ed-f4afafff6f41.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "San Diego Padres vs. Milwaukee Brewers: Game Highlights",
    "league": "MLB"
   },
   {
@@ -1393,15 +1402,6 @@
    "league": "NHL"
   },
   {
-   "headline": "Winnipeg Jets vs. Detroit Red Wings: Game Highlights",
-   "link": "https://www.espn.com/video/clip/_/id/50102598/game-highlights",
-   "published": "2026-10-04T19:48:25Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1004%2F76e8bfa0-3750-42cb-932e-67084a4d45a5%2F76e8bfa0-3750-42cb-932e-67084a4d45a5.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Winnipeg Jets vs. Detroit Red Wings: Game Highlights",
-   "league": "NHL"
-  },
-  {
    "headline": "UConn picks up second five-star recruit as Page commits to Huskies",
    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50101146/jordan-page-picks-uconn-joins-bowman-five-stars-huskies",
    "published": "2026-10-04T19:44:15.000Z",
@@ -1421,9 +1421,9 @@
   }
  ],
  "source_mix": {
-  "ESPN": 53,
+  "ESPN": 55,
   "CBS": 39,
-  "YAHOO": 62
+  "YAHOO": 60
  },
  "degraded_sources": []
 }
