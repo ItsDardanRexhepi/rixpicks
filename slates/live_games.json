@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T21:57:16.452937+00:00",
+ "generated_at": "2026-10-05T22:05:23.543107+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,16 @@
      "matchup": "CHW @ CLE",
      "commence": "2026-10-05T21:00Z",
      "status": "in",
-     "detail": "Mid 3rd",
+     "detail": "Bot 3rd",
      "score": "CHW 0 - CLE 2"
+    },
+    {
+     "espn_event_id": "401907986",
+     "matchup": "NYY @ TB",
+     "commence": "2026-10-06T00:00Z",
+     "status": "pre",
+     "detail": "10/5 - 5:00 PM PT",
+     "score": "NYY 0 - TB 0"
     }
    ]
   },
@@ -41,6 +49,14 @@
      "status": "pre",
      "detail": "10/5 - 4:00 PM PT",
      "score": "NY 0 - PHI 0"
+    },
+    {
+     "espn_event_id": "401914102",
+     "matchup": "MIN @ MIL",
+     "commence": "2026-10-06T00:00Z",
+     "status": "pre",
+     "detail": "10/5 - 5:00 PM PT",
+     "score": "MIN 0 - MIL 0"
     }
    ]
   },
@@ -70,6 +86,14 @@
      "status": "pre",
      "detail": "10/5 - 4:30 PM PT",
      "score": "WPG 0 - PIT 0"
+    },
+    {
+     "espn_event_id": "401892448",
+     "matchup": "SJ @ DAL",
+     "commence": "2026-10-06T00:00Z",
+     "status": "pre",
+     "detail": "10/5 - 5:00 PM PT",
+     "score": "SJ 0 - DAL 0"
     }
    ]
   }
