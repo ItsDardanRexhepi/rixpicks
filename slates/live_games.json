@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T00:50:09.698054+00:00",
+ "generated_at": "2026-10-05T01:05:13.138741+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "ATL @ LAD",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "Top 3rd",
+     "detail": "Bot 3rd",
      "score": "ATL 1 - LAD 0"
     }
    ]
@@ -23,8 +23,8 @@
      "matchup": "DET @ CAR",
      "commence": "2026-10-05T00:20Z",
      "status": "in",
-     "detail": "5:31 - 1st",
-     "score": "DET 3 - CAR 0",
+     "detail": "13:45 - 2nd",
+     "score": "DET 3 - CAR 7",
      "away_to": 2,
      "home_to": 3
     }
@@ -38,18 +38,18 @@
      "matchup": "UTAH @ DEN",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "4:49 - 3rd",
-     "score": "UTAH 76 - DEN 68",
+     "detail": "10:16 - 4th",
+     "score": "UTAH 91 - DEN 80",
      "away_to": 3,
-     "home_to": 4
+     "home_to": 3
     },
     {
      "espn_event_id": "401918010",
      "matchup": "GS @ LAC",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "2:23 - 3rd",
-     "score": "GS 69 - LAC 70",
+     "detail": "9:11 - 4th",
+     "score": "GS 82 - LAC 79",
      "away_to": 4,
      "home_to": 3
     }
@@ -81,7 +81,7 @@
      "matchup": "CGY @ SEA",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "2:58 - 1st",
+     "detail": "End of 1st",
      "score": "CGY 0 - SEA 3",
      "away_to": null,
      "home_to": null
@@ -90,9 +90,11 @@
      "espn_event_id": "401892444",
      "matchup": "VGK @ VAN",
      "commence": "2026-10-05T01:00Z",
-     "status": "pre",
-     "detail": "10/4 - 6:00 PM PT",
-     "score": "VGK 0 - VAN 0"
+     "status": "in",
+     "detail": "20:00 - 1st",
+     "score": "VGK 0 - VAN 0",
+     "away_to": null,
+     "home_to": null
     }
    ]
   },
@@ -103,9 +105,9 @@
      "espn_event_id": "401854020",
      "matchup": "WAS @ HOU",
      "commence": "2026-10-04T23:00Z",
-     "status": "in",
-     "detail": "84'",
-     "score": "WAS 2 - HOU 2"
+     "status": "post",
+     "detail": "FT",
+     "score": "WAS 3 - HOU 2"
     }
    ]
   }
