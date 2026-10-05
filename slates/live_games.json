@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T21:28:33.606243+00:00",
+ "generated_at": "2026-10-05T21:35:16.095806+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "CHW @ CLE",
      "commence": "2026-10-05T21:00Z",
      "status": "in",
-     "detail": "Bot 1st",
+     "detail": "Top 2nd",
      "score": "CHW 0 - CLE 2"
     }
    ]
@@ -54,6 +54,22 @@
      "status": "pre",
      "detail": "10/5 - 4:00 PM PT",
      "score": "PHI 0 - TB 0"
+    },
+    {
+     "espn_event_id": "401892446",
+     "matchup": "OTT @ BOS",
+     "commence": "2026-10-05T23:30Z",
+     "status": "pre",
+     "detail": "10/5 - 4:30 PM PT",
+     "score": "OTT 0 - BOS 0"
+    },
+    {
+     "espn_event_id": "401892447",
+     "matchup": "WPG @ PIT",
+     "commence": "2026-10-05T23:30Z",
+     "status": "pre",
+     "detail": "10/5 - 4:30 PM PT",
+     "score": "WPG 0 - PIT 0"
     }
    ]
   }
