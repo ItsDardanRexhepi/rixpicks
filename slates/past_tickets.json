@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-04T17:10:00-07:00",
+ "generated_at": "2026-10-04T17:03:00-07:00",
  "entries": [
   {
    "id": "t5",
@@ -1359,10 +1359,10 @@
      "status": "won"
     }
    ],
-   "archived_at": "2026-10-04T17:10:00-07:00",
+   "archived_at": "2026-10-04T17:03:00-07:00",
    "reason": "All games final; one lost leg ends the combo.",
-   "provenance": "ESPN final box scores, Oct 4 NFL slate, events 401872966, 401872967, 401872968, 401872970, 401872973. https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=<id>",
-   "removed_label": "Oct 4, 5:10 PM PT"
+   "provenance": "ESPN final box scores, Oct 4 NFL slate: https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872966 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872967 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872968 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872970 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872973",
+   "removed_label": "Oct 4, 5:03 PM PT"
   },
   {
    "id": "w1004-t14",
@@ -1445,10 +1445,10 @@
      "status": "lost"
     }
    ],
-   "archived_at": "2026-10-04T17:10:00-07:00",
+   "archived_at": "2026-10-04T17:03:00-07:00",
    "reason": "All games final; one lost leg ends the combo.",
-   "provenance": "ESPN final box scores, Oct 4 NFL slate, events 401872966, 401872967, 401872968, 401872969, 401872971, 401872972, 401872973, 401872974, 401872977. https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=<id>",
-   "removed_label": "Oct 4, 5:10 PM PT"
+   "provenance": "ESPN final box scores, Oct 4 NFL slate: https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872966 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872967 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872968 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872969 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872971 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872972 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872973 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872974 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872977",
+   "removed_label": "Oct 4, 5:03 PM PT"
   },
   {
    "id": "w1004-t15",
@@ -1523,10 +1523,10 @@
      "status": "lost"
     }
    ],
-   "archived_at": "2026-10-04T17:10:00-07:00",
+   "archived_at": "2026-10-04T17:03:00-07:00",
    "reason": "All games final; one lost leg ends the combo.",
-   "provenance": "ESPN final box scores, Oct 4 NFL slate, events 401872966, 401872967, 401872968, 401872969, 401872971, 401872972, 401872973, 401872976. https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=<id>",
-   "removed_label": "Oct 4, 5:10 PM PT"
+   "provenance": "ESPN final box scores, Oct 4 NFL slate: https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872966 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872967 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872968 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872969 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872971 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872972 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872973 https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872976",
+   "removed_label": "Oct 4, 5:03 PM PT"
   }
  ]
 }
