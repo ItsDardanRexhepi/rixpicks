@@ -1,3 +1,52 @@
 {
-  "requests": []
+ "requests": [
+  {
+   "grade_id": "401918295|ml|home",
+   "event_id": "401918295",
+   "league": "basketball/wnba",
+   "pick": "Dream ML",
+   "side": "home",
+   "market_class": "ml",
+   "card_date": "2026-10-04",
+   "result": "WON",
+   "score": "NY 82 @ ATL 92",
+   "stake_units": "5u",
+   "locked_american": "-163",
+   "delta_units_exact": 3.067484662576687,
+   "record_after": "32-15",
+   "units_after_exact": 20.86969698864112,
+   "two_source": [
+    "espn_core completed",
+    "espn site.api summary STATUS_FINAL"
+   ],
+   "graded_pick": "Dream ML W: NY 82 @ ATL 92 (published-card basis)",
+   "learning": "Owner-directed, sub-bar: the morning fair was 65% vs a 62c Kalshi price, net about 1.35c, under the 2c bar. Won: NY 82 @ ATL 92.",
+   "source": "Oct 4 published card (owner-directed, scoped rule-4 suspension)",
+   "queued_at": "2026-10-05 06:17 PDT"
+  },
+  {
+   "grade_id": "401908003|ml|home",
+   "event_id": "401908003",
+   "league": "baseball/mlb",
+   "pick": "Brewers ML",
+   "side": "home",
+   "market_class": "ml",
+   "card_date": "2026-10-04",
+   "result": "WON",
+   "score": "SD 3 @ MIL 4",
+   "stake_units": "5u",
+   "locked_american": "-127",
+   "delta_units_exact": 3.937007874015748,
+   "record_after": "33-15",
+   "units_after_exact": 24.80670486265687,
+   "two_source": [
+    "espn_core completed",
+    "espn site.api summary STATUS_FINAL"
+   ],
+   "graded_pick": "Brewers ML W: SD 3 @ MIL 4 (published-card basis)",
+   "learning": "Owner-directed, posted under a one-day suspension of the 60c band: the morning fair was 59.4%, just under the band. Won: SD 3 @ MIL 4.",
+   "source": "Oct 4 published card (owner-directed, scoped rule-4 suspension)",
+   "queued_at": "2026-10-05 06:17 PDT"
+  }
+ ]
 }
