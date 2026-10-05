@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T03:35:11.227155+00:00",
+ "generated_at": "2026-10-05T03:50:13.937073+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -22,11 +22,9 @@
      "espn_event_id": "401872978",
      "matchup": "DET @ CAR",
      "commence": "2026-10-05T00:20Z",
-     "status": "in",
-     "detail": "2:09 - 4th",
-     "score": "DET 26 - CAR 32",
-     "away_to": 0,
-     "home_to": 1
+     "status": "post",
+     "detail": "Final",
+     "score": "DET 26 - CAR 32"
     }
    ]
   },
@@ -53,11 +51,9 @@
      "espn_event_id": "401892444",
      "matchup": "VGK @ VAN",
      "commence": "2026-10-05T01:00Z",
-     "status": "in",
-     "detail": "0:46 - 3rd",
-     "score": "VGK 3 - VAN 2",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "VGK 3 - VAN 2"
     }
    ]
   }
