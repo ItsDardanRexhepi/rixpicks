@@ -1269,5 +1269,18 @@
   "status": "hit",
   "created_at": "2026-10-04T19:21:39.374452+00:00",
   "settled_at": "2026-10-05T03:04:56.113088+00:00"
+ },
+ {
+  "id": "0877588209",
+  "event_id": "401856716",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Missouri Tigers",
+  "away": "Texas A&M Aggies",
+  "pick_team": "Missouri Tigers",
+  "prediction": "Missouri Tigers to beat Texas A&M Aggies",
+  "kickoff_utc": "2026-10-10T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T04:20:29.417486+00:00"
  }
 ]
