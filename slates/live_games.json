@@ -1,18 +1,10 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T09:05:16.843523+00:00",
+ "generated_at": "2026-10-05T09:20:10.931172+00:00",
  "leagues": [
   {
    "league": "ATP",
    "games": [
-    {
-     "espn_event_id": "186304",
-     "matchup": "Te Rigele @ Adam Walton",
-     "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "3rd",
-     "score": "Te Rigele 0 - Adam Walton 0"
-    },
     {
      "espn_event_id": "186295",
      "matchup": "Dalibor Svrcina @ Billy Harris",
@@ -34,8 +26,24 @@
      "matchup": "Yoshihito Nishioka @ Aleksandr Shevchenko",
      "commence": "2026-10-05T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Yoshihito Nishioka 0 - Aleksandr Shevchenko 0"
+    },
+    {
+     "espn_event_id": "186294",
+     "matchup": "Tristan Schoolkate @ Dane Sweeny",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Tristan Schoolkate 0 - Dane Sweeny 0"
+    },
+    {
+     "espn_event_id": "186311",
+     "matchup": "Zhang Tianhui @ Kyrian Jacquet",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Zhang Tianhui 0 - Kyrian Jacquet 0"
     }
    ]
   }
