@@ -1,5 +1,5 @@
 {
- "pulled_at_utc": "2026-10-05T01:52:07Z",
+ "pulled_at_utc": "2026-10-05T04:03:13Z",
  "source": "the-odds-api v4 nfl scores (daysFrom=1)",
  "games": [
   {
@@ -20,7 +20,7 @@
      "score": "30"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "164e6eb68f31bac190381903c3cccd31",
@@ -40,7 +40,7 @@
      "score": "12"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "f01589b0e7e6dd4f4ac1220a1db81f53",
@@ -60,7 +60,7 @@
      "score": "18"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "573cc0ef39631a4f6673ec843a8bedd4",
@@ -80,7 +80,7 @@
      "score": "29"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "99a9bae4dc0dc2590496bd3102b211f2",
@@ -100,7 +100,7 @@
      "score": "17"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "664e6bda5721dc63be16bcf7d962a436",
@@ -120,7 +120,7 @@
      "score": "24"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "2ea94ddf20f66432b9024fe2e2eaba5f",
@@ -140,7 +140,7 @@
      "score": "22"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "1b4f2e60ce83fa1d63a5dff83769d27c",
@@ -160,7 +160,7 @@
      "score": "24"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "daf55e2df5341c007fee5a0fc5bbc2d4",
@@ -180,7 +180,7 @@
      "score": "34"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "c327223d76a3b7b0db8c6c104442f44b",
@@ -200,7 +200,7 @@
      "score": "10"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "e0cbd266dcf997089203a1b33ba0333d",
@@ -220,7 +220,7 @@
      "score": "30"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "96d2373cda647873b971f268482bced0",
@@ -240,7 +240,7 @@
      "score": "23"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "a7e7efb75a9792ac63480ae6328dca18",
@@ -260,27 +260,27 @@
      "score": "14"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "a73a76599a4f3422803e57bd8f61b626",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
    "commence_time": "2026-10-05T00:23:55Z",
-   "completed": false,
+   "completed": true,
    "home_team": "Carolina Panthers",
    "away_team": "Detroit Lions",
    "scores": [
     {
      "name": "Carolina Panthers",
-     "score": "16"
+     "score": "32"
     },
     {
      "name": "Detroit Lions",
-     "score": "13"
+     "score": "26"
     }
    ],
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "8bd90781e17e6d97df3941063cedae1e",
@@ -291,7 +291,7 @@
    "home_team": "New Orleans Saints",
    "away_team": "Atlanta Falcons",
    "scores": null,
-   "last_update": "2026-10-05T01:52:06Z"
+   "last_update": "2026-10-05T04:02:53Z"
   },
   {
    "id": "259b5df9aa0d10257f56de78523495e0",
