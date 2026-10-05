@@ -35,16 +35,7 @@
    "card_american": -163,
    "card_source": "Kalshi ask at lock 62c",
    "card_ts": "2026-10-04T06:59:14-07:00",
-   "polymarket": {
-    "url": "https://polymarket.com/event/wnba-nyl-atl-2026-10-04",
-    "cents": 100
-   },
-   "polymarket_us": {
-    "url": "https://polymarket.us/sports/wnba/wnba-ny-atl-2026-10-04",
-    "cents": 60,
-    "verified": true
-   },
-   "polycents": 100
+   "polymarket": null
   },
   {
    "num": 2,
@@ -76,6 +67,6 @@
   }
  ],
  "parlay": null,
- "pick_content_hash": "64d4836f88d2f1f53fc7d1c42b0cd329ec6dae5ff9822444af53004cda065319",
+ "pick_content_hash": "576461cf53b6d60b6fd048656d8028f27d492b4a923aabf13fa7ee49169eeca7",
  "card_note": "Owner-directed picks: neither cleared this morning's full process (standing bars plus red team); sub-bar disclosure."
 }

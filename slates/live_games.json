@@ -1,33 +1,17 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T08:05:13.285008+00:00",
+ "generated_at": "2026-10-05T08:20:13.086634+00:00",
  "leagues": [
   {
    "league": "ATP",
    "games": [
     {
-     "espn_event_id": "186303",
-     "matchup": "Bernard Tomic @ Terence Atmane",
-     "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "3rd",
-     "score": "Bernard Tomic 0 - Terence Atmane 0"
-    },
-    {
      "espn_event_id": "186305",
      "matchup": "Federico Agustin Gomez @ Michael Zheng",
      "commence": "2026-10-05T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Federico Agustin Gomez 0 - Michael Zheng 0"
-    },
-    {
-     "espn_event_id": "186302",
-     "matchup": "Stefanos Sakellaridis @ Timofey Skatov",
-     "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Stefanos Sakellaridis 0 - Timofey Skatov 0"
     },
     {
      "espn_event_id": "186304",
@@ -44,6 +28,14 @@
      "status": "in",
      "detail": "2nd",
      "score": "Rei Sakamoto 0 - SeongChan Hong 0"
+    },
+    {
+     "espn_event_id": "186295",
+     "matchup": "Dalibor Svrcina @ Billy Harris",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Dalibor Svrcina 0 - Billy Harris 0"
     }
    ]
   }
