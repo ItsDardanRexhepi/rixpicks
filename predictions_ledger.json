@@ -555,8 +555,9 @@
   "pick_team": "Detroit Lions",
   "prediction": "Detroit Lions beat Carolina Panthers",
   "kickoff_utc": "2026-10-05T00:20:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T18:36:10.990567+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T18:36:10.990567+00:00",
+  "settled_at": "2026-10-05T03:49:55.250256+00:00"
  },
  {
   "id": "1382b5d824",
