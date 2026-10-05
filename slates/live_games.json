@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T02:05:13.769995+00:00",
+ "generated_at": "2026-10-05T02:20:13.053118+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "ATL @ LAD",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "Bot 5th",
+     "detail": "Bot 6th",
      "score": "ATL 2 - LAD 1"
     }
    ]
@@ -23,8 +23,8 @@
      "matchup": "DET @ CAR",
      "commence": "2026-10-05T00:20Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "DET 16 - CAR 16",
+     "detail": "9:00 - 3rd",
+     "score": "DET 16 - CAR 22",
      "away_to": 3,
      "home_to": 3
     }
@@ -59,7 +59,7 @@
      "matchup": "FLA @ ANA",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "19:33 - 3rd",
+     "detail": "11:41 - 3rd",
      "score": "FLA 1 - ANA 2",
      "away_to": null,
      "home_to": null
@@ -69,7 +69,7 @@
      "matchup": "CGY @ SEA",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "14:32 - 3rd",
      "score": "CGY 0 - SEA 5",
      "away_to": null,
      "home_to": null
@@ -79,7 +79,7 @@
      "matchup": "VGK @ VAN",
      "commence": "2026-10-05T01:00Z",
      "status": "in",
-     "detail": "19:47 - 2nd",
+     "detail": "11:34 - 2nd",
      "score": "VGK 0 - VAN 1",
      "away_to": null,
      "home_to": null
