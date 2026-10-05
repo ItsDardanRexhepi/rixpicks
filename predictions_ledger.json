@@ -1181,8 +1181,9 @@
   "pick_team": "Utah Mammoth",
   "prediction": "Utah Mammoth to beat New York Rangers",
   "kickoff_utc": "2026-10-04T22:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-04T15:20:09.539778+00:00"
+  "status": "miss",
+  "created_at": "2026-10-04T15:20:09.539778+00:00",
+  "settled_at": "2026-10-05T00:49:56.826126+00:00"
  },
  {
   "id": "c5f2f04f18",
