@@ -1,6 +1,6 @@
 {
   "date": "2026-10-05",
-  "generated_at": "2026-10-05T11:14:00-07:00",
+  "generated_at": "2026-10-05T11:32:00-07:00",
   "cards": [
     {
       "id": "nfl-1005-rec",
@@ -14,13 +14,13 @@
           "links": [
             {
               "venue": "KAL",
-              "cents": 77
+              "cents": 76
             }
           ],
           "unlisted": [
             "DraftKings Predictions"
           ],
-          "note": "DKP lists 20+ and 30+ only; no substitution"
+          "note": "Kalshi: records 25+ receiving yards. DKP lists 20+ and 30+ only; no substitution"
         },
         {
           "player": "Juwan Johnson",
@@ -34,7 +34,7 @@
           "unlisted": [
             "Kalshi"
           ],
-          "note": "Kalshi lists 25+ and 40+ only; no substitution"
+          "note": "DKP rules: stated number of receiving yards or more. Kalshi lists 25+ and 40+ only; no substitution"
         },
         {
           "player": "Chris Olave",
@@ -48,10 +48,10 @@
           "unlisted": [
             "Kalshi"
           ],
-          "note": "Kalshi lists 50+ and up only; no substitution"
+          "note": "DKP rules: stated number of receiving yards or more. Kalshi lists 50+ and up only; no substitution"
         }
       ],
-      "asof": "Prices as of 11:14 AM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 11:12-11:14 AM PT, Kalshi pulled at post time.",
+      "asof": "Prices as of 11:32 AM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 11:27-11:32 AM PT, Kalshi pulled at post time. Rules read on each venue page before a price is shown.",
       "assumptions": "Each leg is priced only where that exact threshold is listed. Not a combined price."
     },
     {
@@ -62,18 +62,9 @@
       "legs": [
         {
           "player": "Bijan Robinson",
-          "market": "1+ touchdowns (rush + rec)",
-          "links": [
-            {
-              "venue": "DKP",
-              "cents": 66
-            },
-            {
-              "venue": "KAL",
-              "cents": 64
-            }
-          ],
-          "note": "Venue TD markets count any touchdown scored"
+          "market": "1+ rush + receiving touchdowns",
+          "links": [],
+          "note": "Price unavailable: no exact rule match. DKP market also counts return and defensive touchdowns; Kalshi market is at least 1+ touchdowns with no rush + receiving restriction. Neither is shown as equivalent."
         },
         {
           "player": "Michael Penix Jr.",
@@ -87,7 +78,8 @@
               "venue": "KAL",
               "cents": 67
             }
-          ]
+          ],
+          "note": "Rules read: DKP resolves Yes at the stated number of passing yards or more; Kalshi at 200+ passing yards. Over 199.5 = 200+ on both."
         },
         {
           "player": "Alvin Kamara",
@@ -101,7 +93,7 @@
           "unlisted": [
             "Kalshi"
           ],
-          "note": "Kalshi lists 9+, 12+, 15+ only; no substitution"
+          "note": "DKP rules: stated number of rushing attempts or more, so over 10.5 = 11+. Kalshi lists 9+, 12+, 15+ only; no substitution"
         },
         {
           "player": "Tyler Shough",
@@ -115,11 +107,11 @@
           "unlisted": [
             "Kalshi"
           ],
-          "note": "Kalshi lists 19+, 24+, 29+ only; no substitution"
+          "note": "DKP rules: stated number of completions or more, so over 20.5 = 21+. Kalshi lists 19+, 24+, 29+ only; no substitution"
         }
       ],
-      "asof": "Prices as of 11:14 AM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 11:12-11:14 AM PT, Kalshi pulled at post time.",
-      "assumptions": "Assumption, not read on the venue rules page: whole-number stat, so over 199.5 = 200+, over 10.5 = 11+, over 20.5 = 21+. Not a combined price."
+      "asof": "Prices as of 11:32 AM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 11:27-11:32 AM PT, Kalshi pulled at post time. Rules read on each venue page before a price is shown.",
+      "assumptions": "Requested thresholds 0.5 / 199.5 / 10.5 / 20.5 kept as asked. Robinson leg unresolved. Not a combined price."
     },
     {
       "id": "nfl-1005-atd4",
@@ -184,8 +176,8 @@
           ]
         }
       ],
-      "asof": "Prices as of 11:14 AM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 11:12-11:14 AM PT, Kalshi pulled at post time.",
-      "assumptions": "Venue TD markets count any touchdown scored. Not a combined price."
+      "asof": "Prices as of 11:32 AM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 11:27-11:32 AM PT, Kalshi pulled at post time. Rules read on each venue page before a price is shown.",
+      "assumptions": "Anytime touchdown, as requested. Venue market is any touchdown scored (DKP: rushing, receiving, return or defensive, passing excluded; Kalshi: at least 1+ touchdowns). Not a combined price."
     },
     {
       "id": "nfl-1005-td2",
@@ -220,11 +212,11 @@
               "cents": 27
             }
           ],
-          "note": "2+, not anytime"
+          "note": "2+ any touchdowns scored, not anytime. DKP: 2 or more, passing excluded; Kalshi: at least 2+ touchdowns"
         }
       ],
-      "asof": "Prices as of 11:14 AM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 11:12-11:14 AM PT, Kalshi pulled at post time.",
-      "assumptions": "Venue TD markets count any touchdown scored. Not a combined price."
+      "asof": "Prices as of 11:32 AM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 11:27-11:32 AM PT, Kalshi pulled at post time. Rules read on each venue page before a price is shown.",
+      "assumptions": "Anytime touchdown, as requested. Venue market is any touchdown scored (DKP: rushing, receiving, return or defensive, passing excluded; Kalshi: at least 1+ touchdowns). Not a combined price."
     }
   ]
 }

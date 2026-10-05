@@ -2523,6 +2523,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     r'box.innerHTML=h;if(tab)tab.style.display="";'
     r'}).catch(none);'
     r'})();</script>')
+    if _nfl_synth: nfl_ideas_entry='<style>body.tab-nfl main>.cardnote{display:none}</style>'+nfl_ideas_entry
     nfl_ideas_entry=nfl_ideas_entry.replace('var VEN={};','var VEN='+json.dumps({k:[v[0],v[1],v[2],v[3]] for k,v in _DING_VENUES.items()},separators=(',',':'))+';')
 
     for t in RP_TABS:
