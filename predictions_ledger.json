@@ -1568,5 +1568,18 @@
   "kickoff_utc": "2026-10-06T02:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T15:50:59.432085+00:00"
+ },
+ {
+  "id": "1f12fbd482",
+  "event_id": "401908947",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Detroit Pistons",
+  "away": "Phoenix Suns",
+  "pick_team": "Detroit Pistons",
+  "prediction": "Detroit Pistons to beat Phoenix Suns",
+  "kickoff_utc": "2026-10-05T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T16:05:24.858156+00:00"
  }
 ]

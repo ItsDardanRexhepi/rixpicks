@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-05T15:51:32.245309+00:00",
+ "generated_at": "2026-10-05T16:06:14.133005+00:00",
  "items": [
   {
    "id": "b51bbfb986",
@@ -13,6 +13,13 @@
    "league": "NBA",
    "event": "New York Knicks @ Philadelphia 76ers",
    "prediction": "Philadelphia 76ers to beat New York Knicks",
+   "kickoff_utc": "2026-10-05T23:00:00+00:00"
+  },
+  {
+   "id": "1f12fbd482",
+   "league": "NBA",
+   "event": "Phoenix Suns @ Detroit Pistons",
+   "prediction": "Detroit Pistons to beat Phoenix Suns",
    "kickoff_utc": "2026-10-05T23:00:00+00:00"
   },
   {
@@ -35,13 +42,6 @@
    "event": "Atlanta Falcons @ New Orleans Saints",
    "prediction": "New Orleans Saints to beat Atlanta Falcons",
    "kickoff_utc": "2026-10-06T00:15:00+00:00"
-  },
-  {
-   "id": "d7521452f6",
-   "league": "NBA",
-   "event": "Los Angeles Lakers @ Sacramento Kings",
-   "prediction": "Los Angeles Lakers to beat Sacramento Kings",
-   "kickoff_utc": "2026-10-06T02:00:00+00:00"
   }
  ]
 }
