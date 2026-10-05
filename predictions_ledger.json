@@ -1308,5 +1308,31 @@
   "kickoff_utc": "2026-10-10T20:15:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T04:36:21.562523+00:00"
+ },
+ {
+  "id": "03027e0ede",
+  "event_id": "401856824",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Oklahoma State Cowboys",
+  "away": "UCF Knights",
+  "pick_team": "Oklahoma State Cowboys",
+  "prediction": "Oklahoma State Cowboys to beat UCF Knights",
+  "kickoff_utc": "2026-10-10T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T04:50:39.084172+00:00"
+ },
+ {
+  "id": "5e3ebc7d92",
+  "event_id": "401856715",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Kentucky Wildcats",
+  "away": "LSU Tigers",
+  "pick_team": "LSU Tigers",
+  "prediction": "LSU Tigers to beat Kentucky Wildcats",
+  "kickoff_utc": "2026-10-10T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T04:52:06.477553+00:00"
  }
 ]
