@@ -1659,5 +1659,18 @@
   "kickoff_utc": "2026-10-05T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T18:20:02.777487+00:00"
+ },
+ {
+  "id": "af7e3a3dcd",
+  "event_id": "401918297",
+  "league": "WNBA",
+  "path": "basketball/wnba",
+  "home": "Atlanta Dream",
+  "away": "New York Liberty",
+  "pick_team": "New York Liberty",
+  "prediction": "New York Liberty to beat Atlanta Dream",
+  "kickoff_utc": "2026-10-07T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T19:05:33.732384+00:00"
  }
 ]
