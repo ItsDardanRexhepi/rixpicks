@@ -1,59 +1,57 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T03:50:13.937073+00:00",
+ "generated_at": "2026-10-05T04:20:11.937539+00:00",
  "leagues": [
   {
-   "league": "MLB",
+   "league": "ATP",
    "games": [
     {
-     "espn_event_id": "401908014",
-     "matchup": "ATL @ LAD",
-     "commence": "2026-10-05T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "ATL 3 - LAD 2"
-    }
-   ]
-  },
-  {
-   "league": "NFL",
-   "games": [
-    {
-     "espn_event_id": "401872978",
-     "matchup": "DET @ CAR",
-     "commence": "2026-10-05T00:20Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "DET 26 - CAR 32"
-    }
-   ]
-  },
-  {
-   "league": "NHL",
-   "games": [
-    {
-     "espn_event_id": "401891778",
-     "matchup": "FLA @ ANA",
-     "commence": "2026-10-05T00:00Z",
-     "status": "post",
-     "detail": "Final/OT",
-     "score": "FLA 2 - ANA 3"
+     "espn_event_id": "186308",
+     "matchup": "Nikoloz Basilashvili @ Andre Ilagan",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Nikoloz Basilashvili 0 - Andre Ilagan 0"
     },
     {
-     "espn_event_id": "401891824",
-     "matchup": "CGY @ SEA",
-     "commence": "2026-10-05T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "CGY 1 - SEA 6"
+     "espn_event_id": "186309",
+     "matchup": "Liam Draxl @ Hugo Gaston",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Liam Draxl 0 - Hugo Gaston 0"
     },
     {
-     "espn_event_id": "401892444",
-     "matchup": "VGK @ VAN",
-     "commence": "2026-10-05T01:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "VGK 3 - VAN 2"
+     "espn_event_id": "186312",
+     "matchup": "Shintaro Mochizuki @ Taro Daniel",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Shintaro Mochizuki 0 - Taro Daniel 0"
+    },
+    {
+     "espn_event_id": "186313",
+     "matchup": "Alexis Galarneau @ Roman Safiullin",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Alexis Galarneau 0 - Roman Safiullin 0"
+    },
+    {
+     "espn_event_id": "186314",
+     "matchup": "Federico Cina @ Xiao Linang",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Federico Cina 0 - Xiao Linang 0"
+    },
+    {
+     "espn_event_id": "186315",
+     "matchup": "Aziz Dougaz @ Lorenzo Sonego",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Aziz Dougaz 0 - Lorenzo Sonego 0"
     }
    ]
   }
