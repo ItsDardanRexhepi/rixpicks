@@ -12,6 +12,11 @@ on:
         description: 'REPAIR ONLY: set to the word repair to override a posting hold (logged loudly with actor)'
         type: string
         default: ''
+  # Oct 5: hosted cron starved this workflow (0 schedule fires 14:34-16:53 UTC, futures quotes went
+  # stale and tripped the gate). The CF dispatcher's external-tick (every 15 min) is the reliable
+  # time base, same as odds-refresh; the */5 cron stays as backstop.
+  repository_dispatch:
+    types: [external-tick]
 permissions:
   contents: write
 concurrency:
