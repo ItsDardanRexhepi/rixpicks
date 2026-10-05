@@ -62,9 +62,17 @@
       "legs": [
         {
           "player": "Bijan Robinson",
-          "market": "1+ rush + receiving touchdowns",
-          "links": [],
-          "note": "Price unavailable: no exact rule match. DKP market also counts return and defensive touchdowns; Kalshi market is at least 1+ touchdowns with no rush + receiving restriction. Neither is shown as equivalent."
+          "market": "Anytime touchdown",
+          "links": [
+            {
+              "venue": "DKP",
+              "cents": 66
+            },
+            {
+              "venue": "KAL",
+              "cents": 64
+            }
+          ]
         },
         {
           "player": "Michael Penix Jr.",
@@ -111,7 +119,7 @@
         }
       ],
       "asof": "Prices as of 11:32 AM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 11:27-11:32 AM PT, Kalshi pulled at post time. Rules read on each venue page before a price is shown.",
-      "assumptions": "Requested thresholds 0.5 / 199.5 / 10.5 / 20.5 kept as asked. Robinson leg unresolved. Not a combined price."
+      "assumptions": "Requested thresholds 199.5 / 10.5 / 20.5 kept as asked. Anytime touchdown: venue market is any touchdown scored (DKP: rushing, receiving, return or defensive, passing excluded; Kalshi: at least 1+ touchdowns). Not a combined price."
     },
     {
       "id": "nfl-1005-atd4",
