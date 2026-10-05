@@ -2490,7 +2490,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     r'<div style="margin-top:6px">'
     r'<div class="sect" style="margin-top:2px">PICKS FROM RIX</div>'
     r'<div id="rpNflIdeas"></div>'
-    r'<div style="font-size:11px;color:#8a8f98;margin-top:10px;line-height:1.45">Ideas only, not placed. Prices are per leg from the venue named, as of the time shown, converted from cents to American. No combined price is quoted.</div>'
+    r'<div style="font-size:11px;color:#8a8f98;margin-top:10px;line-height:1.45">Prices are per leg from the venue named, as of the time shown, converted from cents to American. No combined price is quoted.</div>'
     r'</div>'
     r'<script>(function(){'
     r'var box=document.getElementById("rpNflIdeas"),tab=document.getElementById("rpNflTab");if(!box)return;'
