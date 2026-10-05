@@ -1360,5 +1360,18 @@
   "kickoff_utc": "2026-10-10T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T05:23:43.802698+00:00"
+ },
+ {
+  "id": "3acc99a6ea",
+  "event_id": "401858487",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Washington Huskies",
+  "away": "Iowa Hawkeyes",
+  "pick_team": "Washington Huskies",
+  "prediction": "Washington Huskies to beat Iowa Hawkeyes",
+  "kickoff_utc": "2026-10-10T01:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T05:50:09.116580+00:00"
  }
 ]
