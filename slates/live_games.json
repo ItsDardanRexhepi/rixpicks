@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T05:05:21.658578+00:00",
+ "generated_at": "2026-10-05T05:20:13.746062+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -18,7 +18,7 @@
      "matchup": "Liam Draxl @ Hugo Gaston",
      "commence": "2026-10-05T04:00Z",
      "status": "in",
-     "detail": "1st",
+     "detail": "2nd",
      "score": "Liam Draxl 0 - Hugo Gaston 0"
     },
     {
@@ -33,8 +33,8 @@
      "espn_event_id": "186313",
      "matchup": "Alexis Galarneau @ Roman Safiullin",
      "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "2nd",
+     "status": "post",
+     "detail": "Final",
      "score": "Alexis Galarneau 0 - Roman Safiullin 0"
     },
     {
