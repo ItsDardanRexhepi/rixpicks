@@ -17,6 +17,7 @@ sys.path.insert(0, '/home/sandbox/rix_tmp')
 from datetime import datetime, timezone, timedelta
 from decimal import Decimal
 from core import record_pipe, units, budget, fill_leak
+from core.accepted_entry import accepted_entry, entry_delta
 HERE = os.path.dirname(os.path.abspath(__file__))
 MANIFEST = os.path.join(HERE, '..', 'manifest.json')
 STATE = '/home/sandbox/rps_tmp/kb/ledger/finals_seen.json'
@@ -561,10 +562,13 @@ def grade(pick, primary):
         if hs == as_:
             return 'PUSH', Decimal('0')
         won = (pick['side'] == 'home') == (hs > as_)
-    cents = (pick.get('kalshi') or {}).get('cents')
+    accepted = accepted_entry(pick)
+    cents = accepted['entry_c'] if accepted is not None else (pick.get('kalshi') or {}).get('cents')
     # FILL-LEAK GUARD: manifest price must equal the picks-ledger card entry;
     # positions fills differing from the card price warn but never block.
     card_c, card_row, n_card = fill_leak.card_price(pick)
+    if accepted is not None and card_row != accepted:
+        raise ValueError('accepted-entry provenance mismatch - REFUSING to grade')
     if n_card != 1:
         raise ValueError(f'card record missing or ambiguous (n={n_card}) for '
                          f"{pick['game']['eid']}|{pick.get('market_class', 'ml')}|{pick['side']} - REFUSING to grade (fail closed)")
@@ -593,7 +597,8 @@ def grade(pick, primary):
     # CARD-PRICE GRADING (his word 9:43 PM, uniform convention): P&L is computed from
     # the published CARD American price, sourced from the picks-ledger card entry and
     # asserted identical against the published card (manifest odds). Exchange cents
-    # above stay an exchange-consistency check only - never the grading basis.
+    # above stay an exchange-consistency check only - never the grading basis,
+    # except the explicitly accepted exact-cents entry below (-138 is rounded).
     def _parse_american(v):
         if isinstance(v, bool):
             return None
@@ -617,6 +622,8 @@ def grade(pick, primary):
     if not u:
         raise ValueError('missing units in manifest - grade manually')
     stake = u * units.unit_dollars()  # exact from the first multiplication; 1u dollar size from env (private, fail closed)
+    if accepted is not None:
+        return ('W' if won else 'L'), entry_delta('W' if won else 'L', stake, accepted)
     return ('W' if won else 'L'), (units.stake_pnl_american(stake, card_am) if won else -stake)
 
 def _parse_ts(s):
@@ -658,6 +665,9 @@ def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary
                         f"(published-card basis)"),
         'source': 'finals_watch J-118 live chain',
         'queued_at': stamp})
+    accepted = accepted_entry(p)
+    if accepted is not None:
+        d['requests'][-1]['accepted_entry'] = {k: accepted[k] for k in ('accepted_entry_id', 'card_venue', 'entry_c', 'entry_basis')}
     json.dump(d, open(path, 'w'), indent=1)
     return True
 

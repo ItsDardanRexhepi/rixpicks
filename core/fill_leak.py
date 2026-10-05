@@ -2,11 +2,14 @@
 the public record's locked price comes ONLY from the card entry (picks ledger),
 never from a positions-ledger cash fill. Binding is CANONICAL (swamp 9:39):
 event_id + market_class + side, exactly one picks-ledger 'pick' row - missing or
-ambiguous FAILS CLOSED in the grade path. Word/name matching is banned here.
+ambiguous FAILS CLOSED in the grade path. One explicitly approved locked entry
+is replicated in accepted_entry.py; an installed duplicate/conflict still refuses.
+Word/name matching alone is banned here.
 Positions fills bind on event_id and WARN only (fills at other venues are
 legitimate; the leak is USING one as the card basis).
 """
 import json
+from core.accepted_entry import accepted_entry
 PICKS_LEDGER = '/home/sandbox/rps_tmp/kb/ledger/picks.jsonl'
 POSITIONS_LEDGER = '/home/sandbox/rps_tmp/kb/ledger/positions.jsonl'
 
@@ -19,7 +22,9 @@ def _rows(path):
 def card_price(pick, picks_path=PICKS_LEDGER):
     """(cents, row, n_matches) for the canonical card entry: kind=='pick' rows whose
     event_id + market_class + side ALL equal the manifest pick's. n != 1 means the
-    card record is missing (0) or ambiguous (>1) - the caller REFUSES to grade."""
+    card record is missing (0) or ambiguous (>1) - the caller REFUSES to grade.
+    The one accepted_entry.py approval may supply an absent local copy; it never
+    overrides conflicting or duplicate ledger rows."""
     eid = pick['game']['eid']
     side = pick['side']
     mc = pick.get('market_class', 'ml')
@@ -40,6 +45,14 @@ def card_price(pick, picks_path=PICKS_LEDGER):
     elif mc in ('spread', 'total') and pick.get('line') is not None:
         # alt lines of the same game+side are distinct picks
         hits = [r for r in hits if float(r.get('line') or -1) == float(pick['line'])]
+    accepted = accepted_entry(pick)
+    if accepted is not None:
+        # This one owner-approved entry is replicated from the private picks ledger.
+        # Reconcile an installed copy exactly; never mask conflicts or duplicates.
+        if hits:
+            if len(hits) != 1 or any(hits[0].get(k) != v for k, v in accepted.items()):
+                raise ValueError('accepted-entry conflict or duplicate in picks ledger - REFUSING to grade')
+        return accepted['entry_c'], accepted, 1
     if len(hits) == 1:
         return hits[0].get('entry_c'), hits[0], 1
     return None, None, len(hits)
