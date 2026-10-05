@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T00:35:15.658603+00:00",
+ "generated_at": "2026-10-05T00:47:56.442134+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "ATL @ LAD",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "Mid 2nd",
+     "detail": "Top 3rd",
      "score": "ATL 1 - LAD 0"
     }
    ]
@@ -23,7 +23,7 @@
      "matchup": "DET @ CAR",
      "commence": "2026-10-05T00:20Z",
      "status": "in",
-     "detail": "11:21 - 1st",
+     "detail": "5:50 - 1st",
      "score": "DET 3 - CAR 0",
      "away_to": 2,
      "home_to": 3
@@ -38,9 +38,9 @@
      "matchup": "UTAH @ DEN",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "11:14 - 3rd",
-     "score": "UTAH 63 - DEN 54",
-     "away_to": 4,
+     "detail": "5:13 - 3rd",
+     "score": "UTAH 76 - DEN 66",
+     "away_to": 3,
      "home_to": 4
     },
     {
@@ -48,10 +48,10 @@
      "matchup": "GS @ LAC",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "7:09 - 3rd",
-     "score": "GS 54 - LAC 64",
-     "away_to": 5,
-     "home_to": 4
+     "detail": "3:36 - 3rd",
+     "score": "GS 63 - LAC 70",
+     "away_to": 4,
+     "home_to": 3
     }
    ]
   },
@@ -62,19 +62,17 @@
      "espn_event_id": "401892443",
      "matchup": "UTA @ NYR",
      "commence": "2026-10-04T22:00Z",
-     "status": "in",
-     "detail": "0:45 - 3rd",
-     "score": "UTA 2 - NYR 4",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "UTA 2 - NYR 4"
     },
     {
      "espn_event_id": "401891778",
      "matchup": "FLA @ ANA",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "7:21 - 1st",
-     "score": "FLA 0 - ANA 0",
+     "detail": "1:22 - 1st",
+     "score": "FLA 1 - ANA 1",
      "away_to": null,
      "home_to": null
     },
@@ -83,7 +81,7 @@
      "matchup": "CGY @ SEA",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "11:09 - 1st",
+     "detail": "3:03 - 1st",
      "score": "CGY 0 - SEA 3",
      "away_to": null,
      "home_to": null
@@ -106,7 +104,7 @@
      "matchup": "WAS @ HOU",
      "commence": "2026-10-04T23:00Z",
      "status": "in",
-     "detail": "69'",
+     "detail": "82'",
      "score": "WAS 2 - HOU 2"
     }
    ]
