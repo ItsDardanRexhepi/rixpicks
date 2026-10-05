@@ -1,6 +1,13 @@
 {
- "generated_at": "2026-10-05T16:06:14.133005+00:00",
+ "generated_at": "2026-10-05T16:20:45.103203+00:00",
  "items": [
+  {
+   "id": "c214e3ebb6",
+   "league": "MLB",
+   "event": "Chicago White Sox @ Cleveland Guardians",
+   "prediction": "Cleveland Guardians to beat Chicago White Sox",
+   "kickoff_utc": "2026-10-05T21:00:00+00:00"
+  },
   {
    "id": "b51bbfb986",
    "league": "NHL",
@@ -35,13 +42,6 @@
    "event": "Minnesota Timberwolves @ Milwaukee Bucks",
    "prediction": "Milwaukee Bucks to beat Minnesota Timberwolves",
    "kickoff_utc": "2026-10-06T00:00:00+00:00"
-  },
-  {
-   "id": "1382b5d824",
-   "league": "NFL",
-   "event": "Atlanta Falcons @ New Orleans Saints",
-   "prediction": "New Orleans Saints to beat Atlanta Falcons",
-   "kickoff_utc": "2026-10-06T00:15:00+00:00"
   }
  ]
 }

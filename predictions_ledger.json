@@ -1581,5 +1581,31 @@
   "kickoff_utc": "2026-10-05T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T16:05:24.858156+00:00"
+ },
+ {
+  "id": "c214e3ebb6",
+  "event_id": "401907991",
+  "league": "MLB",
+  "path": "baseball/mlb",
+  "home": "Cleveland Guardians",
+  "away": "Chicago White Sox",
+  "pick_team": "Cleveland Guardians",
+  "prediction": "Cleveland Guardians to beat Chicago White Sox",
+  "kickoff_utc": "2026-10-05T21:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T16:20:02.873270+00:00"
+ },
+ {
+  "id": "fdf5c2e142",
+  "event_id": "401907986",
+  "league": "MLB",
+  "path": "baseball/mlb",
+  "home": "Tampa Bay Rays",
+  "away": "New York Yankees",
+  "pick_team": "Tampa Bay Rays",
+  "prediction": "Tampa Bay Rays to beat New York Yankees",
+  "kickoff_utc": "2026-10-06T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T16:20:22.196977+00:00"
  }
 ]
