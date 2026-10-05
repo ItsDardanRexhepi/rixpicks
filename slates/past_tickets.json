@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-04T09:32:00-07:00",
+ "generated_at": "2026-10-04T17:10:00-07:00",
  "entries": [
   {
    "id": "t5",
@@ -1301,6 +1301,232 @@
    "reason": "Home run pick won - homered in the game (ESPN final box score: 1-for-3, 1 HR; Brewers 3, Padres 2)",
    "provenance": "Wooder Ice Dingers card, Oct 3. Result from ESPN official box score, event 401908002 (Final).",
    "removed_label": "Oct 4, 9:32 AM PT"
+  },
+  {
+   "id": "w1004-t13",
+   "kind": "ticket",
+   "origin": "placed-reported",
+   "title": "6-leg rushing combo \u00b7 Kalshi (reported placed by Wooder Ice)",
+   "result": "lost",
+   "detail": "2 of 6 legs won; lost: Jordan Love, Derrick Henry, Jeremiyah Love, Blake Corum. Settled from ESPN final box scores. Receipt, stake and fill were never independently verified.",
+   "legs": [
+    {
+     "player": "Jordan Love",
+     "market": "30+ rushing yards",
+     "matchup": "GB @ TB",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi multiplier not shown \u00b7 Final -8 rushing yards",
+     "status": "lost"
+    },
+    {
+     "player": "Derrick Henry",
+     "market": "100+ rushing yards",
+     "matchup": "TEN @ BAL",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.01x \u00b7 Final 73 rushing yards",
+     "status": "lost"
+    },
+    {
+     "player": "Najee Harris",
+     "market": "25+ rushing yards",
+     "matchup": "ARI @ NYG",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.97x \u00b7 Final 30 rushing yards",
+     "status": "won"
+    },
+    {
+     "player": "Jeremiyah Love",
+     "market": "70+ rushing yards",
+     "matchup": "ARI @ NYG",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.01x \u00b7 Final 63 rushing yards",
+     "status": "lost"
+    },
+    {
+     "player": "Blake Corum",
+     "market": "40+ rushing yards",
+     "matchup": "LAR @ PHI",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.93x \u00b7 Final 14 rushing yards",
+     "status": "lost"
+    },
+    {
+     "player": "Javonte Williams",
+     "market": "60+ rushing yards",
+     "matchup": "DAL @ HOU",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.97x \u00b7 Final 62 rushing yards",
+     "status": "won"
+    }
+   ],
+   "archived_at": "2026-10-04T17:10:00-07:00",
+   "reason": "All games final; one lost leg ends the combo.",
+   "provenance": "ESPN final box scores, Oct 4 NFL slate, events 401872966, 401872967, 401872968, 401872970, 401872973. https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=<id>",
+   "removed_label": "Oct 4, 5:10 PM PT"
+  },
+  {
+   "id": "w1004-t14",
+   "kind": "ticket",
+   "origin": "placed-reported",
+   "title": "9-leg moneyline combo \u00b7 Kalshi (reported placed by Wooder Ice)",
+   "result": "lost",
+   "detail": "7 of 9 legs won; lost: Arizona Cardinals, Buffalo Bills. Settled from ESPN final box scores. Receipt, stake and fill were never independently verified.",
+   "legs": [
+    {
+     "player": "Chicago Bears",
+     "market": "To win",
+     "matchup": "NYJ @ CHI",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.52x \u00b7 Final CHI 23, NYJ 12",
+     "status": "won"
+    },
+    {
+     "player": "Arizona Cardinals",
+     "market": "To win",
+     "matchup": "ARI @ NYG",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.70x \u00b7 Final ARI 24, NYG 36",
+     "status": "lost"
+    },
+    {
+     "player": "Dallas Cowboys",
+     "market": "To win",
+     "matchup": "DAL @ HOU",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.24x \u00b7 Final DAL 34, HOU 30",
+     "status": "won"
+    },
+    {
+     "player": "Jacksonville Jaguars",
+     "market": "To win",
+     "matchup": "JAX @ CIN",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.24x \u00b7 Final JAX 22, CIN 17",
+     "status": "won"
+    },
+    {
+     "player": "Seattle Seahawks",
+     "market": "To win",
+     "matchup": "LAC @ SEA",
+     "time": "Today 1:25 PM PT",
+     "note": "Kalshi 1.29x \u00b7 Final SEA 30, LAC 23",
+     "status": "won"
+    },
+    {
+     "player": "Baltimore Ravens",
+     "market": "To win",
+     "matchup": "TEN @ BAL",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.15x \u00b7 Final BAL 24, TEN 18",
+     "status": "won"
+    },
+    {
+     "player": "Green Bay Packers",
+     "market": "To win",
+     "matchup": "GB @ TB",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.62x \u00b7 Final GB 17, TB 14",
+     "status": "won"
+    },
+    {
+     "player": "Minnesota Vikings",
+     "market": "To win",
+     "matchup": "MIA @ MIN",
+     "time": "Today 1:05 PM PT",
+     "note": "Kalshi 1.19x \u00b7 Final MIN 15, MIA 10",
+     "status": "won"
+    },
+    {
+     "player": "Buffalo Bills",
+     "market": "To win",
+     "matchup": "NE @ BUF",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.33x \u00b7 Final BUF 26, NE 29",
+     "status": "lost"
+    }
+   ],
+   "archived_at": "2026-10-04T17:10:00-07:00",
+   "reason": "All games final; one lost leg ends the combo.",
+   "provenance": "ESPN final box scores, Oct 4 NFL slate, events 401872966, 401872967, 401872968, 401872969, 401872971, 401872972, 401872973, 401872974, 401872977. https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=<id>",
+   "removed_label": "Oct 4, 5:10 PM PT"
+  },
+  {
+   "id": "w1004-t15",
+   "kind": "ticket",
+   "origin": "placed-reported",
+   "title": "8-leg touchdowns combo \u00b7 Kalshi (reported placed by Wooder Ice)",
+   "result": "lost",
+   "detail": "3 of 8 legs won; lost: David Montgomery, Christian Watson, Chase Brown, D'Andre Swift, Trey McBride. Settled from ESPN final box scores. Receipt, stake and fill were never independently verified.",
+   "legs": [
+    {
+     "player": "David Montgomery",
+     "market": "1+ touchdowns",
+     "matchup": "DAL @ HOU",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.79x \u00b7 Final 0 rushing TD, 0 receiving TD",
+     "status": "lost"
+    },
+    {
+     "player": "Christian Watson",
+     "market": "1+ touchdowns",
+     "matchup": "GB @ TB",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.66x \u00b7 Final 0 rushing TD, 0 receiving TD",
+     "status": "lost"
+    },
+    {
+     "player": "Chase Brown",
+     "market": "1+ touchdowns",
+     "matchup": "JAX @ CIN",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.70x \u00b7 Final 0 rushing TD, 0 receiving TD",
+     "status": "lost"
+    },
+    {
+     "player": "Kenneth Walker III",
+     "market": "1+ touchdowns",
+     "matchup": "KC @ LV",
+     "time": "Today 1:25 PM PT",
+     "note": "Kalshi 1.67x \u00b7 Final 2 rushing TD, 0 receiving TD",
+     "status": "won"
+    },
+    {
+     "player": "James Cook III",
+     "market": "1+ touchdowns",
+     "matchup": "NE @ BUF",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.79x \u00b7 Final 1 rushing TD, 0 receiving TD",
+     "status": "won"
+    },
+    {
+     "player": "D'Andre Swift",
+     "market": "1+ touchdowns",
+     "matchup": "NYJ @ CHI",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.97x \u00b7 Final 0 rushing TD, 0 receiving TD",
+     "status": "lost"
+    },
+    {
+     "player": "Derrick Henry",
+     "market": "1+ touchdowns",
+     "matchup": "TEN @ BAL",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 1.46x \u00b7 Final 1 rushing TD, 0 receiving TD",
+     "status": "won"
+    },
+    {
+     "player": "Trey McBride",
+     "market": "1+ touchdowns",
+     "matchup": "ARI @ NYG",
+     "time": "Today 10:00 AM PT",
+     "note": "Kalshi 2.52x \u00b7 Final 0 rushing TD, 0 receiving TD",
+     "status": "lost"
+    }
+   ],
+   "archived_at": "2026-10-04T17:10:00-07:00",
+   "reason": "All games final; one lost leg ends the combo.",
+   "provenance": "ESPN final box scores, Oct 4 NFL slate, events 401872966, 401872967, 401872968, 401872969, 401872971, 401872972, 401872973, 401872976. https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=<id>",
+   "removed_label": "Oct 4, 5:10 PM PT"
   }
  ]
 }
