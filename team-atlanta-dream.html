@@ -121,10 +121,10 @@ h1 .tick{color:#3BEBF5}
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
-<div class="pick" data-espn="basketball/wnba" data-team="Atlanta Dream" data-abbr="ATL" data-eid="401918295" data-game-day="2026-10-04">
+<div class="pick" data-espn="basketball/wnba" data-team="Atlanta Dream" data-abbr="ATL" data-eid="401918297" data-game-day="2026-10-07">
   <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/atl.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Atlanta Dream</span><span class="odds">30-14</span></div>
   <div class="sub">Record 30-14 · Streak W5</div>
-  <div class="score" id="rpScore">Today: vs New York Liberty · 11:00 AM PT</div>
+  <div class="score" id="rpScore">Next up: vs New York Liberty · Wed, Oct 7, 4:30 PM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
@@ -138,7 +138,7 @@ h1 .tick{color:#3BEBF5}
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1791183041';
+const RP_BUILD='1791183919';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}
