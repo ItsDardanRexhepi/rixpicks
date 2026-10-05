@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T03:20:14.964235+00:00",
+ "generated_at": "2026-10-05T03:35:11.227155+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,8 +9,8 @@
      "espn_event_id": "401908014",
      "matchup": "ATL @ LAD",
      "commence": "2026-10-05T00:00Z",
-     "status": "in",
-     "detail": "Bot 9th",
+     "status": "post",
+     "detail": "Final",
      "score": "ATL 3 - LAD 2"
     }
    ]
@@ -23,9 +23,9 @@
      "matchup": "DET @ CAR",
      "commence": "2026-10-05T00:20Z",
      "status": "in",
-     "detail": "5:06 - 4th",
-     "score": "DET 19 - CAR 32",
-     "away_to": 3,
+     "detail": "2:09 - 4th",
+     "score": "DET 26 - CAR 32",
+     "away_to": 0,
      "home_to": 1
     }
    ]
@@ -54,7 +54,7 @@
      "matchup": "VGK @ VAN",
      "commence": "2026-10-05T01:00Z",
      "status": "in",
-     "detail": "10:34 - 3rd",
+     "detail": "0:46 - 3rd",
      "score": "VGK 3 - VAN 2",
      "away_to": null,
      "home_to": null

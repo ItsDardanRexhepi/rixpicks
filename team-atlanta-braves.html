@@ -121,24 +121,24 @@ h1 .tick{color:#3BEBF5}
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
-<div class="pick" data-espn="baseball/mlb" data-team="Atlanta Braves" data-abbr="ATL" data-eid="401908014" data-game-day="2026-10-04">
+<div class="pick" data-espn="baseball/mlb" data-team="Atlanta Braves" data-abbr="ATL" data-eid="401908015" data-game-day="2026-10-06">
   <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/atl.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Atlanta Braves</span><span class="odds">94-68</span></div>
-  <div class="sub">Record 94-68 · Streak L1</div>
-  <div class="score" id="rpScore">Today: @ Los Angeles Dodgers · 5:00 PM PT</div>
+  <div class="sub">Record 94-68 · Streak W1</div>
+  <div class="score" id="rpScore">Next up: vs Los Angeles Dodgers · Tue, Oct 6, 3:00 PM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 3-5 @ Los Angeles Dodgers · 10-03</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 6-2 vs Philadelphia Phillies · 10-01</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 3-4 vs Philadelphia Phillies · 09-30</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 5-3 vs Philadelphia Phillies · 09-29</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 3-5 @ Miami Marlins · 09-27</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 3-2 @ LAD · 10-04</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 3-5 @ LAD · 10-03</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 6-2 vs PHI · 10-01</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 3-4 vs PHI · 09-30</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 5-3 vs PHI · 09-29</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 3.7 &middot; allowed 3.8 per game over last 10</div>
+<div class="sub" style="padding:7px 0">Scored 4.0 &middot; allowed 3.2 per game over last 5</div>
 <div class="sect">Next up</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ LAD · 10-04</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs LAD · 10-06</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs LAD · 10-07</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs LAD · 10-06</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs LAD · 10-07</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ LAD · 10-09</div>
 <div class="sect">Injuries</div>
 <div class="sub">Injury data unavailable.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1791170423';
+const RP_BUILD='1791171317';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}
