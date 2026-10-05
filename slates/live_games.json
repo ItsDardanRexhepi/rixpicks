@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T06:35:15.751127+00:00",
+ "generated_at": "2026-10-05T06:48:45.029052+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -49,16 +49,16 @@
      "espn_event_id": "186315",
      "matchup": "Aziz Dougaz @ Lorenzo Sonego",
      "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "3rd",
+     "status": "post",
+     "detail": "Final",
      "score": "Aziz Dougaz 0 - Lorenzo Sonego 0"
     },
     {
      "espn_event_id": "186292",
      "matchup": "Nicolas Mejia @ Chun-Hsin Tseng",
      "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "1st",
+     "status": "post",
+     "detail": "Retired",
      "score": "Nicolas Mejia 0 - Chun-Hsin Tseng 0"
     },
     {
@@ -84,6 +84,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Federico Agustin Gomez 0 - Michael Zheng 0"
+    },
+    {
+     "espn_event_id": "186302",
+     "matchup": "Stefanos Sakellaridis @ Timofey Skatov",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Stefanos Sakellaridis 0 - Timofey Skatov 0"
     }
    ]
   }
