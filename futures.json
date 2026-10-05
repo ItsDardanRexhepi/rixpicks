@@ -20,7 +20,7 @@
    "ask_c": 10,
    "mid_c": 10,
    "status": "active",
-   "quoted_at": "2026-10-05T11:20:09+00:00"
+   "quoted_at": "2026-10-05T11:35:44+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-2027-champion-20260729185915366",
@@ -28,7 +28,7 @@
    "verified": true,
    "market_label": "Will the San Francisco 49ers win the 2027 NFL league championship?",
    "source": "gamma",
-   "quoted_at": "2026-10-05T11:20:13+00:00"
+   "quoted_at": "2026-10-05T11:35:47+00:00"
   }
  },
  {
@@ -51,15 +51,15 @@
    "ask_c": 63,
    "mid_c": 62,
    "status": "active",
-   "quoted_at": "2026-10-05T11:20:10+00:00"
+   "quoted_at": "2026-10-05T11:35:44+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-afc-west-champion",
-   "cents": 62,
+   "cents": 63,
    "verified": true,
    "market_label": "Will Kansas City Chiefs win the 2026 AFC West?",
    "source": "gamma",
-   "quoted_at": "2026-10-05T11:20:13+00:00"
+   "quoted_at": "2026-10-05T11:35:48+00:00"
   }
  },
  {
@@ -78,11 +78,11 @@
   "resolution": "Division decided end of NFL regular season (Jan 2027)",
   "kalshi_quote": {
    "ticker": "KXNFLNFCWEST-27-SF",
-   "bid_c": 43,
-   "ask_c": 45,
-   "mid_c": 44,
+   "bid_c": 41,
+   "ask_c": 42,
+   "mid_c": 42,
    "status": "active",
-   "quoted_at": "2026-10-05T11:20:10+00:00"
+   "quoted_at": "2026-10-05T11:35:45+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-nfc-west-champion",
@@ -90,7 +90,7 @@
    "verified": true,
    "market_label": "Will San Francisco 49ers win the 2026 NFC West?",
    "source": "gamma",
-   "quoted_at": "2026-10-05T11:20:14+00:00"
+   "quoted_at": "2026-10-05T11:35:48+00:00"
   }
  },
  {
@@ -113,7 +113,7 @@
    "ask_c": 41,
    "mid_c": 40,
    "status": "active",
-   "quoted_at": "2026-10-05T11:20:11+00:00"
+   "quoted_at": "2026-10-05T11:35:45+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-nfc-east-champion",
@@ -121,7 +121,7 @@
    "verified": true,
    "market_label": "Will Philadelphia Eagles win the 2026 NFC East?",
    "source": "gamma",
-   "quoted_at": "2026-10-05T11:20:14+00:00"
+   "quoted_at": "2026-10-05T11:35:49+00:00"
   }
  },
  {
@@ -144,15 +144,15 @@
    "ask_c": 38,
    "mid_c": 38,
    "status": "active",
-   "quoted_at": "2026-10-05T11:20:11+00:00"
+   "quoted_at": "2026-10-05T11:35:46+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-nfc-north-champion",
-   "cents": 39,
+   "cents": 38,
    "verified": true,
    "market_label": "Will Minnesota Vikings win the 2026 NFC North?",
    "source": "gamma",
-   "quoted_at": "2026-10-05T11:20:15+00:00"
+   "quoted_at": "2026-10-05T11:35:49+00:00"
   }
  },
  {
@@ -175,7 +175,7 @@
    "ask_c": 20,
    "mid_c": 20,
    "status": "active",
-   "quoted_at": "2026-10-05T11:20:12+00:00"
+   "quoted_at": "2026-10-05T11:35:46+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-2027-afc-champion",
@@ -183,7 +183,7 @@
    "verified": true,
    "market_label": "Will Buffalo Bills win the 2027 NFL AFC Championship?",
    "source": "gamma",
-   "quoted_at": "2026-10-05T11:20:15+00:00"
+   "quoted_at": "2026-10-05T11:35:49+00:00"
   }
  },
  {
@@ -202,19 +202,19 @@
   "resolution": "NFC Championship result (Jan 2027)",
   "kalshi_quote": {
    "ticker": "KXNFLNFCCHAMP-27-SF",
-   "bid_c": 17,
+   "bid_c": 16,
    "ask_c": 18,
-   "mid_c": 18,
+   "mid_c": 17,
    "status": "active",
-   "quoted_at": "2026-10-05T11:20:12+00:00"
+   "quoted_at": "2026-10-05T11:35:47+00:00"
   },
   "polymarket_com": {
    "url": "https://polymarket.com/event/pro-football-2027-nfc-champion",
-   "cents": 19,
+   "cents": 18,
    "verified": true,
    "market_label": "Will San Francisco 49ers win the 2027 NFL NFC Championship?",
    "source": "gamma",
-   "quoted_at": "2026-10-05T11:20:15+00:00"
+   "quoted_at": "2026-10-05T11:35:50+00:00"
   }
  },
  {
