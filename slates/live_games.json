@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T08:20:13.086634+00:00",
+ "generated_at": "2026-10-05T08:35:20.179013+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -18,7 +18,7 @@
      "matchup": "Te Rigele @ Adam Walton",
      "commence": "2026-10-05T04:00Z",
      "status": "in",
-     "detail": "2nd",
+     "detail": "3rd",
      "score": "Te Rigele 0 - Adam Walton 0"
     },
     {
@@ -36,6 +36,14 @@
      "status": "in",
      "detail": "1st",
      "score": "Dalibor Svrcina 0 - Billy Harris 0"
+    },
+    {
+     "espn_event_id": "186299",
+     "matchup": "Pavel Kotov @ Martin Damm",
+     "commence": "2026-10-05T04:00Z",
+     "status": "in",
+     "detail": "1st",
+     "score": "Pavel Kotov 0 - Martin Damm 0"
     }
    ]
   }
