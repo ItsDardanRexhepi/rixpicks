@@ -1,49 +1,17 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T09:50:13.050264+00:00",
+ "generated_at": "2026-10-05T19:05:35.702932+00:00",
  "leagues": [
   {
-   "league": "ATP",
+   "league": "MLB",
    "games": [
     {
-     "espn_event_id": "186295",
-     "matchup": "Dalibor Svrcina @ Billy Harris",
-     "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Dalibor Svrcina 0 - Billy Harris 0"
-    },
-    {
-     "espn_event_id": "186299",
-     "matchup": "Pavel Kotov @ Martin Damm",
-     "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Pavel Kotov 0 - Martin Damm 0"
-    },
-    {
-     "espn_event_id": "186294",
-     "matchup": "Tristan Schoolkate @ Dane Sweeny",
-     "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Tristan Schoolkate 0 - Dane Sweeny 0"
-    },
-    {
-     "espn_event_id": "186311",
-     "matchup": "Zhang Tianhui @ Kyrian Jacquet",
-     "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "2nd",
-     "score": "Zhang Tianhui 0 - Kyrian Jacquet 0"
-    },
-    {
-     "espn_event_id": "186298",
-     "matchup": "Aleksandar Vukic @ Cui Jie",
-     "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "1st",
-     "score": "Aleksandar Vukic 0 - Cui Jie 0"
+     "espn_event_id": "401907991",
+     "matchup": "CHW @ CLE",
+     "commence": "2026-10-05T21:00Z",
+     "status": "pre",
+     "detail": "10/5 - 2:00 PM PT",
+     "score": "CHW 0 - CLE 0"
     }
    ]
   }
