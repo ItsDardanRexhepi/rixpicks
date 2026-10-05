@@ -47,7 +47,7 @@
     }
    ],
    "asof": "Live at post time, 12:15 PM PT Oct 5. France v Belgium in the first half (ESPN: 0-0 at about 26 min). Two of three legs priced on Kalshi (live asks, converted from cents to American; tickers KXUEFANLGOAL-26OCT05FRABEL-FRAODEMBE10-1 and -FRABBARCO29-1). Gyokeres is unavailable on both venues. DraftKings Predictions has no goalscorer markets for these matches (moneyline only).",
-   "assumptions": "Wooder Ice note: \"France is sitting some of the key guys. If I see Michael Olise get subbed in or Rayan Cherki get subbed in.... I am def running a score or assist bet on them!\" This is commentary, not a lineup report."
+   "assumptions": "Wooder Ice note: \"France is sitting some of the key guys. If I see Michael Olise get subbed in or Rayan Cherki get subbed in\u2026. I am def running a score or assist bet on them!\" This is commentary, not a lineup report."
   },
   {
    "id": "t7",
@@ -113,6 +113,420 @@
     }
    ],
    "asof": "Live at post time, 12:15 PM PT Oct 5. All four kicked off 11:45 AM PT and were in the first half (about 26 min; ESPN: 0-0 in Italy v Turkiye, Montenegro v Armenia and France v Belgium; one goal scored in Romania v Sweden). Kalshi live asks (KXUEFANLTOTAL-26OCT05[ROUSWE|MNEARM|ITATUR|FRABEL]-3) converted from cents to American. Not listed on DraftKings Predictions (moneyline only)."
+  },
+  {
+   "id": "t8",
+   "title": "PLACED - reported by Wooder Ice: NHL 4 anytime goals",
+   "matchup": "Hagel PHI@TB, Batherson OTT@BOS, Connor WPG@PIT, Hintz SJ@DAL",
+   "time": "DKP lists 4:10, 4:40, 4:40, 5:10 PM PT (ESPN scheduled 4:00, 4:30, 4:30, 5:00)",
+   "legs": [
+    {
+     "player": "Brandon Hagel",
+     "market": "Anytime goal",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 36
+      },
+      {
+       "venue": "DKP",
+       "cents": 36
+      }
+     ],
+     "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
+    },
+    {
+     "player": "Drake Batherson",
+     "market": "Anytime goal",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 29
+      },
+      {
+       "venue": "DKP",
+       "cents": 29
+      }
+     ],
+     "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
+    },
+    {
+     "player": "Kyle Connor",
+     "market": "Anytime goal",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 36
+      },
+      {
+       "venue": "DKP",
+       "cents": 36
+      }
+     ],
+     "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
+    },
+    {
+     "player": "Roope Hintz",
+     "market": "Anytime goal",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 30
+      },
+      {
+       "venue": "DKP",
+       "cents": 30
+      }
+     ],
+     "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
+    }
+   ],
+   "asof": "Placed as reported by Wooder Ice, not a verified fill. No games started at post time (ESPN: scheduled). Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+  },
+  {
+   "id": "t3",
+   "title": "Montgomery HR single",
+   "matchup": "CWS at CLE, Oct 5",
+   "time": "First pitch 2:00 PM PT",
+   "legs": [
+    {
+     "player": "Colson Montgomery",
+     "market": "Home run (1+)",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 12
+      },
+      {
+       "venue": "DKP",
+       "cents": 13
+      }
+     ],
+     "note": "Kalshi: must start and get a plate appearance, else fair price. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
+    }
+   ],
+   "asof": "Not placed. Single only, separate from the Montgomery plus Ramirez ticket and from the daily Ramirez/Rice card. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+  },
+  {
+   "id": "t4",
+   "title": "Dingers only: Montgomery + Ramirez HR (2 legs)",
+   "matchup": "CWS at CLE, Oct 5",
+   "time": "First pitch 2:00 PM PT",
+   "legs": [
+    {
+     "player": "Colson Montgomery",
+     "market": "Home run (1+)",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 12
+      },
+      {
+       "venue": "DKP",
+       "cents": 13
+      }
+     ],
+     "note": "Kalshi: must start and get a plate appearance, else fair price. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
+    },
+    {
+     "player": "Jose Ramirez",
+     "market": "Home run (1+)",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 12
+      },
+      {
+       "venue": "DKP",
+       "cents": 13
+      }
+     ],
+     "note": "Same starter rule. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
+    }
+   ],
+   "asof": "Not placed. Two-leg dingers-only ticket, separate from the Montgomery single and from the daily Ramirez/Rice card. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+  },
+  {
+   "id": "t5",
+   "title": "NHL 4 anytime goals",
+   "matchup": "Kucherov PHI@TB, Pastrnak OTT@BOS, Connor WPG@PIT, Johnston SJ@DAL",
+   "time": "DKP lists 4:10, 4:40, 4:40, 5:10 PM PT (ESPN scheduled 4:00, 4:30, 4:30, 5:00)",
+   "legs": [
+    {
+     "player": "Nikita Kucherov",
+     "market": "Anytime goal",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 37
+      },
+      {
+       "venue": "DKP",
+       "cents": 38
+      }
+     ],
+     "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
+    },
+    {
+     "player": "David Pastrnak",
+     "market": "Anytime goal",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 36
+      },
+      {
+       "venue": "DKP",
+       "cents": 37
+      }
+     ],
+     "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
+    },
+    {
+     "player": "Kyle Connor",
+     "market": "Anytime goal",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 36
+      },
+      {
+       "venue": "DKP",
+       "cents": 36
+      }
+     ],
+     "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
+    },
+    {
+     "player": "Wyatt Johnston",
+     "market": "Anytime goal",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 40
+      },
+      {
+       "venue": "DKP",
+       "cents": 41
+      }
+     ],
+     "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
+    }
+   ],
+   "asof": "Not placed. No games started at post time. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+  },
+  {
+   "id": "t2",
+   "title": "CWS at CLE 8 legs: Montgomery HR plus 1+ hit each (mixed, not Dingers only)",
+   "matchup": "CWS at CLE, Oct 5",
+   "time": "First pitch 2:00 PM PT",
+   "legs": [
+    {
+     "player": "Colson Montgomery",
+     "market": "Home run (1+)",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 12
+      },
+      {
+       "venue": "DKP",
+       "cents": 13
+      }
+     ],
+     "note": "Kalshi: must start and get a plate appearance, else fair price. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
+    },
+    {
+     "player": "Jose Ramirez",
+     "market": "1+ hit",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 65
+      },
+      {
+       "venue": "DKP",
+       "cents": 66
+      }
+     ],
+     "note": "Same starter rule. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
+    },
+    {
+     "player": "Angel Martinez",
+     "market": "1+ hit",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 60
+      },
+      {
+       "venue": "DKP",
+       "cents": 60
+      }
+     ],
+     "note": "Same starter rule. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
+    },
+    {
+     "player": "Sam Antonacci",
+     "market": "1+ hit",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 61
+      },
+      {
+       "venue": "DKP",
+       "cents": 61
+      }
+     ],
+     "note": "Same starter rule. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
+    },
+    {
+     "player": "Nathaniel Lowe",
+     "market": "1+ hit",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 55
+      },
+      {
+       "venue": "DKP",
+       "cents": 55
+      }
+     ],
+     "note": "Same starter rule. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
+    },
+    {
+     "player": "Miguel Vargas",
+     "market": "1+ hit",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 56
+      },
+      {
+       "venue": "DKP",
+       "cents": 56
+      }
+     ],
+     "note": "Same starter rule. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
+    },
+    {
+     "player": "Kyle Teel",
+     "market": "1+ hit",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 51
+      },
+      {
+       "venue": "DKP",
+       "cents": 52
+      }
+     ],
+     "note": "Same starter rule. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
+    },
+    {
+     "player": "Munetaka Murakami",
+     "market": "1+ hit",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 48
+      },
+      {
+       "venue": "DKP",
+       "cents": 48
+      }
+     ],
+     "note": "Same starter rule. DKP rule read: starter with a plate appearance, else fair price; same as Kalshi."
+    }
+   ],
+   "asof": "Not placed. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+  },
+  {
+   "id": "t1",
+   "title": "NBA preseason 5 legs",
+   "matchup": "Spreads are 'wins by over 1.5'; Timberwolves moneyline",
+   "time": "Tip-offs 4:00 PM (PHX-DET, MEM-ATL, NYK-PHI), 5:00 PM (MIN-MIL), 7:00 PM PT (LAL-SAC) per ESPN",
+   "legs": [
+    {
+     "player": "Pistons -1.5 vs PHX",
+     "market": "Spread",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 58
+      },
+      {
+       "venue": "DKP",
+       "cents": 60
+      }
+     ],
+     "note": "DKP rule read: full game incl. OT, margin must exceed the line. Kalshi: wins by over 1.5."
+    },
+    {
+     "player": "Hawks -1.5 vs MEM",
+     "market": "Spread",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 58
+      },
+      {
+       "venue": "DKP",
+       "cents": 59
+      }
+     ],
+     "note": "Same rules (DKP and Kalshi read)."
+    },
+    {
+     "player": "76ers -1.5 vs NYK",
+     "market": "Spread",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 37
+      },
+      {
+       "venue": "DKP",
+       "cents": 39
+      }
+     ],
+     "note": "Same rules (DKP and Kalshi read)."
+    },
+    {
+     "player": "Kings -1.5 vs LAL",
+     "market": "Spread",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 33
+      },
+      {
+       "venue": "DKP",
+       "cents": 35
+      }
+     ],
+     "note": "Same rules (DKP and Kalshi read)."
+    },
+    {
+     "player": "Timberwolves at MIL",
+     "market": "Moneyline",
+     "links": [
+      {
+       "venue": "KAL",
+       "cents": 66
+      },
+      {
+       "venue": "DKP",
+       "cents": 67
+      }
+     ],
+     "note": "Kalshi: Minnesota wins. DKP rule read: wins the game incl. overtime, official result."
+    }
+   ],
+   "asof": "Not placed. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
   }
  ]
 }
