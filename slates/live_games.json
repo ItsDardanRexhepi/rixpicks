@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T06:05:10.554640+00:00",
+ "generated_at": "2026-10-05T06:20:12.995453+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -17,16 +17,16 @@
      "espn_event_id": "186309",
      "matchup": "Liam Draxl @ Hugo Gaston",
      "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "2nd",
+     "status": "post",
+     "detail": "Final",
      "score": "Liam Draxl 0 - Hugo Gaston 0"
     },
     {
      "espn_event_id": "186312",
      "matchup": "Shintaro Mochizuki @ Taro Daniel",
      "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "3rd",
+     "status": "post",
+     "detail": "Final",
      "score": "Shintaro Mochizuki 0 - Taro Daniel 0"
     },
     {
@@ -41,8 +41,8 @@
      "espn_event_id": "186314",
      "matchup": "Federico Cina @ Xiao Linang",
      "commence": "2026-10-05T04:00Z",
-     "status": "in",
-     "detail": "3rd",
+     "status": "post",
+     "detail": "Final",
      "score": "Federico Cina 0 - Xiao Linang 0"
     },
     {
