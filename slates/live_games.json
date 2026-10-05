@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-05T02:50:12.321226+00:00",
+ "generated_at": "2026-10-05T03:05:12.179734+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "ATL @ LAD",
      "commence": "2026-10-05T00:00Z",
      "status": "in",
-     "detail": "Top 8th",
+     "detail": "End 8th",
      "score": "ATL 3 - LAD 1"
     }
    ]
@@ -23,31 +23,10 @@
      "matchup": "DET @ CAR",
      "commence": "2026-10-05T00:20Z",
      "status": "in",
-     "detail": "14:43 - 4th",
-     "score": "DET 19 - CAR 29",
+     "detail": "8:19 - 4th",
+     "score": "DET 19 - CAR 32",
      "away_to": 3,
-     "home_to": 3
-    }
-   ]
-  },
-  {
-   "league": "NBA",
-   "games": [
-    {
-     "espn_event_id": "401914127",
-     "matchup": "UTAH @ DEN",
-     "commence": "2026-10-04T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "UTAH 109 - DEN 97"
-    },
-    {
-     "espn_event_id": "401918010",
-     "matchup": "GS @ LAC",
-     "commence": "2026-10-04T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "GS 101 - LAC 104"
+     "home_to": 2
     }
    ]
   },
@@ -58,11 +37,9 @@
      "espn_event_id": "401891778",
      "matchup": "FLA @ ANA",
      "commence": "2026-10-05T00:00Z",
-     "status": "in",
-     "detail": "2:26 - OT",
-     "score": "FLA 2 - ANA 2",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final/OT",
+     "score": "FLA 2 - ANA 3"
     },
     {
      "espn_event_id": "401891824",
@@ -77,23 +54,10 @@
      "matchup": "VGK @ VAN",
      "commence": "2026-10-05T01:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "18:41 - 3rd",
      "score": "VGK 3 - VAN 2",
      "away_to": null,
      "home_to": null
-    }
-   ]
-  },
-  {
-   "league": "NWSL",
-   "games": [
-    {
-     "espn_event_id": "401854020",
-     "matchup": "WAS @ HOU",
-     "commence": "2026-10-04T23:00Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "WAS 3 - HOU 2"
     }
    ]
   }
