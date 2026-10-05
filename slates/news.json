@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-05T05:01:21.066Z",
+ "generated_at": "2026-10-05T05:06:01.545Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -131,8 +131,8 @@
     "league": "NFL"
    },
    {
-    "headline": "Jim Harbaugh defends OC Mike McDaniel after Justin Herbert's struggles, Chargers fall to 0-4",
-    "link": "https://sports.yahoo.com/nfl/article/jim-harbaugh-defends-oc-mike-mcdaniel-after-justin-herberts-struggles-chargers-fall-to-0-4-044349773.html",
+    "headline": "Jim Harbaugh defends offensive coordinator Mike McDaniel after Justin Herbert's struggles, Chargers fall to 0-4",
+    "link": "https://sports.yahoo.com/nfl/article/jim-harbaugh-defends-offensive-coordinator-mike-mcdaniel-after-justin-herberts-struggles-chargers-fall-to-0-4-044349773.html",
     "published": "2026-10-05T04:43:49.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/5a81425f04142be4981d495f484ccdabe4ec01b9fcd14f37eff938f13f02ec30/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-09%2Ff9c4bfa0-e29e-480e-b438-c624b3b134b7",
     "blurb": "\"His job is not in jeopardy.\"",
@@ -398,11 +398,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Impact Players from Utah\u2019s preseason win over Denver",
-    "link": "https://sports.yahoo.com/articles/impact-players-utah-preseason-win-024308060.html",
-    "published": "2026-10-05T02:43:08.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/3f1a1549709048b95a4beee8056a5bd23bea600b46903e647a35a38ae5f1ef8f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0c586555863b18e935aa51a961805616.jpg",
-    "blurb": "These are the men responsible for the Jazz winning this basketball game.",
+    "headline": "Warriors start preseason with 104-101 loss to Clippers in Hawaii",
+    "link": "https://sports.yahoo.com/articles/warriors-start-preseason-104-101-024719908.html",
+    "published": "2026-10-05T02:47:19.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/86eea94b83aae36c3303f57b083d82f1ab10ba53c98f5a5dd4e182d7b925e996/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd87017b2c6ef62907509280056f53643.jpg",
+    "blurb": "Here we go again.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -425,11 +425,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Tobias Harris could miss Spurs season opener after straining calf",
-    "link": "https://sports.yahoo.com/articles/tobias-harris-could-miss-spurs-022727322.html",
-    "published": "2026-10-05T02:27:27.000Z",
+    "headline": "Impact Players from Utah\u2019s preseason win over Denver",
+    "link": "https://sports.yahoo.com/articles/impact-players-utah-preseason-win-024308060.html",
+    "published": "2026-10-05T02:43:08.000Z",
     "image": "",
-    "blurb": "Tobias Harris suffered a left calf strain during training camp and will miss the NBA preseason, the San Antonio Spurs announced.",
+    "blurb": "These are the men responsible for the Jazz winning this basketball game.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -452,16 +452,25 @@
     "league": "NBA"
    },
    {
-    "headline": "Nikola Joki\u0107 dazzles with behind-the-back pass down the baseline that you have to see to believe",
-    "link": "https://sports.yahoo.com/nba/breaking-news/article/nikola-jokic-dazzles-with-behind-the-back-pass-down-the-baseline-that-you-have-to-see-to-believe-013546633.html",
-    "published": "2026-10-05T01:35:46.000Z",
+    "headline": "Tobias Harris could miss Spurs season opener after straining calf",
+    "link": "https://sports.yahoo.com/articles/tobias-harris-could-miss-spurs-022727322.html",
+    "published": "2026-10-05T02:27:27.000Z",
     "image": "",
-    "blurb": "Nikola Joki\u0107 is already doing Nikola Joki\u0107 things.",
+    "blurb": "Tobias Harris suffered a left calf strain during training camp and will miss the NBA preseason, the San Antonio Spurs announced.",
     "source": "YAHOO",
     "league": "NBA"
    }
   ],
   "hockey/nhl": [
+   {
+    "headline": "Marchand, out since March 6, scores in return to Panthers",
+    "link": "https://www.espn.com/nhl/story/_/id/50106368/brad-marchand-march-6-back-panthers-lineup",
+    "published": "2026-10-05T05:02:17Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1005%2Fr1726187_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Florida Panthers forward Brad Marchand, out since March 6, made his season debut Sunday night against the Anaheim Ducks following an offseason that included surgery for the 38-year-old left wing, who scored 27 goals last season.",
+    "league": "NHL"
+   },
    {
     "headline": "Takeaways from the Ducks 3-2 OT Win over the Panthers",
     "link": "https://sports.yahoo.com/articles/takeaways-ducks-3-2-ot-041418063.html",
@@ -469,15 +478,6 @@
     "image": "https://s.yimg.com/lo/mysterio/api/a952df5744aa1d318425872bcb0009ffa3cf2d54e724841fdd2a36275f4b1c55/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_anaheim_ducks_articles_460%2F3ed383725ca3924e6d0a1a895316e8fb.jpg",
     "blurb": "Lukas Dostal\u2019s steady goaltending and a lethal power play propelled Anaheim to a historic home-opening victory, overcoming Florida\u2019s physical presence and dominant puck possession in a gritty overtime battle.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Florida Panthers vs. Anaheim Ducks: Game Highlights",
-    "link": "https://www.espn.com/video/clip/_/id/50107385/game-highlights",
-    "published": "2026-10-05T04:09:17Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1005%2F99be7b66-a83d-4a60-91c3-d91513c29ea1%2F99be7b66-a83d-4a60-91c3-d91513c29ea1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Florida Panthers vs. Anaheim Ducks: Game Highlights",
     "league": "NHL"
    },
    {
@@ -490,21 +490,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Florida Panthers vs. Anaheim Ducks: Game Highlights",
+    "link": "https://www.espn.com/video/clip/_/id/50107385/game-highlights",
+    "published": "2026-10-05T04:09:17Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1005%2F99be7b66-a83d-4a60-91c3-d91513c29ea1%2F99be7b66-a83d-4a60-91c3-d91513c29ea1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Florida Panthers vs. Anaheim Ducks: Game Highlights",
+    "league": "NHL"
+   },
+   {
     "headline": "Kyle Connor has hand in all 3 goals in narrow win over Red Wings",
     "link": "https://sports.yahoo.com/articles/kyle-connor-hand-3-goals-040520146.html",
     "published": "2026-10-05T04:05:20.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/a7c8a97c6f7bddd4631a6e6b530ba5a2179a7c21b1205f197f907e9ce9e17b17/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fap.org%2Fed04a96cc2dc9cc95106d5bfa238a6cd.jpg",
     "blurb": "JETS 3, RED WINGS 2DETROIT (AP) \u2014 Kyle Connor scored two of Winnipeg\u2019s three power-play goals and added an assist on the third as the Jets held off the Detroit Red Wings 3-2 on Sunday.Cole Perfetti scored the Jets\u2019 other goal and had two assists, while Josh Morrissey also had two",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Breaking down the goalie masks across the NHL in the 2026-27 season",
-    "link": "https://www.espn.com/nhl/story/_/id/50062934/nhl-goalie-masks-2026-27-breakdown-designs",
-    "published": "2026-10-05T04:02:26.000Z",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0929%252Fr1723679_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Here's a look at the notable goalie mask designs across the NHL for the upcoming season.",
-    "source": "ESPN",
     "league": "NHL"
    },
    {
@@ -517,21 +517,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Breaking down the goalie masks across the NHL in the 2026-27 season",
+    "link": "https://www.espn.com/nhl/story/_/id/50062934/nhl-goalie-masks-2026-27-breakdown-designs",
+    "published": "2026-10-05T04:02:26.000Z",
+    "image": "",
+    "blurb": "Here's a look at the notable goalie mask designs across the NHL for the upcoming season.",
+    "source": "ESPN",
+    "league": "NHL"
+   },
+   {
     "headline": "Former Penguins' Defenseman Lyle Odelein Dead At 58",
     "link": "https://sports.yahoo.com/articles/former-penguins-defenseman-lyle-odelein-035949299.html",
     "published": "2026-10-05T03:59:49.000Z",
     "image": "",
     "blurb": "Odelein lived in Fox Chapel, Pa. outside of Pittsburgh post-retirement.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Golden Knights beat the Canucks 3-2 on Gatcomb\u2019s go-ahead goal",
-    "link": "http://www.espn.com/nhl/recap?gameId=401892444",
-    "published": "2026-10-05T04:01:31Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892444.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 Marc Gatcomb scored the go-ahead goal late on the second period and the Vegas Golden Knights downed the Vancouver Canucks 3-2 on Sunday night.",
     "league": "NHL"
    },
    {
@@ -544,12 +544,12 @@
     "league": "NHL"
    },
    {
-    "headline": "Canucks Wrap Up Home-Stand With 3-2 Loss To The Golden Knights",
-    "link": "https://sports.yahoo.com/articles/canucks-wrap-home-stand-3-035304516.html",
-    "published": "2026-10-05T03:53:04.000Z",
-    "image": "",
-    "blurb": "The Canucks wrapped up their three-game home-stand with a 3-2 loss to the Vegas Golden Knights.",
-    "source": "YAHOO",
+    "headline": "Golden Knights beat the Canucks 3-2 on Gatcomb\u2019s go-ahead goal",
+    "link": "http://www.espn.com/nhl/recap?gameId=401892444",
+    "published": "2026-10-05T04:01:31Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892444.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 Marc Gatcomb scored the go-ahead goal late on the second period and the Vegas Golden Knights downed the Vancouver Canucks 3-2 on Sunday night.",
     "league": "NHL"
    }
   ],
@@ -1087,6 +1087,15 @@
    "league": "NFL"
   },
   {
+   "headline": "Marchand, out since March 6, scores in return to Panthers",
+   "link": "https://www.espn.com/nhl/story/_/id/50106368/brad-marchand-march-6-back-panthers-lineup",
+   "published": "2026-10-05T05:02:17Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1005%2Fr1726187_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Florida Panthers forward Brad Marchand, out since March 6, made his season debut Sunday night against the Anaheim Ducks following an offseason that included surgery for the 38-year-old left wing, who scored 27 goals last season.",
+   "league": "NHL"
+  },
+  {
    "headline": "Austin Smotherman wins PGA Tour's Bank of Utah Championship",
    "link": "https://www.espn.com/golf/story/_/id/50105931/austin-smotherman-wins-pga-tour-bank-utah-championship",
    "published": "2026-10-05T04:51:57Z",
@@ -1123,8 +1132,8 @@
    "league": "NFL"
   },
   {
-   "headline": "Jim Harbaugh defends OC Mike McDaniel after Justin Herbert's struggles, Chargers fall to 0-4",
-   "link": "https://sports.yahoo.com/nfl/article/jim-harbaugh-defends-oc-mike-mcdaniel-after-justin-herberts-struggles-chargers-fall-to-0-4-044349773.html",
+   "headline": "Jim Harbaugh defends offensive coordinator Mike McDaniel after Justin Herbert's struggles, Chargers fall to 0-4",
+   "link": "https://sports.yahoo.com/nfl/article/jim-harbaugh-defends-offensive-coordinator-mike-mcdaniel-after-justin-herberts-struggles-chargers-fall-to-0-4-044349773.html",
    "published": "2026-10-05T04:43:49.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/5a81425f04142be4981d495f484ccdabe4ec01b9fcd14f37eff938f13f02ec30/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-09%2Ff9c4bfa0-e29e-480e-b438-c624b3b134b7",
    "blurb": "\"His job is not in jeopardy.\"",
@@ -1174,15 +1183,6 @@
    "image": "https://s.yimg.com/lo/mysterio/api/a7c8a97c6f7bddd4631a6e6b530ba5a2179a7c21b1205f197f907e9ce9e17b17/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fap.org%2Fed04a96cc2dc9cc95106d5bfa238a6cd.jpg",
    "blurb": "JETS 3, RED WINGS 2DETROIT (AP) \u2014 Kyle Connor scored two of Winnipeg\u2019s three power-play goals and added an assist on the third as the Jets held off the Detroit Red Wings 3-2 on Sunday.Cole Perfetti scored the Jets\u2019 other goal and had two assists, while Josh Morrissey also had two",
    "source": "YAHOO",
-   "league": "NHL"
-  },
-  {
-   "headline": "Breaking down the goalie masks across the NHL in the 2026-27 season",
-   "link": "https://www.espn.com/nhl/story/_/id/50062934/nhl-goalie-masks-2026-27-breakdown-designs",
-   "published": "2026-10-05T04:02:26.000Z",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0929%252Fr1723679_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Here's a look at the notable goalie mask designs across the NHL for the upcoming season.",
-   "source": "ESPN",
    "league": "NHL"
   },
   {
@@ -1303,11 +1303,11 @@
    "league": "PGA"
   },
   {
-   "headline": "Impact Players from Utah\u2019s preseason win over Denver",
-   "link": "https://sports.yahoo.com/articles/impact-players-utah-preseason-win-024308060.html",
-   "published": "2026-10-05T02:43:08.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/3f1a1549709048b95a4beee8056a5bd23bea600b46903e647a35a38ae5f1ef8f/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0c586555863b18e935aa51a961805616.jpg",
-   "blurb": "These are the men responsible for the Jazz winning this basketball game.",
+   "headline": "Warriors start preseason with 104-101 loss to Clippers in Hawaii",
+   "link": "https://sports.yahoo.com/articles/warriors-start-preseason-104-101-024719908.html",
+   "published": "2026-10-05T02:47:19.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/86eea94b83aae36c3303f57b083d82f1ab10ba53c98f5a5dd4e182d7b925e996/lightyear_networkapi/resizefill_w1200_h630%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd87017b2c6ef62907509280056f53643.jpg",
+   "blurb": "Here we go again.",
    "source": "YAHOO",
    "league": "NBA"
   },
@@ -1421,8 +1421,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 54,
-  "YAHOO": 66,
+  "ESPN": 55,
+  "YAHOO": 65,
   "CBS": 34
  },
  "degraded_sources": []
