@@ -1620,5 +1620,31 @@
   "kickoff_utc": "2026-10-08T01:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T16:35:34.825034+00:00"
+ },
+ {
+  "id": "d742cbc779",
+  "event_id": "401892447",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Pittsburgh Penguins",
+  "away": "Winnipeg Jets",
+  "pick_team": "Pittsburgh Penguins",
+  "prediction": "Pittsburgh Penguins to beat Winnipeg Jets",
+  "kickoff_utc": "2026-10-05T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T16:50:09.268106+00:00"
+ },
+ {
+  "id": "d9f61f918d",
+  "event_id": "401892448",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Dallas Stars",
+  "away": "San Jose Sharks",
+  "pick_team": "Dallas Stars",
+  "prediction": "Dallas Stars to beat San Jose Sharks",
+  "kickoff_utc": "2026-10-06T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T16:50:15.584561+00:00"
  }
 ]
