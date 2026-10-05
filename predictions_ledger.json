@@ -1282,5 +1282,31 @@
   "kickoff_utc": "2026-10-10T16:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-05T04:20:29.417486+00:00"
+ },
+ {
+  "id": "f4231f58f4",
+  "event_id": "401856718",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Vanderbilt Commodores",
+  "away": "Ole Miss Rebels",
+  "pick_team": "Ole Miss Rebels",
+  "prediction": "Ole Miss Rebels to beat Vanderbilt Commodores",
+  "kickoff_utc": "2026-10-10T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T04:35:54.366512+00:00"
+ },
+ {
+  "id": "3fe2b9895d",
+  "event_id": "401858483",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Ohio State Buckeyes",
+  "away": "Maryland Terrapins",
+  "pick_team": "Ohio State Buckeyes",
+  "prediction": "Ohio State Buckeyes to beat Maryland Terrapins",
+  "kickoff_utc": "2026-10-10T20:15:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-05T04:36:21.562523+00:00"
  }
 ]
