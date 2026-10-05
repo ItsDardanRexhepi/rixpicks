@@ -2488,7 +2488,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     # price. Hides (and keeps the tab hidden) on a missing, empty or wrong-date file. Not-placed ideas, no wagers.
     nfl_ideas_entry=(
     r'<div style="margin-top:6px">'
-    r'<div class="sect" style="margin-top:2px">NFL ideas</div>'
+    r'<div class="sect" style="margin-top:2px">PICKS FROM RIX</div>'
     r'<div id="rpNflIdeas"></div>'
     r'<div style="font-size:11px;color:#8a8f98;margin-top:10px;line-height:1.45">Ideas only, not placed. Prices are per leg from the venue named, as of the time shown, converted from cents to American. No combined price is quoted.</div>'
     r'</div>'
@@ -2515,7 +2515,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     r'lh+="<div style=\"padding:6px 0;border-top:1px solid rgba(127,127,127,.18)\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+esc(lg.player)+"</b><span style=\"color:#8a8f98;font-size:12px\">"+esc(lg.market)+"</span></div>"'
     r'+(lg.note?"<div style=\"font-size:11px;color:#8a8f98;margin-top:2px\">"+esc(lg.note)+"</div>":"")+"<div style=\"margin-top:4px\">"+chips+un+"</div></div>";});'
     r'if(!lh)return;'
-    r'h+="<div class=\"rpnpick\" style=\"border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px;margin-top:10px\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+esc(cd.title)+"</b><span style=\"background:#2a2f36;color:#c9ced6;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px\">NOT PLACED</span></div>"'
+    r'h+="<div class=\"rpnpick\" style=\"border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px;margin-top:10px\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+esc(cd.title)+"</b></div>"'
     r'+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(cd.matchup||"")+(cd.time?" &middot; "+esc(cd.time):"")+"</div>"+lh'
     r'+(cd.asof?"<div style=\"font-size:11px;color:#8a8f98;margin-top:6px;line-height:1.4\">"+esc(cd.asof)+"</div>":"")'
     r'+(cd.assumptions?"<div style=\"font-size:11px;color:#8a8f98;margin-top:4px;line-height:1.4\">"+esc(cd.assumptions)+"</div>":"")+"</div>";});'

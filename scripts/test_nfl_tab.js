@@ -30,7 +30,7 @@ const good = { date: '2026-10-05', cards: [{ title: 'T', legs: [leg, { player: '
   check('valid today file reveals the tab', r.tab.style.display === '', r.tab.style.display);
   check('KAL 27c renders +270, DKP 29c renders +245', /KAL \+270/.test(r.box.innerHTML) && /DKP \+245/.test(r.box.innerHTML), r.box.innerHTML.slice(0, 200));
   check('sportsbook venue (FD) chip is dropped', !/FD /.test(r.box.innerHTML), 'FD chip');
-  check('NOT PLACED label and unlisted note render', /NOT PLACED/.test(r.box.innerHTML) && /Not listed on Kalshi/.test(r.box.innerHTML), 'labels');
+  check('unlisted note renders and no NOT PLACED badge', !/NOT PLACED/.test(r.box.innerHTML) && /Not listed on Kalshi/.test(r.box.innerHTML), 'labels');
   check('no combined price text', !/parlay|combined odds|payout|stake/i.test(r.box.innerHTML), 'combo text');
   r = await run(good, '2026-10-06'); check('wrong-date file keeps the tab hidden', r.tab.style.display === 'none', r.tab.style.display);
   r = await run({ date: '2026-10-05', cards: [] }, '2026-10-05'); check('empty file keeps the tab hidden', r.tab.style.display === 'none', r.tab.style.display);
