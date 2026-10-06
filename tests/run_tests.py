@@ -59,7 +59,10 @@ check('props adapter: MLB/soccer rows carry new markets',
 
 # ---------- 2. manifest builds ----------
 def build(cands, name):
-    for i, c in enumerate(cands, 1): c['num'] = i
+    for i, c in enumerate(cands, 1):
+        c['num'] = i
+        # Synthetic adapter fixture only: explicit YES identity, never infer side for real candidates.
+        if isinstance(c.get('kalshi'),dict): c['kalshi'].setdefault('side','yes')
     cf = f'{tmp}/{name}.json'; json.dump(cands, open(cf, 'w'))
     if os.path.exists(LEDGER): os.remove(LEDGER)
     r = subprocess.run(['python3', f'{SCRIPTS}/build_manifest.py', cf, f'{tmp}/{name}.manifest.json',
