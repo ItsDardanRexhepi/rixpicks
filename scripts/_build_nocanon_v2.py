@@ -191,7 +191,7 @@ _sanitize_man(man)
 # but a manifest.json can land another way, and every build path (publish.yml, refresh.sh, record_final.yml)
 # builds whatever card has landed. So the CURRENT card (this manifest) is held - exit 3, refresh.sh's CARD HOLD,
 # nothing written - when a pick is on or against a Las Vegas team, its units are not exactly a J-096 rung, or it
-# breaks a numeric standing bar (owner rulings 2026-10-02 (1), (2), (4)): fair < 60c, card ask >= 85c, gross < 2c,
+# breaks a numeric standing bar (owner rulings 2026-10-02 (1), (2), (4)): card ask >= 85c, gross < 2c,
 # net below the class bar, units over the J-096 rung of its fair, a card_american that is not the best ask of its
 # recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from each pick's "model X"
 # sub (build_manifest's own shape) or its best_ask block; unreadable fair/card price holds fail closed. The Vegas rule is the contract block below, the same block
@@ -253,7 +253,7 @@ def vegas_hit_fields(league, fields):
 _UNIT_LADDER=('5u','10u','15u','100u')
 # numeric bars, mirroring build_manifest.py (bar_problems / j096_rung); the page builder re-checks them
 # from the manifest's own fields because a sub-bar card.json can land outside build_manifest.
-_CARD_BAND_C,_ASK_CUT_C,_GROSS_BAR_C=60.0,85.0,2.0
+_ASK_CUT_C,_GROSS_BAR_C=85.0,2.0
 _NET_BAR_C={'ml':0.5}  # spread/total/prop: 2c
 _RUNG_INT={'5u':5,'10u':10,'15u':15,'100u':100}
 _POLY_US_PRICED=False  # 9/27 P1 (main 8:31): .com-gamma quotes never label .us-linked POLY chips (Bengals -150 vs .us -163 class). Flip True ONLY when analysis ships verified .us-sourced quotes; until then POLY chips are destination-only and excluded from best-line.  # add entries ONLY after verifying the .us slug live; verified 9/27: nyl->ny
@@ -309,8 +309,7 @@ def _j096_rung(fair,gross):
     if fair>=90: return 100
     if fair>=80: return 15
     if fair>=70: return 10 if gross>=3 else 5
-    if fair>=60: return 5
-    return 0
+    return 5
 def _pick_mclass(p):
     # One market class per pick, used by chips, the pick row and the client verdict.
     # build_manifest.py writes market_class (ml|spread|total|prop); legacy hand manifests mark a
@@ -436,7 +435,6 @@ def _standing_rule_holds(m):
         gross=round(fair-cost,6)
         net=round(gross-(_kfee_c(cost) if _is_kalshi_priced(p) else 0.0),6)
         net_bar=_NET_BAR_C.get(p.get('market_class'),2.0)
-        if fair<_CARD_BAND_C: out.append((p.get('name'),'fair_band',f"{who}: fair {fair:g}c below the 60c card band"))
         if cost>=_ASK_CUT_C: out.append((p.get('name'),'ask_cut',f"{who}: card ask {cost:g}c at or above the 85c cut"))
         if gross<_GROSS_BAR_C: out.append((p.get('name'),'gross_bar',f"{who}: gross {gross:g}c below the 2c bar"))
         if net<net_bar: out.append((p.get('name'),'net_bar',f"{who}: net {net:g}c below the {net_bar:g}c bar"))
@@ -486,7 +484,7 @@ def _standing_rule_holds(m):
 # slates/owner_rule_suspensions.jsonl is append-only, one JSON object per line: {date, rule, scope, picks,
 # approved, logged_at}, every pick an object {name, eid, units} (non-empty strings). A held item is waived ONLY
 # when a line has date == this manifest's date (exact string), rule == "2026-10-02 (4)" and scope == "numeric",
-# the item is a numeric bar (fair below the 60c band, gross below the 2c bar, net below the class bar, units over
+# the item is a numeric bar (gross below the 2c bar, net below the class bar, units over
 # the J-096 rung of its fair) and its pick name is exactly a logged name - and the whole waiver is refused (nothing
 # waived) unless ALL of these hold: the card_note, the note the page actually renders, carries the disclosure
 # stated positively ("owner-directed" or "owner directive", and "sub-bar", any case, as whole words, and none of
@@ -502,7 +500,7 @@ def _standing_rule_holds(m):
 # is not a YYYY-MM-DD calendar date, or a logged_at without an explicit UTC offset, included) waives nothing. The
 # log is read only for a held card, so a card with no holds builds identically.
 _SUSPEND_RULE='2026-10-02 (4)'
-_SUSPEND_KINDS=frozenset(('fair_band','gross_bar','net_bar','units_over_rung'))
+_SUSPEND_KINDS=frozenset(('gross_bar','net_bar','units_over_rung'))
 _SUSPEND_LOG=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','slates','owner_rule_suspensions.jsonl')
 def _ymd(v):
     # a strict 'YYYY-MM-DD' calendar date (datetime.date), else None
@@ -549,6 +547,8 @@ def _suspension_records(path):
                 and isinstance(r.get('picks'),list) and r['picks']
                 and all(isinstance(x,dict) and all(_s(x.get(k)) for k in ('name','eid','units')) for x in r['picks'])):
             return None,f'line {n} is not a well-formed suspension record'
+        if r.get('kind')=='fair_band' or 'fair_band' in (r.get('kinds') or []) or r.get('scope')=='fair_band':
+            return None,f'line {n} names retired fair_band - nothing waived'
         if _ymd(r['date']) is None: return None,f"line {n} date {r['date']!r} is not a YYYY-MM-DD calendar date"
         if _aware_ts(r['logged_at']) is None: return None,f"line {n} logged_at {r['logged_at']!r} has no explicit UTC offset"
         recs.append(r)
@@ -1671,11 +1671,8 @@ def _finalize_chip_rows(out, records):
 
 
 def _dingers_home_panel(tab_keys, mlb_entry):
-    # Dingers Only mounts on the MLB tab. A card with no MLB pick has no MLB tab (tabs render only
-    # for leagues with picks), so the module mounts once as a Home panel after the card's own league
-    # panels - never above the picks, never twice. It self-hides on a missing, empty or wrong-date
-    # file. Covers the empty card too; the health gate and fixtures need the container on every card.
-    if 'mlb' in tab_keys: return ''
+    # One guest module shared by Home and Wooder, after the official league panels.
+    # It self-hides on missing, empty or wrong-date data without hiding official picks.
     return '<div class="state" id="st-ding" data-home-league="1">'+mlb_entry+'</div>\n'
 def _pick_line(p):
     # numeric line for spread/total picks, always the PICKED side's own number (what the page grades
@@ -3240,7 +3237,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     for t in RP_TABS:
         if t['key']=='home': continue  # home projects the canonical league panels below
         _prows=''.join(_panels.get(t['key']) or [])
-        _body=((_prows+nfl_ideas_entry) if t['key']=='nfl' else (((nfl_entry+wooder_batch_entry+mlb_entry) if t['key']=='wooder' else (past_entry if t['key']=='past' else (_prows if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
+        _body=((_prows+nfl_ideas_entry) if t['key']=='nfl' else (((nfl_entry+wooder_batch_entry) if t['key']=='wooder' else (past_entry if t['key']=='past' else (_prows if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
@@ -3249,6 +3246,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
         _home_lg=t['key'] in _home_pick_tabs
         _home_attr=' data-home-league="1"' if _home_lg else ''
         _panels_html+='<div class="state" id="st-'+t['key']+'"'+_home_attr+'>'+_body+'</div>\n'
+    _panels_html+=_dingers_home_panel(_home_pick_tabs,mlb_entry)
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
     '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><button type="button" class="rec" id="rpNavRec" aria-haspopup="true" aria-expanded="false" aria-controls="rpRecPop" aria-label="View overall record"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</button>'+_recpop_html+'</nav>\n'
