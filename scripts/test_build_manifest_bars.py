@@ -53,7 +53,7 @@ def cand(num, name, model, gross, net, units, cents=61, mc='ml', league='hockey/
          'away': f'Away{num} Club', 'home': f'Home{num} Club', 'commence': '2099-10-04T23:00Z',
          'eid': str(401995000 + num), 'espn_league': league, 'units': units,
          'model': model, 'gross_c': gross, 'net_c': net, 'sub_context': 'fixture',
-         'kalshi': {'cents': cents, 'team': f'Home{num}', 'ticker': 'KXFIX-99OCT04-%d' % num}}
+         'kalshi': {'cents': cents, 'team': f'Home{num}', 'side': 'yes', 'ticker': 'KXFIX-99OCT04-%d' % num}}
     if mc in ('spread', 'total', 'prop'):
         c['line'] = -1.5 if mc == 'spread' else 5.5
         if mc == 'total': c['side'] = 'over'
