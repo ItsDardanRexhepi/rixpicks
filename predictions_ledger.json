@@ -1580,8 +1580,9 @@
   "pick_team": "Detroit Pistons",
   "prediction": "Detroit Pistons to beat Phoenix Suns",
   "kickoff_utc": "2026-10-05T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T16:05:24.858156+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T16:05:24.858156+00:00",
+  "settled_at": "2026-10-06T01:49:55.535572+00:00"
  },
  {
   "id": "c214e3ebb6",
