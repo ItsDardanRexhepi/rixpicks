@@ -194,7 +194,7 @@ EMPTY_CASES = [('missing file', os.path.join(T, 'nope.json')), ('unreadable JSON
 
 def builder_fn(B):
     src = open(os.path.join(SD, B)).read()
-    i, j = src.find('def _learnings_html('), src.find('_learn_html = _learnings_html(')
+    i, j = src.find('def _learnings_html('), src.find("_learn_html = '' and _learnings_html(")
     if not 0 <= i < j:
         return src, None
     ns = {'os': os}
@@ -208,7 +208,7 @@ for B in TWINS:
     if learn is None:
         continue
     check(f'{B}: the call reads history.json beside the manifest',
-          "_learn_html = _learnings_html(os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), 'history.json'))" in src)
+          "_learn_html = '' and _learnings_html(os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), 'history.json'))" in src)
     check(f'{B}: the section sits right before News in the Home shell',
           "+fut_entry+'\\n'+_learn_html+'<div class=\"sect home-only\" style=\"margin-top:18px\">News</div>" in src)
 
@@ -386,18 +386,14 @@ for B in TWINS:
     check(f'{B}: builds with lone surrogates in the ledger, index.html written', rc == 0 and len(page) > 10000, err[-300:])
     if not page:
         continue
-    sec = page[page.find(HEAD):]
-    sec = sec[:sec.find('</div>\n', sec.find(BOX)) + len('</div>\n')] if HEAD in page and BOX in page else ''
-    check(f'{B}: the built panel shows the clean lessons and leaves the lone-surrogate texts out',
-          bool(sec) and seq(sec) == [('day', 'Thursday, Oct 1'), ('item', 'Chain ML'), ('item', 'Clean ML')], seq(sec))
+    # The learnings panel is not on Home (it lives on record.html / yesterday.html).
+    check(f'{B}: the built Home page carries no learnings panel (it lives on the record pages)',
+          HEAD not in page and BOX not in page)
     check(f'{B}: the built page holds no lone surrogate', not re.search(r'[\ud800-\udfff]', page))
     pp = put('built-' + B + '.html', page, raw=True)
     r = subprocess.run(['node', sp, os.path.join(SD, 'health_gate.js'), pp], capture_output=True, text=True)
-    cut = r.stdout if r.returncode == 0 else ''
-    check(f'{B}: the health gate cuts exactly the learnings section from the built page',
-          bool(sec) and cut == page.replace(sec, '\n\n', 1), r.stderr[-300:])
-    check(f'{B}: so a note reading "Game not started" never reaches the gate\'s substring checks',
-          'Game not started' in page and 'Game not started' not in cut and 'rpCmbGo' in cut and 'id="rpNewsCar"' in cut)
+    check(f'{B}: the health gate cut is a no-op on a page with no learnings section',
+          r.returncode == 0 and r.stdout == page, r.stderr[-300:])
 
 tmp.cleanup()
 print('ALL OK' if not failures else '%d FAIL' % failures)
