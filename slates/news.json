@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-06T00:41:03.740Z",
+ "generated_at": "2026-10-06T00:46:05.482Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -8,6 +8,33 @@
     "published": "2026-10-06T01:25:33.000Z",
     "image": "",
     "blurb": "null",
+    "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "White Sox push Williams to the limit, Guardians to the brink",
+    "link": "https://sports.yahoo.com/articles/white-sox-push-williams-limit-003623333.html",
+    "published": "2026-10-06T00:36:23.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/2b28a9a69355953d3a9a59b2e8e983c7eb65d202474942f4cd9724bcb4b4ada1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F21fb486ccaedbf67000bb342bf542daa.jpg",
+    "blurb": "A sixth-inning rally seals a 4-3 win in Game 2 of the ALDS \u2014 and could put a Wednesday celebration on Chicago\u2019s calendar",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
+    "headline": "MLB playoff winners and losers: White Sox one win from ALCS thanks to a trade from two years ago",
+    "link": "https://www.cbssports.com/mlb/news/mlb-playoff-winners-losers-alds-game-2-yankees-rays-white-sox/",
+    "published": "2026-10-06T00:21:34.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F06%2F80e9ed98-d309-48de-838f-0f22b6ece4f8%2Fchase-meidroth-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The White Sox are now 4-0 this postseason, and they've pushed the Guardians to the brink of elimination",
+    "source": "CBS",
+    "league": "MLB"
+   },
+   {
+    "headline": "Padres dismiss notion Miller is tipping pitches: 'On top of it'",
+    "link": "https://www.espn.com/mlb/story/_/id/50112996/padres-dismiss-miller-pitch-tipping-speculation",
+    "published": "2026-10-06T01:11:26.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1726612_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Although the San Diego Padres have plenty of concerns in the face of playoff elimination, they don't believe Mason Miller tipping his pitches is one of them.",
     "source": "ESPN",
     "league": "MLB"
    },
@@ -30,11 +57,11 @@
     "league": "MLB"
    },
    {
-    "headline": "Padres dismiss notion Miller is tipping pitches: 'On top of it'",
-    "link": "https://www.espn.com/mlb/story/_/id/50112996/padres-dismiss-miller-pitch-tipping-speculation",
+    "headline": "Chourio adds to burgeoning Brewers legend with walk-off single in Game 2",
+    "link": "https://www.espn.com/mlb/story/_/id/50105344/jackson-chourio-walk-single-lifts-brewers-2-0-nlds-edge",
     "published": "2026-10-06T01:11:26.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1726612_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Although the San Diego Padres have plenty of concerns in the face of playoff elimination, they don't believe Mason Miller tipping his pitches is one of them.",
+    "image": "",
+    "blurb": "Jackson Chourio hit a two-run single off Padres closer Mason Miller with two outs in the ninth inning as the Brewers rallied past the Padres for a 2-0 NLDS lead.",
     "source": "ESPN",
     "league": "MLB"
    },
@@ -42,7 +69,7 @@
     "headline": "Padres believe comeback is still possible despite 2-0 hole vs. Brewers",
     "link": "https://sports.yahoo.com/articles/padres-believe-comeback-still-possible-233026085.html",
     "published": "2026-10-05T23:30:26.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/5cfd67da60d31065d03eb019cebd898e1ec886933f495faed3824fda0c81cd7e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Faf14f3ce6b981c6161fa3501857e5dd5.jpg",
+    "image": "",
     "blurb": "San Diego returns home down 2-0, convinced its season and playoff run are far from over.",
     "source": "YAHOO",
     "league": "MLB"
@@ -57,33 +84,6 @@
     "league": "MLB"
    },
    {
-    "headline": "Chourio adds to burgeoning Brewers legend with walk-off single in Game 2",
-    "link": "https://www.espn.com/mlb/story/_/id/50105344/jackson-chourio-walk-single-lifts-brewers-2-0-nlds-edge",
-    "published": "2026-10-06T01:11:26.000Z",
-    "image": "",
-    "blurb": "Jackson Chourio hit a two-run single off Padres closer Mason Miller with two outs in the ninth inning as the Brewers rallied past the Padres for a 2-0 NLDS lead.",
-    "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "AL Division Series Game 2: Cam Schlittler vs. Freddy Peralta",
-    "link": "https://sports.yahoo.com/articles/al-division-series-game-2-233000546.html",
-    "published": "2026-10-05T23:30:00.000Z",
-    "image": "",
-    "blurb": "A massive swing game is on deck in St. Pete.",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Today's top games to watch, best bets, odds: Yankees vs, Rays, Falcons vs. Saints on MNF and more",
-    "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-yankees-vs-rays-falcons-vs-saints-on-mnf-and-more/",
-    "published": "2026-10-05T19:30:50.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F28%2F234628b5-9267-4e82-8438-2f23555aa21a%2Fcam-schlittler.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Find best bets for the biggest games in sports on Monday from the SportsLine Projection Model and top CBS Sports experts",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
     "headline": "Braves steal Game 2 without Sale to even NLDS with Dodgers",
     "link": "https://www.espn.com/mlb/story/_/id/50107240/michael-harris-ii-leads-braves-3-2-win-dodgers-game-2-tie-nlds",
     "published": "2026-10-06T01:11:26.000Z",
@@ -94,6 +94,33 @@
    }
   ],
   "football/nfl": [
+   {
+    "headline": "MCL sprain sidelines Mariota; Daniels preps for full practice",
+    "link": "https://www.espn.com/nfl/story/_/id/50112842/mcl-sprain-sidelines-mariota-daniels-preps-practice",
+    "published": "2026-10-06T00:43:40Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1005%2Fr1726596_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "In his team's loss to the Indianapolis Colts on Sunday, Washington Commanders quarterback Marcus Mariota suffered a sprained MCL of his right knee, and the timetable for his return remains uncertain coach Dan Quinn said on Monday.",
+    "league": "NFL"
+   },
+   {
+    "headline": "Former Bears star Otis Wilson involved in physical altercation with Soldier Field security after team's win over Jets",
+    "link": "https://sports.yahoo.com/nfl/article/former-bears-star-otis-wilson-involved-in-physical-altercation-with-soldier-field-security-after-teams-win-over-jets-003029810.html",
+    "published": "2026-10-06T00:30:29.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/a7008db3f9ef92d48e99ed6407648f8b75fe3db1e96e5b53dc224ea54d8a86c0/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F785b78fa-0d08-4643-a0bc-6c4335bafad5",
+    "blurb": "Both Otis Wilson and a female security officer were transported to a local hospital after the incident on Sunday.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
+    "headline": "Sean McVay addresses Rams assistant coaches' viral interaction with Eagles fans",
+    "link": "https://www.cbssports.com/nfl/news/sean-mcvay-addresses-rams-assistant-coaches-viral-interaction-eagles-fans/",
+    "published": "2026-10-05T23:49:51.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F05%2Fd6c527ea-ce72-4093-a86d-42b13f0f0e8f%2Fsena.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "McVay said he addressed the fourth-quarter exchange with Philadelphia fans and promised the coaching staff will handle high-emotion moments with more composure moving forward",
+    "source": "CBS",
+    "league": "NFL"
+   },
    {
     "headline": "'This isn't Armageddon': Joe Burrow, CeeDee Lamb and more fuel Week 4's best quotes",
     "link": "https://www.espn.com/nfl/story/_/id/50112467/nfl-week-4-top-quotes-ceedee-lamb-joe-burrow-cj-gardner-johnson-mike-vrabel",
@@ -113,33 +140,6 @@
     "league": "NFL"
    },
    {
-    "headline": "Sean McVay addresses Rams assistant coaches' viral interaction with Eagles fans",
-    "link": "https://www.cbssports.com/nfl/news/sean-mcvay-addresses-rams-assistant-coaches-viral-interaction-eagles-fans/",
-    "published": "2026-10-05T23:49:51.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F05%2Fd6c527ea-ce72-4093-a86d-42b13f0f0e8f%2Fsena.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "McVay said he addressed the fourth-quarter exchange with Philadelphia fans and promised the coaching staff will handle high-emotion moments with more composure moving forward",
-    "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Buzz: Joe Mixon is back. Should you add the new Seahawks RB?",
-    "link": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
-    "published": "2026-10-06T00:32:10.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1726590_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Veteran running back Joe Mixon is signing with the Seahawks, but is the 30-year-old worth adding in fantasy?",
-    "source": "ESPN",
-    "league": "NFL"
-   },
-   {
-    "headline": "Saints vs. Falcons: Week 4 Open Thread",
-    "link": "https://sports.yahoo.com/articles/saints-vs-falcons-week-4-001000091.html",
-    "published": "2026-10-06T00:10:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/99ca2f29d0f833f726488fa683168316f0b043a5f7805e0ce0079d241f3edc83/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff07983d711312800f0ff5aafb5f8d31f.jpg",
-    "blurb": "The Saints host the Falcons in this primetime showdown. Join us here for the game!",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
     "headline": "Saints-Falcons NFL betting promos: Collect nearly $3,000 in bonuses from top online betting apps, sportsbooks",
     "link": "https://www.cbssports.com/nfl/news/saints-falcons-nfl-betting-promos-collect-nearly-3000-in-bonuses-from-top-online-betting-apps-sportsbooks/",
     "published": "2026-10-05T23:15:42.000Z",
@@ -149,20 +149,20 @@
     "league": "NFL"
    },
    {
-    "headline": "Free agents: Kirk Cousins, Keon Coleman lead top options",
-    "link": "https://www.espn.com/fantasy/football/story/_/page/FFWaiverWirePickUp-50108832/fantasy-football-waiver-wire-free-agent-pickups-nfl-week-5",
-    "published": "2026-10-06T00:32:09.000Z",
+    "headline": "Buzz: Joe Mixon is back. Should you add the new Seahawks RB?",
+    "link": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+    "published": "2026-10-06T00:32:10.000Z",
     "image": "",
-    "blurb": "Eric Karabell lists who he thinks are the top available players worth adding for the week ahead.",
+    "blurb": "Veteran running back Joe Mixon is signing with the Seahawks, but is the 30-year-old worth adding in fantasy?",
     "source": "ESPN",
     "league": "NFL"
    },
    {
-    "headline": "Chargers' Rashawn Slater dealing with high ankle sprain, could be placed on IR",
-    "link": "https://sports.yahoo.com/articles/chargers-rashawn-slater-dealing-high-000948262.html",
-    "published": "2026-10-06T00:09:48.000Z",
+    "headline": "Saints vs. Falcons: Week 4 Open Thread",
+    "link": "https://sports.yahoo.com/articles/saints-vs-falcons-week-4-001000091.html",
+    "published": "2026-10-06T00:10:00.000Z",
     "image": "",
-    "blurb": "Chargers right tackle Rashawn Slater could be a candidate for injured reserve after sustaining a high ankle sprain against the Seattle Seahawks.",
+    "blurb": "The Saints host the Falcons in this primetime showdown. Join us here for the game!",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -176,12 +176,12 @@
     "league": "NFL"
    },
    {
-    "headline": "MCL sprain sidelines Mariota while Daniels preps to practice",
-    "link": "https://www.espn.com/nfl/story/_/id/50112842/mcl-sprain-sidelines-mariota-daniels-preps-practice",
-    "published": "2026-10-06T00:27:15Z",
+    "headline": "Free agents: Kirk Cousins, Keon Coleman lead top options",
+    "link": "https://www.espn.com/fantasy/football/story/_/page/FFWaiverWirePickUp-50108832/fantasy-football-waiver-wire-free-agent-pickups-nfl-week-5",
+    "published": "2026-10-06T00:32:09.000Z",
+    "image": "",
+    "blurb": "Eric Karabell lists who he thinks are the top available players worth adding for the week ahead.",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1005%2Fr1726596_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "In his team's loss to the Indianapolis Colts on Sunday, Washington Commanders quarterback Marcus Mariota suffered a sprained MCL of his right knee, and the timetable for his return remains uncertain coach Dan Quinn said on Monday.",
     "league": "NFL"
    }
   ],
@@ -463,21 +463,21 @@
   ],
   "hockey/nhl": [
    {
+    "headline": "San Jose Sharks scratch Celebrini with lower-body injury",
+    "link": "https://www.espn.com/nhl/story/_/id/50113398/san-jose-sharks-scratch-celebrini-lower-body-injury",
+    "published": "2026-10-06T00:43:11Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1006%2Fr1726628_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "San Jose Sharks star center Macklin Celebrini, the club's recently named captain, was scratched from the team's lineup at the Dallas Stars on Monday night because of a lower-body injury.",
+    "league": "NHL"
+   },
+   {
     "headline": "Ellis Likely To See First Action Against Minnesota",
     "link": "https://sports.yahoo.com/articles/ellis-likely-see-first-action-234441927.html",
     "published": "2026-10-05T23:44:41.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/590c32c5e48345f363c5addb919f83e5feedfd7f95f0584e2a7017e0cf4a5bdd/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_buffalo_sabres_articles_890%2F4b5df93c1566614f00855ff39c6eca4c.jpg",
     "blurb": "Sabres goaltender, who turned 26 on Monday, was claimed off of waivers one year ago",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "'Times fly': Capitals' Ovechkin to retire at end of season",
-    "link": "https://www.espn.com/nhl/story/_/id/50109700/s-fly-capitals-alex-ovechkin-retire-end-season",
-    "published": "2026-10-05T23:17:51.000Z",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1642565_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Washington Capitals star Alex Ovechkin announced Monday that this will be his final season in the NHL.",
-    "source": "ESPN",
     "league": "NHL"
    },
    {
@@ -490,21 +490,21 @@
     "league": "NHL"
    },
    {
+    "headline": "'Times fly': Capitals' Ovechkin to retire at end of season",
+    "link": "https://www.espn.com/nhl/story/_/id/50109700/s-fly-capitals-alex-ovechkin-retire-end-season",
+    "published": "2026-10-05T23:17:51.000Z",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1642565_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Washington Capitals star Alex Ovechkin announced Monday that this will be his final season in the NHL.",
+    "source": "ESPN",
+    "league": "NHL"
+   },
+   {
     "headline": "Hurricanes Recall Reinforcement From AHL Chicago",
     "link": "https://sports.yahoo.com/articles/hurricanes-recall-reinforcement-ahl-chicago-233659250.html",
     "published": "2026-10-05T23:36:59.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/1418277cf77a2b296b731ca382ed769a1978457980b1720b8fbea1e1edd85acc/lightyear_networkapi/resizefill_w600_h600%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_carolina_hurricanes_articles_659%2F9285094777b1b65130c01a1be223600a.jpg",
     "blurb": "Veteran defenseman Juuso Valimaki joins Carolina\u2019s roster ahead of the Montreal road trip, providing NHL-ready depth and a left-handed boost following recent defensive shuffling in the lineup.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Panthers LW Marchand, back from surgery, nets 1st goal since Feb. 26",
-    "link": "https://www.espn.com/nhl/story/_/id/50106368/brad-marchand-march-6-back-panthers-lineup",
-    "published": "2026-10-05T23:17:51.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1726187_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Florida Panthers forward Brad Marchand, out since March 6, made his season debut Sunday night against the Anaheim Ducks following an offseason that included surgery for the 38-year-old left wing, who scored 27 goals last season.",
-    "source": "ESPN",
     "league": "NHL"
    },
    {
@@ -517,21 +517,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Panthers LW Marchand, back from surgery, nets 1st goal since Feb. 26",
+    "link": "https://www.espn.com/nhl/story/_/id/50106368/brad-marchand-march-6-back-panthers-lineup",
+    "published": "2026-10-05T23:17:51.000Z",
+    "image": "",
+    "blurb": "Florida Panthers forward Brad Marchand, out since March 6, made his season debut Sunday night against the Anaheim Ducks following an offseason that included surgery for the 38-year-old left wing, who scored 27 goals last season.",
+    "source": "ESPN",
+    "league": "NHL"
+   },
+   {
     "headline": "Rangers Place Matthew Robertson On Waivers After \u0160mits' Emergence And Veleno Injury",
     "link": "https://sports.yahoo.com/articles/rangers-place-matthew-robertson-waivers-231832685.html",
     "published": "2026-10-05T23:18:32.000Z",
     "image": "",
     "blurb": "The New York Rangers have placed Matthew Robertson on waivers.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Sabres F Kulich celebrates return from blood clot issues, nets winner",
-    "link": "https://www.espn.com/nhl/story/_/id/50097585/sabres-f-kulich-returns-blood-clot-issues-nets-winner",
-    "published": "2026-10-05T23:17:51.000Z",
-    "image": "",
-    "blurb": "Nearly a year of worries of whether he was ever going to play again, while he recovered from a blood clot issue, washed away as Buffalo Sabres forward Jiri Kulich scored the go-ahead goal with 6:40 left to secure a 4-3 victory over the Chicago Blackhawks.",
-    "source": "ESPN",
     "league": "NHL"
    },
    {
@@ -544,12 +544,12 @@
     "league": "NHL"
    },
    {
-    "headline": "Canucks Forward Paul Cotter Named NHL\u2019s Third Star Of The Week",
-    "link": "https://sports.yahoo.com/articles/canucks-forward-paul-cotter-named-230052760.html",
-    "published": "2026-10-05T23:00:52.000Z",
+    "headline": "Sabres F Kulich celebrates return from blood clot issues, nets winner",
+    "link": "https://www.espn.com/nhl/story/_/id/50097585/sabres-f-kulich-returns-blood-clot-issues-nets-winner",
+    "published": "2026-10-05T23:17:51.000Z",
     "image": "",
-    "blurb": "Cotter has scored four goals and two assists in his first four games of the 2026-27 season.",
-    "source": "YAHOO",
+    "blurb": "Nearly a year of worries of whether he was ever going to play again, while he recovered from a blood clot issue, washed away as Buffalo Sabres forward Jiri Kulich scored the go-ahead goal with 6:40 left to secure a 4-3 victory over the Chicago Blackhawks.",
+    "source": "ESPN",
     "league": "NHL"
    }
   ],
@@ -1113,6 +1113,24 @@
    "league": "NBA"
   },
   {
+   "headline": "MCL sprain sidelines Mariota; Daniels preps for full practice",
+   "link": "https://www.espn.com/nfl/story/_/id/50112842/mcl-sprain-sidelines-mariota-daniels-preps-practice",
+   "published": "2026-10-06T00:43:40Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1005%2Fr1726596_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "In his team's loss to the Indianapolis Colts on Sunday, Washington Commanders quarterback Marcus Mariota suffered a sprained MCL of his right knee, and the timetable for his return remains uncertain coach Dan Quinn said on Monday.",
+   "league": "NFL"
+  },
+  {
+   "headline": "San Jose Sharks scratch Celebrini with lower-body injury",
+   "link": "https://www.espn.com/nhl/story/_/id/50113398/san-jose-sharks-scratch-celebrini-lower-body-injury",
+   "published": "2026-10-06T00:43:11Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1006%2Fr1726628_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "San Jose Sharks star center Macklin Celebrini, the club's recently named captain, was scratched from the team's lineup at the Dallas Stars on Monday night because of a lower-body injury.",
+   "league": "NHL"
+  },
+  {
    "headline": "'This isn't Armageddon': Joe Burrow, CeeDee Lamb and more fuel Week 4's best quotes",
    "link": "https://www.espn.com/nfl/story/_/id/50112467/nfl-week-4-top-quotes-ceedee-lamb-joe-burrow-cj-gardner-johnson-mike-vrabel",
    "published": "2026-10-06T00:41:17.000Z",
@@ -1131,12 +1149,21 @@
    "league": "UFC"
   },
   {
-   "headline": "Buzz: Joe Mixon is back. Should you add the new Seahawks RB?",
-   "link": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
-   "published": "2026-10-06T00:32:10.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1726590_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Veteran running back Joe Mixon is signing with the Seahawks, but is the 30-year-old worth adding in fantasy?",
-   "source": "ESPN",
+   "headline": "White Sox push Williams to the limit, Guardians to the brink",
+   "link": "https://sports.yahoo.com/articles/white-sox-push-williams-limit-003623333.html",
+   "published": "2026-10-06T00:36:23.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/2b28a9a69355953d3a9a59b2e8e983c7eb65d202474942f4cd9724bcb4b4ada1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F21fb486ccaedbf67000bb342bf542daa.jpg",
+   "blurb": "A sixth-inning rally seals a 4-3 win in Game 2 of the ALDS \u2014 and could put a Wednesday celebration on Chicago\u2019s calendar",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
+   "headline": "Former Bears star Otis Wilson involved in physical altercation with Soldier Field security after team's win over Jets",
+   "link": "https://sports.yahoo.com/nfl/article/former-bears-star-otis-wilson-involved-in-physical-altercation-with-soldier-field-security-after-teams-win-over-jets-003029810.html",
+   "published": "2026-10-06T00:30:29.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/a7008db3f9ef92d48e99ed6407648f8b75fe3db1e96e5b53dc224ea54d8a86c0/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F785b78fa-0d08-4643-a0bc-6c4335bafad5",
+   "blurb": "Both Otis Wilson and a female security officer were transported to a local hospital after the incident on Sunday.",
+   "source": "YAHOO",
    "league": "NFL"
   },
   {
@@ -1167,6 +1194,15 @@
    "league": "CFB"
   },
   {
+   "headline": "MLB playoff winners and losers: White Sox one win from ALCS thanks to a trade from two years ago",
+   "link": "https://www.cbssports.com/mlb/news/mlb-playoff-winners-losers-alds-game-2-yankees-rays-white-sox/",
+   "published": "2026-10-06T00:21:34.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F06%2F80e9ed98-d309-48de-838f-0f22b6ece4f8%2Fchase-meidroth-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The White Sox are now 4-0 this postseason, and they've pushed the Guardians to the brink of elimination",
+   "source": "CBS",
+   "league": "MLB"
+  },
+  {
    "headline": "Kenny Dillingham doubles down on personal responsibility for loss",
    "link": "https://sports.yahoo.com/articles/kenny-dillingham-doubles-down-personal-002059861.html",
    "published": "2026-10-06T00:20:59.000Z",
@@ -1190,15 +1226,6 @@
    "published": "2026-10-06T00:10:00.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/007689060c3f21d0ba230ad1c411208e71de398b10bcb8a3c38f004dca617989/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2918b9ee43cafd3464b6b9a5a8aa3af8.jpg",
    "blurb": "Kyren Williams-led offense finally gets going late to win",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
-   "headline": "Saints vs. Falcons: Week 4 Open Thread",
-   "link": "https://sports.yahoo.com/articles/saints-vs-falcons-week-4-001000091.html",
-   "published": "2026-10-06T00:10:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/99ca2f29d0f833f726488fa683168316f0b043a5f7805e0ce0079d241f3edc83/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff07983d711312800f0ff5aafb5f8d31f.jpg",
-   "blurb": "The Saints host the Falcons in this primetime showdown. Join us here for the game!",
    "source": "YAHOO",
    "league": "NFL"
   },
@@ -1239,15 +1266,6 @@
    "league": "NHL"
   },
   {
-   "headline": "Padres believe comeback is still possible despite 2-0 hole vs. Brewers",
-   "link": "https://sports.yahoo.com/articles/padres-believe-comeback-still-possible-233026085.html",
-   "published": "2026-10-05T23:30:26.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/5cfd67da60d31065d03eb019cebd898e1ec886933f495faed3824fda0c81cd7e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Faf14f3ce6b981c6161fa3501857e5dd5.jpg",
-   "blurb": "San Diego returns home down 2-0, convinced its season and playoff run are far from over.",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
    "headline": "DeMarcus Henry begins Kentucky Basketball visit; Nasir Anderson cancels his visit",
    "link": "https://sports.yahoo.com/articles/demarcus-henry-begins-kentucky-basketball-232957807.html",
    "published": "2026-10-05T23:29:57.000Z",
@@ -1262,15 +1280,6 @@
    "published": "2026-10-05T23:17:51.000Z",
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1642565_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Washington Capitals star Alex Ovechkin announced Monday that this will be his final season in the NHL.",
-   "source": "ESPN",
-   "league": "NHL"
-  },
-  {
-   "headline": "Panthers LW Marchand, back from surgery, nets 1st goal since Feb. 26",
-   "link": "https://www.espn.com/nhl/story/_/id/50106368/brad-marchand-march-6-back-panthers-lineup",
-   "published": "2026-10-05T23:17:51.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1726187_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Florida Panthers forward Brad Marchand, out since March 6, made his season debut Sunday night against the Anaheim Ducks following an offseason that included surgery for the 38-year-old left wing, who scored 27 goals last season.",
    "source": "ESPN",
    "league": "NHL"
   },
@@ -1401,15 +1410,6 @@
    "league": "CFB"
   },
   {
-   "headline": "2026 MLB playoff bracket: Schedule, scores, where to watch as Division Series continue",
-   "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
-   "published": "2026-10-05T19:59:37.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F02%2F1fd7dc11-71aa-49b9-80d9-63747ccb6e03%2F2026-mlb-bracket-braves-advance.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Eight teams remain in the 2026 MLB playoffs, with the best-of-five LDS round underway",
-   "source": "CBS",
-   "league": "MLB"
-  },
-  {
    "headline": "Today's top games to watch, best bets, odds: Yankees vs, Rays, Falcons vs. Saints on MNF and more",
    "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-yankees-vs-rays-falcons-vs-saints-on-mnf-and-more/",
    "published": "2026-10-05T19:30:50.000Z",
@@ -1420,8 +1420,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 55,
-  "YAHOO": 61,
+  "ESPN": 56,
+  "YAHOO": 60,
   "CBS": 38
  },
  "degraded_sources": []
