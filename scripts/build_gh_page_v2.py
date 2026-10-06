@@ -1044,9 +1044,10 @@ def kal_market_side(ticker, side):
 # 6c: the ship ceiling in chips() refuses an ask above gate_cents (build_manifest writes gate_cents = the
 # lock), so this mostly bounds a move in the pick's favour. A publish runs minutes after its lock, and a
 # liquid market moves a few cents in that window; a neighbouring line of the same event (Over 5.5 vs Over
-# 6.5) or the other side of a market priced away from 50/50 sits well beyond 6c, and so does a lock read off
-# the wrong market. A move past 6c means the lock no longer describes the market: re-lock the card rather
-# than publish the stale number.
+# 6.5) or the other side of a market priced away from 50/50 sits well beyond 6c of a lock read off the right
+# market. A move past 6c means the lock no longer describes the market: re-lock the card rather than publish
+# the stale number. The lock checks only see a lock and a ticker that disagree: a ticker and a lock both read
+# off the wrong market agree with each other, which is what the market binding below (_kal_bind_market) is for.
 _KAL_LOCK_TOL=6
 def _kal_words(s):
     return set(re.sub(r'[^a-z0-9]+',' ',str(s or '').lower()).split())
@@ -1078,7 +1079,7 @@ def _kal_two_way(ev, tick):
     ts={str(x.get('ticker') or '').upper() for x in _KALEVT[ev] if str(x.get('ticker') or '').upper().startswith(ev+'-')}
     return len(ts)==2 and tick in ts, len(ts)
 def _kal_publish_check(p, kx, kc):
-    name=p.get('name'); m=_KALMKT.get(kx[0]) or {}
+    name=p.get('name'); m=_KALMKT.get(kx[0]) or {}; who=None
     if _pick_mclass(p) in ('ml','spread'):
         who=_kal_yes_team(p,m,kx)
         _ytxt=m.get('yes_sub_title') or m.get('subtitle') or m.get('title') or ''
@@ -1105,15 +1106,157 @@ def _kal_publish_check(p, kx, kc):
                 print(f"BUILD FAILED: {name} is the {want} on {kx[0]}, whose YES is the {next(iter(dirs))} - its side is {need}, the kalshi block says {kx[1]}", file=sys.stderr)
                 sys.exit(3)
     lock=(p.get('kalshi') or {}).get('cents')
-    if isinstance(lock,bool) or not isinstance(lock,(int,float)): return
-    if abs(kc-lock)>_KAL_LOCK_TOL:
-        print(f"BUILD FAILED: {name} Kalshi {kx[1].upper()} ask {kc}c on {kx[0]} is {abs(kc-lock):g}c from the {lock:g}c lock (tolerance {_KAL_LOCK_TOL}c) - wrong market or a stale lock, re-lock before publishing", file=sys.stderr)
+    if not (isinstance(lock,bool) or not isinstance(lock,(int,float))):
+        if abs(kc-lock)>_KAL_LOCK_TOL:
+            print(f"BUILD FAILED: {name} Kalshi {kx[1].upper()} ask {kc}c on {kx[0]} is {abs(kc-lock):g}c from the {lock:g}c lock (tolerance {_KAL_LOCK_TOL}c) - wrong market or a stale lock, re-lock before publishing", file=sys.stderr)
+            sys.exit(3)
+        opp='yes' if kx[1]=='no' else 'no'
+        oc=_kal_ask(m,opp)
+        if oc is not None and abs(oc-lock)<abs(kc-lock):
+            print(f"BUILD FAILED: {name} {opp.upper()} ask {oc}c on {kx[0]} is closer to the {lock:g}c lock than the picked {kx[1].upper()} ask {kc}c - the lock reads like the {opp.upper()} side, check kalshi.side", file=sys.stderr)
+            sys.exit(3)
+    # a pick without a lock still gets its market bound (the lock checks above need one, the binding does not)
+    _kal_bind_market(p,kx,m,who)
+# Market binding, pre-game publish (Oct 6 review). The side and lock checks above compare the declared side and
+# the lock with the market the ticker names; a ticker AND a lock both read off the wrong market (another line,
+# another game or day, a run-line market for a moneyline, another player's prop) agree with each other and pass,
+# and the card would ship that market's price and link. So the market itself is bound to the pick, from Kalshi's
+# own identifiers and text:
+#  - class: the series names the pick's market class (GAME, FIGHT or MATCH a moneyline, SPREAD a spread, TOTAL a
+#    total; any other series is a prop market);
+#  - game: the event segment is DATE[HHMM]CODE (26OCT02STLDAL, 26OCT031830NYYTB). DATE is the game's Eastern date
+#    (or its Pacific one); an Eastern start time, when the event carries one (MLB), sits within 90 minutes of the
+#    commence, so a doubleheader's other game or the same teams' next game never binds. CODE is the two teams'
+#    codes in either order (a fight is coded home-first), each ESPN's abbreviation of that team or spelt from its
+#    name (first letter at a word start, the rest in order: STL St. Louis Blues, CWS Chicago White Sox);
+#  - line: the YES text's own line ('over 1.5', 'Over 6.5'; an N+ market is over N-0.5) is the pick's line. A
+#    spread's YES on the picked team ('Houston wins by over 1.5') is that pick at -X, on the opponent at +X;
+#  - a prop: an N+ (or over) market's YES is the over and an under market's YES the under; the market names the
+#    pick's player (surname) and every word of its stat ('goals', 'total bases'), in its text or its series.
+# Anything that cannot be read fails (exit 3) rather than ship unbound. Picks without a side never reach this.
+_KAL_ABBR_ALIAS={'CHW':'CWS','ARI':'AZ'}  # ESPN code -> Kalshi code (core/kalshi_bind.py ALIAS)
+_KAL_TIME_TOL=90*60
+_KAL_STAT_SKIP={'over','under','the','and','total','player','anytime','plus','more'}
+def _kal_norm(s):
+    import unicodedata
+    return unicodedata.normalize('NFKD',str(s or '')).encode('ascii','ignore').decode()
+def _kal_nwords(s):
+    return re.sub(r'[^a-z0-9]+',' ',_kal_norm(s).lower()).split()
+def _kal_series_class(series):
+    s=series.upper()
+    if 'SPREAD' in s: return 'spread'
+    if 'TOTAL' in s: return 'total'
+    if any(t in s for t in ('GAME','FIGHT','MATCH')): return 'ml'
+    return 'prop'
+def _kal_code_fits(code, team, lg):
+    # one team code of an event (STL, CWS, PSU) against one team name: ESPN's abbreviation of that team, or the
+    # code spelt from the name - its first letter at a word start, every later letter in order after it
+    canon=lambda a:_KAL_ABBR_ALIAS.get(a,a)
+    ea=re.sub(r'[^A-Z]','',str((_meta_for(lg,team) or {}).get('abbr') or '').upper())
+    if ea and canon(ea)==canon(code): return True
+    words=re.sub(r'[^A-Z]+',' ',_kal_norm(team).upper()).split()
+    s=''.join(words); starts=[]; n=0
+    for w in words: starts.append(n); n+=len(w)
+    for st in starts:
+        if s[st]!=code[0]: continue
+        j=st+1
+        for ch in code[1:]:
+            j=s.find(ch,j)
+            if j<0: break
+            j+=1
+        else: return True
+    return False
+def _kal_game_fits(code, g, lg):
+    a,h=g.get('away') or '',g.get('home') or ''
+    if not (a and h): return False
+    for i in range(2,len(code)-1):
+        x,y=code[:i],code[i:]
+        if (_kal_code_fits(x,a,lg) and _kal_code_fits(y,h,lg)) or (_kal_code_fits(x,h,lg) and _kal_code_fits(y,a,lg)): return True
+    return False
+def _kal_when_fits(tok, hhmm, commence):
+    import datetime as _dk
+    from zoneinfo import ZoneInfo
+    try:
+        c=_dk.datetime.fromisoformat(str(commence or '').replace('Z','+00:00'))
+        if c.tzinfo is None: c=c.replace(tzinfo=_dk.timezone.utc)
+        d=_dk.datetime.strptime(tok,'%y%b%d')
+        et=ZoneInfo('America/New_York')
+        if hhmm: return abs((d.replace(hour=int(hhmm[:2]),minute=int(hhmm[2:]),tzinfo=et)-c).total_seconds())<=_KAL_TIME_TOL
+        return d.date() in (c.astimezone(et).date(),c.astimezone(ZoneInfo('America/Los_Angeles')).date())
+    except (ValueError, TypeError): return False
+def _kal_mkt_line(m):
+    # (line, text) the market states: 'over X' / 'under X' is X, 'N+' / 'N or more' is N-0.5, 'N or fewer' N+0.5;
+    # the YES text (yes_sub_title) first, then the title and subtitle. (None, YES text) when none states one.
+    for f in ('yes_sub_title','title','subtitle'):
+        t=str(m.get(f) or '')
+        x=re.search(r'\b(?:over|under)\s+(\d+(?:\.\d+)?)',t,re.I)
+        if x: return float(x.group(1)),t
+        x=re.search(r'(?<![\d.])(\d+)\s*(?:\+|or more\b)',t,re.I)
+        if x: return int(x.group(1))-0.5,t
+        x=re.search(r'(?<![\d.])(\d+)\s*or (?:fewer|less)\b',t,re.I)
+        if x: return int(x.group(1))+0.5,t
+    return None,(m.get('yes_sub_title') or m.get('subtitle') or m.get('title') or '')
+def _kal_bind_market(p, kx, m, who):
+    name=p.get('name'); tick,side=kx; mc=_pick_mclass(p)
+    series=tick.split('-',1)[0]
+    sc=_kal_series_class(series)
+    if sc!=mc:
+        print(f"BUILD FAILED: {name} is a {mc} pick and {tick} is a {sc} market (series {series}) - an explicit side prices the pick's own market", file=sys.stderr)
         sys.exit(3)
-    opp='yes' if kx[1]=='no' else 'no'
-    oc=_kal_ask(m,opp)
-    if oc is not None and abs(oc-lock)<abs(kc-lock):
-        print(f"BUILD FAILED: {name} {opp.upper()} ask {oc}c on {kx[0]} is closer to the {lock:g}c lock than the picked {kx[1].upper()} ask {kc}c - the lock reads like the {opp.upper()} side, check kalshi.side", file=sys.stderr)
+    ev='-'.join(tick.split('-')[:2])  # _kal_explicit bound the ticker to the url's SERIES-EVENT
+    g=p.get('game') or {}; lg=p.get('espn_league') or ''
+    em=re.fullmatch(r'(\d{2}[A-Z]{3}\d{2})(\d{4})?([A-Z]+)',ev.split('-')[-1])
+    if not em:
+        print(f"BUILD FAILED: {name} - event {ev} carries no date and game code (DATE[HHMM]CODE) to bind the pick's game to", file=sys.stderr)
         sys.exit(3)
+    tok,hhmm,code=em.groups()
+    if not _kal_when_fits(tok,hhmm,g.get('commence')):
+        print(f"BUILD FAILED: {name} - event {ev} is dated {tok}{' '+hhmm+' ET' if hhmm else ''}, the pick's game starts {g.get('commence') or '(no commence)'} - another day's or another game's market", file=sys.stderr)
+        sys.exit(3)
+    if not _kal_game_fits(code,g,lg):
+        print(f"BUILD FAILED: {name} - event {ev} is game {code}, not {g.get('away') or '?'} at {g.get('home') or '?'}", file=sys.stderr)
+        sys.exit(3)
+    txt=' | '.join(str(m.get(f)) for f in ('yes_sub_title','title','subtitle') if m.get(f))
+    if mc=='prop':
+        pw=[w for w in _kal_nwords(p.get('player')) if w not in ('jr','sr','ii','iii','iv')]
+        if not pw or pw[-1] not in _kal_nwords(txt):
+            print(f"BUILD FAILED: {name} - {tick} does not name the pick's player {p.get('player')!r} (its market reads {txt!r})", file=sys.stderr)
+            sys.exit(3)
+        x=re.search(r'[+-]?\d+(?:\.\d+)?\s+(.+)$',str(name or ''))
+        stat=[w.rstrip('s') for w in _kal_nwords(x.group(1) if x else '') if len(w)>2 and w not in _KAL_STAT_SKIP]
+        have={w.rstrip('s') for w in _kal_nwords(txt)}
+        miss=[w for w in stat if w not in have and w.upper() not in series.upper()]
+        if not stat or miss:
+            print(f"BUILD FAILED: {name} - {tick} does not name the pick's stat ({', '.join(miss) if stat else 'the pick names none'}) - its market reads {txt!r}", file=sys.stderr)
+            sys.exit(3)
+    if mc in ('spread','total','prop'):
+        pl=_pick_line(p); ml,lt=_kal_mkt_line(m)
+        fmt=(lambda v:f'{v:+g}') if mc=='spread' else (lambda v:f'{v:g}')
+        if pl is None:
+            print(f"BUILD FAILED: {name} - the pick has no line to bind {tick} to", file=sys.stderr)
+            sys.exit(3)
+        if ml is None:
+            print(f"BUILD FAILED: {name} - the line of {tick} cannot be read from its market ({lt!r}), so it cannot be bound to the pick's {fmt(pl)}", file=sys.stderr)
+            sys.exit(3)
+        want=(-ml if who=='picked' else ml) if mc=='spread' else ml
+        if abs(pl-want)>1e-9:
+            if mc=='spread':
+                print(f"BUILD FAILED: {name} - the YES of {tick} is {lt!r}, the {'picked team' if who=='picked' else 'opponent'} by over {ml:g}: it binds the pick at {want:+g}, the pick's line is {pl:+g}", file=sys.stderr)
+            else:
+                print(f"BUILD FAILED: {name} - the YES of {tick} is {lt!r}, line {ml:g}: the pick's line is {pl:g}", file=sys.stderr)
+            sys.exit(3)
+    if mc=='prop':
+        want=str(p.get('side') or '').strip().lower()
+        if want not in ('over','under'): want=next((w for w in _kal_nwords(name) if w in ('over','under')),'')
+        t=' '.join(str(m.get(f) or '') for f in ('yes_sub_title','title','subtitle'))
+        ov=bool(re.search(r'\d\s*\+|\bor more\b|\bover\b|\bat least\b',t,re.I)); un=bool(re.search(r'\bunder\b|\bor (?:fewer|less)\b',t,re.I))
+        if want not in ('over','under') or ov==un:
+            print(f"BUILD FAILED: {name} - {'the pick names no over/under' if want not in ('over','under') else 'the YES of '+tick+' ('+repr(txt)+') names no single direction'}, so side {side} cannot be bound", file=sys.stderr)
+            sys.exit(3)
+        ydir='over' if ov else 'under'; need='yes' if want==ydir else 'no'
+        if side!=need:
+            print(f"BUILD FAILED: {name} is the {want} on {tick}, whose YES is the {ydir} - its side is {need}, the kalshi block says {side}", file=sys.stderr)
+            sys.exit(3)
 def _kal_rec(kx):
     # canonical market record identity (event, market, side) of an explicit-market pick
     return (kx[0].rsplit('-',1)[0], kx[0], kx[1])

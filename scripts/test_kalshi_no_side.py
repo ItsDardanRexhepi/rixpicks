@@ -49,6 +49,16 @@ responses (sitecustomize stub; every other host fails fast, nothing leaves the m
  P. the original intent end to end: a + run line (White Sox +1.5 = NO on "Houston wins by over 1.5") prices its
     NO ask on the chip, market record, game page and client tick; the YES side (Astros -1.5) reads the YES ask;
     the + line declared YES on the opponent's market fails.
+ Q. the market itself is bound to the pick at pre-game publish, so a ticker and a lock both read off the wrong market
+    fail: the series class (GAME/FIGHT/MATCH, SPREAD, TOTAL, else a prop) is the pick's class; the event's game code
+    names the pick's two teams (either order) and its date token is the game's Eastern date, or with an Eastern start
+    time (MLB) within 90 minutes of the commence; the YES line equals the pick's line (a spread's YES on the picked
+    team is its -X, on the opponent its +X) and an unreadable line fails; a prop is bound to its direction (an N+
+    market's YES is the over), its player and its stat. White Sox +1.5 as YES on "Chicago WS wins by over 1.5", Astros
+    -1.5 as NO there, White Sox +2.5 on the 1.5 market, an Under 6.5 on the Over 5.5 market, Astros ML on a run-line
+    market, a total of another game or another day, an Over prop declared NO, another player's or another stat's
+    market and a prop of another line all fail (exit 3); the good cards, an Under prop, a fight coded home-first and a
+    Penn State game bound through ESPN's abbreviation still ship.
 Run: python3 scripts/test_kalshi_no_side.py [builder.py ...]   (default: both twins)
 """
 import copy, datetime, hashlib, json, os, re, shutil, subprocess, sys, tempfile, warnings
@@ -85,12 +95,20 @@ socket.create_connection = _blocked
 NOW = datetime.datetime.now(datetime.timezone.utc)
 FUT = (NOW + datetime.timedelta(days=2)).strftime('%Y-%m-%dT00:00Z')
 PAST = (NOW - datetime.timedelta(hours=1)).strftime('%Y-%m-%dT%H:%MZ')
-EV = 'KXNHLTOTAL-26OCT02STLDAL'
+SOON = (NOW + datetime.timedelta(hours=3)).strftime('%Y-%m-%dT%H:%MZ')
+from zoneinfo import ZoneInfo
+def dtok(iso, hhmm=False):
+    # a Kalshi event's date token (26OCT02) is the game's Eastern date; MLB events add the Eastern start (1830).
+    # Every fixture event is dated from its pick's commence: the publish check binds the event to the game's day.
+    t = datetime.datetime.fromisoformat(iso.replace('Z', '+00:00')).astimezone(ZoneInfo('America/New_York'))
+    return t.strftime('%y%b%d%H%M' if hhmm else '%y%b%d').upper()
+D = dtok(FUT)
+EV = 'KXNHLTOTAL-' + D + 'STLDAL'
 TK = EV + '-7'
 KURL = 'https://kalshi.com/markets/kxnhltotal/' + EV.lower()
-LEV = 'KXNHLGAME-26OCT02MTLTOR'
+LEV = 'KXNHLGAME-' + D + 'MTLTOR'
 LURL = 'https://kalshi.com/markets/kxnhlgame/' + LEV.lower()
-GEV = 'KXNHLGAME-26OCT02STLDAL'
+GEV = 'KXNHLGAME-' + D + 'STLDAL'
 GURL = 'https://kalshi.com/markets/kxnhlgame/' + GEV.lower()
 
 def total_mkt(sfx, ya, na, **kw):
@@ -114,7 +132,7 @@ def routes(seven=None, poison=True, extra=()):
 SEVEN = total_mkt('7', '0.44', '0.57')
 
 # two player props on one game and one line (L): each its own market and lock
-PEV = 'KXNHLGOAL-26OCT02STLDAL'
+PEV = 'KXNHLGOAL-' + dtok(SOON) + 'STLDAL'  # L publishes these props at SOON
 PURL = 'https://kalshi.com/markets/kxnhlgoal/' + PEV.lower()
 PTA, PTB = PEV + '-RTHOMAS1', PEV + '-JROBERTSON1'
 PMA = {'ticker': PTA, 'title': 'Robert Thomas: 1+ goals', 'yes_sub_title': 'Robert Thomas', 'yes_ask_dollars': '0.38', 'no_ask_dollars': '0.64', 'status': 'active'}
@@ -128,7 +146,7 @@ PROP_ROUTES = [[r'trade-api/v2/markets/' + PTA + r'(\?|$)', {'market': PMA}], [r
                [r'markets\?event_ticker=' + PEV + '&', {'markets': [PMA, PMB]}]]
 
 # a run line (P): White Sox +1.5 is the NO side of "Houston wins by over 1.5 runs"
-SEV = 'KXMLBSPREAD-26OCT03CWSHOU'
+SEV = 'KXMLBSPREAD-' + D + 'CWSHOU'
 SURL = 'https://kalshi.com/markets/kxmlbspread/' + SEV.lower()
 STK = SEV + '-HOU2'
 HOU2 = {'ticker': STK, 'title': 'Houston wins by over 1.5 runs?', 'yes_sub_title': 'Houston wins by over 1.5 runs',
@@ -143,7 +161,7 @@ def spread_routes(m=HOU2):
     return [[r'trade-api/v2/markets/' + STK + r'(\?|$)', {'market': m}]]
 
 # same-city moneyline (M): the names alone cannot tell New York Y from New York M; kalshi.team (the market code) can
-YEV = 'KXMLBGAME-26OCT03NYMNYY'
+YEV = 'KXMLBGAME-' + D + 'NYMNYY'
 YURL = 'https://kalshi.com/markets/kxmlbgame/' + YEV.lower()
 YMKTS = [{'ticker': YEV + '-NYY', 'title': 'New York M vs New York Y Winner?', 'yes_sub_title': 'New York Y', 'yes_ask_dollars': '0.52', 'no_ask_dollars': '0.49'},
          {'ticker': YEV + '-NYM', 'title': 'New York M vs New York Y Winner?', 'yes_sub_title': 'New York M', 'yes_ask_dollars': '0.49', 'no_ask_dollars': '0.52'}]
@@ -469,7 +487,7 @@ for B in BUILDERS:
           rc == 0 and 'DISPLAY-ONLY' in log and label(chip_for(page, KURL)) == 'KAL -133' and 'from the 57c lock' not in log, log[-600:])
 
     # J. the explicit ticker must be a market of the url's event
-    for what, url in (("another event's url", LURL), ('an event url that is only a prefix of the ticker', 'https://kalshi.com/markets/kxnhltotal/kxnhltotal-26oct02stl'),
+    for what, url in (("another event's url", LURL), ('an event url that is only a prefix of the ticker', 'https://kalshi.com/markets/kxnhltotal/' + EV[:-3].lower()),
                       ('no url', None)):
         bad = copy.deepcopy(UNDER)
         if url: bad['kalshi']['url'] = url
@@ -485,8 +503,8 @@ for B in BUILDERS:
                       ('a series-level url with the pick\'s own market', 'https://kalshi.com/markets/kxnhltotal/'),
                       ('a market-level url', KURL + '-7')):
         bad = copy.deepcopy(UNDER); bad['kalshi']['url'] = url
-        if 'another game' in what: bad['kalshi']['ticker'] = 'KXNHLTOTAL-26OCT02BOSCHI-7'
-        other = dict(total_mkt('7', '0.45', '0.56'), ticker='KXNHLTOTAL-26OCT02BOSCHI-7')
+        if 'another game' in what: bad['kalshi']['ticker'] = 'KXNHLTOTAL-' + D + 'BOSCHI-7'
+        other = dict(total_mkt('7', '0.45', '0.56'), ticker='KXNHLTOTAL-' + D + 'BOSCHI-7')
         rc, page, log = build(B, card(bad), routes(SEVEN, extra=[other]))
         check(f'{tag}: J {what} fails the build (exit 3): the url must end at the event itself',
               rc == 3 and 'BUILD FAILED: kalshi ticker %s is not a market of the url\'s event' % bad['kalshi']['ticker'] in log and not page, log[-600:])
@@ -496,7 +514,6 @@ for B in BUILDERS:
           rc == 0 and label(chip_for(page, ok_url['kalshi']['url'])) == 'KAL -133', log[-400:])
 
     # L. two explicit props on one game and one line: each pin is its own market + side, never one shared slot
-    SOON = (NOW + datetime.timedelta(hours=3)).strftime('%Y-%m-%dT%H:%MZ')
     rc, page, log = build(B, card(prop_pick('Robert Thomas', PTA, 38, SOON), prop_pick('Jason Robertson', PTB, 45, SOON)),
                           PROP_ROUTES + routes(SEVEN), extra_env={'RP_PUBLISH': '1'})
     pk = 'St. Louis Blues|Dallas Stars|' + SOON[:10] + '|prop|0.5'
@@ -585,6 +602,97 @@ for B in BUILDERS:
     rc, page, log = build(B, card(sw), spread_routes(dict(HOU2, yes_ask_dollars='0.66', no_ask_dollars='0.35')))
     check(f'{tag}: P White Sox +1.5 declared YES on Houston\'s market fails (exit 3) even when the YES ask sits on the lock',
           rc == 3 and "the YES of %s is 'Houston wins by over 1.5 runs', the opponent: its side is no, the kalshi block says yes" % STK in log, log[-600:])
+
+    # Q. the market itself is bound to the pick (pre-game publish). Each failing case reads its ticker AND its lock off
+    # the same wrong market, so the side and lock checks above see nothing wrong; before Q each one shipped (exit 0).
+    def qfail(what, rc, page, log, msg):
+        check(f'{tag}: Q {what} fails the build (exit 3, no page)', rc == 3 and msg in log and not page, log[-600:])
+    CWS2 = {'ticker': SEV + '-CWS2', 'title': 'Chicago WS wins by over 1.5 runs?', 'yes_sub_title': 'Chicago WS wins by over 1.5 runs',
+            'yes_ask_dollars': '0.22', 'no_ask_dollars': '0.79', 'status': 'active'}
+    cws2 = [[r'trade-api/v2/markets/' + SEV + r'-CWS2(\?|$)', {'market': CWS2}]]
+    q = copy.deepcopy(SOX); q['kalshi'].update(ticker=SEV + '-CWS2', side='yes', cents=22, gate_cents=22)
+    qfail('White Sox +1.5 declared YES on "Chicago WS wins by over 1.5" (22c lock): that YES is White Sox -1.5', *build(B, card(q), cws2),
+          "BUILD FAILED: White Sox +1.5 - the YES of %s-CWS2 is 'Chicago WS wins by over 1.5 runs', the picked team by over 1.5: it binds the pick at -1.5, the pick's line is +1.5" % SEV)
+    q = copy.deepcopy(ASTROS); q['kalshi'].update(ticker=SEV + '-CWS2', side='no', cents=79, gate_cents=79)
+    qfail('Astros -1.5 declared NO on "Chicago WS wins by over 1.5" (79c lock): that NO is Houston +1.5', *build(B, card(q), cws2),
+          "the YES of %s-CWS2 is 'Chicago WS wins by over 1.5 runs', the opponent by over 1.5: it binds the pick at +1.5, the pick's line is -1.5" % SEV)
+    q = copy.deepcopy(SOX); q['name'] = 'White Sox +2.5'; q['line'] = -2.5
+    qfail('White Sox +2.5 bound to the 1.5 run line (NO 66c lock)', *build(B, card(q), spread_routes()),
+          "BUILD FAILED: White Sox +2.5 - the YES of %s is 'Houston wins by over 1.5 runs', the opponent by over 1.5: it binds the pick at +1.5, the pick's line is +2.5" % STK)
+    q = copy.deepcopy(UNDER); q['kalshi'].update(ticker=EV + '-6', cents=39, gate_cents=39)
+    qfail('Under 6.5 bound to the Over 5.5 market with its own NO 39c lock', *build(B, card(q), routes(SEVEN, extra=[SIX])),
+          "BUILD FAILED: Under 6.5 - the YES of %s-6 is 'Over 5.5 goals scored', line 5.5: the pick's line is 6.5" % EV)
+    q = copy.deepcopy(UNDER)
+    rc, page, log = build(B, card(q), routes(total_mkt('7', '0.44', '0.57', title='St. Louis at Dallas: Total Goals', yes_sub_title='Total goals')))
+    qfail('a total whose market names no line', rc, page, log,
+          "BUILD FAILED: Under 6.5 - the line of %s cannot be read from its market ('Total goals'), so it cannot be bound to the pick's 6.5" % TK)
+    q = dict(copy.deepcopy(ASTROS), name='Astros ML', market_class='ml'); q.pop('line')
+    qfail('Astros ML bound to the run-line market (YES 35c lock)', *build(B, card(q), spread_routes()),
+          'BUILD FAILED: Astros ML is a ml pick and %s is a spread market (series KXMLBSPREAD)' % STK)
+    OEV = 'KXNHLTOTAL-' + D + 'BOSNYR'
+    q = copy.deepcopy(UNDER); q['kalshi'].update(url='https://kalshi.com/markets/kxnhltotal/' + OEV.lower(), ticker=OEV + '-7', cents=71, gate_cents=71)
+    qfail('STL @ DAL Under 6.5 bound to the BOS @ NYR total (NO 71c lock)',
+          *build(B, card(q), [[r'trade-api/v2/markets/' + OEV + r'-7(\?|$)', {'market': dict(total_mkt('7', '0.30', '0.71'), ticker=OEV + '-7')}]]),
+          'BUILD FAILED: Under 6.5 - event %s is game BOSNYR, not St. Louis Blues at Dallas Stars' % OEV)
+    NEV = 'KXNHLTOTAL-' + dtok((datetime.datetime.fromisoformat(FUT.replace('Z', '+00:00')) + datetime.timedelta(days=1)).strftime('%Y-%m-%dT%H:%MZ')) + 'STLDAL'
+    q = copy.deepcopy(UNDER); q['kalshi'].update(url='https://kalshi.com/markets/kxnhltotal/' + NEV.lower(), ticker=NEV + '-7')
+    qfail('the same teams\' total dated the next day',
+          *build(B, card(q), [[r'trade-api/v2/markets/' + NEV + r'-7(\?|$)', {'market': dict(SEVEN, ticker=NEV + '-7')}]]),
+          'BUILD FAILED: Under 6.5 - event %s is dated %s, the pick\'s game starts %s' % (NEV, NEV.split('-')[1][:7], FUT))
+    # an MLB event carries the Eastern start: the commence's own start binds, a doubleheader's other game does not
+    for what, when, ok in (('its own start', FUT, True),
+                           ('a doubleheader game 4 hours earlier', (datetime.datetime.fromisoformat(FUT.replace('Z', '+00:00')) - datetime.timedelta(hours=4)).strftime('%Y-%m-%dT%H:%MZ'), False)):
+        HEV = 'KXMLBSPREAD-' + dtok(when, hhmm=True) + 'CWSHOU'
+        q = copy.deepcopy(SOX); q['kalshi'].update(url='https://kalshi.com/markets/kxmlbspread/' + HEV.lower(), ticker=HEV + '-HOU2')
+        rc, page, log = build(B, card(q), [[r'trade-api/v2/markets/' + HEV + r'-HOU2(\?|$)', {'market': dict(HOU2, ticker=HEV + '-HOU2')}]])
+        if ok:
+            check(f'{tag}: Q an MLB event timed at {what} binds: White Sox +1.5 ships (KAL -194)', rc == 0 and label(chip_for(page, q['kalshi']['url'])) == 'KAL -194', log[-600:])
+        else:
+            qfail(f'an MLB event timed at {what}', rc, page, log, 'BUILD FAILED: White Sox +1.5 - event %s is dated %s %s ET, the pick\'s game starts %s' % (HEV, HEV.split('-')[1][:7], HEV.split('-')[1][7:11], FUT))
+    # props: direction, player, stat and line
+    q = prop_pick('Robert Thomas', PTA, 64, SOON); q['kalshi']['side'] = 'no'
+    qfail('Robert Thomas Over 0.5 goals declared NO on his own 1+ goals market (NO 64c lock): the Over of an N+ market is YES',
+          *build(B, card(q), PROP_ROUTES),
+          "BUILD FAILED: Robert Thomas Over 0.5 goals is the over on %s, whose YES is the over - its side is yes, the kalshi block says no" % PTA)
+    q = prop_pick('Robert Thomas', PTB, 45, SOON)
+    qfail('Robert Thomas bound to Jason Robertson\'s market (YES 45c lock)', *build(B, card(q), PROP_ROUTES),
+          "BUILD FAILED: Robert Thomas Over 0.5 goals - %s does not name the pick's player 'Robert Thomas'" % PTB)
+    q = prop_pick('Robert Thomas', PTA, 38, SOON); q['name'] = 'Robert Thomas Over 1.5 goals'; q['line'] = 1.5
+    qfail('Robert Thomas Over 1.5 goals bound to his 1+ goals market (YES 38c lock)', *build(B, card(q), PROP_ROUTES),
+          "BUILD FAILED: Robert Thomas Over 1.5 goals - the YES of %s is 'Robert Thomas: 1+ goals', line 0.5: the pick's line is 1.5" % PTA)
+    XEV = 'KXNHLPTS-' + dtok(SOON) + 'STLDAL'
+    XM = {'ticker': XEV + '-RTHOMAS1', 'title': 'Robert Thomas: 1+ points', 'yes_sub_title': 'Robert Thomas', 'yes_ask_dollars': '0.61', 'no_ask_dollars': '0.41', 'status': 'active'}
+    q = prop_pick('Robert Thomas', XEV + '-RTHOMAS1', 61, SOON); q['kalshi']['url'] = 'https://kalshi.com/markets/kxnhlpts/' + XEV.lower()
+    qfail('Robert Thomas Over 0.5 goals bound to his 1+ points market (YES 61c lock)',
+          *build(B, card(q), [[r'trade-api/v2/markets/' + XEV + r'-RTHOMAS1(\?|$)', {'market': XM}]]),
+          "BUILD FAILED: Robert Thomas Over 0.5 goals - %s does not name the pick's stat (goal)" % (XEV + '-RTHOMAS1'))
+    # the good cards still ship: an Under prop on its own N+ market, a fight whose code is home-first
+    q = prop_pick('Robert Thomas', PTA, 64, SOON); q.update(name='Robert Thomas Under 0.5 goals', side='under'); q['kalshi']['side'] = 'no'
+    rc, page, log = build(B, card(q), PROP_ROUTES)
+    check(f'{tag}: Q Robert Thomas Under 0.5 goals as NO on his 1+ goals market ships at the NO ask (KAL -178, data-kalpx no)',
+          rc == 0 and label(chip_for(page, PURL)) == 'KAL -178' and attr(chip_for(page, PURL), 'kalpx') == 'no', log[-600:])
+    FEV = 'KXUFCFIGHT-' + D + 'ABUSTA'
+    FM = {'ticker': FEV + '-ABU', 'title': 'Will Loai Abushaar win?', 'yes_sub_title': 'Loai Abushaar', 'yes_ask_dollars': '0.26', 'no_ask_dollars': '0.75', 'status': 'active'}
+    q = {'num': 1, 'name': 'Loai Abushaar ML', 'market_class': 'ml', 'sub': 'Staines vs Abushaar', 'odds': '+285', 'units': '5u', 'side': 'home',
+         'game': {'away': 'George Staines', 'home': 'Loai Abushaar', 'commence': FUT, 'eid': ''}, 'espn_league': 'mma/ufc', 'league': 'UFC', 'best_book': 'Kalshi',
+         'kalshi': {'url': 'https://kalshi.com/markets/kxufcfight/' + FEV.lower(), 'ticker': FEV + '-ABU', 'side': 'yes', 'cents': 26, 'gate_cents': 26, 'team': 'Abushaar'}}
+    rc, page, log = build(B, card(q), [[r'trade-api/v2/markets/' + FEV + r'-ABU(\?|$)', {'market': FM}]])
+    check(f'{tag}: Q a fight whose event code names the home fighter first (ABUSTA) binds and ships (KAL +285)',
+          rc == 0 and label(chip_for(page, q['kalshi']['url'])) == 'KAL +285', log[-600:])
+    # a code the names cannot spell (PSU for Penn State Nittany Lions) binds only through ESPN's own abbreviation
+    PSEV = 'KXNCAAFGAME-' + D + 'UCLAPSU'
+    PSM = {'ticker': PSEV + '-PSU', 'title': 'UCLA at Penn State Winner?', 'yes_sub_title': 'Penn State', 'yes_ask_dollars': '0.70', 'no_ask_dollars': '0.31', 'status': 'active'}
+    q = {'num': 1, 'name': 'Penn State ML', 'market_class': 'ml', 'sub': 'UCLA @ PSU', 'odds': '-233', 'units': '5u', 'side': 'home',
+         'game': {'away': 'UCLA Bruins', 'home': 'Penn State Nittany Lions', 'commence': FUT, 'eid': ''}, 'espn_league': 'football/college-football', 'league': 'NCAAF', 'best_book': 'Kalshi',
+         'kalshi': {'url': 'https://kalshi.com/markets/kxncaafgame/' + PSEV.lower(), 'ticker': PSEV + '-PSU', 'side': 'yes', 'cents': 70, 'gate_cents': 70, 'team': 'Penn State'}}
+    psr = [[r'trade-api/v2/markets/' + PSEV + r'-PSU(\?|$)', {'market': PSM}]]
+    espn = [[r'site\.api\.espn\.com/apis/site/v2/sports/football/college-football/scoreboard', {'events': [{'competitions': [{'competitors': [
+        {'team': {'id': '213', 'displayName': 'Penn State Nittany Lions', 'abbreviation': 'PSU'}}, {'team': {'id': '26', 'displayName': 'UCLA Bruins', 'abbreviation': 'UCLA'}}]}]}]}]]
+    qfail('a Penn State game coded UCLAPSU with no abbreviation source for PSU', *build(B, card(q), psr),
+          'BUILD FAILED: Penn State ML - event %s is game UCLAPSU, not UCLA Bruins at Penn State Nittany Lions' % PSEV)
+    rc, page, log = build(B, card(q), psr + espn)
+    check(f'{tag}: Q the same Penn State game binds through ESPN\'s abbreviation PSU and ships (KAL -233)',
+          rc == 0 and label(chip_for(page, q['kalshi']['url'])) == 'KAL -233', log[-600:])
 
 # K. the v1 preview builder (card_chain_preview.sh) cannot price a side: it refuses any pick that names one
 V1 = os.path.join(SD, 'build_gh_page.py')
