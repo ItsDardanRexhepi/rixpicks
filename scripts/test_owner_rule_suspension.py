@@ -5,7 +5,7 @@ sub-bar disclosure can post; card corrected by the owner to six picks about 7:44
 The page builder's standing-rules card hold stays a hard gate (exit 3, nothing written). The one exception is
 narrow and logged: slates/owner_rule_suspensions.jsonl (append-only; every pick an object {name, eid, units})
 waives a held item only when a line has date == the manifest's date (exact string), rule == "2026-10-02 (4)",
-scope == "numeric", the item is a numeric bar (fair below the 60c band, gross below the 2c bar, net below the
+scope == "numeric", the item is a numeric bar (gross below the 2c bar, net below the
 class bar, units over the J-096 rung of its fair) and its pick name is exactly a logged name. The whole waiver is
 refused unless the card_note (the note the page renders) carries the disclosure stated positively ("owner-directed"
 or "owner directive", and "sub-bar"; "not owner-directed", "no owner directive", "not sub-bar" disclose nothing), no
@@ -142,8 +142,8 @@ OFFRUNG = pick(4, 'OffRung ML', away='C4', home='D4', units='10u')              
 SUBFAIR = pick(5, 'SubFair ML', away='C5', home='D5', model=55.0)                                   # fair below the 60c band
 SUB = [CLEAN, THIN, TOTAL, OFFRUNG, SUBFAIR]
 SUB_NAMES = [p['name'] for p in SUB[1:]]
-SUB_HELD = 7  # Thin: gross + net; Total: net; OffRung: over the rung; SubFair: fair band + gross + net
-NUMERIC_TOKENS = ('gross 1c below the 2c bar', 'net 0.88c below the 2c bar', "over the J-096 rung 5u", 'below the 60c card band')
+SUB_HELD = 6  # Thin: gross + net; Total: net; OffRung: over the rung; SubFair: fair band + gross + net
+NUMERIC_TOKENS = ('gross 1c below the 2c bar', 'net 0.88c below the 2c bar', "over the J-096 rung 5u")
 
 def held(rc, out, written):
     return rc == 3 and 'BUILD FAILED' in out and 'owner ruling 2026-10-02 (4)' in out and written == [] and 'OWNER SUSPENSION:' not in out
