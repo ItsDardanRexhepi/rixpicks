@@ -1555,8 +1555,9 @@
   "pick_team": "Boston Bruins",
   "prediction": "Boston Bruins to beat Ottawa Senators",
   "kickoff_utc": "2026-10-05T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T15:50:37.543534+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T15:50:37.543534+00:00",
+  "settled_at": "2026-10-06T02:19:53.910302+00:00"
  },
  {
   "id": "d7521452f6",
