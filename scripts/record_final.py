@@ -22,6 +22,7 @@ later finals wait for the next fire):
      must continue the running units (exact anchor kept in record_done.json).
   4. Running record from manifest must chain into request.record_after exactly.
   5. A pick already on its card date's row (same pick and final score) is refused; a grade key
+  
      already in record_done.json is skipped, never applied twice.
   6. Late-post disclosure: a card pick posted after its game began carries added_after_kickoff
      (and added_after_final when the game had ended) - the row carries it too, fail-closed when
@@ -37,8 +38,10 @@ from zoneinfo import ZoneInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..')
+
 sys.path.insert(0, ROOT)
 from core.accepted_entry import accepted_entry, entry_delta
+from core.units import cents_to_american
 from core import soccer_result
 REQ = os.path.join(ROOT, 'record_request.json')
 MAN = os.path.join(ROOT, 'manifest.json')
@@ -641,6 +644,60 @@ def eod_day_close(p):
                 print(f'  combo_expiry: {target} absent - nothing to mark')
     return 0
 
+CLOSES_DIR = os.path.join(ROOT, 'slates', 'closes')
+_closes_cache = {}  # card_date -> {eid: no-vig closing fair}, read once per date per run
+
+def closes_for(card_date):
+    """{eid: no-vig closing fair} from slates/closes/<card_date>.jsonl (cached per run). A missing
+    or unreadable file means no close for the whole card - every row then carries the n/a text."""
+    if card_date not in _closes_cache:
+        table = {}
+        try:
+            with open(os.path.join(CLOSES_DIR, card_date + '.jsonl')) as f:
+                for ln in f:
+                    ln = ln.strip()
+                    if not ln:
+                        continue
+                    try:
+                        c = json.loads(ln)
+                    except ValueError:
+                        continue
+                    eid, novig = c.get('eid'), c.get('close_novig')
+                    if eid is not None and str(eid) not in table:
+                        try:
+                            table[str(eid)] = Decimal(str(novig))
+                        except (InvalidOperation, ValueError, TypeError):
+                            pass
+        except OSError:
+            pass
+        _closes_cache[card_date] = table
+    return _closes_cache[card_date]
+
+def card_price_cents(cp, price, accepted):
+    """The card price in cents for the side taken (the clv_report locked_cents convention): the
+    accepted entry's cents, else the card's Kalshi cents when they ARE the card price, else the
+    whole cents behind the American price when they convert back to it exactly (62c -> -163),
+    else the price's implied probability in cents. price and accepted are the verified values
+    main() already computed."""
+    if accepted is not None:
+        return Decimal(accepted['entry_c'])
+    k = cp.get('kalshi')
+    if isinstance(k, dict) and k.get('cents') is not None:
+        try:
+            if cents_to_american(k['cents']) == price:
+                return Decimal(str(k['cents']))
+        except (ValueError, InvalidOperation, TypeError):
+            pass
+    imp = (Decimal(100) / (Decimal(price) + 100) if price > 0
+           else Decimal(-price) / (Decimal(-price) + 100)) * 100
+    whole = imp.quantize(Decimal('1'))
+    try:
+        if Decimal(0) < whole < Decimal(100) and cents_to_american(whole) == price:
+            return whole
+    except ValueError:
+        pass
+    return imp.quantize(Decimal('0.01'))
+
 def main():
     if not os.path.exists(REQ):
         print('no record_request.json - nothing to do')
@@ -830,6 +887,18 @@ def main():
         _row = {'name': q['pick'], 'game': game, 'odds': q['locked_american'],
                 'units': q['stake_units'], 'result': {'WON': 'W', 'LOST': 'L', 'PUSH': 'P'}[res],
                 'score': score_txt, '_delta': str(Decimal(str(q['delta_units_exact'])))}
+        # W1-X05: the no-vig closing fair and the closing line value for the graded pick. The
+        # close is read from slates/closes/<card_date>.jsonl by event id; a missing line means
+        # no close (nothing is guessed). CLV is in cents: close_novig * 100 - the card price in
+        # cents for the side taken.
+        _novig = closes_for(card_date).get(str(q.get('event_id')))
+        if _novig is None:
+            _row['close_novig_c'] = 'n/a: no close at this line'
+            _row['clv_c'] = 'n/a'
+        else:
+            _price_c = card_price_cents(cp, price, accepted)
+            _row['close_novig_c'] = float((_novig * 100).quantize(Decimal('0.01')))
+            _row['clv_c'] = float((_novig * 100 - _price_c).quantize(Decimal('0.01')))
         if accepted is not None:
             _row['accepted_entry'] = accepted_basis
         _row.update(disclosure)
