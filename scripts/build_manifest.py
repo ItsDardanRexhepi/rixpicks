@@ -107,11 +107,13 @@ def _pick_content_hash(m, legacy=False):
 #  - Vegas (L-VEGAS-GATE-001, Sep 25): "never gamble on or against any Vegas teams ever" and
 #    "Exclude A's going forward from today too". A pick in a game involving a Las Vegas team is
 #    refused: Raiders (NFL), Golden Knights (NHL), Aces (WNBA), Athletics/A's (MLB), UNLV
-#    (college). A nickname counts only inside its own league (Texas Tech Red Raiders is CFB), and
-#    a team named for Las Vegas, or UNLV, counts in any league (the league is read case- and
-#    space-blind). The rule is about teams: the individual sports (racing, golf, tennis, MMA,
-#    boxing) skip it - a NASCAR race at Las Vegas Motor Speedway is no Vegas team - and any other
-#    league, listed or not, keeps it.
+#    (college), read by the vegas-rule contract block below (the page builder twins carry it byte
+#    for byte): a league's nickname, home city or abbreviation as whole words anywhere in a team or
+#    pick name, inside its own league, and 'Las Vegas', 'Vegas' or UNLV in any league (the league
+#    is read case- and space-blind). Only a named non-Vegas team (Texas Tech Red Raiders filed
+#    under the NFL) is let through. The rule is about teams: the individual sports (racing, golf,
+#    tennis, MMA, boxing) skip it - a NASCAR race at Las Vegas Motor Speedway is no Vegas team -
+#    and any other league, listed or not, keeps it.
 #  - Units (J-096): 5u, 10u, 15u or 100u - no other size, and exactly the rung of the pick's fair and gross.
 #  - The standing bars (RUNBOOK 2.3, J-096/J-097/J-098, owner rulings 2026-10-02 (1) and (2)): see bar_problems
 #    and parlay_problems.
@@ -120,30 +122,65 @@ def _pick_content_hash(m, legacy=False):
 # nothing overrides it. The old override (an owner_directive on the candidate row or an
 # --owner-directive argument) is gone; either one given is an error, and its words are never printed.
 UNIT_LADDER = (5, 10, 15, 100)
-_VEGAS_NICK = {'football/nfl': ('raiders',), 'hockey/nhl': ('golden knights',), 'basketball/wnba': ('aces',),
-               'baseball/mlb': ('athletics', "a's"), 'football/college-football': ('unlv',),
-               'basketball/mens-college-basketball': ('unlv',), 'basketball/womens-college-basketball': ('unlv',)}
-_VEGAS_ANY = ('las vegas', 'vegas', 'unlv')  # UNLV is a Las Vegas team in every college league
-_INDIVIDUAL_SPORTS = ('racing', 'golf', 'tennis', 'mma', 'boxing')  # espn_league's sport segment
 HARD_GATES = ('Vegas, the J-096 unit ladder and every standing bar are hard gates with no override (owner ruling '
               '2026-10-02 (4): an owner-approved card cannot break a standing rule): an owner-forced sub-bar pick is '
               'impossible, and a status_note cannot carry one')
 REMOVED_FLAG = '--owner-directive'
 
-def _words(s):
+# >>> vegas-rule contract copy (build_manifest.py and both page-builder twins carry this block byte for byte;
+# scripts/test_vegas_rule_exact.py checks the copies and runs one case table through each)
+# Owner rule L-VEGAS-GATE-001 (Sep 25): "never gamble on or against any Vegas teams ever" and "Exclude A's going
+# forward from today too". A pick is out when any of its strings - game.away, game.home or the pick name, each
+# read case-, space- and punctuation-blind - carries as whole words, anywhere in it:
+#  - 'Las Vegas', 'Vegas' or 'UNLV': a team named for Las Vegas, or UNLV, is a Vegas team in every team league;
+#  - or one of its league's Vegas words in _VEGAS_WORDS: the nickname (Raiders NFL, Golden Knights NHL, Aces WNBA,
+#    Athletics/A's MLB), a home city the team has played under, or an abbreviation. A Vegas word counts only in its
+#    own league: 'LV' is the Raiders in the NFL and the Aces in the WNBA, nothing in the NBA, and the Wright State
+#    Raiders in college basketball are no Vegas team.
+# Anywhere means anywhere: 'Raiders 1H +3.5', "A's F5 ML", 'Brock Bowers (LV) over 4.5 receptions', "Sacramento
+# A's" and 'Golden Knights (VGK)' all count. The one way out is by name: each non-Vegas team in _VEGAS_NOT (Texas
+# Tech Red Raiders, Evansville Purple Aces, UCF Golden Knights, ...) is blanked out of a string before it is read,
+# so that team filed under the nickname's league builds, while any other Vegas word in the same string still holds
+# the pick. Nothing else ever narrows the rule. An entry there is a whole multi-word team name, never a Vegas word
+# on its own, and never carries 'Vegas', 'Las Vegas' or 'UNLV'.
+# The individual sports (racing, golf, tennis, MMA, boxing) have no teams: a NASCAR race at Las Vegas Motor
+# Speedway is no Vegas team. The league is read case- and space-blind ('Hockey/NHL ' is the NHL).
+_VEGAS_WORDS = {
+    'football/nfl': ('raiders', 'oakland', 'lv'),
+    'hockey/nhl': ('golden knights', 'vgk'),
+    'basketball/wnba': ('aces', 'lv', 'lva'),
+    'baseball/mlb': ('athletics', "a's", 'oakland', 'sacramento', 'ath', 'oak'),
+}
+_VEGAS_CITY = ('las vegas', 'vegas', 'unlv')
+_VEGAS_NOT = ('red raiders', 'colgate raiders', 'wright state raiders', 'purple aces', 'ucf golden knights',
+              'clarkson golden knights')
+_VEGAS_NO_TEAMS = ('racing', 'golf', 'tennis', 'mma', 'boxing')
+
+
+def _vg_words(s):
+    """' <words> ': lower-cased, each run of characters other than a-z, 0-9 and the apostrophe one space."""
     return ' ' + re.sub(r"[^a-z0-9']+", ' ', str(s or '').lower().replace('\u2019', "'")) + ' '
+
+
+def vegas_hit_fields(league, fields):
+    """'<field> <value>' for the first (field, value) that puts a Las Vegas team on this pick, else None."""
+    lg = str(league or '').strip().lower()
+    if lg.split('/')[0] in _VEGAS_NO_TEAMS:
+        return None
+    for f, v in fields:
+        w = _vg_words(v)
+        for n in _VEGAS_NOT:
+            while f' {n} ' in w:
+                w = w.replace(f' {n} ', ' ')
+        if any(f' {n} ' in w for n in _VEGAS_CITY + _VEGAS_WORDS.get(lg, ())):
+            return f'{f} {v!r}'
+    return None
+# <<< vegas-rule contract copy
 
 def vegas_hit(c):
     """Which field puts a Las Vegas team on this candidate (on it or against it), else None."""
-    lg = str(c.get('espn_league') or '').strip().lower()  # 'Hockey/NHL ' is still the NHL
-    if lg.split('/')[0] in _INDIVIDUAL_SPORTS:
-        return None  # no teams: a venue or event named for Las Vegas is not a Vegas team
-    names = _VEGAS_ANY + _VEGAS_NICK.get(lg, ())
-    for field in ('home', 'away', 'name'):
-        w = _words(c.get(field))
-        if any(' ' + n + ' ' in w for n in names):
-            return f"{field} {c.get(field)!r}"
-    return None
+    return vegas_hit_fields(c.get('espn_league'), [(f, c.get(f)) for f in ('home', 'away', 'name')])
+
 
 def units_rung(u):
     """The J-096 rung a units value names (5u -> 5), else None."""

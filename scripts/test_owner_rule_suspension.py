@@ -7,24 +7,27 @@ narrow and logged: slates/owner_rule_suspensions.jsonl (append-only; every pick 
 waives a held item only when a line has date == the manifest's date (exact string), rule == "2026-10-02 (4)",
 scope == "numeric", the item is a numeric bar (fair below the 60c band, gross below the 2c bar, net below the
 class bar, units over the J-096 rung of its fair) and its pick name is exactly a logged name. The whole waiver is
-refused unless the card_note (the note the page renders) carries the disclosure ("owner-directed" or "owner
-directive", and "sub-bar"), no logged name is on more than one card pick, and every waived pick plays on the
-logged date (game.commence in Pacific time) with exactly its logged eid and units. A Las Vegas team, units off
-the ladder, a card ask at or above the 85c cut, a card price that is not the best recorded ask and every parlay
-item are never waived. One unwaived item holds the whole card exactly as before; an unreadable or malformed log
-waives nothing.
+refused unless the card_note (the note the page renders) carries the disclosure stated positively ("owner-directed"
+or "owner directive", and "sub-bar"; "not owner-directed", "no owner directive", "not sub-bar" disclose nothing), no
+logged name is on more than one card pick, and every waived pick plays on the logged date (game.commence, with an
+explicit UTC offset, read in America/Los_Angeles - never in the machine's own zone) with exactly its logged eid and
+units. A Las Vegas team, units off the ladder, a card ask at or above the 85c cut, a card price that is not the best
+recorded ask and every parlay item are never waived. One unwaived item holds the whole card exactly as before; an
+unreadable or malformed log waives nothing.
  - (a) a sub-bar card with no log is held; (b) the matching log plus the disclosure builds it, with the loud
    OWNER SUSPENSION line, an EXECUTE decision and the card_note on the page; (c) a log for another date, (d) a
-   pick not in the list, (e) a listed Vegas pick, (f) a listed ladder violation, (g) a missing card_note
-   disclosure and (h) a malformed log line each keep the hold; so do a wrong rule or scope, a near-miss pick
-   name, a listed 85c-cut pick, a listed best-ask miss and a sub-bar parlay.
+   pick not in the list, (e) a listed Vegas pick, (f) a listed ladder violation, (g) a missing or negated card_note
+   disclosure and (h) a malformed log line (an impossible date or a zoneless logged_at included) each keep the
+   hold; so do a wrong rule or scope, a near-miss pick name, a listed 85c-cut pick, a listed best-ask miss and a
+   sub-bar parlay.
  - (i) the real Oct 3 owner card (scripts/fixtures/owner_card_2026-10-03: picks.json, status_note.txt and
    card_note.txt, copied byte-for-byte from the final six-pick card), dated 2026-10-03 with record 27-13 /
    +14.01u, is held with no log and builds with the repo's own slates/owner_rule_suspensions.jsonl, its
    card_note rendered on the page; re-dated to another day, or under a log whose entry differs, it is held.
  - (j) a card with no holds builds to identical output with and without the log present.
  - (k) a logged name on two card picks, or logged twice with different entries: held (nothing waived).
- - (l) a waived pick whose game is not on the logged date in Pacific time (the 2099 stale-date case): held.
+ - (l) a waived pick whose game is not on the logged date in Pacific time (the 2099 stale-date case): held; a
+   commence with no UTC offset binds to no date, the same under a UTC and a Pacific machine clock: held.
  - (m) a waived pick whose eid or units differ from its logged entry: held.
 Builds run in a throwaway tree with the network sent to a dead proxy.
 Run: python3 scripts/test_owner_rule_suspension.py [builder.py ...]   (default: both twins)"""
@@ -45,7 +48,7 @@ def check(name, ok, detail=''):
     if not ok:
         failures += 1
 
-def build(builder, manifest, log=None, seed=None):
+def build(builder, manifest, log=None, seed=None, tz=None):
     """Build manifest.json in a throwaway tree, with slates/owner_rule_suspensions.jsonl holding `log` (absent
     when None) and any `seed` files. Returns (rc, output with the tree path as <tree>, files written by the
     build, {written file: bytes})."""
@@ -66,6 +69,8 @@ def build(builder, manifest, log=None, seed=None):
             open(os.path.join(d, LOG_REL), 'w', encoding='utf-8').write(log)
         before = {os.path.relpath(os.path.join(p, f), d): os.path.getmtime(os.path.join(p, f)) for p, _, fs in os.walk(d) for f in fs}
         env = dict(os.environ, RP_REFRESH='1', http_proxy=DEAD, https_proxy=DEAD, HTTP_PROXY=DEAD, HTTPS_PROXY=DEAD, NO_PROXY='', no_proxy='')
+        if tz:
+            env['TZ'] = tz  # the machine's own zone, which a zoneless timestamp must never be read in
         r = subprocess.run([sys.executable, os.path.join(d, 'scripts', 'build_gh_page_v2.py'), 'manifest.json', 'index.html'],
                            cwd=d, env=env, capture_output=True, text=True, timeout=600)
         after = {os.path.relpath(os.path.join(p, f), d): os.path.getmtime(os.path.join(p, f)) for p, _, fs in os.walk(d) for f in fs}
@@ -166,6 +171,10 @@ for B in BUILDERS:
     check(f'{tag}: (b) "owner directive" disclosure in capitals and an earlier day\'s line alongside: still builds', rc == 0 and 'index.html' in written, (rc, out[-400:]))
     rc, out, written, _ = build(B, card(SUB, card_note='OWNER-DIRECTED PICKS, SUB-BAR'), log=log_of(line(picks=SUB_NAMES)))
     check(f'{tag}: (b) "owner-directed" disclosure in capitals: builds', rc == 0 and 'index.html' in written, (rc, out[-400:]))
+    # the Oct 4 and Oct 5 cards' own card_note: its "neither" negates nothing in the disclosure's clauses
+    oct45 = "Owner-directed picks: neither cleared this morning's full process (standing bars plus red team); sub-bar disclosure."
+    rc, out, written, _ = build(B, card(SUB, card_note=oct45), log=log_of(line(picks=SUB_NAMES)))
+    check(f'{tag}: (b) the Oct 4/5 card_note (a "neither" in another clause) is a positive disclosure: builds', rc == 0 and 'index.html' in written, (rc, out[-400:]))
 
     # (c) a log line for another date: held
     for other in ('2099-10-05', '2099-10-03', '2099-10-4', ' 2099-10-04'):
@@ -220,6 +229,15 @@ for B in BUILDERS:
         rc, out, written, _ = build(B, card(SUB, card_note=note), log=log_of(line(picks=SUB_NAMES)))
         check(f'{tag}: (g) card_note {note!r}: held, the missing disclosure named',
               held(rc, out, written) and 'needs the card_note disclosure' in out, (rc, out[-400:], written))
+    # a negated disclosure is no disclosure: the old substring test let every one of these through
+    for note in ('not owner-directed; sub-bar disclosure', 'No owner directive - sub-bar disclosure', 'Owner-directed picks; not sub-bar',
+                 'Owner-directed picks: no sub-bar disclosure', 'Non-owner-directed picks; sub-bar disclosure', 'Owner-directed: no; sub-bar: no',
+                 'Neither owner-directed nor sub-bar', 'These picks are not owner-directed and carry no sub-bar disclosure',
+                 'Owner-directed picks; sub-bar disclosure; this card isn\u2019t owner-directed', 'Owner-directed picks without a sub-bar disclosure',
+                 'OWNER DIRECTIVE: NONE. SUB-BAR: NONE.'):
+        rc, out, written, _ = build(B, card(SUB, card_note=note), log=log_of(line(picks=SUB_NAMES)))
+        check(f'{tag}: (g) a negated card_note disclosure {note!r}: held, the negation named',
+              held(rc, out, written) and 'needs the card_note disclosure stated positively' in out and 'is negated' in out, (rc, out[-400:], written))
     m = card(SUB, status_note=NOTE); del m['card_note']
     rc, out, written, _ = build(B, m, log=log_of(line(picks=SUB_NAMES)))
     check(f'{tag}: (g) the disclosure only in the (unrendered) status_note, no card_note: held',
@@ -237,7 +255,11 @@ for B in BUILDERS:
                  ('an entry with blank units', line(picks=[dict(thin, units=' ')])),
                  ('an entry with no name', line(picks=[dict(thin, name='')])),
                  ('no approval', line(picks=SUB_NAMES, approved='')), ('no logged_at', json.dumps({k: v for k, v in json.loads(good).items() if k != 'logged_at'})),
-                 ('a numeric date', good.replace('"date":"2099-10-04"', '"date":20991004'))]
+                 ('a numeric date', good.replace('"date":"2099-10-04"', '"date":20991004')),
+                 ('an impossible calendar date', line(date='2099-02-30', picks=['Other ML'])),
+                 ('a date with a time', line(date='2099-10-04T00:00:00Z', picks=['Other ML'])),
+                 ('a zoneless logged_at', line(picks=['Other ML'], logged_at='2099-10-04T14:00:00')),
+                 ('an unreadable logged_at', line(picks=['Other ML'], logged_at='this morning'))]
     for label, bl in bad_lines:
         for order, text in (('after', log_of(good, bl)), ('before', log_of(bl, good))):
             rc, out, written, _ = build(B, card(SUB), log=text)
@@ -333,6 +355,18 @@ for B in BUILDERS:
         else:
             check(f'{tag}: (l) a waived pick at {when!r} (not {DATE} in Pacific time): held, the date named',
                   held(rc, out, written) and "pick 'Thin ML' plays on" in out and f'not the logged {DATE}' in out, (rc, out[-400:], written))
+
+    # a commence with no UTC offset is never read in the machine's own zone: '2099-10-05T02:00' read as UTC is
+    # 2099-10-04 in Pacific time (the old reading on a UTC runner waived it), read as Pacific it is 2099-10-05
+    for zone in ('UTC', 'America/Los_Angeles', 'Asia/Tokyo'):
+        tp = copy.deepcopy(THIN); tp['game']['commence'] = '2099-10-05T02:00'
+        rc, out, written, _ = build(B, card([CLEAN, tp] + SUB[2:]), log=log_of(line(picks=SUB_NAMES)), tz=zone)
+        check(f'{tag}: (l) a waived pick with a zoneless commence, machine zone {zone}: held, the missing offset named',
+              held(rc, out, written) and "pick 'Thin ML' plays on no date" in out and 'explicit UTC offset' in out, (rc, out[-400:], written))
+    tp = copy.deepcopy(THIN); tp['game']['commence'] = '2099-10-04T23:30-07:00'
+    rc, out, written, _ = build(B, card([CLEAN, tp] + SUB[2:]), log=log_of(line(picks=SUB_NAMES)), tz='UTC')
+    check(f'{tag}: (l) a waived pick at 2099-10-04T23:30-07:00 (an explicit offset, {DATE} in Pacific time) on a UTC machine: builds',
+          rc == 0 and 'index.html' in written, (rc, out[-400:]))
 
     # (m) content binding: a waived pick must carry exactly its logged eid and units
     for label, entry in (('eid', dict(REG['Thin ML'], eid='FIX-99')), ('eid case', dict(REG['Thin ML'], eid='fix-2')),

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Generate a self-contained index.html ('RixPicks picks page) for GitHub Pages from a manifest JSON.
 Usage: build_gh_page.py manifest.json [outfile]
-Manifest: {date_label, status_note, record, updated, picks:[{num,name,sub,odds,best_book,side,game:{away,home}|null,espn_league}], parlay:{legs:[...],note}|null}
+Manifest: {date_label, status_note, record, updated, picks:[{num,name,sub,odds,best_book,side,game:{away,home}|null,espn_league,[line],[pick_line]}], parlay:{legs:[...],note}|null}
+A spread's line is the HOME spread (graded so); optional pick_line is the same line from the picked side, checked, never shown.
 A card with a pick on or against a Las Vegas team, or units off the J-096 ladder, is held (exit 3): owner ruling 2026-10-02 (4).
 Only its numeric bars can be waived, for logged picks (name, eid, units) played on one date with the disclosure in card_note, by a logged owner suspension (slates/owner_rule_suspensions.jsonl).
 DESIGN LOCKED (user, Sep 24 10:50 PM): this template IS the app design system. Daily builds change picks
@@ -59,11 +60,29 @@ RP_DESIGN='2.0.0' if _V2 else '1.2.0'  # locked design system version - bump onl
 
 def _pt_date(iso):
     # Sep 26 builder fix: real America/Los_Angeles conversion - a hard-coded UTC-7 is wrong in PST.
+    # A zoneless timestamp is read as UTC, the builder's one convention for a naive commence (the ledger carryover
+    # check, _eid_resolve's time match), never in the machine's own zone (astimezone() on a naive datetime does
+    # that), so a card dates the same on a Pacific laptop and a UTC runner. Every caller gets a date for it: the
+    # eid check, the card date behind the shipped-ledger pin, game rooms and pages, team pages. '' only when the
+    # timestamp cannot be read.
     try:
         import datetime as _dt
         from zoneinfo import ZoneInfo
-        return _dt.datetime.fromisoformat((iso or '').replace('Z','+00:00')).astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat()
+        t=_dt.datetime.fromisoformat((iso or '').replace('Z','+00:00'))
+        if t.tzinfo is None or t.utcoffset() is None: t=t.replace(tzinfo=_dt.timezone.utc)
+        return t.astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat()
     except Exception: return ''
+def _pt_day(iso):
+    # The owner-suspension date binding (_owner_waivers) only, stricter than _pt_date: the Pacific calendar date
+    # (datetime.date) of a timestamp that carries an explicit UTC offset ('Z' or +hh:mm), else None - a waiver
+    # never guesses a zone, so a zoneless commence binds to no date and is held.
+    try:
+        import datetime as _dt
+        t=_dt.datetime.fromisoformat((iso or '').replace('Z','+00:00'))
+        if t.tzinfo is None or t.utcoffset() is None: return None
+        d=_pt_date(iso)
+        return _dt.date.fromisoformat(d) if d else None
+    except Exception: return None
 
 man=json.load(open(sys.argv[1]))
 # --- pick-content hash gate (permanent): price ship conditions gate pick CONTENT only.
@@ -176,15 +195,61 @@ _sanitize_man(man)
 # net below the class bar, units over the J-096 rung of its fair, a card_american that is not the best ask of its
 # recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from each pick's "model X"
 # sub (build_manifest's own shape) or its best_ask block; a pick whose fair and card price cannot be read is left
-# unchecked on the numeric bars (never falsely held). The Vegas rule is build_manifest.vegas_hit's: Raiders (NFL),
-# Golden Knights (NHL), Aces (WNBA), Athletics/A's (MLB), UNLV (college); a nickname counts only inside its own
-# league (Texas Tech Red Raiders is no Vegas team), 'Las Vegas', 'Vegas' and UNLV in any league, and the individual
-# sports (racing, golf, tennis, MMA, boxing) have no teams. An earlier card's manifests/ snapshot, rebuilt below for
-# its game pages, is not gated. The one exception is logged, narrow and numeric-only: see the owner suspension below.
-_VEGAS_NICK={'football/nfl':('raiders',),'hockey/nhl':('golden knights',),'basketball/wnba':('aces',),
-             'baseball/mlb':('athletics',"a's"),'football/college-football':('unlv',),
-             'basketball/mens-college-basketball':('unlv',),'basketball/womens-college-basketball':('unlv',)}
-_VEGAS_ANY=('las vegas','vegas','unlv')
+# unchecked on the numeric bars (never falsely held). The Vegas rule is the contract block below, the same block
+# build_manifest.vegas_hit runs: a league's Vegas nickname, home city or abbreviation as whole words anywhere in a
+# team or pick name (Raiders NFL, Golden Knights NHL, Aces WNBA, Athletics/A's MLB), 'Las Vegas', 'Vegas' or UNLV in
+# any league, only a named non-Vegas team let through, no teams in the individual sports. A spread pick's name and an optional pick_line must agree with its stored line read from the
+# picked side (_pick_line_holds). An earlier card's manifests/ snapshot, rebuilt below for its game pages, is not
+# gated. The one exception is logged, narrow and numeric-only: see the owner suspension below.
+# >>> vegas-rule contract copy (build_manifest.py and both page-builder twins carry this block byte for byte;
+# scripts/test_vegas_rule_exact.py checks the copies and runs one case table through each)
+# Owner rule L-VEGAS-GATE-001 (Sep 25): "never gamble on or against any Vegas teams ever" and "Exclude A's going
+# forward from today too". A pick is out when any of its strings - game.away, game.home or the pick name, each
+# read case-, space- and punctuation-blind - carries as whole words, anywhere in it:
+#  - 'Las Vegas', 'Vegas' or 'UNLV': a team named for Las Vegas, or UNLV, is a Vegas team in every team league;
+#  - or one of its league's Vegas words in _VEGAS_WORDS: the nickname (Raiders NFL, Golden Knights NHL, Aces WNBA,
+#    Athletics/A's MLB), a home city the team has played under, or an abbreviation. A Vegas word counts only in its
+#    own league: 'LV' is the Raiders in the NFL and the Aces in the WNBA, nothing in the NBA, and the Wright State
+#    Raiders in college basketball are no Vegas team.
+# Anywhere means anywhere: 'Raiders 1H +3.5', "A's F5 ML", 'Brock Bowers (LV) over 4.5 receptions', "Sacramento
+# A's" and 'Golden Knights (VGK)' all count. The one way out is by name: each non-Vegas team in _VEGAS_NOT (Texas
+# Tech Red Raiders, Evansville Purple Aces, UCF Golden Knights, ...) is blanked out of a string before it is read,
+# so that team filed under the nickname's league builds, while any other Vegas word in the same string still holds
+# the pick. Nothing else ever narrows the rule. An entry there is a whole multi-word team name, never a Vegas word
+# on its own, and never carries 'Vegas', 'Las Vegas' or 'UNLV'.
+# The individual sports (racing, golf, tennis, MMA, boxing) have no teams: a NASCAR race at Las Vegas Motor
+# Speedway is no Vegas team. The league is read case- and space-blind ('Hockey/NHL ' is the NHL).
+_VEGAS_WORDS = {
+    'football/nfl': ('raiders', 'oakland', 'lv'),
+    'hockey/nhl': ('golden knights', 'vgk'),
+    'basketball/wnba': ('aces', 'lv', 'lva'),
+    'baseball/mlb': ('athletics', "a's", 'oakland', 'sacramento', 'ath', 'oak'),
+}
+_VEGAS_CITY = ('las vegas', 'vegas', 'unlv')
+_VEGAS_NOT = ('red raiders', 'colgate raiders', 'wright state raiders', 'purple aces', 'ucf golden knights',
+              'clarkson golden knights')
+_VEGAS_NO_TEAMS = ('racing', 'golf', 'tennis', 'mma', 'boxing')
+
+
+def _vg_words(s):
+    """' <words> ': lower-cased, each run of characters other than a-z, 0-9 and the apostrophe one space."""
+    return ' ' + re.sub(r"[^a-z0-9']+", ' ', str(s or '').lower().replace('\u2019', "'")) + ' '
+
+
+def vegas_hit_fields(league, fields):
+    """'<field> <value>' for the first (field, value) that puts a Las Vegas team on this pick, else None."""
+    lg = str(league or '').strip().lower()
+    if lg.split('/')[0] in _VEGAS_NO_TEAMS:
+        return None
+    for f, v in fields:
+        w = _vg_words(v)
+        for n in _VEGAS_NOT:
+            while f' {n} ' in w:
+                w = w.replace(f' {n} ', ' ')
+        if any(f' {n} ' in w for n in _VEGAS_CITY + _VEGAS_WORDS.get(lg, ())):
+            return f'{f} {v!r}'
+    return None
+# <<< vegas-rule contract copy
 _UNIT_LADDER=('5u','10u','15u','100u')
 # numeric bars, mirroring build_manifest.py (bar_problems / j096_rung); the page builder re-checks them
 # from the manifest's own fields because a sub-bar card.json can land outside build_manifest.
@@ -236,19 +301,75 @@ def _j096_rung(fair,gross):
     if fair>=70: return 10 if gross>=3 else 5
     if fair>=60: return 5
     return 0
+def _pick_mclass(p):
+    # One market class per pick, used by chips, the pick row and the client verdict.
+    # build_manifest.py writes market_class (ml|spread|total|prop); legacy hand manifests mark a
+    # spread with market:'spread' and a total only by its over/under side.
+    mc=str(p.get('market_class') or '').lower()
+    if mc in ('ml','spread','total','prop'): return mc
+    if p.get('market')=='spread': return 'spread'
+    if p.get('market')=='total': return 'total'
+    if p.get('player') or p.get('market'): return 'prop' if p.get('side') in ('over','under') else 'ml'
+    if p.get('side') in ('over','under'): return 'total'
+    return 'ml'
+def _line_num(v):
+    # a line as a finite number (a numeric string reads as the page reads it), else None; a bool is no line
+    if isinstance(v,bool): return None
+    try: f=float(v)
+    except (TypeError,ValueError): return None
+    return f if f==f and abs(f)!=float('inf') else None
+# --- pick_line (optional manifest field) and the spread pick name. LINE CONVENTION, unchanged and graded as is: a
+# spread pick's 'line' is the HOME spread whichever side is picked (build_manifest, st_card_candidates.adapt_alt,
+# finals_watch, record_final.score_result: diff = home + line - away, home covers when diff > 0), so the away
+# pick 'Flyers +1.5' is stored line -1.5 and the home pick 'Lightning -1.5' line -1.5; a total's (and a prop's)
+# 'line' is the number itself. pick_line is that line read from the PICKED side: spread away -> -line, spread
+# home -> line, total/prop -> line. It is optional, never graded and never rendered (the page already reads the
+# picked side's number through _pick_line); when present it must equal that derived value. A spread pick whose
+# name ends in its line ('Flyers +1.5', read by _name_line, the page's own fallback reader) must name the picked
+# side's line. A pick_line that is not a number, sits on a moneyline, or has no numeric line (or a spread side
+# other than home/away) to check against is held too. These holds are integrity checks, never suspendable.
+# _name_line: the line a pick name ends in, as written ('Flyers +1.5' -> '+1.5'), else None. A typographic
+# minus or plus (U+2212, U+2012, U+2013, U+FE62/3, U+FF0B/D) reads as '-' or '+'; one trailing American price
+# ('-110', '(+105)', '@ -120': a signed whole number of three or more digits, never a spread) is not the line; and a
+# digit glued to a letter or a decimal point is no number, so 'Yankees -0.5 F5', 'Celtics -2.5 Q1' and
+# 'Flyers +1.5 P1' end in no line and are not read as 5 or 1. A name that ends in no line is not checked.
+def _name_line(name):
+    # self-contained (fixtures lift it out by AST beside _pick_line)
+    s=str(name or '').translate({0x2212:'-',0x2012:'-',0x2013:'-',0xfe63:'-',0xff0d:'-',0xfe62:'+',0xff0b:'+'})
+    s=re.sub(r'\s*\(?\s*@?\s*[+-]\d{3,}\s*\)?\s*$','',s,count=1)
+    mo=re.search(r'(?:(?<![\d.])([+-])|(?<![\w.+-]))(\d+(?:\.\d+)?)\s*$',s)
+    return (mo.group(1) or '')+mo.group(2) if mo else None
+def _pick_line_holds(p):
+    out=[]
+    mc,side,ln=_pick_mclass(p),p.get('side'),_line_num(p.get('line'))
+    der=None
+    if ln is not None and mc=='spread' and side in ('home','away'): der=(0.0-ln) if side=='away' else ln
+    elif ln is not None and mc in ('total','prop'): der=ln
+    if p.get('pick_line') is not None:
+        pl=p['pick_line']
+        if isinstance(pl,bool) or not isinstance(pl,(int,float)) or _line_num(pl) is None:
+            out.append(('pick_line',f"pick_line {pl!r} is not a number"))
+        elif mc=='ml':
+            out.append(('pick_line',f"pick_line {pl:+g} on a moneyline pick (a moneyline has no line)"))
+        elif der is None:
+            out.append(('pick_line',f"pick_line {pl:+g} has no {mc} line to check against (line {p.get('line')!r}, side {side!r})"))
+        elif abs(pl-der)>1e-9:
+            out.append(('pick_line',(f"pick_line {pl:+g} is not the {side} side's line {der:+g} (line {ln:+g} is the home spread)"
+                                     if mc=='spread' else f"pick_line {pl:+g} is not its {mc} line {der:g}")))
+    if mc=='spread' and der is not None:
+        nl=_name_line(p.get('name'))
+        if nl is not None and abs(float(nl)-der)>1e-9:
+            out.append(('spread_name',f"name says {nl} but the {side} side's line is {der:+g} (line {ln:+g} is the home spread)"))
+    return out
 def _standing_rule_holds(m):
     out=[]
     picks=[p for p in (m.get('picks') or []) if isinstance(p,dict)]
     for i,p in enumerate(picks,1):
         who=f"pick {i} {p.get('name')!r}"
-        lg=str(p.get('espn_league') or '').strip().lower()
         g=p.get('game') if isinstance(p.get('game'),dict) else {}
-        if lg.split('/')[0] not in ('racing','golf','tennis','mma','boxing'):
-            names=_VEGAS_ANY+_VEGAS_NICK.get(lg,())
-            for f,v in (('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))):
-                w=' '+re.sub(r"[^a-z0-9']+",' ',str(v or '').lower().replace('\u2019',"'"))+' '
-                if any(' '+n+' ' in w for n in names):
-                    out.append((p.get('name'),'vegas',f"{who}: Las Vegas team ({f} {v!r}) - never on or against a Vegas team")); break
+        _vh=vegas_hit_fields(p.get('espn_league'),(('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))))
+        if _vh: out.append((p.get('name'),'vegas',f"{who}: Las Vegas team ({_vh}) - never on or against a Vegas team"))
+        for _k,_why in _pick_line_holds(p): out.append((p.get('name'),_k,f"{who}: {_why}"))
         if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
             out.append((p.get('name'),'units_ladder',f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)"))
         # numeric standing bars (read the fair and the card price from this pick's own fields)
@@ -311,16 +432,52 @@ def _standing_rule_holds(m):
 # the item is a numeric bar (fair below the 60c band, gross below the 2c bar, net below the class bar, units over
 # the J-096 rung of its fair) and its pick name is exactly a logged name - and the whole waiver is refused (nothing
 # waived) unless ALL of these hold: the card_note, the note the page actually renders, carries the disclosure
-# ("owner-directed" or "owner directive", and "sub-bar", any case); no logged name is on more than one card pick
-# and no name is logged twice with different entries; and every waived pick plays on the logged date (its
-# game.commence in Pacific time) and carries exactly its logged eid (game.eid) and units. Never suspendable: a Las
-# Vegas team, units off the ladder, a card ask at or above the 85c cut, a card price that is not the best recorded
-# ask, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly
-# as before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record) waives
-# nothing. The log is read only for a held card, so a card with no holds builds identically.
+# stated positively ("owner-directed" or "owner directive", and "sub-bar", any case, as whole words, and none of
+# them negated: a no/not/non-/never/without/neither/nor/none/n't word earlier in its clause, or a bare "no" right
+# after it, refuses the waiver - "not owner-directed" and "no owner directive" disclose nothing); no logged name is
+# on more than one card pick and no name is logged twice with different entries; and every waived pick plays on
+# the logged date (its game.commence, which must carry an explicit UTC offset, read in America/Los_Angeles by _pt_day
+# - stricter than _pt_date, which reads a zoneless commence as UTC: here it binds to no date) and carries exactly its
+# logged eid (game.eid) and units. Never suspendable: a Las Vegas team, units off the ladder, a card ask at or above
+# the 85c cut, a card price that is not the best recorded ask, a spread name or pick_line that disagrees with its
+# line, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly as
+# before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record: a date that
+# is not a YYYY-MM-DD calendar date, or a logged_at without an explicit UTC offset, included) waives nothing. The
+# log is read only for a held card, so a card with no holds builds identically.
 _SUSPEND_RULE='2026-10-02 (4)'
 _SUSPEND_KINDS=frozenset(('fair_band','gross_bar','net_bar','units_over_rung'))
 _SUSPEND_LOG=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','slates','owner_rule_suspensions.jsonl')
+def _ymd(v):
+    # a strict 'YYYY-MM-DD' calendar date (datetime.date), else None
+    if not (isinstance(v,str) and re.fullmatch(r'\d{4}-\d{2}-\d{2}',v)): return None
+    try:
+        import datetime as _dt
+        return _dt.date.fromisoformat(v)
+    except ValueError: return None
+def _aware_ts(v):
+    # an ISO timestamp WITH an explicit UTC offset ('Z' or +hh:mm) as an aware datetime, else None
+    try:
+        import datetime as _dt
+        t=_dt.datetime.fromisoformat(v.replace('Z','+00:00'))
+    except Exception: return None
+    return t if t.tzinfo is not None and t.utcoffset() is not None else None
+_DISCLOSE_RX=re.compile(r"(?<![a-z0-9])(owner-directed|owner directives?|sub-bars?)(?![a-z0-9])")
+_DISCLOSE_NEG=frozenset(('no','not','non','never','without','neither','nor','none','nothing','nobody','cannot',
+                         'lacks','lacking','absent','excluding','except'))
+_CLAUSE_CUT=re.compile(r"[.;:!?()\[\]{},\n]|\s[-\u2013\u2014]+\s|[\u2013\u2014]")
+def _disclosure_problem(note):
+    # -> None when the card_note discloses positively ("owner-directed" or "owner directive", and "sub-bar"), else why
+    cn=note.lower().replace('\u2019',"'") if isinstance(note,str) else ''
+    seen=set()
+    for mo in _DISCLOSE_RX.finditer(cn):
+        clause=_CLAUSE_CUT.split(cn[:mo.start()])[-1]
+        neg=any(w in _DISCLOSE_NEG or w.endswith("n't") for w in re.findall(r"[a-z]+(?:'[a-z]+)?",clause))
+        tail=re.match(r"\s*[:?=\-\u2013\u2014]\s*(?:no|not|none|false|n/a)\s*(?:[.;,!?)\n]|$)",cn[mo.end():])
+        if neg or tail:
+            return f'"{mo.group(1)}" is negated ("{(clause.strip()+" "+mo.group(1)).strip()}{tail.group(0).rstrip() if tail else ""}")'
+        seen.add('sub-bar' if mo.group(1).startswith('sub-bar') else 'owner')
+    if seen!={'owner','sub-bar'}: return 'it is missing'
+    return None
 def _suspension_records(path):
     # -> (records, None), or (None, why) when the log cannot be trusted as a whole (fail closed)
     try: raw=open(path,encoding='utf-8').read()
@@ -335,18 +492,21 @@ def _suspension_records(path):
                 and isinstance(r.get('picks'),list) and r['picks']
                 and all(isinstance(x,dict) and all(_s(x.get(k)) for k in ('name','eid','units')) for x in r['picks'])):
             return None,f'line {n} is not a well-formed suspension record'
+        if _ymd(r['date']) is None: return None,f"line {n} date {r['date']!r} is not a YYYY-MM-DD calendar date"
+        if _aware_ts(r['logged_at']) is None: return None,f"line {n} logged_at {r['logged_at']!r} has no explicit UTC offset"
         recs.append(r)
     return recs,None
 def _owner_waivers(m,holds):
     # -> ([(held item, approved)], note when a suspension for this date exists but waives nothing, or None)
     recs,bad=_suspension_records(_SUSPEND_LOG)
     if recs is None: return [],f'slates/owner_rule_suspensions.jsonl {bad} - nothing waived'
-    d=m.get('date')
-    lines=[r for r in recs if isinstance(d,str) and r['date']==d and r['rule']==_SUSPEND_RULE and r['scope']=='numeric']
+    d=m.get('date'); dday=_ymd(d)  # every date compared below is a calendar date in America/Los_Angeles
+    lines=[r for r in recs if dday is not None and _ymd(r['date'])==dday and r['rule']==_SUSPEND_RULE and r['scope']=='numeric']
     if not lines: return [],None
-    cn=m.get('card_note').lower() if isinstance(m.get('card_note'),str) else ''
-    if not (('owner-directed' in cn or 'owner directive' in cn) and 'sub-bar' in cn):
-        return [],f'the {d} suspension needs the card_note disclosure ("owner-directed" or "owner directive", and "sub-bar") - nothing waived'
+    _dp=_disclosure_problem(m.get('card_note'))
+    if _dp:
+        return [],(f'the {d} suspension needs the card_note disclosure stated positively ("owner-directed" or "owner directive", '
+                   f'and "sub-bar"); {_dp} - nothing waived')
     logged={}
     for r in lines:
         for e in r['picks']:
@@ -363,8 +523,11 @@ def _owner_waivers(m,holds):
         (eid,units),appr=logged[name]
         p=next((p for p in cards if p.get('name')==name),{})
         g=p.get('game') if isinstance(p.get('game'),dict) else {}
-        pd=_pt_date(g.get('commence')) if isinstance(g.get('commence'),str) else ''
-        if pd!=d: return [],f"pick {name!r} plays on {pd or 'no date'} (Pacific), not the logged {d} - nothing waived"
+        c=g.get('commence')
+        pday=_pt_day(c) if isinstance(c,str) else None
+        if pday!=dday:
+            why=f": game.commence {c!r} is not an ISO timestamp with an explicit UTC offset" if (pday is None and c) else ''
+            return [],f"pick {name!r} plays on {pday.isoformat() if pday else 'no date'} (Pacific{why}), not the logged {d} - nothing waived"
         if g.get('eid')!=eid or p.get('units')!=units:
             return [],(f"pick {name!r} (eid {g.get('eid')!r}, units {p.get('units')!r}) does not match its logged entry "
                        f"(eid {eid!r}, units {units!r}) - nothing waived")
@@ -1371,30 +1534,21 @@ def _dingers_home_panel(tab_keys, mlb_entry):
     # file. Covers the empty card too; the health gate and fixtures need the container on every card.
     if 'mlb' in tab_keys: return ''
     return '<div class="state" id="st-ding" data-home-league="1">'+mlb_entry+'</div>\n'
-def _pick_mclass(p):
-    # One market class per pick, used by chips, the pick row and the client verdict.
-    # build_manifest.py writes market_class (ml|spread|total|prop); legacy hand manifests mark a
-    # spread with market:'spread' and a total only by its over/under side.
-    mc=str(p.get('market_class') or '').lower()
-    if mc in ('ml','spread','total','prop'): return mc
-    if p.get('market')=='spread': return 'spread'
-    if p.get('market')=='total': return 'total'
-    if p.get('player') or p.get('market'): return 'prop' if p.get('side') in ('over','under') else 'ml'
-    if p.get('side') in ('over','under'): return 'total'
-    return 'ml'
 def _pick_line(p):
     # numeric line for spread/total picks, always the PICKED side's own number (what the page grades
     # with: pick-side margin + line). The manifest 'line' of a spread is the HOME spread (build_manifest,
     # st_card_candidates.adapt_alt, finals_watch, record_final.score_result), so an away-cover pick
-    # 'Lynx +4' stored as line -4 reads +4. Without a manifest line, the trailing number of the pick
-    # name ('Aces -4.5', 'Under 38.5'), already side-relative; None when neither exists (no verdict).
+    # 'Lynx +4' stored as line -4 reads +4. Without a manifest line, the line the pick name ends in
+    # ('Aces -4.5', 'Under 38.5'), already side-relative, read by _name_line - the reader the spread-name
+    # hold uses, so 'Yankees -0.5 F5' is never line 5 and a trailing price is never the line; None when
+    # neither exists (no verdict).
     try:
         if p.get('line') is not None:
             ln=float(p['line'])
             return (0.0-ln) if (_pick_mclass(p)=='spread' and p.get('side')=='away') else ln  # 0.0-ln: a pick'em never reads -0
     except (TypeError, ValueError): return None
-    m=re.search(r'([+-]?\d+(?:\.\d+)?)\s*$', str(p.get('name') or ''))
-    return float(m.group(1)) if m else None
+    nl=_name_line(p.get('name'))
+    return float(nl) if nl is not None else None
 def _ship_key(p):
     # shipped-ledger key: moneyline picks keep the game key; any other market class carries its
     # class and line so a spread/total/prop chip never inherits a moneyline link or price

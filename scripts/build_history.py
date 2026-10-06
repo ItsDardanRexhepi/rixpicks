@@ -36,6 +36,7 @@ h1 a{color:inherit;text-decoration:none}
 .gm{color:#6b6b72;font-size:13px;margin-top:3px}
 .sc{font-size:14px;font-weight:600;margin-top:6px}
 .nt{color:#6b6b72;font-size:14px;margin-top:5px;line-height:1.5}
+.late{display:inline-block;margin-top:6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9a6700;border:1px solid rgba(154,103,0,.45);border-radius:999px;padding:1px 8px}
 .brief{margin:14px 0 6px;padding:14px 16px;background:#fff;border-left:3px solid #2f8f7d;border-radius:0 10px 10px 0;font-size:14px;line-height:1.55;color:#3a3a40}
 .brief .bt{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#2f8f7d;display:block;margin-bottom:6px}
 .foot{margin-top:34px;color:#8a8a91;font-size:12px;line-height:1.6}
@@ -46,6 +47,7 @@ h1 .tick,.od,.back{color:#3aa895}
 .pk{border-top-color:#2a2a2e}
 .brief{background:#141416;color:#c9c9d1}
 .foot{color:#6f6f78}
+.late{color:#e0b356;border-color:rgba(224,179,86,.45)}
 }
 """
 
@@ -99,11 +101,28 @@ def clv_html(p):
     verdict='beat the close' if clv>0.05 else ('gave back vs the close' if clv<-0.05 else 'matched the close')
     return f'<div class="clv" style="font-size:12px;color:#8a8f98;margin-top:4px">close {p["close"]:+d} &middot; CLV <b style="color:{col}">{sign}{clv}%</b> - {verdict}</div>'
 
+# Late-post disclosure (record_final copies it from the card onto the row): a pick posted after its
+# game began says so on every page that lists it - 'Added after the final' when the game had already
+# ended at posting, else 'Added after kickoff'. Only a JSON true counts; a flag of any other type is a
+# malformed row and fails the build loudly (exit 1), never a page that silently drops the disclosure.
+LATE_FLAGS = ('added_after_kickoff', 'added_after_final')
+
+def late_html(p):
+    bad = [f for f in LATE_FLAGS if f in p and not isinstance(p[f], bool)]
+    if bad:
+        raise SystemExit(f"build_history: {p.get('name')!r} carries a malformed {bad[0]} ({p[bad[0]]!r}) - "
+                         'refusing to build a record page that would drop its late-post disclosure')
+    if p.get('added_after_final') is True:
+        return '<div class="late">Added after the final</div>'
+    if p.get('added_after_kickoff') is True:
+        return '<div class="late">Added after kickoff</div>'
+    return ''
+
 def pick_html(p):
     cls = p['result']
     return f"""<div class="pk">
 <div class="pk-top"><span class="res {cls}">{cls}</span><span class="nm">{html.escape(p['name'])}</span><span class="un">{html.escape(p.get('units',''))}</span><span class="od">{html.escape(p.get('odds',''))}</span></div>
-<div class="gm">{html.escape(p.get('game',''))}</div>
+<div class="gm">{html.escape(p.get('game',''))}</div>{late_html(p)}
 <div class="sc">{html.escape(p.get('score',''))}</div>
 {f'<div class="nt">{html.escape(p["note"])}</div>' if p.get('note') else ''}
 {f'<div class="nt">{html.escape(str(p["learning"]))}</div>' if p.get('learning') else ''}
@@ -190,6 +209,9 @@ if(hp)say('0-0 - no official picks.');}).catch(function(){});}catch(e){}})();</s
 def main(hist_path):
     h = json.load(open(hist_path))
     days = h['days']
+    for _d in days:  # a malformed late-post flag stops the build before either page is written
+        for _p in _d['picks']:
+            late_html(_p)
     _res=_resolved_tokens(days)
     for _d in days:
         for _p in _d['picks']:
