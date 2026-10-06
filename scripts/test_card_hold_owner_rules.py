@@ -19,6 +19,8 @@ Builds run in a throwaway tree with the network sent to a dead proxy.
 Run: python3 scripts/test_card_hold_owner_rules.py [builder.py ...]   (default: both twins)"""
 import copy, json, os, re, shutil, subprocess, sys, tempfile
 
+from fixtures.card_contract import stamped, market, published_snapshot
+
 SD = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(SD)
 BUILDERS = [os.path.abspath(a) for a in sys.argv[1:]] or [os.path.join(SD, 'build_gh_page_v2.py'), os.path.join(SD, '_build_nocanon_v2.py')]
@@ -45,7 +47,9 @@ def build(builder, manifest, seed=None):
             shutil.copy(os.path.join(bsrc if os.path.exists(os.path.join(bsrc, f)) else SD, f), os.path.join(d, 'scripts', f))
         for f in ('feed_arbiter.js', 'feed_registry.json', 'config_leagues.json'):
             shutil.copy(os.path.join(ROOT, f), os.path.join(d, f))
+        manifest=stamped(builder,manifest)
         json.dump(manifest, open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
+        published_snapshot(d,builder,manifest)
         json.dump([], open(os.path.join(d, 'slates', 'odds_prefill.json'), 'w'))
         before = {os.path.relpath(os.path.join(p, f), d): os.path.getmtime(os.path.join(p, f)) for p, _, fs in os.walk(d) for f in fs}
         env = dict(os.environ, RP_REFRESH='1', http_proxy=DEAD, https_proxy=DEAD, HTTP_PROXY=DEAD, HTTPS_PROXY=DEAD)
@@ -67,6 +71,7 @@ def pick(num, name, league, away, home, units='5u', side='home', eid='', model=6
          'card_american': american, 'units': units,
          'side': side, 'game': {'away': away, 'home': home, 'commence': '2099-10-04T20:25Z', 'eid': eid},
          'espn_league': league, 'league': LEAGUE[league], 'best_book': 'Kalshi', 'card_source': 'Kalshi ask at lock'}
+    p=market(p)
     p.update(extra)
     return p
 def card(picks, **kw):
@@ -136,7 +141,7 @@ for B in BUILDERS:
     ba['best_ask'] = {'venue': 'dk', 'price': -150, 'read_at': '2099-10-04T14:51:00Z', 'cost_c': 60.0, 'fee_c': 0.0,
                       'gross_c': 6.0, 'net_c': 6.0, 'compared': [{'venue': 'dk', 'price': -150, 'read_at': '2099-10-04T14:51:00Z'},
                                                                  {'venue': 'kalshi', 'price': 61, 'read_at': '2099-10-04T14:51:00Z'}]}
-    ba['kalshi'] = {'cents': 61, 'team': 'B', 'ticker': 'KXFIX-1'}
+    ba['kalshi'] = {'cents':61,'team':'B','ticker':'KXFIXGAME-99OCT04AH-H','side':'yes','url':'https://kalshi.com/markets/kxfixgame/kxfixgame-99oct04ah'}
     rc, log, written, _ = build(B, card([ba]))
     check(f'{tag}: a card_american that is not the best recorded ask is held', rc == 3 and 'best recorded ask' in log and written == [], (rc, log[-300:], written))
     # a parlay failing the 2c/2c bar: two legs that clear on their own (fair 63c, net 1.32c) but combine to net 1.65c
