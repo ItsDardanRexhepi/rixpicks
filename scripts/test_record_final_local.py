@@ -203,7 +203,10 @@ try:
     msg = s.git(s.origin, 'log', '-1', '--format=%B', 'main')
     check('real: the workflow\'s commit subject', msg.splitlines()[0],
           'Record write: graded finals applied from record_request.json (ESPN-verified, ledger-exact) [record-final]')
-    check('real: no co-author or tool line in the message', bool(re.search(r'co-authored|claude|anthropic', msg, re.I)), False)
+    # the whole message, exactly: the subject and the one run-locally line, so no trailer or extra line can ride along
+    check('real: the commit message is exactly the two expected paragraphs', msg,
+          'Record write: graded finals applied from record_request.json (ESPN-verified, ledger-exact) [record-final]\n\n'
+          'Run locally by scripts/record_final_local.sh (GitHub Actions record-final fallback).')
     files = sorted(s.git(s.origin, 'diff', '--name-only', f'{tip0}..main').splitlines())
     check('real: only allowlisted record files committed', files,
           ['history.json', 'index.html', 'manifest.json', 'record.html', 'record_done.json', 'record_request.json', 'yesterday.html'])
