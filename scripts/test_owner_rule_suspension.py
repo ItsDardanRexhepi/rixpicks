@@ -33,6 +33,8 @@ Builds run in a throwaway tree with the network sent to a dead proxy.
 Run: python3 scripts/test_owner_rule_suspension.py [builder.py ...]   (default: both twins)"""
 import ast, copy, hashlib, html, json, os, re, shutil, subprocess, sys, tempfile, warnings
 
+from fixtures.card_contract import stamped as contract_stamped, market, published_snapshot
+
 SD = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(SD)
 BUILDERS = [os.path.abspath(a) for a in sys.argv[1:]] or [os.path.join(SD, 'build_gh_page_v2.py'), os.path.join(SD, '_build_nocanon_v2.py')]
@@ -63,7 +65,9 @@ def build(builder, manifest, log=None, seed=None, tz=None):
             shutil.copy(os.path.join(bsrc if os.path.exists(os.path.join(bsrc, f)) else SD, f), os.path.join(d, 'scripts', f))
         for f in ('feed_arbiter.js', 'feed_registry.json', 'config_leagues.json'):
             shutil.copy(os.path.join(ROOT, f), os.path.join(d, f))
+        manifest=contract_stamped(builder,manifest)
         json.dump(manifest, open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
+        published_snapshot(d,builder,manifest)
         json.dump([], open(os.path.join(d, 'slates', 'odds_prefill.json'), 'w'))
         if log is not None:
             open(os.path.join(d, LOG_REL), 'w', encoding='utf-8').write(log)
@@ -96,6 +100,7 @@ def pick(num, name, league='hockey/nhl', away='A', home='B', units='5u', model=6
          'card_american': american, 'units': units, 'side': 'home',
          'game': {'away': away, 'home': home, 'commence': '2099-10-04T20:25Z', 'eid': f'FIX-{num}'},
          'espn_league': league, 'league': LEAGUE[league], 'best_book': 'Kalshi', 'card_source': 'Kalshi ask at lock'}
+    p=market(p)
     p.update(extra)
     REG[name] = ent(p)
     return p
@@ -287,20 +292,13 @@ for B in BUILDERS:
     real_holds = sorted(set(re.findall(r"pick \d '([^']+)'", out.split('BUILD FAILED', 1)[-1])))
     rc, out, written, body = build(B, real, log=real_log, seed=shipped)
     sus = [l for l in out.splitlines() if l.startswith('OWNER SUSPENSION:')]
-    check(f'{tag}: (i) the real owner card with slates/owner_rule_suspensions.jsonl: builds', rc == 0 and 'index.html' in written and 'DISPLAY-ONLY BUILD' in out, (rc, out[-600:]))
-    check(f'{tag}: (i) the real card_note (the owner-directed sub-bar disclosure) renders on the built page',
-          b'<div class="cardnote">' + html.escape(real_cnote).encode() + b'</div>' in body.get('index.html', b''), real_cnote)
-    check(f'{tag}: (i) the OWNER SUSPENSION line names 2026-10-03, the logged approval and each held pick',
-          len(sus) == 1 and sus[0].startswith('OWNER SUSPENSION: rule 2026-10-02 (4) suspended for 2026-10-03 (approved: owner, typed in the operator chat, 2026-10-03 about 7:20 AM PT: option B')
-          and real_holds and all(f"'{n}'" in sus[0] for n in real_holds), (sus, real_holds))
-    check(f'{tag}: (i) every held item on the real card is a numeric bar on a logged pick',
-          set(real_holds) <= {e['name'] for e in real_rec['picks']} and 'BUILD FAILED' not in out, real_holds)
-    if sus:
-        print('     ' + sus[0])
-    rc, out, written, _ = build(B, real, log=real_log)
-    check(f'{tag}: (i) as new content (no shipped hash) the card hold is waived the same way; any stop after it is the live Kalshi re-check',
-          rc in (0, 3) and len([l for l in out.splitlines() if l.startswith('OWNER SUSPENSION:')]) == 1 and 'card hold' not in out
-          and (rc == 0 or 'Kalshi market unresolved' in out), (rc, out[-400:]))
+    check(f'{tag}: (i) historical owner card replayed as current content stays held: missing Kalshi is structural, never waived',
+          held(rc,out,written) and 'no Kalshi market' in out and not body and not sus,(rc,out[-600:]))
+    check(f'{tag}: (i) original historical fixture has not gained synthetic Kalshi fields',
+          json.load(open(os.path.join(REAL_CARD,'picks.json'))) == real['picks'])
+    rc,out,written,_=build(B,real,log=real_log)
+    check(f'{tag}: (i) historical card as new current content is refused even with numeric log',
+          held(rc,out,written) and 'no Kalshi market' in out,(rc,out[-400:]))
     for other in ('2026-10-04', '2026-10-02'):
         rc, out, written, _ = build(B, dict(real, date=other), log=real_log, seed=shipped)
         check(f'{tag}: (i) the same card dated {other} with the real log: held (the suspension is for 2026-10-03 only)', held(rc, out, written), (rc, out[-400:], written))
