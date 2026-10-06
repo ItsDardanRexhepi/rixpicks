@@ -1527,8 +1527,9 @@
   "pick_team": "Tampa Bay Lightning",
   "prediction": "Tampa Bay Lightning to beat Philadelphia Flyers",
   "kickoff_utc": "2026-10-05T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T15:21:00.284646+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T15:21:00.284646+00:00",
+  "settled_at": "2026-10-06T02:04:55.290542+00:00"
  },
  {
   "id": "dac9e7407c",
