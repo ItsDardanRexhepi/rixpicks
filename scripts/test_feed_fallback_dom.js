@@ -173,5 +173,34 @@ check('empty feed: no "No verified matches" implication', /No verified matches/.
 check('empty feed: zero-note hidden', (dom.window.document.getElementById('rpZeroNote')||{style:{display:'none'}}).style.display, 'none');
 vm.runInContext('ingestX(XP);SOC_SIG="";renderNews({key:"home"}, newsBucket());', ctx);
 check('feed back: posts and controls return', sbox.querySelectorAll('.socslide').length > 0 && sbox.querySelectorAll('button').length > 0 && !dom.window.document.getElementById('rpSocUnavail'), true);
+/* guard 1 10/6 cold-load class (3:35 AM verified blank News+Social at rix-picks.com/#home):
+   a map older than the rpMapFresh 2h window must NOT blank News - the served (aged) news snapshot
+   renders as independent latest-content feeds, and Social says unavailable when X has no posts,
+   independently of news inventory. Cold-load sim: every cache/unit/global cleared first. */
+vm.runInContext(`CAR_LAST=[];CAR_ALL=[];CAR_UNIT=null;PAIRS=[];CAR_SIG='';SOC_SIG='';CAR_N=0;SOC_N=0;
+FEED_FALLBACK=false;NEWS_READY=false;XFEED_DONE=false;SOC_MAP_DONE=false;SOC_MATCH=null;SOC_MATCH_OK=false;
+document.getElementById('rpNewsCar').innerHTML='';document.getElementById('rpSocial').innerHTML='';
+var STALE_MAP={built_at:new Date(Date.now()-3*3600*1000).toISOString(),pairs:{},nearest:{},more:{}};
+if(rpMapFresh(STALE_MAP)){SOC_MATCH=STALE_MAP;SOC_MATCH_OK=true;}
+NEWSF={generated_at:G1,items:newsBucket()};
+ingestX(XP0);
+XFEED_DONE=true;SOC_MAP_DONE=true;
+renderNews({key:"home"}, newsBucket());`, Object.assign(ctx, { G1: G1 }));
+check('stale map: rejected by rpMapFresh (no sync claimed)', ctx.SOC_MATCH_OK, false);
+check('stale map: fallback engaged', ctx.FEED_FALLBACK, true);
+const staleNewsSlides = [...doc.querySelectorAll('#rpNewsCar .carslide')].filter(s=>!s.classList.contains('carclone'));
+check('stale map: News renders the served snapshot (12 latest stories)', staleNewsSlides.length, 12);
+check('stale map: zero verified badges', doc.querySelectorAll('#rpSocial .syncbadge').length, 0);
+check('stale map + empty X: Social says unavailable (not blank)', !!doc.getElementById('rpSocUnavail') && /temporarily unavailable/.test(doc.getElementById('rpSocial').textContent), true);
+check('stale map + empty X: zero-note hidden beside unavailable', (doc.getElementById('rpZeroNote')||{style:{display:'none'}}).style.display, 'none');
+/* stale map with posts available: Social renders the Latest tier, never a verified claim */
+vm.runInContext(`ingestX(XP);SOC_SIG='';renderNews({key:"home"}, newsBucket());`, ctx);
+const staleSocSlides = [...doc.querySelectorAll('#rpSocial .socslide')].filter(s=>!s.classList.contains('carclone'));
+check('stale map + posts: Social renders latest tier', staleSocSlides.length > 0, true);
+check('stale map + posts: still zero verified badges', doc.querySelectorAll('#rpSocial .syncbadge').length, 0);
+check('stale map + posts: unavailable message cleared', !!doc.getElementById('rpSocUnavail'), false);
+/* settled feeds with zero NEWS inventory: Social unavailable status is independent of the news carousel */
+vm.runInContext(`CAR_LAST=[];PAIRS=[];NEWS_READY=true;XFEED_DONE=true;SOC_MAP_DONE=true;document.getElementById('rpSocial').innerHTML='';renderSocial();`, ctx);
+check('zero news inventory: Social still says unavailable', !!doc.getElementById('rpSocUnavail') && /temporarily unavailable/.test(doc.getElementById('rpSocial').textContent), true);
 console.log(failures ? ('FAILURES: ' + failures) : 'ALL CHECKS PASS');
 process.exit(failures ? 1 : 0);
