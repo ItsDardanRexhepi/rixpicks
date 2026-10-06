@@ -1,1 +1,58 @@
-{"date":"2026-10-05","generated_at":"2026-10-05T16:41:00-07:00","cards":[{"id":"nfl-1005-rec","title":"3-leg receiving yards","matchup":"ATL at NO","time":"5:15 PM PT","legs":[{"player":"Devaughn Vele","market":"25+ receiving yards","links":[{"venue":"KAL","cents":75}],"unlisted":["DraftKings Predictions"],"note":"Kalshi: records 25+ receiving yards. DKP lists 20+ and 30+ only; no substitution"},{"player":"Juwan Johnson","market":"30+ receiving yards","links":[{"venue":"DKP","cents":77}],"unlisted":["Kalshi"],"note":"DKP rules: stated number of receiving yards or more. Kalshi lists 25+ and 40+ only; no substitution"},{"player":"Chris Olave","market":"40+ receiving yards","links":[{"venue":"DKP","cents":94}],"unlisted":["Kalshi"],"note":"DKP rules: stated number of receiving yards or more. Kalshi lists 50+ and up only; no substitution"}],"asof":"Prices as of 4:41 PM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 4:39-4:41 PM PT, Kalshi read about 4:41 PM PT. Rules read on each venue page before a price is shown.","assumptions":"Each leg is priced only where that exact threshold is listed. Not a combined price."},{"id":"nfl-1005-mix","title":"4-leg player props","matchup":"ATL at NO","time":"5:15 PM PT","legs":[{"player":"Bijan Robinson","market":"Anytime touchdown","links":[{"venue":"DKP","cents":66},{"venue":"KAL","cents":64}]},{"player":"Michael Penix Jr.","market":"Over 199.5 passing yards (200+)","links":[{"venue":"DKP","cents":68},{"venue":"KAL","cents":66}],"note":"Rules read: DKP resolves Yes at the stated number of passing yards or more; Kalshi at 200+ passing yards. Over 199.5 = 200+ on both."},{"player":"Alvin Kamara","market":"Over 10.5 rush attempts (11+)","links":[{"venue":"DKP","cents":56}],"unlisted":["Kalshi"],"note":"DKP rules: stated number of rushing attempts or more, so over 10.5 = 11+. Kalshi lists 9+, 12+, 15+ only; no substitution"},{"player":"Tyler Shough","market":"Over 20.5 completions (21+)","links":[{"venue":"DKP","cents":80}],"unlisted":["Kalshi"],"note":"DKP rules: stated number of completions or more, so over 20.5 = 21+. Kalshi lists 19+, 24+, 29+ only; no substitution"}],"asof":"Prices as of 4:41 PM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 4:39-4:41 PM PT, Kalshi read about 4:41 PM PT. Rules read on each venue page before a price is shown.","assumptions":"Requested thresholds 199.5 / 10.5 / 20.5 kept as asked. Anytime touchdown: venue market is any touchdown scored (DKP: rushing, receiving, return or defensive, passing excluded; Kalshi: at least 1+ touchdowns). Not a combined price."},{"id":"nfl-1005-atd4","title":"4-leg anytime touchdown","matchup":"ATL at NO","time":"5:15 PM PT","legs":[{"player":"Bijan Robinson","market":"Anytime touchdown","links":[{"venue":"DKP","cents":66},{"venue":"KAL","cents":64}]},{"player":"Drake London","market":"Anytime touchdown","links":[{"venue":"DKP","cents":44},{"venue":"KAL","cents":40}]},{"player":"Juwan Johnson","market":"Anytime touchdown","links":[{"venue":"DKP","cents":31},{"venue":"KAL","cents":31}]},{"player":"Chris Olave","market":"Anytime touchdown","links":[{"venue":"DKP","cents":42},{"venue":"KAL","cents":41}]}],"asof":"Prices as of 4:41 PM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 4:39-4:41 PM PT, Kalshi read about 4:41 PM PT. Rules read on each venue page before a price is shown.","assumptions":"Anytime touchdown, as requested. Venue market is any touchdown scored (DKP: rushing, receiving, return or defensive, passing excluded; Kalshi: at least 1+ touchdowns). Not a combined price."},{"id":"nfl-1005-td2","title":"2-leg touchdowns","matchup":"ATL at NO","time":"5:15 PM PT","legs":[{"player":"Juwan Johnson","market":"Anytime touchdown","links":[{"venue":"DKP","cents":31},{"venue":"KAL","cents":31}]},{"player":"Bijan Robinson","market":"2+ touchdowns","links":[{"venue":"DKP","cents":28},{"venue":"KAL","cents":27}],"note":"2+ any touchdowns scored, not anytime. DKP: 2 or more, passing excluded; Kalshi: at least 2+ touchdowns"}],"asof":"Prices as of 4:41 PM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 4:39-4:41 PM PT, Kalshi read about 4:41 PM PT. Rules read on each venue page before a price is shown.","assumptions":"Anytime touchdown, as requested. Venue market is any touchdown scored (DKP: rushing, receiving, return or defensive, passing excluded; Kalshi: at least 1+ touchdowns). Not a combined price."}]}
+{
+  "date": "2026-10-05",
+  "generated_at": "2026-10-05T16:41:00-07:00",
+  "cards": [
+    {
+      "id": "nfl-1005-rec",
+      "title": "3-leg receiving yards",
+      "matchup": "ATL at NO",
+      "time": "5:15 PM PT",
+      "legs": [
+        {
+          "player": "Devaughn Vele",
+          "market": "25+ receiving yards",
+          "links": [
+            {
+              "venue": "KAL",
+              "cents": 75
+            }
+          ],
+          "unlisted": [
+            "DraftKings Predictions"
+          ],
+          "note": "Kalshi: records 25+ receiving yards. DKP lists 20+ and 30+ only; no substitution"
+        },
+        {
+          "player": "Juwan Johnson",
+          "market": "30+ receiving yards",
+          "links": [
+            {
+              "venue": "DKP",
+              "cents": 77
+            }
+          ],
+          "unlisted": [
+            "Kalshi"
+          ],
+          "note": "DKP rules: stated number of receiving yards or more. Kalshi lists 25+ and 40+ only; no substitution"
+        },
+        {
+          "player": "Chris Olave",
+          "market": "40+ receiving yards",
+          "links": [
+            {
+              "venue": "DKP",
+              "cents": 94
+            }
+          ],
+          "unlisted": [
+            "Kalshi"
+          ],
+          "note": "DKP rules: stated number of receiving yards or more. Kalshi lists 50+ and up only; no substitution"
+        }
+      ],
+      "asof": "Prices as of 4:41 PM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 4:39-4:41 PM PT, Kalshi read about 4:41 PM PT. Rules read on each venue page before a price is shown.",
+      "assumptions": "Each leg is priced only where that exact threshold is listed. Not a combined price."
+    }
+  ]
+}
