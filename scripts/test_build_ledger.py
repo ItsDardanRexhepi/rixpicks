@@ -11,7 +11,7 @@ MAN=f'{tmp}/manifest.json'  # stable production manifest path for this test
 # the card price now, so the fair must carry the size after the recompute (owner ruling 2026-10-02 (1)/(4)).
 CAND=[{'num':1,'name':'Test ML','side':'home','away':'AAA','home':'BBB','commence':'2026-09-28T00:00Z',
  'eid':999001,'espn_league':'MLB','units':'5u','date':'2026-09-28',
- 'kalshi':{'cents':57,'team':'BBB','ticker':'KXT-BBB'},'model':66.0,'gross_c':9.0,'net_c':7.3,'market_class':'ml'}]
+ 'kalshi':{'side':'yes','cents':57,'team':'BBB','ticker':'KXT-BBB'},'model':66.0,'gross_c':9.0,'net_c':7.3,'market_class':'ml'}]
 T0='2026-09-27T14:51:00Z'  # best_ask read time
 cf=f'{tmp}/cands.json'
 S=os.path.join(ROOT,'scripts','build_manifest.py')
@@ -122,11 +122,10 @@ html_out=f'{tmp}/index.html'
 # (with the card's units written '5u' the build now runs to the end instead of stopping on an integer size)
 r=subprocess.run(['python3',os.path.join(ROOT,'scripts','build_gh_page.py'),MAN,html_out],
                  capture_output=True,text=True,env=env,cwd=tmp)
-# hermetic level: format contract must carry it to the live-market gate (fake ticker KXT dies THERE,
-# by design); a contract break shows as KeyError/JSONDecodeError before that point.
+# V1 cannot price explicit-side cards from the current producer; refuse before live market lookup.
 st=r.stderr+r.stdout
 if 'KeyError' in st or 'JSONDecodeError' in st: fails.append(f'T13 format contract broken: {st[-300:]}')
-if 'Kalshi market unresolved' not in st and r.returncode!=0: fails.append(f'T13 unexpected failure: {st[-300:]}')
+if r.returncode!=3 or 'kalshi.side on Test ML' not in st: fails.append(f'T13 unexpected failure: {st[-300:]}')
 print('T13 OK' if not any(x.startswith('T13') for x in fails) else 'T13 FAILED')
 # T14 market_class gate (ml|spread|total|prop contract): a spread candidate without a numeric
 # line is refused loud, nothing written; a missing market_class is refused loud
