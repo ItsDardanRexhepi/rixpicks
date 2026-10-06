@@ -439,6 +439,28 @@ def parlay_problems(parlay, cands, priced):
             picked.append(hits[0])
     if out:
         return out
+        # J-098: parlay legs must be independent - no same-game or shared-team legs
+    _by_eid = {}
+    for i in picked:
+        _by_eid.setdefault(cands[i].get('eid'), []).append(cands[i].get('name'))
+    for _e, _ns in _by_eid.items():
+        if len(_ns) > 1:
+            out.append(f'same-game legs need a joint fair: {", ".join(_ns)} (J-098)')
+    _mkt = {'ml', 'over', 'under', '1h', 'f5', 'q1', 'p1', 'reg', 'to'}
+    _by_team = {}
+    for i in picked:
+        _team_toks = []
+        for _tok in str(cands[i].get('name') or '').split():
+            _num = _tok.lstrip('+-')
+            if _tok.lower() in _mkt or (_num[:1].isdigit() and all(c.isdigit() or c == '.' for c in _num)):
+                break
+            _team_toks.append(_tok)
+        _team = ' '.join(_team_toks)
+        if _team:
+            _by_team.setdefault(_team, []).append(cands[i].get('name'))
+    for _tm, _ns in _by_team.items():
+        if len(_ns) > 1:
+            out.append(f'shared-team legs are not independent: {", ".join(_ns)} (J-098)')
     dec, all_in, fair = 1.0, 1.0, 1.0
     for i in picked:
         am, fee = priced[i]['american'], priced[i]['fee_c']
