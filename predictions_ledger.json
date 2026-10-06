@@ -1540,8 +1540,9 @@
   "pick_team": "Philadelphia 76ers",
   "prediction": "Philadelphia 76ers to beat New York Knicks",
   "kickoff_utc": "2026-10-05T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T15:50:32.268366+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T15:50:32.268366+00:00",
+  "settled_at": "2026-10-06T01:34:57.732631+00:00"
  },
  {
   "id": "e2ea2c8ac9",
@@ -1658,8 +1659,9 @@
   "pick_team": "Atlanta Hawks",
   "prediction": "Atlanta Hawks to beat Memphis Grizzlies",
   "kickoff_utc": "2026-10-05T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T18:20:02.777487+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T18:20:02.777487+00:00",
+  "settled_at": "2026-10-06T01:34:57.843063+00:00"
  },
  {
   "id": "af7e3a3dcd",
