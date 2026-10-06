@@ -164,7 +164,10 @@ October 2026. 27 of them had own goals, 8 went to a shootout and 2 were decided 
 - **`scripts/finals_watch.py`** grades the same way; a missing or contradicting summary stops the
   chain.
 - **`scripts/predictions.py`** settles a soccer prediction as a miss when the match ends level at
-  full time. Before, the draw stayed pending until the 36-hour void.
+  full time. It reads the result before it checks the 36-hour clock. A final, verifiable result
+  settles however late a run reaches it. Only a prediction that still cannot be verified after
+  36 hours is voided (not on any board, not final, a winner it cannot match to either team, or a
+  failed fetch).
 
 Every other league is unchanged: a level moneyline (an NFL tie) is still a push. Soccer scorer
 props already counted periods 1-2 only.

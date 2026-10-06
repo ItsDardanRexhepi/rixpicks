@@ -136,58 +136,68 @@ def _soccer_draw(comp):
         return False
     return soccer_result.outcome(sides, 'home', 'ml') == 'LOST' and soccer_result.outcome(sides, 'away', 'ml') == 'LOST'
 
+def _result(p, dt):
+    """'hit' or 'miss' when the board verifies this prediction's event; None when it cannot yet (not on
+    any board, not final, or a winner name that resolves to neither team). A fetch error raises."""
+    # K20 (9/30 auditor): kickoff-UTC date != ESPN board date for late PT/ET games
+    # (a 7pm PT puck drop is the next UTC day, but boards key on the local date) -
+    # search every date that can carry the event instead of assuming kickoff-date.
+    from zoneinfo import ZoneInfo as _ZI
+    _days = []
+    for _d in (dt.astimezone(_ZI('America/New_York')).strftime('%Y%m%d'),
+               dt.astimezone(_ZI('America/Los_Angeles')).strftime('%Y%m%d'),
+               dt.strftime('%Y%m%d')):
+        if _d not in _days: _days.append(_d)
+    ev = None
+    for day in _days:
+        j = get_json(f"https://site.api.espn.com/apis/site/v2/sports/{p['path']}/scoreboard?dates={day}&limit=100")
+        ev = next((e for e in j.get('events', []) if str(e.get('id')) == p['event_id']), None)
+        if ev: break
+    if not ev: return None
+    comp = (ev.get('competitions') or [{}])[0]
+    st = (comp.get('status') or {}).get('type') or {}
+    if st.get('state') != 'post': return None
+    winner = next(((c.get('team') or {}).get('displayName') for c in comp.get('competitors', []) if c.get('winner')), None)
+    if not winner:
+        # soccer: a match level at full time carries no winner flag, and the predicted team did
+        # not beat the other - it settles a miss (core/soccer_result: a draw loses either side).
+        # Any other league without a winner flag is not verifiable here.
+        if soccer_result.is_soccer(p.get('path')) and _soccer_draw(comp):
+            return 'miss'
+        return None
+    # auditor 9:41 HIGH grading integrity: same_side returns None on BOTH a real
+    # miss (resolved to different sides) and an unresolvable name - the old
+    # 'if not side: continue' made every verifiable LOSS silently void at 36h.
+    # Resolve each name separately: both resolved -> hit/miss; either
+    # unresolvable -> not verifiable (pending, or void once the 36h clock has closed).
+    ps = _team_side(p['pick_team'], p['home'], p['away'])
+    ws = _team_side(winner, p['home'], p['away'])
+    if not ps or not ws: return None
+    return 'hit' if ps == ws else 'miss'
+
 def settle(ledger):
-    """grade pending predictions whose event finished; void if unverifiable after 36h."""
+    """grade pending predictions whose event finished; void if unverifiable after 36h.
+    The board is read before the clock is checked: a final, verifiable result settles however late
+    a run reaches it (a gap between runs, Actions down), and the 36h clock voids only a row that
+    still cannot be verified. Voiding first dropped verifiable results, misses among them, from the
+    record - NWSL 401854019, a 1-1 draw, was headed for void at 36h that way."""
     changed = 0
     for p in ledger:
         if p.get('status') != 'pending': continue
         dt = datetime.fromisoformat(p['kickoff_utc'].replace('Z', '+00:00'))
         age_h = (now() - dt).total_seconds() / 3600
         if age_h < 2.5: continue
-        if age_h > 36:
-            p['status'] = 'void'; changed += 1; continue
         try:
-            # K20 (9/30 auditor): kickoff-UTC date != ESPN board date for late PT/ET games
-            # (a 7pm PT puck drop is the next UTC day, but boards key on the local date) -
-            # search every date that can carry the event instead of assuming kickoff-date.
-            from zoneinfo import ZoneInfo as _ZI
-            _days = []
-            for _d in (dt.astimezone(_ZI('America/New_York')).strftime('%Y%m%d'),
-                       dt.astimezone(_ZI('America/Los_Angeles')).strftime('%Y%m%d'),
-                       dt.strftime('%Y%m%d')):
-                if _d not in _days: _days.append(_d)
-            ev = None
-            for day in _days:
-                j = get_json(f"https://site.api.espn.com/apis/site/v2/sports/{p['path']}/scoreboard?dates={day}&limit=100")
-                ev = next((e for e in j.get('events', []) if str(e.get('id')) == p['event_id']), None)
-                if ev: break
-            if not ev: continue
-            comp = (ev.get('competitions') or [{}])[0]
-            st = (comp.get('status') or {}).get('type') or {}
-            if st.get('state') != 'post': continue
-            winner = next(((c.get('team') or {}).get('displayName') for c in comp.get('competitors', []) if c.get('winner')), None)
-            if not winner:
-                # soccer: a match level at full time carries no winner flag, and the predicted team did
-                # not beat the other - it settles a miss (core/soccer_result: a draw loses either side),
-                # never a void at 36h. Any other league without a winner flag stays pending.
-                if soccer_result.is_soccer(p.get('path')) and _soccer_draw(comp):
-                    p['status'] = 'miss'
-                    p['settled_at'] = now().isoformat()
-                    changed += 1
-                continue
-            # auditor 9:41 HIGH grading integrity: same_side returns None on BOTH a real
-            # miss (resolved to different sides) and an unresolvable name - the old
-            # 'if not side: continue' made every verifiable LOSS silently void at 36h.
-            # Resolve each name separately: both resolved -> hit/miss; either
-            # unresolvable -> stays pending, void clock unchanged.
-            ps = _team_side(p['pick_team'], p['home'], p['away'])
-            ws = _team_side(winner, p['home'], p['away'])
-            if not ps or not ws: continue
-            p['status'] = 'hit' if ps == ws else 'miss'
-            p['settled_at'] = now().isoformat()
-            changed += 1
+            res = _result(p, dt)
         except Exception as e:
             print(f"settle {p.get('id')}: {e}", file=sys.stderr)
+            res = None
+        if res:
+            p['status'] = res
+            p['settled_at'] = now().isoformat()
+            changed += 1
+        elif age_h > 36:
+            p['status'] = 'void'; changed += 1
     return changed
 
 def news_context(league):

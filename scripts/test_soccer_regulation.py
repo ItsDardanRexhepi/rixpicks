@@ -13,7 +13,8 @@ fields the graders read, values untouched; tests/fixtures/soccer/):
     finals_watch's grade;
   - NWSL 760609 (1-1, Washington won the shootout): Washington's moneyline is LOST;
   - an NFL tie still grades PUSH;
-  - the predictions ledger row for NWSL 401854019 (Angel City to beat Gotham, 1-1) settles a miss.
+  - the predictions ledger row for NWSL 401854019 (Angel City to beat Gotham, 1-1) settles a miss,
+    both inside the 36-hour clock and at the real clock 43.8 hours after kickoff (never a void).
 The card used for 760606 is a fixture card (no card carried those picks); the scores are ESPN's.
 Run: python3 scripts/test_soccer_regulation.py"""
 import contextlib, copy, importlib.util, io, json, os, shutil, sys, tempfile
@@ -225,6 +226,14 @@ n = pr.settle(led)
 check('prediction 401854019 (Angel City to beat Gotham, 1-1) settles: miss', (led[0]['status'], bool(led[0].get('settled_at'))), ('miss', True))
 check('a soccer prediction with a winner still settles by the winner flag (miss)', led[1]['status'], 'miss')
 check('both settled this pass', n, 2)
+# The real ledger row, replayed at the real clock: 2026-10-06 12:48 UTC is 43.8 hours after kickoff, past
+# the 36-hour void clock. The board is read first; a verifiable draw settles a miss and is never voided.
+pr.now = lambda: datetime(2026, 10, 6, 12, 48, tzinfo=timezone.utc)
+led = [dict(row)]
+n = pr.settle(led)
+check('prediction 401854019 at the real clock (43.8 h after kickoff) settles: miss, not void',
+      (led[0]['status'], bool(led[0].get('settled_at')), n), ('miss', True, 1))
+pr.now = lambda: datetime(2026, 10, 5, 3, 0, tzinfo=timezone.utc)  # back inside the 36h clock
 live = copy.deepcopy(BOARD)
 live['events'][0]['competitions'][0]['status']['type'].update(state='in', completed=False, name='STATUS_SECOND_HALF')
 pr.get_json = lambda url, timeout=30: copy.deepcopy(live) if 'dates=20261004' in url else {'events': []}
