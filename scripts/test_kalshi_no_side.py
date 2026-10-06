@@ -16,10 +16,8 @@ responses (sitecustomize stub; every other host fails fast, nothing leaves the m
     although the YES ask sits under the gate, and a YES ask above the gate never fails a NO pick.
  D. an unresolved explicit market (no market, a zero ask) takes the unchanged unresolved path: pre-game
     hard fail, in play the pinned snapshot.
- E. an old team-matched pick (kalshi.ticker present, no side - every build_manifest pick since Sep 29) is
-    unchanged: same chip markup beside an explicit pick as alone, team-matched suffix, YES ask, no
-    data-kalpx (the single-market endpoint is poisoned at 99c), and a card without an explicit pick
-    emits the original YES-only client tick on the index and its game pages.
+ E. legacy current cards without explicit side refuse with no writes; an explicit YES moneyline
+    builds next to a NO total. The V1 preview legacy behavior is tested independently in K.
  F. the client tick (node, no DOM library) fetches the exact market and reads no_ask for a data-kalpx="no"
     chip, the YES ask for a chip without it, and settles a NO chip as won on result 'no'; the game page
     tick reads no_ask too.
@@ -111,6 +109,7 @@ responses (sitecustomize stub; every other host fails fast, nothing leaves the m
 Run: python3 scripts/test_kalshi_no_side.py [builder.py ...]   (default: both twins)
 """
 import copy, datetime, hashlib, json, os, re, shutil, subprocess, sys, tempfile, warnings
+from fixtures.card_contract import stamped
 warnings.simplefilter("ignore", SyntaxWarning)
 
 SD = os.path.dirname(os.path.abspath(__file__))
@@ -236,6 +235,7 @@ BASE = {'date_label': 'Fixture', 'updated': '', 'record': '1-0', 'units_pl': '+1
 
 def card(*picks):
     m = copy.deepcopy(BASE); m['picks'] = [copy.deepcopy(p) for p in picks]
+    for p in m['picks']: p['sub']=str(p.get('sub') or '')+' - model 95.0'
     for i, p in enumerate(m['picks'], 1): p['num'] = i
     return m
 
@@ -312,6 +312,7 @@ def build(builder, manifest, rts, refresh=False, files=None, as_name='build_gh_p
             shutil.copy(os.path.join(bsrc if os.path.exists(os.path.join(bsrc, f)) else SD, f), os.path.join(d, 'scripts', f))
         for f in ('feed_arbiter.js', 'feed_registry.json', 'config_leagues.json'):
             shutil.copy(os.path.join(ROOT, f), os.path.join(d, f))
+        manifest=stamped(builder,manifest)
         json.dump(manifest, open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
         json.dump([], open(os.path.join(d, 'slates', 'odds_prefill.json'), 'w'))
         open(os.path.join(d, '_net', 'sitecustomize.py'), 'w').write(FAKENET)
@@ -479,47 +480,36 @@ for B in BUILDERS:
     check(f'{tag}: D in play, the game page snapshot row wears the pinned NO price (Under 6.5, KAL -133, data-kalpx no)',
           '>Under 6.5</a>' in row and '>KAL -133</a>' in row and 'data-kalside="7" data-kalpx="no" data-cents="57"' in row and 'pre-game snapshot' in row, row)
 
-    # E. old team-matched pick: unchanged alone and beside an explicit pick
-    rc, page_old, log = build(B, card(LEAFS), routes(SEVEN))
-    old_alone = chip_for(page_old, LURL); gp_old = GAME_PAGES.get('game-1.html', '')
-    check(f'{tag}: E old pick (ticker, no side) builds and stays team-matched: data-kalticker = url event, data-kalside TOR, YES ask 50c (endpoint poisoned at 99c)',
-          rc == 0 and attr(old_alone, 'kalticker') == LEV and attr(old_alone, 'kalside') == 'TOR' and attr(old_alone, 'cents') == '50'
-          and label(old_alone) == 'KAL -100' and 'data-kalpx' not in old_alone, log[-400:] + old_alone)
-    check(f'{tag}: E a card without an explicit pick emits the original YES-only index tick and no data-kalpx',
-          "if(m.result==='yes'){a.dataset.won='1'" in page_old and "if(m.result==='no'){a.dataset.lost='1'" in page_old
-          and 'const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<=1))return;' in page_old and 'kalpx' not in page_old)
-    check(f'{tag}: E its game page keeps the template tick line verbatim and the both-sides board',
-          'const d=parseFloat(m.yes_ask_dollars);' in gp_old and 'kalpx' not in gp_old and 'data-kalmkt="%s-TOR"' % LEV in gp_old)
-    rc, page_mix, log = build(B, card(UNDER, LEAFS), routes(SEVEN))
-    strip = lambda s: re.sub(r' data-mr="\d+"', '', s)
-    old_mixed = chip_for(page_mix, LURL)
-    check(f'{tag}: E the old chip\'s markup is identical beside an explicit pick (data-mr index aside)',
-          rc == 0 and bool(old_alone) and strip(old_alone) == strip(old_mixed), old_mixed)
-    t = run_tick(page_mix, 'rpKalTick', [{'dataset': ds(old_mixed), 'innerHTML': 'KAL -100'}, {'dataset': ds(chip_for(page_mix, KURL)), 'innerHTML': 'KAL -133'}],
-                 {LEV + '-TOR': dict(LEAFS_MKTS[0], yes_ask_dollars='0.55', no_ask_dollars='0.46'), TK: SEVEN})
-    a = t.get('anchors') or [{}, {}]
-    check(f'{tag}: F on a mixed card the old chip still ticks its YES ask (55c -> KAL -122) and the NO chip its NO ask (57c)',
-          sorted(t.get('fetched') or []) == sorted([LEV + '-TOR', TK]) and a[0].get('dataset', {}).get('cents') == 55
-          and a[0].get('innerHTML') == 'KAL -122' and a[1].get('dataset', {}).get('cents') == 57, t)
-    t = run_tick(page_mix, 'rpKalTick', [{'dataset': ds(old_mixed), 'innerHTML': 'KAL -100'}], {LEV + '-TOR': dict(LEAFS_MKTS[0], result='no')})
-    a = ((t.get('anchors') or [{}])[0]).get('dataset', {})
-    check(f'{tag}: F an old (YES) chip still settles lost on result "no"', a.get('lost') == '1' and a.get('won') == '', a)
+    # E. legacy current-card input refuses; V1 preview coverage remains in K below.
+    rc,page,log=build(B,card(LEAFS),routes(SEVEN))
+    check(f'{tag}: E missing side refuses current card without writes',rc==3 and not page and 'no Kalshi market' in log,log[-400:])
+    explicit_leaf=copy.deepcopy(LEAFS);explicit_leaf['kalshi']['side']='yes'
+    rc,page_mix,log=build(B,card(UNDER,explicit_leaf),routes(SEVEN,poison=False))
+    old_mixed=chip_for(page_mix,LURL)
+    check(f'{tag}: E explicit YES moneyline builds beside NO total',rc==0 and attr(old_mixed,'kalpx')=='yes',log[-400:])
+    t=run_tick(page_mix,'rpKalTick',[{'dataset':ds(old_mixed),'innerHTML':'KAL -100'},{'dataset':ds(chip_for(page_mix,KURL)),'innerHTML':'KAL -133'}],
+       {LEV+'-TOR':dict(LEAFS_MKTS[0],yes_ask_dollars='0.55',no_ask_dollars='0.46'),TK:SEVEN})
+    a=t.get('anchors') or [{},{}]
+    check(f'{tag}: F explicit YES and NO tick their own asks',sorted(t.get('fetched') or [])==sorted([LEV+'-TOR',TK]) and a[0].get('dataset',{}).get('cents')==55 and a[1].get('dataset',{}).get('cents')==57,t)
+    t=run_tick(page_mix,'rpKalTick',[{'dataset':ds(old_mixed),'innerHTML':'KAL -100'}],{LEV+'-TOR':dict(LEAFS_MKTS[0],result='no')})
+    a=((t.get('anchors') or [{}])[0]).get('dataset',{})
+    check(f'{tag}: F explicit YES settles lost on NO result',a.get('lost')=='1' and a.get('won')=='',a)
 
     # G. malformed explicit sides fail closed
     bad = copy.deepcopy(UNDER); bad['kalshi']['side'] = 'under'
     rc, page, log = build(B, card(bad), routes(SEVEN))
-    check(f'{tag}: G side "under" fails the build (exit 3)', rc == 3 and 'an explicit side needs side yes|no' in log, log[-400:])
+    check(f'{tag}: G side "under" fails the build (exit 3)', rc == 3 and 'no Kalshi market' in log, log[-400:])
     bad = copy.deepcopy(UNDER); bad['kalshi'].pop('ticker')
     rc, page, log = build(B, card(bad), routes(SEVEN))
-    check(f'{tag}: G a side without the market ticker fails the build (exit 3)', rc == 3 and 'an explicit side needs side yes|no' in log, log[-400:])
+    check(f'{tag}: G a side without the market ticker fails the build (exit 3)', rc == 3 and 'no Kalshi market' in log, log[-400:])
 
     # H. same game, a moneyline and a NO-side total, in play: each game page reads its own shipped pin
     BLUES = {'num': 1, 'name': 'Blues ML', 'market_class': 'ml', 'sub': 'STL @ DAL', 'odds': '+144', 'units': '5u', 'side': 'away',
              'game': {'away': 'St. Louis Blues', 'home': 'Dallas Stars', 'commence': PAST, 'eid': ''},
              'espn_league': 'hockey/nhl', 'league': 'NHL', 'best_book': 'Kalshi',
-             'kalshi': {'url': GURL, 'cents': 41, 'team': 'St. Louis', 'gate_cents': 41, 'ticker': GEV + '-STL'}}
+             'kalshi': {'url': GURL, 'cents': 41, 'team': 'St. Louis', 'gate_cents': 41, 'ticker': GEV + '-STL', 'side':'yes'}}
     GK = 'St. Louis Blues|Dallas Stars|' + PAST[:10]
-    shipped = {GK: {'Kalshi': {'link': GURL, 'cents': 41, 'commence': PAST}},
+    shipped = {GK+'|'+GEV+'-STL|yes': {'Kalshi': {'link': GURL, 'cents': 41, 'commence': PAST}},
                GK + '|total|6.5|' + TK + '|no': {'Kalshi': {'link': KURL, 'cents': 57, 'commence': PAST}}}
     # the published card rebuilt in play (its fixture event is dated for the pre-game card: a card that was never
     # published would have its market bound again, and refused, on this build - R below)
@@ -535,8 +525,8 @@ for B in BUILDERS:
     check(f'{tag}: H the total\'s game page market record is (event, exact market, side no) at its own 57c pin',
           (rec.get('src'), rec.get('ev'), rec.get('mkt'), rec.get('side'), rec.get('c')) == ('Kalshi', EV, TK, 'no', 57), rec)
     row = kal_row(gp_ml)
-    check(f'{tag}: H the moneyline\'s game page keeps its game-key pin (Blues, KAL +144, 41c, no data-kalpx)',
-          '>St. Louis Blues</a>' in row and '>KAL +144</a>' in row and 'data-cents="41"' in row and 'kalpx' not in row, row)
+    check(f'{tag}: H the moneyline\'s game page keeps its explicit YES pin (Blues, KAL +144, 41c)',
+          '>St. Louis Blues</a>' in row and '>KAL +144</a>' in row and 'data-cents="41"' in row and 'data-kalpx="yes"' in row, row)
     check(f'{tag}: H the index chips agree (Under KAL -133, Blues KAL +144)',
           label(chip_for(page, KURL)) == 'KAL -133' and label(chip_for(page, GURL)) == 'KAL +144', [label(x) for x in kal_chips(page)])
 
@@ -625,8 +615,8 @@ for B in BUILDERS:
               rc == 3 and 'BUILD FAILED: kalshi ticker %s is not a market of the url\'s event' % TK in log and not page, log[-600:])
     old = copy.deepcopy(LEAFS); old['kalshi']['ticker'] = TK
     rc, page, log = build(B, card(old), routes(SEVEN))
-    check(f'{tag}: J an old pick (no side) is not held to it: a foreign ticker still builds the team-matched chip',
-          rc == 0 and attr(chip_for(page, LURL), 'kalside') == 'TOR' and attr(chip_for(page, LURL), 'cents') == '50', log[-400:])
+    check(f'{tag}: J missing side with a foreign ticker refuses current card',
+          rc==3 and not page and 'no Kalshi market' in log,log[-400:])
     for what, url in (('a series-level url (names no event) with another game\'s market', 'https://kalshi.com/markets/kxnhltotal'),
                       ('a series-level url with the pick\'s own market', 'https://kalshi.com/markets/kxnhltotal/'),
                       ('a market-level url', KURL + '-7')):
@@ -1264,7 +1254,7 @@ if man:
               brc == 0 and label(ch) == 'KAL -133' and attr(ch, 'kalpx') == 'no', blog[-600:] + ch)
 rc, man, log = build_manifest([bm_cand()])
 kb = ((man or {}).get('picks') or [{}])[0].get('kalshi') or {}
-check('G build_manifest without a side writes no side key (old picks unchanged)', rc == 0 and 'side' not in kb and kb.get('ticker') == TK, log[-600:])
+check('G build_manifest without a side refuses without writing',rc!=0 and man is None and 'kalshi side None' in log,log[-600:])
 rc, man, log = build_manifest([bm_cand(side='NO')])
 check('G build_manifest refuses a side other than yes|no (nothing written)', rc != 0 and man is None and "kalshi side 'NO'" in log, log[-600:])
 
@@ -1326,7 +1316,7 @@ rc, man, log = build_manifest([fal_cand(bq(dkq(-110, 41), {'venue': 'kalshi', 'p
 check('G price_card: a DraftKings Under 41 against an Under 41.5 refuses (nothing written)',
       rc != 0 and man is None and "a dk quote at line 41 is another market than the pick's own 41.5" in log, log[-600:])
 mlc = fal_cand(bq(dkq(-130, -3), {'venue': 'kalshi', 'price': 58, 'read_at': T0}, dkq(-130, -3)), market_class='ml', name='Saints ML', side='home',
-               kalshi={'cents': 58, 'team': 'New Orleans', 'ticker': 'KXNFLGAME-' + D + 'ATLNO-NO', 'url': xurl('KXNFLGAME-' + D + 'ATLNO-NO')})
+               kalshi={'side':'yes', 'cents': 58, 'team': 'New Orleans', 'ticker': 'KXNFLGAME-' + D + 'ATLNO-NO', 'url': xurl('KXNFLGAME-' + D + 'ATLNO-NO')})
 mlc.pop('line')
 rc, man, log = build_manifest([mlc])
 check('G price_card: a moneyline whose DraftKings quote names a line (-3) refuses (nothing written)',
