@@ -188,61 +188,44 @@ _sanitize_man(man)
 # recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from each pick's "model X"
 # sub (build_manifest's own shape) or its best_ask block; a pick whose fair and card price cannot be read is left
 # unchecked on the numeric bars (never falsely held). The Vegas rule is the contract block below, the same block
-# build_manifest.vegas_hit runs: team identity by league (Raiders NFL, Golden Knights NHL, Aces WNBA, Athletics/A's
-# MLB, by full name, nickname or abbreviation), a team named for Las Vegas or UNLV in any league, no teams in the
-# individual sports. A spread pick's name and an optional pick_line must agree with its stored line read from the
+# build_manifest.vegas_hit runs: a league's Vegas nickname, home city or abbreviation as whole words anywhere in a
+# team or pick name (Raiders NFL, Golden Knights NHL, Aces WNBA, Athletics/A's MLB), 'Las Vegas', 'Vegas' or UNLV in
+# any league, only a named non-Vegas team let through, no teams in the individual sports. A spread pick's name and an optional pick_line must agree with its stored line read from the
 # picked side (_pick_line_holds). An earlier card's manifests/ snapshot, rebuilt below for its game pages, is not
 # gated. The one exception is logged, narrow and numeric-only: see the owner suspension below.
 # >>> vegas-rule contract copy (build_manifest.py and both page-builder twins carry this block byte for byte;
 # scripts/test_vegas_rule_exact.py checks the copies and runs one case table through each)
 # Owner rule L-VEGAS-GATE-001 (Sep 25): "never gamble on or against any Vegas teams ever" and "Exclude A's going
-# forward from today too". A pick is out when any of its team strings - game.away, game.home, and the team part
-# of its name - is a Las Vegas team, read by team identity, never by a word inside some longer name:
-#  - the whole string, read case-, space- and punctuation-blind, is one of its league's Vegas team names in
-#    _VEGAS_TEAMS (full name, former name, nickname or abbreviation). A nickname or abbreviation counts only in
-#    its own league and only as the whole team string: 'Texas Tech Red Raiders' is no NFL team even when a CFB
-#    game is filed under football/nfl, and 'LV' is the Raiders in the NFL, the Aces in the WNBA, nothing in the NBA;
-#  - or the team string carries 'Las Vegas', 'Vegas' or 'UNLV' as whole words: a team named for Las Vegas, or
-#    UNLV, is a Vegas team in every team league;
-#  - the team part of a pick name is read from the card's name shapes ('<team> ML', '<team> +1.5', '<team> pk',
-#    '<a>-<b> Over 4.5', '<player> over 1.5 hits'). A free-form name that fits none of them keeps the word rule
-#    (a league Vegas name, 'Las Vegas', 'Vegas' or 'UNLV' as whole words anywhere in it): never weaker.
+# forward from today too". A pick is out when any of its strings - game.away, game.home or the pick name, each
+# read case-, space- and punctuation-blind - carries as whole words, anywhere in it:
+#  - 'Las Vegas', 'Vegas' or 'UNLV': a team named for Las Vegas, or UNLV, is a Vegas team in every team league;
+#  - or one of its league's Vegas words in _VEGAS_WORDS: the nickname (Raiders NFL, Golden Knights NHL, Aces WNBA,
+#    Athletics/A's MLB), a home city the team has played under, or an abbreviation. A Vegas word counts only in its
+#    own league: 'LV' is the Raiders in the NFL and the Aces in the WNBA, nothing in the NBA, and the Wright State
+#    Raiders in college basketball are no Vegas team.
+# Anywhere means anywhere: 'Raiders 1H +3.5', "A's F5 ML", 'Brock Bowers (LV) over 4.5 receptions', "Sacramento
+# A's" and 'Golden Knights (VGK)' all count. The one way out is by name: each non-Vegas team in _VEGAS_NOT (Texas
+# Tech Red Raiders, Evansville Purple Aces, UCF Golden Knights, ...) is blanked out of a string before it is read,
+# so that team filed under the nickname's league builds, while any other Vegas word in the same string still holds
+# the pick. Nothing else ever narrows the rule. An entry there is a whole multi-word team name, never a Vegas word
+# on its own, and never carries 'Vegas', 'Las Vegas' or 'UNLV'.
 # The individual sports (racing, golf, tennis, MMA, boxing) have no teams: a NASCAR race at Las Vegas Motor
 # Speedway is no Vegas team. The league is read case- and space-blind ('Hockey/NHL ' is the NHL).
-_VEGAS_TEAMS = {
-    'football/nfl': ('las vegas raiders', 'oakland raiders', 'raiders', 'lv raiders', 'lv'),
-    'hockey/nhl': ('vegas golden knights', 'golden knights', 'vgk'),
-    'basketball/wnba': ('las vegas aces', 'aces', 'lv aces', 'lv', 'lva'),
-    'baseball/mlb': ('athletics', "a's", 'oakland athletics', "oakland a's", 'sacramento athletics', 'ath', 'oak'),
+_VEGAS_WORDS = {
+    'football/nfl': ('raiders', 'oakland', 'lv'),
+    'hockey/nhl': ('golden knights', 'vgk'),
+    'basketball/wnba': ('aces', 'lv', 'lva'),
+    'baseball/mlb': ('athletics', "a's", 'oakland', 'sacramento', 'ath', 'oak'),
 }
 _VEGAS_CITY = ('las vegas', 'vegas', 'unlv')
+_VEGAS_NOT = ('red raiders', 'colgate raiders', 'wright state raiders', 'purple aces', 'ucf golden knights',
+              'clarkson golden knights')
 _VEGAS_NO_TEAMS = ('racing', 'golf', 'tennis', 'mma', 'boxing')
 
 
 def _vg_words(s):
-    return re.sub(r"[^a-z0-9']+", ' ', str(s or '').lower().replace('\u2019', "'")).strip()
-
-
-def _vegas_team(team, lg):
-    """True when this one team string is a Las Vegas team in league lg (lower-cased, stripped)."""
-    w = _vg_words(team)
-    return bool(w) and (w in _VEGAS_TEAMS.get(lg, ()) or any(f' {c} ' in f' {w} ' for c in _VEGAS_CITY))
-
-
-def _vegas_name_teams(name):
-    """The team strings a pick name is written on ([] for a bare total), or None for a free-form name."""
-    s = str(name or '').strip()
-    mo = re.fullmatch(r"(?:(.+?)\s+)?(?:over|under)\s*\d+(?:\.\d+)?(?:\s+(\S.*))?", s, re.I)
-    if mo:
-        out = []
-        for t in (mo.group(1), mo.group(2)):
-            t = (t or '').strip()
-            if t:
-                out += [t] + re.split(r"\s*[-/&@]\s*|\s+(?:vs\.?|v\.?|at)\s+", t, flags=re.I)
-        return out
-    mo = (re.fullmatch(r"(.+?)\s+(?:ml|moneyline)", s, re.I)
-          or re.fullmatch(r"(.+?)\s*(?:[+-]\d+(?:\.\d+)?|pk|pick'?em)", s, re.I))
-    return [mo.group(1)] if mo else None
+    """' <words> ': lower-cased, each run of characters other than a-z, 0-9 and the apostrophe one space."""
+    return ' ' + re.sub(r"[^a-z0-9']+", ' ', str(s or '').lower().replace('\u2019', "'")) + ' '
 
 
 def vegas_hit_fields(league, fields):
@@ -251,16 +234,11 @@ def vegas_hit_fields(league, fields):
     if lg.split('/')[0] in _VEGAS_NO_TEAMS:
         return None
     for f, v in fields:
-        if f != 'name':
-            hit = _vegas_team(v, lg)
-        else:
-            teams = _vegas_name_teams(v)
-            if teams is None:
-                w = f' {_vg_words(v)} '
-                hit = any(f' {n} ' in w for n in _VEGAS_CITY + _VEGAS_TEAMS.get(lg, ()))
-            else:
-                hit = any(_vegas_team(t, lg) for t in teams)
-        if hit:
+        w = _vg_words(v)
+        for n in _VEGAS_NOT:
+            while f' {n} ' in w:
+                w = w.replace(f' {n} ', ' ')
+        if any(f' {n} ' in w for n in _VEGAS_CITY + _VEGAS_WORDS.get(lg, ())):
             return f'{f} {v!r}'
     return None
 # <<< vegas-rule contract copy

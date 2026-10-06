@@ -1,19 +1,23 @@
 #!/usr/bin/env python3
-"""The Vegas rule reads team identity by league, never a word inside some longer name (owner rule
-L-VEGAS-GATE-001, Sep 25: "never gamble on or against any Vegas teams ever", "Exclude A's going forward from
-today too"; a hard gate under owner ruling 2026-10-02 (4)).
-A team string (game.away, game.home, the team part of the pick name) is a Las Vegas team when, read case-,
-space- and punctuation-blind, it is exactly one of its league's Vegas team names (full name, former name,
-nickname or abbreviation: NFL Las Vegas Raiders, NHL Vegas Golden Knights, WNBA Las Vegas Aces, MLB
-Athletics/A's), or it carries 'Las Vegas', 'Vegas' or 'UNLV' as whole words (a team named for Las Vegas, or
-UNLV, in any team league). A nickname or abbreviation never counts inside a longer name or in another league:
-'Texas Tech Red Raiders' filed under football/nfl is no Vegas team, 'LV' is the Raiders only in the NFL. A
-free-form pick name that fits none of the card's name shapes keeps the word rule, so it is never weaker.
+"""The Vegas rule (owner rule L-VEGAS-GATE-001, Sep 25: "never gamble on or against any Vegas teams ever",
+"Exclude A's going forward from today too"; a hard gate under owner ruling 2026-10-02 (4)).
+A pick is out when game.away, game.home or the pick name, read case-, space- and punctuation-blind, carries as
+whole words anywhere in it 'Las Vegas', 'Vegas' or 'UNLV' (any team league), or one of its league's Vegas words:
+the nickname (Raiders NFL, Golden Knights NHL, Aces WNBA, Athletics/A's MLB), a home city the team has played under,
+or an abbreviation ('LV' is the Raiders in the NFL, the Aces in the WNBA, nothing in the NBA). That word rule is the
+floor every earlier card was held to, and the rule never narrows it except by name: a non-Vegas team listed in
+_VEGAS_NOT ('Texas Tech Red Raiders', 'Evansville Purple Aces', 'UCF Golden Knights') is blanked out before a
+string is read, so that team filed under the nickname's league builds while any other Vegas word in the same
+string still holds the pick.
  - The rule is one contract block carried byte for byte by build_manifest.py and both page-builder twins; the
-   block is checked identical, and one case table (true positives, near-miss names, other leagues, individual
-   sports) runs through each copy's own code.
- - End to end, both twins hold a card with an abbreviated Vegas team (exit 3, nothing written) and build a card
-   whose only "Vegas word" is a near-miss name in the wrong league.
+   block is checked identical, and one case table (true positives, qualified names - 'Raiders 1H +3.5', "A's F5
+   ML", 'Golden Knights (VGK)', "Sacramento A's" - near-miss names, other leagues, individual sports) runs through
+   each copy's own code.
+ - Floor: every case the word rule of origin/main held (a reference copy below) is still held, unless one of its
+   strings names a _VEGAS_NOT team; each _VEGAS_NOT entry is a multi-word team name, never a Vegas word on its own,
+   and never carries 'Vegas' or 'UNLV'.
+ - End to end, both twins hold a card with an abbreviated, decorated or qualified Vegas team (exit 3, nothing
+   written) and build a card whose only "Vegas word" is a near-miss name in the wrong league.
 Builds run in a throwaway tree with the network sent to a dead proxy.
 Run: python3 scripts/test_vegas_rule_exact.py"""
 import ast, copy, json, os, re, shutil, subprocess, sys, tempfile
@@ -85,6 +89,47 @@ CASES = [
     ('college baseball UNLV (a league with no table entry)', 'baseball/college-baseball', 'Rebels ML', 'UNLV Rebels', 'Fresno State Bulldogs', True),
     ('USL team named for Las Vegas', 'soccer/usa.usl.1', 'Rising ML', 'Las Vegas Lights FC', 'Phoenix Rising FC', True),
     ('a free-form name keeps the word rule', 'football/nfl', 'Raiders to win the AFC West', 'Denver Broncos', 'Kansas City Chiefs', True),
+    # a Vegas word anywhere in a name or team string, qualifiers and prices attached (the word-rule floor)
+    ('NFL first-half moneyline, game unreadable', 'football/nfl', 'Raiders 1H ML', None, None, True),
+    ('NFL first-half spread, game unreadable', 'football/nfl', 'Raiders 1H +3.5', None, None, True),
+    ('NFL future with a price', 'football/nfl', 'Raiders to win AFC West +500', None, None, True),
+    ('NFL "win" with a price', 'football/nfl', 'Raiders win +150', None, None, True),
+    ('NFL spread spelled out', 'football/nfl', 'Raiders spread +3.5', None, None, True),
+    ('NFL team total', 'football/nfl', 'Raiders team total over 21.5', None, None, True),
+    ('NFL prop with the team in brackets', 'football/nfl', 'Brock Bowers (Raiders) over 4.5 receptions', None, None, True),
+    ('NFL prop with the abbreviation in brackets', 'football/nfl', 'Brock Bowers (LV) over 4.5 receptions', None, None, True),
+    ('NFL game total written on both teams', 'football/nfl', 'Chiefs Raiders Over 45.5', None, None, True),
+    ('NFL "@" moneyline name', 'football/nfl', 'Chiefs @ Raiders ML', None, None, True),
+    ('NFL "vs" moneyline name', 'football/nfl', 'Chiefs vs Raiders ML', None, None, True),
+    ('NFL "@" name on the abbreviation', 'football/nfl', 'Chiefs @ LV ML', None, None, True),
+    ('NFL team string with the abbreviation attached', 'football/nfl', 'Chiefs ML', 'Kansas City Chiefs', 'Raiders (LV)', True),
+    ('NFL team string with two cities', 'football/nfl', 'Chiefs ML', 'Kansas City Chiefs', 'Oakland/LV Raiders', True),
+    ('NFL team string under a former city', 'football/nfl', 'Chiefs ML', 'Kansas City Chiefs', 'Los Angeles Raiders', True),
+    ('NFL team string as the former city alone', 'football/nfl', 'Chiefs ML', 'Kansas City Chiefs', 'Oakland', True),
+    ("MLB A's first five", 'baseball/mlb', "A's F5 ML", None, None, True),
+    ('MLB Athletics first-five run line', 'baseball/mlb', 'Athletics F5 -0.5', None, None, True),
+    ('MLB Athletics 1st 5', 'baseball/mlb', 'Athletics 1st 5 ML', None, None, True),
+    ('MLB Athletics 1st 5 innings', 'baseball/mlb', 'Athletics 1st 5 innings ML', None, None, True),
+    ('MLB Athletics team total', 'baseball/mlb', 'Athletics team total over 4.5', None, None, True),
+    ("MLB Sacramento A's moneyline", 'baseball/mlb', "Sacramento A's ML", None, None, True),
+    ("MLB team string Sacramento A's", 'baseball/mlb', 'Giants ML', "Sacramento A's", 'San Francisco Giants', True),
+    ('MLB team string The Athletics', 'baseball/mlb', 'Giants ML', 'The Athletics', 'San Francisco Giants', True),
+    ('MLB team string Athletics (SAC)', 'baseball/mlb', 'Giants ML', 'Athletics (SAC)', 'San Francisco Giants', True),
+    ('MLB team string Athletics (ATH)', 'baseball/mlb', 'Giants ML', 'Athletics (ATH)', 'San Francisco Giants', True),
+    ('MLB team string West Sacramento Athletics', 'baseball/mlb', 'Giants ML', 'West Sacramento Athletics', 'San Francisco Giants', True),
+    ('MLB matchup on the abbreviation', 'baseball/mlb', 'Astros ML', 'HOU at ATH', None, True),
+    ('MLB team string as the city alone', 'baseball/mlb', 'Giants ML', 'Sacramento', 'San Francisco Giants', True),
+    ('NHL regulation moneyline', 'hockey/nhl', 'Golden Knights reg ML', None, None, True),
+    ('NHL 60-minute moneyline', 'hockey/nhl', 'Golden Knights 60-min ML', None, None, True),
+    ('NHL first-period moneyline', 'hockey/nhl', 'Golden Knights 1P ML', None, None, True),
+    ('NHL team string Golden Knights (VGK)', 'hockey/nhl', 'Kings ML', 'Los Angeles Kings', 'Golden Knights (VGK)', True),
+    ('NHL team string VGK Golden Knights', 'hockey/nhl', 'Kings ML', 'Los Angeles Kings', 'VGK Golden Knights', True),
+    ('WNBA title future with a price', 'basketball/wnba', 'Aces to win title +300', None, None, True),
+    ('WNBA prop with the team in brackets', 'basketball/wnba', "A'ja Wilson (Aces) over 24.5 points", None, None, True),
+    ('WNBA first-quarter spread', 'basketball/wnba', 'Aces 1Q -1.5', None, None, True),
+    ('WNBA team string Aces (LV)', 'basketball/wnba', 'Fever ML', 'Indiana Fever', 'Aces (LV)', True),
+    ('a named non-Vegas team never shields a Vegas word beside it', 'football/nfl', 'Red Raiders ML', 'Texas Tech Red Raiders', 'Las Vegas Raiders', True),
+    ('a named non-Vegas team never shields the nickname elsewhere in the string', 'football/nfl', 'Red Raiders vs Raiders ML', None, None, True),
     # near-miss names: a Vegas nickname inside another team's name, in the nickname's league or any other
     ('Texas Tech Red Raiders filed under the NFL', 'football/nfl', 'Red Raiders ML', 'Baylor Bears', 'Texas Tech Red Raiders', False),
     ('Texas Tech Red Raiders in CFB', 'football/college-football', 'Red Raiders ML', 'Baylor Bears', 'Texas Tech Red Raiders', False),
@@ -117,7 +162,46 @@ for label, lg, name, away, home, want in CASES:
     got = vh({'espn_league': lg, 'name': name, 'away': away, 'home': home}) if vh else 'no vegas_hit'
     check(f'build_manifest.vegas_hit: {label}: {"Vegas" if want else "not Vegas"}', (got is not None and got != 'no vegas_hit') if want else got is None, got)
 
-# end to end through both twins: an abbreviated Vegas team holds the card; a near-miss name builds
+# The floor: origin/main's word rule, kept here as a reference copy (build_manifest.vegas_hit before the contract
+# block). Whatever it held stays held, unless one of the pick's strings names a _VEGAS_NOT team.
+_OLD_NICK = {'football/nfl': ('raiders',), 'hockey/nhl': ('golden knights',), 'basketball/wnba': ('aces',),
+             'baseball/mlb': ('athletics', "a's"), 'football/college-football': ('unlv',),
+             'basketball/mens-college-basketball': ('unlv',), 'basketball/womens-college-basketball': ('unlv',)}
+def old_word_rule(league, fields):
+    lg = str(league or '').strip().lower()
+    if lg.split('/')[0] in ('racing', 'golf', 'tennis', 'mma', 'boxing'):
+        return None
+    names = ('las vegas', 'vegas', 'unlv') + _OLD_NICK.get(lg, ())
+    for f, v in fields:
+        w = ' ' + re.sub(r"[^a-z0-9']+", ' ', str(v or '').lower().replace('\u2019', "'")) + ' '
+        if any(' ' + n + ' ' in w for n in names):
+            return f
+    return None
+
+contract = {'re': re}
+exec(compile(blocks[MANIFEST_BUILDER] or '', MANIFEST_BUILDER, 'exec'), contract)
+NOT, WORDS, CITY = contract.get('_VEGAS_NOT', ()), contract.get('_VEGAS_WORDS', {}), contract.get('_VEGAS_CITY', ())
+vg = contract.get('_vg_words', lambda s: ' ')
+check('the contract names its exceptions (_VEGAS_NOT) and its league words (_VEGAS_WORDS)', bool(NOT) and bool(WORDS) and bool(CITY))
+for n in NOT:
+    check(f'_VEGAS_NOT {n!r}: a normalized multi-word team name, never a Vegas word on its own, no city word in it, '
+          f'and a near miss (it carries some league\'s Vegas word)',
+          vg(n).strip() == n and len(n.split()) >= 2 and all(n not in ws for ws in WORDS.values()) and n not in CITY
+          and not any(f' {c} ' in f' {n} ' for c in CITY) and any(f' {x} ' in f' {n} ' for ws in WORDS.values() for x in ws))
+def names_an_exception(fields):
+    return any(f' {n} ' in vg(v) for _, v in fields for n in NOT)
+for tag, fn in list(rules.items()) + [('build_manifest.vegas_hit', None)]:
+    lost = []
+    for label, lg, name, away, home, _ in CASES:
+        fields = (('name', name), ('away', away), ('home', home))
+        if old_word_rule(lg, fields) and not names_an_exception(fields):
+            got = fn(lg, fields) if fn else (vh({'espn_league': lg, 'name': name, 'away': away, 'home': home}) if vh else None)
+            if not got:
+                lost.append(label)
+    check(f'{tag}: never weaker than the word rule - every case it held is still held (a named exception apart)', not lost, lost)
+
+# end to end through both twins: an abbreviated, decorated or qualified Vegas team holds the card; a near-miss
+# name builds
 def build(builder, manifest):
     d = tempfile.mkdtemp(prefix='rp-vegas-')
     try:
@@ -150,7 +234,10 @@ def card(picks):
 for B in TWINS:
     tag = os.path.basename(B)
     for label, p in (('NFL game at "LV"', pick(1, 'Broncos ML', 'football/nfl', 'NFL', 'DEN', 'LV', side='away')),
-                     ('NHL game with "VGK"', pick(1, 'Kings ML', 'hockey/nhl', 'NHL', 'LA', 'VGK', side='away'))):
+                     ('NHL game with "VGK"', pick(1, 'Kings ML', 'hockey/nhl', 'NHL', 'LA', 'VGK', side='away')),
+                     ("MLB game with away \"Sacramento A's\"", pick(1, 'Giants ML', 'baseball/mlb', 'MLB', "Sacramento A's", 'San Francisco Giants')),
+                     ('NFL "Chiefs @ Raiders ML" at home "Raiders (LV)"', pick(1, 'Chiefs @ Raiders ML', 'football/nfl', 'NFL', 'Kansas City Chiefs', 'Raiders (LV)', side='away')),
+                     ('NFL "Raiders 1H +3.5", game teams unreadable', pick(1, 'Raiders 1H +3.5', 'football/nfl', 'NFL', 'Team A', 'Team B'))):
         rc, log, written = build(B, card([p]))
         check(f'{tag}: {label}: the card is held (exit 3, the Vegas rule named), nothing written',
               rc == 3 and 'BUILD FAILED' in log and 'Las Vegas team' in log and written == [], (rc, log[-300:], written))
