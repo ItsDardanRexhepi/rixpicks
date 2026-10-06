@@ -239,7 +239,13 @@ finally:
 
 # not wired into grading, not rendered on any page
 src_rf = open(os.path.join(HERE, 'record_final.py')).read()
-check('record_final.py does not call the CLV report', 'clv_report' in src_rf or 'clv_ledger' in src_rf, False)
+# Ignore comments/docstrings, but inspect every executable token, including subprocess command strings.
+import io, tokenize
+_rf_code = [t.string for t in tokenize.generate_tokens(io.StringIO(src_rf).readline) if t.type not in (tokenize.COMMENT, tokenize.STRING, tokenize.NL, tokenize.NEWLINE)]
+_rf_tree = __import__('ast').parse(src_rf)
+_rf_doc_nodes = {id(n.value) for n in __import__('ast').walk(_rf_tree) if isinstance(n, __import__('ast').Expr) and isinstance(n.value, __import__('ast').Constant) and isinstance(n.value.value, str)}
+_rf_strings = [n.value for n in __import__('ast').walk(_rf_tree) if isinstance(n, __import__('ast').Constant) and isinstance(n.value, str) and id(n) not in _rf_doc_nodes]
+check('record_final.py does not call the CLV report', any('clv_report' in t or 'clv_ledger' in t for t in _rf_code + _rf_strings), False)
 wf_dir = os.path.join(ROOT, '.github', 'workflows')
 wired = [f for f in sorted(os.listdir(wf_dir)) if 'clv_report' in open(os.path.join(wf_dir, f)).read()]
 check('no workflow runs the CLV report (it is not part of grading or publishing)', wired, [])
