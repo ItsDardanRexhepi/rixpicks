@@ -21,6 +21,10 @@ later finals wait for the next fire):
   4. Running record from manifest must chain into request.record_after exactly.
   5. A pick already on its card date's row (same pick and final score) is refused; a grade key
      already in record_done.json is skipped, never applied twice.
+  6. Late-post disclosure: a card pick posted after its game began carries added_after_kickoff
+     (and added_after_final when the game had ended) - the row carries it too, fail-closed when
+     malformed (see disclosure_of). A row graded before this rule is brought in line from its card
+     by scripts/record_disclosure.py, never by a re-grade.
 Apply: manifest record/units_pl, history.json day row (+day record/units), record_done.json.
 Writes NOTHING to any private ledger - that stays analysis-side.
 """
@@ -199,7 +203,38 @@ def card_date_of(snap):
     return Counter(ds).most_common(1)[0][0] if ds else None
 
 def card_pick(q):
-    """(card_date, published card pick) this grade belongs to, else (None, reason).
+    """(card_date, published card pick) this grade belongs to, else (None, reason). See card_rows."""
+    day, rows = card_rows(q)
+    return (day, rows[0]) if day is not None else (None, rows)
+
+# Late-post disclosure (Oct 2 owner override): a pick carded after its game began carries
+# added_after_kickoff: true on the published card, and added_after_final: true too when the game had
+# already ended at posting. The record row carries the same flags, so record.html, yesterday.html and
+# the Home learnings panel keep saying so after the card is gone (the row used to drop them).
+# Fail-closed (exit 3, nothing written): a flag that is not a JSON true/false, published copies that
+# contradict each other (true on one, false on another), after-the-final without after-kickoff, or a
+# request that states a different disclosure than the card. A copy that omits a flag makes no claim
+# either way, so a disclosure published on any copy of the card is kept, never dropped.
+DISCLOSURE_FIELDS = ('added_after_kickoff', 'added_after_final')
+
+def disclosure_of(rows):
+    """{flag: True} for each late-post disclosure the published copies carry. Raises ValueError."""
+    out = {}
+    for f in DISCLOSURE_FIELDS:
+        vals = [r[f] for r in rows if isinstance(r, dict) and f in r]
+        bad = [v for v in vals if not isinstance(v, bool)]
+        if bad:
+            raise ValueError(f'{f} must be true or false, got {bad[0]!r}')
+        if len(set(vals)) > 1:
+            raise ValueError(f'published copies disagree on {f}')
+        if True in vals:
+            out[f] = True
+    if out.get('added_after_final') and not out.get('added_after_kickoff'):
+        raise ValueError('added_after_final without added_after_kickoff (a pick added after the final was added after kickoff)')
+    return out
+
+def card_rows(q):
+    """(card_date, [every published copy of the card pick]) this grade belongs to, else (None, reason).
     The card date belongs to the CARD (builder _card_date_of): the most common PT game date across
     the snapshot's picks, and the snapshot counts only when its own date agrees - an archive copy
     filed under another date (the Sep 30 snapshot carrying Sep 29's picks) is no card at all, so
@@ -263,7 +298,7 @@ def card_pick(q):
         return None, f'published copies of the {day} card disagree on the event this MMA pick is bound to'
     if len({(r.get('name'), str(r.get('odds')), str(r.get('card_american')), str(r.get('units'))) for r in rows}) != 1:
         return None, f'published copies of the {day} card disagree on name, price or stake'
-    return day, rows[0]
+    return day, rows
 
 def _same_num(a, b):
     if a is None or b is None:
@@ -631,10 +666,21 @@ def main():
             print(f'  REFUSE {gid}: unknown result {res!r}', file=sys.stderr)
             return 3
         # 1. CARD: only a published pick is graded, and it is filed under its own card date
-        card_date, cp = card_pick(q)
+        card_date, rows = card_rows(q)
         if card_date is None:
-            print(f'  REFUSE {gid}: {q.get("pick")!r} {cp} - only published picks are graded', file=sys.stderr)
+            print(f'  REFUSE {gid}: {q.get("pick")!r} {rows} - only published picks are graded', file=sys.stderr)
             return 3
+        cp = rows[0]
+        # 6. late-post disclosure: carried from the card onto the row, never dropped, never guessed
+        try:
+            disclosure = disclosure_of(rows)
+        except ValueError as e:
+            print(f'  REFUSE {gid}: late-post disclosure on the {card_date} card pick {cp.get("name")!r} is malformed: {e}', file=sys.stderr)
+            return 3
+        for f in DISCLOSURE_FIELDS:
+            if f in q and q[f] is not disclosure.get(f, False):
+                print(f'  REFUSE {gid}: request {f}={q[f]!r} disagrees with the {card_date} card pick {cp.get("name")!r}', file=sys.stderr)
+                return 3
         mc = _market_class(cp)
         mma = str(q.get('league') or '').startswith('mma/')
         if (q.get('pick') != cp.get('name') or str(q.get('league')) != str(cp.get('espn_league'))
@@ -749,6 +795,7 @@ def main():
                 'score': score_txt, '_delta': str(Decimal(str(q['delta_units_exact'])))}
         if accepted is not None:
             _row['accepted_entry'] = accepted_basis
+        _row.update(disclosure)
         if isinstance(q.get('learning'), str) and q['learning'].strip():
             _row['learning'] = q['learning'].strip()
         day['picks'].append(_row)

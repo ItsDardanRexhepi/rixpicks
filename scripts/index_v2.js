@@ -621,8 +621,11 @@ function renderNews(t,arts){
   items=PAIRS.map(function(p){return p.a;});
  }
  FEED_FALLBACK=false;
- if(!items.length&&freshMap){
-  items=base.slice(0,12); /* settled zero-pair map: independent latest-content feeds, no PAIRS unit, nothing implied */
+ if(!items.length){
+  items=base.slice(0,12); /* settled zero-pair map OR aged-out map (guard 1 10/6 cold-load class: the
+     rpMapFresh 2h window blanked News for every cold visitor while the feed jobs were down - a stale
+     map is an unverified map, not an empty feed): independent latest-content feeds either way, no
+     PAIRS unit, nothing implied. The muted caption and the Latest-from-the-feed tier carry the honesty. */
   FEED_FALLBACK=items.length>0;PAIRS=[];
  }
  if(!items.length&&CAR_UNIT){items=CAR_UNIT.items;PAIRS=CAR_UNIT.pairs.map(function(p){return {a:p.a,post:p.post,kind:freshMap?p.kind:'latest',k:p.k};});} /* atomic: prior unit as ONE unit, no stale verification badge */
@@ -870,6 +873,15 @@ function renderSocial(){
     never a number that can disagree with the news counter. */
  if(!NEWS_READY||!XFEED_DONE||!SOC_MAP_DONE||!CAR_LAST.length){
   if(PAIRS.length&&!$('rpSocTrack')){SOC_SIG=''; /* cold boot, warm cache: paint cached pairs below */}
+  else if(NEWS_READY&&XFEED_DONE&&SOC_MAP_DONE){
+   /* guard 1 10/6: all feeds SETTLED with zero inventory is an unavailable state, never a blank one -
+      the status shows independently of news-carousel inventory; self-heals on the 30s poll */
+   box.innerHTML='<div id="rpSocUnavail" class="rp-socunavail" role="status" style="padding:14px 12px;color:var(--muted,#9aa4ad);font-size:13px;line-height:1.4">Social feed temporarily unavailable. Check back soon.</div>';
+   SOC_SIG='';SOC_N=0;SOC_LAST=[];SOC_RIDX={};
+   if(SOC_TIMER){clearInterval(SOC_TIMER);SOC_TIMER=null;}
+   try{var _zu2=$('rpZeroNote');if(_zu2)_zu2.style.display='none';}catch(e){}
+   return;
+  }
   else{if(!$('rpSocTrack'))box.innerHTML='';SOC_SIG='';SOC_N=0;return;}
  }
  /* owner 5:09 (his words: "It shouldn't say it's scanning, it should always have the latest post
