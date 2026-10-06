@@ -95,6 +95,19 @@ responses (sitecustomize stub; every other host fails fast, nothing leaves the m
     against the Falcons' 2.5 rung (cheaper or not), a book quote naming no line, a book Under 41 against an Under
     41.5 and a moneyline quote naming a line, and builds the same book at +2.5, carrying its line into best_ask; an
     unknown class ("dc", a double chance) refuses.
+ U. the third review (Oct 6), each failing case shipped (exit 0) on the previous head or each passing case failed:
+    same-city teams bind through ESPN's own code of the market (Kalshi names every LA team 'Los Angeles X', and
+    'los angeles' is a word only the Lakers' ESPN name has): Lakers ML or Lakers -3.5 declared YES on the Clippers'
+    market fails, Clippers ML YES on LAC, Lakers ML NO on LAC and Lakers +3.5 as NO of the LAC 3.5 rung ship, and the
+    game page never boards the swapped prices. A prop's stat is the market's stat exactly: Stafford Over 1.5
+    touchdowns on '2+ passing touchdowns', Judge Over 0.5 runs on '1+ home runs', Judge Over 1.5 total bases on '2+
+    stolen bases', Jokic Over 49.5 points on '50+ points + rebounds + assists' and Thomas Over 1.5 goals on '2+ shots
+    on goal' fail, the same picks on their own markets ship. A market that does not resolve still has its ticker bound
+    (class, day, game): in play an unresolved market of another day or game fails rather than degrade, its own
+    event degrades to the pin, and a late post (RP_PUBLISH=1 after the start) of a pick with no pin in the ledger
+    refuses (a pinned one degrades). In play, a non-publish rebuild whose binding ESPN or Kalshi's event listing
+    cannot be read for degrades to the pinned snapshot like a delisted market; a binding read and wrong still fails
+    in play, and a pre-game refresh or any publish that cannot read it still holds.
 Run: python3 scripts/test_kalshi_no_side.py [builder.py ...]   (default: both twins)
 """
 import copy, datetime, hashlib, json, os, re, shutil, subprocess, sys, tempfile, warnings
@@ -452,10 +465,15 @@ for B in BUILDERS:
     check(f'{tag}: D a zero NO ask is unresolved (hard fail), never a 0c or the YES ask',
           rc == 3 and 'Kalshi market unresolved for Under 6.5 market %s side no' % TK in log, log[-600:])
     U_LIVE = copy.deepcopy(UNDER); U_LIVE['game']['commence'] = PAST
-    rc, page, log = build(B, card(U_LIVE), routes(None), refresh=True)
-    ch = chip_for(page, KURL)
+    # in play its event is dated from the in-play commence: a market that no longer resolves still has its ticker
+    # bound (class, day, game), so the pre-game card's event (another day) fails there (U below)
+    EVD = 'KXNHLTOTAL-' + dtok(PAST) + 'STLDAL'
+    KURLD = 'https://kalshi.com/markets/kxnhltotal/' + EVD.lower()
+    U_LIVE_D = copy.deepcopy(U_LIVE); U_LIVE_D['kalshi'].update(url=KURLD, ticker=EVD + '-7')
+    rc, page, log = build(B, card(U_LIVE_D), routes(None), refresh=True)
+    ch = chip_for(page, KURLD)
     check(f'{tag}: D in play, market gone: degrades to the pinned 57c snapshot (KAL -133), build continues',
-          rc == 0 and 'IN-PLAY DEGRADE: Under 6.5 Kalshi market unresolved under %s - pinned snapshot 57c' % EV in log
+          rc == 0 and 'IN-PLAY DEGRADE: Under 6.5 Kalshi market unresolved under %s - pinned snapshot 57c' % EVD in log
           and label(ch) == 'KAL -133' and attr(ch, 'cents') == '57' and attr(ch, 'kalpx') == 'no', log[-600:] + ch)
     row = kal_row(GAME_PAGES.get('game-1.html', ''))
     check(f'{tag}: D in play, the game page snapshot row wears the pinned NO price (Under 6.5, KAL -133, data-kalpx no)',
@@ -1037,6 +1055,155 @@ for B in BUILDERS:
     rc, page, log = sbuild(tpick(2.5, price=-115), NO3)
     check(f'{tag}: T the same DraftKings at +2.5 (-115) is the pick\'s own market: the card builds (Kalshi chip at its NO ask, KAL -127)',
           rc == 0 and 'best_ask_line' not in log and 'another market' not in log and label(chip_for(page, xurl(NO3['ticker']))) == 'KAL -127', log[-600:])
+
+    # U. the third review (Oct 6). Each failing case shipped (exit 0) on the previous head; each passing case marked
+    # (was 3) failed there. ESPN's scoreboard for U's games, ahead of ESPN (the first matching route answers).
+    U_ESPN = [espn_sb('basketball/nba', [('LA Clippers', 'LAC'), ('Los Angeles Lakers', 'LAL'), ('Denver Nuggets', 'DEN'), ('Phoenix Suns', 'PHX')]),
+              espn_sb('football/nfl', [('Los Angeles Rams', 'LAR'), ('San Francisco 49ers', 'SF'), ('Atlanta Falcons', 'ATL'), ('New Orleans Saints', 'NO'),
+                                       ('Buffalo Bills', 'BUF'), ('Miami Dolphins', 'MIA')]),
+              espn_sb('hockey/nhl', [('St. Louis Blues', 'STL'), ('Dallas Stars', 'DAL'), ('Winnipeg Jets', 'WPG'), ('Pittsburgh Penguins', 'PIT')])]
+    def ubuild(p, *ms, **kw):
+        return build(B, card(p), U_ESPN + xr(*ms) + kw.pop('rts', []), **kw)
+    def ufail(what, rc, page, log, msg):
+        check(f'{tag}: U {what} fails the build (exit 3, no page)', rc == 3 and msg in log and not page, log[-600:])
+    # same-city teams: ESPN's own code of the market decides (LAC is ESPN's LA Clippers). Kalshi names every LA team
+    # 'Los Angeles X', so 'Los Angeles C' shares 'los angeles' with ESPN's 'Los Angeles Lakers' and no word with 'LA Clippers'
+    LEVN, LSEV = 'KXNBAGAME-' + D + 'LACLAL', 'KXNBASPREAD-' + D + 'LACLAL'
+    LACM, LALM = xm(LEVN + '-LAC', 'Los Angeles C', '0.40', '0.61'), xm(LEVN + '-LAL', 'Los Angeles L', '0.61', '0.40')
+    LAC4 = xm(LSEV + '-LAC4', 'Los Angeles C wins by over 3.5 points', '0.45', '0.56')
+    LAEV = [[r'markets\?event_ticker=' + LEVN + '&', {'markets': [LACM, LALM]}]]
+    def lap(name, side, tk, kside, cents, mc='ml', line=None):
+        return xpick(name, mc, side, 'LA Clippers', 'Los Angeles Lakers', 'basketball/nba', 'NBA', tk, kside, cents, line=line)
+    ufail("Lakers ML declared YES on the Clippers' market 'Los Angeles C' (YES 40c lock)", *ubuild(lap('Lakers ML', 'home', LACM['ticker'], 'yes', 40), LACM, LALM, rts=LAEV),
+          "BUILD FAILED: Lakers ML - the YES of %s is 'Los Angeles C', the opponent: its side is no, the kalshi block says yes" % LACM['ticker'])
+    ufail("Lakers -3.5 declared YES on 'Los Angeles C wins by over 3.5 points' (YES 45c lock): that YES is Clippers -3.5",
+          *ubuild(lap('Lakers -3.5', 'home', LAC4['ticker'], 'yes', 45, mc='spread', line=-3.5), LAC4),
+          "BUILD FAILED: Lakers -3.5 - the YES of %s is 'Los Angeles C wins by over 3.5 points', the opponent: its side is no, the kalshi block says yes" % LAC4['ticker'])
+    for what, q, ms, cents, kpx in (
+            ("Clippers ML as YES on its own market 'Los Angeles C' (40c, was 3)", lap('Clippers ML', 'away', LACM['ticker'], 'yes', 40), (LACM, LALM), 40, 'yes'),
+            ("Lakers ML as NO on the Clippers' market of the two-way event (61c, was 3)", lap('Lakers ML', 'home', LACM['ticker'], 'no', 61), (LACM, LALM), 61, 'no'),
+            ("Lakers ML as YES on its own market 'Los Angeles L' (61c)", lap('Lakers ML', 'home', LALM['ticker'], 'yes', 61), (LACM, LALM), 61, 'yes'),
+            ("Lakers +3.5 as NO of the Clippers' 3.5 rung (56c, was 3)", lap('Lakers +3.5', 'home', LAC4['ticker'], 'no', 56, mc='spread', line=3.5), (LAC4,), 56, 'no')):
+        rc, page, log = ubuild(q, *ms, rts=LAEV)
+        ch = chip_for(page, q['kalshi']['url'])
+        gp = GAME_PAGES.get('game-1.html', ''); row = kal_row(gp)
+        check(f'{tag}: U {what} binds through its code and ships at that side\'s ask; its game page row prices the same market, never a swapped both-sides board',
+              rc == 0 and attr(ch, 'kalpx') == kpx and attr(ch, 'cents') == str(cents) and 'data-kalmkt="' not in gp
+              and '%s-%s' % (attr(row, 'kalticker'), attr(row, 'kalside')) == q['kalshi']['ticker'] and 'data-kalpx="%s" data-cents="%d"' % (kpx, cents) in row,
+              log[-600:] + ch + row)
+    # ESPN unreachable: LAC is only spelt from 'LA Clippers' and the text reads 'los angeles' as the Lakers, so the side is
+    # not bound (a publish holds it; it shipped before)
+    ufail("with ESPN unreachable, Lakers ML declared YES on 'Los Angeles C' (spelt code and text disagree)",
+          *build(B, card(lap('Lakers ML', 'home', LACM['ticker'], 'yes', 40)), xr(LACM, LALM) + LAEV, espn=False),
+          "BUILD FAILED: Lakers ML - the YES of %s ('Los Angeles C') reads as the picked team and its code LAC as the opponent, so side yes cannot be bound" % LACM['ticker'])
+    # a prop's stat is the market's stat exactly, every word of each in the other ('total' is a stat word: total bases is
+    # not stolen bases). Each market reads 'Player: N+ stat' (the props pipeline's binding text) under a real series.
+    def upr(player, name, line, series, evcode, pseg, n, title, cents, lg, league, away, home, hhmm=False):
+        ev = series + '-' + dtok(FUT, hhmm=hhmm) + evcode
+        tk = ev + '-' + pseg + '-' + str(n)
+        m = {'ticker': tk, 'title': title, 'yes_sub_title': player, 'yes_ask_dollars': '%.2f' % (cents / 100),
+             'no_ask_dollars': '%.2f' % ((101 - cents) / 100), 'status': 'active'}
+        q = {'num': 1, 'name': name, 'market_class': 'prop', 'player': player, 'line': line, 'sub': '', 'odds': '+150', 'units': '5u', 'side': 'over',
+             'game': {'away': away, 'home': home, 'commence': FUT, 'eid': ''}, 'espn_league': lg, 'league': league, 'best_book': 'Kalshi',
+             'kalshi': {'url': 'https://kalshi.com/markets/' + series.lower() + '/' + ev.lower(), 'ticker': tk, 'side': 'yes', 'cents': cents, 'gate_cents': cents, 'team': player}}
+        return q, m
+    NFLG = ('football/nfl', 'NFL', 'Los Angeles Rams', 'San Francisco 49ers')
+    MLBG = ('baseball/mlb', 'MLB', 'New York Yankees', 'Boston Red Sox', True)
+    NBAG = ('basketball/nba', 'NBA', 'Denver Nuggets', 'Phoenix Suns')
+    NHLG = ('hockey/nhl', 'NHL', 'St. Louis Blues', 'Dallas Stars')
+    for what, (q, m), msg in (
+            ("Stafford Over 1.5 touchdowns on his '2+ passing touchdowns' market",
+             upr('Matthew Stafford', 'Matthew Stafford Over 1.5 touchdowns', 1.5, 'KXNFLPASSTDS', 'LARSF', 'LARMSTAFFORD9', 2, 'Matthew Stafford: 2+ passing touchdowns', 62, *NFLG),
+             "counts another stat (passing touchdown) than the pick's (touchdown)"),
+            ("Stafford Over 1.5 TDs (spelt out: touchdowns) on his '2+ passing touchdowns' market",
+             upr('Matthew Stafford', 'Matthew Stafford Over 1.5 TDs', 1.5, 'KXNFLPASSTDS', 'LARSF', 'LARMSTAFFORD9', 2, 'Matthew Stafford: 2+ passing touchdowns', 62, *NFLG),
+             "counts another stat (passing touchdown) than the pick's (touchdown)"),
+            ("Judge Over 0.5 runs on his '1+ home runs' market",
+             upr('Aaron Judge', 'Aaron Judge Over 0.5 runs', 0.5, 'KXMLBHR', 'NYYBOS', 'NYYAJUDGE99', 1, 'Aaron Judge: 1+ home runs', 28, *MLBG),
+             "counts another stat (home run) than the pick's (run)"),
+            ("Judge Over 1.5 total bases on his '2+ stolen bases' market",
+             upr('Aaron Judge', 'Aaron Judge Over 1.5 total bases', 1.5, 'KXMLBSB', 'NYYBOS', 'NYYAJUDGE99', 2, 'Aaron Judge: 2+ stolen bases', 3, *MLBG),
+             "does not name the pick's stat (total)"),
+            ("Jokic Over 49.5 points on his '50+ points + rebounds + assists' market",
+             upr('Nikola Jokic', 'Nikola Jokic Over 49.5 points', 49.5, 'KXNBAPRA', 'DENPHX', 'DENNJOKIC15', 50, 'Nikola Jokic: 50+ points + rebounds + assists', 55, *NBAG),
+             "counts another stat (assist point rebound) than the pick's (point)"),
+            ("Thomas Over 1.5 goals on his '2+ shots on goal' market",
+             upr('Robert Thomas', 'Robert Thomas Over 1.5 goals', 1.5, 'KXNHLSOG', 'STLDAL', 'STLRTHOMAS18', 2, 'Robert Thomas: 2+ shots on goal', 66, *NHLG),
+             "counts another stat (goal shot) than the pick's (goal)"),
+            ("Thomas Over 1.5 shots on goal on a '2+ shots on goal in the first period' market",
+             upr('Robert Thomas', 'Robert Thomas Over 1.5 shots on goal', 1.5, 'KXNHLSOG', 'STLDAL', 'STLRTHOMAS18', 2, 'Robert Thomas: 2+ shots on goal in the first period', 40, *NHLG),
+             "counts another stat (first goal period shot) than the pick's (goal shot)"),
+            ("Judge Over 1.5 hits on a '2+ hits, 1+ RBI' market",
+             upr('Aaron Judge', 'Aaron Judge Over 1.5 hits', 1.5, 'KXMLBHIT', 'NYYBOS', 'NYYAJUDGE99', 2, 'Aaron Judge: 2+ hits, 1+ RBI', 20, *MLBG),
+             "counts another stat (hit rbi) than the pick's (hit)")):
+        ufail(what, *ubuild(q, m), 'BUILD FAILED: %s - %s %s' % (q['name'], q['kalshi']['ticker'], msg))
+    for what, (q, m) in (
+            ("Stafford Over 1.5 passing touchdowns", upr('Matthew Stafford', 'Matthew Stafford Over 1.5 passing touchdowns', 1.5, 'KXNFLPASSTDS', 'LARSF', 'LARMSTAFFORD9', 2, 'Matthew Stafford: 2+ passing touchdowns', 62, *NFLG)),
+            ("Stafford over 1.5 passing TDs (the props card's label)", upr('Matthew Stafford', 'Matthew Stafford over 1.5 passing TDs', 1.5, 'KXNFLPASSTDS', 'LARSF', 'LARMSTAFFORD9', 2, 'Matthew Stafford: 2+ passing touchdowns', 62, *NFLG)),
+            ("Judge Over 0.5 HR (spelt out: home runs; was 3)", upr('Aaron Judge', 'Aaron Judge Over 0.5 HR', 0.5, 'KXMLBHR', 'NYYBOS', 'NYYAJUDGE99', 1, 'Aaron Judge: 1+ home runs', 28, *MLBG)),
+            ("Judge Over 0.5 home runs", upr('Aaron Judge', 'Aaron Judge Over 0.5 home runs', 0.5, 'KXMLBHR', 'NYYBOS', 'NYYAJUDGE99', 1, 'Aaron Judge: 1+ home runs', 28, *MLBG)),
+            ("Judge Over 1.5 total bases", upr('Aaron Judge', 'Aaron Judge Over 1.5 total bases', 1.5, 'KXMLBTB', 'NYYBOS', 'NYYAJUDGE99', 2, 'Aaron Judge: 2+ total bases', 41, *MLBG)),
+            ("Judge Over 1.5 total bases on 'Will Aaron Judge record 2+ total bases vs BOS?'", upr('Aaron Judge', 'Aaron Judge Over 1.5 total bases', 1.5, 'KXMLBTB', 'NYYBOS', 'NYYAJUDGE99', 2, 'Will Aaron Judge record 2+ total bases vs BOS?', 41, *MLBG)),
+            ("Jokic Over 49.5 points + rebounds + assists", upr('Nikola Jokic', 'Nikola Jokic Over 49.5 points + rebounds + assists', 49.5, 'KXNBAPRA', 'DENPHX', 'DENNJOKIC15', 50, 'Nikola Jokic: 50+ points + rebounds + assists', 55, *NBAG)),
+            ("Thomas Over 1.5 shots on goal", upr('Robert Thomas', 'Robert Thomas Over 1.5 shots on goal', 1.5, 'KXNHLSOG', 'STLDAL', 'STLRTHOMAS18', 2, 'Robert Thomas: 2+ shots on goal', 66, *NHLG))):
+        rc, page, log = ubuild(q, m)
+        ch = chip_for(page, q['kalshi']['url'])
+        check(f'{tag}: U {what} on its own market binds and ships (data-kalpx yes, {q["kalshi"]["cents"]}c)',
+              rc == 0 and attr(ch, 'kalpx') == 'yes' and attr(ch, 'cents') == str(q['kalshi']['cents']), log[-600:] + ch)
+    # a market that does not resolve still has its ticker bound (class, day, game): in play the pre-game card's event (another
+    # day) or another game's event fails rather than degrade to its pin (D: its own event degrades), and a late post refuses
+    ufail("in play, a refresh of the Under whose market does not resolve, on the pre-game card's event (another day)",
+          *build(B, card(U_LIVE), routes(None), refresh=True), 'BUILD FAILED: Under 6.5 - event %s is dated %s' % (EV, D))
+    FEVG = 'KXNFLGAME-' + dtok(PAST) + 'BUFMIA'
+    ufail("in play, a refresh of Falcons ML on the BUF @ MIA market, which does not resolve",
+          *ubuild(xpick('Falcons ML', 'ml', 'away', 'Atlanta Falcons', 'New Orleans Saints', 'football/nfl', 'NFL', FEVG + '-MIA', 'no', 44, commence=PAST), refresh=True),
+          'BUILD FAILED: Falcons ML - event %s is game BUFMIA, not Atlanta Falcons at New Orleans Saints' % FEVG)
+    FEVS = 'KXNFLSPREAD-' + D + 'BUFMIA'
+    ufail("an approved late post of Falcons +2.5 on another day's BUF @ MIA market, which does not resolve",
+          *ubuild(xpick('Falcons +2.5', 'spread', 'away', 'Atlanta Falcons', 'New Orleans Saints', 'football/nfl', 'NFL', FEVS + '-MIA3', 'no', 56, line=-2.5, commence=PAST),
+                  extra_env={'RP_PUBLISH': '1'}),
+          'BUILD FAILED: Falcons +2.5 - event %s is dated %s' % (FEVS, D))
+    ufail("an approved late post of the Under on its own event whose market does not resolve, no pin in the ledger",
+          *build(B, card(ULP), [], extra_env=PUB), 'BUILD FAILED: Under 6.5 - %s-7 does not resolve on a publish after the start' % EVP)
+    PINK = 'St. Louis Blues|Dallas Stars|' + PAST[:10] + '|total|6.5|' + EVP + '-7|no'
+    rc, page, log = build(B, card(ULP), [], extra_env=PUB, files={'shipped_books.json': json.dumps({PINK: {'Kalshi': {'link': KURLP, 'cents': 57, 'commence': PAST}}})})
+    check(f'{tag}: U a publish after the start of a pick whose pin is in the ledger, its market gone: degrades to the 57c pin (KAL -133)',
+          rc == 0 and 'IN-PLAY DEGRADE: Under 6.5 Kalshi market unresolved under %s - pinned snapshot 57c' % EVP in log and label(chip_for(page, KURLP)) == 'KAL -133', log[-600:])
+    # in play, a non-publish rebuild whose binding cannot be read (ESPN unreachable; Kalshi's event listing unreachable while
+    # the market resolves) prices as a delisted market does there: the pinned snapshot. Read and wrong still fails.
+    rc, page, log = build(B, card(ULP), live_routes(), refresh=True, espn=False)
+    ch = chip_for(page, KURLP)
+    check(f'{tag}: U in play, a refresh that cannot read ESPN for its total\'s game code degrades to the 57c pin (KAL -133, data-kalpx no), was 3',
+          rc == 0 and 'KALSHI BINDING UNREAD: Under 6.5 - ESPN gives no abbreviation' in log and 'IN-PLAY DEGRADE: Under 6.5' in log
+          and label(ch) == 'KAL -133' and attr(ch, 'cents') == '57' and attr(ch, 'kalpx') == 'no', log[-600:] + ch)
+    q = copy.deepcopy(ULP); q['kalshi'].update(side='yes', cents=44, gate_cents=44)
+    ufail('in play, a refresh that cannot read ESPN, of the Under declared YES on the "Over 6.5" market (read, and wrong)', *build(B, card(q), live_routes(), refresh=True, espn=False),
+          'BUILD FAILED: Under 6.5 is the under on %s-7, whose YES is the over - its side is no, the kalshi block says yes' % EVP)
+    ufail('a pre-game refresh that cannot read ESPN (held, as a pre-game market it cannot verify is)', *build(B, card(UNDER), routes(SEVEN), refresh=True, espn=False),
+          'BUILD FAILED: Under 6.5 - ESPN gives no abbreviation for St. Louis Blues or Dallas Stars (hockey/nhl)')
+    ufail('an approved late post that cannot read ESPN', *build(B, card(ULP), live_routes(), extra_env=PUB, espn=False),
+          'BUILD FAILED: Under 6.5 - ESPN gives no abbreviation for St. Louis Blues or Dallas Stars (hockey/nhl)')
+    LAC4P = xm('KXNBASPREAD-' + dtok(PAST) + 'LACLAL-LAC4', 'Los Angeles C wins by over 3.5 points', '0.45', '0.56')
+    q = xpick('Clippers -3.5', 'spread', 'away', 'LA Clippers', 'Los Angeles Lakers', 'basketball/nba', 'NBA', LAC4P['ticker'], 'yes', 45, line=3.5, commence=PAST)
+    rc, page, log = build(B, card(q), xr(LAC4P), refresh=True, espn=False)
+    ch = chip_for(page, q['kalshi']['url'])
+    check(f'{tag}: U in play, a refresh that cannot read ESPN for Clippers -3.5 (its side unread: spelt LAC and the text disagree) degrades to the 45c pin, was 3',
+          rc == 0 and 'KALSHI BINDING UNREAD: Clippers -3.5 - the YES of %s' % LAC4P['ticker'] in log and attr(ch, 'cents') == '45' and attr(ch, 'kalpx') == 'yes', log[-600:] + ch)
+    def jets(when):
+        ev = 'KXNHLGAME-' + dtok(when) + 'WPGPIT'
+        pit = xm(ev + '-PIT', 'Pittsburgh', '0.63', '0.38')
+        return ev, pit, xpick('Jets ML', 'ml', 'away', 'Winnipeg Jets', 'Pittsburgh Penguins', 'hockey/nhl', 'NHL', pit['ticker'], 'no', 38, commence=when)
+    JEV, JPIT, JETS = jets(PAST)
+    rc, page, log = ubuild(JETS, JPIT, refresh=True)
+    ch = chip_for(page, JETS['kalshi']['url'])
+    check(f'{tag}: U in play, Jets ML as NO on the Penguins\' market whose event listing cannot be read degrades to the 38c pin (data-kalpx no), was 3',
+          rc == 0 and 'KALSHI BINDING UNREAD: Jets ML' in log and attr(ch, 'cents') == '38' and attr(ch, 'kalpx') == 'no', log[-600:] + ch)
+    ufail("in play, the same NO on an event that lists three markets (read, and not two-way)",
+          *ubuild(JETS, JPIT, refresh=True, rts=[[r'markets\?event_ticker=' + JEV + '&', {'markets': [xm(JEV + '-WPG', 'Winnipeg', '0.38', '0.63'), JPIT, xm(JEV + '-TIE', 'Tie', '0.10', '0.91')]}]]),
+          "BUILD FAILED: Jets ML - NO on %s is the picked team's win only on a two-way event; %s lists 3 market(s)" % (JPIT['ticker'], JEV))
+    JEV2, JPIT2, JETS2 = jets(FUT)
+    ufail("a pre-game publish of the same NO whose event listing cannot be read", *ubuild(JETS2, JPIT2),
+          "BUILD FAILED: Jets ML - NO on %s is the picked team's win only on a two-way event; %s lists 0 market(s)" % (JPIT2['ticker'], JEV2))
 
 # K. the v1 preview builder (card_chain_preview.sh) cannot price a side: it refuses any pick that names one
 V1 = os.path.join(SD, 'build_gh_page.py')

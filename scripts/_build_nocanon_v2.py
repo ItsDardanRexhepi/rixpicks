@@ -1233,18 +1233,25 @@ def kal_market_side(ticker, side):
 #  - the side and the market binding (_kal_bind_market below) read only the market's own text and identifiers,
 #    so they run on every build that could ship a card that has not been published: the pre-game publish, an
 #    approved publish of a game already under way (a late post), a refresh build and an in-play rebuild. Only a
-#    settled pick, a display-only rebuild of the published card (its hash is shipped_pick_hash.txt, which only an
+#    settled pick and a display-only rebuild of the published card (its hash is shipped_pick_hash.txt, which only an
 #    RP_PUBLISH=1 build writes, and its kalshi ticker, side and url are in that hash: it was bound when it
-#    shipped) and a market that no longer resolves (in play: the pinned snapshot path) skip them;
+#    shipped) skip them. A market that no longer resolves has no text to read, but its ticker still names its
+#    class, day and game (_kal_bind_event), and those are bound before it takes the pinned snapshot path; a late
+#    post of a pick with no pin in the ledger whose market does not resolve is refused (third review, Oct 6);
+#  - a binding that cannot be read, as opposed to one read and wrong (ESPN unreachable for the league, so no team
+#    code; Kalshi's event listing unreadable for a moneyline NO), raises _KalUnread once every check that can be
+#    read has passed. A publish (pre-game, or a late post of a new pick) and a pre-game refresh hold on it as on
+#    any failed binding; an in-play rebuild that is not a late post of a new pick prices it as it prices a market
+#    that no longer resolves there, from the pinned pre-game snapshot (main's in-play degrade), never a live ask;
 #  - the lock checks compare live asks with the lock, so they run at the pre-game publish only: an in-play ask is
 #    not an entry price, and a refresh never re-gates a shipped pick's price.
 # The side checks:
 #  - a total on a market whose title/subtitle names one direction ("Over 6.5 goals") must take YES for that
 #    direction and NO for the other (an Under on an Over market is NO); a title naming neither or both
 #    directions is not read;
-#  - a moneyline or spread is bound to its team the same way: the market's YES names one of the two teams
-#    (yes_sub_title; when the names alone cannot tell two teams apart, the market's own code - the ticker
-#    suffix, NYY or NYM - as ESPN's abbreviation of exactly one of them). YES on the picked team's market, NO
+#  - a moneyline or spread is bound to its team the same way: the market's own code (the ticker suffix, NYY or
+#    LAC) as ESPN's abbreviation of exactly one of the two teams, else the YES text (yes_sub_title) naming one
+#    of them (_kal_yes_team). YES on the picked team's market, NO
 #    on the opponent's; a moneyline NO also needs a two-way event (NO on one side of a three-way market is not
 #    the other side's win). The lock checks below cannot see a swap on a near-even market (Toronto declared NO
 #    on its own 51/50 market sits on the lock), so a market whose YES names both teams, or neither while its
@@ -1262,30 +1269,38 @@ _KAL_LOCK_TOL=6
 def _kal_words(s):
     return set(re.sub(r'[^a-z0-9]+',' ',str(s or '').lower()).split())
 def _kal_yes_team(p, m, kx):
-    """'picked' | 'opp' | None: which team of the pick's game the market's YES names. Only words one team's
-    name has and the other's lacks count (Chicago White Sox vs Chicago Cubs: white/sox vs cubs). When those name
-    neither team (New York Y vs New York M), the market's own code decides: its ticker suffix without a line's
-    digits (NYY, HOU2 -> HOU) must fit exactly one of the two teams (_kal_code_fits: ESPN's abbreviation, or
-    with none, spelt from the name). kalshi.team is part of the block being checked, so it never decides: a
-    block read whole off the opponent's market names the opponent there too (Oct 6 review). A YES naming both
-    teams, or a code fitting neither or both, is None (not bound)."""
+    """('picked' | 'opp' | None, why, both): which team of the pick's game the market's YES names, why it is None.
+    The market's own code reads first: its ticker suffix without a line's digits (LAC, HOU2 -> HOU) fitting exactly
+    one of the two teams (_kal_code_fits). With ESPN's abbreviation of both teams that code is the market's identity
+    and decides, whatever words its YES text shares with the other team's name: Kalshi names every LA team
+    'Los Angeles X', so 'Los Angeles C' (LAC) shares 'los angeles' with ESPN's 'Los Angeles Lakers' and no word with
+    its 'LA Clippers' (third review, Oct 6: the Clippers' market read as the Lakers'). Otherwise the YES text reads:
+    only words one team's name has and the other's lacks count (Chicago White Sox vs Chicago Cubs: white/sox vs
+    cubs), and a code spelt from a name (a team ESPN gives no abbreviation) must agree with them. kalshi.team is part
+    of the block being checked, so it never decides: a block read whole off the opponent's market names the
+    opponent there too (Oct 6 review). A YES naming both teams, a code and text reading different teams, or neither
+    readable is None (not bound); both is True only for a YES text naming both teams (read, never a source missing)."""
     g=p.get('game') or {}; side=p.get('side')
-    if side not in ('away','home'): return None
+    if side not in ('away','home'): return None,'names neither team of the pick or both',False
     pick,opp=g.get(side) or '',g.get('home' if side=='away' else 'away') or ''
     ytxt=m.get('yes_sub_title') or m.get('subtitle') or m.get('title') or ''
     yw=_kal_words(ytxt)
     pw={w for w in _kal_words(pick)-_kal_words(opp) if len(w)>2}
     ow={w for w in _kal_words(opp)-_kal_words(pick) if len(w)>2}
     hp,ho=bool(pw&yw),bool(ow&yw)
-    if hp!=ho: return 'picked' if hp else 'opp'
-    if hp: return None
+    if hp and ho: return None,'names neither team of the pick or both',True
+    by_text=('picked' if hp else 'opp') if hp!=ho else None
     sc=re.sub(r'\d+$','',kx[0].rsplit('-',1)[-1])
     lg=p.get('espn_league') or ''
     fp,fo=(bool(sc) and _kal_code_fits(sc,pick,lg)),(bool(sc) and _kal_code_fits(sc,opp,lg))
-    if fp!=fo: return 'picked' if fp else 'opp'
-    return None
+    by_code=('picked' if fp else 'opp') if fp!=fo else None
+    if by_code and _kal_espn_abbr(lg,pick) and _kal_espn_abbr(lg,opp): return by_code,'',False
+    if by_code and by_text and by_code!=by_text:
+        return None,f"reads as the {'picked team' if by_text=='picked' else 'opponent'} and its code {sc} as the {'picked team' if by_code=='picked' else 'opponent'}",False
+    return (by_code or by_text),('' if (by_code or by_text) else 'names neither team of the pick or both'),False
 def _kal_two_way(ev, tick):
-    # the event's market listing (same read and cache as kal_market): exactly two markets, this one of them
+    # the event's market listing (same read and cache as kal_market): exactly two markets, this one of them. The
+    # listing of an event whose market resolved names at least that market: an empty one was not read.
     if ev not in _KALEVT:
         try:
             import urllib.request
@@ -1294,25 +1309,38 @@ def _kal_two_way(ev, tick):
         except Exception: _KALEVT[ev]=[]
     ts={str(x.get('ticker') or '').upper() for x in _KALEVT[ev] if str(x.get('ticker') or '').upper().startswith(ev+'-')}
     return len(ts)==2 and tick in ts, len(ts)
+class _KalUnread(Exception):
+    # a binding that could not be read (a source unreachable), raised after every check that could be read passed
+    pass
 def _kal_publish_check(p, kx, kc, price=True):
-    # price=False (refresh, in-play and late-post builds): the side and market binding only, no lock checks
-    name=p.get('name'); m=_KALMKT.get(kx[0]) or {}; who=None
+    # price=False (refresh, in-play and late-post builds): the side and market binding only, no lock checks. A
+    # failure read off the data exits 3 where it is found; one that could not be read is collected and raised as
+    # _KalUnread at the end, once everything readable has passed (chips() decides whether it holds or degrades).
+    name=p.get('name'); m=_KALMKT.get(kx[0]) or {}; who=None; unread=[]
     if _pick_mclass(p) in ('ml','spread'):
-        who=_kal_yes_team(p,m,kx)
+        who,_why,_both=_kal_yes_team(p,m,kx)
         _ytxt=m.get('yes_sub_title') or m.get('subtitle') or m.get('title') or ''
         if who is None:
-            print(f"BUILD FAILED: {name} - the YES of {kx[0]} ({_ytxt!r}) names neither team of the pick or both, so side {kx[1]} cannot be bound to the picked team; a near-even swap would pass the lock checks", file=sys.stderr)
-            sys.exit(3)
-        need='yes' if who=='picked' else 'no'
-        if kx[1]!=need:
-            print(f"BUILD FAILED: {name} - the YES of {kx[0]} is {_ytxt!r}, the {'picked team' if who=='picked' else 'opponent'}: its side is {need}, the kalshi block says {kx[1]}", file=sys.stderr)
-            sys.exit(3)
-        if need=='no' and _pick_mclass(p)=='ml':
-            _ev=str((p.get('kalshi') or {}).get('url') or '').rstrip('/').split('/')[-1].upper()  # the event (_kal_explicit bound the ticker to it)
-            ok,n=_kal_two_way(_ev,kx[0])
-            if not ok:
-                print(f"BUILD FAILED: {name} - NO on {kx[0]} is the picked team's win only on a two-way event; {_ev} lists {n} market(s)", file=sys.stderr)
+            _msg=f"{name} - the YES of {kx[0]} ({_ytxt!r}) {_why}, so side {kx[1]} cannot be bound to the picked team; a near-even swap would pass the lock checks"
+            _g=p.get('game') or {}
+            if _both or not _kal_abbr_unread(p.get('espn_league') or '',_g.get('away'),_g.get('home')):
+                print(f"BUILD FAILED: {_msg}", file=sys.stderr)
                 sys.exit(3)
+            unread.append(_msg)  # ESPN unreachable: the code could not be read as either team's
+        else:
+            need='yes' if who=='picked' else 'no'
+            if kx[1]!=need:
+                print(f"BUILD FAILED: {name} - the YES of {kx[0]} is {_ytxt!r}, the {'picked team' if who=='picked' else 'opponent'}: its side is {need}, the kalshi block says {kx[1]}", file=sys.stderr)
+                sys.exit(3)
+            if need=='no' and _pick_mclass(p)=='ml':
+                _ev=str((p.get('kalshi') or {}).get('url') or '').rstrip('/').split('/')[-1].upper()  # the event (_kal_explicit bound the ticker to it)
+                ok,n=_kal_two_way(_ev,kx[0])
+                if not ok:
+                    _msg=f"{name} - NO on {kx[0]} is the picked team's win only on a two-way event; {_ev} lists {n} market(s)"
+                    if n:
+                        print(f"BUILD FAILED: {_msg}", file=sys.stderr)
+                        sys.exit(3)
+                    unread.append(_msg+' (the event listing could not be read)')
     if _pick_mclass(p)=='total':
         want=str(p.get('side') or '').strip().lower()
         if want not in ('over','under'): want=(str(name or '').split() or [''])[0].lower()
@@ -1333,7 +1361,8 @@ def _kal_publish_check(p, kx, kc, price=True):
             print(f"BUILD FAILED: {name} {opp.upper()} ask {oc}c on {kx[0]} is closer to the {lock:g}c lock than the picked {kx[1].upper()} ask {kc}c - the lock reads like the {opp.upper()} side, check kalshi.side", file=sys.stderr)
             sys.exit(3)
     # a pick without a lock still gets its market bound (the lock checks above need one, the binding does not)
-    _kal_bind_market(p,kx,m,who)
+    unread+=_kal_bind_market(p,kx,m,who)
+    if unread: raise _KalUnread(unread[0])
 # Market binding (Oct 6 review; the caller runs it wherever the side checks run, see above). The side and lock
 # checks compare the declared side and the lock with the market the ticker names; a ticker AND a lock both read
 # off the wrong market (another line, another game or day, a run-line market for a moneyline, another player's
@@ -1354,11 +1383,17 @@ def _kal_publish_check(p, kx, kc, price=True):
 #  - line: the YES text's own line ('over 1.5', 'Over 6.5'; an N+ market is over N-0.5) is the pick's line. A
 #    spread's YES on the picked team ('Houston wins by over 1.5') is that pick at -X, on the opponent at +X;
 #  - a prop: an N+ (or over) market's YES is the over and an under market's YES the under; the market names the
-#    pick's player and every word of its stat ('goals', 'total bases'), in its text or its series. The player is
-#    named in full ('Matthew Tkachuk'), or by his initial in the text ('M. Tkachuk') with the ticker's player
-#    segment his initial and surname (FLAMTKACHUK19): a surname alone binds a same-surname teammate's or
+#    pick's player, and its stat is the pick's stat exactly: the words after the market's line ('2+ passing
+#    touchdowns') are the words after the pick's ('Over 1.5 passing touchdowns'), every word of each in the other,
+#    'total' among them (third review, Oct 6: 'touchdowns' bound '2+ passing touchdowns', 'runs' '1+ home runs',
+#    'total bases' '2+ stolen bases', 'points' '50+ points + rebounds + assists', 'goals' '2+ shots on goal'). The
+#    player is named in full ('Matthew Tkachuk'), or by his initial in the text ('M. Tkachuk') with the ticker's
+#    player segment his initial and surname (FLAMTKACHUK19): a surname alone binds a same-surname teammate's or
 #    opponent's market (Brady for Matthew Tkachuk, Luke for Jack Hughes).
-# Anything that cannot be read fails (exit 3) rather than ship unbound. Picks without a side never reach this.
+# Anything that cannot be read fails (exit 3) rather than ship unbound. Picks without a side never reach this. The
+# one exception is a source this build cannot reach (ESPN for a team code): the binding returns it as unread (see
+# _KalUnread above) after every other check has passed. The class, day and game read off the ticker alone
+# (_kal_bind_event), so they bind a market that no longer resolves as well.
 _KAL_ABBR_ALIAS={'CHW':'CWS','ARI':'AZ'}  # ESPN code -> Kalshi code, every league (core/kalshi_bind.py ALIAS)
 # ESPN code -> Kalshi code within one league, as Kalshi's own event tickers code those teams (UTACBJ, INDWAS,
 # JACCIN, OKCSAS, PHINYK, TEXOKLA, SCARFLA, FLAMIZZ, ARKTXAM, PSUNW, STLLAG, MIADCU, NYRBSD). An alias only ever
@@ -1367,20 +1402,52 @@ _KAL_LG_ALIAS={'hockey/nhl':{'UTAH':'UTA'},'football/nfl':{'WSH':'WAS','JAX':'JA
                'football/college-football':{'TAM':'TXAM','MIZ':'MIZZ','OU':'OKLA','SC':'SCAR','NU':'NW'},
                'soccer/usa.1':{'LA':'LAG','DC':'DCU','NY':'NYRB'}}
 _KAL_TEAMS={}
+def _kal_teams(lg):
+    # ESPN's team listing rows for a league (read once per build; [] when it lists none or cannot be read)
+    if lg not in _KAL_TEAMS:
+        try: _KAL_TEAMS[lg]=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams?limit=1000'%lg)
+        except Exception: _KAL_TEAMS[lg]={}
+    try: return [(r.get('team') or {}) for r in ((((_KAL_TEAMS[lg] or {}).get('sports') or [{}])[0].get('leagues') or [{}])[0].get('teams') or [])]
+    except (AttributeError, IndexError, TypeError): return []
 def _kal_espn_abbr(lg, team):
     # ESPN's abbreviation of a team (letters only, TA&M -> TAM): the card's scoreboard meta first (TEAM_META), then
     # ESPN's team listing for the league (one exact displayName), '' when ESPN gives none (fighters, ESPN down)
     ea=str((_meta_for(lg,team) or {}).get('abbr') or '')
     if not ea and lg and team:
-        if lg not in _KAL_TEAMS:
-            try: _KAL_TEAMS[lg]=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams?limit=1000'%lg)
-            except Exception: _KAL_TEAMS[lg]={}
-        rows=[(r.get('team') or {}) for r in ((((_KAL_TEAMS[lg] or {}).get('sports') or [{}])[0].get('leagues') or [{}])[0].get('teams') or [])]
-        hit=[t for t in rows if str(t.get('displayName') or '').casefold().strip()==team.casefold().strip()]
+        hit=[t for t in _kal_teams(lg) if str(t.get('displayName') or '').casefold().strip()==team.casefold().strip()]
         if len(hit)==1: ea=str(hit[0].get('abbreviation') or '')
     return re.sub(r'[^A-Z]','',ea.upper())
+def _kal_abbr_unread(lg, *teams):
+    # True when a team's code could not be read because ESPN could not be read for the league at all on this build:
+    # no scoreboard meta (TEAM_META) for the league and no team listing. ESPN read and silent on a team (a fighter, a
+    # name it spells otherwise) is an answer, not unread.
+    return bool(lg) and any(t and not _kal_espn_abbr(lg,t) for t in teams) and not any(l==lg for (l,_n) in TEAM_META) and not _kal_teams(lg)
 _KAL_TIME_TOL=90*60
-_KAL_STAT_SKIP={'over','under','the','and','total','player','anytime','plus','more'}
+# filler a stat phrase carries beside its stat ('total' is a stat word: total bases is not stolen bases)
+_KAL_STAT_SKIP={'over','under','the','and','player','anytime','plus','more'}
+# a stat's common short forms, spelt out on both sides before they are compared (the props card writes 'passing
+# TDs'); each names exactly one stat, so spelling it out never makes two stats equal
+_KAL_STAT_ABBR={'td':'touchdowns','tds':'touchdowns','hr':'home runs','hrs':'home runs','sog':'shots on goal','pts':'points',
+                'reb':'rebounds','rebs':'rebounds','ast':'assists','asts':'assists','yd':'yards','yds':'yards'}
+def _kal_stat_words(s):
+    # a stat phrase's words, singular ('2+ shots on goal' -> shot, goal): cut only at a question's end or an opponent
+    # tail ('vs CWS'), short forms spelt out, filler and one- or two-letter words dropped. Every other word counts, so
+    # a qualifier ('in the first half', '(incl. OT)', ', 1+ RBI') is another stat and never binds the plain one
+    s=re.split(r'\?|\b(?:vs|versus)\b',_kal_norm(s),maxsplit=1,flags=re.I)[0]
+    ws=[x for w in _kal_nwords(s) for x in _KAL_STAT_ABBR.get(w,w).split()]
+    return {w.rstrip('s') for w in ws if len(w)>2 and w not in _KAL_STAT_SKIP}
+def _kal_mkt_stat(m):
+    # the stat a market's line counts: the words after its line token ('Matthew Stafford: 2+ passing touchdowns' ->
+    # passing, touchdown), field by field and pattern by pattern in _kal_mkt_line's order; the first that names one
+    for f in ('yes_sub_title','title','subtitle'):
+        t=_kal_norm(m.get(f) or '')
+        for pat in (r'\b(?:over|under)\s+\d+(?:\.\d+)?',r'(?<![\d.])\d+\s*(?:\+|or more\b)',r'(?<![\d.])\d+\s*or (?:fewer|less)\b'):
+            x=re.search(pat,t,re.I)
+            if x:
+                w=_kal_stat_words(t[x.end():])
+                if w: return w
+                break
+    return set()
 def _kal_norm(s):
     import unicodedata
     return unicodedata.normalize('NFKD',str(s or '')).encode('ascii','ignore').decode()
@@ -1453,8 +1520,11 @@ def _kal_mkt_line(m):
         x=re.search(r'(?<![\d.])(\d+)\s*or (?:fewer|less)\b',t,re.I)
         if x: return int(x.group(1))+0.5,t
     return None,(m.get('yes_sub_title') or m.get('subtitle') or m.get('title') or '')
-def _kal_bind_market(p, kx, m, who):
-    name=p.get('name'); tick,side=kx; mc=_pick_mclass(p)
+def _kal_bind_event(p, kx, defer=False):
+    # The binding read off the ticker alone: the series' class, the event's date (and start) and its game code. A
+    # failure read off the data exits 3. A game code that cannot be read because ESPN cannot be reached for the
+    # league (_kal_abbr_unread) is unread: returned when defer (the caller goes on and raises it last), else raised.
+    name=p.get('name'); tick=kx[0]; mc=_pick_mclass(p)
     series=tick.split('-',1)[0]
     sc=_kal_series_class(series)
     if sc!=mc:
@@ -1471,25 +1541,39 @@ def _kal_bind_market(p, kx, m, who):
         print(f"BUILD FAILED: {name} - event {ev} is dated {tok}{' '+hhmm+' ET' if hhmm else ''}, the pick's game starts {g.get('commence') or '(no commence)'} - another day's or another game's market", file=sys.stderr)
         sys.exit(3)
     spell=mc in ('ml','spread')  # their YES text binds the team as well; a total's or a prop's code is its only game binding
+    msg=None
     if not spell:
         miss=[t for t in (g.get('away'),g.get('home')) if t and not _kal_espn_abbr(lg,t)]
         if miss:
-            print(f"BUILD FAILED: {name} - ESPN gives no abbreviation for {' or '.join(miss)} ({lg or 'no league'}), and a {mc}'s event code is its only binding to its game: {ev} cannot be bound", file=sys.stderr)
-            sys.exit(3)
-    if not _kal_game_fits(code,g,lg,spell):
-        print(f"BUILD FAILED: {name} - event {ev} is game {code}, not {g.get('away') or '?'} at {g.get('home') or '?'}", file=sys.stderr)
+            msg=f"{name} - ESPN gives no abbreviation for {' or '.join(miss)} ({lg or 'no league'}), and a {mc}'s event code is its only binding to its game: {ev} cannot be bound"
+    if msg is None and not _kal_game_fits(code,g,lg,spell):
+        msg=f"{name} - event {ev} is game {code}, not {g.get('away') or '?'} at {g.get('home') or '?'}"
+    if msg is None: return None
+    if not _kal_abbr_unread(lg,g.get('away'),g.get('home')):
+        print(f"BUILD FAILED: {msg}", file=sys.stderr)
         sys.exit(3)
+    if defer: return msg
+    raise _KalUnread(msg)
+def _kal_bind_market(p, kx, m, who):
+    # the whole market binding; returns the unread failures (empty when bound), every failure read off the data exits 3
+    name=p.get('name'); tick,side=kx; mc=_pick_mclass(p)
+    unread=[u for u in (_kal_bind_event(p,kx,defer=True),) if u]
     txt=' | '.join(str(m.get(f)) for f in ('yes_sub_title','title','subtitle') if m.get(f))
     if mc=='prop':
         if not _kal_player_named(p.get('player'),txt,tick):
             print(f"BUILD FAILED: {name} - {tick} does not name the pick's player {p.get('player')!r} (its market reads {txt!r})", file=sys.stderr)
             sys.exit(3)
+        # the pick's stat is the market's stat exactly (the player's own name is neither's stat)
         x=re.search(r'[+-]?\d+(?:\.\d+)?\s+(.+)$',str(name or ''))
-        stat=[w.rstrip('s') for w in _kal_nwords(x.group(1) if x else '') if len(w)>2 and w not in _KAL_STAT_SKIP]
-        have={w.rstrip('s') for w in _kal_nwords(txt)}
-        miss=[w for w in stat if w not in have and w.upper() not in series.upper()]
-        if not stat or miss:
-            print(f"BUILD FAILED: {name} - {tick} does not name the pick's stat ({', '.join(miss) if stat else 'the pick names none'}) - its market reads {txt!r}", file=sys.stderr)
+        own={w.rstrip('s') for w in _kal_nwords(p.get('player'))}
+        ps=_kal_stat_words(x.group(1) if x else '')-own
+        ms=_kal_mkt_stat(m)-own
+        miss=sorted(ps-ms)
+        if not ps or miss:
+            print(f"BUILD FAILED: {name} - {tick} does not name the pick's stat ({', '.join(miss) if ps else 'the pick names none'}) - its market reads {txt!r}", file=sys.stderr)
+            sys.exit(3)
+        if ms!=ps:
+            print(f"BUILD FAILED: {name} - {tick} counts another stat ({' '.join(sorted(ms))}) than the pick's ({' '.join(sorted(ps))}) - its market reads {txt!r}", file=sys.stderr)
             sys.exit(3)
     if mc in ('spread','total','prop'):
         pl=_pick_line(p); ml,lt=_kal_mkt_line(m)
@@ -1501,7 +1585,9 @@ def _kal_bind_market(p, kx, m, who):
             print(f"BUILD FAILED: {name} - the line of {tick} cannot be read from its market ({lt!r}), so it cannot be bound to the pick's {fmt(pl)}", file=sys.stderr)
             sys.exit(3)
         want=(-ml if who=='picked' else ml) if mc=='spread' else ml
-        if abs(pl-want)>1e-9:
+        if mc=='spread' and who is None:
+            pass  # reached only with the side unread (_kal_publish_check exits on any side read and unbound, and raises this one)
+        elif abs(pl-want)>1e-9:
             if mc=='spread':
                 print(f"BUILD FAILED: {name} - the YES of {tick} is {lt!r}, the {'picked team' if who=='picked' else 'opponent'} by over {ml:g}: it binds the pick at {want:+g}, the pick's line is {pl:+g}", file=sys.stderr)
             else:
@@ -1519,6 +1605,7 @@ def _kal_bind_market(p, kx, m, who):
         if side!=need:
             print(f"BUILD FAILED: {name} is the {want} on {tick}, whose YES is the {ydir} - its side is {need}, the kalshi block says {side}", file=sys.stderr)
             sys.exit(3)
+    return unread
 def _kal_rec(kx):
     # canonical market record identity (event, market, side) of an explicit-market pick
     return (kx[0].rsplit('-',1)[0], kx[0], kx[1])
@@ -1722,14 +1809,35 @@ def chips(p):
                     sys.exit(3)
             # bound when it shipped (display-only: the published card) or settled: no side or market checks
             _kal_skip=_DISPLAY_ONLY or p.get('result') or p.get('_final')
-            if _kx and _kc is not None and not (_kal_skip or os.environ.get('RP_REFRESH')=='1' or _uw):
-                _kal_publish_check(p,_kx,_kc)  # pre-game publish: the side and the market binding, and the lock checks
-            elif _kx and _sfx and not _kal_skip:
-                # a refresh build, an in-play rebuild or a late post (RP_PUBLISH=1 after the start) of a card that is
-                # not the published one: the side and market binding read only the market's text, so they still run
-                # (Oct 6 second review); the lock checks do not (an in-play ask is no entry price, a refresh never
-                # re-gates). A market that no longer resolves (no _sfx) takes the in-play degrade path below.
-                _kal_publish_check(p,_kx,_kc,price=False)
+            if _kx and not _kal_skip:
+                # a late post of a new pick: an approved publish (RP_PUBLISH=1) after the start of a pick whose Kalshi pin
+                # is not in the ledger (a pick an earlier approved publish shipped has one, written at that publish)
+                _klate=bool(_uw and os.environ.get('RP_PUBLISH')=='1' and not ((SHIPPED.get(_kpk) or {}).get('Kalshi') or {}).get('cents'))
+                try:
+                    if _kc is not None and not (os.environ.get('RP_REFRESH')=='1' or _uw):
+                        _kal_publish_check(p,_kx,_kc)  # pre-game publish: the side and the market binding, and the lock checks
+                    elif _sfx:
+                        # a refresh build, an in-play rebuild or a late post (RP_PUBLISH=1 after the start) of a card that is
+                        # not the published one: the side and market binding read only the market's text, so they still run
+                        # (Oct 6 second review); the lock checks do not (an in-play ask is no entry price, a refresh never
+                        # re-gates)
+                        _kal_publish_check(p,_kx,_kc,price=False)
+                    else:
+                        # a market that no longer resolves has no text to read, but its ticker still names its class, day
+                        # and game (third review, Oct 6): bound before the unresolved path below prices it from its pin
+                        _kal_bind_event(p,_kx)
+                        if _klate:
+                            print(f"BUILD FAILED: {p.get('name')} - {_kx[0]} does not resolve on a publish after the start (RP_PUBLISH=1, game under way) and the ledger holds no Kalshi pin of this pick: a new pick's market is bound before it ships, never priced from its lock unbound", file=sys.stderr)
+                            sys.exit(3)
+                except _KalUnread as _ke:
+                    # a binding this build could not read: a publish (pre-game, or a late post of a new pick) and a
+                    # pre-game refresh hold as on any failed binding; an in-play rebuild prices it as a market that no
+                    # longer resolves there (the pinned pre-game snapshot below), never a live ask
+                    if _klate or not _uw:
+                        print(f"BUILD FAILED: {_ke}", file=sys.stderr)
+                        sys.exit(3)
+                    print(f"KALSHI BINDING UNREAD: {_ke} - in play: priced as an unresolved market, from the pinned pre-game snapshot (a binding read and wrong still fails)", file=sys.stderr)
+                    _sfx=''
             if _uw:
                 # in play (never-blank + phase provenance, Sep 26): freeze the last PRE-GAME snapshot -
                 # SHIPPED carryover first, manifest ship cents as fallback; never a live in-play ask
