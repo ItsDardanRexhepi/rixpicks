@@ -94,6 +94,38 @@ on any published copy of the card is kept. Grading fails closed (exit 3, nothing
 
 Fixtures: `scripts/test_late_disclosure.py` and `scripts/test_late_disclosure_today.js`.
 
+**Rows graded before the rule: `scripts/record_disclosure.py`.** `record_final.py` copies the flags
+only when it grades a pick, and it never grades a row twice. A row graded before the rule keeps no
+flag on its own. This script brings such a row in line with its card:
+
+```
+python3 scripts/record_disclosure.py --check   # what would change; writes nothing
+python3 scripts/record_disclosure.py           # adds the card's flags to the graded rows
+```
+
+Nothing is typed in. The flags come only from the published card, through `record_final.py`'s own
+`card_rows` and `disclosure_of`. A row gets them only when:
+
+- its grade key is in `record_done.json`;
+- it is the one pick on its card date's `history.json` day with the card pick's name at the card
+  price.
+
+A disclosed pick that is not graded yet is listed as pending and left to `record_final.py`.
+
+The script refuses (exit 3, nothing written) when:
+
+- the card's copies are malformed or contradict each other;
+- a row says `false`, carries a malformed flag, or claims a flag its card does not;
+- a graded pick's row is missing or doubled;
+- an MMA pick, or a pick with no grade key, carries a flag;
+- an audit line is on file but its row lost the flags.
+
+It only adds `true` flags. W-L, units, results, prices, names and scores never move, and
+`history.json` keeps its stored format. Each row it changes gets one line in
+`slates/record_disclosures.jsonl`. A re-run is a no-op.
+
+Fixture: `scripts/test_record_disclosure.py`.
+
 ## CLV ledger (internal): `scripts/clv_report.py`
 
 ```

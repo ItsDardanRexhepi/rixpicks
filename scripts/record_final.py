@@ -23,7 +23,8 @@ later finals wait for the next fire):
      already in record_done.json is skipped, never applied twice.
   6. Late-post disclosure: a card pick posted after its game began carries added_after_kickoff
      (and added_after_final when the game had ended) - the row carries it too, fail-closed when
-     malformed (see disclosure_of).
+     malformed (see disclosure_of). A row graded before this rule is brought in line from its card
+     by scripts/record_disclosure.py, never by a re-grade.
 Apply: manifest record/units_pl, history.json day row (+day record/units), record_done.json.
 Writes NOTHING to any private ledger - that stays analysis-side.
 """
