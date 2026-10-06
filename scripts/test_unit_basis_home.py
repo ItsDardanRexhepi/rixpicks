@@ -15,6 +15,8 @@ through a dead proxy) and checks the built index.html:
 Run: python3 scripts/test_unit_basis_home.py [builder.py ...]   (default: both twins; no side effects)"""
 import copy, html.parser, json, os, re, shutil, subprocess, sys, tempfile
 
+from fixtures.card_contract import stamped, market, published_snapshot
+
 SD = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(SD)
 BUILDERS = [os.path.abspath(a) for a in sys.argv[1:]] or [os.path.join(SD, 'build_gh_page_v2.py'), os.path.join(SD, '_build_nocanon_v2.py')]
@@ -36,7 +38,10 @@ def build(builder, manifest):
             shutil.copy(os.path.join(bsrc if os.path.exists(os.path.join(bsrc, f)) else SD, f), os.path.join(d, 'scripts', f))
         for f in ('feed_arbiter.js', 'feed_registry.json', 'config_leagues.json'):
             shutil.copy(os.path.join(ROOT, f), os.path.join(d, f))
+        manifest=dict(manifest,picks=[market(p) for p in manifest.get('picks',[])])
+        manifest=stamped(builder,manifest)
         json.dump(manifest, open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
+        published_snapshot(d,builder,manifest)
         json.dump([], open(os.path.join(d, 'slates', 'odds_prefill.json'), 'w'))
         env = dict(os.environ, RP_REFRESH='1', http_proxy=DEAD, https_proxy=DEAD, HTTP_PROXY=DEAD, HTTPS_PROXY=DEAD)
         r = subprocess.run([sys.executable, os.path.join(d, 'scripts', 'build_gh_page_v2.py'), 'manifest.json', 'index.html'],
@@ -79,7 +84,7 @@ def css_rules(page):
 
 BASE = {'date': '2099-10-01', 'date_label': 'Thursday, Oct 1', 'updated': 'Oct 1, 8:42 AM PT', 'record': '21-11',
         'units_pl': '+4.76u', 'units_ledger': None, 'yesterday': '', 'status_note': '', 'preview': False, 'parlay': None}
-DEVILS = {'num': 1, 'name': 'Devils ML', 'market_class': 'ml', 'sub': 'PHI @ NJ', 'odds': '-162', 'units': '5u', 'side': 'home',
+DEVILS = {'num': 1, 'name': 'Devils ML', 'market_class': 'ml', 'sub': 'PHI @ NJ - model 66.0', 'odds': '-162', 'units': '5u', 'side': 'home',
           'game': {'away': 'Philadelphia Flyers', 'home': 'New Jersey Devils', 'commence': '2099-10-01T23:00Z', 'eid': ''},
           'espn_league': 'hockey/nhl', 'league': 'NHL', 'best_book': 'DraftKings'}
 CARDS = {'empty card': dict(copy.deepcopy(BASE), picks=[]), 'one-pick card': dict(copy.deepcopy(BASE), picks=[copy.deepcopy(DEVILS)])}
