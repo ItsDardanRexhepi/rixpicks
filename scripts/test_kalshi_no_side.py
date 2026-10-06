@@ -31,8 +31,10 @@ responses (sitecustomize stub; every other host fails fast, nothing leaves the m
  I. side vs lock at pre-game publish (lock = kalshi.cents, tolerance 6c): the Oct 2 card ships; an Under declared
     YES or an Over declared NO on an "Over 6.5" market fails (and the reverse on an "Under 6.5" market); a title
     naming no single direction is not read; a picked ask past 6c from the lock fails (the neighbouring line at
-    18c, a 7c move), 6c ships; the other side's ask sitting closer to the lock fails (a tie ships); refresh,
-    in-play, settled and display-only builds keep their existing paths.
+    18c, a 7c move), 6c ships; the other side's ask sitting closer to the lock fails (a tie ships); settled picks and
+    display-only rebuilds of the published card (also on refresh and in play) keep their existing paths, while a
+    refresh or in-play build of a card that is not the published one binds its market (the wrong line fails there)
+    with no lock check.
  J. an explicit ticker that is not a market of the url's event (another event, a prefix, no url, a series-level
     url that names no event, a market-level url) fails (exit 3); an event url with a slug segment binds; an old
     pick is not held to it.
@@ -44,8 +46,9 @@ responses (sitecustomize stub; every other host fails fast, nothing leaves the m
     class-key slot (with no pin of its own it wears its lock).
  M. a moneyline's side is bound to its team at pre-game publish: Toronto declared NO on Toronto's own near-even
     market fails (the lock checks cannot see it), YES on the opponent's market fails, NO on the opponent's
-    market ships only on a two-way event, a YES naming both teams fails; same-city teams bind through
-    kalshi.team (the market code), and an unbindable market fails.
+    market ships only on a two-way event, a YES naming both teams fails; same-city teams bind through the market's
+    own code (NYY, ESPN's Yankees), so YES on the Mets' market fails; a refresh of a card that is not the published
+    one binds the side again, the published card's refresh keeps its path.
  P. the original intent end to end: a + run line (White Sox +1.5 = NO on "Houston wins by over 1.5") prices its
     NO ask on the chip, market record, game page and client tick; the YES side (Astros -1.5) reads the YES ask;
     the + line declared YES on the opponent's market fails.
@@ -59,6 +62,18 @@ responses (sitecustomize stub; every other host fails fast, nothing leaves the m
     market, a total of another game or another day, an Over prop declared NO, another player's or another stat's
     market and a prop of another line all fail (exit 3); the good cards, an Under prop, a fight coded home-first and a
     Penn State game bound through ESPN's abbreviation still ship.
+ R. the second review (Oct 6), each failing case's ticker and lock read off the same wrong market (every one shipped
+    before R): a total binds its game only through ESPN's abbreviations (BUF @ CGY on BOSCAR, ANA @ CBJ on COLUTAH,
+    ARI @ BUF on BALCIN and BAL @ TOR on TBBOS at the same start all fail; a total ESPN gives no abbreviation for
+    fails closed; BUFCGY, CHIUTA for ESPN's UTAH and a timed BALTOR ship); a prop names its player in full or by
+    initial plus the ticker's initial and surname (Matthew Tkachuk on Brady's market, on "M. Tkachuk" coded
+    BTKACHUK, and Jack Hughes on Luke's fail; FLAMTKACHUK19 and Brady's own ship); a same-city moneyline binds
+    through the market's code, never kalshi.team (Yankees YES on the Mets' market fails with kalshi.team NYM or
+    'New York M'; Yankees as NO there ships); an approved publish after the start binds its market with no lock
+    check (an Under declared YES, an Under on the Over 5.5 market and another day's event fail; the bound Under
+    ships, its live ask 27c off the lock); a refresh build of a card that is not the published one binds side and
+    market (an Under declared YES fails), the published card's refresh keeps its path, and a refresh never checks
+    the lock.
 Run: python3 scripts/test_kalshi_no_side.py [builder.py ...]   (default: both twins)
 """
 import copy, datetime, hashlib, json, os, re, shutil, subprocess, sys, tempfile, warnings
@@ -190,13 +205,30 @@ def card(*picks):
     for i, p in enumerate(m['picks'], 1): p['num'] = i
     return m
 
+# ESPN's scoreboard for the fixture leagues: each team's ESPN abbreviation (CHW for the White Sox, UTAH for Utah, NJ
+# for New Jersey). A total's or a prop's event code binds its game only through these, so every build gets them unless
+# it asks for none (espn=False). No homeAway and no date: the builder's eid binding never matches these events.
+def espn_sb(lg, teams):
+    return [r'site\.api\.espn\.com/apis/site/v2/sports/' + re.escape(lg) + r'/scoreboard',
+            {'events': [{'competitions': [{'competitors': [{'team': {'displayName': n, 'abbreviation': a}} for n, a in teams]}]}]}]
+ESPN = [espn_sb('hockey/nhl', [('St. Louis Blues', 'STL'), ('Dallas Stars', 'DAL'), ('Montreal Canadiens', 'MTL'), ('Toronto Maple Leafs', 'TOR'),
+                               ('Boston Bruins', 'BOS'), ('New York Rangers', 'NYR'), ('Buffalo Sabres', 'BUF'), ('Calgary Flames', 'CGY'),
+                               ('Carolina Hurricanes', 'CAR'), ('Anaheim Ducks', 'ANA'), ('Columbus Blue Jackets', 'CBJ'), ('Colorado Avalanche', 'COL'),
+                               ('Utah Mammoth', 'UTAH'), ('Chicago Blackhawks', 'CHI'), ('Ottawa Senators', 'OTT'), ('Florida Panthers', 'FLA'),
+                               ('New Jersey Devils', 'NJ')]),
+        espn_sb('baseball/mlb', [('Chicago White Sox', 'CHW'), ('Houston Astros', 'HOU'), ('New York Mets', 'NYM'), ('New York Yankees', 'NYY'),
+                                 ('Baltimore Orioles', 'BAL'), ('Toronto Blue Jays', 'TOR'), ('Tampa Bay Rays', 'TB'), ('Boston Red Sox', 'BOS')]),
+        espn_sb('football/nfl', [('Arizona Cardinals', 'ARI'), ('Buffalo Bills', 'BUF'), ('Baltimore Ravens', 'BAL'), ('Cincinnati Bengals', 'CIN')])]
+
 GAME_PAGES = {}
 LEDGER = {}
-def build(builder, manifest, rts, refresh=False, files=None, as_name='build_gh_page_v2.py', extra_env=None):
+def build(builder, manifest, rts, refresh=False, files=None, as_name='build_gh_page_v2.py', extra_env=None, espn=True):
     """files: {name: text} written at the tree root before the build (shipped_books.json, shipped_pick_hash.txt).
     as_name: the builder's file name in the tree (build_gh_page.py for the v1 preview builder).
     extra_env: more environment for the build (RP_PUBLISH=1, the only ledger writer). LEDGER holds the
-    tree's shipped_books.json after the build ({} when none)."""
+    tree's shipped_books.json after the build ({} when none). espn: answer ESPN's scoreboard (ESPN above) after
+    the build's own routes; False leaves ESPN unreachable."""
+    rts = list(rts) + (ESPN if espn else [])
     d = tempfile.mkdtemp(prefix='rp-kalno-')
     try:
         os.makedirs(os.path.join(d, 'scripts')); os.makedirs(os.path.join(d, 'slates')); os.makedirs(os.path.join(d, '_net'))
@@ -276,6 +308,13 @@ def run_tick(page, fn_name, anchors, markets):
 
 def ds(markup):
     return {k: v for k, v in re.findall(r' data-(\w+)="([^"]*)"', markup.split('>', 1)[0])}
+
+def published(builder, manifest):
+    """shipped_pick_hash.txt naming this card as the last published one (the hash only an RP_PUBLISH=1 build writes):
+    a build of it is a display-only rebuild of the published card."""
+    src = open(builder).read(); i = src.index('def _pick_content_hash'); ns = {'json': json, '_hl': hashlib}
+    exec(src[i:src.index('\n_PC_HASH=', i)], ns)
+    return {'shipped_pick_hash.txt': ns['_pick_content_hash'](manifest) + '\n'}
 
 for B in BUILDERS:
     tag = os.path.basename(B)
@@ -403,7 +442,10 @@ for B in BUILDERS:
     GK = 'St. Louis Blues|Dallas Stars|' + PAST[:10]
     shipped = {GK: {'Kalshi': {'link': GURL, 'cents': 41, 'commence': PAST}},
                GK + '|total|6.5|' + TK + '|no': {'Kalshi': {'link': KURL, 'cents': 57, 'commence': PAST}}}
-    rc, page, log = build(B, card(BLUES, U_LIVE), routes(SEVEN), refresh=True, files={'shipped_books.json': json.dumps(shipped)})
+    # the published card rebuilt in play (its fixture event is dated for the pre-game card: a card that was never
+    # published would have its market bound again, and refused, on this build - R below)
+    rc, page, log = build(B, card(BLUES, U_LIVE), routes(SEVEN), refresh=True,
+                          files=dict({'shipped_books.json': json.dumps(shipped)}, **published(B, card(BLUES, U_LIVE))))
     gp_ml, gp_tot = GAME_PAGES.get('game-1.html', ''), GAME_PAGES.get('game-2.html', '')
     row = kal_row(gp_tot)
     check(f'{tag}: H in play, the total\'s game page shows its own pinned NO price (KAL -133, 57c), not the moneyline\'s 41c (+144)',
@@ -472,19 +514,26 @@ for B in BUILDERS:
     rc, page, log = build(B, card(LEAFS_YES_TIE), tie)  # first matching route wins: TOR answers YES 50c / NO 50c
     check(f'{tag}: I an explicit YES at a 50c lock on a YES 50c / NO 50c market ships (a tie is not closer)',
           rc == 0 and attr(chip_for(page, LURL), 'kalpx') == 'yes' and attr(chip_for(page, LURL), 'cents') == '50', log[-400:])
-    # the publish checks stay out of every non-publish path: the wrong-line pick builds and wears its lock
-    for what, mf, kw in (('refresh', card(wrong), {'refresh': True}),
-                         ('in play', card(dict(copy.deepcopy(wrong), game=dict(wrong['game'], commence=PAST))), {}),
-                         ('settled', card(dict(copy.deepcopy(wrong), result='WIN')), {})):
+    # The lock checks are price checks: they stay out of every non-publish path. A settled pick and a display-only
+    # rebuild of the published card (bound when it shipped) keep their existing paths entirely: the wrong-line pick
+    # builds and wears its lock. The market binding is not a price check, so a refresh or in-play build of a card that
+    # is not the published one binds the market again (R below): there the wrong-line pick fails, with no lock check.
+    live_wrong = card(dict(copy.deepcopy(wrong), game=dict(wrong['game'], commence=PAST)))
+    for what, mf, kw in (('settled', card(dict(copy.deepcopy(wrong), result='WIN')), {}),
+                         ('display-only refresh', card(wrong), {'refresh': True, 'files': published(B, card(wrong))}),
+                         ('display-only in-play', live_wrong, {'files': published(B, live_wrong)})):
         rc, page, log = build(B, mf, routes(SEVEN, extra=[SIX]), **kw)
         check(f'{tag}: I {what} build of the wrong-line pick keeps its existing path (exit 0, chip at the 57c lock)',
               rc == 0 and label(chip_for(page, KURL)) == 'KAL -133' and 'from the 57c lock' not in log, log[-600:])
-    src = open(B).read(); i = src.index('def _pick_content_hash'); ns = {'json': json, '_hl': hashlib}
-    exec(src[i:src.index('\n_PC_HASH=', i)], ns)
     mf = card(wrong)
-    rc, page, log = build(B, mf, routes(SEVEN, extra=[SIX]), files={'shipped_pick_hash.txt': ns['_pick_content_hash'](mf) + '\n'})
+    rc, page, log = build(B, mf, routes(SEVEN, extra=[SIX]), files=published(B, mf))
     check(f'{tag}: I display-only build of the wrong-line pick keeps its existing path (exit 0, chip at the 57c lock)',
           rc == 0 and 'DISPLAY-ONLY' in log and label(chip_for(page, KURL)) == 'KAL -133' and 'from the 57c lock' not in log, log[-600:])
+    for what, mf, kw, msg in (('refresh', card(wrong), {'refresh': True}, "the YES of %s-6 is 'Over 5.5 goals scored', line 5.5: the pick's line is 6.5" % EV),
+                              ('in-play', live_wrong, {}, 'event %s is dated %s' % (EV, D))):
+        rc, page, log = build(B, mf, routes(SEVEN, extra=[SIX]), **kw)
+        check(f'{tag}: I a {what} build of the wrong-line pick, not the published card, binds its market and fails (exit 3) with no lock check',
+              rc == 3 and 'BUILD FAILED: Under 6.5 - ' + msg in log and 'from the 57c lock' not in log and not page, log[-600:])
 
     # J. the explicit ticker must be a market of the url's event
     for what, url in (("another event's url", LURL), ('an event url that is only a prefix of the ticker', 'https://kalshi.com/markets/kxnhltotal/' + EV[:-3].lower()),
@@ -525,9 +574,10 @@ for B in BUILDERS:
     led = {PK: {'Kalshi': {'link': PURL, 'cents': 45, 'commence': PAST}},
            PK + '|' + PTA + '|yes': {'Kalshi': {'link': PURL, 'cents': 40, 'commence': PAST}},
            PK + '|' + PTB + '|yes': {'Kalshi': {'link': PURL, 'cents': 47, 'commence': PAST}}}
+    # in play these are rebuilds of the published card (its props' event is dated from SOON, the publish above)
     for refresh in (False, True):
-        rc, page, log = build(B, card(prop_pick('Robert Thomas', PTA, 38, PAST), prop_pick('Jason Robertson', PTB, 45, PAST)),
-                              PROP_ROUTES + routes(SEVEN), refresh=refresh, files={'shipped_books.json': json.dumps(led)})
+        mf = card(prop_pick('Robert Thomas', PTA, 38, PAST), prop_pick('Jason Robertson', PTB, 45, PAST))
+        rc, page, log = build(B, mf, PROP_ROUTES + routes(SEVEN), refresh=refresh, files=dict({'shipped_books.json': json.dumps(led)}, **published(B, mf)))
         got = []
         for gpn, tk in (('game-1.html', PTA), ('game-2.html', PTB)):
             gp = GAME_PAGES.get(gpn, ''); row = kal_row(gp); m = re.search(r' data-mr="(\d+)"', row)
@@ -535,8 +585,8 @@ for B in BUILDERS:
             got.append((re.sub(r'<[^>]+>', ' ', row).split()[-3:-2], '%s-%s' % (attr(row, 'kalticker'), attr(row, 'kalside')), rec.get('mkt'), rec.get('c')))
         check(f'{tag}: L in play (refresh={refresh}) each prop\'s game page wears its own pin and market (Thomas 40c +150, Robertson 47c +113), never the shared 45c slot',
               rc == 0 and got == [(['+150'], PTA, PTA, 40), (['+113'], PTB, PTB, 47)], log[-400:] + str(got))
-    rc, page, log = build(B, card(prop_pick('Robert Thomas', PTA, 38, PAST)), PROP_ROUTES + routes(SEVEN), refresh=True,
-                          files={'shipped_books.json': json.dumps({PK: led[PK]})})
+    mf = card(prop_pick('Robert Thomas', PTA, 38, PAST))
+    rc, page, log = build(B, mf, PROP_ROUTES + routes(SEVEN), refresh=True, files=dict({'shipped_books.json': json.dumps({PK: led[PK]})}, **published(B, mf)))
     row = kal_row(GAME_PAGES.get('game-1.html', ''))
     check(f'{tag}: L an explicit prop never inherits the shared class-key slot (45c): with no pin of its own it wears its 38c lock (+163)',
           rc == 0 and '>KAL +163</a>' in row and 'data-cents="38"' in row, log[-400:] + row)
@@ -549,7 +599,10 @@ for B in BUILDERS:
     check(f'{tag}: M Toronto ML declared NO on Toronto\'s own market (YES 51c / NO 50c, lock 50) fails (exit 3): its side is yes',
           rc == 3 and "BUILD FAILED: Maple Leafs ML - the YES of %s-TOR is 'Toronto', the picked team: its side is yes, the kalshi block says no" % LEV in log and not page, log[-600:])
     rc, page, log = build(B, card(sw), near, refresh=True)
-    check(f'{tag}: M the same card on a refresh build keeps its existing path (publish checks only at pre-game publish)', rc == 0, log[-400:])
+    check(f'{tag}: M the same card on a refresh build, not the published card, has its side bound again: fails (exit 3)',
+          rc == 3 and "BUILD FAILED: Maple Leafs ML - the YES of %s-TOR is 'Toronto', the picked team: its side is yes, the kalshi block says no" % LEV in log, log[-600:])
+    rc, page, log = build(B, card(sw), near, refresh=True, files=published(B, card(sw)))
+    check(f'{tag}: M a refresh of the published card keeps its existing path (its side was bound when it shipped)', rc == 0, log[-400:])
     nom = copy.deepcopy(LEAFS); nom['kalshi'].update(ticker=LEV + '-MTL', side='no', cents=50, gate_cents=50)
     rc, page, log = build(B, card(nom), routes(SEVEN, poison=False))
     ch = chip_for(page, LURL)
@@ -571,12 +624,12 @@ for B in BUILDERS:
           rc == 3 and 'names neither team of the pick or both, so side yes cannot be bound' in log, log[-600:])
     rc, page, log = build(B, card(YANKS), YROUTES)
     ch = chip_for(page, YURL)
-    check(f'{tag}: M same-city teams (New York Y / New York M): kalshi.team, the market code, binds the YES side (ships, 52c)',
+    check(f'{tag}: M same-city teams (New York Y / New York M): the market\'s own code NYY (ESPN\'s Yankees) binds the YES side (ships, 52c)',
           rc == 0 and attr(ch, 'kalpx') == 'yes' and attr(ch, 'cents') == '52', log[-400:] + ch)
     ym = copy.deepcopy(YANKS); ym['kalshi'].update(ticker=YEV + '-NYM', side='yes', cents=49, gate_cents=49)
     rc, page, log = build(B, card(ym), YROUTES)
-    check(f'{tag}: M same-city teams: YES on the other New York market with no name or code tying it to the pick fails (exit 3)',
-          rc == 3 and 'cannot be bound' in log, log[-600:])
+    check(f'{tag}: M same-city teams: YES on the Mets\' market (code NYM, the opponent) fails (exit 3)',
+          rc == 3 and "BUILD FAILED: Yankees ML - the YES of %s-NYM is 'New York M', the opponent: its side is no, the kalshi block says yes" % YEV in log, log[-600:])
 
     # P. the original intent end to end: a + run line priced from its NO ask; the YES side unchanged
     rc, page, log = build(B, card(SOX), spread_routes())
@@ -693,6 +746,117 @@ for B in BUILDERS:
     rc, page, log = build(B, card(q), psr + espn)
     check(f'{tag}: Q the same Penn State game binds through ESPN\'s abbreviation PSU and ships (KAL -233)',
           rc == 0 and label(chip_for(page, q['kalshi']['url'])) == 'KAL -233', log[-600:])
+
+    # R. the binding holds against the second review (Oct 6). Each failing case reads its ticker AND its lock off the
+    # same wrong market; on the previous head each one shipped (exit 0).
+    def rfail(what, rc, page, log, msg):
+        check(f'{tag}: R {what} fails the build (exit 3, no page)', rc == 3 and msg in log and not page, log[-600:])
+    def tot(away, home, lg, league, line, ev, no_c, unit='goals', commence=FUT, side='no', yes_c=None):
+        # an Under on the 'Over <line>' market of event ev, its lock the NO ask (or, side yes, the YES ask yes_c)
+        tk = ev + '-' + str(int(line + 0.5))
+        mk = {'ticker': tk, 'title': 'Over %d %s' % (int(line + 0.5), unit), 'yes_sub_title': 'Over %g %s scored' % (line, unit),
+              'yes_ask_dollars': '%.2f' % ((yes_c or (101 - no_c)) / 100), 'no_ask_dollars': '%.2f' % (no_c / 100), 'status': 'active'}
+        url = 'https://kalshi.com/markets/' + ev.split('-')[0].lower() + '/' + ev.lower()
+        c = no_c if side == 'no' else yes_c
+        pk = {'num': 1, 'name': 'Under %g' % line, 'market_class': 'total', 'line': line, 'sub': '', 'odds': '-110', 'units': '5u', 'side': 'under',
+              'game': {'away': away, 'home': home, 'commence': commence, 'eid': ''}, 'espn_league': lg, 'league': league, 'best_book': 'Kalshi',
+              'kalshi': {'url': url, 'ticker': tk, 'side': side, 'cents': c, 'gate_cents': c, 'team': ''}}
+        return pk, [[r'trade-api/v2/markets/' + tk + r'(\?|$)', {'market': mk}]], url
+    # a total's event code is its only binding to its game: a team code binds only as ESPN's abbreviation of that team.
+    # Spelt from the name, BOS read as Buffalo Sabres, CAR as Calgary Flames, COL as Columbus, TB as Toronto Blue Jays.
+    for what, args, code, teams in (
+            ('BUF @ CGY Under 6.5 on the BOS @ CAR total of the same night (NO 57c lock)',
+             ('Buffalo Sabres', 'Calgary Flames', 'hockey/nhl', 'NHL', 6.5, 'KXNHLTOTAL-' + D + 'BOSCAR', 57), 'BOSCAR', 'Buffalo Sabres at Calgary Flames'),
+            ('ANA @ CBJ Under 5.5 on the COL @ UTAH total of the same night (NO 52c lock)',
+             ('Anaheim Ducks', 'Columbus Blue Jackets', 'hockey/nhl', 'NHL', 5.5, 'KXNHLTOTAL-' + D + 'COLUTAH', 52), 'COLUTAH', 'Anaheim Ducks at Columbus Blue Jackets'),
+            ('ARI @ BUF Under 44.5 on the BAL @ CIN total of the same day (NO 55c lock)',
+             ('Arizona Cardinals', 'Buffalo Bills', 'football/nfl', 'NFL', 44.5, 'KXNFLTOTAL-' + D + 'BALCIN', 55, 'points'), 'BALCIN', 'Arizona Cardinals at Buffalo Bills'),
+            ('BAL @ TOR Under 8.5 on the TB @ BOS total timed at the same start (NO 54c lock)',
+             ('Baltimore Orioles', 'Toronto Blue Jays', 'baseball/mlb', 'MLB', 8.5, 'KXMLBTOTAL-' + dtok(FUT, hhmm=True) + 'TBBOS', 54, 'runs'), 'TBBOS', 'Baltimore Orioles at Toronto Blue Jays')):
+        pk, rt, url = tot(*args)
+        rfail(what, *build(B, card(pk), rt), 'BUILD FAILED: Under %g - event %s is game %s, not %s' % (args[4], args[5], code, teams))
+    for what, args, cents in (('BUF @ CGY Under 6.5 on its own BUF @ CGY total', ('Buffalo Sabres', 'Calgary Flames', 'hockey/nhl', 'NHL', 6.5, 'KXNHLTOTAL-' + D + 'BUFCGY', 57), 'KAL -133'),
+                              ('CHI @ UTAH Under 6.5 on Kalshi\'s CHIUTA (UTA for ESPN\'s UTAH)', ('Chicago Blackhawks', 'Utah Mammoth', 'hockey/nhl', 'NHL', 6.5, 'KXNHLTOTAL-' + D + 'CHIUTA', 57), 'KAL -133'),
+                              ('BAL @ TOR Under 8.5 on its own total timed at its start', ('Baltimore Orioles', 'Toronto Blue Jays', 'baseball/mlb', 'MLB', 8.5, 'KXMLBTOTAL-' + dtok(FUT, hhmm=True) + 'BALTOR', 54, 'runs'), 'KAL -117')):
+        pk, rt, url = tot(*args)
+        rc, page, log = build(B, card(pk), rt)
+        check(f'{tag}: R {what} binds through ESPN\'s abbreviations and ships ({cents})', rc == 0 and label(chip_for(page, url)) == cents, log[-600:])
+    rc, page, log = build(B, card(UNDER), routes(SEVEN), espn=False)
+    rfail('a total whose teams ESPN gives no abbreviation for (ESPN unreachable)', rc, page, log,
+          'BUILD FAILED: Under 6.5 - ESPN gives no abbreviation for St. Louis Blues or Dallas Stars (hockey/nhl)')
+    # a prop names its player in full (Matthew, not only Tkachuk), or its text gives his initial and its ticker his
+    # initial and surname (FLAMTKACHUK19): a same-surname teammate's or opponent's market never binds
+    TKE = 'KXNHLGOAL-' + D + 'OTTFLA'
+    TKURL = 'https://kalshi.com/markets/kxnhlgoal/' + TKE.lower()
+    def tk_mkt(sfx, title, ya, na):
+        return {'ticker': TKE + '-' + sfx, 'title': title + ': 1+ goals', 'yes_sub_title': title, 'yes_ask_dollars': ya, 'no_ask_dollars': na, 'status': 'active'}
+    def tk_pick(player, sfx, cents):
+        q = prop_pick(player, TKE + '-' + sfx, cents, FUT)
+        q.update(sub='OTT @ FLA', game={'away': 'Ottawa Senators', 'home': 'Florida Panthers', 'commence': FUT, 'eid': ''})
+        q['kalshi']['url'] = TKURL
+        return q
+    BTK, MTK, MTKB = tk_mkt('BTKACHUK7', 'Brady Tkachuk', '0.36', '0.66'), tk_mkt('FLAMTKACHUK19', 'M. Tkachuk', '0.40', '0.62'), tk_mkt('OTTBTKACHUK7', 'M. Tkachuk', '0.40', '0.62')
+    tkr = [[r'trade-api/v2/markets/' + m['ticker'] + r'(\?|$)', {'market': m}] for m in (BTK, MTK, MTKB)]
+    rfail('Matthew Tkachuk Over 0.5 goals on Brady Tkachuk\'s 1+ goals market (YES 36c lock)', *build(B, card(tk_pick('Matthew Tkachuk', 'BTKACHUK7', 36)), tkr),
+          "BUILD FAILED: Matthew Tkachuk Over 0.5 goals - %s-BTKACHUK7 does not name the pick's player 'Matthew Tkachuk'" % TKE)
+    rfail('Matthew Tkachuk on a market reading "M. Tkachuk" whose ticker names B Tkachuk (YES 40c lock)', *build(B, card(tk_pick('Matthew Tkachuk', 'OTTBTKACHUK7', 40)), tkr),
+          "BUILD FAILED: Matthew Tkachuk Over 0.5 goals - %s-OTTBTKACHUK7 does not name the pick's player 'Matthew Tkachuk'" % TKE)
+    for what, q, cents in (('Matthew Tkachuk on "M. Tkachuk" with the ticker FLAMTKACHUK19', tk_pick('Matthew Tkachuk', 'FLAMTKACHUK19', 40), 'KAL +150'),
+                           ('Brady Tkachuk on his own market', tk_pick('Brady Tkachuk', 'BTKACHUK7', 36), 'KAL +178')):
+        rc, page, log = build(B, card(q), tkr)
+        check(f'{tag}: R {what} binds and ships ({cents})', rc == 0 and label(chip_for(page, TKURL)) == cents, log[-600:])
+    HEV = 'KXNHLGOAL-' + D + 'NJCAR'
+    LH = {'ticker': HEV + '-NJLHUGHES43', 'title': 'Luke Hughes: 1+ goals', 'yes_sub_title': 'Luke Hughes', 'yes_ask_dollars': '0.20', 'no_ask_dollars': '0.82', 'status': 'active'}
+    q = prop_pick('Jack Hughes', HEV + '-NJLHUGHES43', 20, FUT)
+    q.update(sub='NJ @ CAR', game={'away': 'New Jersey Devils', 'home': 'Carolina Hurricanes', 'commence': FUT, 'eid': ''})
+    q['kalshi']['url'] = 'https://kalshi.com/markets/kxnhlgoal/' + HEV.lower()
+    rfail('Jack Hughes Over 0.5 goals on his teammate Luke Hughes\'s market (YES 20c lock)', *build(B, card(q), [[r'trade-api/v2/markets/' + LH['ticker'] + r'(\?|$)', {'market': LH}]]),
+          "BUILD FAILED: Jack Hughes Over 0.5 goals - %s-NJLHUGHES43 does not name the pick's player 'Jack Hughes'" % HEV)
+    # same-city moneyline: when the names cannot tell the teams apart the market's own code decides (NYM is ESPN's
+    # Mets), never kalshi.team, which is part of the block being checked
+    for team in ('NYM', 'New York M'):
+        q = copy.deepcopy(YANKS); q['kalshi'].update(ticker=YEV + '-NYM', side='yes', cents=49, gate_cents=49, team=team)
+        rfail(f'Yankees ML declared YES on the Mets\' market with kalshi.team {team!r} (YES 49c lock)', *build(B, card(q), YROUTES),
+              "BUILD FAILED: Yankees ML - the YES of %s-NYM is 'New York M', the opponent: its side is no, the kalshi block says yes" % YEV)
+    q = copy.deepcopy(YANKS); q['kalshi'].update(ticker=YEV + '-NYM', side='no', cents=52, gate_cents=52)
+    rc, page, log = build(B, card(q), YROUTES)
+    ch = chip_for(page, YURL)
+    check(f'{tag}: R Yankees ML as NO on the Mets\' market of a two-way event binds through its code and ships (52c NO, data-kalpx no)',
+          rc == 0 and attr(ch, 'kalpx') == 'no' and attr(ch, 'cents') == '52', log[-600:] + ch)
+    # an approved publish of a pick whose game is under way binds its market too (no lock check: an in-play ask is not
+    # an entry price). Its event is dated from the in-play commence.
+    EVP = 'KXNHLTOTAL-' + dtok(PAST) + 'STLDAL'
+    KURLP = 'https://kalshi.com/markets/kxnhltotal/' + EVP.lower()
+    SEVENP, SIXP = dict(SEVEN, ticker=EVP + '-7'), dict(total_mkt('6', '0.62', '0.39'), ticker=EVP + '-6')
+    def live_routes(seven=SEVENP):
+        return [[r'trade-api/v2/markets/' + EVP + r'-7(\?|$)', {'market': seven}], [r'trade-api/v2/markets/' + EVP + r'-6(\?|$)', {'market': SIXP}],
+                [r'markets\?event_ticker=' + EVP + '&', {'markets': [SIXP, seven]}]]
+    ULP = copy.deepcopy(UNDER); ULP['game']['commence'] = PAST; ULP['kalshi'].update(url=KURLP, ticker=EVP + '-7')
+    PUB = {'RP_PUBLISH': '1'}
+    q = copy.deepcopy(ULP); q['kalshi'].update(side='yes', cents=44, gate_cents=44)
+    rfail('an in-play publish of the Under declared YES on the "Over 6.5" market (YES 44c lock)', *build(B, card(q), live_routes(), extra_env=PUB),
+          'BUILD FAILED: Under 6.5 is the under on %s-7, whose YES is the over - its side is no, the kalshi block says yes' % EVP)
+    q = copy.deepcopy(ULP); q['kalshi'].update(ticker=EVP + '-6', cents=39, gate_cents=39)
+    rfail('an in-play publish of the Under 6.5 on the Over 5.5 market (NO 39c lock)', *build(B, card(q), live_routes(), extra_env=PUB),
+          "BUILD FAILED: Under 6.5 - the YES of %s-6 is 'Over 5.5 goals scored', line 5.5: the pick's line is 6.5" % EVP)
+    q = copy.deepcopy(UNDER); q['game']['commence'] = PAST
+    rfail('an in-play publish of the Under on another day\'s market (the pre-game card\'s event)', *build(B, card(q), routes(SEVEN), extra_env=PUB),
+          'BUILD FAILED: Under 6.5 - event %s is dated %s' % (EV, D))
+    for what, seven in (('at its lock', SEVENP), ('with its live NO ask 27c from the lock (no lock check in play)', dict(SEVENP, yes_ask_dollars='0.71', no_ask_dollars='0.30'))):
+        rc, page, log = build(B, card(ULP), live_routes(seven), extra_env=PUB)
+        ch = chip_for(page, KURLP)
+        check(f'{tag}: R an in-play publish of the bound Under ships {what} (KAL -133, data-kalpx no)',
+              rc == 0 and label(ch) == 'KAL -133' and attr(ch, 'kalpx') == 'no' and 'from the 57c lock' not in log, log[-600:] + ch)
+    # a refresh build of a card that is not the published one (it reached main some other way) binds its market and
+    # side; the published card's refresh keeps its path, and a refresh never re-checks the lock
+    u = copy.deepcopy(UNDER); u['kalshi'].update(side='yes', cents=44, gate_cents=44)
+    rfail('a refresh build (not the published card) of the Under declared YES (YES 44c lock)', *build(B, card(u), routes(SEVEN), refresh=True),
+          'BUILD FAILED: Under 6.5 is the under on %s, whose YES is the over - its side is no, the kalshi block says yes' % TK)
+    rc, page, log = build(B, card(u), routes(SEVEN), refresh=True, files=published(B, card(u)))
+    check(f'{tag}: R a refresh of the same card as the published one keeps its existing path (exit 0)', rc == 0, log[-600:])
+    rc, page, log = build(B, card(UNDER), routes(total_mkt('7', '0.70', '0.30')), refresh=True)
+    check(f'{tag}: R a refresh of the bound Under whose NO ask moved 27c from its lock ships at the lock (KAL -133, no lock check)',
+          rc == 0 and label(chip_for(page, KURL)) == 'KAL -133' and 'from the 57c lock' not in log, log[-600:])
 
 # K. the v1 preview builder (card_chain_preview.sh) cannot price a side: it refuses any pick that names one
 V1 = os.path.join(SD, 'build_gh_page.py')
