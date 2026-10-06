@@ -19,6 +19,8 @@ Builds run in a throwaway tree with the network sent to a dead proxy.
 Run: python3 scripts/test_pick_line_hold.py [builder.py ...]   (default: both twins)"""
 import copy, json, os, re, shutil, subprocess, sys, tempfile
 
+from fixtures.card_contract import stamped, market, published_snapshot
+
 SD = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(SD)
 BUILDERS = [os.path.abspath(a) for a in sys.argv[1:]] or [os.path.join(SD, 'build_gh_page_v2.py'), os.path.join(SD, '_build_nocanon_v2.py')]
@@ -41,7 +43,9 @@ def build(builder, manifest, log=None):
             shutil.copy(os.path.join(bsrc if os.path.exists(os.path.join(bsrc, f)) else SD, f), os.path.join(d, 'scripts', f))
         for f in ('feed_arbiter.js', 'feed_registry.json', 'config_leagues.json'):
             shutil.copy(os.path.join(ROOT, f), os.path.join(d, f))
+        manifest=stamped(builder,manifest)
         json.dump(manifest, open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
+        published_snapshot(d,builder,manifest)
         json.dump([], open(os.path.join(d, 'slates', 'odds_prefill.json'), 'w'))
         if log is not None:
             open(os.path.join(d, 'slates', 'owner_rule_suspensions.jsonl'), 'w', encoding='utf-8').write(log)
@@ -67,6 +71,7 @@ def pick(num, name, mclass='spread', side='away', line=None, model=66.0, **extra
          'espn_league': 'hockey/nhl', 'league': 'NHL', 'best_book': 'Kalshi', 'card_source': 'Kalshi ask at lock'}
     if line is not None:
         p['line'] = line
+    p=market(p)
     p.update(extra)
     return p
 def card(picks, **kw):
