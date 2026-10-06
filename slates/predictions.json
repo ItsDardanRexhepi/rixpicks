@@ -1,27 +1,6 @@
 {
- "generated_at": "2026-10-05T23:50:12.679649+00:00",
+ "generated_at": "2026-10-06T00:05:15.205704+00:00",
  "items": [
-  {
-   "id": "d97be2d950",
-   "league": "NBA",
-   "event": "Minnesota Timberwolves @ Milwaukee Bucks",
-   "prediction": "Milwaukee Bucks to beat Minnesota Timberwolves",
-   "kickoff_utc": "2026-10-06T00:00:00+00:00"
-  },
-  {
-   "id": "fdf5c2e142",
-   "league": "MLB",
-   "event": "New York Yankees @ Tampa Bay Rays",
-   "prediction": "Tampa Bay Rays to beat New York Yankees",
-   "kickoff_utc": "2026-10-06T00:00:00+00:00"
-  },
-  {
-   "id": "d9f61f918d",
-   "league": "NHL",
-   "event": "San Jose Sharks @ Dallas Stars",
-   "prediction": "Dallas Stars to beat San Jose Sharks",
-   "kickoff_utc": "2026-10-06T00:00:00+00:00"
-  },
   {
    "id": "1382b5d824",
    "league": "NFL",
@@ -42,6 +21,27 @@
    "event": "Vancouver Whitecaps @ Chicago Fire FC",
    "prediction": "Chicago Fire FC to beat Vancouver Whitecaps",
    "kickoff_utc": "2026-10-07T00:30:00+00:00"
+  },
+  {
+   "id": "af7e3a3dcd",
+   "league": "WNBA",
+   "event": "New York Liberty @ Atlanta Dream",
+   "prediction": "New York Liberty to beat Atlanta Dream",
+   "kickoff_utc": "2026-10-07T23:30:00+00:00"
+  },
+  {
+   "id": "4bae28357a",
+   "league": "WNBA",
+   "event": "Las Vegas Aces @ Golden State Valkyries",
+   "prediction": "Las Vegas Aces to beat Golden State Valkyries",
+   "kickoff_utc": "2026-10-08T01:30:00+00:00"
+  },
+  {
+   "id": "3acc99a6ea",
+   "league": "CFB",
+   "event": "Iowa Hawkeyes @ Washington Huskies",
+   "prediction": "Washington Huskies to beat Iowa Hawkeyes",
+   "kickoff_utc": "2026-10-10T01:00:00+00:00"
   }
  ]
 }
