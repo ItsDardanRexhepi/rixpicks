@@ -1,0 +1,37 @@
+{
+  "about": "Audit annotations for manifests/manifest-757f7fb6b138.json, the Oct 1 card filed late on Oct 2. That snapshot is content-addressed (its name is the first 12 hex digits of its own SHA-256) and stays byte-for-byte as filed; this file qualifies three of its fields instead of editing it. It changes no pick, price, stake, result, record or unit value.",
+  "snapshot": "manifests/manifest-757f7fb6b138.json",
+  "snapshot_sha256": "757f7fb6b1387ba4b02b5e3b6c972a5e67933cedea0ae74b414357a3a59fb86a",
+  "snapshot_filed": "commit 4ee163d31 at 2026-10-02T21:36:33Z (the snapshot's own provenance.filed_at reads 2026-10-02T21:36:15Z)",
+  "fields": [
+    {
+      "field": "provenance.posted",
+      "as_filed": "IG 2026-10-01T14:51Z instagram.com/p/Dd9MAIZDtrK",
+      "audited": "The Instagram post Dd9MAIZDtrK was uploaded at 2026-10-01T15:03:40Z (8:03 AM PT), decoded from its post code, and was reported live at 15:06:15Z. 14:51:28Z is when the order to post the card was relayed, not when it was posted. Both times are before the first game on the card (Flyers at Devils, 2026-10-01T23:00Z).",
+      "evidence": [
+        "Post code Dd9MAIZDtrK decodes (base64 alphabet A-Z a-z 0-9 - _) to media id 3998404829743340234; its top bits (id >> 23) are milliseconds after the Instagram epoch 1314220021721, which gives 2026-10-01T15:03:40.811Z.",
+        "Internal operations log: the order to post the card was relayed at 2026-10-01T14:51:28Z; the post was reported live at 2026-10-01T15:06:15Z (https://www.instagram.com/p/Dd9MAIZDtrK/).",
+        "Record audit ultrix 40d4e39, rixpicks/RECORD_AUDIT_2026-10-02.md, C9."
+      ]
+    },
+    {
+      "field": "updated",
+      "as_filed": "Oct 1, 7:51 AM PT",
+      "audited": "Reconstructed when the snapshot was filed on Oct 2: 7:51 AM PT is the 14:51Z order-relay time, not a site update. No site build carried this card on Oct 1. manifest.json went from the Sep 30 card (e42048614, Sep 30 5:36 PM PT) straight to the Oct 1 no-picks card (0aa2e5adb, Oct 1 8:48 AM PT, no picks). 7:51 AM PT is also before the 8:03 AM PT upload.",
+      "evidence": [
+        "git log origin/main -- manifest.json: no commit between e42048614 (2026-09-30T17:36:10-07:00) and 0aa2e5adb (2026-10-01T08:48:31-07:00, 'Empty-day card Oct 1: no official picks').",
+        "Record audit ultrix 40d4e39, rixpicks/RECORD_AUDIT_2026-10-02.md, M3."
+      ]
+    },
+    {
+      "field": "units_pl",
+      "as_filed": "+8.76u",
+      "audited": "Reconstructed at filing, on the 6u Sep 25 Astros stake that was on the record only from c4bebd257 (Oct 2 21:34Z) until its reversal to 10u in 70627f79c (Oct 2 23:43Z). On the morning of Oct 1 the site showed 21-11, +4.76u, and on the 10u stake now on the record the 21-11 total before Oct 1 is +4.76u again.",
+      "evidence": [
+        "manifest.json units_pl: +4.76u at e42048614 and at 0aa2e5adb (Oct 1 card, record 21-11); first +8.76u at c4bebd257 (the 10u to 6u correction); +8.69u for 24-12 after the 6u to 10u reversal at 70627f79c.",
+        "Record audit ultrix 40d4e39, rixpicks/RECORD_AUDIT_2026-10-02.md, M3 (and C1, since applied)."
+      ]
+    }
+  ],
+  "annotated": "2026-10-06"
+}
