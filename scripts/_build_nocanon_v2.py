@@ -60,21 +60,29 @@ RP_DESIGN='2.0.0' if _V2 else '1.2.0'  # locked design system version - bump onl
 
 def _pt_date(iso):
     # Sep 26 builder fix: real America/Los_Angeles conversion - a hard-coded UTC-7 is wrong in PST.
-    # '' unless the timestamp carries an explicit UTC offset ('Z' or +hh:mm): a zoneless timestamp is never read in
-    # the machine's own zone (astimezone() on a naive datetime does that), so a card dates the same on a Pacific
-    # laptop and a UTC runner.
+    # A zoneless timestamp is read as UTC, the builder's one convention for a naive commence (the ledger carryover
+    # check, _eid_resolve's time match), never in the machine's own zone (astimezone() on a naive datetime does
+    # that), so a card dates the same on a Pacific laptop and a UTC runner. Every caller gets a date for it: the
+    # eid check, the card date behind the shipped-ledger pin, game rooms and pages, team pages. '' only when the
+    # timestamp cannot be read.
     try:
         import datetime as _dt
         from zoneinfo import ZoneInfo
         t=_dt.datetime.fromisoformat((iso or '').replace('Z','+00:00'))
-        if t.tzinfo is None or t.utcoffset() is None: return ''
+        if t.tzinfo is None or t.utcoffset() is None: t=t.replace(tzinfo=_dt.timezone.utc)
         return t.astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat()
     except Exception: return ''
 def _pt_day(iso):
-    # _pt_date as a datetime.date, else None
-    d=_pt_date(iso)
-    import datetime as _dt
-    return _dt.date.fromisoformat(d) if d else None
+    # The owner-suspension date binding (_owner_waivers) only, stricter than _pt_date: the Pacific calendar date
+    # (datetime.date) of a timestamp that carries an explicit UTC offset ('Z' or +hh:mm), else None - a waiver
+    # never guesses a zone, so a zoneless commence binds to no date and is held.
+    try:
+        import datetime as _dt
+        t=_dt.datetime.fromisoformat((iso or '').replace('Z','+00:00'))
+        if t.tzinfo is None or t.utcoffset() is None: return None
+        d=_pt_date(iso)
+        return _dt.date.fromisoformat(d) if d else None
+    except Exception: return None
 
 man=json.load(open(sys.argv[1]))
 # --- pick-content hash gate (permanent): price ship conditions gate pick CONTENT only.
@@ -428,11 +436,11 @@ def _standing_rule_holds(m):
 # them negated: a no/not/non-/never/without/neither/nor/none/n't word earlier in its clause, or a bare "no" right
 # after it, refuses the waiver - "not owner-directed" and "no owner directive" disclose nothing); no logged name is
 # on more than one card pick and no name is logged twice with different entries; and every waived pick plays on
-# the logged date (its game.commence, which must carry an explicit UTC offset, read in America/Los_Angeles - a
-# zoneless commence is never read in the machine's own zone, so it binds to no date) and carries exactly its logged
-# eid (game.eid) and units. Never suspendable: a Las Vegas team, units off the ladder, a card ask at or above the
-# 85c cut, a card price that is not the best recorded ask, a spread name or pick_line that disagrees with its line,
-# every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly as
+# the logged date (its game.commence, which must carry an explicit UTC offset, read in America/Los_Angeles by _pt_day
+# - stricter than _pt_date, which reads a zoneless commence as UTC: here it binds to no date) and carries exactly its
+# logged eid (game.eid) and units. Never suspendable: a Las Vegas team, units off the ladder, a card ask at or above
+# the 85c cut, a card price that is not the best recorded ask, a spread name or pick_line that disagrees with its
+# line, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly as
 # before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record: a date that
 # is not a YYYY-MM-DD calendar date, or a logged_at without an explicit UTC offset, included) waives nothing. The
 # log is read only for a held card, so a card with no holds builds identically.
