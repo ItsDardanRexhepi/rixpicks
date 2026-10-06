@@ -1,3 +1,4 @@
+from fixtures.card_contract import stamped
 #!/usr/bin/env python3
 """What the system is learning (Home, owner directive Oct 2: the site shows what the system is
 learning, in real time, as picks grade). The builder bakes a Home-only section from history.json and
@@ -355,7 +356,7 @@ def build(builder):
             shutil.copy(os.path.join(SD, f), os.path.join(d, 'scripts', f))
         for f in ('feed_arbiter.js', 'feed_registry.json', 'config_leagues.json'):
             shutil.copy(os.path.join(ROOT, f), os.path.join(d, f))
-        json.dump(CARD, open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
+        json.dump(stamped(builder,CARD), open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
         json.dump(BUILD_HIST, open(os.path.join(d, 'history.json'), 'w'), indent=1)
         json.dump([], open(os.path.join(d, 'slates', 'odds_prefill.json'), 'w'))
         env = dict(os.environ, RP_REFRESH='1', http_proxy=DEAD, https_proxy=DEAD, HTTP_PROXY=DEAD, HTTPS_PROXY=DEAD)
