@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Generate a self-contained index.html ('RixPicks picks page) for GitHub Pages from a manifest JSON.
 Usage: build_gh_page.py manifest.json [outfile]
-Manifest: {date_label, status_note, record, updated, picks:[{num,name,sub,odds,best_book,side,game:{away,home}|null,espn_league}], parlay:{legs:[...],note}|null}
+Manifest: {date_label, status_note, record, updated, picks:[{num,name,sub,odds,best_book,side,game:{away,home}|null,espn_league,[line],[pick_line]}], parlay:{legs:[...],note}|null}
+A spread's line is the HOME spread (graded so); optional pick_line is the same line from the picked side, checked, never shown.
 A card with a pick on or against a Las Vegas team, or units off the J-096 ladder, is held (exit 3): owner ruling 2026-10-02 (4).
 Only its numeric bars can be waived, for logged picks (name, eid, units) played on one date with the disclosure in card_note, by a logged owner suspension (slates/owner_rule_suspensions.jsonl).
 DESIGN LOCKED (user, Sep 24 10:50 PM): this template IS the app design system. Daily builds change picks
@@ -59,11 +60,29 @@ RP_DESIGN='2.0.0' if _V2 else '1.2.0'  # locked design system version - bump onl
 
 def _pt_date(iso):
     # Sep 26 builder fix: real America/Los_Angeles conversion - a hard-coded UTC-7 is wrong in PST.
+    # A zoneless timestamp is read as UTC, the builder's one convention for a naive commence (the ledger carryover
+    # check, _eid_resolve's time match), never in the machine's own zone (astimezone() on a naive datetime does
+    # that), so a card dates the same on a Pacific laptop and a UTC runner. Every caller gets a date for it: the
+    # eid check, the card date behind the shipped-ledger pin, game rooms and pages, team pages. '' only when the
+    # timestamp cannot be read.
     try:
         import datetime as _dt
         from zoneinfo import ZoneInfo
-        return _dt.datetime.fromisoformat((iso or '').replace('Z','+00:00')).astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat()
+        t=_dt.datetime.fromisoformat((iso or '').replace('Z','+00:00'))
+        if t.tzinfo is None or t.utcoffset() is None: t=t.replace(tzinfo=_dt.timezone.utc)
+        return t.astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat()
     except Exception: return ''
+def _pt_day(iso):
+    # The owner-suspension date binding (_owner_waivers) only, stricter than _pt_date: the Pacific calendar date
+    # (datetime.date) of a timestamp that carries an explicit UTC offset ('Z' or +hh:mm), else None - a waiver
+    # never guesses a zone, so a zoneless commence binds to no date and is held.
+    try:
+        import datetime as _dt
+        t=_dt.datetime.fromisoformat((iso or '').replace('Z','+00:00'))
+        if t.tzinfo is None or t.utcoffset() is None: return None
+        d=_pt_date(iso)
+        return _dt.date.fromisoformat(d) if d else None
+    except Exception: return None
 
 man=json.load(open(sys.argv[1]))
 # --- pick-content hash gate (permanent): price ship conditions gate pick CONTENT only.
@@ -176,15 +195,62 @@ _sanitize_man(man)
 # net below the class bar, units over the J-096 rung of its fair, a card_american that is not the best ask of its
 # recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from each pick's "model X"
 # sub (build_manifest's own shape) or its best_ask block; a pick whose fair and card price cannot be read is left
-# unchecked on the numeric bars (never falsely held). The Vegas rule is build_manifest.vegas_hit's: Raiders (NFL),
-# Golden Knights (NHL), Aces (WNBA), Athletics/A's (MLB), UNLV (college); a nickname counts only inside its own
-# league (Texas Tech Red Raiders is no Vegas team), 'Las Vegas', 'Vegas' and UNLV in any league, and the individual
-# sports (racing, golf, tennis, MMA, boxing) have no teams. An earlier card's manifests/ snapshot, rebuilt below for
-# its game pages, is not gated. The one exception is logged, narrow and numeric-only: see the owner suspension below.
-_VEGAS_NICK={'football/nfl':('raiders',),'hockey/nhl':('golden knights',),'basketball/wnba':('aces',),
-             'baseball/mlb':('athletics',"a's"),'football/college-football':('unlv',),
-             'basketball/mens-college-basketball':('unlv',),'basketball/womens-college-basketball':('unlv',)}
-_VEGAS_ANY=('las vegas','vegas','unlv')
+# unchecked on the numeric bars (never falsely held). The Vegas rule is the contract block below, the same block
+# build_manifest.vegas_hit runs: a league's Vegas nickname, home city or abbreviation as whole words anywhere in a
+# team or pick name (Raiders NFL, Golden Knights NHL, Aces WNBA, Athletics/A's MLB), 'Las Vegas', 'Vegas' or UNLV in
+# any league, only a named non-Vegas team let through, no teams in the individual sports. A spread pick's name and an optional pick_line must agree with its stored line read from the
+# picked side (_pick_line_holds), and every best_ask quote of a spread, total or prop names that same line (one line,
+# one market: _best_ask_line_holds). An earlier card's manifests/ snapshot, rebuilt below for its game pages, is not
+# gated. The one exception is logged, narrow and numeric-only: see the owner suspension below.
+# >>> vegas-rule contract copy (build_manifest.py and both page-builder twins carry this block byte for byte;
+# scripts/test_vegas_rule_exact.py checks the copies and runs one case table through each)
+# Owner rule L-VEGAS-GATE-001 (Sep 25): "never gamble on or against any Vegas teams ever" and "Exclude A's going
+# forward from today too". A pick is out when any of its strings - game.away, game.home or the pick name, each
+# read case-, space- and punctuation-blind - carries as whole words, anywhere in it:
+#  - 'Las Vegas', 'Vegas' or 'UNLV': a team named for Las Vegas, or UNLV, is a Vegas team in every team league;
+#  - or one of its league's Vegas words in _VEGAS_WORDS: the nickname (Raiders NFL, Golden Knights NHL, Aces WNBA,
+#    Athletics/A's MLB), a home city the team has played under, or an abbreviation. A Vegas word counts only in its
+#    own league: 'LV' is the Raiders in the NFL and the Aces in the WNBA, nothing in the NBA, and the Wright State
+#    Raiders in college basketball are no Vegas team.
+# Anywhere means anywhere: 'Raiders 1H +3.5', "A's F5 ML", 'Brock Bowers (LV) over 4.5 receptions', "Sacramento
+# A's" and 'Golden Knights (VGK)' all count. The one way out is by name: each non-Vegas team in _VEGAS_NOT (Texas
+# Tech Red Raiders, Evansville Purple Aces, UCF Golden Knights, ...) is blanked out of a string before it is read,
+# so that team filed under the nickname's league builds, while any other Vegas word in the same string still holds
+# the pick. Nothing else ever narrows the rule. An entry there is a whole multi-word team name, never a Vegas word
+# on its own, and never carries 'Vegas', 'Las Vegas' or 'UNLV'.
+# The individual sports (racing, golf, tennis, MMA, boxing) have no teams: a NASCAR race at Las Vegas Motor
+# Speedway is no Vegas team. The league is read case- and space-blind ('Hockey/NHL ' is the NHL).
+_VEGAS_WORDS = {
+    'football/nfl': ('raiders', 'oakland', 'lv'),
+    'hockey/nhl': ('golden knights', 'vgk'),
+    'basketball/wnba': ('aces', 'lv', 'lva'),
+    'baseball/mlb': ('athletics', "a's", 'oakland', 'sacramento', 'ath', 'oak'),
+}
+_VEGAS_CITY = ('las vegas', 'vegas', 'unlv')
+_VEGAS_NOT = ('red raiders', 'colgate raiders', 'wright state raiders', 'purple aces', 'ucf golden knights',
+              'clarkson golden knights')
+_VEGAS_NO_TEAMS = ('racing', 'golf', 'tennis', 'mma', 'boxing')
+
+
+def _vg_words(s):
+    """' <words> ': lower-cased, each run of characters other than a-z, 0-9 and the apostrophe one space."""
+    return ' ' + re.sub(r"[^a-z0-9']+", ' ', str(s or '').lower().replace('\u2019', "'")) + ' '
+
+
+def vegas_hit_fields(league, fields):
+    """'<field> <value>' for the first (field, value) that puts a Las Vegas team on this pick, else None."""
+    lg = str(league or '').strip().lower()
+    if lg.split('/')[0] in _VEGAS_NO_TEAMS:
+        return None
+    for f, v in fields:
+        w = _vg_words(v)
+        for n in _VEGAS_NOT:
+            while f' {n} ' in w:
+                w = w.replace(f' {n} ', ' ')
+        if any(f' {n} ' in w for n in _VEGAS_CITY + _VEGAS_WORDS.get(lg, ())):
+            return f'{f} {v!r}'
+    return None
+# <<< vegas-rule contract copy
 _UNIT_LADDER=('5u','10u','15u','100u')
 # numeric bars, mirroring build_manifest.py (bar_problems / j096_rung); the page builder re-checks them
 # from the manifest's own fields because a sub-bar card.json can land outside build_manifest.
@@ -236,19 +302,112 @@ def _j096_rung(fair,gross):
     if fair>=70: return 10 if gross>=3 else 5
     if fair>=60: return 5
     return 0
+def _pick_mclass(p):
+    # One market class per pick, used by chips, the pick row and the client verdict.
+    # build_manifest.py writes market_class (ml|spread|total|prop); legacy hand manifests mark a
+    # spread with market:'spread' and a total only by its over/under side.
+    mc=str(p.get('market_class') or '').lower()
+    if mc in ('ml','spread','total','prop'): return mc
+    if p.get('market')=='spread': return 'spread'
+    if p.get('market')=='total': return 'total'
+    if p.get('player') or p.get('market'): return 'prop' if p.get('side') in ('over','under') else 'ml'
+    if p.get('side') in ('over','under'): return 'total'
+    return 'ml'
+def _line_num(v):
+    # a line as a finite number (a numeric string reads as the page reads it), else None; a bool is no line
+    if isinstance(v,bool): return None
+    try: f=float(v)
+    except (TypeError,ValueError): return None
+    return f if f==f and abs(f)!=float('inf') else None
+# --- pick_line (optional manifest field) and the spread pick name. LINE CONVENTION, unchanged and graded as is: a
+# spread pick's 'line' is the HOME spread whichever side is picked (build_manifest, st_card_candidates.adapt_alt,
+# finals_watch, record_final.score_result: diff = home + line - away, home covers when diff > 0), so the away
+# pick 'Flyers +1.5' is stored line -1.5 and the home pick 'Lightning -1.5' line -1.5; a total's (and a prop's)
+# 'line' is the number itself. pick_line is that line read from the PICKED side: spread away -> -line, spread
+# home -> line, total/prop -> line. It is optional, never graded and never rendered (the page already reads the
+# picked side's number through _pick_line); when present it must equal that derived value. A spread pick whose
+# name ends in its line ('Flyers +1.5', read by _name_line, the page's own fallback reader) must name the picked
+# side's line. A pick_line that is not a number, sits on a moneyline, or has no numeric line (or a spread side
+# other than home/away) to check against is held too. These holds are integrity checks, never suspendable.
+# _name_line: the line a pick name ends in, as written ('Flyers +1.5' -> '+1.5'), else None. A typographic
+# minus or plus (U+2212, U+2012, U+2013, U+FE62/3, U+FF0B/D) reads as '-' or '+'; one trailing American price
+# ('-110', '(+105)', '@ -120': a signed whole number of three or more digits, never a spread) is not the line; and a
+# digit glued to a letter or a decimal point is no number, so 'Yankees -0.5 F5', 'Celtics -2.5 Q1' and
+# 'Flyers +1.5 P1' end in no line and are not read as 5 or 1. A name that ends in no line is not checked.
+def _name_line(name):
+    # self-contained (fixtures lift it out by AST beside _pick_line)
+    s=str(name or '').translate({0x2212:'-',0x2012:'-',0x2013:'-',0xfe63:'-',0xff0d:'-',0xfe62:'+',0xff0b:'+'})
+    s=re.sub(r'\s*\(?\s*@?\s*[+-]\d{3,}\s*\)?\s*$','',s,count=1)
+    mo=re.search(r'(?:(?<![\d.])([+-])|(?<![\w.+-]))(\d+(?:\.\d+)?)\s*$',s)
+    return (mo.group(1) or '')+mo.group(2) if mo else None
+def _pick_line_holds(p):
+    out=[]
+    mc,side,ln=_pick_mclass(p),p.get('side'),_line_num(p.get('line'))
+    der=None
+    if ln is not None and mc=='spread' and side in ('home','away'): der=(0.0-ln) if side=='away' else ln
+    elif ln is not None and mc in ('total','prop'): der=ln
+    if p.get('pick_line') is not None:
+        pl=p['pick_line']
+        if isinstance(pl,bool) or not isinstance(pl,(int,float)) or _line_num(pl) is None:
+            out.append(('pick_line',f"pick_line {pl!r} is not a number"))
+        elif mc=='ml':
+            out.append(('pick_line',f"pick_line {pl:+g} on a moneyline pick (a moneyline has no line)"))
+        elif der is None:
+            out.append(('pick_line',f"pick_line {pl:+g} has no {mc} line to check against (line {p.get('line')!r}, side {side!r})"))
+        elif abs(pl-der)>1e-9:
+            out.append(('pick_line',(f"pick_line {pl:+g} is not the {side} side's line {der:+g} (line {ln:+g} is the home spread)"
+                                     if mc=='spread' else f"pick_line {pl:+g} is not its {mc} line {der:g}")))
+    if mc=='spread' and der is not None:
+        nl=_name_line(p.get('name'))
+        if nl is not None and abs(float(nl)-der)>1e-9:
+            out.append(('spread_name',f"name says {nl} but the {side} side's line is {der:+g} (line {ln:+g} is the home spread)"))
+    return out
+# --- one line, one market (build_manifest.quote_line_problem, re-read here from the manifest's own best_ask). A venue's
+# quote prices one line: Kalshi lists half-point rungs and a book posts whole numbers with a push, so a book's -3 is
+# another market than Kalshi's 2.5 rung and can never be its best ask. On a spread, total or prop pick every quote in
+# best_ask (the block itself and each compared entry) from a venue other than Kalshi names its line, read from the
+# picked side as pick_line is ('Falcons +2.5' quotes +2.5, 'Under 54.5' quotes 54.5), and it must be the pick's own;
+# a quote on a moneyline names none. Kalshi's quote is the kalshi block's own market, so it names a line only
+# optionally, and then the same one. An integrity check like the spread-name hold: never suspendable.
+def _best_ask_line_holds(p):
+    ba=p.get('best_ask')
+    if not isinstance(ba,dict): return []
+    mc,side,ln=_pick_mclass(p),p.get('side'),_line_num(p.get('line'))
+    own=None
+    if ln is not None and mc=='spread' and side in ('home','away'): own=(0.0-ln) if side=='away' else ln
+    elif ln is not None and mc in ('total','prop'): own=ln
+    fmt=(lambda x:f'{x:+g}') if mc=='spread' else (lambda x:f'{x:g}')
+    comp=ba.get('compared') if isinstance(ba.get('compared'),list) else []
+    out=[]
+    for where,q in [('best_ask',ba)]+[(f'best_ask.compared[{i}]',q) for i,q in enumerate(comp)]:
+        if not isinstance(q,dict): continue
+        v=str(q.get('venue') or '').strip().lower()
+        if mc not in ('spread','total','prop'):
+            if q.get('line') is not None:
+                out.append(('best_ask_line',f"{where}: a {v} quote at line {q['line']!r} is another market than a moneyline"))
+            continue
+        if q.get('line') is None:
+            if v!='kalshi':
+                out.append(('best_ask_line',f"{where}: a {v} quote on a {mc} pick names no line - only the pick's own line is its market (a book's -3 is never the best ask of Kalshi's 2.5 rung)"))
+            continue
+        ql=_line_num(q['line'])
+        if ql is None:
+            out.append(('best_ask_line',f"{where}: {v} line {q['line']!r} is not a number"))
+        elif own is None:
+            out.append(('best_ask_line',f"{where}: the pick's own line cannot be read (line {p.get('line')!r}, side {side!r}) to bind a {v} quote at {fmt(ql)}"))
+        elif abs(ql-own)>1e-9:
+            out.append(('best_ask_line',f"{where}: a {v} quote at line {fmt(ql)} is another market than the pick's own {fmt(own)} - a book's -3 is never the best ask of Kalshi's 2.5 rung"))
+    return out
 def _standing_rule_holds(m):
     out=[]
     picks=[p for p in (m.get('picks') or []) if isinstance(p,dict)]
     for i,p in enumerate(picks,1):
         who=f"pick {i} {p.get('name')!r}"
-        lg=str(p.get('espn_league') or '').strip().lower()
         g=p.get('game') if isinstance(p.get('game'),dict) else {}
-        if lg.split('/')[0] not in ('racing','golf','tennis','mma','boxing'):
-            names=_VEGAS_ANY+_VEGAS_NICK.get(lg,())
-            for f,v in (('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))):
-                w=' '+re.sub(r"[^a-z0-9']+",' ',str(v or '').lower().replace('\u2019',"'"))+' '
-                if any(' '+n+' ' in w for n in names):
-                    out.append((p.get('name'),'vegas',f"{who}: Las Vegas team ({f} {v!r}) - never on or against a Vegas team")); break
+        _vh=vegas_hit_fields(p.get('espn_league'),(('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))))
+        if _vh: out.append((p.get('name'),'vegas',f"{who}: Las Vegas team ({_vh}) - never on or against a Vegas team"))
+        for _k,_why in _pick_line_holds(p): out.append((p.get('name'),_k,f"{who}: {_why}"))
+        for _k,_why in _best_ask_line_holds(p): out.append((p.get('name'),_k,f"{who}: {_why}"))
         if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
             out.append((p.get('name'),'units_ladder',f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)"))
         # numeric standing bars (read the fair and the card price from this pick's own fields)
@@ -311,16 +470,52 @@ def _standing_rule_holds(m):
 # the item is a numeric bar (fair below the 60c band, gross below the 2c bar, net below the class bar, units over
 # the J-096 rung of its fair) and its pick name is exactly a logged name - and the whole waiver is refused (nothing
 # waived) unless ALL of these hold: the card_note, the note the page actually renders, carries the disclosure
-# ("owner-directed" or "owner directive", and "sub-bar", any case); no logged name is on more than one card pick
-# and no name is logged twice with different entries; and every waived pick plays on the logged date (its
-# game.commence in Pacific time) and carries exactly its logged eid (game.eid) and units. Never suspendable: a Las
-# Vegas team, units off the ladder, a card ask at or above the 85c cut, a card price that is not the best recorded
-# ask, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly
-# as before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record) waives
-# nothing. The log is read only for a held card, so a card with no holds builds identically.
+# stated positively ("owner-directed" or "owner directive", and "sub-bar", any case, as whole words, and none of
+# them negated: a no/not/non-/never/without/neither/nor/none/n't word earlier in its clause, or a bare "no" right
+# after it, refuses the waiver - "not owner-directed" and "no owner directive" disclose nothing); no logged name is
+# on more than one card pick and no name is logged twice with different entries; and every waived pick plays on
+# the logged date (its game.commence, which must carry an explicit UTC offset, read in America/Los_Angeles by _pt_day
+# - stricter than _pt_date, which reads a zoneless commence as UTC: here it binds to no date) and carries exactly its
+# logged eid (game.eid) and units. Never suspendable: a Las Vegas team, units off the ladder, a card ask at or above
+# the 85c cut, a card price that is not the best recorded ask, a spread name or pick_line that disagrees with its
+# line, a best-ask quote at another line, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly as
+# before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record: a date that
+# is not a YYYY-MM-DD calendar date, or a logged_at without an explicit UTC offset, included) waives nothing. The
+# log is read only for a held card, so a card with no holds builds identically.
 _SUSPEND_RULE='2026-10-02 (4)'
 _SUSPEND_KINDS=frozenset(('fair_band','gross_bar','net_bar','units_over_rung'))
 _SUSPEND_LOG=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','slates','owner_rule_suspensions.jsonl')
+def _ymd(v):
+    # a strict 'YYYY-MM-DD' calendar date (datetime.date), else None
+    if not (isinstance(v,str) and re.fullmatch(r'\d{4}-\d{2}-\d{2}',v)): return None
+    try:
+        import datetime as _dt
+        return _dt.date.fromisoformat(v)
+    except ValueError: return None
+def _aware_ts(v):
+    # an ISO timestamp WITH an explicit UTC offset ('Z' or +hh:mm) as an aware datetime, else None
+    try:
+        import datetime as _dt
+        t=_dt.datetime.fromisoformat(v.replace('Z','+00:00'))
+    except Exception: return None
+    return t if t.tzinfo is not None and t.utcoffset() is not None else None
+_DISCLOSE_RX=re.compile(r"(?<![a-z0-9])(owner-directed|owner directives?|sub-bars?)(?![a-z0-9])")
+_DISCLOSE_NEG=frozenset(('no','not','non','never','without','neither','nor','none','nothing','nobody','cannot',
+                         'lacks','lacking','absent','excluding','except'))
+_CLAUSE_CUT=re.compile(r"[.;:!?()\[\]{},\n]|\s[-\u2013\u2014]+\s|[\u2013\u2014]")
+def _disclosure_problem(note):
+    # -> None when the card_note discloses positively ("owner-directed" or "owner directive", and "sub-bar"), else why
+    cn=note.lower().replace('\u2019',"'") if isinstance(note,str) else ''
+    seen=set()
+    for mo in _DISCLOSE_RX.finditer(cn):
+        clause=_CLAUSE_CUT.split(cn[:mo.start()])[-1]
+        neg=any(w in _DISCLOSE_NEG or w.endswith("n't") for w in re.findall(r"[a-z]+(?:'[a-z]+)?",clause))
+        tail=re.match(r"\s*[:?=\-\u2013\u2014]\s*(?:no|not|none|false|n/a)\s*(?:[.;,!?)\n]|$)",cn[mo.end():])
+        if neg or tail:
+            return f'"{mo.group(1)}" is negated ("{(clause.strip()+" "+mo.group(1)).strip()}{tail.group(0).rstrip() if tail else ""}")'
+        seen.add('sub-bar' if mo.group(1).startswith('sub-bar') else 'owner')
+    if seen!={'owner','sub-bar'}: return 'it is missing'
+    return None
 def _suspension_records(path):
     # -> (records, None), or (None, why) when the log cannot be trusted as a whole (fail closed)
     try: raw=open(path,encoding='utf-8').read()
@@ -335,18 +530,21 @@ def _suspension_records(path):
                 and isinstance(r.get('picks'),list) and r['picks']
                 and all(isinstance(x,dict) and all(_s(x.get(k)) for k in ('name','eid','units')) for x in r['picks'])):
             return None,f'line {n} is not a well-formed suspension record'
+        if _ymd(r['date']) is None: return None,f"line {n} date {r['date']!r} is not a YYYY-MM-DD calendar date"
+        if _aware_ts(r['logged_at']) is None: return None,f"line {n} logged_at {r['logged_at']!r} has no explicit UTC offset"
         recs.append(r)
     return recs,None
 def _owner_waivers(m,holds):
     # -> ([(held item, approved)], note when a suspension for this date exists but waives nothing, or None)
     recs,bad=_suspension_records(_SUSPEND_LOG)
     if recs is None: return [],f'slates/owner_rule_suspensions.jsonl {bad} - nothing waived'
-    d=m.get('date')
-    lines=[r for r in recs if isinstance(d,str) and r['date']==d and r['rule']==_SUSPEND_RULE and r['scope']=='numeric']
+    d=m.get('date'); dday=_ymd(d)  # every date compared below is a calendar date in America/Los_Angeles
+    lines=[r for r in recs if dday is not None and _ymd(r['date'])==dday and r['rule']==_SUSPEND_RULE and r['scope']=='numeric']
     if not lines: return [],None
-    cn=m.get('card_note').lower() if isinstance(m.get('card_note'),str) else ''
-    if not (('owner-directed' in cn or 'owner directive' in cn) and 'sub-bar' in cn):
-        return [],f'the {d} suspension needs the card_note disclosure ("owner-directed" or "owner directive", and "sub-bar") - nothing waived'
+    _dp=_disclosure_problem(m.get('card_note'))
+    if _dp:
+        return [],(f'the {d} suspension needs the card_note disclosure stated positively ("owner-directed" or "owner directive", '
+                   f'and "sub-bar"); {_dp} - nothing waived')
     logged={}
     for r in lines:
         for e in r['picks']:
@@ -363,8 +561,11 @@ def _owner_waivers(m,holds):
         (eid,units),appr=logged[name]
         p=next((p for p in cards if p.get('name')==name),{})
         g=p.get('game') if isinstance(p.get('game'),dict) else {}
-        pd=_pt_date(g.get('commence')) if isinstance(g.get('commence'),str) else ''
-        if pd!=d: return [],f"pick {name!r} plays on {pd or 'no date'} (Pacific), not the logged {d} - nothing waived"
+        c=g.get('commence')
+        pday=_pt_day(c) if isinstance(c,str) else None
+        if pday!=dday:
+            why=f": game.commence {c!r} is not an ISO timestamp with an explicit UTC offset" if (pday is None and c) else ''
+            return [],f"pick {name!r} plays on {pday.isoformat() if pday else 'no date'} (Pacific{why}), not the logged {d} - nothing waived"
         if g.get('eid')!=eid or p.get('units')!=units:
             return [],(f"pick {name!r} (eid {g.get('eid')!r}, units {p.get('units')!r}) does not match its logged entry "
                        f"(eid {eid!r}, units {units!r}) - nothing waived")
@@ -982,6 +1183,451 @@ def kal_market(tick, team_display):
             return (sfx, round(d*100) if 0<d<=1 else None)
     return ('',None)
 
+# Explicit-market Kalshi picks (Oct 2: an Under 6.5 is the NO side of "Over 6.5 goals" - the team match
+# above can only price a YES ask, and a total has no team text). A kalshi block that names its side,
+# {ticker: <full market ticker>, side: 'yes'|'no'}, prices that exact market from that side's ask on
+# every surface: chip label, data-cents, ship ceiling, game page rows and the client tick (data-kalpx).
+# The path is keyed on 'side': build_manifest.py has written kalshi.ticker WITHOUT a side on every carded
+# pick since Sep 29, and those picks keep the team-matched path byte-for-byte.
+_KAL_TICKER_RE=re.compile(r'[A-Z0-9][A-Z0-9._]*(?:-[A-Z0-9._]+)+')
+_KAL_EVENT_RE=re.compile(r'[A-Z0-9][A-Z0-9._]*-[A-Z0-9._]+')  # an event ticker: series + one event segment
+def _kal_explicit(kb):
+    """(market_ticker, 'yes'|'no') for a kalshi block that names its side, else None. A side without a
+    full market ticker, or a side other than yes/no, fails the build (exit 3): never price a guessed side."""
+    if not isinstance(kb,dict) or kb.get('side') is None: return None
+    side=str(kb.get('side')).strip().lower()
+    tick=str(kb.get('ticker') or '').strip().upper()
+    if side not in ('yes','no') or not _KAL_TICKER_RE.fullmatch(tick):
+        print(f"BUILD FAILED: kalshi block side {kb.get('side')!r} ticker {kb.get('ticker')!r} - an explicit side needs side yes|no and the full market ticker", file=sys.stderr)
+        sys.exit(3)
+    # the chip links kalshi.url and the price comes from kalshi.ticker: the ticker must be a market of the
+    # url's event, or the chip would open one market while wearing another market's price. The url must end
+    # at the event itself (SERIES-EVENT, one dash): a series page (.../kxnhltotal) names no event and would
+    # admit any game's market of that series; a market-level url is not an event either.
+    ev=str(kb.get('url') or '').rstrip('/').split('/')[-1].upper()
+    if not (_KAL_EVENT_RE.fullmatch(ev) and tick.startswith(ev+'-')):
+        print(f"BUILD FAILED: kalshi ticker {tick} is not a market of the url's event {ev or '(none)'} ({kb.get('url')!r}) - an explicit side prices the market its chip links", file=sys.stderr)
+        sys.exit(3)
+    return (tick, side)
+_KALMKT={}
+def _kal_ask(m, side):
+    # one side's ask in cents from a Kalshi market object; a missing, zero or out-of-range ask is None
+    try: d=float(m.get(f'{side}_ask_dollars') or 0)
+    except Exception: d=0
+    return round(d*100) if 0<d<=1 else None
+def kal_market_side(ticker, side):
+    # Returns (market_suffix, cents) for exactly this market: the picked side's ask (no_ask_dollars for a
+    # NO pick, yes_ask_dollars for YES). A missing or zero ask is unresolved, the same as kal_market.
+    if ticker not in _KALMKT:
+        try:
+            import urllib.request
+            req=urllib.request.Request(f'https://api.elections.kalshi.com/trade-api/v2/markets/{ticker}',headers={'User-Agent':'Mozilla/5.0'})
+            with urllib.request.urlopen(req,timeout=8) as r: _KALMKT[ticker]=json.load(r).get('market') or {}
+        except Exception: _KALMKT[ticker]={}
+    m=_KALMKT[ticker]
+    if str(m.get('ticker') or '').upper()!=ticker: return ('',None)
+    return (ticker.rsplit('-',1)[-1], _kal_ask(m, side))
+# Side vs lock sanity. kalshi.cents is the lock: the picked side's ask when the card locked. A side swapped in
+# the data (lock read off YES, side says NO) or a pick bound to the wrong market would otherwise ship that
+# market's price under the lock. Two kinds of check:
+#  - the side and the market binding (_kal_bind_market below) read only the market's own text and identifiers,
+#    so they run on every build that could ship a card that has not been published: the pre-game publish, an
+#    approved publish of a game already under way (a late post), a refresh build and an in-play rebuild. Only a
+#    settled pick and a display-only rebuild of the published card (its hash is shipped_pick_hash.txt, which only an
+#    RP_PUBLISH=1 build writes, and its kalshi ticker, side and url are in that hash: it was bound when it
+#    shipped) skip them. A market that no longer resolves has no text to read, but its ticker still names its
+#    class, day and game (_kal_bind_event), and those are bound before it takes the pinned snapshot path; a late
+#    post of a pick with no pin in the ledger whose market does not resolve is refused (third review, Oct 6);
+#  - a binding that cannot be read, as opposed to one read and wrong (ESPN unreachable for the league, so no team
+#    code; Kalshi's event listing unreadable for a moneyline NO), raises _KalUnread once every check that can be
+#    read has passed. A publish (pre-game, or a late post of a new pick) and a pre-game refresh hold on it as on
+#    any failed binding; an in-play rebuild that is not a late post of a new pick prices it as it prices a market
+#    that no longer resolves there, from the pinned pre-game snapshot (main's in-play degrade), never a live ask;
+#  - the lock checks compare live asks with the lock, so they run at the pre-game publish only: an in-play ask is
+#    not an entry price, and a refresh never re-gates a shipped pick's price.
+# The side checks:
+#  - a total on a market whose title/subtitle names one direction ("Over 6.5 goals") must take YES for that
+#    direction and NO for the other (an Under on an Over market is NO); a title naming neither or both
+#    directions is not read;
+#  - a moneyline or spread is bound to its team the same way: the market's own code (the ticker suffix, NYY or
+#    LAC) as ESPN's abbreviation of exactly one of the two teams, else the YES text (yes_sub_title) naming one
+#    of them (_kal_yes_team). YES on the picked team's market, NO
+#    on the opponent's; a moneyline NO also needs a two-way event (NO on one side of a three-way market is not
+#    the other side's win). The lock checks below cannot see a swap on a near-even market (Toronto declared NO
+#    on its own 51/50 market sits on the lock), so a market whose YES names both teams, or neither while its
+#    code fits neither or both, fails rather than ship unbound;
+#  - the picked side's live ask must sit within _KAL_LOCK_TOL of the lock, and the other side's ask must not
+#    sit closer to the lock than the picked side's (the swapped-side signature on a market away from 50/50).
+# 6c: the ship ceiling in chips() refuses an ask above gate_cents (build_manifest writes gate_cents = the
+# lock), so this mostly bounds a move in the pick's favour. A publish runs minutes after its lock, and a
+# liquid market moves a few cents in that window; a neighbouring line of the same event (Over 5.5 vs Over
+# 6.5) or the other side of a market priced away from 50/50 sits well beyond 6c of a lock read off the right
+# market. A move past 6c means the lock no longer describes the market: re-lock the card rather than publish
+# the stale number. The lock checks only see a lock and a ticker that disagree: a ticker and a lock both read
+# off the wrong market agree with each other, which is what the market binding below (_kal_bind_market) is for.
+_KAL_LOCK_TOL=6
+def _kal_words(s):
+    return set(re.sub(r'[^a-z0-9]+',' ',str(s or '').lower()).split())
+def _kal_yes_team(p, m, kx):
+    """('picked' | 'opp' | None, why, both): which team of the pick's game the market's YES names, why it is None.
+    The market's own code reads first: its ticker suffix without a line's digits (LAC, HOU2 -> HOU) fitting exactly
+    one of the two teams (_kal_code_fits). With ESPN's abbreviation of both teams that code is the market's identity
+    and decides, whatever words its YES text shares with the other team's name: Kalshi names every LA team
+    'Los Angeles X', so 'Los Angeles C' (LAC) shares 'los angeles' with ESPN's 'Los Angeles Lakers' and no word with
+    its 'LA Clippers' (third review, Oct 6: the Clippers' market read as the Lakers'). Otherwise the YES text reads:
+    only words one team's name has and the other's lacks count (Chicago White Sox vs Chicago Cubs: white/sox vs
+    cubs), and a code spelt from a name (a team ESPN gives no abbreviation) must agree with them. kalshi.team is part
+    of the block being checked, so it never decides: a block read whole off the opponent's market names the
+    opponent there too (Oct 6 review). A YES naming both teams, a code and text reading different teams, or neither
+    readable is None (not bound); both is True only for a YES text naming both teams (read, never a source missing)."""
+    g=p.get('game') or {}; side=p.get('side')
+    if side not in ('away','home'): return None,'names neither team of the pick or both',False
+    pick,opp=g.get(side) or '',g.get('home' if side=='away' else 'away') or ''
+    ytxt=m.get('yes_sub_title') or m.get('subtitle') or m.get('title') or ''
+    yw=_kal_words(ytxt)
+    pw={w for w in _kal_words(pick)-_kal_words(opp) if len(w)>2}
+    ow={w for w in _kal_words(opp)-_kal_words(pick) if len(w)>2}
+    hp,ho=bool(pw&yw),bool(ow&yw)
+    if hp and ho: return None,'names neither team of the pick or both',True
+    by_text=('picked' if hp else 'opp') if hp!=ho else None
+    sc=re.sub(r'\d+$','',kx[0].rsplit('-',1)[-1])
+    lg=p.get('espn_league') or ''
+    fp,fo=(bool(sc) and _kal_code_fits(sc,pick,lg)),(bool(sc) and _kal_code_fits(sc,opp,lg))
+    by_code=('picked' if fp else 'opp') if fp!=fo else None
+    if by_code and _kal_espn_abbr(lg,pick) and _kal_espn_abbr(lg,opp): return by_code,'',False
+    if by_code and by_text and by_code!=by_text:
+        return None,f"reads as the {'picked team' if by_text=='picked' else 'opponent'} and its code {sc} as the {'picked team' if by_code=='picked' else 'opponent'}",False
+    return (by_code or by_text),('' if (by_code or by_text) else 'names neither team of the pick or both'),False
+def _kal_two_way(ev, tick):
+    # the event's market listing (same read and cache as kal_market): exactly two markets, this one of them. The
+    # listing of an event whose market resolved names at least that market: an empty one was not read.
+    if ev not in _KALEVT:
+        try:
+            import urllib.request
+            req=urllib.request.Request(f'https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker={ev}&limit=100',headers={'User-Agent':'Mozilla/5.0'})
+            with urllib.request.urlopen(req,timeout=8) as r: _KALEVT[ev]=json.load(r).get('markets',[])
+        except Exception: _KALEVT[ev]=[]
+    ts={str(x.get('ticker') or '').upper() for x in _KALEVT[ev] if str(x.get('ticker') or '').upper().startswith(ev+'-')}
+    return len(ts)==2 and tick in ts, len(ts)
+class _KalUnread(Exception):
+    # a binding that could not be read (a source unreachable), raised after every check that could be read passed
+    pass
+def _kal_publish_check(p, kx, kc, price=True):
+    # price=False (refresh, in-play and late-post builds): the side and market binding only, no lock checks. A
+    # failure read off the data exits 3 where it is found; one that could not be read is collected and raised as
+    # _KalUnread at the end, once everything readable has passed (chips() decides whether it holds or degrades).
+    name=p.get('name'); m=_KALMKT.get(kx[0]) or {}; who=None; unread=[]
+    if _pick_mclass(p) in ('ml','spread'):
+        who,_why,_both=_kal_yes_team(p,m,kx)
+        _ytxt=m.get('yes_sub_title') or m.get('subtitle') or m.get('title') or ''
+        if who is None:
+            _msg=f"{name} - the YES of {kx[0]} ({_ytxt!r}) {_why}, so side {kx[1]} cannot be bound to the picked team; a near-even swap would pass the lock checks"
+            _g=p.get('game') or {}
+            if _both or not _kal_abbr_unread(p.get('espn_league') or '',_g.get('away'),_g.get('home')):
+                print(f"BUILD FAILED: {_msg}", file=sys.stderr)
+                sys.exit(3)
+            unread.append(_msg)  # ESPN unreachable: the code could not be read as either team's
+        else:
+            need='yes' if who=='picked' else 'no'
+            if kx[1]!=need:
+                print(f"BUILD FAILED: {name} - the YES of {kx[0]} is {_ytxt!r}, the {'picked team' if who=='picked' else 'opponent'}: its side is {need}, the kalshi block says {kx[1]}", file=sys.stderr)
+                sys.exit(3)
+            if need=='no' and _pick_mclass(p)=='ml':
+                _ev=str((p.get('kalshi') or {}).get('url') or '').rstrip('/').split('/')[-1].upper()  # the event (_kal_explicit bound the ticker to it)
+                ok,n=_kal_two_way(_ev,kx[0])
+                if not ok:
+                    _msg=f"{name} - NO on {kx[0]} is the picked team's win only on a two-way event; {_ev} lists {n} market(s)"
+                    if n:
+                        print(f"BUILD FAILED: {_msg}", file=sys.stderr)
+                        sys.exit(3)
+                    unread.append(_msg+' (the event listing could not be read)')
+    if _pick_mclass(p)=='total':
+        want=str(p.get('side') or '').strip().lower()
+        if want not in ('over','under'): want=(str(name or '').split() or [''])[0].lower()
+        dirs={w.lower() for f in ('title','subtitle','yes_sub_title') for w in re.findall(r'\b(over|under)\b',str(m.get(f) or ''),re.I)}
+        if want in ('over','under') and len(dirs)==1:
+            need='yes' if want in dirs else 'no'
+            if kx[1]!=need:
+                print(f"BUILD FAILED: {name} is the {want} on {kx[0]}, whose YES is the {next(iter(dirs))} - its side is {need}, the kalshi block says {kx[1]}", file=sys.stderr)
+                sys.exit(3)
+    lock=(p.get('kalshi') or {}).get('cents')
+    if price and not (isinstance(lock,bool) or not isinstance(lock,(int,float))):
+        if abs(kc-lock)>_KAL_LOCK_TOL:
+            print(f"BUILD FAILED: {name} Kalshi {kx[1].upper()} ask {kc}c on {kx[0]} is {abs(kc-lock):g}c from the {lock:g}c lock (tolerance {_KAL_LOCK_TOL}c) - wrong market or a stale lock, re-lock before publishing", file=sys.stderr)
+            sys.exit(3)
+        opp='yes' if kx[1]=='no' else 'no'
+        oc=_kal_ask(m,opp)
+        if oc is not None and abs(oc-lock)<abs(kc-lock):
+            print(f"BUILD FAILED: {name} {opp.upper()} ask {oc}c on {kx[0]} is closer to the {lock:g}c lock than the picked {kx[1].upper()} ask {kc}c - the lock reads like the {opp.upper()} side, check kalshi.side", file=sys.stderr)
+            sys.exit(3)
+    # a pick without a lock still gets its market bound (the lock checks above need one, the binding does not)
+    unread+=_kal_bind_market(p,kx,m,who)
+    if unread: raise _KalUnread(unread[0])
+# Market binding (Oct 6 review; the caller runs it wherever the side checks run, see above). The side and lock
+# checks compare the declared side and the lock with the market the ticker names; a ticker AND a lock both read
+# off the wrong market (another line, another game or day, a run-line market for a moneyline, another player's
+# prop) agree with each other and pass, and the card would ship that market's price and link. So the market
+# itself is bound to the pick, from Kalshi's own identifiers and text:
+#  - class: the series names the pick's market class (GAME, FIGHT or MATCH a moneyline, SPREAD a spread, TOTAL a
+#    total; any other series is a prop market);
+#  - game: the event segment is DATE[HHMM]CODE (26OCT02STLDAL, 26OCT031830NYYTB). DATE is the game's Eastern date
+#    (or its Pacific one); an Eastern start time, when the event carries one (MLB), sits within 90 minutes of the
+#    commence, so a doubleheader's other game or the same teams' next game never binds. CODE is the two teams'
+#    codes in either order (a fight is coded home-first). A team that ESPN gives an abbreviation binds only as
+#    that abbreviation or its Kalshi alias (STL, CWS for ESPN's CHW, UTA for ESPN's UTAH): spelt from names, codes
+#    collide across one night's slate (BOS spells Buffalo Sabres, CAR Calgary Flames, COL Columbus, TB Toronto
+#    Blue Jays), so a total read off another game would bind (second review). A code is spelt from the name
+#    (first letter at a word start, the rest in order) only for a team ESPN gives none (a fighter), and only for
+#    a moneyline or spread, whose YES text binds the team as well; a total's or a prop's event code is its only
+#    binding to the game, so without ESPN's abbreviation of both teams it fails;
+#  - line: the YES text's own line ('over 1.5', 'Over 6.5'; an N+ market is over N-0.5) is the pick's line. A
+#    spread's YES on the picked team ('Houston wins by over 1.5') is that pick at -X, on the opponent at +X;
+#  - a prop: an N+ (or over) market's YES is the over and an under market's YES the under; the market names the
+#    pick's player, and its stat is the pick's stat exactly: the words after the market's line ('2+ passing
+#    touchdowns') are the words after the pick's ('Over 1.5 passing touchdowns'), every word of each in the other,
+#    'total' among them (third review, Oct 6: 'touchdowns' bound '2+ passing touchdowns', 'runs' '1+ home runs',
+#    'total bases' '2+ stolen bases', 'points' '50+ points + rebounds + assists', 'goals' '2+ shots on goal'). The
+#    player is named in full ('Matthew Tkachuk'), or by his initial in the text ('M. Tkachuk') with the ticker's
+#    player segment his initial and surname (FLAMTKACHUK19): a surname alone binds a same-surname teammate's or
+#    opponent's market (Brady for Matthew Tkachuk, Luke for Jack Hughes).
+# Anything that cannot be read fails (exit 3) rather than ship unbound. Picks without a side never reach this. The
+# one exception is a source this build cannot reach (ESPN for a team code): the binding returns it as unread (see
+# _KalUnread above) after every other check has passed. The class, day and game read off the ticker alone
+# (_kal_bind_event), so they bind a market that no longer resolves as well.
+_KAL_ABBR_ALIAS={'CHW':'CWS','ARI':'AZ'}  # ESPN code -> Kalshi code, every league (core/kalshi_bind.py ALIAS)
+# ESPN code -> Kalshi code within one league, as Kalshi's own event tickers code those teams (UTACBJ, INDWAS,
+# JACCIN, OKCSAS, PHINYK, TEXOKLA, SCARFLA, FLAMIZZ, ARKTXAM, PSUNW, STLLAG, MIADCU, NYRBSD). An alias only ever
+# admits one more code for that one team; a code missing here fails closed until it is added.
+_KAL_LG_ALIAS={'hockey/nhl':{'UTAH':'UTA'},'football/nfl':{'WSH':'WAS','JAX':'JAC'},'basketball/nba':{'SA':'SAS','NY':'NYK'},
+               'football/college-football':{'TAM':'TXAM','MIZ':'MIZZ','OU':'OKLA','SC':'SCAR','NU':'NW'},
+               'soccer/usa.1':{'LA':'LAG','DC':'DCU','NY':'NYRB'}}
+_KAL_TEAMS={}
+def _kal_teams(lg):
+    # ESPN's team listing rows for a league (read once per build; [] when it lists none or cannot be read)
+    if lg not in _KAL_TEAMS:
+        try: _KAL_TEAMS[lg]=_espn_get('https://site.api.espn.com/apis/site/v2/sports/%s/teams?limit=1000'%lg)
+        except Exception: _KAL_TEAMS[lg]={}
+    try: return [(r.get('team') or {}) for r in ((((_KAL_TEAMS[lg] or {}).get('sports') or [{}])[0].get('leagues') or [{}])[0].get('teams') or [])]
+    except (AttributeError, IndexError, TypeError): return []
+def _kal_espn_abbr(lg, team):
+    # ESPN's abbreviation of a team (letters only, TA&M -> TAM): the card's scoreboard meta first (TEAM_META), then
+    # ESPN's team listing for the league (one exact displayName), '' when ESPN gives none (fighters, ESPN down)
+    ea=str((_meta_for(lg,team) or {}).get('abbr') or '')
+    if not ea and lg and team:
+        hit=[t for t in _kal_teams(lg) if str(t.get('displayName') or '').casefold().strip()==team.casefold().strip()]
+        if len(hit)==1: ea=str(hit[0].get('abbreviation') or '')
+    return re.sub(r'[^A-Z]','',ea.upper())
+def _kal_abbr_unread(lg, *teams):
+    # True when a team's code could not be read because ESPN could not be read for the league at all on this build:
+    # no scoreboard meta (TEAM_META) for the league and no team listing. ESPN read and silent on a team (a fighter, a
+    # name it spells otherwise) is an answer, not unread.
+    return bool(lg) and any(t and not _kal_espn_abbr(lg,t) for t in teams) and not any(l==lg for (l,_n) in TEAM_META) and not _kal_teams(lg)
+_KAL_TIME_TOL=90*60
+# filler a stat phrase carries beside its stat ('total' is a stat word: total bases is not stolen bases)
+_KAL_STAT_SKIP={'over','under','the','and','player','anytime','plus','more'}
+# a stat's common short forms, spelt out on both sides before they are compared (the props card writes 'passing
+# TDs'); each names exactly one stat, so spelling it out never makes two stats equal
+_KAL_STAT_ABBR={'td':'touchdowns','tds':'touchdowns','hr':'home runs','hrs':'home runs','sog':'shots on goal','pts':'points',
+                'reb':'rebounds','rebs':'rebounds','ast':'assists','asts':'assists','yd':'yards','yds':'yards'}
+def _kal_stat_words(s):
+    # a stat phrase's words, singular ('2+ shots on goal' -> shot, goal): cut only at a question's end or an opponent
+    # tail ('vs CWS'), short forms spelt out, filler and one- or two-letter words dropped. Every other word counts, so
+    # a qualifier ('in the first half', '(incl. OT)', ', 1+ RBI') is another stat and never binds the plain one
+    s=re.split(r'\?|\b(?:vs|versus)\b',_kal_norm(s),maxsplit=1,flags=re.I)[0]
+    ws=[x for w in _kal_nwords(s) for x in _KAL_STAT_ABBR.get(w,w).split()]
+    return {w.rstrip('s') for w in ws if len(w)>2 and w not in _KAL_STAT_SKIP}
+def _kal_mkt_stat(m):
+    # the stat a market's line counts: the words after its line token ('Matthew Stafford: 2+ passing touchdowns' ->
+    # passing, touchdown), field by field and pattern by pattern in _kal_mkt_line's order; the first that names one
+    for f in ('yes_sub_title','title','subtitle'):
+        t=_kal_norm(m.get(f) or '')
+        for pat in (r'\b(?:over|under)\s+\d+(?:\.\d+)?',r'(?<![\d.])\d+\s*(?:\+|or more\b)',r'(?<![\d.])\d+\s*or (?:fewer|less)\b'):
+            x=re.search(pat,t,re.I)
+            if x:
+                w=_kal_stat_words(t[x.end():])
+                if w: return w
+                break
+    return set()
+def _kal_norm(s):
+    import unicodedata
+    return unicodedata.normalize('NFKD',str(s or '')).encode('ascii','ignore').decode()
+def _kal_nwords(s):
+    return re.sub(r'[^a-z0-9]+',' ',_kal_norm(s).lower()).split()
+def _kal_series_class(series):
+    s=series.upper()
+    if 'SPREAD' in s: return 'spread'
+    if 'TOTAL' in s: return 'total'
+    if any(t in s for t in ('GAME','FIGHT','MATCH')): return 'ml'
+    return 'prop'
+def _kal_code_fits(code, team, lg, spell=True):
+    # one team code of an event (STL, CWS, PSU) against one team name. A team ESPN gives an abbreviation fits only
+    # that abbreviation or its Kalshi alias; a team ESPN gives none fits a code spelt from its name (its first
+    # letter at a word start, every later letter in order after it), and only when spell (moneyline, spread)
+    ea=_kal_espn_abbr(lg,team)
+    if ea: return code in (ea,_KAL_ABBR_ALIAS.get(ea),(_KAL_LG_ALIAS.get(lg) or {}).get(ea))
+    if not (spell and code): return False
+    words=re.sub(r'[^A-Z]+',' ',_kal_norm(team).upper()).split()
+    s=''.join(words); starts=[]; n=0
+    for w in words: starts.append(n); n+=len(w)
+    for st in starts:
+        if s[st]!=code[0]: continue
+        j=st+1
+        for ch in code[1:]:
+            j=s.find(ch,j)
+            if j<0: break
+            j+=1
+        else: return True
+    return False
+def _kal_game_fits(code, g, lg, spell=True):
+    a,h=g.get('away') or '',g.get('home') or ''
+    if not (a and h): return False
+    f=lambda c,t:_kal_code_fits(c,t,lg,spell)
+    for i in range(2,len(code)-1):
+        x,y=code[:i],code[i:]
+        if (f(x,a) and f(y,h)) or (f(x,h) and f(y,a)): return True
+    return False
+def _kal_player_named(player, txt, tick):
+    # the market names the pick's player: every word of his name in its text, or (a text that shortens his first
+    # name, 'M. Tkachuk') his surname there after a word with his initial, and the ticker's player segment (its
+    # suffix's letters: FLAMTKACHUK19 -> FLAMTKACHUK) ending in his initial and surname
+    pw=[w for w in _kal_nwords(player) if w not in ('jr','sr','ii','iii','iv')]
+    tw=_kal_nwords(txt)
+    if not pw or pw[-1] not in tw: return False
+    if all(w in tw for w in pw): return True
+    j=tw.index(pw[-1])
+    seg=re.sub(r'[^A-Z]','',tick.rsplit('-',1)[-1].upper())
+    return j>0 and tw[j-1][0]==pw[0][0] and (seg.endswith((pw[0][0]+pw[-1]).upper()) or seg.endswith((pw[0][0]+''.join(pw[1:])).upper()))
+def _kal_when_fits(tok, hhmm, commence):
+    import datetime as _dk
+    from zoneinfo import ZoneInfo
+    try:
+        c=_dk.datetime.fromisoformat(str(commence or '').replace('Z','+00:00'))
+        if c.tzinfo is None: c=c.replace(tzinfo=_dk.timezone.utc)
+        d=_dk.datetime.strptime(tok,'%y%b%d')
+        et=ZoneInfo('America/New_York')
+        if hhmm: return abs((d.replace(hour=int(hhmm[:2]),minute=int(hhmm[2:]),tzinfo=et)-c).total_seconds())<=_KAL_TIME_TOL
+        return d.date() in (c.astimezone(et).date(),c.astimezone(ZoneInfo('America/Los_Angeles')).date())
+    except (ValueError, TypeError): return False
+def _kal_mkt_line(m):
+    # (line, text) the market states: 'over X' / 'under X' is X, 'N+' / 'N or more' is N-0.5, 'N or fewer' N+0.5;
+    # the YES text (yes_sub_title) first, then the title and subtitle. (None, YES text) when none states one.
+    for f in ('yes_sub_title','title','subtitle'):
+        t=str(m.get(f) or '')
+        x=re.search(r'\b(?:over|under)\s+(\d+(?:\.\d+)?)',t,re.I)
+        if x: return float(x.group(1)),t
+        x=re.search(r'(?<![\d.])(\d+)\s*(?:\+|or more\b)',t,re.I)
+        if x: return int(x.group(1))-0.5,t
+        x=re.search(r'(?<![\d.])(\d+)\s*or (?:fewer|less)\b',t,re.I)
+        if x: return int(x.group(1))+0.5,t
+    return None,(m.get('yes_sub_title') or m.get('subtitle') or m.get('title') or '')
+def _kal_bind_event(p, kx, defer=False):
+    # The binding read off the ticker alone: the series' class, the event's date (and start) and its game code. A
+    # failure read off the data exits 3. A game code that cannot be read because ESPN cannot be reached for the
+    # league (_kal_abbr_unread) is unread: returned when defer (the caller goes on and raises it last), else raised.
+    name=p.get('name'); tick=kx[0]; mc=_pick_mclass(p)
+    series=tick.split('-',1)[0]
+    sc=_kal_series_class(series)
+    if sc!=mc:
+        print(f"BUILD FAILED: {name} is a {mc} pick and {tick} is a {sc} market (series {series}) - an explicit side prices the pick's own market", file=sys.stderr)
+        sys.exit(3)
+    ev='-'.join(tick.split('-')[:2])  # _kal_explicit bound the ticker to the url's SERIES-EVENT
+    g=p.get('game') or {}; lg=p.get('espn_league') or ''
+    em=re.fullmatch(r'(\d{2}[A-Z]{3}\d{2})(\d{4})?([A-Z]+)',ev.split('-')[-1])
+    if not em:
+        print(f"BUILD FAILED: {name} - event {ev} carries no date and game code (DATE[HHMM]CODE) to bind the pick's game to", file=sys.stderr)
+        sys.exit(3)
+    tok,hhmm,code=em.groups()
+    if not _kal_when_fits(tok,hhmm,g.get('commence')):
+        print(f"BUILD FAILED: {name} - event {ev} is dated {tok}{' '+hhmm+' ET' if hhmm else ''}, the pick's game starts {g.get('commence') or '(no commence)'} - another day's or another game's market", file=sys.stderr)
+        sys.exit(3)
+    spell=mc in ('ml','spread')  # their YES text binds the team as well; a total's or a prop's code is its only game binding
+    msg=None
+    if not spell:
+        miss=[t for t in (g.get('away'),g.get('home')) if t and not _kal_espn_abbr(lg,t)]
+        if miss:
+            msg=f"{name} - ESPN gives no abbreviation for {' or '.join(miss)} ({lg or 'no league'}), and a {mc}'s event code is its only binding to its game: {ev} cannot be bound"
+    if msg is None and not _kal_game_fits(code,g,lg,spell):
+        msg=f"{name} - event {ev} is game {code}, not {g.get('away') or '?'} at {g.get('home') or '?'}"
+    if msg is None: return None
+    if not _kal_abbr_unread(lg,g.get('away'),g.get('home')):
+        print(f"BUILD FAILED: {msg}", file=sys.stderr)
+        sys.exit(3)
+    if defer: return msg
+    raise _KalUnread(msg)
+def _kal_bind_market(p, kx, m, who):
+    # the whole market binding; returns the unread failures (empty when bound), every failure read off the data exits 3
+    name=p.get('name'); tick,side=kx; mc=_pick_mclass(p)
+    unread=[u for u in (_kal_bind_event(p,kx,defer=True),) if u]
+    txt=' | '.join(str(m.get(f)) for f in ('yes_sub_title','title','subtitle') if m.get(f))
+    if mc=='prop':
+        if not _kal_player_named(p.get('player'),txt,tick):
+            print(f"BUILD FAILED: {name} - {tick} does not name the pick's player {p.get('player')!r} (its market reads {txt!r})", file=sys.stderr)
+            sys.exit(3)
+        # the pick's stat is the market's stat exactly (the player's own name is neither's stat)
+        x=re.search(r'[+-]?\d+(?:\.\d+)?\s+(.+)$',str(name or ''))
+        own={w.rstrip('s') for w in _kal_nwords(p.get('player'))}
+        ps=_kal_stat_words(x.group(1) if x else '')-own
+        ms=_kal_mkt_stat(m)-own
+        miss=sorted(ps-ms)
+        if not ps or miss:
+            print(f"BUILD FAILED: {name} - {tick} does not name the pick's stat ({', '.join(miss) if ps else 'the pick names none'}) - its market reads {txt!r}", file=sys.stderr)
+            sys.exit(3)
+        if ms!=ps:
+            print(f"BUILD FAILED: {name} - {tick} counts another stat ({' '.join(sorted(ms))}) than the pick's ({' '.join(sorted(ps))}) - its market reads {txt!r}", file=sys.stderr)
+            sys.exit(3)
+    if mc in ('spread','total','prop'):
+        pl=_pick_line(p); ml,lt=_kal_mkt_line(m)
+        fmt=(lambda v:f'{v:+g}') if mc=='spread' else (lambda v:f'{v:g}')
+        if pl is None:
+            print(f"BUILD FAILED: {name} - the pick has no line to bind {tick} to", file=sys.stderr)
+            sys.exit(3)
+        if ml is None:
+            print(f"BUILD FAILED: {name} - the line of {tick} cannot be read from its market ({lt!r}), so it cannot be bound to the pick's {fmt(pl)}", file=sys.stderr)
+            sys.exit(3)
+        want=(-ml if who=='picked' else ml) if mc=='spread' else ml
+        if mc=='spread' and who is None:
+            pass  # reached only with the side unread (_kal_publish_check exits on any side read and unbound, and raises this one)
+        elif abs(pl-want)>1e-9:
+            if mc=='spread':
+                print(f"BUILD FAILED: {name} - the YES of {tick} is {lt!r}, the {'picked team' if who=='picked' else 'opponent'} by over {ml:g}: it binds the pick at {want:+g}, the pick's line is {pl:+g}", file=sys.stderr)
+            else:
+                print(f"BUILD FAILED: {name} - the YES of {tick} is {lt!r}, line {ml:g}: the pick's line is {pl:g}", file=sys.stderr)
+            sys.exit(3)
+    if mc=='prop':
+        want=str(p.get('side') or '').strip().lower()
+        if want not in ('over','under'): want=next((w for w in _kal_nwords(name) if w in ('over','under')),'')
+        t=' '.join(str(m.get(f) or '') for f in ('yes_sub_title','title','subtitle'))
+        ov=bool(re.search(r'\d\s*\+|\bor more\b|\bover\b|\bat least\b',t,re.I)); un=bool(re.search(r'\bunder\b|\bor (?:fewer|less)\b',t,re.I))
+        if want not in ('over','under') or ov==un:
+            print(f"BUILD FAILED: {name} - {'the pick names no over/under' if want not in ('over','under') else 'the YES of '+tick+' ('+repr(txt)+') names no single direction'}, so side {side} cannot be bound", file=sys.stderr)
+            sys.exit(3)
+        ydir='over' if ov else 'under'; need='yes' if want==ydir else 'no'
+        if side!=need:
+            print(f"BUILD FAILED: {name} is the {want} on {tick}, whose YES is the {ydir} - its side is {need}, the kalshi block says {side}", file=sys.stderr)
+            sys.exit(3)
+    return unread
+def _kal_rec(kx):
+    # canonical market record identity (event, market, side) of an explicit-market pick
+    return (kx[0].rsplit('-',1)[0], kx[0], kx[1])
+def _kal_tick_attrs(kx, tick, kside):
+    # The client tick fetches /markets/<data-kalticker>-<data-kalside>. An explicit-market chip splits its
+    # own full ticker so the pair rebuilds it exactly, and data-kalpx names the side it prices and settles.
+    if kx:
+        ev,sfx=kx[0].rsplit('-',1)
+        return f' data-kalticker="{html.escape(ev)}" data-kalside="{html.escape(sfx)}" data-kalpx="{kx[1]}"'
+    return f' data-kalticker="{tick}" data-kalside="{kside}"'
+_KAL_EXPLICIT_CARD=any(_kal_explicit(_p.get('kalshi')) for _p in man.get('picks',[]))
+def _kal_js(explicit):
+    # Client tick expressions (index rpKalTick and the game page template). A page with no explicit-side
+    # chip gets the original YES-only expressions byte-for-byte; with one, each chip settles and prices
+    # from its own data-kalpx side (a chip without data-kalpx still reads YES).
+    if not explicit: return {'win':"'yes'",'lose':"'no'",'ask':'m.yes_ask_dollars'}
+    return {'win':"(a.dataset.kalpx==='no'?'no':'yes')",'lose':"(a.dataset.kalpx==='no'?'yes':'no')",
+            'ask':"m[(a.dataset.kalpx==='no'?'no':'yes')+'_ask_dollars']"}
+_KAL_JS=_kal_js(_KAL_EXPLICIT_CARD)
+_KAL_WIN,_KAL_LOSE,_KAL_ASK=_KAL_JS['win'],_KAL_JS['lose'],_KAL_JS['ask']
+_KAL_TMPL_ASK='const d=parseFloat(m.yes_ask_dollars);'  # game_page_template.html rpKalTick price line
+
 def _finalize_chip_rows(out, records):
     """Select the best displayed survivor and range from its canonical price record."""
     values=[]
@@ -1013,30 +1659,21 @@ def _dingers_home_panel(tab_keys, mlb_entry):
     # file. Covers the empty card too; the health gate and fixtures need the container on every card.
     if 'mlb' in tab_keys: return ''
     return '<div class="state" id="st-ding" data-home-league="1">'+mlb_entry+'</div>\n'
-def _pick_mclass(p):
-    # One market class per pick, used by chips, the pick row and the client verdict.
-    # build_manifest.py writes market_class (ml|spread|total|prop); legacy hand manifests mark a
-    # spread with market:'spread' and a total only by its over/under side.
-    mc=str(p.get('market_class') or '').lower()
-    if mc in ('ml','spread','total','prop'): return mc
-    if p.get('market')=='spread': return 'spread'
-    if p.get('market')=='total': return 'total'
-    if p.get('player') or p.get('market'): return 'prop' if p.get('side') in ('over','under') else 'ml'
-    if p.get('side') in ('over','under'): return 'total'
-    return 'ml'
 def _pick_line(p):
     # numeric line for spread/total picks, always the PICKED side's own number (what the page grades
     # with: pick-side margin + line). The manifest 'line' of a spread is the HOME spread (build_manifest,
     # st_card_candidates.adapt_alt, finals_watch, record_final.score_result), so an away-cover pick
-    # 'Lynx +4' stored as line -4 reads +4. Without a manifest line, the trailing number of the pick
-    # name ('Aces -4.5', 'Under 38.5'), already side-relative; None when neither exists (no verdict).
+    # 'Lynx +4' stored as line -4 reads +4. Without a manifest line, the line the pick name ends in
+    # ('Aces -4.5', 'Under 38.5'), already side-relative, read by _name_line - the reader the spread-name
+    # hold uses, so 'Yankees -0.5 F5' is never line 5 and a trailing price is never the line; None when
+    # neither exists (no verdict).
     try:
         if p.get('line') is not None:
             ln=float(p['line'])
             return (0.0-ln) if (_pick_mclass(p)=='spread' and p.get('side')=='away') else ln  # 0.0-ln: a pick'em never reads -0
     except (TypeError, ValueError): return None
-    m=re.search(r'([+-]?\d+(?:\.\d+)?)\s*$', str(p.get('name') or ''))
-    return float(m.group(1)) if m else None
+    nl=_name_line(p.get('name'))
+    return float(nl) if nl is not None else None
 def _ship_key(p):
     # shipped-ledger key: moneyline picks keep the game key; any other market class carries its
     # class and line so a spread/total/prop chip never inherits a moneyline link or price
@@ -1045,6 +1682,13 @@ def _ship_key(p):
     _k=f"{_g.get('away')}|{_g.get('home')}|{((_g.get('commence') or '') or '')[:10]}"
     _mc=_pick_mclass(p)
     return _k if _mc=='ml' else f"{_k}|{_mc}|{_pick_line(p)}"
+def _kal_pin_key(p, kx=None):
+    # shipped-ledger key of a pick's Kalshi pin. An explicit-side pick prices one exact market from one side,
+    # so its pin carries that identity (market ticker + side) after _ship_key: two explicit props on one game
+    # and line (two players' 1+ goals markets), or a ticker re-pointed after ship, never share or inherit a
+    # slot. A pick without a side keeps _ship_key byte-for-byte (every ledger written to date).
+    _k=_ship_key(p)
+    return f"{_k}|{kx[0]}|{kx[1]}" if (kx and _k) else _k
 
 def chips(p):
     star='\u2605 '
@@ -1128,8 +1772,17 @@ def chips(p):
         if name=='Kalshi' and p.get('kalshi'):
             link=p['kalshi']['url']
             tick=p['kalshi']['url'].rstrip('/').split('/')[-1].upper()
-            _kside=(p.get('kalshi') or {}).get('team','')
-            _sfx,_kc=kal_market(tick,_kside)
+            _kx=_kal_explicit(p.get('kalshi'))
+            _kpk=_kal_pin_key(p,_kx)  # this chip's Kalshi pin slot (== _sk for a pick without a side)
+            if _kx:
+                # explicit market + side: that market's own side ask, never a team match (the ship
+                # ceiling below compares the same side's ask)
+                _kwhat=f'market {_kx[0]} side {_kx[1]}'
+                _sfx,_kc=kal_market_side(*_kx)
+            else:
+                _kside=(p.get('kalshi') or {}).get('team','')
+                _kwhat=f'team {_kside!r}'
+                _sfx,_kc=kal_market(tick,_kside)
             _gate=(p.get('kalshi') or {}).get('gate_cents')
             if _gate is not None and _kc is not None and _kc>_gate:
                 # ship condition (main, Sep 26 7:17 AM): pick ships only at gate_cents-or-better executable ask.
@@ -1154,26 +1807,57 @@ def chips(p):
                 else:
                     print(f"BUILD FAILED: {p.get('name')} Kalshi ask {_kc}c exceeds ship-condition ceiling {_gate}c", file=sys.stderr)
                     sys.exit(3)
+            # bound when it shipped (display-only: the published card) or settled: no side or market checks
+            _kal_skip=_DISPLAY_ONLY or p.get('result') or p.get('_final')
+            if _kx and not _kal_skip:
+                # a late post of a new pick: an approved publish (RP_PUBLISH=1) after the start of a pick whose Kalshi pin
+                # is not in the ledger (a pick an earlier approved publish shipped has one, written at that publish)
+                _klate=bool(_uw and os.environ.get('RP_PUBLISH')=='1' and not ((SHIPPED.get(_kpk) or {}).get('Kalshi') or {}).get('cents'))
+                try:
+                    if _kc is not None and not (os.environ.get('RP_REFRESH')=='1' or _uw):
+                        _kal_publish_check(p,_kx,_kc)  # pre-game publish: the side and the market binding, and the lock checks
+                    elif _sfx:
+                        # a refresh build, an in-play rebuild or a late post (RP_PUBLISH=1 after the start) of a card that is
+                        # not the published one: the side and market binding read only the market's text, so they still run
+                        # (Oct 6 second review); the lock checks do not (an in-play ask is no entry price, a refresh never
+                        # re-gates)
+                        _kal_publish_check(p,_kx,_kc,price=False)
+                    else:
+                        # a market that no longer resolves has no text to read, but its ticker still names its class, day
+                        # and game (third review, Oct 6): bound before the unresolved path below prices it from its pin
+                        _kal_bind_event(p,_kx)
+                        if _klate:
+                            print(f"BUILD FAILED: {p.get('name')} - {_kx[0]} does not resolve on a publish after the start (RP_PUBLISH=1, game under way) and the ledger holds no Kalshi pin of this pick: a new pick's market is bound before it ships, never priced from its lock unbound", file=sys.stderr)
+                            sys.exit(3)
+                except _KalUnread as _ke:
+                    # a binding this build could not read: a publish (pre-game, or a late post of a new pick) and a
+                    # pre-game refresh hold as on any failed binding; an in-play rebuild prices it as a market that no
+                    # longer resolves there (the pinned pre-game snapshot below), never a live ask
+                    if _klate or not _uw:
+                        print(f"BUILD FAILED: {_ke}", file=sys.stderr)
+                        sys.exit(3)
+                    print(f"KALSHI BINDING UNREAD: {_ke} - in play: priced as an unresolved market, from the pinned pre-game snapshot (a binding read and wrong still fails)", file=sys.stderr)
+                    _sfx=''
             if _uw:
                 # in play (never-blank + phase provenance, Sep 26): freeze the last PRE-GAME snapshot -
                 # SHIPPED carryover first, manifest ship cents as fallback; never a live in-play ask
                 # (an in-play 99c beside pre-game closers poisons every same-phase comparison).
-                _frozen=((SHIPPED.get(_sk) or {}).get('Kalshi') or {}).get('cents') or (p.get('kalshi') or {}).get('cents')
+                _frozen=((SHIPPED.get(_kpk) or {}).get('Kalshi') or {}).get('cents') or (p.get('kalshi') or {}).get('cents')
                 if _frozen and _frozen!=_kc:
                     print(f"IN-PLAY FREEZE: {p.get('name')} Kalshi live ask {_kc} - frozen to pre-game snapshot {_frozen}c", file=sys.stderr)
                     _kc=_frozen
                 if _frozen:
                     # kickoff lock (tester caveat, build 1790470472): persist the pin so the snapshot
                     # survives in the ledger - the original publish predates the ledger's PM-arm lines.
-                    NEWSHIPPED.setdefault(_sk,{})['Kalshi']={'link':link,'cents':_frozen,'commence':_cm}
+                    NEWSHIPPED.setdefault(_kpk,{})['Kalshi']={'link':link,'cents':_frozen,'commence':_cm}
             else:
-                NEWSHIPPED.setdefault(_sk,{})['Kalshi']={'link':link,'cents':_kc,'commence':_cm}
+                NEWSHIPPED.setdefault(_kpk,{})['Kalshi']={'link':link,'cents':_kc,'commence':_cm}
             if not _sfx or _kc is None:
                 # e4f128e absorbed (run 36262260747): Kalshi delists/halts in-play markets - an
                 # unresolved market must not kill underway/display-only rebuilds. Degrade to the
                 # pinned snapshot (SHIPPED ledger first, manifest ship cents as fallback). Pre-game
                 # NEW content still hard-fails (ship condition must re-verify a real market).
-                _pin=((SHIPPED.get(_sk) or {}).get('Kalshi') or {}).get('cents') or (p.get('kalshi') or {}).get('cents')
+                _pin=((SHIPPED.get(_kpk) or {}).get('Kalshi') or {}).get('cents') or (p.get('kalshi') or {}).get('cents')
                 if (_DISPLAY_ONLY or _uw) and _pin is not None:
                     print(f"IN-PLAY DEGRADE: {p.get('name')} Kalshi market unresolved under {tick} - pinned snapshot {_pin}c (market closed/halted in-play)", file=sys.stderr)
                     _urf("EXECUTE","C=3 F=3 R=1 U=1 V=2 CE=1 T=high","in-play degrade to pinned snapshot",f"{p.get('name')} under {tick}: Kalshi delisted/halted in-play, pinned {_pin}c is the last verified pre-game quote; a stale-labeled-honest chip beats a killed build")
@@ -1187,7 +1871,7 @@ def chips(p):
                     _kc=None
                 else:
                     # Sep 26 hunter ruling: a stale price posing as fresh is worse than no build.
-                    print(f"BUILD FAILED: Kalshi market unresolved for {p.get('name')} team {_kside!r} under {tick}", file=sys.stderr)
+                    print(f"BUILD FAILED: Kalshi market unresolved for {p.get('name')} {_kwhat} under {tick}", file=sys.stderr)
                     _urf("ABORT","C=3 F=0 R=3 U=2 V=3 CE=0 T=high","pre-game NEW content hard-fail",f"{p.get('name')} under {tick}: no live market, no pin, not underway - shipping would pose an unverified price as fresh (hunter ruling Sep 26)")
                     sys.exit(3)
             # LOCKED-PRICE BAKE (Sep 27 7:47 tester NO-GO, main directive): the picked chip always
@@ -1203,8 +1887,8 @@ def chips(p):
             _kside_html=html.escape(_sfx)  # Kalshi-scoped: never rebind the pick side
             _pr.append((len(out), c2ml_int(_kc) if _kc else None))
             _kcattr=f' data-cents="{_kc}"' if _kc else ''
-            _kcattr+=_mkrec('Kalshi',tick,tick+'-'+_kside_html,_kside_html,cents=_kc,link=link,ph=_ph,ts=(((SHIPPED.get(_sk) or {}).get('Kalshi') or {}).get('ts') or '') if _uw else '',st=('ok' if _kc else 'unknown'))
-            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="KAL" data-kalticker="{tick}" data-kalside="{_kside_html}"{_dm}{_kcattr} target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{label}</a>')
+            _kcattr+=_mkrec('Kalshi',*(_kal_rec(_kx) if _kx else (tick,tick+'-'+_kside_html,_kside_html)),cents=_kc,link=link,ph=_ph,ts=(((SHIPPED.get(_kpk) or {}).get('Kalshi') or {}).get('ts') or '') if _uw else '',st=('ok' if _kc else 'unknown'))
+            out.append(f'<a class="chip%%BEST%%"{bkstyle(short)} href="{html.escape(link)}" data-book="KAL"{_kal_tick_attrs(_kx,tick,_kside_html)}{_dm}{_kcattr} target="_blank" rel="noreferrer">%%STAR%%{bkimg(short)}{label}</a>')
             continue
         if name=='Polymarket':
             if not p.get('polymarket'): continue
@@ -1342,7 +2026,7 @@ def chips(p):
             _o=re.sub(r' onclick="[^"]*"','',_o)
             _o=re.sub(r' target="_blank" rel="noreferrer"','',_o)
             # frozen chips must leave every live-tick selection set (sentinel, Sep 26)
-            _o=re.sub(r' data-(kalticker|kalside|polyslug|polysub|polykw|pm|pmapp|sb|app|book)="[^"]*"','',_o)
+            _o=re.sub(r' data-(kalticker|kalside|kalpx|polyslug|polysub|polykw|pm|pmapp|sb|app|book)="[^"]*"','',_o)
             _o=_o.replace('</a>','</span>')
             print(f"LINK FROZEN: {p.get('name')} settled chip, retired destination: {_dead[0]}", file=sys.stderr)
         else:
@@ -2019,7 +2703,7 @@ if man.get('parlay'):
             _pg=(p.get('game') or {})
             if _v is not None and _is_underway(_pg):
                 # same-phase rule: an in-play leg contributes its pre-game snapshot, never a live quote
-                _v=((SHIPPED.get(_ship_key(p)) or {}).get('Kalshi') or {}).get('cents') or _v
+                _v=((SHIPPED.get(_kal_pin_key(p,_kal_explicit(p.get('kalshi')))) or {}).get('Kalshi') or {}).get('cents') or _v
             _kc.append(_v)
         if len(_kc)==nlegs and all(isinstance(x,(int,float)) and 0<x<100 for x in _kc):
             _cc=amer_from_cents(_kc)
@@ -2591,6 +3275,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
             _g=_p.get('game') or {}
             _lg=_p.get('espn_league') or ''
             if not (_u and _g.get('eid') and _lg and isinstance(_k.get('cents'),(int,float))): continue
+            if (_kal_explicit(_k) or ('',''))[1]=='no': continue  # the watch line reads a team market's YES ask: a NO-side entry is not that price
             _awa=(_meta_for(_lg,_g.get('away','')).get('abbr') or '').upper()
             _hom=(_meta_for(_lg,_g.get('home','')).get('abbr') or '').upper()
             _kt=_k.get('team','') or ''
@@ -3295,9 +3980,9 @@ function rpKalTick(){{try{{
   fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){{
    const m=j&&j.market;if(!m)return;
    window.__rpKalOk=Date.now();
-   if(m.result==='yes'){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('KAL');return;}}
-   if(m.result==='no'){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('KAL');return;}}
-   const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<=1))return;  /* $1.00 ask is a real quote (Sep 26 root fix) */
+   if(m.result==={_KAL_WIN}){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('KAL');return;}}
+   if(m.result==={_KAL_LOSE}){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('KAL');return;}}
+   const d=parseFloat({_KAL_ASK});if(!(d>0&&d<=1))return;  /* $1.00 ask is a real quote (Sep 26 root fix) */
    const c=Math.round(d*100);
    /* URF dormant-market gate (swamp Sep 27: Jeanty/Jones/Irving early tickets quoted >6h stale):
       a market whose updated_time is >6h old must never re-stamp a bare live price - it wears the
@@ -3476,10 +4161,17 @@ def build_game_pages(man, css, build_sha):
         side=p.get('side','away')
         carded_team=g.get(side,'')
         _uw=_is_underway(g)
-        _sk=f"{away}|{home}|{(g.get('commence') or '')[:10]}"
+        _kx=_kal_explicit(p.get('kalshi'))  # explicit market + side: rows name that market and price its side
+        # an explicit-side pick reads its other books' pins (Polymarket) under the key chips() writes them (_ship_key:
+        # a total or prop adds its class and line), never the game-key pin of a moneyline on the same game; every
+        # other pick keeps the game key (for a moneyline the two keys are equal)
+        _sk=_ship_key(p) if _kx else f"{away}|{home}|{(g.get('commence') or '')[:10]}"
         _shk=(SHIPPED.get(_sk) or {}) if _uw else {}
+        # the Kalshi pin of an explicit-side pick sits under its own market + side (_kal_pin_key, the slot chips()
+        # writes); without a side it is the game-key pin above
+        _kpin=(((SHIPPED.get(_kal_pin_key(p,_kx)) or {}) if _uw else {}).get('Kalshi') if _kx else _shk.get('Kalshi'))
         _gph='last_pre_game' if _uw else 'pre_game'
-        _fqt=_pt_label(((_shk.get('Kalshi') or _shk.get('Polymarket') or {}).get('ts')) or '') if _uw else ''
+        _fqt=_pt_label(((_kpin or _shk.get('Polymarket') or {}).get('ts')) or '') if _uw else ''
         _mkthdr=('Frozen pre-game prices%s - both sides' % (' - '+_fqt if _fqt else '')) if _uw else 'Live markets - both sides'
         _foot=('Prices shown are frozen pre-game references%s - in-play markets move without us. Tap a price to open the live market.' % (' as of '+_fqt if _fqt else '')) if _uw else 'Prices update live: Kalshi ticks every 60s; Polymarket & sportsbook prices refresh with each page rebuild. Tap a price to open the market.'
         _PM=[]
@@ -3559,6 +4251,7 @@ def build_game_pages(man, css, build_sha):
             books_present.append(short)
         # Kalshi full board (user, Sep 25 12:19 PM): both sides, live-ticked. Fallback: single-side tap row.
         kal_html=''
+        _kteam=(carded_team or str(p.get('name') or '')) if _kx else carded_team  # a total/prop has no carded team
         if p.get('kalshi'):
             kurl=p['kalshi']['url']; tick=kurl.rstrip('/').split('/')[-1].upper()
             board=[]; et=tick; kvol=0.0
@@ -3567,10 +4260,10 @@ def build_game_pages(man, css, build_sha):
                 # and never refresh from in-play reads - the live-board branch below is pre-game only.
                 # Snapshot source: shipped-ledger cents, then manifest ship cents; the other side is
                 # honestly unpriced. No snapshot at all -> the picked side ships honestly unpriced too.
-                _kc=((_shk.get('Kalshi') or {}).get('cents')) or (p.get('kalshi') or {}).get('cents')
+                _kc=((_kpin or {}).get('cents')) or (p.get('kalshi') or {}).get('cents')
                 kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
-                    '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(carded_team)+'</a></span>'
-                    '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+html.escape(p['kalshi'].get('team',''))+'"'+(f' data-cents="{round(_kc)}"' if _kc else '')+_pmk('Kalshi',tick,tick,side,cents=_kc,link=kurl,st=('ok' if _kc else 'unknown'))+' '+rt('KAL',kurl,False)+'>'+(f'KAL {c2ml(_kc)}' if _kc else 'KAL')+'</a></span>'
+                    '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(_kteam)+'</a></span>'
+                    '<span class="pr"><a'+_kal_tick_attrs(_kx,tick,html.escape(p['kalshi'].get('team','')))+(f' data-cents="{round(_kc)}"' if _kc else '')+_pmk('Kalshi',*(_kal_rec(_kx) if _kx else (tick,tick,side)),cents=_kc,link=kurl,st=('ok' if _kc else 'unknown'))+' '+rt('KAL',kurl,False)+'>'+(f'KAL {c2ml(_kc)}' if _kc else 'KAL')+'</a></span>'
                     '<span class="side" style="text-align:right;color:#8a8f98">pre-game snapshot</span><span class="pr"></span></div>')
                 hrow['kal_a']=_kc if side=='away' else None
                 hrow['kal_h']=_kc if side=='home' else None
@@ -3615,6 +4308,10 @@ def build_game_pages(man, css, build_sha):
             if hm and not am and len(board)==2:
                 o=[b for b in board if b[1]!=hm[0]]
                 if o: am=(o[0][1],o[0][2],o[0][3])
+            if _kx and not (_kx[1]=='yes' and side in ('away','home') and ((am if side=='away' else hm) or ('',))[0]==_kx[0]):
+                # explicit market + side: the YES-ask board stands only when the picked side's board market
+                # IS this YES market; a NO side, a total or a prop renders the exact single-side row below
+                am=hm=None
             base=kurl if et==tick else kurl.rsplit('-',1)[0]
             # LOCKED-PRICE BAKE (Sep 27 7:47, tester NO-GO): the picked side's baked price is the
             # LOCKED card price from the manifest, never the live board quote pulled at build time.
@@ -3634,8 +4331,8 @@ def build_game_pages(man, css, build_sha):
             else:
                 kside=html.escape(p['kalshi'].get('team',''))
                 kal_html=('<div class="mrow" data-book="KAL">'+bkimg('KAL')+'<span class="bk">KAL</span>'
-                    '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(carded_team)+'</a></span>'
-                    '<span class="pr"><a data-kalticker="'+tick+'" data-kalside="'+kside+'" data-cents="'+str(round(p['kalshi']['cents']))+'"'+_pmk('Kalshi',tick,tick,side,cents=p['kalshi']['cents'],link=kurl)+' '+rt('KAL',kurl,False)+'>KAL '+str(c2ml(p['kalshi']['cents']))+'</a></span>'
+                    '<span class="side"><a '+rt('KAL',kurl,False)+'>'+html.escape(_kteam)+'</a></span>'
+                    '<span class="pr"><a'+_kal_tick_attrs(_kx,tick,kside)+' data-cents="'+str(round(p['kalshi']['cents']))+'"'+_pmk('Kalshi',*(_kal_rec(_kx) if _kx else (tick,tick,side)),cents=p['kalshi']['cents'],link=kurl)+' '+rt('KAL',kurl,False)+'>KAL '+str(c2ml(p['kalshi']['cents']))+'</a></span>'
                     '<span class="side" style="text-align:right;color:#8a8f98">full board on Kalshi</span><span class="pr"></span></div>')
                 cc=p['kalshi']['cents']
                 hrow['kal_a']=cc if side=='away' else None
@@ -3735,6 +4432,13 @@ def build_game_pages(man, css, build_sha):
             if _sb_rows: _bits.append('sportsbook rows refresh with each page rebuild')
             _foot=('Prices update live: '+'; '.join(_bits)+'. Tap a price to open the market.') if _bits else 'No live market rows on this page yet - tap a pick chip to open the market.'
         page_html=tmpl
+        if _kx:
+            # explicit-side page: the template tick prices each Kalshi anchor from its own data-kalpx side
+            # (every other page keeps the template's YES-only line byte-for-byte)
+            if page_html.count(_KAL_TMPL_ASK)!=1:
+                print(f"BUILD FAILED: game page template Kalshi tick line not found once ({_KAL_TMPL_ASK!r}) - an explicit-side row would tick the YES ask", file=sys.stderr)
+                sys.exit(3)
+            page_html=page_html.replace(_KAL_TMPL_ASK,'const d=parseFloat('+_kal_js(True)['ask']+');')
         for tok,val in [('__TITLE__',html.escape(away+' at '+home)),('__CSS__',css),('__NUM__',str(p['num'])),
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',abbr_a),('__HAB__',abbr_h),  # swamp 9/26: gpk registry blanks on unregistered games rendered UNLABELED arbiter-only scores - abbrs come from the same verified _meta_for source as the matchup display
             ('__EID__',html.escape(str(g.get('eid') or ''))),('__CEID__',html.escape(str(g.get('ceid') or ''))),('__COMP__',html.escape(str(g.get('comp') or ''))),('__COUNTED__',' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else ''),

@@ -16,9 +16,16 @@ build_manifest never silently ships a non-compared Kalshi price); the card refus
 units.cents_to_american, card_source 'Kalshi ask at lock'). Either way the edge is measured from the fair against
 the CARD price with the winning venue's fee, never a candidate's self-reported gross_c/net_c. Never book-consensus
 display. Forward-only: previously published cards keep their published prices.
+ONE LINE, ONE MARKET. A venue's quote prices one line: Kalshi lists half-point rungs and a book posts whole numbers
+with a push, so a book's -3 is another market than Kalshi's 2.5 rung and can never be its best ask. On a spread,
+total or prop candidate every quote from a venue other than Kalshi (each compared entry and the declared best_ask)
+names its line, read from the picked side as the page's pick_line is ('Falcons +2.5' quotes +2.5, 'Under 54.5'
+quotes 54.5), and that line must be the pick's own; a quote on a moneyline names none. The Kalshi quote is the kalshi
+block's own market, so it names a line only optionally, and then the same one. A quote that breaks this refuses the
+card (nothing written); the lines given ride into best_ask and its compared list.
 Usage: build_manifest.py candidates.json out_manifest.json [--preview] [--meta meta.json]
-candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker},model,gross_c,net_c,
-                [best_ask:{venue,price,read_at,compared:[...]}], [fragility]}
+candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker,[side]},model,gross_c,net_c,
+                [best_ask:{venue,price,read_at,[line],compared:[{venue,price,read_at,[line]}...]}], [fragility]}
 STANDING RULES ARE HARD GATES (owner ruling 2026-10-02 (4): "NO - an owner-approved card cannot break a standing
 rule. Vegas rule, ladder sizes, all of it: hard gates, no exceptions."). The card refuses closed, nothing
 written, on a pick on or against a Las Vegas team, units off the J-096 ladder, and on every standing bar:
@@ -107,11 +114,13 @@ def _pick_content_hash(m, legacy=False):
 #  - Vegas (L-VEGAS-GATE-001, Sep 25): "never gamble on or against any Vegas teams ever" and
 #    "Exclude A's going forward from today too". A pick in a game involving a Las Vegas team is
 #    refused: Raiders (NFL), Golden Knights (NHL), Aces (WNBA), Athletics/A's (MLB), UNLV
-#    (college). A nickname counts only inside its own league (Texas Tech Red Raiders is CFB), and
-#    a team named for Las Vegas, or UNLV, counts in any league (the league is read case- and
-#    space-blind). The rule is about teams: the individual sports (racing, golf, tennis, MMA,
-#    boxing) skip it - a NASCAR race at Las Vegas Motor Speedway is no Vegas team - and any other
-#    league, listed or not, keeps it.
+#    (college), read by the vegas-rule contract block below (the page builder twins carry it byte
+#    for byte): a league's nickname, home city or abbreviation as whole words anywhere in a team or
+#    pick name, inside its own league, and 'Las Vegas', 'Vegas' or UNLV in any league (the league
+#    is read case- and space-blind). Only a named non-Vegas team (Texas Tech Red Raiders filed
+#    under the NFL) is let through. The rule is about teams: the individual sports (racing, golf,
+#    tennis, MMA, boxing) skip it - a NASCAR race at Las Vegas Motor Speedway is no Vegas team -
+#    and any other league, listed or not, keeps it.
 #  - Units (J-096): 5u, 10u, 15u or 100u - no other size, and exactly the rung of the pick's fair and gross.
 #  - The standing bars (RUNBOOK 2.3, J-096/J-097/J-098, owner rulings 2026-10-02 (1) and (2)): see bar_problems
 #    and parlay_problems.
@@ -120,30 +129,65 @@ def _pick_content_hash(m, legacy=False):
 # nothing overrides it. The old override (an owner_directive on the candidate row or an
 # --owner-directive argument) is gone; either one given is an error, and its words are never printed.
 UNIT_LADDER = (5, 10, 15, 100)
-_VEGAS_NICK = {'football/nfl': ('raiders',), 'hockey/nhl': ('golden knights',), 'basketball/wnba': ('aces',),
-               'baseball/mlb': ('athletics', "a's"), 'football/college-football': ('unlv',),
-               'basketball/mens-college-basketball': ('unlv',), 'basketball/womens-college-basketball': ('unlv',)}
-_VEGAS_ANY = ('las vegas', 'vegas', 'unlv')  # UNLV is a Las Vegas team in every college league
-_INDIVIDUAL_SPORTS = ('racing', 'golf', 'tennis', 'mma', 'boxing')  # espn_league's sport segment
 HARD_GATES = ('Vegas, the J-096 unit ladder and every standing bar are hard gates with no override (owner ruling '
               '2026-10-02 (4): an owner-approved card cannot break a standing rule): an owner-forced sub-bar pick is '
               'impossible, and a status_note cannot carry one')
 REMOVED_FLAG = '--owner-directive'
 
-def _words(s):
+# >>> vegas-rule contract copy (build_manifest.py and both page-builder twins carry this block byte for byte;
+# scripts/test_vegas_rule_exact.py checks the copies and runs one case table through each)
+# Owner rule L-VEGAS-GATE-001 (Sep 25): "never gamble on or against any Vegas teams ever" and "Exclude A's going
+# forward from today too". A pick is out when any of its strings - game.away, game.home or the pick name, each
+# read case-, space- and punctuation-blind - carries as whole words, anywhere in it:
+#  - 'Las Vegas', 'Vegas' or 'UNLV': a team named for Las Vegas, or UNLV, is a Vegas team in every team league;
+#  - or one of its league's Vegas words in _VEGAS_WORDS: the nickname (Raiders NFL, Golden Knights NHL, Aces WNBA,
+#    Athletics/A's MLB), a home city the team has played under, or an abbreviation. A Vegas word counts only in its
+#    own league: 'LV' is the Raiders in the NFL and the Aces in the WNBA, nothing in the NBA, and the Wright State
+#    Raiders in college basketball are no Vegas team.
+# Anywhere means anywhere: 'Raiders 1H +3.5', "A's F5 ML", 'Brock Bowers (LV) over 4.5 receptions', "Sacramento
+# A's" and 'Golden Knights (VGK)' all count. The one way out is by name: each non-Vegas team in _VEGAS_NOT (Texas
+# Tech Red Raiders, Evansville Purple Aces, UCF Golden Knights, ...) is blanked out of a string before it is read,
+# so that team filed under the nickname's league builds, while any other Vegas word in the same string still holds
+# the pick. Nothing else ever narrows the rule. An entry there is a whole multi-word team name, never a Vegas word
+# on its own, and never carries 'Vegas', 'Las Vegas' or 'UNLV'.
+# The individual sports (racing, golf, tennis, MMA, boxing) have no teams: a NASCAR race at Las Vegas Motor
+# Speedway is no Vegas team. The league is read case- and space-blind ('Hockey/NHL ' is the NHL).
+_VEGAS_WORDS = {
+    'football/nfl': ('raiders', 'oakland', 'lv'),
+    'hockey/nhl': ('golden knights', 'vgk'),
+    'basketball/wnba': ('aces', 'lv', 'lva'),
+    'baseball/mlb': ('athletics', "a's", 'oakland', 'sacramento', 'ath', 'oak'),
+}
+_VEGAS_CITY = ('las vegas', 'vegas', 'unlv')
+_VEGAS_NOT = ('red raiders', 'colgate raiders', 'wright state raiders', 'purple aces', 'ucf golden knights',
+              'clarkson golden knights')
+_VEGAS_NO_TEAMS = ('racing', 'golf', 'tennis', 'mma', 'boxing')
+
+
+def _vg_words(s):
+    """' <words> ': lower-cased, each run of characters other than a-z, 0-9 and the apostrophe one space."""
     return ' ' + re.sub(r"[^a-z0-9']+", ' ', str(s or '').lower().replace('\u2019', "'")) + ' '
+
+
+def vegas_hit_fields(league, fields):
+    """'<field> <value>' for the first (field, value) that puts a Las Vegas team on this pick, else None."""
+    lg = str(league or '').strip().lower()
+    if lg.split('/')[0] in _VEGAS_NO_TEAMS:
+        return None
+    for f, v in fields:
+        w = _vg_words(v)
+        for n in _VEGAS_NOT:
+            while f' {n} ' in w:
+                w = w.replace(f' {n} ', ' ')
+        if any(f' {n} ' in w for n in _VEGAS_CITY + _VEGAS_WORDS.get(lg, ())):
+            return f'{f} {v!r}'
+    return None
+# <<< vegas-rule contract copy
 
 def vegas_hit(c):
     """Which field puts a Las Vegas team on this candidate (on it or against it), else None."""
-    lg = str(c.get('espn_league') or '').strip().lower()  # 'Hockey/NHL ' is still the NHL
-    if lg.split('/')[0] in _INDIVIDUAL_SPORTS:
-        return None  # no teams: a venue or event named for Las Vegas is not a Vegas team
-    names = _VEGAS_ANY + _VEGAS_NICK.get(lg, ())
-    for field in ('home', 'away', 'name'):
-        w = _words(c.get(field))
-        if any(' ' + n + ' ' in w for n in names):
-            return f"{field} {c.get(field)!r}"
-    return None
+    return vegas_hit_fields(c.get('espn_league'), [(f, c.get(f)) for f in ('home', 'away', 'name')])
+
 
 def units_rung(u):
     """The J-096 rung a units value names (5u -> 5), else None."""
@@ -215,6 +259,41 @@ def venue_quote(q, where):
     return {'venue': v, 'name': name, 'price': price, 'read_at': _read_time(q.get('read_at'), where),
             'cost_c': cost, 'fee_c': fee, 'american': am}
 
+def pick_side_line(c):
+    """The candidate's own line read from its picked side, the page builder's pick_line: a spread's line is the HOME
+    spread, so an away pick reads -line and a home pick line; a total's or a prop's line is the number itself. None
+    when it cannot be read (a moneyline has no line; a spread side other than home/away)."""
+    mc, ln = c.get('market_class'), _real(c.get('line'))
+    if isinstance(c.get('line'), str):
+        try: ln = _real(float(c['line']))
+        except ValueError: ln = None
+    if ln is None: return None
+    if mc == 'spread' and c.get('side') in ('home', 'away'): return (0.0 - ln) if c['side'] == 'away' else ln
+    if mc in ('total', 'prop'): return ln
+    return None
+
+def quote_line_problem(c, q, v):
+    """Why one best_ask quote (venue key v) is not a quote of the pick's own line (ONE LINE, ONE MARKET above),
+    else None."""
+    mc = c.get('market_class')
+    given = isinstance(q, dict) and q.get('line') is not None
+    if mc not in ('spread', 'total', 'prop'):
+        return f"a {v} quote at line {q['line']!r} is another market than a moneyline (a moneyline quote names no line)" if given else None
+    if not given:
+        if v == 'kalshi': return None  # the kalshi block's own market
+        return (f"a {v} quote on a {mc} pick names no line: it must name the picked side's line ('Falcons +2.5' quotes +2.5) - "
+                f"a book's -3 is another market than Kalshi's 2.5 rung, never its best ask")
+    ql = _real(q['line'])
+    if ql is None: return f"{v} line {q['line']!r} is not a number"
+    own = pick_side_line(c)
+    fmt = (lambda x: f'{x:+g}') if mc == 'spread' else (lambda x: f'{x:g}')
+    if own is None:
+        return f"the pick's own line cannot be read (line {c.get('line')!r}, side {c.get('side')!r}) to bind a {v} quote at {fmt(ql)}"
+    if abs(ql - own) > 1e-9:
+        return (f"a {v} quote at line {fmt(ql)} is another market than the pick's own {fmt(own)} - one line, one market: "
+                f"a book's -3 is never the best ask of Kalshi's 2.5 rung")
+    return None
+
 def price_card(c):
     """The card price of one candidate: the cheapest ask to buy across Kalshi and every venue its best_ask
     block compared (owner ruling 2026-10-02 (1)). ValueError on anything that cannot be trusted."""
@@ -223,6 +302,10 @@ def price_card(c):
         raise ValueError('no kalshi block: the market must be on Kalshi (J-122) - a book-only market never cards')
     if not isinstance(k.get('ticker'), str) or not k['ticker'].strip():
         raise ValueError('the kalshi block has no ticker: the market must be on Kalshi (J-122)')
+    if 'side' in k and k['side'] not in ('yes', 'no'):
+        # explicit side (an Under is the NO side of an Over market): kalshi.cents is THAT side's ask, and the
+        # page builder prices the exact market ticker from it. Anything but yes|no is refused, never guessed.
+        raise ValueError(f"kalshi side {k['side']!r}: an explicit side is 'yes' or 'no'")
     cents = k.get('cents')
     if type(cents) is not int or not (1 <= cents <= 99):  # strict: bool is not int here
         raise ValueError(f'bad kalshi cents {cents!r}')
@@ -248,6 +331,11 @@ def price_card(c):
             seen.add(v)
         if v == 'kalshi' and qq['cost_c'] != cents:
             raise ValueError(f"{where}: the Kalshi ask {qq['price']!r} is not the kalshi block's {cents}c")
+        lp = quote_line_problem(c, q, v)
+        if lp:
+            raise ValueError(f'{where}: {lp}')
+        if isinstance(q, dict) and q.get('line') is not None:
+            qq['line'] = q['line']  # checked: the pick's own line
         have = pool.get(v)
         if have is None:
             pool[v] = qq
@@ -257,6 +345,7 @@ def price_card(c):
         if have['read_at'] and qq['read_at'] and have['read_at'] != qq['read_at']:
             raise ValueError(f"{where}: {v} read at {qq['read_at']!r} disagrees with {have['read_at']!r} in compared")
         have['read_at'] = have['read_at'] or qq['read_at']
+        if have.get('line') is None and qq.get('line') is not None: have['line'] = qq['line']
     ranked = sorted(pool.values(), key=lambda q: (q['cost_c'], q['fee_c'], _VENUE_ORDER.index(q['venue'])))
     best = ranked[0]
     named = VENUE_ALIASES.get(str(ba.get('venue') or '').strip().lower(), str(ba.get('venue') or '').strip().lower())
@@ -265,7 +354,8 @@ def price_card(c):
                          f"({best['cost_c']:.2f}c) - the card price is the cheapest ask")
     if not best['read_at']:
         raise ValueError(f"best_ask.read_at is missing: record when the {best['venue']} ask was read (owner ruling 2026-10-02 (1))")
-    return dict(best, legacy=False, compared=[{'venue': q['venue'], 'price': q['price'], 'read_at': q['read_at']} for q in ranked])
+    return dict(best, legacy=False, compared=[{'venue': q['venue'], 'price': q['price'], 'read_at': q['read_at'],
+                                               **({'line': q['line']} if q.get('line') is not None else {})} for q in ranked])
 
 # ---- the standing bars (RUNBOOK 2.3, J-096/J-097/J-098, owner rulings 2026-10-02) ----
 CARD_BAND_C, ASK_CUT_C, GROSS_BAR_C = 60, 85, 2.0
@@ -585,12 +675,14 @@ def main():
             'best_book': pr['name'],
             'kalshi': {'url': c['kalshi'].get('url') or 'https://kalshi.com/markets/{}/{}'.format(c['kalshi']['ticker'].split('-')[0].lower(), c['kalshi']['ticker'].rsplit('-',1)[0].lower()),  # event-level URL: build_gh_page resolves the gate via the LAST segment (event ticker)
                        'cents': cents, 'team': c['kalshi']['team'], 'gate_cents': cents,
-                       'ticker': c['kalshi']['ticker']},
+                       'ticker': c['kalshi']['ticker'],
+                       **({'side': c['kalshi']['side']} if 'side' in c['kalshi'] else {})},  # explicit market side (yes|no): build_gh_page prices that side's ask
             'card_american': am,
             'card_source': 'Kalshi ask at lock' if pr['legacy'] else f"{pr['name']} ask at {pr['read_at']}",
             # ruling (1): the venue, its read time, every venue compared and the edge against that price
             **({} if pr['legacy'] else {'best_ask': {
                 'venue': pr['venue'], 'price': pr['price'], 'read_at': pr['read_at'],
+                **({'line': pr['line']} if pr.get('line') is not None else {}),  # one line, one market (checked in price_card)
                 'cost_c': round(pr['cost_c'], 2), 'fee_c': round(pr['fee_c'], 2),
                 'gross_c': round(c['model'] - pr['cost_c'], 2), 'net_c': round(c['model'] - pr['cost_c'] - pr['fee_c'], 2),
                 'compared': pr['compared']}}),

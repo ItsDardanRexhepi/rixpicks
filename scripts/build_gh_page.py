@@ -64,6 +64,13 @@ def _pt_date(iso):
     except Exception: return ''
 
 man=json.load(open(sys.argv[1]))
+# Explicit-side Kalshi picks (kalshi.side yes|no: an Under is the NO side of an Over market) price that
+# market's own side ask in build_gh_page_v2.py only. This builder reads a team-matched YES ask, so it would
+# show the wrong side's price: refuse the whole build rather than render a preview with it.
+_KAL_SIDED=[str(p.get('name')) for p in (man.get('picks') if isinstance(man.get('picks'),list) else []) if isinstance(p,dict) and isinstance(p.get('kalshi'),dict) and p['kalshi'].get('side') is not None]
+if _KAL_SIDED:
+    print(f"BUILD FAILED: kalshi.side on {', '.join(_KAL_SIDED)} - this builder prices Kalshi from a team-matched YES ask and cannot show a picked side's price; build the card with build_gh_page_v2.py", file=sys.stderr)
+    sys.exit(3)
 # --- pick-content hash gate (permanent): price ship conditions gate pick CONTENT only.
 # manifest carries pick_content_hash = sha256 over the FULL canonical pick object (see exclusion
 # list in _pick_content_hash). Any real content change forces the full gate.
