@@ -3,8 +3,8 @@
 
 Builds real cards with each builder twin in a throwaway tree, network blocked (dead proxy: every
 feed lookup fails fast, nothing leaves the machine), and checks the built index.html:
-- CP-02: a card with no MLB pick still mounts the Dingers module exactly once (as a Home panel
-  after the league panels); an MLB card keeps it on the MLB tab only. The health gate holds every
+- CP-02: every card mounts Dingers exactly once as a shared Home/Wooder panel after
+  the card league panels, including an MLB card and an empty card. The health gate holds every
   posting job when the module is missing.
 - CP-08: a spread pick (market_class 'spread', the build_manifest.py shape) prices only from
   spread quotes on its own line, never from the moneyline prefill; a total pick never takes a
@@ -153,14 +153,18 @@ RF = _load_record_final()
 
 for B in BUILDERS:
     tag = os.path.basename(B)
+    rc, empty_page, empty_log = build(B, card([]), FRESH)
+    check(f'{tag}: empty card mounts one shared Home/Wooder Dingers panel',
+          rc == 0 and empty_page.count('slates/wooder_dingers.json') == 1
+          and 'id="st-ding" data-home-league="1"' in empty_page)
     # 1. Oct 1 shape: NFL total + WNBA spread + NHL ML, no MLB pick, no lock provenance
     rc, page, log = build(B, card([DEVILS, MERCURY, UNDER], parlay={'legs': ['Under 38.5', 'Mercury -4.5', 'Devils ML'], 'note': ''}), FRESH, STALE)
     check(f'{tag}: non-MLB card builds', rc == 0 and len(page) > 10000)
     n_ding = len(re.findall(r'slates/wooder_dingers\.json', page))
     check(f'{tag}: CP-02 non-MLB card mounts the Dingers module exactly once', n_ding == 1)
     ding_at = page.find('slates/wooder_dingers.json'); panel = page.rfind('<div class="state"', 0, ding_at)
-    check(f'{tag}: CP-02 Dingers (Wooder Ice) sits under the Wooder tab only, never a Home panel',
-          'id="st-ding"' not in page and panel == page.find('<div class="state" id="st-wooder"') > 0)
+    check(f'{tag}: CP-02 Dingers (Wooder Ice) is one shared Home/Wooder panel after league panels',
+          'id="st-ding" data-home-league="1"' in page and panel == page.find('<div class="state" id="st-ding"') > page.find('<div class="state" id="st-wooder"') > 0)
     merc, under, devils = row(page, 'Indiana Fever'), row(page, 'Pittsburgh Steelers'), row(page, 'Philadelphia Flyers')
     check(f'{tag}: CP-08 spread row carries data-market="spread" data-line="-4.5"', 'data-market="spread" data-line="-4.5"' in merc)
     check(f'{tag}: CP-08 spread pick never shows the moneyline price or link', '-250' not in merc and 'ML_MERC' not in merc)
@@ -204,8 +208,8 @@ for B in BUILDERS:
     rc, page, log = build(B, card([SOX], record='1-15'), FRESH)
     n_ding = len(re.findall(r'slates/wooder_dingers\.json', page))
     ding_at = page.find('slates/wooder_dingers.json')
-    check(f'{tag}: CP-02 MLB card keeps Dingers on the Wooder tab only',
-          n_ding == 1 and 'id="st-ding"' not in page and page.rfind('<div class="state"', 0, ding_at) == page.find('<div class="state" id="st-wooder"'))
+    check(f'{tag}: CP-02 MLB card keeps one shared Home/Wooder Dingers panel',
+          n_ding == 1 and 'id="st-ding" data-home-league="1"' in page and page.rfind('<div class="state"', 0, ding_at) == page.find('<div class="state" id="st-ding"'))
     check(f'{tag}: CP-10 card_ts card keeps its lock stamp', re.findall(r'class="oddslock">([^<]*)<', page) == ['7:04 AM &middot; locked'])
     check(f'{tag}: W/L popover rounds the 6.25% tie half-up like the client (6.3%)', 'id="rpWlPct">W/L: 6.3%<' in page and 'id="rpNavPct">6.25%<' in page)
 
