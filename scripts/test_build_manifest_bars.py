@@ -16,9 +16,9 @@ verbatim by muse on MeshTrix, 15:35Z).
      fair (product of the legs' fairs) against the product of the legs' card prices, or a venue's quoted
      parlay price (parlay.best_ask) when that is cheaper. 2-4 legs (J-098), every leg a pick on the card.
  (4) "NO - an owner-approved card cannot break a standing rule. Vegas rule, ladder sizes, all of it:
-     hard gates, no exceptions." Every bar refuses the card closed, nothing written: fair < 60c, card
+     hard gates, no exceptions." Every bar refuses the card closed, nothing written: card
      ask >= 85c, gross < 2c, net < 0.5c (ml) or < 2c (spread, total, prop), units other than the J-096
-     rung (60-69 = 5u; 70-79 = 10u with gross >= 3c, else 5u; 80-89 = 15u; 90+ = 100u; fragility 2 one
+     rung (below 70 = 5u; 70-79 = 10u with gross >= 3c, else 5u; 80-89 = 15u; 90+ = 100u; fragility 2 one
      rung lower, fragility 3 refuses; tennis capped at 5u), and a candidate missing model, gross_c or
      net_c. A status_note cannot carry a sub-bar card: an owner-forced sub-bar pick is impossible.
 Builds run in a throwaway tree with the network sent to a dead proxy.
@@ -132,7 +132,10 @@ RULING4 = 'owner ruling 2026-10-02 (4)'
 # ------------------------------------------------------------------ (4) the bars, each a hard gate
 OK5 = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u')
 built('a pick that clears every bar', [OK5])
-refused('fair 59.9c (below the 60c card band)', [cand(1, 'Home1 ML', 59.9, 3.0, 1.3, '5u', cents=56)], ['60c card band', RULING4])
+# Oct 6 owner ruling removes the 60c floor; all other bars remain.
+r = built('fair 59.9c clears edge bars at 5u', [cand(1, 'Home1 ML', 59.9, 3.0, 1.3, '5u', cents=56)])
+check('sub-60c published stake stays 5u', (r['man'] or {'picks':[{}]})['picks'][0].get('units') == '5u', r['man'])
+refused('sub-60c at 10u still refuses', [cand(1, 'Home1 ML', 59.9, 3.0, 1.3, '10u', cents=56)], ['J-096 rung', '5u'])
 refused('card ask 85c (the 85c cut)', [cand(1, 'Home1 ML', 92.0, 7.0, 6.1, '100u', cents=85)], ['85c', RULING4])
 refused('gross 1.9c', [cand(1, 'Home1 ML', 62.9, 1.9, 0.6, '5u')], ['gross', '2c', RULING4])
 # net is recomputed from the fair against the Kalshi 61c ask (fee 1.67c), never the candidate's net_c: a fair of
@@ -176,7 +179,7 @@ refused('a bool gross_c', [dict(OK5, gross_c=True)], ['gross_c'])
 # Sep 29/30 status_note words, and every violation on a card in one refusal
 PROBE_NOTE = 'Official pick by owner directive - sub-bar disclosure on file (fair 46.7c below the 60c card band)'
 r = refused('the sub-bar probe with the owner-directive status_note',
-            [cand(1, 'Home1 ML', 46.7, 1.0, 0.1, '5u', cents=46)], ['60c card band', 'gross', 'sub-bar', RULING4], status_note=PROBE_NOTE)
+            [cand(1, 'Home1 ML', 46.7, 1.0, 0.1, '5u', cents=46)], ['gross', 'net', 'sub-bar', RULING4], status_note=PROBE_NOTE)
 check('the refusal names an owner-forced sub-bar pick impossible', 'owner-forced sub-bar pick is impossible' in r['log'], r['log'][-300:])
 refused('a sub-bar disclosure status_note on a clean card refuses (a status_note cannot carry a sub-bar card)', [OK5], ['status_note', RULING4],
         status_note='Official pick by owner directive - sub-bar disclosure on file')
