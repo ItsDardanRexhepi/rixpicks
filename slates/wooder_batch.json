@@ -5,7 +5,7 @@
    "id": "t8",
    "title": "PLACED - reported by Wooder Ice: NHL 4 anytime goals",
    "matchup": "Hagel PHI@TB, Batherson OTT@BOS, Connor WPG@PIT, Hintz SJ@DAL",
-   "time": "Started per ESPN; state at 6:49 PM PT: PHI at TB 3rd period (TB 3-1), OTT at BOS 3rd period (OTT 4-1), WPG at PIT in progress (PIT 1-0), SJ at DAL end of 2nd (DAL 4-0)",
+   "time": "Started per ESPN; state at 6:59 PM PT: PHI at TB final (TB 4-1), OTT at BOS 3rd period (OTT 4-1), WPG at PIT 3rd period (WPG 3-2), SJ at DAL 3rd period (DAL 4-0)",
    "legs": [
     {
      "player": "Brandon Hagel",
@@ -20,7 +20,7 @@
        "cents": 36
       }
      ],
-     "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
+     "note": "Scored per ESPN: 3rd period 19:53 (PHI at TB final, TB 4-1). Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
     },
     {
      "player": "Drake Batherson",
@@ -137,7 +137,7 @@
    "id": "t5",
    "title": "NHL 4 anytime goals",
    "matchup": "Kucherov PHI@TB, Pastrnak OTT@BOS, Connor WPG@PIT, Johnston SJ@DAL",
-   "time": "Started per ESPN; state at 6:49 PM PT: PHI at TB 3rd period (TB 3-1), OTT at BOS 3rd period (OTT 4-1), WPG at PIT in progress (PIT 1-0), SJ at DAL end of 2nd (DAL 4-0)",
+   "time": "Started per ESPN; state at 6:59 PM PT: PHI at TB final (TB 4-1), OTT at BOS 3rd period (OTT 4-1), WPG at PIT 3rd period (WPG 3-2), SJ at DAL 3rd period (DAL 4-0)",
    "legs": [
     {
      "player": "Nikita Kucherov",
@@ -335,7 +335,7 @@
    "id": "t1",
    "title": "NBA preseason 5 legs",
    "matchup": "Spreads are 'wins by over 1.5'; Timberwolves moneyline",
-   "time": "Per ESPN at 6:49 PM PT: MEM at ATL final (MEM 132, ATL 123), NY at PHI final (PHI 120, NY 97), PHX at DET final (DET 109, PHX 107), MIN at MIL 3rd quarter (MIN 72, MIL 66); LAL at SAC scheduled 7:00 PM PT",
+   "time": "Per ESPN at 6:59 PM PT: MEM at ATL final (MEM 132, ATL 123), NY at PHI final (PHI 120, NY 97), PHX at DET final (DET 109, PHX 107), MIN at MIL 3rd quarter (74-74); LAL at SAC scheduled 7:00 PM PT",
    "legs": [
     {
      "player": "Pistons -1.5 vs PHX",
