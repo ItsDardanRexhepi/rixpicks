@@ -121,7 +121,7 @@ for rel in ('scripts/finals_watch.py', 'previews/overlay/scripts/finals_watch.py
     import shutil; shutil.rmtree(tmp, ignore_errors=True)
 
 # Nothing that runs in GitHub Actions needs the private size, so it lives only on the grading host:
-# record_final.py (the Actions record write) never imports core.units, no workflow names the env,
+# record_final.py (the Actions record write) never reads the private size, no workflow names the env,
 # and no script a workflow runs - followed through the shell scripts it calls and every repo module
 # it imports - reads the size. (Importing core.units for cents_to_american/display_units is fine:
 # that needs no size.) The fixtures tests.yml runs set their own placeholder.
@@ -158,8 +158,13 @@ def _closure(start):
                 for a in n.names: todo += _mod_files(n.module + '.' + a.name, os.path.dirname(f))
     return seen
 UNITS_PY = os.path.join(ROOT, 'core', 'units.py')
-check('record_final.py never imports core.units (directly or through its imports)',
-      UNITS_PY not in _closure(os.path.join(ROOT, 'scripts', 'record_final.py')))
+# CLV may import pure conversion/display helpers; no path in this closure may read the private size.
+_record_closure = _closure(os.path.join(ROOT, 'scripts', 'record_final.py'))
+_record_size_reads = [os.path.relpath(f, ROOT) for f in _record_closure if f != UNITS_PY and SIZE_READ.search(open(f, encoding='utf-8', errors='ignore').read())]
+check('record_final.py never reads the private dollar size (directly or through its imports)', not _record_size_reads, _record_size_reads)
+_env_no_size = dict(os.environ); _env_no_size.pop(ENV, None)
+_import_check = subprocess.run([sys.executable, '-c', "import sys;sys.path.insert(0,'scripts');import record_final"], cwd=ROOT, env=_env_no_size, capture_output=True, text=True)
+check('record_final.py imports with the size unset', _import_check.returncode == 0, _import_check.stderr[-300:])
 wf_named, wf_reads = [], []
 for wf in sorted(glob.glob(os.path.join(ROOT, '.github', 'workflows', '*.yml'))):
     txt = open(wf).read()
