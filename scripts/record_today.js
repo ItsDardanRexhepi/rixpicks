@@ -18,6 +18,9 @@ function stake(p){var n=Number.parseFloat(text(p.units));return Number.isFinite(
 function fmt(n){return (n>=0?'+':'')+n.toFixed(2)+'u';}
 /* A pick with no event id (MMA before K19) is keyed by league + name. */
 function key(p){var g=p.game||{};if(!g.eid)return ['noeid',text(p.espn_league),p.name||''].join('|');return [g.eid||'',p.market||'ml',p.side||'',p.line||'',p.player||'',p.name||''].join('|');}
+/* Late-post disclosure: a pick posted after its game began says so here too - from the card itself
+   while it is live, or from its chain-written row (record_final copies the flags). Only a JSON true counts. */
+function late(p,x){var f=function(k){return (!!p&&p[k]===true)||(!!x&&x[k]===true);};return f('added_after_final')?'Added after the final':f('added_after_kickoff')?'Added after kickoff':'';}
 function result(x){var r=text(x&&x.result).toUpperCase();return ({W:'W',WON:'W',L:'L',LOST:'L',P:'P',PUSH:'P'})[r]||'';}
 function safeJson(url){return fetch(url+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});}
 var liveRetryAt=0;
@@ -38,6 +41,7 @@ function paint(date,picks,graded,extra,complete){
    var box=child(frag,'div','pk'),top=child(box,'div','pk-top'),badge=child(top,'span','res '+(r||'pending'),r||'·');badge.setAttribute('aria-label',r||'Pending');
    child(top,'span','nm',p.name||'Pick');child(top,'span','un',p.units||'');child(top,'span','od',a!=null?(a>0?'+':'')+a:(p.odds||''));
    var g=p.game||{};child(box,'div','gm',(p.league||text(p.espn_league).split('/').pop().toUpperCase()||'Pick')+(g.home||g.away?' · '+(p.side==='away'?'at '+g.home:p.side==='home'?'vs '+g.away:[g.away,g.home].filter(Boolean).join(' vs ')):'') );
+   var lt=late(p,x);if(lt)child(box,'div','late',lt);
    if(x&&x.score)child(box,'div','sc',x.score);
    if(r){var note='';if(x&&x.note)note=text(x.note);else if(r==='P')note='Push · 0.00u at the published card price.';else if(s!=null&&a!=null)note=fmt(r==='L'?-s:s*(a>0?a/100:100/Math.abs(a)))+' on '+p.units+' at the '+(a>0?'+':'')+a+' published card price.';else note='Result posted; units pending verified card price.';
     child(box,'div','nt',note);if(x&&x.learning)child(box,'div','nt',text(x.learning));
