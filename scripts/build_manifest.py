@@ -722,8 +722,10 @@ def main():
         'yesterday': _field('yesterday', required=False),
         'status_note': _field('status_note', required=False),
         'parlay': parlay,
+        'built_by': 'build_manifest',
         'preview': preview, 'picks': picks}
     manifest['pick_content_hash'] = _pick_content_hash(manifest)
+    manifest['lock_ref'] = LOCK_PATH
 
     # Single-writer lock: held across read-decide-stage-publish-verify so concurrent builds
     # can never both read the pre-publish ledger and duplicate a canonical row.
