@@ -152,8 +152,8 @@ for B in BUILDERS:
     n_ding = len(re.findall(r'slates/wooder_dingers\.json', page))
     check(f'{tag}: CP-02 non-MLB card mounts the Dingers module exactly once', n_ding == 1)
     ding_at = page.find('slates/wooder_dingers.json'); panel = page.rfind('<div class="state"', 0, ding_at)
-    check(f'{tag}: CP-02 Dingers sits in a Home-projected panel after the league panels',
-          page[panel:panel + 60].startswith('<div class="state" id="st-ding" data-home-league="1">') and panel > page.find('id="st-wnba"') > 0)
+    check(f'{tag}: CP-02 Dingers (Wooder Ice) sits under the Wooder tab only, never a Home panel',
+          'id="st-ding"' not in page and panel == page.find('<div class="state" id="st-wooder"') > 0)
     merc, under, devils = row(page, 'Indiana Fever'), row(page, 'Pittsburgh Steelers'), row(page, 'Philadelphia Flyers')
     check(f'{tag}: CP-08 spread row carries data-market="spread" data-line="-4.5"', 'data-market="spread" data-line="-4.5"' in merc)
     check(f'{tag}: CP-08 spread pick never shows the moneyline price or link', '-250' not in merc and 'ML_MERC' not in merc)
@@ -197,8 +197,8 @@ for B in BUILDERS:
     rc, page, log = build(B, card([SOX], record='1-15'), FRESH)
     n_ding = len(re.findall(r'slates/wooder_dingers\.json', page))
     ding_at = page.find('slates/wooder_dingers.json')
-    check(f'{tag}: CP-02 MLB card keeps Dingers on the MLB tab only',
-          n_ding == 1 and 'id="st-ding"' not in page and page.rfind('<div class="state"', 0, ding_at) == page.find('<div class="state" id="st-mlb"'))
+    check(f'{tag}: CP-02 MLB card keeps Dingers on the Wooder tab only',
+          n_ding == 1 and 'id="st-ding"' not in page and page.rfind('<div class="state"', 0, ding_at) == page.find('<div class="state" id="st-wooder"'))
     check(f'{tag}: CP-10 card_ts card keeps its lock stamp', re.findall(r'class="oddslock">([^<]*)<', page) == ['7:04 AM &middot; locked'])
     check(f'{tag}: W/L popover rounds the 6.25% tie half-up like the client (6.3%)', 'id="rpWlPct">W/L: 6.3%<' in page and 'id="rpNavPct">6.25%<' in page)
 
