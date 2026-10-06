@@ -247,7 +247,7 @@
       "label": "Sunday, Sep 27",
       "record": "5-2",
       "units": "+1.16u",
-      "brief": "5-2, +1.16u on the day across 7 carded picks. Closing-line value on the 7 picks with a closing line on file: avg -6.8pp (+5.0, -22.6, +0.1, +5.4, -0.5, -36.7, +1.9pp). What won: Lions ML vs Jets (Jahmyr Gibbs' 3rd touchdown with 2:25 left lifts Lions to 31-24 win over Jets); Phillies ML vs Rays (Phillies clinch NL wild card behind Wheeler for 5th straight playoff appearance with win over Rays); Brewers ML vs Cardinals (Misiorowski continues Cy Young Award push and Turang gets 100th RBI as Brewers beat Cardinals 6-4); Dodgers ML @ Giants (Call's RBI double, Pages' 3-run HR in 10th lift Dodgers to win No. 100, 5-1 over Giants); Dream ML vs Mystics (Howard, Reese help Dream rally from 11-point deficit, beat Mystics 92-77 in Game 1 of playoff series). Losses named plainly: Bengals ML @ Steelers (L 27-30, win probability peaked at 99%+ before the collapse); Lynx ML vs Liberty (L 75-91, win probability peaked at 77% before the collapse). All 7 results verified twice against the sheet; every fact above is pulled from the sheet, ESPN summary feeds, and closing lines on file - engine output, not a hand summary.",
+      "brief": "5-2, +1.16u on the day across 7 carded picks. Closing-line value on the 7 picks with a closing line on file: avg +2.3pp (+5.0, +2.9, +0.1, +5.4, -0.5, +1.4, +1.9pp). What won: Lions ML vs Jets (Jahmyr Gibbs' 3rd touchdown with 2:25 left lifts Lions to 31-24 win over Jets); Phillies ML vs Rays (Phillies clinch NL wild card behind Wheeler for 5th straight playoff appearance with win over Rays); Brewers ML vs Cardinals (Misiorowski continues Cy Young Award push and Turang gets 100th RBI as Brewers beat Cardinals 6-4); Dodgers ML @ Giants (Call's RBI double, Pages' 3-run HR in 10th lift Dodgers to win No. 100, 5-1 over Giants); Dream ML vs Mystics (Howard, Reese help Dream rally from 11-point deficit, beat Mystics 92-77 in Game 1 of playoff series). Losses named plainly: Bengals ML @ Steelers (L 27-30, win probability peaked at 71% before the collapse); Lynx ML vs Liberty (L 75-91, win probability peaked at 77% before the collapse). All 7 results verified twice against the sheet; every fact above is pulled from the sheet, ESPN summary feeds, and closing lines on file - engine output, not a hand summary. (corrected Oct 6: the Bengals and Dodgers figures now read from their own side; the first version used the home team's, for an average of -6.8pp and a Bengals peak of 99%+)",
       "picks": [
         {
           "name": "Lions ML",
@@ -267,7 +267,7 @@
           "result": "L",
           "score": "CIN 27, PIT 30",
           "_delta": "-5.0",
-          "note": "-5.0u on 5u at the -163 published card price. Closed DK 154 vs card -163 - CLV -22.6pp (market flipped the pick to 154 by close). In-game win probability peaked at 99%+. Bad beat - win probability peaked at 99%+ before the collapse. Decisive: Aaron Rodgers outduels Joe Burrow as the Steelers edge the Bengals 30-27 on a late Boswell kick"
+          "note": "-5.0u on 5u at the -163 published card price. Closed DK -185 vs card -163 - CLV +2.9pp. In-game win probability peaked at 71%. Coin-flip that broke wrong - peaked at 71%. Decisive: Aaron Rodgers outduels Joe Burrow as the Steelers edge the Bengals 30-27 on a late Boswell kick (corrected Oct 6: the first version read the Steelers' side of the ESPN feed - close 154, CLV -22.6pp, peak 99%+)"
         },
         {
           "name": "Lynx ML",
@@ -307,7 +307,7 @@
           "result": "W",
           "score": "LAD 5, SF 1",
           "_delta": "2.145922746781115879828326180",
-          "note": "+2.15u on 5u at the -233 published card price. Closed DK 201 vs card -233 - CLV -36.7pp (market flipped the pick to 201 by close). In-game win probability bottom <1%. Read confirmed - stolen comeback - win probability touched <1% and it won anyway. Decisive: Call's RBI double, Pages' 3-run HR in 10th lift Dodgers to win No. 100, 5-1 over Giants"
+          "note": "+2.15u on 5u at the -233 published card price. Closed DK -249 vs card -233 - CLV +1.4pp. In-game win probability bottom 24%. Read confirmed - sweated - win probability dipped to 24%. Decisive: Call's RBI double, Pages' 3-run HR in 10th lift Dodgers to win No. 100, 5-1 over Giants (corrected Oct 6: the first version read the Giants' side of the ESPN feed - close 201, CLV -36.7pp, bottom <1%)"
         },
         {
           "name": "Dream ML",
