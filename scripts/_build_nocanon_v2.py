@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Generate a self-contained index.html ('RixPicks picks page) for GitHub Pages from a manifest JSON.
 Usage: build_gh_page.py manifest.json [outfile]
-Manifest: {date_label, status_note, record, updated, picks:[{num,name,sub,odds,best_book,side,game:{away,home}|null,espn_league}], parlay:{legs:[...],note}|null}
+Manifest: {date_label, status_note, record, updated, picks:[{num,name,sub,odds,best_book,side,game:{away,home}|null,espn_league,[line],[pick_line]}], parlay:{legs:[...],note}|null}
+A spread's line is the HOME spread (graded so); optional pick_line is the same line from the picked side, checked, never shown.
 A card with a pick on or against a Las Vegas team, or units off the J-096 ladder, is held (exit 3): owner ruling 2026-10-02 (4).
 Only its numeric bars can be waived, for logged picks (name, eid, units) played on one date with the disclosure in card_note, by a logged owner suspension (slates/owner_rule_suspensions.jsonl).
 DESIGN LOCKED (user, Sep 24 10:50 PM): this template IS the app design system. Daily builds change picks
@@ -179,8 +180,9 @@ _sanitize_man(man)
 # unchecked on the numeric bars (never falsely held). The Vegas rule is the contract block below, the same block
 # build_manifest.vegas_hit runs: team identity by league (Raiders NFL, Golden Knights NHL, Aces WNBA, Athletics/A's
 # MLB, by full name, nickname or abbreviation), a team named for Las Vegas or UNLV in any league, no teams in the
-# individual sports. An earlier card's manifests/ snapshot, rebuilt below for its game pages, is not gated. The one
-# exception is logged, narrow and numeric-only: see the owner suspension below.
+# individual sports. A spread pick's name and an optional pick_line must agree with its stored line read from the
+# picked side (_pick_line_holds). An earlier card's manifests/ snapshot, rebuilt below for its game pages, is not
+# gated. The one exception is logged, narrow and numeric-only: see the owner suspension below.
 # >>> vegas-rule contract copy (build_manifest.py and both page-builder twins carry this block byte for byte;
 # scripts/test_vegas_rule_exact.py checks the copies and runs one case table through each)
 # Owner rule L-VEGAS-GATE-001 (Sep 25): "never gamble on or against any Vegas teams ever" and "Exclude A's going
@@ -303,6 +305,55 @@ def _j096_rung(fair,gross):
     if fair>=70: return 10 if gross>=3 else 5
     if fair>=60: return 5
     return 0
+def _pick_mclass(p):
+    # One market class per pick, used by chips, the pick row and the client verdict.
+    # build_manifest.py writes market_class (ml|spread|total|prop); legacy hand manifests mark a
+    # spread with market:'spread' and a total only by its over/under side.
+    mc=str(p.get('market_class') or '').lower()
+    if mc in ('ml','spread','total','prop'): return mc
+    if p.get('market')=='spread': return 'spread'
+    if p.get('market')=='total': return 'total'
+    if p.get('player') or p.get('market'): return 'prop' if p.get('side') in ('over','under') else 'ml'
+    if p.get('side') in ('over','under'): return 'total'
+    return 'ml'
+def _line_num(v):
+    # a line as a finite number (a numeric string reads as the page reads it), else None; a bool is no line
+    if isinstance(v,bool): return None
+    try: f=float(v)
+    except (TypeError,ValueError): return None
+    return f if f==f and abs(f)!=float('inf') else None
+# --- pick_line (optional manifest field) and the spread pick name. LINE CONVENTION, unchanged and graded as is: a
+# spread pick's 'line' is the HOME spread whichever side is picked (build_manifest, st_card_candidates.adapt_alt,
+# finals_watch, record_final.score_result: diff = home + line - away, home covers when diff > 0), so the away
+# pick 'Flyers +1.5' is stored line -1.5 and the home pick 'Lightning -1.5' line -1.5; a total's (and a prop's)
+# 'line' is the number itself. pick_line is that line read from the PICKED side: spread away -> -line, spread
+# home -> line, total/prop -> line. It is optional, never graded and never rendered (the page already reads the
+# picked side's number through _pick_line); when present it must equal that derived value. A spread pick whose
+# name ends in a number ('Flyers +1.5', the number the page itself falls back to) must name the picked side's
+# line. A pick_line that is not a number, sits on a moneyline, or has no numeric line (or a spread side other
+# than home/away) to check against is held too. These holds are integrity checks, never suspendable.
+def _pick_line_holds(p):
+    out=[]
+    mc,side,ln=_pick_mclass(p),p.get('side'),_line_num(p.get('line'))
+    der=None
+    if ln is not None and mc=='spread' and side in ('home','away'): der=(0.0-ln) if side=='away' else ln
+    elif ln is not None and mc in ('total','prop'): der=ln
+    if p.get('pick_line') is not None:
+        pl=p['pick_line']
+        if isinstance(pl,bool) or not isinstance(pl,(int,float)) or _line_num(pl) is None:
+            out.append(('pick_line',f"pick_line {pl!r} is not a number"))
+        elif mc=='ml':
+            out.append(('pick_line',f"pick_line {pl:+g} on a moneyline pick (a moneyline has no line)"))
+        elif der is None:
+            out.append(('pick_line',f"pick_line {pl:+g} has no {mc} line to check against (line {p.get('line')!r}, side {side!r})"))
+        elif abs(pl-der)>1e-9:
+            out.append(('pick_line',(f"pick_line {pl:+g} is not the {side} side's line {der:+g} (line {ln:+g} is the home spread)"
+                                     if mc=='spread' else f"pick_line {pl:+g} is not its {mc} line {der:g}")))
+    if mc=='spread' and der is not None:
+        mo=re.search(r'([+-]?\d+(?:\.\d+)?)\s*$',str(p.get('name') or ''))
+        if mo and abs(float(mo.group(1))-der)>1e-9:
+            out.append(('spread_name',f"name says {mo.group(1)} but the {side} side's line is {der:+g} (line {ln:+g} is the home spread)"))
+    return out
 def _standing_rule_holds(m):
     out=[]
     picks=[p for p in (m.get('picks') or []) if isinstance(p,dict)]
@@ -311,6 +362,7 @@ def _standing_rule_holds(m):
         g=p.get('game') if isinstance(p.get('game'),dict) else {}
         _vh=vegas_hit_fields(p.get('espn_league'),(('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))))
         if _vh: out.append((p.get('name'),'vegas',f"{who}: Las Vegas team ({_vh}) - never on or against a Vegas team"))
+        for _k,_why in _pick_line_holds(p): out.append((p.get('name'),_k,f"{who}: {_why}"))
         if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
             out.append((p.get('name'),'units_ladder',f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)"))
         # numeric standing bars (read the fair and the card price from this pick's own fields)
@@ -1075,17 +1127,6 @@ def _dingers_home_panel(tab_keys, mlb_entry):
     # file. Covers the empty card too; the health gate and fixtures need the container on every card.
     if 'mlb' in tab_keys: return ''
     return '<div class="state" id="st-ding" data-home-league="1">'+mlb_entry+'</div>\n'
-def _pick_mclass(p):
-    # One market class per pick, used by chips, the pick row and the client verdict.
-    # build_manifest.py writes market_class (ml|spread|total|prop); legacy hand manifests mark a
-    # spread with market:'spread' and a total only by its over/under side.
-    mc=str(p.get('market_class') or '').lower()
-    if mc in ('ml','spread','total','prop'): return mc
-    if p.get('market')=='spread': return 'spread'
-    if p.get('market')=='total': return 'total'
-    if p.get('player') or p.get('market'): return 'prop' if p.get('side') in ('over','under') else 'ml'
-    if p.get('side') in ('over','under'): return 'total'
-    return 'ml'
 def _pick_line(p):
     # numeric line for spread/total picks, always the PICKED side's own number (what the page grades
     # with: pick-side margin + line). The manifest 'line' of a spread is the HOME spread (build_manifest,
