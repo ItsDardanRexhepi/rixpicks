@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#
+!/usr/bin/env python3
 """Generate a self-contained index.html ('RixPicks picks page) for GitHub Pages from a manifest JSON.
 Usage: build_gh_page.py manifest.json [outfile]
 Manifest: {date_label, status_note, record, updated, picks:[{num,name,sub,odds,best_book,side,game:{away,home}|null,espn_league,[line],[pick_line]}], parlay:{legs:[...],note}|null}
@@ -126,8 +127,8 @@ def _pick_content_hash(m, legacy=False):
     return _hl.sha256('\n'.join(rows).encode()).hexdigest()
 _PC_HASH=_pick_content_hash(man)
 _DECLARED_HASH=man.get('pick_content_hash')
-if _DECLARED_HASH and _DECLARED_HASH not in (_PC_HASH,_pick_content_hash(man,legacy=True)):
-    print(f'BUILD FAILED: manifest pick_content_hash {_DECLARED_HASH[:12]}... != computed {_PC_HASH[:12]}... - manifest integrity', file=sys.stderr)
+if man.get('built_by')!='build_manifest' or not _DECLARED_HASH or _DECLARED_HASH not in (_PC_HASH,_pick_content_hash(man,legacy=True)):
+    print('BUILD FAILED: manifest not built by build_manifest' if man.get('built_by')!='build_manifest' or not _DECLARED_HASH else f'BUILD FAILED: manifest pick_content_hash {_DECLARED_HASH[:12]}... != computed {_PC_HASH[:12]}... - manifest integrity', file=sys.stderr)
     sys.exit(3)
 _HASHF=os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])),'shipped_pick_hash.txt')
 _LAST_HASH=''
@@ -140,7 +141,7 @@ if man.get('display_only') is True and not _LAST_HASH:
 if _DISPLAY_ONLY:
     print(f'DISPLAY-ONLY BUILD (pick-content hash {_PC_HASH[:12]} matches last shipped): price ship conditions skipped', file=sys.stderr)
 # Sep 26 live regression (hunter 7:25 AM): an hourly odds refresh rebuilt record/units from a stale
-# manifest and clobbered the tracker-canonical live values. Refresh builds (RP_REFRESH=1) INHERIT
+# manifest and clobbered the tracker-canonical live values. Refresh builds (RP_REFRESH=1) INHERITTESTMARKERSELTEST
 # record/units from the live page being rebuilt; only an approved publish (RP_PUBLISH=1) may move
 # them, from a manifest staged off the tracker at ship time.
 if os.environ.get('RP_REFRESH')=='1':
