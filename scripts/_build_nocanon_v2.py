@@ -199,7 +199,8 @@ _sanitize_man(man)
 # build_manifest.vegas_hit runs: a league's Vegas nickname, home city or abbreviation as whole words anywhere in a
 # team or pick name (Raiders NFL, Golden Knights NHL, Aces WNBA, Athletics/A's MLB), 'Las Vegas', 'Vegas' or UNLV in
 # any league, only a named non-Vegas team let through, no teams in the individual sports. A spread pick's name and an optional pick_line must agree with its stored line read from the
-# picked side (_pick_line_holds). An earlier card's manifests/ snapshot, rebuilt below for its game pages, is not
+# picked side (_pick_line_holds), and every best_ask quote of a spread, total or prop names that same line (one line,
+# one market: _best_ask_line_holds). An earlier card's manifests/ snapshot, rebuilt below for its game pages, is not
 # gated. The one exception is logged, narrow and numeric-only: see the owner suspension below.
 # >>> vegas-rule contract copy (build_manifest.py and both page-builder twins carry this block byte for byte;
 # scripts/test_vegas_rule_exact.py checks the copies and runs one case table through each)
@@ -361,6 +362,42 @@ def _pick_line_holds(p):
         if nl is not None and abs(float(nl)-der)>1e-9:
             out.append(('spread_name',f"name says {nl} but the {side} side's line is {der:+g} (line {ln:+g} is the home spread)"))
     return out
+# --- one line, one market (build_manifest.quote_line_problem, re-read here from the manifest's own best_ask). A venue's
+# quote prices one line: Kalshi lists half-point rungs and a book posts whole numbers with a push, so a book's -3 is
+# another market than Kalshi's 2.5 rung and can never be its best ask. On a spread, total or prop pick every quote in
+# best_ask (the block itself and each compared entry) from a venue other than Kalshi names its line, read from the
+# picked side as pick_line is ('Falcons +2.5' quotes +2.5, 'Under 54.5' quotes 54.5), and it must be the pick's own;
+# a quote on a moneyline names none. Kalshi's quote is the kalshi block's own market, so it names a line only
+# optionally, and then the same one. An integrity check like the spread-name hold: never suspendable.
+def _best_ask_line_holds(p):
+    ba=p.get('best_ask')
+    if not isinstance(ba,dict): return []
+    mc,side,ln=_pick_mclass(p),p.get('side'),_line_num(p.get('line'))
+    own=None
+    if ln is not None and mc=='spread' and side in ('home','away'): own=(0.0-ln) if side=='away' else ln
+    elif ln is not None and mc in ('total','prop'): own=ln
+    fmt=(lambda x:f'{x:+g}') if mc=='spread' else (lambda x:f'{x:g}')
+    comp=ba.get('compared') if isinstance(ba.get('compared'),list) else []
+    out=[]
+    for where,q in [('best_ask',ba)]+[(f'best_ask.compared[{i}]',q) for i,q in enumerate(comp)]:
+        if not isinstance(q,dict): continue
+        v=str(q.get('venue') or '').strip().lower()
+        if mc not in ('spread','total','prop'):
+            if q.get('line') is not None:
+                out.append(('best_ask_line',f"{where}: a {v} quote at line {q['line']!r} is another market than a moneyline"))
+            continue
+        if q.get('line') is None:
+            if v!='kalshi':
+                out.append(('best_ask_line',f"{where}: a {v} quote on a {mc} pick names no line - only the pick's own line is its market (a book's -3 is never the best ask of Kalshi's 2.5 rung)"))
+            continue
+        ql=_line_num(q['line'])
+        if ql is None:
+            out.append(('best_ask_line',f"{where}: {v} line {q['line']!r} is not a number"))
+        elif own is None:
+            out.append(('best_ask_line',f"{where}: the pick's own line cannot be read (line {p.get('line')!r}, side {side!r}) to bind a {v} quote at {fmt(ql)}"))
+        elif abs(ql-own)>1e-9:
+            out.append(('best_ask_line',f"{where}: a {v} quote at line {fmt(ql)} is another market than the pick's own {fmt(own)} - a book's -3 is never the best ask of Kalshi's 2.5 rung"))
+    return out
 def _standing_rule_holds(m):
     out=[]
     picks=[p for p in (m.get('picks') or []) if isinstance(p,dict)]
@@ -370,6 +407,7 @@ def _standing_rule_holds(m):
         _vh=vegas_hit_fields(p.get('espn_league'),(('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))))
         if _vh: out.append((p.get('name'),'vegas',f"{who}: Las Vegas team ({_vh}) - never on or against a Vegas team"))
         for _k,_why in _pick_line_holds(p): out.append((p.get('name'),_k,f"{who}: {_why}"))
+        for _k,_why in _best_ask_line_holds(p): out.append((p.get('name'),_k,f"{who}: {_why}"))
         if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
             out.append((p.get('name'),'units_ladder',f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)"))
         # numeric standing bars (read the fair and the card price from this pick's own fields)
@@ -440,7 +478,7 @@ def _standing_rule_holds(m):
 # - stricter than _pt_date, which reads a zoneless commence as UTC: here it binds to no date) and carries exactly its
 # logged eid (game.eid) and units. Never suspendable: a Las Vegas team, units off the ladder, a card ask at or above
 # the 85c cut, a card price that is not the best recorded ask, a spread name or pick_line that disagrees with its
-# line, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly as
+# line, a best-ask quote at another line, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly as
 # before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record: a date that
 # is not a YYYY-MM-DD calendar date, or a logged_at without an explicit UTC offset, included) waives nothing. The
 # log is read only for a held card, so a card with no holds builds identically.

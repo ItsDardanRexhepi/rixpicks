@@ -235,7 +235,8 @@ built('the same pick against DK -150 (gross 2.5c, no fee)', [dict(SHORT_AT_KALSH
 # ... and the Kalshi fee counts when Kalshi is the best venue, whatever net_c the candidate carried
 refused('spread fair 63.5c, Kalshi 60c beats DK -155: net 3.5 - 1.68 = 1.82c < 2c',
         [cand(1, 'Home1 -1.5', 63.5, 3.5, 2.5, '5u', cents=60, mc='spread',
-              best_ask=ba('kalshi', 60, [{'venue': 'dk', 'price': -155, 'read_at': T0}]))], ['net', '2c'])
+              # a book quote on a spread names its line (one line, one market): the home pick's own -1.5
+              best_ask=ba('kalshi', 60, [{'venue': 'dk', 'price': -155, 'read_at': T0, 'line': -1.5}]))], ['net', '2c'])
 
 # fail closed on a best_ask block the builder cannot trust
 refused('best_ask names DK but Kalshi is cheaper', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -170, [K61]))], ['cheaper'])
