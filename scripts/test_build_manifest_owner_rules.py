@@ -46,7 +46,7 @@ def cand(num, name, league, away, home, units='5u', mc='ml', side='home', **extr
     c = {'num': num, 'date': '2099-10-04', 'market_class': mc, 'name': name, 'side': side, 'away': away, 'home': home,
          'commence': '2099-10-04T20:25Z', 'eid': str(401990000 + num), 'espn_league': league, 'units': units,
          'model': 66.0, 'gross_c': 3.0, 'net_c': 2.2, 'sub_context': 'fixture',
-         'kalshi': {'cents': 61, 'team': home, 'ticker': 'KXFIX-99OCT04-%d' % num}}
+         'kalshi': {'cents': 61, 'team': home, 'side': 'yes', 'ticker': 'KXFIX-99OCT04-%d' % num}}
     c.update(extra)
     cents = c.get('kalshi', {}).get('cents')
     if 'best_ask' not in extra and isinstance(cents, int) and not isinstance(cents, bool):
