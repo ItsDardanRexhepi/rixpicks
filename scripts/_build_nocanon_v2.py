@@ -176,15 +176,82 @@ _sanitize_man(man)
 # net below the class bar, units over the J-096 rung of its fair, a card_american that is not the best ask of its
 # recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from each pick's "model X"
 # sub (build_manifest's own shape) or its best_ask block; a pick whose fair and card price cannot be read is left
-# unchecked on the numeric bars (never falsely held). The Vegas rule is build_manifest.vegas_hit's: Raiders (NFL),
-# Golden Knights (NHL), Aces (WNBA), Athletics/A's (MLB), UNLV (college); a nickname counts only inside its own
-# league (Texas Tech Red Raiders is no Vegas team), 'Las Vegas', 'Vegas' and UNLV in any league, and the individual
-# sports (racing, golf, tennis, MMA, boxing) have no teams. An earlier card's manifests/ snapshot, rebuilt below for
-# its game pages, is not gated. The one exception is logged, narrow and numeric-only: see the owner suspension below.
-_VEGAS_NICK={'football/nfl':('raiders',),'hockey/nhl':('golden knights',),'basketball/wnba':('aces',),
-             'baseball/mlb':('athletics',"a's"),'football/college-football':('unlv',),
-             'basketball/mens-college-basketball':('unlv',),'basketball/womens-college-basketball':('unlv',)}
-_VEGAS_ANY=('las vegas','vegas','unlv')
+# unchecked on the numeric bars (never falsely held). The Vegas rule is the contract block below, the same block
+# build_manifest.vegas_hit runs: team identity by league (Raiders NFL, Golden Knights NHL, Aces WNBA, Athletics/A's
+# MLB, by full name, nickname or abbreviation), a team named for Las Vegas or UNLV in any league, no teams in the
+# individual sports. An earlier card's manifests/ snapshot, rebuilt below for its game pages, is not gated. The one
+# exception is logged, narrow and numeric-only: see the owner suspension below.
+# >>> vegas-rule contract copy (build_manifest.py and both page-builder twins carry this block byte for byte;
+# scripts/test_vegas_rule_exact.py checks the copies and runs one case table through each)
+# Owner rule L-VEGAS-GATE-001 (Sep 25): "never gamble on or against any Vegas teams ever" and "Exclude A's going
+# forward from today too". A pick is out when any of its team strings - game.away, game.home, and the team part
+# of its name - is a Las Vegas team, read by team identity, never by a word inside some longer name:
+#  - the whole string, read case-, space- and punctuation-blind, is one of its league's Vegas team names in
+#    _VEGAS_TEAMS (full name, former name, nickname or abbreviation). A nickname or abbreviation counts only in
+#    its own league and only as the whole team string: 'Texas Tech Red Raiders' is no NFL team even when a CFB
+#    game is filed under football/nfl, and 'LV' is the Raiders in the NFL, the Aces in the WNBA, nothing in the NBA;
+#  - or the team string carries 'Las Vegas', 'Vegas' or 'UNLV' as whole words: a team named for Las Vegas, or
+#    UNLV, is a Vegas team in every team league;
+#  - the team part of a pick name is read from the card's name shapes ('<team> ML', '<team> +1.5', '<team> pk',
+#    '<a>-<b> Over 4.5', '<player> over 1.5 hits'). A free-form name that fits none of them keeps the word rule
+#    (a league Vegas name, 'Las Vegas', 'Vegas' or 'UNLV' as whole words anywhere in it): never weaker.
+# The individual sports (racing, golf, tennis, MMA, boxing) have no teams: a NASCAR race at Las Vegas Motor
+# Speedway is no Vegas team. The league is read case- and space-blind ('Hockey/NHL ' is the NHL).
+_VEGAS_TEAMS = {
+    'football/nfl': ('las vegas raiders', 'oakland raiders', 'raiders', 'lv raiders', 'lv'),
+    'hockey/nhl': ('vegas golden knights', 'golden knights', 'vgk'),
+    'basketball/wnba': ('las vegas aces', 'aces', 'lv aces', 'lv', 'lva'),
+    'baseball/mlb': ('athletics', "a's", 'oakland athletics', "oakland a's", 'sacramento athletics', 'ath', 'oak'),
+}
+_VEGAS_CITY = ('las vegas', 'vegas', 'unlv')
+_VEGAS_NO_TEAMS = ('racing', 'golf', 'tennis', 'mma', 'boxing')
+
+
+def _vg_words(s):
+    return re.sub(r"[^a-z0-9']+", ' ', str(s or '').lower().replace('\u2019', "'")).strip()
+
+
+def _vegas_team(team, lg):
+    """True when this one team string is a Las Vegas team in league lg (lower-cased, stripped)."""
+    w = _vg_words(team)
+    return bool(w) and (w in _VEGAS_TEAMS.get(lg, ()) or any(f' {c} ' in f' {w} ' for c in _VEGAS_CITY))
+
+
+def _vegas_name_teams(name):
+    """The team strings a pick name is written on ([] for a bare total), or None for a free-form name."""
+    s = str(name or '').strip()
+    mo = re.fullmatch(r"(?:(.+?)\s+)?(?:over|under)\s*\d+(?:\.\d+)?(?:\s+(\S.*))?", s, re.I)
+    if mo:
+        out = []
+        for t in (mo.group(1), mo.group(2)):
+            t = (t or '').strip()
+            if t:
+                out += [t] + re.split(r"\s*[-/&@]\s*|\s+(?:vs\.?|v\.?|at)\s+", t, flags=re.I)
+        return out
+    mo = (re.fullmatch(r"(.+?)\s+(?:ml|moneyline)", s, re.I)
+          or re.fullmatch(r"(.+?)\s*(?:[+-]\d+(?:\.\d+)?|pk|pick'?em)", s, re.I))
+    return [mo.group(1)] if mo else None
+
+
+def vegas_hit_fields(league, fields):
+    """'<field> <value>' for the first (field, value) that puts a Las Vegas team on this pick, else None."""
+    lg = str(league or '').strip().lower()
+    if lg.split('/')[0] in _VEGAS_NO_TEAMS:
+        return None
+    for f, v in fields:
+        if f != 'name':
+            hit = _vegas_team(v, lg)
+        else:
+            teams = _vegas_name_teams(v)
+            if teams is None:
+                w = f' {_vg_words(v)} '
+                hit = any(f' {n} ' in w for n in _VEGAS_CITY + _VEGAS_TEAMS.get(lg, ()))
+            else:
+                hit = any(_vegas_team(t, lg) for t in teams)
+        if hit:
+            return f'{f} {v!r}'
+    return None
+# <<< vegas-rule contract copy
 _UNIT_LADDER=('5u','10u','15u','100u')
 # numeric bars, mirroring build_manifest.py (bar_problems / j096_rung); the page builder re-checks them
 # from the manifest's own fields because a sub-bar card.json can land outside build_manifest.
@@ -241,14 +308,9 @@ def _standing_rule_holds(m):
     picks=[p for p in (m.get('picks') or []) if isinstance(p,dict)]
     for i,p in enumerate(picks,1):
         who=f"pick {i} {p.get('name')!r}"
-        lg=str(p.get('espn_league') or '').strip().lower()
         g=p.get('game') if isinstance(p.get('game'),dict) else {}
-        if lg.split('/')[0] not in ('racing','golf','tennis','mma','boxing'):
-            names=_VEGAS_ANY+_VEGAS_NICK.get(lg,())
-            for f,v in (('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))):
-                w=' '+re.sub(r"[^a-z0-9']+",' ',str(v or '').lower().replace('\u2019',"'"))+' '
-                if any(' '+n+' ' in w for n in names):
-                    out.append((p.get('name'),'vegas',f"{who}: Las Vegas team ({f} {v!r}) - never on or against a Vegas team")); break
+        _vh=vegas_hit_fields(p.get('espn_league'),(('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))))
+        if _vh: out.append((p.get('name'),'vegas',f"{who}: Las Vegas team ({_vh}) - never on or against a Vegas team"))
         if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
             out.append((p.get('name'),'units_ladder',f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)"))
         # numeric standing bars (read the fair and the card price from this pick's own fields)
