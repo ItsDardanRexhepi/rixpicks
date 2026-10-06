@@ -36,6 +36,8 @@ Run: python3 scripts/test_card_shapes_build.py [builder.py ...]   (default: both
 import ast, copy, json, os, re, shutil, subprocess, sys, tempfile, warnings
 warnings.simplefilter("ignore", SyntaxWarning)  # the builder source carries pre-existing invalid escapes inside JS templates
 
+from fixtures.card_contract import stamped, market, published_snapshot
+
 SD = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(SD)
 BUILDERS = [os.path.abspath(a) for a in sys.argv[1:]] or [os.path.join(SD, 'build_gh_page_v2.py'), os.path.join(SD, '_build_nocanon_v2.py')]
@@ -58,7 +60,9 @@ def build(builder, manifest, slates_prefill, root_prefill=None, seed=None):
         shutil.copy(os.path.join(bsrc if os.path.exists(os.path.join(bsrc, f)) else SD, f), os.path.join(d, 'scripts', f))
     for f in ('feed_arbiter.js', 'feed_registry.json', 'config_leagues.json'):
         shutil.copy(os.path.join(ROOT, f), os.path.join(d, f))
+    manifest=stamped(builder,manifest)
     json.dump(manifest, open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
+    published_snapshot(d,builder,manifest)
     json.dump(slates_prefill, open(os.path.join(d, 'slates', 'odds_prefill.json'), 'w'))
     if root_prefill is not None: json.dump(root_prefill, open(os.path.join(d, 'odds_prefill.json'), 'w'))
     env = dict(os.environ, RP_REFRESH='1', http_proxy=DEAD, https_proxy=DEAD, HTTP_PROXY=DEAD, HTTPS_PROXY=DEAD)
@@ -115,7 +119,10 @@ FRESH = [ml_entry('Philadelphia Flyers', 'New Jersey Devils', '2099-10-01T23:00Z
 STALE = [ml_entry('Philadelphia Flyers', 'New Jersey Devils', '2099-10-01T23:00Z', -999, 777, 'ML_DEVILS_STALE')] + FRESH[1:3]
 
 def card(picks, **kw):
-    m = copy.deepcopy(BASE); m['picks'] = copy.deepcopy(picks); m.update(kw); return m
+    m = copy.deepcopy(BASE); m['picks'] = [market(p) for p in picks]
+    for p in m['picks']:
+        p['sub']=str(p.get('sub') or '')+' - model 95.0'
+    m.update(kw); return m
 
 def js_fn(src, name):
     i = src.find('function ' + name + '(')
