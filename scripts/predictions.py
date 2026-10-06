@@ -11,8 +11,10 @@ Public-site rules: plain outcome forecasts, no bet/stake/wager/odds language, PT
 is the client's job (artifact carries UTC).
 Fail-closed: any producer error leaves the last good artifact untouched.
 """
-import json, re, sys, time, hashlib, urllib.request
+import json, os, re, sys, time, hashlib, urllib.request
 from datetime import datetime, timezone, timedelta
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # core/ from this checkout
+from core import soccer_result
 
 NIM_URL = 'https://ultrix-core.itsdardanr.workers.dev/nim'
 MODEL = 'meta/llama-3.2-11b-vision-instruct'  # only live language model on this NIM account
@@ -122,6 +124,18 @@ def upcoming():
     evs.sort(key=lambda x: x['date'])
     return evs
 
+def _soccer_draw(comp):
+    """True when a finished soccer match on the scoreboard ended level after 90 minutes: a full-time
+    final (no extra time on the board's status) with equal whole-number scores and one home and one
+    away side. Anything else is not a draw here."""
+    st = ((comp.get('status') or {}).get('type') or {})
+    if st.get('completed') is not True or soccer_result.FINAL_PERIODS.get(st.get('name')) != 2:
+        return False
+    sides = {c.get('homeAway'): c.get('score') for c in comp.get('competitors', [])}
+    if set(sides) != {'home', 'away'}:
+        return False
+    return soccer_result.outcome(sides, 'home', 'ml') == 'LOST' and soccer_result.outcome(sides, 'away', 'ml') == 'LOST'
+
 def settle(ledger):
     """grade pending predictions whose event finished; void if unverifiable after 36h."""
     changed = 0
@@ -152,7 +166,15 @@ def settle(ledger):
             st = (comp.get('status') or {}).get('type') or {}
             if st.get('state') != 'post': continue
             winner = next(((c.get('team') or {}).get('displayName') for c in comp.get('competitors', []) if c.get('winner')), None)
-            if not winner: continue
+            if not winner:
+                # soccer: a match level at full time carries no winner flag, and the predicted team did
+                # not beat the other - it settles a miss (core/soccer_result: a draw loses either side),
+                # never a void at 36h. Any other league without a winner flag stays pending.
+                if soccer_result.is_soccer(p.get('path')) and _soccer_draw(comp):
+                    p['status'] = 'miss'
+                    p['settled_at'] = now().isoformat()
+                    changed += 1
+                continue
             # auditor 9:41 HIGH grading integrity: same_side returns None on BOTH a real
             # miss (resolved to different sides) and an unresolvable name - the old
             # 'if not side: continue' made every verifiable LOSS silently void at 36h.

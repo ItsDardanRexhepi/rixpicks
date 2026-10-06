@@ -1,0 +1,100 @@
+{
+ "header": {
+  "competitions": [
+   {
+    "date": "2026-10-04T17:00Z",
+    "status": {
+     "type": {
+      "id": "28",
+      "name": "STATUS_FULL_TIME",
+      "state": "post",
+      "completed": true,
+      "description": "Full Time",
+      "detail": "FT",
+      "shortDetail": "FT"
+     }
+    },
+    "competitors": [
+     {
+      "homeAway": "home",
+      "score": "1",
+      "winner": false,
+      "linescores": [
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "1"
+       }
+      ],
+      "team": {
+       "id": "15364",
+       "abbreviation": "GFC",
+       "displayName": "Gotham FC"
+      }
+     },
+     {
+      "homeAway": "away",
+      "score": "1",
+      "winner": false,
+      "linescores": [
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "1"
+       }
+      ],
+      "team": {
+       "id": "21422",
+       "abbreviation": "LA",
+       "displayName": "Angel City FC"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "keyEvents": [
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3925.0,
+    "displayValue": "66'"
+   },
+   "team": {
+    "id": "15364",
+    "displayName": "Gotham FC"
+   },
+   "scoringPlay": true,
+   "shootout": false
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+1'"
+   },
+   "team": {
+    "id": "21422",
+    "displayName": "Angel City FC"
+   },
+   "scoringPlay": true,
+   "shootout": false
+  }
+ ]
+}

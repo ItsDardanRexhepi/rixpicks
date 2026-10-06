@@ -9,14 +9,16 @@ Guards (swamp 9:23-9:25 PM):
 - two-source final verification (J-115) BEFORE grading: CBS scoreboard (independent),
   ESPN site API as fallback only (same company as ESPN core - weaker independence,
   source label says so). Stable team-ID mapping + ORDERED (away, home) scores.
-- tie = PUSH: 0 pnl, no W/L.
+- tie = PUSH: 0 pnl, no W/L - except soccer, which grades on regulation time as Kalshi settles
+  (core/soccer_result.py): a draw after 90 minutes is LOST for either side's moneyline, and
+  totals/spreads count regulation goals only (never extra time or a shootout).
 - seen[pick_key] written ONLY on a verified chain; dry-run touches NO production state.
 Usage: finals_watch.py [--dry-run]"""
 import json, os, re, sys, unicodedata, urllib.request
 sys.path.insert(0, '/home/sandbox/rix_tmp')
 from datetime import datetime, timezone, timedelta
 from decimal import Decimal
-from core import record_pipe, units, budget, fill_leak
+from core import record_pipe, units, budget, fill_leak, soccer_result
 from core.accepted_entry import accepted_entry, entry_delta
 HERE = os.path.dirname(os.path.abspath(__file__))
 MANIFEST = os.path.join(HERE, '..', 'manifest.json')
@@ -528,7 +530,27 @@ def _soccer_scorer_stat(d, player, market):
         raise ValueError(f'{market} ordering ambiguous (tied clock) - REFUSING to grade (fail closed)')
     return float(1.0 if any(v[0] == edge and v[1] == pid for v in goals) else 0.0)
 
-def grade(pick, primary):
+def _soccer_regulation(pick, primary):
+    """The checked regulation score of a soccer final (core/soccer_result.regulation_score), read from
+    ESPN's summary; its final must equal the two-source-verified final. Raises ValueError (fail closed)."""
+    try:
+        d = _prop_boxscore(pick.get('espn_league'), pick['game']['eid'])
+    except Exception as e:
+        raise ValueError(f'ESPN summary unavailable ({type(e).__name__}) - REFUSING to grade soccer '
+                         'without its regulation score (fail closed)') from None
+    try:
+        reg = soccer_result.regulation_score(d)
+    except ValueError as e:
+        raise ValueError(f'soccer regulation score not established ({e}) - REFUSING to grade (fail closed)') from None
+    if (reg['final_away'], reg['final_home']) != (primary['away_score'], primary['home_score']):
+        raise ValueError(f"summary final {reg['final_away']}-{reg['final_home']} != verified final "
+                         f"{primary['away_score']}-{primary['home_score']} - REFUSING to grade (fail closed)")
+    return reg
+
+def result_of(pick, primary):
+    """W | L | PUSH of one card pick on the verified final - the result alone, before any price or
+    stake is read (grade() adds those). Soccer grades on regulation time (module header).
+    Raises ValueError when the pick cannot be graded (fail closed)."""
     mc = pick.get('market_class', 'ml')
     hs, as_ = primary['home_score'], primary['away_score']
     if mc == 'prop':
@@ -538,8 +560,19 @@ def grade(pick, primary):
         line = Decimal(str(pick['line']))
         v = Decimal(str(val))
         if v == line:
-            return 'PUSH', Decimal('0')
+            return 'PUSH'
         won = (pick['side'] == 'over') == (v > line)
+    elif soccer_result.is_soccer(pick.get('espn_league')):
+        # three-way regulation markets: 90 minutes plus stoppage, a draw loses either side's moneyline
+        if mc not in ('ml', 'spread', 'total'):
+            raise ValueError(f'soccer market class {mc!r} has no grading rule here - REFUSING to grade (fail closed)')
+        if mc != 'ml' and pick.get('line') is None:
+            raise ValueError(f'{mc} pick missing line - REFUSING to grade (fail closed)')
+        res = soccer_result.outcome(_soccer_regulation(pick, primary), pick.get('side'), mc, pick.get('line'))
+        if res is None:
+            raise ValueError(f"soccer {mc} side {pick.get('side')!r} line {pick.get('line')!r} cannot be graded "
+                             'from a score - REFUSING to grade (fail closed)')
+        return {'WON': 'W', 'LOST': 'L', 'PUSH': 'PUSH'}[res]
     elif mc == 'spread':
         # pick['line'] = HOME spread (negative when home favored); side home|away.
         if pick.get('line') is None:
@@ -547,7 +580,7 @@ def grade(pick, primary):
         line = Decimal(str(pick['line']))
         diff = Decimal(str(hs)) + line - Decimal(str(as_))  # >0 home covers, <0 away covers
         if diff == 0:
-            return 'PUSH', Decimal('0')
+            return 'PUSH'
         won = (pick['side'] == 'home') == (diff > 0)
     elif mc == 'total':
         # pick['line'] = game total; side over|under.
@@ -556,12 +589,19 @@ def grade(pick, primary):
         line = Decimal(str(pick['line']))
         tot = Decimal(str(hs)) + Decimal(str(as_))
         if tot == line:
-            return 'PUSH', Decimal('0')
+            return 'PUSH'
         won = (pick['side'] == 'over') == (tot > line)
     else:
         if hs == as_:
-            return 'PUSH', Decimal('0')
+            return 'PUSH'  # a tie (NFL, ...) refunds; soccer never reaches here
         won = (pick['side'] == 'home') == (hs > as_)
+    return 'W' if won else 'L'
+
+def grade(pick, primary):
+    result = result_of(pick, primary)
+    if result == 'PUSH':
+        return 'PUSH', Decimal('0')
+    won = result == 'W'
     accepted = accepted_entry(pick)
     cents = accepted['entry_c'] if accepted is not None else (pick.get('kalshi') or {}).get('cents')
     # FILL-LEAK GUARD: manifest price must equal the picks-ledger card entry;

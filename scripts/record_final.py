@@ -15,7 +15,9 @@ later finals wait for the next fire):
   2. INDEPENDENT verify against ESPN core (completed + scores match), and the result must follow
      from the verified score, side and line (ml/spread/total), from the ESPN box score (props;
      soccer scorer props from the summary's goal events), or from the winner flags (MMA). The
-     request's own label is never taken on trust.
+     request's own label is never taken on trust. Soccer (MLS, NWSL) grades on regulation time,
+     as Kalshi settles: the summary's regulation score (core/soccer_result.py), checked against
+     the verified final; a draw is LOST for either side's moneyline, never a push.
   3. Units: the delta must follow from the card price, card stake and result; units_after_exact
      must continue the running units (exact anchor kept in record_done.json).
   4. Running record from manifest must chain into request.record_after exactly.
@@ -37,6 +39,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..')
 sys.path.insert(0, ROOT)
 from core.accepted_entry import accepted_entry, entry_delta
+from core import soccer_result
 REQ = os.path.join(ROOT, 'record_request.json')
 MAN = os.path.join(ROOT, 'manifest.json')
 HIST = os.path.join(ROOT, 'history.json')
@@ -330,9 +333,16 @@ def expected_delta(res, price, stake):
         return stake * Decimal(100) / Decimal(-price) if price < 0 else stake * Decimal(price) / Decimal(100)
     return -stake if res == 'LOST' else Decimal(0)
 
-def score_result(mc, side, line, away_sc, home_sc):
+def score_result(mc, side, line, away_sc, home_sc, league=None, regulation=None):
     """WON/LOST/PUSH from the verified final (line = HOME spread / game total, the card's
-    convention). None when the market, side or line cannot be graded from a score."""
+    convention). None when the market, side or line cannot be graded from a score.
+    Soccer leagues grade on regulation time only (core/soccer_result.py): the caller passes the
+    checked regulation score, a draw is LOST for either side's moneyline, and with no regulation
+    score there is no grade (None, fail closed). Every other league: a level moneyline is a PUSH."""
+    if soccer_result.is_soccer(league):
+        if mc not in ('ml', 'spread', 'total') or regulation is None:
+            return None
+        return soccer_result.outcome(regulation, side, mc, line)
     if mc in ('ml', 'spread') and side not in ('home', 'away'):
         return None
     if mc == 'total' and side not in ('over', 'under'):
@@ -463,6 +473,22 @@ def _soccer_scorer(d, player, market):
             raise ValueError(f'{market} order ambiguous (tied clock)')
         val = 1 if any(c == edge and aid == pid for c, aid in goals) else 0
     return Decimal(val), next(iter(pside))
+
+def espn_regulation(league, eid, away_sc, home_sc):
+    """Soccer: the regulation score from ESPN's summary (core/soccer_result.regulation_score), or
+    None. Its final must equal the score espn_verify just checked, so the grade and the verified
+    final describe the same match."""
+    try:
+        d = _get(f'https://site.api.espn.com/apis/site/v2/sports/{league}/summary?event={eid}', ua='python-urllib/3')
+        reg = soccer_result.regulation_score(d)
+    except Exception as e:
+        print(f'  verify regulation {eid}: {type(e).__name__}: {e}', file=sys.stderr)
+        return None
+    if (reg['final_away'], reg['final_home']) != (away_sc, home_sc):
+        print(f"  verify regulation {eid}: summary final {reg['final_away']}-{reg['final_home']} != verified "
+              f'{away_sc}-{home_sc}', file=sys.stderr)
+        return None
+    return reg
 
 def espn_prop(league, eid, player, market):
     """Independent prop check: (stat value, home|away of the player's team) from the ESPN box
@@ -743,6 +769,7 @@ def main():
                 return 3
             # 2. the result must follow from the verified final - never from the request's label
             away_nm, home_nm = nick(comp['away']['name']), nick(comp['home']['name'])
+            reg = None  # soccer only: the checked regulation score the grade is taken from
             if mc == 'prop':
                 if cp.get('side') not in ('over', 'under'):
                     print(f'  REFUSE {gid}: prop side {cp.get("side")!r} must be over|under', file=sys.stderr)
@@ -760,7 +787,14 @@ def main():
                 # a prop's game context is the player's own team, not the over/under side
                 game = ('vs ' + away_nm) if pside == 'home' else ('at ' + home_nm)
             else:
-                want_res = score_result(mc, cp.get('side'), cp.get('line'), away_sc, home_sc)
+                if soccer_result.is_soccer(q['league']):
+                    # soccer settles on regulation time: grade from the summary's checked 90-minute score
+                    reg = espn_regulation(q['league'], q['event_id'], away_sc, home_sc)
+                    if reg is None:
+                        print(f'  REFUSE {gid}: no verified regulation score - chain stops, no write', file=sys.stderr)
+                        return 3
+                want_res = score_result(mc, cp.get('side'), cp.get('line'), away_sc, home_sc,
+                                        league=q['league'], regulation=reg)
                 if mc == 'total':
                     game = f'{away_nm} at {home_nm}'
                 else:
@@ -770,6 +804,9 @@ def main():
                       f'{cp.get("line")} on {q["score"]!r} -> {want_res})', file=sys.stderr)
                 return 3
             score_txt = f'{away_ab} {away_sc}, {home_ab} {home_sc}'
+            if reg is not None and (reg['away'], reg['home']) != (away_sc, home_sc):
+                # the row shows ESPN's final; when extra time changed it, the score the grade used shows too
+                score_txt += f" (90 min: {away_ab} {reg['away']}, {home_ab} {reg['home']})"
         if res == 'WON': rw += 1
         elif res == 'LOST': rl += 1
         expected = q['record_after']

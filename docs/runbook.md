@@ -133,6 +133,45 @@ Fixture: `scripts/test_record_disclosure.py`. It also checks the real tree: ever
 carries its card's disclosure, and `record.html` built from `history.json` labels the three Oct 2
 rows.
 
+## Soccer results: regulation time (`core/soccer_result.py`)
+
+Kalshi's MLS and NWSL game, spread and total contracts settle after 90 minutes plus stoppage time.
+Extra time and a penalty shootout never count. A level score after 90 minutes resolves the TIE
+contract yes and both team contracts no. So:
+
+- a moneyline (a team to win) that draws is **LOST** for either side, never a push;
+- totals and spreads count regulation goals only.
+
+ESPN's final includes extra-time goals, so no grader reads the regulation score off the final.
+`regulation_score()` takes it from the match summary's period line scores and checks it two ways
+before anyone grades on it:
+
+- the periods add up to ESPN's final, and their count fits the final state (2 at full time,
+  4 after extra time, 5 with a shootout);
+- the regulation goals equal the goal events ESPN logs in periods 1-2 (own goals included,
+  shootout kicks never).
+
+Anything it cannot establish refuses. On Oct 6 it was checked against 331 finished MLS and NWSL
+matches with no refusal. They were played from October to December 2025 and from July to
+October 2026. 27 of them had own goals, 8 went to a shootout and 2 were decided in extra time.
+
+**Where it applies.**
+
+- **`scripts/record_final.py`.** For a `soccer/...` league it reads the ESPN summary, checks that
+  its final equals the verified final, and grades on the regulation score. With no regulation
+  score it refuses (exit 3, nothing written). When extra time changed the score, the row shows both:
+  `GFC 2, KC 1 (90 min: GFC 1, KC 1)`.
+- **`scripts/finals_watch.py`** grades the same way; a missing or contradicting summary stops the
+  chain.
+- **`scripts/predictions.py`** settles a soccer prediction as a miss when the match ends level at
+  full time. Before, the draw stayed pending until the 36-hour void.
+
+Every other league is unchanged: a level moneyline (an NFL tie) is still a push. Soccer scorer
+props already counted periods 1-2 only.
+
+Fixtures: `scripts/test_soccer_regulation.py`, plus the grading suite in `tests/run_tests.py`.
+Both run on recorded ESPN summaries in `tests/fixtures/soccer/`.
+
 ## CLV ledger (internal): `scripts/clv_report.py`
 
 ```

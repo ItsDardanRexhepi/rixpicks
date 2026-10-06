@@ -1,0 +1,226 @@
+{
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.1/events/761439/competitions/761439/competitors/21300/score?lang=en&region=us": {
+  "displayValue": "1",
+  "value": 1.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.1/events/761439/competitions/761439/competitors/21812/score?lang=en&region=us": {
+  "displayValue": "1",
+  "value": 1.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.1/events/761439/competitions/761439/status?lang=en&region=us": {
+  "type": {
+   "completed": true,
+   "description": "Full Time",
+   "detail": "FT",
+   "id": "28",
+   "name": "STATUS_FULL_TIME",
+   "shortDetail": "FT",
+   "state": "post"
+  }
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.1/seasons/2026/teams/21300?lang=en&region=us": {
+  "abbreviation": "CLT",
+  "displayName": "Charlotte FC",
+  "id": "21300",
+  "name": "Charlotte FC"
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.1/seasons/2026/teams/21812?lang=en&region=us": {
+  "abbreviation": "STL",
+  "displayName": "St. Louis CITY SC",
+  "id": "21812",
+  "name": "St. Louis CITY SC"
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/401854019/competitions/401854019/competitors/15364/score?lang=en&region=us": {
+  "displayValue": "1",
+  "value": 1.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/401854019/competitions/401854019/competitors/21422/score?lang=en&region=us": {
+  "displayValue": "1",
+  "value": 1.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/401854019/competitions/401854019/status?lang=en&region=us": {
+  "type": {
+   "completed": true,
+   "description": "Full Time",
+   "detail": "FT",
+   "id": "28",
+   "name": "STATUS_FULL_TIME",
+   "shortDetail": "FT",
+   "state": "post"
+  }
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760606/competitions/760606/competitors/15364/score?lang=en&region=us": {
+  "displayValue": "2",
+  "value": 2.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760606/competitions/760606/competitors/20907/score?lang=en&region=us": {
+  "displayValue": "1",
+  "value": 1.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760606/competitions/760606/status?lang=en&region=us": {
+  "type": {
+   "completed": true,
+   "description": "Final Score - After Extra Time",
+   "detail": "AET",
+   "id": "45",
+   "name": "STATUS_FINAL_AET",
+   "shortDetail": "AET",
+   "state": "post"
+  }
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760609/competitions/760609/competitors/15365/score?lang=en&region=us": {
+  "displayValue": "1",
+  "value": 1.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760609/competitions/760609/competitors/20905/score?lang=en&region=us": {
+  "displayValue": "1",
+  "value": 1.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760609/competitions/760609/status?lang=en&region=us": {
+  "type": {
+   "completed": true,
+   "description": "Final Score - After Penalties",
+   "detail": "FT-Pens",
+   "id": "47",
+   "name": "STATUS_FINAL_PEN",
+   "shortDetail": "FT-Pens",
+   "state": "post"
+  }
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2025/teams/15364?lang=en&region=us": {
+  "abbreviation": "GFC",
+  "displayName": "Gotham FC",
+  "id": "15364",
+  "name": "Gotham FC"
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2025/teams/15365?lang=en&region=us": {
+  "abbreviation": "WAS",
+  "displayName": "Washington Spirit",
+  "id": "15365",
+  "name": "Washington Spirit"
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2025/teams/20905?lang=en&region=us": {
+  "abbreviation": "LOU",
+  "displayName": "Racing Louisville FC",
+  "id": "20905",
+  "name": "Racing Louisville FC"
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2025/teams/20907?lang=en&region=us": {
+  "abbreviation": "KC",
+  "displayName": "Kansas City Current",
+  "id": "20907",
+  "name": "Kansas City Current"
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2026/teams/15364?lang=en&region=us": {
+  "abbreviation": "GFC",
+  "displayName": "Gotham FC",
+  "id": "15364",
+  "name": "Gotham FC"
+ },
+ "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2026/teams/21422?lang=en&region=us": {
+  "abbreviation": "LA",
+  "displayName": "Angel City FC",
+  "id": "21422",
+  "name": "Angel City FC"
+ },
+ "https://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.1/events/761439/competitions/761439": {
+  "competitors": [
+   {
+    "homeAway": "home",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.1/events/761439/competitions/761439/competitors/21812/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.1/seasons/2026/teams/21812?lang=en&region=us"
+    }
+   },
+   {
+    "homeAway": "away",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.1/events/761439/competitions/761439/competitors/21300/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.1/seasons/2026/teams/21300?lang=en&region=us"
+    }
+   }
+  ],
+  "status": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.1/events/761439/competitions/761439/status?lang=en&region=us"
+  }
+ },
+ "https://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/401854019/competitions/401854019": {
+  "competitors": [
+   {
+    "homeAway": "home",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/401854019/competitions/401854019/competitors/15364/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2026/teams/15364?lang=en&region=us"
+    }
+   },
+   {
+    "homeAway": "away",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/401854019/competitions/401854019/competitors/21422/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2026/teams/21422?lang=en&region=us"
+    }
+   }
+  ],
+  "status": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/401854019/competitions/401854019/status?lang=en&region=us"
+  }
+ },
+ "https://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760606/competitions/760606": {
+  "competitors": [
+   {
+    "homeAway": "home",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760606/competitions/760606/competitors/20907/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2025/teams/20907?lang=en&region=us"
+    }
+   },
+   {
+    "homeAway": "away",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760606/competitions/760606/competitors/15364/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2025/teams/15364?lang=en&region=us"
+    }
+   }
+  ],
+  "status": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760606/competitions/760606/status?lang=en&region=us"
+  }
+ },
+ "https://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760609/competitions/760609": {
+  "competitors": [
+   {
+    "homeAway": "home",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760609/competitions/760609/competitors/15365/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2025/teams/15365?lang=en&region=us"
+    }
+   },
+   {
+    "homeAway": "away",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760609/competitions/760609/competitors/20905/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/seasons/2025/teams/20905?lang=en&region=us"
+    }
+   }
+  ],
+  "status": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/soccer/leagues/usa.nwsl/events/760609/competitions/760609/status?lang=en&region=us"
+  }
+ }
+}

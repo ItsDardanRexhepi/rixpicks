@@ -1,0 +1,132 @@
+{
+ "header": {
+  "competitions": [
+   {
+    "date": "2025-11-09T17:30Z",
+    "status": {
+     "type": {
+      "id": "45",
+      "name": "STATUS_FINAL_AET",
+      "state": "post",
+      "completed": true,
+      "description": "Final Score - After Extra Time",
+      "detail": "AET",
+      "shortDetail": "AET"
+     }
+    },
+    "competitors": [
+     {
+      "homeAway": "home",
+      "score": "1",
+      "winner": false,
+      "linescores": [
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "1"
+       },
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "0"
+       }
+      ],
+      "team": {
+       "id": "20907",
+       "abbreviation": "KC",
+       "displayName": "Kansas City Current"
+      }
+     },
+     {
+      "homeAway": "away",
+      "score": "2",
+      "winner": true,
+      "linescores": [
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "1"
+       },
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "1"
+       }
+      ],
+      "team": {
+       "id": "15364",
+       "abbreviation": "GFC",
+       "displayName": "Gotham FC"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "keyEvents": [
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4030.0,
+    "displayValue": "68'"
+   },
+   "team": {
+    "id": "15364",
+    "displayName": "Gotham FC"
+   },
+   "scoringPlay": true,
+   "shootout": false
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+6'"
+   },
+   "team": {
+    "id": "20907",
+    "displayName": "Kansas City Current"
+   },
+   "scoringPlay": true,
+   "shootout": false
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 4
+   },
+   "clock": {
+    "value": 7200.0,
+    "displayValue": "120'+1'"
+   },
+   "team": {
+    "id": "15364",
+    "displayName": "Gotham FC"
+   },
+   "scoringPlay": true,
+   "shootout": false
+  }
+ ]
+}

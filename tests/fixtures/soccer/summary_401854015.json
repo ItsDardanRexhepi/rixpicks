@@ -1,0 +1,120 @@
+{
+ "header": {
+  "competitions": [
+   {
+    "date": "2026-10-03T00:00Z",
+    "status": {
+     "type": {
+      "id": "28",
+      "name": "STATUS_FULL_TIME",
+      "state": "post",
+      "completed": true,
+      "description": "Full Time",
+      "detail": "FT",
+      "shortDetail": "FT"
+     }
+    },
+    "competitors": [
+     {
+      "homeAway": "home",
+      "score": "1",
+      "winner": false,
+      "linescores": [
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "1"
+       }
+      ],
+      "team": {
+       "id": "18206",
+       "abbreviation": "ORL",
+       "displayName": "Orlando Pride"
+      }
+     },
+     {
+      "homeAway": "away",
+      "score": "2",
+      "winner": true,
+      "linescores": [
+       {
+        "displayValue": "2"
+       },
+       {
+        "displayValue": "0"
+       }
+      ],
+      "team": {
+       "id": "21423",
+       "abbreviation": "SD",
+       "displayName": "San Diego Wave FC"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "keyEvents": [
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 188.0,
+    "displayValue": "4'"
+   },
+   "team": {
+    "id": "21423",
+    "displayName": "San Diego Wave FC"
+   },
+   "scoringPlay": true,
+   "shootout": false
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 1
+   },
+   "clock": {
+    "value": 1287.0,
+    "displayValue": "22'"
+   },
+   "team": {
+    "id": "21423",
+    "displayName": "San Diego Wave FC"
+   },
+   "scoringPlay": true,
+   "shootout": false
+  },
+  {
+   "type": {
+    "id": "98",
+    "text": "Penalty - Scored",
+    "type": "penalty---scored"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 3070.0,
+    "displayValue": "52'"
+   },
+   "team": {
+    "id": "18206",
+    "displayName": "Orlando Pride"
+   },
+   "scoringPlay": true,
+   "shootout": false
+  }
+ ]
+}

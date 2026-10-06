@@ -74,9 +74,11 @@ check('primary manifest: 4 ledger rows', len(rows), 4)
 check('primary ledger: spread row carries line', any(r.get('line') == -6.5 for r in rows), True)
 
 # ---------- 3. grading suites ----------
+for _k in ('RPS_KB', 'RIX_REPO', 'RIX_FINALS_CONFIG'):
+    os.environ.pop(_k, None)  # finals_watch reads its private paths at import; this gate uses its own
 fw = load('fw', f'{SCRIPTS}/finals_watch.py')
 _real = fw.fill_leak.card_price
-fw.fill_leak.card_price = lambda pick: _real(pick, picks_path=LEDGER)
+fw.fill_leak.card_price = lambda pick, **kw: _real(pick, picks_path=LEDGER)
 
 def P(eid, cents, odds, units, **kw):
     d = {'game': {'eid': eid}, 'kalshi': {'cents': cents}, 'odds': odds, 'units': units}
@@ -86,12 +88,23 @@ def P(eid, cents, odds, units, **kw):
 variants = [
  {'kind':'pick','event_id':'401000001','market_class':'spread','side':'home','line':-7,'entry_c':52,'card_american':-110,'name':'t','units':'5u','card_ts':'x','kalshi_ticker':'T','commence':'c','preview':True},
  {'kind':'pick','event_id':'401000003','market_class':'total','side':'over','line':44,'entry_c':52,'card_american':-110,'name':'t','units':'5u','card_ts':'x','kalshi_ticker':'T','commence':'c','preview':True},
+ # soccer: recorded ESPN summaries (tests/fixtures/soccer) - MLS 761439 1-1; NWSL 760606 1-1 at 90, 2-1 AET
+ {'kind':'pick','event_id':'761439','market_class':'ml','side':'home','entry_c':45,'card_american':122,'name':'t','units':'5u','card_ts':'x','kalshi_ticker':'T','commence':'c','preview':True},
+ {'kind':'pick','event_id':'760606','market_class':'ml','side':'away','entry_c':45,'card_american':122,'name':'t','units':'5u','card_ts':'x','kalshi_ticker':'T','commence':'c','preview':True},
+ {'kind':'pick','event_id':'760606','market_class':'total','side':'under','line':2.5,'entry_c':60,'card_american':-150,'name':'t','units':'5u','card_ts':'x','kalshi_ticker':'T','commence':'c','preview':True},
 ]
+for _eid, _lg in (('761439', 'soccer/usa.1'), ('760606', 'soccer/usa.nwsl')):
+    fw._PROP_BOX[(_lg, _eid)] = json.load(open(f'{FIX}/soccer/summary_{_eid}.json'))
 with open(LEDGER, 'a') as f:
     for v in variants: f.write(json.dumps(v) + '\n')
 for label, want, pick, primary in [
     ('ml home win','W', P('401000010',71,-245,'10u',market_class='ml',side='home'), {'home_score':30,'away_score':20}),
-    ('ml tie push','PUSH', P('401000010',71,-245,'10u',market_class='ml',side='home'), {'home_score':20,'away_score':20}),
+    # a level moneyline: a tie refunds in the NFL (PUSH); soccer settles on regulation time, where a draw
+    # loses either side (Kalshi's three-way game contract) and extra time never counts
+    ('nfl ml tie push','PUSH', P('401000010',71,-245,'10u',market_class='ml',side='home',espn_league='football/nfl'), {'home_score':20,'away_score':20}),
+    ('mls ml 1-1 draw lost','L', P('761439',45,122,'5u',market_class='ml',side='home',espn_league='soccer/usa.1'), {'home_score':1,'away_score':1}),
+    ('nwsl 760606 Gotham ml lost (1-1 at 90, 2-1 AET)','L', P('760606',45,122,'5u',market_class='ml',side='away',espn_league='soccer/usa.nwsl'), {'home_score':1,'away_score':2}),
+    ('nwsl 760606 under 2.5 won (2 regulation goals)','W', P('760606',60,-150,'5u',market_class='total',side='under',line=2.5,espn_league='soccer/usa.nwsl'), {'home_score':1,'away_score':2}),
     ('spread -6.5 cover','W', P('401000001',55,-122,'5u',market_class='spread',side='home',line=-6.5), {'home_score':27,'away_score':20}),
     ('spread -7 push','PUSH', P('401000001',52,-110,'5u',market_class='spread',side='home',line=-7), {'home_score':27,'away_score':20}),
     ('spread +4.5 dog cover','W', P('401000002',44,127,'5u',market_class='spread',side='home',line=4.5), {'home_score':20,'away_score':24}),

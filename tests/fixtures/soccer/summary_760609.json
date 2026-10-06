@@ -1,0 +1,118 @@
+{
+ "header": {
+  "competitions": [
+   {
+    "date": "2025-11-08T17:00Z",
+    "status": {
+     "type": {
+      "id": "47",
+      "name": "STATUS_FINAL_PEN",
+      "state": "post",
+      "completed": true,
+      "description": "Final Score - After Penalties",
+      "detail": "FT-Pens",
+      "shortDetail": "FT-Pens"
+     }
+    },
+    "competitors": [
+     {
+      "homeAway": "home",
+      "score": "1",
+      "winner": true,
+      "linescores": [
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "1"
+       },
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "3"
+       }
+      ],
+      "team": {
+       "id": "15365",
+       "abbreviation": "WAS",
+       "displayName": "Washington Spirit"
+      }
+     },
+     {
+      "homeAway": "away",
+      "score": "1",
+      "winner": false,
+      "linescores": [
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "1"
+       },
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "0"
+       },
+       {
+        "displayValue": "1"
+       }
+      ],
+      "team": {
+       "id": "20905",
+       "abbreviation": "LOU",
+       "displayName": "Racing Louisville FC"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "keyEvents": [
+  {
+   "type": {
+    "id": "137",
+    "text": "Goal - Header",
+    "type": "goal---header"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 4361.0,
+    "displayValue": "73'"
+   },
+   "team": {
+    "id": "15365",
+    "displayName": "Washington Spirit"
+   },
+   "scoringPlay": true,
+   "shootout": false
+  },
+  {
+   "type": {
+    "id": "70",
+    "text": "Goal",
+    "type": "goal"
+   },
+   "period": {
+    "number": 2
+   },
+   "clock": {
+    "value": 5400.0,
+    "displayValue": "90'+2'"
+   },
+   "team": {
+    "id": "20905",
+    "displayName": "Racing Louisville FC"
+   },
+   "scoringPlay": true,
+   "shootout": false
+  }
+ ]
+}

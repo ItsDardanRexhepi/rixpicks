@@ -37,6 +37,9 @@ FIX = {
     CORE.format(lg='hockey/leagues/nhl', e='401890001'): core('St. Louis Blues', 4, 'Dallas Stars', 0),
     CORE.format(lg='soccer/leagues/usa.nwsl', e='401854015'): core('San Diego Wave FC', 2, 'Orlando Pride', 1),
     CORE.format(lg='football/leagues/college-football', e='401858476'): core('Penn State Nittany Lions', 13, 'Northwestern Wildcats', 34),
+    # soccer grades on regulation time: record_final reads the match's ESPN summary (recorded, trimmed)
+    'https://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/summary?event=401854015':
+        json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'tests', 'fixtures', 'soccer', 'summary_401854015.json'))),
 }
 
 def fake_get(url, *a, **k):

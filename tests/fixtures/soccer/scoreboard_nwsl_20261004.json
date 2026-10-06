@@ -1,0 +1,115 @@
+{
+ "events": [
+  {
+   "id": "401854019",
+   "date": "2026-10-04T17:00Z",
+   "competitions": [
+    {
+     "status": {
+      "type": {
+       "id": "28",
+       "name": "STATUS_FULL_TIME",
+       "state": "post",
+       "completed": true,
+       "description": "Full Time",
+       "detail": "FT",
+       "shortDetail": "FT"
+      }
+     },
+     "competitors": [
+      {
+       "homeAway": "home",
+       "score": "1",
+       "winner": false,
+       "team": {
+        "displayName": "Gotham FC"
+       }
+      },
+      {
+       "homeAway": "away",
+       "score": "1",
+       "winner": false,
+       "team": {
+        "displayName": "Angel City FC"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401854090",
+   "date": "2026-10-04T20:00Z",
+   "competitions": [
+    {
+     "status": {
+      "type": {
+       "id": "28",
+       "name": "STATUS_FULL_TIME",
+       "state": "post",
+       "completed": true,
+       "description": "Full Time",
+       "detail": "FT",
+       "shortDetail": "FT"
+      }
+     },
+     "competitors": [
+      {
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "displayName": "Chicago Stars FC"
+       }
+      },
+      {
+       "homeAway": "away",
+       "score": "3",
+       "winner": true,
+       "team": {
+        "displayName": "Denver Summit FC"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401854020",
+   "date": "2026-10-04T23:00Z",
+   "competitions": [
+    {
+     "status": {
+      "type": {
+       "id": "28",
+       "name": "STATUS_FULL_TIME",
+       "state": "post",
+       "completed": true,
+       "description": "Full Time",
+       "detail": "FT",
+       "shortDetail": "FT"
+      }
+     },
+     "competitors": [
+      {
+       "homeAway": "home",
+       "score": "2",
+       "winner": false,
+       "team": {
+        "displayName": "Houston Dash"
+       }
+      },
+      {
+       "homeAway": "away",
+       "score": "3",
+       "winner": true,
+       "team": {
+        "displayName": "Washington Spirit"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
