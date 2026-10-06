@@ -30,7 +30,7 @@ STANDING RULES ARE HARD GATES (owner ruling 2026-10-02 (4): "NO - an owner-appro
 rule. Vegas rule, ladder sizes, all of it: hard gates, no exceptions."). The card refuses closed, nothing
 written, on a pick on or against a Las Vegas team, units off the J-096 ladder, and on every standing bar:
 fair (model) < 60c, card ask >= 85c, gross < 2c, net < 0.5c (ml) or < 2c (spread, total, prop), units other
-than the J-096 rung of its fair and gross (60-69 = 5u; 70-79 = 10u with gross >= 3c else 5u; 80-89 = 15u;
+than the J-096 rung of its fair and gross (below 70 = 5u; 70-79 = 10u with gross >= 3c else 5u; 80-89 = 15u;
 90+ = 100u; fragility 2 one rung lower, fragility 3 refuses; tennis capped at 5u), a candidate missing model,
 gross_c or net_c, and a parlay short of 2c gross and 2c net (ruling (2), 2-4 legs, J-098). Every violation on
 the card is named in one refusal. An owner-forced sub-bar pick is impossible, and a status_note cannot carry
@@ -358,17 +358,16 @@ def price_card(c):
                                                **({'line': q['line']} if q.get('line') is not None else {})} for q in ranked])
 
 # ---- the standing bars (RUNBOOK 2.3, J-096/J-097/J-098, owner rulings 2026-10-02) ----
-CARD_BAND_C, ASK_CUT_C, GROSS_BAR_C = 60, 85, 2.0
+ASK_CUT_C, GROSS_BAR_C = 85, 2.0
 NET_BAR_C = {'ml': 0.5}  # spread, total and prop: 2c
 _RUNG_DOWN = {100: 15, 15: 10, 10: 5, 5: 5}  # fragility 2: one rung lower (5u is the lowest card rung)
 
 def j096_rung(fair_c, gross_c):
-    """J-096: 60-69 = 5u, 70-79 = 10u when gross >= 3c else 5u, 80-89 = 15u, 90+ = 100u; below 60, 0."""
+    """J-096: below 70 = 5u, 70-79 = 10u when gross >= 3c else 5u, 80-89 = 15u, 90+ = 100u; below 70, 5u."""
     if fair_c >= 90: return 100
     if fair_c >= 80: return 15
     if fair_c >= 70: return 10 if gross_c >= 3 else 5
-    if fair_c >= 60: return 5
-    return 0
+    return 5
 
 def _c(x):
     return f'{round(x, 2):g}c'
@@ -388,8 +387,6 @@ def bar_problems(c, pr):
     mc = c.get('market_class')
     net_bar = NET_BAR_C.get(mc, 2.0)
     out = []
-    if fair < CARD_BAND_C:
-        out.append(f'fair {_c(fair)} below the {CARD_BAND_C}c card band')
     if pr['cost_c'] >= ASK_CUT_C:
         out.append(f"card ask {_c(pr['cost_c'])} at or above the {ASK_CUT_C}c cut")
     if gross < GROSS_BAR_C:
