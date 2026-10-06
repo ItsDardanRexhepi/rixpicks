@@ -60,11 +60,21 @@ RP_DESIGN='2.0.0' if _V2 else '1.2.0'  # locked design system version - bump onl
 
 def _pt_date(iso):
     # Sep 26 builder fix: real America/Los_Angeles conversion - a hard-coded UTC-7 is wrong in PST.
+    # '' unless the timestamp carries an explicit UTC offset ('Z' or +hh:mm): a zoneless timestamp is never read in
+    # the machine's own zone (astimezone() on a naive datetime does that), so a card dates the same on a Pacific
+    # laptop and a UTC runner.
     try:
         import datetime as _dt
         from zoneinfo import ZoneInfo
-        return _dt.datetime.fromisoformat((iso or '').replace('Z','+00:00')).astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat()
+        t=_dt.datetime.fromisoformat((iso or '').replace('Z','+00:00'))
+        if t.tzinfo is None or t.utcoffset() is None: return ''
+        return t.astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat()
     except Exception: return ''
+def _pt_day(iso):
+    # _pt_date as a datetime.date, else None
+    d=_pt_date(iso)
+    import datetime as _dt
+    return _dt.date.fromisoformat(d) if d else None
 
 man=json.load(open(sys.argv[1]))
 # --- pick-content hash gate (permanent): price ship conditions gate pick CONTENT only.
@@ -425,16 +435,52 @@ def _standing_rule_holds(m):
 # the item is a numeric bar (fair below the 60c band, gross below the 2c bar, net below the class bar, units over
 # the J-096 rung of its fair) and its pick name is exactly a logged name - and the whole waiver is refused (nothing
 # waived) unless ALL of these hold: the card_note, the note the page actually renders, carries the disclosure
-# ("owner-directed" or "owner directive", and "sub-bar", any case); no logged name is on more than one card pick
-# and no name is logged twice with different entries; and every waived pick plays on the logged date (its
-# game.commence in Pacific time) and carries exactly its logged eid (game.eid) and units. Never suspendable: a Las
-# Vegas team, units off the ladder, a card ask at or above the 85c cut, a card price that is not the best recorded
-# ask, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly
-# as before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record) waives
-# nothing. The log is read only for a held card, so a card with no holds builds identically.
+# stated positively ("owner-directed" or "owner directive", and "sub-bar", any case, as whole words, and none of
+# them negated: a no/not/non-/never/without/neither/nor/none/n't word earlier in its clause, or a bare "no" right
+# after it, refuses the waiver - "not owner-directed" and "no owner directive" disclose nothing); no logged name is
+# on more than one card pick and no name is logged twice with different entries; and every waived pick plays on
+# the logged date (its game.commence, which must carry an explicit UTC offset, read in America/Los_Angeles - a
+# zoneless commence is never read in the machine's own zone, so it binds to no date) and carries exactly its logged
+# eid (game.eid) and units. Never suspendable: a Las Vegas team, units off the ladder, a card ask at or above the
+# 85c cut, a card price that is not the best recorded ask, a spread name or pick_line that disagrees with its line,
+# every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly as
+# before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record: a date that
+# is not a YYYY-MM-DD calendar date, or a logged_at without an explicit UTC offset, included) waives nothing. The
+# log is read only for a held card, so a card with no holds builds identically.
 _SUSPEND_RULE='2026-10-02 (4)'
 _SUSPEND_KINDS=frozenset(('fair_band','gross_bar','net_bar','units_over_rung'))
 _SUSPEND_LOG=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','slates','owner_rule_suspensions.jsonl')
+def _ymd(v):
+    # a strict 'YYYY-MM-DD' calendar date (datetime.date), else None
+    if not (isinstance(v,str) and re.fullmatch(r'\d{4}-\d{2}-\d{2}',v)): return None
+    try:
+        import datetime as _dt
+        return _dt.date.fromisoformat(v)
+    except ValueError: return None
+def _aware_ts(v):
+    # an ISO timestamp WITH an explicit UTC offset ('Z' or +hh:mm) as an aware datetime, else None
+    try:
+        import datetime as _dt
+        t=_dt.datetime.fromisoformat(v.replace('Z','+00:00'))
+    except Exception: return None
+    return t if t.tzinfo is not None and t.utcoffset() is not None else None
+_DISCLOSE_RX=re.compile(r"(?<![a-z0-9])(owner-directed|owner directives?|sub-bars?)(?![a-z0-9])")
+_DISCLOSE_NEG=frozenset(('no','not','non','never','without','neither','nor','none','nothing','nobody','cannot',
+                         'lacks','lacking','absent','excluding','except'))
+_CLAUSE_CUT=re.compile(r"[.;:!?()\[\]{},\n]|\s[-\u2013\u2014]+\s|[\u2013\u2014]")
+def _disclosure_problem(note):
+    # -> None when the card_note discloses positively ("owner-directed" or "owner directive", and "sub-bar"), else why
+    cn=note.lower().replace('\u2019',"'") if isinstance(note,str) else ''
+    seen=set()
+    for mo in _DISCLOSE_RX.finditer(cn):
+        clause=_CLAUSE_CUT.split(cn[:mo.start()])[-1]
+        neg=any(w in _DISCLOSE_NEG or w.endswith("n't") for w in re.findall(r"[a-z]+(?:'[a-z]+)?",clause))
+        tail=re.match(r"\s*[:?=\-\u2013\u2014]\s*(?:no|not|none|false|n/a)\s*(?:[.;,!?)\n]|$)",cn[mo.end():])
+        if neg or tail:
+            return f'"{mo.group(1)}" is negated ("{(clause.strip()+" "+mo.group(1)).strip()}{tail.group(0).rstrip() if tail else ""}")'
+        seen.add('sub-bar' if mo.group(1).startswith('sub-bar') else 'owner')
+    if seen!={'owner','sub-bar'}: return 'it is missing'
+    return None
 def _suspension_records(path):
     # -> (records, None), or (None, why) when the log cannot be trusted as a whole (fail closed)
     try: raw=open(path,encoding='utf-8').read()
@@ -449,18 +495,21 @@ def _suspension_records(path):
                 and isinstance(r.get('picks'),list) and r['picks']
                 and all(isinstance(x,dict) and all(_s(x.get(k)) for k in ('name','eid','units')) for x in r['picks'])):
             return None,f'line {n} is not a well-formed suspension record'
+        if _ymd(r['date']) is None: return None,f"line {n} date {r['date']!r} is not a YYYY-MM-DD calendar date"
+        if _aware_ts(r['logged_at']) is None: return None,f"line {n} logged_at {r['logged_at']!r} has no explicit UTC offset"
         recs.append(r)
     return recs,None
 def _owner_waivers(m,holds):
     # -> ([(held item, approved)], note when a suspension for this date exists but waives nothing, or None)
     recs,bad=_suspension_records(_SUSPEND_LOG)
     if recs is None: return [],f'slates/owner_rule_suspensions.jsonl {bad} - nothing waived'
-    d=m.get('date')
-    lines=[r for r in recs if isinstance(d,str) and r['date']==d and r['rule']==_SUSPEND_RULE and r['scope']=='numeric']
+    d=m.get('date'); dday=_ymd(d)  # every date compared below is a calendar date in America/Los_Angeles
+    lines=[r for r in recs if dday is not None and _ymd(r['date'])==dday and r['rule']==_SUSPEND_RULE and r['scope']=='numeric']
     if not lines: return [],None
-    cn=m.get('card_note').lower() if isinstance(m.get('card_note'),str) else ''
-    if not (('owner-directed' in cn or 'owner directive' in cn) and 'sub-bar' in cn):
-        return [],f'the {d} suspension needs the card_note disclosure ("owner-directed" or "owner directive", and "sub-bar") - nothing waived'
+    _dp=_disclosure_problem(m.get('card_note'))
+    if _dp:
+        return [],(f'the {d} suspension needs the card_note disclosure stated positively ("owner-directed" or "owner directive", '
+                   f'and "sub-bar"); {_dp} - nothing waived')
     logged={}
     for r in lines:
         for e in r['picks']:
@@ -477,8 +526,11 @@ def _owner_waivers(m,holds):
         (eid,units),appr=logged[name]
         p=next((p for p in cards if p.get('name')==name),{})
         g=p.get('game') if isinstance(p.get('game'),dict) else {}
-        pd=_pt_date(g.get('commence')) if isinstance(g.get('commence'),str) else ''
-        if pd!=d: return [],f"pick {name!r} plays on {pd or 'no date'} (Pacific), not the logged {d} - nothing waived"
+        c=g.get('commence')
+        pday=_pt_day(c) if isinstance(c,str) else None
+        if pday!=dday:
+            why=f": game.commence {c!r} is not an ISO timestamp with an explicit UTC offset" if (pday is None and c) else ''
+            return [],f"pick {name!r} plays on {pday.isoformat() if pday else 'no date'} (Pacific{why}), not the logged {d} - nothing waived"
         if g.get('eid')!=eid or p.get('units')!=units:
             return [],(f"pick {name!r} (eid {g.get('eid')!r}, units {p.get('units')!r}) does not match its logged entry "
                        f"(eid {eid!r}, units {units!r}) - nothing waived")
