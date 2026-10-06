@@ -317,9 +317,20 @@ def _line_num(v):
 # 'line' is the number itself. pick_line is that line read from the PICKED side: spread away -> -line, spread
 # home -> line, total/prop -> line. It is optional, never graded and never rendered (the page already reads the
 # picked side's number through _pick_line); when present it must equal that derived value. A spread pick whose
-# name ends in a number ('Flyers +1.5', the number the page itself falls back to) must name the picked side's
-# line. A pick_line that is not a number, sits on a moneyline, or has no numeric line (or a spread side other
-# than home/away) to check against is held too. These holds are integrity checks, never suspendable.
+# name ends in its line ('Flyers +1.5', read by _name_line, the page's own fallback reader) must name the picked
+# side's line. A pick_line that is not a number, sits on a moneyline, or has no numeric line (or a spread side
+# other than home/away) to check against is held too. These holds are integrity checks, never suspendable.
+# _name_line: the line a pick name ends in, as written ('Flyers +1.5' -> '+1.5'), else None. A typographic
+# minus or plus (U+2212, U+2012, U+2013, U+FE62/3, U+FF0B/D) reads as '-' or '+'; one trailing American price
+# ('-110', '(+105)', '@ -120': a signed whole number of three or more digits, never a spread) is not the line; and a
+# digit glued to a letter or a decimal point is no number, so 'Yankees -0.5 F5', 'Celtics -2.5 Q1' and
+# 'Flyers +1.5 P1' end in no line and are not read as 5 or 1. A name that ends in no line is not checked.
+def _name_line(name):
+    # self-contained (fixtures lift it out by AST beside _pick_line)
+    s=str(name or '').translate({0x2212:'-',0x2012:'-',0x2013:'-',0xfe63:'-',0xff0d:'-',0xfe62:'+',0xff0b:'+'})
+    s=re.sub(r'\s*\(?\s*@?\s*[+-]\d{3,}\s*\)?\s*$','',s,count=1)
+    mo=re.search(r'(?:(?<![\d.])([+-])|(?<![\w.+-]))(\d+(?:\.\d+)?)\s*$',s)
+    return (mo.group(1) or '')+mo.group(2) if mo else None
 def _pick_line_holds(p):
     out=[]
     mc,side,ln=_pick_mclass(p),p.get('side'),_line_num(p.get('line'))
@@ -338,9 +349,9 @@ def _pick_line_holds(p):
             out.append(('pick_line',(f"pick_line {pl:+g} is not the {side} side's line {der:+g} (line {ln:+g} is the home spread)"
                                      if mc=='spread' else f"pick_line {pl:+g} is not its {mc} line {der:g}")))
     if mc=='spread' and der is not None:
-        mo=re.search(r'([+-]?\d+(?:\.\d+)?)\s*$',str(p.get('name') or ''))
-        if mo and abs(float(mo.group(1))-der)>1e-9:
-            out.append(('spread_name',f"name says {mo.group(1)} but the {side} side's line is {der:+g} (line {ln:+g} is the home spread)"))
+        nl=_name_line(p.get('name'))
+        if nl is not None and abs(float(nl)-der)>1e-9:
+            out.append(('spread_name',f"name says {nl} but the {side} side's line is {der:+g} (line {ln:+g} is the home spread)"))
     return out
 def _standing_rule_holds(m):
     out=[]
@@ -1161,15 +1172,17 @@ def _pick_line(p):
     # numeric line for spread/total picks, always the PICKED side's own number (what the page grades
     # with: pick-side margin + line). The manifest 'line' of a spread is the HOME spread (build_manifest,
     # st_card_candidates.adapt_alt, finals_watch, record_final.score_result), so an away-cover pick
-    # 'Lynx +4' stored as line -4 reads +4. Without a manifest line, the trailing number of the pick
-    # name ('Aces -4.5', 'Under 38.5'), already side-relative; None when neither exists (no verdict).
+    # 'Lynx +4' stored as line -4 reads +4. Without a manifest line, the line the pick name ends in
+    # ('Aces -4.5', 'Under 38.5'), already side-relative, read by _name_line - the reader the spread-name
+    # hold uses, so 'Yankees -0.5 F5' is never line 5 and a trailing price is never the line; None when
+    # neither exists (no verdict).
     try:
         if p.get('line') is not None:
             ln=float(p['line'])
             return (0.0-ln) if (_pick_mclass(p)=='spread' and p.get('side')=='away') else ln  # 0.0-ln: a pick'em never reads -0
     except (TypeError, ValueError): return None
-    m=re.search(r'([+-]?\d+(?:\.\d+)?)\s*$', str(p.get('name') or ''))
-    return float(m.group(1)) if m else None
+    nl=_name_line(p.get('name'))
+    return float(nl) if nl is not None else None
 def _ship_key(p):
     # shipped-ledger key: moneyline picks keep the game key; any other market class carries its
     # class and line so a spread/total/prop chip never inherits a moneyline link or price

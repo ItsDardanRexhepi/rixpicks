@@ -101,7 +101,7 @@ for (const B of builders) {
     'B, SD, picks, finals = sys.argv[1], sys.argv[2], json.loads(sys.argv[3]), json.loads(sys.argv[4])',
     'ns = {"re": re}',
     'for node in ast.parse(open(B).read()).body:',
-    '    if isinstance(node, ast.FunctionDef) and node.name in ("_pick_mclass", "_pick_line"):',
+    '    if isinstance(node, ast.FunctionDef) and node.name in ("_pick_mclass", "_name_line", "_pick_line"):',
     '        exec(compile(ast.Module(body=[node], type_ignores=[]), B, "exec"), ns)',
     'spec = importlib.util.spec_from_file_location("rf", SD + "/record_final.py"); rf = importlib.util.module_from_spec(spec); spec.loader.exec_module(rf)',
     'sys.path.insert(0, os.path.dirname(SD)); os.environ["RIX_UNIT_DOLLARS"] = "1"',

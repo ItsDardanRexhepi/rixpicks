@@ -9,6 +9,10 @@ from the PICKED side: spread away -> -line, spread home -> line, total -> line. 
    (or no home/away side) to check against;
  - a spread pick's name ends in a number ('Flyers +1.5') that is not its picked side's line (e.g. 'Flyers -1.5'
    stored away line -1.5, or a picked-side value stored as the home line).
+The name's line is read by the builder's _name_line, which is also the page's own fallback for a pick with no line:
+a typographic minus (U+2212) reads as '-', one trailing American price is not the line ('Flyers +1.5 -110' says
++1.5), and a digit glued to a letter is no number ('Lightning -0.5 F5', '-2.5 Q1', '+1.5 P1' end in no line, so they
+build, and a legacy pick so named with no line shows no line rather than 5 or 1).
 These holds are never waived by the owner suspension. Cards with the convention right build - with or without
 pick_line, and the legacy hand-manifest spread with no line - and pick_line puts nothing new on the page.
 Builds run in a throwaway tree with the network sent to a dead proxy.
@@ -83,6 +87,13 @@ BUILDS = [
     ('legacy hand spread "Penn State -10" with no line (market:spread, no market_class)',
      [pick(1, 'Penn State -10', mclass=None, side='home', market='spread')]),
     ('away spread with no number in its name', [pick(1, 'Flyers puck line', line=-1.5)]),
+    # the name's line is read by _name_line: no number glued to a letter, a typographic minus, a trailing price
+    ('home run line "Lightning -0.5 F5" (F5 is no number), line -0.5', [pick(1, 'Lightning -0.5 F5', side='home', line=-0.5)]),
+    ('home spread "Lightning -2.5 Q1" (Q1 is no number), line -2.5', [pick(1, 'Lightning -2.5 Q1', side='home', line=-2.5)]),
+    ('away spread "Flyers +1.5 P1" (P1 is no number), line -1.5', [pick(1, 'Flyers +1.5 P1', line=-1.5)]),
+    ('home spread "Lightning \u22121.5" (typographic minus), line -1.5', [pick(1, 'Lightning \u22121.5', side='home', line=-1.5)]),
+    ('away spread "Flyers +1.5 -110" (a trailing price), line -1.5', [pick(1, 'Flyers +1.5 -110', line=-1.5)]),
+    ('away spread "Flyers +1.5 (-110)" (a bracketed price), line -1.5, pick_line +1.5', [pick(1, 'Flyers +1.5 (-110)', line=-1.5, pick_line=1.5)]),
 ]
 HOLDS = [
     ('pick_line -1.5 copied from the home-convention line on the away pick', [pick(1, 'Flyers +1.5', line=-1.5, pick_line=-1.5)],
@@ -101,6 +112,12 @@ HOLDS = [
     ('pick_line on a spread with no line', [pick(1, 'Flyers +1.5', pick_line=1.5)], 'has no spread line to check against'),
     ('pick_line on a spread whose side is not home or away', [pick(1, 'Flyers +1.5', side='over', line=-1.5, pick_line=1.5)],
      'has no spread line to check against'),
+    ('away spread "Flyers \u22121.5" (typographic minus) with line -1.5', [pick(1, 'Flyers \u22121.5', line=-1.5)],
+     "name says -1.5 but the away side's line is +1.5"),
+    ('away spread "Flyers -1.5 -110" (the home number before a trailing price)', [pick(1, 'Flyers -1.5 -110', line=-1.5)],
+     "name says -1.5 but the away side's line is +1.5"),
+    ('home spread "Lightning +1.5 (-110)" with line -1.5', [pick(1, 'Lightning +1.5 (-110)', side='home', line=-1.5)],
+     "name says +1.5 but the home side's line is -1.5"),
 ]
 
 for B in BUILDERS:
@@ -118,6 +135,13 @@ for B in BUILDERS:
     _, _, _, withpl = build(B, card([pick(1, 'Flyers +1.5', line=-1.5, pick_line=1.5)]))
     check(f'{tag}: pick_line renders nothing new (same pick-row market and line, the word pick_line nowhere on the page)',
           data_lines(plain) == data_lines(withpl) == [('spread', '1.5')] and 'pick_line' not in withpl, (data_lines(plain), data_lines(withpl)))
+
+    # a pick with no line reads its name through the same _name_line: never a glued period or quarter number, the
+    # typographic minus as a minus, a trailing price dropped
+    for name, want in (('Lightning -0.5 F5', []), ('Lightning \u22121.5', [('spread', '-1.5')]), ('Lightning -1.5 -110', [('spread', '-1.5')])):
+        rc, out, written, index = build(B, card([pick(1, name, mclass=None, side='home', market='spread')]))
+        check(f'{tag}: legacy spread {name!r} with no line: builds, the page reads the line {want[0][1] if want else "as absent"}',
+              rc == 0 and [(m, l) for m, l in data_lines(index) if l] == want, (rc, data_lines(index), out[-300:]))
 
     # a line hold is never waived by the owner suspension, even with the pick logged and the disclosure in place
     thin = pick(2, 'Thin ML', mclass='ml', model=61.0)
