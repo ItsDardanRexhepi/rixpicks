@@ -15,6 +15,8 @@
 # Run: python3 scripts/test_game_pages_retire.py [builder.py ...]  (default: both twins)
 import datetime, json, os, re, shutil, subprocess, sys, tempfile
 
+from fixtures.card_contract import stamped, published_snapshot
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 BUILDERS = [os.path.basename(b) for b in sys.argv[1:]] or ['build_gh_page_v2.py', '_build_nocanon_v2.py']
@@ -50,13 +52,13 @@ ROUTES = [
         'competitors': [{'homeAway': 'away', 'team': {'id': '4', 'displayName': 'Chicago White Sox', 'abbreviation': 'CHW'}},
                         {'homeAway': 'home', 'team': {'id': '18', 'displayName': 'Houston Astros', 'abbreviation': 'HOU'}}]}]}]}],
     [r'api\.elections\.kalshi\.com/trade-api/v2/markets\?event_ticker=' + TICK + r'&',
-     {'markets': [{'ticker': TICK + '-CWS', 'yes_ask_dollars': '0.42', 'yes_sub_title': 'Chicago WS', 'title': 'Chicago WS vs Houston'},
+     {'markets': [{'ticker': TICK + '-CWS', 'side':'yes', 'yes_ask_dollars': '0.42', 'yes_sub_title': 'Chicago WS', 'title': 'Chicago WS vs Houston'},
                   {'ticker': TICK + '-HOU', 'yes_ask_dollars': '0.59', 'yes_sub_title': 'Houston', 'title': 'Chicago WS vs Houston'}]}],
 ]
 
 GAME = {'away': 'Chicago White Sox', 'home': 'Houston Astros', 'commence': COMMENCE, 'eid': EID}
-KAL = {'url': KURL, 'cents': 42, 'team': 'Chicago WS', 'gate_cents': 42, 'ticker': TICK + '-CWS'}
-ML = {'name': 'White Sox ML', 'sub': 'fixture', 'odds': '+138', 'units': '5u', 'side': 'away', 'market': None,
+KAL = {'url': KURL, 'cents': 42, 'team': 'Chicago WS', 'gate_cents': 42, 'ticker': TICK + '-CWS', 'side':'yes'}
+ML = {'name': 'White Sox ML', 'sub': 'fixture - model 66.0', 'odds': '+138', 'units': '5u', 'side': 'away', 'market': None,
       'market_class': 'ml', 'league': 'MLB', 'espn_league': 'baseball/mlb', 'best_book': 'Kalshi',
       'game': dict(GAME), 'kalshi': dict(KAL), 'polymarket': None, 'dkp': None}
 PROP = dict(ML, name='Yordan Alvarez over 1.5 hits', odds='+270', side='over', market='bat_hits', market_class='prop')
@@ -94,7 +96,9 @@ for B in BUILDERS:
     P = lambda f: os.path.join(site, f)
 
     def build(picks, label):
-        json.dump(manifest(base, picks), open(P('fixture_manifest.json'), 'w'))
+        man=stamped(P('scripts/'+B),manifest(base,picks))
+        json.dump(man,open(P('fixture_manifest.json'),'w'))
+        published_snapshot(site,P('scripts/'+B),man)
         r = subprocess.run([sys.executable, 'scripts/' + B, 'fixture_manifest.json', 'index.html'], cwd=site, env=env, capture_output=True, text=True, timeout=600)
         if r.returncode != 0:
             print(r.stderr[-3000:])
@@ -160,8 +164,8 @@ for B in BUILDERS:
         if 'Yordan Alvarez' in pg: gp = pg
     hou = re.search(r'data-kalmkt="%s-HOU" data-cents="(\d+)"' % TICK, gp)
     cws = re.search(r'data-kalmkt="%s-CWS" data-cents="(\d+)"' % TICK, gp)
-    check(f'{B} E prop page Houston chip carries Houston\'s own price (59c), not the prop\'s locked 42c', bool(hou) and hou.group(1) == '59')
-    check(f'{B} E prop page White Sox chip carries the White Sox price (42c)', bool(cws) and cws.group(1) == '42')
+    check(f'{B} E explicit prop snapshot never labels its locked price as Houston', not hou and 'data-kalpx="yes"' in gp)
+    check(f'{B} E explicit snapshot retains its declared CWS YES price (42c)', 'data-kalside="CWS" data-kalpx="yes" data-cents="42"' in gp)
     shutil.rmtree(os.path.dirname(site), ignore_errors=True)
 
 print(('ALL OK' if not fails else '%d FAIL' % len(fails)))
