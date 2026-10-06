@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-06T02:11:26.112166+00:00",
+ "generated_at": "2026-10-06T02:20:09.832130+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "NYY @ TB",
      "commence": "2026-10-06T00:00Z",
      "status": "in",
-     "detail": "Bot 5th",
-     "score": "NYY 1 - TB 3"
+     "detail": "Bot 6th",
+     "score": "NYY 1 - TB 5"
     }
    ]
   },
@@ -23,7 +23,7 @@
      "matchup": "ATL @ NO",
      "commence": "2026-10-06T00:15Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "9:25 - 3rd",
      "score": "ATL 24 - NO 7",
      "away_to": 3,
      "home_to": 3
@@ -62,18 +62,18 @@
      "matchup": "MIN @ MIL",
      "commence": "2026-10-06T00:00Z",
      "status": "in",
-     "detail": "10:46 - 4th",
-     "score": "MIN 85 - MIL 77",
+     "detail": "7:06 - 4th",
+     "score": "MIN 95 - MIL 83",
      "away_to": 4,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401898716",
      "matchup": "LAL @ SAC",
      "commence": "2026-10-06T02:00Z",
      "status": "in",
-     "detail": "11:51 - 1st",
-     "score": "LAL 0 - SAC 0",
+     "detail": "8:30 - 1st",
+     "score": "LAL 8 - SAC 6",
      "away_to": 0,
      "home_to": 0
     }
@@ -94,18 +94,16 @@
      "espn_event_id": "401892446",
      "matchup": "OTT @ BOS",
      "commence": "2026-10-05T23:30Z",
-     "status": "in",
-     "detail": "3:03 - 3rd",
-     "score": "OTT 4 - BOS 1",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "OTT 4 - BOS 1"
     },
     {
      "espn_event_id": "401892447",
      "matchup": "WPG @ PIT",
      "commence": "2026-10-05T23:30Z",
      "status": "in",
-     "detail": "5:59 - 3rd",
+     "detail": "1:21 - 3rd",
      "score": "WPG 3 - PIT 2",
      "away_to": null,
      "home_to": null
@@ -115,8 +113,8 @@
      "matchup": "SJ @ DAL",
      "commence": "2026-10-06T00:00Z",
      "status": "in",
-     "detail": "8:35 - 3rd",
-     "score": "SJ 0 - DAL 4",
+     "detail": "4:17 - 3rd",
+     "score": "SJ 0 - DAL 5",
      "away_to": null,
      "home_to": null
     }
