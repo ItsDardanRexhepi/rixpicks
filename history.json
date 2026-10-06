@@ -609,6 +609,41 @@
           "learning": "Owner-directed, posted under a one-day suspension of the 60c band: the morning fair was 59.4%, just under the band. Won: SD 3 @ MIL 4."
         }
       ]
+    },
+    {
+      "date": "2026-10-05",
+      "label": "Monday, Oct 5",
+      "record": "0-2",
+      "units": "-10.00u",
+      "brief": "",
+      "picks": [
+        {
+          "name": "Penguins ML",
+          "game": "vs Jets",
+          "odds": "-163",
+          "units": "5u",
+          "result": "L",
+          "score": "WPG 3, PIT 2",
+          "_delta": "-5.0",
+          "learning": "Owner position, posted under a one-day sub-bar suspension: model fair 64.5% vs a 62c best ask (Polymarket; Kalshi 63c), under the 2c net bar. It did not clear the full morning process. Lost: WPG 3 @ PIT 2."
+        },
+        {
+          "name": "Flyers +1.5",
+          "game": "at Lightning",
+          "odds": "-138",
+          "units": "5u",
+          "result": "L",
+          "score": "PHI 1, TB 4",
+          "_delta": "-5.0",
+          "accepted_entry": {
+            "accepted_entry_id": "accepted-entry-20261005-185743-401892445",
+            "card_venue": "polymarket",
+            "entry_c": 58,
+            "entry_basis": "approved_card_entry_assumption"
+          },
+          "learning": "Owner position, posted under a one-day sub-bar suspension: model fair 60.7% vs a 58c best ask (Polymarket; accepted-entry basis, not a verified fill). It did not clear the full morning process. Lost: PHI 1 @ TB 4."
+        }
+      ]
     }
   ]
 }

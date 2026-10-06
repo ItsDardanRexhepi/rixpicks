@@ -130,7 +130,7 @@ h1 .tick{color:#3BEBF5}
 <div class="sect">Form - last 5</div>
 <div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 3-6 @ New York Yankees · 09-25</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 10-2 @ New York Yankees · 09-25</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 4-2 vs Toronto Blue Jays · 09-23</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 4-3 vs Toronto Blue Jays · 09-21</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 0-3 vs Milwaukee Brewers · 09-20</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 4.2 &middot; allowed 3.0 per game over last 10</div>
+<div class="sub" style="padding:7px 0">Scored 4.4 &middot; allowed 3.2 per game over last 9</div>
 <div class="sect">Next up</div>
 <div class="sub">No upcoming games listed.</div>
 <div class="sect">Injuries</div>
@@ -138,7 +138,7 @@ h1 .tick{color:#3BEBF5}
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1791253222';
+const RP_BUILD='1791283906';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}
