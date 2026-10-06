@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-06T00:05:19.708813+00:00",
+ "generated_at": "2026-10-06T00:20:15.648297+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,9 +9,17 @@
      "espn_event_id": "401907991",
      "matchup": "CHW @ CLE",
      "commence": "2026-10-05T21:00Z",
-     "status": "in",
-     "detail": "Top 9th",
+     "status": "post",
+     "detail": "Final",
      "score": "CHW 4 - CLE 3"
+    },
+    {
+     "espn_event_id": "401907986",
+     "matchup": "NYY @ TB",
+     "commence": "2026-10-06T00:00Z",
+     "status": "in",
+     "detail": "Bot 1st",
+     "score": "NYY 0 - TB 0"
     }
    ]
   },
@@ -22,9 +30,11 @@
      "espn_event_id": "401872979",
      "matchup": "ATL @ NO",
      "commence": "2026-10-06T00:15Z",
-     "status": "pre",
-     "detail": "10/5 - 5:15 PM PT",
-     "score": "ATL 0 - NO 0"
+     "status": "in",
+     "detail": "13:34 - 1st",
+     "score": "ATL 6 - NO 0",
+     "away_to": 3,
+     "home_to": 3
     }
    ]
   },
@@ -36,8 +46,8 @@
      "matchup": "MEM @ ATL",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "3:36 - 2nd",
-     "score": "MEM 65 - ATL 55",
+     "detail": "Halftime",
+     "score": "MEM 81 - ATL 61",
      "away_to": 5,
      "home_to": 4
     },
@@ -46,20 +56,30 @@
      "matchup": "PHX @ DET",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "6:23 - 2nd",
-     "score": "PHX 50 - DET 38",
+     "detail": "18.2 - 2nd",
+     "score": "PHX 68 - DET 50",
      "away_to": 6,
-     "home_to": 5
+     "home_to": 4
     },
     {
      "espn_event_id": "401914101",
      "matchup": "NY @ PHI",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "3:18 - 2nd",
-     "score": "NY 53 - PHI 61",
+     "detail": "Halftime",
+     "score": "NY 58 - PHI 72",
      "away_to": 5,
      "home_to": 5
+    },
+    {
+     "espn_event_id": "401914102",
+     "matchup": "MIN @ MIL",
+     "commence": "2026-10-06T00:00Z",
+     "status": "in",
+     "detail": "7:51 - 1st",
+     "score": "MIN 15 - MIL 7",
+     "away_to": 7,
+     "home_to": 6
     },
     {
      "espn_event_id": "401898716",
@@ -79,8 +99,8 @@
      "matchup": "PHI @ TB",
      "commence": "2026-10-05T23:00Z",
      "status": "in",
-     "detail": "19:43 - 2nd",
-     "score": "PHI 0 - TB 1",
+     "detail": "13:16 - 2nd",
+     "score": "PHI 0 - TB 2",
      "away_to": null,
      "home_to": null
     },
@@ -89,7 +109,7 @@
      "matchup": "OTT @ BOS",
      "commence": "2026-10-05T23:30Z",
      "status": "in",
-     "detail": "7:00 - 1st",
+     "detail": "0:31 - 1st",
      "score": "OTT 2 - BOS 0",
      "away_to": null,
      "home_to": null
@@ -99,8 +119,18 @@
      "matchup": "WPG @ PIT",
      "commence": "2026-10-05T23:30Z",
      "status": "in",
-     "detail": "7:41 - 1st",
+     "detail": "End of 1st",
      "score": "WPG 0 - PIT 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892448",
+     "matchup": "SJ @ DAL",
+     "commence": "2026-10-06T00:00Z",
+     "status": "in",
+     "detail": "12:52 - 1st",
+     "score": "SJ 0 - DAL 0",
      "away_to": null,
      "home_to": null
     }
