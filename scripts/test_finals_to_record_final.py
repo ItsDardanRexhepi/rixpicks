@@ -7,7 +7,8 @@ grade it queued stopped the in-order record write. One card, four finals in comm
 moneyline win, a total loss, an away spread cover (the card line is the HOME spread) and a total push.
 finals_watch.main() runs for real with its private-infra calls (ledger, POST, second source, card
 price ledger) stubbed; ESPN reads come from the fixtures below, the same ones record_final verifies
-against. Offline; writes only into a temp folder. Run: python3 scripts/test_finals_to_record_final.py"""
+against. It runs with --live (finals_watch is a dry run by default; the queue is a live write).
+Offline; writes only into a temp folder. Run: python3 scripts/test_finals_to_record_final.py"""
 import contextlib, copy, importlib.util, io, json, os, shutil, sys, tempfile
 from datetime import datetime as _real_dt, timezone
 from decimal import Decimal
@@ -79,7 +80,7 @@ def run_finals_watch(tmp):
     fw.HERE = os.path.join(tmp, 'scripts')  # record_request.json lands at tmp/record_request.json
     fw.STATE = os.path.join(tmp, 'finals_seen.json')
     fw.LEDGER = os.path.join(tmp, 'record_rows.jsonl')
-    fw.TOKEN_PATH = os.path.join(tmp, 'no_token')
+    fw._secret = lambda name: ''  # no keychain or env secret is read in a fixture
     fw.datetime = FixedNow
     fw._get = fake_get
     fw.second_source = lambda p, primary, commence: {'source': 'fixture (independent)', 'away_id': primary['away'],
@@ -96,7 +97,7 @@ def run_finals_watch(tmp):
     fw.fill_leak.card_price = lambda p: (by_eid[p['game']['eid']]['kalshi']['cents'],
                                          {'card_american': by_eid[p['game']['eid']]['card_american']}, 1)
     fw.fill_leak.fill_divergence = lambda p: []
-    argv, sys.argv = sys.argv, ['finals_watch.py']
+    argv, sys.argv = sys.argv, ['finals_watch.py', '--live']  # dry run is the default; the queue is a live write
     out = io.StringIO()
     try:
         with contextlib.redirect_stdout(out):

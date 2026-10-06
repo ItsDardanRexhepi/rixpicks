@@ -1,0 +1,280 @@
+{
+ "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908002/competitions/401908002/competitors/25/score?lang=en&region=us": {
+  "displayValue": "2",
+  "value": 2.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908002/competitions/401908002/competitors/8/score?lang=en&region=us": {
+  "displayValue": "3",
+  "value": 3.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908002/competitions/401908002/status?lang=en&region=us": {
+  "type": {
+   "completed": true,
+   "description": "Final",
+   "detail": "Final",
+   "id": "3",
+   "name": "STATUS_FINAL",
+   "shortDetail": "Final",
+   "state": "post"
+  }
+ },
+ "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908003/competitions/401908003/competitors/25/score?lang=en&region=us": {
+  "displayValue": "3",
+  "value": 3.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908003/competitions/401908003/competitors/8/score?lang=en&region=us": {
+  "displayValue": "4",
+  "value": 4.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908003/competitions/401908003/status?lang=en&region=us": {
+  "type": {
+   "completed": true,
+   "description": "Final",
+   "detail": "Final",
+   "id": "3",
+   "name": "STATUS_FINAL",
+   "shortDetail": "Final",
+   "state": "post"
+  }
+ },
+ "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/25?lang=en&region=us": {
+  "abbreviation": "SD",
+  "displayName": "San Diego Padres",
+  "id": "25",
+  "name": "Padres"
+ },
+ "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/8?lang=en&region=us": {
+  "abbreviation": "MIL",
+  "displayName": "Milwaukee Brewers",
+  "id": "8",
+  "name": "Brewers"
+ },
+ "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401872964/competitions/401872964/competitors/23/score?lang=en&region=us": {
+  "displayValue": "24",
+  "value": 24.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401872964/competitions/401872964/competitors/5/score?lang=en&region=us": {
+  "displayValue": "27",
+  "value": 27.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401872964/competitions/401872964/status?lang=en&region=us": {
+  "type": {
+   "completed": true,
+   "description": "Final",
+   "detail": "Final",
+   "id": "3",
+   "name": "STATUS_FINAL",
+   "shortDetail": "Final",
+   "state": "post"
+  }
+ },
+ "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/teams/23?lang=en&region=us": {
+  "abbreviation": "PIT",
+  "displayName": "Pittsburgh Steelers",
+  "id": "23",
+  "name": "Steelers"
+ },
+ "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/teams/5?lang=en&region=us": {
+  "abbreviation": "CLE",
+  "displayName": "Cleveland Browns",
+  "id": "5",
+  "name": "Browns"
+ },
+ "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892445/competitions/401892445/competitors/15/score?lang=en&region=us": {
+  "displayValue": "1",
+  "value": 1.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892445/competitions/401892445/competitors/20/score?lang=en&region=us": {
+  "displayValue": "4",
+  "value": 4.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892445/competitions/401892445/status?lang=en&region=us": {
+  "type": {
+   "completed": true,
+   "description": "Final",
+   "detail": "Final",
+   "id": "3",
+   "name": "STATUS_FINAL",
+   "shortDetail": "Final",
+   "state": "post"
+  }
+ },
+ "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892447/competitions/401892447/competitors/16/score?lang=en&region=us": {
+  "displayValue": "2",
+  "value": 2.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892447/competitions/401892447/competitors/28/score?lang=en&region=us": {
+  "displayValue": "3",
+  "value": 3.0
+ },
+ "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892447/competitions/401892447/status?lang=en&region=us": {
+  "type": {
+   "completed": true,
+   "description": "Final",
+   "detail": "Final",
+   "id": "3",
+   "name": "STATUS_FINAL",
+   "shortDetail": "Final",
+   "state": "post"
+  }
+ },
+ "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/15?lang=en&region=us": {
+  "abbreviation": "PHI",
+  "displayName": "Philadelphia Flyers",
+  "id": "15",
+  "name": "Flyers"
+ },
+ "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/16?lang=en&region=us": {
+  "abbreviation": "PIT",
+  "displayName": "Pittsburgh Penguins",
+  "id": "16",
+  "name": "Penguins"
+ },
+ "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/20?lang=en&region=us": {
+  "abbreviation": "TB",
+  "displayName": "Tampa Bay Lightning",
+  "id": "20",
+  "name": "Lightning"
+ },
+ "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/28?lang=en&region=us": {
+  "abbreviation": "WPG",
+  "displayName": "Winnipeg Jets",
+  "id": "28",
+  "name": "Jets"
+ },
+ "https://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908002/competitions/401908002": {
+  "competitors": [
+   {
+    "homeAway": "home",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908002/competitions/401908002/competitors/8/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/8?lang=en&region=us"
+    }
+   },
+   {
+    "homeAway": "away",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908002/competitions/401908002/competitors/25/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/25?lang=en&region=us"
+    }
+   }
+  ],
+  "status": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908002/competitions/401908002/status?lang=en&region=us"
+  }
+ },
+ "https://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908003/competitions/401908003": {
+  "competitors": [
+   {
+    "homeAway": "home",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908003/competitions/401908003/competitors/8/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/8?lang=en&region=us"
+    }
+   },
+   {
+    "homeAway": "away",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908003/competitions/401908003/competitors/25/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/25?lang=en&region=us"
+    }
+   }
+  ],
+  "status": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/401908003/competitions/401908003/status?lang=en&region=us"
+  }
+ },
+ "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401872964": {
+  "date": "2026-10-02T00:15Z",
+  "id": "401872964",
+  "seasonType": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2?lang=en&region=us"
+  },
+  "week": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/weeks/4?lang=en&region=us"
+  }
+ },
+ "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401872964/competitions/401872964": {
+  "competitors": [
+   {
+    "homeAway": "home",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401872964/competitions/401872964/competitors/5/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/teams/5?lang=en&region=us"
+    }
+   },
+   {
+    "homeAway": "away",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401872964/competitions/401872964/competitors/23/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/teams/23?lang=en&region=us"
+    }
+   }
+  ],
+  "status": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/401872964/competitions/401872964/status?lang=en&region=us"
+  }
+ },
+ "https://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892445/competitions/401892445": {
+  "competitors": [
+   {
+    "homeAway": "home",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892445/competitions/401892445/competitors/20/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/20?lang=en&region=us"
+    }
+   },
+   {
+    "homeAway": "away",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892445/competitions/401892445/competitors/15/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/15?lang=en&region=us"
+    }
+   }
+  ],
+  "status": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892445/competitions/401892445/status?lang=en&region=us"
+  }
+ },
+ "https://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892447/competitions/401892447": {
+  "competitors": [
+   {
+    "homeAway": "home",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892447/competitions/401892447/competitors/16/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/16?lang=en&region=us"
+    }
+   },
+   {
+    "homeAway": "away",
+    "score": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892447/competitions/401892447/competitors/28/score?lang=en&region=us"
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/teams/28?lang=en&region=us"
+    }
+   }
+  ],
+  "status": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/events/401892447/competitions/401892447/status?lang=en&region=us"
+  }
+ }
+}

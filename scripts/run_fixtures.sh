@@ -6,6 +6,8 @@
 #   bash scripts/run_fixtures.sh
 set -u
 cd "$(dirname "$0")/.." || exit 2
+# finals_watch reads its private paths and secrets from these (grading host only); fixtures never use them
+unset RPS_KB RIX_REPO RIX_FINALS_CONFIG RIX_RECORD_TOKEN THE_ODDS_API_KEY
 # file -> reason it is not run here (keep each reason true; remove the entry once it is fixed)
 SKIP="
 scripts/test_manifest_chips_class.py|content check of a built page: needs manifest.json + index.html args

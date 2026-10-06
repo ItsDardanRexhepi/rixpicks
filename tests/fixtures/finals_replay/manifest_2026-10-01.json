@@ -1,0 +1,96 @@
+{
+ "date": "2026-10-01",
+ "date_label": "Thursday, Oct 1",
+ "updated": "Oct 1, 7:51 AM PT",
+ "record": "21-11",
+ "units_pl": "+8.76u",
+ "units_ledger": null,
+ "yesterday": "1-0 - White Sox W",
+ "status_note": "Late-filed published card: posted on IG the morning of Oct 1, before every game; the site card that day said no picks",
+ "preview": false,
+ "parlay": {
+  "legs": [
+   "Under 38.5",
+   "Aces -4.5",
+   "Devils ML"
+  ],
+  "label": "PARLAY (about +477, 1u)",
+  "note": "Posted at about +477 for 1u. Parlays are not part of the W-L record."
+ },
+ "picks": [
+  {
+   "num": 1,
+   "name": "Under 38.5",
+   "market_class": "total",
+   "line": 38.5,
+   "odds": "-115",
+   "units": "6u",
+   "side": "under",
+   "game": {
+    "away": "Pittsburgh Steelers",
+    "home": "Cleveland Browns",
+    "commence": "2026-10-02T00:15Z",
+    "eid": "401872964"
+   },
+   "espn_league": "football/nfl",
+   "league": "NFL"
+  },
+  {
+   "num": 2,
+   "name": "Mammoth ML",
+   "market_class": "ml",
+   "odds": "-218",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "Chicago Blackhawks",
+    "home": "Utah Mammoth",
+    "commence": "2026-10-02T01:30Z",
+    "eid": "401891828"
+   },
+   "espn_league": "hockey/nhl",
+   "league": "NHL"
+  },
+  {
+   "num": 3,
+   "name": "Aces -4.5",
+   "market_class": "spread",
+   "line": -4.5,
+   "odds": "-110",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "Indiana Fever",
+    "home": "Las Vegas Aces",
+    "commence": "2026-10-02T01:00Z",
+    "eid": "401918022"
+   },
+   "espn_league": "basketball/wnba",
+   "league": "WNBA"
+  },
+  {
+   "num": 4,
+   "name": "Devils ML",
+   "market_class": "ml",
+   "odds": "-162",
+   "units": "5u",
+   "side": "home",
+   "game": {
+    "away": "Philadelphia Flyers",
+    "home": "New Jersey Devils",
+    "commence": "2026-10-01T23:00Z",
+    "eid": "401891817"
+   },
+   "espn_league": "hockey/nhl",
+   "league": "NHL"
+  }
+ ],
+ "pick_content_hash": "6da27e28a031c3fca85e330a0f7d3e229f0212cde34188837d661b95a6bc8f7f",
+ "provenance": {
+  "late_filed": true,
+  "posted": "IG 2026-10-01T14:51Z instagram.com/p/Dd9MAIZDtrK",
+  "filed_at": "2026-10-02T21:36:15Z",
+  "approved": "owner, in chat, 2026-10-02",
+  "note": "published that morning on IG; the site card that day said no picks; added to the record as published history"
+ }
+}

@@ -172,6 +172,88 @@ props already counted periods 1-2 only.
 Fixtures: `scripts/test_soccer_regulation.py`, plus the grading suite in `tests/run_tests.py`.
 Both run on recorded ESPN summaries in `tests/fixtures/soccer/`.
 
+## Instant grader on a Mac: `scripts/finals_watch.py`
+
+It watches today's card and grades each final in commence order. Every final needs a second
+source from another company before it is graded.
+
+**Dry run by default.**
+
+```
+python3 scripts/finals_watch.py                                   # dry run: prints each grade, writes nothing
+python3 scripts/finals_watch.py --requests-out /tmp/would.json    # also writes the requests a live run would queue
+python3 scripts/finals_watch.py --live                            # production writes (refused today, see below)
+```
+
+A dry run never reads the record token. The `--requests-out` path must be outside the checkout
+and outside `RPS_KB`.
+
+**Settings.** Each comes from the environment, or from a JSON file named by `RIX_FINALS_CONFIG`
+(`{"RPS_KB": ..., "RIX_REPO": ...}`); the environment wins.
+
+| Setting | What |
+|---|---|
+| `RIX_REPO` | The checkout to read: `manifest.json`, `core/`, `record_request.json`. Default: the checkout the script is in. |
+| `RPS_KB` | The private knowledge-base folder. Its `ledger/` holds `record_rows.jsonl` (the record ledger), `finals_seen.json`, `picks.jsonl`, `positions.jsonl` and `odds_credits.jsonl`. No default. |
+
+Secrets are read from the environment variable of that name, or else from the login keychain item
+whose service is that name. They are never printed.
+
+- `RIX_RECORD_TOKEN` is the record POST token. Only a live run reads it.
+- `THE_ODDS_API_KEY` is the-odds-api key. Without it, that source is skipped and no credit is
+  logged.
+
+**Second sources, in order.**
+
+1. The CBS scoreboard. The NFL is read from the game's week page; every other league from the
+   page for the game's Eastern date. Teams are matched by CBS's full team name, the card must
+   read final, and its rows must be the game's away and home teams in that order.
+2. theScore (WNBA).
+3. MLB statsapi. It reads the game's own date, and the game must be scheduled within 6 hours of
+   the card's start. The UTC date can hold the next day's rematch.
+4. The repo's `nfl_scores.json`.
+5. the-odds-api.
+
+ESPN's own site API never counts as a second source.
+
+NCAAB is keyed `basketball/mens-college-basketball`, the registry's ESPN path.
+
+**Exit codes.**
+
+| Code | Meaning |
+|---|---|
+| 0 | Done, live or dry |
+| 1 | Fail closed: the record ledger is missing or its baseline row is wrong, or the `RIX_FINALS_CONFIG` file is unreadable |
+| 2 | Bad options |
+| 5 | `RPS_KB` not set |
+| 6 | Stale manifest: the card is not today's or yesterday's |
+| 7 | `--live` refused: the live chain is not wired in this checkout |
+
+**What it still needs before it can grade here.**
+
+- The record ledger `ledger/record_rows.jsonl` must exist. It must begin with the canonical
+  baseline row, and the running record must continue from it. Without it a dry run stops with
+  exit 1.
+- `ledger/picks.jsonl` needs a card-entry row for each card pick. The one accepted entry in
+  `core/accepted_entry.py` is the exception. A pick without a row is refused. A card that carried
+  no exchange price, like the Oct 1 late-filed card, cannot be graded here.
+- `--live` stays refused until `core/record_pipe.py` takes the relay parameters the live chain
+  calls: `resume_pending(skip=)` and `on_final(no_post=)`.
+- Nothing schedules it.
+
+Fixture: `scripts/test_finals_watch_mac.py`. It runs offline on recorded data in
+`tests/fixtures/finals_replay/` and covers:
+
+- the settings, the keychain lookup and the dry-run default;
+- every refusal;
+- Oct 1 PIT@CLE Under 38.5: LOST, verified by CBS's week-4 page;
+- the Oct 3 and Oct 4 Padres-Brewers finals: verified by statsapi;
+- the Oct 5 card through `main()`: every grade field of the emitted requests equals the hand grade
+  committed in 15d1b31af.
+
+The Oct 5 run grades in commence order, Flyers before Penguins. So the running record after each
+row swaps between the two rows, and the chain ends at the same 33-17, +14.81u.
+
 ## CLV ledger (internal): `scripts/clv_report.py`
 
 ```

@@ -1,0 +1,97 @@
+{
+ "dates": [
+  {
+   "date": "2026-10-03",
+   "games": [
+    {
+     "gamePk": 849829,
+     "gameDate": "2026-10-03T17:00:00Z",
+     "officialDate": "2026-10-03",
+     "status": {
+      "abstractGameState": "Final"
+     },
+     "teams": {
+      "away": {
+       "team": {
+        "name": "Chicago White Sox"
+       },
+       "score": 3
+      },
+      "home": {
+       "team": {
+        "name": "Cleveland Guardians"
+       },
+       "score": 0
+      }
+     }
+    },
+    {
+     "gamePk": 849828,
+     "gameDate": "2026-10-03T20:00:00Z",
+     "officialDate": "2026-10-03",
+     "status": {
+      "abstractGameState": "Final"
+     },
+     "teams": {
+      "away": {
+       "team": {
+        "name": "Atlanta Braves"
+       },
+       "score": 3
+      },
+      "home": {
+       "team": {
+        "name": "Los Angeles Dodgers"
+       },
+       "score": 5
+      }
+     }
+    },
+    {
+     "gamePk": 849835,
+     "gameDate": "2026-10-03T22:30:00Z",
+     "officialDate": "2026-10-03",
+     "status": {
+      "abstractGameState": "Final"
+     },
+     "teams": {
+      "away": {
+       "team": {
+        "name": "New York Yankees"
+       },
+       "score": 0
+      },
+      "home": {
+       "team": {
+        "name": "Tampa Bay Rays"
+       },
+       "score": 1
+      }
+     }
+    },
+    {
+     "gamePk": 849830,
+     "gameDate": "2026-10-04T00:30:00Z",
+     "officialDate": "2026-10-03",
+     "status": {
+      "abstractGameState": "Final"
+     },
+     "teams": {
+      "away": {
+       "team": {
+        "name": "San Diego Padres"
+       },
+       "score": 2
+      },
+      "home": {
+       "team": {
+        "name": "Milwaukee Brewers"
+       },
+       "score": 3
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

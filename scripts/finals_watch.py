@@ -1,30 +1,94 @@
 #!/usr/bin/env python3
-"""J-118 TRIGGER (production, DRY-RUN until swamp certification + parent's word):
-detect FINALs on today's card, grade in commence order with running cumulative
+"""J-118 TRIGGER: detect FINALs on today's card, grade in commence order with running cumulative
 record/units from the canonical ledger, fire the instant record chain.
 Guards (swamp 9:23-9:25 PM):
 - cumulative state = LAST ledger row (record_pipe.current_state); empty ledger REFUSES.
 - in-order processing: the chain STOPS at the first ungraded/unverified final so the
   public record can never regress or skip; later finals wait for the next fire.
-- two-source final verification (J-115) BEFORE grading: CBS scoreboard (independent),
-  ESPN site API as fallback only (same company as ESPN core - weaker independence,
-  source label says so). Stable team-ID mapping + ORDERED (away, home) scores.
+- two-source final verification (J-115) BEFORE grading: the second source must be another
+  company (CBS scoreboard, theScore, MLB statsapi, the-odds-api); ESPN's own site API never counts.
+  Stable team identities + ORDERED (away, home) scores.
 - tie = PUSH: 0 pnl, no W/L - except soccer, which grades on regulation time as Kalshi settles
   (core/soccer_result.py): a draw after 90 minutes is LOST for either side's moneyline, and
   totals/spreads count regulation goals only (never extra time or a shootout).
-- seen[pick_key] written ONLY on a verified chain; dry-run touches NO production state.
-Usage: finals_watch.py [--dry-run]"""
-import json, os, re, sys, unicodedata, urllib.request
-sys.path.insert(0, '/home/sandbox/rix_tmp')
+- seen[pick_key] written ONLY on a verified chain; a dry run touches NO production state.
+
+DRY RUN BY DEFAULT. Production writes (ledger row, seen state, record_request.json) happen only
+with --live. A dry run prints each grade; --requests-out PATH also writes the record write
+requests a live run would queue to PATH (never to the checkout's record_request.json).
+
+Paths and secrets come from the environment or a config file - never from a fixed checkout:
+  RIX_REPO   the rixpicks checkout to read (manifest.json, core/, record_request.json);
+             default: the checkout this script is in.
+  RPS_KB     the private knowledge-base folder; its ledger/ holds record_rows.jsonl (the J-118
+             record ledger), finals_seen.json, picks.jsonl, positions.jsonl and odds_credits.jsonl.
+             No default: unset, the run refuses before grading.
+  RIX_FINALS_CONFIG  optional JSON file {"RIX_REPO": ..., "RPS_KB": ...}; the environment wins.
+  Secrets (record POST token RIX_RECORD_TOKEN, odds key THE_ODDS_API_KEY) come from the
+  environment variable of that name, else the macOS login keychain item whose service is that
+  name. They are never printed. A dry run never reads the record token.
+Usage: finals_watch.py [--dry-run | --live] [--requests-out PATH]"""
+import json, os, re, subprocess, sys, unicodedata, urllib.request
+
+def _config():
+    path = os.environ.get('RIX_FINALS_CONFIG')
+    if not path:
+        return {}
+    try:
+        cfg = json.load(open(os.path.expanduser(path)))
+    except (OSError, ValueError) as e:
+        raise SystemExit(f'FAIL-CLOSED: RIX_FINALS_CONFIG {path!r} unreadable ({type(e).__name__}) - refusing to run')
+    if not isinstance(cfg, dict):
+        raise SystemExit(f'FAIL-CLOSED: RIX_FINALS_CONFIG {path!r} is not a JSON object - refusing to run')
+    return cfg
+
+_CFG = _config()
+
+def _setting(name):
+    v = os.environ.get(name) or _CFG.get(name)
+    return os.path.abspath(os.path.expanduser(str(v))) if v else None
+
+ROOT = _setting('RIX_REPO') or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)  # core/ from the checkout being graded
 from datetime import datetime, timezone, timedelta
 from decimal import Decimal
+from zoneinfo import ZoneInfo
 from core import record_pipe, units, budget, fill_leak, soccer_result
 from core.accepted_entry import accepted_entry, entry_delta
-HERE = os.path.dirname(os.path.abspath(__file__))
-MANIFEST = os.path.join(HERE, '..', 'manifest.json')
-STATE = '/home/sandbox/rps_tmp/kb/ledger/finals_seen.json'
-LEDGER = '/home/sandbox/rps_tmp/kb/ledger/record_rows.jsonl'
-TOKEN_PATH = ('/home/sandbox/.push_token' if os.path.exists('/home/sandbox/.push_token') else '/tmp/.push_token')
+HERE = os.path.join(ROOT, 'scripts')  # record_request.json lands at HERE/../record_request.json
+MANIFEST = os.path.join(ROOT, 'manifest.json')
+RPS_KB = _setting('RPS_KB')
+_KB_LEDGER = os.path.join(RPS_KB, 'ledger') if RPS_KB else None
+STATE = os.path.join(_KB_LEDGER, 'finals_seen.json') if _KB_LEDGER else None
+LEDGER = os.path.join(_KB_LEDGER, 'record_rows.jsonl') if _KB_LEDGER else None
+PICKS_LEDGER = os.path.join(_KB_LEDGER, 'picks.jsonl') if _KB_LEDGER else None
+POSITIONS_LEDGER = os.path.join(_KB_LEDGER, 'positions.jsonl') if _KB_LEDGER else None
+if _KB_LEDGER and not os.environ.get('ODDS_CREDITS_LEDGER'):
+    budget.LEDGER = os.path.join(_KB_LEDGER, 'odds_credits.jsonl')  # odds-api pulls log beside the other ledgers
+ET = ZoneInfo('America/New_York')
+PT = ZoneInfo('America/Los_Angeles')
+
+def _secret(name):
+    """A secret by name: the environment variable, else the macOS login keychain item whose service
+    is that name (security find-generic-password -s <name> -w). '' when neither has it. The value
+    is returned to the caller only - never printed or logged."""
+    v = os.environ.get(name)
+    if v:
+        return v.strip()
+    try:
+        r = subprocess.run(['security', 'find-generic-password', '-s', name, '-w'],
+                           capture_output=True, text=True, timeout=10)
+    except (OSError, subprocess.SubprocessError):
+        return ''
+    return r.stdout.strip() if r.returncode == 0 else ''
+
+def _card_price(pick):
+    # the private picks ledger lives under RPS_KB on the grading host
+    return fill_leak.card_price(pick) if PICKS_LEDGER is None else fill_leak.card_price(pick, picks_path=PICKS_LEDGER)
+
+def _fill_divergence(pick):
+    return (fill_leak.fill_divergence(pick) if POSITIONS_LEDGER is None
+            else fill_leak.fill_divergence(pick, positions_path=POSITIONS_LEDGER))
 
 def _get(url, timeout=20, ua='Mozilla/5.0'):
     req = urllib.request.Request(url, headers={'User-Agent': ua})
@@ -73,35 +137,99 @@ def score_text(primary):
     return f"{ab['away']} {primary['away_score']} @ {ab['home']} {primary['home_score']}"
 
 CBS_SLUG = {'football/college-football': 'college-football', 'football/nfl': 'nfl',
-            'basketball/nba': 'nba', 'basketball/ncaab': 'college-basketball', 'basketball/wnba': 'wnba',
-            'baseball/mlb': 'mlb', 'hockey/nhl': 'nhl', 'soccer/usa.1': 'mls'}
-SITE_LEAGUE = {'basketball/ncaab': 'basketball/mens-college-basketball'}
+            'basketball/nba': 'nba', 'basketball/mens-college-basketball': 'college-basketball',
+            'basketball/wnba': 'wnba', 'baseball/mlb': 'mlb', 'hockey/nhl': 'nhl', 'soccer/usa.1': 'mls'}
 
 def _norm(s):
     return re.sub(r'[^a-z]', '', (s or '').lower())
 
+def _get_text(url, timeout=10, ua='Mozilla/5.0'):
+    req = urllib.request.Request(url, headers={'User-Agent': ua})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.read().decode('utf-8', 'ignore')
+
+def _local_dates(commence):
+    """The calendar dates a US scoreboard can file a game under: its Eastern date, then its Pacific
+    date when that differs (a game starting after 9 PM PT). Never the UTC date - a 7:30 PM ET start is
+    already the next day in UTC, where the scoreboard holds a different game."""
+    out = []
+    for tz in (ET, PT):
+        d = commence.astimezone(tz).date()
+        if d not in out:
+            out.append(d)
+    return out
+
+def _nfl_week(pick):
+    """(season, CBS season-type path, week) of an NFL event from ESPN core's own week link, or None.
+    CBS keys NFL scoreboards by week - a date page shows the current week, not that date."""
+    try:
+        ev = _get(f"https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/{pick['game']['eid']}")
+        m = re.search(r'/seasons/(\d{4})/types/(\d+)/weeks/(\d+)', str((ev.get('week') or {}).get('$ref') or ''))
+    except Exception:
+        return None
+    if not m or m.group(2) != '2':
+        return None  # only the regular season's CBS week pages are verified here
+    return m.group(1), 'regular', m.group(3)
+
+_CBS_CARD = re.compile(r'<div id="game-\d+"[^>]*?\sdata-abbrev="([A-Z]+)_(\d{8})_([A-Z0-9]+)@([A-Z0-9]+)"'
+                       r'[^>]*?\sclass="single-score-card\b([^"]*)"')
+
+def _cbs_cards(html, slug):
+    """Every final game card on a CBS scoreboard page: (card date, ordered rows). Strict parse of one
+    card at a time: the status must read final, there must be exactly two team rows, and the rows'
+    team links must be the card's own AWAY@HOME in that order. Each row is
+    (CBS team url slug, total score)."""
+    out = []
+    starts = list(_CBS_CARD.finditer(html))
+    for i, m in enumerate(starts):
+        seg = html[m.start():starts[i + 1].start() if i + 1 < len(starts) else len(html)]
+        cut = seg.find('class="bottom-bar"')
+        seg = seg[:cut] if cut > 0 else seg[:20000]
+        st = re.search(r'<div class="game-status ([a-z -]+)"><div>([^<]*)</div>', seg)
+        if 'postgame' not in m.group(5).split() or not st or 'postgame' not in st.group(1).split() \
+                or not st.group(2).strip().lower().startswith('final'):
+            continue
+        rows = re.findall(r'<a href="/' + re.escape(slug) + r'/teams/([A-Z0-9]+)/([a-z0-9-]+)/" class="team-name-link">[^<]*</a>'
+                          r'.*?<td class="total">(\d{1,3})</td>', seg, re.S)
+        if len(rows) != 2 or (rows[0][0], rows[1][0]) != (m.group(3), m.group(4)):
+            continue
+        out.append((m.group(2), [(r[1], int(r[2])) for r in rows]))
+    return out
+
 def cbs_final(pick, primary, commence):
-    """Second source #1: CBS scoreboard (independent company). Strict parse only:
-    both normalized team names adjacent in document order (away first, home second)
-    each followed by an integer score. Returns ordered dict or None."""
+    """Second source #1: CBS scoreboard (independent company). One page per local game date (NFL: the
+    game's week page). A card counts only when it is final, filed under that date, and its two team
+    rows are the game's away and home teams in that order - matched by CBS's team url name
+    ('pittsburgh-steelers') against ESPN's full team name, never a nickname or position. Matching
+    cards that disagree (a doubleheader) are ambiguous: None. Returns ordered dict or None."""
     slug = CBS_SLUG.get(pick.get('espn_league', 'football/college-football'))
     if slug is None:
         return None
-    try:
-        url = f"https://www.cbssports.com/{slug}/scoreboard/{commence.strftime('%Y%m%d')}/"
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        html = urllib.request.urlopen(req, timeout=10).read().decode('utf-8', 'ignore')
-    except Exception:
-        return None
     hn, an = _norm(primary['home']), _norm(primary['away'])
-    pairs = [(_norm(t), int(s)) for t, s in
-             re.findall(r"(?is)([A-Za-z.''& ]{2,30})\s*(\d{1,3})\s*<", html)]
-    for i in range(len(pairs) - 1):
-        (t1, s1), (t2, s2) = pairs[i], pairs[i + 1]
-        if t1 == an and t2 == hn:
-            return {'source': 'cbs', 'away_id': primary['away'], 'home_id': primary['home'],
-                    'away_score': s1, 'home_score': s2}
-    return None
+    dates = _local_dates(commence)
+    if slug == 'nfl':
+        wk = _nfl_week(pick)
+        if wk is None:
+            return None
+        pages = [f'https://www.cbssports.com/nfl/scoreboard/all/{wk[0]}/{wk[1]}/{wk[2]}/']
+    else:
+        pages = [f"https://www.cbssports.com/{slug}/scoreboard/{d.strftime('%Y%m%d')}/" for d in dates]
+    want = {d.strftime('%Y%m%d') for d in dates}
+    hits = []
+    for url in pages:
+        try:
+            html = _get_text(url)
+        except Exception:
+            continue
+        for day, rows in _cbs_cards(html, slug):
+            (a_slug, a_sc), (h_slug, h_sc) = rows
+            if day in want and _norm(a_slug) == an and _norm(h_slug) == hn:
+                hits.append((day, a_sc, h_sc))
+    if len(set(hits)) != 1:
+        return None  # no final card, or matching cards that disagree (a doubleheader): no attestation
+    day, a_sc, h_sc = hits[0]
+    return {'source': f'cbs scoreboard (independent; final, {day})', 'away_id': primary['away'],
+            'home_id': primary['home'], 'away_score': a_sc, 'home_score': h_sc}
 
 
 TSCORE_LEAGUE = {'basketball/wnba': 'wnba'}
@@ -153,7 +281,6 @@ def espn_site_final(pick, primary, commence):
     Matches by exact displayName for BOTH teams + completed status; scores ordered by
     the competitors' homeAway field (never by array position)."""
     league = pick.get('espn_league', 'football/college-football')
-    league = SITE_LEAGUE.get(league, league)
     try:
         url = (f'https://site.api.espn.com/apis/site/v2/sports/{league}/scoreboard'
                f'?dates={commence.strftime("%Y%m%d")}')
@@ -183,9 +310,9 @@ def espn_site_final(pick, primary, commence):
 
 ODDS_API_SPORT = {'football/college-football': 'americanfootball_ncaaf',
                   'football/nfl': 'americanfootball_nfl', 'basketball/nba': 'basketball_nba',
-                  'basketball/ncaab': 'basketball_ncaab', 'basketball/wnba': 'basketball_wnba', 'baseball/mlb': 'baseball_mlb',
+                  'basketball/mens-college-basketball': 'basketball_ncaab', 'basketball/wnba': 'basketball_wnba', 'baseball/mlb': 'baseball_mlb',
                   'hockey/nhl': 'icehockey_nhl', 'soccer/usa.1': 'soccer_usa_mls'}
-ODDS_KEY_PATH = '/home/sandbox/.odds_api_key'
+ODDS_KEY_NAME = 'THE_ODDS_API_KEY'  # env var or keychain service holding the key (_secret)
 _odds_cache = {}
 
 def odds_api_final(pick, primary, commence):
@@ -198,6 +325,11 @@ def odds_api_final(pick, primary, commence):
         return None
     ckey = (sport, commence.strftime('%Y%m%d'))
     if ckey not in _odds_cache:
+        key = _secret(ODDS_KEY_NAME)
+        if not key:
+            print(f'WARN: odds-api scores skipped: no {ODDS_KEY_NAME} in the environment or keychain')
+            _odds_cache[ckey] = None
+            return None
         try:
             budget.check_and_log(sport, 'scores', 1)
         except ValueError as e:
@@ -205,11 +337,10 @@ def odds_api_final(pick, primary, commence):
             _odds_cache[ckey] = None
             return None
         try:
-            key = open(ODDS_KEY_PATH).read().strip()
             url = f'https://api.the-odds-api.com/v4/sports/{sport}/scores/?apiKey={key}&daysFrom=2'
             _odds_cache[ckey] = _get(url, timeout=12)
         except Exception as e:
-            print(f'WARN: odds-api scores fetch failed: {e}')
+            print(f'WARN: odds-api scores fetch failed: {type(e).__name__}')  # never the url: it carries the key
             _odds_cache[ckey] = None
     games = _odds_cache[ckey]
     if not games:
@@ -267,31 +398,41 @@ def repo_nfl_scores_final(pick, primary, commence):
 
 
 def mlb_statsapi_final(pick, primary, commence):
-    """Second source: official MLB statsapi (free, no key). Schedule by date,
-    match both team names, require abstractGameState Final."""
+    """Second source: official MLB statsapi (free, no key). The schedule of the game's own local
+    date (statsapi files a game under its officialDate - a 5:30 PM PT start is the next day in UTC,
+    where the same two teams can have played again). A game counts only with both full team names
+    equal to ESPN's and a scheduled start within 6 hours of the card's commence; exactly one such
+    game, and it must be abstractGameState Final."""
     if pick.get('espn_league') != 'baseball/mlb':
         return None
     try:
-        d = _get(f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={commence.strftime('%Y-%m-%d')}&hydrate=linescore")
-        away_last = primary['away'].split()[-1].lower()
-        home_last = primary['home'].split()[-1].lower()
-        for day in d.get('dates', []):
-            for g in day.get('games', []):
-                an = g['teams']['away']['team'].get('name','').lower()
-                hn = g['teams']['home']['team'].get('name','').lower()
-                if away_last in an and home_last in hn:
-                    if g.get('status',{}).get('abstractGameState') != 'Final':
-                        return None
-                    return {'source': 'mlb-statsapi (official)',
-                            'away_id': primary['away'], 'home_id': primary['home'],
-                            'away_score': g['teams']['away'].get('score'),
-                            'home_score': g['teams']['home'].get('score')}
+        hits = []
+        for day_d in _local_dates(commence):
+            d = _get(f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={day_d.isoformat()}&hydrate=linescore")
+            for day in d.get('dates', []):
+                for g in day.get('games', []):
+                    if (_norm(g['teams']['away']['team'].get('name')) != _norm(primary['away'])
+                            or _norm(g['teams']['home']['team'].get('name')) != _norm(primary['home'])):
+                        continue
+                    start = datetime.fromisoformat(str(g.get('gameDate')).replace('Z', '+00:00'))
+                    if abs(start - commence) <= timedelta(hours=6) and g.get('gamePk') not in [h.get('gamePk') for h in hits]:
+                        hits.append(g)
+        if len(hits) != 1:
+            return None
+        g = hits[0]
+        if g.get('status', {}).get('abstractGameState') != 'Final':
+            return None
+        return {'source': 'mlb-statsapi (official)',
+                'away_id': primary['away'], 'home_id': primary['home'],
+                'away_score': g['teams']['away'].get('score'),
+                'home_score': g['teams']['home'].get('score')}
     except Exception as e:
-        print(f'WARN: mlb statsapi fetch failed: {e}')
+        print(f'WARN: mlb statsapi fetch failed: {type(e).__name__}: {e}')
     return None
 
 def second_source(pick, primary, commence):
-    """CBS -> ESPN site -> repo nfl_scores (the-odds-api, GHA-side) -> direct odds-api (needs local key)."""
+    """CBS -> theScore (WNBA) -> MLB statsapi -> repo nfl_scores (the-odds-api, GHA-side) -> direct
+    odds-api (key from the environment or keychain)."""
     # frame guard (standing): the independent second source must be CROSS-COMPANY.
     # espn_site is same-company as the espn_core primary - never sufficient for grading.
     return (cbs_final(pick, primary, commence)
@@ -606,7 +747,7 @@ def grade(pick, primary):
     cents = accepted['entry_c'] if accepted is not None else (pick.get('kalshi') or {}).get('cents')
     # FILL-LEAK GUARD: manifest price must equal the picks-ledger card entry;
     # positions fills differing from the card price warn but never block.
-    card_c, card_row, n_card = fill_leak.card_price(pick)
+    card_c, card_row, n_card = _card_price(pick)
     if accepted is not None and card_row != accepted:
         raise ValueError('accepted-entry provenance mismatch - REFUSING to grade')
     if n_card != 1:
@@ -630,7 +771,7 @@ def grade(pick, primary):
         raise ValueError(f'manifest price missing/invalid ({cents!r}) - REFUSING to grade (fail closed)')
     if int(card_c) != int(cents):
         raise ValueError(f'card-price fork: manifest {cents}c != picks-ledger {card_c}c - REFUSING to grade')
-    for dv in fill_leak.fill_divergence(pick):
+    for dv in _fill_divergence(pick):
         if cents is not None and dv['fill_c'] is not None and int(dv['fill_c']) != int(cents):
             print(f"WARN: fill divergence {dv['id']} {dv['venue']} {dv['fill_c']}c vs card {cents}c - "
                   'grade uses CARD price, fill stays in positions ledger')
@@ -674,15 +815,16 @@ def load_seen():
     except Exception: return {}
 
 
-def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary, stamp, card_date=None):
+def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary, stamp, card_date=None, path=None):
     """Append the builder-consumed record write request (same cycle as the grade).
-    This + the instant parent relay is the write path while the direct POST token is dead."""
-    path = os.path.join(HERE, '..', 'record_request.json')
+    This + the instant parent relay is the write path while the direct POST token is dead.
+    path: where to append; default the checkout's record_request.json (a dry run passes its
+    --requests-out file instead and never touches the checkout's queue)."""
+    path = path or os.path.join(HERE, '..', 'record_request.json')
     try: d = json.load(open(path))
     except Exception: d = {'requests': []}
     if any(r.get('grade_id') == pkey for r in d.get('requests', [])):
         return False
-    g = p.get('game', {})
     # grade() returns W | L | PUSH; a push must travel as PUSH (record_final derives the result
     # from the verified final and refuses a push labeled LOST). market_class/line/card_date let
     # record_final cross-check the request against the published card pick. card_date is the date
@@ -700,9 +842,10 @@ def _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary
         'delta_units_exact': float(units.pnl_to_units(pnl)),
         'record_after': rec, 'units_after_exact': float(u2),
         'two_source': ['espn_core completed', secondary['source']],
+        # the same ESPN-abbreviation score as 'score' ('Penguins ML L: WPG 3 @ PIT 2 (published-card
+        # basis)'), the format every graded row on the record carries - never the card's full team names
         'graded_pick': (f"{p.get('name','')} {({'W': 'W', 'L': 'L', 'PUSH': 'P'})[result]}: "
-                        f"{g.get('away','away')} {primary['away_score']} @ {g.get('home','home')} {primary['home_score']} "
-                        f"(published-card basis)"),
+                        f"{score_text(primary)} (published-card basis)"),
         'source': 'finals_watch J-118 live chain',
         'queued_at': stamp})
     accepted = accepted_entry(p)
@@ -731,8 +874,59 @@ def _repo_mirror_record():
     except Exception:
         return None
 
+RECORD_TOKEN_NAME = 'RIX_RECORD_TOKEN'  # env var or keychain service of the record POST token (_secret)
+
+def _live_blockers():
+    """Why a --live run cannot write from this checkout ([] = it can). The live chain relays through
+    core/record_pipe with resume_pending(skip=) and on_final(no_post=); a record_pipe without them
+    would crash mid-chain, so the run refuses before it starts instead."""
+    import inspect
+    out = []
+    for fn, kw in ((record_pipe.resume_pending, 'skip'), (record_pipe.on_final, 'no_post')):
+        ps = inspect.signature(fn).parameters
+        if kw not in ps and not any(x.kind == x.VAR_KEYWORD for x in ps.values()):
+            out.append(f'core/record_pipe.{fn.__name__}() takes no {kw}=')
+    return out
+
+def _mode(argv):
+    """(dry, requests_out) from the command line. Dry unless --live; exits 2 on a bad combination."""
+    live = '--live' in argv
+    if live and '--dry-run' in argv:
+        print('REFUSED: --live and --dry-run together - pick one', file=sys.stderr)
+        sys.exit(2)
+    out = None
+    if '--requests-out' in argv:
+        i = argv.index('--requests-out')
+        if live or i + 1 >= len(argv) or argv[i + 1].startswith('--'):
+            print('REFUSED: --requests-out PATH is a dry-run option and needs a path', file=sys.stderr)
+            sys.exit(2)
+        out = os.path.abspath(argv[i + 1])
+        # a dry run writes no production state: never into the checkout (its queue, manifest, public
+        # files) or the knowledge base (ledgers, seen state) - the preview goes somewhere else
+        real = os.path.realpath(out)
+        for root in (ROOT, RPS_KB):
+            r = os.path.realpath(root) if root else None
+            if r and (real == r or real.startswith(r + os.sep)):
+                print(f'REFUSED: --requests-out {out!r} is inside {r!r}; a dry run writes no production state - '
+                      'pick a path outside the checkout and RPS_KB', file=sys.stderr)
+                sys.exit(2)
+        if os.path.isdir(real):
+            print(f'REFUSED: --requests-out {out!r} is a directory', file=sys.stderr)
+            sys.exit(2)
+    return not live, out
+
 def main():
-    dry = '--dry-run' in sys.argv
+    dry, requests_out = _mode(sys.argv)
+    if LEDGER is None or STATE is None:
+        print('REFUSED: RPS_KB is not set (environment or RIX_FINALS_CONFIG). The record ledger '
+              '(ledger/record_rows.jsonl) and the seen state live under it - nothing graded.', file=sys.stderr)
+        sys.exit(5)
+    if not dry:
+        blockers = _live_blockers()
+        if blockers:
+            print('LIVE REFUSED: ' + '; '.join(blockers) + ' - the live record chain is not wired on this checkout. '
+                  'Nothing written; run without --live for a dry run.', file=sys.stderr)
+            sys.exit(7)
     m = json.load(open(MANIFEST))
     # STALE-MANIFEST TRIPWIRE (Sep 29 incident: grader read a 2-day-old rix_tmp manifest and
     # today's finals nearly went ungraded): the card date must be today or yesterday (PT) -
@@ -754,9 +948,11 @@ def main():
         if gid not in seen:
             seen[gid] = {'reconstructed_from_ledger': True}
     stamp = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M %Z')
-    token = open(TOKEN_PATH).read().strip() if os.path.exists(TOKEN_PATH) else ''
     date_label = m.get('date_label', '')
+    if requests_out:
+        json.dump({'requests': []}, open(requests_out, 'w'), indent=1)  # this run's preview only
     if not dry:
+        token = _secret(RECORD_TOKEN_NAME)  # live only: a dry run never reads the token
         # swamp 9:28: resume unfinished pending grades (appended, POST/GET not verified)
         # with their EXACT saved rows BEFORE any successor is graded or state is read.
         # Relayed rows (direct-POST dead, write gone via record_request + builder) are
@@ -847,6 +1043,9 @@ def main():
             print(f'{stamp} FINAL-CHAIN(dry) {pkey} {g.get("away")}@{g.get("home")} '
                   f'{primary["away_score"]}-{primary["home_score"]} -> {result} {rec} / {u2}u '
                   f'src={secondary["source"]}')
+            if requests_out:  # the request a live run would queue, into the preview file only
+                _queue_record_request(p, eid, pkey, result, primary, rec, u2, pnl, secondary, stamp,
+                                      card_date=m.get('date'), path=requests_out)
         else:
             res = record_pipe.on_final(eid, primary['home_score'], primary['away_score'],
                                        pkey, date_label, rec, pct, str(u2), LEDGER, token,
@@ -876,7 +1075,8 @@ def main():
         W, L, U = w2, l2, u2
         fired.append(pkey)
     if dry:
-        print(f'finals_watch: {len(fired)} final(s) [DRY RUN - no production state touched]')
+        print(f'finals_watch: {len(fired)} final(s) [DRY RUN - no production state touched'
+              + (f'; would-queue requests in {requests_out}]' if requests_out else ']'))
     elif not fired:
         pass
 

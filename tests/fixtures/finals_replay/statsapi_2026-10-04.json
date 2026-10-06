@@ -1,0 +1,53 @@
+{
+ "dates": [
+  {
+   "date": "2026-10-04",
+   "games": [
+    {
+     "gamePk": 849825,
+     "gameDate": "2026-10-04T20:00:00Z",
+     "officialDate": "2026-10-04",
+     "status": {
+      "abstractGameState": "Final"
+     },
+     "teams": {
+      "away": {
+       "team": {
+        "name": "San Diego Padres"
+       },
+       "score": 3
+      },
+      "home": {
+       "team": {
+        "name": "Milwaukee Brewers"
+       },
+       "score": 4
+      }
+     }
+    },
+    {
+     "gamePk": 849823,
+     "gameDate": "2026-10-05T00:00:00Z",
+     "officialDate": "2026-10-04",
+     "status": {
+      "abstractGameState": "Final"
+     },
+     "teams": {
+      "away": {
+       "team": {
+        "name": "Atlanta Braves"
+       },
+       "score": 3
+      },
+      "home": {
+       "team": {
+        "name": "Los Angeles Dodgers"
+       },
+       "score": 2
+      }
+     }
+    }
+   ]
+  }
+ ]
+}
