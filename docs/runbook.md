@@ -124,7 +124,14 @@ It only adds `true` flags. W-L, units, results, prices, names and scores never m
 `history.json` keeps its stored format. Each row it changes gets one line in
 `slates/record_disclosures.jsonl`. A re-run is a no-op.
 
-Fixture: `scripts/test_record_disclosure.py`.
+**Applied once, Oct 6.** It carried both flags onto the three Oct 2 owner-override rows: Under 3.5,
+Over 43.5 and Under 54.5. All three were carded after their finals, and both Oct 2 card copies
+carry the flags. `record.html` shows "Added after the final" on those rows from the next
+`build_history.py` run, which every record write does.
+
+Fixture: `scripts/test_record_disclosure.py`. It also checks the real tree: every graded row
+carries its card's disclosure, and `record.html` built from `history.json` labels the three Oct 2
+rows.
 
 ## CLV ledger (internal): `scripts/clv_report.py`
 

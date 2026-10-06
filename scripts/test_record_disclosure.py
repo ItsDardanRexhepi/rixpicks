@@ -12,7 +12,10 @@ record_disclosure.py must:
     claims a disclosure the card does not make, copies that contradict each other, a malformed card
     flag, after-the-final without after-kickoff, a graded pick whose row is missing or doubled, an
     MMA pick carrying a flag, and an audit line whose row lost its flags.
-Offline: no network; every write goes into temp folders. Red before record_disclosure.py.
+And on the real tree: every graded row carries its card's disclosure (--check finds nothing to carry),
+and record.html built from the real history.json labels the three Oct 2 rows.
+Offline: no network; every write goes into temp folders. Red before record_disclosure.py, and the
+real-tree checks red before the Oct 2 rows were brought in line.
 Run: python3 scripts/test_record_disclosure.py"""
 import copy, json, os, re, shutil, subprocess, sys, tempfile
 
@@ -185,6 +188,20 @@ try:
     refused('audit line on file but the row lost its flags', 'on the audit trail',
             log=json.dumps({'id': '2026-10-02|Under 3.5|late-post disclosure'}) + '\n')
 
+    # 5. the real tree: every graded row carries its card's disclosure, and record.html says so
+    r = subprocess.run([sys.executable, TOOL, '--check'], capture_output=True, text=True, cwd=ROOT)
+    check('real tree: every graded row carries its card\'s late-post disclosure (nothing to carry)',
+          (r.returncode, r.stdout.splitlines()[:1]), (0, ["nothing to carry: every graded row carries its card's late-post disclosure"]))
+    t = tempfile.mkdtemp(prefix='rdisc_real_'); tmps.append(t)
+    shutil.copy(os.path.join(ROOT, 'history.json'), t)
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'build_history.py'), 'history.json'], cwd=t, capture_output=True, text=True)
+    page = raw(t, 'record.html') or ''
+    oct2_block = re.search(r'<div class="rpday" data-date="2026-10-02".*?(?=<div class="rpday" |$)', page, re.S)
+    labeled = re.findall(r'<span class="nm">([^<]*)</span>(?:(?!<div class="pk">).)*?<div class="late">([^<]*)</div>',
+                         oct2_block.group(0) if oct2_block else '', re.S)
+    check('real tree: record.html labels the three Oct 2 picks added after their finals',
+          (r.returncode, sorted(labeled)), (0, [('Over 43.5', 'Added after the final'), ('Under 3.5', 'Added after the final'),
+                                                ('Under 54.5', 'Added after the final')]))
 finally:
     for t in tmps:
         shutil.rmtree(t, ignore_errors=True)

@@ -473,7 +473,9 @@
           "result": "W",
           "score": "SD 2, ORL 1",
           "_delta": "2.9411764705882355",
-          "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Won: SD 2 @ ORL 1, 3 goals vs 3.5. The red team had killed it pre-game: Orlando's last four under its interim coach all went over the model. One result does not validate a killed pick."
+          "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Won: SD 2 @ ORL 1, 3 goals vs 3.5. The red team had killed it pre-game: Orlando's last four under its interim coach all went over the model. One result does not validate a killed pick.",
+          "added_after_kickoff": true,
+          "added_after_final": true
         },
         {
           "name": "Over 43.5",
@@ -483,7 +485,9 @@
           "result": "W",
           "score": "PSU 13, NU 34",
           "_delta": "3.6231884057971016",
-          "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Won: PSU 13 @ NU 34, 47 points vs 43.5. The red team had killed it: only 0.09c over the bar on a hand-set number, 15 mph wind, market moving down. A hand-set edge that wins is still not an edge."
+          "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Won: PSU 13 @ NU 34, 47 points vs 43.5. The red team had killed it: only 0.09c over the bar on a hand-set number, 15 mph wind, market moving down. A hand-set edge that wins is still not an edge.",
+          "added_after_kickoff": true,
+          "added_after_final": true
         },
         {
           "name": "Under 54.5",
@@ -493,7 +497,9 @@
           "result": "L",
           "score": "PITT 35, VT 33",
           "_delta": "-5.0",
-          "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Lost: PITT 35 @ VT 33, 68 points vs 54.5. The red team had killed it: the edge rested on hand-set scoring means from 2-3 games each; regressed, it fell under the band. No fair without a real sample."
+          "learning": "Added after the final by owner override (result known at posting); the owner's own position, not a pre-game pick. Lost: PITT 35 @ VT 33, 68 points vs 54.5. The red team had killed it: the edge rested on hand-set scoring means from 2-3 games each; regressed, it fell under the band. No fair without a real sample.",
+          "added_after_kickoff": true,
+          "added_after_final": true
         }
       ]
     },
