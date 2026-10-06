@@ -228,7 +228,7 @@
           "units": "10u",
           "result": "W",
           "score": "NEB 31, MSU 13",
-          "note": "+4.44u on 10u at the -225 published card price. Closed Kalshi 99c - CLV +32pp. Genatone 1yd TD at 10:05 Q4 sealed it."
+          "note": "+4.44u on 10u at the -225 published card price. Closed DK -225 vs card -225 - CLV 0.0pp. Genatone 1yd TD at 10:05 Q4 sealed it. (corrected Oct 6: the first version said 'Closed Kalshi 99c - CLV +32pp'; 99c is not a pre-game price for a -225 favorite, so the DraftKings close from ESPN is shown)"
         },
         {
           "name": "Mississippi St ML",
@@ -237,10 +237,10 @@
           "units": "5u",
           "result": "W",
           "score": "MSST 31, MIZ 24",
-          "note": "+2.44u on 5u @-205, published-card basis. Closed Kalshi 99/100. Decider: 4th-down goal-line breakup at 1:20 Q4 (turnover on downs)."
+          "note": "+2.44u on 5u @-205, published-card basis. Closed DK -175 vs card -205 - CLV -3.6pp. Decider: 4th-down goal-line breakup at 1:20 Q4 (turnover on downs). (corrected Oct 6: the first version said 'Closed Kalshi 99/100'; 99/100 is not a pre-game price for a -205 favorite, so the DraftKings close from ESPN is shown)"
         }
       ],
-      "brief": "The market's margin was the misprice, not the side. MSST was a thin-edge home favorite the model liked but couldn't card (1.2pp below bar) while books hung 66c against a Mizzou team traveling without its starting EDGE and lead RB - a 2.6c book-vs-exchange divergence confirmed the gap. It sweated (55/56 tied in Q4), then closed 99/100: +33pp CLV."
+      "brief": "The market's margin was the misprice, not the side. MSST was a thin-edge home favorite the model liked but couldn't card (1.2pp below bar) while books hung 66c against a Mizzou team traveling without its starting EDGE and lead RB - a 2.6c book-vs-exchange divergence confirmed the gap. It sweated (55/56 tied in Q4) and won; DraftKings closed MSST at -175 against the -205 card - CLV -3.6pp. (corrected Oct 6: the first version said it closed 99/100 for +33pp CLV; 99/100 is not a pre-game price, so the DraftKings close from ESPN is shown)"
     },
     {
       "date": "2026-09-27",
