@@ -1,11 +1,11 @@
 {
-  "date": "2026-10-05",
+  "date": "2026-10-06",
   "picks": [
     {
-      "player": "Jose Ramirez",
-      "team": "CLE",
-      "matchup": "CWS at CLE",
-      "time": "2:00 PM PT",
+      "player": "Teoscar Hernandez",
+      "team": "LAD",
+      "matchup": "LAD at ATL",
+      "time": "3:00 PM PT",
       "market": "Home Run",
       "links": [
         {
@@ -13,16 +13,16 @@
           "url": null
         },
         {
-          "venue": "KAL",
+          "venue": "Kalshi",
           "url": null
         }
       ]
     },
     {
-      "player": "Ben Rice",
-      "team": "NYY",
-      "matchup": "NYY at TB",
-      "time": "5:00 PM PT",
+      "player": "Jackson Merrill",
+      "team": "SD",
+      "matchup": "MIL at SD",
+      "time": "6:30 PM PT",
       "market": "Home Run",
       "links": [
         {
@@ -30,7 +30,7 @@
           "url": null
         },
         {
-          "venue": "KAL",
+          "venue": "Kalshi",
           "url": null
         }
       ]
