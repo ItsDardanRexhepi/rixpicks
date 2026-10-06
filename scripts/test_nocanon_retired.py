@@ -17,6 +17,8 @@ copy of this checkout. No side effects.
 Run: python3 scripts/test_nocanon_retired.py"""
 import json, os, re, shutil, subprocess, sys, tempfile
 
+from fixtures.card_contract import stamped
+
 SD = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(SD)
 TWINS = [os.path.join(SD, 'build_gh_page_v2.py'), os.path.join(SD, '_build_nocanon_v2.py')]
@@ -39,7 +41,7 @@ def tree(builder):
         shutil.copy(os.path.join(SD, f), os.path.join(d, 'scripts', f))
     for f in ('feed_arbiter.js', 'feed_registry.json', 'config_leagues.json'):
         shutil.copy(os.path.join(ROOT, f), os.path.join(d, f))
-    json.dump(MAN, open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
+    json.dump(stamped(builder,MAN), open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
     json.dump([], open(os.path.join(d, 'slates', 'odds_prefill.json'), 'w'))
     return d
 def build(d, out):
