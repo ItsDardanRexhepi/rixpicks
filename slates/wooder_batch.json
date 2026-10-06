@@ -5,7 +5,7 @@
    "id": "t8",
    "title": "PLACED - reported by Wooder Ice: NHL 4 anytime goals",
    "matchup": "Hagel PHI@TB, Batherson OTT@BOS, Connor WPG@PIT, Hintz SJ@DAL",
-   "time": "Started per ESPN at 5:09 PM PT: PHI at TB in progress (2nd period, TB 2-0), OTT at BOS in progress (1st period, OTT 2-0), WPG at PIT in progress (1st period, 0-0), SJ at DAL in progress (1st period, 0-0)",
+   "time": "Started per ESPN at 5:58 PM PT: PHI at TB end of 2nd (TB 2-1), OTT at BOS 2nd period (OTT 4-0), WPG at PIT 2nd period (0-0), SJ at DAL 2nd period (DAL 1-0)",
    "legs": [
     {
      "player": "Brandon Hagel",
@@ -35,7 +35,7 @@
        "cents": 29
       }
      ],
-     "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
+     "note": "Scored per ESPN: 2nd period 1:06 (OTT at BOS, OTT 4-0 at 5:58 PM PT). Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
     },
     {
      "player": "Kyle Connor",
@@ -68,7 +68,7 @@
      "note": "Kalshi: 1+ goals. DKP rule read: 1+ goal incl. overtime, shootout goals and own goals do not count; Kalshi text does not spell out overtime or shootout."
     }
    ],
-   "asof": "Snapshot, not live: prices below are the 12:23 PM PT pregame snapshot and are historical. Placed as reported by Wooder Ice, not a verified fill. No games started at post time (ESPN: scheduled). Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
+   "asof": "Snapshot, not live: prices below are the 12:23 PM PT pregame snapshot and are historical. Placed as reported by Wooder Ice, not a verified fill. Games started per ESPN after this snapshot. Kalshi live asks as of 12:23 PM PT Oct 5; DKP read 12:03-12:23 PM PT. Converted from cents to American. Per leg, no combined price."
   },
   {
    "id": "t3",
@@ -137,7 +137,7 @@
    "id": "t5",
    "title": "NHL 4 anytime goals",
    "matchup": "Kucherov PHI@TB, Pastrnak OTT@BOS, Connor WPG@PIT, Johnston SJ@DAL",
-   "time": "Started per ESPN at 5:09 PM PT: PHI at TB in progress (2nd period, TB 2-0), OTT at BOS in progress (1st period, OTT 2-0), WPG at PIT in progress (1st period, 0-0), SJ at DAL in progress (1st period, 0-0)",
+   "time": "Started per ESPN at 5:58 PM PT: PHI at TB end of 2nd (TB 2-1), OTT at BOS 2nd period (OTT 4-0), WPG at PIT 2nd period (0-0), SJ at DAL 2nd period (DAL 1-0)",
    "legs": [
     {
      "player": "Nikita Kucherov",
