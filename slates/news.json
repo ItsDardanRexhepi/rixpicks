@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-06T02:11:06.209Z",
+ "generated_at": "2026-10-06T02:16:01.857Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -104,11 +104,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Monday Night Football: Bijan Robinson has Falcons leading 24-7 at halftime",
-    "link": "https://sports.yahoo.com/articles/monday-night-football-bijan-robinson-015951641.html",
-    "published": "2026-10-06T01:59:51.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/bee25944f2f96c6110239fe65d3fd69c945f7e02faf930c8d27ed1dd3ffb5c65/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F94e7e8b36ea6a46d9ead7516b4fc48ea.jpg",
-    "blurb": "Saints fans were ready to party like it's 2006.",
+    "headline": "Colts will be without starting defensive end for a while",
+    "link": "https://sports.yahoo.com/articles/colts-without-starting-defensive-end-020404007.html",
+    "published": "2026-10-06T02:04:04.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/397c8adde51232bae9cb60d500164e10589b8ee432c31d4d7d81b4b85fa58879/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F45ab343cf8af668a1dd31b04a8ae1afc.jpg",
+    "blurb": "The Colts will be without a starting defensive end for a while.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -131,11 +131,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Falcons LT Jake Matthews is questionable with groin injury",
-    "link": "https://sports.yahoo.com/articles/falcons-lt-jake-matthews-questionable-013031216.html",
-    "published": "2026-10-06T01:30:31.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/85a813abd938703d2e5ba2b5355c104207f94d49fa4ef5464ebf42692e255095/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F3250ba73e08bf254156e5f732e539cd1.jpg",
-    "blurb": "Falcons left tackle Jake Matthews made his 199th consecutive start on Monday night.",
+    "headline": "Monday Night Football: Bijan Robinson has Falcons leading 24-7 at halftime",
+    "link": "https://sports.yahoo.com/articles/monday-night-football-bijan-robinson-015951641.html",
+    "published": "2026-10-06T01:59:51.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/bee25944f2f96c6110239fe65d3fd69c945f7e02faf930c8d27ed1dd3ffb5c65/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F94e7e8b36ea6a46d9ead7516b4fc48ea.jpg",
+    "blurb": "Saints fans were ready to party like it's 2006.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -158,11 +158,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Buccaneers at Cowboys Initial Injury Report: Winfield to miss 2-4 weeks",
-    "link": "https://sports.yahoo.com/articles/buccaneers-cowboys-initial-injury-report-012146648.html",
-    "published": "2026-10-06T01:21:46.000Z",
+    "headline": "Falcons LT Jake Matthews is questionable with groin injury",
+    "link": "https://sports.yahoo.com/articles/falcons-lt-jake-matthews-questionable-013031216.html",
+    "published": "2026-10-06T01:30:31.000Z",
     "image": "",
-    "blurb": "The Tampa Bay Buccaneers released their initial injury report Monday ahead of Thursday night\u2019s matchup against the Dallas Cowboys, and the biggest news involves star safety Antoine Winfield, Jr. Winfield did not participate due to a rib injury suffered late in Sunday\u2019s 17-14 loss",
+    "blurb": "Falcons left tackle Jake Matthews made his 199th consecutive start on Monday night.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -1104,6 +1104,15 @@
    "league": "NFL"
   },
   {
+   "headline": "Colts will be without starting defensive end for a while",
+   "link": "https://sports.yahoo.com/articles/colts-without-starting-defensive-end-020404007.html",
+   "published": "2026-10-06T02:04:04.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/397c8adde51232bae9cb60d500164e10589b8ee432c31d4d7d81b4b85fa58879/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F45ab343cf8af668a1dd31b04a8ae1afc.jpg",
+   "blurb": "The Colts will be without a starting defensive end for a while.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "First look: As Cougars' offensive duties shift, WSU set for road test at Utah State on short week",
    "link": "https://sports.yahoo.com/articles/first-look-cougars-offensive-duties-020300568.html",
    "published": "2026-10-06T02:03:00.000Z",
@@ -1219,15 +1228,6 @@
    "blurb": "For the first time in team history, the Yankees committed three errors in one inning on Monday night",
    "source": "CBS",
    "league": "MLB"
-  },
-  {
-   "headline": "Falcons LT Jake Matthews is questionable with groin injury",
-   "link": "https://sports.yahoo.com/articles/falcons-lt-jake-matthews-questionable-013031216.html",
-   "published": "2026-10-06T01:30:31.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/85a813abd938703d2e5ba2b5355c104207f94d49fa4ef5464ebf42692e255095/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F3250ba73e08bf254156e5f732e539cd1.jpg",
-   "blurb": "Falcons left tackle Jake Matthews made his 199th consecutive start on Monday night.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "Ex-ESPN Host Uses Michael Jordan Example to Shut Down Caitlin Clark Critics After Fever's Playoff Exit",
