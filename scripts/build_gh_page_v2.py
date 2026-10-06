@@ -1,5 +1,4 @@
-#
-!/usr/bin/env python3
+#!/usr/bin/env python3
 """Generate a self-contained index.html ('RixPicks picks page) for GitHub Pages from a manifest JSON.
 Usage: build_gh_page.py manifest.json [outfile]
 Manifest: {date_label, status_note, record, updated, picks:[{num,name,sub,odds,best_book,side,game:{away,home}|null,espn_league,[line],[pick_line]}], parlay:{legs:[...],note}|null}
@@ -11,7 +10,7 @@ content only - never layout, chip styling, terminology logic. Bump RP_DESIGN onl
 Chips resolved from /tmp/odds_prefill.json (+ _sp) when present; NO chips render without a game-level link.
 Branding: 'RixPicks only. No personal identifiers, ever.
 """
-import json,sys,html,re,os
+import json,sys,html,re,os,math
 
 # Publish hygiene: shipped pages never carry internal session narration, directive
 # provenance, or personal attributions. Functional comments stay; narration goes.
@@ -141,7 +140,7 @@ if man.get('display_only') is True and not _LAST_HASH:
 if _DISPLAY_ONLY:
     print(f'DISPLAY-ONLY BUILD (pick-content hash {_PC_HASH[:12]} matches last shipped): price ship conditions skipped', file=sys.stderr)
 # Sep 26 live regression (hunter 7:25 AM): an hourly odds refresh rebuilt record/units from a stale
-# manifest and clobbered the tracker-canonical live values. Refresh builds (RP_REFRESH=1) INHERITTESTMARKERSELTEST
+# manifest and clobbered the tracker-canonical live values. Refresh builds (RP_REFRESH=1) INHERIT
 # record/units from the live page being rebuilt; only an approved publish (RP_PUBLISH=1) may move
 # them, from a manifest staged off the tracker at ship time.
 if os.environ.get('RP_REFRESH')=='1':
@@ -195,8 +194,7 @@ _sanitize_man(man)
 # breaks a numeric standing bar (owner rulings 2026-10-02 (1), (2), (4)): fair < 60c, card ask >= 85c, gross < 2c,
 # net below the class bar, units over the J-096 rung of its fair, a card_american that is not the best ask of its
 # recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from each pick's "model X"
-# sub (build_manifest's own shape) or its best_ask block; a pick whose fair and card price cannot be read is left
-# unchecked on the numeric bars (never falsely held). The Vegas rule is the contract block below, the same block
+# sub (build_manifest's own shape) or its best_ask block; unreadable fair/card price holds fail closed. The Vegas rule is the contract block below, the same block
 # build_manifest.vegas_hit runs: a league's Vegas nickname, home city or abbreviation as whole words anywhere in a
 # team or pick name (Raiders NFL, Golden Knights NHL, Aces WNBA, Athletics/A's MLB), 'Las Vegas', 'Vegas' or UNLV in
 # any league, only a named non-Vegas team let through, no teams in the individual sports. A spread pick's name and an optional pick_line must agree with its stored line read from the
@@ -258,9 +256,10 @@ _UNIT_LADDER=('5u','10u','15u','100u')
 _CARD_BAND_C,_ASK_CUT_C,_GROSS_BAR_C=60.0,85.0,2.0
 _NET_BAR_C={'ml':0.5}  # spread/total/prop: 2c
 _RUNG_INT={'5u':5,'10u':10,'15u':15,'100u':100}
+_POLY_US_PRICED=False  # 9/27 P1 (main 8:31): .com-gamma quotes never label .us-linked POLY chips (Bengals -150 vs .us -163 class). Flip True ONLY when analysis ships verified .us-sourced quotes; until then POLY chips are destination-only and excluded from best-line.  # add entries ONLY after verifying the .us slug live; verified 9/27: nyl->ny
 _EXCH_VENUES={'kalshi','poly','polymarket'}
 def _rnum(v):
-    return float(v) if isinstance(v,(int,float)) and not isinstance(v,bool) else None
+    return float(v) if isinstance(v,(int,float)) and not isinstance(v,bool) and math.isfinite(v) else None
 def _kfee_c(c):
     a=c/100.0; return 7*a*(1-a)
 def _cost_from_american(am):
@@ -276,11 +275,15 @@ def _as_american(p):
     return int(mo.group(1)) if mo else None
 def _fair_of(p):
     mo=re.search(r"model\s+([0-9]+(?:\.[0-9]+)?)",str(p.get('sub') or ''))
-    if mo: return float(mo.group(1))
+    if mo:
+        value=float(mo.group(1))
+        return value if math.isfinite(value) else None
     ba=p.get('best_ask')
     if isinstance(ba,dict):
         cost,gross=_rnum(ba.get('cost_c')),_rnum(ba.get('gross_c'))
-        if cost is not None and gross is not None: return round(cost+gross,4)
+        if cost is not None and gross is not None:
+            total=cost+gross
+            return round(total,4) if math.isfinite(total) else None
     return None
 def _card_cost_of(p):
     ba=p.get('best_ask')
@@ -288,6 +291,11 @@ def _card_cost_of(p):
         c=_rnum(ba.get('cost_c'))
         if c is not None: return c
     return _cost_from_american(_as_american(p))
+def _has_kalshi_market(p):
+    kb=p.get('kalshi')
+    return (isinstance(kb,dict) and isinstance(kb.get('ticker'),str)
+            and bool(re.fullmatch(r'[A-Z0-9][A-Z0-9._]*(?:-[A-Z0-9._]+)+',kb['ticker'].strip().upper()))
+            and kb.get('side') in ('yes','no'))
 def _is_kalshi_priced(p):
     ba=p.get('best_ask')
     if isinstance(ba,dict): return str(ba.get('venue') or '').strip().lower()=='kalshi'
@@ -411,10 +419,20 @@ def _standing_rule_holds(m):
         for _k,_why in _best_ask_line_holds(p): out.append((p.get('name'),_k,f"{who}: {_why}"))
         if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
             out.append((p.get('name'),'units_ladder',f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)"))
+        if not _has_kalshi_market(p):
+            out.append((p.get('name'),'kalshi_market',f"{who}: no Kalshi market (ticker and side yes|no required)"))
+        ba=p.get('best_ask')
+        venue=str((ba or {}).get('venue') or p.get('best_book') or '').strip().lower() if isinstance(ba,dict) or ba is None else ''
+        compared=ba.get('compared') if isinstance(ba,dict) else None
+        if venue in ('poly','polymarket') and not _POLY_US_PRICED:
+            if not (isinstance(compared,list) and any(isinstance(q,dict) and str(q.get('venue') or '').strip().lower() in ('poly','polymarket') for q in compared)):
+                out.append((p.get('name'),'excluded_venue',f"{who}: excluded POLY card price without an explicit compared quote"))
         # numeric standing bars (read the fair and the card price from this pick's own fields)
         fair,cost=_fair_of(p),_card_cost_of(p)
         if fair is None or cost is None:
-            continue  # cannot read the fair or the card price: leave the numeric bars unchecked
+            reason='fair unreadable' if fair is None else 'card price unreadable'
+            out.append((p.get('name'),'unreadable_price',f"{who}: {reason}"))
+            continue
         gross=round(fair-cost,6)
         net=round(gross-(_kfee_c(cost) if _is_kalshi_priced(p) else 0.0),6)
         net_bar=_NET_BAR_C.get(p.get('market_class'),2.0)
@@ -593,7 +611,6 @@ out=sys.argv[2] if len(sys.argv)>2 else '/home/sandbox/gh_page/index.html'
 BOOKS=[('BetRivers','BR'),('DraftKings','DK'),('Hard Rock','HR'),('Kalshi','KAL'),('BetMGM','MGM'),('Polymarket','POLY'),('theScore','TSB')]  # FD sportsbook removed site-wide (his standing 'FD removed' spec, scope settled 8:37 PM via main: no FD sportsbook chips anywhere; FD Predicts arm is a separate prediction-market row and stays)  # alphabetical by displayed chip label (his Sep 25 9:19 AM spec: alphabetical chips; audit Sep 26 caught combo order regressed - root fix is the shared order, solo+combo read the same sequence)  # U-GEO-003: ESPN BET is DEAD - dropped at ingestion, never mapped (tester gate). theScore Bet is the single canonical arm (one chip per arm).
 BKDOM={'DK':'draftkings.com','FD':'fanduel.com','TSB':'thescore.bet','HR':'hardrock.bet','MGM':'betmgm.com','BR':'betrivers.com','KAL':'kalshi.com','POLY':'polymarket.com','B365':'bet365.com','FAN':'fanatics.com','DKP':'predictions.draftkings.com','FDP':'fanduel.com'}
 _POLY_US_ABBR={'nyl':'ny'}
-_POLY_US_PRICED=False  # 9/27 P1 (main 8:31): .com-gamma quotes never label .us-linked POLY chips (Bengals -150 vs .us -163 class). Flip True ONLY when analysis ships verified .us-sourced quotes; until then POLY chips are destination-only and excluded from best-line.  # add entries ONLY after verifying the .us slug live; verified 9/27: nyl->ny
 def _poly_us_url(slug):
     # polymarket.us serves events under /sports/<sport>/<slug>, NOT /event/<slug> (soft-404 shell).
     # .us team abbrs diverge from .com slugs for shared-city teams (verified 9/27: wnba-nyl-min -> wnba-ny-min).
