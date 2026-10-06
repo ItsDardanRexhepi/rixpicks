@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-06T00:05:15.205704+00:00",
+ "generated_at": "2026-10-06T00:20:20.602899+00:00",
  "items": [
-  {
-   "id": "1382b5d824",
-   "league": "NFL",
-   "event": "Atlanta Falcons @ New Orleans Saints",
-   "prediction": "New Orleans Saints to beat Atlanta Falcons",
-   "kickoff_utc": "2026-10-06T00:15:00+00:00"
-  },
   {
    "id": "d7521452f6",
    "league": "NBA",
@@ -42,6 +35,13 @@
    "event": "Iowa Hawkeyes @ Washington Huskies",
    "prediction": "Washington Huskies to beat Iowa Hawkeyes",
    "kickoff_utc": "2026-10-10T01:00:00+00:00"
+  },
+  {
+   "id": "a933b5fae0",
+   "league": "CFB",
+   "event": "Iowa State Cyclones @ BYU Cougars",
+   "prediction": "BYU Cougars to beat Iowa State Cyclones",
+   "kickoff_utc": "2026-10-10T02:15:00+00:00"
   }
  ]
 }

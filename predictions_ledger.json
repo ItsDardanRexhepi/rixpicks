@@ -1592,8 +1592,9 @@
   "pick_team": "Cleveland Guardians",
   "prediction": "Cleveland Guardians to beat Chicago White Sox",
   "kickoff_utc": "2026-10-05T21:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T16:20:02.873270+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T16:20:02.873270+00:00",
+  "settled_at": "2026-10-06T00:20:00.265190+00:00"
  },
  {
   "id": "fdf5c2e142",
