@@ -7,7 +7,7 @@ publish.yml, refresh.sh and record_final.yml build whatever card has landed. So 
 holds the CURRENT card - exit 3, the CARD HOLD path refresh.sh reports loudly, nothing written - when a pick is on
 or against a Las Vegas team (Raiders, Golden Knights, Aces, Athletics/A's, UNLV; a nickname counts only inside
 its own league, and the individual sports have no teams), its units are off the J-096 ladder (5u, 10u, 15u,
-100u, written exactly so), or it breaks a numeric standing bar (rulings (1), (2), (4)): fair < 60c, card ask
+100u, written exactly so), or it breaks a numeric standing bar (rulings (1), (2), (4)): card ask
 >= 85c, gross < 2c, net below the class bar, units over the J-096 rung of its fair, a card_american that is not
 the best ask of its recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from the
 pick's "model X" sub (or its best_ask), the card price from card_american; a pick whose fair/price cannot be read
@@ -122,7 +122,7 @@ for B in BUILDERS:
     rc, log, written, _ = build(B, card([pick(1, 'Clean ML', 'hockey/nhl', 'A', 'B', model=66.0, american=-150)]))
     check(f'{tag}: a clean numeric card builds', rc == 0 and 'index.html' in written, log[-300:])
     NUM = [
-        ('fair 55c below the 60c band', pick(1, 'SubFair ML', 'hockey/nhl', 'A', 'B', model=55.0, american=-150), '60c card band'),
+        ('fair 55c has negative gross at 60c ask', pick(1, 'SubFair ML', 'hockey/nhl', 'A', 'B', model=55.0, american=-150), 'gross'),
         ('card ask 85c at the cut', pick(1, 'Fav ML', 'hockey/nhl', 'A', 'B', units='100u', model=96.0, american=-567), '85c cut'),
         ('gross 1.0c below the 2c bar', pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=61.0, american=-150), 'gross'),
         ('fair 66c carded at 10u (rung 5u)', pick(1, 'OffRung ML', 'hockey/nhl', 'A', 'B', units='10u', model=66.0, american=-150), 'J-096 rung'),
