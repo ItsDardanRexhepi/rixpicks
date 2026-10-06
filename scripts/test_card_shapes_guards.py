@@ -35,7 +35,12 @@ def tree(builder):
         shutil.copy(os.path.join(ROOT, f), os.path.join(d, f))
     return d
 
+from fixtures.card_contract import stamped, market, published_snapshot
+
 def build(d, manifest, prefill, shipped=None, **env_extra):
+    builder=os.path.join(d,"scripts","build_gh_page_v2.py")
+    manifest=stamped(builder,manifest)
+    published_snapshot(d,builder,manifest)
     json.dump(manifest, open(os.path.join(d, 'manifest.json'), 'w'), indent=1)
     json.dump(prefill, open(os.path.join(d, 'slates', 'odds_prefill.json'), 'w'))
     if shipped is not None:
@@ -72,7 +77,9 @@ FRESH = [ml_entry('Philadelphia Flyers', 'New Jersey Devils', '2099-10-01T23:00Z
          ml_entry('Indiana Fever', 'Phoenix Mercury', '2099-10-02T01:00Z', -250, 205, 'ML_MERC')]
 
 def card(picks, **kw):
-    m = copy.deepcopy(BASE); m['picks'] = copy.deepcopy(picks); m.update(kw); return m
+    m=copy.deepcopy(BASE);m['picks']=[market(p) for p in picks]
+    for p in m['picks']: p['sub']=str(p.get('sub') or '')+' - model 95.0'
+    m.update(kw);return m
 
 for B in BUILDERS:
     tag = os.path.basename(B)
