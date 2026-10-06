@@ -1,0 +1,128 @@
+# RixPicks runbook
+
+Operator procedures for the record pipeline. Each section names the script, when to use it, and
+what it will and will not do. Internal document: no page links here.
+
+## Local grading fallback: `scripts/record_final_local.sh`
+
+**When.** Graded finals sit in `record_request.json` and the `record-final` workflow
+(`.github/workflows/record_final.yml`) did not apply them. Since 2026-10-06 03:55Z GitHub Actions
+runs end in `startup_failure` before any step runs, so nothing gets graded. This script runs the
+same steps on a Mac.
+
+**What it runs.** The workflow's steps, in the workflow's order:
+
+1. **Hold check.** `node scripts/health_gate.js --hold`. Exit 1 is a structural FAIL and exit 2 is
+   a gate error. Either one HOLDS the run, so nothing is applied, built, committed or pushed.
+   The script has **no bypass**. The workflow's `hold_bypass=repair` dispatch is not carried over,
+   and no variable or flag skips the gate. A hold lifts when the gate passes. While the live site
+   is down (repo private, GitHub Pages 404), the gate's served-site checks fail and the fallback
+   holds by design. Bring the site back first.
+2. **Apply.** `python3 scripts/record_final.py` checks each final against ESPN on its own and
+   fails closed. If it refuses (exit 3), the run stops with that exit code and nothing is written.
+3. **Changed gate.** The run continues only if `manifest.json`, `history.json`,
+   `record_request.json` or `record_done.json` changed. Setting `FORCE_REBUILD=true` does the same
+   as the workflow's `force_rebuild` input.
+4. **Rebuild.** First `python3 scripts/build_history.py history.json`, then
+   `RP_REFRESH=1 python3 scripts/_build_nocanon_v2.py manifest.json index.html`.
+5. **Syntax sweep.** Runs `node --check` on every emitted `<script>` block of `index.html`.
+6. **Commit.** Commits the workflow's exact file allowlist as the owner, Dardan Rexhepi. Any other
+   tracked change fails loudly and names the file.
+7. **Push.** `scripts/push_with_guard.sh`:
+   - pushes, then retries up to 5 times with fetch and rebase;
+   - fails loudly if another writer moved `manifest.json` mid-run;
+   - confirms by reading back that `origin/main` contains the commit.
+
+**Where it runs.** It fetches `origin main` and works in a fresh scratch git worktree of
+`origin/main`, on a temporary branch that tracks it. That is the same clean checkout a runner
+gets. Your own checkout, its branch and any uncommitted work are never touched. The scratch
+worktree and temporary branch are removed on exit.
+
+**How.**
+
+```
+DRY=1 bash scripts/record_final_local.sh   # steps 1-5 and what step 6 would commit; no commit, no push
+bash scripts/record_final_local.sh         # real run: commits and pushes origin main
+git pull                                    # then see the record write in your checkout
+```
+
+Requirements: `git` with push access to `origin`, `python3`, and `node` (for the gate and the sweep).
+
+**Exit codes.**
+
+| Code | Meaning |
+|---|---|
+| 0 | Written, nothing pending, or dry run done |
+| 2 | Setup failed: not a checkout, fetch failed or worktree failed |
+| 3 | `record_final.py` refused |
+| 4 | HELD by the health gate |
+| 1 | Any other failure: build, sweep, allowlist tripwire or push |
+
+Fixture: `scripts/test_record_final_local.py`. It runs the real script and push guard against a
+local bare origin, offline. It covers:
+
+- the dry run;
+- every hold, including a bypass attempt;
+- a refusal;
+- nothing pending and force rebuild;
+- a broken script block and the allowlist tripwire;
+- a real run;
+- both push races.
+
+It also checks that the script's gate files and allowlist still match the workflow's.
+
+## Late-post disclosure on the record
+
+Some picks are carded after their game began, by owner override. On the published card such a pick
+carries `added_after_kickoff: true`. It also carries `added_after_final: true` when the game had
+already ended at posting.
+
+**`scripts/record_final.py`** copies both flags onto the pick's `history.json` row. A disclosure
+on any published copy of the card is kept. Grading fails closed (exit 3, nothing written) when:
+
+- a flag is not `true`/`false`;
+- copies contradict each other;
+- `added_after_final` appears without `added_after_kickoff`;
+- the request states a different disclosure.
+
+**Where it shows.**
+
+- `record.html` and `yesterday.html` show "Added after the final" or "Added after kickoff" on the
+  row. A malformed flag stops `build_history.py` before either page is written.
+- The record page's live Today section (`scripts/record_today.js`) shows the same.
+- The Home learnings panel shows its "added after kickoff" tag.
+
+Fixtures: `scripts/test_late_disclosure.py` and `scripts/test_late_disclosure_today.js`.
+
+## CLV ledger (internal): `scripts/clv_report.py`
+
+```
+python3 scripts/clv_report.py                       # all graded picks, plus queued grades (marked)
+python3 scripts/clv_report.py --date 2026-10-05     # one card date
+python3 scripts/clv_report.py --no-queued --out /tmp/clv.json
+```
+
+**What it computes.** For each graded pick:
+
+1. Take the last book snapshot in git history from before the card commence and before the
+   snapshot's own commence for the game. Moneylines come from `slates/odds_prefill.json`; spreads
+   and totals from `slates/odds_prefill_st.json`. The snapshot must be at most 180 minutes old.
+2. De-vig each book multiplicatively. Spreads use the HOME-basis line and the picked side's price.
+3. Take the median across at least 3 books. That is `close_novig`.
+4. `clv_c = close_novig*100 - locked_c`.
+
+Locked cents come from the first of these that applies:
+
+- the accepted entry's cents;
+- the Kalshi cents, when they are the card price;
+- the whole cents behind the card's American price;
+- the implied cents.
+
+**Output.** Writes only `slates/clv_ledger.json`, or the path given with `--out`. It never touches
+`history.json`, `manifest.json`, `record_done.json` or `record_request.json`. Grading never calls
+it. No page renders it.
+
+Snapshots exist only as far back as the clone's history goes. In a shallow clone, earlier picks
+list "no close" with the reason.
+
+Fixture: `scripts/test_clv_report.py`.
