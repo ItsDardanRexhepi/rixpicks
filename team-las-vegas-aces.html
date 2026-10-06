@@ -121,24 +121,24 @@ h1 .tick{color:#3BEBF5}
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
-<div class="pick" data-espn="basketball/wnba" data-team="Las Vegas Aces" data-abbr="LV" data-eid="" data-game-day="">
+<div class="pick" data-espn="basketball/wnba" data-team="Las Vegas Aces" data-abbr="LV" data-eid="401918298" data-game-day="2026-10-07">
   <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/wnba/500/lv.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Las Vegas Aces</span><span class="odds">31-13</span></div>
-  <div class="sub">Record 31-13 · Streak W1</div>
-  <div class="score" id="rpScore"></div>
+  <div class="sub">Record 31-13 · Streak L1</div>
+  <div class="score" id="rpScore">Next up: @ Golden State Valkyries · Wed, Oct 7, 6:30 PM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 94-83 vs IND · 10-01</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 89-99 @ IND · 09-29</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 102-85 vs IND · 09-27</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 100-82 @ PHX · 09-24</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 89-79 vs LA · 09-22</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 60-71 @ GS · 10-04</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 94-83 vs IND · 10-01</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 89-99 @ IND · 09-29</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 102-85 vs IND · 09-27</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 100-82 @ PHX · 09-24</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 96.8 &middot; allowed 81.1 per game over last 10</div>
+<div class="sub" style="padding:7px 0">Scored 92.7 &middot; allowed 80.4 per game over last 10</div>
 <div class="sect">Next up</div>
-<div class="sub">No upcoming games listed.</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ GS · 10-07</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs GS · 10-09</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs GS · 10-10</div>
 <div class="sect">Injuries</div>
 <div class="sub">Injury data unavailable.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790996718';
+const RP_BUILD='1791253222';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}

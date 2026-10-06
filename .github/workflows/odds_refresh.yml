@@ -86,7 +86,13 @@ jobs:
     if: ${{ !cancelled() && needs.hold-check.result == 'success' && needs.hold-check.outputs.held == 'false' }}
     runs-on: ubuntu-latest
     steps:
+      # ref: main - a run that waited in the concurrency group checks out the SHA that queued it,
+      # which predates the previous run's push. That stale base made push_with_guard.sh see
+      # manifest.json move upstream and fail loud (run 37225011789, Oct 4). Check out the tip
+      # of main instead (same fix as futures_ws.yml). The guard still protects mid-run races.
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

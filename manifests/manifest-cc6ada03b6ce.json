@@ -1,0 +1,100 @@
+{
+ "date": "2026-10-03",
+ "date_label": "Saturday, Oct 3",
+ "updated": "Oct 3, 9:07 AM PT",
+ "record": "27-13",
+ "units_pl": "+14.01u",
+ "units_ledger": null,
+ "yesterday": "3-1 - Blues-Stars U6.5 W, Wave-Pride U3.5 W, PSU-NW O43.5 W, Pitt-VT U54.5 L",
+ "status_note": "Official picks by owner directive - sub-bar disclosure on file (the owner's picks; none cleared every bar this morning)",
+ "preview": false,
+ "picks": [
+  {
+   "num": 1,
+   "name": "Kraken-Oilers Over 4.5",
+   "market_class": "total",
+   "line": 4.5,
+   "odds": "-426",
+   "units": "5u",
+   "side": "over",
+   "sub": "owner position \u00b7 model 84.7",
+   "game": {
+    "away": "Seattle Kraken",
+    "home": "Edmonton Oilers",
+    "commence": "2026-10-03T23:00Z",
+    "eid": "401892437"
+   },
+   "espn_league": "hockey/nhl",
+   "league": "NHL",
+   "card_american": -426,
+   "card_source": "Polymarket ask 81c (Kraken vs. Oilers: O/U 4.5, Over side); Kalshi ask 82c (Over 4.5 goals, KXNHLTOTAL-26OCT03SEAEDM-5)",
+   "card_ts": "2026-10-03T09:07:42-07:00"
+  },
+  {
+   "num": 2,
+   "name": "Capitals-Lightning Over 4.5",
+   "market_class": "total",
+   "line": 4.5,
+   "odds": "-400",
+   "units": "5u",
+   "side": "over",
+   "sub": "owner position \u00b7 model 82.0",
+   "game": {
+    "away": "Washington Capitals",
+    "home": "Tampa Bay Lightning",
+    "commence": "2026-10-03T23:00Z",
+    "eid": "401891826"
+   },
+   "espn_league": "hockey/nhl",
+   "league": "NHL",
+   "card_american": -400,
+   "card_source": "Kalshi ask at lock 80c (Over 4.5 goals, KXNHLTOTAL-26OCT03WSHTB-5); Polymarket also 80c",
+   "card_ts": "2026-10-03T09:07:42-07:00"
+  },
+  {
+   "num": 3,
+   "name": "White Sox +1.5",
+   "market_class": "spread",
+   "line": -1.5,
+   "odds": "-163",
+   "units": "5u",
+   "side": "away",
+   "sub": "owner position \u00b7 model 64.2",
+   "game": {
+    "away": "Chicago White Sox",
+    "home": "Cleveland Guardians",
+    "commence": "2026-10-03T17:00Z",
+    "eid": "401907990"
+   },
+   "espn_league": "baseball/mlb",
+   "league": "MLB",
+   "card_american": -163,
+   "card_source": "Kalshi NO ask at lock 62c (NO on Cleveland wins by over 1.5 runs, KXMLBSPREAD-26OCT031300CWSCLE-CLE2); Polymarket also 62c",
+   "card_ts": "2026-10-03T09:07:42-07:00"
+  },
+  {
+   "num": 4,
+   "name": "Padres +2.5",
+   "market_class": "spread",
+   "line": -2.5,
+   "odds": "-194",
+   "units": "5u",
+   "side": "away",
+   "sub": "owner position \u00b7 model 69.1",
+   "game": {
+    "away": "San Diego Padres",
+    "home": "Milwaukee Brewers",
+    "commence": "2026-10-04T00:30Z",
+    "eid": "401908002"
+   },
+   "espn_league": "baseball/mlb",
+   "league": "MLB",
+   "card_american": -194,
+   "card_source": "Polymarket ask 66c (Spread: Milwaukee Brewers (-2.5), San Diego Padres side); Kalshi NO ask 67c (NO on Milwaukee wins by over 2.5 runs, KXMLBSPREAD-26OCT032030SDMIL-MIL3)",
+   "card_ts": "2026-10-03T09:07:42-07:00"
+  }
+ ],
+ "parlay": null,
+ "pick_content_hash": "2e2f0da055798edd1870d6baa544dab56209eeb5e2b74bf561f5c5fe786588e1",
+ "card_note": "Owner-directed picks: none of today's four survived this morning's full process (standing bars plus red team); sub-bar disclosure."
+}

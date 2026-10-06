@@ -1,3 +1,59 @@
 {
-  "requests": []
+ "requests": [
+  {
+   "grade_id": "401892447|ml|home",
+   "event_id": "401892447",
+   "league": "hockey/nhl",
+   "pick": "Penguins ML",
+   "side": "home",
+   "market_class": "ml",
+   "card_date": "2026-10-05",
+   "result": "LOST",
+   "score": "WPG 3 @ PIT 2",
+   "stake_units": "5u",
+   "locked_american": "-163",
+   "delta_units_exact": -5.0,
+   "record_after": "33-16",
+   "units_after_exact": 19.80670486265687,
+   "two_source": [
+    "espn_core completed",
+    "espn site.api summary STATUS_FINAL"
+   ],
+   "graded_pick": "Penguins ML L: WPG 3 @ PIT 2 (published-card basis)",
+   "learning": "Owner position, posted under a one-day sub-bar suspension: model fair 64.5% vs a 62c best ask (Polymarket; Kalshi 63c), under the 2c net bar. It did not clear the full morning process. Lost: WPG 3 @ PIT 2.",
+   "source": "Oct 5 published card (owner position, scoped rule-4 suspension)",
+   "queued_at": "2026-10-06 03:07 PDT"
+  },
+  {
+   "grade_id": "401892445|spread|away|-1.5",
+   "event_id": "401892445",
+   "league": "hockey/nhl",
+   "pick": "Flyers +1.5",
+   "side": "away",
+   "market_class": "spread",
+   "line": -1.5,
+   "card_date": "2026-10-05",
+   "result": "LOST",
+   "score": "PHI 1 @ TB 4",
+   "stake_units": "5u",
+   "locked_american": "-138",
+   "delta_units_exact": -5.0,
+   "record_after": "33-17",
+   "units_after_exact": 14.80670486265687,
+   "two_source": [
+    "espn_core completed",
+    "espn site.api summary STATUS_FINAL"
+   ],
+   "graded_pick": "Flyers +1.5 L: PHI 1 @ TB 4 (published-card basis)",
+   "learning": "Owner position, posted under a one-day sub-bar suspension: model fair 60.7% vs a 58c best ask (Polymarket; accepted-entry basis, not a verified fill). It did not clear the full morning process. Lost: PHI 1 @ TB 4.",
+   "source": "Oct 5 published card (owner position, scoped rule-4 suspension)",
+   "queued_at": "2026-10-06 03:07 PDT",
+   "accepted_entry": {
+    "accepted_entry_id": "accepted-entry-20261005-185743-401892445",
+    "card_venue": "polymarket",
+    "entry_c": 58,
+    "entry_basis": "approved_card_entry_assumption"
+   }
+  }
+ ]
 }

@@ -26,12 +26,12 @@ def check(label, ok, detail=''):
 # ---------- 1. mechanism: the listener's own push against a stale vs a current base ----------
 src = os.path.join(ROOT, 'scripts', 'futures_ws_listener.py')
 tree = ast.parse(open(src).read())
-fn = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == 'git_push')
+fns = [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name in ('_git', 'git_push')]
 
 def git(cwd, *a):
     return subprocess.run(['git', *a], cwd=cwd, capture_output=True, text=True)
 
-def runner_push(work, base):
+def runner_push(work, base, git_timeout=45):
     """Clone, reset to `base` (what a checkout of that sha gives), append a tick, run git_push()."""
     r = os.path.join(work, 'runner_' + base[:7])
     git(work, 'clone', '-q', '-b', 'main', os.path.join(work, 'origin.git'), r)
@@ -41,8 +41,9 @@ def runner_push(work, base):
     with open(os.path.join(r, 'data', 'futures_ws_ticks.jsonl'), 'a') as f:
         f.write('{"ts":"queued run tick"}\n')
     ns = {'subprocess': subprocess, 'time': type('T', (), {'sleep': staticmethod(lambda s: None)}),
-          'REPO': r, 'now_iso': lambda: '2026-10-01T11:37:14+00:00'}
-    exec(compile(ast.Module(body=[fn], type_ignores=[]), src, 'exec'), ns)
+          'REPO': r, 'now_iso': lambda: '2026-10-01T11:37:14+00:00',
+          'GIT_TIMEOUT': git_timeout, 'GIT_ENV': dict(os.environ), 'log': lambda *a: None}
+    exec(compile(ast.Module(body=fns, type_ignores=[]), src, 'exec'), ns)
     return ns['git_push']()
 
 with tempfile.TemporaryDirectory() as work:
@@ -66,6 +67,32 @@ with tempfile.TemporaryDirectory() as work:
     check('replay: listener on the queued-at sha cannot push (run 36841505656 class)', stale.startswith('push-failed'), stale)
     fresh = runner_push(work, tip)
     check('replay: listener on the current tip pushes', fresh == 'pushed', fresh)
+
+# ---------- 1b. hang guard: a git call that never returns must not freeze the pusher (Oct 3: no ticks 17:51Z on) ----------
+import time as _t
+with tempfile.TemporaryDirectory() as work:
+    git(work, 'init', '-q', '--bare', '-b', 'main', 'origin.git')
+    seed = os.path.join(work, 'seed')
+    git(work, 'clone', '-q', os.path.join(work, 'origin.git'), seed)
+    for k, v in (('user.email', 't@t'), ('user.name', 't')):
+        git(seed, 'config', k, v)
+    git(seed, 'checkout', '-q', '-b', 'main')
+    os.makedirs(os.path.join(seed, 'data'))
+    open(os.path.join(seed, 'data', 'futures_ws_ticks.jsonl'), 'w').write('{"ts":"t0"}\n')
+    open(os.path.join(seed, 'data', 'futures_ws_heartbeat.json'), 'w').write('{}\n')
+    git(seed, 'add', '-A'); git(seed, 'commit', '-qm', 't0'); git(seed, 'push', '-q', 'origin', 'main')
+    base0 = git(seed, 'rev-parse', 'HEAD').stdout.strip()
+    # a git wrapper whose pull/push hang forever (network stall class)
+    real = subprocess.run(['which', 'git'], capture_output=True, text=True).stdout.strip()
+    fake = os.path.join(work, 'fakebin'); os.makedirs(fake)
+    open(os.path.join(fake, 'git'), 'w').write('#!/bin/sh\ncase "$1" in pull|push) sleep 30;; esac\nexec %s "$@"\n' % real)
+    os.chmod(os.path.join(fake, 'git'), 0o755)
+    old_path = os.environ['PATH']; os.environ['PATH'] = fake + os.pathsep + old_path
+    try:
+        t0 = _t.time(); hung = runner_push(work, base0, git_timeout=2); dt = _t.time() - t0
+    finally:
+        os.environ['PATH'] = old_path
+    check('hang guard: stalled git pull/push returns within the timeout budget, not never', dt < 40 and hung.startswith('push-failed'), f'{hung} after {dt:.0f}s')
 
 # ---------- 2. the workflow ----------
 wf = yaml.safe_load(open(os.path.join(ROOT, '.github', 'workflows', 'futures_ws.yml')))

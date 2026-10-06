@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-03T03:05:32.560685+00:00",
+ "generated_at": "2026-10-06T02:20:00.804697+00:00",
  "items": [
   {
-   "id": "e8a990c552",
-   "league": "CFB",
-   "event": "Alabama Crimson Tide @ Mississippi State Bulldogs",
-   "prediction": "Alabama Crimson Tide to beat Mississippi State Bulldogs",
-   "kickoff_utc": "2026-10-03T16:00:00+00:00"
+   "id": "7461789a93",
+   "league": "MLS",
+   "event": "Vancouver Whitecaps @ Chicago Fire FC",
+   "prediction": "Chicago Fire FC to beat Vancouver Whitecaps",
+   "kickoff_utc": "2026-10-07T00:30:00+00:00"
   },
   {
-   "id": "f82d2d5d77",
-   "league": "CFB",
-   "event": "Notre Dame Fighting Irish @ North Carolina Tar Heels",
-   "prediction": "Notre Dame Fighting Irish to beat North Carolina Tar Heels",
-   "kickoff_utc": "2026-10-03T16:00:00+00:00"
+   "id": "af7e3a3dcd",
+   "league": "WNBA",
+   "event": "New York Liberty @ Atlanta Dream",
+   "prediction": "New York Liberty to beat Atlanta Dream",
+   "kickoff_utc": "2026-10-07T23:30:00+00:00"
   },
   {
-   "id": "233f8d6981",
-   "league": "CFB",
-   "event": "UCF Knights @ Houston Cougars",
-   "prediction": "UCF Knights to beat Houston Cougars",
-   "kickoff_utc": "2026-10-03T16:00:00+00:00"
+   "id": "4bae28357a",
+   "league": "WNBA",
+   "event": "Las Vegas Aces @ Golden State Valkyries",
+   "prediction": "Las Vegas Aces to beat Golden State Valkyries",
+   "kickoff_utc": "2026-10-08T01:30:00+00:00"
   },
   {
-   "id": "e07235134f",
+   "id": "3acc99a6ea",
    "league": "CFB",
-   "event": "Boston College Eagles @ SMU Mustangs",
-   "prediction": "SMU Mustangs to beat Boston College Eagles",
-   "kickoff_utc": "2026-10-03T16:00:00+00:00"
+   "event": "Iowa Hawkeyes @ Washington Huskies",
+   "prediction": "Washington Huskies to beat Iowa Hawkeyes",
+   "kickoff_utc": "2026-10-10T01:00:00+00:00"
   },
   {
-   "id": "d3de7fa66d",
+   "id": "a933b5fae0",
    "league": "CFB",
-   "event": "Vanderbilt Commodores @ Georgia Bulldogs",
-   "prediction": "Georgia Bulldogs to beat Vanderbilt Commodores",
-   "kickoff_utc": "2026-10-03T16:45:00+00:00"
+   "event": "Iowa State Cyclones @ BYU Cougars",
+   "prediction": "BYU Cougars to beat Iowa State Cyclones",
+   "kickoff_utc": "2026-10-10T02:15:00+00:00"
   },
   {
-   "id": "a44d1b3a55",
-   "league": "MLB",
-   "event": "Chicago White Sox @ Cleveland Guardians",
-   "prediction": "Chicago White Sox to beat Cleveland Guardians",
-   "kickoff_utc": "2026-10-03T17:00:00+00:00"
+   "id": "0877588209",
+   "league": "CFB",
+   "event": "Texas A&M Aggies @ Missouri Tigers",
+   "prediction": "Missouri Tigers to beat Texas A&M Aggies",
+   "kickoff_utc": "2026-10-10T16:00:00+00:00"
   }
  ]
 }

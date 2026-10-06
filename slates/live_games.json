@@ -1,34 +1,81 @@
 {
  "version": 1,
- "generated_at": "2026-10-03T03:05:11.659856+00:00",
+ "generated_at": "2026-10-06T02:20:09.832130+00:00",
  "leagues": [
   {
-   "league": "CFB",
+   "league": "MLB",
    "games": [
     {
-     "espn_event_id": "401858476",
-     "matchup": "PSU @ NU",
-     "commence": "2026-10-03T00:00Z",
+     "espn_event_id": "401907986",
+     "matchup": "NYY @ TB",
+     "commence": "2026-10-06T00:00Z",
      "status": "in",
-     "detail": "9:27 - 4th",
-     "score": "PSU 7 - NU 31",
-     "away_to": 1,
-     "home_to": 1
+     "detail": "Bot 6th",
+     "score": "NYY 1 - TB 5"
     }
    ]
   },
   {
-   "league": "WNBA",
+   "league": "NFL",
    "games": [
     {
-     "espn_event_id": "401918294",
-     "matchup": "DAL @ GS",
-     "commence": "2026-10-03T01:00Z",
+     "espn_event_id": "401872979",
+     "matchup": "ATL @ NO",
+     "commence": "2026-10-06T00:15Z",
      "status": "in",
-     "detail": "2:55 - 4th",
-     "score": "DAL 72 - GS 67",
-     "away_to": 1,
-     "home_to": 1
+     "detail": "9:25 - 3rd",
+     "score": "ATL 24 - NO 7",
+     "away_to": 3,
+     "home_to": 3
+    }
+   ]
+  },
+  {
+   "league": "NBA",
+   "games": [
+    {
+     "espn_event_id": "401898388",
+     "matchup": "MEM @ ATL",
+     "commence": "2026-10-05T23:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "MEM 132 - ATL 123"
+    },
+    {
+     "espn_event_id": "401908947",
+     "matchup": "PHX @ DET",
+     "commence": "2026-10-05T23:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "PHX 107 - DET 109"
+    },
+    {
+     "espn_event_id": "401914101",
+     "matchup": "NY @ PHI",
+     "commence": "2026-10-05T23:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "NY 97 - PHI 120"
+    },
+    {
+     "espn_event_id": "401914102",
+     "matchup": "MIN @ MIL",
+     "commence": "2026-10-06T00:00Z",
+     "status": "in",
+     "detail": "7:06 - 4th",
+     "score": "MIN 95 - MIL 83",
+     "away_to": 4,
+     "home_to": 2
+    },
+    {
+     "espn_event_id": "401898716",
+     "matchup": "LAL @ SAC",
+     "commence": "2026-10-06T02:00Z",
+     "status": "in",
+     "detail": "8:30 - 1st",
+     "score": "LAL 8 - SAC 6",
+     "away_to": 0,
+     "home_to": 0
     }
    ]
   },
@@ -36,53 +83,40 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401891831",
-     "matchup": "BOS @ WPG",
-     "commence": "2026-10-03T00:00Z",
+     "espn_event_id": "401892445",
+     "matchup": "PHI @ TB",
+     "commence": "2026-10-05T23:00Z",
      "status": "post",
-     "detail": "Final/OT",
-     "score": "BOS 4 - WPG 3"
+     "detail": "Final",
+     "score": "PHI 1 - TB 4"
     },
     {
-     "espn_event_id": "401891782",
-     "matchup": "STL @ DAL",
-     "commence": "2026-10-03T01:00Z",
+     "espn_event_id": "401892446",
+     "matchup": "OTT @ BOS",
+     "commence": "2026-10-05T23:30Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "OTT 4 - BOS 1"
+    },
+    {
+     "espn_event_id": "401892447",
+     "matchup": "WPG @ PIT",
+     "commence": "2026-10-05T23:30Z",
      "status": "in",
-     "detail": "End of 2nd",
-     "score": "STL 2 - DAL 0",
+     "detail": "1:21 - 3rd",
+     "score": "WPG 3 - PIT 2",
      "away_to": null,
      "home_to": null
     },
     {
-     "espn_event_id": "401892433",
-     "matchup": "ANA @ VGK",
-     "commence": "2026-10-03T02:00Z",
+     "espn_event_id": "401892448",
+     "matchup": "SJ @ DAL",
+     "commence": "2026-10-06T00:00Z",
      "status": "in",
-     "detail": "18:27 - 2nd",
-     "score": "ANA 2 - VGK 0",
+     "detail": "4:17 - 3rd",
+     "score": "SJ 0 - DAL 5",
      "away_to": null,
      "home_to": null
-    }
-   ]
-  },
-  {
-   "league": "NWSL",
-   "games": [
-    {
-     "espn_event_id": "401854015",
-     "matchup": "SD @ ORL",
-     "commence": "2026-10-03T00:00Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "SD 2 - ORL 1"
-    },
-    {
-     "espn_event_id": "401854016",
-     "matchup": "NC @ SEA",
-     "commence": "2026-10-03T02:00Z",
-     "status": "in",
-     "detail": "HT",
-     "score": "NC 0 - SEA 0"
     }
    ]
   }

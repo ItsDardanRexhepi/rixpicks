@@ -35,6 +35,29 @@ async function fetchText(u) {
 }
 // transient network/5xx = UNKNOWN (never a hold: holding cannot fix a host outage); proven bad content/404 = FAIL
 const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOWN ' + name + ' (' + e.message + ') - not counted as a failure'); else check(name, false, impact); };
+// What the system is learning (Home, builder _learnings_html): the #rpLearnHead heading and the #rpLearn
+// box carry ledger text - day briefs and per-pick notes - that may hold any phrase ('Game not started',
+// a module name). The substring checks below are about the page's own code and markup, so they read
+// the page with that section cut out (local build and served site alike). The builder emits only div
+// and span tags there and HTML-escapes every ledger value, so each <div>/</div> inside is its own and a
+// depth count finds the end. Each id is cut at most once; an unclosed section, or a cut that would take
+// any other tag (a </main>, a <script>), leaves the page whole (the stricter reading).
+// scripts/test_health_gate_learn.js holds both modes to this; test_learnings_panel.py a real build.
+function rpStripLearn(s) {
+  const whole = String(s);
+  let out = whole;
+  for (const id of ['rpLearnHead', 'rpLearn']) {
+    const m = new RegExp('<div\\s(?:[^>]*\\s)?id="' + id + '"[^>]*>').exec(out);
+    if (!m) continue;
+    const tag = /<div\b|<\/div>/g;
+    tag.lastIndex = m.index + m[0].length;
+    let depth = 1, t, end = -1;
+    while ((t = tag.exec(out))) { depth += t[0] === '</div>' ? -1 : 1; if (!depth) { end = tag.lastIndex; break; } }
+    if (end < 0 || /<(?!\/?(?:div|span)\b)/i.test(out.slice(m.index, end))) return whole;
+    out = out.slice(0, m.index) + out.slice(end);
+  }
+  return out;
+}
 
 (async () => {
   if (process.env.HOLD_SELFTEST_ERROR === '1') throw new Error('forced gate error (selftest hook)');
@@ -53,7 +76,7 @@ const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOW
     check('yards counter fixture ALL OK', /ALL OK/.test(yx) && !/FAIL/.test(yx), 'NFL futures yards could render an invented number');
     try { const yd = JSON.parse(fs.readFileSync('slates/nfl_rec_yards.json', 'utf8')); check('nfl_rec_yards.json parses with numeric players', Object.values(yd.players || {}).length > 0 && Object.values(yd.players).every(p => typeof p.yards === 'number'), 'yards counters would all show Unavailable'); }
     catch (e) { check('nfl_rec_yards.json parses', false, 'yards counters would all show Unavailable: ' + e.message); }
-    try { const ix = fs.readFileSync('index.html', 'utf8');
+    try { const ix = rpStripLearn(fs.readFileSync('index.html', 'utf8'));
       check('no literal \\n text leak at page bottom', !ix.includes('</div>\\n<script>'), 'a stray backslash-n shows above the ticker');
       check('ticket boxes carry no repeated fine print (one note above Rolling Record)', !ix.includes('c.estimate_note') && !ix.includes('c.prices_note') && ix.includes('id="rpWNote"') && ix.indexOf('id="rpWNote"') < ix.indexOf('id="rpWRecWrap"'), 'cluttered ticket boxes or the consolidated note missing'); }
     catch (e) { check('index.html readable for clutter check', false, e.message); }
@@ -81,7 +104,7 @@ const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOW
         'a duplicate homepage is served at /index_nocanon.html and can be indexed');
     } else check('index_nocanon.html retired (absent)', true);
     // 4. critical functionality markers in the built page
-    const page = fs.existsSync('index.html') ? fs.readFileSync('index.html', 'utf8') : '';
+    const page = fs.existsSync('index.html') ? rpStripLearn(fs.readFileSync('index.html', 'utf8')) : '';
     const markers = [
       ['combos module (Same Game Parlays)', 'rpCmbGo', 'Wooder Ice ideas/combos card hidden'],
       ['rpComboFresh exported global', 'window.rpComboFresh=rpComboFresh;', 'combos module fail-closes hidden (Sep 30 regression class)'],
@@ -104,10 +127,11 @@ const failOrUnknown = (e, name, impact) => { if (e && e.net) console.log('UNKNOW
   }
   if (SERVE) {
     // --serve: cold checks against the live site
-    let page = '';
-    try { page = await fetchText(BASE + '/'); } catch (e) { failOrUnknown(e, 'home page serves', 'site down: ' + e.message); }
-    if (page) {
-      check('home page serves (>100KB)', page.length > 100000, 'site down or truncated');
+    let raw = '';
+    try { raw = await fetchText(BASE + '/'); } catch (e) { failOrUnknown(e, 'home page serves', 'site down: ' + e.message); }
+    const page = rpStripLearn(raw);
+    if (raw) {
+      check('home page serves (>100KB)', raw.length > 100000, 'site down or truncated');
       check('served: combos module present', page.includes('rpCmbGo'), 'Wooder Ice ideas/combos card hidden on live site');
       check('served: feed wire present', page.includes('rpFeedWire'), 'live trackers dead on live site');
       check('served: no Game-not-started text', !page.includes('Game not started'), 'pregame spec regression live');

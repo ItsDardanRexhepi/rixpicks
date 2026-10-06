@@ -1,0 +1,72 @@
+{
+ "date": "2026-10-04",
+ "date_label": "Sunday, Oct 4",
+ "updated": "Oct 5, 6:17 AM PT",
+ "record": "33-15",
+ "units_pl": "+24.81u",
+ "units_ledger": null,
+ "yesterday": "4-2 - Rays ML W, White Sox +1.5 W, Padres +1.5 W, Lightning ML W, Kraken-Oilers O4.5 L, Capitals-Lightning O4.5 L",
+ "status_note": "Official picks by owner directive - sub-bar disclosure on file (the owner's picks; neither cleared every bar this morning)",
+ "preview": false,
+ "picks": [
+  {
+   "num": 1,
+   "name": "Dream ML",
+   "market_class": "ml",
+   "odds": "-163",
+   "units": "5u",
+   "side": "home",
+   "sub": "owner position \u00b7 model 65.0",
+   "game": {
+    "away": "New York Liberty",
+    "home": "Atlanta Dream",
+    "commence": "2026-10-04T18:00Z",
+    "eid": "401918295"
+   },
+   "espn_league": "basketball/wnba",
+   "league": "WNBA",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxwnbagame/kxwnbagame-26oct04nyatl",
+    "cents": 62,
+    "team": "ATL",
+    "gate_cents": 62,
+    "ticker": "KXWNBAGAME-26OCT04NYATL-ATL"
+   },
+   "card_american": -163,
+   "card_source": "Kalshi ask at lock 62c",
+   "card_ts": "2026-10-04T06:59:14-07:00",
+   "polymarket": null
+  },
+  {
+   "num": 2,
+   "name": "Brewers ML",
+   "market_class": "ml",
+   "odds": "-127",
+   "units": "5u",
+   "side": "home",
+   "sub": "owner position \u00b7 model 59.4",
+   "game": {
+    "away": "San Diego Padres",
+    "home": "Milwaukee Brewers",
+    "commence": "2026-10-04T20:00Z",
+    "eid": "401908003"
+   },
+   "espn_league": "baseball/mlb",
+   "league": "MLB",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxmlbgame/kxmlbgame-26oct041600sdmil",
+    "cents": 56,
+    "team": "MIL",
+    "gate_cents": 56,
+    "ticker": "KXMLBGAME-26OCT041600SDMIL-MIL"
+   },
+   "card_american": -127,
+   "card_source": "Kalshi ask at lock 56c",
+   "card_ts": "2026-10-04T06:59:14-07:00",
+   "polymarket": null
+  }
+ ],
+ "parlay": null,
+ "pick_content_hash": "576461cf53b6d60b6fd048656d8028f27d492b4a923aabf13fa7ee49169eeca7",
+ "card_note": "Owner-directed picks: neither cleared this morning's full process (standing bars plus red team); sub-bar disclosure."
+}

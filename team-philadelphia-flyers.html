@@ -121,24 +121,24 @@ h1 .tick{color:#3BEBF5}
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
-<div class="pick" data-espn="hockey/nhl" data-team="Philadelphia Flyers" data-abbr="PHI" data-eid="401892435" data-game-day="2026-10-03">
-  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/phi.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Philadelphia Flyers</span><span class="odds">0-1-1</span></div>
-  <div class="sub">Record 0-1-1 · Streak L2</div>
-  <div class="score" id="rpScore">Next up: vs Carolina Hurricanes · Sat, Oct 3, 4:00 PM PT</div>
+<div class="pick" data-espn="hockey/nhl" data-team="Philadelphia Flyers" data-abbr="PHI" data-eid="401892445" data-game-day="2026-10-05">
+  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/phi.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Philadelphia Flyers</span><span class="odds">0-2-2</span></div>
+  <div class="sub">Record 0-2-2 · Streak L4</div>
+  <div class="score" id="rpScore">Today: @ Tampa Bay Lightning · 4:00 PM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 2-3 @ NJ · 10-01</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 0-7 vs PIT · 09-30</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 1-4 @ TB · 10-05</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 2-3 vs CAR · 10-03</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 2-3 @ NJ · 10-01</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 0-7 vs PIT · 09-30</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 1.0 &middot; allowed 5.0 per game over last 2</div>
+<div class="sub" style="padding:7px 0">Scored 1.2 &middot; allowed 4.2 per game over last 4</div>
 <div class="sect">Next up</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs CAR · 10-03</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ TB · 10-05</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ OTT · 10-08</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ OTT · 10-08</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ BOS · 10-10</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs CAR · 10-11</div>
 <div class="sect">Injuries</div>
 <div class="sub">Injury data unavailable.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1790996718';
+const RP_BUILD='1791253222';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}

@@ -465,6 +465,53 @@ function rpYesterdayLine(){
  });
 }
 rpYesterdayLine();
+/* What the system is learning (Home). The builder bakes the first paint (_learnings_html); here the
+   same-origin history.json is re-read on load and every 120 s while the page is visible, and the box is
+   repainted by the same rules only when its content changed: day groups newest day first, at most 3;
+   under each day label that day's own brief, then its graded picks' lessons newest-graded first
+   (reverse ledger order), at most 6 picks in all. A day counts only when it has a graded pick; once 6
+   picks are shown no further day is opened. A pick's lesson is its note, or its learning (the grading
+   chain's field) when the note is missing or left out. Every value goes through esc(); a text naming
+   money ($, U+FF04, U+FE69, the words dollar(s)/USD) or holding a lone surrogate (the builder cannot
+   write it as UTF-8) is left out whole and renders as if absent. A failed read, or a file of the wrong
+   shape, keeps what is on the page; a readable ledger with nothing to show hides the section.
+   scripts/test_learnings_panel.py checks both renderers agree; test_learnings_panel.js the repaint. */
+function rpLearnHtml(j){
+ var days=j&&Array.isArray(j.days)?j.days:null;if(!days)return null;
+ days=days.filter(function(d){return !!d&&typeof d==='object'&&Array.isArray(d.picks);});
+ days.sort(function(a,b){var x=String(a.date||''),y=String(b.date||'');return x<y?1:(x>y?-1:0);});
+ var money=/[$\uff04\ufe69]|(?:^|[^A-Za-z])(?:dollars?|usd)(?![A-Za-z])/i,lone=/[\ud800-\udbff](?![\udc00-\udfff])|(?:^|[^\ud800-\udbff])[\udc00-\udfff]/;
+ var ws=/^[\s\x1c-\x1f\x85]+|[\s\x1c-\x1f\x85]+$/g;/* the builder's strip set: JS whitespace plus U+001C-U+001F, U+0085 */
+ var t=function(v){var s=typeof v==='string'?v.replace(ws,''):'';return (lone.test(s)||money.test(s))?'':s;};
+ var graded=function(p){return !!p&&typeof p==='object'&&(p.result==='W'||p.result==='L'||p.result==='P');};
+ var out='',n=0,g=0;
+ for(var k=0;k<days.length&&n<6&&g<3;k++){
+  var d=days[k];if(!d.picks.some(graded))continue;
+  var body=t(d.brief)?'<div class="lnbrief">'+esc(t(d.brief))+'</div>':'';
+  for(var q=d.picks.length-1;q>=0&&n<6;q--){
+   var p=d.picks[q];if(!graded(p))continue;
+   var nm=t(p.name),tx=t(p.note)||t(p.learning);if(!(nm&&tx))continue;
+   body+='<div class="lnitem"><div class="lnhead"><span class="lnres '+p.result+'">'+p.result+'</span>'
+    +'<span class="lnname">'+esc(nm)+'</span>'
+    +(t(p.units)?'<span class="lnunits">'+esc(t(p.units))+'</span>':'')
+    +(p.added_after_kickoff===true?'<span class="lntag">added after kickoff</span>':'')
+    +'</div><div class="lnnote">'+esc(tx)+'</div></div>';
+   n++;
+  }
+  if(body){out+='<div class="lnday">'+esc(t(d.label)||t(d.date))+'</div>'+body;g++;}
+ }
+ return out;
+}
+function rpLearnPanel(){
+ var box=$('rpLearn');if(!box)return;var hd=$('rpLearnHead');
+ fetch('history.json?cb='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
+  var h=rpLearnHtml(j);if(h==null)return;
+  box.style.display=h?'':'none';if(hd)hd.style.display=h?'':'none';if(!h)return;
+  var tp=document.createElement('template');tp.innerHTML=h;if(tp.innerHTML===box.innerHTML)return;
+  box.innerHTML=h;
+ }).catch(function(){});
+}
+rpLearnPanel();setInterval(function(){if(!document.hidden)rpLearnPanel();},120000);
 function buildPairs(base){
  PAIRS=[];
  if(!rpMapFresh(SOC_MATCH))return;

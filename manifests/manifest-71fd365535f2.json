@@ -1,0 +1,105 @@
+{
+ "date": "2026-10-02",
+ "date_label": "Friday, Oct 2",
+ "updated": "Oct 2, 6:10 PM PT",
+ "record": "24-12",
+ "units_pl": "+8.69u",
+ "units_ledger": null,
+ "yesterday": "0-0 - No official picks",
+ "status_note": "Official picks by owner directive - sub-bar disclosure on file (owner's own positions, not model-carded). Blues-Stars was posted before puck drop. The other three were ADDED AFTER KICKOFF by explicit owner override (6:24 PM PT) so the system can learn from them; they count on the record, and are labeled as added after kickoff. Already final when added (result known at posting): Under 3.5, Over 43.5, Under 54.5.",
+ "preview": false,
+ "picks": [
+  {
+   "num": 1,
+   "name": "Under 6.5",
+   "market_class": "total",
+   "line": 6.5,
+   "odds": "-133",
+   "units": "5u",
+   "side": "under",
+   "game": {
+    "away": "St. Louis Blues",
+    "home": "Dallas Stars",
+    "commence": "2026-10-03T01:00Z",
+    "eid": "401891782"
+   },
+   "espn_league": "hockey/nhl",
+   "league": "NHL",
+   "card_american": -133,
+   "card_source": "Kalshi NO ask at lock (Over 6.5 market KXNHLTOTAL-26OCT02STLDAL-7, 57c)",
+   "card_ts": "2026-10-02T18:10:48-07:00",
+   "sub": "owner position"
+  },
+  {
+   "num": 2,
+   "name": "Under 3.5",
+   "market_class": "total",
+   "line": 3.5,
+   "odds": "-170",
+   "units": "5u",
+   "side": "under",
+   "sub": "owner position \u00b7 added after the final",
+   "game": {
+    "away": "San Diego Wave FC",
+    "home": "Orlando Pride",
+    "commence": "2026-10-03T00:00Z",
+    "eid": "401854015"
+   },
+   "espn_league": "soccer/usa.nwsl",
+   "league": "NWSL",
+   "card_american": -170,
+   "card_source": "owner's own fill (NO on Over 3.5 goals, 63c); added after kickoff by owner override 6:24 PM PT Oct 2",
+   "card_ts": "2026-10-02T18:26:00-07:00",
+   "added_after_kickoff": true,
+   "added_after_final": true
+  },
+  {
+   "num": 3,
+   "name": "Over 43.5",
+   "market_class": "total",
+   "line": 43.5,
+   "odds": "-138",
+   "units": "5u",
+   "side": "over",
+   "sub": "owner position \u00b7 added after the final",
+   "game": {
+    "away": "Penn State Nittany Lions",
+    "home": "Northwestern Wildcats",
+    "commence": "2026-10-03T00:00Z",
+    "eid": "401858476"
+   },
+   "espn_league": "football/college-football",
+   "league": "CFB",
+   "card_american": -138,
+   "card_source": "owner's own fill (YES on Over 43.5 points, 58c); added after kickoff by owner override 6:24 PM PT Oct 2",
+   "card_ts": "2026-10-02T18:26:00-07:00",
+   "added_after_kickoff": true,
+   "added_after_final": true
+  },
+  {
+   "num": 4,
+   "name": "Under 54.5",
+   "market_class": "total",
+   "line": 54.5,
+   "odds": "-104",
+   "units": "5u",
+   "side": "under",
+   "sub": "owner position \u00b7 added after the final",
+   "game": {
+    "away": "Pittsburgh Panthers",
+    "home": "Virginia Tech Hokies",
+    "commence": "2026-10-02T23:00Z",
+    "eid": "401858245"
+   },
+   "espn_league": "football/college-football",
+   "league": "CFB",
+   "card_american": -104,
+   "card_source": "owner's own fill (NO on Over 54.5 points, 51c); added after kickoff by owner override 6:24 PM PT Oct 2",
+   "card_ts": "2026-10-02T18:26:00-07:00",
+   "added_after_kickoff": true,
+   "added_after_final": true
+  }
+ ],
+ "parlay": null,
+ "pick_content_hash": "4b2c60a3e30bd23d5fde86c1a9130eb81a4595793ec4a0263cc66672d81dee06"
+}

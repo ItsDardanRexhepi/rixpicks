@@ -3,6 +3,7 @@
 Usage: build_gh_page.py manifest.json [outfile]
 Manifest: {date_label, status_note, record, updated, picks:[{num,name,sub,odds,best_book,side,game:{away,home}|null,espn_league}], parlay:{legs:[...],note}|null}
 A card with a pick on or against a Las Vegas team, or units off the J-096 ladder, is held (exit 3): owner ruling 2026-10-02 (4).
+Only its numeric bars can be waived, for logged picks (name, eid, units) played on one date with the disclosure in card_note, by a logged owner suspension (slates/owner_rule_suspensions.jsonl).
 DESIGN LOCKED (user, Sep 24 10:50 PM): this template IS the app design system. Daily builds change picks
 content only - never layout, chip styling, terminology logic. Bump RP_DESIGN only on an approved design change.
 Chips resolved from /tmp/odds_prefill.json (+ _sp) when present; NO chips render without a game-level link.
@@ -179,7 +180,7 @@ _sanitize_man(man)
 # Golden Knights (NHL), Aces (WNBA), Athletics/A's (MLB), UNLV (college); a nickname counts only inside its own
 # league (Texas Tech Red Raiders is no Vegas team), 'Las Vegas', 'Vegas' and UNLV in any league, and the individual
 # sports (racing, golf, tennis, MMA, boxing) have no teams. An earlier card's manifests/ snapshot, rebuilt below for
-# its game pages, is not gated.
+# its game pages, is not gated. The one exception is logged, narrow and numeric-only: see the owner suspension below.
 _VEGAS_NICK={'football/nfl':('raiders',),'hockey/nhl':('golden knights',),'basketball/wnba':('aces',),
              'baseball/mlb':('athletics',"a's"),'football/college-football':('unlv',),
              'basketball/mens-college-basketball':('unlv',),'basketball/womens-college-basketball':('unlv',)}
@@ -247,9 +248,9 @@ def _standing_rule_holds(m):
             for f,v in (('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))):
                 w=' '+re.sub(r"[^a-z0-9']+",' ',str(v or '').lower().replace('\u2019',"'"))+' '
                 if any(' '+n+' ' in w for n in names):
-                    out.append(f"{who}: Las Vegas team ({f} {v!r}) - never on or against a Vegas team"); break
+                    out.append((p.get('name'),'vegas',f"{who}: Las Vegas team ({f} {v!r}) - never on or against a Vegas team")); break
         if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
-            out.append(f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)")
+            out.append((p.get('name'),'units_ladder',f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)"))
         # numeric standing bars (read the fair and the card price from this pick's own fields)
         fair,cost=_fair_of(p),_card_cost_of(p)
         if fair is None or cost is None:
@@ -257,13 +258,13 @@ def _standing_rule_holds(m):
         gross=round(fair-cost,6)
         net=round(gross-(_kfee_c(cost) if _is_kalshi_priced(p) else 0.0),6)
         net_bar=_NET_BAR_C.get(p.get('market_class'),2.0)
-        if fair<_CARD_BAND_C: out.append(f"{who}: fair {fair:g}c below the 60c card band")
-        if cost>=_ASK_CUT_C: out.append(f"{who}: card ask {cost:g}c at or above the 85c cut")
-        if gross<_GROSS_BAR_C: out.append(f"{who}: gross {gross:g}c below the 2c bar")
-        if net<net_bar: out.append(f"{who}: net {net:g}c below the {net_bar:g}c bar")
+        if fair<_CARD_BAND_C: out.append((p.get('name'),'fair_band',f"{who}: fair {fair:g}c below the 60c card band"))
+        if cost>=_ASK_CUT_C: out.append((p.get('name'),'ask_cut',f"{who}: card ask {cost:g}c at or above the 85c cut"))
+        if gross<_GROSS_BAR_C: out.append((p.get('name'),'gross_bar',f"{who}: gross {gross:g}c below the 2c bar"))
+        if net<net_bar: out.append((p.get('name'),'net_bar',f"{who}: net {net:g}c below the {net_bar:g}c bar"))
         u,base=_RUNG_INT.get(p.get('units')),_j096_rung(fair,gross)
         if u is not None and base and u>base:
-            out.append(f"{who}: units {p.get('units')!r} over the J-096 rung {base}u of its fair (fair {fair:g}c, gross {gross:g}c)")
+            out.append((p.get('name'),'units_over_rung',f"{who}: units {p.get('units')!r} over the J-096 rung {base}u of its fair (fair {fair:g}c, gross {gross:g}c)"))
         ba=p.get('best_ask')  # card_american must equal the best ask of its recorded venues
         if isinstance(ba,dict) and isinstance(ba.get('compared'),list) and ba['compared']:
             costs=[c for c in (_venue_cost(q.get('venue'),q.get('price')) for q in ba['compared'] if isinstance(q,dict)) if c is not None]
@@ -271,13 +272,13 @@ def _standing_rule_holds(m):
             if isinstance(kb,dict) and _rnum(kb.get('cents')) is not None: costs.append(float(kb['cents']))
             cardc=_cost_from_american(_as_american(p))
             if costs and cardc is not None and abs(cardc-min(costs))>1.0:
-                out.append(f"{who}: card price {cardc:g}c is not the best recorded ask {min(costs):g}c")
+                out.append((p.get('name'),'best_ask',f"{who}: card price {cardc:g}c is not the best recorded ask {min(costs):g}c"))
     # parlay: 2-4 legs (J-098), each a pick on the card, clearing 2c gross and 2c net (ruling (2))
     par=m.get('parlay')
     legs=par.get('legs') if isinstance(par,dict) else None
     if isinstance(legs,list) and len(legs)>=2 and all(isinstance(x,str) and x for x in legs):
         if len(legs)>4:
-            out.append(f"parlay: {len(legs)} legs - J-098 allows 2-4")
+            out.append((None,'parlay_length',f"parlay: {len(legs)} legs - J-098 allows 2-4"))
         by={}
         for p in picks: by.setdefault(p.get('name'),[]).append(p)
         lp=[by[l][0] for l in legs if len(by.get(l,[]))==1]
@@ -297,15 +298,95 @@ def _standing_rule_holds(m):
                         qfee=_kfee_c(qc) if str(q.get('venue') or '').strip().lower()=='kalshi' else 0.0
                         if (qc,qfee)<(pcost,pfee): pcost,pfee=qc,qfee
                 pg,pn=round(100*fp-pcost,6),round(100*fp-pcost-pfee,6)
-                if pg<2: out.append(f"parlay: gross {pg:g}c below the 2c parlay bar")
-                if pn<2: out.append(f"parlay: net {pn:g}c below the 2c parlay bar")
+                if pg<2: out.append((None,'parlay_gross',f"parlay: gross {pg:g}c below the 2c parlay bar"))
+                if pn<2: out.append((None,'parlay_net',f"parlay: net {pn:g}c below the 2c parlay bar"))
     return out
+# --- owner suspension of ruling 2026-10-02 (4), numeric bars only (owner, typed in the operator chat 2026-10-03
+# about 7:20 AM PT, option B: suspend rule (4) for that day so the named owner-directed picks with a sub-bar
+# disclosure can post; card corrected by the owner to six picks about 7:44 AM PT). The hold above stays a hard
+# gate: this is a narrow, logged waiver, never a removal.
+# slates/owner_rule_suspensions.jsonl is append-only, one JSON object per line: {date, rule, scope, picks,
+# approved, logged_at}, every pick an object {name, eid, units} (non-empty strings). A held item is waived ONLY
+# when a line has date == this manifest's date (exact string), rule == "2026-10-02 (4)" and scope == "numeric",
+# the item is a numeric bar (fair below the 60c band, gross below the 2c bar, net below the class bar, units over
+# the J-096 rung of its fair) and its pick name is exactly a logged name - and the whole waiver is refused (nothing
+# waived) unless ALL of these hold: the card_note, the note the page actually renders, carries the disclosure
+# ("owner-directed" or "owner directive", and "sub-bar", any case); no logged name is on more than one card pick
+# and no name is logged twice with different entries; and every waived pick plays on the logged date (its
+# game.commence in Pacific time) and carries exactly its logged eid (game.eid) and units. Never suspendable: a Las
+# Vegas team, units off the ladder, a card ask at or above the 85c cut, a card price that is not the best recorded
+# ask, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly
+# as before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record) waives
+# nothing. The log is read only for a held card, so a card with no holds builds identically.
+_SUSPEND_RULE='2026-10-02 (4)'
+_SUSPEND_KINDS=frozenset(('fair_band','gross_bar','net_bar','units_over_rung'))
+_SUSPEND_LOG=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','slates','owner_rule_suspensions.jsonl')
+def _suspension_records(path):
+    # -> (records, None), or (None, why) when the log cannot be trusted as a whole (fail closed)
+    try: raw=open(path,encoding='utf-8').read()
+    except FileNotFoundError: return [],None
+    except Exception as e: return None,f'unreadable ({type(e).__name__})'
+    _s=lambda v: isinstance(v,str) and bool(v.strip())
+    recs=[]
+    for n,ln in enumerate(raw.splitlines(),1):
+        try: r=json.loads(ln)
+        except Exception: return None,f'line {n} is not JSON'
+        if not (isinstance(r,dict) and all(_s(r.get(k)) for k in ('date','rule','scope','approved','logged_at'))
+                and isinstance(r.get('picks'),list) and r['picks']
+                and all(isinstance(x,dict) and all(_s(x.get(k)) for k in ('name','eid','units')) for x in r['picks'])):
+            return None,f'line {n} is not a well-formed suspension record'
+        recs.append(r)
+    return recs,None
+def _owner_waivers(m,holds):
+    # -> ([(held item, approved)], note when a suspension for this date exists but waives nothing, or None)
+    recs,bad=_suspension_records(_SUSPEND_LOG)
+    if recs is None: return [],f'slates/owner_rule_suspensions.jsonl {bad} - nothing waived'
+    d=m.get('date')
+    lines=[r for r in recs if isinstance(d,str) and r['date']==d and r['rule']==_SUSPEND_RULE and r['scope']=='numeric']
+    if not lines: return [],None
+    cn=m.get('card_note').lower() if isinstance(m.get('card_note'),str) else ''
+    if not (('owner-directed' in cn or 'owner directive' in cn) and 'sub-bar' in cn):
+        return [],f'the {d} suspension needs the card_note disclosure ("owner-directed" or "owner directive", and "sub-bar") - nothing waived'
+    logged={}
+    for r in lines:
+        for e in r['picks']:
+            k=(e['eid'],e['units'])
+            if logged.setdefault(e['name'],(k,r['approved']))[0]!=k:
+                return [],f"pick {e['name']!r} is logged twice with different entries - nothing waived"
+    cards=[p for p in (m.get('picks') or []) if isinstance(p,dict)]
+    dup=sorted(n for n in logged if sum(1 for p in cards if p.get('name')==n)>1)
+    if dup: return [],f"logged pick name(s) on more than one card pick: {', '.join(repr(n) for n in dup)} - nothing waived"
+    out=[]
+    for it in holds:
+        name,kind,_msg=it
+        if kind not in _SUSPEND_KINDS or not isinstance(name,str) or name not in logged: continue
+        (eid,units),appr=logged[name]
+        p=next((p for p in cards if p.get('name')==name),{})
+        g=p.get('game') if isinstance(p.get('game'),dict) else {}
+        pd=_pt_date(g.get('commence')) if isinstance(g.get('commence'),str) else ''
+        if pd!=d: return [],f"pick {name!r} plays on {pd or 'no date'} (Pacific), not the logged {d} - nothing waived"
+        if g.get('eid')!=eid or p.get('units')!=units:
+            return [],(f"pick {name!r} (eid {g.get('eid')!r}, units {p.get('units')!r}) does not match its logged entry "
+                       f"(eid {eid!r}, units {units!r}) - nothing waived")
+        out.append((it,appr))
+    return out,None
 _RULE_HOLDS=_standing_rule_holds(man)
 if _RULE_HOLDS:
-    print('BUILD FAILED: card hold - standing rules are hard gates with no override (owner ruling 2026-10-02 (4)): '
-          +' | '.join(_RULE_HOLDS)+' - rebuild the card with build_manifest.py', file=sys.stderr)
-    _urf("ABORT","C=3 F=0 R=3 U=1 V=3 CE=0 T=high","standing-rules card hold",f"{len(_RULE_HOLDS)} violation(s) on the landed card; nothing written")
-    sys.exit(3)
+    _WAIVED,_WAIVE_NOTE=_owner_waivers(man,_RULE_HOLDS)
+    if _WAIVED and len(_WAIVED)==len(_RULE_HOLDS):
+        print(f"OWNER SUSPENSION: rule {_SUSPEND_RULE} suspended for {man.get('date')} (approved: "
+              +' ; '.join(dict.fromkeys(a for _,a in _WAIVED))+') - waived: '+' | '.join(it[2] for it,_ in _WAIVED), file=sys.stderr)
+        _urf("EXECUTE","C=3 F=2 R=2 U=1 V=3 CE=0 T=high","owner suspension of standing rule 2026-10-02 (4)",
+             f"{len(_WAIVED)} numeric hold(s) waived for {man.get('date')} by the logged owner approval in slates/owner_rule_suspensions.jsonl "
+             "(logged picks only, each unique on the card, played that day, bound to its logged eid and units; owner-directed sub-bar "
+             "disclosure in the rendered card_note); the Vegas, ladder, 85c-cut, best-ask and parlay rules stay hard")
+    else:
+        if _WAIVED: _WAIVE_NOTE=f"the {man.get('date')} suspension covers {len(_WAIVED)} of {len(_RULE_HOLDS)} held item(s); the rest hold the card - nothing waived"
+        if _WAIVE_NOTE: print(f'owner suspension not applied: {_WAIVE_NOTE}', file=sys.stderr)
+        print('BUILD FAILED: card hold - standing rules are hard gates with no override (owner ruling 2026-10-02 (4)): '
+              +' | '.join(it[2] for it in _RULE_HOLDS)+' - rebuild the card with build_manifest.py', file=sys.stderr)
+        _urf("ABORT","C=3 F=0 R=3 U=1 V=3 CE=0 T=high","standing-rules card hold",f"{len(_RULE_HOLDS)} violation(s) on the landed card; nothing written")
+        sys.exit(3)
 out=sys.argv[2] if len(sys.argv)>2 else '/home/sandbox/gh_page/index.html'
 BOOKS=[('BetRivers','BR'),('DraftKings','DK'),('Hard Rock','HR'),('Kalshi','KAL'),('BetMGM','MGM'),('Polymarket','POLY'),('theScore','TSB')]  # FD sportsbook removed site-wide (his standing 'FD removed' spec, scope settled 8:37 PM via main: no FD sportsbook chips anywhere; FD Predicts arm is a separate prediction-market row and stays)  # alphabetical by displayed chip label (his Sep 25 9:19 AM spec: alphabetical chips; audit Sep 26 caught combo order regressed - root fix is the shared order, solo+combo read the same sequence)  # U-GEO-003: ESPN BET is DEAD - dropped at ingestion, never mapped (tester gate). theScore Bet is the single canonical arm (one chip per arm).
 BKDOM={'DK':'draftkings.com','FD':'fanduel.com','TSB':'thescore.bet','HR':'hardrock.bet','MGM':'betmgm.com','BR':'betrivers.com','KAL':'kalshi.com','POLY':'polymarket.com','B365':'bet365.com','FAN':'fanatics.com','DKP':'predictions.draftkings.com','FDP':'fanduel.com'}
@@ -2247,6 +2328,78 @@ _recpop_html=('<div class="recpop" id="rpRecPop" hidden>'
 # also the first line of the page head, right under the nav record strip, on Home only
 # (.home-only): the Past Tickets view keeps showing no bankroll wording (PAST_HIDE_MONEY).
 _unit_basis_home='<div class="unitmath unitbasis home-only" id="rpUnitBasis">1u = $5 per $1,000 in bankroll</div>'
+# What the system is learning (owner directive, Oct 2: the site shows what the system is learning,
+# in real time, as picks grade). A Home-only section next to News, read from the public ledger
+# history.json. Day groups newest day first, at most 3; under each group's day label that day's own
+# brief, then its graded picks' lessons newest-graded first (reverse ledger order: the grading chain
+# appends as picks grade), at most 6 picks in all, each with its result and units. A day counts only
+# when it has a graded pick (W/L/P); a graded day with a brief and no pick text still shows its brief;
+# once 6 picks are shown no further day is opened. A pick's lesson is its `note` (learn_brief) or,
+# when that is missing or left out, its `learning` (the record_final grading chain). This is the first
+# paint; index_v2.js (rpLearnHtml/rpLearnPanel) re-reads history.json every 120 s while the page is
+# visible and repaints the box by the same rules when the content changed. Public ledger fields only
+# (pick name, result, units, note/learning, day brief and label). A text is left out whole, never cut
+# into half a sentence, when it names money ('$', fullwidth U+FF04, small U+FE69, or the words
+# dollar(s) / USD) or cannot be written as UTF-8 (a lone surrogate would crash the page write); a
+# left-out text renders as if absent. Every value is HTML-escaped and its slashes entity-encoded, so
+# no ledger text can read as markup or as a comment to scrub_shipped. history.json missing, unreadable
+# or with nothing to show renders nothing: no heading, no empty box. Self-contained
+# (scripts/test_learnings_panel.py runs it from source and checks the client renders the same).
+def _learnings_html(hist_path, max_picks=6, max_days=3):
+    import html as _lh, json as _lj, re as _lr
+    try:
+        with open(hist_path) as _f:
+            _days = _lj.load(_f).get('days')
+    except Exception:
+        return ''
+    if not isinstance(_days, list):
+        return ''
+    _days = sorted((d for d in _days if isinstance(d, dict) and isinstance(d.get('picks'), list)),
+                   key=lambda d: str(d.get('date') or ''), reverse=True)
+    # ASCII word boundaries and case folding, the same as the client's /.../i
+    _money = _lr.compile(r'[$\uff04\ufe69]|(?<![A-Za-z])(?:dollars?|usd)(?![A-Za-z])', _lr.I | _lr.A)
+    def _t(v):
+        # the client's trim set: str.isspace() plus U+FEFF (JS trim() plus U+001C-U+001F, U+0085)
+        s = _lr.sub(r'^[\s\ufeff]+|[\s\ufeff]+\Z', '', v) if isinstance(v, str) else ''
+        try:
+            s.encode('utf-8')
+        except UnicodeEncodeError:
+            return ''
+        return '' if _money.search(s) else s
+    def _e(s):
+        return _lh.escape(s, quote=True).replace('/', '&#47;')
+    def _graded(p):
+        return isinstance(p, dict) and p.get('result') in ('W', 'L', 'P')
+    out, n, g = '', 0, 0
+    for d in _days:
+        if n >= max_picks or g >= max_days:
+            break
+        if not any(_graded(p) for p in d['picks']):
+            continue
+        body = ('<div class="lnbrief">' + _e(_t(d.get('brief'))) + '</div>') if _t(d.get('brief')) else ''
+        for p in reversed(d['picks']):
+            if n >= max_picks:
+                break
+            if not _graded(p):
+                continue
+            name, text = _t(p.get('name')), (_t(p.get('note')) or _t(p.get('learning')))
+            if not (name and text):
+                continue
+            r = p['result']
+            body += ('<div class="lnitem"><div class="lnhead"><span class="lnres ' + r + '">' + r + '</span>'
+                     '<span class="lnname">' + _e(name) + '</span>'
+                     + (('<span class="lnunits">' + _e(_t(p.get('units'))) + '</span>') if _t(p.get('units')) else '')
+                     + ('<span class="lntag">added after kickoff</span>' if p.get('added_after_kickoff') is True else '')
+                     + '</div><div class="lnnote">' + _e(text) + '</div></div>')
+            n += 1
+        if body:
+            out += '<div class="lnday">' + _e(_t(d.get('label')) or _t(d.get('date'))) + '</div>' + body
+            g += 1
+    if not out:
+        return ''
+    return ('<div class="sect home-only" id="rpLearnHead" style="margin-top:18px">What the system is learning</div>\n'
+            '<div class="card learn home-only" id="rpLearn" aria-live="polite">' + out + '</div>\n')
+_learn_html = _learnings_html(os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), 'history.json'))
 _tail_html=('<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>')
 if _V2:
     INDEX_V2_CSS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.css')).read()
@@ -2307,6 +2460,11 @@ if _V2:
     # Wooder Ice guest tab (12:25 design-approved via main, scope settled 12:25:40): ALL Wooder NFL
     # guest content moves here from the NFL tab (slate+countdown, combos, tickets, Kincaid update, builders).
     # Shared data: same slates/*.json hydration, no divergent state. Dingers stays on the MLB tab.
+    # Oct 5: NFL tab shows only on days with NFL content - a card pick (tab already built above) OR a dated,
+    # non-empty slates/nfl_ideas.json (client-checked; the tab link ships hidden and is revealed only then).
+    # Keeps the 9/27 9:40:49 pick-days-only rule: no NFL content, no visible NFL tab.
+    _nfl_synth=not any(t['key']=='nfl' for t in RP_TABS)
+    if _nfl_synth: RP_TABS.append({'key':'nfl','label':'NFL','espn':'football/nfl'})
     RP_TABS.append({'key':'wooder','label':'Picks from Wooder Ice','espn':''})
 
     RP_TABS.append({'key':'past','label':'Past Tickets','espn':''})
@@ -2366,7 +2524,7 @@ if _V2:
     r'Array.prototype.forEach.call(bar.querySelectorAll("a"),function(a){a.onclick=function(ev){ev.preventDefault();FILT=a.getAttribute("data-f");barDraw();draw();};});}'
     r'fetch("slates/past_tickets.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){ALL=(j&&j.entries)||[];barDraw();draw();}).catch(function(){box.innerHTML="<div class=\"sub\">Archive unavailable right now.</div>";});'
     r'})();</script>')
-    _tabs_html=''.join('<a class="tab" data-tab="'+t['key']+'" href="#'+t['key']+'">'+html.escape(t['label'])+'</a>' for t in RP_TABS)
+    _tabs_html=''.join('<a class="tab"'+(' id="rpNflTab" style="display:none"' if (t['key']=='nfl' and _nfl_synth) else '')+' data-tab="'+t['key']+'" href="#'+t['key']+'">'+html.escape(t['label'])+'</a>' for t in RP_TABS)
     _home_pick_tabs={_tab_of_lg(p.get('espn_league',''))[0] for p in man['picks']}
     # The builder's zero-card defense stores its honest empty row under 'other'.
     # Render that row (including Yesterday) on Home. Any genuinely league-less picks
@@ -2436,10 +2594,62 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     r'})();</script>')
     mlb_entry=mlb_entry.replace('var VEN={};','var VEN='+json.dumps({k:[v[0],v[1],v[2],v[3]] for k,v in _DING_VENUES.items()},separators=(',',':'))+';')
 
+    # NFL ideas (Oct 5): client-hydrated from slates/nfl_ideas.json, same pattern and venue map as Dingers Only.
+    # Contract venues only (KAL/DKP), cents -> American by conversion, never an invented price, never a combo
+    # price. Hides (and keeps the tab hidden) on a missing, empty or wrong-date file. Not-placed ideas, no wagers.
+    nfl_ideas_entry=(
+    r'<div style="margin-top:6px">'
+    r'<div class="sect" style="margin-top:2px">PICKS FROM RIX</div>'
+    r'<div id="rpNflIdeas"></div>'
+    r'<div style="font-size:11px;color:#8a8f98;margin-top:10px;line-height:1.45">Prices are per leg from the venue named, as of the time shown, converted from cents to American. No combined price is quoted.</div>'
+    r'</div>'
+    r'<script>(function(){'
+    r'var box=document.getElementById("rpNflIdeas"),tab=document.getElementById("rpNflTab");if(!box)return;'
+    r'var VEN={};'
+    r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
+    r'function c2ml(c){c=+c;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}'
+    r'function ptDate(){try{return new Date().toLocaleDateString("en-CA",{timeZone:"America/Los_Angeles"});}catch(e){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}}'
+    r'function none(){box.innerHTML="<div class=\"sub\">No NFL ideas today.</div>";}'
+    r'fetch("slates/nfl_ideas.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
+    r'var cs=(j&&j.cards)||[];if(!cs.length||(j.date||"")!==ptDate()){none();return;}'
+    r'var h="";'
+    r'cs.slice(0,10).forEach(function(cd){'
+    r'if(!cd.title||!(cd.legs||[]).length)return;'
+    r'var lh="";'
+    r'cd.legs.slice(0,12).forEach(function(lg){'
+    r'if(!lg.player||!lg.market)return;'
+    r'var chips="";'
+    r'(lg.links||[]).forEach(function(l){var v=VEN[l.venue];if(!v||l.cents==null||!v[3])return;var c=+l.cents;if(!(c>0&&c<100))return;'
+    r'var ml=c2ml(c);var st="background:"+v[1]+";border-color:"+v[1]+";color:"+v[2]+";font-size:11px;padding:2px 10px";'
+    r'chips+=" <span class=\"chip\" style=\""+st+"\">"+esc(l.venue)+" "+(ml>0?"+":"")+ml+"</span>";});'
+    r'var un=(lg.unlisted||[]).length?"<span style=\"color:#8a8f98;font-size:11px;margin-left:6px\">Not listed on "+esc(lg.unlisted.join(", "))+"</span>":"";'
+    r'lh+="<div style=\"padding:6px 0;border-top:1px solid rgba(127,127,127,.18)\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+esc(lg.player)+"</b><span style=\"color:#8a8f98;font-size:12px\">"+esc(lg.market)+"</span></div>"'
+    r'+(lg.note?"<div style=\"font-size:11px;color:#8a8f98;margin-top:2px\">"+esc(lg.note)+"</div>":"")+"<div style=\"margin-top:4px\">"+chips+un+"</div></div>";});'
+    r'if(!lh)return;'
+    r'h+="<div class=\"rpnpick\" style=\"border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px;margin-top:10px\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+esc(cd.title)+"</b></div>"'
+    r'+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(cd.matchup||"")+(cd.time?" &middot; "+esc(cd.time):"")+"</div>"+lh'
+    r'+(cd.asof?"<div style=\"font-size:11px;color:#8a8f98;margin-top:6px;line-height:1.4\">"+esc(cd.asof)+"</div>":"")'
+    r'+(cd.assumptions?"<div style=\"font-size:11px;color:#8a8f98;margin-top:4px;line-height:1.4\">"+esc(cd.assumptions)+"</div>":"")+"</div>";});'
+    r'if(!h){none();return;}'
+    r'box.innerHTML=h;if(tab)tab.style.display="";'
+    r'}).catch(none);'
+    r'})();</script>')
+    if _nfl_synth: nfl_ideas_entry='<style>body.tab-nfl main>.cardnote{display:none}</style>'+nfl_ideas_entry
+    nfl_ideas_entry=nfl_ideas_entry.replace('var VEN={};','var VEN='+json.dumps({k:[v[0],v[1],v[2],v[3]] for k,v in _DING_VENUES.items()},separators=(',',':'))+';')
+
+    # Wooder Ice batch tickets (Oct 5): additive panel under the Wooder Ice tab, same hydration, venue map and
+    # cents->American conversion as the NFL ideas panel; reads slates/wooder_batch.json; hides on a missing,
+    # empty or wrong-date file. Per leg only, no combined price. Never touches wooder_dingers.json.
+    wooder_batch_entry=nfl_ideas_entry
+    if wooder_batch_entry.startswith('<style>'): wooder_batch_entry=wooder_batch_entry[wooder_batch_entry.index('</style>')+8:]
+    wooder_batch_entry=(wooder_batch_entry.replace('PICKS FROM RIX','Wooder Ice tickets').replace('rpNflIdeas','rpBatchIdeas').replace('rpNflTab','rpBatchTab')
+      .replace('slates/nfl_ideas.json','slates/wooder_batch.json').replace('<div class=\\"sub\\">No NFL ideas today.</div>','')
+      .replace(r'<div class=\"rpnpick\" style=', r'<div class=\"rpnpick\" id=\"tk-"+esc(cd.id||"")+"\" style='))
+    assert 'rpBatchIdeas' in wooder_batch_entry and 'tk-' in wooder_batch_entry and 'wooder_batch.json' in wooder_batch_entry
     for t in RP_TABS:
         if t['key']=='home': continue  # home projects the canonical league panels below
         _prows=''.join(_panels.get(t['key']) or [])
-        _body=(_prows if t['key']=='nfl' else ((nfl_entry if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
+        _body=((_prows+nfl_ideas_entry) if t['key']=='nfl' else (((nfl_entry+wooder_batch_entry) if t['key']=='wooder' else (past_entry if t['key']=='past' else ((_prows+mlb_entry) if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():
             _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
@@ -2452,7 +2662,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
     '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><button type="button" class="rec" id="rpNavRec" aria-haspopup="true" aria-expanded="false" aria-controls="rpRecPop" aria-label="View overall record"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</button>'+_recpop_html+'</nav>\n'
-    '<div class="layout"><div class="rphead">'+_unit_basis_home+_home_yes+'<div class="rpdate" data-date="'+html.escape(_RPDATE_ISO)+'">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
+    '<div class="layout"><div class="rphead">'+_unit_basis_home+_home_yes+'<div class="rpdate" data-date="'+html.escape(_RPDATE_ISO)+'">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_learn_html+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Upcoming Events</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div id="rpPredWrap" class="home-only" style="display:none"><div class="col-head" style="margin-top:18px"><div class="sect">Predictions by UltRix</div></div><div class="card" id="rpPred"></div></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'

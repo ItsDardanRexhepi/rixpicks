@@ -60,7 +60,9 @@ jobs:
           KALSHI_KEY_ID: ${{ secrets.KALSHI_KEY_ID }}
           KALSHI_PRIVATE_KEY: ${{ secrets.KALSHI_PRIVATE_KEY }}
           LISTENER_MAX_MINUTES: '340'
-          LISTENER_PUSH_EVERY: '75'
+          # 240 s (was 75): a tick commit every 75 s kept cancelling every Pages deploy (10 straight cancelled
+          # builds Oct 5 12:25-12:35 PT). Ticks still land well inside the 20 min staleness gate.
+          LISTENER_PUSH_EVERY: '240'
         run: |
           git config user.name "rix-bot"
           git config user.email "bot@rix-picks.com"

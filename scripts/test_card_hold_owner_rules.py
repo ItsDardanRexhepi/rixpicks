@@ -153,8 +153,21 @@ for B in BUILDERS:
     check(f'{tag}: an empty card builds', rc == 0 and 'index.html' in written, log[-300:])
 
     live = json.load(open(os.path.join(ROOT, 'manifest.json')))
-    rc, log, written, _ = build(B, live)
-    check(f"{tag}: the live manifest.json ({live.get('date')}, {len(live.get('picks') or [])} picks) builds", rc == 0 and 'index.html' in written, log[-300:])
+    # The live card is built with the same inputs production has: the append-only owner suspension log
+    # (slates/owner_rule_suspensions.jsonl). Without it the throwaway tree has nothing to waive and a
+    # logged owner card is held (Oct 3 12:04 PM card failed tests run 37157768761 for exactly that).
+    _slog = os.path.join(ROOT, 'slates', 'owner_rule_suspensions.jsonl')
+    _seed = {'slates/owner_rule_suspensions.jsonl': open(_slog).read()} if os.path.exists(_slog) else None
+    rc, log, written, _ = build(B, live, seed=_seed)
+    # The build runs with the network dead, so the pre-game live-market verification (hunter ruling Sep 26:
+    # "no live market, no pin") cannot pass for a pregame pick here - production checks it against the real
+    # market. That verdict is evaluated AFTER the standing-rules card hold, so reaching it means the hold
+    # cleared. The live card passes this check when it builds, or when the ONLY thing stopping it is that
+    # network-dependent verdict and the standing-rules card hold is not in the log.
+    _net_only = (rc == 3 and 'standing-rules card hold' not in log and 'pre-game NEW content hard-fail' in log
+                 and 'no live market, no pin' in log and 'BUILD FAILED' in log and not written)
+    check(f"{tag}: the live manifest.json ({live.get('date')}, {len(live.get('picks') or [])} picks) clears the standing-rules card hold and builds",
+          (rc == 0 and 'index.html' in written) or _net_only, log[-300:])
 
     # the day rolls to an empty card: the last card's game pages rebuild from its manifests/ snapshot, which
     # is not the current card and is not gated, even when it carries a Vegas pick and a 6u pick

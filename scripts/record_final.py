@@ -31,6 +31,8 @@ from zoneinfo import ZoneInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..')
+sys.path.insert(0, ROOT)
+from core.accepted_entry import accepted_entry, entry_delta
 REQ = os.path.join(ROOT, 'record_request.json')
 MAN = os.path.join(ROOT, 'manifest.json')
 HIST = os.path.join(ROOT, 'history.json')
@@ -658,7 +660,13 @@ def main():
         except (KeyError, InvalidOperation, ValueError):
             print(f'  REFUSE {gid}: delta_units_exact / units_after_exact missing or unparsable', file=sys.stderr)
             return 3
-        want_delta = expected_delta(res, price, stake)
+        accepted = accepted_entry(cp)
+        if accepted is not None:
+            accepted_basis = {k: accepted[k] for k in ('accepted_entry_id', 'card_venue', 'entry_c', 'entry_basis')}
+            if q.get('accepted_entry') != accepted_basis:
+                print(f'  REFUSE {gid}: accepted-entry provenance mismatch', file=sys.stderr)
+                return 3
+        want_delta = entry_delta(res, stake, accepted) if accepted is not None else expected_delta(res, price, stake)
         if abs(delta - want_delta) > EXACT:
             print(f'  REFUSE {gid}: delta {delta} does not follow from {res} at {price:+d} on {stake}u (want {want_delta})', file=sys.stderr)
             return 3
@@ -739,6 +747,8 @@ def main():
         _row = {'name': q['pick'], 'game': game, 'odds': q['locked_american'],
                 'units': q['stake_units'], 'result': {'WON': 'W', 'LOST': 'L', 'PUSH': 'P'}[res],
                 'score': score_txt, '_delta': str(Decimal(str(q['delta_units_exact'])))}
+        if accepted is not None:
+            _row['accepted_entry'] = accepted_basis
         if isinstance(q.get('learning'), str) and q['learning'].strip():
             _row['learning'] = q['learning'].strip()
         day['picks'].append(_row)

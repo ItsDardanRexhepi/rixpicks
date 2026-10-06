@@ -10,6 +10,10 @@
    _pick_line turns a manifest pick into the data-line the page grades with, and the page's verdict
    must equal record_final.score_result on the same final - 'Lynx +4' (line -4) on 85-84 is W, not L,
    and an away favourite 'Lynx -3' (line +3) winning by 2 is L, not W.
+   Oct 5 Flyers +1.5 regression: manifest line -1.5 is Tampa Bay's HOME spread, not
+   the Flyers' selected-side spread. A sign-only manifest edit would change the pick.
+   The actual page conversion and all four graders must agree: a one-goal Flyers loss
+   still covers; a two-goal loss does not. Hypothetical finals below are fixtures, not scores.
    Functions are extracted from the real builder template (both twins).
    Run: node scripts/test_final_verdict.js [builder.py ...] */
 'use strict';
@@ -88,10 +92,11 @@ for (const B of builders) {
     ['Lynx -3 (away favourite, home line +3)', { name: 'Lynx -3', market_class: 'spread', side: 'away', line: 3 }],
     ['Liberty -4 (home, home line -4)', { name: 'Liberty -4', market_class: 'spread', side: 'home', line: -4 }],
     ['Fever +4.5 legacy name-only away spread', { name: 'Fever +4.5', market: 'spread', side: 'away' }],
-    ['Lynx PK (away pick\'em, home line 0)', { name: 'Lynx PK', market_class: 'spread', side: 'away', line: 0 }]];
-  const FINALS = [[85, 84], [82, 84], [80, 84], [70, 84], [86, 84], [87, 84], [81, 84]];
+    ['Lynx PK (away pick\'em, home line 0)', { name: 'Lynx PK', market_class: 'spread', side: 'away', line: 0 }],
+    ['Flyers +1.5 (away cover, home line -1.5)', { name: 'Flyers +1.5', market_class: 'spread', side: 'away', line: -1.5 }]];
+  const FINALS = [[85, 84], [82, 84], [80, 84], [70, 84], [86, 84], [87, 84], [81, 84], [3, 2], [2, 3], [1, 3], [0, 0]];
   const py = [
-    'import ast, importlib.util, json, re, sys, warnings',
+    'import ast, importlib.util, json, os, re, sys, warnings',
     'warnings.simplefilter("ignore")  # the builder source carries pre-existing invalid escapes inside JS templates',
     'B, SD, picks, finals = sys.argv[1], sys.argv[2], json.loads(sys.argv[3]), json.loads(sys.argv[4])',
     'ns = {"re": re}',
@@ -99,11 +104,18 @@ for (const B of builders) {
     '    if isinstance(node, ast.FunctionDef) and node.name in ("_pick_mclass", "_pick_line"):',
     '        exec(compile(ast.Module(body=[node], type_ignores=[]), B, "exec"), ns)',
     'spec = importlib.util.spec_from_file_location("rf", SD + "/record_final.py"); rf = importlib.util.module_from_spec(spec); spec.loader.exec_module(rf)',
+    'sys.path.insert(0, os.path.dirname(SD)); os.environ["RIX_UNIT_DOLLARS"] = "1"',
+    'spec = importlib.util.spec_from_file_location("fw", SD + "/finals_watch.py"); fw = importlib.util.module_from_spec(spec); spec.loader.exec_module(fw)',
+    '# Only external price-ledger reads are stubbed; real grade(), including sign math, runs.',
+    'fw.fill_leak.card_price = lambda p: (58, {"card_american": -138}, 1)',
+    'fw.fill_leak.fill_divergence = lambda p: []',
     'out = []',
     'for p in picks:',
     '    ln = ns["_pick_line"](p)',
     '    hl = p.get("line") if p.get("line") is not None else (-ln if p["side"] == "away" else ln)',
-    '    out.append({"line": ("%g" % ln) if ln is not None else None,',
+    '    fixture = dict(p, market_class="spread", line=hl, odds="-138", units="5u", kalshi={"cents": 58})',
+    '    watch = [fw.grade(fixture, {"away_score": a, "home_score": h})[0] for a, h in finals]',
+    '    out.append({"line": ("%g" % ln) if ln is not None else None, "watch": [{"PUSH": "P"}.get(v, v) for v in watch],',
     '                "record": [{"WON": "W", "LOST": "L", "PUSH": "P"}.get(rf.score_result("spread", p["side"], hl, a, h)) for a, h in finals]})',
     'print(json.dumps(out))'].join('\n');
   let emitted = null;
@@ -116,11 +128,15 @@ for (const B of builders) {
     check(`${tag}: Lynx +4 from the manifest emits data-line 4 (its own side's spread)`, emitted[0].line, '4');
     check(`${tag}: Lynx -3 from the manifest emits data-line -3`, emitted[1].line, '-3');
     check(`${tag}: an away pick'em emits data-line 0, never -0`, emitted[4].line, '0');
+    check(`${tag}: Flyers +1.5 emits selected-side data-line 1.5`, emitted[5].line, '1.5');
+    check(`${tag}: Flyers +1.5: win, one-goal loss, two-goal loss, tied score`, emitted[5].record.slice(-4).join(''), 'WWLW');
+    check(`${tag}: Flyers half-goal spread cannot push on integer-score fixtures`, emitted[5].record.includes('P'), false);
     check(`${tag}: record grades Lynx +4 W, W, P, L on 85-84, 82-84, 80-84, 70-84`, emitted[0].record.slice(0, 4).join(''), 'WWPL');
     PIPE.forEach(([label, p], i) => {
       const ds = { side: p.side, market: 'spread', line: emitted[i].line };
       const home = FINALS.map(([a, h]) => { const c = verdict(ds, { a: 'MIN', h: 'NY', as: a, hs: h, w: a > h ? 'a' : 'h' }).className; return { 'ls on won': 'W', 'ls on lost': 'L', 'ls on push': 'P' }[c] || c; });
       const game = FINALS.map(([a, h]) => gctx.rpGameGrade({ dataset: ds }, a, h));
+      check(`${tag}: ${label}: finals watcher equals the record on every final`, emitted[i].watch.join(','), emitted[i].record.join(','));
       check(`${tag}: ${label}: Home row verdict equals the record on every final`, home.join(','), emitted[i].record.join(','));
       check(`${tag}: ${label}: game page verdict equals the record on every final`, game.join(','), emitted[i].record.join(','));
     });

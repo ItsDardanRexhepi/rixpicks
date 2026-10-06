@@ -1,0 +1,74 @@
+{
+ "date": "2026-10-05",
+ "date_label": "Monday, Oct 5",
+ "updated": "Oct 5, 9:30 AM PT",
+ "record": "33-15",
+ "units_pl": "+24.81u",
+ "units_ledger": null,
+ "yesterday": "2-0 - Dream ML W, Brewers ML W",
+ "status_note": "Official picks by owner directive - sub-bar disclosure on file (the owner's picks; neither cleared every bar this morning)",
+ "preview": false,
+ "picks": [
+  {
+   "num": 1,
+   "name": "Penguins ML",
+   "market_class": "ml",
+   "odds": "-163",
+   "units": "5u",
+   "side": "home",
+   "sub": "owner position \u00b7 model 64.5",
+   "game": {
+    "away": "Winnipeg Jets",
+    "home": "Pittsburgh Penguins",
+    "commence": "2026-10-05T23:30Z",
+    "eid": "401892447"
+   },
+   "espn_league": "hockey/nhl",
+   "league": "NHL",
+   "kalshi": {
+    "url": "https://kalshi.com/markets/kxnhlgame/kxnhlgame-26oct05wpgpit",
+    "cents": 63,
+    "team": "PIT",
+    "gate_cents": 63,
+    "ticker": "KXNHLGAME-26OCT05WPGPIT-PIT"
+   },
+   "card_american": -163,
+   "card_source": "best ask at lock: Polymarket 62c (Kalshi 63c)",
+   "card_ts": "2026-10-05T09:30:11-07:00",
+   "polymarket": {
+    "url": "https://polymarket.com/event/nhl-wpg-pit-2026-10-05",
+    "cents": 56
+   },
+   "polymarket_us": {
+    "url": "https://polymarket.us/sports/nhl/nhl-wpg-pit-2026-10-05",
+    "cents": 61,
+    "verified": true
+   },
+   "polycents": 56
+  },
+  {
+   "num": 2,
+   "name": "Flyers +1.5",
+   "market_class": "spread",
+   "line": -1.5,
+   "odds": "-138",
+   "units": "5u",
+   "side": "away",
+   "sub": "owner position \u00b7 model 60.7",
+   "game": {
+    "away": "Philadelphia Flyers",
+    "home": "Tampa Bay Lightning",
+    "commence": "2026-10-05T23:00Z",
+    "eid": "401892445"
+   },
+   "espn_league": "hockey/nhl",
+   "league": "NHL",
+   "card_american": -138,
+   "card_source": "best ask at lock: Polymarket 58c",
+   "card_ts": "2026-10-05T09:30:11-07:00"
+  }
+ ],
+ "parlay": null,
+ "pick_content_hash": "ed225f4cd121b75aa9419ac5f135c24cca69711b4ea1017cd7718e2c5c6d5087",
+ "card_note": "Owner-directed picks: neither cleared this morning's full process (standing bars plus red team); sub-bar disclosure."
+}
