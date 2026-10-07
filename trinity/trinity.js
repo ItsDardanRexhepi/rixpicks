@@ -649,6 +649,29 @@
     window.addEventListener('hashchange', function () { setTimeout(open, 0); });
   }
 
+  /* THE NAV'S TWO RULES, held the moment anything changes it (owner, 2026-10-07): her tab is the LAST one, always,
+     and a league never has two tabs. The page builds it that way; a script that adds a tab of its own later (a module
+     once appended a second WNBA tab after hers) does not get to break either: a repeated tab is removed, the first
+     one kept, and her tab goes back to the end. */
+  function keepLast() {
+    var bar = document.querySelector('nav.rpnav .tabs');
+    if (!bar) return;
+    var fix = function () {
+      var seen = {}, kids = Array.prototype.slice.call(bar.children || []);
+      kids.forEach(function (a) {
+        var k = a.getAttribute && a.getAttribute('data-tab');
+        if (!k) return;
+        if (seen[k]) { if (a.parentNode) a.parentNode.removeChild(a); } else seen[k] = true;
+      });
+      var t = bar.querySelector('.tab[data-tab="trinity"]');
+      if (t && t !== bar.lastElementChild) bar.appendChild(t);
+    };
+    fix();
+    if (typeof MutationObserver === 'function') new MutationObserver(fix).observe(bar, { childList: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', keepLast);
+  else keepLast();
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', wire);
   } else {

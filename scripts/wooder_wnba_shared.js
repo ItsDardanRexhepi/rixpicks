@@ -4,14 +4,18 @@
 function boot(){
 if(document.getElementById('rpWnbaShared'))return;
 var nav=document.querySelector('nav.rpnav .tab');if(!nav)return;
-var anchor=nav.cloneNode(false);anchor.href='#wnba';anchor.dataset.tab='wnba';anchor.textContent='WNBA';anchor.classList.remove('active');nav.parentNode.appendChild(anchor);
+/* The page's own WNBA tab, when the card has one, is used as it is: no second tab, no second panel, and the page's
+   own tab switching keeps showing the card's WNBA picks. Only on a page without one is a WNBA tab added - and always
+   before Trinity's, which is the last tab in the nav (owner, 2026-10-07). */
+var anchor=nav.parentNode.querySelector('.tab[data-tab="wnba"]'),own=!anchor;
+if(own){anchor=nav.cloneNode(false);anchor.href='#wnba';anchor.dataset.tab='wnba';anchor.textContent='WNBA';anchor.classList.remove('active');nav.parentNode.insertBefore(anchor,nav.parentNode.querySelector('.tab[data-tab="trinity"]'));}
 var tabs=window.RP_TABS||[];if(!tabs.some(function(t){return t.key==='wnba';}))tabs.push({key:'wnba',label:'WNBA',espn:'basketball/wnba'});
 var host=document.getElementById('st-wooder');if(!host)return;
-var state=document.createElement('div');state.id='st-wnba';state.className='state';host.after(state);
+var state=document.getElementById('st-wnba');if(!state){state=document.createElement('div');state.id='st-wnba';state.className='state';host.after(state);}
 var module=document.createElement('div');module.id='rpWnbaShared';module.className='state';state.after(module);
-var style=document.createElement('style');style.textContent='body.tab-wnba aside{display:none!important}body.tab-wooder #rpWnbaShared,body.tab-wnba #rpWnbaShared{display:block}#rpWnbaShared .rpwleg{margin:12px 0;font-size:13px}#rpWnbaShared .rpwprice,#rpWnbaShared .rpwnote{font-size:11px;color:#8a8f98;margin-top:3px}';document.head.appendChild(style);
-function tab(){if(location.hash!=='#wnba')return;document.body.className=document.body.className.replace(/\btab-[a-z0-9]+\b/g,'').trim();document.body.classList.add('tab-wnba');document.querySelectorAll('nav.rpnav .tab').forEach(function(a){a.classList.toggle('active',a.dataset.tab==='wnba');});document.querySelectorAll('.state').forEach(function(s){s.classList.remove('on');});document.body.classList.remove('menu-open');}
-anchor.addEventListener('click',function(e){e.preventDefault();location.hash='wnba';tab();});window.addEventListener('hashchange',tab);tab();
+var style=document.createElement('style');style.textContent=(own?'body.tab-wnba aside{display:none!important}':'')+'body.tab-wooder #rpWnbaShared,body.tab-wnba #rpWnbaShared{display:block}#rpWnbaShared .rpwleg{margin:12px 0;font-size:13px}#rpWnbaShared .rpwprice,#rpWnbaShared .rpwnote{font-size:11px;color:#8a8f98;margin-top:3px}';document.head.appendChild(style);
+function tab(){if(!own||location.hash!=='#wnba')return;document.body.className=document.body.className.replace(/\btab-[a-z0-9]+\b/g,'').trim();document.body.classList.add('tab-wnba');document.querySelectorAll('nav.rpnav .tab').forEach(function(a){a.classList.toggle('active',a.dataset.tab==='wnba');});document.querySelectorAll('.state').forEach(function(s){s.classList.remove('on');});document.body.classList.remove('menu-open');}
+if(own){anchor.addEventListener('click',function(e){e.preventDefault();location.hash='wnba';tab();});window.addEventListener('hashchange',tab);tab();}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function draw(j){var arr=(j.tickets||[]).filter(function(t){return t.sport==='wnba';});if(!arr.length){module.innerHTML='<div class="sub">No Wooder Ice WNBA tickets.</div>';return;}
 module.innerHTML=arr.map(function(t){return '<div style="margin-top:18px;border:1px solid rgba(216,162,58,.45);border-radius:12px;padding:12px"><div class="sect">Wooder Ice WNBA</div><h3>Ticket '+esc(t.id)+' - '+esc(t.title)+'</h3><div class="rpwnote">'+esc(t.status)+'; receipt, stake and fill not independently verified. Wilson points are intended only, not a placed points claim.</div>'+t.legs.map(function(l,i){return '<div class="rpwleg">'+(i+1)+'. <b>'+esc(l.player)+'</b> '+esc(l.market)+'<div class="rpwnote">'+esc(l.matchup)+' - '+esc(l.time)+'</div><div class="rpwprice">'+esc(l.note||'Unpriced')+'</div><div class="rpwstat" data-eid="'+esc(l.event_id)+'" data-player="'+esc(l.player)+'" data-stat="'+esc(l.stat_key)+'" data-target="'+esc(l.target)+'" data-intended="'+(l.intended_only?'1':'0')+'">Scheduled</div></div>';}).join('')+'<div class="rpwnote">CASHED = stat threshold met, not a payout. No combined quote. Prices are single-leg reference snapshots, fees excluded.</div></div>';}).join('');tick();}

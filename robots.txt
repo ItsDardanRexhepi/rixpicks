@@ -3,6 +3,7 @@ User-agent: *
 # records and run logs are not pages and stay out of search results for this domain. (The GitHub
 # repository itself is public; this file only governs crawlers on rix-picks.com.)
 Allow: /scripts/record_today.js
+Allow: /scripts/wooder_wnba_shared.js
 Disallow: /.github/
 Disallow: /core/
 Disallow: /docs/

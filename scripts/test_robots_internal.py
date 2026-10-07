@@ -46,7 +46,9 @@ named = ['/incidents/36390649045.md', '/docs/feed_bug_ledger.md', '/previews/ove
          '/.github/workflows/x_feed.yml', '/odds_moves.jsonl', '/price_history.jsonl']
 for p in named:
     check('disallowed: %s' % p, not allowed(p))
-internal = [f for f in tracked if (f.startswith(INTERNAL_DIRS) or f.endswith(INTERNAL_EXT)) and f != 'scripts/record_today.js']
+# Scripts the pages load from /scripts/ are page resources, allowed by name in robots.txt; the rest of /scripts/ is source.
+PAGE_SCRIPTS = ('scripts/record_today.js', 'scripts/wooder_wnba_shared.js')
+internal = [f for f in tracked if (f.startswith(INTERNAL_DIRS) or f.endswith(INTERNAL_EXT)) and f not in PAGE_SCRIPTS]
 leaks = [f for f in internal if allowed('/' + f)]
 check('every tracked internal file disallowed (%d files)' % len(internal), not leaks, leaks[:5])
 legacy = [f for f in internal if f.startswith(INTERNAL_DIRS) and legacy_ok('/' + f)]
@@ -56,7 +58,7 @@ check('first-match crawlers also skip the internal directories', not legacy, leg
 pages = [f for f in tracked if f.endswith('.html') and '/' not in f]
 need = {'/', '/robots.txt', '/sitemap.xml'} | {'/' + p for p in pages}
 REF = re.compile(r"""(?:fetch\(|src=|href=|importScripts\()["']([^"'#?]+)""")
-for f in pages + ['myprofile.js', 'ticket-feed.js', 'feed_arbiter.js', 'OneSignalSDKWorker.js', 'scripts/record_today.js']:
+for f in pages + ['myprofile.js', 'ticket-feed.js', 'feed_arbiter.js', 'OneSignalSDKWorker.js'] + list(PAGE_SCRIPTS):
     fp = os.path.join(ROOT, f)
     if not os.path.exists(fp): continue
     for ref in REF.findall(open(fp, encoding='utf-8', errors='ignore').read()):
