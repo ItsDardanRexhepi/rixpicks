@@ -2298,8 +2298,8 @@ if FUT:
 # guest NFL anytime-TD slate (contract slates/schema_v1.json) - home section hydrates from
 # slates/nfl_latest.json; empty state until the first slate lands; stale slates (4d+) fall back to empty
 nfl_entry=(
-r'<div class="sect" style="margin-top:22px">Picks from Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div>'
-r'<div style="border:1px dashed rgba(127,127,127,.35);border-radius:12px;padding:11px 12px">'
+r'<div class="sect rpkeep" style="margin-top:22px">Picks from Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div>'
+r'<div class="rpsec" style="border:1px dashed rgba(127,127,127,.35);border-radius:12px;padding:11px 12px">'
 r'<div id="rpNflHead"></div>'
 r'<div class="rpwhead">Anytime TD Scorers</div>'
 r'<div id="rpNfl"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div>'
@@ -2355,7 +2355,7 @@ r'var bchips="";(bb.picks||[]).forEach(function(b2){bchips+=chip("KAL","KAL "+rp
 r'h+="<div class=\"rpnpick\"><div class=\"pick-head\"><span class=\"gamelink\" style=\"cursor:default\"><span class=\"name\"><b>"+esc(bb.matchup||"")+"</b></span></span></div>"'
 r'+"<div class=\"sub\">"+(bb.picks||[]).map(function(b2){return esc(b2.player)+" "+esc(rpAml(b2.price_c));}).join(" + ")+"</div>"'
 r'+(bb.est_cost_c?"<div class=\"sub\">Sum of individual asks "+esc(bb.est_cost_c)+"c &middot; not a combined quote</div>":"")+(bchips?"<div class=\"chips\">"+bchips+"</div>":"")+"</div>";}'
-r'box.innerHTML=h;'
+r'box.innerHTML=h;try{window.rpLg.markKind(box.parentNode,j.kind);}catch(e){}'
 r'try{if(window.rpFilter)rpFilter(localStorage.getItem("rp_state"));}catch(e){}}'
 r'fetch("slates/nfl_chips.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(cj){/* carded prices only; as-of comes from the slate generated_at at render (main Sep-27 URF directive). The file mtime advances without content change, so it must never be shown as the quote time. */((cj&&cj.legs)||[]).forEach(function(l){if(l.kalshi&&typeof l.kalshi.ask_c==="number")RPCHIPS[RPKEY(l.player,l.team)]={ask_c:l.kalshi.ask_c,url:l.kalshi.url,ticker:(typeof l.kalshi.ticker==="string"?l.kalshi.ticker:null)};});}).catch(function(){}).then(function(){'
 r'fetch("slates/nfl_latest.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
@@ -2370,13 +2370,13 @@ r'})();</script>')
 # okUrl uses indexOf, not a /\/// regex: scrub_shipped strips '//' comments - adjacent slashes
 # get eaten as a comment and truncate the whole tab body (3:42 truncation bug).
 nfl_entry+=(
-r'''<div style="border:1px dashed rgba(127,127,127,.35);border-radius:12px;padding:11px 12px;margin-top:14px"><div id="rpNightHead"></div><div class="rpwhead">Anytime TD Scorers - Night</div><div id="rpNight"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div></div>'''
-r"""<script>(function(){var box=document.getElementById("rpNight");if(!box)return;function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}function okUrl(u){return (typeof u==="string"&&u.indexOf("https://")===0)?u:null;}function rpAml(c){var q=c/100;if(q<=0||q>=1)return"";return q>=0.5?String(Math.round(-100*q/(1-q))):"+"+String(Math.round(100*(1-q)/q));}function rpHM(ms){try{return new Date(ms).toLocaleString("en-US",{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"}).toLowerCase().replace(/\s/g,"");}catch(e){return"";}}function ptLabel(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",weekday:"short",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return"";}}function chip(bk,label,url){if(!url)return "";return '<span class="chip rpnontap" data-bk="'+bk+'" data-book="'+bk+'" data-sb="'+esc(url)+'">'+esc(label)+"</span>";}function RPKEY(p2,t2){return((p2||"")+"|"+(t2||"")).toLowerCase();}var RP_KO=null;function cdPaint(){var el=document.getElementById("rpNightCd");if(!el)return;if(!RP_KO){el.innerHTML="";return;}var now=Date.now();if(now>=RP_KO){el.innerHTML="";return;}var s=Math.max(0,Math.floor((RP_KO-now)/1000));var hh=Math.floor(s/3600),mm=Math.floor((s%3600)/60),ss=s%60;el.innerHTML='<span style="color:#b07708">Kickoff <b>'+esc(rpHM(RP_KO))+' PT</b> in <b>'+(hh?hh+"h ":"")+mm+"m "+("0"+ss).slice(-2)+"s</b></span>";}function render(j){var singles=((j.dk||{}).singles)||[];var gl=((j.kalshi||{}).game_lines)||[];var sgp=j.sgp_idea||null;if(!singles.length&&!gl.length&&!sgp){box.innerHTML='<div style="color:#8a8f98;font-size:13px;padding:6px 0">No night slate yet.</div>';return;}var hd=document.getElementById("rpNightHead");if(hd){hd.innerHTML='<div style="font-size:20px;font-weight:800;letter-spacing:.05em;margin:0 0 1px">NIGHT PICKS</div><div id="rpNightCd" style="font-size:13px;margin:0 0 6px;min-height:16px"></div>';}RP_KO=j.kickoff?Date.parse(j.kickoff):null;cdPaint();setInterval(cdPaint,1000);var h='<div style="font-size:12px;color:#8a8f98;margin:2px 0 4px">'+(j.kickoff?esc(ptLabel(j.kickoff)):esc(j.window_label||""))+(j.generated_at?" &middot; posted "+esc(ptLabel(j.generated_at)):"")+"</div>";if(singles.length){var sao=j.generated_at?rpHM(Date.parse(j.generated_at)):"";h+='<div class="sect" style="margin-top:10px">DraftKings singles'+(sao?" &middot; as of "+esc(sao)+" PT":"")+"</div>";singles.forEach(function(s,i){var pc=(typeof s.price_c==="number"&&s.price_c>=1&&s.price_c<=99&&s.price_type==="contract_cents")?s.price_c:null;if(pc===null)return;var chips=chip("DKP","DKP "+rpAml(pc),okUrl(s.link));h+='<div class="rpnpick"><div class="pick-head"><span class="gamelink" style="cursor:default"><span class="num">'+(i+1)+'.</span><span class="name"><b>'+esc(s.player)+'</b> anytime TD</span></span><span class="uo"><span class="odds">'+esc(rpAml(pc))+'</span></span></div>'+'<div class="sub">'+esc(s.matchup||"")+'</div><div class="sub rpntrk" data-trk="'+esc(RPKEY(s.player,s.team))+'" style="margin-top:3px;font-size:12px"></div>'+(chips?'<div class="chips">'+chips+"</div>":"")+"</div>";});}if(sgp&&(sgp.legs||[]).length){var names=sgp.legs.map(function(l){return esc(l.player);}).join(" + ");var ev=okUrl((singles[0]||{}).link);var sc=chip("DKP","DKP",ev);h+='<div class="rpnpick"><div class="pick-head"><span class="gamelink" style="cursor:default"><span class="name"><b>'+esc(sgp.title||"Same Game Parlay idea")+'</b></span></span></div>'+'<div class="sub">'+names+" "+esc(sgp.market||"")+"</div>"+(sgp.note?'<div class="sub">'+esc(sgp.note)+"</div>":"")+(sc?'<div class="chips">'+sc+"</div>":"")+"</div>";}if(gl.length){var cap=gl[0].captured_at?rpHM(Date.parse(gl[0].captured_at)):"";h+='<div class="sect" style="margin-top:14px">Kalshi game lines'+(cap?" &middot; as of "+esc(cap)+" PT":"")+"</div>";gl.forEach(function(g){var pc=(typeof g.price_c==="number"&&g.price_c>=1&&g.price_c<=99)?g.price_c:null;if(pc===null)return;var kc=chip("KAL","KAL "+rpAml(pc)+(cap?" · "+cap:""),okUrl(g.link));h+='<div class="rpnpick"><div class="pick-head"><span class="gamelink" style="cursor:default"><span class="name"><b>'+esc(g.title)+'</b></span></span><span class="uo"><span class="odds">'+esc(rpAml(pc))+'</span></span></div>'+'<div class="sub">'+esc(g.market||"")+" &middot; LAR @ DEN</div>"+(kc?'<div class="chips">'+kc+"</div>":"")+"</div>";});}box.innerHTML=h;try{if(window.rpFilter)rpFilter(localStorage.getItem("rp_state"));}catch(e){}}fetch("slates/nfl_night.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(!j||j.version!==1||j.window!=="sun-night")return;render(j);}).catch(function(){});})();</script>"""
+r'''<div class="rpsec" style="border:1px dashed rgba(127,127,127,.35);border-radius:12px;padding:11px 12px;margin-top:14px"><div id="rpNightHead"></div><div class="rpwhead">Anytime TD Scorers - Night</div><div id="rpNight"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div></div>'''
+r"""<script>(function(){var box=document.getElementById("rpNight");if(!box)return;function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}function okUrl(u){return (typeof u==="string"&&u.indexOf("https://")===0)?u:null;}function rpAml(c){var q=c/100;if(q<=0||q>=1)return"";return q>=0.5?String(Math.round(-100*q/(1-q))):"+"+String(Math.round(100*(1-q)/q));}function rpHM(ms){try{return new Date(ms).toLocaleString("en-US",{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"}).toLowerCase().replace(/\s/g,"");}catch(e){return"";}}function ptLabel(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",weekday:"short",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return"";}}function chip(bk,label,url){if(!url)return "";return '<span class="chip rpnontap" data-bk="'+bk+'" data-book="'+bk+'" data-sb="'+esc(url)+'">'+esc(label)+"</span>";}function RPKEY(p2,t2){return((p2||"")+"|"+(t2||"")).toLowerCase();}var RP_KO=null;function cdPaint(){var el=document.getElementById("rpNightCd");if(!el)return;if(!RP_KO){el.innerHTML="";return;}var now=Date.now();if(now>=RP_KO){el.innerHTML="";return;}var s=Math.max(0,Math.floor((RP_KO-now)/1000));var hh=Math.floor(s/3600),mm=Math.floor((s%3600)/60),ss=s%60;el.innerHTML='<span style="color:#b07708">Kickoff <b>'+esc(rpHM(RP_KO))+' PT</b> in <b>'+(hh?hh+"h ":"")+mm+"m "+("0"+ss).slice(-2)+"s</b></span>";}function render(j){var singles=((j.dk||{}).singles)||[];var gl=((j.kalshi||{}).game_lines)||[];var sgp=j.sgp_idea||null;if(!singles.length&&!gl.length&&!sgp){box.innerHTML='<div style="color:#8a8f98;font-size:13px;padding:6px 0">No night slate yet.</div>';return;}var hd=document.getElementById("rpNightHead");if(hd){hd.innerHTML='<div style="font-size:20px;font-weight:800;letter-spacing:.05em;margin:0 0 1px">NIGHT PICKS</div><div id="rpNightCd" style="font-size:13px;margin:0 0 6px;min-height:16px"></div>';}RP_KO=j.kickoff?Date.parse(j.kickoff):null;cdPaint();setInterval(cdPaint,1000);var h='<div style="font-size:12px;color:#8a8f98;margin:2px 0 4px">'+(j.kickoff?esc(ptLabel(j.kickoff)):esc(j.window_label||""))+(j.generated_at?" &middot; posted "+esc(ptLabel(j.generated_at)):"")+"</div>";if(singles.length){var sao=j.generated_at?rpHM(Date.parse(j.generated_at)):"";h+='<div class="sect" style="margin-top:10px">DraftKings singles'+(sao?" &middot; as of "+esc(sao)+" PT":"")+"</div>";singles.forEach(function(s,i){var pc=(typeof s.price_c==="number"&&s.price_c>=1&&s.price_c<=99&&s.price_type==="contract_cents")?s.price_c:null;if(pc===null)return;var chips=chip("DKP","DKP "+rpAml(pc),okUrl(s.link));h+='<div class="rpnpick"><div class="pick-head"><span class="gamelink" style="cursor:default"><span class="num">'+(i+1)+'.</span><span class="name"><b>'+esc(s.player)+'</b> anytime TD</span></span><span class="uo"><span class="odds">'+esc(rpAml(pc))+'</span></span></div>'+'<div class="sub">'+esc(s.matchup||"")+'</div><div class="sub rpntrk" data-trk="'+esc(RPKEY(s.player,s.team))+'" style="margin-top:3px;font-size:12px"></div>'+(chips?'<div class="chips">'+chips+"</div>":"")+"</div>";});}if(sgp&&(sgp.legs||[]).length){var names=sgp.legs.map(function(l){return esc(l.player);}).join(" + ");var ev=okUrl((singles[0]||{}).link);var sc=chip("DKP","DKP",ev);h+='<div class="rpnpick"><div class="pick-head"><span class="gamelink" style="cursor:default"><span class="name"><b>'+esc(sgp.title||"Same Game Parlay idea")+'</b></span></span></div>'+'<div class="sub">'+names+" "+esc(sgp.market||"")+"</div>"+(sgp.note?'<div class="sub">'+esc(sgp.note)+"</div>":"")+(sc?'<div class="chips">'+sc+"</div>":"")+"</div>";}if(gl.length){var cap=gl[0].captured_at?rpHM(Date.parse(gl[0].captured_at)):"";h+='<div class="sect" style="margin-top:14px">Kalshi game lines'+(cap?" &middot; as of "+esc(cap)+" PT":"")+"</div>";gl.forEach(function(g){var pc=(typeof g.price_c==="number"&&g.price_c>=1&&g.price_c<=99)?g.price_c:null;if(pc===null)return;var kc=chip("KAL","KAL "+rpAml(pc)+(cap?" · "+cap:""),okUrl(g.link));h+='<div class="rpnpick"><div class="pick-head"><span class="gamelink" style="cursor:default"><span class="name"><b>'+esc(g.title)+'</b></span></span><span class="uo"><span class="odds">'+esc(rpAml(pc))+'</span></span></div>'+'<div class="sub">'+esc(g.market||"")+" &middot; LAR @ DEN</div>"+(kc?'<div class="chips">'+kc+"</div>":"")+"</div>";});}box.innerHTML=h;try{window.rpLg.markKind(box.parentNode,j.kind);}catch(e){}try{if(window.rpFilter)rpFilter(localStorage.getItem("rp_state"));}catch(e){}}fetch("slates/nfl_night.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(!j||j.version!==1||j.window!=="sun-night")return;render(j);}).catch(function(){});})();</script>"""
 )
 # Wooder night eight-leg DK idea; distinct from the eight ATD singles and four-TD text idea.
 # Its own file survives generated-index rebuilds. Never infer a combined quote or a placed wager.
 nfl_entry+=(
-r'<div style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px" id="rpNightSgpCard" hidden>'
+r'<div class="rpsec" style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px" id="rpNightSgpCard" hidden>'
 r'<div class="rpwhead" style="margin-top:0">Night eight-leg DK idea</div>'
 r'<div id="rpNightSgp"></div></div>'
 r'<script>(function(){'
@@ -2389,7 +2389,7 @@ r'if(!j||j.version!==1||j.kind!=="nfl-sgp-idea"||j.status!=="idea_only"||j.combi
 r'var rows=j.legs.map(function(l,i){var a=american(l.price_c);if(!a||!l.player||!l.market||!l.captured_at||l.price_type!=="displayed_probability_percent")return "";return "<div class=\"rpnpick\" style=\"padding:8px 0\"><div style=\"display:flex;justify-content:space-between;gap:12px;align-items:baseline\"><span style=\"font-size:13px\">"+(i+1)+". <b>"+esc(l.player)+"</b> "+esc(l.market)+"</span><b style=\"white-space:nowrap\">"+a+"</b></div><div style=\"font-size:11px;color:#8a8f98;margin-top:2px\">DK Predictions · as of "+esc(stamp(l.captured_at))+(typeof l.source_snapshot_c==="number"&&l.source_snapshot_c!==l.price_c?" · Wooder Ice\u2019s snapshot "+l.source_snapshot_c+"c; live DK "+l.price_c+"% at capture":"")+" · selection link unavailable</div></div>";});'
 r'if(rows.some(function(x){return !x;}))return;'
 r'box.innerHTML="<div style=\"font-size:12px;color:#8a8f98;margin:3px 0 8px\">LAR @ DEN · Sunday 5:20pm PT · idea only, not bought</div>"+rows.join("")+"<div style=\"font-size:12px;color:#8a8f98;margin-top:9px;line-height:1.45\">Individual DK displayed percentages converted to American-style equivalents at capture. Prices can move. No combined DK quote or wager posted. Event page is not an exact-selection link, so these rows are unlinked.</div>";'
-r'card.hidden=false;}).catch(function(){});})();</script>')
+r'card.hidden=false;try{window.rpLg.markKind(card,j.kind);}catch(e){}}).catch(function(){});})();</script>')
 # Wooder WNBA three-leg idea; separate from the NFL night idea and tickets.
 # Research snapshots remain marked as such when the source cannot be live rechecked.
 # PLACEMENT (9/27 4:34 PT via main, standing): his WNBA content always lives on the WNBA tab, never the Wooder tab.
@@ -2410,12 +2410,12 @@ r'if(rows.some(function(x){return !x;}))return;box.innerHTML="<div style=\"font-
 # (source crop establishes none). No venue chips - source establishes no venue. Client-hydrated
 # from slates/wooder_first_td.json; hides on missing/invalid. All times PT (owner 9/27 rule).
 nfl_entry+=(
-r'<div style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
+r'<div class="rpsec" style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
 r'<div class="rpwhead" style="margin-top:0">FIRST TD SCORERS</div>'
-r'<div id="rpFtd"></div>'
+r'<div id="rpFtd" class="rpbox"></div>'
 r'</div>'
 r'<script>(function(){'
-r'var box=document.getElementById("rpFtd");if(!box)return;'
+r'var box=document.getElementById("rpFtd");if(!box)return;function G(f,a,b){try{return window.rpLg[f](a,b);}catch(e){return null;}}'
 r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
 r'function ptT(iso){try{return new Date(iso).toLocaleString("en-US",{timeZone:"America/Los_Angeles",hour:"numeric",minute:"2-digit"})+" PT";}catch(e){return "";}}'
 r'fetch("slates/wooder_first_td.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
@@ -2423,7 +2423,7 @@ r'var ps=(j&&j.picks)||[];'
 r'if(!ps.length){box.parentNode.style.display="none";return;}'
 r'box.innerHTML=ps.map(function(p,i){'
 r'if(!p||!p.player||!p.market||!p.american)return "";'
-r'return "<div style=\"margin-top:8px;border:1px solid rgba(11,110,95,.35);border-radius:10px;padding:9px 11px\">"'
+r'return "<div"+(G("attr",p)||"")+" style=\"margin-top:8px;border:1px solid rgba(11,110,95,.35);border-radius:10px;padding:9px 11px\">"'
 r'+"<div style=\"font-size:10px;font-weight:700;letter-spacing:.09em;color:#0a7c5c\">PERSONAL PICK "+(i+1)+"</div>"'
 r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline;margin-top:3px\"><b>"+esc(p.player)+"</b><span style=\"font-weight:700\">"+esc(p.american)+"</span></div>"'
 r'+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(p.market)+" &middot; "+esc(p.matchup||"")+(p.commence?" &middot; "+esc(ptT(p.commence)):"")+"</div>"'
@@ -2435,16 +2435,16 @@ r'})();</script>')
 # Season-long futures ideas (futures:true) render under their own Futures Ideas heading, never
 # under Same Game Parlays; that card stays hidden until such an item exists.
 nfl_entry+=(
-r'<div style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
+r'<div class="rpsec" style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
 r'<div class="rpwhead">Same Game Parlays</div>'
-r'<div id="rpCmb"></div>'
+r'<div id="rpCmb" class="rpbox"></div>'
 r'</div>'
-r'<div id="rpCmbFutWrap" hidden style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
+r'<div id="rpCmbFutWrap" class="rpsec" hidden style="margin-top:14px;border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
 r'<div class="rpwhead">Futures Ideas</div>'
-r'<div id="rpCmbFut"></div>'
+r'<div id="rpCmbFut" class="rpbox"></div>'
 r'</div>'
 r'<script>(function(){'
-r'var box=document.getElementById("rpCmb");if(!box)return;'
+r'var box=document.getElementById("rpCmb");if(!box)return;function G(f,a,b){try{return window.rpLg[f](a,b);}catch(e){return null;}}'
 r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
 r'function rpFeedWire(box){if(!box.querySelector(".rpfeedtrk"))return;function norm(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z ]/g,"").trim();}'
 r'function paint(){if(typeof rpTicketFeed!=="function")return;rpTicketFeed().then(function(j){var legs={};((j&&j.tickets)||[]).forEach(function(t){(t.legs||[]).forEach(function(l){legs[norm(l.player&&l.player.name)]=l;});});Array.prototype.forEach.call(box.querySelectorAll(".rpfeedtrk"),function(el){var l=legs[norm(el.getAttribute("data-p"))];if(!l)return;var txt,sty="color:#8a8f98;font-size:11px";if(l.status==="pre"){txt="";}else if(l.current==null){txt="Unavailable";}else{var sfx=l.kind==="pitcher_strikeouts"?" Ks":(l.kind==="batter_hits"?" Hit":(l.kind==="batter_home_run"?" HR":""));var num=l.current+(l.threshold!=null?(" of "+l.threshold):"")+sfx;if(l.status==="hit"){txt=num+" - CASHED";sty="background:#0b3d2e;color:#8ff0c8;font-weight:700;font-size:11px;border-radius:6px;padding:1px 6px";}else if(l.status==="pending"){txt=num;}else if(l.status==="final_miss"){txt="Missed \u00b7 Final "+num;sty="background:rgba(229,72,77,.15);color:#ff8a8e;font-weight:700;font-size:11px;border-radius:6px;padding:1px 6px";}else{txt="Unavailable";}}el.innerHTML="<span style=\""+sty+"\">"+esc(txt)+"</span>";});}).catch(function(){});}'
@@ -2457,7 +2457,7 @@ r'var cs=((j&&j.combos)||[]).filter(rpComboFresh);'
 r'var fbox=document.getElementById("rpCmbFut"),fs=[];if(fbox&&fbox!==box){fs=cs.filter(function(c){return c&&c.futures===true;});cs=cs.filter(function(c){return !(c&&c.futures===true);});}'
 r'var R=function(c,i){'
 r'if(c&&c.type==="idea"){'
-r'return "<div class=\"rpnpick\">"'
+r'return "<div class=\"rpnpick\""+(G("attr",c)||"")+">"'
 r'+"<div class=\"rpwhead\">"+esc(c.title||"Idea")+" <span style=\"background:rgba(216,162,58,.18);color:#b07708;border-radius:8px;font-size:10px;font-weight:700;padding:1px 7px;vertical-align:2px;letter-spacing:.05em\">"+esc(c.badge||"IDEA · NOT BOUGHT")+"</span></div>"'
 r'+"<div style=\"font-size:11px;color:#8a8f98;margin-top:2px\">"+esc(c.matchup||"")+(c.time?" &middot; "+esc(c.time):"")+"</div>"'
 r'+(c.legs||[]).map(function(l,li){'
@@ -2468,7 +2468,7 @@ r'}).join("")'
 r'+((c.legs||[]).some(function(l){return l.yds!=null;})&&YD&&YD.fetched_at?"<div style=\"font-size:10px;color:#8a8f98;margin-top:6px\">Yards: "+esc(YD.source||"ESPN")+", as of "+esc(new Date(Date.parse(YD.fetched_at)).toLocaleString("en-US",{timeZone:"America/Los_Angeles",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}))+" PT</div>":"")'
 r'+(c.estimate?"<div style=\"font-size:12px;margin-top:8px\">"+esc(c.estimate)+"</div>":"")'
 r'+"</div>";}'
-r'return "<a class=\"rpnpick\" style=\"display:block;text-decoration:none;color:inherit\" href=\""+esc(c.url)+"\" target=\"_blank\" rel=\"noreferrer\">"'
+r'return "<a class=\"rpnpick\""+(G("attr",c)||"")+" style=\"display:block;text-decoration:none;color:inherit\" href=\""+esc(c.url)+"\" target=\"_blank\" rel=\"noreferrer\">"'
 r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+(i+1)+". "+esc((c.legs||[]).join(" + "))+"</b><span style=\"color:#0a7c5c;font-size:11px;font-weight:700;white-space:nowrap\">KAL &#8250;</span></div>"'
 r'+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(c.matchup||"")+(c.time?" &middot; "+esc(c.time):"")+"</div>"'
 r'+"</a>";};'
@@ -2483,12 +2483,17 @@ r'setTimeout(rpCmbGo,4000);'
 r'})();</script>')
 # Wooder Ice's current tickets (main 9:05): additive ticket ledger shared by the guest -
 # client-hydrated from slates/wooder_tickets.json; section hides when no tickets exist.
+# Every ticket, whatever its league, renders here once (Oct 7: the WNBA ticket too, which had a second copy in the
+# WNBA panel and a third from a separate module). Each ticket carries the league tab keys its data names
+# (window.rpLg), so the same node shows in those league tabs as well (see _LG_SHARE_CSS): a ticket with legs in
+# two leagues shows whole in both, since what it pays depends on every leg. A leg bound to an ESPN event id
+# with a stat key and a target is tracked from that event's own box score (rpevtrk), never from a team name.
 nfl_entry+=(
-r'<div style="margin-top:14px;border:1px solid rgba(216,162,58,.45);border-radius:12px;padding:11px 12px">'
-r'<div id="rpTix"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div>'
+r'<div class="rpsec" style="margin-top:14px;border:1px solid rgba(216,162,58,.45);border-radius:12px;padding:11px 12px">'
+r'<div id="rpTix" class="rpbox"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div>'
 r'</div>'
 r'<script>(function(){'
-r'var box=document.getElementById("rpTix"),boxW=document.getElementById("rpTixW");if(!box)return;'
+r'var box=document.getElementById("rpTix");if(!box)return;function G(f,a,b){try{return window.rpLg[f](a,b);}catch(e){return null;}}'
 r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
 r"""function dot(c){return "<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:"+c+";margin-right:6px;vertical-align:1px\"></span>";}"""
 r"""function abPair(m){var N={WAS:"WSH"};var p=String(m||"").toUpperCase().split("-");if(p.length!==2)return null;var x=p[0].trim(),y=p[1].trim();return [N[x]||x,N[y]||y];}"""
@@ -2496,17 +2501,24 @@ r"""function statOf(sj,name,key){try{var tms=(sj.boxscore&&sj.boxscore.players)|
 r"""function mSpec(m){m=String(m||"");var x;if(/anytime\s*td/i.test(m))return{td:true,label:"TD",target:1,key:"__TD__"};if(x=m.match(/(\d+)\+?\s*rushing\s*yards?/i))return{label:"rush yds",target:+x[1],key:"rushingYards"};if(x=m.match(/(\d+)\+?\s*passing\s*yards?/i))return{label:"pass yds",target:+x[1],key:"passingYards"};if(x=m.match(/(\d+)\+?\s*receiving\s*yards?/i))return{label:"rec yds",target:+x[1],key:"receivingYards"};if(x=m.match(/(\d+)\+?\s*receptions?/i))return{label:"rec",target:+x[1],key:"receptions"};if(x=m.match(/(\d+)\+?\s*passing\s*touchdowns?/i))return{label:"pass TD",target:+x[1],key:"passingTouchdowns"};return null;}"""
 r"""function tS(spec,count,state,det){if(count==null&&(state==="in"||state==="post"))return dot("#8a8f98")+"<span style=\"color:#8a8f98\">Unavailable</span>";var cur=count;var got=(count!=null&&count>=spec.target);var txt=spec.td?(got?(spec.label+(cur>1?(" x"+cur):"")):("No "+spec.label+" yet")):(cur+"/"+spec.target+" "+spec.label);var badge=got?("<span style=\"background:#0b3d2e;color:#8ff0c8;font-weight:700;font-size:11px;border-radius:6px;padding:1px 6px\">"+cur+" of "+spec.target+" "+spec.label+" - CASHED</span>"):null;if(state==="post")return got?(dot("#0b6e5f")+badge+"<span style=\"color:#8a8f98\"> &middot; Final</span>"):(dot("#8a8f98")+"<span style=\"color:#8a8f98\">"+(spec.td?("No "+spec.label):txt)+" &middot; Final</span>");if(got)return dot("#0b6e5f")+badge;var dly=/delay|postpon|suspend/i.test(det||"");if(state==="in")return dly?(dot("#e8a13d")+"<span style=\"color:#b07708\">"+txt+" &middot; Delayed</span>"):(dot("#e8a13d")+"<span style=\"color:#b07708\">"+txt+"</span>");if(dly)return dot("#8a8f98")+"<span style=\"color:#8a8f98\">Delayed</span>";return "";}"""
 r"""function updTix(){fetch("slates/wooder_live.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}).then(function(lj){var llegs=(lj&&lj.live_legs)||[];function nrm(s){return String(s||"").toLowerCase().replace(/[^a-z0-9]+/g,"");}Array.prototype.forEach.call(document.querySelectorAll(".rptixtrk"),function(el){var fm=el.getAttribute("data-fm");if(!fm)return;var np=nrm(el.getAttribute("data-p")),nm=nrm(String(el.getAttribute("data-m")||"").replace(/\s*@\s*/g,"-"));var hit=null;llegs.forEach(function(l){if(hit)return;if(l.market!==fm)return;if(nrm(l.player)!==np)return;if(nm&&nrm(String(l.matchup||"").replace(/\s*@\s*/g,"-"))!==nm)return;hit=l;});if(!hit)return;el.__fed=true;var st=hit.game_state||"",det=hit.game_detail||"",pr2=hit.progress||"";if(st==="in"&&/^(Warmup|Pre-Game|Scheduled|Delayed Start)/i.test(det))st="pre";if(/[AP]M\s*(E|C|M|P)/i.test(det))det="";var g0="";var paintG=function(rp){(rp||[]).forEach(function(p){if(g0)return;if(p.market!==fm)return;if(nrm(p.label)!==np)return;if(nm&&nrm(String(p.matchup||"").replace(/\s*@\s*/g,"-"))!==nm)return;g0=(p.status==="won"||p.status==="lost")?p.status:"";});};var runG=function(){paintG(window.__rpRecPicks||[]);if(g0){el.innerHTML=(g0==="won"?(dot("#0b6e5f")+"<b style=\"color:#0b6e5f\">Won &#10003;</b>"):(dot("#8a8f98")+"<span style=\"color:#8a8f98\">Lost</span>"))+(st==="post"?"<span style=\"color:#8a8f98\"> &middot; Final</span>":(det?"<span style=\"color:#8a8f98\"> &middot; "+esc(det)+"</span>":""));}else if(st==="post"){el.innerHTML=dot("#8a8f98")+(pr2?("<span style=\"color:#8a8f98\">"+esc(pr2)+"</span>"):"")+"<span style=\"color:#8a8f98\"> &middot; Final</span>";}else{el.innerHTML=dot(st==="in"?"#e8a13d":"#8a8f98")+(pr2?("<span style=\"color:"+(st==="in"?"#b07708":"#8a8f98")+"\">"+esc(pr2)+"</span>"):"")+(det?"<span style=\"color:#8a8f98\"> &middot; "+esc(det)+"</span>":"");}};if(window.__rpRecPicks){runG();}else{fetch("slates/wooder_record.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(rj){window.__rpRecPicks=(rj&&rj.picks)||[];runG();}).catch(function(){window.__rpRecPicks=[];runG();});}});fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(sb){var gm={};(sb.events||[]).forEach(function(ev){var cmp=(ev.competitions||[])[0]||{};var st=(cmp.status&&cmp.status.type)||{};var home=null,away=null;(cmp.competitors||[]).forEach(function(c){var o={ab:((c.team||{}).abbreviation||"").toUpperCase()};if(c.homeAway==="home")home=o;else away=o;});if(home&&away)gm[away.ab+"-"+home.ab]={state:st.state||"",eid:ev.id,det:(st.detail||st.shortDetail||"")};});var seen={};Array.prototype.forEach.call(document.querySelectorAll(".rptixtrk"),function(el){if(el.__fed)return;var pr=abPair(el.getAttribute("data-m"));var g=pr?gm[pr[0]+"-"+pr[1]]:null;if(!g){el.innerHTML="";return;}el.__st=g.state;el.__det=g.det;if(g.eid&&g.state!=="pre"){(seen[g.eid]=seen[g.eid]||[]).push(el);}else{var sp=mSpec(el.getAttribute("data-mkt"));el.innerHTML=sp?tS(sp,null,g.state,g.det):"";}});Object.keys(seen).forEach(function(eid){fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event="+eid+"&cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(sj){if(!sj)return;seen[eid].forEach(function(el){var sp=mSpec(el.getAttribute("data-mkt"));if(!sp){el.innerHTML="";return;}el.innerHTML=tS(sp,statOf(sj,el.getAttribute("data-p"),sp.key),el.__st,el.__det);});}).catch(function(){});});}).catch(function(){});});}"""
-r"""function startTrk(){updTix();setInterval(updTix,15000);}"""
+r"""function evNm(s){return String(s==null?"":s).toLowerCase().replace(/[^a-z0-9]/g,"");}"""
+r"""function evStat(j,name,key){var res=null;((j.boxscore||{}).players||[]).forEach(function(tm){(tm.statistics||[]).forEach(function(g){var i=(g.keys||[]).indexOf(key);if(i<0)return;(g.athletes||[]).forEach(function(a){if(evNm((a.athlete||{}).displayName)!==evNm(name))return;var v=Number((a.stats||[])[i]);if(isFinite(v))res=v;});});});return res;}"""
+r"""var EVL={points:"pts",rebounds:"reb",assists:"ast"};function evPaint(r,c,t){r.innerHTML=dot(c)+"<span style=\"color:"+(c==="#e8a13d"?"#b07708":c)+"\">"+esc(t)+"</span>";}"""
+r"""function evTrk(t,l){var id=String(l.event_id||l.espn_event_id||""),k=G("leg",t,l),esp=k?(G("espn",k)||""):"";if(!/^\d+$/.test(id)||!esp||!l.stat_key||l.target==null||l.target===""||!isFinite(Number(l.target)))return "";return "<div class=\"rpevtrk\" data-eid=\""+esc(id)+"\" data-espn=\""+esc(esp)+"\" data-p=\""+esc(l.player||"")+"\" data-stat=\""+esc(l.stat_key)+"\" data-target=\""+esc(l.target)+"\" data-intended=\""+(l.intended_only?"1":"0")+"\" style=\"margin-top:1px;font-size:12px\"></div>";}"""
+r"""function updEv(){var g={};Array.prototype.forEach.call(document.querySelectorAll(".rpevtrk"),function(r){var k=r.getAttribute("data-espn")+"|"+r.getAttribute("data-eid");(g[k]=g[k]||[]).push(r);});Object.keys(g).forEach(function(k){var esp=k.split("|")[0],id=k.split("|")[1],rs=g[k];if(!/^\d+$/.test(id)||!/^[a-z]+\/[a-z0-9.-]+$/.test(esp))return;fetch("https://site.api.espn.com/apis/site/v2/sports/"+esp+"/summary?event="+id,{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){var hd=(j&&j.header)||{};if(String(hd.id)!==id)throw 0;var ty=(((hd.competitions||[])[0]||{}).status||{}).type||{};rs.forEach(function(r){if(ty.state==="pre"){evPaint(r,"#8a8f98","Scheduled");return;}var st=r.getAttribute("data-stat"),v=evStat(j,r.getAttribute("data-p"),st);if(v==null){evPaint(r,"#8a8f98","Stats unavailable");return;}var tg=Number(r.getAttribute("data-target")),hit=v>=tg,fin=ty.state==="post";evPaint(r,hit?"#0b6e5f":(fin?"#8a8f98":"#e8a13d"),(r.getAttribute("data-intended")==="1"?"Intended selection only: ":"")+v+"/"+tg+" "+(EVL[st]||st)+(hit?" - CASHED (stat threshold)":"")+(fin?" - Final":" - Live"));});}).catch(function(){rs.forEach(function(r){evPaint(r,"#8a8f98","Stats unavailable");});});});}"""
+r"""function startTrk(){updTix();setInterval(updTix,15000);updEv();setInterval(function(){if(!document.hidden)updEv();},60000);}"""
 r'fetch("slates/wooder_tickets.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
 r'var tixAll=(j&&j.tickets)||[];'
 r'function renderInto(bx,arr){if(!bx)return;if(!arr.length){bx.parentNode.style.display="none";return;}var h="",ups=[];'
 'arr.forEach(function(t,ti){'
 r'(t.site_updates||[]).forEach(function(u){ups.push(u);});'
-r'h+="<div class=\"rpnpick\""+(ti>0?" style=\"margin-top:18px;border-top:1px solid #e4e2de;padding-top:14px\"":"")+">"'
+r'var lks=G("of",t)||[];h+="<div class=\"rpnpick\""+(lks.length?" data-rplg=\""+lks.join(" ")+"\"":"")+(ti>0?" style=\"margin-top:18px;border-top:1px solid #e4e2de;padding-top:14px\"":"")+">"'
 r'+"<div class=\"rpwhead\">Ticket "+(t.id||(ti+1))+(t.title?" &middot; "+esc(t.title):"")+"</div>"'
+r'+(lks.length>1?"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">Legs in "+esc((G("names",lks)||lks).join(" and "))+": the whole ticket shows in each of their tabs.</div>":"")'
 r'+"<div style=\"display:flex;justify-content:space-between;align-items:baseline;margin-top:2px\"><span>"+(t.bought?"<span style=\"background:#0b6e5f;color:#fff;border-radius:8px;font-size:11px;font-weight:700;padding:1px 8px\">BOUGHT</span> ":"")+(t.pct?"<span style=\"color:#8a8f98\">"+esc(t.pct)+"</span> ":"")+(t.odds_was?"<s style=\"color:#8a8f98\">"+esc(t.odds_was)+"</s> ":"")+(t.odds_boosted?"<span style=\"background:#7c3aed;color:#fff;border-radius:8px;font-size:11px;font-weight:700;padding:1px 8px\">"+esc(t.odds_boosted)+"</span>":"")+"</span>"+(t.status?"<span style=\"background:rgba(216,162,58,.18);color:#b07708;border-radius:8px;font-size:11px;font-weight:700;padding:1px 8px\">"+esc(t.status)+"</span>":"")+"</div>"'
 r'+(function(){var bTxt=(typeof t.bought==="string"&&t.bought)?("Bought "+esc(t.bought)):"";return (bTxt||t.to_pay||t.fancash)?("<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+bTxt+(bTxt&&t.to_pay?" &middot; ":"")+(t.to_pay?"To Pay "+esc(t.to_pay):"")+((bTxt||t.to_pay)&&t.fancash?" &middot; ":"")+(t.fancash?"FanCash "+esc(t.fancash):"")+"</div>"):"";})()'
-r'+(t.legs||[]).map(function(l,i){var fin=l.status||"";var pill="";if(fin==="won")pill=dot("#0b6e5f")+"<b style=\"color:#0b6e5f\">Won &#10003;</b><span style=\"color:#8a8f98\"> &middot; Final</span>";else if(fin==="lost")pill=dot("#8a8f98")+"<span style=\"color:#8a8f98\">Lost &middot; Final</span>";else if(fin==="void")pill=dot("#8a8f98")+"<span style=\"color:#8a8f98\">Void</span>";return "<div style=\"font-size:13px;margin-top:5px\">"+(i+1)+". <b>"+esc(l.player)+"</b> <span style=\"color:#8a8f98\">"+esc(l.market||"")+(l.matchup?" &middot; "+esc(l.matchup):"")+(l.time?" &middot; "+esc(l.time):"")+"</span></div>"+(pill?"<div style=\"margin-top:1px;font-size:12px\">"+pill+"</div>":("<div class=\"rptixtrk\" data-p=\""+esc(l.fp||l.player||"")+"\" data-m=\""+esc(l.matchup||"")+"\" data-mkt=\""+esc(l.market||"")+"\" data-fm=\""+esc(l.fm||"")+"\" style=\"margin-top:1px;font-size:12px\"></div>"))+(l.note?"<div style=\"font-size:11px;color:#8a8f98;margin-top:1px\">"+esc(l.note)+"</div>":"");}).join("")'
+r'+(t.placement_note?"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(t.placement_note)+"</div>":"")'
+r'+(t.legs||[]).map(function(l,i){var fin=l.status||"";var pill="";if(fin==="won")pill=dot("#0b6e5f")+"<b style=\"color:#0b6e5f\">Won &#10003;</b><span style=\"color:#8a8f98\"> &middot; Final</span>";else if(fin==="lost")pill=dot("#8a8f98")+"<span style=\"color:#8a8f98\">Lost &middot; Final</span>";else if(fin==="void")pill=dot("#8a8f98")+"<span style=\"color:#8a8f98\">Void</span>";return "<div style=\"font-size:13px;margin-top:5px\">"+(i+1)+". <b>"+esc(l.player)+"</b> <span style=\"color:#8a8f98\">"+esc(l.market||"")+(l.matchup?" &middot; "+esc(l.matchup):"")+(l.time?" &middot; "+esc(l.time):"")+"</span></div>"+(pill?"<div style=\"margin-top:1px;font-size:12px\">"+pill+"</div>":(evTrk(t,l)||("<div class=\"rptixtrk\" data-p=\""+esc(l.fp||l.player||"")+"\" data-m=\""+esc(l.matchup||"")+"\" data-mkt=\""+esc(l.market||"")+"\" data-fm=\""+esc(l.fm||"")+"\" style=\"margin-top:1px;font-size:12px\"></div>")))+(l.note?"<div style=\"font-size:11px;color:#8a8f98;margin-top:1px\">"+esc(l.note)+"</div>":"");}).join("")'
 r'+"</div>";});'
 r'if(ups.length){h+="<div class=\"rpwhead\" style=\"margin-top:20px\">Site Update <span style=\"background:rgba(216,162,58,.18);color:#b07708;border-radius:8px;font-size:10px;font-weight:700;padding:1px 7px;vertical-align:3px\">PROPOSED &middot; NOT BOUGHT</span></div>";'
 r'h+=ups.map(function(u){'
@@ -2516,10 +2528,9 @@ r'+(u.note?"<div style=\"font-size:12px;color:#8a8f98;margin-top:3px\">"+esc(u.n
 r'+(u.items||[]).map(function(it){return "<div style=\"font-size:13px;margin-top:5px\">"+(it.proposed?"<span style=\"background:rgba(216,162,58,.18);color:#b07708;border-radius:8px;font-size:10px;font-weight:700;padding:1px 7px;margin-right:8px;vertical-align:1px;letter-spacing:.04em\">PROPOSED</span>":"")+"<b>"+esc(it.player||"")+"</b> <span style=\"color:#8a8f98\">"+esc(it.market||"")+(it.matchup?" &middot; "+esc(it.matchup):"")+(it.time?" &middot; "+esc(it.time):"")+(it.status?" &middot; "+esc(it.status):"")+"</span>"+(it.kalshi&&it.kalshi.url?" <a class=\"chip\" style=\"background:#e6f9f3;border-color:#e6f9f3;color:#0a7c5c;font-size:11px;padding:2px 10px\" href=\""+esc(it.kalshi.url)+"\" target=\"_blank\" rel=\"noreferrer\">KAL "+esc(it.kalshi.american||"")+"</a>":"")+"</div>";}).join("")'
 r'+"</div>";}).join("");}'
 r'bx.innerHTML=h;}'
-r'renderInto(box,tixAll.filter(function(t){return t.sport!=="wnba";}));'
-r'renderInto(boxW,tixAll.filter(function(t){return t.sport==="wnba";}));'
+r'renderInto(box,tixAll);'
 r'startTrk();'
-r'}).catch(function(){box.parentNode.style.display="none";if(boxW)boxW.parentNode.style.display="none";});'
+r'}).catch(function(){box.parentNode.style.display="none";});'
 r'})();</script>')
 
 
@@ -2528,7 +2539,7 @@ r'})();</script>')
 # slates/wooder_record.json (analysis feed, rebuilt each wire cycle); 60s re-fetch; fail-closed
 # hide on missing/invalid. Pending renders as pending - never blank, never guessed.
 nfl_entry+=(
-r'<div id="rpWNote" style="font-size:11px;color:#8a8f98;margin-top:14px;line-height:1.45">CASHED = live stat threshold met, not a verified payout. Prices are reference snapshots, not executable quotes, and combined odds are estimates. PLACED = reported by Wooder Ice; receipt, stake and fill are not independently verified. A double or home run counts as one hit. Separate from the RixPicks card and record. Picks only, no wagers placed.</div>'
+r'<div id="rpWNote" class="rpkeep" style="font-size:11px;color:#8a8f98;margin-top:14px;line-height:1.45">CASHED = live stat threshold met, not a verified payout. Prices are reference snapshots, not executable quotes, and combined odds are estimates. PLACED = reported by Wooder Ice; receipt, stake and fill are not independently verified. A double or home run counts as one hit. Separate from the RixPicks card and record. Picks only, no wagers placed.</div>'
 r'<div id="rpWRecWrap" style="margin-top:14px;border:1px solid rgba(127,127,127,.35);border-radius:12px;padding:11px 12px">'
 r'<div id="rpWRecHead" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none"><div class="rpwhead">Rolling Record</div><span id="rpWRecChev" style="font-size:14px;font-weight:700;color:#8a8f98;padding:0 4px;line-height:1">v</span></div>'
 r'<div id="rpWRecBody" style="display:none">'
@@ -2556,13 +2567,8 @@ r'function load(){fetch("slates/wooder_record.json?cb="+Date.now(),{cache:"no-st
 r'load();setInterval(load,60000);'
 r'})();</script>')
 
-wnba_entry+=(
-r'<div style="margin-top:22px">'
-r'<div class="sect">Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div>'
-r'<div style="border:1px solid rgba(216,162,58,.45);border-radius:12px;padding:11px 12px">'
-r'<div id="rpTixW"><div style="color:#8a8f98;font-size:13px;padding:6px 0">Loading&hellip;</div></div>'
-r'<div style="font-size:11px;color:#8a8f98;margin-top:10px;line-height:1.45">Separate from the RixPicks card and record. Picks only, no wagers placed. CASHED = live stat threshold met, not a verified payout.</div>'
-r'</div></div>')
+# (The WNBA panel's own copy of the Wooder tickets box, rpTixW, is gone: the one ticket box on the Wooder tab
+# shows the WNBA ticket in the WNBA tab as well, Oct 7.)
 
 fut_watch_html=''
 if FUT:
@@ -3059,6 +3065,160 @@ if _V2:
         if lg in ('mma/ufc','boxing'): return ('ufcboxing','UFC/Boxing',lg)
         lbl=LG_LABEL.get(lg) or (lg.split('/')[-1].replace('-',' ').title() if lg else 'Other')
         return (re.sub(r'[^a-z0-9]','',lbl.lower()) or 'other', lbl, lg)
+    # LEAGUE BINDING (owner, 2026-10-07: "Each leagues picks should be in their proper league tabs, no matter where
+    # they comes from. System picks stay on the home page and go to their proper league tabs too." / "There should
+    # never be duplicate league tabs."). A pick from any source binds to a league tab key only from what its data
+    # says: a league / sport / espn_league field on the leg, else on its ticket or card, else the kind or contract of
+    # a feed that carries one league (the Dingers feed is MLB home runs; kind "nfl-anytime-td" is NFL). Never from a
+    # team name. A field naming a league this site has no tab for, or two fields naming two leagues, binds nothing.
+    # The page binds the same way from the same token table (window.rpLg, _LG_JS below), so a pick added to a feed
+    # after this build still reaches its league tab when that tab exists; this build opens a tab for every league
+    # that has a pick from any source today. A pick that binds to no league stays on its source tab only and is
+    # listed in a LEAGUE BIND NOTE on stderr.
+    _LG_TOK={};_LG_ORDER=[];_LG_LBL={};_LG_ESPN={}
+    for _code,_cv in _CLG.items():
+        _esp=_cv.get('espn') or ('boxing' if _code.lower()=='boxing' else '')
+        if not _esp: continue
+        _tk,_tl,_=_tab_of_lg(_esp)
+        if _tk=='other': continue
+        for _t in (_code,_esp,_tk): _LG_TOK[_t.strip().lower()]=_tk
+        if _tk not in _LG_ORDER: _LG_ORDER.append(_tk);_LG_LBL[_tk]=_tl;_LG_ESPN[_tk]=_esp
+    def _lg_one(o):
+        # (key, problem) for the league one object names itself; (None, None) when it names none
+        if not isinstance(o,dict): return None,None
+        ks=[]
+        for f in ('league','sport','espn_league'):
+            v=o.get(f)
+            if v is None or v=='': continue
+            k=_LG_TOK.get(str(v).strip().lower())
+            if not k: return None,'%s %r is no league this site has a tab for'%(f,str(v)[:40])
+            if k not in ks: ks.append(k)
+        if len(ks)>1: return None,'names two leagues (%s)'%', '.join(ks)
+        return (ks[0] if ks else None),None
+    def _lg_of(item,contract=None):
+        # every league tab key one pick, ticket or card belongs to: each leg's own league, else the item's, else
+        # the feed's contract; a ticket with legs in two leagues belongs to both (it shows whole in each)
+        own,bad=_lg_one(item)
+        if bad: return [],bad
+        own=own or contract
+        legs=[l for l in (item.get('legs') if isinstance(item,dict) and isinstance(item.get('legs'),list) else []) if isinstance(l,dict)]
+        out=[];loose=[]
+        for _i,_l in enumerate(legs):
+            k,b=_lg_one(_l)
+            if b: loose.append('leg %d: %s'%(_i+1,b));continue
+            k=k or own
+            if not k: loose.append('leg %d names no league'%(_i+1));continue
+            if k not in out: out.append(k)
+        if not legs and own: out=[own]
+        return out,('; '.join(loose) or None)
+    def _lg_kind(kind):
+        return _LG_TOK.get(str(kind or '').split('-')[0].strip().lower())
+    def _lg_read(p):
+        # a feed's top object, or None when it is missing, unreadable or not an object: a guest feed never stops the card
+        try: _j=json.load(open(p))
+        except Exception: return None
+        return _j if isinstance(_j,dict) else None
+    def _lst(x): return x if isinstance(x,list) else []
+    def _dct(x): return x if isinstance(x,dict) else {}
+    _LG_PICKS=[]  # one row per pick shown today: source, id, league keys
+    _LG_NOTES=[]
+    def _lg_bind(src,pid,item,contract=None):
+        ks,prob=_lg_of(item,contract)
+        _LG_PICKS.append({'src':src,'id':str(pid),'lgs':ks})
+        if not ks: _LG_NOTES.append('%s %s binds to no league (%s): it stays on its source tab only'%(src,pid,prob or 'its data names none'))
+        elif prob: _LG_NOTES.append('%s %s: %s; the whole item still shows in %s'%(src,pid,prob,', '.join(ks)))
+    def _lg_sources():
+        import datetime as _dt
+        from zoneinfo import ZoneInfo as _ZI
+        _now=_dt.datetime.now(_ZI('America/Los_Angeles'))
+        _td=_now.date().isoformat();_t8=int(_now.strftime('%Y%m%d'))
+        # Wooder Ice tickets (slates/wooder_tickets.json): every ticket renders, none expires on the page
+        for t in _lst((_lg_read('slates/wooder_tickets.json') or {}).get('tickets')):
+            if isinstance(t,dict): _lg_bind('wooder_tickets',t.get('id') or t.get('title') or '?',t)
+        # Wooder Ice combos (wooder_combos.json): the ones the page shows today (rpComboFresh, same rule)
+        for c in _lst((_lg_read('slates/wooder_combos.json') or {}).get('combos')):
+            if not isinstance(c,dict) or c.get('status')=='expired': continue
+            if c.get('futures') is not True:
+                _d=c.get('date') or c.get('game_date') or ''
+                _m=re.search(r'(\d{4})-?(\d{2})-?(\d{2})',str(_d)) if _d else None
+                _n=int(''.join(_m.groups())) if _m else 0
+                if not _n:
+                    _m=re.search(r'(\d{4})(\d{2})(\d{2})\s*$',str(c.get('id') or ''))
+                    _n=int(''.join(_m.groups())) if _m else 0
+                if not (_n>0 and _n>=_t8): continue
+            _lg_bind('wooder_combos',c.get('id') or c.get('title') or '?',c)
+        # Wooder Ice batch tickets and the NFL ideas: a today-dated file's cards with a title and legs
+        _j=_lg_read('slates/wooder_batch.json')
+        if isinstance(_j,dict) and _j.get('date')==_td:
+            for cd in _lst(_j.get('cards'))[:10]:
+                if isinstance(cd,dict) and cd.get('title') and cd.get('legs'): _lg_bind('wooder_batch',cd.get('id') or cd['title'],cd)
+        _j=_lg_read('slates/nfl_ideas.json')
+        if isinstance(_j,dict) and _j.get('date')==_td:
+            for cd in _lst(_j.get('cards'))[:10]:
+                if isinstance(cd,dict) and cd.get('title') and cd.get('legs'): _lg_bind('nfl_ideas',cd.get('id') or cd['title'],cd,'nfl')
+        # Wooder Ice first-TD picks: each pick's own league field (the feed names no league of its own)
+        for p in _lst((_lg_read('slates/wooder_first_td.json') or {}).get('picks')):
+            if isinstance(p,dict) and p.get('player') and p.get('market') and p.get('american'): _lg_bind('wooder_first_td',p['player'],p)
+        # Dingers Only: a today-dated MLB home-run feed (its tracker reads the ESPN MLB scoreboard)
+        _j=_lg_read('slates/wooder_dingers.json')
+        if isinstance(_j,dict) and _j.get('date')==_td:
+            for p in _lst(_j.get('picks'))[:10]:
+                if isinstance(p,dict) and all(p.get(_f) for _f in ('player','team','matchup','time','market')): _lg_bind('wooder_dingers',p['player'],{},'mlb')
+        # the Wooder Ice slates that name their league in "kind", shown when the page shows them
+        _j=_lg_read('slates/nfl_latest.json')
+        if isinstance(_j,dict) and _j.get('version')==1:
+            try: _age=(_dt.datetime.now(_dt.timezone.utc)-_dt.datetime.fromisoformat(str(_j.get('generated_at')).replace('Z','+00:00'))).total_seconds()
+            except Exception: _age=0
+            _dk=_dct(_j.get('dk'));_ka=_dct(_j.get('kalshi'))
+            if _age<=4*24*3600 and (_dk.get('singles') or _dk.get('parlays') or _ka.get('top10') or _dct(_ka.get('bankroll_builder')).get('picks')):
+                _lg_bind('nfl_latest',_j.get('window') or 'slate',{},_lg_kind(_j.get('kind')))
+        _j=_lg_read('slates/nfl_night.json')
+        if isinstance(_j,dict) and _j.get('version')==1 and _j.get('window')=='sun-night' and (_dct(_j.get('dk')).get('singles') or _dct(_j.get('kalshi')).get('game_lines') or _j.get('sgp_idea')):
+            _lg_bind('nfl_night',_j.get('window'),{},_lg_kind(_j.get('kind')))
+        _j=_lg_read('slates/nfl_night_sgp.json')
+        if isinstance(_j,dict) and _j.get('version')==1 and _j.get('kind')=='nfl-sgp-idea' and _j.get('status')=='idea_only' and _j.get('combined_price') is None and isinstance(_j.get('legs'),list) and len(_j['legs'])==8 and _j.get('matchup')=='LAR @ DEN':
+            _lg_bind('nfl_night_sgp',_j.get('matchup'),{},_lg_kind(_j.get('kind')))
+        _j=_lg_read('slates/wnba_sgp_idea.json')
+        if isinstance(_j,dict) and _j.get('version')==1 and _j.get('kind')=='wnba-sgp-idea' and _j.get('status')=='idea_only' and _j.get('combined_price') is None and isinstance(_j.get('legs'),list) and len(_j['legs'])==3:
+            _lg_bind('wnba_sgp_idea',_j.get('matchup'),{},_lg_kind(_j.get('kind')))
+        # the futures book (futures.json): every open futures pick, by its league field
+        for f in _lst(FUT):
+            if isinstance(f,dict) and not f.get('settlement'): _lg_bind('futures',f.get('id') or f.get('team') or '?',{'league':f.get('league')})
+        # the Wooder Ice rolling record is a graded record, not a pick feed: it stays on the Wooder tab
+        _rec=_lg_read('slates/wooder_record.json')
+        if isinstance(_rec,dict) and isinstance(_rec.get('picks'),list):
+            _LG_NOTES.append('wooder_record: the Wooder Ice graded record (%d entries) is a record, not a pick feed, and names no league: it stays on the Wooder tab only'%len(_rec['picks']))
+    try: _lg_sources()
+    except Exception as _e: _LG_NOTES.append('a source feed could not be read (%s): picks not bound here stay on their source tab'%(_e,))
+    _LG_SRC_KEYS=[k for k in _LG_ORDER if any(k in r['lgs'] for r in _LG_PICKS)]
+    print('LEAGUE TABS: '+('; '.join('%s <- %s'%(k,', '.join('%s (%d)'%(src,n) for src,n in sorted({(r['src'],sum(1 for x in _LG_PICKS if x['src']==r['src'] and k in x['lgs'])) for r in _LG_PICKS if k in r['lgs']}))) for k in _LG_SRC_KEYS) or 'no source binds a pick to a league today'),file=sys.stderr)
+    for _n in _LG_NOTES: print('LEAGUE BIND NOTE: '+_n,file=sys.stderr)
+    _LG_JS=(r'window.rpLg=(function(){var T=__T__,L=__L__,E=__E__,F=["league","sport","espn_league"];'
+     r'function one(o){if(!o||typeof o!=="object")return [null,0];var ks=[];for(var i=0;i<F.length;i++){var v=o[F[i]];if(v==null||v==="")continue;var k=T[String(v).trim().toLowerCase()];if(!k)return [null,1];if(ks.indexOf(k)<0)ks.push(k);}return ks.length>1?[null,1]:[ks[0]||null,0];}'
+     r'function legs(it){return (it&&typeof it==="object"&&Array.isArray(it.legs))?it.legs.filter(function(l){return l&&typeof l==="object";}):[];}'
+     r'function of(it,c){var o=one(it);if(o[1])return [];var own=o[0]||c||null,out=[],ls=legs(it);ls.forEach(function(l){var r=one(l);if(r[1])return;var k=r[0]||own;if(k&&out.indexOf(k)<0)out.push(k);});if(!ls.length&&own)out.push(own);return out;}'
+     r'function leg(it,l){var o=one(it);if(o[1])return null;var r=one(l);return r[1]?null:(r[0]||o[0]||null);}'
+     r'function kind(s){return T[String(s==null?"":s).split("-")[0].trim().toLowerCase()]||null;}'
+     r'function attr(it,c){var ks=of(it,c);return ks.length?" data-rplg=\""+ks.join(" ")+"\"":"";}'
+     r'function markKind(el,s){var k=kind(s);if(el&&k)el.setAttribute("data-rplg",k);return k;}'
+     r'function names(ks){return (ks||[]).map(function(k){return L[k]||k;});}'
+     r'return {of:of,leg:leg,kind:kind,attr:attr,markKind:markKind,names:names,espn:function(k){return E[k]||"";}};})();'
+    ).replace('__T__',json.dumps(_LG_TOK,separators=(',',':'),sort_keys=True)).replace('__L__',json.dumps(_LG_LBL,separators=(',',':'),sort_keys=True)).replace('__E__',json.dumps(_LG_ESPN,separators=(',',':'),sort_keys=True))
+    def _lg_fut_html(key):
+        # a league tab lists that league's open futures picks (futures.json), in the futures rows' own look, linked
+        # to the futures page; a team already in a "New futures" / "Futures live today" row (rpFutTail, which this
+        # tab shows) is not listed twice. Not on Home: Home keeps its futures link and rows.
+        _got=globals().get('_fwgot') or set()
+        _rows=[]
+        for f in _lst(FUT):
+            if not isinstance(f,dict) or f.get('settlement') or f.get('team') in _got: continue
+            if key not in _lg_of({'league':f.get('league')})[0]: continue
+            _mk=str(f.get('market') or '')
+            _lb='SB' if 'Super Bowl' in _mk else (_mk[:-9] if _mk.endswith(' Champion') else _mk)
+            _ld=((_CLG.get(str(f.get('league') or '')) or {}).get('logo_dir'))
+            _im=('<img src="https://a.espncdn.com/i/teamlogos/%s/500/%s.png" style="width:20px;height:20px;vertical-align:-4px;margin-right:7px" onerror="this.remove()">'%(html.escape(_ld),html.escape(str(f['abbr'])))) if (_ld and f.get('abbr')) else ''
+            _rows.append('<a href="futures.html?v={build_sha}" style="text-decoration:none;color:inherit"><div class="pick">%s<b>%s</b> <span style="color:#8a8f98;font-size:12px">futures: %s &middot; %s</span></div></a>'%(_im,html.escape(str(f.get('team') or '')),html.escape(_lb),html.escape(str(f.get('odds') or ''))))
+        return ('<div class="rplgfut"><div class="sect" style="margin-top:22px">Futures</div>'+''.join(_rows)+'</div>') if _rows else ''
     # 9/27 9:40:49 (Dardan, verbatim): "Only have leagues show up that have picks for the
     # day." NO hardcoded always-on tabs - a league's tab renders only when it has a pick on
     # today's card (its row header in _row_lgs appends it below). No pick = tab hidden.
@@ -3074,6 +3234,12 @@ if _V2:
         _k,_lbl,_esp=_tab_of_lg(_lg)
         if _k!='other' and _k not in _canon_keys and not any(t['key']==_k for t in RP_TABS):
             RP_TABS.append({'key':_k,'label':_lbl,'espn':_esp})
+    # Then every league with a pick from another source today (league binding above), in config_leagues order,
+    # never a second tab for a league the card already opened.
+    _LG_SRC_ONLY=[]
+    for _k in _LG_SRC_KEYS:
+        if not any(t['key']==_k for t in RP_TABS):
+            RP_TABS.append({'key':_k,'label':_LG_LBL[_k],'espn':_LG_ESPN[_k]});_LG_SRC_ONLY.append(_k)
     # futures/watch data-espn no longer appends nav tabs (9:40:49 rule: picks only) -
     # futures/combo content renders globally in <main>, never tab-scoped, so nothing orphans.
     # Home is fixed; league tabs above are pick-bearing only.
@@ -3098,6 +3264,23 @@ if _V2:
     # Home is a view over the existing league panels, not a second copy of card markup.
     # It therefore inherits the exact pick order, links, IDs and live updates from each tab.
     RP_TABS.insert(0, {'key':'home','label':'Home','espn':''})
+    _tk_all=[t['key'] for t in RP_TABS]
+    assert len(_tk_all)==len(set(_tk_all)), 'LEAGUE TABS: a tab repeats (%s) - one tab per league, always'%','.join(_tk_all)
+    assert _tk_all[-1]=='trinity', "LEAGUE TABS: Trinity's tab is not the last tab (%s)"%','.join(_tk_all)
+    # Where a league's picks show (owner, 2026-10-07): its league tab shows its own panel - the card's picks for that
+    # league, its futures - and, from the Wooder Ice panels (#st-wooder, and #st-ding for Dingers), every section and
+    # item whose data names that league (data-rplg, set by each module as it renders). Those panels keep their own
+    # look and their source label; on the league tab only the items for that league show, plus the Wooder Ice label
+    # and its fine-print note (.rpkeep). One node per pick, shown in each place it belongs: no copy, no second id.
+    # A section binds as a whole (.rpsec[data-rplg]) or by its items (.rpbox > [data-rplg]).
+    _LG_SHARE_CSS='body.tab-home .rplgfut{display:none}'
+    for _k in [t['key'] for t in RP_TABS if t['key'] in _LG_LBL]:
+        for _p in ('#st-wooder','#st-ding'):
+            _LG_SHARE_CSS+=('body.tab-%s %s:has([data-rplg~="%s"]){display:block}'
+                            'body.tab-%s %s>:not(.rpsec):not(.rpkeep){display:none!important}'
+                            'body.tab-%s %s .rpsec:not([data-rplg~="%s"]):not(:has([data-rplg~="%s"])){display:none!important}'
+                            'body.tab-%s %s .rpbox>:not([data-rplg~="%s"]){display:none!important}')%(_k,_p,_k,_k,_p,_k,_p,_k,_k,_k,_p,_k)
+    _LG_SHARE_HEAD='<style id="rpLgShare">'+_LG_SHARE_CSS+'</style><script>'+_LG_JS+'</script>'
     # Past Tickets archive (1:33 spec via main, owner full-control): completed/removed picks
     # and tickets with All/Won/Lost filters. Original selection, result, provenance preserved -
     # nothing deleted, just moved. BOUGHT stays visually distinct from SUGGESTED forever; voids render
@@ -3172,7 +3355,7 @@ if _V2:
      'BR':('betrivers.com','#e3f5fc','#0278a6',0),'HR':('hardrock.bet','#faf3dd','#8a6d1a',0),
      'TSB':('thescore.bet','#0d1b2e','#4d94ff',0),'B365':('bet365.com','#f0f6f0','#1c6e3c',0),'FAN':('sportsbook.fanatics.com','#f3f3f3','#111',0)}
     mlb_entry=(
-    r'<div style="margin-top:22px">'
+    r'<div class="rpsec" style="margin-top:22px">'
     r'<div class="sect">Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div>'
     r'<div style="border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px">'
     r'<div class="lghead" style="margin-top:0">Dingers Only &#128293;</div>'
@@ -3216,7 +3399,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     r'+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(pk.matchup)+" &middot; "+esc(pk.time)+"</div><div class=\"rpdingtrk\" data-p=\""+esc(pk.player)+"\" data-m=\""+esc(pk.matchup)+"\" style=\"margin-top:3px;font-size:12px\"></div>"'
     r'+"<div style=\"margin-top:4px\">"+chips+"</div>"+(pk.price_note&&chips?"<div style=\"font-size:11px;color:#8a8f98;margin-top:4px;line-height:1.4\">"+esc(pk.price_note)+"</div>":"")+"</div>";});'
     r'if(!h){hide();return;}'
-    r'box.innerHTML=h;startDing();'
+    r'box.innerHTML=h;startDing();try{window.rpLg.markKind(box.parentNode.parentNode,"mlb");}catch(e){}'
     r'}).catch(hide);'
     r'})();</script>')
     mlb_entry=mlb_entry.replace('var VEN={};','var VEN='+json.dumps({k:[v[0],v[1],v[2],v[3]] for k,v in _DING_VENUES.items()},separators=(',',':'))+';')
@@ -3271,8 +3454,11 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     if wooder_batch_entry.startswith('<style>'): wooder_batch_entry=wooder_batch_entry[wooder_batch_entry.index('</style>')+8:]
     wooder_batch_entry=(wooder_batch_entry.replace('PICKS FROM RIX','Wooder Ice tickets').replace('rpNflIdeas','rpBatchIdeas').replace('rpNflTab','rpBatchTab')
       .replace('slates/nfl_ideas.json','slates/wooder_batch.json').replace('<div class=\\"sub\\">No NFL ideas today.</div>','')
-      .replace(r'<div class=\"rpnpick\" style=', r'<div class=\"rpnpick\" id=\"tk-"+esc(cd.id||"")+"\" style='))
+      .replace(r'<div class=\"rpnpick\" style=', r'<div class=\"rpnpick\" id=\"tk-"+esc(cd.id||"")+"\""+(G("attr",cd)||"")+" style=')
+      .replace('<div style="margin-top:6px">','<div class="rpsec" style="margin-top:6px">',1).replace('<div id="rpBatchIdeas"></div>','<div id="rpBatchIdeas" class="rpbox"></div>')
+      .replace('function none(){','function G(f,a,b){try{return window.rpLg[f](a,b);}catch(e){return null;}}function none(){',1))
     assert 'rpBatchIdeas' in wooder_batch_entry and 'tk-' in wooder_batch_entry and 'wooder_batch.json' in wooder_batch_entry
+    assert 'class="rpsec"' in wooder_batch_entry and 'class="rpbox"' in wooder_batch_entry and 'G("attr",cd)' in wooder_batch_entry and 'function G(' in wooder_batch_entry
     for t in RP_TABS:
         if t['key']=='home': continue  # home projects the canonical league panels below
         _prows=''.join(_panels.get(t['key']) or [])
@@ -3280,19 +3466,22 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
             _panels_html+='<div class="state" id="st-trinity">'+trinity_entry()+'</div>\n'
             continue
         _body=((_prows+nfl_ideas_entry) if t['key']=='nfl' else (((nfl_entry+wooder_batch_entry) if t['key']=='wooder' else (past_entry if t['key']=='past' else (_prows if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
-        _body=_ystr_for(t['key'])+_body
+        _body=_ystr_for(t['key'])+_body+_lg_fut_html(t['key'])
         if not _body.strip():
-            _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">No picks today</span></div></div>'
+            # a league tab opened by another source's picks says only what is true of the card
+            _body='<div class="pick rp-empty"><div class="pick-head"><span class="name">'+('No card picks today' if t['key'] in _LG_SRC_ONLY else 'No picks today')+'</span></div></div>'
         elif _prows.strip():
             _body='<div class="sect" style="margin-top:2px">Today&rsquo;s picks</div>'+_body
         _home_lg=t['key'] in _home_pick_tabs
         _home_attr=' data-home-league="1"' if _home_lg else ''
         _panels_html+='<div class="state" id="st-'+t['key']+'"'+_home_attr+'>'+_body+'</div>\n'
     _panels_html+=_dingers_home_panel(_home_pick_tabs,mlb_entry)
+    _pids=re.findall(r'<div class="state[^"]*" id="([^"]+)"',_panels_html)
+    assert len(_pids)==len(set(_pids)), 'LEAGUE TABS: two panels share an id (%s)'%','.join(_pids)
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
     '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><button type="button" class="rec" id="rpNavRec" aria-haspopup="true" aria-expanded="false" aria-controls="rpRecPop" aria-label="View overall record"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</button>'+_recpop_html+'</nav>\n'
-    '<div class="layout"><div class="rphead">'+_unit_basis_home+_home_yes+'<div class="rpdate" data-date="'+html.escape(_RPDATE_ISO)+'">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_learn_html+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
+    '<div class="layout"><div class="rphead">'+_unit_basis_home+_home_yes+'<div class="rpdate" data-date="'+html.escape(_RPDATE_ISO)+'">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_LG_SHARE_HEAD+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_learn_html+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Upcoming Events</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div id="rpPredWrap" class="home-only" style="display:none"><div class="col-head" style="margin-top:18px"><div class="sect">Predictions by UltRix</div></div><div class="card" id="rpPred"></div></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
@@ -4153,7 +4342,7 @@ function rpPageRefresh(){{try{{
 }}catch(e){{}}}}
 setInterval(rpPageRefresh,60000);
 </script>
-<script src="myprofile.js?v={{build_sha}}"></script><script defer src="scripts/wooder_wnba_shared.js?v={{build_sha}}"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){{var pend=window.__rpGcPend=window.__rpGcPend||{{}};if(pend[p])return;pend[p]=1;var n=0;var go=function(){{try{{if(flag&&localStorage.getItem(flag)){{pend[p]=0;return;}}if(window.goatcounter&&goatcounter.count){{goatcounter.count({{path:p,event:true}});if(flag){{try{{localStorage.setItem(flag,'1');}}catch(e){{}}}}pend[p]=0;}}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}}catch(e){{pend[p]=0;if(n++<20)setTimeout(go,3000);}}}};go();}};</script></div>{_V2_SCRIPTS}</body></html>'''
+<script src="myprofile.js?v={{build_sha}}"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){{var pend=window.__rpGcPend=window.__rpGcPend||{{}};if(pend[p])return;pend[p]=1;var n=0;var go=function(){{try{{if(flag&&localStorage.getItem(flag)){{pend[p]=0;return;}}if(window.goatcounter&&goatcounter.count){{goatcounter.count({{path:p,event:true}});if(flag){{try{{localStorage.setItem(flag,'1');}}catch(e){{}}}}pend[p]=0;}}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}}catch(e){{pend[p]=0;if(n++<20)setTimeout(go,3000);}}}};go();}};</script></div>{_V2_SCRIPTS}</body></html>'''
 
 def _pt_label(iso):
     try:

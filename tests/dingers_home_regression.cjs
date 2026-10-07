@@ -3,9 +3,11 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const html=fs.readFileSync('index.html','utf8');
 const css=fs.readFileSync('scripts/index_v2.css','utf8');
-const tabs=fs.readFileSync('scripts/index_v2_tabs.js','utf8');
-const builder=fs.readFileSync('scripts/build_site.py','utf8');
-assert.equal(builder,fs.readFileSync('build_site.py','utf8'),'builder twins must match');
+// The page's tab script (rpDateRoll lives there) and the two builder twins. The paths this test first named
+// (index_v2_tabs.js, build_site.py) were never in this repository; these are the files that hold that code.
+const tabs=fs.readFileSync('scripts/index_v2.js','utf8');
+const builder=fs.readFileSync('scripts/build_gh_page_v2.py','utf8');
+assert.equal(builder,fs.readFileSync('scripts/_build_nocanon_v2.py','utf8'),'builder twins must match');
 assert.equal((html.match(/id="rpDing"/g)||[]).length,1,'one shared Dingers node');
 assert.equal((html.match(/id="st-ding"/g)||[]).length,1,'one shared Dingers state');
 assert.match(html,/<div class="state" id="st-ding" data-home-league="1">/);

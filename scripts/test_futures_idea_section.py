@@ -59,7 +59,7 @@ for B in BUILDERS:
     if not mod: continue
     has_fut_box = 'id="rpCmbFut"' in mod
     check(f'{tag}: page carries a separate Futures Ideas card, hidden by default',
-          bool(re.search(r'<div id="rpCmbFutWrap" hidden[^>]*><div class="rpwhead">Futures Ideas</div><div id="rpCmbFut"></div></div>', mod)))
+          bool(re.search(r'<div id="rpCmbFutWrap"(?=[^>]*\shidden[\s>])[^>]*><div class="rpwhead">Futures Ideas</div><div id="rpCmbFut"[^>]*></div></div>', mod)))
     script = re.search(r'<script>([\s\S]*)</script>', mod[mod.find('<script>(function(){var box=document.getElementById("rpCmb")'):]).group(1)
     o = run(script, [SGP, FUT], has_fut_box)
     check(f'{tag}: season-long futures idea is not listed under Same Game Parlays', 'NFL Futures' not in o.get('sgp', 'NFL Futures'))
