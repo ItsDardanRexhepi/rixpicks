@@ -137,13 +137,14 @@ def stamped(r):
 # a sub-bar card: every hold on it is a numeric bar (gross, net, units over the rung, fair below the band)
 CLEAN = pick(1, 'Clean ML', away='C1', home='D1')                                                    # no hold
 THIN = pick(2, 'Thin ML', away='C2', home='D2', model=61.0)                                          # gross 1c, net -0.68c
-TOTAL = pick(3, 'Total Over 4.5', away='C3', home='D3', model=82.0, american=-400, mclass='total', line=4.5, side='over')  # net 0.88c
+TOTAL = pick(3, 'Total Over 4.5', away='C3', home='D3', model=81.0, american=-400, mclass='total', line=4.5, side='over')  # gross 1c, net -0.12c
 OFFRUNG = pick(4, 'OffRung ML', away='C4', home='D4', units='10u')                                   # 10u on a 5u rung
 SUBFAIR = pick(5, 'SubFair ML', away='C5', home='D5', model=55.0)                                   # fair below the 60c band
 SUB = [CLEAN, THIN, TOTAL, OFFRUNG, SUBFAIR]
 SUB_NAMES = [p['name'] for p in SUB[1:]]
-SUB_HELD = 6  # Thin: gross + net; Total: net; OffRung: over the rung; SubFair: fair band + gross + net
-NUMERIC_TOKENS = ('gross 1c below the 2c bar', 'net 0.88c below the 2c bar', "over the J-096 rung 5u")
+# No 2c floor (owner, 2026-10-07): a numeric hold is a side with NO positive edge, or units over its rung.
+SUB_HELD = 5  # Thin: net; Total: net; OffRung: over the rung; SubFair: gross + net
+NUMERIC_TOKENS = ('net -0.68c - no positive net edge', 'net -0.12c - no positive net edge', "over the J-096 rung 5u")
 
 def held(rc, out, written):
     return rc == 3 and 'BUILD FAILED' in out and 'owner ruling 2026-10-02 (4)' in out and written == [] and 'OWNER SUSPENSION:' not in out
@@ -191,7 +192,7 @@ for B in BUILDERS:
     # (d) a held pick not in the list: the whole card is held (nothing partly waived)
     rc, out, written, _ = build(B, card(SUB), log=log_of(line(picks=SUB_NAMES[:-1])))
     check(f'{tag}: (d) a held pick missing from the list: held, the hold names every item',
-          held(rc, out, written) and all(t in out for t in NUMERIC_TOKENS) and f'covers 4 of {SUB_HELD} held item(s)' in out, (rc, out[-600:], written))
+          held(rc, out, written) and all(t in out for t in NUMERIC_TOKENS) and f'covers {SUB_HELD - 2} of {SUB_HELD} held item(s)' in out, (rc, out[-600:], written))
     for near in ('thin ml', 'Thin ML ', 'Thin  ML', 'Thin'):
         rc, out, written, _ = build(B, card(SUB), log=log_of(line(picks=[near] + SUB_NAMES[1:])))
         check(f'{tag}: (d) pick name {near!r} is not exactly "Thin ML": held', held(rc, out, written), (rc, out[-400:], written))

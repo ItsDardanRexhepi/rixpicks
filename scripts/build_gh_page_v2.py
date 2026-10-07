@@ -253,8 +253,8 @@ def vegas_hit_fields(league, fields):
 _UNIT_LADDER=('5u','10u','15u','100u')
 # numeric bars, mirroring build_manifest.py (bar_problems / j096_rung); the page builder re-checks them
 # from the manifest's own fields because a sub-bar card.json can land outside build_manifest.
-_ASK_CUT_C,_GROSS_BAR_C=85.0,2.0
-_NET_BAR_C={'ml':0.5}  # spread/total/prop: 2c
+_ASK_CUT_C=85.0
+# NO 2c FLOOR (owner, 2026-10-07): a positive gross and net edge clears; there is no threshold constant to restore.
 _RUNG_INT={'5u':5,'10u':10,'15u':15,'100u':100}
 _POLY_US_PRICED=False  # 9/27 P1 (main 8:31): .com-gamma quotes never label .us-linked POLY chips (Bengals -150 vs .us -163 class). Flip True ONLY when analysis ships verified .us-sourced quotes; until then POLY chips are destination-only and excluded from best-line.  # add entries ONLY after verifying the .us slug live; verified 9/27: nyl->ny
 _EXCH_VENUES={'kalshi','poly','polymarket'}
@@ -434,10 +434,9 @@ def _standing_rule_holds(m):
             continue
         gross=round(fair-cost,6)
         net=round(gross-(_kfee_c(cost) if _is_kalshi_priced(p) else 0.0),6)
-        net_bar=_NET_BAR_C.get(p.get('market_class'),2.0)
         if cost>=_ASK_CUT_C: out.append((p.get('name'),'ask_cut',f"{who}: card ask {cost:g}c at or above the 85c cut"))
-        if gross<_GROSS_BAR_C: out.append((p.get('name'),'gross_bar',f"{who}: gross {gross:g}c below the 2c bar"))
-        if net<net_bar: out.append((p.get('name'),'net_bar',f"{who}: net {net:g}c below the {net_bar:g}c bar"))
+        if not gross>0: out.append((p.get('name'),'gross_bar',f"{who}: gross {gross:g}c - no positive gross edge"))
+        if not net>0: out.append((p.get('name'),'net_bar',f"{who}: net {net:g}c - no positive net edge"))
         u,base=_RUNG_INT.get(p.get('units')),_j096_rung(fair,gross)
         if u is not None and base and u>base:
             out.append((p.get('name'),'units_over_rung',f"{who}: units {p.get('units')!r} over the J-096 rung {base}u of its fair (fair {fair:g}c, gross {gross:g}c)"))

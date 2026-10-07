@@ -17,7 +17,7 @@ verbatim by muse on MeshTrix, 15:35Z).
      parlay price (parlay.best_ask) when that is cheaper. 2-4 legs (J-098), every leg a pick on the card.
  (4) "NO - an owner-approved card cannot break a standing rule. Vegas rule, ladder sizes, all of it:
      hard gates, no exceptions." Every bar refuses the card closed, nothing written: card
-     ask >= 85c, gross < 2c, net < 0.5c (ml) or < 2c (spread, total, prop), units other than the J-096
+     ask >= 85c, no positive gross or net edge (no 2c floor since 2026-10-07), units other than the J-096
      rung (below 70 = 5u; 70-79 = 10u with gross >= 3c, else 5u; 80-89 = 15u; 90+ = 100u; fragility 2 one
      rung lower, fragility 3 refuses; tennis capped at 5u), and a candidate missing model, gross_c or
      net_c. A status_note cannot carry a sub-bar card: an owner-forced sub-bar pick is impossible.
@@ -137,14 +137,17 @@ r = built('fair 59.9c clears edge bars at 5u', [cand(1, 'Home1 ML', 59.9, 3.0, 1
 check('sub-60c published stake stays 5u', (r['man'] or {'picks':[{}]})['picks'][0].get('units') == '5u', r['man'])
 refused('sub-60c at 10u still refuses', [cand(1, 'Home1 ML', 59.9, 3.0, 1.3, '10u', cents=56)], ['J-096 rung', '5u'])
 refused('card ask 85c (the 85c cut)', [cand(1, 'Home1 ML', 92.0, 7.0, 6.1, '100u', cents=85)], ['85c', RULING4])
-refused('gross 1.9c', [cand(1, 'Home1 ML', 62.9, 1.9, 0.6, '5u')], ['gross', '2c', RULING4])
+# NO 2c FLOOR (owner, 2026-10-07: "remove the 2c floor ... just like how it did with the 60c"): a positive edge
+# clears, and only a side with no positive gross or net edge is refused.
+built('gross 1.9c cards (the 2c floor is gone)', [cand(1, 'Home1 ML', 62.9, 1.9, 0.6, '5u')])
+refused('no positive gross edge (fair 61c at a 61c ask)', [cand(1, 'Home1 ML', 61.0, 0.0, 0.0, '5u')], ['gross', 'no positive', RULING4])
 # net is recomputed from the fair against the Kalshi 61c ask (fee 1.67c), never the candidate's net_c: a fair of
-# 63.0 nets 2.0 - 1.67 = 0.33c (below the 0.5c ml bar), 63.2 nets 0.53c (at it)
-refused('ml net below the 0.5c bar (fair 63.0c -> net 0.33c)', [cand(1, 'Home1 ML', 63.0, 2.0, 0.4, '5u')], ['net', '0.5c'])
-built('ml net at the 0.5c bar (fair 63.2c -> net 0.53c)', [cand(1, 'Home1 ML', 63.2, 2.2, 0.5, '5u')])
-for mc in ('spread', 'total', 'prop'):  # fair 64.5c -> net 1.83c (below the 2c bar); 64.7c -> net 2.03c (at it)
-    refused(f'{mc} net below the 2c bar', [cand(1, f'Home1 {mc}', 64.5, 3.5, 1.9, '5u', mc=mc)], ['net', '2c'])
-    built(f'{mc} net at the 2c bar', [cand(1, f'Home1 {mc}', 64.7, 3.7, 2.0, '5u', mc=mc)])
+# 62.5 nets 1.5 - 1.67 = -0.17c (no positive net edge), 63.0 nets 0.33c (positive: it cards)
+refused('ml with no positive net edge (fair 62.5c -> net -0.17c)', [cand(1, 'Home1 ML', 62.5, 1.5, 0.4, '5u')], ['net', 'no positive'])
+built('ml net 0.33c cards (fair 63.0c)', [cand(1, 'Home1 ML', 63.0, 2.0, 0.4, '5u')])
+for mc in ('spread', 'total', 'prop'):  # fair 62.5c -> net -0.17c (no positive edge); 64.5c -> net 1.83c (cards)
+    refused(f'{mc} with no positive net edge', [cand(1, f'Home1 {mc}', 62.5, 1.5, 0.4, '5u', mc=mc)], ['net', 'no positive'])
+    built(f'{mc} net 1.83c cards (no 2c floor)', [cand(1, f'Home1 {mc}', 64.5, 3.5, 1.9, '5u', mc=mc)])
 
 # units: the J-096 rung computed from fair and gross, nothing else
 refused('fair 66c carded at 10u (rung 5u)', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '10u')], ['J-096 rung', '5u'])
@@ -179,7 +182,7 @@ refused('a bool gross_c', [dict(OK5, gross_c=True)], ['gross_c'])
 # Sep 29/30 status_note words, and every violation on a card in one refusal
 PROBE_NOTE = 'Official pick by owner directive - sub-bar disclosure on file (fair 46.7c below the 60c card band)'
 r = refused('the sub-bar probe with the owner-directive status_note',
-            [cand(1, 'Home1 ML', 46.7, 1.0, 0.1, '5u', cents=46)], ['gross', 'net', 'sub-bar', RULING4], status_note=PROBE_NOTE)
+            [cand(1, 'Home1 ML', 46.7, 1.0, 0.1, '5u', cents=46)], ['net', 'sub-bar', RULING4], status_note=PROBE_NOTE)
 check('the refusal names an owner-forced sub-bar pick impossible', 'owner-forced sub-bar pick is impossible' in r['log'], r['log'][-300:])
 refused('a sub-bar disclosure status_note on a clean card refuses (a status_note cannot carry a sub-bar card)', [OK5], ['status_note', RULING4],
         status_note='Official pick by owner directive - sub-bar disclosure on file')
@@ -233,13 +236,13 @@ check('Polymarket best: card_american -150 (60c), best_book Polymarket, no fee',
 
 # the edge is the best ask's: a pick short of the bar at Kalshi clears it at a cheaper book ...
 SHORT_AT_KALSHI = cand(1, 'Home1 ML', 62.5, 1.5, -0.2, '5u')
-refused('fair 62.5c against Kalshi 61c alone (gross 1.5c)', [SHORT_AT_KALSHI], ['gross'])
+refused('fair 62.5c against Kalshi 61c alone (gross 1.5c, net -0.17c after the fee)', [SHORT_AT_KALSHI], ['net', 'no positive'])
 built('the same pick against DK -150 (gross 2.5c, no fee)', [dict(SHORT_AT_KALSHI, best_ask=ba('dk', -150, [K61, DK150]))])
 # ... and the Kalshi fee counts when Kalshi is the best venue, whatever net_c the candidate carried
-refused('spread fair 63.5c, Kalshi 60c beats DK -155: net 3.5 - 1.68 = 1.82c < 2c',
+built('spread fair 63.5c, Kalshi 60c beats DK -155: net 3.5 - 1.68 = 1.82c cards (no 2c floor)',
         [cand(1, 'Home1 -1.5', 63.5, 3.5, 2.5, '5u', cents=60, mc='spread',
               # a book quote on a spread names its line (one line, one market): the home pick's own -1.5
-              best_ask=ba('kalshi', 60, [{'venue': 'dk', 'price': -155, 'read_at': T0, 'line': -1.5}]))], ['net', '2c'])
+              best_ask=ba('kalshi', 60, [{'venue': 'dk', 'price': -155, 'read_at': T0, 'line': -1.5}]))])
 
 # fail closed on a best_ask block the builder cannot trust
 refused('best_ask names DK but Kalshi is cheaper', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -170, [K61]))], ['cheaper'])
@@ -271,9 +274,9 @@ check("preview no best_ask: Kalshi price, 'Kalshi ask at lock', no best_ask on t
 # B2 (owner ruling 2026-10-02 (1)/(4)): gross and net are always recomputed from the fair against the card price,
 # never the candidate's self-reported gross_c/net_c. Candidate net_c 0.9 clears the 0.5c ml bar, but the recompute
 # from Kalshi 61c (2.0 - fee 1.67 = 0.33c) is below it - preview refuses just as a production best-ask pick would.
-_b2 = build_preview([cand(1, 'Home1 ML', 63.0, 2.0, 0.9, '5u', best_ask=None)])
-check('a preview legacy pick whose candidate net clears the bar but recomputes below is refused',
-      _b2['rc'] != 0 and _b2['man'] is None and 'net' in _b2['log'] and '0.5c' in _b2['log'], _b2['log'])
+_b2 = build_preview([cand(1, 'Home1 ML', 62.5, 1.5, 0.9, '5u', best_ask=None)])
+check('a preview legacy pick whose candidate net is positive but recomputes to none is refused',
+      _b2['rc'] != 0 and _b2['man'] is None and 'net' in _b2['log'] and 'no positive' in _b2['log'], _b2['log'])
 built_preview_clears = build_preview([cand(1, 'Home1 ML', 63.3, 2.0, 0.0, '5u', best_ask=None)])  # 63.3-61-1.67=0.63 >= 0.5
 check('a preview legacy pick whose recomputed net clears builds (candidate net_c 0.0 ignored)',
       built_preview_clears['rc'] == 0 and built_preview_clears['man'] is not None, built_preview_clears['log'])

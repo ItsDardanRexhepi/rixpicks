@@ -124,18 +124,25 @@ for B in BUILDERS:
     NUM = [
         ('fair 55c has negative gross at 60c ask', pick(1, 'SubFair ML', 'hockey/nhl', 'A', 'B', model=55.0, american=-150), 'gross'),
         ('card ask 85c at the cut', pick(1, 'Fav ML', 'hockey/nhl', 'A', 'B', units='100u', model=96.0, american=-567), '85c cut'),
-        ('gross 1.0c below the 2c bar', pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=61.0, american=-150), 'gross'),
+        # no 2c floor (owner, 2026-10-07): a side is held only with no positive edge
+        ('gross 1.0c but no positive net edge after the fee', pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=61.0, american=-150), 'no positive net edge'),
+        ('no positive gross edge (fair 60c at a 60c ask)', pick(1, 'Even ML', 'hockey/nhl', 'A', 'B', model=60.0, american=-150), 'no positive gross edge'),
         ('fair 66c carded at 10u (rung 5u)', pick(1, 'OffRung ML', 'hockey/nhl', 'A', 'B', units='10u', model=66.0, american=-150), 'J-096 rung'),
     ]
     for label, p, token in NUM:
         rc, log, written, _ = build(B, card([p]))
         check(f'{tag}: {label}: the card is held (exit 3), nothing written',
               rc == 3 and 'BUILD FAILED' in log and token in log and written == [], (rc, log[-300:], written))
-    # spread net below the 2c bar: fair 63.5c against Kalshi 60c (-150) -> net 3.5 - fee(60)=1.68 = 1.82c
-    sp = pick(1, 'Home1 -1.5', 'hockey/nhl', 'A', 'B', model=63.5, american=-150)
+    # a spread with no positive net edge: fair 61.0c against Kalshi 60c (-150) -> net 1.0 - fee(60)=1.68 = -0.68c
+    sp = pick(1, 'Home1 -1.5', 'hockey/nhl', 'A', 'B', model=61.0, american=-150)
     sp['market_class'] = 'spread'; sp['line'] = -1.5
     rc, log, written, _ = build(B, card([sp]))
-    check(f'{tag}: spread net below the 2c bar is held', rc == 3 and 'net' in log and written == [], (rc, log[-300:], written))
+    check(f'{tag}: a spread with no positive net edge is held', rc == 3 and 'no positive net edge' in log and written == [], (rc, log[-300:], written))
+    # and one with a small positive edge cards (no 2c floor): fair 63.5c -> net 1.82c
+    sp2 = pick(1, 'Home1 -1.5', 'hockey/nhl', 'A', 'B', model=63.5, american=-150)
+    sp2['market_class'] = 'spread'; sp2['line'] = -1.5
+    rc, log, written, _ = build(B, card([sp2]))
+    check(f'{tag}: a spread with a 1.82c net edge builds (no 2c floor)', rc == 0 and 'index.html' in written, (rc, log[-300:], written))
     # card_american that is not the best ask of the recorded venues (DK -150 is 60c; card claims -130 = 56.5c)
     ba = pick(1, 'BadAm ML', 'hockey/nhl', 'A', 'B', model=66.0, american=-130)
     ba['best_ask'] = {'venue': 'dk', 'price': -150, 'read_at': '2099-10-04T14:51:00Z', 'cost_c': 60.0, 'fee_c': 0.0,

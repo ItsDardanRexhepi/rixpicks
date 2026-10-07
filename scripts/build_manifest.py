@@ -29,7 +29,8 @@ candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{c
 STANDING RULES ARE HARD GATES (owner ruling 2026-10-02 (4): "NO - an owner-approved card cannot break a standing
 rule. Vegas rule, ladder sizes, all of it: hard gates, no exceptions."). The card refuses closed, nothing
 written, on a pick on or against a Las Vegas team, units off the J-096 ladder, and on every standing bar:
-fair (model) < 60c, card ask >= 85c, gross < 2c, net < 0.5c (ml) or < 2c (spread, total, prop), units other
+card ask >= 85c, no positive gross or net edge (THE 2c FLOOR IS GONE: owner, 2026-10-07, "remove the 2c floor ...
+just like how it did with the 60c" - and there is no fair floor either), units other
 than the J-096 rung of its fair and gross (below 70 = 5u; 70-79 = 10u with gross >= 3c else 5u; 80-89 = 15u;
 90+ = 100u; fragility 2 one rung lower, fragility 3 refuses; tennis capped at 5u), a candidate missing model,
 gross_c or net_c, and a parlay short of 2c gross and 2c net (ruling (2), 2-4 legs, J-098). Every violation on
@@ -358,8 +359,8 @@ def price_card(c):
                                                **({'line': q['line']} if q.get('line') is not None else {})} for q in ranked])
 
 # ---- the standing bars (RUNBOOK 2.3, J-096/J-097/J-098, owner rulings 2026-10-02) ----
-ASK_CUT_C, GROSS_BAR_C = 85, 2.0
-NET_BAR_C = {'ml': 0.5}  # spread, total and prop: 2c
+ASK_CUT_C = 85
+# NO 2c FLOOR (owner, 2026-10-07): a positive gross and net edge clears; no threshold constant is kept to restore.
 _RUNG_DOWN = {100: 15, 15: 10, 10: 5, 5: 5}  # fragility 2: one rung lower (5u is the lowest card rung)
 
 def j096_rung(fair_c, gross_c):
@@ -385,14 +386,13 @@ def bar_problems(c, pr):
     # self-reported gross_c/net_c. The J-096 rung below is computed from that fair and gross.
     gross, net = round(fair - pr['cost_c'], 6), round(fair - pr['cost_c'] - pr['fee_c'], 6)
     mc = c.get('market_class')
-    net_bar = NET_BAR_C.get(mc, 2.0)
     out = []
     if pr['cost_c'] >= ASK_CUT_C:
         out.append(f"card ask {_c(pr['cost_c'])} at or above the {ASK_CUT_C}c cut")
-    if gross < GROSS_BAR_C:
-        out.append(f'gross {_c(gross)} below the 2c bar')
-    if net < net_bar:
-        out.append(f"net {_c(net)} below the {net_bar:g}c {'ml' if mc == 'ml' else 'spread/total/prop'} bar")
+    if not gross > 0:
+        out.append(f'gross {_c(gross)}: no positive gross edge')
+    if not net > 0:
+        out.append(f'net {_c(net)}: no positive net edge')
     frag = c.get('fragility')
     if frag is not None and (type(frag) is not int or frag < 0):
         out.append(f'fragility {frag!r} is not a whole number from 0 (J-097)')
