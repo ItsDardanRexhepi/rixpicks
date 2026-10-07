@@ -91,3 +91,9 @@ body.tab-trinity .intro{display:none}
 /* Signed in: a quiet line under the chat saying who, so nobody forgets they are holding the door open. */
 .tr-who{font-size:12px;color:#0b6e5f;margin:6px 2px 0;font-weight:700}
 .tr-who[hidden]{display:none}
+
+/* Signed in only: send a photo. Hidden for everyone else - the button does not exist for a visitor. */
+.tr-photo{border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;border-radius:10px;
+  padding:0 14px;font-weight:700;cursor:pointer;white-space:nowrap}
+.tr-photo[hidden]{display:none}
+.tr-row .tr-thumb{display:block;max-width:220px;max-height:220px;border-radius:10px;margin-top:4px}

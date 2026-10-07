@@ -58,6 +58,8 @@
   function showWho(name) {
     try { if (name) sessionStorage.setItem(SESSION + '_who', name); else sessionStorage.removeItem(SESSION + '_who'); }
     catch (e) {}
+    var pb = document.getElementById('trPhoto');
+    if (pb) pb.hidden = !name;
     if (!who) return;
     if (name) { who.textContent = 'Signed in as ' + name + '. Say "sign out" when you are done.'; who.hidden = false; }
     else { who.textContent = ''; who.hidden = true; }
@@ -174,6 +176,76 @@
     });
   }
 
+  /* PHOTOS, signed in only. The photo is redrawn on a canvas before it leaves the phone: that drops every byte of
+     metadata a camera writes (the location first of all), applies the rotation the camera recorded so it is not
+     sent sideways, and caps the long edge so a full-resolution photo does not crawl over a phone connection. The
+     server strips metadata again regardless, because a server does not trust a browser to have done it. */
+  var MAX_EDGE = 2560;
+
+  function toJpeg(file) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, MAX_EDGE / Math.max(w, h));
+        var c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(w * k));
+        c.height = Math.max(1, Math.round(h * k));
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(function (b) { b ? resolve(b) : reject(new Error('could not encode')); }, 'image/jpeg', 0.9);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('not an image')); };
+      img.src = url;
+    });
+  }
+
+  function blobToBase64(b) {
+    return new Promise(function (resolve, reject) {
+      var r = new FileReader();
+      r.onload = function () { resolve(String(r.result).split(',')[1] || ''); };
+      r.onerror = reject;
+      r.readAsDataURL(b);
+    });
+  }
+
+  function sendPhoto(file) {
+    if (!file || inFlight || !getSession()) return;
+    var caption = (input && input.value || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
+    lock(true);
+    var mine = row('me', caption || 'Photo', null, '', true);
+    var pend = row('her', 'Sending the photo', null, 'tr-pending', true);
+    var done = function (text, declined) {
+      if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
+      row('her', text, null, declined ? 'declined' : '', true);
+      if (input) input.value = '';
+      lock(false);
+    };
+    toJpeg(file).then(function (jpg) {
+      var thumb = document.createElement('img');
+      thumb.className = 'tr-thumb';
+      thumb.alt = 'the photo you sent';
+      thumb.src = URL.createObjectURL(jpg);
+      mine.querySelector('.tr-bub').appendChild(thumb);
+      return blobToBase64(jpg);
+    }).then(function (b64) {
+      return fetch(TRINITY_ENDPOINT + '/upload', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ session: getSession(), caption: caption, image: b64 }),
+        cache: 'no-store'
+      });
+    }).then(function (r) {
+      return r.json().then(function (d) { return { status: r.status, body: d }; });
+    }).then(function (res) {
+      var d = res.body || {};
+      if (res.status === 403) { setSession(''); showWho(''); }
+      done(typeof d.answer === 'string' && d.answer ? d.answer : OFFLINE, d.answered === false);
+    }).catch(function () {
+      done('That photo did not go through, so nothing was passed on. Try it again in a moment.', true);
+    });
+  }
+
   /* The five lists on the page are served by the endpoint, so they can never drift from the lookups
      that actually exist. The markup ships them inline as the no-JavaScript fallback; this replaces
      them when /about answers, and leaves them alone when it does not. */
@@ -229,6 +301,15 @@
     if (!log || !form || !input) return;
 
     form.addEventListener('submit', function (e) { e.preventDefault(); ask(input.value); });
+    var pbtn = document.getElementById('trPhoto'), pfile = document.getElementById('trFile');
+    if (pbtn && pfile) {
+      pbtn.addEventListener('click', function () { if (getSession()) pfile.click(); });
+      pfile.addEventListener('change', function () {
+        var f = pfile.files && pfile.files[0];
+        pfile.value = '';
+        if (f) sendPhoto(f);
+      });
+    }
     if (chips) {
       chips.addEventListener('click', function (e) {
         var b = e.target.closest ? e.target.closest('.tr-chip') : null;
