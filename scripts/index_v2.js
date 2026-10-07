@@ -1071,12 +1071,12 @@ function rtPoll(){
   var v=rs[3].status==='fulfilled'?rs[3].value:null;
   if(v&&v.build&&RP_BUILD&&+v.build>+RP_BUILD){
    try{sessionStorage.setItem('rpUpd',JSON.stringify({y:window.scrollY||0}));}catch(e){}
-   location.reload();return; /* controlled same-tab code refresh: behind clients never keep old gates */
+   (window.rpReload||location.reload.bind(location))();return; /* controlled same-tab code refresh: behind clients never keep old gates */
   }
   var mv=rs[2].status==='fulfilled'?rs[2].value:null;
   if(mv&&mv.client_build&&RP_BUILD&&+mv.client_build>+RP_BUILD){
    try{sessionStorage.setItem('rpUpd',JSON.stringify({y:window.scrollY||0}));}catch(e){}
-   location.reload();return; /* guard 5 bootstrap kill: version signal rides the map payload every tick */
+   (window.rpReload||location.reload.bind(location))();return; /* guard 5 bootstrap kill: version signal rides the map payload every tick */
   }
   var nj=rs[0].status==='fulfilled'?rs[0].value:null;
   var xj=rs[1].status==='fulfilled'?rs[1].value:null;
@@ -1197,7 +1197,9 @@ function loadSide(t){
    if(SB[t.key]&&now-(SB_TS[t.key]||0)<60000){renderGames(t,SB[t.key]);}
    else{fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?limit=50',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){SB[t.key]=j.events||[];SB_TS[t.key]=Date.now();if(cur===t)renderGames(t,SB[t.key]);}).catch(function(){if(cur===t)renderGames(t,SB[t.key]||null);});}
   }
-  if(t.key==='home'){
+  /* Trinity and Past Tickets have no league of their own, so neither sidebar branch filled them and they sat on
+     'Loading upcoming events' for good. They show the same every-league list as Home. */
+  if(t.key==='home'||t.key==='trinity'||t.key==='past'){
    var gb=$('rpGames'),games=[{label:'NFL',espn:'football/nfl'},{label:'CFB',espn:'football/college-football'},{label:'NBA',espn:'basketball/nba'},{label:'WNBA',espn:'basketball/wnba'},{label:'MLB',espn:'baseball/mlb'},{label:'NHL',espn:'hockey/nhl'},{label:'NCAAB',espn:'basketball/mens-college-basketball'},{label:'MLS',espn:'soccer/usa.1'},{label:'NWSL',espn:'soccer/usa.nwsl'},{label:'PGA',espn:'golf/pga'},{label:'NASCAR',espn:'racing/nascar-premier'},{label:'UFC',espn:'mma/ufc'},{label:'ATP',espn:'tennis/atp'},{label:'WTA',espn:'tennis/wta'}];
    /* day-scoped leagues read one ESPN day per request, today through +3 (the 72h window); week
       (NFL/CFB) and event (golf/racing/UFC/tennis) boards already span it. racing/nascar 400s
@@ -1219,7 +1221,7 @@ function loadSide(t){
    games.forEach(function(x){var b='https://site.api.espn.com/apis/site/v2/sports/'+x.espn+'/scoreboard?limit=50';if(RP_DAY_LG[x.espn])_days.forEach(function(d){_reqs.push({x:x,u:b+'&dates='+d});});else _reqs.push({x:x,u:b});});
    var _acc=[],_seenG={},_pend=_reqs.length;
    var _rowH=function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var _an=(a.team||{}).abbreviation||(a.team||{}).shortDisplayName||(a.team||{}).displayName||(a.athlete||{}).shortName||(a.athlete||{}).displayName||'',_hn=(h.team||{}).abbreviation||(h.team||{}).shortDisplayName||(h.team||{}).displayName||(h.athlete||{}).shortName||(h.athlete||{}).displayName||'';var title=(_an&&_hn)?(esc(_an)+(c.neutralSite?' vs ':' @ ')+esc(_hn)):esc(g.event.shortName||g.event.name||'');var _row='<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when" data-until="'+esc(g.event.date||'')+'">'+esc(until(g.event.date))+'</span></div>';var _gr=RP_GAME_ROUTES[g.event.id];return _gr?('<a class="growtap" href="'+_gr+'" style="display:block;text-decoration:none;color:inherit">'+_row+'</a>'):_row;};
-   var _paint=function(){if(cur!==t||!gb)return;var all=_acc.slice().sort(function(p,q){return Date.parse(p.event.date||0)-Date.parse(q.event.date||0);});gb.innerHTML=all.map(_rowH).join('')||(_pend?'<div class="empty">Loading upcoming events&hellip;</div>':'<div class="empty">No upcoming events listed right now.</div>');};
+   var _paint=function(){if(!gb||!cur||(cur!==t&&cur.key!=='home'&&cur.key!=='trinity'&&cur.key!=='past'))return;var all=_acc.slice().sort(function(p,q){return Date.parse(p.event.date||0)-Date.parse(q.event.date||0);});gb.innerHTML=all.map(_rowH).join('')||(_pend?'<div class="empty">Loading upcoming events&hellip;</div>':'<div class="empty">No upcoming events listed right now.</div>');};
    HOME_GAMES_PAINT=_paint;
    _paint();
    _reqs.forEach(function(q){

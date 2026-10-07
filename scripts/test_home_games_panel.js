@@ -61,7 +61,7 @@ function el() {
     toggle: (c, on) => (on === undefined ? (cls.has(c) ? cls.delete(c) : cls.add(c)) : (on ? cls.add(c) : cls.delete(c))) } };
 }
 const gb = el();
-const TABS = { home: { key: 'home', label: 'Home', espn: '' }, wooder: { key: 'wooder', label: 'Picks from Wooder Ice', espn: '' }, past: { key: 'past', label: 'Past Tickets', espn: '' } };
+const TABS = { home: { key: 'home', label: 'Home', espn: '' }, wooder: { key: 'wooder', label: 'Picks from Wooder Ice', espn: '' }, past: { key: 'past', label: 'Past Tickets', espn: '' }, trinity: { key: 'trinity', label: 'Trinity', espn: '' } };
 const ctx = vm.createContext({
   Date, JSON, Intl, Math, String, Number, Array, Object, parseInt, parseFloat, isFinite, Promise,
   setTimeout, clearTimeout, AbortController, encodeURIComponent,
@@ -96,7 +96,11 @@ const rows = () => (gb.innerHTML.match(/class="grow"/g) || []).length;
 
   // LS-04: Past Tickets, then back to Home inside the 5-min guard
   ctx.cur = TABS.past; vm.runInContext('loadSide(TABS.past)', ctx); await settle();
-  check('non-home tab leaves its own state in the panel', /Loading upcoming events/.test(gb.innerHTML));
+  // Past Tickets and Trinity have no league of their own and show Home's every-league list (2026-10-07: both sat
+  // on 'Loading upcoming events' for good, which an earlier check here expected).
+  check('on Past Tickets: the every-league list, never a stuck Loading', gb.innerHTML === first, gb.innerHTML.slice(0, 80));
+  ctx.cur = TABS.trinity; vm.runInContext('loadSide(TABS.trinity)', ctx); await settle();
+  check('on Trinity: the every-league list, never a stuck Loading', gb.innerHTML === first, gb.innerHTML.slice(0, 80));
   ctx.cur = TABS.home; vm.runInContext('loadSide(TABS.home)', ctx); await settle();
   check('back on Home: fetched rows repaint (no stuck Loading)', gb.innerHTML === first, gb.innerHTML.slice(0, 80));
   check('back on Home: panel is the all-league list again (homeall)', gb.classList.contains('homeall'));

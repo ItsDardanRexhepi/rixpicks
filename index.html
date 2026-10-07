@@ -527,7 +527,7 @@ body.tab-wooder #st-ding{display:block}
 .tr-chip:hover,.tr-chip:focus-visible{color:var(--txt);border-color:var(--acc)}
 
 .tr-ask{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:var(--panel2)}
-.tr-ask input{flex:1 1 auto;min-width:0;font:inherit;font-size:15px;padding:11px 12px;border-radius:10px;
+.tr-ask input{flex:1 1 auto;min-width:0;font:inherit;font-size:16px;padding:11px 12px;border-radius:10px;
               border:1px solid var(--line);background:var(--bg);color:var(--txt)}
 .tr-ask input::placeholder{color:var(--mut)}
 .tr-ask input:focus-visible{outline:none;border-color:var(--acc)}
@@ -574,10 +574,12 @@ body.tab-trinity .intro{display:none}
   padding:0 14px;font-weight:700;cursor:pointer;white-space:nowrap}
 .tr-photo[hidden]{display:none}
 .tr-row .tr-thumb{display:block;max-width:220px;max-height:220px;border-radius:10px;margin-top:4px}
+/* */
+body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
 </style><div class="tr-wrap">
 
     <header class="tr-intro">
-      <h1 class="tr-h">Trinity</h1>
+      <h2 class="tr-h">Trinity</h2>
       <p class="tr-lede">Trinity is who you talk to. UltRix is the algorithm behind these picks, and she answers
         only from what it has actually recorded.</p>
     </header>
@@ -690,10 +692,24 @@ body.tab-trinity .intro{display:none}
     else { who.textContent = ''; who.hidden = true; }
   }
 
+  /* The passphrase is hidden with a text mask, not by turning the box into a password field: once a box has been a
+     password field, Safari keeps its keychain key on it and offers to save "passwords" for the rest of the
+     conversation. Only a browser without the mask falls back to a password field. Autocorrect, capitals and
+     spelling are off while a passphrase is typed, so it never lands in the keyboard's dictionary. */
+  var TEXT_MASK = !!(window.CSS && CSS.supports && CSS.supports('-webkit-text-security', 'disc'));
   function maskInput(on) {
     secretNext = on;
     if (!input) return;
-    input.type = on ? 'password' : 'text';
+    if (TEXT_MASK) {
+      input.type = 'text';
+      input.style.webkitTextSecurity = on ? 'disc' : '';
+    } else {
+      input.type = on ? 'password' : 'text';
+    }
+    input.setAttribute('autocomplete', 'off');
+    input.setAttribute('autocapitalize', on ? 'off' : 'sentences');
+    input.setAttribute('autocorrect', on ? 'off' : 'on');
+    input.spellcheck = !on;
     input.placeholder = on ? 'Passphrase' : 'Ask about a pick, a refusal or the record';
   }
 
@@ -714,7 +730,42 @@ body.tab-trinity .intro{display:none}
      into view. Sticking to the bottom only when already there is the right rule for a passive update and the
      wrong one here, because a visitor who has scrolled up to re-read an answer still wants to see the one they
      just asked for. */
+  /* */
+  var HISTORY = 'trinity_log', JOBS = 'trinity_jobs', MAX_KEPT = 80;
+  var kept = [];
+  function keep(who, text, cites, extra) {
+    if (extra && /tr-pending/.test(extra)) return;
+    kept.push({ w: who, t: String(text).slice(0, 4000), c: cites && cites.length ? cites : null, x: extra || '' });
+    if (kept.length > MAX_KEPT) kept = kept.slice(-MAX_KEPT);
+    try { sessionStorage.setItem(HISTORY, JSON.stringify(kept)); } catch (e) {}
+  }
+  function restore() {
+    var got = [];
+    try { got = JSON.parse(sessionStorage.getItem(HISTORY) || '[]'); } catch (e) { got = []; }
+    if (!Array.isArray(got) || !got.length) return false;
+    kept = got.slice(-MAX_KEPT);
+    got.forEach(function (m) {
+      if (m && typeof m.t === 'string' && (m.w === 'me' || m.w === 'her')) {
+        restoring = true;
+        row(m.w, m.t, Array.isArray(m.c) ? m.c : null, typeof m.x === 'string' ? m.x : '', true);
+        restoring = false;
+      }
+    });
+    return log.children.length > 0;
+  }
+  function jobsKept() {
+    try { var j = JSON.parse(sessionStorage.getItem(JOBS) || '{}'); return (j && typeof j === 'object') ? j : {}; }
+    catch (e) { return {}; }
+  }
+  function keepJob(job, said, done) {
+    var j = jobsKept();
+    if (done) delete j[job]; else j[job] = { s: String(said || ''), at: j[job] ? j[job].at : Date.now() };
+    try { sessionStorage.setItem(JOBS, JSON.stringify(j)); } catch (e) {}
+  }
+
+  var restoring = false;
   function row(who, text, cites, extra, force) {
+    if (!restoring) keep(who, text, cites, extra);
     var stick = force || atBottom();
     var r = el('div', 'tr-row ' + who + (extra ? ' ' + extra : ''));
     var b = el('div', 'tr-bub');
@@ -739,10 +790,12 @@ body.tab-trinity .intro{display:none}
     if (chips) chips.hidden = false;
   }
 
+  /* While an answer is on its way only SENDING waits: the box stays live and keeps its focus, so the next question
+     can be typed and a space bar press never falls through to the page and scrolls it away. */
   function lock(on) {
     inFlight = on;
-    if (input) input.disabled = on;
     if (send) send.disabled = on;
+    if (!on) holdReloadCheck();
   }
 
   /* A SITE CHANGE ON ITS WAY. When a signed-in request becomes a change to the site, the reply carries the change's
@@ -751,9 +804,10 @@ body.tab-trinity .intro{display:none}
   var JOB_RE = /^[0-9]{8}-[0-9]{6}-[a-z]+-[0-9a-f]{6}$/;
   var FOLLOW_FOR_MS = 30 * 60 * 1000;
 
-  function follow(job, said) {
+  function follow(job, said, since) {
     if (typeof job !== 'string' || !JOB_RE.test(job)) return;
-    var started = Date.now(), last = String(said || '');
+    var started = since || Date.now(), last = String(said || '');
+    keepJob(job, last, false);
     var tick = function () {
       if (!getSession() || Date.now() - started > FOLLOW_FOR_MS) return;
       fetch(TRINITY_ENDPOINT + '/job', {
@@ -765,14 +819,16 @@ body.tab-trinity .intro{display:none}
         return r.json().then(function (d) { return { status: r.status, body: d }; });
       }).then(function (res) {
         var d = res.body || {};
-        if (res.status === 403) { setSession(''); showWho(''); return; }
-        if (res.status === 404) return;
+        if (res.status === 403) { setSession(''); showWho(''); keepJob(job, '', true); return; }
+        if (res.status === 404) { keepJob(job, '', true); return; }
         if (res.status !== 200) { setTimeout(tick, 30000); return; }
         if (typeof d.answer === 'string' && d.answer && d.answer !== last) {
           last = d.answer;
           row('her', d.answer, null, '', false);
+          keepJob(job, last, false);
         }
-        if (!d.done) setTimeout(tick, Date.now() - started < 120000 ? 8000 : 20000);
+        if (d.done) { keepJob(job, '', true); return; }
+        setTimeout(tick, Date.now() - started < 120000 ? 8000 : 20000);
       }).catch(function () { setTimeout(tick, 30000); });
     };
     setTimeout(tick, 8000);
@@ -800,15 +856,27 @@ body.tab-trinity .intro{display:none}
     };
 
     var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); finish(OFFLINE, null, false); }, 30000);
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); finish(OFFLINE, null, false); }, 45000);
+    var body = JSON.stringify(getSession() ? { question: q, session: getSession() } : { question: q });
 
-    fetch(TRINITY_ENDPOINT + '/ask', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(getSession() ? { question: q, session: getSession() } : { question: q }),
-      signal: ctrl ? ctrl.signal : undefined,
-      cache: 'no-store'
-    }).then(function (r) {
+    /* A dropped connection (the line to the Mac reconnects in seconds) is tried again twice before she says she
+       is not answering. Only a failure to ARRIVE is retried; an answer of any kind is never asked twice. */
+    var post = function (tries) {
+      return fetch(TRINITY_ENDPOINT + '/ask', {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: body,
+        signal: ctrl ? ctrl.signal : undefined, cache: 'no-store'
+      }).then(function (r) {
+        if ((r.status === 502 || r.status === 503 || r.status === 504) && tries < 2) {
+          return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
+        }
+        return r;
+      }, function (err) {
+        if (done || tries >= 2 || (err && err.name === 'AbortError')) throw err;
+        return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
+      });
+    };
+
+    post(0).then(function (r) {
       return r.json().then(function (d) { return { status: r.status, body: d }; });
     }).then(function (res) {
       clearTimeout(timer);
@@ -877,7 +945,7 @@ body.tab-trinity .intro{display:none}
     var done = function (text, declined) {
       if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
       row('her', text, null, declined ? 'declined' : '', true);
-      if (input) input.value = '';
+      if (input) { input.value = ''; input.focus(); }
       lock(false);
     };
     toJpeg(file).then(function (jpg) {
@@ -934,11 +1002,63 @@ body.tab-trinity .intro{display:none}
     }).catch(function () { /* the inline copy stands */ });
   }
 
+  /* */
+  var reloadWanted = false;
+  function trinityOpen() {
+    var sect = document.getElementById('st-trinity');
+    return !!(sect && sect.classList.contains('on'));
+  }
+  window.rpReload = function () {
+    if (inFlight || trinityOpen()) { reloadWanted = true; return; }
+    location.reload();
+  };
+  function holdReloadCheck() {
+    if (reloadWanted && !inFlight && !trinityOpen()) { reloadWanted = false; location.reload(); }
+  }
+  setInterval(holdReloadCheck, 2000);
+
+  /* */
+  function markOpen() { if (document.body) document.body.classList.toggle('tr-open', trinityOpen()); }
+  (function watchTab() {
+    var sect = document.getElementById('st-trinity');
+    if (!sect || typeof MutationObserver !== 'function') return;
+    new MutationObserver(markOpen).observe(sect, { attributes: true, attributeFilter: ['class'] });
+    markOpen();
+  })();
+
+  /* */
+  document.addEventListener('keydown', function (e) {
+    if (!trinityOpen() || !input || e.defaultPrevented || e.isComposing || e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target;
+    if (t === input || (t && t.closest && t.closest('input,textarea,select,button,a,[contenteditable],[tabindex]'))) return;
+    if (!e.key || e.key.length !== 1) return;
+    e.preventDefault();
+    input.focus();
+    var v = input.value;
+    if (v.length >= MAX_Q) return;
+    var a = typeof input.selectionStart === 'number' ? input.selectionStart : v.length;
+    var b = typeof input.selectionEnd === 'number' ? input.selectionEnd : v.length;
+    input.value = v.slice(0, a) + e.key + v.slice(b);
+    try { input.setSelectionRange(a + 1, a + 1); } catch (err) {}
+  });
+
+  function resumeJobs() {
+    if (!getSession()) return;
+    var j = jobsKept();
+    Object.keys(j).forEach(function (job) { follow(job, j[job] && j[job].s, j[job] && j[job].at); });
+  }
+
   /* Nothing runs until the tab is opened, so a visitor who never opens it pays nothing. */
   function boot() {
     if (booted) return;
     booted = true;
-    greetOnce();
+    if (restore()) {
+      greeted = true;
+      if (chips) chips.hidden = kept.some(function (m) { return m.w === 'me'; });
+    } else {
+      greetOnce();
+    }
+    resumeJobs();
     fillAbout();
   }
 
@@ -975,7 +1095,7 @@ body.tab-trinity .intro{display:none}
       });
     }
 
-    var open = function () { if (sect.classList.contains('on')) boot(); };
+    var open = function () { if (sect.classList.contains('on')) boot(); holdReloadCheck(); };
     open();
     document.querySelectorAll('nav.rpnav .tab[data-tab="trinity"]').forEach(function (a) {
       a.addEventListener('click', function () { setTimeout(open, 0); });
@@ -1585,15 +1705,15 @@ function rpPageRefresh(){try{
   /* */
   const curKeys=[...document.querySelectorAll('.pick')].map(function(x){return (x.dataset.gpk||'')+'@'+(x.dataset.room||'');}).filter(function(k){return k!=='@';}).sort().join('|');
   const newKeys=[...doc.querySelectorAll('.pick')].map(function(x){return (x.dataset.gpk||'')+'@'+(x.dataset.room||'');}).filter(function(k){return k!=='@';}).sort().join('|');
-  if(curKeys!==newKeys){location.reload();return;}
+  if(curKeys!==newKeys){(window.rpReload||location.reload.bind(location))();return;}
   const cd0=document.querySelector('.status,.rpdate'),nd0=doc.querySelector('.status,.rpdate');
-  if(cd0&&nd0&&cd0.textContent.trim()!==nd0.textContent.trim()){location.reload();return;}
+  if(cd0&&nd0&&cd0.textContent.trim()!==nd0.textContent.trim()){(window.rpReload||location.reload.bind(location))();return;}
   /* */
   const ccmb=document.getElementById('rpParlayChips'),ncx=doc.getElementById('rpParlayChips');
   if(ccmb&&ncx){
    const c1=[...ccmb.querySelectorAll('[data-book]')].map(a=>a.dataset.book).sort().join(',');
    const c2=[...ncx.querySelectorAll('[data-book]')].map(a=>a.dataset.book).sort().join(',');
-   if(c1!==c2){location.reload();return;}
+   if(c1!==c2){(window.rpReload||location.reload.bind(location))();return;}
   }
   /* */
   const rpSig=function(root){return [...root.querySelectorAll('[data-book]')].map(a=>a.dataset.book+(a.dataset.template?':t':'')).sort().join(',');};
@@ -1602,14 +1722,14 @@ function rpPageRefresh(){try{
    const k=(pk.dataset.gpk||'')+'@'+(pk.dataset.room||'');const np=nmap[k];if(!np)return;  /* null = absent or collided */
    if(rpSig(pk)!==rpSig(np))memBad=true;
   });
-  if(memBad){location.reload();return;}
+  if(memBad){(window.rpReload||location.reload.bind(location))();return;}
   try{RP_MARKETS=JSON.parse(_mm[1]);}catch(e){}  /* canonical records travel with the rebuilt page - refresh never desyncs display from truth */
   document.querySelectorAll('.pick').forEach(function(pk){
    const k=(pk.dataset.gpk||'')+'@'+(pk.dataset.room||'');const np=nmap[k];if(!np)return;  /* null = absent or collided */
    /* */
    /* */
    const curB=rpSig(pk),newB=rpSig(np);
-   if(curB!==newB){location.reload();return;}
+   if(curB!==newB){(window.rpReload||location.reload.bind(location))();return;}
    pk.querySelectorAll('[data-book]').forEach(function(a){
     const b=a.dataset.book;
     /* */
@@ -2629,12 +2749,12 @@ function rtPoll(){
   var v=rs[3].status==='fulfilled'?rs[3].value:null;
   if(v&&v.build&&RP_BUILD&&+v.build>+RP_BUILD){
    try{sessionStorage.setItem('rpUpd',JSON.stringify({y:window.scrollY||0}));}catch(e){}
-   location.reload();return; /* controlled same-tab code refresh: behind clients never keep old gates */
+   (window.rpReload||location.reload.bind(location))();return; /* controlled same-tab code refresh: behind clients never keep old gates */
   }
   var mv=rs[2].status==='fulfilled'?rs[2].value:null;
   if(mv&&mv.client_build&&RP_BUILD&&+mv.client_build>+RP_BUILD){
    try{sessionStorage.setItem('rpUpd',JSON.stringify({y:window.scrollY||0}));}catch(e){}
-   location.reload();return; /* guard 5 bootstrap kill: version signal rides the map payload every tick */
+   (window.rpReload||location.reload.bind(location))();return; /* guard 5 bootstrap kill: version signal rides the map payload every tick */
   }
   var nj=rs[0].status==='fulfilled'?rs[0].value:null;
   var xj=rs[1].status==='fulfilled'?rs[1].value:null;
@@ -2747,7 +2867,8 @@ function loadSide(t){
    if(SB[t.key]&&now-(SB_TS[t.key]||0)<60000){renderGames(t,SB[t.key]);}
    else{fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?limit=50',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){SB[t.key]=j.events||[];SB_TS[t.key]=Date.now();if(cur===t)renderGames(t,SB[t.key]);}).catch(function(){if(cur===t)renderGames(t,SB[t.key]||null);});}
   }
-  if(t.key==='home'){
+  /* */
+  if(t.key==='home'||t.key==='trinity'||t.key==='past'){
    var gb=$('rpGames'),games=[{label:'NFL',espn:'football/nfl'},{label:'CFB',espn:'football/college-football'},{label:'NBA',espn:'basketball/nba'},{label:'WNBA',espn:'basketball/wnba'},{label:'MLB',espn:'baseball/mlb'},{label:'NHL',espn:'hockey/nhl'},{label:'NCAAB',espn:'basketball/mens-college-basketball'},{label:'MLS',espn:'soccer/usa.1'},{label:'NWSL',espn:'soccer/usa.nwsl'},{label:'PGA',espn:'golf/pga'},{label:'NASCAR',espn:'racing/nascar-premier'},{label:'UFC',espn:'mma/ufc'},{label:'ATP',espn:'tennis/atp'},{label:'WTA',espn:'tennis/wta'}];
    /* day-scoped leagues read one ESPN day per request, today through +3 (the 72h window); week
       (NFL/CFB) and event (golf/racing/UFC/tennis) boards already span it. racing/nascar 400s
@@ -2768,7 +2889,7 @@ function loadSide(t){
    games.forEach(function(x){var b='https://site.api.espn.com/apis/site/v2/sports/'+x.espn+'/scoreboard?limit=50';if(RP_DAY_LG[x.espn])_days.forEach(function(d){_reqs.push({x:x,u:b+'&dates='+d});});else _reqs.push({x:x,u:b});});
    var _acc=[],_seenG={},_pend=_reqs.length;
    var _rowH=function(g){var c=(g.event.competitions||[])[0]||{},a=(c.competitors||[]).filter(function(x){return x.homeAway==='away';})[0]||{},h=(c.competitors||[]).filter(function(x){return x.homeAway==='home';})[0]||{};var _an=(a.team||{}).abbreviation||(a.team||{}).shortDisplayName||(a.team||{}).displayName||(a.athlete||{}).shortName||(a.athlete||{}).displayName||'',_hn=(h.team||{}).abbreviation||(h.team||{}).shortDisplayName||(h.team||{}).displayName||(h.athlete||{}).shortName||(h.athlete||{}).displayName||'';var title=(_an&&_hn)?(esc(_an)+(c.neutralSite?' vs ':' @ ')+esc(_hn)):esc(g.event.shortName||g.event.name||'');var _row='<div class="grow"><div><div class="gname">'+esc(g.league)+' &middot; '+title+'</div><div class="gsub">'+esc(dayTime(g.event.date))+'</div></div><span class="when" data-until="'+esc(g.event.date||'')+'">'+esc(until(g.event.date))+'</span></div>';var _gr=RP_GAME_ROUTES[g.event.id];return _gr?('<a class="growtap" href="'+_gr+'" style="display:block;text-decoration:none;color:inherit">'+_row+'</a>'):_row;};
-   var _paint=function(){if(cur!==t||!gb)return;var all=_acc.slice().sort(function(p,q){return Date.parse(p.event.date||0)-Date.parse(q.event.date||0);});gb.innerHTML=all.map(_rowH).join('')||(_pend?'<div class="empty">Loading upcoming events&hellip;</div>':'<div class="empty">No upcoming events listed right now.</div>');};
+   var _paint=function(){if(!gb||!cur||(cur!==t&&cur.key!=='home'&&cur.key!=='trinity'&&cur.key!=='past'))return;var all=_acc.slice().sort(function(p,q){return Date.parse(p.event.date||0)-Date.parse(q.event.date||0);});gb.innerHTML=all.map(_rowH).join('')||(_pend?'<div class="empty">Loading upcoming events&hellip;</div>':'<div class="empty">No upcoming events listed right now.</div>');};
    HOME_GAMES_PAINT=_paint;
    _paint();
    _reqs.forEach(function(q){

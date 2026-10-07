@@ -4082,16 +4082,16 @@ function rpPageRefresh(){{try{{
      live DOM and the fetched page, force a full reload BEFORE any merge/record reuse. */
   const curKeys=[...document.querySelectorAll('.pick')].map(function(x){{return (x.dataset.gpk||'')+'@'+(x.dataset.room||'');}}).filter(function(k){{return k!=='@';}}).sort().join('|');
   const newKeys=[...doc.querySelectorAll('.pick')].map(function(x){{return (x.dataset.gpk||'')+'@'+(x.dataset.room||'');}}).filter(function(k){{return k!=='@';}}).sort().join('|');
-  if(curKeys!==newKeys){{location.reload();return;}}
+  if(curKeys!==newKeys){{(window.rpReload||location.reload.bind(location))();return;}}
   const cd0=document.querySelector('.status,.rpdate'),nd0=doc.querySelector('.status,.rpdate');
-  if(cd0&&nd0&&cd0.textContent.trim()!==nd0.textContent.trim()){{location.reload();return;}}
+  if(cd0&&nd0&&cd0.textContent.trim()!==nd0.textContent.trim()){{(window.rpReload||location.reload.bind(location))();return;}}
   /* Sep 26 (data auditor): same membership rule for the combo row - a combo chip added/removed
      between builds forces a full reload, same as per-pick chips. */
   const ccmb=document.getElementById('rpParlayChips'),ncx=doc.getElementById('rpParlayChips');
   if(ccmb&&ncx){{
    const c1=[...ccmb.querySelectorAll('[data-book]')].map(a=>a.dataset.book).sort().join(',');
    const c2=[...ncx.querySelectorAll('[data-book]')].map(a=>a.dataset.book).sort().join(',');
-   if(c1!==c2){{location.reload();return;}}
+   if(c1!==c2){{(window.rpReload||location.reload.bind(location))();return;}}
   }}
   /* swamp Sep 27 re-test (1a): per-pick chip membership validated in a pre-scan, and the canonical
      RP_MARKETS record swaps ONLY after every mismatch guard passes - no interval where an old tab
@@ -4102,7 +4102,7 @@ function rpPageRefresh(){{try{{
    const k=(pk.dataset.gpk||'')+'@'+(pk.dataset.room||'');const np=nmap[k];if(!np)return;  /* null = absent or collided */
    if(rpSig(pk)!==rpSig(np))memBad=true;
   }});
-  if(memBad){{location.reload();return;}}
+  if(memBad){{(window.rpReload||location.reload.bind(location))();return;}}
   try{{RP_MARKETS=JSON.parse(_mm[1]);}}catch(e){{}}  /* canonical records travel with the rebuilt page - refresh never desyncs display from truth */
   document.querySelectorAll('.pick').forEach(function(pk){{
    const k=(pk.dataset.gpk||'')+'@'+(pk.dataset.room||'');const np=nmap[k];if(!np)return;  /* null = absent or collided */
@@ -4112,7 +4112,7 @@ function rpPageRefresh(){{try{{
       template spans into anchors once state is known; tag alone is not membership, so an upgraded
       live DOM vs a fresh static build must compare equal. A real add/retire/kind-change still reloads. */
    const curB=rpSig(pk),newB=rpSig(np);
-   if(curB!==newB){{location.reload();return;}}
+   if(curB!==newB){{(window.rpReload||location.reload.bind(location))();return;}}
    pk.querySelectorAll('[data-book]').forEach(function(a){{
     const b=a.dataset.book;
     /* any-tag counterpart: priced spans reprice too (state unknown); an upgraded anchor reprices

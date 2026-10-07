@@ -50,7 +50,7 @@
 .tr-chip:hover,.tr-chip:focus-visible{color:var(--txt);border-color:var(--acc)}
 
 .tr-ask{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:var(--panel2)}
-.tr-ask input{flex:1 1 auto;min-width:0;font:inherit;font-size:15px;padding:11px 12px;border-radius:10px;
+.tr-ask input{flex:1 1 auto;min-width:0;font:inherit;font-size:16px;padding:11px 12px;border-radius:10px;
               border:1px solid var(--line);background:var(--bg);color:var(--txt)}
 .tr-ask input::placeholder{color:var(--mut)}
 .tr-ask input:focus-visible{outline:none;border-color:var(--acc)}
@@ -97,3 +97,6 @@ body.tab-trinity .intro{display:none}
   padding:0 14px;font-weight:700;cursor:pointer;white-space:nowrap}
 .tr-photo[hidden]{display:none}
 .tr-row .tr-thumb{display:block;max-width:220px;max-height:220px;border-radius:10px;margin-top:4px}
+/* No account button on her page: her title is an h2 so the site's My Account button keeps its own place on every
+   other tab (it attaches to the first h1, and an h1 here took it off them), and it is hidden while her tab is open. */
+body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}

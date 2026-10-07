@@ -64,10 +64,24 @@
     else { who.textContent = ''; who.hidden = true; }
   }
 
+  /* The passphrase is hidden with a text mask, not by turning the box into a password field: once a box has been a
+     password field, Safari keeps its keychain key on it and offers to save "passwords" for the rest of the
+     conversation. Only a browser without the mask falls back to a password field. Autocorrect, capitals and
+     spelling are off while a passphrase is typed, so it never lands in the keyboard's dictionary. */
+  var TEXT_MASK = !!(window.CSS && CSS.supports && CSS.supports('-webkit-text-security', 'disc'));
   function maskInput(on) {
     secretNext = on;
     if (!input) return;
-    input.type = on ? 'password' : 'text';
+    if (TEXT_MASK) {
+      input.type = 'text';
+      input.style.webkitTextSecurity = on ? 'disc' : '';
+    } else {
+      input.type = on ? 'password' : 'text';
+    }
+    input.setAttribute('autocomplete', 'off');
+    input.setAttribute('autocapitalize', on ? 'off' : 'sentences');
+    input.setAttribute('autocorrect', on ? 'off' : 'on');
+    input.spellcheck = !on;
     input.placeholder = on ? 'Passphrase' : 'Ask about a pick, a refusal or the record';
   }
 
@@ -88,7 +102,45 @@
      into view. Sticking to the bottom only when already there is the right rule for a passive update and the
      wrong one here, because a visitor who has scrolled up to re-read an answer still wants to see the one they
      just asked for. */
+  /* THE CONVERSATION OUTLIVES A RELOAD. The site reloads itself when a new build is published (every few minutes)
+     and when the card changes; the conversation is kept for this browser tab in sessionStorage, as the sign-in
+     already is, and put back when the page comes back. A pending "..." row is never kept, and a passphrase was
+     never shown here in the first place (it is shown as dots). */
+  var HISTORY = 'trinity_log', JOBS = 'trinity_jobs', MAX_KEPT = 80;
+  var kept = [];
+  function keep(who, text, cites, extra) {
+    if (extra && /tr-pending/.test(extra)) return;
+    kept.push({ w: who, t: String(text).slice(0, 4000), c: cites && cites.length ? cites : null, x: extra || '' });
+    if (kept.length > MAX_KEPT) kept = kept.slice(-MAX_KEPT);
+    try { sessionStorage.setItem(HISTORY, JSON.stringify(kept)); } catch (e) {}
+  }
+  function restore() {
+    var got = [];
+    try { got = JSON.parse(sessionStorage.getItem(HISTORY) || '[]'); } catch (e) { got = []; }
+    if (!Array.isArray(got) || !got.length) return false;
+    kept = got.slice(-MAX_KEPT);
+    got.forEach(function (m) {
+      if (m && typeof m.t === 'string' && (m.w === 'me' || m.w === 'her')) {
+        restoring = true;
+        row(m.w, m.t, Array.isArray(m.c) ? m.c : null, typeof m.x === 'string' ? m.x : '', true);
+        restoring = false;
+      }
+    });
+    return log.children.length > 0;
+  }
+  function jobsKept() {
+    try { var j = JSON.parse(sessionStorage.getItem(JOBS) || '{}'); return (j && typeof j === 'object') ? j : {}; }
+    catch (e) { return {}; }
+  }
+  function keepJob(job, said, done) {
+    var j = jobsKept();
+    if (done) delete j[job]; else j[job] = { s: String(said || ''), at: j[job] ? j[job].at : Date.now() };
+    try { sessionStorage.setItem(JOBS, JSON.stringify(j)); } catch (e) {}
+  }
+
+  var restoring = false;
   function row(who, text, cites, extra, force) {
+    if (!restoring) keep(who, text, cites, extra);
     var stick = force || atBottom();
     var r = el('div', 'tr-row ' + who + (extra ? ' ' + extra : ''));
     var b = el('div', 'tr-bub');
@@ -113,10 +165,12 @@
     if (chips) chips.hidden = false;
   }
 
+  /* While an answer is on its way only SENDING waits: the box stays live and keeps its focus, so the next question
+     can be typed and a space bar press never falls through to the page and scrolls it away. */
   function lock(on) {
     inFlight = on;
-    if (input) input.disabled = on;
     if (send) send.disabled = on;
+    if (!on) holdReloadCheck();
   }
 
   /* A SITE CHANGE ON ITS WAY. When a signed-in request becomes a change to the site, the reply carries the change's
@@ -125,9 +179,10 @@
   var JOB_RE = /^[0-9]{8}-[0-9]{6}-[a-z]+-[0-9a-f]{6}$/;
   var FOLLOW_FOR_MS = 30 * 60 * 1000;
 
-  function follow(job, said) {
+  function follow(job, said, since) {
     if (typeof job !== 'string' || !JOB_RE.test(job)) return;
-    var started = Date.now(), last = String(said || '');
+    var started = since || Date.now(), last = String(said || '');
+    keepJob(job, last, false);
     var tick = function () {
       if (!getSession() || Date.now() - started > FOLLOW_FOR_MS) return;
       fetch(TRINITY_ENDPOINT + '/job', {
@@ -139,14 +194,16 @@
         return r.json().then(function (d) { return { status: r.status, body: d }; });
       }).then(function (res) {
         var d = res.body || {};
-        if (res.status === 403) { setSession(''); showWho(''); return; }
-        if (res.status === 404) return;
+        if (res.status === 403) { setSession(''); showWho(''); keepJob(job, '', true); return; }
+        if (res.status === 404) { keepJob(job, '', true); return; }
         if (res.status !== 200) { setTimeout(tick, 30000); return; }
         if (typeof d.answer === 'string' && d.answer && d.answer !== last) {
           last = d.answer;
           row('her', d.answer, null, '', false);
+          keepJob(job, last, false);
         }
-        if (!d.done) setTimeout(tick, Date.now() - started < 120000 ? 8000 : 20000);
+        if (d.done) { keepJob(job, '', true); return; }
+        setTimeout(tick, Date.now() - started < 120000 ? 8000 : 20000);
       }).catch(function () { setTimeout(tick, 30000); });
     };
     setTimeout(tick, 8000);
@@ -174,15 +231,27 @@
     };
 
     var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); finish(OFFLINE, null, false); }, 30000);
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); finish(OFFLINE, null, false); }, 45000);
+    var body = JSON.stringify(getSession() ? { question: q, session: getSession() } : { question: q });
 
-    fetch(TRINITY_ENDPOINT + '/ask', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(getSession() ? { question: q, session: getSession() } : { question: q }),
-      signal: ctrl ? ctrl.signal : undefined,
-      cache: 'no-store'
-    }).then(function (r) {
+    /* A dropped connection (the line to the Mac reconnects in seconds) is tried again twice before she says she
+       is not answering. Only a failure to ARRIVE is retried; an answer of any kind is never asked twice. */
+    var post = function (tries) {
+      return fetch(TRINITY_ENDPOINT + '/ask', {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: body,
+        signal: ctrl ? ctrl.signal : undefined, cache: 'no-store'
+      }).then(function (r) {
+        if ((r.status === 502 || r.status === 503 || r.status === 504) && tries < 2) {
+          return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
+        }
+        return r;
+      }, function (err) {
+        if (done || tries >= 2 || (err && err.name === 'AbortError')) throw err;
+        return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
+      });
+    };
+
+    post(0).then(function (r) {
       return r.json().then(function (d) { return { status: r.status, body: d }; });
     }).then(function (res) {
       clearTimeout(timer);
@@ -252,7 +321,7 @@
     var done = function (text, declined) {
       if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
       row('her', text, null, declined ? 'declined' : '', true);
-      if (input) input.value = '';
+      if (input) { input.value = ''; input.focus(); }
       lock(false);
     };
     toJpeg(file).then(function (jpg) {
@@ -311,11 +380,68 @@
     }).catch(function () { /* the inline copy stands */ });
   }
 
+  /* THE SITE'S OWN RELOADS WAIT WHILE SHE IS OPEN. The page reloads itself when a new build is published and when
+     the card changes (it calls window.rpReload, which falls back to location.reload). While her tab is open, or an
+     answer is on its way, the reload is held and happens the moment the visitor leaves her tab - so nobody is
+     thrown out in the middle of a conversation, and nothing they typed is lost. */
+  var reloadWanted = false;
+  function trinityOpen() {
+    var sect = document.getElementById('st-trinity');
+    return !!(sect && sect.classList.contains('on'));
+  }
+  window.rpReload = function () {
+    if (inFlight || trinityOpen()) { reloadWanted = true; return; }
+    location.reload();
+  };
+  function holdReloadCheck() {
+    if (reloadWanted && !inFlight && !trinityOpen()) { reloadWanted = false; location.reload(); }
+  }
+  setInterval(holdReloadCheck, 2000);
+
+  /* For a browser without :has(), the page knows when her tab is open (trinity.css hides the account button). */
+  function markOpen() { if (document.body) document.body.classList.toggle('tr-open', trinityOpen()); }
+  (function watchTab() {
+    var sect = document.getElementById('st-trinity');
+    if (!sect || typeof MutationObserver !== 'function') return;
+    new MutationObserver(markOpen).observe(sect, { attributes: true, attributeFilter: ['class'] });
+    markOpen();
+  })();
+
+  /* A KEY PRESSED WITH THE FOCUS OFF THE BOX GOES INTO THE BOX. With her tab open, a space bar press (or any letter)
+     on the page itself - not on a link, a button or another field - is typed into her box instead of scrolling the
+     page to its bottom. */
+  document.addEventListener('keydown', function (e) {
+    if (!trinityOpen() || !input || e.defaultPrevented || e.isComposing || e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target;
+    if (t === input || (t && t.closest && t.closest('input,textarea,select,button,a,[contenteditable],[tabindex]'))) return;
+    if (!e.key || e.key.length !== 1) return;
+    e.preventDefault();
+    input.focus();
+    var v = input.value;
+    if (v.length >= MAX_Q) return;
+    var a = typeof input.selectionStart === 'number' ? input.selectionStart : v.length;
+    var b = typeof input.selectionEnd === 'number' ? input.selectionEnd : v.length;
+    input.value = v.slice(0, a) + e.key + v.slice(b);
+    try { input.setSelectionRange(a + 1, a + 1); } catch (err) {}
+  });
+
+  function resumeJobs() {
+    if (!getSession()) return;
+    var j = jobsKept();
+    Object.keys(j).forEach(function (job) { follow(job, j[job] && j[job].s, j[job] && j[job].at); });
+  }
+
   /* Nothing runs until the tab is opened, so a visitor who never opens it pays nothing. */
   function boot() {
     if (booted) return;
     booted = true;
-    greetOnce();
+    if (restore()) {
+      greeted = true;
+      if (chips) chips.hidden = kept.some(function (m) { return m.w === 'me'; });
+    } else {
+      greetOnce();
+    }
+    resumeJobs();
     fillAbout();
   }
 
@@ -352,7 +478,7 @@
       });
     }
 
-    var open = function () { if (sect.classList.contains('on')) boot(); };
+    var open = function () { if (sect.classList.contains('on')) boot(); holdReloadCheck(); };
     open();
     document.querySelectorAll('nav.rpnav .tab[data-tab="trinity"]').forEach(function (a) {
       a.addEventListener('click', function () { setTimeout(open, 0); });
