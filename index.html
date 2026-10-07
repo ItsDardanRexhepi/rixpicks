@@ -568,6 +568,12 @@ body.tab-trinity .intro{display:none}
 /* Signed in: a quiet line under the chat saying who, so nobody forgets they are holding the door open. */
 .tr-who{font-size:12px;color:#0b6e5f;margin:6px 2px 0;font-weight:700}
 .tr-who[hidden]{display:none}
+
+/* Signed in only: send a photo. Hidden for everyone else - the button does not exist for a visitor. */
+.tr-photo{border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;border-radius:10px;
+  padding:0 14px;font-weight:700;cursor:pointer;white-space:nowrap}
+.tr-photo[hidden]{display:none}
+.tr-row .tr-thumb{display:block;max-width:220px;max-height:220px;border-radius:10px;margin-top:4px}
 </style><div class="tr-wrap">
 
     <header class="tr-intro">
@@ -592,6 +598,8 @@ body.tab-trinity .intro{display:none}
         <input id="trInput" name="question" type="text" maxlength="400" enterkeyhint="send"
                placeholder="Ask about a pick, a refusal or the record">
         <button type="submit" id="trSend">Ask</button>
+        <button type="button" id="trPhoto" class="tr-photo" hidden aria-label="Send a photo">Photo</button>
+        <input type="file" id="trFile" accept="image/jpeg,image/png,image/heic,image/heif,image/webp,image/gif" hidden>
       </form>
       <div class="tr-who" id="trWho" hidden></div>
     </div>
@@ -676,6 +684,8 @@ body.tab-trinity .intro{display:none}
   function showWho(name) {
     try { if (name) sessionStorage.setItem(SESSION + '_who', name); else sessionStorage.removeItem(SESSION + '_who'); }
     catch (e) {}
+    var pb = document.getElementById('trPhoto');
+    if (pb) pb.hidden = !name;
     if (!who) return;
     if (name) { who.textContent = 'Signed in as ' + name + '. Say "sign out" when you are done.'; who.hidden = false; }
     else { who.textContent = ''; who.hidden = true; }
@@ -735,6 +745,39 @@ body.tab-trinity .intro{display:none}
     if (send) send.disabled = on;
   }
 
+  /* A SITE CHANGE ON ITS WAY. When a signed-in request becomes a change to the site, the reply carries the change's
+     id, and the page asks how it is going until it is live (or will not be), saying each new step once. Only the
+     person who asked is told: the Mac answers a change that is not theirs exactly like one that does not exist. */
+  var JOB_RE = /^[0-9]{8}-[0-9]{6}-[a-z]+-[0-9a-f]{6}$/;
+  var FOLLOW_FOR_MS = 30 * 60 * 1000;
+
+  function follow(job, said) {
+    if (typeof job !== 'string' || !JOB_RE.test(job)) return;
+    var started = Date.now(), last = String(said || '');
+    var tick = function () {
+      if (!getSession() || Date.now() - started > FOLLOW_FOR_MS) return;
+      fetch(TRINITY_ENDPOINT + '/job', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ session: getSession(), job: job }),
+        cache: 'no-store'
+      }).then(function (r) {
+        return r.json().then(function (d) { return { status: r.status, body: d }; });
+      }).then(function (res) {
+        var d = res.body || {};
+        if (res.status === 403) { setSession(''); showWho(''); return; }
+        if (res.status === 404) return;
+        if (res.status !== 200) { setTimeout(tick, 30000); return; }
+        if (typeof d.answer === 'string' && d.answer && d.answer !== last) {
+          last = d.answer;
+          row('her', d.answer, null, '', false);
+        }
+        if (!d.done) setTimeout(tick, Date.now() - started < 120000 ? 8000 : 20000);
+      }).catch(function () { setTimeout(tick, 30000); });
+    };
+    setTimeout(tick, 8000);
+  }
+
   function ask(q) {
     q = String(q || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
     if (!q || inFlight) return;
@@ -782,12 +825,84 @@ body.tab-trinity .intro{display:none}
           return typeof c === 'string' && c && c.indexOf('/') === -1 && c.indexOf('\\') === -1;
         }) : [];
         finish(d.answer, cites, d.answered === false);
+        if (d.job) follow(d.job, d.answer);
       } else {
         finish(OFFLINE, null, false);
       }
     }).catch(function () {
       clearTimeout(timer);
       finish(OFFLINE, null, false);
+    });
+  }
+
+  /* PHOTOS, signed in only. The photo is redrawn on a canvas before it leaves the phone: that drops every byte of
+     metadata a camera writes (the location first of all), applies the rotation the camera recorded so it is not
+     sent sideways, and caps the long edge so a full-resolution photo does not crawl over a phone connection. The
+     server strips metadata again regardless, because a server does not trust a browser to have done it. */
+  var MAX_EDGE = 2560;
+
+  function toJpeg(file) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, MAX_EDGE / Math.max(w, h));
+        var c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(w * k));
+        c.height = Math.max(1, Math.round(h * k));
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(function (b) { b ? resolve(b) : reject(new Error('could not encode')); }, 'image/jpeg', 0.9);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('not an image')); };
+      img.src = url;
+    });
+  }
+
+  function blobToBase64(b) {
+    return new Promise(function (resolve, reject) {
+      var r = new FileReader();
+      r.onload = function () { resolve(String(r.result).split(',')[1] || ''); };
+      r.onerror = reject;
+      r.readAsDataURL(b);
+    });
+  }
+
+  function sendPhoto(file) {
+    if (!file || inFlight || !getSession()) return;
+    var caption = (input && input.value || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
+    lock(true);
+    var mine = row('me', caption || 'Photo', null, '', true);
+    var pend = row('her', 'Sending the photo', null, 'tr-pending', true);
+    var done = function (text, declined) {
+      if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
+      row('her', text, null, declined ? 'declined' : '', true);
+      if (input) input.value = '';
+      lock(false);
+    };
+    toJpeg(file).then(function (jpg) {
+      var thumb = document.createElement('img');
+      thumb.className = 'tr-thumb';
+      thumb.alt = 'the photo you sent';
+      thumb.src = URL.createObjectURL(jpg);
+      mine.querySelector('.tr-bub').appendChild(thumb);
+      return blobToBase64(jpg);
+    }).then(function (b64) {
+      return fetch(TRINITY_ENDPOINT + '/upload', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ session: getSession(), caption: caption, image: b64 }),
+        cache: 'no-store'
+      });
+    }).then(function (r) {
+      return r.json().then(function (d) { return { status: r.status, body: d }; });
+    }).then(function (res) {
+      var d = res.body || {};
+      if (res.status === 403) { setSession(''); showWho(''); }
+      done(typeof d.answer === 'string' && d.answer ? d.answer : OFFLINE, d.answered === false);
+      if (d.job) follow(d.job, d.answer);
+    }).catch(function () {
+      done('That photo did not go through, so nothing was passed on. Try it again in a moment.', true);
     });
   }
 
@@ -844,6 +959,15 @@ body.tab-trinity .intro{display:none}
     if (!log || !form || !input) return;
 
     form.addEventListener('submit', function (e) { e.preventDefault(); ask(input.value); });
+    var pbtn = document.getElementById('trPhoto'), pfile = document.getElementById('trFile');
+    if (pbtn && pfile) {
+      pbtn.addEventListener('click', function () { if (getSession()) pfile.click(); });
+      pfile.addEventListener('change', function () {
+        var f = pfile.files && pfile.files[0];
+        pfile.value = '';
+        if (f) sendPhoto(f);
+      });
+    }
     if (chips) {
       chips.addEventListener('click', function (e) {
         var b = e.target.closest ? e.target.closest('.tr-chip') : null;

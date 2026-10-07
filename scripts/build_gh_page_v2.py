@@ -2941,7 +2941,14 @@ def trinity_entry():
     here = os.path.dirname(os.path.abspath(__file__))
     root = os.path.dirname(here)
     read = lambda n: open(os.path.join(root, 'trinity', n), encoding='utf-8').read()
-    return '<style>' + read('trinity.css') + '</style>' + read('panel.html') + '<script>' + read('trinity.js') + '</script>'
+    try:
+        return '<style>' + read('trinity.css') + '</style>' + read('panel.html') + '<script>' + read('trinity.js') + '</script>'
+    except OSError as e:
+        # A tree without trinity/ (the fixtures build in throwaway trees) still builds; the tab says so plainly.
+        # The health gate fails a published index.html whose Trinity panel has no chat in it, so this can never
+        # reach the live site unnoticed.
+        sys.stderr.write('NOTE trinity/ not readable (%s): the Trinity tab is built as unavailable\n' % (e,))
+        return '<div class="tr-unavailable"><p>Trinity is not available right now.</p></div>'
 
 
 def _learnings_html(hist_path, max_picks=6, max_days=3):

@@ -119,6 +119,39 @@
     if (send) send.disabled = on;
   }
 
+  /* A SITE CHANGE ON ITS WAY. When a signed-in request becomes a change to the site, the reply carries the change's
+     id, and the page asks how it is going until it is live (or will not be), saying each new step once. Only the
+     person who asked is told: the Mac answers a change that is not theirs exactly like one that does not exist. */
+  var JOB_RE = /^[0-9]{8}-[0-9]{6}-[a-z]+-[0-9a-f]{6}$/;
+  var FOLLOW_FOR_MS = 30 * 60 * 1000;
+
+  function follow(job, said) {
+    if (typeof job !== 'string' || !JOB_RE.test(job)) return;
+    var started = Date.now(), last = String(said || '');
+    var tick = function () {
+      if (!getSession() || Date.now() - started > FOLLOW_FOR_MS) return;
+      fetch(TRINITY_ENDPOINT + '/job', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ session: getSession(), job: job }),
+        cache: 'no-store'
+      }).then(function (r) {
+        return r.json().then(function (d) { return { status: r.status, body: d }; });
+      }).then(function (res) {
+        var d = res.body || {};
+        if (res.status === 403) { setSession(''); showWho(''); return; }
+        if (res.status === 404) return;
+        if (res.status !== 200) { setTimeout(tick, 30000); return; }
+        if (typeof d.answer === 'string' && d.answer && d.answer !== last) {
+          last = d.answer;
+          row('her', d.answer, null, '', false);
+        }
+        if (!d.done) setTimeout(tick, Date.now() - started < 120000 ? 8000 : 20000);
+      }).catch(function () { setTimeout(tick, 30000); });
+    };
+    setTimeout(tick, 8000);
+  }
+
   function ask(q) {
     q = String(q || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
     if (!q || inFlight) return;
@@ -167,6 +200,7 @@
           return typeof c === 'string' && c && c.indexOf('/') === -1 && c.indexOf('\\') === -1;
         }) : [];
         finish(d.answer, cites, d.answered === false);
+        if (d.job) follow(d.job, d.answer);
       } else {
         finish(OFFLINE, null, false);
       }
@@ -241,6 +275,7 @@
       var d = res.body || {};
       if (res.status === 403) { setSession(''); showWho(''); }
       done(typeof d.answer === 'string' && d.answer ? d.answer : OFFLINE, d.answered === false);
+      if (d.job) follow(d.job, d.answer);
     }).catch(function () {
       done('That photo did not go through, so nothing was passed on. Try it again in a moment.', true);
     });

@@ -2933,6 +2933,24 @@ _unit_basis_home='<div class="unitmath unitbasis home-only" id="rpUnitBasis">1u 
 # no ledger text can read as markup or as a comment to scrub_shipped. history.json missing, unreadable
 # or with nothing to show renders nothing: no heading, no empty box. Self-contained
 # (scripts/test_learnings_panel.py runs it from source and checks the client renders the same).
+
+def trinity_entry():
+    """The Trinity tab's panel: her chat, what the system does, and what she will not do. Read from trinity/ so the
+    markup, the style and the script live in one place and every build carries the same tab. No yesterday strip
+    and no "Today's picks" header: she is not a league."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    root = os.path.dirname(here)
+    read = lambda n: open(os.path.join(root, 'trinity', n), encoding='utf-8').read()
+    try:
+        return '<style>' + read('trinity.css') + '</style>' + read('panel.html') + '<script>' + read('trinity.js') + '</script>'
+    except OSError as e:
+        # A tree without trinity/ (the fixtures build in throwaway trees) still builds; the tab says so plainly.
+        # The health gate fails a published index.html whose Trinity panel has no chat in it, so this can never
+        # reach the live site unnoticed.
+        sys.stderr.write('NOTE trinity/ not readable (%s): the Trinity tab is built as unavailable\n' % (e,))
+        return '<div class="tr-unavailable"><p>Trinity is not available right now.</p></div>'
+
+
 def _learnings_html(hist_path, max_picks=6, max_days=3):
     import html as _lh, json as _lj, re as _lr
     try:
@@ -3056,6 +3074,10 @@ if _V2:
     RP_TABS.append({'key':'wooder','label':'Picks from Wooder Ice','espn':''})
 
     RP_TABS.append({'key':'past','label':'Past Tickets','espn':''})
+    # Trinity, far right, right after Past Tickets (owner, 2026-10-07: "A Trinity tab right at the top where the
+    # other tabs are, just on the far right, right after Past Tickets"). She is who visitors talk to; UltRix is
+    # the algorithm she runs on and the only thing she answers from.
+    RP_TABS.append({'key':'trinity','label':'Trinity','espn':''})
     # Home is a view over the existing league panels, not a second copy of card markup.
     # It therefore inherits the exact pick order, links, IDs and live updates from each tab.
     RP_TABS.insert(0, {'key':'home','label':'Home','espn':''})
@@ -3237,6 +3259,9 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     for t in RP_TABS:
         if t['key']=='home': continue  # home projects the canonical league panels below
         _prows=''.join(_panels.get(t['key']) or [])
+        if t['key']=='trinity':
+            _panels_html+='<div class="state" id="st-trinity">'+trinity_entry()+'</div>\n'
+            continue
         _body=((_prows+nfl_ideas_entry) if t['key']=='nfl' else (((nfl_entry+wooder_batch_entry) if t['key']=='wooder' else (past_entry if t['key']=='past' else (_prows if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows))))))
         _body=_ystr_for(t['key'])+_body
         if not _body.strip():

@@ -124,6 +124,11 @@ function rpStripLearn(s) {
     // Dingers mounts exactly once on every card: on the MLB tab when the card has an MLB pick,
     // otherwise as a Home panel (a non-MLB card is a normal card, never a hold).
     check('dingers module mounted exactly once', (page.match(/slates\/wooder_dingers\.json/g) || []).length === 1, 'Dingers card missing or rendered twice');
+    // The Trinity tab carries her chat: the panel mounted once, with the chat's endpoint in it, and never the
+    // unavailable placeholder a tree without trinity/ builds.
+    const trin = page.indexOf('id="st-trinity"');
+    check('Trinity tab mounted exactly once with her chat', (page.match(/id="st-trinity"/g) || []).length === 1 && trin >= 0
+      && page.indexOf('api.rix-picks.com/trinity', trin) > trin && !page.includes('tr-unavailable'), 'the Trinity tab is missing or empty');
   }
   if (SERVE) {
     // --serve: cold checks against the live site
