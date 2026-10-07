@@ -424,5 +424,5 @@ h1 .tick,.od,.back{color:#3aa895}
 <style>#rpToday .res.P,#rpToday .res.pending{background:#8a8f98}#rpToday .nt{overflow-wrap:anywhere}</style>
 <script>(function(){function up(j){if(!j)return;var m=/^([0-9]+)-([0-9]+)/.exec(j.record||'');if(!m)return;var el=document.getElementById('rpOverall');if(el)el.textContent=m[1]+'-'+m[2];var u=document.getElementById('rpOverallU');if(u&&j.units_pl){var v=parseFloat(String(j.units_pl).replace('u',''));if(!isNaN(v))u.textContent=(v>=0?'+':'')+v.toFixed(2)+'u';}}function go(){fetch('manifest.json?cb='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(up).catch(function(){});}go();setInterval(go,60000);})();</script>
 <script defer src="scripts/record_today.js"></script>
-<div class="foot">Bet responsibly.</div>
+<div class="foot">Informational purposes only — not financial, investment or betting advice. Fair values are model estimates produced with AI-assisted analysis; nothing here is a recommendation to trade or wager. 18+; availability varies by jurisdiction. Bet responsibly.</div>
 </div></body></html>

@@ -62,7 +62,7 @@ def page(title, subtitle, body, live=False, slug=''):
 <div class="status">{html.escape(subtitle)}</div>
 <a class="back" href="index.html">&larr; Back to today&rsquo;s picks</a>
 {body}{(chr(10) + TODAY_CSS + chr(10) + LIVE_JS + chr(10) + TODAY_JS) if live else ''}
-<div class="foot">Bet responsibly.</div>
+<div class="foot">Informational purposes only — not financial, investment or betting advice. Fair values are model estimates produced with AI-assisted analysis; nothing here is a recommendation to trade or wager. 18+; availability varies by jurisdiction. Bet responsibly.</div>
 </div></body></html>"""
 
 

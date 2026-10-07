@@ -2973,7 +2973,7 @@ def _learnings_html(hist_path, max_picks=6, max_days=3):
     return ('<div class="sect home-only" id="rpLearnHead" style="margin-top:18px">What the system is learning</div>\n'
             '<div class="card learn home-only" id="rpLearn" aria-live="polite">' + out + '</div>\n')
 _learn_html = '' and _learnings_html(os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), 'history.json'))
-_tail_html=('<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>')
+_tail_html=('<div class="foot">Informational purposes only — not financial, investment or betting advice. Fair values are model estimates produced with AI-assisted analysis; nothing here is a recommendation to trade or wager. 18+; availability varies by jurisdiction. Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>')
 if _V2:
     INDEX_V2_CSS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.css')).read()
     # NEWS-ART-GUARD (2:03 zero-height news art bug): news carousel slides are height:auto since the
