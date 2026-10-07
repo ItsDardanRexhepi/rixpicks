@@ -9,7 +9,7 @@ var tabs=window.RP_TABS||[];if(!tabs.some(function(t){return t.key==='wnba';}))t
 var host=document.getElementById('st-wooder');if(!host)return;
 var state=document.createElement('div');state.id='st-wnba';state.className='state';host.after(state);
 var module=document.createElement('div');module.id='rpWnbaShared';module.className='state';state.after(module);
-var style=document.createElement('style');style.textContent='body.tab-wooder #rpWnbaShared,body.tab-wnba #rpWnbaShared{display:block}#rpWnbaShared .rpwleg{margin:12px 0;font-size:13px}#rpWnbaShared .rpwprice,#rpWnbaShared .rpwnote{font-size:11px;color:#8a8f98;margin-top:3px}';document.head.appendChild(style);
+var style=document.createElement('style');style.textContent='body.tab-wnba aside{display:none!important}body.tab-wooder #rpWnbaShared,body.tab-wnba #rpWnbaShared{display:block}#rpWnbaShared .rpwleg{margin:12px 0;font-size:13px}#rpWnbaShared .rpwprice,#rpWnbaShared .rpwnote{font-size:11px;color:#8a8f98;margin-top:3px}';document.head.appendChild(style);
 function tab(){if(location.hash!=='#wnba')return;document.body.className=document.body.className.replace(/\btab-[a-z0-9]+\b/g,'').trim();document.body.classList.add('tab-wnba');document.querySelectorAll('nav.rpnav .tab').forEach(function(a){a.classList.toggle('active',a.dataset.tab==='wnba');});document.querySelectorAll('.state').forEach(function(s){s.classList.remove('on');});document.body.classList.remove('menu-open');}
 anchor.addEventListener('click',function(e){e.preventDefault();location.hash='wnba';tab();});window.addEventListener('hashchange',tab);tab();
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
