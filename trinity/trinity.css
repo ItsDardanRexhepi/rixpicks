@@ -105,3 +105,14 @@ body.tab-trinity .intro{display:none}
 /* No account button on her page: her title is an h2 so the site's My Account button keeps its own place on every
    other tab (it attaches to the first h1, and an h1 here took it off them), and it is hidden while her tab is open. */
 body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
+/* a picture she made (the card image), and a notice from a watch they set */
+.tr-row .tr-shot{display:block;width:100%;max-width:360px;height:auto;border-radius:10px;margin-top:6px}
+.tr-row .tr-save{display:inline-block;margin-top:6px;font-size:12px;color:var(--acc,#16b39a)}
+.tr-row.tr-notice .tr-bub{border-style:dashed}
+/* the chat's instant changes on the page: a note or banner, a picture, a Wooder Ice ticket shown before the build */
+.ov-blocks{margin:10px 0}
+.ov-block{border-radius:10px;padding:10px 12px;margin:8px 0;font-size:14px;line-height:1.45}
+.ov-note{border:1px dashed var(--line,#1f2f2c);color:var(--txt,#f2f5f4)}
+.ov-banner{background:var(--acc-deep,#0b6e5f);color:#fff;font-weight:700}
+.ov-img{padding:0;border:0}.ov-img img{display:block;width:100%;max-width:640px;height:auto;border-radius:10px}
+.ov-ticket-title{font-weight:800}.ov-leg{font-size:14px;margin-top:4px}

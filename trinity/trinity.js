@@ -15,6 +15,10 @@
        public, so it gets the same bubble and no red, no icon and no apology.
      * It sends one question at a time. Only a public question that never arrived is tried again; anything sent
        while a sign-in is open or asked for is sent once, because a second copy of a change is a second change.
+     * On every visit it reads the chat's instant site changes (typed keys and plain values, never markup) and
+       applies them: a colour, a note, a picture, a word, a section shown or hidden, a Wooder Ice ticket.
+     * Signed in, a reply may carry a picture the Mac made (the card image) and notices from a watch they
+       set. The picture is shown only when it really is a PNG or JPEG, and a notice is text like any reply.
 
    The greeting fires once per visitor and then she waits: no buttons, no prompts, no follow-up.
    ================================================================================================ */
@@ -225,6 +229,325 @@
     try { sessionStorage.setItem(JOBS, JSON.stringify(j)); } catch (e) {}
   }
 
+  /* A PICTURE IN A REPLY, signed in only: the card image she made on the Mac. It arrives as base64 in the reply
+     and is shown only when it is what it says it is - a PNG or a JPEG by its own first bytes, base64 and nothing
+     else, under a size cap - so a reply can never put anything but a picture here. The picture is not kept in this
+     tab's storage (it is large); its change id is, and a reload asks the Mac for it again. */
+  var SHOTS = 'trinity_shots', B64_RE = /^[A-Za-z0-9+\/]+={0,2}$/, SHOT_MAX = 8 * 1024 * 1024;
+  function shotUrl(im) {
+    if (!im || typeof im.b64 !== 'string' || !im.b64 || im.b64.length > SHOT_MAX || im.b64.length % 4) return '';
+    var mime = (im.mime === 'image/png' || im.mime === 'image/jpeg') ? im.mime : '';
+    if (!mime || !B64_RE.test(im.b64)) return '';
+    var h = '';
+    try { h = atob(im.b64.slice(0, 12)); } catch (e) { return ''; }
+    var png = h.charCodeAt(0) === 0x89 && h.slice(1, 4) === 'PNG';
+    var jpg = h.charCodeAt(0) === 0xFF && h.charCodeAt(1) === 0xD8;
+    if (mime === 'image/png' ? !png : !jpg) return '';
+    return 'data:' + mime + ';base64,' + im.b64;
+  }
+  function shotsKept() {
+    try { var s = JSON.parse(sessionStorage.getItem(SHOTS) || '[]'); return Array.isArray(s) ? s : []; }
+    catch (e) { return []; }
+  }
+  function keepShot(job, text) {
+    var s = shotsKept().filter(function (x) { return x && x.j !== job; });
+    s.push({ j: job, t: String(text || '').slice(0, 4000) });
+    try { sessionStorage.setItem(SHOTS, JSON.stringify(s.slice(-10))); } catch (e) {}
+  }
+  function showShot(r, im, job, text) {
+    var url = shotUrl(im), b = r && r.querySelector ? r.querySelector('.tr-bub') : null;
+    if (!url || !b || b.querySelector('.tr-shot')) return;
+    var img = el('img', 'tr-shot');
+    img.alt = (typeof im.alt === 'string' && im.alt) ? im.alt.slice(0, 120) : 'The card image';
+    img.src = url;
+    b.appendChild(img);
+    var a = el('a', 'tr-save', 'Save the image');
+    a.href = url;
+    a.download = (typeof im.name === 'string' && /^[A-Za-z0-9._-]{1,60}\.(png|jpe?g)$/.test(im.name)) ? im.name : 'rixpicks-card.png';
+    b.appendChild(a);
+    if (typeof job === 'string' && JOB_RE.test(job)) keepShot(job, text);
+  }
+  /* After a reload the conversation comes back as text; each picture it held is asked for again, once, by its
+     change id, and put back on the reply it belonged to. Signed out, nothing is asked. */
+  function resumeShots() {
+    if (!getSession()) return;
+    shotsKept().forEach(function (x) {
+      if (!x || typeof x.j !== 'string' || !JOB_RE.test(x.j)) return;
+      var rows = log ? log.querySelectorAll('.tr-row.her') : [], at = null;
+      for (var i = rows.length - 1; i >= 0; i--) {
+        var bub = rows[i].querySelector('.tr-bub');
+        if (bub && bub.firstChild && bub.firstChild.nodeValue === x.t) { at = rows[i]; break; }
+      }
+      if (!at) return;
+      fetch(TRINITY_ENDPOINT + '/job', {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ session: getSession(), job: x.j }), cache: 'no-store'
+      }).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) { if (d && d.image) showShot(at, d.image, x.j, x.t); })
+        .catch(function () { /* the words stand without the picture */ });
+    });
+  }
+  /* What a watch they set found while they were away, said before the answer to what they just sent. */
+  function notices(list) {
+    if (!Array.isArray(list)) return;
+    list.slice(0, 5).forEach(function (n) {
+      if (typeof n === 'string' && n) row('her', n.slice(0, 1000), null, 'tr-notice', true);
+    });
+  }
+
+  /* INSTANT CHANGES, for every visitor. What the people signed in here ask for most - a colour, a note or a
+     banner, a picture they sent, a word changed, a section shown or hidden, a Wooder Ice ticket - is applied on the
+     Mac to a small document of TYPED changes, and this page reads it on load and every few seconds, so the change
+     shows within seconds instead of after a rebuild. The same changes are written into the site's own files in the
+     background, so the next build carries them.
+
+     The document can never put anything on this page that runs:
+       * it carries KEYS and plain values, never a selector, a URL or markup. Every key is looked up in the maps below,
+         which are this page's own, and a key that is not there is ignored;
+       * a value is checked here again by pattern (a colour is #rrggbb, a size is a bounded px value) before it is
+         set, and it is set as one property with setProperty, never written into a style sheet;
+       * words are written with textContent, never parsed, and never inside her tab, the record or the unit line;
+       * a picture is shown only when its own bytes are a PNG or a JPEG (shotUrl, above).
+     A failed fetch changes nothing, and a change that is taken back is taken off at the next read. */
+  var OV_VARS = { '--bg': 1, '--panel': 1, '--panel2': 1, '--line': 1, '--txt': 1, '--mut': 1, '--acc': 1,
+                  '--acc-deep': 1, '--live': 1, '--amber': 1, '--red': 1 };
+  var OV_TARGETS = { nav: 'nav.rpnav', logo: 'nav.rpnav .logo', tabs: 'nav.rpnav .tab', record: '#rpNavRec',
+                     titles: '.sect', footer: '.foot', body: '.wrap' };
+  var OV_PROPS = { 'color': /^#[0-9a-f]{6}$/, 'background-color': /^#[0-9a-f]{6}$/,
+                   'font-weight': /^(400|500|600|700|800)$/, 'font-size': /^(1[0-9]|2[0-9]|3[0-9]|40)px$/,
+                   'text-align': /^(left|center|right)$/, 'border-radius': /^([0-9]|1[0-9]|2[0-4])px$/ };
+  var OV_HIDE = { news: '#rpNewsCar', social: '#rpSocial,#rpSocialHead', ticker: '#rpTickBar', games: '#rpGames',
+                  predictions: '#rpPredWrap', dingers: '#rpDing', first_td: '#rpFtd', night: '#rpNight',
+                  futures: '#rpCmbFutWrap', intro: '#rpIntro', parlays: '#rpCmb' };
+  var OV_SLOTS = { 'home-top': 'home', 'nfl-top': 'nfl', 'wooder-top': 'wooder', 'past-top': 'past', 'footer': '' };
+  var OV_ID = /^[0-9a-f]{12}$/, OV_TICKET = /^t[0-9a-z]{1,8}$/, OV_DAY = /^20\d\d-\d\d-\d\d$/;
+  /* never reworded: her tab, the record and its pop-up, the unit line, the official card (.pick), the yesterday line
+     (.rphead, .yesrec) and the past tickets. The card changes when Dardan lands it; results only through grading. */
+  var OV_KEEP_OUT = '#st-trinity,#rpNavRec,#rpRecPop,.recpop,.unitmath,.unitbasis,.rphead,.yesrec,.pick,#st-past,' +
+                    'script,style,noscript,textarea,input,select';
+  var OV_POLL_MS = 15000;
+
+  function ovStr(s, n) { return (typeof s === 'string' && s && s.length <= n && !/[<>{}\\`]/.test(s)) ? s : ''; }
+
+  /* The document, checked: what survives is a list of plain operations. Pure, so it is tested on its own. */
+  function ovPlan(doc) {
+    var out = { ops: [], gone: [] };
+    if (!doc || typeof doc !== 'object' || doc.v !== 1 || !Array.isArray(doc.items)) return out;
+    doc.items.slice(0, 60).forEach(function (it) {
+      if (!it || typeof it !== 'object' || !OV_ID.test(String(it.id || ''))) return;
+      var id = it.id;
+      if (it.k === 'var' && OV_VARS[it.var] === 1 && /^#[0-9a-f]{6}$/.test(String(it.value))) {
+        out.ops.push({ id: id, k: 'var', name: it.var, value: it.value });
+      } else if (it.k === 'style' && OV_TARGETS.hasOwnProperty(it.target) && OV_PROPS.hasOwnProperty(it.prop) &&
+                 OV_PROPS[it.prop].test(String(it.value))) {
+        out.ops.push({ id: id, k: 'style', sel: OV_TARGETS[it.target], prop: it.prop, value: it.value });
+      } else if (it.k === 'hide' && OV_HIDE.hasOwnProperty(it.section)) {
+        out.ops.push({ id: id, k: 'hide', sel: OV_HIDE[it.section] });
+      } else if (it.k === 'text' && ovStr(it.find, 300) && ovStr(it.replace, 300) && !/\d/.test(it.find) &&
+                 it.replace.indexOf(it.find) === -1) {
+        out.ops.push({ id: id, k: 'text', find: it.find, replace: it.replace });
+      } else if (it.k === 'note' && OV_SLOTS.hasOwnProperty(it.slot) && ovStr(it.text, 600)) {
+        out.ops.push({ id: id, k: 'note', slot: it.slot, text: it.text, tone: it.tone === 'banner' ? 'banner' : 'note' });
+      } else if (it.k === 'img' && OV_SLOTS.hasOwnProperty(it.slot)) {
+        out.ops.push({ id: id, k: 'img', slot: it.slot, alt: ovStr(it.alt, 120) || 'A picture' });
+      } else if ((it.k === 'ticket' || it.k === 'untix') && OV_DAY.test(String(it.date || '')) && it.card &&
+                 OV_TICKET.test(String(it.k === 'untix' ? it.ticket_id : it.card.id || ''))) {
+        if (it.k === 'untix') { out.ops.push({ id: id, k: 'untix', date: it.date, tid: it.ticket_id }); return; }
+        var c = it.card, legs = [];
+        (Array.isArray(c.legs) ? c.legs : []).slice(0, 6).forEach(function (lg) {
+          if (!lg || !ovStr(lg.player, 60) || !ovStr(lg.market, 60)) return;
+          var kal = (Array.isArray(lg.links) ? lg.links : []).filter(function (x) {
+            return x && (x.venue === 'KAL' || x.venue === 'DKP') && typeof x.cents === 'number' && x.cents >= 1 &&
+                   x.cents <= 99 && Math.floor(x.cents) === x.cents;
+          });
+          legs.push({ player: lg.player, market: lg.market, links: kal, note: ovStr(lg.note, 300) });
+        });
+        if (!legs.length || !ovStr(c.title, 120)) return;
+        out.ops.push({ id: id, k: 'ticket', date: it.date, tid: c.id, title: c.title, matchup: ovStr(c.matchup, 120),
+                       time: ovStr(c.time, 200), asof: ovStr(c.asof, 400), legs: legs });
+      }
+    });
+    /* a change taken back after the site's own files carried it: by its id alone, switched off by its class */
+    (Array.isArray(doc.gone) ? doc.gone : []).slice(0, 60).forEach(function (g) {
+      if (!g || !OV_ID.test(String(g.id || ''))) return;
+      out.gone.push({ id: g.id, k: String(g.k || '') });
+    });
+    return out;
+  }
+
+  var ovDone = {}, ovImg = {}, ovTxt = {}, ovRev = -1;
+  function ovToday() {
+    try { return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' }); } catch (e) { return ''; }
+  }
+  function ovEach(sel, fn) {
+    try { Array.prototype.forEach.call(document.querySelectorAll(sel), fn); } catch (e) {}
+  }
+  function ovTextNodes(fn) {
+    if (!document.body || !document.createTreeWalker) return;
+    var w = document.createTreeWalker(document.body, 4, null), n, all = [];
+    while ((n = w.nextNode())) all.push(n);
+    all.forEach(function (t) {
+      var p = t.parentNode;
+      if (p && p.closest && p.closest(OV_KEEP_OUT)) return;
+      fn(t);
+    });
+  }
+  /* -> the text nodes it changed, each with its words before and after, so the change can be taken back on exactly
+     those nodes and nowhere else */
+  function ovReplaceText(find, rep) {
+    var changed = [];
+    ovTextNodes(function (t) {
+      if (t.nodeValue && t.nodeValue.indexOf(find) !== -1) {
+        var was = t.nodeValue;
+        t.nodeValue = was.split(find).join(rep);
+        changed.push({ n: t, was: was, now: t.nodeValue });
+      }
+    });
+    return changed;
+  }
+  function ovUnreplace(changed) {
+    (changed || []).forEach(function (c) { if (c.n && c.n.nodeValue === c.now) c.n.nodeValue = c.was; });
+  }
+  function ovHolder(slot) {
+    var hold = document.querySelector('.ov-blocks[data-slot="' + slot + '"]');
+    if (hold) return hold;
+    hold = el('div', 'ov-blocks');
+    hold.setAttribute('data-slot', slot);
+    if (slot === 'footer') {
+      var foot = document.querySelector('.foot');
+      if (!foot || !foot.parentNode) return null;
+      foot.parentNode.insertBefore(hold, foot);
+    } else {
+      var st = document.getElementById('st-' + OV_SLOTS[slot]);
+      if (!st) return null;
+      st.insertBefore(hold, st.firstChild);
+    }
+    return hold;
+  }
+  function ovTicketBox() {
+    var box = document.getElementById('rpOvTix');
+    if (box) return box;
+    var st = document.getElementById('st-wooder');
+    if (!st) return null;
+    box = el('div', 'ov-tix');
+    box.id = 'rpOvTix';
+    var anchor = document.getElementById('rpBatchIdeas');
+    if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(box, anchor); else st.appendChild(box);
+    return box;
+  }
+  function ovTicket(op) {
+    var card = el('div', 'rpnpick ov-ticket ov-' + op.id);
+    card.appendChild(el('div', 'ov-ticket-title', op.title));
+    if (op.matchup) card.appendChild(el('div', 'sub', op.matchup + (op.time ? ' · ' + op.time : '')));
+    op.legs.forEach(function (lg) {
+      var line = lg.player + ' · ' + lg.market;
+      lg.links.forEach(function (x) { line += ' · ' + x.venue + ' ' + x.cents + 'c'; });
+      card.appendChild(el('div', 'ov-leg', line));
+      if (lg.note) card.appendChild(el('div', 'sub', lg.note));
+    });
+    if (op.asof) card.appendChild(el('div', 'sub', op.asof));
+    return card;
+  }
+
+  function ovApply(doc) {
+    var plan = ovPlan(doc), now = {}, day = ovToday(), tix = {};
+    plan.ops.forEach(function (op) { now[op.id] = op; if (op.k === 'ticket' || op.k === 'untix') tix[op.tid] = op; });
+    /* what was applied and is no longer in the document is taken off */
+    Object.keys(ovDone).forEach(function (id) {
+      if (now[id]) return;
+      try { ovDone[id](); } catch (e) {}
+      delete ovDone[id];
+    });
+    plan.ops.forEach(function (op) {
+      if (ovDone[op.id] && op.k !== 'style' && op.k !== 'hide' && op.k !== 'text') return;
+      try {
+        if (op.k === 'var') {
+          var root = document.documentElement, was = root.style.getPropertyValue(op.name);
+          root.style.setProperty(op.name, op.value);
+          ovDone[op.id] = function () { if (was) root.style.setProperty(op.name, was); else root.style.removeProperty(op.name); };
+        } else if (op.k === 'style' || op.k === 'hide') {
+          var prop = op.k === 'hide' ? 'display' : op.prop, val = op.k === 'hide' ? 'none' : op.value;
+          ovEach(op.sel, function (n) {
+            if (n.closest && n.closest(op.k === 'hide' ? '#st-trinity' : OV_KEEP_OUT.replace('#rpNavRec,', ''))) return;
+            if (n.getAttribute('data-ov-' + op.id)) return;
+            n.setAttribute('data-ov-' + op.id, n.style.getPropertyValue(prop) || '-');
+            n.style.setProperty(prop, val, 'important');
+          });
+          ovDone[op.id] = function () {
+            ovEach('[data-ov-' + op.id + ']', function (n) {
+              var was = n.getAttribute('data-ov-' + op.id);
+              n.removeAttribute('data-ov-' + op.id);
+              if (was && was !== '-') n.style.setProperty(prop, was); else n.style.removeProperty(prop);
+            });
+          };
+        } else if (op.k === 'text') {
+          ovTxt[op.id] = (ovTxt[op.id] || []).concat(ovReplaceText(op.find, op.replace));
+          ovDone[op.id] = function () { ovUnreplace(ovTxt[op.id]); delete ovTxt[op.id]; };
+        } else if ((op.k === 'note' || op.k === 'img') && !document.querySelector('.ov-' + op.id)) {
+          var hold = ovHolder(op.slot);
+          if (!hold) return;
+          var b = el('div', 'ov-block ov-' + op.tone + ' ov-' + op.id + (op.k === 'img' ? ' ov-img' : ''),
+                     op.k === 'note' ? op.text : null);
+          if (op.k === 'img') {
+            var put = function (im) {
+              var url = shotUrl(im);
+              if (!url) return;
+              var img = el('img');
+              img.alt = op.alt;
+              img.src = url;
+              b.appendChild(img);
+            };
+            if (ovImg[op.id]) put(ovImg[op.id]);
+            else fetch(TRINITY_ENDPOINT + '/overrides?img=' + op.id, { cache: 'no-store' })
+              .then(function (r) { return r.ok ? r.json() : null; })
+              .then(function (im) { if (im) { ovImg[op.id] = im; put(im); } })
+              .catch(function () { /* no picture, nothing else changes */ });
+          }
+          hold.appendChild(b);
+          ovDone[op.id] = function () { if (b.parentNode) b.parentNode.removeChild(b); };
+        } else if (op.k === 'ticket' && op.date === day && tix[op.tid] === op) {
+          var built = document.getElementById('tk-' + op.tid);
+          if (built && !(built.closest && built.closest('#rpOvTix'))) return;      /* the site's own build has it */
+          var box = ovTicketBox();
+          if (!box) return;
+          var c = ovTicket(op);
+          c.id = 'tk-' + op.tid;
+          ovEach('#rpOvTix #tk-' + op.tid, function (n) { if (n.parentNode) n.parentNode.removeChild(n); });
+          box.appendChild(c);
+          ovDone[op.id] = function () { if (c.parentNode) c.parentNode.removeChild(c); };
+        } else if (op.k === 'untix' && op.date === day) {
+          ovEach('#tk-' + op.tid, function (n) { n.style.setProperty('display', 'none', 'important'); });
+          ovDone[op.id] = function () { ovEach('#tk-' + op.tid, function (n) { n.style.removeProperty('display'); }); };
+        }
+      } catch (e) { /* one change that cannot be shown leaves every other one standing */ }
+    });
+    /* taken back after the site's own files carry it: switched off by class, and words put back */
+    plan.gone.forEach(function (g) {
+      try {
+        document.documentElement.classList.add('ov-off-' + g.id);
+        ovEach('.ov-' + g.id, function (n) { n.style.setProperty('display', 'none', 'important'); });
+      } catch (e) {}
+    });
+  }
+
+  function ovLoad(fresh) {
+    if (typeof fetch !== 'function') return;
+    fetch(TRINITY_ENDPOINT + '/overrides' + (fresh ? '?v=' + Date.now() : ''), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || typeof d.rev !== 'number') return;
+        if (d.rev === ovRev) { ovApply(d); return; }               /* same document: reapply to new elements */
+        ovRev = d.rev;
+        ovApply(d);
+      })
+      .catch(function () { /* the page stays exactly as it was built */ });
+  }
+  function ovStart() {
+    ovLoad(false);
+    setInterval(function () { if (!document.hidden) ovLoad(false); }, OV_POLL_MS);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) ovLoad(false); });
+  }
+
   var restoring = false;
   function row(who, text, cites, extra, force) {
     if (!restoring) keep(who, text, cites, extra);
@@ -249,7 +572,7 @@
   function resetToIntro() {
     stopFollowing();
     kept = [];
-    try { sessionStorage.removeItem(HISTORY); sessionStorage.removeItem(JOBS); } catch (e) {}
+    try { sessionStorage.removeItem(HISTORY); sessionStorage.removeItem(JOBS); sessionStorage.removeItem(SHOTS); } catch (e) {}
     if (log) log.textContent = '';
     maskInput(false);
     if (input && input.style) input.style.height = '';
@@ -351,7 +674,8 @@
         if (res.status !== 200) { if (last_call) letGo(); else later(30000); return; }
         if (typeof d.answer === 'string' && d.answer && d.answer !== last) {
           last = d.answer;
-          row('her', d.answer, null, '', false);
+          var jr = row('her', d.answer, null, '', false);
+          if (d.image) showShot(jr, d.image, job, d.answer);
           keepJob(job, last, false);
         }
         if (d.done) { stop(); return; }
@@ -401,13 +725,14 @@
        sign-in opens or ends. */
     var done = false, wantSecret = false;
     var finish = function (text, cites, declined) {
-      if (done) { maskInput(secretWanted() || wantSecret); return; }
+      if (done) { maskInput(secretWanted() || wantSecret); return null; }
       done = true;
       if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
-      if (text != null) row('her', text, cites, declined ? 'declined' : '', true);
+      var added = text != null ? row('her', text, cites, declined ? 'declined' : '', true) : null;
       lock(false);
       maskInput(secretWanted() || wantSecret);
       focusBox();
+      return added;
     };
     var lost = function () { finish(held ? unsure : OFFLINE, null, false); };
 
@@ -462,7 +787,10 @@
              not shown, so a leak can never be displayed by this page. */
           return typeof c === 'string' && c && c.indexOf('/') === -1 && c.indexOf('\\') === -1;
         }) : [];
-        finish(said, cites, d.answered === false);
+        notices(d.notices);
+        var fr = finish(said, cites, d.answered === false);
+        if (d.image) showShot(fr, d.image, d.job, said);
+        if (d.overrides) ovLoad(true);
         if (d.job) follow(d.job, said);
       } else {
         finish(OFFLINE, null, false);
@@ -563,6 +891,7 @@
       }
       if (res.body === null) { done(PHOTO_UNSURE, true); return; }
       done(said || PHOTO_UNSURE, d.answered === false);
+      if (d.overrides) ovLoad(true);
       if (d.job) follow(d.job, said);
     }).catch(function (e) {
       done(sent ? PHOTO_UNSURE : (e && e.unreadable ? PHOTO_UNREADABLE : PHOTO_NOT_SENT), true);
@@ -662,6 +991,7 @@
       greetOnce();
     }
     resumeJobs();
+    resumeShots();
     fillAbout();
   }
 
@@ -739,7 +1069,9 @@
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', wire);
+    document.addEventListener('DOMContentLoaded', ovStart);
   } else {
     wire();
+    ovStart();
   }
 })();

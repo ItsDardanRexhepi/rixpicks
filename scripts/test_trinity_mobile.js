@@ -67,7 +67,10 @@ function page(opts) {
     calls.push({ url, body });
     return new Promise((ok, no) => {
       const u = url.replace(/^.*\/trinity/, '');
-      const r = u === '/about' ? { status: 404, body: {} } : route(u, body, calls);
+      // the chat's instant site changes are read on every load: an empty document here, so a scripted route
+      // answers only what the test sends
+      const r = u === '/about' ? { status: 404, body: {} }
+        : u.indexOf('/overrides') === 0 ? { status: 200, body: { v: 1, rev: 0, items: [], gone: [] } } : route(u, body, calls);
       if (r === 'throw') return no(new TypeError('Load failed'));
       const res = { status: r.status, json: () => (r.raw !== undefined ? Promise.reject(new SyntaxError('bad')) : Promise.resolve(r.body)) };
       if (r.delay) setTimeout_(() => ok(res), r.delay); else ok(res);
