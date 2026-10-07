@@ -90,11 +90,14 @@
      nothing for it to hold on to. A brand-new box also makes an iPhone reload its keyboard with the right settings.
      The mask is a text mask, not a password field; only a browser without one falls back to a password field. */
   var TEXT_MASK = !!(window.CSS && CSS.supports && CSS.supports('-webkit-text-security', 'disc'));
-  var CHAT_HINT = 'Ask about a pick, a refusal or the record';
+  var CHAT_HINT = 'Ask Trinity anything';
   var secretForm = null, secretBox = null, secretBtn = null;
   function box() { return secretBox || input; }
+  /* The chat box is a text area, not a single-line field: neither iOS nor Safari ever offers saved passwords or puts
+     the keychain key in a text area, where both did in the chat box once the page had held a passphrase (the owner's
+     iPhone showed "Passwords" over it while he was signed in, 2026-10-07). Enter sends; Shift+Enter is a new line. */
   function chatTraits(n) {
-    n.type = 'text';
+    if (String(n.tagName || '').toUpperCase() === 'INPUT') n.type = 'text';
     if (n.style) n.style.webkitTextSecurity = '';
     n.setAttribute('autocomplete', 'off');
     n.setAttribute('autocapitalize', 'sentences');
@@ -236,6 +239,7 @@
     try { sessionStorage.removeItem(HISTORY); sessionStorage.removeItem(JOBS); } catch (e) {}
     if (log) log.textContent = '';
     maskInput(false);
+    if (input && input.style) input.style.height = '';
     greeted = false;
     greetOnce();
     if (input) input.value = '';
@@ -371,7 +375,7 @@
     var held = !!getSession();
     var unsure = signedIn() ? UNSURE_IN : UNSURE_SIGNIN;
     row('me', wasSecret ? '\u2022\u2022\u2022\u2022\u2022\u2022' : q, null, '', true);
-    if (input) input.value = '';
+    if (input) { input.value = ''; if (input.style) input.style.height = ''; }
     if (secretBox) secretBox.value = '';
     lock(true);
     var pend = row('her', PENDING, null, 'tr-pending', true);
@@ -660,6 +664,15 @@
     if (!log || !form || !input) return;
 
     form.addEventListener('submit', function (e) { e.preventDefault(); ask(input.value); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && e.keyCode !== 229) { e.preventDefault(); ask(input.value); }
+    });
+    var grow = function () {
+      if (!input.style || typeof input.scrollHeight !== 'number') return;
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight + 2, 132) + 'px';
+    };
+    input.addEventListener('input', grow);
     var pbtn = document.getElementById('trPhoto'), pfile = document.getElementById('trFile');
     if (pbtn && pfile) {
       pbtn.addEventListener('click', function () { if (signedIn() && !inFlight) pfile.click(); });

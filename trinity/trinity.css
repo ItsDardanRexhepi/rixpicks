@@ -50,14 +50,15 @@
 .tr-chip:hover,.tr-chip:focus-visible{color:var(--txt);border-color:var(--acc)}
 
 .tr-ask{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:var(--panel2)}
-.tr-ask input{flex:1 1 auto;width:0;min-width:0;font:inherit;font-size:16px;padding:11px 12px;border-radius:10px;
+.tr-ask input,.tr-ask textarea{flex:1 1 auto;width:0;min-width:0;font:inherit;font-size:16px;padding:11px 12px;border-radius:10px;
               border:1px solid var(--line);background:var(--bg);color:var(--txt)}
-.tr-ask input::placeholder{color:var(--mut)}
-.tr-ask input:focus-visible{outline:none;border-color:var(--acc)}
+.tr-ask textarea{resize:none;overflow-y:auto;line-height:1.35;min-height:44px;max-height:132px;box-sizing:border-box;display:block}
+.tr-ask input::placeholder,.tr-ask textarea::placeholder{color:var(--mut)}
+.tr-ask input:focus-visible,.tr-ask textarea:focus-visible{outline:none;border-color:var(--acc)}
 .tr-ask button{appearance:none;cursor:pointer;font:inherit;font-size:14px;font-weight:700;
                padding:11px 18px;border-radius:10px;border:1px solid var(--acc);
                background:var(--acc);color:var(--bg)}
-.tr-ask button[disabled],.tr-ask input[disabled]{opacity:.55;cursor:default}
+.tr-ask button[disabled],.tr-ask input[disabled],.tr-ask textarea[disabled]{opacity:.55;cursor:default}
 
 /* ---- the page content --------------------------------------------------------------------- */
 .tr-cards{display:grid;gap:12px;margin:14px 0 0}

@@ -287,10 +287,24 @@ const asks = (p) => p.calls.filter(c => c.url.endsWith('/ask'));
     await q.advance(30000);
     check(upl === 1 && q.rows().slice(-1)[0] === 'I have your photo.', 'and it is sent once the answer is in, not lost');
   }
+  // Enter sends from the text area; Shift+Enter does not; a keyboard still composing (229) does not
+  {
+    const p = page({ route: () => ({ status: 200, body: { answer: 'Hey.' } }) });
+    const box = p.input();
+    const press = (o) => box.handlers.keydown[0](Object.assign({ key: 'Enter', shiftKey: false, isComposing: false, keyCode: 13, preventDefault() {} }, o));
+    box.value = 'hello'; press({ shiftKey: true }); press({ isComposing: true }); press({ keyCode: 229 });
+    await p.advance(1000);
+    check(asks(p).length === 0, 'Shift+Enter and a composing keyboard do not send');
+    press({}); await p.advance(30000);
+    check(asks(p).length === 1 && asks(p)[0].body.question === 'hello' && box.value === '', 'Enter sends the text area once and clears it');
+  }
   // SI-04: the box takes the room left over, so the Photo button cannot widen the page on a phone
   {
-    const m = css.match(/\.tr-ask input\{([^}]*)\}/);
+    const m = css.match(/\.tr-ask input,\.tr-ask textarea\{([^}]*)\}/);
     check(!!m && /(^|;)\s*width:0\b/.test(m[1]) && /flex:1 1 auto/.test(m[1]), 'the chat box has width:0 with flex 1 1 auto, so its min-content cannot widen the page');
+    const panel = fs.readFileSync(__dirname + '/../trinity/panel.html', 'utf8');
+    check(/<textarea id="trInput"/.test(panel) && !/<input id="trInput"/.test(panel),
+      'the chat box is a text area, where neither iOS nor Safari offers saved passwords or the keychain key');
   }
   console.log(fails ? `trinity mobile: ${fails} FAILED` : 'trinity mobile: ALL PASS');
   process.exit(fails ? 1 : 0);

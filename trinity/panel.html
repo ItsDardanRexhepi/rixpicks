@@ -19,8 +19,9 @@
 
       <form class="tr-ask" id="trAsk" autocomplete="off">
         <label class="tr-sr" for="trInput">Ask Trinity a question</label>
-        <input id="trInput" name="question" type="text" maxlength="400" enterkeyhint="send"
-               placeholder="Ask about a pick, a refusal or the record">
+        <textarea id="trInput" name="question" rows="1" maxlength="400" enterkeyhint="send" autocomplete="off"
+                  autocorrect="on" autocapitalize="sentences" spellcheck="true"
+                  placeholder="Ask Trinity anything"></textarea>
         <button type="submit" id="trSend">Ask</button>
         <button type="button" id="trPhoto" class="tr-photo" hidden aria-label="Send a photo">Photo</button>
         <input type="file" id="trFile" accept="image/jpeg,image/png,image/heic,image/heif,image/webp,image/gif" hidden>
