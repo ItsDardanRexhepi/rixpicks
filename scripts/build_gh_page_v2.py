@@ -2934,6 +2934,24 @@ _unit_basis_home='<div class="unitmath unitbasis home-only" id="rpUnitBasis">1u 
 # or with nothing to show renders nothing: no heading, no empty box. Self-contained
 # (scripts/test_learnings_panel.py runs it from source and checks the client renders the same).
 
+def _site_overrides(page):
+    """Wording, style and content changed on the Trinity chat, applied to every build (scripts/site_overrides.py
+    reads slates/site_text.json, slates/site_style.css and slates/site_blocks.json from the site root). A tree
+    without the module builds unchanged."""
+    _p = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'site_overrides.py')
+    if not os.path.exists(_p):
+        return page
+    try:
+        import importlib.util as _iu
+        _spec = _iu.spec_from_file_location('site_overrides', _p)
+        _m = _iu.module_from_spec(_spec)
+        _spec.loader.exec_module(_m)
+        return _m.apply(page, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    except Exception as e:
+        sys.stderr.write('NOTE site overrides not applied (%s)\n' % (e,))
+        return page
+
+
 def trinity_entry():
     """The Trinity tab's panel: her chat, what the system does, and what she will not do. Read from trinity/ so the
     markup, the style and the script live in one place and every build carries the same tab. No yesterday strip
@@ -4796,7 +4814,7 @@ if os.path.basename(out)=='index_nocanon.html':
     open(out,'w').write(_RETIRED_HOME)
     print('retired: index_nocanon.html (duplicate homepage) - noindex notice, canonical https://rix-picks.com/')
 else:
-    open(out,'w').write(scrub_shipped(page))
+    open(out,'w').write(scrub_shipped(_site_overrides(page)))
 _css=page.split('<style>')[1].split('</style>')[0]
 
 FUTURES_TMPL='''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
