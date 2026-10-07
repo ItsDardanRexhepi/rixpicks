@@ -47,7 +47,7 @@ named = ['/incidents/36390649045.md', '/docs/feed_bug_ledger.md', '/previews/ove
 for p in named:
     check('disallowed: %s' % p, not allowed(p))
 # Scripts the pages load from /scripts/ are page resources, allowed by name in robots.txt; the rest of /scripts/ is source.
-PAGE_SCRIPTS = ('scripts/record_today.js', 'scripts/wooder_wnba_shared.js')
+PAGE_SCRIPTS = ('scripts/record_today.js',)
 internal = [f for f in tracked if (f.startswith(INTERNAL_DIRS) or f.endswith(INTERNAL_EXT)) and f not in PAGE_SCRIPTS]
 leaks = [f for f in internal if allowed('/' + f)]
 check('every tracked internal file disallowed (%d files)' % len(internal), not leaks, leaks[:5])
