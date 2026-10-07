@@ -1,0 +1,71 @@
+<div class="tr-wrap">
+
+    <header class="tr-intro">
+      <h1 class="tr-h">Trinity</h1>
+      <p class="tr-lede">Trinity is who you talk to. UltRix is the algorithm behind these picks, and she answers
+        only from what it has actually recorded.</p>
+    </header>
+
+    <!-- the chat. The transcript is a live region so a screen reader hears each answer once it lands. -->
+    <div class="tr-chat">
+      <div class="tr-log" id="trLog" role="log" aria-live="polite" aria-label="Conversation with Trinity"></div>
+
+      <div class="tr-chips" id="trChips" hidden>
+        <button type="button" class="tr-chip">What is on the card today?</button>
+        <button type="button" class="tr-chip">Why was something not picked?</button>
+        <button type="button" class="tr-chip">What is the record?</button>
+        <button type="button" class="tr-chip">How does it decide?</button>
+      </div>
+
+      <form class="tr-ask" id="trAsk" autocomplete="off">
+        <label class="tr-sr" for="trInput">Ask Trinity a question</label>
+        <input id="trInput" name="question" type="text" maxlength="400" enterkeyhint="send"
+               placeholder="Ask about a pick, a refusal or the record">
+        <button type="submit" id="trSend">Ask</button>
+      </form>
+      <div class="tr-who" id="trWho" hidden></div>
+    </div>
+
+    <!-- what the system does, and how to read what she says -->
+    <div class="tr-cards">
+      <div class="tr-card">
+        <h2 class="tr-sub">What the system does</h2>
+        <p id="trWhat">It builds its own fair price for a market before it reads what that market costs, applies
+          a fixed set of bars in code, and cards only what clears every one of them unaided.</p>
+      </div>
+      <div class="tr-card">
+        <h2 class="tr-sub">How to read an answer</h2>
+        <p id="trHow">Every figure in an answer is read or computed from its own records. It will not estimate,
+          and when its records cannot answer a question it says so.</p>
+      </div>
+    </div>
+
+    <div class="tr-cards">
+      <div class="tr-card">
+        <h2 class="tr-sub">What you can ask</h2>
+        <ul class="tr-list" id="trCan">
+          <li>today's card, and the bar each pick cleared</li>
+          <li>why a side was not picked, and the exact bar that refused it</li>
+          <li>the record over a window, with its closing-line value</li>
+          <li>how a league, a market class or a price band has done</li>
+          <li>what was reachable on a day and never scored</li>
+          <li>a league model's verdict, and what would have to change for that league to card</li>
+          <li>how the bars, the ladder and the gates work, and what the objective is</li>
+        </ul>
+      </div>
+      <div class="tr-card">
+        <h2 class="tr-sub">What she will not do</h2>
+        <ul class="tr-list tr-wont" id="trWont">
+          <li>anything in money terms: what is staked, held or earned</li>
+          <li>how sure it is, or anything it is reasoning about and has not published</li>
+          <li>what to bet. She will show the record and leave the decision with you</li>
+          <li>a prediction for a game the algorithm never carded</li>
+          <li>how the system is operated internally</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="tr-foot" id="trObj">The objective is the win rate on graded picks over a rolling twelve months,
+      read from its public record.</p>
+
+  </div>

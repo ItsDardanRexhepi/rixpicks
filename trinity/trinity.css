@@ -1,0 +1,93 @@
+/* ================================================================================================
+   THE TRINITY TAB, styles. Into the existing <style> block in rixpicks/index.html.
+
+   It adds no font, no image and no asset, and it defines no colour of its own: every value comes from
+   the variables already on :root (--bg --panel --panel2 --line --txt --mut --acc). So it follows the
+   site wherever the site goes, and a theme change needs nothing here.
+
+   Mobile first. At 375px there is no horizontal scroll, the transcript scrolls on its own, and the
+   input sits above the keyboard.
+   ================================================================================================ */
+
+.tr-wrap{max-width:760px;margin:0 auto;padding:4px 0 24px}
+.tr-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---- who she is ---------------------------------------------------------------------------- */
+.tr-intro{margin:8px 0 14px}
+.tr-h{margin:0;font-size:22px;font-weight:700;letter-spacing:.02em;color:var(--txt)}
+.tr-lede{margin:6px 0 0;font-size:14px;line-height:1.5;color:var(--mut);max-width:60ch}
+
+/* ---- the chat ----------------------------------------------------------------------------- */
+.tr-chat{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+
+.tr-log{padding:14px;max-height:52vh;overflow-y:auto;overscroll-behavior:contain;
+        display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}
+
+.tr-row{display:flex;max-width:100%}
+.tr-row.me{justify-content:flex-end}
+.tr-bub{max-width:min(46ch,88%);padding:9px 12px;border-radius:12px;font-size:14px;line-height:1.5;
+        white-space:pre-wrap;word-break:break-word}
+.tr-row.her .tr-bub{background:var(--panel2);border:1px solid var(--line);color:var(--txt);
+                    border-bottom-left-radius:4px}
+.tr-row.me .tr-bub{background:var(--acc-deep,#0b6e5f);color:var(--txt);border-bottom-right-radius:4px}
+
+/* A refusal is a true statement, not an error. Same bubble, same type, no red, no icon, no apology. */
+.tr-row.her.declined .tr-bub{background:var(--panel2);border:1px solid var(--line)}
+
+/* Store names, never paths. If a path ever appears here it is a defect to report, not to style. */
+.tr-cites{margin:5px 0 0;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut)}
+
+/* No spinner: it would claim progress the page cannot see. */
+.tr-pending .tr-bub{color:var(--mut);font-style:normal}
+
+.tr-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 12px}
+/* a class rule with display:flex outranks the browser's own [hidden]{display:none}, so the
+   attribute has to be honoured explicitly or the chips stay up after the first question */
+.tr-chips[hidden]{display:none}
+.tr-chip{appearance:none;cursor:pointer;font:inherit;font-size:12.5px;line-height:1.2;
+         padding:8px 11px;border-radius:999px;border:1px solid var(--line);
+         background:var(--panel2);color:var(--mut)}
+.tr-chip:hover,.tr-chip:focus-visible{color:var(--txt);border-color:var(--acc)}
+
+.tr-ask{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:var(--panel2)}
+.tr-ask input{flex:1 1 auto;min-width:0;font:inherit;font-size:15px;padding:11px 12px;border-radius:10px;
+              border:1px solid var(--line);background:var(--bg);color:var(--txt)}
+.tr-ask input::placeholder{color:var(--mut)}
+.tr-ask input:focus-visible{outline:none;border-color:var(--acc)}
+.tr-ask button{appearance:none;cursor:pointer;font:inherit;font-size:14px;font-weight:700;
+               padding:11px 18px;border-radius:10px;border:1px solid var(--acc);
+               background:var(--acc);color:var(--bg)}
+.tr-ask button[disabled],.tr-ask input[disabled]{opacity:.55;cursor:default}
+
+/* ---- the page content --------------------------------------------------------------------- */
+.tr-cards{display:grid;gap:12px;margin:14px 0 0}
+.tr-card{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:13px 14px}
+.tr-sub{margin:0 0 7px;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+        color:var(--mut)}
+.tr-card p{margin:0;font-size:14px;line-height:1.55;color:var(--txt)}
+.tr-list{margin:0;padding:0 0 0 2px;list-style:none;display:flex;flex-direction:column;gap:7px}
+.tr-list li{position:relative;padding-left:15px;font-size:13.5px;line-height:1.5;color:var(--txt)}
+.tr-list li::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;
+                    background:var(--acc)}
+.tr-wont li::before{background:var(--mut)}
+.tr-foot{margin:14px 0 0;font-size:12.5px;line-height:1.5;color:var(--mut)}
+
+@media(min-width:720px){
+  .tr-cards{grid-template-columns:1fr 1fr}
+  .tr-log{max-height:46vh;padding:16px}
+  .tr-h{font-size:26px}
+}
+
+@media(prefers-reduced-motion:no-preference){
+  .tr-row{animation:trIn .16s ease-out}
+  @keyframes trIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+}
+
+/* The tab carries no day header, no yesterday strip and no intro, like the Wooder Ice tab. */
+body.tab-trinity .home-yes,
+body.tab-trinity .rpdate,
+body.tab-trinity .intro{display:none}
+
+/* Signed in: a quiet line under the chat saying who, so nobody forgets they are holding the door open. */
+.tr-who{font-size:12px;color:#0b6e5f;margin:6px 2px 0;font-weight:700}
+.tr-who[hidden]{display:none}
