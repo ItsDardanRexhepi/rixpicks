@@ -31,17 +31,17 @@ const say = async (q, reply) => { replies.push(reply); els.trInput.value = q; el
 let fails = 0; const check = (c, l) => { console.log((c ? 'OK   ' : 'FAIL ') + l); if (!c) fails++; };
 (async () => {
   check(rows().length === 1 && /Trinity/.test(rows()[0]), 'the tab opens on her greeting');
-  await say("It’s Julian", { answer: 'Hi Julian. What is your passphrase?', session: 'pending-1', next: 'passphrase' });
-  await say('invented passphrase', { answer: 'Welcome back, Julian.', session: 'sess-1', as: 'Julian' });
+  await say("It’s Sam", { answer: 'Hi Sam. What is your passphrase?', session: 'pending-1', next: 'passphrase' });
+  await say('invented passphrase', { answer: 'Welcome back, Sam.', session: 'sess-1', as: 'Sam' });
   await say('what is the record?', { answer: 'Thirty-three and seventeen.' });
   check(rows().length === 7 && sessionStorage.getItem('trinity_session') === 'sess-1', 'signed in, the conversation is on the page');
-  await say('sign out', { answer: 'Signed out. Talk soon, Julian.', session: '' });
+  await say('sign out', { answer: 'Signed out. Talk soon, Sam.', session: '' });
   check(rows().length === 1 && /Trinity/.test(rows()[0]), 'after sign-out only her greeting is on the page');
   check(!els.trChips.hidden, 'and the suggestions are back');
   check(JSON.parse(sessionStorage.getItem('trinity_log')).length === 1, "the tab's stored conversation holds only the greeting");
   check(!sessionStorage.getItem('trinity_session') && !sessionStorage.getItem('trinity_session_who') && els.trWho.hidden, 'and nobody is signed in');
   await say('hello', { answer: 'Hey.' });
-  await say("It’s Julian", { answer: 'Hi Julian. What is your passphrase?', session: 'pending-2', next: 'passphrase' });
+  await say("It’s Sam", { answer: 'Hi Sam. What is your passphrase?', session: 'pending-2', next: 'passphrase' });
   await say('wrong one', { answer: 'That did not match, so nothing is open.', session: '' });
   check(rows().length === 7, 'a sign-in that never opened clears nothing');
   console.log(fails ? `trinity sign-out: ${fails} FAILED` : 'trinity sign-out: ALL PASS');
