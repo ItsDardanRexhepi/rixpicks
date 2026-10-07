@@ -3,10 +3,10 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>&rsquo;RixPicks</title>
-<link rel="icon" href="favicon.ico?v=1791395302" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1791395302">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1791395302">
-<link rel="manifest" href="site.webmanifest?v=1791395302">
+<link rel="icon" href="favicon.ico?v=1791395457" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1791395457">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1791395457">
+<link rel="manifest" href="site.webmanifest?v=1791395457">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:(location.pathname.indexOf("/rixpicks/")===0?"/rixpicks/":"/")}  /* */});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
 <script>
@@ -551,7 +551,7 @@ body.tab-home #st-ding{display:block}
 .tr-chip:hover,.tr-chip:focus-visible{color:var(--txt);border-color:var(--acc)}
 
 .tr-ask{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:var(--panel2)}
-.tr-ask input{flex:1 1 auto;min-width:0;font:inherit;font-size:16px;padding:11px 12px;border-radius:10px;
+.tr-ask input{flex:1 1 auto;width:0;min-width:0;font:inherit;font-size:16px;padding:11px 12px;border-radius:10px;
               border:1px solid var(--line);background:var(--bg);color:var(--txt)}
 .tr-ask input::placeholder{color:var(--mut)}
 .tr-ask input:focus-visible{outline:none;border-color:var(--acc)}
@@ -696,17 +696,31 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
   var SESSION = 'trinity_session';
   var secretNext = false;
 
-  function getSession() {
-    try { return sessionStorage.getItem(SESSION) || ''; } catch (e) { return ''; }
-  }
+  /* The page's own copy is what it goes by. Storage is read once, when the page loads, and written after every
+     change, so a reload keeps the sign-in; a browser that refuses storage (Safari with every cookie blocked, a
+     private window that throws) still signs in and out for the life of the page, and a passphrase is never sent
+     without the sign-in it belongs to. */
+  var mem = { s: '', who: '' };
+  try {
+    mem.s = sessionStorage.getItem(SESSION) || '';
+    mem.who = mem.s ? (sessionStorage.getItem(SESSION + '_who') || '') : '';
+  } catch (e) {}
+
+  function getSession() { return mem.s; }
 
   function setSession(v) {
+    mem.s = v || '';
     try {
       if (v) sessionStorage.setItem(SESSION, v); else sessionStorage.removeItem(SESSION);
     } catch (e) {}
   }
 
+  /* */
+  function signedIn() { return !!(mem.s && mem.who); }
+  function pending() { return !!mem.s && !mem.who; }
+
   function showWho(name) {
+    mem.who = name || '';
     try { if (name) sessionStorage.setItem(SESSION + '_who', name); else sessionStorage.removeItem(SESSION + '_who'); }
     catch (e) {}
     var pb = document.getElementById('trPhoto');
@@ -719,22 +733,44 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
   /* The passphrase is hidden with a text mask, not by turning the box into a password field: once a box has been a
      password field, Safari keeps its keychain key on it and offers to save "passwords" for the rest of the
      conversation. Only a browser without the mask falls back to a password field. Autocorrect, capitals and
-     spelling are off while a passphrase is typed, so it never lands in the keyboard's dictionary. */
+     spelling are off while a passphrase is typed, so it never lands in the keyboard's dictionary.
+
+     A phone's keyboard reads those settings when a box GAINS focus, and an iPhone (Safari and Chrome alike) never
+     reads them again while that box keeps it - and the box does keep it when the name is sent with the keyboard's
+     Send key. So when the box has the focus and the mask goes on or off, a fresh box with the new settings takes
+     its place and the focus moves to it, which an iPhone treats as a new box and reloads the keyboard for. */
   var TEXT_MASK = !!(window.CSS && CSS.supports && CSS.supports('-webkit-text-security', 'disc'));
+  function traits(n, on) {
+    if (TEXT_MASK) {
+      n.type = 'text';
+      n.style.webkitTextSecurity = on ? 'disc' : '';
+    } else {
+      n.type = on ? 'password' : 'text';
+    }
+    n.setAttribute('autocomplete', 'off');
+    n.setAttribute('autocapitalize', on ? 'off' : 'sentences');
+    n.setAttribute('autocorrect', on ? 'off' : 'on');
+    n.spellcheck = !on;
+    n.placeholder = on ? 'Passphrase' : 'Ask about a pick, a refusal or the record';
+  }
   function maskInput(on) {
+    on = !!on;
+    var changed = on !== secretNext;
     secretNext = on;
     if (!input) return;
-    if (TEXT_MASK) {
-      input.type = 'text';
-      input.style.webkitTextSecurity = on ? 'disc' : '';
-    } else {
-      input.type = on ? 'password' : 'text';
+    var old = input, parent = old.parentNode;
+    if (changed && parent && document.activeElement === old && typeof old.cloneNode === 'function') {
+      var n = old.cloneNode(false);
+      n.value = '';
+      traits(n, on);
+      old.removeAttribute('id');
+      parent.insertBefore(n, old);
+      try { n.focus({ preventScroll: true }); } catch (e) { n.focus(); }
+      parent.removeChild(old);
+      input = n;
+      return;
     }
-    input.setAttribute('autocomplete', 'off');
-    input.setAttribute('autocapitalize', on ? 'off' : 'sentences');
-    input.setAttribute('autocorrect', on ? 'off' : 'on');
-    input.spellcheck = !on;
-    input.placeholder = on ? 'Passphrase' : 'Ask about a pick, a refusal or the record';
+    traits(old, on);
   }
 
   function el(tag, cls, text) {
@@ -805,10 +841,8 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
   }
 
   /* */
-  function signedIn() {
-    try { return !!sessionStorage.getItem(SESSION + '_who'); } catch (e) { return false; }
-  }
   function resetToIntro() {
+    stopFollowing();
     kept = [];
     try { sessionStorage.removeItem(HISTORY); sessionStorage.removeItem(JOBS); } catch (e) {}
     if (log) log.textContent = '';
@@ -817,11 +851,20 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
     greetOnce();
     if (input) input.value = '';
   }
-  function endSession() {
+  /* */
+  var FOLLOW_ENDED = 'Your sign-in has closed, so I stopped following that change. Say your name to sign in ' +
+                     'again, and ask "my changes" to see how it went.';
+  function sessionClosed(note) {
     var was = signedIn();
     setSession('');
     showWho('');
-    if (was) resetToIntro();
+    if (was) startOver(note);
+  }
+  function startOver(note) {
+    var wasFollowing = Object.keys(following).length > 0;
+    resetToIntro();
+    if (note) row('her', note, null, '', true);
+    if (wasFollowing && note !== FOLLOW_ENDED) row('her', FOLLOW_ENDED, null, '', true);
   }
 
   /* Once per visit, not once per browser: the conversation is not kept between visits, so a returning visitor who
@@ -836,24 +879,53 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
 
   /* While an answer is on its way only SENDING waits: the box stays live and keeps its focus, so the next question
      can be typed and a space bar press never falls through to the page and scrolls it away. */
+  var queuedPhoto = null;
   function lock(on) {
     inFlight = on;
     if (send) send.disabled = on;
-    if (!on) holdReloadCheck();
+    var pb = document.getElementById('trPhoto');
+    if (pb) pb.disabled = on;
+    if (on) return;
+    if (queuedPhoto) {                          /* a photo picked while she was answering goes now, not nowhere */
+      var f = queuedPhoto;
+      queuedPhoto = null;
+      setTimeout(function () { sendPhoto(f); }, 0);
+      return;
+    }
+    holdReloadCheck();
   }
 
   /* A SITE CHANGE ON ITS WAY. When a signed-in request becomes a change to the site, the reply carries the change's
      id, and the page asks how it is going until it is live (or will not be), saying each new step once. Only the
      person who asked is told: the Mac answers a change that is not theirs exactly like one that does not exist. */
   var JOB_RE = /^[0-9]{8}-[0-9]{6}-[a-z]+-[0-9a-f]{6}$/;
-  var FOLLOW_FOR_MS = 30 * 60 * 1000;
+  /* A change can take longer than half an hour (the coder, the checks and the wait for it to go live each have
+     their own limits), so the page keeps asking for two hours, less often as it goes, and asks at once when the
+     phone wakes up. When the window closes it asks one last time and, if the change is still on its way, says so
+     and lets it go, instead of going quiet. */
+  var FOLLOW_FOR_MS = 2 * 60 * 60 * 1000;
+  var STILL_GOING = 'That change is still on its way. Ask me "is it live?" any time and I will tell you where it is.';
+  var following = {};
+
+  function stopFollowing() {
+    Object.keys(following).forEach(function (job) { clearTimeout(following[job].timer); });
+    following = {};
+  }
 
   function follow(job, said, since) {
-    if (typeof job !== 'string' || !JOB_RE.test(job)) return;
+    if (typeof job !== 'string' || !JOB_RE.test(job) || following[job]) return;
     var started = since || Date.now(), last = String(said || '');
+    var f = following[job] = { timer: 0, busy: false, wake: null };
     keepJob(job, last, false);
+    var mine = function () { return following[job] === f; };
+    var stop = function () { clearTimeout(f.timer); if (mine()) delete following[job]; keepJob(job, '', true); };
+    var later = function (ms) { clearTimeout(f.timer); f.timer = setTimeout(tick, ms); };
+    var letGo = function () { stop(); row('her', STILL_GOING, null, '', false); };
     var tick = function () {
-      if (!getSession() || Date.now() - started > FOLLOW_FOR_MS) return;
+      if (!mine() || f.busy) return;
+      if (!getSession()) { stop(); return; }
+      var last_call = Date.now() - started > FOLLOW_FOR_MS;
+      f.busy = true;
       fetch(TRINITY_ENDPOINT + '/job', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -862,90 +934,126 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
       }).then(function (r) {
         return r.json().then(function (d) { return { status: r.status, body: d }; });
       }).then(function (res) {
+        f.busy = false;
+        if (!mine()) return;
         var d = res.body || {};
-        if (res.status === 403) { keepJob(job, '', true); endSession(); return; }
-        if (res.status === 404) { keepJob(job, '', true); return; }
-        if (res.status !== 200) { setTimeout(tick, 30000); return; }
+        if (res.status === 403) { stop(); sessionClosed(FOLLOW_ENDED); return; }
+        if (res.status === 404) { stop(); return; }
+        if (res.status !== 200) { if (last_call) letGo(); else later(30000); return; }
         if (typeof d.answer === 'string' && d.answer && d.answer !== last) {
           last = d.answer;
           row('her', d.answer, null, '', false);
           keepJob(job, last, false);
         }
-        if (d.done) { keepJob(job, '', true); return; }
-        setTimeout(tick, Date.now() - started < 120000 ? 8000 : 20000);
-      }).catch(function () { setTimeout(tick, 30000); });
+        if (d.done) { stop(); return; }
+        if (last_call) { letGo(); return; }
+        var age = Date.now() - started;
+        later(age < 120000 ? 8000 : age < 600000 ? 20000 : 60000);
+      }).catch(function () {
+        f.busy = false;
+        if (!mine()) return;
+        if (last_call) letGo(); else later(30000);
+      });
     };
-    setTimeout(tick, 8000);
+    f.wake = function () { if (mine() && !f.busy) { clearTimeout(f.timer); tick(); } };
+    later(since ? 1000 : 8000);
   }
+
+  function wakeFollowers() {
+    Object.keys(following).forEach(function (job) { if (following[job].wake) following[job].wake(); });
+  }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) wakeFollowers(); });
+  window.addEventListener('pageshow', wakeFollowers);
+
+  /* Sent while a sign-in is open or asked for, a message that may have arrived is never sent again by the page:
+     a change sent twice is two changes. She says she could not confirm it instead, and how to find out. */
+  var UNSURE_IN = 'I could not confirm that reached me, so it may or may not have gone through. If it was a change ' +
+                  'to the site, ask me "my changes" before sending it again.';
+  var UNSURE_SIGNIN = 'I could not confirm that reached me. Try your passphrase again in a moment.';
 
   function ask(q) {
     q = String(q || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
     if (!q || inFlight) return;
     if (chips) chips.hidden = true;
-    var wasSecret = secretNext;
+    var wasSecret = secretNext || pending();
+    var held = !!getSession();
+    var unsure = signedIn() ? UNSURE_IN : UNSURE_SIGNIN;
     row('me', wasSecret ? '\u2022\u2022\u2022\u2022\u2022\u2022' : q, null, '', true);
-    maskInput(false);
     if (input) input.value = '';
     lock(true);
     var pend = row('her', PENDING, null, 'tr-pending', true);
 
-    var done = false;
+    /* The mask is never switched off on a send: after every outcome (an answer, a limit, a dropped line, the
+       timeout) it is worked out again from what the page holds, so a passphrase asked for stays masked until the
+       sign-in opens or ends. */
+    var done = false, wantSecret = false;
     var finish = function (text, cites, declined) {
-      if (done) return;
+      if (done) { maskInput(pending() || wantSecret); return; }
       done = true;
       if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
-      row('her', text, cites, declined ? 'declined' : '', true);
+      if (text != null) row('her', text, cites, declined ? 'declined' : '', true);
       lock(false);
+      maskInput(pending() || wantSecret);
       if (input) input.focus();
     };
+    var lost = function () { finish(held ? unsure : OFFLINE, null, false); };
 
     var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); finish(OFFLINE, null, false); }, 45000);
-    var body = JSON.stringify(getSession() ? { question: q, session: getSession() } : { question: q });
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); lost(); }, 45000);
+    var body = JSON.stringify(held ? { question: q, session: getSession() } : { question: q });
 
     /* A dropped connection (the line to the Mac reconnects in seconds) is tried again twice before she says she
-       is not answering. Only a failure to ARRIVE is retried; an answer of any kind is never asked twice. */
+       is not answering - for a public question only. Only a failure to ARRIVE is retried; an answer of any kind is
+       never asked twice. */
     var post = function (tries) {
       return fetch(TRINITY_ENDPOINT + '/ask', {
         method: 'POST', headers: { 'content-type': 'application/json' }, body: body,
         signal: ctrl ? ctrl.signal : undefined, cache: 'no-store'
       }).then(function (r) {
-        if ((r.status === 502 || r.status === 503 || r.status === 504) && tries < 2) {
+        if ((r.status === 502 || r.status === 503 || r.status === 504) && tries < 2 && !held) {
           return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
         }
         return r;
       }, function (err) {
-        if (done || tries >= 2 || (err && err.name === 'AbortError')) throw err;
+        if (held || done || tries >= 2 || (err && err.name === 'AbortError')) throw err;
         return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
       });
     };
 
     post(0).then(function (r) {
+      if (held && r.status >= 500) return { status: r.status, body: null };
       return r.json().then(function (d) { return { status: r.status, body: d }; });
     }).then(function (res) {
       clearTimeout(timer);
+      if (res.body === null) { lost(); return; }
       var d = res.body || {};
       var wasIn = signedIn();
-      if (typeof d.session === 'string') { setSession(d.session); if (!d.session) showWho(''); }
-      if (typeof d.as === 'string' && d.as) showWho(d.as);
-      if (d.next === 'passphrase' || (typeof d.answer === 'string' && /passphrase\?\s*$/i.test(d.answer))) {
-        maskInput(true);
+      /* A token without a name is a sign-in in progress: whoever was signed in before is not any more. */
+      if (typeof d.session === 'string') { setSession(d.session); if (!d.session || !d.as) showWho(''); }
+      if (typeof d.as === 'string' && d.as && getSession()) showWho(d.as);
+      wantSecret = d.next === 'passphrase' || (typeof d.answer === 'string' && /passphrase\?\s*$/i.test(d.answer));
+      var said = typeof d.answer === 'string' && d.answer ? d.answer : '';
+      if (wasIn && !signedIn()) {
+        /* */
+        var asked = /^\s*(Signed out|You are signed out)\b/i.test(said);
+        startOver(asked ? '' : said);
+        finish(null);
+        return;
       }
       /* */
-      if (typeof d.answer === 'string' && d.answer) {
+      if (said) {
         var cites = Array.isArray(d.cites) ? d.cites.filter(function (c) {
           /* */
           return typeof c === 'string' && c && c.indexOf('/') === -1 && c.indexOf('\\') === -1;
         }) : [];
-        finish(d.answer, cites, d.answered === false);
-        if (wasIn && d.session === '') { resetToIntro(); return; }
-        if (d.job) follow(d.job, d.answer);
+        finish(said, cites, d.answered === false);
+        if (d.job) follow(d.job, said);
       } else {
         finish(OFFLINE, null, false);
       }
     }).catch(function () {
       clearTimeout(timer);
-      finish(OFFLINE, null, false);
+      lost();
     });
   }
 
@@ -968,7 +1076,12 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
         URL.revokeObjectURL(url);
         c.toBlob(function (b) { b ? resolve(b) : reject(new Error('could not encode')); }, 'image/jpeg', 0.9);
       };
-      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('not an image')); };
+      img.onerror = function () {
+        URL.revokeObjectURL(url);
+        var e = new Error('cannot open');
+        e.unreadable = true;
+        reject(e);
+      };
       img.src = url;
     });
   }
@@ -982,15 +1095,24 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
     });
   }
 
+  /* */
+  var PHOTO_NOT_SENT = 'That photo did not go through, so nothing was passed on. Try it again in a moment.';
+  var PHOTO_UNREADABLE = 'I cannot open that kind of photo on this phone, so nothing was passed on. Try a JPEG or a ' +
+                         'screenshot.';
+  var PHOTO_UNSURE = 'I could not confirm that photo arrived, so it may or may not have gone through. Ask me ' +
+                     '"my changes" before sending it again.';
+
   function sendPhoto(file) {
-    if (!file || inFlight || !getSession()) return;
+    if (!file || !signedIn()) return;
+    if (inFlight) { queuedPhoto = file; return; }
     var caption = (input && input.value || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
     lock(true);
     var mine = row('me', caption || 'Photo', null, '', true);
     var pend = row('her', 'Sending the photo', null, 'tr-pending', true);
+    var sent = false;
     var done = function (text, declined) {
       if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
-      row('her', text, null, declined ? 'declined' : '', true);
+      if (text != null) row('her', text, null, declined ? 'declined' : '', true);
       if (input) { input.value = ''; input.focus(); }
       lock(false);
     };
@@ -1002,6 +1124,7 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
       mine.querySelector('.tr-bub').appendChild(thumb);
       return blobToBase64(jpg);
     }).then(function (b64) {
+      sent = true;
       return fetch(TRINITY_ENDPOINT + '/upload', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -1009,15 +1132,21 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
         cache: 'no-store'
       });
     }).then(function (r) {
+      if (r.status >= 500) return { status: r.status, body: null };
       return r.json().then(function (d) { return { status: r.status, body: d }; });
     }).then(function (res) {
       var d = res.body || {};
-      var ended = res.status === 403;
-      done(typeof d.answer === 'string' && d.answer ? d.answer : OFFLINE, d.answered === false);
-      if (ended) endSession();
-      else if (d.job) follow(d.job, d.answer);
-    }).catch(function () {
-      done('That photo did not go through, so nothing was passed on. Try it again in a moment.', true);
+      var said = typeof d.answer === 'string' && d.answer ? d.answer : '';
+      if (res.status === 403) {
+        done(null);
+        sessionClosed(said || 'Your sign-in has closed, so that photo was not passed on. Say your name to sign in again.');
+        return;
+      }
+      if (res.body === null) { done(PHOTO_UNSURE, true); return; }
+      done(said || PHOTO_UNSURE, d.answered === false);
+      if (d.job) follow(d.job, said);
+    }).catch(function (e) {
+      done(sent ? PHOTO_UNSURE : (e && e.unreadable ? PHOTO_UNREADABLE : PHOTO_NOT_SENT), true);
     });
   }
 
@@ -1118,17 +1247,15 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
     input = document.getElementById('trInput');
     send = document.getElementById('trSend');
     who = document.getElementById('trWho');
-    if (getSession()) {
-      var n = '';
-      try { n = sessionStorage.getItem(SESSION + '_who') || ''; } catch (e) {}
-      if (n) showWho(n);
-    }
+    if (signedIn()) showWho(mem.who);
+    /* */
+    if (input) maskInput(pending());
     if (!log || !form || !input) return;
 
     form.addEventListener('submit', function (e) { e.preventDefault(); ask(input.value); });
     var pbtn = document.getElementById('trPhoto'), pfile = document.getElementById('trFile');
     if (pbtn && pfile) {
-      pbtn.addEventListener('click', function () { if (getSession()) pfile.click(); });
+      pbtn.addEventListener('click', function () { if (signedIn() && !inFlight) pfile.click(); });
       pfile.addEventListener('change', function () {
         var f = pfile.files && pfile.files[0];
         pfile.value = '';
@@ -1160,7 +1287,7 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
 <div class="state" id="st-ding" data-home-league="1"><div style="margin-top:22px"><div class="sect">Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div><div style="border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px"><div class="lghead" style="margin-top:0">Dingers Only &#128293;</div><div id="rpDing"></div></div><div style="font-size:11px;color:#8a8f98;margin-top:10px;line-height:1.45">Separate from the RixPicks card and record. Picks only, no wagers placed. CASHED = live stat threshold met, not a verified payout.</div></div><script>(function(){var box=document.getElementById("rpDing");if(!box)return;var VEN={"KAL":["kalshi.com","#e6f9f3","#0a7c5c",1],"POLY":["polymarket.com","#e8f3fc","#1a6db0",1],"DK":["sportsbook.draftkings.com","#0b0e11","#53d337",0],"DKP":["predictions.draftkings.com","#0b1a0e","#9be25f",1],"FD":["sportsbook.fanduel.com","#e7f3ff","#0e6fd0",0],"MGM":["betmgm.com","#f5f0e4","#7a6226",0],"BR":["betrivers.com","#e3f5fc","#0278a6",0],"HR":["hardrock.bet","#faf3dd","#8a6d1a",0],"TSB":["thescore.bet","#0d1b2e","#4d94ff",0],"B365":["bet365.com","#f0f6f0","#1c6e3c",0],"FAN":["sportsbook.fanatics.com","#f3f3f3","#111",0]};function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}function c2ml(c){c=+c;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}function ptDate(){try{return new Date().toLocaleDateString("en-CA",{timeZone:"America/Los_Angeles"});}catch(e){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}}function hide(){box.parentNode.parentNode.style.display="none";}function dot(c){return "<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:"+c+";margin-right:6px;vertical-align:1px\"></span>";}function ab2(m){var N={CWS:"CHW"};var p=String(m||"").toUpperCase().split(" AT ");if(p.length!==2)return null;var a=p[0].trim(),b=p[1].trim();return [N[a]||a,N[b]||b];}function hrOf(sj,name){try{var tms=(sj.boxscore&&sj.boxscore.players)||[];for(var t=0;t<tms.length;t++){var sts=tms[t].statistics||[];for(var q=0;q<sts.length;q++){var keys=sts[q].keys||[];if(keys.indexOf("atBats")<0)continue;var hi=keys.indexOf("homeRuns");if(hi<0)hi=keys.indexOf("HR");if(hi<0)continue;var aths=sts[q].athletes||[];for(var a=0;a<aths.length;a++){if((((aths[a].athlete||{}).displayName)||"").toLowerCase()===String(name||"").toLowerCase()){var v=parseInt((aths[a].stats||[])[hi],10);return isNaN(v)?0:v;}}}}}catch(e){}return null;}function tS(count,state,det){if(count==null&&(state==="in"||state==="post"))return dot("#8a8f98")+"<span style=\"color:#8a8f98\">Unavailable</span>";var cur=count;var got=(count!=null&&count>0);var txt=got?("HR"+(cur>1?(" x"+cur):"")):"No HR yet";var badge=got?("<span style=\"background:#0b3d2e;color:#8ff0c8;font-weight:700;font-size:11px;border-radius:6px;padding:1px 6px\">"+cur+" of 1 HR - CASHED</span>"):null;if(state==="post")return got?(dot("#0b6e5f")+badge+"<span style=\"color:#8a8f98\"> &middot; Final</span>"):(dot("#8a8f98")+"<span style=\"color:#8a8f98\">No HR &middot; Final</span>");if(got)return dot("#0b6e5f")+badge;var dly=/delay|postpon|suspend/i.test(det||"");if(state==="in")return dly?(dot("#e8a13d")+"<span style=\"color:#b07708\">"+txt+" &middot; Delayed</span>"):(dot("#e8a13d")+"<span style=\"color:#b07708\">"+txt+"</span>");if(dly)return dot("#8a8f98")+"<span style=\"color:#8a8f98\">Delayed</span>";return "";}function updDing(){fetch("https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(sb){var gm={};(sb.events||[]).forEach(function(ev){var cmp=(ev.competitions||[])[0]||{};var st=(cmp.status&&cmp.status.type)||{};var home=null,away=null;(cmp.competitors||[]).forEach(function(c){var o={ab:((c.team||{}).abbreviation||"").toUpperCase()};if(c.homeAway==="home")home=o;else away=o;});if(home&&away)gm[away.ab+"@"+home.ab]={state:st.state||"",eid:ev.id,det:(st.detail||st.shortDetail||"")};});var seen={};Array.prototype.forEach.call(document.querySelectorAll(".rpdingtrk"),function(el){var pr=ab2(el.getAttribute("data-m"));var g=pr?gm[pr[0]+"@"+pr[1]]:null;if(!g){el.innerHTML="";return;}el.__st=g.state;el.__det=g.det;if(g.eid&&g.state!=="pre"){(seen[g.eid]=seen[g.eid]||[]).push(el);}else{el.innerHTML=tS(null,g.state,g.det);}});Object.keys(seen).forEach(function(eid){fetch("https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/summary?event="+eid+"&cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(sj){if(!sj)return;seen[eid].forEach(function(el){el.innerHTML=tS(hrOf(sj,el.getAttribute("data-p")),el.__st,el.__det);});}).catch(function(){});});}).catch(function(){});}function startDing(){updDing();setInterval(updDing,30000);}fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){var ps=(j&&j.picks)||[];if(!ps.length||(j.date||"")!==ptDate()){hide();return;}var h="";ps.slice(0,10).forEach(function(pk,i){if(!pk.player||!pk.team||!pk.matchup||!pk.time||!pk.market)return;var chips="";(pk.links||[]).forEach(function(l){var v=VEN[l.venue];if(!v)return;if(l.url!=null&&l.url.indexOf(v[0])===-1)return;if(l.american!=null&&l.cents!=null)return;var pr="";if(l.american!=null)pr=String(l.american);else if(l.cents!=null){if(!v[3])return;if(typeof l.cents==="number"&&l.cents>0&&l.cents<100)pr=(c2ml(l.cents)>0?"+":"")+c2ml(l.cents);}var st="background:"+v[1]+";border-color:"+v[1]+";color:"+v[2]+";font-size:11px;padding:2px 10px";chips+=l.url?(" <a class=\"chip\" style=\""+st+"\" href=\""+esc(l.url)+"\" target=\"_blank\" rel=\"noreferrer\">"+esc(l.venue)+(pr?" "+esc(pr):"")+"</a>"):(" <span class=\"chip\" style=\""+st+"\">"+esc(l.venue)+(pr?" "+esc(pr):"")+"</span>");});h+="<div class=\"rpnpick\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+(i+1)+". "+esc(pk.player)+"</b><span style=\"color:#8a8f98;font-size:12px\">"+esc(pk.market)+"</span></div>"+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(pk.matchup)+" &middot; "+esc(pk.time)+"</div><div class=\"rpdingtrk\" data-p=\""+esc(pk.player)+"\" data-m=\""+esc(pk.matchup)+"\" style=\"margin-top:3px;font-size:12px\"></div>"+"<div style=\"margin-top:4px\">"+chips+"</div>"+(pk.price_note&&chips?"<div style=\"font-size:11px;color:#8a8f98;margin-top:4px;line-height:1.4\">"+esc(pk.price_note)+"</div>":"")+"</div>";});if(!h){hide();return;}box.innerHTML=h;startDing();}).catch(hide);})();</script></div>
 
 
-<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1791395302" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">7 live &rsaquo;</span></a>
+<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1791395457" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">7 live &rsaquo;</span></a>
 <div class="sect home-only" style="margin-top:18px">News</div>
 <div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>
 <div class="card carallpop home-only" id="rpCarAllPop" hidden></div>
@@ -1571,7 +1698,7 @@ function rpResolveState(){try{  /* */
  }
 }catch(e){}}
 rpLabel(); /* */
-const RP_BUILD='1791395302';
+const RP_BUILD='1791395457';
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(()=>{});}catch(e){}
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
@@ -1816,7 +1943,7 @@ function rpPageRefresh(){try{
 }catch(e){}}
 setInterval(rpPageRefresh,60000);
 </script>
-<script src="myprofile.js?v=1791395302"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></div><script>window.RP_TABS=[{"key":"home","label":"Home","espn":""},{"key":"ncaaf","label":"NCAAF","espn":"football/college-football"},{"key":"mlb","label":"MLB","espn":"baseball/mlb"},{"key":"wnba","label":"WNBA","espn":"basketball/wnba"},{"key":"nfl","label":"NFL","espn":"football/nfl"},{"key":"wooder","label":"Picks from Wooder Ice","espn":""},{"key":"past","label":"Past Tickets","espn":""},{"key":"trinity","label":"Trinity","espn":""}];window.RP_KAL_TICKER=0;window.RP_KAL_WATCH=[];</script><script>/* RixPicks index v2 shell: intro (once/session, natural scroll, no trapping), league tabs, games+news sidebar, ticker */
+<script src="myprofile.js?v=1791395457"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></div><script>window.RP_TABS=[{"key":"home","label":"Home","espn":""},{"key":"ncaaf","label":"NCAAF","espn":"football/college-football"},{"key":"mlb","label":"MLB","espn":"baseball/mlb"},{"key":"wnba","label":"WNBA","espn":"basketball/wnba"},{"key":"nfl","label":"NFL","espn":"football/nfl"},{"key":"wooder","label":"Picks from Wooder Ice","espn":""},{"key":"past","label":"Past Tickets","espn":""},{"key":"trinity","label":"Trinity","espn":""}];window.RP_KAL_TICKER=0;window.RP_KAL_WATCH=[];</script><script>/* RixPicks index v2 shell: intro (once/session, natural scroll, no trapping), league tabs, games+news sidebar, ticker */
 (function(){
 "use strict";
 var TABS=window.RP_TABS||[];
