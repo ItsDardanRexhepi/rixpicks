@@ -93,6 +93,36 @@ for frag, what in (('onclick', 'a handler'), ('<script', 'a script'), ('onerror'
 check('content: plain tags, an https link and an uploaded picture survive',
       '<p class="note">Hi <b>there</b></p>' in cl and 'href="https://wooder.example/t"' in cl
       and '<img src="assets/uploads/ticket.jpg" alt="ticket">' in cl, cl)
+
+# an obfuscated script URL - the browser strips TAB/CR/LF and decodes entities before it reads the scheme,
+# so "java<TAB>script:" and "java&#9;script:" both run as "javascript:" - does not survive, in a link or an image
+for frag in ('<a href="java\tscript:alert(1)">x</a>', '<a href="java&#9;script:alert(1)">y</a>',
+             '<a href="&#106;avascript:alert(1)">z</a>', '<img src="java\tscript:alert(1)" alt="a">'):
+    clo = SO.clean_html(frag)
+    check('content: an obfuscated script URL does not survive', 'script:' not in clo.lower()
+          and 'href="java' not in clo.lower() and 'src="java' not in clo.lower(), clo)
+clo = SO.clean_html('<a href="/picks">a</a><a href="https://ok.example/">b</a>')
+check('content: a relative and an https link still survive', 'href="/picks"' in clo
+      and 'href="https://ok.example/"' in clo, clo)
+cstyle = SO.clean_style('.x{background:url(java\tscript:alert(1))}.y{background:url(https://ok.example/i.png)}')
+check('style: an obfuscated script URL in url() is dropped', 'java' not in cstyle.lower(), cstyle)
+_real_deobf = SO._deobf                              # red: without de-obfuscation the obfuscated URL survives
+SO._deobf = lambda u: u or ''
+try:
+    leaked = 'java' in SO.clean_html('<a href="java\tscript:alert(1)">x</a>').lower()
+finally:
+    SO._deobf = _real_deobf
+check('style/content: de-obfuscation is what drops it (red proof)', leaked)
+
+# the three files the chat edits exist in the repo, seeded so a build is unchanged and the tools can still edit
+for rel in (SO.TEXT, SO.BLOCKS, SO.STYLE):
+    check(f'the chat override file {rel} exists', os.path.exists(os.path.join(ROOT, rel)), rel)
+check('the seeded wording and blocks files are empty lists',
+      json.load(open(os.path.join(ROOT, SO.TEXT))) == [] and json.load(open(os.path.join(ROOT, SO.BLOCKS))) == [])
+check('the seeded style file is non-empty (an empty file cannot be edited from the chat)',
+      os.path.getsize(os.path.join(ROOT, SO.STYLE)) > 0)
+check('the seeded, comment-only style file adds no block to a built page',
+      'site-style' not in SO.apply('<html><head></head><body><div class="foot">f</div></body></html>', ROOT))
 blocks = [{'slot': 'home-top', 'html': '<p>Big night</p>'}, {'slot': 'wooder-top', 'html': '<p>New tickets</p>'},
           {'slot': 'footer', 'html': '<small>Thanks</small>'}, {'slot': 'nowhere"><script>', 'html': '<p>x</p>'}]
 out = SO.apply(PAGE, tree(blocks=blocks))

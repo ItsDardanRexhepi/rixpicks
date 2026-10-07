@@ -83,6 +83,17 @@ def apply_text(page, pairs):
 _URL = re.compile(r'url\(\s*([\'"]?)\s*([^)\'"]*)\1\s*\)', re.I)
 
 
+# The characters a browser strips out of a URL before it decides the scheme (TAB, LF, CR and the other C0
+# controls): with them, "java<TAB>script:" and "java&#9;script:" resolve to "javascript:". The scheme is decided
+# on the URL as the browser reads it - character references decoded, those characters removed - so an obfuscated
+# scheme cannot slip through the "looks relative" branch and be written back as a live link.
+_URL_STRIP = re.compile(r'[\t\n\r\x00-\x1f\x7f]')
+
+
+def _deobf(u):
+    return _URL_STRIP.sub('', html.unescape(u or ''))
+
+
 def clean_style(css):
     css = str(css or '')[:MAX_STYLE_CHARS]
     css = css.replace('<', '').replace('\\', '')
@@ -92,7 +103,7 @@ def clean_style(css):
     css = re.sub(r'-moz-binding|behavior\s*:', '', css, flags=re.I)
 
     def url(m):
-        u = m.group(2).strip()
+        u = _deobf(m.group(2)).strip()
         ok = u.startswith('https://') or (u and not re.match(r'^[a-z][a-z0-9+.-]*:', u, re.I) and not u.startswith('//'))
         return f'url("{u}")' if ok and '"' not in u else 'none'
     return _URL.sub(url, css)
@@ -111,7 +122,9 @@ _STYLE_BLOCK = re.compile(r'<style id="site-style">.*?</style>', re.S)
 
 def apply_style(page, css):
     page = _STYLE_BLOCK.sub('', page)
-    if not css.strip():
+    # comments and whitespace are not style: a seed file that holds only a comment (so the chat's tools, which
+    # cannot edit an empty file, have a line to change) adds no block and leaves the built page exactly as it was
+    if not re.sub(r'/\*.*?\*/', '', css, flags=re.S).strip():
         return page
     block = '<style id="site-style">' + css + '</style>'
     i = page.lower().rfind('</head>')
@@ -127,7 +140,10 @@ DROP_WITH_CONTENT = {'script', 'style', 'iframe', 'object', 'embed', 'template',
 
 
 def _safe_url(u, for_img=False):
-    u = (u or '').strip()
+    # Decide the scheme on the URL the browser will resolve - character references decoded, the TAB/CR/LF it
+    # strips removed - and write that cleaned form back, so "java&#9;script:..." is seen as "javascript:..." and
+    # rejected rather than kept as a relative link with a hidden scheme.
+    u = _deobf((u or '').strip()).strip()
     if not u or any(c in u for c in '"<>\\') or u.startswith('//'):
         return None
     if re.match(r'^[a-z][a-z0-9+.-]*:', u, re.I):
