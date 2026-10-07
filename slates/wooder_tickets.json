@@ -1,5 +1,67 @@
 {
- "version": 1,
- "generated_at": "2026-10-04T17:10:00-07:00",
- "tickets": []
+  "version": 1,
+  "generated_at": "2026-10-07T10:06:00-07:00",
+  "tickets": [
+    {
+      "id": "wi-20261008-tbdal-3leg",
+      "sport": "nfl",
+      "title": "TB at DAL - Thu Oct 8, 5:15 PM PT",
+      "status": "NOT PLACED",
+      "bought": false,
+      "game_date": "2026-10-08",
+      "kickoff": "2026-10-08T17:15:00-07:00",
+      "legs": [
+        {
+          "player": "Emeka Egbuka",
+          "market": "4+ receptions",
+          "matchup": "TB @ DAL",
+          "time": "Thu Oct 8, 5:15 PM PT",
+          "note": "Kalshi Yes 41c (+144 from cents), observed Oct 7 10:04 AM PT. 810 contracts at best ask; fees excluded. Per leg only, no combined quote.",
+          "pricing": {
+            "venue": "KAL",
+            "cents": 41,
+            "as_of": "2026-10-07T10:04:52-07:00",
+            "url": "https://kalshi.com/markets/kxnflrec/pro-football-player-receptions/kxnflrec-26oct08tbdal",
+            "best_ask_contracts": 810
+          }
+        },
+        {
+          "player": "Javonte Williams",
+          "market": "4+ receptions",
+          "matchup": "TB @ DAL",
+          "time": "Thu Oct 8, 5:15 PM PT",
+          "note": "Unpriced: Kalshi listed this exact leg but its selected book showed no contracts available at Oct 7 10:05 AM PT. DK Predictions lists 4+, but a standalone quote and market-specific rules were not verified.",
+          "availability": {
+            "kalshi_url": "https://kalshi.com/markets/kxnflrec/pro-football-player-receptions/kxnflrec-26oct08tbdal",
+            "dkp_url": "https://predictions.draftkings.com/en/event/tb-buccaneers-%40-dal-cowboys/34118137",
+            "as_of": "2026-10-07T10:05:11-07:00",
+            "status": "unpriced"
+          }
+        },
+        {
+          "player": "Dak Prescott",
+          "market": "275+ passing yards",
+          "matchup": "TB @ DAL",
+          "time": "Thu Oct 8, 5:15 PM PT",
+          "note": "Kalshi Yes 46c (+117 from cents), observed Oct 7 10:05 AM PT. 13,145.6 contracts at best ask; fees excluded. DK Predictions showed 270+ and 280+, not 275+. Per leg only, no combined quote.",
+          "pricing": {
+            "venue": "KAL",
+            "cents": 46,
+            "as_of": "2026-10-07T10:05:43-07:00",
+            "url": "https://kalshi.com/markets/kxnflpassyds/pro-football-passing-yards/kxnflpassyds-26oct08tbdal",
+            "best_ask_contracts": 13145.6
+          }
+        }
+      ],
+      "notes": "Picks only. No wagers placed. No combined odds. Contract prices are snapshots, not guaranteed execution.",
+      "sources": {
+        "game": "https://www.buccaneers.com/news/how-to-watch-buccaneers-at-cowboys-week-5-2026",
+        "receptions": "https://kalshi.com/markets/kxnflrec/pro-football-player-receptions/kxnflrec-26oct08tbdal",
+        "passing_yards": "https://kalshi.com/markets/kxnflpassyds/pro-football-passing-yards/kxnflpassyds-26oct08tbdal",
+        "dk_predictions": "https://predictions.draftkings.com/en/event/tb-buccaneers-%40-dal-cowboys/34118137"
+      },
+      "settlement_note": "Kalshi: active player with no snap settles to a fair price before game start; after at least one snap, even if nullified by penalty, settles on recorded receptions or passing yards.",
+      "public_alias": "Wooder Ice"
+    }
+  ]
 }
