@@ -39,6 +39,10 @@
 
 /* No spinner: it would claim progress the page cannot see. */
 .tr-pending .tr-bub{color:var(--mut);font-style:normal}
+.tr-pending .tr-bub:empty{min-width:52px;text-align:center}
+.tr-pending .tr-bub:empty::after{content:"\2022\2022\2022";letter-spacing:4px;font-size:18px;line-height:1;animation:trTyping 1.2s ease-in-out infinite}
+@keyframes trTyping{0%,100%{opacity:.25}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.tr-pending .tr-bub:empty::after{animation:none;opacity:.6}}
 
 .tr-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 12px}
 /* a class rule with display:flex outranks the browser's own [hidden]{display:none}, so the

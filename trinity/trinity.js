@@ -34,7 +34,8 @@
                  'the bar it cleared.';
   var OFFLINE = 'I cannot reach my own records from here just now, so I will not answer from anything ' +
                 'else. Try me again in a moment.';
-  var PENDING = 'Reading the record';
+  /* While she is answering: a typing bubble, three dots, like any chat - no words (the owner, 2026-10-07). */
+  var PENDING = '';
 
   var log, chips, form, input, send, who, booted = false, inFlight = false;
 
