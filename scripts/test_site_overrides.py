@@ -117,12 +117,27 @@ check('style/content: de-obfuscation is what drops it (red proof)', leaked)
 # the three files the chat edits exist in the repo, seeded so a build is unchanged and the tools can still edit
 for rel in (SO.TEXT, SO.BLOCKS, SO.STYLE):
     check(f'the chat override file {rel} exists', os.path.exists(os.path.join(ROOT, rel)), rel)
-check('the seeded wording and blocks files are empty lists',
-      json.load(open(os.path.join(ROOT, SO.TEXT))) == [] and json.load(open(os.path.join(ROOT, SO.BLOCKS))) == [])
-check('the seeded style file is non-empty (an empty file cannot be edited from the chat)',
+# What the repo holds is whatever the chat last changed, so it is checked for its shape, not for being empty: a
+# wording or content change made from the chat must pass these checks or it can never go live.
+def _pairs(rel, a, b):
+    try:
+        v = json.load(open(os.path.join(ROOT, rel)))
+    except Exception:
+        return False
+    return isinstance(v, list) and all(isinstance(x, dict) and isinstance(x.get(a), str) and isinstance(x.get(b), str)
+                                       for x in v)
+check('the wording file is a list of {find, replace} text pairs', _pairs(SO.TEXT, 'find', 'replace'))
+check('the blocks file is a list of {slot, html} entries', _pairs(SO.BLOCKS, 'slot', 'html'))
+check('the style file is non-empty (an empty file cannot be edited from the chat)',
       os.path.getsize(os.path.join(ROOT, SO.STYLE)) > 0)
-check('the seeded, comment-only style file adds no block to a built page',
-      'site-style' not in SO.apply('<html><head></head><body><div class="foot">f</div></body></html>', ROOT))
+SEED_STYLE = '/* Style changes made from the Trinity chat go below. */\n'
+check('a comment-only style file adds no block to a built page',
+      'site-style' not in SO.apply('<html><head></head><body><div class="foot">f</div></body></html>', tree(style=SEED_STYLE)))
+_bad = tree(blocks=[{'slot': 'x'}])
+_real_root = ROOT
+ROOT = _bad
+check('red proof: a blocks entry without its html fails the shape check', not _pairs(SO.BLOCKS, 'slot', 'html'))
+ROOT = _real_root
 blocks = [{'slot': 'home-top', 'html': '<p>Big night</p>'}, {'slot': 'wooder-top', 'html': '<p>New tickets</p>'},
           {'slot': 'footer', 'html': '<small>Thanks</small>'}, {'slot': 'nowhere"><script>', 'html': '<p>x</p>'}]
 out = SO.apply(PAGE, tree(blocks=blocks))

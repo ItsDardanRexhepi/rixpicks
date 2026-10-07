@@ -130,10 +130,12 @@ def validate(case, content=None, kind='file'):
         os.mkfifo(q)
     out = os.path.join(root, 'github_output')
     open(out, 'w').close()
-    env = {'PATH': os.environ.get('PATH', ''), 'HOME': root, 'GITHUB_OUTPUT': out}
+    # cwd and TMPDIR are the case's own folder: bash 3.2 (macOS) writes a here-document to /var/tmp, /tmp or the
+    # current folder and ignores TMPDIR, and the site-change worker's sandbox lets it write only under its own temp.
+    env = {'PATH': os.environ.get('PATH', ''), 'HOME': root, 'GITHUB_OUTPUT': out, 'TMPDIR': root}
     try:
         r = subprocess.run(['bash', '-e', '-c', script.replace('/usr/bin/python3', sys.executable)], env=env,
-                           capture_output=True, text=True, timeout=30)
+                           capture_output=True, text=True, timeout=30, cwd=root)
         rc = r.returncode
     except subprocess.TimeoutExpired:
         rc = 'timeout'
