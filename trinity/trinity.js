@@ -700,6 +700,7 @@
      phone wakes up. When the window closes it asks one last time and, if the change is still on its way, says so
      and lets it go, instead of going quiet. */
   var FOLLOW_FOR_MS = 2 * 60 * 60 * 1000;
+  var YOUNG_MS = 30 * 1000;
   var STILL_GOING = 'That change is still on its way. Ask me "is it live?" any time and I will tell you where it is.';
   var following = {};
 
@@ -744,8 +745,10 @@
         }
         if (d.done) { stop(); return; }
         if (last_call) { letGo(); return; }
+        // A young change is asked about every two seconds, so the moment it is live is the moment she says so;
+        // after half a minute the asking backs off as before. The edge keeps no counter for these asks.
         var age = Date.now() - started;
-        later(age < 120000 ? 8000 : age < 600000 ? 20000 : 60000);
+        later(age < YOUNG_MS ? 2000 : age < 120000 ? 8000 : age < 600000 ? 20000 : 60000);
       }).catch(function () {
         f.busy = false;
         if (!mine()) return;
@@ -753,7 +756,7 @@
       });
     };
     f.wake = function () { if (mine() && !f.busy) { clearTimeout(f.timer); tick(); } };
-    later(since ? 1000 : 8000);
+    later(since ? 1000 : 2000);
   }
 
   function wakeFollowers() {
