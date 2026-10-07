@@ -655,7 +655,6 @@ body.tab-trinity .intro{display:none}
   var TRINITY_ENDPOINT = 'https://api.rix-picks.com/trinity';
 
   var MAX_Q = 400;
-  var GREETED = 'trinity_greeted';
 
   /* */
   var GREETING = 'Hi, my name is Trinity. I run on UltRix, the algorithm behind these picks, and I can ' +
@@ -730,13 +729,14 @@ body.tab-trinity .intro{display:none}
     return r;
   }
 
+  /* Once per visit, not once per browser: the conversation is not kept between visits, so a returning visitor who
+     was greeted before would otherwise open the tab to an empty box with no greeting and no suggestions. */
+  var greeted = false;
   function greetOnce() {
-    var done = false;
-    try { done = !!localStorage.getItem(GREETED); } catch (e) { done = false; }
-    if (done) return;
+    if (greeted || (log && log.children.length)) return;
+    greeted = true;
     row('her', GREETING);
     if (chips) chips.hidden = false;
-    try { localStorage.setItem(GREETED, '1'); } catch (e) {}
   }
 
   function lock(on) {

@@ -24,7 +24,6 @@
   var TRINITY_ENDPOINT = 'https://api.rix-picks.com/trinity';
 
   var MAX_Q = 400;
-  var GREETED = 'trinity_greeted';
 
   /* Hers, both of them, and neither is improvised here: the greeting is the one the system ships, and
      the offline line is the shape every limit of hers takes - the limit, the reason, the refusal to
@@ -104,13 +103,14 @@
     return r;
   }
 
+  /* Once per visit, not once per browser: the conversation is not kept between visits, so a returning visitor who
+     was greeted before would otherwise open the tab to an empty box with no greeting and no suggestions. */
+  var greeted = false;
   function greetOnce() {
-    var done = false;
-    try { done = !!localStorage.getItem(GREETED); } catch (e) { done = false; }
-    if (done) return;
+    if (greeted || (log && log.children.length)) return;
+    greeted = true;
     row('her', GREETING);
     if (chips) chips.hidden = false;
-    try { localStorage.setItem(GREETED, '1'); } catch (e) {}
   }
 
   function lock(on) {
