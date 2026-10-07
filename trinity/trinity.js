@@ -19,6 +19,10 @@
        applies them: a colour, a note, a picture, a word, a section shown or hidden, a Wooder Ice ticket.
      * Signed in, a reply may carry a picture the Mac made (the card image) and notices from a watch they
        set. The picture is shown only when it really is a PNG or JPEG, and a notice is text like any reply.
+     * It sends the conversation only as it is shown: the last few turns, capped, and only while nobody is signed
+       in or signing in. A turn is context for her, never a fact: every figure she says is still checked against
+       what the engine computed, and a figure that is only in a turn is refused. A row from a sign-in, a passphrase
+       or a signed-in conversation is never sent; signed in, the Mac keeps that person's conversation itself.
 
    The greeting fires once per visitor and then she waits: no buttons, no prompts, no follow-up.
    ================================================================================================ */
@@ -40,6 +44,11 @@
                 'else. Try me again in a moment.';
   /* While she is answering: a typing bubble, three dots, like any chat - no words (the owner, 2026-10-07). */
   var PENDING = '';
+
+  /* THE CONVERSATION SHE IS SENT. The last TURNS_MAX rows of it, each cut to TURN_MAX characters, and the whole body
+     held under BODY_MAX bytes by dropping the oldest turn first (the edge refuses a body over 6144). Rows from a
+     signed-in conversation, a sign-in or a masked passphrase are never sent: they are flagged private when kept. */
+  var TURNS_MAX = 6, TURN_MAX = 480, BODY_MAX = 6000;
 
   var log, chips, form, input, send, who, booted = false, inFlight = false;
 
@@ -201,7 +210,8 @@
   var kept = [];
   function keep(who, text, cites, extra) {
     if (extra && /tr-pending/.test(extra)) return;
-    kept.push({ w: who, t: String(text).slice(0, 4000), c: cites && cites.length ? cites : null, x: extra || '' });
+    kept.push({ w: who, t: String(text).slice(0, 4000), c: cites && cites.length ? cites : null, x: extra || '',
+                p: getSession() || secretNext || pending() ? 1 : 0 });
     if (kept.length > MAX_KEPT) kept = kept.slice(-MAX_KEPT);
     try { sessionStorage.setItem(HISTORY, JSON.stringify(kept)); } catch (e) {}
   }
@@ -218,6 +228,60 @@
       }
     });
     return log.children.length > 0;
+  }
+  /* A message that opened, asked for or ended a sign-in, and everything after it, is the door's and not the
+     conversation's: it is never sent back to her as a turn. */
+  function markPrivate(first) {
+    var at = kept.indexOf(first);
+    if (at < 0) return;
+    for (var i = at; i < kept.length; i++) if (kept[i]) kept[i].p = 1;
+    try { sessionStorage.setItem(HISTORY, JSON.stringify(kept)); } catch (e) {}
+  }
+  function recentTurns() {
+    var out = [];
+    for (var i = kept.length - 1; i >= 0 && out.length < TURNS_MAX; i--) {
+      var m = kept[i];
+      if (!m || m.p || (m.w !== 'me' && m.w !== 'her') || typeof m.t !== 'string') continue;
+      if (typeof m.x === 'string' && /tr-pending/.test(m.x)) continue;
+      var t = m.t.replace(/\s+/g, ' ').trim();
+      /* A long reply of hers keeps its opening and its last sentence, which says what the answer was. */
+      if (t.length > TURN_MAX) {
+        t = m.w === 'her' ? t.slice(0, TURN_MAX - 140) + ' ... ' + t.slice(-135) : t.slice(0, TURN_MAX);
+      }
+      t = whole(t);
+      if (t) out.unshift({ who: m.w, text: t });
+    }
+    return out;
+  }
+  /* A cut never splits a character. A slice counts UTF-16 units, so it can end between the two halves of an emoji,
+     and half a character is not text: the model on the Mac refuses a whole prompt over one. A lone half is dropped;
+     a whole character is kept. (No lookbehind here: an older Safari would refuse the whole script over one.) */
+  function whole(s) {
+    var out = '';
+    for (var i = 0; i < s.length; i++) {
+      var c = s.charCodeAt(i);
+      if (c >= 0xd800 && c <= 0xdbff) {
+        var d = s.charCodeAt(i + 1);
+        if (d >= 0xdc00 && d <= 0xdfff) { out += s.charAt(i) + s.charAt(i + 1); i++; }
+        continue;
+      }
+      if (c >= 0xdc00 && c <= 0xdfff) continue;
+      out += s.charAt(i);
+    }
+    return out;
+  }
+  function bytes(s) {
+    try { return new Blob([s]).size; } catch (e) { return unescape(encodeURIComponent(s)).length; }
+  }
+  /* What goes to /ask: signed in or signing in, the question and the token and nothing else; otherwise the question
+     and the turns, oldest dropped first until the body fits. */
+  function askBody(q, turns) {
+    if (getSession()) return JSON.stringify({ question: q, session: getSession() });
+    for (;;) {
+      var b = JSON.stringify(turns.length ? { question: q, turns: turns } : { question: q });
+      if (!turns.length || bytes(b) <= BODY_MAX) return b;
+      turns = turns.slice(1);
+    }
   }
   function jobsKept() {
     try { var j = JSON.parse(sessionStorage.getItem(JOBS) || '{}'); return (j && typeof j === 'object') ? j : {}; }
@@ -708,13 +772,17 @@
   var UNSURE_CHANGE = 'I could not confirm that reached me. Send the same again in a moment and I will tell you where it stands.';
 
   function ask(q) {
-    q = String(q || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
+    q = whole(String(q || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q));
     if (!q || inFlight) return;
     if (chips) chips.hidden = true;
     var wasSecret = secretNext || secretWanted();
     var held = !!getSession();
     var unsure = signedIn() ? (wasSecret ? UNSURE_CHANGE : UNSURE_IN) : UNSURE_SIGNIN;
-    row('me', wasSecret ? '\u2022\u2022\u2022\u2022\u2022\u2022' : q, null, '', true);
+    /* Read before this message is shown, so the turns are what came before it; none at all while a sign-in is open
+       or asked for. */
+    var turns = (held || wasSecret) ? [] : recentTurns();
+    row('me', wasSecret ? '••••••' : q, null, '', true);
+    var mine = kept[kept.length - 1];
     if (input) { input.value = ''; if (input.style) input.style.height = ''; }
     if (secretBox) secretBox.value = '';
     lock(true);
@@ -738,7 +806,7 @@
 
     var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
     var timer = setTimeout(function () { if (ctrl) ctrl.abort(); lost(); }, 45000);
-    var body = JSON.stringify(held ? { question: q, session: getSession() } : { question: q });
+    var body = held ? JSON.stringify({ question: q, session: getSession() }) : askBody(q, turns);
 
     /* A dropped connection (the line to the Mac reconnects in seconds) is tried again twice before she says she
        is not answering - for a public question only. Only a failure to ARRIVE is retried; an answer of any kind is
@@ -766,6 +834,9 @@
       if (res.body === null) { lost(); return; }
       var d = res.body || {};
       var wasIn = signedIn();
+      /* A reply that opened, asked for or ended a sign-in makes the message that caused it, and the reply, the
+         door's: neither is ever sent back to her as a turn. */
+      var door = typeof d.session === 'string' || !!d.next || (typeof d.as === 'string' && !!d.as);
       /* A token without a name is a sign-in in progress: whoever was signed in before is not any more. */
       if (typeof d.session === 'string') { setSession(d.session); if (!d.session || !d.as) showWho(''); }
       if (typeof d.as === 'string' && d.as && getSession()) showWho(d.as);
@@ -789,11 +860,13 @@
         }) : [];
         notices(d.notices);
         var fr = finish(said, cites, d.answered === false);
+        if (door) markPrivate(mine);
         if (d.image) showShot(fr, d.image, d.job, said);
         if (d.overrides) ovLoad(true);
         if (d.job) follow(d.job, said);
       } else {
         finish(OFFLINE, null, false);
+        if (door) markPrivate(mine);
       }
     }).catch(function () {
       clearTimeout(timer);

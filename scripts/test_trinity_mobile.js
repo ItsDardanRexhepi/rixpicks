@@ -2,7 +2,9 @@
 // (a dropped line, a limit, a reload, storage that throws); on an iPhone the masked box is a fresh box, so the
 // keyboard's autocorrect and capitals are really off; a sign-in that ends on its own says why; a change sent once is
 // sent once; a change is followed past half an hour and never dropped in silence; a photo's failure says how far it
-// got; a photo picked mid-answer is not lost; and signed in, the chat box does not widen the page.
+// got; a photo picked mid-answer is not lost; signed in, the chat box does not widen the page; and the conversation
+// she is sent with a public question is the last few turns, capped, never split inside a character, under the
+// edge's body cap, the same on a retry, and never a row of a sign-in, even after a reload.
 // Runs trinity/trinity.js as shipped (or TRINITY_JS=<file>) against a small DOM, a scripted endpoint and a fake
 // clock. Run: node scripts/test_trinity_mobile.js
 const fs = require('fs');
@@ -300,6 +302,83 @@ const asks = (p) => p.calls.filter(c => c.url.endsWith('/ask'));
     check(asks(p).length === 0, 'Shift+Enter and a composing keyboard do not send');
     press({}); await p.advance(30000);
     check(asks(p).length === 1 && asks(p)[0].body.question === 'hello' && box.value === '', 'Enter sends the text area once and clears it');
+  }
+  // TURNS: a public question goes with the last few turns, capped in number and in length, oldest first
+  {
+    let n = 0;
+    const p = page({ route: () => ({ status: 200, body: { answer: n++ === 3 ? 'A long one. ' + 'word '.repeat(200) + 'And that is the end of it.' : 'Reply ' + n + '.' } }) });
+    for (const q of ['one', 'two', 'three', 'four', 'five', 'six']) await p.say(q);
+    const b = asks(p).slice(-1)[0].body;
+    check(Array.isArray(b.turns) && b.turns.length === 6, 'the conversation travels as six turns at most');
+    check(b.turns[0].text === 'three' && b.turns[4].text === 'five' && b.turns[5].who === 'her', 'oldest first, ending on the reply to the message before');
+    check(b.turns.every(t => t.text.length <= 480), 'each turn is at most 480 characters');
+    const long = asks(p).map(c => c.body.turns || []).flat().find(t => /^A long one/.test(t.text));
+    check(!!long && /And that is the end of it\.$/.test(long.text) && long.text.length <= 480, 'a long reply of hers keeps its opening and its ending');
+    check(!b.session && Object.keys(b).sort().join() === 'question,turns', 'and nothing else travels with it');
+  }
+  // TURNS: never half a character, and never over the edge's body cap
+  {
+    const p = page({ route: () => ({ status: 200, body: { answer: '\u{1F600}'.repeat(300) } }) });
+    for (let i = 0; i < 4; i++) await p.say('\u{1F44B}'.repeat(250));
+    const c = asks(p).slice(-1)[0];
+    const raw = JSON.stringify(c.body);
+    const lone = s => /[\ud800-\udbff](?![\udc00-\udfff])|(?:^|[^\ud800-\udbff])[\udc00-\udfff]/.test(s);
+    check(!lone(c.body.question) && c.body.turns.every(t => !lone(t.text)), 'a cut inside an emoji drops the half, in the question and in every turn');
+    check(Buffer.byteLength(raw, 'utf8') <= 6000, `the body stays under the edge's cap (${Buffer.byteLength(raw, 'utf8')} bytes)`);
+    check(c.body.turns.length >= 1, 'by dropping the oldest turns, not the conversation');
+  }
+  // TURNS: a public question that never arrived is retried with the same conversation
+  {
+    let n = 0;
+    const p = page({ route: () => (n++ === 1 ? { status: 503, body: {} } : { status: 200, body: { answer: 'Fine.' } }) });
+    await p.say('hello');
+    await p.say('and yesterday?');
+    const a = asks(p);
+    check(a.length === 3 && JSON.stringify(a[1].body) === JSON.stringify(a[2].body), 'the retry sends exactly what the first try sent');
+  }
+  // TURNS: a sign-in that failed is never sent as conversation, and a reload keeps it so
+  {
+    const store = {};
+    let n = 0;
+    const p = page({ store, route: () => [{ status: 200, body: { answer: 'Hey there.' } }, CLAIM,
+      { status: 200, body: { answer: 'That did not match, so nothing is open.', session: '' } }][n++] });
+    await p.say('hi');
+    await p.say('It’s Matthew');
+    check(!asks(p)[1].body.session && Array.isArray(asks(p)[1].body.turns), 'saying a name goes as a public message');
+    await p.say(PASS);
+    check(!('turns' in asks(p)[2].body), 'the passphrase goes with no conversation');
+    const q = page({ store, route: () => ({ status: 200, body: { answer: 'Sure.' } }) });
+    await q.say('what is on the card?');
+    const t = (asks(q)[0].body.turns || []).map(x => x.text).join(' | ');
+    check(/hi/.test(t) && /Hey there\./.test(t), 'after a reload the public conversation still goes with a question');
+    check(!/Matthew|passphrase|did not match|\u2022/.test(t) && t.indexOf(PASS) < 0, `and no row of the sign-in does (${t})`);
+  }
+  // TURNS: a passphrase whose reply was lost, and the rows around it, are never sent as conversation later
+  {
+    let n = 0;
+    const p = page({ route: () => [{ status: 200, body: { answer: 'Hey there.' } }, CLAIM, 'throw',
+      { status: 200, body: { answer: 'That did not match, so nothing is open.', session: '' } },
+      { status: 200, body: { answer: 'Sure.' } }][n++] });
+    await p.say('hi'); await p.say('It’s Matthew'); await p.say(PASS); await p.say(PASS);
+    await p.say('what is on the card?');
+    const t = (asks(p)[4].body.turns || []).map(x => x.text).join(' | ');
+    check(/Hey there\./.test(t) && !/could not confirm|\u2022|Matthew|did not match/.test(t), `a lost passphrase send leaves nothing to be sent later (${t})`);
+  }
+  // TURNS: a passphrase asked for in words alone is still sent with no conversation
+  {
+    let n = 0;
+    const p = page({ route: () => [{ status: 200, body: { answer: 'Hey there.' } }, { status: 200, body: { answer: 'What is your passphrase?' } },
+      { status: 200, body: { answer: 'That did not match.' } }][n++] });
+    await p.say('hi'); await p.say('sign me in'); await p.say(PASS);
+    check(!('turns' in asks(p)[2].body), 'the masked message goes alone');
+  }
+  // TURNS: signed in, nothing of the conversation travels; the Mac keeps that person's own
+  {
+    let n = 0;
+    const p = page({ route: () => [CLAIM, WELCOME, { status: 200, body: { answer: 'Thirty-three and seventeen.', as: 'Matthew' } },
+      { status: 200, body: { answer: 'Yesterday it was quiet.', as: 'Matthew' } }][n++] });
+    await p.say('It’s Matthew'); await p.say(PASS); await p.say('what is the record?'); await p.say('and yesterday?');
+    check(asks(p).slice(2).every(c => !('turns' in c.body) && c.body.session === WELCOME.body.session), 'signed in, every question goes with its token and no turns');
   }
   // SI-04: the box takes the room left over, so the Photo button cannot widen the page on a phone
   {
