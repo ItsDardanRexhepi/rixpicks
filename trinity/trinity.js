@@ -155,6 +155,29 @@
     return r;
   }
 
+  /* SIGNING OUT STARTS THE CONVERSATION OVER. When a signed-in person signs out (or their session ends), everything
+     said while signed in is cleared from the page and from this tab's storage, and the chat is back at her intro:
+     the greeting and the suggestions, as a new visitor sees it. A sign-in that was only asked for and never opened
+     is not a sign-out and clears nothing. */
+  function signedIn() {
+    try { return !!sessionStorage.getItem(SESSION + '_who'); } catch (e) { return false; }
+  }
+  function resetToIntro() {
+    kept = [];
+    try { sessionStorage.removeItem(HISTORY); sessionStorage.removeItem(JOBS); } catch (e) {}
+    if (log) log.textContent = '';
+    maskInput(false);
+    greeted = false;
+    greetOnce();
+    if (input) input.value = '';
+  }
+  function endSession() {
+    var was = signedIn();
+    setSession('');
+    showWho('');
+    if (was) resetToIntro();
+  }
+
   /* Once per visit, not once per browser: the conversation is not kept between visits, so a returning visitor who
      was greeted before would otherwise open the tab to an empty box with no greeting and no suggestions. */
   var greeted = false;
@@ -194,7 +217,7 @@
         return r.json().then(function (d) { return { status: r.status, body: d }; });
       }).then(function (res) {
         var d = res.body || {};
-        if (res.status === 403) { setSession(''); showWho(''); keepJob(job, '', true); return; }
+        if (res.status === 403) { keepJob(job, '', true); endSession(); return; }
         if (res.status === 404) { keepJob(job, '', true); return; }
         if (res.status !== 200) { setTimeout(tick, 30000); return; }
         if (typeof d.answer === 'string' && d.answer && d.answer !== last) {
@@ -256,6 +279,7 @@
     }).then(function (res) {
       clearTimeout(timer);
       var d = res.body || {};
+      var wasIn = signedIn();
       if (typeof d.session === 'string') { setSession(d.session); if (!d.session) showWho(''); }
       if (typeof d.as === 'string' && d.as) showWho(d.as);
       if (d.next === 'passphrase' || (typeof d.answer === 'string' && /passphrase\?\s*$/i.test(d.answer))) {
@@ -269,6 +293,7 @@
           return typeof c === 'string' && c && c.indexOf('/') === -1 && c.indexOf('\\') === -1;
         }) : [];
         finish(d.answer, cites, d.answered === false);
+        if (wasIn && d.session === '') { resetToIntro(); return; }
         if (d.job) follow(d.job, d.answer);
       } else {
         finish(OFFLINE, null, false);
@@ -342,9 +367,10 @@
       return r.json().then(function (d) { return { status: r.status, body: d }; });
     }).then(function (res) {
       var d = res.body || {};
-      if (res.status === 403) { setSession(''); showWho(''); }
+      var ended = res.status === 403;
       done(typeof d.answer === 'string' && d.answer ? d.answer : OFFLINE, d.answered === false);
-      if (d.job) follow(d.job, d.answer);
+      if (ended) endSession();
+      else if (d.job) follow(d.job, d.answer);
     }).catch(function () {
       done('That photo did not go through, so nothing was passed on. Try it again in a moment.', true);
     });

@@ -86,7 +86,7 @@ function activate(key,skipHash){
  tailFilter(t.key);
  loadSide(t);
  if(!skipHash){try{history.replaceState(null,'','#'+t.key);}catch(e){}}
- try{localStorage.setItem('rp_tab',t.key);}catch(e){}
+ try{sessionStorage.setItem('rp_tab',t.key);}catch(e){}
  /* tester Sep 27 (Phillies/Brewers repro): rpBestStar/rpLineShop skip chips on hidden panels
     (offsetParent gate), so a freshly activated panel carried no star/range until the next 30s
     tick. Recompute both on every tab activation; guarded - these exist only on the card page. */
@@ -1255,11 +1255,16 @@ setInterval(function(){if(document.hidden)return;var n=document.querySelectorAll
 setInterval(function(){if(cur&&!document.hidden&&NEWSF){renderNews(cur,newsBucket(cur));tickRender();}},30000);
 /* wordmark -> home (9/27 4:31 PT via main): tap logo from any tab lands home. Clear rp_tab + hash so boot's default-tab pick (home) wins and a later refresh stays home. */
 var _wmlogo=document.querySelector('nav.rpnav .logo');
-if(_wmlogo){_wmlogo.addEventListener('click',function(e){e.preventDefault();try{localStorage.removeItem('rp_tab');}catch(x){}try{history.replaceState(null,'',location.pathname);}catch(x){}location.href='index.html';});}
+if(_wmlogo){_wmlogo.addEventListener('click',function(e){e.preventDefault();try{sessionStorage.removeItem('rp_tab');}catch(x){}try{history.replaceState(null,'',location.pathname);}catch(x){}location.href='index.html';});}
 /* ---- boot ---- */
 var _fc=feedCacheLoad();
 if(_fc){CAR_LAST=_fc.items;CAR_ALL=_fc.all||[];PAIRS=_fc.pairs||[];if(PAIRS.length)CAR_UNIT={items:_fc.items,pairs:PAIRS.slice()};}
-var start=fromHash()||(function(){try{return localStorage.getItem('rp_tab');}catch(e){return null;}})();
+/* A new visit opens on Home. The tab is remembered only for this browser tab (sessionStorage), so the site's own reloads keep a visitor where they were, and a new visit - even from a link or a restored address ending in #trinity - never opens on Trinity's tab. The old every-visit memory is cleared. */
+try{localStorage.removeItem('rp_tab');}catch(e){}
+var _sesTab=(function(){try{return sessionStorage.getItem('rp_tab');}catch(e){return null;}})();
+var start=fromHash();
+if(start==='trinity'&&_sesTab!=='trinity')start=null;
+if(!start)start=_sesTab;
 if(!start&&TABS.some(function(t){return t.key==='home';}))start='home';
 if(!start){
  for(var i=0;i<TABS.length;i++){var p=$('st-'+TABS[i].key);if(p&&p.querySelector('.pick:not(.rp-empty)')){start=TABS[i].key;break;}}
