@@ -3,10 +3,10 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>&rsquo;RixPicks</title>
-<link rel="icon" href="favicon.ico?v=1791395766" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1791395766">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1791395766">
-<link rel="manifest" href="site.webmanifest?v=1791395766">
+<link rel="icon" href="favicon.ico?v=1791397303" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1791397303">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1791397303">
+<link rel="manifest" href="site.webmanifest?v=1791397303">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>window.OneSignalDeferred=window.OneSignalDeferred||[];OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"5e86ebe3-a135-4984-9623-db83a0f1840c",serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:(location.pathname.indexOf("/rixpicks/")===0?"/rixpicks/":"/")}  /* */});try{OneSignal.Notifications.addEventListener("permissionChange",function(granted){if(granted&&!localStorage.getItem("rp_gc_push")){rpGcEvent("new-user-push","rp_gc_push");}});}catch(e){}}catch(e){}});</script>
 <script>
@@ -730,47 +730,79 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
     else { who.textContent = ''; who.hidden = true; }
   }
 
-  /* The passphrase is hidden with a text mask, not by turning the box into a password field: once a box has been a
-     password field, Safari keeps its keychain key on it and offers to save "passwords" for the rest of the
-     conversation. Only a browser without the mask falls back to a password field. Autocorrect, capitals and
-     spelling are off while a passphrase is typed, so it never lands in the keyboard's dictionary.
-
-     A phone's keyboard reads those settings when a box GAINS focus, and an iPhone (Safari and Chrome alike) never
-     reads them again while that box keeps it - and the box does keep it when the name is sent with the keyboard's
-     Send key. So when the box has the focus and the mask goes on or off, a fresh box with the new settings takes
-     its place and the focus moves to it, which an iPhone treats as a new box and reloads the keyboard for. */
+  /* THE PASSPHRASE HAS A BOX OF ITS OWN. The chat box is never the passphrase box. When she asks for a passphrase, a
+     separate small form takes the chat box's place - its own box, masked as it is typed, autocorrect, capitals and
+     spell-check off - and the moment the sign-in opens, fails or ends, that form is deleted and the chat box is back.
+     The reason is Safari: once a box on the page has held a masked passphrase, Safari treats that box (and its form)
+     as a login field and keeps its keychain key in it for the rest of the visit - after the passphrase, after signing
+     in, after signing out (owner, 2026-10-07). A box that only ever held a passphrase, and no longer exists, leaves
+     nothing for it to hold on to. A brand-new box also makes an iPhone reload its keyboard with the right settings.
+     The mask is a text mask, not a password field; only a browser without one falls back to a password field. */
   var TEXT_MASK = !!(window.CSS && CSS.supports && CSS.supports('-webkit-text-security', 'disc'));
-  function traits(n, on) {
-    if (TEXT_MASK) {
-      n.type = 'text';
-      n.style.webkitTextSecurity = on ? 'disc' : '';
-    } else {
-      n.type = on ? 'password' : 'text';
-    }
+  var CHAT_HINT = 'Ask about a pick, a refusal or the record';
+  var secretForm = null, secretBox = null, secretBtn = null;
+  function box() { return secretBox || input; }
+  function chatTraits(n) {
+    n.type = 'text';
+    if (n.style) n.style.webkitTextSecurity = '';
     n.setAttribute('autocomplete', 'off');
-    n.setAttribute('autocapitalize', on ? 'off' : 'sentences');
-    n.setAttribute('autocorrect', on ? 'off' : 'on');
-    n.spellcheck = !on;
-    n.placeholder = on ? 'Passphrase' : 'Ask about a pick, a refusal or the record';
+    n.setAttribute('autocapitalize', 'sentences');
+    n.setAttribute('autocorrect', 'on');
+    n.spellcheck = true;
+    n.placeholder = CHAT_HINT;
+  }
+  function secretTraits(n) {
+    if (TEXT_MASK) { n.type = 'text'; n.style.webkitTextSecurity = 'disc'; } else { n.type = 'password'; }
+    n.setAttribute('autocomplete', 'off');
+    n.setAttribute('autocapitalize', 'off');
+    n.setAttribute('autocorrect', 'off');
+    n.spellcheck = false;
+    n.placeholder = 'Passphrase';
+    n.setAttribute('maxlength', '400');
+    n.setAttribute('enterkeyhint', 'send');
+    n.setAttribute('aria-label', 'Your passphrase');
+  }
+  function focusBox() {
+    var n = box();
+    if (!n) return;
+    try { n.focus({ preventScroll: true }); } catch (e) { n.focus(); }
   }
   function maskInput(on) {
     on = !!on;
-    var changed = on !== secretNext;
     secretNext = on;
     if (!input) return;
-    var old = input, parent = old.parentNode;
-    if (changed && parent && document.activeElement === old && typeof old.cloneNode === 'function') {
-      var n = old.cloneNode(false);
-      n.value = '';
-      traits(n, on);
-      old.removeAttribute('id');
-      parent.insertBefore(n, old);
-      try { n.focus({ preventScroll: true }); } catch (e) { n.focus(); }
-      parent.removeChild(old);
-      input = n;
+    if (on) {
+      if (secretForm) return;
+      var parent = form && form.parentNode;
+      if (!parent) { secretNext = false; return; }
+      var hadFocus = document.activeElement === input || (send && document.activeElement === send);
+      secretForm = document.createElement('form');
+      secretForm.className = 'tr-ask tr-secret';
+      secretForm.setAttribute('autocomplete', 'off');
+      secretBox = document.createElement('input');
+      secretBox.className = input.className || '';
+      secretTraits(secretBox);
+      secretBtn = document.createElement('button');
+      secretBtn.type = 'submit';
+      secretBtn.textContent = send ? send.textContent : 'Ask';
+      if (send && send.className) secretBtn.className = send.className;
+      secretBtn.disabled = inFlight;
+      secretForm.appendChild(secretBox);
+      secretForm.appendChild(secretBtn);
+      secretForm.addEventListener('submit', function (e) { e.preventDefault(); ask(secretBox ? secretBox.value : ''); });
+      parent.insertBefore(secretForm, form);
+      form.style.display = 'none';
+      if (hadFocus) focusBox();
       return;
     }
-    traits(old, on);
+    if (!secretForm) { chatTraits(input); return; }
+    var focused = document.activeElement === secretBox || document.activeElement === secretBtn;
+    if (secretBox) secretBox.value = '';
+    if (secretForm.parentNode) secretForm.parentNode.removeChild(secretForm);
+    secretForm = secretBox = secretBtn = null;
+    form.style.display = '';
+    chatTraits(input);
+    if (focused) focusBox();
   }
 
   function el(tag, cls, text) {
@@ -883,6 +915,7 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
   function lock(on) {
     inFlight = on;
     if (send) send.disabled = on;
+    if (secretBtn) secretBtn.disabled = on;
     var pb = document.getElementById('trPhoto');
     if (pb) pb.disabled = on;
     if (on) return;
@@ -980,6 +1013,7 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
     var unsure = signedIn() ? UNSURE_IN : UNSURE_SIGNIN;
     row('me', wasSecret ? '\u2022\u2022\u2022\u2022\u2022\u2022' : q, null, '', true);
     if (input) input.value = '';
+    if (secretBox) secretBox.value = '';
     lock(true);
     var pend = row('her', PENDING, null, 'tr-pending', true);
 
@@ -994,7 +1028,7 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
       if (text != null) row('her', text, cites, declined ? 'declined' : '', true);
       lock(false);
       maskInput(pending() || wantSecret);
-      if (input) input.focus();
+      focusBox();
     };
     var lost = function () { finish(held ? unsure : OFFLINE, null, false); };
 
@@ -1206,16 +1240,17 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
   document.addEventListener('keydown', function (e) {
     if (!trinityOpen() || !input || e.defaultPrevented || e.isComposing || e.metaKey || e.ctrlKey || e.altKey) return;
     var t = e.target;
-    if (t === input || (t && t.closest && t.closest('input,textarea,select,button,a,[contenteditable],[tabindex]'))) return;
+    var n = box();
+    if (t === n || (t && t.closest && t.closest('input,textarea,select,button,a,[contenteditable],[tabindex]'))) return;
     if (!e.key || e.key.length !== 1) return;
     e.preventDefault();
-    input.focus();
-    var v = input.value;
+    n.focus();
+    var v = n.value;
     if (v.length >= MAX_Q) return;
-    var a = typeof input.selectionStart === 'number' ? input.selectionStart : v.length;
-    var b = typeof input.selectionEnd === 'number' ? input.selectionEnd : v.length;
-    input.value = v.slice(0, a) + e.key + v.slice(b);
-    try { input.setSelectionRange(a + 1, a + 1); } catch (err) {}
+    var a = typeof n.selectionStart === 'number' ? n.selectionStart : v.length;
+    var b = typeof n.selectionEnd === 'number' ? n.selectionEnd : v.length;
+    n.value = v.slice(0, a) + e.key + v.slice(b);
+    try { n.setSelectionRange(a + 1, a + 1); } catch (err) {}
   });
 
   function resumeJobs() {
@@ -1307,7 +1342,7 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
 <div class="state" id="st-ding" data-home-league="1"><div style="margin-top:22px"><div class="sect">Wooder Ice<span style="display:inline-block;background:#0b6e5f;color:#fff;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em;padding:1px 7px;margin-left:8px;vertical-align:2px">GUEST</span></div><div style="border:1px solid rgba(11,110,95,.45);border-radius:12px;padding:11px 12px"><div class="lghead" style="margin-top:0">Dingers Only &#128293;</div><div id="rpDing"></div></div><div style="font-size:11px;color:#8a8f98;margin-top:10px;line-height:1.45">Separate from the RixPicks card and record. Picks only, no wagers placed. CASHED = live stat threshold met, not a verified payout.</div></div><script>(function(){var box=document.getElementById("rpDing");if(!box)return;var VEN={"KAL":["kalshi.com","#e6f9f3","#0a7c5c",1],"POLY":["polymarket.com","#e8f3fc","#1a6db0",1],"DK":["sportsbook.draftkings.com","#0b0e11","#53d337",0],"DKP":["predictions.draftkings.com","#0b1a0e","#9be25f",1],"FD":["sportsbook.fanduel.com","#e7f3ff","#0e6fd0",0],"MGM":["betmgm.com","#f5f0e4","#7a6226",0],"BR":["betrivers.com","#e3f5fc","#0278a6",0],"HR":["hardrock.bet","#faf3dd","#8a6d1a",0],"TSB":["thescore.bet","#0d1b2e","#4d94ff",0],"B365":["bet365.com","#f0f6f0","#1c6e3c",0],"FAN":["sportsbook.fanatics.com","#f3f3f3","#111",0]};function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}function c2ml(c){c=+c;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}function ptDate(){try{return new Date().toLocaleDateString("en-CA",{timeZone:"America/Los_Angeles"});}catch(e){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}}function hide(){box.parentNode.parentNode.style.display="none";}function dot(c){return "<span style=\"display:inline-block;width:7px;height:7px;border-radius:50%;background:"+c+";margin-right:6px;vertical-align:1px\"></span>";}function ab2(m){var N={CWS:"CHW"};var p=String(m||"").toUpperCase().split(" AT ");if(p.length!==2)return null;var a=p[0].trim(),b=p[1].trim();return [N[a]||a,N[b]||b];}function hrOf(sj,name){try{var tms=(sj.boxscore&&sj.boxscore.players)||[];for(var t=0;t<tms.length;t++){var sts=tms[t].statistics||[];for(var q=0;q<sts.length;q++){var keys=sts[q].keys||[];if(keys.indexOf("atBats")<0)continue;var hi=keys.indexOf("homeRuns");if(hi<0)hi=keys.indexOf("HR");if(hi<0)continue;var aths=sts[q].athletes||[];for(var a=0;a<aths.length;a++){if((((aths[a].athlete||{}).displayName)||"").toLowerCase()===String(name||"").toLowerCase()){var v=parseInt((aths[a].stats||[])[hi],10);return isNaN(v)?0:v;}}}}}catch(e){}return null;}function tS(count,state,det){if(count==null&&(state==="in"||state==="post"))return dot("#8a8f98")+"<span style=\"color:#8a8f98\">Unavailable</span>";var cur=count;var got=(count!=null&&count>0);var txt=got?("HR"+(cur>1?(" x"+cur):"")):"No HR yet";var badge=got?("<span style=\"background:#0b3d2e;color:#8ff0c8;font-weight:700;font-size:11px;border-radius:6px;padding:1px 6px\">"+cur+" of 1 HR - CASHED</span>"):null;if(state==="post")return got?(dot("#0b6e5f")+badge+"<span style=\"color:#8a8f98\"> &middot; Final</span>"):(dot("#8a8f98")+"<span style=\"color:#8a8f98\">No HR &middot; Final</span>");if(got)return dot("#0b6e5f")+badge;var dly=/delay|postpon|suspend/i.test(det||"");if(state==="in")return dly?(dot("#e8a13d")+"<span style=\"color:#b07708\">"+txt+" &middot; Delayed</span>"):(dot("#e8a13d")+"<span style=\"color:#b07708\">"+txt+"</span>");if(dly)return dot("#8a8f98")+"<span style=\"color:#8a8f98\">Delayed</span>";return "";}function updDing(){fetch("https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(sb){var gm={};(sb.events||[]).forEach(function(ev){var cmp=(ev.competitions||[])[0]||{};var st=(cmp.status&&cmp.status.type)||{};var home=null,away=null;(cmp.competitors||[]).forEach(function(c){var o={ab:((c.team||{}).abbreviation||"").toUpperCase()};if(c.homeAway==="home")home=o;else away=o;});if(home&&away)gm[away.ab+"@"+home.ab]={state:st.state||"",eid:ev.id,det:(st.detail||st.shortDetail||"")};});var seen={};Array.prototype.forEach.call(document.querySelectorAll(".rpdingtrk"),function(el){var pr=ab2(el.getAttribute("data-m"));var g=pr?gm[pr[0]+"@"+pr[1]]:null;if(!g){el.innerHTML="";return;}el.__st=g.state;el.__det=g.det;if(g.eid&&g.state!=="pre"){(seen[g.eid]=seen[g.eid]||[]).push(el);}else{el.innerHTML=tS(null,g.state,g.det);}});Object.keys(seen).forEach(function(eid){fetch("https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/summary?event="+eid+"&cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(sj){if(!sj)return;seen[eid].forEach(function(el){el.innerHTML=tS(hrOf(sj,el.getAttribute("data-p")),el.__st,el.__det);});}).catch(function(){});});}).catch(function(){});}function startDing(){updDing();setInterval(updDing,30000);}fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){var ps=(j&&j.picks)||[];if(!ps.length||(j.date||"")!==ptDate()){hide();return;}var h="";ps.slice(0,10).forEach(function(pk,i){if(!pk.player||!pk.team||!pk.matchup||!pk.time||!pk.market)return;var chips="";(pk.links||[]).forEach(function(l){var v=VEN[l.venue];if(!v)return;if(l.url!=null&&l.url.indexOf(v[0])===-1)return;if(l.american!=null&&l.cents!=null)return;var pr="";if(l.american!=null)pr=String(l.american);else if(l.cents!=null){if(!v[3])return;if(typeof l.cents==="number"&&l.cents>0&&l.cents<100)pr=(c2ml(l.cents)>0?"+":"")+c2ml(l.cents);}var st="background:"+v[1]+";border-color:"+v[1]+";color:"+v[2]+";font-size:11px;padding:2px 10px";chips+=l.url?(" <a class=\"chip\" style=\""+st+"\" href=\""+esc(l.url)+"\" target=\"_blank\" rel=\"noreferrer\">"+esc(l.venue)+(pr?" "+esc(pr):"")+"</a>"):(" <span class=\"chip\" style=\""+st+"\">"+esc(l.venue)+(pr?" "+esc(pr):"")+"</span>");});h+="<div class=\"rpnpick\"><div style=\"display:flex;justify-content:space-between;align-items:baseline\"><b>"+(i+1)+". "+esc(pk.player)+"</b><span style=\"color:#8a8f98;font-size:12px\">"+esc(pk.market)+"</span></div>"+"<div style=\"font-size:12px;color:#8a8f98;margin-top:2px\">"+esc(pk.matchup)+" &middot; "+esc(pk.time)+"</div><div class=\"rpdingtrk\" data-p=\""+esc(pk.player)+"\" data-m=\""+esc(pk.matchup)+"\" style=\"margin-top:3px;font-size:12px\"></div>"+"<div style=\"margin-top:4px\">"+chips+"</div>"+(pk.price_note&&chips?"<div style=\"font-size:11px;color:#8a8f98;margin-top:4px;line-height:1.4\">"+esc(pk.price_note)+"</div>":"")+"</div>";});if(!h){hide();return;}box.innerHTML=h;startDing();}).catch(hide);})();</script></div>
 
 
-<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1791395766" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">7 live &rsaquo;</span></a>
+<div class="sect" style="margin-top:22px">Futures</div><a href="futures.html?v=1791397303" style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid rgba(127,127,127,.22);border-radius:12px;text-decoration:none;color:inherit"><span style="font-weight:600">Track every futures pick live<span id="rpFutNew" style="display:none;background:#e5484d;color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:8px;vertical-align:2px">NEW</span></span><span style="color:#8a8f98;font-size:12px">7 live &rsaquo;</span></a>
 <div class="sect home-only" style="margin-top:18px">News</div>
 <div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>
 <div class="card carallpop home-only" id="rpCarAllPop" hidden></div>
@@ -1718,7 +1753,7 @@ function rpResolveState(){try{  /* */
  }
 }catch(e){}}
 rpLabel(); /* */
-const RP_BUILD='1791395766';
+const RP_BUILD='1791397303';
 try{fetch('https://api.rix-picks.com/beacon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'index',build:RP_BUILD,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,ua:navigator.userAgent}),keepalive:true}).catch(()=>{});}catch(e){}
 window.addEventListener('pageshow',function(){try{
  if(sessionStorage.getItem('rp_reloaded')===RP_BUILD)return;
@@ -1963,7 +1998,7 @@ function rpPageRefresh(){try{
 }catch(e){}}
 setInterval(rpPageRefresh,60000);
 </script>
-<script src="myprofile.js?v=1791395766"></script><script defer src="scripts/wooder_wnba_shared.js?v=1791395766"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></div><script>window.RP_TABS=[{"key":"home","label":"Home","espn":""},{"key":"ncaaf","label":"NCAAF","espn":"football/college-football"},{"key":"mlb","label":"MLB","espn":"baseball/mlb"},{"key":"wnba","label":"WNBA","espn":"basketball/wnba"},{"key":"nfl","label":"NFL","espn":"football/nfl"},{"key":"wooder","label":"Picks from Wooder Ice","espn":""},{"key":"past","label":"Past Tickets","espn":""},{"key":"trinity","label":"Trinity","espn":""}];window.RP_KAL_TICKER=0;window.RP_KAL_WATCH=[];</script><script>/* RixPicks index v2 shell: intro (once/session, natural scroll, no trapping), league tabs, games+news sidebar, ticker */
+<script src="myprofile.js?v=1791397303"></script><script defer src="scripts/wooder_wnba_shared.js?v=1791397303"></script><script data-goatcounter="https://rixpicks.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script><script>window.rpGcEvent=function(p,flag){var pend=window.__rpGcPend=window.__rpGcPend||{};if(pend[p])return;pend[p]=1;var n=0;var go=function(){try{if(flag&&localStorage.getItem(flag)){pend[p]=0;return;}if(window.goatcounter&&goatcounter.count){goatcounter.count({path:p,event:true});if(flag){try{localStorage.setItem(flag,'1');}catch(e){}}pend[p]=0;}else if(n++<20)setTimeout(go,1500);else pend[p]=0;}catch(e){pend[p]=0;if(n++<20)setTimeout(go,3000);}};go();};</script></div><script>window.RP_TABS=[{"key":"home","label":"Home","espn":""},{"key":"ncaaf","label":"NCAAF","espn":"football/college-football"},{"key":"mlb","label":"MLB","espn":"baseball/mlb"},{"key":"wnba","label":"WNBA","espn":"basketball/wnba"},{"key":"nfl","label":"NFL","espn":"football/nfl"},{"key":"wooder","label":"Picks from Wooder Ice","espn":""},{"key":"past","label":"Past Tickets","espn":""},{"key":"trinity","label":"Trinity","espn":""}];window.RP_KAL_TICKER=0;window.RP_KAL_WATCH=[];</script><script>/* RixPicks index v2 shell: intro (once/session, natural scroll, no trapping), league tabs, games+news sidebar, ticker */
 (function(){
 "use strict";
 var TABS=window.RP_TABS||[];

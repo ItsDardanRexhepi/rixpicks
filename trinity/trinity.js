@@ -81,47 +81,79 @@
     else { who.textContent = ''; who.hidden = true; }
   }
 
-  /* The passphrase is hidden with a text mask, not by turning the box into a password field: once a box has been a
-     password field, Safari keeps its keychain key on it and offers to save "passwords" for the rest of the
-     conversation. Only a browser without the mask falls back to a password field. Autocorrect, capitals and
-     spelling are off while a passphrase is typed, so it never lands in the keyboard's dictionary.
-
-     A phone's keyboard reads those settings when a box GAINS focus, and an iPhone (Safari and Chrome alike) never
-     reads them again while that box keeps it - and the box does keep it when the name is sent with the keyboard's
-     Send key. So when the box has the focus and the mask goes on or off, a fresh box with the new settings takes
-     its place and the focus moves to it, which an iPhone treats as a new box and reloads the keyboard for. */
+  /* THE PASSPHRASE HAS A BOX OF ITS OWN. The chat box is never the passphrase box. When she asks for a passphrase, a
+     separate small form takes the chat box's place - its own box, masked as it is typed, autocorrect, capitals and
+     spell-check off - and the moment the sign-in opens, fails or ends, that form is deleted and the chat box is back.
+     The reason is Safari: once a box on the page has held a masked passphrase, Safari treats that box (and its form)
+     as a login field and keeps its keychain key in it for the rest of the visit - after the passphrase, after signing
+     in, after signing out (owner, 2026-10-07). A box that only ever held a passphrase, and no longer exists, leaves
+     nothing for it to hold on to. A brand-new box also makes an iPhone reload its keyboard with the right settings.
+     The mask is a text mask, not a password field; only a browser without one falls back to a password field. */
   var TEXT_MASK = !!(window.CSS && CSS.supports && CSS.supports('-webkit-text-security', 'disc'));
-  function traits(n, on) {
-    if (TEXT_MASK) {
-      n.type = 'text';
-      n.style.webkitTextSecurity = on ? 'disc' : '';
-    } else {
-      n.type = on ? 'password' : 'text';
-    }
+  var CHAT_HINT = 'Ask about a pick, a refusal or the record';
+  var secretForm = null, secretBox = null, secretBtn = null;
+  function box() { return secretBox || input; }
+  function chatTraits(n) {
+    n.type = 'text';
+    if (n.style) n.style.webkitTextSecurity = '';
     n.setAttribute('autocomplete', 'off');
-    n.setAttribute('autocapitalize', on ? 'off' : 'sentences');
-    n.setAttribute('autocorrect', on ? 'off' : 'on');
-    n.spellcheck = !on;
-    n.placeholder = on ? 'Passphrase' : 'Ask about a pick, a refusal or the record';
+    n.setAttribute('autocapitalize', 'sentences');
+    n.setAttribute('autocorrect', 'on');
+    n.spellcheck = true;
+    n.placeholder = CHAT_HINT;
+  }
+  function secretTraits(n) {
+    if (TEXT_MASK) { n.type = 'text'; n.style.webkitTextSecurity = 'disc'; } else { n.type = 'password'; }
+    n.setAttribute('autocomplete', 'off');
+    n.setAttribute('autocapitalize', 'off');
+    n.setAttribute('autocorrect', 'off');
+    n.spellcheck = false;
+    n.placeholder = 'Passphrase';
+    n.setAttribute('maxlength', '400');
+    n.setAttribute('enterkeyhint', 'send');
+    n.setAttribute('aria-label', 'Your passphrase');
+  }
+  function focusBox() {
+    var n = box();
+    if (!n) return;
+    try { n.focus({ preventScroll: true }); } catch (e) { n.focus(); }
   }
   function maskInput(on) {
     on = !!on;
-    var changed = on !== secretNext;
     secretNext = on;
     if (!input) return;
-    var old = input, parent = old.parentNode;
-    if (changed && parent && document.activeElement === old && typeof old.cloneNode === 'function') {
-      var n = old.cloneNode(false);
-      n.value = '';
-      traits(n, on);
-      old.removeAttribute('id');
-      parent.insertBefore(n, old);
-      try { n.focus({ preventScroll: true }); } catch (e) { n.focus(); }
-      parent.removeChild(old);
-      input = n;
+    if (on) {
+      if (secretForm) return;
+      var parent = form && form.parentNode;
+      if (!parent) { secretNext = false; return; }
+      var hadFocus = document.activeElement === input || (send && document.activeElement === send);
+      secretForm = document.createElement('form');
+      secretForm.className = 'tr-ask tr-secret';
+      secretForm.setAttribute('autocomplete', 'off');
+      secretBox = document.createElement('input');
+      secretBox.className = input.className || '';
+      secretTraits(secretBox);
+      secretBtn = document.createElement('button');
+      secretBtn.type = 'submit';
+      secretBtn.textContent = send ? send.textContent : 'Ask';
+      if (send && send.className) secretBtn.className = send.className;
+      secretBtn.disabled = inFlight;
+      secretForm.appendChild(secretBox);
+      secretForm.appendChild(secretBtn);
+      secretForm.addEventListener('submit', function (e) { e.preventDefault(); ask(secretBox ? secretBox.value : ''); });
+      parent.insertBefore(secretForm, form);
+      form.style.display = 'none';
+      if (hadFocus) focusBox();
       return;
     }
-    traits(old, on);
+    if (!secretForm) { chatTraits(input); return; }
+    var focused = document.activeElement === secretBox || document.activeElement === secretBtn;
+    if (secretBox) secretBox.value = '';
+    if (secretForm.parentNode) secretForm.parentNode.removeChild(secretForm);
+    secretForm = secretBox = secretBtn = null;
+    form.style.display = '';
+    chatTraits(input);
+    if (focused) focusBox();
   }
 
   function el(tag, cls, text) {
@@ -242,6 +274,7 @@
   function lock(on) {
     inFlight = on;
     if (send) send.disabled = on;
+    if (secretBtn) secretBtn.disabled = on;
     var pb = document.getElementById('trPhoto');
     if (pb) pb.disabled = on;
     if (on) return;
@@ -339,6 +372,7 @@
     var unsure = signedIn() ? UNSURE_IN : UNSURE_SIGNIN;
     row('me', wasSecret ? '\u2022\u2022\u2022\u2022\u2022\u2022' : q, null, '', true);
     if (input) input.value = '';
+    if (secretBox) secretBox.value = '';
     lock(true);
     var pend = row('her', PENDING, null, 'tr-pending', true);
 
@@ -353,7 +387,7 @@
       if (text != null) row('her', text, cites, declined ? 'declined' : '', true);
       lock(false);
       maskInput(pending() || wantSecret);
-      if (input) input.focus();
+      focusBox();
     };
     var lost = function () { finish(held ? unsure : OFFLINE, null, false); };
 
@@ -577,16 +611,17 @@
   document.addEventListener('keydown', function (e) {
     if (!trinityOpen() || !input || e.defaultPrevented || e.isComposing || e.metaKey || e.ctrlKey || e.altKey) return;
     var t = e.target;
-    if (t === input || (t && t.closest && t.closest('input,textarea,select,button,a,[contenteditable],[tabindex]'))) return;
+    var n = box();
+    if (t === n || (t && t.closest && t.closest('input,textarea,select,button,a,[contenteditable],[tabindex]'))) return;
     if (!e.key || e.key.length !== 1) return;
     e.preventDefault();
-    input.focus();
-    var v = input.value;
+    n.focus();
+    var v = n.value;
     if (v.length >= MAX_Q) return;
-    var a = typeof input.selectionStart === 'number' ? input.selectionStart : v.length;
-    var b = typeof input.selectionEnd === 'number' ? input.selectionEnd : v.length;
-    input.value = v.slice(0, a) + e.key + v.slice(b);
-    try { input.setSelectionRange(a + 1, a + 1); } catch (err) {}
+    var a = typeof n.selectionStart === 'number' ? n.selectionStart : v.length;
+    var b = typeof n.selectionEnd === 'number' ? n.selectionEnd : v.length;
+    n.value = v.slice(0, a) + e.key + v.slice(b);
+    try { n.setSelectionRange(a + 1, a + 1); } catch (err) {}
   });
 
   function resumeJobs() {

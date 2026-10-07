@@ -47,6 +47,7 @@ function page(opts) {
   els['st-trinity'].classList.add('on');
   els.trAsk.appendChild(els.trInput);
   els.trAsk.appendChild(els.trSend);
+  els['st-trinity'].appendChild(els.trAsk);
   const store = opts.store || {};
   const sessionStorage = opts.throwingStorage ? {
     getItem() { throw new Error('SecurityError'); }, setItem() { throw new Error('SecurityError'); }, removeItem() { throw new Error('SecurityError'); }
@@ -97,16 +98,20 @@ function page(opts) {
   };
   const input = () => byId('trInput');
   const rows = () => els.trLog.children.map(r => r.children[0] ? r.children[0].textContent : r.textContent);
+  // The passphrase box is its own form, put in the chat form's place while a passphrase is asked for.
+  const secretForm = () => els['st-trinity'].children.find(c => /tr-secret/.test(c.className || '')) || null;
+  const secret = () => { const f = secretForm(); return f ? f.children.find(c => c.tagName === 'input') : null; };
   const say = async (q, opts2) => {
-    const i = input();
+    const f = secretForm(), i = f ? secret() : input();
     i.value = q;
     if (!(opts2 && opts2.blurred)) doc.activeElement = i;
-    els.trAsk.handlers.submit[0]({ preventDefault() {} });
+    (f || els.trAsk).handlers.submit[0]({ preventDefault() {} });
     await advance(opts2 && opts2.wait != null ? opts2.wait : 30000);
   };
-  const masked = () => { const i = input(); return i.style.webkitTextSecurity === 'disc' && i.attrs.autocorrect === 'off' && i.attrs.autocapitalize === 'off' && i.spellcheck === false; };
+  const chatClean = () => { const i = input(); return !i.style.webkitTextSecurity && i.type === 'text' && i.placeholder !== 'Passphrase'; };
+  const masked = () => { const sb = secret(); return !!sb && sb.style.webkitTextSecurity === 'disc' && sb.attrs.autocorrect === 'off' && sb.attrs.autocapitalize === 'off' && sb.spellcheck === false && els.trAsk.style.display === 'none' && chatClean(); };
   const pickPhoto = async (wait) => { els.trFile.files = [{ name: 'p.jpg' }]; els.trFile.handlers.change[0]({}); await advance(wait == null ? 30000 : wait); };
-  return { els, store, calls, advance, say, rows, input, masked, doc, document, window, pickPhoto, get clock() { return clock; } };
+  return { els, store, calls, advance, say, rows, input, masked, secret, secretForm, chatClean, doc, document, window, pickPhoto, get clock() { return clock; } };
 }
 
 let fails = 0;
@@ -173,21 +178,25 @@ const asks = (p) => p.calls.filter(c => c.url.endsWith('/ask'));
     await p.say('sign out');
     check(p.rows().length === 1 && /Trinity/.test(p.rows()[0]), 'and signing out puts the chat back at her intro');
   }
-  // SI-2: a focused box gets a fresh element with the passphrase traits set before it takes the focus
+  // The passphrase has a box of its own (Safari's keychain key, owner 2026-10-07): the chat box is never masked, the
+  // passphrase box is a new element that takes the focus with the passphrase settings, and it is gone - not just
+  // unmasked - the moment the sign-in opens or ends, the chat box back with its own settings and the focus.
   {
     let n = 0;
-    const p = page({ route: () => [CLAIM, WELCOME][n++] });
-    const first = p.input();
+    const p = page({ route: () => [CLAIM, WELCOME, { status: 200, body: { answer: 'Signed out. Talk soon, Matthew.', session: '' } }][n++] });
+    const chat = p.input();
     await p.say('It’s Matthew');
-    const second = p.input();
-    check(second !== first && !first.parentNode && second.id === 'trInput', 'the masked box is a fresh element with the box\'s id, the old one gone');
-    const f = second.focusLog[0] || {};
-    check(f.ts === 'disc' && f.ac === 'off' && f.cap === 'off' && f.sp === false && p.doc.activeElement === second,
-      'and it takes the focus with autocorrect, capitals and spell-check already off');
+    const sb = p.secret(), sf = p.secretForm();
+    check(!!sb && sb !== chat && p.chatClean() && chat.parentNode === p.els.trAsk, 'the passphrase gets its own box; the chat box is never masked');
+    const f = sb.focusLog[0] || {};
+    check(f.ts === 'disc' && f.ac === 'off' && f.cap === 'off' && f.sp === false && p.doc.activeElement === sb,
+      'it takes the focus with the mask on and autocorrect, capitals and spell-check already off');
     await p.say(PASS);
-    const third = p.input();
-    const g = third.focusLog[0] || {};
-    check(third !== second && g.ts === '' && g.ac === 'on', 'signed in, a fresh unmasked box takes the focus again');
+    check(!p.secretForm() && !sf.parentNode && p.els.trAsk.style.display === '' && p.chatClean(), 'signed in, the passphrase box is gone and the chat box is back');
+    const g = chat.focusLog.slice(-1)[0] || {};
+    check(p.doc.activeElement === chat && g.ts === '' && g.ac === 'on', 'and the chat box has the focus with its own settings');
+    await p.say('sign out');
+    check(!p.secretForm() && p.chatClean() && p.els.trAsk.style.display === '', 'signed out, no passphrase box anywhere and the chat box untouched');
   }
   // SI-8 / SI-10: a session that ends on its own resets to the intro and says why
   {
