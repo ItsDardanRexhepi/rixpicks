@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-10-06T11:51:58-07:00",
-  "entries": [
+  "entries": [{"id":"ding-1006-hernandez","kind":"pick","origin":"suggested","title":"Teoscar Hernandez - Home Run","result":"lost","detail":"LAD at ATL - Oct 6, 2026 - 3:00 PM PT - NOT PLACED; selection result only, no payout implied.","original_date":"2026-10-06","original_pick":{"player":"Teoscar Hernandez","team":"LAD","matchup":"LAD at ATL","time":"3:00 PM PT","market":"Home Run","links":[{"venue":"DKP","url":null},{"venue":"Kalshi","url":null}]},"reason":"0 HR in ESPN final box score.","provenance":"Wooder Ice daily Dingers, Oct 6. ESPN final box score: https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/summary?event=401908015","archived_at":"2026-10-07T09:37:27-07:00","removed_label":"Oct 7, 9:37 AM PT"},{"id":"ding-1006-merrill","kind":"pick","origin":"suggested","title":"Jackson Merrill - Home Run","result":"lost","detail":"MIL at SD - Oct 6, 2026 - 6:30 PM PT - NOT PLACED; selection result only, no payout implied.","original_date":"2026-10-06","original_pick":{"player":"Jackson Merrill","team":"SD","matchup":"MIL at SD","time":"6:30 PM PT","market":"Home Run","links":[{"venue":"DKP","url":null},{"venue":"Kalshi","url":null}]},"reason":"0 HR in ESPN final box score.","provenance":"Wooder Ice daily Dingers, Oct 6. ESPN final box score: https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/summary?event=401908004","archived_at":"2026-10-07T09:37:27-07:00","removed_label":"Oct 7, 9:37 AM PT"},
     {
       "id": "ding-1005-rice",
       "kind": "pick",
