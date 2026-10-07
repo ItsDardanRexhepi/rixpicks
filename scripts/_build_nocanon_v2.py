@@ -1413,10 +1413,10 @@ def _kal_publish_check(p, kx, kc, price=True):
 # (_kal_bind_event), so they bind a market that no longer resolves as well.
 _KAL_ABBR_ALIAS={'CHW':'CWS','ARI':'AZ'}  # ESPN code -> Kalshi code, every league (core/kalshi_bind.py ALIAS)
 # ESPN code -> Kalshi code within one league, as Kalshi's own event tickers code those teams (UTACBJ, INDWAS,
-# JACCIN, OKCSAS, PHINYK, TEXOKLA, SCARFLA, FLAMIZZ, ARKTXAM, PSUNW, STLLAG, MIADCU, NYRBSD). An alias only ever
+# JACCIN, OKCSAS, PHINYK, TEXOKLA, SCARFLA, FLAMIZZ, ARKTXAM, PSUNW, STLLAG, MIADCU, NYRBSD, JVSTKENN). An alias only ever
 # admits one more code for that one team; a code missing here fails closed until it is added.
 _KAL_LG_ALIAS={'hockey/nhl':{'UTAH':'UTA'},'football/nfl':{'WSH':'WAS','JAX':'JAC'},'basketball/nba':{'SA':'SAS','NY':'NYK'},
-               'football/college-football':{'TAM':'TXAM','MIZ':'MIZZ','OU':'OKLA','SC':'SCAR','NU':'NW'},
+               'football/college-football':{'TAM':'TXAM','MIZ':'MIZZ','OU':'OKLA','SC':'SCAR','NU':'NW','JXST':'JVST'},
                'soccer/usa.1':{'LA':'LAG','DC':'DCU','NY':'NYRB'}}
 _KAL_TEAMS={}
 def _kal_teams(lg):
