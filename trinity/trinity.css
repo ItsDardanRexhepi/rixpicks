@@ -50,7 +50,7 @@
 .tr-chip:hover,.tr-chip:focus-visible{color:var(--txt);border-color:var(--acc)}
 
 .tr-ask{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:var(--panel2)}
-.tr-ask input{flex:1 1 auto;min-width:0;font:inherit;font-size:16px;padding:11px 12px;border-radius:10px;
+.tr-ask input{flex:1 1 auto;width:0;min-width:0;font:inherit;font-size:16px;padding:11px 12px;border-radius:10px;
               border:1px solid var(--line);background:var(--bg);color:var(--txt)}
 .tr-ask input::placeholder{color:var(--mut)}
 .tr-ask input:focus-visible{outline:none;border-color:var(--acc)}

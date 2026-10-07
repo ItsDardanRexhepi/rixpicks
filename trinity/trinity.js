@@ -13,7 +13,8 @@
        imply she is reasoning out loud when she is not, and the honesty of the surface is the product.
      * It renders a refusal as an answer. `answered:false` is a true statement about what is not
        public, so it gets the same bubble and no red, no icon and no apology.
-     * It sends one question at a time and never retries a send on its own.
+     * It sends one question at a time. Only a public question that never arrived is tried again; anything sent
+       while a sign-in is open or asked for is sent once, because a second copy of a change is a second change.
 
    The greeting fires once per visitor and then she waits: no buttons, no prompts, no follow-up.
    ================================================================================================ */
@@ -44,17 +45,33 @@
   var SESSION = 'trinity_session';
   var secretNext = false;
 
-  function getSession() {
-    try { return sessionStorage.getItem(SESSION) || ''; } catch (e) { return ''; }
-  }
+  /* The page's own copy is what it goes by. Storage is read once, when the page loads, and written after every
+     change, so a reload keeps the sign-in; a browser that refuses storage (Safari with every cookie blocked, a
+     private window that throws) still signs in and out for the life of the page, and a passphrase is never sent
+     without the sign-in it belongs to. */
+  var mem = { s: '', who: '' };
+  try {
+    mem.s = sessionStorage.getItem(SESSION) || '';
+    mem.who = mem.s ? (sessionStorage.getItem(SESSION + '_who') || '') : '';
+  } catch (e) {}
+
+  function getSession() { return mem.s; }
 
   function setSession(v) {
+    mem.s = v || '';
     try {
       if (v) sessionStorage.setItem(SESSION, v); else sessionStorage.removeItem(SESSION);
     } catch (e) {}
   }
 
+  /* Signed in: a session and a name. A token with no name is a sign-in she has asked a passphrase for, and while
+     one is held the next thing typed is the passphrase - after a failed send, a limit, a dropped line or a reload
+     as much as after her prompt. */
+  function signedIn() { return !!(mem.s && mem.who); }
+  function pending() { return !!mem.s && !mem.who; }
+
   function showWho(name) {
+    mem.who = name || '';
     try { if (name) sessionStorage.setItem(SESSION + '_who', name); else sessionStorage.removeItem(SESSION + '_who'); }
     catch (e) {}
     var pb = document.getElementById('trPhoto');
@@ -67,22 +84,44 @@
   /* The passphrase is hidden with a text mask, not by turning the box into a password field: once a box has been a
      password field, Safari keeps its keychain key on it and offers to save "passwords" for the rest of the
      conversation. Only a browser without the mask falls back to a password field. Autocorrect, capitals and
-     spelling are off while a passphrase is typed, so it never lands in the keyboard's dictionary. */
+     spelling are off while a passphrase is typed, so it never lands in the keyboard's dictionary.
+
+     A phone's keyboard reads those settings when a box GAINS focus, and an iPhone (Safari and Chrome alike) never
+     reads them again while that box keeps it - and the box does keep it when the name is sent with the keyboard's
+     Send key. So when the box has the focus and the mask goes on or off, a fresh box with the new settings takes
+     its place and the focus moves to it, which an iPhone treats as a new box and reloads the keyboard for. */
   var TEXT_MASK = !!(window.CSS && CSS.supports && CSS.supports('-webkit-text-security', 'disc'));
+  function traits(n, on) {
+    if (TEXT_MASK) {
+      n.type = 'text';
+      n.style.webkitTextSecurity = on ? 'disc' : '';
+    } else {
+      n.type = on ? 'password' : 'text';
+    }
+    n.setAttribute('autocomplete', 'off');
+    n.setAttribute('autocapitalize', on ? 'off' : 'sentences');
+    n.setAttribute('autocorrect', on ? 'off' : 'on');
+    n.spellcheck = !on;
+    n.placeholder = on ? 'Passphrase' : 'Ask about a pick, a refusal or the record';
+  }
   function maskInput(on) {
+    on = !!on;
+    var changed = on !== secretNext;
     secretNext = on;
     if (!input) return;
-    if (TEXT_MASK) {
-      input.type = 'text';
-      input.style.webkitTextSecurity = on ? 'disc' : '';
-    } else {
-      input.type = on ? 'password' : 'text';
+    var old = input, parent = old.parentNode;
+    if (changed && parent && document.activeElement === old && typeof old.cloneNode === 'function') {
+      var n = old.cloneNode(false);
+      n.value = '';
+      traits(n, on);
+      old.removeAttribute('id');
+      parent.insertBefore(n, old);
+      try { n.focus({ preventScroll: true }); } catch (e) { n.focus(); }
+      parent.removeChild(old);
+      input = n;
+      return;
     }
-    input.setAttribute('autocomplete', 'off');
-    input.setAttribute('autocapitalize', on ? 'off' : 'sentences');
-    input.setAttribute('autocorrect', on ? 'off' : 'on');
-    input.spellcheck = !on;
-    input.placeholder = on ? 'Passphrase' : 'Ask about a pick, a refusal or the record';
+    traits(old, on);
   }
 
   function el(tag, cls, text) {
@@ -159,10 +198,8 @@
      said while signed in is cleared from the page and from this tab's storage, and the chat is back at her intro:
      the greeting and the suggestions, as a new visitor sees it. A sign-in that was only asked for and never opened
      is not a sign-out and clears nothing. */
-  function signedIn() {
-    try { return !!sessionStorage.getItem(SESSION + '_who'); } catch (e) { return false; }
-  }
   function resetToIntro() {
+    stopFollowing();
     kept = [];
     try { sessionStorage.removeItem(HISTORY); sessionStorage.removeItem(JOBS); } catch (e) {}
     if (log) log.textContent = '';
@@ -171,11 +208,22 @@
     greetOnce();
     if (input) input.value = '';
   }
-  function endSession() {
+  /* A sign-in that ended without the person asking (the Mac restarted, an hour idle, the twelve-hour cap) also
+     starts the conversation over, and then she says why under her greeting, so the last thing they sent is not
+     silently gone and a change they were waiting on is not silently dropped. */
+  var FOLLOW_ENDED = 'Your sign-in has closed, so I stopped following that change. Say your name to sign in ' +
+                     'again, and ask "my changes" to see how it went.';
+  function sessionClosed(note) {
     var was = signedIn();
     setSession('');
     showWho('');
-    if (was) resetToIntro();
+    if (was) startOver(note);
+  }
+  function startOver(note) {
+    var wasFollowing = Object.keys(following).length > 0;
+    resetToIntro();
+    if (note) row('her', note, null, '', true);
+    if (wasFollowing && note !== FOLLOW_ENDED) row('her', FOLLOW_ENDED, null, '', true);
   }
 
   /* Once per visit, not once per browser: the conversation is not kept between visits, so a returning visitor who
@@ -190,24 +238,53 @@
 
   /* While an answer is on its way only SENDING waits: the box stays live and keeps its focus, so the next question
      can be typed and a space bar press never falls through to the page and scrolls it away. */
+  var queuedPhoto = null;
   function lock(on) {
     inFlight = on;
     if (send) send.disabled = on;
-    if (!on) holdReloadCheck();
+    var pb = document.getElementById('trPhoto');
+    if (pb) pb.disabled = on;
+    if (on) return;
+    if (queuedPhoto) {                          /* a photo picked while she was answering goes now, not nowhere */
+      var f = queuedPhoto;
+      queuedPhoto = null;
+      setTimeout(function () { sendPhoto(f); }, 0);
+      return;
+    }
+    holdReloadCheck();
   }
 
   /* A SITE CHANGE ON ITS WAY. When a signed-in request becomes a change to the site, the reply carries the change's
      id, and the page asks how it is going until it is live (or will not be), saying each new step once. Only the
      person who asked is told: the Mac answers a change that is not theirs exactly like one that does not exist. */
   var JOB_RE = /^[0-9]{8}-[0-9]{6}-[a-z]+-[0-9a-f]{6}$/;
-  var FOLLOW_FOR_MS = 30 * 60 * 1000;
+  /* A change can take longer than half an hour (the coder, the checks and the wait for it to go live each have
+     their own limits), so the page keeps asking for two hours, less often as it goes, and asks at once when the
+     phone wakes up. When the window closes it asks one last time and, if the change is still on its way, says so
+     and lets it go, instead of going quiet. */
+  var FOLLOW_FOR_MS = 2 * 60 * 60 * 1000;
+  var STILL_GOING = 'That change is still on its way. Ask me "is it live?" any time and I will tell you where it is.';
+  var following = {};
+
+  function stopFollowing() {
+    Object.keys(following).forEach(function (job) { clearTimeout(following[job].timer); });
+    following = {};
+  }
 
   function follow(job, said, since) {
-    if (typeof job !== 'string' || !JOB_RE.test(job)) return;
+    if (typeof job !== 'string' || !JOB_RE.test(job) || following[job]) return;
     var started = since || Date.now(), last = String(said || '');
+    var f = following[job] = { timer: 0, busy: false, wake: null };
     keepJob(job, last, false);
+    var mine = function () { return following[job] === f; };
+    var stop = function () { clearTimeout(f.timer); if (mine()) delete following[job]; keepJob(job, '', true); };
+    var later = function (ms) { clearTimeout(f.timer); f.timer = setTimeout(tick, ms); };
+    var letGo = function () { stop(); row('her', STILL_GOING, null, '', false); };
     var tick = function () {
-      if (!getSession() || Date.now() - started > FOLLOW_FOR_MS) return;
+      if (!mine() || f.busy) return;
+      if (!getSession()) { stop(); return; }
+      var last_call = Date.now() - started > FOLLOW_FOR_MS;
+      f.busy = true;
       fetch(TRINITY_ENDPOINT + '/job', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -216,91 +293,128 @@
       }).then(function (r) {
         return r.json().then(function (d) { return { status: r.status, body: d }; });
       }).then(function (res) {
+        f.busy = false;
+        if (!mine()) return;
         var d = res.body || {};
-        if (res.status === 403) { keepJob(job, '', true); endSession(); return; }
-        if (res.status === 404) { keepJob(job, '', true); return; }
-        if (res.status !== 200) { setTimeout(tick, 30000); return; }
+        if (res.status === 403) { stop(); sessionClosed(FOLLOW_ENDED); return; }
+        if (res.status === 404) { stop(); return; }
+        if (res.status !== 200) { if (last_call) letGo(); else later(30000); return; }
         if (typeof d.answer === 'string' && d.answer && d.answer !== last) {
           last = d.answer;
           row('her', d.answer, null, '', false);
           keepJob(job, last, false);
         }
-        if (d.done) { keepJob(job, '', true); return; }
-        setTimeout(tick, Date.now() - started < 120000 ? 8000 : 20000);
-      }).catch(function () { setTimeout(tick, 30000); });
+        if (d.done) { stop(); return; }
+        if (last_call) { letGo(); return; }
+        var age = Date.now() - started;
+        later(age < 120000 ? 8000 : age < 600000 ? 20000 : 60000);
+      }).catch(function () {
+        f.busy = false;
+        if (!mine()) return;
+        if (last_call) letGo(); else later(30000);
+      });
     };
-    setTimeout(tick, 8000);
+    f.wake = function () { if (mine() && !f.busy) { clearTimeout(f.timer); tick(); } };
+    later(since ? 1000 : 8000);
   }
+
+  function wakeFollowers() {
+    Object.keys(following).forEach(function (job) { if (following[job].wake) following[job].wake(); });
+  }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) wakeFollowers(); });
+  window.addEventListener('pageshow', wakeFollowers);
+
+  /* Sent while a sign-in is open or asked for, a message that may have arrived is never sent again by the page:
+     a change sent twice is two changes. She says she could not confirm it instead, and how to find out. */
+  var UNSURE_IN = 'I could not confirm that reached me, so it may or may not have gone through. If it was a change ' +
+                  'to the site, ask me "my changes" before sending it again.';
+  var UNSURE_SIGNIN = 'I could not confirm that reached me. Try your passphrase again in a moment.';
 
   function ask(q) {
     q = String(q || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
     if (!q || inFlight) return;
     if (chips) chips.hidden = true;
-    var wasSecret = secretNext;
+    var wasSecret = secretNext || pending();
+    var held = !!getSession();
+    var unsure = signedIn() ? UNSURE_IN : UNSURE_SIGNIN;
     row('me', wasSecret ? '\u2022\u2022\u2022\u2022\u2022\u2022' : q, null, '', true);
-    maskInput(false);
     if (input) input.value = '';
     lock(true);
     var pend = row('her', PENDING, null, 'tr-pending', true);
 
-    var done = false;
+    /* The mask is never switched off on a send: after every outcome (an answer, a limit, a dropped line, the
+       timeout) it is worked out again from what the page holds, so a passphrase asked for stays masked until the
+       sign-in opens or ends. */
+    var done = false, wantSecret = false;
     var finish = function (text, cites, declined) {
-      if (done) return;
+      if (done) { maskInput(pending() || wantSecret); return; }
       done = true;
       if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
-      row('her', text, cites, declined ? 'declined' : '', true);
+      if (text != null) row('her', text, cites, declined ? 'declined' : '', true);
       lock(false);
+      maskInput(pending() || wantSecret);
       if (input) input.focus();
     };
+    var lost = function () { finish(held ? unsure : OFFLINE, null, false); };
 
     var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); finish(OFFLINE, null, false); }, 45000);
-    var body = JSON.stringify(getSession() ? { question: q, session: getSession() } : { question: q });
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); lost(); }, 45000);
+    var body = JSON.stringify(held ? { question: q, session: getSession() } : { question: q });
 
     /* A dropped connection (the line to the Mac reconnects in seconds) is tried again twice before she says she
-       is not answering. Only a failure to ARRIVE is retried; an answer of any kind is never asked twice. */
+       is not answering - for a public question only. Only a failure to ARRIVE is retried; an answer of any kind is
+       never asked twice. */
     var post = function (tries) {
       return fetch(TRINITY_ENDPOINT + '/ask', {
         method: 'POST', headers: { 'content-type': 'application/json' }, body: body,
         signal: ctrl ? ctrl.signal : undefined, cache: 'no-store'
       }).then(function (r) {
-        if ((r.status === 502 || r.status === 503 || r.status === 504) && tries < 2) {
+        if ((r.status === 502 || r.status === 503 || r.status === 504) && tries < 2 && !held) {
           return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
         }
         return r;
       }, function (err) {
-        if (done || tries >= 2 || (err && err.name === 'AbortError')) throw err;
+        if (held || done || tries >= 2 || (err && err.name === 'AbortError')) throw err;
         return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
       });
     };
 
     post(0).then(function (r) {
+      if (held && r.status >= 500) return { status: r.status, body: null };
       return r.json().then(function (d) { return { status: r.status, body: d }; });
     }).then(function (res) {
       clearTimeout(timer);
+      if (res.body === null) { lost(); return; }
       var d = res.body || {};
       var wasIn = signedIn();
-      if (typeof d.session === 'string') { setSession(d.session); if (!d.session) showWho(''); }
-      if (typeof d.as === 'string' && d.as) showWho(d.as);
-      if (d.next === 'passphrase' || (typeof d.answer === 'string' && /passphrase\?\s*$/i.test(d.answer))) {
-        maskInput(true);
+      /* A token without a name is a sign-in in progress: whoever was signed in before is not any more. */
+      if (typeof d.session === 'string') { setSession(d.session); if (!d.session || !d.as) showWho(''); }
+      if (typeof d.as === 'string' && d.as && getSession()) showWho(d.as);
+      wantSecret = d.next === 'passphrase' || (typeof d.answer === 'string' && /passphrase\?\s*$/i.test(d.answer));
+      var said = typeof d.answer === 'string' && d.answer ? d.answer : '';
+      if (wasIn && !signedIn()) {
+        /* Signed out because they said so: back to her intro and nothing more. Ended any other way: back to her
+           intro, and her reply under it says what happened to what they just sent. */
+        var asked = /^\s*(Signed out|You are signed out)\b/i.test(said);
+        startOver(asked ? '' : said);
+        finish(null);
+        return;
       }
       /* 429 carries an answer in her voice, so it renders like any other reply. */
-      if (typeof d.answer === 'string' && d.answer) {
+      if (said) {
         var cites = Array.isArray(d.cites) ? d.cites.filter(function (c) {
           /* A citation is a store NAME. Anything that looks like a path is a defect upstream and is
              not shown, so a leak can never be displayed by this page. */
           return typeof c === 'string' && c && c.indexOf('/') === -1 && c.indexOf('\\') === -1;
         }) : [];
-        finish(d.answer, cites, d.answered === false);
-        if (wasIn && d.session === '') { resetToIntro(); return; }
-        if (d.job) follow(d.job, d.answer);
+        finish(said, cites, d.answered === false);
+        if (d.job) follow(d.job, said);
       } else {
         finish(OFFLINE, null, false);
       }
     }).catch(function () {
       clearTimeout(timer);
-      finish(OFFLINE, null, false);
+      lost();
     });
   }
 
@@ -323,7 +437,12 @@
         URL.revokeObjectURL(url);
         c.toBlob(function (b) { b ? resolve(b) : reject(new Error('could not encode')); }, 'image/jpeg', 0.9);
       };
-      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('not an image')); };
+      img.onerror = function () {
+        URL.revokeObjectURL(url);
+        var e = new Error('cannot open');
+        e.unreadable = true;
+        reject(e);
+      };
       img.src = url;
     });
   }
@@ -337,15 +456,27 @@
     });
   }
 
+  /* What she says when a photo fails depends on how far it got. Before it is sent, nothing was passed on, and a
+     kind of photo this browser cannot open (an iPhone's HEIC on Android) will never go, so she says so instead of
+     "try again". Once it is sent, a lost reply may hide a photo that arrived and a request already taken, so she
+     says she could not confirm it and how to check, and it is not sent a second time. */
+  var PHOTO_NOT_SENT = 'That photo did not go through, so nothing was passed on. Try it again in a moment.';
+  var PHOTO_UNREADABLE = 'I cannot open that kind of photo on this phone, so nothing was passed on. Try a JPEG or a ' +
+                         'screenshot.';
+  var PHOTO_UNSURE = 'I could not confirm that photo arrived, so it may or may not have gone through. Ask me ' +
+                     '"my changes" before sending it again.';
+
   function sendPhoto(file) {
-    if (!file || inFlight || !getSession()) return;
+    if (!file || !signedIn()) return;
+    if (inFlight) { queuedPhoto = file; return; }
     var caption = (input && input.value || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
     lock(true);
     var mine = row('me', caption || 'Photo', null, '', true);
     var pend = row('her', 'Sending the photo', null, 'tr-pending', true);
+    var sent = false;
     var done = function (text, declined) {
       if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
-      row('her', text, null, declined ? 'declined' : '', true);
+      if (text != null) row('her', text, null, declined ? 'declined' : '', true);
       if (input) { input.value = ''; input.focus(); }
       lock(false);
     };
@@ -357,6 +488,7 @@
       mine.querySelector('.tr-bub').appendChild(thumb);
       return blobToBase64(jpg);
     }).then(function (b64) {
+      sent = true;
       return fetch(TRINITY_ENDPOINT + '/upload', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -364,15 +496,21 @@
         cache: 'no-store'
       });
     }).then(function (r) {
+      if (r.status >= 500) return { status: r.status, body: null };
       return r.json().then(function (d) { return { status: r.status, body: d }; });
     }).then(function (res) {
       var d = res.body || {};
-      var ended = res.status === 403;
-      done(typeof d.answer === 'string' && d.answer ? d.answer : OFFLINE, d.answered === false);
-      if (ended) endSession();
-      else if (d.job) follow(d.job, d.answer);
-    }).catch(function () {
-      done('That photo did not go through, so nothing was passed on. Try it again in a moment.', true);
+      var said = typeof d.answer === 'string' && d.answer ? d.answer : '';
+      if (res.status === 403) {
+        done(null);
+        sessionClosed(said || 'Your sign-in has closed, so that photo was not passed on. Say your name to sign in again.');
+        return;
+      }
+      if (res.body === null) { done(PHOTO_UNSURE, true); return; }
+      done(said || PHOTO_UNSURE, d.answered === false);
+      if (d.job) follow(d.job, said);
+    }).catch(function (e) {
+      done(sent ? PHOTO_UNSURE : (e && e.unreadable ? PHOTO_UNREADABLE : PHOTO_NOT_SENT), true);
     });
   }
 
@@ -480,17 +618,16 @@
     input = document.getElementById('trInput');
     send = document.getElementById('trSend');
     who = document.getElementById('trWho');
-    if (getSession()) {
-      var n = '';
-      try { n = sessionStorage.getItem(SESSION + '_who') || ''; } catch (e) {}
-      if (n) showWho(n);
-    }
+    if (signedIn()) showWho(mem.who);
+    /* A reload in the middle of a sign-in (an iPhone drops a tab in the background while the passphrase is copied
+       from another app) comes back masked. */
+    if (input) maskInput(pending());
     if (!log || !form || !input) return;
 
     form.addEventListener('submit', function (e) { e.preventDefault(); ask(input.value); });
     var pbtn = document.getElementById('trPhoto'), pfile = document.getElementById('trFile');
     if (pbtn && pfile) {
-      pbtn.addEventListener('click', function () { if (getSession()) pfile.click(); });
+      pbtn.addEventListener('click', function () { if (signedIn() && !inFlight) pfile.click(); });
       pfile.addEventListener('change', function () {
         var f = pfile.files && pfile.files[0];
         pfile.value = '';
