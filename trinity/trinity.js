@@ -41,7 +41,7 @@
   /* SIGNING IN. Two people may sign in here, and only on her prompt. The session lives in sessionStorage, so it
      belongs to this tab alone and is gone when the tab closes. When she has just asked for a passphrase, the next
      thing typed is masked as it is typed, and shown in the conversation as dots - the passphrase is never on the
-     screen and never in the log. */
+     screen and never in the log. The same holds at every step of changing a passphrase while signed in. */
   var SESSION = 'trinity_session';
   var secretNext = false;
 
@@ -49,10 +49,11 @@
      change, so a reload keeps the sign-in; a browser that refuses storage (Safari with every cookie blocked, a
      private window that throws) still signs in and out for the life of the page, and a passphrase is never sent
      without the sign-in it belongs to. */
-  var mem = { s: '', who: '' };
+  var mem = { s: '', who: '', asked: false };
   try {
     mem.s = sessionStorage.getItem(SESSION) || '';
     mem.who = mem.s ? (sessionStorage.getItem(SESSION + '_who') || '') : '';
+    mem.asked = !!mem.s && sessionStorage.getItem(SESSION + '_asked') === '1';
   } catch (e) {}
 
   function getSession() { return mem.s; }
@@ -62,6 +63,16 @@
     try {
       if (v) sessionStorage.setItem(SESSION, v); else sessionStorage.removeItem(SESSION);
     } catch (e) {}
+    if (!v) setAsked(false);
+  }
+
+  /* Signed in, she asks for a passphrase at every step of CHANGING one, and the page holds that she asked until a
+     reply from the Mac says otherwise - the same as a sign-in in progress holds its token. A dropped line, a limit at
+     the edge or a reload in the middle of a change never puts the chat box back while the change's token is held. */
+  function setAsked(on) {
+    mem.asked = !!on;
+    try { if (on) sessionStorage.setItem(SESSION + '_asked', '1'); else sessionStorage.removeItem(SESSION + '_asked'); }
+    catch (e) {}
   }
 
   /* Signed in: a session and a name. A token with no name is a sign-in she has asked a passphrase for, and while
@@ -69,6 +80,7 @@
      as much as after her prompt. */
   function signedIn() { return !!(mem.s && mem.who); }
   function pending() { return !!mem.s && !mem.who; }
+  function secretWanted() { return pending() || (!!mem.s && mem.asked); }
 
   function showWho(name) {
     mem.who = name || '';
@@ -371,9 +383,9 @@
     q = String(q || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
     if (!q || inFlight) return;
     if (chips) chips.hidden = true;
-    var wasSecret = secretNext || pending();
+    var wasSecret = secretNext || secretWanted();
     var held = !!getSession();
-    var unsure = signedIn() ? UNSURE_IN : UNSURE_SIGNIN;
+    var unsure = signedIn() && !wasSecret ? UNSURE_IN : UNSURE_SIGNIN;
     row('me', wasSecret ? '\u2022\u2022\u2022\u2022\u2022\u2022' : q, null, '', true);
     if (input) { input.value = ''; if (input.style) input.style.height = ''; }
     if (secretBox) secretBox.value = '';
@@ -385,12 +397,12 @@
        sign-in opens or ends. */
     var done = false, wantSecret = false;
     var finish = function (text, cites, declined) {
-      if (done) { maskInput(pending() || wantSecret); return; }
+      if (done) { maskInput(secretWanted() || wantSecret); return; }
       done = true;
       if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
       if (text != null) row('her', text, cites, declined ? 'declined' : '', true);
       lock(false);
-      maskInput(pending() || wantSecret);
+      maskInput(secretWanted() || wantSecret);
       focusBox();
     };
     var lost = function () { finish(held ? unsure : OFFLINE, null, false); };
@@ -429,6 +441,7 @@
       if (typeof d.session === 'string') { setSession(d.session); if (!d.session || !d.as) showWho(''); }
       if (typeof d.as === 'string' && d.as && getSession()) showWho(d.as);
       wantSecret = d.next === 'passphrase' || (typeof d.answer === 'string' && /passphrase\?\s*$/i.test(d.answer));
+      if (res.status === 200) setAsked(wantSecret && !!getSession());   /* a limit is not an answer: it keeps the box */
       var said = typeof d.answer === 'string' && d.answer ? d.answer : '';
       if (wasIn && !signedIn()) {
         /* Signed out because they said so: back to her intro and nothing more. Ended any other way: back to her
@@ -658,9 +671,9 @@
     send = document.getElementById('trSend');
     who = document.getElementById('trWho');
     if (signedIn()) showWho(mem.who);
-    /* A reload in the middle of a sign-in (an iPhone drops a tab in the background while the passphrase is copied
-       from another app) comes back masked. */
-    if (input) maskInput(pending());
+    /* A reload in the middle of a sign-in or of a passphrase change (an iPhone drops a tab in the background while
+       the passphrase is copied from another app) comes back masked. */
+    if (input) maskInput(secretWanted());
     if (!log || !form || !input) return;
 
     form.addEventListener('submit', function (e) { e.preventDefault(); ask(input.value); });

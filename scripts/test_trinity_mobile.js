@@ -306,6 +306,65 @@ const asks = (p) => p.calls.filter(c => c.url.endsWith('/ask'));
     check(/<textarea id="trInput"/.test(panel) && !/<input id="trInput"/.test(panel),
       'the chat box is a text area, where neither iOS nor Safari offers saved passwords or the keychain key');
   }
+  // Changing a passphrase, signed in (owner, 2026-10-07: "so that its more secure for them"). Each step's reply
+  // carries next: 'passphrase' and the change's own token; every answer goes in the passphrase box and shows as
+  // dots, and the box stays up through a dropped line, an edge limit and a reload until a reply ends the change.
+  {
+    const CT = 'chng-token-0000000000000001', NEWP = 'river bend 19', OLDP = PASS;
+    const START = { status: 200, body: { answer: 'You can change your passphrase here. First, type the one you use now, so I know it is you. Say "cancel" to stop. What is your current passphrase?', session: CT, as: 'Matthew', next: 'passphrase', answered: true } };
+    const ASKNEW = { status: 200, body: { answer: 'Thank you. Now type the new passphrase you would like, at least 6 characters. Case and spacing do not count. What is your new passphrase?', as: 'Matthew', next: 'passphrase', answered: true } };
+    const AGAIN = { status: 200, body: { answer: 'Type the new one once more, exactly the same, so I know it is right. What is your new passphrase?', as: 'Matthew', next: 'passphrase', answered: true } };
+    const DONE = { status: 200, body: { answer: 'Done. Your passphrase is changed, and from now on only the new one opens your sign-in. You are still signed in here, and anywhere else you were signed in has been signed out.', session: 'sess-token-00000000000000002', as: 'Matthew', answered: true } };
+    const CANCELLED = { status: 200, body: { answer: 'No problem, I stopped. Your passphrase is the same as before, and you are still signed in.', session: 'sess-token-00000000000000003', as: 'Matthew', answered: true } };
+    const signedInStore = () => ({ trinity_session: 'sess-token-00000000000000001', trinity_session_who: 'Matthew' });
+    let n = 0;
+    const p = page({ store: signedInStore(), route: (u) => u === '/ask' ? [START, ASKNEW, AGAIN, DONE][n++] : {} });
+    const chat = p.input();
+    await p.say('Change my passphrase');
+    check(p.masked() && p.secret() !== chat && p.store.trinity_session === CT && /Signed in as Matthew/.test(p.els.trWho.textContent),
+      'asked to change it, the passphrase box takes the chat box\'s place, holding the change\'s token, still signed in');
+    await p.say(OLDP);
+    check(p.masked() && asks(p)[1].body.session === CT, 'the current one goes with the change\'s token, and the box stays for the new one');
+    await p.say(NEWP);
+    check(p.masked(), 'and stays for the new one again');
+    await p.say(NEWP);
+    check(!p.secretForm() && p.chatClean() && p.els.trAsk.style.display === '' && p.store.trinity_session === DONE.body.session
+      && /Signed in as Matthew/.test(p.els.trWho.textContent), 'done: the passphrase box is gone, the chat box is back, signed in on the fresh session');
+    check(!p.rows().some(r => r.indexOf(OLDP) >= 0 || r.indexOf(NEWP) >= 0) && !keptHas(p, OLDP) && !keptHas(p, NEWP)
+      && p.rows().filter(r => r === '••••••').length === 3, 'every answer in the change is dots on screen and in what the tab keeps');
+    // a dropped line in the middle: still masked, still the change's token, and she asks for it again
+    let m = 0;
+    const q = page({ store: signedInStore(), route: (u) => u === '/ask' ? [START, 'throw', ASKNEW][m++] : {} });
+    await q.say('new passphrase');
+    await q.say(OLDP);
+    check(q.masked() && q.store.trinity_session === CT, 'a dropped line in the middle of a change leaves the passphrase box up and the token held');
+    check(/Try your passphrase again/.test(q.rows().slice(-1)[0]), 'and she asks for the passphrase again, not about "my changes"');
+    await q.say(OLDP);
+    check(!q.rows().some(r => r.indexOf(OLDP) >= 0) && !keptHas(q, OLDP) && asks(q)[2].body.session === CT, 'the retyped one is dots, not kept, and goes with the change\'s token');
+    // the edge's own limit in the middle
+    let k = 0;
+    const l = page({ store: signedInStore(), route: (u) => u === '/ask' ? [START, { status: 429, body: { answer: 'Too many questions at once. Give it a moment.', answered: false, cites: [] } }][k++] : {} });
+    await l.say('reset my password');
+    await l.say(OLDP);
+    check(l.masked(), 'a limit at the edge in the middle of a change leaves the passphrase box up');
+    // a reload in the middle comes back masked
+    const store = signedInStore();
+    const r1 = page({ store, route: () => START });
+    await r1.say('Change my passphrase');
+    const r2 = page({ store, route: () => ASKNEW });
+    check(r2.masked(), 'a reload in the middle of a change comes back with the passphrase box');
+    await r2.say(OLDP);
+    check(!r2.rows().some(r => r.indexOf(OLDP) >= 0) && !keptHas(r2, OLDP) && asks(r2)[0].body.session === CT, 'and what is typed after it is dots, not kept, with the change\'s token');
+    // cancel puts the chat box back, signed in
+    let c = 0;
+    const x = page({ store: signedInStore(), route: (u) => u === '/ask' ? [START, CANCELLED, { status: 200, body: { answer: 'Thirty-three and seventeen.', as: 'Matthew' } }][c++] : {} });
+    await x.say('Change my passphrase');
+    await x.say('cancel');
+    check(!x.secretForm() && x.chatClean() && /Signed in as Matthew/.test(x.els.trWho.textContent) && x.store.trinity_session === CANCELLED.body.session,
+      'a cancel puts the chat box back, signed in');
+    await x.say('what is the record?');
+    check(x.rows().some(r => r === 'what is the record?'), 'and what is asked next is shown as typed again');
+  }
   console.log(fails ? `trinity mobile: ${fails} FAILED` : 'trinity mobile: ALL PASS');
   process.exit(fails ? 1 : 0);
 })();
