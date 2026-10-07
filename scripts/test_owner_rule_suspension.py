@@ -5,8 +5,8 @@ sub-bar disclosure can post; card corrected by the owner to six picks about 7:44
 The page builder's standing-rules card hold stays a hard gate (exit 3, nothing written). The one exception is
 narrow and logged: slates/owner_rule_suspensions.jsonl (append-only; every pick an object {name, eid, units})
 waives a held item only when a line has date == the manifest's date (exact string), rule == "2026-10-02 (4)",
-scope == "numeric", the item is a numeric bar (gross below the 2c bar, net below the
-class bar, units over the J-096 rung of its fair) and its pick name is exactly a logged name. The whole waiver is
+scope == "numeric", the item is a numeric bar (gross or net below the 1c floor, units
+over the J-096 rung of its fair) and its pick name is exactly a logged name. The whole waiver is
 refused unless the card_note (the note the page renders) carries the disclosure stated positively ("owner-directed"
 or "owner directive", and "sub-bar"; "not owner-directed", "no owner directive", "not sub-bar" disclose nothing), no
 logged name is on more than one card pick, and every waived pick plays on the logged date (game.commence, with an
@@ -137,14 +137,15 @@ def stamped(r):
 # a sub-bar card: every hold on it is a numeric bar (gross, net, units over the rung, fair below the band)
 CLEAN = pick(1, 'Clean ML', away='C1', home='D1')                                                    # no hold
 THIN = pick(2, 'Thin ML', away='C2', home='D2', model=61.0)                                          # gross 1c, net -0.68c
-TOTAL = pick(3, 'Total Over 4.5', away='C3', home='D3', model=81.0, american=-400, mclass='total', line=4.5, side='over')  # gross 1c, net -0.12c
+TOTAL = pick(3, 'Total Over 4.5', away='C3', home='D3', model=82.0, american=-400, mclass='total', line=4.5, side='over')  # gross 2c, net 0.88c
 OFFRUNG = pick(4, 'OffRung ML', away='C4', home='D4', units='10u')                                   # 10u on a 5u rung
 SUBFAIR = pick(5, 'SubFair ML', away='C5', home='D5', model=55.0)                                   # fair below the 60c band
 SUB = [CLEAN, THIN, TOTAL, OFFRUNG, SUBFAIR]
 SUB_NAMES = [p['name'] for p in SUB[1:]]
-# No 2c floor (owner, 2026-10-07): a numeric hold is a side with NO positive edge, or units over its rung.
+# The 1c floor (owner, 2026-10-07: "have a 1c floor"): a numeric hold is a gross or a net under 1c, or units over
+# the rung. Thin's gross is exactly 1c, so only its net is held; Total's 0.88c net is positive and still under 1c.
 SUB_HELD = 5  # Thin: net; Total: net; OffRung: over the rung; SubFair: gross + net
-NUMERIC_TOKENS = ('net -0.68c - no positive net edge', 'net -0.12c - no positive net edge', "over the J-096 rung 5u")
+NUMERIC_TOKENS = ('net -0.68c below the 1c floor', 'net 0.88c below the 1c floor', "over the J-096 rung 5u")
 
 def held(rc, out, written):
     return rc == 3 and 'BUILD FAILED' in out and 'owner ruling 2026-10-02 (4)' in out and written == [] and 'OWNER SUSPENSION:' not in out

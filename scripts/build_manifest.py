@@ -29,8 +29,8 @@ candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{c
 STANDING RULES ARE HARD GATES (owner ruling 2026-10-02 (4): "NO - an owner-approved card cannot break a standing
 rule. Vegas rule, ladder sizes, all of it: hard gates, no exceptions."). The card refuses closed, nothing
 written, on a pick on or against a Las Vegas team, units off the J-096 ladder, and on every standing bar:
-card ask >= 85c, no positive gross or net edge (THE 2c FLOOR IS GONE: owner, 2026-10-07, "remove the 2c floor ...
-just like how it did with the 60c" - and there is no fair floor either), units other
+card ask >= 85c, gross < 1c or net < 1c (THE 1c FLOOR, every class: owner, 2026-10-07, "have a 1c floor" - it
+replaced the 2c floor he had removed earlier that day, and there is no fair floor), units other
 than the J-096 rung of its fair and gross (below 70 = 5u; 70-79 = 10u with gross >= 3c else 5u; 80-89 = 15u;
 90+ = 100u; fragility 2 one rung lower, fragility 3 refuses; tennis capped at 5u), a candidate missing model,
 gross_c or net_c, and a parlay short of 2c gross and 2c net (ruling (2), 2-4 legs, J-098). Every violation on
@@ -360,7 +360,7 @@ def price_card(c):
 
 # ---- the standing bars (RUNBOOK 2.3, J-096/J-097/J-098, owner rulings 2026-10-02) ----
 ASK_CUT_C = 85
-# NO 2c FLOOR (owner, 2026-10-07): a positive gross and net edge clears; no threshold constant is kept to restore.
+EDGE_FLOOR_C = 1.0  # owner, 2026-10-07: "have a 1c floor" - one number for the gross bar and the net bar, every class
 _RUNG_DOWN = {100: 15, 15: 10, 10: 5, 5: 5}  # fragility 2: one rung lower (5u is the lowest card rung)
 
 def j096_rung(fair_c, gross_c):
@@ -389,10 +389,10 @@ def bar_problems(c, pr):
     out = []
     if pr['cost_c'] >= ASK_CUT_C:
         out.append(f"card ask {_c(pr['cost_c'])} at or above the {ASK_CUT_C}c cut")
-    if not gross > 0:
-        out.append(f'gross {_c(gross)}: no positive gross edge')
-    if not net > 0:
-        out.append(f'net {_c(net)}: no positive net edge')
+    if gross < EDGE_FLOOR_C:
+        out.append(f'gross {_c(gross)} below the {EDGE_FLOOR_C:g}c floor')
+    if net < EDGE_FLOOR_C:
+        out.append(f'net {_c(net)} below the {EDGE_FLOOR_C:g}c floor')
     frag = c.get('fragility')
     if frag is not None and (type(frag) is not int or frag < 0):
         out.append(f'fragility {frag!r} is not a whole number from 0 (J-097)')

@@ -8,7 +8,7 @@ holds the CURRENT card - exit 3, the CARD HOLD path refresh.sh reports loudly, n
 or against a Las Vegas team (Raiders, Golden Knights, Aces, Athletics/A's, UNLV; a nickname counts only inside
 its own league, and the individual sports have no teams), its units are off the J-096 ladder (5u, 10u, 15u,
 100u, written exactly so), or it breaks a numeric standing bar (rulings (1), (2), (4)): card ask
->= 85c, gross < 2c, net below the class bar, units over the J-096 rung of its fair, a card_american that is not
+>= 85c, gross < 1c or net < 1c (the owner's 1c floor, 2026-10-07), units over the J-096 rung of its fair, a card_american that is not
 the best ask of its recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from the
 pick's "model X" sub (or its best_ask), the card price from card_american; a pick whose fair/price cannot be read
 is left unchecked on the numeric bars.
@@ -124,25 +124,34 @@ for B in BUILDERS:
     NUM = [
         ('fair 55c has negative gross at 60c ask', pick(1, 'SubFair ML', 'hockey/nhl', 'A', 'B', model=55.0, american=-150), 'gross'),
         ('card ask 85c at the cut', pick(1, 'Fav ML', 'hockey/nhl', 'A', 'B', units='100u', model=96.0, american=-567), '85c cut'),
-        # no 2c floor (owner, 2026-10-07): a side is held only with no positive edge
-        ('gross 1.0c but no positive net edge after the fee', pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=61.0, american=-150), 'no positive net edge'),
-        ('no positive gross edge (fair 60c at a 60c ask)', pick(1, 'Even ML', 'hockey/nhl', 'A', 'B', model=60.0, american=-150), 'no positive gross edge'),
+        # the 1c floor (owner, 2026-10-07: "have a 1c floor"): gross >= 1c AND net >= 1c, each checked on its own.
+        # A -150 card at Kalshi is 60c with a 1.68c fee.
+        ('gross 0.99c (fair 60.99c at a 60c ask)', pick(1, 'Even ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 60.99'), 'gross 0.99c below the 1c floor'),
+        ('gross 1.00c clears the gross floor, net -0.68c after the fee does not', pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=61.0, american=-150), 'net -0.68c below the 1c floor'),
+        ('net 0.99c (fair 62.67c at a 60c ask)', pick(1, 'Near ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 62.67'), 'net 0.99c below the 1c floor'),
         ('fair 66c carded at 10u (rung 5u)', pick(1, 'OffRung ML', 'hockey/nhl', 'A', 'B', units='10u', model=66.0, american=-150), 'J-096 rung'),
     ]
     for label, p, token in NUM:
         rc, log, written, _ = build(B, card([p]))
         check(f'{tag}: {label}: the card is held (exit 3), nothing written',
               rc == 3 and 'BUILD FAILED' in log and token in log and written == [], (rc, log[-300:], written))
-    # a spread with no positive net edge: fair 61.0c against Kalshi 60c (-150) -> net 1.0 - fee(60)=1.68 = -0.68c
-    sp = pick(1, 'Home1 -1.5', 'hockey/nhl', 'A', 'B', model=61.0, american=-150)
-    sp['market_class'] = 'spread'; sp['line'] = -1.5
-    rc, log, written, _ = build(B, card([sp]))
-    check(f'{tag}: a spread with no positive net edge is held', rc == 3 and 'no positive net edge' in log and written == [], (rc, log[-300:], written))
-    # and one with a small positive edge cards (no 2c floor): fair 63.5c -> net 1.82c
-    sp2 = pick(1, 'Home1 -1.5', 'hockey/nhl', 'A', 'B', model=63.5, american=-150)
-    sp2['market_class'] = 'spread'; sp2['line'] = -1.5
-    rc, log, written, _ = build(B, card([sp2]))
-    check(f'{tag}: a spread with a 1.82c net edge builds (no 2c floor)', rc == 0 and 'index.html' in written, (rc, log[-300:], written))
+    # each bar on its own: the gross at exactly 1.00c is not held, and a 0.99c net is held with its gross clear
+    rc, log, written, _ = build(B, card([pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=61.0, american=-150)]))
+    check(f'{tag}: gross 1.00c: no gross hold', rc == 3 and 'gross' not in log.split('BUILD FAILED', 1)[-1], (rc, log[-300:]))
+    rc, log, written, _ = build(B, card([pick(1, 'Near ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 62.67')]))
+    check(f'{tag}: net 0.99c with a 2.67c gross: the net alone is held', rc == 3 and 'gross' not in log.split('BUILD FAILED', 1)[-1], (rc, log[-300:]))
+    # net 1.00c builds: fair 62.68c at a 60c Kalshi ask, 2.68c gross less the 1.68c fee
+    rc, log, written, _ = build(B, card([pick(1, 'Floor ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 62.68')]))
+    check(f'{tag}: net 1.00c (fair 62.68c at a 60c ask) builds', rc == 0 and 'index.html' in written, (rc, log[-300:], written))
+    # every class: a spread at net 0.99c is held, at 1.00c and at 1.82c it builds
+    for model, held_net in (('61.0', 'net -0.68c'), ('62.67', 'net 0.99c'), ('62.68', None), ('63.5', None)):
+        sp = pick(1, 'Home1 -1.5', 'hockey/nhl', 'A', 'B', american=-150, sub=f'fixture - model {model}')
+        sp['market_class'] = 'spread'; sp['line'] = -1.5
+        rc, log, written, _ = build(B, card([sp]))
+        if held_net:
+            check(f'{tag}: a spread at fair {model}c ({held_net}) is held', rc == 3 and f'{held_net} below the 1c floor' in log and written == [], (rc, log[-300:], written))
+        else:
+            check(f'{tag}: a spread at fair {model}c (net >= 1c) builds', rc == 0 and 'index.html' in written, (rc, log[-300:], written))
     # card_american that is not the best ask of the recorded venues (DK -150 is 60c; card claims -130 = 56.5c)
     ba = pick(1, 'BadAm ML', 'hockey/nhl', 'A', 'B', model=66.0, american=-130)
     ba['best_ask'] = {'venue': 'dk', 'price': -150, 'read_at': '2099-10-04T14:51:00Z', 'cost_c': 60.0, 'fee_c': 0.0,

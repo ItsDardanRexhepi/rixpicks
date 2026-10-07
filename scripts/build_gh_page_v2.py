@@ -191,8 +191,8 @@ _sanitize_man(man)
 # but a manifest.json can land another way, and every build path (publish.yml, refresh.sh, record_final.yml)
 # builds whatever card has landed. So the CURRENT card (this manifest) is held - exit 3, refresh.sh's CARD HOLD,
 # nothing written - when a pick is on or against a Las Vegas team, its units are not exactly a J-096 rung, or it
-# breaks a numeric standing bar (owner rulings 2026-10-02 (1), (2), (4)): card ask >= 85c, gross < 2c,
-# net below the class bar, units over the J-096 rung of its fair, a card_american that is not the best ask of its
+# breaks a numeric standing bar (owner rulings 2026-10-02 (1), (2), (4)): card ask >= 85c, gross < 1c or
+# net < 1c (the owner's 1c floor, 2026-10-07), units over the J-096 rung of its fair, a card_american that is not the best ask of its
 # recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from each pick's "model X"
 # sub (build_manifest's own shape) or its best_ask block; unreadable fair/card price holds fail closed. The Vegas rule is the contract block below, the same block
 # build_manifest.vegas_hit runs: a league's Vegas nickname, home city or abbreviation as whole words anywhere in a
@@ -254,7 +254,7 @@ _UNIT_LADDER=('5u','10u','15u','100u')
 # numeric bars, mirroring build_manifest.py (bar_problems / j096_rung); the page builder re-checks them
 # from the manifest's own fields because a sub-bar card.json can land outside build_manifest.
 _ASK_CUT_C=85.0
-# NO 2c FLOOR (owner, 2026-10-07): a positive gross and net edge clears; there is no threshold constant to restore.
+_EDGE_FLOOR_C=1.0  # owner, 2026-10-07: "have a 1c floor" - one number for the gross bar and the net bar, every class
 _RUNG_INT={'5u':5,'10u':10,'15u':15,'100u':100}
 _POLY_US_PRICED=False  # 9/27 P1 (main 8:31): .com-gamma quotes never label .us-linked POLY chips (Bengals -150 vs .us -163 class). Flip True ONLY when analysis ships verified .us-sourced quotes; until then POLY chips are destination-only and excluded from best-line.  # add entries ONLY after verifying the .us slug live; verified 9/27: nyl->ny
 _EXCH_VENUES={'kalshi','poly','polymarket'}
@@ -435,8 +435,8 @@ def _standing_rule_holds(m):
         gross=round(fair-cost,6)
         net=round(gross-(_kfee_c(cost) if _is_kalshi_priced(p) else 0.0),6)
         if cost>=_ASK_CUT_C: out.append((p.get('name'),'ask_cut',f"{who}: card ask {cost:g}c at or above the 85c cut"))
-        if not gross>0: out.append((p.get('name'),'gross_bar',f"{who}: gross {gross:g}c - no positive gross edge"))
-        if not net>0: out.append((p.get('name'),'net_bar',f"{who}: net {net:g}c - no positive net edge"))
+        if gross<_EDGE_FLOOR_C: out.append((p.get('name'),'gross_bar',f"{who}: gross {gross:g}c below the {_EDGE_FLOOR_C:g}c floor"))
+        if net<_EDGE_FLOOR_C: out.append((p.get('name'),'net_bar',f"{who}: net {net:g}c below the {_EDGE_FLOOR_C:g}c floor"))
         u,base=_RUNG_INT.get(p.get('units')),_j096_rung(fair,gross)
         if u is not None and base and u>base:
             out.append((p.get('name'),'units_over_rung',f"{who}: units {p.get('units')!r} over the J-096 rung {base}u of its fair (fair {fair:g}c, gross {gross:g}c)"))
@@ -483,7 +483,7 @@ def _standing_rule_holds(m):
 # slates/owner_rule_suspensions.jsonl is append-only, one JSON object per line: {date, rule, scope, picks,
 # approved, logged_at}, every pick an object {name, eid, units} (non-empty strings). A held item is waived ONLY
 # when a line has date == this manifest's date (exact string), rule == "2026-10-02 (4)" and scope == "numeric",
-# the item is a numeric bar (gross below the 2c bar, net below the class bar, units over
+# the item is a numeric bar (gross or net below the 1c floor, units over
 # the J-096 rung of its fair) and its pick name is exactly a logged name - and the whole waiver is refused (nothing
 # waived) unless ALL of these hold: the card_note, the note the page actually renders, carries the disclosure
 # stated positively ("owner-directed" or "owner directive", and "sub-bar", any case, as whole words, and none of
