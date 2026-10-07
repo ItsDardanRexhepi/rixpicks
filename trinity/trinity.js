@@ -378,6 +378,9 @@
   var UNSURE_IN = 'I could not confirm that reached me, so it may or may not have gone through. If it was a change ' +
                   'to the site, ask me "my changes" before sending it again.';
   var UNSURE_SIGNIN = 'I could not confirm that reached me. Try your passphrase again in a moment.';
+  /* In the middle of changing a passphrase what was sent may have been a passphrase or a "cancel": sent again, the
+     Mac says where the change stands, even when it had already ended. */
+  var UNSURE_CHANGE = 'I could not confirm that reached me. Send the same again in a moment and I will tell you where it stands.';
 
   function ask(q) {
     q = String(q || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
@@ -385,7 +388,7 @@
     if (chips) chips.hidden = true;
     var wasSecret = secretNext || secretWanted();
     var held = !!getSession();
-    var unsure = signedIn() && !wasSecret ? UNSURE_IN : UNSURE_SIGNIN;
+    var unsure = signedIn() ? (wasSecret ? UNSURE_CHANGE : UNSURE_IN) : UNSURE_SIGNIN;
     row('me', wasSecret ? '\u2022\u2022\u2022\u2022\u2022\u2022' : q, null, '', true);
     if (input) { input.value = ''; if (input.style) input.style.height = ''; }
     if (secretBox) secretBox.value = '';

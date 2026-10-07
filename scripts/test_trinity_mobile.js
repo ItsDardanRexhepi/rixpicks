@@ -311,9 +311,9 @@ const asks = (p) => p.calls.filter(c => c.url.endsWith('/ask'));
   // dots, and the box stays up through a dropped line, an edge limit and a reload until a reply ends the change.
   {
     const CT = 'chng-token-0000000000000001', NEWP = 'river bend 19', OLDP = PASS;
-    const START = { status: 200, body: { answer: 'You can change your passphrase here. First, type the one you use now, so I know it is you. Say "cancel" to stop. What is your current passphrase?', session: CT, as: 'Matthew', next: 'passphrase', answered: true } };
-    const ASKNEW = { status: 200, body: { answer: 'Thank you. Now type the new passphrase you would like, at least 6 characters. Case and spacing do not count. What is your new passphrase?', as: 'Matthew', next: 'passphrase', answered: true } };
-    const AGAIN = { status: 200, body: { answer: 'Type the new one once more, exactly the same, so I know it is right. What is your new passphrase?', as: 'Matthew', next: 'passphrase', answered: true } };
+    const START = { status: 200, body: { answer: 'First, type the passphrase you use now so I know it is you, or say "cancel" to stop. What is your current passphrase?', session: CT, as: 'Matthew', next: 'passphrase', answered: true } };
+    const ASKNEW = { status: 200, body: { answer: 'Thank you. Choose a new one of at least 6 characters, where case and spacing do not count. What is your new passphrase?', as: 'Matthew', next: 'passphrase', answered: true } };
+    const AGAIN = { status: 200, body: { answer: 'One more time, exactly the same, so I know it is right: what is your new passphrase?', as: 'Matthew', next: 'passphrase', answered: true } };
     const DONE = { status: 200, body: { answer: 'Done. Your passphrase is changed, and from now on only the new one opens your sign-in. You are still signed in here, and anywhere else you were signed in has been signed out.', session: 'sess-token-00000000000000002', as: 'Matthew', answered: true } };
     const CANCELLED = { status: 200, body: { answer: 'No problem, I stopped. Your passphrase is the same as before, and you are still signed in.', session: 'sess-token-00000000000000003', as: 'Matthew', answered: true } };
     const signedInStore = () => ({ trinity_session: 'sess-token-00000000000000001', trinity_session_who: 'Matthew' });
@@ -338,7 +338,8 @@ const asks = (p) => p.calls.filter(c => c.url.endsWith('/ask'));
     await q.say('new passphrase');
     await q.say(OLDP);
     check(q.masked() && q.store.trinity_session === CT, 'a dropped line in the middle of a change leaves the passphrase box up and the token held');
-    check(/Try your passphrase again/.test(q.rows().slice(-1)[0]), 'and she asks for the passphrase again, not about "my changes"');
+    check(/Send the same again/.test(q.rows().slice(-1)[0]) && !/my changes|Try your passphrase/.test(q.rows().slice(-1)[0]),
+      'and she asks for the same again (a passphrase or a cancel), not about "my changes"');
     await q.say(OLDP);
     check(!q.rows().some(r => r.indexOf(OLDP) >= 0) && !keptHas(q, OLDP) && asks(q)[2].body.session === CT, 'the retyped one is dots, not kept, and goes with the change\'s token');
     // the edge's own limit in the middle
