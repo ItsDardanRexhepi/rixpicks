@@ -292,5 +292,5 @@ body.rp-nosync .ultrix-sync-line{display:none}
 /* One guest Dingers panel, shared by Home and Wooder. */
 body.tab-wooder #st-ding{display:block}
 
-/* Daily Wooder Dingers remain in the Wooder tab only. */
-body.tab-home #st-ding{display:none!important}
+/* Daily Dingers have their own date gate, independent of the official card. */
+body.tab-home #st-ding{display:block}
