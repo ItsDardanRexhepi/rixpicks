@@ -154,6 +154,85 @@
           "note": "Unpriced: Kalshi player market rules refer to 5:00 PM EDT (2:00 PM PT), not ESPN game at 5:00 PM PT; exact matching-event quote/rules not verified. Original leg retained."
         }
       ]
+    },
+    {
+      "id": "wi-20261008-nhl-4goal",
+      "sport": "nhl",
+      "title": "4-leg NHL goal selections - starts 5 PM PT",
+      "status": "NOT PLACED",
+      "bought": false,
+      "game_date": "2026-10-08",
+      "legs": [
+        {
+          "player": "Jimmy Snuggerud",
+          "market": "1+ goal",
+          "matchup": "SJ @ STL",
+          "time": "Thu Oct 8, 5:00 PM PT",
+          "event_id": "401891825",
+          "note": "Kalshi Yes 32c (+212 from cents), observed Oct 8 4:48 PM PT. Single-leg reference ask, fees excluded; no combined quote.",
+          "pricing": {
+            "venue": "KAL",
+            "cents": 32.0,
+            "as_of": "2026-10-08T23:48:15.091Z",
+            "url": "https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXNHLGOAL-26OCT08SJSTL&limit=100",
+            "ticker": "KXNHLGOAL-26OCT08SJSTL-STLJSNUGGERUD21-1",
+            "rules_primary": "If Jimmy Snuggerud records 1+ goals in the San Jose vs St. Louis NHL game originally scheduled for Oct 8, 2026, then the market resolves to Yes.",
+            "rules_secondary": "The following market refers to a player in the San Jose vs St. Louis NHL game originally scheduled for Oct 8, 2026. If a player is active but never enters the game, the market settles to the last fair market price before game start. Once a player enters the game, the market settles based on the player's goals recorded."
+          }
+        },
+        {
+          "player": "Kiefer Sherwood",
+          "market": "1+ goal",
+          "matchup": "SJ @ STL",
+          "time": "Thu Oct 8, 5:00 PM PT",
+          "event_id": "401891825",
+          "note": "Kalshi Yes 20c (+400 from cents), observed Oct 8 4:48 PM PT. Single-leg reference ask, fees excluded; no combined quote.",
+          "pricing": {
+            "venue": "KAL",
+            "cents": 20.0,
+            "as_of": "2026-10-08T23:48:15.091Z",
+            "url": "https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXNHLGOAL-26OCT08SJSTL&limit=100",
+            "ticker": "KXNHLGOAL-26OCT08SJSTL-SJKSHERWOOD44-1",
+            "rules_primary": "If Kiefer Sherwood records 1+ goals in the San Jose vs St. Louis NHL game originally scheduled for Oct 8, 2026, then the market resolves to Yes.",
+            "rules_secondary": "The following market refers to a player in the San Jose vs St. Louis NHL game originally scheduled for Oct 8, 2026. If a player is active but never enters the game, the market settles to the last fair market price before game start. Once a player enters the game, the market settles based on the player's goals recorded."
+          }
+        },
+        {
+          "player": "Artturi Lehkonen",
+          "market": "1+ goal",
+          "matchup": "COL @ CGY",
+          "time": "Thu Oct 8, 6:00 PM PT",
+          "event_id": "401892463",
+          "note": "Kalshi Yes 27c (+270 from cents), observed Oct 8 4:48 PM PT. Single-leg reference ask, fees excluded; no combined quote.",
+          "pricing": {
+            "venue": "KAL",
+            "cents": 27.0,
+            "as_of": "2026-10-08T23:48:15.353Z",
+            "url": "https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXNHLGOAL-26OCT08COLCGY&limit=100",
+            "ticker": "KXNHLGOAL-26OCT08COLCGY-COLALEHKONEN62-1",
+            "rules_primary": "If Artturi Lehkonen records 1+ goals in the Colorado vs Calgary NHL game originally scheduled for Oct 8, 2026, then the market resolves to Yes.",
+            "rules_secondary": "The following market refers to a player in the Colorado vs Calgary NHL game originally scheduled for Oct 8, 2026. If a player is active but never enters the game, the market settles to the last fair market price before game start. Once a player enters the game, the market settles based on the player's goals recorded."
+          }
+        },
+        {
+          "player": "Tomas Hertl",
+          "market": "1+ goal",
+          "matchup": "TOR @ VGK",
+          "time": "Thu Oct 8, 7:00 PM PT",
+          "event_id": "401892464",
+          "note": "Kalshi Yes 32c (+212 from cents), observed Oct 8 4:48 PM PT. Single-leg reference ask, fees excluded; no combined quote.",
+          "pricing": {
+            "venue": "KAL",
+            "cents": 32.0,
+            "as_of": "2026-10-08T23:48:15.223Z",
+            "url": "https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXNHLGOAL-26OCT08TORVGK&limit=100",
+            "ticker": "KXNHLGOAL-26OCT08TORVGK-VGKTHERTL48-1",
+            "rules_primary": "If Tomas Hertl records 1+ goals in the Toronto vs Vegas NHL game originally scheduled for Oct 8, 2026, then the market resolves to Yes.",
+            "rules_secondary": "The following market refers to a player in the Toronto vs Vegas NHL game originally scheduled for Oct 8, 2026. If a player is active but never enters the game, the market settles to the last fair market price before game start. Once a player enters the game, the market settles based on the player's goals recorded."
+          }
+        }
+      ],
+      "placement_note": "Separate 4-leg ticket. No combined quote. No wagers placed."
     }
   ]
 }
