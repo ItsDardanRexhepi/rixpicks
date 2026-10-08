@@ -1,182 +1,182 @@
 {
- "date": "2026-10-07",
- "date_label": "Wednesday, Oct 7",
- "updated": "Oct 7, 10:48 AM PT",
- "record": "33-17",
- "units_pl": "+14.81u",
- "units_ledger": null,
- "yesterday": "No official picks Tuesday",
- "status_note": "",
- "preview": false,
- "picks": [
-  {
-   "num": 1,
-   "name": "Jax State/Kennesaw St Over 49.5",
-   "odds": "+113",
-   "units": "5u",
-   "side": "over",
-   "game": {
-    "away": "Jacksonville State Gamecocks",
-    "home": "Kennesaw State Owls",
-    "commence": "2026-10-07T23:00:00Z",
-    "eid": "401871051"
-   },
-   "espn_league": "football/college-football",
-   "league": "CFB (FBS)",
-   "card_american": 113,
-   "card_source": "poly ask at lock 47c (Kalshi 48c)",
-   "card_ts": "2026-10-07T10:21:54-07:00",
-   "market_class": "total",
-   "line": 49.5,
-   "pick_line": 49.5,
-   "sub": "model 49.4 vs Polymarket 47c ask",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxncaaftotal/kxncaaftotal-26oct07jvstkenn",
-    "cents": 48.0,
-    "team": "50",
-    "gate_cents": 48.0,
-    "ticker": "KXNCAAFTOTAL-26OCT07JVSTKENN-50",
-    "side": "yes"
-   },
-   "best_ask": {
-    "venue": "poly",
-    "price": 47.0,
-    "read_at": "2026-10-07T17:21:43.262Z",
-    "line": 49.5,
-    "cost_c": 47.0,
-    "fee_c": 0.0,
-    "gross_c": 2.4,
-    "net_c": 2.4,
-    "compared": [
-     {
-      "venue": "poly",
-      "price": 47.0,
-      "read_at": "2026-10-07T17:21:43.262Z",
-      "line": 49.5
-     },
-     {
-      "venue": "kalshi",
-      "price": 48.0,
-      "read_at": "2026-10-07T17:21:27.185Z",
-      "line": 49.5
-     }
-    ]
-   },
-   "fair_kind": "ultrix-sharp"
-  },
-  {
-   "num": 2,
-   "name": "Brewers/Padres Under 7.5",
-   "odds": "+104",
-   "units": "5u",
-   "side": "under",
-   "game": {
-    "away": "Milwaukee Brewers",
-    "home": "San Diego Padres",
-    "commence": "2026-10-08T02:00:00Z",
-    "eid": "401908005"
-   },
-   "espn_league": "baseball/mlb",
-   "league": "MLB",
-   "card_american": 104,
-   "card_source": "poly ask at lock 49c (Kalshi 50c)",
-   "card_ts": "2026-10-07T10:28:53-07:00",
-   "market_class": "total",
-   "line": 7.5,
-   "pick_line": 7.5,
-   "sub": "model 50.4 vs Polymarket 49c ask",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxmlbtotal/kxmlbtotal-26oct072200milsd",
-    "cents": 50.0,
-    "team": "8",
-    "gate_cents": 50.0,
-    "ticker": "KXMLBTOTAL-26OCT072200MILSD-8",
-    "side": "no"
-   },
-   "best_ask": {
-    "venue": "poly",
-    "price": 49.0,
-    "read_at": "2026-10-07T17:28:51.355Z",
-    "line": 7.5,
-    "cost_c": 49.0,
-    "fee_c": 0.0,
-    "gross_c": 1.4,
-    "net_c": 1.4,
-    "compared": [
-     {
-      "venue": "poly",
-      "price": 49.0,
-      "read_at": "2026-10-07T17:28:51.355Z",
-      "line": 7.5
-     },
-     {
-      "venue": "kalshi",
-      "price": 50.0,
-      "read_at": "2026-10-07T17:28:35.648Z",
-      "line": 7.5
-     }
-    ]
-   },
-   "fair_kind": "ultrix-sharp"
-  },
-  {
-   "num": 3,
-   "name": "Liberty/Dream Under 170.5",
-   "odds": "+104",
-   "units": "5u",
-   "side": "under",
-   "game": {
-    "away": "New York Liberty",
-    "home": "Atlanta Dream",
-    "commence": "2026-10-07T23:30:00Z",
-    "eid": "401918297"
-   },
-   "espn_league": "basketball/wnba",
-   "league": "WNBA",
-   "card_american": 104,
-   "card_source": "poly ask at lock 49c (Kalshi 51c)",
-   "card_ts": "2026-10-07T10:28:53-07:00",
-   "market_class": "total",
-   "line": 170.5,
-   "pick_line": 170.5,
-   "sub": "model 50 vs Polymarket 49c ask",
-   "kalshi": {
-    "url": "https://kalshi.com/markets/kxwnbatotal/kxwnbatotal-26oct07nyatl",
-    "cents": 51.0,
-    "team": "171",
-    "gate_cents": 51.0,
-    "ticker": "KXWNBATOTAL-26OCT07NYATL-171",
-    "side": "no"
-   },
-   "best_ask": {
-    "venue": "poly",
-    "price": 49.0,
-    "read_at": "2026-10-07T17:28:52.446Z",
-    "line": 170.5,
-    "cost_c": 49.0,
-    "fee_c": 0.0,
-    "gross_c": 1.0,
-    "net_c": 1.0,
-    "compared": [
-     {
-      "venue": "poly",
-      "price": 49.0,
-      "read_at": "2026-10-07T17:28:52.446Z",
-      "line": 170.5
-     },
-     {
-      "venue": "kalshi",
-      "price": 51.0,
-      "read_at": "2026-10-07T17:28:37.768Z",
-      "line": 170.5
-     }
-    ]
-   },
-   "fair_kind": "ultrix-sharp"
-  }
- ],
- "parlay": null,
- "pick_content_hash": "521932d87d2604937e89b43a12f951c33aa60eb7b4e2626027eee94abbffeb4a",
- "card_note": "",
- "built_by": "build_manifest"
+  "date": "2026-10-07",
+  "date_label": "Wednesday, Oct 7",
+  "updated": "Oct 7, 10:55 PM PT",
+  "record": "35-18",
+  "units_pl": "+20.66u",
+  "units_ledger": null,
+  "yesterday": "No official picks Tuesday",
+  "status_note": "",
+  "preview": false,
+  "picks": [
+    {
+      "num": 1,
+      "name": "Jax State/Kennesaw St Over 49.5",
+      "odds": "+113",
+      "units": "5u",
+      "side": "over",
+      "game": {
+        "away": "Jacksonville State Gamecocks",
+        "home": "Kennesaw State Owls",
+        "commence": "2026-10-07T23:00:00Z",
+        "eid": "401871051"
+      },
+      "espn_league": "football/college-football",
+      "league": "CFB (FBS)",
+      "card_american": 113,
+      "card_source": "poly ask at lock 47c (Kalshi 48c)",
+      "card_ts": "2026-10-07T10:21:54-07:00",
+      "market_class": "total",
+      "line": 49.5,
+      "pick_line": 49.5,
+      "sub": "model 49.4 vs Polymarket 47c ask",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxncaaftotal/kxncaaftotal-26oct07jvstkenn",
+        "cents": 48.0,
+        "team": "50",
+        "gate_cents": 48.0,
+        "ticker": "KXNCAAFTOTAL-26OCT07JVSTKENN-50",
+        "side": "yes"
+      },
+      "best_ask": {
+        "venue": "poly",
+        "price": 47.0,
+        "read_at": "2026-10-07T17:21:43.262Z",
+        "line": 49.5,
+        "cost_c": 47.0,
+        "fee_c": 0.0,
+        "gross_c": 2.4,
+        "net_c": 2.4,
+        "compared": [
+          {
+            "venue": "poly",
+            "price": 47.0,
+            "read_at": "2026-10-07T17:21:43.262Z",
+            "line": 49.5
+          },
+          {
+            "venue": "kalshi",
+            "price": 48.0,
+            "read_at": "2026-10-07T17:21:27.185Z",
+            "line": 49.5
+          }
+        ]
+      },
+      "fair_kind": "ultrix-sharp"
+    },
+    {
+      "num": 2,
+      "name": "Brewers/Padres Under 7.5",
+      "odds": "+104",
+      "units": "5u",
+      "side": "under",
+      "game": {
+        "away": "Milwaukee Brewers",
+        "home": "San Diego Padres",
+        "commence": "2026-10-08T02:00:00Z",
+        "eid": "401908005"
+      },
+      "espn_league": "baseball/mlb",
+      "league": "MLB",
+      "card_american": 104,
+      "card_source": "poly ask at lock 49c (Kalshi 50c)",
+      "card_ts": "2026-10-07T10:28:53-07:00",
+      "market_class": "total",
+      "line": 7.5,
+      "pick_line": 7.5,
+      "sub": "model 50.4 vs Polymarket 49c ask",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxmlbtotal/kxmlbtotal-26oct072200milsd",
+        "cents": 50.0,
+        "team": "8",
+        "gate_cents": 50.0,
+        "ticker": "KXMLBTOTAL-26OCT072200MILSD-8",
+        "side": "no"
+      },
+      "best_ask": {
+        "venue": "poly",
+        "price": 49.0,
+        "read_at": "2026-10-07T17:28:51.355Z",
+        "line": 7.5,
+        "cost_c": 49.0,
+        "fee_c": 0.0,
+        "gross_c": 1.4,
+        "net_c": 1.4,
+        "compared": [
+          {
+            "venue": "poly",
+            "price": 49.0,
+            "read_at": "2026-10-07T17:28:51.355Z",
+            "line": 7.5
+          },
+          {
+            "venue": "kalshi",
+            "price": 50.0,
+            "read_at": "2026-10-07T17:28:35.648Z",
+            "line": 7.5
+          }
+        ]
+      },
+      "fair_kind": "ultrix-sharp"
+    },
+    {
+      "num": 3,
+      "name": "Liberty/Dream Under 170.5",
+      "odds": "+104",
+      "units": "5u",
+      "side": "under",
+      "game": {
+        "away": "New York Liberty",
+        "home": "Atlanta Dream",
+        "commence": "2026-10-07T23:30:00Z",
+        "eid": "401918297"
+      },
+      "espn_league": "basketball/wnba",
+      "league": "WNBA",
+      "card_american": 104,
+      "card_source": "poly ask at lock 49c (Kalshi 51c)",
+      "card_ts": "2026-10-07T10:28:53-07:00",
+      "market_class": "total",
+      "line": 170.5,
+      "pick_line": 170.5,
+      "sub": "model 50 vs Polymarket 49c ask",
+      "kalshi": {
+        "url": "https://kalshi.com/markets/kxwnbatotal/kxwnbatotal-26oct07nyatl",
+        "cents": 51.0,
+        "team": "171",
+        "gate_cents": 51.0,
+        "ticker": "KXWNBATOTAL-26OCT07NYATL-171",
+        "side": "no"
+      },
+      "best_ask": {
+        "venue": "poly",
+        "price": 49.0,
+        "read_at": "2026-10-07T17:28:52.446Z",
+        "line": 170.5,
+        "cost_c": 49.0,
+        "fee_c": 0.0,
+        "gross_c": 1.0,
+        "net_c": 1.0,
+        "compared": [
+          {
+            "venue": "poly",
+            "price": 49.0,
+            "read_at": "2026-10-07T17:28:52.446Z",
+            "line": 170.5
+          },
+          {
+            "venue": "kalshi",
+            "price": 51.0,
+            "read_at": "2026-10-07T17:28:37.768Z",
+            "line": 170.5
+          }
+        ]
+      },
+      "fair_kind": "ultrix-sharp"
+    }
+  ],
+  "parlay": null,
+  "pick_content_hash": "521932d87d2604937e89b43a12f951c33aa60eb7b4e2626027eee94abbffeb4a",
+  "card_note": "",
+  "built_by": "build_manifest"
 }
