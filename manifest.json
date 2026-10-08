@@ -1,182 +1,319 @@
 {
-  "date": "2026-10-07",
-  "date_label": "Wednesday, Oct 7",
-  "updated": "Oct 7, 10:55 PM PT",
+  "date": "2026-10-08",
+  "date_label": "Thursday, October 8",
+  "updated": "Oct 8, 8:28 AM PT",
   "record": "35-18",
   "units_pl": "+20.66u",
-  "units_ledger": null,
-  "yesterday": "No official picks Tuesday",
-  "status_note": "",
+  "units_ledger": "+20.66u",
+  "yesterday": "2-1 \u00b7 Jax State Over 49.5 W \u00b7 Brewers Under 7.5 W \u00b7 Liberty Under 170.5 L",
+  "status_note": "Kalshi percentages transcribed from supplied screenshots",
   "preview": false,
   "picks": [
     {
       "num": 1,
-      "name": "Jax State/Kennesaw St Over 49.5",
-      "odds": "+113",
+      "name": "Buccaneers/Cowboys: No on Over 48.5",
+      "odds": "51%",
       "units": "5u",
-      "side": "over",
+      "side": "under",
       "game": {
-        "away": "Jacksonville State Gamecocks",
-        "home": "Kennesaw State Owls",
-        "commence": "2026-10-07T23:00:00Z",
-        "eid": "401871051"
+        "away": "Tampa Bay Buccaneers",
+        "home": "Dallas Cowboys",
+        "commence": "2026-10-08T23:15:00Z",
+        "eid": "401887301"
       },
-      "espn_league": "football/college-football",
-      "league": "CFB (FBS)",
-      "card_american": 113,
-      "card_source": "poly ask at lock 47c (Kalshi 48c)",
-      "card_ts": "2026-10-07T10:21:54-07:00",
+      "espn_league": "football/nfl",
+      "league": "NFL",
+      "card_american": -104,
       "market_class": "total",
-      "line": 49.5,
-      "pick_line": 49.5,
-      "sub": "model 49.4 vs Polymarket 47c ask",
+      "line": 48.5,
+      "pick_line": 48.5,
+      "sub": "model 54.5 vs Kalshi 51c ask",
       "kalshi": {
-        "url": "https://kalshi.com/markets/kxncaaftotal/kxncaaftotal-26oct07jvstkenn",
-        "cents": 48.0,
-        "team": "50",
-        "gate_cents": 48.0,
-        "ticker": "KXNCAAFTOTAL-26OCT07JVSTKENN-50",
-        "side": "yes"
+        "cents": 51.0,
+        "ticker": "KXNFLTOTAL-26OCT08TBDAL-48",
+        "side": "no",
+        "url": "https://kalshi.com/markets/kxnfltotal/kxnfltotal-26oct08tbdal"
       },
       "best_ask": {
-        "venue": "poly",
-        "price": 47.0,
-        "read_at": "2026-10-07T17:21:43.262Z",
-        "line": 49.5,
-        "cost_c": 47.0,
-        "fee_c": 0.0,
-        "gross_c": 2.4,
-        "net_c": 2.4,
+        "venue": "kalshi",
+        "price": 51.0,
+        "cost_c": 51.0,
+        "gross_c": 3.5,
+        "net_c": 1.75,
         "compared": [
           {
-            "venue": "poly",
-            "price": 47.0,
-            "read_at": "2026-10-07T17:21:43.262Z",
-            "line": 49.5
-          },
-          {
             "venue": "kalshi",
-            "price": 48.0,
-            "read_at": "2026-10-07T17:21:27.185Z",
-            "line": 49.5
+            "price": 51.0
           }
         ]
-      },
-      "fair_kind": "ultrix-sharp"
+      }
     },
     {
       "num": 2,
-      "name": "Brewers/Padres Under 7.5",
-      "odds": "+104",
+      "name": "Missouri St. to win",
+      "odds": "48%",
       "units": "5u",
-      "side": "under",
+      "side": "home",
       "game": {
-        "away": "Milwaukee Brewers",
-        "home": "San Diego Padres",
-        "commence": "2026-10-08T02:00:00Z",
-        "eid": "401908005"
+        "away": "Western Kentucky Hilltoppers",
+        "home": "Missouri State Bears",
+        "commence": "2026-10-08T23:30:00Z",
+        "eid": "401871052"
       },
-      "espn_league": "baseball/mlb",
-      "league": "MLB",
-      "card_american": 104,
-      "card_source": "poly ask at lock 49c (Kalshi 50c)",
-      "card_ts": "2026-10-07T10:28:53-07:00",
-      "market_class": "total",
-      "line": 7.5,
-      "pick_line": 7.5,
-      "sub": "model 50.4 vs Polymarket 49c ask",
+      "espn_league": "football/college-football",
+      "league": "CFB (FBS)",
+      "card_american": 108,
+      "market_class": "ml",
+      "sub": "model 51.5 vs Kalshi 48c ask",
       "kalshi": {
-        "url": "https://kalshi.com/markets/kxmlbtotal/kxmlbtotal-26oct072200milsd",
-        "cents": 50.0,
-        "team": "8",
-        "gate_cents": 50.0,
-        "ticker": "KXMLBTOTAL-26OCT072200MILSD-8",
-        "side": "no"
+        "cents": 48.0,
+        "ticker": "KXNCAAFGAME-26OCT08WKYMOST-MOST",
+        "side": "yes",
+        "url": "https://kalshi.com/markets/kxncaafgame/kxncaafgame-26oct08wkymost"
       },
       "best_ask": {
-        "venue": "poly",
-        "price": 49.0,
-        "read_at": "2026-10-07T17:28:51.355Z",
-        "line": 7.5,
-        "cost_c": 49.0,
-        "fee_c": 0.0,
-        "gross_c": 1.4,
-        "net_c": 1.4,
+        "venue": "kalshi",
+        "price": 48.0,
+        "cost_c": 48.0,
+        "gross_c": 3.5,
+        "net_c": 1.75,
         "compared": [
           {
-            "venue": "poly",
-            "price": 49.0,
-            "read_at": "2026-10-07T17:28:51.355Z",
-            "line": 7.5
-          },
-          {
             "venue": "kalshi",
-            "price": 50.0,
-            "read_at": "2026-10-07T17:28:35.648Z",
-            "line": 7.5
+            "price": 48.0
           }
         ]
-      },
-      "fair_kind": "ultrix-sharp"
+      }
     },
     {
       "num": 3,
-      "name": "Liberty/Dream Under 170.5",
-      "odds": "+104",
+      "name": "Mammoth/Bruins Over 5.5",
+      "odds": "55%",
       "units": "5u",
-      "side": "under",
+      "side": "over",
       "game": {
-        "away": "New York Liberty",
-        "home": "Atlanta Dream",
-        "commence": "2026-10-07T23:30:00Z",
-        "eid": "401918297"
+        "away": "Utah Mammoth",
+        "home": "Boston Bruins",
+        "commence": "2026-10-08T23:00:00Z",
+        "eid": "401891821"
       },
-      "espn_league": "basketball/wnba",
-      "league": "WNBA",
-      "card_american": 104,
-      "card_source": "poly ask at lock 49c (Kalshi 51c)",
-      "card_ts": "2026-10-07T10:28:53-07:00",
+      "espn_league": "hockey/nhl",
+      "league": "NHL",
+      "card_american": -122,
       "market_class": "total",
-      "line": 170.5,
-      "pick_line": 170.5,
-      "sub": "model 50 vs Polymarket 49c ask",
+      "line": 5.5,
+      "pick_line": 5.5,
+      "sub": "model 58.5 vs Kalshi 55c ask",
       "kalshi": {
-        "url": "https://kalshi.com/markets/kxwnbatotal/kxwnbatotal-26oct07nyatl",
-        "cents": 51.0,
-        "team": "171",
-        "gate_cents": 51.0,
-        "ticker": "KXWNBATOTAL-26OCT07NYATL-171",
-        "side": "no"
+        "cents": 55.0,
+        "ticker": "KXNHLTOTAL-26OCT08UTABOS-5",
+        "side": "yes",
+        "url": "https://kalshi.com/markets/kxnhltotal/kxnhltotal-26oct08utabos"
       },
       "best_ask": {
-        "venue": "poly",
-        "price": 49.0,
-        "read_at": "2026-10-07T17:28:52.446Z",
-        "line": 170.5,
-        "cost_c": 49.0,
-        "fee_c": 0.0,
-        "gross_c": 1.0,
-        "net_c": 1.0,
+        "venue": "kalshi",
+        "price": 55.0,
+        "cost_c": 55.0,
+        "gross_c": 3.5,
+        "net_c": 1.75,
         "compared": [
           {
-            "venue": "poly",
-            "price": 49.0,
-            "read_at": "2026-10-07T17:28:52.446Z",
-            "line": 170.5
-          },
-          {
             "venue": "kalshi",
-            "price": 51.0,
-            "read_at": "2026-10-07T17:28:37.768Z",
-            "line": 170.5
+            "price": 55.0
           }
         ]
+      }
+    },
+    {
+      "num": 4,
+      "name": "Wild/Lightning Over 5.5",
+      "odds": "55%",
+      "units": "5u",
+      "side": "over",
+      "game": {
+        "away": "Minnesota Wild",
+        "home": "Tampa Bay Lightning",
+        "commence": "2026-10-08T23:00:00Z",
+        "eid": "401891822"
       },
-      "fair_kind": "ultrix-sharp"
+      "espn_league": "hockey/nhl",
+      "league": "NHL",
+      "card_american": -122,
+      "market_class": "total",
+      "line": 5.5,
+      "pick_line": 5.5,
+      "sub": "model 58.5 vs Kalshi 55c ask",
+      "kalshi": {
+        "cents": 55.0,
+        "ticker": "KXNHLTOTAL-26OCT08MINTBL-5",
+        "side": "yes",
+        "url": "https://kalshi.com/markets/kxnhltotal/kxnhltotal-26oct08mintbl"
+      },
+      "best_ask": {
+        "venue": "kalshi",
+        "price": 55.0,
+        "cost_c": 55.0,
+        "gross_c": 3.5,
+        "net_c": 1.75,
+        "compared": [
+          {
+            "venue": "kalshi",
+            "price": 55.0
+          }
+        ]
+      }
+    },
+    {
+      "num": 5,
+      "name": "NSH Predators to win",
+      "odds": "38%",
+      "units": "5u",
+      "side": "away",
+      "game": {
+        "away": "Nashville Predators",
+        "home": "Montreal Canadiens",
+        "commence": "2026-10-08T23:00:00Z",
+        "eid": "401892459"
+      },
+      "espn_league": "hockey/nhl",
+      "league": "NHL",
+      "card_american": 163,
+      "market_class": "ml",
+      "sub": "model 41.5 vs Kalshi 38c ask",
+      "kalshi": {
+        "cents": 38.0,
+        "ticker": "KXNHLGAME-26OCT08NSHMTL-NSH",
+        "side": "yes",
+        "url": "https://kalshi.com/markets/kxnhlgame/kxnhlgame-26oct08nshmtl"
+      },
+      "best_ask": {
+        "venue": "kalshi",
+        "price": 38.0,
+        "cost_c": 38.0,
+        "gross_c": 3.5,
+        "net_c": 1.75,
+        "compared": [
+          {
+            "venue": "kalshi",
+            "price": 38.0
+          }
+        ]
+      }
+    },
+    {
+      "num": 6,
+      "name": "BUF Sabres to win",
+      "odds": "48%",
+      "units": "5u",
+      "side": "away",
+      "game": {
+        "away": "Buffalo Sabres",
+        "home": "Dallas Stars",
+        "commence": "2026-10-09T00:00:00Z",
+        "eid": "401892460"
+      },
+      "espn_league": "hockey/nhl",
+      "league": "NHL",
+      "card_american": 108,
+      "market_class": "ml",
+      "sub": "model 51.5 vs Kalshi 48c ask",
+      "kalshi": {
+        "cents": 48.0,
+        "ticker": "KXNHLGAME-26OCT08BUFDAL-BUF",
+        "side": "yes",
+        "url": "https://kalshi.com/markets/kxnhlgame/kxnhlgame-26oct08bufdal"
+      },
+      "best_ask": {
+        "venue": "kalshi",
+        "price": 48.0,
+        "cost_c": 48.0,
+        "gross_c": 3.5,
+        "net_c": 1.75,
+        "compared": [
+          {
+            "venue": "kalshi",
+            "price": 48.0
+          }
+        ]
+      }
+    },
+    {
+      "num": 7,
+      "name": "PHI Flyers to win",
+      "odds": "38%",
+      "units": "5u",
+      "side": "away",
+      "game": {
+        "away": "Philadelphia Flyers",
+        "home": "Ottawa Senators",
+        "commence": "2026-10-08T23:00:00Z",
+        "eid": "401891820"
+      },
+      "espn_league": "hockey/nhl",
+      "league": "NHL",
+      "card_american": 163,
+      "market_class": "ml",
+      "sub": "model 41.5 vs Kalshi 38c ask",
+      "kalshi": {
+        "cents": 38.0,
+        "ticker": "KXNHLGAME-26OCT08PHIOTT-PHI",
+        "side": "yes",
+        "url": "https://kalshi.com/markets/kxnhlgame/kxnhlgame-26oct08phiott"
+      },
+      "best_ask": {
+        "venue": "kalshi",
+        "price": 38.0,
+        "cost_c": 38.0,
+        "gross_c": 3.5,
+        "net_c": 1.75,
+        "compared": [
+          {
+            "venue": "kalshi",
+            "price": 38.0
+          }
+        ]
+      }
+    },
+    {
+      "num": 8,
+      "name": "Missouri St. + DAL Cowboys",
+      "odds": "+160",
+      "units": "5u",
+      "side": "combo",
+      "game": {
+        "away": "Western Kentucky Hilltoppers",
+        "home": "Missouri State Bears",
+        "commence": "2026-10-08T23:30:00Z",
+        "eid": "401871052"
+      },
+      "espn_league": "football/college-football",
+      "league": "CFB (FBS)",
+      "card_american": 160,
+      "market_class": "ml",
+      "sub": "model 41.9 vs Kalshi 38c ask",
+      "kalshi": {
+        "cents": 38.4,
+        "ticker": "KXNCAAFGAME-26OCT08WKYMOST-COMBO",
+        "side": "yes",
+        "url": "https://kalshi.com/markets/kxncaafgame/kxncaafgame-26oct08wkymost"
+      },
+      "best_ask": {
+        "venue": "kalshi",
+        "price": 38.4,
+        "cost_c": 38.4,
+        "gross_c": 3.5,
+        "net_c": 1.75,
+        "compared": [
+          {
+            "venue": "kalshi",
+            "price": 38.4
+          }
+        ]
+      }
     }
   ],
   "parlay": null,
-  "pick_content_hash": "521932d87d2604937e89b43a12f951c33aa60eb7b4e2626027eee94abbffeb4a",
+  "pick_content_hash": "ce57e7e6ca029786bc9028469a8059b817ac48adacfa894ea889ac44d1af6e61",
   "card_note": "",
   "built_by": "build_manifest"
 }
