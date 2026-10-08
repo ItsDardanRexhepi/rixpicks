@@ -126,6 +126,34 @@
       ],
       "note": "Separate from Egbuka/Williams/Prescott ticket. Picks only, not a wager.",
       "prepared_at": "2026-10-08T16:46:45-07:00"
+    },
+    {
+      "id": "wi-20261008-clecws-2hr",
+      "sport": "mlb",
+      "title": "CLE at CWS - Vargas + Adell home-run selections",
+      "status": "NOT PLACED",
+      "bought": false,
+      "game_date": "2026-10-08",
+      "kickoff": "2026-10-08T17:00:00-07:00",
+      "placement_note": "Separate 2-HR ticket, not the daily card. No combined price.",
+      "legs": [
+        {
+          "player": "Miguel Vargas",
+          "market": "1+ home run",
+          "matchup": "CLE @ CWS",
+          "time": "Thu Oct 8, 5:00 PM PT",
+          "event_id": "401907993",
+          "note": "Unpriced: Kalshi player market rules refer to 5:00 PM EDT (2:00 PM PT), not ESPN game at 5:00 PM PT; exact matching-event quote/rules not verified. Original leg retained."
+        },
+        {
+          "player": "Jo Adell",
+          "market": "1+ home run",
+          "matchup": "CLE @ CWS",
+          "time": "Thu Oct 8, 5:00 PM PT",
+          "event_id": "401907993",
+          "note": "Unpriced: Kalshi player market rules refer to 5:00 PM EDT (2:00 PM PT), not ESPN game at 5:00 PM PT; exact matching-event quote/rules not verified. Original leg retained."
+        }
+      ]
     }
   ]
 }
