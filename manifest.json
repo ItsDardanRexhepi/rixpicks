@@ -273,47 +273,26 @@
           }
         ]
       }
-    },
-    {
-      "num": 8,
-      "name": "Missouri St. + DAL Cowboys",
-      "odds": "+160",
-      "units": "5u",
-      "side": "combo",
-      "game": {
-        "away": "Western Kentucky Hilltoppers",
-        "home": "Missouri State Bears",
-        "commence": "2026-10-08T23:30:00Z",
-        "eid": "401871052"
-      },
-      "espn_league": "football/college-football",
-      "league": "CFB (FBS)",
-      "card_american": 160,
-      "market_class": "ml",
-      "sub": "model 41.9 vs Kalshi 38c ask",
-      "kalshi": {
-        "cents": 38.4,
-        "ticker": "KXNCAAFGAME-26OCT08WKYMOST-COMBO",
-        "side": "yes",
-        "url": "https://kalshi.com/markets/kxncaafgame/kxncaafgame-26oct08wkymost"
-      },
-      "best_ask": {
-        "venue": "kalshi",
-        "price": 38.4,
-        "cost_c": 38.4,
-        "gross_c": 3.5,
-        "net_c": 1.75,
-        "compared": [
-          {
-            "venue": "kalshi",
-            "price": 38.4
-          }
-        ]
-      }
     }
   ],
-  "parlay": null,
-  "pick_content_hash": "ce57e7e6ca029786bc9028469a8059b817ac48adacfa894ea889ac44d1af6e61",
+  "parlay": {
+    "title": "2-Leg Combo",
+    "label": "2-Leg Combo (+160)",
+    "price": 160,
+    "cents": 38.4,
+    "legs": [
+      "Missouri St. to win",
+      "DAL Cowboys to win"
+    ],
+    "routes": {
+      "KAL": {
+        "price": 160,
+        "verified": false
+      }
+    },
+    "note": "2-Leg Combo (NCAAF / NFL): Missouri St. (48%) + DAL Cowboys (80%) \u00b7 5u"
+  },
+  "pick_content_hash": "1983ae0dd48ad8bda4f9985051e6c517583efe1c87cf8b1017b71c4d86fb78f4",
   "card_note": "",
   "built_by": "build_manifest"
 }
