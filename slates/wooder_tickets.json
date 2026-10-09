@@ -3,67 +3,6 @@
   "generated_at": "2026-10-08T11:10:23-07:00",
   "tickets": [
     {
-      "id": "wi-20261008-tbdal-3leg",
-      "sport": "nfl",
-      "title": "TB at DAL - Thu Oct 8, 5:15 PM PT",
-      "status": "NOT PLACED",
-      "bought": false,
-      "game_date": "2026-10-08",
-      "kickoff": "2026-10-08T17:15:00-07:00",
-      "legs": [
-        {
-          "player": "Emeka Egbuka",
-          "market": "4+ receptions",
-          "matchup": "TB @ DAL",
-          "time": "Thu Oct 8, 5:15 PM PT",
-          "note": "Kalshi Yes 41c (+144 from cents), observed Oct 7 10:04 AM PT. 810 contracts at best ask; fees excluded. Per leg only, no combined quote.",
-          "pricing": {
-            "venue": "KAL",
-            "cents": 41,
-            "as_of": "2026-10-07T10:04:52-07:00",
-            "url": "https://kalshi.com/markets/kxnflrec/pro-football-player-receptions/kxnflrec-26oct08tbdal",
-            "best_ask_contracts": 810
-          }
-        },
-        {
-          "player": "Javonte Williams",
-          "market": "4+ receptions",
-          "matchup": "TB @ DAL",
-          "time": "Thu Oct 8, 5:15 PM PT",
-          "note": "Unpriced: Kalshi listed this exact leg but its selected book showed no contracts available at Oct 7 10:05 AM PT. DK Predictions lists 4+, but a standalone quote and market-specific rules were not verified.",
-          "availability": {
-            "kalshi_url": "https://kalshi.com/markets/kxnflrec/pro-football-player-receptions/kxnflrec-26oct08tbdal",
-            "dkp_url": "https://predictions.draftkings.com/en/event/tb-buccaneers-%40-dal-cowboys/34118137",
-            "as_of": "2026-10-07T10:05:11-07:00",
-            "status": "unpriced"
-          }
-        },
-        {
-          "player": "Dak Prescott",
-          "market": "275+ passing yards",
-          "matchup": "TB @ DAL",
-          "time": "Thu Oct 8, 5:15 PM PT",
-          "note": "Kalshi Yes 46c (+117 from cents), observed Oct 7 10:05 AM PT. 13,145.6 contracts at best ask; fees excluded. DK Predictions showed 270+ and 280+, not 275+. Per leg only, no combined quote.",
-          "pricing": {
-            "venue": "KAL",
-            "cents": 46,
-            "as_of": "2026-10-07T10:05:43-07:00",
-            "url": "https://kalshi.com/markets/kxnflpassyds/pro-football-passing-yards/kxnflpassyds-26oct08tbdal",
-            "best_ask_contracts": 13145.6
-          }
-        }
-      ],
-      "notes": "Picks only. No wagers placed. No combined odds. Contract prices are snapshots, not guaranteed execution.",
-      "sources": {
-        "game": "https://www.buccaneers.com/news/how-to-watch-buccaneers-at-cowboys-week-5-2026",
-        "receptions": "https://kalshi.com/markets/kxnflrec/pro-football-player-receptions/kxnflrec-26oct08tbdal",
-        "passing_yards": "https://kalshi.com/markets/kxnflpassyds/pro-football-passing-yards/kxnflpassyds-26oct08tbdal",
-        "dk_predictions": "https://predictions.draftkings.com/en/event/tb-buccaneers-%40-dal-cowboys/34118137"
-      },
-      "settlement_note": "Kalshi: active player with no snap settles to a fair price before game start; after at least one snap, even if nullified by penalty, settles on recorded receptions or passing yards.",
-      "public_alias": "Wooder Ice"
-    },
-    {
       "id": "wi-20261008-clecws-2hr",
       "sport": "mlb",
       "title": "CLE at CWS - Vargas + Adell home-run selections",
@@ -126,70 +65,6 @@
           "note": "Unpriced: Kalshi player market rules refer to 5:00 PM EDT (2:00 PM PT), not ESPN game at 5:00 PM PT; exact matching-event quote/rules not verified. Original leg retained."
         }
       ]
-    },
-    {
-      "id": "wi-20261008-tbdal-ml-td-yds",
-      "sport": "nfl",
-      "title": "TB at DAL - Dallas ML / Williams TD / Lamb 80+ yards",
-      "status": "NOT PLACED",
-      "bought": false,
-      "game_date": "2026-10-08",
-      "kickoff": "2026-10-08T17:15:00-07:00",
-      "legs": [
-        {
-          "player": "Dallas Cowboys",
-          "market": "Moneyline",
-          "matchup": "TB @ DAL",
-          "time": "Thu Oct 8, 5:15 PM PT",
-          "event_id": "401872980",
-          "note": "Kalshi Yes 81c (-426 from cents), observed Oct 8 4:46 PM PT. Single-leg reference ask, fees excluded; no combined quote.",
-          "pricing": {
-            "venue": "KAL",
-            "cents": 81.0,
-            "as_of": "2026-10-08T16:46:31-07:00",
-            "url": "https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXNFLGAME-26OCT08TBDAL&limit=100",
-            "ticker": "KXNFLGAME-26OCT08TBDAL-DAL",
-            "rules_primary": "If Dallas wins the TB Buccaneers vs DAL Cowboys Pro Football game originally scheduled for Oct 8, 2026, then the market resolves to Yes.",
-            "rules_secondary": "The following market refers to the team who wins the TB Buccaneers vs DAL Cowboys Pro Football game originally scheduled for Oct 8, 2026. If the game ends in a tie, the market will resolve to $0.50 for each team. If the game is postponed but begins within 48 hours from its originally scheduled start time, the market will remain open and resolve based on the official final result. If the game is not started within 48 hours, the market will resolve to a fair price.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
-          }
-        },
-        {
-          "player": "Javonte Williams",
-          "market": "1+ touchdown",
-          "matchup": "TB @ DAL",
-          "time": "Thu Oct 8, 5:15 PM PT",
-          "event_id": "401872980",
-          "note": "Kalshi Yes 65c (-186 from cents), observed Oct 8 4:46 PM PT. Single-leg reference ask, fees excluded; no combined quote.",
-          "pricing": {
-            "venue": "KAL",
-            "cents": 65.0,
-            "as_of": "2026-10-08T16:46:31-07:00",
-            "url": "https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXNFLTD-26OCT08TBDAL&limit=100",
-            "ticker": "KXNFLTD-26OCT08TBDAL-DALJWILLIAMS33-1",
-            "rules_primary": "If Javonte Williams scores at least 1+ touchdowns in the Tampa Bay vs Dallas Pro Football game originally scheduled for Oct 8, 2026, then the market resolves to Yes.",
-            "rules_secondary": "The following market refers to Javonte Williams in the Tampa Bay vs Dallas Pro Football game originally scheduled for Oct 8, 2026. If Javonte Williams is active but never takes a snap, the market settles to the fair market price before game start. Once Javonte Williams takes at least one snap, even if nullified by penalty, the market settles based on touchdowns scored.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
-          }
-        },
-        {
-          "player": "CeeDee Lamb",
-          "market": "80+ receiving yards",
-          "matchup": "TB @ DAL",
-          "time": "Thu Oct 8, 5:15 PM PT",
-          "event_id": "401872980",
-          "note": "Kalshi Yes 55c (-122 from cents), observed Oct 8 4:46 PM PT. Single-leg reference ask, fees excluded; no combined quote.",
-          "pricing": {
-            "venue": "KAL",
-            "cents": 55.00000000000001,
-            "as_of": "2026-10-08T16:46:31-07:00",
-            "url": "https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXNFLRECYDS-26OCT08TBDAL&limit=100",
-            "ticker": "KXNFLRECYDS-26OCT08TBDAL-DALCLAMB88-80",
-            "rules_primary": "If CeeDee Lamb records 80+ receiving yards in the Tampa Bay vs Dallas Pro Football game originally scheduled for Oct 8, 2026, then the market resolves to Yes.",
-            "rules_secondary": "The following market refers to CeeDee Lamb in the Tampa Bay vs Dallas Pro Football game originally scheduled for Oct 8, 2026. If CeeDee Lamb is active but never takes a snap, the market settles to the fair market price before game start. Once CeeDee Lamb takes at least one snap, even if nullified by penalty, the market settles based on receiving yards recorded.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners."
-          }
-        }
-      ],
-      "note": "Separate from Egbuka/Williams/Prescott ticket. Picks only, not a wager.",
-      "prepared_at": "2026-10-08T16:46:45-07:00"
     },
     {
       "id": "wi-20261008-colcgy-lehkonen",
