@@ -689,6 +689,85 @@
           "learning": "Overtime tail risk: high late-game foul frequency and an overtime period pushed total points to 199 vs 170.5. Model 50 vs Polymarket 49c ask (+104); unpriced OT variance remains a key filter to calibrate on high WNBA totals."
         }
       ]
+    },
+    {
+      "date": "2026-10-08",
+      "label": "Thursday, Oct 8",
+      "record": "3-4",
+      "units": "-2.94u",
+      "brief": "3-4, -2.94u on a 7-pick slate across NFL, CFB, and NHL. What won: Buccaneers/Cowboys Under 48.5 (-104, 40 total points) cashed cleanly as TNF short-week pace held; Mammoth/Bruins Over 5.5 (-122, 7 goals) hit with ease as Boston's offense dominated; Nashville Predators ML (+163, won 5-2 at Montreal) delivered a major plus-money cash (+8.15u). Losses named plainly: Wild/Lightning Over 5.5 (5 goals vs 5.5) fell half a goal short against elite goaltending; Missouri State ML (+108) dropped 34-13 on turnovers; Sabres ML (+108) was shut out 4-0 by Dallas; and Flyers ML (+163) lost a tight 2-1 defensive duel.",
+      "picks": [
+        {
+          "name": "Buccaneers/Cowboys: No on Over 48.5",
+          "game": "Buccaneers at Cowboys",
+          "odds": "-104",
+          "units": "5u",
+          "result": "W",
+          "score": "TB 24, DAL 16",
+          "_delta": "4.81",
+          "learning": "TNF short-week dynamic validated: offensive red-zone friction and defensive front dominance kept game to 40 total points."
+        },
+        {
+          "name": "Missouri St. to win",
+          "game": "Western Kentucky at Missouri State",
+          "odds": "+108",
+          "units": "5u",
+          "result": "L",
+          "score": "WKU 34, MOST 13",
+          "_delta": "-5.00",
+          "learning": "Turnover variance: a -3 turnover differential in non-Power 4 play breaks underdog moneyline models regardless of offensive yards."
+        },
+        {
+          "name": "Mammoth/Bruins Over 5.5",
+          "game": "Mammoth at Bruins",
+          "odds": "-122",
+          "units": "5u",
+          "result": "W",
+          "score": "UTA 1, BOS 6",
+          "_delta": "4.10",
+          "learning": "New franchise defensive transition: early-season defensive alignment gaps and heavy penalty kill concessions drove 7 total goals."
+        },
+        {
+          "name": "Wild/Lightning Over 5.5",
+          "game": "Wild at Lightning",
+          "odds": "-122",
+          "units": "5u",
+          "result": "L",
+          "score": "MIN 2, TBL 3",
+          "_delta": "-5.00",
+          "learning": "Elite goaltending suppression: Vasilevskiy and Gustavsson neutralized high-danger chances to strand the total at 5 goals."
+        },
+        {
+          "name": "NSH Predators to win",
+          "game": "Predators at Canadiens",
+          "odds": "+163",
+          "units": "5u",
+          "result": "W",
+          "score": "NSH 5, MTL 2",
+          "_delta": "8.15",
+          "learning": "Plus-money conversion: strong underlying 5-on-5 rush metrics backed by Saros yielded an 8.15u payout on a +163 road underdog."
+        },
+        {
+          "name": "BUF Sabres to win",
+          "game": "Stars at Sabres",
+          "odds": "+108",
+          "units": "5u",
+          "result": "L",
+          "score": "DAL 4, BUF 0",
+          "_delta": "-5.00",
+          "learning": "Shutout risk: home underdog facing an elite Stanley Cup contender and top-3 goaltender (Oettinger) requires higher margin of safety."
+        },
+        {
+          "name": "PHI Flyers to win",
+          "game": "Flyers at Senators",
+          "odds": "+163",
+          "units": "5u",
+          "result": "L",
+          "score": "PHI 1, OTT 2",
+          "_delta": "-5.00",
+          "learning": "Low-event margin squeeze: low-scoring 2-1 games heavily compress underdog conversion rates despite a 1-goal margin."
+        }
+      ]
     }
   ]
 }
