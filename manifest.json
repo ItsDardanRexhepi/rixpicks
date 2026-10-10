@@ -1,11 +1,11 @@
 {
-  "date": "2026-10-09",
-  "date_label": "Friday, October 9",
-  "updated": "Oct 9, 10:45 PM PT",
+  "date": "2026-10-10",
+  "date_label": "Saturday, October 10",
+  "updated": "Oct 10, 8:12 AM PT",
   "record": "39-24",
   "units_pl": "+12.92u",
   "units_ledger": "+12.92u",
-  "yesterday": "3-4 (-2.94u) \u00b7 Bucs Under 48.5 W \u00b7 Mammoth Over 5.5 W \u00b7 NSH Predators W \u00b7 Missouri St L \u00b7 Wild Over 5.5 L \u00b7 BUF Sabres L \u00b7 PHI Flyers L",
+  "yesterday": "1-2 (-4.80u) \u00b7 Iowa State/BYU Under 45.5 W \u00b7 San Jose St. ML L \u00b7 Rangers/Capitals Over 5.5 L",
   "status_note": "",
   "card_note": "",
   "built_by": "build_manifest",
@@ -14,140 +14,84 @@
   "picks": [
     {
       "num": 1,
-      "name": "Rangers/Capitals Over 5.5",
-      "odds": "-108",
-      "units": "5u",
-      "side": "over",
-      "line": 5.5,
-      "pick_line": 5.5,
-      "league": "NHL",
-      "espn_league": "hockey/nhl",
-      "card_american": -108,
-      "card_source": "poly ask at lock 52c",
-      "card_ts": "2026-10-09T07:55:00-07:00",
-      "sub": "model 53.2 vs Polymarket 52c ask",
-      "fair_kind": "ultrix-sharp",
-      "game": {
-        "away": "New York Rangers",
-        "home": "Washington Capitals",
-        "commence": "2026-10-09T23:00:00Z",
-        "eid": "401892466"
-      },
-      "kalshi": {
-        "cents": 53.0,
-        "side": "yes",
-        "ticker": "KXNHLTOTAL-26OCT09NYRWSH-5",
-        "url": "https://kalshi.com/markets/kxnhltotal/kxnhltotal-26oct09nyrwsh"
-      },
-      "best_ask": {
-        "venue": "poly",
-        "price": 52.0,
-        "cost_c": 52.0,
-        "gross_c": 1.2,
-        "net_c": 1.2,
-        "compared": [
-          {
-            "venue": "poly",
-            "price": 52.0,
-            "line": 5.5
-          },
-          {
-            "venue": "kalshi",
-            "price": 53.0,
-            "line": 5.5
-          }
-        ],
-        "line": 5.5
-      }
-    },
-    {
-      "num": 2,
-      "name": "Iowa State/BYU Under 45.5",
-      "odds": "+104",
-      "units": "5u",
-      "side": "under",
-      "line": 45.5,
-      "pick_line": 45.5,
-      "league": "CFB (FBS)",
-      "espn_league": "football/college-football",
-      "card_american": 104,
-      "card_source": "poly ask at lock 49c",
-      "card_ts": "2026-10-09T07:55:00-07:00",
-      "sub": "model 50.0 vs Polymarket 49c ask",
-      "fair_kind": "ultrix-sharp",
-      "game": {
-        "away": "Iowa State Cyclones",
-        "home": "BYU Cougars",
-        "commence": "2026-10-10T02:15:00Z",
-        "eid": "401856826"
-      },
-      "kalshi": {
-        "cents": 50.0,
-        "side": "no",
-        "ticker": "KXNCAAFTOTAL-26OCT09ISUBYU-45",
-        "url": "https://kalshi.com/markets/kxncaaftotal/kxncaaftotal-26oct09isubyu"
-      },
-      "best_ask": {
-        "venue": "poly",
-        "price": 49.0,
-        "cost_c": 49.0,
-        "gross_c": 1.0,
-        "net_c": 1.0,
-        "compared": [
-          {
-            "venue": "poly",
-            "price": 49.0,
-            "line": 45.5
-          },
-          {
-            "venue": "kalshi",
-            "price": 50.0,
-            "line": 45.5
-          }
-        ],
-        "line": 45.5
-      }
-    },
-    {
-      "num": 3,
-      "name": "San Jose St. to win",
-      "odds": "65.6%",
-      "units": "5u",
+      "name": "Pittsburgh Panthers ML",
+      "odds": "-170",
+      "units": "10u",
       "side": "home",
       "league": "CFB (FBS)",
       "espn_league": "football/college-football",
       "market_class": "ml",
-      "card_american": -191,
-      "card_source": "kalshi ask at lock 65.6c",
-      "card_ts": "2026-10-09T07:44:00-07:00",
-      "sub": "owner placed wager \u00b7 65.6c Kalshi ask",
+      "card_american": -170,
+      "card_source": "kalshi ask at lock 63c",
+      "card_ts": "2026-10-10T08:12:00-07:00",
+      "sub": "vs UNC \u00b7 9:00 AM PT \u00b7 model 74.5 vs Kalshi 63c ask",
       "fair_kind": "owner-placed",
       "game": {
-        "away": "Wyoming Cowboys",
-        "home": "San Jos\u00e9 State Spartans",
-        "commence": "2026-10-10T01:00:00Z",
-        "eid": "401864519"
+        "away": "North Carolina Tar Heels",
+        "home": "Pittsburgh Panthers",
+        "commence": "2026-10-10T16:00:00Z",
+        "eid": "401864520"
       },
       "kalshi": {
-        "cents": 65.6,
+        "cents": 63.0,
         "side": "yes",
-        "ticker": "KXNCAAFGAME-26OCT09WYOSJSU-SJSU",
-        "url": "https://kalshi.com/markets/kxncaafgame/kxncaafgame-26oct09wyosjsu"
+        "ticker": "KXNCAAFGAME-26OCT10UNCPITT-PITT",
+        "url": "https://kalshi.com/markets/kxncaafgame/kxncaafgame-26oct10uncpitt"
       },
       "best_ask": {
         "venue": "kalshi",
-        "price": 65.6,
-        "cost_c": 65.6,
-        "gross_c": 3.0,
-        "net_c": 1.5,
+        "price": 63.0,
+        "cost_c": 63.0,
+        "gross_c": 11.5,
+        "net_c": 11.5,
         "compared": [
           {
             "venue": "kalshi",
-            "price": 65.6
+            "price": 63.0
+          }
+        ]
+      }
+    },
+    {
+      "num": 2,
+      "name": "Ohio Bobcats ML",
+      "odds": "-117",
+      "units": "5u",
+      "side": "away",
+      "league": "CFB (FBS)",
+      "espn_league": "football/college-football",
+      "market_class": "ml",
+      "card_american": -117,
+      "card_source": "kalshi ask at lock 54c",
+      "card_ts": "2026-10-10T08:12:00-07:00",
+      "sub": "vs Central Michigan \u00b7 12:30 PM PT \u00b7 model 62.5 vs Kalshi 54c ask",
+      "fair_kind": "owner-placed",
+      "game": {
+        "away": "Ohio Bobcats",
+        "home": "Central Michigan Chippewas",
+        "commence": "2026-10-10T19:30:00Z",
+        "eid": "401864521"
+      },
+      "kalshi": {
+        "cents": 54.0,
+        "side": "yes",
+        "ticker": "KXNCAAFGAME-26OCT10OHIOCMU-OHIO",
+        "url": "https://kalshi.com/markets/kxncaafgame/kxncaafgame-26oct10ohiocmu"
+      },
+      "best_ask": {
+        "venue": "kalshi",
+        "price": 54.0,
+        "cost_c": 54.0,
+        "gross_c": 8.5,
+        "net_c": 8.5,
+        "compared": [
+          {
+            "venue": "kalshi",
+            "price": 54.0
           }
         ]
       }
     }
   ],
-  "pick_content_hash": "54cc577adc1956a45f10fb7ba52dd6671c7bc5026ba8b040a40bb9746b0cccaa"
+  "pick_content_hash": "e2dda46b76620806f259678cad139e46dc2954048ef9275d519590ac2c7c4da9"
 }
