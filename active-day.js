@@ -16,5 +16,8 @@
  /* Only the official date-bound schedule can establish an offday. Failure hides stale picks silently. */
  function offday(){var d=day();nativeFetch('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date='+d,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){return dingReady.then(function(){return Promise.resolve().then(function(){if(day()!==d||j.totalGames!==0||!Array.isArray(j.dates)||j.dates.length!==0)return;var box=document.getElementById('rpDing');if(!box)return;box.innerHTML='<div style="font-size:13px;color:#8a8f98;padding:6px 0">No MLB games today</div>';box.parentNode.parentNode.style.display='';});});}).catch(function(){});}
  if(document.readyState==='complete')offday();else window.addEventListener('load',offday);
+ /* Keep Wooder futures last without changing any ticket or futures data. */
+ function wooderFuturesLast(){var tab=document.getElementById('st-wooder'),f=document.getElementById('rpCmbFutWrap');if(tab&&f&&f.parentNode===tab)tab.appendChild(f);}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wooderFuturesLast);else wooderFuturesLast();
  window.rpActiveDay={day:day,itemDay:itemDay,fresh:fresh,filter:filter,boundary:boundary,check:check};
 })();
