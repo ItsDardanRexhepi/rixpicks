@@ -768,6 +768,45 @@
           "learning": "Low-event margin squeeze: low-scoring 2-1 games heavily compress underdog conversion rates despite a 1-goal margin."
         }
       ]
+    },
+    {
+      "date": "2026-10-09",
+      "label": "Friday, Oct 9",
+      "record": "1-2",
+      "units": "-4.80u",
+      "brief": "1-2, -4.80u on a 3-pick Friday slate across NHL and CFB. What won: Iowa State/BYU Under 45.5 (+104, 34 total points vs 45.5) cashed cleanly (+5.20u) as BYU's defense held Iowa State to 10 points and controlled tempo throughout. Losses named plainly: Rangers/Capitals Over 5.5 (-108, 3 goals vs 5.5) was choked off by elite goaltending in a 2-1 duel; San Jose State ML (65.6% Kalshi / -191, lost 16-13 in OT) saw a 13-6 4th-quarter lead slip away on a late Wyoming touchdown before falling in overtime.",
+      "picks": [
+        {
+          "name": "Rangers/Capitals Over 5.5",
+          "game": "Rangers at Capitals",
+          "odds": "-108",
+          "units": "5u",
+          "result": "L",
+          "score": "NYR 1, WSH 2",
+          "_delta": "-5.00",
+          "learning": "Underlying pace neutralized by elite goaltending: Shesterkin and Thompson combined for 41 saves on 44 shots in a 2-1 defensive battle. Despite high pre-game shot generation projections, finishing rates stalled, leaving the total at 3 goals against 5.5."
+        },
+        {
+          "name": "San Jose St. to win",
+          "game": "Wyoming at San Jose State",
+          "odds": "-191 (65.6%)",
+          "units": "5u",
+          "result": "L",
+          "score": "WYO 16, SJSU 13 (OT)",
+          "_delta": "-5.00",
+          "learning": "Red zone stalling and overtime variance: San Jose State held a 13-6 lead deep in the 4th quarter, but a late Wyoming passing TD forced overtime. An opening OT field goal by Wyoming followed by an unfilled SJSU possession flipped the moneyline on a 65.6c favorite."
+        },
+        {
+          "name": "Iowa State/BYU Under 45.5",
+          "game": "Iowa State at BYU",
+          "odds": "+104",
+          "units": "5u",
+          "result": "W",
+          "score": "ISU 10, BYU 24",
+          "_delta": "5.20",
+          "learning": "Stifling defensive script validated: BYU's front seven held Iowa State to 10 points and 192 total yards, while controlling game pace. The game closed at 34 total points, comfortably staying under the 45.5 ceiling to cash +5.20u at +104."
+        }
+      ]
     }
   ]
 }

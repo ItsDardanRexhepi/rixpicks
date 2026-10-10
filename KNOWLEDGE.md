@@ -1,5 +1,46 @@
 # 'RixPicks Knowledge Base
 
+## System Learnings — Friday, October 9, 2026
+
+- **Card Record:** 1–2
+- **Day Units:** -4.80u
+- **Overall Program Record:** 39–24 (61.9%)
+- **Cumulative Units:** +12.92u
+
+---
+
+### Executive Overview
+The October 9 three-pick card across NHL and CFB produced 1 win and 2 losses, netting -4.80u on a 5u unit structure. Highlights included a clean cash on Iowa State/BYU Under 45.5 (+104, 34 total points vs 45.5, +5.20u) as BYU's elite front seven throttled the Cyclones' offense. Defeats occurred on Rangers/Capitals Over 5.5 (3 goals vs 5.5) where elite goaltending held a high-pace game to 2-1, and on San Jose State ML (65.6% Kalshi / -191, lost 16-13 in OT) where a 13-6 fourth-quarter lead dissolved on late-game red zone failure and an unrecovered overtime possession.
+
+---
+
+### 1. NHL: New York Rangers at Washington Capitals Over 5.5 (-108 · 5u)
+- **Pre-Game Model:** Model projected elevated 5-on-5 rush volume and power-play efficiency; Polymarket ask 52c (-108 odds).
+- **Result:** LOST (Capitals 2, Rangers 1 = 3 total goals).
+- **In-Game Flow:** Both teams generated steady shot volume (44 total shots on goal), but Igor Shesterkin (24 saves) and Logan Thompson (20 saves) neutralized high-danger finishing. The 2-1 margin held through the final 12 minutes without empty-net conversion.
+- **What the System Learned (Finishing Rate Suppression vs. Shot Generation):**
+  High expected-shot volumes fail to translate to total goal clearance when Tier-1 netminders post >.950 high-danger save percentages. In early-season inter-division matchups with top-tier starting goaltenders confirmed, the model must require a wider offensive margin of safety above 5.5.
+
+---
+
+### 2. CFB: Wyoming at San José State ML (-191 / 65.6% Kalshi · 5u)
+- **Pre-Game Model:** Owner-placed position; Kalshi ask 65.6c (-191 implied American odds).
+- **Result:** LOST (Wyoming 16, San José State 13 in Overtime).
+- **In-Game Flow:** San José State led 13-6 late in the 4th quarter behind 334 yards of total offense, but conceded an 8-yard touchdown pass to Tyler Hughes with 6:25 remaining to force overtime. In OT, Wyoming converted an opening field goal, and SJSU failed to score on its responding possession.
+- **What the System Learned (Heavy Favorite Overtime Fragility):**
+  In non-Power 4 college football, heavy home favorites (>65% implied probability) exhibit elevated variance in tied fourth-quarter scripts. College overtime rules (alternating red-zone possessions) eliminate yardage and field-position advantages, reducing heavy moneyline favorites to near coin-flip equity (50/50) once overtime is reached.
+
+---
+
+### 3. CFB: Iowa State at BYU Under 45.5 (+104 · 5u)
+- **Pre-Game Model:** Model fair 50.0 vs Polymarket 49c ask (+104 odds, +1.0c edge).
+- **Result:** WON (BYU 24, Iowa State 10 = 34 total points).
+- **In-Game Flow:** BYU's defense completely smothered Iowa State's ground game (94 rushing yards, 192 total yards), limiting the Cyclones to 10 points. Bear Bachmeier controlled tempo and bled clock in the second half, keeping scoring comfortably below the 45.5 line.
+- **What the System Learned (Stifling Conference Defensive Drag):**
+  Big 12 night matchups featuring dominant run defenses (BYU front seven) combined with methodical ball-control quarterbacks create sustained clock runoff. Total lines above 45.0 in projected sub-200-yard offensive performances offer significant resilience against late-game garbage-time scores.
+
+---
+
 ## System Learnings — Thursday, October 8, 2026
 
 - **Card Record:** 3–4
@@ -126,4 +167,4 @@ The October 7 slate verified the model's full-game total projections across coll
 When Claude Code's weekly usage resets:
 1. Ingest these learnings into the autonomous #23 learning engine post-game grading pipeline.
 2. Verify that the "October Elimination Bullpen Urgency" and "WNBA OT Volatility Buffer" heuristics are incorporated into future automated slate evaluations.
-3. Confirm that the cumulative record stands at 38–22 (+17.72u) across all tracking databases.
+3. Confirm that the cumulative record stands at 39–24 (+12.92u) across all tracking databases.
