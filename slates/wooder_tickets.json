@@ -459,13 +459,13 @@
     },
     {
       "id": "w1010-prob5",
-      "title": "Multisport Parlay",
+      "title": "Multisport Parlay +87",
       "author": "Wooder Ice",
       "date": "2026-10-10",
       "status": "NOT PLACED",
       "bought": false,
       "origin": "suggested",
-      "placement_note": "NOT PLACED. Kalshi combined price pending. Per-leg reference prices below are not a combined quote.",
+      "placement_note": "NOT PLACED. Kalshi combo, as of 11:12 AM PT. Moving-price reference snapshot, supplied by Julian's side from the view-only combo builder; not independently verified here. Not a leg-multiplication estimate or placed wager.",
       "legs": [
         {
           "player": "North Texas",
@@ -572,7 +572,10 @@
           "game_source_url": "https://www.espn.com/nhl/game/_/gameId/401892470/canucks-devils",
           "note": "KAL -270 (73c Yes ask), as of Oct 10, 10:53 AM PT. Verified unchanged at 11:07 AM PT. Reference snapshot, not an executable quote."
         }
-      ]
+      ],
+      "kalshi_combo_american": "+87",
+      "kalshi_combo_asof": "2026-10-10T11:12:00-07:00",
+      "kalshi_combo_provenance": "Verified peer supplied combo-builder quote; no source URL supplied; not independently verified."
     },
     {
       "id": "w1011-nfl7",
