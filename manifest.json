@@ -30,7 +30,7 @@
         "away": "North Carolina Tar Heels",
         "home": "Pittsburgh Panthers",
         "commence": "2026-10-10T16:00:00Z",
-        "eid": "401864520"
+        "eid": "401858256"
       },
       "kalshi": {
         "cents": 63.0,
@@ -57,7 +57,7 @@
       "name": "Ohio Bobcats ML",
       "odds": "-117",
       "units": "5u",
-      "side": "away",
+      "side": "home",
       "league": "CFB (FBS)",
       "espn_league": "football/college-football",
       "market_class": "ml",
@@ -67,10 +67,10 @@
       "sub": "vs Central Michigan \u00b7 12:30 PM PT \u00b7 model 62.5 vs Kalshi 54c ask",
       "fair_kind": "owner-placed",
       "game": {
-        "away": "Ohio Bobcats",
-        "home": "Central Michigan Chippewas",
+        "away": "Central Michigan Chippewas",
+        "home": "Ohio Bobcats",
         "commence": "2026-10-10T19:30:00Z",
-        "eid": "401864521"
+        "eid": "401866438"
       },
       "kalshi": {
         "cents": 54.0,
@@ -93,5 +93,5 @@
       }
     }
   ],
-  "pick_content_hash": "e2dda46b76620806f259678cad139e46dc2954048ef9275d519590ac2c7c4da9"
+  "pick_content_hash": "10e70a95cab879624b14139e7c9b58051257f1b2ecf9202479b768bd3874c09b"
 }
