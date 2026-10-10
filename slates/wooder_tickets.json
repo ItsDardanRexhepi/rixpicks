@@ -4,12 +4,12 @@
   "tickets": [
     {
       "id": "w1010-cash",
-      "title": "Cash - 4 legs",
+      "title": "Multisport Parlay",
       "date": "2026-10-10",
       "status": "NOT PLACED",
       "bought": false,
       "origin": "suggested",
-      "placement_note": "NOT PLACED. Separate selections only; no combined venue quote. No combined odds estimate shown. \"Cash\" is a title, not a guaranteed result.",
+      "placement_note": "NOT PLACED. Kalshi combined price pending. Per-leg reference prices below are not a combined quote.",
       "legs": [
         {
           "player": "Texas",
@@ -99,12 +99,12 @@
     },
     {
       "id": "w1010-six",
-      "title": "Multisport - 6 legs",
+      "title": "Multisport Parlay",
       "date": "2026-10-10",
       "status": "NOT PLACED",
       "bought": false,
       "origin": "suggested",
-      "placement_note": "NOT PLACED. Separate selections only; no combined venue quote. No combined odds estimate shown.",
+      "placement_note": "NOT PLACED. Kalshi combined price pending. Per-leg reference prices below are not a combined quote.",
       "legs": [
         {
           "player": "Texas",
@@ -236,12 +236,12 @@
     },
     {
       "id": "w1010-nhl",
-      "title": "NHL - 4 legs",
+      "title": "NHL Parlay",
       "date": "2026-10-10",
       "status": "NOT PLACED",
       "bought": false,
       "origin": "suggested",
-      "placement_note": "NOT PLACED. Separate selections only; no combined venue quote. No combined odds estimate shown.",
+      "placement_note": "NOT PLACED. Kalshi combined price pending. Per-leg reference prices below are not a combined quote.",
       "legs": [
         {
           "player": "Colorado",
@@ -331,12 +331,12 @@
     },
     {
       "id": "w1010-five",
-      "title": "Higher-payout draft - 5 legs",
+      "title": "Multisport Parlay",
       "date": "2026-10-10",
       "status": "NOT PLACED",
       "bought": false,
       "origin": "suggested",
-      "placement_note": "NOT PLACED. Separate selections only; no combined venue quote. No combined odds estimate shown. NJ margin and total are correlated; no independence-based payout claim.",
+      "placement_note": "NOT PLACED. Kalshi combined price pending. Per-leg reference prices below are not a combined quote. NJ margin and total are correlated; no independence-based payout estimate.",
       "legs": [
         {
           "player": "Texas",
