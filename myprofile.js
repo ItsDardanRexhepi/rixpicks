@@ -240,3 +240,15 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 /* No empty Wooder heading or border on NCAAF when there are no pure NCAAF tickets. */
 (function(){var s=document.createElement("style");s.textContent='body.tab-ncaaf #st-wooder:not(:has(#rpTix>[data-rplg="ncaaf"])){display:none!important}';document.head.appendChild(s);})();
+
+/* Keep ticket identifiers in data, not visitor-facing copy. */
+(function(){
+ function clean(s){return String(s||'').replace(/\bTicket\s+w[\w-]+\s*(?:[·|:-]\s*)?/gi,'');}
+ function sweep(){
+  var walk=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),n;
+  while((n=walk.nextNode())){if(n.parentElement&&n.parentElement.closest('script,style,textarea,input,[contenteditable]'))continue;var s=clean(n.nodeValue);if(s!==n.nodeValue)n.nodeValue=s;}
+  document.querySelectorAll('[title],[aria-label],[alt]').forEach(function(el){['title','aria-label','alt'].forEach(function(a){if(!el.hasAttribute(a))return;var v=el.getAttribute(a),s=clean(v);if(s!==v)el.setAttribute(a,s);});});
+ }
+ function start(){sweep();new MutationObserver(sweep).observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['title','aria-label','alt']});}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();
