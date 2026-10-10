@@ -228,3 +228,6 @@ var h1=document.querySelector('h1');if(h1){h1.style.position='relative';fab.styl
 tickSettle(null);(function rpSettleLoop(){if(getBets().some(function(b){return b.status==='open';}))tickSettle(null);setTimeout(rpSettleLoop,modalEl?5000:60000);})();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
+
+/* Wooder layout and date guard: load the existing guard when a generated index omits it. */
+(function(){if(!document.querySelector('script[src^="active-day.js"]')){var s=document.createElement("script");s.src="active-day.js?v=20261010-2";document.head.appendChild(s);}function labels(){var n=document.getElementById("rpWNote");if(n)n.innerHTML=n.innerHTML.replace("and combined odds are estimates.","and combined quotes are moving-price reference snapshots.");var b=document.getElementById("rpBatchIdeas");if(b&&b.previousElementSibling)b.previousElementSibling.innerHTML=b.previousElementSibling.innerHTML.replace("No combined price is quoted.","Combined prices appear only when supplied as actual venue reference quotes.");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",labels);else labels();})();
