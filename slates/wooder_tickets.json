@@ -4,12 +4,12 @@
   "tickets": [
     {
       "id": "w1010-cash",
-      "title": "Multisport Parlay",
+      "title": "Multisport Parlay +187",
       "date": "2026-10-10",
       "status": "NOT PLACED",
       "bought": false,
       "origin": "suggested",
-      "placement_note": "NOT PLACED. Kalshi combined price pending. Per-leg reference prices below are not a combined quote.",
+      "placement_note": "NOT PLACED. Kalshi combo, as of 10:55 AM PT. Moving-price reference snapshot, supplied by Julian's side from the view-only combo builder; not independently verified here. Not a leg-multiplication estimate or placed wager.",
       "legs": [
         {
           "player": "Texas",
@@ -95,16 +95,19 @@
           "game_source_url": "https://www.espn.com/nhl/game/_/gameId/401892470/canucks-devils",
           "note": "KAL -257 (72c Yes ask), as of Oct 10, 10:07 AM PT. DK price pending (not checked). Reference snapshot, not an executable quote."
         }
-      ]
+      ],
+      "kalshi_combo_american": "+187",
+      "kalshi_combo_asof": "2026-10-10T10:55:00-07:00",
+      "kalshi_combo_provenance": "Verified peer supplied combo-builder quote; no source URL supplied; not independently verified."
     },
     {
       "id": "w1010-six",
-      "title": "Multisport Parlay",
+      "title": "Multisport Parlay +505",
       "date": "2026-10-10",
       "status": "NOT PLACED",
       "bought": false,
       "origin": "suggested",
-      "placement_note": "NOT PLACED. Kalshi combined price pending. Per-leg reference prices below are not a combined quote.",
+      "placement_note": "NOT PLACED. Kalshi combo, as of 10:55 AM PT. Moving-price reference snapshot, supplied by Julian's side from the view-only combo builder; not independently verified here. Not a leg-multiplication estimate or placed wager.",
       "legs": [
         {
           "player": "Texas",
@@ -232,16 +235,19 @@
           "game_source_url": "https://www.espn.com/nhl/game/_/gameId/401892476/hurricanes-blackhawks",
           "note": "KAL -233 (70c Yes ask), as of Oct 10, 10:07 AM PT. DK price pending (not checked). Reference snapshot, not an executable quote."
         }
-      ]
+      ],
+      "kalshi_combo_american": "+505",
+      "kalshi_combo_asof": "2026-10-10T10:55:00-07:00",
+      "kalshi_combo_provenance": "Verified peer supplied combo-builder quote; no source URL supplied; not independently verified."
     },
     {
       "id": "w1010-nhl",
-      "title": "NHL Parlay",
+      "title": "NHL Parlay +345",
       "date": "2026-10-10",
       "status": "NOT PLACED",
       "bought": false,
       "origin": "suggested",
-      "placement_note": "NOT PLACED. Kalshi combined price pending. Per-leg reference prices below are not a combined quote.",
+      "placement_note": "NOT PLACED. Kalshi combo, as of 10:55 AM PT. Moving-price reference snapshot, supplied by Julian's side from the view-only combo builder; not independently verified here. Not a leg-multiplication estimate or placed wager.",
       "legs": [
         {
           "player": "Colorado",
@@ -327,16 +333,19 @@
           "game_source_url": "https://www.espn.com/nhl/game/_/gameId/401892470/canucks-devils",
           "note": "KAL -257 (72c Yes ask), as of Oct 10, 10:07 AM PT. DK price pending (not checked). Reference snapshot, not an executable quote."
         }
-      ]
+      ],
+      "kalshi_combo_american": "+345",
+      "kalshi_combo_asof": "2026-10-10T10:55:00-07:00",
+      "kalshi_combo_provenance": "Verified peer supplied combo-builder quote; no source URL supplied; not independently verified."
     },
     {
       "id": "w1010-five",
-      "title": "Multisport Parlay",
+      "title": "Multisport Parlay +789",
       "date": "2026-10-10",
       "status": "NOT PLACED",
       "bought": false,
       "origin": "suggested",
-      "placement_note": "NOT PLACED. Kalshi combined price pending. Per-leg reference prices below are not a combined quote. NJ margin and total are correlated; no independence-based payout estimate.",
+      "placement_note": "NOT PLACED. Kalshi combo, as of 10:55 AM PT. Moving-price reference snapshot, supplied by Julian's side from the view-only combo builder; not independently verified here. Not a leg-multiplication estimate or placed wager.",
       "legs": [
         {
           "player": "Texas",
@@ -443,7 +452,10 @@
           "game_source_url": "https://www.espn.com/nhl/game/_/gameId/401892481/kings-golden-knights",
           "note": "KAL -156 (61c Yes ask), as of Oct 10, 10:07 AM PT. DK price pending (not checked). Reference snapshot, not an executable quote."
         }
-      ]
+      ],
+      "kalshi_combo_american": "+789",
+      "kalshi_combo_asof": "2026-10-10T10:55:00-07:00",
+      "kalshi_combo_provenance": "Verified peer supplied combo-builder quote; no source URL supplied; not independently verified."
     }
   ]
 }
