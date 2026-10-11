@@ -95,6 +95,102 @@ var _mlt=((lg||'').indexOf('soccer/')===0&&mkt==='ml')?'3way':null;  /* card soc
 var bs=getBets();bs.unshift({id:Date.now(),ts:new Date().toISOString(),lg:lg,eid:pick.getAttribute('data-eid')||null,day:_day,away:away,home:home,side:side,sel:selTeam,market:mkt,line:line,mlType:_mlt,book:bookEl?bookEl.getAttribute('data-rpbook'):'',odds:odds,stake:stake,status:'open',result:null,units:null,src:'card'});
 saveBets(bs);closeModal();toast('Bet tracked');renderBetsInto();};}
 function manualSheet(){var h='<h3>Add a bet</h3><div class="rp-sub">Any platform, any game. Matched to live scores when possible.</div>';
+(function(){
+var RP_BOOKS=[{k:'DK',n:'DraftKings'},{k:'FD',n:'FanDuel'},{k:'ESPN',n:'theScore Bet'} /* U-GEO-003: ESPN BET sportsbook dead (became theScore Bet Dec 1 2025); key kept so saved platform picks survive the rename */,{k:'MGM',n:'BetMGM'},{k:'HR',n:'Hard Rock'},{k:'BR',n:'BetRivers'},{k:'KAL',n:'Kalshi'},{k:'POLY',n:'Polymarket'},{k:'B365',n:'bet365'},{k:'FAN',n:'Fanatics'}];
+var RP_LGS=['baseball/mlb','football/nfl','football/college-football','basketball/nba','basketball/wnba','hockey/nhl','soccer/usa.1','tennis/wta'];
+function ls(k,d){try{var v=localStorage.getItem(k);return v===null?d:JSON.parse(v);}catch(e){return d;}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function myBooks(){return ls('rp_books',[]);}
+function getBets(){return ls('rp_bets',[]);}
+function saveBets(b){sv('rp_bets',b);}
+function each(nl,fn){for(var i=0;i<nl.length;i++)fn(nl[i],i);}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function bookName(k){for(var i=0;i<RP_BOOKS.length;i++){if(RP_BOOKS[i].k===k)return RP_BOOKS[i].n;}return k;}
+var css=document.createElement('style');
+css.textContent=
+'.rp-fab{background:transparent;border:1px solid rgba(255,255,255,.18);color:#3BEBF5;font-weight:600;border-radius:999px;padding:5px 12px;font-size:11px;cursor:pointer;white-space:nowrap;margin-left:10px;flex-shrink:0;letter-spacing:.2px}'+
+'.rp-modal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:70;background:rgba(0,0,0,.66);display:flex;align-items:flex-end;justify-content:center}'+
+'.rp-sheet{background:#000;border-top:1px solid rgba(255,255,255,.09);border-radius:20px 20px 0 0;width:100%;max-width:520px;max-height:84vh;overflow-y:auto;padding:10px 20px 22px;color:#ECECF1;font-family:inherit}'+
+'.rp-grab{width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,.18);margin:2px auto 14px}'+
+'.rp-sheet h3{margin:0 0 2px;font-size:17px;font-weight:700;color:#F2F2F5;letter-spacing:-.2px}.rp-sub{color:#8A8F98;font-size:12.5px;margin-bottom:14px;line-height:1.45}'+
+'.rp-label{display:block;font-size:10.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#6E737C;margin:14px 0 8px}'+
+'.rp-pill{display:inline-block;margin:0 8px 8px 0;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:transparent;color:#D5D5DA;font-size:13px;cursor:pointer;transition:border-color .15s,color .15s}'+
+'.rp-pill.on{border-color:#10D5E1;color:#3BEBF5;background:rgba(16,213,225,.08)}'+
+'.rp-btn{display:block;width:100%;padding:13px;border:none;border-radius:12px;background:#00CCBF;color:#03232B;font-weight:700;font-size:15px;cursor:pointer;margin-top:14px;letter-spacing:.1px}'+
+'.rp-btn.ghost{background:transparent;color:#9A9AA3;border:1px solid rgba(255,255,255,.14)}'+
+'.rp-tabs{display:flex;background:#111111;border-radius:12px;padding:3px;margin:12px 0 16px}'+
+'.rp-tab{flex:1;text-align:center;padding:8px;border-radius:9px;color:#8A8F98;font-size:13.5px;font-weight:600;cursor:pointer;transition:background .15s,color .15s}'+
+'.rp-tab.on{background:rgba(16,213,225,.12);color:#3BEBF5}'+
+'.rp-stats{display:flex;background:#111111;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:12px 0;margin-bottom:14px}'+
+'.rp-stat{flex:1;text-align:center}'+
+'.rp-stat+.rp-stat{border-left:1px solid rgba(255,255,255,.07)}'+
+'.rp-stat b{display:block;font-size:16px;font-weight:700;color:#F2F2F5;margin-bottom:2px}'+
+'.rp-stat span{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#6E737C}'+
+'.rp-bet{border:1px solid rgba(255,255,255,.07);background:#111111;border-radius:14px;padding:12px 14px;margin-bottom:10px;font-size:13.5px;line-height:1.4}'+
+'.rp-bet .rp-live{color:#8A8F98;font-size:12px;margin-top:4px}'+
+'.rp-pos{color:#00CCBF}.rp-neg{color:#FF6B5E}'+
+'.rp-input{width:100%;box-sizing:border-box;background:#111111;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#ECECF1;padding:11px 12px;font-size:14px;margin-bottom:10px;outline:none}'+
+'.rp-input:focus{border-color:#10D5E1}'+
+'.rp-input::placeholder{color:#5C6068}'+
+'.rp-row{display:flex;gap:10px}.rp-row>*{flex:1}'+
+'.chip.rpmine{border-color:#10D5E1 !important;box-shadow:0 0 0 1px rgba(16,213,225,.5) inset}'+
+'.chip.rpdim{opacity:.45}'+
+'.rp-trackbtn{display:inline-block;margin:4px 0 0;font-size:11px;color:#00CCBF;border:1px solid rgba(0,204,191,.4);border-radius:999px;padding:4px 11px;cursor:pointer;background:transparent}'+
+'.rp-stats .rp-neg{color:#FF6B5E}'
++'@media (prefers-color-scheme: light){'
+'.rp-sheet{background:#FFFFFF;border-top-color:rgba(0,0,0,.08);color:#1B1B1F}'
+'.rp-sheet h3{color:#1B1B1F}.rp-sub{color:#6E737C}'
+'.rp-grab{background:rgba(0,0,0,.18)}'
+'.rp-tabs{background:#F0EFEB}'
+'.rp-tab{color:#6E737C}.rp-tab.on{background:#FFFFFF;color:#0B8A80;box-shadow:0 1px 3px rgba(0,0,0,.08)}'
+'.rp-stats{background:#F7F6F4;border-color:rgba(0,0,0,.06)}'
+'.rp-stat b{color:#1B1B1F}.rp-stat+.rp-stat{border-left-color:rgba(0,0,0,.07)}'
+'.rp-bet{background:#F7F6F4;border-color:rgba(0,0,0,.07);color:#1B1B1F}'
+'.rp-bet .rp-live{color:#6E737C}'
+'.rp-pill{border-color:rgba(0,0,0,.16);color:#3A3A40}'
+'.rp-pill.on{border-color:#00A99E;color:#0B8A80;background:rgba(0,204,191,.08)}'
+'.rp-input{background:#FFFFFF;border-color:rgba(0,0,0,.14);color:#1B1B1F}'
+'.rp-input::placeholder{color:#9AA0A8}'
+'.rp-btn.ghost{color:#6E737C;border-color:rgba(0,0,0,.14)}'
+'.rp-fab{border-color:rgba(0,153,143,.45);color:#0B8A80}'
+'.rp-label{color:#9AA0A8}';
+document.head.appendChild(css);
+var modalEl=null;
+function closeModal(){if(modalEl){if(window.__rpBooksOpen){sv('rp_books_asked',1);window.__rpBooksOpen=null;}modalEl.remove();modalEl=null;}}
+function openSheet(html){closeModal();modalEl=document.createElement('div');modalEl.className='rp-modal';modalEl.innerHTML='<div class="rp-sheet"><div class="rp-grab"></div>'+html+'</div>';modalEl.addEventListener('click',function(e){if(e.target===modalEl)closeModal();});document.body.appendChild(modalEl);return modalEl.firstChild;}
+function toast(msg){var t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;left:50%;bottom:70px;transform:translateX(-50%);background:#000000;border:1px solid #3BEBF5;color:#3BEBF5;padding:8px 16px;border-radius:18px;font-size:13px;z-index:80';document.body.appendChild(t);setTimeout(function(){t.remove();},2200);}
+/* --- My Books --- */
+function personalize(){var mine=myBooks();each(document.querySelectorAll('.chips'),function(c){var kids=Array.prototype.slice.call(c.querySelectorAll('.chip'));if(!kids.length)return;if(!mine.length){kids.forEach(function(ch){ch.classList.remove('rpmine');ch.classList.remove('rpdim');});return;}kids.sort(function(a,b){var am=mine.indexOf(a.getAttribute('data-book')||'')>=0?0:1;var bm=mine.indexOf(b.getAttribute('data-book')||'')>=0?0:1;return am-bm;});kids.forEach(function(ch){var m=mine.indexOf(ch.getAttribute('data-book')||'')>=0;ch.classList.toggle('rpmine',m);ch.classList.toggle('rpdim',!m);c.appendChild(ch);});});}
+function booksSheet(){window.__rpBooksOpen=1;var sel=myBooks().slice();var sh=openSheet('<h3>My Platforms</h3><div class="rp-sub">Tap the platforms you use. Picks highlight yours first - linked account sync lands here.</div><div id="rpPills"></div><button class="rp-btn" id="rpSaveBooks">Save</button>'+(sel.length?'<button class="rp-btn ghost" id="rpClearBooks">Clear my platforms</button>':''));
+var pills=sh.querySelector('#rpPills');
+RP_BOOKS.forEach(function(b){var p=document.createElement('span');p.className='rp-pill'+(sel.indexOf(b.k)>=0?' on':'');p.textContent=b.n;p.onclick=function(){var i=sel.indexOf(b.k);if(i>=0)sel.splice(i,1);else sel.push(b.k);p.classList.toggle('on');};pills.appendChild(p);});
+sh.querySelector('#rpSaveBooks').onclick=function(){sv('rp_books',sel);sv('rp_books_asked',1);personalize();closeModal();toast(sel.length?'Platforms saved':'Saved');};
+var clr=sh.querySelector('#rpClearBooks');if(clr)clr.onclick=function(){sv('rp_books',[]);personalize();closeModal();};}
+/* --- Track bet --- */
+function parseOdds(lbl){var m=/([+-]\d+)\s*$/.exec(lbl||'');return m?parseInt(m[1],10):null;}
+function trackSheet(pick){var away=pick.getAttribute('data-away')||'',home=pick.getAttribute('data-home')||'',side=pick.getAttribute('data-side')||'away',mkt=pick.getAttribute('data-market')||'ml',lg=pick.getAttribute('data-espn')||'';
+var selTeam=side==='away'?away:home;
+var chipsA=[];each(pick.querySelectorAll('.chip[data-book]'),function(ch){chipsA.push({book:ch.getAttribute('data-book'),lbl:ch.textContent.trim()});});
+var mine=myBooks();chipsA.sort(function(a,b){var am=mine.indexOf(a.book)>=0?0:1;var bm=mine.indexOf(b.book)>=0?0:1;return am-bm;});
+var h='<h3>Track this bet</h3><div class="rp-sub">'+esc(selTeam)+' '+(mkt==='spread'?'spread':'moneyline')+' &middot; '+esc(away)+' @ '+esc(home)+'</div>';
+if(chipsA.length){h+='<div class="rp-label">Book (yours first)</div>';chipsA.forEach(function(c,i){h+='<span class="rp-pill'+(i===0?' on':'')+'" data-rpbook="'+esc(c.book)+'" data-rpodds="'+(parseOdds(c.lbl)||'')+'">'+esc(c.lbl)+'</span>';});}
+h+='<div class="rp-row" style="margin-top:6px"><input class="rp-input" id="rpOdds" type="number" placeholder="Odds (e.g. -150)"><input class="rp-input" id="rpStake" type="number" step="0.1" min="0" placeholder="Stake (units)"></div>';
+if(mkt==='spread')h+='<input class="rp-input" id="rpLine" type="number" step="0.5" placeholder="Spread line (e.g. -3.5)">';
+h+='<button class="rp-btn" id="rpSaveBet">Track bet</button>';
+var sh=openSheet(h);
+each(sh.querySelectorAll('.rp-pill'),function(p){p.onclick=function(){each(sh.querySelectorAll('.rp-pill'),function(x){x.classList.remove('on');});p.classList.add('on');var o=p.getAttribute('data-rpodds');if(o)sh.querySelector('#rpOdds').value=o;};});
+var firstOdds=chipsA.length?parseOdds(chipsA[0].lbl):null;if(firstOdds)sh.querySelector('#rpOdds').value=firstOdds;
+sh.querySelector('#rpSaveBet').onclick=function(){
+var odds=rpInt(sh.querySelector('#rpOdds').value);var stake=rpNum(sh.querySelector('#rpStake').value);
+var lineEl=sh.querySelector('#rpLine');var line=lineEl&&lineEl.value!==''?rpNum(lineEl.value):null;
+var bookEl=sh.querySelector('.rp-pill.on');
+if(isNaN(odds)||odds===0||isNaN(stake)||stake<=0){toast('Enter nonzero odds and stake');return;}
+if(mkt==='spread'&&!(typeof line==='number'&&isFinite(line))){toast('Enter the spread line');return;}  /* same spread-line requirement on the card path */
+var _day=pick.getAttribute('data-date')||rpEventDay(pick.getAttribute('data-commence'));
+var _mlt=((lg||'').indexOf('soccer/')===0&&mkt==='ml')?'3way':null;  /* card soccer ML prices come from the books' three-way market - DNB is a separate market the card never quotes */
+var bs=getBets();bs.unshift({id:Date.now(),ts:new Date().toISOString(),lg:lg,eid:pick.getAttribute('data-eid')||null,day:_day,away:away,home:home,side:side,sel:selTeam,market:mkt,line:line,mlType:_mlt,book:bookEl?bookEl.getAttribute('data-rpbook'):'',odds:odds,stake:stake,status:'open',result:null,units:null,src:'card'});
+saveBets(bs);closeModal();toast('Bet tracked');renderBetsInto();};}
+function manualSheet(){var h='<h3>Add a bet</h3><div class="rp-sub">Any platform, any game. Matched to live scores when possible.</div>';
 h+='<div class="rp-row"><input class="rp-input" id="mAway" placeholder="Away team"><input class="rp-input" id="mHome" placeholder="Home team"></div>';
 h+='<div class="rp-row"><span class="rp-pill on" id="mSideA">Away</span><span class="rp-pill" id="mSideH">Home</span></div>';
 h+='<div class="rp-row"><span class="rp-pill on" id="mMktML">Moneyline</span><span class="rp-pill" id="mMktSp">Spread</span></div>';
@@ -265,7 +361,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  function stat(j,l){var keys=l.stat_keys||[l.stat_key],vals={},seen={};((j.boxscore||{}).players||[]).forEach(function(tm){(tm.statistics||[]).forEach(function(g){(g.athletes||[]).forEach(function(a){if(norm((a.athlete||{}).displayName)!==norm(l.player))return;keys.forEach(function(k){var i=(g.keys||[]).indexOf(k);if(i<0)return;var raw=(a.stats||[])[i];if(raw==null||raw===''||raw==='--')return;var n=Number(raw);if(Number.isFinite(n)){vals[k]=n;seen[k]=true;}});});});});return keys.every(function(k){return seen[k];})?keys.reduce(function(n,k){return n+vals[k];},0):null;}
  function thresholdRow(j,l){if(!j)return '<span class="rpwl unknown">? Stats unavailable</span>';var c=((j.header||{}).competitions||[])[0]||{},state=((c.status||{}).type||{}).state;if(state==='pre')return '<span class="rpwl pre">Scheduled · threshold pending</span>';var isTD=/anytime\s*td/i.test(l.market||''),n=isTD?td(j,l.player):stat(j,l),target=isTD?1:Number(l.target);if(n==null||!Number.isFinite(target))return '<span class="rpwl unknown">? Stats unavailable</span>';return n>=target?'<span class="rpwl hit">✓ '+(isTD?'Scored TD':esc(n+'/'+target+' '+(l.stat_label||'stat')))+' · threshold met</span>':'<span class="rpwl '+(state==='post'?'final':'pending')+'">'+(isTD?(state==='post'?'Final · no scored TD':'Live · no scored TD yet'):esc(n+'/'+target+' '+(l.stat_label||'stat'))+(state==='post'?' · Final':' · Live'))+'</span>';}
  function row(j,l){var hit=thresholdRow(j,l);if(!j)return hit;var c=((j.header||{}).competitions||[])[0]||{},st=c.status||{},state=(st.type||{}).state;if(state!=='in')return hit;var score=(c.competitors||[]).slice().sort(function(a,b){return a.homeAway==='away'?-1:1;}).map(function(x){return esc((x.team||{}).abbreviation||'?')+' '+(x.score==null?'?':esc(x.score));}).join(' - ');return '<span class="rpwl pending">LIVE · '+(Number(st.period)>4?'OT':'Q'+(st.period||'?'))+' · '+esc(st.displayClock||'clock unavailable')+' · '+score+'</span> · '+hit;}
- function paint(data){var cards=document.querySelectorAll('#rpTix > .rpnpick');if(!ledger||cards.length!==ledger.tickets.length)return;cards.forEach(function(card,i){var t=ledger.tickets[i];card.querySelectorAll('.rpw-games').forEach(function(b){b.remove();});var rs=card.querySelectorAll('.rptixtrk');(t.legs||[]).forEach(function(l,k){var old=rs[k];if(!old)return;var r=old.nextElementSibling;if(!r||!r.classList.contains('rpw-leg')){r=document.createElement('div');r.className='rpw-leg';old.insertAdjacentElement('afterend',r);}r.innerHTML=row(data[l.event_id],l);});});}
+ function paint(data){var cards=document.querySelectorAll('#rpTix > .rpnpick');if(!ledger||cards.length!==ledger.tickets.length)return;cards.forEach(function(card,i){var t=ledger.tickets[i];if(t.id==='w1011-atd24'){card.querySelectorAll('b').forEach(function(n){if(n.textContent==='David Montgomery'&&!(n.nextElementSibling&&n.nextElementSibling.classList.contains('rpw-injured'))){var tag=document.createElement('span');tag.className='rpw-injured';tag.style.cssText='color:#ff5c5c;font-size:11px;font-weight:700;margin-left:5px';tag.textContent='INJURED';tag.title='ESPN: Out, groin injury, Oct 11 11:45 AM PT';n.insertAdjacentElement('afterend',tag);}});}card.querySelectorAll('.rpw-games').forEach(function(b){b.remove();});var rs=card.querySelectorAll('.rptixtrk');(t.legs||[]).forEach(function(l,k){var old=rs[k];if(!old)return;var r=old.nextElementSibling;if(!r||!r.classList.contains('rpw-leg')){r=document.createElement('div');r.className='rpw-leg';old.insertAdjacentElement('afterend',r);}r.innerHTML=row(data[l.event_id],l);});});}
  async function update(){if(busy||document.hidden)return;busy=true;try{var r=await fetch('slates/wooder_tickets.json?tracker='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error();ledger=await r.json();var ids=Array.from(new Set(ledger.tickets.flatMap(function(t){return (t.legs||[]).map(function(l){return l.event_id;});})));var data={};await Promise.all(ids.map(async function(id){try{var r=await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event='+id,{cache:'no-store'});if(!r.ok)return;var j=await r.json();if(String((j.header||{}).id)===String(id))data[id]=j;}catch(e){}}));paint(data);}catch(e){document.querySelectorAll('#rpTix .rpw-games').forEach(function(b){b.innerHTML='<div class="rpwg unknown">Tracker unavailable · awaiting source</div>';});document.querySelectorAll('#rpTix .rpw-leg').forEach(function(b){b.innerHTML='<span class="rpwl unknown">? Stats unavailable</span>';});}finally{busy=false;}}
  var s=document.createElement('style');s.textContent='#rpTix .rptixtrk{display:none!important}.rpw-games{margin:8px 0 10px}.rpw-caption{font-size:10px;color:#929da5;margin-bottom:4px}.rpwg{font-size:12px;border-left:3px solid #687782;background:#111b20;padding:5px 8px;margin:3px 0;border-radius:4px}.rpwg.live{border-color:#efb54a;color:#ffcf76}.rpwg.pre{border-color:#687782;color:#a6b2bd}.rpwg.final{border-color:#a6b2bd;color:#dae1e6}.rpwg.unknown,.rpwl.unknown{color:#929da5}.rpw-leg{font-size:12px;margin:2px 0}.rpwl.hit{color:#5be3a0;font-weight:700}.rpwl.pending{color:#efb54a}.rpwl.pre{color:#a6b2bd}.rpwl.final{color:#c3ccd3}';document.head.appendChild(s);
  function start(){update();setInterval(update,60000);var tries=0,t=setInterval(function(){if(document.querySelector('#rpTix > .rpnpick')){update();clearInterval(t);}else if(++tries>20)clearInterval(t);},1000);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
