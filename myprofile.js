@@ -252,3 +252,5 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  function start(){sweep();new MutationObserver(sweep).observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['title','aria-label','alt']});}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
+/* Clarify service activity separately from reported user placement. */
+(function(){function fix(){var e=document.getElementById("rpWNote");if(e)e.textContent=e.textContent.replace("Picks only, no wagers placed.","Picks only, no wagers placed by RixPicks.");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",fix);else fix();})();
