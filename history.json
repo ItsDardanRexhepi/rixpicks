@@ -807,6 +807,35 @@
           "learning": "Stifling defensive script validated: BYU's front seven held Iowa State to 10 points and 192 total yards, while controlling game pace. The game closed at 34 total points, comfortably staying under the 45.5 ceiling to cash +5.20u at +104."
         }
       ]
+    },
+    {
+      "date": "2026-10-10",
+      "label": "Saturday, Oct 10",
+      "record": "1-1",
+      "units": "-5.73u",
+      "brief": "1-1, -5.73u on Saturday's 2-pick CFB card. What won: Ohio Bobcats ML (-117, 5u) dominated Central Michigan 31-14 (+4.27u) behind explosive second-half drives. Losses named plainly: Pittsburgh Panthers ML (-170, 10u, -10.00u) fell 21-17 to North Carolina after fourth-quarter stalled drives failed to overcome the deficit.",
+      "picks": [
+        {
+          "name": "Pittsburgh Panthers ML",
+          "game": "North Carolina at Pittsburgh",
+          "odds": "-170",
+          "units": "10u",
+          "result": "L",
+          "score": "UNC 21, PITT 17",
+          "_delta": "-10.00",
+          "learning": "Stalled offensive drives and red zone inefficiency: Despite early control and entering as a 63c Kalshi favorite, Pittsburgh was outscored in the second half and failed to capitalize on final possessions, resulting in a 21-17 defeat and a 10u loss."
+        },
+        {
+          "name": "Ohio Bobcats ML",
+          "game": "Central Michigan at Ohio",
+          "odds": "-117",
+          "units": "5u",
+          "result": "W",
+          "score": "CMU 14, OHIO 31",
+          "_delta": "4.27",
+          "learning": "Home dominance and balanced offensive execution: Ohio controlled tempo at Peden Stadium, surging to a 31-0 lead before closing out a 31-14 victory to cash +4.27u at -117."
+        }
+      ]
     }
   ]
 }

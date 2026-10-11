@@ -163,8 +163,44 @@ The October 7 slate verified the model's full-game total projections across coll
 
 ---
 
+---
+
+## System Learnings — Saturday, October 10, 2026
+
+- **Card Record:** 1–1
+- **Day Units:** -5.73u
+- **Overall Program Record:** 40–25 (61.5%)
+- **Cumulative Units:** +7.19u
+
+---
+
+### Executive Overview
+Saturday's collegiate football slate split 1-1, yielding a net unit delta of -5.73u driven by an asymmetric 10u stake on Pittsburgh Panthers ML. Ohio Bobcats ML (-117, 5u) delivered a commanding +4.27u win at Peden Stadium, racing out to a 31-0 lead before closing 31-14. Pittsburgh Panthers ML (-170, 10u) dropped a 21-17 contest to North Carolina after failing to overcome a second-half deficit, reinforcing key structural parameters around heavy favorite unit sizing and venue binding.
+
+---
+
+### 1. CFB: Pittsburgh Panthers ML (-170 · 10u)
+- **Pre-Game Model:** Model fair 74.5% vs Kalshi ask 63c (-170 odds).
+- **Result:** LOST (North Carolina 21, Pittsburgh 17).
+- **In-Game Flow:** Pittsburgh entered as a home favorite but experienced second-half offensive stagnation, failing to score across their final three possessions in a 21-17 loss.
+- **What the System Learned (Unit Sizing & Heavy Favorite Drag):**
+  A 10u stake on a -170 moneyline carries an outsized risk-to-reward asymmetry (-10.00u penalty on loss). Even with clear perceived model edge (74.5% vs 63c), single-game variance in college conference rivalries demands strict bankroll exposure limits.
+  *Calibration Heuristic:* Re-evaluate ladder unit caps on heavy collegiate favorites (>60c Kalshi asks) to ensure no single outcome can disproportionately erase multi-slate cumulative gains.
+
+---
+
+### 2. CFB: Ohio Bobcats ML (-117 · 5u)
+- **Pre-Game Model:** Model fair 62.5% vs Kalshi ask 54c (-117 odds).
+- **Result:** WON (Central Michigan 14, Ohio 31).
+- **In-Game Flow:** Dominant wire-to-wire performance at home. Ohio controlled both lines of scrimmage, built a 31-0 shutout into the fourth quarter, and closed out a 31-14 victory (+4.27u).
+- **What the System Learned (Home Venue Edge in Mid-Major Football):**
+  Mid-major conference favorites playing at home (Peden Stadium) exhibit strong early-down efficiency and defensive consistency against intra-conference opponents. Correctly aligning venue and event feeds ensured real-time in-play score tracking and grading.
+  *Calibration Heuristic:* Weight home-field advantage and trench success rates higher in MAC conference matchup modeling.
+
+---
+
 ### Memo for Claude Code (Post-Reset Pickup on Tuesday, Oct 13)
 When Claude Code's weekly usage resets:
 1. Ingest these learnings into the autonomous #23 learning engine post-game grading pipeline.
-2. Verify that the "October Elimination Bullpen Urgency" and "WNBA OT Volatility Buffer" heuristics are incorporated into future automated slate evaluations.
-3. Confirm that the cumulative record stands at 39–24 (+12.92u) across all tracking databases.
+2. Verify that heavy favorite unit sizing heuristics and venue binding assertions are integrated into automated card assembly.
+3. Confirm that the cumulative record stands at 40–25 (+7.19u) across all tracking databases.
