@@ -1,97 +1,16 @@
 {
-  "date": "2026-10-10",
-  "date_label": "Saturday, October 10",
-  "updated": "Oct 10, 6:00 PM PT",
+  "date": "2026-10-11",
+  "date_label": "Sunday, October 11",
+  "updated": "Oct 11, 2:45 PM PT",
   "record": "40-25",
   "units_pl": "+7.19u",
   "units_ledger": "+7.19u",
-  "yesterday": "1-2 (-4.80u) \u00b7 Iowa State/BYU Under 45.5 W \u00b7 San Jose St. ML L \u00b7 Rangers/Capitals Over 5.5 L",
-  "status_note": "",
+  "yesterday": "1-1 (-5.73u) \u00b7 Ohio Bobcats ML W \u00b7 Pittsburgh Panthers ML L",
+  "status_note": "No official picks today.",
   "card_note": "",
   "built_by": "build_manifest",
   "preview": false,
   "parlay": null,
-  "picks": [
-    {
-      "num": 1,
-      "name": "Pittsburgh Panthers ML",
-      "odds": "-170",
-      "units": "10u",
-      "side": "home",
-      "league": "CFB (FBS)",
-      "espn_league": "football/college-football",
-      "market_class": "ml",
-      "card_american": -170,
-      "card_source": "kalshi ask at lock 63c",
-      "card_ts": "2026-10-10T08:12:00-07:00",
-      "sub": "vs UNC \u00b7 9:00 AM PT \u00b7 model 74.5 vs Kalshi 63c ask",
-      "fair_kind": "owner-placed",
-      "game": {
-        "away": "North Carolina Tar Heels",
-        "home": "Pittsburgh Panthers",
-        "commence": "2026-10-10T16:00:00Z",
-        "eid": "401858256"
-      },
-      "kalshi": {
-        "cents": 63.0,
-        "side": "yes",
-        "ticker": "KXNCAAFGAME-26OCT10UNCPITT-PITT",
-        "url": "https://kalshi.com/markets/kxncaafgame/kxncaafgame-26oct10uncpitt"
-      },
-      "best_ask": {
-        "venue": "kalshi",
-        "price": 63.0,
-        "cost_c": 63.0,
-        "gross_c": 11.5,
-        "net_c": 11.5,
-        "compared": [
-          {
-            "venue": "kalshi",
-            "price": 63.0
-          }
-        ]
-      }
-    },
-    {
-      "num": 2,
-      "name": "Ohio Bobcats ML",
-      "odds": "-117",
-      "units": "5u",
-      "side": "home",
-      "league": "CFB (FBS)",
-      "espn_league": "football/college-football",
-      "market_class": "ml",
-      "card_american": -117,
-      "card_source": "kalshi ask at lock 54c",
-      "card_ts": "2026-10-10T08:12:00-07:00",
-      "sub": "vs Central Michigan \u00b7 12:30 PM PT \u00b7 model 62.5 vs Kalshi 54c ask",
-      "fair_kind": "owner-placed",
-      "game": {
-        "away": "Central Michigan Chippewas",
-        "home": "Ohio Bobcats",
-        "commence": "2026-10-10T19:30:00Z",
-        "eid": "401866438"
-      },
-      "kalshi": {
-        "cents": 54.0,
-        "side": "yes",
-        "ticker": "KXNCAAFGAME-26OCT10OHIOCMU-OHIO",
-        "url": "https://kalshi.com/markets/kxncaafgame/kxncaafgame-26oct10ohiocmu"
-      },
-      "best_ask": {
-        "venue": "kalshi",
-        "price": 54.0,
-        "cost_c": 54.0,
-        "gross_c": 8.5,
-        "net_c": 8.5,
-        "compared": [
-          {
-            "venue": "kalshi",
-            "price": 54.0
-          }
-        ]
-      }
-    }
-  ],
-  "pick_content_hash": "10e70a95cab879624b14139e7c9b58051257f1b2ecf9202479b768bd3874c09b"
+  "picks": [],
+  "pick_content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 }
