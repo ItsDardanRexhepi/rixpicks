@@ -4064,7 +4064,7 @@ function rpStatusText(d,j,st){{ /* tester Sep 26 presentation parity: EVERY cloc
 rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllBest();rpAllLineShops();rpStartTimes();}},30000);
 function rpLocDismiss(){{const m=document.getElementById('rpModal');if(m)m.style.display='none';rpLSSet('rp_state_dismissed','1');window.__rpChip=null;}}
 document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this)rpLocDismiss();}});
-function rpFreshState(){{try{{const st=rpLSGet('rp_state'),src=rpLSGet('rp_state_src'),ts=+(rpLSGet('rp_state_ts')||0);return (st&&src==='gps'&&ts&&Date.now()-ts<=12*3600*1000)?st:'';}}catch(e){{return '';}}}}
+function rpFreshState(){{try{{const st=rpLSGet('rp_state'),src=rpLSGet('rp_state_src'),ts=+(rpLSGet('rp_state_ts')||0);return (st&&src==='gps'&&ts&&Date.now()-ts<=12*3600*1000)?st:'';}}catch(e){{return '';}}}}  /* tester Sep 26: even the FIRST paint never exposes an expired jurisdiction */
 /* storage goes through one guarded shim: when the browser refuses localStorage (cookies blocked, site data wiped mid-session) a tap still prompts for location, and a shared state is kept for this page's life in memory (never a guess - only what the share returned) */
 var _rpMem={{}};
 function rpLSGet(k){{try{{return localStorage.getItem(k);}}catch(e){{return Object.prototype.hasOwnProperty.call(_rpMem,k)?_rpMem[k]:null;}}}}
@@ -4073,7 +4073,7 @@ function rpLSDel(k){{delete _rpMem[k];try{{localStorage.removeItem(k);}}catch(e)
 /* site data cleared while the page sat in another tab or in the back-forward cache: on return the footer label and the book chips follow storage again, so the next tap asks for location instead of trusting a stale in-page state */
 function rpSyncState(){{try{{const f=rpFreshState();if(f!==(window.rpSt||''))rpFilter(f);rpLabel();}}catch(e){{}}}}
 window.addEventListener('pageshow',function(e){{if(e&&e.persisted)rpSyncState();}});
-document.addEventListener('visibilitychange',function(){{if(!document.hidden)rpSyncState();}});  /* tester Sep 26: even the FIRST paint never exposes an expired jurisdiction */
+document.addEventListener('visibilitychange',function(){{if(!document.hidden)rpSyncState();}});
 var _rpFs=rpFreshState();rpFilter(_rpFs);rpResolveState();  /* QA HIGH (two audits, relayed 12:08): no auto-prompt on load - location is requested ONLY on market-link taps (rpRoute) or the footer link; the prompt itself carries a Not now close */
 function rpResolveState(){{try{{  /* his rule Sep 26 1:52 PM: ONLY shared location resolves state - no IP guess, no manual, no preview. Unverified = fail-closed PM set + location prompt on tap. */
  const saved=rpLSGet('rp_state'),src=rpLSGet('rp_state_src');
