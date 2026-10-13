@@ -382,7 +382,8 @@
   var OV_VARS = { '--bg': 1, '--panel': 1, '--panel2': 1, '--line': 1, '--txt': 1, '--mut': 1, '--acc': 1,
                   '--acc-deep': 1, '--live': 1, '--amber': 1, '--red': 1 };
   var OV_TARGETS = { nav: 'nav.rpnav', logo: 'nav.rpnav .logo', tabs: 'nav.rpnav .tab', record: '#rpNavRec',
-                     titles: '.sect', footer: '.foot', body: '.wrap' };
+                     titles: '.sect', footer: '.foot', body: '.wrap', 'home-tab': '#st-home',
+                     'wooder-tab': '#st-wooder', 'nfl-tab': '#st-nfl', 'past-tab': '#st-past' };
   var OV_PROPS = { 'color': /^#[0-9a-f]{6}$/, 'background-color': /^#[0-9a-f]{6}$/,
                    'font-weight': /^(400|500|600|700|800)$/, 'font-size': /^(1[0-9]|2[0-9]|3[0-9]|40)px$/,
                    'text-align': /^(left|center|right)$/, 'border-radius': /^([0-9]|1[0-9]|2[0-4])px$/ };

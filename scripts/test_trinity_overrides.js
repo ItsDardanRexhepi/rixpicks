@@ -27,6 +27,16 @@ const good = { v: 1, rev: 3, items: [
 let p = ctx.ovPlan(good);
 check('every typed change is kept', p.ops.length === 8, JSON.stringify(p.ops.map(o => o.k)));
 check('a style target becomes the page\'s own selector', p.ops[1].sel === 'nav.rpnav .tab', p.ops[1].sel);
+{
+  // one tab's own page (2026-10-13): "the wooder tab background" colours that tab, never the whole site or the nav
+  const tabs = ctx.ovPlan({ v: 1, rev: 1, items: [
+    { id: id(1), k: 'style', target: 'wooder-tab', prop: 'background-color', value: '#123a7a' },
+    { id: id(2), k: 'style', target: 'home-tab', prop: 'color', value: '#ffffff' },
+    { id: id(3), k: 'style', target: 'past-tab', prop: 'background-color', value: '#101010' },
+    { id: id(4), k: 'style', target: 'nfl-tab', prop: 'background-color', value: 'red' } ], gone: [] });
+  check('a tab\'s own page is a target', tabs.ops.length === 3 && tabs.ops[0].sel === '#st-wooder' &&
+        tabs.ops[1].sel === '#st-home' && tabs.ops[2].sel === '#st-past', JSON.stringify(tabs.ops));
+}
 check('a sportsbook price is dropped from a ticket leg', p.ops[6].legs[0].links.length === 1, JSON.stringify(p.ops[6].legs));
 check('a taken-back change is kept by its id alone, never by its words', p.gone.length === 1 && p.gone[0].id === id(9) &&
       !('find' in p.gone[0]) && !('replace' in p.gone[0]), JSON.stringify(p.gone));

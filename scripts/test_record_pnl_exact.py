@@ -31,7 +31,8 @@ def check(name, ok, detail=''):
 
 
 def pick_pl(p):
-    odds = int(str(p['odds']).replace('+', '').strip())
+    # the American price is the leading signed number; a card may carry its implied chance beside it ("-191 (65.6%)")
+    odds = int(re.match(r'\s*([+-]?\d+)', str(p['odds'])).group(1))
     stake = Fraction(re.sub(r'[^0-9.]', '', str(p['units'])))
     res = p.get('result')
     if res == 'W':
