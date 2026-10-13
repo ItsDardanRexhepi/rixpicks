@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-13T07:06:06.910Z",
+ "generated_at": "2026-10-13T07:11:08.327Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -791,11 +791,11 @@
   "tennis/wta": [],
   "racing/nascar-premier": [
    {
-    "headline": "Analysis: NASCAR Cup Chase Down to 6 Drivers After Charlotte",
-    "link": "https://sports.yahoo.com/articles/analysis-nascar-cup-chase-down-005814901.html",
-    "published": "2026-10-13T00:58:14.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/98c21ffb12f021ee0cf543681cd919c679936057069d6ad4e200b3f2f5f8df71/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_nascar_272%2Fabec42e4c109071389b43e5c9cbb7e5a.jpg",
-    "blurb": "After Kyle Larson padded his points lead in the NASCAR Cup Series at Charlotte Motor Speedway, the field of true Chase contenders is getting thinner but the race is on among those who are left with only a few races remaining.",
+    "headline": "WSJ Report: NASCAR is building 80+ race cars for Days of Thunder sequel",
+    "link": "https://sports.yahoo.com/articles/wsj-report-nascar-building-80-063916512.html",
+    "published": "2026-10-13T06:39:16.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/9abf2cfcfd850df6d2333ddee93976c99fabfcfbf7e6834e4ec22abdbf485b1f/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2F1eaa1d3c668a9cd7d34ee8dcd0d3f780.jpg",
+    "blurb": "NASCAR CEO Steve O'Donnell recently sat down for an interview with the Wall Street Journal",
     "source": "YAHOO",
     "league": "NASCAR"
    },
@@ -806,6 +806,15 @@
     "image": "",
     "blurb": "\"I think it's Toyota's championship to lose,\" Bubba Wallace said. \"Based on how many races we've won, it would be a shame if we didn't seal the deal.\"",
     "source": "ESPN",
+    "league": "NASCAR"
+   },
+   {
+    "headline": "Analysis: NASCAR Cup Chase Down to 6 Drivers After Charlotte",
+    "link": "https://sports.yahoo.com/articles/analysis-nascar-cup-chase-down-005814901.html",
+    "published": "2026-10-13T00:58:14.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/98c21ffb12f021ee0cf543681cd919c679936057069d6ad4e200b3f2f5f8df71/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_nascar_272%2Fabec42e4c109071389b43e5c9cbb7e5a.jpg",
+    "blurb": "After Kyle Larson padded his points lead in the NASCAR Cup Series at Charlotte Motor Speedway, the field of true Chase contenders is getting thinner but the race is on among those who are left with only a few races remaining.",
+    "source": "YAHOO",
     "league": "NASCAR"
    },
    {
@@ -868,15 +877,6 @@
     "published": "2026-10-12T16:33:50.000Z",
     "image": "",
     "blurb": "A surprising photo finish will be what most remember from Sunday's NASCAR Cup Chase race at Charlotte Motor Speedway",
-    "source": "YAHOO",
-    "league": "NASCAR"
-   },
-   {
-    "headline": "Denny Hamlin Admits NASCAR Team Must Improve After Frustrating Charlotte Finish",
-    "link": "https://sports.yahoo.com/articles/denny-hamlin-admits-nascar-team-152837153.html",
-    "published": "2026-10-12T15:28:37.000Z",
-    "image": "",
-    "blurb": "Denny Hamlin believed he had a winning car early at Charlotte, but pit-road trouble and fading speed left him fifth. He also addressed contact with Kyle Larson and his growing championship deficit.",
     "source": "YAHOO",
     "league": "NASCAR"
    }
@@ -1111,6 +1111,15 @@
    "blurb": "Puka Nacua had a game-high 24 targets on Monday night, catching 17 passes for 138 yards and a score in a Week 5 loss to the Buffalo Bills.",
    "source": "YAHOO",
    "league": "NFL"
+  },
+  {
+   "headline": "WSJ Report: NASCAR is building 80+ race cars for Days of Thunder sequel",
+   "link": "https://sports.yahoo.com/articles/wsj-report-nascar-building-80-063916512.html",
+   "published": "2026-10-13T06:39:16.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/9abf2cfcfd850df6d2333ddee93976c99fabfcfbf7e6834e4ec22abdbf485b1f/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2F1eaa1d3c668a9cd7d34ee8dcd0d3f780.jpg",
+   "blurb": "NASCAR CEO Steve O'Donnell recently sat down for an interview with the Wall Street Journal",
+   "source": "YAHOO",
+   "league": "NASCAR"
   },
   {
    "headline": "Week 7 College Football Predictions: Expert Picks & Lines",
@@ -1417,20 +1426,11 @@
    "blurb": "Find best bets for the biggest games in sports on Monday from the SportsLine Projection Model and top CBS Sports experts",
    "source": "CBS",
    "league": "NHL"
-  },
-  {
-   "headline": "Analysis, highlights from semifinals sweeps by Valkyries, Dream",
-   "link": "https://www.espn.com/wnba/story/_/id/50141216/2026-wnba-playoffs-semifinals-scores-results-takeaways-analysis",
-   "published": "2026-10-12T22:30:27.000Z",
-   "image": "",
-   "blurb": "After two sweeps in Friday's semifinals, the WNBA Finals are set. Here's how it all went down.",
-   "source": "ESPN",
-   "league": "WNBA"
   }
  ],
  "source_mix": {
-  "ESPN": 53,
-  "YAHOO": 65,
+  "ESPN": 52,
+  "YAHOO": 66,
   "CBS": 37
  },
  "degraded_sources": []
