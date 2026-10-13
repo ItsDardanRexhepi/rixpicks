@@ -2304,5 +2304,18 @@
   "kickoff_utc": "2026-10-14T01:45:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T23:35:34.682286+00:00"
+ },
+ {
+  "id": "48b3a25199",
+  "event_id": "761873",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "LAFC",
+  "away": "Austin FC",
+  "pick_team": "Austin FC",
+  "prediction": "Austin FC to beat LAFC",
+  "kickoff_utc": "2026-10-15T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T23:50:45.792683+00:00"
  }
 ]
