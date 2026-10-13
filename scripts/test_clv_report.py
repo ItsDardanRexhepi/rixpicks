@@ -13,7 +13,8 @@ with fixed author times. Checks:
   - grades queued in record_request.json are listed and marked (left out with --no-queued); props, a
     row whose odds differ from the card, and a pick on no card get no close, with the reason;
   - it never touches grading: history.json, manifest.json, record_done.json, record_request.json and
-    manifests/ are byte-identical after a run, it writes only slates/clv_ledger.json, the same input gives
+    manifests/ are byte-identical after a run, it writes only its ledger (outside the repository: the run
+    points RIXPICKS_CLV_LEDGER at a temp file, and the repository is left unchanged), the same input gives
     the same bytes, record_final.py and no workflow call it, and no public page reads the ledger.
 Offline; writes only into a temp folder. Bite-proof: red without scripts/clv_report.py.
 Run: python3 scripts/test_clv_report.py"""
@@ -138,9 +139,15 @@ def scratch():
                                                            'slates__odds_prefill_st.json': st_snap({b: st(-1.5, -400, 300) for b in ('draftkings', 'fanduel', 'espnbet')}, {})})
     return tmp, git
 
+_LEDGER_DIR = tempfile.mkdtemp(prefix='clv_ledger_')
+__import__('atexit').register(shutil.rmtree, _LEDGER_DIR, True)
+LEDGER = os.path.join(_LEDGER_DIR, 'clv_ledger.json')
 def run(tmp, *args):
-    r = subprocess.run([sys.executable, SCRIPT, '--root', tmp, *args], capture_output=True, text=True)
-    out = os.path.join(tmp, 'slates', 'clv_ledger.json')
+    if os.path.exists(LEDGER):
+        os.remove(LEDGER)
+    r = subprocess.run([sys.executable, SCRIPT, '--root', tmp, *args], capture_output=True, text=True,
+                       env=dict(os.environ, RIXPICKS_CLV_LEDGER=LEDGER))
+    out = LEDGER
     led = json.load(open(out)) if os.path.exists(out) else None
     return r.returncode, led, r.stdout + r.stderr
 
@@ -219,10 +226,10 @@ try:
     # never touches grading
     check('record files and snapshots byte-identical after a run', digest(tmp), before)
     status = subprocess.run(['git', 'status', '--porcelain'], cwd=tmp, capture_output=True, text=True).stdout.split('\n')
-    check('the only change in the repo is the ledger', [s for s in status if s], ['?? slates/clv_ledger.json'])
-    first = open(os.path.join(tmp, 'slates', 'clv_ledger.json'), 'rb').read()
+    check('the repo is unchanged (the ledger lives outside it)', [s for s in status if s], [])
+    first = open(LEDGER, 'rb').read()
     run(tmp)
-    check('same input -> same bytes (no wall-clock stamp)', open(os.path.join(tmp, 'slates', 'clv_ledger.json'), 'rb').read(), first)
+    check('same input -> same bytes (no wall-clock stamp)', open(LEDGER, 'rb').read(), first)
     code, led2, _ = run(tmp, '--no-queued')
     check('--no-queued leaves the queued Flyers grade out', 'Flyers +1.5' in [r['name'] for r in led2['rows']], False)
     code, led3, _ = run(tmp, '--date', '2026-10-06')
