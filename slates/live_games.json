@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-13T21:50:10.436670+00:00",
+ "generated_at": "2026-10-13T22:05:13.294545+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401908024",
+     "matchup": "CLE @ TB",
+     "commence": "2026-10-14T00:00Z",
+     "status": "pre",
+     "detail": "10/13 - 5:00 PM PT",
+     "score": "CLE 0 - TB 0"
+    }
+   ]
+  },
   {
    "league": "CFB",
    "games": [
@@ -12,6 +25,14 @@
      "status": "pre",
      "detail": "10/13 - 4:00 PM PT",
      "score": "DEL 0 - MTSU 0"
+    },
+    {
+     "espn_event_id": "401871053",
+     "matchup": "FIU @ JXST",
+     "commence": "2026-10-14T00:00Z",
+     "status": "pre",
+     "detail": "10/13 - 5:00 PM PT",
+     "score": "FIU 0 - JXST 0"
     }
    ]
   },
@@ -33,20 +54,20 @@
      "status": "pre",
      "detail": "10/13 - 4:00 PM PT",
      "score": "NY 0 - TOR 0"
+    },
+    {
+     "espn_event_id": "401908621",
+     "matchup": "IND @ OKC",
+     "commence": "2026-10-14T00:00Z",
+     "status": "pre",
+     "detail": "10/13 - 5:00 PM PT",
+     "score": "IND 0 - OKC 0"
     }
    ]
   },
   {
    "league": "NHL",
    "games": [
-    {
-     "espn_event_id": "401892488",
-     "matchup": "NJ @ DET",
-     "commence": "2026-10-13T22:00Z",
-     "status": "pre",
-     "detail": "10/13 - 3:00 PM PT",
-     "score": "NJ 0 - DET 0"
-    },
     {
      "espn_event_id": "401892489",
      "matchup": "FLA @ CBJ",
@@ -102,6 +123,14 @@
      "status": "pre",
      "detail": "10/13 - 4:45 PM PT",
      "score": "VAN 0 - NYI 0"
+    },
+    {
+     "espn_event_id": "401892496",
+     "matchup": "PIT @ CHI",
+     "commence": "2026-10-14T00:00Z",
+     "status": "pre",
+     "detail": "10/13 - 5:00 PM PT",
+     "score": "PIT 0 - CHI 0"
     }
    ]
   }
