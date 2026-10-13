@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-13T12:36:10.219Z",
+ "generated_at": "2026-10-13T12:41:27.026Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Dodgers will have 'conversation' about benching Shohei Ohtani as star's struggles continue this postseason",
+    "link": "https://sports.yahoo.com/mlb/article/dodgers-will-have-conversation-about-benching-shohei-ohtani-as-stars-struggles-continue-this-postseason-123814688.html",
+    "published": "2026-10-13T12:38:14.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/2da5d2f191cbc1ec945f32f38bcee1cdd4ddf0325ced77f5cff2a9052d96b200/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2Fd02e5e19-909d-45e1-94cc-b33fca872296",
+    "blurb": "The Dodgers are considering the unthinkable down 0-2 to the Brewers.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
    {
     "headline": "MLB championship round odds: Brewers take 2-0 lead, Guardians win opener",
     "link": "https://www.espn.com/espn/betting/story/_/id/50132233/2026-mlb-playoffs-alcs-nlcs-betting-odds-spreads",
@@ -9,15 +18,6 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730082_576x324_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The championship round schedule, lines and odds to win.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Atlanta Braves News: Austin Riley, Acquiring Arms, More",
-    "link": "https://sports.yahoo.com/articles/atlanta-braves-news-austin-riley-121610230.html",
-    "published": "2026-10-13T12:16:10.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/dd6c90a137f35a32d53dd390c4b64f90fd8686ec84aee233f2f03be1c3e8a323/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd89157239cd24d3afbd793d89fbdfce0.jpg",
-    "blurb": "Offseason Questions Mount for the Braves.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Mets Morning News: Brewers, Guardians win their LCS games",
+    "link": "https://sports.yahoo.com/articles/mets-morning-news-brewers-guardians-123000173.html",
+    "published": "2026-10-13T12:30:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/352cebc36844267821b8ab79e42de72b7838a38980b7f9ff1b12e4c1be08b9ea/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F893535f643e8cd65ec01c69d214f982c.jpg",
+    "blurb": "Your Tuesday morning dose of New York Mets and MLB news, notes, and links.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Chase DeLauter, Jos\u00e9 Ram\u00edrez lead Guardians' win in Game 1 of ALCS vs. Rays",
     "link": "https://www.espn.com/mlb/story/_/id/50170936/guardians-come-beat-rays-game-1-alcs",
     "published": "2026-10-13T12:19:48Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1729995_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Guardians' pitching held the Rays to one run over the final eight innings while their offense took over in a 7-3 win in Game 1 of the American League Championship Series on Monday night.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Will the Dodgers have to bench Shohei Ohtani in NLCS?",
-    "link": "https://sports.yahoo.com/articles/dodgerse-bench-shohei-ohtani-nlcs-121128893.html",
-    "published": "2026-10-13T12:11:28.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/c7a0320deb2a44e7c250584dec3ba3f138ed0d4bac68df62ee90a36ad0bf1654/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F3daef092761a080912a09902b42d7517.jpg",
-    "blurb": "The Dodgers are down in the NLCS, and pondering the previously unthinkable",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Atlanta Braves News: Austin Riley, Acquiring Arms, More",
+    "link": "https://sports.yahoo.com/articles/atlanta-braves-news-austin-riley-121610230.html",
+    "published": "2026-10-13T12:16:10.000Z",
+    "image": "",
+    "blurb": "Offseason Questions Mount for the Braves.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "2026 MLB playoffs: October MVP tracker",
     "link": "https://www.espn.com/mlb/story/_/id/50110772/2026-mlb-playoffs-mvp-tracker-wpa-leaderboard-win-probability-added-mr-october",
     "published": "2026-10-13T12:17:32Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1008%2Fr1727946_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "We go inside the numbers on the players doing the most to help their teams win.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Dodgers notes: Three-peat in serious danger",
-    "link": "https://sports.yahoo.com/articles/dodgers-notes-three-peat-serious-120500294.html",
-    "published": "2026-10-13T12:05:00.000Z",
-    "image": "",
-    "blurb": "The Dodgers somehow scored four runs in Monday\u2019s game against the Brewers but it wasn\u2019t enough as the game devolved into a bullpen game and they lost 7-4, and now head home down 2-0 in the NLCS. Bill Shakin of the L.A. Times ponders if the Dodgers should start playing baseball th",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,12 +84,12 @@
     "league": "MLB"
    },
    {
-    "headline": "Chase DeLauter and Jose Ram\u00edrez lead the Guardians to a 7-3 win over the Rays in Game 1 of the ALCS",
-    "link": "http://www.espn.com/mlb/recap?gameId=401908023",
-    "published": "2026-10-13T11:37:17Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908023.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "- The Cleveland Guardians used small ball, the longball and played solid all-around baseball to keep winning in the postseason.",
+    "headline": "Will the Dodgers have to bench Shohei Ohtani in NLCS?",
+    "link": "https://sports.yahoo.com/articles/dodgerse-bench-shohei-ohtani-nlcs-121128893.html",
+    "published": "2026-10-13T12:11:28.000Z",
+    "image": "",
+    "blurb": "The Dodgers are down in the NLCS, and pondering the previously unthinkable",
+    "source": "YAHOO",
     "league": "MLB"
    }
   ],
@@ -104,11 +104,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Cam Ward isn't getting benched, but should Titans consider drafting a QB in 2027? History offers clues",
-    "link": "https://www.cbssports.com/nfl/news/should-titans-draft-qb-2027-nfl-draft-cam-ward/",
-    "published": "2026-10-13T12:31:06.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F276a168f-f255-40cd-ace9-ce6b866e1bdf%2Fcam-ward-titans.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The former No. 1 pick has struggled through 22 NFL starts. Here's what other first-round QBs tell us about his future, and why Tennessee faces a complicated decision in 2027",
+    "headline": "How an initial 2026 NFL Draft embarrassment actually ended up benefitting the Steelers",
+    "link": "https://www.cbssports.com/nfl/news/how-an-initial-2026-nfl-draft-embarrassment-actually-ended-up-benefitting-the-steelers/",
+    "published": "2026-10-13T12:35:13.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F0b520444-7751-4ad5-8bcf-4056a1ebc5b5%2Fbernard.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "So far, Pittsburgh has benefited from what transpired back in April",
     "source": "CBS",
     "league": "NFL"
    },
@@ -131,11 +131,11 @@
     "league": "NFL"
    },
    {
-    "headline": "What we learned in NFL Week 5: Mike Evans is perfect fit with Brock Purdy, Josh Allen extends MVP lead",
-    "link": "https://www.cbssports.com/nfl/news/six-lessons-learned-nfl-week-5-mike-evans-brock-purdy-josh-allen/",
-    "published": "2026-10-13T11:32:06.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F12%2Fa2c5ece3-90c6-4329-8513-568f38aaef66%2Fmike-evans.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Plus, this NFL Draft class is looking excellent early",
+    "headline": "Cam Ward isn't getting benched, but should Titans consider drafting a QB in 2027? History offers clues",
+    "link": "https://www.cbssports.com/nfl/news/should-titans-draft-qb-2027-nfl-draft-cam-ward/",
+    "published": "2026-10-13T12:31:06.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F276a168f-f255-40cd-ace9-ce6b866e1bdf%2Fcam-ward-titans.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The former No. 1 pick has struggled through 22 NFL starts. Here's what other first-round QBs tell us about his future, and why Tennessee faces a complicated decision in 2027",
     "source": "CBS",
     "league": "NFL"
    },
@@ -158,11 +158,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Top 10 best NFL free agent acquisitions through Week 5: Kenneth Walker III, Mike Evans on top",
-    "link": "https://www.cbssports.com/nfl/news/best-nfl-free-agent-acquisitions-kenneth-walker-mike-evans/",
-    "published": "2026-10-13T11:04:36.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F12%2F372e824f-e5bd-4c89-a2af-3fead9397ec3%2Fgettyimages-2299739332.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "A look at the biggest game-changing free agents through the first five weeks of the 2026 NFL season and how they've impacted their teams",
+    "headline": "What we learned in NFL Week 5: Mike Evans is perfect fit with Brock Purdy, Josh Allen extends MVP lead",
+    "link": "https://www.cbssports.com/nfl/news/six-lessons-learned-nfl-week-5-mike-evans-brock-purdy-josh-allen/",
+    "published": "2026-10-13T11:32:06.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F12%2Fa2c5ece3-90c6-4329-8513-568f38aaef66%2Fmike-evans.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Plus, this NFL Draft class is looking excellent early",
     "source": "CBS",
     "league": "NFL"
    },
@@ -555,6 +555,15 @@
   ],
   "basketball/mens-college-basketball": [
    {
+    "headline": "Lunardi: These 10 games are worth your time this November",
+    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50158338/mens-college-basketball-nonconference-impact-games-watch-november",
+    "published": "2026-10-13T13:35:05.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0730%252Fr1695747_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "A game for the Pope? Championship rematch?? Final Four preview??? These games are worth watching in November.",
+    "source": "ESPN",
+    "league": "NCAAB"
+   },
+   {
     "headline": "SEC basketball 2026-27 preseason poll and predictions: Alabama, Georgia overrated; LSU, Missouri underrated",
     "link": "https://www.cbssports.com/college-basketball/news/sec-basketball-preseason-poll-predictions-2026-27-overrated-underrated-alabama-lsu/",
     "published": "2026-10-13T12:04:07.000Z",
@@ -573,12 +582,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "James Madison to exit Sun Belt, join American Conference",
-    "link": "https://www.espn.com/college-sports/story/_/id/50166450/james-madison-exit-sun-belt-join-american-conference",
-    "published": "2026-10-12T16:30:06.000Z",
-    "image": "",
-    "blurb": "James Madison has accepted membership into the American Conference, the university announced Monday.",
+    "headline": "10 key men's college basketball games to watch in November",
+    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50158338/mens-college-basketball-nonconference-impact-games-watch-november",
+    "published": "2026-10-13T12:35:05Z",
     "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0730%2Fr1695747_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "A game for the Pope? Championship rematch?? Final Four preview??? These games are worth watching in November.",
     "league": "NCAAB"
    },
    {
@@ -600,11 +609,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Men's college basketball coaching changes for 2026-27",
-    "link": "https://www.espn.com/mens-college-basketball/story/_/id/48253385/mens-college-basketball-coaching-changes-tracker-2026-2027-hirings-firings",
-    "published": "2026-10-11T22:19:35.000Z",
+    "headline": "James Madison to exit Sun Belt, join American Conference",
+    "link": "https://www.espn.com/college-sports/story/_/id/50166450/james-madison-exit-sun-belt-join-american-conference",
+    "published": "2026-10-12T16:30:06.000Z",
     "image": "",
-    "blurb": "We're tracking all the coaching changes in men's college basketball for the 2026-27 season.",
+    "blurb": "James Madison has accepted membership into the American Conference, the university announced Monday.",
     "source": "ESPN",
     "league": "NCAAB"
    },
@@ -627,21 +636,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Key men's hoops rosters: Players in eligibility limbo, transfers, recruits, more",
-    "link": "https://www.espn.com/mens-college-basketball/story/_/id/48676027/mens-college-basketball-rosters-transfers-recruits-freshmen-2026-2027",
-    "published": "2026-10-11T22:18:30.000Z",
+    "headline": "Men's college basketball coaching changes for 2026-27",
+    "link": "https://www.espn.com/mens-college-basketball/story/_/id/48253385/mens-college-basketball-coaching-changes-tracker-2026-2027-hirings-firings",
+    "published": "2026-10-11T22:19:35.000Z",
     "image": "",
-    "blurb": "With one month left until games tip for the 2026-27 season, we're tracking player movement across key programs.",
+    "blurb": "We're tracking all the coaching changes in men's college basketball for the 2026-27 season.",
     "source": "ESPN",
-    "league": "NCAAB"
-   },
-   {
-    "headline": "Early takeaways on UNC's new roster build in Michael Malone's preseason debut vs. USC",
-    "link": "https://www.cbssports.com/college-basketball/news/unc-basketball-michael-malone-roster-exhibition-usc/",
-    "published": "2026-10-12T15:57:07.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F12%2F4303b247-14f9-423a-b1a8-7b39811b4b92%2Funtitled-design-11.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Also, Alijah Arenas shines for the Trojans, Indiana beefs up its rebounding in a scrimmage vs. Butler, and Jake Hall scores 31 points for New Mexico",
-    "source": "CBS",
     "league": "NCAAB"
    }
   ],
@@ -812,7 +812,7 @@
     "headline": "Revealed: Why NASCAR Didn\u2019t Punish Carson Hocevar, Ryan Blaney for Bristol Brawl",
     "link": "https://sports.yahoo.com/articles/revealed-why-nascar-didn-t-002847646.html",
     "published": "2026-10-13T00:28:47.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/7ab68af409c24d3096b241c535025da487ede1bcf20dd01d19260a8840e36487/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2Fe274121bbd9c4c65c97d824f41de3145.jpg",
+    "image": "",
     "blurb": "Why didn't NASCAR punish Carson Hocevar or Ryan Blaney for their Bristol brawl? New reporting finally provides an answer. The post Revealed: Why NASCAR Didn\u2019t Punish Carson Hocevar, Ryan Blaney for Bristol Brawl appeared first on HEAVY.",
     "source": "YAHOO",
     "league": "NASCAR"
@@ -1059,6 +1059,15 @@
  },
  "latest": [
   {
+   "headline": "Lunardi: These 10 games are worth your time this November",
+   "link": "https://www.espn.com/mens-college-basketball/story/_/id/50158338/mens-college-basketball-nonconference-impact-games-watch-november",
+   "published": "2026-10-13T13:35:05.000Z",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0730%252Fr1695747_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "A game for the Pope? Championship rematch?? Final Four preview??? These games are worth watching in November.",
+   "source": "ESPN",
+   "league": "NCAAB"
+  },
+  {
    "headline": "Removing 'a dark cloud': How the Ravens' clutch play ended a 581-game streak",
    "link": "https://www.espn.com/nfl/story/_/id/50168194/baltimore-ravens-clutch-play-falcons-remove-dark-cloud",
    "published": "2026-10-13T13:10:50.000Z",
@@ -1113,6 +1122,33 @@
    "league": "Boxing"
   },
   {
+   "headline": "Dodgers will have 'conversation' about benching Shohei Ohtani as star's struggles continue this postseason",
+   "link": "https://sports.yahoo.com/mlb/article/dodgers-will-have-conversation-about-benching-shohei-ohtani-as-stars-struggles-continue-this-postseason-123814688.html",
+   "published": "2026-10-13T12:38:14.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/2da5d2f191cbc1ec945f32f38bcee1cdd4ddf0325ced77f5cff2a9052d96b200/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2Fd02e5e19-909d-45e1-94cc-b33fca872296",
+   "blurb": "The Dodgers are considering the unthinkable down 0-2 to the Brewers.",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
+   "headline": "How an initial 2026 NFL Draft embarrassment actually ended up benefitting the Steelers",
+   "link": "https://www.cbssports.com/nfl/news/how-an-initial-2026-nfl-draft-embarrassment-actually-ended-up-benefitting-the-steelers/",
+   "published": "2026-10-13T12:35:13.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F0b520444-7751-4ad5-8bcf-4056a1ebc5b5%2Fbernard.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "So far, Pittsburgh has benefited from what transpired back in April",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
+   "headline": "10 key men's college basketball games to watch in November",
+   "link": "https://www.espn.com/mens-college-basketball/story/_/id/50158338/mens-college-basketball-nonconference-impact-games-watch-november",
+   "published": "2026-10-13T12:35:05Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0730%2Fr1695747_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "A game for the Pope? Championship rematch?? Final Four preview??? These games are worth watching in November.",
+   "league": "NCAAB"
+  },
+  {
    "headline": "Sturm, 31, sent to hospital after puck strikes his head in Wild's victory",
    "link": "https://www.espn.com/nhl/story/_/id/50171288/sturm-sent-hospital-puck-strikes-head-wild-win",
    "published": "2026-10-13T12:34:02.000Z",
@@ -1146,6 +1182,15 @@
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730082_576x324_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The championship round schedule, lines and odds to win.",
+   "league": "MLB"
+  },
+  {
+   "headline": "Mets Morning News: Brewers, Guardians win their LCS games",
+   "link": "https://sports.yahoo.com/articles/mets-morning-news-brewers-guardians-123000173.html",
+   "published": "2026-10-13T12:30:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/352cebc36844267821b8ab79e42de72b7838a38980b7f9ff1b12e4c1be08b9ea/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F893535f643e8cd65ec01c69d214f982c.jpg",
+   "blurb": "Your Tuesday morning dose of New York Mets and MLB news, notes, and links.",
+   "source": "YAHOO",
    "league": "MLB"
   },
   {
@@ -1194,15 +1239,6 @@
    "league": "NBA"
   },
   {
-   "headline": "Atlanta Braves News: Austin Riley, Acquiring Arms, More",
-   "link": "https://sports.yahoo.com/articles/atlanta-braves-news-austin-riley-121610230.html",
-   "published": "2026-10-13T12:16:10.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/dd6c90a137f35a32d53dd390c4b64f90fd8686ec84aee233f2f03be1c3e8a323/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd89157239cd24d3afbd793d89fbdfce0.jpg",
-   "blurb": "Offseason Questions Mount for the Braves.",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
    "headline": "Rebels in the Pros: NFL Week 5",
    "link": "https://sports.yahoo.com/articles/rebels-pros-nfl-week-5-121500739.html",
    "published": "2026-10-13T12:15:00.000Z",
@@ -1210,15 +1246,6 @@
    "blurb": "All in all it was a pretty quiet week for our former Rebs. Injuries have run their course as the injured list continues to grow. Dawson Knox had an opportunity for a touchdown in the first half Monday night, but it was deflected and he was unable to adjust and make the catch. Suc",
    "source": "YAHOO",
    "league": "NFL"
-  },
-  {
-   "headline": "Will the Dodgers have to bench Shohei Ohtani in NLCS?",
-   "link": "https://sports.yahoo.com/articles/dodgerse-bench-shohei-ohtani-nlcs-121128893.html",
-   "published": "2026-10-13T12:11:28.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/c7a0320deb2a44e7c250584dec3ba3f138ed0d4bac68df62ee90a36ad0bf1654/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F3daef092761a080912a09902b42d7517.jpg",
-   "blurb": "The Dodgers are down in the NLCS, and pondering the previously unthinkable",
-   "source": "YAHOO",
-   "league": "MLB"
   },
   {
    "headline": "SEC basketball 2026-27 preseason poll and predictions: Alabama, Georgia overrated; LSU, Missouri underrated",
@@ -1300,15 +1327,6 @@
    "blurb": "Jon Rahm's decision to leave LIV Golf creates a major dilemma for PGA Tour CEO Brian Rolapp as golf's biggest stars face an uncertain future ahead of 2027.",
    "source": "YAHOO",
    "league": "PGA"
-  },
-  {
-   "headline": "What we learned in NFL Week 5: Mike Evans is perfect fit with Brock Purdy, Josh Allen extends MVP lead",
-   "link": "https://www.cbssports.com/nfl/news/six-lessons-learned-nfl-week-5-mike-evans-brock-purdy-josh-allen/",
-   "published": "2026-10-13T11:32:06.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F12%2Fa2c5ece3-90c6-4329-8513-568f38aaef66%2Fmike-evans.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Plus, this NFL Draft class is looking excellent early",
-   "source": "CBS",
-   "league": "NFL"
   },
   {
    "headline": "Abraham Ancer Becomes the Latest to Leave LIV Golf Behind as DP World Tour Beckons: Report",
@@ -1399,30 +1417,12 @@
    "blurb": "After Kyle Larson padded his points lead in the NASCAR Cup Series at Charlotte Motor Speedway, the field of true Chase contenders is getting thinner but the race is on among those who are left with only a few races remaining.",
    "source": "YAHOO",
    "league": "NASCAR"
-  },
-  {
-   "headline": "Mississippi State QB Kamario Taylor's status for LSU game uncertain amid foot injury",
-   "link": "https://www.cbssports.com/college-football/news/kamario-taylor-injury-mississippi-state-lsu/",
-   "published": "2026-10-13T00:43:26.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F12%2F74086044-61ff-4b50-bc91-7ac028801856%2Fgettyimages-2298975651-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Taylor has been electric for the Bulldogs, but they may be without their star QB this weekend in Baton Rouge",
-   "source": "CBS",
-   "league": "CFB"
-  },
-  {
-   "headline": "Revealed: Why NASCAR Didn\u2019t Punish Carson Hocevar, Ryan Blaney for Bristol Brawl",
-   "link": "https://sports.yahoo.com/articles/revealed-why-nascar-didn-t-002847646.html",
-   "published": "2026-10-13T00:28:47.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/7ab68af409c24d3096b241c535025da487ede1bcf20dd01d19260a8840e36487/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2Fe274121bbd9c4c65c97d824f41de3145.jpg",
-   "blurb": "Why didn't NASCAR punish Carson Hocevar or Ryan Blaney for their Bristol brawl? New reporting finally provides an answer. The post Revealed: Why NASCAR Didn\u2019t Punish Carson Hocevar, Ryan Blaney for Bristol Brawl appeared first on HEAVY.",
-   "source": "YAHOO",
-   "league": "NASCAR"
   }
  ],
  "source_mix": {
-  "ESPN": 54,
-  "CBS": 37,
-  "YAHOO": 63
+  "ESPN": 56,
+  "YAHOO": 63,
+  "CBS": 35
  },
  "degraded_sources": []
 }
