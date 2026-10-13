@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-13T10:26:04.664Z",
+ "generated_at": "2026-10-13T10:31:37.841Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -95,6 +95,33 @@
   ],
   "football/nfl": [
    {
+    "headline": "With 210 yards passing and 121 rushing, Josh Allen had his fourth career double-triple",
+    "link": "https://sports.yahoo.com/articles/210-yards-passing-121-rushing-102701100.html",
+    "published": "2026-10-13T10:27:01.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/35dbba23853f8a39e9bf89f7c359032176ceacb78b383a19ccbedc6d04ee0a1a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F45c1b93c966f5b4b6f7a0c14a7df151e.jpg",
+    "blurb": "Allen reached triple-digit yardage in two statistical categories for the fourth time.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
+    "headline": "2026 NFL Power Rankings: How all 32 teams stack up for Week 6",
+    "link": "https://www.espn.com/nfl/story/_/id/50166454/nfl-power-rankings-week-6-teams-biggest-issue-defense",
+    "published": "2026-10-13T10:25:10Z",
+    "source": "ESPN",
+    "image": "",
+    "blurb": "How does every NFL team stack up heading into Week 6? We made our 1-32 list and picked the biggest defensive problem for every team.",
+    "league": "NFL"
+   },
+   {
+    "headline": "Prisco's NFL Week 6 Power Rankings: 49ers are league's best team, Packers climb 10 spots",
+    "link": "https://www.cbssports.com/nfl/news/priscos-nfl-week-6-power-rankings-49ers-packers/",
+    "published": "2026-10-13T09:00:45.000Z",
+    "image": "",
+    "blurb": "Pete Prisco shares his latest Power Rankings for the 2026 NFL season, including some big risers and fallers",
+    "source": "CBS",
+    "league": "NFL"
+   },
+   {
     "headline": "Fantasy football Start \u2018Em, Sit \u2018Em: 16 players to start or sit in Week 6",
     "link": "https://sports.yahoo.com/articles/fantasy-football-start-em-sit-100504692.html",
     "published": "2026-10-13T10:05:04.000Z",
@@ -113,11 +140,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Prisco's NFL Week 6 Power Rankings: 49ers are league's best team, Packers climb 10 spots",
-    "link": "https://www.cbssports.com/nfl/news/priscos-nfl-week-6-power-rankings-49ers-packers/",
-    "published": "2026-10-13T09:00:45.000Z",
+    "headline": "Rams left tackle throws punch at Bills' Bradley Chubb following Buffalo's stunning Monday night win",
+    "link": "https://www.cbssports.com/nfl/news/rams-left-tackle-punches-bills-bradley-chubb-mnf/",
+    "published": "2026-10-13T05:56:26.000Z",
     "image": "",
-    "blurb": "Pete Prisco shares his latest Power Rankings for the 2026 NFL season, including some big risers and fallers",
+    "blurb": "Alaric Jackson hit the Bills' pass-rusher with an apparent sucker-punch following Buffalo's wild Monday night win",
     "source": "CBS",
     "league": "NFL"
    },
@@ -125,7 +152,7 @@
     "headline": "The Bear\u2019s Den: Bears players, coaches, managment under microsope",
     "link": "https://sports.yahoo.com/articles/bear-den-bears-players-coaches-100000660.html",
     "published": "2026-10-13T10:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/69305c2684a9075ef13ce0bfe6dde7a62382abeb21d328d0fc72540fe9498da0/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fa28b87b54ced91108bc0898f2de19cee.jpg",
+    "image": "",
     "blurb": "Examinations abound as Chicago Bears media and fans make many, many observations about the loss to the Green Bay Packers",
     "source": "YAHOO",
     "league": "NFL"
@@ -140,11 +167,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Rams left tackle throws punch at Bills' Bradley Chubb following Buffalo's stunning Monday night win",
-    "link": "https://www.cbssports.com/nfl/news/rams-left-tackle-punches-bills-bradley-chubb-mnf/",
-    "published": "2026-10-13T05:56:26.000Z",
+    "headline": "What we learned in NFL Week 5: Mike Evans is perfect fit with Brock Purdy, Josh Allen extends MVP lead",
+    "link": "https://www.cbssports.com/nfl/news/six-lessons-learned-nfl-week-5-mike-evans-brock-purdy-josh-allen/",
+    "published": "2026-10-13T05:32:28.000Z",
     "image": "",
-    "blurb": "Alaric Jackson hit the Bills' pass-rusher with an apparent sucker-punch following Buffalo's wild Monday night win",
+    "blurb": "Plus, this NFL Draft class is looking excellent early",
     "source": "CBS",
     "league": "NFL"
    },
@@ -156,42 +183,15 @@
     "blurb": "Takeaways, analysis, and overreactions from the Steelers\u2019 preseason Week 5 win.",
     "source": "YAHOO",
     "league": "NFL"
-   },
-   {
-    "headline": "Dolphins not worried about young roster getting discouraged by losses",
-    "link": "https://www.espn.com/nfl/story/_/id/50168846/miami-dolphins-youngest-roster-excuses",
-    "published": "2026-10-13T10:00:02Z",
-    "source": "ESPN",
-    "image": "",
-    "blurb": "Miami coach Jeff Hafley doesn't believe his players will grow discouraged by the lack of results so far this season.",
-    "league": "NFL"
-   },
-   {
-    "headline": "What we learned in NFL Week 5: Mike Evans is perfect fit with Brock Purdy, Josh Allen extends MVP lead",
-    "link": "https://www.cbssports.com/nfl/news/six-lessons-learned-nfl-week-5-mike-evans-brock-purdy-josh-allen/",
-    "published": "2026-10-13T05:32:28.000Z",
-    "image": "",
-    "blurb": "Plus, this NFL Draft class is looking excellent early",
-    "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Cleveland Browns news: Picking up the pieces from an ugly loss",
-    "link": "https://sports.yahoo.com/articles/cleveland-browns-news-picking-pieces-100000438.html",
-    "published": "2026-10-13T10:00:00.000Z",
-    "image": "",
-    "blurb": "The latest Cleveland Browns news and notes from around the NFL in the October 13 edition of the Daily Dawg Chow.",
-    "source": "YAHOO",
-    "league": "NFL"
    }
   ],
   "football/college-football": [
    {
-    "headline": "Texas A&M drops 13 spots in latest USA TODAY Re-Rank",
-    "link": "https://sports.yahoo.com/articles/texas-m-drops-13-spots-101615414.html",
-    "published": "2026-10-13T10:16:15.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/2bfbf8d8e5fc5ffa0c900a1bf7a23460920e4f4e88e9a272384db26116ce062e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2Fb761aa9a42e43a72881247565366efbb.jpg",
-    "blurb": "Texas A&M dropped 13 more spots to No. 55 in the latest USA TODAY Re-Rank.",
+    "headline": "OU football QB John Mateer focused on not being 'trapped' by Texas win",
+    "link": "https://sports.yahoo.com/articles/ou-football-qb-john-mateer-101630358.html",
+    "published": "2026-10-13T10:16:30.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6aa407b3084fc29d17337377e0c62fc25d32e5418c9a7426348bd2410fbd67a7/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_oklahoman_natl_articles_469%2F58a92ddf4d04b4700e8c06d4af3111c2.jpg",
+    "blurb": "Oklahoma quarterback John Mateer, backed by a little bit of rejuvenated confidence, is trying not to get too caught up in the Texas win.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -214,11 +214,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Ranking Texas A&M's 6 remaining opponents from easiest to toughest",
-    "link": "https://sports.yahoo.com/articles/ranking-texas-ms-6-remaining-100832116.html",
-    "published": "2026-10-13T10:08:32.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/7c235c8ae39756ab4d546eb1009f797ce98fa65e254f2a3e057046ea6696e149/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2F318a530b2c5db84d5e9ad170d4c275af.jpg",
-    "blurb": "Texas A&M\u2019s loss to Missouri increased the difficulty of a remaining schedule that includes Texas, Alabama and Tennessee.",
+    "headline": "Texas A&M drops 13 spots in latest USA TODAY Re-Rank",
+    "link": "https://sports.yahoo.com/articles/texas-m-drops-13-spots-101615414.html",
+    "published": "2026-10-13T10:16:15.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/2bfbf8d8e5fc5ffa0c900a1bf7a23460920e4f4e88e9a272384db26116ce062e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2Fb761aa9a42e43a72881247565366efbb.jpg",
+    "blurb": "Texas A&M dropped 13 more spots to No. 55 in the latest USA TODAY Re-Rank.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -241,11 +241,11 @@
     "league": "CFB"
    },
    {
-    "headline": "2027 Georgia cornerback, Tennessee target announces commitment date",
-    "link": "https://sports.yahoo.com/articles/2027-georgia-cornerback-tennessee-target-100710191.html",
-    "published": "2026-10-13T10:07:10.000Z",
+    "headline": "Ranking Texas A&M's 6 remaining opponents from easiest to toughest",
+    "link": "https://sports.yahoo.com/articles/ranking-texas-ms-6-remaining-100832116.html",
+    "published": "2026-10-13T10:08:32.000Z",
     "image": "",
-    "blurb": "A 2027 Georgia cornerback announces a commitment date between Tennessee and two other SEC schools.",
+    "blurb": "Texas A&M\u2019s loss to Missouri increased the difficulty of a remaining schedule that includes Texas, Alabama and Tennessee.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -268,11 +268,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Deep touchdown passes. Vote for Tennessee high school plays of the week. See our highlights",
-    "link": "https://sports.yahoo.com/articles/deep-touchdown-passes-vote-tennessee-100531721.html",
-    "published": "2026-10-13T10:05:31.000Z",
+    "headline": "2027 Georgia cornerback, Tennessee target announces commitment date",
+    "link": "https://sports.yahoo.com/articles/2027-georgia-cornerback-tennessee-target-100710191.html",
+    "published": "2026-10-13T10:07:10.000Z",
     "image": "",
-    "blurb": "It's time. You make the call. Vote for the Tennessee high school football plays of the week for Oct. 5-10. Poll closes on Oct. 16.",
+    "blurb": "A 2027 Georgia cornerback announces a commitment date between Tennessee and two other SEC schools.",
     "source": "YAHOO",
     "league": "CFB"
    }
@@ -555,11 +555,11 @@
   ],
   "basketball/mens-college-basketball": [
    {
-    "headline": "Week 7 College Football Predictions: Expert Picks & Lines",
-    "link": "https://sports.yahoo.com/articles/week-7-college-football-predictions-063447962.html",
-    "published": "2026-10-13T06:34:47.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/eaec3ff26d46b80a411855a397171b477bee2fd1a4343609178b0731a84f1228/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcollege_football_news_725%2Fcce14c557243c01a1d706b956365ae3b.jpg",
-    "blurb": "The big games keep on coming, with the college football Week 7 expert picks featuring Ohio State at Indiana, Notre Dame at BYU, and Alabama at Tennessee.",
+    "headline": "Marquette men\u2019s basketball lands at No. 34 in the KenPom preseason projections",
+    "link": "https://sports.yahoo.com/articles/marquette-men-basketball-lands-no-101608150.html",
+    "published": "2026-10-13T10:16:08.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/d22da3d0e548428e3a9da86c91aa8f0baddd6a6c743f555edcbeed1effb420e3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmilwaukee_journal_sentinel_natl_articles_362%2F2775c2452922b5ac7e5f0b11f6a5e2ec.jpg",
+    "blurb": "The Ken Pomeroy advanced college basketball projections are out. Where does Marquette stack up among their peers?",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -582,11 +582,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Former Duke Assistant Coach Has High Praise for Joaquim Boumtje Boumtje",
-    "link": "https://sports.yahoo.com/articles/former-duke-assistant-coach-high-014927939.html",
-    "published": "2026-10-13T01:49:27.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/37dc5841b781ea99f136b25006a42b5f0429c771e85010c268a683528a98f552/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_duke_772%2F9045bff224fb528a83a4dca37730a3ac.jpg",
-    "blurb": "Duke's freshman has a chance to be the best in America.",
+    "headline": "Week 7 College Football Predictions: Expert Picks & Lines",
+    "link": "https://sports.yahoo.com/articles/week-7-college-football-predictions-063447962.html",
+    "published": "2026-10-13T06:34:47.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/eaec3ff26d46b80a411855a397171b477bee2fd1a4343609178b0731a84f1228/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcollege_football_news_725%2Fcce14c557243c01a1d706b956365ae3b.jpg",
+    "blurb": "The big games keep on coming, with the college football Week 7 expert picks featuring Ohio State at Indiana, Notre Dame at BYU, and Alabama at Tennessee.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -609,11 +609,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Iowa State Basketball Receives Shocking KenPom Projection",
-    "link": "https://sports.yahoo.com/articles/iowa-state-basketball-receives-shocking-010001551.html",
-    "published": "2026-10-13T01:00:01.000Z",
+    "headline": "Former Duke Assistant Coach Has High Praise for Joaquim Boumtje Boumtje",
+    "link": "https://sports.yahoo.com/articles/former-duke-assistant-coach-high-014927939.html",
+    "published": "2026-10-13T01:49:27.000Z",
     "image": "",
-    "blurb": "KenPom is a big believer in the Iowa State Cyclones men's basketball team.",
+    "blurb": "Duke's freshman has a chance to be the best in America.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -636,11 +636,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "What to watch for when Arizona men\u2019s basketball faces San Francisco in exhibition",
-    "link": "https://sports.yahoo.com/articles/watch-arizona-men-basketball-faces-010000526.html",
-    "published": "2026-10-13T01:00:00.000Z",
+    "headline": "Iowa State Basketball Receives Shocking KenPom Projection",
+    "link": "https://sports.yahoo.com/articles/iowa-state-basketball-receives-shocking-010001551.html",
+    "published": "2026-10-13T01:00:01.000Z",
     "image": "",
-    "blurb": "It\u2019s not the regular season yet, but it\u2019s pretty close. The 2026-27 season begins in three weeks, and to prepare for that Arizona has scheduled a trio of exhibition games against Division I opponents. The first of those comes Tuesday night when San Francisco visits ALKEME Arena a",
+    "blurb": "KenPom is a big believer in the Iowa State Cyclones men's basketball team.",
     "source": "YAHOO",
     "league": "NCAAB"
    }
@@ -1059,6 +1059,33 @@
  },
  "latest": [
   {
+   "headline": "With 210 yards passing and 121 rushing, Josh Allen had his fourth career double-triple",
+   "link": "https://sports.yahoo.com/articles/210-yards-passing-121-rushing-102701100.html",
+   "published": "2026-10-13T10:27:01.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/35dbba23853f8a39e9bf89f7c359032176ceacb78b383a19ccbedc6d04ee0a1a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F45c1b93c966f5b4b6f7a0c14a7df151e.jpg",
+   "blurb": "Allen reached triple-digit yardage in two statistical categories for the fourth time.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
+   "headline": "2026 NFL Power Rankings: How all 32 teams stack up for Week 6",
+   "link": "https://www.espn.com/nfl/story/_/id/50166454/nfl-power-rankings-week-6-teams-biggest-issue-defense",
+   "published": "2026-10-13T10:25:10Z",
+   "source": "ESPN",
+   "image": "",
+   "blurb": "How does every NFL team stack up heading into Week 6? We made our 1-32 list and picked the biggest defensive problem for every team.",
+   "league": "NFL"
+  },
+  {
+   "headline": "OU football QB John Mateer focused on not being 'trapped' by Texas win",
+   "link": "https://sports.yahoo.com/articles/ou-football-qb-john-mateer-101630358.html",
+   "published": "2026-10-13T10:16:30.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/6aa407b3084fc29d17337377e0c62fc25d32e5418c9a7426348bd2410fbd67a7/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_oklahoman_natl_articles_469%2F58a92ddf4d04b4700e8c06d4af3111c2.jpg",
+   "blurb": "Oklahoma quarterback John Mateer, backed by a little bit of rejuvenated confidence, is trying not to get too caught up in the Texas win.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
    "headline": "Texas A&M drops 13 spots in latest USA TODAY Re-Rank",
    "link": "https://sports.yahoo.com/articles/texas-m-drops-13-spots-101615414.html",
    "published": "2026-10-13T10:16:15.000Z",
@@ -1066,6 +1093,15 @@
    "blurb": "Texas A&M dropped 13 more spots to No. 55 in the latest USA TODAY Re-Rank.",
    "source": "YAHOO",
    "league": "CFB"
+  },
+  {
+   "headline": "Marquette men\u2019s basketball lands at No. 34 in the KenPom preseason projections",
+   "link": "https://sports.yahoo.com/articles/marquette-men-basketball-lands-no-101608150.html",
+   "published": "2026-10-13T10:16:08.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/d22da3d0e548428e3a9da86c91aa8f0baddd6a6c743f555edcbeed1effb420e3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmilwaukee_journal_sentinel_natl_articles_362%2F2775c2452922b5ac7e5f0b11f6a5e2ec.jpg",
+   "blurb": "The Ken Pomeroy advanced college basketball projections are out. Where does Marquette stack up among their peers?",
+   "source": "YAHOO",
+   "league": "NCAAB"
   },
   {
    "headline": "Bruce Cassidy on Golden Knights exit, changing his messaging and waiting for another NHL chance",
@@ -1104,15 +1140,6 @@
    "league": "NHL"
   },
   {
-   "headline": "Ranking Texas A&M's 6 remaining opponents from easiest to toughest",
-   "link": "https://sports.yahoo.com/articles/ranking-texas-ms-6-remaining-100832116.html",
-   "published": "2026-10-13T10:08:32.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/7c235c8ae39756ab4d546eb1009f797ce98fa65e254f2a3e057046ea6696e149/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2F318a530b2c5db84d5e9ad170d4c275af.jpg",
-   "blurb": "Texas A&M\u2019s loss to Missouri increased the difficulty of a remaining schedule that includes Texas, Alabama and Tennessee.",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
    "headline": "Fantasy football Start \u2018Em, Sit \u2018Em: 16 players to start or sit in Week 6",
    "link": "https://sports.yahoo.com/articles/fantasy-football-start-em-sit-100504692.html",
    "published": "2026-10-13T10:05:04.000Z",
@@ -1140,15 +1167,6 @@
    "league": "NFL"
   },
   {
-   "headline": "Packers' Watson-Golden WR combo reminiscent of Nelson-Cobb",
-   "link": "https://www.espn.com/nfl/story/_/id/50167436/green-bay-packers-christian-watson-matthew-golden-nelson-cobb",
-   "published": "2026-10-13T10:00:10Z",
-   "source": "ESPN",
-   "image": "",
-   "blurb": "It has been more than a decade since Green Bay had a dominant WR duo, but Watson and Golden are making their mark.",
-   "league": "NFL"
-  },
-  {
    "headline": "Shaikin: Dodgers send SOS to Blake Snell and Tyler Glasnow: Save our season",
    "link": "https://sports.yahoo.com/articles/shaikin-dodgers-send-sos-blake-100000950.html",
    "published": "2026-10-13T10:00:00.000Z",
@@ -1156,15 +1174,6 @@
    "blurb": "The Dodgers mapped out their NLCS rotation a while ago, but the map has led them to a 2-0 deficit against Milwaukee.",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "The Bear\u2019s Den: Bears players, coaches, managment under microsope",
-   "link": "https://sports.yahoo.com/articles/bear-den-bears-players-coaches-100000660.html",
-   "published": "2026-10-13T10:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/69305c2684a9075ef13ce0bfe6dde7a62382abeb21d328d0fc72540fe9498da0/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fa28b87b54ced91108bc0898f2de19cee.jpg",
-   "blurb": "Examinations abound as Chicago Bears media and fans make many, many observations about the loss to the Green Bay Packers",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "How to watch Cleveland Cavaliers vs. Orlando Magic: TV, stream info for tonight's preseason game",
@@ -1336,15 +1345,6 @@
    "blurb": "Alex Pereira is still unhappy about missing on a title opportunity and now has a theory about how Ciryl Gane vs. Josh Hokit got the green light.",
    "source": "YAHOO",
    "league": "UFC"
-  },
-  {
-   "headline": "Former Duke Assistant Coach Has High Praise for Joaquim Boumtje Boumtje",
-   "link": "https://sports.yahoo.com/articles/former-duke-assistant-coach-high-014927939.html",
-   "published": "2026-10-13T01:49:27.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/37dc5841b781ea99f136b25006a42b5f0429c771e85010c268a683528a98f552/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_duke_772%2F9045bff224fb528a83a4dca37730a3ac.jpg",
-   "blurb": "Duke's freshman has a chance to be the best in America.",
-   "source": "YAHOO",
-   "league": "NCAAB"
   },
   {
    "headline": "NWSL leaders Gotham lose Dudley, Bruninha for playoffs",
