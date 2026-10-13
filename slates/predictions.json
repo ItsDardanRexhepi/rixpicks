@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-13T15:38:46.020719+00:00",
+ "generated_at": "2026-10-13T16:08:36.672782+00:00",
  "items": [
   {
    "id": "97ade5d0bb",
@@ -23,6 +23,13 @@
    "kickoff_utc": "2026-10-13T23:15:00+00:00"
   },
   {
+   "id": "8d67a587e4",
+   "league": "NBA",
+   "event": "Indiana Pacers @ Oklahoma City Thunder",
+   "prediction": "Oklahoma City Thunder to beat Indiana Pacers",
+   "kickoff_utc": "2026-10-14T00:00:00+00:00"
+  },
+  {
    "id": "a4de53c59b",
    "league": "MLS",
    "event": "New England Revolution @ FC Cincinnati",
@@ -34,13 +41,6 @@
    "league": "MLS",
    "event": "Charlotte FC @ Columbus Crew",
    "prediction": "Columbus Crew to beat Charlotte FC",
-   "kickoff_utc": "2026-10-14T23:30:00+00:00"
-  },
-  {
-   "id": "8341c729e8",
-   "league": "MLS",
-   "event": "Orlando City SC @ Toronto FC",
-   "prediction": "Orlando City SC to beat Toronto FC",
    "kickoff_utc": "2026-10-14T23:30:00+00:00"
   }
  ]
