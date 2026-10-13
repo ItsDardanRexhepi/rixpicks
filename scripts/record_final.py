@@ -3,7 +3,8 @@
 a workflow, secrets never move; GITHUB_TOKEN commits). Self-contained: no private infra.
 
 Input: record_request.json at repo root (analysis drops graded, ledger-verified requests;
-each carries result, exact unit delta, record_after, units_after_exact, two-source attestation).
+each carries result, exact unit delta, record_after, units_after_exact, and the sources analysis graded on - a
+claim this script never takes on trust: it reads both sources itself, step 2b).
 For each request, in order (any failure -> stop, exit 3, NO write at all; in-order processing:
 later finals wait for the next fire):
   1. CARD: the grade must belong to a pick on a published card - a manifests/ snapshot (every
@@ -18,6 +19,10 @@ later finals wait for the next fire):
      request's own label is never taken on trust. Soccer (MLS, NWSL) grades on regulation time,
      as Kalshi settles: the summary's regulation score (core/soccer_result.py), checked against
      the verified final; a draw is LOST for either side's moneyline, never a push.
+  2b. A CROSS-COMPANY SECOND SOURCE, read here (J-115): a team final must be confirmed - same teams, same
+     ordered scores - by one of the grader's own independent readers (scripts/second_source.py, as finals_watch: CBS,
+     theScore, MLB statsapi, the odds-api scores; never ESPN's own site API); a fight's winner must be confirmed
+     by the settlement of the card pick's own Kalshi market. Missing or disagreeing: exit 3, nothing written.
   3. Units: the delta must follow from the card price, card stake and result; units_after_exact
      must continue the running units (exact anchor kept in record_done.json).
   4. Running record from manifest must chain into request.record_after exactly.
@@ -31,7 +36,7 @@ later finals wait for the next fire):
 Apply: manifest record/units_pl, history.json day row (+day record/units), record_done.json.
 Writes NOTHING to any private ledger - that stays analysis-side.
 """
-import glob, json, os, re, sys, unicodedata, urllib.request
+import glob, json, os, re, sys, unicodedata, urllib.parse, urllib.request
 from datetime import datetime, timezone, timedelta
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from zoneinfo import ZoneInfo
@@ -77,7 +82,8 @@ def espn_verify(league, eid, away_score, home_score):
             val = sc.get('value') if isinstance(sc, dict) else None
             try: val = int(float(val))
             except (TypeError, ValueError): val = None
-            out[comp.get('homeAway')] = {'name': team.get('displayName', ''), 'score': val}
+            out[comp.get('homeAway')] = {'name': team.get('displayName', ''), 'score': val,
+                                         'abbr': team.get('abbreviation', '')}
         if out.get('home', {}).get('score') != home_score or out.get('away', {}).get('score') != away_score:
             print(f'  verify {eid}: score mismatch espn {out} vs req {away_score}-{home_score}', file=sys.stderr)
             return None
@@ -85,6 +91,63 @@ def espn_verify(league, eid, away_score, home_score):
     except Exception as e:
         print(f'  verify {eid}: espn error {type(e).__name__}: {e}', file=sys.stderr)
         return None
+
+
+KALSHI_MARKET = 'https://api.elections.kalshi.com/trade-api/v2/markets/{}'
+
+
+def _second_source():
+    """scripts/second_source.py: the grader's own cross-company readers, one definition (finals_watch runs the same
+    file). Imported, not copied - and it reads no private unit size, so Actions never needs one."""
+    if HERE not in sys.path:
+        sys.path.insert(0, HERE)
+    import second_source
+    return second_source
+
+
+def second_source_check(q, cp, verified):
+    """The second, cross-company source for one final (step 2b). -> (what confirmed it, None) or (None, why not).
+    `verified` is espn_verify's competitor map for a team final, or espn_verify_mma's fighters for a fight."""
+    if str(q.get('league') or '').startswith('mma/'):
+        k = cp.get('kalshi') if isinstance(cp.get('kalshi'), dict) else {}
+        tick, side = k.get('ticker'), k.get('side')
+        if not tick or side not in ('yes', 'no'):
+            return None, ('the card pick names no Kalshi market (ticker and side) whose settlement could confirm '
+                          'the winner - ESPN alone is one source')
+        try:
+            m = (_get(KALSHI_MARKET.format(urllib.parse.quote(str(tick), safe=''))) or {}).get('market') or {}
+        except Exception as e:
+            return None, f'the Kalshi market {tick} could not be read ({type(e).__name__})'
+        if str(m.get('ticker') or '').upper() != str(tick).upper() or m.get('result') not in ('yes', 'no'):
+            return None, f'the Kalshi market {tick} has not settled yes or no (status {m.get("status")!r}, result {m.get("result")!r})'
+        kalshi_won = m['result'] == side
+        espn_won = verified['winner'] == verified['picked']
+        if kalshi_won != espn_won:
+            return None, (f'the Kalshi market {tick} settled {m["result"]!r} on the {side} side, which disagrees with '
+                          f'ESPN\'s winner {verified["winner"]!r}')
+        return f'kalshi settlement (independent; {tick} settled {m["result"]})', None
+    try:
+        FW = _second_source()
+    except Exception as e:
+        return None, f'the second-source readers would not load ({type(e).__name__}: {e})'
+    primary = {'home': verified['home']['name'], 'away': verified['away']['name'],
+               'home_abbr': verified['home'].get('abbr', ''), 'away_abbr': verified['away'].get('abbr', ''),
+               'home_score': verified['home']['score'], 'away_score': verified['away']['score']}
+    try:
+        commence = datetime.fromisoformat(str((cp.get('game') or {}).get('commence')).replace('Z', '+00:00'))
+    except ValueError:
+        return None, f'the card pick\'s start {(cp.get("game") or {}).get("commence")!r} is not a time to read a second source by'
+    try:
+        sec = FW.second_source(cp, primary, commence)
+    except Exception as e:
+        return None, f'the second source raised {type(e).__name__}'
+    if not FW.two_source_ok(primary, sec):
+        return None, (f'no cross-company second source agrees with the ESPN final ({sec["source"] if sec else "none found"}: '
+                      f'{sec.get("away_score") if sec else "-"}-{sec.get("home_score") if sec else "-"} vs '
+                      f'{primary["away_score"]}-{primary["home_score"]})')
+    if 'espn' in str(sec.get('source') or '').lower():
+        return None, f'{sec["source"]} is ESPN again - the same company as the primary is never a second source'
+    return sec['source'], None
 
 
 def espn_verify_mma(league, eid, comp_id, q):
@@ -729,6 +792,7 @@ def main():
         print(f'  REFUSE: manifest units {man.get("units_pl")!r} unparsable - no units chain to continue', file=sys.stderr)
         return 3
     processed = []
+    verified_by = {}  # grade_id -> the two sources this run read and found agreeing (step 2b)
     touched = []
     for q in reqs:
         gid = q['grade_id']
@@ -810,6 +874,11 @@ def main():
             if info is None:
                 print(f'  REFUSE {gid}: independent verification failed - chain stops, no write', file=sys.stderr)
                 return 3
+            src2, why2 = second_source_check(q, cp, info)
+            if src2 is None:
+                print(f'  REFUSE {gid}: no second source - {why2} - chain stops, no write', file=sys.stderr)
+                return 3
+            verified_by[gid] = f'espn_core winner flags + {src2}'
             if sorted((away_sc, home_sc)) != [0, 1]:
                 print(f'  REFUSE {gid}: mma score convention is winner 1 / loser 0, got {q["score"]!r}', file=sys.stderr)
                 return 3
@@ -824,6 +893,11 @@ def main():
             if comp is None:
                 print(f'  REFUSE {gid}: independent verification failed - chain stops, no write', file=sys.stderr)
                 return 3
+            src2, why2 = second_source_check(q, cp, comp)
+            if src2 is None:
+                print(f'  REFUSE {gid}: no second source - {why2} - chain stops, no write', file=sys.stderr)
+                return 3
+            verified_by[gid] = f'espn_core completed + {src2}'
             # 2. the result must follow from the verified final - never from the request's label
             away_nm, home_nm = nick(comp['away']['name']), nick(comp['home']['name'])
             reg = None  # soccer only: the checked regulation score the grade is taken from
@@ -947,8 +1021,8 @@ def main():
     json.dump({'requests': remaining}, open(REQ, 'w'), indent=2)
     # API MIRROR (main 9/27 6:20, option B): slates/api_record.json in the
     # api.rix-picks.com/record worker's exact GET shape, emitted on every apply.
-    # graded_pick/source ride in analysis's request payload; omitted when absent -
-    # no invented state.
+    # graded_pick rides in analysis's request payload; omitted when absent - no invented state. source is
+    # the two sources this run itself read and found agreeing (step 2b), never the request's claim copied.
     mirror = {
         'w': rw, 'l': rl,
         'pct': float((Decimal(rw * 100) / (rw + rl)).quantize(Decimal('0.1'))) if (rw + rl) else 0.0,
@@ -957,8 +1031,9 @@ def main():
     }
     if last.get('graded_pick'):
         mirror['graded_pick'] = last['graded_pick']
-    if last.get('source'):
-        mirror['source'] = last['source']
+    if verified_by.get(last.get('grade_id')):
+        # the sources THIS run read and found agreeing - never the request's own claim, copied
+        mirror['source'] = 'record_final: ' + verified_by[last['grade_id']]
     json.dump(mirror, open(os.path.join(ROOT, 'slates', 'api_record.json'), 'w'), indent=1)
     print(f'RECORD WRITE: record {man["record"]} units {man["units_pl"]}; {len(processed)} graded, {len(remaining)} remain')
     return 0

@@ -136,6 +136,7 @@ with tempfile.TemporaryDirectory() as tmp:
             {'homeAway': 'away', 'team': {'displayName': 'Philadelphia Flyers'}, 'score': {'value': 2}},
             {'homeAway': 'home', 'team': {'displayName': 'Tampa Bay Lightning'}, 'score': {'value': 3}}]}
     rf._get = get
+    rf.second_source_check = lambda q, cp, v: ('fixture second source', None)  # step 2b: test_record_final_second_source.py
 
     def initialize():
         for f, obj in (('manifest.json', card), ('history.json', {'days': []}),

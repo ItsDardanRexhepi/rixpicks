@@ -136,17 +136,21 @@ def stamped(r):
 
 # a sub-bar card: every hold on it is a numeric bar (gross, net, units over the rung, fair below the band)
 CLEAN = pick(1, 'Clean ML', away='C1', home='D1')                                                    # no hold
-THIN = pick(2, 'Thin ML', away='C2', home='D2', model=62.0)                                          # gross 2c, net 0c (the 2c fee)
-TOTAL = pick(3, 'Total Over 4.5', away='C3', home='D3', model=82.0, american=-400, mclass='total', line=4.5, side='over')  # gross 2c, net 0c (the 2c fee)
+THIN = pick(2, 'Thin ML', away='C2', home='D2', model=63.0)                                          # gross 3c, net 1c (the 2c fee)
+TOTAL = pick(3, 'Total Over 4.5', away='C3', home='D3', model=82.5, american=-400, mclass='total', line=4.5, side='over')  # gross 2.5c, net 0.5c (the 2c fee)
 OFFRUNG = pick(4, 'OffRung ML', away='C4', home='D4', units='10u')                                   # 10u on a 6u rung
-SUBFAIR = pick(5, 'SubFair ML', away='C5', home='D5', model=55.0)                                   # fair below the 60c band
+SUBFAIR = pick(5, 'SubFair ML', away='C5', home='D5', model=61.5, best_book='Polymarket',          # gross 1.5c = net 1.5c at
+               best_ask={'venue': 'poly', 'price': 60, 'read_at': '2099-10-04T14:00:00Z', 'cost_c': 60.0, 'fee_c': 0.0,  # Polymarket's
+                         'compared': [{'venue': 'poly', 'price': 60, 'read_at': '2099-10-04T14:00:00Z'}]})       # 60c (no fee)
 SUB = [CLEAN, THIN, TOTAL, OFFRUNG, SUBFAIR]
 SUB_NAMES = [p['name'] for p in SUB[1:]]
 # THE LADDER's floors (owner, 2026-10-13): a numeric hold is a gross or a net under the floor of the pick's band (2c
-# in the 60c band, 1c from 70c up), or units over the rung. Thin's gross is exactly 2c, so only its net is held;
-# Total's 0c net at 80c (a 2c fee, rounded up as charged) is under the 1c floor.
+# in the 60c band, 1c from 70c up), or units over the rung. Thin's gross is 3c, so only its net (1c) is held;
+# Total's 0.5c net at 80c (a 2c fee, rounded up as charged) is under the 1c floor; SubFair's 1.5c at Polymarket (no fee)
+# is under the 2c floor gross and net. Every one of them HAS an edge: a pick with none (gross or net at or under 0) is
+# held by a hold no suspension reaches (H-02, pinned below).
 SUB_HELD = 5  # Thin: net; Total: net; OffRung: over the rung; SubFair: gross + net
-NUMERIC_TOKENS = ('net 0c below the 2c floor of the 60c band', 'net 0c below the 1c floor of the 80c band', "over the ladder rung 6u")
+NUMERIC_TOKENS = ('net 1c below the 2c floor of the 60c band', 'net 0.5c below the 1c floor of the 80c band', "over the ladder rung 6u")
 
 def held(rc, out, written):
     return rc == 3 and 'BUILD FAILED' in out and 'owner ruling 2026-10-02 (4)' in out and written == [] and 'OWNER SUSPENSION:' not in out
@@ -382,6 +386,16 @@ for B in BUILDERS:
     tp = copy.deepcopy(THIN); tp['game']['eid'] = ''
     rc, out, written, _ = build(B, card([CLEAN, tp] + SUB[2:]), log=log_of(line(picks=SUB_NAMES)))
     check(f'{tag}: (m) a waived pick with no eid on the card: held', held(rc, out, written) and 'does not match its logged entry' in out, (rc, out[-400:], written))
+
+    # H-02 (test_h02_*): a pick with NO edge - gross or net at or under 0 - is never a pick, and the owner's logged
+    # suspension does not reach it: the same logged, disclosed sub-bar card with one no-edge pick added is held
+    for label, model in (('gross 0c (fair 60c at a 60c ask)', 60.0), ('gross -5c (fair 55c)', 55.0),
+                         ('net 0c (fair 62c: 2c gross less the 2c fee)', 62.0)):
+        ne = pick(6, 'NoEdge ML', away='C6', home='D6', model=model)
+        rc, out, written, _ = build(B, card(SUB + [ne]), log=log_of(line(picks=SUB_NAMES + ['NoEdge ML'])))
+        check(f'{tag}: test_h02 a logged suspension does not waive a no-edge pick ({label}): held, nothing written',
+              held(rc, out, written) and 'no edge' in out and 'NoEdge ML' in out and 'no waiver reaches it' in out,
+              (rc, out[-500:], written))
 
 print('FAILURES: ' + str(failures) if failures else 'ALL CHECKS PASS')
 sys.exit(1 if failures else 0)

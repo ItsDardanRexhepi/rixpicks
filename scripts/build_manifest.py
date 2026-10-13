@@ -25,7 +25,10 @@ block's own market, so it names a line only optionally, and then the same one. A
 card (nothing written); the lines given ride into best_ask and its compared list.
 Usage: build_manifest.py candidates.json out_manifest.json [--preview] [--meta meta.json]
 candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{cents,team,url,ticker,side},model,gross_c,net_c,
-                [best_ask:{venue,price,read_at,[line],compared:[{venue,price,read_at,[line]}...]}], [fragility]}
+                [best_ask:{venue,price,read_at,[line],compared:[{venue,price,read_at,[line]}...]}], [fragility],
+                [venue,venue_city,venue_state,venue_country] (REQUIRED on a bout: mma/*, boxing)}
+A manifest pick carries fair_c (the fair at full precision) and fragility (0 when the candidate gives none) beside
+its units, so the page builder re-checks the exact rung from the same numbers this script sized it on.
 STANDING RULES ARE HARD GATES (owner ruling 2026-10-02 (4): "NO - an owner-approved card cannot break a standing
 rule. Vegas rule, ladder sizes, all of it: hard gates, no exceptions."). The card refuses closed, nothing
 written, on a pick on or against a Las Vegas team, units off the ladder, and on every standing bar:
@@ -50,7 +53,9 @@ the same key refuses closed rather than forking the card record."""
 import json, sys, datetime, os, fcntl, hashlib, math, re
 import urllib.request as _urlreq
 from zoneinfo import ZoneInfo
-sys.path.insert(0, '/home/sandbox/rix_tmp')
+# this repo's own root, so `core` imports from the checkout the script runs in (never a stale sandbox path)
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, REPO_ROOT)
 from core.units import cents_to_american
 from core.fill_leak import PICKS_LEDGER as _DEFAULT_PICKS_LEDGER
 PICKS_LEDGER = os.environ.get('RIX_PICKS_LEDGER', _DEFAULT_PICKS_LEDGER)  # test-isolation hook
@@ -199,6 +204,32 @@ def vegas_hit_fields(league, fields):
 def vegas_hit(c):
     """Which field puts a Las Vegas team on this candidate (on it or against it), else None."""
     return vegas_hit_fields(c.get('espn_league'), [(f, c.get(f)) for f in ('home', 'away', 'name')])
+
+
+# >>> fights venue rule (RixPicksSystem engine/daily/bars.py VEGAS_VENUE / vegas_hit, the one definition; both
+# page-builder twins carry this copy byte for byte and scripts/test_bout_venue_rule.py checks the copies agree)
+# A bout (MMA, boxing) has no teams for the team rule to catch, so its VENUE is read: the name and the address
+# (venue, venue_city, venue_state, venue_country). A Las Vegas venue is barred - the Apex included - and so is a
+# bout whose venue is not given: it cannot be shown not to be in Las Vegas. The city answers for any venue however
+# it is named; the named venues are the floor for a feed that gives a name and no address.
+_VEGAS_VENUE = re.compile(r'\b(?:las\s+vegas|vegas|apex|t-?mobile\s+arena|allegiant\s+stadium|'
+                          r'mgm\s+grand|michelob\s+ultra\s+arena|mandalay\s+bay|thomas\s*(?:&|and)\s*mack|'
+                          r'orleans\s+arena|resorts\s+world|sphere|virgin\s+hotels)\b', re.I)
+_VENUE_KEYS = ('venue', 'venue_city', 'venue_state', 'venue_country')
+
+
+def bout_venue_problem(league, where):
+    """Why a bout (mma/*, boxing) may not be carded at this venue ({venue, venue_city, ...}), else None."""
+    if str(league or '').strip().lower().split('/')[0] not in ('mma', 'boxing'):
+        return None
+    text = ' / '.join(str(where.get(k)).strip() for k in _VENUE_KEYS if str(where.get(k) or '').strip())
+    if not text:
+        return ('the venue of this bout is not given (venue, venue_city) - a fight whose venue cannot be read cannot '
+                'be shown not to be in Las Vegas')
+    if _VEGAS_VENUE.search(text):
+        return f'venue {text!r} is in Las Vegas (a fight at a Las Vegas venue is barred, the Apex included)'
+    return None
+# <<< fights venue rule
 
 
 def units_rung(u):
@@ -575,6 +606,9 @@ def owner_rules_gate(cands, argv, parlay=None, status_note=None, preview=False):
         v = vegas_hit(c)
         if v:
             broken.append(f'Las Vegas team ({v}): never on or against a Vegas team')
+        bv = bout_venue_problem(c.get('espn_league'), c)
+        if bv:
+            broken.append(f'Las Vegas rule, fights: {bv}')
         if units_rung(c.get('units')) is None:
             broken.append(f"units {c.get('units')!r} not on the ladder (5u, 6u, 7u, 8u, 9u, 10u)")
         try:
@@ -599,7 +633,7 @@ def owner_rules_gate(cands, argv, parlay=None, status_note=None, preview=False):
         raise ValueError('fail closed (standing rules, runbook 2.3/2.5/2.8): ' + ' | '.join(problems) + f' - {HARD_GATES}')
     return priced
 
-PROD_MANIFEST_PATH = os.environ.get('RIX_PROD_MANIFEST', '/home/sandbox/rix_tmp/manifest.json')  # env override = test-isolation hook (same pattern as RIX_PICKS_LEDGER); non-preview publishes mirror here (Sep 29 stale-grader fix)
+PROD_MANIFEST_PATH = os.environ.get('RIX_PROD_MANIFEST', os.path.join(REPO_ROOT, 'manifest.json'))  # this repo's own manifest.json by default; env override = the grading host's copy and the test-isolation hook (same pattern as RIX_PICKS_LEDGER); non-preview publishes mirror here (Sep 29 stale-grader fix)
 
 PREVIEW_LEDGER = PICKS_LEDGER.replace('picks.jsonl', 'picks.preview.jsonl')
 LOCK_PATH = PICKS_LEDGER + '.lock'
@@ -760,7 +794,11 @@ def main():
             # the words the page prints beside them. Read off the rung its units name.
             'band_c': RUNG_BAND_FLOOR[units_rung(c['units'])][0], 'floor_c': RUNG_BAND_FLOOR[units_rung(c['units'])][1],
             'rung': f"{units_rung(c['units'])}u", 'ladder': ladder_words(c['units']),
-            'game': {'away': c['away'], 'home': c['home'], 'commence': c['commence'], 'eid': c['eid']},
+            'game': {'away': c['away'], 'home': c['home'], 'commence': c['commence'], 'eid': c['eid'],
+                     **{k: c[k] for k in _VENUE_KEYS if c.get(k)}},  # where it is played: a bout's venue is a hard gate
+            # the fair at full precision and the fragility the rung was taken at: the page builder re-checks the
+            # rung from these, never from the sub-line's rounded 'model X' (hardening H-12, H-13)
+            'fair_c': c['model'], 'fragility': c['fragility'] if c.get('fragility') is not None else 0,
             'espn_league': c['espn_league'],
             'league': LEAGUE_KEY.get(c['espn_league'], c['espn_league'].split('/')[-1].upper()),  # refresh.sh SPORTS derivation reads p['league'] (config_leagues.json key) - Sep 27: NFL/WNBA got zero prefill when this was absent
             'best_book': pr['name'],
@@ -906,10 +944,10 @@ def main():
             sf.flush(); os.fsync(sf.fileno())
         os.replace(ltmp, ledger)   # ledger commit point
         os.replace(tmp, out)       # manifest publish
-        # PROD MIRROR (Sep 29 stale-grader incident): finals_watch runs from the /home/sandbox/rix_tmp
-        # clone and reads ITS manifest.json. When the daily build publishes elsewhere (e.g.
-        # /tmp/rix_repo/manifest.json), the grader silently reads the stale rix_tmp copy and finals
-        # never grade. Mirror every non-preview publish onto PROD_MANIFEST_PATH (same box, atomic)
+        # PROD MIRROR (Sep 29 stale-grader incident): finals_watch runs from its own clone and reads
+        # ITS manifest.json (this repo's manifest.json by default, RIX_PROD_MANIFEST on the grading host).
+        # When the daily build publishes elsewhere (e.g. /tmp/rix_repo/manifest.json), the grader would
+        # silently read a stale copy and finals never grade. Mirror every non-preview publish onto PROD_MANIFEST_PATH (same box, atomic)
         # so the grader's input is always the manifest just built. Mirror failure fails LOUD -
         # a silent miss is exactly the incident being fixed.
         if not preview and os.path.abspath(out) != os.path.abspath(PROD_MANIFEST_PATH):

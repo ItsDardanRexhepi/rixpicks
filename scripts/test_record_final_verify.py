@@ -136,6 +136,7 @@ def run(reqs, hist=HIST, done=DONE, live=LIVE, payload=None, snaps=None):
                                             ('record_request.json', 'manifest.json', 'history.json', 'record_done.json'))
         rf.MANIFESTS = os.path.join(tmp, 'manifests')
         rf._get = fake_get
+        rf.second_source_check = lambda q, cp, v: ('fixture second source', None)  # step 2b: test_record_final_second_source.py
         out, err = io.StringIO(), io.StringIO()
         with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
             try:
@@ -558,6 +559,7 @@ check('MMA a pre-K19 row (no event id on any copy) still binds on league + pick 
 # MMA: a PUSH label on a fight with a winner flag is a contradiction
 rf = load()
 rf._get = fake_get
+rf.second_source_check = lambda q, cp, v: ('fixture second source', None)  # step 2b: test_record_final_second_source.py
 with contextlib.redirect_stderr(io.StringIO()):
     mma = rf.espn_verify_mma('mma/ufc', '600060739', '401891663',
                              {'pick': 'Loai Abushaar ML', 'result': 'PUSH', 'graded_pick': 'Staines def. Abushaar'})

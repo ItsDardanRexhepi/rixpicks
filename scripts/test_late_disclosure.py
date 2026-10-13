@@ -105,6 +105,7 @@ def run(reqs, snaps):
                                             ('record_request.json', 'manifest.json', 'history.json', 'record_done.json'))
         rf.MANIFESTS = os.path.join(tmp, 'manifests')
         rf._get = fake_get
+        rf.second_source_check = lambda q, cp, v: ('fixture second source', None)  # step 2b: test_record_final_second_source.py
         out, err = io.StringIO(), io.StringIO()
         with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
             try:

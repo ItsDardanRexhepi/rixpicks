@@ -254,6 +254,30 @@ def vegas_hit_fields(league, fields):
             return f'{f} {v!r}'
     return None
 # <<< vegas-rule contract copy
+# >>> fights venue rule (RixPicksSystem engine/daily/bars.py VEGAS_VENUE / vegas_hit, the one definition; both
+# page-builder twins carry this copy byte for byte and scripts/test_bout_venue_rule.py checks the copies agree)
+# A bout (MMA, boxing) has no teams for the team rule to catch, so its VENUE is read: the name and the address
+# (venue, venue_city, venue_state, venue_country). A Las Vegas venue is barred - the Apex included - and so is a
+# bout whose venue is not given: it cannot be shown not to be in Las Vegas. The city answers for any venue however
+# it is named; the named venues are the floor for a feed that gives a name and no address.
+_VEGAS_VENUE = re.compile(r'\b(?:las\s+vegas|vegas|apex|t-?mobile\s+arena|allegiant\s+stadium|'
+                          r'mgm\s+grand|michelob\s+ultra\s+arena|mandalay\s+bay|thomas\s*(?:&|and)\s*mack|'
+                          r'orleans\s+arena|resorts\s+world|sphere|virgin\s+hotels)\b', re.I)
+_VENUE_KEYS = ('venue', 'venue_city', 'venue_state', 'venue_country')
+
+
+def bout_venue_problem(league, where):
+    """Why a bout (mma/*, boxing) may not be carded at this venue ({venue, venue_city, ...}), else None."""
+    if str(league or '').strip().lower().split('/')[0] not in ('mma', 'boxing'):
+        return None
+    text = ' / '.join(str(where.get(k)).strip() for k in _VENUE_KEYS if str(where.get(k) or '').strip())
+    if not text:
+        return ('the venue of this bout is not given (venue, venue_city) - a fight whose venue cannot be read cannot '
+                'be shown not to be in Las Vegas')
+    if _VEGAS_VENUE.search(text):
+        return f'venue {text!r} is in Las Vegas (a fight at a Las Vegas venue is barred, the Apex included)'
+    return None
+# <<< fights venue rule
 _UNIT_LADDER=('5u','6u','7u','8u','9u','10u')  # THE LADDER (owner 2026-10-13): no 15u, no 100u
 # numeric bars, mirroring build_manifest.py (bar_problems / j096_rung); the page builder re-checks them
 # from the manifest's own fields because a sub-bar card.json can land outside build_manifest.
@@ -283,6 +307,12 @@ def _as_american(p):
     mo=re.fullmatch(r"\s*([+-]?\d+)\s*",str(p.get('odds') or ''))
     return int(mo.group(1)) if mo else None
 def _fair_of(p):
+    # the typed full-precision fair (build_manifest and the engine's landing write fair_c): the sub-line's 'model X'
+    # is rounded to 0.1c and could clear a rung build_manifest refused, or hold one it passed (hardening H-13).
+    # A card from before fair_c existed is read the old way, so a live card never goes unreadable on deploy.
+    fc=_rnum(p.get('fair_c'))
+    if fc is not None:
+        return fc if 0<fc<100 else None
     mo=re.search(r"model\s+([0-9]+(?:\.[0-9]+)?)",str(p.get('sub') or ''))
     if mo:
         value=float(mo.group(1))
@@ -327,6 +357,18 @@ def _ladder_rung(ask,gross,net):
     for u,b,f in _LADDER:
         if round(ask,6)>=b and round(gross,6)>=f and round(net,6)>=f: best=u
     return best
+def _rung_at_most(mx,ask,gross,net):
+    best=0
+    for u,b,f in _LADDER:
+        if u<=mx and round(ask,6)>=b and round(gross,6)>=f and round(net,6)>=f: best=u
+    return best
+def _final_rung(ask,gross,net,frag,tennis):
+    # build_manifest.bar_problems' own reading (RixPicksSystem engine/ladder._final_rung): 0 = no rung
+    if frag is not None and frag>=3: return 0
+    r=_ladder_rung(ask,gross,net)
+    if r and frag==2 and r>_LADDER[0][0]: r=_rung_at_most(r-1,ask,gross,net)
+    if r and tennis and r>5: r=_rung_at_most(5,ask,gross,net)
+    return r
 def _ladder_words(p):
     # '<N>u · <band>c band · <floor>c floor' beside the units (owner 2026-10-13); a legacy pick with no rung prints its units alone
     u=_RUNG_INT.get(p.get('units'))
@@ -437,6 +479,8 @@ def _standing_rule_holds(m):
         g=p.get('game') if isinstance(p.get('game'),dict) else {}
         _vh=vegas_hit_fields(p.get('espn_league'),(('name',p.get('name')),('away',g.get('away')),('home',g.get('home'))))
         if _vh: out.append((p.get('name'),'vegas',f"{who}: Las Vegas team ({_vh}) - never on or against a Vegas team"))
+        _bv=bout_venue_problem(p.get('espn_league'),g)
+        if _bv: out.append((p.get('name'),'vegas_venue',f"{who}: Las Vegas rule, fights: {_bv}"))
         for _k,_why in _pick_line_holds(p): out.append((p.get('name'),_k,f"{who}: {_why}"))
         for _k,_why in _best_ask_line_holds(p): out.append((p.get('name'),_k,f"{who}: {_why}"))
         if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
@@ -463,14 +507,27 @@ def _standing_rule_holds(m):
         _fl=_floor_for(cost)
         if gross<_fl: out.append((p.get('name'),'gross_bar',f"{who}: gross {gross:g}c below the {_fl:g}c floor of the {_band or _BAND_MIN_C}c band"))
         if net<_fl: out.append((p.get('name'),'net_bar',f"{who}: net {net:g}c below the {_fl:g}c floor of the {_band or _BAND_MIN_C}c band"))
+        # no edge at all is never a pick, for anyone: this hold is not a numeric bar and no suspension reaches it (H-02)
+        if gross<=0 or net<=0: out.append((p.get('name'),'edge_nonpositive',f"{who}: no edge (gross {gross:g}c, net {net:g}c at a {cost:g}c ask) - a pick with no edge is never a pick, and no waiver reaches it"))
+        # THE EXACT RUNG (H-12): the ladder rung the numbers clear, after fragility (2 drops one rung to a rung it also
+        # clears, 3 holds) and the tennis 5u cap - exactly at the fragility the pick carries, and when it carries none,
+        # the rung at fragility 0 or the one rung lower fragility 2 gives (the only two sizes those numbers allow)
         u,base=_RUNG_INT.get(p.get('units')),_ladder_rung(cost,gross,net)
-        if u is not None and base and u>base:
-            out.append((p.get('name'),'units_over_rung',f"{who}: units {p.get('units')!r} over the ladder rung {base}u its ask and edge clear (ask {cost:g}c, gross {gross:g}c, net {net:g}c)"))
+        _fr=p.get('fragility')
+        if _fr is not None and (type(_fr) is not int or _fr<0):
+            out.append((p.get('name'),'fragility',f"{who}: fragility {_fr!r} is not a whole number from 0 (J-097)")); _fr=None
+        _ten=str(p.get('espn_league') or '').strip().lower().split('/')[0]=='tennis'
+        _fin={_final_rung(cost,gross,net,f,_ten) for f in ((_fr,) if _fr is not None else (0,2))}
+        _hi=max(_fin)
+        if u is not None and base and u>_hi:
+            out.append((p.get('name'),'units_over_rung',f"{who}: units {p.get('units')!r} over the ladder rung {_hi}u its ask and edge clear (ask {cost:g}c, gross {gross:g}c, net {net:g}c"+(f", fragility {_fr}" if _fr is not None else '')+")"))
         elif u is not None and base:
             # the page prints '<N>u · <band>c band · <floor>c floor' beside the pick, so the pick must have CLEARED that rung's band and floor (owner 2026-10-13)
             _b,_f=_RUNG_BF[u]
             if round(cost,6)<_b or round(gross,6)<_f or round(net,6)<_f:
                 out.append((p.get('name'),'units_rung_not_cleared',f"{who}: units {p.get('units')!r} name the {_b}c band and {_f}c floor, which this pick did not clear (ask {cost:g}c, gross {gross:g}c, net {net:g}c)"))
+            elif u not in _fin:
+                out.append((p.get('name'),'units_under_rung',f"{who}: units {p.get('units')!r} under the ladder rung {_hi}u its ask and edge clear (ask {cost:g}c, gross {gross:g}c, net {net:g}c"+(f", fragility {_fr}" if _fr is not None else '')+") - a pick is sized at its rung, not below it"))
         ba=p.get('best_ask')  # card_american must equal the best ask of its recorded venues
         if isinstance(ba,dict) and isinstance(ba.get('compared'),list) and ba['compared']:
             costs=[c for c in (_venue_cost(q.get('venue'),q.get('price')) for q in ba['compared'] if isinstance(q,dict)) if c is not None]
@@ -523,7 +580,9 @@ def _standing_rule_holds(m):
 # on more than one card pick and no name is logged twice with different entries; and every waived pick plays on
 # the logged date (its game.commence, which must carry an explicit UTC offset, read in America/Los_Angeles by _pt_day
 # - stricter than _pt_date, which reads a zoneless commence as UTC: here it binds to no date) and carries exactly its
-# logged eid (game.eid) and units. Never suspendable: a Las Vegas team, units off the ladder, a card ask at or above
+# logged eid (game.eid) and units. Never suspendable: a Las Vegas team, a bout at a Las Vegas venue or at no venue given,
+# a pick with no edge at all (gross or net at or under 0), units under the rung its numbers clear, a fragility that is not
+# a whole number, units off the ladder, a card ask at or above
 # the 85c cut or under the 60c band, a card price that is not the best recorded ask, a spread name or pick_line that disagrees with its
 # line, a best-ask quote at another line, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly as
 # before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record: a date that

@@ -138,6 +138,7 @@ def run_record_final(tmp, requests, summary=None):
     rf.REQ, rf.MAN, rf.HIST, rf.DONE = (os.path.join(tmp, f) for f in ('record_request.json', 'manifest.json', 'history.json', 'record_done.json'))
     rf.MANIFESTS = os.path.join(tmp, 'manifests')
     rf._get = summary or fake_get
+    rf.second_source_check = lambda q, cp, v: ('fixture second source', None)  # step 2b: test_record_final_second_source.py
     out, err = io.StringIO(), io.StringIO()
     with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
         code = rf.main()
