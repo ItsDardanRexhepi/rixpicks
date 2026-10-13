@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-13T21:20:21.840001+00:00",
+ "generated_at": "2026-10-13T21:35:13.890539+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -86,6 +86,14 @@
      "status": "pre",
      "detail": "10/13 - 4:15 PM PT",
      "score": "TB 0 - NYR 0"
+    },
+    {
+     "espn_event_id": "401892494",
+     "matchup": "STL @ OTT",
+     "commence": "2026-10-13T23:30Z",
+     "status": "pre",
+     "detail": "10/13 - 4:30 PM PT",
+     "score": "STL 0 - OTT 0"
     }
    ]
   }
