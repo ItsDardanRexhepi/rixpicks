@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-13T22:05:13.294545+00:00",
+ "generated_at": "2026-10-13T22:20:09.965992+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -69,12 +69,14 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401892489",
-     "matchup": "FLA @ CBJ",
-     "commence": "2026-10-13T22:15Z",
-     "status": "pre",
-     "detail": "10/13 - 3:15 PM PT",
-     "score": "FLA 0 - CBJ 0"
+     "espn_event_id": "401892488",
+     "matchup": "NJ @ DET",
+     "commence": "2026-10-13T22:00Z",
+     "status": "in",
+     "detail": "13:44 - 1st",
+     "score": "NJ 1 - DET 0",
+     "away_to": null,
+     "home_to": null
     },
     {
      "espn_event_id": "401892490",
@@ -131,6 +133,14 @@
      "status": "pre",
      "detail": "10/13 - 5:00 PM PT",
      "score": "PIT 0 - CHI 0"
+    },
+    {
+     "espn_event_id": "401892497",
+     "matchup": "MIN @ WPG",
+     "commence": "2026-10-14T00:15Z",
+     "status": "pre",
+     "detail": "10/13 - 5:15 PM PT",
+     "score": "MIN 0 - WPG 0"
     }
    ]
   }
