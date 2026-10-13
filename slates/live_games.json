@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-13T22:50:14.453603+00:00",
+ "generated_at": "2026-10-13T23:05:13.104133+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -22,9 +22,11 @@
      "espn_event_id": "401871067",
      "matchup": "DEL @ MTSU",
      "commence": "2026-10-13T23:00Z",
-     "status": "pre",
-     "detail": "10/13 - 4:00 PM PT",
-     "score": "DEL 0 - MTSU 0"
+     "status": "in",
+     "detail": "13:24 - 1st",
+     "score": "DEL 0 - MTSU 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401871053",
@@ -39,22 +41,6 @@
   {
    "league": "NBA",
    "games": [
-    {
-     "espn_event_id": "401898403",
-     "matchup": "CLE @ ORL",
-     "commence": "2026-10-13T23:00Z",
-     "status": "pre",
-     "detail": "10/13 - 4:00 PM PT",
-     "score": "CLE 0 - ORL 0"
-    },
-    {
-     "espn_event_id": "401908944",
-     "matchup": "NY @ TOR",
-     "commence": "2026-10-13T23:00Z",
-     "status": "pre",
-     "detail": "10/13 - 4:00 PM PT",
-     "score": "NY 0 - TOR 0"
-    },
     {
      "espn_event_id": "401908621",
      "matchup": "IND @ OKC",
@@ -73,8 +59,8 @@
      "matchup": "NJ @ DET",
      "commence": "2026-10-13T22:00Z",
      "status": "in",
-     "detail": "End of 1st",
-     "score": "NJ 1 - DET 1",
+     "detail": "17:20 - 2nd",
+     "score": "NJ 1 - DET 2",
      "away_to": null,
      "home_to": null
     },
@@ -83,7 +69,7 @@
      "matchup": "FLA @ CBJ",
      "commence": "2026-10-13T22:15Z",
      "status": "in",
-     "detail": "5:05 - 1st",
+     "detail": "End of 1st",
      "score": "FLA 0 - CBJ 1",
      "away_to": null,
      "home_to": null
@@ -93,18 +79,20 @@
      "matchup": "BUF @ MTL",
      "commence": "2026-10-13T22:30Z",
      "status": "in",
-     "detail": "14:32 - 1st",
+     "detail": "8:06 - 1st",
      "score": "BUF 1 - MTL 0",
      "away_to": null,
      "home_to": null
     },
     {
-     "espn_event_id": "401892492",
-     "matchup": "SEA @ PHI",
-     "commence": "2026-10-13T23:00Z",
-     "status": "pre",
-     "detail": "10/13 - 4:00 PM PT",
-     "score": "SEA 0 - PHI 0"
+     "espn_event_id": "401892491",
+     "matchup": "WAS @ CAR",
+     "commence": "2026-10-13T22:45Z",
+     "status": "in",
+     "detail": "13:53 - 1st",
+     "score": "WAS 0 - CAR 0",
+     "away_to": null,
+     "home_to": null
     },
     {
      "espn_event_id": "401892493",
@@ -161,6 +149,14 @@
      "status": "pre",
      "detail": "10/13 - 5:45 PM PT",
      "score": "VGK 0 - NSH 0"
+    },
+    {
+     "espn_event_id": "401892500",
+     "matchup": "TOR @ UTA",
+     "commence": "2026-10-14T01:00Z",
+     "status": "pre",
+     "detail": "10/13 - 6:00 PM PT",
+     "score": "TOR 0 - UTA 0"
     }
    ]
   }
