@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-13T23:06:51.552183+00:00",
+ "generated_at": "2026-10-13T23:21:26.691545+00:00",
  "items": [
-  {
-   "id": "cae14db5d7",
-   "league": "NHL",
-   "event": "Tampa Bay Lightning @ New York Rangers",
-   "prediction": "Tampa Bay Lightning to beat New York Rangers",
-   "kickoff_utc": "2026-10-13T23:15:00+00:00"
-  },
   {
    "id": "5dd6882162",
    "league": "NHL",
@@ -42,6 +35,13 @@
    "event": "Vegas Golden Knights @ Nashville Predators",
    "prediction": "Nashville Predators to beat Vegas Golden Knights",
    "kickoff_utc": "2026-10-14T00:45:00+00:00"
+  },
+  {
+   "id": "278cc20869",
+   "league": "NHL",
+   "event": "Toronto Maple Leafs @ Utah Mammoth",
+   "prediction": "Toronto Maple Leafs to beat Utah Mammoth",
+   "kickoff_utc": "2026-10-14T01:00:00+00:00"
   }
  ]
 }
