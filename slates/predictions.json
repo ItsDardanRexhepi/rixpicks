@@ -1,47 +1,12 @@
 {
- "generated_at": "2026-10-06T02:20:00.804697+00:00",
+ "generated_at": "2026-10-13T06:21:27.367701+00:00",
  "items": [
   {
-   "id": "7461789a93",
+   "id": "a089ea77e2",
    "league": "MLS",
-   "event": "Vancouver Whitecaps @ Chicago Fire FC",
-   "prediction": "Chicago Fire FC to beat Vancouver Whitecaps",
-   "kickoff_utc": "2026-10-07T00:30:00+00:00"
-  },
-  {
-   "id": "af7e3a3dcd",
-   "league": "WNBA",
-   "event": "New York Liberty @ Atlanta Dream",
-   "prediction": "New York Liberty to beat Atlanta Dream",
-   "kickoff_utc": "2026-10-07T23:30:00+00:00"
-  },
-  {
-   "id": "4bae28357a",
-   "league": "WNBA",
-   "event": "Las Vegas Aces @ Golden State Valkyries",
-   "prediction": "Las Vegas Aces to beat Golden State Valkyries",
-   "kickoff_utc": "2026-10-08T01:30:00+00:00"
-  },
-  {
-   "id": "3acc99a6ea",
-   "league": "CFB",
-   "event": "Iowa Hawkeyes @ Washington Huskies",
-   "prediction": "Washington Huskies to beat Iowa Hawkeyes",
-   "kickoff_utc": "2026-10-10T01:00:00+00:00"
-  },
-  {
-   "id": "a933b5fae0",
-   "league": "CFB",
-   "event": "Iowa State Cyclones @ BYU Cougars",
-   "prediction": "BYU Cougars to beat Iowa State Cyclones",
-   "kickoff_utc": "2026-10-10T02:15:00+00:00"
-  },
-  {
-   "id": "0877588209",
-   "league": "CFB",
-   "event": "Texas A&M Aggies @ Missouri Tigers",
-   "prediction": "Missouri Tigers to beat Texas A&M Aggies",
-   "kickoff_utc": "2026-10-10T16:00:00+00:00"
+   "event": "Sporting Kansas City @ Nashville SC",
+   "prediction": "Nashville SC to beat Sporting Kansas City",
+   "kickoff_utc": "2026-10-15T00:30:00+00:00"
   }
  ]
 }

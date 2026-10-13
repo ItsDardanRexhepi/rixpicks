@@ -569,8 +569,9 @@
   "pick_team": "New Orleans Saints",
   "prediction": "New Orleans Saints beat Atlanta Falcons",
   "kickoff_utc": "2026-10-06T00:15:00+00:00",
-  "status": "pending",
-  "created_at": "2026-09-30T18:36:24.781624+00:00"
+  "status": "miss",
+  "created_at": "2026-09-30T18:36:24.781624+00:00",
+  "settled_at": "2026-10-13T06:19:55.014263+00:00"
  },
  {
   "id": "6d2d37181e",
@@ -1156,8 +1157,9 @@
   "pick_team": "Chicago Fire FC",
   "prediction": "Chicago Fire FC to beat Vancouver Whitecaps",
   "kickoff_utc": "2026-10-07T00:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-04T10:20:12.586006+00:00"
+  "status": "hit",
+  "created_at": "2026-10-04T10:20:12.586006+00:00",
+  "settled_at": "2026-10-13T06:19:55.115486+00:00"
  },
  {
   "id": "376035ba06",
@@ -1169,8 +1171,9 @@
   "pick_team": "Angel City FC",
   "prediction": "Angel City FC to beat Gotham FC",
   "kickoff_utc": "2026-10-04T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-04T10:50:11.531642+00:00"
+  "status": "miss",
+  "created_at": "2026-10-04T10:50:11.531642+00:00",
+  "settled_at": "2026-10-13T06:19:55.273852+00:00"
  },
  {
   "id": "948adbdb83",
@@ -1280,8 +1283,9 @@
   "pick_team": "Missouri Tigers",
   "prediction": "Missouri Tigers to beat Texas A&M Aggies",
   "kickoff_utc": "2026-10-10T16:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T04:20:29.417486+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T04:20:29.417486+00:00",
+  "settled_at": "2026-10-13T06:19:55.399742+00:00"
  },
  {
   "id": "f4231f58f4",
@@ -1293,8 +1297,9 @@
   "pick_team": "Ole Miss Rebels",
   "prediction": "Ole Miss Rebels to beat Vanderbilt Commodores",
   "kickoff_utc": "2026-10-10T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T04:35:54.366512+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T04:35:54.366512+00:00",
+  "settled_at": "2026-10-13T06:19:55.606842+00:00"
  },
  {
   "id": "3fe2b9895d",
@@ -1306,8 +1311,9 @@
   "pick_team": "Ohio State Buckeyes",
   "prediction": "Ohio State Buckeyes to beat Maryland Terrapins",
   "kickoff_utc": "2026-10-10T20:15:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T04:36:21.562523+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T04:36:21.562523+00:00",
+  "settled_at": "2026-10-13T06:19:55.816749+00:00"
  },
  {
   "id": "03027e0ede",
@@ -1319,8 +1325,9 @@
   "pick_team": "Oklahoma State Cowboys",
   "prediction": "Oklahoma State Cowboys to beat UCF Knights",
   "kickoff_utc": "2026-10-10T16:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T04:50:39.084172+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T04:50:39.084172+00:00",
+  "settled_at": "2026-10-13T06:19:55.924318+00:00"
  },
  {
   "id": "5e3ebc7d92",
@@ -1332,8 +1339,9 @@
   "pick_team": "LSU Tigers",
   "prediction": "LSU Tigers to beat Kentucky Wildcats",
   "kickoff_utc": "2026-10-10T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T04:52:06.477553+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T04:52:06.477553+00:00",
+  "settled_at": "2026-10-13T06:19:56.046435+00:00"
  },
  {
   "id": "6feb607ac7",
@@ -1345,8 +1353,9 @@
   "pick_team": "Oregon Ducks",
   "prediction": "Oregon Ducks to beat UCLA Bruins",
   "kickoff_utc": "2026-10-10T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T05:22:48.879456+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T05:22:48.879456+00:00",
+  "settled_at": "2026-10-13T06:19:56.320646+00:00"
  },
  {
   "id": "93e30d6f15",
@@ -1358,8 +1367,9 @@
   "pick_team": "USC Trojans",
   "prediction": "USC Trojans to beat Penn State Nittany Lions",
   "kickoff_utc": "2026-10-10T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T05:23:43.802698+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T05:23:43.802698+00:00",
+  "settled_at": "2026-10-13T06:19:56.545932+00:00"
  },
  {
   "id": "3acc99a6ea",
@@ -1371,8 +1381,9 @@
   "pick_team": "Washington Huskies",
   "prediction": "Washington Huskies to beat Iowa Hawkeyes",
   "kickoff_utc": "2026-10-10T01:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T05:50:09.116580+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T05:50:09.116580+00:00",
+  "settled_at": "2026-10-13T06:19:56.715206+00:00"
  },
  {
   "id": "c5b16a03c4",
@@ -1384,8 +1395,9 @@
   "pick_team": "Kansas State Wildcats",
   "prediction": "Kansas State Wildcats to beat Houston Cougars",
   "kickoff_utc": "2026-10-10T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T06:06:59.852608+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T06:06:59.852608+00:00",
+  "settled_at": "2026-10-13T06:19:56.958886+00:00"
  },
  {
   "id": "ed6e5b24cd",
@@ -1397,8 +1409,9 @@
   "pick_team": "Tennessee Volunteers",
   "prediction": "Tennessee Volunteers to beat Arkansas Razorbacks",
   "kickoff_utc": "2026-10-10T20:15:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T06:07:13.803834+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T06:07:13.803834+00:00",
+  "settled_at": "2026-10-13T06:19:57.216872+00:00"
  },
  {
   "id": "720a58b70a",
@@ -1410,8 +1423,9 @@
   "pick_team": "Florida Gators",
   "prediction": "Florida Gators to beat South Carolina Gamecocks",
   "kickoff_utc": "2026-10-10T16:45:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T06:35:19.370125+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T06:35:19.370125+00:00",
+  "settled_at": "2026-10-13T06:19:57.437664+00:00"
  },
  {
   "id": "227247841d",
@@ -1423,8 +1437,9 @@
   "pick_team": "Georgia Bulldogs",
   "prediction": "Georgia Bulldogs to beat Alabama Crimson Tide",
   "kickoff_utc": "2026-10-10T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T06:35:39.073508+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T06:35:39.073508+00:00",
+  "settled_at": "2026-10-13T06:19:57.562213+00:00"
  },
  {
   "id": "30941d5fa6",
@@ -1436,8 +1451,9 @@
   "pick_team": "Utah Utes",
   "prediction": "Utah Utes to beat Kansas Jayhawks",
   "kickoff_utc": "2026-10-11T02:15:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T06:35:50.935829+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T06:35:50.935829+00:00",
+  "settled_at": "2026-10-13T06:19:57.808518+00:00"
  },
  {
   "id": "8f374da414",
@@ -1449,8 +1465,9 @@
   "pick_team": "North Carolina Tar Heels",
   "prediction": "North Carolina Tar Heels to beat Pittsburgh Panthers",
   "kickoff_utc": "2026-10-10T16:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T07:05:21.136659+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T07:05:21.136659+00:00",
+  "settled_at": "2026-10-13T06:19:58.044333+00:00"
  },
  {
   "id": "a933b5fae0",
@@ -1462,8 +1479,9 @@
   "pick_team": "BYU Cougars",
   "prediction": "BYU Cougars to beat Iowa State Cyclones",
   "kickoff_utc": "2026-10-10T02:15:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T10:05:01.971541+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T10:05:01.971541+00:00",
+  "settled_at": "2026-10-13T06:19:58.202136+00:00"
  },
  {
   "id": "de0f210873",
@@ -1475,8 +1493,9 @@
   "pick_team": "Oklahoma Sooners",
   "prediction": "Oklahoma Sooners to beat Texas Longhorns",
   "kickoff_utc": "2026-10-10T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T10:05:15.351874+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T10:05:15.351874+00:00",
+  "settled_at": "2026-10-13T06:19:58.433250+00:00"
  },
  {
   "id": "77123b362d",
@@ -1488,8 +1507,9 @@
   "pick_team": "Stanford Cardinal",
   "prediction": "Stanford Cardinal to beat Notre Dame Fighting Irish",
   "kickoff_utc": "2026-10-10T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T10:05:22.166112+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T10:05:22.166112+00:00",
+  "settled_at": "2026-10-13T06:19:58.561017+00:00"
  },
  {
   "id": "66765698f3",
@@ -1501,8 +1521,9 @@
   "pick_team": "Fresno State Bulldogs",
   "prediction": "Fresno State Bulldogs to beat Boise State Broncos",
   "kickoff_utc": "2026-10-11T02:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T12:50:14.947231+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T12:50:14.947231+00:00",
+  "settled_at": "2026-10-13T06:19:58.775384+00:00"
  },
  {
   "id": "d97be2d950",
@@ -1514,8 +1535,9 @@
   "pick_team": "Milwaukee Bucks",
   "prediction": "Milwaukee Bucks to beat Minnesota Timberwolves",
   "kickoff_utc": "2026-10-06T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T15:06:36.395920+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T15:06:36.395920+00:00",
+  "settled_at": "2026-10-13T06:19:58.905279+00:00"
  },
  {
   "id": "b51bbfb986",
@@ -1569,8 +1591,9 @@
   "pick_team": "Los Angeles Lakers",
   "prediction": "Los Angeles Lakers to beat Sacramento Kings",
   "kickoff_utc": "2026-10-06T02:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T15:50:59.432085+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T15:50:59.432085+00:00",
+  "settled_at": "2026-10-13T06:19:58.968541+00:00"
  },
  {
   "id": "1f12fbd482",
@@ -1610,8 +1633,9 @@
   "pick_team": "Tampa Bay Rays",
   "prediction": "Tampa Bay Rays to beat New York Yankees",
   "kickoff_utc": "2026-10-06T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T16:20:22.196977+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T16:20:22.196977+00:00",
+  "settled_at": "2026-10-13T06:19:59.103716+00:00"
  },
  {
   "id": "4bae28357a",
@@ -1623,8 +1647,9 @@
   "pick_team": "Las Vegas Aces",
   "prediction": "Las Vegas Aces to beat Golden State Valkyries",
   "kickoff_utc": "2026-10-08T01:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T16:35:34.825034+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T16:35:34.825034+00:00",
+  "settled_at": "2026-10-13T06:19:59.289390+00:00"
  },
  {
   "id": "d742cbc779",
@@ -1636,8 +1661,9 @@
   "pick_team": "Pittsburgh Penguins",
   "prediction": "Pittsburgh Penguins to beat Winnipeg Jets",
   "kickoff_utc": "2026-10-05T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T16:50:09.268106+00:00"
+  "status": "miss",
+  "created_at": "2026-10-05T16:50:09.268106+00:00",
+  "settled_at": "2026-10-13T06:19:59.438931+00:00"
  },
  {
   "id": "d9f61f918d",
@@ -1649,8 +1675,9 @@
   "pick_team": "Dallas Stars",
   "prediction": "Dallas Stars to beat San Jose Sharks",
   "kickoff_utc": "2026-10-06T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-05T16:50:15.584561+00:00"
+  "status": "hit",
+  "created_at": "2026-10-05T16:50:15.584561+00:00",
+  "settled_at": "2026-10-13T06:19:59.505356+00:00"
  },
  {
   "id": "e77bc1a3b9",
@@ -1676,7 +1703,21 @@
   "pick_team": "New York Liberty",
   "prediction": "New York Liberty to beat Atlanta Dream",
   "kickoff_utc": "2026-10-07T23:30:00+00:00",
+  "status": "miss",
+  "created_at": "2026-10-05T19:05:33.732384+00:00",
+  "settled_at": "2026-10-13T06:19:59.608382+00:00"
+ },
+ {
+  "id": "a089ea77e2",
+  "event_id": "761866",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Nashville SC",
+  "away": "Sporting Kansas City",
+  "pick_team": "Nashville SC",
+  "prediction": "Nashville SC to beat Sporting Kansas City",
+  "kickoff_utc": "2026-10-15T00:30:00+00:00",
   "status": "pending",
-  "created_at": "2026-10-05T19:05:33.732384+00:00"
+  "created_at": "2026-10-13T06:21:08.477046+00:00"
  }
 ]
