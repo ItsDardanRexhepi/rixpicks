@@ -9,8 +9,9 @@
      * It computes nothing. It does not total, round, average, restate or join two answers into a
        third claim. Every figure a visitor reads was produced by the engine and verified before it
        left his machine; arithmetic in the page would be a figure nothing verified.
-     * It does not stream or animate thinking. The endpoint answers once, whole. A typing effect would
-       imply she is reasoning out loud when she is not, and the honesty of the surface is the product.
+     * It does not stream or animate thinking. The endpoint answers once, whole: while she works on it (minutes, at
+       her highest effort with her web tools) the page shows her typing dots and waits, collecting a long answer by
+       the id the Mac hands it (THE LONG WAIT, below). It never gives up while the Mac says she is still working.
      * It renders a refusal as an answer. `answered:false` is a true statement about what is not
        public, so it gets the same bubble and no red, no icon and no apology.
      * It sends one question at a time. Only a public question that never arrived is tried again; anything sent
@@ -281,9 +282,9 @@
   /* What goes to /ask: signed in or signing in, the question and the token and nothing else; otherwise the question
      and the turns, oldest dropped first until the body fits. */
   function askBody(q, turns) {
-    if (getSession()) return JSON.stringify({ question: q, session: getSession() });
+    if (getSession()) return JSON.stringify({ question: q, session: getSession(), wait: true });
     for (;;) {
-      var b = JSON.stringify(turns.length ? { question: q, turns: turns } : { question: q });
+      var b = JSON.stringify(turns.length ? { question: q, turns: turns, wait: true } : { question: q, wait: true });
       if (!turns.length || bytes(b) <= BODY_MAX) return b;
       turns = turns.slice(1);
     }
@@ -805,23 +806,83 @@
      Mac says where the change stands, even when it had already ended. */
   var UNSURE_CHANGE = 'I could not confirm that reached me. Send the same again in a moment and I will tell you where it stands.';
 
-  function ask(q) {
-    q = whole(String(q || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q));
-    if (!q || inFlight) return;
-    if (chips) chips.hidden = true;
-    var wasSecret = secretNext || secretWanted();
-    var held = !!getSession();
-    var unsure = signedIn() ? (wasSecret ? UNSURE_CHANGE : UNSURE_IN) : UNSURE_SIGNIN;
-    /* Read before this message is shown, so the turns are what came before it; none at all while a sign-in is open
-       or asked for. */
-    var turns = (held || wasSecret) ? [] : recentTurns();
-    row('me', wasSecret ? '••••••' : q, null, '', true);
-    var mine = kept[kept.length - 1];
-    if (input) { input.value = ''; if (input.style) input.style.height = ''; }
-    if (secretBox) secretBox.value = '';
-    lock(true);
-    var pend = row('her', PENDING, null, 'tr-pending', true);
+  /* THE LONG WAIT. She may take minutes over an answer (her highest effort, reading the web first), and no one request
+     waits that long: every question says it can wait, and when her answer is not ready inside the Mac's own wait the
+     reply is an id. The page then asks /reply with that id until her answer is there, her typing dots showing the
+     whole time. It never gives up while the Mac says she is still working; a dropped line is asked again, and a phone
+     that slept asks the moment it wakes. A reload in the middle picks the wait back up. An id the Mac no longer holds
+     (it restarted while she was writing) is said plainly, and the question is never sent again by the page. */
+  var WAIT = 'trinity_wait', PENDING_RE = /^[A-Za-z0-9_-]{20,64}$/;
+  var WAIT_MAX_MS = 30 * 60 * 1000, POLL_ABORT_MS = 45000;
+  var LOST = 'I lost my place on that one before I could finish it. Ask me again and I will start it over.';
+  var waiting = null;
 
+  function keepWait(id, held, photo) {
+    try {
+      if (id) sessionStorage.setItem(WAIT, JSON.stringify({ id: id, at: Date.now(), held: held ? 1 : 0, photo: photo ? 1 : 0 }));
+      else sessionStorage.removeItem(WAIT);
+    } catch (e) {}
+  }
+
+  /* Ask for the answer with this id until it is there. `got(res)` takes the answer exactly as a reply to the question
+     itself would have been taken; `gone()` says it was lost. */
+  function collect(id, held, photo, got, gone, since) {
+    var started = since || Date.now(), fails = 0, busy = false, over = false, timer = 0;
+    var w = waiting = { wake: null };
+    keepWait(id, held, photo);
+    var end = function () { over = true; clearTimeout(timer); if (waiting === w) waiting = null; keepWait(''); };
+    var again = function (ms) { clearTimeout(timer); timer = setTimeout(tick, ms); };
+    var tick = function () {
+      if (over || busy) return;
+      if (Date.now() - started > WAIT_MAX_MS) { end(); gone(); return; }
+      busy = true;
+      var t0 = Date.now();
+      var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
+      var cut = setTimeout(function () { if (ctrl) ctrl.abort(); }, POLL_ABORT_MS);
+      var sess = held ? getSession() : '';
+      fetch(TRINITY_ENDPOINT + '/reply', {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(sess ? { pending: id, session: sess } : { pending: id }),
+        signal: ctrl ? ctrl.signal : undefined, cache: 'no-store'
+      }).then(function (r) {
+        return r.json().then(function (d) { return { status: r.status, body: d }; },
+                             function () { return { status: r.status, body: null }; });
+      }).then(function (res) {
+        clearTimeout(cut);
+        busy = false;
+        if (over) return;
+        var d = res.body;
+        if (res.status === 200 && d && typeof d.pending === 'string') {
+          /* still writing: the Mac held that ask while she worked, so the next one goes at once */
+          fails = 0;
+          again(Date.now() - t0 < 1000 ? 2000 : 0);
+          return;
+        }
+        if (res.status === 200 && d) { end(); got(res); return; }
+        if (res.status === 404) { end(); gone(); return; }
+        fails++;
+        again(Math.min(2000 * fails, 10000));
+      }, function () {
+        clearTimeout(cut);
+        busy = false;
+        if (over) return;
+        fails++;
+        again(Math.min(2000 * fails, 10000));
+      });
+    };
+    w.wake = function () { if (!over && !busy) again(0); };
+    again(0);
+  }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && waiting && waiting.wake) waiting.wake(); });
+  window.addEventListener('pageshow', function () { if (waiting && waiting.wake) waiting.wake(); });
+
+  function pendingOf(res) {
+    var d = res && res.status === 200 ? res.body : null;
+    return d && typeof d.pending === 'string' && PENDING_RE.test(d.pending) && !d.answer ? d.pending : '';
+  }
+
+  /* What happens to her reply to one message, from the request that asked or from the wait for a long answer. */
+  function replying(pend, held, mine, unsure) {
     /* The mask is never switched off on a send: after every outcome (an answer, a limit, a dropped line, the
        timeout) it is worked out again from what the page holds, so a passphrase asked for stays masked until the
        sign-in opens or ends. */
@@ -837,35 +898,12 @@
       return added;
     };
     var lost = function () { finish(held ? unsure : OFFLINE, null, false); };
-
-    var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); lost(); }, 45000);
-    var body = held ? JSON.stringify({ question: q, session: getSession() }) : askBody(q, turns);
-
-    /* A dropped connection (the line to the Mac reconnects in seconds) is tried again twice before she says she
-       is not answering - for a public question only. Only a failure to ARRIVE is retried; an answer of any kind is
-       never asked twice. */
-    var post = function (tries) {
-      return fetch(TRINITY_ENDPOINT + '/ask', {
-        method: 'POST', headers: { 'content-type': 'application/json' }, body: body,
-        signal: ctrl ? ctrl.signal : undefined, cache: 'no-store'
-      }).then(function (r) {
-        if ((r.status === 502 || r.status === 503 || r.status === 504) && tries < 2 && !held) {
-          return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
-        }
-        return r;
-      }, function (err) {
-        if (held || done || tries >= 2 || (err && err.name === 'AbortError')) throw err;
-        return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
-      });
-    };
-
-    post(0).then(function (r) {
-      if (held && r.status >= 500) return { status: r.status, body: null };
-      return r.json().then(function (d) { return { status: r.status, body: d }; });
-    }).then(function (res) {
-      clearTimeout(timer);
+    var gone = function () { finish(held ? unsure : LOST, null, false); };
+    var handle = function (res) {
+      if (done) return;
       if (res.body === null) { lost(); return; }
+      var id = pendingOf(res);
+      if (id) { collect(id, held, false, handle, gone); return; }
       var d = res.body || {};
       var wasIn = signedIn();
       /* A reply that opened, asked for or ended a sign-in makes the message that caused it, and the reply, the
@@ -902,10 +940,82 @@
         finish(OFFLINE, null, false);
         if (door) markPrivate(mine);
       }
+    };
+    return { finish: finish, lost: lost, gone: gone, handle: handle, done: function () { return done; } };
+  }
+
+  function ask(q) {
+    q = whole(String(q || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q));
+    if (!q || inFlight) return;
+    if (chips) chips.hidden = true;
+    var wasSecret = secretNext || secretWanted();
+    var held = !!getSession();
+    var unsure = signedIn() ? (wasSecret ? UNSURE_CHANGE : UNSURE_IN) : UNSURE_SIGNIN;
+    /* Read before this message is shown, so the turns are what came before it; none at all while a sign-in is open
+       or asked for. */
+    var turns = (held || wasSecret) ? [] : recentTurns();
+    row('me', wasSecret ? '••••••' : q, null, '', true);
+    var mine = kept[kept.length - 1];
+    if (input) { input.value = ''; if (input.style) input.style.height = ''; }
+    if (secretBox) secretBox.value = '';
+    lock(true);
+    var pend = row('her', PENDING, null, 'tr-pending', true);
+    var r = replying(pend, held, mine, unsure);
+
+    /* The question itself comes back within the Mac's own wait (her answer, or the id to wait on), so this guards
+       only a line that never answers; the long wait has no such limit while she is working. */
+    var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); r.lost(); }, 45000);
+    var body = held ? JSON.stringify({ question: q, session: getSession(), wait: true }) : askBody(q, turns);
+
+    /* A dropped connection (the line to the Mac reconnects in seconds) is tried again twice before she says she
+       is not answering - for a public question only. Only a failure to ARRIVE is retried; an answer of any kind is
+       never asked twice. */
+    var post = function (tries) {
+      return fetch(TRINITY_ENDPOINT + '/ask', {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: body,
+        signal: ctrl ? ctrl.signal : undefined, cache: 'no-store'
+      }).then(function (res) {
+        if ((res.status === 502 || res.status === 503 || res.status === 504) && tries < 2 && !held) {
+          return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
+        }
+        return res;
+      }, function (err) {
+        if (held || r.done() || tries >= 2 || (err && err.name === 'AbortError')) throw err;
+        return new Promise(function (ok) { setTimeout(ok, 4000 * (tries + 1)); }).then(function () { return post(tries + 1); });
+      });
+    };
+
+    post(0).then(function (res) {
+      if (held && res.status >= 500) return { status: res.status, body: null };
+      return res.json().then(function (d) { return { status: res.status, body: d }; });
+    }).then(function (res) {
+      clearTimeout(timer);
+      r.handle(res);
     }).catch(function () {
       clearTimeout(timer);
-      lost();
+      r.lost();
     });
+  }
+
+  /* A reload while she was writing a long answer: the dots come back and the page goes on waiting for it. */
+  function resumeWait() {
+    var w = null;
+    try { w = JSON.parse(sessionStorage.getItem(WAIT) || 'null'); } catch (e) { w = null; }
+    if (!w || typeof w.id !== 'string' || !PENDING_RE.test(w.id) || !(Date.now() - (w.at || 0) < WAIT_MAX_MS)) {
+      keepWait('');
+      return;
+    }
+    if (w.held && !getSession()) { keepWait(''); return; }
+    lock(true);
+    var pend = row('her', PENDING, null, 'tr-pending', true);
+    if (w.photo) {
+      var p = photoReplying(pend);
+      collect(w.id, true, true, p.handle, p.gone, w.at);
+      return;
+    }
+    var r = replying(pend, !!w.held, null, UNSURE_IN);
+    collect(w.id, !!w.held, false, r.handle, r.gone, w.at);
   }
 
   /* PHOTOS, signed in only. The photo is redrawn on a canvas before it leaves the phone: that drops every byte of
@@ -1003,12 +1113,7 @@
     if (caption) row('me', caption, null, '', true);
     var pend = row('her', PENDING, null, 'tr-pending', true);
     var sent = false;
-    var done = function (text, declined) {
-      if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
-      if (text != null) row('her', text, null, declined ? 'declined' : '', true);
-      if (input) { input.value = ''; input.focus(); }
-      lock(false);
-    };
+    var p = photoReplying(pend);
     toJpeg(file).then(function (jpg) {
       showPic(pic, jpg.thumb || URL.createObjectURL(jpg));
       keepPic(jpg.thumb || '');
@@ -1018,13 +1123,32 @@
       return fetch(TRINITY_ENDPOINT + '/upload', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ session: getSession(), caption: caption, image: b64 }),
+        body: JSON.stringify({ session: getSession(), caption: caption, image: b64, wait: true }),
         cache: 'no-store'
       });
     }).then(function (r) {
       if (r.status >= 500) return { status: r.status, body: null };
       return r.json().then(function (d) { return { status: r.status, body: d }; });
-    }).then(function (res) {
+    }).then(p.handle).catch(function (e) {
+      p.done(sent ? PHOTO_UNSURE : (e && e.unreadable ? PHOTO_UNREADABLE : PHOTO_NOT_SENT), true);
+    });
+  }
+
+  /* What happens to her reply to a photo, from the upload itself or from the wait for a long answer about it. */
+  function photoReplying(pend) {
+    var over = false;
+    var done = function (text, declined) {
+      if (over) return;
+      over = true;
+      if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
+      if (text != null) row('her', text, null, declined ? 'declined' : '', true);
+      if (input) { input.value = ''; input.focus(); }
+      lock(false);
+    };
+    var handle = function (res) {
+      if (over) return;
+      var id = pendingOf(res);
+      if (id) { collect(id, true, true, handle, function () { done(PHOTO_UNSURE, true); }); return; }
       var d = res.body || {};
       var said = typeof d.answer === 'string' && d.answer ? d.answer : '';
       if (res.status === 403) {
@@ -1036,9 +1160,8 @@
       done(said || PHOTO_UNSURE, d.answered === false);
       if (d.overrides) ovLoad(true);
       if (d.job) follow(d.job, said);
-    }).catch(function (e) {
-      done(sent ? PHOTO_UNSURE : (e && e.unreadable ? PHOTO_UNREADABLE : PHOTO_NOT_SENT), true);
-    });
+    };
+    return { done: done, handle: handle, gone: function () { done(PHOTO_UNSURE, true); } };
   }
 
   /* The five lists on the page are served by the endpoint, so they can never drift from the lookups
@@ -1135,6 +1258,7 @@
     }
     resumeJobs();
     resumeShots();
+    resumeWait();
     fillAbout();
   }
 

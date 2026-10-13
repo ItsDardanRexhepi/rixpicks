@@ -355,7 +355,8 @@ const asks = (p) => p.calls.filter(c => c.url.endsWith('/ask'));
     check(b.turns.every(t => t.text.length <= 480), 'each turn is at most 480 characters');
     const long = asks(p).map(c => c.body.turns || []).flat().find(t => /^A long one/.test(t.text));
     check(!!long && /And that is the end of it\.$/.test(long.text) && long.text.length <= 480, 'a long reply of hers keeps its opening and its ending');
-    check(!b.session && Object.keys(b).sort().join() === 'question,turns', 'and nothing else travels with it');
+    check(!b.session && Object.keys(b).sort().join() === 'question,turns,wait' && b.wait === true,
+      'and nothing else travels with it but that the page can wait for a long answer');
   }
   // TURNS: never half a character, and never over the edge's body cap
   {
