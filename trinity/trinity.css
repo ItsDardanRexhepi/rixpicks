@@ -119,3 +119,9 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
 .ov-banner{background:var(--acc-deep,#0b6e5f);color:#fff;font-weight:700}
 .ov-img{padding:0;border:0}.ov-img img{display:block;width:100%;max-width:640px;height:auto;border-radius:10px}
 .ov-ticket-title{font-weight:800}.ov-leg{font-size:14px;margin-top:4px}
+/* A photo picked waits here until it is sent, so a message can be written with it (owner, 2026-10-13). */
+.tr-attach{display:flex;align-items:center;gap:10px;padding:10px 14px 0;background:var(--panel2);border-top:1px solid var(--line)}
+.tr-attach[hidden]{display:none}
+.tr-attach img{display:block;height:56px;width:auto;max-width:84px;object-fit:cover;border-radius:10px;border:0}
+.tr-attach-l{flex:1 1 auto;min-width:0;font-size:13px;color:var(--mut)}
+.tr-attach-x{appearance:none;cursor:pointer;border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;border-radius:999px;width:32px;height:32px;font-size:18px;line-height:1;flex:0 0 auto}

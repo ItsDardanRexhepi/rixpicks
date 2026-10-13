@@ -116,7 +116,8 @@ function page(opts) {
   };
   const chatClean = () => { const i = input(); return !i.style.webkitTextSecurity && i.type === 'text' && i.placeholder !== 'Passphrase'; };
   const masked = () => { const sb = secret(); return !!sb && sb.style.webkitTextSecurity === 'disc' && sb.attrs.autocorrect === 'off' && sb.attrs.autocapitalize === 'off' && sb.spellcheck === false && els.trAsk.style.display === 'none' && chatClean(); };
-  const pickPhoto = async (wait) => { els.trFile.files = [{ name: 'p.jpg' }]; els.trFile.handlers.change[0]({}); await advance(wait == null ? 30000 : wait); };
+  // a photo picked waits until it is sent (owner, 2026-10-13): pick it, then press Ask, as a person does
+  const pickPhoto = async (wait) => { els.trFile.files = [{ name: 'p.jpg' }]; els.trFile.handlers.change[0]({}); els.trAsk.handlers.submit[0]({ preventDefault() {} }); await advance(wait == null ? 30000 : wait); };
   return { els, store, calls, advance, say, rows, input, masked, secret, secretForm, chatClean, doc, document, window, pickPhoto, get clock() { return clock; } };
 }
 
@@ -291,7 +292,10 @@ const asks = (p) => p.calls.filter(c => c.url.endsWith('/ask'));
     await q.pickPhoto(0);
     check(upl === 0, 'a photo picked meanwhile is not sent over the answer');
     await q.advance(30000);
-    check(upl === 1 && q.rows().slice(-1)[0] === 'I have your photo.', 'and it is sent once the answer is in, not lost');
+    check(upl === 0, 'the photo waits, attached, until the person sends it');
+    q.els.trAsk.handlers.submit[0]({ preventDefault() {} });
+    await q.advance(30000);
+    check(upl === 1 && q.rows().slice(-1)[0] === 'I have your photo.', 'and it is sent when they press Ask after the answer, not lost');
   }
   // THE PHOTO ROW (the owner, 2026-10-13): a photo is its own bare picture row with no bubble round it, the caption is
   // its own bubble under it, she shows the dots while it goes, and the picture comes back after a reload.

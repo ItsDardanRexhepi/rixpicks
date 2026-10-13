@@ -664,6 +664,7 @@
      the greeting and the suggestions, as a new visitor sees it. A sign-in that was only asked for and never opened
      is not a sign-out and clears nothing. */
   function resetToIntro() {
+    if (typeof attach === 'function') attach(null);
     stopFollowing();
     kept = [];
     try { sessionStorage.removeItem(HISTORY); sessionStorage.removeItem(JOBS); sessionStorage.removeItem(SHOTS); } catch (e) {}
@@ -969,6 +970,27 @@
   var PHOTO_UNSURE = 'I could not confirm that photo arrived, so it may or may not have gone through. Ask me ' +
                      '"my changes" before sending it again.';
 
+  var attached = null, attachedUrl = '';
+  function attach(f) {
+    var box = document.getElementById('trAttach'), img = document.getElementById('trAttachImg');
+    if (attachedUrl) { try { URL.revokeObjectURL(attachedUrl); } catch (e) {} attachedUrl = ''; }
+    attached = (f && signedIn()) ? f : null;
+    if (img) {
+      img.hidden = false;
+      img.onerror = function () { img.hidden = true; };
+      if (attached) { try { attachedUrl = URL.createObjectURL(attached); img.src = attachedUrl; } catch (e) { img.hidden = true; } }
+      else img.removeAttribute('src');
+    }
+    if (box) box.hidden = !attached;
+    if (attached && input) input.focus();
+  }
+  function go() {
+    if (inFlight) return;
+    if (attached && signedIn()) { var f = attached; attach(null); sendPhoto(f); return; }
+    if (attached) attach(null);
+    ask(input ? input.value : '');
+  }
+
   function sendPhoto(file) {
     if (!file || !signedIn()) return;
     if (inFlight) { queuedPhoto = file; return; }
@@ -1131,9 +1153,9 @@
     if (input) maskInput(secretWanted());
     if (!log || !form || !input) return;
 
-    form.addEventListener('submit', function (e) { e.preventDefault(); ask(input.value); });
+    form.addEventListener('submit', function (e) { e.preventDefault(); go(); });
     input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && e.keyCode !== 229) { e.preventDefault(); ask(input.value); }
+      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && e.keyCode !== 229) { e.preventDefault(); go(); }
     });
     var grow = function () {
       if (!input.style || typeof input.scrollHeight !== 'number') return;
@@ -1144,11 +1166,16 @@
     var pbtn = document.getElementById('trPhoto'), pfile = document.getElementById('trFile');
     if (pbtn && pfile) {
       pbtn.addEventListener('click', function () { if (signedIn() && !inFlight) pfile.click(); });
+      /* A photo picked is held until the person sends, so a message can be written with it; Ask or Enter sends the
+         photo with whatever is in the box (owner, 2026-10-13: "make it so text can be written before the photo is
+         sent"). The x takes it off. */
       pfile.addEventListener('change', function () {
         var f = pfile.files && pfile.files[0];
         pfile.value = '';
-        if (f) sendPhoto(f);
+        if (f) attach(f);
       });
+      var ax = document.getElementById('trAttachX');
+      if (ax) ax.addEventListener('click', function () { attach(null); if (input) input.focus(); });
     }
     if (chips) {
       chips.addEventListener('click', function (e) {
