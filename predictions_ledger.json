@@ -1784,5 +1784,18 @@
   "kickoff_utc": "2026-10-15T01:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T08:05:54.636255+00:00"
+ },
+ {
+  "id": "99c5e64750",
+  "event_id": "401858488",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Indiana Hoosiers",
+  "away": "Ohio State Buckeyes",
+  "pick_team": "Ohio State Buckeyes",
+  "prediction": "Ohio State Buckeyes to beat Indiana Hoosiers",
+  "kickoff_utc": "2026-10-17T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T08:37:02.787762+00:00"
  }
 ]
