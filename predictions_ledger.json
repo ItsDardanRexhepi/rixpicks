@@ -2291,5 +2291,18 @@
   "kickoff_utc": "2026-10-17T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T23:06:36.340643+00:00"
+ },
+ {
+  "id": "7e7ad04f73",
+  "event_id": "401892501",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Anaheim Ducks",
+  "away": "Calgary Flames",
+  "pick_team": "Calgary Flames",
+  "prediction": "Calgary Flames to beat Anaheim Ducks",
+  "kickoff_utc": "2026-10-14T01:45:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T23:35:34.682286+00:00"
  }
 ]
