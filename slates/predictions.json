@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-13T22:36:26.429600+00:00",
+ "generated_at": "2026-10-13T22:51:55.471587+00:00",
  "items": [
-  {
-   "id": "97ade5d0bb",
-   "league": "NHL",
-   "event": "Washington Capitals @ Carolina Hurricanes",
-   "prediction": "Carolina Hurricanes to beat Washington Capitals",
-   "kickoff_utc": "2026-10-13T22:45:00+00:00"
-  },
   {
    "id": "59a188738f",
    "league": "NBA",
@@ -28,6 +21,13 @@
    "event": "Tampa Bay Lightning @ New York Rangers",
    "prediction": "Tampa Bay Lightning to beat New York Rangers",
    "kickoff_utc": "2026-10-13T23:15:00+00:00"
+  },
+  {
+   "id": "5dd6882162",
+   "league": "NHL",
+   "event": "Vancouver Canucks @ New York Islanders",
+   "prediction": "New York Islanders to beat Vancouver Canucks",
+   "kickoff_utc": "2026-10-13T23:45:00+00:00"
   },
   {
    "id": "8d67a587e4",

@@ -2239,5 +2239,44 @@
   "kickoff_utc": "2026-10-14T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T21:35:30.372716+00:00"
+ },
+ {
+  "id": "5dd6882162",
+  "event_id": "401892495",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "New York Islanders",
+  "away": "Vancouver Canucks",
+  "pick_team": "New York Islanders",
+  "prediction": "New York Islanders to beat Vancouver Canucks",
+  "kickoff_utc": "2026-10-13T23:45:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T22:50:25.596866+00:00"
+ },
+ {
+  "id": "e2f08b5017",
+  "event_id": "761864",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "CF Montr\u00e9al",
+  "away": "Atlanta United FC",
+  "pick_team": "Atlanta United FC",
+  "prediction": "Atlanta United FC to beat CF Montr\u00e9al",
+  "kickoff_utc": "2026-10-14T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T22:51:25.025208+00:00"
+ },
+ {
+  "id": "5d9988d865",
+  "event_id": "761869",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Chicago Fire FC",
+  "away": "Philadelphia Union",
+  "pick_team": "Chicago Fire FC",
+  "prediction": "Chicago Fire FC to beat Philadelphia Union",
+  "kickoff_utc": "2026-10-15T00:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T22:51:33.941151+00:00"
  }
 ]
