@@ -5,7 +5,7 @@
    Athletics/A's (MLB) or UNLV (college) refuses closed - exit nonzero, nothing written (no
    manifest, no ledger, no prod mirror). A nickname counts only inside its own league: Texas Tech
    Red Raiders (CFB) and Evansville Purple Aces (NCAAB) are not Vegas teams.
- - Units: only the J-096 ladder, 5u, 10u, 15u, 100u.
+ - Units: only the ladder of 2026-10-13: 5u, 6u, 7u, 8u, 9u, 10u (band on the ask, floor on the edge after fees).
  - Both are hard gates with no override (owner ruling 2026-10-02, relayed verbatim by muse: "NO - an
    owner-approved card cannot break a standing rule. Vegas rule, ladder sizes, all of it: hard gates,
    no exceptions."). The owner-directive override is gone: a candidate row carrying owner_directive, or
@@ -42,10 +42,10 @@ META = {'record': '21-11', 'units_pl': '+4.76u', 'units_ledger': None, 'yesterda
 # owner ruling 2026-10-02 (1): a non-preview card must carry a best_ask block, so every real candidate gets a
 # Kalshi best_ask at its own cents (nothing cheaper compared) unless the case passes one explicitly.
 T0 = '2099-10-04T14:51:00Z'
-def cand(num, name, league, away, home, units='5u', mc='ml', side='home', **extra):
+def cand(num, name, league, away, home, units='6u', mc='ml', side='home', **extra):
     c = {'num': num, 'date': '2099-10-04', 'market_class': mc, 'name': name, 'side': side, 'away': away, 'home': home,
          'commence': '2099-10-04T20:25Z', 'eid': str(401990000 + num), 'espn_league': league, 'units': units,
-         'model': 66.0, 'gross_c': 3.0, 'net_c': 2.2, 'sub_context': 'fixture',
+         'model': 66.0, 'gross_c': 5.0, 'net_c': 3.3, 'sub_context': 'fixture',   # 61c: 5c gross, 3.33c net -> 6u
          'kalshi': {'cents': 61, 'team': home, 'side': 'yes', 'ticker': 'KXFIX-99OCT04-%d' % num}}
     c.update(extra)
     cents = c.get('kalshi', {}).get('cents')
@@ -104,7 +104,7 @@ def refused(label, cands, why, *args):
     check(f'{label}: refused for the stated reason ({why})', why in log, log)
     check(f'{label}: nothing written (no manifest, ledger or prod mirror)', man is None and written == [], written)
 
-CLEAN = cand(1, 'Chiefs ML', 'football/nfl', 'Denver Broncos', 'Kansas City Chiefs', '10u', model=74.0)  # 70-79 with gross >= 3c: the 10u rung
+CLEAN = cand(1, 'Chiefs ML', 'football/nfl', 'Denver Broncos', 'Kansas City Chiefs', '6u', model=74.0)  # bought at 61c with 13c of gross: the 60c band's top rung, 6u
 
 # Vegas teams, on and against, every league the rule names
 refused('Raiders ML (NFL, on)', [cand(1, 'Raiders ML', 'football/nfl', 'Denver Broncos', 'Las Vegas Raiders')], 'never on or against a Vegas team')
@@ -129,26 +129,27 @@ rc, log, man, _ = build([cand(1, 'Red Raiders ML', 'football/college-football', 
                          cand(2, 'Purple Aces ML', 'basketball/mens-college-basketball', 'Murray State Racers', 'Evansville Purple Aces')])
 check('Texas Tech Red Raiders (CFB) and Evansville Purple Aces (NCAAB) are not Vegas teams', rc == 0 and man and len(man['picks']) == 2, log)
 
-# the J-096 ladder
-for u in ('6u', '7u', '8u', '2u', '20u', 'max'):
-    refused(f'units {u} off the ladder', [cand(1, 'Chiefs ML', 'football/nfl', 'Denver Broncos', 'Kansas City Chiefs', u)], 'not on the J-096 ladder')
-# each at the J-096 rung of its fair (build_manifest also refuses a size that is not its pick's rung: test_build_manifest_bars.py)
+# the ladder (owner, 2026-10-13): 5u-10u only, and no 15u or 100u
+for u in ('11u', '2u', '20u', 'max', '15u', '100u'):
+    refused(f'units {u} off the ladder', [cand(1, 'Chiefs ML', 'football/nfl', 'Denver Broncos', 'Kansas City Chiefs', u)], 'not on the ladder')
+# each at the rung its ask and edge clear (build_manifest also refuses a size that is not its pick's rung: test_build_manifest_bars.py)
 rc, log, man, _ = build([cand(i, f'Team{i} ML', 'hockey/nhl', f'Away{i} Club', f'Home{i} Club', u, model=m)
-                         for i, (u, m) in enumerate((('5u', 66.0), ('10u', 74.0), ('15u', 84.0), ('100u', 92.0)), 1)])
-check('5u, 10u, 15u and 100u build', rc == 0 and man and [p['units'] for p in man['picks']] == ['5u', '10u', '15u', '100u'], log)
+                         for i, (u, m) in enumerate((('5u', 65.0), ('6u', 66.0)), 1)])
+check('5u and 6u build at a 61c ask, each carrying its band and floor', rc == 0 and man and [p['units'] for p in man['picks']] == ['5u', '6u']
+      and [(p.get('band_c'), p.get('floor_c')) for p in man['picks']] == [(60, 2), (60, 3)], log)
 check('a card that breaks no rule carries no owner_directive', bool(man) and all('owner_directive' not in p for p in man['picks']), man and man['picks'][0])
 
 # owner ruling 2026-10-02: no owner directive passes a pick - the override, per pick and on the command
 # line, is gone, and giving either one is an error (nothing written), whatever the card
 RAIDERS = cand(1, 'Raiders ML', 'football/nfl', 'Denver Broncos', 'Las Vegas Raiders')
-SIX_U = cand(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', '6u')
+SIX_U = cand(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', '11u')
 DIRECTIVE = {'rules': ['vegas', 'units'], 'words': WORDS, 'at': '2099-10-04T15:00:00Z'}
-for label, c in (('a Vegas pick', RAIDERS), ('a 6u pick', SIX_U), ('a pick that breaks no rule', CLEAN)):
+for label, c in (('a Vegas pick', RAIDERS), ('an 11u pick', SIX_U), ('a pick that breaks no rule', CLEAN)):
     refused(f'a per-pick owner_directive on {label} is an error', [dict(c, owner_directive=DIRECTIVE)], 'owner_directive is not accepted')
     rc, log, man, written = build([dict(c, owner_directive=DIRECTIVE)])
     check(f'that refusal ({label}) names the hard gates and does not echo his words', 'hard gates' in log and leaked(log, WORDS) == [],
           [log[-200:], leaked(log, WORDS)])
-for label, cands in (('a Vegas pick', [RAIDERS]), ('a 6u pick', [CLEAN, SIX_U]), ('a card that breaks no rule', [CLEAN])):
+for label, cands in (('a Vegas pick', [RAIDERS]), ('an 11u pick', [CLEAN, SIX_U]), ('a card that breaks no rule', [CLEAN])):
     for form in (['--owner-directive', json.dumps({'num': cands[-1]['num'], 'rules': ['vegas', 'units'], 'words': WORDS})],
                  ['--owner-directive=' + json.dumps({'num': cands[-1]['num'], 'rules': ['vegas', 'units'], 'words': WORDS})],
                  ['--owner-directive', 'yes do it']):

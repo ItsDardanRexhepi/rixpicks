@@ -40,7 +40,7 @@ LEDGER = f'{tmp}/picks.preview.jsonl'
 
 # ---------- 1. adapter gates ----------
 cs, err = run_adapter('st_card_candidates.py', f'{FIX}/st_rows.json', f'{FIX}/eid_map.json')
-check('s/t adapter: 3 of 4 rows card (2c floor)', len(cs), 3)
+check('s/t adapter: 3 of 4 rows card (the ladder: band on the ask, floor on the edge after fees)', len(cs), 3)
 cs_nf, _ = run_adapter('st_card_candidates.py', f'{FIX}/st_rows.json', f'{FIX}/eid_map.json', ('--no-floor',))
 check('s/t adapter --no-floor: band still binds (3, not 4)', len(cs_nf), 3)
 cs2, _ = run_adapter('st_card_candidates.py', f'{FIX}/st_rows2.json', f'{FIX}/eid_map2.json')
@@ -108,10 +108,10 @@ for label, want, pick, primary in [
     ('mls ml 1-1 draw lost','L', P('761439',45,122,'5u',market_class='ml',side='home',espn_league='soccer/usa.1'), {'home_score':1,'away_score':1}),
     ('nwsl 760606 Gotham ml lost (1-1 at 90, 2-1 AET)','L', P('760606',45,122,'5u',market_class='ml',side='away',espn_league='soccer/usa.nwsl'), {'home_score':1,'away_score':2}),
     ('nwsl 760606 under 2.5 won (2 regulation goals)','W', P('760606',60,-150,'5u',market_class='total',side='under',line=2.5,espn_league='soccer/usa.nwsl'), {'home_score':1,'away_score':2}),
-    ('spread -6.5 cover','W', P('401000001',55,-122,'5u',market_class='spread',side='home',line=-6.5), {'home_score':27,'away_score':20}),
+    ('spread -6.5 cover','W', P('401000001',62,-163,'6u',market_class='spread',side='home',line=-6.5), {'home_score':27,'away_score':20}),
     ('spread -7 push','PUSH', P('401000001',52,-110,'5u',market_class='spread',side='home',line=-7), {'home_score':27,'away_score':20}),
-    ('spread +4.5 dog cover','W', P('401000002',44,127,'5u',market_class='spread',side='home',line=4.5), {'home_score':20,'away_score':24}),
-    ('total 44.5 over','W', P('401000003',52,-108,'5u',market_class='total',side='over',line=44.5), {'home_score':24,'away_score':21}),
+    ('spread +4.5 dog cover','W', P('401000002',60,-150,'6u',market_class='spread',side='home',line=4.5), {'home_score':20,'away_score':24}),
+    ('total 44.5 over','W', P('401000003',60,-150,'5u',market_class='total',side='over',line=44.5), {'home_score':24,'away_score':21}),
     ('total 44 push','PUSH', P('401000003',52,-110,'5u',market_class='total',side='over',line=44), {'home_score':23,'away_score':21}),
 ]:
     try: got = fw.grade(pick, primary)[0]
@@ -125,9 +125,9 @@ with open(LEDGER, 'a') as f:
     f.write(json.dumps({'kind':'pick','event_id':'401000001','market_class':'spread','side':'away','line':-6,'entry_c':52,'card_american':-110,'name':'t','units':'5u','card_ts':'x','kalshi_ticker':'T','commence':'c','preview':True}) + '\n')
     f.write(json.dumps({'kind':'pick','event_id':'401000003','market_class':'total','side':'under','line':44,'entry_c':52,'card_american':-110,'name':'t','units':'5u','card_ts':'x','kalshi_ticker':'T','commence':'c','preview':True}) + '\n')
 for label, want, pick, primary in [
-    ('away +6.5 cover','W', P('401000001',55,-122,'5u',market_class='spread',side='away',line=-6.5), {'home_score':24,'away_score':21}),
+    ('away +6.5 cover','W', P('401000001',60,-150,'6u',market_class='spread',side='away',line=-6.5), {'home_score':24,'away_score':21}),
     ('away +6 push','PUSH', P('401000001',52,-110,'5u',market_class='spread',side='away',line=-6), {'home_score':27,'away_score':21}),
-    ('under 44.5 holds','W', P('401000003',56,-127,'5u',market_class='total',side='under',line=44.5), {'home_score':23,'away_score':21}),
+    ('under 44.5 holds','W', P('401000003',62,-163,'6u',market_class='total',side='under',line=44.5), {'home_score':23,'away_score':21}),
     ('under 44 push','PUSH', P('401000003',52,-110,'5u',market_class='total',side='under',line=44), {'home_score':23,'away_score':21}),
 ]:
     try: got = fw.grade(pick, primary)[0]
@@ -156,7 +156,7 @@ for label, want, pick in [
     ('receptions 3 over 3.5','L', P('401000001',66,-194,'5u',market_class='prop',espn_league=LE,player='Kyren Williams',market='receptions',line=3.5,side='over')),
     ('receptions 3 push','PUSH', P('401000001',66,-194,'5u',market_class='prop',espn_league=LE,player='Kyren Williams',market='receptions',line=3,side='over')),
     ('receptions under','W', P('401000001',66,-194,'5u',market_class='prop',espn_league=LE,player='Kyren Williams',market='receptions',line=3.5,side='under')),
-    ('recv yards 80 over 72.5','W', P('401000001',55,-122,'5u',market_class='prop',espn_league=LE,player='Puka Nacua',market='receiving_yards',line=72.5,side='over')),
+    ('recv yards 80 over 72.5','W', P('401000001',60,-150,'6u',market_class='prop',espn_league=LE,player='Puka Nacua',market='receiving_yards',line=72.5,side='over')),
     ('anytime_td yes','W', P('401000001',42,138,'5u',market_class='prop',espn_league=LE,player='Kyren Williams',market='anytime_td',line=0.5,side='over')),
     ('anytime_td no','L', P('401000001',42,138,'5u',market_class='prop',espn_league=LE,player='CeeDee Lamb',market='anytime_td',line=0.5,side='over')),
     ('ambiguous player','REFUSED', P('401000001',66,-194,'5u',market_class='prop',espn_league=LE,player='Williams',market='receptions',line=2.5,side='over')),

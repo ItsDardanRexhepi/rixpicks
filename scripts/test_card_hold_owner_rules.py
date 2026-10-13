@@ -6,9 +6,10 @@ build_manifest.py refuses such a card, but a manifest.json can land another way 
 publish.yml, refresh.sh and record_final.yml build whatever card has landed. So the page builder (both twins)
 holds the CURRENT card - exit 3, the CARD HOLD path refresh.sh reports loudly, nothing written - when a pick is on
 or against a Las Vegas team (Raiders, Golden Knights, Aces, Athletics/A's, UNLV; a nickname counts only inside
-its own league, and the individual sports have no teams), its units are off the J-096 ladder (5u, 10u, 15u,
-100u, written exactly so), or it breaks a numeric standing bar (rulings (1), (2), (4)): card ask
->= 85c, gross < 1c or net < 1c (the owner's 1c floor, 2026-10-07), units over the J-096 rung of its fair, a card_american that is not
+its own league, and the individual sports have no teams), its units are off the ladder (5u, 6u, 7u, 8u, 9u,
+10u, written exactly so - owner 2026-10-13), or it breaks a numeric standing bar (rulings (1), (2), (4)): card ask
+>= 85c, card ask under the 60c band, gross or net under the floor of its band (2c in the 60c band, 1c from 70c up),
+units over the ladder rung its ask and edge clear, a card_american that is not
 the best ask of its recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from the
 pick's "model X" sub (or its best_ask), the card price from card_american; a pick whose fair/price cannot be read
 is left unchecked on the numeric bars.
@@ -101,20 +102,20 @@ for B in BUILDERS:
               rc == 3 and 'BUILD FAILED' in log and 'Vegas' in log and 'owner ruling 2026-10-02 (4)' in log, (rc, log[-300:]))
         check(f'{tag}: {label}: nothing written (no index, no game page, no manifest snapshot)', written == [], written)
 
-    for u in ('6u', '2u', '20u', '5', '5.0u', ' 5u', '', None, 5):
+    for u in ('11u', '2u', '20u', '5', '5.0u', ' 5u', '', None, 5, '15u', '100u'):
         rc, log, written, _ = build(B, card([DEVILS, pick(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', units=u)]))
         check(f'{tag}: units {u!r} off the ladder: the card is held (exit 3), nothing written',
-              rc == 3 and 'BUILD FAILED' in log and 'J-096' in log and written == [], (rc, log[-300:], written))
+              rc == 3 and 'BUILD FAILED' in log and 'ladder' in log and written == [], (rc, log[-300:], written))
 
     rc, log, written, _ = build(B, card([pick(1, 'Raiders ML', 'football/nfl', 'Denver Broncos', 'Las Vegas Raiders'),
-                                         pick(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', units='6u')]))
-    check(f'{tag}: a Vegas pick and a 6u pick are both named in the one hold, with no override offered',
+                                         pick(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', units='11u')]))
+    check(f'{tag}: a Vegas pick and an 11u pick are both named in the one hold, with no override offered',
           rc == 3 and 'Raiders ML' in log and 'Bills ML' in log and 'override' in log and 'directive' not in log.lower(), log[-400:])
 
     rc, log, written, _ = build(B, card([pick(1, 'Red Raiders ML', 'football/college-football', 'Baylor Bears', 'Texas Tech Red Raiders'),
                                          pick(2, 'Purple Aces ML', 'basketball/mens-college-basketball', 'Murray State Racers', 'Evansville Purple Aces'),
-                                         pick(3, 'Rangers ML', 'baseball/mlb', 'Texas Rangers', 'Seattle Mariners', units='100u', model=92.0)]))
-    check(f'{tag}: Texas Tech Red Raiders (CFB) and Evansville Purple Aces (NCAAB) are no Vegas teams; 100u (at its fair) is on the ladder',
+                                         pick(3, 'Rangers ML', 'baseball/mlb', 'Texas Rangers', 'Seattle Mariners', units='6u', model=92.0)]))
+    check(f'{tag}: Texas Tech Red Raiders (CFB) and Evansville Purple Aces (NCAAB) are no Vegas teams; 6u (bought at 60c with 32c of edge) is on the ladder',
           rc == 0 and 'index.html' in written, log[-300:])
 
     # numeric standing bars on the CURRENT card (owner rulings 2026-10-02 (1), (2), (4)): the fair is read from
@@ -123,35 +124,36 @@ for B in BUILDERS:
     check(f'{tag}: a clean numeric card builds', rc == 0 and 'index.html' in written, log[-300:])
     NUM = [
         ('fair 55c has negative gross at 60c ask', pick(1, 'SubFair ML', 'hockey/nhl', 'A', 'B', model=55.0, american=-150), 'gross'),
-        ('card ask 85c at the cut', pick(1, 'Fav ML', 'hockey/nhl', 'A', 'B', units='100u', model=96.0, american=-567), '85c cut'),
-        # the 1c floor (owner, 2026-10-07: "have a 1c floor"): gross >= 1c AND net >= 1c, each checked on its own.
+        ('card ask 85c at the cut', pick(1, 'Fav ML', 'hockey/nhl', 'A', 'B', units='10u', model=96.0, american=-567), '85c cut'),
+        ('card ask 55c under the 60c band (fair 70c, 15c of gross)', pick(1, 'Dog ML', 'hockey/nhl', 'A', 'B', model=70.0, american=122), 'below the 60c band'),
+        # the 60c band's 2c floor (owner, 2026-10-13): gross >= 2c AND net >= 2c, each checked on its own.
         # A -150 card at Kalshi is 60c with a 1.68c fee.
-        ('gross 0.99c (fair 60.99c at a 60c ask)', pick(1, 'Even ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 60.99'), 'gross 0.99c below the 1c floor'),
-        ('gross 1.00c clears the gross floor, net -0.68c after the fee does not', pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=61.0, american=-150), 'net -0.68c below the 1c floor'),
-        ('net 0.99c (fair 62.67c at a 60c ask)', pick(1, 'Near ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 62.67'), 'net 0.99c below the 1c floor'),
-        ('fair 66c carded at 10u (rung 5u)', pick(1, 'OffRung ML', 'hockey/nhl', 'A', 'B', units='10u', model=66.0, american=-150), 'J-096 rung'),
+        ('gross 0.99c (fair 60.99c at a 60c ask)', pick(1, 'Even ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 60.99'), 'gross 0.99c below the 2c floor of the 60c band'),
+        ('gross 2.00c clears the gross floor, net 0.32c after the fee does not', pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=62.0, american=-150), 'net 0.32c below the 2c floor of the 60c band'),
+        ('net 1.99c (fair 63.67c at a 60c ask)', pick(1, 'Near ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 63.67'), 'net 1.99c below the 2c floor of the 60c band'),
+        ('fair 66c carded at 10u (rung 6u)', pick(1, 'OffRung ML', 'hockey/nhl', 'A', 'B', units='10u', model=66.0, american=-150), 'ladder rung 6u'),
     ]
     for label, p, token in NUM:
         rc, log, written, _ = build(B, card([p]))
         check(f'{tag}: {label}: the card is held (exit 3), nothing written',
               rc == 3 and 'BUILD FAILED' in log and token in log and written == [], (rc, log[-300:], written))
-    # each bar on its own: the gross at exactly 1.00c is not held, and a 0.99c net is held with its gross clear
-    rc, log, written, _ = build(B, card([pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=61.0, american=-150)]))
-    check(f'{tag}: gross 1.00c: no gross hold', rc == 3 and 'gross' not in log.split('BUILD FAILED', 1)[-1], (rc, log[-300:]))
-    rc, log, written, _ = build(B, card([pick(1, 'Near ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 62.67')]))
-    check(f'{tag}: net 0.99c with a 2.67c gross: the net alone is held', rc == 3 and 'gross' not in log.split('BUILD FAILED', 1)[-1], (rc, log[-300:]))
-    # net 1.00c builds: fair 62.68c at a 60c Kalshi ask, 2.68c gross less the 1.68c fee
-    rc, log, written, _ = build(B, card([pick(1, 'Floor ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 62.68')]))
-    check(f'{tag}: net 1.00c (fair 62.68c at a 60c ask) builds', rc == 0 and 'index.html' in written, (rc, log[-300:], written))
-    # every class: a spread at net 0.99c is held, at 1.00c and at 1.82c it builds
-    for model, held_net in (('61.0', 'net -0.68c'), ('62.67', 'net 0.99c'), ('62.68', None), ('63.5', None)):
+    # each bar on its own: the gross at exactly 2.00c is not held, and a 1.99c net is held with its gross clear
+    rc, log, written, _ = build(B, card([pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=62.0, american=-150)]))
+    check(f'{tag}: gross 2.00c: no gross hold', rc == 3 and 'gross' not in log.split('BUILD FAILED', 1)[-1], (rc, log[-300:]))
+    rc, log, written, _ = build(B, card([pick(1, 'Near ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 63.67')]))
+    check(f'{tag}: net 1.99c with a 3.67c gross: the net alone is held', rc == 3 and 'gross' not in log.split('BUILD FAILED', 1)[-1], (rc, log[-300:]))
+    # net 2.00c builds: fair 63.68c at a 60c Kalshi ask, 3.68c gross less the 1.68c fee
+    rc, log, written, _ = build(B, card([pick(1, 'Floor ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 63.68')]))
+    check(f'{tag}: net 2.00c (fair 63.68c at a 60c ask) builds', rc == 0 and 'index.html' in written, (rc, log[-300:], written))
+    # every class: a spread at net 1.99c is held, at 2.00c and at 2.82c it builds
+    for model, held_net in (('62.0', 'net 0.32c'), ('63.67', 'net 1.99c'), ('63.68', None), ('64.5', None)):
         sp = pick(1, 'Home1 -1.5', 'hockey/nhl', 'A', 'B', american=-150, sub=f'fixture - model {model}')
         sp['market_class'] = 'spread'; sp['line'] = -1.5
         rc, log, written, _ = build(B, card([sp]))
         if held_net:
-            check(f'{tag}: a spread at fair {model}c ({held_net}) is held', rc == 3 and f'{held_net} below the 1c floor' in log and written == [], (rc, log[-300:], written))
+            check(f'{tag}: a spread at fair {model}c ({held_net}) is held', rc == 3 and f'{held_net} below the 2c floor of the 60c band' in log and written == [], (rc, log[-300:], written))
         else:
-            check(f'{tag}: a spread at fair {model}c (net >= 1c) builds', rc == 0 and 'index.html' in written, (rc, log[-300:], written))
+            check(f'{tag}: a spread at fair {model}c (net >= 2c) builds', rc == 0 and 'index.html' in written, (rc, log[-300:], written))
     # card_american that is not the best ask of the recorded venues (DK -150 is 60c; card claims -130 = 56.5c)
     ba = pick(1, 'BadAm ML', 'hockey/nhl', 'A', 'B', model=66.0, american=-130)
     ba['best_ask'] = {'venue': 'dk', 'price': -150, 'read_at': '2099-10-04T14:51:00Z', 'cost_c': 60.0, 'fee_c': 0.0,
@@ -166,7 +168,7 @@ for B in BUILDERS:
     rc, log, written, _ = build(B, card([l1, l2], parlay={'legs': ['Leg1 ML', 'Leg2 ML'], 'note': ''}))
     check(f'{tag}: a parlay short of the 2c/2c bar is held', rc == 3 and 'parlay' in log and written == [], (rc, log[-300:], written))
     # an over-length parlay (5 legs) is held
-    legs5 = [pick(i, f'P{i} ML', 'hockey/nhl', f'A{i}', f'B{i}', units='100u', model=92.0, american=-150) for i in range(1, 6)]
+    legs5 = [pick(i, f'P{i} ML', 'hockey/nhl', f'A{i}', f'B{i}', units='6u', model=92.0, american=-150) for i in range(1, 6)]
     rc, log, written, _ = build(B, card(legs5, parlay={'legs': [p['name'] for p in legs5], 'note': ''}))
     check(f'{tag}: an over-length parlay (5 legs) is held', rc == 3 and 'J-098' in log and written == [], (rc, log[-300:], written))
 
@@ -191,9 +193,9 @@ for B in BUILDERS:
           (rc == 0 and 'index.html' in written) or _net_only, log[-300:])
 
     # the day rolls to an empty card: the last card's game pages rebuild from its manifests/ snapshot, which
-    # is not the current card and is not gated, even when it carries a Vegas pick and a 6u pick
+    # is not the current card and is not gated, even when it carries a Vegas pick and an 11u pick
     OLD = [pick(1, 'Raiders ML', 'football/nfl', 'Denver Broncos', 'Las Vegas Raiders', eid='401990301'),
-           pick(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', units='6u', eid='401990302')]
+           pick(2, 'Bills ML', 'football/nfl', 'New England Patriots', 'Buffalo Bills', units='11u', eid='401990302')]
     seed = {'game-1.html': '<div class="pick" data-eid="401990301"></div>', 'game-2.html': '<div class="pick" data-eid="401990302"></div>',
             'manifests/manifest-2099-10-03.json': json.dumps(card(OLD, date='2099-10-03', date_label='Saturday, Oct 3'))}
     rc, log, written, pages = build(B, card([]), seed=seed)

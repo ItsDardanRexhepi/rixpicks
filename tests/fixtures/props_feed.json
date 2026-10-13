@@ -32,17 +32,17 @@
    "match": "Dallas Cowboys @ Los Angeles Rams",
    "commence": "2026-09-28T20:25Z",
    "line": 72.5,
-   "fair_over_c": 63.0,
+   "fair_over_c": 66.0,
    "n_books": 5,
    "confidence": "OK",
    "kalshi": {
     "ticker": "KXNFLRECYDS-T1-PN",
-    "ask": 0.55,
-    "bid": "0.53"
+    "ask": 0.6,
+    "bid": "0.58"
    },
-   "gross_c": 8.0,
-   "fee_c": 1.8,
-   "net_c": 6.2,
+   "gross_c": 6.0,
+   "fee_c": 1.68,
+   "net_c": 4.32,
    "verdict": "CANDIDATE"
   },
   {

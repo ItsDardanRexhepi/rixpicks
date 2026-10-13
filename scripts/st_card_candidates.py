@@ -16,14 +16,18 @@ from zoneinfo import ZoneInfo
 
 ESPN_LEAGUE = {'nfl': 'football/nfl', 'mlb': 'baseball/mlb', 'nba': 'basketball/nba', 'wnba': 'basketball/wnba'}
 
-def tier_eval(fair_c, gross_c):
-    # J-096 ladder (same as hunt_v2): 60-69c=5u, 70-79c=10u, 80-89c=15u, 90c+=100u;
-    # 9/26 directive: 70-79c requires gross>=3c for 10u else 5u; below 60c = below card band.
-    if fair_c >= 90: return 100
-    if 80 <= fair_c < 90: return 15
-    if 70 <= fair_c < 80: return 10 if gross_c >= 3 else 5
-    if 60 <= fair_c < 70: return 5
-    return 0
+LADDER = ((5, 60, 2), (6, 60, 3), (7, 70, 1), (8, 70, 2), (9, 70, 3), (10, 80, 3))
+
+def tier_eval(ask_c, gross_c, net_c=None):
+    # THE LADDER (owner 2026-10-13; scripts/build_manifest.py LADDER mirrors RixPicksSystem engine/ladder.py): band = the
+    # Kalshi ask the pick is bought at, floor = the edge after fees (gross AND net); the highest rung cleared; 0 = not a
+    # pick. 5u = 60c + 2c, 6u = 60c + 3c, 7u = 70c + 1c, 8u = 70c + 2c, 9u = 70c + 3c, 10u = 80c + 3c; no 15u, no 100u.
+    # Replaces the J-096 rungs, the 2026-10-06 no-band and the 2026-10-07 1c floor.
+    net_c = gross_c if net_c is None else net_c
+    best = 0
+    for u, b, f in LADDER:
+        if ask_c >= b and gross_c >= f and net_c >= f: best = u
+    return best
 
 def short(name):
     return (name or '').split()[-1] if name else ''
@@ -63,8 +67,8 @@ def adapt(row, cache, eid_map, floor=True):
     if cls not in ('spread', 'total'): return None
     cons = row['consensus_line']
     fair_c = row['fair_home_or_over_c']          # fair of the PICKED side (home-cover / over)
-    units = tier_eval(fair_c, row['gross_c'])
-    if units == 0: return None                    # below J-096 card band
+    units = tier_eval(round(row['kalshi']['ask'] * 100), row['gross_c'], row['net_c'])
+    if units == 0: return None                    # no rung on the ladder (under the band or its floor)
     eid, overridden = resolve_eid(row, cache, eid_map)
     if not eid:
         print(f"SKIP (fail closed): no unique ESPN eid for {row['match']} {cls}", file=sys.stderr)
@@ -129,8 +133,8 @@ def main():
         if c: out.append(c)
         alt = r.get('alt')
         if alt and alt.get('net_c') is not None and alt['net_c'] >= (2 if floor else 0):
-            aunits = tier_eval(alt['fair_c'], alt['gross_c'])
-            if aunits == 0: continue  # below J-096 card band, floor or not
+            aunits = tier_eval(round(alt['kalshi']['ask'] * 100), alt['gross_c'], alt['net_c'])
+            if aunits == 0: continue  # no rung on the ladder (under the band or its floor), floor or not
             eid, _ = resolve_eid(r, cache, eid_map)
             if not eid:
                 print(f"SKIP (fail closed): no unique ESPN eid for {r['match']} {r['cls']} alt-side", file=sys.stderr)

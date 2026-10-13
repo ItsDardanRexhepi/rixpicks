@@ -58,10 +58,11 @@ ROUTES = [
 
 GAME = {'away': 'Chicago White Sox', 'home': 'Houston Astros', 'commence': COMMENCE, 'eid': EID}
 KAL = {'url': KURL, 'cents': 42, 'team': 'Chicago WS', 'gate_cents': 42, 'ticker': TICK + '-CWS', 'side':'yes'}
-ML = {'name': 'White Sox ML', 'sub': 'fixture - model 66.0', 'odds': '+138', 'units': '5u', 'side': 'away', 'market': None,
+# the card price (odds) sits in the 60c band (owner 2026-10-13); the 42c Kalshi print below is market data, not the card price
+ML = {'name': 'White Sox ML', 'sub': 'fixture - model 66.0', 'odds': '-150', 'units': '5u', 'side': 'away', 'market': None,
       'market_class': 'ml', 'league': 'MLB', 'espn_league': 'baseball/mlb', 'best_book': 'Kalshi',
       'game': dict(GAME), 'kalshi': dict(KAL), 'polymarket': None, 'dkp': None}
-PROP = dict(ML, name='Yordan Alvarez over 1.5 hits', odds='+270', side='over', market='bat_hits', market_class='prop')
+PROP = dict(ML, name='Yordan Alvarez over 1.5 hits', odds='-150', side='over', market='bat_hits', market_class='prop')
 
 def stale_page(n, eid, tick):
     return ('<!DOCTYPE html><html><head><title>Old card game %d</title></head><body><div class="wrap">'

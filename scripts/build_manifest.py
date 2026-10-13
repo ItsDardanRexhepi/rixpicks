@@ -28,11 +28,12 @@ candidate row: {num,name,side,away,home,commence,eid,espn_league,units,kalshi:{c
                 [best_ask:{venue,price,read_at,[line],compared:[{venue,price,read_at,[line]}...]}], [fragility]}
 STANDING RULES ARE HARD GATES (owner ruling 2026-10-02 (4): "NO - an owner-approved card cannot break a standing
 rule. Vegas rule, ladder sizes, all of it: hard gates, no exceptions."). The card refuses closed, nothing
-written, on a pick on or against a Las Vegas team, units off the J-096 ladder, and on every standing bar:
-card ask >= 85c, gross < 1c or net < 1c (THE 1c FLOOR, every class: owner, 2026-10-07, "have a 1c floor" - it
-replaced the 2c floor he had removed earlier that day, and there is no fair floor), units other
-than the J-096 rung of its fair and gross (below 70 = 5u; 70-79 = 10u with gross >= 3c else 5u; 80-89 = 15u;
-90+ = 100u; fragility 2 one rung lower, fragility 3 refuses; tennis capped at 5u), a candidate missing model,
+written, on a pick on or against a Las Vegas team, units off the ladder, and on every standing bar:
+card ask >= 85c, card ask under the 60c band, gross or net under the floor of the pick's band (THE LADDER, owner
+2026-10-13: band = the card ask the pick is bought at, floor = the edge after fees, gross and net; 5u = 60c band +
+2c floor, 6u = 60c + 3c, 7u = 70c + 1c, 8u = 70c + 2c, 9u = 70c + 3c, 10u = 80c + 3c, the HIGHEST rung cleared; no
+15u, no 100u; nothing under 60c; fragility 2 one rung lower, fragility 3 refuses; tennis capped at 5u; it replaces
+the J-096 rungs, the 2026-10-06 no-band and the 2026-10-07 1c floor), units other than that rung, a candidate missing model,
 gross_c or net_c, and a parlay short of 2c gross and 2c net (ruling (2), 2-4 legs, J-098). Every violation on
 the card is named in one refusal. An owner-forced sub-bar pick is impossible, and a status_note cannot carry
 one. A candidate row carrying owner_directive, or an --owner-directive argument, is an error: the override no
@@ -122,15 +123,23 @@ def _pick_content_hash(m, legacy=False):
 #    under the NFL) is let through. The rule is about teams: the individual sports (racing, golf,
 #    tennis, MMA, boxing) skip it - a NASCAR race at Las Vegas Motor Speedway is no Vegas team -
 #    and any other league, listed or not, keeps it.
-#  - Units (J-096): 5u, 10u, 15u or 100u - no other size, and exactly the rung of the pick's fair and gross.
+#  - Units (THE LADDER, owner 2026-10-13): 5u, 6u, 7u, 8u, 9u or 10u - no other size, and exactly the rung the
+#    pick's card ask and its edge after fees clear. Each manifest pick carries band_c, floor_c, rung and ladder
+#    ("8u · 70c band · 2c floor"), and the page prints them beside the units.
 #  - The standing bars (RUNBOOK 2.3, J-096/J-097/J-098, owner rulings 2026-10-02 (1) and (2)): see bar_problems
 #    and parlay_problems.
 # All are hard gates (owner ruling 2026-10-02 (4): "an owner-approved card cannot break a standing rule
 # ... hard gates, no exceptions"): a pick breaking any refuses the card closed before any write, and
 # nothing overrides it. The old override (an owner_directive on the candidate row or an
 # --owner-directive argument) is gone; either one given is an error, and its words are never printed.
-UNIT_LADDER = (5, 10, 15, 100)
-HARD_GATES = ('Vegas, the J-096 unit ladder and every standing bar are hard gates with no override (owner ruling '
+UNIT_LADDER = (5, 6, 7, 8, 9, 10)
+# THE LADDER (owner, 2026-10-13), lowest rung first: (units, band_c, floor_c). RixPicksSystem engine/ladder.py is the
+# one definition; this table mirrors it and the engine's suite pins the two. Band = the card ask (cents) the pick is
+# bought at, floor = the edge after the paying venue's fee, gross and net. A pick takes the HIGHEST rung it clears.
+LADDER = ((5, 60, 2), (6, 60, 3), (7, 70, 1), (8, 70, 2), (9, 70, 3), (10, 80, 3))
+BAND_MIN_C = 60
+RUNG_BAND_FLOOR = {u: (b, f) for u, b, f in LADDER}
+HARD_GATES = ('Vegas, the unit ladder and every standing bar are hard gates with no override (owner ruling '
               '2026-10-02 (4): an owner-approved card cannot break a standing rule): an owner-forced sub-bar pick is '
               'impossible, and a status_note cannot carry one')
 REMOVED_FLAG = '--owner-directive'
@@ -191,7 +200,7 @@ def vegas_hit(c):
 
 
 def units_rung(u):
-    """The J-096 rung a units value names (5u -> 5), else None."""
+    """The ladder rung a units value names (5u -> 5), else None. Only the six sizes of 2026-10-13 are rungs."""
     if isinstance(u, bool):
         return None
     if isinstance(u, (int, float)):
@@ -360,15 +369,42 @@ def price_card(c):
 
 # ---- the standing bars (RUNBOOK 2.3, J-096/J-097/J-098, owner rulings 2026-10-02) ----
 ASK_CUT_C = 85
-EDGE_FLOOR_C = 1.0  # owner, 2026-10-07: "have a 1c floor" - one number for the gross bar and the net bar, every class
-_RUNG_DOWN = {100: 15, 15: 10, 10: 5, 5: 5}  # fragility 2: one rung lower (5u is the lowest card rung)
+_RUNG_DOWN = {10: 9, 9: 8, 8: 7, 7: 6, 6: 5, 5: 5}  # fragility 2: one rung lower (5u is the lowest card rung)
 
-def j096_rung(fair_c, gross_c):
-    """J-096: below 70 = 5u, 70-79 = 10u when gross >= 3c else 5u, 80-89 = 15u, 90+ = 100u; below 70, 5u."""
-    if fair_c >= 90: return 100
-    if fair_c >= 80: return 15
-    if fair_c >= 70: return 10 if gross_c >= 3 else 5
-    return 5
+
+def band_of(ask_c):
+    """The band an ask sits in (60, 70 or 80), or None under the 60c band."""
+    hit = None
+    for _u, b, _f in LADDER:
+        if round(ask_c, 6) >= b:
+            hit = b
+    return hit
+
+
+def floor_for(ask_c):
+    """The lowest floor a pick at this ask must clear to be a pick at all: 2c in the 60c band, 1c from 70c up.
+    Under the band it is the bottom rung's 2c, which is what the refusal names."""
+    fl = [f for _u, b, f in LADDER if round(ask_c, 6) >= b]
+    return float(min(fl)) if fl else float(LADDER[0][2])
+
+
+def ladder_rung(ask_c, gross_c, net_c):
+    """THE LADDER: the highest rung whose band the ask reaches and whose floor both the gross and the net clear,
+    else 0 (not a pick)."""
+    best = 0
+    for u, b, f in LADDER:
+        if round(ask_c, 6) >= b and round(gross_c, 6) >= f and round(net_c, 6) >= f:
+            best = u
+    return best
+
+
+def ladder_words(units):
+    """'<N>u · <band>c band · <floor>c floor' for a rung on the ladder, else ''."""
+    u = units_rung(units)
+    if u is None:
+        return ''
+    b, f = RUNG_BAND_FLOOR[u]
+    return f'{u}u \u00b7 {b}c band \u00b7 {f}c floor'
 
 def _c(x):
     return f'{round(x, 2):g}c'
@@ -385,21 +421,25 @@ def bar_problems(c, pr):
     # Kalshi ask on a preview-only legacy pick), with the winning venue's own fee - never the candidate's
     # self-reported gross_c/net_c. The J-096 rung below is computed from that fair and gross.
     gross, net = round(fair - pr['cost_c'], 6), round(fair - pr['cost_c'] - pr['fee_c'], 6)
-    mc = c.get('market_class')
     out = []
     if pr['cost_c'] >= ASK_CUT_C:
         out.append(f"card ask {_c(pr['cost_c'])} at or above the {ASK_CUT_C}c cut")
-    if gross < EDGE_FLOOR_C:
-        out.append(f'gross {_c(gross)} below the {EDGE_FLOOR_C:g}c floor')
-    if net < EDGE_FLOOR_C:
-        out.append(f'net {_c(net)} below the {EDGE_FLOOR_C:g}c floor')
+    band = band_of(pr['cost_c'])
+    if band is None:
+        out.append(f"card ask {_c(pr['cost_c'])} below the {BAND_MIN_C}c band (owner, 2026-10-13: the band is the price "
+                   f"the pick is bought at; under it nothing is a pick, whatever its edge)")
+    fl = floor_for(pr['cost_c'])
+    if gross < fl:
+        out.append(f'gross {_c(gross)} below the {fl:g}c floor of the {band or BAND_MIN_C}c band')
+    if net < fl:
+        out.append(f'net {_c(net)} below the {fl:g}c floor of the {band or BAND_MIN_C}c band')
     frag = c.get('fragility')
     if frag is not None and (type(frag) is not int or frag < 0):
         out.append(f'fragility {frag!r} is not a whole number from 0 (J-097)')
         frag = None
     if frag is not None and frag >= 3:
         out.append(f'fragility {frag} refuses the pick (J-097)')
-    rung = j096_rung(fair, gross)
+    rung = ladder_rung(pr['cost_c'], gross, net)
     if rung and units_rung(c.get('units')) is not None and not (frag is not None and frag >= 3):
         notes = []
         if frag == 2:
@@ -408,11 +448,12 @@ def bar_problems(c, pr):
             rung = 5; notes.append('tennis capped at 5u')
         want = f'{rung}u'
         if units_rung(c.get('units')) != rung:
-            out.append(f"units {c.get('units')!r} is not the J-096 rung {want} (fair {_c(fair)}, gross {_c(gross)}"
-                       + ''.join('; ' + n for n in notes) + ')')
+            out.append(f"units {c.get('units')!r} is not the ladder rung {want} (ask {_c(pr['cost_c'])}, gross "
+                       f"{_c(gross)}, net {_c(net)}" + ''.join('; ' + n for n in notes) + ')')
         elif c.get('units') != want:
             out.append(f"units {c.get('units')!r} must be written {want!r}")
     return out
+
 
 def parlay_problems(parlay, cands, priced):
     """Ruling (2): a parlay clears 2c gross and 2c net, 2-4 legs (J-098), every leg one pick on this card. Price =
@@ -508,7 +549,7 @@ def owner_rules_gate(cands, argv, parlay=None, status_note=None, preview=False):
         if v:
             broken.append(f'Las Vegas team ({v}): never on or against a Vegas team')
         if units_rung(c.get('units')) is None:
-            broken.append(f"units {c.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)")
+            broken.append(f"units {c.get('units')!r} not on the ladder (5u, 6u, 7u, 8u, 9u, 10u)")
         try:
             pr = price_card(c)
         except ValueError as e:
@@ -688,6 +729,10 @@ def main():
             **({'player': c['player'], 'market': c['market']} if mc == 'prop' else {}),
             'sub': f"{c.get('sub_context','')} - model {c['model']:.1f}".strip(' -'),
             'odds': f"{am:+d}", 'units': c['units'], 'side': c['side'],
+            # THE LADDER (owner, 2026-10-13): the band and the floor this pick cleared to be that many units, and
+            # the words the page prints beside them. Read off the rung its units name.
+            'band_c': RUNG_BAND_FLOOR[units_rung(c['units'])][0], 'floor_c': RUNG_BAND_FLOOR[units_rung(c['units'])][1],
+            'rung': f"{units_rung(c['units'])}u", 'ladder': ladder_words(c['units']),
             'game': {'away': c['away'], 'home': c['home'], 'commence': c['commence'], 'eid': c['eid']},
             'espn_league': c['espn_league'],
             'league': LEAGUE_KEY.get(c['espn_league'], c['espn_league'].split('/')[-1].upper()),  # refresh.sh SPORTS derivation reads p['league'] (config_leagues.json key) - Sep 27: NFL/WNBA got zero prefill when this was absent

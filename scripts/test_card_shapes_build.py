@@ -85,23 +85,25 @@ def row(page, away):
 
 BASE = {'date': '2099-10-01', 'date_label': 'Thursday, Oct 1', 'updated': 'Oct 1, 8:42 AM PT', 'record': '21-11',
         'units_pl': '+4.76u', 'units_ledger': None, 'yesterday': '', 'status_note': '', 'preview': False, 'parlay': None}
+# every fixture's card price (odds) sits in a band - 60c or more (owner 2026-10-13: under the 60c band nothing is a pick);
+# the chips and their prices are market data, read from the prefill and the exchange, and are not the card price
 DEVILS = {'num': 1, 'name': 'Devils ML', 'market_class': 'ml', 'sub': 'PHI @ NJ', 'odds': '-162', 'units': '5u', 'side': 'home',
           'game': {'away': 'Philadelphia Flyers', 'home': 'New Jersey Devils', 'commence': '2099-10-01T23:00Z', 'eid': ''},
           'espn_league': 'hockey/nhl', 'league': 'NHL', 'best_book': 'DraftKings'}
-MERCURY = {'num': 2, 'name': 'Mercury -4.5', 'market_class': 'spread', 'line': -4.5, 'sub': 'IND @ PHX', 'odds': '-110', 'units': '5u', 'side': 'home',
+MERCURY = {'num': 2, 'name': 'Mercury -4.5', 'market_class': 'spread', 'line': -4.5, 'sub': 'IND @ PHX', 'odds': '-150', 'units': '5u', 'side': 'home',
            'game': {'away': 'Indiana Fever', 'home': 'Phoenix Mercury', 'commence': '2099-10-02T01:00Z', 'eid': ''},
            'espn_league': 'basketball/wnba', 'league': 'WNBA', 'best_book': 'DraftKings',
            'books_sp': {'draftkings': {'home': {'price': -110, 'point': -4.5, 'link': 'https://sportsbook.draftkings.com/?outcomes=SP_MERC_DK'},
                                        'away': {'price': -110, 'point': 4.5, 'link': 'https://sportsbook.draftkings.com/?outcomes=SP_FEVER_DK'}},
                         'hardrockbet': {'home': {'price': -105, 'point': -5.5, 'link': 'https://app.hardrock.bet/?deep_link_value=betslip/SP_MERC_HR_OTHERLINE'}}}}
-UNDER = {'num': 3, 'name': 'Under 38.5', 'market_class': 'total', 'line': 38.5, 'sub': 'PIT @ CLE', 'odds': '-115', 'units': '5u', 'side': 'under',
+UNDER = {'num': 3, 'name': 'Under 38.5', 'market_class': 'total', 'line': 38.5, 'sub': 'PIT @ CLE', 'odds': '-150', 'units': '5u', 'side': 'under',
          'game': {'away': 'Pittsburgh Steelers', 'home': 'Cleveland Browns', 'commence': '2099-10-02T00:15Z', 'eid': ''},
          'espn_league': 'football/nfl', 'league': 'NFL', 'best_book': 'DraftKings'}
-SOX = {'num': 1, 'name': 'White Sox ML', 'market_class': 'ml', 'sub': 'CWS @ HOU', 'odds': '+138', 'units': '5u', 'side': 'away',
+SOX = {'num': 1, 'name': 'White Sox ML', 'market_class': 'ml', 'sub': 'CWS @ HOU', 'odds': '-150', 'units': '5u', 'side': 'away',
        'game': {'away': 'Chicago White Sox', 'home': 'Houston Astros', 'commence': '2099-09-30T21:00Z', 'eid': ''},
        'espn_league': 'baseball/mlb', 'league': 'MLB', 'best_book': 'DraftKings', 'card_ts': '2099-09-30T07:04:26-07:00'}
 # build_manifest shape of an away-cover spread (st_card_candidates.adapt_alt): line is the HOME spread
-LYNX = {'num': 1, 'name': 'Lynx +4', 'market_class': 'spread', 'line': -4, 'sub': 'MIN @ NY - away cover', 'odds': '-110', 'units': '5u',
+LYNX = {'num': 1, 'name': 'Lynx +4', 'market_class': 'spread', 'line': -4, 'sub': 'MIN @ NY - away cover', 'odds': '-150', 'units': '5u',
         'side': 'away', 'game': {'away': 'Minnesota Lynx', 'home': 'New York Liberty', 'commence': '2099-10-01T23:30Z', 'eid': ''},
         'espn_league': 'basketball/wnba', 'league': 'WNBA', 'best_book': 'DraftKings',
         'books_sp': {'draftkings': {'away': {'price': -110, 'point': 4, 'link': 'https://sportsbook.draftkings.com/?outcomes=SP_LYNX_DK'},
@@ -270,9 +272,9 @@ for B in BUILDERS:
     #    4:00 PM. Rays ML was added at 4:00 PM for a game that began at 1:10 PM: after start.
     YANKS = dict(SOX, num=1, name='Yankees ML', sub='BOS @ NYY', side='home', odds='-150', card_ts='2099-10-01T09:00:00-07:00',
                  game={'away': 'Boston Red Sox', 'home': 'New York Yankees', 'commence': '2099-10-01T20:05Z', 'eid': '401990201'})
-    DODG = dict(SOX, num=2, name='Dodgers ML', sub='SD @ LAD', side='home', odds='-140', card_ts='2099-10-01T16:00:00-07:00',
+    DODG = dict(SOX, num=2, name='Dodgers ML', sub='SD @ LAD', side='home', odds='-150', card_ts='2099-10-01T16:00:00-07:00',
                 game={'away': 'San Diego Padres', 'home': 'Los Angeles Dodgers', 'commence': '2099-10-02T02:10Z', 'eid': '401990202'})
-    RAYS = dict(SOX, num=3, name='Rays ML', sub='TB @ TOR', side='away', odds='+120', card_ts='2099-10-01T16:00:00-07:00',
+    RAYS = dict(SOX, num=3, name='Rays ML', sub='TB @ TOR', side='away', odds='-150', card_ts='2099-10-01T16:00:00-07:00',
                 game={'away': 'Tampa Bay Rays', 'home': 'Toronto Blue Jays', 'commence': '2099-10-01T20:10Z', 'eid': '401990203'})
     ADD = [ml_entry('Boston Red Sox', 'New York Yankees', '2099-10-01T20:05Z', -150, 130, 'ML_NYY'),
            ml_entry('San Diego Padres', 'Los Angeles Dodgers', '2099-10-02T02:10Z', -140, 120, 'ML_LAD'),

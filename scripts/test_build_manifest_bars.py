@@ -17,10 +17,11 @@ verbatim by muse on MeshTrix, 15:35Z).
      parlay price (parlay.best_ask) when that is cheaper. 2-4 legs (J-098), every leg a pick on the card.
  (4) "NO - an owner-approved card cannot break a standing rule. Vegas rule, ladder sizes, all of it:
      hard gates, no exceptions." Every bar refuses the card closed, nothing written: card
-     ask >= 85c, gross < 1c or net < 1c (the owner's 1c floor, 2026-10-07), units other than the J-096
-     rung (below 70 = 5u; 70-79 = 10u with gross >= 3c, else 5u; 80-89 = 15u; 90+ = 100u; fragility 2 one
-     rung lower, fragility 3 refuses; tennis capped at 5u), and a candidate missing model, gross_c or
-     net_c. A status_note cannot carry a sub-bar card: an owner-forced sub-bar pick is impossible.
+     ask >= 85c, card ask under the 60c band, gross or net under the floor of the pick's band (THE LADDER,
+     owner 2026-10-13: band = the card ask the pick is bought at, floor = the edge after fees; 5u = 60c + 2c,
+     6u = 60c + 3c, 7u = 70c + 1c, 8u = 70c + 2c, 9u = 70c + 3c, 10u = 80c + 3c, the highest rung cleared; no
+     15u, no 100u; fragility 2 one rung lower, fragility 3 refuses; tennis capped at 5u), units other than that
+     rung, and a candidate missing model, gross_c or net_c. A status_note cannot carry a sub-bar card: an owner-forced sub-bar pick is impossible.
 Builds run in a throwaway tree with the network sent to a dead proxy.
 Run: python3 scripts/test_build_manifest_bars.py"""
 import copy, json, os, re, shutil, subprocess, sys, tempfile
@@ -130,50 +131,57 @@ def built(label, cands, **meta_kw):
 RULING4 = 'owner ruling 2026-10-02 (4)'
 
 # ------------------------------------------------------------------ (4) the bars, each a hard gate
-OK5 = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u')
+OK5 = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u')      # Kalshi 61c: 5c gross, 3.33c net -> the 60c band + 3c floor, 6u
 built('a pick that clears every bar', [OK5])
-# Oct 6 owner ruling removes the 60c floor; all other bars remain.
-r = built('fair 59.9c clears edge bars at 5u', [cand(1, 'Home1 ML', 59.9, 3.0, 1.3, '5u', cents=56)])
-check('sub-60c published stake stays 5u', (r['man'] or {'picks':[{}]})['picks'][0].get('units') == '5u', r['man'])
-refused('sub-60c at 10u still refuses', [cand(1, 'Home1 ML', 59.9, 3.0, 1.3, '10u', cents=56)], ['J-096 rung', '5u'])
-refused('card ask 85c (the 85c cut)', [cand(1, 'Home1 ML', 92.0, 7.0, 6.1, '100u', cents=85)], ['85c', RULING4])
-# THE 1c FLOOR (owner, 2026-10-07: "have a 1c floor"): gross >= 1c AND net >= 1c, every class, each checked on
-# its own and recomputed from the fair against the card price - never the candidate's gross_c/net_c. The Kalshi
-# 61c ask pays a 1.6653c fee, so a fair of 63.6653c nets exactly 1.00c and 63.6553c nets 0.99c.
-GROSS_HELD = re.compile(r'gross -?[0-9.]+c below the 1c floor')
-check('the 1c floor is one constant in build_manifest', 'EDGE_FLOOR_C = 1.0' in open(os.path.join(HERE, 'build_manifest.py')).read())
-refused('gross 0.99c (fair 61.99c at Kalshi 61c)', [cand(1, 'Home1 ML', 61.99, 0.99, -0.68, '5u')], ['gross 0.99c below the 1c floor', RULING4])
-r = refused('gross 1.00c (fair 62c at Kalshi 61c): the net alone refuses', [cand(1, 'Home1 ML', 62.0, 1.0, -0.67, '5u')], ['net -0.67c below the 1c floor'])
-check('gross 1.00c: the gross floor does not refuse it', not GROSS_HELD.search(r['log']), r['log'][-300:])
+check('the ladder is one table in build_manifest', 'LADDER = ((5, 60, 2), (6, 60, 3), (7, 70, 1), (8, 70, 2), (9, 70, 3), (10, 80, 3))'
+      in open(os.path.join(HERE, 'build_manifest.py')).read())
+# THE BAND IS ON THE ASK (owner, 2026-10-13: "bring back the 60c band and the 2c floor"): under 60c nothing is a
+# pick, whatever its edge - and the fair's own level refuses nothing
+refused('bought under the 60c band (fair 70c at Kalshi 56c, 14c of gross)', [cand(1, 'Home1 ML', 70.0, 14.0, 12.3, '5u', cents=56)], ['below the 60c band', RULING4])
+refused('bought under the 60c band at 6u', [cand(1, 'Home1 ML', 70.0, 14.0, 12.3, '6u', cents=56)], ['below the 60c band'])
+refused('card ask 85c (the 85c cut)', [cand(1, 'Home1 ML', 92.0, 7.0, 6.1, '10u', cents=85)], ['85c', RULING4])
+# THE 60c BAND'S 2c FLOOR: gross >= 2c AND net >= 2c, each checked on its own and recomputed from the fair against
+# the card price - never the candidate's gross_c/net_c. The Kalshi 61c ask pays a 1.6653c fee, so a fair of
+# 64.6653c nets exactly 2.00c and 64.6553c nets 1.99c.
+GROSS_HELD = re.compile(r'gross -?[0-9.]+c below the 2c floor')
+refused('gross 1.99c (fair 62.99c at Kalshi 61c)', [cand(1, 'Home1 ML', 62.99, 1.99, 0.32, '5u')], ['gross 1.99c below the 2c floor of the 60c band', RULING4])
+r = refused('gross 2.00c (fair 63c at Kalshi 61c): the net alone refuses', [cand(1, 'Home1 ML', 63.0, 2.0, 0.33, '5u')], ['net 0.33c below the 2c floor of the 60c band'])
+check('gross 2.00c: the gross floor does not refuse it', not GROSS_HELD.search(r['log']), r['log'][-300:])
 for mc in ('ml', 'spread', 'total', 'prop'):
-    r = refused(f'{mc} net 0.99c (fair 63.6553c)', [cand(1, f'Home1 {mc}', 63.6553, 2.66, 0.99, '5u', mc=mc)], ['net 0.99c below the 1c floor', RULING4])
-    check(f'{mc} net 0.99c: the gross (2.66c) is not refused', not GROSS_HELD.search(r['log']), r['log'][-300:])
-    built(f'{mc} net 1.00c cards (fair 63.6653c)', [cand(1, f'Home1 {mc}', 63.6653, 2.67, 1.0, '5u', mc=mc)])
-# what the positive-edge rule took is refused again: 63.0c nets 0.33c
-refused('ml net 0.33c (fair 63.0c) is under the 1c floor', [cand(1, 'Home1 ML', 63.0, 2.0, 0.4, '5u')], ['net 0.33c below the 1c floor'])
-
-# units: the J-096 rung computed from fair and gross, nothing else
-refused('fair 66c carded at 10u (rung 5u)', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '10u')], ['J-096 rung', '5u'])
-refused('fair 61c carded at 100u (the probe: rung 5u)', [cand(1, 'Home1 ML', 61.0, 2.5, 0.8, '100u', cents=58)], ['J-096 rung', RULING4])
-# gross is recomputed as fair - Kalshi ask: fair 73.9c against 71c is 2.9c (< 3c, so the 70-79 rung is 5u not 10u)
-refused('fair 73.9c, gross 2.9c, carded at 10u (10u needs gross >= 3c)', [cand(1, 'Home1 ML', 73.9, 2.9, 1.2, '10u', cents=71)], ['J-096 rung', '5u'])
-built('fair 73.9c, gross 2.9c at 5u', [cand(1, 'Home1 ML', 73.9, 2.9, 1.2, '5u', cents=71)])
-built('fair 74c, gross 3.0c at 10u', [cand(1, 'Home1 ML', 74.0, 3.0, 1.3, '10u', cents=71)])
-built('fair 84c at 15u', [cand(1, 'Home1 ML', 84.0, 4.0, 2.9, '15u', cents=80)])
-built('fair 92c at 100u', [cand(1, 'Home1 ML', 92.0, 8.0, 7.3, '100u', cents=84)])
-refused('fair 92c carded at 15u (rung 100u)', [cand(1, 'Home1 ML', 92.0, 8.0, 7.3, '15u', cents=84)], ['J-096 rung', '100u'])
-refused('units written 5 (an integer) on a 5u rung', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, 5)], ["'5u'"])
-refused("units written '5.0u' on a 5u rung", [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5.0u')], ["'5u'"])
-# fragility (J-097): 2 lowers one rung, 3 refuses; 0 and 1 change nothing
-built('fragility 2 on a 10u rung cards 5u', [cand(1, 'Home1 ML', 74.0, 3.5, 1.8, '5u', cents=70, fragility=2)])
-refused('fragility 2 on a 10u rung carded at 10u', [cand(1, 'Home1 ML', 74.0, 3.5, 1.8, '10u', cents=70, fragility=2)], ['J-096 rung', 'fragility'])
-built('fragility 2 on a 100u rung cards 15u', [cand(1, 'Home1 ML', 92.0, 8.0, 7.3, '15u', cents=84, fragility=2)])
-built('fragility 1 changes nothing', [cand(1, 'Home1 ML', 74.0, 3.5, 1.8, '10u', cents=70, fragility=1)])
-refused('fragility 3 refuses', [cand(1, 'Home1 ML', 74.0, 3.5, 1.8, '5u', cents=70, fragility=3)], ['fragility 3'])
-refused('a fragility that is not a whole number refuses', [cand(1, 'Home1 ML', 74.0, 3.5, 1.8, '5u', cents=70, fragility='high')], ['fragility'])
+    r = refused(f'{mc} net 1.99c (fair 64.6553c)', [cand(1, f'Home1 {mc}', 64.6553, 3.66, 1.99, '5u', mc=mc)], ['net 1.99c below the 2c floor of the 60c band', RULING4])
+    check(f'{mc} net 1.99c: the gross (3.66c) is not refused', not GROSS_HELD.search(r['log']), r['log'][-300:])
+    built(f'{mc} net 2.00c cards at 5u (fair 64.6653c)', [cand(1, f'Home1 {mc}', 64.6653, 3.67, 2.0, '5u', mc=mc)])
+# THE 70c BAND'S 1c FLOOR, and its three rungs: Kalshi 71c pays a 1.4413c fee
+refused('70c band: net 0.55c (fair 72.99c at Kalshi 71c) is under the 1c floor', [cand(1, 'Home1 ML', 72.99, 1.99, 0.55, '7u', cents=71)], ['net 0.55c below the 1c floor of the 70c band'])
+built('70c band: fair 73.5c at Kalshi 71c (net 1.06c) cards at 7u', [cand(1, 'Home1 ML', 73.5, 2.5, 1.06, '7u', cents=71)])
+refused('70c band: fair 73.5c carded at 8u (rung 7u)', [cand(1, 'Home1 ML', 73.5, 2.5, 1.06, '8u', cents=71)], ['ladder rung 7u'])
+built('70c band: fair 74.5c (net 2.06c) cards at 8u', [cand(1, 'Home1 ML', 74.5, 3.5, 2.06, '8u', cents=71)])
+built('70c band: fair 75.5c (net 3.06c) cards at 9u', [cand(1, 'Home1 ML', 75.5, 4.5, 3.06, '9u', cents=71)])
+refused('70c band: fair 75.5c carded at 10u (rung 9u)', [cand(1, 'Home1 ML', 75.5, 4.5, 3.06, '10u', cents=71)], ['ladder rung 9u'])
+# THE 80c BAND: 10u needs 3c; with 2c the highest rung cleared is 8u. Kalshi 81c pays a 1.0773c fee
+built('80c band: fair 84.1c at Kalshi 81c (net 2.02c) cards at 8u', [cand(1, 'Home1 ML', 84.1, 3.1, 2.02, '8u', cents=81)])
+refused('80c band: fair 84.1c carded at 10u (rung 8u)', [cand(1, 'Home1 ML', 84.1, 3.1, 2.02, '10u', cents=81)], ['ladder rung 8u'])
+built('80c band: fair 85.1c (net 3.02c) cards at 10u', [cand(1, 'Home1 ML', 85.1, 4.1, 3.02, '10u', cents=81)])
+refused('80c band: fair 85.1c carded at 9u (rung 10u)', [cand(1, 'Home1 ML', 85.1, 4.1, 3.02, '9u', cents=81)], ['ladder rung 10u'])
+refused('15u is not on the ladder', [cand(1, 'Home1 ML', 85.1, 4.1, 3.02, '15u', cents=81)], ['not on the ladder'])
+refused('100u is not on the ladder', [cand(1, 'Home1 ML', 85.1, 4.1, 3.02, '100u', cents=81)], ['not on the ladder', RULING4])
+refused('units written 5 (an integer) on a 5u rung', [cand(1, 'Home1 ML', 64.7, 3.7, 2.03, 5)], ["'5u'"])
+refused("units written '5.0u' on a 5u rung", [cand(1, 'Home1 ML', 64.7, 3.7, 2.03, '5.0u')], ["'5u'"])
+# every manifest pick carries the band and the floor it cleared, and the words the page prints beside its units
+r = built('a 9u pick carries band_c 70, floor_c 3 and its ladder words', [cand(1, 'Home1 ML', 75.5, 4.5, 3.06, '9u', cents=71)])
+p9 = (r['man'] or {'picks': [{}]})['picks'][0]
+check('band_c / floor_c / rung / ladder on the manifest pick', (p9.get('band_c'), p9.get('floor_c'), p9.get('rung')) == (70, 3, '9u')
+      and p9.get('ladder') == '9u \u00b7 70c band \u00b7 3c floor', p9)
+# fragility (J-097): 2 lowers one rung (5 stays 5), 3 refuses; 0 and 1 change nothing
+built('fragility 2 on a 10u rung cards 9u', [cand(1, 'Home1 ML', 85.1, 4.1, 3.02, '9u', cents=81, fragility=2)])
+refused('fragility 2 on a 10u rung carded at 10u', [cand(1, 'Home1 ML', 85.1, 4.1, 3.02, '10u', cents=81, fragility=2)], ['ladder rung', 'fragility'])
+built('fragility 2 on a 5u rung stays 5u', [cand(1, 'Home1 ML', 64.7, 3.7, 2.03, '5u', fragility=2)])
+built('fragility 1 changes nothing', [cand(1, 'Home1 ML', 85.1, 4.1, 3.02, '10u', cents=81, fragility=1)])
+refused('fragility 3 refuses', [cand(1, 'Home1 ML', 85.1, 4.1, 3.02, '10u', cents=81, fragility=3)], ['fragility 3'])
+refused('a fragility that is not a whole number refuses', [cand(1, 'Home1 ML', 85.1, 4.1, 3.02, '10u', cents=81, fragility='high')], ['fragility'])
 # tennis is capped at 5u
-built('tennis at fair 85c cards 5u', [cand(1, 'Player One ML', 85.0, 5.0, 3.6, '5u', cents=80, league='tennis/atp')])
-refused('tennis at fair 85c carded at 15u', [cand(1, 'Player One ML', 85.0, 5.0, 3.6, '15u', cents=80, league='tennis/wta')], ['J-096 rung', 'tennis'])
+built('tennis at a 10u rung cards 5u', [cand(1, 'Player One ML', 85.1, 4.1, 3.02, '5u', cents=81, league='tennis/atp')])
+refused('tennis at a 10u rung carded at 10u', [cand(1, 'Player One ML', 85.1, 4.1, 3.02, '10u', cents=81, league='tennis/wta')], ['ladder rung', 'tennis'])
 # the candidate must carry its fair and its edge
 for k in ('model', 'gross_c', 'net_c'):
     c = copy.deepcopy(OK5); del c[k]
@@ -185,7 +193,7 @@ refused('a bool gross_c', [dict(OK5, gross_c=True)], ['gross_c'])
 # Sep 29/30 status_note words, and every violation on a card in one refusal
 PROBE_NOTE = 'Official pick by owner directive - sub-bar disclosure on file (fair 46.7c below the 60c card band)'
 r = refused('the sub-bar probe with the owner-directive status_note',
-            [cand(1, 'Home1 ML', 46.7, 1.0, 0.1, '5u', cents=46)], ['gross', 'net', 'sub-bar', RULING4], status_note=PROBE_NOTE)
+            [cand(1, 'Home1 ML', 46.7, 1.0, 0.1, '5u', cents=46)], ['below the 60c band', 'gross', 'net', 'sub-bar', RULING4], status_note=PROBE_NOTE)
 check('the refusal names an owner-forced sub-bar pick impossible', 'owner-forced sub-bar pick is impossible' in r['log'], r['log'][-300:])
 refused('a sub-bar disclosure status_note on a clean card refuses (a status_note cannot carry a sub-bar card)', [OK5], ['status_note', RULING4],
         status_note='Official pick by owner directive - sub-bar disclosure on file')
@@ -201,7 +209,7 @@ DK150 = {'venue': 'dk', 'price': -150, 'read_at': T0}
 PM62 = {'venue': 'poly', 'price': 62, 'read_at': '2099-10-04T14:50:00Z'}
 
 # a book wins: DK -150 costs 60.0c, below Kalshi 61c and Polymarket 62c
-c = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -150, [K61, DK150, PM62]))
+c = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('dk', -150, [K61, DK150, PM62]))
 r = built('DK -150 beats Kalshi 61c and Polymarket 62c', [c])
 p = (r['man'] or {'picks': [{}]})['picks'][0]
 check('card_american and odds are the DK price (-150), not the Kalshi -156', p.get('card_american') == -150 and p.get('odds') == '-150', p)
@@ -223,7 +231,7 @@ check('the ledger row records the card price, the venue, its read time and the c
       and [q.get('venue') for q in row.get('card_compared') or []] == ['dk', 'kalshi', 'poly'], row)
 
 # Kalshi wins: its read time comes from the best_ask block, the price from cents_to_american
-c = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('kalshi', 61, [{'venue': 'dk', 'price': -170, 'read_at': T0}], read_at='2099-10-04T14:53:00Z'))
+c = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('kalshi', 61, [{'venue': 'dk', 'price': -170, 'read_at': T0}], read_at='2099-10-04T14:53:00Z'))
 r = built('Kalshi 61c beats DK -170', [c])
 p = (r['man'] or {'picks': [{}]})['picks'][0]
 check("Kalshi best: card_american -156, best_book Kalshi, card_source 'Kalshi ask at <read_at>'",
@@ -231,44 +239,44 @@ check("Kalshi best: card_american -156, best_book Kalshi, card_source 'Kalshi as
 check('Kalshi best: the Kalshi taker fee is charged (7 x 0.61 x 0.39 = 1.67c)', (p.get('best_ask') or {}).get('fee_c') == 1.67, p.get('best_ask'))
 
 # Polymarket wins: no fee
-c = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('poly', 60, [K61, {'venue': 'poly', 'price': 60, 'read_at': T0}]))
+c = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('poly', 60, [K61, {'venue': 'poly', 'price': 60, 'read_at': T0}]))
 r = built('Polymarket 60c beats Kalshi 61c', [c])
 p = (r['man'] or {'picks': [{}]})['picks'][0]
 check('Polymarket best: card_american -150 (60c), best_book Polymarket, no fee',
       p.get('card_american') == -150 and p.get('best_book') == 'Polymarket' and (p.get('best_ask') or {}).get('fee_c') == 0.0, p)
-# float noise is not an edge: 64.1 - 63.1 is 0.99999...c in binary, a 1.00c gross and net at Polymarket (no fee)
-built('a 1.00c edge at Polymarket 63.1c (fair 64.1c) cards', [cand(1, 'Home1 ML', 64.1, 1.0, 1.0, '5u', cents=65,
+# float noise is not an edge: 65.1 - 63.1 is 1.99999...c in binary, a 2.00c gross and net at Polymarket (no fee)
+built('a 2.00c edge at Polymarket 63.1c (fair 65.1c) cards', [cand(1, 'Home1 ML', 65.1, 2.0, 2.0, '5u', cents=65,
       best_ask=ba('poly', 63.1, [{'venue': 'kalshi', 'price': 65, 'read_at': T0}, {'venue': 'poly', 'price': 63.1, 'read_at': T0}]))])
 
 # the edge is the best ask's: a pick short of the bar at Kalshi clears it at a cheaper book ...
 SHORT_AT_KALSHI = cand(1, 'Home1 ML', 62.5, 1.5, -0.2, '5u')
-refused('fair 62.5c against Kalshi 61c alone (gross 1.5c, net -0.17c after the fee)', [SHORT_AT_KALSHI], ['net -0.17c below the 1c floor'])
+refused('fair 62.5c against Kalshi 61c alone (gross 1.5c, net -0.17c after the fee)', [SHORT_AT_KALSHI], ['net -0.17c below the 2c floor of the 60c band'])
 built('the same pick against DK -150 (gross 2.5c, no fee)', [dict(SHORT_AT_KALSHI, best_ask=ba('dk', -150, [K61, DK150]))])
 # ... and the Kalshi fee counts when Kalshi is the best venue, whatever net_c the candidate carried
-built('spread fair 63.5c, Kalshi 60c beats DK -155: net 3.5 - 1.68 = 1.82c cards (over the 1c floor)',
-        [cand(1, 'Home1 -1.5', 63.5, 3.5, 2.5, '5u', cents=60, mc='spread',
+built('spread fair 63.7c, Kalshi 60c beats DK -155: net 3.7 - 1.68 = 2.02c cards (over the 60c band\'s 2c floor)',
+        [cand(1, 'Home1 -1.5', 63.7, 3.7, 2.5, '5u', cents=60, mc='spread',
               # a book quote on a spread names its line (one line, one market): the home pick's own -1.5
               best_ask=ba('kalshi', 60, [{'venue': 'dk', 'price': -155, 'read_at': T0, 'line': -1.5}]))])
 
 # fail closed on a best_ask block the builder cannot trust
-refused('best_ask names DK but Kalshi is cheaper', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -170, [K61]))], ['cheaper'])
-refused('the best ask has no read time', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -150, [K61], read_at=None))], ['read_at'])
-refused('a read time with no zone', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -150, [K61], read_at='2099-10-04T14:51'))], ['read_at'])
-refused('an unknown venue', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('pinnacle', -150, [K61]))], ['unknown venue'])
-refused('a venue compared twice', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -150, [DK150, dict(DK150, price=-160)]))], ['twice'])
-refused("a compared Kalshi ask that is not the kalshi block's", [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -150, [dict(K61, price=59)]))], ['kalshi'])
-refused('a Polymarket price in dollars (0.61, not cents)', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('poly', 0.61, [K61]))], ['cents'])
-refused('a book price that is not American odds (-100)', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -100, [K61]))], ['American'])
-refused('compared is not a list', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask={'venue': 'dk', 'price': -150, 'read_at': T0})], ['compared'])
-nok = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -150, [DK150])); del nok['kalshi']
+refused('best_ask names DK but Kalshi is cheaper', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('dk', -170, [K61]))], ['cheaper'])
+refused('the best ask has no read time', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('dk', -150, [K61], read_at=None))], ['read_at'])
+refused('a read time with no zone', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('dk', -150, [K61], read_at='2099-10-04T14:51'))], ['read_at'])
+refused('an unknown venue', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('pinnacle', -150, [K61]))], ['unknown venue'])
+refused('a venue compared twice', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('dk', -150, [DK150, dict(DK150, price=-160)]))], ['twice'])
+refused("a compared Kalshi ask that is not the kalshi block's", [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('dk', -150, [dict(K61, price=59)]))], ['kalshi'])
+refused('a Polymarket price in dollars (0.61, not cents)', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('poly', 0.61, [K61]))], ['cents'])
+refused('a book price that is not American odds (-100)', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('dk', -100, [K61]))], ['American'])
+refused('compared is not a list', [cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask={'venue': 'dk', 'price': -150, 'read_at': T0})], ['compared'])
+nok = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('dk', -150, [DK150])); del nok['kalshi']
 refused('a book-only market (no kalshi block) never cards', [nok], ['Kalshi'])
-nok = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -150, [DK150])); nok['kalshi'] = {'cents': 61, 'team': 'x'}
+nok = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('dk', -150, [DK150])); nok['kalshi'] = {'cents': 61, 'team': 'x'}
 refused('a kalshi block with no ticker', [nok], ['ticker'])
 
 # B1 (owner ruling 2026-10-02 (1)): a non-preview pick with no best_ask block refuses closed - build_manifest
 # never silently ships a non-compared Kalshi price. The candidate clears every other bar, so the missing
 # best_ask is the only reason to refuse.
-NOBA = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=None)
+NOBA = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=None)
 check('no best_ask on OK5 would refuse non-preview (B1 is wired)', 'best_ask' not in NOBA, NOBA)
 refused('a non-preview pick with no best_ask block', [NOBA], ['best_ask', '2026-10-02 (1)'])
 # a --preview build may still skip best_ask: the card is then priced from Kalshi exactly as before
@@ -278,37 +286,38 @@ p = (pr['man'] or {'picks': [{}]})['picks'][0]
 check("preview no best_ask: Kalshi price, 'Kalshi ask at lock', no best_ask on the pick",
       p.get('card_american') == -156 and p.get('best_book') == 'Kalshi' and p.get('card_source') == 'Kalshi ask at lock' and 'best_ask' not in p, p)
 # B2 (owner ruling 2026-10-02 (1)/(4)): gross and net are always recomputed from the fair against the card price,
-# never the candidate's self-reported gross_c/net_c. Candidate net_c 1.5 clears the 1c floor, but the recompute
-# from Kalshi 61c (1.5 - fee 1.67 = -0.17c) is below it - preview refuses just as a production best-ask pick would.
+# never the candidate's self-reported gross_c/net_c. Candidate net_c 1.5 is what it is, but the recompute from
+# Kalshi 61c (1.5 - fee 1.67 = -0.17c) is under the 60c band's 2c floor - preview refuses just as a production
+# best-ask pick would.
 _b2 = build_preview([cand(1, 'Home1 ML', 62.5, 1.5, 1.5, '5u', best_ask=None)])
 check('a preview legacy pick whose candidate net clears the floor but recomputes below it is refused',
-      _b2['rc'] != 0 and _b2['man'] is None and 'net -0.17c below the 1c floor' in _b2['log'], _b2['log'])
-built_preview_clears = build_preview([cand(1, 'Home1 ML', 63.7, 2.0, 0.0, '5u', best_ask=None)])  # 63.7-61-1.67=1.03 >= 1
+      _b2['rc'] != 0 and _b2['man'] is None and 'net -0.17c below the 2c floor of the 60c band' in _b2['log'], _b2['log'])
+built_preview_clears = build_preview([cand(1, 'Home1 ML', 64.7, 2.0, 0.0, '5u', best_ask=None)])  # 64.7-61-1.67=2.03 >= 2
 check('a preview legacy pick whose recomputed net clears builds (candidate net_c 0.0 ignored)',
       built_preview_clears['rc'] == 0 and built_preview_clears['man'] is not None, built_preview_clears['log'])
 
 # the ledger: an identical re-run adds nothing; a new best venue on a published key is a fork
-c = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('dk', -150, [K61, DK150]))
-c2 = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u', best_ask=ba('poly', 60, [K61, {'venue': 'poly', 'price': 60, 'read_at': T0}]))
+c = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('dk', -150, [K61, DK150]))
+c2 = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u', best_ask=ba('poly', 60, [K61, {'venue': 'poly', 'price': 60, 'read_at': T0}]))
 a, b, f = run_seq([([c], META), ([c], META), ([c2], META)])
 check('an identical best-ask re-run adds no ledger row', a['rc'] == 0 and b['rc'] == 0 and len(b['ledger']) == 1, b['log'][-300:])
 check('a different best venue on a published key refuses to fork the card record',
       f['rc'] != 0 and 'refusing to fork' in f['log'] and len(f['ledger']) == 1 and f['ledger'][0].get('card_venue') == 'dk', f['log'][-300:])
 
 # ------------------------------------------------------------------ (2) the parlay bar
-L1 = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '5u')                  # Kalshi 61c
-L2 = cand(2, 'Home2 ML', 72.0, 5.0, 3.5, '10u', cents=67)       # Kalshi 67c
-built('a parlay at the product of the legs clears 2c gross and net (fair 47.52c, price 40.83c, fee 2.08c, net 4.61c)',
+L1 = cand(1, 'Home1 ML', 66.0, 5.0, 3.3, '6u')                  # Kalshi 61c: 6u
+L2 = cand(2, 'Home2 ML', 72.0, 5.0, 3.5, '6u', cents=67)        # Kalshi 67c: 5c gross, 3.45c net, 6u
+built('a parlay at the product of the legs clears 2c gross and net (fair 47.52c, price 40.87c, fee 2.08c, net 4.57c)',
       [L1, L2], parlay={'legs': ['Home1 ML', 'Home2 ML'], 'note': ''})
-T1 = cand(1, 'Home1 ML', 64.0, 3.0, 1.3, '5u')                  # 64 x 69.6 = 44.54c, net 1.63c
-T2 = cand(2, 'Home2 ML', 69.6, 2.6, 1.05, '5u', cents=67)       # 2.6c gross, 1.05c net: each leg clears the 1c floor
-refused('a parlay whose net is 1.63c (each Kalshi leg pays its fee)', [T1, T2], ['parlay', 'net 1.63c below the 2c parlay bar', RULING4],
+T1 = cand(1, 'Home1 ML', 73.5, 2.5, 1.06, '7u', cents=71)       # 73.5 x 73.5 = 54.02c, legs 71c x 71c = 50.43c + 2.07c fees, net 1.52c
+T2 = cand(2, 'Home2 ML', 73.5, 2.5, 1.06, '7u', cents=71)       # 2.5c gross, 1.06c net: each leg clears the 70c band's 1c floor at 7u
+refused('a parlay whose net is 1.52c (each Kalshi leg pays its fee)', [T1, T2], ['parlay', 'net 1.52c below the 2c parlay bar', RULING4],
         parlay={'legs': ['Home1 ML', 'Home2 ML'], 'note': ''})
 built('the same parlay at a cheaper venue quote (DK +260)', [T1, T2],
       parlay={'legs': ['Home1 ML', 'Home2 ML'], 'note': '', 'best_ask': {'venue': 'dk', 'price': 260, 'read_at': T0}})
 refused('a parlay venue quote with no read time', [T1, T2], ['parlay', 'read_at'],
         parlay={'legs': ['Home1 ML', 'Home2 ML'], 'note': '', 'best_ask': {'venue': 'dk', 'price': 260}})
-FIVE = [cand(i, f'Home{i} ML', 92.0, 8.0, 7.3, '100u', cents=84) for i in range(1, 6)]
+FIVE = [cand(i, f'Home{i} ML', 92.0, 8.0, 7.3, '10u', cents=84) for i in range(1, 6)]
 refused('a five-leg parlay (J-098: 2-4 legs)', FIVE, ['parlay', 'J-098'], parlay={'legs': [x['name'] for x in FIVE], 'note': ''})
 refused('a parlay leg that is not a pick on the card', [L1, L2], ['parlay', 'Rangers ML'], parlay={'legs': ['Home1 ML', 'Rangers ML'], 'note': ''})
 refused('a one-leg parlay', [L1, L2], ['parlay'], parlay={'legs': ['Home1 ML'], 'note': ''})

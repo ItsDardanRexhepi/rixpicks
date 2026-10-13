@@ -243,19 +243,16 @@ gen = sum(1 for e in log if e.get('reason','').startswith('genuine evaluation'))
 cap = sum(1 for e in log if e.get('reason','').startswith('capability gap'))
 print(f'genuine evaluations: {gen} | capability gaps: {cap} | not hunted (started/final): {sum(1 for e in log if e["verdict"]=="not hunted")}')
 
-# --- TIER EVAL (J-096 ladder + user directive 2026-09-26 12:23:57 PT) ---
-def tier_eval(fair_c, gross_c):
-    # J-096 (user iMessage 2026-09-25 10:33:20): 60-69c=5u, 70-79c=10u, 80-89c=15u, 90c+=100u
-    # User directive phonemsg-01M3FJTAVAKTMTQ89WTX0K64QN (iMessage 2026-09-26 12:24:34 PM, verbatim verified):
-    #   'If you have 3c games. Put them in the 10u tier and run it against that tiers math
-    #   to see if it can get approved to get accepted for that tier'
-    #   10u requires BOTH fair 70-79c AND gross >= 3c. J-124 (his verbatim 9:46 PM PT,
-    #   phonemsg-01M3GJZ06VVXDGHSTRZS8KZG7G) set the ELIGIBILITY floor to 2c (global,
-    #   pre-existing) - sizing unchanged. Confirmed verbatim 9:52 PM: "Keep it at 5u"
-    #   (phonemsg-01M3GK9EHD900PJ6BR3YP3XDR3) + "If anything still gets past 3c make it
-    #   10u" (phonemsg-01M3GK9RSK7MKZQSB7ZMETBV65): 2c-3c picks card at 5u; 3c+ -> 10u.
-    if fair_c>=90: return 100
-    if 80<=fair_c<90: return 15
-    if 70<=fair_c<80: return 10 if gross_c>=3 else 5
-    if 60<=fair_c<70: return 5
-    return 0  # below card band
+# --- TIER EVAL: THE LADDER (owner 2026-10-13) ---
+LADDER = ((5, 60, 2), (6, 60, 3), (7, 70, 1), (8, 70, 2), (9, 70, 3), (10, 80, 3))
+
+def tier_eval(ask_c, gross_c, net_c=None):
+    # THE LADDER (owner 2026-10-13; scripts/build_manifest.py LADDER mirrors RixPicksSystem engine/ladder.py): band = the
+    # Kalshi ask the pick is bought at, floor = the edge after fees (gross AND net); the highest rung cleared; 0 = not a
+    # pick. 5u = 60c + 2c, 6u = 60c + 3c, 7u = 70c + 1c, 8u = 70c + 2c, 9u = 70c + 3c, 10u = 80c + 3c; no 15u, no 100u.
+    # Replaces the J-096 rungs, the 2026-10-06 no-band and the 2026-10-07 1c floor.
+    net_c = gross_c if net_c is None else net_c
+    best = 0
+    for u, b, f in LADDER:
+        if ask_c >= b and gross_c >= f and net_c >= f: best = u
+    return best

@@ -37,10 +37,10 @@ def check(name, ok, detail=''):
 TODAY = datetime.datetime.now(ZoneInfo('America/Los_Angeles')).date().isoformat()
 DEAD = 'http://127.0.0.1:9'
 
-SOX = {'num': 1, 'name': 'White Sox ML', 'market_class': 'ml', 'sub': 'CWS @ HOU - model 95.0', 'odds': '+138', 'units': '5u', 'side': 'away',
+SOX = {'num': 1, 'name': 'White Sox ML', 'market_class': 'ml', 'sub': 'CWS @ HOU - model 95.0', 'odds': '-150', 'units': '5u', 'side': 'away',
        'game': {'away': 'Chicago White Sox', 'home': 'Houston Astros', 'commence': '2099-10-01T21:00Z', 'eid': ''},
        'espn_league': 'baseball/mlb', 'league': 'MLB', 'best_book': 'DraftKings'}
-LYNX = {'num': 2, 'name': 'Lynx ML', 'market_class': 'ml', 'sub': 'MIN @ NY - model 95.0', 'odds': '-110', 'units': '5u', 'side': 'away',
+LYNX = {'num': 2, 'name': 'Lynx ML', 'market_class': 'ml', 'sub': 'MIN @ NY - model 95.0', 'odds': '-150', 'units': '5u', 'side': 'away',
         'game': {'away': 'Minnesota Lynx', 'home': 'New York Liberty', 'commence': '2099-10-01T23:30Z', 'eid': ''},
         'espn_league': 'basketball/wnba', 'league': 'WNBA', 'best_book': 'DraftKings'}
 MANIFEST = {'date': '2099-10-01', 'date_label': 'Thursday, Oct 1', 'updated': 'Oct 1, 8:42 AM PT', 'record': '21-11',

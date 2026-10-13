@@ -7,11 +7,11 @@ ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 tmp=tempfile.mkdtemp()
 prod_ledger=f'{tmp}/picks.jsonl'
 MAN=f'{tmp}/manifest.json'  # stable production manifest path for this test
-# model 66.0 (fair) so the 5u rung and every bar clear with room: the owner-rules gate recomputes gross/net from
+# model 66.0 (fair) at a 61c ask: 5c gross, 3.33c net - the 6u rung (60c band, 3c floor) and every bar clear: the owner-rules gate recomputes gross/net from
 # the card price now, so the fair must carry the size after the recompute (owner ruling 2026-10-02 (1)/(4)).
 CAND=[{'num':1,'name':'Test ML','side':'home','away':'AAA','home':'BBB','commence':'2026-09-28T00:00Z',
- 'eid':999001,'espn_league':'MLB','units':'5u','date':'2026-09-28',
- 'kalshi':{'side':'yes','cents':57,'team':'BBB','ticker':'KXT-BBB'},'model':66.0,'gross_c':9.0,'net_c':7.3,'market_class':'ml'}]
+ 'eid':999001,'espn_league':'MLB','units':'6u','date':'2026-09-28',
+ 'kalshi':{'side':'yes','cents':61,'team':'BBB','ticker':'KXT-BBB'},'model':66.0,'gross_c':5.0,'net_c':3.3,'market_class':'ml'}]
 T0='2026-09-27T14:51:00Z'  # best_ask read time
 cf=f'{tmp}/cands.json'
 S=os.path.join(ROOT,'scripts','build_manifest.py')
@@ -43,7 +43,7 @@ print('T1 OK')
 # T2 production canonical + readback
 r=run([cf,MAN])
 pr=rows()
-if not (len(pr)==1 and pr[0]['preview']==False and pr[0]['entry_c']==57 and pr[0]['card_american']==-133): fails.append(f'T2 wrong {pr}')
+if not (len(pr)==1 and pr[0]['preview']==False and pr[0]['entry_c']==61 and pr[0]['card_american']==-156): fails.append(f'T2 wrong {pr}')
 if 'readback verified' not in r.stdout: fails.append('T2 no readback')
 print('T2 OK')
 # T3 idempotent
@@ -77,20 +77,20 @@ if 'duplicate candidates' not in r.stderr+r.stdout: fails.append('T7 no dupe ref
 if rows(): fails.append('T7 wrote rows')
 print('T7 OK')
 # T8 orphan rollback: interrupted publish (row, no manifest) + CHANGED price -> recover
-write_cands(CAND); run([cf,MAN])          # publish 57c
+write_cands(CAND); run([cf,MAN])          # publish 61c
 os.remove(MAN)                             # simulate manifest never published / lost
-c4=[dict(CAND[0])]; c4[0]['kalshi']=dict(CAND[0]['kalshi']); c4[0]['kalshi']['cents']=61
+c4=[dict(CAND[0])]; c4[0]['kalshi']=dict(CAND[0]['kalshi']); c4[0]['kalshi']['cents']=60
 write_cands(c4); r=run([cf,MAN])
 pr=rows()
-if not (len(pr)==1 and pr[0]['entry_c']==61): fails.append(f'T8 wrong {pr}')
+if not (len(pr)==1 and pr[0]['entry_c']==60): fails.append(f'T8 wrong {pr}')
 if 'ORPHAN ROLLBACK' not in r.stdout: fails.append('T8 rollback not logged')
 print('T8 OK')
 # T9 interrupted publish + IDENTICAL candidates finishes (no new row, manifest published)
 os.remove(prod_ledger); os.remove(MAN)
 # hand-write a canonical row as the crashed publish left it
-row={'kind':'pick','event_id':'999001','market_class':'ml','side':'home','name':'Test ML','units':'5u',
- 'entry_c':57,'card_american':-133,'card_source':f'Kalshi ask at {T0}','card_ts':'2026-09-26T22:30:00-07:00',
- 'card_venue':'kalshi','card_read_at':T0,'card_compared':[{'venue':'kalshi','price':57,'read_at':T0}],
+row={'kind':'pick','event_id':'999001','market_class':'ml','side':'home','name':'Test ML','units':'6u',
+ 'entry_c':61,'card_american':-156,'card_source':f'Kalshi ask at {T0}','card_ts':'2026-09-26T22:30:00-07:00',
+ 'card_venue':'kalshi','card_read_at':T0,'card_compared':[{'venue':'kalshi','price':61,'read_at':T0}],
  'kalshi_ticker':'KXT-BBB','commence':'2026-09-28T00:00Z','preview':False}
 open(prod_ledger,'w').write(json.dumps(row)+'\n')
 write_cands(CAND); r=run([cf,MAN])
@@ -101,12 +101,12 @@ print('T9 OK')
 r=run([cf,MAN,'--preview'],expect_ok=False)
 if 'refuses production manifest path' not in r.stderr+r.stdout: fails.append('T10 no path refusal')
 print('T10 OK')
-# T11 units change on published key -> refuse (swamp round 7 repro). The size must be its pick's J-096
-# rung (owner ruling 2026-10-02 (4)), so the re-size comes with a fair that carries it: 72.0 and gross 3.7 = 10u
-c5=[dict(CAND[0])]; c5[0]['units']='10u'; c5[0]['model']=72.0
+# T11 units change on published key -> refuse (swamp round 7 repro). The size must be its pick's ladder
+# rung (owner ruling 2026-10-02 (4)), so the re-size comes with a fair that carries it: 65.0 at 61c = 5u
+c5=[dict(CAND[0])]; c5[0]['units']='5u'; c5[0]['model']=65.0
 write_cands(c5); r=run([cf,MAN],expect_ok=False)
 if 'refusing to fork' not in r.stderr+r.stdout: fails.append('T11 no fork refusal on units change')
-if rows()[0]['units']!='5u': fails.append('T11 ledger re-sized')
+if rows()[0]['units']!='6u': fails.append('T11 ledger re-sized')
 print('T11 OK')
 # T12 corrupt manifest -> fail closed BEFORE any ledger rewrite
 open(MAN,'w').write('{corrupt json')

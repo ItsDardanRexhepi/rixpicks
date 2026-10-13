@@ -192,9 +192,11 @@ _sanitize_man(man)
 # rule. Vegas rule, ladder sizes, all of it: hard gates, no exceptions."). build_manifest.py refuses such a card,
 # but a manifest.json can land another way, and every build path (publish.yml, refresh.sh, record_final.yml)
 # builds whatever card has landed. So the CURRENT card (this manifest) is held - exit 3, refresh.sh's CARD HOLD,
-# nothing written - when a pick is on or against a Las Vegas team, its units are not exactly a J-096 rung, or it
-# breaks a numeric standing bar (owner rulings 2026-10-02 (1), (2), (4)): card ask >= 85c, gross < 1c or
-# net < 1c (the owner's 1c floor, 2026-10-07), units over the J-096 rung of its fair, a card_american that is not the best ask of its
+# nothing written - when a pick is on or against a Las Vegas team, its units are not exactly a rung of the ladder
+# (owner 2026-10-13: 5u-10u, band = the card ask, floor = the edge after fees), or it
+# breaks a numeric standing bar (owner rulings 2026-10-02 (1), (2), (4)): card ask >= 85c, card ask under the 60c
+# band, gross or net under the floor of its band (2c in the 60c band, 1c from 70c up), units over the ladder rung
+# its ask and edge clear, a card_american that is not the best ask of its
 # recorded venues, or a parlay over length or short of the 2c/2c bar. The fair is read from each pick's "model X"
 # sub (build_manifest's own shape) or its best_ask block; unreadable fair/card price holds fail closed. The Vegas rule is the contract block below, the same block
 # build_manifest.vegas_hit runs: a league's Vegas nickname, home city or abbreviation as whole words anywhere in a
@@ -252,12 +254,16 @@ def vegas_hit_fields(league, fields):
             return f'{f} {v!r}'
     return None
 # <<< vegas-rule contract copy
-_UNIT_LADDER=('5u','10u','15u','100u')
+_UNIT_LADDER=('5u','6u','7u','8u','9u','10u')  # THE LADDER (owner 2026-10-13): no 15u, no 100u
 # numeric bars, mirroring build_manifest.py (bar_problems / j096_rung); the page builder re-checks them
 # from the manifest's own fields because a sub-bar card.json can land outside build_manifest.
 _ASK_CUT_C=85.0
-_EDGE_FLOOR_C=1.0  # owner, 2026-10-07: "have a 1c floor" - one number for the gross bar and the net bar, every class
-_RUNG_INT={'5u':5,'10u':10,'15u':15,'100u':100}
+# THE LADDER (owner 2026-10-13; RixPicksSystem engine/ladder.py is the one definition, build_manifest.py LADDER mirrors it):
+# (units, band_c, floor_c) lowest first. Band = the card ask the pick is bought at; floor = the edge after fees, gross and net.
+_LADDER=((5,60,2),(6,60,3),(7,70,1),(8,70,2),(9,70,3),(10,80,3))
+_BAND_MIN_C=60
+_RUNG_BF={u:(b,f) for u,b,f in _LADDER}
+_RUNG_INT={'5u':5,'6u':6,'7u':7,'8u':8,'9u':9,'10u':10}
 _POLY_US_PRICED=False  # 9/27 P1 (main 8:31): .com-gamma quotes never label .us-linked POLY chips (Bengals -150 vs .us -163 class). Flip True ONLY when analysis ships verified .us-sourced quotes; until then POLY chips are destination-only and excluded from best-line.  # add entries ONLY after verifying the .us slug live; verified 9/27: nyl->ny
 _EXCH_VENUES={'kalshi','poly','polymarket'}
 def _rnum(v):
@@ -307,11 +313,25 @@ def _venue_cost(venue,price):
     if v in _EXCH_VENUES:
         c=_rnum(price); return c if c is not None and 1<=c<=99 else None
     return _cost_from_american(price)
-def _j096_rung(fair,gross):
-    if fair>=90: return 100
-    if fair>=80: return 15
-    if fair>=70: return 10 if gross>=3 else 5
-    return 5
+def _band_of(ask):
+    hit=None
+    for _u,b,_f in _LADDER:
+        if round(ask,6)>=b: hit=b
+    return hit
+def _floor_for(ask):
+    fl=[f for _u,b,f in _LADDER if round(ask,6)>=b]
+    return float(min(fl)) if fl else float(_LADDER[0][2])
+def _ladder_rung(ask,gross,net):
+    best=0
+    for u,b,f in _LADDER:
+        if round(ask,6)>=b and round(gross,6)>=f and round(net,6)>=f: best=u
+    return best
+def _ladder_words(p):
+    # '<N>u · <band>c band · <floor>c floor' beside the units (owner 2026-10-13); a legacy pick with no rung prints its units alone
+    u=_RUNG_INT.get(p.get('units'))
+    if u is None: return html.escape(p.get('units',''))
+    b,f=_RUNG_BF[u]
+    return html.escape(f'{u}u \u00b7 {b}c band \u00b7 {f}c floor')
 def _pick_mclass(p):
     # One market class per pick, used by chips, the pick row and the client verdict.
     # build_manifest.py writes market_class (ml|spread|total|prop); legacy hand manifests mark a
@@ -419,7 +439,7 @@ def _standing_rule_holds(m):
         for _k,_why in _pick_line_holds(p): out.append((p.get('name'),_k,f"{who}: {_why}"))
         for _k,_why in _best_ask_line_holds(p): out.append((p.get('name'),_k,f"{who}: {_why}"))
         if not (isinstance(p.get('units'),str) and p['units'] in _UNIT_LADDER):
-            out.append((p.get('name'),'units_ladder',f"{who}: units {p.get('units')!r} not on the J-096 ladder (5u, 10u, 15u, 100u)"))
+            out.append((p.get('name'),'units_ladder',f"{who}: units {p.get('units')!r} not on the ladder (5u, 6u, 7u, 8u, 9u, 10u)"))
         if not _has_kalshi_market(p):
             out.append((p.get('name'),'kalshi_market',f"{who}: no Kalshi market (ticker and side yes|no required)"))
         ba=p.get('best_ask')
@@ -437,11 +457,14 @@ def _standing_rule_holds(m):
         gross=round(fair-cost,6)
         net=round(gross-(_kfee_c(cost) if _is_kalshi_priced(p) else 0.0),6)
         if cost>=_ASK_CUT_C: out.append((p.get('name'),'ask_cut',f"{who}: card ask {cost:g}c at or above the 85c cut"))
-        if gross<_EDGE_FLOOR_C: out.append((p.get('name'),'gross_bar',f"{who}: gross {gross:g}c below the {_EDGE_FLOOR_C:g}c floor"))
-        if net<_EDGE_FLOOR_C: out.append((p.get('name'),'net_bar',f"{who}: net {net:g}c below the {_EDGE_FLOOR_C:g}c floor"))
-        u,base=_RUNG_INT.get(p.get('units')),_j096_rung(fair,gross)
+        _band=_band_of(cost)
+        if _band is None: out.append((p.get('name'),'ask_band',f"{who}: card ask {cost:g}c below the {_BAND_MIN_C}c band (owner 2026-10-13: under the band nothing is a pick)"))
+        _fl=_floor_for(cost)
+        if gross<_fl: out.append((p.get('name'),'gross_bar',f"{who}: gross {gross:g}c below the {_fl:g}c floor of the {_band or _BAND_MIN_C}c band"))
+        if net<_fl: out.append((p.get('name'),'net_bar',f"{who}: net {net:g}c below the {_fl:g}c floor of the {_band or _BAND_MIN_C}c band"))
+        u,base=_RUNG_INT.get(p.get('units')),_ladder_rung(cost,gross,net)
         if u is not None and base and u>base:
-            out.append((p.get('name'),'units_over_rung',f"{who}: units {p.get('units')!r} over the J-096 rung {base}u of its fair (fair {fair:g}c, gross {gross:g}c)"))
+            out.append((p.get('name'),'units_over_rung',f"{who}: units {p.get('units')!r} over the ladder rung {base}u its ask and edge clear (ask {cost:g}c, gross {gross:g}c, net {net:g}c)"))
         ba=p.get('best_ask')  # card_american must equal the best ask of its recorded venues
         if isinstance(ba,dict) and isinstance(ba.get('compared'),list) and ba['compared']:
             costs=[c for c in (_venue_cost(q.get('venue'),q.get('price')) for q in ba['compared'] if isinstance(q,dict)) if c is not None]
@@ -485,8 +508,8 @@ def _standing_rule_holds(m):
 # slates/owner_rule_suspensions.jsonl is append-only, one JSON object per line: {date, rule, scope, picks,
 # approved, logged_at}, every pick an object {name, eid, units} (non-empty strings). A held item is waived ONLY
 # when a line has date == this manifest's date (exact string), rule == "2026-10-02 (4)" and scope == "numeric",
-# the item is a numeric bar (gross or net below the 1c floor, units over
-# the J-096 rung of its fair) and its pick name is exactly a logged name - and the whole waiver is refused (nothing
+# the item is a numeric bar (gross or net below the floor of its band, units over
+# the ladder rung its ask and edge clear) and its pick name is exactly a logged name - and the whole waiver is refused (nothing
 # waived) unless ALL of these hold: the card_note, the note the page actually renders, carries the disclosure
 # stated positively ("owner-directed" or "owner directive", and "sub-bar", any case, as whole words, and none of
 # them negated: a no/not/non-/never/without/neither/nor/none/n't word earlier in its clause, or a bare "no" right
@@ -495,7 +518,7 @@ def _standing_rule_holds(m):
 # the logged date (its game.commence, which must carry an explicit UTC offset, read in America/Los_Angeles by _pt_day
 # - stricter than _pt_date, which reads a zoneless commence as UTC: here it binds to no date) and carries exactly its
 # logged eid (game.eid) and units. Never suspendable: a Las Vegas team, units off the ladder, a card ask at or above
-# the 85c cut, a card price that is not the best recorded ask, a spread name or pick_line that disagrees with its
+# the 85c cut or under the 60c band, a card price that is not the best recorded ask, a spread name or pick_line that disagrees with its
 # line, a best-ask quote at another line, every parlay item. The card builds only when EVERY held item is waived; one unwaived item holds it exactly as
 # before (exit 3, nothing written). An unreadable or malformed log (any line not a well-formed record: a date that
 # is not a YYYY-MM-DD calendar date, or a logged_at without an explicit UTC offset, included) waives nothing. The
@@ -2229,7 +2252,7 @@ for p in man['picks']:
     _av=_avimg(_ma)+_avimg(_mh,True)
     _avhtml='<span style="display:inline-flex;flex-shrink:0;align-items:center;margin-right:6px">'+_av+'</span>' if _av else ''
     rows.append(f'''<div class="pick" data-espn="{espn}" data-eid="{html.escape(_eid)}" data-ceid="{html.escape(str(g.get('ceid') or ''))}" data-comp="{html.escape(str(g.get('comp') or ''))}" data-gpk="{_gk3[0]}" data-aab="{_gk3[1]}" data-hab="{_gk3[2]}" data-room="g{p['num']}-{(_pt_date(g.get('commence','')) or 'card')}" data-commence="{html.escape(g.get('commence',''))}" data-away="{html.escape(g.get('away',''))}" data-home="{html.escape(g.get('home',''))}" data-side="{p.get('side','away')}" data-market="{mkt}"{_lnattr} data-codds="{html.escape(p.get('odds',''))}" data-stake="{html.escape(re.sub(r'[^0-9.]','',p.get('units','')))}"{(' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else '')}>
-  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="uo"><span class="units">{html.escape(p.get('units',''))}</span><span class="odds">{html.escape(p['odds'])}</span></span><span class="oddslock">{_stamp_html(p)}</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
+  <div class="pick-head"><a class="gamelink" href="game-{p['num']}.html">{_avhtml}<span class="num">{p['num']}.</span><span class="name">{html.escape(p['name'])}</span></a><span class="meta-grp"><a class="rpmetalink" href="game-{p['num']}.html"><span class="uo"><span class="units">{_ladder_words(p)}</span><span class="odds">{html.escape(p['odds'])}</span></span><span class="oddslock">{_stamp_html(p)}</span></a><a class="rpchatlink" href="game-{p['num']}.html#rpChatPanel" aria-label="live chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-cc></span></a></span></div><span class="ls" data-ls></span>
   <div class="rpstart" data-commence="{html.escape(g.get('commence',''))}">{_pt_time(g.get('commence',''))}</div>
   <div class="sub">{html.escape(p['sub'])}</div>
   {chips_html}
@@ -4702,7 +4725,7 @@ def build_game_pages(man, css, build_sha):
         for tok,val in [('__TITLE__',html.escape(away+' at '+home)),('__CSS__',css),('__NUM__',str(p['num'])),
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',abbr_a),('__HAB__',abbr_h),  # swamp 9/26: gpk registry blanks on unregistered games rendered UNLABELED arbiter-only scores - abbrs come from the same verified _meta_for source as the matchup display
             ('__EID__',html.escape(str(g.get('eid') or ''))),('__CEID__',html.escape(str(g.get('ceid') or ''))),('__COMP__',html.escape(str(g.get('comp') or ''))),('__COUNTED__',' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else ''),
-            ('__SIDE__',side),('__MKT__',mkt),('__LINEATTR__',_glnattr),('__NAME__',html.escape(p['name'])),('__UNITS__',html.escape(p.get('units',''))),
+            ('__SIDE__',side),('__MKT__',mkt),('__LINEATTR__',_glnattr),('__NAME__',html.escape(p['name'])),('__UNITS__',_ladder_words(p)),
             ('__ODDS__',html.escape(p['odds'])),('__LOCK__',_game_stamp(p)),('__SUB__',html.escape(p.get('sub',''))),('__WHEN__',html.escape(when)),
             ('__MKTHDR__',_mkthdr),('__FOOTNOTE__',_foot),
             ('__CHIPS__',ch),('__MATCHUP__',matchup),('__TEAMLINKS__',teamlinks),('__ROWS__',''.join(rows_html)),('__KAL__',kal_html),('__POLY__',poly_html),('__ROOM__','g%s-%s'%(p['num'],(_pt_date(g.get('commence','')) or 'card'))),('__START__',g.get('commence','') or ''),

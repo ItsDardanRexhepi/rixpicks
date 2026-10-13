@@ -48,13 +48,18 @@ LABEL = {'passing_yards': 'passing yards', 'pass_td': 'passing TDs', 'rushing_ya
          'pit_hits_allowed': 'hits allowed', 'pit_walks': 'walks allowed', 'pit_outs': 'outs',
          'pit_earned_runs': 'earned runs'}
 
-def tier_eval(fair_c, gross_c):
-    # J-096 ladder, same as ML/s-t
-    if fair_c >= 90: return 100
-    if 80 <= fair_c < 90: return 15
-    if 70 <= fair_c < 80: return 10 if gross_c >= 3 else 5
-    if 60 <= fair_c < 70: return 5
-    return 0
+LADDER = ((5, 60, 2), (6, 60, 3), (7, 70, 1), (8, 70, 2), (9, 70, 3), (10, 80, 3))
+
+def tier_eval(ask_c, gross_c, net_c=None):
+    # THE LADDER (owner 2026-10-13; scripts/build_manifest.py LADDER mirrors RixPicksSystem engine/ladder.py): band = the
+    # Kalshi ask the pick is bought at, floor = the edge after fees (gross AND net); the highest rung cleared; 0 = not a
+    # pick. 5u = 60c + 2c, 6u = 60c + 3c, 7u = 70c + 1c, 8u = 70c + 2c, 9u = 70c + 3c, 10u = 80c + 3c; no 15u, no 100u.
+    # Replaces the J-096 rungs, the 2026-10-06 no-band and the 2026-10-07 1c floor.
+    net_c = gross_c if net_c is None else net_c
+    best = 0
+    for u, b, f in LADDER:
+        if ask_c >= b and gross_c >= f and net_c >= f: best = u
+    return best
 
 def adapt(row, floor=True, now=None):
     now = now or datetime.now(ZoneInfo('UTC'))
@@ -72,8 +77,8 @@ def adapt(row, floor=True, now=None):
         print(f"SKIP (fail closed): no ESPN league path for {row.get('league')!r}", file=sys.stderr)
         return None
     fair_c = row['fair_over_c']
-    units = tier_eval(fair_c, row['gross_c'] if row.get('gross_c') is not None else row['net_c'])
-    if units == 0: return None  # below J-096 card band
+    units = tier_eval(round(row['kalshi']['ask'] * 100), row['gross_c'] if row.get('gross_c') is not None else row['net_c'], row['net_c'])
+    if units == 0: return None  # no rung on the ladder (under the band or its floor)
     SPECIAL_NAME = {'anytime_td': 'anytime TD', 'anytime_goal': 'anytime goal',
                     'first_goal': '1st goal', 'last_goal': 'last goal'}
     if market in SPECIAL_NAME:

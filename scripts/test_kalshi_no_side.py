@@ -236,6 +236,10 @@ BASE = {'date_label': 'Fixture', 'updated': '', 'record': '1-0', 'units_pl': '+1
 def card(*picks):
     m = copy.deepcopy(BASE); m['picks'] = [copy.deepcopy(p) for p in picks]
     for p in m['picks']: p['sub']=str(p.get('sub') or '')+' - model 95.0'
+    # the card price (odds) sits in a band, 60c or more (owner 2026-10-13: under the 60c band nothing is a pick). The
+    # Kalshi prints these fixtures test - the NO ask, the lock, the chip - are market data, not the card price
+    for p in m['picks']:
+        if 'card_american' not in p and 'best_ask' not in p: p['odds'] = '-150'
     for i, p in enumerate(m['picks'], 1): p['num'] = i
     return m
 
@@ -278,20 +282,23 @@ def xpick(name, mc, side, away, home, lg, league, tk, kside, cents, line=None, c
     return p
 # NFL: Falcons +2.5 at New Orleans is the NO of "New Orleans wins by over 2.5" - the Saints' code is NO, beside side no
 NFL_EV = 'KXNFLSPREAD-' + D + 'ATLNO'
-NO3 = xm(NFL_EV + '-NO3', 'New Orleans wins by over 2.5 points', '0.45', '0.56')
+NO3 = xm(NFL_EV + '-NO3', 'New Orleans wins by over 2.5 points', '0.39', '0.62')
 NO4 = xm(NFL_EV + '-NO4', 'New Orleans wins by over 3.5 points', '0.37', '0.64')
-FALCONS = xpick('Falcons +2.5', 'spread', 'away', 'Atlanta Falcons', 'New Orleans Saints', 'football/nfl', 'NFL', NO3['ticker'], 'no', 56, line=-2.5)
+FALCONS = xpick('Falcons +2.5', 'spread', 'away', 'Atlanta Falcons', 'New Orleans Saints', 'football/nfl', 'NFL', NO3['ticker'], 'no', 62, line=-2.5)
 # the Oct 5 Flyers +1.5 exactly as it shipped (no kalshi block), and the NO market of its rung
 OCT5 = json.load(open(os.path.join(ROOT, 'manifests', 'manifest-24105e3e4c2b.json')))
 FLYERS = [p for p in OCT5['picks'] if p.get('name') == 'Flyers +1.5'][0]
-TB2 = xm('KXNHLSPREAD-' + D + 'PHITB-TB2', 'Tampa Bay wins by over 1.5 goals', '0.43', '0.58')
-def flyers_replay(kside='no', cents=58):
+TB2 = xm('KXNHLSPREAD-' + D + 'PHITB-TB2', 'Tampa Bay wins by over 1.5 goals', '0.39', '0.62')
+def flyers_replay(kside='no', cents=62):
     # the shipped pick, re-dated to a pre-game publish (its event dated from the same commence), its card source
-    # (Polymarket 58c, +1.5) recorded as its best ask, and the NO market of its rung as its kalshi block
+    # recorded as its best ask, and the NO market of its rung as its kalshi block. It shipped at Polymarket 58c on
+    # Oct 5; the replay prices it at 62c, in the 60c band, because under the ladder of 2026-10-13 a 58c card is not a
+    # pick and the page builder holds it - the binding under test (NO of the favourite's rung) is the same at 62c
     p = copy.deepcopy(FLYERS); p['game']['commence'] = FUT
+    p['odds'] = '-163'; p['card_american'] = -163; p['sub'] = 'PHI @ TB - model 64.5'    # 2.5c at 62c: the 5u rung
     p['kalshi'] = {'url': xurl(TB2['ticker']), 'ticker': TB2['ticker'], 'side': kside, 'cents': cents, 'gate_cents': cents, 'team': ''}
-    p['best_ask'] = {'venue': 'poly', 'price': 58, 'line': 1.5, 'read_at': p['card_ts'], 'cost_c': 58.0, 'fee_c': 0.0,
-                     'compared': [{'venue': 'poly', 'price': 58, 'line': 1.5, 'read_at': p['card_ts']}, {'venue': 'kalshi', 'price': 58, 'read_at': p['card_ts']}]}
+    p['best_ask'] = {'venue': 'poly', 'price': 62, 'line': 1.5, 'read_at': p['card_ts'], 'cost_c': 62.0, 'fee_c': 0.0,
+                     'compared': [{'venue': 'poly', 'price': 62, 'line': 1.5, 'read_at': p['card_ts']}, {'venue': 'kalshi', 'price': 62, 'read_at': p['card_ts']}]}
     return p
 
 GAME_PAGES = {}
@@ -935,27 +942,27 @@ for B in BUILDERS:
     # NFL spread: a + spread is the NO of the favourite's rung, and the Saints' code NO never reads as the side
     rc, page, log = sbuild(FALCONS, NO3, NO4)
     ch = chip_for(page, xurl(NO3['ticker']))
-    check(f'{tag}: S NFL Falcons +2.5 as NO of "New Orleans wins by over 2.5" ships at the NO ask: KAL -127, data-cents 56, data-kalpx no, pair -NO3',
-          rc == 0 and label(ch) == 'KAL -127' and attr(ch, 'cents') == '56' and attr(ch, 'kalpx') == 'no' and attr(ch, 'kalside') == 'NO3'
+    check(f'{tag}: S NFL Falcons +2.5 as NO of "New Orleans wins by over 2.5" ships at the NO ask: KAL -163, data-cents 62, data-kalpx no, pair -NO3',
+          rc == 0 and label(ch) == 'KAL -163' and attr(ch, 'cents') == '62' and attr(ch, 'kalpx') == 'no' and attr(ch, 'kalside') == 'NO3'
           and '%s-%s' % (attr(ch, 'kalticker'), attr(ch, 'kalside')) == NO3['ticker'], log[-600:] + ch)
     rec = records(page)[int(attr(ch, 'mr'))] if attr(ch, 'mr') else {}
-    check(f'{tag}: S its market record is (event, the -NO3 market, side no) at 56c',
-          (rec.get('ev'), rec.get('mkt'), rec.get('side'), rec.get('c')) == (NFL_EV, NO3['ticker'], 'no', 56), rec)
+    check(f'{tag}: S its market record is (event, the -NO3 market, side no) at 62c',
+          (rec.get('ev'), rec.get('mkt'), rec.get('side'), rec.get('c')) == (NFL_EV, NO3['ticker'], 'no', 62), rec)
     row = kal_row(GAME_PAGES.get('game-1.html', ''))
-    check(f'{tag}: S its game page row: Atlanta Falcons at KAL -127, data-kalside NO3, data-kalpx no',
-          '>Atlanta Falcons</a>' in row and '>KAL -127</a>' in row and 'data-kalside="NO3" data-kalpx="no" data-cents="56"' in row, row)
+    check(f'{tag}: S its game page row: Atlanta Falcons at KAL -163, data-kalside NO3, data-kalpx no',
+          '>Atlanta Falcons</a>' in row and '>KAL -163</a>' in row and 'data-kalside="NO3" data-kalpx="no" data-cents="62"' in row, row)
     if ch:
-        t = run_tick(page, 'rpKalTick', [{'dataset': ds(ch), 'innerHTML': 'KAL -127'}], {NO3['ticker']: dict(NO3, no_ask_dollars='0.60', yes_ask_dollars='0.41')})
+        t = run_tick(page, 'rpKalTick', [{'dataset': ds(ch), 'innerHTML': 'KAL -163'}], {NO3['ticker']: dict(NO3, no_ask_dollars='0.65', yes_ask_dollars='0.36')})
         a = (t.get('anchors') or [{}])[0]
-        check(f'{tag}: S the client tick fetches -NO3 and reads its NO ask (60c -> KAL -150, not the 41c YES)',
-              t.get('fetched') == [NO3['ticker']] and a.get('dataset', {}).get('cents') == 60 and a.get('innerHTML') == 'KAL -150', t)
-    q = xpick('Saints -2.5', 'spread', 'home', 'Atlanta Falcons', 'New Orleans Saints', 'football/nfl', 'NFL', NO3['ticker'], 'yes', 45, line=-2.5)
+        check(f'{tag}: S the client tick fetches -NO3 and reads its NO ask (65c -> KAL -186, not the 36c YES)',
+              t.get('fetched') == [NO3['ticker']] and a.get('dataset', {}).get('cents') == 65 and a.get('innerHTML') == 'KAL -186', t)
+    q = xpick('Saints -2.5', 'spread', 'home', 'Atlanta Falcons', 'New Orleans Saints', 'football/nfl', 'NFL', NO3['ticker'], 'yes', 39, line=-2.5)
     rc, page, log = sbuild(q, NO3)
     ch = chip_for(page, xurl(NO3['ticker']))
-    check(f'{tag}: S Saints -2.5 is the YES of the same rung: KAL +122, data-cents 45, data-kalpx yes',
-          rc == 0 and label(ch) == 'KAL +122' and attr(ch, 'cents') == '45' and attr(ch, 'kalpx') == 'yes', log[-600:] + ch)
-    q = copy.deepcopy(FALCONS); q['kalshi'].update(side='yes', cents=45, gate_cents=45)
-    sfail('Falcons +2.5 declared YES on "New Orleans wins by over 2.5" (YES 45c lock)', *sbuild(q, NO3),
+    check(f'{tag}: S Saints -2.5 is the YES of the same rung: KAL +156, data-cents 39, data-kalpx yes',
+          rc == 0 and label(ch) == 'KAL +156' and attr(ch, 'cents') == '39' and attr(ch, 'kalpx') == 'yes', log[-600:] + ch)
+    q = copy.deepcopy(FALCONS); q['kalshi'].update(side='yes', cents=39, gate_cents=39)
+    sfail('Falcons +2.5 declared YES on "New Orleans wins by over 2.5" (YES 39c lock)', *sbuild(q, NO3),
           "BUILD FAILED: Falcons +2.5 - the YES of %s is 'New Orleans wins by over 2.5 points', the opponent: its side is no, the kalshi block says yes" % NO3['ticker'])
     q = copy.deepcopy(FALCONS); q['kalshi'].update(ticker=NO4['ticker'], cents=64, gate_cents=64)
     sfail('Falcons +2.5 bound to the 3.5 rung with its own NO 64c lock', *sbuild(q, NO4),
@@ -966,7 +973,7 @@ for B in BUILDERS:
     sfail("a pick_line of -2.5 on the away +2.5: main's pick_line hold", *sbuild(dict(copy.deepcopy(FALCONS), pick_line=-2.5), NO3),
           "pick 1 'Falcons +2.5': pick_line -2.5 is not the away side's line +2.5")
     rc, page, log = sbuild(dict(copy.deepcopy(FALCONS), pick_line=2.5), NO3)
-    check(f'{tag}: S a pick_line that agrees (+2.5) builds at the NO ask (KAL -127)', rc == 0 and label(chip_for(page, xurl(NO3['ticker']))) == 'KAL -127', log[-600:])
+    check(f'{tag}: S a pick_line that agrees (+2.5) builds at the NO ask (KAL -163)', rc == 0 and label(chip_for(page, xurl(NO3['ticker']))) == 'KAL -163', log[-600:])
     LV3 = xm('KXNFLSPREAD-' + D + 'KCLV-LV3', 'Las Vegas wins by over 2.5 points', '0.45', '0.56')
     q = xpick('Chiefs +2.5', 'spread', 'away', 'Kansas City Chiefs', 'Las Vegas Raiders', 'football/nfl', 'NFL', LV3['ticker'], 'no', 56, line=-2.5)
     sfail('Chiefs +2.5 as NO on the Raiders\' rung: the Vegas rule holds an explicit NO side', *sbuild(q, LV3),
@@ -1017,34 +1024,34 @@ for B in BUILDERS:
     # the Oct 5 Flyers +1.5 (shipped kalshi:null) replayed with the NO market of its rung: it prices the NO ask or refuses
     rc, page, log = sbuild(flyers_replay(), TB2)
     ch = chip_for(page, xurl(TB2['ticker']))
-    check(f'{tag}: S the Oct 5 Flyers +1.5 replayed with its NO market prices the NO ask: KAL -138, data-cents 58, data-kalpx no, pair -TB2',
-          rc == 0 and label(ch) == 'KAL -138' and attr(ch, 'cents') == '58' and attr(ch, 'kalpx') == 'no'
+    check(f'{tag}: S the Oct 5 Flyers +1.5 replayed with its NO market prices the NO ask: KAL -163, data-cents 62, data-kalpx no, pair -TB2',
+          rc == 0 and label(ch) == 'KAL -163' and attr(ch, 'cents') == '62' and attr(ch, 'kalpx') == 'no'
           and '%s-%s' % (attr(ch, 'kalticker'), attr(ch, 'kalside')) == TB2['ticker'], log[-600:] + ch)
     row = kal_row(GAME_PAGES.get('game-1.html', ''))
-    check(f'{tag}: S its game page row: Philadelphia Flyers at KAL -138, data-kalpx no',
-          '>Philadelphia Flyers</a>' in row and '>KAL -138</a>' in row and 'data-kalpx="no" data-cents="58"' in row, row)
-    sfail('the Flyers replay whose NO ask moved to 60c over its 58c lock', *sbuild(flyers_replay(), dict(TB2, no_ask_dollars='0.60')),
-          'BUILD FAILED: Flyers +1.5 Kalshi ask 60c exceeds ship-condition ceiling 58c')
+    check(f'{tag}: S its game page row: Philadelphia Flyers at KAL -163, data-kalpx no',
+          '>Philadelphia Flyers</a>' in row and '>KAL -163</a>' in row and 'data-kalpx="no" data-cents="62"' in row, row)
+    sfail('the Flyers replay whose NO ask moved to 64c over its 62c lock', *sbuild(flyers_replay(), dict(TB2, no_ask_dollars='0.64')),
+          'BUILD FAILED: Flyers +1.5 Kalshi ask 64c exceeds ship-condition ceiling 62c')
 
     # T. one line, one market: the page builder holds a best ask quoted at another line than the pick's own
-    def tpick(qline, price=-110, base=FALCONS):
+    def tpick(qline, price=-150, base=FALCONS):
         p = copy.deepcopy(base); p['odds'] = '%+d' % price; p['card_american'] = price; p['best_book'] = 'DraftKings'
         q = dict({'venue': 'dk', 'price': price, 'read_at': PAST}, **({} if qline is None else {'line': qline}))
         p['best_ask'] = dict(q, compared=[dict(q), {'venue': 'kalshi', 'price': p['kalshi']['cents'], 'read_at': PAST}])
         return p
-    for what, q, msg in (('a DraftKings +3 (-110, 52.4c) against the 2.5 rung', tpick(3), "best_ask: a dk quote at line +3 is another market than the pick's own +2.5"),
+    for what, q, msg in (('a DraftKings +3 (-150, 60c) against the 2.5 rung', tpick(3), "best_ask: a dk quote at line +3 is another market than the pick's own +2.5"),
                          ("the game's book line as posted, Saints -3", tpick(-3), "best_ask: a dk quote at line -3 is another market than the pick's own +2.5"),
                          ('a DraftKings quote naming no line', tpick(None), 'best_ask: a dk quote on a spread pick names no line')):
         rc, page, log = sbuild(q, NO3)
         check(f'{tag}: T {what} as the best ask is held (exit 3, no page, never suspendable)',
               rc == 3 and 'BUILD FAILED: card hold' in log and msg in log and not page, log[-600:])
-    ml = tpick(-3, price=-130, base=xpick('Saints ML', 'ml', 'home', 'Atlanta Falcons', 'New Orleans Saints', 'football/nfl', 'NFL', 'KXNFLGAME-' + D + 'ATLNO-NO', 'yes', 58))
+    ml = tpick(-3, price=-150, base=xpick('Saints ML', 'ml', 'home', 'Atlanta Falcons', 'New Orleans Saints', 'football/nfl', 'NFL', 'KXNFLGAME-' + D + 'ATLNO-NO', 'yes', 62))
     rc, page, log = sbuild(ml)
     check(f'{tag}: T a moneyline whose DraftKings quote names a line (-3) is held (exit 3)',
           rc == 3 and "best_ask: a dk quote at line -3 is another market than a moneyline" in log and not page, log[-600:])
-    rc, page, log = sbuild(tpick(2.5, price=-115), NO3)
-    check(f'{tag}: T the same DraftKings at +2.5 (-115) is the pick\'s own market: the card builds (Kalshi chip at its NO ask, KAL -127)',
-          rc == 0 and 'best_ask_line' not in log and 'another market' not in log and label(chip_for(page, xurl(NO3['ticker']))) == 'KAL -127', log[-600:])
+    rc, page, log = sbuild(tpick(2.5, price=-150), NO3)
+    check(f'{tag}: T the same DraftKings at +2.5 (-150) is the pick\'s own market: the card builds (Kalshi chip at its NO ask, KAL -163)',
+          rc == 0 and 'best_ask_line' not in log and 'another market' not in log and label(chip_for(page, xurl(NO3['ticker']))) == 'KAL -163', log[-600:])
 
     # U. the third review (Oct 6). Each failing case shipped (exit 0) on the previous head; each passing case marked
     # (was 3) failed there. ESPN's scoreboard for U's games, ahead of ESPN (the first matching route answers).
@@ -1225,9 +1232,10 @@ T0 = (NOW - datetime.timedelta(minutes=5)).strftime('%Y-%m-%dT%H:%M:%SZ')
 def bm_cand(**kal):
     c = {'num': 1, 'date': FUT[:10], 'market_class': 'total', 'line': 6.5, 'name': 'Under 6.5', 'side': 'under',
          'away': 'St. Louis Blues', 'home': 'Dallas Stars', 'commence': FUT, 'eid': '401999777', 'espn_league': 'hockey/nhl',
-         'units': '5u', 'model': 62.0, 'gross_c': 5.0, 'net_c': 3.28, 'sub_context': 'STL @ DAL',
-         'kalshi': dict({'cents': 57, 'team': '', 'ticker': TK, 'url': KURL}, **kal),
-         'best_ask': {'venue': 'kalshi', 'price': 57, 'read_at': T0, 'compared': [{'venue': 'kalshi', 'price': 57, 'read_at': T0}]}}
+         # bought at 62c (the 60c band) with a 66.5c fair: 4.5c gross, 2.85c net after the 1.65c fee - the 5u rung
+         'units': '5u', 'model': 66.5, 'gross_c': 4.5, 'net_c': 2.85, 'sub_context': 'STL @ DAL',
+         'kalshi': dict({'cents': 62, 'team': '', 'ticker': TK, 'url': KURL}, **kal),
+         'best_ask': {'venue': 'kalshi', 'price': 62, 'read_at': T0, 'compared': [{'venue': 'kalshi', 'price': 62, 'read_at': T0}]}}
     return c
 def build_manifest(cands):
     d = tempfile.mkdtemp(prefix='rp-kalno-bm-')
@@ -1245,13 +1253,13 @@ def build_manifest(cands):
 rc, man, log = build_manifest([bm_cand(side='no')])
 kb = ((man or {}).get('picks') or [{}])[0].get('kalshi') or {}
 check('G build_manifest carries kalshi.side "no" with the full ticker into the manifest pick',
-      rc == 0 and kb.get('side') == 'no' and kb.get('ticker') == TK and kb.get('cents') == 57 and kb.get('gate_cents') == 57, log[-600:])
+      rc == 0 and kb.get('side') == 'no' and kb.get('ticker') == TK and kb.get('cents') == 62 and kb.get('gate_cents') == 62, log[-600:])
 if man:
     for B in BUILDERS:
-        brc, page, blog = build(B, man, routes(SEVEN))
+        brc, page, blog = build(B, man, routes(total_mkt('7', '0.39', '0.62')))     # the NO market at the 62c lock
         ch = chip_for(page, KURL)
-        check(f'G {os.path.basename(B)}: the page built from that manifest prices the NO ask (KAL -133, data-kalpx no)',
-              brc == 0 and label(ch) == 'KAL -133' and attr(ch, 'kalpx') == 'no', blog[-600:] + ch)
+        check(f'G {os.path.basename(B)}: the page built from that manifest prices the NO ask (KAL -163, data-kalpx no)',
+              brc == 0 and label(ch) == 'KAL -163' and attr(ch, 'kalpx') == 'no', blog[-600:] + ch)
 rc, man, log = build_manifest([bm_cand()])
 kb = ((man or {}).get('picks') or [{}])[0].get('kalshi') or {}
 check('G build_manifest without a side refuses without writing',rc!=0 and man is None and 'kalshi side None' in log,log[-600:])
@@ -1264,12 +1272,14 @@ check('G the Oct 5 Flyers +1.5 shipped with no kalshi block (manifests/manifest-
 def fly_cand(kalshi=True):
     c = {'num': 1, 'date': FUT[:10], 'market_class': 'spread', 'line': FLYERS['line'], 'name': FLYERS['name'], 'side': FLYERS['side'],
          'away': FLYERS['game']['away'], 'home': FLYERS['game']['home'], 'commence': FUT, 'eid': FLYERS['game']['eid'],
-         'espn_league': FLYERS['espn_league'], 'units': FLYERS['units'], 'model': float(re.search(r'model (\d+(?:\.\d+)?)', FLYERS['sub']).group(1)),
-         'gross_c': 2.7, 'net_c': 2.7, 'sub_context': 'PHI @ TB',
-         # its card source (Polymarket 58c) as the best ask, quoting the pick's own +1.5
-         'best_ask': {'venue': 'poly', 'price': 58, 'line': 1.5, 'read_at': T0,
-                      'compared': [{'venue': 'poly', 'price': 58, 'line': 1.5, 'read_at': T0}, {'venue': 'kalshi', 'price': 58, 'read_at': T0}]}}
-    if kalshi: c['kalshi'] = {'cents': 58, 'team': '', 'ticker': TB2['ticker'], 'url': xurl(TB2['ticker']), 'side': 'no'}
+         # the replay prices it at 62c, in the 60c band, with a 64.5c fair (2.5c gross and net at Polymarket: the 5u rung) -
+         # the 58c it shipped at on Oct 5 is not a pick under the ladder of 2026-10-13, and the binding under test is the same
+         'espn_league': FLYERS['espn_league'], 'units': '5u', 'model': 64.5,
+         'gross_c': 2.5, 'net_c': 2.5, 'sub_context': 'PHI @ TB',
+         # its card source (Polymarket) as the best ask, quoting the pick's own +1.5
+         'best_ask': {'venue': 'poly', 'price': 62, 'line': 1.5, 'read_at': T0,
+                      'compared': [{'venue': 'poly', 'price': 62, 'line': 1.5, 'read_at': T0}, {'venue': 'kalshi', 'price': 62, 'read_at': T0}]}}
+    if kalshi: c['kalshi'] = {'cents': 62, 'team': '', 'ticker': TB2['ticker'], 'url': xurl(TB2['ticker']), 'side': 'no'}
     return c
 rc, man, log = build_manifest([fly_cand(kalshi=False)])
 check('G the Flyers +1.5 as it was carded (no kalshi block) is refused by build_manifest (J-122, nothing written)',
@@ -1283,11 +1293,11 @@ if man:
     for B in BUILDERS:
         brc, page, blog = build(B, man, S_ESPN + xr(TB2))
         ch = chip_for(page, xurl(TB2['ticker']))
-        check(f'G {os.path.basename(B)}: the page built from the replayed manifest prices the NO ask (KAL -138, data-kalpx no)',
-              brc == 0 and label(ch) == 'KAL -138' and attr(ch, 'kalpx') == 'no', blog[-600:] + ch)
+        check(f'G {os.path.basename(B)}: the page built from the replayed manifest prices the NO ask (KAL -163, data-kalpx no)',
+              brc == 0 and label(ch) == 'KAL -163' and attr(ch, 'kalpx') == 'no', blog[-600:] + ch)
 
 # G (cont). one line, one market in price_card: a book's -3 never best-asks Kalshi's 2.5 rung
-K56 = {'venue': 'kalshi', 'price': 56, 'read_at': T0}
+K56 = {'venue': 'kalshi', 'price': 62, 'read_at': T0}   # the Falcons' NO lock, in the 60c band
 def dkq(price, line=None):
     return dict({'venue': 'dk', 'price': price, 'read_at': T0}, **({} if line is None else {'line': line}))
 def bq(best, *comp):
@@ -1295,18 +1305,18 @@ def bq(best, *comp):
 def fal_cand(best_ask, **kw):
     c = {'num': 1, 'date': FUT[:10], 'market_class': 'spread', 'line': -2.5, 'name': 'Falcons +2.5', 'side': 'away',
          'away': 'Atlanta Falcons', 'home': 'New Orleans Saints', 'commence': FUT, 'eid': '401999778', 'espn_league': 'football/nfl',
-         'units': '5u', 'model': 62.0, 'gross_c': 6.0, 'net_c': 4.3, 'sub_context': 'ATL @ NO',
-         'kalshi': {'cents': 56, 'team': '', 'ticker': NO3['ticker'], 'url': xurl(NO3['ticker']), 'side': 'no'}, 'best_ask': best_ask}
+         'units': '6u', 'model': 68.0, 'gross_c': 8.0, 'net_c': 8.0, 'sub_context': 'ATL @ NO',
+         'kalshi': {'cents': 62, 'team': '', 'ticker': NO3['ticker'], 'url': xurl(NO3['ticker']), 'side': 'no'}, 'best_ask': best_ask}
     c.update(kw)
     return c
 for what, ba, msg in (
-        ('a DraftKings +3 at -110 (52.4c, cheaper than the 56c NO ask)', bq(dkq(-110, 3), K56, dkq(-110, 3)),
+        ('a DraftKings +3 at -150 (60c, cheaper than the 62c NO ask)', bq(dkq(-150, 3), K56, dkq(-150, 3)),
          "a dk quote at line +3 is another market than the pick's own +2.5"),
-        ("the game's book line as posted, Saints -3 at -110", bq(dkq(-110, -3), K56, dkq(-110, -3)),
+        ("the game's book line as posted, Saints -3 at -150", bq(dkq(-150, -3), K56, dkq(-150, -3)),
          "a dk quote at line -3 is another market than the pick's own +2.5"),
-        ('a DraftKings +3 at -130 that loses to the 56c Kalshi ask (an off-line quote is never compared at all)', bq(K56, K56, dkq(-130, 3)),
+        ('a DraftKings +3 at -170 that loses to the 62c Kalshi ask (an off-line quote is never compared at all)', bq(K56, K56, dkq(-170, 3)),
          "a dk quote at line +3 is another market than the pick's own +2.5"),
-        ('a DraftKings quote naming no line', bq(dkq(-110), K56, dkq(-110)), 'a dk quote on a spread pick names no line')):
+        ('a DraftKings quote naming no line', bq(dkq(-150), K56, dkq(-150)), 'a dk quote on a spread pick names no line')):
     rc, man, log = build_manifest([fal_cand(ba)])
     check(f"G price_card: {what} against the Falcons' 2.5 rung refuses (nothing written)", rc != 0 and man is None and msg in log, log[-600:])
 UEV = 'KXNFLTOTAL-' + D + 'ATLNO'
@@ -1321,17 +1331,17 @@ mlc.pop('line')
 rc, man, log = build_manifest([mlc])
 check('G price_card: a moneyline whose DraftKings quote names a line (-3) refuses (nothing written)',
       rc != 0 and man is None and 'a dk quote at line -3 is another market than a moneyline' in log, log[-600:])
-rc, man, log = build_manifest([fal_cand(bq(dkq(-115, 2.5), K56, dkq(-115, 2.5)))])
+rc, man, log = build_manifest([fal_cand(bq(dkq(-150, 2.5), K56, dkq(-150, 2.5)))])
 p0 = ((man or {}).get('picks') or [{}])[0]; pba = p0.get('best_ask') or {}
-check('G price_card: the same DraftKings at +2.5 (-115, 53.5c) is the best ask: card -115, its line rides into best_ask and compared',
-      rc == 0 and p0.get('card_american') == -115 and pba.get('venue') == 'dk' and pba.get('line') == 2.5
+check('G price_card: the same DraftKings at +2.5 (-150, 60c) is the best ask: card -150, its line rides into best_ask and compared',
+      rc == 0 and p0.get('card_american') == -150 and pba.get('venue') == 'dk' and pba.get('line') == 2.5
       and [(q.get('venue'), q.get('line')) for q in pba.get('compared') or []] == [('dk', 2.5), ('kalshi', None)]
       and (p0.get('kalshi') or {}).get('side') == 'no', log[-600:])
 if man:
     for B in BUILDERS:
         brc, page, blog = build(B, man, S_ESPN + xr(NO3))
-        check(f'G {os.path.basename(B)}: the page built from that manifest passes the best-ask line hold and prices the NO ask (KAL -127)',
-              brc == 0 and 'another market' not in blog and label(chip_for(page, xurl(NO3['ticker']))) == 'KAL -127', blog[-600:])
+        check(f'G {os.path.basename(B)}: the page built from that manifest passes the best-ask line hold and prices the NO ask (KAL -163)',
+              brc == 0 and 'another market' not in blog and label(chip_for(page, xurl(NO3['ticker']))) == 'KAL -163', blog[-600:])
 # a double chance ("Houston or Draw", NO on the opponent of a three-way event) has no class yet: refused closed
 NEV = 'KXNWSLGAME-' + D + 'HDAWSP'
 rc, man, log = build_manifest([fal_cand({'venue': 'kalshi', 'price': 60, 'read_at': T0, 'compared': [{'venue': 'kalshi', 'price': 60, 'read_at': T0}]},

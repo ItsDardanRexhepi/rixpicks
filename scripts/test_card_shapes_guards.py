@@ -60,10 +60,12 @@ def row(page, away):
 
 BASE = {'date': '2099-10-01', 'date_label': 'Thursday, Oct 1', 'updated': 'Oct 1, 8:42 AM PT', 'record': '21-11',
         'units_pl': '+4.76u', 'units_ledger': None, 'yesterday': '', 'status_note': '', 'preview': False, 'parlay': None}
+# every fixture's card price (odds) sits in a band - 60c or more (owner 2026-10-13: under the 60c band nothing is a pick);
+# the chips and their prices are market data, read from the prefill and the exchange, and are not the card price
 DEVILS = {'num': 1, 'name': 'Devils ML', 'market_class': 'ml', 'sub': 'PHI @ NJ', 'odds': '-162', 'units': '5u', 'side': 'home',
           'game': {'away': 'Philadelphia Flyers', 'home': 'New Jersey Devils', 'commence': '2099-10-01T23:00Z', 'eid': ''},
           'espn_league': 'hockey/nhl', 'league': 'NHL', 'best_book': 'DraftKings'}
-MERCURY = {'num': 2, 'name': 'Mercury -4.5', 'market_class': 'spread', 'line': -4.5, 'sub': 'IND @ PHX', 'odds': '-110', 'units': '5u', 'side': 'home',
+MERCURY = {'num': 2, 'name': 'Mercury -4.5', 'market_class': 'spread', 'line': -4.5, 'sub': 'IND @ PHX', 'odds': '-150', 'units': '5u', 'side': 'home',
            'game': {'away': 'Indiana Fever', 'home': 'Phoenix Mercury', 'commence': '2099-10-02T01:00Z', 'eid': ''},
            'espn_league': 'basketball/wnba', 'league': 'WNBA', 'best_book': 'DraftKings',
            'books_sp': {'draftkings': {'home': {'price': -110, 'point': -4.5, 'link': 'https://sportsbook.draftkings.com/?outcomes=SP_MERC_DK'},
