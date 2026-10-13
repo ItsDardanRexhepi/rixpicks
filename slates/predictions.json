@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-13T14:09:22.317134+00:00",
+ "generated_at": "2026-10-13T14:37:17.331003+00:00",
  "items": [
   {
    "id": "a4de53c59b",
@@ -30,17 +30,17 @@
    "kickoff_utc": "2026-10-14T23:30:00+00:00"
   },
   {
+   "id": "30ba1b3626",
+   "league": "MLS",
+   "event": "New York City FC @ Inter Miami CF",
+   "prediction": "New York City FC to beat Inter Miami CF",
+   "kickoff_utc": "2026-10-14T23:30:00+00:00"
+  },
+  {
    "id": "a089ea77e2",
    "league": "MLS",
    "event": "Sporting Kansas City @ Nashville SC",
    "prediction": "Nashville SC to beat Sporting Kansas City",
-   "kickoff_utc": "2026-10-15T00:30:00+00:00"
-  },
-  {
-   "id": "524969b58c",
-   "league": "MLS",
-   "event": "Seattle Sounders FC @ FC Dallas",
-   "prediction": "Seattle Sounders FC to beat FC Dallas",
    "kickoff_utc": "2026-10-15T00:30:00+00:00"
   }
  ]

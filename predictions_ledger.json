@@ -1966,5 +1966,57 @@
   "kickoff_utc": "2026-10-17T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T13:08:36.106630+00:00"
+ },
+ {
+  "id": "30ba1b3626",
+  "event_id": "761861",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Inter Miami CF",
+  "away": "New York City FC",
+  "pick_team": "New York City FC",
+  "prediction": "New York City FC to beat Inter Miami CF",
+  "kickoff_utc": "2026-10-14T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T14:35:34.720115+00:00"
+ },
+ {
+  "id": "7b13370259",
+  "event_id": "761872",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "San Diego FC",
+  "away": "Houston Dynamo FC",
+  "pick_team": "Houston Dynamo FC",
+  "prediction": "Houston Dynamo FC to beat San Diego FC",
+  "kickoff_utc": "2026-10-15T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T14:36:21.026886+00:00"
+ },
+ {
+  "id": "5d4aa2347d",
+  "event_id": "401856828",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Texas Tech Red Raiders",
+  "away": "Arizona State Sun Devils",
+  "pick_team": "Texas Tech Red Raiders",
+  "prediction": "Texas Tech Red Raiders to beat Arizona State Sun Devils",
+  "kickoff_utc": "2026-10-17T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T14:36:26.516190+00:00"
+ },
+ {
+  "id": "edd3eae07c",
+  "event_id": "401858263",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Miami Hurricanes",
+  "away": "Florida State Seminoles",
+  "pick_team": "Miami Hurricanes",
+  "prediction": "Miami Hurricanes to beat Florida State Seminoles",
+  "kickoff_utc": "2026-10-17T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T14:36:42.147624+00:00"
  }
 ]
