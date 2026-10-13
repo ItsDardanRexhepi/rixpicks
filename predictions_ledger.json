@@ -1745,5 +1745,18 @@
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T07:05:05.247706+00:00"
+ },
+ {
+  "id": "8341c729e8",
+  "event_id": "761860",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Toronto FC",
+  "away": "Orlando City SC",
+  "pick_team": "Orlando City SC",
+  "prediction": "Orlando City SC to beat Toronto FC",
+  "kickoff_utc": "2026-10-14T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T07:35:15.299231+00:00"
  }
 ]
