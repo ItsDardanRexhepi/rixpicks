@@ -167,24 +167,7 @@ function rpAsk(manualOnly){window.__rpChip=window.__rpChip||null;
  rpShareLoc();}
 function rpEdit(){window.__rpChip=null;rpAsk(false);}  /* change state = re-verify via location; there is no manual path (his rule Sep 26) */
 
-function rpKalTick(){try{
- document.querySelectorAll('a[data-kalticker][data-kalside],a[data-kalmkt]').forEach(function(a){
-  const tk=a.dataset.kalmkt||(a.dataset.kalticker+'-'+a.dataset.kalside);
-  if(!tk)return;
-  const r0=rpMkt(a);if(r0&&r0.ph==='last_pre_game')return;  /* canonical record: frozen phases never tick (phase = event status, not fetch time) */
-  if(rpInPlay())return;  /* regression gate Sep 26: proxies measured unusable (allorigins 500@14.7s/522, codetabs 522/503, corsproxy 401) - KAL ticks PREGAME-ONLY until the api.rix-picks.com relay lands; in-play dims honestly, never re-stamps */
-  const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk+'?_='+Date.now();
-  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){
-   const m=j&&j.market;if(!m)return;window.__rpKalOk=Date.now();
-   const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<=1))return;
-   if(rpInPlay())return;  /* in play the chip freezes its last-known price - live values never replace frozen ones */
-   const c=Math.round(d*100);
-   a.dataset.cents=c;if(r0){r0.c=c;r0.ts=Date.now();}
-   if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c)/,'KAL '+rpMLF(rpC2ML(c)));  /* user Sep 26 12:58 PM: all-American display */
-   rpQuoteMut();  /* tester Sep 26: star recomputes on every canonical tick, not just range */
-  }).catch(function(){});
- });
-}catch(e){}}
+/* C-3: no client Kalshi tick - Kalshi rows wear the price the build read; the page rebuild refreshes it from this origin. */
 function rpPolyTick(){try{
  document.querySelectorAll('a[data-polyslug]').forEach(function(a){
   if(!a.dataset.polyslug)return;
@@ -233,7 +216,7 @@ function rpEspnTick(){try{
    if(sline&&st.state!=='pre'&&sc){sline.textContent=rpStatusText(d,j,st)+'  |  '+sc;}
    /* attribution root fix Sep 26 (swamp catch, his rule): pickcenter/comp.odds is ESPN's DraftKings quote -
       it must NEVER write into a TSB-labeled element or record. The TSB chip holds its own canonical snapshot;
-      only own-platform ticks (rpPolyTick/rpKalTick) move chips. Header .odds stays the frozen entry price. */
+      only own-platform ticks (rpPolyTick) move chips. Header .odds stays the frozen entry price. */
   }).catch(function(){});
   return;
  }
@@ -932,7 +915,7 @@ document.addEventListener('touchmove',function(e){if(!rpPtrOn||rpPtrY===null)ret
  if(rpPtrPull>50){const el=document.getElementById('rpPtr');if(el){el.style.display='block';document.getElementById('rpPtrTxt').textContent='release to refresh';}}},{passive:true});
 function rpPtrEnd(){const el=document.getElementById('rpPtr');
  if(rpPtrOn&&rpPtrPull>50){if(el){el.style.display='block';document.getElementById('rpPtrTxt').textContent='refreshing...';}
-  try{rpPolyTick();rpEspnTick();rpKalTick();}catch(e){}
+  try{rpPolyTick();rpEspnTick();}catch(e){}
   try{rpLiveBox();}catch(e){}
   setTimeout(function(){if(el)el.style.display='none';},1200);}
  else if(el)el.style.display='none';
@@ -1045,7 +1028,7 @@ async function rpScoreTblTick(d){try{
  el.innerHTML=''; /* mma/boxing/golf/nascar: no period-linescore shape - nothing rendered */
 }catch(e){}}
 
-window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(rpKalTick,60000);  /* regression gate Sep 26: pregame-only KAL at 60s via proxy (15s+ latency makes 5s pointless and abusive); relay restores live cadence when it lands */async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}
+window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpLiveBox();async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}
  /* his verbatim Sep 26 2:14 PM: "Make it instant at core level." Fetch failures are swallowed deep in
     the render paths, so freshness is enforced HERE by data age: >20s without a successful render, the
     LIVE claim comes off and the panel says it is reconnecting - old data never wears the LIVE badge. */
