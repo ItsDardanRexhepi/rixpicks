@@ -51,6 +51,11 @@ jobs:
         with:
           python-version: '3.12'
       - name: apply graded finals (independent ESPN + cross-company second-source verify, fail-closed)
+        # the odds-api scores reader is the only second source Actions can reach for a college-football or MLS
+        # final (CBS's dated college page has no game cards, its MLS page is gone); without the key every such
+        # final is refused and every later final waits behind it (H-04)
+        env:
+          THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
         run: python3 scripts/record_final.py
       - name: nothing pending check
         id: gate

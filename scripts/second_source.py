@@ -237,7 +237,7 @@ def odds_api_final(pick, primary, commence):
             _odds_cache[ckey] = None
             return None
         try:
-            url = f'https://api.the-odds-api.com/v4/sports/{sport}/scores/?apiKey={key}&daysFrom=2'
+            url = f'https://api.the-odds-api.com/v4/sports/{sport}/scores/?apiKey={key}&daysFrom=3'
             _odds_cache[ckey] = _get(url, timeout=12)
         except Exception as e:
             print(f'WARN: odds-api scores fetch failed: {type(e).__name__}')  # never the url: it carries the key
