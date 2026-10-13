@@ -1,122 +1,17 @@
 {
  "version": 1,
- "generated_at": "2026-10-06T02:20:09.832130+00:00",
+ "generated_at": "2026-10-13T20:09:04.263077+00:00",
  "leagues": [
-  {
-   "league": "MLB",
-   "games": [
-    {
-     "espn_event_id": "401907986",
-     "matchup": "NYY @ TB",
-     "commence": "2026-10-06T00:00Z",
-     "status": "in",
-     "detail": "Bot 6th",
-     "score": "NYY 1 - TB 5"
-    }
-   ]
-  },
-  {
-   "league": "NFL",
-   "games": [
-    {
-     "espn_event_id": "401872979",
-     "matchup": "ATL @ NO",
-     "commence": "2026-10-06T00:15Z",
-     "status": "in",
-     "detail": "9:25 - 3rd",
-     "score": "ATL 24 - NO 7",
-     "away_to": 3,
-     "home_to": 3
-    }
-   ]
-  },
-  {
-   "league": "NBA",
-   "games": [
-    {
-     "espn_event_id": "401898388",
-     "matchup": "MEM @ ATL",
-     "commence": "2026-10-05T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "MEM 132 - ATL 123"
-    },
-    {
-     "espn_event_id": "401908947",
-     "matchup": "PHX @ DET",
-     "commence": "2026-10-05T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "PHX 107 - DET 109"
-    },
-    {
-     "espn_event_id": "401914101",
-     "matchup": "NY @ PHI",
-     "commence": "2026-10-05T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "NY 97 - PHI 120"
-    },
-    {
-     "espn_event_id": "401914102",
-     "matchup": "MIN @ MIL",
-     "commence": "2026-10-06T00:00Z",
-     "status": "in",
-     "detail": "7:06 - 4th",
-     "score": "MIN 95 - MIL 83",
-     "away_to": 4,
-     "home_to": 2
-    },
-    {
-     "espn_event_id": "401898716",
-     "matchup": "LAL @ SAC",
-     "commence": "2026-10-06T02:00Z",
-     "status": "in",
-     "detail": "8:30 - 1st",
-     "score": "LAL 8 - SAC 6",
-     "away_to": 0,
-     "home_to": 0
-    }
-   ]
-  },
   {
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401892445",
-     "matchup": "PHI @ TB",
-     "commence": "2026-10-05T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "PHI 1 - TB 4"
-    },
-    {
-     "espn_event_id": "401892446",
-     "matchup": "OTT @ BOS",
-     "commence": "2026-10-05T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "OTT 4 - BOS 1"
-    },
-    {
-     "espn_event_id": "401892447",
-     "matchup": "WPG @ PIT",
-     "commence": "2026-10-05T23:30Z",
-     "status": "in",
-     "detail": "1:21 - 3rd",
-     "score": "WPG 3 - PIT 2",
-     "away_to": null,
-     "home_to": null
-    },
-    {
-     "espn_event_id": "401892448",
-     "matchup": "SJ @ DAL",
-     "commence": "2026-10-06T00:00Z",
-     "status": "in",
-     "detail": "4:17 - 3rd",
-     "score": "SJ 0 - DAL 5",
-     "away_to": null,
-     "home_to": null
+     "espn_event_id": "401892488",
+     "matchup": "NJ @ DET",
+     "commence": "2026-10-13T22:00Z",
+     "status": "pre",
+     "detail": "10/13 - 3:00 PM PT",
+     "score": "NJ 0 - DET 0"
     }
    ]
   }
