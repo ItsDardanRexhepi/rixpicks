@@ -1875,5 +1875,44 @@
   "kickoff_utc": "2026-10-17T19:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T09:36:07.885296+00:00"
+ },
+ {
+  "id": "037d8b4798",
+  "event_id": "401858268",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "SMU Mustangs",
+  "away": "Virginia Cavaliers",
+  "pick_team": "SMU Mustangs",
+  "prediction": "SMU Mustangs to beat Virginia Cavaliers",
+  "kickoff_utc": "2026-10-17T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T11:21:06.561002+00:00"
+ },
+ {
+  "id": "9bca15bc8d",
+  "event_id": "401858491",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Michigan State Spartans",
+  "away": "Northwestern Wildcats",
+  "pick_team": "Northwestern Wildcats",
+  "prediction": "Northwestern Wildcats to beat Michigan State Spartans",
+  "kickoff_utc": "2026-10-17T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T11:21:10.891903+00:00"
+ },
+ {
+  "id": "e4b37ac6b8",
+  "event_id": "401856719",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Georgia Bulldogs",
+  "away": "Auburn Tigers",
+  "pick_team": "Georgia Bulldogs",
+  "prediction": "Georgia Bulldogs to beat Auburn Tigers",
+  "kickoff_utc": "2026-10-17T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T11:21:15.925772+00:00"
  }
 ]
