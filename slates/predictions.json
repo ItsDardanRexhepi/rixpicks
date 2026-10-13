@@ -1,6 +1,13 @@
 {
- "generated_at": "2026-10-13T14:51:44.168702+00:00",
+ "generated_at": "2026-10-13T15:07:09.533575+00:00",
  "items": [
+  {
+   "id": "59a188738f",
+   "league": "NBA",
+   "event": "New York Knicks @ Toronto Raptors",
+   "prediction": "Toronto Raptors to beat New York Knicks",
+   "kickoff_utc": "2026-10-13T23:00:00+00:00"
+  },
   {
    "id": "a4de53c59b",
    "league": "MLS",
@@ -35,13 +42,6 @@
    "event": "New York City FC @ Inter Miami CF",
    "prediction": "New York City FC to beat Inter Miami CF",
    "kickoff_utc": "2026-10-14T23:30:00+00:00"
-  },
-  {
-   "id": "a089ea77e2",
-   "league": "MLS",
-   "event": "Sporting Kansas City @ Nashville SC",
-   "prediction": "Nashville SC to beat Sporting Kansas City",
-   "kickoff_utc": "2026-10-15T00:30:00+00:00"
   }
  ]
 }
