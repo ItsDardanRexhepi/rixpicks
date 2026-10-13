@@ -803,7 +803,7 @@ for B in BUILDERS:
     FEV = 'KXUFCFIGHT-' + D + 'ABUSTA'
     FM = {'ticker': FEV + '-ABU', 'title': 'Will Loai Abushaar win?', 'yes_sub_title': 'Loai Abushaar', 'yes_ask_dollars': '0.26', 'no_ask_dollars': '0.75', 'status': 'active'}
     q = {'num': 1, 'name': 'Loai Abushaar ML', 'market_class': 'ml', 'sub': 'Staines vs Abushaar', 'odds': '+285', 'units': '5u', 'side': 'home',
-         'game': {'away': 'George Staines', 'home': 'Loai Abushaar', 'commence': FUT, 'eid': ''}, 'espn_league': 'mma/ufc', 'league': 'UFC', 'best_book': 'Kalshi',
+         'game': {'away': 'George Staines', 'home': 'Loai Abushaar', 'commence': FUT, 'eid': '', 'venue': 'Madison Square Garden', 'venue_city': 'New York'}, 'espn_league': 'mma/ufc', 'league': 'UFC', 'best_book': 'Kalshi',
          'kalshi': {'url': 'https://kalshi.com/markets/kxufcfight/' + FEV.lower(), 'ticker': FEV + '-ABU', 'side': 'yes', 'cents': 26, 'gate_cents': 26, 'team': 'Abushaar'}}
     rc, page, log = build(B, card(q), [[r'trade-api/v2/markets/' + FEV + r'-ABU(\?|$)', {'market': FM}]])
     check(f'{tag}: Q a fight whose event code names the home fighter first (ABUSTA) binds and ships (KAL +285)',

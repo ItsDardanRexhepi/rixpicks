@@ -144,7 +144,9 @@ for B in BUILDERS:
               rc == 3 and 'BUILD FAILED' in log and token in log and written == [], (rc, log[-300:], written))
     # each bar on its own: the gross at exactly 2.00c is not held, and a 1.99c net is held with its gross clear
     rc, log, written, _ = build(B, card([pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=62.0, american=-150)]))
-    check(f'{tag}: gross 2.00c: no gross hold', rc == 3 and 'gross' not in log.split('BUILD FAILED', 1)[-1], (rc, log[-300:]))
+    # (its 0c net is no edge at all, held on its own by H-02's hold, which names the gross it saw; no gross-floor hold)
+    check(f'{tag}: gross 2.00c: no gross hold', rc == 3 and 'gross 2c below' not in log.split('BUILD FAILED', 1)[-1]
+          and 'no edge' in log, (rc, log[-300:]))
     rc, log, written, _ = build(B, card([pick(1, 'Near ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 63.99')]))
     check(f'{tag}: net 1.99c with a 3.99c gross: the net alone is held', rc == 3 and 'gross' not in log.split('BUILD FAILED', 1)[-1], (rc, log[-300:]))
     # net 2.00c builds: fair 64c at a 60c Kalshi ask, 4c gross less the 2c fee

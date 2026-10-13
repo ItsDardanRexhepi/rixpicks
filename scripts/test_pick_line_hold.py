@@ -149,7 +149,7 @@ for B in BUILDERS:
               rc == 0 and [(m, l) for m, l in data_lines(index) if l] == want, (rc, data_lines(index), out[-300:]))
 
     # a line hold is never waived by the owner suspension, even with the pick logged and the disclosure in place
-    thin = pick(2, 'Thin ML', mclass='ml', model=61.0)
+    thin = pick(2, 'Thin ML', mclass='ml', model=63.0)   # 3c gross, 1c net: a sub-bar pick WITH an edge (H-02 holds one without)
     thin['game'] = dict(thin['game'], away='C2', home='D2')
     bad = pick(1, 'Flyers -1.5', line=-1.5)
     log = json.dumps({'date': DATE, 'rule': '2026-10-02 (4)', 'scope': 'numeric', 'approved': 'owner, fixture approval',
