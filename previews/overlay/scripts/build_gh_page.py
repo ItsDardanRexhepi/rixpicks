@@ -1641,7 +1641,7 @@ function rpShareLoc(){{  /* the ONLY way state resolves now (his verbatim Sep 26
  if(!navigator.geolocation){{rpNote('This browser has no location services. Markets need your location - try another browser.');return;}}
  rpNote('Checking your location&hellip;');
  navigator.geolocation.getCurrentPosition(function(pos){{
-  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(j=>{{
+  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(j=>{{
    const code=(j.principalSubdivisionCode||'').split('-')[1]||'';
    if(code&&RP_CODES.indexOf(code)>=0){{
     localStorage.setItem('rp_state',code);localStorage.setItem('rp_state_src','gps');localStorage.setItem('rp_state_gps',code);localStorage.setItem('rp_state_ts',String(Date.now()));
@@ -1912,7 +1912,7 @@ function rpResolveState(){{try{{  /* his rule Sep 26 1:52 PM: ONLY shared locati
  if(navigator.permissions&&navigator.geolocation){{
   navigator.permissions.query({{name:'geolocation'}}).then(function(p){{
    if(p.state==='granted'){{navigator.geolocation.getCurrentPosition(function(pos){{
-    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(function(j){{const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}}).catch(function(){{}});
+    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(function(j){{const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}}).catch(function(){{}});
    }},function(){{}},{{timeout:6000}});}}
   }}).catch(function(){{}});
  }}

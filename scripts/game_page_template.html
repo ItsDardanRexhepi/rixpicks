@@ -93,16 +93,21 @@ if(RP_STANDALONE){document.addEventListener('click',function(e){const a=e.target
 /* U-GEO-002: ONE arm-level legality table as DATA (arms, never parent brands; the dead pre-rebrand arm never renders). Unresolved state fails closed to the prediction-market set. */
 function rpBookLive(b,st){if(typeof RP_LEGAL_STATE==='undefined')return b==='KAL'||b==='POLY';if(!st)return RP_PM_DEFAULT.indexOf(b)!==-1;const L=RP_LEGAL_STATE[st];return L?L.indexOf(b)!==-1:false;}
 function rpPm(el){if(el.dataset.pm&&el.dataset.nopm!=='1')return el.dataset.pm;const mr=el.closest?el.closest('.mrow'):null;if(mr&&mr.dataset.pm&&mr.dataset.nopm!=='1')return mr.dataset.pm;return null;}
+/* C-4.5: a chip's venue address is in its href only once a state has resolved; with none the href is '#' and the address
+   waits in data-href (the build's own link) and data-dest (where a tap would go). rpGo sets the real href when it opens. */
+function rpHrefOf(a){const h=a.getAttribute('data-href')||a.getAttribute('href');return (h&&h!=='#')?h:null;}
 function rpDest(a,st){const b=a.dataset.book;
  if(a.dataset.platform==='1'&&!a.getAttribute('data-sb'))return null;  /* inspector Sep 26 interim: platform-arm root URLs are NOT tap destinations - non-tappable until event-level deep links land */
- if(rpBookLive(b,st)){const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{state}',st.toLowerCase());return a.getAttribute('href')||null;}
+ if(rpBookLive(b,st)){const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{state}',st.toLowerCase());return rpHrefOf(a);}
  return rpPm(a);}
 function rpGo(a,st){const b=a.dataset.book;
  if(b==='POLY'&&RP_MOB&&a.dataset.app){location.href=a.dataset.app;return;}
- const d=rpDest(a,st);if(d)rpOpen(d);return;}
+ const d=rpDest(a,st);if(d){if(st&&a.tagName==='A')a.setAttribute('href',d);rpOpen(d);}return;}
 function rpTapify(el,st){const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.dataset.book,st));let out;
  if(d){let a=el;if(el.tagName!=='A'){a=document.createElement('a');for(const at of el.attributes)a.setAttribute(at.name,at.value);a.innerHTML=el.innerHTML;el.replaceWith(a);}
-  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');out=a;}
+  const _h0=a.getAttribute('href');if(_h0&&_h0!=='#'&&!a.hasAttribute('data-href'))a.setAttribute('data-href',_h0);
+  if(st){a.setAttribute('href',d);a.removeAttribute('data-dest');}else{a.setAttribute('href','#');a.setAttribute('data-dest',d);}
+  a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');out=a;}
  else{let sp=el;if(el.tagName!=='SPAN'){sp=document.createElement('span');for(const at of el.attributes)sp.setAttribute(at.name,at.value);sp.innerHTML=el.innerHTML;el.replaceWith(sp);}
   sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');out=sp;}
  /* a prediction-market fallback route never wears sportsbook numbers; restore them when the book is live */
@@ -151,7 +156,7 @@ function rpShareLoc(){  /* the ONLY way state resolves now (his verbatim Sep 26 
  if(!navigator.geolocation){rpNote('This browser has no location services. Markets need your location - try another browser.');return;}
  rpNote('Checking your location&hellip;');
  navigator.geolocation.getCurrentPosition(function(pos){
-  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(j=>{
+  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(j=>{
    const code=(j.principalSubdivisionCode||'').split('-')[1]||'';
    if(code&&RP_CODES.indexOf(code)>=0){
     localStorage.setItem('rp_state',code);localStorage.setItem('rp_state_src','gps');localStorage.setItem('rp_state_gps',code);localStorage.setItem('rp_state_ts',String(Date.now()));
@@ -898,7 +903,7 @@ function rpResolveState(){try{  /* his rule Sep 26 1:52 PM: ONLY shared location
  if(navigator.permissions&&navigator.geolocation){
   navigator.permissions.query({name:'geolocation'}).then(function(p){
    if(p.state==='granted'){navigator.geolocation.getCurrentPosition(function(pos){
-    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(function(j){const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}).catch(function(){});
+    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(function(j){const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}).catch(function(){});
    },function(){},{timeout:6000});}
   }).catch(function(){});
  }

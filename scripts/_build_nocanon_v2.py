@@ -3753,14 +3753,17 @@ const RP_LEGAL_STATE={json.dumps(TABLE,sort_keys=True)};const RP_LEGAL_ASOF='{RP
 const RP_PM_DEFAULT=['KAL','POLY','DKP','FDP'];
 function rpBookLive(b,st){{if(!st)return RP_PM_DEFAULT.indexOf(b)!==-1;const L=RP_LEGAL_STATE[st];return L?L.indexOf(b)!==-1:false;}}
 function rpPm(el){{if(el.dataset.pm&&el.dataset.nopm!=='1')return el.dataset.pm;const mr=el.closest?el.closest('.mrow'):null;if(mr&&mr.dataset.pm&&mr.dataset.nopm!=='1')return mr.dataset.pm;return null;}}
+/* C-4.5: a chip's venue address is in its href only once a state has resolved; with none the href is '#' and the address
+   waits in data-href (the build's own link) and data-dest (where a tap would go). rpGo sets the real href when it opens. */
+function rpHrefOf(a){{const h=a.getAttribute('data-href')||a.getAttribute('href');return (h&&h!=='#')?h:null;}}
 function rpDest(a,st){{const b=a.dataset.book;
  if(a.dataset.platform==='1'&&!a.getAttribute('data-sb'))return null;  /* inspector Sep 26 interim: platform-arm root URLs are NOT tap destinations - non-tappable until event-level deep links land */
- if(rpBookLive(b,st)){{const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{{state}}',st.toLowerCase());return a.getAttribute('href')||null;}}
+ if(rpBookLive(b,st)){{const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{{state}}',st.toLowerCase());return rpHrefOf(a);}}
  return rpPm(a);}}
 function rpGo(a,st){{const b=a.dataset.book;
  if(b==='POLY'&&RP_MOB&&a.dataset.app){{location.href=a.dataset.app;return;}}
  if(!rpBookLive(b,st)&&b==='FD'&&RP_MOB&&a.dataset.pmapp&&a.dataset.nopm!=='1'){{location.href=a.dataset.pmapp;return;}}
- const d=rpDest(a,st);if(d)rpOpen(d);return;}}
+ const d=rpDest(a,st);if(d){{if(st&&a.tagName==='A')a.setAttribute('href',d);rpOpen(d);}}return;}}
 
 function rpTerm(st){{const sb=RP_FD.includes(st)||RP_DK.includes(st);const ntap=(typeof RP_COMBO_NONTAP!=='undefined'&&RP_COMBO_NONTAP===true);
  const T=(sb?'Parlay':'Combo')+((!sb||ntap)?'<span style="letter-spacing:0">&thinsp;*</span>':'');
@@ -3792,7 +3795,9 @@ function rpBestStar(pk){{
 function rpAllBest(){{document.querySelectorAll('.pick').forEach(rpBestStar);}}
 function rpTapify(el,st){{const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.dataset.book,st));let out;
  if(d){{let a=el;if(el.tagName!=='A'){{a=document.createElement('a');for(const at of el.attributes)a.setAttribute(at.name,at.value);a.innerHTML=el.innerHTML;el.replaceWith(a);}}
-  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');a.classList.remove('rppending');out=a;}}
+  const _h0=a.getAttribute('href');if(_h0&&_h0!=='#'&&!a.hasAttribute('data-href'))a.setAttribute('data-href',_h0);
+  if(st){{a.setAttribute('href',d);a.removeAttribute('data-dest');}}else{{a.setAttribute('href','#');a.setAttribute('data-dest',d);}}
+  a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');a.classList.remove('rppending');out=a;}}
  else{{let sp=el;if(el.tagName!=='SPAN'){{sp=document.createElement('span');for(const at of el.attributes)sp.setAttribute(at.name,at.value);sp.innerHTML=el.innerHTML;el.replaceWith(sp);}}
   sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');out=sp;}}
  /* F3: a prediction-market fallback route never wears sportsbook numbers; restore them when the book is live */
@@ -3828,7 +3833,7 @@ function rpShareLoc(){{  /* the ONLY way state resolves now (his verbatim Sep 26
  if(!navigator.geolocation){{rpNote('This browser has no location services. Markets need your location - try another browser.');return;}}
  rpNote('Checking your location…');
  navigator.geolocation.getCurrentPosition(function(pos){{
-  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(j=>{{
+  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(j=>{{
    const code=(j.principalSubdivisionCode||'').split('-')[1]||'';
    if(code&&RP_CODES.indexOf(code)>=0){{
     rpLSSet('rp_state',code);rpLSSet('rp_state_src','gps');rpLSSet('rp_state_gps',code);rpLSSet('rp_state_ts',String(Date.now()));
@@ -4127,7 +4132,7 @@ function rpResolveState(){{try{{  /* his rule Sep 26 1:52 PM: ONLY shared locati
  if(navigator.permissions&&navigator.geolocation){{
   navigator.permissions.query({{name:'geolocation'}}).then(function(p){{
    if(p.state==='granted'){{navigator.geolocation.getCurrentPosition(function(pos){{
-    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(function(j){{const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}}).catch(function(){{}});
+    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(function(j){{const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}}).catch(function(){{}});
    }},function(){{}},{{timeout:6000}});}}
   }}).catch(function(){{}});
  }}
@@ -4344,7 +4349,7 @@ function rpPageRefresh(){{try{{
      if(a.tagName==='A'){{a.dataset.sb=na.dataset.sbt;if(window.rpSt)a.href=na.dataset.sbt.replaceAll('{{state}}',window.rpSt.toLowerCase());}}
      else a.dataset.sbt=na.dataset.sbt;
     }}else{{
-     if(a.tagName==='A'&&na.href)a.href=na.href;
+     if(a.tagName==='A'&&na.getAttribute('href')){{a.setAttribute('data-href',na.getAttribute('href'));if(window.rpSt)a.href=na.href;}}  /* C-4.5: no venue href before a state */
      if(na.dataset.sb)a.dataset.sb=na.dataset.sb;
     }}
    }});
@@ -4356,7 +4361,7 @@ function rpPageRefresh(){{try{{
    const ns=nc.querySelector('[data-book="'+b+'"]');
    if(ns){{if(ns.textContent.match(/([+-]\d+|\d+c)/)){{s.classList.remove('rpunpriced');s.innerHTML=ns.innerHTML;if(ns.dataset.cents)s.dataset.cents=ns.dataset.cents;else delete s.dataset.cents;if(ns.dataset.mr)s.dataset.mr=ns.dataset.mr;else delete s.dataset.mr;
     if(ns.dataset.sbt){{if(s.tagName==='A'){{s.dataset.sb=ns.dataset.sbt;if(window.rpSt)s.href=ns.dataset.sbt.replaceAll('{{state}}',window.rpSt.toLowerCase());}}else s.dataset.sbt=ns.dataset.sbt;}}
-    else{{if(s.tagName==='A'&&ns.href)s.href=ns.href;if(ns.dataset.sb)s.dataset.sb=ns.dataset.sb;}}
+    else{{if(s.tagName==='A'&&ns.getAttribute('href')){{s.setAttribute('data-href',ns.getAttribute('href'));if(window.rpSt)s.href=ns.href;}}if(ns.dataset.sb)s.dataset.sb=ns.dataset.sb;}}
     if(ns.dataset.pm)s.dataset.pm=ns.dataset.pm;}}
     else{{s.innerHTML=ns.innerHTML;s.classList.add('rpunpriced');if(ns.dataset.mr)s.dataset.mr=ns.dataset.mr;else delete s.dataset.mr;if(ns.dataset.cents)s.dataset.cents=ns.dataset.cents;else delete s.dataset.cents;if(s.tagName==='A'){{const sp2=document.createElement('span');for(const at2 of s.attributes)sp2.setAttribute(at2.name,at2.value);sp2.innerHTML=s.innerHTML;sp2.classList.add('rpnontap');sp2.removeAttribute('href');sp2.removeAttribute('onclick');sp2.removeAttribute('target');sp2.removeAttribute('rel');s.replaceWith(sp2);}}}}}}  /* Sep 26: destination travels with price - no stale parlay links; template chips swap data-sbt/data-sb, never a homepage route */
   }});rpCxStar();}}
