@@ -1823,5 +1823,31 @@
   "kickoff_utc": "2026-10-17T16:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T08:52:09.187938+00:00"
+ },
+ {
+  "id": "53565febf2",
+  "event_id": "761874",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "LA Galaxy",
+  "away": "Portland Timbers",
+  "pick_team": "LA Galaxy",
+  "prediction": "LA Galaxy to beat Portland Timbers",
+  "kickoff_utc": "2026-10-15T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T09:06:00.740549+00:00"
+ },
+ {
+  "id": "d73da979fc",
+  "event_id": "401854091",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Boston Legacy FC",
+  "away": "Racing Louisville FC",
+  "pick_team": "Racing Louisville FC",
+  "prediction": "Racing Louisville FC to beat Boston Legacy FC",
+  "kickoff_utc": "2026-10-17T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T09:06:17.417868+00:00"
  }
 ]
