@@ -6,7 +6,7 @@
    manifest, no ledger, no prod mirror). A nickname counts only inside its own league: Texas Tech
    Red Raiders (CFB) and Evansville Purple Aces (NCAAB) are not Vegas teams.
  - Units: only the ladder of 2026-10-13: 5u, 6u, 7u, 8u, 9u, 10u (band on the ask, floor on the edge after fees).
- - Both are hard gates with no override (owner ruling 2026-10-02, relayed verbatim by muse: "NO - an
+ - Both are hard gates with no override (owner ruling 2026-10-02: "NO - an
    owner-approved card cannot break a standing rule. Vegas rule, ladder sizes, all of it: hard gates,
    no exceptions."). The owner-directive override is gone: a candidate row carrying owner_directive, or
    an --owner-directive argument in any form, is an error (exit nonzero, nothing written), even on a
