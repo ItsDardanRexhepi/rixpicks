@@ -32,7 +32,9 @@ written, on a pick on or against a Las Vegas team, units off the ladder, and on 
 card ask >= 85c, card ask under the 60c band, gross or net under the floor of the pick's band (THE LADDER, owner
 2026-10-13: band = the card ask the pick is bought at, floor = the edge after fees, gross and net; 5u = 60c band +
 2c floor, 6u = 60c + 3c, 7u = 70c + 1c, 8u = 70c + 2c, 9u = 70c + 3c, 10u = 80c + 3c, the HIGHEST rung cleared; no
-15u, no 100u; nothing under 60c; fragility 2 one rung lower, fragility 3 refuses; tennis capped at 5u; it replaces
+15u, no 100u; nothing under 60c; fragility 2 one rung lower and tennis capped at 5u, each to a rung the pick ALSO clears
+(a pick carries only a band and a floor it passed: none = held), fragility 3 refuses; the Kalshi fee is the exchange's
+rounded-up cent, as the engine charges it; it replaces
 the J-096 rungs, the 2026-10-06 no-band and the 2026-10-07 1c floor), units other than that rung, a candidate missing model,
 gross_c or net_c, and a parlay short of 2c gross and 2c net (ruling (2), 2-4 legs, J-098). Every violation on
 the card is named in one refusal. An owner-forced sub-bar pick is impossible, and a status_note cannot carry
@@ -224,9 +226,12 @@ VENUE_ALIASES = {'polymarket': 'poly', 'draftkings': 'dk', 'fanduel': 'fd', 'bet
 _VENUE_ORDER = list(VENUES)
 
 def kalshi_fee_c(ask_c):
-    """Kalshi taker fee in cents per contract, 0.07 x ask x (1 - ask) (st_fair.fee, edge.py fee_c)."""
+    """Kalshi taker fee in cents per contract AS CHARGED: 0.07 x ask x (1 - ask), rounded UP to the whole cent - the
+    exchange's own rounding, exactly as RixPicksSystem engine/daily/price.kalshi_fee_c and scripts/hand/edge.py charge
+    it. The unrounded figure is lower at every price and disagreed with the engine on the rung (72c ask, 75.5c fair:
+    the engine's 7u was refused here as "not 8u")."""
     a = ask_c / 100
-    return 7 * a * (1 - a)
+    return float(math.ceil(0.07 * a * (1 - a) * 100))
 
 def _real(v):
     """A finite int or float (never a bool or a string), as float, else None."""
@@ -369,7 +374,19 @@ def price_card(c):
 
 # ---- the standing bars (RUNBOOK 2.3, J-096/J-097/J-098, owner rulings 2026-10-02) ----
 ASK_CUT_C = 85
-_RUNG_DOWN = {10: 9, 9: 8, 8: 7, 7: 6, 6: 5, 5: 5}  # fragility 2: one rung lower (5u is the lowest card rung)
+TENNIS_CAP_U = 5
+
+
+def rung_at_most(max_units, ask_c, gross_c, net_c):
+    """The highest rung of at most `max_units` this pick clears (ask >= band, gross >= floor, net >= floor), else 0.
+    Fragility 2 is rung_at_most(cleared - 1, ...) (5 stays 5) and the tennis cap is rung_at_most(5, ...): a pick
+    carries only a band and a floor it PASSED, so a 7u pick at net 1-1.99c clears no lower rung and is held - never
+    "6u · 60c band · 3c floor" (RixPicksSystem engine/ladder.py, the one definition)."""
+    best = 0
+    for u, b, f in LADDER:
+        if u <= max_units and round(ask_c, 6) >= b and round(gross_c, 6) >= f and round(net_c, 6) >= f:
+            best = u
+    return best
 
 
 def band_of(ask_c):
@@ -442,12 +459,22 @@ def bar_problems(c, pr):
     rung = ladder_rung(pr['cost_c'], gross, net)
     if rung and units_rung(c.get('units')) is not None and not (frag is not None and frag >= 3):
         notes = []
-        if frag == 2:
-            rung = _RUNG_DOWN[rung]; notes.append('fragility 2: one rung lower')
-        if str(c.get('espn_league') or '').split('/')[0] == 'tennis' and rung > 5:
-            rung = 5; notes.append('tennis capped at 5u')
+        if frag == 2 and rung > LADDER[0][0]:
+            was, rung = rung, rung_at_most(rung - 1, pr['cost_c'], gross, net)
+            notes.append('fragility 2: one rung lower')
+            if not rung:
+                out.append(f'fragility 2 drops one rung (J-097) and this {was}u pick clears no rung below it (net '
+                           f'{_c(net)}): a pick carries only a band and a floor it passed, so it is held')
+        if rung and str(c.get('espn_league') or '').split('/')[0] == 'tennis' and rung > TENNIS_CAP_U:
+            was, rung = rung, rung_at_most(TENNIS_CAP_U, pr['cost_c'], gross, net)
+            notes.append(f'tennis capped at {TENNIS_CAP_U}u')
+            if not rung:
+                out.append(f'tennis is capped at {TENNIS_CAP_U}u and this {was}u pick clears no rung of '
+                           f'{TENNIS_CAP_U}u or less (net {_c(net)}): it is held, never carded a size it did not clear')
         want = f'{rung}u'
-        if units_rung(c.get('units')) != rung:
+        if not rung:
+            pass
+        elif units_rung(c.get('units')) != rung:
             out.append(f"units {c.get('units')!r} is not the ladder rung {want} (ask {_c(pr['cost_c'])}, gross "
                        f"{_c(gross)}, net {_c(net)}" + ''.join('; ' + n for n in notes) + ')')
         elif c.get('units') != want:

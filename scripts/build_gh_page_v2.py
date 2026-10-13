@@ -269,7 +269,8 @@ _EXCH_VENUES={'kalshi','poly','polymarket'}
 def _rnum(v):
     return float(v) if isinstance(v,(int,float)) and not isinstance(v,bool) and math.isfinite(v) else None
 def _kfee_c(c):
-    a=c/100.0; return 7*a*(1-a)
+    # the Kalshi taker fee AS CHARGED, rounded UP to the whole cent (RixPicksSystem engine/daily/price.kalshi_fee_c, build_manifest.kalshi_fee_c)
+    a=c/100.0; return float(math.ceil(0.07*a*(1-a)*100))
 def _cost_from_american(am):
     am=_rnum(am)
     if am is None: return None
@@ -465,6 +466,11 @@ def _standing_rule_holds(m):
         u,base=_RUNG_INT.get(p.get('units')),_ladder_rung(cost,gross,net)
         if u is not None and base and u>base:
             out.append((p.get('name'),'units_over_rung',f"{who}: units {p.get('units')!r} over the ladder rung {base}u its ask and edge clear (ask {cost:g}c, gross {gross:g}c, net {net:g}c)"))
+        elif u is not None and base:
+            # the page prints '<N>u · <band>c band · <floor>c floor' beside the pick, so the pick must have CLEARED that rung's band and floor (owner 2026-10-13)
+            _b,_f=_RUNG_BF[u]
+            if round(cost,6)<_b or round(gross,6)<_f or round(net,6)<_f:
+                out.append((p.get('name'),'units_rung_not_cleared',f"{who}: units {p.get('units')!r} name the {_b}c band and {_f}c floor, which this pick did not clear (ask {cost:g}c, gross {gross:g}c, net {net:g}c)"))
         ba=p.get('best_ask')  # card_american must equal the best ask of its recorded venues
         if isinstance(ba,dict) and isinstance(ba.get('compared'),list) and ba['compared']:
             costs=[c for c in (_venue_cost(q.get('venue'),q.get('price')) for q in ba['compared'] if isinstance(q,dict)) if c is not None]
@@ -524,7 +530,7 @@ def _standing_rule_holds(m):
 # is not a YYYY-MM-DD calendar date, or a logged_at without an explicit UTC offset, included) waives nothing. The
 # log is read only for a held card, so a card with no holds builds identically.
 _SUSPEND_RULE='2026-10-02 (4)'
-_SUSPEND_KINDS=frozenset(('gross_bar','net_bar','units_over_rung'))
+_SUSPEND_KINDS=frozenset(('gross_bar','net_bar','units_over_rung','units_rung_not_cleared'))
 _SUSPEND_LOG=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','slates','owner_rule_suspensions.jsonl')
 def _ymd(v):
     # a strict 'YYYY-MM-DD' calendar date (datetime.date), else None

@@ -48,7 +48,9 @@ nwsl_model = json.load(open('/tmp/nwsl_model_out.json'))
 nfl_edges = json.load(open('/tmp/nfl_edges.json'))
 wnba_edges = json.load(open('/tmp/wnba_edges.json'))
 
-def fee(ask): return 0.07*ask*(1-ask)
+def fee(ask):  # the Kalshi taker fee AS CHARGED, rounded UP to the whole cent (build_manifest.kalshi_fee_c)
+    import math
+    return math.ceil(0.07 * ask * (1 - ask) * 100) / 100
 def tok(s): return re.sub(r'[^A-Z0-9]','',(s or '').upper())
 def daycode(commence_utc):
     # Kalshi event-ticker date token (YYMMMDD) from the game's commence, user-local day

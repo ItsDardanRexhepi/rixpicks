@@ -26,7 +26,9 @@ KALSHI_PROP_SERIES = {
  'soccer_usa_mls': {'player_goal_scorer_anytime':'KXMLSGOAL'},
 }
 PROPS_URL = 'https://raw.githubusercontent.com/ItsDardanRexhepi/rixpicks/main/slates/odds_prefill_props.json'
-def fee(ask): return 0.07 * ask * (1 - ask)
+def fee(ask):  # the Kalshi taker fee AS CHARGED, rounded UP to the whole cent (build_manifest.kalshi_fee_c)
+    import math
+    return math.ceil(0.07 * ask * (1 - ask) * 100) / 100
 def a2p(a): return -a/(-a+100) if a < 0 else 100/(a+100)
 def load_rows():
     p = os.environ.get('PROPS_IN', '/tmp/odds_prefill_props.json')

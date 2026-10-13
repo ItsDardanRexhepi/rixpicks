@@ -136,17 +136,17 @@ def stamped(r):
 
 # a sub-bar card: every hold on it is a numeric bar (gross, net, units over the rung, fair below the band)
 CLEAN = pick(1, 'Clean ML', away='C1', home='D1')                                                    # no hold
-THIN = pick(2, 'Thin ML', away='C2', home='D2', model=62.0)                                          # gross 2c, net 0.32c
-TOTAL = pick(3, 'Total Over 4.5', away='C3', home='D3', model=82.0, american=-400, mclass='total', line=4.5, side='over')  # gross 2c, net 0.88c
+THIN = pick(2, 'Thin ML', away='C2', home='D2', model=62.0)                                          # gross 2c, net 0c (the 2c fee)
+TOTAL = pick(3, 'Total Over 4.5', away='C3', home='D3', model=82.0, american=-400, mclass='total', line=4.5, side='over')  # gross 2c, net 0c (the 2c fee)
 OFFRUNG = pick(4, 'OffRung ML', away='C4', home='D4', units='10u')                                   # 10u on a 6u rung
 SUBFAIR = pick(5, 'SubFair ML', away='C5', home='D5', model=55.0)                                   # fair below the 60c band
 SUB = [CLEAN, THIN, TOTAL, OFFRUNG, SUBFAIR]
 SUB_NAMES = [p['name'] for p in SUB[1:]]
 # THE LADDER's floors (owner, 2026-10-13): a numeric hold is a gross or a net under the floor of the pick's band (2c
 # in the 60c band, 1c from 70c up), or units over the rung. Thin's gross is exactly 2c, so only its net is held;
-# Total's 0.88c net at 80c is positive and still under the 1c floor.
+# Total's 0c net at 80c (a 2c fee, rounded up as charged) is under the 1c floor.
 SUB_HELD = 5  # Thin: net; Total: net; OffRung: over the rung; SubFair: gross + net
-NUMERIC_TOKENS = ('net 0.32c below the 2c floor of the 60c band', 'net 0.88c below the 1c floor of the 80c band', "over the ladder rung 6u")
+NUMERIC_TOKENS = ('net 0c below the 2c floor of the 60c band', 'net 0c below the 1c floor of the 80c band', "over the ladder rung 6u")
 
 def held(rc, out, written):
     return rc == 3 and 'BUILD FAILED' in out and 'owner ruling 2026-10-02 (4)' in out and written == [] and 'OWNER SUSPENSION:' not in out

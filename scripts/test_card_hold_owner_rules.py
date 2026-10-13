@@ -127,11 +127,16 @@ for B in BUILDERS:
         ('card ask 85c at the cut', pick(1, 'Fav ML', 'hockey/nhl', 'A', 'B', units='10u', model=96.0, american=-567), '85c cut'),
         ('card ask 55c under the 60c band (fair 70c, 15c of gross)', pick(1, 'Dog ML', 'hockey/nhl', 'A', 'B', model=70.0, american=122), 'below the 60c band'),
         # the 60c band's 2c floor (owner, 2026-10-13): gross >= 2c AND net >= 2c, each checked on its own.
-        # A -150 card at Kalshi is 60c with a 1.68c fee.
+        # A -150 card at Kalshi is 60c with a 2c fee (1.68c, rounded UP to the cent as the exchange charges it).
         ('gross 0.99c (fair 60.99c at a 60c ask)', pick(1, 'Even ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 60.99'), 'gross 0.99c below the 2c floor of the 60c band'),
-        ('gross 2.00c clears the gross floor, net 0.32c after the fee does not', pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=62.0, american=-150), 'net 0.32c below the 2c floor of the 60c band'),
-        ('net 1.99c (fair 63.67c at a 60c ask)', pick(1, 'Near ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 63.67'), 'net 1.99c below the 2c floor of the 60c band'),
+        ('gross 2.00c clears the gross floor, net 0c after the fee does not', pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=62.0, american=-150), 'net 0c below the 2c floor of the 60c band'),
+        ('net 1.99c (fair 63.99c at a 60c ask)', pick(1, 'Near ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 63.99'), 'net 1.99c below the 2c floor of the 60c band'),
         ('fair 66c carded at 10u (rung 6u)', pick(1, 'OffRung ML', 'hockey/nhl', 'A', 'B', units='10u', model=66.0, american=-150), 'ladder rung 6u'),
+        # the page prints '<N>u · <band>c band · <floor>c floor' beside the pick, so a pick UNDER its rung must still
+        # have cleared the rung it names: a 7u pick (-250 = 71.43c, fair 75c, net 1.57c after the 2c fee) carded 6u
+        # or 5u never passed the 3c or 2c floor those words claim (a fragility drop that cleared nothing)
+        ('a 7u pick carded 6u (the 3c floor it never cleared)', pick(1, 'Down ML', 'hockey/nhl', 'A', 'B', units='6u', model=75.0, american=-250), 'did not clear'),
+        ('a 7u pick carded 5u (the 2c floor it never cleared)', pick(1, 'Down ML', 'hockey/nhl', 'A', 'B', units='5u', model=75.0, american=-250), 'did not clear'),
     ]
     for label, p, token in NUM:
         rc, log, written, _ = build(B, card([p]))
@@ -140,13 +145,13 @@ for B in BUILDERS:
     # each bar on its own: the gross at exactly 2.00c is not held, and a 1.99c net is held with its gross clear
     rc, log, written, _ = build(B, card([pick(1, 'Thin ML', 'hockey/nhl', 'A', 'B', model=62.0, american=-150)]))
     check(f'{tag}: gross 2.00c: no gross hold', rc == 3 and 'gross' not in log.split('BUILD FAILED', 1)[-1], (rc, log[-300:]))
-    rc, log, written, _ = build(B, card([pick(1, 'Near ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 63.67')]))
-    check(f'{tag}: net 1.99c with a 3.67c gross: the net alone is held', rc == 3 and 'gross' not in log.split('BUILD FAILED', 1)[-1], (rc, log[-300:]))
-    # net 2.00c builds: fair 63.68c at a 60c Kalshi ask, 3.68c gross less the 1.68c fee
-    rc, log, written, _ = build(B, card([pick(1, 'Floor ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 63.68')]))
-    check(f'{tag}: net 2.00c (fair 63.68c at a 60c ask) builds', rc == 0 and 'index.html' in written, (rc, log[-300:], written))
+    rc, log, written, _ = build(B, card([pick(1, 'Near ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 63.99')]))
+    check(f'{tag}: net 1.99c with a 3.99c gross: the net alone is held', rc == 3 and 'gross' not in log.split('BUILD FAILED', 1)[-1], (rc, log[-300:]))
+    # net 2.00c builds: fair 64c at a 60c Kalshi ask, 4c gross less the 2c fee
+    rc, log, written, _ = build(B, card([pick(1, 'Floor ML', 'hockey/nhl', 'A', 'B', american=-150, sub='fixture - model 64.0')]))
+    check(f'{tag}: net 2.00c (fair 64c at a 60c ask) builds', rc == 0 and 'index.html' in written, (rc, log[-300:], written))
     # every class: a spread at net 1.99c is held, at 2.00c and at 2.82c it builds
-    for model, held_net in (('62.0', 'net 0.32c'), ('63.67', 'net 1.99c'), ('63.68', None), ('64.5', None)):
+    for model, held_net in (('62.0', 'net 0c'), ('63.99', 'net 1.99c'), ('64.0', None), ('64.5', None)):
         sp = pick(1, 'Home1 -1.5', 'hockey/nhl', 'A', 'B', american=-150, sub=f'fixture - model {model}')
         sp['market_class'] = 'spread'; sp['line'] = -1.5
         rc, log, written, _ = build(B, card([sp]))

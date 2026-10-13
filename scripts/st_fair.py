@@ -26,7 +26,9 @@ TEAM_ABBR = {  # full name -> Kalshi ticker abbr (extend fail-loud on miss)
  'New York Jets':'NYJ','Philadelphia Eagles':'PHI','Pittsburgh Steelers':'PIT','San Francisco 49ers':'SF',
  'Seattle Seahawks':'SEA','Tampa Bay Buccaneers':'TB','Tennessee Titans':'TEN','Washington Commanders':'WAS',
 }
-def fee(ask): return 0.07 * ask * (1 - ask)
+def fee(ask):  # the Kalshi taker fee AS CHARGED, rounded UP to the whole cent (build_manifest.kalshi_fee_c)
+    import math
+    return math.ceil(0.07 * ask * (1 - ask) * 100) / 100
 def a2p(a): return -a/(-a+100) if a < 0 else 100/(a+100)
 def devig(home_a, away_a):
     ph, pa = a2p(home_a), a2p(away_a); s = ph + pa
