@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-13T07:51:25.840059+00:00",
+ "generated_at": "2026-10-13T08:06:23.225459+00:00",
  "items": [
   {
    "id": "a4de53c59b",
@@ -28,6 +28,20 @@
    "event": "Sporting Kansas City @ Nashville SC",
    "prediction": "Nashville SC to beat Sporting Kansas City",
    "kickoff_utc": "2026-10-15T00:30:00+00:00"
+  },
+  {
+   "id": "524969b58c",
+   "league": "MLS",
+   "event": "Seattle Sounders FC @ FC Dallas",
+   "prediction": "Seattle Sounders FC to beat FC Dallas",
+   "kickoff_utc": "2026-10-15T00:30:00+00:00"
+  },
+  {
+   "id": "06ddab4ecf",
+   "league": "MLS",
+   "event": "San Jose Earthquakes @ Real Salt Lake",
+   "prediction": "Real Salt Lake to beat San Jose Earthquakes",
+   "kickoff_utc": "2026-10-15T01:30:00+00:00"
   }
  ]
 }

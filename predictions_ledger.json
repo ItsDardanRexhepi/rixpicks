@@ -1758,5 +1758,31 @@
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T07:35:15.299231+00:00"
+ },
+ {
+  "id": "524969b58c",
+  "event_id": "761867",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "FC Dallas",
+  "away": "Seattle Sounders FC",
+  "pick_team": "Seattle Sounders FC",
+  "prediction": "Seattle Sounders FC to beat FC Dallas",
+  "kickoff_utc": "2026-10-15T00:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T08:05:38.025636+00:00"
+ },
+ {
+  "id": "06ddab4ecf",
+  "event_id": "761870",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Real Salt Lake",
+  "away": "San Jose Earthquakes",
+  "pick_team": "Real Salt Lake",
+  "prediction": "Real Salt Lake to beat San Jose Earthquakes",
+  "kickoff_utc": "2026-10-15T01:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T08:05:54.636255+00:00"
  }
 ]
