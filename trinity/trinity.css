@@ -125,3 +125,5 @@ body:has(#st-trinity.on) .rp-fab,body.tr-open .rp-fab{display:none!important}
 .tr-attach img{display:block;height:56px;width:auto;max-width:84px;object-fit:cover;border-radius:10px;border:0}
 .tr-attach-l{flex:1 1 auto;min-width:0;font-size:13px;color:var(--mut)}
 .tr-attach-x{appearance:none;cursor:pointer;border:1px solid rgba(127,127,127,.35);background:transparent;color:inherit;border-radius:999px;width:32px;height:32px;font-size:18px;line-height:1;flex:0 0 auto}
+/* On a phone the two buttons left the box too narrow and "Ask Trinity anything" wrapped and was cut off. */
+@media (max-width:480px){.tr-ask{gap:6px;padding:10px}.tr-ask button{padding:11px 12px}}
