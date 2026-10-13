@@ -1732,5 +1732,18 @@
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T06:35:31.357121+00:00"
+ },
+ {
+  "id": "c70d73e7b8",
+  "event_id": "761865",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Columbus Crew",
+  "away": "Charlotte FC",
+  "pick_team": "Columbus Crew",
+  "prediction": "Columbus Crew to beat Charlotte FC",
+  "kickoff_utc": "2026-10-14T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T07:05:05.247706+00:00"
  }
 ]
