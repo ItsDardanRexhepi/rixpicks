@@ -1797,5 +1797,31 @@
   "kickoff_utc": "2026-10-17T16:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T08:37:02.787762+00:00"
+ },
+ {
+  "id": "57640c0323",
+  "event_id": "401856724",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Texas Longhorns",
+  "away": "Florida Gators",
+  "pick_team": "Texas Longhorns",
+  "prediction": "Texas Longhorns to beat Florida Gators",
+  "kickoff_utc": "2026-10-17T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T08:52:05.011099+00:00"
+ },
+ {
+  "id": "076ccd5209",
+  "event_id": "401856720",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "LSU Tigers",
+  "away": "Mississippi State Bulldogs",
+  "pick_team": "LSU Tigers",
+  "prediction": "LSU Tigers to beat Mississippi State Bulldogs",
+  "kickoff_utc": "2026-10-17T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T08:52:09.187938+00:00"
  }
 ]
