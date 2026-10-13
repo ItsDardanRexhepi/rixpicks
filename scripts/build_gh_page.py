@@ -1324,7 +1324,6 @@ _units_line=(f'<div class="yesrec unitspl" id="rpUnits" data-bu="{html.escape(re
 _rw,_rl=man['record'].split('-')[0],man['record'].split('-')[1]
 _tail_html=('<a class="rec" id="rpRec" data-bw="'+html.escape(str(_rw))+'" data-bl="'+html.escape(str(_rl))+'" href="record.html" style="display:block;text-decoration:none;color:inherit;margin-top:26px">&rsquo;RixPicks Overall Record: '+html.escape(man['record'])+'</a>\n'
     +wl_pct_line(man['record'])+'\n'+_units_line+'\n'
-    '<div class="unitmath">1u = $5 per $1,000 in bankroll</div>\n'
     '<div class="foot">Bet responsibly. <span class="rpstate-link" id="rpStateLabel" onclick="rpEdit()">Share/update location</span></div>')
 if _V2:
     INDEX_V2_CSS=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'index_v2.css')).read()

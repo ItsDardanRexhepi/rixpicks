@@ -387,7 +387,7 @@
   var OV_ID = /^[0-9a-f]{12}$/, OV_TICKET = /^t[0-9a-z]{1,8}$/, OV_DAY = /^20\d\d-\d\d-\d\d$/;
   /* never reworded: her tab, the record and its pop-up, the unit line, the official card (.pick), the yesterday line
      (.rphead, .yesrec) and the past tickets. The card changes when Dardan lands it; results only through grading. */
-  var OV_KEEP_OUT = '#st-trinity,#rpNavRec,#rpRecPop,.recpop,.unitmath,.unitbasis,.rphead,.yesrec,.pick,#st-past,' +
+  var OV_KEEP_OUT = '#st-trinity,#rpNavRec,#rpRecPop,.recpop,.rphead,.yesrec,.pick,#st-past,' +
                     'script,style,noscript,textarea,input,select';
   var OV_POLL_MS = 15000;
 

@@ -12,6 +12,7 @@ unset RPS_KB RIX_REPO RIX_FINALS_CONFIG RIX_RECORD_TOKEN THE_ODDS_API_KEY
 SKIP="
 scripts/test_manifest_chips_class.py|content check of a built page: needs manifest.json + index.html args
 scripts/test_feed_fallback_dom.js|needs jsdom; runs in x-feed with the pinned install
+scripts/test_location_reshare.js|needs jsdom; runs in x-feed with the pinned install
 scripts/test_state_gate_pm_path.js|needs jsdom; not yet verified green anywhere
 "
 skip_reason() { printf '%s\n' "$SKIP" | awk -F'|' -v f="$1" '$1==f {print $2}'; }

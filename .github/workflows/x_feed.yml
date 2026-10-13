@@ -191,6 +191,7 @@ jobs:
         run: |
           npm install --no-save --ignore-scripts --no-audit --no-fund --silent jsdom@30.1.1
           node scripts/test_feed_fallback_dom.js  # zero-pair fallback independent-feeds render fixture (jsdom DOM)
+          node scripts/test_location_reshare.js  # a market tap asks for location again after site data is cleared or storage is blocked (jsdom DOM)
       # Post-Option-A flow (main 9/30 5:53 PM PT): GH news-refresh is off, so NOTHING else builds the
       # map. Every run that publishes a new X generation in the step above (15-min external-tick,
       # x-feed-chain from the worker's news rotation, schedule, workflow_run) must also build the

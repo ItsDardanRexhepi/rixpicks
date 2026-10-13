@@ -2916,13 +2916,16 @@ except Exception: _navpct=''
 # under the units P/L, static body section removed - the tap replaces it).
 _recpop_html=('<div class="recpop" id="rpRecPop" hidden>'
     '<div class="rpPopRec" id="rpRec" data-bw="'+html.escape(str(_rw))+'" data-bl="'+html.escape(str(_rl))+'">&rsquo;RixPicks Overall Record: '+html.escape(man['record'])+'</div>'
-    +wl_pct_line(man['record'])+_units_line+
-    '<div class="unitmath">1u = $5 per $1,000 in bankroll</div></div>')
-# Unit basis on Home (owner design, Oct 2): the line above lives in the record popover, which
-# nothing opens since the record chip taps through to record.html, so no visitor saw it. It is
-# also the first line of the page head, right under the nav record strip, on Home only
-# (.home-only): the Past Tickets view keeps showing no bankroll wording (PAST_HIDE_MONEY).
-_unit_basis_home='<div class="unitmath unitbasis home-only" id="rpUnitBasis">1u = $5 per $1,000 in bankroll</div>'
+    +wl_pct_line(man['record'])+_units_line+'</div>')
+# The bankroll unit-basis line (1u as a share of a bankroll) is gone from the whole site (owner,
+# Oct 13): not in the record popover, not in the page head, not on any other page.
+# Notice under the nav tab bar, on every tab (owner, Oct 13): customers are told plainly that picks
+# do not go up every day - only when that day's games pass the system. One constant, no description
+# of the system, no numbers. Wording changes from the chat still apply (slates/site_text.json works on
+# this text like any other), so the words live here and nowhere else.
+RP_SYSTEM_NOTICE='Picks go up only on days the games pass our system - some days there are none.'
+assert not re.search(r'\d',RP_SYSTEM_NOTICE), 'the notice carries no numbers'
+_system_notice_html='<div class="rpnotice" id="rpSystemNotice" role="note">'+html.escape(RP_SYSTEM_NOTICE)+'</div>'
 # What the system is learning (owner directive, Oct 2: the site shows what the system is learning,
 # in real time, as picks grade). A Home-only section next to News, read from the public ledger
 # history.json. Day groups newest day first, at most 3; under each group's day label that day's own
@@ -3482,8 +3485,8 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     assert len(_pids)==len(set(_pids)), 'LEAGUE TABS: two panels share an id (%s)'%','.join(_pids)
     _navu=(f'<span>Units <b id="rpNavU">{html.escape(man["units_pl"])}</b></span>' if man.get('units_pl') else '')
     _SHELL=('<section id="rpIntro" aria-label="welcome"><div class="wm"><span class="rx">&rsquo;</span><span>R</span><span>i</span><span>x</span><span>P</span><span>i</span><span>c</span><span>k</span><span>s</span></div><div class="scrolldn">Scroll</div></section>\n'
-    '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><button type="button" class="rec" id="rpNavRec" aria-haspopup="true" aria-expanded="false" aria-controls="rpRecPop" aria-label="View overall record"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</button>'+_recpop_html+'</nav>\n'
-    '<div class="layout"><div class="rphead">'+_unit_basis_home+_home_yes+'<div class="rpdate" data-date="'+html.escape(_RPDATE_ISO)+'">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_LG_SHARE_HEAD+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_learn_html+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
+    '<nav class="rpnav"><a class="logo" href="index.html"><em>&rsquo;</em>RixPicks</a><button id="burger" aria-label="menu"><span></span><span></span><span></span></button><div class="tabs">'+_tabs_html+'</div><button type="button" class="rec" id="rpNavRec" aria-haspopup="true" aria-expanded="false" aria-controls="rpRecPop" aria-label="View overall record"><span>Record <b><span id="rpNavRecW">'+html.escape(str(_rw))+'</span>-<span id="rpNavRecL">'+html.escape(str(_rl))+'</span></b></span>'+_navpct+_navu+'</button>'+_recpop_html+'</nav>\n'+_system_notice_html+'\n'
+    '<div class="layout"><div class="rphead">'+_home_yes+'<div class="rpdate" data-date="'+html.escape(_RPDATE_ISO)+'">'+html.escape(man['date_label'])+'</div>\n<div class="intro">Tap any book under a pick to open that game there. Best line is highlighted.</div>\n</div><main>'+_cnote_home+_yestr+'\n'+_LG_SHARE_HEAD+_panels_html+_combo_wrap+'\n'+_fut_wrap+'\n'+fut_entry+'\n'+_learn_html+'<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar" aria-label="news carousel"></div>\n<div class="card carallpop home-only" id="rpCarAllPop" hidden></div>\n'+'<div class="ultrix-sync-line home-only">*live sync connection between feeds powered by UltRix algorithm</div>\n<div class="sect home-only" id="rpSocialHead" style="margin-top:18px">Social</div>\n<div class="card social home-only" id="rpSocial"></div>\n<div class="card carallpop home-only" id="rpSocMorePop" hidden></div>\n'+_tail_html+'</main>'
     '<aside><div class="col-head"><div class="sect">Upcoming Events</div><span class="sub" id="rpAsideSub"></span></div><div class="card" id="rpGames"></div><div id="rpPredWrap" class="home-only" style="display:none"><div class="col-head" style="margin-top:18px"><div class="sect">Predictions by UltRix</div></div><div class="card" id="rpPred"></div></div></aside></div>\n'
     '<div class="tickbar" id="rpTickBar"><div class="ticktrack" id="rpTickTrack"></div></div>')
     _V2_ASSETS='<style>'+INDEX_V2_CSS+'</style>'
@@ -3782,8 +3785,8 @@ function rpFilter(st){{window.rpSt=st;rpTerm(st);
  }});
  if(window.rpCxStar)rpCxStar();rpAllBest();rpAllLineShops(); }}
 const RP_CODES=[{','.join('"%s"'%c for c,_ in RP_STATES)}];
-function rpRoute(e,a){{e.preventDefault();const st=localStorage.getItem('rp_state');const src=localStorage.getItem('rp_state_src');const ts=+(localStorage.getItem('rp_state_ts')||0);
- if(!st||src!=='gps'||!ts||Date.now()-ts>12*3600*1000){{window.__rpChip=a;rpAsk(false);return false;}}  /* his rule Sep 26 + tester freshness gate: taps need a CURRENT shared+verified location - expired fixes go back through the prompt */
+function rpRoute(e,a){{e.preventDefault();const st=rpFreshState();  /* one guarded reader: a tap never dies on a storage error (cleared or blocked site data) - it asks for location again */
+ if(!st){{window.__rpChip=a;rpAsk(false);return false;}}  /* his rule Sep 26 + tester freshness gate: taps need a CURRENT shared+verified location - expired fixes go back through the prompt */
  rpGo(a,st);return false;}}
 function rpShareLoc(){{  /* the ONLY way state resolves now (his verbatim Sep 26 1:52 PM): no manual pick, no preview */
  if(!navigator.geolocation){{rpNote('This browser has no location services. Markets need your location - try another browser.');return;}}
@@ -3792,13 +3795,13 @@ function rpShareLoc(){{  /* the ONLY way state resolves now (his verbatim Sep 26
   fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(j=>{{
    const code=(j.principalSubdivisionCode||'').split('-')[1]||'';
    if(code&&RP_CODES.indexOf(code)>=0){{
-    localStorage.setItem('rp_state',code);localStorage.setItem('rp_state_src','gps');localStorage.setItem('rp_state_gps',code);localStorage.setItem('rp_state_ts',String(Date.now()));
+    rpLSSet('rp_state',code);rpLSSet('rp_state_src','gps');rpLSSet('rp_state_gps',code);rpLSSet('rp_state_ts',String(Date.now()));
     document.getElementById('rpModal').style.display='none';rpLabel();
     if(window.__rpChip){{const c=window.__rpChip;window.__rpChip=null;rpGo(c,code);}}else{{rpMaybeA2HS();}}
    }}else{{rpNote('Could not resolve your state from that location - tap to retry.');}}
   }}).catch(()=>rpNote('Location lookup failed - tap to retry.'));
- }},function(){{rpNote('Location is required for market links. Enable it for this site, then tap to retry.');}},{{timeout:9000}});}}
-function rpLabel(){{try{{const el=document.getElementById('rpStateLabel');const st=localStorage.getItem('rp_state');if(st){{rpFilter(st);rpAllBest();rpAllLineShops();}}if(el){{el.textContent=st?('Your state: '+st+' (verified)'):'Share/update location';}}}}catch(e){{}}}}
+ }},function(err){{rpNote((err&&err.code===1)?'Location is off for this site in your browser. Turn it on for rix-picks.com, then tap Share my location.':'Could not get your location - tap Share my location to retry.');}},{{timeout:9000}});}}
+function rpLabel(){{try{{const el=document.getElementById('rpStateLabel');const st=rpLSGet('rp_state');if(st){{rpFilter(st);rpAllBest();rpAllLineShops();}}if(el){{el.textContent=st?('Your state: '+st+' (verified)'):'Share/update location';}}}}catch(e){{}}}}
 function rpNote(t){{const n=document.getElementById('rpGeoNote');if(n)n.textContent=t||'';}}
 function rpAsk(manualOnly){{window.__rpChip=window.__rpChip||null;
  rpNote('');document.getElementById('rpModal').style.display='flex';
@@ -4059,23 +4062,32 @@ function rpStatusText(d,j,st){{ /* tester Sep 26 presentation parity: EVERY cloc
  try{{const _now=Date.now();[['POLY','__rpPolyOk',30000],['KAL','__rpKalOk',90000],['TSB','__rpEspnOk',30000]].forEach(function(pr){{const dim=(_now-(window[pr[1]]||0))>pr[2];document.querySelectorAll('[data-book="'+pr[0]+'"]').forEach(function(c){{c.style.opacity=dim?'.55':'';}});}});}}catch(e){{}}  /* honesty dims: stale source dims, stale never re-stamps; KAL threshold 90s matches its 60s pregame cadence (proxy route), others 30s */
  setTimeout(rpFastLoop,((window.__rpMissN||0)>=5)?5000:2000);}}
 rpFastLoop();rpLsTickAll();rpStartTimes();setInterval(function(){{rpFinalsTop();rpCxLive();rpRecLive();rpChatCounts();rpAllBest();rpAllLineShops();rpStartTimes();}},30000);
-function rpLocDismiss(){{const m=document.getElementById('rpModal');if(m)m.style.display='none';try{{localStorage.setItem('rp_state_dismissed','1');}}catch(e){{}}window.__rpChip=null;}}
+function rpLocDismiss(){{const m=document.getElementById('rpModal');if(m)m.style.display='none';rpLSSet('rp_state_dismissed','1');window.__rpChip=null;}}
 document.getElementById('rpModal').addEventListener('click',function(e){{if(e.target===this)rpLocDismiss();}});
-function rpFreshState(){{try{{const st=localStorage.getItem('rp_state'),src=localStorage.getItem('rp_state_src'),ts=+(localStorage.getItem('rp_state_ts')||0);return (st&&src==='gps'&&ts&&Date.now()-ts<=12*3600*1000)?st:'';}}catch(e){{return '';}}}}  /* tester Sep 26: even the FIRST paint never exposes an expired jurisdiction */
+function rpFreshState(){{try{{const st=rpLSGet('rp_state'),src=rpLSGet('rp_state_src'),ts=+(rpLSGet('rp_state_ts')||0);return (st&&src==='gps'&&ts&&Date.now()-ts<=12*3600*1000)?st:'';}}catch(e){{return '';}}}}
+/* storage goes through one guarded shim: when the browser refuses localStorage (cookies blocked, site data wiped mid-session) a tap still prompts for location, and a shared state is kept for this page's life in memory (never a guess - only what the share returned) */
+var _rpMem={{}};
+function rpLSGet(k){{try{{return localStorage.getItem(k);}}catch(e){{return Object.prototype.hasOwnProperty.call(_rpMem,k)?_rpMem[k]:null;}}}}
+function rpLSSet(k,v){{try{{localStorage.setItem(k,v);}}catch(e){{_rpMem[k]=v;}}}}
+function rpLSDel(k){{delete _rpMem[k];try{{localStorage.removeItem(k);}}catch(e){{}}}}
+/* site data cleared while the page sat in another tab or in the back-forward cache: on return the footer label and the book chips follow storage again, so the next tap asks for location instead of trusting a stale in-page state */
+function rpSyncState(){{try{{const f=rpFreshState();if(f!==(window.rpSt||''))rpFilter(f);rpLabel();}}catch(e){{}}}}
+window.addEventListener('pageshow',function(e){{if(e&&e.persisted)rpSyncState();}});
+document.addEventListener('visibilitychange',function(){{if(!document.hidden)rpSyncState();}});  /* tester Sep 26: even the FIRST paint never exposes an expired jurisdiction */
 var _rpFs=rpFreshState();rpFilter(_rpFs);rpResolveState();  /* QA HIGH (two audits, relayed 12:08): no auto-prompt on load - location is requested ONLY on market-link taps (rpRoute) or the footer link; the prompt itself carries a Not now close */
 function rpResolveState(){{try{{  /* his rule Sep 26 1:52 PM: ONLY shared location resolves state - no IP guess, no manual, no preview. Unverified = fail-closed PM set + location prompt on tap. */
- const saved=localStorage.getItem('rp_state'),src=localStorage.getItem('rp_state_src');
+ const saved=rpLSGet('rp_state'),src=rpLSGet('rp_state_src');
  /* freshness boundary (tester Sep 26): a saved GPS state expires after 12h - re-verify silently when
     location permission persists, fail closed (clear + prompt on tap) when it does not */
- const _sts=+(localStorage.getItem('rp_state_ts')||0);
+ const _sts=+(rpLSGet('rp_state_ts')||0);
  if(saved&&src==='gps'&&(!_sts||Date.now()-_sts>12*3600*1000)){{
-  localStorage.removeItem('rp_state');localStorage.removeItem('rp_state_src');rpLabel();  /* tester re-gate Sep 26: expired state is CLEARED UP FRONT - taps fail closed until the async re-verify below lands a new fix */
+  rpLSDel('rp_state');rpLSDel('rp_state_src');rpLabel();  /* tester re-gate Sep 26: expired state is CLEARED UP FRONT - taps fail closed until the async re-verify below lands a new fix */
  }}
- if(saved&&src!=='gps'){{const gps=localStorage.getItem('rp_state_gps');const gts=+(localStorage.getItem('rp_state_ts')||0);
-  if(gps&&gts&&Date.now()-gts<=12*3600*1000){{localStorage.setItem('rp_state',gps);localStorage.setItem('rp_state_src','gps');rpLabel();}}  /* legacy promotion only with a FRESH stamp */
-  else{{localStorage.removeItem('rp_state');localStorage.removeItem('rp_state_src');localStorage.removeItem('rp_state_gps');rpLabel();}}  /* legacy unverified state cleared - fail closed */
+ if(saved&&src!=='gps'){{const gps=rpLSGet('rp_state_gps');const gts=+(rpLSGet('rp_state_ts')||0);
+  if(gps&&gts&&Date.now()-gts<=12*3600*1000){{rpLSSet('rp_state',gps);rpLSSet('rp_state_src','gps');rpLabel();}}  /* legacy promotion only with a FRESH stamp */
+  else{{rpLSDel('rp_state');rpLSDel('rp_state_src');rpLSDel('rp_state_gps');rpLabel();}}  /* legacy unverified state cleared - fail closed */
  }}
- const apply=function(code){{if(code&&RP_CODES.indexOf(code)>=0){{localStorage.setItem('rp_state',code);localStorage.setItem('rp_state_src','gps');localStorage.setItem('rp_state_gps',code);localStorage.setItem('rp_state_ts',String(Date.now()));rpLabel();}}}};
+ const apply=function(code){{if(code&&RP_CODES.indexOf(code)>=0){{rpLSSet('rp_state',code);rpLSSet('rp_state_src','gps');rpLSSet('rp_state_gps',code);rpLSSet('rp_state_ts',String(Date.now()));rpLabel();}}}};
  if(navigator.permissions&&navigator.geolocation){{
   navigator.permissions.query({{name:'geolocation'}}).then(function(p){{
    if(p.state==='granted'){{navigator.geolocation.getCurrentPosition(function(pos){{
