@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-13T16:08:36.672782+00:00",
+ "generated_at": "2026-10-13T16:38:38.877667+00:00",
  "items": [
   {
    "id": "97ade5d0bb",
@@ -30,17 +30,17 @@
    "kickoff_utc": "2026-10-14T00:00:00+00:00"
   },
   {
+   "id": "b36f91bb5c",
+   "league": "NHL",
+   "event": "Vegas Golden Knights @ Nashville Predators",
+   "prediction": "Nashville Predators to beat Vegas Golden Knights",
+   "kickoff_utc": "2026-10-14T00:45:00+00:00"
+  },
+  {
    "id": "a4de53c59b",
    "league": "MLS",
    "event": "New England Revolution @ FC Cincinnati",
    "prediction": "New England Revolution to beat FC Cincinnati",
-   "kickoff_utc": "2026-10-14T23:30:00+00:00"
-  },
-  {
-   "id": "c70d73e7b8",
-   "league": "MLS",
-   "event": "Charlotte FC @ Columbus Crew",
-   "prediction": "Columbus Crew to beat Charlotte FC",
    "kickoff_utc": "2026-10-14T23:30:00+00:00"
   }
  ]
