@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-13T20:37:32.277933+00:00",
+ "generated_at": "2026-10-13T20:50:28.286667+00:00",
  "leagues": [
   {
    "league": "NHL",
@@ -28,6 +28,14 @@
      "status": "pre",
      "detail": "10/13 - 3:30 PM PT",
      "score": "BUF 0 - MTL 0"
+    },
+    {
+     "espn_event_id": "401892491",
+     "matchup": "WAS @ CAR",
+     "commence": "2026-10-13T22:45Z",
+     "status": "pre",
+     "detail": "10/13 - 3:45 PM PT",
+     "score": "WAS 0 - CAR 0"
     }
    ]
   }
