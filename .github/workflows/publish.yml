@@ -116,6 +116,11 @@ jobs:
           # run - a silently missing push is worse than a red one.
           # YAML hold fix (tester, Sep 26): the id check must parse JSON and require a nonempty string;
           # grep '"id"' passes on {"id":null} and {"id":""}. And an unset key must fail before any send.
+          # C-4.1: a card carrying the owner-directed / sub-bar disclosure never pushes (scripts/push_gate.py:
+          # 0 push, 1 withheld by design, 2 manifest unreadable - withheld and the run fails).
+          GRC=0; python3 scripts/push_gate.py manifest.json || GRC=$?
+          if [ "$GRC" -eq 1 ]; then echo "CARD-READY PUSH WITHHELD: the card carries the owner-directed / sub-bar disclosure"; exit 0; fi
+          if [ "$GRC" -ne 0 ]; then echo "CARD-READY PUSH WITHHELD: manifest.json unreadable (exit $GRC)"; exit 1; fi
           if [ -z "$ONESIGNAL_REST_API_KEY" ]; then echo "CARD-READY PUSH FAILED: ONESIGNAL_REST_API_KEY secret is unset/empty"; exit 1; fi
           RESP=$(curl -fsS -X POST https://onesignal.com/api/v1/notifications \
             -H "Authorization: Basic $ONESIGNAL_REST_API_KEY" \

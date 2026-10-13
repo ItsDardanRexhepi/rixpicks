@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Card hold on the standing rules at the page builder (owner ruling 2026-10-02 (4), relayed verbatim by muse:
+"""Card hold on the standing rules at the page builder (owner ruling 2026-10-02 (4):
 "NO - an owner-approved card cannot break a standing rule. Vegas rule, ladder sizes, all of it: hard gates, no
 exceptions.").
 build_manifest.py refuses such a card, but a manifest.json can land another way (by hand, an older builder), and

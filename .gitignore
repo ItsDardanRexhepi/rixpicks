@@ -1,1 +1,3 @@
 __pycache__/
+# internal CLV ledger (scripts/clv_report.py): never tracked in this public repository
+slates/clv_ledger.json

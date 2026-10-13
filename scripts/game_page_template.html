@@ -93,16 +93,21 @@ if(RP_STANDALONE){document.addEventListener('click',function(e){const a=e.target
 /* U-GEO-002: ONE arm-level legality table as DATA (arms, never parent brands; the dead pre-rebrand arm never renders). Unresolved state fails closed to the prediction-market set. */
 function rpBookLive(b,st){if(typeof RP_LEGAL_STATE==='undefined')return b==='KAL'||b==='POLY';if(!st)return RP_PM_DEFAULT.indexOf(b)!==-1;const L=RP_LEGAL_STATE[st];return L?L.indexOf(b)!==-1:false;}
 function rpPm(el){if(el.dataset.pm&&el.dataset.nopm!=='1')return el.dataset.pm;const mr=el.closest?el.closest('.mrow'):null;if(mr&&mr.dataset.pm&&mr.dataset.nopm!=='1')return mr.dataset.pm;return null;}
+/* C-4.5: a chip's venue address is in its href only once a state has resolved; with none the href is '#' and the address
+   waits in data-href (the build's own link) and data-dest (where a tap would go). rpGo sets the real href when it opens. */
+function rpHrefOf(a){const h=a.getAttribute('data-href')||a.getAttribute('href');return (h&&h!=='#')?h:null;}
 function rpDest(a,st){const b=a.dataset.book;
  if(a.dataset.platform==='1'&&!a.getAttribute('data-sb'))return null;  /* inspector Sep 26 interim: platform-arm root URLs are NOT tap destinations - non-tappable until event-level deep links land */
- if(rpBookLive(b,st)){const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{state}',st.toLowerCase());return a.getAttribute('href')||null;}
+ if(rpBookLive(b,st)){const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{state}',st.toLowerCase());return rpHrefOf(a);}
  return rpPm(a);}
 function rpGo(a,st){const b=a.dataset.book;
  if(b==='POLY'&&RP_MOB&&a.dataset.app){location.href=a.dataset.app;return;}
- const d=rpDest(a,st);if(d)rpOpen(d);return;}
+ const d=rpDest(a,st);if(d){if(st&&a.tagName==='A')a.setAttribute('href',d);rpOpen(d);}return;}
 function rpTapify(el,st){const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.dataset.book,st));let out;
  if(d){let a=el;if(el.tagName!=='A'){a=document.createElement('a');for(const at of el.attributes)a.setAttribute(at.name,at.value);a.innerHTML=el.innerHTML;el.replaceWith(a);}
-  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');out=a;}
+  const _h0=a.getAttribute('href');if(_h0&&_h0!=='#'&&!a.hasAttribute('data-href'))a.setAttribute('data-href',_h0);
+  if(st){a.setAttribute('href',d);a.removeAttribute('data-dest');}else{a.setAttribute('href','#');a.setAttribute('data-dest',d);}
+  a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');out=a;}
  else{let sp=el;if(el.tagName!=='SPAN'){sp=document.createElement('span');for(const at of el.attributes)sp.setAttribute(at.name,at.value);sp.innerHTML=el.innerHTML;el.replaceWith(sp);}
   sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');out=sp;}
  /* a prediction-market fallback route never wears sportsbook numbers; restore them when the book is live */
@@ -151,7 +156,7 @@ function rpShareLoc(){  /* the ONLY way state resolves now (his verbatim Sep 26 
  if(!navigator.geolocation){rpNote('This browser has no location services. Markets need your location - try another browser.');return;}
  rpNote('Checking your location&hellip;');
  navigator.geolocation.getCurrentPosition(function(pos){
-  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(j=>{
+  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(j=>{
    const code=(j.principalSubdivisionCode||'').split('-')[1]||'';
    if(code&&RP_CODES.indexOf(code)>=0){
     localStorage.setItem('rp_state',code);localStorage.setItem('rp_state_src','gps');localStorage.setItem('rp_state_gps',code);localStorage.setItem('rp_state_ts',String(Date.now()));
@@ -167,24 +172,7 @@ function rpAsk(manualOnly){window.__rpChip=window.__rpChip||null;
  rpShareLoc();}
 function rpEdit(){window.__rpChip=null;rpAsk(false);}  /* change state = re-verify via location; there is no manual path (his rule Sep 26) */
 
-function rpKalTick(){try{
- document.querySelectorAll('a[data-kalticker][data-kalside],a[data-kalmkt]').forEach(function(a){
-  const tk=a.dataset.kalmkt||(a.dataset.kalticker+'-'+a.dataset.kalside);
-  if(!tk)return;
-  const r0=rpMkt(a);if(r0&&r0.ph==='last_pre_game')return;  /* canonical record: frozen phases never tick (phase = event status, not fetch time) */
-  if(rpInPlay())return;  /* regression gate Sep 26: proxies measured unusable (allorigins 500@14.7s/522, codetabs 522/503, corsproxy 401) - KAL ticks PREGAME-ONLY until the api.rix-picks.com relay lands; in-play dims honestly, never re-stamps */
-  const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk+'?_='+Date.now();
-  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){
-   const m=j&&j.market;if(!m)return;window.__rpKalOk=Date.now();
-   const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<=1))return;
-   if(rpInPlay())return;  /* in play the chip freezes its last-known price - live values never replace frozen ones */
-   const c=Math.round(d*100);
-   a.dataset.cents=c;if(r0){r0.c=c;r0.ts=Date.now();}
-   if(a.dataset.prc)a.textContent=rpMLF(rpC2ML(c));else a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c)/,'KAL '+rpMLF(rpC2ML(c)));  /* user Sep 26 12:58 PM: all-American display */
-   rpQuoteMut();  /* tester Sep 26: star recomputes on every canonical tick, not just range */
-  }).catch(function(){});
- });
-}catch(e){}}
+/* C-3: no client Kalshi tick - Kalshi rows wear the price the build read; the page rebuild refreshes it from this origin. */
 function rpPolyTick(){try{
  document.querySelectorAll('a[data-polyslug]').forEach(function(a){
   if(!a.dataset.polyslug)return;
@@ -233,7 +221,7 @@ function rpEspnTick(){try{
    if(sline&&st.state!=='pre'&&sc){sline.textContent=rpStatusText(d,j,st)+'  |  '+sc;}
    /* attribution root fix Sep 26 (swamp catch, his rule): pickcenter/comp.odds is ESPN's DraftKings quote -
       it must NEVER write into a TSB-labeled element or record. The TSB chip holds its own canonical snapshot;
-      only own-platform ticks (rpPolyTick/rpKalTick) move chips. Header .odds stays the frozen entry price. */
+      only own-platform ticks (rpPolyTick) move chips. Header .odds stays the frozen entry price. */
   }).catch(function(){});
   return;
  }
@@ -915,7 +903,7 @@ function rpResolveState(){try{  /* his rule Sep 26 1:52 PM: ONLY shared location
  if(navigator.permissions&&navigator.geolocation){
   navigator.permissions.query({name:'geolocation'}).then(function(p){
    if(p.state==='granted'){navigator.geolocation.getCurrentPosition(function(pos){
-    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(function(j){const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}).catch(function(){});
+    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(function(j){const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}).catch(function(){});
    },function(){},{timeout:6000});}
   }).catch(function(){});
  }
@@ -932,7 +920,7 @@ document.addEventListener('touchmove',function(e){if(!rpPtrOn||rpPtrY===null)ret
  if(rpPtrPull>50){const el=document.getElementById('rpPtr');if(el){el.style.display='block';document.getElementById('rpPtrTxt').textContent='release to refresh';}}},{passive:true});
 function rpPtrEnd(){const el=document.getElementById('rpPtr');
  if(rpPtrOn&&rpPtrPull>50){if(el){el.style.display='block';document.getElementById('rpPtrTxt').textContent='refreshing...';}
-  try{rpPolyTick();rpEspnTick();rpKalTick();}catch(e){}
+  try{rpPolyTick();rpEspnTick();}catch(e){}
   try{rpLiveBox();}catch(e){}
   setTimeout(function(){if(el)el.style.display='none';},1200);}
  else if(el)el.style.display='none';
@@ -1045,7 +1033,7 @@ async function rpScoreTblTick(d){try{
  el.innerHTML=''; /* mma/boxing/golf/nascar: no period-linescore shape - nothing rendered */
 }catch(e){}}
 
-window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpKalTick();rpLiveBox();setInterval(rpKalTick,60000);  /* regression gate Sep 26: pregame-only KAL at 60s via proxy (15s+ latency makes 5s pointless and abusive); relay restores live cadence when it lands */async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}
+window.__rpPolyOk=window.__rpKalOk=Date.now();rpPolyTick();rpEspnTick();rpLiveBox();async function rpLiveLoop(){try{await rpLiveBox();window.__rpLbF=0;}catch(e){window.__rpLbF=(window.__rpLbF||0)+1;}
  /* his verbatim Sep 26 2:14 PM: "Make it instant at core level." Fetch failures are swallowed deep in
     the render paths, so freshness is enforced HERE by data age: >20s without a successful render, the
     LIVE claim comes off and the panel says it is reconnecting - old data never wears the LIVE badge. */

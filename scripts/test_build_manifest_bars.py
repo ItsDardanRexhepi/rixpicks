@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Standing-bars and best-ask fixture for scripts/build_manifest.py (owner rulings 2026-10-02, relayed
-verbatim by muse on MeshTrix, 15:35Z).
+"""Standing-bars and best-ask fixture for scripts/build_manifest.py (owner rulings 2026-10-02,
+15:35Z).
  (1) "Card price is the ASK across ALL markets, not just Kalshi - compare everywhere, take the ask."
      A candidate may carry best_ask {venue, price, read_at, compared:[{venue, price, read_at}]}. The
      market must still be on Kalshi (the kalshi block: ticker + cents). The card price is the cheapest

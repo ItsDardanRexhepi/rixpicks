@@ -74,6 +74,13 @@ def _pt_date(iso):
         if t.tzinfo is None or t.utcoffset() is None: t=t.replace(tzinfo=_dt.timezone.utc)
         return t.astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat()
     except Exception: return ''
+def _pt_today():
+    # C-2: THE builder's "today" - the America/Los_Angeles calendar date (ISO string), never the machine's own date.
+    # A UTC runner after 17:00 PT is already on tomorrow by its own clock, and the card-lock gate below compares
+    # the card's Pacific date with this one; every other "today" in the builder is read in the same zone.
+    import datetime as _dt
+    from zoneinfo import ZoneInfo
+    return _dt.datetime.now(ZoneInfo('America/Los_Angeles')).date().isoformat()
 def _pt_day(iso):
     # The owner-suspension date binding (_owner_waivers) only, stricter than _pt_date: the Pacific calendar date
     # (datetime.date) of a timestamp that carries an explicit UTC offset ('Z' or +hh:mm), else None - a waiver
@@ -1003,11 +1010,12 @@ import datetime as _dtc
 def _card_date_of(m):
     # Sep 27 swamp kill (archived game-4..11 wore Saturday's 7:21 AM lock): the card date belongs to
     # the CARD, not the clock - derive from the picks' commence dates (PT), today only as a gameless
-    # fallback. date.today() made post-midnight rebuilds pin whatever lock the ledger carried.
+    # fallback, and that today is the Pacific date (_pt_today, C-2.2), never the machine's: the machine clock made
+    # post-midnight rebuilds pin whatever lock the ledger carried.
     from collections import Counter as _Ct
     _ds=[_pt_date((p.get('game') or {}).get('commence','')) for p in m.get('picks',[]) if isinstance(p,dict)]
     _ds=[d for d in _ds if d]
-    return _Ct(_ds).most_common(1)[0][0] if _ds else _dtc.date.today().isoformat()
+    return _Ct(_ds).most_common(1)[0][0] if _ds else _pt_today()
 _CARD_DATE=_card_date_of(man)
 # the date header's ISO date (rpDateRoll compares it with today's PT date, never the label text):
 # the manifest date the label names, else the card's own date
@@ -1081,11 +1089,18 @@ def _stamp_html(p,posted=None):
     if not (p.get('locked') or _LOCK_KNOWN):
         return ''  # no lock provenance (no pin, entry_locked, posted_at or card_ts): no lock time is claimed
     return html.escape((p.get('locked') or ENTRY_LOCK).split(', ')[-1].replace(' PT',''))+' &middot; locked'
-_today_iso=_dtc.date.today().isoformat()
+_today_iso=_pt_today()  # C-2.1: the Pacific date - a machine date ahead of it read the current card as past and skipped the write
 if _LOCK_KNOWN and _CARD_DATE>=_today_iso and (_cardprev.get('date')!=_CARD_DATE or not _cardprev.get('locked') or not _cardprev.get('picks_sha')):
     # the ledger tracks the CURRENT card only: a past-dated build (archive rebuild) never writes;
     # a same-date entry without an identity hash (legacy/corrupt) gets replaced by this card's.
     NEWSHIPPED['__card__']={'date':_CARD_DATE,'locked':ENTRY_LOCK,'picks_sha':_MAN_SHA}
+# C-2.1: a publish build of a current (today or later) card whose lock is known must leave the ledger with an entry
+# for the card's date - written now or already there. Anything else is a lock write skipped in silence: hold.
+if os.environ.get('RP_PUBLISH')=='1' and _LOCK_KNOWN and _CARD_DATE>=_today_iso and \
+        ((NEWSHIPPED.get('__card__') or _cardprev).get('date')!=_CARD_DATE):
+    print(f"BUILD FAILED: card-lock entry for the {_CARD_DATE} card would not be written (Pacific today {_today_iso}, ledger entry "
+          f"{_cardprev.get('date') or 'none'}) - a skipped lock write on a current card holds, nothing written", file=sys.stderr)
+    sys.exit(3)
 
 # Canonical market truth record (Matrix-mining design, user 9/26): ONE record per
 # (source,event,market,side) - price (cents canonical, ml display cache), phase, timestamp,
@@ -1724,16 +1739,6 @@ def _kal_tick_attrs(kx, tick, kside):
         return f' data-kalticker="{html.escape(ev)}" data-kalside="{html.escape(sfx)}" data-kalpx="{kx[1]}"'
     return f' data-kalticker="{tick}" data-kalside="{kside}"'
 _KAL_EXPLICIT_CARD=any(_kal_explicit(_p.get('kalshi')) for _p in man.get('picks',[]))
-def _kal_js(explicit):
-    # Client tick expressions (index rpKalTick and the game page template). A page with no explicit-side
-    # chip gets the original YES-only expressions byte-for-byte; with one, each chip settles and prices
-    # from its own data-kalpx side (a chip without data-kalpx still reads YES).
-    if not explicit: return {'win':"'yes'",'lose':"'no'",'ask':'m.yes_ask_dollars'}
-    return {'win':"(a.dataset.kalpx==='no'?'no':'yes')",'lose':"(a.dataset.kalpx==='no'?'yes':'no')",
-            'ask':"m[(a.dataset.kalpx==='no'?'no':'yes')+'_ask_dollars']"}
-_KAL_JS=_kal_js(_KAL_EXPLICIT_CARD)
-_KAL_WIN,_KAL_LOSE,_KAL_ASK=_KAL_JS['win'],_KAL_JS['lose'],_KAL_JS['ask']
-_KAL_TMPL_ASK='const d=parseFloat(m.yes_ask_dollars);'  # game_page_template.html rpKalTick price line
 
 def _finalize_chip_rows(out, records):
     """Select the best displayed survivor and range from its canonical price record."""
@@ -3461,7 +3466,8 @@ if _V2:
     r'var VEN={};'
     r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
     r'function c2ml(c){c=+c;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}'
-    r'function ptDate(){try{return new Date().toLocaleDateString("en-CA",{timeZone:"America/Los_Angeles"});}catch(e){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}}'
+    # C-2.3: ptDate() is the Pacific date or '' - never the viewer's own date; an empty date hides the module
+    r'function ptDate(){try{var s=new Date().toLocaleDateString("en-CA",{timeZone:"America/Los_Angeles"});return /^\d{4}-\d{2}-\d{2}$/.test(s)?s:"";}catch(e){return "";}}'
     # swarm 9:49: third parent from #rpDing is .state#st-mlb (whole panel incl. official picks).
     # Hide ONLY the enclosing Wooder guest module (margin-top wrapper = two parents up).
     r'function hide(){box.parentNode.parentNode.style.display="none";}'
@@ -3473,7 +3479,7 @@ r"""function updDing(){fetch("https://site.api.espn.com/apis/site/v2/sports/base
 r"""function startDing(){updDing();setInterval(updDing,30000);}"""
 r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
     r'var ps=(j&&j.picks)||[];'
-    r'if(!ps.length||(j.date||"")!==ptDate()){hide();return;}'
+    r'var td=ptDate();if(!ps.length||!td||(j.date||"")!==td){hide();return;}'
     r'var h="";'
     r'ps.slice(0,10).forEach(function(pk,i){'
     r'if(!pk.player||!pk.team||!pk.matchup||!pk.time||!pk.market)return;'
@@ -3511,10 +3517,11 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     r'var VEN={};'
     r'function esc(s){var M={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"};return String(s==null?"":s).replace(/[&<>"]/g,function(c){return M[c];});}'
     r'function c2ml(c){c=+c;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}'
-    r'function ptDate(){try{return new Date().toLocaleDateString("en-CA",{timeZone:"America/Los_Angeles"});}catch(e){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}}'
+    # C-2.3: ptDate() is the Pacific date or '' - never the viewer's own date; an empty date hides the module
+    r'function ptDate(){try{var s=new Date().toLocaleDateString("en-CA",{timeZone:"America/Los_Angeles"});return /^\d{4}-\d{2}-\d{2}$/.test(s)?s:"";}catch(e){return "";}}'
     r'function none(){box.innerHTML="<div class=\"sub\">No NFL ideas today.</div>";}'
     r'fetch("slates/nfl_ideas.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
-    r'var cs=(j&&j.cards)||[];if(!cs.length||(j.date||"")!==ptDate()){none();return;}'
+    r'var cs=(j&&j.cards)||[],td=ptDate();if(!cs.length||!td||(j.date||"")!==td){none();return;}'
     r'var h="";'
     r'cs.slice(0,10).forEach(function(cd){'
     r'if(!cd.title||!(cd.legs||[]).length)return;'
@@ -3805,14 +3812,17 @@ const RP_LEGAL_STATE={json.dumps(TABLE,sort_keys=True)};const RP_LEGAL_ASOF='{RP
 const RP_PM_DEFAULT=['KAL','POLY','DKP','FDP'];
 function rpBookLive(b,st){{if(!st)return RP_PM_DEFAULT.indexOf(b)!==-1;const L=RP_LEGAL_STATE[st];return L?L.indexOf(b)!==-1:false;}}
 function rpPm(el){{if(el.dataset.pm&&el.dataset.nopm!=='1')return el.dataset.pm;const mr=el.closest?el.closest('.mrow'):null;if(mr&&mr.dataset.pm&&mr.dataset.nopm!=='1')return mr.dataset.pm;return null;}}
+/* C-4.5: a chip's venue address is in its href only once a state has resolved; with none the href is '#' and the address
+   waits in data-href (the build's own link) and data-dest (where a tap would go). rpGo sets the real href when it opens. */
+function rpHrefOf(a){{const h=a.getAttribute('data-href')||a.getAttribute('href');return (h&&h!=='#')?h:null;}}
 function rpDest(a,st){{const b=a.dataset.book;
  if(a.dataset.platform==='1'&&!a.getAttribute('data-sb'))return null;  /* inspector Sep 26 interim: platform-arm root URLs are NOT tap destinations - non-tappable until event-level deep links land */
- if(rpBookLive(b,st)){{const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{{state}}',st.toLowerCase());return a.getAttribute('href')||null;}}
+ if(rpBookLive(b,st)){{const sb=a.getAttribute('data-sb')||a.getAttribute('data-sbt');if(sb)return sb.replaceAll('{{state}}',st.toLowerCase());return rpHrefOf(a);}}
  return rpPm(a);}}
 function rpGo(a,st){{const b=a.dataset.book;
  if(b==='POLY'&&RP_MOB&&a.dataset.app){{location.href=a.dataset.app;return;}}
  if(!rpBookLive(b,st)&&b==='FD'&&RP_MOB&&a.dataset.pmapp&&a.dataset.nopm!=='1'){{location.href=a.dataset.pmapp;return;}}
- const d=rpDest(a,st);if(d)rpOpen(d);return;}}
+ const d=rpDest(a,st);if(d){{if(st&&a.tagName==='A')a.setAttribute('href',d);rpOpen(d);}}return;}}
 
 function rpTerm(st){{const sb=RP_FD.includes(st)||RP_DK.includes(st);const ntap=(typeof RP_COMBO_NONTAP!=='undefined'&&RP_COMBO_NONTAP===true);
  const T=(sb?'Parlay':'Combo')+((!sb||ntap)?'<span style="letter-spacing:0">&thinsp;*</span>':'');
@@ -3844,7 +3854,9 @@ function rpBestStar(pk){{
 function rpAllBest(){{document.querySelectorAll('.pick').forEach(rpBestStar);}}
 function rpTapify(el,st){{const d=rpDest(el,st);const pmr=!!(d&&!rpBookLive(el.dataset.book,st));let out;
  if(d){{let a=el;if(el.tagName!=='A'){{a=document.createElement('a');for(const at of el.attributes)a.setAttribute(at.name,at.value);a.innerHTML=el.innerHTML;el.replaceWith(a);}}
-  a.setAttribute('href',d);a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');a.classList.remove('rppending');out=a;}}
+  const _h0=a.getAttribute('href');if(_h0&&_h0!=='#'&&!a.hasAttribute('data-href'))a.setAttribute('data-href',_h0);
+  if(st){{a.setAttribute('href',d);a.removeAttribute('data-dest');}}else{{a.setAttribute('href','#');a.setAttribute('data-dest',d);}}
+  a.setAttribute('onclick','return rpRoute(event,this)');a.setAttribute('target','_blank');a.setAttribute('rel','noreferrer');a.classList.remove('rpnontap');a.classList.remove('rppending');out=a;}}
  else{{let sp=el;if(el.tagName!=='SPAN'){{sp=document.createElement('span');for(const at of el.attributes)sp.setAttribute(at.name,at.value);sp.innerHTML=el.innerHTML;el.replaceWith(sp);}}
   sp.removeAttribute('href');sp.removeAttribute('onclick');sp.removeAttribute('target');sp.removeAttribute('rel');sp.classList.add('rpnontap');out=sp;}}
  /* F3: a prediction-market fallback route never wears sportsbook numbers; restore them when the book is live */
@@ -3880,7 +3892,7 @@ function rpShareLoc(){{  /* the ONLY way state resolves now (his verbatim Sep 26
  if(!navigator.geolocation){{rpNote('This browser has no location services. Markets need your location - try another browser.');return;}}
  rpNote('Checking your location…');
  navigator.geolocation.getCurrentPosition(function(pos){{
-  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(j=>{{
+  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(j=>{{
    const code=(j.principalSubdivisionCode||'').split('-')[1]||'';
    if(code&&RP_CODES.indexOf(code)>=0){{
     rpLSSet('rp_state',code);rpLSSet('rp_state_src','gps');rpLSSet('rp_state_gps',code);rpLSSet('rp_state_ts',String(Date.now()));
@@ -4024,7 +4036,7 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
       (zero extra fetches); one summary fetch per LIVE pick arbitrates the strip clock against advancing plays */
    /* attribution root fix Sep 26 (swamp catch, his rule): the scoreboard's odds payload is a DraftKings quote -
       writing it into a[data-book="TSB"] labeled DK's number as theScore and poisoned the canonical record.
-      Chips render ONLY from their own attributed record (own-platform ticks: rpPolyTick/rpKalTick) or stay at snapshot. */
+      Chips render ONLY from their own attributed record (own-platform ticks: rpPolyTick) or stay at snapshot. */
    if(found&&found.state==='in'){{(function(_pk,_f){{
     fetch('https://api.rix-picks.com/feed/game/'+_f.eid+'?league='+encodeURIComponent(_pk.dataset.espn)+'&t='+Date.now()).then(r=>r.json()).then(function(fj){{
      if(_seq!==window.__rpLsSeq)return;
@@ -4179,7 +4191,7 @@ function rpResolveState(){{try{{  /* his rule Sep 26 1:52 PM: ONLY shared locati
  if(navigator.permissions&&navigator.geolocation){{
   navigator.permissions.query({{name:'geolocation'}}).then(function(p){{
    if(p.state==='granted'){{navigator.geolocation.getCurrentPosition(function(pos){{
-    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(function(j){{const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}}).catch(function(){{}});
+    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(function(j){{const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}}).catch(function(){{}});
    }},function(){{}},{{timeout:6000}});}}
   }}).catch(function(){{}});
  }}
@@ -4319,38 +4331,10 @@ function rpPolyTick(){{try{{
 function rpQuoteMut(pk){{if(!pk)return;rpBestStar(pk);rpLineShop(pk);}}  /* ONE shared derivation (tester Sep 26 index tick defect): every canonical price change - KAL, POLY, ESPN - recomputes range AND star on the affected pick in the same callback; range hides itself when prices converge */
 /* header .odds = locked entry price, FROZEN on every surface (tester ruling Sep 26): no ticker and no refresh ever writes .pick .odds - live market lives in chips + range only */
 /* rpEspnTick RETIRED Sep 26 (his instant spec): odds ride the 2s rpLsTick scoreboard pass - zero extra fetches */
-function rpKalTick(){{try{{
- document.querySelectorAll('a[data-kalticker][data-kalside]').forEach(function(a){{
-  if(!a.dataset.kalticker||!a.dataset.kalside)return;
-  const r0=rpMkt(a);if(r0&&r0.ph==='last_pre_game')return;  /* canonical record: frozen phases never tick (phase = event status, not fetch time) */
-  const _pk0=a.closest('.pick');if(_pk0&&rpInPlay(_pk0))return;  /* regression gate Sep 26: proxies measured unusable (allorigins 500@14.7s/522, codetabs 522/503, corsproxy 401) - KAL ticks PREGAME-ONLY until the api.rix-picks.com relay lands; in-play dims honestly, never re-stamps */
-  const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+a.dataset.kalticker+'-'+a.dataset.kalside+'?_='+Date.now();
-  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){{
-   const m=j&&j.market;if(!m)return;
-   window.__rpKalOk=Date.now();
-   if(m.result==={_KAL_WIN}){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('KAL');return;}}
-   if(m.result==={_KAL_LOSE}){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('KAL');return;}}
-   const d=parseFloat({_KAL_ASK});if(!(d>0&&d<=1))return;  /* $1.00 ask is a real quote (Sep 26 root fix) */
-   const c=Math.round(d*100);
-   /* URF dormant-market gate (swamp Sep 27: Jeanty/Jones/Irving early tickets quoted >6h stale):
-      a market whose updated_time is >6h old must never re-stamp a bare live price - it wears the
-      carded price + as-of label, same rule as the updChips per-ticker 6h gate. */
-   let stale=false;try{{if(m.updated_time){{const age=Date.now()-Date.parse(m.updated_time);stale=!(age>=0&&age<=21600000);}}}}catch(e){{}}
-   a.dataset.won='';a.dataset.lost='';
-   const pk=a.closest('.pick');
-   if(!(pk&&rpInPlay(pk))){{
-    if(stale){{
-     if(typeof RP_CARDED_TM!=='undefined'&&RP_CARDED_TM&&a.innerHTML.indexOf('\u00b7')<0){{a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c)?/,'KAL$1 \u00b7 '+RP_CARDED_TM);}}
-    }}else{{
-     a.dataset.cents=c;if(r0){{r0.c=c;r0.ts=Date.now();}}a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c| \u2713| \u2717)?/,'KAL '+rpMLF(rpC2ML(c)));
-    }}
-   }}rpCxUpd('KAL');
-    rpQuoteMut(pk);  /* tester Sep 26: pre-game ticks recompute too - the in-play-only gate left the stale star/range live */
-  }}).catch(()=>{{}}); /* graceful fallback: relay/API failure keeps last build price */
- }});
-}}catch(e){{}}}}
+/* C-3: no client Kalshi tick. Kalshi chips wear the price this build read (data-cents, the label); rpPageRefresh swaps it from
+   the rebuilt page on this origin. The old tick read each market through an anonymous third-party relay and wrote its answer into the chip. */
 window.__rpPolyOk=window.__rpKalOk=window.__rpEspnOk=Date.now();
-rpPolyTick();rpKalTick();setInterval(rpKalTick,60000);  /* regression gate Sep 26: pregame-only KAL at 60s via proxy (15s+ latency makes 5s pointless and abusive); relay restores live cadence when the PAT lands */
+rpPolyTick();
 // sportsbook prices ride the 15-min Action rebuild (refresh.sh): pull the rebuilt page and swap
 // book chip prices + combo price spans in place. KAL/POLY stay on the 60s tick above.
 function rpPageRefresh(){{try{{
@@ -4424,7 +4408,7 @@ function rpPageRefresh(){{try{{
      if(a.tagName==='A'){{a.dataset.sb=na.dataset.sbt;if(window.rpSt)a.href=na.dataset.sbt.replaceAll('{{state}}',window.rpSt.toLowerCase());}}
      else a.dataset.sbt=na.dataset.sbt;
     }}else{{
-     if(a.tagName==='A'&&na.href)a.href=na.href;
+     if(a.tagName==='A'&&na.getAttribute('href')){{a.setAttribute('data-href',na.getAttribute('href'));if(window.rpSt)a.href=na.href;}}  /* C-4.5: no venue href before a state */
      if(na.dataset.sb)a.dataset.sb=na.dataset.sb;
     }}
    }});
@@ -4436,7 +4420,7 @@ function rpPageRefresh(){{try{{
    const ns=nc.querySelector('[data-book="'+b+'"]');
    if(ns){{if(ns.textContent.match(/([+-]\d+|\d+c)/)){{s.classList.remove('rpunpriced');s.innerHTML=ns.innerHTML;if(ns.dataset.cents)s.dataset.cents=ns.dataset.cents;else delete s.dataset.cents;if(ns.dataset.mr)s.dataset.mr=ns.dataset.mr;else delete s.dataset.mr;
     if(ns.dataset.sbt){{if(s.tagName==='A'){{s.dataset.sb=ns.dataset.sbt;if(window.rpSt)s.href=ns.dataset.sbt.replaceAll('{{state}}',window.rpSt.toLowerCase());}}else s.dataset.sbt=ns.dataset.sbt;}}
-    else{{if(s.tagName==='A'&&ns.href)s.href=ns.href;if(ns.dataset.sb)s.dataset.sb=ns.dataset.sb;}}
+    else{{if(s.tagName==='A'&&ns.getAttribute('href')){{s.setAttribute('data-href',ns.getAttribute('href'));if(window.rpSt)s.href=ns.href;}}if(ns.dataset.sb)s.dataset.sb=ns.dataset.sb;}}
     if(ns.dataset.pm)s.dataset.pm=ns.dataset.pm;}}
     else{{s.innerHTML=ns.innerHTML;s.classList.add('rpunpriced');if(ns.dataset.mr)s.dataset.mr=ns.dataset.mr;else delete s.dataset.mr;if(ns.dataset.cents)s.dataset.cents=ns.dataset.cents;else delete s.dataset.cents;if(s.tagName==='A'){{const sp2=document.createElement('span');for(const at2 of s.attributes)sp2.setAttribute(at2.name,at2.value);sp2.innerHTML=s.innerHTML;sp2.classList.add('rpnontap');sp2.removeAttribute('href');sp2.removeAttribute('onclick');sp2.removeAttribute('target');sp2.removeAttribute('rel');s.replaceWith(sp2);}}}}}}  /* Sep 26: destination travels with price - no stale parlay links; template chips swap data-sbt/data-sb, never a homepage route */
   }});rpCxStar();}}
@@ -4774,19 +4758,13 @@ def build_game_pages(man, css, build_sha):
             _pm_rows='POLY' in books_present
             _sb_rows=any(b not in ('KAL','POLY') for b in books_present)
             _bits=[]
-            if _kal_rows and _pm_rows: _bits.append('Kalshi ticks every 60s; Polymarket refreshes each rebuild')
-            elif _kal_rows: _bits.append('Kalshi ticks every 60s')
+            # C-3: Kalshi rows carry the build's price (no client tick), refreshed with each page rebuild
+            if _kal_rows and _pm_rows: _bits.append('Kalshi and Polymarket refresh each rebuild')
+            elif _kal_rows: _bits.append('Kalshi refreshes each rebuild')
             elif _pm_rows: _bits.append('Polymarket refreshes each rebuild')
             if _sb_rows: _bits.append('sportsbook rows refresh with each page rebuild')
             _foot=('Prices update live: '+'; '.join(_bits)+'. Tap a price to open the market.') if _bits else 'No live market rows on this page yet - tap a pick chip to open the market.'
         page_html=tmpl
-        if _kx:
-            # explicit-side page: the template tick prices each Kalshi anchor from its own data-kalpx side
-            # (every other page keeps the template's YES-only line byte-for-byte)
-            if page_html.count(_KAL_TMPL_ASK)!=1:
-                print(f"BUILD FAILED: game page template Kalshi tick line not found once ({_KAL_TMPL_ASK!r}) - an explicit-side row would tick the YES ask", file=sys.stderr)
-                sys.exit(3)
-            page_html=page_html.replace(_KAL_TMPL_ASK,'const d=parseFloat('+_kal_js(True)['ask']+');')
         for tok,val in [('__TITLE__',html.escape(away+' at '+home)),('__CSS__',css),('__NUM__',str(p['num'])),
             ('__INST__',inst_lbl),('__ESPN__',espn),('__AWAY__',html.escape(away)),('__HOME__',html.escape(home)),('__GPK__',_gpk_for(away,home,g.get('commence',''))[0]),('__AAB__',abbr_a),('__HAB__',abbr_h),  # swamp 9/26: gpk registry blanks on unregistered games rendered UNLABELED arbiter-only scores - abbrs come from the same verified _meta_for source as the matchup display
             ('__EID__',html.escape(str(g.get('eid') or ''))),('__CEID__',html.escape(str(g.get('ceid') or ''))),('__COMP__',html.escape(str(g.get('comp') or ''))),('__COUNTED__',' data-counted="1"' if p.get('result') in ('WIN','LOSS','PUSH') else ''),
@@ -5218,18 +5196,7 @@ function rpFutOpen(fid){
  var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase();
  if(r.dataset.ksrc==='kalshi'){rpFdRenderLive(r);return;}  /* 9/27: seeded Kalshi sheet FIRST (server-verified quote) - proxy only for non-seeded rows */
  var kt=r.dataset.kalticker;
- if(kt){var u2='https://api.elections.kalshi.com/trade-api/v2/markets/'+kt+'?_='+Date.now();
-  var _ac=new AbortController();setTimeout(function(){_ac.abort();},8000);  /* futures batch: loading must RESOLVE - data or an honest unavailable state, never spin forever */
-  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u2),{signal:_ac.signal}).then(function(r3){return r3.json();}).then(function(j){
-   if(window.__rpFdFid!==_fid)return;var m=j&&j.market;var b=document.getElementById('rpFdLiveBody');if(!b)return;
-   var p=m?parseFloat(m.yes_ask_dollars):NaN;if(!(p>0&&p<1)){b.textContent='live data unavailable';return;}
-   var c=p*100;var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
-   var eMl=parseInt(String(entry).replace('+',''),10)||100;var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
-   var d=(p-eImp)*100;
-   var arrow=d>0.5?'<span style="color:#3ecf6f">&#9650; '+d.toFixed(1)+' pts since entry</span>':(d<-0.5?'<span style="color:#e5484d">&#9660; '+Math.abs(d).toFixed(1)+' pts since entry</span>':'flat vs entry');
-   b.innerHTML='Live on Polymarket <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow;
-  }).catch(function(){if(window.__rpFdFid!==_fid)return;var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
-  return;}
+ if(kt){var b0=document.getElementById('rpFdLiveBody');if(b0){b0.style.opacity='.55';b0.textContent='live data unavailable';}return;}  /* C-3: a Kalshi row without a seeded server-read quote shows no live price - never one fetched through a third-party relay */
  if((window.__rpFutMkts||{})[slug]){rpFdRenderLive(r);return;}
  var _ac2=new AbortController();setTimeout(function(){_ac2.abort();},8000);
  fetch('https://gamma-api.polymarket.com/events?slug='+slug,{signal:_ac2.signal}).then(function(r2){return r2.json();}).then(function(ev){

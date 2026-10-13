@@ -18,9 +18,9 @@ responses (sitecustomize stub; every other host fails fast, nothing leaves the m
     hard fail, in play the pinned snapshot.
  E. legacy current cards without explicit side refuse with no writes; an explicit YES moneyline
     builds next to a NO total. The V1 preview legacy behavior is tested independently in K.
- F. the client tick (node, no DOM library) fetches the exact market and reads no_ask for a data-kalpx="no"
-    chip, the YES ask for a chip without it, and settles a NO chip as won on result 'no'; the game page
-    tick reads no_ask too.
+ F. no client tick re-prices a chip (C-3: the tick read each market through a third-party relay): the index
+    page and the game page carry no Kalshi tick and no browser request to the Kalshi API, so a NO chip keeps
+    the NO ask the build read.
  G. a malformed explicit side fails the build (exit 3); build_manifest.py carries kalshi.side into the
     manifest pick (only when given, yes|no only) and the page built from that manifest prices the NO ask.
  H. a game carrying a moneyline and a NO-side total, in play: the total's game page reads its own shipped pin
@@ -359,34 +359,10 @@ def records(html_):
 def kal_row(gp):
     m = re.search(r'<div class="mrow" data-book="KAL">.*?</div>', gp)
     return m.group(0) if m else ''
-def js_fn(src, name):
-    i = src.find('function ' + name + '(')
-    if i < 0: return ''
-    d = 0
-    for k in range(src.find('{', i), len(src)):
-        if src[k] == '{': d += 1
-        elif src[k] == '}':
-            d -= 1
-            if not d: return src[i:k + 1]
-    return ''
-
-def run_tick(page, fn_name, anchors, markets):
-    """Run the built page's own tick function in node with a stub DOM: anchors = [{dataset, innerHTML}],
-    markets = {ticker: market}. Returns {fetched: [market tickers], anchors: [{dataset, innerHTML}]}."""
-    code = '\n'.join([
-        js_fn(page, 'rpC2ML'), js_fn(page, 'rpMLF'),
-        'const A=%s.map(function(x){x.closest=function(){return null;};return x;});' % json.dumps(anchors),
-        'const MK=%s;const fetched=[];' % json.dumps(markets),
-        'var window={};var document={querySelectorAll:function(){return A;}};',
-        'function rpMkt(){return null;}function rpInPlay(){return false;}function rpCxUpd(){}function rpQuoteMut(){}',
-        'function fetch(u){const inner=decodeURIComponent(String(u).split("url=")[1]||"");const t=inner.split("/markets/")[1].split("?")[0];'
-        'fetched.push(t);return Promise.resolve({json:function(){return Promise.resolve({market:MK[t]});}});}',
-        js_fn(page, fn_name),
-        fn_name + '();',
-        'setTimeout(function(){console.log(JSON.stringify({fetched:fetched,anchors:A.map(function(a){return {dataset:a.dataset,innerHTML:a.innerHTML};})}));},30);'])
-    r = subprocess.run(['node', '-e', code], capture_output=True, text=True, timeout=60)
-    try: return json.loads(r.stdout)
-    except ValueError: return {'error': r.stderr[-800:]}
+def no_tick(page):
+    """C-3: the built page carries no client Kalshi tick and no browser request to the Kalshi API (the old tick read
+    each market through an anonymous third-party relay and wrote its answer into the chip)."""
+    return bool(page) and 'function rpKalTick' not in page and 'rpKalTick()' not in page and 'api.elections.kalshi.com' not in page
 
 def ds(markup):
     return {k: v for k, v in re.findall(r' data-(\w+)="([^"]*)"', markup.split('>', 1)[0])}
@@ -419,27 +395,11 @@ for B in BUILDERS:
     check(f'{tag}: A game page never shows the YES-ask board for a NO pick (no data-kalmkt row; listing was available)', 'data-kalmkt="' not in gp)
     check(f'{tag}: A game page chip matches the index chip (KAL -133, data-kalpx no)',
           any(label(x) == 'KAL -133' and attr(x, 'kalpx') == 'no' for x in kal_chips(gp)))
-    # F. the client ticks of this build (index + game page)
-    if ch:
-        t = run_tick(page, 'rpKalTick', [{'dataset': ds(ch), 'innerHTML': 'KAL -133'}], {TK: dict(SEVEN, no_ask_dollars='0.60', yes_ask_dollars='0.41')})
-        a = (t.get('anchors') or [{}])[0]
-        check(f'{tag}: F index tick fetches the exact market {TK} (got {t.get("fetched")})', t.get('fetched') == [TK], t)
-        check(f'{tag}: F index tick reads no_ask for data-kalpx="no" (60c -> KAL -150, not the 41c YES)',
-              a.get('dataset', {}).get('cents') == 60 and a.get('innerHTML') == 'KAL -150', a)
-        t = run_tick(page, 'rpKalTick', [{'dataset': ds(ch), 'innerHTML': 'KAL -133'}], {TK: dict(SEVEN, result='no')})
-        a = (t.get('anchors') or [{}])[0].get('dataset', {})
-        check(f'{tag}: F index tick settles a NO chip as won on result "no"', a.get('won') == '1' and a.get('lost') == '', a)
-        t = run_tick(page, 'rpKalTick', [{'dataset': ds(ch), 'innerHTML': 'KAL -133'}], {TK: dict(SEVEN, result='yes')})
-        a = (t.get('anchors') or [{}])[0].get('dataset', {})
-        check(f'{tag}: F index tick settles a NO chip as lost on result "yes"', a.get('lost') == '1' and a.get('won') == '', a)
+    # F. no client tick re-prices the chips of this build (index + game page): the NO chip keeps its built NO ask
+    check(f'{tag}: F index page has no client Kalshi tick; the NO chip keeps its built 57c NO ask', no_tick(page) and attr(ch, 'cents') == '57' and label(ch) == 'KAL -133', ch)
     pr = re.search(r'<a data-kalticker[^>]*>KAL[^<]*</a>', row)
-    if pr:
-        t = run_tick(gp, 'rpKalTick', [{'dataset': ds(pr.group(0)), 'innerHTML': 'KAL -133'}], {TK: dict(SEVEN, no_ask_dollars='0.60', yes_ask_dollars='0.41')})
-        a = (t.get('anchors') or [{}])[0]
-        check(f'{tag}: F game page tick reads no_ask for the NO row (60c -> KAL -150)',
-              t.get('fetched') == [TK] and a.get('dataset', {}).get('cents') == 60 and a.get('innerHTML') == 'KAL -150', t)
-    else:
-        check(f'{tag}: F game page NO row present for the tick', False, row)
+    check(f'{tag}: F game page has no client Kalshi tick; the NO row keeps its built 57c NO ask',
+          no_tick(gp) and bool(pr) and 'data-cents="57"' in (pr.group(0) if pr else ''), row)
 
     # B. YES side of the same market: the YES ask, unchanged reading
     rc, page, log = build(B, card(OVER), routes(SEVEN))
@@ -494,13 +454,8 @@ for B in BUILDERS:
     rc,page_mix,log=build(B,card(UNDER,explicit_leaf),routes(SEVEN,poison=False))
     old_mixed=chip_for(page_mix,LURL)
     check(f'{tag}: E explicit YES moneyline builds beside NO total',rc==0 and attr(old_mixed,'kalpx')=='yes',log[-400:])
-    t=run_tick(page_mix,'rpKalTick',[{'dataset':ds(old_mixed),'innerHTML':'KAL -100'},{'dataset':ds(chip_for(page_mix,KURL)),'innerHTML':'KAL -133'}],
-       {LEV+'-TOR':dict(LEAFS_MKTS[0],yes_ask_dollars='0.55',no_ask_dollars='0.46'),TK:SEVEN})
-    a=t.get('anchors') or [{},{}]
-    check(f'{tag}: F explicit YES and NO tick their own asks',sorted(t.get('fetched') or [])==sorted([LEV+'-TOR',TK]) and a[0].get('dataset',{}).get('cents')==55 and a[1].get('dataset',{}).get('cents')==57,t)
-    t=run_tick(page_mix,'rpKalTick',[{'dataset':ds(old_mixed),'innerHTML':'KAL -100'}],{LEV+'-TOR':dict(LEAFS_MKTS[0],result='no')})
-    a=((t.get('anchors') or [{}])[0]).get('dataset',{})
-    check(f'{tag}: F explicit YES settles lost on NO result',a.get('lost')=='1' and a.get('won')=='',a)
+    check(f'{tag}: F explicit YES and NO chips keep their own built asks, no client tick',
+          no_tick(page_mix) and attr(old_mixed,'cents')=='50' and attr(chip_for(page_mix,KURL),'cents')=='57',(old_mixed,chip_for(page_mix,KURL)))
 
     # G. malformed explicit sides fail closed
     bad = copy.deepcopy(UNDER); bad['kalshi']['side'] = 'under'
@@ -718,11 +673,7 @@ for B in BUILDERS:
     row = kal_row(GAME_PAGES.get('game-1.html', ''))
     check(f'{tag}: P its game page row: Chicago White Sox at KAL -194, data-kalpx no, never the YES board',
           '>Chicago White Sox</a>' in row and '>KAL -194</a>' in row and 'data-kalpx="no" data-cents="66"' in row, row)
-    if ch:
-        t = run_tick(page, 'rpKalTick', [{'dataset': ds(ch), 'innerHTML': 'KAL -194'}], {STK: dict(HOU2, no_ask_dollars='0.70', yes_ask_dollars='0.31')})
-        a = (t.get('anchors') or [{}])[0]
-        check(f'{tag}: P the client tick reads the run line\'s NO ask (70c -> KAL -233, not the 31c YES)',
-              t.get('fetched') == [STK] and a.get('dataset', {}).get('cents') == 70 and a.get('innerHTML') == 'KAL -233', t)
+    check(f'{tag}: P no client tick re-prices the run line\'s NO chip (it keeps the built 66c NO ask)', no_tick(page) and attr(ch, 'cents') == '66', ch)
     rc, page, log = build(B, card(ASTROS), spread_routes())
     ch = chip_for(page, SURL)
     check(f'{tag}: P Astros -1.5 (YES on the same market) still reads the YES ask: KAL +186, data-cents 35, data-kalpx yes',
@@ -951,11 +902,7 @@ for B in BUILDERS:
     row = kal_row(GAME_PAGES.get('game-1.html', ''))
     check(f'{tag}: S its game page row: Atlanta Falcons at KAL -163, data-kalside NO3, data-kalpx no',
           '>Atlanta Falcons</a>' in row and '>KAL -163</a>' in row and 'data-kalside="NO3" data-kalpx="no" data-cents="62"' in row, row)
-    if ch:
-        t = run_tick(page, 'rpKalTick', [{'dataset': ds(ch), 'innerHTML': 'KAL -163'}], {NO3['ticker']: dict(NO3, no_ask_dollars='0.65', yes_ask_dollars='0.36')})
-        a = (t.get('anchors') or [{}])[0]
-        check(f'{tag}: S the client tick fetches -NO3 and reads its NO ask (65c -> KAL -186, not the 36c YES)',
-              t.get('fetched') == [NO3['ticker']] and a.get('dataset', {}).get('cents') == 65 and a.get('innerHTML') == 'KAL -186', t)
+    check(f'{tag}: S no client tick re-prices the -NO3 chip (it keeps the built 62c NO ask)', no_tick(page) and attr(ch, 'cents') == '62', ch)
     q = xpick('Saints -2.5', 'spread', 'home', 'Atlanta Falcons', 'New Orleans Saints', 'football/nfl', 'NFL', NO3['ticker'], 'yes', 39, line=-2.5)
     rc, page, log = sbuild(q, NO3)
     ch = chip_for(page, xurl(NO3['ticker']))

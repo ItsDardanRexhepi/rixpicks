@@ -1615,7 +1615,7 @@ function rpShareLoc(){{  /* the ONLY way state resolves now (his verbatim Sep 26
  if(!navigator.geolocation){{rpNote('This browser has no location services. Markets need your location - try another browser.');return;}}
  rpNote('Checking your location&hellip;');
  navigator.geolocation.getCurrentPosition(function(pos){{
-  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(j=>{{
+  fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(j=>{{
    const code=(j.principalSubdivisionCode||'').split('-')[1]||'';
    if(code&&RP_CODES.indexOf(code)>=0){{
     localStorage.setItem('rp_state',code);localStorage.setItem('rp_state_src','gps');localStorage.setItem('rp_state_gps',code);localStorage.setItem('rp_state_ts',String(Date.now()));
@@ -1745,7 +1745,7 @@ async function rpLsTick(){{const picks=[...document.querySelectorAll('.pick[data
       (zero extra fetches); one summary fetch per LIVE pick arbitrates the strip clock against advancing plays */
    /* attribution root fix Sep 26 (swamp catch, his rule): the scoreboard's odds payload is a DraftKings quote -
       writing it into a[data-book="TSB"] labeled DK's number as theScore and poisoned the canonical record.
-      Chips render ONLY from their own attributed record (own-platform ticks: rpPolyTick/rpKalTick) or stay at snapshot. */
+      Chips render ONLY from their own attributed record (own-platform ticks: rpPolyTick) or stay at snapshot. */
    if(found&&found.state==='in'){{(function(_pk,_f){{
     fetch('https://api.rix-picks.com/feed/game/'+_f.eid+'?league='+encodeURIComponent(_pk.dataset.espn)+'&t='+Date.now()).then(r=>r.json()).then(function(fj){{
      if(_seq!==window.__rpLsSeq)return;
@@ -1886,7 +1886,7 @@ function rpResolveState(){{try{{  /* his rule Sep 26 1:52 PM: ONLY shared locati
  if(navigator.permissions&&navigator.geolocation){{
   navigator.permissions.query({{name:'geolocation'}}).then(function(p){{
    if(p.state==='granted'){{navigator.geolocation.getCurrentPosition(function(pos){{
-    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude+'&longitude='+pos.coords.longitude+'&localityLanguage=en').then(r=>r.json()).then(function(j){{const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}}).catch(function(){{}});
+    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+pos.coords.latitude.toFixed(2)+'&longitude='+pos.coords.longitude.toFixed(2)+'&localityLanguage=en').then(r=>r.json()).then(function(j){{const code=(j.principalSubdivisionCode||'').split('-')[1]||'';if(code)apply(code);}}).catch(function(){{}});
    }},function(){{}},{{timeout:6000}});}}
   }}).catch(function(){{}});
  }}
@@ -2027,28 +2027,9 @@ function rpPolyTick(){{try{{
 function rpQuoteMut(pk){{if(!pk)return;rpBestStar(pk);rpLineShop(pk);}}  /* ONE shared derivation (tester Sep 26 index tick defect): every canonical price change - KAL, POLY, ESPN - recomputes range AND star on the affected pick in the same callback; range hides itself when prices converge */
 /* header .odds = locked entry price, FROZEN on every surface (tester ruling Sep 26): no ticker and no refresh ever writes .pick .odds - live market lives in chips + range only */
 /* rpEspnTick RETIRED Sep 26 (his instant spec): odds ride the 2s rpLsTick scoreboard pass - zero extra fetches */
-function rpKalTick(){{try{{
- document.querySelectorAll('a[data-kalticker][data-kalside]').forEach(function(a){{
-  if(!a.dataset.kalticker||!a.dataset.kalside)return;
-  const r0=rpMkt(a);if(r0&&r0.ph==='last_pre_game')return;  /* canonical record: frozen phases never tick (phase = event status, not fetch time) */
-  const _pk0=a.closest('.pick');if(_pk0&&rpInPlay(_pk0))return;  /* regression gate Sep 26: proxies measured unusable (allorigins 500@14.7s/522, codetabs 522/503, corsproxy 401) - KAL ticks PREGAME-ONLY until the api.rix-picks.com relay lands; in-play dims honestly, never re-stamps */
-  const u='https://api.elections.kalshi.com/trade-api/v2/markets/'+a.dataset.kalticker+'-'+a.dataset.kalside+'?_='+Date.now();
-  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(r=>r.json()).then(function(j){{
-   const m=j&&j.market;if(!m)return;
-   window.__rpKalOk=Date.now();
-   if(m.result==='yes'){{a.dataset.won='1';a.dataset.lost='';rpCxUpd('KAL');return;}}
-   if(m.result==='no'){{a.dataset.lost='1';a.dataset.won='';rpCxUpd('KAL');return;}}
-   const d=parseFloat(m.yes_ask_dollars);if(!(d>0&&d<=1))return;  /* $1.00 ask is a real quote (Sep 26 root fix) */
-   const c=Math.round(d*100);
-   a.dataset.won='';a.dataset.lost='';
-   const pk=a.closest('.pick');
-   if(!(pk&&rpInPlay(pk))){{a.dataset.cents=c;if(r0){{r0.c=c;r0.ts=Date.now();}}a.innerHTML=a.innerHTML.replace(/KAL( [+-]?\d+| \d+c| \u2713| \u2717)?/,'KAL '+rpMLF(rpC2ML(c)));}}rpCxUpd('KAL');
-    rpQuoteMut(pk);  /* tester Sep 26: pre-game ticks recompute too - the in-play-only gate left the stale star/range live */
-  }}).catch(()=>{{}}); /* graceful fallback: relay/API failure keeps last build price */
- }});
-}}catch(e){{}}}}
+/* C-3: no client Kalshi tick - Kalshi chips wear the price the build read; the page rebuild refreshes it from this origin. */
 window.__rpPolyOk=window.__rpKalOk=window.__rpEspnOk=Date.now();
-rpPolyTick();rpKalTick();setInterval(rpKalTick,60000);  /* regression gate Sep 26: pregame-only KAL at 60s via proxy (15s+ latency makes 5s pointless and abusive); relay restores live cadence when the PAT lands */
+rpPolyTick();
 // sportsbook prices ride the 15-min Action rebuild (refresh.sh): pull the rebuilt page and swap
 // book chip prices + combo price spans in place. KAL/POLY stay on the 60s tick above.
 function rpPageRefresh(){{try{{
@@ -2594,24 +2575,7 @@ async function rpFutTick(){
   if(window.__rpFdFid&&r.dataset.fid===window.__rpFdFid&&!r.dataset.kalticker){rpFdRenderLive(r);}  /* tester regression Sep 26: the open sheet rides EVERY tick incl. failed fetches - one render point after the staleness decision; KAL-driven sheets untouched while the lane is dormant */
  });}catch(e6){}  /* honesty dims (approved Sep 26): >30s stale source dims AND labels the row's live line; stale never re-stamps or passes as live */
 }
-async function rpFutKalTick(){
- document.querySelectorAll('.futrow[data-kalticker]').forEach(function(r){
-  var tk=r.dataset.kalticker;if(!tk)return;
-  var u='https://api.elections.kalshi.com/trade-api/v2/markets/'+tk+'?_='+Date.now();
-  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(function(res){return res.json();}).then(function(j){
-   var m=j&&j.market;if(!m)return;var p=parseFloat(m.yes_ask_dollars);if(!(p>0&&p<1))return;window.__rpKalOk=Date.now();(window.__rpKalOkByFid=window.__rpKalOkByFid||{})[r.dataset.fid]=Date.now();  /* per-row stamp - one dead ticker never rides another's success */
-   var c=p*100;var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
-   var el=r.querySelector('.futlive');if(el)el.textContent=(ml>0?'+':'')+ml;
-   var entry=r.dataset.entry||'+0';var eMl=parseInt(entry.replace('+',''),10)||100;
-   var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
-   var mv=r.querySelector('.futmove');if(!mv)return;
-   if(p>eImp+0.005){mv.innerHTML='<span style="color:#3ecf6f">&#9650; shortened from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+c.toFixed(1)+'%)</span>';}
-   else if(p<eImp-0.005){mv.innerHTML='<span style="color:#e5484d">&#9660; drifted from '+entry+' ('+(eImp*100).toFixed(1)+'% &rarr; '+c.toFixed(1)+'%)</span>';}
-   else{mv.textContent='steady vs entry '+entry+' ('+(eImp*100).toFixed(1)+'%)';}
-  }).catch(function(){});
- });
-}
-rpFutKalTick();setInterval(rpFutKalTick,60000); /* regression gate Sep 26: proxies unusable at 5s (15s+ latency, 52x errors) - futures KAL at 60s until the relay lands */
+/* C-3: no futures Kalshi tick through a third-party relay - a Kalshi row keeps the price the build read. */
 try{
  var rpFutIds2=[];
  document.querySelectorAll('.futrow').forEach(function(r){if(r.dataset.fid)rpFutIds2.push(r.dataset.fid);});
@@ -2652,18 +2616,7 @@ function rpFutOpen(fid){
  sh.style.display='flex';
  var slug=r.dataset.pslug,kw=(r.dataset.pkw||'').toLowerCase();
  var kt=r.dataset.kalticker;
- if(kt){var u2='https://api.elections.kalshi.com/trade-api/v2/markets/'+kt+'?_='+Date.now();
-  var _ac=new AbortController();setTimeout(function(){_ac.abort();},8000);  /* futures batch: loading must RESOLVE - data or an honest unavailable state, never spin forever */
-  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u2),{signal:_ac.signal}).then(function(r3){return r3.json();}).then(function(j){
-   if(window.__rpFdFid!==_fid)return;var m=j&&j.market;var b=document.getElementById('rpFdLiveBody');if(!b)return;
-   var p=m?parseFloat(m.yes_ask_dollars):NaN;if(!(p>0&&p<1)){b.textContent='live data unavailable';return;}
-   var c=p*100;var ml=c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);
-   var eMl=parseInt(String(entry).replace('+',''),10)||100;var eImp=eMl>0?100/(eMl+100):(-eMl)/((-eMl)+100);
-   var d=(p-eImp)*100;
-   var arrow=d>0.5?'<span style="color:#3ecf6f">&#9650; '+d.toFixed(1)+' pts since entry</span>':(d<-0.5?'<span style="color:#e5484d">&#9660; '+Math.abs(d).toFixed(1)+' pts since entry</span>':'flat vs entry');
-   b.innerHTML='Live price <b>'+(ml>0?'+':'')+ml+'</b> ('+c.toFixed(1)+'%) &middot; '+arrow;
-  }).catch(function(){if(window.__rpFdFid!==_fid)return;var b=document.getElementById('rpFdLiveBody');if(b)b.textContent='live data unavailable';});
-  return;}
+ if(kt){var b0=document.getElementById('rpFdLiveBody');if(b0){b0.style.opacity='.55';b0.textContent='live data unavailable';}return;}  /* C-3: no live Kalshi price through a third-party relay */
  if((window.__rpFutMkts||{})[slug]){rpFdRenderLive(r);return;}
  var _ac2=new AbortController();setTimeout(function(){_ac2.abort();},8000);
  fetch('https://gamma-api.polymarket.com/events?slug='+slug,{signal:_ac2.signal}).then(function(r2){return r2.json();}).then(function(ev){

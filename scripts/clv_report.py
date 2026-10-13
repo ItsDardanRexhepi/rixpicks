@@ -25,8 +25,10 @@ the card's American price when they convert back to it exactly (62c -> -163); el
 implied probability in cents. clv_c = close_novig * 100 - locked_c: positive means the pick was
 locked at a better price than the close.
 
-Writes ONLY the ledger (default slates/clv_ledger.json; --out for another path). It never writes
-history.json, manifest.json, record_done.json or record_request.json and is not part of grading:
+Writes ONLY the ledger, and by default OUTSIDE the repository: $RIXPICKS_CLV_LEDGER when set, else
+~/.rixpicks/clv/clv_ledger.json (--out for another path). This repository is public and GitHub Pages serves
+every tracked file, so an internal ledger never defaults into it; slates/clv_ledger.json is git-ignored. It
+never writes history.json, manifest.json, record_done.json or record_request.json and is not part of grading:
 record_final.py does not call it and no workflow runs it. The ledger is internal - no
 page renders it. Output is deterministic (no wall-clock stamp), so an unchanged input gives the
 same file. Exit 0 on success, 2 when the repo or its history cannot be read.
@@ -355,10 +357,16 @@ def build(root, queued=True, date=None, max_age_min=MAX_AGE_MIN):
             'method': dict(METHOD, close=METHOD['close'].format(max_age_min=max_age_min)), 'summary': summary, 'rows': out}
 
 
+def default_ledger_path():
+    """The ledger's default home: $RIXPICKS_CLV_LEDGER, else ~/.rixpicks/clv/clv_ledger.json. Never a path in this
+    public, fully served repository."""
+    return os.environ.get('RIXPICKS_CLV_LEDGER') or os.path.join(os.path.expanduser('~'), '.rixpicks', 'clv', 'clv_ledger.json')
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description='internal CLV ledger (read-only on the record)')
     ap.add_argument('--root', default=os.path.normpath(os.path.join(HERE, '..')))
-    ap.add_argument('--out', default=None, help='ledger path (default <root>/slates/clv_ledger.json)')
+    ap.add_argument('--out', default=None, help='ledger path (default $RIXPICKS_CLV_LEDGER, else ~/.rixpicks/clv/clv_ledger.json - never inside the public repository)')
     ap.add_argument('--date', default=None, help='only this card date (YYYY-MM-DD)')
     ap.add_argument('--no-queued', action='store_true', help='leave out grades still queued in record_request.json')
     ap.add_argument('--max-age-min', type=int, default=MAX_AGE_MIN, help=f'oldest usable close, minutes before commence (default {MAX_AGE_MIN})')
@@ -370,7 +378,8 @@ def main(argv=None):
     except (RuntimeError, OSError, ValueError) as e:
         print(f'clv_report: cannot read the repo or its history: {e}', file=sys.stderr)
         return 2
-    out = a.out or os.path.join(root, 'slates', 'clv_ledger.json')
+    out = a.out or default_ledger_path()
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     with open(out, 'w') as f:
         json.dump(ledger, f, indent=1)
         f.write('\n')
