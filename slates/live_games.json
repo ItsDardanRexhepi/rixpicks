@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-13T21:07:34.027485+00:00",
+ "generated_at": "2026-10-13T21:20:21.840001+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -78,6 +78,14 @@
      "status": "pre",
      "detail": "10/13 - 4:00 PM PT",
      "score": "SEA 0 - PHI 0"
+    },
+    {
+     "espn_event_id": "401892493",
+     "matchup": "TB @ NYR",
+     "commence": "2026-10-13T23:15Z",
+     "status": "pre",
+     "detail": "10/13 - 4:15 PM PT",
+     "score": "TB 0 - NYR 0"
     }
    ]
   }
