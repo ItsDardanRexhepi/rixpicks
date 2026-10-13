@@ -1,7 +1,34 @@
 {
- "generated_at": "2026-10-13T23:40:55.970Z",
+ "generated_at": "2026-10-13T23:46:06.070Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "League Championship Series Day Three Game Thread",
+    "link": "https://sports.yahoo.com/articles/league-championship-series-day-three-233740492.html",
+    "published": "2026-10-13T23:37:40.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/00e5c50b31145ca9acb941116150480032e6e0c9ce6cc8a8296253a9da421c6c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe4e9979b2675a11bd059c8d637719181.jpg",
+    "blurb": "Just one game today",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
+    "headline": "Guardians vs. Rays ALCS Game 2 picks: Tampa Bay hasn't lost consecutive games at home in 2 months",
+    "link": "https://www.cbssports.com/betting/news/guardians-vs-rays-alcs-game-2-picks-tampa-bay-hasnt-lost-consecutive-games-at-home-in-2-months/",
+    "published": "2026-10-13T22:45:42.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F09%2Fa544298d-6435-439a-87ba-ee52b0f61cbf%2Fjose-ramirez.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Rays aim to return to their home dominance in Game 2 of the ALCS vs. the Guardians",
+    "source": "CBS",
+    "league": "MLB"
+   },
+   {
+    "headline": "Source: Dodgers' decision on Ohtani's status for G3 of NLCS hinges on health",
+    "link": "https://www.espn.com/mlb/story/_/id/50171187/dodgers-shohei-ohtani-nlcs-game-3-playing-status-health",
+    "published": "2026-10-13T22:35:41.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1013%252Fr1729994_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Dodgers will gauge whether Shohei Ohtani's lingering injuries warrant him sitting out but will keep playing him if he deems himself healthy, a source said.",
+    "source": "ESPN",
+    "league": "MLB"
+   },
    {
     "headline": "ALCS Game 2 GDT: Five Nights at Fastball Freddy\u2019s",
     "link": "https://sports.yahoo.com/articles/alcs-game-2-gdt-five-233000790.html",
@@ -12,37 +39,10 @@
     "league": "MLB"
    },
    {
-    "headline": "Guardians vs. Rays ALCS Game 2 picks: Tampa Bay hasn't lost consecutive games at home in 2 months",
-    "link": "https://www.cbssports.com/betting/news/guardians-vs-rays-alcs-game-2-picks-tampa-bay-hasnt-lost-consecutive-games-at-home-in-2-months/",
-    "published": "2026-10-13T22:45:42.000Z",
-    "image": "",
-    "blurb": "The Rays aim to return to their home dominance in Game 2 of the ALCS vs. the Guardians",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "Source: Dodgers' decision on Ohtani's status for G3 of NLCS hinges on health",
-    "link": "https://www.espn.com/mlb/story/_/id/50171187/dodgers-shohei-ohtani-nlcs-game-3-playing-status-health",
-    "published": "2026-10-13T22:35:41.000Z",
-    "image": "",
-    "blurb": "The Dodgers will gauge whether Shohei Ohtani's lingering injuries warrant him sitting out but will keep playing him if he deems himself healthy, a source said.",
-    "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "ALCS Game 2 Chat and Discussion",
-    "link": "https://sports.yahoo.com/articles/alcs-game-2-chat-discussion-233000705.html",
-    "published": "2026-10-13T23:30:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/0a6c526481cb026afc8bb8e19eaab26904aae42f19b38be1c858eaf000545328/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6966492b60d29c1f3b95f3ef29b059f9.jpg",
-    "blurb": "Can Cleveland take total control of the series?",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
     "headline": "Today's top games to watch, best bets, odds: Guardians vs. Rays, Sabres vs. Canadiens and more",
     "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-guardians-vs-rays-sabres-vs-canadiens-and-more/",
     "published": "2026-10-13T19:30:51.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F06%2F23%2Fa9785fb2-6d03-433d-b043-36b28c3ad52f%2Fmessick.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Find best bets for the biggest games in sports on Tuesday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
     "league": "MLB"
@@ -51,17 +51,17 @@
     "headline": "Source: Mariners get OK to interview Astros' Espada for managerial job",
     "link": "https://www.espn.com/mlb/story/_/id/50176901/source-mariners-get-ok-interview-astros-joe-espada",
     "published": "2026-10-13T22:35:41.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0825%252Fr1706931_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Seattle Mariners have received permission to interview current Houston Astros manager Joe Espada about their vacancy, a source confirmed to ESPN.",
     "source": "ESPN",
     "league": "MLB"
    },
    {
-    "headline": "MLB Championship Series 2026 discussion thread: Day 3",
-    "link": "https://sports.yahoo.com/articles/mlb-championship-series-2026-discussion-233000800.html",
+    "headline": "ALCS Game 2 Chat and Discussion",
+    "link": "https://sports.yahoo.com/articles/alcs-game-2-chat-discussion-233000705.html",
     "published": "2026-10-13T23:30:00.000Z",
     "image": "",
-    "blurb": "Tonight, the Rays will look to even the series.",
+    "blurb": "Can Cleveland take total control of the series?",
     "source": "YAHOO",
     "league": "MLB"
    },
@@ -69,7 +69,7 @@
     "headline": "2026 MLB playoff bracket: Schedule, scores for Brewers vs. Dodgers and Rays vs. Guardians",
     "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
     "published": "2026-10-13T19:01:30.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F11%2Ff9c72d29-db64-4db1-9101-2e0f2857e91e%2F2026-mlb-bracket-guardians-alcs.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The LCS round is underway as baseball's final four battle for spots in the World Series",
     "source": "CBS",
     "league": "MLB"
@@ -84,11 +84,11 @@
     "league": "MLB"
    },
    {
-    "headline": "ALCS Game 2 gamethread: Guardians at Rays",
-    "link": "https://sports.yahoo.com/articles/alcs-game-2-gamethread-guardians-220000173.html",
-    "published": "2026-10-13T22:00:00.000Z",
+    "headline": "MLB Championship Series 2026 discussion thread: Day 3",
+    "link": "https://sports.yahoo.com/articles/mlb-championship-series-2026-discussion-233000800.html",
+    "published": "2026-10-13T23:30:00.000Z",
     "image": "",
-    "blurb": "The Milwaukee Brewers went up 2-0 over the reigning World Series champions, the Los Angeles Dodgers on Monday. That series moves to Los Angeles on Wednesday. So far, the talented young Brewers have looked much better at the plate than the Dodgers, but we\u2019ll see how long that hold",
+    "blurb": "Tonight, the Rays will look to even the series.",
     "source": "YAHOO",
     "league": "MLB"
    }
@@ -98,7 +98,7 @@
     "headline": "Seven things Solak thinks: Time for Mendoza, Beck? Adjustments needed for the Cowboys?",
     "link": "https://www.espn.com/nfl/story/_/id/50166233/week-6-seven-things-solak-thinks-raiders-eagles-cowboys",
     "published": "2026-10-14T00:32:44.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729739_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Get ready for Week 6 with takes on two QB situations, two teams with defensive issues, two coaches on the hot seat and more.",
     "source": "ESPN",
     "league": "NFL"
@@ -116,7 +116,7 @@
     "headline": "Rams' Alaric Jackson suspended for punching Bills' Bradley Chubb",
     "link": "https://www.cbssports.com/nfl/news/rams-left-tackle-punches-bills-bradley-chubb-mnf/",
     "published": "2026-10-13T23:08:35.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fa997c0f6-d13a-4607-b195-fd4589a6045d%2Fchubb.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Alaric Jackson hit the Bills' pass-rusher with an apparent sucker-punch following Buffalo's wild Monday night win",
     "source": "CBS",
     "league": "NFL"
@@ -125,7 +125,7 @@
     "headline": "Barnwell sizes up two confusing Week 5 decisions",
     "link": "https://www.espn.com/nfl/story/_/id/50158326/week-5-commanders-tie-texans-marvin-harrison-jr-trade",
     "published": "2026-10-14T00:32:44.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729508_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "What were the Commanders doing in the final minute of OT? Why did the Texans trade for Marvin Harrison Jr.?",
     "source": "ESPN",
     "league": "NFL"
@@ -143,7 +143,7 @@
     "headline": "Saints owner Gayle Benson voices frustration with 1-4 record, emphasizes 'urgency' to improve",
     "link": "https://www.cbssports.com/nfl/news/saints-owner-gayle-benson-voices-frustration-urgency-to-improve/",
     "published": "2026-10-13T22:44:46.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fe4dff4df-78a3-4938-a751-e7dbc23bcb7d%2F2025-02-13t192005z-908142485-mt1usatoday25407898-rtrmadp-3-nfl-new-orleans-saints-head-coach-kellen-moore-introductory-press-conference-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Benson turned up the heat on the Saints' coaching staff and roster during their three-game losing streak",
     "source": "CBS",
     "league": "NFL"
@@ -170,7 +170,7 @@
     "headline": "Micah Parsons rips into Jayden Daniels for 'disgusting' OT blunder:  'Probably cost Dan Quinn his job'",
     "link": "https://www.cbssports.com/nfl/news/micah-parsons-rips-into-commanders-jayden-daniels-mistake-vs-giants/",
     "published": "2026-10-13T21:59:27.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Ff15072ca-18a1-40b0-ad64-f4a668ef6c62%2Fmicah-parsons-jayden-daniels.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Commanders head coach Dan Quinn was Parsons' first NFL defensive coordinator with the Dallas Cowboys, and he's taking Quinn's side after Washington's overtime mistakes",
     "source": "CBS",
     "league": "NFL"
@@ -208,7 +208,7 @@
     "headline": "MTSU vs. Delaware odds, picks, prediction, start time: Betting preview for Tuesday, Oct. 7, college football",
     "link": "https://www.cbssports.com/betting/news/mtsu-vs-delaware-odds-picks-prediction-start-time-betting-preview-for-tuesday-oct-7-college-football/",
     "published": "2026-10-13T21:38:23.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fc5ef14fa-8a5f-4166-834f-b949d59c9310%2Fbryson-graves.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Delaware faces MTSU on Tuesday in a Week 7 college football matchup on Tuesday, Oct. 13",
     "source": "CBS",
     "league": "CFB"
@@ -217,17 +217,17 @@
     "headline": "Florida State's top recruit in 2026 dismissed from program after arrest",
     "link": "https://www.espn.com/college-football/story/_/id/50173449/florida-state-dismisses-chuck-kennon-top-recruit-2026",
     "published": "2026-10-14T00:25:30.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2023%252F1023%252Fr1242199_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Florida State CB Chuck Kennon, the Seminoles' top-rated recruit in this year's class, has been dismissed from the program after being arrested near Tampa.",
     "source": "ESPN",
     "league": "CFB"
    },
    {
-    "headline": "Alabama Makes Kalen DeBoer Announcement After Georgia Loss",
-    "link": "https://sports.yahoo.com/articles/alabama-makes-kalen-deboer-announcement-231211248.html",
-    "published": "2026-10-13T23:12:11.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/d770fa4319dbbeac4bed7d099b23bcd8ad86e67a3e77ea703ebece367ccc7ad8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2Fc0896e270a77f2554863f5cefc7ef8a7.jpg",
-    "blurb": "The No. 6 Alabama Crimson Tide fell 20-17 to the No. 2 Georgia Bulldogs in a thrilling matchup over the weekend in Tuscaloosa.The game featured some controversy down the stretch, with officials failing to throw a flag on what appeared to be blatant pass interference before callin",
+    "headline": "Kansas State Football's Latest Offer Already Has FBS Size At Offensive Lineman",
+    "link": "https://sports.yahoo.com/articles/kansas-state-footballs-latest-offer-231519072.html",
+    "published": "2026-10-13T23:15:19.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/e1ce41c5a57e8bd928704a05035f8cbc496155282f3af849217e75fbb57667e4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_kansas_state_299%2Fe3399a6cf71fe7af7a93e365dbcb83d4.jpg",
+    "blurb": "Kansas State Wildcats coach Collin Klein recently extended an offer to offensive lineman James Bennett of Mead High School in Colorado",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -235,7 +235,7 @@
     "headline": "Today's top games to watch, best bets, odds: Guardians vs. Rays, Sabres vs. Canadiens and more",
     "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-guardians-vs-rays-sabres-vs-canadiens-and-more/",
     "published": "2026-10-13T19:30:51.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F06%2F23%2Fa9785fb2-6d03-433d-b043-36b28c3ad52f%2Fmessick.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Find best bets for the biggest games in sports on Tuesday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
     "league": "CFB"
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Football: Offense In Shambles",
-    "link": "https://sports.yahoo.com/articles/football-offense-shambles-230000451.html",
-    "published": "2026-10-13T23:00:00.000Z",
+    "headline": "Alabama Makes Kalen DeBoer Announcement After Georgia Loss",
+    "link": "https://sports.yahoo.com/articles/alabama-makes-kalen-deboer-announcement-231211248.html",
+    "published": "2026-10-13T23:12:11.000Z",
     "image": "",
-    "blurb": "If something doesn\u2019t change soon offensively, the Ducks could fall right out of Big Ten contention.",
+    "blurb": "The No. 6 Alabama Crimson Tide fell 20-17 to the No. 2 Georgia Bulldogs in a thrilling matchup over the weekend in Tuscaloosa.The game featured some controversy down the stretch, with officials failing to throw a flag on what appeared to be blatant pass interference before callin",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -262,7 +262,7 @@
     "headline": "Deion Sanders downplays 'leaked' Colorado play call sheet before Texas Tech loss",
     "link": "https://www.cbssports.com/college-football/news/deion-sanders-colorado-leaked-play-call-sheet/",
     "published": "2026-10-13T19:14:11.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F7809df47-299f-42db-abef-e70f80e004e6%2Fprime.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Buffaloes coach gave an interesting answer about the viral story involving an offensive play sheet",
     "source": "CBS",
     "league": "CFB"
@@ -283,7 +283,7 @@
     "link": "https://www.espn.com/wnba/story/_/id/50176371/dream-gray-minor-procedure-hand-ahead-finals-opener",
     "published": "2026-10-13T21:31:10Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0331%2Fr1636776_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Allisha Gray, who has missed the Dream's past two playoff games because of a left hand injury, is still day-to-day heading into the WNBA Finals after undergoing a minor procedure.",
     "league": "WNBA"
    },
@@ -300,7 +300,7 @@
     "headline": "What's next for Aces? After title defense falls short, Jackie Young's impending free agency looms large",
     "link": "https://www.cbssports.com/wnba/news/whats-next-for-aces-jackie-young-free-agency/",
     "published": "2026-10-10T18:56:03.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F10%2F49e3dcdb-817c-4e42-a111-867021bbbf69%2Fjackie-young-las-vegas-aces.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Las Vegas guard, who had a career year in 2026, has a big decision to make this offseason",
     "source": "CBS",
     "league": "WNBA"
@@ -309,7 +309,7 @@
     "headline": "Dream's Gray has minor procedure on hand, day-to-day ahead of Finals opener",
     "link": "https://www.espn.com/wnba/story/_/id/50176371/dream-gray-minor-procedure-hand-ahead-finals-opener",
     "published": "2026-10-13T21:22:31.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0331%252Fr1636776_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Allisha Gray, who has missed the Dream's past two playoff games because of a left hand injury, is still day-to-day heading into the WNBA Finals after undergoing a minor procedure.",
     "source": "ESPN",
     "league": "WNBA"
@@ -327,7 +327,7 @@
     "headline": "What's next for the Liberty? Why a major shake-up could be in order after inconsistent season",
     "link": "https://www.cbssports.com/wnba/news/new-york-liberty-offseason-outlook-breanna-stewart-sabrina-ionescu-chris-demarco/",
     "published": "2026-10-10T18:01:57.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F10%2F91ad3060-dcb4-4b8f-8e4a-d1940ec34bfc%2Fliberty-lose-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "After getting swept by the Dream in the semis, the Liberty have some big choices to make",
     "source": "CBS",
     "league": "WNBA"
@@ -354,7 +354,7 @@
     "headline": "Sydney Colson slams ex-Fever teammate Sophie Cunningham for her outspoken opinions: 'You ought to be ashamed'",
     "link": "https://www.cbssports.com/wnba/news/sydney-colson-sophie-cunningham-indiana-fever-transgender-athletes/",
     "published": "2026-10-09T16:36:53.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F09%2F732d8d0e-3c9c-45cc-8743-a3901e9717e9%2Fsophie.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Cunningham's stance on transgender athletes struck a nerve with her former teammate",
     "source": "CBS",
     "league": "WNBA"
@@ -374,7 +374,7 @@
     "headline": "Celtics to extend guard Pritchard on two-year, $44.2M deal",
     "link": "https://www.espn.com/nba/story/_/id/50176173/celtics-extend-payton-pritchard-two-year-442m-deal",
     "published": "2026-10-14T00:18:03.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2024%252F1030%252Fr1408017_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Celtics guard Payton Pritchard has agreed to a two-year, $44.2 million extension with a mutual option for the 2029-30 season.",
     "source": "ESPN",
     "league": "NBA"
@@ -392,18 +392,18 @@
     "headline": "Why the Celtics are getting a bargain on Payton Pritchard's two-year, $44.2 million contract extension",
     "link": "https://www.cbssports.com/nba/news/payton-pritchard-contract-extension-boston-celtics-bargain/",
     "published": "2026-10-13T21:07:27.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fa0e9633d-84f0-4369-a9de-81d2ebe7c52d%2Fpritchard-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "With an NBA championship and Sixth Man of the Year Award already under his belt, Pritchard is set for an even bigger role in Boston this season",
     "source": "CBS",
     "league": "NBA"
    },
    {
-    "headline": "2026 NBA free agency: Grades for offseason signings, extensions",
-    "link": "https://www.espn.com/nba/story/_/id/48957095/2026-nba-free-agency-grades-offseason-signings-deals-contracts-extensions-depth-charts",
-    "published": "2026-10-13T21:22:39Z",
+    "headline": "Fantasy basketball: The rookies you should be targeting in drafts",
+    "link": "https://www.espn.com/fantasy/basketball/story/_/id/50175002/fantasy-basketball-top-rookies-draft-nba-2026-27",
+    "published": "2026-10-13T23:40:40Z",
     "source": "ESPN",
-    "image": "",
-    "blurb": "We're grading the biggest offseason signings, including Payton Pritchard's two-year extension with the Celtics.",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730229_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Andr\u00e9 Snellings looks at the rookie class and highlights which players to target in fantasy drafts this season.",
     "league": "NBA"
    },
    {
@@ -419,18 +419,18 @@
     "headline": "Why Victor Wembanyama is poised to level up in Year 4 takeover -- and possibly join historic MVP/DPOY company",
     "link": "https://www.cbssports.com/nba/news/victor-wembanyama-spurs-year-4-level-up-mvp-dpoy/",
     "published": "2026-10-13T18:18:47.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fcdbf4a88-f11c-4bcc-9128-ff22dca43179%2Fwemby-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Wemby, ranked CBS Sports' No. 1 NBA player, is still growing, even after asserting himself as the best in the game",
     "source": "CBS",
     "league": "NBA"
    },
    {
-    "headline": "KCP: Sixers' success hinges on chemistry, players 'liking each other'",
-    "link": "https://www.espn.com/nba/story/_/id/50168000/kentavious-caldwell-pope-cites-team-chemistry-key-76ers",
-    "published": "2026-10-13T20:57:50.000Z",
-    "image": "",
-    "blurb": "Kentavious Caldwell-Pope says the 76ers' success this season depends on how well the team's diverse personalities mesh.",
+    "headline": "2026 NBA free agency: Grades for offseason signings, extensions",
+    "link": "https://www.espn.com/nba/story/_/id/48957095/2026-nba-free-agency-grades-offseason-signings-deals-contracts-extensions-depth-charts",
+    "published": "2026-10-13T21:22:39Z",
     "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F0306%2Fr1460219_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "We're grading the biggest offseason signings, including Payton Pritchard's two-year extension with the Celtics.",
     "league": "NBA"
    },
    {
@@ -446,17 +446,17 @@
     "headline": "Kentavious Caldwell-Pope says 76ers' success will come down to 'us liking each other'",
     "link": "https://www.cbssports.com/nba/news/76ers-success-kentavious-caldwell-pope-liking-each-other/",
     "published": "2026-10-13T16:55:16.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F8c39712d-1db5-4978-861f-fdefe0080a62%2Fsixers-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Philly's star-studded lineup will require everyone to sacrifice some if they're going to make it work",
     "source": "CBS",
     "league": "NBA"
    },
    {
-    "headline": "Warriors center Porzingis expected to return to team facility on Tuesday",
-    "link": "https://www.espn.com/nba/story/_/id/50168743/kristaps-porzingis-expected-warriors-facility-tue",
+    "headline": "KCP: Sixers' success hinges on chemistry, players 'liking each other'",
+    "link": "https://www.espn.com/nba/story/_/id/50168000/kentavious-caldwell-pope-cites-team-chemistry-key-76ers",
     "published": "2026-10-13T20:57:50.000Z",
     "image": "",
-    "blurb": "Veteran center Kristaps Porzingis is expected to return to the Golden State Warriors practice facility Tuesday afternoon, according to head coach Steve Kerr.",
+    "blurb": "Kentavious Caldwell-Pope says the 76ers' success this season depends on how well the team's diverse personalities mesh.",
     "source": "ESPN",
     "league": "NBA"
    }
@@ -466,7 +466,7 @@
     "headline": "What makes every NHL team a must-watch this season: Star players, tantalizing rookies, top Cup contenders",
     "link": "https://www.espn.com/nhl/story/_/id/50166535/nhl-2026-27-watch-all-32-teams-top-players-stats-records-playoffs-frozen-frenzy",
     "published": "2026-10-13T22:48:51.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729791_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "From elite scorers to exciting rookies to legit drama, here's what we love about all 32.",
     "source": "ESPN",
     "league": "NHL"
@@ -484,7 +484,7 @@
     "headline": "Today's top games to watch, best bets, odds: Guardians vs. Rays, Sabres vs. Canadiens and more",
     "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-guardians-vs-rays-sabres-vs-canadiens-and-more/",
     "published": "2026-10-13T19:30:51.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F06%2F23%2Fa9785fb2-6d03-433d-b043-36b28c3ad52f%2Fmessick.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Find best bets for the biggest games in sports on Tuesday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
     "league": "NHL"
@@ -493,7 +493,7 @@
     "headline": "Canes captain Staal to miss 1-2 months with torn calf muscle",
     "link": "https://www.espn.com/nhl/story/_/id/50174591/hurricanes-jordan-staal-1-2-months-torn-calf",
     "published": "2026-10-13T22:48:45.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0615%252Fr1673389_1024x576_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Hurricanes captain Jordan Staal, the playoff MVP in their Stanley Cup championship run last season, will miss one to two months with a torn calf muscle.",
     "source": "ESPN",
     "league": "NHL"
@@ -511,7 +511,7 @@
     "headline": "Today's top games to watch, best bets, odds: Dodgers vs. Brewers, Bills vs. Rams on MNF and more",
     "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-dodgers-vs-brewers-bills-vs-rams-on-mnf-and-more/",
     "published": "2026-10-12T23:30:53.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F03%2F12%2F9c0d31c5-b99e-4b4c-a65b-13fe24cb5772%2Fyamamoto-imagn.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Find best bets for the biggest games in sports on Monday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
     "league": "NHL"
@@ -538,7 +538,7 @@
     "headline": "Today's top games to watch, best bets, odds: Rays vs. Yankees, Penguins vs. Capitals and more",
     "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-rays-vs-yankees-penguins-vs-capitals-and-more/",
     "published": "2026-10-12T18:42:43.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F30%2F8030fd92-c1dd-42f0-a746-055a856830c0%2Fmax-fried-cbs.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Find best bets for the biggest games in sports on Wednesday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
     "league": "NHL"
@@ -557,9 +557,9 @@
    {
     "headline": "AD clarifies Hardaway's comments, says Memphis loaned coach $2.6M for roster",
     "link": "https://www.espn.com/mens-college-basketball/story/_/id/50177508/penny-hardaway-offers-repay-26m-loan-memphis-roster",
-    "published": "2026-10-14T00:37:42.000Z",
-    "image": "",
-    "blurb": "- Memphis men's basketball coach Penny Hardaway says he's willing to pay up to $2.6 million this year toward the program's revenue-sharing total in order to field a competitive team.",
+    "published": "2026-10-14T00:39:19.000Z",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0212%252Fr1450829_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Memphis men's basketball coach Penny Hardaway says he's willing to pay up to $2.6 million this year toward the program's revenue-sharing total to field a competitive team.",
     "source": "ESPN",
     "league": "NCAAB"
    },
@@ -576,7 +576,7 @@
     "headline": "Duke named No.1 in ACC basketball 2026-27 preseason poll: Virginia, Clemson overrated; Miami underrated",
     "link": "https://www.cbssports.com/college-basketball/news/acc-basketball-2026-27-preseason-poll-duke-virginia-clemson-miami/",
     "published": "2026-10-13T21:57:43.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fcb4b23d5-7c3b-4f55-927e-7eb6b78d334b%2Funtitled-design-15.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Duke is the consensus favorite to win the ACC again this season after earning back-to-back No. 1 seeds in the NCAA Tournament",
     "source": "CBS",
     "league": "NCAAB"
@@ -585,7 +585,7 @@
     "headline": "DeWine signs order allowing fifth-year eligibility to Ohio's 2022 athletes",
     "link": "https://www.espn.com/espn/story/_/id/50177542/ohio-gov-dewine-signs-order-2022-athletes-play-2026-27",
     "published": "2026-10-14T00:23:52.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F1111%252Fr1574065_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Ohio Gov. Mike DeWine signed an executive order allowing 2022 athletes to play even though the NCAA's new guidance excludes those who have already played four seasons.",
     "source": "ESPN",
     "league": "NCAAB"
@@ -603,18 +603,18 @@
     "headline": "Will Wade hints RJ Luis Jr. won't play for LSU due to SEC rules: 'He hasn't been rostered'",
     "link": "https://www.cbssports.com/college-basketball/news/will-wade-rj-luis-jr-lsu-roster-sec-media-days/",
     "published": "2026-10-13T20:21:24.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fb06457ef-0038-4a8d-8ea7-8e02a2e0f914%2Funtitled-design-14.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The former Big East Player of the Year still isn't listed on LSU's roster with the season less than a month away.",
     "source": "CBS",
     "league": "NCAAB"
    },
    {
-    "headline": "'Used to it': Mizzou's Gates unfazed by roster uncertainty amid court rulings",
-    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50175116/missouri-coach-attend-mark-mitchell-eligibility-ruling",
-    "published": "2026-10-13T23:34:07.000Z",
-    "image": "",
-    "blurb": "Missouri basketball coach Dennis Gates will support Mark Mitchell in court Wednesday as the two-time All-SEC selection seeks a fifth season of eligibility.",
+    "headline": "Penny Hardaway offers to repay $2.6M loan for Memphis roster",
+    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50177508/penny-hardaway-offers-repay-26m-loan-memphis-roster",
+    "published": "2026-10-13T23:39:19Z",
     "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F0212%2Fr1450829_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Memphis men's basketball coach Penny Hardaway says he's willing to pay up to $2.6 million this year toward the program's revenue-sharing total to field a competitive team.",
     "league": "NCAAB"
    },
    {
@@ -630,18 +630,18 @@
     "headline": "Prized St. John's point guard Quinn Ellis cleared by NCAA: Ex-EuroLeague product poised to shine in Big East",
     "link": "https://www.cbssports.com/college-basketball/news/quinn-ellis-st-johns-point-guard-cleared-by-ncaa/",
     "published": "2026-10-13T20:13:38.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2025%2F01%2F30%2Fca2e4c96-9b9f-4450-9506-6e243d97ade2%2Fusatsi-25170868.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "What to expect from the former EuroLeague point guard and how it affects St. John's outlook in 2026-27",
     "source": "CBS",
     "league": "NCAAB"
    },
    {
-    "headline": "Ohio Gov. Mike DeWine signs order letting state's 2022 athletes play in 2026-27",
-    "link": "https://www.espn.com/espn/story/_/id/50177542/ohio-gov-dewine-signs-order-2022-athletes-play-2026-27",
-    "published": "2026-10-13T23:23:52Z",
-    "source": "ESPN",
+    "headline": "'Used to it': Mizzou's Gates unfazed by roster uncertainty amid court rulings",
+    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50175116/missouri-coach-attend-mark-mitchell-eligibility-ruling",
+    "published": "2026-10-13T23:34:07.000Z",
     "image": "",
-    "blurb": "Ohio Gov. Mike DeWine signed an executive order allowing 2022 athletes to play even though the NCAA's new guidance excludes those who have already played four seasons.",
+    "blurb": "Missouri basketball coach Dennis Gates will support Mark Mitchell in court Wednesday as the two-time All-SEC selection seeks a fifth season of eligibility.",
+    "source": "ESPN",
     "league": "NCAAB"
    }
   ],
@@ -651,7 +651,7 @@
     "link": "https://www.espn.com/soccer/story/_/id/50166537/mls-power-rankings-inter-miami-back-winning-ways-nashville-sc-chase-history",
     "published": "2026-10-12T18:23:06Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1012%2Fr1729744_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Inter Miami end their winless drought, while Nashville still lead the way in our latest edition of ESPN's MLS Power Rankings.",
     "league": "MLS"
    }
@@ -662,7 +662,7 @@
     "link": "https://www.espn.com/soccer/story/_/id/50169808/nwsl-leaders-gotham-lose-dudley-bruninha-playoffs",
     "published": "2026-10-13T01:02:59Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1729945_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Defending NWSL champions Gotham FC will be without two important players after forward Jordynn Dudley and defender Bruninha suffered season-ending injuries.",
     "league": "NWSL"
    },
@@ -671,7 +671,7 @@
     "link": "https://www.espn.com/soccer/story/_/id/50120804/nwsl-goals-leader-sanchez-uswnt",
     "published": "2026-10-06T23:43:04Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1006%2Fr1727064_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Forward Ashley Sanchez said she is focused on getting \"up to speed\" again with the United States after receiving her first recall in nearly two years.",
     "league": "NWSL"
    }
@@ -690,7 +690,7 @@
     "headline": "Rory McIlroy in favor of allowing former LIV Golf players to return to the DP World Tour and PGA Tour",
     "link": "https://www.cbssports.com/golf/news/rory-mcilroy-supports-former-liv-golf-players-returning-to-dp-world-tour-and-pga-tour/",
     "published": "2026-10-13T18:19:31.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fc4cb5396-1e48-4305-a5d9-d6b7299ee77a%2Frory-mcilroy-face-smile.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "After years of back-and-forth, McIlroy seems content with allowing those who left to come back",
     "source": "CBS",
     "league": "PGA"
@@ -717,7 +717,7 @@
     "headline": "PGA Tour's chief has key decisions to make as DP World Tour puts foot in the ground about LIV Golf",
     "link": "https://www.cbssports.com/golf/news/pga-tours-chief-has-key-decisions-to-make-as-dp-world-tour-puts-foot-in-the-ground-about-liv-golf/",
     "published": "2026-10-12T17:26:21.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F12%2F537679c7-f1d8-4589-bc7a-5e96fd1df6a3%2Fpga-tour-logo-sign-g.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Monday Tee Sheet dives into what's on Brian Rolapp's plate, which golfers starred over the weekend and how the sport's landscape may change in the next two years",
     "source": "CBS",
     "league": "PGA"
@@ -744,7 +744,7 @@
     "headline": "DP World Tour won't allow LIV Golf players to join in 2027, preventing Ryder Cup eligibility, per report",
     "link": "https://www.cbssports.com/golf/news/dp-world-tour-liv-golf-2027-ryder-cup-eligibility/",
     "published": "2026-10-12T13:52:40.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F12%2F41cb19ed-b4db-49e6-bcfe-fc87eef17b58%2Fryder-cup-trophy-europe-flag.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "After a season in which the DP World Tour granted conditional releases to LIV Golf players, the circuit has decided not to allow those still playing in the new version of the league to participate in its tournaments",
     "source": "CBS",
     "league": "PGA"
@@ -774,7 +774,7 @@
     "link": "https://www.espn.com/video/clip/_/id/50132316/tennis-schedule-pushing-players-too-hard",
     "published": "2026-10-08T12:35:52Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F1008%2Fdm_261008_COM_TEN_Interview_Alcaraz_Tennis_schedule_is_pushing_players_too_hard__20261008_GLOBAL%2Fdm_261008_COM_TEN_Interview_Alcaraz_Tennis_schedule_is_pushing_players_too_hard__20261008_GLOBAL.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Alcaraz: Tennis schedule is pushing players too hard",
     "league": "ATP"
    }
@@ -887,7 +887,7 @@
     "link": "https://www.espn.com/mma/story/_/id/50153985/allen-submits-duncan-ufc-main-event-calls-bigger-fights",
     "published": "2026-10-11T16:45:50Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1011%2Fr1729027_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Brendan Allen stated his case for bigger fights after forcing Christian Leroy Duncan to tap out in the fifth round via rear-naked choke.",
     "league": "UFC"
    },
@@ -895,7 +895,7 @@
     "headline": "UFC Fight Night odds, lines, predictions, time: Della Maddalena vs. Prates picks from elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-fight-night-odds-lines-australia-fight-card-predictions-start-time-della-maddalena-prates-picks/",
     "published": "2026-08-12T12:54:36.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F05%2F01%2F9b7b6cd1-721f-4c71-a699-796f7e5c9d07%2Fjack-della-maddalena-ufc-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC Fight Night fight card from Perth, Australia, on Paramount+, featuring Jack Della Maddalena vs. Carlos Prates in a welterweight matchup",
     "source": "CBS",
     "league": "UFC"
@@ -922,7 +922,7 @@
     "headline": "UFC 328 odds, lines, predictions, time: Khamzat Chimaev vs. Sean Strickland picks from elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-328-odds-lines-main-fight-card-predictions-time-khamzat-chimaev-sean-strickland-picks-best-bets/",
     "published": "2026-08-12T12:52:02.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F05%2F09%2Fe7ef8bcf-f094-4ad9-99f3-adaa621f20b6%2Fsean-strickland-ufc-mma-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC 328 card from Prudential Center in Newark, N.J., on Paramount+, featuring Khamzat Chimaev vs. Sean Strickland in a middleweight matchup",
     "source": "CBS",
     "league": "UFC"
@@ -949,7 +949,7 @@
     "headline": "UFC Fight Night odds, lines, predictions, time: Arnold Allen vs. Melquizael Costa picks by elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-fight-night-odds-lines-predictions-fight-card-time-arnold-allen-melquizael-costa-picks-best-bets/",
     "published": "2026-08-12T12:51:01.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F05%2F16%2F846460a3-b743-4ffb-a0f9-df73ece58db1%2Farnold-allen-ufc-mma-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC Fight Night: Allen vs. Costa card from the Meta APEX in Las Vegas on Paramount+, featuring Arnold Allen vs. Melquizael Costa in a featherweight matchup",
     "source": "CBS",
     "league": "UFC"
@@ -969,7 +969,7 @@
     "headline": "Zuffa Boxing signs middleweight titleholder Carlos Adames to add to growing 160-pound division",
     "link": "https://www.cbssports.com/boxing/news/zuffa-boxing-signs-carlos-adames/",
     "published": "2026-10-13T18:48:03.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fccc23158-d807-4742-9de9-0a05252a8688%2Fcarlos-adames-workout.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Adames is one of the most decorated middleweights in the sport",
     "source": "CBS",
     "league": "Boxing"
@@ -996,7 +996,7 @@
     "headline": "Boxing schedule for 2026: When Canelo Alvarez, Isaac Cruz, Sebastian Fundora and more are set to return",
     "link": "https://www.cbssports.com/boxing/news/boxing-schedule-for-2026-dates-location-fights-canelo-alvarez-sebastian-fundora/",
     "published": "2026-10-05T20:58:52.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F14%2F36da09e1-e022-4e41-8ef9-57847504199f%2Fcanelo-alvarez-anthony-joshua.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The 2026 boxing calendar is hitting the fall with some great fights on the books",
     "source": "CBS",
     "league": "Boxing"
@@ -1023,7 +1023,7 @@
     "headline": "Zuffa Boxing 11 start time, fight card, predictions and where to watch Johnny Fisher vs. Michael Pirotton",
     "link": "https://www.cbssports.com/boxing/news/zuffa-boxing-11-johnny-fisher-vs-michael-pirotton-start-time-fight-card-date-predictions/",
     "published": "2026-09-26T13:21:16.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F25%2Fca6dc5d0-afc1-471b-8f9a-0ef0ebd90a4a%2Fjohnny-fisher-michael-pirotton-presser.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The rising heavyweight prospect makes his Zuffa Boxing debut in front of his countrymen and women on Saturday",
     "source": "CBS",
     "league": "Boxing"
@@ -1050,7 +1050,7 @@
     "headline": "Zuffa Boxing: Ranking the 10 best fights of the first 10 numbered events in 2026",
     "link": "https://www.cbssports.com/boxing/news/zuffa-boxing-best-fights-highlights-knockouts/",
     "published": "2026-09-24T15:15:55.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F24%2F45b271ba-a449-471f-ab9d-9e100c6f1c22%2Fchris-billam-smith-rozicki.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "From dramatic slugfests to thrilling comebacks, Zuffa Boxing has had a little bit of everything through its first 10 numbered shows",
     "source": "CBS",
     "league": "Boxing"
@@ -1061,9 +1061,9 @@
   {
    "headline": "AD clarifies Hardaway's comments, says Memphis loaned coach $2.6M for roster",
    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50177508/penny-hardaway-offers-repay-26m-loan-memphis-roster",
-   "published": "2026-10-14T00:37:42.000Z",
-   "image": "",
-   "blurb": "- Memphis men's basketball coach Penny Hardaway says he's willing to pay up to $2.6 million this year toward the program's revenue-sharing total in order to field a competitive team.",
+   "published": "2026-10-14T00:39:19.000Z",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0212%252Fr1450829_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Memphis men's basketball coach Penny Hardaway says he's willing to pay up to $2.6 million this year toward the program's revenue-sharing total to field a competitive team.",
    "source": "ESPN",
    "league": "NCAAB"
   },
@@ -1071,7 +1071,7 @@
    "headline": "Seven things Solak thinks: Time for Mendoza, Beck? Adjustments needed for the Cowboys?",
    "link": "https://www.espn.com/nfl/story/_/id/50166233/week-6-seven-things-solak-thinks-raiders-eagles-cowboys",
    "published": "2026-10-14T00:32:44.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729739_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Get ready for Week 6 with takes on two QB situations, two teams with defensive issues, two coaches on the hot seat and more.",
    "source": "ESPN",
    "league": "NFL"
@@ -1080,7 +1080,7 @@
    "headline": "Barnwell sizes up two confusing Week 5 decisions",
    "link": "https://www.espn.com/nfl/story/_/id/50158326/week-5-commanders-tie-texans-marvin-harrison-jr-trade",
    "published": "2026-10-14T00:32:44.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729508_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "What were the Commanders doing in the final minute of OT? Why did the Texans trade for Marvin Harrison Jr.?",
    "source": "ESPN",
    "league": "NFL"
@@ -1098,7 +1098,7 @@
    "headline": "Florida State's top recruit in 2026 dismissed from program after arrest",
    "link": "https://www.espn.com/college-football/story/_/id/50173449/florida-state-dismisses-chuck-kennon-top-recruit-2026",
    "published": "2026-10-14T00:25:30.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2023%252F1023%252Fr1242199_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Florida State CB Chuck Kennon, the Seminoles' top-rated recruit in this year's class, has been dismissed from the program after being arrested near Tampa.",
    "source": "ESPN",
    "league": "CFB"
@@ -1107,7 +1107,7 @@
    "headline": "DeWine signs order allowing fifth-year eligibility to Ohio's 2022 athletes",
    "link": "https://www.espn.com/espn/story/_/id/50177542/ohio-gov-dewine-signs-order-2022-athletes-play-2026-27",
    "published": "2026-10-14T00:23:52.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F1111%252Fr1574065_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Ohio Gov. Mike DeWine signed an executive order allowing 2022 athletes to play even though the NCAA's new guidance excludes those who have already played four seasons.",
    "source": "ESPN",
    "league": "NCAAB"
@@ -1116,10 +1116,28 @@
    "headline": "Celtics to extend guard Pritchard on two-year, $44.2M deal",
    "link": "https://www.espn.com/nba/story/_/id/50176173/celtics-extend-payton-pritchard-two-year-442m-deal",
    "published": "2026-10-14T00:18:03.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2024%252F1030%252Fr1408017_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Celtics guard Payton Pritchard has agreed to a two-year, $44.2 million extension with a mutual option for the 2029-30 season.",
    "source": "ESPN",
    "league": "NBA"
+  },
+  {
+   "headline": "Fantasy basketball: The rookies you should be targeting in drafts",
+   "link": "https://www.espn.com/fantasy/basketball/story/_/id/50175002/fantasy-basketball-top-rookies-draft-nba-2026-27",
+   "published": "2026-10-13T23:40:40Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730229_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Andr\u00e9 Snellings looks at the rookie class and highlights which players to target in fantasy drafts this season.",
+   "league": "NBA"
+  },
+  {
+   "headline": "League Championship Series Day Three Game Thread",
+   "link": "https://sports.yahoo.com/articles/league-championship-series-day-three-233740492.html",
+   "published": "2026-10-13T23:37:40.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/00e5c50b31145ca9acb941116150480032e6e0c9ce6cc8a8296253a9da421c6c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe4e9979b2675a11bd059c8d637719181.jpg",
+   "blurb": "Just one game today",
+   "source": "YAHOO",
+   "league": "MLB"
   },
   {
    "headline": "It's official: Rams LT Alaric Jackson suspended two games",
@@ -1136,15 +1154,6 @@
    "published": "2026-10-13T23:30:00.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/fb96b17c660d4942421c69fbbc12b5721f9f7479140ececf5ac233c7d7d4c445/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6b6402c74a4655717e7bc90701df9200.jpg",
    "blurb": "Rays play one more game at home before heading to the Sister Location (Cleveland)",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
-   "headline": "ALCS Game 2 Chat and Discussion",
-   "link": "https://sports.yahoo.com/articles/alcs-game-2-chat-discussion-233000705.html",
-   "published": "2026-10-13T23:30:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/0a6c526481cb026afc8bb8e19eaab26904aae42f19b38be1c858eaf000545328/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6966492b60d29c1f3b95f3ef29b059f9.jpg",
-   "blurb": "Can Cleveland take total control of the series?",
    "source": "YAHOO",
    "league": "MLB"
   },
@@ -1167,11 +1176,11 @@
    "league": "CFB"
   },
   {
-   "headline": "Alabama Makes Kalen DeBoer Announcement After Georgia Loss",
-   "link": "https://sports.yahoo.com/articles/alabama-makes-kalen-deboer-announcement-231211248.html",
-   "published": "2026-10-13T23:12:11.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/d770fa4319dbbeac4bed7d099b23bcd8ad86e67a3e77ea703ebece367ccc7ad8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2Fc0896e270a77f2554863f5cefc7ef8a7.jpg",
-   "blurb": "The No. 6 Alabama Crimson Tide fell 20-17 to the No. 2 Georgia Bulldogs in a thrilling matchup over the weekend in Tuscaloosa.The game featured some controversy down the stretch, with officials failing to throw a flag on what appeared to be blatant pass interference before callin",
+   "headline": "Kansas State Football's Latest Offer Already Has FBS Size At Offensive Lineman",
+   "link": "https://sports.yahoo.com/articles/kansas-state-footballs-latest-offer-231519072.html",
+   "published": "2026-10-13T23:15:19.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/e1ce41c5a57e8bd928704a05035f8cbc496155282f3af849217e75fbb57667e4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_kansas_state_299%2Fe3399a6cf71fe7af7a93e365dbcb83d4.jpg",
+   "blurb": "Kansas State Wildcats coach Collin Klein recently extended an offer to offensive lineman James Bennett of Mead High School in Colorado",
    "source": "YAHOO",
    "league": "CFB"
   },
@@ -1179,7 +1188,7 @@
    "headline": "Rams' Alaric Jackson suspended for punching Bills' Bradley Chubb",
    "link": "https://www.cbssports.com/nfl/news/rams-left-tackle-punches-bills-bradley-chubb-mnf/",
    "published": "2026-10-13T23:08:35.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fa997c0f6-d13a-4607-b195-fd4589a6045d%2Fchubb.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Alaric Jackson hit the Bills' pass-rusher with an apparent sucker-punch following Buffalo's wild Monday night win",
    "source": "CBS",
    "league": "NFL"
@@ -1197,7 +1206,7 @@
    "headline": "What makes every NHL team a must-watch this season: Star players, tantalizing rookies, top Cup contenders",
    "link": "https://www.espn.com/nhl/story/_/id/50166535/nhl-2026-27-watch-all-32-teams-top-players-stats-records-playoffs-frozen-frenzy",
    "published": "2026-10-13T22:48:51.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729791_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "From elite scorers to exciting rookies to legit drama, here's what we love about all 32.",
    "source": "ESPN",
    "league": "NHL"
@@ -1206,7 +1215,7 @@
    "headline": "Canes captain Staal to miss 1-2 months with torn calf muscle",
    "link": "https://www.espn.com/nhl/story/_/id/50174591/hurricanes-jordan-staal-1-2-months-torn-calf",
    "published": "2026-10-13T22:48:45.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0615%252Fr1673389_1024x576_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Hurricanes captain Jordan Staal, the playoff MVP in their Stanley Cup championship run last season, will miss one to two months with a torn calf muscle.",
    "source": "ESPN",
    "league": "NHL"
@@ -1215,7 +1224,7 @@
    "headline": "Guardians vs. Rays ALCS Game 2 picks: Tampa Bay hasn't lost consecutive games at home in 2 months",
    "link": "https://www.cbssports.com/betting/news/guardians-vs-rays-alcs-game-2-picks-tampa-bay-hasnt-lost-consecutive-games-at-home-in-2-months/",
    "published": "2026-10-13T22:45:42.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F09%2Fa544298d-6435-439a-87ba-ee52b0f61cbf%2Fjose-ramirez.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The Rays aim to return to their home dominance in Game 2 of the ALCS vs. the Guardians",
    "source": "CBS",
    "league": "MLB"
@@ -1242,7 +1251,7 @@
    "headline": "Saints owner Gayle Benson voices frustration with 1-4 record, emphasizes 'urgency' to improve",
    "link": "https://www.cbssports.com/nfl/news/saints-owner-gayle-benson-voices-frustration-urgency-to-improve/",
    "published": "2026-10-13T22:44:46.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fe4dff4df-78a3-4938-a751-e7dbc23bcb7d%2F2025-02-13t192005z-908142485-mt1usatoday25407898-rtrmadp-3-nfl-new-orleans-saints-head-coach-kellen-moore-introductory-press-conference-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Benson turned up the heat on the Saints' coaching staff and roster during their three-game losing streak",
    "source": "CBS",
    "league": "NFL"
@@ -1260,7 +1269,7 @@
    "headline": "Source: Dodgers' decision on Ohtani's status for G3 of NLCS hinges on health",
    "link": "https://www.espn.com/mlb/story/_/id/50171187/dodgers-shohei-ohtani-nlcs-game-3-playing-status-health",
    "published": "2026-10-13T22:35:41.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1013%252Fr1729994_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The Dodgers will gauge whether Shohei Ohtani's lingering injuries warrant him sitting out but will keep playing him if he deems himself healthy, a source said.",
    "source": "ESPN",
    "league": "MLB"
@@ -1269,7 +1278,7 @@
    "headline": "Source: Mariners get OK to interview Astros' Espada for managerial job",
    "link": "https://www.espn.com/mlb/story/_/id/50176901/source-mariners-get-ok-interview-astros-joe-espada",
    "published": "2026-10-13T22:35:41.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0825%252Fr1706931_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The Seattle Mariners have received permission to interview current Houston Astros manager Joe Espada about their vacancy, a source confirmed to ESPN.",
    "source": "ESPN",
    "league": "MLB"
@@ -1296,7 +1305,7 @@
    "headline": "Duke named No.1 in ACC basketball 2026-27 preseason poll: Virginia, Clemson overrated; Miami underrated",
    "link": "https://www.cbssports.com/college-basketball/news/acc-basketball-2026-27-preseason-poll-duke-virginia-clemson-miami/",
    "published": "2026-10-13T21:57:43.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fcb4b23d5-7c3b-4f55-927e-7eb6b78d334b%2Funtitled-design-15.png&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Duke is the consensus favorite to win the ACC again this season after earning back-to-back No. 1 seeds in the NCAA Tournament",
    "source": "CBS",
    "league": "NCAAB"
@@ -1314,7 +1323,7 @@
    "headline": "MTSU vs. Delaware odds, picks, prediction, start time: Betting preview for Tuesday, Oct. 7, college football",
    "link": "https://www.cbssports.com/betting/news/mtsu-vs-delaware-odds-picks-prediction-start-time-betting-preview-for-tuesday-oct-7-college-football/",
    "published": "2026-10-13T21:38:23.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fc5ef14fa-8a5f-4166-834f-b949d59c9310%2Fbryson-graves.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Delaware faces MTSU on Tuesday in a Week 7 college football matchup on Tuesday, Oct. 13",
    "source": "CBS",
    "league": "CFB"
@@ -1324,24 +1333,15 @@
    "link": "https://www.espn.com/wnba/story/_/id/50176371/dream-gray-minor-procedure-hand-ahead-finals-opener",
    "published": "2026-10-13T21:31:10Z",
    "source": "ESPN",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0331%2Fr1636776_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Allisha Gray, who has missed the Dream's past two playoff games because of a left hand injury, is still day-to-day heading into the WNBA Finals after undergoing a minor procedure.",
    "league": "WNBA"
-  },
-  {
-   "headline": "2026 NBA free agency: Grades for offseason signings, extensions",
-   "link": "https://www.espn.com/nba/story/_/id/48957095/2026-nba-free-agency-grades-offseason-signings-deals-contracts-extensions-depth-charts",
-   "published": "2026-10-13T21:22:39Z",
-   "source": "ESPN",
-   "image": "",
-   "blurb": "We're grading the biggest offseason signings, including Payton Pritchard's two-year extension with the Celtics.",
-   "league": "NBA"
   },
   {
    "headline": "Dream's Gray has minor procedure on hand, day-to-day ahead of Finals opener",
    "link": "https://www.espn.com/wnba/story/_/id/50176371/dream-gray-minor-procedure-hand-ahead-finals-opener",
    "published": "2026-10-13T21:22:31.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0331%252Fr1636776_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Allisha Gray, who has missed the Dream's past two playoff games because of a left hand injury, is still day-to-day heading into the WNBA Finals after undergoing a minor procedure.",
    "source": "ESPN",
    "league": "WNBA"
@@ -1350,7 +1350,7 @@
    "headline": "Why the Celtics are getting a bargain on Payton Pritchard's two-year, $44.2 million contract extension",
    "link": "https://www.cbssports.com/nba/news/payton-pritchard-contract-extension-boston-celtics-bargain/",
    "published": "2026-10-13T21:07:27.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fa0e9633d-84f0-4369-a9de-81d2ebe7c52d%2Fpritchard-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "With an NBA championship and Sixth Man of the Year Award already under his belt, Pritchard is set for an even bigger role in Boston this season",
    "source": "CBS",
    "league": "NBA"
@@ -1368,7 +1368,7 @@
    "headline": "Will Wade hints RJ Luis Jr. won't play for LSU due to SEC rules: 'He hasn't been rostered'",
    "link": "https://www.cbssports.com/college-basketball/news/will-wade-rj-luis-jr-lsu-roster-sec-media-days/",
    "published": "2026-10-13T20:21:24.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fb06457ef-0038-4a8d-8ea7-8e02a2e0f914%2Funtitled-design-14.png&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The former Big East Player of the Year still isn't listed on LSU's roster with the season less than a month away.",
    "source": "CBS",
    "league": "NCAAB"
@@ -1413,7 +1413,7 @@
    "headline": "Today's top games to watch, best bets, odds: Guardians vs. Rays, Sabres vs. Canadiens and more",
    "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-guardians-vs-rays-sabres-vs-canadiens-and-more/",
    "published": "2026-10-13T19:30:51.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F06%2F23%2Fa9785fb2-6d03-433d-b043-36b28c3ad52f%2Fmessick.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Find best bets for the biggest games in sports on Tuesday from the SportsLine Projection Model and top CBS Sports experts",
    "source": "CBS",
    "league": "MLB"
