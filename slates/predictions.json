@@ -1,12 +1,26 @@
 {
- "generated_at": "2026-10-13T15:07:09.533575+00:00",
+ "generated_at": "2026-10-13T15:22:05.809015+00:00",
  "items": [
+  {
+   "id": "97ade5d0bb",
+   "league": "NHL",
+   "event": "Washington Capitals @ Carolina Hurricanes",
+   "prediction": "Carolina Hurricanes to beat Washington Capitals",
+   "kickoff_utc": "2026-10-13T22:45:00+00:00"
+  },
   {
    "id": "59a188738f",
    "league": "NBA",
    "event": "New York Knicks @ Toronto Raptors",
    "prediction": "Toronto Raptors to beat New York Knicks",
    "kickoff_utc": "2026-10-13T23:00:00+00:00"
+  },
+  {
+   "id": "cae14db5d7",
+   "league": "NHL",
+   "event": "Tampa Bay Lightning @ New York Rangers",
+   "prediction": "Tampa Bay Lightning to beat New York Rangers",
+   "kickoff_utc": "2026-10-13T23:15:00+00:00"
   },
   {
    "id": "a4de53c59b",
@@ -27,20 +41,6 @@
    "league": "MLS",
    "event": "Orlando City SC @ Toronto FC",
    "prediction": "Orlando City SC to beat Toronto FC",
-   "kickoff_utc": "2026-10-14T23:30:00+00:00"
-  },
-  {
-   "id": "016de0b41f",
-   "league": "MLS",
-   "event": "Red Bull New York @ D.C. United",
-   "prediction": "D.C. United to beat Red Bull New York",
-   "kickoff_utc": "2026-10-14T23:30:00+00:00"
-  },
-  {
-   "id": "30ba1b3626",
-   "league": "MLS",
-   "event": "New York City FC @ Inter Miami CF",
-   "prediction": "New York City FC to beat Inter Miami CF",
    "kickoff_utc": "2026-10-14T23:30:00+00:00"
   }
  ]
