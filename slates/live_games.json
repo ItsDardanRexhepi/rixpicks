@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-13T21:35:13.890539+00:00",
+ "generated_at": "2026-10-13T21:50:10.436670+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -94,6 +94,14 @@
      "status": "pre",
      "detail": "10/13 - 4:30 PM PT",
      "score": "STL 0 - OTT 0"
+    },
+    {
+     "espn_event_id": "401892495",
+     "matchup": "VAN @ NYI",
+     "commence": "2026-10-13T23:45Z",
+     "status": "pre",
+     "detail": "10/13 - 4:45 PM PT",
+     "score": "VAN 0 - NYI 0"
     }
    ]
   }
