@@ -1719,5 +1719,18 @@
   "kickoff_utc": "2026-10-15T00:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T06:21:08.477046+00:00"
+ },
+ {
+  "id": "a4de53c59b",
+  "event_id": "761862",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "FC Cincinnati",
+  "away": "New England Revolution",
+  "pick_team": "New England Revolution",
+  "prediction": "New England Revolution to beat FC Cincinnati",
+  "kickoff_utc": "2026-10-14T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T06:35:31.357121+00:00"
  }
 ]
