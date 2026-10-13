@@ -1,46 +1,46 @@
 {
  "source": "ESPN season receiving yards (regular season to date)",
  "season": 2026,
- "fetched_at": "2026-10-06T00:06:03Z",
+ "fetched_at": "2026-10-13T14:17:12Z",
  "players": {
+  "Chris Olave": {
+   "yards": 537,
+   "espn_id": "4361370"
+  },
+  "Drake London": {
+   "yards": 488,
+   "espn_id": "4426502"
+  },
+  "Christian Watson": {
+   "yards": 474,
+   "espn_id": "4248528"
+  },
+  "Zay Flowers": {
+   "yards": 405,
+   "espn_id": "4429615"
+  },
   "Tetairoa McMillan": {
    "yards": 385,
    "espn_id": "4685472"
   },
-  "Chris Olave": {
-   "yards": 375,
-   "espn_id": "4361370"
-  },
-  "Zay Flowers": {
-   "yards": 352,
-   "espn_id": "4429615"
-  },
-  "Christian Watson": {
-   "yards": 331,
-   "espn_id": "4248528"
-  },
-  "Drake London": {
-   "yards": 274,
-   "espn_id": "4426502"
+  "Mike Evans": {
+   "yards": 326,
+   "espn_id": "16737"
   },
   "Trey McBride": {
-   "yards": 242,
+   "yards": 308,
    "espn_id": "4361307"
   },
-  "Mike Evans": {
-   "yards": 213,
-   "espn_id": "16737"
+  "Emeka Egbuka": {
+   "yards": 192,
+   "espn_id": "4567750"
   },
   "Ladd McConkey": {
    "yards": 183,
    "espn_id": "4612826"
   },
-  "Emeka Egbuka": {
-   "yards": 154,
-   "espn_id": "4567750"
-  },
   "Wan'Dale Robinson": {
-   "yards": 123,
+   "yards": 176,
    "espn_id": "4569587"
   }
  }
