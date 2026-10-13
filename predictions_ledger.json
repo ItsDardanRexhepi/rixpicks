@@ -1927,5 +1927,18 @@
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-13T12:20:14.541943+00:00"
+ },
+ {
+  "id": "6edbca3c07",
+  "event_id": "761868",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "St. Louis CITY SC",
+  "away": "Vancouver Whitecaps",
+  "pick_team": "St. Louis CITY SC",
+  "prediction": "St. Louis CITY SC to beat Vancouver Whitecaps",
+  "kickoff_utc": "2026-10-15T00:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-13T12:35:45.777773+00:00"
  }
 ]
