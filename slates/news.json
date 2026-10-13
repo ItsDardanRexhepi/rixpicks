@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-13T11:46:15.708Z",
+ "generated_at": "2026-10-13T11:51:20.168Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -95,12 +95,21 @@
   ],
   "football/nfl": [
    {
-    "headline": "Our weekly NFL Power Rankings: 1-32 poll, plus the biggest defensive issue for each team",
-    "link": "https://www.espn.com/nfl/story/_/id/50166454/nfl-power-rankings-week-6-teams-biggest-issue-defense",
-    "published": "2026-10-13T12:20:29.000Z",
-    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fnfl_power_rankings_v2_1296x729.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "How does every team stack up heading into Week 6? We made our 1-32 list and picked the biggest defensive problem for every team.",
+    "headline": "Seven things Solak thinks: Time for Mendoza, Beck? Adjustments needed for the Cowboys?",
+    "link": "https://www.espn.com/nfl/story/_/id/50166233/week-6-seven-things-solak-thinks-raiders-eagles-cowboys",
+    "published": "2026-10-13T12:42:53.000Z",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729739_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Get ready for Week 6 with takes on two QB situations, two teams with defensive issues, two coaches on the hot seat and more.",
     "source": "ESPN",
+    "league": "NFL"
+   },
+   {
+    "headline": "The Giants may need to change how they think about offense",
+    "link": "https://sports.yahoo.com/articles/giants-may-change-think-offense-114205892.html",
+    "published": "2026-10-13T11:42:05.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/ce7854a7d7da701df90101bd68d54e254912b126d75d8ac4acf7423ab847de0a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2ba78b84761405c0184c76f03af36ff2.jpg",
+    "blurb": "The Giants need to open up their offense and become less predictable if they want to keep winning",
+    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -113,21 +122,21 @@
     "league": "NFL"
    },
    {
-    "headline": "Detroit Lions stock report: 20 risers, 3 fallers against the Cardinals",
-    "link": "https://sports.yahoo.com/articles/detroit-lions-stock-report-20-113000957.html",
-    "published": "2026-10-13T11:30:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/d7bd53f091ba23c8c3d2a9a2c3349d893356d1aa430c38918cea1d3b003ac1b6/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F8ad4e8cc41316959a01f91bb64e7abb1.jpg",
-    "blurb": "The biggest risers and fallers from the Detroit Lions\u2019 feather-flying plucking of the Arizona Cardinals",
-    "source": "YAHOO",
+    "headline": "Our weekly NFL Power Rankings: 1-32 poll, plus the biggest defensive issue for each team",
+    "link": "https://www.espn.com/nfl/story/_/id/50166454/nfl-power-rankings-week-6-teams-biggest-issue-defense",
+    "published": "2026-10-13T12:20:29.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fnfl_power_rankings_v2_1296x729.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "How does every team stack up heading into Week 6? We made our 1-32 list and picked the biggest defensive problem for every team.",
+    "source": "ESPN",
     "league": "NFL"
    },
    {
-    "headline": "Sources: Jaguars LT Anton Harrison to undergo knee surgery",
-    "link": "https://www.espn.com/nfl/story/_/id/50172717/sources-jaguars-lt-anton-harrison-undergo-knee-surgery",
-    "published": "2026-10-13T11:41:27Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F1007%2Fr1556978_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Jaguars left tackle Anton Harrison will have arthroscopic surgery on his right knee when the team returns from London next week, league sources told NFL Network's Ian Rapoport and ESPN's Jeremy Fowler.",
+    "headline": "Bills beat Rams in overtime to end thrilling week five",
+    "link": "https://sports.yahoo.com/articles/niners-5-0-rare-tie-064303195.html",
+    "published": "2026-10-13T11:34:59.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/e03ef9811d219dcb3b380ba44a9003554d6aa99036f3961ef5b0639e566f2ecd/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbbc_us_articles_995%2F9e49e1569b252f6e8ccf636b4427cd8d.png",
+    "blurb": "The San Francisco 49ers and the Minnesota Vikings maintain their perfect starts to the season before week five concludes with a Monday night thriller between the Super Bowl favourites.",
+    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -140,21 +149,21 @@
     "league": "NFL"
    },
    {
-    "headline": "Tuesday Miami Dolphins thoughts with The Earl",
-    "link": "https://sports.yahoo.com/articles/tuesday-miami-dolphins-thoughts-earl-112123634.html",
-    "published": "2026-10-13T11:21:23.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/0980aced1f96d66a1fd39f2df6a122f50f1ded6f39eb22df0b962f135e1ba29d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fcd02987080c8dacec2eee8bc3cbe23a7.jpg",
-    "blurb": "Ignorance is bliss and patience is a virtue. If you\u2019re dumb and don\u2019t mind waiting around.",
-    "source": "YAHOO",
+    "headline": "Sources: Jaguars LT Anton Harrison to undergo knee surgery",
+    "link": "https://www.espn.com/nfl/story/_/id/50172717/sources-jaguars-lt-anton-harrison-undergo-knee-surgery",
+    "published": "2026-10-13T11:41:27Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F1007%2Fr1556978_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Jaguars left tackle Anton Harrison will have arthroscopic surgery on his right knee when the team returns from London next week, league sources told NFL Network's Ian Rapoport and ESPN's Jeremy Fowler.",
     "league": "NFL"
    },
    {
-    "headline": "Fantasy football recap: Monday night sees Bills, Rams put on offensive show",
-    "link": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
-    "published": "2026-10-13T11:21:50Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730069_576x324_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Week 5 in fantasy football wrapped up with an offensive slugfest between the Bills and Rams.",
+    "headline": "Detroit Lions stock report: 20 risers, 3 fallers against the Cardinals",
+    "link": "https://sports.yahoo.com/articles/detroit-lions-stock-report-20-113000957.html",
+    "published": "2026-10-13T11:30:00.000Z",
+    "image": "",
+    "blurb": "The biggest risers and fallers from the Detroit Lions\u2019 feather-flying plucking of the Arizona Cardinals",
+    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -167,31 +176,22 @@
     "league": "NFL"
    },
    {
-    "headline": "Patriots playoff picture: How beating the Raiders impacts the AFC standings",
-    "link": "https://sports.yahoo.com/articles/patriots-playoff-picture-beating-raiders-112056470.html",
-    "published": "2026-10-13T11:20:56.000Z",
-    "image": "",
-    "blurb": "Assessing the AFC standings and playoff picture after Week 5.",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "Fantasy football: Live Week 6 free agent pickups advice with ESPN expert",
-    "link": "https://www.espn.com/fantasy/football/story/_/id/49998196/fantasy-football-waiver-wire-pickups-week",
-    "published": "2026-10-13T11:10:53Z",
+    "headline": "Fantasy football recap: Monday night sees Bills, Rams put on offensive show",
+    "link": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+    "published": "2026-10-13T11:21:50Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1012%2Fr1729667_576x324_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "ESPN fantasy football expert Eric Moody is here to answer your pressing questions live from noon to 1 p.m. ET.",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730069_576x324_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Week 5 in fantasy football wrapped up with an offensive slugfest between the Bills and Rams.",
     "league": "NFL"
    }
   ],
   "football/college-football": [
    {
-    "headline": "Heisman of Week 6: Louisville's Isaac Brown storms the field",
-    "link": "https://www.espn.com/college-football/story/_/id/50167434/heisman-week-6-louisville-isaac-brown-storms-field",
-    "published": "2026-10-13T12:38:35.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729789_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Cardinals RB ran wild against Florida State, but Jeremiah Smith is still in the driver's seat.",
+    "headline": "Breaking down Heisman and CFP odds: The case for Iowa, Kentucky, UCLA and USC",
+    "link": "https://www.espn.com/espn/betting/story/_/id/50169256/college-football-playoff-heisman-odds-favorites-week-6-2026",
+    "published": "2026-10-13T12:41:13.000Z",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729912_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Let's break down the odds boards for the CFP and Heisman races after Week 6.",
     "source": "ESPN",
     "league": "CFB"
    },
@@ -214,11 +214,11 @@
     "league": "CFB"
    },
    {
-    "headline": "CFP Bubble Watch: Kentucky and UCLA? Am I in the right place?",
-    "link": "https://www.espn.com/college-football/story/_/id/50167792/college-football-playoff-2026-week-6-bubble-watch",
-    "published": "2026-10-13T12:31:05.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1011%252Fr1728958_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "A conference-by-conference look at who is contending for the playoff, who's close and who's out.",
+    "headline": "Buzz: Jeremiah Smith passes Arch Manning as favorite to be No. 1 pick in NFL draft",
+    "link": "https://www.espn.com/espn/betting/story/_/id/49921234/college-football-betting-buzz-odds-updates-line-moves-spreads",
+    "published": "2026-10-13T12:41:13.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1011%252Fr1729040_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Ohio State receiver Jeremiah Smith passed Arch Manning on Saturday as the favorite to be the No. 1 pick in the 2027 NFL draft.",
     "source": "ESPN",
     "league": "CFB"
    },
@@ -241,11 +241,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Bowl, CFP projections: The postseason picture following a wild Week 6",
-    "link": "https://www.espn.com/college-football/story/_/id/50159751/2026-27-week-6-college-football-playoff-cfp-bowl-projections",
-    "published": "2026-10-13T12:31:05.000Z",
+    "headline": "Heisman of Week 6: Louisville's Isaac Brown storms the field",
+    "link": "https://www.espn.com/college-football/story/_/id/50167434/heisman-week-6-louisville-isaac-brown-storms-field",
+    "published": "2026-10-13T12:38:35.000Z",
     "image": "",
-    "blurb": "Following big wins and multiple upsets in Week 6, here are our postseason projections.",
+    "blurb": "The Cardinals RB ran wild against Florida State, but Jeremiah Smith is still in the driver's seat.",
     "source": "ESPN",
     "league": "CFB"
    },
@@ -268,11 +268,11 @@
     "league": "CFB"
    },
    {
-    "headline": "This is what it takes to make a transfer QB work every season",
-    "link": "https://www.espn.com/college-football/story/_/id/50168372/transfer-qb-success-college-football-miami-indiana",
-    "published": "2026-10-13T12:30:30.000Z",
+    "headline": "CFP Bubble Watch: Kentucky and UCLA? Am I in the right place?",
+    "link": "https://www.espn.com/college-football/story/_/id/50167792/college-football-playoff-2026-week-6-bubble-watch",
+    "published": "2026-10-13T12:31:05.000Z",
     "image": "",
-    "blurb": "Three years, three signal-callers. It's not easy, but some College Football Playoff contenders have found a way.",
+    "blurb": "A conference-by-conference look at who is contending for the playoff, who's close and who's out.",
     "source": "ESPN",
     "league": "CFB"
    }
@@ -966,11 +966,11 @@
   ],
   "boxing": [
    {
-    "headline": "Boxing divisional rankings: Two new titleholders climb into the ranks",
-    "link": "https://www.espn.com/boxing/story/_/id/21675272/divisional-rankings-best-top-10-fighters-per-division",
-    "published": "2026-10-13T12:34:57.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1011%252Fr1729182_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Two new champions, Floyd Schofield and Sergio Mendoza, enter the latest ESPN divisional rankings.",
+    "headline": "What's our No. 1 heavyweight rematch ahead Daniel Dubois vs. Fabio Wardley 2",
+    "link": "https://www.espn.com/boxing/story/_/id/50165602/whats-our-no1-heavyweight-rematch-ranked-daniel-dubois-vs-fabio-wardley-ii",
+    "published": "2026-10-13T12:40:32.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1013%252Fr1730044_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "We have ranked our favourite heavyweight title rematches before Daniel Dubois vs. Fabio Wardley 2.",
     "source": "ESPN",
     "league": "Boxing"
    },
@@ -993,11 +993,11 @@
     "league": "Boxing"
    },
    {
-    "headline": "Boxing schedule",
-    "link": "https://www.espn.com/boxing/story/_/id/12508267/boxing-schedule",
-    "published": "2026-10-12T19:36:15.000Z",
-    "image": "",
-    "blurb": "Want to know what fights are on the horizon? Check out the boxing schedule.",
+    "headline": "Boxing real or not: Fury to KO Joshua? Dubois-Wardley 2 a classic? Garcia-Haney 2 next?",
+    "link": "https://www.espn.com/boxing/story/_/id/50125669/real-not-fury-vs-joshua-garcia-vs-haney-2",
+    "published": "2026-10-13T12:40:31.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1007%252Fr1727388_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Nick Parkinson and James Regan answer these questions in an effort to separate what's real from what's not.",
     "source": "ESPN",
     "league": "Boxing"
    },
@@ -1020,11 +1020,11 @@
     "league": "Boxing"
    },
    {
-    "headline": "Boxing champions list",
-    "link": "https://www.espn.com/boxing/story/_/id/12370125/boxing-champions-list",
-    "published": "2026-10-11T12:59:26.000Z",
+    "headline": "Boxing divisional rankings: Two new titleholders climb into the ranks",
+    "link": "https://www.espn.com/boxing/story/_/id/21675272/divisional-rankings-best-top-10-fighters-per-division",
+    "published": "2026-10-13T12:34:57.000Z",
     "image": "",
-    "blurb": "Check all the current boxing champions for all four major organizations in each weight division.",
+    "blurb": "Two new champions, Floyd Schofield and Sergio Mendoza, enter the latest ESPN divisional rankings.",
     "source": "ESPN",
     "league": "Boxing"
    },
@@ -1047,11 +1047,11 @@
     "league": "Boxing"
    },
    {
-    "headline": "Boxing real or not: Fury to KO Joshua? Dubois-Wardley 2 a classic? Garcia-Haney 2 next?",
-    "link": "https://www.espn.com/boxing/story/_/id/50125669/real-not-fury-vs-joshua-garcia-vs-haney-2",
-    "published": "2026-10-08T12:52:57.000Z",
+    "headline": "Boxing schedule",
+    "link": "https://www.espn.com/boxing/story/_/id/12508267/boxing-schedule",
+    "published": "2026-10-12T19:36:15.000Z",
     "image": "",
-    "blurb": "Nick Parkinson and James Regan answer these questions in an effort to separate what's real from what's not.",
+    "blurb": "Want to know what fights are on the horizon? Check out the boxing schedule.",
     "source": "ESPN",
     "league": "Boxing"
    }
@@ -1059,20 +1059,47 @@
  },
  "latest": [
   {
-   "headline": "Heisman of Week 6: Louisville's Isaac Brown storms the field",
-   "link": "https://www.espn.com/college-football/story/_/id/50167434/heisman-week-6-louisville-isaac-brown-storms-field",
-   "published": "2026-10-13T12:38:35.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729789_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Cardinals RB ran wild against Florida State, but Jeremiah Smith is still in the driver's seat.",
+   "headline": "Seven things Solak thinks: Time for Mendoza, Beck? Adjustments needed for the Cowboys?",
+   "link": "https://www.espn.com/nfl/story/_/id/50166233/week-6-seven-things-solak-thinks-raiders-eagles-cowboys",
+   "published": "2026-10-13T12:42:53.000Z",
+   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729739_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Get ready for Week 6 with takes on two QB situations, two teams with defensive issues, two coaches on the hot seat and more.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
+   "headline": "Breaking down Heisman and CFP odds: The case for Iowa, Kentucky, UCLA and USC",
+   "link": "https://www.espn.com/espn/betting/story/_/id/50169256/college-football-playoff-heisman-odds-favorites-week-6-2026",
+   "published": "2026-10-13T12:41:13.000Z",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1012%252Fr1729912_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Let's break down the odds boards for the CFP and Heisman races after Week 6.",
    "source": "ESPN",
    "league": "CFB"
   },
   {
-   "headline": "Boxing divisional rankings: Two new titleholders climb into the ranks",
-   "link": "https://www.espn.com/boxing/story/_/id/21675272/divisional-rankings-best-top-10-fighters-per-division",
-   "published": "2026-10-13T12:34:57.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1011%252Fr1729182_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Two new champions, Floyd Schofield and Sergio Mendoza, enter the latest ESPN divisional rankings.",
+   "headline": "Buzz: Jeremiah Smith passes Arch Manning as favorite to be No. 1 pick in NFL draft",
+   "link": "https://www.espn.com/espn/betting/story/_/id/49921234/college-football-betting-buzz-odds-updates-line-moves-spreads",
+   "published": "2026-10-13T12:41:13.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1011%252Fr1729040_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Ohio State receiver Jeremiah Smith passed Arch Manning on Saturday as the favorite to be the No. 1 pick in the 2027 NFL draft.",
+   "source": "ESPN",
+   "league": "CFB"
+  },
+  {
+   "headline": "What's our No. 1 heavyweight rematch ahead Daniel Dubois vs. Fabio Wardley 2",
+   "link": "https://www.espn.com/boxing/story/_/id/50165602/whats-our-no1-heavyweight-rematch-ranked-daniel-dubois-vs-fabio-wardley-ii",
+   "published": "2026-10-13T12:40:32.000Z",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1013%252Fr1730044_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "We have ranked our favourite heavyweight title rematches before Daniel Dubois vs. Fabio Wardley 2.",
+   "source": "ESPN",
+   "league": "Boxing"
+  },
+  {
+   "headline": "Boxing real or not: Fury to KO Joshua? Dubois-Wardley 2 a classic? Garcia-Haney 2 next?",
+   "link": "https://www.espn.com/boxing/story/_/id/50125669/real-not-fury-vs-joshua-garcia-vs-haney-2",
+   "published": "2026-10-13T12:40:31.000Z",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1007%252Fr1727388_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Nick Parkinson and James Regan answer these questions in an effort to separate what's real from what's not.",
    "source": "ESPN",
    "league": "Boxing"
   },
@@ -1093,15 +1120,6 @@
    "blurb": "Blackhawks captain Connor Bedard, who had offseason shoulder in July, is likely to make his season debut Tuesday against the Penguins.",
    "source": "ESPN",
    "league": "NHL"
-  },
-  {
-   "headline": "CFP Bubble Watch: Kentucky and UCLA? Am I in the right place?",
-   "link": "https://www.espn.com/college-football/story/_/id/50167792/college-football-playoff-2026-week-6-bubble-watch",
-   "published": "2026-10-13T12:31:05.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1011%252Fr1728958_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "A conference-by-conference look at who is contending for the playoff, who's close and who's out.",
-   "source": "ESPN",
-   "league": "CFB"
   },
   {
    "headline": "Our weekly NFL Power Rankings: 1-32 poll, plus the biggest defensive issue for each team",
@@ -1131,6 +1149,15 @@
    "league": "NBA"
   },
   {
+   "headline": "The Giants may need to change how they think about offense",
+   "link": "https://sports.yahoo.com/articles/giants-may-change-think-offense-114205892.html",
+   "published": "2026-10-13T11:42:05.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/ce7854a7d7da701df90101bd68d54e254912b126d75d8ac4acf7423ab847de0a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F2ba78b84761405c0184c76f03af36ff2.jpg",
+   "blurb": "The Giants need to open up their offense and become less predictable if they want to keep winning",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "Iowa Basketball Player Previews: Tate Sage",
    "link": "https://sports.yahoo.com/articles/iowa-basketball-player-previews-tate-114200080.html",
    "published": "2026-10-13T11:42:00.000Z",
@@ -1140,15 +1167,6 @@
    "league": "NCAAB"
   },
   {
-   "headline": "Sources: Jaguars LT Anton Harrison to undergo knee surgery",
-   "link": "https://www.espn.com/nfl/story/_/id/50172717/sources-jaguars-lt-anton-harrison-undergo-knee-surgery",
-   "published": "2026-10-13T11:41:27Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F1007%2Fr1556978_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Jaguars left tackle Anton Harrison will have arthroscopic surgery on his right knee when the team returns from London next week, league sources told NFL Network's Ian Rapoport and ESPN's Jeremy Fowler.",
-   "league": "NFL"
-  },
-  {
    "headline": "Chase DeLauter and Jose Ram\u00edrez lead the Guardians to a 7-3 win over the Rays in Game 1 of the ALCS",
    "link": "http://www.espn.com/mlb/recap?gameId=401908023",
    "published": "2026-10-13T11:37:17Z",
@@ -1156,6 +1174,15 @@
    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908023.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "- The Cleveland Guardians used small ball, the longball and played solid all-around baseball to keep winning in the postseason.",
    "league": "MLB"
+  },
+  {
+   "headline": "Bills beat Rams in overtime to end thrilling week five",
+   "link": "https://sports.yahoo.com/articles/niners-5-0-rare-tie-064303195.html",
+   "published": "2026-10-13T11:34:59.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/e03ef9811d219dcb3b380ba44a9003554d6aa99036f3961ef5b0639e566f2ecd/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbbc_us_articles_995%2F9e49e1569b252f6e8ccf636b4427cd8d.png",
+   "blurb": "The San Francisco 49ers and the Minnesota Vikings maintain their perfect starts to the season before week five concludes with a Monday night thriller between the Super Bowl favourites.",
+   "source": "YAHOO",
+   "league": "NFL"
   },
   {
    "headline": "What we learned in NFL Week 5: Mike Evans is perfect fit with Brock Purdy, Josh Allen extends MVP lead",
@@ -1183,24 +1210,6 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730082_576x324_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The championship round schedule, lines and odds to win.",
    "league": "MLB"
-  },
-  {
-   "headline": "Detroit Lions stock report: 20 risers, 3 fallers against the Cardinals",
-   "link": "https://sports.yahoo.com/articles/detroit-lions-stock-report-20-113000957.html",
-   "published": "2026-10-13T11:30:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/d7bd53f091ba23c8c3d2a9a2c3349d893356d1aa430c38918cea1d3b003ac1b6/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F8ad4e8cc41316959a01f91bb64e7abb1.jpg",
-   "blurb": "The biggest risers and fallers from the Detroit Lions\u2019 feather-flying plucking of the Arizona Cardinals",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
-   "headline": "Tuesday Miami Dolphins thoughts with The Earl",
-   "link": "https://sports.yahoo.com/articles/tuesday-miami-dolphins-thoughts-earl-112123634.html",
-   "published": "2026-10-13T11:21:23.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/0980aced1f96d66a1fd39f2df6a122f50f1ded6f39eb22df0b962f135e1ba29d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fcd02987080c8dacec2eee8bc3cbe23a7.jpg",
-   "blurb": "Ignorance is bliss and patience is a virtue. If you\u2019re dumb and don\u2019t mind waiting around.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "Texas Tech fan reportedly found Colorado\u2019s game plan before 29-7 loss",
@@ -1408,21 +1417,12 @@
    "blurb": "After the Big Ten implemented a uniform athlete contract model, the SEC has followed suit, with school presidents voting Monday to standardize NIL and revenue-share agreements",
    "source": "CBS",
    "league": "CFB"
-  },
-  {
-   "headline": "Today's top games to watch, best bets, odds: Dodgers vs. Brewers, Bills vs. Rams on MNF and more",
-   "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-dodgers-vs-brewers-bills-vs-rams-on-mnf-and-more/",
-   "published": "2026-10-12T23:30:53.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F03%2F12%2F9c0d31c5-b99e-4b4c-a65b-13fe24cb5772%2Fyamamoto-imagn.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Find best bets for the biggest games in sports on Monday from the SportsLine Projection Model and top CBS Sports experts",
-   "source": "CBS",
-   "league": "MLB"
   }
  ],
  "source_mix": {
-  "ESPN": 53,
+  "ESPN": 54,
   "YAHOO": 65,
-  "CBS": 36
+  "CBS": 35
  },
  "degraded_sources": []
 }
