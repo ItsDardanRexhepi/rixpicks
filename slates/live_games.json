@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-13T20:09:04.263077+00:00",
+ "generated_at": "2026-10-13T20:20:13.978239+00:00",
  "leagues": [
   {
    "league": "NHL",
@@ -12,6 +12,14 @@
      "status": "pre",
      "detail": "10/13 - 3:00 PM PT",
      "score": "NJ 0 - DET 0"
+    },
+    {
+     "espn_event_id": "401892489",
+     "matchup": "FLA @ CBJ",
+     "commence": "2026-10-13T22:15Z",
+     "status": "pre",
+     "detail": "10/13 - 3:15 PM PT",
+     "score": "FLA 0 - CBJ 0"
     }
    ]
   }
