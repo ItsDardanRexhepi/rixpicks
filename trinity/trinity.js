@@ -221,7 +221,12 @@
     if (!Array.isArray(got) || !got.length) return false;
     kept = got.slice(-MAX_KEPT);
     got.forEach(function (m) {
-      if (m && typeof m.t === 'string' && (m.w === 'me' || m.w === 'her')) {
+      if (m && m.x === 'tr-pic' && m.w === 'me') {
+        restoring = true;
+        if (typeof m.i === 'string' && /^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(m.i)) photoRow(m.i, true);
+        else row('me', 'Photo', null, '', true);
+        restoring = false;
+      } else if (m && typeof m.t === 'string' && (m.w === 'me' || m.w === 'her')) {
         restoring = true;
         row(m.w, m.t, Array.isArray(m.c) ? m.c : null, typeof m.x === 'string' ? m.x : '', true);
         restoring = false;
@@ -242,7 +247,7 @@
     for (var i = kept.length - 1; i >= 0 && out.length < TURNS_MAX; i--) {
       var m = kept[i];
       if (!m || m.p || (m.w !== 'me' && m.w !== 'her') || typeof m.t !== 'string') continue;
-      if (typeof m.x === 'string' && /tr-pending/.test(m.x)) continue;
+      if (typeof m.x === 'string' && /tr-pending|tr-pic/.test(m.x)) continue;
       var t = m.t.replace(/\s+/g, ' ').trim();
       /* A long reply of hers keeps its opening and its last sentence, which says what the answer was. */
       if (t.length > TURN_MAX) {
@@ -613,6 +618,31 @@
   }
 
   var restoring = false;
+  /* A photo the person sent, as a bare picture row: an image and nothing else, so no bubble, padding or border can
+     appear round it. The same row on a phone and on a desktop. */
+  function photoRow(src, force) {
+    var stick = force || atBottom();
+    var r = el('div', 'tr-row me tr-pic');
+    var img = el('img', 'tr-thumb');
+    img.alt = 'the photo you sent';
+    if (src) img.src = src;
+    r.appendChild(img);
+    log.appendChild(r);
+    if (stick) log.scrollTop = log.scrollHeight;
+    return r;
+  }
+  function showPic(r, src) {
+    var img = r && r.children ? r.children[0] : null;
+    if (img && src) img.src = src;
+  }
+  /* The small copy is kept with the conversation, so the picture comes back after a reload instead of the word
+     "Photo"; a copy over the cap is not kept, and the row comes back as a plain note. */
+  function keepPic(thumb) {
+    kept.push({ w: 'me', t: '', x: 'tr-pic', i: typeof thumb === 'string' ? thumb.slice(0, THUMB_MAX) : '',
+                p: getSession() || secretNext || pending() ? 1 : 0 });
+    if (kept.length > MAX_KEPT) kept = kept.slice(-MAX_KEPT);
+    try { sessionStorage.setItem(HISTORY, JSON.stringify(kept)); } catch (e) {}
+  }
   function row(who, text, cites, extra, force) {
     if (!restoring) keep(who, text, cites, extra);
     var stick = force || atBottom();
@@ -883,6 +913,7 @@
      server strips metadata again regardless, because a server does not trust a browser to have done it. */
   var MAX_EDGE = 2560;
 
+  var THUMB_EDGE = 320, THUMB_MAX = 60000;
   function toJpeg(file) {
     return new Promise(function (resolve, reject) {
       var url = URL.createObjectURL(file);
@@ -893,8 +924,21 @@
         c.width = Math.max(1, Math.round(w * k));
         c.height = Math.max(1, Math.round(h * k));
         c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        /* A small copy for the row on the page and for a reload: at most THUMB_EDGE a side, a few kilobytes. */
+        var thumb = '';
+        try {
+          var tk = Math.min(1, THUMB_EDGE / Math.max(w, h)), t = document.createElement('canvas');
+          t.width = Math.max(1, Math.round(w * tk));
+          t.height = Math.max(1, Math.round(h * tk));
+          t.getContext('2d').drawImage(img, 0, 0, t.width, t.height);
+          thumb = typeof t.toDataURL === 'function' ? String(t.toDataURL('image/jpeg', 0.7) || '') : '';
+        } catch (e) { thumb = ''; }
         URL.revokeObjectURL(url);
-        c.toBlob(function (b) { b ? resolve(b) : reject(new Error('could not encode')); }, 'image/jpeg', 0.9);
+        c.toBlob(function (b) {
+          if (!b) return reject(new Error('could not encode'));
+          try { b.thumb = thumb.length <= THUMB_MAX ? thumb : ''; } catch (e2) {}
+          resolve(b);
+        }, 'image/jpeg', 0.9);
       };
       img.onerror = function () {
         URL.revokeObjectURL(url);
@@ -930,8 +974,12 @@
     if (inFlight) { queuedPhoto = file; return; }
     var caption = (input && input.value || '').replace(/\s+/g, ' ').trim().slice(0, MAX_Q);
     lock(true);
-    var mine = row('me', caption || 'Photo', null, '', true);
-    var pend = row('her', 'Sending the photo', null, 'tr-pending', true);
+    /* THE PHOTO IS ITS OWN ROW: a bare, rounded picture on the right with no bubble round it, and the caption, when
+       there is one, as its own bubble under it. While it goes, she shows the dots, exactly as for a question. The
+       owner, 2026-10-13: "why is there a border message bubble around the photo?" */
+    var pic = photoRow('', true);
+    if (caption) row('me', caption, null, '', true);
+    var pend = row('her', PENDING, null, 'tr-pending', true);
     var sent = false;
     var done = function (text, declined) {
       if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
@@ -940,11 +988,8 @@
       lock(false);
     };
     toJpeg(file).then(function (jpg) {
-      var thumb = document.createElement('img');
-      thumb.className = 'tr-thumb';
-      thumb.alt = 'the photo you sent';
-      thumb.src = URL.createObjectURL(jpg);
-      mine.querySelector('.tr-bub').appendChild(thumb);
+      showPic(pic, jpg.thumb || URL.createObjectURL(jpg));
+      keepPic(jpg.thumb || '');
       return blobToBase64(jpg);
     }).then(function (b64) {
       sent = true;

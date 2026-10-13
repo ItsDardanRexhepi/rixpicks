@@ -38,6 +38,7 @@ function page(opts) {
       cloneNode() { const n = El(this.tagName); n.id = this.id; n.attrs = Object.assign({}, this.attrs); n.style = Object.assign({}, this.style);
         n.type = this.type; n.spellcheck = this.spellcheck; n.placeholder = this.placeholder; n.value = this.value; n.className = this.className; return n; },
       getContext() { return { drawImage() {} }; },
+      toDataURL() { return 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AKp//2Q=='; },
       toBlob(cb) { cb({ size: 10, type: 'image/jpeg' }); },
       classList: { _s: new Set(), contains(c) { return this._s.has(c); }, add(c) { this._s.add(c); }, remove(c) { this._s.delete(c); }, toggle(c, on) { on ? this._s.add(c) : this._s.delete(c); } } };
     Object.defineProperty(e, 'textContent', { get() { return this._text + this.children.map(c => c.textContent || '').join(''); }, set(v) { this._text = String(v); this.children.forEach(c => { c.parentNode = null; }); this.children = []; } });
@@ -291,6 +292,42 @@ const asks = (p) => p.calls.filter(c => c.url.endsWith('/ask'));
     check(upl === 0, 'a photo picked meanwhile is not sent over the answer');
     await q.advance(30000);
     check(upl === 1 && q.rows().slice(-1)[0] === 'I have your photo.', 'and it is sent once the answer is in, not lost');
+  }
+  // THE PHOTO ROW (the owner, 2026-10-13): a photo is its own bare picture row with no bubble round it, the caption is
+  // its own bubble under it, she shows the dots while it goes, and the picture comes back after a reload.
+  {
+    const signedInStore = () => ({ trinity_session: 'sess-token-00000000000000001', trinity_session_who: 'Dardan' });
+    const store = signedInStore();
+    const p = page({ store, route: (u, body) => u === '/upload'
+      ? { status: 200, delay: 2000, body: { answer: 'I can see it: a betting slip. Want me to check how that game went?', as: 'Dardan' } } : {} });
+    p.els.trPhoto.hidden = false;
+    await p.pickPhoto(10);
+    const mid = p.els.trLog.children.slice(-2);
+    const pic = mid[0], pend = mid[1];
+    check(/\btr-pic\b/.test(pic.className) && /\bme\b/.test(pic.className), 'the photo is a row of its own, on the right');
+    check(pic.children.length === 1 && pic.children[0].tagName === 'img' && pic.children[0].className === 'tr-thumb',
+          'and that row holds the picture and nothing else: no bubble, so no border or padding can wrap it');
+    check(!pic.children.some(c => /tr-bub/.test(c.className || '')) && pic.textContent === '', 'no "Photo" word, no bubble element');
+    check(/tr-pending/.test(pend.className) && pend.children[0].textContent === '', 'while it goes she shows the dots, as for a question');
+    await p.advance(30000);
+    check(/I can see it/.test(p.rows().slice(-1)[0]), 'her reply replaces the dots');
+    const kept = JSON.parse(store.trinity_log);
+    const picKept = kept.find(m => m.x === 'tr-pic');
+    check(picKept && /^data:image\/jpeg;base64,/.test(picKept.i) && picKept.i.length < 60000, 'a small copy of the picture is kept with the conversation');
+    const r = page({ store });
+    const back = r.els.trLog.children.find(c => /tr-pic/.test(c.className));
+    check(back && back.children[0].tagName === 'img' && back.children[0].src === picKept.i, 'after a reload the picture is back as a picture, not as the word "Photo"');
+    check(!r.calls.some(c => c.url.endsWith('/ask') && (c.body.turns || []).some(t => t.x === 'tr-pic')), 'the picture is never sent back as a turn');
+    // with a caption: the picture row, then the caption as its own bubble
+    const c = page({ store: signedInStore(), route: (u) => u === '/upload' ? { status: 200, body: { answer: 'ok', as: 'Dardan' } } : {} });
+    c.els.trPhoto.hidden = false;
+    c.input().value = 'how did that game go?';
+    await c.pickPhoto();
+    const rows = c.els.trLog.children;
+    const at = rows.findIndex(x => /tr-pic/.test(x.className));
+    check(at >= 0 && rows[at + 1] && /\bme\b/.test(rows[at + 1].className) && rows[at + 1].children[0].textContent === 'how did that game go?',
+          'the caption is its own bubble under the picture');
+    check(c.calls.some(x => x.url.endsWith('/upload') && x.body.caption === 'how did that game go?'), 'and goes with the photo');
   }
   // Enter sends from the text area; Shift+Enter does not; a keyboard still composing (229) does not
   {
