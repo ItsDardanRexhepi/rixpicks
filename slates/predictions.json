@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-13T19:08:55.637933+00:00",
+ "generated_at": "2026-10-13T19:37:30.460244+00:00",
  "items": [
   {
    "id": "58ff269afd",
@@ -7,6 +7,13 @@
    "event": "New Jersey Devils @ Detroit Red Wings",
    "prediction": "New Jersey Devils to beat Detroit Red Wings",
    "kickoff_utc": "2026-10-13T22:00:00+00:00"
+  },
+  {
+   "id": "9c7ae590ca",
+   "league": "NHL",
+   "event": "Florida Panthers @ Columbus Blue Jackets",
+   "prediction": "Columbus Blue Jackets to beat Florida Panthers",
+   "kickoff_utc": "2026-10-13T22:15:00+00:00"
   },
   {
    "id": "fea4893eb0",
@@ -35,13 +42,6 @@
    "event": "Tampa Bay Lightning @ New York Rangers",
    "prediction": "Tampa Bay Lightning to beat New York Rangers",
    "kickoff_utc": "2026-10-13T23:15:00+00:00"
-  },
-  {
-   "id": "8d67a587e4",
-   "league": "NBA",
-   "event": "Indiana Pacers @ Oklahoma City Thunder",
-   "prediction": "Oklahoma City Thunder to beat Indiana Pacers",
-   "kickoff_utc": "2026-10-14T00:00:00+00:00"
   }
  ]
 }
