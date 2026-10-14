@@ -2464,5 +2464,18 @@
   "kickoff_utc": "2026-10-18T17:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T05:05:20.920041+00:00"
+ },
+ {
+  "id": "b8b8a524c4",
+  "event_id": "401873008",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "San Francisco 49ers",
+  "away": "Washington Commanders",
+  "pick_team": "San Francisco 49ers",
+  "prediction": "San Francisco 49ers to beat Washington Commanders",
+  "kickoff_utc": "2026-10-20T00:15:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T06:21:17.368797+00:00"
  }
 ]
