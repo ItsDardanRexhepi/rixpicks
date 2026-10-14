@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-14T23:20:13.162054+00:00",
+ "generated_at": "2026-10-14T23:35:21.975060+00:00",
  "items": [
   {
-   "id": "a4de53c59b",
-   "league": "MLS",
-   "event": "New England Revolution @ FC Cincinnati",
-   "prediction": "New England Revolution to beat FC Cincinnati",
-   "kickoff_utc": "2026-10-14T23:30:00+00:00"
+   "id": "3887de3a2c",
+   "league": "NBA",
+   "event": "Chicago Bulls @ Milwaukee Bucks",
+   "prediction": "Milwaukee Bucks to beat Chicago Bulls",
+   "kickoff_utc": "2026-10-15T00:00:00+00:00"
   },
   {
-   "id": "c70d73e7b8",
-   "league": "MLS",
-   "event": "Charlotte FC @ Columbus Crew",
-   "prediction": "Columbus Crew to beat Charlotte FC",
-   "kickoff_utc": "2026-10-14T23:30:00+00:00"
+   "id": "e0d7d43c9c",
+   "league": "MLB",
+   "event": "Milwaukee Brewers @ Los Angeles Dodgers",
+   "prediction": "Los Angeles Dodgers to beat Milwaukee Brewers",
+   "kickoff_utc": "2026-10-15T00:00:00+00:00"
   },
   {
-   "id": "8341c729e8",
-   "league": "MLS",
-   "event": "Orlando City SC @ Toronto FC",
-   "prediction": "Orlando City SC to beat Toronto FC",
-   "kickoff_utc": "2026-10-14T23:30:00+00:00"
+   "id": "3d7670069f",
+   "league": "NBA",
+   "event": "New Orleans Pelicans @ Dallas Mavericks",
+   "prediction": "Dallas Mavericks to beat New Orleans Pelicans",
+   "kickoff_utc": "2026-10-15T00:00:00+00:00"
   },
   {
-   "id": "016de0b41f",
-   "league": "MLS",
-   "event": "Red Bull New York @ D.C. United",
-   "prediction": "D.C. United to beat Red Bull New York",
-   "kickoff_utc": "2026-10-14T23:30:00+00:00"
+   "id": "2a9c0196be",
+   "league": "NBA",
+   "event": "Phoenix Suns @ San Antonio Spurs",
+   "prediction": "San Antonio Spurs to beat Phoenix Suns",
+   "kickoff_utc": "2026-10-15T00:00:00+00:00"
   },
   {
-   "id": "30ba1b3626",
+   "id": "a089ea77e2",
    "league": "MLS",
-   "event": "New York City FC @ Inter Miami CF",
-   "prediction": "New York City FC to beat Inter Miami CF",
-   "kickoff_utc": "2026-10-14T23:30:00+00:00"
+   "event": "Sporting Kansas City @ Nashville SC",
+   "prediction": "Nashville SC to beat Sporting Kansas City",
+   "kickoff_utc": "2026-10-15T00:30:00+00:00"
   },
   {
-   "id": "e2f08b5017",
+   "id": "524969b58c",
    "league": "MLS",
-   "event": "Atlanta United FC @ CF Montr\u00e9al",
-   "prediction": "Atlanta United FC to beat CF Montr\u00e9al",
-   "kickoff_utc": "2026-10-14T23:30:00+00:00"
+   "event": "Seattle Sounders FC @ FC Dallas",
+   "prediction": "Seattle Sounders FC to beat FC Dallas",
+   "kickoff_utc": "2026-10-15T00:30:00+00:00"
   }
  ]
 }
