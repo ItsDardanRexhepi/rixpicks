@@ -2180,8 +2180,9 @@
   "pick_team": "Los Angeles Lakers",
   "prediction": "Los Angeles Lakers to beat Golden State Warriors",
   "kickoff_utc": "2026-10-14T02:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T18:22:02.712779+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T18:22:02.712779+00:00",
+  "settled_at": "2026-10-14T04:34:56.781376+00:00"
  },
  {
   "id": "fea4893eb0",
@@ -2315,8 +2316,9 @@
   "pick_team": "Calgary Flames",
   "prediction": "Calgary Flames to beat Anaheim Ducks",
   "kickoff_utc": "2026-10-14T01:45:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T23:35:34.682286+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T23:35:34.682286+00:00",
+  "settled_at": "2026-10-14T04:34:56.906579+00:00"
  },
  {
   "id": "48b3a25199",
@@ -2382,5 +2384,57 @@
   "kickoff_utc": "2026-10-18T17:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T04:20:36.096160+00:00"
+ },
+ {
+  "id": "49cd827f52",
+  "event_id": "401872998",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Philadelphia Eagles",
+  "away": "Carolina Panthers",
+  "pick_team": "Philadelphia Eagles",
+  "prediction": "Philadelphia Eagles to beat Carolina Panthers",
+  "kickoff_utc": "2026-10-18T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T04:35:47.572132+00:00"
+ },
+ {
+  "id": "1696d341d0",
+  "event_id": "401873004",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Los Angeles Rams",
+  "away": "Arizona Cardinals",
+  "pick_team": "Los Angeles Rams",
+  "prediction": "Los Angeles Rams to beat Arizona Cardinals",
+  "kickoff_utc": "2026-10-18T20:05:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T04:35:56.850350+00:00"
+ },
+ {
+  "id": "14db380aff",
+  "event_id": "401873006",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Kansas City Chiefs",
+  "away": "Los Angeles Chargers",
+  "pick_team": "Kansas City Chiefs",
+  "prediction": "Kansas City Chiefs to beat Los Angeles Chargers",
+  "kickoff_utc": "2026-10-18T20:25:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T04:36:01.765351+00:00"
+ },
+ {
+  "id": "73eb7885f6",
+  "event_id": "401873007",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Green Bay Packers",
+  "away": "Dallas Cowboys",
+  "pick_team": "Green Bay Packers",
+  "prediction": "Green Bay Packers to beat Dallas Cowboys",
+  "kickoff_utc": "2026-10-19T00:20:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T04:36:11.632201+00:00"
  }
 ]
