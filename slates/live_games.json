@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-14T00:05:14.248376+00:00",
+ "generated_at": "2026-10-14T00:20:10.698275+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401908024",
+     "matchup": "CLE @ TB",
+     "commence": "2026-10-14T00:00Z",
+     "status": "in",
+     "detail": "Bot 1st",
+     "score": "CLE 0 - TB 0"
+    }
+   ]
+  },
   {
    "league": "CFB",
    "games": [
@@ -10,7 +23,7 @@
      "matchup": "DEL @ MTSU",
      "commence": "2026-10-13T23:00Z",
      "status": "in",
-     "detail": "7:20 - 2nd",
+     "detail": "2:00 - 2nd",
      "score": "DEL 10 - MTSU 12",
      "away_to": 3,
      "home_to": 3
@@ -20,8 +33,8 @@
      "matchup": "FIU @ JXST",
      "commence": "2026-10-14T00:00Z",
      "status": "in",
-     "detail": "13:39 - 1st",
-     "score": "FIU 0 - JXST 0",
+     "detail": "8:51 - 1st",
+     "score": "FIU 0 - JXST 7",
      "away_to": 3,
      "home_to": 3
     }
@@ -35,9 +48,9 @@
      "matchup": "CLE @ ORL",
      "commence": "2026-10-13T23:00Z",
      "status": "in",
-     "detail": "6:15 - 2nd",
-     "score": "CLE 40 - ORL 53",
-     "away_to": 5,
+     "detail": "Halftime",
+     "score": "CLE 52 - ORL 72",
+     "away_to": 4,
      "home_to": 5
     },
     {
@@ -45,10 +58,20 @@
      "matchup": "NY @ TOR",
      "commence": "2026-10-13T23:00Z",
      "status": "in",
-     "detail": "2:59 - 2nd",
-     "score": "NY 39 - TOR 76",
+     "detail": "Halftime",
+     "score": "NY 47 - TOR 86",
      "away_to": 5,
-     "home_to": 5
+     "home_to": 4
+    },
+    {
+     "espn_event_id": "401908621",
+     "matchup": "IND @ OKC",
+     "commence": "2026-10-14T00:00Z",
+     "status": "in",
+     "detail": "7:37 - 1st",
+     "score": "IND 14 - OKC 7",
+     "away_to": 7,
+     "home_to": 6
     },
     {
      "espn_event_id": "401898718",
@@ -76,7 +99,7 @@
      "matchup": "NJ @ DET",
      "commence": "2026-10-13T22:00Z",
      "status": "in",
-     "detail": "13:39 - 3rd",
+     "detail": "4:13 - 3rd",
      "score": "NJ 4 - DET 4",
      "away_to": null,
      "home_to": null
@@ -86,7 +109,7 @@
      "matchup": "FLA @ CBJ",
      "commence": "2026-10-13T22:15Z",
      "status": "in",
-     "detail": "0:37 - 2nd",
+     "detail": "End of 2nd",
      "score": "FLA 4 - CBJ 1",
      "away_to": null,
      "home_to": null
@@ -96,8 +119,8 @@
      "matchup": "BUF @ MTL",
      "commence": "2026-10-13T22:30Z",
      "status": "in",
-     "detail": "5:56 - 2nd",
-     "score": "BUF 1 - MTL 2",
+     "detail": "End of 2nd",
+     "score": "BUF 1 - MTL 3",
      "away_to": null,
      "home_to": null
     },
@@ -106,7 +129,7 @@
      "matchup": "WAS @ CAR",
      "commence": "2026-10-13T22:45Z",
      "status": "in",
-     "detail": "12:35 - 2nd",
+     "detail": "5:28 - 2nd",
      "score": "WAS 2 - CAR 1",
      "away_to": null,
      "home_to": null
@@ -116,7 +139,7 @@
      "matchup": "SEA @ PHI",
      "commence": "2026-10-13T23:00Z",
      "status": "in",
-     "detail": "18:24 - 2nd",
+     "detail": "12:32 - 2nd",
      "score": "SEA 1 - PHI 0",
      "away_to": null,
      "home_to": null
@@ -136,7 +159,7 @@
      "matchup": "STL @ OTT",
      "commence": "2026-10-13T23:30Z",
      "status": "in",
-     "detail": "4:10 - 1st",
+     "detail": "End of 1st",
      "score": "STL 1 - OTT 0",
      "away_to": null,
      "home_to": null
@@ -146,18 +169,20 @@
      "matchup": "VAN @ NYI",
      "commence": "2026-10-13T23:45Z",
      "status": "in",
-     "detail": "13:46 - 1st",
+     "detail": "4:38 - 1st",
      "score": "VAN 0 - NYI 0",
      "away_to": null,
      "home_to": null
     },
     {
-     "espn_event_id": "401892497",
-     "matchup": "MIN @ WPG",
-     "commence": "2026-10-14T00:15Z",
-     "status": "pre",
-     "detail": "10/13 - 5:15 PM PT",
-     "score": "MIN 0 - WPG 0"
+     "espn_event_id": "401892496",
+     "matchup": "PIT @ CHI",
+     "commence": "2026-10-14T00:00Z",
+     "status": "in",
+     "detail": "13:31 - 1st",
+     "score": "PIT 0 - CHI 1",
+     "away_to": null,
+     "home_to": null
     },
     {
      "espn_event_id": "401892498",
