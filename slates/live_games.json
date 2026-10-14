@@ -1,30 +1,17 @@
 {
  "version": 1,
- "generated_at": "2026-10-14T03:50:13.788014+00:00",
+ "generated_at": "2026-10-14T21:35:20.629617+00:00",
  "leagues": [
-  {
-   "league": "MLB",
-   "games": [
-    {
-     "espn_event_id": "401908024",
-     "matchup": "CLE @ TB",
-     "commence": "2026-10-14T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "CLE 1 - TB 3"
-    }
-   ]
-  },
   {
    "league": "CFB",
    "games": [
     {
-     "espn_event_id": "401871053",
-     "matchup": "FIU @ JXST",
-     "commence": "2026-10-14T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "FIU 24 - JXST 27"
+     "espn_event_id": "401871054",
+     "matchup": "KENN @ MOST",
+     "commence": "2026-10-14T23:30Z",
+     "status": "pre",
+     "detail": "10/14 - 4:30 PM PT",
+     "score": "KENN 0 - MOST 0"
     }
    ]
   },
@@ -32,32 +19,20 @@
    "league": "NBA",
    "games": [
     {
-     "espn_event_id": "401908621",
-     "matchup": "IND @ OKC",
-     "commence": "2026-10-14T00:00Z",
-     "status": "post",
-     "detail": "Final/OT",
-     "score": "IND 112 - OKC 114"
+     "espn_event_id": "401898404",
+     "matchup": "BKN @ MIA",
+     "commence": "2026-10-14T23:30Z",
+     "status": "pre",
+     "detail": "10/14 - 4:30 PM PT",
+     "score": "BKN 0 - MIA 0"
     },
     {
-     "espn_event_id": "401898718",
-     "matchup": "GS @ LAL",
-     "commence": "2026-10-14T02:00Z",
-     "status": "in",
-     "detail": "1:38 - 3rd",
-     "score": "GS 70 - LAL 74",
-     "away_to": 4,
-     "home_to": 4
-    },
-    {
-     "espn_event_id": "401901826",
-     "matchup": "POR @ SAC",
-     "commence": "2026-10-14T02:00Z",
-     "status": "in",
-     "detail": "3:06 - 3rd",
-     "score": "POR 87 - SAC 66",
-     "away_to": 3,
-     "home_to": 4
+     "espn_event_id": "401898405",
+     "matchup": "CHA @ BOS",
+     "commence": "2026-10-14T23:30Z",
+     "status": "pre",
+     "detail": "10/14 - 4:30 PM PT",
+     "score": "CHA 0 - BOS 0"
     }
    ]
   },
@@ -65,74 +40,65 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401892496",
-     "matchup": "PIT @ CHI",
-     "commence": "2026-10-14T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "PIT 3 - CHI 5"
+     "espn_event_id": "401892504",
+     "matchup": "MTL @ WAS",
+     "commence": "2026-10-14T23:30Z",
+     "status": "pre",
+     "detail": "10/14 - 4:30 PM PT",
+     "score": "MTL 0 - WAS 0"
+    }
+   ]
+  },
+  {
+   "league": "MLS",
+   "games": [
+    {
+     "espn_event_id": "761864",
+     "matchup": "ATL @ MTL",
+     "commence": "2026-10-14T23:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "ATL 0 - MTL 0"
     },
     {
-     "espn_event_id": "401892497",
-     "matchup": "MIN @ WPG",
-     "commence": "2026-10-14T00:15Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "MIN 2 - WPG 5"
+     "espn_event_id": "761865",
+     "matchup": "CLT @ CLB",
+     "commence": "2026-10-14T23:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "CLT 0 - CLB 0"
     },
     {
-     "espn_event_id": "401892498",
-     "matchup": "COL @ DAL",
-     "commence": "2026-10-14T00:45Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "COL 3 - DAL 2"
+     "espn_event_id": "761863",
+     "matchup": "RBNY @ DC",
+     "commence": "2026-10-14T23:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "RBNY 0 - DC 0"
     },
     {
-     "espn_event_id": "401892499",
-     "matchup": "VGK @ NSH",
-     "commence": "2026-10-14T00:45Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "VGK 5 - NSH 2"
+     "espn_event_id": "761862",
+     "matchup": "NE @ CIN",
+     "commence": "2026-10-14T23:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "NE 0 - CIN 0"
     },
     {
-     "espn_event_id": "401892500",
-     "matchup": "TOR @ UTA",
-     "commence": "2026-10-14T01:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "TOR 4 - UTA 5"
+     "espn_event_id": "761861",
+     "matchup": "NYC @ MIA",
+     "commence": "2026-10-14T23:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "NYC 0 - MIA 0"
     },
     {
-     "espn_event_id": "401892501",
-     "matchup": "CGY @ ANA",
-     "commence": "2026-10-14T01:45Z",
-     "status": "in",
-     "detail": "19:33 - 3rd",
-     "score": "CGY 2 - ANA 2",
-     "away_to": null,
-     "home_to": null
-    },
-    {
-     "espn_event_id": "401892502",
-     "matchup": "EDM @ LA",
-     "commence": "2026-10-14T02:30Z",
-     "status": "in",
-     "detail": "12:57 - 2nd",
-     "score": "EDM 3 - LA 0",
-     "away_to": null,
-     "home_to": null
-    },
-    {
-     "espn_event_id": "401892503",
-     "matchup": "BOS @ SJ",
-     "commence": "2026-10-14T03:15Z",
-     "status": "in",
-     "detail": "1:20 - 1st",
-     "score": "BOS 1 - SJ 1",
-     "away_to": null,
-     "home_to": null
+     "espn_event_id": "761860",
+     "matchup": "ORL @ TOR",
+     "commence": "2026-10-14T23:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "ORL 0 - TOR 0"
     }
    ]
   }
