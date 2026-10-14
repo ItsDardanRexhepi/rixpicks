@@ -2133,8 +2133,9 @@
   "pick_team": "New Jersey Devils",
   "prediction": "New Jersey Devils to beat Detroit Red Wings",
   "kickoff_utc": "2026-10-13T22:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T17:05:07.739536+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T17:05:07.739536+00:00",
+  "settled_at": "2026-10-14T00:49:57.737996+00:00"
  },
  {
   "id": "278cc20869",

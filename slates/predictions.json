@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-14T00:35:41.220584+00:00",
+ "generated_at": "2026-10-14T00:50:36.561871+00:00",
  "items": [
-  {
-   "id": "b36f91bb5c",
-   "league": "NHL",
-   "event": "Vegas Golden Knights @ Nashville Predators",
-   "prediction": "Nashville Predators to beat Vegas Golden Knights",
-   "kickoff_utc": "2026-10-14T00:45:00+00:00"
-  },
   {
    "id": "278cc20869",
    "league": "NHL",
@@ -42,6 +35,13 @@
    "event": "Boston Bruins @ San Jose Sharks",
    "prediction": "Boston Bruins to beat San Jose Sharks",
    "kickoff_utc": "2026-10-14T03:00:00+00:00"
+  },
+  {
+   "id": "a4de53c59b",
+   "league": "MLS",
+   "event": "New England Revolution @ FC Cincinnati",
+   "prediction": "New England Revolution to beat FC Cincinnati",
+   "kickoff_utc": "2026-10-14T23:30:00+00:00"
   }
  ]
 }
