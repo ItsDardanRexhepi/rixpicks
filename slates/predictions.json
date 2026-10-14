@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-13T23:50:57.796093+00:00",
+ "generated_at": "2026-10-14T00:05:37.357377+00:00",
  "items": [
-  {
-   "id": "8d67a587e4",
-   "league": "NBA",
-   "event": "Indiana Pacers @ Oklahoma City Thunder",
-   "prediction": "Oklahoma City Thunder to beat Indiana Pacers",
-   "kickoff_utc": "2026-10-14T00:00:00+00:00"
-  },
-  {
-   "id": "373bb63a40",
-   "league": "MLB",
-   "event": "Cleveland Guardians @ Tampa Bay Rays",
-   "prediction": "Tampa Bay Rays to beat Cleveland Guardians",
-   "kickoff_utc": "2026-10-14T00:00:00+00:00"
-  },
   {
    "id": "8d7cb96e4b",
    "league": "NHL",
@@ -42,6 +28,20 @@
    "event": "Calgary Flames @ Anaheim Ducks",
    "prediction": "Calgary Flames to beat Anaheim Ducks",
    "kickoff_utc": "2026-10-14T01:45:00+00:00"
+  },
+  {
+   "id": "c50584acd5",
+   "league": "NBA",
+   "event": "Golden State Warriors @ Los Angeles Lakers",
+   "prediction": "Los Angeles Lakers to beat Golden State Warriors",
+   "kickoff_utc": "2026-10-14T02:00:00+00:00"
+  },
+  {
+   "id": "ad13d30a38",
+   "league": "NHL",
+   "event": "Edmonton Oilers @ Los Angeles Kings",
+   "prediction": "Edmonton Oilers to beat Los Angeles Kings",
+   "kickoff_utc": "2026-10-14T02:30:00+00:00"
   }
  ]
 }
