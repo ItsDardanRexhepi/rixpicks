@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-14T03:35:14.663743+00:00",
+ "generated_at": "2026-10-14T03:50:13.788014+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -44,9 +44,9 @@
      "matchup": "GS @ LAL",
      "commence": "2026-10-14T02:00Z",
      "status": "in",
-     "detail": "8:10 - 3rd",
-     "score": "GS 57 - LAL 70",
-     "away_to": 5,
+     "detail": "1:38 - 3rd",
+     "score": "GS 70 - LAL 74",
+     "away_to": 4,
      "home_to": 4
     },
     {
@@ -54,24 +54,16 @@
      "matchup": "POR @ SAC",
      "commence": "2026-10-14T02:00Z",
      "status": "in",
-     "detail": "8:18 - 3rd",
-     "score": "POR 73 - SAC 47",
-     "away_to": 5,
-     "home_to": 5
+     "detail": "3:06 - 3rd",
+     "score": "POR 87 - SAC 66",
+     "away_to": 3,
+     "home_to": 4
     }
    ]
   },
   {
    "league": "NHL",
    "games": [
-    {
-     "espn_event_id": "401892495",
-     "matchup": "VAN @ NYI",
-     "commence": "2026-10-13T23:45Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "VAN 2 - NYI 3"
-    },
     {
      "espn_event_id": "401892496",
      "matchup": "PIT @ CHI",
@@ -108,18 +100,16 @@
      "espn_event_id": "401892500",
      "matchup": "TOR @ UTA",
      "commence": "2026-10-14T01:00Z",
-     "status": "in",
-     "detail": "1:46 - 3rd",
-     "score": "TOR 4 - UTA 5",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "TOR 4 - UTA 5"
     },
     {
      "espn_event_id": "401892501",
      "matchup": "CGY @ ANA",
      "commence": "2026-10-14T01:45Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "19:33 - 3rd",
      "score": "CGY 2 - ANA 2",
      "away_to": null,
      "home_to": null
@@ -129,7 +119,7 @@
      "matchup": "EDM @ LA",
      "commence": "2026-10-14T02:30Z",
      "status": "in",
-     "detail": "20:00 - 2nd",
+     "detail": "12:57 - 2nd",
      "score": "EDM 3 - LA 0",
      "away_to": null,
      "home_to": null
@@ -139,8 +129,8 @@
      "matchup": "BOS @ SJ",
      "commence": "2026-10-14T03:15Z",
      "status": "in",
-     "detail": "7:28 - 1st",
-     "score": "BOS 0 - SJ 0",
+     "detail": "1:20 - 1st",
+     "score": "BOS 1 - SJ 1",
      "away_to": null,
      "home_to": null
     }
