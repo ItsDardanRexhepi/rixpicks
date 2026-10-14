@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-14T02:35:18.847276+00:00",
+ "generated_at": "2026-10-14T02:50:10.396580+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "CLE @ TB",
      "commence": "2026-10-14T00:00Z",
      "status": "in",
-     "detail": "Top 8th",
+     "detail": "Top 9th",
      "score": "CLE 1 - TB 3"
     }
    ]
@@ -23,8 +23,8 @@
      "matchup": "FIU @ JXST",
      "commence": "2026-10-14T00:00Z",
      "status": "in",
-     "detail": "15:00 - 4th",
-     "score": "FIU 24 - JXST 24",
+     "detail": "9:48 - 4th",
+     "score": "FIU 30 - JXST 24",
      "away_to": 0,
      "home_to": 1
     },
@@ -61,20 +61,18 @@
      "espn_event_id": "401908621",
      "matchup": "IND @ OKC",
      "commence": "2026-10-14T00:00Z",
-     "status": "in",
-     "detail": "3:58 - OT",
-     "score": "IND 100 - OKC 102",
-     "away_to": 2,
-     "home_to": 1
+     "status": "post",
+     "detail": "Final/OT",
+     "score": "IND 112 - OKC 114"
     },
     {
      "espn_event_id": "401898718",
      "matchup": "GS @ LAL",
      "commence": "2026-10-14T02:00Z",
      "status": "in",
-     "detail": "1:22 - 1st",
-     "score": "GS 26 - LAL 29",
-     "away_to": 6,
+     "detail": "8:18 - 2nd",
+     "score": "GS 34 - LAL 39",
+     "away_to": 5,
      "home_to": 6
     },
     {
@@ -82,8 +80,8 @@
      "matchup": "POR @ SAC",
      "commence": "2026-10-14T02:00Z",
      "status": "in",
-     "detail": "1:18 - 1st",
-     "score": "POR 29 - SAC 18",
+     "detail": "8:38 - 2nd",
+     "score": "POR 45 - SAC 28",
      "away_to": 6,
      "home_to": 6
     }
@@ -92,14 +90,6 @@
   {
    "league": "NHL",
    "games": [
-    {
-     "espn_event_id": "401892491",
-     "matchup": "WAS @ CAR",
-     "commence": "2026-10-13T22:45Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "WAS 2 - CAR 4"
-    },
     {
      "espn_event_id": "401892492",
      "matchup": "SEA @ PHI",
@@ -136,19 +126,17 @@
      "espn_event_id": "401892496",
      "matchup": "PIT @ CHI",
      "commence": "2026-10-14T00:00Z",
-     "status": "in",
-     "detail": "1:45 - 3rd",
-     "score": "PIT 3 - CHI 4",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "PIT 3 - CHI 5"
     },
     {
      "espn_event_id": "401892497",
      "matchup": "MIN @ WPG",
      "commence": "2026-10-14T00:15Z",
      "status": "in",
-     "detail": "9:50 - 3rd",
-     "score": "MIN 2 - WPG 4",
+     "detail": "End of 3rd",
+     "score": "MIN 2 - WPG 5",
      "away_to": null,
      "home_to": null
     },
@@ -157,7 +145,7 @@
      "matchup": "COL @ DAL",
      "commence": "2026-10-14T00:45Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "19:07 - 3rd",
      "score": "COL 3 - DAL 1",
      "away_to": null,
      "home_to": null
@@ -167,7 +155,7 @@
      "matchup": "VGK @ NSH",
      "commence": "2026-10-14T00:45Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "16:19 - 3rd",
      "score": "VGK 3 - NSH 2",
      "away_to": null,
      "home_to": null
@@ -177,8 +165,8 @@
      "matchup": "TOR @ UTA",
      "commence": "2026-10-14T01:00Z",
      "status": "in",
-     "detail": "2:47 - 2nd",
-     "score": "TOR 2 - UTA 4",
+     "detail": "End of 2nd",
+     "score": "TOR 2 - UTA 5",
      "away_to": null,
      "home_to": null
     },
@@ -187,17 +175,27 @@
      "matchup": "CGY @ ANA",
      "commence": "2026-10-14T01:45Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "19:56 - 2nd",
      "score": "CGY 1 - ANA 2",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892502",
+     "matchup": "EDM @ LA",
+     "commence": "2026-10-14T02:30Z",
+     "status": "in",
+     "detail": "13:29 - 1st",
+     "score": "EDM 0 - LA 0",
      "away_to": null,
      "home_to": null
     },
     {
      "espn_event_id": "401892503",
      "matchup": "BOS @ SJ",
-     "commence": "2026-10-14T03:00Z",
+     "commence": "2026-10-14T03:15Z",
      "status": "pre",
-     "detail": "10/13 - 8:00 PM PT",
+     "detail": "10/13 - 8:15 PM PT",
      "score": "BOS 0 - SJ 0"
     }
    ]
