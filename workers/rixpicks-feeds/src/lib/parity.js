@@ -276,9 +276,165 @@ function futuresParity(mine, prodRows, quality, lastTick, nowMs) {
   return poly;
 }
 
-export async function runParity(env, justRan) {
+// ---------------------------------------------------------------------------
+// Ported-lane gates (2026-10-14, repo-retirement steps 1-3): one comparator per new shadow
+// lane, structural + value agreement, sized to the timing noise of two independent pollers.
+// Same acceptance shape as the original three lanes: 24h of >=95% in-parity cycles per lane.
+function freshMin(ts, now) { const t = Date.parse(ts || ''); return isNaN(t) ? null : (now - t) / 60000; }
+
+function liveGamesParity(mine, prod, now) {
+  const ids = d => { const s = new Set(); for (const l of (d && d.leagues) || []) for (const g of l.games || []) s.add(g.espn_event_id); return s; };
+  const p = ids(prod), m = ids(mine);
+  const age = freshMin(mine.generated_at, now);
+  const freshOk = age != null && age <= 20;
+  if (!p.size) return { ok: freshOk, reason: 'prod empty', worker_games: m.size, worker_age_min: age != null ? +age.toFixed(1) : null };
+  const cov = [...p].filter(k => m.has(k)).length / p.size;
+  return { ok: cov >= 0.9 && freshOk, coverage: +cov.toFixed(3), prod_games: p.size, worker_games: m.size, worker_age_min: age != null ? +age.toFixed(1) : null };
+}
+
+function wooderTdParity(mine, prod) {
+  const pl = prod.legs || [];
+  const ml = new Map((mine.legs || []).map(l => [l.player + '|' + l.matchup, l]));
+  if (!pl.length) return { ok: true, reason: 'prod empty' };
+  let covered = 0, agree = 0;
+  for (const l of pl) {
+    const w = ml.get(l.player + '|' + l.matchup);
+    if (!w) continue;
+    covered++;
+    if (!!w.td_scored === !!l.td_scored) agree++;
+  }
+  const cov = covered / pl.length;
+  return { ok: cov >= 0.95 && (covered === 0 || agree / covered >= 0.95),
+    coverage: +cov.toFixed(3), td_agree: covered ? +(agree / covered).toFixed(3) : null, legs: pl.length };
+}
+
+// prod futures.json carries quotes inline and only moves when its GHA lanes commit, so a prod
+// quote older than 30 min is prod lag, not a worker defect: excluded from the price comparison
+// (coverage still counts), same exemption philosophy as the futures v11 stale rule.
+function futuresQuotesParity(mine, prod, now) {
+  const prows = (Array.isArray(prod) ? prod : []).filter(r => r.kalshi_quote && r.kalshi_quote.ticker);
+  const mrows = new Map(((mine || {}).rows || []).map(r => [r.id, r]));
+  if (!prows.length) return { ok: true, reason: 'prod empty' };
+  let covered = 0, compared = 0, close = 0, exemptStale = 0;
+  for (const p of prows) {
+    const w = mrows.get(p.id);
+    if (!w || !w.kalshi_quote || w.kalshi_quote.ask_c == null) continue;
+    covered++;
+    const page = freshMin(p.kalshi_quote.quoted_at, now);
+    if (page == null || page > 30) { exemptStale++; continue; }
+    if (p.kalshi_quote.ask_c == null) continue;
+    compared++;
+    if (Math.abs(w.kalshi_quote.ask_c - p.kalshi_quote.ask_c) <= 2) close++;
+  }
+  const cov = covered / prows.length;
+  const priceOk = compared === 0 || close / compared >= 0.9;
+  return { ok: cov >= 0.9 && priceOk, coverage: +cov.toFixed(3),
+    price_close: compared ? +(close / compared).toFixed(3) : null, exempt_stale_n: exemptStale, rows: prows.length };
+}
+
+function officialVideoParity(mine, prod) {
+  const pids = new Set((prod.items || []).map(i => i.video_id + '|' + i.event_id));
+  const mids = new Set((mine.items || []).map(i => i.video_id + '|' + i.event_id));
+  if (!pids.size) return { ok: true, reason: mids.size ? 'prod empty' : 'both empty', worker_items: mids.size };
+  const cov = [...pids].filter(k => mids.has(k)).length / pids.size;
+  return { ok: cov >= 0.8, coverage: +cov.toFixed(3), prod_items: pids.size, worker_items: mids.size };
+}
+
+function recYardsParity(mine, prod, now) {
+  const pp = prod.players || {}, mp = (mine || {}).players || {};
+  const names = Object.keys(pp);
+  const age = freshMin(mine.fetched_at, now);
+  const freshOk = age != null && age <= 7 * 60;
+  if (!names.length) return { ok: freshOk, reason: 'prod empty', worker_age_min: age != null ? Math.round(age) : null };
+  let covered = 0, close = 0;
+  for (const n of names) {
+    if (!(n in mp)) continue;
+    covered++;
+    if (Math.abs((mp[n].yards || 0) - (pp[n].yards || 0)) <= 10) close++;
+  }
+  const cov = covered / names.length;
+  return { ok: cov >= 0.9 && (covered === 0 || close / covered >= 0.9) && freshOk,
+    coverage: +cov.toFixed(3), yards_close: covered ? +(close / covered).toFixed(3) : null,
+    worker_age_min: age != null ? Math.round(age) : null };
+}
+
+function nflScoresParity(mine, prod) {
+  const pg = prod.games || [];
+  const mg = new Map(((mine || {}).games || []).map(g => [g.id, g]));
+  if (!pg.length) return { ok: true, reason: 'prod empty' };
+  let covered = 0, agree = 0;
+  for (const g of pg) {
+    const w = mg.get(g.id);
+    if (!w) continue;
+    covered++;
+    if (!!w.completed === !!g.completed) agree++;
+  }
+  const cov = covered / pg.length;
+  return { ok: cov >= 0.9 && (covered === 0 || agree / covered >= 0.9),
+    coverage: +cov.toFixed(3), completed_agree: covered ? +(agree / covered).toFixed(3) : null, games: pg.length };
+}
+
+function extrasParity(mine, prod) {
+  const ps = prod.sports || {}, ms = (mine || {}).sports || {};
+  const sports = Object.keys(ps).filter(s => Array.isArray(ps[s]));
+  if (!sports.length) return { ok: true, reason: 'prod empty/errored' };
+  let okN = 0; const detail = {};
+  for (const s of sports) {
+    const pn = ps[s].length, mn = Array.isArray(ms[s]) ? ms[s].length : -1;
+    const inBand = mn >= 0 && (pn === 0 || (mn >= 0.5 * pn - 3 && mn <= 2 * pn + 3));
+    if (inBand) okN++;
+    detail[s] = { prod: pn, worker: mn, in_band: inBand };
+  }
+  return { ok: okN === sports.length, sports: detail };
+}
+
+function oddsParity(mine, prod) {
+  // st rows are the identity-bearing artifact (provider_event_id); h2h/props ride the same pulls
+  const prows = Array.isArray(prod) ? prod : [];
+  const mrows = new Map((Array.isArray(mine) ? mine : []).map(r => [r.provider_event_id, r]));
+  if (!prows.length) return { ok: true, reason: 'prod empty' };
+  let covered = 0, compared = 0, close = 0;
+  for (const p of prows) {
+    const w = mrows.get(p.provider_event_id);
+    if (!w) continue;
+    covered++;
+    for (const bk of ['fanduel', 'draftkings']) {
+      const pb = (p.books || {})[bk], wb = (w.books || {})[bk];
+      if (!pb || !wb || pb.total_pts == null || wb.total_pts == null) continue;
+      compared++;
+      if (Math.abs(pb.total_pts - wb.total_pts) <= 1) close++;
+    }
+  }
+  const cov = covered / prows.length;
+  return { ok: cov >= 0.9 && (compared === 0 || close / compared >= 0.8),
+    coverage: +cov.toFixed(3), total_close: compared ? +(close / compared).toFixed(3) : null, events: prows.length };
+}
+
+const SUMMARY_LANES = ['news', 'kalshi_quotes', 'futures', 'futures_kalshi', 'live_games',
+  'wooder_td', 'futures_quotes', 'official_video', 'rec_yards', 'nfl_scores', 'extras', 'odds'];
+
+// generic wiring for one ported lane: skip silently while the lane is dormant/skipped AND has
+// never written (soak clock starts at the first real artifact); red once it claims to run.
+async function portedLane(env, report, lane, r2key, prodPath, laneRes, cmp) {
+  try {
+    let mine = null;
+    try { const o = await env.FEEDS.get(r2key); if (o) mine = JSON.parse(await o.text()); } catch (e) {}
+    if (!mine) {
+      if (laneRes && (laneRes.dormant || laneRes.skipped || laneRes.refused)) return; // not soaking yet
+      report.lanes[lane] = { ok: false, reason: 'no worker artifact' };
+      return;
+    }
+    let prod;
+    try { prod = await getJson(env.PROD_BASE + prodPath + '?cb=' + Date.now()); }
+    catch (e) { report.lanes[lane] = { ok: false, reason: 'prod unreadable' }; return; }
+    report.lanes[lane] = cmp(mine, prod);
+  } catch (e) { report.lanes[lane] = { ok: false, reason: String(e).slice(0, 80) }; }
+}
+
+export async function runParity(env, justRan, laneResults) {
   const report = { ts: new Date().toISOString(), lanes: {} };
   const now = Date.now();
+  const lr = laneResults || {};
   // rolling state loaded up front: the news gate ctx derives from it
   let hist = [];
   try { const o = await env.FEEDS.get('parity/history.json'); if (o) hist = JSON.parse(await o.text()); } catch (e) {}
@@ -371,22 +527,44 @@ export async function runParity(env, justRan) {
         }
       } catch (e) { console.error('exempt prune error:', String(e).slice(0, 100)); }
     }
+    // futures-switch gate visibility: the Kalshi leg gets its own tracked lane so its 24h
+    // window is measurable (the futures SWITCH requires it ok, prompt 2026-10-14 step 6)
+    if (report.lanes.futures && report.lanes.futures.kalshi_leg) {
+      const k = report.lanes.futures.kalshi_leg;
+      report.lanes.futures_kalshi = { ok: !!k.ok, coverage: k.coverage, price_close: k.price_close, reason: k.reason };
+    }
+    // ported shadow lanes (2026-10-14)
+    if (justRan.live_games) await portedLane(env, report, 'live_games', 'slates/live_games.json', '/slates/live_games.json', lr.live_games, (m, p) => liveGamesParity(m, p, now));
+    if (justRan.wooder_td) await portedLane(env, report, 'wooder_td', 'slates/nfl_live.json', '/slates/nfl_live.json', lr.wooder_td, (m, p) => wooderTdParity(m, p));
+    if (justRan.futures_quotes) await portedLane(env, report, 'futures_quotes', 'futures/futures_quotes.json', '/futures.json', lr.futures_quotes, (m, p) => futuresQuotesParity(m, p, now));
+    if (justRan.official_video) await portedLane(env, report, 'official_video', 'slates/official_video.json', '/slates/official_video.json', lr.official_video, (m, p) => officialVideoParity(m, p));
+    if (justRan.rec_yards) await portedLane(env, report, 'rec_yards', 'slates/nfl_rec_yards.json', '/slates/nfl_rec_yards.json', lr.rec_yards, (m, p) => recYardsParity(m, p, now));
+    if (justRan.nfl_scores) await portedLane(env, report, 'nfl_scores', 'nfl_scores.json', '/nfl_scores.json', lr.nfl_scores, (m, p) => nflScoresParity(m, p));
+    if (justRan.extras) await portedLane(env, report, 'extras', 'extras_books.json', '/extras_books.json', lr.extras, (m, p) => extrasParity(m, p));
+    if (justRan.odds) await portedLane(env, report, 'odds', 'slates/odds_prefill_st.json', '/slates/odds_prefill_st.json', lr.odds, (m, p) => oddsParity(m, p));
   } catch (e) { report.error = String(e).slice(0, 120); }
+  // per-lane soak clocks: first cycle a lane ever reported = the exact timestamp its 24h soak started
+  let since = {};
+  try { const o = await env.FEEDS.get('parity/lanes_since.json'); if (o) since = JSON.parse(await o.text()); } catch (e) {}
+  let sinceChanged = false;
+  for (const lane of Object.keys(report.lanes)) if (!since[lane]) { since[lane] = report.ts; sinceChanged = true; }
   // rolling 24h window
   hist.push(report);
   const cutoff = now - 24 * 3600 * 1000;
   hist = hist.filter(r => Date.parse(r.ts) >= cutoff).slice(-2000);
-  const summary = { ts: report.ts, window_cycles: hist.length, lanes: {} };
-  for (const lane of ['news', 'kalshi_quotes', 'futures']) {
+  const summary = { ts: report.ts, window_cycles: hist.length, lanes: {}, soak_started: since };
+  for (const lane of SUMMARY_LANES) {
     const runs = hist.map(h => h.lanes && h.lanes[lane]).filter(Boolean);
     if (!runs.length) { summary.lanes[lane] = null; continue; }
     const okN = runs.filter(r => r.ok).length;
     summary.lanes[lane] = { cycles: runs.length, in_parity: okN, pct: +(100 * okN / runs.length).toFixed(1), gate_95: okN / runs.length >= 0.95 };
   }
-  await Promise.all([
+  const puts = [
     env.FEEDS.put('parity/history.json', JSON.stringify(hist)),
     env.FEEDS.put('parity/volume_series.json', JSON.stringify(volSeries)),
     env.FEEDS.put('parity/latest.json', JSON.stringify({ report, summary }, null, 1), { httpMetadata: { contentType: 'application/json' } }),
-  ]);
+  ];
+  if (sinceChanged) puts.push(env.FEEDS.put('parity/lanes_since.json', JSON.stringify(since, null, 1), { httpMetadata: { contentType: 'application/json' } }));
+  await Promise.all(puts);
   return summary;
 }
