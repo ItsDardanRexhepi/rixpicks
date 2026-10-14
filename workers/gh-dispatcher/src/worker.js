@@ -8,7 +8,7 @@ const H=(env)=>({'Authorization':'Bearer '+env.GH_DISPATCH_TOKEN,'Accept':'appli
 export default {
   async scheduled(event, env, ctx) {
     ctx.waitUntil((async () => {
-      const res = await fetch(GH+'/dispatches', {method:'POST',headers:H(env),body:JSON.stringify({event_type:'external-tick',client_payload:{source:'cf-cron',ts:new Date().toISOString()}})});
+      const res = await fetch(GH+'/dispatches', {method:'POST',headers:H(env),body:JSON.stringify({ event_type: 'external-tick', client_payload: {source:'cf-cron',ts:new Date().toISOString()} })});
       if (!res.ok) console.error('external-tick dispatch failed: '+res.status+' '+await res.text());
       // 2026-10-14 fix: bot commits (GITHUB_TOKEN) never trigger push workflows, so the CF Pages
       // mirror (cf-pages-deploy) only refreshed on human pushes and went ~19h stale. Re-mirror every 30 min.
