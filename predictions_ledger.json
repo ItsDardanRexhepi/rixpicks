@@ -2529,5 +2529,18 @@
   "kickoff_utc": "2026-10-18T20:25:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T08:20:54.165847+00:00"
+ },
+ {
+  "id": "92fb847eea",
+  "event_id": "401872999",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Atlanta Falcons",
+  "away": "Chicago Bears",
+  "pick_team": "Chicago Bears",
+  "prediction": "Chicago Bears to beat Atlanta Falcons",
+  "kickoff_utc": "2026-10-18T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T09:35:24.118314+00:00"
  }
 ]
