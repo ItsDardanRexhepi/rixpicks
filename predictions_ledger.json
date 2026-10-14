@@ -2257,8 +2257,9 @@
   "pick_team": "New York Islanders",
   "prediction": "New York Islanders to beat Vancouver Canucks",
   "kickoff_utc": "2026-10-13T23:45:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T22:50:25.596866+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T22:50:25.596866+00:00",
+  "settled_at": "2026-10-14T02:34:54.643481+00:00"
  },
  {
   "id": "e2f08b5017",

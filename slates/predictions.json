@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-14T02:20:32.868966+00:00",
+ "generated_at": "2026-10-14T02:35:04.273556+00:00",
  "items": [
-  {
-   "id": "ad13d30a38",
-   "league": "NHL",
-   "event": "Edmonton Oilers @ Los Angeles Kings",
-   "prediction": "Edmonton Oilers to beat Los Angeles Kings",
-   "kickoff_utc": "2026-10-14T02:30:00+00:00"
-  },
   {
    "id": "7a0d9d02cc",
    "league": "NHL",
@@ -41,6 +34,13 @@
    "league": "MLS",
    "event": "Red Bull New York @ D.C. United",
    "prediction": "D.C. United to beat Red Bull New York",
+   "kickoff_utc": "2026-10-14T23:30:00+00:00"
+  },
+  {
+   "id": "30ba1b3626",
+   "league": "MLS",
+   "event": "New York City FC @ Inter Miami CF",
+   "prediction": "New York City FC to beat Inter Miami CF",
    "kickoff_utc": "2026-10-14T23:30:00+00:00"
   }
  ]
