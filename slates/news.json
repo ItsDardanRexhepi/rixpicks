@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-14T09:05:57.540Z",
+ "generated_at": "2026-10-14T09:11:10.785Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Yankees news: Previewing the free agent class",
+    "link": "https://sports.yahoo.com/articles/yankees-news-previewing-free-agent-090000000.html",
+    "published": "2026-10-14T09:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/45cc09e28285dd67f4a3de50b0f2799f5a9cfa319e9064085e4eb737954ed364/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Febf5d63c3594da77ae59f94c3a802cc8.jpg",
+    "blurb": "Who will stay and who will go; Bednar\u2019s big question; coaching staff shuffle?; Kay has a question for Judge",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
    {
     "headline": "Freddy Peralta, Liam Hicks lift the Rays to a 3-1 win over the Guardians that evens the ALCS at 1-1",
     "link": "http://www.espn.com/mlb/recap?gameId=401908024",
@@ -9,15 +18,6 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908024.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "\u2014 With the crowd chanting his name, a fired-up Freddy Peralta pumped one fastball after another past hitters all night long.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Freddy Peralta goes back to his roots, leans on 4-seam fastball to shut down the Guardians in Rays' ALCS-tying victory",
-    "link": "https://sports.yahoo.com/mlb/article/freddy-peralta-goes-back-to-his-roots-leans-on-4-seam-fastball-to-shut-down-the-guardians-in-rays-alcs-tying-victory-054715383.html",
-    "published": "2026-10-14T05:47:15.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/8405615f28d2c1f0e4bcaa28c0fc890f856ce26026658d03cf13dfba6453d99b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F8a28bf59-ea8c-4dcd-b268-b72b6ba11813",
-    "blurb": "Seventy-one of the 99 pitches Peralta threw in Game 2 were four-seamers \u2014 his highest usage in a start since 2019.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Freddy Peralta goes back to his roots, leans on 4-seam fastball to shut down the Guardians in Rays' ALCS-tying victory",
+    "link": "https://sports.yahoo.com/mlb/article/freddy-peralta-goes-back-to-his-roots-leans-on-4-seam-fastball-to-shut-down-the-guardians-in-rays-alcs-tying-victory-054715383.html",
+    "published": "2026-10-14T05:47:15.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/8405615f28d2c1f0e4bcaa28c0fc890f856ce26026658d03cf13dfba6453d99b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F8a28bf59-ea8c-4dcd-b268-b72b6ba11813",
+    "blurb": "Seventy-one of the 99 pitches Peralta threw in Game 2 were four-seamers \u2014 his highest usage in a start since 2019.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Brewers take 2-0 NLCS lead into Game 3 against Dodgers",
     "link": "http://www.espn.com/mlb/preview?gameId=401908032",
     "published": "2026-10-14T08:02:27Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908032.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Milwaukee Brewers (103-59, first in the NL Central during the regular season) vs. Los Angeles Dodgers (100-62, first in the NL West during the regular season)",
-    "league": "MLB"
-   },
-   {
-    "headline": "Joe Girardi believes Yankees have accountability issue after another playoff flop: \u2018Enough is enough!\u2019",
-    "link": "https://sports.yahoo.com/articles/joe-girardi-believes-yankees-accountability-034815160.html",
-    "published": "2026-10-14T03:48:15.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/dbc773ec5250525ce2c956a0f9d613801eca4222b3f4cd0eed1594baaa406a53/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fny_post_sports_articles_389%2F3e0b2f611f08a5a29a0670f31e3f2bb3.jpg",
-    "blurb": "Joe Girardi isn't blaming Aaron Boone for the Yankees' shortcomings, but believes a deeper-rooted culture issue may have contributed to the team's ALDS sweep.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Joe Girardi believes Yankees have accountability issue after another playoff flop: \u2018Enough is enough!\u2019",
+    "link": "https://sports.yahoo.com/articles/joe-girardi-believes-yankees-accountability-034815160.html",
+    "published": "2026-10-14T03:48:15.000Z",
+    "image": "",
+    "blurb": "Joe Girardi isn't blaming Aaron Boone for the Yankees' shortcomings, but believes a deeper-rooted culture issue may have contributed to the team's ALDS sweep.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Takeaways as Rays even series against Guardians",
     "link": "https://www.espn.com/mlb/story/_/id/50174091/mlb-2026-alcs-game-2-rays-guardians-lineups-updates-analysis-takeaways",
     "published": "2026-10-14T06:56:38.000Z",
     "image": "",
     "blurb": "Tampa Bay pulls out the Game 2 win thanks to Freddy Peralta's six scoreless innings.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "Mistakes Cost Guards: Rays Even ALCS at One a Piece",
-    "link": "https://sports.yahoo.com/articles/mistakes-cost-guards-rays-even-033303161.html",
-    "published": "2026-10-14T03:33:03.000Z",
-    "image": "",
-    "blurb": "You can't win 'em all",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,12 +84,12 @@
     "league": "MLB"
    },
    {
-    "headline": "Freddy Peralta shuts down Guardians as Rays even ALCS with Game 2 win",
-    "link": "https://www.espn.com/mlb/story/_/id/50179060/peralta-tosses-gem-rays-cash-ramirez-gaffe-game-2",
-    "published": "2026-10-14T06:18:49Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1014%2Fr1730482_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Guardians knew what was coming but still couldn't touch Rays starter Freddy Peralta, who topped 99 mph on his fastball and threw six scoreless innings as the Rays took Game 2 of the ALCS.",
+    "headline": "Mistakes Cost Guards: Rays Even ALCS at One a Piece",
+    "link": "https://sports.yahoo.com/articles/mistakes-cost-guards-rays-even-033303161.html",
+    "published": "2026-10-14T03:33:03.000Z",
+    "image": "",
+    "blurb": "You can't win 'em all",
+    "source": "YAHOO",
     "league": "MLB"
    }
   ],
@@ -187,11 +187,11 @@
   ],
   "football/college-football": [
    {
-    "headline": "Washington vs Purdue Prediction: The Huskies' Last Gasp?",
-    "link": "https://sports.yahoo.com/articles/washington-vs-purdue-prediction-huskies-082826303.html",
-    "published": "2026-10-14T08:28:26.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/550771909e3cd28b259d6af6b390143d0539ceaada6ef76ff35c75ef678dc0d3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcollege_football_news_725%2Fb53a63b80ee37fdd0894546a35db93d9.jpg",
-    "blurb": "Washington was considered a possible College Football Playoff team, and now it needs a win over Purdue, or else. Here's the CFN preview and prediction.",
+    "headline": "Why Tennessee football fans don\u2019t know how to feel about 5-1 record before Alabama game",
+    "link": "https://sports.yahoo.com/articles/why-tennessee-football-fans-don-090142851.html",
+    "published": "2026-10-14T09:01:42.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/a1fcb608218e90a4799242ec2b6d636a8c5f6a512485647c5ffac051a6112a12/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2F27f7237512a187d44717a898ffecac66.jpg",
+    "blurb": "For every Tennessee football fan happy with the Vols' 5-1 record, there's another fan frustrated by the performances. Here's the crux of the conflict.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -214,11 +214,11 @@
     "league": "CFB"
    },
    {
-    "headline": "\u2018Truly the Best Coach in the Country,\u2019 \u2018It Does Bother Us\u2019 \u2014 USC Star Jayden Maiava Defends HC Lincoln Riley Amid Calls for His Firing",
-    "link": "https://sports.yahoo.com/articles/truly-best-coach-country-does-081039304.html",
-    "published": "2026-10-14T08:10:39.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/bcf89c0f6cee0cb4afd1a4b7927d0800917ab41da25e2b06b4d86055c5ef1354/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpro_football_network_512%2F8033d3c0453e4720f8205cb0b2964981.jpg",
-    "blurb": "Calls for USC to fire head coach Lincoln Riley have grown louder over the past month. The criticism intensified on September 28, when ESPN analyst Paul Finebaum urged the Trojans to move on from Riley, even if it meant paying a reported buyout of roughly $72 million.",
+    "headline": "Off-Script Ohio: Previewing Ohio State\u2019s top-five showdown at Indiana",
+    "link": "https://sports.yahoo.com/articles/off-script-ohio-previewing-ohio-090100122.html",
+    "published": "2026-10-14T09:01:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/04b2b74398834dccf0e393d85661422eed3d469b2a4aa6740c405053b51cd2d1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F1f724074158776f49d5f1409fe51982b.jpg",
+    "blurb": "Ohio State heads to Bloomington for a top-five rematch of last year\u2019s B1G title game. Cole and Joey break down Indiana, the key matchups and their predictions on this episode of Off-Script Ohio",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -241,11 +241,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Nebraska projected to face a rising SEC team in the Music City Bowl",
-    "link": "https://sports.yahoo.com/articles/nebraska-projected-face-rising-sec-080447939.html",
-    "published": "2026-10-14T08:04:47.000Z",
+    "headline": "Washington vs Purdue Prediction: The Huskies' Last Gasp?",
+    "link": "https://sports.yahoo.com/articles/washington-vs-purdue-prediction-huskies-082826303.html",
+    "published": "2026-10-14T08:28:26.000Z",
     "image": "",
-    "blurb": "Another change was made for Nebraska in the latest USA TODAY Sports bowl game projections on Tuesday.",
+    "blurb": "Washington was considered a possible College Football Playoff team, and now it needs a win over Purdue, or else. Here's the CFN preview and prediction.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -268,11 +268,11 @@
     "league": "CFB"
    },
    {
-    "headline": "NFL Draft QB rankings for 2027: Arch Manning's stock falls after 4th-quarter meltdown",
-    "link": "https://sports.yahoo.com/articles/nfl-draft-qb-rankings-2027-080001307.html",
-    "published": "2026-10-14T08:00:01.000Z",
+    "headline": "\u2018Truly the Best Coach in the Country,\u2019 \u2018It Does Bother Us\u2019 \u2014 USC Star Jayden Maiava Defends HC Lincoln Riley Amid Calls for His Firing",
+    "link": "https://sports.yahoo.com/articles/truly-best-coach-country-does-081039304.html",
+    "published": "2026-10-14T08:10:39.000Z",
     "image": "",
-    "blurb": "Arch Manning's disappointing finish in an upset loss damaged his stock in Week 6.",
+    "blurb": "Calls for USC to fire head coach Lincoln Riley have grown louder over the past month. The criticism intensified on September 28, when ESPN analyst Paul Finebaum urged the Trojans to move on from Riley, even if it meant paying a reported buyout of roughly $72 million.",
     "source": "YAHOO",
     "league": "CFB"
    }
@@ -1059,6 +1059,33 @@
  },
  "latest": [
   {
+   "headline": "Why Tennessee football fans don\u2019t know how to feel about 5-1 record before Alabama game",
+   "link": "https://sports.yahoo.com/articles/why-tennessee-football-fans-don-090142851.html",
+   "published": "2026-10-14T09:01:42.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/a1fcb608218e90a4799242ec2b6d636a8c5f6a512485647c5ffac051a6112a12/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2F27f7237512a187d44717a898ffecac66.jpg",
+   "blurb": "For every Tennessee football fan happy with the Vols' 5-1 record, there's another fan frustrated by the performances. Here's the crux of the conflict.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "Off-Script Ohio: Previewing Ohio State\u2019s top-five showdown at Indiana",
+   "link": "https://sports.yahoo.com/articles/off-script-ohio-previewing-ohio-090100122.html",
+   "published": "2026-10-14T09:01:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/04b2b74398834dccf0e393d85661422eed3d469b2a4aa6740c405053b51cd2d1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F1f724074158776f49d5f1409fe51982b.jpg",
+   "blurb": "Ohio State heads to Bloomington for a top-five rematch of last year\u2019s B1G title game. Cole and Joey break down Indiana, the key matchups and their predictions on this episode of Off-Script Ohio",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "Yankees news: Previewing the free agent class",
+   "link": "https://sports.yahoo.com/articles/yankees-news-previewing-free-agent-090000000.html",
+   "published": "2026-10-14T09:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/45cc09e28285dd67f4a3de50b0f2799f5a9cfa319e9064085e4eb737954ed364/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Febf5d63c3594da77ae59f94c3a802cc8.jpg",
+   "blurb": "Who will stay and who will go; Bednar\u2019s big question; coaching staff shuffle?; Kay has a question for Judge",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
    "headline": "Jacksonville Jaguars remain in the NFL hunt thanks to Foyesade Oluokun's bone-crunching efforts",
    "link": "https://www.espn.com/espn/story/_/id/50180170/jacksonville-jaguars-remain-nfl-hunt-thanks-foyesade-oluokun-bone-crunching-efforts",
    "published": "2026-10-14T08:59:13Z",
@@ -1066,15 +1093,6 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1014%2Fr1730533_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Runaway AFC South leaders the Jacksonville Jaguars continued their impressive start to the season, with Nigerian-American linebacker Foyesade Oluokun starring in a 19-17 win over the Philadelphia Eagles.",
    "league": "NFL"
-  },
-  {
-   "headline": "Washington vs Purdue Prediction: The Huskies' Last Gasp?",
-   "link": "https://sports.yahoo.com/articles/washington-vs-purdue-prediction-huskies-082826303.html",
-   "published": "2026-10-14T08:28:26.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/550771909e3cd28b259d6af6b390143d0539ceaada6ef76ff35c75ef678dc0d3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcollege_football_news_725%2Fb53a63b80ee37fdd0894546a35db93d9.jpg",
-   "blurb": "Washington was considered a possible College Football Playoff team, and now it needs a win over Purdue, or else. Here's the CFN preview and prediction.",
-   "source": "YAHOO",
-   "league": "CFB"
   },
   {
    "headline": "Dan Campbell says pass protection shows why Jahmyr Gibbs is different from other backs",
@@ -1120,15 +1138,6 @@
    "blurb": "Calgary Flames (1-5, in the Pacific Division) vs. Vegas Golden Knights (6-2, in the Pacific Division)Paradise, Nevada; Thursday, 10 p.",
    "source": "YAHOO",
    "league": "NHL"
-  },
-  {
-   "headline": "\u2018Truly the Best Coach in the Country,\u2019 \u2018It Does Bother Us\u2019 \u2014 USC Star Jayden Maiava Defends HC Lincoln Riley Amid Calls for His Firing",
-   "link": "https://sports.yahoo.com/articles/truly-best-coach-country-does-081039304.html",
-   "published": "2026-10-14T08:10:39.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/bcf89c0f6cee0cb4afd1a4b7927d0800917ab41da25e2b06b4d86055c5ef1354/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpro_football_network_512%2F8033d3c0453e4720f8205cb0b2964981.jpg",
-   "blurb": "Calls for USC to fire head coach Lincoln Riley have grown louder over the past month. The criticism intensified on September 28, when ESPN analyst Paul Finebaum urged the Trojans to move on from Riley, even if it meant paying a reported buyout of roughly $72 million.",
-   "source": "YAHOO",
-   "league": "CFB"
   },
   {
    "headline": "Brewers take 2-0 NLCS lead into Game 3 against Dodgers",
@@ -1255,15 +1264,6 @@
    "blurb": "The only thing that matters for the Commanders now is winning games",
    "source": "YAHOO",
    "league": "NFL"
-  },
-  {
-   "headline": "Joe Girardi believes Yankees have accountability issue after another playoff flop: \u2018Enough is enough!\u2019",
-   "link": "https://sports.yahoo.com/articles/joe-girardi-believes-yankees-accountability-034815160.html",
-   "published": "2026-10-14T03:48:15.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/dbc773ec5250525ce2c956a0f9d613801eca4222b3f4cd0eed1594baaa406a53/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fny_post_sports_articles_389%2F3e0b2f611f08a5a29a0670f31e3f2bb3.jpg",
-   "blurb": "Joe Girardi isn't blaming Aaron Boone for the Yankees' shortcomings, but believes a deeper-rooted culture issue may have contributed to the team's ALDS sweep.",
-   "source": "YAHOO",
-   "league": "MLB"
   },
   {
    "headline": "DeWine signs order allowing fifth-year eligibility to Ohio's 2022 athletes",
@@ -1420,8 +1420,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 53,
-  "YAHOO": 63,
+  "YAHOO": 64,
+  "ESPN": 52,
   "CBS": 38
  },
  "degraded_sources": []
