@@ -2356,5 +2356,18 @@
   "kickoff_utc": "2026-10-18T02:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T02:05:18.574906+00:00"
+ },
+ {
+  "id": "46998d8a99",
+  "event_id": "401858494",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "UCLA Bruins",
+  "away": "Wisconsin Badgers",
+  "pick_team": "UCLA Bruins",
+  "prediction": "UCLA Bruins to beat Wisconsin Badgers",
+  "kickoff_utc": "2026-10-17T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T04:05:19.288311+00:00"
  }
 ]
