@@ -2516,5 +2516,18 @@
   "kickoff_utc": "2026-10-18T17:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T07:20:32.774357+00:00"
+ },
+ {
+  "id": "313ee97274",
+  "event_id": "401873005",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Las Vegas Raiders",
+  "away": "Buffalo Bills",
+  "pick_team": "Buffalo Bills",
+  "prediction": "Buffalo Bills to beat Las Vegas Raiders",
+  "kickoff_utc": "2026-10-18T20:25:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T08:20:54.165847+00:00"
  }
 ]
