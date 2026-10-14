@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-14T19:21:23.177Z",
+ "generated_at": "2026-10-14T19:26:02.574Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -557,7 +557,7 @@
    {
     "headline": "Pope embracing 'win it all or bust' expectations at Kentucky",
     "link": "https://www.espn.com/mens-college-basketball/story/_/id/50183414/mark-pope-embracing-championship-expectations-kentucky",
-    "published": "2026-10-14T20:11:34.000Z",
+    "published": "2026-10-14T20:22:19.000Z",
     "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0610%252Fr1505015_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Kentucky men's basketball coach Mark Pope said he is embracing championship expectations entering Year 3 with the Wildcats.",
     "source": "ESPN",
@@ -584,7 +584,7 @@
    {
     "headline": "Mark Pope embracing championship expectations at Kentucky",
     "link": "https://www.espn.com/mens-college-basketball/story/_/id/50183414/mark-pope-embracing-championship-expectations-kentucky",
-    "published": "2026-10-14T19:11:34Z",
+    "published": "2026-10-14T19:22:19Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F0610%2Fr1505015_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Kentucky men's basketball coach Mark Pope said he is embracing championship expectations entering Year 3 with the Wildcats.",
@@ -826,6 +826,15 @@
     "league": "NASCAR"
    },
    {
+    "headline": "Is Axalta Leaving NASCAR? William Byron Set for Final Ride With Longtime\u00a0Sponsor",
+    "link": "https://sports.yahoo.com/articles/axalta-leaving-nascar-william-byron-151506331.html",
+    "published": "2026-10-14T15:15:06.000Z",
+    "image": "",
+    "blurb": "Axalta\u2019s name is preparing to disappear from William Byron\u2019s No.24 Chevrolet, but that does not necessarily mean the company is leaving [\u2026]",
+    "source": "YAHOO",
+    "league": "NASCAR"
+   },
+   {
     "headline": "NASCAR Opens Up on Michael Jordan After Tense 23XI Racing Dispute",
     "link": "https://sports.yahoo.com/articles/nascar-opens-michael-jordan-tense-144040182.html",
     "published": "2026-10-14T14:40:40.000Z",
@@ -849,15 +858,6 @@
     "published": "2026-10-14T12:53:13.000Z",
     "image": "",
     "blurb": "DAYTONA BEACH, Fla. \u2014 NASCAR today unveiled the 2027 NASCAR Whelen Modified Tour schedule, a 15-race slate that brings together the traditions that define Modified racing while creating new moments for competitors and fans alike. Building off the foundation set in 2026, the 2027 ",
-    "source": "YAHOO",
-    "league": "NASCAR"
-   },
-   {
-    "headline": "NASCAR CEO Responds to Tom Cruise's Racing Request for 'Days of Thunder 2'",
-    "link": "https://sports.yahoo.com/articles/nascar-ceo-responds-tom-cruises-103100385.html",
-    "published": "2026-10-14T10:31:00.000Z",
-    "image": "",
-    "blurb": "NASCAR CEO Steve O\u2019Donnell reacts to Tom Cruise\u2019s ARCA racing request as the Days of Thunder 2 production prepares more than 80 race cars.",
     "source": "YAHOO",
     "league": "NASCAR"
    }
@@ -958,10 +958,19 @@
    {
     "headline": "Boxing schedule",
     "link": "https://www.espn.com/boxing/story/_/id/12508267/boxing-schedule",
-    "published": "2026-10-14T20:11:52.000Z",
+    "published": "2026-10-14T20:19:55.000Z",
     "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0914%252Fr1545239_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Want to know what fights are on the horizon? Check out the boxing schedule.",
     "source": "ESPN",
+    "league": "Boxing"
+   },
+   {
+    "headline": "Tyson Fury vs. Anthony Joshua could be one of Saudi boxing's last mega-events, Fury's manager says",
+    "link": "https://sports.yahoo.com/boxing/article/tyson-fury-vs-anthony-joshua-could-be-one-of-saudi-boxings-last-mega-events-furys-manager-says-191734839.html",
+    "published": "2026-10-14T01:47:10.000Z",
+    "image": "",
+    "blurb": "Spencer Brown has enjoyed seeing the two combat sports behemoths battle it out, but at this point he'd rather see them work together as Fury vs. Joshua nears.",
+    "source": "YAHOO",
     "league": "Boxing"
    },
    {
@@ -974,21 +983,21 @@
     "league": "Boxing"
    },
    {
-    "headline": "Puerto Rican boxing legend Gomez dies aged 69",
-    "link": "https://sports.yahoo.com/articles/puerto-rican-boxing-legend-gomez-171028684.html",
-    "published": "2026-10-11T17:10:28.000Z",
-    "image": "",
-    "blurb": "Three-weight world champion Wilfredo 'Bazooka' Gomez dies aged 69.",
-    "source": "YAHOO",
-    "league": "Boxing"
-   },
-   {
     "headline": "Boxing divisional rankings: Two new titleholders climb into the ranks",
     "link": "https://www.espn.com/boxing/story/_/id/21675272/divisional-rankings-best-top-10-fighters-per-division",
     "published": "2026-10-14T16:52:25.000Z",
     "image": "",
     "blurb": "Two new champions, Floyd Schofield and Sergio Mendoza, enter the latest ESPN divisional rankings.",
     "source": "ESPN",
+    "league": "Boxing"
+   },
+   {
+    "headline": "Puerto Rican boxing legend Gomez dies aged 69",
+    "link": "https://sports.yahoo.com/articles/puerto-rican-boxing-legend-gomez-171028684.html",
+    "published": "2026-10-11T17:10:28.000Z",
+    "image": "",
+    "blurb": "Three-weight world champion Wilfredo 'Bazooka' Gomez dies aged 69.",
+    "source": "YAHOO",
     "league": "Boxing"
    },
    {
@@ -1001,15 +1010,6 @@
     "league": "Boxing"
    },
    {
-    "headline": "Misfits Boxing results: Plinio Cruz destroys in debut; Joey Essex vs. Dapper Laughs ends in robbery draw",
-    "link": "https://sports.yahoo.com/boxing/live/misfits-boxing-live-results-joey-essex-vs-dapper-laughs-round-by-round-updates-highlights-for-todays-fight-130000636.html",
-    "published": "2026-10-10T13:00:00.000Z",
-    "image": "",
-    "blurb": "Cruz, the longtime coach of former two-division UFC champ Alex Pereira, scored a second-round knockout in his promotional debut for Misfits Boxing Saturday at the Copper Box Arena in London.",
-    "source": "YAHOO",
-    "league": "Boxing"
-   },
-   {
     "headline": "What's our No. 1 heavyweight rematch ahead Daniel Dubois vs. Fabio Wardley 2",
     "link": "https://www.espn.com/boxing/story/_/id/50165602/whats-our-no1-heavyweight-rematch-ranked-daniel-dubois-vs-fabio-wardley-ii",
     "published": "2026-10-13T12:40:32.000Z",
@@ -1019,21 +1019,21 @@
     "league": "Boxing"
    },
    {
+    "headline": "Misfits Boxing results: Plinio Cruz destroys in debut; Joey Essex vs. Dapper Laughs ends in robbery draw",
+    "link": "https://sports.yahoo.com/boxing/live/misfits-boxing-live-results-joey-essex-vs-dapper-laughs-round-by-round-updates-highlights-for-todays-fight-130000636.html",
+    "published": "2026-10-10T13:00:00.000Z",
+    "image": "",
+    "blurb": "Cruz, the longtime coach of former two-division UFC champ Alex Pereira, scored a second-round knockout in his promotional debut for Misfits Boxing Saturday at the Copper Box Arena in London.",
+    "source": "YAHOO",
+    "league": "Boxing"
+   },
+   {
     "headline": "Zuffa Boxing 11 start time, fight card, predictions and where to watch Johnny Fisher vs. Michael Pirotton",
     "link": "https://www.cbssports.com/boxing/news/zuffa-boxing-11-johnny-fisher-vs-michael-pirotton-start-time-fight-card-date-predictions/",
     "published": "2026-09-26T13:21:16.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F25%2Fca6dc5d0-afc1-471b-8f9a-0ef0ebd90a4a%2Fjohnny-fisher-michael-pirotton-presser.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The rising heavyweight prospect makes his Zuffa Boxing debut in front of his countrymen and women on Saturday",
     "source": "CBS",
-    "league": "Boxing"
-   },
-   {
-    "headline": "How boxing inspired a play about men's mental health",
-    "link": "https://www.yahoo.com/entertainment/articles/boxing-inspired-play-mens-mental-054455016.html",
-    "published": "2026-10-08T11:06:24.000Z",
-    "image": "",
-    "blurb": "The play explores the difficulty some men have talking about their mental health and the support they can find in each other.",
-    "source": "YAHOO",
     "league": "Boxing"
    },
    {
@@ -1048,6 +1048,24 @@
   ]
  },
  "latest": [
+  {
+   "headline": "Pope embracing 'win it all or bust' expectations at Kentucky",
+   "link": "https://www.espn.com/mens-college-basketball/story/_/id/50183414/mark-pope-embracing-championship-expectations-kentucky",
+   "published": "2026-10-14T20:22:19.000Z",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0610%252Fr1505015_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Kentucky men's basketball coach Mark Pope said he is embracing championship expectations entering Year 3 with the Wildcats.",
+   "source": "ESPN",
+   "league": "NCAAB"
+  },
+  {
+   "headline": "Boxing schedule",
+   "link": "https://www.espn.com/boxing/story/_/id/12508267/boxing-schedule",
+   "published": "2026-10-14T20:19:55.000Z",
+   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0914%252Fr1545239_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Want to know what fights are on the horizon? Check out the boxing schedule.",
+   "source": "ESPN",
+   "league": "Boxing"
+  },
   {
    "headline": "Mattingly stays on as Phillies manager, reaching 2-year deal",
    "link": "https://www.espn.com/mlb/story/_/id/50181619/phillies-hire-don-mattingly-2-year-deal-manager",
@@ -1065,24 +1083,6 @@
    "blurb": "Joe Espada, who guided the Houston Astros to two American League West titles in his three seasons as manager, will not be returning to the team in 2027.",
    "source": "ESPN",
    "league": "MLB"
-  },
-  {
-   "headline": "Boxing schedule",
-   "link": "https://www.espn.com/boxing/story/_/id/12508267/boxing-schedule",
-   "published": "2026-10-14T20:11:52.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0914%252Fr1545239_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Want to know what fights are on the horizon? Check out the boxing schedule.",
-   "source": "ESPN",
-   "league": "Boxing"
-  },
-  {
-   "headline": "Pope embracing 'win it all or bust' expectations at Kentucky",
-   "link": "https://www.espn.com/mens-college-basketball/story/_/id/50183414/mark-pope-embracing-championship-expectations-kentucky",
-   "published": "2026-10-14T20:11:34.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0610%252Fr1505015_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Kentucky men's basketball coach Mark Pope said he is embracing championship expectations entering Year 3 with the Wildcats.",
-   "source": "ESPN",
-   "league": "NCAAB"
   },
   {
    "headline": "Source: Lamar has realistic chance to return for Week 6 game vs. Browns",
@@ -1139,6 +1139,15 @@
    "league": "CFB"
   },
   {
+   "headline": "Mark Pope embracing championship expectations at Kentucky",
+   "link": "https://www.espn.com/mens-college-basketball/story/_/id/50183414/mark-pope-embracing-championship-expectations-kentucky",
+   "published": "2026-10-14T19:22:19Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F0610%2Fr1505015_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Kentucky men's basketball coach Mark Pope said he is embracing championship expectations entering Year 3 with the Wildcats.",
+   "league": "NCAAB"
+  },
+  {
    "headline": "College football's new reality: Schools can't fire their way out of trouble anymore",
    "link": "https://sports.yahoo.com/college-football/article/college-footballs-new-reality-schools-cant-fire-their-way-out-of-trouble-anymore-191529449.html",
    "published": "2026-10-14T19:15:29.000Z",
@@ -1155,15 +1164,6 @@
    "blurb": "The league is being proactive in light of weather reports for Thursday's Game 3 in Cleveland, also moving up the NLCS by an hour",
    "source": "CBS",
    "league": "MLB"
-  },
-  {
-   "headline": "Mark Pope embracing championship expectations at Kentucky",
-   "link": "https://www.espn.com/mens-college-basketball/story/_/id/50183414/mark-pope-embracing-championship-expectations-kentucky",
-   "published": "2026-10-14T19:11:34Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F0610%2Fr1505015_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Kentucky men's basketball coach Mark Pope said he is embracing championship expectations entering Year 3 with the Wildcats.",
-   "league": "NCAAB"
   },
   {
    "headline": "Cardinals designate S Kitan Crawford for return, sign TE Shawn Bowman to active roster",
