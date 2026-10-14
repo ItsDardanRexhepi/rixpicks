@@ -2581,5 +2581,18 @@
   "kickoff_utc": "2026-10-15T00:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T15:21:33.660368+00:00"
+ },
+ {
+  "id": "e0d7d43c9c",
+  "event_id": "401908032",
+  "league": "MLB",
+  "path": "baseball/mlb",
+  "home": "Los Angeles Dodgers",
+  "away": "Milwaukee Brewers",
+  "pick_team": "Los Angeles Dodgers",
+  "prediction": "Los Angeles Dodgers to beat Milwaukee Brewers",
+  "kickoff_utc": "2026-10-15T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T15:51:32.133039+00:00"
  }
 ]
