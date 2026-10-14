@@ -47,6 +47,10 @@ function page(store) {
     if (route === 'other') return Promise.resolve({ status: 200, json: () => Promise.resolve({ v: 1, rev: 0, items: [], gone: [] }) });
     const step = script[route].shift();
     if (step === 'drop') return Promise.reject(new TypeError('Load failed'));
+    // The edge's own thirty seconds running out on a line that dropped: a 503 after thirty seconds.
+    if (step === 'edge-timeout') return new Promise(ok => setTimeoutF(() => ok({ status: 503, json: () => Promise.resolve({ error: 'not answering right now' }) }), 30000));
+    // The Mac holding a question for its own wait (twenty seconds) before handing back the id.
+    if (step === 'held-pending') return new Promise(ok => setTimeoutF(() => ok({ status: 200, json: () => Promise.resolve({ pending: 'P'.repeat(32) }) }), 20000));
     const s = step || { status: 200, body: { pending: 'P'.repeat(32) } };
     const res = { status: s.status, json: () => Promise.resolve(s.body) };
     // The Mac holds an ask for an answer still being written for its own wait (twenty seconds) before it says so.
@@ -115,6 +119,19 @@ const P = 'P'.repeat(32);
     check(ask2 && Array.isArray(ask2.body.turns) && ask2.body.turns.some(t => t.who === 'her' && /8\.5/.test(t.text)),
       '"and the under?" goes with the conversation so far, her long answer in it');
     check(p.her().slice(-1)[0] === 'The under is -105.', 'and a quick answer comes in the first request');
+  }
+  // ---- a question whose first try dropped at the edge (thirty seconds, then a 503) lands on its second try
+  {
+    const p = page({});
+    p.script.ask.push('edge-timeout', 'held-pending');
+    p.script.reply.push({ status: 200, body: { answer: 'Second try landed.', answered: true, cites: [] } });
+    await p.say('a public question');
+    await p.advance(30000);
+    await p.advance(4000);
+    await p.advance(20000);
+    const last = p.her().slice(-1)[0] || '';
+    check(last === 'Second try landed.' && !p.her().some(h => /cannot reach/.test(h)),
+      `a question that reached her on its second try, after the edge's thirty seconds, is not called offline ("${last}")`);
   }
   // ---- a dropped line while waiting is asked again; a phone waking asks at once
   {

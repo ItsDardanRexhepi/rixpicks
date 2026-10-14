@@ -813,7 +813,7 @@
      that slept asks the moment it wakes. A reload in the middle picks the wait back up. An id the Mac no longer holds
      (it restarted while she was writing) is said plainly, and the question is never sent again by the page. */
   var WAIT = 'trinity_wait', PENDING_RE = /^[A-Za-z0-9_-]{20,64}$/;
-  var WAIT_MAX_MS = 30 * 60 * 1000, POLL_ABORT_MS = 45000;
+  var WAIT_MAX_MS = 30 * 60 * 1000, POLL_ABORT_MS = 45000, ASK_GUARD_MS = 80000;
   var LOST = 'I lost my place on that one before I could finish it. Ask me again and I will start it over.';
   var waiting = null;
 
@@ -963,9 +963,11 @@
     var r = replying(pend, held, mine, unsure);
 
     /* The question itself comes back within the Mac's own wait (her answer, or the id to wait on), so this guards
-       only a line that never answers; the long wait has no such limit while she is working. */
+       only a line that never answers; the long wait has no such limit while she is working. It leaves room for the
+       edge's own thirty seconds and one more try after a line that dropped on the way (the tunnel to the Mac
+       reconnects in seconds), so a question that reached her on its second try is not called offline. */
     var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); r.lost(); }, 45000);
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); r.lost(); }, ASK_GUARD_MS);
     var body = held ? JSON.stringify({ question: q, session: getSession(), wait: true }) : askBody(q, turns);
 
     /* A dropped connection (the line to the Mac reconnects in seconds) is tried again twice before she says she

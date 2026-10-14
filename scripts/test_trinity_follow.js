@@ -35,7 +35,7 @@ new Function('window', 'document', 'sessionStorage', 'fetch', 'location', 'setIn
   window, document, sessionStorage, fetch, { reload() {} }, () => 1, undefined, undefined, setTimeoutF, clearTimeoutF, FakeDate);
 const flush = async () => { for (let i = 0; i < 12; i++) await new Promise(r => setImmediate(r)); };
 const say = async (q, reply) => { replies.push(reply); els.trInput.value = q; els.trAsk.handlers.submit[0]({ preventDefault() {} }); await flush(); };
-const pollTimer = () => timers.filter(t => t.ms !== 45000).slice(-1)[0];
+const pollTimer = () => timers.filter(t => t.ms !== 80000).slice(-1)[0];
 const run = async (t) => { timers = timers.filter(x => x !== t); t.f(); await flush(); };
 let fails = 0; const check = (c, l) => { console.log((c ? 'OK   ' : 'FAIL ') + l); if (!c) fails++; };
 (async () => {
@@ -59,7 +59,7 @@ let fails = 0; const check = (c, l) => { console.log((c ? 'OK   ' : 'FAIL ') + l
   check(t && t.ms === 20000, `and further after two minutes (${t && t.ms})`);
   jobs.push({ answer: 'It is live.', done: true });
   now += 20000; await run(t);
-  check(!pollTimer() || pollTimer().ms === 45000, 'a finished change is not asked about again');
+  check(!pollTimer() || pollTimer().ms === 80000, 'a finished change is not asked about again');
   console.log(fails ? `trinity follow: ${fails} FAILED` : 'trinity follow: ALL PASS');
   process.exit(fails ? 1 : 0);
 })();
