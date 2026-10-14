@@ -2096,8 +2096,9 @@
   "pick_team": "Tampa Bay Lightning",
   "prediction": "Tampa Bay Lightning to beat New York Rangers",
   "kickoff_utc": "2026-10-13T23:15:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T15:20:55.153366+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T15:20:55.153366+00:00",
+  "settled_at": "2026-10-14T02:04:55.754096+00:00"
  },
  {
   "id": "8d67a587e4",
@@ -2229,8 +2230,9 @@
   "pick_team": "Seattle Kraken",
   "prediction": "Seattle Kraken to beat Philadelphia Flyers",
   "kickoff_utc": "2026-10-13T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T21:35:05.669591+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T21:35:05.669591+00:00",
+  "settled_at": "2026-10-14T02:04:55.928602+00:00"
  },
  {
   "id": "373bb63a40",
@@ -2335,5 +2337,18 @@
   "kickoff_utc": "2026-10-14T03:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T00:05:17.852853+00:00"
+ },
+ {
+  "id": "0a39a910c4",
+  "event_id": "401858269",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "California Golden Bears",
+  "away": "Wake Forest Demon Deacons",
+  "pick_team": "Wake Forest Demon Deacons",
+  "prediction": "Wake Forest Demon Deacons to beat California Golden Bears",
+  "kickoff_utc": "2026-10-18T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T02:05:18.574906+00:00"
  }
 ]
