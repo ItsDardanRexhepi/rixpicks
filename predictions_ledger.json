@@ -2646,5 +2646,18 @@
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T20:20:04.801784+00:00"
+ },
+ {
+  "id": "06b07e700d",
+  "event_id": "401918011",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "LA Clippers",
+  "away": "Denver Nuggets",
+  "pick_team": "LA Clippers",
+  "prediction": "LA Clippers to beat Denver Nuggets",
+  "kickoff_utc": "2026-10-15T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T20:35:21.340125+00:00"
  }
 ]
