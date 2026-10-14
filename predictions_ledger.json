@@ -2542,5 +2542,44 @@
   "kickoff_utc": "2026-10-18T17:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T09:35:24.118314+00:00"
+ },
+ {
+  "id": "dc184ac2b3",
+  "event_id": "401898405",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Boston Celtics",
+  "away": "Charlotte Hornets",
+  "pick_team": "Boston Celtics",
+  "prediction": "Boston Celtics to beat Charlotte Hornets",
+  "kickoff_utc": "2026-10-14T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T15:20:20.430774+00:00"
+ },
+ {
+  "id": "3887de3a2c",
+  "event_id": "401908942",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Milwaukee Bucks",
+  "away": "Chicago Bulls",
+  "pick_team": "Milwaukee Bucks",
+  "prediction": "Milwaukee Bucks to beat Chicago Bulls",
+  "kickoff_utc": "2026-10-15T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T15:20:57.922356+00:00"
+ },
+ {
+  "id": "d9e72b8143",
+  "event_id": "401892505",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Colorado Avalanche",
+  "away": "Dallas Stars",
+  "pick_team": "Colorado Avalanche",
+  "prediction": "Colorado Avalanche to beat Dallas Stars",
+  "kickoff_utc": "2026-10-15T00:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T15:21:33.660368+00:00"
  }
 ]
