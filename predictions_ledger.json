@@ -2344,8 +2344,9 @@
   "pick_team": "Boston Bruins",
   "prediction": "Boston Bruins to beat San Jose Sharks",
   "kickoff_utc": "2026-10-14T03:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T00:05:17.852853+00:00"
+  "status": "hit",
+  "created_at": "2026-10-14T00:05:17.852853+00:00",
+  "settled_at": "2026-10-14T05:49:54.381864+00:00"
  },
  {
   "id": "0a39a910c4",
