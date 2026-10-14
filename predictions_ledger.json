@@ -2449,5 +2449,18 @@
   "kickoff_utc": "2026-10-18T17:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T04:51:17.383936+00:00"
+ },
+ {
+  "id": "2ac76bcaa9",
+  "event_id": "401873003",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Indianapolis Colts",
+  "away": "Tennessee Titans",
+  "pick_team": "Tennessee Titans",
+  "prediction": "Tennessee Titans to beat Indianapolis Colts",
+  "kickoff_utc": "2026-10-18T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T05:05:20.920041+00:00"
  }
 ]
