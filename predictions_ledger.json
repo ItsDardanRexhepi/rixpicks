@@ -2436,5 +2436,18 @@
   "kickoff_utc": "2026-10-19T00:20:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T04:36:11.632201+00:00"
+ },
+ {
+  "id": "58277d57c0",
+  "event_id": "401873002",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Tampa Bay Buccaneers",
+  "away": "Pittsburgh Steelers",
+  "pick_team": "Pittsburgh Steelers",
+  "prediction": "Pittsburgh Steelers to beat Tampa Bay Buccaneers",
+  "kickoff_utc": "2026-10-18T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T04:51:17.383936+00:00"
  }
 ]
