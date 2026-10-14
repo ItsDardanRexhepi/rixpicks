@@ -882,7 +882,7 @@
   }
 
   /* What happens to her reply to one message, from the request that asked or from the wait for a long answer. */
-  function replying(pend, held, mine, unsure) {
+  function replying(pend, held, mine, unsure, again) {
     /* The mask is never switched off on a send: after every outcome (an answer, a limit, a dropped line, the
        timeout) it is worked out again from what the page holds, so a passphrase asked for stays masked until the
        sign-in opens or ends. */
@@ -898,7 +898,14 @@
       return added;
     };
     var lost = function () { finish(held ? unsure : OFFLINE, null, false); };
-    var gone = function () { finish(held ? unsure : LOST, null, false); };
+    /* A public question whose answer was lost on the Mac (it restarted while she was writing) is asked once more by
+       the page, the dots still showing: a public question changes nothing, so asking it again is safe. Signed in,
+       or asked again already, the loss is said plainly and nothing is sent twice. */
+    var asked = false;
+    var gone = function () {
+      if (again && !asked && !held) { asked = true; again(); return; }
+      finish(held ? unsure : LOST, null, false);
+    };
     var handle = function (res) {
       if (done) return;
       if (res.body === null) { lost(); return; }
@@ -960,15 +967,9 @@
     if (secretBox) secretBox.value = '';
     lock(true);
     var pend = row('her', PENDING, null, 'tr-pending', true);
-    var r = replying(pend, held, mine, unsure);
-
-    /* The question itself comes back within the Mac's own wait (her answer, or the id to wait on), so this guards
-       only a line that never answers; the long wait has no such limit while she is working. It leaves room for the
-       edge's own thirty seconds and one more try after a line that dropped on the way (the tunnel to the Mac
-       reconnects in seconds), so a question that reached her on its second try is not called offline. */
-    var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); r.lost(); }, ASK_GUARD_MS);
     var body = held ? JSON.stringify({ question: q, session: getSession(), wait: true }) : askBody(q, turns);
+    var ctrl = null, timer = 0;
+    var r = replying(pend, held, mine, unsure, held ? null : function () { send(); });
 
     /* A dropped connection (the line to the Mac reconnects in seconds) is tried again twice before she says she
        is not answering - for a public question only. Only a failure to ARRIVE is retried; an answer of any kind is
@@ -988,16 +989,26 @@
       });
     };
 
-    post(0).then(function (res) {
-      if (held && res.status >= 500) return { status: res.status, body: null };
-      return res.json().then(function (d) { return { status: res.status, body: d }; });
-    }).then(function (res) {
+    /* The question itself comes back within the Mac's own wait (her answer, or the id to wait on), so this guards
+       only a line that never answers; the long wait has no such limit while she is working. It leaves room for the
+       edge's own thirty seconds and one more try after a line that dropped on the way (the tunnel to the Mac
+       reconnects in seconds), so a question that reached her on its second try is not called offline. */
+    var send = function () {
       clearTimeout(timer);
-      r.handle(res);
-    }).catch(function () {
-      clearTimeout(timer);
-      r.lost();
-    });
+      ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
+      timer = setTimeout(function () { if (ctrl) ctrl.abort(); r.lost(); }, ASK_GUARD_MS);
+      post(0).then(function (res) {
+        if (held && res.status >= 500) return { status: res.status, body: null };
+        return res.json().then(function (d) { return { status: res.status, body: d }; });
+      }).then(function (res) {
+        clearTimeout(timer);
+        r.handle(res);
+      }).catch(function () {
+        clearTimeout(timer);
+        r.lost();
+      });
+    };
+    send();
   }
 
   /* A reload while she was writing a long answer: the dots come back and the page goes on waiting for it. */

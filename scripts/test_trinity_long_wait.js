@@ -144,15 +144,38 @@ const P = 'P'.repeat(32);
     await p.advance(5000);
     check(p.her().slice(-1)[0] === 'Here it is.', 'a dropped ask is tried again, and the answer still lands');
   }
-  // ---- an id the Mac no longer holds is said plainly
+  // ---- a public answer lost on the Mac (a restart while she wrote) is asked for once more, then said plainly
   {
     const p = page({});
-    p.script.ask.push({ status: 200, body: { pending: P } });
-    p.script.reply.push({ status: 404, body: { error: 'no such answer' } });
+    p.script.ask.push({ status: 200, body: { pending: P } }, { status: 200, body: { pending: 'Q'.repeat(32) } });
+    p.script.reply.push({ status: 404, body: { error: 'no such answer' } },
+                        { status: 200, body: { answer: 'Here it is after all.', answered: true, cites: [] } });
     await p.say('a hard one');
     await p.advance(1);
-    const last = p.her().slice(-1)[0] || '';
-    check(/lost my place/.test(last) && !p.typing(), `a lost answer is said plainly ("${last}")`);
+    const asks = p.sent.filter(s => s.url.endsWith('/ask'));
+    check(asks.length === 2 && asks[1].body.question === 'a hard one' && asks[1].body.wait === true,
+      'a public question whose answer was lost is asked once more, the same question');
+    check(p.her().slice(-1)[0] === 'Here it is after all.' && !p.her().some(h => /lost my place/.test(h)),
+      'and her answer lands with no word of the loss');
+    const q = page({});
+    q.script.ask.push({ status: 200, body: { pending: P } }, { status: 200, body: { pending: P } });
+    q.script.reply.push({ status: 404, body: { error: 'no such answer' } }, { status: 404, body: { error: 'no such answer' } });
+    await q.say('a hard one');
+    await q.advance(1);
+    const last = q.her().slice(-1)[0] || '';
+    check(q.sent.filter(s => s.url.endsWith('/ask')).length === 2 && /lost my place/.test(last) && !q.typing(),
+      `lost twice, it is said plainly and not asked a third time ("${last}")`);
+  }
+  // ---- signed in, a lost answer is never asked again: a second copy of a change is a second change
+  {
+    const store = { trinity_session: 'S'.repeat(30), trinity_session_who: 'Sam' };
+    const p = page(store);
+    p.script.ask.push({ status: 200, body: { pending: P } });
+    p.script.reply.push({ status: 404, body: { error: 'no such answer' } });
+    await p.say('put a note on the tab');
+    await p.advance(1);
+    check(p.sent.filter(s => s.url.endsWith('/ask')).length === 1 && /could not confirm/.test(p.her().slice(-1)[0] || ''),
+      'signed in, a lost answer is said as unconfirmed and the message is never sent twice');
   }
   // ---- a reload in the middle of the wait picks it back up
   {
