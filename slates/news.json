@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-14T07:56:03.335Z",
+ "generated_at": "2026-10-14T08:01:22.352Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -122,11 +122,11 @@
     "league": "NFL"
    },
    {
-    "headline": "'Football 301' diagnoses fatal flaws of 6 NFL contenders: What could derail Bills, Chiefs, Seahawks and more?",
-    "link": "https://sports.yahoo.com/nfl/article/football-301-diagnoses-fatal-flaws-of-6-nfl-contenders-what-could-derail-bills-chiefs-seahawks-and-more-032354855.html",
-    "published": "2026-10-14T03:23:54.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/d32ee50614ddfbcc6fa1bf3cf4d0bbb09aa92a8c8bb128c84c24bbc92a366143/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2Fb2353362-4372-4b71-8e01-d879fd8de26c",
-    "blurb": "Not even the best teams in the league are perfect. Yahoo Sports' Nate Tice and The Athletic's Derrik Klassen explore what could go wrong for some Super Bowl hopefuls.",
+    "headline": "Sean McVay reveals why Rams cut Harrison Mevis after costly misses in Bills loss",
+    "link": "https://sports.yahoo.com/articles/sean-mcvay-reveals-why-rams-033731140.html",
+    "published": "2026-10-14T03:37:31.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/71318f96a0ff8d2e232e54a948ceae6730f12e061a24f26e6d1a3e7a2cfbc8a4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fny_post_sports_articles_389%2F082eff0910739e0b0ab563a2a363de35.jpg",
+    "blurb": "Rams coach Sean McVay explains why Los Angeles released kicker Harrison Mevis after two costly misses against the Bills, insisting he wasn't solely to blame.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -149,11 +149,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Rams PFF grades: Jaylen Watson & Puka Nacua earn top marks vs Bills",
-    "link": "https://sports.yahoo.com/articles/rams-pff-grades-jaylen-watson-025907880.html",
-    "published": "2026-10-14T02:59:07.000Z",
+    "headline": "'Football 301' diagnoses fatal flaws of 6 NFL contenders: What could derail Bills, Chiefs, Seahawks and more?",
+    "link": "https://sports.yahoo.com/nfl/article/football-301-diagnoses-fatal-flaws-of-6-nfl-contenders-what-could-derail-bills-chiefs-seahawks-and-more-032354855.html",
+    "published": "2026-10-14T03:23:54.000Z",
     "image": "",
-    "blurb": "Advanced metrics and PFF grades from the Rams\u2019 Week 5 loss to Bills",
+    "blurb": "Not even the best teams in the league are perfect. Yahoo Sports' Nate Tice and The Athletic's Derrik Klassen explore what could go wrong for some Super Bowl hopefuls.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -176,11 +176,11 @@
     "league": "NFL"
    },
    {
-    "headline": "NFL coaches on the hot seat: Who's in the most trouble after 5 weeks?",
-    "link": "https://sports.yahoo.com/nfl/article/nfl-coaches-on-the-hot-seat-whos-in-the-most-trouble-after-5-weeks-025659939.html",
-    "published": "2026-10-14T02:56:59.000Z",
+    "headline": "Rams PFF grades: Jaylen Watson & Puka Nacua earn top marks vs Bills",
+    "link": "https://sports.yahoo.com/articles/rams-pff-grades-jaylen-watson-025907880.html",
+    "published": "2026-10-14T02:59:07.000Z",
     "image": "",
-    "blurb": "These three coaches are a collective 2-12-1. One of them just suffered an all-time blunder and another is enduring the worst start he's ever had in his career.",
+    "blurb": "Advanced metrics and PFF grades from the Rams\u2019 Week 5 loss to Bills",
     "source": "YAHOO",
     "league": "NFL"
    }
@@ -1248,6 +1248,15 @@
    "league": "NCAAB"
   },
   {
+   "headline": "Sean McVay reveals why Rams cut Harrison Mevis after costly misses in Bills loss",
+   "link": "https://sports.yahoo.com/articles/sean-mcvay-reveals-why-rams-033731140.html",
+   "published": "2026-10-14T03:37:31.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/71318f96a0ff8d2e232e54a948ceae6730f12e061a24f26e6d1a3e7a2cfbc8a4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fny_post_sports_articles_389%2F082eff0910739e0b0ab563a2a363de35.jpg",
+   "blurb": "Rams coach Sean McVay explains why Los Angeles released kicker Harrison Mevis after two costly misses against the Bills, insisting he wasn't solely to blame.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "Mistakes Cost Guards: Rays Even ALCS at One a Piece",
    "link": "https://sports.yahoo.com/articles/mistakes-cost-guards-rays-even-033303161.html",
    "published": "2026-10-14T03:33:03.000Z",
@@ -1255,15 +1264,6 @@
    "blurb": "You can't win 'em all",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "'Football 301' diagnoses fatal flaws of 6 NFL contenders: What could derail Bills, Chiefs, Seahawks and more?",
-   "link": "https://sports.yahoo.com/nfl/article/football-301-diagnoses-fatal-flaws-of-6-nfl-contenders-what-could-derail-bills-chiefs-seahawks-and-more-032354855.html",
-   "published": "2026-10-14T03:23:54.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/d32ee50614ddfbcc6fa1bf3cf4d0bbb09aa92a8c8bb128c84c24bbc92a366143/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2Fb2353362-4372-4b71-8e01-d879fd8de26c",
-   "blurb": "Not even the best teams in the league are perfect. Yahoo Sports' Nate Tice and The Athletic's Derrik Klassen explore what could go wrong for some Super Bowl hopefuls.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "Tyreek Hill found liable for 2 of 10 counts in battery trial; wife awarded $500K",
