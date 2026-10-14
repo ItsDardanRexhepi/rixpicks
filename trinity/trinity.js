@@ -14,8 +14,10 @@
        the id the Mac hands it (THE LONG WAIT, below). It never gives up while the Mac says she is still working.
      * It renders a refusal as an answer. `answered:false` is a true statement about what is not
        public, so it gets the same bubble and no red, no icon and no apology.
-     * It sends one question at a time. Only a public question that never arrived is tried again; anything sent
-       while a sign-in is open or asked for is sent once, because a second copy of a change is a second change.
+     * It sends one question at a time. A question whose answer was lost (it never arrived, or the Mac restarted or
+       stopped while she wrote it) is asked once more, signed in or not, when the Mac said it is a question; anything
+       that may change something, and anything sent while a sign-in is open or asked for, is sent once, because a
+       second copy of a change is a second change. It never waits for ever: after six minutes it says so.
      * On every visit it reads the chat's instant site changes (typed keys and plain values, never markup) and
        applies them: a colour, a note, a picture, a word, a section shown or hidden, a Wooder Ice ticket.
      * Signed in, a reply may carry a picture the Mac made (the card image) and notices from a watch they
@@ -810,32 +812,61 @@
   /* THE LONG WAIT. She may take minutes over an answer (her highest effort, reading the web first), and no one request
      waits that long: every question says it can wait, and when her answer is not ready inside the Mac's own wait the
      reply is an id. The page then asks /reply with that id until her answer is there, her typing dots showing the
-     whole time. It never gives up while the Mac says she is still working; a dropped line is asked again, and a phone
-     that slept asks the moment it wakes. A reload in the middle picks the wait back up. An id the Mac no longer holds
-     (it restarted while she was writing) is said plainly, and the question is never sent again by the page. */
+     whole time; a dropped line is asked again, and a phone that slept asks the moment it wakes. A reload in the middle
+     picks the wait back up.
+     NOTHING WAITS FOR EVER (owner, 2026-10-14: endless dots after the chat restarted under his question). An id the
+     Mac will never answer comes back `gone` at once, and then a QUESTION is asked once more with the dots still
+     showing (the Mac says beside each id whether the message is one: `again`); anything else is said plainly and never
+     sent twice. And after WAIT_MAX_MS on one id the dots stop: she says the answer did not come back and offers to ask
+     again, a tap away. */
   var WAIT = 'trinity_wait', PENDING_RE = /^[A-Za-z0-9_-]{20,64}$/;
-  var WAIT_MAX_MS = 30 * 60 * 1000, POLL_ABORT_MS = 45000, ASK_GUARD_MS = 80000;
+  var WAIT_MAX_MS = 6 * 60 * 1000, POLL_ABORT_MS = 45000, ASK_GUARD_MS = 80000;
   var LOST = 'I lost my place on that one before I could finish it. Ask me again and I will start it over.';
+  var NOT_BACK = 'That answer did not come back, so I have stopped waiting for it. Ask me again and I will start it over.';
+  var NOT_BACK_IN = 'That did not come back, so I cannot tell whether it went through. If it was a change to the site, ' +
+                    'ask me "my changes" before sending it again.';
+  var ASK_AGAIN = 'Ask again';
   var waiting = null;
 
-  function keepWait(id, held, photo) {
+  /* The wait, kept for this tab so a reload picks it up: the id, and the question itself only when it is one the Mac
+     said may be asked again. */
+  function keepWait(id, held, photo, q) {
     try {
-      if (id) sessionStorage.setItem(WAIT, JSON.stringify({ id: id, at: Date.now(), held: held ? 1 : 0, photo: photo ? 1 : 0 }));
+      if (id) sessionStorage.setItem(WAIT, JSON.stringify({ id: id, at: Date.now(), held: held ? 1 : 0, photo: photo ? 1 : 0,
+                                                            q: typeof q === 'string' ? q : '' }));
       else sessionStorage.removeItem(WAIT);
     } catch (e) {}
   }
 
+  /* "Ask again", a tap away, under her line that says an answer did not come back: it sends the same question as a
+     new message. Only ever offered for a question. */
+  function offerAgain(r, q) {
+    var b = r && r.children ? r.children[0] : null;
+    if (!b || !q || typeof b.appendChild !== 'function') return;
+    var btn = el('button', 'tr-chip tr-again', ASK_AGAIN);
+    btn.type = 'button';
+    btn.addEventListener('click', function () {
+      if (inFlight) return;
+      if (btn.parentNode) btn.parentNode.removeChild(btn);
+      ask(q);
+    });
+    b.appendChild(btn);
+  }
+
   /* Ask for the answer with this id until it is there. `got(res)` takes the answer exactly as a reply to the question
-     itself would have been taken; `gone()` says it was lost. */
-  function collect(id, held, photo, got, gone, since) {
+     itself would have been taken; `gone()` says it was lost; `late()` says it did not come back within WAIT_MAX_MS
+     (`gone` when there is none). A phone that slept past the limit asks once more before it gives up, so an answer
+     that finished while it slept still lands. */
+  function collect(id, held, photo, got, gone, since, late, q) {
     var started = since || Date.now(), fails = 0, busy = false, over = false, timer = 0;
     var w = waiting = { wake: null };
-    keepWait(id, held, photo);
+    keepWait(id, held, photo, q);
     var end = function () { over = true; clearTimeout(timer); if (waiting === w) waiting = null; keepWait(''); };
     var again = function (ms) { clearTimeout(timer); timer = setTimeout(tick, ms); };
+    var tooLate = function () { end(); (late || gone)(); };
     var tick = function () {
       if (over || busy) return;
-      if (Date.now() - started > WAIT_MAX_MS) { end(); gone(); return; }
+      var past = Date.now() - started > WAIT_MAX_MS;
       busy = true;
       var t0 = Date.now();
       var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
@@ -853,21 +884,24 @@
         busy = false;
         if (over) return;
         var d = res.body;
+        if (res.status === 404 || (d && d.gone === true)) { end(); gone(); return; }
         if (res.status === 200 && d && typeof d.pending === 'string') {
+          if (past) { tooLate(); return; }
           /* still writing: the Mac held that ask while she worked, so the next one goes at once */
           fails = 0;
           again(Date.now() - t0 < 1000 ? 2000 : 0);
           return;
         }
         if (res.status === 200 && d) { end(); got(res); return; }
-        if (res.status === 404) { end(); gone(); return; }
         fails++;
+        if (past) { tooLate(); return; }
         again(Math.min(2000 * fails, 10000));
       }, function () {
         clearTimeout(cut);
         busy = false;
         if (over) return;
         fails++;
+        if (past) { tooLate(); return; }
         again(Math.min(2000 * fails, 10000));
       });
     };
@@ -882,8 +916,10 @@
     return d && typeof d.pending === 'string' && PENDING_RE.test(d.pending) && !d.answer ? d.pending : '';
   }
 
-  /* What happens to her reply to one message, from the request that asked or from the wait for a long answer. */
-  function replying(pend, held, mine, unsure, again) {
+  /* What happens to her reply to one message, from the request that asked or from the wait for a long answer. `again`
+     sends the message once more; `q` is the message, for the offer to ask again; `safe` whether it may be sent again
+     before the Mac has said (a visitor's question; signed in, only once the Mac says it is a question). */
+  function replying(pend, held, mine, unsure, again, q, safe) {
     /* The mask is never switched off on a send: after every outcome (an answer, a limit, a dropped line, the
        timeout) it is worked out again from what the page holds, so a passphrase asked for stays masked until the
        sign-in opens or ends. */
@@ -899,19 +935,31 @@
       return added;
     };
     var lost = function () { finish(held ? unsure : OFFLINE, null, false); };
-    /* A public question whose answer was lost on the Mac (it restarted while she was writing) is asked once more by
-       the page, the dots still showing: a public question changes nothing, so asking it again is safe. Signed in,
-       or asked again already, the loss is said plainly and nothing is sent twice. */
+    /* A question whose answer was lost on the Mac (it restarted or stopped while she was writing) is asked once more by
+       the page, the dots still showing: a question changes nothing, so asking it again is safe. A visitor's message is
+       always a question; signed in, it is one when the Mac said so beside its id (`again`), as the site agent's own
+       router reads it. Anything else, or a question already asked again, is said plainly and nothing is sent twice. */
     var asked = false;
-    var gone = function () {
-      if (again && !asked && !held) { asked = true; again(); return; }
-      finish(held ? unsure : LOST, null, false);
+    safe = held ? !!safe : true;
+    var offer = function (text) {
+      var fr = finish(text, null, false);
+      if (fr && safe) offerAgain(fr, q);
     };
+    var gone = function () {
+      if (again && !asked && safe) { asked = true; again(); return; }
+      if (held && !safe) { finish(unsure, null, false); return; }
+      offer(LOST);
+    };
+    var late = function () { if (held && !safe) finish(NOT_BACK_IN, null, false); else offer(NOT_BACK); };
     var handle = function (res) {
       if (done) return;
       if (res.body === null) { lost(); return; }
       var id = pendingOf(res);
-      if (id) { collect(id, held, false, handle, gone); return; }
+      if (id) {
+        if (held) safe = !!(res.body && res.body.again === true);
+        collect(id, held, false, handle, gone, null, late, safe ? q : '');
+        return;
+      }
       var d = res.body || {};
       var wasIn = signedIn();
       /* A reply that opened, asked for or ended a sign-in makes the message that caused it, and the reply, the
@@ -949,7 +997,7 @@
         if (door) markPrivate(mine);
       }
     };
-    return { finish: finish, lost: lost, gone: gone, handle: handle, done: function () { return done; } };
+    return { finish: finish, lost: lost, gone: gone, late: late, handle: handle, done: function () { return done; } };
   }
 
   function ask(q) {
@@ -969,9 +1017,14 @@
     lock(true);
     var pend = row('her', PENDING, null, 'tr-pending', true);
     var body = held ? JSON.stringify({ question: q, session: getSession(), wait: true }) : askBody(q, turns);
-    var ctrl = null, timer = 0;
-    var r = replying(pend, held, mine, unsure, held ? null : function () { send(); });
+    var r = replying(pend, held, mine, unsure, wasSecret ? null : function () { send(); }, wasSecret ? '' : q, false);
+    var send = sender(body, held, r);
+    send();
+  }
 
+  /* One message sent to her, as `send()`; `r` takes what comes back (`replying`). */
+  function sender(body, held, r) {
+    var ctrl = null, timer = 0;
     /* A dropped connection (the line to the Mac reconnects in seconds) is tried again twice before she says she
        is not answering - for a public question only. Only a failure to ARRIVE is retried; an answer of any kind is
        never asked twice. */
@@ -994,7 +1047,7 @@
        only a line that never answers; the long wait has no such limit while she is working. It leaves room for the
        edge's own thirty seconds and one more try after a line that dropped on the way (the tunnel to the Mac
        reconnects in seconds), so a question that reached her on its second try is not called offline. */
-    var send = function () {
+    return function () {
       clearTimeout(timer);
       ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
       timer = setTimeout(function () { if (ctrl) ctrl.abort(); r.lost(); }, ASK_GUARD_MS);
@@ -1009,14 +1062,15 @@
         r.lost();
       });
     };
-    send();
   }
 
-  /* A reload while she was writing a long answer: the dots come back and the page goes on waiting for it. */
+  /* A reload while she was writing a long answer: the dots come back and the page goes on waiting for it (asking once
+     more first, even past the limit, so an answer that finished meanwhile still lands). A question it may ask again
+     is kept with the wait, so it can be asked once more after a reload too. */
   function resumeWait() {
     var w = null;
     try { w = JSON.parse(sessionStorage.getItem(WAIT) || 'null'); } catch (e) { w = null; }
-    if (!w || typeof w.id !== 'string' || !PENDING_RE.test(w.id) || !(Date.now() - (w.at || 0) < WAIT_MAX_MS)) {
+    if (!w || typeof w.id !== 'string' || !PENDING_RE.test(w.id) || !(Date.now() - (w.at || 0) < 4 * WAIT_MAX_MS)) {
       keepWait('');
       return;
     }
@@ -1028,8 +1082,11 @@
       collect(w.id, true, true, p.handle, p.gone, w.at);
       return;
     }
-    var r = replying(pend, !!w.held, null, UNSURE_IN);
-    collect(w.id, !!w.held, false, r.handle, r.gone, w.at);
+    var held = !!w.held, q = typeof w.q === 'string' ? w.q : '';
+    var body = held ? JSON.stringify({ question: q, session: getSession(), wait: true }) : askBody(q, []);
+    var r = replying(pend, held, null, UNSURE_IN, q ? function () { send(); } : null, q, !!q);
+    var send = sender(body, held, r);
+    collect(w.id, held, false, r.handle, r.gone, w.at, r.late, q);
   }
 
   /* PHOTOS, signed in only. The photo is redrawn on a canvas before it leaves the phone: that drops every byte of

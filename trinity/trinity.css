@@ -52,6 +52,8 @@
          padding:8px 11px;border-radius:999px;border:1px solid var(--line);
          background:var(--panel2);color:var(--mut)}
 .tr-chip:hover,.tr-chip:focus-visible{color:var(--txt);border-color:var(--acc)}
+/* "Ask again" under her line that says an answer did not come back: a tap sends the same question once more. */
+.tr-bub .tr-again{display:block;margin-top:8px}
 
 .tr-ask{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:var(--panel2)}
 .tr-ask input,.tr-ask textarea{flex:1 1 auto;width:0;min-width:0;font:inherit;font-size:16px;padding:11px 12px;border-radius:10px;
