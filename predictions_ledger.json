@@ -2620,5 +2620,18 @@
   "kickoff_utc": "2026-10-15T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T16:36:14.979393+00:00"
+ },
+ {
+  "id": "2461d647be",
+  "event_id": "401892504",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Washington Capitals",
+  "away": "Montreal Canadiens",
+  "pick_team": "Montreal Canadiens",
+  "prediction": "Montreal Canadiens to beat Washington Capitals",
+  "kickoff_utc": "2026-10-14T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T18:50:23.989858+00:00"
  }
 ]
