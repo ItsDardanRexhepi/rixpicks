@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-14T02:50:10.396580+00:00",
+ "generated_at": "2026-10-14T03:05:16.045761+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,8 +9,8 @@
      "espn_event_id": "401908024",
      "matchup": "CLE @ TB",
      "commence": "2026-10-14T00:00Z",
-     "status": "in",
-     "detail": "Top 9th",
+     "status": "post",
+     "detail": "Final",
      "score": "CLE 1 - TB 3"
     }
    ]
@@ -23,40 +23,16 @@
      "matchup": "FIU @ JXST",
      "commence": "2026-10-14T00:00Z",
      "status": "in",
-     "detail": "9:48 - 4th",
-     "score": "FIU 30 - JXST 24",
+     "detail": "5:08 - 4th",
+     "score": "FIU 24 - JXST 24",
      "away_to": 0,
      "home_to": 1
-    },
-    {
-     "espn_event_id": "401871067",
-     "matchup": "DEL @ MTSU",
-     "commence": "2026-10-13T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "DEL 30 - MTSU 33"
     }
    ]
   },
   {
    "league": "NBA",
    "games": [
-    {
-     "espn_event_id": "401898403",
-     "matchup": "CLE @ ORL",
-     "commence": "2026-10-13T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "CLE 116 - ORL 132"
-    },
-    {
-     "espn_event_id": "401908944",
-     "matchup": "NY @ TOR",
-     "commence": "2026-10-13T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "NY 98 - TOR 148"
-    },
     {
      "espn_event_id": "401908621",
      "matchup": "IND @ OKC",
@@ -70,34 +46,26 @@
      "matchup": "GS @ LAL",
      "commence": "2026-10-14T02:00Z",
      "status": "in",
-     "detail": "8:18 - 2nd",
-     "score": "GS 34 - LAL 39",
+     "detail": "2:28 - 2nd",
+     "score": "GS 45 - LAL 56",
      "away_to": 5,
-     "home_to": 6
+     "home_to": 5
     },
     {
      "espn_event_id": "401901826",
      "matchup": "POR @ SAC",
      "commence": "2026-10-14T02:00Z",
      "status": "in",
-     "detail": "8:38 - 2nd",
-     "score": "POR 45 - SAC 28",
+     "detail": "3:10 - 2nd",
+     "score": "POR 58 - SAC 33",
      "away_to": 6,
-     "home_to": 6
+     "home_to": 5
     }
    ]
   },
   {
    "league": "NHL",
    "games": [
-    {
-     "espn_event_id": "401892492",
-     "matchup": "SEA @ PHI",
-     "commence": "2026-10-13T23:00Z",
-     "status": "post",
-     "detail": "Final/SO",
-     "score": "SEA 3 - PHI 2"
-    },
     {
      "espn_event_id": "401892493",
      "matchup": "TB @ NYR",
@@ -134,19 +102,17 @@
      "espn_event_id": "401892497",
      "matchup": "MIN @ WPG",
      "commence": "2026-10-14T00:15Z",
-     "status": "in",
-     "detail": "End of 3rd",
-     "score": "MIN 2 - WPG 5",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "MIN 2 - WPG 5"
     },
     {
      "espn_event_id": "401892498",
      "matchup": "COL @ DAL",
      "commence": "2026-10-14T00:45Z",
      "status": "in",
-     "detail": "19:07 - 3rd",
-     "score": "COL 3 - DAL 1",
+     "detail": "8:29 - 3rd",
+     "score": "COL 3 - DAL 2",
      "away_to": null,
      "home_to": null
     },
@@ -155,8 +121,8 @@
      "matchup": "VGK @ NSH",
      "commence": "2026-10-14T00:45Z",
      "status": "in",
-     "detail": "16:19 - 3rd",
-     "score": "VGK 3 - NSH 2",
+     "detail": "8:01 - 3rd",
+     "score": "VGK 5 - NSH 2",
      "away_to": null,
      "home_to": null
     },
@@ -165,7 +131,7 @@
      "matchup": "TOR @ UTA",
      "commence": "2026-10-14T01:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "15:46 - 3rd",
      "score": "TOR 2 - UTA 5",
      "away_to": null,
      "home_to": null
@@ -175,8 +141,8 @@
      "matchup": "CGY @ ANA",
      "commence": "2026-10-14T01:45Z",
      "status": "in",
-     "detail": "19:56 - 2nd",
-     "score": "CGY 1 - ANA 2",
+     "detail": "11:41 - 2nd",
+     "score": "CGY 2 - ANA 2",
      "away_to": null,
      "home_to": null
     },
@@ -185,8 +151,8 @@
      "matchup": "EDM @ LA",
      "commence": "2026-10-14T02:30Z",
      "status": "in",
-     "detail": "13:29 - 1st",
-     "score": "EDM 0 - LA 0",
+     "detail": "7:13 - 1st",
+     "score": "EDM 2 - LA 0",
      "away_to": null,
      "home_to": null
     },
