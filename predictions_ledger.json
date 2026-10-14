@@ -2594,5 +2594,18 @@
   "kickoff_utc": "2026-10-15T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-14T15:51:32.133039+00:00"
+ },
+ {
+  "id": "3d7670069f",
+  "event_id": "401901825",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Dallas Mavericks",
+  "away": "New Orleans Pelicans",
+  "pick_team": "Dallas Mavericks",
+  "prediction": "Dallas Mavericks to beat New Orleans Pelicans",
+  "kickoff_utc": "2026-10-15T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-14T16:20:42.666775+00:00"
  }
 ]
