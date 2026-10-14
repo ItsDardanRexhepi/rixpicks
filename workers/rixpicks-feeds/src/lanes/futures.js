@@ -3,17 +3,26 @@
 // self-respawning GHA runner + every-75s git-push churn). Same row shape:
 //   {"ts","league","board":{"P:<question>":cents|"K:<ticker>":cents}}
 // Shadow: writes R2 only (futures/current.json + futures/ticks/<day>/<hhmm>.jsonl).
-// Cutover (FUTURES_REPO_BATCH=on): ALSO commits an hourly compacted batch to the repo
-// data/futures_ws_ticks.jsonl via the contents API, so analysis-side readers keep working
-// unchanged while they repoint. 24 commits/day instead of ~1150.
+// Kalshi leg (2026-10-14 futures-switch prep): when Worker secrets KALSHI_KEY_ID /
+// KALSHI_PRIVATE_KEY are present the Kalshi reads are AUTHENTICATED (own rate bucket - the
+// shared-IP 429 class goes away), paginated like the listener (4 pages, status=open), and the
+// price basis is the listener's: yes_ask cents, NOT last/bid (the old basis made the parity
+// kalshi_leg price_close structurally fail: ask vs last routinely differ >2c).
+// Analysis-side repoint artifact: futures/ticks_recent.jsonl - rolling 48h CHANGED-KEYS-ONLY
+// rows (first row after deploy is the full-board baseline), the exact shape of prod
+// data/futures_ws_ticks.jsonl, served at /feeds/futures/ticks.jsonl for futures_247.py.
 import { kalshiCoolingDown, tripKalshiCooldown, is429 } from '../lib/cooldown.js';
+import { kalshiHeaders, kalshiAuthed } from '../lib/kalshiAuth.js';
 const GAMMA = 'https://gamma-api.polymarket.com/events?slug=';
-const KAPI = 'https://api.elections.kalshi.com/trade-api/v2/markets?series_ticker=%s&limit=200&status=open';
+const KHOST = 'https://api.elections.kalshi.com';
+const KPATH = '/trade-api/v2/markets';
+const TICKS_RECENT_KEY = 'futures/ticks_recent.jsonl';
+const TICKS_RECENT_H = 48;
 
-async function getJson(url, timeoutMs = 20000) {
+async function getJson(url, headers, timeoutMs = 20000) {
   const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), timeoutMs);
   try {
-    const r = await fetch(url, { headers: { 'User-Agent': 'rix/1.0' }, signal: ctl.signal });
+    const r = await fetch(url, { headers: headers || { 'User-Agent': 'rix/1.0' }, signal: ctl.signal });
     if (!r.ok) throw new Error('http ' + r.status);
     return await r.json();
   } finally { clearTimeout(t); }
@@ -51,22 +60,57 @@ async function polyBoard(slug) {
 async function kalshiBoard(env, series) {
   const board = {}; let err429 = false;
   for (const s of series || []) {
-    try {
-      const d = await getJson(KAPI.replace('%s', s));
-      for (const m of d.markets || []) {
-        let f = parseFloat(m.last_price_dollars);
-        if (isNaN(f) || f <= 0) f = parseFloat(m.yes_bid_dollars);
-        const c = isNaN(f) ? null : toCents(f);
-        if (c) board['K:' + m.ticker] = c;
+    let cursor = null;
+    for (let page = 0; page < 4; page++) {   // listener parity: paginate up to 4 pages per series
+      try {
+        let url = `${KHOST}${KPATH}?series_ticker=${s}&status=open&limit=200`;
+        if (cursor) url += `&cursor=${cursor}`;
+        const d = await getJson(url, await kalshiHeaders(env, 'GET', KPATH));
+        for (const m of d.markets || []) {
+          // listener price basis: yes_ask (ticker channel), dollars preferred, cents fallback
+          let f = parseFloat(m.yes_ask_dollars);
+          let c = isNaN(f) ? null : toCents(f);
+          if (c === null && m.yes_ask != null && m.yes_ask !== '') { const ci = parseFloat(m.yes_ask); c = ci > 0 && ci < 100 ? ci : null; }
+          if (c) board['K:' + m.ticker] = c;
+        }
+        cursor = d.cursor;
+        if (!cursor) break;
+      } catch (e) {
+        console.error('kalshi futures poll ERR', s, String(e).slice(0, 100));
+        if (is429(e)) err429 = true;
+        break;
       }
-    } catch (e) {
-      console.error('kalshi futures poll ERR', s, String(e).slice(0, 100));
-      if (is429(e)) { err429 = true; break; }  // shared-egress limit: stop hammering, cool down
+      await new Promise(r => setTimeout(r, 200));
     }
+    if (err429) break;  // shared-egress limit: stop hammering, cool down
     await new Promise(r => setTimeout(r, 250)); // gentle pacing on the shared IP pool
   }
   if (err429) await tripKalshiCooldown(env, 'futures 429');
   return board;
+}
+
+// rolling changed-keys ticks (prod data/futures_ws_ticks.jsonl shape) for the analysis-side reader
+async function appendRecentTicks(env, ts, current, prev) {
+  try {
+    let lines = [];
+    let baseline = false;
+    try { const o = await env.FEEDS.get(TICKS_RECENT_KEY); if (o) lines = (await o.text()).trim().split('\n').filter(Boolean); else baseline = true; }
+    catch (e) { baseline = true; }
+    if (!lines.length) baseline = true;
+    const cutoff = new Date(Date.parse(ts) - TICKS_RECENT_H * 3600000).toISOString();
+    lines = lines.filter(ln => { const t = ln.slice(7, 31); return t >= cutoff; }); // {"ts":"<iso>" - cheap prefix read
+    let appended = 0;
+    for (const [lg, ent] of Object.entries(current)) {
+      const prevBoard = (prev[lg] || {}).board || {};
+      const delta = {};
+      for (const [k, v] of Object.entries(ent.board)) {
+        if (baseline || prevBoard[k] !== v) delta[k] = v;
+      }
+      if (Object.keys(delta).length) { lines.push(JSON.stringify({ ts, league: lg, board: delta })); appended++; }
+    }
+    if (appended || baseline) await env.FEEDS.put(TICKS_RECENT_KEY, lines.join('\n') + '\n', { httpMetadata: { contentType: 'text/plain' } });
+    return appended;
+  } catch (e) { console.error('ticks_recent append ERR', String(e).slice(0, 100)); return -1; }
 }
 
 export async function runFutures(env) {
@@ -102,7 +146,8 @@ export async function runFutures(env) {
     env.FEEDS.put(`futures/ticks/${day}/${hhmm}.jsonl`, rows.join('\n') + '\n'),
     env.FEEDS.put('futures/quality.json', JSON.stringify({ ts, spread_c: qualityAll, book_c: bookAll })),
   ]);
+  const recent = await appendRecentTicks(env, ts, current, prev);
   // heartbeat, same shape as the GHA listener's
-  await env.FEEDS.put('futures/heartbeat.json', JSON.stringify({ ts, mode: 'cf-cron-poll', leagues: Object.keys(current).length, kalshi_cooldown: kalshiCool, leg_errors: errs }));
-  return { leagues: Object.keys(current).length, keys: rows.reduce((n, r) => n + Object.keys(JSON.parse(r).board).length, 0) };
+  await env.FEEDS.put('futures/heartbeat.json', JSON.stringify({ ts, mode: 'cf-cron-poll', leagues: Object.keys(current).length, kalshi_cooldown: kalshiCool, kalshi_authed: kalshiAuthed(env), leg_errors: errs }));
+  return { leagues: Object.keys(current).length, keys: rows.reduce((n, r) => n + Object.keys(JSON.parse(r).board).length, 0), kalshi_authed: kalshiAuthed(env), recent_rows: recent };
 }
