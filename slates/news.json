@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-14T11:01:03.165Z",
+ "generated_at": "2026-10-14T11:06:09.320Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "What this year's MLB playoffs say about baseball's future",
+    "link": "https://www.espn.com/mlb/story/_/id/50166698/mlb-playoffs-2026-nlcs-alcs-dodgers-brewers-rays-guardians-payroll-cba-labor",
+    "published": "2026-10-14T10:50:58Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1014%2Fr1730555_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The No. 1 payroll in baseball -- and three others that barely add up to L.A.'s combined -- are left standing this October.",
+    "league": "MLB"
+   },
    {
     "headline": "Today on Pinstripe Alley \u2013 10/13/26",
     "link": "https://sports.yahoo.com/articles/today-pinstripe-alley-10-13-103000066.html",
@@ -9,15 +18,6 @@
     "image": "https://s.yimg.com/lo/mysterio/api/05c418b87dd3d60b0899049f2cbeb1c6294cc73ce5fa270c9761f08964e7c160/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe4b5c50e609f2317a441160dd45fa011.jpg",
     "blurb": "We shift our sights to Los Angeles.",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Freddy Peralta shuts down Guardians as Rays even ALCS with Game 2 win",
-    "link": "https://www.espn.com/mlb/story/_/id/50179060/peralta-tosses-gem-rays-cash-ramirez-gaffe-game-2",
-    "published": "2026-10-14T10:21:53Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1014%2Fr1730482_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Guardians knew what was coming but still couldn't touch starter Freddy Peralta, who topped 99 mph on his fastball and threw six scoreless innings as the Rays took Game 2 of the ALCS.",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Freddy Peralta shuts down Guardians as Rays even ALCS with Game 2 win",
+    "link": "https://www.espn.com/mlb/story/_/id/50179060/peralta-tosses-gem-rays-cash-ramirez-gaffe-game-2",
+    "published": "2026-10-14T10:21:53Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1014%2Fr1730482_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Guardians knew what was coming but still couldn't touch starter Freddy Peralta, who topped 99 mph on his fastball and threw six scoreless innings as the Rays took Game 2 of the ALCS.",
+    "league": "MLB"
+   },
+   {
     "headline": "Yankees news: Previewing the free agent class",
     "link": "https://sports.yahoo.com/articles/yankees-news-previewing-free-agent-090000000.html",
     "published": "2026-10-14T09:00:00.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/45cc09e28285dd67f4a3de50b0f2799f5a9cfa319e9064085e4eb737954ed364/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Febf5d63c3594da77ae59f94c3a802cc8.jpg",
     "blurb": "Who will stay and who will go; Bednar\u2019s big question; coaching staff shuffle?; Kay has a question for Judge",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Freddy Peralta, Liam Hicks lift the Rays to a 3-1 win over the Guardians that evens the ALCS at 1-1",
-    "link": "http://www.espn.com/mlb/recap?gameId=401908024",
-    "published": "2026-10-14T08:20:46Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908024.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 With the crowd chanting his name, a fired-up Freddy Peralta pumped one fastball after another past hitters all night long.",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Freddy Peralta, Liam Hicks lift the Rays to a 3-1 win over the Guardians that evens the ALCS at 1-1",
+    "link": "http://www.espn.com/mlb/recap?gameId=401908024",
+    "published": "2026-10-14T08:20:46Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908024.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 With the crowd chanting his name, a fired-up Freddy Peralta pumped one fastball after another past hitters all night long.",
+    "league": "MLB"
+   },
+   {
     "headline": "Freddy Peralta goes back to his roots, leans on 4-seam fastball to shut down the Guardians in Rays' ALCS-tying victory",
     "link": "https://sports.yahoo.com/mlb/article/freddy-peralta-goes-back-to-his-roots-leans-on-4-seam-fastball-to-shut-down-the-guardians-in-rays-alcs-tying-victory-054715383.html",
     "published": "2026-10-14T05:47:15.000Z",
     "image": "",
     "blurb": "Seventy-one of the 99 pitches Peralta threw in Game 2 were four-seamers \u2014 his highest usage in a start since 2019.",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Brewers take 2-0 NLCS lead into Game 3 against Dodgers",
-    "link": "http://www.espn.com/mlb/preview?gameId=401908032",
-    "published": "2026-10-14T08:02:27Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908032.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Milwaukee Brewers (103-59, first in the NL Central during the regular season) vs. Los Angeles Dodgers (100-62, first in the NL West during the regular season)",
     "league": "MLB"
    },
    {
@@ -84,32 +84,32 @@
     "league": "MLB"
    },
    {
-    "headline": "Joe Girardi believes Yankees have accountability issue after another playoff flop: \u2018Enough is enough!\u2019",
-    "link": "https://sports.yahoo.com/articles/joe-girardi-believes-yankees-accountability-034815160.html",
-    "published": "2026-10-14T03:48:15.000Z",
-    "image": "",
-    "blurb": "Joe Girardi isn't blaming Aaron Boone for the Yankees' shortcomings, but believes a deeper-rooted culture issue may have contributed to the team's ALDS sweep.",
-    "source": "YAHOO",
+    "headline": "Brewers take 2-0 NLCS lead into Game 3 against Dodgers",
+    "link": "http://www.espn.com/mlb/preview?gameId=401908032",
+    "published": "2026-10-14T08:02:27Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908032.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Milwaukee Brewers (103-59, first in the NL Central during the regular season) vs. Los Angeles Dodgers (100-62, first in the NL West during the regular season)",
     "league": "MLB"
    }
   ],
   "football/nfl": [
    {
-    "headline": "Giants fill open roster spot with veteran linebacker",
-    "link": "https://sports.yahoo.com/articles/giants-fill-open-roster-spot-103943794.html",
-    "published": "2026-10-14T10:39:43.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/3856cf4ce5bbfd677e462cef10dc01deb7506742aeff60aec72e05346185752d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F290607633730fdd352018259abad947f.jpg",
-    "blurb": "Giants add Malik Harrison to 53-man roster.",
-    "source": "YAHOO",
+    "headline": "Jaguars coach Liam Coen takes blame for delay of game penalties vs. Eagles",
+    "link": "https://www.espn.com/nfl/story/_/id/50180676/jaguars-coach-takes-blame-rash-delay-game-penalties",
+    "published": "2026-10-14T11:01:59Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F1019%2Fr1562591_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Jaguars coach Liam Coen says the blame for the team's three delay of game penalties against the Eagles belongs on his shoulders.",
     "league": "NFL"
    },
    {
-    "headline": "Saints owner Gayle Benson rips 1-4 start, says fans 'deserve better'",
-    "link": "https://www.espn.com/nfl/story/_/id/50177269/saints-owner-benson-rips-1-4-start-says-fans-deserve-better",
-    "published": "2026-10-14T10:27:05Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730376_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Saints owner Gayle Benson called out several members of the organization amid the team's 1-4 start and said that fans are \"right to expect more than we have delivered.\"",
+    "headline": "Catching Up on NFL Boilers Through Week 5",
+    "link": "https://sports.yahoo.com/articles/catching-nfl-boilers-week-5-105300294.html",
+    "published": "2026-10-14T10:53:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/fd78d9aabdea331552f0b053f4aed42304e0790dcbd5d01cecba43abcd9ce552/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc0233f6d2c5477f93895ecfaa4a733fc.jpg",
+    "blurb": "Let\u2019s check in on the NFL season.",
+    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -122,21 +122,21 @@
     "league": "NFL"
    },
    {
-    "headline": "Chiefs News: Jury returns mixed verdict in Tyreek Hill civil battery case",
-    "link": "https://sports.yahoo.com/articles/chiefs-news-jury-returns-mixed-103000657.html",
-    "published": "2026-10-14T10:30:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/48c2ba85309aa25dd894123809de6543081e9ac2c3fce5186d8e8f5391f66ca6/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F51ffad3e042588d323cdd9b3f7590586.jpg",
-    "blurb": "The latest Chiefs news, brought fresh to you every morning!",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
     "headline": "Revisiting 2026 preseason bold predictions for 32 NFL teams: Which are on track?",
     "link": "https://www.espn.com/nfl/story/_/id/50163007/2026-season-evaluating-preseason-predictions-updates",
     "published": "2026-10-14T10:25:47Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730176_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "In the preseason, we made bold predictions for every NFL team, from Jordan Love's MVP case to Isaiah Likely's catch total. Which ones are on track? Which seem unlikely?",
+    "league": "NFL"
+   },
+   {
+    "headline": "Giants fill open roster spot with veteran linebacker",
+    "link": "https://sports.yahoo.com/articles/giants-fill-open-roster-spot-103943794.html",
+    "published": "2026-10-14T10:39:43.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/3856cf4ce5bbfd677e462cef10dc01deb7506742aeff60aec72e05346185752d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F290607633730fdd352018259abad947f.jpg",
+    "blurb": "Giants add Malik Harrison to 53-man roster.",
+    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -149,21 +149,21 @@
     "league": "NFL"
    },
    {
-    "headline": "NFL analyst claims Joe Burrow is \u2018the best quarterback in football\u2019",
-    "link": "https://sports.yahoo.com/articles/nfl-analyst-claims-joe-burrow-103000868.html",
-    "published": "2026-10-14T10:30:00.000Z",
-    "image": "",
-    "blurb": "The Bengals QB deserves even more credit when you turn on the tape.",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
     "headline": "NFL Week 6 latest intel, buzz questions, news, fantasy tips: What we're hearing",
     "link": "https://www.espn.com/nfl/story/_/id/50173775/week-6-buzz-fantasy-predictions-graziano-fowler-2026",
     "published": "2026-10-14T10:25:04Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730277_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "What is going on with the Eagles?! We have intel on Philly's three-game slide, three remaining unbeaten teams, QBs at risk of being benched, potential WR trades and more.",
+    "league": "NFL"
+   },
+   {
+    "headline": "Chiefs News: Jury returns mixed verdict in Tyreek Hill civil battery case",
+    "link": "https://sports.yahoo.com/articles/chiefs-news-jury-returns-mixed-103000657.html",
+    "published": "2026-10-14T10:30:00.000Z",
+    "image": "",
+    "blurb": "The latest Chiefs news, brought fresh to you every morning!",
+    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -176,22 +176,22 @@
     "league": "NFL"
    },
    {
-    "headline": "Jets worked out Matthew Judon",
-    "link": "https://sports.yahoo.com/articles/jets-worked-matthew-judon-101311492.html",
-    "published": "2026-10-14T10:13:11.000Z",
-    "image": "",
-    "blurb": "Matthew Judon is trying to catch on elsewhere after the 49ers cut him from their practice squad this week.",
-    "source": "YAHOO",
+    "headline": "Jaguars WR Parker Washington has the clutch gene: Will that earn him an extension?",
+    "link": "https://www.espn.com/nfl/story/_/id/50174583/jacksonville-jaguars-parker-washington-2026-breakout",
+    "published": "2026-10-14T10:00:10Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1012%2Fr1729841_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Did you see Washington's one-handed grab in London? How did he get so good at contested catches? And how did he quickly become a big part of the Jaguars' offense?",
     "league": "NFL"
    }
   ],
   "football/college-football": [
    {
-    "headline": "Ohio high school football predictions, Greater Canton Week 9 breakdowns",
-    "link": "https://sports.yahoo.com/articles/ohio-high-school-football-predictions-104911297.html",
-    "published": "2026-10-14T10:49:11.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/19b2be80c1778aef6a1f42ef1d4b3a3cf4cb192b2f7864eaa241f8cdf6dcc51b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe-repository%2F83cc0bcc7c846285baffb2ebae0b0f9a.jpg",
-    "blurb": "What to know and who we predict will win OHSAA Week 8 high school football games featuring Stark County-area teams.",
+    "headline": "Midweek Musings \u2013 Signs of Progress",
+    "link": "https://sports.yahoo.com/articles/midweek-musings-signs-progress-105200882.html",
+    "published": "2026-10-14T10:52:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6fbe4ca22b1573bfe250c5ae478e32f0ff9d2864de127d551e48006c9295181f/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0e3f1fad8e83037a12722eda647e4d5b.jpg",
+    "blurb": "On the upswing?",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -214,11 +214,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Which remaining Ohio State game are you most excited for?",
-    "link": "https://sports.yahoo.com/articles/remaining-ohio-state-game-most-103100068.html",
-    "published": "2026-10-14T10:31:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/bcce86acfbb6e3c99e34fbc3b3bc5799e09a56c2c80f3a2efdf86b3e9425038d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0eea68e9793f4a637fcbe320dd6bf564.jpg",
-    "blurb": "The Buckeyes have six games remaining on their regular-season schedule, each with its own amount of intrigue. For this week\u2019s fan survey, we want to know which game you are most excited about. Click the link and vote!",
+    "headline": "Ohio high school football predictions, Greater Canton Week 9 breakdowns",
+    "link": "https://sports.yahoo.com/articles/ohio-high-school-football-predictions-104911297.html",
+    "published": "2026-10-14T10:49:11.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/19b2be80c1778aef6a1f42ef1d4b3a3cf4cb192b2f7864eaa241f8cdf6dcc51b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe-repository%2F83cc0bcc7c846285baffb2ebae0b0f9a.jpg",
+    "blurb": "What to know and who we predict will win OHSAA Week 8 high school football games featuring Stark County-area teams.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -241,11 +241,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Five takeaways from Deion Sanders' press conference before Utah",
-    "link": "https://sports.yahoo.com/articles/five-takeaways-deion-sanders-press-103054988.html",
-    "published": "2026-10-14T10:30:54.000Z",
+    "headline": "Which remaining Ohio State game are you most excited for?",
+    "link": "https://sports.yahoo.com/articles/remaining-ohio-state-game-most-103100068.html",
+    "published": "2026-10-14T10:31:00.000Z",
     "image": "",
-    "blurb": "Deion Sanders addressed a multiple topics at media availability following Colorado's bye week, including who will start at quarterback against Utah.",
+    "blurb": "The Buckeyes have six games remaining on their regular-season schedule, each with its own amount of intrigue. For this week\u2019s fan survey, we want to know which game you are most excited about. Click the link and vote!",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -268,11 +268,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Oregon Makes Final Call on Bear Alexander After Nico Iamaleava Punch Draws Scrutiny",
-    "link": "https://sports.yahoo.com/articles/oregon-makes-final-call-bear-102514953.html",
-    "published": "2026-10-14T10:25:14.000Z",
+    "headline": "Five takeaways from Deion Sanders' press conference before Utah",
+    "link": "https://sports.yahoo.com/articles/five-takeaways-deion-sanders-press-103054988.html",
+    "published": "2026-10-14T10:30:54.000Z",
     "image": "",
-    "blurb": "Oregon coach Dan Lanning recently discussed a controversial hit involving defensive lineman Bear Alexander and quarterback Nico Iamaleava. Alexander appeared to twist the quarterback\u2019s helmet and swing his right arm, striking Iamaleava in the head and chin, leading to intense onl",
+    "blurb": "Deion Sanders addressed a multiple topics at media availability following Colorado's bye week, including who will start at quarterback against Utah.",
     "source": "YAHOO",
     "league": "CFB"
    }
@@ -371,21 +371,21 @@
   ],
   "basketball/nba": [
    {
+    "headline": "Wemby, Spurs have 'clarity' after Finals loss but know \"nothing is guaranteed'",
+    "link": "https://www.espn.com/nba/story/_/id/50174585/san-antonio-spurs-wembanyama-expectations-nba",
+    "published": "2026-10-14T11:01:28Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730175_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Spurs enter the season with expectations to return to the Finals after loss to the Knicks.",
+    "league": "NBA"
+   },
+   {
     "headline": "YouTube Gold: Dave Bing",
     "link": "https://sports.yahoo.com/articles/youtube-gold-dave-bing-094300096.html",
     "published": "2026-10-14T09:43:00.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/b91923fe7d985c8a38c917b10fa47b9bcfff6c5fb2c2e38113105caffdcc2ee2/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F35567b31b83f2f645d3e44a427304773.jpg",
     "blurb": "Dave Bing was a great basketball player, but that was just a warmup act.",
     "source": "YAHOO",
-    "league": "NBA"
-   },
-   {
-    "headline": "Kessler impresses in Lakers preseason debut as Redick emphasizes being 'relentless'",
-    "link": "https://www.espn.com/nba/story/_/id/50179763/walker-kessler-impresses-preseason-debut-lakers",
-    "published": "2026-10-14T07:29:15.000Z",
-    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1014%252Fr1730520_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Lakers center Walker Kessler made a strong first impression in his preseason debut Tuesday, finishing with 11 points on 4-for-6 shooting, nine rebounds, one block and one steal while playing only in the first half.",
-    "source": "ESPN",
     "league": "NBA"
    },
    {
@@ -398,21 +398,21 @@
     "league": "NBA"
    },
    {
+    "headline": "NBA Now or Later rankings: Which teams most need to win immediately?",
+    "link": "https://www.espn.com/nba/story/_/id/50167312/2026-27-now-later-rankings-finals",
+    "published": "2026-10-14T10:58:32Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2F261014_nba_now-or-later-rankings_16x9_608x342.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Which teams must win immediately, with their current cores, and which could bide their time and win later instead? We ranked all 30.",
+    "league": "NBA"
+   },
+   {
     "headline": "Warriors win over Lakers in Vegas, 101-89",
     "link": "https://sports.yahoo.com/articles/warriors-win-over-lakers-vegas-073005234.html",
     "published": "2026-10-14T07:30:05.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/d486015b2c0ac4c3f67dff9294a0bbcd0e2f4530d8c87c2391425c59940669d8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fed43899b67a47b5386c62ef1acccea09.jpg",
     "blurb": "The garbage time crew pulls it off.",
     "source": "YAHOO",
-    "league": "NBA"
-   },
-   {
-    "headline": "Celtics to extend guard Pritchard on two-year, $44.2M deal",
-    "link": "https://www.espn.com/nba/story/_/id/50176173/celtics-extend-payton-pritchard-two-year-442m-deal",
-    "published": "2026-10-14T07:29:15.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2024%252F1030%252Fr1408017_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Celtics guard Payton Pritchard has agreed to a two-year, $44.2 million extension with a mutual option for the 2029-30 season.",
-    "source": "ESPN",
     "league": "NBA"
    },
    {
@@ -425,21 +425,21 @@
     "league": "NBA"
    },
    {
+    "headline": "Kessler impresses in Lakers preseason debut as Redick emphasizes being 'relentless'",
+    "link": "https://www.espn.com/nba/story/_/id/50179763/walker-kessler-impresses-preseason-debut-lakers",
+    "published": "2026-10-14T07:29:15.000Z",
+    "image": "",
+    "blurb": "Lakers center Walker Kessler made a strong first impression in his preseason debut Tuesday, finishing with 11 points on 4-for-6 shooting, nine rebounds, one block and one steal while playing only in the first half.",
+    "source": "ESPN",
+    "league": "NBA"
+   },
+   {
     "headline": "Walker Kessler debuts, but Luka Doncic sits during Lakers' preseason loss to Warriors",
     "link": "https://sports.yahoo.com/articles/walker-kessler-debuts-luka-doncic-043725996.html",
     "published": "2026-10-14T04:37:25.000Z",
     "image": "",
     "blurb": "Walker Kessler makes his Lakers debut and scores 11 points in a preseason loss to the Warriors on Tuesday night.",
     "source": "YAHOO",
-    "league": "NBA"
-   },
-   {
-    "headline": "KCP: Sixers' success hinges on chemistry, players 'liking each other'",
-    "link": "https://www.espn.com/nba/story/_/id/50168000/kentavious-caldwell-pope-cites-team-chemistry-key-76ers",
-    "published": "2026-10-14T07:29:15.000Z",
-    "image": "",
-    "blurb": "Kentavious Caldwell-Pope says the 76ers' success this season depends on how well the team's diverse personalities mesh.",
-    "source": "ESPN",
     "league": "NBA"
    },
    {
@@ -452,16 +452,25 @@
     "league": "NBA"
    },
    {
-    "headline": "Walker Kessler shines in debut, Lakers fall to Warriors",
-    "link": "https://sports.yahoo.com/articles/walker-kessler-shines-debut-lakers-042837661.html",
-    "published": "2026-10-14T04:28:37.000Z",
+    "headline": "Celtics to extend guard Pritchard on two-year, $44.2M deal",
+    "link": "https://www.espn.com/nba/story/_/id/50176173/celtics-extend-payton-pritchard-two-year-442m-deal",
+    "published": "2026-10-14T07:29:15.000Z",
     "image": "",
-    "blurb": "Walker Kessler impressed in his debut and Austin Reaves continued his strong preseason in the LA\u2019s loss to the Warriors.",
-    "source": "YAHOO",
+    "blurb": "Celtics guard Payton Pritchard has agreed to a two-year, $44.2 million extension with a mutual option for the 2029-30 season.",
+    "source": "ESPN",
     "league": "NBA"
    }
   ],
   "hockey/nhl": [
+   {
+    "headline": "NHL Tonight: What to watch in Capitals-Canadiens, Stars-Avalanche",
+    "link": "https://www.espn.com/nhl/story/_/id/50175711/nhl-2026-27-tonight-games-schedule-matchups-stats-top-players-betting",
+    "published": "2026-10-14T10:15:23Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730271_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "With just two contests on the NHL calendar Wednesday, here are game previews, betting lines, updated stat leaders and more.",
+    "league": "NHL"
+   },
    {
     "headline": "Pens Points: Murashov slips up as Blackhawks win in Bedard\u2019s season debut",
     "link": "https://sports.yahoo.com/articles/pens-points-murashov-slips-blackhawks-100000326.html",
@@ -469,15 +478,6 @@
     "image": "https://s.yimg.com/lo/mysterio/api/18e88d502e5d023fa912363b704710e6a52bf75d9e82948eab262c965aba5cd7/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F36049045af535ff2374171d4551f9bcc.jpg",
     "blurb": "Here are your Pens Points for this Wednesday morning\u2026 The Pittsburgh Penguins fell 5-3 to the Chicago Blackhawks on Tuesday despite two goals from Sidney Crosby, including his first of the season. Pittsburgh\u2019s power play went 0-for-4 and has failed to score in its last 16 opportu",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Wild host the Blues after Kaprizov's 2-goal game",
-    "link": "http://www.espn.com/nhl/preview?gameId=401892514",
-    "published": "2026-10-14T08:12:35Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892514.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "St. Louis Blues (3-2-1, in the Central Division) vs. Minnesota Wild (4-2-1, in the Central Division)",
     "league": "NHL"
    },
    {
@@ -490,21 +490,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Wild host the Blues after Kaprizov's 2-goal game",
+    "link": "http://www.espn.com/nhl/preview?gameId=401892514",
+    "published": "2026-10-14T08:12:35Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892514.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "St. Louis Blues (3-2-1, in the Central Division) vs. Minnesota Wild (4-2-1, in the Central Division)",
+    "league": "NHL"
+   },
+   {
     "headline": "Pacific Division foes meet when Vegas hosts Calgary",
     "link": "https://sports.yahoo.com/articles/pacific-division-foes-meet-vegas-081118864.html",
     "published": "2026-10-14T08:11:18.000Z",
     "image": "",
     "blurb": "Calgary Flames (1-5, in the Pacific Division) vs. Vegas Golden Knights (6-2, in the Pacific Division)Paradise, Nevada; Thursday, 10 p.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Kraken take win streak into matchup against the Lightning",
-    "link": "http://www.espn.com/nhl/preview?gameId=401892509",
-    "published": "2026-10-14T08:12:34Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892509.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Seattle Kraken (5-2, in the Pacific Division) vs. Tampa Bay Lightning (4-2, in the Atlantic Division)",
     "league": "NHL"
    },
    {
@@ -517,21 +517,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Kraken take win streak into matchup against the Lightning",
+    "link": "http://www.espn.com/nhl/preview?gameId=401892509",
+    "published": "2026-10-14T08:12:34Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892509.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Seattle Kraken (5-2, in the Pacific Division) vs. Tampa Bay Lightning (4-2, in the Atlantic Division)",
+    "league": "NHL"
+   },
+   {
     "headline": "Takeaways from the Ducks 4-2 Loss to the Flames",
     "link": "https://sports.yahoo.com/articles/takeaways-ducks-4-2-loss-060539596.html",
     "published": "2026-10-14T06:05:39.000Z",
     "image": "",
     "blurb": "Injuries to Ryan Poehling and Cutter Gauthier haunt Anaheim as a depleted roster struggles with defensive zone coverage and depth scoring against a hungry Calgary squad.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Florida takes on Vancouver following Tkachuk's hat trick",
-    "link": "http://www.espn.com/nhl/preview?gameId=401892510",
-    "published": "2026-10-14T08:12:33Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892510.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Vancouver Canucks (2-6, in the Pacific Division) vs. Florida Panthers (3-2-2, in the Atlantic Division)",
     "league": "NHL"
    },
    {
@@ -544,12 +544,12 @@
     "league": "NHL"
    },
    {
-    "headline": "McAvoy scores in his 1st game back from a suspension to lead the Bruins past the Sharks 6-3",
-    "link": "https://sports.yahoo.com/articles/mcavoy-scores-1st-game-back-055445391.html",
-    "published": "2026-10-14T05:54:45.000Z",
-    "image": "",
-    "blurb": "(AP) \u2014 Charlie McAvoy scored in his season debut after serving a six-game suspension and the Boston Bruins beat the San Jose Sharks 6-3 on Tuesday night.McAvoy missed the first six games of the season as punishment for slashing Buffalo\u2019s Zach Benson late in Game 6 of the first ro",
-    "source": "YAHOO",
+    "headline": "Florida takes on Vancouver following Tkachuk's hat trick",
+    "link": "http://www.espn.com/nhl/preview?gameId=401892510",
+    "published": "2026-10-14T08:12:33Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892510.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Vancouver Canucks (2-6, in the Pacific Division) vs. Florida Panthers (3-2-2, in the Atlantic Division)",
     "league": "NHL"
    }
   ],
@@ -1059,6 +1059,33 @@
  },
  "latest": [
   {
+   "headline": "Jaguars coach Liam Coen takes blame for delay of game penalties vs. Eagles",
+   "link": "https://www.espn.com/nfl/story/_/id/50180676/jaguars-coach-takes-blame-rash-delay-game-penalties",
+   "published": "2026-10-14T11:01:59Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F1019%2Fr1562591_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Jaguars coach Liam Coen says the blame for the team's three delay of game penalties against the Eagles belongs on his shoulders.",
+   "league": "NFL"
+  },
+  {
+   "headline": "Wemby, Spurs have 'clarity' after Finals loss but know \"nothing is guaranteed'",
+   "link": "https://www.espn.com/nba/story/_/id/50174585/san-antonio-spurs-wembanyama-expectations-nba",
+   "published": "2026-10-14T11:01:28Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730175_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Spurs enter the season with expectations to return to the Finals after loss to the Knicks.",
+   "league": "NBA"
+  },
+  {
+   "headline": "NBA Now or Later rankings: Which teams most need to win immediately?",
+   "link": "https://www.espn.com/nba/story/_/id/50167312/2026-27-now-later-rankings-finals",
+   "published": "2026-10-14T10:58:32Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2F261014_nba_now-or-later-rankings_16x9_608x342.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Which teams must win immediately, with their current cores, and which could bide their time and win later instead? We ranked all 30.",
+   "league": "NBA"
+  },
+  {
    "headline": "USC men\u2019s basketball falls to North Carolina in preseason exhibition",
    "link": "https://sports.yahoo.com/articles/usc-men-basketball-falls-north-105506479.html",
    "published": "2026-10-14T10:55:06.000Z",
@@ -1066,6 +1093,33 @@
    "blurb": "The Trojans played their first preseason exhibition game over the weekend, coming up short against North Carolina",
    "source": "YAHOO",
    "league": "NCAAB"
+  },
+  {
+   "headline": "Catching Up on NFL Boilers Through Week 5",
+   "link": "https://sports.yahoo.com/articles/catching-nfl-boilers-week-5-105300294.html",
+   "published": "2026-10-14T10:53:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/fd78d9aabdea331552f0b053f4aed42304e0790dcbd5d01cecba43abcd9ce552/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc0233f6d2c5477f93895ecfaa4a733fc.jpg",
+   "blurb": "Let\u2019s check in on the NFL season.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
+   "headline": "Midweek Musings \u2013 Signs of Progress",
+   "link": "https://sports.yahoo.com/articles/midweek-musings-signs-progress-105200882.html",
+   "published": "2026-10-14T10:52:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/6fbe4ca22b1573bfe250c5ae478e32f0ff9d2864de127d551e48006c9295181f/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0e3f1fad8e83037a12722eda647e4d5b.jpg",
+   "blurb": "On the upswing?",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "What this year's MLB playoffs say about baseball's future",
+   "link": "https://www.espn.com/mlb/story/_/id/50166698/mlb-playoffs-2026-nlcs-alcs-dodgers-brewers-rays-guardians-payroll-cba-labor",
+   "published": "2026-10-14T10:50:58Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1014%2Fr1730555_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The No. 1 payroll in baseball -- and three others that barely add up to L.A.'s combined -- are left standing this October.",
+   "league": "MLB"
   },
   {
    "headline": "Ohio high school football predictions, Greater Canton Week 9 breakdowns",
@@ -1104,15 +1158,6 @@
    "league": "CFB"
   },
   {
-   "headline": "Which remaining Ohio State game are you most excited for?",
-   "link": "https://sports.yahoo.com/articles/remaining-ohio-state-game-most-103100068.html",
-   "published": "2026-10-14T10:31:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/bcce86acfbb6e3c99e34fbc3b3bc5799e09a56c2c80f3a2efdf86b3e9425038d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F0eea68e9793f4a637fcbe320dd6bf564.jpg",
-   "blurb": "The Buckeyes have six games remaining on their regular-season schedule, each with its own amount of intrigue. For this week\u2019s fan survey, we want to know which game you are most excited about. Click the link and vote!",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
    "headline": "Today on Pinstripe Alley \u2013 10/13/26",
    "link": "https://sports.yahoo.com/articles/today-pinstripe-alley-10-13-103000066.html",
    "published": "2026-10-14T10:30:00.000Z",
@@ -1120,24 +1165,6 @@
    "blurb": "We shift our sights to Los Angeles.",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "Chiefs News: Jury returns mixed verdict in Tyreek Hill civil battery case",
-   "link": "https://sports.yahoo.com/articles/chiefs-news-jury-returns-mixed-103000657.html",
-   "published": "2026-10-14T10:30:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/48c2ba85309aa25dd894123809de6543081e9ac2c3fce5186d8e8f5391f66ca6/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F51ffad3e042588d323cdd9b3f7590586.jpg",
-   "blurb": "The latest Chiefs news, brought fresh to you every morning!",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
-   "headline": "Saints owner Gayle Benson rips 1-4 start, says fans 'deserve better'",
-   "link": "https://www.espn.com/nfl/story/_/id/50177269/saints-owner-benson-rips-1-4-start-says-fans-deserve-better",
-   "published": "2026-10-14T10:27:05Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730376_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Saints owner Gayle Benson called out several members of the organization amid the team's 1-4 start and said that fans are \"right to expect more than we have delivered.\"",
-   "league": "NFL"
   },
   {
    "headline": "Revisiting 2026 preseason bold predictions for 32 NFL teams: Which are on track?",
@@ -1156,6 +1183,15 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1014%2Fr1730482_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The Guardians knew what was coming but still couldn't touch starter Freddy Peralta, who topped 99 mph on his fastball and threw six scoreless innings as the Rays took Game 2 of the ALCS.",
    "league": "MLB"
+  },
+  {
+   "headline": "NHL Tonight: What to watch in Capitals-Canadiens, Stars-Avalanche",
+   "link": "https://www.espn.com/nhl/story/_/id/50175711/nhl-2026-27-tonight-games-schedule-matchups-stats-top-players-betting",
+   "published": "2026-10-14T10:15:23Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1730271_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "With just two contests on the NHL calendar Wednesday, here are game previews, betting lines, updated stat leaders and more.",
+   "league": "NHL"
   },
   {
    "headline": "Prisco's Week 6 NFL picks: Seahawks over Broncos on Thursday night, Buccaneers upset Steelers",
@@ -1203,30 +1239,12 @@
    "league": "MLB"
   },
   {
-   "headline": "Freddy Peralta, Liam Hicks lift the Rays to a 3-1 win over the Guardians that evens the ALCS at 1-1",
-   "link": "http://www.espn.com/mlb/recap?gameId=401908024",
-   "published": "2026-10-14T08:20:46Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908024.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "\u2014 With the crowd chanting his name, a fired-up Freddy Peralta pumped one fastball after another past hitters all night long.",
-   "league": "MLB"
-  },
-  {
    "headline": "Wild host the Blues after Kaprizov's 2-goal game",
    "link": "http://www.espn.com/nhl/preview?gameId=401892514",
    "published": "2026-10-14T08:12:35Z",
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892514.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "St. Louis Blues (3-2-1, in the Central Division) vs. Minnesota Wild (4-2-1, in the Central Division)",
-   "league": "NHL"
-  },
-  {
-   "headline": "Kraken take win streak into matchup against the Lightning",
-   "link": "http://www.espn.com/nhl/preview?gameId=401892509",
-   "published": "2026-10-14T08:12:34Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892509.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Seattle Kraken (5-2, in the Pacific Division) vs. Tampa Bay Lightning (4-2, in the Atlantic Division)",
    "league": "NHL"
   },
   {
@@ -1245,24 +1263,6 @@
    "image": "https://s.yimg.com/lo/mysterio/api/d486015b2c0ac4c3f67dff9294a0bbcd0e2f4530d8c87c2391425c59940669d8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fed43899b67a47b5386c62ef1acccea09.jpg",
    "blurb": "The garbage time crew pulls it off.",
    "source": "YAHOO",
-   "league": "NBA"
-  },
-  {
-   "headline": "Kessler impresses in Lakers preseason debut as Redick emphasizes being 'relentless'",
-   "link": "https://www.espn.com/nba/story/_/id/50179763/walker-kessler-impresses-preseason-debut-lakers",
-   "published": "2026-10-14T07:29:15.000Z",
-   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1014%252Fr1730520_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Lakers center Walker Kessler made a strong first impression in his preseason debut Tuesday, finishing with 11 points on 4-for-6 shooting, nine rebounds, one block and one steal while playing only in the first half.",
-   "source": "ESPN",
-   "league": "NBA"
-  },
-  {
-   "headline": "Celtics to extend guard Pritchard on two-year, $44.2M deal",
-   "link": "https://www.espn.com/nba/story/_/id/50176173/celtics-extend-payton-pritchard-two-year-442m-deal",
-   "published": "2026-10-14T07:29:15.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2024%252F1030%252Fr1408017_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Celtics guard Payton Pritchard has agreed to a two-year, $44.2 million extension with a mutual option for the 2029-30 season.",
-   "source": "ESPN",
    "league": "NBA"
   },
   {
@@ -1420,8 +1420,8 @@
   }
  ],
  "source_mix": {
-  "YAHOO": 67,
-  "ESPN": 49,
+  "ESPN": 53,
+  "YAHOO": 63,
   "CBS": 38
  },
  "degraded_sources": []
