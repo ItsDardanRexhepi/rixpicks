@@ -1,17 +1,49 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T20:20:13.688759+00:00",
+ "generated_at": "2026-10-15T21:05:17.105456+00:00",
  "leagues": [
   {
-   "league": "MLB",
+   "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401908025",
-     "matchup": "TB @ CLE",
-     "commence": "2026-10-15T17:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "TB 2 - CLE 3"
+     "espn_event_id": "401892506",
+     "matchup": "BUF @ TOR",
+     "commence": "2026-10-15T23:00Z",
+     "status": "pre",
+     "detail": "10/15 - 4:00 PM PT",
+     "score": "BUF 0 - TOR 0"
+    },
+    {
+     "espn_event_id": "401892507",
+     "matchup": "NYI @ OTT",
+     "commence": "2026-10-15T23:00Z",
+     "status": "pre",
+     "detail": "10/15 - 4:00 PM PT",
+     "score": "NYI 0 - OTT 0"
+    },
+    {
+     "espn_event_id": "401892509",
+     "matchup": "SEA @ TB",
+     "commence": "2026-10-15T23:00Z",
+     "status": "pre",
+     "detail": "10/15 - 4:00 PM PT",
+     "score": "SEA 0 - TB 0"
+    },
+    {
+     "espn_event_id": "401892510",
+     "matchup": "VAN @ FLA",
+     "commence": "2026-10-15T23:00Z",
+     "status": "pre",
+     "detail": "10/15 - 4:00 PM PT",
+     "score": "VAN 0 - FLA 0"
+    },
+    {
+     "espn_event_id": "401892511",
+     "matchup": "NYR @ NJ",
+     "commence": "2026-10-15T23:00Z",
+     "status": "pre",
+     "detail": "10/15 - 4:00 PM PT",
+     "score": "NYR 0 - NJ 0"
     }
    ]
   }
