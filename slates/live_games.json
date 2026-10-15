@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T03:35:12.817426+00:00",
+ "generated_at": "2026-10-15T03:50:10.290699+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -68,8 +68,8 @@
      "matchup": "DEN @ LAC",
      "commence": "2026-10-15T02:30Z",
      "status": "in",
-     "detail": "1:20 - 2nd",
-     "score": "DEN 48 - LAC 53",
+     "detail": "Halftime",
+     "score": "DEN 55 - LAC 58",
      "away_to": 3,
      "home_to": 6
     }
@@ -127,8 +127,8 @@
      "espn_event_id": "761871",
      "matchup": "MIN @ COL",
      "commence": "2026-10-15T01:30Z",
-     "status": "in",
-     "detail": "90'+4'",
+     "status": "post",
+     "detail": "FT",
      "score": "MIN 2 - COL 2"
     },
     {
@@ -144,7 +144,7 @@
      "matchup": "POR @ LA",
      "commence": "2026-10-15T02:30Z",
      "status": "in",
-     "detail": "HT",
+     "detail": "52'",
      "score": "POR 0 - LA 1"
     },
     {
@@ -152,8 +152,8 @@
      "matchup": "ATX @ LAFC",
      "commence": "2026-10-15T02:30Z",
      "status": "in",
-     "detail": "HT",
-     "score": "ATX 0 - LAFC 0"
+     "detail": "53'",
+     "score": "ATX 0 - LAFC 1"
     },
     {
      "espn_event_id": "761872",
