@@ -1840,8 +1840,9 @@
   "pick_team": "LA Galaxy",
   "prediction": "LA Galaxy to beat Portland Timbers",
   "kickoff_utc": "2026-10-15T02:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T09:06:00.740549+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T09:06:00.740549+00:00",
+  "settled_at": "2026-10-15T05:04:59.846633+00:00"
  },
  {
   "id": "d73da979fc",
@@ -1999,8 +2000,9 @@
   "pick_team": "Houston Dynamo FC",
   "prediction": "Houston Dynamo FC to beat San Diego FC",
   "kickoff_utc": "2026-10-15T02:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T14:36:21.026886+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T14:36:21.026886+00:00",
+  "settled_at": "2026-10-15T05:04:59.942427+00:00"
  },
  {
   "id": "5d4aa2347d",
@@ -2343,8 +2345,9 @@
   "pick_team": "Austin FC",
   "prediction": "Austin FC to beat LAFC",
   "kickoff_utc": "2026-10-15T02:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T23:50:45.792683+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T23:50:45.792683+00:00",
+  "settled_at": "2026-10-15T05:05:00.022788+00:00"
  },
  {
   "id": "7a0d9d02cc",
@@ -2677,7 +2680,34 @@
   "pick_team": "LA Clippers",
   "prediction": "LA Clippers to beat Denver Nuggets",
   "kickoff_utc": "2026-10-15T02:30:00+00:00",
+  "status": "hit",
+  "created_at": "2026-10-14T20:35:21.340125+00:00",
+  "settled_at": "2026-10-15T05:05:00.111679+00:00"
+ },
+ {
+  "id": "47a2105e66",
+  "event_id": "761879",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "New England Revolution",
+  "away": "Chicago Fire FC",
+  "pick_team": "New England Revolution",
+  "prediction": "New England Revolution to beat Chicago Fire FC",
+  "kickoff_utc": "2026-10-17T23:30:00+00:00",
   "status": "pending",
-  "created_at": "2026-10-14T20:35:21.340125+00:00"
+  "created_at": "2026-10-15T05:05:58.830499+00:00"
+ },
+ {
+  "id": "1caa7e46b0",
+  "event_id": "761877",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "New York City FC",
+  "away": "LAFC",
+  "pick_team": "LAFC",
+  "prediction": "LAFC to beat New York City FC",
+  "kickoff_utc": "2026-10-17T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-15T05:06:04.048528+00:00"
  }
 ]
