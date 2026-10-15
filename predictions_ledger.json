@@ -2573,8 +2573,9 @@
   "pick_team": "Milwaukee Bucks",
   "prediction": "Milwaukee Bucks to beat Chicago Bulls",
   "kickoff_utc": "2026-10-15T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T15:20:57.922356+00:00"
+  "status": "miss",
+  "created_at": "2026-10-14T15:20:57.922356+00:00",
+  "settled_at": "2026-10-15T02:49:54.177971+00:00"
  },
  {
   "id": "d9e72b8143",
@@ -2612,8 +2613,9 @@
   "pick_team": "Dallas Mavericks",
   "prediction": "Dallas Mavericks to beat New Orleans Pelicans",
   "kickoff_utc": "2026-10-15T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T16:20:42.666775+00:00"
+  "status": "miss",
+  "created_at": "2026-10-14T16:20:42.666775+00:00",
+  "settled_at": "2026-10-15T02:49:54.529531+00:00"
  },
  {
   "id": "2a9c0196be",
