@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T16:50:12.551743+00:00",
+ "generated_at": "2026-10-15T17:20:18.955325+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,8 +9,8 @@
      "espn_event_id": "401908025",
      "matchup": "TB @ CLE",
      "commence": "2026-10-15T17:00Z",
-     "status": "pre",
-     "detail": "10/15 - 10:00 AM PT",
+     "status": "in",
+     "detail": "Bot 1st",
      "score": "TB 0 - CLE 0"
     }
    ]
