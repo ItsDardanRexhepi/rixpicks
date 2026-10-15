@@ -2722,5 +2722,18 @@
   "kickoff_utc": "2026-10-18T00:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-15T05:36:03.629822+00:00"
+ },
+ {
+  "id": "0b516b951f",
+  "event_id": "761885",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Seattle Sounders FC",
+  "away": "CF Montr\u00e9al",
+  "pick_team": "CF Montr\u00e9al",
+  "prediction": "CF Montr\u00e9al to beat Seattle Sounders FC",
+  "kickoff_utc": "2026-10-18T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-15T06:06:27.630671+00:00"
  }
 ]
