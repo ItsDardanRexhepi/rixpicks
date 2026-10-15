@@ -1,6 +1,20 @@
 {
- "generated_at": "2026-10-15T15:37:33.100145+00:00",
+ "generated_at": "2026-10-15T15:53:37.610327+00:00",
  "items": [
+  {
+   "id": "d59285140e",
+   "league": "NHL",
+   "event": "Buffalo Sabres @ Toronto Maple Leafs",
+   "prediction": "Toronto Maple Leafs to beat Buffalo Sabres",
+   "kickoff_utc": "2026-10-15T23:00:00+00:00"
+  },
+  {
+   "id": "ebabd55fcd",
+   "league": "NHL",
+   "event": "Seattle Kraken @ Tampa Bay Lightning",
+   "prediction": "Tampa Bay Lightning to beat Seattle Kraken",
+   "kickoff_utc": "2026-10-15T23:00:00+00:00"
+  },
   {
    "id": "5496bfffe3",
    "league": "MLB",
@@ -16,32 +30,18 @@
    "kickoff_utc": "2026-10-16T00:00:00+00:00"
   },
   {
+   "id": "754aee11ed",
+   "league": "NHL",
+   "event": "St. Louis Blues @ Minnesota Wild",
+   "prediction": "Minnesota Wild to beat St. Louis Blues",
+   "kickoff_utc": "2026-10-16T00:00:00+00:00"
+  },
+  {
    "id": "a8cfbaffa3",
    "league": "NFL",
    "event": "Seattle Seahawks @ Denver Broncos",
    "prediction": "Seattle Seahawks to beat Denver Broncos",
    "kickoff_utc": "2026-10-16T00:15:00+00:00"
-  },
-  {
-   "id": "d73da979fc",
-   "league": "NWSL",
-   "event": "Racing Louisville FC @ Boston Legacy FC",
-   "prediction": "Racing Louisville FC to beat Boston Legacy FC",
-   "kickoff_utc": "2026-10-17T00:00:00+00:00"
-  },
-  {
-   "id": "99c5e64750",
-   "league": "CFB",
-   "event": "Ohio State Buckeyes @ Indiana Hoosiers",
-   "prediction": "Ohio State Buckeyes to beat Indiana Hoosiers",
-   "kickoff_utc": "2026-10-17T16:00:00+00:00"
-  },
-  {
-   "id": "57640c0323",
-   "league": "CFB",
-   "event": "Florida Gators @ Texas Longhorns",
-   "prediction": "Texas Longhorns to beat Florida Gators",
-   "kickoff_utc": "2026-10-17T16:00:00+00:00"
   }
  ]
 }
