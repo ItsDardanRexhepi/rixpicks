@@ -1,6 +1,20 @@
 {
- "generated_at": "2026-10-15T15:11:58.297711+00:00",
+ "generated_at": "2026-10-15T15:37:33.100145+00:00",
  "items": [
+  {
+   "id": "5496bfffe3",
+   "league": "MLB",
+   "event": "Milwaukee Brewers @ Los Angeles Dodgers",
+   "prediction": "Los Angeles Dodgers to beat Milwaukee Brewers",
+   "kickoff_utc": "2026-10-16T00:00:00+00:00"
+  },
+  {
+   "id": "f9da2c34df",
+   "league": "NHL",
+   "event": "San Jose Sharks @ Nashville Predators",
+   "prediction": "Nashville Predators to beat San Jose Sharks",
+   "kickoff_utc": "2026-10-16T00:00:00+00:00"
+  },
   {
    "id": "a8cfbaffa3",
    "league": "NFL",
@@ -27,20 +41,6 @@
    "league": "CFB",
    "event": "Florida Gators @ Texas Longhorns",
    "prediction": "Texas Longhorns to beat Florida Gators",
-   "kickoff_utc": "2026-10-17T16:00:00+00:00"
-  },
-  {
-   "id": "076ccd5209",
-   "league": "CFB",
-   "event": "Mississippi State Bulldogs @ LSU Tigers",
-   "prediction": "LSU Tigers to beat Mississippi State Bulldogs",
-   "kickoff_utc": "2026-10-17T16:00:00+00:00"
-  },
-  {
-   "id": "037d8b4798",
-   "league": "CFB",
-   "event": "Virginia Cavaliers @ SMU Mustangs",
-   "prediction": "SMU Mustangs to beat Virginia Cavaliers",
    "kickoff_utc": "2026-10-17T16:00:00+00:00"
   }
  ]
