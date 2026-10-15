@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-15T01:20:17.474051+00:00",
+ "generated_at": "2026-10-15T01:35:03.200095+00:00",
  "items": [
-  {
-   "id": "06ddab4ecf",
-   "league": "MLS",
-   "event": "San Jose Earthquakes @ Real Salt Lake",
-   "prediction": "Real Salt Lake to beat San Jose Earthquakes",
-   "kickoff_utc": "2026-10-15T01:30:00+00:00"
-  },
-  {
-   "id": "6b75335a3f",
-   "league": "MLS",
-   "event": "Minnesota United FC @ Colorado Rapids",
-   "prediction": "Colorado Rapids to beat Minnesota United FC",
-   "kickoff_utc": "2026-10-15T01:30:00+00:00"
-  },
   {
    "id": "53565febf2",
    "league": "MLS",
@@ -42,6 +28,20 @@
    "event": "Denver Nuggets @ LA Clippers",
    "prediction": "LA Clippers to beat Denver Nuggets",
    "kickoff_utc": "2026-10-15T02:30:00+00:00"
+  },
+  {
+   "id": "a8cfbaffa3",
+   "league": "NFL",
+   "event": "Seattle Seahawks @ Denver Broncos",
+   "prediction": "Seattle Seahawks to beat Denver Broncos",
+   "kickoff_utc": "2026-10-16T00:15:00+00:00"
+  },
+  {
+   "id": "d73da979fc",
+   "league": "NWSL",
+   "event": "Racing Louisville FC @ Boston Legacy FC",
+   "prediction": "Racing Louisville FC to beat Boston Legacy FC",
+   "kickoff_utc": "2026-10-17T00:00:00+00:00"
   }
  ]
 }
