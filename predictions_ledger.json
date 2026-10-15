@@ -2969,5 +2969,18 @@
   "kickoff_utc": "2026-10-15T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-15T17:20:54.721407+00:00"
+ },
+ {
+  "id": "9f8ee8249e",
+  "event_id": "401908945",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "New York Knicks",
+  "away": "Toronto Raptors",
+  "pick_team": "Toronto Raptors",
+  "prediction": "Toronto Raptors to beat New York Knicks",
+  "kickoff_utc": "2026-10-15T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-15T18:05:16.526537+00:00"
  }
 ]
