@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T00:05:12.633711+00:00",
+ "generated_at": "2026-10-15T00:20:21.653000+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401908032",
+     "matchup": "MIL @ LAD",
+     "commence": "2026-10-15T00:00Z",
+     "status": "in",
+     "detail": "Bot 1st",
+     "score": "MIL 1 - LAD 0"
+    }
+   ]
+  },
   {
    "league": "CFB",
    "games": [
@@ -10,8 +23,18 @@
      "matchup": "KENN @ MOST",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "1:36 - 1st",
-     "score": "KENN 0 - MOST 0",
+     "detail": "11:58 - 2nd",
+     "score": "KENN 0 - MOST 3",
+     "away_to": 2,
+     "home_to": 3
+    },
+    {
+     "espn_event_id": "401871068",
+     "matchup": "WKU @ SHSU",
+     "commence": "2026-10-15T00:00Z",
+     "status": "in",
+     "detail": "8:51 - 1st",
+     "score": "WKU 7 - SHSU 0",
      "away_to": 3,
      "home_to": 3
     }
@@ -25,8 +48,8 @@
      "matchup": "BKN @ MIA",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "2:36 - 1st",
-     "score": "BKN 23 - MIA 26",
+     "detail": "10:03 - 2nd",
+     "score": "BKN 31 - MIA 39",
      "away_to": 6,
      "home_to": 6
     },
@@ -35,10 +58,50 @@
      "matchup": "CHA @ BOS",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "End of 1st",
-     "score": "CHA 20 - BOS 28",
-     "away_to": 6,
+     "detail": "7:25 - 2nd",
+     "score": "CHA 25 - BOS 40",
+     "away_to": 5,
      "home_to": 6
+    },
+    {
+     "espn_event_id": "401898722",
+     "matchup": "PHX @ SA",
+     "commence": "2026-10-15T00:00Z",
+     "status": "in",
+     "detail": "7:20 - 1st",
+     "score": "PHX 6 - SA 3",
+     "away_to": 7,
+     "home_to": 6
+    },
+    {
+     "espn_event_id": "401901825",
+     "matchup": "NO @ DAL",
+     "commence": "2026-10-15T00:00Z",
+     "status": "in",
+     "detail": "6:11 - 1st",
+     "score": "NO 12 - DAL 14",
+     "away_to": 7,
+     "home_to": 6
+    },
+    {
+     "espn_event_id": "401908942",
+     "matchup": "CHI @ MIL",
+     "commence": "2026-10-15T00:00Z",
+     "status": "in",
+     "detail": "6:57 - 1st",
+     "score": "CHI 9 - MIL 3",
+     "away_to": 7,
+     "home_to": 7
+    },
+    {
+     "espn_event_id": "401914125",
+     "matchup": "DET @ MIN",
+     "commence": "2026-10-15T00:00Z",
+     "status": "in",
+     "detail": "7:41 - 1st",
+     "score": "DET 12 - MIN 13",
+     "away_to": 6,
+     "home_to": 7
     }
    ]
   },
@@ -50,8 +113,8 @@
      "matchup": "MTL @ WAS",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "8:45 - 1st",
-     "score": "MTL 1 - WAS 1",
+     "detail": "2:14 - 1st",
+     "score": "MTL 2 - WAS 1",
      "away_to": null,
      "home_to": null
     },
@@ -73,7 +136,7 @@
      "matchup": "ATL @ MTL",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "25'",
+     "detail": "40'",
      "score": "ATL 1 - MTL 0"
     },
     {
@@ -81,15 +144,15 @@
      "matchup": "CLT @ CLB",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "24'",
-     "score": "CLT 1 - CLB 0"
+     "detail": "39'",
+     "score": "CLT 1 - CLB 1"
     },
     {
      "espn_event_id": "761863",
      "matchup": "RBNY @ DC",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "24'",
+     "detail": "39'",
      "score": "RBNY 0 - DC 1"
     },
     {
@@ -97,7 +160,7 @@
      "matchup": "NE @ CIN",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "25'",
+     "detail": "40'",
      "score": "NE 1 - CIN 1"
     },
     {
@@ -105,7 +168,7 @@
      "matchup": "NYC @ MIA",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "24'",
+     "detail": "40'",
      "score": "NYC 0 - MIA 1"
     },
     {
@@ -113,8 +176,8 @@
      "matchup": "ORL @ TOR",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "25'",
-     "score": "ORL 0 - TOR 0"
+     "detail": "40'",
+     "score": "ORL 0 - TOR 1"
     },
     {
      "espn_event_id": "761869",
