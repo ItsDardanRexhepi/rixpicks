@@ -1,20 +1,7 @@
 {
  "version": 1,
- "generated_at": "2026-10-14T23:50:06.980023+00:00",
+ "generated_at": "2026-10-15T00:05:12.633711+00:00",
  "leagues": [
-  {
-   "league": "MLB",
-   "games": [
-    {
-     "espn_event_id": "401908032",
-     "matchup": "MIL @ LAD",
-     "commence": "2026-10-15T00:00Z",
-     "status": "pre",
-     "detail": "10/14 - 5:00 PM PT",
-     "score": "MIL 0 - LAD 0"
-    }
-   ]
-  },
   {
    "league": "CFB",
    "games": [
@@ -23,18 +10,10 @@
      "matchup": "KENN @ MOST",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "5:57 - 1st",
+     "detail": "1:36 - 1st",
      "score": "KENN 0 - MOST 0",
      "away_to": 3,
      "home_to": 3
-    },
-    {
-     "espn_event_id": "401871068",
-     "matchup": "WKU @ SHSU",
-     "commence": "2026-10-15T00:00Z",
-     "status": "pre",
-     "detail": "10/14 - 5:00 PM PT",
-     "score": "WKU 0 - SHSU 0"
     }
    ]
   },
@@ -46,52 +25,20 @@
      "matchup": "BKN @ MIA",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "8:46 - 1st",
-     "score": "BKN 3 - MIA 10",
+     "detail": "2:36 - 1st",
+     "score": "BKN 23 - MIA 26",
      "away_to": 6,
-     "home_to": 7
+     "home_to": 6
     },
     {
      "espn_event_id": "401898405",
      "matchup": "CHA @ BOS",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "7:47 - 1st",
-     "score": "CHA 7 - BOS 8",
+     "detail": "End of 1st",
+     "score": "CHA 20 - BOS 28",
      "away_to": 6,
-     "home_to": 7
-    },
-    {
-     "espn_event_id": "401898722",
-     "matchup": "PHX @ SA",
-     "commence": "2026-10-15T00:00Z",
-     "status": "pre",
-     "detail": "10/14 - 5:00 PM PT",
-     "score": "PHX 0 - SA 0"
-    },
-    {
-     "espn_event_id": "401901825",
-     "matchup": "NO @ DAL",
-     "commence": "2026-10-15T00:00Z",
-     "status": "pre",
-     "detail": "10/14 - 5:00 PM PT",
-     "score": "NO 0 - DAL 0"
-    },
-    {
-     "espn_event_id": "401908942",
-     "matchup": "CHI @ MIL",
-     "commence": "2026-10-15T00:00Z",
-     "status": "pre",
-     "detail": "10/14 - 5:00 PM PT",
-     "score": "CHI 0 - MIL 0"
-    },
-    {
-     "espn_event_id": "401914125",
-     "matchup": "DET @ MIN",
-     "commence": "2026-10-15T00:00Z",
-     "status": "pre",
-     "detail": "10/14 - 5:00 PM PT",
-     "score": "DET 0 - MIN 0"
+     "home_to": 6
     }
    ]
   },
@@ -103,8 +50,8 @@
      "matchup": "MTL @ WAS",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "17:49 - 1st",
-     "score": "MTL 0 - WAS 0",
+     "detail": "8:45 - 1st",
+     "score": "MTL 1 - WAS 1",
      "away_to": null,
      "home_to": null
     },
@@ -126,23 +73,23 @@
      "matchup": "ATL @ MTL",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "10'",
-     "score": "ATL 0 - MTL 0"
+     "detail": "25'",
+     "score": "ATL 1 - MTL 0"
     },
     {
      "espn_event_id": "761865",
      "matchup": "CLT @ CLB",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "9'",
-     "score": "CLT 0 - CLB 0"
+     "detail": "24'",
+     "score": "CLT 1 - CLB 0"
     },
     {
      "espn_event_id": "761863",
      "matchup": "RBNY @ DC",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "9'",
+     "detail": "24'",
      "score": "RBNY 0 - DC 1"
     },
     {
@@ -150,23 +97,23 @@
      "matchup": "NE @ CIN",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "10'",
-     "score": "NE 0 - CIN 0"
+     "detail": "25'",
+     "score": "NE 1 - CIN 1"
     },
     {
      "espn_event_id": "761861",
      "matchup": "NYC @ MIA",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "10'",
-     "score": "NYC 0 - MIA 0"
+     "detail": "24'",
+     "score": "NYC 0 - MIA 1"
     },
     {
      "espn_event_id": "761860",
      "matchup": "ORL @ TOR",
      "commence": "2026-10-14T23:30Z",
      "status": "in",
-     "detail": "10'",
+     "detail": "25'",
      "score": "ORL 0 - TOR 0"
     },
     {
