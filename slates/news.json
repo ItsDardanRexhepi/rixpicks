@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-15T22:21:05.648Z",
+ "generated_at": "2026-10-15T22:25:53.140Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -104,11 +104,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Eagles Injury Report: DeVonta Smith upgraded, Dontayvion Wicks downgraded",
-    "link": "https://sports.yahoo.com/articles/eagles-injury-report-devonta-smith-220619408.html",
-    "published": "2026-10-15T22:06:19.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/2c8225c861e42c7ca733d8c1de2ced11dd42b3e9891c40d65bfb08263f493c3a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F133a6bd531fe2b9b4b8e08a9a22bc540.jpg",
-    "blurb": "Thursday\u2019s news and updates.",
+    "headline": "Chris Olave misses second straight practice with an illness",
+    "link": "https://sports.yahoo.com/articles/chris-olave-misses-second-straight-221031670.html",
+    "published": "2026-10-15T22:10:31.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/965514d872333e7f46d24bd7fc09c8c988772b8556be1f925c96cf6b6fca215e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F3b3ebddbbd856afa9143d73c93ae52e7.jpg",
+    "blurb": "The Saints practiced without wide receiver Chris Olave for the second straight day on Thursday.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -131,11 +131,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Broncos elevate S Taylor Rapp, DB Sean Fresch for Thursday night",
-    "link": "https://sports.yahoo.com/articles/broncos-elevate-taylor-rapp-db-220044951.html",
-    "published": "2026-10-15T22:00:44.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/47112bb23624a932f02ce51e0252c6e90bf7a444be39f9b695df888ab25d6ff8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Ff1cd6a58ff1eefc9b93c13eac07d8e4d.jpg",
-    "blurb": "The Broncos are dealing with several injuries in their defensive backfield, so they elevated a couple of players to help round out the secondary ahead of Thursday night's game against the Seahawks.",
+    "headline": "Seahawks Reacts results: Seahawks fans lean toward playoff return, but no NFC West repeat",
+    "link": "https://sports.yahoo.com/articles/seahawks-reacts-results-seahawks-fans-220908731.html",
+    "published": "2026-10-15T22:09:08.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/d56b590a36ce61e6796c45a45daef5e215d2dad061cc6e32c1f0a1b4be2292de/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fdddaf1f065d5d6265848731123234ebc.jpg",
+    "blurb": "The Seahawks have faced challenges already\u2026 how will they navigate forward?",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -158,11 +158,11 @@
     "league": "NFL"
    },
    {
-    "headline": "DeVonta Smith listed as limited in Eagles practice, Saquon Barkley still out",
-    "link": "https://sports.yahoo.com/articles/devonta-smith-listed-limited-eagles-215416272.html",
-    "published": "2026-10-15T21:54:16.000Z",
+    "headline": "Eagles Injury Report: DeVonta Smith upgraded, Dontayvion Wicks downgraded",
+    "link": "https://sports.yahoo.com/articles/eagles-injury-report-devonta-smith-220619408.html",
+    "published": "2026-10-15T22:06:19.000Z",
     "image": "",
-    "blurb": "The Eagles announced on Thursday that quarterback Jalen Hurts will not play against the Panthers due to a blood clot in his calf, which leaves Tanner McKee in line to make the first non-Week 18 start of his career.",
+    "blurb": "Thursday\u2019s news and updates.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -1114,6 +1114,24 @@
    "league": "MLB"
   },
   {
+   "headline": "Chris Olave misses second straight practice with an illness",
+   "link": "https://sports.yahoo.com/articles/chris-olave-misses-second-straight-221031670.html",
+   "published": "2026-10-15T22:10:31.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/965514d872333e7f46d24bd7fc09c8c988772b8556be1f925c96cf6b6fca215e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F3b3ebddbbd856afa9143d73c93ae52e7.jpg",
+   "blurb": "The Saints practiced without wide receiver Chris Olave for the second straight day on Thursday.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
+   "headline": "Seahawks Reacts results: Seahawks fans lean toward playoff return, but no NFC West repeat",
+   "link": "https://sports.yahoo.com/articles/seahawks-reacts-results-seahawks-fans-220908731.html",
+   "published": "2026-10-15T22:09:08.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/d56b590a36ce61e6796c45a45daef5e215d2dad061cc6e32c1f0a1b4be2292de/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fdddaf1f065d5d6265848731123234ebc.jpg",
+   "blurb": "The Seahawks have faced challenges already\u2026 how will they navigate forward?",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "Gabby Williams headlines Valkyries\u2019 All-Defensive Team honors",
    "link": "https://sports.yahoo.com/articles/gabby-williams-headlines-valkyries-defensive-220805222.html",
    "published": "2026-10-15T22:08:05.000Z",
@@ -1121,15 +1139,6 @@
    "blurb": "OAKLAND \u2013 The league\u2019s best defense just got the credit they deserve. Golden State Valkyries forward Gabby Williams has been named to the 2026 WNBA All-Defensive First Team, while guard Veronica Burton and center Kiah Stokes have both been named to the WNBA All-Defensive Second T",
    "source": "YAHOO",
    "league": "WNBA"
-  },
-  {
-   "headline": "Eagles Injury Report: DeVonta Smith upgraded, Dontayvion Wicks downgraded",
-   "link": "https://sports.yahoo.com/articles/eagles-injury-report-devonta-smith-220619408.html",
-   "published": "2026-10-15T22:06:19.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/2c8225c861e42c7ca733d8c1de2ced11dd42b3e9891c40d65bfb08263f493c3a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F133a6bd531fe2b9b4b8e08a9a22bc540.jpg",
-   "blurb": "Thursday\u2019s news and updates.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "3 predictions for Alabama vs. Tennessee in Top 15 rivalry showdown",
@@ -1148,15 +1157,6 @@
    "blurb": "Position Sports announced it will honor UCLA Bruins Legend and Hall of Famer Bill Walton on Monday, Nov. 2 at T-Mobile Arena in Las Vegas. The post Legendary Bruin Bill Walton to Be Honored Ahead of UCLA Game appeared first on LA Sports Report.",
    "source": "YAHOO",
    "league": "NCAAB"
-  },
-  {
-   "headline": "Broncos elevate S Taylor Rapp, DB Sean Fresch for Thursday night",
-   "link": "https://sports.yahoo.com/articles/broncos-elevate-taylor-rapp-db-220044951.html",
-   "published": "2026-10-15T22:00:44.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/47112bb23624a932f02ce51e0252c6e90bf7a444be39f9b695df888ab25d6ff8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Ff1cd6a58ff1eefc9b93c13eac07d8e4d.jpg",
-   "blurb": "The Broncos are dealing with several injuries in their defensive backfield, so they elevated a couple of players to help round out the secondary ahead of Thursday night's game against the Seahawks.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "Best bets for Michigan-Penn State, Indiana-Ohio State, more for Week 7",
