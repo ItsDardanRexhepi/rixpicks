@@ -1730,8 +1730,9 @@
   "pick_team": "New England Revolution",
   "prediction": "New England Revolution to beat FC Cincinnati",
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T06:35:31.357121+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T06:35:31.357121+00:00",
+  "settled_at": "2026-10-15T02:04:58.189809+00:00"
  },
  {
   "id": "c70d73e7b8",
@@ -1743,8 +1744,9 @@
   "pick_team": "Columbus Crew",
   "prediction": "Columbus Crew to beat Charlotte FC",
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T07:05:05.247706+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T07:05:05.247706+00:00",
+  "settled_at": "2026-10-15T02:04:58.251653+00:00"
  },
  {
   "id": "8341c729e8",
@@ -1756,8 +1758,9 @@
   "pick_team": "Orlando City SC",
   "prediction": "Orlando City SC to beat Toronto FC",
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T07:35:15.299231+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T07:35:15.299231+00:00",
+  "settled_at": "2026-10-15T02:04:58.312823+00:00"
  },
  {
   "id": "524969b58c",
@@ -1925,8 +1928,9 @@
   "pick_team": "D.C. United",
   "prediction": "D.C. United to beat Red Bull New York",
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T12:20:14.541943+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T12:20:14.541943+00:00",
+  "settled_at": "2026-10-15T02:04:58.367689+00:00"
  },
  {
   "id": "6edbca3c07",
@@ -1977,8 +1981,9 @@
   "pick_team": "New York City FC",
   "prediction": "New York City FC to beat Inter Miami CF",
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T14:35:34.720115+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T14:35:34.720115+00:00",
+  "settled_at": "2026-10-15T02:04:58.588026+00:00"
  },
  {
   "id": "7b13370259",
@@ -2278,8 +2283,9 @@
   "pick_team": "Atlanta United FC",
   "prediction": "Atlanta United FC to beat CF Montr\u00e9al",
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T22:51:25.025208+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T22:51:25.025208+00:00",
+  "settled_at": "2026-10-15T02:04:58.650334+00:00"
  },
  {
   "id": "5d9988d865",
@@ -2553,8 +2559,9 @@
   "pick_team": "Boston Celtics",
   "prediction": "Boston Celtics to beat Charlotte Hornets",
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T15:20:20.430774+00:00"
+  "status": "hit",
+  "created_at": "2026-10-14T15:20:20.430774+00:00",
+  "settled_at": "2026-10-15T02:04:58.753000+00:00"
  },
  {
   "id": "3887de3a2c",
@@ -2644,8 +2651,9 @@
   "pick_team": "Miami Heat",
   "prediction": "Miami Heat to beat Brooklyn Nets",
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T20:20:04.801784+00:00"
+  "status": "hit",
+  "created_at": "2026-10-14T20:20:04.801784+00:00",
+  "settled_at": "2026-10-15T02:04:59.037238+00:00"
  },
  {
   "id": "06b07e700d",
