@@ -1,7 +1,41 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T21:20:19.696435+00:00",
+ "generated_at": "2026-10-15T21:35:15.729479+00:00",
  "leagues": [
+  {
+   "league": "CFB",
+   "games": [
+    {
+     "espn_event_id": "401862800",
+     "matchup": "ECU @ UAB",
+     "commence": "2026-10-15T23:30Z",
+     "status": "pre",
+     "detail": "10/15 - 4:30 PM PT",
+     "score": "ECU 0 - UAB 0"
+    },
+    {
+     "espn_event_id": "401869950",
+     "matchup": "GASO @ ODU",
+     "commence": "2026-10-15T23:30Z",
+     "status": "pre",
+     "detail": "10/15 - 4:30 PM PT",
+     "score": "GASO 0 - ODU 0"
+    }
+   ]
+  },
+  {
+   "league": "NBA",
+   "games": [
+    {
+     "espn_event_id": "401908945",
+     "matchup": "TOR @ NY",
+     "commence": "2026-10-15T23:30Z",
+     "status": "pre",
+     "detail": "10/15 - 4:30 PM PT",
+     "score": "TOR 0 - NY 0"
+    }
+   ]
+  },
   {
    "league": "NHL",
    "games": [
@@ -44,6 +78,14 @@
      "status": "pre",
      "detail": "10/15 - 4:00 PM PT",
      "score": "NYR 0 - NJ 0"
+    },
+    {
+     "espn_event_id": "401892508",
+     "matchup": "PHI @ DET",
+     "commence": "2026-10-15T23:30Z",
+     "status": "pre",
+     "detail": "10/15 - 4:30 PM PT",
+     "score": "PHI 0 - DET 0"
     }
    ]
   }
