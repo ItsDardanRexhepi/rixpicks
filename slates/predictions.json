@@ -1,34 +1,6 @@
 {
- "generated_at": "2026-10-15T22:50:42.067918+00:00",
+ "generated_at": "2026-10-15T23:05:19.481800+00:00",
  "items": [
-  {
-   "id": "d59285140e",
-   "league": "NHL",
-   "event": "Buffalo Sabres @ Toronto Maple Leafs",
-   "prediction": "Toronto Maple Leafs to beat Buffalo Sabres",
-   "kickoff_utc": "2026-10-15T23:00:00+00:00"
-  },
-  {
-   "id": "ebabd55fcd",
-   "league": "NHL",
-   "event": "Seattle Kraken @ Tampa Bay Lightning",
-   "prediction": "Tampa Bay Lightning to beat Seattle Kraken",
-   "kickoff_utc": "2026-10-15T23:00:00+00:00"
-  },
-  {
-   "id": "c858b480de",
-   "league": "NHL",
-   "event": "New York Islanders @ Ottawa Senators",
-   "prediction": "New York Islanders to beat Ottawa Senators",
-   "kickoff_utc": "2026-10-15T23:00:00+00:00"
-  },
-  {
-   "id": "c550df0f50",
-   "league": "NHL",
-   "event": "New York Rangers @ New Jersey Devils",
-   "prediction": "New York Rangers to beat New Jersey Devils",
-   "kickoff_utc": "2026-10-15T23:00:00+00:00"
-  },
   {
    "id": "5d0125581b",
    "league": "NHL",
@@ -42,6 +14,34 @@
    "event": "Toronto Raptors @ New York Knicks",
    "prediction": "Toronto Raptors to beat New York Knicks",
    "kickoff_utc": "2026-10-15T23:30:00+00:00"
+  },
+  {
+   "id": "5496bfffe3",
+   "league": "MLB",
+   "event": "Milwaukee Brewers @ Los Angeles Dodgers",
+   "prediction": "Los Angeles Dodgers to beat Milwaukee Brewers",
+   "kickoff_utc": "2026-10-16T00:00:00+00:00"
+  },
+  {
+   "id": "f9da2c34df",
+   "league": "NHL",
+   "event": "San Jose Sharks @ Nashville Predators",
+   "prediction": "Nashville Predators to beat San Jose Sharks",
+   "kickoff_utc": "2026-10-16T00:00:00+00:00"
+  },
+  {
+   "id": "754aee11ed",
+   "league": "NHL",
+   "event": "St. Louis Blues @ Minnesota Wild",
+   "prediction": "Minnesota Wild to beat St. Louis Blues",
+   "kickoff_utc": "2026-10-16T00:00:00+00:00"
+  },
+  {
+   "id": "a8cfbaffa3",
+   "league": "NFL",
+   "event": "Seattle Seahawks @ Denver Broncos",
+   "prediction": "Seattle Seahawks to beat Denver Broncos",
+   "kickoff_utc": "2026-10-16T00:15:00+00:00"
   }
  ]
 }
