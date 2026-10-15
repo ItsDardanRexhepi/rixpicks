@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T22:05:12.617486+00:00",
+ "generated_at": "2026-10-15T22:20:12.643162+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -12,6 +12,19 @@
      "status": "pre",
      "detail": "10/15 - 5:00 PM PT",
      "score": "MIL 0 - LAD 0"
+    }
+   ]
+  },
+  {
+   "league": "NFL",
+   "games": [
+    {
+     "espn_event_id": "401872995",
+     "matchup": "SEA @ DEN",
+     "commence": "2026-10-16T00:15Z",
+     "status": "pre",
+     "detail": "10/15 - 5:15 PM PT",
+     "score": "SEA 0 - DEN 0"
     }
    ]
   },
