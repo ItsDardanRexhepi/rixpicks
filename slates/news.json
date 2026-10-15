@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-15T04:51:02.840Z",
+ "generated_at": "2026-10-15T04:55:55.466Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -12,12 +12,30 @@
     "league": "MLB"
    },
    {
+    "headline": "Has there ever been a 3-0 comeback in MLB? Dodgers have to rally now to reach World Series",
+    "link": "https://sports.yahoo.com/articles/ever-3-0-comeback-mlb-043904584.html",
+    "published": "2026-10-15T04:39:04.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/7a5bf6db766e7f793fb465b3f7a373acd9baa5dd6f31cc1b887610f85136e3c1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fb272b2ab253e60330f964740b391fb05.jpg",
+    "blurb": "The Dodgers are down 3-0 in the NLCS, but we know a comeback isn't impossible. One MLB team has done it.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "2026 MLB playoff bracket: Schedule, scores as Brewers' Game 3 win puts Dodgers on brink of elimination",
     "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
     "published": "2026-10-15T04:21:27.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F11%2Ff9c72d29-db64-4db1-9101-2e0f2857e91e%2F2026-mlb-bracket-guardians-alcs.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The LCS round is underway as baseball's final four battle for spots in the World Series",
     "source": "CBS",
+    "league": "MLB"
+   },
+   {
+    "headline": "Brewers stun Dodgers behind back-to-back homers in Game 3, seize 3-0 NLCS lead",
+    "link": "https://www.espn.com/mlb/story/_/id/50186797/brewers-put-dodgers-ropes-seize-3-0-nlcs-lead-game-3",
+    "published": "2026-10-15T04:53:00Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F1014%2F260a0970f9f441408c0d9c08d05e81841408%2F260a0970f9f441408c0d9c08d05e81841408.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Brewers got back-to-back home runs to reclaim the lead and went on to a 6-2 win in Game 3 of the NLCS that pushed the Dodgers on the brink of elimination.",
     "league": "MLB"
    },
    {
@@ -30,15 +48,6 @@
     "league": "MLB"
    },
    {
-    "headline": "Brewers put Dodgers on brink of sweep, seize 3-0 NLCS lead with Game 3 win",
-    "link": "https://www.espn.com/mlb/story/_/id/50186797/brewers-put-dodgers-ropes-seize-3-0-nlcs-lead-game-3",
-    "published": "2026-10-15T04:34:56.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fi%252Fespn%252Fespn_logos%252Fespn_red.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Brewers got back-to-back home runs to reclaim the lead and went on to a 6-2 win in Game 3 of the NLCS that pushed the Dodgers on the brink of elimination.",
-    "source": "ESPN",
-    "league": "MLB"
-   },
-   {
     "headline": "Dodgers manager Dave Roberts explains leaving Blake Snell in before costly back-to-back home runs in Game 3",
     "link": "https://www.cbssports.com/mlb/news/dodgers-blake-snell-dave-roberts-home-runs-brewers-nlcs-game-3/",
     "published": "2026-10-15T04:18:54.000Z",
@@ -48,21 +57,21 @@
     "league": "MLB"
    },
    {
-    "headline": "Braves News: Gold Gloves, Arbitration Estimates, more",
-    "link": "https://sports.yahoo.com/articles/braves-news-gold-gloves-arbitration-041500057.html",
-    "published": "2026-10-15T04:15:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/ac02572c2b04f1b59ee0b0acb01d1b35b473a2850dc8a75dd59d1936c92e30be/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F34f708eb736af6e71fe0327cd425b20c.jpg",
-    "blurb": "Atlanta Braves news and notes from Wednesday",
-    "source": "YAHOO",
+    "headline": "Brewers put Dodgers on brink of sweep, seize 3-0 NLCS lead with Game 3 win",
+    "link": "https://www.espn.com/mlb/story/_/id/50186797/brewers-put-dodgers-ropes-seize-3-0-nlcs-lead-game-3",
+    "published": "2026-10-15T04:34:56.000Z",
+    "image": "",
+    "blurb": "The Brewers got back-to-back home runs to reclaim the lead and went on to a 6-2 win in Game 3 of the NLCS that pushed the Dodgers on the brink of elimination.",
+    "source": "ESPN",
     "league": "MLB"
    },
    {
-    "headline": "Guardians to start workhorse Williams in Game 3 vs. Rays' Jax",
-    "link": "https://www.espn.com/mlb/story/_/id/50185126/guardians-start-gavin-williams-vs-rays-griffin-jax-thu",
-    "published": "2026-10-15T04:34:56.000Z",
+    "headline": "Braves News: Gold Gloves, Arbitration Estimates, more",
+    "link": "https://sports.yahoo.com/articles/braves-news-gold-gloves-arbitration-041500057.html",
+    "published": "2026-10-15T04:15:00.000Z",
     "image": "",
-    "blurb": "Guardians right-hander Gavin Williams, who threw 210 pitches over six days against the White Sox, will start Game 3 of the ALCS against the Rays on Thursday.",
-    "source": "ESPN",
+    "blurb": "Atlanta Braves news and notes from Wednesday",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -75,20 +84,11 @@
     "league": "MLB"
    },
    {
-    "headline": "Bauers blast has Brewers on the brink of World Series",
-    "link": "https://sports.yahoo.com/articles/bauers-blast-brewers-brink-world-034738286.html",
-    "published": "2026-10-15T03:47:38.000Z",
-    "image": "",
-    "blurb": "Epic Bauers at-bat in seventh inning flips script, wins Brewers game three",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Espada not returning as Astros manager after winning AL West",
-    "link": "https://www.espn.com/mlb/story/_/id/50182001/astros-not-renew-contract-manager-joe-espada",
+    "headline": "Guardians to start workhorse Williams in Game 3 vs. Rays' Jax",
+    "link": "https://www.espn.com/mlb/story/_/id/50185126/guardians-start-gavin-williams-vs-rays-griffin-jax-thu",
     "published": "2026-10-15T04:34:56.000Z",
     "image": "",
-    "blurb": "Joe Espada, who guided the Houston Astros to two American League West titles in his three seasons as manager, will not be returning to the team in 2027.",
+    "blurb": "Guardians right-hander Gavin Williams, who threw 210 pitches over six days against the White Sox, will start Game 3 of the ALCS against the Rays on Thursday.",
     "source": "ESPN",
     "league": "MLB"
    }
@@ -609,11 +609,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Duke is the ACC favorite again, but Virginia\u2019s Thijs De Ridder has the preseason spotlight",
-    "link": "https://sports.yahoo.com/articles/duke-acc-favorite-again-virginia-004150953.html",
-    "published": "2026-10-15T00:41:50.000Z",
+    "headline": "WVU Women's Basketball Earns Spot in ESPN Preseason Top 25",
+    "link": "https://sports.yahoo.com/articles/wvu-womens-basketball-earns-spot-004449900.html",
+    "published": "2026-10-15T00:44:49.000Z",
     "image": "",
-    "blurb": "The ACC should be a fun one in 2026-27.",
+    "blurb": "New-look Mountaineers enter the season in top 25",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -636,11 +636,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "John Calipari Just Thought He Knew What He Was Getting From Jeremiah Wilkinson",
-    "link": "https://sports.yahoo.com/articles/john-calipari-just-thought-knew-002911996.html",
-    "published": "2026-10-15T00:29:11.000Z",
+    "headline": "Duke is the ACC favorite again, but Virginia\u2019s Thijs De Ridder has the preseason spotlight",
+    "link": "https://sports.yahoo.com/articles/duke-acc-favorite-again-virginia-004150953.html",
+    "published": "2026-10-15T00:41:50.000Z",
     "image": "",
-    "blurb": "Arkansas coach thought he was getting a shiny new scorer, but offseason showed there was more to Wilkinson's game",
+    "blurb": "The ACC should be a fun one in 2026-27.",
     "source": "YAHOO",
     "league": "NCAAB"
    }
@@ -1112,6 +1112,15 @@
    "league": "NFL"
   },
   {
+   "headline": "Brewers stun Dodgers behind back-to-back homers in Game 3, seize 3-0 NLCS lead",
+   "link": "https://www.espn.com/mlb/story/_/id/50186797/brewers-put-dodgers-ropes-seize-3-0-nlcs-lead-game-3",
+   "published": "2026-10-15T04:53:00Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F1014%2F260a0970f9f441408c0d9c08d05e81841408%2F260a0970f9f441408c0d9c08d05e81841408.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Brewers got back-to-back home runs to reclaim the lead and went on to a 6-2 win in Game 3 of the NLCS that pushed the Dodgers on the brink of elimination.",
+   "league": "MLB"
+  },
+  {
    "headline": "Ranking CFB's best receivers of the last 50 years",
    "link": "https://www.espn.com/college-football/story/_/id/50175757/ranking-college-football-best-receivers-jeremiah-smith",
    "published": "2026-10-15T04:39:25.000Z",
@@ -1130,6 +1139,15 @@
    "league": "CFB"
   },
   {
+   "headline": "Has there ever been a 3-0 comeback in MLB? Dodgers have to rally now to reach World Series",
+   "link": "https://sports.yahoo.com/articles/ever-3-0-comeback-mlb-043904584.html",
+   "published": "2026-10-15T04:39:04.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/7a5bf6db766e7f793fb465b3f7a373acd9baa5dd6f31cc1b887610f85136e3c1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fb272b2ab253e60330f964740b391fb05.jpg",
+   "blurb": "The Dodgers are down 3-0 in the NLCS, but we know a comeback isn't impossible. One MLB team has done it.",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
    "headline": "Broncos vs. Seahawks score predictions for Week 6",
    "link": "https://sports.yahoo.com/articles/broncos-vs-seahawks-score-predictions-043748209.html",
    "published": "2026-10-15T04:37:48.000Z",
@@ -1146,15 +1164,6 @@
    "blurb": "It seems like Purdue is finally turning a corner under Coach Brian Odom. A lot of that has to do with improved quarterback play. Ryan Browne has gone from a turnover machine to one of the most efficient passers in the conference. Minnesota transfer running back Fame Ijeboi gives ",
    "source": "YAHOO",
    "league": "CFB"
-  },
-  {
-   "headline": "Brewers put Dodgers on brink of sweep, seize 3-0 NLCS lead with Game 3 win",
-   "link": "https://www.espn.com/mlb/story/_/id/50186797/brewers-put-dodgers-ropes-seize-3-0-nlcs-lead-game-3",
-   "published": "2026-10-15T04:34:56.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fi%252Fespn%252Fespn_logos%252Fespn_red.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Brewers got back-to-back home runs to reclaim the lead and went on to a 6-2 win in Game 3 of the NLCS that pushed the Dodgers on the brink of elimination.",
-   "source": "ESPN",
-   "league": "MLB"
   },
   {
    "headline": "Northwestern vs Michigan State Prediction: Pat Fitzgerald's Moment Against His Former Team",
@@ -1207,15 +1216,6 @@
    "published": "2026-10-15T04:18:38.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/276ecc4b354cfd0573f46119813daaa8342749d08d392f0eec4cba51df33fe72/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F6b7dff1047e06e011b9648bf2433b6d4.jpg",
    "blurb": "Los Angeles had just taken a 2-1 lead in the sixth before getting stunned. The loss pushed the two-time defending World Series champions to the brink of elimination.",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
-   "headline": "Braves News: Gold Gloves, Arbitration Estimates, more",
-   "link": "https://sports.yahoo.com/articles/braves-news-gold-gloves-arbitration-041500057.html",
-   "published": "2026-10-15T04:15:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/ac02572c2b04f1b59ee0b0acb01d1b35b473a2850dc8a75dd59d1936c92e30be/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F34f708eb736af6e71fe0327cd425b20c.jpg",
-   "blurb": "Atlanta Braves news and notes from Wednesday",
    "source": "YAHOO",
    "league": "MLB"
   },
