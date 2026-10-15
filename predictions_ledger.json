@@ -2604,8 +2604,9 @@
   "pick_team": "Los Angeles Dodgers",
   "prediction": "Los Angeles Dodgers to beat Milwaukee Brewers",
   "kickoff_utc": "2026-10-15T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T15:51:32.133039+00:00"
+  "status": "miss",
+  "created_at": "2026-10-14T15:51:32.133039+00:00",
+  "settled_at": "2026-10-15T03:19:55.062024+00:00"
  },
  {
   "id": "3d7670069f",
