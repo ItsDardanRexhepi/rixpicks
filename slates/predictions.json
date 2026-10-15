@@ -1,34 +1,6 @@
 {
- "generated_at": "2026-10-14T23:50:17.649653+00:00",
+ "generated_at": "2026-10-15T00:05:07.884573+00:00",
  "items": [
-  {
-   "id": "3887de3a2c",
-   "league": "NBA",
-   "event": "Chicago Bulls @ Milwaukee Bucks",
-   "prediction": "Milwaukee Bucks to beat Chicago Bulls",
-   "kickoff_utc": "2026-10-15T00:00:00+00:00"
-  },
-  {
-   "id": "e0d7d43c9c",
-   "league": "MLB",
-   "event": "Milwaukee Brewers @ Los Angeles Dodgers",
-   "prediction": "Los Angeles Dodgers to beat Milwaukee Brewers",
-   "kickoff_utc": "2026-10-15T00:00:00+00:00"
-  },
-  {
-   "id": "3d7670069f",
-   "league": "NBA",
-   "event": "New Orleans Pelicans @ Dallas Mavericks",
-   "prediction": "Dallas Mavericks to beat New Orleans Pelicans",
-   "kickoff_utc": "2026-10-15T00:00:00+00:00"
-  },
-  {
-   "id": "2a9c0196be",
-   "league": "NBA",
-   "event": "Phoenix Suns @ San Antonio Spurs",
-   "prediction": "San Antonio Spurs to beat Phoenix Suns",
-   "kickoff_utc": "2026-10-15T00:00:00+00:00"
-  },
   {
    "id": "a089ea77e2",
    "league": "MLS",
@@ -42,6 +14,34 @@
    "event": "Seattle Sounders FC @ FC Dallas",
    "prediction": "Seattle Sounders FC to beat FC Dallas",
    "kickoff_utc": "2026-10-15T00:30:00+00:00"
+  },
+  {
+   "id": "6edbca3c07",
+   "league": "MLS",
+   "event": "Vancouver Whitecaps @ St. Louis CITY SC",
+   "prediction": "St. Louis CITY SC to beat Vancouver Whitecaps",
+   "kickoff_utc": "2026-10-15T00:30:00+00:00"
+  },
+  {
+   "id": "5d9988d865",
+   "league": "MLS",
+   "event": "Philadelphia Union @ Chicago Fire FC",
+   "prediction": "Chicago Fire FC to beat Philadelphia Union",
+   "kickoff_utc": "2026-10-15T00:30:00+00:00"
+  },
+  {
+   "id": "d9e72b8143",
+   "league": "NHL",
+   "event": "Dallas Stars @ Colorado Avalanche",
+   "prediction": "Colorado Avalanche to beat Dallas Stars",
+   "kickoff_utc": "2026-10-15T00:30:00+00:00"
+  },
+  {
+   "id": "06ddab4ecf",
+   "league": "MLS",
+   "event": "San Jose Earthquakes @ Real Salt Lake",
+   "prediction": "Real Salt Lake to beat San Jose Earthquakes",
+   "kickoff_utc": "2026-10-15T01:30:00+00:00"
   }
  ]
 }
