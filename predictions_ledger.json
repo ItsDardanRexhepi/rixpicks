@@ -1717,8 +1717,9 @@
   "pick_team": "Nashville SC",
   "prediction": "Nashville SC to beat Sporting Kansas City",
   "kickoff_utc": "2026-10-15T00:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T06:21:08.477046+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T06:21:08.477046+00:00",
+  "settled_at": "2026-10-15T03:04:55.361216+00:00"
  },
  {
   "id": "a4de53c59b",
@@ -1772,8 +1773,9 @@
   "pick_team": "Seattle Sounders FC",
   "prediction": "Seattle Sounders FC to beat FC Dallas",
   "kickoff_utc": "2026-10-15T00:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T08:05:38.025636+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T08:05:38.025636+00:00",
+  "settled_at": "2026-10-15T03:04:55.507848+00:00"
  },
  {
   "id": "06ddab4ecf",
@@ -1942,8 +1944,9 @@
   "pick_team": "St. Louis CITY SC",
   "prediction": "St. Louis CITY SC to beat Vancouver Whitecaps",
   "kickoff_utc": "2026-10-15T00:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T12:35:45.777773+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T12:35:45.777773+00:00",
+  "settled_at": "2026-10-15T03:04:55.650140+00:00"
  },
  {
   "id": "f7f6c91162",
@@ -2297,8 +2300,9 @@
   "pick_team": "Chicago Fire FC",
   "prediction": "Chicago Fire FC to beat Philadelphia Union",
   "kickoff_utc": "2026-10-15T00:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T22:51:33.941151+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T22:51:33.941151+00:00",
+  "settled_at": "2026-10-15T03:04:55.789114+00:00"
  },
  {
   "id": "624f4df403",
