@@ -2787,5 +2787,31 @@
   "kickoff_utc": "2026-10-17T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-15T08:35:42.261450+00:00"
+ },
+ {
+  "id": "3e751d8de4",
+  "event_id": "761878",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Red Bull New York",
+  "away": "Toronto FC",
+  "pick_team": "Toronto FC",
+  "prediction": "Toronto FC to beat Red Bull New York",
+  "kickoff_utc": "2026-10-17T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-15T09:06:22.781298+00:00"
+ },
+ {
+  "id": "fc3b6f25f3",
+  "event_id": "761886",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "San Jose Earthquakes",
+  "away": "Nashville SC",
+  "pick_team": "Nashville SC",
+  "prediction": "Nashville SC to beat San Jose Earthquakes",
+  "kickoff_utc": "2026-10-18T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-15T09:06:54.392239+00:00"
  }
 ]
