@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T21:50:17.309174+00:00",
+ "generated_at": "2026-10-15T22:05:12.617486+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401908033",
+     "matchup": "MIL @ LAD",
+     "commence": "2026-10-16T00:00Z",
+     "status": "pre",
+     "detail": "10/15 - 5:00 PM PT",
+     "score": "MIL 0 - LAD 0"
+    }
+   ]
+  },
   {
    "league": "CFB",
    "games": [
@@ -20,6 +33,14 @@
      "status": "pre",
      "detail": "10/15 - 4:30 PM PT",
      "score": "GASO 0 - ODU 0"
+    },
+    {
+     "espn_event_id": "401860923",
+     "matchup": "CSU @ TXST",
+     "commence": "2026-10-16T00:00Z",
+     "status": "pre",
+     "detail": "10/15 - 5:00 PM PT",
+     "score": "CSU 0 - TXST 0"
     }
    ]
   },
@@ -86,6 +107,30 @@
      "status": "pre",
      "detail": "10/15 - 4:30 PM PT",
      "score": "PHI 0 - DET 0"
+    },
+    {
+     "espn_event_id": "401892512",
+     "matchup": "WPG @ CHI",
+     "commence": "2026-10-16T00:00Z",
+     "status": "pre",
+     "detail": "10/15 - 5:00 PM PT",
+     "score": "WPG 0 - CHI 0"
+    },
+    {
+     "espn_event_id": "401892513",
+     "matchup": "SJ @ NSH",
+     "commence": "2026-10-16T00:00Z",
+     "status": "pre",
+     "detail": "10/15 - 5:00 PM PT",
+     "score": "SJ 0 - NSH 0"
+    },
+    {
+     "espn_event_id": "401892514",
+     "matchup": "STL @ MIN",
+     "commence": "2026-10-16T00:00Z",
+     "status": "pre",
+     "detail": "10/15 - 5:00 PM PT",
+     "score": "STL 0 - MIN 0"
     }
    ]
   }
