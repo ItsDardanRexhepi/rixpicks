@@ -2748,5 +2748,18 @@
   "kickoff_utc": "2026-10-18T00:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-15T06:36:12.589070+00:00"
+ },
+ {
+  "id": "408067505d",
+  "event_id": "761884",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Sporting Kansas City",
+  "away": "Real Salt Lake",
+  "pick_team": "Sporting Kansas City",
+  "prediction": "Sporting Kansas City to beat Real Salt Lake",
+  "kickoff_utc": "2026-10-18T00:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-15T06:51:33.755209+00:00"
  }
 ]
