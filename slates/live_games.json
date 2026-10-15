@@ -1,167 +1,17 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T03:50:10.290699+00:00",
+ "generated_at": "2026-10-15T15:05:18.438610+00:00",
  "leagues": [
   {
    "league": "MLB",
    "games": [
     {
-     "espn_event_id": "401908032",
-     "matchup": "MIL @ LAD",
-     "commence": "2026-10-15T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "MIL 6 - LAD 2"
-    }
-   ]
-  },
-  {
-   "league": "CFB",
-   "games": [
-    {
-     "espn_event_id": "401871068",
-     "matchup": "WKU @ SHSU",
-     "commence": "2026-10-15T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "WKU 16 - SHSU 3"
-    }
-   ]
-  },
-  {
-   "league": "NBA",
-   "games": [
-    {
-     "espn_event_id": "401898722",
-     "matchup": "PHX @ SA",
-     "commence": "2026-10-15T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "PHX 103 - SA 123"
-    },
-    {
-     "espn_event_id": "401901825",
-     "matchup": "NO @ DAL",
-     "commence": "2026-10-15T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "NO 101 - DAL 97"
-    },
-    {
-     "espn_event_id": "401908942",
-     "matchup": "CHI @ MIL",
-     "commence": "2026-10-15T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "CHI 125 - MIL 104"
-    },
-    {
-     "espn_event_id": "401914125",
-     "matchup": "DET @ MIN",
-     "commence": "2026-10-15T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "DET 128 - MIN 106"
-    },
-    {
-     "espn_event_id": "401918011",
-     "matchup": "DEN @ LAC",
-     "commence": "2026-10-15T02:30Z",
-     "status": "in",
-     "detail": "Halftime",
-     "score": "DEN 55 - LAC 58",
-     "away_to": 3,
-     "home_to": 6
-    }
-   ]
-  },
-  {
-   "league": "NHL",
-   "games": [
-    {
-     "espn_event_id": "401892505",
-     "matchup": "DAL @ COL",
-     "commence": "2026-10-15T00:30Z",
-     "status": "post",
-     "detail": "Final/SO",
-     "score": "DAL 3 - COL 2"
-    }
-   ]
-  },
-  {
-   "league": "MLS",
-   "games": [
-    {
-     "espn_event_id": "761869",
-     "matchup": "PHI @ CHI",
-     "commence": "2026-10-15T00:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "PHI 3 - CHI 1"
-    },
-    {
-     "espn_event_id": "761867",
-     "matchup": "SEA @ DAL",
-     "commence": "2026-10-15T00:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "SEA 0 - DAL 1"
-    },
-    {
-     "espn_event_id": "761866",
-     "matchup": "SKC @ NSH",
-     "commence": "2026-10-15T00:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "SKC 0 - NSH 4"
-    },
-    {
-     "espn_event_id": "761868",
-     "matchup": "VAN @ STL",
-     "commence": "2026-10-15T00:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "VAN 0 - STL 0"
-    },
-    {
-     "espn_event_id": "761871",
-     "matchup": "MIN @ COL",
-     "commence": "2026-10-15T01:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "MIN 2 - COL 2"
-    },
-    {
-     "espn_event_id": "761870",
-     "matchup": "SJ @ RSL",
-     "commence": "2026-10-15T01:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "SJ 1 - RSL 1"
-    },
-    {
-     "espn_event_id": "761874",
-     "matchup": "POR @ LA",
-     "commence": "2026-10-15T02:30Z",
-     "status": "in",
-     "detail": "52'",
-     "score": "POR 0 - LA 1"
-    },
-    {
-     "espn_event_id": "761873",
-     "matchup": "ATX @ LAFC",
-     "commence": "2026-10-15T02:30Z",
-     "status": "in",
-     "detail": "53'",
-     "score": "ATX 0 - LAFC 1"
-    },
-    {
-     "espn_event_id": "761872",
-     "matchup": "HOU @ SD",
-     "commence": "2026-10-15T02:30Z",
-     "status": "in",
-     "detail": "HT",
-     "score": "HOU 3 - SD 2"
+     "espn_event_id": "401908025",
+     "matchup": "TB @ CLE",
+     "commence": "2026-10-15T17:00Z",
+     "status": "pre",
+     "detail": "10/15 - 10:00 AM PT",
+     "score": "TB 0 - CLE 0"
     }
    ]
   }
