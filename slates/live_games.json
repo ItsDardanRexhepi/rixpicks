@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T19:35:16.818720+00:00",
+ "generated_at": "2026-10-15T19:50:10.202999+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,8 +9,8 @@
      "espn_event_id": "401908025",
      "matchup": "TB @ CLE",
      "commence": "2026-10-15T17:00Z",
-     "status": "in",
-     "detail": "Top 9th",
+     "status": "post",
+     "detail": "Final",
      "score": "TB 2 - CLE 3"
     }
    ]
