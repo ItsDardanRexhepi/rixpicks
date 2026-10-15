@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T03:20:14.873690+00:00",
+ "generated_at": "2026-10-15T03:35:12.817426+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -22,41 +22,15 @@
      "espn_event_id": "401871068",
      "matchup": "WKU @ SHSU",
      "commence": "2026-10-15T00:00Z",
-     "status": "in",
-     "detail": "4:08 - 4th",
-     "score": "WKU 16 - SHSU 3",
-     "away_to": 2,
-     "home_to": 0
-    },
-    {
-     "espn_event_id": "401871054",
-     "matchup": "KENN @ MOST",
-     "commence": "2026-10-14T23:30Z",
      "status": "post",
      "detail": "Final",
-     "score": "KENN 21 - MOST 24"
+     "score": "WKU 16 - SHSU 3"
     }
    ]
   },
   {
    "league": "NBA",
    "games": [
-    {
-     "espn_event_id": "401898404",
-     "matchup": "BKN @ MIA",
-     "commence": "2026-10-14T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "BKN 128 - MIA 144"
-    },
-    {
-     "espn_event_id": "401898405",
-     "matchup": "CHA @ BOS",
-     "commence": "2026-10-14T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "CHA 93 - BOS 114"
-    },
     {
      "espn_event_id": "401898722",
      "matchup": "PHX @ SA",
@@ -94,9 +68,9 @@
      "matchup": "DEN @ LAC",
      "commence": "2026-10-15T02:30Z",
      "status": "in",
-     "detail": "7:32 - 2nd",
-     "score": "DEN 38 - LAC 36",
-     "away_to": 5,
+     "detail": "1:20 - 2nd",
+     "score": "DEN 48 - LAC 53",
+     "away_to": 3,
      "home_to": 6
     }
    ]
@@ -105,76 +79,18 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401892504",
-     "matchup": "MTL @ WAS",
-     "commence": "2026-10-14T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "MTL 4 - WAS 5"
-    },
-    {
      "espn_event_id": "401892505",
      "matchup": "DAL @ COL",
      "commence": "2026-10-15T00:30Z",
-     "status": "in",
-     "detail": "In SO",
-     "score": "DAL 2 - COL 2",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final/SO",
+     "score": "DAL 3 - COL 2"
     }
    ]
   },
   {
    "league": "MLS",
    "games": [
-    {
-     "espn_event_id": "761864",
-     "matchup": "ATL @ MTL",
-     "commence": "2026-10-14T23:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "ATL 3 - MTL 0"
-    },
-    {
-     "espn_event_id": "761865",
-     "matchup": "CLT @ CLB",
-     "commence": "2026-10-14T23:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "CLT 1 - CLB 3"
-    },
-    {
-     "espn_event_id": "761863",
-     "matchup": "RBNY @ DC",
-     "commence": "2026-10-14T23:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "RBNY 1 - DC 2"
-    },
-    {
-     "espn_event_id": "761862",
-     "matchup": "NE @ CIN",
-     "commence": "2026-10-14T23:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "NE 3 - CIN 2"
-    },
-    {
-     "espn_event_id": "761861",
-     "matchup": "NYC @ MIA",
-     "commence": "2026-10-14T23:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "NYC 0 - MIA 2"
-    },
-    {
-     "espn_event_id": "761860",
-     "matchup": "ORL @ TOR",
-     "commence": "2026-10-14T23:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "ORL 3 - TOR 3"
-    },
     {
      "espn_event_id": "761869",
      "matchup": "PHI @ CHI",
@@ -212,23 +128,23 @@
      "matchup": "MIN @ COL",
      "commence": "2026-10-15T01:30Z",
      "status": "in",
-     "detail": "79'",
-     "score": "MIN 1 - COL 2"
+     "detail": "90'+4'",
+     "score": "MIN 2 - COL 2"
     },
     {
      "espn_event_id": "761870",
      "matchup": "SJ @ RSL",
      "commence": "2026-10-15T01:30Z",
-     "status": "in",
-     "detail": "84'",
-     "score": "SJ 0 - RSL 1"
+     "status": "post",
+     "detail": "FT",
+     "score": "SJ 1 - RSL 1"
     },
     {
      "espn_event_id": "761874",
      "matchup": "POR @ LA",
      "commence": "2026-10-15T02:30Z",
      "status": "in",
-     "detail": "40'",
+     "detail": "HT",
      "score": "POR 0 - LA 1"
     },
     {
@@ -236,7 +152,7 @@
      "matchup": "ATX @ LAFC",
      "commence": "2026-10-15T02:30Z",
      "status": "in",
-     "detail": "40'",
+     "detail": "HT",
      "score": "ATX 0 - LAFC 0"
     },
     {
@@ -244,7 +160,7 @@
      "matchup": "HOU @ SD",
      "commence": "2026-10-15T02:30Z",
      "status": "in",
-     "detail": "40'",
+     "detail": "HT",
      "score": "HOU 3 - SD 2"
     }
    ]
