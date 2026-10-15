@@ -2735,5 +2735,18 @@
   "kickoff_utc": "2026-10-18T02:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-15T06:06:27.630671+00:00"
+ },
+ {
+  "id": "60c50fa21f",
+  "event_id": "761882",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Austin FC",
+  "away": "Vancouver Whitecaps",
+  "pick_team": "Austin FC",
+  "prediction": "Austin FC to beat Vancouver Whitecaps",
+  "kickoff_utc": "2026-10-18T00:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-15T06:36:12.589070+00:00"
  }
 ]
