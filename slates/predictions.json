@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-15T00:20:08.539416+00:00",
+ "generated_at": "2026-10-15T00:35:09.927630+00:00",
  "items": [
-  {
-   "id": "a089ea77e2",
-   "league": "MLS",
-   "event": "Sporting Kansas City @ Nashville SC",
-   "prediction": "Nashville SC to beat Sporting Kansas City",
-   "kickoff_utc": "2026-10-15T00:30:00+00:00"
-  },
-  {
-   "id": "524969b58c",
-   "league": "MLS",
-   "event": "Seattle Sounders FC @ FC Dallas",
-   "prediction": "Seattle Sounders FC to beat FC Dallas",
-   "kickoff_utc": "2026-10-15T00:30:00+00:00"
-  },
-  {
-   "id": "6edbca3c07",
-   "league": "MLS",
-   "event": "Vancouver Whitecaps @ St. Louis CITY SC",
-   "prediction": "St. Louis CITY SC to beat Vancouver Whitecaps",
-   "kickoff_utc": "2026-10-15T00:30:00+00:00"
-  },
-  {
-   "id": "5d9988d865",
-   "league": "MLS",
-   "event": "Philadelphia Union @ Chicago Fire FC",
-   "prediction": "Chicago Fire FC to beat Philadelphia Union",
-   "kickoff_utc": "2026-10-15T00:30:00+00:00"
-  },
-  {
-   "id": "d9e72b8143",
-   "league": "NHL",
-   "event": "Dallas Stars @ Colorado Avalanche",
-   "prediction": "Colorado Avalanche to beat Dallas Stars",
-   "kickoff_utc": "2026-10-15T00:30:00+00:00"
-  },
   {
    "id": "06ddab4ecf",
    "league": "MLS",
    "event": "San Jose Earthquakes @ Real Salt Lake",
    "prediction": "Real Salt Lake to beat San Jose Earthquakes",
    "kickoff_utc": "2026-10-15T01:30:00+00:00"
+  },
+  {
+   "id": "6b75335a3f",
+   "league": "MLS",
+   "event": "Minnesota United FC @ Colorado Rapids",
+   "prediction": "Colorado Rapids to beat Minnesota United FC",
+   "kickoff_utc": "2026-10-15T01:30:00+00:00"
+  },
+  {
+   "id": "53565febf2",
+   "league": "MLS",
+   "event": "Portland Timbers @ LA Galaxy",
+   "prediction": "LA Galaxy to beat Portland Timbers",
+   "kickoff_utc": "2026-10-15T02:30:00+00:00"
+  },
+  {
+   "id": "7b13370259",
+   "league": "MLS",
+   "event": "Houston Dynamo FC @ San Diego FC",
+   "prediction": "Houston Dynamo FC to beat San Diego FC",
+   "kickoff_utc": "2026-10-15T02:30:00+00:00"
+  },
+  {
+   "id": "48b3a25199",
+   "league": "MLS",
+   "event": "Austin FC @ LAFC",
+   "prediction": "Austin FC to beat LAFC",
+   "kickoff_utc": "2026-10-15T02:30:00+00:00"
+  },
+  {
+   "id": "06b07e700d",
+   "league": "NBA",
+   "event": "Denver Nuggets @ LA Clippers",
+   "prediction": "LA Clippers to beat Denver Nuggets",
+   "kickoff_utc": "2026-10-15T02:30:00+00:00"
   }
  ]
 }
