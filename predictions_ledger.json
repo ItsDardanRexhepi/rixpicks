@@ -2917,5 +2917,44 @@
   "kickoff_utc": "2026-10-16T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-15T15:53:17.774966+00:00"
+ },
+ {
+  "id": "c858b480de",
+  "event_id": "401892507",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Ottawa Senators",
+  "away": "New York Islanders",
+  "pick_team": "New York Islanders",
+  "prediction": "New York Islanders to beat Ottawa Senators",
+  "kickoff_utc": "2026-10-15T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-15T16:50:20.552612+00:00"
+ },
+ {
+  "id": "c550df0f50",
+  "event_id": "401892511",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "New Jersey Devils",
+  "away": "New York Rangers",
+  "pick_team": "New York Rangers",
+  "prediction": "New York Rangers to beat New Jersey Devils",
+  "kickoff_utc": "2026-10-15T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-15T16:50:47.425884+00:00"
+ },
+ {
+  "id": "f8798556d6",
+  "event_id": "401892515",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Edmonton Oilers",
+  "away": "Utah Mammoth",
+  "pick_team": "Edmonton Oilers",
+  "prediction": "Edmonton Oilers to beat Utah Mammoth",
+  "kickoff_utc": "2026-10-16T01:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-15T16:51:36.041649+00:00"
  }
 ]

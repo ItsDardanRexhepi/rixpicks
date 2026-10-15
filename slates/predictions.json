@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-15T16:23:40.555791+00:00",
+ "generated_at": "2026-10-15T16:55:31.113703+00:00",
  "items": [
   {
    "id": "d59285140e",
@@ -16,6 +16,20 @@
    "kickoff_utc": "2026-10-15T23:00:00+00:00"
   },
   {
+   "id": "c858b480de",
+   "league": "NHL",
+   "event": "New York Islanders @ Ottawa Senators",
+   "prediction": "New York Islanders to beat Ottawa Senators",
+   "kickoff_utc": "2026-10-15T23:00:00+00:00"
+  },
+  {
+   "id": "c550df0f50",
+   "league": "NHL",
+   "event": "New York Rangers @ New Jersey Devils",
+   "prediction": "New York Rangers to beat New Jersey Devils",
+   "kickoff_utc": "2026-10-15T23:00:00+00:00"
+  },
+  {
    "id": "5496bfffe3",
    "league": "MLB",
    "event": "Milwaukee Brewers @ Los Angeles Dodgers",
@@ -28,20 +42,6 @@
    "event": "San Jose Sharks @ Nashville Predators",
    "prediction": "Nashville Predators to beat San Jose Sharks",
    "kickoff_utc": "2026-10-16T00:00:00+00:00"
-  },
-  {
-   "id": "754aee11ed",
-   "league": "NHL",
-   "event": "St. Louis Blues @ Minnesota Wild",
-   "prediction": "Minnesota Wild to beat St. Louis Blues",
-   "kickoff_utc": "2026-10-16T00:00:00+00:00"
-  },
-  {
-   "id": "a8cfbaffa3",
-   "league": "NFL",
-   "event": "Seattle Seahawks @ Denver Broncos",
-   "prediction": "Seattle Seahawks to beat Denver Broncos",
-   "kickoff_utc": "2026-10-16T00:15:00+00:00"
   }
  ]
 }
