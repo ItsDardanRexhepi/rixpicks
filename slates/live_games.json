@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T18:05:20.512146+00:00",
+ "generated_at": "2026-10-15T18:20:26.458231+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "TB @ CLE",
      "commence": "2026-10-15T17:00Z",
      "status": "in",
-     "detail": "Top 4th",
-     "score": "TB 0 - CLE 1"
+     "detail": "End 4th",
+     "score": "TB 2 - CLE 1"
     }
    ]
   }
