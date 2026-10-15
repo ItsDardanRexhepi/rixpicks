@@ -2709,5 +2709,18 @@
   "kickoff_utc": "2026-10-17T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-15T05:06:04.048528+00:00"
+ },
+ {
+  "id": "9dd20d2235",
+  "event_id": "761883",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Houston Dynamo FC",
+  "away": "FC Dallas",
+  "pick_team": "Houston Dynamo FC",
+  "prediction": "Houston Dynamo FC to beat FC Dallas",
+  "kickoff_utc": "2026-10-18T00:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-15T05:36:03.629822+00:00"
  }
 ]
