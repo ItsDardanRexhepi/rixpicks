@@ -2625,8 +2625,9 @@
   "pick_team": "San Antonio Spurs",
   "prediction": "San Antonio Spurs to beat Phoenix Suns",
   "kickoff_utc": "2026-10-15T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T16:36:14.979393+00:00"
+  "status": "hit",
+  "created_at": "2026-10-14T16:36:14.979393+00:00",
+  "settled_at": "2026-10-15T02:34:54.069584+00:00"
  },
  {
   "id": "2461d647be",
@@ -2638,8 +2639,9 @@
   "pick_team": "Montreal Canadiens",
   "prediction": "Montreal Canadiens to beat Washington Capitals",
   "kickoff_utc": "2026-10-14T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T18:50:23.989858+00:00"
+  "status": "miss",
+  "created_at": "2026-10-14T18:50:23.989858+00:00",
+  "settled_at": "2026-10-15T02:34:54.189365+00:00"
  },
  {
   "id": "2deb4c9a67",

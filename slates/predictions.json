@@ -1,34 +1,6 @@
 {
- "generated_at": "2026-10-15T02:20:08.803631+00:00",
+ "generated_at": "2026-10-15T02:35:32.797513+00:00",
  "items": [
-  {
-   "id": "53565febf2",
-   "league": "MLS",
-   "event": "Portland Timbers @ LA Galaxy",
-   "prediction": "LA Galaxy to beat Portland Timbers",
-   "kickoff_utc": "2026-10-15T02:30:00+00:00"
-  },
-  {
-   "id": "7b13370259",
-   "league": "MLS",
-   "event": "Houston Dynamo FC @ San Diego FC",
-   "prediction": "Houston Dynamo FC to beat San Diego FC",
-   "kickoff_utc": "2026-10-15T02:30:00+00:00"
-  },
-  {
-   "id": "48b3a25199",
-   "league": "MLS",
-   "event": "Austin FC @ LAFC",
-   "prediction": "Austin FC to beat LAFC",
-   "kickoff_utc": "2026-10-15T02:30:00+00:00"
-  },
-  {
-   "id": "06b07e700d",
-   "league": "NBA",
-   "event": "Denver Nuggets @ LA Clippers",
-   "prediction": "LA Clippers to beat Denver Nuggets",
-   "kickoff_utc": "2026-10-15T02:30:00+00:00"
-  },
   {
    "id": "a8cfbaffa3",
    "league": "NFL",
@@ -42,6 +14,34 @@
    "event": "Racing Louisville FC @ Boston Legacy FC",
    "prediction": "Racing Louisville FC to beat Boston Legacy FC",
    "kickoff_utc": "2026-10-17T00:00:00+00:00"
+  },
+  {
+   "id": "99c5e64750",
+   "league": "CFB",
+   "event": "Ohio State Buckeyes @ Indiana Hoosiers",
+   "prediction": "Ohio State Buckeyes to beat Indiana Hoosiers",
+   "kickoff_utc": "2026-10-17T16:00:00+00:00"
+  },
+  {
+   "id": "57640c0323",
+   "league": "CFB",
+   "event": "Florida Gators @ Texas Longhorns",
+   "prediction": "Texas Longhorns to beat Florida Gators",
+   "kickoff_utc": "2026-10-17T16:00:00+00:00"
+  },
+  {
+   "id": "076ccd5209",
+   "league": "CFB",
+   "event": "Mississippi State Bulldogs @ LSU Tigers",
+   "prediction": "LSU Tigers to beat Mississippi State Bulldogs",
+   "kickoff_utc": "2026-10-17T16:00:00+00:00"
+  },
+  {
+   "id": "037d8b4798",
+   "league": "CFB",
+   "event": "Virginia Cavaliers @ SMU Mustangs",
+   "prediction": "SMU Mustangs to beat Virginia Cavaliers",
+   "kickoff_utc": "2026-10-17T16:00:00+00:00"
   }
  ]
 }
