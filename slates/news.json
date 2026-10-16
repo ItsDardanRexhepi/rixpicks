@@ -1,7 +1,34 @@
 {
- "generated_at": "2026-10-16T14:36:02.511Z",
+ "generated_at": "2026-10-16T14:40:57.196Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Takeaways from Brewers' sweep of Dodgers",
+    "link": "https://www.espn.com/mlb/story/_/id/50186625/playoffs-nlcs-game-4-dodgers-brewers-alcs-game-3-guardians-rays",
+    "published": "2026-10-16T15:34:14.000Z",
+    "image": "",
+    "blurb": "Milwaukee swept L.A. to advance to the World Series, while Cleveland took a 2-1 ALCS lead over Tampa Bay.",
+    "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "Brewers-Dodgers NLCS prediction, schedule, scores, and more",
+    "link": "https://sports.yahoo.com/articles/brewers-dodgers-nlcs-prediction-schedule-174520815.html",
+    "published": "2026-10-16T14:38:16.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/4bcc2ad5fb8cbc148173a9339d12511aef4a3e2766f2ad4635d2a0e5382e90a6/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F769b02bc0e967461fe8ed0b4e0202200.jpg",
+    "blurb": "Here\u2019s our pick for the NLCS.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
+    "headline": "Rays vs. Guardians ALCS Game 4 picks: Strong winds blowing in at Progressive Field should keep run total down",
+    "link": "https://www.cbssports.com/betting/news/rays-vs-guardians-alcs-game-4-picks-strong-winds-blowing-in-at-progressive-field-should-keep-run-total-down/",
+    "published": "2026-10-16T13:53:55.000Z",
+    "image": "",
+    "blurb": "Weather should be a factor ALCS Game 4 as the Rays visit the Guardians on Friday",
+    "source": "CBS",
+    "league": "MLB"
+   },
    {
     "headline": "How Jose Ramirez's confidence -- and strut -- is fueling the Guardians' run",
     "link": "https://www.espn.com/mlb/story/_/id/50176145/playoffs-cleveland-guardians-run-jose-ramirez-energy",
@@ -17,33 +44,6 @@
     "published": "2026-10-16T14:15:27.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/4e09b36723c0189092683aa51523901bbea49dc895bcb77e1e9c0127ffb1d583/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F3d37b792117bf56ac992f5538e1919fb.jpg",
     "blurb": "Is everything in baseball actually about the Red Sox, even when it\u2019s not about the Red Sox? Somehow I feel like the answer is yes. The Milwaukee Brewers defeated the Los Angeles Dodgers last night to complete a four-game sweep of the NLCS and reach their first World Series since ",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Rays vs. Guardians ALCS Game 4 picks: Strong winds blowing in at Progressive Field should keep run total down",
-    "link": "https://www.cbssports.com/betting/news/rays-vs-guardians-alcs-game-4-picks-strong-winds-blowing-in-at-progressive-field-should-keep-run-total-down/",
-    "published": "2026-10-16T13:53:55.000Z",
-    "image": "",
-    "blurb": "Weather should be a factor ALCS Game 4 as the Rays visit the Guardians on Friday",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "Takeaways from Brewers' sweep of Dodgers",
-    "link": "https://www.espn.com/mlb/story/_/id/50186625/playoffs-nlcs-game-4-dodgers-brewers-alcs-game-3-guardians-rays",
-    "published": "2026-10-16T15:10:38.000Z",
-    "image": "",
-    "blurb": "Milwaukee swept L.A. to advance to the World Series, while Cleveland took a 2-1 ALCS lead over Tampa Bay.",
-    "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "Friday morning Rangers things",
-    "link": "https://sports.yahoo.com/articles/friday-morning-rangers-things-140038353.html",
-    "published": "2026-10-16T14:00:38.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/ce37f1e785d59fc6bf6fd1de5162c0f69a225a65a8712fa769e302407f2a1b07/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd1c1789b1641fd0341ada071c2177f04.jpg",
-    "blurb": "Texas Rangers update for Friday, Oct. 16.",
     "source": "YAHOO",
     "league": "MLB"
    },
@@ -66,11 +66,11 @@
     "league": "MLB"
    },
    {
-    "headline": "Switching roles; starter lets down the offense in Game 4",
-    "link": "https://sports.yahoo.com/articles/switching-roles-starter-lets-down-140000802.html",
-    "published": "2026-10-16T14:00:00.000Z",
+    "headline": "Friday morning Rangers things",
+    "link": "https://sports.yahoo.com/articles/friday-morning-rangers-things-140038353.html",
+    "published": "2026-10-16T14:00:38.000Z",
     "image": "",
-    "blurb": "Gifted a four-run lead after two innings, Tyler Glasnow could not maintain it, leading to a 6-4 Dodgers loss and a sweep",
+    "blurb": "Texas Rangers update for Friday, Oct. 16.",
     "source": "YAHOO",
     "league": "MLB"
    },
@@ -1078,6 +1078,15 @@
  },
  "latest": [
   {
+   "headline": "Takeaways from Brewers' sweep of Dodgers",
+   "link": "https://www.espn.com/mlb/story/_/id/50186625/playoffs-nlcs-game-4-dodgers-brewers-alcs-game-3-guardians-rays",
+   "published": "2026-10-16T15:34:14.000Z",
+   "image": "",
+   "blurb": "Milwaukee swept L.A. to advance to the World Series, while Cleveland took a 2-1 ALCS lead over Tampa Bay.",
+   "source": "ESPN",
+   "league": "MLB"
+  },
+  {
    "headline": "How Jose Ramirez's confidence -- and strut -- is fueling the Guardians' run",
    "link": "https://www.espn.com/mlb/story/_/id/50176145/playoffs-cleveland-guardians-run-jose-ramirez-energy",
    "published": "2026-10-16T15:22:13.000Z",
@@ -1096,12 +1105,12 @@
    "league": "Boxing"
   },
   {
-   "headline": "Takeaways from Brewers' sweep of Dodgers",
-   "link": "https://www.espn.com/mlb/story/_/id/50186625/playoffs-nlcs-game-4-dodgers-brewers-alcs-game-3-guardians-rays",
-   "published": "2026-10-16T15:10:38.000Z",
-   "image": "",
-   "blurb": "Milwaukee swept L.A. to advance to the World Series, while Cleveland took a 2-1 ALCS lead over Tampa Bay.",
-   "source": "ESPN",
+   "headline": "Brewers-Dodgers NLCS prediction, schedule, scores, and more",
+   "link": "https://sports.yahoo.com/articles/brewers-dodgers-nlcs-prediction-schedule-174520815.html",
+   "published": "2026-10-16T14:38:16.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/4bcc2ad5fb8cbc148173a9339d12511aef4a3e2766f2ad4635d2a0e5382e90a6/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F769b02bc0e967461fe8ed0b4e0202200.jpg",
+   "blurb": "Here\u2019s our pick for the NLCS.",
+   "source": "YAHOO",
    "league": "MLB"
   },
   {
@@ -1276,15 +1285,6 @@
    "league": "NCAAB"
   },
   {
-   "headline": "Friday morning Rangers things",
-   "link": "https://sports.yahoo.com/articles/friday-morning-rangers-things-140038353.html",
-   "published": "2026-10-16T14:00:38.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/ce37f1e785d59fc6bf6fd1de5162c0f69a225a65a8712fa769e302407f2a1b07/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd1c1789b1641fd0341ada071c2177f04.jpg",
-   "blurb": "Texas Rangers update for Friday, Oct. 16.",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
    "headline": "Donald Trump\u2019s proposed golf course draws legal opposition",
    "link": "https://www.yahoo.com/news/politics/articles/donald-trump-proposed-golf-course-140000265.html",
    "published": "2026-10-16T14:00:00.000Z",
@@ -1440,8 +1440,8 @@
  ],
  "source_mix": {
   "ESPN": 59,
-  "CBS": 37,
-  "YAHOO": 60
+  "YAHOO": 60,
+  "CBS": 37
  },
  "degraded_sources": []
 }
