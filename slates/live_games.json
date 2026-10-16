@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-16T21:50:17.104453+00:00",
+ "generated_at": "2026-10-16T22:05:15.785100+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401908026",
+     "matchup": "TB @ CLE",
+     "commence": "2026-10-17T00:00Z",
+     "status": "pre",
+     "detail": "10/16 - 5:00 PM PT",
+     "score": "TB 0 - CLE 0"
+    }
+   ]
+  },
   {
    "league": "CFB",
    "games": [
@@ -12,6 +25,22 @@
      "status": "pre",
      "detail": "10/16 - 4:30 PM PT",
      "score": "MEM 0 - TULN 0"
+    },
+    {
+     "espn_event_id": "401858493",
+     "matchup": "WASH @ PUR",
+     "commence": "2026-10-17T00:00Z",
+     "status": "pre",
+     "detail": "10/16 - 5:00 PM PT",
+     "score": "WASH 0 - PUR 0"
+    },
+    {
+     "espn_event_id": "401869844",
+     "matchup": "APP @ CCU",
+     "commence": "2026-10-17T00:00Z",
+     "status": "pre",
+     "detail": "10/16 - 5:00 PM PT",
+     "score": "APP 0 - CCU 0"
     }
    ]
   },
@@ -49,6 +78,59 @@
      "status": "pre",
      "detail": "10/16 - 4:00 PM PT",
      "score": "MIL 0 - IND 0"
+    },
+    {
+     "espn_event_id": "401898408",
+     "matchup": "ATL @ DAL",
+     "commence": "2026-10-17T00:00Z",
+     "status": "pre",
+     "detail": "10/16 - 5:00 PM PT",
+     "score": "ATL 0 - DAL 0"
+    },
+    {
+     "espn_event_id": "401898843",
+     "matchup": "SAC @ SA",
+     "commence": "2026-10-17T00:00Z",
+     "status": "pre",
+     "detail": "10/16 - 5:00 PM PT",
+     "score": "SAC 0 - SA 0"
+    },
+    {
+     "espn_event_id": "401901822",
+     "matchup": "CHA @ MEM",
+     "commence": "2026-10-17T00:00Z",
+     "status": "pre",
+     "detail": "10/16 - 5:00 PM PT",
+     "score": "CHA 0 - MEM 0"
+    },
+    {
+     "espn_event_id": "401906509",
+     "matchup": "WAS @ NO",
+     "commence": "2026-10-17T00:00Z",
+     "status": "pre",
+     "detail": "10/16 - 5:00 PM PT",
+     "score": "WAS 0 - NO 0"
+    },
+    {
+     "espn_event_id": "401908943",
+     "matchup": "MIN @ CHI",
+     "commence": "2026-10-17T00:00Z",
+     "status": "pre",
+     "detail": "10/16 - 5:00 PM PT",
+     "score": "MIN 0 - CHI 0"
+    }
+   ]
+  },
+  {
+   "league": "NWSL",
+   "games": [
+    {
+     "espn_event_id": "401854091",
+     "matchup": "LOU @ BOS",
+     "commence": "2026-10-17T00:00Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "LOU 0 - BOS 0"
     }
    ]
   }
