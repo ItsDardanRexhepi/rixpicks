@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-16T00:20:34.051727+00:00",
+ "generated_at": "2026-10-16T00:35:13.031718+00:00",
  "items": [
-  {
-   "id": "0913eb90a0",
-   "league": "NBA",
-   "event": "Oklahoma City Thunder @ Houston Rockets",
-   "prediction": "Oklahoma City Thunder to beat Houston Rockets",
-   "kickoff_utc": "2026-10-16T00:30:00+00:00"
-  },
   {
    "id": "f8798556d6",
    "league": "NHL",
@@ -41,6 +34,13 @@
    "league": "CFB",
    "event": "Mississippi State Bulldogs @ LSU Tigers",
    "prediction": "LSU Tigers to beat Mississippi State Bulldogs",
+   "kickoff_utc": "2026-10-17T16:00:00+00:00"
+  },
+  {
+   "id": "037d8b4798",
+   "league": "CFB",
+   "event": "Virginia Cavaliers @ SMU Mustangs",
+   "prediction": "SMU Mustangs to beat Virginia Cavaliers",
    "kickoff_utc": "2026-10-17T16:00:00+00:00"
   }
  ]
