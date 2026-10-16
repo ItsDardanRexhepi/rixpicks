@@ -3137,5 +3137,18 @@
   "kickoff_utc": "2026-10-17T02:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-16T16:21:38.616307+00:00"
+ },
+ {
+  "id": "17ee60cd90",
+  "event_id": "401898843",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "San Antonio Spurs",
+  "away": "Sacramento Kings",
+  "pick_team": "Sacramento Kings",
+  "prediction": "Sacramento Kings to beat San Antonio Spurs",
+  "kickoff_utc": "2026-10-17T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-16T16:35:22.305676+00:00"
  }
 ]
