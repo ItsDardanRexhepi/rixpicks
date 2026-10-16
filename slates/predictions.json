@@ -1,34 +1,6 @@
 {
- "generated_at": "2026-10-16T22:50:35.511711+00:00",
+ "generated_at": "2026-10-16T23:04:58.425215+00:00",
  "items": [
-  {
-   "id": "644b83859a",
-   "league": "NBA",
-   "event": "Miami Heat @ Orlando Magic",
-   "prediction": "Miami Heat to beat Orlando Magic",
-   "kickoff_utc": "2026-10-16T23:00:00+00:00"
-  },
-  {
-   "id": "7ca50bc6a6",
-   "league": "NBA",
-   "event": "Toronto Raptors @ Detroit Pistons",
-   "prediction": "Toronto Raptors to beat Detroit Pistons",
-   "kickoff_utc": "2026-10-16T23:00:00+00:00"
-  },
-  {
-   "id": "b972ccb710",
-   "league": "NBA",
-   "event": "Milwaukee Bucks @ Indiana Pacers",
-   "prediction": "Milwaukee Bucks to beat Indiana Pacers",
-   "kickoff_utc": "2026-10-16T23:00:00+00:00"
-  },
-  {
-   "id": "e52a5f0ef7",
-   "league": "NBA",
-   "event": "Boston Celtics @ Philadelphia 76ers",
-   "prediction": "Boston Celtics to beat Philadelphia 76ers",
-   "kickoff_utc": "2026-10-16T23:00:00+00:00"
-  },
   {
    "id": "d73da979fc",
    "league": "NWSL",
@@ -41,6 +13,34 @@
    "league": "NBA",
    "event": "Atlanta Hawks @ Dallas Mavericks",
    "prediction": "Dallas Mavericks to beat Atlanta Hawks",
+   "kickoff_utc": "2026-10-17T00:00:00+00:00"
+  },
+  {
+   "id": "233f751b9f",
+   "league": "MLB",
+   "event": "Tampa Bay Rays @ Cleveland Guardians",
+   "prediction": "Tampa Bay Rays to beat Cleveland Guardians",
+   "kickoff_utc": "2026-10-17T00:00:00+00:00"
+  },
+  {
+   "id": "17ee60cd90",
+   "league": "NBA",
+   "event": "Sacramento Kings @ San Antonio Spurs",
+   "prediction": "Sacramento Kings to beat San Antonio Spurs",
+   "kickoff_utc": "2026-10-17T00:00:00+00:00"
+  },
+  {
+   "id": "f410be3eee",
+   "league": "NBA",
+   "event": "Washington Wizards @ New Orleans Pelicans",
+   "prediction": "New Orleans Pelicans to beat Washington Wizards",
+   "kickoff_utc": "2026-10-17T00:00:00+00:00"
+  },
+  {
+   "id": "d1f0082f06",
+   "league": "NBA",
+   "event": "Minnesota Timberwolves @ Chicago Bulls",
+   "prediction": "Minnesota Timberwolves to beat Chicago Bulls",
    "kickoff_utc": "2026-10-17T00:00:00+00:00"
   }
  ]
