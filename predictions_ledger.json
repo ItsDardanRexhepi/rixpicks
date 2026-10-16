@@ -2889,8 +2889,9 @@
   "pick_team": "Toronto Maple Leafs",
   "prediction": "Toronto Maple Leafs to beat Buffalo Sabres",
   "kickoff_utc": "2026-10-15T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T15:50:19.950473+00:00"
+  "status": "miss",
+  "created_at": "2026-10-15T15:50:19.950473+00:00",
+  "settled_at": "2026-10-16T02:04:55.405547+00:00"
  },
  {
   "id": "ebabd55fcd",
@@ -2902,8 +2903,9 @@
   "pick_team": "Tampa Bay Lightning",
   "prediction": "Tampa Bay Lightning to beat Seattle Kraken",
   "kickoff_utc": "2026-10-15T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T15:51:15.750555+00:00"
+  "status": "hit",
+  "created_at": "2026-10-15T15:51:15.750555+00:00",
+  "settled_at": "2026-10-16T02:04:55.488539+00:00"
  },
  {
   "id": "754aee11ed",
@@ -2928,8 +2930,9 @@
   "pick_team": "New York Islanders",
   "prediction": "New York Islanders to beat Ottawa Senators",
   "kickoff_utc": "2026-10-15T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T16:50:20.552612+00:00"
+  "status": "miss",
+  "created_at": "2026-10-15T16:50:20.552612+00:00",
+  "settled_at": "2026-10-16T02:04:55.529942+00:00"
  },
  {
   "id": "c550df0f50",
