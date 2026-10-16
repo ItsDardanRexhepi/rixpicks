@@ -121,24 +121,24 @@ h1 .tick{color:#3BEBF5}
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
-<div class="pick" data-espn="football/college-football" data-team="Kennesaw State Owls" data-abbr="KENN" data-eid="401871056" data-game-day="2026-10-22">
+<div class="pick" data-espn="football/college-football" data-team="Kennesaw State Owls" data-abbr="" data-eid="" data-game-day="">
   <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/338.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Kennesaw State Owls</span><span class="odds">1-5</span></div>
-  <div class="sub">Record 1-5 · Streak L5</div>
-  <div class="score" id="rpScore">Next up: vs Liberty Flames · Thu, Oct 22, 4:00 PM PT</div>
+  <div class="sub">Record 1-5</div>
+  <div class="score" id="rpScore"></div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 21-24 @ MOST · 10-14</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 26-27 vs JXST · 10-07</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 14-17 @ ARST · 09-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 9-42 @ TENN · 09-19</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 17-31 vs GAST · 09-12</div>
+<div class="sub">No recent games found.</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 22.3 &middot; allowed 23.5 per game over last 6</div>
+<div class="sub">Not enough recent games.</div>
 <div class="sect">Next up</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs LIB · 10-22</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ MTSU · 10-28</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs DEL · 11-07</div>
+<div class="sub">No upcoming games listed.</div>
 <div class="sect">Injuries</div>
 <div class="sub">Injury data unavailable.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1792129816';
+const RP_BUILD='1792130719';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}

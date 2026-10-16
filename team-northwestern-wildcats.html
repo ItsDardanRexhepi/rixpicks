@@ -121,24 +121,24 @@ h1 .tick{color:#3BEBF5}
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
-<div class="pick" data-espn="football/college-football" data-team="Northwestern Wildcats" data-abbr="NU" data-eid="401858491" data-game-day="2026-10-17">
+<div class="pick" data-espn="football/college-football" data-team="Northwestern Wildcats" data-abbr="" data-eid="" data-game-day="">
   <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/ncaa/500/77.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Northwestern Wildcats</span><span class="odds">4-1</span></div>
-  <div class="sub">Record 4-1 · Streak W2</div>
-  <div class="score" id="rpScore">Next up: @ Michigan State Spartans · Sat, Oct 17, 9:00 AM PT</div>
+  <div class="sub">Record 4-1</div>
+  <div class="score" id="rpScore"></div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 45-14 vs BALL · 10-10</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 34-13 vs PSU · 10-02</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 23-29 @ IU · 09-25</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 41-7 vs COLO · 09-19</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 34-18 vs SDST · 09-05</div>
+<div class="sub">No recent games found.</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 35.4 &middot; allowed 16.2 per game over last 5</div>
+<div class="sub">Not enough recent games.</div>
 <div class="sect">Next up</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ MSU · 10-17</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs RUTG · 10-24</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ ORE · 10-30</div>
+<div class="sub">No upcoming games listed.</div>
 <div class="sect">Injuries</div>
 <div class="sub">Injury data unavailable.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1792129816';
+const RP_BUILD='1792130719';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}
