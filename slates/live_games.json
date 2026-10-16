@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-16T03:05:21.310145+00:00",
+ "generated_at": "2026-10-16T03:20:14.052153+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,8 +9,8 @@
      "espn_event_id": "401908033",
      "matchup": "MIL @ LAD",
      "commence": "2026-10-16T00:00Z",
-     "status": "in",
-     "detail": "Bot 9th",
+     "status": "post",
+     "detail": "Final",
      "score": "MIL 6 - LAD 4"
     }
    ]
@@ -23,9 +23,9 @@
      "matchup": "SEA @ DEN",
      "commence": "2026-10-16T00:15Z",
      "status": "in",
-     "detail": "3:19 - 4th",
-     "score": "SEA 11 - DEN 14",
-     "away_to": 3,
+     "detail": "0:03 - 4th",
+     "score": "SEA 14 - DEN 14",
+     "away_to": 0,
      "home_to": 3
     }
    ]
@@ -37,28 +37,24 @@
      "espn_event_id": "401862800",
      "matchup": "ECU @ UAB",
      "commence": "2026-10-15T23:30Z",
-     "status": "in",
-     "detail": "OT",
-     "score": "ECU 17 - UAB 17",
-     "away_to": 0,
-     "home_to": 0
+     "status": "post",
+     "detail": "Final/OT",
+     "score": "ECU 17 - UAB 30"
     },
     {
      "espn_event_id": "401869950",
      "matchup": "GASO @ ODU",
      "commence": "2026-10-15T23:30Z",
-     "status": "in",
-     "detail": "1:02 - 4th",
-     "score": "GASO 23 - ODU 15",
-     "away_to": 0,
-     "home_to": 0
+     "status": "post",
+     "detail": "Final",
+     "score": "GASO 23 - ODU 15"
     },
     {
      "espn_event_id": "401860923",
      "matchup": "CSU @ TXST",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "8:26 - 4th",
+     "detail": "2:00 - 4th",
      "score": "CSU 27 - TXST 66",
      "away_to": 0,
      "home_to": 0
@@ -126,7 +122,7 @@
      "matchup": "UTA @ EDM",
      "commence": "2026-10-16T01:00Z",
      "status": "in",
-     "detail": "13:52 - 3rd",
+     "detail": "7:01 - 3rd",
      "score": "UTA 3 - EDM 2",
      "away_to": null,
      "home_to": null
@@ -136,8 +132,8 @@
      "matchup": "CGY @ VGK",
      "commence": "2026-10-16T02:00Z",
      "status": "in",
-     "detail": "16:23 - 2nd",
-     "score": "CGY 0 - VGK 2",
+     "detail": "8:41 - 2nd",
+     "score": "CGY 1 - VGK 3",
      "away_to": null,
      "home_to": null
     }
