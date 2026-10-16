@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-16T10:41:02.696Z",
+ "generated_at": "2026-10-16T10:46:10.594Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Swanson: Dodgers must prioritize Shohei Ohtani's load management, or suffer the consequences",
+    "link": "https://sports.yahoo.com/articles/swanson-dodgers-must-prioritize-shohei-103000854.html",
+    "published": "2026-10-16T10:30:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/2974595037e96f017acca9ad3308fc33a795082ff745dacf92fc149f37e6b588/lightyear_networkapi/resizefill_w840_h560%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fla_times_articles_853%2Fcfbe47f6e7cb019d495a878ab1ac28d2.jpg",
+    "blurb": "Shohei Ohtani showed the world a glimpse of his game-breaking abilities in Game 4 of the NLCS, but it was too little, too late for a Dodgers team that needs him healthy to challenge for a World Series title.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
    {
     "headline": "Dombrowski puts Turner on notice: Get better at SS or find new position",
     "link": "https://www.espn.com/mlb/story/_/id/50195061/phillies-dombrowski-puts-turner-notice-get-better-ss",
@@ -9,15 +18,6 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0616%2Fr1674105_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "A year after Dave Dombrowski put Bryce Harper on blast, the top Phillies executive turned his biting criticism toward Trea Turner.",
-    "league": "MLB"
-   },
-   {
-    "headline": "It wasn't just Brewers dominance. There's a simpler explanation for the Dodgers' demise",
-    "link": "https://sports.yahoo.com/articles/wasnt-just-brewers-dominance-theres-100000131.html",
-    "published": "2026-10-16T10:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/14a2997247573a1923e726a8cdf6ccfbc10c86e1987f8a3257cba9d5829fb19f/lightyear_networkapi/resizefill_w840_h560%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fla_times_articles_853%2Ff917ad90e044593b5a9de9226edc369d.jpg",
-    "blurb": "The Dodgers were clearly outplayed by the Brewers in the NLCS, but there were several other factors behind the team's failed World Series three-peat bid.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Dodgers make the wrong kind of history in NLCS loss to Brewers",
+    "link": "https://sports.yahoo.com/articles/dodgers-wrong-kind-history-nlcs-103000375.html",
+    "published": "2026-10-16T10:30:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/64835c65794b93078e97f312989bcc8a0e235e78b94a9effa254c6913717782f/lightyear_networkapi/resizefill_w840_h560%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fla_times_articles_853%2F73cd6e6e7798f40a9ecfc4ccfb973e73.jpg",
+    "blurb": "The Dodgers are the first team in major league history to lead every game of a best-of-seven playoff series and get swept in the same series.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Brewers sweep Dodgers in NLCS, advance to 1st World Series in 44 years",
     "link": "https://www.espn.com/mlb/story/_/id/50193819/brewers-sweep-dodgers-nlcs-advance-world-series",
     "published": "2026-10-16T09:57:49Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1016%2Fr1731473_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Brewers completed a four-game sweep of the Dodgers to win the NL pennant and reach the World Series for the first time since 1982.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Today on Pinstripe Alley \u2013 10/16/26",
-    "link": "https://sports.yahoo.com/articles/today-pinstripe-alley-10-16-100000320.html",
-    "published": "2026-10-16T10:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/69655a1b957d20f952bc3eb2a6769b08f0a7d6b80ea43d6d079472c0ad093f1a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F4aac943f0908f84f7018b3a5c43ef6f1.jpg",
-    "blurb": "There will be no three-peat this year.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "It wasn't just Brewers dominance. There's a simpler explanation for the Dodgers' demise",
+    "link": "https://sports.yahoo.com/articles/wasnt-just-brewers-dominance-theres-100000131.html",
+    "published": "2026-10-16T10:00:00.000Z",
+    "image": "",
+    "blurb": "The Dodgers were clearly outplayed by the Brewers in the NLCS, but there were several other factors behind the team's failed World Series three-peat bid.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Brewers sweep the Dodgers in the NLCS to reach the World Series for the first time since 1982",
     "link": "http://www.espn.com/mlb/recap?gameId=401908033",
     "published": "2026-10-16T08:07:07Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908033.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "\u2014 Garrett Mitchell hit a go-ahead homer off reliever Tanner Scott in the sixth inning, Milwaukee's bullpen slammed the door late and the Brewers rallied past the Los Angeles Dodgers 6-4 on Thursday in Game 4 of the National League Championship Series...",
-    "league": "MLB"
-   },
-   {
-    "headline": "LSU Baseball fall scrimmage notes: Thursday, October 15th",
-    "link": "https://sports.yahoo.com/articles/lsu-baseball-fall-scrimmage-notes-091321433.html",
-    "published": "2026-10-16T09:13:21.000Z",
-    "image": "",
-    "blurb": "Week 2 of fall baseball is underway",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,23 +84,23 @@
     "league": "MLB"
    },
    {
-    "headline": "Halpin\u2019s go-ahead homer flips Game 3 as Guardians beat Rays 3-2 for 2-1 AL Championship Series lead",
-    "link": "http://www.espn.com/mlb/recap?gameId=401908025",
-    "published": "2026-10-16T08:05:58Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908025.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 In a season where Cleveland rookies helped propel to the Guardians to their third straight AL Central title, it was the team's emotional spark plug that powered the Guardians to a pivotal victory in Game 3 of the AL Championship Series.",
+    "headline": "Today on Pinstripe Alley \u2013 10/16/26",
+    "link": "https://sports.yahoo.com/articles/today-pinstripe-alley-10-16-100000320.html",
+    "published": "2026-10-16T10:00:00.000Z",
+    "image": "",
+    "blurb": "There will be no three-peat this year.",
+    "source": "YAHOO",
     "league": "MLB"
    }
   ],
   "football/nfl": [
    {
-    "headline": "NFL Week 6 preview: Picks, predictions, schedule, betting odds, fantasy tips",
-    "link": "https://www.espn.com/nfl/story/_/id/50188997/week-6-picks-predictions-schedule-fantasy-odds-2026",
-    "published": "2026-10-16T10:38:58Z",
+    "headline": "DraftKings DFS cheat sheet: Best values for Sunday's main slate",
+    "link": "https://www.espn.com/fantasy/football/story/_/id/50192170/draftkings-nfl-dfs-values-week-6",
+    "published": "2026-10-16T10:43:43Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731221_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Can the Titans, Chargers finally win? Stroud vs. Lawrence? There are 13 more games in Week 6, and we have picks, predictions and more for all of them.",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731364_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Build a winning DFS lineup with our DraftKings NFL Week 6 cheat sheet identifying the best stacks and values",
     "league": "NFL"
    },
    {
@@ -122,12 +122,12 @@
     "league": "NFL"
    },
    {
-    "headline": "Ranking all eight NFL divisions this season by strength: NFC North at No. 1?",
-    "link": "https://www.espn.com/nfl/story/_/id/50181965/2026-nfl-season-ranking-eight-nfl-divisions-best-worst",
-    "published": "2026-10-16T10:38:23Z",
+    "headline": "Fantasy football last-minute pickups: Winston, Tucker among top options",
+    "link": "https://www.espn.com/fantasy/football/story/_/id/50182356/fantasy-football-streamers-last-minute-pickups-week-6",
+    "published": "2026-10-16T10:42:02Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731344_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Why do we have the NFC North at No. 1 in our annual division power ranking -- even ahead of the mighty NFC West? And is the NFC South at the bottom of our list ... again?",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731253_2_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "If injuries, bye weeks or tough matchups have you seeking lineup help, Matt Bowen lists potential options.",
     "league": "NFL"
    },
    {
@@ -149,12 +149,12 @@
     "league": "NFL"
    },
    {
-    "headline": "Pop quizzes from Aaron Rodgers?! How Steelers QB preps his pass catchers",
-    "link": "https://www.espn.com/nfl/story/_/id/50193213/pop-quizzes-aaron-rodgers-steelers-qb-prepares",
-    "published": "2026-10-16T10:00:02Z",
+    "headline": "The Week 6 QB shuffle: Six quarterbacks to pick up if yours is underperforming",
+    "link": "https://www.espn.com/fantasy/football/story/_/id/50190576/fantasy-football-start-sit-week-6-quarterbacks",
+    "published": "2026-10-16T10:41:03Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fnfl_rodgers-quiz_16x9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The 42-year-old veteran acts more like Simon Cowell than Ken Jennings as he builds trust with his teammates.",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731302_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Is it finally time to drop that one quarterback? Adam Rank says yes and offers his favorite options.",
     "league": "NFL"
    },
    {
@@ -176,12 +176,12 @@
     "league": "NFL"
    },
    {
-    "headline": "Daniels addresses teammates on OT gaffe, vows 'it'll never happen again'",
-    "link": "https://www.espn.com/nfl/story/_/id/50191830/jayden-daniels-addresses-commanders-teammates-ot-gaffe",
-    "published": "2026-10-16T07:42:22.000Z",
-    "image": "",
-    "blurb": "Jayden Daniels addressed his Commanders teammates, once more blaming himself for the end-of-overtime debacle against the Giants and vowing it won't happen again.",
+    "headline": "NFL Week 6 preview: Picks, predictions, schedule, betting odds, fantasy tips",
+    "link": "https://www.espn.com/nfl/story/_/id/50188997/week-6-picks-predictions-schedule-fantasy-odds-2026",
+    "published": "2026-10-16T10:38:58Z",
     "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731221_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Can the Titans, Chargers finally win? Stroud vs. Lawrence? There are 13 more games in Week 6, and we have picks, predictions and more for all of them.",
     "league": "NFL"
    }
   ],
@@ -279,11 +279,11 @@
   ],
   "basketball/wnba": [
    {
-    "headline": "Angel Reese vs. Caitlin Clark: How Dream star reached first championship appearance before Fever sensation",
-    "link": "https://sports.yahoo.com/articles/angel-reese-vs-caitlin-clark-070001537.html",
-    "published": "2026-10-16T07:00:01.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/fe0a5b9da55436e9e01c309f90508fca9b949953ffbf2cd04f4ad75d2bbc497c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2F28531a2b5e0157dd8d8b23b190f71b77",
-    "blurb": "As members of the same draft class and longtime star rivals, Reese has now reached the WNBA's biggest stage before Clark.",
+    "headline": "Sophie Cunningham Says Angel Reese Dodging A $500 Technical Is \u201cAbsolutely Insane\u201d",
+    "link": "https://sports.yahoo.com/articles/sophie-cunningham-says-angel-reese-103443303.html",
+    "published": "2026-10-16T10:34:43.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/7606f086c5f3120b7e559c26d49fea69357f2f01868e724b07ec62ed4eb2cb79/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ffadeaway_world_951%2Fdf19b650ce032f4890699c48f8ad7729.jpg",
+    "blurb": "Indiana Fever guard Sophie Cunningham says Angel Reese should have been hit with a technical for chasing Sabrina Ionescu down the floor, and the missed call could matter in the WNBA Finals.",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -306,11 +306,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Sophie Cunningham Calls Out Angel Reese for 'Dangerous' Plays in Dream Game",
-    "link": "https://sports.yahoo.com/articles/sophie-cunningham-calls-angel-reese-014928164.html",
-    "published": "2026-10-16T01:49:28.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/c699b2943a4e471c53c29f23478ebf0f4e207ec78978bd977b3b58a0cfd4c3e9/lightyear_networkapi/resizefill_w912_h513%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fwomen_s_fastbreak_on_si_videos_507%2F165ec90e3b2e1516a3258c8cdc63bf37.jpg",
-    "blurb": "Sophie Cunningham didn't agree with Angel Reese's actions during a recent Atlanta Dream playoff game.",
+    "headline": "Angel Reese vs. Caitlin Clark: How Dream star reached first championship appearance before Fever sensation",
+    "link": "https://sports.yahoo.com/articles/angel-reese-vs-caitlin-clark-070001537.html",
+    "published": "2026-10-16T07:00:01.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/fe0a5b9da55436e9e01c309f90508fca9b949953ffbf2cd04f4ad75d2bbc497c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2F28531a2b5e0157dd8d8b23b190f71b77",
+    "blurb": "As members of the same draft class and longtime star rivals, Reese has now reached the WNBA's biggest stage before Clark.",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -333,11 +333,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Atlanta Dream Send Clear Message After Angel Reese's All-Defensive Honor",
-    "link": "https://sports.yahoo.com/articles/atlanta-dream-send-clear-message-014700102.html",
-    "published": "2026-10-16T01:47:00.000Z",
+    "headline": "Sophie Cunningham Calls Out Angel Reese for 'Dangerous' Plays in Dream Game",
+    "link": "https://sports.yahoo.com/articles/sophie-cunningham-calls-angel-reese-014928164.html",
+    "published": "2026-10-16T01:49:28.000Z",
     "image": "",
-    "blurb": "After winning the Defensive Player of the Year award, Atlanta Dream star Angel Reese won another defensive accolade. Sure enough, Atlanta celebrated it.",
+    "blurb": "Sophie Cunningham didn't agree with Angel Reese's actions during a recent Atlanta Dream playoff game.",
     "source": "YAHOO",
     "league": "WNBA"
    },
@@ -360,11 +360,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Indiana Fever's Aliyah Boston Comments on Her Major Change",
-    "link": "https://sports.yahoo.com/articles/indiana-fevers-aliyah-boston-comments-011210532.html",
-    "published": "2026-10-16T01:12:10.000Z",
+    "headline": "Atlanta Dream Send Clear Message After Angel Reese's All-Defensive Honor",
+    "link": "https://sports.yahoo.com/articles/atlanta-dream-send-clear-message-014700102.html",
+    "published": "2026-10-16T01:47:00.000Z",
     "image": "",
-    "blurb": "Indiana Fever star Aliyah Boston averaged a career-high in scoring during the 2026 season, and that's thanks in large part to her improved shooting.",
+    "blurb": "After winning the Defensive Player of the Year award, Atlanta Dream star Angel Reese won another defensive accolade. Sure enough, Atlanta celebrated it.",
     "source": "YAHOO",
     "league": "WNBA"
    }
@@ -1078,12 +1078,21 @@
  },
  "latest": [
   {
-   "headline": "NFL Week 6 preview: Picks, predictions, schedule, betting odds, fantasy tips",
-   "link": "https://www.espn.com/nfl/story/_/id/50188997/week-6-picks-predictions-schedule-fantasy-odds-2026",
-   "published": "2026-10-16T10:38:58Z",
+   "headline": "DraftKings DFS cheat sheet: Best values for Sunday's main slate",
+   "link": "https://www.espn.com/fantasy/football/story/_/id/50192170/draftkings-nfl-dfs-values-week-6",
+   "published": "2026-10-16T10:43:43Z",
    "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731221_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Can the Titans, Chargers finally win? Stroud vs. Lawrence? There are 13 more games in Week 6, and we have picks, predictions and more for all of them.",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731364_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Build a winning DFS lineup with our DraftKings NFL Week 6 cheat sheet identifying the best stacks and values",
+   "league": "NFL"
+  },
+  {
+   "headline": "Fantasy football last-minute pickups: Winston, Tucker among top options",
+   "link": "https://www.espn.com/fantasy/football/story/_/id/50182356/fantasy-football-streamers-last-minute-pickups-week-6",
+   "published": "2026-10-16T10:42:02Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731253_2_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "If injuries, bye weeks or tough matchups have you seeking lineup help, Matt Bowen lists potential options.",
    "league": "NFL"
   },
   {
@@ -1096,13 +1105,13 @@
    "league": "NBA"
   },
   {
-   "headline": "Ranking all eight NFL divisions this season by strength: NFC North at No. 1?",
-   "link": "https://www.espn.com/nfl/story/_/id/50181965/2026-nfl-season-ranking-eight-nfl-divisions-best-worst",
-   "published": "2026-10-16T10:38:23Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731344_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Why do we have the NFC North at No. 1 in our annual division power ranking -- even ahead of the mighty NFC West? And is the NFC South at the bottom of our list ... again?",
-   "league": "NFL"
+   "headline": "Sophie Cunningham Says Angel Reese Dodging A $500 Technical Is \u201cAbsolutely Insane\u201d",
+   "link": "https://sports.yahoo.com/articles/sophie-cunningham-says-angel-reese-103443303.html",
+   "published": "2026-10-16T10:34:43.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/7606f086c5f3120b7e559c26d49fea69357f2f01868e724b07ec62ed4eb2cb79/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ffadeaway_world_951%2Fdf19b650ce032f4890699c48f8ad7729.jpg",
+   "blurb": "Indiana Fever guard Sophie Cunningham says Angel Reese should have been hit with a technical for chasing Sabrina Ionescu down the floor, and the missed call could matter in the WNBA Finals.",
+   "source": "YAHOO",
+   "league": "WNBA"
   },
   {
    "headline": "Who is Utah football head coach Morgan Scalley? What to know",
@@ -1121,6 +1130,24 @@
    "blurb": "After losing to Indiana for the first time since 1988 back in December, Ohio State will be looking for payback when they travel to Bloomington on Saturday",
    "source": "YAHOO",
    "league": "CFB"
+  },
+  {
+   "headline": "Swanson: Dodgers must prioritize Shohei Ohtani's load management, or suffer the consequences",
+   "link": "https://sports.yahoo.com/articles/swanson-dodgers-must-prioritize-shohei-103000854.html",
+   "published": "2026-10-16T10:30:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/2974595037e96f017acca9ad3308fc33a795082ff745dacf92fc149f37e6b588/lightyear_networkapi/resizefill_w840_h560%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fla_times_articles_853%2Fcfbe47f6e7cb019d495a878ab1ac28d2.jpg",
+   "blurb": "Shohei Ohtani showed the world a glimpse of his game-breaking abilities in Game 4 of the NLCS, but it was too little, too late for a Dodgers team that needs him healthy to challenge for a World Series title.",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
+   "headline": "Dodgers make the wrong kind of history in NLCS loss to Brewers",
+   "link": "https://sports.yahoo.com/articles/dodgers-wrong-kind-history-nlcs-103000375.html",
+   "published": "2026-10-16T10:30:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/64835c65794b93078e97f312989bcc8a0e235e78b94a9effa254c6913717782f/lightyear_networkapi/resizefill_w840_h560%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fla_times_articles_853%2F73cd6e6e7798f40a9ecfc4ccfb973e73.jpg",
+   "blurb": "The Dodgers are the first team in major league history to lead every game of a best-of-seven playoff series and get swept in the same series.",
+   "source": "YAHOO",
+   "league": "MLB"
   },
   {
    "headline": "Does Samaje Perine deserve a larger role at running back over Chase Brown?",
@@ -1184,24 +1211,6 @@
    "blurb": "Find the full weekend schedule for the NASCAR races at Phoenix Raceway.",
    "source": "YAHOO",
    "league": "NASCAR"
-  },
-  {
-   "headline": "It wasn't just Brewers dominance. There's a simpler explanation for the Dodgers' demise",
-   "link": "https://sports.yahoo.com/articles/wasnt-just-brewers-dominance-theres-100000131.html",
-   "published": "2026-10-16T10:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/14a2997247573a1923e726a8cdf6ccfbc10c86e1987f8a3257cba9d5829fb19f/lightyear_networkapi/resizefill_w840_h560%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fla_times_articles_853%2Ff917ad90e044593b5a9de9226edc369d.jpg",
-   "blurb": "The Dodgers were clearly outplayed by the Brewers in the NLCS, but there were several other factors behind the team's failed World Series three-peat bid.",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
-   "headline": "Today on Pinstripe Alley \u2013 10/16/26",
-   "link": "https://sports.yahoo.com/articles/today-pinstripe-alley-10-16-100000320.html",
-   "published": "2026-10-16T10:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/69655a1b957d20f952bc3eb2a6769b08f0a7d6b80ea43d6d079472c0ad093f1a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F4aac943f0908f84f7018b3a5c43ef6f1.jpg",
-   "blurb": "There will be no three-peat this year.",
-   "source": "YAHOO",
-   "league": "MLB"
   },
   {
    "headline": "Pens Points: Girard finally finding his groove",
@@ -1393,15 +1402,6 @@
    "league": "PGA"
   },
   {
-   "headline": "Sophie Cunningham Calls Out Angel Reese for 'Dangerous' Plays in Dream Game",
-   "link": "https://sports.yahoo.com/articles/sophie-cunningham-calls-angel-reese-014928164.html",
-   "published": "2026-10-16T01:49:28.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/c699b2943a4e471c53c29f23478ebf0f4e207ec78978bd977b3b58a0cfd4c3e9/lightyear_networkapi/resizefill_w912_h513%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fwomen_s_fastbreak_on_si_videos_507%2F165ec90e3b2e1516a3258c8cdc63bf37.jpg",
-   "blurb": "Sophie Cunningham didn't agree with Angel Reese's actions during a recent Atlanta Dream playoff game.",
-   "source": "YAHOO",
-   "league": "WNBA"
-  },
-  {
    "headline": "Broncos' cheating accusation against Seahawks almost led to lawsuit in 2024, according to Mike Macdonald",
    "link": "https://www.cbssports.com/nfl/news/broncos-cheating-accusation-seahawks-mike-macdonald/",
    "published": "2026-10-15T23:53:10.000Z",
@@ -1439,8 +1439,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 55,
-  "YAHOO": 66,
+  "ESPN": 54,
+  "YAHOO": 67,
   "CBS": 35
  },
  "degraded_sources": []
