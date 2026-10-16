@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-16T02:35:12.437440+00:00",
+ "generated_at": "2026-10-16T02:50:11.545884+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "MIL @ LAD",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "Bot 7th",
+     "detail": "Bot 8th",
      "score": "MIL 5 - LAD 4"
     }
    ]
@@ -23,7 +23,7 @@
      "matchup": "SEA @ DEN",
      "commence": "2026-10-16T00:15Z",
      "status": "in",
-     "detail": "14:57 - 4th",
+     "detail": "8:36 - 4th",
      "score": "SEA 3 - DEN 14",
      "away_to": 3,
      "home_to": 3
@@ -38,17 +38,17 @@
      "matchup": "ECU @ UAB",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "2:00 - 4th",
+     "detail": "1:09 - 4th",
      "score": "ECU 17 - UAB 9",
      "away_to": 0,
-     "home_to": 1
+     "home_to": 0
     },
     {
      "espn_event_id": "401869950",
      "matchup": "GASO @ ODU",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "9:04 - 4th",
+     "detail": "4:21 - 4th",
      "score": "GASO 23 - ODU 15",
      "away_to": 0,
      "home_to": 2
@@ -58,8 +58,8 @@
      "matchup": "CSU @ TXST",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "6:49 - 3rd",
-     "score": "CSU 27 - TXST 52",
+     "detail": "0:22 - 3rd",
+     "score": "CSU 27 - TXST 66",
      "away_to": 0,
      "home_to": 0
     }
@@ -80,11 +80,9 @@
      "espn_event_id": "401908622",
      "matchup": "OKC @ HOU",
      "commence": "2026-10-16T00:30Z",
-     "status": "in",
-     "detail": "2:07 - 4th",
-     "score": "OKC 86 - HOU 110",
-     "away_to": 1,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "OKC 89 - HOU 116"
     }
    ]
   },
@@ -143,19 +141,17 @@
      "espn_event_id": "401892512",
      "matchup": "WPG @ CHI",
      "commence": "2026-10-16T00:00Z",
-     "status": "in",
-     "detail": "1:59 - 3rd",
-     "score": "WPG 3 - CHI 3",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final/OT",
+     "score": "WPG 3 - CHI 4"
     },
     {
      "espn_event_id": "401892513",
      "matchup": "SJ @ NSH",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "2:05 - 3rd",
-     "score": "SJ 2 - NSH 1",
+     "detail": "End of OT",
+     "score": "SJ 2 - NSH 2",
      "away_to": null,
      "home_to": null
     },
@@ -164,8 +160,8 @@
      "matchup": "STL @ MIN",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "6:42 - 3rd",
-     "score": "STL 2 - MIN 5",
+     "detail": "0:13 - 3rd",
+     "score": "STL 4 - MIN 5",
      "away_to": null,
      "home_to": null
     },
@@ -184,7 +180,7 @@
      "matchup": "CGY @ VGK",
      "commence": "2026-10-16T02:00Z",
      "status": "in",
-     "detail": "4:32 - 1st",
+     "detail": "End of 1st",
      "score": "CGY 0 - VGK 2",
      "away_to": null,
      "home_to": null
