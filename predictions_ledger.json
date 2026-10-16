@@ -3072,5 +3072,44 @@
   "kickoff_utc": "2026-10-17T02:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-16T15:22:17.613223+00:00"
+ },
+ {
+  "id": "7ca50bc6a6",
+  "event_id": "401908946",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Detroit Pistons",
+  "away": "Toronto Raptors",
+  "pick_team": "Toronto Raptors",
+  "prediction": "Toronto Raptors to beat Detroit Pistons",
+  "kickoff_utc": "2026-10-16T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-16T15:35:22.654300+00:00"
+ },
+ {
+  "id": "b972ccb710",
+  "event_id": "401914126",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Indiana Pacers",
+  "away": "Milwaukee Bucks",
+  "pick_team": "Milwaukee Bucks",
+  "prediction": "Milwaukee Bucks to beat Indiana Pacers",
+  "kickoff_utc": "2026-10-16T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-16T15:35:37.977848+00:00"
+ },
+ {
+  "id": "ef45311f5e",
+  "event_id": "401898408",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Dallas Mavericks",
+  "away": "Atlanta Hawks",
+  "pick_team": "Dallas Mavericks",
+  "prediction": "Dallas Mavericks to beat Atlanta Hawks",
+  "kickoff_utc": "2026-10-17T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-16T15:35:55.007300+00:00"
  }
 ]
