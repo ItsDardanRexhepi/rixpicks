@@ -3020,5 +3020,18 @@
   "kickoff_utc": "2026-10-17T18:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-15T19:20:46.956618+00:00"
+ },
+ {
+  "id": "98620c2f7e",
+  "event_id": "761876",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Minnesota United FC",
+  "away": "St. Louis CITY SC",
+  "pick_team": "St. Louis CITY SC",
+  "prediction": "St. Louis CITY SC to beat Minnesota United FC",
+  "kickoff_utc": "2026-10-17T20:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-16T04:20:08.993466+00:00"
  }
 ]
