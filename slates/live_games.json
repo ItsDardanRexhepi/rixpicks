@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-16T00:39:38.807783+00:00",
+ "generated_at": "2026-10-16T00:50:10.736639+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -11,7 +11,7 @@
      "commence": "2026-10-16T00:00Z",
      "status": "in",
      "detail": "Bot 2nd",
-     "score": "MIL 0 - LAD 0"
+     "score": "MIL 0 - LAD 4"
     }
    ]
   },
@@ -23,7 +23,7 @@
      "matchup": "SEA @ DEN",
      "commence": "2026-10-16T00:15Z",
      "status": "in",
-     "detail": "5:51 - 1st",
+     "detail": "15:00 - 2nd",
      "score": "SEA 3 - DEN 0",
      "away_to": 2,
      "home_to": 3
@@ -38,8 +38,8 @@
      "matchup": "ECU @ UAB",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "9:19 - 2nd",
-     "score": "ECU 14 - UAB 0",
+     "detail": "4:31 - 2nd",
+     "score": "ECU 14 - UAB 3",
      "away_to": 1,
      "home_to": 3
     },
@@ -48,9 +48,9 @@
      "matchup": "GASO @ ODU",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "8:20 - 2nd",
-     "score": "GASO 10 - ODU 7",
-     "away_to": 3,
+     "detail": "4:36 - 2nd",
+     "score": "GASO 13 - ODU 7",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -58,8 +58,8 @@
      "matchup": "CSU @ TXST",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "2:30 - 1st",
-     "score": "CSU 0 - TXST 21",
+     "detail": "11:50 - 2nd",
+     "score": "CSU 0 - TXST 27",
      "away_to": 3,
      "home_to": 3
     }
@@ -73,10 +73,20 @@
      "matchup": "TOR @ NY",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "1:18 - 2nd",
-     "score": "TOR 54 - NY 57",
+     "detail": "Halftime",
+     "score": "TOR 58 - NY 63",
      "away_to": 4,
      "home_to": 5
+    },
+    {
+     "espn_event_id": "401908622",
+     "matchup": "OKC @ HOU",
+     "commence": "2026-10-16T00:30Z",
+     "status": "in",
+     "detail": "7:55 - 1st",
+     "score": "OKC 8 - HOU 8",
+     "away_to": 6,
+     "home_to": 7
     }
    ]
   },
@@ -88,8 +98,8 @@
      "matchup": "BUF @ TOR",
      "commence": "2026-10-15T23:00Z",
      "status": "in",
-     "detail": "3:36 - 2nd",
-     "score": "BUF 2 - TOR 3",
+     "detail": "End of 2nd",
+     "score": "BUF 2 - TOR 4",
      "away_to": null,
      "home_to": null
     },
@@ -98,7 +108,7 @@
      "matchup": "NYI @ OTT",
      "commence": "2026-10-15T23:00Z",
      "status": "in",
-     "detail": "0:54 - 2nd",
+     "detail": "End of 2nd",
      "score": "NYI 1 - OTT 1",
      "away_to": null,
      "home_to": null
@@ -108,7 +118,7 @@
      "matchup": "SEA @ TB",
      "commence": "2026-10-15T23:00Z",
      "status": "in",
-     "detail": "4:30 - 2nd",
+     "detail": "End of 2nd",
      "score": "SEA 1 - TB 2",
      "away_to": null,
      "home_to": null
@@ -128,7 +138,7 @@
      "matchup": "NYR @ NJ",
      "commence": "2026-10-15T23:00Z",
      "status": "in",
-     "detail": "1:10 - 2nd",
+     "detail": "End of 2nd",
      "score": "NYR 0 - NJ 5",
      "away_to": null,
      "home_to": null
@@ -138,8 +148,8 @@
      "matchup": "PHI @ DET",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "17:30 - 2nd",
-     "score": "PHI 1 - DET 0",
+     "detail": "11:52 - 2nd",
+     "score": "PHI 1 - DET 1",
      "away_to": null,
      "home_to": null
     },
@@ -148,8 +158,8 @@
      "matchup": "WPG @ CHI",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "5:22 - 1st",
-     "score": "WPG 0 - CHI 1",
+     "detail": "0:07 - 1st",
+     "score": "WPG 1 - CHI 3",
      "away_to": null,
      "home_to": null
     },
@@ -158,7 +168,7 @@
      "matchup": "SJ @ NSH",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "5:08 - 1st",
+     "detail": "End of 1st",
      "score": "SJ 1 - NSH 0",
      "away_to": null,
      "home_to": null
@@ -168,7 +178,7 @@
      "matchup": "STL @ MIN",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "6:08 - 1st",
+     "detail": "End of 1st",
      "score": "STL 1 - MIN 2",
      "away_to": null,
      "home_to": null
