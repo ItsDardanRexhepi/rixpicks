@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-16T17:51:45.211864+00:00",
+ "generated_at": "2026-10-16T18:07:06.082297+00:00",
  "items": [
   {
    "id": "644b83859a",
@@ -23,6 +23,13 @@
    "kickoff_utc": "2026-10-16T23:00:00+00:00"
   },
   {
+   "id": "e52a5f0ef7",
+   "league": "NBA",
+   "event": "Boston Celtics @ Philadelphia 76ers",
+   "prediction": "Boston Celtics to beat Philadelphia 76ers",
+   "kickoff_utc": "2026-10-16T23:00:00+00:00"
+  },
+  {
    "id": "d73da979fc",
    "league": "NWSL",
    "event": "Racing Louisville FC @ Boston Legacy FC",
@@ -34,13 +41,6 @@
    "league": "NBA",
    "event": "Atlanta Hawks @ Dallas Mavericks",
    "prediction": "Dallas Mavericks to beat Atlanta Hawks",
-   "kickoff_utc": "2026-10-17T00:00:00+00:00"
-  },
-  {
-   "id": "233f751b9f",
-   "league": "MLB",
-   "event": "Tampa Bay Rays @ Cleveland Guardians",
-   "prediction": "Tampa Bay Rays to beat Cleveland Guardians",
    "kickoff_utc": "2026-10-17T00:00:00+00:00"
   }
  ]

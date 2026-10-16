@@ -3176,5 +3176,18 @@
   "kickoff_utc": "2026-10-17T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-16T17:21:02.079971+00:00"
+ },
+ {
+  "id": "e52a5f0ef7",
+  "event_id": "401898407",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Philadelphia 76ers",
+  "away": "Boston Celtics",
+  "pick_team": "Boston Celtics",
+  "prediction": "Boston Celtics to beat Philadelphia 76ers",
+  "kickoff_utc": "2026-10-16T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-16T18:05:42.770783+00:00"
  }
 ]
