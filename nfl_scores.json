@@ -1,5 +1,5 @@
 {
- "pulled_at_utc": "2026-10-16T01:23:26Z",
+ "pulled_at_utc": "2026-10-16T03:07:51Z",
  "source": "the-odds-api v4 nfl scores (daysFrom=1)",
  "games": [
   {
@@ -17,10 +17,10 @@
     },
     {
      "name": "Seattle Seahawks",
-     "score": "3"
+     "score": "11"
     }
    ],
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "57418b2cf5aca558b3c98eafac1e264a",
@@ -31,7 +31,7 @@
    "home_team": "Jacksonville Jaguars",
    "away_team": "Houston Texans",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "7c312fdf24fb35f58b0e07c2932cc997",
@@ -42,7 +42,7 @@
    "home_team": "Atlanta Falcons",
    "away_team": "Chicago Bears",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "e86227938fd3cf008fc5648fb5128344",
@@ -53,7 +53,7 @@
    "home_team": "Cleveland Browns",
    "away_team": "Baltimore Ravens",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "caca2d752fe1a1779029082e95332fcc",
@@ -64,7 +64,7 @@
    "home_team": "Philadelphia Eagles",
    "away_team": "Carolina Panthers",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "84aa9e190e625d7e9cd67e1f157a45b4",
@@ -75,7 +75,7 @@
    "home_team": "Indianapolis Colts",
    "away_team": "Tennessee Titans",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "0b0b582b32b09ab6ff6664ffae0c9653",
@@ -86,7 +86,7 @@
    "home_team": "New England Patriots",
    "away_team": "New York Jets",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "1cf74afd313e9fd300e1462012b174cb",
@@ -97,7 +97,7 @@
    "home_team": "New York Giants",
    "away_team": "New Orleans Saints",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "27f3994841ce8081c0b7349cf3d1e3d7",
@@ -108,7 +108,7 @@
    "home_team": "Tampa Bay Buccaneers",
    "away_team": "Pittsburgh Steelers",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "3729ac6d2a66b642850caf2044cdc658",
@@ -119,7 +119,7 @@
    "home_team": "Los Angeles Rams",
    "away_team": "Arizona Cardinals",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "45b2690b350ed45145c7a716b18e8e66",
@@ -130,7 +130,7 @@
    "home_team": "Las Vegas Raiders",
    "away_team": "Buffalo Bills",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "20fefae8c296247460ba5773caa42218",
@@ -141,7 +141,7 @@
    "home_team": "Kansas City Chiefs",
    "away_team": "Los Angeles Chargers",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "82fd5a159fa130e67abab93a9537f70b",
@@ -152,7 +152,7 @@
    "home_team": "Green Bay Packers",
    "away_team": "Dallas Cowboys",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "f122527f003276d3bca19efa48c902c1",
@@ -163,7 +163,7 @@
    "home_team": "San Francisco 49ers",
    "away_team": "Washington Commanders",
    "scores": null,
-   "last_update": "2026-10-16T01:23:21Z"
+   "last_update": "2026-10-16T03:07:39Z"
   },
   {
    "id": "ffebea881c1d7b2dfb85b3e590c35985",
