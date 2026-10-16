@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-16T22:50:13.147710+00:00",
+ "generated_at": "2026-10-16T23:05:15.223433+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -48,38 +48,6 @@
    "league": "NBA",
    "games": [
     {
-     "espn_event_id": "401898406",
-     "matchup": "MIA @ ORL",
-     "commence": "2026-10-16T23:00Z",
-     "status": "pre",
-     "detail": "10/16 - 4:00 PM PT",
-     "score": "MIA 0 - ORL 0"
-    },
-    {
-     "espn_event_id": "401898407",
-     "matchup": "BOS @ PHI",
-     "commence": "2026-10-16T23:00Z",
-     "status": "pre",
-     "detail": "10/16 - 4:00 PM PT",
-     "score": "BOS 0 - PHI 0"
-    },
-    {
-     "espn_event_id": "401908946",
-     "matchup": "TOR @ DET",
-     "commence": "2026-10-16T23:00Z",
-     "status": "pre",
-     "detail": "10/16 - 4:00 PM PT",
-     "score": "TOR 0 - DET 0"
-    },
-    {
-     "espn_event_id": "401914126",
-     "matchup": "MIL @ IND",
-     "commence": "2026-10-16T23:00Z",
-     "status": "pre",
-     "detail": "10/16 - 4:00 PM PT",
-     "score": "MIL 0 - IND 0"
-    },
-    {
      "espn_event_id": "401898408",
      "matchup": "ATL @ DAL",
      "commence": "2026-10-17T00:00Z",
@@ -118,6 +86,19 @@
      "status": "pre",
      "detail": "10/16 - 5:00 PM PT",
      "score": "MIN 0 - CHI 0"
+    }
+   ]
+  },
+  {
+   "league": "NHL",
+   "games": [
+    {
+     "espn_event_id": "401892517",
+     "matchup": "PIT @ COL",
+     "commence": "2026-10-17T01:00Z",
+     "status": "pre",
+     "detail": "10/16 - 6:00 PM PT",
+     "score": "PIT 0 - COL 0"
     }
    ]
   },
