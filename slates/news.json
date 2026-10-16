@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-10-16T17:45:55.260Z",
+ "generated_at": "2026-10-16T17:50:58.502Z",
  "leagues": {
   "baseball/mlb": [
    {
     "headline": "'44 years of heartbreak, 44 years of believing': Inside the night the Brewers punched their World Series ticket",
     "link": "https://www.espn.com/mlb/story/_/id/50193437/playoffs-brewers-celebrate-nlcs-world-series-clinch",
     "published": "2026-10-16T18:16:31.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731584_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "After dethroning the Dodgers, Milwaukee is celebrating its first Fall Classic berth since 1982 -- with its captain to thank for setting the tone.",
     "source": "ESPN",
     "league": "MLB"
@@ -24,7 +24,7 @@
     "headline": "Rays vs. Guardians ALCS Game 4 picks: Strong winds blowing in at Progressive Field should keep run total down",
     "link": "https://www.cbssports.com/betting/news/rays-vs-guardians-alcs-game-4-picks-strong-winds-blowing-in-at-progressive-field-should-keep-run-total-down/",
     "published": "2026-10-16T17:17:20.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2Fde559130-432f-4eaf-92e2-b6aa1875b0ae%2F2026-10-15t184317z-1684690070-mt1usatoday30089881-rtrmadp-3-mlb-alcs-tampa-bay-rays-at-cleveland-guardians-jpg.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Weather should be a factor ALCS Game 4 as the Rays visit the Guardians on Friday",
     "source": "CBS",
     "league": "MLB"
@@ -33,7 +33,7 @@
     "headline": "Who is this year's Mr. October? Tracking the playoff MVP for 2026",
     "link": "https://www.espn.com/mlb/story/_/id/50110772/2026-mlb-playoffs-mvp-tracker-wpa-leaderboard-win-probability-added-mr-october",
     "published": "2026-10-16T18:16:31.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731471_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "We go inside the numbers on the players doing the most to help their teams win.",
     "source": "ESPN",
     "league": "MLB"
@@ -51,7 +51,7 @@
     "headline": "Milwaukee Bucks change time of home opener with Brewers hosting World Series Game 1 on same night",
     "link": "https://www.cbssports.com/nba/news/milwaukee-bucks-change-time-home-opener-brewers-world-series/",
     "published": "2026-10-16T16:47:48.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2F6a1877fa-d69d-4424-9962-8f6d3c165cf9%2Fbucks-brewers-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The Fall Classic is coming to Milwaukee for the first time since 1982, and it will impact the NBA schedule",
     "source": "CBS",
     "league": "MLB"
@@ -78,7 +78,7 @@
     "headline": "Orioles' David Rubenstein admits what MLB owners don't want fans to know: They're making a ton of money",
     "link": "https://www.cbssports.com/mlb/news/orioles-owner-david-rubenstein-mlb-lockout-work-stoppage/",
     "published": "2026-10-16T15:52:06.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2Fa64cadda-571f-42a8-be76-e18daeef3012%2Forioles-owner-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Before buying the Orioles, Rubenstein said his MLB owner friends were making more than he was 'in private equity'",
     "source": "CBS",
     "league": "MLB"
@@ -95,12 +95,21 @@
   ],
   "football/nfl": [
    {
-    "headline": "Jets rookie WR Cooper to play vs. Patriots; RB Hall, WR Mitchell out",
-    "link": "https://www.espn.com/nfl/story/_/id/50196775/jets-rookie-wr-cooper-play-vs-patriots-hall-mitchell-out",
-    "published": "2026-10-16T18:04:13.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0913%252Fr1716072_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Jets rookie WR Omar Cooper Jr. (ankle) will play against the Patriots, but RB Breece Hall and wideout Adonai Mitchell have been ruled out for Sunday's game.",
+    "headline": "Browns WR Concepcion clears concussion protocol, will play vs. Ravens",
+    "link": "https://www.espn.com/nfl/story/_/id/50197266/browns-wr-concepcion-clears-protocol-play-vs-ravens",
+    "published": "2026-10-16T18:42:24.000Z",
+    "image": "",
+    "blurb": "Browns rookie wide receiver KC Concepcion has cleared concussion protocol and will play in Sunday's home game against the Ravens.",
     "source": "ESPN",
+    "league": "NFL"
+   },
+   {
+    "headline": "The Broncos have a Bo Nix problem, and their Super Bowl window may force a tough decision",
+    "link": "https://www.cbssports.com/nfl/news/broncos-super-bowl-bo-nix-stats-2026/",
+    "published": "2026-10-16T17:41:01.000Z",
+    "image": "",
+    "blurb": "Bo Nix keeps winning, but the Broncos can't ignore what the numbers say",
+    "source": "CBS",
     "league": "NFL"
    },
    {
@@ -113,21 +122,21 @@
     "league": "NFL"
    },
    {
-    "headline": "NFL Week 6 odds, picks: Brinson's best bets, player props, anytime touchdown scorers for Sunday's matchups",
-    "link": "https://www.cbssports.com/betting/news/nfl-week-6-odds-picks-brinsons-best-bets-player-props-anytime-touchdown-scorers-for-sundays-matchups/",
-    "published": "2026-10-16T17:17:47.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F3251da62-5cd5-4028-ad68-3d7ee088fb49%2Fblake-corum-los-angeles-rams-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Back Andy Reid off the bye against an injured Chargers squad, take the points with the Texans in London and target plus-money value on a Wan'Dale Robinson player prop",
-    "source": "CBS",
+    "headline": "Jets rookie WR Cooper to play vs. Patriots; RB Hall, WR Mitchell out",
+    "link": "https://www.espn.com/nfl/story/_/id/50196775/jets-rookie-wr-cooper-play-vs-patriots-hall-mitchell-out",
+    "published": "2026-10-16T18:42:24.000Z",
+    "image": "",
+    "blurb": "Jets rookie WR Omar Cooper Jr. (ankle) will play against the Patriots, but RB Breece Hall and wideout Adonai Mitchell have been ruled out for Sunday's game.",
+    "source": "ESPN",
     "league": "NFL"
    },
    {
-    "headline": "Eagles QB Hurts ruled out vs. Panthers with blood clot in calf",
-    "link": "https://www.espn.com/nfl/story/_/id/50189940/eagles-qb-jalen-hurts-ruled-vs-panthers-blood-clot",
-    "published": "2026-10-16T18:04:13.000Z",
-    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0929%252Fr1723222_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Eagles quarterback Jalen Hurts has been ruled out against the Panthers due to a superficial blood clot in his calf.",
-    "source": "ESPN",
+    "headline": "NFL Week 6 odds, picks: Brinson's best bets, player props, anytime touchdown scorers for Sunday's matchups",
+    "link": "https://www.cbssports.com/betting/news/nfl-week-6-odds-picks-brinsons-best-bets-player-props-anytime-touchdown-scorers-for-sundays-matchups/",
+    "published": "2026-10-16T17:17:47.000Z",
+    "image": "",
+    "blurb": "Back Andy Reid off the bye against an injured Chargers squad, take the points with the Texans in London and target plus-money value on a Wan'Dale Robinson player prop",
+    "source": "CBS",
     "league": "NFL"
    },
    {
@@ -140,21 +149,21 @@
     "league": "NFL"
    },
    {
-    "headline": "What's wrong with Bo Nix and Sam Darnold, and can either one of them figure it out?",
-    "link": "https://www.cbssports.com/nfl/news/whats-wrong-with-bo-nix-sam-darnold-broncos-seahawks/",
-    "published": "2026-10-16T16:30:28.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2F76060bf9-b6da-4238-836c-04feb1417467%2Fbo-nix-sam-darnold.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Nix managed just 107 passing yards, and Darnold threw two interceptions",
-    "source": "CBS",
+    "headline": "Eagles QB Hurts ruled out vs. Panthers with blood clot in calf",
+    "link": "https://www.espn.com/nfl/story/_/id/50189940/eagles-qb-jalen-hurts-ruled-vs-panthers-blood-clot",
+    "published": "2026-10-16T18:42:24.000Z",
+    "image": "",
+    "blurb": "Eagles quarterback Jalen Hurts has been ruled out against the Panthers due to a superficial blood clot in his calf.",
+    "source": "ESPN",
     "league": "NFL"
    },
    {
-    "headline": "Defense comes to Broncos' rescue as Nix, offense struggle",
-    "link": "https://www.espn.com/nfl/story/_/id/50194537/broncos-seahawks-defense-bo-nix",
-    "published": "2026-10-16T18:04:13.000Z",
+    "headline": "What's wrong with Bo Nix and Sam Darnold, and can either one of them figure it out?",
+    "link": "https://www.cbssports.com/nfl/news/whats-wrong-with-bo-nix-sam-darnold-broncos-seahawks/",
+    "published": "2026-10-16T16:30:28.000Z",
     "image": "",
-    "blurb": "The Broncos defense came up with five sacks, 17 QB hits and two interceptions, enabling Denver to win even though the offense finished with only 168 yards.",
-    "source": "ESPN",
+    "blurb": "Nix managed just 107 passing yards, and Darnold threw two interceptions",
+    "source": "CBS",
     "league": "NFL"
    },
    {
@@ -167,20 +176,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Eagles steal QB from Cowboys: Joe Milton expected to sign with Philadelphia after injury to Jalen Hurts",
-    "link": "https://www.cbssports.com/nfl/news/eagles-sign-qb-joe-milton-jalen-hurts-injury-cowboys/",
-    "published": "2026-10-16T16:02:35.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2F13a1b164-5522-43c4-882c-b9ca42515ea8%2Fjoe-milton.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Joe Milton joins Tanner McKee and rookie Cole Payton in Philadelphia, a move that raises the possibility of Jalen Hurts eventually landing on injured reserve",
-    "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Darnold owns up to mistakes in OT loss: Late picks 'not fair' to Seahawks",
-    "link": "https://www.espn.com/nfl/story/_/id/50194585/seahawks-darnold-owns-turnovers-loss-broncos",
-    "published": "2026-10-16T18:04:13.000Z",
+    "headline": "Defense comes to Broncos' rescue as Nix, offense struggle",
+    "link": "https://www.espn.com/nfl/story/_/id/50194537/broncos-seahawks-defense-bo-nix",
+    "published": "2026-10-16T18:42:24.000Z",
     "image": "",
-    "blurb": "Seahawks quarterback Sam Darnold called his two late interceptions against the Broncos \"unacceptable\" and vowed to be better after a 17-14 loss.",
+    "blurb": "The Broncos defense came up with five sacks, 17 QB hits and two interceptions, enabling Denver to win even though the offense finished with only 168 yards.",
     "source": "ESPN",
     "league": "NFL"
    }
@@ -190,7 +190,7 @@
     "headline": "Sources: CFP nearing deal for 24-team format beginning in '27",
     "link": "https://www.espn.com/college-football/story/_/id/50190410/sources-college-football-playoff-nearing-deal-24-team-format",
     "published": "2026-10-16T18:30:13.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2018%252F1130%252Fr471133_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The College Football Playoff is nearing a deal to expand to 24 teams, sources told ESPN's Pete Thamel, with the new format expected to begin in 2027.",
     "source": "ESPN",
     "league": "CFB"
@@ -208,7 +208,7 @@
     "headline": "LSU vs. Mississippi State prediction, pick, odds, spread: Tigers look to rebound against Bulldogs",
     "link": "https://www.cbssports.com/college-football/news/lsu-mississippi-state-prediction-picks-odds-spread-where-to-watch-live/",
     "published": "2026-10-16T17:33:59.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2F5052b9a4-b596-4426-96f2-8c123db28e34%2F2026-10-11t035501z-2026506645-mt1usatoday30054886-rtrmadp-3-ncaa-football-louisiana-state-at-kentucky.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "No. 22 LSU returns home to face No. 16 Mississippi State after last week's OT loss at Kentucky",
     "source": "CBS",
     "league": "CFB"
@@ -217,17 +217,17 @@
     "headline": "Notre Dame defenders Moore, Onye set to face BYU",
     "link": "https://www.espn.com/college-football/story/_/id/50190465/notre-dame-defenders-leonard-moore-jason-onye-set-face-byu",
     "published": "2026-10-16T18:30:13.000Z",
-    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1726480_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Notre Dame defensive players Leonard Moore and Jason Onye are set to face BYU, coach Marcus Freeman said.",
     "source": "ESPN",
     "league": "CFB"
    },
    {
-    "headline": "Scarlet Spreadsheet: What the analytics say about Ohio State vs. Indiana",
-    "link": "https://sports.yahoo.com/articles/scarlet-spreadsheet-analytics-ohio-state-173100502.html",
-    "published": "2026-10-16T17:31:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/b45853a0f8d1bd46d51e58ff071b6bb8f5ba7e953b1b4d1d942f45284f50923a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F972d148f12d612e263d36500866bce92.jpg",
-    "blurb": "The analytical models disagree over who will win the rematch between Curt Cignetti and Ryan Day as No. 4 Ohio State travels to Bloomington to take on No. 5 Indiana on Saturday",
+    "headline": "No. 8 BYU feeling weight of challenge in hosting No. 2 Notre Dame (+predictions)",
+    "link": "https://sports.yahoo.com/articles/no-8-byu-feeling-weight-173533150.html",
+    "published": "2026-10-16T17:35:33.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6a02b3a436ebbe2e276fa58218265a47b06ebcac09912fdbed70c62fd0381082/lightyear_networkapi/resizefill_w800_h452%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fdeseret_news_992%2Feb7f9d3384d72b90f12f6e07d06f6ae2.jpg",
+    "blurb": "Cougars are familiar with having to prove themselves. Can they do it against the Irish?",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -235,7 +235,7 @@
     "headline": "Miami vs. Florida State prediction, pick, odds, spread: Red-hot Hurricanes take on floundering Seminoles",
     "link": "https://www.cbssports.com/college-football/news/miami-florida-state-prediction-picks-odds-spread-where-to-watch-live/",
     "published": "2026-10-16T17:32:21.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2Fd85e9730-ee79-4821-aa25-ed0bbb838f44%2Fmensah-miami-t25-picks-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "One of college football's great rivalries takes center stage on Saturday night when No. 3 Miami welcomes Florida State for their traditional October clash",
     "source": "CBS",
     "league": "CFB"
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "College football games on TV today: Full schedule, times, channels, live streams to watch NCAA Week 7",
-    "link": "https://sports.yahoo.com/articles/college-football-games-tv-today-041001191.html",
-    "published": "2026-10-16T17:23:01.000Z",
+    "headline": "Scarlet Spreadsheet: What the analytics say about Ohio State vs. Indiana",
+    "link": "https://sports.yahoo.com/articles/scarlet-spreadsheet-analytics-ohio-state-173100502.html",
+    "published": "2026-10-16T17:31:00.000Z",
     "image": "",
-    "blurb": "Six matchups between Top 25 teams highlight this week's slate. Here's when and where to watch them all.",
+    "blurb": "The analytical models disagree over who will win the rematch between Curt Cignetti and Ryan Day as No. 4 Ohio State travels to Bloomington to take on No. 5 Indiana on Saturday",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -262,7 +262,7 @@
     "headline": "Texas vs. Florida prediction, pick, odds, spread: Longhorns look for rebound against free-falling Gators",
     "link": "https://www.cbssports.com/college-football/news/texas-florida-prediction-picks-odds-spread-where-to-watch-live/",
     "published": "2026-10-16T17:30:20.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2F0101eaa0-bebe-4a9c-a11c-a310229dc0fd%2Farch-maning-florida-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Texas looks to avenge a loss at Florida that ultimately kept the Longhorns out of the College Football Playoff last season",
     "source": "CBS",
     "league": "CFB"
@@ -300,7 +300,7 @@
     "headline": "From stunning Angel Reese trade to expansion ingenuity: How Dream, Valkyries broke the mold to reach Finals",
     "link": "https://www.cbssports.com/wnba/news/dream-valkyries-broke-the-mold-reach-wnba-finals-angel-reese-expansion/",
     "published": "2026-10-15T20:20:42.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2F83cd2762-831e-4a89-8574-de09aa23a3ad%2Funtitled-design-100.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Atlanta and Golden State paved their own paths and now sit four wins away from a WNBA championship",
     "source": "CBS",
     "league": "WNBA"
@@ -327,7 +327,7 @@
     "headline": "What's next for Aces? After title defense falls short, Jackie Young's impending free agency looms large",
     "link": "https://www.cbssports.com/wnba/news/whats-next-for-aces-jackie-young-free-agency/",
     "published": "2026-10-10T18:56:03.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F10%2F49e3dcdb-817c-4e42-a111-867021bbbf69%2Fjackie-young-las-vegas-aces.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The Las Vegas guard, who had a career year in 2026, has a big decision to make this offseason",
     "source": "CBS",
     "league": "WNBA"
@@ -354,7 +354,7 @@
     "headline": "What's next for the Liberty? Why a major shake-up could be in order after inconsistent season",
     "link": "https://www.cbssports.com/wnba/news/new-york-liberty-offseason-outlook-breanna-stewart-sabrina-ionescu-chris-demarco/",
     "published": "2026-10-10T18:01:57.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F10%2F91ad3060-dcb4-4b8f-8e4a-d1940ec34bfc%2Fliberty-lose-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "After getting swept by the Dream in the semis, the Liberty have some big choices to make",
     "source": "CBS",
     "league": "WNBA"
@@ -374,8 +374,35 @@
     "headline": "Buss siblings' filing challenges Jeanie's petition to oust them as trustees",
     "link": "https://www.espn.com/nba/story/_/id/50195321/buss-siblings-filing-challenges-jeanie-petition-oust-them",
     "published": "2026-10-16T17:49:28.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731443_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The legal jostling between five of the Buss siblings against their sister, Lakers acting governor Jeanie Buss, continued Friday with an additional filing submitted to the Los Angeles Superior Court.",
+    "source": "ESPN",
+    "league": "NBA"
+   },
+   {
+    "headline": "Spanish club contesting NBA eligibility of Thunder rookie Aday Mara over contract dispute",
+    "link": "https://sports.yahoo.com/nba/article/spanish-club-contesting-nba-eligibility-of-thunder-rookie-aday-mara-over-contract-dispute-174759365.html",
+    "published": "2026-10-16T17:47:59.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/d29eea4df603b05a2fdff23086afaba26040219d090af10e1a6ff523da9ba875/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F3a8afce8-5b78-4937-b880-68c37281e5a6",
+    "blurb": "The Thunder insist that the rookie center is eligible to play for them despite his former club in Spain saying that it continues to hold his playing rights.",
+    "source": "YAHOO",
+    "league": "NBA"
+   },
+   {
+    "headline": "Spanish club Basket Zaragoza attempting to block Thunder rookie Aday Mara from making NBA debut",
+    "link": "https://www.cbssports.com/nba/news/aday-mara-thunder-nba-eligibility-spanish-club-transfer/",
+    "published": "2026-10-16T16:51:42.000Z",
+    "image": "",
+    "blurb": "Mara played for the club in his native Spain before playing three seasons of college basketball",
+    "source": "CBS",
+    "league": "NBA"
+   },
+   {
+    "headline": "Spanish team challenging Thunder rookie Mara's NBA eligibility",
+    "link": "https://www.espn.com/nba/story/_/id/50197100/spanish-team-challenging-thunder-rookie-mara-nba-eligibility",
+    "published": "2026-10-16T17:49:28.000Z",
+    "image": "",
+    "blurb": "A Spanish basketball team is challenging Thunder rookie Aday Mara's eligibility to play in the NBA this season, saying he is still under contract with the club.",
     "source": "ESPN",
     "league": "NBA"
    },
@@ -389,37 +416,10 @@
     "league": "NBA"
    },
    {
-    "headline": "Spanish club Basket Zaragoza attempting to block Thunder rookie Aday Mara from making NBA debut",
-    "link": "https://www.cbssports.com/nba/news/aday-mara-thunder-nba-eligibility-spanish-club-transfer/",
-    "published": "2026-10-16T16:51:42.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2F2708fa57-b987-4551-99e1-1ffe69f73c24%2Funtitled-design-21.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Mara played for the club in his native Spain before playing three seasons of college basketball",
-    "source": "CBS",
-    "league": "NBA"
-   },
-   {
-    "headline": "Spanish team challenging Thunder rookie Mara's NBA eligibility",
-    "link": "https://www.espn.com/nba/story/_/id/50197100/spanish-team-challenging-thunder-rookie-mara-nba-eligibility",
-    "published": "2026-10-16T17:49:28.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731691_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "A Spanish basketball team is challenging Thunder rookie Aday Mara's eligibility to play in the NBA this season, saying he's still under contract with the team.",
-    "source": "ESPN",
-    "league": "NBA"
-   },
-   {
-    "headline": "NBA Preview 2026-27: Seven players most likely to be traded this season",
-    "link": "https://sports.yahoo.com/articles/nba-preview-2026-27-seven-164358628.html",
-    "published": "2026-10-16T16:43:58.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/766a66d4146aff68f6ea8243415dce6dd6d45bf0f7aca33b190b039b0a645b7b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F1047ccf39799f469da7c93dd5244b4a0.jpg",
-    "blurb": "Despite the best efforts of Masai Ujiri, Kyrie Irving tops the list. Anthony Davis is there, too.",
-    "source": "YAHOO",
-    "league": "NBA"
-   },
-   {
     "headline": "NBA's five biggest starting lineup questions: Three guards for Spurs? Morant-Lillard backcourt in Portland?",
     "link": "https://www.cbssports.com/nba/news/nba-biggest-starting-lineup-questions-spurs-lakers-raptors-blazers-pelicans/",
     "published": "2026-10-16T13:51:56.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2F848714b2-11d1-4939-98e9-a29ec74f480b%2Fspurs-backcourt-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Teams around the NBA have plenty of roster questions to address before Opening Night",
     "source": "CBS",
     "league": "NBA"
@@ -434,11 +434,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Buss family asks judge to dismiss Jeanie Buss' petition to block Lakers share sale",
-    "link": "https://sports.yahoo.com/articles/buss-family-asks-judge-dismiss-163146186.html",
-    "published": "2026-10-16T16:31:46.000Z",
+    "headline": "NBA Preview 2026-27: Seven players most likely to be traded this season",
+    "link": "https://sports.yahoo.com/articles/nba-preview-2026-27-seven-164358628.html",
+    "published": "2026-10-16T16:43:58.000Z",
     "image": "",
-    "blurb": "Janie and Joey Buss asked a judge on Friday to dismiss Jeanie Buss' claim the family trust cannot the sell Lakers shares without her consent.",
+    "blurb": "Despite the best efforts of Masai Ujiri, Kyrie Irving tops the list. Anthony Davis is there, too.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -446,7 +446,7 @@
     "headline": "NBA Western Conference tiers: Spurs, Thunder in a group of their own ... what about new-look Lakers?",
     "link": "https://www.cbssports.com/nba/news/nba-western-conference-tiers-spurs-thunder-lakers/",
     "published": "2026-10-16T13:14:11.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2Fd1ef7d74-2caf-4016-8215-cf174dfe038a%2Fwemby-sga-getty-1.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Entering the 2026-27 season in the West, it's the Spurs and Thunder, a big gap, and then everyone else",
     "source": "CBS",
     "league": "NBA"
@@ -475,7 +475,7 @@
     "headline": "Rankings: How high should Rangers goalies be ranked?",
     "link": "https://www.espn.com/fantasy/hockey/story/_/id/49299647/espn-nhl-fantasy-hockey-rankings-forwards-defensemen-goalies-points-leagues",
     "published": "2026-10-16T16:50:14.000Z",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731640_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Connor McDavid and Macklin Celebrini lead, while Igor Shesterkin's injury shakes up the goalie rankings.",
     "source": "ESPN",
     "league": "NHL"
@@ -484,7 +484,7 @@
     "headline": "Brewers bash champion Dodgers to brink of NLCS sweep; CBS Sports Preseason All-America team revealed",
     "link": "https://www.cbssports.com/mlb/news/brewers-bash-champion-dodgers-to-brink-of-nlcs-sweep-cbs-sports-preseason-all-america-team-revealed/",
     "published": "2026-10-15T12:54:44.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2F717ea555-2c26-42b9-a097-db2d329b2514%2Fgettyimages-2299701095-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Plus, A.J. Brown is one of several injured NFL stars would could return soon",
     "source": "CBS",
     "league": "NHL"
@@ -503,7 +503,7 @@
     "link": "https://www.espn.com/fantasy/hockey/story/_/id/49299647/espn-nhl-fantasy-hockey-rankings-forwards-defensemen-goalies-points-leagues",
     "published": "2026-10-16T15:06:14Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1016%2Fr1731640_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Connor McDavid and Macklin Celebrini lead, while Igor Shesterkin's injury shakes up the goalie rankings.",
     "league": "NHL"
    },
@@ -511,7 +511,7 @@
     "headline": "Today's top games to watch, best bets, odds: Brewers vs. Dodgers, Stars vs. Avalanche and more",
     "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-brewers-vs-dodgers-stars-vs-avalanche-and-more/",
     "published": "2026-10-14T19:30:51.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2025%2F10%2F24%2F3bf291c5-0f08-441b-adcd-d2318fdb18e0%2Fblake-snell-imagn-1.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Find best bets for the biggest games in sports on Wednesday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
     "league": "NHL"
@@ -538,7 +538,7 @@
     "headline": "NHL Power Rankings: Oilers fly out of the starting gates behind Connor McDavid, Evan Bouchard",
     "link": "https://www.cbssports.com/nhl/news/nhl-power-rankings-2026-oilers-connor-mcdavid-evan-bouchard/",
     "published": "2026-10-14T14:49:39.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2Fc6b8dd9f-ddf4-4b0d-8b8a-e619d66e3c37%2Foilers-nhl-power-rankings-october-2026.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The Oilers made sure to avoid a slow start in 2026-27",
     "source": "CBS",
     "league": "NHL"
@@ -558,7 +558,7 @@
     "headline": "NCAA sues Ohio gov. over order allowing schools to ignore new eligibility rule",
     "link": "https://www.espn.com/college-sports/story/_/id/50196596/ncaa-sues-ohio-gov-eligibility-order-5th-year-athletes",
     "published": "2026-10-16T18:09:38.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F1111%252Fr1574065_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The NCAA has filed a federal lawsuit against Ohio Gov. Mike DeWine three days after he signed an executive order giving the state's colleges and universities the option of allowing athletes who graduated from high school in 2022 to play a fifth year.",
     "source": "ESPN",
     "league": "NCAAB"
@@ -576,7 +576,7 @@
     "headline": "SEC Media Days Takeaways: Florida's Rueben Chinyelu guarantees national title, LSU litigation saga continues",
     "link": "https://www.cbssports.com/college-basketball/news/sec-media-days-takeaways-florida-rueben-chinyelu-guarantees-national-title-lsu-will-wade/",
     "published": "2026-10-16T16:40:25.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2F91dbe72f-4124-48cf-9475-52f46c3610fb%2Fgettyimages-2300258112-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The SEC seems poised to be the best league in college basketball \u2014 again. Here's a wide look at what emerged from Birmingham this week",
     "source": "CBS",
     "league": "NCAAB"
@@ -603,7 +603,7 @@
     "headline": "Predicting AP Top 25 college basketball rankings: Florida edges Duke, Illinois for No. 1 in preseason poll",
     "link": "https://www.cbssports.com/college-basketball/news/ap-top-25-college-basketball-rankings-preseason-poll-florida-duke-illinois/",
     "published": "2026-10-16T14:01:04.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2Fed3c7173-e74b-45dd-b376-fddd388a1188%2Ffloridatop25.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "What we think the 2026-27 college basketball preseason AP Top 25 could look like when it is released on Monday",
     "source": "CBS",
     "league": "NCAAB"
@@ -613,7 +613,7 @@
     "link": "https://www.espn.com/espn/betting/story/_/id/50189910/shane-hennen-pleads-guilty-charges-related-fixing-schemes",
     "published": "2026-10-15T17:56:51Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2014%2F0806%2Fncb_g_basketball_ms_600x400.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "A bettor indicted in three federal gambling cases pleaded guilty to charges related to schemes involving the NBA, NCAA and Chinese Basketball Association.",
     "league": "NCAAB"
    },
@@ -630,7 +630,7 @@
     "headline": "Pat Kelsey urges for the 'chaos to end' while testifying in court vs. NCAA in support of Louisville players",
     "link": "https://www.cbssports.com/college-basketball/news/pat-kelsey-testifying-court-ncaa-louisville-basketball-players/",
     "published": "2026-10-15T18:32:08.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2F1e5d8b79-24fa-4ad1-922e-7f77476a45b9%2Funtitled-design-20.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Louisville has two players \u2014 Seth Trimble and LJ Wells \u2014 seeking a fifth year of eligibility this season",
     "source": "CBS",
     "league": "NCAAB"
@@ -649,9 +649,9 @@
    {
     "headline": "U.S. prodigy Cavan Sullivan sets MLS record, laments 'terrible' performance",
     "link": "https://www.espn.com/soccer/story/_/id/50189867/usa-cavan-sullivan-mls-record-goal-contributions",
-    "published": "2026-10-15T17:30:30Z",
+    "published": "2026-10-16T17:44:18Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731231_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "U.S. teen prodigy Cavan Sullivan made more history on Wednesday, but the Philadelphia Union midfielder insisted he was less than happy with his performance.",
     "league": "MLS"
    }
@@ -662,7 +662,7 @@
     "link": "https://www.espn.com/soccer/story/_/id/50196705/columbus-nwsl-expansion-club-names-lucy-rushton-gm",
     "published": "2026-10-16T15:41:11Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2023%2F0614%2Fr1186461_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Lucy Rushton is the first general manager of the forthcoming Columbus NWSL expansion team that will begin play in 2028.",
     "league": "NWSL"
    },
@@ -671,7 +671,7 @@
     "link": "https://www.espn.com/espn/story/_/id/50194635/nwsl-star-gift-monday-vows-make-washington-spirit-fans-proud-move-boston-legacy",
     "published": "2026-10-16T07:17:04Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2025%2F1111%2Fr1573973_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Nigeria forward Gift Monday expressed sadness at leaving Washington Spirit, but said she was excited about joining Boston Legacy FC, following her $500,000 transfer between the two NWSL clubs.",
     "league": "NWSL"
    },
@@ -680,7 +680,7 @@
     "link": "https://www.espn.com/soccer/story/_/id/50176172/nwsl-usl-super-league-new-women-cup",
     "published": "2026-10-14T13:13:11Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0421%2Fr1647082_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "U.S. Soccer announced a new cup competition between the NWSL and the USL Super League, with the winner receiving a berth to the Concacaf W Champions Cup.",
     "league": "NWSL"
    },
@@ -689,7 +689,7 @@
     "link": "https://www.espn.com/soccer/story/_/id/50169808/nwsl-leaders-gotham-lose-dudley-bruninha-playoffs",
     "published": "2026-10-13T01:02:59Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1013%2Fr1729945_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Defending NWSL champions Gotham FC will be without two important players after forward Jordynn Dudley and defender Bruninha suffered season-ending injuries.",
     "league": "NWSL"
    }
@@ -708,7 +708,7 @@
     "headline": "What's next for Jon Rahm? Examining PGA Tour, DP World Tour options amid two-time major winner's LIV Golf exit",
     "link": "https://www.cbssports.com/golf/news/whats-next-jon-rahm-pga-tour-dp-world-tour-liv-golf/",
     "published": "2026-10-15T18:21:55.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2F1faabc54-6d2c-48ed-b67c-af9243de0507%2Fjon-rahm-smile-pink-g.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Where will Rahm play golf in 2027 and beyond, and what will he need to do in order to participate?",
     "source": "CBS",
     "league": "PGA"
@@ -735,7 +735,7 @@
     "headline": "Jon Rahm exits LIV Golf: Two-time major champion gives up claim for remainder of nine-figure contract",
     "link": "https://www.cbssports.com/golf/news/jon-rahm-exits-liv-golf-nine-figure-contract/",
     "published": "2026-10-15T15:23:52.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2Fcb3163ff-40b5-4edb-b6fb-261d6780a5d9%2Fjon-rahm-liv-golf-exit-g.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Rahm's partnership with LIV Golf has been a roller coaster from the start; his separation agreement comes as the league is seeking to reinvent itself",
     "source": "CBS",
     "league": "PGA"
@@ -762,7 +762,7 @@
     "headline": "Will Zalatoris to miss entire 2027 PGA Tour season: Once-budding star set to undergo another back surgery",
     "link": "https://www.cbssports.com/golf/news/will-zalatoris-back-out-2027-pga-tour-season/",
     "published": "2026-10-14T23:43:06.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2F051102cd-d272-4b5c-bf85-ab535360ecd5%2Fwill-zalatoris-swing-tourque-g.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Zalatoris played in only four 2026 tournaments as injuries hampered his ability to compete at a high level",
     "source": "CBS",
     "league": "PGA"
@@ -772,7 +772,7 @@
     "link": "https://www.espn.com/golf/story/_/id/50183687/liv-golf-know-future-end-month-attorney-says",
     "published": "2026-10-14T19:35:02Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2022%2F0913%2Fr1061570_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Robert Fitzgerald, an attorney representing LIV Golf in a bankruptcy hearing, said they'd know by Oct. 31 if they'd \"wind down or whether 2.0 is going forward.\"",
     "league": "PGA"
    },
@@ -792,7 +792,7 @@
     "link": "https://www.espn.com/tennis/story/_/id/50189374/proposed-atp-tour-changes-address-player-welfare-compensation",
     "published": "2026-10-15T17:26:36Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2020%2F0406%2Fr686743_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The ATP Tour is proposing several rule changes in an effort to address player welfare, additional compensation, and enhancing pension and retirement benefits.",
     "league": "ATP"
    }
@@ -803,7 +803,7 @@
     "link": "https://www.espn.com/tennis/story/_/id/50188941/iga-swiatek-advances-quarterfinals-wuhan-open",
     "published": "2026-10-15T15:53:31Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731128_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Iga Swiatek kept up her push to qualify for the WTA Finals as she ground out a win over American Ashlyn Krueger to reach the quarterfinals of the Wuhan Open.",
     "league": "WTA"
    }
@@ -923,7 +923,7 @@
     "headline": "UFC Fight Night odds, lines, predictions, time: Della Maddalena vs. Prates picks from elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-fight-night-odds-lines-australia-fight-card-predictions-start-time-della-maddalena-prates-picks/",
     "published": "2026-08-12T12:54:36.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F05%2F01%2F9b7b6cd1-721f-4c71-a699-796f7e5c9d07%2Fjack-della-maddalena-ufc-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC Fight Night fight card from Perth, Australia, on Paramount+, featuring Jack Della Maddalena vs. Carlos Prates in a welterweight matchup",
     "source": "CBS",
     "league": "UFC"
@@ -950,7 +950,7 @@
     "headline": "UFC 328 odds, lines, predictions, time: Khamzat Chimaev vs. Sean Strickland picks from elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-328-odds-lines-main-fight-card-predictions-time-khamzat-chimaev-sean-strickland-picks-best-bets/",
     "published": "2026-08-12T12:52:02.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F05%2F09%2Fe7ef8bcf-f094-4ad9-99f3-adaa621f20b6%2Fsean-strickland-ufc-mma-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC 328 card from Prudential Center in Newark, N.J., on Paramount+, featuring Khamzat Chimaev vs. Sean Strickland in a middleweight matchup",
     "source": "CBS",
     "league": "UFC"
@@ -969,7 +969,7 @@
     "link": "https://www.espn.com/mma/story/_/id/50190700/ufc-declines-re-sign-undefeated-bantamweight-farid-basharat",
     "published": "2026-10-15T18:42:55Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731273_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Bantamweight Farid Basharat said the UFC \"just isn't what it used to be\" after failing to re-sign with the promotion despite his undefeated record.",
     "league": "UFC"
    },
@@ -977,7 +977,7 @@
     "headline": "UFC Fight Night odds, lines, predictions, time: Arnold Allen vs. Melquizael Costa picks by elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-fight-night-odds-lines-predictions-fight-card-time-arnold-allen-melquizael-costa-picks-best-bets/",
     "published": "2026-08-12T12:51:01.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F05%2F16%2F846460a3-b743-4ffb-a0f9-df73ece58db1%2Farnold-allen-ufc-mma-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC Fight Night: Allen vs. Costa card from the Meta APEX in Las Vegas on Paramount+, featuring Arnold Allen vs. Melquizael Costa in a featherweight matchup",
     "source": "CBS",
     "league": "UFC"
@@ -997,7 +997,7 @@
     "headline": "Boxing schedule",
     "link": "https://www.espn.com/boxing/story/_/id/12508267/boxing-schedule",
     "published": "2026-10-16T15:15:43.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0914%252Fr1545239_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Want to know what fights are on the horizon? Check out the boxing schedule.",
     "source": "ESPN",
     "league": "Boxing"
@@ -1015,7 +1015,7 @@
     "headline": "Zuffa Boxing signs middleweight titleholder Carlos Adames to add to growing 160-pound division",
     "link": "https://www.cbssports.com/boxing/news/zuffa-boxing-signs-carlos-adames/",
     "published": "2026-10-13T18:48:03.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fccc23158-d807-4742-9de9-0a05252a8688%2Fcarlos-adames-workout.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Adames is one of the most decorated middleweights in the sport",
     "source": "CBS",
     "league": "Boxing"
@@ -1042,7 +1042,7 @@
     "headline": "Boxing schedule for 2026: When Canelo Alvarez, Isaac Cruz, Sebastian Fundora and more are set to return",
     "link": "https://www.cbssports.com/boxing/news/boxing-schedule-for-2026-dates-location-fights-canelo-alvarez-sebastian-fundora/",
     "published": "2026-10-05T20:58:52.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F14%2F36da09e1-e022-4e41-8ef9-57847504199f%2Fcanelo-alvarez-anthony-joshua.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The 2026 boxing calendar is hitting the fall with some great fights on the books",
     "source": "CBS",
     "league": "Boxing"
@@ -1069,7 +1069,7 @@
     "headline": "Zuffa Boxing 11 start time, fight card, predictions and where to watch Johnny Fisher vs. Michael Pirotton",
     "link": "https://www.cbssports.com/boxing/news/zuffa-boxing-11-johnny-fisher-vs-michael-pirotton-start-time-fight-card-date-predictions/",
     "published": "2026-09-26T13:21:16.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F25%2Fca6dc5d0-afc1-471b-8f9a-0ef0ebd90a4a%2Fjohnny-fisher-michael-pirotton-presser.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The rising heavyweight prospect makes his Zuffa Boxing debut in front of his countrymen and women on Saturday",
     "source": "CBS",
     "league": "Boxing"
@@ -1087,10 +1087,28 @@
  },
  "latest": [
   {
+   "headline": "Browns WR Concepcion clears concussion protocol, will play vs. Ravens",
+   "link": "https://www.espn.com/nfl/story/_/id/50197266/browns-wr-concepcion-clears-protocol-play-vs-ravens",
+   "published": "2026-10-16T18:42:24.000Z",
+   "image": "",
+   "blurb": "Browns rookie wide receiver KC Concepcion has cleared concussion protocol and will play in Sunday's home game against the Ravens.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
+   "headline": "Jets rookie WR Cooper to play vs. Patriots; RB Hall, WR Mitchell out",
+   "link": "https://www.espn.com/nfl/story/_/id/50196775/jets-rookie-wr-cooper-play-vs-patriots-hall-mitchell-out",
+   "published": "2026-10-16T18:42:24.000Z",
+   "image": "",
+   "blurb": "Jets rookie WR Omar Cooper Jr. (ankle) will play against the Patriots, but RB Breece Hall and wideout Adonai Mitchell have been ruled out for Sunday's game.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
    "headline": "Sources: CFP nearing deal for 24-team format beginning in '27",
    "link": "https://www.espn.com/college-football/story/_/id/50190410/sources-college-football-playoff-nearing-deal-24-team-format",
    "published": "2026-10-16T18:30:13.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2018%252F1130%252Fr471133_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "The College Football Playoff is nearing a deal to expand to 24 teams, sources told ESPN's Pete Thamel, with the new format expected to begin in 2027.",
    "source": "ESPN",
    "league": "CFB"
@@ -1099,7 +1117,7 @@
    "headline": "Notre Dame defenders Moore, Onye set to face BYU",
    "link": "https://www.espn.com/college-football/story/_/id/50190465/notre-dame-defenders-leonard-moore-jason-onye-set-face-byu",
    "published": "2026-10-16T18:30:13.000Z",
-   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1005%252Fr1726480_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "Notre Dame defensive players Leonard Moore and Jason Onye are set to face BYU, coach Marcus Freeman said.",
    "source": "ESPN",
    "league": "CFB"
@@ -1108,7 +1126,7 @@
    "headline": "'44 years of heartbreak, 44 years of believing': Inside the night the Brewers punched their World Series ticket",
    "link": "https://www.espn.com/mlb/story/_/id/50193437/playoffs-brewers-celebrate-nlcs-world-series-clinch",
    "published": "2026-10-16T18:16:31.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731584_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "After dethroning the Dodgers, Milwaukee is celebrating its first Fall Classic berth since 1982 -- with its captain to thank for setting the tone.",
    "source": "ESPN",
    "league": "MLB"
@@ -1117,7 +1135,7 @@
    "headline": "Who is this year's Mr. October? Tracking the playoff MVP for 2026",
    "link": "https://www.espn.com/mlb/story/_/id/50110772/2026-mlb-playoffs-mvp-tracker-wpa-leaderboard-win-probability-added-mr-october",
    "published": "2026-10-16T18:16:31.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731471_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "We go inside the numbers on the players doing the most to help their teams win.",
    "source": "ESPN",
    "league": "MLB"
@@ -1126,34 +1144,16 @@
    "headline": "NCAA sues Ohio gov. over order allowing schools to ignore new eligibility rule",
    "link": "https://www.espn.com/college-sports/story/_/id/50196596/ncaa-sues-ohio-gov-eligibility-order-5th-year-athletes",
    "published": "2026-10-16T18:09:38.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F1111%252Fr1574065_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "The NCAA has filed a federal lawsuit against Ohio Gov. Mike DeWine three days after he signed an executive order giving the state's colleges and universities the option of allowing athletes who graduated from high school in 2022 to play a fifth year.",
    "source": "ESPN",
    "league": "NCAAB"
   },
   {
-   "headline": "Jets rookie WR Cooper to play vs. Patriots; RB Hall, WR Mitchell out",
-   "link": "https://www.espn.com/nfl/story/_/id/50196775/jets-rookie-wr-cooper-play-vs-patriots-hall-mitchell-out",
-   "published": "2026-10-16T18:04:13.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0913%252Fr1716072_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Jets rookie WR Omar Cooper Jr. (ankle) will play against the Patriots, but RB Breece Hall and wideout Adonai Mitchell have been ruled out for Sunday's game.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Eagles QB Hurts ruled out vs. Panthers with blood clot in calf",
-   "link": "https://www.espn.com/nfl/story/_/id/50189940/eagles-qb-jalen-hurts-ruled-vs-panthers-blood-clot",
-   "published": "2026-10-16T18:04:13.000Z",
-   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0929%252Fr1723222_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Eagles quarterback Jalen Hurts has been ruled out against the Panthers due to a superficial blood clot in his calf.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
    "headline": "Buss siblings' filing challenges Jeanie's petition to oust them as trustees",
    "link": "https://www.espn.com/nba/story/_/id/50195321/buss-siblings-filing-challenges-jeanie-petition-oust-them",
    "published": "2026-10-16T17:49:28.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731443_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "The legal jostling between five of the Buss siblings against their sister, Lakers acting governor Jeanie Buss, continued Friday with an additional filing submitted to the Los Angeles Superior Court.",
    "source": "ESPN",
    "league": "NBA"
@@ -1162,10 +1162,37 @@
    "headline": "Spanish team challenging Thunder rookie Mara's NBA eligibility",
    "link": "https://www.espn.com/nba/story/_/id/50197100/spanish-team-challenging-thunder-rookie-mara-nba-eligibility",
    "published": "2026-10-16T17:49:28.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731691_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "A Spanish basketball team is challenging Thunder rookie Aday Mara's eligibility to play in the NBA this season, saying he's still under contract with the team.",
+   "image": "",
+   "blurb": "A Spanish basketball team is challenging Thunder rookie Aday Mara's eligibility to play in the NBA this season, saying he is still under contract with the club.",
    "source": "ESPN",
    "league": "NBA"
+  },
+  {
+   "headline": "Spanish club contesting NBA eligibility of Thunder rookie Aday Mara over contract dispute",
+   "link": "https://sports.yahoo.com/nba/article/spanish-club-contesting-nba-eligibility-of-thunder-rookie-aday-mara-over-contract-dispute-174759365.html",
+   "published": "2026-10-16T17:47:59.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/d29eea4df603b05a2fdff23086afaba26040219d090af10e1a6ff523da9ba875/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F3a8afce8-5b78-4937-b880-68c37281e5a6",
+   "blurb": "The Thunder insist that the rookie center is eligible to play for them despite his former club in Spain saying that it continues to hold his playing rights.",
+   "source": "YAHOO",
+   "league": "NBA"
+  },
+  {
+   "headline": "U.S. prodigy Cavan Sullivan sets MLS record, laments 'terrible' performance",
+   "link": "https://www.espn.com/soccer/story/_/id/50189867/usa-cavan-sullivan-mls-record-goal-contributions",
+   "published": "2026-10-16T17:44:18Z",
+   "source": "ESPN",
+   "image": "",
+   "blurb": "U.S. teen prodigy Cavan Sullivan made more history on Wednesday, but the Philadelphia Union midfielder insisted he was less than happy with his performance.",
+   "league": "MLS"
+  },
+  {
+   "headline": "The Broncos have a Bo Nix problem, and their Super Bowl window may force a tough decision",
+   "link": "https://www.cbssports.com/nfl/news/broncos-super-bowl-bo-nix-stats-2026/",
+   "published": "2026-10-16T17:41:01.000Z",
+   "image": "",
+   "blurb": "Bo Nix keeps winning, but the Broncos can't ignore what the numbers say",
+   "source": "CBS",
+   "league": "NFL"
   },
   {
    "headline": "The X College Football Games to Watch in Week 7",
@@ -1186,6 +1213,15 @@
    "league": "NFL"
   },
   {
+   "headline": "No. 8 BYU feeling weight of challenge in hosting No. 2 Notre Dame (+predictions)",
+   "link": "https://sports.yahoo.com/articles/no-8-byu-feeling-weight-173533150.html",
+   "published": "2026-10-16T17:35:33.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/6a02b3a436ebbe2e276fa58218265a47b06ebcac09912fdbed70c62fd0381082/lightyear_networkapi/resizefill_w800_h452%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fdeseret_news_992%2Feb7f9d3384d72b90f12f6e07d06f6ae2.jpg",
+   "blurb": "Cougars are familiar with having to prove themselves. Can they do it against the Irish?",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
    "headline": "Renee Montgomery on Owning the Dream",
    "link": "https://sports.yahoo.com/articles/renee-montgomery-owning-dream-173423795.html",
    "published": "2026-10-16T17:34:23.000Z",
@@ -1198,7 +1234,7 @@
    "headline": "LSU vs. Mississippi State prediction, pick, odds, spread: Tigers look to rebound against Bulldogs",
    "link": "https://www.cbssports.com/college-football/news/lsu-mississippi-state-prediction-picks-odds-spread-where-to-watch-live/",
    "published": "2026-10-16T17:33:59.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2F5052b9a4-b596-4426-96f2-8c123db28e34%2F2026-10-11t035501z-2026506645-mt1usatoday30054886-rtrmadp-3-ncaa-football-louisiana-state-at-kentucky.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "No. 22 LSU returns home to face No. 16 Mississippi State after last week's OT loss at Kentucky",
    "source": "CBS",
    "league": "CFB"
@@ -1216,18 +1252,9 @@
    "headline": "Miami vs. Florida State prediction, pick, odds, spread: Red-hot Hurricanes take on floundering Seminoles",
    "link": "https://www.cbssports.com/college-football/news/miami-florida-state-prediction-picks-odds-spread-where-to-watch-live/",
    "published": "2026-10-16T17:32:21.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2Fd85e9730-ee79-4821-aa25-ed0bbb838f44%2Fmensah-miami-t25-picks-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "One of college football's great rivalries takes center stage on Saturday night when No. 3 Miami welcomes Florida State for their traditional October clash",
    "source": "CBS",
-   "league": "CFB"
-  },
-  {
-   "headline": "Scarlet Spreadsheet: What the analytics say about Ohio State vs. Indiana",
-   "link": "https://sports.yahoo.com/articles/scarlet-spreadsheet-analytics-ohio-state-173100502.html",
-   "published": "2026-10-16T17:31:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/b45853a0f8d1bd46d51e58ff071b6bb8f5ba7e953b1b4d1d942f45284f50923a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F972d148f12d612e263d36500866bce92.jpg",
-   "blurb": "The analytical models disagree over who will win the rematch between Curt Cignetti and Ryan Day as No. 4 Ohio State travels to Bloomington to take on No. 5 Indiana on Saturday",
-   "source": "YAHOO",
    "league": "CFB"
   },
   {
@@ -1270,7 +1297,7 @@
    "headline": "NFL Week 6 odds, picks: Brinson's best bets, player props, anytime touchdown scorers for Sunday's matchups",
    "link": "https://www.cbssports.com/betting/news/nfl-week-6-odds-picks-brinsons-best-bets-player-props-anytime-touchdown-scorers-for-sundays-matchups/",
    "published": "2026-10-16T17:17:47.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F3251da62-5cd5-4028-ad68-3d7ee088fb49%2Fblake-corum-los-angeles-rams-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "Back Andy Reid off the bye against an injured Chargers squad, take the points with the Texans in London and target plus-money value on a Wan'Dale Robinson player prop",
    "source": "CBS",
    "league": "NFL"
@@ -1279,7 +1306,7 @@
    "headline": "Rays vs. Guardians ALCS Game 4 picks: Strong winds blowing in at Progressive Field should keep run total down",
    "link": "https://www.cbssports.com/betting/news/rays-vs-guardians-alcs-game-4-picks-strong-winds-blowing-in-at-progressive-field-should-keep-run-total-down/",
    "published": "2026-10-16T17:17:20.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2Fde559130-432f-4eaf-92e2-b6aa1875b0ae%2F2026-10-15t184317z-1684690070-mt1usatoday30089881-rtrmadp-3-mlb-alcs-tampa-bay-rays-at-cleveland-guardians-jpg.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "Weather should be a factor ALCS Game 4 as the Rays visit the Guardians on Friday",
    "source": "CBS",
    "league": "MLB"
@@ -1324,7 +1351,7 @@
    "headline": "Spanish club Basket Zaragoza attempting to block Thunder rookie Aday Mara from making NBA debut",
    "link": "https://www.cbssports.com/nba/news/aday-mara-thunder-nba-eligibility-spanish-club-transfer/",
    "published": "2026-10-16T16:51:42.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2F2708fa57-b987-4551-99e1-1ffe69f73c24%2Funtitled-design-21.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "Mara played for the club in his native Spain before playing three seasons of college basketball",
    "source": "CBS",
    "league": "NBA"
@@ -1333,7 +1360,7 @@
    "headline": "Rankings: How high should Rangers goalies be ranked?",
    "link": "https://www.espn.com/fantasy/hockey/story/_/id/49299647/espn-nhl-fantasy-hockey-rankings-forwards-defensemen-goalies-points-leagues",
    "published": "2026-10-16T16:50:14.000Z",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731640_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "Connor McDavid and Macklin Celebrini lead, while Igor Shesterkin's injury shakes up the goalie rankings.",
    "source": "ESPN",
    "league": "NHL"
@@ -1351,25 +1378,16 @@
    "headline": "Milwaukee Bucks change time of home opener with Brewers hosting World Series Game 1 on same night",
    "link": "https://www.cbssports.com/nba/news/milwaukee-bucks-change-time-home-opener-brewers-world-series/",
    "published": "2026-10-16T16:47:48.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2F6a1877fa-d69d-4424-9962-8f6d3c165cf9%2Fbucks-brewers-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "The Fall Classic is coming to Milwaukee for the first time since 1982, and it will impact the NBA schedule",
    "source": "CBS",
    "league": "MLB"
   },
   {
-   "headline": "NBA Preview 2026-27: Seven players most likely to be traded this season",
-   "link": "https://sports.yahoo.com/articles/nba-preview-2026-27-seven-164358628.html",
-   "published": "2026-10-16T16:43:58.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/766a66d4146aff68f6ea8243415dce6dd6d45bf0f7aca33b190b039b0a645b7b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F1047ccf39799f469da7c93dd5244b4a0.jpg",
-   "blurb": "Despite the best efforts of Masai Ujiri, Kyrie Irving tops the list. Anthony Davis is there, too.",
-   "source": "YAHOO",
-   "league": "NBA"
-  },
-  {
    "headline": "SEC Media Days Takeaways: Florida's Rueben Chinyelu guarantees national title, LSU litigation saga continues",
    "link": "https://www.cbssports.com/college-basketball/news/sec-media-days-takeaways-florida-rueben-chinyelu-guarantees-national-title-lsu-will-wade/",
    "published": "2026-10-16T16:40:25.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2F91dbe72f-4124-48cf-9475-52f46c3610fb%2Fgettyimages-2300258112-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "The SEC seems poised to be the best league in college basketball \u2014 again. Here's a wide look at what emerged from Birmingham this week",
    "source": "CBS",
    "league": "NCAAB"
@@ -1391,15 +1409,6 @@
    "blurb": "Indiana Fever guard Sophie Cunningham sounded off on a non-call involving Angel Reese during the Atlanta Dream's playoff game against the Liberty.",
    "source": "YAHOO",
    "league": "WNBA"
-  },
-  {
-   "headline": "What's wrong with Bo Nix and Sam Darnold, and can either one of them figure it out?",
-   "link": "https://www.cbssports.com/nfl/news/whats-wrong-with-bo-nix-sam-darnold-broncos-seahawks/",
-   "published": "2026-10-16T16:30:28.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2F76060bf9-b6da-4238-836c-04feb1417467%2Fbo-nix-sam-darnold.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Nix managed just 107 passing yards, and Darnold threw two interceptions",
-   "source": "CBS",
-   "league": "NFL"
   },
   {
    "headline": "UFC Edmonton video: Joaquin Buckley, Mike Malott on weight for headliner",
@@ -1424,7 +1433,7 @@
    "link": "https://www.espn.com/soccer/story/_/id/50196705/columbus-nwsl-expansion-club-names-lucy-rushton-gm",
    "published": "2026-10-16T15:41:11Z",
    "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2023%2F0614%2Fr1186461_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "Lucy Rushton is the first general manager of the forthcoming Columbus NWSL expansion team that will begin play in 2028.",
    "league": "NWSL"
   },
@@ -1432,19 +1441,10 @@
    "headline": "Boxing schedule",
    "link": "https://www.espn.com/boxing/story/_/id/12508267/boxing-schedule",
    "published": "2026-10-16T15:15:43.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0914%252Fr1545239_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "image": "",
    "blurb": "Want to know what fights are on the horizon? Check out the boxing schedule.",
    "source": "ESPN",
    "league": "Boxing"
-  },
-  {
-   "headline": "Fantasy hockey rankings: How high should Rangers goalies be ranked?",
-   "link": "https://www.espn.com/fantasy/hockey/story/_/id/49299647/espn-nhl-fantasy-hockey-rankings-forwards-defensemen-goalies-points-leagues",
-   "published": "2026-10-16T15:06:14Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1016%2Fr1731640_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Connor McDavid and Macklin Celebrini lead, while Igor Shesterkin's injury shakes up the goalie rankings.",
-   "league": "NHL"
   }
  ],
  "source_mix": {
