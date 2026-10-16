@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-16T01:50:13.848908+00:00",
+ "generated_at": "2026-10-16T02:05:11.361524+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "MIL @ LAD",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "Top 5th",
-     "score": "MIL 3 - LAD 4"
+     "detail": "Top 6th",
+     "score": "MIL 4 - LAD 4"
     }
    ]
   },
@@ -23,7 +23,7 @@
      "matchup": "SEA @ DEN",
      "commence": "2026-10-16T00:15Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "8:30 - 3rd",
      "score": "SEA 3 - DEN 14",
      "away_to": 3,
      "home_to": 3
@@ -38,8 +38,8 @@
      "matchup": "ECU @ UAB",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "6:36 - 3rd",
-     "score": "ECU 14 - UAB 6",
+     "detail": "0:18 - 3rd",
+     "score": "ECU 14 - UAB 9",
      "away_to": 0,
      "home_to": 2
     },
@@ -48,8 +48,8 @@
      "matchup": "GASO @ ODU",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "9:57 - 3rd",
-     "score": "GASO 16 - ODU 7",
+     "detail": "4:29 - 3rd",
+     "score": "GASO 23 - ODU 7",
      "away_to": 0,
      "home_to": 2
     },
@@ -73,9 +73,9 @@
      "matchup": "TOR @ NY",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "6:06 - 4th",
-     "score": "TOR 100 - NY 105",
-     "away_to": 3,
+     "detail": "1:03 - 4th",
+     "score": "TOR 114 - NY 117",
+     "away_to": 2,
      "home_to": 2
     },
     {
@@ -83,9 +83,9 @@
      "matchup": "OKC @ HOU",
      "commence": "2026-10-16T00:30Z",
      "status": "in",
-     "detail": "10:43 - 3rd",
-     "score": "OKC 47 - HOU 60",
-     "away_to": 4,
+     "detail": "5:33 - 3rd",
+     "score": "OKC 55 - HOU 70",
+     "away_to": 2,
      "home_to": 6
     }
    ]
@@ -97,31 +97,25 @@
      "espn_event_id": "401892506",
      "matchup": "BUF @ TOR",
      "commence": "2026-10-15T23:00Z",
-     "status": "in",
-     "detail": "4:04 - OT",
-     "score": "BUF 4 - TOR 4",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final/OT",
+     "score": "BUF 5 - TOR 4"
     },
     {
      "espn_event_id": "401892507",
      "matchup": "NYI @ OTT",
      "commence": "2026-10-15T23:00Z",
-     "status": "in",
-     "detail": "In SO",
-     "score": "NYI 1 - OTT 1",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final/SO",
+     "score": "NYI 1 - OTT 2"
     },
     {
      "espn_event_id": "401892509",
      "matchup": "SEA @ TB",
      "commence": "2026-10-15T23:00Z",
-     "status": "in",
-     "detail": "4:56 - OT",
-     "score": "SEA 3 - TB 3",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final/OT",
+     "score": "SEA 3 - TB 4"
     },
     {
      "espn_event_id": "401892510",
@@ -144,8 +138,8 @@
      "matchup": "PHI @ DET",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "9:41 - 3rd",
-     "score": "PHI 1 - DET 1",
+     "detail": "3:22 - 3rd",
+     "score": "PHI 1 - DET 2",
      "away_to": null,
      "home_to": null
     },
@@ -154,7 +148,7 @@
      "matchup": "WPG @ CHI",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "18:40 - 3rd",
      "score": "WPG 2 - CHI 3",
      "away_to": null,
      "home_to": null
@@ -164,7 +158,7 @@
      "matchup": "SJ @ NSH",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "17:00 - 3rd",
      "score": "SJ 1 - NSH 0",
      "away_to": null,
      "home_to": null
@@ -174,7 +168,7 @@
      "matchup": "STL @ MIN",
      "commence": "2026-10-16T00:00Z",
      "status": "in",
-     "detail": "0:15 - 2nd",
+     "detail": "End of 2nd",
      "score": "STL 2 - MIN 5",
      "away_to": null,
      "home_to": null
@@ -184,7 +178,7 @@
      "matchup": "UTA @ EDM",
      "commence": "2026-10-16T01:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "13:39 - 2nd",
      "score": "UTA 1 - EDM 0",
      "away_to": null,
      "home_to": null
@@ -193,9 +187,11 @@
      "espn_event_id": "401892516",
      "matchup": "CGY @ VGK",
      "commence": "2026-10-16T02:00Z",
-     "status": "pre",
-     "detail": "10/15 - 7:00 PM PT",
-     "score": "CGY 0 - VGK 0"
+     "status": "in",
+     "detail": "20:00 - 1st",
+     "score": "CGY 0 - VGK 0",
+     "away_to": null,
+     "home_to": null
     }
    ]
   }
