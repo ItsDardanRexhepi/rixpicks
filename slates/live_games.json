@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-16T23:05:15.223433+00:00",
+ "generated_at": "2026-10-16T23:20:13.509727+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -47,6 +47,46 @@
   {
    "league": "NBA",
    "games": [
+    {
+     "espn_event_id": "401898406",
+     "matchup": "MIA @ ORL",
+     "commence": "2026-10-16T23:00Z",
+     "status": "in",
+     "detail": "7:27 - 1st",
+     "score": "MIA 17 - ORL 12",
+     "away_to": 7,
+     "home_to": 7
+    },
+    {
+     "espn_event_id": "401898407",
+     "matchup": "BOS @ PHI",
+     "commence": "2026-10-16T23:00Z",
+     "status": "in",
+     "detail": "7:03 - 1st",
+     "score": "BOS 9 - PHI 13",
+     "away_to": 7,
+     "home_to": 7
+    },
+    {
+     "espn_event_id": "401908946",
+     "matchup": "TOR @ DET",
+     "commence": "2026-10-16T23:00Z",
+     "status": "in",
+     "detail": "8:42 - 1st",
+     "score": "TOR 9 - DET 8",
+     "away_to": 7,
+     "home_to": 7
+    },
+    {
+     "espn_event_id": "401914126",
+     "matchup": "MIL @ IND",
+     "commence": "2026-10-16T23:00Z",
+     "status": "in",
+     "detail": "8:34 - 1st",
+     "score": "MIL 10 - IND 14",
+     "away_to": 6,
+     "home_to": 7
+    },
     {
      "espn_event_id": "401898408",
      "matchup": "ATL @ DAL",
