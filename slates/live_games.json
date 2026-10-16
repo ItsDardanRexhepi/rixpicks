@@ -1,20 +1,7 @@
 {
  "version": 1,
- "generated_at": "2026-10-15T23:50:11.879674+00:00",
+ "generated_at": "2026-10-16T00:05:21.268927+00:00",
  "leagues": [
-  {
-   "league": "MLB",
-   "games": [
-    {
-     "espn_event_id": "401908033",
-     "matchup": "MIL @ LAD",
-     "commence": "2026-10-16T00:00Z",
-     "status": "pre",
-     "detail": "10/15 - 5:00 PM PT",
-     "score": "MIL 0 - LAD 0"
-    }
-   ]
-  },
   {
    "league": "NFL",
    "games": [
@@ -36,7 +23,7 @@
      "matchup": "ECU @ UAB",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "10:07 - 1st",
+     "detail": "4:18 - 1st",
      "score": "ECU 7 - UAB 0",
      "away_to": 3,
      "home_to": 3
@@ -46,8 +33,8 @@
      "matchup": "GASO @ ODU",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "9:02 - 1st",
-     "score": "GASO 0 - ODU 7",
+     "detail": "2:50 - 1st",
+     "score": "GASO 7 - ODU 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -55,9 +42,11 @@
      "espn_event_id": "401860923",
      "matchup": "CSU @ TXST",
      "commence": "2026-10-16T00:00Z",
-     "status": "pre",
-     "detail": "10/15 - 5:00 PM PT",
-     "score": "CSU 0 - TXST 0"
+     "status": "in",
+     "detail": "13:34 - 1st",
+     "score": "CSU 0 - TXST 0",
+     "away_to": 3,
+     "home_to": 3
     }
    ]
   },
@@ -69,10 +58,10 @@
      "matchup": "TOR @ NY",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "7:26 - 1st",
-     "score": "TOR 15 - NY 15",
-     "away_to": 7,
-     "home_to": 7
+     "detail": "2:48 - 1st",
+     "score": "TOR 23 - NY 26",
+     "away_to": 6,
+     "home_to": 6
     },
     {
      "espn_event_id": "401908622",
@@ -92,7 +81,7 @@
      "matchup": "BUF @ TOR",
      "commence": "2026-10-15T23:00Z",
      "status": "in",
-     "detail": "0:07 - 1st",
+     "detail": "End of 1st",
      "score": "BUF 1 - TOR 2",
      "away_to": null,
      "home_to": null
@@ -102,7 +91,7 @@
      "matchup": "NYI @ OTT",
      "commence": "2026-10-15T23:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "20:00 - 2nd",
      "score": "NYI 1 - OTT 0",
      "away_to": null,
      "home_to": null
@@ -112,7 +101,7 @@
      "matchup": "SEA @ TB",
      "commence": "2026-10-15T23:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "20:00 - 2nd",
      "score": "SEA 1 - TB 1",
      "away_to": null,
      "home_to": null
@@ -122,7 +111,7 @@
      "matchup": "VAN @ FLA",
      "commence": "2026-10-15T23:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "19:21 - 2nd",
      "score": "VAN 2 - FLA 0",
      "away_to": null,
      "home_to": null
@@ -132,8 +121,8 @@
      "matchup": "NYR @ NJ",
      "commence": "2026-10-15T23:00Z",
      "status": "in",
-     "detail": "End of 1st",
-     "score": "NYR 0 - NJ 1",
+     "detail": "19:36 - 2nd",
+     "score": "NYR 0 - NJ 2",
      "away_to": null,
      "home_to": null
     },
@@ -142,34 +131,10 @@
      "matchup": "PHI @ DET",
      "commence": "2026-10-15T23:30Z",
      "status": "in",
-     "detail": "12:19 - 1st",
+     "detail": "5:51 - 1st",
      "score": "PHI 0 - DET 0",
      "away_to": null,
      "home_to": null
-    },
-    {
-     "espn_event_id": "401892512",
-     "matchup": "WPG @ CHI",
-     "commence": "2026-10-16T00:00Z",
-     "status": "pre",
-     "detail": "10/15 - 5:00 PM PT",
-     "score": "WPG 0 - CHI 0"
-    },
-    {
-     "espn_event_id": "401892513",
-     "matchup": "SJ @ NSH",
-     "commence": "2026-10-16T00:00Z",
-     "status": "pre",
-     "detail": "10/15 - 5:00 PM PT",
-     "score": "SJ 0 - NSH 0"
-    },
-    {
-     "espn_event_id": "401892514",
-     "matchup": "STL @ MIN",
-     "commence": "2026-10-16T00:00Z",
-     "status": "pre",
-     "detail": "10/15 - 5:00 PM PT",
-     "score": "STL 0 - MIN 0"
     },
     {
      "espn_event_id": "401892515",
@@ -178,6 +143,14 @@
      "status": "pre",
      "detail": "10/15 - 6:00 PM PT",
      "score": "UTA 0 - EDM 0"
+    },
+    {
+     "espn_event_id": "401892516",
+     "matchup": "CGY @ VGK",
+     "commence": "2026-10-16T02:00Z",
+     "status": "pre",
+     "detail": "10/15 - 7:00 PM PT",
+     "score": "CGY 0 - VGK 0"
     }
    ]
   }
