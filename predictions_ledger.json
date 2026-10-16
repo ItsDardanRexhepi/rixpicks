@@ -3189,5 +3189,18 @@
   "kickoff_utc": "2026-10-16T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-16T18:05:42.770783+00:00"
+ },
+ {
+  "id": "69c81f487a",
+  "event_id": "401898719",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Los Angeles Lakers",
+  "away": "Denver Nuggets",
+  "pick_team": "Denver Nuggets",
+  "prediction": "Denver Nuggets to beat Los Angeles Lakers",
+  "kickoff_utc": "2026-10-17T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-16T19:06:13.457231+00:00"
  }
 ]
