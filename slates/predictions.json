@@ -1,6 +1,13 @@
 {
- "generated_at": "2026-10-16T15:05:54.565131+00:00",
+ "generated_at": "2026-10-16T15:22:23.954112+00:00",
  "items": [
+  {
+   "id": "644b83859a",
+   "league": "NBA",
+   "event": "Miami Heat @ Orlando Magic",
+   "prediction": "Miami Heat to beat Orlando Magic",
+   "kickoff_utc": "2026-10-16T23:00:00+00:00"
+  },
   {
    "id": "d73da979fc",
    "league": "NWSL",
@@ -16,6 +23,13 @@
    "kickoff_utc": "2026-10-17T01:00:00+00:00"
   },
   {
+   "id": "514b74da06",
+   "league": "NBA",
+   "event": "Portland Trail Blazers @ Golden State Warriors",
+   "prediction": "Golden State Warriors to beat Portland Trail Blazers",
+   "kickoff_utc": "2026-10-17T02:00:00+00:00"
+  },
+  {
    "id": "99c5e64750",
    "league": "CFB",
    "event": "Ohio State Buckeyes @ Indiana Hoosiers",
@@ -27,20 +41,6 @@
    "league": "CFB",
    "event": "Florida Gators @ Texas Longhorns",
    "prediction": "Texas Longhorns to beat Florida Gators",
-   "kickoff_utc": "2026-10-17T16:00:00+00:00"
-  },
-  {
-   "id": "076ccd5209",
-   "league": "CFB",
-   "event": "Mississippi State Bulldogs @ LSU Tigers",
-   "prediction": "LSU Tigers to beat Mississippi State Bulldogs",
-   "kickoff_utc": "2026-10-17T16:00:00+00:00"
-  },
-  {
-   "id": "037d8b4798",
-   "league": "CFB",
-   "event": "Virginia Cavaliers @ SMU Mustangs",
-   "prediction": "SMU Mustangs to beat Virginia Cavaliers",
    "kickoff_utc": "2026-10-17T16:00:00+00:00"
   }
  ]
