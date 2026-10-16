@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-16T21:20:09.744025+00:00",
+ "generated_at": "2026-10-16T21:35:16.246468+00:00",
  "leagues": [
+  {
+   "league": "CFB",
+   "games": [
+    {
+     "espn_event_id": "401862801",
+     "matchup": "MEM @ TULN",
+     "commence": "2026-10-16T23:30Z",
+     "status": "pre",
+     "detail": "10/16 - 4:30 PM PT",
+     "score": "MEM 0 - TULN 0"
+    }
+   ]
+  },
   {
    "league": "NBA",
    "games": [
