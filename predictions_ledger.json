@@ -3202,5 +3202,18 @@
   "kickoff_utc": "2026-10-17T02:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-16T19:06:13.457231+00:00"
+ },
+ {
+  "id": "d8e8b9d4ff",
+  "event_id": "401901822",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Memphis Grizzlies",
+  "away": "Charlotte Hornets",
+  "pick_team": "Memphis Grizzlies",
+  "prediction": "Memphis Grizzlies to beat Charlotte Hornets",
+  "kickoff_utc": "2026-10-17T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-16T20:50:28.111205+00:00"
  }
 ]
