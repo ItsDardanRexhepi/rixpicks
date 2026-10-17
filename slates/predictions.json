@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-17T23:21:37.968380+00:00",
+ "generated_at": "2026-10-17T23:35:28.988589+00:00",
  "items": [
   {
-   "id": "f7f6c91162",
-   "league": "CFB",
-   "event": "Notre Dame Fighting Irish @ BYU Cougars",
-   "prediction": "Notre Dame Fighting Irish to beat BYU Cougars",
-   "kickoff_utc": "2026-10-17T23:30:00+00:00"
+   "id": "048253bbd3",
+   "league": "NHL",
+   "event": "St. Louis Blues @ Nashville Predators",
+   "prediction": "St. Louis Blues to beat Nashville Predators",
+   "kickoff_utc": "2026-10-18T00:00:00+00:00"
   },
   {
-   "id": "daf4ab8115",
-   "league": "CFB",
-   "event": "Kentucky Wildcats @ Oklahoma Sooners",
-   "prediction": "Oklahoma Sooners to beat Kentucky Wildcats",
-   "kickoff_utc": "2026-10-17T23:30:00+00:00"
+   "id": "886bd398ba",
+   "league": "MLB",
+   "event": "Tampa Bay Rays @ Cleveland Guardians",
+   "prediction": "Tampa Bay Rays to beat Cleveland Guardians",
+   "kickoff_utc": "2026-10-18T00:00:00+00:00"
   },
   {
-   "id": "624f4df403",
-   "league": "CFB",
-   "event": "Oklahoma State Cowboys @ Houston Cougars",
-   "prediction": "Oklahoma State Cowboys to beat Houston Cougars",
-   "kickoff_utc": "2026-10-17T23:30:00+00:00"
-  },
-  {
-   "id": "46998d8a99",
-   "league": "CFB",
-   "event": "Wisconsin Badgers @ UCLA Bruins",
-   "prediction": "UCLA Bruins to beat Wisconsin Badgers",
-   "kickoff_utc": "2026-10-17T23:30:00+00:00"
-  },
-  {
-   "id": "47a2105e66",
+   "id": "9dd20d2235",
    "league": "MLS",
-   "event": "Chicago Fire FC @ New England Revolution",
-   "prediction": "New England Revolution to beat Chicago Fire FC",
-   "kickoff_utc": "2026-10-17T23:30:00+00:00"
+   "event": "FC Dallas @ Houston Dynamo FC",
+   "prediction": "Houston Dynamo FC to beat FC Dallas",
+   "kickoff_utc": "2026-10-18T00:30:00+00:00"
   },
   {
-   "id": "1caa7e46b0",
+   "id": "60c50fa21f",
    "league": "MLS",
-   "event": "LAFC @ New York City FC",
-   "prediction": "LAFC to beat New York City FC",
-   "kickoff_utc": "2026-10-17T23:30:00+00:00"
+   "event": "Vancouver Whitecaps @ Austin FC",
+   "prediction": "Austin FC to beat Vancouver Whitecaps",
+   "kickoff_utc": "2026-10-18T00:30:00+00:00"
+  },
+  {
+   "id": "408067505d",
+   "league": "MLS",
+   "event": "Real Salt Lake @ Sporting Kansas City",
+   "prediction": "Sporting Kansas City to beat Real Salt Lake",
+   "kickoff_utc": "2026-10-18T00:30:00+00:00"
+  },
+  {
+   "id": "73a0d9fde3",
+   "league": "NWSL",
+   "event": "Angel City FC @ Denver Summit FC",
+   "prediction": "Angel City FC to beat Denver Summit FC",
+   "kickoff_utc": "2026-10-18T00:45:00+00:00"
   }
  ]
 }
