@@ -1,16 +1,7 @@
 {
- "generated_at": "2026-10-17T15:50:14.900Z",
+ "generated_at": "2026-10-17T15:55:12.508Z",
  "leagues": {
   "baseball/mlb": [
-   {
-    "headline": "Ceddanne Rafaela, Wilyer Abreu, Caleb Durbin finalists for Gold Gl0ve",
-    "link": "https://sports.yahoo.com/articles/ceddanne-rafaela-wilyer-abreu-caleb-152551741.html",
-    "published": "2026-10-17T15:25:51.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/000d8b6a8176442c3c6451c2a31360d5f909525138e50ba83ad500c463dffb21/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F4a8e76ec719ad5b8d33c70eb4c03d16c.jpg",
-    "blurb": "Gold Glove nominations were announced this week, with three Red Sox players landing on the list. You already know exactly who they are, even if you hadn\u2019t heard the news: Ceddanne Rafaela, Wilyer Abreu, and Caleb Durbin. Having 33% of your defense made up of young, defensively el",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
    {
     "headline": "AL, NL Championship Series odds: Guardians now AL faves to reach World Series",
     "link": "https://www.espn.com/espn/betting/story/_/id/50132233/2026-mlb-playoffs-alcs-nlcs-betting-odds-spreads",
@@ -18,15 +9,6 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1016%2Fr1731529_576x324_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The championship round schedule, lines and odds to win.",
-    "league": "MLB"
-   },
-   {
-    "headline": "The Brewers got it Made: In World Series for first time in 44 years, Milwaukee also has MLB's No. 1 prospect",
-    "link": "https://www.cbssports.com/mlb/news/brewers-world-series-mlbs-top-prospect-jesus-made/",
-    "published": "2026-10-17T14:55:34.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F17%2F46638226-5961-4130-8d7a-712fb6c76979%2Fjesus-made-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Jes\u00fas Made, baseball's top prospect, homered in his first winter league at-bat on Friday, the day after the Brewers swept the Dodgers",
-    "source": "CBS",
     "league": "MLB"
    },
    {
@@ -39,12 +21,30 @@
     "league": "MLB"
    },
    {
+    "headline": "The Brewers got it Made: In World Series for first time in 44 years, Milwaukee also has MLB's No. 1 prospect",
+    "link": "https://www.cbssports.com/mlb/news/brewers-world-series-mlbs-top-prospect-jesus-made/",
+    "published": "2026-10-17T14:55:34.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F17%2F46638226-5961-4130-8d7a-712fb6c76979%2Fjesus-made-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Jes\u00fas Made, baseball's top prospect, homered in his first winter league at-bat on Friday, the day after the Brewers swept the Dodgers",
+    "source": "CBS",
+    "league": "MLB"
+   },
+   {
     "headline": "Guardians bring 2-1 ALCS lead into Game 4 against Rays",
     "link": "http://www.espn.com/mlb/preview?gameId=401908027",
     "published": "2026-10-17T08:02:27Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908027.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Tampa Bay Rays (98-64, first in the AL East during the regular season) vs. Cleveland Guardians (85-77, first in the AL Central during the regular season)",
+    "league": "MLB"
+   },
+   {
+    "headline": "A brief history of some recent postseason postponements",
+    "link": "https://sports.yahoo.com/articles/brief-history-recent-postseason-postponements-150000674.html",
+    "published": "2026-10-17T15:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/ee77ccbc9eb924c91f874d875c0f5b13127be3c1a3d89545c4f59e2108047e4d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9221139e1f2d76874feb1e4aae7737f2.jpg",
+    "blurb": "Friday\u2019s rainout was the first in the postseason in four years.",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
-    "headline": "A brief history of some recent postseason postponements",
-    "link": "https://sports.yahoo.com/articles/brief-history-recent-postseason-postponements-150000674.html",
-    "published": "2026-10-17T15:00:00.000Z",
-    "image": "",
-    "blurb": "Friday\u2019s rainout was the first in the postseason in four years.",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
     "headline": "Rain pushes Rays-Guardians ALCS Game 4 to Saturday",
     "link": "https://www.espn.com/mlb/story/_/id/50199202/game-4-alcs-rays-guardians-postponed-due-rain",
     "published": "2026-10-17T03:26:59.000Z",
     "image": "",
     "blurb": "Game 4 of the ALCS was postponed late Friday night due to rain, creating an unusual set of circumstances for the Guardians and Rays.",
     "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "Kodai Senga was good as a reliever, but had an atrocious road to the bullpen",
+    "link": "https://sports.yahoo.com/articles/kodai-senga-good-reliever-had-150000295.html",
+    "published": "2026-10-17T15:00:00.000Z",
+    "image": "",
+    "blurb": "Senga\u2019s early season was as miserable as his late season was effective.",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,23 +84,32 @@
     "league": "MLB"
    },
    {
-    "headline": "Kodai Senga was good as a reliever, but had an atrocious road to the bullpen",
-    "link": "https://sports.yahoo.com/articles/kodai-senga-good-reliever-had-150000295.html",
-    "published": "2026-10-17T15:00:00.000Z",
+    "headline": "How Jose Ramirez's confidence -- and strut -- is fueling the Guardians' run",
+    "link": "https://www.espn.com/mlb/story/_/id/50176145/playoffs-cleveland-guardians-run-jose-ramirez-energy",
+    "published": "2026-10-17T03:26:59.000Z",
     "image": "",
-    "blurb": "Senga\u2019s early season was as miserable as his late season was effective.",
-    "source": "YAHOO",
+    "blurb": "The veteran slugger has turned it on in October -- and Cleveland is feeding off that energy.",
+    "source": "ESPN",
     "league": "MLB"
    }
   ],
   "football/nfl": [
    {
-    "headline": "Back healthy, Omar Cooper Jr. has chance to establish himself in Jets\u2019 offense",
-    "link": "https://sports.yahoo.com/articles/back-healthy-omar-cooper-jr-154353523.html",
-    "published": "2026-10-17T15:43:53.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/39b6578102e4aba167a105cefd319ef9eb87c091bc78c4175628431b5e4fe45b/lightyear_networkapi/resizefill_w444_h250%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsny_articles_235%2F3369d7640db464b2c627f33299813ab8.jpg",
-    "blurb": "The Jets\u2019 offense will remain shorthanded for Sunday afternoon\u2019s division rival meeting with the Patriots, but they are set to receive a nice boost on that side of the ball.",
+    "headline": "Skyy Moore won't play in Week 6",
+    "link": "https://sports.yahoo.com/articles/skyy-moore-wont-play-week-155025880.html",
+    "published": "2026-10-17T15:50:25.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/7066b637953f1ddfcb609e9d8ec5550eb4706207e8c3fd4a06c38d862d374125/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F0621cb49fa5d65da2aae78507324b4ba.jpg",
+    "blurb": "Skyy Moore to miss Week 6 game with injured ankle",
     "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
+    "headline": "NFL Week 6 odds, picks: Brinson's best bets, player props, anytime touchdown scorers for Sunday's matchups",
+    "link": "https://www.cbssports.com/betting/news/nfl-week-6-odds-picks-brinsons-best-bets-player-props-anytime-touchdown-scorers-for-sundays-matchups/",
+    "published": "2026-10-17T15:47:31.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F3251da62-5cd5-4028-ad68-3d7ee088fb49%2Fblake-corum-los-angeles-rams-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Back Andy Reid off the bye against an injured Chargers squad, take the points with the Texans in London and target plus-money value on a Wan'Dale Robinson player prop",
+    "source": "CBS",
     "league": "NFL"
    },
    {
@@ -113,21 +122,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Back healthy, Omar Cooper Jr. has chance to establish himself in Jets\u2019 offense",
+    "link": "https://sports.yahoo.com/articles/back-healthy-omar-cooper-jr-154353523.html",
+    "published": "2026-10-17T15:43:53.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/39b6578102e4aba167a105cefd319ef9eb87c091bc78c4175628431b5e4fe45b/lightyear_networkapi/resizefill_w444_h250%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsny_articles_235%2F3369d7640db464b2c627f33299813ab8.jpg",
+    "blurb": "The Jets\u2019 offense will remain shorthanded for Sunday afternoon\u2019s division rival meeting with the Patriots, but they are set to receive a nice boost on that side of the ball.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Week 6 NFL score predictions, odds, betting advice, picks: Proven model reveals projections for every game",
     "link": "https://www.cbssports.com/betting/news/week-6-nfl-score-predictions-odds-betting-advice-picks-proven-model-reveals-projections-every-game/",
     "published": "2026-10-17T15:41:58.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F06%2F536ef36d-f7cc-4712-ac8b-82a3080e22f6%2Fceedee-lamb-dallas-cowboys-imagn-images-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Make NFL best bets at NFL betting sites by seeing NFL score predictions from our advanced model for Week 6",
     "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Falcons vs. Bears final injury report: C.J. Henderson will not play in Week 6",
-    "link": "https://sports.yahoo.com/articles/falcons-vs-bears-final-injury-154230122.html",
-    "published": "2026-10-17T15:42:30.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/9e6be528fc4b5b7c155194fe94c425296a8729c180a977126f640d5cc793853c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd18ab6ec35efffa65c31cb0b6c6a4e7a.jpg",
-    "blurb": "Here\u2019s the latest on the Falcons\u2019 and Bears\u2019 injuries heading into Week 6 game day.",
-    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -140,21 +149,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Titans CEO says owner is 'feeling a lot of grief' about team's abysmal start",
+    "link": "https://sports.yahoo.com/articles/titans-ceo-says-owner-feeling-154244725.html",
+    "published": "2026-10-17T15:42:44.000Z",
+    "image": "",
+    "blurb": "Speaking on behalf of controlling owner Amy Adams Strunk, Tennessee Titans CEO Burke Nihill offered fans an apology for the team's extended losing streak.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "NFL Week 6 odds, predictions, expert picks: Cowboys roll into Lambeau Field to face Packers",
     "link": "https://www.cbssports.com/nfl/news/nfl-week-6-picks-and-predictions-spread-odds-best-bets/",
     "published": "2026-10-17T15:22:52.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2Fa54daa65-b0a8-4f1c-be89-624153a8619d%2Fdak-prescott-cowboys-5.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "CBSSports.com and SportsLine break down every single NFL game in Week 6",
     "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "10 Atlanta Falcons Prospects to Watch For Week 7 of College Football",
-    "link": "https://sports.yahoo.com/articles/10-atlanta-falcons-prospects-watch-153000938.html",
-    "published": "2026-10-17T15:30:00.000Z",
-    "image": "",
-    "blurb": "Here are the 10 prospects we\u2019re keeping an eye on for the Falcons in today\u2019s college football matchups.",
-    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -167,20 +176,11 @@
     "league": "NFL"
    },
    {
-    "headline": "NFL Week 6 picks: Our experts face off on Ravens at Browns, Packers vs. Cowboys and more",
-    "link": "https://www.cbssports.com/nfl/news/nfl-week-6-picks-experts-on-seahawks-broncos-ravens-browns/",
-    "published": "2026-10-17T15:22:15.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2Fd62546a6-0892-43a6-8b4f-c1e3ce589680%2Flamar.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "CBS Sports writers Jordan Dajani and Jared Dubin predict Week 6's top games",
-    "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Chicago Bears @ Atlanta Falcons: Week 6 Players to Watch",
-    "link": "https://sports.yahoo.com/articles/chicago-bears-atlanta-falcons-week-153000641.html",
-    "published": "2026-10-17T15:30:00.000Z",
+    "headline": "Falcons vs. Bears final injury report: C.J. Henderson will not play in Week 6",
+    "link": "https://sports.yahoo.com/articles/falcons-vs-bears-final-injury-154230122.html",
+    "published": "2026-10-17T15:42:30.000Z",
     "image": "",
-    "blurb": "Take a look at @BryanOrenchuk\u2019s players to watch for Atlanta as the Bears visit the Falcons in week 6.",
+    "blurb": "Here\u2019s the latest on the Falcons\u2019 and Bears\u2019 injuries heading into Week 6 game day.",
     "source": "YAHOO",
     "league": "NFL"
    }
@@ -196,20 +196,20 @@
     "league": "CFB"
    },
    {
-    "headline": "Texas vs. Florida prediction, pick, odds, spread: Longhorns look for rebound against free-falling Gators",
-    "link": "https://www.cbssports.com/college-football/news/texas-florida-prediction-picks-odds-spread-where-to-watch-live/",
-    "published": "2026-10-17T15:45:46.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2F0101eaa0-bebe-4a9c-a11c-a310229dc0fd%2Farch-maning-florida-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Texas looks to avenge a loss at Florida that ultimately kept the Longhorns out of the College Football Playoff last season",
+    "headline": "LSU vs. Mississippi State prediction, pick, odds, spread: Tigers look to rebound against Bulldogs",
+    "link": "https://www.cbssports.com/college-football/news/lsu-mississippi-state-prediction-picks-odds-spread-where-to-watch-live/",
+    "published": "2026-10-17T15:50:36.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2F5052b9a4-b596-4426-96f2-8c123db28e34%2F2026-10-11t035501z-2026506645-mt1usatoday30054886-rtrmadp-3-ncaa-football-louisiana-state-at-kentucky.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "No. 22 LSU returns home to face No. 16 Mississippi State after last week's OT loss at Kentucky",
     "source": "CBS",
     "league": "CFB"
    },
    {
-    "headline": "Today\u2019s Irish Fan Game Plan: Contain BYU\u2019s Bear Bachmeier",
-    "link": "https://sports.yahoo.com/articles/today-irish-fan-game-plan-153153328.html",
-    "published": "2026-10-17T15:31:53.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/450f1db959b585773d7a736b4bfdcabea1cb3d46bbac5aef604af19b90423082/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F06f839cd211e20f5012bb1ee466e0c1e.jpg",
-    "blurb": "This week, One Foot Down asked our connected Notre Dame football fans to weigh in on what they say is the biggest obstacle to the Irish prevailing in Provo today. We heard from 53 respondents, and almost six out of every ten said: Box in Bear Bachmeier, beat BYU. Bachmeier is 77-",
+    "headline": "\u2018Unfair\u2019: Notre Dame Blasted By Kirk Herbstreit Before BYU Game",
+    "link": "https://sports.yahoo.com/articles/unfair-notre-dame-blasted-kirk-154709091.html",
+    "published": "2026-10-17T15:47:09.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/2650b0e14b899f19fec82c53c09e7c0283367df4a4874853097107b1a23fecd5/lightyear_networkapi/resizefill_w900_h600%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fgridiron_heroics_307%2F75ad539e4f735bf6031eb1e0a94b4847.jpg",
+    "blurb": "On Saturday, the No. 3 Notre Dame Fighting Irish will play the toughest contest of their season so far, taking on No. 8 BYU on the road. Kirk Herbstreit thinks it\u2019s not enough and too late. During an appearance on ESPN\u2019s \u201cGet Up\u201d on Friday, Herbstreit called out the Irish for the",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -223,20 +223,20 @@
     "league": "CFB"
    },
    {
-    "headline": "Ohio State vs. Indiana prediction, pick, odds, spread: Buckeyes host Hoosiers in top-five showdown",
-    "link": "https://www.cbssports.com/college-football/news/ohio-state-indiana-prediction-picks-odds-spread-where-to-watch-live/",
-    "published": "2026-10-17T15:40:39.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2F84a82b67-beb3-4c14-8453-aa3de5660fbe%2Fgettyimages-2250152994-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "No. 4 Ohio State is looking for revenge against No. 5 Indiana after last year's Big Ten title game",
+    "headline": "Texas vs. Florida prediction, pick, odds, spread: Longhorns look for rebound against free-falling Gators",
+    "link": "https://www.cbssports.com/college-football/news/texas-florida-prediction-picks-odds-spread-where-to-watch-live/",
+    "published": "2026-10-17T15:45:46.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2F0101eaa0-bebe-4a9c-a11c-a310229dc0fd%2Farch-maning-florida-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Texas looks to avenge a loss at Florida that ultimately kept the Longhorns out of the College Football Playoff last season",
     "source": "CBS",
     "league": "CFB"
    },
    {
-    "headline": "How to watch Rutgers vs Maryland: Live stream NCAA College Football, TV channel",
-    "link": "https://sports.yahoo.com/articles/watch-rutgers-vs-maryland-live-153000205.html",
-    "published": "2026-10-17T15:30:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/73db601cafe663bbfef8a266bea40b8e82094fbffb8a84e04a45917b2c0f7d79/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2F2c71883541d859c054536ec46f411f6e.jpg",
-    "blurb": "A pair of teams looking for their first Big Ten Conference win collide on Saturday when the Rutgers Scarlet Knights (1-4) visit the Maryland Terrapins (2-4), with the Terps riding a four-game losing streak. How to Watch Rutgers vs Maryland\u2026",
+    "headline": "College football Saturday open thread",
+    "link": "https://sports.yahoo.com/articles/college-football-saturday-open-thread-154500680.html",
+    "published": "2026-10-17T15:45:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/4514885a6d23c71e8b582182c356ab119c77eaca51069e94a82c05da4969d35d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc27b7397a5c03f3175b1919919c4f81f.jpg",
+    "blurb": "It\u2019s going to be a big, beautiful day that does not involve NC State football whatsoever, and it feels good. Some of the games I\u2019m keeping an eye on today: Noon Ohio State vs. IndianaFlorida vs. TexasUVA vs. SMU 3:30 Alabama vs. TennesseePenn State vs. MichiganUNC vs. DukeGT vs. ",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,20 +250,20 @@
     "league": "CFB"
    },
    {
-    "headline": "Indiana vs. Ohio State odds, picks, predictions, line: Betting preview for college football Week 7 on Saturday",
-    "link": "https://www.cbssports.com/betting/news/indiana-vs-ohio-state-odds-picks-predictions-line-betting-preview-college-football-week-7-saturday/",
-    "published": "2026-10-17T15:21:12.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2F8451524d-f821-45f5-bee4-96313672b746%2Fjeremiah-smith-ohio-state-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Indiana hosts Ohio State on Saturday for a Week 7 college football matchup",
+    "headline": "Ohio State vs. Indiana prediction, pick, odds, spread: Buckeyes host Hoosiers in top-five showdown",
+    "link": "https://www.cbssports.com/college-football/news/ohio-state-indiana-prediction-picks-odds-spread-where-to-watch-live/",
+    "published": "2026-10-17T15:40:39.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2F84a82b67-beb3-4c14-8453-aa3de5660fbe%2Fgettyimages-2250152994-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "No. 4 Ohio State is looking for revenge against No. 5 Indiana after last year's Big Ten title game",
     "source": "CBS",
     "league": "CFB"
    },
    {
-    "headline": "10 Atlanta Falcons Prospects to Watch For Week 7 of College Football",
-    "link": "https://sports.yahoo.com/articles/10-atlanta-falcons-prospects-watch-153000938.html",
-    "published": "2026-10-17T15:30:00.000Z",
+    "headline": "Notre Dame\u2019s NFL Sons: The Lineage Behind The Fighting Irish",
+    "link": "https://sports.yahoo.com/articles/notre-dame-nfl-sons-lineage-154214450.html",
+    "published": "2026-10-17T15:42:14.000Z",
     "image": "",
-    "blurb": "Here are the 10 prospects we\u2019re keeping an eye on for the Falcons in today\u2019s college football matchups.",
+    "blurb": "Discover how Jerome Bettis Jr. and other NFL sons shape Notre Dame's roster. See stats, quotes, and why Marcus Freeman's program attracts football royalty.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -472,11 +472,11 @@
     "league": "NHL"
    },
    {
-    "headline": "Flyers Game Preview vs. Senators: Quest to Avoid Double-Digits",
-    "link": "https://sports.yahoo.com/articles/flyers-game-preview-vs-senators-140005659.html",
-    "published": "2026-10-17T14:00:05.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/eff5ac73708461155212b3eee6fc196f89486346d264740f6d143cafea246e1c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_philadelphia_flyers_articles_543%2F51183ad31a286fb69640d6a17c8d3a12.jpg",
-    "blurb": "With one more loss, the Flyers' losing streak will reach double-digits.",
+    "headline": "Laval Rocket Launched Impressive Comeback Midway Through Game With Belleville Senators",
+    "link": "https://sports.yahoo.com/articles/laval-rocket-launched-impressive-comeback-153022560.html",
+    "published": "2026-10-17T15:30:22.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/9097b411fd1aaa8fb4285e90f42ed4791e7e6657e56f4c85e8fb251308e38879/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_montreal_canadiens_articles_443%2Fc78882fbfcee7825f6a6e2cf90d0ce7f.jpg",
+    "blurb": "The Laval Rocket put on a show last night, winning 5-4 in overtime after being down 4-0 early in the second frame. Defenseman Luke Mittelstadt added to his already impressive start by taking matters into his own hands.",
     "source": "YAHOO",
     "league": "NHL"
    },
@@ -499,11 +499,11 @@
     "league": "NHL"
    },
    {
-    "headline": "Surprising Trend Emerges From The Islanders' First Seven Games",
-    "link": "https://sports.yahoo.com/articles/surprising-trend-emerges-islanders-first-135623262.html",
-    "published": "2026-10-17T13:56:23.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/e6fe3ae0e839ece06212f4b54b5b565c026b0cf97ff4d9b11c5097fdc766fc45/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_new_york_islanders_articles_115%2F97d4d8ce55fee567c276e9d60dc4f3ed.jpg",
-    "blurb": "The New York Islanders have had what can only be described as a frustrating start, opening the year 3-3-1.",
+    "headline": "Flyers Game Preview vs. Senators: Quest to Avoid Double-Digits",
+    "link": "https://sports.yahoo.com/articles/flyers-game-preview-vs-senators-140005659.html",
+    "published": "2026-10-17T14:00:05.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/eff5ac73708461155212b3eee6fc196f89486346d264740f6d143cafea246e1c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_philadelphia_flyers_articles_543%2F51183ad31a286fb69640d6a17c8d3a12.jpg",
+    "blurb": "With one more loss, the Flyers' losing streak will reach double-digits.",
     "source": "YAHOO",
     "league": "NHL"
    },
@@ -526,11 +526,11 @@
     "league": "NHL"
    },
    {
-    "headline": "Columbus Blue Jackets (4 pts) vs. New York Rangers (12 pts) Game Preview",
-    "link": "https://sports.yahoo.com/articles/columbus-blue-jackets-4-pts-123004857.html",
-    "published": "2026-10-17T12:30:04.000Z",
+    "headline": "Surprising Trend Emerges From The Islanders' First Seven Games",
+    "link": "https://sports.yahoo.com/articles/surprising-trend-emerges-islanders-first-135623262.html",
+    "published": "2026-10-17T13:56:23.000Z",
     "image": "",
-    "blurb": "The Blue Jackets are 26-24-1-7 Overall, and 15-16-0-2 at Nationwide Arena vs. New York.",
+    "blurb": "The New York Islanders have had what can only be described as a frustrating start, opening the year 3-3-1.",
     "source": "YAHOO",
     "league": "NHL"
    },
@@ -1141,6 +1141,42 @@
    "league": "CFB"
   },
   {
+   "headline": "LSU vs. Mississippi State prediction, pick, odds, spread: Tigers look to rebound against Bulldogs",
+   "link": "https://www.cbssports.com/college-football/news/lsu-mississippi-state-prediction-picks-odds-spread-where-to-watch-live/",
+   "published": "2026-10-17T15:50:36.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2F5052b9a4-b596-4426-96f2-8c123db28e34%2F2026-10-11t035501z-2026506645-mt1usatoday30054886-rtrmadp-3-ncaa-football-louisiana-state-at-kentucky.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "No. 22 LSU returns home to face No. 16 Mississippi State after last week's OT loss at Kentucky",
+   "source": "CBS",
+   "league": "CFB"
+  },
+  {
+   "headline": "Skyy Moore won't play in Week 6",
+   "link": "https://sports.yahoo.com/articles/skyy-moore-wont-play-week-155025880.html",
+   "published": "2026-10-17T15:50:25.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/7066b637953f1ddfcb609e9d8ec5550eb4706207e8c3fd4a06c38d862d374125/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F0621cb49fa5d65da2aae78507324b4ba.jpg",
+   "blurb": "Skyy Moore to miss Week 6 game with injured ankle",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
+   "headline": "NFL Week 6 odds, picks: Brinson's best bets, player props, anytime touchdown scorers for Sunday's matchups",
+   "link": "https://www.cbssports.com/betting/news/nfl-week-6-odds-picks-brinsons-best-bets-player-props-anytime-touchdown-scorers-for-sundays-matchups/",
+   "published": "2026-10-17T15:47:31.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F3251da62-5cd5-4028-ad68-3d7ee088fb49%2Fblake-corum-los-angeles-rams-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Back Andy Reid off the bye against an injured Chargers squad, take the points with the Texans in London and target plus-money value on a Wan'Dale Robinson player prop",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
+   "headline": "\u2018Unfair\u2019: Notre Dame Blasted By Kirk Herbstreit Before BYU Game",
+   "link": "https://sports.yahoo.com/articles/unfair-notre-dame-blasted-kirk-154709091.html",
+   "published": "2026-10-17T15:47:09.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/2650b0e14b899f19fec82c53c09e7c0283367df4a4874853097107b1a23fecd5/lightyear_networkapi/resizefill_w900_h600%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fgridiron_heroics_307%2F75ad539e4f735bf6031eb1e0a94b4847.jpg",
+   "blurb": "On Saturday, the No. 3 Notre Dame Fighting Irish will play the toughest contest of their season so far, taking on No. 8 BYU on the road. Kirk Herbstreit thinks it\u2019s not enough and too late. During an appearance on ESPN\u2019s \u201cGet Up\u201d on Friday, Herbstreit called out the Irish for the",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
    "headline": "Texas vs. Florida prediction, pick, odds, spread: Longhorns look for rebound against free-falling Gators",
    "link": "https://www.cbssports.com/college-football/news/texas-florida-prediction-picks-odds-spread-where-to-watch-live/",
    "published": "2026-10-17T15:45:46.000Z",
@@ -1150,20 +1186,20 @@
    "league": "CFB"
   },
   {
+   "headline": "College football Saturday open thread",
+   "link": "https://sports.yahoo.com/articles/college-football-saturday-open-thread-154500680.html",
+   "published": "2026-10-17T15:45:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/4514885a6d23c71e8b582182c356ab119c77eaca51069e94a82c05da4969d35d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc27b7397a5c03f3175b1919919c4f81f.jpg",
+   "blurb": "It\u2019s going to be a big, beautiful day that does not involve NC State football whatsoever, and it feels good. Some of the games I\u2019m keeping an eye on today: Noon Ohio State vs. IndianaFlorida vs. TexasUVA vs. SMU 3:30 Alabama vs. TennesseePenn State vs. MichiganUNC vs. DukeGT vs. ",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
    "headline": "Back healthy, Omar Cooper Jr. has chance to establish himself in Jets\u2019 offense",
    "link": "https://sports.yahoo.com/articles/back-healthy-omar-cooper-jr-154353523.html",
    "published": "2026-10-17T15:43:53.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/39b6578102e4aba167a105cefd319ef9eb87c091bc78c4175628431b5e4fe45b/lightyear_networkapi/resizefill_w444_h250%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsny_articles_235%2F3369d7640db464b2c627f33299813ab8.jpg",
    "blurb": "The Jets\u2019 offense will remain shorthanded for Sunday afternoon\u2019s division rival meeting with the Patriots, but they are set to receive a nice boost on that side of the ball.",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
-   "headline": "Falcons vs. Bears final injury report: C.J. Henderson will not play in Week 6",
-   "link": "https://sports.yahoo.com/articles/falcons-vs-bears-final-injury-154230122.html",
-   "published": "2026-10-17T15:42:30.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/9e6be528fc4b5b7c155194fe94c425296a8729c180a977126f640d5cc793853c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd18ab6ec35efffa65c31cb0b6c6a4e7a.jpg",
-   "blurb": "Here\u2019s the latest on the Falcons\u2019 and Bears\u2019 injuries heading into Week 6 game day.",
    "source": "YAHOO",
    "league": "NFL"
   },
@@ -1186,15 +1222,6 @@
    "league": "NFL"
   },
   {
-   "headline": "Ohio State vs. Indiana prediction, pick, odds, spread: Buckeyes host Hoosiers in top-five showdown",
-   "link": "https://www.cbssports.com/college-football/news/ohio-state-indiana-prediction-picks-odds-spread-where-to-watch-live/",
-   "published": "2026-10-17T15:40:39.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2F84a82b67-beb3-4c14-8453-aa3de5660fbe%2Fgettyimages-2250152994-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "No. 4 Ohio State is looking for revenge against No. 5 Indiana after last year's Big Ten title game",
-   "source": "CBS",
-   "league": "CFB"
-  },
-  {
    "headline": "Brady Tkachuk third in NHL history with back-to-back natural hat tricks",
    "link": "https://www.espn.com/nhl/story/_/id/50195347/brady-tkachuk-records-rare-back-back-natural-hat-tricks",
    "published": "2026-10-17T15:37:07.000Z",
@@ -1213,40 +1240,13 @@
    "league": "NHL"
   },
   {
-   "headline": "Today\u2019s Irish Fan Game Plan: Contain BYU\u2019s Bear Bachmeier",
-   "link": "https://sports.yahoo.com/articles/today-irish-fan-game-plan-153153328.html",
-   "published": "2026-10-17T15:31:53.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/450f1db959b585773d7a736b4bfdcabea1cb3d46bbac5aef604af19b90423082/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F06f839cd211e20f5012bb1ee466e0c1e.jpg",
-   "blurb": "This week, One Foot Down asked our connected Notre Dame football fans to weigh in on what they say is the biggest obstacle to the Irish prevailing in Provo today. We heard from 53 respondents, and almost six out of every ten said: Box in Bear Bachmeier, beat BYU. Bachmeier is 77-",
+   "headline": "Laval Rocket Launched Impressive Comeback Midway Through Game With Belleville Senators",
+   "link": "https://sports.yahoo.com/articles/laval-rocket-launched-impressive-comeback-153022560.html",
+   "published": "2026-10-17T15:30:22.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/9097b411fd1aaa8fb4285e90f42ed4791e7e6657e56f4c85e8fb251308e38879/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_montreal_canadiens_articles_443%2Fc78882fbfcee7825f6a6e2cf90d0ce7f.jpg",
+   "blurb": "The Laval Rocket put on a show last night, winning 5-4 in overtime after being down 4-0 early in the second frame. Defenseman Luke Mittelstadt added to his already impressive start by taking matters into his own hands.",
    "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
-   "headline": "How to watch Rutgers vs Maryland: Live stream NCAA College Football, TV channel",
-   "link": "https://sports.yahoo.com/articles/watch-rutgers-vs-maryland-live-153000205.html",
-   "published": "2026-10-17T15:30:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/73db601cafe663bbfef8a266bea40b8e82094fbffb8a84e04a45917b2c0f7d79/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2F2c71883541d859c054536ec46f411f6e.jpg",
-   "blurb": "A pair of teams looking for their first Big Ten Conference win collide on Saturday when the Rutgers Scarlet Knights (1-4) visit the Maryland Terrapins (2-4), with the Terps riding a four-game losing streak. How to Watch Rutgers vs Maryland\u2026",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
-   "headline": "Ceddanne Rafaela, Wilyer Abreu, Caleb Durbin finalists for Gold Gl0ve",
-   "link": "https://sports.yahoo.com/articles/ceddanne-rafaela-wilyer-abreu-caleb-152551741.html",
-   "published": "2026-10-17T15:25:51.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/000d8b6a8176442c3c6451c2a31360d5f909525138e50ba83ad500c463dffb21/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F4a8e76ec719ad5b8d33c70eb4c03d16c.jpg",
-   "blurb": "Gold Glove nominations were announced this week, with three Red Sox players landing on the list. You already know exactly who they are, even if you hadn\u2019t heard the news: Ceddanne Rafaela, Wilyer Abreu, and Caleb Durbin. Having 33% of your defense made up of young, defensively el",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
-   "headline": "NFL Week 6 odds, predictions, expert picks: Cowboys roll into Lambeau Field to face Packers",
-   "link": "https://www.cbssports.com/nfl/news/nfl-week-6-picks-and-predictions-spread-odds-best-bets/",
-   "published": "2026-10-17T15:22:52.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F01%2Fa54daa65-b0a8-4f1c-be89-624153a8619d%2Fdak-prescott-cowboys-5.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "CBSSports.com and SportsLine break down every single NFL game in Week 6",
-   "source": "CBS",
-   "league": "NFL"
+   "league": "NHL"
   },
   {
    "headline": "AL, NL Championship Series odds: Guardians now AL faves to reach World Series",
@@ -1283,6 +1283,15 @@
    "blurb": "The final round at Sheshan International Golf Course has been bumped up. Here's how to watch and stream the tournament Saturday night into Sunday.",
    "source": "YAHOO",
    "league": "PGA"
+  },
+  {
+   "headline": "A brief history of some recent postseason postponements",
+   "link": "https://sports.yahoo.com/articles/brief-history-recent-postseason-postponements-150000674.html",
+   "published": "2026-10-17T15:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/ee77ccbc9eb924c91f874d875c0f5b13127be3c1a3d89545c4f59e2108047e4d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9221139e1f2d76874feb1e4aae7737f2.jpg",
+   "blurb": "Friday\u2019s rainout was the first in the postseason in four years.",
+   "source": "YAHOO",
+   "league": "MLB"
   },
   {
    "headline": "Best social media reactions to Kentucky win over Little Rock",
@@ -1353,15 +1362,6 @@
    "published": "2026-10-17T14:00:05.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/eff5ac73708461155212b3eee6fc196f89486346d264740f6d143cafea246e1c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_philadelphia_flyers_articles_543%2F51183ad31a286fb69640d6a17c8d3a12.jpg",
    "blurb": "With one more loss, the Flyers' losing streak will reach double-digits.",
-   "source": "YAHOO",
-   "league": "NHL"
-  },
-  {
-   "headline": "Surprising Trend Emerges From The Islanders' First Seven Games",
-   "link": "https://sports.yahoo.com/articles/surprising-trend-emerges-islanders-first-135623262.html",
-   "published": "2026-10-17T13:56:23.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/e6fe3ae0e839ece06212f4b54b5b565c026b0cf97ff4d9b11c5097fdc766fc45/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_new_york_islanders_articles_115%2F97d4d8ce55fee567c276e9d60dc4f3ed.jpg",
-   "blurb": "The New York Islanders have had what can only be described as a frustrating start, opening the year 3-3-1.",
    "source": "YAHOO",
    "league": "NHL"
   },
@@ -1466,9 +1466,9 @@
   }
  ],
  "source_mix": {
-  "ESPN": 61,
+  "ESPN": 62,
   "CBS": 37,
-  "YAHOO": 61
+  "YAHOO": 60
  },
  "degraded_sources": []
 }
