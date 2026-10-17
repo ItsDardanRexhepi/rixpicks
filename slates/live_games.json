@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T17:49:34.272512+00:00",
+ "generated_at": "2026-10-17T17:51:43.446314+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,9 +10,9 @@
      "matchup": "OSU @ IU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "0:22 - 2nd",
+     "detail": "0:10 - 2nd",
      "score": "OSU 3 - IU 7",
-     "away_to": 2,
+     "away_to": 0,
      "home_to": 3
     },
     {
@@ -40,7 +40,7 @@
      "matchup": "UVA @ SMU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "13:33 - 3rd",
      "score": "UVA 10 - SMU 13",
      "away_to": 2,
      "home_to": 0
@@ -110,7 +110,7 @@
      "matchup": "BALL @ BGSU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "15:00 - 3rd",
      "score": "BALL 10 - BGSU 10",
      "away_to": 2,
      "home_to": 3
@@ -120,7 +120,7 @@
      "matchup": "GAST @ JMU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "Halftime",
      "score": "GAST 10 - JMU 35",
      "away_to": 0,
      "home_to": 2
@@ -130,7 +130,7 @@
      "matchup": "RUTG @ MD",
      "commence": "2026-10-17T16:30Z",
      "status": "in",
-     "detail": "2:00 - 2nd",
+     "detail": "1:59 - 2nd",
      "score": "RUTG 13 - MD 16",
      "away_to": 3,
      "home_to": 2
@@ -140,7 +140,7 @@
      "matchup": "CIT @ TA&M",
      "commence": "2026-10-17T17:00Z",
      "status": "in",
-     "detail": "10:46 - 2nd",
+     "detail": "10:26 - 2nd",
      "score": "CIT 0 - TA&M 14",
      "away_to": 2,
      "home_to": 3
@@ -170,7 +170,7 @@
      "matchup": "WMU @ CMU",
      "commence": "2026-10-17T17:30Z",
      "status": "in",
-     "detail": "8:26 - 1st",
+     "detail": "7:42 - 1st",
      "score": "WMU 0 - CMU 0",
      "away_to": 2,
      "home_to": 3
@@ -322,7 +322,7 @@
      "matchup": "GFC @ WAS",
      "commence": "2026-10-17T16:30Z",
      "status": "in",
-     "detail": "56'",
+     "detail": "58'",
      "score": "GFC 0 - WAS 0"
     }
    ]
