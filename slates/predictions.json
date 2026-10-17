@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-17T15:58:40.571689+00:00",
+ "generated_at": "2026-10-17T16:21:52.102603+00:00",
  "items": [
-  {
-   "id": "99c5e64750",
-   "league": "CFB",
-   "event": "Ohio State Buckeyes @ Indiana Hoosiers",
-   "prediction": "Ohio State Buckeyes to beat Indiana Hoosiers",
-   "kickoff_utc": "2026-10-17T16:00:00+00:00"
-  },
-  {
-   "id": "57640c0323",
-   "league": "CFB",
-   "event": "Florida Gators @ Texas Longhorns",
-   "prediction": "Texas Longhorns to beat Florida Gators",
-   "kickoff_utc": "2026-10-17T16:00:00+00:00"
-  },
-  {
-   "id": "076ccd5209",
-   "league": "CFB",
-   "event": "Mississippi State Bulldogs @ LSU Tigers",
-   "prediction": "LSU Tigers to beat Mississippi State Bulldogs",
-   "kickoff_utc": "2026-10-17T16:00:00+00:00"
-  },
-  {
-   "id": "037d8b4798",
-   "league": "CFB",
-   "event": "Virginia Cavaliers @ SMU Mustangs",
-   "prediction": "SMU Mustangs to beat Virginia Cavaliers",
-   "kickoff_utc": "2026-10-17T16:00:00+00:00"
-  },
-  {
-   "id": "9bca15bc8d",
-   "league": "CFB",
-   "event": "Northwestern Wildcats @ Michigan State Spartans",
-   "prediction": "Northwestern Wildcats to beat Michigan State Spartans",
-   "kickoff_utc": "2026-10-17T16:00:00+00:00"
-  },
   {
    "id": "6bd0f01e27",
    "league": "NHL",
    "event": "New Jersey Devils @ Washington Capitals",
    "prediction": "New Jersey Devils to beat Washington Capitals",
    "kickoff_utc": "2026-10-17T17:00:00+00:00"
+  },
+  {
+   "id": "e469ca8519",
+   "league": "MLS",
+   "event": "Charlotte FC @ Philadelphia Union",
+   "prediction": "Philadelphia Union to beat Charlotte FC",
+   "kickoff_utc": "2026-10-17T18:30:00+00:00"
+  },
+  {
+   "id": "2f5c878a03",
+   "league": "CFB",
+   "event": "Alabama Crimson Tide @ Tennessee Volunteers",
+   "prediction": "Alabama Crimson Tide to beat Tennessee Volunteers",
+   "kickoff_utc": "2026-10-17T19:30:00+00:00"
+  },
+  {
+   "id": "f2a8504b40",
+   "league": "CFB",
+   "event": "Missouri Tigers @ Ole Miss Rebels",
+   "prediction": "Ole Miss Rebels to beat Missouri Tigers",
+   "kickoff_utc": "2026-10-17T19:30:00+00:00"
+  },
+  {
+   "id": "e4b37ac6b8",
+   "league": "CFB",
+   "event": "Auburn Tigers @ Georgia Bulldogs",
+   "prediction": "Georgia Bulldogs to beat Auburn Tigers",
+   "kickoff_utc": "2026-10-17T19:30:00+00:00"
+  },
+  {
+   "id": "5d4aa2347d",
+   "league": "CFB",
+   "event": "Arizona State Sun Devils @ Texas Tech Red Raiders",
+   "prediction": "Texas Tech Red Raiders to beat Arizona State Sun Devils",
+   "kickoff_utc": "2026-10-17T19:30:00+00:00"
   }
  ]
 }
