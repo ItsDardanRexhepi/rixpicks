@@ -1,41 +1,105 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T07:50:23.453735+00:00",
+ "generated_at": "2026-10-17T14:04:35.908783+00:00",
  "leagues": [
   {
-   "league": "ATP",
+   "league": "CFB",
    "games": [
     {
-     "espn_event_id": "185080",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-17T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
+     "espn_event_id": "401858488",
+     "matchup": "OSU @ IU",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "OSU 0 - IU 0"
     },
     {
-     "espn_event_id": "185082",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-17T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
+     "espn_event_id": "401856724",
+     "matchup": "FLA @ TEX",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "FLA 0 - TEX 0"
     },
     {
-     "espn_event_id": "186970",
-     "matchup": "Harold Mayot @ Gabriel Diallo",
-     "commence": "2026-10-17T04:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "Harold Mayot 0 - Gabriel Diallo 0"
+     "espn_event_id": "401856720",
+     "matchup": "MSST @ LSU",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "MSST 0 - LSU 0"
     },
     {
-     "espn_event_id": "186968",
-     "matchup": "Rei Sakamoto @ Amir Omarkhanov",
-     "commence": "2026-10-17T04:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "Rei Sakamoto 0 - Amir Omarkhanov 0"
+     "espn_event_id": "401858268",
+     "matchup": "UVA @ SMU",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "UVA 0 - SMU 0"
+    },
+    {
+     "espn_event_id": "401858491",
+     "matchup": "NU @ MSU",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "NU 0 - MSU 0"
+    },
+    {
+     "espn_event_id": "401856829",
+     "matchup": "CIN @ WVU",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "CIN 0 - WVU 0"
+    },
+    {
+     "espn_event_id": "401856830",
+     "matchup": "KU @ KSU",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "KU 0 - KSU 0"
+    },
+    {
+     "espn_event_id": "401858261",
+     "matchup": "CHSO @ CLEM",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "CHSO 0 - CLEM 0"
+    },
+    {
+     "espn_event_id": "401858267",
+     "matchup": "PITT @ BC",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "PITT 0 - BC 0"
+    },
+    {
+     "espn_event_id": "401862802",
+     "matchup": "FAU @ ARMY",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "FAU 0 - ARMY 0"
+    },
+    {
+     "espn_event_id": "401866441",
+     "matchup": "BALL @ BGSU",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "BALL 0 - BGSU 0"
+    },
+    {
+     "espn_event_id": "401869957",
+     "matchup": "GAST @ JMU",
+     "commence": "2026-10-17T16:00Z",
+     "status": "pre",
+     "detail": "10/17 - 9:00 AM PT",
+     "score": "GAST 0 - JMU 0"
     }
    ]
   }
