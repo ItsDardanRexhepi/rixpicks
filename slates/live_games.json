@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T22:49:40.641523+00:00",
+ "generated_at": "2026-10-17T23:04:35.395496+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -22,19 +22,17 @@
      "espn_event_id": "401856719",
      "matchup": "AUB @ UGA",
      "commence": "2026-10-17T19:30Z",
-     "status": "in",
-     "detail": "1:30 - 4th",
-     "score": "AUB 24 - UGA 24",
-     "away_to": 1,
-     "home_to": 1
+     "status": "post",
+     "detail": "Final",
+     "score": "AUB 27 - UGA 24"
     },
     {
      "espn_event_id": "401856723",
      "matchup": "ALA @ TENN",
      "commence": "2026-10-17T19:30Z",
      "status": "in",
-     "detail": "6:53 - 4th",
-     "score": "ALA 10 - TENN 19",
+     "detail": "1:56 - 4th",
+     "score": "ALA 10 - TENN 26",
      "away_to": 0,
      "home_to": 0
     },
@@ -42,19 +40,17 @@
      "espn_event_id": "401856721",
      "matchup": "MIZ @ MISS",
      "commence": "2026-10-17T19:30Z",
-     "status": "in",
-     "detail": "1:54 - 4th",
-     "score": "MIZ 3 - MISS 31",
-     "away_to": 2,
-     "home_to": 0
+     "status": "post",
+     "detail": "Final",
+     "score": "MIZ 3 - MISS 31"
     },
     {
      "espn_event_id": "401856828",
      "matchup": "ASU @ TTU",
      "commence": "2026-10-17T19:30Z",
      "status": "in",
-     "detail": "7:08 - 4th",
-     "score": "ASU 17 - TTU 53",
+     "detail": "3:25 - 4th",
+     "score": "ASU 25 - TTU 53",
      "away_to": 2,
      "home_to": 2
     },
@@ -63,8 +59,8 @@
      "matchup": "UNC @ DUKE",
      "commence": "2026-10-17T19:30Z",
      "status": "in",
-     "detail": "4:34 - 4th",
-     "score": "UNC 17 - DUKE 20",
+     "detail": "1:53 - 4th",
+     "score": "UNC 24 - DUKE 20",
      "away_to": 0,
      "home_to": 0
     },
@@ -73,8 +69,8 @@
      "matchup": "PSU @ MICH",
      "commence": "2026-10-17T19:30Z",
      "status": "in",
-     "detail": "4:06 - 4th",
-     "score": "PSU 11 - MICH 14",
+     "detail": "1:52 - 4th",
+     "score": "PSU 11 - MICH 21",
      "away_to": 1,
      "home_to": 1
     },
@@ -82,18 +78,16 @@
      "espn_event_id": "401864522",
      "matchup": "NIU @ WYO",
      "commence": "2026-10-17T19:30Z",
-     "status": "in",
-     "detail": "2:08 - 4th",
-     "score": "NIU 23 - WYO 41",
-     "away_to": 0,
-     "home_to": 1
+     "status": "post",
+     "detail": "Final",
+     "score": "NIU 23 - WYO 41"
     },
     {
      "espn_event_id": "401866444",
      "matchup": "TOL @ EMU",
      "commence": "2026-10-17T19:30Z",
      "status": "in",
-     "detail": "7:54 - 4th",
+     "detail": "1:42 - 4th",
      "score": "TOL 34 - EMU 14",
      "away_to": 1,
      "home_to": 0
@@ -103,7 +97,7 @@
      "matchup": "TLSA @ RICE",
      "commence": "2026-10-17T20:30Z",
      "status": "in",
-     "detail": "3:51 - 3rd",
+     "detail": "12:02 - 4th",
      "score": "TLSA 24 - RICE 17",
      "away_to": 3,
      "home_to": 0
@@ -113,8 +107,8 @@
      "matchup": "TROY @ UL",
      "commence": "2026-10-17T21:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "TROY 0 - UL 19",
+     "detail": "10:47 - 3rd",
+     "score": "TROY 6 - UL 19",
      "away_to": 2,
      "home_to": 0
     },
@@ -123,9 +117,9 @@
      "matchup": "WSU @ ORST",
      "commence": "2026-10-17T22:00Z",
      "status": "in",
-     "detail": "0:55 - 1st",
-     "score": "WSU 0 - ORST 17",
-     "away_to": 3,
+     "detail": "11:12 - 2nd",
+     "score": "WSU 3 - ORST 17",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -153,52 +147,34 @@
      "score": "AKR 14 - M-OH 34"
     },
     {
-     "espn_event_id": "401858263",
-     "matchup": "FSU @ MIA",
-     "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "FSU 0 - MIA 0"
-    },
-    {
-     "espn_event_id": "401856726",
-     "matchup": "ARK @ VAN",
-     "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "ARK 0 - VAN 0"
-    },
-    {
-     "espn_event_id": "401856832",
-     "matchup": "TCU @ BAY",
-     "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "TCU 0 - BAY 0"
-    },
-    {
      "espn_event_id": "401862806",
      "matchup": "KENT @ USF",
      "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "KENT 0 - USF 0"
+     "status": "in",
+     "detail": "14:11 - 1st",
+     "score": "KENT 0 - USF 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401864520",
      "matchup": "NEV @ NDSU",
      "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "NEV 0 - NDSU 0"
+     "status": "in",
+     "detail": "14:26 - 1st",
+     "score": "NEV 0 - NDSU 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401869934",
      "matchup": "ARST @ USM",
      "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "ARST 0 - USM 0"
+     "status": "in",
+     "detail": "14:09 - 1st",
+     "score": "ARST 0 - USM 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401856809",
@@ -263,6 +239,14 @@
      "status": "pre",
      "detail": "10/17 - 5:00 PM PT",
      "score": "LT 0 - ULM 0"
+    },
+    {
+     "espn_event_id": "401864523",
+     "matchup": "SJSU @ UTEP",
+     "commence": "2026-10-18T01:00Z",
+     "status": "pre",
+     "detail": "10/17 - 6:00 PM PT",
+     "score": "SJSU 0 - UTEP 0"
     }
    ]
   },
@@ -303,58 +287,10 @@
      "matchup": "SEA @ FLA",
      "commence": "2026-10-17T22:00Z",
      "status": "in",
-     "detail": "0:53 - 1st",
-     "score": "SEA 1 - FLA 2",
+     "detail": "End of 1st",
+     "score": "SEA 1 - FLA 3",
      "away_to": null,
      "home_to": null
-    },
-    {
-     "espn_event_id": "401892523",
-     "matchup": "NYI @ TOR",
-     "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "NYI 0 - TOR 0"
-    },
-    {
-     "espn_event_id": "401892524",
-     "matchup": "BUF @ MTL",
-     "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "BUF 0 - MTL 0"
-    },
-    {
-     "espn_event_id": "401892525",
-     "matchup": "SJ @ DET",
-     "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "SJ 0 - DET 0"
-    },
-    {
-     "espn_event_id": "401892526",
-     "matchup": "OTT @ PHI",
-     "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "OTT 0 - PHI 0"
-    },
-    {
-     "espn_event_id": "401892527",
-     "matchup": "NYR @ CBJ",
-     "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "NYR 0 - CBJ 0"
-    },
-    {
-     "espn_event_id": "401892528",
-     "matchup": "DAL @ CHI",
-     "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "10/17 - 4:00 PM PT",
-     "score": "DAL 0 - CHI 0"
     },
     {
      "espn_event_id": "401892529",
@@ -363,6 +299,14 @@
      "status": "pre",
      "detail": "10/17 - 5:00 PM PT",
      "score": "STL 0 - NSH 0"
+    },
+    {
+     "espn_event_id": "401892530",
+     "matchup": "BOS @ LA",
+     "commence": "2026-10-18T01:00Z",
+     "status": "pre",
+     "detail": "10/17 - 6:00 PM PT",
+     "score": "BOS 0 - LA 0"
     }
    ]
   },
@@ -451,16 +395,8 @@
      "matchup": "KC @ UTA",
      "commence": "2026-10-17T22:30Z",
      "status": "in",
-     "detail": "19'",
-     "score": "KC 0 - UTA 0"
-    },
-    {
-     "espn_event_id": "401854023",
-     "matchup": "SD @ NC",
-     "commence": "2026-10-17T23:00Z",
-     "status": "pre",
-     "detail": "Scheduled",
-     "score": "SD 0 - NC 0"
+     "detail": "34'",
+     "score": "KC 1 - UTA 0"
     },
     {
      "espn_event_id": "401854092",
