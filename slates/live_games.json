@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T14:19:35.729678+00:00",
+ "generated_at": "2026-10-17T14:34:34.751628+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -100,6 +100,27 @@
      "status": "pre",
      "detail": "10/17 - 9:00 AM PT",
      "score": "GAST 0 - JMU 0"
+    },
+    {
+     "espn_event_id": "401858489",
+     "matchup": "RUTG @ MD",
+     "commence": "2026-10-17T16:30Z",
+     "status": "pre",
+     "detail": "10/17 - 9:30 AM PT",
+     "score": "RUTG 0 - MD 0"
+    }
+   ]
+  },
+  {
+   "league": "NWSL",
+   "games": [
+    {
+     "espn_event_id": "401854021",
+     "matchup": "GFC @ WAS",
+     "commence": "2026-10-17T16:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "GFC 0 - WAS 0"
     }
    ]
   }
