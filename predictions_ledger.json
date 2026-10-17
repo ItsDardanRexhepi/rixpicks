@@ -3268,5 +3268,70 @@
   "kickoff_utc": "2026-10-17T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-17T10:04:30.688777+00:00"
+ },
+ {
+  "id": "9ba2a2a494",
+  "event_id": "401892520",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Winnipeg Jets",
+  "away": "Carolina Hurricanes",
+  "pick_team": "Winnipeg Jets",
+  "prediction": "Winnipeg Jets to beat Carolina Hurricanes",
+  "kickoff_utc": "2026-10-17T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-17T15:19:49.203822+00:00"
+ },
+ {
+  "id": "a395bd9802",
+  "event_id": "401892522",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Florida Panthers",
+  "away": "Seattle Kraken",
+  "pick_team": "Florida Panthers",
+  "prediction": "Florida Panthers to beat Seattle Kraken",
+  "kickoff_utc": "2026-10-17T22:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-17T15:20:03.844187+00:00"
+ },
+ {
+  "id": "0e71ada23c",
+  "event_id": "401892525",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Detroit Red Wings",
+  "away": "San Jose Sharks",
+  "pick_team": "Detroit Red Wings",
+  "prediction": "Detroit Red Wings to beat San Jose Sharks",
+  "kickoff_utc": "2026-10-17T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-17T15:21:57.238312+00:00"
+ },
+ {
+  "id": "64d0081f2e",
+  "event_id": "401892526",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Philadelphia Flyers",
+  "away": "Ottawa Senators",
+  "pick_team": "Philadelphia Flyers",
+  "prediction": "Philadelphia Flyers to beat Ottawa Senators",
+  "kickoff_utc": "2026-10-17T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-17T15:22:03.437626+00:00"
+ },
+ {
+  "id": "d9e8c9c2c9",
+  "event_id": "401892528",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Chicago Blackhawks",
+  "away": "Dallas Stars",
+  "pick_team": "Chicago Blackhawks",
+  "prediction": "Chicago Blackhawks to beat Dallas Stars",
+  "kickoff_utc": "2026-10-17T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-17T15:22:17.929383+00:00"
  }
 ]
