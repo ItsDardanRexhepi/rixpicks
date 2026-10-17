@@ -3242,5 +3242,18 @@
   "kickoff_utc": "2026-10-17T22:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-17T08:35:45.901955+00:00"
+ },
+ {
+  "id": "73a0d9fde3",
+  "event_id": "401854092",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Denver Summit FC",
+  "away": "Angel City FC",
+  "pick_team": "Angel City FC",
+  "prediction": "Angel City FC to beat Denver Summit FC",
+  "kickoff_utc": "2026-10-18T00:45:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-17T09:20:35.001452+00:00"
  }
 ]
