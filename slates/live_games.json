@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T03:35:25.254839+00:00",
+ "generated_at": "2026-10-17T03:50:27.526618+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -22,11 +22,9 @@
      "espn_event_id": "401858493",
      "matchup": "WASH @ PUR",
      "commence": "2026-10-17T00:00Z",
-     "status": "in",
-     "detail": "1:26 - 4th",
-     "score": "WASH 38 - PUR 26",
-     "away_to": 0,
-     "home_to": 0
+     "status": "post",
+     "detail": "Final",
+     "score": "WASH 38 - PUR 26"
     },
     {
      "espn_event_id": "401869844",
@@ -86,9 +84,9 @@
      "matchup": "POR @ GS",
      "commence": "2026-10-17T02:00Z",
      "status": "in",
-     "detail": "10:58 - 3rd",
-     "score": "POR 58 - GS 73",
-     "away_to": 5,
+     "detail": "4:52 - 3rd",
+     "score": "POR 72 - GS 94",
+     "away_to": 3,
      "home_to": 4
     },
     {
@@ -96,19 +94,19 @@
      "matchup": "UTAH @ PHX",
      "commence": "2026-10-17T02:00Z",
      "status": "in",
-     "detail": "0.0 - 3rd",
-     "score": "UTAH 69 - PHX 77",
-     "away_to": 5,
-     "home_to": 5
+     "detail": "3:02 - 3rd",
+     "score": "UTAH 78 - PHX 89",
+     "away_to": 0,
+     "home_to": 0
     },
     {
      "espn_event_id": "401898719",
      "matchup": "DEN @ LAL",
      "commence": "2026-10-17T02:30Z",
      "status": "in",
-     "detail": "4:45 - 2nd",
-     "score": "DEN 47 - LAL 37",
-     "away_to": 6,
+     "detail": "Halftime",
+     "score": "DEN 62 - LAL 55",
+     "away_to": 5,
      "home_to": 5
     }
    ]
@@ -120,18 +118,16 @@
      "espn_event_id": "401892517",
      "matchup": "PIT @ COL",
      "commence": "2026-10-17T01:00Z",
-     "status": "in",
-     "detail": "2:09 - 3rd",
-     "score": "PIT 2 - COL 5",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "PIT 2 - COL 5"
     },
     {
      "espn_event_id": "401892518",
      "matchup": "BOS @ ANA",
      "commence": "2026-10-17T02:00Z",
      "status": "in",
-     "detail": "3:04 - 2nd",
+     "detail": "End of 2nd",
      "score": "BOS 1 - ANA 2",
      "away_to": null,
      "home_to": null
