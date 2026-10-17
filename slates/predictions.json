@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-17T18:20:23.568626+00:00",
+ "generated_at": "2026-10-17T18:36:10.718934+00:00",
  "items": [
-  {
-   "id": "e469ca8519",
-   "league": "MLS",
-   "event": "Charlotte FC @ Philadelphia Union",
-   "prediction": "Philadelphia Union to beat Charlotte FC",
-   "kickoff_utc": "2026-10-17T18:30:00+00:00"
-  },
   {
    "id": "2f5c878a03",
    "league": "CFB",
@@ -41,6 +34,13 @@
    "league": "WNBA",
    "event": "Atlanta Dream @ Golden State Valkyries",
    "prediction": "Golden State Valkyries to beat Atlanta Dream",
+   "kickoff_utc": "2026-10-17T19:30:00+00:00"
+  },
+  {
+   "id": "9ba2a2a494",
+   "league": "NHL",
+   "event": "Carolina Hurricanes @ Winnipeg Jets",
+   "prediction": "Winnipeg Jets to beat Carolina Hurricanes",
    "kickoff_utc": "2026-10-17T19:30:00+00:00"
   }
  ]
