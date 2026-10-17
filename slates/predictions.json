@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-17T19:21:08.915123+00:00",
+ "generated_at": "2026-10-17T19:35:53.163915+00:00",
  "items": [
   {
-   "id": "2f5c878a03",
-   "league": "CFB",
-   "event": "Alabama Crimson Tide @ Tennessee Volunteers",
-   "prediction": "Alabama Crimson Tide to beat Tennessee Volunteers",
-   "kickoff_utc": "2026-10-17T19:30:00+00:00"
-  },
-  {
-   "id": "f2a8504b40",
-   "league": "CFB",
-   "event": "Missouri Tigers @ Ole Miss Rebels",
-   "prediction": "Ole Miss Rebels to beat Missouri Tigers",
-   "kickoff_utc": "2026-10-17T19:30:00+00:00"
-  },
-  {
-   "id": "e4b37ac6b8",
-   "league": "CFB",
-   "event": "Auburn Tigers @ Georgia Bulldogs",
-   "prediction": "Georgia Bulldogs to beat Auburn Tigers",
-   "kickoff_utc": "2026-10-17T19:30:00+00:00"
-  },
-  {
-   "id": "5d4aa2347d",
-   "league": "CFB",
-   "event": "Arizona State Sun Devils @ Texas Tech Red Raiders",
-   "prediction": "Texas Tech Red Raiders to beat Arizona State Sun Devils",
-   "kickoff_utc": "2026-10-17T19:30:00+00:00"
-  },
-  {
-   "id": "1747382c93",
-   "league": "WNBA",
-   "event": "Atlanta Dream @ Golden State Valkyries",
-   "prediction": "Golden State Valkyries to beat Atlanta Dream",
-   "kickoff_utc": "2026-10-17T19:30:00+00:00"
-  },
-  {
-   "id": "9ba2a2a494",
+   "id": "e126622310",
    "league": "NHL",
-   "event": "Carolina Hurricanes @ Winnipeg Jets",
-   "prediction": "Winnipeg Jets to beat Carolina Hurricanes",
-   "kickoff_utc": "2026-10-17T19:30:00+00:00"
+   "event": "Vancouver Canucks @ Tampa Bay Lightning",
+   "prediction": "Tampa Bay Lightning to beat Vancouver Canucks",
+   "kickoff_utc": "2026-10-17T20:00:00+00:00"
+  },
+  {
+   "id": "98620c2f7e",
+   "league": "MLS",
+   "event": "St. Louis CITY SC @ Minnesota United FC",
+   "prediction": "St. Louis CITY SC to beat Minnesota United FC",
+   "kickoff_utc": "2026-10-17T20:30:00+00:00"
+  },
+  {
+   "id": "a395bd9802",
+   "league": "NHL",
+   "event": "Seattle Kraken @ Florida Panthers",
+   "prediction": "Florida Panthers to beat Seattle Kraken",
+   "kickoff_utc": "2026-10-17T22:00:00+00:00"
+  },
+  {
+   "id": "fca4053962",
+   "league": "NWSL",
+   "event": "Kansas City Current @ Utah Royals",
+   "prediction": "Kansas City Current to beat Utah Royals",
+   "kickoff_utc": "2026-10-17T22:30:00+00:00"
+  },
+  {
+   "id": "edd3eae07c",
+   "league": "CFB",
+   "event": "Florida State Seminoles @ Miami Hurricanes",
+   "prediction": "Miami Hurricanes to beat Florida State Seminoles",
+   "kickoff_utc": "2026-10-17T23:00:00+00:00"
+  },
+  {
+   "id": "e3d041ae7c",
+   "league": "NWSL",
+   "event": "San Diego Wave FC @ North Carolina Courage",
+   "prediction": "North Carolina Courage to beat San Diego Wave FC",
+   "kickoff_utc": "2026-10-17T23:00:00+00:00"
   }
  ]
 }
