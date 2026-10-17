@@ -3229,5 +3229,18 @@
   "status": "hit",
   "created_at": "2026-10-16T20:50:28.111205+00:00",
   "settled_at": "2026-10-17T02:35:11.108022+00:00"
+ },
+ {
+  "id": "fca4053962",
+  "event_id": "401854022",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Utah Royals",
+  "away": "Kansas City Current",
+  "pick_team": "Kansas City Current",
+  "prediction": "Kansas City Current to beat Utah Royals",
+  "kickoff_utc": "2026-10-17T22:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-17T08:35:45.901955+00:00"
  }
 ]
