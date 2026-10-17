@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T03:20:26.257740+00:00",
+ "generated_at": "2026-10-17T03:35:25.254839+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -19,32 +19,22 @@
    "league": "CFB",
    "games": [
     {
-     "espn_event_id": "401862801",
-     "matchup": "MEM @ TULN",
-     "commence": "2026-10-16T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "MEM 17 - TULN 31"
-    },
-    {
      "espn_event_id": "401858493",
      "matchup": "WASH @ PUR",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "4:40 - 4th",
+     "detail": "1:26 - 4th",
      "score": "WASH 38 - PUR 26",
      "away_to": 0,
-     "home_to": 1
+     "home_to": 0
     },
     {
      "espn_event_id": "401869844",
      "matchup": "APP @ CCU",
      "commence": "2026-10-17T00:00Z",
-     "status": "in",
-     "detail": "1:44 - 4th",
-     "score": "APP 35 - CCU 32",
-     "away_to": 1,
-     "home_to": 0
+     "status": "post",
+     "detail": "Final",
+     "score": "APP 35 - CCU 32"
     }
    ]
   },
@@ -96,8 +86,8 @@
      "matchup": "POR @ GS",
      "commence": "2026-10-17T02:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "POR 58 - GS 67",
+     "detail": "10:58 - 3rd",
+     "score": "POR 58 - GS 73",
      "away_to": 5,
      "home_to": 4
     },
@@ -106,8 +96,8 @@
      "matchup": "UTAH @ PHX",
      "commence": "2026-10-17T02:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "UTAH 59 - PHX 65",
+     "detail": "0.0 - 3rd",
+     "score": "UTAH 69 - PHX 77",
      "away_to": 5,
      "home_to": 5
     },
@@ -116,10 +106,10 @@
      "matchup": "DEN @ LAL",
      "commence": "2026-10-17T02:30Z",
      "status": "in",
-     "detail": "9:21 - 2nd",
-     "score": "DEN 40 - LAL 25",
+     "detail": "4:45 - 2nd",
+     "score": "DEN 47 - LAL 37",
      "away_to": 6,
-     "home_to": 6
+     "home_to": 5
     }
    ]
   },
@@ -131,8 +121,8 @@
      "matchup": "PIT @ COL",
      "commence": "2026-10-17T01:00Z",
      "status": "in",
-     "detail": "10:44 - 3rd",
-     "score": "PIT 2 - COL 4",
+     "detail": "2:09 - 3rd",
+     "score": "PIT 2 - COL 5",
      "away_to": null,
      "home_to": null
     },
@@ -141,7 +131,7 @@
      "matchup": "BOS @ ANA",
      "commence": "2026-10-17T02:00Z",
      "status": "in",
-     "detail": "11:32 - 2nd",
+     "detail": "3:04 - 2nd",
      "score": "BOS 1 - ANA 2",
      "away_to": null,
      "home_to": null
