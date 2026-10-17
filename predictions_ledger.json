@@ -1884,8 +1884,9 @@
   "pick_team": "Ole Miss Rebels",
   "prediction": "Ole Miss Rebels to beat Missouri Tigers",
   "kickoff_utc": "2026-10-17T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T09:36:07.885296+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T09:36:07.885296+00:00",
+  "settled_at": "2026-10-17T23:04:21.951220+00:00"
  },
  {
   "id": "037d8b4798",
@@ -1925,8 +1926,9 @@
   "pick_team": "Georgia Bulldogs",
   "prediction": "Georgia Bulldogs to beat Auburn Tigers",
   "kickoff_utc": "2026-10-17T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T11:21:15.925772+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T11:21:15.925772+00:00",
+  "settled_at": "2026-10-17T23:04:22.108966+00:00"
  },
  {
   "id": "016de0b41f",
@@ -3039,8 +3041,9 @@
   "pick_team": "St. Louis CITY SC",
   "prediction": "St. Louis CITY SC to beat Minnesota United FC",
   "kickoff_utc": "2026-10-17T20:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-16T04:20:08.993466+00:00"
+  "status": "miss",
+  "created_at": "2026-10-16T04:20:08.993466+00:00",
+  "settled_at": "2026-10-17T23:04:22.520183+00:00"
  },
  {
   "id": "d0b6ba3606",
