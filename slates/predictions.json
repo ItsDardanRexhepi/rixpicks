@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-17T19:51:35.424906+00:00",
+ "generated_at": "2026-10-17T20:08:42.744764+00:00",
  "items": [
-  {
-   "id": "e126622310",
-   "league": "NHL",
-   "event": "Vancouver Canucks @ Tampa Bay Lightning",
-   "prediction": "Tampa Bay Lightning to beat Vancouver Canucks",
-   "kickoff_utc": "2026-10-17T20:00:00+00:00"
-  },
   {
    "id": "98620c2f7e",
    "league": "MLS",
@@ -41,6 +34,13 @@
    "league": "NWSL",
    "event": "San Diego Wave FC @ North Carolina Courage",
    "prediction": "North Carolina Courage to beat San Diego Wave FC",
+   "kickoff_utc": "2026-10-17T23:00:00+00:00"
+  },
+  {
+   "id": "0e71ada23c",
+   "league": "NHL",
+   "event": "San Jose Sharks @ Detroit Red Wings",
+   "prediction": "Detroit Red Wings to beat San Jose Sharks",
    "kickoff_utc": "2026-10-17T23:00:00+00:00"
   }
  ]
