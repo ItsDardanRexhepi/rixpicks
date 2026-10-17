@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-17T02:20:08.384708+00:00",
+ "generated_at": "2026-10-17T02:35:12.873228+00:00",
  "items": [
-  {
-   "id": "69c81f487a",
-   "league": "NBA",
-   "event": "Denver Nuggets @ Los Angeles Lakers",
-   "prediction": "Denver Nuggets to beat Los Angeles Lakers",
-   "kickoff_utc": "2026-10-17T02:30:00+00:00"
-  },
   {
    "id": "99c5e64750",
    "league": "CFB",
@@ -42,6 +35,13 @@
    "event": "Northwestern Wildcats @ Michigan State Spartans",
    "prediction": "Northwestern Wildcats to beat Michigan State Spartans",
    "kickoff_utc": "2026-10-17T16:00:00+00:00"
+  },
+  {
+   "id": "e469ca8519",
+   "league": "MLS",
+   "event": "Charlotte FC @ Philadelphia Union",
+   "prediction": "Philadelphia Union to beat Charlotte FC",
+   "kickoff_utc": "2026-10-17T18:30:00+00:00"
   }
  ]
 }
