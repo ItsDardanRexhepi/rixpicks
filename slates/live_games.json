@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T18:34:36.279807+00:00",
+ "generated_at": "2026-10-17T18:49:35.790735+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,18 +10,18 @@
      "matchup": "OSU @ IU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "8:25 - 3rd",
+     "detail": "2:01 - 3rd",
      "score": "OSU 13 - IU 7",
      "away_to": 0,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401856724",
      "matchup": "FLA @ TEX",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "End of 3rd",
-     "score": "FLA 17 - TEX 17",
+     "detail": "9:39 - 4th",
+     "score": "FLA 20 - TEX 17",
      "away_to": 0,
      "home_to": 2
     },
@@ -30,18 +30,18 @@
      "matchup": "MSST @ LSU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "0:31 - 3rd",
-     "score": "MSST 0 - LSU 30",
+     "detail": "14:07 - 4th",
+     "score": "MSST 0 - LSU 31",
      "away_to": 1,
-     "home_to": 1
+     "home_to": 0
     },
     {
      "espn_event_id": "401858268",
      "matchup": "UVA @ SMU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "15:00 - 4th",
-     "score": "UVA 13 - SMU 16",
+     "detail": "11:15 - 4th",
+     "score": "UVA 13 - SMU 23",
      "away_to": 2,
      "home_to": 0
     },
@@ -50,8 +50,8 @@
      "matchup": "NU @ MSU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "15:00 - 4th",
-     "score": "NU 13 - MSU 14",
+     "detail": "11:42 - 4th",
+     "score": "NU 13 - MSU 21",
      "away_to": 0,
      "home_to": 1
     },
@@ -60,8 +60,8 @@
      "matchup": "CIN @ WVU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "1:34 - 3rd",
-     "score": "CIN 28 - WVU 21",
+     "detail": "13:34 - 4th",
+     "score": "CIN 28 - WVU 28",
      "away_to": 1,
      "home_to": 2
     },
@@ -70,7 +70,7 @@
      "matchup": "KU @ KSU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "4:03 - 3rd",
+     "detail": "11:56 - 4th",
      "score": "KU 24 - KSU 25",
      "away_to": 3,
      "home_to": 0
@@ -80,9 +80,9 @@
      "matchup": "CHSO @ CLEM",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "14:48 - 4th",
-     "score": "CHSO 0 - CLEM 34",
-     "away_to": 1,
+     "detail": "9:08 - 4th",
+     "score": "CHSO 0 - CLEM 37",
+     "away_to": 0,
      "home_to": 0
     },
     {
@@ -90,8 +90,8 @@
      "matchup": "PITT @ BC",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "1:59 - 3rd",
-     "score": "PITT 15 - BC 21",
+     "detail": "13:02 - 4th",
+     "score": "PITT 18 - BC 27",
      "away_to": 2,
      "home_to": 1
     },
@@ -100,8 +100,8 @@
      "matchup": "FAU @ ARMY",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "14:51 - 4th",
-     "score": "FAU 17 - ARMY 42",
+     "detail": "9:48 - 4th",
+     "score": "FAU 24 - ARMY 49",
      "away_to": 0,
      "home_to": 0
     },
@@ -110,8 +110,8 @@
      "matchup": "BALL @ BGSU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "7:17 - 4th",
-     "score": "BALL 17 - BGSU 10",
+     "detail": "1:12 - 4th",
+     "score": "BALL 17 - BGSU 17",
      "away_to": 2,
      "home_to": 3
     },
@@ -120,7 +120,7 @@
      "matchup": "GAST @ JMU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "7:27 - 3rd",
+     "detail": "0:33 - 3rd",
      "score": "GAST 16 - JMU 42",
      "away_to": 0,
      "home_to": 2
@@ -130,8 +130,8 @@
      "matchup": "RUTG @ MD",
      "commence": "2026-10-17T16:30Z",
      "status": "in",
-     "detail": "11:29 - 3rd",
-     "score": "RUTG 13 - MD 23",
+     "detail": "6:01 - 3rd",
+     "score": "RUTG 16 - MD 23",
      "away_to": 0,
      "home_to": 1
     },
@@ -140,7 +140,7 @@
      "matchup": "CIT @ TA&M",
      "commence": "2026-10-17T17:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "12:21 - 3rd",
      "score": "CIT 0 - TA&M 28",
      "away_to": 1,
      "home_to": 2
@@ -160,7 +160,7 @@
      "matchup": "MASS @ BUFF",
      "commence": "2026-10-17T17:00Z",
      "status": "in",
-     "detail": "0:14 - 2nd",
+     "detail": "Halftime",
      "score": "MASS 15 - BUFF 8",
      "away_to": 1,
      "home_to": 1
@@ -170,7 +170,7 @@
      "matchup": "WMU @ CMU",
      "commence": "2026-10-17T17:30Z",
      "status": "in",
-     "detail": "2:00 - 2nd",
+     "detail": "Halftime",
      "score": "WMU 14 - CMU 0",
      "away_to": 1,
      "home_to": 3
@@ -294,7 +294,7 @@
      "matchup": "NJ @ WAS",
      "commence": "2026-10-17T17:00Z",
      "status": "in",
-     "detail": "1:02 - 2nd",
+     "detail": "End of 2nd",
      "score": "NJ 1 - WAS 4",
      "away_to": null,
      "home_to": null
@@ -320,6 +320,14 @@
   {
    "league": "MLS",
    "games": [
+    {
+     "espn_event_id": "761875",
+     "matchup": "CLT @ PHI",
+     "commence": "2026-10-17T18:30Z",
+     "status": "in",
+     "detail": "9'",
+     "score": "CLT 0 - PHI 0"
+    },
     {
      "espn_event_id": "761876",
      "matchup": "STL @ MIN",
