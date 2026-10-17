@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-17T20:08:42.744764+00:00",
+ "generated_at": "2026-10-17T20:36:49.173813+00:00",
  "items": [
-  {
-   "id": "98620c2f7e",
-   "league": "MLS",
-   "event": "St. Louis CITY SC @ Minnesota United FC",
-   "prediction": "St. Louis CITY SC to beat Minnesota United FC",
-   "kickoff_utc": "2026-10-17T20:30:00+00:00"
-  },
   {
    "id": "a395bd9802",
    "league": "NHL",
@@ -41,6 +34,13 @@
    "league": "NHL",
    "event": "San Jose Sharks @ Detroit Red Wings",
    "prediction": "Detroit Red Wings to beat San Jose Sharks",
+   "kickoff_utc": "2026-10-17T23:00:00+00:00"
+  },
+  {
+   "id": "64d0081f2e",
+   "league": "NHL",
+   "event": "Ottawa Senators @ Philadelphia Flyers",
+   "prediction": "Philadelphia Flyers to beat Ottawa Senators",
    "kickoff_utc": "2026-10-17T23:00:00+00:00"
   }
  ]
