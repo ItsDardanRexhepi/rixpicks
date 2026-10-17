@@ -3385,5 +3385,18 @@
   "kickoff_utc": "2026-10-20T19:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-17T16:40:14.723986+00:00"
+ },
+ {
+  "id": "048253bbd3",
+  "event_id": "401892529",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Nashville Predators",
+  "away": "St. Louis Blues",
+  "pick_team": "St. Louis Blues",
+  "prediction": "St. Louis Blues to beat Nashville Predators",
+  "kickoff_utc": "2026-10-18T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-17T17:06:49.584758+00:00"
  }
 ]

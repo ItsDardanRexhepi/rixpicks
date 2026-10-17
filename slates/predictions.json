@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-17T16:44:15.039054+00:00",
+ "generated_at": "2026-10-17T17:09:52.144659+00:00",
  "items": [
-  {
-   "id": "6bd0f01e27",
-   "league": "NHL",
-   "event": "New Jersey Devils @ Washington Capitals",
-   "prediction": "New Jersey Devils to beat Washington Capitals",
-   "kickoff_utc": "2026-10-17T17:00:00+00:00"
-  },
   {
    "id": "e469ca8519",
    "league": "MLS",
@@ -41,6 +34,13 @@
    "league": "CFB",
    "event": "Arizona State Sun Devils @ Texas Tech Red Raiders",
    "prediction": "Texas Tech Red Raiders to beat Arizona State Sun Devils",
+   "kickoff_utc": "2026-10-17T19:30:00+00:00"
+  },
+  {
+   "id": "1747382c93",
+   "league": "WNBA",
+   "event": "Atlanta Dream @ Golden State Valkyries",
+   "prediction": "Golden State Valkyries to beat Atlanta Dream",
    "kickoff_utc": "2026-10-17T19:30:00+00:00"
   }
  ]
