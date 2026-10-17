@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-16T23:50:13.017576+00:00",
+ "generated_at": "2026-10-17T00:05:13.505655+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -23,26 +23,10 @@
      "matchup": "MEM @ TULN",
      "commence": "2026-10-16T23:30Z",
      "status": "in",
-     "detail": "8:53 - 1st",
+     "detail": "5:29 - 1st",
      "score": "MEM 3 - TULN 0",
-     "away_to": 3,
+     "away_to": 2,
      "home_to": 3
-    },
-    {
-     "espn_event_id": "401858493",
-     "matchup": "WASH @ PUR",
-     "commence": "2026-10-17T00:00Z",
-     "status": "pre",
-     "detail": "10/16 - 5:00 PM PT",
-     "score": "WASH 0 - PUR 0"
-    },
-    {
-     "espn_event_id": "401869844",
-     "matchup": "APP @ CCU",
-     "commence": "2026-10-17T00:00Z",
-     "status": "pre",
-     "detail": "10/16 - 5:00 PM PT",
-     "score": "APP 0 - CCU 0"
     }
    ]
   },
@@ -54,29 +38,29 @@
      "matchup": "MIA @ ORL",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "8:44 - 2nd",
-     "score": "MIA 41 - ORL 42",
+     "detail": "4:20 - 2nd",
+     "score": "MIA 58 - ORL 55",
      "away_to": 5,
-     "home_to": 6
+     "home_to": 5
     },
     {
      "espn_event_id": "401898407",
      "matchup": "BOS @ PHI",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "8:26 - 2nd",
-     "score": "BOS 38 - PHI 37",
+     "detail": "3:06 - 2nd",
+     "score": "BOS 45 - PHI 50",
      "away_to": 6,
-     "home_to": 6
+     "home_to": 5
     },
     {
      "espn_event_id": "401908946",
      "matchup": "TOR @ DET",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "10:48 - 2nd",
-     "score": "TOR 35 - DET 35",
-     "away_to": 6,
+     "detail": "4:55 - 2nd",
+     "score": "TOR 45 - DET 47",
+     "away_to": 5,
      "home_to": 5
     },
     {
@@ -84,50 +68,26 @@
      "matchup": "MIL @ IND",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "7:25 - 2nd",
-     "score": "MIL 32 - IND 44",
-     "away_to": 5,
+     "detail": "31.0 - 2nd",
+     "score": "MIL 56 - IND 69",
+     "away_to": 4,
      "home_to": 6
     },
     {
-     "espn_event_id": "401898408",
-     "matchup": "ATL @ DAL",
-     "commence": "2026-10-17T00:00Z",
+     "espn_event_id": "401898409",
+     "matchup": "POR @ GS",
+     "commence": "2026-10-17T02:00Z",
      "status": "pre",
-     "detail": "10/16 - 5:00 PM PT",
-     "score": "ATL 0 - DAL 0"
+     "detail": "10/16 - 7:00 PM PT",
+     "score": "POR 0 - GS 0"
     },
     {
-     "espn_event_id": "401898843",
-     "matchup": "SAC @ SA",
-     "commence": "2026-10-17T00:00Z",
+     "espn_event_id": "401908948",
+     "matchup": "UTAH @ PHX",
+     "commence": "2026-10-17T02:00Z",
      "status": "pre",
-     "detail": "10/16 - 5:00 PM PT",
-     "score": "SAC 0 - SA 0"
-    },
-    {
-     "espn_event_id": "401901822",
-     "matchup": "CHA @ MEM",
-     "commence": "2026-10-17T00:00Z",
-     "status": "pre",
-     "detail": "10/16 - 5:00 PM PT",
-     "score": "CHA 0 - MEM 0"
-    },
-    {
-     "espn_event_id": "401906509",
-     "matchup": "WAS @ NO",
-     "commence": "2026-10-17T00:00Z",
-     "status": "pre",
-     "detail": "10/16 - 5:00 PM PT",
-     "score": "WAS 0 - NO 0"
-    },
-    {
-     "espn_event_id": "401908943",
-     "matchup": "MIN @ CHI",
-     "commence": "2026-10-17T00:00Z",
-     "status": "pre",
-     "detail": "10/16 - 5:00 PM PT",
-     "score": "MIN 0 - CHI 0"
+     "detail": "10/16 - 7:00 PM PT",
+     "score": "UTAH 0 - PHX 0"
     }
    ]
   },
@@ -141,19 +101,14 @@
      "status": "pre",
      "detail": "10/16 - 6:00 PM PT",
      "score": "PIT 0 - COL 0"
-    }
-   ]
-  },
-  {
-   "league": "NWSL",
-   "games": [
+    },
     {
-     "espn_event_id": "401854091",
-     "matchup": "LOU @ BOS",
-     "commence": "2026-10-17T00:00Z",
+     "espn_event_id": "401892518",
+     "matchup": "BOS @ ANA",
+     "commence": "2026-10-17T02:00Z",
      "status": "pre",
-     "detail": "Scheduled",
-     "score": "LOU 0 - BOS 0"
+     "detail": "10/16 - 7:00 PM PT",
+     "score": "BOS 0 - ANA 0"
     }
    ]
   }
