@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T17:34:43.055628+00:00",
+ "generated_at": "2026-10-17T17:49:34.272512+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,9 +10,9 @@
      "matchup": "OSU @ IU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "3:35 - 2nd",
+     "detail": "0:22 - 2nd",
      "score": "OSU 3 - IU 7",
-     "away_to": 3,
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -20,8 +20,8 @@
      "matchup": "FLA @ TEX",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "0:23 - 2nd",
-     "score": "FLA 3 - TEX 17",
+     "detail": "Halftime",
+     "score": "FLA 10 - TEX 17",
      "away_to": 1,
      "home_to": 2
     },
@@ -30,9 +30,9 @@
      "matchup": "MSST @ LSU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "1:46 - 2nd",
+     "detail": "Halftime",
      "score": "MSST 0 - LSU 21",
-     "away_to": 2,
+     "away_to": 1,
      "home_to": 1
     },
     {
@@ -60,27 +60,27 @@
      "matchup": "CIN @ WVU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "0:30 - 2nd",
+     "detail": "Halftime",
      "score": "CIN 21 - WVU 14",
-     "away_to": 3,
-     "home_to": 3
+     "away_to": 2,
+     "home_to": 2
     },
     {
      "espn_event_id": "401856830",
      "matchup": "KU @ KSU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "1:33 - 2nd",
-     "score": "KU 17 - KSU 15",
+     "detail": "Halftime",
+     "score": "KU 17 - KSU 18",
      "away_to": 3,
-     "home_to": 1
+     "home_to": 0
     },
     {
      "espn_event_id": "401858261",
      "matchup": "CHSO @ CLEM",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "Halftime",
      "score": "CHSO 0 - CLEM 34",
      "away_to": 1,
      "home_to": 1
@@ -90,7 +90,7 @@
      "matchup": "PITT @ BC",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "0:51 - 2nd",
+     "detail": "Halftime",
      "score": "PITT 12 - BC 14",
      "away_to": 2,
      "home_to": 1
@@ -100,10 +100,10 @@
      "matchup": "FAU @ ARMY",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "0:06 - 2nd",
+     "detail": "Halftime",
      "score": "FAU 14 - ARMY 35",
      "away_to": 0,
-     "home_to": 1
+     "home_to": 0
     },
     {
      "espn_event_id": "401866441",
@@ -120,28 +120,28 @@
      "matchup": "GAST @ JMU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "3:02 - 2nd",
-     "score": "GAST 10 - JMU 28",
+     "detail": "End of 2nd",
+     "score": "GAST 10 - JMU 35",
      "away_to": 0,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401858489",
      "matchup": "RUTG @ MD",
      "commence": "2026-10-17T16:30Z",
      "status": "in",
-     "detail": "8:27 - 2nd",
-     "score": "RUTG 7 - MD 14",
+     "detail": "2:00 - 2nd",
+     "score": "RUTG 13 - MD 16",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401856725",
      "matchup": "CIT @ TA&M",
      "commence": "2026-10-17T17:00Z",
      "status": "in",
-     "detail": "15:00 - 1st",
-     "score": "CIT 0 - TA&M 7",
+     "detail": "10:46 - 2nd",
+     "score": "CIT 0 - TA&M 14",
      "away_to": 2,
      "home_to": 3
     },
@@ -150,7 +150,7 @@
      "matchup": "CLT @ TEM",
      "commence": "2026-10-17T17:00Z",
      "status": "in",
-     "detail": "0:31 - 1st",
+     "detail": "9:31 - 2nd",
      "score": "CLT 7 - TEM 7",
      "away_to": 2,
      "home_to": 3
@@ -160,8 +160,18 @@
      "matchup": "MASS @ BUFF",
      "commence": "2026-10-17T17:00Z",
      "status": "in",
-     "detail": "0:48 - 1st",
+     "detail": "9:45 - 2nd",
      "score": "MASS 7 - BUFF 3",
+     "away_to": 2,
+     "home_to": 3
+    },
+    {
+     "espn_event_id": "401866443",
+     "matchup": "WMU @ CMU",
+     "commence": "2026-10-17T17:30Z",
+     "status": "in",
+     "detail": "8:26 - 1st",
+     "score": "WMU 0 - CMU 0",
      "away_to": 2,
      "home_to": 3
     },
@@ -276,8 +286,8 @@
      "matchup": "NJ @ WAS",
      "commence": "2026-10-17T17:00Z",
      "status": "in",
-     "detail": "4:41 - 1st",
-     "score": "NJ 1 - WAS 0",
+     "detail": "End of 1st",
+     "score": "NJ 1 - WAS 1",
      "away_to": null,
      "home_to": null
     },
@@ -312,7 +322,7 @@
      "matchup": "GFC @ WAS",
      "commence": "2026-10-17T16:30Z",
      "status": "in",
-     "detail": "HT",
+     "detail": "56'",
      "score": "GFC 0 - WAS 0"
     }
    ]
