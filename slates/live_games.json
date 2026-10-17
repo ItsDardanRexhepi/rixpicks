@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T14:49:39.244817+00:00",
+ "generated_at": "2026-10-17T15:04:35.497802+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -108,6 +108,43 @@
      "status": "pre",
      "detail": "10/17 - 9:30 AM PT",
      "score": "RUTG 0 - MD 0"
+    },
+    {
+     "espn_event_id": "401856725",
+     "matchup": "CIT @ TA&M",
+     "commence": "2026-10-17T17:00Z",
+     "status": "pre",
+     "detail": "10/17 - 10:00 AM PT",
+     "score": "CIT 0 - TA&M 0"
+    },
+    {
+     "espn_event_id": "401862803",
+     "matchup": "CLT @ TEM",
+     "commence": "2026-10-17T17:00Z",
+     "status": "pre",
+     "detail": "10/17 - 10:00 AM PT",
+     "score": "CLT 0 - TEM 0"
+    },
+    {
+     "espn_event_id": "401866442",
+     "matchup": "MASS @ BUFF",
+     "commence": "2026-10-17T17:00Z",
+     "status": "pre",
+     "detail": "10/17 - 10:00 AM PT",
+     "score": "MASS 0 - BUFF 0"
+    }
+   ]
+  },
+  {
+   "league": "NHL",
+   "games": [
+    {
+     "espn_event_id": "401892519",
+     "matchup": "NJ @ WAS",
+     "commence": "2026-10-17T17:00Z",
+     "status": "pre",
+     "detail": "10/17 - 10:00 AM PT",
+     "score": "NJ 0 - WAS 0"
     }
    ]
   },
