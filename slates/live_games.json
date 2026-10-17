@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T15:19:39.774467+00:00",
+ "generated_at": "2026-10-17T15:34:38.537333+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -132,6 +132,14 @@
      "status": "pre",
      "detail": "10/17 - 10:00 AM PT",
      "score": "MASS 0 - BUFF 0"
+    },
+    {
+     "espn_event_id": "401866443",
+     "matchup": "WMU @ CMU",
+     "commence": "2026-10-17T17:30Z",
+     "status": "pre",
+     "detail": "10/17 - 10:30 AM PT",
+     "score": "WMU 0 - CMU 0"
     }
    ]
   },
