@@ -3286,8 +3286,9 @@
   "pick_team": "Winnipeg Jets",
   "prediction": "Winnipeg Jets to beat Carolina Hurricanes",
   "kickoff_utc": "2026-10-17T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-17T15:19:49.203822+00:00"
+  "status": "miss",
+  "created_at": "2026-10-17T15:19:49.203822+00:00",
+  "settled_at": "2026-10-17T22:34:21.339297+00:00"
  },
  {
   "id": "a395bd9802",

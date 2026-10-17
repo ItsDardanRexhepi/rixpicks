@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-17T22:20:44.419286+00:00",
+ "generated_at": "2026-10-17T22:35:13.418110+00:00",
  "items": [
-  {
-   "id": "fca4053962",
-   "league": "NWSL",
-   "event": "Kansas City Current @ Utah Royals",
-   "prediction": "Kansas City Current to beat Utah Royals",
-   "kickoff_utc": "2026-10-17T22:30:00+00:00"
-  },
   {
    "id": "edd3eae07c",
    "league": "CFB",
@@ -41,6 +34,13 @@
    "league": "NHL",
    "event": "Dallas Stars @ Chicago Blackhawks",
    "prediction": "Chicago Blackhawks to beat Dallas Stars",
+   "kickoff_utc": "2026-10-17T23:00:00+00:00"
+  },
+  {
+   "id": "1fecc9057b",
+   "league": "NHL",
+   "event": "New York Rangers @ Columbus Blue Jackets",
+   "prediction": "New York Rangers to beat Columbus Blue Jackets",
    "kickoff_utc": "2026-10-17T23:00:00+00:00"
   }
  ]
