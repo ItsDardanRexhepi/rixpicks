@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-17T21:50:23.338565+00:00",
+ "generated_at": "2026-10-17T22:05:35.005191+00:00",
  "items": [
-  {
-   "id": "a395bd9802",
-   "league": "NHL",
-   "event": "Seattle Kraken @ Florida Panthers",
-   "prediction": "Florida Panthers to beat Seattle Kraken",
-   "kickoff_utc": "2026-10-17T22:00:00+00:00"
-  },
   {
    "id": "fca4053962",
    "league": "NWSL",
@@ -41,6 +34,13 @@
    "league": "NHL",
    "event": "Ottawa Senators @ Philadelphia Flyers",
    "prediction": "Philadelphia Flyers to beat Ottawa Senators",
+   "kickoff_utc": "2026-10-17T23:00:00+00:00"
+  },
+  {
+   "id": "d9e8c9c2c9",
+   "league": "NHL",
+   "event": "Dallas Stars @ Chicago Blackhawks",
+   "prediction": "Chicago Blackhawks to beat Dallas Stars",
    "kickoff_utc": "2026-10-17T23:00:00+00:00"
   }
  ]
