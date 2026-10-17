@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-17T19:45:11.497Z",
+ "generated_at": "2026-10-17T19:50:13.619Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -97,7 +97,7 @@
    {
     "headline": "Bears CB Kyler Gordon set for 2026 debut after PUP activation",
     "link": "https://www.espn.com/nfl/story/_/id/50202598/bears-cb-kyler-gordon-set-2026-debut-pup-activation",
-    "published": "2026-10-17T19:38:31Z",
+    "published": "2026-10-17T19:48:14Z",
     "source": "ESPN",
     "image": "",
     "blurb": "Bears nickel corner Kyler Gordon has been activated off the PUP list and could make his season debut against the Falcons.",
@@ -187,12 +187,21 @@
   ],
   "football/college-football": [
    {
-    "headline": "Week 7 live: Ohio State looking to protect late lead on the road",
+    "headline": "Week 7 live: Ohio State holds slim lead after Indiana answers Jeremiah Smith TD",
     "link": "https://www.espn.com/college-football/story/_/id/50197419/week-7-live-highlights",
-    "published": "2026-10-17T20:42:21.000Z",
+    "published": "2026-10-17T20:30:30.000Z",
     "image": "",
     "blurb": "null",
     "source": "ESPN",
+    "league": "CFB"
+   },
+   {
+    "headline": "Florida stuns No. 7 Texas in Austin, handing tumbling Longhorns second-consecutive loss",
+    "link": "https://www.cbssports.com/college-football/news/florida-stuns-no-7-texas-tumbling-second-consecutive-loss/",
+    "published": "2026-10-17T19:45:31.000Z",
+    "image": "",
+    "blurb": "After climbing to No. 1 early in the season, the Longhorns are on the ropes after back-to-back losses",
+    "source": "CBS",
     "league": "CFB"
    },
    {
@@ -205,6 +214,15 @@
     "league": "CFB"
    },
    {
+    "headline": "Alabama WR Coleman-Williams undergoes arthroscopic knee surgery",
+    "link": "https://www.espn.com/college-football/story/_/id/50202841/alabama-wr-ryan-coleman-williams-undergoes-knee-surgery",
+    "published": "2026-10-17T20:02:16.000Z",
+    "image": "",
+    "blurb": "Alabama star wide receiver Ryan Coleman-Williams underwent arthroscopic knee surgery to repair a meniscus injury, according to ESPN's Katie George.",
+    "source": "ESPN",
+    "league": "CFB"
+   },
+   {
     "headline": "Texas' CFP path becomes precarious after Florida upset leaves Longhorns no room for error",
     "link": "https://www.cbssports.com/college-football/news/texas-cfp-path-florida-upset/",
     "published": "2026-10-17T19:36:34.000Z",
@@ -214,21 +232,21 @@
     "league": "CFB"
    },
    {
-    "headline": "How many can he get? Tracking Jeremiah Smith's record-setting season",
-    "link": "https://www.espn.com/college-football/story/_/id/50142903/jeremiah-smith-ohio-state-record-tracker",
-    "published": "2026-10-17T20:42:21.000Z",
-    "image": "",
-    "blurb": "Ohio State's superstar receiver can't stop breaking program records.",
-    "source": "ESPN",
+    "headline": "Florida 27, No. 7 Texas 24: Three things we learned",
+    "link": "https://sports.yahoo.com/articles/florida-27-no-7-texas-193140146.html",
+    "published": "2026-10-17T19:31:40.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/97125a430533791044d12de53f4e9a38f1849d2ddbf7ac57c63d4186790ccba9/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F8be1846f27517b23e78a97efcb7344f5.jpg",
+    "blurb": "Texas\u2019s fall continued after being embarrassed at home by unranked Florida.",
+    "source": "YAHOO",
     "league": "CFB"
    },
    {
-    "headline": "Ohio State vs. Indiana live score, updates, highlights from 2026 college football game",
-    "link": "https://sports.yahoo.com/articles/ohio-state-vs-indiana-live-133002939.html",
-    "published": "2026-10-17T19:20:02.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/473819d765b87c83ff46b3b29f210159ab19a1835f417cdd3c2388d5e7559391/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2F13cef64dd15a3e169c61778ff8b1caf5",
-    "blurb": "The Sporting News is tracking live updates from Ohio State's clash with Indiana.",
-    "source": "YAHOO",
+    "headline": "ESPN secures 'handshake agreement' to broadcast 24-team CFP, sources say",
+    "link": "https://www.espn.com/mlb/story/_/id/50198507/espn-lands-handshake-agreement-air-24-team-cfp",
+    "published": "2026-10-17T20:02:16.000Z",
+    "image": "",
+    "blurb": "The CFP has reached a \"handshake agreement\" with ESPN to broadcast a 24-team playoff beginning in the 2027 season, sources told ESPN. Though there is work to be done on paper, this is a significant step toward doubling the postseason field.",
+    "source": "ESPN",
     "league": "CFB"
    },
    {
@@ -241,49 +259,31 @@
     "league": "CFB"
    },
    {
-    "headline": "Alabama WR Coleman-Williams undergoes arthroscopic knee surgery",
-    "link": "https://www.espn.com/college-football/story/_/id/50202841/alabama-wr-ryan-coleman-williams-undergoes-knee-surgery",
-    "published": "2026-10-17T20:02:16.000Z",
+    "headline": "Ohio State vs. Indiana live score, updates, highlights from 2026 college football game",
+    "link": "https://sports.yahoo.com/articles/ohio-state-vs-indiana-live-133002939.html",
+    "published": "2026-10-17T19:20:02.000Z",
     "image": "",
-    "blurb": "Alabama star wide receiver Ryan Coleman-Williams underwent arthroscopic knee surgery to repair a meniscus injury, according to ESPN's Katie George.",
-    "source": "ESPN",
-    "league": "CFB"
-   },
-   {
-    "headline": "Pat Fitzgerald loses revenge game as MSU chokes late vs Northwestern",
-    "link": "https://sports.yahoo.com/articles/pat-fitzgerald-loses-revenge-game-191859769.html",
-    "published": "2026-10-17T19:18:59.000Z",
-    "image": "",
-    "blurb": "Michigan State football lost to Northwestern, 24-21, after having the game all but won late.",
+    "blurb": "The Sporting News is tracking live updates from Ohio State's clash with Indiana.",
     "source": "YAHOO",
     "league": "CFB"
    },
    {
-    "headline": "Michigan vs. Penn State prediction, pick, odds, spread: Wolverines, Nittany Lions in desperation mode",
-    "link": "https://www.cbssports.com/college-football/news/michigan-penn-state-prediction-picks-odds-spread-where-to-watch-live/",
-    "published": "2026-10-17T19:20:44.000Z",
-    "image": "",
-    "blurb": "Michigan and Penn State both enter Saturday's contest looking to snap losing streaks",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "ESPN secures 'handshake agreement' to broadcast 24-team CFP, sources say",
-    "link": "https://www.espn.com/mlb/story/_/id/50198507/espn-lands-handshake-agreement-air-24-team-cfp",
+    "headline": "NCAA sues Ohio gov. over order allowing schools to ignore new eligibility rule",
+    "link": "https://www.espn.com/college-sports/story/_/id/50196596/ncaa-sues-ohio-gov-eligibility-order-5th-year-athletes",
     "published": "2026-10-17T20:02:16.000Z",
     "image": "",
-    "blurb": "The CFP has reached a \"handshake agreement\" with ESPN to broadcast a 24-team playoff beginning in the 2027 season, sources told ESPN. Though there is work to be done on paper, this is a significant step toward doubling the postseason field.",
+    "blurb": "The NCAA has filed a federal lawsuit against Ohio Gov. Mike DeWine three days after he signed an executive order giving the state's colleges and universities the option of allowing athletes who graduated from high school in 2022 to play a fifth year.",
     "source": "ESPN",
     "league": "CFB"
    }
   ],
   "basketball/wnba": [
    {
-    "headline": "Your guide to the Finals: Dream-Valkyries predictions and how each team could win",
-    "link": "https://www.espn.com/wnba/story/_/id/50182030/wnba-finals-2026-dream-valkyries-preview-predictions",
-    "published": "2026-10-17T20:21:42.000Z",
+    "headline": "Fever forward Boston has arthroscopic knee surgery",
+    "link": "https://www.espn.com/wnba/story/_/id/50189491/fever-forward-aliyah-boston-arthroscopic-knee-surgery",
+    "published": "2026-10-17T19:09:31.000Z",
     "image": "",
-    "blurb": "Expect a defensive master class as Gabby Williams and Golden State battle Angel Reese and Atlanta.",
+    "blurb": "Fever forward Aliyah Boston underwent arthroscopic surgery on her knee.",
     "source": "ESPN",
     "league": "WNBA"
    },
@@ -306,11 +306,11 @@
     "league": "WNBA"
    },
    {
-    "headline": "Fever forward Boston has arthroscopic knee surgery",
-    "link": "https://www.espn.com/wnba/story/_/id/50189491/fever-forward-aliyah-boston-arthroscopic-knee-surgery",
+    "headline": "\ud83c\udfc0 Offseason guides for every eliminated team",
+    "link": "https://www.espn.com/wnba/story/_/id/49860363/wnba-offseason-2026-playoffs-eliminated-teams-draft-trade-free-agency-guides",
     "published": "2026-10-17T19:09:31.000Z",
     "image": "",
-    "blurb": "Fever forward Aliyah Boston underwent arthroscopic surgery on her knee.",
+    "blurb": "With 2026 playoff teams decided, we break down the priorities and needs for each eliminated WNBA team.",
     "source": "ESPN",
     "league": "WNBA"
    },
@@ -330,15 +330,6 @@
     "image": "",
     "blurb": "The Las Vegas guard, who had a career year in 2026, has a big decision to make this offseason",
     "source": "CBS",
-    "league": "WNBA"
-   },
-   {
-    "headline": "\ud83c\udfc0 Offseason guides for every eliminated team",
-    "link": "https://www.espn.com/wnba/story/_/id/49860363/wnba-offseason-2026-playoffs-eliminated-teams-draft-trade-free-agency-guides",
-    "published": "2026-10-17T19:09:31.000Z",
-    "image": "",
-    "blurb": "With 2026 playoff teams decided, we break down the priorities and needs for each eliminated WNBA team.",
-    "source": "ESPN",
     "league": "WNBA"
    },
    {
@@ -366,6 +357,15 @@
     "image": "",
     "blurb": "A couple of days before the WNBA Finals, Atlanta Hawks guard CJ McCollum praised Angel Reese for her impact on the Dream. McCollum even called Reese \u201cthe queen of the South.",
     "source": "YAHOO",
+    "league": "WNBA"
+   },
+   {
+    "headline": "Sydney Colson slams ex-Fever teammate Sophie Cunningham for her outspoken opinions: 'You ought to be ashamed'",
+    "link": "https://www.cbssports.com/wnba/news/sydney-colson-sophie-cunningham-indiana-fever-transgender-athletes/",
+    "published": "2026-10-09T16:36:53.000Z",
+    "image": "",
+    "blurb": "Cunningham's stance on transgender athletes struck a nerve with her former teammate",
+    "source": "CBS",
     "league": "WNBA"
    }
   ],
@@ -463,12 +463,12 @@
   ],
   "hockey/nhl": [
    {
-    "headline": "Which player has the most career points in NHL history?",
-    "link": "https://www.espn.com/nhl/story/_/id/41679163/which-player-most-career-points-nhl-history",
-    "published": "2026-10-17T19:42:54Z",
+    "headline": "Ryan Leonard scores highlight-reel goal, leads the Capitals over the Devils 4-2",
+    "link": "http://www.espn.com/nhl/recap?gameId=401892519",
+    "published": "2026-10-17T19:48:37Z",
     "source": "ESPN",
     "image": "",
-    "blurb": "Wayne Gretzky leads the list of NHL players with the most career points. Check out other top performers now.",
+    "blurb": "\u2014 Ryan Leonard scored a highlight-reel goal and the Washington Capitals beat the New Jersey Devils 4-2 on Saturday afternoon.",
     "league": "NHL"
    },
    {
@@ -490,12 +490,12 @@
     "league": "NHL"
    },
    {
-    "headline": "Brady Tkachuk third in NHL history with back-to-back natural hat tricks",
-    "link": "https://www.espn.com/nhl/story/_/id/50195347/brady-tkachuk-records-rare-back-back-natural-hat-tricks",
-    "published": "2026-10-17T15:37:07.000Z",
-    "image": "",
-    "blurb": "Brady Tkachuk became the second player in almost 40 years and the third player in NHL history to score a natural hat trick -- three consecutive goals without another player from either team scoring -- in back-to-back games.",
+    "headline": "Which player has the most career points in NHL history?",
+    "link": "https://www.espn.com/nhl/story/_/id/41679163/which-player-most-career-points-nhl-history",
+    "published": "2026-10-17T19:42:54Z",
     "source": "ESPN",
+    "image": "",
+    "blurb": "Wayne Gretzky leads the list of NHL players with the most career points. Check out other top performers now.",
     "league": "NHL"
    },
    {
@@ -517,11 +517,11 @@
     "league": "NHL"
    },
    {
-    "headline": "Kane sets record for assists by U.S.-born player with helper on Bedard goal",
-    "link": "https://www.espn.com/nhl/story/_/id/50193214/blackhawks-patrick-kane-record-assists-us-born-player",
+    "headline": "Brady Tkachuk third in NHL history with back-to-back natural hat tricks",
+    "link": "https://www.espn.com/nhl/story/_/id/50195347/brady-tkachuk-records-rare-back-back-natural-hat-tricks",
     "published": "2026-10-17T15:37:07.000Z",
     "image": "",
-    "blurb": "Patrick Kane tallied his 895th career assist on Connor Bedard's game-opening power-play goal, surpassing the American-born record held by defenseman Phil Housley.",
+    "blurb": "Brady Tkachuk became the second player in almost 40 years and the third player in NHL history to score a natural hat trick -- three consecutive goals without another player from either team scoring -- in back-to-back games.",
     "source": "ESPN",
     "league": "NHL"
    },
@@ -544,11 +544,11 @@
     "league": "NHL"
    },
    {
-    "headline": "R\u00e4ty clears waivers, joins Maple Leafs via trade",
-    "link": "https://www.espn.com/nhl/story/_/id/50192399/maple-leafs-acquire-aatu-raty-trade-canucks",
+    "headline": "Kane sets record for assists by U.S.-born player with helper on Bedard goal",
+    "link": "https://www.espn.com/nhl/story/_/id/50193214/blackhawks-patrick-kane-record-assists-us-born-player",
     "published": "2026-10-17T15:37:07.000Z",
     "image": "",
-    "blurb": "The Maple Leafs acquired Aatu R\u00e4ty, sending Jacob Quillan and Brandon Buhr to Vancouver.",
+    "blurb": "Patrick Kane tallied his 895th career assist on Connor Bedard's game-opening power-play goal, surpassing the American-born record held by defenseman Phil Housley.",
     "source": "ESPN",
     "league": "NHL"
    }
@@ -609,11 +609,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "What Should The Expectation Be For Arkansas Basketball This Season?",
-    "link": "https://sports.yahoo.com/articles/expectation-arkansas-basketball-season-151216707.html",
-    "published": "2026-10-17T15:12:16.000Z",
+    "headline": "Three Things We Learned in Nebraska Basketball's Exhibition Loss to BYU",
+    "link": "https://sports.yahoo.com/articles/three-things-learned-nebraska-basketballs-154352079.html",
+    "published": "2026-10-17T15:43:52.000Z",
     "image": "",
-    "blurb": "Calipari has plenty of talent to bust out glass ceiling, reach Elite Eight and more with Razorbacks",
+    "blurb": "Several learning moments have presented themselves to the Big Red before the season truly begins.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -636,11 +636,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Kansas vs Kansas State Prediction, Odds, Picks Today: College Football Week 7",
-    "link": "https://sports.yahoo.com/articles/kansas-vs-kansas-state-prediction-093717326.html",
-    "published": "2026-10-17T14:59:17.000Z",
+    "headline": "What Should The Expectation Be For Arkansas Basketball This Season?",
+    "link": "https://sports.yahoo.com/articles/expectation-arkansas-basketball-season-151216707.html",
+    "published": "2026-10-17T15:12:16.000Z",
     "image": "",
-    "blurb": "Read Kansas Jayhawks vs Kansas State Wildcats predictions, picks and odds in our college football betting preview for Saturday, Oct. 17.",
+    "blurb": "Calipari has plenty of talent to bust out glass ceiling, reach Elite Eight and more with Razorbacks",
     "source": "YAHOO",
     "league": "NCAAB"
    }
@@ -735,7 +735,7 @@
     "headline": "These 10 DP World Tour golfers are in the best position to earn 2027 PGA Tour cards",
     "link": "https://sports.yahoo.com/articles/10-dp-world-tour-golfers-150113528.html",
     "published": "2026-10-17T15:01:13.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/41f86aecac9b1e6b7021e5b794d666c5669cbebe16005a5374318d12f91d88e6/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_golfweek_articles_635%2Ff04f69181c41b1fde5fe9dfdac0da54f.jpg",
+    "image": "",
     "blurb": "The top 10 in the DP World Tour's Race to Dubai standings (who are eligible and not otherwise exempt) will earn PGA Tour cards for 2027.",
     "source": "YAHOO",
     "league": "PGA"
@@ -828,11 +828,11 @@
   ],
   "racing/nascar-premier": [
    {
-    "headline": "NASCAR entry list for Cup Series race at Phoenix in 2026 Chase",
-    "link": "https://sports.yahoo.com/articles/nascar-entry-list-cup-series-182030103.html",
-    "published": "2026-10-17T18:20:30.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/412585ea8947228b1a05dc769b666758aaee1dcc8a493905e1acf8a9bc056cee/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsports_wire_articles_990%2F13a4eea646335044faadcced3b915d50.jpg",
-    "blurb": "Check out the NASCAR Cup Series entry list for the 2026 Freeway Insurance 500 at Phoenix Raceway, including the most notable drivers!",
+    "headline": "NASCAR Phoenix qualifying live results, Cup Series starting lineup",
+    "link": "https://sports.yahoo.com/articles/nascar-phoenix-qualifying-live-results-193034006.html",
+    "published": "2026-10-17T19:30:34.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6b54e0d427d2e77e428bbab8353c4a136ff53a81eff0e3e24f73d16ca6fd6859/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2F860d69529fa7fd50c59b1985a0ec5066.jpg",
+    "blurb": "The NASCAR Cup Series continues the Phoenix race weekend with qualifying for the Freeway Insurance 500 race. Follow here as the Cup Series sets the Phoenix lineup.",
     "source": "YAHOO",
     "league": "NASCAR"
    },
@@ -846,11 +846,11 @@
     "league": "NASCAR"
    },
    {
-    "headline": "Brennan Poole joins Jordan Anderson Racing for 2027 NASCAR O'Reilly season",
-    "link": "https://sports.yahoo.com/articles/brennan-poole-joins-jordan-anderson-053222729.html",
-    "published": "2026-10-17T05:32:22.000Z",
-    "image": "",
-    "blurb": "Poole will join Daniel Dye as the full-time drivers for JAR next year",
+    "headline": "NASCAR entry list for Cup Series race at Phoenix in 2026 Chase",
+    "link": "https://sports.yahoo.com/articles/nascar-entry-list-cup-series-182030103.html",
+    "published": "2026-10-17T18:20:30.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/412585ea8947228b1a05dc769b666758aaee1dcc8a493905e1acf8a9bc056cee/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsports_wire_articles_990%2F13a4eea646335044faadcced3b915d50.jpg",
+    "blurb": "Check out the NASCAR Cup Series entry list for the 2026 Freeway Insurance 500 at Phoenix Raceway, including the most notable drivers!",
     "source": "YAHOO",
     "league": "NASCAR"
    },
@@ -861,6 +861,15 @@
     "image": "",
     "blurb": "\"I think it's Toyota's championship to lose,\" Bubba Wallace said. \"Based on how many races we've won, it would be a shame if we didn't seal the deal.\"",
     "source": "ESPN",
+    "league": "NASCAR"
+   },
+   {
+    "headline": "Brennan Poole joins Jordan Anderson Racing for 2027 NASCAR O'Reilly season",
+    "link": "https://sports.yahoo.com/articles/brennan-poole-joins-jordan-anderson-053222729.html",
+    "published": "2026-10-17T05:32:22.000Z",
+    "image": "",
+    "blurb": "Poole will join Daniel Dye as the full-time drivers for JAR next year",
+    "source": "YAHOO",
     "league": "NASCAR"
    },
    {
@@ -905,15 +914,6 @@
     "published": "2026-10-16T20:56:08.000Z",
     "image": "",
     "blurb": "Some NASCAR partnerships become so familiar that fans can hardly imagine the sport without them. Axalta\u2019s relationship with Hendrick Motorsports began in November 1992, when it sponsored a young Jeff Gordon and his No.",
-    "source": "YAHOO",
-    "league": "NASCAR"
-   },
-   {
-    "headline": "NASCAR Cup Series Driver Addresses Explosive Hendrick Motorsports Rumors Fueled by Denny Hamlin",
-    "link": "https://sports.yahoo.com/articles/nascar-cup-series-driver-addresses-202200957.html",
-    "published": "2026-10-16T20:22:00.000Z",
-    "image": "",
-    "blurb": "NASCAR Silly Season has sparked fresh speculation about Connor Zilisch\u2019s future after Denny Hamlin\u2019s comments raised questions about possible driver changes for 2027.Rumors suggested that Zilisch could leave Trackhouse Racing early to join Hendrick Motorsports, with Alex Bowman a",
     "source": "YAHOO",
     "league": "NASCAR"
    }
@@ -1105,31 +1105,49 @@
  },
  "latest": [
   {
-   "headline": "Week 7 live: Ohio State looking to protect late lead on the road",
+   "headline": "Week 7 live: Ohio State holds slim lead after Indiana answers Jeremiah Smith TD",
    "link": "https://www.espn.com/college-football/story/_/id/50197419/week-7-live-highlights",
-   "published": "2026-10-17T20:42:21.000Z",
+   "published": "2026-10-17T20:30:30.000Z",
    "image": "",
    "blurb": "null",
    "source": "ESPN",
    "league": "CFB"
   },
   {
-   "headline": "How many can he get? Tracking Jeremiah Smith's record-setting season",
-   "link": "https://www.espn.com/college-football/story/_/id/50142903/jeremiah-smith-ohio-state-record-tracker",
-   "published": "2026-10-17T20:42:21.000Z",
+   "headline": "Alabama WR Coleman-Williams undergoes arthroscopic knee surgery",
+   "link": "https://www.espn.com/college-football/story/_/id/50202841/alabama-wr-ryan-coleman-williams-undergoes-knee-surgery",
+   "published": "2026-10-17T20:02:16.000Z",
    "image": "",
-   "blurb": "Ohio State's superstar receiver can't stop breaking program records.",
+   "blurb": "Alabama star wide receiver Ryan Coleman-Williams underwent arthroscopic knee surgery to repair a meniscus injury, according to ESPN's Katie George.",
    "source": "ESPN",
    "league": "CFB"
   },
   {
-   "headline": "Your guide to the Finals: Dream-Valkyries predictions and how each team could win",
-   "link": "https://www.espn.com/wnba/story/_/id/50182030/wnba-finals-2026-dream-valkyries-preview-predictions",
-   "published": "2026-10-17T20:21:42.000Z",
-   "image": "",
-   "blurb": "Expect a defensive master class as Gabby Williams and Golden State battle Angel Reese and Atlanta.",
+   "headline": "Ryan Leonard scores highlight-reel goal, leads the Capitals over the Devils 4-2",
+   "link": "http://www.espn.com/nhl/recap?gameId=401892519",
+   "published": "2026-10-17T19:48:37Z",
    "source": "ESPN",
-   "league": "WNBA"
+   "image": "",
+   "blurb": "\u2014 Ryan Leonard scored a highlight-reel goal and the Washington Capitals beat the New Jersey Devils 4-2 on Saturday afternoon.",
+   "league": "NHL"
+  },
+  {
+   "headline": "Bears CB Kyler Gordon set for 2026 debut after PUP activation",
+   "link": "https://www.espn.com/nfl/story/_/id/50202598/bears-cb-kyler-gordon-set-2026-debut-pup-activation",
+   "published": "2026-10-17T19:48:14Z",
+   "source": "ESPN",
+   "image": "",
+   "blurb": "Bears nickel corner Kyler Gordon has been activated off the PUP list and could make his season debut against the Falcons.",
+   "league": "NFL"
+  },
+  {
+   "headline": "Florida stuns No. 7 Texas in Austin, handing tumbling Longhorns second-consecutive loss",
+   "link": "https://www.cbssports.com/college-football/news/florida-stuns-no-7-texas-tumbling-second-consecutive-loss/",
+   "published": "2026-10-17T19:45:31.000Z",
+   "image": "",
+   "blurb": "After climbing to No. 1 early in the season, the Longhorns are on the ropes after back-to-back losses",
+   "source": "CBS",
+   "league": "CFB"
   },
   {
    "headline": "Which player has the most career points in NHL history?",
@@ -1139,15 +1157,6 @@
    "image": "",
    "blurb": "Wayne Gretzky leads the list of NHL players with the most career points. Check out other top performers now.",
    "league": "NHL"
-  },
-  {
-   "headline": "Bears CB Kyler Gordon set for 2026 debut after PUP activation",
-   "link": "https://www.espn.com/nfl/story/_/id/50202598/bears-cb-kyler-gordon-set-2026-debut-pup-activation",
-   "published": "2026-10-17T19:38:31Z",
-   "source": "ESPN",
-   "image": "",
-   "blurb": "Bears nickel corner Kyler Gordon has been activated off the PUP list and could make his season debut against the Falcons.",
-   "league": "NFL"
   },
   {
    "headline": "No. 25 Northwestern overcomes late failed fake punt, beats Michigan State on last-second field goal",
@@ -1177,13 +1186,22 @@
    "league": "NFL"
   },
   {
-   "headline": "Alabama vs. Tennessee prediction, pick, odds, spread: Rivals Crimson Tide, Vols meet in Knoxville",
-   "link": "https://www.cbssports.com/college-football/news/alabama-tennessee-prediction-picks-odds-spread-where-to-watch-live/",
-   "published": "2026-10-17T19:30:54.000Z",
-   "image": "",
-   "blurb": "No. 6 Alabama looks to recover from its first loss of the season on Saturday at No. 14 Tennessee",
-   "source": "CBS",
+   "headline": "Florida 27, No. 7 Texas 24: Three things we learned",
+   "link": "https://sports.yahoo.com/articles/florida-27-no-7-texas-193140146.html",
+   "published": "2026-10-17T19:31:40.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/97125a430533791044d12de53f4e9a38f1849d2ddbf7ac57c63d4186790ccba9/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F8be1846f27517b23e78a97efcb7344f5.jpg",
+   "blurb": "Texas\u2019s fall continued after being embarrassed at home by unranked Florida.",
+   "source": "YAHOO",
    "league": "CFB"
+  },
+  {
+   "headline": "NASCAR Phoenix qualifying live results, Cup Series starting lineup",
+   "link": "https://sports.yahoo.com/articles/nascar-phoenix-qualifying-live-results-193034006.html",
+   "published": "2026-10-17T19:30:34.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/6b54e0d427d2e77e428bbab8353c4a136ff53a81eff0e3e24f73d16ca6fd6859/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_tennessean_natl_articles_921%2F860d69529fa7fd50c59b1985a0ec5066.jpg",
+   "blurb": "The NASCAR Cup Series continues the Phoenix race weekend with qualifying for the Freeway Insurance 500 race. Follow here as the Cup Series sets the Phoenix lineup.",
+   "source": "YAHOO",
+   "league": "NASCAR"
   },
   {
    "headline": "Chicago Bears vs. Atlanta Falcons \u2013 Game Picks and Predictions",
@@ -1211,15 +1229,6 @@
    "blurb": "Does \u201cwait \u2019til next year\u201d apply if there is no next year?",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "Ohio State vs. Indiana live score, updates, highlights from 2026 college football game",
-   "link": "https://sports.yahoo.com/articles/ohio-state-vs-indiana-live-133002939.html",
-   "published": "2026-10-17T19:20:02.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/473819d765b87c83ff46b3b29f210159ab19a1835f417cdd3c2388d5e7559391/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2F13cef64dd15a3e169c61778ff8b1caf5",
-   "blurb": "The Sporting News is tracking live updates from Ohio State's clash with Indiana.",
-   "source": "YAHOO",
-   "league": "CFB"
   },
   {
    "headline": "Boxing divisional rankings: Two new titleholders climb into the ranks",
@@ -1254,6 +1263,15 @@
    "published": "2026-10-17T19:09:31.000Z",
    "image": "",
    "blurb": "Fever forward Aliyah Boston underwent arthroscopic surgery on her knee.",
+   "source": "ESPN",
+   "league": "WNBA"
+  },
+  {
+   "headline": "\ud83c\udfc0 Offseason guides for every eliminated team",
+   "link": "https://www.espn.com/wnba/story/_/id/49860363/wnba-offseason-2026-playoffs-eliminated-teams-draft-trade-free-agency-guides",
+   "published": "2026-10-17T19:09:31.000Z",
+   "image": "",
+   "blurb": "With 2026 playoff teams decided, we break down the priorities and needs for each eliminated WNBA team.",
    "source": "ESPN",
    "league": "WNBA"
   },
@@ -1420,15 +1438,6 @@
    "league": "Boxing"
   },
   {
-   "headline": "Brady Tkachuk third in NHL history with back-to-back natural hat tricks",
-   "link": "https://www.espn.com/nhl/story/_/id/50195347/brady-tkachuk-records-rare-back-back-natural-hat-tricks",
-   "published": "2026-10-17T15:37:07.000Z",
-   "image": "",
-   "blurb": "Brady Tkachuk became the second player in almost 40 years and the third player in NHL history to score a natural hat trick -- three consecutive goals without another player from either team scoring -- in back-to-back games.",
-   "source": "ESPN",
-   "league": "NHL"
-  },
-  {
    "headline": "How LeBron James, in his 24th season and first with the 76ers, can pass Michael Jordan in NBA GOAT debate",
    "link": "https://www.cbssports.com/nba/news/lebron-james-24th-season-michael-jordan-nba-goat-debate/",
    "published": "2026-10-17T15:27:26.000Z",
@@ -1454,21 +1463,12 @@
    "image": "",
    "blurb": "The championship round schedule, lines and odds to win.",
    "league": "MLB"
-  },
-  {
-   "headline": "These 10 DP World Tour golfers are in the best position to earn 2027 PGA Tour cards",
-   "link": "https://sports.yahoo.com/articles/10-dp-world-tour-golfers-150113528.html",
-   "published": "2026-10-17T15:01:13.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/41f86aecac9b1e6b7021e5b794d666c5669cbebe16005a5374318d12f91d88e6/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_golfweek_articles_635%2Ff04f69181c41b1fde5fe9dfdac0da54f.jpg",
-   "blurb": "The top 10 in the DP World Tour's Race to Dubai standings (who are eligible and not otherwise exempt) will earn PGA Tour cards for 2027.",
-   "source": "YAHOO",
-   "league": "PGA"
   }
  ],
  "source_mix": {
-  "ESPN": 60,
-  "YAHOO": 61,
-  "CBS": 38
+  "ESPN": 59,
+  "CBS": 39,
+  "YAHOO": 61
  },
  "degraded_sources": []
 }
