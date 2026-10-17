@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T16:34:35.758165+00:00",
+ "generated_at": "2026-10-17T16:49:38.690905+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,7 +10,7 @@
      "matchup": "OSU @ IU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "9:37 - 1st",
+     "detail": "4:15 - 1st",
      "score": "OSU 3 - IU 0",
      "away_to": 3,
      "home_to": 3
@@ -20,8 +20,8 @@
      "matchup": "FLA @ TEX",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "5:19 - 1st",
-     "score": "FLA 0 - TEX 10",
+     "detail": "13:48 - 2nd",
+     "score": "FLA 3 - TEX 10",
      "away_to": 3,
      "home_to": 3
     },
@@ -30,8 +30,8 @@
      "matchup": "MSST @ LSU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "3:51 - 1st",
-     "score": "MSST 0 - LSU 7",
+     "detail": "0:18 - 1st",
+     "score": "MSST 0 - LSU 14",
      "away_to": 2,
      "home_to": 3
     },
@@ -40,8 +40,8 @@
      "matchup": "UVA @ SMU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "2:56 - 1st",
-     "score": "UVA 0 - SMU 3",
+     "detail": "11:27 - 2nd",
+     "score": "UVA 7 - SMU 3",
      "away_to": 3,
      "home_to": 3
     },
@@ -50,8 +50,8 @@
      "matchup": "NU @ MSU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "8:12 - 1st",
-     "score": "NU 3 - MSU 0",
+     "detail": "End of 1st",
+     "score": "NU 3 - MSU 7",
      "away_to": 2,
      "home_to": 3
     },
@@ -60,8 +60,8 @@
      "matchup": "CIN @ WVU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "0:42 - 1st",
-     "score": "CIN 7 - WVU 0",
+     "detail": "10:33 - 2nd",
+     "score": "CIN 7 - WVU 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -70,8 +70,8 @@
      "matchup": "KU @ KSU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "4:21 - 1st",
-     "score": "KU 14 - KSU 7",
+     "detail": "End of 1st",
+     "score": "KU 17 - KSU 7",
      "away_to": 3,
      "home_to": 2
     },
@@ -80,8 +80,8 @@
      "matchup": "CHSO @ CLEM",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "3:04 - 1st",
-     "score": "CHSO 0 - CLEM 10",
+     "detail": "13:30 - 2nd",
+     "score": "CHSO 0 - CLEM 17",
      "away_to": 2,
      "home_to": 3
     },
@@ -90,18 +90,18 @@
      "matchup": "PITT @ BC",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "2:41 - 1st",
-     "score": "PITT 12 - BC 0",
+     "detail": "13:30 - 2nd",
+     "score": "PITT 12 - BC 7",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401862802",
      "matchup": "FAU @ ARMY",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "5:33 - 1st",
-     "score": "FAU 14 - ARMY 14",
+     "detail": "14:19 - 2nd",
+     "score": "FAU 14 - ARMY 20",
      "away_to": 3,
      "home_to": 3
     },
@@ -110,9 +110,9 @@
      "matchup": "BALL @ BGSU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "11:24 - 2nd",
      "score": "BALL 3 - BGSU 0",
-     "away_to": 3,
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -120,8 +120,18 @@
      "matchup": "GAST @ JMU",
      "commence": "2026-10-17T16:00Z",
      "status": "in",
-     "detail": "5:38 - 1st",
+     "detail": "2:09 - 1st",
      "score": "GAST 7 - JMU 14",
+     "away_to": 1,
+     "home_to": 3
+    },
+    {
+     "espn_event_id": "401858489",
+     "matchup": "RUTG @ MD",
+     "commence": "2026-10-17T16:30Z",
+     "status": "in",
+     "detail": "10:41 - 1st",
+     "score": "RUTG 0 - MD 0",
      "away_to": 3,
      "home_to": 3
     },
@@ -182,6 +192,19 @@
      "status": "pre",
      "detail": "Scheduled",
      "score": "CLT 0 - PHI 0"
+    }
+   ]
+  },
+  {
+   "league": "NWSL",
+   "games": [
+    {
+     "espn_event_id": "401854021",
+     "matchup": "GFC @ WAS",
+     "commence": "2026-10-17T16:30Z",
+     "status": "in",
+     "detail": "12'",
+     "score": "GFC 0 - WAS 0"
     }
    ]
   }
