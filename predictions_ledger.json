@@ -1801,8 +1801,9 @@
   "pick_team": "Ohio State Buckeyes",
   "prediction": "Ohio State Buckeyes to beat Indiana Hoosiers",
   "kickoff_utc": "2026-10-17T16:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T08:37:02.787762+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T08:37:02.787762+00:00",
+  "settled_at": "2026-10-17T19:49:19.518297+00:00"
  },
  {
   "id": "57640c0323",
@@ -3348,8 +3349,9 @@
   "pick_team": "New Jersey Devils",
   "prediction": "New Jersey Devils to beat Washington Capitals",
   "kickoff_utc": "2026-10-17T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-17T15:49:34.152586+00:00"
+  "status": "miss",
+  "created_at": "2026-10-17T15:49:34.152586+00:00",
+  "settled_at": "2026-10-17T19:49:19.810122+00:00"
  },
  {
   "id": "e126622310",
