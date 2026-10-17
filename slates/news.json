@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-17T14:55:13.065Z",
+ "generated_at": "2026-10-17T15:00:20.746Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "The Brewers got it Made: In World Series for first time in 44 years, Milwaukee also has MLB's No. 1 prospect",
+    "link": "https://www.cbssports.com/mlb/news/brewers-world-series-mlbs-top-prospect-jesus-made/",
+    "published": "2026-10-17T14:55:34.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F17%2F46638226-5961-4130-8d7a-712fb6c76979%2Fjesus-made-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Jes\u00fas Made, baseball's top prospect, homered in his first winter league at-bat on Friday, the day after the Brewers swept the Dodgers",
+    "source": "CBS",
+    "league": "MLB"
+   },
    {
     "headline": "Mets relief prospect Ryan Lambert off to strong start in Arizona Fall League",
     "link": "https://sports.yahoo.com/articles/mets-relief-prospect-ryan-lambert-140814078.html",
@@ -42,7 +51,7 @@
     "headline": "Rain pushes Rays-Guardians ALCS Game 4 to Saturday",
     "link": "https://www.espn.com/mlb/story/_/id/50199202/game-4-alcs-rays-guardians-postponed-due-rain",
     "published": "2026-10-17T03:26:59.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1017%252Fr1731861_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Game 4 of the ALCS was postponed late Friday night due to rain, creating an unusual set of circumstances for the Guardians and Rays.",
     "source": "ESPN",
     "league": "MLB"
@@ -81,15 +90,6 @@
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2Fa64cadda-571f-42a8-be76-e18daeef3012%2Forioles-owner-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Before buying the Orioles, Rubenstein said his MLB owner friends were making more than he was 'in private equity'",
     "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "Analyzing Yankees' payroll situation for 2027 MLB season and beyond",
-    "link": "https://sports.yahoo.com/articles/analyzing-yankees-payroll-situation-2027-133045379.html",
-    "published": "2026-10-17T13:30:45.000Z",
-    "image": "",
-    "blurb": "After another early postseason exit, the Yankees will look to get over the hump next season. Here's how their payroll will look in 2027 and beyond.",
-    "source": "YAHOO",
     "league": "MLB"
    }
   ],
@@ -187,21 +187,30 @@
   ],
   "football/college-football": [
    {
+    "headline": "Sources: Florida QB Tramell Jones Jr. gets first career start vs. Texas",
+    "link": "https://www.espn.com/college-football/story/_/id/50201352/sources-florida-qb-tramell-jones-jr-gets-start-vs-texas",
+    "published": "2026-10-17T14:51:26Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1017%2Fr1731989_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Florida will start Tramell Jones Jr. at quarterback against Texas, sources told ESPN, as Aaron Philo's availability to serve as an emergency backup will be determined during warmups.",
+    "league": "CFB"
+   },
+   {
+    "headline": "Week 7 Predictions: Huskers at Ducks",
+    "link": "https://sports.yahoo.com/articles/week-7-predictions-huskers-ducks-144909916.html",
+    "published": "2026-10-17T14:49:09.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/1c2ad45762d953b8907fda461ce8118a1108c38b494311c9581235e2b31ed6e2/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6ef1dabdc8989fa8f6a3f3552f1fb72a.jpg",
+    "blurb": "Mike: So\u2026. what are you NOT doing Saturday afternoon to accommodate a nap for Fox\u2019s Up All Night extravaganza? Jarek: I will be trying to take a longer nap instead of a shorter one\u2026sleeping through some SEC games sounds like fun. Andy: Not napping? Probably finding a parking plac",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
     "headline": "Alabama vs. Tennessee odds, parlay, picks, line: Home team dominates, Tide try to avoid back-to-back losses",
     "link": "https://www.cbssports.com/betting/news/alabama-vs-tennessee-odds-parlay-picks-line-home-team-dominates-tide-try-to-avoid-back-to-back-losses/",
     "published": "2026-10-17T14:37:33.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F09%2F4ea01ef6-6acf-4a18-b41f-46de398b5321%2Fkeelon-russell-alabama.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "No. 6 Alabama at No. 14 Tennessee is one of four AP Top-15 matchups on a spectacular college football Saturday",
     "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "Where to watch UCLA vs. Wisconsin today: Time, TV channel",
-    "link": "https://sports.yahoo.com/articles/where-watch-ucla-vs-wisconsin-143103440.html",
-    "published": "2026-10-17T14:31:03.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/12e1c095189bf90ca6b550039e76ce459a4939e0c2f77f9c79f62ea99f018bed/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fucla_wire_articles_558%2F438512c0e6897a2bb808f7fbfcc055ea.jpg",
-    "blurb": "How to watch UCLA football's Week 7 game against the Wisconsin Badgers on Saturday, October 10th.",
-    "source": "YAHOO",
     "league": "CFB"
    },
    {
@@ -214,6 +223,15 @@
     "league": "CFB"
    },
    {
+    "headline": "Where to watch UCLA vs. Wisconsin today: Time, TV channel",
+    "link": "https://sports.yahoo.com/articles/where-watch-ucla-vs-wisconsin-143103440.html",
+    "published": "2026-10-17T14:31:03.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/12e1c095189bf90ca6b550039e76ce459a4939e0c2f77f9c79f62ea99f018bed/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fucla_wire_articles_558%2F438512c0e6897a2bb808f7fbfcc055ea.jpg",
+    "blurb": "How to watch UCLA football's Week 7 game against the Wisconsin Badgers on Saturday, October 10th.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
     "headline": "College football schedule 2026: What to watch in Week 7, TV channels, streaming, Saturday kickoff times",
     "link": "https://www.cbssports.com/college-football/news/college-football-schedule-2026-what-to-watch-week-7-tv-channels-streaming/",
     "published": "2026-10-17T14:30:48.000Z",
@@ -223,21 +241,21 @@
     "league": "CFB"
    },
    {
-    "headline": "Rutgers football vs Maryland live updates, score and analysis",
-    "link": "https://sports.yahoo.com/articles/rutgers-football-vs-maryland-live-143024371.html",
-    "published": "2026-10-17T14:30:24.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/667f859288b4dbe39238ff8aa644e92b46121f524897f266d407a11da690bd10/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fapp-com-asbury-park-press%2F232d75dc51e257aefa8aa0968e75f918.jpg",
-    "blurb": "Rutgers football plays at Maryland today in Week 7 of the college football season. Follow along here for updates.",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
     "headline": "ESPN secures 'handshake agreement' to broadcast 24-team CFP, sources say",
     "link": "https://www.espn.com/mlb/story/_/id/50198507/espn-lands-handshake-agreement-air-24-team-cfp",
     "published": "2026-10-17T13:59:47.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731817_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The CFP has reached a \"handshake agreement\" with ESPN to broadcast a 24-team playoff beginning in the 2027 season, sources told ESPN. Though there is work to be done on paper, this is a significant step toward doubling the postseason field.",
     "source": "ESPN",
+    "league": "CFB"
+   },
+   {
+    "headline": "Rutgers football vs Maryland live updates, score and analysis",
+    "link": "https://sports.yahoo.com/articles/rutgers-football-vs-maryland-live-143024371.html",
+    "published": "2026-10-17T14:30:24.000Z",
+    "image": "",
+    "blurb": "Rutgers football plays at Maryland today in Week 7 of the college football season. Follow along here for updates.",
+    "source": "YAHOO",
     "league": "CFB"
    },
    {
@@ -250,30 +268,12 @@
     "league": "CFB"
    },
    {
-    "headline": "Game thread: Indiana Hoosiers football vs Ohio State Buckeyes",
-    "link": "https://sports.yahoo.com/articles/game-thread-indiana-hoosiers-football-143000518.html",
-    "published": "2026-10-17T14:30:00.000Z",
-    "image": "",
-    "blurb": "Indiana is set for a top-5 clash against Ohio State at home today with both teams looking to go 4-0 in Big Ten play.",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
     "headline": "Mississippi State downgrades QB Taylor, RB Bothwell to doubtful",
     "link": "https://www.espn.com/college-football/story/_/id/50198790/mississippi-state-qb-kamario-taylor-rb-fluff-bothwell-doubtful-vs-lsu",
     "published": "2026-10-17T13:59:47.000Z",
     "image": "",
     "blurb": "Mississippi State star quarterback Kamario Taylor has been downgraded from questionable to doubtful on the SEC's availability report going into Saturday's game at LSU.",
     "source": "ESPN",
-    "league": "CFB"
-   },
-   {
-    "headline": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 7",
-    "link": "https://www.cbssports.com/college-football/news/college-football-picks-predictions-spread-odds-betting-lines-top-25-week-7/",
-    "published": "2026-10-17T14:15:44.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2F7a69fa34-0ea3-4152-89c5-1c1bbe0dbf21%2Fmiami-picks-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "A closer look at the top games in a loaded Week 7",
-    "source": "CBS",
     "league": "CFB"
    }
   ],
@@ -1123,6 +1123,24 @@
    "league": "NHL"
   },
   {
+   "headline": "The Brewers got it Made: In World Series for first time in 44 years, Milwaukee also has MLB's No. 1 prospect",
+   "link": "https://www.cbssports.com/mlb/news/brewers-world-series-mlbs-top-prospect-jesus-made/",
+   "published": "2026-10-17T14:55:34.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F17%2F46638226-5961-4130-8d7a-712fb6c76979%2Fjesus-made-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Jes\u00fas Made, baseball's top prospect, homered in his first winter league at-bat on Friday, the day after the Brewers swept the Dodgers",
+   "source": "CBS",
+   "league": "MLB"
+  },
+  {
+   "headline": "Sources: Florida QB Tramell Jones Jr. gets first career start vs. Texas",
+   "link": "https://www.espn.com/college-football/story/_/id/50201352/sources-florida-qb-tramell-jones-jr-gets-start-vs-texas",
+   "published": "2026-10-17T14:51:26Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1017%2Fr1731989_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Florida will start Tramell Jones Jr. at quarterback against Texas, sources told ESPN, as Aaron Philo's availability to serve as an emergency backup will be determined during warmups.",
+   "league": "CFB"
+  },
+  {
    "headline": "How to bet on 2026 NFL Week 6: Betting odds, schedule, game previews, trends, tips, sportsbook promos, offers",
    "link": "https://www.cbssports.com/nfl/news/how-to-bet-on-2026-nfl-week-6-betting-odds-schedule-game-previews-trends-tips-sportsbook-promos-offers/",
    "published": "2026-10-17T14:50:18.000Z",
@@ -1130,6 +1148,15 @@
    "blurb": "Our NFL betting guide tells you where to bet on NFL Week 6, while providing odds, betting trends, schedule, promo offers, and more",
    "source": "CBS",
    "league": "NFL"
+  },
+  {
+   "headline": "Week 7 Predictions: Huskers at Ducks",
+   "link": "https://sports.yahoo.com/articles/week-7-predictions-huskers-ducks-144909916.html",
+   "published": "2026-10-17T14:49:09.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/1c2ad45762d953b8907fda461ce8118a1108c38b494311c9581235e2b31ed6e2/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6ef1dabdc8989fa8f6a3f3552f1fb72a.jpg",
+   "blurb": "Mike: So\u2026. what are you NOT doing Saturday afternoon to accommodate a nap for Fox\u2019s Up All Night extravaganza? Jarek: I will be trying to take a longer nap instead of a shorter one\u2026sleeping through some SEC games sounds like fun. Andy: Not napping? Probably finding a parking plac",
+   "source": "YAHOO",
+   "league": "CFB"
   },
   {
    "headline": "Fever forward Boston has arthroscopic knee surgery",
@@ -1222,15 +1249,6 @@
    "league": "CFB"
   },
   {
-   "headline": "Rutgers football vs Maryland live updates, score and analysis",
-   "link": "https://sports.yahoo.com/articles/rutgers-football-vs-maryland-live-143024371.html",
-   "published": "2026-10-17T14:30:24.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/667f859288b4dbe39238ff8aa644e92b46121f524897f266d407a11da690bd10/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fapp-com-asbury-park-press%2F232d75dc51e257aefa8aa0968e75f918.jpg",
-   "blurb": "Rutgers football plays at Maryland today in Week 7 of the college football season. Follow along here for updates.",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
    "headline": "UFC Edmonton Start Time, Full Fight Card Details",
    "link": "https://sports.yahoo.com/articles/ufc-edmonton-start-time-full-142900554.html",
    "published": "2026-10-17T14:29:00.000Z",
@@ -1310,15 +1328,6 @@
    "blurb": "Plus Carter Jensen will be at Arrowhead this weekend.",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "ESPN secures 'handshake agreement' to broadcast 24-team CFP, sources say",
-   "link": "https://www.espn.com/mlb/story/_/id/50198507/espn-lands-handshake-agreement-air-24-team-cfp",
-   "published": "2026-10-17T13:59:47.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731817_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The CFP has reached a \"handshake agreement\" with ESPN to broadcast a 24-team playoff beginning in the 2027 season, sources told ESPN. Though there is work to be done on paper, this is a significant step toward doubling the postseason field.",
-   "source": "ESPN",
-   "league": "CFB"
   },
   {
    "headline": "Surprising Trend Emerges From The Islanders' First Seven Games",
@@ -1454,21 +1463,12 @@
    "blurb": "Poole will join Daniel Dye as the full-time drivers for JAR next year",
    "source": "YAHOO",
    "league": "NASCAR"
-  },
-  {
-   "headline": "Rain pushes Rays-Guardians ALCS Game 4 to Saturday",
-   "link": "https://www.espn.com/mlb/story/_/id/50199202/game-4-alcs-rays-guardians-postponed-due-rain",
-   "published": "2026-10-17T03:26:59.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1017%252Fr1731861_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Game 4 of the ALCS was postponed late Friday night due to rain, creating an unusual set of circumstances for the Guardians and Rays.",
-   "source": "ESPN",
-   "league": "MLB"
   }
  ],
  "source_mix": {
   "ESPN": 60,
-  "CBS": 38,
-  "YAHOO": 61
+  "CBS": 39,
+  "YAHOO": 60
  },
  "degraded_sources": []
 }
