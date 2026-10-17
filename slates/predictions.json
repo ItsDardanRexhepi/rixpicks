@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-16T23:50:14.954764+00:00",
+ "generated_at": "2026-10-17T00:05:03.275735+00:00",
  "items": [
   {
-   "id": "d73da979fc",
-   "league": "NWSL",
-   "event": "Racing Louisville FC @ Boston Legacy FC",
-   "prediction": "Racing Louisville FC to beat Boston Legacy FC",
-   "kickoff_utc": "2026-10-17T00:00:00+00:00"
+   "id": "d0b6ba3606",
+   "league": "NHL",
+   "event": "Pittsburgh Penguins @ Colorado Avalanche",
+   "prediction": "Colorado Avalanche to beat Pittsburgh Penguins",
+   "kickoff_utc": "2026-10-17T01:00:00+00:00"
   },
   {
-   "id": "ef45311f5e",
+   "id": "514b74da06",
    "league": "NBA",
-   "event": "Atlanta Hawks @ Dallas Mavericks",
-   "prediction": "Dallas Mavericks to beat Atlanta Hawks",
-   "kickoff_utc": "2026-10-17T00:00:00+00:00"
+   "event": "Portland Trail Blazers @ Golden State Warriors",
+   "prediction": "Golden State Warriors to beat Portland Trail Blazers",
+   "kickoff_utc": "2026-10-17T02:00:00+00:00"
   },
   {
-   "id": "233f751b9f",
-   "league": "MLB",
-   "event": "Tampa Bay Rays @ Cleveland Guardians",
-   "prediction": "Tampa Bay Rays to beat Cleveland Guardians",
-   "kickoff_utc": "2026-10-17T00:00:00+00:00"
-  },
-  {
-   "id": "17ee60cd90",
+   "id": "5b85fb315a",
    "league": "NBA",
-   "event": "Sacramento Kings @ San Antonio Spurs",
-   "prediction": "Sacramento Kings to beat San Antonio Spurs",
-   "kickoff_utc": "2026-10-17T00:00:00+00:00"
+   "event": "Utah Jazz @ Phoenix Suns",
+   "prediction": "Utah Jazz to beat Phoenix Suns",
+   "kickoff_utc": "2026-10-17T02:00:00+00:00"
   },
   {
-   "id": "f410be3eee",
+   "id": "69c81f487a",
    "league": "NBA",
-   "event": "Washington Wizards @ New Orleans Pelicans",
-   "prediction": "New Orleans Pelicans to beat Washington Wizards",
-   "kickoff_utc": "2026-10-17T00:00:00+00:00"
+   "event": "Denver Nuggets @ Los Angeles Lakers",
+   "prediction": "Denver Nuggets to beat Los Angeles Lakers",
+   "kickoff_utc": "2026-10-17T02:30:00+00:00"
   },
   {
-   "id": "d1f0082f06",
-   "league": "NBA",
-   "event": "Minnesota Timberwolves @ Chicago Bulls",
-   "prediction": "Minnesota Timberwolves to beat Chicago Bulls",
-   "kickoff_utc": "2026-10-17T00:00:00+00:00"
+   "id": "99c5e64750",
+   "league": "CFB",
+   "event": "Ohio State Buckeyes @ Indiana Hoosiers",
+   "prediction": "Ohio State Buckeyes to beat Indiana Hoosiers",
+   "kickoff_utc": "2026-10-17T16:00:00+00:00"
+  },
+  {
+   "id": "57640c0323",
+   "league": "CFB",
+   "event": "Florida Gators @ Texas Longhorns",
+   "prediction": "Texas Longhorns to beat Florida Gators",
+   "kickoff_utc": "2026-10-17T16:00:00+00:00"
   }
  ]
 }
