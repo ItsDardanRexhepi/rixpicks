@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T07:20:28.885003+00:00",
+ "generated_at": "2026-10-17T07:35:32.152723+00:00",
  "leagues": [
   {
    "league": "ATP",
@@ -20,6 +20,14 @@
      "status": "post",
      "detail": "Canceled",
      "score": "TBD 0 - TBD 0"
+    },
+    {
+     "espn_event_id": "186968",
+     "matchup": "Rei Sakamoto @ Amir Omarkhanov",
+     "commence": "2026-10-17T04:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "Rei Sakamoto 0 - Amir Omarkhanov 0"
     }
    ]
   }
