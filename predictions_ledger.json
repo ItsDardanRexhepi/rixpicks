@@ -3333,5 +3333,44 @@
   "kickoff_utc": "2026-10-17T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-17T15:22:17.929383+00:00"
+ },
+ {
+  "id": "6bd0f01e27",
+  "event_id": "401892519",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Washington Capitals",
+  "away": "New Jersey Devils",
+  "pick_team": "New Jersey Devils",
+  "prediction": "New Jersey Devils to beat Washington Capitals",
+  "kickoff_utc": "2026-10-17T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-17T15:49:34.152586+00:00"
+ },
+ {
+  "id": "e126622310",
+  "event_id": "401892521",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Tampa Bay Lightning",
+  "away": "Vancouver Canucks",
+  "pick_team": "Tampa Bay Lightning",
+  "prediction": "Tampa Bay Lightning to beat Vancouver Canucks",
+  "kickoff_utc": "2026-10-17T20:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-17T15:52:45.197456+00:00"
+ },
+ {
+  "id": "6dc63ea94c",
+  "event_id": "401892531",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Utah Mammoth",
+  "away": "Edmonton Oilers",
+  "pick_team": "Edmonton Oilers",
+  "prediction": "Edmonton Oilers to beat Utah Mammoth",
+  "kickoff_utc": "2026-10-18T02:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-17T15:58:12.331956+00:00"
  }
 ]
