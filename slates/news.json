@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-17T23:45:12.631Z",
+ "generated_at": "2026-10-17T23:50:17.975Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -187,11 +187,65 @@
   ],
   "football/college-football": [
    {
-    "headline": "Indiana is no longer a team that looks for moral victories",
-    "link": "https://www.espn.com/college-football/story/_/id/50203346/indiana-loses-ohio-state-nick-marsh",
-    "published": "2026-10-18T00:27:08.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1017%252Fr1732182_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "If the past two years had been a celebration for Indiana, Saturday was less a culmination than a reminder.",
+    "headline": "Auburn stuns No. 1 Georgia after Stockton's fumble dooms Bulldogs",
+    "link": "https://www.espn.com/college-football/story/_/id/50205292/auburn-stuns-georgia-stockton-fumble-dooms-bulldogs",
+    "published": "2026-10-18T00:44:55.000Z",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%2Fi%2Fteamlogos%2Fncaa%2F500%2F61.png%26w%3D110%26h%3D110%26transparent%3Dtrue&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Auburn, led by QB Byrum Brown's dominant running game, upset No. 1 Georgia after taking advantage of a key fumble by Gunner Stockton with 58 seconds left.",
+    "source": "ESPN",
+    "league": "CFB"
+   },
+   {
+    "headline": "Ashton Daniels leaves FSU football game vs. Miami after targeting",
+    "link": "https://sports.yahoo.com/articles/ashton-daniels-leaves-fsu-football-233558860.html",
+    "published": "2026-10-17T23:35:58.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/b3360b941a453264a6fa4b4d7f1ad13357e7dc8e6fce4ac9f50eda358b88f4f1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpalm_beach_post_natl_articles_437%2Fba32222948f603b7ff9d90829a0e2407.jpg",
+    "blurb": "Florida State football QB Ashton Daniels was slow to get up and left the game after taking a hit while sliding from Miami's Zechariah Poyser.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "Auburn takes down Georgia: Tigers score massive upset over No. 1 Bulldogs on walk-off FG",
+    "link": "https://www.cbssports.com/college-football/news/auburn-georgia-upset-over-no-1-walk-of-fg/",
+    "published": "2026-10-17T23:23:07.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F17%2F5f4d0b0a-4060-41c0-998a-6a1ac58a10c6%2Fauburn.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Alex Golesh earned a signature win in Year 1 -- the Tigers' first over a ranked foe since 2021",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
+    "headline": "Buckeyes QB Sayin out 'several weeks' with shoulder injury, Day says",
+    "link": "https://www.espn.com/college-football/story/_/id/50204305/julian-sayin-several-weeks-ohio-state-ryan-day-says",
+    "published": "2026-10-18T00:44:55.000Z",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1017%252Fr1732155_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Ohio State's Julian Sayin will miss \"several weeks\" with an injury to his throwing shoulder, coach Ryan Day said Saturday after his team escaped with a 19-15 victory at No. 5 Indiana, a game in which Luke Fahey finished up as the Buckeyes' quarterback.",
+    "source": "ESPN",
+    "league": "CFB"
+   },
+   {
+    "headline": "Georgia makes unfortunate college football history with brutal loss in Deep South\u2019s Oldest Rivalry",
+    "link": "https://sports.yahoo.com/articles/georgia-makes-unfortunate-college-football-233511265.html",
+    "published": "2026-10-17T23:35:11.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/189f92191d3dc868baf738881bfdf8866ca7079d92e4f7c281d6f2725356616a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2Fbae3462c5c5c14f778a3205d71430bc8.jpg",
+    "blurb": "Georgia's loss to Auburn on Saturday made some tough history.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "Notre Dame vs. BYU prediction, pick, odds, spread: Irish hit the road for top-10 showdown with Cougars",
+    "link": "https://www.cbssports.com/college-football/news/notre-dame-byu-prediction-picks-odds-spread-where-to-watch-live/",
+    "published": "2026-10-17T23:15:43.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2F0d8034e8-eb1d-4fc3-a06e-6d02f4ed3742%2Fcj-carr-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Two unbeaten powerhouses clash in Provo as CJ Carr leads the Fighting Irish against a stout Cougars defense",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
+    "headline": "Ohio State survives Indiana on Marsh's fourth-down misstep",
+    "link": "https://www.espn.com/college-football/story/_/id/50203580/ohio-state-survives-indiana-marsh-ruled-bounds",
+    "published": "2026-10-18T00:44:55.000Z",
+    "image": "",
+    "blurb": "Ohio State survived what appeared to be the go-ahead score when Nick Marsh's left foot was ruled to be out of bounds as the Buckeyes beat Indiana 19-15 on Saturday.",
     "source": "ESPN",
     "league": "CFB"
    },
@@ -199,7 +253,7 @@
     "headline": "College football\u2019s biggest weekend delivered absolute top-10 carnage",
     "link": "https://sports.yahoo.com/articles/college-football-biggest-weekend-delivered-233459564.html",
     "published": "2026-10-17T23:34:59.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/daf5cdf2eb75c4582a1be0a0bfa92dac8acb3f54d60d27ac43ee08850ed4cc2c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F9eca812295db1b2b8b2a7bbb8b2d8aa7.jpg",
+    "image": "",
     "blurb": "The college football top 10 imploded on Saturday with upset losses all around. Now comes the rankings chaos.",
     "source": "YAHOO",
     "league": "CFB"
@@ -214,65 +268,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Auburn stuns No. 1 Georgia after Stockton's fumble dooms Bulldogs",
-    "link": "https://www.espn.com/college-football/story/_/id/50205292/auburn-stuns-georgia-stockton-fumble-dooms-bulldogs",
-    "published": "2026-10-18T00:17:49.000Z",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%2Fi%2Fteamlogos%2Fncaa%2F500%2F61.png%26w%3D110%26h%3D110%26transparent%3Dtrue&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Auburn, led by QB Byrum Brown's dominant running game, upset No. 1 Georgia after taking advantage of a key fumble by Gunner Stockton with 58 seconds left.",
-    "source": "ESPN",
-    "league": "CFB"
-   },
-   {
-    "headline": "2 things I loved, 1 thing I hated: Michigan Football vs Penn State",
-    "link": "https://sports.yahoo.com/articles/2-things-loved-1-thing-233000050.html",
-    "published": "2026-10-17T23:30:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/4fe22738aacaee80e5da7ccb2a4295d374d9e70a63ab0df93bd6f3bc8e48bf5e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fdb4f945c5fb58e43356eb4170d6ab106.jpg",
-    "blurb": "The offense looked solid with Tommy Carr, but it took a horrible first half from Bryce Underwood to even get there. Here are 2 things we loved and 1 thing we hated from Michigan Football vs Penn State:",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
-    "headline": "College football week 7 overreactions: Big changes needed at Texas with former No. 1 Longhorns in freefall",
-    "link": "https://www.cbssports.com/college-football/news/college-football-week-7-overreactions-big-changes-needed-at-texas-with-former-no-1-longhorns-in-freefall/",
-    "published": "2026-10-17T22:12:55.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F17%2Ff05ac25d-46bf-41bb-a256-178b954e2798%2Fsteve.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Steve Sarkisian must overhaul an anemic offense, surrender playcalling duties and decide whether Arch Manning is truly the right quarterback to salvage a fading playoff run",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "Buckeyes QB Sayin out 'several weeks' with shoulder injury, Day says",
-    "link": "https://www.espn.com/college-football/story/_/id/50204305/julian-sayin-several-weeks-ohio-state-ryan-day-says",
-    "published": "2026-10-18T00:17:49.000Z",
+    "headline": "Sark: Texas to 'evaluate everything' after being upset by Florida",
+    "link": "https://www.espn.com/college-football/story/_/id/50203108/texas-evaluate-everything-loss-florida",
+    "published": "2026-10-18T00:44:55.000Z",
     "image": "",
-    "blurb": "Ohio State's Julian Sayin will miss \"several weeks\" with an injury to his throwing shoulder, coach Ryan Day said Saturday after his team escaped with a 19-15 victory at No. 5 Indiana, a game in which Luke Fahey finished up as the Buckeyes' quarterback.",
-    "source": "ESPN",
-    "league": "CFB"
-   },
-   {
-    "headline": "Tennessee fans storm field as Vols beat Alabama. Will program be fined?",
-    "link": "https://sports.yahoo.com/articles/tennessee-fans-storm-field-vols-232745665.html",
-    "published": "2026-10-17T23:27:45.000Z",
-    "image": "",
-    "blurb": "Tennessee fans stormed the field vs. Alabama after the Vols upset their longtime SEC rivals on Saturday.",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
-    "headline": "Michigan benches QB Bryce Underwood vs. Penn State: Tommy Carr replaces former five-star recruit",
-    "link": "https://www.cbssports.com/college-football/news/michigan-benches-bryce-underwood-tommy-carr-penn-state/",
-    "published": "2026-10-17T22:02:06.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F17%2F7fd919e4-2253-46e9-8133-ab679770ab29%2Fbryce.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Kyle Whittingham sat Underwood, a former five-star recruit, after a scoreless first half against Penn State on Saturday",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "Ohio State survives Indiana on Marsh's fourth-down misstep",
-    "link": "https://www.espn.com/college-football/story/_/id/50203580/ohio-state-survives-indiana-marsh-ruled-bounds",
-    "published": "2026-10-18T00:17:49.000Z",
-    "image": "",
-    "blurb": "Ohio State survived what appeared to be the go-ahead score when Nick Marsh's left foot was ruled to be out of bounds as the Buckeyes beat Indiana 19-15 on Saturday.",
+    "blurb": "Texas coach Steve Sarkisian said he will \"evaluate everything\" after the Longhorns were upset by unranked Florida on Saturday.",
     "source": "ESPN",
     "league": "CFB"
    }
@@ -1105,20 +1105,20 @@
  },
  "latest": [
   {
-   "headline": "Indiana is no longer a team that looks for moral victories",
-   "link": "https://www.espn.com/college-football/story/_/id/50203346/indiana-loses-ohio-state-nick-marsh",
-   "published": "2026-10-18T00:27:08.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1017%252Fr1732182_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "If the past two years had been a celebration for Indiana, Saturday was less a culmination than a reminder.",
+   "headline": "Auburn stuns No. 1 Georgia after Stockton's fumble dooms Bulldogs",
+   "link": "https://www.espn.com/college-football/story/_/id/50205292/auburn-stuns-georgia-stockton-fumble-dooms-bulldogs",
+   "published": "2026-10-18T00:44:55.000Z",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%2Fi%2Fteamlogos%2Fncaa%2F500%2F61.png%26w%3D110%26h%3D110%26transparent%3Dtrue&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Auburn, led by QB Byrum Brown's dominant running game, upset No. 1 Georgia after taking advantage of a key fumble by Gunner Stockton with 58 seconds left.",
    "source": "ESPN",
    "league": "CFB"
   },
   {
-   "headline": "Auburn stuns No. 1 Georgia after Stockton's fumble dooms Bulldogs",
-   "link": "https://www.espn.com/college-football/story/_/id/50205292/auburn-stuns-georgia-stockton-fumble-dooms-bulldogs",
-   "published": "2026-10-18T00:17:49.000Z",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%2Fi%2Fteamlogos%2Fncaa%2F500%2F61.png%26w%3D110%26h%3D110%26transparent%3Dtrue&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Auburn, led by QB Byrum Brown's dominant running game, upset No. 1 Georgia after taking advantage of a key fumble by Gunner Stockton with 58 seconds left.",
+   "headline": "Buckeyes QB Sayin out 'several weeks' with shoulder injury, Day says",
+   "link": "https://www.espn.com/college-football/story/_/id/50204305/julian-sayin-several-weeks-ohio-state-ryan-day-says",
+   "published": "2026-10-18T00:44:55.000Z",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1017%252Fr1732155_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Ohio State's Julian Sayin will miss \"several weeks\" with an injury to his throwing shoulder, coach Ryan Day said Saturday after his team escaped with a 19-15 victory at No. 5 Indiana, a game in which Luke Fahey finished up as the Buckeyes' quarterback.",
    "source": "ESPN",
    "league": "CFB"
   },
@@ -1186,11 +1186,20 @@
    "league": "MLB"
   },
   {
-   "headline": "College football\u2019s biggest weekend delivered absolute top-10 carnage",
-   "link": "https://sports.yahoo.com/articles/college-football-biggest-weekend-delivered-233459564.html",
-   "published": "2026-10-17T23:34:59.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/daf5cdf2eb75c4582a1be0a0bfa92dac8acb3f54d60d27ac43ee08850ed4cc2c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F9eca812295db1b2b8b2a7bbb8b2d8aa7.jpg",
-   "blurb": "The college football top 10 imploded on Saturday with upset losses all around. Now comes the rankings chaos.",
+   "headline": "Ashton Daniels leaves FSU football game vs. Miami after targeting",
+   "link": "https://sports.yahoo.com/articles/ashton-daniels-leaves-fsu-football-233558860.html",
+   "published": "2026-10-17T23:35:58.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/b3360b941a453264a6fa4b4d7f1ad13357e7dc8e6fce4ac9f50eda358b88f4f1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fpalm_beach_post_natl_articles_437%2Fba32222948f603b7ff9d90829a0e2407.jpg",
+   "blurb": "Florida State football QB Ashton Daniels was slow to get up and left the game after taking a hit while sliding from Miami's Zechariah Poyser.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "Georgia makes unfortunate college football history with brutal loss in Deep South\u2019s Oldest Rivalry",
+   "link": "https://sports.yahoo.com/articles/georgia-makes-unfortunate-college-football-233511265.html",
+   "published": "2026-10-17T23:35:11.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/189f92191d3dc868baf738881bfdf8866ca7079d92e4f7c281d6f2725356616a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2Fbae3462c5c5c14f778a3205d71430bc8.jpg",
+   "blurb": "Georgia's loss to Auburn on Saturday made some tough history.",
    "source": "YAHOO",
    "league": "CFB"
   },
@@ -1204,12 +1213,12 @@
    "league": "MLB"
   },
   {
-   "headline": "2 things I loved, 1 thing I hated: Michigan Football vs Penn State",
-   "link": "https://sports.yahoo.com/articles/2-things-loved-1-thing-233000050.html",
-   "published": "2026-10-17T23:30:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/4fe22738aacaee80e5da7ccb2a4295d374d9e70a63ab0df93bd6f3bc8e48bf5e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fdb4f945c5fb58e43356eb4170d6ab106.jpg",
-   "blurb": "The offense looked solid with Tommy Carr, but it took a horrible first half from Bryce Underwood to even get there. Here are 2 things we loved and 1 thing we hated from Michigan Football vs Penn State:",
-   "source": "YAHOO",
+   "headline": "Auburn takes down Georgia: Tigers score massive upset over No. 1 Bulldogs on walk-off FG",
+   "link": "https://www.cbssports.com/college-football/news/auburn-georgia-upset-over-no-1-walk-of-fg/",
+   "published": "2026-10-17T23:23:07.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F17%2F5f4d0b0a-4060-41c0-998a-6a1ac58a10c6%2Fauburn.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Alex Golesh earned a signature win in Year 1 -- the Tigers' first over a ranked foe since 2021",
+   "source": "CBS",
    "league": "CFB"
   },
   {
@@ -1247,6 +1256,15 @@
    "blurb": "Joel Faglier dedicated his first UFC win to his late son.",
    "source": "YAHOO",
    "league": "UFC"
+  },
+  {
+   "headline": "Notre Dame vs. BYU prediction, pick, odds, spread: Irish hit the road for top-10 showdown with Cougars",
+   "link": "https://www.cbssports.com/college-football/news/notre-dame-byu-prediction-picks-odds-spread-where-to-watch-live/",
+   "published": "2026-10-17T23:15:43.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2F0d8034e8-eb1d-4fc3-a06e-6d02f4ed3742%2Fcj-carr-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Two unbeaten powerhouses clash in Provo as CJ Carr leads the Fighting Irish against a stout Cougars defense",
+   "source": "CBS",
+   "league": "CFB"
   },
   {
    "headline": "UFC Edmonton live results, highlights, play-by-play | Malott vs. Buckley",
@@ -1301,15 +1319,6 @@
    "blurb": "Jackets not able to pull off a miracle comeback",
    "source": "YAHOO",
    "league": "NFL"
-  },
-  {
-   "headline": "Miami vs. Florida State prediction, pick, odds, spread: Red-hot Hurricanes take on floundering Seminoles",
-   "link": "https://www.cbssports.com/college-football/news/miami-florida-state-prediction-picks-odds-spread-where-to-watch-live/",
-   "published": "2026-10-17T22:45:43.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2Fd85e9730-ee79-4821-aa25-ed0bbb838f44%2Fmensah-miami-t25-picks-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "One of college football's great rivalries takes center stage on Saturday night when No. 3 Miami welcomes Florida State for their traditional October clash",
-   "source": "CBS",
-   "league": "CFB"
   },
   {
    "headline": "NASCAR Phoenix Inspection Nearly Bites One Championship Contender",
@@ -1373,15 +1382,6 @@
    "blurb": "It\u2019s not revenge for 2011, but it\u2019s something.",
    "source": "YAHOO",
    "league": "NCAAB"
-  },
-  {
-   "headline": "College football week 7 overreactions: Big changes needed at Texas with former No. 1 Longhorns in freefall",
-   "link": "https://www.cbssports.com/college-football/news/college-football-week-7-overreactions-big-changes-needed-at-texas-with-former-no-1-longhorns-in-freefall/",
-   "published": "2026-10-17T22:12:55.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F17%2Ff05ac25d-46bf-41bb-a256-178b954e2798%2Fsteve.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Steve Sarkisian must overhaul an anemic offense, surrender playcalling duties and decide whether Arch Manning is truly the right quarterback to salvage a fading playoff run",
-   "source": "CBS",
-   "league": "CFB"
   },
   {
    "headline": "Lineups, updates for Rays-Guardians ALCS Game 4",
