@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T02:35:24.916581+00:00",
+ "generated_at": "2026-10-17T02:50:23.271143+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -23,9 +23,9 @@
      "matchup": "MEM @ TULN",
      "commence": "2026-10-16T23:30Z",
      "status": "in",
-     "detail": "7:07 - 4th",
-     "score": "MEM 10 - TULN 23",
-     "away_to": 1,
+     "detail": "2:00 - 4th",
+     "score": "MEM 17 - TULN 23",
+     "away_to": 0,
      "home_to": 0
     },
     {
@@ -33,9 +33,9 @@
      "matchup": "WASH @ PUR",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "2:51 - 3rd",
-     "score": "WASH 24 - PUR 20",
-     "away_to": 1,
+     "detail": "14:12 - 4th",
+     "score": "WASH 31 - PUR 20",
+     "away_to": 0,
      "home_to": 2
     },
     {
@@ -43,7 +43,7 @@
      "matchup": "APP @ CCU",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "0:44 - 3rd",
+     "detail": "10:13 - 4th",
      "score": "APP 28 - CCU 24",
      "away_to": 1,
      "home_to": 1
@@ -89,11 +89,9 @@
      "espn_event_id": "401898408",
      "matchup": "ATL @ DAL",
      "commence": "2026-10-17T00:00Z",
-     "status": "in",
-     "detail": "22.8 - 4th",
-     "score": "ATL 133 - DAL 111",
-     "away_to": 2,
-     "home_to": 1
+     "status": "post",
+     "detail": "Final",
+     "score": "ATL 135 - DAL 111"
     },
     {
      "espn_event_id": "401898843",
@@ -123,19 +121,17 @@
      "espn_event_id": "401908943",
      "matchup": "MIN @ CHI",
      "commence": "2026-10-17T00:00Z",
-     "status": "in",
-     "detail": "1:41 - 4th",
-     "score": "MIN 107 - CHI 126",
-     "away_to": 1,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "MIN 116 - CHI 133"
     },
     {
      "espn_event_id": "401898409",
      "matchup": "POR @ GS",
      "commence": "2026-10-17T02:00Z",
      "status": "in",
-     "detail": "1:53 - 1st",
-     "score": "POR 22 - GS 27",
+     "detail": "7:42 - 2nd",
+     "score": "POR 34 - GS 47",
      "away_to": 6,
      "home_to": 6
     },
@@ -144,10 +140,20 @@
      "matchup": "UTAH @ PHX",
      "commence": "2026-10-17T02:00Z",
      "status": "in",
-     "detail": "2:27 - 1st",
-     "score": "UTAH 27 - PHX 25",
-     "away_to": 6,
+     "detail": "9:39 - 2nd",
+     "score": "UTAH 38 - PHX 38",
+     "away_to": 5,
      "home_to": 6
+    },
+    {
+     "espn_event_id": "401898719",
+     "matchup": "DEN @ LAL",
+     "commence": "2026-10-17T02:30Z",
+     "status": "in",
+     "detail": "9:38 - 1st",
+     "score": "DEN 4 - LAL 4",
+     "away_to": 7,
+     "home_to": 7
     }
    ]
   },
@@ -159,8 +165,8 @@
      "matchup": "PIT @ COL",
      "commence": "2026-10-17T01:00Z",
      "status": "in",
-     "detail": "6:16 - 2nd",
-     "score": "PIT 2 - COL 3",
+     "detail": "End of 2nd",
+     "score": "PIT 2 - COL 4",
      "away_to": null,
      "home_to": null
     },
@@ -169,8 +175,8 @@
      "matchup": "BOS @ ANA",
      "commence": "2026-10-17T02:00Z",
      "status": "in",
-     "detail": "5:04 - 1st",
-     "score": "BOS 0 - ANA 0",
+     "detail": "End of 1st",
+     "score": "BOS 0 - ANA 2",
      "away_to": null,
      "home_to": null
     }
@@ -184,7 +190,7 @@
      "matchup": "LOU @ BOS",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "73'",
+     "detail": "88'",
      "score": "LOU 1 - BOS 2"
     }
    ]
