@@ -1,5 +1,5 @@
 {
- "ts": "2026-10-17T13:24:32+00:00",
+ "ts": "2026-10-17T13:28:33+00:00",
  "connected": {
   "poly": true,
   "kalshi": true
@@ -9,9 +9,9 @@
   "kalshi": 1
  },
  "last_msg_age_s": {
-  "poly": 1.4,
-  "kalshi": 0.1
+  "poly": 0.5,
+  "kalshi": 1.9
  },
  "keys_tracked": 439,
- "rows_written": 2528
+ "rows_written": 2541
 }
