@@ -1871,8 +1871,9 @@
   "pick_team": "Alabama Crimson Tide",
   "prediction": "Alabama Crimson Tide to beat Tennessee Volunteers",
   "kickoff_utc": "2026-10-17T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T09:21:47.667467+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T09:21:47.667467+00:00",
+  "settled_at": "2026-10-17T23:19:19.545674+00:00"
  },
  {
   "id": "f2a8504b40",
@@ -2022,8 +2023,9 @@
   "pick_team": "Texas Tech Red Raiders",
   "prediction": "Texas Tech Red Raiders to beat Arizona State Sun Devils",
   "kickoff_utc": "2026-10-17T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T14:36:26.516190+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T14:36:26.516190+00:00",
+  "settled_at": "2026-10-17T23:19:19.622498+00:00"
  },
  {
   "id": "edd3eae07c",
