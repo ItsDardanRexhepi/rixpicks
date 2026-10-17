@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T00:35:08.378905+00:00",
+ "generated_at": "2026-10-17T00:50:09.771790+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -23,19 +23,19 @@
      "matchup": "MEM @ TULN",
      "commence": "2026-10-16T23:30Z",
      "status": "in",
-     "detail": "11:06 - 2nd",
-     "score": "MEM 10 - TULN 3",
-     "away_to": 2,
-     "home_to": 3
+     "detail": "6:42 - 2nd",
+     "score": "MEM 10 - TULN 6",
+     "away_to": 1,
+     "home_to": 2
     },
     {
      "espn_event_id": "401858493",
      "matchup": "WASH @ PUR",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "3:35 - 1st",
-     "score": "WASH 7 - PUR 0",
-     "away_to": 3,
+     "detail": "15:00 - 1st",
+     "score": "WASH 7 - PUR 3",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -43,8 +43,8 @@
      "matchup": "APP @ CCU",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "3:50 - 1st",
-     "score": "APP 13 - CCU 7",
+     "detail": "15:00 - 1st",
+     "score": "APP 14 - CCU 7",
      "away_to": 3,
      "home_to": 3
     }
@@ -58,9 +58,9 @@
      "matchup": "MIA @ ORL",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "10:03 - 3rd",
-     "score": "MIA 73 - ORL 77",
-     "away_to": 4,
+     "detail": "6:32 - 3rd",
+     "score": "MIA 80 - ORL 88",
+     "away_to": 3,
      "home_to": 5
     },
     {
@@ -68,9 +68,9 @@
      "matchup": "BOS @ PHI",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "8:54 - 3rd",
-     "score": "BOS 62 - PHI 69",
-     "away_to": 5,
+     "detail": "5:34 - 3rd",
+     "score": "BOS 70 - PHI 77",
+     "away_to": 3,
      "home_to": 5
     },
     {
@@ -78,9 +78,9 @@
      "matchup": "TOR @ DET",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "11:26 - 3rd",
-     "score": "TOR 52 - DET 59",
-     "away_to": 5,
+     "detail": "6:26 - 3rd",
+     "score": "TOR 65 - DET 73",
+     "away_to": 3,
      "home_to": 4
     },
     {
@@ -88,18 +88,18 @@
      "matchup": "MIL @ IND",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "6:05 - 3rd",
-     "score": "MIL 73 - IND 84",
+     "detail": "9:44 - 4th",
+     "score": "MIL 95 - IND 97",
      "away_to": 4,
-     "home_to": 4
+     "home_to": 3
     },
     {
      "espn_event_id": "401898408",
      "matchup": "ATL @ DAL",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "2:20 - 1st",
-     "score": "ATL 32 - DAL 28",
+     "detail": "9:17 - 2nd",
+     "score": "ATL 52 - DAL 40",
      "away_to": 6,
      "home_to": 6
     },
@@ -108,8 +108,8 @@
      "matchup": "SAC @ SA",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "3:20 - 1st",
-     "score": "SAC 15 - SA 33",
+     "detail": "0.0 - 1st",
+     "score": "SAC 18 - SA 42",
      "away_to": 6,
      "home_to": 6
     },
@@ -118,8 +118,8 @@
      "matchup": "CHA @ MEM",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "2:58 - 1st",
-     "score": "CHA 17 - MEM 10",
+     "detail": "10:48 - 2nd",
+     "score": "CHA 22 - MEM 25",
      "away_to": 6,
      "home_to": 6
     },
@@ -128,8 +128,8 @@
      "matchup": "WAS @ NO",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "51.4 - 1st",
-     "score": "WAS 14 - NO 21",
+     "detail": "9:13 - 2nd",
+     "score": "WAS 24 - NO 31",
      "away_to": 5,
      "home_to": 7
     },
@@ -138,8 +138,8 @@
      "matchup": "MIN @ CHI",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "2:00 - 1st",
-     "score": "MIN 23 - CHI 24",
+     "detail": "9:56 - 2nd",
+     "score": "MIN 32 - CHI 39",
      "away_to": 6,
      "home_to": 6
     },
