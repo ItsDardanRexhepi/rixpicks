@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T00:20:13.426849+00:00",
+ "generated_at": "2026-10-17T00:35:08.378905+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -23,8 +23,8 @@
      "matchup": "MEM @ TULN",
      "commence": "2026-10-16T23:30Z",
      "status": "in",
-     "detail": "14:48 - 2nd",
-     "score": "MEM 3 - TULN 3",
+     "detail": "11:06 - 2nd",
+     "score": "MEM 10 - TULN 3",
      "away_to": 2,
      "home_to": 3
     },
@@ -33,8 +33,8 @@
      "matchup": "WASH @ PUR",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "7:03 - 1st",
-     "score": "WASH 0 - PUR 0",
+     "detail": "3:35 - 1st",
+     "score": "WASH 7 - PUR 0",
      "away_to": 3,
      "home_to": 3
     },
@@ -43,8 +43,8 @@
      "matchup": "APP @ CCU",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "9:08 - 1st",
-     "score": "APP 0 - CCU 7",
+     "detail": "3:50 - 1st",
+     "score": "APP 13 - CCU 7",
      "away_to": 3,
      "home_to": 3
     }
@@ -58,8 +58,8 @@
      "matchup": "MIA @ ORL",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "MIA 65 - ORL 70",
+     "detail": "10:03 - 3rd",
+     "score": "MIA 73 - ORL 77",
      "away_to": 4,
      "home_to": 5
     },
@@ -68,8 +68,8 @@
      "matchup": "BOS @ PHI",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "BOS 58 - PHI 60",
+     "detail": "8:54 - 3rd",
+     "score": "BOS 62 - PHI 69",
      "away_to": 5,
      "home_to": 5
     },
@@ -78,7 +78,7 @@
      "matchup": "TOR @ DET",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "11:26 - 3rd",
      "score": "TOR 52 - DET 59",
      "away_to": 5,
      "home_to": 4
@@ -88,49 +88,49 @@
      "matchup": "MIL @ IND",
      "commence": "2026-10-16T23:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "MIL 56 - IND 71",
+     "detail": "6:05 - 3rd",
+     "score": "MIL 73 - IND 84",
      "away_to": 4,
-     "home_to": 6
+     "home_to": 4
     },
     {
      "espn_event_id": "401898408",
      "matchup": "ATL @ DAL",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "7:13 - 1st",
-     "score": "ATL 22 - DAL 16",
-     "away_to": 7,
-     "home_to": 7
+     "detail": "2:20 - 1st",
+     "score": "ATL 32 - DAL 28",
+     "away_to": 6,
+     "home_to": 6
     },
     {
      "espn_event_id": "401898843",
      "matchup": "SAC @ SA",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "8:10 - 1st",
-     "score": "SAC 7 - SA 16",
-     "away_to": 7,
-     "home_to": 7
+     "detail": "3:20 - 1st",
+     "score": "SAC 15 - SA 33",
+     "away_to": 6,
+     "home_to": 6
     },
     {
      "espn_event_id": "401901822",
      "matchup": "CHA @ MEM",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "6:59 - 1st",
-     "score": "CHA 9 - MEM 4",
-     "away_to": 7,
-     "home_to": 7
+     "detail": "2:58 - 1st",
+     "score": "CHA 17 - MEM 10",
+     "away_to": 6,
+     "home_to": 6
     },
     {
      "espn_event_id": "401906509",
      "matchup": "WAS @ NO",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "7:08 - 1st",
-     "score": "WAS 8 - NO 6",
-     "away_to": 6,
+     "detail": "51.4 - 1st",
+     "score": "WAS 14 - NO 21",
+     "away_to": 5,
      "home_to": 7
     },
     {
@@ -138,9 +138,9 @@
      "matchup": "MIN @ CHI",
      "commence": "2026-10-17T00:00Z",
      "status": "in",
-     "detail": "7:58 - 1st",
-     "score": "MIN 9 - CHI 7",
-     "away_to": 7,
+     "detail": "2:00 - 1st",
+     "score": "MIN 23 - CHI 24",
+     "away_to": 6,
      "home_to": 6
     },
     {
@@ -158,6 +158,14 @@
      "status": "pre",
      "detail": "10/16 - 7:00 PM PT",
      "score": "UTAH 0 - PHX 0"
+    },
+    {
+     "espn_event_id": "401898719",
+     "matchup": "DEN @ LAL",
+     "commence": "2026-10-17T02:30Z",
+     "status": "pre",
+     "detail": "10/16 - 7:30 PM PT",
+     "score": "DEN 0 - LAL 0"
     }
    ]
   },
@@ -179,6 +187,19 @@
      "status": "pre",
      "detail": "10/16 - 7:00 PM PT",
      "score": "BOS 0 - ANA 0"
+    }
+   ]
+  },
+  {
+   "league": "NWSL",
+   "games": [
+    {
+     "espn_event_id": "401854091",
+     "matchup": "LOU @ BOS",
+     "commence": "2026-10-17T00:00Z",
+     "status": "in",
+     "detail": "Delay",
+     "score": "LOU 0 - BOS 0"
     }
    ]
   }
