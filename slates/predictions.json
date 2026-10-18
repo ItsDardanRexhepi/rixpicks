@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-18T13:19:27.046612+00:00",
+ "generated_at": "2026-10-18T13:34:29.869097+00:00",
  "items": [
-  {
-   "id": "a09845f078",
-   "league": "NFL",
-   "event": "Houston Texans @ Jacksonville Jaguars",
-   "prediction": "Jacksonville Jaguars to beat Houston Texans",
-   "kickoff_utc": "2026-10-18T13:30:00+00:00"
-  },
   {
    "id": "713bb6455d",
    "league": "NFL",
@@ -41,6 +34,13 @@
    "league": "NFL",
    "event": "New Orleans Saints @ New York Giants",
    "prediction": "New Orleans Saints to beat New York Giants",
+   "kickoff_utc": "2026-10-18T17:00:00+00:00"
+  },
+  {
+   "id": "e9552dd40b",
+   "league": "NFL",
+   "event": "New York Jets @ New England Patriots",
+   "prediction": "New England Patriots to beat New York Jets",
    "kickoff_utc": "2026-10-18T17:00:00+00:00"
   }
  ]
