@@ -2753,8 +2753,9 @@
   "pick_team": "CF Montr\u00e9al",
   "prediction": "CF Montr\u00e9al to beat Seattle Sounders FC",
   "kickoff_utc": "2026-10-18T02:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T06:06:27.630671+00:00"
+  "status": "miss",
+  "created_at": "2026-10-15T06:06:27.630671+00:00",
+  "settled_at": "2026-10-18T05:04:18.690249+00:00"
  },
  {
   "id": "60c50fa21f",
@@ -2836,8 +2837,9 @@
   "pick_team": "Nashville SC",
   "prediction": "Nashville SC to beat San Jose Earthquakes",
   "kickoff_utc": "2026-10-18T02:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T09:06:54.392239+00:00"
+  "status": "miss",
+  "created_at": "2026-10-15T09:06:54.392239+00:00",
+  "settled_at": "2026-10-18T05:04:18.896943+00:00"
  },
  {
   "id": "c66d866c30",
@@ -2849,8 +2851,9 @@
   "pick_team": "LA Galaxy",
   "prediction": "LA Galaxy to beat San Diego FC",
   "kickoff_utc": "2026-10-18T02:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T09:20:36.140126+00:00"
+  "status": "miss",
+  "created_at": "2026-10-15T09:20:36.140126+00:00",
+  "settled_at": "2026-10-18T05:04:18.995651+00:00"
  },
  {
   "id": "a09845f078",
@@ -2875,8 +2878,9 @@
   "pick_team": "Colorado Rapids",
   "prediction": "Colorado Rapids to beat Portland Timbers",
   "kickoff_utc": "2026-10-18T02:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T12:20:37.180171+00:00"
+  "status": "miss",
+  "created_at": "2026-10-15T12:20:37.180171+00:00",
+  "settled_at": "2026-10-18T05:04:19.068055+00:00"
  },
  {
   "id": "5496bfffe3",
