@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-18T05:35:10.998Z",
+ "generated_at": "2026-10-18T05:40:12.779Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -241,12 +241,12 @@
     "league": "CFB"
    },
    {
-    "headline": "Duncan Brune has 2 rushing touchdowns, Ohio beats Sacramento State 48-7",
-    "link": "http://www.espn.com/ncf/recap?gameId=401866445",
-    "published": "2026-10-18T05:23:27Z",
+    "headline": "Ohio Bobcats vs. Sacramento State Hornets: Full Highlights",
+    "link": "https://www.espn.com/video/clip/_/id/50208297/full-highlights",
+    "published": "2026-10-18T05:30:19Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fcollege-football%2Fevents%2F401866445.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 Duncan Brune had two rushing touchdowns, Irving Brown had 87 yards rushing and a TD on eight carries, and Ohio beat Sacramento State 48-7 on Saturday night.",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1018%2Fbdd9783b-56b9-4ee1-9922-faf4144f13dc%2Fbdd9783b-56b9-4ee1-9922-faf4144f13dc.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Ohio Bobcats vs. Sacramento State Hornets: Full Highlights",
     "league": "CFB"
    },
    {
@@ -268,12 +268,12 @@
     "league": "CFB"
    },
    {
-    "headline": "No. 8 BYU rallies, outlasts No. 2 Notre Dame to move to 6-0",
-    "link": "https://www.espn.com/college-football/story/_/id/50207876/no-8-byu-rallies-outlasts-no-2-notre-dame-move-6-0",
-    "published": "2026-10-18T05:14:07Z",
+    "headline": "Duncan Brune has 2 rushing touchdowns, Ohio beats Sacramento State 48-7",
+    "link": "http://www.espn.com/ncf/recap?gameId=401866445",
+    "published": "2026-10-18T05:23:27Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1018%2Fr1732309_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "With a defensive stop that concluded in the end zone on the game's final play, No. 8 BYU outlasted No. 2 Notre Dame to preserve a riveting 28-24 victory on Saturday, the Fighting Irish's first loss of the season and a win that moved to Cougars to 6-0.",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fcollege-football%2Fevents%2F401866445.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "\u2014 Duncan Brune had two rushing touchdowns, Irving Brown had 87 yards rushing and a TD on eight carries, and Ohio beat Sacramento State 48-7 on Saturday night.",
     "league": "CFB"
    }
   ],
@@ -645,7 +645,17 @@
     "league": "NCAAB"
    }
   ],
-  "soccer/usa.1": [],
+  "soccer/usa.1": [
+   {
+    "headline": "U.S. prodigy Cavan Sullivan sets MLS record, laments 'terrible' performance",
+    "link": "https://www.espn.com/soccer/story/_/id/50189867/usa-cavan-sullivan-mls-record-goal-contributions",
+    "published": "2026-10-16T17:44:18Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731231_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "U.S. teen prodigy Cavan Sullivan made more history on Wednesday, but the Philadelphia Union midfielder insisted he was less than happy with his performance.",
+    "league": "MLS"
+   }
+  ],
   "soccer/usa.nwsl": [
    {
     "headline": "Zambia players to miss several NWSL games due to Ebola travel restrictions",
@@ -1447,7 +1457,7 @@
   }
  ],
  "source_mix": {
-  "ESPN": 57,
+  "ESPN": 58,
   "YAHOO": 65,
   "CBS": 35
  },
