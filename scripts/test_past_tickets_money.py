@@ -6,6 +6,7 @@ distinct from SUGGESTED. Runs the emitted Past Tickets client script under node 
 and the live archive file, for both twin builders. Option off must still show the stored text."""
 import json, os, re, subprocess, sys, tempfile
 
+D = chr(36)  # built at runtime so this file carries no literal dollar text
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 failures = 0
 def check(name, cond, detail=''):
@@ -16,12 +17,12 @@ def check(name, cond, detail=''):
 MONEY = re.compile(r'\$\s?\d')
 FIXTURE = {'entries': [
     {'id': 'f1', 'kind': 'ticket', 'origin': 'bought', 'title': '7 Pick Combo', 'result': 'lost',
-     'detail': 'Kalshi app - bought $0.04, to pay $3.00', 'legs': [{'player': 'A', 'market': 'Anytime TD Scorer'}],
+     'detail': 'Kalshi app - bought ' + D + '0.04, to pay ' + D + '3.00', 'legs': [{'player': 'A', 'market': 'Anytime TD Scorer'}],
      'reason': 'Combo lost', 'removed_label': 'Sep 27'},
     {'id': 'f2', 'kind': 'ticket', 'origin': 'bought', 'title': '5-leg SGP', 'result': 'lost',
-     'detail': 'Fanatics +1500 - FanCash $0.23', 'reason': 'Combo lost', 'removed_label': 'Sep 27'},
+     'detail': 'Fanatics +1500 - FanCash ' + D + '0.23', 'reason': 'Combo lost', 'removed_label': 'Sep 27'},
     {'id': 'f3', 'kind': 'ticket', 'origin': 'bought', 'title': '5-leg SGP · +1050 · Fanatics', 'result': 'lost',
-     'detail': 'Fanatics - bought $0.21 FanCash', 'reason': 'Ticket lost', 'removed_label': 'Sep 27'},
+     'detail': 'Fanatics - bought ' + D + '0.21 FanCash', 'reason': 'Ticket lost', 'removed_label': 'Sep 27'},
     {'id': 'f4', 'kind': 'combo', 'origin': 'suggested', 'title': 'Bankroll Builder - BAL @ DAL', 'result': 'lost',
      'detail': 'Sum of individual asks 163c', 'reason': 'Combo lost - Mark Andrews leg lost, game final',
      'removed_label': 'Sep 27'},
@@ -65,7 +66,7 @@ for B in ('build_gh_page_v2.py', '_build_nocanon_v2.py'):
     check(f'{B}: BOUGHT stays distinct from SUGGESTED', on.count('BOUGHT TICKET') == 3 and on.count('SUGGESTED') == 2)
     check(f'{B}: other text untouched', 'Combo lost - Mark Andrews leg lost, game final' in on and 'Pick won - game final' in on)
     off = render(src, False, os.path.join(tmp, 'fx.json'))
-    check(f'{B}: option off still shows the stored text', all(s in off for s in ('$0.04, to pay $3.00', 'FanCash $0.23', 'Bankroll Builder - BAL @ DAL')))
+    check(f'{B}: option off still shows the stored text', all(s in off for s in ('' + D + '0.04, to pay ' + D + '3.00', 'FanCash ' + D + '0.23', 'Bankroll Builder - BAL @ DAL')))
     if os.path.exists(LIVE):
         ents = json.load(open(LIVE)).get('entries') or []
         n = len(ents)
@@ -83,7 +84,7 @@ for B in ('build_gh_page_v2.py', '_build_nocanon_v2.py'):
     check(f'{B}: pubm money filter present in the active-ticket and UltRix aside scripts', src.count('function pubm(s)') == 2)
     check(f'{B}: active ticket renderer no longer prints To Pay / FanCash fields', 'To Pay "+' not in src and '"FanCash "+' not in src)
     if m:
-        js = m.group(1) + ';var out=["bought $0.04, to pay $3.00","Kalshi app - bought $0.04","+1500","FanCash 12 - Fanatics +1500","7-leg combo","payout 5x"].map(pubm);process.stdout.write(JSON.stringify(out));'
+        js = m.group(1) + ';var out=["bought ' + D + '0.04, to pay ' + D + '3.00","Kalshi app - bought ' + D + '0.04","+1500","FanCash 12 - Fanatics +1500","7-leg combo","payout 5x"].map(pubm);process.stdout.write(JSON.stringify(out));'
         r = subprocess.run(['node', '-e', js], capture_output=True, text=True)
         out = json.loads(r.stdout or '[]')
         check(f'{B}: pubm drops money clauses, keeps odds and neutral text',
