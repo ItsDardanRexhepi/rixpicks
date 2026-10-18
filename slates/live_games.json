@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T22:19:33.667753+00:00",
+ "generated_at": "2026-10-18T22:34:34.784317+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "TB @ CLE",
      "commence": "2026-10-18T21:00Z",
      "status": "in",
-     "detail": "Bot 4th",
+     "detail": "Top 5th",
      "score": "TB 3 - CLE 0"
     }
    ]
@@ -23,7 +23,7 @@
      "matchup": "ARI @ LAR",
      "commence": "2026-10-18T20:05Z",
      "status": "in",
-     "detail": "9:11 - 4th",
+     "detail": "3:23 - 4th",
      "score": "ARI 15 - LAR 9",
      "away_to": 2,
      "home_to": 3
@@ -33,7 +33,7 @@
      "matchup": "LAC @ KC",
      "commence": "2026-10-18T20:25Z",
      "status": "in",
-     "detail": "6:29 - 3rd",
+     "detail": "2:17 - 3rd",
      "score": "LAC 6 - KC 19",
      "away_to": 3,
      "home_to": 3
@@ -43,10 +43,18 @@
      "matchup": "BUF @ LV",
      "commence": "2026-10-18T20:25Z",
      "status": "in",
-     "detail": "8:17 - 3rd",
-     "score": "BUF 16 - LV 13",
+     "detail": "2:14 - 3rd",
+     "score": "BUF 23 - LV 13",
      "away_to": 3,
      "home_to": 3
+    },
+    {
+     "espn_event_id": "401873007",
+     "matchup": "DAL @ GB",
+     "commence": "2026-10-19T00:20Z",
+     "status": "pre",
+     "detail": "10/18 - 5:20 PM PT",
+     "score": "DAL 0 - GB 0"
     }
    ]
   },
@@ -58,7 +66,7 @@
      "matchup": "CBJ @ MIN",
      "commence": "2026-10-18T22:00Z",
      "status": "in",
-     "detail": "13:28 - 1st",
+     "detail": "5:39 - 1st",
      "score": "CBJ 0 - MIN 0",
      "away_to": null,
      "home_to": null
@@ -81,8 +89,8 @@
      "matchup": "CLB @ CIN",
      "commence": "2026-10-18T21:00Z",
      "status": "in",
-     "detail": "HT",
-     "score": "CLB 1 - CIN 0"
+     "detail": "57'",
+     "score": "CLB 2 - CIN 0"
     }
    ]
   },
@@ -94,7 +102,7 @@
      "matchup": "POR @ BAY",
      "commence": "2026-10-18T21:00Z",
      "status": "in",
-     "detail": "52'",
+     "detail": "67'",
      "score": "POR 1 - BAY 1"
     },
     {
