@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T17:59:07.479106+00:00",
+ "generated_at": "2026-10-18T18:05:01.356974+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,8 +10,8 @@
      "matchup": "CHI @ ATL",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "7:19 - 2nd",
-     "score": "CHI 14 - ATL 0",
+     "detail": "5:45 - 2nd",
+     "score": "CHI 14 - ATL 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -20,7 +20,7 @@
      "matchup": "BAL @ CLE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "8:32 - 2nd",
+     "detail": "5:57 - 2nd",
      "score": "BAL 10 - CLE 0",
      "away_to": 2,
      "home_to": 3
@@ -30,7 +30,7 @@
      "matchup": "TEN @ IND",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "8:30 - 2nd",
+     "detail": "3:39 - 2nd",
      "score": "TEN 0 - IND 7",
      "away_to": 3,
      "home_to": 3
@@ -40,7 +40,7 @@
      "matchup": "NYJ @ NE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "7:36 - 2nd",
+     "detail": "6:00 - 2nd",
      "score": "NYJ 3 - NE 7",
      "away_to": 3,
      "home_to": 3
@@ -50,7 +50,7 @@
      "matchup": "NO @ NYG",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "6:51 - 2nd",
+     "detail": "4:17 - 2nd",
      "score": "NO 0 - NYG 7",
      "away_to": 3,
      "home_to": 3
@@ -60,7 +60,7 @@
      "matchup": "CAR @ PHI",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "12:45 - 2nd",
+     "detail": "10:27 - 2nd",
      "score": "CAR 3 - PHI 0",
      "away_to": 3,
      "home_to": 3
@@ -70,10 +70,18 @@
      "matchup": "PIT @ TB",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "11:30 - 2nd",
+     "detail": "7:11 - 2nd",
      "score": "PIT 0 - TB 10",
      "away_to": 2,
      "home_to": 3
+    },
+    {
+     "espn_event_id": "401873004",
+     "matchup": "ARI @ LAR",
+     "commence": "2026-10-18T20:05Z",
+     "status": "pre",
+     "detail": "10/18 - 1:05 PM PT",
+     "score": "ARI 0 - LAR 0"
     }
    ]
   },
@@ -85,7 +93,7 @@
      "matchup": "ORL @ HOU",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "45'+6'",
+     "detail": "HT",
      "score": "ORL 2 - HOU 0"
     }
    ]
