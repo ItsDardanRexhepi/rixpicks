@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T03:34:34.760714+00:00",
+ "generated_at": "2026-10-18T03:49:30.370613+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -22,19 +22,17 @@
      "espn_event_id": "401862804",
      "matchup": "NAVY @ UTSA",
      "commence": "2026-10-18T00:00Z",
-     "status": "in",
-     "detail": "1:42 - 4th",
-     "score": "NAVY 34 - UTSA 38",
-     "away_to": 0,
-     "home_to": 0
+     "status": "post",
+     "detail": "Final",
+     "score": "NAVY 34 - UTSA 38"
     },
     {
      "espn_event_id": "401864523",
      "matchup": "SJSU @ UTEP",
      "commence": "2026-10-18T01:00Z",
      "status": "in",
-     "detail": "15:00 - 3rd",
-     "score": "SJSU 21 - UTEP 3",
+     "detail": "10:52 - 4th",
+     "score": "SJSU 24 - UTEP 11",
      "away_to": 1,
      "home_to": 0
     },
@@ -43,7 +41,7 @@
      "matchup": "OHIO @ SAC",
      "commence": "2026-10-18T02:00Z",
      "status": "in",
-     "detail": "0:45 - 2nd",
+     "detail": "Halftime",
      "score": "OHIO 27 - SAC 0",
      "away_to": 1,
      "home_to": 1
@@ -53,7 +51,7 @@
      "matchup": "UTAH @ COLO",
      "commence": "2026-10-18T02:15Z",
      "status": "in",
-     "detail": "8:58 - 2nd",
+     "detail": "2:13 - 2nd",
      "score": "UTAH 10 - COLO 0",
      "away_to": 3,
      "home_to": 3
@@ -63,8 +61,8 @@
      "matchup": "WAKE @ CAL",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "10:17 - 2nd",
-     "score": "WAKE 21 - CAL 0",
+     "detail": "6:44 - 2nd",
+     "score": "WAKE 27 - CAL 0",
      "away_to": 2,
      "home_to": 2
     },
@@ -73,17 +71,17 @@
      "matchup": "FRES @ SDSU",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "7:48 - 2nd",
-     "score": "FRES 3 - SDSU 13",
+     "detail": "4:02 - 2nd",
+     "score": "FRES 10 - SDSU 13",
      "away_to": 2,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401864521",
      "matchup": "UNM @ HAW",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "9:58 - 2nd",
+     "detail": "3:41 - 2nd",
      "score": "UNM 0 - HAW 3",
      "away_to": 3,
      "home_to": 2
@@ -93,9 +91,9 @@
      "matchup": "NEB @ ORE",
      "commence": "2026-10-18T03:00Z",
      "status": "in",
-     "detail": "4:20 - 1st",
+     "detail": "15:00 - 2nd",
      "score": "NEB 0 - ORE 0",
-     "away_to": 3,
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -124,8 +122,8 @@
      "matchup": "BOS @ LA",
      "commence": "2026-10-18T01:00Z",
      "status": "in",
-     "detail": "6:44 - 3rd",
-     "score": "BOS 1 - LA 1",
+     "detail": "0:27 - 3rd",
+     "score": "BOS 3 - LA 1",
      "away_to": null,
      "home_to": null
     },
@@ -134,8 +132,8 @@
      "matchup": "EDM @ UTA",
      "commence": "2026-10-18T02:00Z",
      "status": "in",
-     "detail": "6:21 - 2nd",
-     "score": "EDM 4 - UTA 0",
+     "detail": "End of 2nd",
+     "score": "EDM 5 - UTA 0",
      "away_to": null,
      "home_to": null
     },
@@ -144,7 +142,7 @@
      "matchup": "PIT @ VGK",
      "commence": "2026-10-18T02:00Z",
      "status": "in",
-     "detail": "4:57 - 2nd",
+     "detail": "End of 2nd",
      "score": "PIT 1 - VGK 5",
      "away_to": null,
      "home_to": null
@@ -183,7 +181,7 @@
      "matchup": "SD @ LA",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "HT",
+     "detail": "46'",
      "score": "SD 2 - LA 2"
     },
     {
@@ -199,7 +197,7 @@
      "matchup": "NSH @ SJ",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "HT",
+     "detail": "48'",
      "score": "NSH 1 - SJ 0"
     },
     {
@@ -207,7 +205,7 @@
      "matchup": "MTL @ SEA",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "HT",
+     "detail": "52'",
      "score": "MTL 1 - SEA 0"
     }
    ]
