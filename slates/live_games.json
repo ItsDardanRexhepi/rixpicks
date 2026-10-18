@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T22:49:36.997429+00:00",
+ "generated_at": "2026-10-18T23:04:36.429416+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "TB @ CLE",
      "commence": "2026-10-18T21:00Z",
      "status": "in",
-     "detail": "Top 6th",
-     "score": "TB 3 - CLE 0"
+     "detail": "Mid 7th",
+     "score": "TB 3 - CLE 1"
     }
    ]
   },
@@ -22,18 +22,16 @@
      "espn_event_id": "401873004",
      "matchup": "ARI @ LAR",
      "commence": "2026-10-18T20:05Z",
-     "status": "in",
-     "detail": "0:52 - 4th",
-     "score": "ARI 15 - LAR 9",
-     "away_to": 0,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "ARI 18 - LAR 16"
     },
     {
      "espn_event_id": "401873006",
      "matchup": "LAC @ KC",
      "commence": "2026-10-18T20:25Z",
      "status": "in",
-     "detail": "13:56 - 4th",
+     "detail": "9:36 - 4th",
      "score": "LAC 6 - KC 19",
      "away_to": 3,
      "home_to": 2
@@ -43,8 +41,8 @@
      "matchup": "BUF @ LV",
      "commence": "2026-10-18T20:25Z",
      "status": "in",
-     "detail": "13:27 - 4th",
-     "score": "BUF 23 - LV 16",
+     "detail": "7:22 - 4th",
+     "score": "BUF 23 - LV 23",
      "away_to": 3,
      "home_to": 2
     },
@@ -66,7 +64,7 @@
      "matchup": "CBJ @ MIN",
      "commence": "2026-10-18T22:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "20:00 - 2nd",
      "score": "CBJ 1 - MIN 1",
      "away_to": null,
      "home_to": null
@@ -89,7 +87,7 @@
      "matchup": "CLB @ CIN",
      "commence": "2026-10-18T21:00Z",
      "status": "in",
-     "detail": "72'",
+     "detail": "86'",
      "score": "CLB 2 - CIN 0"
     }
    ]
@@ -101,17 +99,9 @@
      "espn_event_id": "401854025",
      "matchup": "POR @ BAY",
      "commence": "2026-10-18T21:00Z",
-     "status": "in",
-     "detail": "82'",
-     "score": "POR 1 - BAY 2"
-    },
-    {
-     "espn_event_id": "401854026",
-     "matchup": "SEA @ CHI",
-     "commence": "2026-10-18T23:00Z",
-     "status": "pre",
-     "detail": "Scheduled",
-     "score": "SEA 0 - CHI 0"
+     "status": "post",
+     "detail": "FT",
+     "score": "POR 2 - BAY 2"
     }
    ]
   }
