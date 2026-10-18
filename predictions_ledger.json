@@ -2053,8 +2053,9 @@
   "pick_team": "Utah Utes",
   "prediction": "Utah Utes to beat Colorado Buffaloes",
   "kickoff_utc": "2026-10-18T02:15:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T14:51:12.327296+00:00"
+  "status": "hit",
+  "created_at": "2026-10-13T14:51:12.327296+00:00",
+  "settled_at": "2026-10-18T06:19:18.987563+00:00"
  },
  {
   "id": "59a188738f",
