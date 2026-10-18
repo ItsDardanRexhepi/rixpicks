@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-17T23:49:43.376865+00:00",
+ "generated_at": "2026-10-18T00:04:49.254940+00:00",
  "items": [
-  {
-   "id": "048253bbd3",
-   "league": "NHL",
-   "event": "St. Louis Blues @ Nashville Predators",
-   "prediction": "St. Louis Blues to beat Nashville Predators",
-   "kickoff_utc": "2026-10-18T00:00:00+00:00"
-  },
-  {
-   "id": "886bd398ba",
-   "league": "MLB",
-   "event": "Tampa Bay Rays @ Cleveland Guardians",
-   "prediction": "Tampa Bay Rays to beat Cleveland Guardians",
-   "kickoff_utc": "2026-10-18T00:00:00+00:00"
-  },
   {
    "id": "9dd20d2235",
    "league": "MLS",
@@ -42,6 +28,20 @@
    "event": "Angel City FC @ Denver Summit FC",
    "prediction": "Angel City FC to beat Denver Summit FC",
    "kickoff_utc": "2026-10-18T00:45:00+00:00"
+  },
+  {
+   "id": "5857d87e19",
+   "league": "NHL",
+   "event": "Boston Bruins @ Los Angeles Kings",
+   "prediction": "Boston Bruins to beat Los Angeles Kings",
+   "kickoff_utc": "2026-10-18T01:00:00+00:00"
+  },
+  {
+   "id": "6dc63ea94c",
+   "league": "NHL",
+   "event": "Edmonton Oilers @ Utah Mammoth",
+   "prediction": "Edmonton Oilers to beat Utah Mammoth",
+   "kickoff_utc": "2026-10-18T02:00:00+00:00"
   }
  ]
 }
