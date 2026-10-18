@@ -1,5 +1,5 @@
 {
- "pulled_at_utc": "2026-10-18T19:20:38Z",
+ "pulled_at_utc": "2026-10-18T21:43:24Z",
  "source": "the-odds-api v4 nfl scores (daysFrom=1)",
  "games": [
   {
@@ -20,180 +20,207 @@
      "score": "34"
     }
    ],
-   "last_update": "2026-10-18T19:20:28Z"
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "7c312fdf24fb35f58b0e07c2932cc997",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
    "commence_time": "2026-10-18T17:02:41Z",
-   "completed": false,
+   "completed": true,
    "home_team": "Atlanta Falcons",
    "away_team": "Chicago Bears",
    "scores": [
     {
      "name": "Atlanta Falcons",
-     "score": "7"
+     "score": "23"
     },
     {
      "name": "Chicago Bears",
-     "score": "21"
+     "score": "31"
     }
    ],
-   "last_update": "2026-10-18T19:20:28Z"
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "0b0b582b32b09ab6ff6664ffae0c9653",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
    "commence_time": "2026-10-18T17:02:43Z",
-   "completed": false,
+   "completed": true,
    "home_team": "New England Patriots",
    "away_team": "New York Jets",
    "scores": [
     {
      "name": "New England Patriots",
-     "score": "17"
+     "score": "26"
     },
     {
      "name": "New York Jets",
-     "score": "13"
+     "score": "19"
     }
    ],
-   "last_update": "2026-10-18T19:20:28Z"
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "caca2d752fe1a1779029082e95332fcc",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
    "commence_time": "2026-10-18T17:02:48Z",
-   "completed": false,
+   "completed": true,
    "home_team": "Philadelphia Eagles",
    "away_team": "Carolina Panthers",
    "scores": [
     {
      "name": "Philadelphia Eagles",
-     "score": "7"
+     "score": "14"
     },
     {
      "name": "Carolina Panthers",
-     "score": "13"
+     "score": "25"
     }
    ],
-   "last_update": "2026-10-18T19:20:28Z"
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "27f3994841ce8081c0b7349cf3d1e3d7",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
    "commence_time": "2026-10-18T17:02:52Z",
-   "completed": false,
+   "completed": true,
    "home_team": "Tampa Bay Buccaneers",
    "away_team": "Pittsburgh Steelers",
    "scores": [
     {
      "name": "Tampa Bay Buccaneers",
-     "score": "16"
+     "score": "19"
     },
     {
      "name": "Pittsburgh Steelers",
-     "score": "3"
+     "score": "26"
     }
    ],
-   "last_update": "2026-10-18T19:20:28Z"
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "e86227938fd3cf008fc5648fb5128344",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
    "commence_time": "2026-10-18T17:02:53Z",
-   "completed": false,
+   "completed": true,
    "home_team": "Cleveland Browns",
    "away_team": "Baltimore Ravens",
    "scores": [
     {
      "name": "Cleveland Browns",
-     "score": "3"
+     "score": "13"
     },
     {
      "name": "Baltimore Ravens",
      "score": "10"
     }
    ],
-   "last_update": "2026-10-18T19:20:28Z"
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "1cf74afd313e9fd300e1462012b174cb",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
    "commence_time": "2026-10-18T17:03:01Z",
-   "completed": false,
+   "completed": true,
    "home_team": "New York Giants",
    "away_team": "New Orleans Saints",
    "scores": [
     {
      "name": "New York Giants",
-     "score": "10"
+     "score": "27"
     },
     {
      "name": "New Orleans Saints",
-     "score": "24"
+     "score": "34"
     }
    ],
-   "last_update": "2026-10-18T19:20:28Z"
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "84aa9e190e625d7e9cd67e1f157a45b4",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
    "commence_time": "2026-10-18T17:03:40Z",
-   "completed": false,
+   "completed": true,
    "home_team": "Indianapolis Colts",
    "away_team": "Tennessee Titans",
    "scores": [
     {
      "name": "Indianapolis Colts",
-     "score": "13"
+     "score": "20"
     },
     {
      "name": "Tennessee Titans",
-     "score": "6"
+     "score": "26"
     }
    ],
-   "last_update": "2026-10-18T19:20:28Z"
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "3729ac6d2a66b642850caf2044cdc658",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
-   "commence_time": "2026-10-18T20:05:00Z",
+   "commence_time": "2026-10-18T20:05:18Z",
    "completed": false,
    "home_team": "Los Angeles Rams",
    "away_team": "Arizona Cardinals",
-   "scores": null,
-   "last_update": "2026-10-18T19:20:28Z"
+   "scores": [
+    {
+     "name": "Los Angeles Rams",
+     "score": "9"
+    },
+    {
+     "name": "Arizona Cardinals",
+     "score": "9"
+    }
+   ],
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "45b2690b350ed45145c7a716b18e8e66",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
-   "commence_time": "2026-10-18T20:25:00Z",
+   "commence_time": "2026-10-18T20:25:15Z",
    "completed": false,
    "home_team": "Las Vegas Raiders",
    "away_team": "Buffalo Bills",
-   "scores": null,
-   "last_update": "2026-10-18T19:20:28Z"
+   "scores": [
+    {
+     "name": "Las Vegas Raiders",
+     "score": "10"
+    },
+    {
+     "name": "Buffalo Bills",
+     "score": "13"
+    }
+   ],
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "20fefae8c296247460ba5773caa42218",
    "sport_key": "americanfootball_nfl",
    "sport_title": "NFL",
-   "commence_time": "2026-10-18T20:25:00Z",
+   "commence_time": "2026-10-18T20:25:25Z",
    "completed": false,
    "home_team": "Kansas City Chiefs",
    "away_team": "Los Angeles Chargers",
-   "scores": null,
-   "last_update": "2026-10-18T19:20:28Z"
+   "scores": [
+    {
+     "name": "Kansas City Chiefs",
+     "score": "16"
+    },
+    {
+     "name": "Los Angeles Chargers",
+     "score": "3"
+    }
+   ],
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "82fd5a159fa130e67abab93a9537f70b",
@@ -204,7 +231,7 @@
    "home_team": "Green Bay Packers",
    "away_team": "Dallas Cowboys",
    "scores": null,
-   "last_update": "2026-10-18T19:20:28Z"
+   "last_update": "2026-10-18T21:43:08Z"
   },
   {
    "id": "f122527f003276d3bca19efa48c902c1",
@@ -215,7 +242,7 @@
    "home_team": "San Francisco 49ers",
    "away_team": "Washington Commanders",
    "scores": null,
-   "last_update": "2026-10-18T19:20:28Z"
+   "last_update": "2026-10-18T21:43:08Z"
   }
  ]
 }
