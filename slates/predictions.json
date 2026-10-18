@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-18T02:04:30.549811+00:00",
+ "generated_at": "2026-10-18T02:19:24.654711+00:00",
  "items": [
-  {
-   "id": "1512558767",
-   "league": "CFB",
-   "event": "Utah Utes @ Colorado Buffaloes",
-   "prediction": "Utah Utes to beat Colorado Buffaloes",
-   "kickoff_utc": "2026-10-18T02:15:00+00:00"
-  },
   {
    "id": "0a39a910c4",
    "league": "CFB",
@@ -42,6 +35,13 @@
    "event": "Colorado Rapids @ Portland Timbers",
    "prediction": "Colorado Rapids to beat Portland Timbers",
    "kickoff_utc": "2026-10-18T02:30:00+00:00"
+  },
+  {
+   "id": "a09845f078",
+   "league": "NFL",
+   "event": "Houston Texans @ Jacksonville Jaguars",
+   "prediction": "Jacksonville Jaguars to beat Houston Texans",
+   "kickoff_utc": "2026-10-18T13:30:00+00:00"
   }
  ]
 }
