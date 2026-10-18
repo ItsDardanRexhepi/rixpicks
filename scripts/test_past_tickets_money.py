@@ -75,5 +75,23 @@ for B in ('build_gh_page_v2.py', '_build_nocanon_v2.py'):
               live.count('border-radius:12px;padding:11px 12px') == n and live.count('Removed ') == stamped
               and not MONEY.search(live) and 'bankroll' not in live.lower(), (MONEY.findall(live)[:4], live.count('Removed '), stamped))
 
+# Active-ticket renderer and UltRix aside: the shared pubm() filter drops money text even if a raw field carries it.
+for B in ('build_gh_page_v2.py', '_build_nocanon_v2.py'):
+    src = open(os.path.join(ROOT, 'scripts', B)).read()
+    fns = re.findall(r"var MNY=(/.*?/i);function pubm\(s\)\{.*?\}\);?\.join\(\" - \"\)\.trim\(\);\}", src)
+    m = re.search(r"(var MNY=/.*?function pubm\(s\)\{.*?\.trim\(\);\})'", src)
+    check(f'{B}: pubm money filter present in the active-ticket and UltRix aside scripts', src.count('function pubm(s)') == 2)
+    check(f'{B}: active ticket renderer no longer prints To Pay / FanCash fields', 'To Pay "+' not in src and '"FanCash "+' not in src)
+    if m:
+        js = m.group(1) + ';var out=["bought $0.04, to pay $3.00","Kalshi app - bought $0.04","+1500","FanCash 12 - Fanatics +1500","7-leg combo","payout 5x"].map(pubm);process.stdout.write(JSON.stringify(out));'
+        r = subprocess.run(['node', '-e', js], capture_output=True, text=True)
+        out = json.loads(r.stdout or '[]')
+        check(f'{B}: pubm drops money clauses, keeps odds and neutral text',
+              out == ['', 'Kalshi app', '+1500', 'Fanatics +1500', '7-leg combo', ''], out)
+ur = os.path.join(ROOT, 'slates', 'ultrix_record.json')
+if os.path.exists(ur):
+    check('ultrix_record.json: no dollar amounts in any price field',
+          not any(MONEY.search(str(x.get('price', ''))) for x in json.load(open(ur)).get('picks', [])))
+
 print('FAILURES: ' + str(failures) if failures else 'ALL CHECKS PASS')
 sys.exit(1 if failures else 0)
