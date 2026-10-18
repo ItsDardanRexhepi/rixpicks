@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T18:19:32.621358+00:00",
+ "generated_at": "2026-10-18T18:34:32.051144+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,58 +10,58 @@
      "matchup": "CHI @ ATL",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "1:35 - 2nd",
-     "score": "CHI 14 - ATL 7",
+     "detail": "Halftime",
+     "score": "CHI 21 - ATL 7",
      "away_to": 3,
-     "home_to": 2
+     "home_to": 3
     },
     {
      "espn_event_id": "401872997",
      "matchup": "BAL @ CLE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "0:26 - 2nd",
+     "detail": "Halftime",
      "score": "BAL 10 - CLE 0",
-     "away_to": 0,
-     "home_to": 1
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401873003",
      "matchup": "TEN @ IND",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "0:11 - 2nd",
+     "detail": "Halftime",
      "score": "TEN 0 - IND 13",
-     "away_to": 2,
-     "home_to": 2
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401873001",
      "matchup": "NYJ @ NE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "1:35 - 2nd",
-     "score": "NYJ 3 - NE 10",
-     "away_to": 1,
-     "home_to": 2
+     "detail": "Halftime",
+     "score": "NYJ 3 - NE 17",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401873000",
      "matchup": "NO @ NYG",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "1:18 - 2nd",
-     "score": "NO 3 - NYG 10",
+     "detail": "Halftime",
+     "score": "NO 10 - NYG 10",
      "away_to": 3,
-     "home_to": 2
+     "home_to": 3
     },
     {
      "espn_event_id": "401872998",
      "matchup": "CAR @ PHI",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "8:08 - 2nd",
-     "score": "CAR 10 - PHI 0",
+     "detail": "2:00 - 2nd",
+     "score": "CAR 10 - PHI 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -70,10 +70,10 @@
      "matchup": "PIT @ TB",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "2:00 - 2nd",
-     "score": "PIT 0 - TB 13",
-     "away_to": 1,
-     "home_to": 2
+     "detail": "Halftime",
+     "score": "PIT 3 - TB 13",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401873004",
@@ -82,6 +82,22 @@
      "status": "pre",
      "detail": "10/18 - 1:05 PM PT",
      "score": "ARI 0 - LAR 0"
+    },
+    {
+     "espn_event_id": "401873006",
+     "matchup": "LAC @ KC",
+     "commence": "2026-10-18T20:25Z",
+     "status": "pre",
+     "detail": "10/18 - 1:25 PM PT",
+     "score": "LAC 0 - KC 0"
+    },
+    {
+     "espn_event_id": "401873005",
+     "matchup": "BUF @ LV",
+     "commence": "2026-10-18T20:25Z",
+     "status": "pre",
+     "detail": "10/18 - 1:25 PM PT",
+     "score": "BUF 0 - LV 0"
     }
    ]
   },
@@ -93,8 +109,8 @@
      "matchup": "ORL @ HOU",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "48'",
-     "score": "ORL 2 - HOU 0"
+     "detail": "62'",
+     "score": "ORL 2 - HOU 1"
     }
    ]
   }
