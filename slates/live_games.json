@@ -1,20 +1,7 @@
 {
  "version": 1,
- "generated_at": "2026-10-17T23:49:34.349512+00:00",
+ "generated_at": "2026-10-18T00:04:35.383978+00:00",
  "leagues": [
-  {
-   "league": "MLB",
-   "games": [
-    {
-     "espn_event_id": "401908027",
-     "matchup": "TB @ CLE",
-     "commence": "2026-10-18T00:00Z",
-     "status": "pre",
-     "detail": "10/17 - 5:00 PM PT",
-     "score": "TB 0 - CLE 0"
-    }
-   ]
-  },
   {
    "league": "CFB",
    "games": [
@@ -23,7 +10,7 @@
      "matchup": "TROY @ UL",
      "commence": "2026-10-17T21:00Z",
      "status": "in",
-     "detail": "6:35 - 4th",
+     "detail": "1:44 - 4th",
      "score": "TROY 6 - UL 33",
      "away_to": 2,
      "home_to": 0
@@ -43,8 +30,8 @@
      "matchup": "FSU @ MIA",
      "commence": "2026-10-17T23:00Z",
      "status": "in",
-     "detail": "13:52 - 2nd",
-     "score": "FSU 6 - MIA 7",
+     "detail": "10:35 - 2nd",
+     "score": "FSU 7 - MIA 7",
      "away_to": 2,
      "home_to": 3
     },
@@ -53,8 +40,8 @@
      "matchup": "ARK @ VAN",
      "commence": "2026-10-17T23:00Z",
      "status": "in",
-     "detail": "11:43 - 2nd",
-     "score": "ARK 0 - VAN 7",
+     "detail": "6:16 - 2nd",
+     "score": "ARK 7 - VAN 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -63,8 +50,8 @@
      "matchup": "TCU @ BAY",
      "commence": "2026-10-17T23:00Z",
      "status": "in",
-     "detail": "14:54 - 2nd",
-     "score": "TCU 7 - BAY 0",
+     "detail": "9:02 - 2nd",
+     "score": "TCU 7 - BAY 3",
      "away_to": 3,
      "home_to": 3
     },
@@ -73,8 +60,8 @@
      "matchup": "KENT @ USF",
      "commence": "2026-10-17T23:00Z",
      "status": "in",
-     "detail": "12:32 - 2nd",
-     "score": "KENT 2 - USF 0",
+     "detail": "8:40 - 2nd",
+     "score": "KENT 2 - USF 7",
      "away_to": 2,
      "home_to": 3
     },
@@ -83,8 +70,8 @@
      "matchup": "NEV @ NDSU",
      "commence": "2026-10-17T23:00Z",
      "status": "in",
-     "detail": "10:11 - 2nd",
-     "score": "NEV 8 - NDSU 0",
+     "detail": "5:56 - 2nd",
+     "score": "NEV 11 - NDSU 6",
      "away_to": 3,
      "home_to": 3
     },
@@ -93,8 +80,8 @@
      "matchup": "ARST @ USM",
      "commence": "2026-10-17T23:00Z",
      "status": "in",
-     "detail": "14:27 - 2nd",
-     "score": "ARST 6 - USM 0",
+     "detail": "8:29 - 2nd",
+     "score": "ARST 13 - USM 0",
      "away_to": 3,
      "home_to": 2
     },
@@ -103,9 +90,9 @@
      "matchup": "ND @ BYU",
      "commence": "2026-10-17T23:30Z",
      "status": "in",
-     "detail": "12:29 - 1st",
-     "score": "ND 0 - BYU 0",
-     "away_to": 3,
+     "detail": "5:09 - 1st",
+     "score": "ND 0 - BYU 7",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -113,8 +100,8 @@
      "matchup": "WIS @ UCLA",
      "commence": "2026-10-17T23:30Z",
      "status": "in",
-     "detail": "11:49 - 1st",
-     "score": "WIS 0 - UCLA 0",
+     "detail": "0:25 - 1st",
+     "score": "WIS 0 - UCLA 3",
      "away_to": 3,
      "home_to": 3
     },
@@ -123,9 +110,9 @@
      "matchup": "UK @ OU",
      "commence": "2026-10-17T23:30Z",
      "status": "in",
-     "detail": "9:56 - 1st",
-     "score": "UK 0 - OU 0",
-     "away_to": 3,
+     "detail": "3:04 - 1st",
+     "score": "UK 7 - OU 0",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -133,8 +120,8 @@
      "matchup": "OKST @ HOU",
      "commence": "2026-10-17T23:30Z",
      "status": "in",
-     "detail": "8:03 - 1st",
-     "score": "OKST 3 - HOU 0",
+     "detail": "2:12 - 1st",
+     "score": "OKST 3 - HOU 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -143,8 +130,8 @@
      "matchup": "ELON @ STAN",
      "commence": "2026-10-17T23:30Z",
      "status": "in",
-     "detail": "6:45 - 1st",
-     "score": "ELON 0 - STAN 0",
+     "detail": "End of 1st",
+     "score": "ELON 0 - STAN 6",
      "away_to": 3,
      "home_to": 3
     },
@@ -153,8 +140,8 @@
      "matchup": "LOU @ SYR",
      "commence": "2026-10-17T23:30Z",
      "status": "in",
-     "detail": "10:47 - 1st",
-     "score": "LOU 0 - SYR 3",
+     "detail": "6:01 - 1st",
+     "score": "LOU 6 - SYR 10",
      "away_to": 3,
      "home_to": 3
     },
@@ -167,20 +154,14 @@
      "score": "TLSA 38 - RICE 17"
     },
     {
-     "espn_event_id": "401862804",
-     "matchup": "NAVY @ UTSA",
-     "commence": "2026-10-18T00:00Z",
-     "status": "pre",
-     "detail": "10/17 - 5:00 PM PT",
-     "score": "NAVY 0 - UTSA 0"
-    },
-    {
      "espn_event_id": "401871091",
      "matchup": "LT @ ULM",
      "commence": "2026-10-18T00:00Z",
-     "status": "pre",
-     "detail": "10/17 - 5:00 PM PT",
-     "score": "LT 0 - ULM 0"
+     "status": "in",
+     "detail": "13:52 - 1st",
+     "score": "LT 0 - ULM 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401864523",
@@ -189,6 +170,14 @@
      "status": "pre",
      "detail": "10/17 - 6:00 PM PT",
      "score": "SJSU 0 - UTEP 0"
+    },
+    {
+     "espn_event_id": "401866445",
+     "matchup": "OHIO @ SAC",
+     "commence": "2026-10-18T02:00Z",
+     "status": "pre",
+     "detail": "10/17 - 7:00 PM PT",
+     "score": "OHIO 0 - SAC 0"
     }
    ]
   },
@@ -196,19 +185,11 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401892521",
-     "matchup": "VAN @ TB",
-     "commence": "2026-10-17T20:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "VAN 2 - TB 4"
-    },
-    {
      "espn_event_id": "401892522",
      "matchup": "SEA @ FLA",
      "commence": "2026-10-17T22:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "20:00 - 3rd",
      "score": "SEA 2 - FLA 6",
      "away_to": null,
      "home_to": null
@@ -218,7 +199,7 @@
      "matchup": "NYI @ TOR",
      "commence": "2026-10-17T23:00Z",
      "status": "in",
-     "detail": "1:21 - 1st",
+     "detail": "End of 1st",
      "score": "NYI 1 - TOR 0",
      "away_to": null,
      "home_to": null
@@ -228,7 +209,7 @@
      "matchup": "BUF @ MTL",
      "commence": "2026-10-17T23:00Z",
      "status": "in",
-     "detail": "0:28 - 1st",
+     "detail": "End of 1st",
      "score": "BUF 1 - MTL 2",
      "away_to": null,
      "home_to": null
@@ -248,7 +229,7 @@
      "matchup": "OTT @ PHI",
      "commence": "2026-10-17T23:00Z",
      "status": "in",
-     "detail": "2:53 - 1st",
+     "detail": "End of 1st",
      "score": "OTT 0 - PHI 0",
      "away_to": null,
      "home_to": null
@@ -258,7 +239,7 @@
      "matchup": "NYR @ CBJ",
      "commence": "2026-10-17T23:00Z",
      "status": "in",
-     "detail": "0:43 - 1st",
+     "detail": "End of 1st",
      "score": "NYR 0 - CBJ 0",
      "away_to": null,
      "home_to": null
@@ -274,20 +255,28 @@
      "home_to": null
     },
     {
-     "espn_event_id": "401892529",
-     "matchup": "STL @ NSH",
-     "commence": "2026-10-18T00:00Z",
-     "status": "pre",
-     "detail": "10/17 - 5:00 PM PT",
-     "score": "STL 0 - NSH 0"
-    },
-    {
      "espn_event_id": "401892530",
      "matchup": "BOS @ LA",
      "commence": "2026-10-18T01:00Z",
      "status": "pre",
      "detail": "10/17 - 6:00 PM PT",
      "score": "BOS 0 - LA 0"
+    },
+    {
+     "espn_event_id": "401892531",
+     "matchup": "EDM @ UTA",
+     "commence": "2026-10-18T02:00Z",
+     "status": "pre",
+     "detail": "10/17 - 7:00 PM PT",
+     "score": "EDM 0 - UTA 0"
+    },
+    {
+     "espn_event_id": "401892532",
+     "matchup": "PIT @ VGK",
+     "commence": "2026-10-18T02:00Z",
+     "status": "pre",
+     "detail": "10/17 - 7:00 PM PT",
+     "score": "PIT 0 - VGK 0"
     }
    ]
   },
@@ -307,7 +296,7 @@
      "matchup": "MIA @ ATL",
      "commence": "2026-10-17T23:30Z",
      "status": "in",
-     "detail": "7'",
+     "detail": "22'",
      "score": "MIA 0 - ATL 0"
     },
     {
@@ -315,7 +304,7 @@
      "matchup": "CHI @ NE",
      "commence": "2026-10-17T23:30Z",
      "status": "in",
-     "detail": "9'",
+     "detail": "24'",
      "score": "CHI 0 - NE 0"
     },
     {
@@ -323,7 +312,7 @@
      "matchup": "LAFC @ NYC",
      "commence": "2026-10-17T23:30Z",
      "status": "in",
-     "detail": "8'",
+     "detail": "24'",
      "score": "LAFC 0 - NYC 0"
     },
     {
@@ -331,15 +320,15 @@
      "matchup": "DC @ ORL",
      "commence": "2026-10-17T23:30Z",
      "status": "in",
-     "detail": "9'",
-     "score": "DC 0 - ORL 0"
+     "detail": "24'",
+     "score": "DC 0 - ORL 2"
     },
     {
      "espn_event_id": "761878",
      "matchup": "TOR @ RBNY",
      "commence": "2026-10-17T23:30Z",
      "status": "in",
-     "detail": "9'",
+     "detail": "24'",
      "score": "TOR 1 - RBNY 0"
     },
     {
@@ -376,7 +365,7 @@
      "matchup": "KC @ UTA",
      "commence": "2026-10-17T22:30Z",
      "status": "in",
-     "detail": "60'",
+     "detail": "75'",
      "score": "KC 1 - UTA 0"
     },
     {
@@ -384,7 +373,7 @@
      "matchup": "SD @ NC",
      "commence": "2026-10-17T23:00Z",
      "status": "in",
-     "detail": "41'",
+     "detail": "HT",
      "score": "SD 1 - NC 0"
     },
     {
