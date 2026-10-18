@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-18T00:49:31.221205+00:00",
+ "generated_at": "2026-10-18T01:04:37.665001+00:00",
  "items": [
-  {
-   "id": "5857d87e19",
-   "league": "NHL",
-   "event": "Boston Bruins @ Los Angeles Kings",
-   "prediction": "Boston Bruins to beat Los Angeles Kings",
-   "kickoff_utc": "2026-10-18T01:00:00+00:00"
-  },
   {
    "id": "6dc63ea94c",
    "league": "NHL",
@@ -41,6 +34,13 @@
    "league": "MLS",
    "event": "CF Montr\u00e9al @ Seattle Sounders FC",
    "prediction": "CF Montr\u00e9al to beat Seattle Sounders FC",
+   "kickoff_utc": "2026-10-18T02:30:00+00:00"
+  },
+  {
+   "id": "fc3b6f25f3",
+   "league": "MLS",
+   "event": "Nashville SC @ San Jose Earthquakes",
+   "prediction": "Nashville SC to beat San Jose Earthquakes",
    "kickoff_utc": "2026-10-18T02:30:00+00:00"
   }
  ]

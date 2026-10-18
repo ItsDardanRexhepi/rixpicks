@@ -3252,8 +3252,9 @@
   "pick_team": "Kansas City Current",
   "prediction": "Kansas City Current to beat Utah Royals",
   "kickoff_utc": "2026-10-17T22:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-17T08:35:45.901955+00:00"
+  "status": "hit",
+  "created_at": "2026-10-17T08:35:45.901955+00:00",
+  "settled_at": "2026-10-18T01:04:20.897550+00:00"
  },
  {
   "id": "73a0d9fde3",
@@ -3479,5 +3480,18 @@
   "kickoff_utc": "2026-10-18T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-17T21:04:52.407689+00:00"
+ },
+ {
+  "id": "05eff5f295",
+  "event_id": "401909089",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "New York Knicks",
+  "away": "Philadelphia 76ers",
+  "pick_team": "Philadelphia 76ers",
+  "prediction": "Philadelphia 76ers to beat New York Knicks",
+  "kickoff_utc": "2026-10-20T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-18T01:04:29.586734+00:00"
  }
 ]
