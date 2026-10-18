@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T23:34:33.823433+00:00",
+ "generated_at": "2026-10-18T23:49:35.953170+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "TB @ CLE",
      "commence": "2026-10-18T21:00Z",
      "status": "in",
-     "detail": "Bot 8th",
+     "detail": "Top 9th",
      "score": "TB 3 - CLE 1"
     }
    ]
@@ -18,6 +18,14 @@
   {
    "league": "NFL",
    "games": [
+    {
+     "espn_event_id": "401873004",
+     "matchup": "ARI @ LAR",
+     "commence": "2026-10-18T20:05Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "ARI 18 - LAR 16"
+    },
     {
      "espn_event_id": "401873006",
      "matchup": "LAC @ KC",
@@ -33,14 +41,6 @@
      "status": "post",
      "detail": "Final",
      "score": "BUF 33 - LV 30"
-    },
-    {
-     "espn_event_id": "401873004",
-     "matchup": "ARI @ LAR",
-     "commence": "2026-10-18T20:05Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "ARI 18 - LAR 16"
     },
     {
      "espn_event_id": "401873007",
@@ -60,7 +60,7 @@
      "matchup": "CBJ @ MIN",
      "commence": "2026-10-18T22:00Z",
      "status": "in",
-     "detail": "3:01 - 2nd",
+     "detail": "End of 2nd",
      "score": "CBJ 1 - MIN 2",
      "away_to": null,
      "home_to": null
@@ -104,8 +104,8 @@
      "matchup": "SEA @ CHI",
      "commence": "2026-10-18T23:00Z",
      "status": "in",
-     "detail": "26'",
-     "score": "SEA 0 - CHI 0"
+     "detail": "40'",
+     "score": "SEA 1 - CHI 0"
     }
    ]
   }
