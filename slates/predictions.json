@@ -1,27 +1,6 @@
 {
- "generated_at": "2026-10-18T00:19:43.673035+00:00",
+ "generated_at": "2026-10-18T00:34:37.519417+00:00",
  "items": [
-  {
-   "id": "9dd20d2235",
-   "league": "MLS",
-   "event": "FC Dallas @ Houston Dynamo FC",
-   "prediction": "Houston Dynamo FC to beat FC Dallas",
-   "kickoff_utc": "2026-10-18T00:30:00+00:00"
-  },
-  {
-   "id": "60c50fa21f",
-   "league": "MLS",
-   "event": "Vancouver Whitecaps @ Austin FC",
-   "prediction": "Austin FC to beat Vancouver Whitecaps",
-   "kickoff_utc": "2026-10-18T00:30:00+00:00"
-  },
-  {
-   "id": "408067505d",
-   "league": "MLS",
-   "event": "Real Salt Lake @ Sporting Kansas City",
-   "prediction": "Sporting Kansas City to beat Real Salt Lake",
-   "kickoff_utc": "2026-10-18T00:30:00+00:00"
-  },
   {
    "id": "73a0d9fde3",
    "league": "NWSL",
@@ -42,6 +21,27 @@
    "event": "Edmonton Oilers @ Utah Mammoth",
    "prediction": "Edmonton Oilers to beat Utah Mammoth",
    "kickoff_utc": "2026-10-18T02:00:00+00:00"
+  },
+  {
+   "id": "8532e297bc",
+   "league": "NHL",
+   "event": "Pittsburgh Penguins @ Vegas Golden Knights",
+   "prediction": "Vegas Golden Knights to beat Pittsburgh Penguins",
+   "kickoff_utc": "2026-10-18T02:00:00+00:00"
+  },
+  {
+   "id": "1512558767",
+   "league": "CFB",
+   "event": "Utah Utes @ Colorado Buffaloes",
+   "prediction": "Utah Utes to beat Colorado Buffaloes",
+   "kickoff_utc": "2026-10-18T02:15:00+00:00"
+  },
+  {
+   "id": "0a39a910c4",
+   "league": "CFB",
+   "event": "Wake Forest Demon Deacons @ California Golden Bears",
+   "prediction": "Wake Forest Demon Deacons to beat California Golden Bears",
+   "kickoff_utc": "2026-10-18T02:30:00+00:00"
   }
  ]
 }
