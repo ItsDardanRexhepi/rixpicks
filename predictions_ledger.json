@@ -2706,8 +2706,9 @@
   "pick_team": "New England Revolution",
   "prediction": "New England Revolution to beat Chicago Fire FC",
   "kickoff_utc": "2026-10-17T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T05:05:58.830499+00:00"
+  "status": "hit",
+  "created_at": "2026-10-15T05:05:58.830499+00:00",
+  "settled_at": "2026-10-18T02:04:20.690175+00:00"
  },
  {
   "id": "1caa7e46b0",
@@ -2719,8 +2720,9 @@
   "pick_team": "LAFC",
   "prediction": "LAFC to beat New York City FC",
   "kickoff_utc": "2026-10-17T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T05:06:04.048528+00:00"
+  "status": "miss",
+  "created_at": "2026-10-15T05:06:04.048528+00:00",
+  "settled_at": "2026-10-18T02:04:20.746544+00:00"
  },
  {
   "id": "9dd20d2235",
@@ -2784,8 +2786,9 @@
   "pick_team": "Orlando City SC",
   "prediction": "Orlando City SC to beat D.C. United",
   "kickoff_utc": "2026-10-17T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T08:05:41.886064+00:00"
+  "status": "hit",
+  "created_at": "2026-10-15T08:05:41.886064+00:00",
+  "settled_at": "2026-10-18T02:04:20.803669+00:00"
  },
  {
   "id": "ddc259162b",
@@ -2797,8 +2800,9 @@
   "pick_team": "Atlanta United FC",
   "prediction": "Atlanta United FC to beat Inter Miami CF",
   "kickoff_utc": "2026-10-17T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T08:35:42.261450+00:00"
+  "status": "miss",
+  "created_at": "2026-10-15T08:35:42.261450+00:00",
+  "settled_at": "2026-10-18T02:04:20.890607+00:00"
  },
  {
   "id": "3e751d8de4",
@@ -2810,8 +2814,9 @@
   "pick_team": "Toronto FC",
   "prediction": "Toronto FC to beat Red Bull New York",
   "kickoff_utc": "2026-10-17T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T09:06:22.781298+00:00"
+  "status": "hit",
+  "created_at": "2026-10-15T09:06:22.781298+00:00",
+  "settled_at": "2026-10-18T02:04:20.976882+00:00"
  },
  {
   "id": "fc3b6f25f3",
@@ -3321,8 +3326,9 @@
   "pick_team": "Detroit Red Wings",
   "prediction": "Detroit Red Wings to beat San Jose Sharks",
   "kickoff_utc": "2026-10-17T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-17T15:21:57.238312+00:00"
+  "status": "hit",
+  "created_at": "2026-10-17T15:21:57.238312+00:00",
+  "settled_at": "2026-10-18T02:04:21.220904+00:00"
  },
  {
   "id": "64d0081f2e",
@@ -3334,8 +3340,9 @@
   "pick_team": "Philadelphia Flyers",
   "prediction": "Philadelphia Flyers to beat Ottawa Senators",
   "kickoff_utc": "2026-10-17T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-17T15:22:03.437626+00:00"
+  "status": "hit",
+  "created_at": "2026-10-17T15:22:03.437626+00:00",
+  "settled_at": "2026-10-18T02:04:21.488503+00:00"
  },
  {
   "id": "d9e8c9c2c9",
@@ -3428,8 +3435,9 @@
   "pick_team": "New York Rangers",
   "prediction": "New York Rangers to beat Columbus Blue Jackets",
   "kickoff_utc": "2026-10-17T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-17T17:49:44.945418+00:00"
+  "status": "miss",
+  "created_at": "2026-10-17T17:49:44.945418+00:00",
+  "settled_at": "2026-10-18T02:04:21.547372+00:00"
  },
  {
   "id": "8532e297bc",
