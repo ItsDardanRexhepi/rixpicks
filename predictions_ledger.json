@@ -3562,8 +3562,9 @@
   "pick_team": "Orlando Pride",
   "prediction": "Orlando Pride to beat Houston Dash",
   "kickoff_utc": "2026-10-18T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-18T09:04:32.576997+00:00"
+  "status": "hit",
+  "created_at": "2026-10-18T09:04:32.576997+00:00",
+  "settled_at": "2026-10-18T19:34:16.963620+00:00"
  },
  {
   "id": "5dff87050c",
