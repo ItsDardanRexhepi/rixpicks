@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T19:34:37.587414+00:00",
+ "generated_at": "2026-10-18T19:49:35.726881+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -23,7 +23,7 @@
      "matchup": "CHI @ ATL",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "14:56 - 4th",
+     "detail": "9:43 - 4th",
      "score": "CHI 31 - ATL 7",
      "away_to": 3,
      "home_to": 3
@@ -33,18 +33,18 @@
      "matchup": "BAL @ CLE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "5:06 - 4th",
+     "detail": "1:39 - 4th",
      "score": "BAL 10 - CLE 10",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401873003",
      "matchup": "TEN @ IND",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "10:17 - 4th",
-     "score": "TEN 20 - IND 13",
+     "detail": "4:30 - 4th",
+     "score": "TEN 20 - IND 20",
      "away_to": 3,
      "home_to": 2
     },
@@ -53,8 +53,8 @@
      "matchup": "NYJ @ NE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "11:50 - 4th",
-     "score": "NYJ 13 - NE 23",
+     "detail": "5:11 - 4th",
+     "score": "NYJ 16 - NE 23",
      "away_to": 3,
      "home_to": 3
     },
@@ -63,8 +63,8 @@
      "matchup": "NO @ NYG",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "12:41 - 4th",
-     "score": "NO 27 - NYG 10",
+     "detail": "8:24 - 4th",
+     "score": "NO 34 - NYG 10",
      "away_to": 3,
      "home_to": 3
     },
@@ -73,8 +73,8 @@
      "matchup": "CAR @ PHI",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "15:00 - 4th",
-     "score": "CAR 13 - PHI 7",
+     "detail": "12:47 - 4th",
+     "score": "CAR 19 - PHI 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -83,8 +83,8 @@
      "matchup": "PIT @ TB",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "13:09 - 4th",
-     "score": "PIT 10 - TB 16",
+     "detail": "7:03 - 4th",
+     "score": "PIT 13 - TB 16",
      "away_to": 3,
      "home_to": 2
     },
