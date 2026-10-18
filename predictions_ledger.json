@@ -3550,5 +3550,18 @@
   "kickoff_utc": "2026-10-18T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-18T07:29:19.994696+00:00"
+ },
+ {
+  "id": "ccce9443da",
+  "event_id": "401854024",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Houston Dash",
+  "away": "Orlando Pride",
+  "pick_team": "Orlando Pride",
+  "prediction": "Orlando Pride to beat Houston Dash",
+  "kickoff_utc": "2026-10-18T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-18T09:04:32.576997+00:00"
  }
 ]
