@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T22:38:15.444760+00:00",
+ "generated_at": "2026-10-18T22:49:36.997429+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "TB @ CLE",
      "commence": "2026-10-18T21:00Z",
      "status": "in",
-     "detail": "Mid 5th",
+     "detail": "Top 6th",
      "score": "TB 3 - CLE 0"
     }
    ]
@@ -23,9 +23,9 @@
      "matchup": "ARI @ LAR",
      "commence": "2026-10-18T20:05Z",
      "status": "in",
-     "detail": "3:09 - 4th",
+     "detail": "0:52 - 4th",
      "score": "ARI 15 - LAR 9",
-     "away_to": 2,
+     "away_to": 0,
      "home_to": 2
     },
     {
@@ -33,20 +33,20 @@
      "matchup": "LAC @ KC",
      "commence": "2026-10-18T20:25Z",
      "status": "in",
-     "detail": "0:21 - 3rd",
+     "detail": "13:56 - 4th",
      "score": "LAC 6 - KC 19",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401873005",
      "matchup": "BUF @ LV",
      "commence": "2026-10-18T20:25Z",
      "status": "in",
-     "detail": "0:07 - 3rd",
-     "score": "BUF 23 - LV 13",
+     "detail": "13:27 - 4th",
+     "score": "BUF 23 - LV 16",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401873007",
@@ -66,8 +66,8 @@
      "matchup": "CBJ @ MIN",
      "commence": "2026-10-18T22:00Z",
      "status": "in",
-     "detail": "4:13 - 1st",
-     "score": "CBJ 0 - MIN 0",
+     "detail": "End of 1st",
+     "score": "CBJ 1 - MIN 1",
      "away_to": null,
      "home_to": null
     },
@@ -89,7 +89,7 @@
      "matchup": "CLB @ CIN",
      "commence": "2026-10-18T21:00Z",
      "status": "in",
-     "detail": "60'",
+     "detail": "72'",
      "score": "CLB 2 - CIN 0"
     }
    ]
@@ -102,7 +102,7 @@
      "matchup": "POR @ BAY",
      "commence": "2026-10-18T21:00Z",
      "status": "in",
-     "detail": "71'",
+     "detail": "82'",
      "score": "POR 1 - BAY 2"
     },
     {
