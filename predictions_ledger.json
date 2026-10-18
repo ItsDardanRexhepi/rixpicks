@@ -2484,8 +2484,9 @@
   "pick_team": "Pittsburgh Steelers",
   "prediction": "Pittsburgh Steelers to beat Tampa Bay Buccaneers",
   "kickoff_utc": "2026-10-18T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T04:51:17.383936+00:00"
+  "status": "hit",
+  "created_at": "2026-10-14T04:51:17.383936+00:00",
+  "settled_at": "2026-10-18T20:49:20.891996+00:00"
  },
  {
   "id": "2ac76bcaa9",
