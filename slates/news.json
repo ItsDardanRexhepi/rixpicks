@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-18T22:00:17.902Z",
+ "generated_at": "2026-10-18T22:05:11.745Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -32,7 +32,7 @@
    {
     "headline": "Lineups, live updates for Rays-Guardians ALCS Game 5",
     "link": "https://www.espn.com/mlb/story/_/id/50198161/playoff-guardians-rays-alcs-game-5-live-takeaways",
-    "published": "2026-10-18T21:46:11Z",
+    "published": "2026-10-18T22:01:26Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1018%2Fr1732534_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Will Tampa Bay or Cleveland move one win from a World Series appearance Sunday? We've got it all covered.",
@@ -95,6 +95,33 @@
   ],
   "football/nfl": [
    {
+    "headline": "Follow live: Bills, Raiders battle in Las Vegas",
+    "link": "https://www.espn.com/nfl/story/_/id/50209856/week-6-nfl-highlights-best-plays-moments-touchdowns",
+    "published": "2026-10-18T22:55:01.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1018%252Fr1732620_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "null",
+    "source": "ESPN",
+    "league": "NFL"
+   },
+   {
+    "headline": "Jameis Winston benched: J.J. McCarthy's thrilling, historic comeback bid comes up short vs. Saints",
+    "link": "https://www.cbssports.com/nfl/news/jameis-winston-benched-giants-j-j-mccarthy-makes-debut/",
+    "published": "2026-10-18T22:00:25.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2F0f2dd461-a484-4039-9647-32db6b9f75e3%2Fmcc.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "McCarthy helped New York score 17 unanswered points before ultimately coming up just short",
+    "source": "CBS",
+    "league": "NFL"
+   },
+   {
+    "headline": "Fantasy Football RB Report: Cam Skattebo frozen out of Giants' backfield headlines messy Week 6 for splits",
+    "link": "https://sports.yahoo.com/fantasy/article/fantasy-football-rb-report-cam-skattebo-frozen-out-of-giants-backfield-headlines-messy-week-6-for-splits-215831879.html",
+    "published": "2026-10-18T21:58:31.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/7b192aab75c1b70d498b7b60c6d66c039736c0d8f55ab1ec63d3cc42f5fbf3f8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2Fa5aed1b0-cde2-4cb4-9dd6-82418c522407",
+    "blurb": "We go over some of the more frustrating RB committees for fantasy football coming out of Week 6.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Chargers' McConkey, back from Week 4 injury, exits with concussion",
     "link": "https://www.espn.com/nfl/story/_/id/50213342/chargers-ladd-mcconkey-ruled-concussion-vs-chiefs",
     "published": "2026-10-18T22:42:50.000Z",
@@ -125,7 +152,7 @@
     "headline": "Hunter stars in Jags' loss, is 1st with INT and TD catch in game since '02",
     "link": "https://www.espn.com/nfl/story/_/id/50212108/travis-hunter-interception-td-catch-jaguars-loss",
     "published": "2026-10-18T22:42:50.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1018%252Fr1732541_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "The Jaguars' Travis Hunter had a historic day at Wembley Stadium, becoming the first player since 2002 to record an interception and TD catch in the same game.",
     "source": "ESPN",
     "league": "NFL"
@@ -140,11 +167,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Bills tied with Raiders 13-13 at halftime after C.J. Gardner-Johnson's ejection",
-    "link": "https://sports.yahoo.com/articles/bills-tied-raiders-13-13-214925189.html",
-    "published": "2026-10-18T21:49:25.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/cf889b52705f5bd2d553106c5290041d3a34d16fa0d7b658522b5a150c44d555/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Ff69462f4e99303260172334f570c65ec.jpg",
-    "blurb": "The Bills are in a battle with the Raiders in Las Vegas, and they will have to play the second half without safety C.J.",
+    "headline": "J.J. McCarthy just created a quarterback controversy for the Giants",
+    "link": "https://sports.yahoo.com/articles/j-j-mccarthy-just-created-215036588.html",
+    "published": "2026-10-18T21:50:36.000Z",
+    "image": "",
+    "blurb": "The New York Giants must decide whether to start J.J. McCarthy or Jameis Winston in Week 7.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -154,33 +181,6 @@
     "published": "2026-10-18T22:42:50.000Z",
     "image": "",
     "blurb": "WR Romeo Doubs was hurt after diving to haul in a 42-yard touchdown pass from Drake Maye with 4:10 remaining in the first quarter.",
-    "source": "ESPN",
-    "league": "NFL"
-   },
-   {
-    "headline": "Pittsburgh coach Mike McCarthy suffers injury during Steelers' game vs. Buccaneers",
-    "link": "https://www.cbssports.com/nfl/news/steelers-mike-mccarthy-suffers-injury-vs-buccaneers/",
-    "published": "2026-10-18T21:34:31.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2Fc9f8dc25-4c0b-4078-b955-97d4c64eb0c7%2Fmccarthyoct.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "McCarthy spent halftime in the blue medical tent",
-    "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Top takeaways from the Ravens\u2019 loss to the Browns in Week 6",
-    "link": "https://sports.yahoo.com/articles/top-takeaways-ravens-loss-browns-213631249.html",
-    "published": "2026-10-18T21:36:31.000Z",
-    "image": "",
-    "blurb": "The Baltimore Ravens dropped their first divisional game of the season, losing a sloppy 13-10 affair in Cleveland after the Browns hit a walk-off field goal. Here are Baltimore Beatdown\u2019s top takeaways from the sluggish defeat: The Ravens need a real quarterback \u2026 Look, we all lo",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "Falcons say LB Daniels has movement in all extremities after exit vs. Bears",
-    "link": "https://www.espn.com/nfl/story/_/id/50212250/falcons-kendal-daniels-carted-collision-vs-bears",
-    "published": "2026-10-18T22:42:50.000Z",
-    "image": "",
-    "blurb": "Falcons rookie linebacker Kendal Daniels was able to leave an area hospital, return to the locker room and rejoin his teammates after Sunday's loss.",
     "source": "ESPN",
     "league": "NFL"
    }
@@ -196,11 +196,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Military service member dies after fall from Alamodome rafters before UTSA vs. Navy",
-    "link": "https://www.cbssports.com/college-football/news/military-service-member-dies-alamodome-utsa-navy/",
-    "published": "2026-10-18T21:50:34.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2Fc0718185-fbc2-4262-9fa1-ce7ae71fca74%2Falamodome.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "An airman died after sustaining injuries during a pre-game exercise",
+    "headline": "College football odds, lines, schedule for Week 8: Texas opens as favorite vs. Ole Miss",
+    "link": "https://www.cbssports.com/college-football/news/college-football-odds-lines-schedule-week-8-texas-ole-miss/",
+    "published": "2026-10-18T21:59:05.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2F49a33752-905b-493e-8658-3b0cc76643ee%2Farch.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Initial odds for college football's top Week 8 matchups are out",
     "source": "CBS",
     "league": "CFB"
    },
@@ -223,11 +223,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Maryland fires DC Ted Monachino as Mike Locksley's future as coach remains in doubt",
-    "link": "https://www.cbssports.com/college-football/news/maryland-fires-ted-monachino-mike-locksley-future/",
-    "published": "2026-10-18T20:14:34.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2F15fd16bc-b548-4071-beed-9d19e75682da%2Flocksley.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "After a 2-5 start and another defensive collapse, Locksley made a change entering Maryland's bye week in hopes of turning the season -- and his trajectory -- around",
+    "headline": "Military service member dies after fall from Alamodome rafters before UTSA vs. Navy",
+    "link": "https://www.cbssports.com/college-football/news/military-service-member-dies-alamodome-utsa-navy/",
+    "published": "2026-10-18T21:50:34.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2Fc0718185-fbc2-4262-9fa1-ce7ae71fca74%2Falamodome.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "An airman died after sustaining injuries during a pre-game exercise",
     "source": "CBS",
     "league": "CFB"
    },
@@ -250,20 +250,20 @@
     "league": "CFB"
    },
    {
-    "headline": "AP Top 25 poll: Miami takes over at No. 1, BYU surges to No. 2 in college football rankings",
-    "link": "https://www.cbssports.com/college-football/news/ap-top-25-college-football-rankings-miami-byu/",
-    "published": "2026-10-18T19:58:48.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2Fb400ad4e-39c9-43e5-951d-5614967cc50a%2Fmiami.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "There is a change at the top for the second straight week amid a chaotic weekend of upsets, while BYU's win over Notre Dame earned major respect from the voters",
+    "headline": "Maryland fires DC Ted Monachino as Mike Locksley's future as coach remains in doubt",
+    "link": "https://www.cbssports.com/college-football/news/maryland-fires-ted-monachino-mike-locksley-future/",
+    "published": "2026-10-18T20:14:34.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2F15fd16bc-b548-4071-beed-9d19e75682da%2Flocksley.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "After a 2-5 start and another defensive collapse, Locksley made a change entering Maryland's bye week in hopes of turning the season -- and his trajectory -- around",
     "source": "CBS",
     "league": "CFB"
    },
    {
-    "headline": "Iowa football rises again in latest AP Top 25 rankings",
-    "link": "https://sports.yahoo.com/articles/iowa-football-rises-again-latest-213008435.html",
-    "published": "2026-10-18T21:30:08.000Z",
+    "headline": "Huskers Run Out of Steam in Eugene",
+    "link": "https://sports.yahoo.com/articles/huskers-run-steam-eugene-213154714.html",
+    "published": "2026-10-18T21:31:54.000Z",
     "image": "",
-    "blurb": "After the most chaotic weekend of college football so far this season, Iowa has risen once again in the latest AP Top 25 poll.",
+    "blurb": "Nebraska loses a heartbreaker against Oregon in the second loss in a row, where Nebraska couldn't hold on in the fourth quarter.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -555,11 +555,11 @@
   ],
   "basketball/mens-college-basketball": [
    {
-    "headline": "Washington Basketball's Offense Struggles in Exhibition Loss at BSU",
-    "link": "https://sports.yahoo.com/articles/washington-basketballs-offense-struggles-exhibition-210046434.html",
-    "published": "2026-10-18T21:00:46.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/22426f568d938e32ccc5942e7c2a9a56f205c70255eb02ce983e1f79965bb4e3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhuskies_wire_articles_664%2Ff036df7118b11f21f7dbe4e88f0028d9.jpg",
-    "blurb": "The Washington Huskies hit the hardwood in Idaho on Saturday for the first of two exhibition games before the 2026-27 season starts.",
+    "headline": "Maryland men\u2019s basketball comes from behind to beat West Virginia, 90-81, in overtime exhibition",
+    "link": "https://sports.yahoo.com/articles/maryland-men-basketball-comes-behind-215559477.html",
+    "published": "2026-10-18T21:55:59.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/51792cfb1d3f884fe3c94936fdea76ea7b54b94b02d641dbfb9be8e7b7eef78d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F8ca1eab8dac47c74888169d10085907c.jpg",
+    "blurb": "The Terps were propelled by a combined 53 points from Pharell Payne and Andre Mills.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -582,11 +582,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Syracuse 81, Siena 76: Orange escape late versus Saints",
-    "link": "https://sports.yahoo.com/articles/syracuse-81-siena-76-orange-201248314.html",
-    "published": "2026-10-18T20:12:48.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/db2bc9a3723629b64baf807c1e4a2209ac40db032d17e77a1b8b12f14f3f9e16/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F8651666f0ae41123cf707cda27d9bb8e.jpg",
-    "blurb": "Syracuse escapes the I-90 trip with a win and also leaves with plenty of work to do before the season-opener.",
+    "headline": "Washington Basketball's Offense Struggles in Exhibition Loss at BSU",
+    "link": "https://sports.yahoo.com/articles/washington-basketballs-offense-struggles-exhibition-210046434.html",
+    "published": "2026-10-18T21:00:46.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/22426f568d938e32ccc5942e7c2a9a56f205c70255eb02ce983e1f79965bb4e3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhuskies_wire_articles_664%2Ff036df7118b11f21f7dbe4e88f0028d9.jpg",
+    "blurb": "The Washington Huskies hit the hardwood in Idaho on Saturday for the first of two exhibition games before the 2026-27 season starts.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -609,11 +609,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Purdue Men\u2019s Basketball Handles Ball State 87-55 in First Exhibition",
-    "link": "https://sports.yahoo.com/articles/purdue-men-basketball-handles-ball-195857110.html",
-    "published": "2026-10-18T19:58:57.000Z",
+    "headline": "Syracuse 81, Siena 76: Orange escape late versus Saints",
+    "link": "https://sports.yahoo.com/articles/syracuse-81-siena-76-orange-201248314.html",
+    "published": "2026-10-18T20:12:48.000Z",
     "image": "",
-    "blurb": "Purdue handled their business.",
+    "blurb": "Syracuse escapes the I-90 trip with a win and also leaves with plenty of work to do before the season-opener.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -636,11 +636,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "3 things that stood out from Purdue basketball's exhibition win vs Ball State",
-    "link": "https://sports.yahoo.com/articles/3-things-stood-purdue-basketballs-195555772.html",
-    "published": "2026-10-18T19:55:55.000Z",
+    "headline": "Purdue Men\u2019s Basketball Handles Ball State 87-55 in First Exhibition",
+    "link": "https://sports.yahoo.com/articles/purdue-men-basketball-handles-ball-195857110.html",
+    "published": "2026-10-18T19:58:57.000Z",
     "image": "",
-    "blurb": "The Boilermakers opened their preseason on Sunday. They showed encouraging signs in potential areas of concern, and more. Here's what stood out.",
+    "blurb": "Purdue handled their business.",
     "source": "YAHOO",
     "league": "NCAAB"
    }
@@ -677,11 +677,11 @@
   ],
   "golf/pga": [
    {
-    "headline": "The 72 golfers who made the 2026 Charles Schwab Cup Playoffs include Michael Block",
-    "link": "https://sports.yahoo.com/articles/72-golfers-made-2026-charles-213908312.html",
-    "published": "2026-10-18T21:39:08.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/f4a080b432c429848ab6bd6029b27cb4956db08aad38006a9104acfa67717887/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_golfweek_articles_635%2F0ef2149b12c228897edea464e06adacd.jpg",
-    "blurb": "Stewart Cink, Zach Johnson and Steven Alker are joined in the playoffs by fan favorite Michael Block.",
+    "headline": "Vijay Singh wins on PGA Tour Champions at age 63",
+    "link": "https://sports.yahoo.com/articles/vijay-singh-wins-pga-tour-215710320.html",
+    "published": "2026-10-18T21:57:10.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/86d9ca86c787ba8702ce8b7cc623912542f9706d11ba41ba861f65b4034a7a0b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fap.org%2F2133a6e7d7b7b6e54b52f43117200027.jpg",
+    "blurb": "(AP) \u2014 Vijay Singh became the second-oldest player to win on the PGA Tour Champions on Sunday when the 63-year-old Fijian closed with a 3-under 69 for a two-shot victory in the SAS Championship.Singh made four birdies in a six-hole stretch around the turn to get in front of a cro",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -704,11 +704,11 @@
     "league": "PGA"
    },
    {
-    "headline": "Vijay Singh wins PGA Tour Champions regular-season finale at SAS Championship",
-    "link": "https://sports.yahoo.com/articles/vijay-singh-wins-pga-tour-212730925.html",
-    "published": "2026-10-18T21:27:30.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/bba040e48937eb7cb6a7509a628c7eb157677973891a279bf4f04e685c6744d9/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_golfweek_articles_635%2F52878794e1c8083e6e7182acde667040.jpg",
-    "blurb": "Welcome back to the winner's circle, Vijay Singh. At 63, he's the tour's seventh-oldest winner.",
+    "headline": "The 72 golfers who made the 2026 Charles Schwab Cup Playoffs include Michael Block",
+    "link": "https://sports.yahoo.com/articles/72-golfers-made-2026-charles-213908312.html",
+    "published": "2026-10-18T21:39:08.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/f4a080b432c429848ab6bd6029b27cb4956db08aad38006a9104acfa67717887/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_golfweek_articles_635%2F0ef2149b12c228897edea464e06adacd.jpg",
+    "blurb": "Stewart Cink, Zach Johnson and Steven Alker are joined in the playoffs by fan favorite Michael Block.",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -731,11 +731,11 @@
     "league": "PGA"
    },
    {
-    "headline": "How the PGA Tour's best putter warms up before every round",
-    "link": "https://sports.yahoo.com/articles/pga-tours-best-putter-warms-205010399.html",
-    "published": "2026-10-18T20:50:10.000Z",
+    "headline": "Vijay Singh wins PGA Tour Champions regular-season finale at SAS Championship",
+    "link": "https://sports.yahoo.com/articles/vijay-singh-wins-pga-tour-212730925.html",
+    "published": "2026-10-18T21:27:30.000Z",
     "image": "",
-    "blurb": "Get an in-depth look at Jacob Bridgeman's practice putting routine and steal his keys to boost your performance on the green.",
+    "blurb": "Welcome back to the winner's circle, Vijay Singh. At 63, he's the tour's seventh-oldest winner.",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -758,11 +758,11 @@
     "league": "PGA"
    },
    {
-    "headline": "Rory McIlroy exposes LIV Golf\u2019s biggest mistake as its bankruptcy battle intensifies",
-    "link": "https://sports.yahoo.com/articles/rory-mcilroy-exposes-liv-golf-193000003.html",
-    "published": "2026-10-18T19:30:00.000Z",
+    "headline": "How the PGA Tour's best putter warms up before every round",
+    "link": "https://sports.yahoo.com/articles/pga-tours-best-putter-warms-205010399.html",
+    "published": "2026-10-18T20:50:10.000Z",
     "image": "",
-    "blurb": "Rory McIlroy says LIV Golf had half a good idea and wasted much of its Saudi-backed capital as the league fights through bankruptcy court.",
+    "blurb": "Get an in-depth look at Jacob Bridgeman's practice putting routine and steal his keys to boost your performance on the green.",
     "source": "YAHOO",
     "league": "PGA"
    }
@@ -1077,6 +1077,15 @@
  },
  "latest": [
   {
+   "headline": "Follow live: Bills, Raiders battle in Las Vegas",
+   "link": "https://www.espn.com/nfl/story/_/id/50209856/week-6-nfl-highlights-best-plays-moments-touchdowns",
+   "published": "2026-10-18T22:55:01.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1018%252Fr1732620_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "null",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
    "headline": "Follow live: Rays build early lead on Aranda single in pivotal Game 5",
    "link": "https://www.espn.com/mlb/story/_/id/50198161/playoff-guardians-rays-alcs-game-5-live-takeaways",
    "published": "2026-10-18T22:49:50.000Z",
@@ -1091,15 +1100,6 @@
    "published": "2026-10-18T22:42:50.000Z",
    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0923%252Fr1720651_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Chargers WR Ladd McConkey, in his first action since injuring his foot in Week 4, left Sunday's game early after suffering a concussion in the second quarter.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Hunter stars in Jags' loss, is 1st with INT and TD catch in game since '02",
-   "link": "https://www.espn.com/nfl/story/_/id/50212108/travis-hunter-interception-td-catch-jaguars-loss",
-   "published": "2026-10-18T22:42:50.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1018%252Fr1732541_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Jaguars' Travis Hunter had a historic day at Wembley Stadium, becoming the first player since 2002 to record an interception and TD catch in the same game.",
    "source": "ESPN",
    "league": "NFL"
   },
@@ -1131,20 +1131,65 @@
    "league": "WNBA"
   },
   {
+   "headline": "Lineups, live updates for Rays-Guardians ALCS Game 5",
+   "link": "https://www.espn.com/mlb/story/_/id/50198161/playoff-guardians-rays-alcs-game-5-live-takeaways",
+   "published": "2026-10-18T22:01:26Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1018%2Fr1732534_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Will Tampa Bay or Cleveland move one win from a World Series appearance Sunday? We've got it all covered.",
+   "league": "MLB"
+  },
+  {
+   "headline": "Jameis Winston benched: J.J. McCarthy's thrilling, historic comeback bid comes up short vs. Saints",
+   "link": "https://www.cbssports.com/nfl/news/jameis-winston-benched-giants-j-j-mccarthy-makes-debut/",
+   "published": "2026-10-18T22:00:25.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2F0f2dd461-a484-4039-9647-32db6b9f75e3%2Fmcc.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "McCarthy helped New York score 17 unanswered points before ultimately coming up just short",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
+   "headline": "College football odds, lines, schedule for Week 8: Texas opens as favorite vs. Ole Miss",
+   "link": "https://www.cbssports.com/college-football/news/college-football-odds-lines-schedule-week-8-texas-ole-miss/",
+   "published": "2026-10-18T21:59:05.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2F49a33752-905b-493e-8658-3b0cc76643ee%2Farch.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Initial odds for college football's top Week 8 matchups are out",
+   "source": "CBS",
+   "league": "CFB"
+  },
+  {
+   "headline": "Fantasy Football RB Report: Cam Skattebo frozen out of Giants' backfield headlines messy Week 6 for splits",
+   "link": "https://sports.yahoo.com/fantasy/article/fantasy-football-rb-report-cam-skattebo-frozen-out-of-giants-backfield-headlines-messy-week-6-for-splits-215831879.html",
+   "published": "2026-10-18T21:58:31.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/7b192aab75c1b70d498b7b60c6d66c039736c0d8f55ab1ec63d3cc42f5fbf3f8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2Fa5aed1b0-cde2-4cb4-9dd6-82418c522407",
+   "blurb": "We go over some of the more frustrating RB committees for fantasy football coming out of Week 6.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
+   "headline": "Vijay Singh wins on PGA Tour Champions at age 63",
+   "link": "https://sports.yahoo.com/articles/vijay-singh-wins-pga-tour-215710320.html",
+   "published": "2026-10-18T21:57:10.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/86d9ca86c787ba8702ce8b7cc623912542f9706d11ba41ba861f65b4034a7a0b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fap.org%2F2133a6e7d7b7b6e54b52f43117200027.jpg",
+   "blurb": "(AP) \u2014 Vijay Singh became the second-oldest player to win on the PGA Tour Champions on Sunday when the 63-year-old Fijian closed with a 3-under 69 for a two-shot victory in the SAS Championship.Singh made four birdies in a six-hole stretch around the turn to get in front of a cro",
+   "source": "YAHOO",
+   "league": "PGA"
+  },
+  {
+   "headline": "Maryland men\u2019s basketball comes from behind to beat West Virginia, 90-81, in overtime exhibition",
+   "link": "https://sports.yahoo.com/articles/maryland-men-basketball-comes-behind-215559477.html",
+   "published": "2026-10-18T21:55:59.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/51792cfb1d3f884fe3c94936fdea76ea7b54b94b02d641dbfb9be8e7b7eef78d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F8ca1eab8dac47c74888169d10085907c.jpg",
+   "blurb": "The Terps were propelled by a combined 53 points from Pharell Payne and Andre Mills.",
+   "source": "YAHOO",
+   "league": "NCAAB"
+  },
+  {
    "headline": "Cam Skattebo demotion: Giants RB logs zero touches, responds to apparent benching",
    "link": "https://www.cbssports.com/nfl/news/cam-skattebo-giants-logs-zero-touches-saints-week-6/",
    "published": "2026-10-18T21:53:46.000Z",
    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2Fefb43678-822e-42c1-ab3e-87f9c26352ae%2Ftemplate-pic.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "After a slew of fumbling mistakes, Skattebo has lost his starting job to Najee Harris",
-   "source": "CBS",
-   "league": "NFL"
-  },
-  {
-   "headline": "NFL Week 6 overreactions: Time for Colts to clean house? A.J. Brown trade a mistake for Patriots?",
-   "link": "https://www.cbssports.com/nfl/news/nfl-week-6-overreactions-colts-a-j-brown-patriots/",
-   "published": "2026-10-18T21:52:15.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2F16d82ec1-46d4-4a6d-ba4d-b4aa805d52a2%2Fshane-steichen-colts.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Indianapolis blew a 13-0 lead in a loss to the previously winless Titans",
    "source": "CBS",
    "league": "NFL"
   },
@@ -1165,24 +1210,6 @@
    "blurb": "An airman died after sustaining injuries during a pre-game exercise",
    "source": "CBS",
    "league": "CFB"
-  },
-  {
-   "headline": "Bills tied with Raiders 13-13 at halftime after C.J. Gardner-Johnson's ejection",
-   "link": "https://sports.yahoo.com/articles/bills-tied-raiders-13-13-214925189.html",
-   "published": "2026-10-18T21:49:25.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/cf889b52705f5bd2d553106c5290041d3a34d16fa0d7b658522b5a150c44d555/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Ff69462f4e99303260172334f570c65ec.jpg",
-   "blurb": "The Bills are in a battle with the Raiders in Las Vegas, and they will have to play the second half without safety C.J.",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
-   "headline": "Lineups, live updates for Rays-Guardians ALCS Game 5",
-   "link": "https://www.espn.com/mlb/story/_/id/50198161/playoff-guardians-rays-alcs-game-5-live-takeaways",
-   "published": "2026-10-18T21:46:11Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1018%2Fr1732534_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Will Tampa Bay or Cleveland move one win from a World Series appearance Sunday? We've got it all covered.",
-   "league": "MLB"
   },
   {
    "headline": "The 72 golfers who made the 2026 Charles Schwab Cup Playoffs include Michael Block",
@@ -1210,15 +1237,6 @@
    "blurb": "Four-star linebacker Kaiden Buchanan is UCLA's first commitment in the 2028 recruiting cycle.",
    "source": "YAHOO",
    "league": "CFB"
-  },
-  {
-   "headline": "Vijay Singh wins PGA Tour Champions regular-season finale at SAS Championship",
-   "link": "https://sports.yahoo.com/articles/vijay-singh-wins-pga-tour-212730925.html",
-   "published": "2026-10-18T21:27:30.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/bba040e48937eb7cb6a7509a628c7eb157677973891a279bf4f04e685c6744d9/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_golfweek_articles_635%2F52878794e1c8083e6e7182acde667040.jpg",
-   "blurb": "Welcome back to the winner's circle, Vijay Singh. At 63, he's the tour's seventh-oldest winner.",
-   "source": "YAHOO",
-   "league": "PGA"
   },
   {
    "headline": "MLB payrolls 2026: AL finalist Cleveland Guardians have lowest in baseball",
@@ -1255,24 +1273,6 @@
    "blurb": "Will the Yankees make an offseason move to bring in another center fielder?",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "Maryland fires DC Ted Monachino as Mike Locksley's future as coach remains in doubt",
-   "link": "https://www.cbssports.com/college-football/news/maryland-fires-ted-monachino-mike-locksley-future/",
-   "published": "2026-10-18T20:14:34.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2F15fd16bc-b548-4071-beed-9d19e75682da%2Flocksley.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "After a 2-5 start and another defensive collapse, Locksley made a change entering Maryland's bye week in hopes of turning the season -- and his trajectory -- around",
-   "source": "CBS",
-   "league": "CFB"
-  },
-  {
-   "headline": "Syracuse 81, Siena 76: Orange escape late versus Saints",
-   "link": "https://sports.yahoo.com/articles/syracuse-81-siena-76-orange-201248314.html",
-   "published": "2026-10-18T20:12:48.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/db2bc9a3723629b64baf807c1e4a2209ac40db032d17e77a1b8b12f14f3f9e16/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F8651666f0ae41123cf707cda27d9bb8e.jpg",
-   "blurb": "Syracuse escapes the I-90 trip with a win and also leaves with plenty of work to do before the season-opener.",
-   "source": "YAHOO",
-   "league": "NCAAB"
   },
   {
    "headline": "'We're going to the f***ing airport that's being bombed': Top boxing trainer sounds alarm over Canelo Alvarez's Saudi fight",
