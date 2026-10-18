@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-18T02:19:24.654711+00:00",
+ "generated_at": "2026-10-18T02:34:28.496520+00:00",
  "items": [
-  {
-   "id": "0a39a910c4",
-   "league": "CFB",
-   "event": "Wake Forest Demon Deacons @ California Golden Bears",
-   "prediction": "Wake Forest Demon Deacons to beat California Golden Bears",
-   "kickoff_utc": "2026-10-18T02:30:00+00:00"
-  },
-  {
-   "id": "0b516b951f",
-   "league": "MLS",
-   "event": "CF Montr\u00e9al @ Seattle Sounders FC",
-   "prediction": "CF Montr\u00e9al to beat Seattle Sounders FC",
-   "kickoff_utc": "2026-10-18T02:30:00+00:00"
-  },
-  {
-   "id": "fc3b6f25f3",
-   "league": "MLS",
-   "event": "Nashville SC @ San Jose Earthquakes",
-   "prediction": "Nashville SC to beat San Jose Earthquakes",
-   "kickoff_utc": "2026-10-18T02:30:00+00:00"
-  },
-  {
-   "id": "c66d866c30",
-   "league": "MLS",
-   "event": "San Diego FC @ LA Galaxy",
-   "prediction": "LA Galaxy to beat San Diego FC",
-   "kickoff_utc": "2026-10-18T02:30:00+00:00"
-  },
-  {
-   "id": "4e966107ec",
-   "league": "MLS",
-   "event": "Colorado Rapids @ Portland Timbers",
-   "prediction": "Colorado Rapids to beat Portland Timbers",
-   "kickoff_utc": "2026-10-18T02:30:00+00:00"
-  },
   {
    "id": "a09845f078",
    "league": "NFL",
    "event": "Houston Texans @ Jacksonville Jaguars",
    "prediction": "Jacksonville Jaguars to beat Houston Texans",
    "kickoff_utc": "2026-10-18T13:30:00+00:00"
+  },
+  {
+   "id": "713bb6455d",
+   "league": "NFL",
+   "event": "Baltimore Ravens @ Cleveland Browns",
+   "prediction": "Baltimore Ravens to beat Cleveland Browns",
+   "kickoff_utc": "2026-10-18T17:00:00+00:00"
+  },
+  {
+   "id": "49cd827f52",
+   "league": "NFL",
+   "event": "Carolina Panthers @ Philadelphia Eagles",
+   "prediction": "Philadelphia Eagles to beat Carolina Panthers",
+   "kickoff_utc": "2026-10-18T17:00:00+00:00"
+  },
+  {
+   "id": "58277d57c0",
+   "league": "NFL",
+   "event": "Pittsburgh Steelers @ Tampa Bay Buccaneers",
+   "prediction": "Pittsburgh Steelers to beat Tampa Bay Buccaneers",
+   "kickoff_utc": "2026-10-18T17:00:00+00:00"
+  },
+  {
+   "id": "2ac76bcaa9",
+   "league": "NFL",
+   "event": "Tennessee Titans @ Indianapolis Colts",
+   "prediction": "Tennessee Titans to beat Indianapolis Colts",
+   "kickoff_utc": "2026-10-18T17:00:00+00:00"
+  },
+  {
+   "id": "a7521b25cc",
+   "league": "NFL",
+   "event": "New Orleans Saints @ New York Giants",
+   "prediction": "New Orleans Saints to beat New York Giants",
+   "kickoff_utc": "2026-10-18T17:00:00+00:00"
   }
  ]
 }

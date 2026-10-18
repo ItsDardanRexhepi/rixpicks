@@ -3422,8 +3422,9 @@
   "pick_team": "St. Louis Blues",
   "prediction": "St. Louis Blues to beat Nashville Predators",
   "kickoff_utc": "2026-10-18T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-17T17:06:49.584758+00:00"
+  "status": "miss",
+  "created_at": "2026-10-17T17:06:49.584758+00:00",
+  "settled_at": "2026-10-18T02:34:21.223878+00:00"
  },
  {
   "id": "1fecc9057b",
