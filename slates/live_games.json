@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T20:35:31.837875+00:00",
+ "generated_at": "2026-10-18T20:49:34.706697+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -19,22 +19,12 @@
    "league": "NFL",
    "games": [
     {
-     "espn_event_id": "401873002",
-     "matchup": "PIT @ TB",
-     "commence": "2026-10-18T17:00Z",
-     "status": "in",
-     "detail": "2:26 - OT",
-     "score": "PIT 26 - TB 19",
-     "away_to": 2,
-     "home_to": 2
-    },
-    {
      "espn_event_id": "401873004",
      "matchup": "ARI @ LAR",
      "commence": "2026-10-18T20:05Z",
      "status": "in",
-     "detail": "1:48 - 1st",
-     "score": "ARI 3 - LAR 3",
+     "detail": "12:07 - 2nd",
+     "score": "ARI 6 - LAR 3",
      "away_to": 2,
      "home_to": 3
     },
@@ -43,18 +33,18 @@
      "matchup": "LAC @ KC",
      "commence": "2026-10-18T20:25Z",
      "status": "in",
-     "detail": "10:48 - 1st",
-     "score": "LAC 0 - KC 3",
+     "detail": "3:08 - 1st",
+     "score": "LAC 0 - KC 9",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401873005",
      "matchup": "BUF @ LV",
      "commence": "2026-10-18T20:25Z",
      "status": "in",
-     "detail": "10:12 - 1st",
-     "score": "BUF 3 - LV 0",
+     "detail": "1:44 - 1st",
+     "score": "BUF 3 - LV 7",
      "away_to": 1,
      "home_to": 3
     },
@@ -105,6 +95,14 @@
      "status": "post",
      "detail": "Final",
      "score": "CAR 25 - PHI 14"
+    },
+    {
+     "espn_event_id": "401873002",
+     "matchup": "PIT @ TB",
+     "commence": "2026-10-18T17:00Z",
+     "status": "post",
+     "detail": "Final/OT",
+     "score": "PIT 26 - TB 19"
     }
    ]
   },
