@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-18T20:19:41.368813+00:00",
+ "generated_at": "2026-10-18T20:34:27.385903+00:00",
  "items": [
-  {
-   "id": "14db380aff",
-   "league": "NFL",
-   "event": "Los Angeles Chargers @ Kansas City Chiefs",
-   "prediction": "Kansas City Chiefs to beat Los Angeles Chargers",
-   "kickoff_utc": "2026-10-18T20:25:00+00:00"
-  },
-  {
-   "id": "313ee97274",
-   "league": "NFL",
-   "event": "Buffalo Bills @ Las Vegas Raiders",
-   "prediction": "Buffalo Bills to beat Las Vegas Raiders",
-   "kickoff_utc": "2026-10-18T20:25:00+00:00"
-  },
   {
    "id": "5dff87050c",
    "league": "NWSL",
@@ -42,6 +28,20 @@
    "event": "Seattle Reign FC @ Chicago Stars FC",
    "prediction": "Seattle Reign FC to beat Chicago Stars FC",
    "kickoff_utc": "2026-10-18T23:00:00+00:00"
+  },
+  {
+   "id": "2edd73b993",
+   "league": "NHL",
+   "event": "Carolina Hurricanes @ Calgary Flames",
+   "prediction": "Carolina Hurricanes to beat Calgary Flames",
+   "kickoff_utc": "2026-10-19T00:00:00+00:00"
+  },
+  {
+   "id": "73eb7885f6",
+   "league": "NFL",
+   "event": "Dallas Cowboys @ Green Bay Packers",
+   "prediction": "Green Bay Packers to beat Dallas Cowboys",
+   "kickoff_utc": "2026-10-19T00:20:00+00:00"
   }
  ]
 }
