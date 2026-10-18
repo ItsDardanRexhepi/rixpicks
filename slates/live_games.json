@@ -1,97 +1,17 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T07:49:34.603371+00:00",
+ "generated_at": "2026-10-18T11:34:38.160281+00:00",
  "leagues": [
   {
-   "league": "ATP",
+   "league": "NFL",
    "games": [
     {
-     "espn_event_id": "186998",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-18T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "186999",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-18T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "185084",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-18T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "185088",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-18T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "185099",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-18T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "185109",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-18T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "185107",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-18T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "185111",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-18T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "185112",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-18T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "185113",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-18T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
-    },
-    {
-     "espn_event_id": "185128",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-18T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
+     "espn_event_id": "401872996",
+     "matchup": "HOU @ JAX",
+     "commence": "2026-10-18T13:30Z",
+     "status": "pre",
+     "detail": "10/18 - 6:30 AM PT",
+     "score": "HOU 0 - JAX 0"
     }
    ]
   }
