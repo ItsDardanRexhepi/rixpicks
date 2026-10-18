@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T20:04:36.430227+00:00",
+ "generated_at": "2026-10-18T20:19:39.940557+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -22,9 +22,63 @@
      "espn_event_id": "401872999",
      "matchup": "CHI @ ATL",
      "commence": "2026-10-18T17:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "CHI 31 - ATL 23"
+    },
+    {
+     "espn_event_id": "401873003",
+     "matchup": "TEN @ IND",
+     "commence": "2026-10-18T17:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "TEN 26 - IND 20"
+    },
+    {
+     "espn_event_id": "401873001",
+     "matchup": "NYJ @ NE",
+     "commence": "2026-10-18T17:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "NYJ 19 - NE 26"
+    },
+    {
+     "espn_event_id": "401873000",
+     "matchup": "NO @ NYG",
+     "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "4:13 - 4th",
-     "score": "CHI 31 - ATL 23",
+     "detail": "1:06 - 4th",
+     "score": "NO 34 - NYG 27",
+     "away_to": 2,
+     "home_to": 0
+    },
+    {
+     "espn_event_id": "401872998",
+     "matchup": "CAR @ PHI",
+     "commence": "2026-10-18T17:00Z",
+     "status": "in",
+     "detail": "3:21 - 4th",
+     "score": "CAR 25 - PHI 14",
+     "away_to": 3,
+     "home_to": 0
+    },
+    {
+     "espn_event_id": "401873002",
+     "matchup": "PIT @ TB",
+     "commence": "2026-10-18T17:00Z",
+     "status": "in",
+     "detail": "End of 4th",
+     "score": "PIT 19 - TB 19",
+     "away_to": 3,
+     "home_to": 3
+    },
+    {
+     "espn_event_id": "401873004",
+     "matchup": "ARI @ LAR",
+     "commence": "2026-10-18T20:05Z",
+     "status": "in",
+     "detail": "9:35 - 1st",
+     "score": "ARI 0 - LAR 3",
      "away_to": 3,
      "home_to": 3
     },
@@ -35,64 +89,6 @@
      "status": "post",
      "detail": "Final",
      "score": "BAL 10 - CLE 13"
-    },
-    {
-     "espn_event_id": "401873003",
-     "matchup": "TEN @ IND",
-     "commence": "2026-10-18T17:00Z",
-     "status": "in",
-     "detail": "0:43 - 4th",
-     "score": "TEN 26 - IND 20",
-     "away_to": 3,
-     "home_to": 0
-    },
-    {
-     "espn_event_id": "401873001",
-     "matchup": "NYJ @ NE",
-     "commence": "2026-10-18T17:00Z",
-     "status": "in",
-     "detail": "1:01 - 4th",
-     "score": "NYJ 16 - NE 26",
-     "away_to": 0,
-     "home_to": 2
-    },
-    {
-     "espn_event_id": "401873000",
-     "matchup": "NO @ NYG",
-     "commence": "2026-10-18T17:00Z",
-     "status": "in",
-     "detail": "5:01 - 4th",
-     "score": "NO 34 - NYG 24",
-     "away_to": 3,
-     "home_to": 2
-    },
-    {
-     "espn_event_id": "401872998",
-     "matchup": "CAR @ PHI",
-     "commence": "2026-10-18T17:00Z",
-     "status": "in",
-     "detail": "7:46 - 4th",
-     "score": "CAR 19 - PHI 14",
-     "away_to": 3,
-     "home_to": 3
-    },
-    {
-     "espn_event_id": "401873002",
-     "matchup": "PIT @ TB",
-     "commence": "2026-10-18T17:00Z",
-     "status": "in",
-     "detail": "1:38 - 4th",
-     "score": "PIT 16 - TB 16",
-     "away_to": 3,
-     "home_to": 2
-    },
-    {
-     "espn_event_id": "401873004",
-     "matchup": "ARI @ LAR",
-     "commence": "2026-10-18T20:05Z",
-     "status": "pre",
-     "detail": "10/18 - 1:05 PM PT",
-     "score": "ARI 0 - LAR 0"
     },
     {
      "espn_event_id": "401873006",
