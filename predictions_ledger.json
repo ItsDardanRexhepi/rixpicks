@@ -3563,5 +3563,18 @@
   "kickoff_utc": "2026-10-18T17:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-18T09:04:32.576997+00:00"
+ },
+ {
+  "id": "5dff87050c",
+  "event_id": "401854025",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Bay FC",
+  "away": "Portland Thorns FC",
+  "pick_team": "Portland Thorns FC",
+  "prediction": "Portland Thorns FC to beat Bay FC",
+  "kickoff_utc": "2026-10-18T21:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-18T09:34:55.588949+00:00"
  }
 ]
