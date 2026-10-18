@@ -2496,8 +2496,9 @@
   "pick_team": "Tennessee Titans",
   "prediction": "Tennessee Titans to beat Indianapolis Colts",
   "kickoff_utc": "2026-10-18T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T05:05:20.920041+00:00"
+  "status": "hit",
+  "created_at": "2026-10-14T05:05:20.920041+00:00",
+  "settled_at": "2026-10-18T20:19:19.383365+00:00"
  },
  {
   "id": "b8b8a524c4",
@@ -2549,8 +2550,9 @@
   "pick_team": "New England Patriots",
   "prediction": "New England Patriots to beat New York Jets",
   "kickoff_utc": "2026-10-18T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T07:20:32.774357+00:00"
+  "status": "hit",
+  "created_at": "2026-10-14T07:20:32.774357+00:00",
+  "settled_at": "2026-10-18T20:19:19.754834+00:00"
  },
  {
   "id": "313ee97274",
@@ -2575,8 +2577,9 @@
   "pick_team": "Chicago Bears",
   "prediction": "Chicago Bears to beat Atlanta Falcons",
   "kickoff_utc": "2026-10-18T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T09:35:24.118314+00:00"
+  "status": "hit",
+  "created_at": "2026-10-14T09:35:24.118314+00:00",
+  "settled_at": "2026-10-18T20:19:19.836906+00:00"
  },
  {
   "id": "dc184ac2b3",

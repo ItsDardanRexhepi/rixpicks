@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-18T20:04:53.848336+00:00",
+ "generated_at": "2026-10-18T20:19:41.368813+00:00",
  "items": [
-  {
-   "id": "1696d341d0",
-   "league": "NFL",
-   "event": "Arizona Cardinals @ Los Angeles Rams",
-   "prediction": "Los Angeles Rams to beat Arizona Cardinals",
-   "kickoff_utc": "2026-10-18T20:05:00+00:00"
-  },
   {
    "id": "14db380aff",
    "league": "NFL",
@@ -42,6 +35,13 @@
    "event": "Columbus Crew @ FC Cincinnati",
    "prediction": "FC Cincinnati to beat Columbus Crew",
    "kickoff_utc": "2026-10-18T21:00:00+00:00"
+  },
+  {
+   "id": "b80eb79994",
+   "league": "NWSL",
+   "event": "Seattle Reign FC @ Chicago Stars FC",
+   "prediction": "Seattle Reign FC to beat Chicago Stars FC",
+   "kickoff_utc": "2026-10-18T23:00:00+00:00"
   }
  ]
 }
