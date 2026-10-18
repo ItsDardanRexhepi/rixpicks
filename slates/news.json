@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-18T17:35:12.439Z",
+ "generated_at": "2026-10-18T17:40:15.405Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -95,12 +95,21 @@
   ],
   "football/nfl": [
    {
-    "headline": "NFL Week 6 questions, takeaways: Texans hold off Jaguars in thriller",
-    "link": "https://www.espn.com/nfl/story/_/id/50181469/week-6-sunday-games-takeaways-questions-2026",
-    "published": "2026-10-18T18:23:29.000Z",
-    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1018%252Fr1732495_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Our NFL Nation reporters react to all the action, answering the biggest questions coming out of each Sunday game. Here's what we learned from Week 6.",
+    "headline": "Why Micah Parsons trade will linger over Cowboys, Packers for years to come",
+    "link": "https://www.espn.com/nfl/story/_/id/50195809/cowboys-packers-micah-parsons-trade-winner",
+    "published": "2026-10-18T18:30:21.000Z",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731576_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "We examine the fallout and lingering impact on both franchises more than a year after the blockbuster deal.",
     "source": "ESPN",
+    "league": "NFL"
+   },
+   {
+    "headline": "NFL Week 6 odds, predictions, expert picks: Cowboys roll into Lambeau Field to face Packers",
+    "link": "https://www.cbssports.com/nfl/news/nfl-week-6-picks-and-predictions-spread-odds-best-bets/",
+    "published": "2026-10-18T17:30:58.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F38454702-2049-4020-98ed-375c030f2b72%2Fceedee-lamb-and-george-pickens-dallas-cowboys-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "CBSSports.com and SportsLine break down every single NFL game in Week 6",
+    "source": "CBS",
     "league": "NFL"
    },
    {
@@ -113,6 +122,42 @@
     "league": "NFL"
    },
    {
+    "headline": "Cowboys-Packers rivalry rewind: From the Ice Bowl to Micah Parsons' Dallas return",
+    "link": "https://www.espn.com/nfl/story/_/id/46382966/packers-cowboys-rivalry-micah-parsons-dez-bryant-ice-bowl",
+    "published": "2026-10-18T18:30:21.000Z",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2016%252F0624%252Fr95724_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Their \"Sunday Night Football\" matchup could add another memorable chapter to Packers-Cowboys lore.",
+    "source": "ESPN",
+    "league": "NFL"
+   },
+   {
+    "headline": "NFL, Saints address plans for Paris game during Week 6 as protests escalate in France",
+    "link": "https://www.cbssports.com/nfl/news/nfl-saints-address-paris-game-plans-week-6-protests/",
+    "published": "2026-10-18T17:30:48.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2Fd761f43c-b902-4438-a72b-633954f2fb49%2Fparis-france.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The league says its continuing with its original plans and monitoring the situation",
+    "source": "CBS",
+    "league": "NFL"
+   },
+   {
+    "headline": "Caleb Williams does something only 2 NFL MVPs have ever done",
+    "link": "https://sports.yahoo.com/articles/caleb-williams-does-something-only-171645937.html",
+    "published": "2026-10-18T17:16:45.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/7279b379e3f9d7734ac605e366838de8f22918be6464bc315672a547a8cd2f88/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F12f581b63587b72ab26851cc5bb5c25a.jpg",
+    "blurb": "Check off another milestone for Caleb Williams in his young career.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
+    "headline": "NFL Week 6 questions, takeaways: Texans hold off Jaguars in thriller",
+    "link": "https://www.espn.com/nfl/story/_/id/50181469/week-6-sunday-games-takeaways-questions-2026",
+    "published": "2026-10-18T18:23:29.000Z",
+    "image": "",
+    "blurb": "Our NFL Nation reporters react to all the action, answering the biggest questions coming out of each Sunday game. Here's what we learned from Week 6.",
+    "source": "ESPN",
+    "league": "NFL"
+   },
+   {
     "headline": "NFL addresses safety concerns for Steelers-Saints game in France as protests in Paris continue",
     "link": "https://www.cbssports.com/nfl/news/nfl-addresses-safety-concerns-steelers-saints-france-protests-paris/",
     "published": "2026-10-18T16:34:26.000Z",
@@ -122,65 +167,20 @@
     "league": "NFL"
    },
    {
+    "headline": "Caleb Williams throws touchdown pass on first possession since return from injury",
+    "link": "https://sports.yahoo.com/articles/caleb-williams-throws-touchdown-pass-171613962.html",
+    "published": "2026-10-18T17:16:13.000Z",
+    "image": "",
+    "blurb": "Williams showed no sign of the hamstring injury that has kept him out since Week 2.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Inactives watch: Caleb Williams to play; Hurts, Jackson ruled out for Week 6",
     "link": "https://www.espn.com/fantasy/football/story/_/page/FFSundayInactives-50188691/fantasy-football-injuries-nfl-week-6-inactive-active",
     "published": "2026-10-18T18:22:20.000Z",
-    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1017%252Fr1732147_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "Updated inactives and analysis based on the latest reports and official announcements leading up to kickoff.",
-    "source": "ESPN",
-    "league": "NFL"
-   },
-   {
-    "headline": "Patriots vs. Jets live updates: Score, news, discussion for NFL Week 6",
-    "link": "https://sports.yahoo.com/articles/patriots-vs-jets-live-updates-161343775.html",
-    "published": "2026-10-18T17:19:30.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/6f3d6087bedf941b09a65f7ce36f81acef923cdd6ffaeb4056f4096973b4f857/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd152a0c0736e52517da038a22b0f3145.jpg",
-    "blurb": "The Patriots are looking for a third straight win on Sunday.",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "How to bet on 2026 NFL Week 6: Betting odds, trends, schedule, game previews, tips, sportsbook promos, offers",
-    "link": "https://www.cbssports.com/nfl/news/how-to-bet-on-2026-nfl-week-6-betting-odds-trends-schedule-game-previews-tips-sportsbook-promos-offers/",
-    "published": "2026-10-18T16:30:51.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F14%2F7137957a-5895-47cf-909f-af21c05a3631%2Fpatrick-mahomes.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Our NFL betting guide tells you where to bet on NFL Week 6, while providing odds, betting trends, schedule, promo offers, and more",
-    "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Tabi loafers, top-tier style: DeVonta Smith leads NFL Week 6's best arrivals",
-    "link": "https://www.espn.com/nfl/story/_/id/50193542/nfl-week-6-fashionable-arrivals",
-    "published": "2026-10-18T18:21:54.000Z",
-    "image": "",
-    "blurb": "NFL stars continue to turn game-day arrivals into their own weekly fashion showcase.",
-    "source": "ESPN",
-    "league": "NFL"
-   },
-   {
-    "headline": "Giants-Saints, Week 6: Live updates, discussion, score, highlights",
-    "link": "https://sports.yahoo.com/articles/giants-saints-week-6-live-150000955.html",
-    "published": "2026-10-18T17:19:03.000Z",
-    "image": "",
-    "blurb": "Stay right here for everything you need to know as the Giants face the Saints.",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "Week 6 NFL odds, spreads, totals, lines for every game, including Chargers-Chiefs, Packers-Cowboys",
-    "link": "https://www.cbssports.com/betting/news/week-6-nfl-spreads-betting-odds-totals-lines/",
-    "published": "2026-10-18T16:15:32.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F04%2Fd02d6629-37f3-4fc7-9e0b-80078e4a2bc5%2Fpatrick-mahomes-chiefs.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "See everything you need to know to bet on the NFL in our full NFL betting guide for Week 6",
-    "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "NFL draft risers, notes off Saturday's college games: Will measurables matter for Chambliss?",
-    "link": "https://www.espn.com/nfl/draft2027/story/_/id/49881131/2027-nfl-draft-risers-questions-college-football-prospects",
-    "published": "2026-10-18T18:20:45.000Z",
-    "image": "",
-    "blurb": "Is Trinidad Chambliss playing well enough to overcome his size? Which Tennessee defender is emerging among the DT group? Here's draft spin off CFB Week 7.",
     "source": "ESPN",
     "league": "NFL"
    }
@@ -196,11 +196,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Alabama OC Ryan Grubb\u2019s resume takes another brutal hit with offensive disaster vs. Tennessee",
-    "link": "https://sports.yahoo.com/articles/alabama-oc-ryan-grubb-resume-171942204.html",
-    "published": "2026-10-18T17:19:42.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/6b116472004446b7a52807434c537ac7183eb85b3e17b78d4db54c9860681680/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2F97767973e005a81a404b3514b8498145.jpg",
-    "blurb": "The Alabama football team had no answers on offense Saturday, as the team lost 26-10 to Tennessee. Crimson Tide offensive coordinator Ryan Grubb is under fire after that loss. \u201cAlabama\u2019s 6 lowest yardage games since 2015 have all come under Kalen DeBoer, including 4 with Ryan Gru",
+    "headline": "UNC earns votes in latest 2026-27 US LBM Coaches Poll after Week 7",
+    "link": "https://sports.yahoo.com/articles/unc-earns-votes-latest-2026-173224733.html",
+    "published": "2026-10-18T17:32:24.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/b03035d09f35da3a291ce1d0120d308bdd963284d272446e6704e07ac490168e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ftar_heels_wire_usa_today_articles_552%2F412e8eb5daa1993b13b6a511aa6725ad.jpg",
+    "blurb": "The North Carolina Tar Heels football program has earned more votes in the 2026-27 US LBM Coaches Poll after Week 7.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -223,11 +223,11 @@
     "league": "CFB"
    },
    {
-    "headline": "ACC Power Rankings: Wake Forest, SMU, and North Carolina Impress in Week 7",
-    "link": "https://sports.yahoo.com/articles/acc-power-rankings-wake-forest-171700389.html",
-    "published": "2026-10-18T17:17:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/37329967d282ab77971341e3dc777546eecc3935d5e4487deb2c8c6374de3450/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F432c9ce32b4d5a68a462c3087af93bfe.jpg",
-    "blurb": "UNC at Duke, Florida State at Miami, and Pitt at Boston College gave the ACC some interesting battles this weekend all of which led to major changes in this week\u2019s ACC Power Rankings. As always, be sure to check out the accompanying video and support us by supporting our sponsor,",
+    "headline": "Washington opponents make big moves in latest US LBM Coaches Poll",
+    "link": "https://sports.yahoo.com/articles/washington-opponents-big-moves-latest-172849346.html",
+    "published": "2026-10-18T17:28:49.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/7d4b96093a98a0712c8dc4ccd571051a641084823de073f1f71d6d5c9ea501fc/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhuskies_wire_articles_664%2F0de4b3650c00a9137fac1049ca9eb8ca.jpg",
+    "blurb": "While Washington was nowhere to be found in the US LBM Coaches Poll, some of the Huskies' upcoming opponents made big moves.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Michigan vs. Indiana Point Spread Revealed",
-    "link": "https://sports.yahoo.com/articles/michigan-vs-indiana-point-spread-171608115.html",
-    "published": "2026-10-18T17:16:08.000Z",
+    "headline": "Alabama OC Ryan Grubb\u2019s resume takes another brutal hit with offensive disaster vs. Tennessee",
+    "link": "https://sports.yahoo.com/articles/alabama-oc-ryan-grubb-resume-171942204.html",
+    "published": "2026-10-18T17:19:42.000Z",
     "image": "",
-    "blurb": "Michigan vs. Indiana point spread revealed: The Wolverines are 7.5-point underdogs against the Hoosiers following their comeback win over Penn State.",
+    "blurb": "The Alabama football team had no answers on offense Saturday, as the team lost 26-10 to Tennessee. Crimson Tide offensive coordinator Ryan Grubb is under fire after that loss. \u201cAlabama\u2019s 6 lowest yardage games since 2015 have all come under Kalen DeBoer, including 4 with Ryan Gru",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -1086,20 +1086,20 @@
  },
  "latest": [
   {
-   "headline": "NFL Week 6 questions, takeaways: Texans hold off Jaguars in thriller",
-   "link": "https://www.espn.com/nfl/story/_/id/50181469/week-6-sunday-games-takeaways-questions-2026",
-   "published": "2026-10-18T18:23:29.000Z",
-   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1018%252Fr1732495_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Our NFL Nation reporters react to all the action, answering the biggest questions coming out of each Sunday game. Here's what we learned from Week 6.",
+   "headline": "Why Micah Parsons trade will linger over Cowboys, Packers for years to come",
+   "link": "https://www.espn.com/nfl/story/_/id/50195809/cowboys-packers-micah-parsons-trade-winner",
+   "published": "2026-10-18T18:30:21.000Z",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1016%252Fr1731576_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "We examine the fallout and lingering impact on both franchises more than a year after the blockbuster deal.",
    "source": "ESPN",
    "league": "NFL"
   },
   {
-   "headline": "Inactives watch: Caleb Williams to play; Hurts, Jackson ruled out for Week 6",
-   "link": "https://www.espn.com/fantasy/football/story/_/page/FFSundayInactives-50188691/fantasy-football-injuries-nfl-week-6-inactive-active",
-   "published": "2026-10-18T18:22:20.000Z",
-   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1017%252Fr1732147_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Updated inactives and analysis based on the latest reports and official announcements leading up to kickoff.",
+   "headline": "Cowboys-Packers rivalry rewind: From the Ice Bowl to Micah Parsons' Dallas return",
+   "link": "https://www.espn.com/nfl/story/_/id/46382966/packers-cowboys-rivalry-micah-parsons-dez-bryant-ice-bowl",
+   "published": "2026-10-18T18:30:21.000Z",
+   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2016%252F0624%252Fr95724_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Their \"Sunday Night Football\" matchup could add another memorable chapter to Packers-Cowboys lore.",
    "source": "ESPN",
    "league": "NFL"
   },
@@ -1122,6 +1122,42 @@
    "league": "CFB"
   },
   {
+   "headline": "UNC earns votes in latest 2026-27 US LBM Coaches Poll after Week 7",
+   "link": "https://sports.yahoo.com/articles/unc-earns-votes-latest-2026-173224733.html",
+   "published": "2026-10-18T17:32:24.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/b03035d09f35da3a291ce1d0120d308bdd963284d272446e6704e07ac490168e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ftar_heels_wire_usa_today_articles_552%2F412e8eb5daa1993b13b6a511aa6725ad.jpg",
+   "blurb": "The North Carolina Tar Heels football program has earned more votes in the 2026-27 US LBM Coaches Poll after Week 7.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "NFL Week 6 odds, predictions, expert picks: Cowboys roll into Lambeau Field to face Packers",
+   "link": "https://www.cbssports.com/nfl/news/nfl-week-6-picks-and-predictions-spread-odds-best-bets/",
+   "published": "2026-10-18T17:30:58.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2F38454702-2049-4020-98ed-375c030f2b72%2Fceedee-lamb-and-george-pickens-dallas-cowboys-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "CBSSports.com and SportsLine break down every single NFL game in Week 6",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
+   "headline": "NFL, Saints address plans for Paris game during Week 6 as protests escalate in France",
+   "link": "https://www.cbssports.com/nfl/news/nfl-saints-address-paris-game-plans-week-6-protests/",
+   "published": "2026-10-18T17:30:48.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2Fd761f43c-b902-4438-a72b-633954f2fb49%2Fparis-france.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The league says its continuing with its original plans and monitoring the situation",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
+   "headline": "Washington opponents make big moves in latest US LBM Coaches Poll",
+   "link": "https://sports.yahoo.com/articles/washington-opponents-big-moves-latest-172849346.html",
+   "published": "2026-10-18T17:28:49.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/7d4b96093a98a0712c8dc4ccd571051a641084823de073f1f71d6d5c9ea501fc/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhuskies_wire_articles_664%2F0de4b3650c00a9137fac1049ca9eb8ca.jpg",
+   "blurb": "While Washington was nowhere to be found in the US LBM Coaches Poll, some of the Huskies' upcoming opponents made big moves.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
    "headline": "Sunday morning games could kill the traditional pregame shows",
    "link": "https://sports.yahoo.com/articles/sunday-morning-games-could-kill-172129714.html",
    "published": "2026-10-18T17:21:29.000Z",
@@ -1140,31 +1176,13 @@
    "league": "MLB"
   },
   {
-   "headline": "Alabama OC Ryan Grubb\u2019s resume takes another brutal hit with offensive disaster vs. Tennessee",
-   "link": "https://sports.yahoo.com/articles/alabama-oc-ryan-grubb-resume-171942204.html",
-   "published": "2026-10-18T17:19:42.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/6b116472004446b7a52807434c537ac7183eb85b3e17b78d4db54c9860681680/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclutchpoints_articles_939%2F97767973e005a81a404b3514b8498145.jpg",
-   "blurb": "The Alabama football team had no answers on offense Saturday, as the team lost 26-10 to Tennessee. Crimson Tide offensive coordinator Ryan Grubb is under fire after that loss. \u201cAlabama\u2019s 6 lowest yardage games since 2015 have all come under Kalen DeBoer, including 4 with Ryan Gru",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
-   "headline": "Patriots vs. Jets live updates: Score, news, discussion for NFL Week 6",
-   "link": "https://sports.yahoo.com/articles/patriots-vs-jets-live-updates-161343775.html",
-   "published": "2026-10-18T17:19:30.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/6f3d6087bedf941b09a65f7ce36f81acef923cdd6ffaeb4056f4096973b4f857/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd152a0c0736e52517da038a22b0f3145.jpg",
-   "blurb": "The Patriots are looking for a third straight win on Sunday.",
+   "headline": "Caleb Williams does something only 2 NFL MVPs have ever done",
+   "link": "https://sports.yahoo.com/articles/caleb-williams-does-something-only-171645937.html",
+   "published": "2026-10-18T17:16:45.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/7279b379e3f9d7734ac605e366838de8f22918be6464bc315672a547a8cd2f88/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F12f581b63587b72ab26851cc5bb5c25a.jpg",
+   "blurb": "Check off another milestone for Caleb Williams in his young career.",
    "source": "YAHOO",
    "league": "NFL"
-  },
-  {
-   "headline": "ACC Power Rankings: Wake Forest, SMU, and North Carolina Impress in Week 7",
-   "link": "https://sports.yahoo.com/articles/acc-power-rankings-wake-forest-171700389.html",
-   "published": "2026-10-18T17:17:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/37329967d282ab77971341e3dc777546eecc3935d5e4487deb2c8c6374de3450/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F432c9ce32b4d5a68a462c3087af93bfe.jpg",
-   "blurb": "UNC at Duke, Florida State at Miami, and Pitt at Boston College gave the ACC some interesting battles this weekend all of which led to major changes in this week\u2019s ACC Power Rankings. As always, be sure to check out the accompanying video and support us by supporting our sponsor,",
-   "source": "YAHOO",
-   "league": "CFB"
   },
   {
    "headline": "Nuggets' Julian Strawther to miss opening weeks of NBA season with injury",
@@ -1219,24 +1237,6 @@
    "blurb": "Alexander Volkanovski says everyone will be asking, \"Is that the best Volk we've ever seen?\" after UFC 333.",
    "source": "YAHOO",
    "league": "UFC"
-  },
-  {
-   "headline": "NFL addresses safety concerns for Steelers-Saints game in France as protests in Paris continue",
-   "link": "https://www.cbssports.com/nfl/news/nfl-addresses-safety-concerns-steelers-saints-france-protests-paris/",
-   "published": "2026-10-18T16:34:26.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2Fdb21bdd7-c791-4772-a0fa-edeea1efba4b%2Ffrance.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The league says it is still planning to play the game as originally scheduled",
-   "source": "CBS",
-   "league": "NFL"
-  },
-  {
-   "headline": "How to bet on 2026 NFL Week 6: Betting odds, trends, schedule, game previews, tips, sportsbook promos, offers",
-   "link": "https://www.cbssports.com/nfl/news/how-to-bet-on-2026-nfl-week-6-betting-odds-trends-schedule-game-previews-tips-sportsbook-promos-offers/",
-   "published": "2026-10-18T16:30:51.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F14%2F7137957a-5895-47cf-909f-af21c05a3631%2Fpatrick-mahomes.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Our NFL betting guide tells you where to bet on NFL Week 6, while providing odds, betting trends, schedule, promo offers, and more",
-   "source": "CBS",
-   "league": "NFL"
   },
   {
    "headline": "2026 MLB playoff bracket: Schedule and scores as Rays, Guardians meet in critical ALCS Game 5",
