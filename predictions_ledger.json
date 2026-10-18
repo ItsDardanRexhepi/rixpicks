@@ -2569,8 +2569,9 @@
   "pick_team": "Buffalo Bills",
   "prediction": "Buffalo Bills to beat Las Vegas Raiders",
   "kickoff_utc": "2026-10-18T20:25:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T08:20:54.165847+00:00"
+  "status": "hit",
+  "created_at": "2026-10-14T08:20:54.165847+00:00",
+  "settled_at": "2026-10-18T23:49:18.053755+00:00"
  },
  {
   "id": "92fb847eea",
