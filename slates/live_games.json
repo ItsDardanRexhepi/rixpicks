@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T18:34:32.051144+00:00",
+ "generated_at": "2026-10-18T18:49:35.705731+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,7 +10,7 @@
      "matchup": "CHI @ ATL",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "14:48 - 3rd",
      "score": "CHI 21 - ATL 7",
      "away_to": 3,
      "home_to": 3
@@ -20,8 +20,8 @@
      "matchup": "BAL @ CLE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "BAL 10 - CLE 0",
+     "detail": "7:48 - 3rd",
+     "score": "BAL 10 - CLE 3",
      "away_to": 3,
      "home_to": 3
     },
@@ -30,8 +30,8 @@
      "matchup": "TEN @ IND",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "TEN 0 - IND 13",
+     "detail": "12:31 - 3rd",
+     "score": "TEN 3 - IND 13",
      "away_to": 3,
      "home_to": 3
     },
@@ -40,7 +40,7 @@
      "matchup": "NYJ @ NE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "11:48 - 3rd",
      "score": "NYJ 3 - NE 17",
      "away_to": 3,
      "home_to": 3
@@ -50,7 +50,7 @@
      "matchup": "NO @ NYG",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "13:08 - 3rd",
      "score": "NO 10 - NYG 10",
      "away_to": 3,
      "home_to": 3
@@ -60,7 +60,7 @@
      "matchup": "CAR @ PHI",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "2:00 - 2nd",
+     "detail": "Halftime",
      "score": "CAR 10 - PHI 7",
      "away_to": 3,
      "home_to": 3
@@ -70,7 +70,7 @@
      "matchup": "PIT @ TB",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "14:04 - 3rd",
      "score": "PIT 3 - TB 13",
      "away_to": 3,
      "home_to": 3
@@ -109,7 +109,7 @@
      "matchup": "ORL @ HOU",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "62'",
+     "detail": "77'",
      "score": "ORL 2 - HOU 1"
     }
    ]
