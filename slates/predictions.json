@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-18T00:34:37.519417+00:00",
+ "generated_at": "2026-10-18T00:49:31.221205+00:00",
  "items": [
-  {
-   "id": "73a0d9fde3",
-   "league": "NWSL",
-   "event": "Angel City FC @ Denver Summit FC",
-   "prediction": "Angel City FC to beat Denver Summit FC",
-   "kickoff_utc": "2026-10-18T00:45:00+00:00"
-  },
   {
    "id": "5857d87e19",
    "league": "NHL",
@@ -41,6 +34,13 @@
    "league": "CFB",
    "event": "Wake Forest Demon Deacons @ California Golden Bears",
    "prediction": "Wake Forest Demon Deacons to beat California Golden Bears",
+   "kickoff_utc": "2026-10-18T02:30:00+00:00"
+  },
+  {
+   "id": "0b516b951f",
+   "league": "MLS",
+   "event": "CF Montr\u00e9al @ Seattle Sounders FC",
+   "prediction": "CF Montr\u00e9al to beat Seattle Sounders FC",
    "kickoff_utc": "2026-10-18T02:30:00+00:00"
   }
  ]

@@ -3305,8 +3305,9 @@
   "pick_team": "Florida Panthers",
   "prediction": "Florida Panthers to beat Seattle Kraken",
   "kickoff_utc": "2026-10-17T22:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-17T15:20:03.844187+00:00"
+  "status": "hit",
+  "created_at": "2026-10-17T15:20:03.844187+00:00",
+  "settled_at": "2026-10-18T00:49:19.289731+00:00"
  },
  {
   "id": "0e71ada23c",
