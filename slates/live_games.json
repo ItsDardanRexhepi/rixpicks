@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T18:49:35.705731+00:00",
+ "generated_at": "2026-10-18T19:04:35.524439+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401930515",
+     "matchup": "TB @ CLE",
+     "commence": "2026-10-18T21:00Z",
+     "status": "pre",
+     "detail": "10/18 - 2:00 PM PT",
+     "score": "TB 0 - CLE 0"
+    }
+   ]
+  },
   {
    "league": "NFL",
    "games": [
@@ -10,7 +23,7 @@
      "matchup": "CHI @ ATL",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "14:48 - 3rd",
+     "detail": "8:34 - 3rd",
      "score": "CHI 21 - ATL 7",
      "away_to": 3,
      "home_to": 3
@@ -20,7 +33,7 @@
      "matchup": "BAL @ CLE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "7:48 - 3rd",
+     "detail": "1:45 - 3rd",
      "score": "BAL 10 - CLE 3",
      "away_to": 3,
      "home_to": 3
@@ -30,7 +43,7 @@
      "matchup": "TEN @ IND",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "12:31 - 3rd",
+     "detail": "4:10 - 3rd",
      "score": "TEN 3 - IND 13",
      "away_to": 3,
      "home_to": 3
@@ -40,8 +53,8 @@
      "matchup": "NYJ @ NE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "11:48 - 3rd",
-     "score": "NYJ 3 - NE 17",
+     "detail": "8:10 - 3rd",
+     "score": "NYJ 10 - NE 17",
      "away_to": 3,
      "home_to": 3
     },
@@ -50,8 +63,8 @@
      "matchup": "NO @ NYG",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "13:08 - 3rd",
-     "score": "NO 10 - NYG 10",
+     "detail": "9:20 - 3rd",
+     "score": "NO 17 - NYG 10",
      "away_to": 3,
      "home_to": 3
     },
@@ -60,7 +73,7 @@
      "matchup": "CAR @ PHI",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "11:52 - 3rd",
      "score": "CAR 10 - PHI 7",
      "away_to": 3,
      "home_to": 3
@@ -70,7 +83,7 @@
      "matchup": "PIT @ TB",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "14:04 - 3rd",
+     "detail": "5:05 - 3rd",
      "score": "PIT 3 - TB 13",
      "away_to": 3,
      "home_to": 3
@@ -102,6 +115,19 @@
    ]
   },
   {
+   "league": "MLS",
+   "games": [
+    {
+     "espn_event_id": "761889",
+     "matchup": "CLB @ CIN",
+     "commence": "2026-10-18T21:00Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "CLB 0 - CIN 0"
+    }
+   ]
+  },
+  {
    "league": "NWSL",
    "games": [
     {
@@ -109,8 +135,16 @@
      "matchup": "ORL @ HOU",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "77'",
+     "detail": "90'+3'",
      "score": "ORL 2 - HOU 1"
+    },
+    {
+     "espn_event_id": "401854025",
+     "matchup": "POR @ BAY",
+     "commence": "2026-10-18T21:00Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "POR 0 - BAY 0"
     }
    ]
   }
