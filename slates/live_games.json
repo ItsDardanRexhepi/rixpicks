@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T17:49:36.925349+00:00",
+ "generated_at": "2026-10-18T17:59:07.479106+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,7 +10,7 @@
      "matchup": "CHI @ ATL",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "10:50 - 2nd",
+     "detail": "7:19 - 2nd",
      "score": "CHI 14 - ATL 0",
      "away_to": 3,
      "home_to": 3
@@ -20,7 +20,7 @@
      "matchup": "BAL @ CLE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "11:47 - 2nd",
+     "detail": "8:32 - 2nd",
      "score": "BAL 10 - CLE 0",
      "away_to": 2,
      "home_to": 3
@@ -30,7 +30,7 @@
      "matchup": "TEN @ IND",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "11:07 - 2nd",
+     "detail": "8:30 - 2nd",
      "score": "TEN 0 - IND 7",
      "away_to": 3,
      "home_to": 3
@@ -40,7 +40,7 @@
      "matchup": "NYJ @ NE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "12:30 - 2nd",
+     "detail": "7:36 - 2nd",
      "score": "NYJ 3 - NE 7",
      "away_to": 3,
      "home_to": 3
@@ -50,7 +50,7 @@
      "matchup": "NO @ NYG",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "11:10 - 2nd",
+     "detail": "6:51 - 2nd",
      "score": "NO 0 - NYG 7",
      "away_to": 3,
      "home_to": 3
@@ -60,7 +60,7 @@
      "matchup": "CAR @ PHI",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "15:00 - 2nd",
+     "detail": "12:45 - 2nd",
      "score": "CAR 3 - PHI 0",
      "away_to": 3,
      "home_to": 3
@@ -70,7 +70,7 @@
      "matchup": "PIT @ TB",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "14:01 - 2nd",
+     "detail": "11:30 - 2nd",
      "score": "PIT 0 - TB 10",
      "away_to": 2,
      "home_to": 3
@@ -85,7 +85,7 @@
      "matchup": "ORL @ HOU",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "42'",
+     "detail": "45'+6'",
      "score": "ORL 2 - HOU 0"
     }
    ]
