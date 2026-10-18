@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T15:04:36.812777+00:00",
+ "generated_at": "2026-10-18T15:12:24.475372+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,10 +10,10 @@
      "matchup": "HOU @ JAX",
      "commence": "2026-10-18T13:30Z",
      "status": "in",
-     "detail": "0:08 - 2nd",
+     "detail": "Halftime",
      "score": "HOU 17 - JAX 14",
-     "away_to": 0,
-     "home_to": 2
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401872999",
