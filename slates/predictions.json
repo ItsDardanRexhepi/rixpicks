@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-18T22:49:21.577467+00:00",
+ "generated_at": "2026-10-18T23:04:20.385814+00:00",
  "items": [
-  {
-   "id": "b80eb79994",
-   "league": "NWSL",
-   "event": "Seattle Reign FC @ Chicago Stars FC",
-   "prediction": "Seattle Reign FC to beat Chicago Stars FC",
-   "kickoff_utc": "2026-10-18T23:00:00+00:00"
-  },
   {
    "id": "2edd73b993",
    "league": "NHL",
@@ -42,6 +35,13 @@
    "event": "Boston Celtics @ Detroit Pistons",
    "prediction": "Boston Celtics to beat Detroit Pistons",
    "kickoff_utc": "2026-10-20T19:00:00+00:00"
+  },
+  {
+   "id": "05eff5f295",
+   "league": "NBA",
+   "event": "Philadelphia 76ers @ New York Knicks",
+   "prediction": "Philadelphia 76ers to beat New York Knicks",
+   "kickoff_utc": "2026-10-20T23:00:00+00:00"
   }
  ]
 }
