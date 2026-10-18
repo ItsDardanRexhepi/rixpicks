@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T18:05:01.356974+00:00",
+ "generated_at": "2026-10-18T18:19:32.621358+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,58 +10,58 @@
      "matchup": "CHI @ ATL",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "5:45 - 2nd",
+     "detail": "1:35 - 2nd",
      "score": "CHI 14 - ATL 7",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401872997",
      "matchup": "BAL @ CLE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "5:57 - 2nd",
+     "detail": "0:26 - 2nd",
      "score": "BAL 10 - CLE 0",
-     "away_to": 2,
-     "home_to": 3
+     "away_to": 0,
+     "home_to": 1
     },
     {
      "espn_event_id": "401873003",
      "matchup": "TEN @ IND",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "3:39 - 2nd",
-     "score": "TEN 0 - IND 7",
-     "away_to": 3,
-     "home_to": 3
+     "detail": "0:11 - 2nd",
+     "score": "TEN 0 - IND 13",
+     "away_to": 2,
+     "home_to": 2
     },
     {
      "espn_event_id": "401873001",
      "matchup": "NYJ @ NE",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "6:00 - 2nd",
-     "score": "NYJ 3 - NE 7",
-     "away_to": 3,
-     "home_to": 3
+     "detail": "1:35 - 2nd",
+     "score": "NYJ 3 - NE 10",
+     "away_to": 1,
+     "home_to": 2
     },
     {
      "espn_event_id": "401873000",
      "matchup": "NO @ NYG",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "4:17 - 2nd",
-     "score": "NO 0 - NYG 7",
+     "detail": "1:18 - 2nd",
+     "score": "NO 3 - NYG 10",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401872998",
      "matchup": "CAR @ PHI",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "10:27 - 2nd",
-     "score": "CAR 3 - PHI 0",
+     "detail": "8:08 - 2nd",
+     "score": "CAR 10 - PHI 0",
      "away_to": 3,
      "home_to": 3
     },
@@ -70,10 +70,10 @@
      "matchup": "PIT @ TB",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "7:11 - 2nd",
-     "score": "PIT 0 - TB 10",
-     "away_to": 2,
-     "home_to": 3
+     "detail": "2:00 - 2nd",
+     "score": "PIT 0 - TB 13",
+     "away_to": 1,
+     "home_to": 2
     },
     {
      "espn_event_id": "401873004",
@@ -93,7 +93,7 @@
      "matchup": "ORL @ HOU",
      "commence": "2026-10-18T17:00Z",
      "status": "in",
-     "detail": "HT",
+     "detail": "48'",
      "score": "ORL 2 - HOU 0"
     }
    ]
