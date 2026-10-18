@@ -2867,8 +2867,9 @@
   "pick_team": "Jacksonville Jaguars",
   "prediction": "Jacksonville Jaguars to beat Houston Texans",
   "kickoff_utc": "2026-10-18T13:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-15T10:06:03.562318+00:00"
+  "status": "miss",
+  "created_at": "2026-10-15T10:06:03.562318+00:00",
+  "settled_at": "2026-10-18T16:49:20.204986+00:00"
  },
  {
   "id": "4e966107ec",
@@ -3589,5 +3590,31 @@
   "kickoff_utc": "2026-10-20T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-18T16:35:30.219812+00:00"
+ },
+ {
+  "id": "0c26410961",
+  "event_id": "401930515",
+  "league": "MLB",
+  "path": "baseball/mlb",
+  "home": "Cleveland Guardians",
+  "away": "Tampa Bay Rays",
+  "pick_team": "Tampa Bay Rays",
+  "prediction": "Tampa Bay Rays to beat Cleveland Guardians",
+  "kickoff_utc": "2026-10-18T21:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-18T16:49:29.772536+00:00"
+ },
+ {
+  "id": "2edd73b993",
+  "event_id": "401892534",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Calgary Flames",
+  "away": "Carolina Hurricanes",
+  "pick_team": "Carolina Hurricanes",
+  "prediction": "Carolina Hurricanes to beat Calgary Flames",
+  "kickoff_utc": "2026-10-19T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-18T16:50:08.343786+00:00"
  }
 ]
