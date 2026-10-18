@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T03:04:34.538116+00:00",
+ "generated_at": "2026-10-18T03:19:34.164626+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "TB @ CLE",
      "commence": "2026-10-18T00:00Z",
      "status": "in",
-     "detail": "Top 9th",
+     "detail": "End 9th",
      "score": "TB 7 - CLE 3"
     }
    ]
@@ -22,50 +22,26 @@
      "espn_event_id": "401856809",
      "matchup": "ND @ BYU",
      "commence": "2026-10-17T23:30Z",
-     "status": "in",
-     "detail": "1:47 - 4th",
-     "score": "ND 24 - BYU 28",
-     "away_to": 0,
-     "home_to": 0
-    },
-    {
-     "espn_event_id": "401856831",
-     "matchup": "OKST @ HOU",
-     "commence": "2026-10-17T23:30Z",
-     "status": "in",
-     "detail": "2:00 - 4th",
-     "score": "OKST 32 - HOU 35",
-     "away_to": 0,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "ND 24 - BYU 28"
     },
     {
      "espn_event_id": "401858265",
      "matchup": "LOU @ SYR",
      "commence": "2026-10-17T23:30Z",
-     "status": "in",
-     "detail": "1:23 - 4th",
-     "score": "LOU 34 - SYR 26",
-     "away_to": 0,
-     "home_to": 0
+     "status": "post",
+     "detail": "Final",
+     "score": "LOU 34 - SYR 26"
     },
     {
      "espn_event_id": "401862804",
      "matchup": "NAVY @ UTSA",
      "commence": "2026-10-18T00:00Z",
      "status": "in",
-     "detail": "8:17 - 4th",
-     "score": "NAVY 27 - UTSA 31",
-     "away_to": 1,
-     "home_to": 1
-    },
-    {
-     "espn_event_id": "401871091",
-     "matchup": "LT @ ULM",
-     "commence": "2026-10-18T00:00Z",
-     "status": "in",
-     "detail": "0:48 - 4th",
-     "score": "LT 24 - ULM 0",
-     "away_to": 2,
+     "detail": "3:28 - 4th",
+     "score": "NAVY 34 - UTSA 31",
+     "away_to": 0,
      "home_to": 1
     },
     {
@@ -73,8 +49,8 @@
      "matchup": "SJSU @ UTEP",
      "commence": "2026-10-18T01:00Z",
      "status": "in",
-     "detail": "7:21 - 3rd",
-     "score": "SJSU 14 - UTEP 0",
+     "detail": "3:47 - 3rd",
+     "score": "SJSU 21 - UTEP 0",
      "away_to": 1,
      "home_to": 0
     },
@@ -83,17 +59,17 @@
      "matchup": "OHIO @ SAC",
      "commence": "2026-10-18T02:00Z",
      "status": "in",
-     "detail": "9:24 - 2nd",
-     "score": "OHIO 17 - SAC 0",
-     "away_to": 3,
-     "home_to": 3
+     "detail": "2:26 - 2nd",
+     "score": "OHIO 20 - SAC 0",
+     "away_to": 2,
+     "home_to": 1
     },
     {
      "espn_event_id": "401856833",
      "matchup": "UTAH @ COLO",
      "commence": "2026-10-18T02:15Z",
      "status": "in",
-     "detail": "3:51 - 1st",
+     "detail": "End of 1st",
      "score": "UTAH 7 - COLO 0",
      "away_to": 3,
      "home_to": 3
@@ -103,8 +79,8 @@
      "matchup": "WAKE @ CAL",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "6:15 - 1st",
-     "score": "WAKE 13 - CAL 0",
+     "detail": "End of 1st",
+     "score": "WAKE 14 - CAL 0",
      "away_to": 3,
      "home_to": 2
     },
@@ -113,8 +89,8 @@
      "matchup": "FRES @ SDSU",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "3:40 - 1st",
-     "score": "FRES 0 - SDSU 3",
+     "detail": "13:44 - 2nd",
+     "score": "FRES 0 - SDSU 10",
      "away_to": 3,
      "home_to": 3
     },
@@ -123,8 +99,18 @@
      "matchup": "UNM @ HAW",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "4:07 - 1st",
+     "detail": "13:36 - 2nd",
      "score": "UNM 0 - HAW 3",
+     "away_to": 3,
+     "home_to": 3
+    },
+    {
+     "espn_event_id": "401858492",
+     "matchup": "NEB @ ORE",
+     "commence": "2026-10-18T03:00Z",
+     "status": "in",
+     "detail": "10:45 - 1st",
+     "score": "NEB 0 - ORE 0",
      "away_to": 3,
      "home_to": 3
     },
@@ -145,12 +131,28 @@
      "score": "UK 21 - OU 13"
     },
     {
+     "espn_event_id": "401856831",
+     "matchup": "OKST @ HOU",
+     "commence": "2026-10-17T23:30Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "OKST 32 - HOU 35"
+    },
+    {
      "espn_event_id": "401858262",
      "matchup": "ELON @ STAN",
      "commence": "2026-10-17T23:30Z",
      "status": "post",
      "detail": "Final",
      "score": "ELON 7 - STAN 34"
+    },
+    {
+     "espn_event_id": "401871091",
+     "matchup": "LT @ ULM",
+     "commence": "2026-10-18T00:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "LT 24 - ULM 0"
     }
    ]
   },
@@ -170,7 +172,7 @@
      "matchup": "BOS @ LA",
      "commence": "2026-10-18T01:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "14:01 - 3rd",
      "score": "BOS 1 - LA 1",
      "away_to": null,
      "home_to": null
@@ -180,7 +182,7 @@
      "matchup": "EDM @ UTA",
      "commence": "2026-10-18T02:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "13:47 - 2nd",
      "score": "EDM 3 - UTA 0",
      "away_to": null,
      "home_to": null
@@ -190,8 +192,8 @@
      "matchup": "PIT @ VGK",
      "commence": "2026-10-18T02:00Z",
      "status": "in",
-     "detail": "End of 1st",
-     "score": "PIT 0 - VGK 3",
+     "detail": "11:58 - 2nd",
+     "score": "PIT 1 - VGK 4",
      "away_to": null,
      "home_to": null
     }
@@ -269,7 +271,7 @@
      "matchup": "SD @ LA",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "24'",
+     "detail": "39'",
      "score": "SD 1 - LA 2"
     },
     {
@@ -277,7 +279,7 @@
      "matchup": "COL @ POR",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "24'",
+     "detail": "39'",
      "score": "COL 0 - POR 0"
     },
     {
@@ -285,15 +287,15 @@
      "matchup": "NSH @ SJ",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "23'",
-     "score": "NSH 0 - SJ 0"
+     "detail": "39'",
+     "score": "NSH 1 - SJ 0"
     },
     {
      "espn_event_id": "761885",
      "matchup": "MTL @ SEA",
      "commence": "2026-10-18T02:30Z",
      "status": "in",
-     "detail": "24'",
+     "detail": "39'",
      "score": "MTL 1 - SEA 0"
     }
    ]
