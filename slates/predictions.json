@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-18T16:50:08.844052+00:00",
+ "generated_at": "2026-10-18T17:06:09.876218+00:00",
  "items": [
   {
-   "id": "713bb6455d",
+   "id": "1696d341d0",
    "league": "NFL",
-   "event": "Baltimore Ravens @ Cleveland Browns",
-   "prediction": "Baltimore Ravens to beat Cleveland Browns",
-   "kickoff_utc": "2026-10-18T17:00:00+00:00"
+   "event": "Arizona Cardinals @ Los Angeles Rams",
+   "prediction": "Los Angeles Rams to beat Arizona Cardinals",
+   "kickoff_utc": "2026-10-18T20:05:00+00:00"
   },
   {
-   "id": "49cd827f52",
+   "id": "14db380aff",
    "league": "NFL",
-   "event": "Carolina Panthers @ Philadelphia Eagles",
-   "prediction": "Philadelphia Eagles to beat Carolina Panthers",
-   "kickoff_utc": "2026-10-18T17:00:00+00:00"
+   "event": "Los Angeles Chargers @ Kansas City Chiefs",
+   "prediction": "Kansas City Chiefs to beat Los Angeles Chargers",
+   "kickoff_utc": "2026-10-18T20:25:00+00:00"
   },
   {
-   "id": "58277d57c0",
+   "id": "313ee97274",
    "league": "NFL",
-   "event": "Pittsburgh Steelers @ Tampa Bay Buccaneers",
-   "prediction": "Pittsburgh Steelers to beat Tampa Bay Buccaneers",
-   "kickoff_utc": "2026-10-18T17:00:00+00:00"
+   "event": "Buffalo Bills @ Las Vegas Raiders",
+   "prediction": "Buffalo Bills to beat Las Vegas Raiders",
+   "kickoff_utc": "2026-10-18T20:25:00+00:00"
   },
   {
-   "id": "2ac76bcaa9",
-   "league": "NFL",
-   "event": "Tennessee Titans @ Indianapolis Colts",
-   "prediction": "Tennessee Titans to beat Indianapolis Colts",
-   "kickoff_utc": "2026-10-18T17:00:00+00:00"
+   "id": "5dff87050c",
+   "league": "NWSL",
+   "event": "Portland Thorns FC @ Bay FC",
+   "prediction": "Portland Thorns FC to beat Bay FC",
+   "kickoff_utc": "2026-10-18T21:00:00+00:00"
   },
   {
-   "id": "a7521b25cc",
-   "league": "NFL",
-   "event": "New Orleans Saints @ New York Giants",
-   "prediction": "New Orleans Saints to beat New York Giants",
-   "kickoff_utc": "2026-10-18T17:00:00+00:00"
+   "id": "0c26410961",
+   "league": "MLB",
+   "event": "Tampa Bay Rays @ Cleveland Guardians",
+   "prediction": "Tampa Bay Rays to beat Cleveland Guardians",
+   "kickoff_utc": "2026-10-18T21:00:00+00:00"
   },
   {
-   "id": "e9552dd40b",
-   "league": "NFL",
-   "event": "New York Jets @ New England Patriots",
-   "prediction": "New England Patriots to beat New York Jets",
-   "kickoff_utc": "2026-10-18T17:00:00+00:00"
+   "id": "b80eb79994",
+   "league": "NWSL",
+   "event": "Seattle Reign FC @ Chicago Stars FC",
+   "prediction": "Seattle Reign FC to beat Chicago Stars FC",
+   "kickoff_utc": "2026-10-18T23:00:00+00:00"
   }
  ]
 }
