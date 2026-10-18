@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-18T11:30:15.912Z",
+ "generated_at": "2026-10-18T11:35:08.646Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -818,11 +818,11 @@
     "league": "NASCAR"
    },
    {
-    "headline": "Blaney wins pole at Phoenix; NASCAR playoff leader Larson to start 22nd",
-    "link": "https://www.espn.com/racing/story/_/id/50205142/ryan-blaney-wins-phoenix-raceway-pole-kyle-larson-start-22nd",
-    "published": "2026-10-18T00:14:11.000Z",
+    "headline": "Why is Max Verstappen racing in GT World Challenge? Schedule, how to watch latest non-F1 event",
+    "link": "https://www.espn.com/f1/story/_/id/50165650/max-verstappen-returns-gt-racing-why-f1s-star-competing-gt-world-challenge",
+    "published": "2026-10-17T12:45:45.000Z",
     "image": "",
-    "blurb": "Ryan Blaney, who is currently fifth in the playoff standings, was the fastest qualifier at Phoenix Raceway, while playoff leader Kyle Larson qualified 22nd.",
+    "blurb": "Max Verstappen has made no secret of his enjoyment of racing outside Formula 1, and the four-time world champion is set to take on his latest motorsport challenge.",
     "source": "ESPN",
     "league": "NASCAR"
    },
@@ -836,11 +836,11 @@
     "league": "NASCAR"
    },
    {
-    "headline": "Why is Max Verstappen racing in GT World Challenge? Schedule, how to watch latest non-F1 event",
-    "link": "https://www.espn.com/f1/story/_/id/50165650/max-verstappen-returns-gt-racing-why-f1s-star-competing-gt-world-challenge",
-    "published": "2026-10-17T12:45:45.000Z",
+    "headline": "Toyota is the favorite to win NASCAR Cup Series, but its drivers don't feel that pressure",
+    "link": "https://www.espn.com/racing/nascar/story/_/id/50028142/toyota-favorite-win-nascar-cup-series-drivers-feel-pressure",
+    "published": "2026-09-25T18:41:42.000Z",
     "image": "",
-    "blurb": "Max Verstappen has made no secret of his enjoyment of racing outside Formula 1, and the four-time world champion is set to take on his latest motorsport challenge.",
+    "blurb": "\"I think it's Toyota's championship to lose,\" Bubba Wallace said. \"Based on how many races we've won, it would be a shame if we didn't seal the deal.\"",
     "source": "ESPN",
     "league": "NASCAR"
    },
@@ -854,19 +854,10 @@
     "league": "NASCAR"
    },
    {
-    "headline": "Toyota is the favorite to win NASCAR Cup Series, but its drivers don't feel that pressure",
-    "link": "https://www.espn.com/racing/nascar/story/_/id/50028142/toyota-favorite-win-nascar-cup-series-drivers-feel-pressure",
-    "published": "2026-09-25T18:41:42.000Z",
-    "image": "",
-    "blurb": "\"I think it's Toyota's championship to lose,\" Bubba Wallace said. \"Based on how many races we've won, it would be a shame if we didn't seal the deal.\"",
-    "source": "ESPN",
-    "league": "NASCAR"
-   },
-   {
     "headline": "What channel is NASCAR on today? Time, TV schedule, live stream to watch 2026 Phoenix playoff race",
     "link": "https://sports.yahoo.com/articles/channel-nascar-today-time-tv-042001318.html",
     "published": "2026-10-18T04:20:01.000Z",
-    "image": "",
+    "image": "https://s.yimg.com/lo/mysterio/api/593bd71a0b399f367386db8e79467ecbf9d3eadee26235c005df02ebd2a4b890/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2F927021cc5ddbede8f3f3186b69e27399",
     "blurb": "Here's everything you need to know about the Freeway Insurance 500, including TV channel and streaming options for the NASCAR playoff race.",
     "source": "YAHOO",
     "league": "NASCAR"
@@ -895,6 +886,15 @@
     "published": "2026-10-18T01:58:46.000Z",
     "image": "",
     "blurb": "Denny Hamlin says that the O\u2019Reilly Auto Parts Series is the most fragile series in NASCAR financially, and that roughly 80% of its Saturday drivers pay their team owners to race. Parker Kligerman, a veteran driver who still races part-time and works as a TV analyst, says that\u2019s ",
+    "source": "YAHOO",
+    "league": "NASCAR"
+   },
+   {
+    "headline": "Ryan Blaney wins pole at Phoenix Raceway while NASCAR postseason leader Kyle Larson to start 22nd",
+    "link": "https://sports.yahoo.com/articles/ryan-blaney-wins-pole-phoenix-225712666.html",
+    "published": "2026-10-17T22:57:12.000Z",
+    "image": "",
+    "blurb": "(AP) \u2014 Ryan Blaney took the pole at Phoenix Raceway on Saturday, putting him in good position to make a move up the standings in NASCAR's postseason.Blaney \u2014 who is trying to win his third straight race in the desert and is currently fifth in the playoff standings \u2014 covered the m",
     "source": "YAHOO",
     "league": "NASCAR"
    }
@@ -1419,6 +1419,15 @@
    "league": "WNBA"
   },
   {
+   "headline": "What channel is NASCAR on today? Time, TV schedule, live stream to watch 2026 Phoenix playoff race",
+   "link": "https://sports.yahoo.com/articles/channel-nascar-today-time-tv-042001318.html",
+   "published": "2026-10-18T04:20:01.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/593bd71a0b399f367386db8e79467ecbf9d3eadee26235c005df02ebd2a4b890/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2F927021cc5ddbede8f3f3186b69e27399",
+   "blurb": "Here's everything you need to know about the Freeway Insurance 500, including TV channel and streaming options for the NASCAR playoff race.",
+   "source": "YAHOO",
+   "league": "NASCAR"
+  },
+  {
    "headline": "2026 MLB playoff bracket: Schedule and scores as Rays even ALCS vs. Guardians with Game 4 win",
    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
    "published": "2026-10-18T04:04:42.000Z",
@@ -1435,20 +1444,11 @@
    "blurb": "With LIV Golf struggling to survive in bankruptcy court, Justin Rose is ready to welcome Jon Rahm and others back.",
    "source": "YAHOO",
    "league": "PGA"
-  },
-  {
-   "headline": "Knicks waive Bruce Brown, keep James Wiseman ahead of opener",
-   "link": "https://www.espn.com/nba/story/_/id/50204321/sources-knicks-waiving-bruce-brown-keeping-james-wiseman",
-   "published": "2026-10-18T01:41:18Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1017%2Fr1732162_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Knicks are waiving Bruce Brown and keeping James Wiseman on the roster as the team heads into its regular-season opener, sources told ESPN.",
-   "league": "NBA"
   }
  ],
  "source_mix": {
-  "ESPN": 57,
-  "YAHOO": 65,
+  "ESPN": 55,
+  "YAHOO": 67,
   "CBS": 35
  },
  "degraded_sources": []
