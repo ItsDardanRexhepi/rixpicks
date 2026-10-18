@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T14:49:32.060662+00:00",
+ "generated_at": "2026-10-18T15:04:36.812777+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,10 +10,79 @@
      "matchup": "HOU @ JAX",
      "commence": "2026-10-18T13:30Z",
      "status": "in",
-     "detail": "2:00 - 2nd",
-     "score": "HOU 10 - JAX 7",
-     "away_to": 3,
-     "home_to": 3
+     "detail": "0:08 - 2nd",
+     "score": "HOU 17 - JAX 14",
+     "away_to": 0,
+     "home_to": 2
+    },
+    {
+     "espn_event_id": "401872999",
+     "matchup": "CHI @ ATL",
+     "commence": "2026-10-18T17:00Z",
+     "status": "pre",
+     "detail": "10/18 - 10:00 AM PT",
+     "score": "CHI 0 - ATL 0"
+    },
+    {
+     "espn_event_id": "401872997",
+     "matchup": "BAL @ CLE",
+     "commence": "2026-10-18T17:00Z",
+     "status": "pre",
+     "detail": "10/18 - 10:00 AM PT",
+     "score": "BAL 0 - CLE 0"
+    },
+    {
+     "espn_event_id": "401873003",
+     "matchup": "TEN @ IND",
+     "commence": "2026-10-18T17:00Z",
+     "status": "pre",
+     "detail": "10/18 - 10:00 AM PT",
+     "score": "TEN 0 - IND 0"
+    },
+    {
+     "espn_event_id": "401873001",
+     "matchup": "NYJ @ NE",
+     "commence": "2026-10-18T17:00Z",
+     "status": "pre",
+     "detail": "10/18 - 10:00 AM PT",
+     "score": "NYJ 0 - NE 0"
+    },
+    {
+     "espn_event_id": "401873000",
+     "matchup": "NO @ NYG",
+     "commence": "2026-10-18T17:00Z",
+     "status": "pre",
+     "detail": "10/18 - 10:00 AM PT",
+     "score": "NO 0 - NYG 0"
+    },
+    {
+     "espn_event_id": "401872998",
+     "matchup": "CAR @ PHI",
+     "commence": "2026-10-18T17:00Z",
+     "status": "pre",
+     "detail": "10/18 - 10:00 AM PT",
+     "score": "CAR 0 - PHI 0"
+    },
+    {
+     "espn_event_id": "401873002",
+     "matchup": "PIT @ TB",
+     "commence": "2026-10-18T17:00Z",
+     "status": "pre",
+     "detail": "10/18 - 10:00 AM PT",
+     "score": "PIT 0 - TB 0"
+    }
+   ]
+  },
+  {
+   "league": "NWSL",
+   "games": [
+    {
+     "espn_event_id": "401854024",
+     "matchup": "ORL @ HOU",
+     "commence": "2026-10-18T17:00Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "ORL 0 - HOU 0"
     }
    ]
   }
