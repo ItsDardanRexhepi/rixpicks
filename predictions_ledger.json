@@ -1969,8 +1969,9 @@
   "pick_team": "Notre Dame Fighting Irish",
   "prediction": "Notre Dame Fighting Irish to beat BYU Cougars",
   "kickoff_utc": "2026-10-17T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-13T13:08:04.035745+00:00"
+  "status": "miss",
+  "created_at": "2026-10-13T13:08:04.035745+00:00",
+  "settled_at": "2026-10-18T03:34:20.800990+00:00"
  },
  {
   "id": "daf4ab8115",
@@ -3498,8 +3499,9 @@
   "pick_team": "Tampa Bay Rays",
   "prediction": "Tampa Bay Rays to beat Cleveland Guardians",
   "kickoff_utc": "2026-10-18T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-17T21:04:52.407689+00:00"
+  "status": "hit",
+  "created_at": "2026-10-17T21:04:52.407689+00:00",
+  "settled_at": "2026-10-18T03:34:21.208144+00:00"
  },
  {
   "id": "05eff5f295",
