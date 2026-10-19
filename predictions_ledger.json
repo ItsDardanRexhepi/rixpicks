@@ -3815,5 +3815,18 @@
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-19T08:22:20.152199+00:00"
+ },
+ {
+  "id": "e46f0cc309",
+  "event_id": "401858499",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "UCLA Bruins",
+  "away": "Michigan State Spartans",
+  "pick_team": "UCLA Bruins",
+  "prediction": "UCLA Bruins to beat Michigan State Spartans",
+  "kickoff_utc": "2026-10-24T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T12:05:52.028140+00:00"
  }
 ]
