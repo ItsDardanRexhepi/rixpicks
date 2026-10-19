@@ -2473,8 +2473,9 @@
   "pick_team": "Green Bay Packers",
   "prediction": "Green Bay Packers to beat Dallas Cowboys",
   "kickoff_utc": "2026-10-19T00:20:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-14T04:36:11.632201+00:00"
+  "status": "hit",
+  "created_at": "2026-10-14T04:36:11.632201+00:00",
+  "settled_at": "2026-10-19T03:49:18.272487+00:00"
  },
  {
   "id": "58277d57c0",
