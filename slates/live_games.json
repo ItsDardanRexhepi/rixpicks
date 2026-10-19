@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T01:19:37.348186+00:00",
+ "generated_at": "2026-10-19T01:34:36.436635+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,9 +10,9 @@
      "matchup": "DAL @ GB",
      "commence": "2026-10-19T00:20Z",
      "status": "in",
-     "detail": "8:11 - 2nd",
-     "score": "DAL 0 - GB 7",
-     "away_to": 3,
+     "detail": "2:00 - 2nd",
+     "score": "DAL 0 - GB 10",
+     "away_to": 2,
      "home_to": 3
     }
    ]
@@ -33,7 +33,7 @@
      "matchup": "CAR @ CGY",
      "commence": "2026-10-19T00:00Z",
      "status": "in",
-     "detail": "10:29 - 2nd",
+     "detail": "2:27 - 2nd",
      "score": "CAR 1 - CGY 0",
      "away_to": null,
      "home_to": null
