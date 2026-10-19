@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T21:20:16.315453+00:00",
+ "generated_at": "2026-10-19T21:35:22.061104+00:00",
  "leagues": [
   {
    "league": "NHL",
@@ -20,6 +20,14 @@
      "status": "pre",
      "detail": "10/19 - 4:00 PM PT",
      "score": "COL 0 - PHI 0"
+    },
+    {
+     "espn_event_id": "401892537",
+     "matchup": "SJ @ TOR",
+     "commence": "2026-10-19T23:30Z",
+     "status": "pre",
+     "detail": "10/19 - 4:30 PM PT",
+     "score": "SJ 0 - TOR 0"
     }
    ]
   }
