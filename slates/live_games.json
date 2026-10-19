@@ -1,30 +1,25 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T03:49:34.072608+00:00",
+ "generated_at": "2026-10-19T04:19:36.336535+00:00",
  "leagues": [
   {
-   "league": "NFL",
+   "league": "WTA",
    "games": [
     {
-     "espn_event_id": "401873007",
-     "matchup": "DAL @ GB",
-     "commence": "2026-10-19T00:20Z",
+     "espn_event_id": "185654",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-19T04:00Z",
      "status": "post",
-     "detail": "Final",
-     "score": "DAL 13 - GB 23"
-    }
-   ]
-  },
-  {
-   "league": "NHL",
-   "games": [
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
+    },
     {
-     "espn_event_id": "401892534",
-     "matchup": "CAR @ CGY",
-     "commence": "2026-10-19T00:00Z",
+     "espn_event_id": "185655",
+     "matchup": "TBD @ TBD",
+     "commence": "2026-10-19T04:00Z",
      "status": "post",
-     "detail": "Final",
-     "score": "CAR 2 - CGY 3"
+     "detail": "Canceled",
+     "score": "TBD 0 - TBD 0"
     }
    ]
   }
