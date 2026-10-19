@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-19T07:25:57.540Z",
+ "generated_at": "2026-10-19T07:30:58.235Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -104,11 +104,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Christian Watson lets touchdown slip through his fingers",
-    "link": "https://sports.yahoo.com/articles/christian-watson-lets-touchdown-slip-063835298.html",
-    "published": "2026-10-19T06:38:35.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/e9f7d51ef06c38c5ed4c6358f4f37b2c3d0bb3a672e3da7ed5868338fabd15c3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fedc07b6bb2262e8b98e3d2d7ebe07f9e.jpg",
-    "blurb": "Christian Watson dropped a sure touchdown in Week 6 against Dallas and finished with 64 yards on just three catches.",
+    "headline": "Tucker Kraft dodges knee injury to finish with five receptions",
+    "link": "https://sports.yahoo.com/articles/tucker-kraft-dodges-knee-injury-072007111.html",
+    "published": "2026-10-19T07:20:07.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/be41a937e0ba7d1e256f597e72c2f37a3efa0407344020f5f1a37af949942805/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F82841fb08b190f2311d9242c2b50087a.jpg",
+    "blurb": "Tucker Kraft was checked out for a knee injury but returned and finished with 37 yards on five receptions in Week 6.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -131,11 +131,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Jordan Love accounts for two total touchdowns in win",
-    "link": "https://sports.yahoo.com/articles/jordan-love-accounts-two-total-062052136.html",
-    "published": "2026-10-19T06:20:52.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/603b32622fb703b9d37a40d5f2992b70fb0a11ed381da273ba1fe988adc2658f/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F9ca35c5b41d9971e1eaf9474e21ed193.jpg",
-    "blurb": "Jordan Love had three touchdown passes dropped on SNF, finishing with 276 yards, one TD and one INT in the win over Dallas.",
+    "headline": "Christian Watson lets touchdown slip through his fingers",
+    "link": "https://sports.yahoo.com/articles/christian-watson-lets-touchdown-slip-063835298.html",
+    "published": "2026-10-19T06:38:35.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/e9f7d51ef06c38c5ed4c6358f4f37b2c3d0bb3a672e3da7ed5868338fabd15c3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fedc07b6bb2262e8b98e3d2d7ebe07f9e.jpg",
+    "blurb": "Christian Watson dropped a sure touchdown in Week 6 against Dallas and finished with 64 yards on just three catches.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -158,11 +158,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Packers Week 6 Snap Counts: Who played against the Dallas Cowboys?",
-    "link": "https://sports.yahoo.com/articles/packers-week-6-snap-counts-061318962.html",
-    "published": "2026-10-19T06:13:18.000Z",
+    "headline": "Jordan Love accounts for two total touchdowns in win",
+    "link": "https://sports.yahoo.com/articles/jordan-love-accounts-two-total-062052136.html",
+    "published": "2026-10-19T06:20:52.000Z",
     "image": "",
-    "blurb": "Savion Williams has taken over as the Packers\u2019 slot receiver after injuries to Jayden Reed and Skyy Moore",
+    "blurb": "Jordan Love had three touchdown passes dropped on SNF, finishing with 276 yards, one TD and one INT in the win over Dallas.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -1058,6 +1058,15 @@
    "league": "NFL"
   },
   {
+   "headline": "Tucker Kraft dodges knee injury to finish with five receptions",
+   "link": "https://sports.yahoo.com/articles/tucker-kraft-dodges-knee-injury-072007111.html",
+   "published": "2026-10-19T07:20:07.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/be41a937e0ba7d1e256f597e72c2f37a3efa0407344020f5f1a37af949942805/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F82841fb08b190f2311d9242c2b50087a.jpg",
+   "blurb": "Tucker Kraft was checked out for a knee injury but returned and finished with 37 yards on five receptions in Week 6.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "Christian Watson lets touchdown slip through his fingers",
    "link": "https://sports.yahoo.com/articles/christian-watson-lets-touchdown-slip-063835298.html",
    "published": "2026-10-19T06:38:35.000Z",
@@ -1083,15 +1092,6 @@
    "blurb": "After so many big upsets, the College Football Playoff picture for the SEC just got messy. Here's our latest call on what the CFP will be.",
    "source": "YAHOO",
    "league": "CFB"
-  },
-  {
-   "headline": "Jordan Love accounts for two total touchdowns in win",
-   "link": "https://sports.yahoo.com/articles/jordan-love-accounts-two-total-062052136.html",
-   "published": "2026-10-19T06:20:52.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/603b32622fb703b9d37a40d5f2992b70fb0a11ed381da273ba1fe988adc2658f/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F9ca35c5b41d9971e1eaf9474e21ed193.jpg",
-   "blurb": "Jordan Love had three touchdown passes dropped on SNF, finishing with 276 yards, one TD and one INT in the win over Dallas.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "Knicks host the 76ers to start season",
