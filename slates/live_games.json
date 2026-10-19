@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-18T23:49:35.953170+00:00",
+ "generated_at": "2026-10-19T00:04:35.228104+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,8 +9,8 @@
      "espn_event_id": "401930515",
      "matchup": "TB @ CLE",
      "commence": "2026-10-18T21:00Z",
-     "status": "in",
-     "detail": "Top 9th",
+     "status": "post",
+     "detail": "Final",
      "score": "TB 3 - CLE 1"
     }
    ]
@@ -60,18 +60,10 @@
      "matchup": "CBJ @ MIN",
      "commence": "2026-10-18T22:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "14:51 - 3rd",
      "score": "CBJ 1 - MIN 2",
      "away_to": null,
      "home_to": null
-    },
-    {
-     "espn_event_id": "401892534",
-     "matchup": "CAR @ CGY",
-     "commence": "2026-10-19T00:00Z",
-     "status": "pre",
-     "detail": "10/18 - 5:00 PM PT",
-     "score": "CAR 0 - CGY 0"
     }
    ]
   },
@@ -104,7 +96,7 @@
      "matchup": "SEA @ CHI",
      "commence": "2026-10-18T23:00Z",
      "status": "in",
-     "detail": "40'",
+     "detail": "HT",
      "score": "SEA 1 - CHI 0"
     }
    ]
