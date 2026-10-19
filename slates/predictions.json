@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-19T18:08:11.803254+00:00",
+ "generated_at": "2026-10-19T18:35:28.571002+00:00",
  "items": [
   {
    "id": "9d319716f6",
@@ -30,18 +30,18 @@
    "kickoff_utc": "2026-10-20T00:00:00+00:00"
   },
   {
+   "id": "d41a60bf20",
+   "league": "MLB",
+   "event": "Cleveland Guardians @ Tampa Bay Rays",
+   "prediction": "Tampa Bay Rays to beat Cleveland Guardians",
+   "kickoff_utc": "2026-10-20T00:00:00+00:00"
+  },
+  {
    "id": "b8b8a524c4",
    "league": "NFL",
    "event": "Washington Commanders @ San Francisco 49ers",
    "prediction": "San Francisco 49ers to beat Washington Commanders",
    "kickoff_utc": "2026-10-20T00:15:00+00:00"
-  },
-  {
-   "id": "fd54ce8b75",
-   "league": "NHL",
-   "event": "Pittsburgh Penguins @ Utah Mammoth",
-   "prediction": "Pittsburgh Penguins to beat Utah Mammoth",
-   "kickoff_utc": "2026-10-20T01:00:00+00:00"
   }
  ]
 }

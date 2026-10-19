@@ -3906,5 +3906,31 @@
   "kickoff_utc": "2026-10-20T01:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-19T17:20:27.023721+00:00"
+ },
+ {
+  "id": "d41a60bf20",
+  "event_id": "401908028",
+  "league": "MLB",
+  "path": "baseball/mlb",
+  "home": "Tampa Bay Rays",
+  "away": "Cleveland Guardians",
+  "pick_team": "Tampa Bay Rays",
+  "prediction": "Tampa Bay Rays to beat Cleveland Guardians",
+  "kickoff_utc": "2026-10-20T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T18:35:15.204770+00:00"
+ },
+ {
+  "id": "73d134a02e",
+  "event_id": "761773",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "FC Cincinnati",
+  "away": "D.C. United",
+  "pick_team": "D.C. United",
+  "prediction": "D.C. United to beat FC Cincinnati",
+  "kickoff_utc": "2026-10-21T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T18:35:20.489383+00:00"
  }
 ]
