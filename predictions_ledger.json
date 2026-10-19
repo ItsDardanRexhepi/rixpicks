@@ -3672,5 +3672,31 @@
   "kickoff_utc": "2026-10-24T16:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-19T04:25:19.697448+00:00"
+ },
+ {
+  "id": "7fe4d2e7d5",
+  "event_id": "401856840",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Cincinnati Bearcats",
+  "away": "Texas Tech Red Raiders",
+  "pick_team": "Cincinnati Bearcats",
+  "prediction": "Cincinnati Bearcats to beat Texas Tech Red Raiders",
+  "kickoff_utc": "2026-10-24T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T04:52:31.073751+00:00"
+ },
+ {
+  "id": "e3c45b6906",
+  "event_id": "401856732",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Texas Longhorns",
+  "away": "Ole Miss Rebels",
+  "pick_team": "Texas Longhorns",
+  "prediction": "Texas Longhorns to beat Ole Miss Rebels",
+  "kickoff_utc": "2026-10-24T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T04:55:10.627817+00:00"
  }
 ]
