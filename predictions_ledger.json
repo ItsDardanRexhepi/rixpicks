@@ -3711,5 +3711,18 @@
   "kickoff_utc": "2026-10-24T16:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-19T05:20:50.038972+00:00"
+ },
+ {
+  "id": "19ea234765",
+  "event_id": "401856727",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Alabama Crimson Tide",
+  "away": "Texas A&M Aggies",
+  "pick_team": "Alabama Crimson Tide",
+  "prediction": "Alabama Crimson Tide to beat Texas A&M Aggies",
+  "kickoff_utc": "2026-10-24T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T05:36:38.776024+00:00"
  }
 ]
