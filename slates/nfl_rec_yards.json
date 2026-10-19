@@ -1,46 +1,46 @@
 {
  "source": "ESPN season receiving yards (regular season to date)",
  "season": 2026,
- "fetched_at": "2026-10-19T04:46:40Z",
+ "fetched_at": "2026-10-19T13:25:02Z",
  "players": {
   "Chris Olave": {
-   "yards": 537,
+   "yards": 580,
    "espn_id": "4361370"
   },
   "Drake London": {
-   "yards": 488,
+   "yards": 550,
    "espn_id": "4426502"
   },
   "Christian Watson": {
-   "yards": 474,
+   "yards": 538,
    "espn_id": "4248528"
   },
   "Zay Flowers": {
-   "yards": 405,
+   "yards": 471,
    "espn_id": "4429615"
   },
   "Tetairoa McMillan": {
-   "yards": 385,
+   "yards": 471,
    "espn_id": "4685472"
+  },
+  "Trey McBride": {
+   "yards": 361,
+   "espn_id": "4361307"
   },
   "Mike Evans": {
    "yards": 326,
    "espn_id": "16737"
   },
-  "Trey McBride": {
-   "yards": 308,
-   "espn_id": "4361307"
-  },
   "Emeka Egbuka": {
-   "yards": 192,
+   "yards": 240,
    "espn_id": "4567750"
   },
   "Ladd McConkey": {
-   "yards": 183,
+   "yards": 200,
    "espn_id": "4612826"
   },
   "Wan'Dale Robinson": {
-   "yards": 176,
+   "yards": 198,
    "espn_id": "4569587"
   }
  }
