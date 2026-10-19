@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T23:35:16.071443+00:00",
+ "generated_at": "2026-10-19T23:50:18.286013+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -49,7 +49,7 @@
      "matchup": "ANA @ NYR",
      "commence": "2026-10-19T23:00Z",
      "status": "in",
-     "detail": "5:19 - 1st",
+     "detail": "End of 1st",
      "score": "ANA 0 - NYR 1",
      "away_to": null,
      "home_to": null
@@ -59,8 +59,18 @@
      "matchup": "COL @ PHI",
      "commence": "2026-10-19T23:00Z",
      "status": "in",
-     "detail": "8:30 - 1st",
+     "detail": "End of 1st",
      "score": "COL 0 - PHI 1",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892537",
+     "matchup": "SJ @ TOR",
+     "commence": "2026-10-19T23:30Z",
+     "status": "in",
+     "detail": "15:17 - 1st",
+     "score": "SJ 0 - TOR 0",
      "away_to": null,
      "home_to": null
     },
