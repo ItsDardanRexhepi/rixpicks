@@ -1,25 +1,25 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T07:50:18.115236+00:00",
+ "generated_at": "2026-10-19T21:05:18.739704+00:00",
  "leagues": [
   {
-   "league": "WTA",
+   "league": "NHL",
    "games": [
     {
-     "espn_event_id": "185654",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-19T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
+     "espn_event_id": "401892535",
+     "matchup": "ANA @ NYR",
+     "commence": "2026-10-19T23:00Z",
+     "status": "pre",
+     "detail": "10/19 - 4:00 PM PT",
+     "score": "ANA 0 - NYR 0"
     },
     {
-     "espn_event_id": "185655",
-     "matchup": "TBD @ TBD",
-     "commence": "2026-10-19T04:00Z",
-     "status": "post",
-     "detail": "Canceled",
-     "score": "TBD 0 - TBD 0"
+     "espn_event_id": "401892536",
+     "matchup": "COL @ PHI",
+     "commence": "2026-10-19T23:00Z",
+     "status": "pre",
+     "detail": "10/19 - 4:00 PM PT",
+     "score": "COL 0 - PHI 0"
     }
    ]
   }
