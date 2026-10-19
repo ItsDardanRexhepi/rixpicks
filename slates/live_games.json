@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T01:49:40.418931+00:00",
+ "generated_at": "2026-10-19T02:04:36.701539+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,10 +10,10 @@
      "matchup": "DAL @ GB",
      "commence": "2026-10-19T00:20Z",
      "status": "in",
-     "detail": "0:23 - 2nd",
+     "detail": "Halftime",
      "score": "DAL 0 - GB 17",
-     "away_to": 0,
-     "home_to": 2
+     "away_to": 3,
+     "home_to": 3
     }
    ]
   },
@@ -21,19 +21,11 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401892533",
-     "matchup": "CBJ @ MIN",
-     "commence": "2026-10-18T22:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "CBJ 1 - MIN 2"
-    },
-    {
      "espn_event_id": "401892534",
      "matchup": "CAR @ CGY",
      "commence": "2026-10-19T00:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "17:20 - 3rd",
      "score": "CAR 2 - CGY 2",
      "away_to": null,
      "home_to": null
