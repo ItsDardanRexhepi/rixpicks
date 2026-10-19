@@ -1,7 +1,33 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T21:50:17.084261+00:00",
+ "generated_at": "2026-10-19T22:05:13.442343+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401908028",
+     "matchup": "CLE @ TB",
+     "commence": "2026-10-20T00:00Z",
+     "status": "pre",
+     "detail": "10/19 - 5:00 PM PT",
+     "score": "CLE 0 - TB 0"
+    }
+   ]
+  },
+  {
+   "league": "WNBA",
+   "games": [
+    {
+     "espn_event_id": "401918306",
+     "matchup": "ATL @ GS",
+     "commence": "2026-10-20T00:00Z",
+     "status": "pre",
+     "detail": "10/19 - 5:00 PM PT",
+     "score": "ATL 0 - GS 0"
+    }
+   ]
+  },
   {
    "league": "NHL",
    "games": [
