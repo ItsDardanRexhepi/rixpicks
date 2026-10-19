@@ -3841,5 +3841,18 @@
   "kickoff_utc": "2026-10-24T19:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-19T12:51:42.914031+00:00"
+ },
+ {
+  "id": "9d319716f6",
+  "event_id": "401892535",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "New York Rangers",
+  "away": "Anaheim Ducks",
+  "pick_team": "Anaheim Ducks",
+  "prediction": "Anaheim Ducks to beat New York Rangers",
+  "kickoff_utc": "2026-10-19T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T15:05:11.832226+00:00"
  }
 ]
