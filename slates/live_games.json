@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T00:34:35.580069+00:00",
+ "generated_at": "2026-10-19T00:49:36.107201+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -23,8 +23,8 @@
      "matchup": "DAL @ GB",
      "commence": "2026-10-19T00:20Z",
      "status": "in",
-     "detail": "8:09 - 1st",
-     "score": "DAL 0 - GB 0",
+     "detail": "2:52 - 1st",
+     "score": "DAL 0 - GB 7",
      "away_to": 3,
      "home_to": 3
     }
@@ -46,7 +46,7 @@
      "matchup": "CAR @ CGY",
      "commence": "2026-10-19T00:00Z",
      "status": "in",
-     "detail": "4:32 - 1st",
+     "detail": "End of 1st",
      "score": "CAR 0 - CGY 0",
      "away_to": null,
      "home_to": null
@@ -82,8 +82,8 @@
      "matchup": "SEA @ CHI",
      "commence": "2026-10-18T23:00Z",
      "status": "in",
-     "detail": "68'",
-     "score": "SEA 1 - CHI 0"
+     "detail": "83'",
+     "score": "SEA 2 - CHI 0"
     }
    ]
   }
