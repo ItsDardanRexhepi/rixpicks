@@ -3828,5 +3828,18 @@
   "kickoff_utc": "2026-10-24T19:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-19T12:05:52.028140+00:00"
+ },
+ {
+  "id": "cb675f2561",
+  "event_id": "401858497",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Minnesota Golden Gophers",
+  "away": "Iowa Hawkeyes",
+  "pick_team": "Minnesota Golden Gophers",
+  "prediction": "Minnesota Golden Gophers to beat Iowa Hawkeyes",
+  "kickoff_utc": "2026-10-24T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T12:51:42.914031+00:00"
  }
 ]
