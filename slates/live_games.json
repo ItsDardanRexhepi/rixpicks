@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T00:04:35.228104+00:00",
+ "generated_at": "2026-10-19T00:19:38.659895+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -18,14 +18,6 @@
   {
    "league": "NFL",
    "games": [
-    {
-     "espn_event_id": "401873004",
-     "matchup": "ARI @ LAR",
-     "commence": "2026-10-18T20:05Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "ARI 18 - LAR 16"
-    },
     {
      "espn_event_id": "401873006",
      "matchup": "LAC @ KC",
@@ -60,8 +52,18 @@
      "matchup": "CBJ @ MIN",
      "commence": "2026-10-18T22:00Z",
      "status": "in",
-     "detail": "14:51 - 3rd",
+     "detail": "4:53 - 3rd",
      "score": "CBJ 1 - MIN 2",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892534",
+     "matchup": "CAR @ CGY",
+     "commence": "2026-10-19T00:00Z",
+     "status": "in",
+     "detail": "13:28 - 1st",
+     "score": "CAR 0 - CGY 0",
      "away_to": null,
      "home_to": null
     }
@@ -96,7 +98,7 @@
      "matchup": "SEA @ CHI",
      "commence": "2026-10-18T23:00Z",
      "status": "in",
-     "detail": "HT",
+     "detail": "53'",
      "score": "SEA 1 - CHI 0"
     }
    ]
