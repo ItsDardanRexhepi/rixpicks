@@ -3724,5 +3724,31 @@
   "kickoff_utc": "2026-10-24T19:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-19T05:36:38.776024+00:00"
+ },
+ {
+  "id": "b7bc2fbd4c",
+  "event_id": "401856835",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "UCF Knights",
+  "away": "BYU Cougars",
+  "pick_team": "UCF Knights",
+  "prediction": "UCF Knights to beat BYU Cougars",
+  "kickoff_utc": "2026-10-24T19:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T06:05:56.333114+00:00"
+ },
+ {
+  "id": "9f0ee9a3dd",
+  "event_id": "401856837",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Utah Utes",
+  "away": "Houston Cougars",
+  "pick_team": "Utah Utes",
+  "prediction": "Utah Utes to beat Houston Cougars",
+  "kickoff_utc": "2026-10-25T02:15:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T06:07:17.862071+00:00"
  }
 ]
