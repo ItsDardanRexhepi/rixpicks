@@ -3932,5 +3932,18 @@
   "kickoff_utc": "2026-10-21T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-19T18:35:20.489383+00:00"
+ },
+ {
+  "id": "f1e61fdec7",
+  "event_id": "401856729",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Kentucky Wildcats",
+  "away": "Vanderbilt Commodores",
+  "pick_team": "Vanderbilt Commodores",
+  "prediction": "Vanderbilt Commodores to beat Kentucky Wildcats",
+  "kickoff_utc": "2026-10-24T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T18:50:13.843233+00:00"
  }
 ]
