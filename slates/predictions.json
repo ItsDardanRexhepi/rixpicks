@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-19T15:52:08.055231+00:00",
+ "generated_at": "2026-10-19T16:07:49.790776+00:00",
  "items": [
   {
    "id": "9d319716f6",
@@ -7,6 +7,20 @@
    "event": "Anaheim Ducks @ New York Rangers",
    "prediction": "Anaheim Ducks to beat New York Rangers",
    "kickoff_utc": "2026-10-19T23:00:00+00:00"
+  },
+  {
+   "id": "f49a6fa695",
+   "league": "NHL",
+   "event": "Colorado Avalanche @ Philadelphia Flyers",
+   "prediction": "Colorado Avalanche to beat Philadelphia Flyers",
+   "kickoff_utc": "2026-10-19T23:00:00+00:00"
+  },
+  {
+   "id": "e6e9fe65c2",
+   "league": "NHL",
+   "event": "San Jose Sharks @ Toronto Maple Leafs",
+   "prediction": "Toronto Maple Leafs to beat San Jose Sharks",
+   "kickoff_utc": "2026-10-19T23:30:00+00:00"
   },
   {
    "id": "9865263200",
@@ -28,20 +42,6 @@
    "event": "Boston Celtics @ Detroit Pistons",
    "prediction": "Boston Celtics to beat Detroit Pistons",
    "kickoff_utc": "2026-10-20T19:00:00+00:00"
-  },
-  {
-   "id": "05eff5f295",
-   "league": "NBA",
-   "event": "Philadelphia 76ers @ New York Knicks",
-   "prediction": "Philadelphia 76ers to beat New York Knicks",
-   "kickoff_utc": "2026-10-20T23:00:00+00:00"
-  },
-  {
-   "id": "b527c14e3a",
-   "league": "NBA",
-   "event": "Oklahoma City Thunder @ San Antonio Spurs",
-   "prediction": "San Antonio Spurs to beat Oklahoma City Thunder",
-   "kickoff_utc": "2026-10-21T01:30:00+00:00"
   }
  ]
 }
