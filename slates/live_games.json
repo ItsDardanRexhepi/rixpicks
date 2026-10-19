@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T22:50:16.425786+00:00",
+ "generated_at": "2026-10-19T23:05:15.457720+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -45,28 +45,20 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401892535",
-     "matchup": "ANA @ NYR",
-     "commence": "2026-10-19T23:00Z",
-     "status": "pre",
-     "detail": "10/19 - 4:00 PM PT",
-     "score": "ANA 0 - NYR 0"
-    },
-    {
-     "espn_event_id": "401892536",
-     "matchup": "COL @ PHI",
-     "commence": "2026-10-19T23:00Z",
-     "status": "pre",
-     "detail": "10/19 - 4:00 PM PT",
-     "score": "COL 0 - PHI 0"
-    },
-    {
      "espn_event_id": "401892537",
      "matchup": "SJ @ TOR",
      "commence": "2026-10-19T23:30Z",
      "status": "pre",
      "detail": "10/19 - 4:30 PM PT",
      "score": "SJ 0 - TOR 0"
+    },
+    {
+     "espn_event_id": "401892538",
+     "matchup": "PIT @ UTA",
+     "commence": "2026-10-20T01:00Z",
+     "status": "pre",
+     "detail": "10/19 - 6:00 PM PT",
+     "score": "PIT 0 - UTA 0"
     }
    ]
   }
