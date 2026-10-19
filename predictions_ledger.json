@@ -3646,5 +3646,31 @@
   "status": "miss",
   "created_at": "2026-10-18T18:19:24.495077+00:00",
   "settled_at": "2026-10-18T23:34:50.846365+00:00"
+ },
+ {
+  "id": "7c2175a4bb",
+  "event_id": "401856728",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Auburn Tigers",
+  "away": "LSU Tigers",
+  "pick_team": "LSU Tigers",
+  "prediction": "LSU Tigers to beat Auburn Tigers",
+  "kickoff_utc": "2026-10-24T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T04:24:40.062991+00:00"
+ },
+ {
+  "id": "9dc8ff8423",
+  "event_id": "401858270",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "SMU Mustangs",
+  "away": "California Golden Bears",
+  "pick_team": "SMU Mustangs",
+  "prediction": "SMU Mustangs to beat California Golden Bears",
+  "kickoff_utc": "2026-10-24T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T04:25:19.697448+00:00"
  }
 ]
