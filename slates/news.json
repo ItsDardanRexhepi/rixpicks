@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-19T09:51:01.660Z",
+ "generated_at": "2026-10-19T09:55:57.658Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -187,11 +187,11 @@
   ],
   "football/college-football": [
    {
-    "headline": "ESPN analyst predicts Texas A&M vs. Alabama in Week 8",
-    "link": "https://sports.yahoo.com/articles/espn-analyst-predicts-texas-m-093055129.html",
-    "published": "2026-10-19T09:30:55.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/63990b822436c3df2d159a5f43d9a79bade037a9618dc4a7cf157d031cdb4c17/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2Fea9e77ec5fc970f1c093988e0fd14190.jpg",
-    "blurb": "ESPN analyst Bill Connelly predicts that Texas A&M its lose 32-21 against Alabama in Tuscaloosa on Saturday afternoon.",
+    "headline": "Texas A&M has reportedly offered two rising 2027 DBs out of Florida",
+    "link": "https://sports.yahoo.com/articles/texas-m-reportedly-offered-two-094537204.html",
+    "published": "2026-10-19T09:45:37.000Z",
+    "image": "",
+    "blurb": "Texas A&M has reportedly offered rising 2027 Florida-based defensive backs Dave Belhomme and Alan Blackshere.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -214,11 +214,11 @@
     "league": "CFB"
    },
    {
-    "headline": "ESPN FPI predicts Texas A&M vs. No. 13 Alabama in Week 8",
-    "link": "https://sports.yahoo.com/articles/espn-fpi-predicts-texas-m-091629393.html",
-    "published": "2026-10-19T09:16:29.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/f5afa235893d84f355363bbe5d8076b8720320714fd70bbecfc275d08e0b8b63/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2Feb21a70c5082143c047f8ca4ec8006ac.jpg",
-    "blurb": "ESPN FPI gives Texas A&M a 16.5% chance to pull off the upset over Alabama on the road in Week 8.",
+    "headline": "ESPN analyst predicts Texas A&M vs. Alabama in Week 8",
+    "link": "https://sports.yahoo.com/articles/espn-analyst-predicts-texas-m-093055129.html",
+    "published": "2026-10-19T09:30:55.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/63990b822436c3df2d159a5f43d9a79bade037a9618dc4a7cf157d031cdb4c17/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2Fea9e77ec5fc970f1c093988e0fd14190.jpg",
+    "blurb": "ESPN analyst Bill Connelly predicts that Texas A&M its lose 32-21 against Alabama in Tuscaloosa on Saturday afternoon.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -241,11 +241,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Ohio State back at No. 1 in college football NCAA Re-Rank 1-138 after wild Week 7",
-    "link": "https://sports.yahoo.com/articles/ohio-state-back-no-1-091029350.html",
-    "published": "2026-10-19T09:10:29.000Z",
+    "headline": "ESPN FPI predicts Texas A&M vs. No. 13 Alabama in Week 8",
+    "link": "https://sports.yahoo.com/articles/espn-fpi-predicts-texas-m-091629393.html",
+    "published": "2026-10-19T09:16:29.000Z",
     "image": "",
-    "blurb": "The results of Week 7 including losses throughout the top 10, causing huge changes in the latest edition of the NCAA Re-Rank 1-138.",
+    "blurb": "ESPN FPI gives Texas A&M a 16.5% chance to pull off the upset over Alabama on the road in Week 8.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -268,11 +268,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Heat check: Mike Locksley is out of excuses. Why does he still have a job?",
-    "link": "https://sports.yahoo.com/articles/heat-check-mike-locksley-excuses-090951151.html",
-    "published": "2026-10-19T09:09:51.000Z",
+    "headline": "Ohio State back at No. 1 in college football NCAA Re-Rank 1-138 after wild Week 7",
+    "link": "https://sports.yahoo.com/articles/ohio-state-back-no-1-091029350.html",
+    "published": "2026-10-19T09:10:29.000Z",
     "image": "",
-    "blurb": "The college football hot seat is scorching, with Mike Locksley, Deion Sanders and Mike Norvell running out of answers, and two new names joining list.",
+    "blurb": "The results of Week 7 including losses throughout the top 10, causing huge changes in the latest edition of the NCAA Re-Rank 1-138.",
     "source": "YAHOO",
     "league": "CFB"
    }
@@ -1049,6 +1049,15 @@
  },
  "latest": [
   {
+   "headline": "Texas A&M has reportedly offered two rising 2027 DBs out of Florida",
+   "link": "https://sports.yahoo.com/articles/texas-m-reportedly-offered-two-094537204.html",
+   "published": "2026-10-19T09:45:37.000Z",
+   "image": "",
+   "blurb": "Texas A&M has reportedly offered rising 2027 Florida-based defensive backs Dave Belhomme and Alan Blackshere.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
    "headline": "ESPN analyst predicts Texas A&M vs. Alabama in Week 8",
    "link": "https://sports.yahoo.com/articles/espn-analyst-predicts-texas-m-093055129.html",
    "published": "2026-10-19T09:30:55.000Z",
@@ -1065,15 +1074,6 @@
    "blurb": "The Chargers are 0-6 for the first time since 2000.",
    "source": "YAHOO",
    "league": "NFL"
-  },
-  {
-   "headline": "ESPN FPI predicts Texas A&M vs. No. 13 Alabama in Week 8",
-   "link": "https://sports.yahoo.com/articles/espn-fpi-predicts-texas-m-091629393.html",
-   "published": "2026-10-19T09:16:29.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/f5afa235893d84f355363bbe5d8076b8720320714fd70bbecfc275d08e0b8b63/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Faggies_wire_usa_today_articles_632%2Feb21a70c5082143c047f8ca4ec8006ac.jpg",
-   "blurb": "ESPN FPI gives Texas A&M a 16.5% chance to pull off the upset over Alabama on the road in Week 8.",
-   "source": "YAHOO",
-   "league": "CFB"
   },
   {
    "headline": "Game Preview: Avalanche Are Rolling. The Flyers Just Finally Got Started",
