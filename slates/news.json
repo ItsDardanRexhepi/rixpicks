@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-19T04:45:14.600Z",
+ "generated_at": "2026-10-19T04:46:00.438Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -187,30 +187,12 @@
   ],
   "football/college-football": [
    {
-    "headline": "Duke's Kimari Robinson apologizes for swatting away arm of female staffer",
-    "link": "https://www.espn.com/college-football/story/_/id/50216261/duke-kimari-robinson-apologizes-swatting-away-arm-female-staffer-checking-injured-player",
-    "published": "2026-10-19T04:42:13Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2016%2F0502%2Fr79363_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Kimari Robinson, the Duke football player who swatted the arm of a female staffer checking on an injured Blue Devil during the team's game against North Carolina over the weekend, apologized for his actions Sunday night.",
-    "league": "CFB"
-   },
-   {
     "headline": "How Notre Dame\u2019s opponents fared in WEEK 7 of the CFB season",
     "link": "https://sports.yahoo.com/articles/notre-dame-opponents-fared-week-043201949.html",
     "published": "2026-10-19T04:32:01.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/91106f154d279892bde49efe5a34261263b9f8ec865f6b54c8820165ef7a1b13/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fb00c58f421af66807f893970abe99a56.jpg",
     "blurb": "We\u2019re keeping track of Notre Dame\u2019s opponents and how they do each and every week \u2014 because it might be fun.",
     "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
-    "headline": "College football odds, lines, schedule for Week 8: Texas opens as favorite vs. Ole Miss",
-    "link": "https://www.cbssports.com/college-football/news/college-football-odds-lines-schedule-week-8-texas-ole-miss/",
-    "published": "2026-10-18T21:59:05.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2F49a33752-905b-493e-8658-3b0cc76643ee%2Farch.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Initial odds for college football's top Week 8 matchups are out",
-    "source": "CBS",
     "league": "CFB"
    },
    {
@@ -223,21 +205,21 @@
     "league": "CFB"
    },
    {
+    "headline": "College football odds, lines, schedule for Week 8: Texas opens as favorite vs. Ole Miss",
+    "link": "https://www.cbssports.com/college-football/news/college-football-odds-lines-schedule-week-8-texas-ole-miss/",
+    "published": "2026-10-18T21:59:05.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2F49a33752-905b-493e-8658-3b0cc76643ee%2Farch.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Initial odds for college football's top Week 8 matchups are out",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
     "headline": "College Football Playoff Expansion Leaves Broadcast Opportunities on the Sidelines",
     "link": "https://sports.yahoo.com/articles/college-football-playoff-expansion-leaves-041000538.html",
     "published": "2026-10-19T04:10:00.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/e2d51334543d8fc6448bc4405ac3938eff4f9f3e7bd380fdda05d93c8e97bf8a/lightyear_networkapi/resizefill_w1024_h576%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbarrett_media_699%2F4f82094b47742fea88797b67f5b25c5c.jpg",
     "blurb": "\"Expanding the College Football Playoff to 24 teams will give more programs a chance to compete for a national championship. But the sport is missing a golden opportunity to expand something else just as important: the voices bringing those games to life.\" The post College Footba",
     "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
-    "headline": "Military service member dies after fall from Alamodome rafters before UTSA vs. Navy",
-    "link": "https://www.cbssports.com/college-football/news/military-service-member-dies-alamodome-utsa-navy/",
-    "published": "2026-10-18T21:50:34.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2Fc0718185-fbc2-4262-9fa1-ce7ae71fca74%2Falamodome.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "An airman died after sustaining injuries during a pre-game exercise",
-    "source": "CBS",
     "league": "CFB"
    },
    {
@@ -250,12 +232,30 @@
     "league": "CFB"
    },
    {
+    "headline": "Military service member dies after fall from Alamodome rafters before UTSA vs. Navy",
+    "link": "https://www.cbssports.com/college-football/news/military-service-member-dies-alamodome-utsa-navy/",
+    "published": "2026-10-18T21:50:34.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2Fc0718185-fbc2-4262-9fa1-ce7ae71fca74%2Falamodome.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "An airman died after sustaining injuries during a pre-game exercise",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
     "headline": "Bear Bachmeier's all-around performance for BYU shakes up the Heisman Watch",
     "link": "https://sports.yahoo.com/articles/bear-bachmeiers-around-performance-byu-035208205.html",
     "published": "2026-10-19T03:52:08.000Z",
     "image": "",
     "blurb": "BYU quarterback Bear Bachmeier's late touchdown pass lifted the Cougars to a 28-24 victory over Notre Dame on Saturday and fueled his return to the Heisman Watch top contenders list.",
     "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "Oklahoma State hosts Colorado in Big 12 play",
+    "link": "http://www.espn.com/ncf/preview?gameId=401856836",
+    "published": "2026-10-19T04:03:29Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fcollege-football%2Fevents%2F401856836.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Colorado (2-4) at Oklahoma State (4-2), Oct. 24 at 7 p.m. EDT.",
     "league": "CFB"
    },
    {
@@ -268,12 +268,12 @@
     "league": "CFB"
    },
    {
-    "headline": "Oklahoma State hosts Colorado in Big 12 play",
-    "link": "http://www.espn.com/ncf/preview?gameId=401856836",
-    "published": "2026-10-19T04:03:29Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fcollege-football%2Fevents%2F401856836.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Colorado (2-4) at Oklahoma State (4-2), Oct. 24 at 7 p.m. EDT.",
+    "headline": "Tulsa scores 31 straight to take down Rice, 38-17",
+    "link": "https://sports.yahoo.com/articles/tulsa-scores-31-straight-down-034604964.html",
+    "published": "2026-10-19T03:46:04.000Z",
+    "image": "",
+    "blurb": "Tulsa ends three-game losing streak and picks up first American win of 2026.",
+    "source": "YAHOO",
     "league": "CFB"
    }
   ],
@@ -1085,15 +1085,6 @@
    "league": "MLB"
   },
   {
-   "headline": "Duke's Kimari Robinson apologizes for swatting away arm of female staffer",
-   "link": "https://www.espn.com/college-football/story/_/id/50216261/duke-kimari-robinson-apologizes-swatting-away-arm-female-staffer-checking-injured-player",
-   "published": "2026-10-19T04:42:13Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2016%2F0502%2Fr79363_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Kimari Robinson, the Duke football player who swatted the arm of a female staffer checking on an injured Blue Devil during the team's game against North Carolina over the weekend, apologized for his actions Sunday night.",
-   "league": "CFB"
-  },
-  {
    "headline": "Jim Harbaugh to 'address everything' after latest loss drops Chargers to 0-6, leading to more Mike McDaniel questions",
    "link": "https://sports.yahoo.com/nfl/article/jim-harbaugh-to-address-everything-after-latest-loss-drops-chargers-to-0-6-leading-to-more-mike-mcdaniel-questions-043813528.html",
    "published": "2026-10-19T04:38:13.000Z",
@@ -1154,6 +1145,15 @@
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fcollege-football%2Fevents%2F401856838.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Iowa State (3-3) at No. 25 Arizona (5-1), Oct. 24 at 7:30 p.m. EDT.",
+   "league": "CFB"
+  },
+  {
+   "headline": "Arizona State hosts Kansas State in Big 12 matchup",
+   "link": "http://www.espn.com/ncf/preview?gameId=401856839",
+   "published": "2026-10-19T04:03:30Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fcollege-football%2Fevents%2F401856839.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Kansas State (4-2) at Arizona State (3-3), Oct. 24 at 3:45 p.m. EDT.",
    "league": "CFB"
   },
   {
@@ -1410,8 +1410,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 49,
-  "YAHOO": 68,
+  "ESPN": 48,
+  "YAHOO": 69,
   "CBS": 36
  },
  "degraded_sources": []
