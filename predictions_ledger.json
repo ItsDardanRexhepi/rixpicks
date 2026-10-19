@@ -3880,5 +3880,18 @@
   "kickoff_utc": "2026-10-19T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-19T16:06:33.699934+00:00"
+ },
+ {
+  "id": "192e14aa4a",
+  "event_id": "401860907",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Washington State Cougars",
+  "away": "Boise State Broncos",
+  "pick_team": "Washington State Cougars",
+  "prediction": "Washington State Cougars to beat Boise State Broncos",
+  "kickoff_utc": "2026-10-24T22:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T16:20:38.618917+00:00"
  }
 ]
