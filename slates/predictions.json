@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-18T23:49:20.146321+00:00",
+ "generated_at": "2026-10-19T00:04:20.980553+00:00",
  "items": [
-  {
-   "id": "2edd73b993",
-   "league": "NHL",
-   "event": "Carolina Hurricanes @ Calgary Flames",
-   "prediction": "Carolina Hurricanes to beat Calgary Flames",
-   "kickoff_utc": "2026-10-19T00:00:00+00:00"
-  },
   {
    "id": "73eb7885f6",
    "league": "NFL",
@@ -42,6 +35,13 @@
    "event": "Philadelphia 76ers @ New York Knicks",
    "prediction": "Philadelphia 76ers to beat New York Knicks",
    "kickoff_utc": "2026-10-20T23:00:00+00:00"
+  },
+  {
+   "id": "b527c14e3a",
+   "league": "NBA",
+   "event": "Oklahoma City Thunder @ San Antonio Spurs",
+   "prediction": "San Antonio Spurs to beat Oklahoma City Thunder",
+   "kickoff_utc": "2026-10-21T01:30:00+00:00"
   }
  ]
 }
