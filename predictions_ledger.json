@@ -3698,5 +3698,18 @@
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-19T04:55:10.627817+00:00"
+ },
+ {
+  "id": "bce8d04b44",
+  "event_id": "401858496",
+  "league": "CFB",
+  "path": "football/college-football",
+  "home": "Michigan Wolverines",
+  "away": "Indiana Hoosiers",
+  "pick_team": "Michigan Wolverines",
+  "prediction": "Michigan Wolverines to beat Indiana Hoosiers",
+  "kickoff_utc": "2026-10-24T16:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-19T05:20:50.038972+00:00"
  }
 ]
