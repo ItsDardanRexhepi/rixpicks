@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T03:04:32.980751+00:00",
+ "generated_at": "2026-10-19T03:19:35.227628+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,9 +10,9 @@
      "matchup": "DAL @ GB",
      "commence": "2026-10-19T00:20Z",
      "status": "in",
-     "detail": "10:06 - 4th",
+     "detail": "6:43 - 4th",
      "score": "DAL 7 - GB 23",
-     "away_to": 3,
+     "away_to": 2,
      "home_to": 2
     }
    ]
