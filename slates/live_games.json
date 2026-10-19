@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T03:34:39.460279+00:00",
+ "generated_at": "2026-10-19T03:49:34.072608+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -9,11 +9,9 @@
      "espn_event_id": "401873007",
      "matchup": "DAL @ GB",
      "commence": "2026-10-19T00:20Z",
-     "status": "in",
-     "detail": "2:35 - 4th",
-     "score": "DAL 7 - GB 23",
-     "away_to": 0,
-     "home_to": 1
+     "status": "post",
+     "detail": "Final",
+     "score": "DAL 13 - GB 23"
     }
    ]
   },
