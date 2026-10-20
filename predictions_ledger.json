@@ -3965,5 +3965,18 @@
   "kickoff_utc": "2026-10-24T02:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-20T04:51:55.958250+00:00"
+ },
+ {
+  "id": "a01a971eb7",
+  "event_id": "401854028",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Utah Royals",
+  "away": "Seattle Reign FC",
+  "pick_team": "Seattle Reign FC",
+  "prediction": "Seattle Reign FC to beat Utah Royals",
+  "kickoff_utc": "2026-10-24T01:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-20T06:20:35.916943+00:00"
  }
 ]
