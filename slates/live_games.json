@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T18:50:20.093982+00:00",
+ "generated_at": "2026-10-20T19:07:56.088918+00:00",
  "leagues": [
   {
    "league": "NBA",
@@ -9,9 +9,11 @@
      "espn_event_id": "401909088",
      "matchup": "BOS @ DET",
      "commence": "2026-10-20T19:00Z",
-     "status": "pre",
-     "detail": "10/20 - 12:00 PM PT",
-     "score": "BOS 0 - DET 0"
+     "status": "in",
+     "detail": "11:56 - 1st",
+     "score": "BOS 0 - DET 0",
+     "away_to": 7,
+     "home_to": 7
     }
    ]
   }
