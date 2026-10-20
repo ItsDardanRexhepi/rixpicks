@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T02:20:16.662482+00:00",
+ "generated_at": "2026-10-20T02:35:14.990512+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,8 +10,8 @@
      "matchup": "CLE @ TB",
      "commence": "2026-10-20T00:00Z",
      "status": "in",
-     "detail": "Bot 7th",
-     "score": "CLE 1 - TB 3"
+     "detail": "Top 8th",
+     "score": "CLE 1 - TB 5"
     }
    ]
   },
@@ -23,8 +23,8 @@
      "matchup": "WAS @ SF",
      "commence": "2026-10-20T00:15Z",
      "status": "in",
-     "detail": "2:01 - 3rd",
-     "score": "WAS 3 - SF 23",
+     "detail": "14:00 - 4th",
+     "score": "WAS 10 - SF 23",
      "away_to": 3,
      "home_to": 3
     }
@@ -37,11 +37,9 @@
      "espn_event_id": "401918306",
      "matchup": "ATL @ GS",
      "commence": "2026-10-20T00:00Z",
-     "status": "in",
-     "detail": "1:03 - 4th",
-     "score": "ATL 78 - GS 63",
-     "away_to": 1,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "ATL 79 - GS 65"
     }
    ]
   },
@@ -77,8 +75,8 @@
      "matchup": "PIT @ UTA",
      "commence": "2026-10-20T01:00Z",
      "status": "in",
-     "detail": "13:41 - 2nd",
-     "score": "PIT 1 - UTA 2",
+     "detail": "6:46 - 2nd",
+     "score": "PIT 2 - UTA 3",
      "away_to": null,
      "home_to": null
     }
