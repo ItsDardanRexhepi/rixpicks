@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T23:05:17.761249+00:00",
+ "generated_at": "2026-10-20T23:20:16.459349+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,18 +10,18 @@
      "matchup": "MTSU @ FIU",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "14:22 - 1st",
-     "score": "MTSU 0 - FIU 0",
+     "detail": "9:55 - 1st",
+     "score": "MTSU 0 - FIU 6",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401871069",
      "matchup": "MOST @ DEL",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "13:42 - 1st",
-     "score": "MOST 0 - DEL 0",
+     "detail": "8:19 - 1st",
+     "score": "MOST 0 - DEL 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -36,8 +36,73 @@
    ]
   },
   {
+   "league": "NBA",
+   "games": [
+    {
+     "espn_event_id": "401909089",
+     "matchup": "PHI @ NY",
+     "commence": "2026-10-20T23:00Z",
+     "status": "in",
+     "detail": "10:02 - 1st",
+     "score": "PHI 6 - NY 0",
+     "away_to": 7,
+     "home_to": 7
+    }
+   ]
+  },
+  {
    "league": "NHL",
    "games": [
+    {
+     "espn_event_id": "401892539",
+     "matchup": "SJ @ MTL",
+     "commence": "2026-10-20T23:00Z",
+     "status": "in",
+     "detail": "13:11 - 1st",
+     "score": "SJ 0 - MTL 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892540",
+     "matchup": "COL @ NJ",
+     "commence": "2026-10-20T23:00Z",
+     "status": "in",
+     "detail": "14:53 - 1st",
+     "score": "COL 0 - NJ 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892541",
+     "matchup": "ANA @ NYI",
+     "commence": "2026-10-20T23:00Z",
+     "status": "in",
+     "detail": "10:40 - 1st",
+     "score": "ANA 0 - NYI 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892542",
+     "matchup": "LA @ WAS",
+     "commence": "2026-10-20T23:00Z",
+     "status": "in",
+     "detail": "13:05 - 1st",
+     "score": "LA 0 - WAS 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892543",
+     "matchup": "TOR @ CBJ",
+     "commence": "2026-10-20T23:00Z",
+     "status": "in",
+     "detail": "13:32 - 1st",
+     "score": "TOR 0 - CBJ 1",
+     "away_to": null,
+     "home_to": null
+    },
     {
      "espn_event_id": "401892544",
      "matchup": "WPG @ STL",
