@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-20T10:26:08.385Z",
+ "generated_at": "2026-10-20T10:31:01.864Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -95,11 +95,11 @@
   ],
   "football/nfl": [
    {
-    "headline": "Joe Brady says Bills won't be cutting C.J. Gardner-Johnson after spitting incident",
-    "link": "https://sports.yahoo.com/articles/joe-brady-says-bills-wont-100924530.html",
-    "published": "2026-10-20T10:09:24.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/99f2d888bd3fdfeb765bac640cd61f2a64afb3367c0ff04910861b765dc2199e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F938b1b06e593ea76169043a0520a6e67.jpg",
-    "blurb": "The two players involved in spitting incidents during games were (and still are) star players.",
+    "headline": "Patriots injury analysis: O-line left in shambles after Jets game",
+    "link": "https://sports.yahoo.com/articles/patriots-injury-analysis-o-line-102050976.html",
+    "published": "2026-10-20T10:20:50.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/c49425b48421987d7529e363b51482e9e5214d0c7ea88ac72517ab4db600b5b1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F43b1fd3ea80d4320dd5d645494080d30.jpg",
+    "blurb": "Analyzing the Patriots\u2019 injury situation before their upcoming game against the Bears.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -110,6 +110,33 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1019%2Fnfl_power_rankings_16x9_1296x729.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "How does every NFL team stack up heading into Week 7? We made our 1-32 list and picked the biggest offensive problem for every team.",
+    "league": "NFL"
+   },
+   {
+    "headline": "Jalen Hurts blood clots: Biggest unanswered questions for Eagles about star QB's health",
+    "link": "https://www.cbssports.com/nfl/news/biggest-unanswered-questions-eagles-jalen-hurts/",
+    "published": "2026-10-20T10:01:01.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2025%2F09%2F18%2Fb9d894f1-495a-4f55-ba36-3d389ce744a9%2Fgetty-nick-sirianni-jalen-hurts-eagles.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Eagles and Hurts' agent revealed more information about the quarterback's blood clot situation on Monday, but there are still lingering questions",
+    "source": "CBS",
+    "league": "NFL"
+   },
+   {
+    "headline": "Joe Brady says Bills won't be cutting C.J. Gardner-Johnson after spitting incident",
+    "link": "https://sports.yahoo.com/articles/joe-brady-says-bills-wont-100924530.html",
+    "published": "2026-10-20T10:09:24.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/99f2d888bd3fdfeb765bac640cd61f2a64afb3367c0ff04910861b765dc2199e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F938b1b06e593ea76169043a0520a6e67.jpg",
+    "blurb": "The two players involved in spitting incidents during games were (and still are) star players.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
+    "headline": "'It's Groundhog Day:' Why Ravens are NFL's worst at blowing double-digit leads",
+    "link": "https://www.espn.com/nfl/story/_/id/50219611/ravens-nfl-worst-blowing-double-digit-leads",
+    "published": "2026-10-20T10:00:10Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1019%2Fr1732977_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Here is a look at the trends in the Ravens failing to hold double-digit leads.",
     "league": "NFL"
    },
    {
@@ -125,18 +152,18 @@
     "headline": "How a Jonathan Taylor trade could work for Colts and Cincinnati",
     "link": "https://sports.yahoo.com/articles/jonathan-taylor-trade-could-colts-100000319.html",
     "published": "2026-10-20T10:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/a0ebfd2cad144442696dbb9da678f21830634f21d0256ed7b36a34ed9aee13f2/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc937d1a958a948e9e28eac1ab14c9564.jpg",
+    "image": "",
     "blurb": "Could the Bengals take another big swing?",
     "source": "YAHOO",
     "league": "NFL"
    },
    {
-    "headline": "'It's Groundhog Day:' Why Ravens are NFL's worst at blowing double-digit leads",
-    "link": "https://www.espn.com/nfl/story/_/id/50219611/ravens-nfl-worst-blowing-double-digit-leads",
-    "published": "2026-10-20T10:00:10Z",
+    "headline": "Jameis Winston vs. J.J. McCarthy: Pros and cons of Giants QBs",
+    "link": "https://www.espn.com/nfl/story/_/id/50219771/jameis-winston-jj-mccarthy-qb-pros-cons-new-york-giants",
+    "published": "2026-10-20T10:00:06Z",
     "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1019%2Fr1732977_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Here is a look at the trends in the Ravens failing to hold double-digit leads.",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1019%2Fr1732988_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Coach John Harbaugh must weigh the options to his QB conundrum with two players who could start at Houston.",
     "league": "NFL"
    },
    {
@@ -154,33 +181,6 @@
     "published": "2026-10-20T10:00:00.000Z",
     "image": "",
     "blurb": "The latest Cleveland Browns news and notes from around the NFL in the October 20 edition of the Daily Dawg Chow.",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "Jameis Winston vs. J.J. McCarthy: Pros and cons of Giants QBs",
-    "link": "https://www.espn.com/nfl/story/_/id/50219771/jameis-winston-jj-mccarthy-qb-pros-cons-new-york-giants",
-    "published": "2026-10-20T10:00:06Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1019%2Fr1732988_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Coach John Harbaugh must weigh the options to his QB conundrum with two players who could start at Houston.",
-    "league": "NFL"
-   },
-   {
-    "headline": "NFL Week 6 grades for every team that played: 49ers hold off furious Commanders rally, Colts get 'F'",
-    "link": "https://www.cbssports.com/nfl/news/nfl-grades-week-6-browns-ravens-afc-colts-2026/",
-    "published": "2026-10-20T03:55:14.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2Ff67c29b7-637b-49aa-9dfd-47f8722f033d%2Fcolts.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "We're handing out grades for every Week 6 game, and we don't hold back",
-    "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "There were plenty of Bills records and milestones from Week 6",
-    "link": "https://sports.yahoo.com/articles/were-plenty-bills-records-milestones-100000752.html",
-    "published": "2026-10-20T10:00:00.000Z",
-    "image": "",
-    "blurb": "Milestones for the Bills from Week 6",
     "source": "YAHOO",
     "league": "NFL"
    }
@@ -371,11 +371,11 @@
   ],
   "basketball/nba": [
    {
-    "headline": "NBA opens with historic triple-header: Key insights, how to watch games",
-    "link": "https://sports.yahoo.com/articles/nba-opens-historic-triple-header-100823799.html",
-    "published": "2026-10-20T10:08:23.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/d24a11f263a4966f1878d19cf40e1585cc1a9d41a59d22183a2d3ca3ef7d8c13/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F2a4ba93be58ff4a635c93c53e2057cc7.jpg",
-    "blurb": "The NBA opens the 2026-27 season with three marquee games: Celtics vs. Pistons, 76ers vs. Knicks and Thunder vs. Spurs. Everything you need to know.",
+    "headline": "Cleveland native Jason Kelce excited for Browns start, \u2018we\u2019ve been waiting for this\u2019",
+    "link": "https://sports.yahoo.com/articles/cleveland-native-jason-kelce-excited-101952662.html",
+    "published": "2026-10-20T10:19:52.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/c81140aa8170fcd094eb8e566a2fadd2fbc4c8b2ef93199fe8ec97115b1634d9/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe0bd46b823c6c979b4ae193f3cd1f7c3.jpg",
+    "blurb": "Cleveland Browns are off to a hot start early in the 2026 NFL season, leading Jason Kelce to use the word \u201cwe\u201d excitedly",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -398,11 +398,11 @@
     "league": "NBA"
    },
    {
-    "headline": "How to watch Philadelphia 76ers vs New York Knicks: TV, live stream, info for tonight's game",
-    "link": "https://sports.yahoo.com/articles/watch-philadelphia-76ers-vs-york-100000067.html",
-    "published": "2026-10-20T10:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/7b0d762613d70fe51afa84b28f176531bbeeb188cc0a20170689b026afd29619/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F576ce4daca1531b089f1b3cd2e983314.jpg",
-    "blurb": "The reigning NBA champions will open their title defense against LeBron James' new team.",
+    "headline": "NBA opens with historic triple-header: Key insights, how to watch games",
+    "link": "https://sports.yahoo.com/articles/nba-opens-historic-triple-header-100823799.html",
+    "published": "2026-10-20T10:08:23.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/d24a11f263a4966f1878d19cf40e1585cc1a9d41a59d22183a2d3ca3ef7d8c13/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F2a4ba93be58ff4a635c93c53e2057cc7.jpg",
+    "blurb": "The NBA opens the 2026-27 season with three marquee games: Celtics vs. Pistons, 76ers vs. Knicks and Thunder vs. Spurs. Everything you need to know.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -425,11 +425,11 @@
     "league": "NBA"
    },
    {
-    "headline": "We ranked the best player on every NBA team. 76ers among biggest surprise",
-    "link": "https://sports.yahoo.com/articles/ranked-best-player-every-nba-093107067.html",
-    "published": "2026-10-20T09:31:07.000Z",
+    "headline": "How to watch Philadelphia 76ers vs New York Knicks: TV, live stream, info for tonight's game",
+    "link": "https://sports.yahoo.com/articles/watch-philadelphia-76ers-vs-york-100000067.html",
+    "published": "2026-10-20T10:00:00.000Z",
     "image": "",
-    "blurb": "Examining the best player from every NBA team based on USA TODAY's rankings led to revelations about Tyrese Maxey, Steph Curry and the Grizzlies.",
+    "blurb": "The reigning NBA champions will open their title defense against LeBron James' new team.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -452,11 +452,11 @@
     "league": "NBA"
    },
    {
-    "headline": "NBA 2026-27 season predictions: A Knicks repeat and LeBron\u2019s villain arc",
-    "link": "https://sports.yahoo.com/articles/nba-2026-27-season-predictions-090022946.html",
-    "published": "2026-10-20T09:00:22.000Z",
+    "headline": "We ranked the best player on every NBA team. 76ers among biggest surprise",
+    "link": "https://sports.yahoo.com/articles/ranked-best-player-every-nba-093107067.html",
+    "published": "2026-10-20T09:31:07.000Z",
     "image": "",
-    "blurb": "Our writers give their verdicts on the new season, which tips off Tuesday. Who will claim the title? And which youngster will make the superstar leap?",
+    "blurb": "Examining the best player from every NBA team based on USA TODAY's rankings led to revelations about Tyrese Maxey, Steph Curry and the Grizzlies.",
     "source": "YAHOO",
     "league": "NBA"
    }
@@ -1069,6 +1069,24 @@
  },
  "latest": [
   {
+   "headline": "Patriots injury analysis: O-line left in shambles after Jets game",
+   "link": "https://sports.yahoo.com/articles/patriots-injury-analysis-o-line-102050976.html",
+   "published": "2026-10-20T10:20:50.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/c49425b48421987d7529e363b51482e9e5214d0c7ea88ac72517ab4db600b5b1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F43b1fd3ea80d4320dd5d645494080d30.jpg",
+   "blurb": "Analyzing the Patriots\u2019 injury situation before their upcoming game against the Bears.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
+   "headline": "Cleveland native Jason Kelce excited for Browns start, \u2018we\u2019ve been waiting for this\u2019",
+   "link": "https://sports.yahoo.com/articles/cleveland-native-jason-kelce-excited-101952662.html",
+   "published": "2026-10-20T10:19:52.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/c81140aa8170fcd094eb8e566a2fadd2fbc4c8b2ef93199fe8ec97115b1634d9/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe0bd46b823c6c979b4ae193f3cd1f7c3.jpg",
+   "blurb": "Cleveland Browns are off to a hot start early in the 2026 NFL season, leading Jason Kelce to use the word \u201cwe\u201d excitedly",
+   "source": "YAHOO",
+   "league": "NBA"
+  },
+  {
    "headline": "BYU won't 'demand respect' but after beating Notre Dame, the Cougars have it",
    "link": "https://www.espn.com/college-football/story/_/id/50219575/byu-respect-beat-notre-dame",
    "published": "2026-10-20T10:18:28Z",
@@ -1141,6 +1159,15 @@
    "league": "WNBA"
   },
   {
+   "headline": "Jalen Hurts blood clots: Biggest unanswered questions for Eagles about star QB's health",
+   "link": "https://www.cbssports.com/nfl/news/biggest-unanswered-questions-eagles-jalen-hurts/",
+   "published": "2026-10-20T10:01:01.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2025%2F09%2F18%2Fb9d894f1-495a-4f55-ba36-3d389ce744a9%2Fgetty-nick-sirianni-jalen-hurts-eagles.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Eagles and Hurts' agent revealed more information about the quarterback's blood clot situation on Monday, but there are still lingering questions",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
    "headline": "'It's Groundhog Day:' Why Ravens are NFL's worst at blowing double-digit leads",
    "link": "https://www.espn.com/nfl/story/_/id/50219611/ravens-nfl-worst-blowing-double-digit-leads",
    "published": "2026-10-20T10:00:10Z",
@@ -1148,24 +1175,6 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1019%2Fr1732977_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Here is a look at the trends in the Ravens failing to hold double-digit leads.",
    "league": "NFL"
-  },
-  {
-   "headline": "How a Jonathan Taylor trade could work for Colts and Cincinnati",
-   "link": "https://sports.yahoo.com/articles/jonathan-taylor-trade-could-colts-100000319.html",
-   "published": "2026-10-20T10:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/a0ebfd2cad144442696dbb9da678f21830634f21d0256ed7b36a34ed9aee13f2/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc937d1a958a948e9e28eac1ab14c9564.jpg",
-   "blurb": "Could the Bengals take another big swing?",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
-   "headline": "How to watch Philadelphia 76ers vs New York Knicks: TV, live stream, info for tonight's game",
-   "link": "https://sports.yahoo.com/articles/watch-philadelphia-76ers-vs-york-100000067.html",
-   "published": "2026-10-20T10:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/7b0d762613d70fe51afa84b28f176531bbeeb188cc0a20170689b026afd29619/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F576ce4daca1531b089f1b3cd2e983314.jpg",
-   "blurb": "The reigning NBA champions will open their title defense against LeBron James' new team.",
-   "source": "YAHOO",
-   "league": "NBA"
   },
   {
    "headline": "Pens Points: Mammoth Misery",
@@ -1357,15 +1366,6 @@
    "league": "CFB"
   },
   {
-   "headline": "Commanders' Terry McLaurin carted off after knee injury vs. 49ers: 'There's fear'",
-   "link": "https://www.cbssports.com/nfl/news/commanders-terry-mclaurin-knee-injury-monday-night-football/",
-   "published": "2026-10-20T04:41:43.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F20%2F4dc3edf4-3af0-449d-901c-871508d98d8a%2Fterry-mclaurin-commanders-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "McLaurin went down while running a route late in the first quarter",
-   "source": "CBS",
-   "league": "NFL"
-  },
-  {
    "headline": "2026 MLB playoff bracket: Schedule and scores as Rays advance to World Series to face Brewers",
    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
    "published": "2026-10-20T04:36:46.000Z",
@@ -1430,8 +1430,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 52,
   "YAHOO": 68,
+  "ESPN": 52,
   "CBS": 35
  },
  "degraded_sources": []
