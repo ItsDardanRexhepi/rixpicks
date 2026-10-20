@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T03:20:20.384183+00:00",
+ "generated_at": "2026-10-20T03:35:14.051679+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -22,11 +22,9 @@
      "espn_event_id": "401873008",
      "matchup": "WAS @ SF",
      "commence": "2026-10-20T00:15Z",
-     "status": "in",
-     "detail": "0:21 - 4th",
-     "score": "WAS 17 - SF 23",
-     "away_to": 0,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "WAS 17 - SF 23"
     }
    ]
   },
@@ -47,20 +45,12 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401892537",
-     "matchup": "SJ @ TOR",
-     "commence": "2026-10-19T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "SJ 1 - TOR 3"
-    },
-    {
      "espn_event_id": "401892538",
      "matchup": "PIT @ UTA",
      "commence": "2026-10-20T01:00Z",
      "status": "in",
-     "detail": "14:05 - 3rd",
-     "score": "PIT 3 - UTA 5",
+     "detail": "5:05 - 3rd",
+     "score": "PIT 4 - UTA 5",
      "away_to": null,
      "home_to": null
     }
