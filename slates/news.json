@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-20T01:06:04.206Z",
+ "generated_at": "2026-10-20T01:10:59.977Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -104,11 +104,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Cobie Durant might be able to return soon",
-    "link": "https://sports.yahoo.com/articles/cobie-durant-might-able-return-004751421.html",
-    "published": "2026-10-20T00:47:51.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/6adc965e1f87752f24de6c63ab94edacc12b78dde735cc5287ec66ca843f12eb/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fc7ee8dafae61acd77bf9a6e8b159a088.jpg",
-    "blurb": "Dallas Cowboys cornerback Cobie Durant is making progress toward a return, head coach Brian Schottenheimer said",
+    "headline": "The Cowboys completely abandoned the run in Green Bay",
+    "link": "https://sports.yahoo.com/articles/cowboys-completely-abandoned-run-green-010000246.html",
+    "published": "2026-10-20T01:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/37d923861b83a11811c7a28322e39575d7d8447caa2d6138a7b27c843295a2d2/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fbd3d3452920bfae82ed2f3f329c2a367.jpg",
+    "blurb": "The Cowboys completely abandoned the run in Green Bay",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -131,11 +131,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Dee Winters could miss Week 7 vs. Eagles",
-    "link": "https://sports.yahoo.com/articles/dee-winters-could-miss-week-004141592.html",
-    "published": "2026-10-20T00:41:41.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/cb7f4fbfc489ddf1a3a7dfd08a5da2cfaad93a6ac0a7f2c287ff24fe4b6f956d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fd322f779eda1974b924cb5cc34111662.jpg",
-    "blurb": "Dallas Cowboys linebacker Dee Winters suffered a strained Achilles tendon in Week 6, and he is expected to miss the Week 7 game",
+    "headline": "Cobie Durant might be able to return soon",
+    "link": "https://sports.yahoo.com/articles/cobie-durant-might-able-return-004751421.html",
+    "published": "2026-10-20T00:47:51.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/6adc965e1f87752f24de6c63ab94edacc12b78dde735cc5287ec66ca843f12eb/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fc7ee8dafae61acd77bf9a6e8b159a088.jpg",
+    "blurb": "Dallas Cowboys cornerback Cobie Durant is making progress toward a return, head coach Brian Schottenheimer said",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -158,11 +158,11 @@
     "league": "NFL"
    },
    {
-    "headline": "OT Morgan Moses, WR A.J. Brown limited on Patriots' estimated report",
-    "link": "https://sports.yahoo.com/articles/ot-morgan-moses-wr-j-003952057.html",
-    "published": "2026-10-20T00:39:52.000Z",
+    "headline": "Dee Winters could miss Week 7 vs. Eagles",
+    "link": "https://sports.yahoo.com/articles/dee-winters-could-miss-week-004141592.html",
+    "published": "2026-10-20T00:41:41.000Z",
     "image": "",
-    "blurb": "The Patriots did not practice on Monday, but they were required to release an estimated injury report for Thursday night's game against the Bears.",
+    "blurb": "Dallas Cowboys linebacker Dee Winters suffered a strained Achilles tendon in Week 6, and he is expected to miss the Week 7 game",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -1114,6 +1114,15 @@
    "league": "NHL"
   },
   {
+   "headline": "The Cowboys completely abandoned the run in Green Bay",
+   "link": "https://sports.yahoo.com/articles/cowboys-completely-abandoned-run-green-010000246.html",
+   "published": "2026-10-20T01:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/37d923861b83a11811c7a28322e39575d7d8447caa2d6138a7b27c843295a2d2/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fbd3d3452920bfae82ed2f3f329c2a367.jpg",
+   "blurb": "The Cowboys completely abandoned the run in Green Bay",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "Illinois basketball opens season ranked No. 3 in AP Top 25 poll",
    "link": "https://sports.yahoo.com/articles/illinois-basketball-opens-season-ranked-005656854.html",
    "published": "2026-10-20T00:56:56.000Z",
@@ -1183,15 +1192,6 @@
    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1019%252Fr1733108_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Rams wideout Davante Adams ruptured a hamstring in Sunday's loss to the Cardinals, and he will be sidelined for six to 10 weeks, coach Sean McVay announced.",
    "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Dee Winters could miss Week 7 vs. Eagles",
-   "link": "https://sports.yahoo.com/articles/dee-winters-could-miss-week-004141592.html",
-   "published": "2026-10-20T00:41:41.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/cb7f4fbfc489ddf1a3a7dfd08a5da2cfaad93a6ac0a7f2c287ff24fe4b6f956d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2Fd322f779eda1974b924cb5cc34111662.jpg",
-   "blurb": "Dallas Cowboys linebacker Dee Winters suffered a strained Achilles tendon in Week 6, and he is expected to miss the Week 7 game",
-   "source": "YAHOO",
    "league": "NFL"
   },
   {
