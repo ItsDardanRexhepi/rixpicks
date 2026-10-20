@@ -4004,5 +4004,31 @@
   "kickoff_utc": "2026-10-21T02:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-20T15:28:05.766069+00:00"
+ },
+ {
+  "id": "d1140a1596",
+  "event_id": "401892540",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "New Jersey Devils",
+  "away": "Colorado Avalanche",
+  "pick_team": "Colorado Avalanche",
+  "prediction": "Colorado Avalanche to beat New Jersey Devils",
+  "kickoff_utc": "2026-10-20T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-20T16:20:37.301230+00:00"
+ },
+ {
+  "id": "6d2cd0c80e",
+  "event_id": "401908042",
+  "league": "MLB",
+  "path": "baseball/mlb",
+  "home": "Milwaukee Brewers",
+  "away": "Tampa Bay Rays",
+  "pick_team": "Milwaukee Brewers",
+  "prediction": "Milwaukee Brewers to beat Tampa Bay Rays",
+  "kickoff_utc": "2026-10-24T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-20T16:25:27.784873+00:00"
  }
 ]
