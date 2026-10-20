@@ -1,7 +1,7 @@
 {
  "source": "ESPN season receiving yards (regular season to date)",
  "season": 2026,
- "fetched_at": "2026-10-20T04:56:04Z",
+ "fetched_at": "2026-10-20T11:44:26Z",
  "players": {
   "Chris Olave": {
    "yards": 580,
@@ -23,13 +23,13 @@
    "yards": 471,
    "espn_id": "4685472"
   },
+  "Mike Evans": {
+   "yards": 420,
+   "espn_id": "16737"
+  },
   "Trey McBride": {
    "yards": 361,
    "espn_id": "4361307"
-  },
-  "Mike Evans": {
-   "yards": 326,
-   "espn_id": "16737"
   },
   "Emeka Egbuka": {
    "yards": 240,
