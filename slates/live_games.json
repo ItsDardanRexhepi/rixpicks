@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T19:35:22.930584+00:00",
+ "generated_at": "2026-10-20T19:50:19.029663+00:00",
  "leagues": [
   {
    "league": "NBA",
@@ -10,10 +10,10 @@
      "matchup": "BOS @ DET",
      "commence": "2026-10-20T19:00Z",
      "status": "in",
-     "detail": "End of 1st",
-     "score": "BOS 28 - DET 27",
-     "away_to": 0,
-     "home_to": 0
+     "detail": "7:21 - 2nd",
+     "score": "BOS 39 - DET 39",
+     "away_to": 5,
+     "home_to": 5
     }
    ]
   }
