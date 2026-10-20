@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T21:20:14.981667+00:00",
+ "generated_at": "2026-10-20T21:35:16.992494+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -20,6 +20,14 @@
      "status": "pre",
      "detail": "10/20 - 4:00 PM PT",
      "score": "MOST 0 - DEL 0"
+    },
+    {
+     "espn_event_id": "401871092",
+     "matchup": "USA @ MRSH",
+     "commence": "2026-10-20T23:30Z",
+     "status": "pre",
+     "detail": "10/20 - 4:30 PM PT",
+     "score": "USA 0 - MRSH 0"
     }
    ]
   },
@@ -31,10 +39,10 @@
      "matchup": "BOS @ DET",
      "commence": "2026-10-20T19:00Z",
      "status": "in",
-     "detail": "4:56 - 4th",
-     "score": "BOS 99 - DET 107",
-     "away_to": 2,
-     "home_to": 4
+     "detail": "6.7 - 4th",
+     "score": "BOS 113 - DET 119",
+     "away_to": 0,
+     "home_to": 2
     },
     {
      "espn_event_id": "401909089",
