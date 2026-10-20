@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T22:50:18.054816+00:00",
+ "generated_at": "2026-10-20T23:05:17.761249+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -9,17 +9,21 @@
      "espn_event_id": "401871055",
      "matchup": "MTSU @ FIU",
      "commence": "2026-10-20T23:00Z",
-     "status": "pre",
-     "detail": "10/20 - 4:00 PM PT",
-     "score": "MTSU 0 - FIU 0"
+     "status": "in",
+     "detail": "14:22 - 1st",
+     "score": "MTSU 0 - FIU 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401871069",
      "matchup": "MOST @ DEL",
      "commence": "2026-10-20T23:00Z",
-     "status": "pre",
-     "detail": "10/20 - 4:00 PM PT",
-     "score": "MOST 0 - DEL 0"
+     "status": "in",
+     "detail": "13:42 - 1st",
+     "score": "MOST 0 - DEL 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401871092",
@@ -32,69 +36,8 @@
    ]
   },
   {
-   "league": "NBA",
-   "games": [
-    {
-     "espn_event_id": "401909088",
-     "matchup": "BOS @ DET",
-     "commence": "2026-10-20T19:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "BOS 113 - DET 121"
-    },
-    {
-     "espn_event_id": "401909089",
-     "matchup": "PHI @ NY",
-     "commence": "2026-10-20T23:00Z",
-     "status": "pre",
-     "detail": "10/20 - 4:00 PM PT",
-     "score": "PHI 0 - NY 0"
-    }
-   ]
-  },
-  {
    "league": "NHL",
    "games": [
-    {
-     "espn_event_id": "401892539",
-     "matchup": "SJ @ MTL",
-     "commence": "2026-10-20T23:00Z",
-     "status": "pre",
-     "detail": "10/20 - 4:00 PM PT",
-     "score": "SJ 0 - MTL 0"
-    },
-    {
-     "espn_event_id": "401892540",
-     "matchup": "COL @ NJ",
-     "commence": "2026-10-20T23:00Z",
-     "status": "pre",
-     "detail": "10/20 - 4:00 PM PT",
-     "score": "COL 0 - NJ 0"
-    },
-    {
-     "espn_event_id": "401892541",
-     "matchup": "ANA @ NYI",
-     "commence": "2026-10-20T23:00Z",
-     "status": "pre",
-     "detail": "10/20 - 4:00 PM PT",
-     "score": "ANA 0 - NYI 0"
-    },
-    {
-     "espn_event_id": "401892542",
-     "matchup": "LA @ WAS",
-     "commence": "2026-10-20T23:00Z",
-     "status": "pre",
-     "detail": "10/20 - 4:00 PM PT",
-     "score": "LA 0 - WAS 0"
-    },
-    {
-     "espn_event_id": "401892543",
-     "matchup": "TOR @ CBJ",
-     "commence": "2026-10-20T23:00Z",
-     "status": "pre",
-     "detail": "10/20 - 4:00 PM PT",
-     "score": "TOR 0 - CBJ 0"
-    },
     {
      "espn_event_id": "401892544",
      "matchup": "WPG @ STL",
@@ -110,6 +53,14 @@
      "status": "pre",
      "detail": "10/20 - 5:00 PM PT",
      "score": "BOS 0 - DAL 0"
+    },
+    {
+     "espn_event_id": "401892546",
+     "matchup": "MIN @ EDM",
+     "commence": "2026-10-21T01:00Z",
+     "status": "pre",
+     "detail": "10/20 - 6:00 PM PT",
+     "score": "MIN 0 - EDM 0"
     }
    ]
   }
