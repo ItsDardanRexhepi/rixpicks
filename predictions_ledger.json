@@ -4108,5 +4108,18 @@
   "kickoff_utc": "2026-10-21T01:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-20T20:08:41.420459+00:00"
+ },
+ {
+  "id": "34d650c72c",
+  "event_id": "401918307",
+  "league": "WNBA",
+  "path": "basketball/wnba",
+  "home": "Atlanta Dream",
+  "away": "Golden State Valkyries",
+  "pick_team": "Golden State Valkyries",
+  "prediction": "Golden State Valkyries to beat Atlanta Dream",
+  "kickoff_utc": "2026-10-22T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-20T21:05:49.317032+00:00"
  }
 ]
