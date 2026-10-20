@@ -1,20 +1,7 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T23:57:46.313253+00:00",
+ "generated_at": "2026-10-20T00:05:15.261397+00:00",
  "leagues": [
-  {
-   "league": "MLB",
-   "games": [
-    {
-     "espn_event_id": "401908028",
-     "matchup": "CLE @ TB",
-     "commence": "2026-10-20T00:00Z",
-     "status": "pre",
-     "detail": "10/19 - 5:00 PM PT",
-     "score": "CLE 0 - TB 0"
-    }
-   ]
-  },
   {
    "league": "NFL",
    "games": [
@@ -29,19 +16,6 @@
    ]
   },
   {
-   "league": "WNBA",
-   "games": [
-    {
-     "espn_event_id": "401918306",
-     "matchup": "ATL @ GS",
-     "commence": "2026-10-20T00:00Z",
-     "status": "pre",
-     "detail": "10/19 - 5:00 PM PT",
-     "score": "ATL 0 - GS 0"
-    }
-   ]
-  },
-  {
    "league": "NHL",
    "games": [
     {
@@ -49,7 +23,7 @@
      "matchup": "ANA @ NYR",
      "commence": "2026-10-19T23:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "19:12 - 2nd",
      "score": "ANA 0 - NYR 1",
      "away_to": null,
      "home_to": null
@@ -69,7 +43,7 @@
      "matchup": "SJ @ TOR",
      "commence": "2026-10-19T23:30Z",
      "status": "in",
-     "detail": "11:36 - 1st",
+     "detail": "7:28 - 1st",
      "score": "SJ 0 - TOR 0",
      "away_to": null,
      "home_to": null
