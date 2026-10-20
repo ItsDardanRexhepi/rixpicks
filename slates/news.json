@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-20T09:06:00.642Z",
+ "generated_at": "2026-10-20T09:11:01.822Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Yankees news: Teruaki Sato will officially be posted",
+    "link": "https://sports.yahoo.com/articles/yankees-news-teruaki-sato-officially-090000158.html",
+    "published": "2026-10-20T09:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/0e6e3273bef416e3347c8aa284ebb050862474003a24a272c65ad46d188225b2/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F837c321c6254c0f0f0773ed1b175a8bc.jpg",
+    "blurb": "Sato will officially be posted this offseason; Boone returns as skipper for 2027; Wells identifies foul tips as potential cause of headaches.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
    {
     "headline": "Peralta, Caminero, D\u00edaz lead Rays to 7-3 win over Guardians and a trip to the World Series",
     "link": "http://www.espn.com/mlb/recap?gameId=401908028",
@@ -9,15 +18,6 @@
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fbaseball%2Fmlb%2Fevents%2F401908028.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "\u2014 Freddy Peralta threw 5 1/3 gritty innings, Junior Caminero and Yandy D\u00edaz each hit a two-run homer and the Tampa Bay Rays beat the Cleveland Guardians 7-3 in Game 6 of the American League Championship Series on Monday night to advance to the World...",
-    "league": "MLB"
-   },
-   {
-    "headline": "'Everything changed' for Freddy Peralta with Rays. His old Brewers mates will find out.",
-    "link": "https://sports.yahoo.com/articles/everything-changed-freddy-peralta-rays-045820228.html",
-    "published": "2026-10-20T04:58:20.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/5fb8e034dbc55a641316de4649178b3c1e88ae6e5b2b56608a31494396f3dfaf/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F3a7dff066f576bde1c9c5a0948beed20.jpg",
-    "blurb": "The Brewers traded their ace last winter. Now he's standing in their way in the World Series.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "'Everything changed' for Freddy Peralta with Rays. His old Brewers mates will find out.",
+    "link": "https://sports.yahoo.com/articles/everything-changed-freddy-peralta-rays-045820228.html",
+    "published": "2026-10-20T04:58:20.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/5fb8e034dbc55a641316de4649178b3c1e88ae6e5b2b56608a31494396f3dfaf/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F3a7dff066f576bde1c9c5a0948beed20.jpg",
+    "blurb": "The Brewers traded their ace last winter. Now he's standing in their way in the World Series.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Rays clinch ALCS with Game 6 win, to face Brewers in World Series",
     "link": "https://www.espn.com/mlb/story/_/id/50224233/rays-clinch-alcs-game-6-face-brewers-world-series",
     "published": "2026-10-20T07:39:13.000Z",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1020%252Fr1733238_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Junior Caminero hit his first career postseason home run off Guardians All-Star closer Cade Smith in the seventh inning Monday as the Rays went on to clinch the AL pennant and advance to a World Series matchup with the Brewers.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "Freddy Peralta pitches Rays to World Series, wins ALCS MVP after disastrous Mets tenure: \u2018This is crazy\u2019",
-    "link": "https://sports.yahoo.com/articles/freddy-peralta-pitches-rays-world-042617893.html",
-    "published": "2026-10-20T04:26:17.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/34cc98681d2e16fdb2806589a0e932ead8150af7f826c29797524b2b05613ad3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fny_post_sports_articles_389%2F848e9a02c64fc3fee84a1aa1834e3f62.jpg",
-    "blurb": "Mets fans, close your eyes.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Freddy Peralta pitches Rays to World Series, wins ALCS MVP after disastrous Mets tenure: \u2018This is crazy\u2019",
+    "link": "https://sports.yahoo.com/articles/freddy-peralta-pitches-rays-world-042617893.html",
+    "published": "2026-10-20T04:26:17.000Z",
+    "image": "",
+    "blurb": "Mets fans, close your eyes.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Guardians run out of gas, see franchise's World Series title drought hit 78 years",
     "link": "https://www.espn.com/mlb/story/_/id/50225168/cleveland-sees-world-series-title-drought-reach-78-years",
     "published": "2026-10-20T07:39:13.000Z",
     "image": "",
     "blurb": "The Guardians once again got close to the finish line but came up short in the ALCS, losing to the Rays in six games to extend their championship drought to 78 years.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "Cubs\u2019 Finances Could Be Unsealed in Rooftop Suit Ahead of CBA Fight",
-    "link": "https://sports.yahoo.com/articles/cubs-finances-could-unsealed-rooftop-040100627.html",
-    "published": "2026-10-20T04:01:00.000Z",
-    "image": "",
-    "blurb": "As Wrigley View Rooftop appeals a federal judge\u2019s decision granting summary judgment to its neighbor, the Chicago Cubs, and entering a permanent injunction blocking the rooftop owners from selling tickets to watch games, concerts and other events at Wrigley Field, the two sides a",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,12 +84,12 @@
     "league": "MLB"
    },
    {
-    "headline": "'Fastball Freddy' Peralta named ALCS MVP after pitching Rays into World Series",
-    "link": "https://www.espn.com/mlb/story/_/id/50224941/rays-pitcher-freddy-peralta-named-alcs-mvp",
-    "published": "2026-10-20T07:39:13.000Z",
+    "headline": "Cubs\u2019 Finances Could Be Unsealed in Rooftop Suit Ahead of CBA Fight",
+    "link": "https://sports.yahoo.com/articles/cubs-finances-could-unsealed-rooftop-040100627.html",
+    "published": "2026-10-20T04:01:00.000Z",
     "image": "",
-    "blurb": "Freddy Peralta rode his fastball to the American League Championship Series MVP award.",
-    "source": "ESPN",
+    "blurb": "As Wrigley View Rooftop appeals a federal judge\u2019s decision granting summary judgment to its neighbor, the Chicago Cubs, and entering a permanent injunction blocking the rooftop owners from selling tickets to watch games, concerts and other events at Wrigley Field, the two sides a",
+    "source": "YAHOO",
     "league": "MLB"
    }
   ],
@@ -555,21 +555,21 @@
   ],
   "basketball/mens-college-basketball": [
    {
+    "headline": "Michigan State basketball has 1 goal in exhibition with UConn",
+    "link": "https://sports.yahoo.com/articles/michigan-state-basketball-1-goal-090803615.html",
+    "published": "2026-10-20T09:08:03.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/b87837a65170efee5a4413b5d38a9deda2c2fd7edc326de249de9e6e66e2918f/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fdetroit_free_press_usa_today_sports_articles_655%2F6527a5b42a307f5bf082ac125a51b417.jpg",
+    "blurb": "Dan Hurley and Connecticut ended last season for Tom Izzo and Michigan State. The Spartans will host the Huskies in an exhibition rematch Tuesday.",
+    "source": "YAHOO",
+    "league": "NCAAB"
+   },
+   {
     "headline": "Onyenso thought his NBA dream was over -- then the Pistons called him up",
     "link": "https://www.espn.com/espn/story/_/id/50217446/ugonna-onyenso-thought-nba-dream-was-detroit-pistons-called-up",
     "published": "2026-10-20T07:08:23.000Z",
     "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1019%252Fr1732838_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Detroit Pistons center Ugonna Onyenso was surprised to hear his name called out 53rd at the 2026 NBA Draft, having once believed his dream of making the league was over, but is now confident he can grow into the sizable shoes left by Isaiah Stewart.",
     "source": "ESPN",
-    "league": "NCAAB"
-   },
-   {
-    "headline": "Where to watch Duke vs. Tennessee basketball: Channel, live stream, time, TV schedule for men's exhibition game",
-    "link": "https://sports.yahoo.com/articles/where-watch-duke-vs-tennessee-070002033.html",
-    "published": "2026-10-20T07:00:02.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/0d94ca1b26237dd6d9947ae09626a7544e561c9c40f21bf9a71c6cf808cf1b6d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2Fba558fe963fb9f542a1358919a1ca784",
-    "blurb": "Here's everything you need to know about Duke vs. Tennessee basketball, including TV channel and streaming options for the men's exhibition game.",
-    "source": "YAHOO",
     "league": "NCAAB"
    },
    {
@@ -582,21 +582,21 @@
     "league": "NCAAB"
    },
    {
+    "headline": "Where to watch Tennessee-Duke basketball: TV, channel, streaming",
+    "link": "https://sports.yahoo.com/articles/where-watch-tennessee-duke-basketball-090454062.html",
+    "published": "2026-10-20T09:04:54.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/b2f993c37498c93f4b131f598de4eb2d0d85a8ef0ff9dc78ea10e927d428e141/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fvols_wire_usa_today_articles_138%2F42f877012b826687568a8083a254c9a8.jpg",
+    "blurb": "Tennessee basketball will play Duke on Tuesday. Here is how to watch, including time, channel, TV schedule and streaming info.",
+    "source": "YAHOO",
+    "league": "NCAAB"
+   },
+   {
     "headline": "Ugonna Onyenso thought his NBA dream was over -- then the Detroit Pistons called him up",
     "link": "https://www.espn.com/espn/story/_/id/50217446/ugonna-onyenso-thought-nba-dream-was-detroit-pistons-called-up",
     "published": "2026-10-20T06:08:23Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1019%2Fr1732838_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Detroit Pistons center Ugonna Onyenso was surprised to hear his name called out 53rd at the 2026 NBA Draft, having once believed his dream of making the league was over, but is now confident he can grow into the sizable shoes left by Isaiah Stewart.",
-    "league": "NCAAB"
-   },
-   {
-    "headline": "Maryland women\u2019s basketball overpowers Virginia Tech, 93-82, in first exhibition",
-    "link": "https://sports.yahoo.com/articles/maryland-women-basketball-overpowers-virginia-042522136.html",
-    "published": "2026-10-20T04:25:22.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/79bd22142c5ca12bf8c5c5fcf14d15c2f9492fd229913592b3be2d7a0fb7a6fd/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc7ebb2c9625bb8243006406cea2a44cd.jpg",
-    "blurb": "The Terps dismantled the Hokies by utilizing swarths of backcourt talent.",
-    "source": "YAHOO",
     "league": "NCAAB"
    },
    {
@@ -609,21 +609,21 @@
     "league": "NCAAB"
    },
    {
+    "headline": "Tennessee basketball exhibition vs Duke, live score updates, highlights, how to watch",
+    "link": "https://sports.yahoo.com/articles/tennessee-basketball-exhibition-vs-duke-090053904.html",
+    "published": "2026-10-20T09:00:53.000Z",
+    "image": "",
+    "blurb": "No. 9 Tennessee basketball visits No. 2 Duke for an exhibition game at Cameron Indoor Stadium on Oct. 19.",
+    "source": "YAHOO",
+    "league": "NCAAB"
+   },
+   {
     "headline": "Ex-Purdue star Kaufman-Renn signs with Kansas amid eligibility pursuit",
     "link": "https://www.espn.com/mens-college-basketball/story/_/id/50218887/ex-purdue-f-kaufman-renn-signs-kansas-amid-eligibility-pursuit",
     "published": "2026-10-19T18:47:31.000Z",
     "image": "",
     "blurb": "Former Purdue forward Trey Kaufman-Renn has signed with the Kansas Jayhawks, the school announced, as he pursues a sixth year of eligibility.",
     "source": "ESPN",
-    "league": "NCAAB"
-   },
-   {
-    "headline": "UConn Men's Basketball: What to Make of Landing at No. 4 in AP Preseason Poll",
-    "link": "https://sports.yahoo.com/articles/uconn-mens-basketball-landing-no-035238794.html",
-    "published": "2026-10-20T03:52:38.000Z",
-    "image": "",
-    "blurb": "The voters have yet to see all of these teams in action. All they can do is use the statistics and analytics available to them when voting.",
-    "source": "YAHOO",
     "league": "NCAAB"
    },
    {
@@ -636,12 +636,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Florida No. 1 in preseason AP Top 25 men's hoop poll",
-    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50219265/florida-no-1-preseason-ap-top-25-men-basketball-poll",
-    "published": "2026-10-19T18:30:05.000Z",
+    "headline": "Where to watch Duke vs. Tennessee basketball: Channel, live stream, time, TV schedule for men's exhibition game",
+    "link": "https://sports.yahoo.com/articles/where-watch-duke-vs-tennessee-070002033.html",
+    "published": "2026-10-20T07:00:02.000Z",
     "image": "",
-    "blurb": "The Florida Gators are an overwhelming choice as the No. 1 team in the Associated Press preseason men's basketball poll released Monday.",
-    "source": "ESPN",
+    "blurb": "Here's everything you need to know about Duke vs. Tennessee basketball, including TV channel and streaming options for the men's exhibition game.",
+    "source": "YAHOO",
     "league": "NCAAB"
    }
   ],
@@ -1069,6 +1069,24 @@
  },
  "latest": [
   {
+   "headline": "Michigan State basketball has 1 goal in exhibition with UConn",
+   "link": "https://sports.yahoo.com/articles/michigan-state-basketball-1-goal-090803615.html",
+   "published": "2026-10-20T09:08:03.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/b87837a65170efee5a4413b5d38a9deda2c2fd7edc326de249de9e6e66e2918f/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fdetroit_free_press_usa_today_sports_articles_655%2F6527a5b42a307f5bf082ac125a51b417.jpg",
+   "blurb": "Dan Hurley and Connecticut ended last season for Tom Izzo and Michigan State. The Spartans will host the Huskies in an exhibition rematch Tuesday.",
+   "source": "YAHOO",
+   "league": "NCAAB"
+  },
+  {
+   "headline": "Where to watch Tennessee-Duke basketball: TV, channel, streaming",
+   "link": "https://sports.yahoo.com/articles/where-watch-tennessee-duke-basketball-090454062.html",
+   "published": "2026-10-20T09:04:54.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/b2f993c37498c93f4b131f598de4eb2d0d85a8ef0ff9dc78ea10e927d428e141/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fvols_wire_usa_today_articles_138%2F42f877012b826687568a8083a254c9a8.jpg",
+   "blurb": "Tennessee basketball will play Duke on Tuesday. Here is how to watch, including time, channel, TV schedule and streaming info.",
+   "source": "YAHOO",
+   "league": "NCAAB"
+  },
+  {
    "headline": "NBA 2026-27 season predictions: A Knicks repeat and LeBron\u2019s villain arc",
    "link": "https://sports.yahoo.com/articles/nba-2026-27-season-predictions-090022946.html",
    "published": "2026-10-20T09:00:22.000Z",
@@ -1076,6 +1094,15 @@
    "blurb": "Our writers give their verdicts on the new season, which tips off Tuesday. Who will claim the title? And which youngster will make the superstar leap?",
    "source": "YAHOO",
    "league": "NBA"
+  },
+  {
+   "headline": "Yankees news: Teruaki Sato will officially be posted",
+   "link": "https://sports.yahoo.com/articles/yankees-news-teruaki-sato-officially-090000158.html",
+   "published": "2026-10-20T09:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/0e6e3273bef416e3347c8aa284ebb050862474003a24a272c65ad46d188225b2/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F837c321c6254c0f0f0773ed1b175a8bc.jpg",
+   "blurb": "Sato will officially be posted this offseason; Boone returns as skipper for 2027; Wells identifies foul tips as potential cause of headaches.",
+   "source": "YAHOO",
+   "league": "MLB"
   },
   {
    "headline": "\u2018Jeremiah\u2019s to lose\u2019 \u2013 Heisman Trophy rankings on social media spark interesting discussion",
@@ -1166,15 +1193,6 @@
    "blurb": "Pete Prisco shares his Week 7 Power Rankings for the 2026 NFL season, including some big risers and fallers",
    "source": "CBS",
    "league": "NFL"
-  },
-  {
-   "headline": "Where to watch Duke vs. Tennessee basketball: Channel, live stream, time, TV schedule for men's exhibition game",
-   "link": "https://sports.yahoo.com/articles/where-watch-duke-vs-tennessee-070002033.html",
-   "published": "2026-10-20T07:00:02.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/0d94ca1b26237dd6d9947ae09626a7544e561c9c40f21bf9a71c6cf808cf1b6d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_sporting_news_articles_584%2Fba558fe963fb9f542a1358919a1ca784",
-   "blurb": "Here's everything you need to know about Duke vs. Tennessee basketball, including TV channel and streaming options for the men's exhibition game.",
-   "source": "YAHOO",
-   "league": "NCAAB"
   },
   {
    "headline": "NBA News: Timberwolves Jaden McDaniels inks $40M extension",
@@ -1366,24 +1384,6 @@
    "league": "UFC"
   },
   {
-   "headline": "Freddy Peralta pitches Rays to World Series, wins ALCS MVP after disastrous Mets tenure: \u2018This is crazy\u2019",
-   "link": "https://sports.yahoo.com/articles/freddy-peralta-pitches-rays-world-042617893.html",
-   "published": "2026-10-20T04:26:17.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/34cc98681d2e16fdb2806589a0e932ead8150af7f826c29797524b2b05613ad3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fny_post_sports_articles_389%2F848e9a02c64fc3fee84a1aa1834e3f62.jpg",
-   "blurb": "Mets fans, close your eyes.",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
-   "headline": "Maryland women\u2019s basketball overpowers Virginia Tech, 93-82, in first exhibition",
-   "link": "https://sports.yahoo.com/articles/maryland-women-basketball-overpowers-virginia-042522136.html",
-   "published": "2026-10-20T04:25:22.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/79bd22142c5ca12bf8c5c5fcf14d15c2f9492fd229913592b3be2d7a0fb7a6fd/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc7ebb2c9625bb8243006406cea2a44cd.jpg",
-   "blurb": "The Terps dismantled the Hokies by utilizing swarths of backcourt talent.",
-   "source": "YAHOO",
-   "league": "NCAAB"
-  },
-  {
    "headline": "Penguins' Rust Exits Game Against Utah With Injury",
    "link": "https://sports.yahoo.com/articles/penguins-rust-exits-game-against-035950863.html",
    "published": "2026-10-20T03:59:50.000Z",
@@ -1430,8 +1430,8 @@
   }
  ],
  "source_mix": {
-  "YAHOO": 65,
-  "ESPN": 54,
+  "YAHOO": 67,
+  "ESPN": 52,
   "CBS": 36
  },
  "degraded_sources": []
