@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T03:35:14.051679+00:00",
+ "generated_at": "2026-10-20T03:50:15.644441+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -48,11 +48,9 @@
      "espn_event_id": "401892538",
      "matchup": "PIT @ UTA",
      "commence": "2026-10-20T01:00Z",
-     "status": "in",
-     "detail": "5:05 - 3rd",
-     "score": "PIT 4 - UTA 5",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "PIT 4 - UTA 5"
     }
    ]
   }
