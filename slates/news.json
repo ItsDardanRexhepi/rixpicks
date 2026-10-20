@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-20T11:31:06.793Z",
+ "generated_at": "2026-10-20T11:36:01.560Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -104,11 +104,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Bengals progress report: Grading special teams",
-    "link": "https://sports.yahoo.com/articles/bengals-progress-report-grading-special-111500746.html",
-    "published": "2026-10-20T11:15:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/4ce0d219249fb85096eacc983d91e3bf31734e3c26791105862ee66b0a8a44eb/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F45de2d962afc7ad9abd6bdb72403a240.jpg",
-    "blurb": "What grade do you think the Bengals\u2019 special teams deserves at the bye?",
+    "headline": "Terry McLaurin believed to have season-ending knee injury",
+    "link": "https://sports.yahoo.com/articles/terry-mclaurin-believed-season-ending-111720735.html",
+    "published": "2026-10-20T11:17:20.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/3f470980b48dd4f67fa0c75b34d6adf8fa4ad10acc8d60abaa22901d428f875a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F6082a98d3a7d35f673ef0fede98c936b.jpg",
+    "blurb": "Commanders wide receiver Terry McLaurin had to be carted off the field with an air cast on his left knee on Monday night and the image didn't do much to conjure up hopes of a quick return to the field this season.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -131,11 +131,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Tampa Bay Buccaneers news: Bucs show progress in loss vs. Steelers",
-    "link": "https://sports.yahoo.com/articles/tampa-bay-buccaneers-news-bucs-110000458.html",
-    "published": "2026-10-20T11:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/8298d1228f6e08888c68fec6b53229ac9d5ec7fb7fe0b1315399dd53d24eccc7/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F4c813f59a47dd0700ee3bbc274f8876e.jpg",
-    "blurb": "The Tampa Bay Buccaneers are going back to the drawing board after losing in Week 6 against the Pittsburgh Steelers.",
+    "headline": "Bengals progress report: Grading special teams",
+    "link": "https://sports.yahoo.com/articles/bengals-progress-report-grading-special-111500746.html",
+    "published": "2026-10-20T11:15:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/4ce0d219249fb85096eacc983d91e3bf31734e3c26791105862ee66b0a8a44eb/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F45de2d962afc7ad9abd6bdb72403a240.jpg",
+    "blurb": "What grade do you think the Bengals\u2019 special teams deserves at the bye?",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -158,11 +158,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Examining the roster ties between Patriots, Bears ahead of Week 7",
-    "link": "https://sports.yahoo.com/articles/examining-roster-ties-between-patriots-110000222.html",
+    "headline": "Tampa Bay Buccaneers news: Bucs show progress in loss vs. Steelers",
+    "link": "https://sports.yahoo.com/articles/tampa-bay-buccaneers-news-bucs-110000458.html",
     "published": "2026-10-20T11:00:00.000Z",
     "image": "",
-    "blurb": "The ex-Patriots and ex-Bears in the fold for Week 7 at Soldier Field.",
+    "blurb": "The Tampa Bay Buccaneers are going back to the drawing board after losing in Week 6 against the Pittsburgh Steelers.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -1150,6 +1150,15 @@
    "league": "NFL"
   },
   {
+   "headline": "Terry McLaurin believed to have season-ending knee injury",
+   "link": "https://sports.yahoo.com/articles/terry-mclaurin-believed-season-ending-111720735.html",
+   "published": "2026-10-20T11:17:20.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/3f470980b48dd4f67fa0c75b34d6adf8fa4ad10acc8d60abaa22901d428f875a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F6082a98d3a7d35f673ef0fede98c936b.jpg",
+   "blurb": "Commanders wide receiver Terry McLaurin had to be carted off the field with an air cast on his left knee on Monday night and the image didn't do much to conjure up hopes of a quick return to the field this season.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "Bengals progress report: Grading special teams",
    "link": "https://sports.yahoo.com/articles/bengals-progress-report-grading-special-111500746.html",
    "published": "2026-10-20T11:15:00.000Z",
@@ -1211,15 +1220,6 @@
    "blurb": "The Orioles have a new GM, the Rays are going to the WS, and more",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "Tampa Bay Buccaneers news: Bucs show progress in loss vs. Steelers",
-   "link": "https://sports.yahoo.com/articles/tampa-bay-buccaneers-news-bucs-110000458.html",
-   "published": "2026-10-20T11:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/8298d1228f6e08888c68fec6b53229ac9d5ec7fb7fe0b1315399dd53d24eccc7/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F4c813f59a47dd0700ee3bbc274f8876e.jpg",
-   "blurb": "The Tampa Bay Buccaneers are going back to the drawing board after losing in Week 6 against the Pittsburgh Steelers.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "UFC power rankings following Fight Night 291 in Edmonton",
