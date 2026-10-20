@@ -3978,5 +3978,18 @@
   "kickoff_utc": "2026-10-24T01:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-20T06:20:35.916943+00:00"
+ },
+ {
+  "id": "74f8ce2caf",
+  "event_id": "401854027",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Chicago Stars FC",
+  "away": "Houston Dash",
+  "pick_team": "Houston Dash",
+  "prediction": "Houston Dash to beat Chicago Stars FC",
+  "kickoff_utc": "2026-10-24T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-20T06:50:18.903835+00:00"
  }
 ]
