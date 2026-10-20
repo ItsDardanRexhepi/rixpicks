@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T21:35:16.992494+00:00",
+ "generated_at": "2026-10-20T21:50:12.694507+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -38,11 +38,9 @@
      "espn_event_id": "401909088",
      "matchup": "BOS @ DET",
      "commence": "2026-10-20T19:00Z",
-     "status": "in",
-     "detail": "6.7 - 4th",
-     "score": "BOS 113 - DET 119",
-     "away_to": 0,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "BOS 113 - DET 121"
     },
     {
      "espn_event_id": "401909089",
