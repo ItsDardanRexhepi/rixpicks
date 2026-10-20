@@ -17,7 +17,9 @@
      * It sends one question at a time. A question whose answer was lost (it never arrived, or the Mac restarted or
        stopped while she wrote it) is asked once more, signed in or not, when the Mac said it is a question; anything
        that may change something, and anything sent while a sign-in is open or asked for, is sent once, because a
-       second copy of a change is a second change. It never waits for ever: after six minutes it says so.
+       second copy of a change is a second change. It never waits for ever: after six minutes it says so, unless the
+       Mac says beside the id that she is still writing (`writing`), and then it keeps its dots for as long as the Mac
+       says so, because the Mac itself gives up on a call that has gone quiet.
      * On every visit it reads the chat's instant site changes (typed keys and plain values, never markup) and
        applies them: a colour, a note, a picture, a word, a section shown or hidden, a Wooder Ice ticket.
      * Signed in, a reply may carry a picture the Mac made (the card image) and notices from a watch they
@@ -818,7 +820,11 @@
      Mac will never answer comes back `gone` at once, and then a QUESTION is asked once more with the dots still
      showing (the Mac says beside each id whether the message is one: `again`); anything else is said plainly and never
      sent twice. And after WAIT_MAX_MS on one id the dots stop: she says the answer did not come back and offers to ask
-     again, a tap away. */
+     again, a tap away. STILL WRITING IS NEVER THROWN AWAY (2026-10-13: a 564-second answer finished after the page had
+     given up at six minutes and was lost): while the Mac answers `pending` with `writing: true`, the dots stay past
+     WAIT_MAX_MS, for as long as the Mac keeps saying so; it stops saying so, and says `gone`, when the call has gone
+     quiet. A Mac that does not say `writing` (an older one, or a question still waiting for its turn) gets the six
+     minutes as before. */
   var WAIT = 'trinity_wait', PENDING_RE = /^[A-Za-z0-9_-]{20,64}$/;
   var WAIT_MAX_MS = 6 * 60 * 1000, POLL_ABORT_MS = 45000, ASK_GUARD_MS = 80000;
   var LOST = 'I lost my place on that one before I could finish it. Ask me again and I will start it over.';
@@ -886,8 +892,11 @@
         var d = res.body;
         if (res.status === 404 || (d && d.gone === true)) { end(); gone(); return; }
         if (res.status === 200 && d && typeof d.pending === 'string') {
-          if (past) { tooLate(); return; }
-          /* still writing: the Mac held that ask while she worked, so the next one goes at once */
+          var writing = d.writing === true;
+          if (past && !writing) { tooLate(); return; }
+          /* still writing: the Mac held that ask while she worked, so the next one goes at once; while it says so in
+             so many words the wait is kept fresh, so a reload during a long answer still picks it up */
+          if (writing) keepWait(id, held, photo, q);
           fails = 0;
           again(Date.now() - t0 < 1000 ? 2000 : 0);
           return;

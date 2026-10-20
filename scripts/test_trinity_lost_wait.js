@@ -3,7 +3,9 @@
 // `gone`; a question (signed in too, when the Mac says beside its id that it is one) is asked once more with the dots
 // still showing, and nothing that may change something is ever sent twice; after six minutes on one id the dots stop,
 // she says the answer did not come back, and "Ask again" sends the same question a tap away; a phone that slept past
-// the limit asks once more first; a reload keeps all of it.
+// the limit asks once more first; a reload keeps all of it. STILL WRITING IS NEVER THROWN AWAY (2026-10-13 review: a
+// 564-second answer finished after the page gave up at six minutes and was lost): while the Mac says `writing` beside
+// a pending id the dots stay past six minutes, however long, and the answer lands.
 // Runs trinity/trinity.js as shipped against a small DOM, a scripted endpoint and a clock this test drives.
 // Run: node scripts/test_trinity_lost_wait.js
 const fs = require('fs');
@@ -158,6 +160,23 @@ function againButton(p) {
     const a = asks(p);
     check(a.length === 2 && a[1].body.question === 'what is on the card today?' && last(p) === "Today's card has two picks.",
       'the tap sends the same question again, and her answer lands');
+  }
+  // ---- the Mac says she is STILL WRITING past six minutes: the dots stay and the answer lands, never thrown away
+  {
+    const store = {};
+    const p = page(store);
+    p.script.ask.push({ status: 200, body: { pending: P, again: true } });
+    for (let i = 0; i < 30; i++) p.script.reply.push({ status: 200, body: { pending: P, writing: true } });
+    p.script.reply.push({ status: 200, body: { answer: 'Here is the long one, 564 seconds in.', answered: true, cites: [] } });
+    await p.say('which starting pitchers have the best ERA this postseason?');
+    await p.advance(7 * 60 * 1000);
+    check(p.typing() && !p.her().some(h => /did not come back/.test(h)),
+      'at seven minutes, the Mac saying she is still writing, the dots are still there and nothing was given up');
+    const kept = JSON.parse(store.trinity_wait || '{}');
+    check(kept.id === P && now - kept.at < 60 * 1000, 'and the kept wait is fresh, so a reload picks it up');
+    await p.advance(3 * 60 * 1000);
+    check(last(p) === 'Here is the long one, 564 seconds in.' && !p.typing() && asks(p).length === 1,
+      `at ten minutes her answer lands, asked once ("${last(p)}")`);
   }
   // ---- signed in, past the limit, an order is not offered again
   {
