@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T00:05:15.261397+00:00",
+ "generated_at": "2026-10-20T00:20:13.762011+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401908028",
+     "matchup": "CLE @ TB",
+     "commence": "2026-10-20T00:00Z",
+     "status": "in",
+     "detail": "End 1st",
+     "score": "CLE 0 - TB 0"
+    }
+   ]
+  },
   {
    "league": "NFL",
    "games": [
@@ -9,9 +22,26 @@
      "espn_event_id": "401873008",
      "matchup": "WAS @ SF",
      "commence": "2026-10-20T00:15Z",
-     "status": "pre",
-     "detail": "10/19 - 5:15 PM PT",
-     "score": "WAS 0 - SF 0"
+     "status": "in",
+     "detail": "13:22 - 1st",
+     "score": "WAS 0 - SF 0",
+     "away_to": 3,
+     "home_to": 3
+    }
+   ]
+  },
+  {
+   "league": "WNBA",
+   "games": [
+    {
+     "espn_event_id": "401918306",
+     "matchup": "ATL @ GS",
+     "commence": "2026-10-20T00:00Z",
+     "status": "in",
+     "detail": "4:45 - 1st",
+     "score": "ATL 10 - GS 10",
+     "away_to": 5,
+     "home_to": 5
     }
    ]
   },
@@ -23,8 +53,8 @@
      "matchup": "ANA @ NYR",
      "commence": "2026-10-19T23:00Z",
      "status": "in",
-     "detail": "19:12 - 2nd",
-     "score": "ANA 0 - NYR 1",
+     "detail": "11:25 - 2nd",
+     "score": "ANA 0 - NYR 2",
      "away_to": null,
      "home_to": null
     },
@@ -33,7 +63,7 @@
      "matchup": "COL @ PHI",
      "commence": "2026-10-19T23:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "12:54 - 2nd",
      "score": "COL 0 - PHI 1",
      "away_to": null,
      "home_to": null
@@ -43,8 +73,8 @@
      "matchup": "SJ @ TOR",
      "commence": "2026-10-19T23:30Z",
      "status": "in",
-     "detail": "7:28 - 1st",
-     "score": "SJ 0 - TOR 0",
+     "detail": "End of 1st",
+     "score": "SJ 1 - TOR 0",
      "away_to": null,
      "home_to": null
     },
