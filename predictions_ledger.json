@@ -3991,5 +3991,18 @@
   "kickoff_utc": "2026-10-24T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-20T06:50:18.903835+00:00"
+ },
+ {
+  "id": "69b0842d55",
+  "event_id": "401892548",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Vancouver Canucks",
+  "away": "Carolina Hurricanes",
+  "pick_team": "Carolina Hurricanes",
+  "prediction": "Carolina Hurricanes to beat Vancouver Canucks",
+  "kickoff_utc": "2026-10-21T02:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-20T15:28:05.766069+00:00"
  }
 ]
