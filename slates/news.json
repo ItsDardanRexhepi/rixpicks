@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-10-20T06:40:59.719Z",
+ "generated_at": "2026-10-20T06:45:59.523Z",
  "leagues": {
   "baseball/mlb": [
    {
     "headline": "Rays clinch ALCS with Game 6 win, to face Brewers in World Series",
     "link": "https://www.espn.com/mlb/story/_/id/50224233/rays-clinch-alcs-game-6-face-brewers-world-series",
-    "published": "2026-10-20T06:50:04.000Z",
+    "published": "2026-10-20T07:39:13.000Z",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1020%252Fr1733238_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Rays beat the Guardians 7-3 in Game 6 of the ALCS to advance to the World Series for the third time in the franchise's 29 seasons.",
     "source": "ESPN",
@@ -30,11 +30,11 @@
     "league": "MLB"
    },
    {
-    "headline": "'Fastball Freddy' Peralta named ALCS MVP after pitching Rays into World Series",
-    "link": "https://www.espn.com/mlb/story/_/id/50224941/rays-pitcher-freddy-peralta-named-alcs-mvp",
-    "published": "2026-10-20T06:50:04.000Z",
-    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1020%252Fr1733282_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Freddy Peralta rode his fastball to the American League Championship Series MVP award.",
+    "headline": "Guardians run out of gas, see franchise's World Series title drought hit 78 years",
+    "link": "https://www.espn.com/mlb/story/_/id/50225168/cleveland-sees-world-series-title-drought-reach-78-years",
+    "published": "2026-10-20T07:39:13.000Z",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1020%252Fr1733286_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Guardians once again got close to the finish line but came up short in the ALCS, losing to the Rays in six games to extend their championship drought to 78 years.",
     "source": "ESPN",
     "league": "MLB"
    },
@@ -57,11 +57,11 @@
     "league": "MLB"
    },
    {
-    "headline": "Guardians see franchise's World Series title drought hit 78 years",
-    "link": "https://www.espn.com/mlb/story/_/id/50225168/cleveland-sees-world-series-title-drought-reach-78-years",
-    "published": "2026-10-20T06:50:04.000Z",
+    "headline": "'Fastball Freddy' Peralta named ALCS MVP after pitching Rays into World Series",
+    "link": "https://www.espn.com/mlb/story/_/id/50224941/rays-pitcher-freddy-peralta-named-alcs-mvp",
+    "published": "2026-10-20T07:39:13.000Z",
     "image": "",
-    "blurb": "The Guardians once again got close to the finish line but came up short in the ALCS, losing to the Rays in six games to extend their championship drought to 78 years.",
+    "blurb": "Freddy Peralta rode his fastball to the American League Championship Series MVP award.",
     "source": "ESPN",
     "league": "MLB"
    },
@@ -86,7 +86,7 @@
    {
     "headline": "Boone returning as Yankees manager in 2027, source says",
     "link": "https://www.espn.com/mlb/story/_/id/50222033/aaron-boone-returning-new-york-yankees-manager",
-    "published": "2026-10-20T06:50:04.000Z",
+    "published": "2026-10-20T07:39:13.000Z",
     "image": "",
     "blurb": "Aaron Boone will return for his 10th season as manager of the Yankees in 2027, a source told ESPN on Monday, confirming a report by the Bergen Record.",
     "source": "ESPN",
@@ -1069,6 +1069,24 @@
  },
  "latest": [
   {
+   "headline": "Rays clinch ALCS with Game 6 win, to face Brewers in World Series",
+   "link": "https://www.espn.com/mlb/story/_/id/50224233/rays-clinch-alcs-game-6-face-brewers-world-series",
+   "published": "2026-10-20T07:39:13.000Z",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1020%252Fr1733238_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Rays beat the Guardians 7-3 in Game 6 of the ALCS to advance to the World Series for the third time in the franchise's 29 seasons.",
+   "source": "ESPN",
+   "league": "MLB"
+  },
+  {
+   "headline": "Guardians run out of gas, see franchise's World Series title drought hit 78 years",
+   "link": "https://www.espn.com/mlb/story/_/id/50225168/cleveland-sees-world-series-title-drought-reach-78-years",
+   "published": "2026-10-20T07:39:13.000Z",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1020%252Fr1733286_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Guardians once again got close to the finish line but came up short in the ALCS, losing to the Rays in six games to extend their championship drought to 78 years.",
+   "source": "ESPN",
+   "league": "MLB"
+  },
+  {
    "headline": "Onyenso thought his NBA dream was over -- then the Pistons called him up",
    "link": "https://www.espn.com/espn/story/_/id/50217446/ugonna-onyenso-thought-nba-dream-was-detroit-pistons-called-up",
    "published": "2026-10-20T07:08:23.000Z",
@@ -1076,24 +1094,6 @@
    "blurb": "Detroit Pistons center Ugonna Onyenso was surprised to hear his name called out 53rd at the 2026 NBA Draft, having once believed his dream of making the league was over, but is now confident he can grow into the sizable shoes left by Isaiah Stewart.",
    "source": "ESPN",
    "league": "NCAAB"
-  },
-  {
-   "headline": "Rays clinch ALCS with Game 6 win, to face Brewers in World Series",
-   "link": "https://www.espn.com/mlb/story/_/id/50224233/rays-clinch-alcs-game-6-face-brewers-world-series",
-   "published": "2026-10-20T06:50:04.000Z",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1020%252Fr1733238_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Rays beat the Guardians 7-3 in Game 6 of the ALCS to advance to the World Series for the third time in the franchise's 29 seasons.",
-   "source": "ESPN",
-   "league": "MLB"
-  },
-  {
-   "headline": "'Fastball Freddy' Peralta named ALCS MVP after pitching Rays into World Series",
-   "link": "https://www.espn.com/mlb/story/_/id/50224941/rays-pitcher-freddy-peralta-named-alcs-mvp",
-   "published": "2026-10-20T06:50:04.000Z",
-   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1020%252Fr1733282_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Freddy Peralta rode his fastball to the American League Championship Series MVP award.",
-   "source": "ESPN",
-   "league": "MLB"
   },
   {
    "headline": "Mike Evans unable to finish 49ers' win, exits with Achilles soreness",
