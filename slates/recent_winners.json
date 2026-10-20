@@ -1,0 +1,156 @@
+{
+ "version": 1,
+ "generated_at": "2026-10-19T21:04:49-07:00",
+ "read_at_pt": "2026-10-19T21:04:49-07:00",
+ "sources": {
+  "espn_event": "401873008",
+  "espn_status": "STATUS_FINAL",
+  "final_score": "SF 23, WSH 17"
+ },
+ "footnote": "Threshold met = final ESPN box score and Kalshi contract finalized YES. Placement is reported by Wooder Ice; fill and settlement are not independently verified. No combined odds.",
+ "winners": [
+  {
+   "title": "NFL - RECEPTIONS / RECEIVING YARDS / RUSHING YARDS PARLAY",
+   "status": "PLACED - reported by Wooder Ice",
+   "date_label": "Mon Oct 19 - WAS @ SF",
+   "note": "All 4 legs hit. SF 23, WSH 17 final.",
+   "legs": [
+    {
+     "player": "George Kittle",
+     "market": "5+ Receptions",
+     "matchup": "WAS @ SF",
+     "final_label": "5 receptions",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNFLREC-26OCT19WASSF-SFGKITTLE85-5",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-SFGKITTLE85-5",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
+     "reference": "Rounded screenshot reference KAL approx -175, not a live quote."
+    },
+    {
+     "player": "Rachaad White",
+     "market": "4+ Receptions",
+     "matchup": "WAS @ SF",
+     "final_label": "4 receptions",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNFLREC-26OCT19WASSF-WASRWHITE1-4",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-WASRWHITE1-4",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
+     "reference": "Rounded screenshot reference KAL approx +228, not a live quote."
+    },
+    {
+     "player": "Terry McLaurin",
+     "market": "25+ Receiving Yards",
+     "matchup": "WAS @ SF",
+     "final_label": "27 receiving yards",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNFLRECYDS-26OCT19WASSF-WASTMCLAURIN17-25",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLRECYDS-26OCT19WASSF-WASTMCLAURIN17-25",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
+     "reference": "Rounded screenshot reference KAL approx -385, not a live quote."
+    },
+    {
+     "player": "Christian McCaffrey",
+     "market": "50+ Rushing Yards",
+     "matchup": "WAS @ SF",
+     "final_label": "64 rushing yards",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNFLRSHYDS-26OCT19WASSF-SFCMCCAFFREY23-50",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLRSHYDS-26OCT19WASSF-SFCMCCAFFREY23-50",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
+     "reference": "Rounded screenshot reference KAL approx -200, not a live quote."
+    }
+   ]
+  },
+  {
+   "title": "NFL - RECEPTIONS / RECEIVING YARDS / MONEYLINE PARLAY",
+   "status": "PLACED - reported by Wooder Ice",
+   "date_label": "Mon Oct 19 - WAS @ SF",
+   "note": "All 6 legs hit. SF 23, WSH 17 final.",
+   "legs": [
+    {
+     "player": "George Kittle",
+     "market": "4+ Receptions",
+     "matchup": "WAS @ SF",
+     "final_label": "5 receptions",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNFLREC-26OCT19WASSF-SFGKITTLE85-4",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-SFGKITTLE85-4",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008"
+    },
+    {
+     "player": "Christian McCaffrey",
+     "market": "4+ Receptions",
+     "matchup": "WAS @ SF",
+     "final_label": "9 receptions",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNFLREC-26OCT19WASSF-SFCMCCAFFREY23-4",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-SFCMCCAFFREY23-4",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008"
+    },
+    {
+     "player": "Austin Ekeler",
+     "market": "2+ Receptions",
+     "matchup": "WAS @ SF",
+     "final_label": "2 receptions",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNFLREC-26OCT19WASSF-WASAEKELER30-2",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-WASAEKELER30-2",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
+     "reference": "Rounded screenshot reference KAL approx +119, not a live quote."
+    },
+    {
+     "player": "Rachaad White",
+     "market": "2+ Receptions",
+     "matchup": "WAS @ SF",
+     "final_label": "4 receptions",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNFLREC-26OCT19WASSF-WASRWHITE1-2",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-WASRWHITE1-2",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008"
+    },
+    {
+     "player": "George Kittle",
+     "market": "40+ Receiving Yards",
+     "matchup": "WAS @ SF",
+     "final_label": "69 receiving yards",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNFLRECYDS-26OCT19WASSF-SFGKITTLE85-40",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLRECYDS-26OCT19WASSF-SFGKITTLE85-40",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
+     "reference": "Rounded screenshot reference KAL approx -435, not a live quote."
+    },
+    {
+     "player": "San Francisco 49ers",
+     "market": "Moneyline",
+     "matchup": "WAS @ SF",
+     "final_label": "SF 23, WSH 17",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNFLGAME-26OCT19WASSF-SF",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLGAME-26OCT19WASSF-SF",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
+     "reference": "Rounded screenshot reference KAL approx -345, not a live quote."
+    }
+   ]
+  }
+ ]
+}
