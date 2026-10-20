@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T03:05:31.182983+00:00",
+ "generated_at": "2026-10-20T03:20:20.384183+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -23,10 +23,10 @@
      "matchup": "WAS @ SF",
      "commence": "2026-10-20T00:15Z",
      "status": "in",
-     "detail": "2:18 - 4th",
+     "detail": "0:21 - 4th",
      "score": "WAS 17 - SF 23",
-     "away_to": 2,
-     "home_to": 3
+     "away_to": 0,
+     "home_to": 2
     }
    ]
   },
@@ -59,8 +59,8 @@
      "matchup": "PIT @ UTA",
      "commence": "2026-10-20T01:00Z",
      "status": "in",
-     "detail": "End of 2nd",
-     "score": "PIT 2 - UTA 4",
+     "detail": "14:05 - 3rd",
+     "score": "PIT 3 - UTA 5",
      "away_to": null,
      "home_to": null
     }
