@@ -1,7 +1,28 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T20:50:16.328724+00:00",
+ "generated_at": "2026-10-20T21:05:17.043355+00:00",
  "leagues": [
+  {
+   "league": "CFB",
+   "games": [
+    {
+     "espn_event_id": "401871055",
+     "matchup": "MTSU @ FIU",
+     "commence": "2026-10-20T23:00Z",
+     "status": "pre",
+     "detail": "10/20 - 4:00 PM PT",
+     "score": "MTSU 0 - FIU 0"
+    },
+    {
+     "espn_event_id": "401871069",
+     "matchup": "MOST @ DEL",
+     "commence": "2026-10-20T23:00Z",
+     "status": "pre",
+     "detail": "10/20 - 4:00 PM PT",
+     "score": "MOST 0 - DEL 0"
+    }
+   ]
+  },
   {
    "league": "NBA",
    "games": [
@@ -10,10 +31,63 @@
      "matchup": "BOS @ DET",
      "commence": "2026-10-20T19:00Z",
      "status": "in",
-     "detail": "2:28 - 3rd",
-     "score": "BOS 81 - DET 77",
+     "detail": "8:44 - 4th",
+     "score": "BOS 96 - DET 87",
      "away_to": 4,
      "home_to": 4
+    },
+    {
+     "espn_event_id": "401909089",
+     "matchup": "PHI @ NY",
+     "commence": "2026-10-20T23:00Z",
+     "status": "pre",
+     "detail": "10/20 - 4:00 PM PT",
+     "score": "PHI 0 - NY 0"
+    }
+   ]
+  },
+  {
+   "league": "NHL",
+   "games": [
+    {
+     "espn_event_id": "401892539",
+     "matchup": "SJ @ MTL",
+     "commence": "2026-10-20T23:00Z",
+     "status": "pre",
+     "detail": "10/20 - 4:00 PM PT",
+     "score": "SJ 0 - MTL 0"
+    },
+    {
+     "espn_event_id": "401892540",
+     "matchup": "COL @ NJ",
+     "commence": "2026-10-20T23:00Z",
+     "status": "pre",
+     "detail": "10/20 - 4:00 PM PT",
+     "score": "COL 0 - NJ 0"
+    },
+    {
+     "espn_event_id": "401892541",
+     "matchup": "ANA @ NYI",
+     "commence": "2026-10-20T23:00Z",
+     "status": "pre",
+     "detail": "10/20 - 4:00 PM PT",
+     "score": "ANA 0 - NYI 0"
+    },
+    {
+     "espn_event_id": "401892542",
+     "matchup": "LA @ WAS",
+     "commence": "2026-10-20T23:00Z",
+     "status": "pre",
+     "detail": "10/20 - 4:00 PM PT",
+     "score": "LA 0 - WAS 0"
+    },
+    {
+     "espn_event_id": "401892543",
+     "matchup": "TOR @ CBJ",
+     "commence": "2026-10-20T23:00Z",
+     "status": "pre",
+     "detail": "10/20 - 4:00 PM PT",
+     "score": "TOR 0 - CBJ 0"
     }
    ]
   }
