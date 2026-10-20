@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-20T07:25:55.979Z",
+ "generated_at": "2026-10-20T07:30:59.494Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -95,6 +95,15 @@
   ],
   "football/nfl": [
    {
+    "headline": "Prisco's NFL Week 7 Power Rankings: Rams are a mess, Texans climb eight spots",
+    "link": "https://www.cbssports.com/nfl/news/priscos-nfl-week-7-power-rankings-rams-are-a-mess-texans-climb-eight-spots/",
+    "published": "2026-10-20T07:06:32.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2023%2F12%2F26%2Fce4c0c05-1d70-4c4f-b962-2b1c05faba61%2Framspowerrankings.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Pete Prisco shares his Week 7 Power Rankings for the 2026 NFL season, including some big risers and fallers",
+    "source": "CBS",
+    "league": "NFL"
+   },
+   {
     "headline": "Mike Evans unable to finish 49ers' win, exits with Achilles soreness",
     "link": "https://www.espn.com/nfl/story/_/id/50223535/49ers-rule-mike-evans-due-achilles-injury",
     "published": "2026-10-20T06:38:20Z",
@@ -173,15 +182,6 @@
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F20%2F3e8ebd01-3407-4dcf-956c-14345d02d768%2Fnfceast.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The division is 0-6-2 since Week 5",
     "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Purdy and the 49ers build a big lead and hold on to beat the Commanders 23-17",
-    "link": "http://www.espn.com/nfl/recap?gameId=401873008",
-    "published": "2026-10-20T05:06:08Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fnfl%2Fevents%2F401873008.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 Brock Purdy and the offense staked San Francisco to a big lead. The defense made sure the 49ers remained undefeated.",
     "league": "NFL"
    }
   ],
@@ -1105,6 +1105,15 @@
    "league": "NCAAB"
   },
   {
+   "headline": "Prisco's NFL Week 7 Power Rankings: Rams are a mess, Texans climb eight spots",
+   "link": "https://www.cbssports.com/nfl/news/priscos-nfl-week-7-power-rankings-rams-are-a-mess-texans-climb-eight-spots/",
+   "published": "2026-10-20T07:06:32.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2023%2F12%2F26%2Fce4c0c05-1d70-4c4f-b962-2b1c05faba61%2Framspowerrankings.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Pete Prisco shares his Week 7 Power Rankings for the 2026 NFL season, including some big risers and fallers",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
    "headline": "Where to watch Duke vs. Tennessee basketball: Channel, live stream, time, TV schedule for men's exhibition game",
    "link": "https://sports.yahoo.com/articles/where-watch-duke-vs-tennessee-070002033.html",
    "published": "2026-10-20T07:00:02.000Z",
@@ -1375,15 +1384,6 @@
    "league": "NHL"
   },
   {
-   "headline": "NFL Week 6 grades for every team that played: 49ers hold off furious Commanders rally, Colts get 'F'",
-   "link": "https://www.cbssports.com/nfl/news/nfl-grades-week-6-browns-ravens-afc-colts-2026/",
-   "published": "2026-10-20T03:55:14.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F18%2Ff67c29b7-637b-49aa-9dfd-47f8722f033d%2Fcolts.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "We're handing out grades for every Week 6 game, and we don't hold back",
-   "source": "CBS",
-   "league": "NFL"
-  },
-  {
    "headline": "Devils Hope Their Depth Can Compete Against Top Teams Like The Avalanche",
    "link": "https://sports.yahoo.com/articles/devils-hope-depth-compete-against-034714267.html",
    "published": "2026-10-20T03:47:14.000Z",
@@ -1430,9 +1430,9 @@
   }
  ],
  "source_mix": {
-  "ESPN": 57,
+  "ESPN": 56,
   "YAHOO": 63,
-  "CBS": 35
+  "CBS": 36
  },
  "degraded_sources": []
 }
