@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-20T18:57:14.716248+00:00",
+ "generated_at": "2026-10-20T19:22:40.300172+00:00",
  "items": [
-  {
-   "id": "42c33b5bde",
-   "league": "NBA",
-   "event": "Boston Celtics @ Detroit Pistons",
-   "prediction": "Boston Celtics to beat Detroit Pistons",
-   "kickoff_utc": "2026-10-20T19:00:00+00:00"
-  },
   {
    "id": "05eff5f295",
    "league": "NBA",
@@ -35,6 +28,13 @@
    "event": "Toronto Maple Leafs @ Columbus Blue Jackets",
    "prediction": "Toronto Maple Leafs to beat Columbus Blue Jackets",
    "kickoff_utc": "2026-10-20T23:00:00+00:00"
+  },
+  {
+   "id": "d47b570cc4",
+   "league": "NHL",
+   "event": "Winnipeg Jets @ St. Louis Blues",
+   "prediction": "St. Louis Blues to beat Winnipeg Jets",
+   "kickoff_utc": "2026-10-21T00:00:00+00:00"
   },
   {
    "id": "b527c14e3a",

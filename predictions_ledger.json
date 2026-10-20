@@ -4056,5 +4056,31 @@
   "kickoff_utc": "2026-10-20T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-20T16:51:17.753908+00:00"
+ },
+ {
+  "id": "d47b570cc4",
+  "event_id": "401892544",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "St. Louis Blues",
+  "away": "Winnipeg Jets",
+  "pick_team": "St. Louis Blues",
+  "prediction": "St. Louis Blues to beat Winnipeg Jets",
+  "kickoff_utc": "2026-10-21T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-20T19:20:55.924509+00:00"
+ },
+ {
+  "id": "d7b715050d",
+  "event_id": "401892549",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Vegas Golden Knights",
+  "away": "Tampa Bay Lightning",
+  "pick_team": "Tampa Bay Lightning",
+  "prediction": "Tampa Bay Lightning to beat Vegas Golden Knights",
+  "kickoff_utc": "2026-10-21T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-20T19:22:22.077417+00:00"
  }
 ]
