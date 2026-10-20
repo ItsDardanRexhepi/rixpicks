@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T21:50:12.694507+00:00",
+ "generated_at": "2026-10-20T22:05:18.075163+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -94,6 +94,22 @@
      "status": "pre",
      "detail": "10/20 - 4:00 PM PT",
      "score": "TOR 0 - CBJ 0"
+    },
+    {
+     "espn_event_id": "401892544",
+     "matchup": "WPG @ STL",
+     "commence": "2026-10-21T00:00Z",
+     "status": "pre",
+     "detail": "10/20 - 5:00 PM PT",
+     "score": "WPG 0 - STL 0"
+    },
+    {
+     "espn_event_id": "401892545",
+     "matchup": "BOS @ DAL",
+     "commence": "2026-10-21T00:00Z",
+     "status": "pre",
+     "detail": "10/20 - 5:00 PM PT",
+     "score": "BOS 0 - DAL 0"
     }
    ]
   }
