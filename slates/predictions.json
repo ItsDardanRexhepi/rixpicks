@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-20T00:05:01.029148+00:00",
+ "generated_at": "2026-10-20T00:20:02.903079+00:00",
  "items": [
-  {
-   "id": "b8b8a524c4",
-   "league": "NFL",
-   "event": "Washington Commanders @ San Francisco 49ers",
-   "prediction": "San Francisco 49ers to beat Washington Commanders",
-   "kickoff_utc": "2026-10-20T00:15:00+00:00"
-  },
   {
    "id": "fd54ce8b75",
    "league": "NHL",
@@ -42,6 +35,13 @@
    "event": "D.C. United @ FC Cincinnati",
    "prediction": "D.C. United to beat FC Cincinnati",
    "kickoff_utc": "2026-10-21T23:00:00+00:00"
+  },
+  {
+   "id": "7c2175a4bb",
+   "league": "CFB",
+   "event": "LSU Tigers @ Auburn Tigers",
+   "prediction": "LSU Tigers to beat Auburn Tigers",
+   "kickoff_utc": "2026-10-24T16:00:00+00:00"
   }
  ]
 }
