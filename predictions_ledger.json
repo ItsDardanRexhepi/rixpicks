@@ -3438,8 +3438,9 @@
   "pick_team": "Boston Celtics",
   "prediction": "Boston Celtics to beat Detroit Pistons",
   "kickoff_utc": "2026-10-20T19:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-17T16:40:14.723986+00:00"
+  "status": "miss",
+  "created_at": "2026-10-17T16:40:14.723986+00:00",
+  "settled_at": "2026-10-20T22:05:00.062445+00:00"
  },
  {
   "id": "048253bbd3",
