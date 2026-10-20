@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T02:50:14.447627+00:00",
+ "generated_at": "2026-10-20T03:05:31.182983+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,9 +9,9 @@
      "espn_event_id": "401908028",
      "matchup": "CLE @ TB",
      "commence": "2026-10-20T00:00Z",
-     "status": "in",
-     "detail": "Bot 8th",
-     "score": "CLE 3 - TB 5"
+     "status": "post",
+     "detail": "Final",
+     "score": "CLE 3 - TB 7"
     }
    ]
   },
@@ -23,9 +23,9 @@
      "matchup": "WAS @ SF",
      "commence": "2026-10-20T00:15Z",
      "status": "in",
-     "detail": "9:22 - 4th",
+     "detail": "2:18 - 4th",
      "score": "WAS 17 - SF 23",
-     "away_to": 3,
+     "away_to": 2,
      "home_to": 3
     }
    ]
@@ -46,22 +46,6 @@
   {
    "league": "NHL",
    "games": [
-    {
-     "espn_event_id": "401892535",
-     "matchup": "ANA @ NYR",
-     "commence": "2026-10-19T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "ANA 2 - NYR 5"
-    },
-    {
-     "espn_event_id": "401892536",
-     "matchup": "COL @ PHI",
-     "commence": "2026-10-19T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "COL 2 - PHI 3"
-    },
     {
      "espn_event_id": "401892537",
      "matchup": "SJ @ TOR",

@@ -121,24 +121,24 @@ h1 .tick{color:#3BEBF5}
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
-<div class="pick" data-espn="baseball/mlb" data-team="Cleveland Guardians" data-abbr="CLE" data-eid="401908028" data-game-day="2026-10-19">
+<div class="pick" data-espn="baseball/mlb" data-team="Cleveland Guardians" data-abbr="CLE" data-eid="401908029" data-game-day="2026-10-20">
   <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/mlb/500/cle.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Cleveland Guardians</span><span class="odds">85-77</span></div>
-  <div class="sub">Record 85-77 · Streak L2</div>
-  <div class="score" id="rpScore">Today: @ Tampa Bay Rays · 5:00 PM PT</div>
+  <div class="sub">Record 85-77 · Streak L3</div>
+  <div class="score" id="rpScore">Next up: @ Tampa Bay Rays · Tue, Oct 20, 5:00 PM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 1-3 vs TB · 10-18</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 3-7 vs TB · 10-17</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 3-2 vs TB · 10-15</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 1-3 @ TB · 10-13</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 7-3 @ TB · 10-12</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 3-7 @ TB · 10-19</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 1-3 vs TB · 10-18</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 3-7 vs TB · 10-17</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 3-2 vs TB · 10-15</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 1-3 @ TB · 10-13</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 3.8 &middot; allowed 3.3 per game over last 10</div>
+<div class="sub" style="padding:7px 0">Scored 4.1 &middot; allowed 3.7 per game over last 10</div>
 <div class="sect">Next up</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ TB · 10-19</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ TB · 10-20</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ TB · 10-20</div>
 <div class="sect">Injuries</div>
 <div class="sub">Injury data unavailable.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1792464620';
+const RP_BUILD='1792465535';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}
