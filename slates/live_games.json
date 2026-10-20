@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-20T01:20:17.559623+00:00",
+ "generated_at": "2026-10-20T01:35:19.990432+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "CLE @ TB",
      "commence": "2026-10-20T00:00Z",
      "status": "in",
-     "detail": "Top 4th",
+     "detail": "Bot 4th",
      "score": "CLE 0 - TB 3"
     }
    ]
@@ -23,10 +23,10 @@
      "matchup": "WAS @ SF",
      "commence": "2026-10-20T00:15Z",
      "status": "in",
-     "detail": "6:26 - 2nd",
+     "detail": "0:18 - 2nd",
      "score": "WAS 3 - SF 13",
-     "away_to": 3,
-     "home_to": 2
+     "away_to": 1,
+     "home_to": 1
     }
    ]
   },
@@ -38,8 +38,8 @@
      "matchup": "ATL @ GS",
      "commence": "2026-10-20T00:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "ATL 39 - GS 37",
+     "detail": "4:49 - 3rd",
+     "score": "ATL 44 - GS 42",
      "away_to": 4,
      "home_to": 3
     }
@@ -53,7 +53,7 @@
      "matchup": "ANA @ NYR",
      "commence": "2026-10-19T23:00Z",
      "status": "in",
-     "detail": "8:47 - 3rd",
+     "detail": "2:45 - 3rd",
      "score": "ANA 0 - NYR 5",
      "away_to": null,
      "home_to": null
@@ -63,8 +63,8 @@
      "matchup": "COL @ PHI",
      "commence": "2026-10-19T23:00Z",
      "status": "in",
-     "detail": "10:34 - 3rd",
-     "score": "COL 1 - PHI 3",
+     "detail": "4:11 - 3rd",
+     "score": "COL 2 - PHI 3",
      "away_to": null,
      "home_to": null
     },
@@ -73,7 +73,7 @@
      "matchup": "SJ @ TOR",
      "commence": "2026-10-19T23:30Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "20:00 - 3rd",
      "score": "SJ 1 - TOR 1",
      "away_to": null,
      "home_to": null
@@ -83,8 +83,8 @@
      "matchup": "PIT @ UTA",
      "commence": "2026-10-20T01:00Z",
      "status": "in",
-     "detail": "14:00 - 1st",
-     "score": "PIT 1 - UTA 1",
+     "detail": "8:31 - 1st",
+     "score": "PIT 1 - UTA 2",
      "away_to": null,
      "home_to": null
     }
