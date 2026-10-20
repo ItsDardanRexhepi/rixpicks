@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-20T04:36:21.805075+00:00",
+ "generated_at": "2026-10-20T04:51:56.458478+00:00",
  "items": [
   {
    "id": "42c33b5bde",
@@ -30,17 +30,17 @@
    "kickoff_utc": "2026-10-21T23:00:00+00:00"
   },
   {
+   "id": "16b483d386",
+   "league": "NWSL",
+   "event": "North Carolina Courage @ Portland Thorns FC",
+   "prediction": "North Carolina Courage to beat Portland Thorns FC",
+   "kickoff_utc": "2026-10-24T02:00:00+00:00"
+  },
+  {
    "id": "7c2175a4bb",
    "league": "CFB",
    "event": "LSU Tigers @ Auburn Tigers",
    "prediction": "LSU Tigers to beat Auburn Tigers",
-   "kickoff_utc": "2026-10-24T16:00:00+00:00"
-  },
-  {
-   "id": "9dc8ff8423",
-   "league": "CFB",
-   "event": "California Golden Bears @ SMU Mustangs",
-   "prediction": "SMU Mustangs to beat California Golden Bears",
    "kickoff_utc": "2026-10-24T16:00:00+00:00"
   }
  ]

@@ -3952,5 +3952,18 @@
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-19T18:50:13.843233+00:00"
+ },
+ {
+  "id": "16b483d386",
+  "event_id": "401854029",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Portland Thorns FC",
+  "away": "North Carolina Courage",
+  "pick_team": "North Carolina Courage",
+  "prediction": "North Carolina Courage to beat Portland Thorns FC",
+  "kickoff_utc": "2026-10-24T02:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-20T04:51:55.958250+00:00"
  }
 ]
