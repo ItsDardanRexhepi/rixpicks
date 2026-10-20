@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-20T00:50:02.382293+00:00",
+ "generated_at": "2026-10-20T01:05:01.393744+00:00",
  "items": [
-  {
-   "id": "fd54ce8b75",
-   "league": "NHL",
-   "event": "Pittsburgh Penguins @ Utah Mammoth",
-   "prediction": "Pittsburgh Penguins to beat Utah Mammoth",
-   "kickoff_utc": "2026-10-20T01:00:00+00:00"
-  },
   {
    "id": "42c33b5bde",
    "league": "NBA",
@@ -41,6 +34,13 @@
    "league": "CFB",
    "event": "LSU Tigers @ Auburn Tigers",
    "prediction": "LSU Tigers to beat Auburn Tigers",
+   "kickoff_utc": "2026-10-24T16:00:00+00:00"
+  },
+  {
+   "id": "9dc8ff8423",
+   "league": "CFB",
+   "event": "California Golden Bears @ SMU Mustangs",
+   "prediction": "SMU Mustangs to beat California Golden Bears",
    "kickoff_utc": "2026-10-24T16:00:00+00:00"
   }
  ]
