@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T03:05:17.508796+00:00",
+ "generated_at": "2026-10-21T03:20:15.184477+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -23,9 +23,9 @@
      "matchup": "OKC @ SA",
      "commence": "2026-10-21T01:50Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "OKC 65 - SA 44",
-     "away_to": 6,
+     "detail": "8:59 - 3rd",
+     "score": "OKC 68 - SA 53",
+     "away_to": 5,
      "home_to": 5
     }
    ]
@@ -54,7 +54,7 @@
      "matchup": "MIN @ EDM",
      "commence": "2026-10-21T01:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "13:20 - 3rd",
      "score": "MIN 1 - EDM 3",
      "away_to": null,
      "home_to": null
@@ -64,8 +64,8 @@
      "matchup": "DET @ SEA",
      "commence": "2026-10-21T01:40Z",
      "status": "in",
-     "detail": "9:28 - 2nd",
-     "score": "DET 0 - SEA 2",
+     "detail": "2:17 - 2nd",
+     "score": "DET 0 - SEA 3",
      "away_to": null,
      "home_to": null
     },
@@ -74,8 +74,8 @@
      "matchup": "CAR @ VAN",
      "commence": "2026-10-21T02:00Z",
      "status": "in",
-     "detail": "19:56 - 2nd",
-     "score": "CAR 2 - VAN 2",
+     "detail": "12:58 - 2nd",
+     "score": "CAR 3 - VAN 2",
      "away_to": null,
      "home_to": null
     },
@@ -84,8 +84,8 @@
      "matchup": "TB @ VGK",
      "commence": "2026-10-21T02:45Z",
      "status": "in",
-     "detail": "10:11 - 1st",
-     "score": "TB 1 - VGK 0",
+     "detail": "2:54 - 1st",
+     "score": "TB 2 - VGK 1",
      "away_to": null,
      "home_to": null
     }
