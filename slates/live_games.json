@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T03:35:17.218489+00:00",
+ "generated_at": "2026-10-21T03:50:05.560745+00:00",
  "leagues": [
   {
    "league": "NBA",
@@ -10,10 +10,10 @@
      "matchup": "OKC @ SA",
      "commence": "2026-10-21T01:50Z",
      "status": "in",
-     "detail": "3:53 - 3rd",
-     "score": "OKC 84 - SA 70",
+     "detail": "End of 3rd",
+     "score": "OKC 93 - SA 80",
      "away_to": 4,
-     "home_to": 5
+     "home_to": 4
     }
    ]
   },
@@ -41,7 +41,7 @@
      "matchup": "MIN @ EDM",
      "commence": "2026-10-21T01:00Z",
      "status": "in",
-     "detail": "5:12 - 3rd",
+     "detail": "3:24 - OT",
      "score": "MIN 3 - EDM 3",
      "away_to": null,
      "home_to": null
@@ -51,7 +51,7 @@
      "matchup": "DET @ SEA",
      "commence": "2026-10-21T01:40Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "14:50 - 3rd",
      "score": "DET 0 - SEA 3",
      "away_to": null,
      "home_to": null
@@ -61,7 +61,7 @@
      "matchup": "CAR @ VAN",
      "commence": "2026-10-21T02:00Z",
      "status": "in",
-     "detail": "4:40 - 2nd",
+     "detail": "End of 2nd",
      "score": "CAR 3 - VAN 2",
      "away_to": null,
      "home_to": null
@@ -71,7 +71,7 @@
      "matchup": "TB @ VGK",
      "commence": "2026-10-21T02:45Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "17:41 - 2nd",
      "score": "TB 2 - VGK 2",
      "away_to": null,
      "home_to": null
