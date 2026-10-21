@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T22:26:38.939511+00:00",
+ "generated_at": "2026-10-21T22:35:04.321099+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -86,6 +86,14 @@
      "status": "pre",
      "detail": "10/21 - 5:00 PM PT",
      "score": "IND 0 - NO 0"
+    },
+    {
+     "espn_event_id": "401909840",
+     "matchup": "DAL @ HOU",
+     "commence": "2026-10-22T00:30Z",
+     "status": "pre",
+     "detail": "10/21 - 5:30 PM PT",
+     "score": "DAL 0 - HOU 0"
     }
    ]
   },
