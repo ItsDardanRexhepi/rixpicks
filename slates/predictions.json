@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-21T01:50:01.800501+00:00",
+ "generated_at": "2026-10-21T02:05:00.202688+00:00",
  "items": [
-  {
-   "id": "69b0842d55",
-   "league": "NHL",
-   "event": "Carolina Hurricanes @ Vancouver Canucks",
-   "prediction": "Carolina Hurricanes to beat Vancouver Canucks",
-   "kickoff_utc": "2026-10-21T02:00:00+00:00"
-  },
   {
    "id": "d7b715050d",
    "league": "NHL",
@@ -42,6 +35,13 @@
    "event": "Tampa Bay Rays @ Milwaukee Brewers",
    "prediction": "Milwaukee Brewers to beat Tampa Bay Rays",
    "kickoff_utc": "2026-10-24T00:00:00+00:00"
+  },
+  {
+   "id": "a01a971eb7",
+   "league": "NWSL",
+   "event": "Seattle Reign FC @ Utah Royals",
+   "prediction": "Seattle Reign FC to beat Utah Royals",
+   "kickoff_utc": "2026-10-24T01:30:00+00:00"
   }
  ]
 }
