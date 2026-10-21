@@ -4016,8 +4016,9 @@
   "pick_team": "Colorado Avalanche",
   "prediction": "Colorado Avalanche to beat New Jersey Devils",
   "kickoff_utc": "2026-10-20T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-20T16:20:37.301230+00:00"
+  "status": "miss",
+  "created_at": "2026-10-20T16:20:37.301230+00:00",
+  "settled_at": "2026-10-21T01:50:00.399851+00:00"
  },
  {
   "id": "6d2cd0c80e",
@@ -4042,8 +4043,9 @@
   "pick_team": "Washington Capitals",
   "prediction": "Washington Capitals to beat Los Angeles Kings",
   "kickoff_utc": "2026-10-20T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-20T16:51:13.079932+00:00"
+  "status": "miss",
+  "created_at": "2026-10-20T16:51:13.079932+00:00",
+  "settled_at": "2026-10-21T01:50:00.442049+00:00"
  },
  {
   "id": "6492fe188e",
@@ -4055,8 +4057,9 @@
   "pick_team": "Toronto Maple Leafs",
   "prediction": "Toronto Maple Leafs to beat Columbus Blue Jackets",
   "kickoff_utc": "2026-10-20T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-20T16:51:17.753908+00:00"
+  "status": "hit",
+  "created_at": "2026-10-20T16:51:17.753908+00:00",
+  "settled_at": "2026-10-21T01:50:00.511755+00:00"
  },
  {
   "id": "d47b570cc4",
