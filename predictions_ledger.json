@@ -4327,5 +4327,18 @@
   "kickoff_utc": "2026-10-21T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-21T15:29:10.344937+00:00"
+ },
+ {
+  "id": "0adcdb06b0",
+  "event_id": "401909092",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Los Angeles Lakers",
+  "away": "Golden State Warriors",
+  "pick_team": "Golden State Warriors",
+  "prediction": "Golden State Warriors to beat Los Angeles Lakers",
+  "kickoff_utc": "2026-10-22T02:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-21T16:37:59.394741+00:00"
  }
 ]
