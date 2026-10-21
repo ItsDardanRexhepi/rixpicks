@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T02:05:14.997882+00:00",
+ "generated_at": "2026-10-21T02:20:14.927077+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,8 +10,8 @@
      "matchup": "MTSU @ FIU",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "10:26 - 4th",
-     "score": "MTSU 26 - FIU 16",
+     "detail": "3:00 - 4th",
+     "score": "MTSU 26 - FIU 23",
      "away_to": 0,
      "home_to": 0
     },
@@ -20,17 +20,17 @@
      "matchup": "MOST @ DEL",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "9:25 - 4th",
-     "score": "MOST 35 - DEL 58",
+     "detail": "3:27 - 4th",
+     "score": "MOST 38 - DEL 61",
      "away_to": 2,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401871092",
      "matchup": "USA @ MRSH",
      "commence": "2026-10-20T23:30Z",
      "status": "in",
-     "detail": "2:18 - 3rd",
+     "detail": "10:38 - 4th",
      "score": "USA 6 - MRSH 13",
      "away_to": 0,
      "home_to": 0
@@ -53,9 +53,9 @@
      "matchup": "OKC @ SA",
      "commence": "2026-10-21T01:50Z",
      "status": "in",
-     "detail": "5:58 - 1st",
-     "score": "OKC 13 - SA 11",
-     "away_to": 7,
+     "detail": "End of 1st",
+     "score": "OKC 34 - SA 28",
+     "away_to": 6,
      "home_to": 7
     }
    ]
@@ -108,8 +108,8 @@
      "matchup": "WPG @ STL",
      "commence": "2026-10-21T00:00Z",
      "status": "in",
-     "detail": "13:20 - 3rd",
-     "score": "WPG 1 - STL 1",
+     "detail": "6:50 - 3rd",
+     "score": "WPG 1 - STL 2",
      "away_to": null,
      "home_to": null
     },
@@ -118,7 +118,7 @@
      "matchup": "BOS @ DAL",
      "commence": "2026-10-21T00:00Z",
      "status": "in",
-     "detail": "17:43 - 3rd",
+     "detail": "9:24 - 3rd",
      "score": "BOS 2 - DAL 1",
      "away_to": null,
      "home_to": null
@@ -128,8 +128,8 @@
      "matchup": "MIN @ EDM",
      "commence": "2026-10-21T01:00Z",
      "status": "in",
-     "detail": "End of 1st",
-     "score": "MIN 1 - EDM 1",
+     "detail": "14:18 - 2nd",
+     "score": "MIN 1 - EDM 2",
      "away_to": null,
      "home_to": null
     },
@@ -138,8 +138,18 @@
      "matchup": "DET @ SEA",
      "commence": "2026-10-21T01:40Z",
      "status": "in",
-     "detail": "12:14 - 1st",
+     "detail": "5:17 - 1st",
      "score": "DET 0 - SEA 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892548",
+     "matchup": "CAR @ VAN",
+     "commence": "2026-10-21T02:00Z",
+     "status": "in",
+     "detail": "13:24 - 1st",
+     "score": "CAR 1 - VAN 0",
      "away_to": null,
      "home_to": null
     },
