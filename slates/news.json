@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-21T20:15:50.914Z",
+ "generated_at": "2026-10-21T20:20:59.280Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -95,12 +95,21 @@
   ],
   "football/nfl": [
    {
-    "headline": "Saleh defends ex-Titan Elliott, says gun incident was not 'criminal act'",
-    "link": "https://www.espn.com/nfl/story/_/id/50238315/source-jordan-elliott-attempted-retrieve-gun-car",
-    "published": "2026-10-21T21:07:50.000Z",
+    "headline": "'An elite player in this league': Lions hoping Branch return will transform defense",
+    "link": "https://www.espn.com/nfl/story/_/id/50232574/lions-brian-branch-injury-return-cade-mays-packers",
+    "published": "2026-10-21T21:15:57.000Z",
     "image": "",
-    "blurb": "Titans coach Robert Saleh defended Jordan Elliott's character and said that last week's gun-related incident was \"a call for help more than a criminal act.\"",
+    "blurb": "The Lions will have both Branch and center Cade Mays for Sunday's game against the Green Bay Packers.",
     "source": "ESPN",
+    "league": "NFL"
+   },
+   {
+    "headline": "Giants plan to start JJ McCarthy vs. Texans in Week 7",
+    "link": "https://www.cbssports.com/nfl/news/giants-plan-to-start-jj-mccarthy-vs-texans-in-week-7-per-report/",
+    "published": "2026-10-21T20:18:06.000Z",
+    "image": "",
+    "blurb": "McCarthy is set to make his first career start for Big Blue",
+    "source": "CBS",
     "league": "NFL"
    },
    {
@@ -113,21 +122,21 @@
     "league": "NFL"
    },
    {
-    "headline": "Jonathan Taylor mock trades: How Giants, Bengals could target Colts star RB after Chris Ballard's firing",
-    "link": "https://www.cbssports.com/nfl/news/jonathan-taylor-trade-destinations-colts-rb/",
-    "published": "2026-10-21T19:11:46.000Z",
+    "headline": "Saleh defends ex-Titan Elliott, says gun incident was not 'criminal act'",
+    "link": "https://www.espn.com/nfl/story/_/id/50238315/source-jordan-elliott-attempted-retrieve-gun-car",
+    "published": "2026-10-21T21:07:50.000Z",
     "image": "",
-    "blurb": "The Colts need to replenish their draft assets, and dealing their three-time Pro Bowl running back could produce a significant return",
-    "source": "CBS",
+    "blurb": "Titans coach Robert Saleh defended Jordan Elliott's character and said that last week's gun-related incident was \"a call for help more than a criminal act.\"",
+    "source": "ESPN",
     "league": "NFL"
    },
    {
-    "headline": "Goodell: NFL welcomes investigation into Eagles QB Hurts' medical care",
-    "link": "https://www.espn.com/nfl/story/_/id/50239029/roger-goodell-nfl-welcomes-probe-hurts-medical-care",
-    "published": "2026-10-21T21:07:50.000Z",
+    "headline": "Agent's Take: Chris Ballard's Colts tenure might look much different had he made this blockbuster trade",
+    "link": "https://www.cbssports.com/nfl/news/agents-take-chris-ballards-colts-tenure-matthew-stafford-trade/",
+    "published": "2026-10-21T19:51:48.000Z",
     "image": "",
-    "blurb": "NFL commissioner Roger Goodell said Wednesday that the league welcomes an investigation into the Eagles' handling of Jalen Hurts' blood clots.",
-    "source": "ESPN",
+    "blurb": "Indianapolis was among Stafford's preferred destinations in 2021, but Ballard chose a different path and never solved the franchise's quarterback problem",
+    "source": "CBS",
     "league": "NFL"
    },
    {
@@ -140,12 +149,30 @@
     "league": "NFL"
    },
    {
-    "headline": "Quenton Nelson trade destinations: Five contenders that should call as Colts begin rebuild",
-    "link": "https://www.cbssports.com/nfl/news/quenton-nelson-trade-destinations-landing-spots-colts/",
-    "published": "2026-10-21T18:54:33.000Z",
+    "headline": "Goodell: NFL welcomes investigation into Eagles QB Hurts' medical care",
+    "link": "https://www.espn.com/nfl/story/_/id/50239029/roger-goodell-nfl-welcomes-probe-hurts-medical-care",
+    "published": "2026-10-21T21:07:50.000Z",
     "image": "",
-    "blurb": "Nelson is Pro Football Focus' highest-graded guard in 2026, and he is a pending free agent whose general manager just got fired",
+    "blurb": "NFL commissioner Roger Goodell said Wednesday that the league welcomes an investigation into the Eagles' handling of Jalen Hurts' blood clots.",
+    "source": "ESPN",
+    "league": "NFL"
+   },
+   {
+    "headline": "Jonathan Taylor mock trades: How Giants, Bengals could target Colts star RB after Chris Ballard's firing",
+    "link": "https://www.cbssports.com/nfl/news/jonathan-taylor-trade-destinations-colts-rb/",
+    "published": "2026-10-21T19:11:46.000Z",
+    "image": "",
+    "blurb": "The Colts need to replenish their draft assets, and dealing their three-time Pro Bowl running back could produce a significant return",
     "source": "CBS",
+    "league": "NFL"
+   },
+   {
+    "headline": "Patriots at Bears Q&A: The Battle of 2024 QB Supremacy",
+    "link": "https://sports.yahoo.com/articles/patriots-bears-q-battle-2024-200000784.html",
+    "published": "2026-10-21T20:00:00.000Z",
+    "image": "",
+    "blurb": "The Chicago Bears welcome the New England Patriots on Thursday. We sat down with Pats Pulpit (SB Nation\u2019s Patriots site) to get you set for the matchup.",
+    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -154,33 +181,6 @@
     "published": "2026-10-21T21:07:50.000Z",
     "image": "",
     "blurb": "The Giants plan to start J.J. McCarthy at quarterback this week against the Texans.",
-    "source": "ESPN",
-    "league": "NFL"
-   },
-   {
-    "headline": "Nick Bosa, Mike Evans won't practice on Wednesday",
-    "link": "https://sports.yahoo.com/articles/nick-bosa-mike-evans-wont-195958112.html",
-    "published": "2026-10-21T19:59:58.000Z",
-    "image": "",
-    "blurb": "49ers defensive end Nick Bosa will miss another practice on Wednesday.",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "2026 NFL Quarterback Power Rankings, Week 7: Brock Purdy holds No. 1 as Josh Allen rises",
-    "link": "https://www.cbssports.com/nfl/news/2026-nfl-qb-power-rankings-week-7-brock-purdy-josh-allen/",
-    "published": "2026-10-21T18:10:06.000Z",
-    "image": "",
-    "blurb": "Brock Purdy keeps the top spot, Patrick Mahomes out of the top three and a resurgent C.J. Stroud makes the week's biggest leap",
-    "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "TE LaPorta: Will 'go get paid somewhere else' if no Lions deal",
-    "link": "https://www.espn.com/nfl/story/_/id/50240100/sam-laporta-extension-not-feeling-love-lions",
-    "published": "2026-10-21T21:07:50.000Z",
-    "image": "",
-    "blurb": "Tight end Sam LaPorta, who will be a free agent after the season, expressed some frustration that the Lions are \"not showing the love\" and indicated he would be OK with playing elsewhere in 2027.",
     "source": "ESPN",
     "league": "NFL"
    }
@@ -196,11 +196,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Wildcats win in shootout against Texas A&M-Kingsville",
-    "link": "https://sports.yahoo.com/articles/wildcats-win-shootout-against-texas-195100225.html",
-    "published": "2026-10-21T19:51:00.000Z",
-    "image": "",
-    "blurb": "Oct. 21\u2014KINGSVILLE, Texas \u2014 The Central Washington University Wildcats (5-2) travelled south over the weekend for an offensive matchup against the Texas A&M-Kingsville Javelinas where they won 52-49. With this victory, the Wildcats remain undefeated in conference play. \"I'm happy",
+    "headline": "Maryland football hot board: 4 coaches who could replace Mike Locksley",
+    "link": "https://sports.yahoo.com/articles/maryland-football-hot-board-4-201002007.html",
+    "published": "2026-10-21T20:10:02.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/4fccb3ce62aa1551622a3f70044f4e922803715d8e04931e4fdb4468ec03ac50/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2Fa2cca327a4936f14321e41b207d07c42.jpg",
+    "blurb": "Maryland will have to search for its replacement and there are some good options.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -223,11 +223,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Michigan Football Flips Toledo Recruit",
-    "link": "https://sports.yahoo.com/articles/michigan-football-flips-toledo-recruit-195000757.html",
-    "published": "2026-10-21T19:50:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/d7e819295dd07323c4b7b48c35dda964083ff2ca87cc7fae557a3c20a13828c1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fdetroit_sports_nation_articles_492%2F2d9dfdb13ef96a12508f952f00d43421.jpg",
-    "blurb": "With its passing game ranked near the bottom of FBS, Michigan just flipped a receiver from Toledo. #GoBlue",
+    "headline": "Oklahoma State coach makes bold claim about Colorado ahead of game",
+    "link": "https://sports.yahoo.com/articles/oklahoma-state-coach-makes-bold-200145050.html",
+    "published": "2026-10-21T20:01:45.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/5d3326735e0a4cc7a4bfd871618aa5b8a7896c408dcd63d8485c3fb8eef28d54/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbuffaloes_wire_usa_today_articles_968%2Ffcac3fab9a91d73ef6ea727c515f8b67.jpg",
+    "blurb": "Oklahoma State head coach Eric Morris paid a major compliment to Coach Prime's Colorado team ahead of the two programs' Week 8 matchup. Is he right?",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Student reports say Maryland called police for removal after Mike Locksley firing",
-    "link": "https://sports.yahoo.com/articles/student-reports-maryland-called-police-194846629.html",
-    "published": "2026-10-21T19:48:46.000Z",
+    "headline": "Wildcats win in shootout against Texas A&M-Kingsville",
+    "link": "https://sports.yahoo.com/articles/wildcats-win-shootout-against-texas-195100225.html",
+    "published": "2026-10-21T19:51:00.000Z",
     "image": "",
-    "blurb": "Maryland reportedly had two student journalists removed from standing outside the football facility attempting to speak with players after Mike Locksley's hiring.",
+    "blurb": "Oct. 21\u2014KINGSVILLE, Texas \u2014 The Central Washington University Wildcats (5-2) travelled south over the weekend for an offensive matchup against the Texas A&M-Kingsville Javelinas where they won 52-49. With this victory, the Wildcats remain undefeated in conference play. \"I'm happy",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -371,11 +371,11 @@
   ],
   "basketball/nba": [
    {
-    "headline": "Sources: Warriors exploring options to trade center Porzingis",
-    "link": "https://www.espn.com/nba/story/_/id/50239169/sources-warriors-exploring-trade-options-kristaps-porzingis",
-    "published": "2026-10-21T20:10:41.000Z",
+    "headline": "The five biggest questions still facing Luka Doncic and the Lakers",
+    "link": "https://www.espn.com/nba/story/_/id/50229178/luka-doncic-los-angeles-lakers-questions-nba-season",
+    "published": "2026-10-21T21:14:37.000Z",
     "image": "",
-    "blurb": "The Warriors have begun exploring trade routes for veteran center Kristaps Porzingis, who remains out indefinitely as he deals with a private health issue, league sources told ESPN's Shams Charania.",
+    "blurb": "After a transformative offseason on the floor and off, there are still massive unanswered questions for this Lakers team.",
     "source": "ESPN",
     "league": "NBA"
    },
@@ -398,11 +398,11 @@
     "league": "NBA"
    },
    {
-    "headline": "LeBron moonlights at center, helps limit Towns in winning debut for Sixers",
-    "link": "https://www.espn.com/nba/story/_/id/50234172/76ers-knicks-lebron-james-debut-championship-night",
+    "headline": "Sources: Warriors exploring options to trade center Porzingis",
+    "link": "https://www.espn.com/nba/story/_/id/50239169/sources-warriors-exploring-trade-options-kristaps-porzingis",
     "published": "2026-10-21T20:10:41.000Z",
     "image": "",
-    "blurb": "LeBron James opened his 24th season with 14 points, nine rebounds and seven assists and even had a defensive impact as a center in his Sixers debut.",
+    "blurb": "The Warriors have begun exploring trade routes for veteran center Kristaps Porzingis, who remains out indefinitely as he deals with a private health issue, league sources told ESPN's Shams Charania.",
     "source": "ESPN",
     "league": "NBA"
    },
@@ -425,11 +425,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Don\u010di\u0107, in full-page ad, says Lakers title run starts now, asks for fan support",
-    "link": "https://www.espn.com/nba/story/_/id/50238836/luka-don\u010di\u0107-asks-lakers-fans-support-special-team",
+    "headline": "LeBron moonlights at center, helps limit Towns in winning debut for Sixers",
+    "link": "https://www.espn.com/nba/story/_/id/50234172/76ers-knicks-lebron-james-debut-championship-night",
     "published": "2026-10-21T20:10:41.000Z",
     "image": "",
-    "blurb": "Lakers star Luka Don\u010di\u0107 took out a full-page advertisement in the Los Angeles Times, addressing the city and saying \"tonight we start our run for a championship.\"",
+    "blurb": "LeBron James opened his 24th season with 14 points, nine rebounds and seven assists and even had a defensive impact as a center in his Sixers debut.",
     "source": "ESPN",
     "league": "NBA"
    },
@@ -452,16 +452,25 @@
     "league": "NBA"
    },
    {
-    "headline": "Thunder have Holmgren's back -- in scuffle, and in wake of redemptive season opener",
-    "link": "https://www.espn.com/nba/story/_/id/50235276/thunder-win-chippy-opener-vs-spurs-back-chet-holmgren",
+    "headline": "Don\u010di\u0107, in full-page ad, says Lakers title run starts now, asks for fan support",
+    "link": "https://www.espn.com/nba/story/_/id/50238836/luka-don\u010di\u0107-asks-lakers-fans-support-special-team",
     "published": "2026-10-21T20:10:41.000Z",
     "image": "",
-    "blurb": "The scrap early in the second quarter of Tuesday night's season opener offered some symbolism for Chet Holmgren and his Thunder teammates. Holmgren landed with a thud. As he got back to his feet, his teammates had his back.",
+    "blurb": "Lakers star Luka Don\u010di\u0107 took out a full-page advertisement in the Los Angeles Times, addressing the city and saying \"tonight we start our run for a championship.\"",
     "source": "ESPN",
     "league": "NBA"
    }
   ],
   "hockey/nhl": [
+   {
+    "headline": "Today's top games to watch, best bets, odds: Timberwolves vs. Heat, NHL action and more",
+    "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-timberwolves-vs-heat-nhl-action-and-more/",
+    "published": "2026-10-21T19:38:28.000Z",
+    "image": "",
+    "blurb": "Find best bets for the biggest games in sports on Wednesday from the SportsLine Projection Model and top CBS Sports experts",
+    "source": "CBS",
+    "league": "NHL"
+   },
    {
     "headline": "Canadiens Have A Big Event Looming And A Big Decision To Make",
     "link": "https://sports.yahoo.com/articles/canadiens-big-event-looming-big-193024308.html",
@@ -542,24 +551,15 @@
     "blurb": "Find best bets for the biggest games in sports on Monday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
     "league": "NHL"
-   },
-   {
-    "headline": "Flames Call-Up Ben Jones Brings Hot Hand From Wranglers",
-    "link": "https://sports.yahoo.com/articles/flames-call-ben-jones-brings-183530236.html",
-    "published": "2026-10-21T18:35:30.000Z",
-    "image": "",
-    "blurb": "Ben Jones is ready to make his season debut with the Calgary Flames, and he couldn\u2019t have picked a much better time to get rolling.",
-    "source": "YAHOO",
-    "league": "NHL"
    }
   ],
   "basketball/mens-college-basketball": [
    {
-    "headline": "Arizona's Lloyd fumes over fifth-year F Godfrey's eligibility limbo",
-    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50240477/arizona-lloyd-fumes-fifth-year-f-rj-godfrey-eligibility-limbo",
-    "published": "2026-10-21T20:40:53.000Z",
+    "headline": "Former athletes, ex-sportsbook trader charged in hoops fixing plot",
+    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50238076/steven-vasquez-mykell-robinson-matthew-martin-charges-prop-bet-fixing",
+    "published": "2026-10-21T21:17:30.000Z",
     "image": "",
-    "blurb": "Arizona men's basketball coach Tommy Lloyd pleaded for an explanation why fifth-year forward RJ Godfrey remains in eligibility limbo.",
+    "blurb": "Two former college basketball players and an ex-sportsbook employee face felony charges stemming from an alleged prop bet-fixing scheme, according to Nevada court documents.",
     "source": "ESPN",
     "league": "NCAAB"
    },
@@ -582,12 +582,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Arizona's Lloyd fumes over fifth-year F RJ Godfrey's eligibility limbo",
+    "headline": "Arizona's Lloyd fumes over fifth-year F Godfrey's eligibility limbo",
     "link": "https://www.espn.com/mens-college-basketball/story/_/id/50240477/arizona-lloyd-fumes-fifth-year-f-rj-godfrey-eligibility-limbo",
-    "published": "2026-10-21T19:40:53Z",
-    "source": "ESPN",
+    "published": "2026-10-21T20:40:53.000Z",
     "image": "",
     "blurb": "Arizona men's basketball coach Tommy Lloyd pleaded for an explanation why fifth-year forward RJ Godfrey remains in eligibility limbo.",
+    "source": "ESPN",
     "league": "NCAAB"
    },
    {
@@ -609,12 +609,12 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Spartans' Fears, Gators' Haugh near-unanimous picks as preseason All-Americans",
-    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50239522/spartans-fears-gators-haugh-top-ap-preseason-all-americans",
-    "published": "2026-10-21T18:42:59.000Z",
-    "image": "",
-    "blurb": "Florida's Thomas Haugh and Michigan State's Jeremy Fears Jr. returned to make their teams among the front-runners to cut down the nets next spring and earned them preseason All-America honors from The Associated Press.",
+    "headline": "Arizona's Lloyd fumes over fifth-year F RJ Godfrey's eligibility limbo",
+    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50240477/arizona-lloyd-fumes-fifth-year-f-rj-godfrey-eligibility-limbo",
+    "published": "2026-10-21T19:40:53Z",
     "source": "ESPN",
+    "image": "",
+    "blurb": "Arizona men's basketball coach Tommy Lloyd pleaded for an explanation why fifth-year forward RJ Godfrey remains in eligibility limbo.",
     "league": "NCAAB"
    },
    {
@@ -636,11 +636,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Burgers over bucks? Top hoops recruits aren't rushing past McDonald's All American Game",
-    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50222469/mcdonalds-all-american-college-basketball-nil",
-    "published": "2026-10-21T16:50:17.000Z",
+    "headline": "Spartans' Fears, Gators' Haugh near-unanimous picks as preseason All-Americans",
+    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50239522/spartans-fears-gators-haugh-top-ap-preseason-all-americans",
+    "published": "2026-10-21T18:42:59.000Z",
     "image": "",
-    "blurb": "For Beckham Black and other top recruits, chasing McDonald's All American honors outweighs the lure of an early college jump.",
+    "blurb": "Florida's Thomas Haugh and Michigan State's Jeremy Fears Jr. returned to make their teams among the front-runners to cut down the nets next spring and earned them preseason All-America honors from The Associated Press.",
     "source": "ESPN",
     "league": "NCAAB"
    }
@@ -669,11 +669,11 @@
   ],
   "golf/pga": [
    {
-    "headline": "Bryson DeChambeau\u2019s LIV Golf Future Takes Major Turn Amid League Crisis",
-    "link": "https://sports.yahoo.com/articles/bryson-dechambeau-liv-golf-future-193310756.html",
-    "published": "2026-10-21T19:33:10.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/261ba27c9e8e74b82f9926171e9107c643bc2502b09b079da96af4c05ce83ec4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2F0c550e7c500fa17dc6baf61a25d8c8d2.jpg",
-    "blurb": "LIV Golf has received a potentially massive boost in its fight for survival.Two-time major champion Bryson DeChambeau remains committed to helping the struggling league launch its proposed LIV 2.0 competition in 2027.According to ESPN\u2019s October 21 report, sources say DeChambeau i",
+    "headline": "Louis Oosthuizen leaving LIV Golf, will return to DP World Tour in 2027",
+    "link": "https://sports.yahoo.com/golf/article/louis-oosthuizen-leaving-liv-golf-will-return-to-dp-world-tour-in-2027-201532073.html",
+    "published": "2026-10-21T20:15:32.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/e26e56e0fe240ffa02a5073f6716c0798538181f18b47c39007c480b801feee5/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F0b6d8763-1969-4297-83ab-1779cfc05d83",
+    "blurb": "Another big name has opted to leave LIV Golf as the league attempts to find a path forward without Saudi Arabian-funding.",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -696,11 +696,11 @@
     "league": "PGA"
    },
    {
-    "headline": "Louis Oosthuizen Leaves LIV Golf Ahead Of Sunday Deadline",
-    "link": "https://sports.yahoo.com/articles/louis-oosthuizen-leaves-liv-golf-190225061.html",
-    "published": "2026-10-21T19:02:25.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/d1899ecc46e965bbf7f0b00d8b8a0bb043720fbe3a7dc3ea7d7e44497b2e4f5d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fgolfer_insight_356%2Fa589627d8bc06f1829f86a71c10bd4ab.jpg",
-    "blurb": "Louis Oosthuizen exits LIV Golf days before the Sunday deadline, while the Korn Ferry Tour doubles PGA Tour cards for 2027.",
+    "headline": "Bryson DeChambeau\u2019s LIV Golf Future Takes Major Turn Amid League Crisis",
+    "link": "https://sports.yahoo.com/articles/bryson-dechambeau-liv-golf-future-193310756.html",
+    "published": "2026-10-21T19:33:10.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/261ba27c9e8e74b82f9926171e9107c643bc2502b09b079da96af4c05ce83ec4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2F0c550e7c500fa17dc6baf61a25d8c8d2.jpg",
+    "blurb": "LIV Golf has received a potentially massive boost in its fight for survival.Two-time major champion Bryson DeChambeau remains committed to helping the struggling league launch its proposed LIV 2.0 competition in 2027.According to ESPN\u2019s October 21 report, sources say DeChambeau i",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -723,11 +723,11 @@
     "league": "PGA"
    },
    {
-    "headline": "Golf course in Portugal launches on-course food and drink drone delivery service",
-    "link": "https://sports.yahoo.com/articles/golf-course-portugal-launches-course-180100629.html",
-    "published": "2026-10-21T18:01:00.000Z",
+    "headline": "Louis Oosthuizen Leaves LIV Golf Ahead Of Sunday Deadline",
+    "link": "https://sports.yahoo.com/articles/louis-oosthuizen-leaves-liv-golf-190225061.html",
+    "published": "2026-10-21T19:02:25.000Z",
     "image": "",
-    "blurb": "Portugal is a burgeoning golf market. And it's also one of the most innovative.",
+    "blurb": "Louis Oosthuizen exits LIV Golf days before the Sunday deadline, while the Korn Ferry Tour doubles PGA Tour cards for 2027.",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -750,11 +750,11 @@
     "league": "PGA"
    },
    {
-    "headline": "Korn Ferry Tour Doubles PGA Tour Cards In Major 2027 Shakeup",
-    "link": "https://sports.yahoo.com/articles/korn-ferry-tour-doubles-pga-170040609.html",
-    "published": "2026-10-21T17:00:40.000Z",
+    "headline": "Golf course in Portugal launches on-course food and drink drone delivery service",
+    "link": "https://sports.yahoo.com/articles/golf-course-portugal-launches-course-180100629.html",
+    "published": "2026-10-21T18:01:00.000Z",
     "image": "",
-    "blurb": "The Korn Ferry Tour's 2027 season will award 40 PGA Tour cards across a 25-event schedule, with a new promotion system raising the stakes for golf's rising stars.",
+    "blurb": "Portugal is a burgeoning golf market. And it's also one of the most innovative.",
     "source": "YAHOO",
     "league": "PGA"
    }
@@ -831,7 +831,7 @@
     "headline": "NASCAR explains why they penalized Zane Smith after latest clash with Carson Hocevar",
     "link": "https://sports.yahoo.com/articles/nascar-explains-why-penalized-zane-164429612.html",
     "published": "2026-10-21T16:44:29.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/dae8fc9834f4e15934411def82bd7fdf7bf4a0f3428ee24aca032a8c6cab80ff/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2F5f58436d722a9ca53c7c3e885d70a7a9.jpg",
+    "image": "",
     "blurb": "Essentially, NASCAR already warned Smith and Hocevar after a run-in this past summer, so they took a harsher approach this time around",
     "source": "YAHOO",
     "league": "NASCAR"
@@ -1069,20 +1069,38 @@
  },
  "latest": [
   {
+   "headline": "Former athletes, ex-sportsbook trader charged in hoops fixing plot",
+   "link": "https://www.espn.com/mens-college-basketball/story/_/id/50238076/steven-vasquez-mykell-robinson-matthew-martin-charges-prop-bet-fixing",
+   "published": "2026-10-21T21:17:30.000Z",
+   "image": "",
+   "blurb": "Two former college basketball players and an ex-sportsbook employee face felony charges stemming from an alleged prop bet-fixing scheme, according to Nevada court documents.",
+   "source": "ESPN",
+   "league": "NCAAB"
+  },
+  {
+   "headline": "'An elite player in this league': Lions hoping Branch return will transform defense",
+   "link": "https://www.espn.com/nfl/story/_/id/50232574/lions-brian-branch-injury-return-cade-mays-packers",
+   "published": "2026-10-21T21:15:57.000Z",
+   "image": "",
+   "blurb": "The Lions will have both Branch and center Cade Mays for Sunday's game against the Green Bay Packers.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
+   "headline": "The five biggest questions still facing Luka Doncic and the Lakers",
+   "link": "https://www.espn.com/nba/story/_/id/50229178/luka-doncic-los-angeles-lakers-questions-nba-season",
+   "published": "2026-10-21T21:14:37.000Z",
+   "image": "",
+   "blurb": "After a transformative offseason on the floor and off, there are still massive unanswered questions for this Lakers team.",
+   "source": "ESPN",
+   "league": "NBA"
+  },
+  {
    "headline": "Saleh defends ex-Titan Elliott, says gun incident was not 'criminal act'",
    "link": "https://www.espn.com/nfl/story/_/id/50238315/source-jordan-elliott-attempted-retrieve-gun-car",
    "published": "2026-10-21T21:07:50.000Z",
    "image": "",
    "blurb": "Titans coach Robert Saleh defended Jordan Elliott's character and said that last week's gun-related incident was \"a call for help more than a criminal act.\"",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Goodell: NFL welcomes investigation into Eagles QB Hurts' medical care",
-   "link": "https://www.espn.com/nfl/story/_/id/50239029/roger-goodell-nfl-welcomes-probe-hurts-medical-care",
-   "published": "2026-10-21T21:07:50.000Z",
-   "image": "",
-   "blurb": "NFL commissioner Roger Goodell said Wednesday that the league welcomes an investigation into the Eagles' handling of Jalen Hurts' blood clots.",
    "source": "ESPN",
    "league": "NFL"
   },
@@ -1114,6 +1132,15 @@
    "league": "CFB"
   },
   {
+   "headline": "Giants plan to start JJ McCarthy vs. Texans in Week 7",
+   "link": "https://www.cbssports.com/nfl/news/giants-plan-to-start-jj-mccarthy-vs-texans-in-week-7-per-report/",
+   "published": "2026-10-21T20:18:06.000Z",
+   "image": "",
+   "blurb": "McCarthy is set to make his first career start for Big Blue",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
    "headline": "So many upsets, so many candidates for the Bottom 10",
    "link": "https://www.espn.com/college-football/story/_/id/50233851/bottom-10-week-7-upsets-texas",
    "published": "2026-10-21T20:17:05.000Z",
@@ -1121,6 +1148,15 @@
    "blurb": "From the Longhorns to the Dawgs, a bunch of top teams bottomed out in Week 7.",
    "source": "ESPN",
    "league": "CFB"
+  },
+  {
+   "headline": "Louis Oosthuizen leaving LIV Golf, will return to DP World Tour in 2027",
+   "link": "https://sports.yahoo.com/golf/article/louis-oosthuizen-leaving-liv-golf-will-return-to-dp-world-tour-in-2027-201532073.html",
+   "published": "2026-10-21T20:15:32.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/e26e56e0fe240ffa02a5073f6716c0798538181f18b47c39007c480b801feee5/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F0b6d8763-1969-4297-83ab-1779cfc05d83",
+   "blurb": "Another big name has opted to leave LIV Golf as the league attempts to find a path forward without Saudi Arabian-funding.",
+   "source": "YAHOO",
+   "league": "PGA"
   },
   {
    "headline": "Suzuki out as Angels manager after 100-loss season",
@@ -1141,13 +1177,13 @@
    "league": "NBA"
   },
   {
-   "headline": "LeBron moonlights at center, helps limit Towns in winning debut for Sixers",
-   "link": "https://www.espn.com/nba/story/_/id/50234172/76ers-knicks-lebron-james-debut-championship-night",
-   "published": "2026-10-21T20:10:41.000Z",
-   "image": "",
-   "blurb": "LeBron James opened his 24th season with 14 points, nine rebounds and seven assists and even had a defensive impact as a center in his Sixers debut.",
-   "source": "ESPN",
-   "league": "NBA"
+   "headline": "Maryland football hot board: 4 coaches who could replace Mike Locksley",
+   "link": "https://sports.yahoo.com/articles/maryland-football-hot-board-4-201002007.html",
+   "published": "2026-10-21T20:10:02.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/4fccb3ce62aa1551622a3f70044f4e922803715d8e04931e4fdb4468ec03ac50/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_big_lead_articles_114%2Fa2cca327a4936f14321e41b207d07c42.jpg",
+   "blurb": "Maryland will have to search for its replacement and there are some good options.",
+   "source": "YAHOO",
+   "league": "CFB"
   },
   {
    "headline": "No Nick Bosa for the 49ers; Kyle Shanahan is hopeful he returns on Thursday",
@@ -1186,6 +1222,15 @@
    "league": "NFL"
   },
   {
+   "headline": "Oklahoma State coach makes bold claim about Colorado ahead of game",
+   "link": "https://sports.yahoo.com/articles/oklahoma-state-coach-makes-bold-200145050.html",
+   "published": "2026-10-21T20:01:45.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/5d3326735e0a4cc7a4bfd871618aa5b8a7896c408dcd63d8485c3fb8eef28d54/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbuffaloes_wire_usa_today_articles_968%2Ffcac3fab9a91d73ef6ea727c515f8b67.jpg",
+   "blurb": "Oklahoma State head coach Eric Morris paid a major compliment to Coach Prime's Colorado team ahead of the two programs' Week 8 matchup. Is he right?",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
    "headline": "Happy Birthday George Bell",
    "link": "https://sports.yahoo.com/articles/happy-birthday-george-bell-200021718.html",
    "published": "2026-10-21T20:00:21.000Z",
@@ -1222,22 +1267,13 @@
    "league": "NCAAB"
   },
   {
-   "headline": "Wildcats win in shootout against Texas A&M-Kingsville",
-   "link": "https://sports.yahoo.com/articles/wildcats-win-shootout-against-texas-195100225.html",
-   "published": "2026-10-21T19:51:00.000Z",
+   "headline": "Agent's Take: Chris Ballard's Colts tenure might look much different had he made this blockbuster trade",
+   "link": "https://www.cbssports.com/nfl/news/agents-take-chris-ballards-colts-tenure-matthew-stafford-trade/",
+   "published": "2026-10-21T19:51:48.000Z",
    "image": "",
-   "blurb": "Oct. 21\u2014KINGSVILLE, Texas \u2014 The Central Washington University Wildcats (5-2) travelled south over the weekend for an offensive matchup against the Texas A&M-Kingsville Javelinas where they won 52-49. With this victory, the Wildcats remain undefeated in conference play. \"I'm happy",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
-   "headline": "Michigan Football Flips Toledo Recruit",
-   "link": "https://sports.yahoo.com/articles/michigan-football-flips-toledo-recruit-195000757.html",
-   "published": "2026-10-21T19:50:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/d7e819295dd07323c4b7b48c35dda964083ff2ca87cc7fae557a3c20a13828c1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fdetroit_sports_nation_articles_492%2F2d9dfdb13ef96a12508f952f00d43421.jpg",
-   "blurb": "With its passing game ranked near the bottom of FBS, Michigan just flipped a receiver from Toledo. #GoBlue",
-   "source": "YAHOO",
-   "league": "CFB"
+   "blurb": "Indianapolis was among Stafford's preferred destinations in 2021, but Ballard chose a different path and never solved the franchise's quarterback problem",
+   "source": "CBS",
+   "league": "NFL"
   },
   {
    "headline": "Golden State Warriors reportedly consider Kristaps Porzingis trade",
@@ -1249,13 +1285,13 @@
    "league": "NBA"
   },
   {
-   "headline": "Arizona's Lloyd fumes over fifth-year F RJ Godfrey's eligibility limbo",
-   "link": "https://www.espn.com/mens-college-basketball/story/_/id/50240477/arizona-lloyd-fumes-fifth-year-f-rj-godfrey-eligibility-limbo",
-   "published": "2026-10-21T19:40:53Z",
-   "source": "ESPN",
+   "headline": "Today's top games to watch, best bets, odds: Timberwolves vs. Heat, NHL action and more",
+   "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-timberwolves-vs-heat-nhl-action-and-more/",
+   "published": "2026-10-21T19:38:28.000Z",
    "image": "",
-   "blurb": "Arizona men's basketball coach Tommy Lloyd pleaded for an explanation why fifth-year forward RJ Godfrey remains in eligibility limbo.",
-   "league": "NCAAB"
+   "blurb": "Find best bets for the biggest games in sports on Wednesday from the SportsLine Projection Model and top CBS Sports experts",
+   "source": "CBS",
+   "league": "NHL"
   },
   {
    "headline": "2026 World Series odds, prediction: Full preview for Brewers vs. Rays in Fall Classic",
@@ -1312,24 +1348,6 @@
    "league": "CFB"
   },
   {
-   "headline": "Jonathan Taylor mock trades: How Giants, Bengals could target Colts star RB after Chris Ballard's firing",
-   "link": "https://www.cbssports.com/nfl/news/jonathan-taylor-trade-destinations-colts-rb/",
-   "published": "2026-10-21T19:11:46.000Z",
-   "image": "",
-   "blurb": "The Colts need to replenish their draft assets, and dealing their three-time Pro Bowl running back could produce a significant return",
-   "source": "CBS",
-   "league": "NFL"
-  },
-  {
-   "headline": "Louis Oosthuizen Leaves LIV Golf Ahead Of Sunday Deadline",
-   "link": "https://sports.yahoo.com/articles/louis-oosthuizen-leaves-liv-golf-190225061.html",
-   "published": "2026-10-21T19:02:25.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/d1899ecc46e965bbf7f0b00d8b8a0bb043720fbe3a7dc3ea7d7e44497b2e4f5d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fgolfer_insight_356%2Fa589627d8bc06f1829f86a71c10bd4ab.jpg",
-   "blurb": "Louis Oosthuizen exits LIV Golf days before the Sunday deadline, while the Korn Ferry Tour doubles PGA Tour cards for 2027.",
-   "source": "YAHOO",
-   "league": "PGA"
-  },
-  {
    "headline": "NHL Trade Rumors: Flyers Linked to Former 2nd Overall Pick",
    "link": "https://sports.yahoo.com/articles/nhl-trade-rumors-flyers-linked-190110683.html",
    "published": "2026-10-21T19:01:10.000Z",
@@ -1337,15 +1355,6 @@
    "blurb": "Flyers reportedly \"like\" the 23-year-old center.",
    "source": "YAHOO",
    "league": "NHL"
-  },
-  {
-   "headline": "Quenton Nelson trade destinations: Five contenders that should call as Colts begin rebuild",
-   "link": "https://www.cbssports.com/nfl/news/quenton-nelson-trade-destinations-landing-spots-colts/",
-   "published": "2026-10-21T18:54:33.000Z",
-   "image": "",
-   "blurb": "Nelson is Pro Football Focus' highest-graded guard in 2026, and he is a pending free agent whose general manager just got fired",
-   "source": "CBS",
-   "league": "NFL"
   },
   {
    "headline": "Warriors exploring trades for Kristaps Porzi\u0146\u0123is, who is contemplating future amid health issues, per report",
@@ -1418,21 +1427,12 @@
    "blurb": "On the third episode of UFC 333 \"Embedded,\" the Abu Dhabi fans get a treat.",
    "source": "YAHOO",
    "league": "UFC"
-  },
-  {
-   "headline": "NASCAR explains why they penalized Zane Smith after latest clash with Carson Hocevar",
-   "link": "https://sports.yahoo.com/articles/nascar-explains-why-penalized-zane-164429612.html",
-   "published": "2026-10-21T16:44:29.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/dae8fc9834f4e15934411def82bd7fdf7bf4a0f3428ee24aca032a8c6cab80ff/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2F5f58436d722a9ca53c7c3e885d70a7a9.jpg",
-   "blurb": "Essentially, NASCAR already warned Smith and Hocevar after a run-in this past summer, so they took a harsher approach this time around",
-   "source": "YAHOO",
-   "league": "NASCAR"
   }
  ],
  "source_mix": {
   "ESPN": 53,
-  "YAHOO": 62,
-  "CBS": 40
+  "CBS": 42,
+  "YAHOO": 60
  },
  "degraded_sources": []
 }
