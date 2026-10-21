@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-21T00:50:13.831228+00:00",
+ "generated_at": "2026-10-21T01:05:18.033666+00:00",
  "items": [
-  {
-   "id": "19839df3a2",
-   "league": "NHL",
-   "event": "Minnesota Wild @ Edmonton Oilers",
-   "prediction": "Edmonton Oilers to beat Minnesota Wild",
-   "kickoff_utc": "2026-10-21T01:00:00+00:00"
-  },
   {
    "id": "b527c14e3a",
    "league": "NBA",
@@ -42,6 +35,13 @@
    "event": "Golden State Valkyries @ Atlanta Dream",
    "prediction": "Golden State Valkyries to beat Atlanta Dream",
    "kickoff_utc": "2026-10-22T00:00:00+00:00"
+  },
+  {
+   "id": "74f8ce2caf",
+   "league": "NWSL",
+   "event": "Houston Dash @ Chicago Stars FC",
+   "prediction": "Houston Dash to beat Chicago Stars FC",
+   "kickoff_utc": "2026-10-24T00:00:00+00:00"
   }
  ]
 }
