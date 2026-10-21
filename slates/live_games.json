@@ -1,80 +1,38 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T03:50:05.560745+00:00",
+ "generated_at": "2026-10-21T21:05:02.375679+00:00",
  "leagues": [
   {
    "league": "NBA",
    "games": [
     {
-     "espn_event_id": "401909090",
-     "matchup": "OKC @ SA",
-     "commence": "2026-10-21T01:50Z",
-     "status": "in",
-     "detail": "End of 3rd",
-     "score": "OKC 93 - SA 80",
-     "away_to": 4,
-     "home_to": 4
+     "espn_event_id": "401909834",
+     "matchup": "ATL @ ORL",
+     "commence": "2026-10-21T23:00Z",
+     "status": "pre",
+     "detail": "10/21 - 4:00 PM PT",
+     "score": "ATL 0 - ORL 0"
+    },
+    {
+     "espn_event_id": "401909835",
+     "matchup": "MIL @ WAS",
+     "commence": "2026-10-21T23:00Z",
+     "status": "pre",
+     "detail": "10/21 - 4:00 PM PT",
+     "score": "MIL 0 - WAS 0"
     }
    ]
   },
   {
-   "league": "NHL",
+   "league": "MLS",
    "games": [
     {
-     "espn_event_id": "401892544",
-     "matchup": "WPG @ STL",
-     "commence": "2026-10-21T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "WPG 1 - STL 2"
-    },
-    {
-     "espn_event_id": "401892545",
-     "matchup": "BOS @ DAL",
-     "commence": "2026-10-21T00:00Z",
-     "status": "post",
-     "detail": "Final/OT",
-     "score": "BOS 2 - DAL 3"
-    },
-    {
-     "espn_event_id": "401892546",
-     "matchup": "MIN @ EDM",
-     "commence": "2026-10-21T01:00Z",
-     "status": "in",
-     "detail": "3:24 - OT",
-     "score": "MIN 3 - EDM 3",
-     "away_to": null,
-     "home_to": null
-    },
-    {
-     "espn_event_id": "401892547",
-     "matchup": "DET @ SEA",
-     "commence": "2026-10-21T01:40Z",
-     "status": "in",
-     "detail": "14:50 - 3rd",
-     "score": "DET 0 - SEA 3",
-     "away_to": null,
-     "home_to": null
-    },
-    {
-     "espn_event_id": "401892548",
-     "matchup": "CAR @ VAN",
-     "commence": "2026-10-21T02:00Z",
-     "status": "in",
-     "detail": "End of 2nd",
-     "score": "CAR 3 - VAN 2",
-     "away_to": null,
-     "home_to": null
-    },
-    {
-     "espn_event_id": "401892549",
-     "matchup": "TB @ VGK",
-     "commence": "2026-10-21T02:45Z",
-     "status": "in",
-     "detail": "17:41 - 2nd",
-     "score": "TB 2 - VGK 2",
-     "away_to": null,
-     "home_to": null
+     "espn_event_id": "761773",
+     "matchup": "DC @ CIN",
+     "commence": "2026-10-21T23:00Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "DC 0 - CIN 0"
     }
    ]
   }
