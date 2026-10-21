@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T02:35:21.528289+00:00",
+ "generated_at": "2026-10-21T02:50:21.017347+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,7 +10,7 @@
      "matchup": "USA @ MRSH",
      "commence": "2026-10-20T23:30Z",
      "status": "in",
-     "detail": "4:38 - 4th",
+     "detail": "1:53 - 4th",
      "score": "USA 13 - MRSH 13",
      "away_to": 0,
      "home_to": 0
@@ -49,10 +49,10 @@
      "matchup": "OKC @ SA",
      "commence": "2026-10-21T01:50Z",
      "status": "in",
-     "detail": "8:08 - 2nd",
-     "score": "OKC 46 - SA 30",
+     "detail": "1:40 - 2nd",
+     "score": "OKC 59 - SA 40",
      "away_to": 6,
-     "home_to": 6
+     "home_to": 5
     }
    ]
   },
@@ -111,18 +111,16 @@
      "espn_event_id": "401892545",
      "matchup": "BOS @ DAL",
      "commence": "2026-10-21T00:00Z",
-     "status": "in",
-     "detail": "1:53 - 3rd",
-     "score": "BOS 2 - DAL 2",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final/OT",
+     "score": "BOS 2 - DAL 3"
     },
     {
      "espn_event_id": "401892546",
      "matchup": "MIN @ EDM",
      "commence": "2026-10-21T01:00Z",
      "status": "in",
-     "detail": "9:16 - 2nd",
+     "detail": "1:34 - 2nd",
      "score": "MIN 1 - EDM 3",
      "away_to": null,
      "home_to": null
@@ -132,7 +130,7 @@
      "matchup": "DET @ SEA",
      "commence": "2026-10-21T01:40Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "17:43 - 2nd",
      "score": "DET 0 - SEA 1",
      "away_to": null,
      "home_to": null
@@ -142,8 +140,8 @@
      "matchup": "CAR @ VAN",
      "commence": "2026-10-21T02:00Z",
      "status": "in",
-     "detail": "6:41 - 1st",
-     "score": "CAR 2 - VAN 1",
+     "detail": "End of 1st",
+     "score": "CAR 2 - VAN 2",
      "away_to": null,
      "home_to": null
     },
@@ -151,9 +149,11 @@
      "espn_event_id": "401892549",
      "matchup": "TB @ VGK",
      "commence": "2026-10-21T02:45Z",
-     "status": "pre",
-     "detail": "10/20 - 7:45 PM PT",
-     "score": "TB 0 - VGK 0"
+     "status": "in",
+     "detail": "17:24 - 1st",
+     "score": "TB 0 - VGK 0",
+     "away_to": null,
+     "home_to": null
     }
    ]
   }
