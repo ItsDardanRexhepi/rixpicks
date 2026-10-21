@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-21T16:50:49.948Z",
+ "generated_at": "2026-10-21T16:55:48.014Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Hal Steinbrenner pins 'unacceptable end' to Yankees' season on position players",
+    "link": "https://sports.yahoo.com/articles/hal-steinbrenner-pins-unacceptable-end-164808948.html",
+    "published": "2026-10-21T16:48:08.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/69e3bce53cb33404a58e332c4d78ebbb0c1aa34dc52c5685afe8925d19446970/lightyear_networkapi/resizefill_w444_h250%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsny_articles_235%2Fce7fd226da915a62d3b7d613a4633a24.jpg",
+    "blurb": "In the Yankees' end-of-season news conference, owner Hal Steinbrenner defended GM Brian Cashman and manager Aaron Boone for the team's failure in the playoffs and put the blame on the position players.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
    {
     "headline": "Yankees, GM Brian Cashman agree to new contract",
     "link": "https://www.espn.com/mlb/story/_/id/50238406/yankees-gm-brian-cashman-agree-new-contract",
@@ -51,7 +60,7 @@
     "headline": "The Rays and Brewers both rely heavily on trades, which is a guide for the Washington Nationals",
     "link": "https://sports.yahoo.com/articles/rays-brewers-both-rely-heavily-162000319.html",
     "published": "2026-10-21T16:20:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/7d70db220dd8902c4bab8a7a0452af85660e5604b593837c35578550346b8990/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ffceac1f7c63fd083cde8981daeecd8a7.jpg",
+    "image": "",
     "blurb": "This World Series matchup shows how important trades can be in building a championship caliber roster",
     "source": "YAHOO",
     "league": "MLB"
@@ -82,22 +91,40 @@
     "blurb": "You\u2019ll never believe it.",
     "source": "YAHOO",
     "league": "MLB"
-   },
-   {
-    "headline": "Caminero's unlikely blast, 38.7-second HR trot punctuate Rays' pennant-clinching win",
-    "link": "https://www.espn.com/mlb/story/_/id/50224233/rays-clinch-alcs-game-6-face-brewers-world-series",
-    "published": "2026-10-21T16:22:45.000Z",
-    "image": "",
-    "blurb": "Junior Caminero hit his first career postseason home run off Guardians All-Star closer Cade Smith in the seventh inning Monday as the Rays went on to clinch the AL pennant and advance to a World Series matchup with the Brewers.",
-    "source": "ESPN",
-    "league": "MLB"
    }
   ],
   "football/nfl": [
    {
+    "headline": "Goodell: NFL welcomes investigation into Eagles QB Hurts' medical care",
+    "link": "https://www.espn.com/nfl/story/_/id/50239029/roger-goodell-nfl-welcomes-probe-hurts-medical-care",
+    "published": "2026-10-21T17:48:37.000Z",
+    "image": "",
+    "blurb": "NFL commissioner Roger Goodell said Wednesday that the league welcomes an investigation into the Eagles' handling of Jalen Hurts' blood clots.",
+    "source": "ESPN",
+    "league": "NFL"
+   },
+   {
+    "headline": "Eagles will not be punished for how team handled Jalen Hurts' blood clots situation, NFLPA responds",
+    "link": "https://www.cbssports.com/nfl/news/eagles-will-not-be-punished-jalen-hurts-blood-clots-situation/",
+    "published": "2026-10-21T16:51:24.000Z",
+    "image": "",
+    "blurb": "The NFL concluded the process to clear Hurts for Week 5 in London was handled appropriately",
+    "source": "CBS",
+    "league": "NFL"
+   },
+   {
+    "headline": "Jerry Jones: We could do something at trade deadline to help the team this year",
+    "link": "https://sports.yahoo.com/articles/jerry-jones-could-something-trade-163751331.html",
+    "published": "2026-10-21T16:37:51.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/56e2a496d879259b15e3a421a26691cafbf83224447d802946b31fa918349968/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F9031b76c61185f6538227d1d7cc16853.jpg",
+    "blurb": "Cowboys owner Jerry Jones talked a lot about the team being in the market for a trade addition before they swung a deal for cornerback Joey Porter Jr. at the end of September and he may not be done on that front.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Source: Giants to start McCarthy at QB this week against Texans",
     "link": "https://www.espn.com/nfl/story/_/id/50238746/giants-start-jj-mccarthy-qb-week",
-    "published": "2026-10-21T17:01:44.000Z",
+    "published": "2026-10-21T17:48:37.000Z",
     "image": "",
     "blurb": "The Giants plan to start J.J. McCarthy at quarterback this week against the Houston Texans, a source told ESPN's Jeremy Fowler on Wednesday.",
     "source": "ESPN",
@@ -113,18 +140,18 @@
     "league": "NFL"
    },
    {
-    "headline": "Jerry Jones: We could do something at trade deadline to help the team this year",
-    "link": "https://sports.yahoo.com/articles/jerry-jones-could-something-trade-163751331.html",
-    "published": "2026-10-21T16:37:51.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/56e2a496d879259b15e3a421a26691cafbf83224447d802946b31fa918349968/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F9031b76c61185f6538227d1d7cc16853.jpg",
-    "blurb": "Cowboys owner Jerry Jones talked a lot about the team being in the market for a trade addition before they swung a deal for cornerback Joey Porter Jr. at the end of September and he may not be done on that front.",
+    "headline": "Three Rivers Report: Zach Frazier has had tremendous start to season",
+    "link": "https://sports.yahoo.com/articles/three-rivers-report-zach-frazier-163346163.html",
+    "published": "2026-10-21T16:33:46.000Z",
+    "image": "",
+    "blurb": "Steelers news, notes, and more from October 21",
     "source": "YAHOO",
     "league": "NFL"
    },
    {
     "headline": "Source: Elliott tried to retrieve gun from car after Titans practice spat",
     "link": "https://www.espn.com/nfl/story/_/id/50238315/source-jordan-elliott-attempted-retrieve-gun-car",
-    "published": "2026-10-21T17:01:44.000Z",
+    "published": "2026-10-21T17:48:37.000Z",
     "image": "",
     "blurb": "Ex-Titans DL Jordan Elliott was attempting to retrieve a gun from his car after an altercation with a teammate last week, a source confirmed to NFL Network.",
     "source": "ESPN",
@@ -140,33 +167,6 @@
     "league": "NFL"
    },
    {
-    "headline": "Three Rivers Report: Zach Frazier has had tremendous start to season",
-    "link": "https://sports.yahoo.com/articles/three-rivers-report-zach-frazier-163346163.html",
-    "published": "2026-10-21T16:33:46.000Z",
-    "image": "",
-    "blurb": "Steelers news, notes, and more from October 21",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "DB Franklin becomes 2nd Bills player suspended for spitting in Raiders game",
-    "link": "https://www.espn.com/nfl/story/_/id/50237503/bills-sam-franklin-suspended-spitting-appeal",
-    "published": "2026-10-21T17:01:44.000Z",
-    "image": "",
-    "blurb": "Bills defensive back Sam Franklin Jr. was suspended one game for unsportsmanlike conduct that the league said was a spitting incident against the Raiders.",
-    "source": "ESPN",
-    "league": "NFL"
-   },
-   {
-    "headline": "Former NFL security committee member details how league operates amid civil unrest in Paris before Week 7 game",
-    "link": "https://www.cbssports.com/nfl/news/former-nfl-security-committee-member-civil-unrest-in-paris/",
-    "published": "2026-10-21T16:25:08.000Z",
-    "image": "",
-    "blurb": "Amy Trask, the former CEO of the Oakland Raiders, served on the NFL's security committee",
-    "source": "CBS",
-    "league": "NFL"
-   },
-   {
     "headline": "Chad Ryland named NFC Special Teams Player of the Week",
     "link": "https://sports.yahoo.com/articles/chad-ryland-named-nfc-special-163345057.html",
     "published": "2026-10-21T16:33:45.000Z",
@@ -176,11 +176,11 @@
     "league": "NFL"
    },
    {
-    "headline": "NFLPA calls for 'full investigation' into Eagles QB Hurts' medical care",
-    "link": "https://www.espn.com/nfl/story/_/id/50233573/nflpa-demands-full-investigation-hurts-medical-care",
-    "published": "2026-10-21T17:01:44.000Z",
+    "headline": "DB Franklin becomes 2nd Bills player suspended for spitting in Raiders game",
+    "link": "https://www.espn.com/nfl/story/_/id/50237503/bills-sam-franklin-suspended-spitting-appeal",
+    "published": "2026-10-21T17:48:37.000Z",
     "image": "",
-    "blurb": "After NFL chief medical officer Allen Sills staunchly defended the process involving Philadelphia Eagles quarterback Jalen Hurts and his blood clot issue Tuesday, the NFLPA issued a statement calling for a \"full investigation\" into his medical care.",
+    "blurb": "Bills defensive back Sam Franklin Jr. was suspended one game for unsportsmanlike conduct that the league said was a spitting incident against the Raiders.",
     "source": "ESPN",
     "league": "NFL"
    }
@@ -380,11 +380,11 @@
     "league": "NBA"
    },
    {
-    "headline": "NBA opener reactions with Andrew Sharp + KOC interviews Warriors rookie Yaxel Lendeborg",
-    "link": "https://sports.yahoo.com/nba/article/nba-opener-reactions-with-andrew-sharp--koc-interviews-warriors-rookie-yaxel-lendeborg-163231512.html",
-    "published": "2026-10-21T16:32:31.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/fc4183bf570e3f38a5b040f2d565d3eadd637173338cd7383e2892d164ee06c8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2Fuser-uploaded%2Fkoc-lebronstart-thumb_1520.png",
-    "blurb": "Kevin O'Connor recaps NBA opening day with Andrew Sharp and talks with Golden State Warriors rookie Yaxel Lendeborg.",
+    "headline": "Adam Silver says LeBron's helicopter deal 'perfectly appropriate' if 76ers not involved",
+    "link": "https://sports.yahoo.com/articles/adam-silver-says-lebrons-helicopter-164111448.html",
+    "published": "2026-10-21T16:41:11.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/a08a0788ace78c9e34244b4407f35368e302ce6d7fd59592c2cd0b7b8e582f5d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2Ff232d5820f6087de0a3756a6ab9aa397.jpg",
+    "blurb": "The helicopter LeBron James is using to commute from New York to Philadelphia is tied to Fanatics.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -407,11 +407,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Fantasy Basketball Week 1 Injury Report: Deni Avdija questionable, AJ Dybantsa out for opener",
-    "link": "https://sports.yahoo.com/articles/fantasy-basketball-week-1-injury-163000958.html",
-    "published": "2026-10-21T16:30:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/c4b5928eba2c94c705ea862d997f20d974cb76d8a827b9f15f2d0585abd4f251/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F5a62945c812c976cb85a3d7849811529.jpg",
-    "blurb": "Deni Avdija is questionable for the season opener with an ankle injury, while No. 1 overall pick AJ Dybantsa will have to wait to make his debut.",
+    "headline": "NBA opener reactions with Andrew Sharp + KOC interviews Warriors rookie Yaxel Lendeborg",
+    "link": "https://sports.yahoo.com/nba/article/nba-opener-reactions-with-andrew-sharp--koc-interviews-warriors-rookie-yaxel-lendeborg-163231512.html",
+    "published": "2026-10-21T16:32:31.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/fc4183bf570e3f38a5b040f2d565d3eadd637173338cd7383e2892d164ee06c8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2Fuser-uploaded%2Fkoc-lebronstart-thumb_1520.png",
+    "blurb": "Kevin O'Connor recaps NBA opening day with Andrew Sharp and talks with Golden State Warriors rookie Yaxel Lendeborg.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -434,11 +434,11 @@
     "league": "NBA"
    },
    {
-    "headline": "How the Pistons\u2019 pulled off the NBA\u2019s biggest opening day comeback ever",
-    "link": "https://sports.yahoo.com/articles/pistons-pulled-off-nba-biggest-162810758.html",
-    "published": "2026-10-21T16:28:10.000Z",
+    "headline": "Fantasy Basketball Week 1 Injury Report: Deni Avdija questionable, AJ Dybantsa out for opener",
+    "link": "https://sports.yahoo.com/articles/fantasy-basketball-week-1-injury-163000958.html",
+    "published": "2026-10-21T16:30:00.000Z",
     "image": "",
-    "blurb": "The NBA is back, and there's nothing like a sunny fall afternoon in the gym",
+    "blurb": "Deni Avdija is questionable for the season opener with an ankle injury, while No. 1 overall pick AJ Dybantsa will have to wait to make his debut.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -1069,6 +1069,24 @@
  },
  "latest": [
   {
+   "headline": "Goodell: NFL welcomes investigation into Eagles QB Hurts' medical care",
+   "link": "https://www.espn.com/nfl/story/_/id/50239029/roger-goodell-nfl-welcomes-probe-hurts-medical-care",
+   "published": "2026-10-21T17:48:37.000Z",
+   "image": "",
+   "blurb": "NFL commissioner Roger Goodell said Wednesday that the league welcomes an investigation into the Eagles' handling of Jalen Hurts' blood clots.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
+   "headline": "Source: Giants to start McCarthy at QB this week against Texans",
+   "link": "https://www.espn.com/nfl/story/_/id/50238746/giants-start-jj-mccarthy-qb-week",
+   "published": "2026-10-21T17:48:37.000Z",
+   "image": "",
+   "blurb": "The Giants plan to start J.J. McCarthy at quarterback this week against the Houston Texans, a source told ESPN's Jeremy Fowler on Wednesday.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
    "headline": "LeBron moonlights at center, helps limit Towns in winning debut for Sixers",
    "link": "https://www.espn.com/nba/story/_/id/50234172/76ers-knicks-lebron-james-debut-championship-night",
    "published": "2026-10-21T17:38:56.000Z",
@@ -1085,24 +1103,6 @@
    "blurb": "Lakers star Luka Don\u010di\u0107 took out a full-page advertisement in the Los Angeles Times, addressing the city and saying \"tonight we start our run for a championship.\"",
    "source": "ESPN",
    "league": "NBA"
-  },
-  {
-   "headline": "Source: Giants to start McCarthy at QB this week against Texans",
-   "link": "https://www.espn.com/nfl/story/_/id/50238746/giants-start-jj-mccarthy-qb-week",
-   "published": "2026-10-21T17:01:44.000Z",
-   "image": "",
-   "blurb": "The Giants plan to start J.J. McCarthy at quarterback this week against the Houston Texans, a source told ESPN's Jeremy Fowler on Wednesday.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Source: Elliott tried to retrieve gun from car after Titans practice spat",
-   "link": "https://www.espn.com/nfl/story/_/id/50238315/source-jordan-elliott-attempted-retrieve-gun-car",
-   "published": "2026-10-21T17:01:44.000Z",
-   "image": "",
-   "blurb": "Ex-Titans DL Jordan Elliott was attempting to retrieve a gun from his car after an altercation with a teammate last week, a source confirmed to NFL Network.",
-   "source": "ESPN",
-   "league": "NFL"
   },
   {
    "headline": "Seventeen first-year Power 4 coaches -- here's how they're doing",
@@ -1123,6 +1123,15 @@
    "league": "CFB"
   },
   {
+   "headline": "Eagles will not be punished for how team handled Jalen Hurts' blood clots situation, NFLPA responds",
+   "link": "https://www.cbssports.com/nfl/news/eagles-will-not-be-punished-jalen-hurts-blood-clots-situation/",
+   "published": "2026-10-21T16:51:24.000Z",
+   "image": "",
+   "blurb": "The NFL concluded the process to clear Hurts for Week 5 in London was handled appropriately",
+   "source": "CBS",
+   "league": "NFL"
+  },
+  {
    "headline": "Burgers over bucks? Top hoops recruits aren't rushing past McDonald's All American Game",
    "link": "https://www.espn.com/mens-college-basketball/story/_/id/50222469/mcdonalds-all-american-college-basketball-nil",
    "published": "2026-10-21T16:50:17.000Z",
@@ -1130,6 +1139,15 @@
    "blurb": "For Beckham Black and other top recruits, chasing McDonald's All American honors outweighs the lure of an early college jump.",
    "source": "ESPN",
    "league": "NCAAB"
+  },
+  {
+   "headline": "Hal Steinbrenner pins 'unacceptable end' to Yankees' season on position players",
+   "link": "https://sports.yahoo.com/articles/hal-steinbrenner-pins-unacceptable-end-164808948.html",
+   "published": "2026-10-21T16:48:08.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/69e3bce53cb33404a58e332c4d78ebbb0c1aa34dc52c5685afe8925d19446970/lightyear_networkapi/resizefill_w444_h250%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsny_articles_235%2Fce7fd226da915a62d3b7d613a4633a24.jpg",
+   "blurb": "In the Yankees' end-of-season news conference, owner Hal Steinbrenner defended GM Brian Cashman and manager Aaron Boone for the team's failure in the playoffs and put the blame on the position players.",
+   "source": "YAHOO",
+   "league": "MLB"
   },
   {
    "headline": "Yankees, GM Brian Cashman agree to new contract",
@@ -1159,20 +1177,20 @@
    "league": "CFB"
   },
   {
+   "headline": "Adam Silver says LeBron's helicopter deal 'perfectly appropriate' if 76ers not involved",
+   "link": "https://sports.yahoo.com/articles/adam-silver-says-lebrons-helicopter-164111448.html",
+   "published": "2026-10-21T16:41:11.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/a08a0788ace78c9e34244b4407f35368e302ce6d7fd59592c2cd0b7b8e582f5d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2Ff232d5820f6087de0a3756a6ab9aa397.jpg",
+   "blurb": "The helicopter LeBron James is using to commute from New York to Philadelphia is tied to Fanatics.",
+   "source": "YAHOO",
+   "league": "NBA"
+  },
+  {
    "headline": "NFL trade deadline: 5 players we'd like to see get a change of scenery, including Jonathan Taylor",
    "link": "https://www.cbssports.com/nfl/news/nfl-trade-deadline-5-players-in-need-of-change-of-scenery-jonathan-taylor/",
    "published": "2026-10-21T16:41:01.000Z",
    "image": "",
    "blurb": "These blockbuster moves probably will not happen, but stars like Jonathan Taylor and Jeffery Simmons deserve a chance to play for true contenders",
-   "source": "CBS",
-   "league": "NFL"
-  },
-  {
-   "headline": "Giants plan to start JJ McCarthy vs. Texans in Week 7, per report",
-   "link": "https://www.cbssports.com/nfl/news/giants-plan-to-start-jj-mccarthy-vs-texans-in-week-7-per-report/",
-   "published": "2026-10-21T16:38:37.000Z",
-   "image": "",
-   "blurb": "McCarthy is set to make his first career start for Big Blue",
    "source": "CBS",
    "league": "NFL"
   },
@@ -1238,24 +1256,6 @@
    "blurb": "With the Maryland Terrapins firing Mike Locksley, co-defensive coordinator Aazaar Abdul-Rahim is serving as interim head coach.",
    "source": "YAHOO",
    "league": "CFB"
-  },
-  {
-   "headline": "Fantasy Basketball Week 1 Injury Report: Deni Avdija questionable, AJ Dybantsa out for opener",
-   "link": "https://sports.yahoo.com/articles/fantasy-basketball-week-1-injury-163000958.html",
-   "published": "2026-10-21T16:30:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/c4b5928eba2c94c705ea862d997f20d974cb76d8a827b9f15f2d0585abd4f251/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2F5a62945c812c976cb85a3d7849811529.jpg",
-   "blurb": "Deni Avdija is questionable for the season opener with an ankle injury, while No. 1 overall pick AJ Dybantsa will have to wait to make his debut.",
-   "source": "YAHOO",
-   "league": "NBA"
-  },
-  {
-   "headline": "The Rays and Brewers both rely heavily on trades, which is a guide for the Washington Nationals",
-   "link": "https://sports.yahoo.com/articles/rays-brewers-both-rely-heavily-162000319.html",
-   "published": "2026-10-21T16:20:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/7d70db220dd8902c4bab8a7a0452af85660e5604b593837c35578550346b8990/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ffceac1f7c63fd083cde8981daeecd8a7.jpg",
-   "blurb": "This World Series matchup shows how important trades can be in building a championship caliber roster",
-   "source": "YAHOO",
-   "league": "MLB"
   },
   {
    "headline": "NBA player props, odds, picks, lines: Stephen Curry part of best bets for Wednesday",
@@ -1430,9 +1430,9 @@
   }
  ],
  "source_mix": {
-  "ESPN": 53,
-  "YAHOO": 62,
-  "CBS": 40
+  "ESPN": 52,
+  "CBS": 40,
+  "YAHOO": 63
  },
  "degraded_sources": []
 }
