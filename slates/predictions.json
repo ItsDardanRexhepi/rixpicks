@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-21T18:33:10.179291+00:00",
+ "generated_at": "2026-10-21T18:55:08.171347+00:00",
  "items": [
   {
    "id": "73d134a02e",
@@ -13,6 +13,13 @@
    "league": "NBA",
    "event": "Milwaukee Bucks @ Washington Wizards",
    "prediction": "Milwaukee Bucks to beat Washington Wizards",
+   "kickoff_utc": "2026-10-21T23:00:00+00:00"
+  },
+  {
+   "id": "0a659eefc9",
+   "league": "NBA",
+   "event": "Atlanta Hawks @ Orlando Magic",
+   "prediction": "Orlando Magic to beat Atlanta Hawks",
    "kickoff_utc": "2026-10-21T23:00:00+00:00"
   },
   {
@@ -34,13 +41,6 @@
    "league": "WNBA",
    "event": "Golden State Valkyries @ Atlanta Dream",
    "prediction": "Golden State Valkyries to beat Atlanta Dream",
-   "kickoff_utc": "2026-10-22T00:00:00+00:00"
-  },
-  {
-   "id": "23e607bdbc",
-   "league": "NBA",
-   "event": "Utah Jazz @ Memphis Grizzlies",
-   "prediction": "Utah Jazz to beat Memphis Grizzlies",
    "kickoff_utc": "2026-10-22T00:00:00+00:00"
   }
  ]
