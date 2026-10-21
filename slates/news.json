@@ -1,13 +1,40 @@
 {
- "generated_at": "2026-10-21T12:20:49.281Z",
+ "generated_at": "2026-10-21T12:25:51.629Z",
  "leagues": {
   "baseball/mlb": [
    {
     "headline": "The small-ball World Series? How the Brewers and Rays fit -- and don't fit -- the narrative",
     "link": "https://www.espn.com/mlb/story/_/id/50228459/world-series-milwaukee-brewers-tampa-bay-rays-alike-different",
-    "published": "2026-10-21T12:33:32.000Z",
+    "published": "2026-10-21T13:14:21.000Z",
     "image": "",
     "blurb": "Yes, this Fall Classic is a battle of small-market teams that don't rely on home runs. But dig deeper, and you'll discover there's much more to this matchup.",
+    "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "Dodgers notes: Alex Vesia, Teruaki Sato, Hyeseong Kim",
+    "link": "https://sports.yahoo.com/articles/dodgers-notes-alex-vesia-teruaki-120800664.html",
+    "published": "2026-10-21T12:08:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/7b69344b117f812d8cd93d260a073c5e77cffc89e14304b1972f0445f0e6a152/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F34c77848bf19513cc0862bd34da1f6e7.jpg",
+    "blurb": "Among the 2026 Dodgers set to hit free agency following the conclusion of the World Series, Tarik Skubal ranks among the top available options this offseason. The Dodgers will certainly be in the hunt for a reunion for the still-reigning two-time American League Cy Young award wi",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
+    "headline": "Three X-factors that could shape the 2026 World Series: Infield defense, Bryan Baker's fastball and more",
+    "link": "https://www.cbssports.com/mlb/news/2026-world-series-brewers-rays-x-factors/",
+    "published": "2026-10-20T18:00:39.000Z",
+    "image": "",
+    "blurb": "The Brewers and the Rays head to Milwaukee for Game 1 on Friday to kick off the seven-game series with a ring on the line",
+    "source": "CBS",
+    "league": "MLB"
+   },
+   {
+    "headline": "Where Brewers-Rays ranks among best World Series matchups since 2000",
+    "link": "https://www.espn.com/mlb/story/_/id/50223790/ranking-best-world-series-matchups-2000",
+    "published": "2026-10-21T13:13:29.000Z",
+    "image": "",
+    "blurb": "This year's Fall Classic will crown a first-time winner. Here's where it stands among the best matchups of this century.",
     "source": "ESPN",
     "league": "MLB"
    },
@@ -21,11 +48,11 @@
     "league": "MLB"
    },
    {
-    "headline": "Three X-factors that could shape the 2026 World Series: Infield defense, Bryan Baker's fastball and more",
-    "link": "https://www.cbssports.com/mlb/news/2026-world-series-brewers-rays-x-factors/",
-    "published": "2026-10-20T18:00:39.000Z",
+    "headline": "How the Brewers could join elite company with World Series title after dominant regular season",
+    "link": "https://www.cbssports.com/mlb/news/brewers-world-series-regular-season-record-run-differential-triple-crown/",
+    "published": "2026-10-20T16:21:57.000Z",
     "image": "",
-    "blurb": "The Brewers and the Rays head to Milwaukee for Game 1 on Friday to kick off the seven-game series with a ring on the line",
+    "blurb": "Milwaukee is just four wins away from the first ring in franchise history, fresh off MLB's best regular-season record",
     "source": "CBS",
     "league": "MLB"
    },
@@ -42,35 +69,8 @@
     "headline": "Yankees Report Cards: Jazz Chisholm Jr.",
     "link": "https://sports.yahoo.com/articles/yankees-report-cards-jazz-chisholm-120000737.html",
     "published": "2026-10-21T12:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/0f13e464d9d0b382eef9463d77f05ff2f6f82ea6ac58c7912513c2f0c401445c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F53609016df884b1068601ec02e302ee1.jpg",
+    "image": "",
     "blurb": "Jazz Chisholm underwhelmed in what might have been his final season in the Bronx",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "How the Brewers could join elite company with World Series title after dominant regular season",
-    "link": "https://www.cbssports.com/mlb/news/brewers-world-series-regular-season-record-run-differential-triple-crown/",
-    "published": "2026-10-20T16:21:57.000Z",
-    "image": "",
-    "blurb": "Milwaukee is just four wins away from the first ring in franchise history, fresh off MLB's best regular-season record",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "ALCS Game 6: Takeaways as Rays advance to World Series",
-    "link": "https://www.espn.com/mlb/story/_/id/50214010/playoffs-guardians-rays-game-6-alcs-live-takeaways",
-    "published": "2026-10-21T06:26:33.000Z",
-    "image": "",
-    "blurb": "Tampa Bay beats Cleveland to punch its ticket to face Milwaukee in the Fall Classic.",
-    "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "MLB News: World Series, Tampa Bay Rays, Milwaukee Brewers, Freddy Peralta, Chandler Simpson, Aaron Boone",
-    "link": "https://sports.yahoo.com/articles/mlb-news-world-series-tampa-120000355.html",
-    "published": "2026-10-21T12:00:00.000Z",
-    "image": "",
-    "blurb": "Plus, who will be the next big Japanese star to come to MLB?",
     "source": "YAHOO",
     "league": "MLB"
    },
@@ -84,22 +84,22 @@
     "league": "MLB"
    },
    {
-    "headline": "Rich Eisen: Brewers-Rays is going to be great baseball",
-    "link": "https://www.espn.com/video/clip/_/id/50229916/rays-brewers-going-great-baseball",
-    "published": "2026-10-21T06:12:28Z",
-    "source": "ESPN",
+    "headline": "ALCS Game 6: Takeaways as Rays advance to World Series",
+    "link": "https://www.espn.com/mlb/story/_/id/50214010/playoffs-guardians-rays-game-6-alcs-live-takeaways",
+    "published": "2026-10-21T06:26:33.000Z",
     "image": "",
-    "blurb": "Rich Eisen: Rays-Brewers is going to be great baseball",
+    "blurb": "Tampa Bay beats Cleveland to punch its ticket to face Milwaukee in the Fall Classic.",
+    "source": "ESPN",
     "league": "MLB"
    }
   ],
   "football/nfl": [
    {
-    "headline": "Cowboys' season looks bleak but schedule offers some hope",
-    "link": "https://www.espn.com/nfl/story/_/id/50229188/dallas-cowboys-dak-prescott-season-looks-bleak",
-    "published": "2026-10-21T12:35:48.000Z",
+    "headline": "Projecting the top 10 picks of next year's NFL draft: Why Yates has three quarterbacks going early",
+    "link": "https://www.espn.com/nfl/draft2027/story/_/id/50229467/2027-nfl-mock-draft-yates-top-10-picks-predictions-qbs",
+    "published": "2026-10-21T13:21:50.000Z",
     "image": "",
-    "blurb": "Cowboys players and coaches are focused on a stretch of games versus teams that are struggling just like them.",
+    "blurb": "We're two months into the college football season, and Field Yates is projecting which prospects could go in the top 10 picks of the 2027 NFL draft -- including three QBs.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -122,11 +122,11 @@
     "league": "NFL"
    },
    {
-    "headline": "The best soccer/NFL crossover jerseys as PSG unveil kit for Steelers vs. Saints in Paris",
-    "link": "https://www.espn.com/soccer/story/_/id/50225836/the-best-soccer-nfl-crossover-jerseys-psg-kit-pittsburgh-steelers-new-orleans-saints-paris-game",
-    "published": "2026-10-21T12:35:22.000Z",
+    "headline": "Draft risers, notes off Saturday's games: Will measurables matter for Chambliss?",
+    "link": "https://www.espn.com/nfl/draft2027/story/_/id/49881131/2027-nfl-draft-risers-questions-college-football-prospects",
+    "published": "2026-10-21T13:21:50.000Z",
     "image": "",
-    "blurb": "If you've ever wondered what reigning Champions League holders PSG might look like should they suddenly relaunch as an NFL franchise, this is it.",
+    "blurb": "Which Tennessee defender is emerging among the DT group? Here's draft spin off CFB Week 7.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -149,12 +149,12 @@
     "league": "NFL"
    },
    {
-    "headline": "The case for (and against) the Colts keeping Shane Steichen",
-    "link": "https://www.espn.com/nfl/story/_/id/50229437/colts-shane-steichen-daniel-jones-anthony-richardson",
-    "published": "2026-10-21T12:18:29Z",
-    "source": "ESPN",
+    "headline": "Cowboys' season looks bleak but schedule offers some hope",
+    "link": "https://www.espn.com/nfl/story/_/id/50229188/dallas-cowboys-dak-prescott-season-looks-bleak",
+    "published": "2026-10-21T13:21:50.000Z",
     "image": "",
-    "blurb": "With GM Chris Ballard gone, can Steichen avoid following him out the door?",
+    "blurb": "Cowboys players and coaches are focused on a stretch of games versus teams that are struggling just like them.",
+    "source": "ESPN",
     "league": "NFL"
    },
    {
@@ -176,11 +176,11 @@
     "league": "NFL"
    },
    {
-    "headline": "NFL Week 7 buzz: What we're hearing on QB situations, trade candidates and the wild NFC East",
-    "link": "https://www.espn.com/nfl/story/_/id/50228657/week-7-buzz-fantasy-predictions-graziano-fowler-2026",
-    "published": "2026-10-21T12:15:25.000Z",
+    "headline": "The best soccer/NFL crossover jerseys as PSG unveil kit for Steelers vs. Saints in Paris",
+    "link": "https://www.espn.com/soccer/story/_/id/50225836/the-best-soccer-nfl-crossover-jerseys-psg-kit-pittsburgh-steelers-new-orleans-saints-paris-game",
+    "published": "2026-10-21T12:35:22.000Z",
     "image": "",
-    "blurb": "Will the Seahawks stick with Sam Darnold past this season? Could Vita Vea get trade interest? What's next for the NFC East teams? And could the Colts make more changes?",
+    "blurb": "If you've ever wondered what reigning Champions League holders PSG might look like should they suddenly relaunch as an NFL franchise, this is it.",
     "source": "ESPN",
     "league": "NFL"
    }
@@ -196,11 +196,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Colorado's offense hopes to take another step against Oklahoma State",
-    "link": "https://sports.yahoo.com/articles/colorados-offense-hopes-another-step-120245676.html",
-    "published": "2026-10-21T12:02:45.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/ce2b6d55ffcd4cccd97d5466b6d683710d1af197de12a8a7698f74b3e7b04bd3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbuffaloes_wire_usa_today_articles_968%2F95dcef7ce2f7a008b34926317f45bf45.jpg",
-    "blurb": "Colorado football faces an Oklahoma State defense that allowed five touchdown passes against Houston, a matchup the Buffs could exploit.",
+    "headline": "As Oklahoma looks to eliminate 'backbreaking' and 'catastrophic' errors, the Sooners' OC says QB John Mateer is still the team's best option",
+    "link": "https://sports.yahoo.com/college-football/article/as-oklahoma-looks-to-eliminate-backbreaking-and-catastrophic-errors-the-sooners-oc-says-qb-john-mateer-is-still-the-teams-best-option-122115744.html",
+    "published": "2026-10-21T12:21:15.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/058e56bd1ad088866b25743d1a8c0bfd46eec07283c85cbc3b0e47eadeb6f87e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F1518fe7f-792c-472d-bec9-acb97bd0ddbb",
+    "blurb": "Mateer threw three interceptions \u2014 including a game-clinching pick-6 \u2014 in Oklahoma's loss to Kentucky in Week 7.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -223,11 +223,11 @@
     "league": "CFB"
    },
    {
-    "headline": "ESPN has Clemson on the bubble for College Football Playoff",
-    "link": "https://sports.yahoo.com/articles/espn-clemson-bubble-college-football-120217631.html",
-    "published": "2026-10-21T12:02:17.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/e6c26bb65c10730793eecf7a8a1a5979814bc53e39967e9ce08d6c824200f896/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclemson_wire_usa_today_articles_107%2Fee54e7043f87be9e15eaf7ae5996e360.jpg",
-    "blurb": "ESPN's Heath Dinich has not ruled Clemson out for the College Football Playoff",
+    "headline": "Iowa football Week 8 bowl projections: Where could the Hawkeyes be headed?",
+    "link": "https://sports.yahoo.com/articles/iowa-football-week-8-bowl-121518057.html",
+    "published": "2026-10-21T12:15:18.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/160ff8939e79792d7b36d11fc6d1ec5058900669d16c83db3889150cda0b810d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhawkeyes_wire_usa_today_articles_405%2Ff8cee839fd0ea75843f60c125d57f500.jpg",
+    "blurb": "After a chaotic week of college football with the Hawkeyes on a bye, here's the latest Iowa football bowl game projections from around the nation.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Nicole Auerbach and Joshua Perry\u2019s midseason College Football Playoff bracket picks",
-    "link": "https://sports.yahoo.com/articles/nicole-auerbach-joshua-perry-midseason-120000329.html",
-    "published": "2026-10-21T12:00:00.000Z",
+    "headline": "Colorado's offense hopes to take another step against Oklahoma State",
+    "link": "https://sports.yahoo.com/articles/colorados-offense-hopes-another-step-120245676.html",
+    "published": "2026-10-21T12:02:45.000Z",
     "image": "",
-    "blurb": "As the college football season approaches its midpoint, Nicole Auerbach and Joshua Perry make their updated CFP predictions.",
+    "blurb": "Colorado football faces an Oklahoma State defense that allowed five touchdown passes against Houston, a matchup the Buffs could exploit.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -373,7 +373,7 @@
    {
     "headline": "Wembanyama starts 0-for-12 in career-worst shooting night: 'Might be overthinking it'",
     "link": "https://www.espn.com/nba/story/_/id/50235327/spurs-victor-wembanyama-misses-first-12-shots-rough-season-opener-vs-thunder",
-    "published": "2026-10-21T13:09:25.000Z",
+    "published": "2026-10-21T13:19:27.000Z",
     "image": "",
     "blurb": "Victor Wembanyama didn't record his first bucket until the end of the third quarter and shot a career-worst 8% from the field as the Thunder got their revenge on the Spurs in Tuesday's Western Conference finals rematch.",
     "source": "ESPN",
@@ -452,12 +452,12 @@
     "league": "NBA"
    },
    {
-    "headline": "Spurs' Victor Wembanyama misses first 12 shots in rough opener vs. Thunder",
-    "link": "https://www.espn.com/nba/story/_/id/50235327/spurs-victor-wembanyama-misses-first-12-shots-rough-season-opener-vs-thunder",
-    "published": "2026-10-21T12:02:52Z",
+    "headline": "Mike Brown: Would not have felt good about a win vs. 76ers given Knicks' play",
+    "link": "https://www.espn.com/nba/story/_/id/50235062/mike-brown-not-felt-good-knicks-win-vs-76ers-given-play",
+    "published": "2026-10-21T12:23:19Z",
     "source": "ESPN",
     "image": "",
-    "blurb": "Victor Wembanyama didn't record his first bucket until the end of the third quarter and shot a career-worst 8% from the field as the Thunder got their revenge on the Spurs in Tuesday's Western Conference finals rematch.",
+    "blurb": "Knicks coach Mike Brown would've taken the win against the 76ers -- but wouldn't have been happy with it, acknowledging that relying on late-game magic or the feel-good vibes of ring night wouldn't be enough to start the season on a positive note.",
     "league": "NBA"
    }
   ],
@@ -555,11 +555,11 @@
   ],
   "basketball/mens-college-basketball": [
    {
-    "headline": "Vols Were Easier Than Expected. Kansas? Won\u2019t Be That Simple.",
-    "link": "https://sports.yahoo.com/articles/vols-were-easier-expected-kansas-113800035.html",
-    "published": "2026-10-21T11:38:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/3d1d192e688366e1b4b7e89c80b721b7f8894af042ffb9ebcde50f54fca9a510/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc9ccc2963b75c29cdf2ae1ebcaf9cc08.jpg",
-    "blurb": "A trip to Allen Field House sho4uld be an amazing experience for Duke.",
+    "headline": "Tennessee blown out by Duke in Exhibition matchup",
+    "link": "https://sports.yahoo.com/articles/tennessee-blown-duke-exhibition-matchup-120743245.html",
+    "published": "2026-10-21T12:07:43.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/9df40ec2860e4023c759d96b013ed9e1e0859b97a8ed276e67a33ebd295655d4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fde0e277c601514b415015e4e08ae872e.jpg",
+    "blurb": "An ugly night.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -582,11 +582,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Terrence Hill Jr. leaves Tennessee-Duke exhibition with ankle injury",
-    "link": "https://sports.yahoo.com/articles/terrence-hill-jr-leaves-tennessee-111202071.html",
-    "published": "2026-10-21T11:12:02.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/4b27b713ed0a45ff8ba06e35c794757f6d1ff5bfb4ac2b5169ecc06e079693e4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F339a29212b951cae943dbb299efdef14.jpg",
-    "blurb": "Not what Tennessee needed at all.",
+    "headline": "Vols Were Easier Than Expected. Kansas? Won\u2019t Be That Simple.",
+    "link": "https://sports.yahoo.com/articles/vols-were-easier-expected-kansas-113800035.html",
+    "published": "2026-10-21T11:38:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/3d1d192e688366e1b4b7e89c80b721b7f8894af042ffb9ebcde50f54fca9a510/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc9ccc2963b75c29cdf2ae1ebcaf9cc08.jpg",
+    "blurb": "A trip to Allen Field House sho4uld be an amazing experience for Duke.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -609,11 +609,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Iowa basketball receiving votes in preseason AP Top 25 Poll",
-    "link": "https://sports.yahoo.com/articles/iowa-basketball-receiving-votes-preseason-104539760.html",
-    "published": "2026-10-21T10:45:39.000Z",
+    "headline": "Terrence Hill Jr. leaves Tennessee-Duke exhibition with ankle injury",
+    "link": "https://sports.yahoo.com/articles/terrence-hill-jr-leaves-tennessee-111202071.html",
+    "published": "2026-10-21T11:12:02.000Z",
     "image": "",
-    "blurb": "After a memorable trip to the Elite Eight last spring, Iowa basketball is among a list of programs receiving votes in the preseason AP Top 25 poll.",
+    "blurb": "Not what Tennessee needed at all.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -636,11 +636,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Indiana basketball identity seen in roster that 'manhandled' a blue blood prepared to stop it",
-    "link": "https://sports.yahoo.com/articles/indiana-basketball-identity-seen-roster-084115393.html",
-    "published": "2026-10-21T08:41:15.000Z",
+    "headline": "Iowa basketball receiving votes in preseason AP Top 25 Poll",
+    "link": "https://sports.yahoo.com/articles/iowa-basketball-receiving-votes-preseason-104539760.html",
+    "published": "2026-10-21T10:45:39.000Z",
     "image": "",
-    "blurb": "IU basketball coach Darian DeVries had a clear agenda with building his second roster. Proof of concept opens up opportunities for the Hoosiers.",
+    "blurb": "After a memorable trip to the Elite Eight last spring, Iowa basketball is among a list of programs receiving votes in the preseason AP Top 25 poll.",
     "source": "YAHOO",
     "league": "NCAAB"
    }
@@ -1069,6 +1069,24 @@
  },
  "latest": [
   {
+   "headline": "Projecting the top 10 picks of next year's NFL draft: Why Yates has three quarterbacks going early",
+   "link": "https://www.espn.com/nfl/draft2027/story/_/id/50229467/2027-nfl-mock-draft-yates-top-10-picks-predictions-qbs",
+   "published": "2026-10-21T13:21:50.000Z",
+   "image": "",
+   "blurb": "We're two months into the college football season, and Field Yates is projecting which prospects could go in the top 10 picks of the 2027 NFL draft -- including three QBs.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
+   "headline": "Draft risers, notes off Saturday's games: Will measurables matter for Chambliss?",
+   "link": "https://www.espn.com/nfl/draft2027/story/_/id/49881131/2027-nfl-draft-risers-questions-college-football-prospects",
+   "published": "2026-10-21T13:21:50.000Z",
+   "image": "",
+   "blurb": "Which Tennessee defender is emerging among the DT group? Here's draft spin off CFB Week 7.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
    "headline": "Oklahoma OC: Errors must stop, but QB Mateer offers 'best chance to win'",
    "link": "https://www.espn.com/college-football/story/_/id/50236111/oklahoma-john-mateer-remains-best-qb-option",
    "published": "2026-10-21T13:19:27.000Z",
@@ -1080,11 +1098,29 @@
   {
    "headline": "Wembanyama starts 0-for-12 in career-worst shooting night: 'Might be overthinking it'",
    "link": "https://www.espn.com/nba/story/_/id/50235327/spurs-victor-wembanyama-misses-first-12-shots-rough-season-opener-vs-thunder",
-   "published": "2026-10-21T13:09:25.000Z",
+   "published": "2026-10-21T13:19:27.000Z",
    "image": "",
    "blurb": "Victor Wembanyama didn't record his first bucket until the end of the third quarter and shot a career-worst 8% from the field as the Thunder got their revenge on the Spurs in Tuesday's Western Conference finals rematch.",
    "source": "ESPN",
    "league": "NBA"
+  },
+  {
+   "headline": "The small-ball World Series? How the Brewers and Rays fit -- and don't fit -- the narrative",
+   "link": "https://www.espn.com/mlb/story/_/id/50228459/world-series-milwaukee-brewers-tampa-bay-rays-alike-different",
+   "published": "2026-10-21T13:14:21.000Z",
+   "image": "",
+   "blurb": "Yes, this Fall Classic is a battle of small-market teams that don't rely on home runs. But dig deeper, and you'll discover there's much more to this matchup.",
+   "source": "ESPN",
+   "league": "MLB"
+  },
+  {
+   "headline": "Where Brewers-Rays ranks among best World Series matchups since 2000",
+   "link": "https://www.espn.com/mlb/story/_/id/50223790/ranking-best-world-series-matchups-2000",
+   "published": "2026-10-21T13:13:29.000Z",
+   "image": "",
+   "blurb": "This year's Fall Classic will crown a first-time winner. Here's where it stands among the best matchups of this century.",
+   "source": "ESPN",
+   "league": "MLB"
   },
   {
    "headline": "Day: Ohio State planning to be without injured Sayin through postseason",
@@ -1094,33 +1130,6 @@
    "blurb": "Buckeyes coach Ryan Day declined to put a timeline on Julian Sayin's recovery but said they are planning to move forward without him through the rest of the year.",
    "source": "ESPN",
    "league": "CFB"
-  },
-  {
-   "headline": "Cowboys' season looks bleak but schedule offers some hope",
-   "link": "https://www.espn.com/nfl/story/_/id/50229188/dallas-cowboys-dak-prescott-season-looks-bleak",
-   "published": "2026-10-21T12:35:48.000Z",
-   "image": "",
-   "blurb": "Cowboys players and coaches are focused on a stretch of games versus teams that are struggling just like them.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "The best soccer/NFL crossover jerseys as PSG unveil kit for Steelers vs. Saints in Paris",
-   "link": "https://www.espn.com/soccer/story/_/id/50225836/the-best-soccer-nfl-crossover-jerseys-psg-kit-pittsburgh-steelers-new-orleans-saints-paris-game",
-   "published": "2026-10-21T12:35:22.000Z",
-   "image": "",
-   "blurb": "If you've ever wondered what reigning Champions League holders PSG might look like should they suddenly relaunch as an NFL franchise, this is it.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "The small-ball World Series? How the Brewers and Rays fit -- and don't fit -- the narrative",
-   "link": "https://www.espn.com/mlb/story/_/id/50228459/world-series-milwaukee-brewers-tampa-bay-rays-alike-different",
-   "published": "2026-10-21T12:33:32.000Z",
-   "image": "",
-   "blurb": "Yes, this Fall Classic is a battle of small-market teams that don't rely on home runs. But dig deeper, and you'll discover there's much more to this matchup.",
-   "source": "ESPN",
-   "league": "MLB"
   },
   {
    "headline": "NHL Tonight: Previews for Sabres-Flyers, Senators-Panthers",
@@ -1141,6 +1150,15 @@
    "league": "NBA"
   },
   {
+   "headline": "As Oklahoma looks to eliminate 'backbreaking' and 'catastrophic' errors, the Sooners' OC says QB John Mateer is still the team's best option",
+   "link": "https://sports.yahoo.com/college-football/article/as-oklahoma-looks-to-eliminate-backbreaking-and-catastrophic-errors-the-sooners-oc-says-qb-john-mateer-is-still-the-teams-best-option-122115744.html",
+   "published": "2026-10-21T12:21:15.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/058e56bd1ad088866b25743d1a8c0bfd46eec07283c85cbc3b0e47eadeb6f87e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F1518fe7f-792c-472d-bec9-acb97bd0ddbb",
+   "blurb": "Mateer threw three interceptions \u2014 including a game-clinching pick-6 \u2014 in Oklahoma's loss to Kentucky in Week 7.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
    "headline": "2026 NBA odds, picks, best bets, predictions, player props: Experts, model backing Heat, more on Oct. 21",
    "link": "https://www.cbssports.com/betting/news/2026-nba-odds-picks-best-bets-predictions-player-props-experts-model-backing-heat-more-wednesday-oct-21/",
    "published": "2026-10-21T12:15:41.000Z",
@@ -1148,6 +1166,33 @@
    "blurb": "SportsLine's experts and the SportsLine Projection Model have revealed NBA picks and best bets for Wednesday, October 21",
    "source": "CBS",
    "league": "NBA"
+  },
+  {
+   "headline": "Iowa football Week 8 bowl projections: Where could the Hawkeyes be headed?",
+   "link": "https://sports.yahoo.com/articles/iowa-football-week-8-bowl-121518057.html",
+   "published": "2026-10-21T12:15:18.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/160ff8939e79792d7b36d11fc6d1ec5058900669d16c83db3889150cda0b810d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhawkeyes_wire_usa_today_articles_405%2Ff8cee839fd0ea75843f60c125d57f500.jpg",
+   "blurb": "After a chaotic week of college football with the Hawkeyes on a bye, here's the latest Iowa football bowl game projections from around the nation.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "Dodgers notes: Alex Vesia, Teruaki Sato, Hyeseong Kim",
+   "link": "https://sports.yahoo.com/articles/dodgers-notes-alex-vesia-teruaki-120800664.html",
+   "published": "2026-10-21T12:08:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/7b69344b117f812d8cd93d260a073c5e77cffc89e14304b1972f0445f0e6a152/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F34c77848bf19513cc0862bd34da1f6e7.jpg",
+   "blurb": "Among the 2026 Dodgers set to hit free agency following the conclusion of the World Series, Tarik Skubal ranks among the top available options this offseason. The Dodgers will certainly be in the hunt for a reunion for the still-reigning two-time American League Cy Young award wi",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
+   "headline": "Tennessee blown out by Duke in Exhibition matchup",
+   "link": "https://sports.yahoo.com/articles/tennessee-blown-duke-exhibition-matchup-120743245.html",
+   "published": "2026-10-21T12:07:43.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/9df40ec2860e4023c759d96b013ed9e1e0859b97a8ed276e67a33ebd295655d4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fde0e277c601514b415015e4e08ae872e.jpg",
+   "blurb": "An ugly night.",
+   "source": "YAHOO",
+   "league": "NCAAB"
   },
   {
    "headline": "Who will win the NFC East: Panel of experts states case for each team",
@@ -1177,15 +1222,6 @@
    "league": "NHL"
   },
   {
-   "headline": "Colorado's offense hopes to take another step against Oklahoma State",
-   "link": "https://sports.yahoo.com/articles/colorados-offense-hopes-another-step-120245676.html",
-   "published": "2026-10-21T12:02:45.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/ce2b6d55ffcd4cccd97d5466b6d683710d1af197de12a8a7698f74b3e7b04bd3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbuffaloes_wire_usa_today_articles_968%2F95dcef7ce2f7a008b34926317f45bf45.jpg",
-   "blurb": "Colorado football faces an Oklahoma State defense that allowed five touchdown passes against Houston, a matchup the Buffs could exploit.",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
    "headline": "UFC Fight Night 292 gets new co-main event",
    "link": "https://sports.yahoo.com/articles/ufc-fight-night-292-gets-120231776.html",
    "published": "2026-10-21T12:02:31.000Z",
@@ -1195,29 +1231,11 @@
    "league": "UFC"
   },
   {
-   "headline": "ESPN has Clemson on the bubble for College Football Playoff",
-   "link": "https://sports.yahoo.com/articles/espn-clemson-bubble-college-football-120217631.html",
-   "published": "2026-10-21T12:02:17.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/e6c26bb65c10730793eecf7a8a1a5979814bc53e39967e9ce08d6c824200f896/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fclemson_wire_usa_today_articles_107%2Fee54e7043f87be9e15eaf7ae5996e360.jpg",
-   "blurb": "ESPN's Heath Dinich has not ruled Clemson out for the College Football Playoff",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
    "headline": "Kansas City Royals: How about those Saguaros?",
    "link": "https://sports.yahoo.com/articles/kansas-city-royals-those-saguaros-120000549.html",
    "published": "2026-10-21T12:00:00.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/abd7617beee3c239eabe2ca78f0e0233a5ebf7cf4aad8d4717ee9091b21cc239/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F5c2e94cfbe2fcc996a26fa86f0db9a38.jpg",
    "blurb": "Possible bullpen fits for the Kansas City Royals abound as offseason marches on.",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
-   "headline": "Yankees Report Cards: Jazz Chisholm Jr.",
-   "link": "https://sports.yahoo.com/articles/yankees-report-cards-jazz-chisholm-120000737.html",
-   "published": "2026-10-21T12:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/0f13e464d9d0b382eef9463d77f05ff2f6f82ea6ac58c7912513c2f0c401445c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F53609016df884b1068601ec02e302ee1.jpg",
-   "blurb": "Jazz Chisholm underwhelmed in what might have been his final season in the Bronx",
    "source": "YAHOO",
    "league": "MLB"
   },
@@ -1267,15 +1285,6 @@
    "league": "NCAAB"
   },
   {
-   "headline": "Terrence Hill Jr. leaves Tennessee-Duke exhibition with ankle injury",
-   "link": "https://sports.yahoo.com/articles/terrence-hill-jr-leaves-tennessee-111202071.html",
-   "published": "2026-10-21T11:12:02.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/4b27b713ed0a45ff8ba06e35c794757f6d1ff5bfb4ac2b5169ecc06e079693e4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F339a29212b951cae943dbb299efdef14.jpg",
-   "blurb": "Not what Tennessee needed at all.",
-   "source": "YAHOO",
-   "league": "NCAAB"
-  },
-  {
    "headline": "Lakers center Walker Kessler believes his competitive side will overcome pressure",
    "link": "https://sports.yahoo.com/articles/lakers-center-walker-kessler-believes-110000134.html",
    "published": "2026-10-21T11:00:00.000Z",
@@ -1292,15 +1301,6 @@
    "blurb": "After a summer blockbuster, the former Senators captain will be playing his first game against his old team (and its vocal fans).",
    "source": "ESPN",
    "league": "NHL"
-  },
-  {
-   "headline": "World Series opponents Brewers, Rays more different than you think",
-   "link": "https://www.espn.com/mlb/story/_/id/50228459/world-series-milwaukee-brewers-tampa-bay-rays-alike-different",
-   "published": "2026-10-21T10:42:19Z",
-   "source": "ESPN",
-   "image": "",
-   "blurb": "Yes, this Fall Classic is a battle of small-market teams that don't rely on home runs. But dig deeper, and you'll discover there's much more to this matchup.",
-   "league": "MLB"
   },
   {
    "headline": "Florida an overwhelming No. 1 in preseason AP Top 25 men's basketball poll",
@@ -1431,8 +1431,8 @@
  ],
  "source_mix": {
   "ESPN": 53,
-  "CBS": 37,
-  "YAHOO": 65
+  "YAHOO": 65,
+  "CBS": 37
  },
  "degraded_sources": []
 }
