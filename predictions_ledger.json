@@ -4405,5 +4405,18 @@
   "kickoff_utc": "2026-10-22T02:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-21T22:00:32.584709+00:00"
+ },
+ {
+  "id": "2a493c0c6e",
+  "event_id": "401909842",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "LA Clippers",
+  "away": "Sacramento Kings",
+  "pick_team": "LA Clippers",
+  "prediction": "LA Clippers to beat Sacramento Kings",
+  "kickoff_utc": "2026-10-22T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-21T23:34:56.716920+00:00"
  }
 ]
