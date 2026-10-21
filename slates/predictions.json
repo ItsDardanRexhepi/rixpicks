@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-20T23:42:18.920537+00:00",
+ "generated_at": "2026-10-21T00:05:13.355671+00:00",
  "items": [
-  {
-   "id": "d47b570cc4",
-   "league": "NHL",
-   "event": "Winnipeg Jets @ St. Louis Blues",
-   "prediction": "St. Louis Blues to beat Winnipeg Jets",
-   "kickoff_utc": "2026-10-21T00:00:00+00:00"
-  },
-  {
-   "id": "5b1252cd27",
-   "league": "NHL",
-   "event": "Boston Bruins @ Dallas Stars",
-   "prediction": "Boston Bruins to beat Dallas Stars",
-   "kickoff_utc": "2026-10-21T00:00:00+00:00"
-  },
   {
    "id": "19839df3a2",
    "league": "NHL",
@@ -42,6 +28,20 @@
    "event": "Tampa Bay Lightning @ Vegas Golden Knights",
    "prediction": "Tampa Bay Lightning to beat Vegas Golden Knights",
    "kickoff_utc": "2026-10-21T02:30:00+00:00"
+  },
+  {
+   "id": "73d134a02e",
+   "league": "MLS",
+   "event": "D.C. United @ FC Cincinnati",
+   "prediction": "D.C. United to beat FC Cincinnati",
+   "kickoff_utc": "2026-10-21T23:00:00+00:00"
+  },
+  {
+   "id": "34d650c72c",
+   "league": "WNBA",
+   "event": "Golden State Valkyries @ Atlanta Dream",
+   "prediction": "Golden State Valkyries to beat Atlanta Dream",
+   "kickoff_utc": "2026-10-22T00:00:00+00:00"
   }
  ]
 }
