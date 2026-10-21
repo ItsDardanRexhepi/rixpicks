@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-21T06:30:49.681Z",
+ "generated_at": "2026-10-21T06:35:48.111Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -9,6 +9,15 @@
     "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1019%252Fr1732954_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "It's a battle of two franchises eyeing a first championship trophy. Ahead of Game 1 on Friday, here's your first look at the Fall Classic.",
     "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "Cubs BCB After Dark: Which free agent pitcher is the best fit?",
+    "link": "https://sports.yahoo.com/articles/cubs-bcb-dark-free-agent-034157815.html",
+    "published": "2026-10-21T03:41:57.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/87d13bd2c5433e47dba1033fb2ca87427257346e6a5f19146475218aa44e955a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F4522890959652a420f4a2cb4068ae974.jpg",
+    "blurb": "The late-night/early-morning spot for Cubs fans asks you to pick between three free agent starters.",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -30,6 +39,15 @@
     "league": "MLB"
    },
    {
+    "headline": "Purple Row After Dark: What was your first baseball jersey?",
+    "link": "https://sports.yahoo.com/articles/purple-row-dark-first-baseball-020000191.html",
+    "published": "2026-10-21T02:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/e184760fe5646c71f166c2c5326b83f6c8eca84483f748ba923276b516a5b308/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F1b2c770465eeddb10ff585fc13a58e73.jpg",
+    "blurb": "Let\u2019s talk fashion!",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "How the Brewers could join elite company with World Series title after dominant regular season",
     "link": "https://www.cbssports.com/mlb/news/brewers-world-series-regular-season-record-run-differential-triple-crown/",
     "published": "2026-10-20T16:21:57.000Z",
@@ -48,6 +66,15 @@
     "league": "MLB"
    },
    {
+    "headline": "Mets eye veteran assistant John Mallee for a hitting coach job",
+    "link": "https://sports.yahoo.com/articles/mets-eye-veteran-assistant-john-004819740.html",
+    "published": "2026-10-21T00:48:19.000Z",
+    "image": "",
+    "blurb": "The Mets\u2019 search for instructional help in the hitting department includes a coach with ties to president of baseball operations David Stearns.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "2026 World Series predictions: Expert picks for Brewers vs. Rays with MLB's Fall Classic set",
     "link": "https://www.cbssports.com/mlb/news/2026-world-series-predictions-expert-picks-brewers-rays/",
     "published": "2026-10-20T14:09:34.000Z",
@@ -63,33 +90,6 @@
     "image": "",
     "blurb": "The small-market Rays are kings of the American League. Here's what Tampa Bay does that nobody else can match.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "2026 MLB playoff bracket: Schedule and scores as Rays advance to World Series to face Brewers",
-    "link": "https://www.cbssports.com/mlb/news/2026-mlb-playoff-bracket-schedule-scores-results-how-to-watch/",
-    "published": "2026-10-20T04:36:46.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F20%2Fad4b6088-a174-48fb-8be4-f78cb2b02b32%2F2026-mlb-bracket-brewers-rays.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Brewers-Rays matchup guarantees that we'll have a first-time champion in 2026",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "How Rays' unique approach carried Tampa Bay to World Series",
-    "link": "https://www.espn.com/mlb/story/_/id/50222334/alcs-tampa-bay-rays-clinch-world-series-spot",
-    "published": "2026-10-21T01:17:46Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1020%2Fr1733439_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The small-market Rays are kings of the American League. Here's what Tampa Bay does that nobody else can match.",
-    "league": "MLB"
-   },
-   {
-    "headline": "Rays' Freddy Peralta named ALCS MVP after two starts, including Game 6 clincher, one relief appearance",
-    "link": "https://www.cbssports.com/mlb/news/rays-freddy-peralta-alcs-mvp-2026-mlb-playoffs/",
-    "published": "2026-10-20T04:36:30.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F20%2Fd893dc04-f4dd-4b1a-b51e-aa93affb0d7e%2Fperalta-getty-2.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Rays acquired Peralta from the Mets at the trade deadline and his turnaround has propelled them to the World Series",
-    "source": "CBS",
     "league": "MLB"
    }
   ],
@@ -463,21 +463,21 @@
   ],
   "hockey/nhl": [
    {
+    "headline": "Golden Knights Pay for Costly Mistakes in 6-2 Loss to Lightning",
+    "link": "https://sports.yahoo.com/articles/golden-knights-pay-costly-mistakes-060145529.html",
+    "published": "2026-10-21T06:01:45.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/4b56d43256a4c34949942508ddd2ecd2f715b3d0a0fb4d7e52757efcfd90968e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_las_vegas_golden_knights_articles_813%2F3b180d70c434fcccc20d61b80c6eeec9.jpg",
+    "blurb": "The Golden Knights squandered scoring chances and committed costly turnovers in a 6-2 loss to Tampa Bay. Mark Stone and coach Ryan Craig pointed to puck-management mistakes that allowed the Lightning to capitalize, while emphasizing that one October setback won't define Vegas' se",
+    "source": "YAHOO",
+    "league": "NHL"
+   },
+   {
     "headline": "Lightning beat Golden Knights 6-2 as Kucherov ties franchise points record",
     "link": "http://www.espn.com/nhl/recap?gameId=401892549",
     "published": "2026-10-21T05:54:17Z",
     "source": "ESPN",
     "image": "",
     "blurb": "\u2014 Anthony Cirelli scored twice, Nikita Kucherov had three points to tie Tampa Bay's career scoring record, and the Lightning extended their strong start by beating the Vegas Golden Knights 6-2 on Tuesday night.",
-    "league": "NHL"
-   },
-   {
-    "headline": "Instant Analysis: Blues Win Tightly-Contested, Badly-Needed 2-1 Game Over Jets",
-    "link": "https://sports.yahoo.com/articles/instant-analysis-blues-win-tightly-045324402.html",
-    "published": "2026-10-21T04:53:24.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/ca66bffd6d89f9ed97eed98a7393b78e928db3dcf397d42db2cd541c764f011b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_st_louis_blues_articles_393%2Fc9f3c09bac6f63a6e51766f769928161.jpg",
-    "blurb": "Broberg leading charge with goal, assist, had handprints all over game; power play comes through with clutch goal; Thomas line figuring out defense leads to offense; Hofer rebound control key to limiting Jets offensively; shutting down Blues killers Scheifele, Connor",
-    "source": "YAHOO",
     "league": "NHL"
    },
    {
@@ -490,21 +490,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Instant Analysis: Blues Win Tightly-Contested, Badly-Needed 2-1 Game Over Jets",
+    "link": "https://sports.yahoo.com/articles/instant-analysis-blues-win-tightly-045324402.html",
+    "published": "2026-10-21T04:53:24.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/ca66bffd6d89f9ed97eed98a7393b78e928db3dcf397d42db2cd541c764f011b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_st_louis_blues_articles_393%2Fc9f3c09bac6f63a6e51766f769928161.jpg",
+    "blurb": "Broberg leading charge with goal, assist, had handprints all over game; power play comes through with clutch goal; Thomas line figuring out defense leads to offense; Hofer rebound control key to limiting Jets offensively; shutting down Blues killers Scheifele, Connor",
+    "source": "YAHOO",
+    "league": "NHL"
+   },
+   {
     "headline": "Tampa Bay Lightning vs. Vegas Golden Knights: Game Highlights",
     "link": "https://www.espn.com/video/clip/_/id/50235060/game-highlights",
     "published": "2026-10-21T05:31:30Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1021%2Fb5dbc294-8246-4a73-afb0-a159502c91fc%2Fb5dbc294-8246-4a73-afb0-a159502c91fc.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Tampa Bay Lightning vs. Vegas Golden Knights: Game Highlights",
-    "league": "NHL"
-   },
-   {
-    "headline": "Chisholm\u2019s power-play winner lifts Devils past Avalanche 4-3",
-    "link": "https://sports.yahoo.com/articles/chisholm-power-play-winner-lifts-034725678.html",
-    "published": "2026-10-21T03:47:25.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/86a651b17b1a89354135900506ad372b7a5333ce4ab0c739258be51a8d804cb3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fap.org%2F50c410757de3bf8d3b1ef08f7e8998b2.jpg",
-    "blurb": "(AP) \u2014 Declan Chisholm scored the go-ahead goal midway through the second period and Jake Allen made 31 saves as the New Jersey Devils beat the Colorado Avalanche 4-3 on Tuesday night.Chisholm scored his first goal for the Devils at 12:33 on a power play, putting New Jersey in fr",
-    "source": "YAHOO",
     "league": "NHL"
    },
    {
@@ -517,21 +517,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Chisholm\u2019s power-play winner lifts Devils past Avalanche 4-3",
+    "link": "https://sports.yahoo.com/articles/chisholm-power-play-winner-lifts-034725678.html",
+    "published": "2026-10-21T03:47:25.000Z",
+    "image": "",
+    "blurb": "(AP) \u2014 Declan Chisholm scored the go-ahead goal midway through the second period and Jake Allen made 31 saves as the New Jersey Devils beat the Colorado Avalanche 4-3 on Tuesday night.Chisholm scored his first goal for the Devils at 12:33 on a power play, putting New Jersey in fr",
+    "source": "YAHOO",
+    "league": "NHL"
+   },
+   {
     "headline": "Panthers' Brady Tkachuk to donate Senators jerseys thrown in protest",
     "link": "https://www.espn.com/nhl/story/_/id/50229361/panthers-brady-tkachuk-donate-senators-jerseys-thrown-protest",
     "published": "2026-10-21T05:30:56.000Z",
     "image": "",
     "blurb": "Brady Tkachuk, who was traded from Ottawa to Florida in June, says he'll donate any Senators jerseys thrown in protest of his return to the Boys and Girls Club of Ottawa.",
     "source": "ESPN",
-    "league": "NHL"
-   },
-   {
-    "headline": "Recap: Bruins fizzle out down the stretch, lose to Dallas in OT",
-    "link": "https://sports.yahoo.com/articles/recap-bruins-fizzle-down-stretch-032958893.html",
-    "published": "2026-10-21T03:29:58.000Z",
-    "image": "",
-    "blurb": "Close, but no cigar.",
-    "source": "YAHOO",
     "league": "NHL"
    },
    {
@@ -544,12 +544,12 @@
     "league": "NHL"
    },
    {
-    "headline": "Source: Red Wings' Larkin stretches list of trade options to 10 teams",
-    "link": "https://www.espn.com/nhl/story/_/id/50233721/red-wings-dylan-larkin-stretches-trade-list-10-teams",
-    "published": "2026-10-21T05:30:55.000Z",
+    "headline": "Recap: Bruins fizzle out down the stretch, lose to Dallas in OT",
+    "link": "https://sports.yahoo.com/articles/recap-bruins-fizzle-down-stretch-032958893.html",
+    "published": "2026-10-21T03:29:58.000Z",
     "image": "",
-    "blurb": "Dylan Larkin, whose trade request was made public last June, told the Red Wings he'd be willing to move to at least seven additional teams, bringing his list of options to 10, a source confirmed to ESPN.",
-    "source": "ESPN",
+    "blurb": "Close, but no cigar.",
+    "source": "YAHOO",
     "league": "NHL"
    }
   ],
@@ -1105,13 +1105,13 @@
    "league": "MLB"
   },
   {
-   "headline": "Rich Eisen: Brewers-Rays is going to be great baseball",
-   "link": "https://www.espn.com/video/clip/_/id/50229916/rays-brewers-going-great-baseball",
-   "published": "2026-10-21T06:12:28Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F1020%2Fss_20261020_140440462_3703722849%2Fss_20261020_140440462_3703722849.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Rich Eisen: Rays-Brewers is going to be great baseball",
-   "league": "MLB"
+   "headline": "Golden Knights Pay for Costly Mistakes in 6-2 Loss to Lightning",
+   "link": "https://sports.yahoo.com/articles/golden-knights-pay-costly-mistakes-060145529.html",
+   "published": "2026-10-21T06:01:45.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/4b56d43256a4c34949942508ddd2ecd2f715b3d0a0fb4d7e52757efcfd90968e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_las_vegas_golden_knights_articles_813%2F3b180d70c434fcccc20d61b80c6eeec9.jpg",
+   "blurb": "The Golden Knights squandered scoring chances and committed costly turnovers in a 6-2 loss to Tampa Bay. Mark Stone and coach Ryan Craig pointed to puck-management mistakes that allowed the Lightning to capitalize, while emphasizing that one October setback won't define Vegas' se",
+   "source": "YAHOO",
+   "league": "NHL"
   },
   {
    "headline": "New-look 76ers flash glimpses of what could be against defending champion Knicks",
@@ -1249,13 +1249,13 @@
    "league": "UFC"
   },
   {
-   "headline": "Chisholm\u2019s power-play winner lifts Devils past Avalanche 4-3",
-   "link": "https://sports.yahoo.com/articles/chisholm-power-play-winner-lifts-034725678.html",
-   "published": "2026-10-21T03:47:25.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/86a651b17b1a89354135900506ad372b7a5333ce4ab0c739258be51a8d804cb3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fap.org%2F50c410757de3bf8d3b1ef08f7e8998b2.jpg",
-   "blurb": "(AP) \u2014 Declan Chisholm scored the go-ahead goal midway through the second period and Jake Allen made 31 saves as the New Jersey Devils beat the Colorado Avalanche 4-3 on Tuesday night.Chisholm scored his first goal for the Devils at 12:33 on a power play, putting New Jersey in fr",
+   "headline": "Cubs BCB After Dark: Which free agent pitcher is the best fit?",
+   "link": "https://sports.yahoo.com/articles/cubs-bcb-dark-free-agent-034157815.html",
+   "published": "2026-10-21T03:41:57.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/87d13bd2c5433e47dba1033fb2ca87427257346e6a5f19146475218aa44e955a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F4522890959652a420f4a2cb4068ae974.jpg",
+   "blurb": "The late-night/early-morning spot for Cubs fans asks you to pick between three free agent starters.",
    "source": "YAHOO",
-   "league": "NHL"
+   "league": "MLB"
   },
   {
    "headline": "Ross Steelman learned to build golf clubs as a teen and it hasn\u2019t left him",
@@ -1310,6 +1310,15 @@
    "blurb": "At the owners meetings Tuesday in New York, NFL officials staunchly defended the process involving Philadelphia Eagles quarterback Jalen Hurts and his blood clot issue, with chief medical officer Allen Sills addressing reporters in a media availability.",
    "source": "ESPN",
    "league": "NFL"
+  },
+  {
+   "headline": "Purple Row After Dark: What was your first baseball jersey?",
+   "link": "https://sports.yahoo.com/articles/purple-row-dark-first-baseball-020000191.html",
+   "published": "2026-10-21T02:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/e184760fe5646c71f166c2c5326b83f6c8eca84483f748ba923276b516a5b308/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F1b2c770465eeddb10ff585fc13a58e73.jpg",
+   "blurb": "Let\u2019s talk fashion!",
+   "source": "YAHOO",
+   "league": "MLB"
   },
   {
    "headline": "Chicago Sky's Natasha Cloud Announces Off-Court Move",
@@ -1418,21 +1427,12 @@
    "blurb": "The league says its continuing with its original plans and monitoring the situation",
    "source": "CBS",
    "league": "NFL"
-  },
-  {
-   "headline": "Kings vs. Capitals NHL Tuesday parlay: Alex Ovechkin and Co. looking to keep Los Angeles as only winless team",
-   "link": "https://www.cbssports.com/betting/news/kings-vs-capitals-nhl-tuesday-parlay-alex-ovechkin-and-co-looking-to-keep-los-angeles-as-only-winless-team/",
-   "published": "2026-10-20T21:30:49.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F19%2Fa4bcede0-c1ca-49f6-a85a-eb1fbb5d639c%2F2025-11-18t015156z-1025393730-mt1usatoday27614518-rtrmadp-3-nhl-los-angeles-kings-at-washington-capitals-jpg.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Kings are the NHL's lone winless club and could stay that way Tuesday at Washington",
-   "source": "CBS",
-   "league": "NHL"
   }
  ],
  "source_mix": {
-  "ESPN": 53,
-  "YAHOO": 62,
-  "CBS": 40
+  "ESPN": 50,
+  "YAHOO": 68,
+  "CBS": 37
  },
  "degraded_sources": []
 }
