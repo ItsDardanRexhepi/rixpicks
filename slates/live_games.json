@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T00:49:29.239973+00:00",
+ "generated_at": "2026-10-21T00:52:29.981426+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -45,10 +45,10 @@
      "matchup": "PHI @ NY",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "10:54 - 3rd",
-     "score": "PHI 56 - NY 58",
+     "detail": "9:46 - 3rd",
+     "score": "PHI 58 - NY 60",
      "away_to": 5,
-     "home_to": 5
+     "home_to": 4
     },
     {
      "espn_event_id": "401909090",
@@ -108,7 +108,7 @@
      "matchup": "TOR @ CBJ",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "0:34 - 2nd",
+     "detail": "End of 2nd",
      "score": "TOR 5 - CBJ 1",
      "away_to": null,
      "home_to": null
