@@ -1,27 +1,6 @@
 {
- "generated_at": "2026-10-21T22:45:05.904498+00:00",
+ "generated_at": "2026-10-21T23:05:32.152688+00:00",
  "items": [
-  {
-   "id": "73d134a02e",
-   "league": "MLS",
-   "event": "D.C. United @ FC Cincinnati",
-   "prediction": "D.C. United to beat FC Cincinnati",
-   "kickoff_utc": "2026-10-21T23:00:00+00:00"
-  },
-  {
-   "id": "4cb5abb56c",
-   "league": "NBA",
-   "event": "Milwaukee Bucks @ Washington Wizards",
-   "prediction": "Milwaukee Bucks to beat Washington Wizards",
-   "kickoff_utc": "2026-10-21T23:00:00+00:00"
-  },
-  {
-   "id": "0a659eefc9",
-   "league": "NBA",
-   "event": "Atlanta Hawks @ Orlando Magic",
-   "prediction": "Orlando Magic to beat Atlanta Hawks",
-   "kickoff_utc": "2026-10-21T23:00:00+00:00"
-  },
   {
    "id": "5564c13392",
    "league": "NBA",
@@ -42,6 +21,27 @@
    "event": "Philadelphia Flyers @ Buffalo Sabres",
    "prediction": "Buffalo Sabres to beat Philadelphia Flyers",
    "kickoff_utc": "2026-10-21T23:30:00+00:00"
+  },
+  {
+   "id": "34d650c72c",
+   "league": "WNBA",
+   "event": "Golden State Valkyries @ Atlanta Dream",
+   "prediction": "Golden State Valkyries to beat Atlanta Dream",
+   "kickoff_utc": "2026-10-22T00:00:00+00:00"
+  },
+  {
+   "id": "23e607bdbc",
+   "league": "NBA",
+   "event": "Utah Jazz @ Memphis Grizzlies",
+   "prediction": "Utah Jazz to beat Memphis Grizzlies",
+   "kickoff_utc": "2026-10-22T00:00:00+00:00"
+  },
+  {
+   "id": "0adcdb06b0",
+   "league": "NBA",
+   "event": "Golden State Warriors @ Los Angeles Lakers",
+   "prediction": "Golden State Warriors to beat Los Angeles Lakers",
+   "kickoff_utc": "2026-10-22T02:00:00+00:00"
   }
  ]
 }
