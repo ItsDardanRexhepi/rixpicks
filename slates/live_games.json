@@ -1,7 +1,33 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T21:50:08.842026+00:00",
+ "generated_at": "2026-10-21T22:05:03.669312+00:00",
  "leagues": [
+  {
+   "league": "CFB",
+   "games": [
+    {
+     "espn_event_id": "401871070",
+     "matchup": "NMSU @ SHSU",
+     "commence": "2026-10-22T00:00Z",
+     "status": "pre",
+     "detail": "10/21 - 5:00 PM PT",
+     "score": "NMSU 0 - SHSU 0"
+    }
+   ]
+  },
+  {
+   "league": "WNBA",
+   "games": [
+    {
+     "espn_event_id": "401918307",
+     "matchup": "GS @ ATL",
+     "commence": "2026-10-22T00:00Z",
+     "status": "pre",
+     "detail": "10/21 - 5:00 PM PT",
+     "score": "GS 0 - ATL 0"
+    }
+   ]
+  },
   {
    "league": "NBA",
    "games": [
@@ -44,6 +70,22 @@
      "status": "pre",
      "detail": "10/21 - 4:30 PM PT",
      "score": "CHI 0 - TOR 0"
+    },
+    {
+     "espn_event_id": "401909838",
+     "matchup": "UTAH @ MEM",
+     "commence": "2026-10-22T00:00Z",
+     "status": "pre",
+     "detail": "10/21 - 5:00 PM PT",
+     "score": "UTAH 0 - MEM 0"
+    },
+    {
+     "espn_event_id": "401909839",
+     "matchup": "IND @ NO",
+     "commence": "2026-10-22T00:00Z",
+     "status": "pre",
+     "detail": "10/21 - 5:00 PM PT",
+     "score": "IND 0 - NO 0"
     }
    ]
   },
