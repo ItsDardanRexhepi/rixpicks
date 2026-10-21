@@ -4262,5 +4262,18 @@
   "kickoff_utc": "2026-10-25T20:25:00+00:00",
   "status": "pending",
   "created_at": "2026-10-21T08:05:46.371589+00:00"
+ },
+ {
+  "id": "7b9777b0e3",
+  "event_id": "401873022",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Seattle Seahawks",
+  "away": "Kansas City Chiefs",
+  "pick_team": "Kansas City Chiefs",
+  "prediction": "Kansas City Chiefs to beat Seattle Seahawks",
+  "kickoff_utc": "2026-10-26T00:20:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-21T09:13:27.303209+00:00"
  }
 ]
