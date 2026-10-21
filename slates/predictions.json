@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-21T14:55:18.187087+00:00",
+ "generated_at": "2026-10-21T15:37:36.979435+00:00",
  "items": [
   {
    "id": "73d134a02e",
@@ -7,6 +7,20 @@
    "event": "D.C. United @ FC Cincinnati",
    "prediction": "D.C. United to beat FC Cincinnati",
    "kickoff_utc": "2026-10-21T23:00:00+00:00"
+  },
+  {
+   "id": "4cb5abb56c",
+   "league": "NBA",
+   "event": "Milwaukee Bucks @ Washington Wizards",
+   "prediction": "Milwaukee Bucks to beat Washington Wizards",
+   "kickoff_utc": "2026-10-21T23:00:00+00:00"
+  },
+  {
+   "id": "5564c13392",
+   "league": "NBA",
+   "event": "Minnesota Timberwolves @ Miami Heat",
+   "prediction": "Miami Heat to beat Minnesota Timberwolves",
+   "kickoff_utc": "2026-10-21T23:30:00+00:00"
   },
   {
    "id": "34d650c72c",
@@ -28,20 +42,6 @@
    "event": "Houston Dash @ Chicago Stars FC",
    "prediction": "Houston Dash to beat Chicago Stars FC",
    "kickoff_utc": "2026-10-24T00:00:00+00:00"
-  },
-  {
-   "id": "6d2cd0c80e",
-   "league": "MLB",
-   "event": "Tampa Bay Rays @ Milwaukee Brewers",
-   "prediction": "Milwaukee Brewers to beat Tampa Bay Rays",
-   "kickoff_utc": "2026-10-24T00:00:00+00:00"
-  },
-  {
-   "id": "a01a971eb7",
-   "league": "NWSL",
-   "event": "Seattle Reign FC @ Utah Royals",
-   "prediction": "Seattle Reign FC to beat Utah Royals",
-   "kickoff_utc": "2026-10-24T01:30:00+00:00"
   }
  ]
 }
