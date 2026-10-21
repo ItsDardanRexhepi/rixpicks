@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-21T05:35:59.372685+00:00",
+ "generated_at": "2026-10-21T05:51:08.509213+00:00",
  "items": [
   {
    "id": "73d134a02e",
@@ -14,6 +14,13 @@
    "event": "Golden State Valkyries @ Atlanta Dream",
    "prediction": "Golden State Valkyries to beat Atlanta Dream",
    "kickoff_utc": "2026-10-22T00:00:00+00:00"
+  },
+  {
+   "id": "f02015875b",
+   "league": "NFL",
+   "event": "New England Patriots @ Chicago Bears",
+   "prediction": "Chicago Bears to beat New England Patriots",
+   "kickoff_utc": "2026-10-23T00:15:00+00:00"
   },
   {
    "id": "74f8ce2caf",
@@ -35,13 +42,6 @@
    "event": "Seattle Reign FC @ Utah Royals",
    "prediction": "Seattle Reign FC to beat Utah Royals",
    "kickoff_utc": "2026-10-24T01:30:00+00:00"
-  },
-  {
-   "id": "16b483d386",
-   "league": "NWSL",
-   "event": "North Carolina Courage @ Portland Thorns FC",
-   "prediction": "North Carolina Courage to beat Portland Thorns FC",
-   "kickoff_utc": "2026-10-24T02:00:00+00:00"
   }
  ]
 }

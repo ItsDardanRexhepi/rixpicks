@@ -4158,5 +4158,44 @@
   "kickoff_utc": "2026-10-25T20:25:00+00:00",
   "status": "pending",
   "created_at": "2026-10-21T04:25:07.898983+00:00"
+ },
+ {
+  "id": "f02015875b",
+  "event_id": "401873010",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Chicago Bears",
+  "away": "New England Patriots",
+  "pick_team": "Chicago Bears",
+  "prediction": "Chicago Bears to beat New England Patriots",
+  "kickoff_utc": "2026-10-23T00:15:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-21T05:49:59.258107+00:00"
+ },
+ {
+  "id": "ca094ee765",
+  "event_id": "401873015",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "New York Jets",
+  "away": "Miami Dolphins",
+  "pick_team": "Miami Dolphins",
+  "prediction": "Miami Dolphins to beat New York Jets",
+  "kickoff_utc": "2026-10-25T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-21T05:50:31.750789+00:00"
+ },
+ {
+  "id": "13a5ea9d2f",
+  "event_id": "401873018",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Carolina Panthers",
+  "away": "Tampa Bay Buccaneers",
+  "pick_team": "Carolina Panthers",
+  "prediction": "Carolina Panthers to beat Tampa Bay Buccaneers",
+  "kickoff_utc": "2026-10-25T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-21T05:50:37.443868+00:00"
  }
 ]
