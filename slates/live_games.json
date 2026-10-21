@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T23:35:04.727194+00:00",
+ "generated_at": "2026-10-21T23:50:06.384494+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -36,20 +36,50 @@
      "matchup": "ATL @ ORL",
      "commence": "2026-10-21T23:00Z",
      "status": "in",
-     "detail": "3:14 - 1st",
-     "score": "ATL 21 - ORL 26",
+     "detail": "11:14 - 2nd",
+     "score": "ATL 31 - ORL 33",
      "away_to": 6,
-     "home_to": 7
+     "home_to": 6
     },
     {
      "espn_event_id": "401909835",
      "matchup": "MIL @ WAS",
      "commence": "2026-10-21T23:00Z",
      "status": "in",
-     "detail": "3:31 - 1st",
-     "score": "MIL 18 - WAS 23",
+     "detail": "9:29 - 2nd",
+     "score": "MIL 27 - WAS 27",
      "away_to": 6,
      "home_to": 6
+    },
+    {
+     "espn_event_id": "401909091",
+     "matchup": "MIN @ MIA",
+     "commence": "2026-10-21T23:30Z",
+     "status": "in",
+     "detail": "8:16 - 1st",
+     "score": "MIN 15 - MIA 14",
+     "away_to": 7,
+     "home_to": 7
+    },
+    {
+     "espn_event_id": "401909836",
+     "matchup": "CHA @ BKN",
+     "commence": "2026-10-21T23:30Z",
+     "status": "in",
+     "detail": "8:35 - 1st",
+     "score": "CHA 5 - BKN 11",
+     "away_to": 7,
+     "home_to": 6
+    },
+    {
+     "espn_event_id": "401909837",
+     "matchup": "CHI @ TOR",
+     "commence": "2026-10-21T23:30Z",
+     "status": "in",
+     "detail": "10:41 - 1st",
+     "score": "CHI 0 - TOR 7",
+     "away_to": 6,
+     "home_to": 7
     },
     {
      "espn_event_id": "401909838",
@@ -85,8 +115,18 @@
      "matchup": "PHI @ BUF",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "20:00 - 1st",
+     "detail": "12:32 - 1st",
      "score": "PHI 0 - BUF 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892551",
+     "matchup": "FLA @ OTT",
+     "commence": "2026-10-21T23:30Z",
+     "status": "in",
+     "detail": "18:19 - 1st",
+     "score": "FLA 0 - OTT 0",
      "away_to": null,
      "home_to": null
     }
@@ -100,7 +140,7 @@
      "matchup": "DC @ CIN",
      "commence": "2026-10-21T23:00Z",
      "status": "in",
-     "detail": "20'",
+     "detail": "35'",
      "score": "DC 0 - CIN 1"
     }
    ]
