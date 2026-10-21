@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T00:05:16.489530+00:00",
+ "generated_at": "2026-10-21T00:20:14.797377+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,7 +10,7 @@
      "matchup": "MTSU @ FIU",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "10:04 - 2nd",
+     "detail": "2:57 - 2nd",
      "score": "MTSU 10 - FIU 8",
      "away_to": 3,
      "home_to": 2
@@ -20,8 +20,8 @@
      "matchup": "MOST @ DEL",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "8:06 - 2nd",
-     "score": "MOST 14 - DEL 21",
+     "detail": "2:09 - 2nd",
+     "score": "MOST 21 - DEL 24",
      "away_to": 3,
      "home_to": 3
     },
@@ -30,8 +30,8 @@
      "matchup": "USA @ MRSH",
      "commence": "2026-10-20T23:30Z",
      "status": "in",
-     "detail": "4:51 - 1st",
-     "score": "USA 0 - MRSH 0",
+     "detail": "12:40 - 2nd",
+     "score": "USA 3 - MRSH 0",
      "away_to": 2,
      "home_to": 3
     }
@@ -45,10 +45,10 @@
      "matchup": "PHI @ NY",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "7:29 - 2nd",
-     "score": "PHI 30 - NY 40",
+     "detail": "2:39 - 2nd",
+     "score": "PHI 46 - NY 50",
      "away_to": 5,
-     "home_to": 6
+     "home_to": 5
     },
     {
      "espn_event_id": "401909090",
@@ -68,8 +68,8 @@
      "matchup": "SJ @ MTL",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "20:00 - 2nd",
-     "score": "SJ 1 - MTL 1",
+     "detail": "12:22 - 2nd",
+     "score": "SJ 1 - MTL 2",
      "away_to": null,
      "home_to": null
     },
@@ -78,7 +78,7 @@
      "matchup": "COL @ NJ",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "18:42 - 2nd",
+     "detail": "11:05 - 2nd",
      "score": "COL 1 - NJ 1",
      "away_to": null,
      "home_to": null
@@ -88,7 +88,7 @@
      "matchup": "ANA @ NYI",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "20:00 - 2nd",
+     "detail": "10:47 - 2nd",
      "score": "ANA 1 - NYI 3",
      "away_to": null,
      "home_to": null
@@ -98,7 +98,7 @@
      "matchup": "LA @ WAS",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "19:08 - 2nd",
+     "detail": "9:55 - 2nd",
      "score": "LA 2 - WAS 2",
      "away_to": null,
      "home_to": null
@@ -108,8 +108,28 @@
      "matchup": "TOR @ CBJ",
      "commence": "2026-10-20T23:00Z",
      "status": "in",
-     "detail": "End of 1st",
-     "score": "TOR 1 - CBJ 1",
+     "detail": "15:03 - 2nd",
+     "score": "TOR 3 - CBJ 1",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892544",
+     "matchup": "WPG @ STL",
+     "commence": "2026-10-21T00:00Z",
+     "status": "in",
+     "detail": "13:12 - 1st",
+     "score": "WPG 0 - STL 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892545",
+     "matchup": "BOS @ DAL",
+     "commence": "2026-10-21T00:00Z",
+     "status": "in",
+     "detail": "12:50 - 1st",
+     "score": "BOS 1 - DAL 0",
      "away_to": null,
      "home_to": null
     },
