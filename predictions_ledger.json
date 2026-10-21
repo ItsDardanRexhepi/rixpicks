@@ -4353,5 +4353,18 @@
   "kickoff_utc": "2026-10-21T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-21T17:23:50.106971+00:00"
+ },
+ {
+  "id": "23e607bdbc",
+  "event_id": "401909838",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Memphis Grizzlies",
+  "away": "Utah Jazz",
+  "pick_team": "Utah Jazz",
+  "prediction": "Utah Jazz to beat Memphis Grizzlies",
+  "kickoff_utc": "2026-10-22T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-21T18:10:32.646906+00:00"
  }
 ]
