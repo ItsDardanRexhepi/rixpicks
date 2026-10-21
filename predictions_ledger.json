@@ -4379,5 +4379,18 @@
   "kickoff_utc": "2026-10-21T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-21T18:49:58.442118+00:00"
+ },
+ {
+  "id": "ca3c031585",
+  "event_id": "401892550",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Buffalo Sabres",
+  "away": "Philadelphia Flyers",
+  "pick_team": "Buffalo Sabres",
+  "prediction": "Buffalo Sabres to beat Philadelphia Flyers",
+  "kickoff_utc": "2026-10-21T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-21T20:06:39.803195+00:00"
  }
 ]
