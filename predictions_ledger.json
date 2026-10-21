@@ -4223,5 +4223,18 @@
   "kickoff_utc": "2026-10-25T17:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-21T06:20:15.634195+00:00"
+ },
+ {
+  "id": "0ac7adfcdd",
+  "event_id": "401873016",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Houston Texans",
+  "away": "New York Giants",
+  "pick_team": "Houston Texans",
+  "prediction": "Houston Texans to beat New York Giants",
+  "kickoff_utc": "2026-10-25T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-21T06:50:07.207012+00:00"
  }
 ]
