@@ -4129,5 +4129,31 @@
   "kickoff_utc": "2026-10-22T00:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-20T21:05:49.317032+00:00"
+ },
+ {
+  "id": "5a6c8d9b9c",
+  "event_id": "401873017",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Atlanta Falcons",
+  "away": "San Francisco 49ers",
+  "pick_team": "San Francisco 49ers",
+  "prediction": "San Francisco 49ers to beat Atlanta Falcons",
+  "kickoff_utc": "2026-10-25T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-21T04:20:44.627226+00:00"
+ },
+ {
+  "id": "35d6dd4941",
+  "event_id": "401873021",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Las Vegas Raiders",
+  "away": "Los Angeles Rams",
+  "pick_team": "Las Vegas Raiders",
+  "prediction": "Las Vegas Raiders to beat Los Angeles Rams",
+  "kickoff_utc": "2026-10-25T20:25:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-21T04:25:07.898983+00:00"
  }
 ]
