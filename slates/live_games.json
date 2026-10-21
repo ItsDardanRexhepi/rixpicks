@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T21:20:04.135199+00:00",
+ "generated_at": "2026-10-21T21:35:06.784038+00:00",
  "leagues": [
   {
    "league": "NBA",
@@ -20,6 +20,51 @@
      "status": "pre",
      "detail": "10/21 - 4:00 PM PT",
      "score": "MIL 0 - WAS 0"
+    },
+    {
+     "espn_event_id": "401909091",
+     "matchup": "MIN @ MIA",
+     "commence": "2026-10-21T23:30Z",
+     "status": "pre",
+     "detail": "10/21 - 4:30 PM PT",
+     "score": "MIN 0 - MIA 0"
+    },
+    {
+     "espn_event_id": "401909836",
+     "matchup": "CHA @ BKN",
+     "commence": "2026-10-21T23:30Z",
+     "status": "pre",
+     "detail": "10/21 - 4:30 PM PT",
+     "score": "CHA 0 - BKN 0"
+    },
+    {
+     "espn_event_id": "401909837",
+     "matchup": "CHI @ TOR",
+     "commence": "2026-10-21T23:30Z",
+     "status": "pre",
+     "detail": "10/21 - 4:30 PM PT",
+     "score": "CHI 0 - TOR 0"
+    }
+   ]
+  },
+  {
+   "league": "NHL",
+   "games": [
+    {
+     "espn_event_id": "401892550",
+     "matchup": "PHI @ BUF",
+     "commence": "2026-10-21T23:30Z",
+     "status": "pre",
+     "detail": "10/21 - 4:30 PM PT",
+     "score": "PHI 0 - BUF 0"
+    },
+    {
+     "espn_event_id": "401892551",
+     "matchup": "FLA @ OTT",
+     "commence": "2026-10-21T23:30Z",
+     "status": "pre",
+     "detail": "10/21 - 4:30 PM PT",
+     "score": "FLA 0 - OTT 0"
     }
    ]
   },
