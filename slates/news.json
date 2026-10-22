@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-22T01:30:50.483Z",
+ "generated_at": "2026-10-22T01:35:45.761Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -95,6 +95,15 @@
   ],
   "football/nfl": [
    {
+    "headline": "NFL Week 7 Injury Report: Mike Evans' Achilles; significant injuries to Terry McLaurin, Davante Adams",
+    "link": "https://sports.yahoo.com/articles/nfl-week-7-injury-report-185122522.html",
+    "published": "2026-10-22T01:25:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/33f826d438e5a07dc4a17fb99990d1a8dad8e7d7c37e1ee30592ae743284df4b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2Fa39f9d52989606bf62ddd66783574e10.jpg",
+    "blurb": "Track the injuries to know around the NFL, all in one place.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Saleh defends ex-Titan Elliott, says gun incident was not 'criminal act'",
     "link": "https://www.espn.com/nfl/story/_/id/50238315/source-jordan-elliott-attempted-retrieve-gun-car",
     "published": "2026-10-22T01:06:21.000Z",
@@ -143,7 +152,7 @@
     "headline": "J.J. McCarthy honored to be the Giants\u2019 starting quarterback",
     "link": "https://sports.yahoo.com/articles/j-j-mccarthy-honored-giants-002942859.html",
     "published": "2026-10-22T00:29:42.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/3275902327869a1ff888fe82b8b2ca3f0fc3c09e0123641c7d7a7a5882f515d1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F5f294c515b05f83876dc8cfc004ab9b2.jpg",
+    "image": "",
     "blurb": "&#92;McCarthy reacts to being named the starter.",
     "source": "YAHOO",
     "league": "NFL"
@@ -173,15 +182,6 @@
     "image": "",
     "blurb": "After the Jets\u2019 Week 6 loss to the Patriots, offensive coordinator Frank Reich has been a target of fan and media criticism for his playcalling. Head coach Aaron Glenn said positive things about Reich\u2019s performance to the media on Wednesday. Asked if the offensive struggles might",
     "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "Broncos OLB Cooper on absence due to arrests: 'No excuses'",
-    "link": "https://www.espn.com/nfl/story/_/id/50242318/broncos-olb-cooper-absence-due-arrests-no-excuses",
-    "published": "2026-10-22T01:06:21.000Z",
-    "image": "",
-    "blurb": "Broncos OLB Jonathon Cooper, now off the exempt list following two arrests on domestic violence charges in June, said he holds himself accountable.",
-    "source": "ESPN",
     "league": "NFL"
    }
   ],
@@ -472,11 +472,11 @@
     "league": "NHL"
    },
    {
-    "headline": "Penguins Forward Emerges As Top NHL Trade Candidate Amid Ugly Start",
-    "link": "https://sports.yahoo.com/articles/penguins-forward-emerges-top-nhl-001017963.html",
-    "published": "2026-10-22T00:10:17.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/628a2da1f5fa147fbe867dee59bbeb94a588b48f68cfe836d2c08da336637526/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_pittsburgh_penguins_articles_513%2Fe0a1ed33e4a6e49ccbeaccfc19657073.jpg",
-    "blurb": "This Penguins forward has been named a top trade candidate in the NHL.",
+    "headline": "Brady Tkachuk booed in Ottawa return, revels in Senators fans' reaction",
+    "link": "https://sports.yahoo.com/articles/brady-tkachuk-booed-ottawa-return-011943196.html",
+    "published": "2026-10-22T01:19:43.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/ef928e7728d8b30a8b5940c8827f0d9abce92a4ec0602864c1afe643e3c3d18b/lightyear_networkapi/resizefill_w970_h804%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F8f84aa4bba2bf3d8df58f829b91aeb1f.jpg",
+    "blurb": "Brady Tkachuk made his much-anticipated return to Ottawa, and it went as expected as Senators fans greeted their former captain with loud boos.",
     "source": "YAHOO",
     "league": "NHL"
    },
@@ -499,11 +499,11 @@
     "league": "NHL"
    },
    {
-    "headline": "The Ex-Files: How Are Former Sabres Doing? - Atlantic Division",
-    "link": "https://sports.yahoo.com/articles/ex-files-former-sabres-doing-235545191.html",
-    "published": "2026-10-21T23:55:45.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/69f0c1d573a6030e27084e1611af3d579bc35098fd2ba75d0f595dfb260cf2cc/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_buffalo_sabres_articles_890%2Facffc80bc60b5feaf3f8b441a6cb4666.jpg",
-    "blurb": "Former Sabre Jake McCabe left the Toronto - Columbus game on Tuesday after getting a high stick under his visor from Blue Jackets forward Kent Johnson",
+    "headline": "Penguins Forward Emerges As Top NHL Trade Candidate Amid Ugly Start",
+    "link": "https://sports.yahoo.com/articles/penguins-forward-emerges-top-nhl-001017963.html",
+    "published": "2026-10-22T00:10:17.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/628a2da1f5fa147fbe867dee59bbeb94a588b48f68cfe836d2c08da336637526/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_pittsburgh_penguins_articles_513%2Fe0a1ed33e4a6e49ccbeaccfc19657073.jpg",
+    "blurb": "This Penguins forward has been named a top trade candidate in the NHL.",
     "source": "YAHOO",
     "league": "NHL"
    },
@@ -526,11 +526,11 @@
     "league": "NHL"
    },
    {
-    "headline": "Drew Commesso Receives Praise In The Hockey News' Goalie Issue 2026",
-    "link": "https://sports.yahoo.com/articles/drew-commesso-receives-praise-hockey-222621875.html",
-    "published": "2026-10-21T22:26:21.000Z",
+    "headline": "The Ex-Files: How Are Former Sabres Doing? - Atlantic Division",
+    "link": "https://sports.yahoo.com/articles/ex-files-former-sabres-doing-235545191.html",
+    "published": "2026-10-21T23:55:45.000Z",
     "image": "",
-    "blurb": "Is Drew Commesso the goalie of the future for the Chicago Blackhawks? He certainly will get his chance to play games.",
+    "blurb": "Former Sabre Jake McCabe left the Toronto - Columbus game on Tuesday after getting a high stick under his visor from Blue Jackets forward Kent Johnson",
     "source": "YAHOO",
     "league": "NHL"
    },
@@ -1123,6 +1123,24 @@
    "league": "MLB"
   },
   {
+   "headline": "NFL Week 7 Injury Report: Mike Evans' Achilles; significant injuries to Terry McLaurin, Davante Adams",
+   "link": "https://sports.yahoo.com/articles/nfl-week-7-injury-report-185122522.html",
+   "published": "2026-10-22T01:25:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/33f826d438e5a07dc4a17fb99990d1a8dad8e7d7c37e1ee30592ae743284df4b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcsports.com%2Fa39f9d52989606bf62ddd66783574e10.jpg",
+   "blurb": "Track the injuries to know around the NFL, all in one place.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
+   "headline": "Brady Tkachuk booed in Ottawa return, revels in Senators fans' reaction",
+   "link": "https://sports.yahoo.com/articles/brady-tkachuk-booed-ottawa-return-011943196.html",
+   "published": "2026-10-22T01:19:43.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/ef928e7728d8b30a8b5940c8827f0d9abce92a4ec0602864c1afe643e3c3d18b/lightyear_networkapi/resizefill_w970_h804%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F8f84aa4bba2bf3d8df58f829b91aeb1f.jpg",
+   "blurb": "Brady Tkachuk made his much-anticipated return to Ottawa, and it went as expected as Senators fans greeted their former captain with loud boos.",
+   "source": "YAHOO",
+   "league": "NHL"
+  },
+  {
    "headline": "Pitt quarterback named as semifinalist for 2026 Jason Witten Collegiate Man of the Year award",
    "link": "https://sports.yahoo.com/articles/pitt-quarterback-named-semifinalist-2026-011658313.html",
    "published": "2026-10-22T01:16:58.000Z",
@@ -1240,15 +1258,6 @@
    "league": "NFL"
   },
   {
-   "headline": "J.J. McCarthy honored to be the Giants\u2019 starting quarterback",
-   "link": "https://sports.yahoo.com/articles/j-j-mccarthy-honored-giants-002942859.html",
-   "published": "2026-10-22T00:29:42.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/3275902327869a1ff888fe82b8b2ca3f0fc3c09e0123641c7d7a7a5882f515d1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F5f294c515b05f83876dc8cfc004ab9b2.jpg",
-   "blurb": "&#92;McCarthy reacts to being named the starter.",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
    "headline": "NFL trade deadline 2026: Saquon Barkley to Seahawks among 10 moves that need to happen",
    "link": "https://www.cbssports.com/nfl/news/nfl-trade-deadline-10-moves-saquon-barkley-seahawks/",
    "published": "2026-10-22T00:28:45.000Z",
@@ -1310,15 +1319,6 @@
    "blurb": "Roster Review: Jhony Brito",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "The Ex-Files: How Are Former Sabres Doing? - Atlantic Division",
-   "link": "https://sports.yahoo.com/articles/ex-files-former-sabres-doing-235545191.html",
-   "published": "2026-10-21T23:55:45.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/69f0c1d573a6030e27084e1611af3d579bc35098fd2ba75d0f595dfb260cf2cc/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_buffalo_sabres_articles_890%2Facffc80bc60b5feaf3f8b441a6cb4666.jpg",
-   "blurb": "Former Sabre Jake McCabe left the Toronto - Columbus game on Tuesday after getting a high stick under his visor from Blue Jackets forward Kent Johnson",
-   "source": "YAHOO",
-   "league": "NHL"
   },
   {
    "headline": "Dream arrange for private suite for Enes Kanter Freedom for his protection in Game 3 of Finals",
@@ -1430,8 +1430,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 57,
-  "YAHOO": 59,
+  "ESPN": 56,
+  "YAHOO": 60,
   "CBS": 39
  },
  "degraded_sources": []
