@@ -4650,5 +4650,18 @@
   "kickoff_utc": "2026-10-23T01:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-22T20:20:40.986512+00:00"
+ },
+ {
+  "id": "9fb31d4f6e",
+  "event_id": "761899",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Sporting Kansas City",
+  "away": "Austin FC",
+  "pick_team": "Austin FC",
+  "prediction": "Austin FC to beat Sporting Kansas City",
+  "kickoff_utc": "2026-10-25T00:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-22T20:38:39.614222+00:00"
  }
 ]
