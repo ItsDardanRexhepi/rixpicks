@@ -4418,5 +4418,18 @@
   "kickoff_utc": "2026-10-22T02:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-21T23:34:56.716920+00:00"
+ },
+ {
+  "id": "4924761d50",
+  "event_id": "401873013",
+  "league": "NFL",
+  "path": "football/nfl",
+  "home": "Tennessee Titans",
+  "away": "Cleveland Browns",
+  "pick_team": "Tennessee Titans",
+  "prediction": "Tennessee Titans to beat Cleveland Browns",
+  "kickoff_utc": "2026-10-25T17:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-22T01:20:49.002698+00:00"
  }
 ]
