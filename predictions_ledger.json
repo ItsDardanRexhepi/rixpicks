@@ -4327,8 +4327,9 @@
   "pick_team": "Miami Heat",
   "prediction": "Miami Heat to beat Minnesota Timberwolves",
   "kickoff_utc": "2026-10-21T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-21T15:29:10.344937+00:00"
+  "status": "miss",
+  "created_at": "2026-10-21T15:29:10.344937+00:00",
+  "settled_at": "2026-10-22T02:19:49.991924+00:00"
  },
  {
   "id": "0adcdb06b0",
@@ -4393,8 +4394,9 @@
   "pick_team": "Buffalo Sabres",
   "prediction": "Buffalo Sabres to beat Philadelphia Flyers",
   "kickoff_utc": "2026-10-21T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-21T20:06:39.803195+00:00"
+  "status": "miss",
+  "created_at": "2026-10-21T20:06:39.803195+00:00",
+  "settled_at": "2026-10-22T02:19:50.246953+00:00"
  },
  {
   "id": "9557b0c32d",
