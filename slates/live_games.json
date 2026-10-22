@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-22T21:49:56.295092+00:00",
+ "generated_at": "2026-10-22T22:04:52.721091+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -94,6 +94,22 @@
      "status": "pre",
      "detail": "10/22 - 4:30 PM PT",
      "score": "LA 0 - NYI 0"
+    },
+    {
+     "espn_event_id": "401892558",
+     "matchup": "VGK @ STL",
+     "commence": "2026-10-23T00:00Z",
+     "status": "pre",
+     "detail": "10/22 - 5:00 PM PT",
+     "score": "VGK 0 - STL 0"
+    },
+    {
+     "espn_event_id": "401892559",
+     "matchup": "WPG @ DAL",
+     "commence": "2026-10-23T00:00Z",
+     "status": "pre",
+     "detail": "10/22 - 5:00 PM PT",
+     "score": "WPG 0 - DAL 0"
     }
    ]
   }
