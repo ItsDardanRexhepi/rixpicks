@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-22T23:04:55.753938+00:00",
+ "generated_at": "2026-10-22T23:19:47.767569+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -23,9 +23,9 @@
      "matchup": "JMU @ APP",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "13:59 - 1st",
-     "score": "JMU 0 - APP 0",
-     "away_to": 3,
+     "detail": "10:42 - 1st",
+     "score": "JMU 7 - APP 0",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -33,7 +33,7 @@
      "matchup": "LIB @ KENN",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "14:52 - 1st",
+     "detail": "7:55 - 1st",
      "score": "LIB 0 - KENN 0",
      "away_to": 3,
      "home_to": 3
@@ -49,8 +49,73 @@
    ]
   },
   {
+   "league": "NBA",
+   "games": [
+    {
+     "espn_event_id": "401909093",
+     "matchup": "CLE @ PHI",
+     "commence": "2026-10-22T23:00Z",
+     "status": "in",
+     "detail": "8:33 - 1st",
+     "score": "CLE 7 - PHI 7",
+     "away_to": 0,
+     "home_to": 0
+    }
+   ]
+  },
+  {
    "league": "NHL",
    "games": [
+    {
+     "espn_event_id": "401892552",
+     "matchup": "NSH @ BOS",
+     "commence": "2026-10-22T23:00Z",
+     "status": "in",
+     "detail": "13:47 - 1st",
+     "score": "NSH 0 - BOS 1",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892553",
+     "matchup": "NYR @ TOR",
+     "commence": "2026-10-22T23:00Z",
+     "status": "in",
+     "detail": "14:23 - 1st",
+     "score": "NYR 0 - TOR 1",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892554",
+     "matchup": "SJ @ OTT",
+     "commence": "2026-10-22T23:00Z",
+     "status": "in",
+     "detail": "12:50 - 1st",
+     "score": "SJ 0 - OTT 1",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892555",
+     "matchup": "ANA @ NJ",
+     "commence": "2026-10-22T23:00Z",
+     "status": "in",
+     "detail": "11:02 - 1st",
+     "score": "ANA 0 - NJ 1",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892556",
+     "matchup": "FLA @ PIT",
+     "commence": "2026-10-22T23:00Z",
+     "status": "in",
+     "detail": "12:38 - 1st",
+     "score": "FLA 0 - PIT 0",
+     "away_to": null,
+     "home_to": null
+    },
     {
      "espn_event_id": "401892557",
      "matchup": "LA @ NYI",
