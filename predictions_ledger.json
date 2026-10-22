@@ -4481,5 +4481,18 @@
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-22T07:04:30.668177+00:00"
+ },
+ {
+  "id": "3cc3914cc5",
+  "event_id": "761901",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "San Diego FC",
+  "away": "Seattle Sounders FC",
+  "pick_team": "Seattle Sounders FC",
+  "prediction": "Seattle Sounders FC to beat San Diego FC",
+  "kickoff_utc": "2026-10-25T02:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-22T08:08:27.089405+00:00"
  }
 ]
