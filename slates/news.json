@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-22T20:15:37.322Z",
+ "generated_at": "2026-10-22T20:20:39.180Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -95,6 +95,33 @@
   ],
   "football/nfl": [
    {
+    "headline": "Chiefs place LT Josh Simmons on IR as rehab process stalls",
+    "link": "https://www.espn.com/nfl/story/_/id/50250747/chiefs-placing-lt-josh-simmons-ir-rehab-process-stalls",
+    "published": "2026-10-22T20:15:35Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0818%2Fr1703534_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Chiefs have placed left tackle Josh Simmons on injured reserve, further delaying his return from a bulging disk in his lower back.",
+    "league": "NFL"
+   },
+   {
+    "headline": "NY Giants DC Dennard Wilson won\u2019t tolerate \u2018traitors to the defense\u2019",
+    "link": "https://sports.yahoo.com/articles/ny-giants-dc-dennard-wilson-165305882.html",
+    "published": "2026-10-22T20:07:23.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/dcd2f8cffd9f15de8e6d394958c25fc248cab9d1c6075fb46fa19a3fc4f972f1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc3b2fd796cb4ff99965bd5d366b6ad20.jpg",
+    "blurb": "Wilson critical of effort on some plays vs. Saints.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
+    "headline": "DeForest Buckner landing spots: Where Colts Pro Bowl DT could go in wake of Chris Ballard's firing",
+    "link": "https://www.cbssports.com/nfl/news/mock-trades-deforest-buckner-chris-ballard/",
+    "published": "2026-10-22T20:02:01.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F1230faaf-35cc-49cc-9092-bcca2a2d65c7%2Fgettyimages-2296029564.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "'I'm sick and tired of the same song and dance every year,' Buckner told reporters postgame on Sunday.",
+    "source": "CBS",
+    "league": "NFL"
+   },
+   {
     "headline": "Titans chase a rare 2nd straight win as the Browns arrive atop the AFC North",
     "link": "http://www.espn.com/nfl/preview?gameId=401873013",
     "published": "2026-10-22T20:12:10Z",
@@ -109,33 +136,6 @@
     "published": "2026-10-22T20:07:06.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/c217dd70ca8f66c2049c8c23a6ad226aaccbd74bed775c25d0e0dda191f8d1fa/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2Fuser-uploaded%2Ffb301-10-22-thumb_4274.jpg",
     "blurb": "Nate Tice & Matt Harmon preview the biggest games of Week 7 of the NFL season.",
-    "source": "YAHOO",
-    "league": "NFL"
-   },
-   {
-    "headline": "DeForest Buckner landing spots: Where Colts Pro Bowl DT could go in wake of Chris Ballard's firing",
-    "link": "https://www.cbssports.com/nfl/news/mock-trades-deforest-buckner-chris-ballard/",
-    "published": "2026-10-22T20:02:01.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F1230faaf-35cc-49cc-9092-bcca2a2d65c7%2Fgettyimages-2296029564.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "'I'm sick and tired of the same song and dance every year,' Buckner told reporters postgame on Sunday.",
-    "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Chiefs place LT Josh Simmons on IR as rehab process stalls",
-    "link": "https://www.espn.com/nfl/story/_/id/50250747/chiefs-placing-lt-josh-simmons-ir-rehab-process-stalls",
-    "published": "2026-10-22T20:06:02Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0818%2Fr1703534_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Chiefs have placed left tackle Josh Simmons on injured reserve, further delaying his return from a bulging disk in his lower back.",
-    "league": "NFL"
-   },
-   {
-    "headline": "Eagles sign OL Evan Neal",
-    "link": "https://sports.yahoo.com/articles/eagles-sign-ol-evan-neal-200449473.html",
-    "published": "2026-10-22T20:04:49.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/ee7070d5e7110276a45109c90f55d928659e98ebf2e7f35c853d3f3bbe989ab3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Fe6b91473546d41e0a8fe927b1242e20b.jpg",
-    "blurb": "The Eagles have signed offensive lineman Evan Neal, according to multiple reports.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -158,11 +158,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Tyler Shough practices in full Thursday",
-    "link": "https://sports.yahoo.com/articles/tyler-shough-practices-full-thursday-194030223.html",
-    "published": "2026-10-22T19:40:30.000Z",
+    "headline": "Week 7 injury report: Lions healthy; Packers RB Josh Jacobs\u2019 first practice of season",
+    "link": "https://sports.yahoo.com/articles/week-7-injury-report-lions-200624954.html",
+    "published": "2026-10-22T20:06:24.000Z",
     "image": "",
-    "blurb": "Saints QB Tyler Shough has been a full participant in first two practices of week",
+    "blurb": "Taking a closer look at the Detroit Lions and Green Bay Packers Thursday injury report for Week 7.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -196,6 +196,33 @@
     "league": "CFB"
    },
    {
+    "headline": "Houston vs. Utah prediction, pick, odds, spread: Cougars, Utes meet with CFP and Big 12 title implications",
+    "link": "https://www.cbssports.com/college-football/news/houston-utah-prediction-picks-odds-spread-where-to-watch-live/",
+    "published": "2026-10-22T20:15:09.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F4772cb67-bd4c-4a99-ac08-d7fa78a66267%2Fconner-weigman-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Big 12 playoff positioning is on the line in Salt Lake City as Conner Weigman leads a surging Cougars squad against the Utes' creative two-quarterback offense",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
+    "headline": "How to Watch: Michigan Football vs Indiana, other top games of Week 8",
+    "link": "https://sports.yahoo.com/articles/watch-michigan-football-vs-indiana-200000140.html",
+    "published": "2026-10-22T20:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/cdbe04f47dd4ca7d0f2d3593e55ac9d1817946b7c15714368e9d1a3d61732e91/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F45092a3a5f0b59ed37cc0cdb4f97c5f6.jpg",
+    "blurb": "Michigan Football hosts the reigning national champs on Saturday. Here\u2019s everything you need to know to watch Michigan vs Indiana:",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "Wetzel: It's now or never for Steve Sarkisian and Arch Manning",
+    "link": "https://www.espn.com/college-football/story/_/id/50240573/arch-manning-steve-sarkisian-texas-pressure",
+    "published": "2026-10-22T20:56:24.000Z",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1021%252Fr1734130_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Coach Steve Sarkisian and QB Arch Manning were supposed to be a match made in heaven.",
+    "source": "ESPN",
+    "league": "CFB"
+   },
+   {
     "headline": "UCLA vs. Michigan State prediction, pick, odds, spread: Bruins look to continue surprising unbeaten start",
     "link": "https://www.cbssports.com/college-football/news/ucla-michigan-state-prediction-picks-odds-spread-where-to-watch-live/",
     "published": "2026-10-22T20:05:33.000Z",
@@ -214,12 +241,12 @@
     "league": "CFB"
    },
    {
-    "headline": "Wetzel: It's now or never for Steve Sarkisian and Arch Manning",
-    "link": "https://www.espn.com/college-football/story/_/id/50240573/arch-manning-steve-sarkisian-texas-pressure",
-    "published": "2026-10-22T20:56:24.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1021%252Fr1734130_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Coach Steve Sarkisian and QB Arch Manning were supposed to be a match made in heaven.",
+    "headline": "Where is 'College GameDay'? 2026 schedule, locations, recaps",
+    "link": "https://www.espn.com/college-football/story/_/id/49783645/where-college-gameday-2026-schedule-locations-recaps",
+    "published": "2026-10-22T18:13:08Z",
     "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0901%2Fr1709974_608x342_16-9.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "What is the \"College GameDay\" schedule? Find out more about where the program will be each week of the 2026 college football season.",
     "league": "CFB"
    },
    {
@@ -237,33 +264,6 @@
     "published": "2026-10-22T19:51:00.000Z",
     "image": "",
     "blurb": "The Ada Cougars still control their own postseason destiny. At least that's the way head coach Wade Boyles sees it heading into the final three weeks of the regular season. Boyles believes the Cougars need to win two of their final three games to put themselves in position to sec",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
-    "headline": "Where is 'College GameDay'? 2026 schedule, locations, recaps",
-    "link": "https://www.espn.com/college-football/story/_/id/49783645/where-college-gameday-2026-schedule-locations-recaps",
-    "published": "2026-10-22T18:13:08Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0901%2Fr1709974_608x342_16-9.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "What is the \"College GameDay\" schedule? Find out more about where the program will be each week of the 2026 college football season.",
-    "league": "CFB"
-   },
-   {
-    "headline": "USC vs. Wisconsin prediction, pick, odds, spread: Trojans, Badgers look to keep Big Ten hopes alive",
-    "link": "https://www.cbssports.com/college-football/news/usc-wisconsin-prediction-picks-odds-spread-where-to-watch-live/",
-    "published": "2026-10-22T20:01:37.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F21%2F17b0f7c5-7e4a-42fb-ab18-2dc165b23a59%2Fusc.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "No. 16 USC, which has rebounded from the Oregon loss with back-to-back wins, seeks to improve its road record to 3-0 on Saturday night in Wisconsin",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "Tears flow as Gifford Nielsen sees premonition come to pass against Notre Dame",
-    "link": "https://sports.yahoo.com/articles/tears-flow-gifford-nielsen-sees-194415156.html",
-    "published": "2026-10-22T19:44:15.000Z",
-    "image": "",
-    "blurb": "The former BYU great recounts a conversation he had with legendary coach LaVell Edwards in his office decades earlier.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -389,11 +389,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Pacers star Tyrese Haliburton moved to tears following first game back from Achilles tear",
-    "link": "https://www.cbssports.com/nba/news/pacers-tyrese-haliburton-emotional-achilles-injury/",
-    "published": "2026-10-22T15:46:17.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2Fa5ef91ad-985c-4d36-bd4f-d44e7fb0869a%2Funtitled-design-30.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Haliburton played in his first non-preseason game since Game 7 of the 2025 NBA Finals",
+    "headline": "After igniting Anthony Edwards with trash talk, Heat reserve Myron Gardner advised by coach to 'be better'",
+    "link": "https://www.cbssports.com/nba/news/myron-gardner-anthony-edwards-trash-talk-heat-timberwolves/",
+    "published": "2026-10-22T19:58:32.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F8eb9dbed-2d48-45ac-95f4-1beeaa8eafe4%2Fmyron-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Heat coach Erik Spoelstra loves Gardner's 'spirit,' but would prefer it not be directed toward the opponent's best player",
     "source": "CBS",
     "league": "NBA"
    },
@@ -416,11 +416,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Clippers coach Ty Lue dedicates opening night win to suspended Steve Ballmer: 'We're still fighting for him'",
-    "link": "https://www.cbssports.com/nba/news/clippers-ty-lue-dedicates-win-steve-ballmer/",
-    "published": "2026-10-22T15:06:49.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F522ea430-c7ef-4b52-a4e9-0c4be4ac6f93%2Flue-clippers-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Lue made sure to shoutout the Clippers' suspended owner after beating the Kings",
+    "headline": "Today's top games to watch, best bets, odds: Patriots at Bears, Cavaliers at 76ers, Nuggets at Thunder, more",
+    "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-patriots-at-bears-cavaliers-at-76ers-nuggets-at-thunder-more/",
+    "published": "2026-10-22T19:30:24.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F20%2F771d095c-e609-43e5-a50b-235ea4f690eb%2Fcaleb-williams-chicago-bears.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Find best bets and props for the biggest games in sports on Thursday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
     "league": "NBA"
    },
@@ -434,20 +434,20 @@
     "league": "NBA"
    },
    {
-    "headline": "With The Truth in the building, Celtics give honest perspective on loss to Pistons",
-    "link": "https://sports.yahoo.com/articles/truth-building-celtics-honest-perspective-173808242.html",
-    "published": "2026-10-22T17:38:08.000Z",
+    "headline": "Walker Kessler had a historic debut against the Warriors",
+    "link": "https://sports.yahoo.com/articles/walker-kessler-had-historic-debut-180023571.html",
+    "published": "2026-10-22T18:00:23.000Z",
     "image": "",
-    "blurb": "There's nothing like having a champ in the building to give you a little perspective.",
+    "blurb": "The Lakers big man began 2026-27 with a dominant performance",
     "source": "YAHOO",
     "league": "NBA"
    },
    {
-    "headline": "76ers vs. Cavaliers prediction, odds, betting preview: NBA picks, best bets, LeBron James props on Thursday",
-    "link": "https://www.cbssports.com/betting/news/76ers-vs-cavaliers-prediction-odds-betting-preview-nba-picks-best-bets-lebron-james-props-thursday/",
-    "published": "2026-10-22T14:31:30.000Z",
-    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F21%2F3fb21045-c46a-41fc-98b8-14b889cd5eda%2Flebron-james-76ers-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Best bets and betting preview for Cavaliers vs. 76ers on Thursday",
+    "headline": "Pacers star Tyrese Haliburton moved to tears following first game back from Achilles tear",
+    "link": "https://www.cbssports.com/nba/news/pacers-tyrese-haliburton-emotional-achilles-injury/",
+    "published": "2026-10-22T15:46:17.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2Fa5ef91ad-985c-4d36-bd4f-d44e7fb0869a%2Funtitled-design-30.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Haliburton played in his first non-preseason game since Game 7 of the 2025 NBA Finals",
     "source": "CBS",
     "league": "NBA"
    },
@@ -502,7 +502,7 @@
     "headline": "St. Louis Blues Place Zach Dean On NHL Waivers",
     "link": "https://sports.yahoo.com/articles/st-louis-blues-place-zach-181608714.html",
     "published": "2026-10-22T18:16:08.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/05a87eced1761af56697f9d540603f0fe151c97096b9f855d93e8a77002da69b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_st_louis_blues_articles_393%2Fedfafe1c517ce9e115fb8b669de9a3ef.jpg",
+    "image": "",
     "blurb": "The St. Louis Blues have placed forward Zach Dean on waivers for the purpose of being assigned to the Springfield Thunderbirds of the AHL.",
     "source": "YAHOO",
     "league": "NHL"
@@ -1105,12 +1105,39 @@
    "league": "NBA"
   },
   {
+   "headline": "Chiefs place LT Josh Simmons on IR as rehab process stalls",
+   "link": "https://www.espn.com/nfl/story/_/id/50250747/chiefs-placing-lt-josh-simmons-ir-rehab-process-stalls",
+   "published": "2026-10-22T20:15:35Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0818%2Fr1703534_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Chiefs have placed left tackle Josh Simmons on injured reserve, further delaying his return from a bulging disk in his lower back.",
+   "league": "NFL"
+  },
+  {
+   "headline": "Houston vs. Utah prediction, pick, odds, spread: Cougars, Utes meet with CFP and Big 12 title implications",
+   "link": "https://www.cbssports.com/college-football/news/houston-utah-prediction-picks-odds-spread-where-to-watch-live/",
+   "published": "2026-10-22T20:15:09.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F4772cb67-bd4c-4a99-ac08-d7fa78a66267%2Fconner-weigman-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Big 12 playoff positioning is on the line in Salt Lake City as Conner Weigman leads a surging Cougars squad against the Utes' creative two-quarterback offense",
+   "source": "CBS",
+   "league": "CFB"
+  },
+  {
    "headline": "Titans chase a rare 2nd straight win as the Browns arrive atop the AFC North",
    "link": "http://www.espn.com/nfl/preview?gameId=401873013",
    "published": "2026-10-22T20:12:10Z",
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Ffootball%2Fnfl%2Fevents%2F401873013.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "\u2014 Tennessee safety Amani Hooker couldn't remember the most recent time the Titans strung together back-to-back wins, and his guess off.",
+   "league": "NFL"
+  },
+  {
+   "headline": "NY Giants DC Dennard Wilson won\u2019t tolerate \u2018traitors to the defense\u2019",
+   "link": "https://sports.yahoo.com/articles/ny-giants-dc-dennard-wilson-165305882.html",
+   "published": "2026-10-22T20:07:23.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/dcd2f8cffd9f15de8e6d394958c25fc248cab9d1c6075fb46fa19a3fc4f972f1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc3b2fd796cb4ff99965bd5d366b6ad20.jpg",
+   "blurb": "Wilson critical of effort on some plays vs. Saints.",
+   "source": "YAHOO",
    "league": "NFL"
   },
   {
@@ -1123,15 +1150,6 @@
    "league": "NFL"
   },
   {
-   "headline": "Chiefs place LT Josh Simmons on IR as rehab process stalls",
-   "link": "https://www.espn.com/nfl/story/_/id/50250747/chiefs-placing-lt-josh-simmons-ir-rehab-process-stalls",
-   "published": "2026-10-22T20:06:02Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F0818%2Fr1703534_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Chiefs have placed left tackle Josh Simmons on injured reserve, further delaying his return from a bulging disk in his lower back.",
-   "league": "NFL"
-  },
-  {
    "headline": "UCLA vs. Michigan State prediction, pick, odds, spread: Bruins look to continue surprising unbeaten start",
    "link": "https://www.cbssports.com/college-football/news/ucla-michigan-state-prediction-picks-odds-spread-where-to-watch-live/",
    "published": "2026-10-22T20:05:33.000Z",
@@ -1139,24 +1157,6 @@
    "blurb": "No. 9 UCLA has been one of college football's biggest surprises this year so far, but can the Bruins continue their run in the top 10 against the Spartans?",
    "source": "CBS",
    "league": "CFB"
-  },
-  {
-   "headline": "Alabama vs. Texas A&M prediction, pick, odds, spread: Crimson Tide look to snap two-game skid",
-   "link": "https://www.cbssports.com/college-football/news/alabama-texas-a-m-prediction-picks-odds-spread-where-to-watch-live/",
-   "published": "2026-10-22T20:05:21.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F21%2F335d9b39-a68f-41f0-893f-8119547d410e%2Fbama.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Alabama has not lost three straight games since Nick Saban's debut season in 2007",
-   "source": "CBS",
-   "league": "CFB"
-  },
-  {
-   "headline": "Eagles sign OL Evan Neal",
-   "link": "https://sports.yahoo.com/articles/eagles-sign-ol-evan-neal-200449473.html",
-   "published": "2026-10-22T20:04:49.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/ee7070d5e7110276a45109c90f55d928659e98ebf2e7f35c853d3f3bbe989ab3/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2Fe6b91473546d41e0a8fe927b1242e20b.jpg",
-   "blurb": "The Eagles have signed offensive lineman Evan Neal, according to multiple reports.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "Michigan's Gayle Jr. cleared for 5th season of college hoops",
@@ -1195,6 +1195,15 @@
    "league": "MLB"
   },
   {
+   "headline": "How to Watch: Michigan Football vs Indiana, other top games of Week 8",
+   "link": "https://sports.yahoo.com/articles/watch-michigan-football-vs-indiana-200000140.html",
+   "published": "2026-10-22T20:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/cdbe04f47dd4ca7d0f2d3593e55ac9d1817946b7c15714368e9d1a3d61732e91/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F45092a3a5f0b59ed37cc0cdb4f97c5f6.jpg",
+   "blurb": "Michigan Football hosts the reigning national champs on Saturday. Here\u2019s everything you need to know to watch Michigan vs Indiana:",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
    "headline": "How Big 12 could get multiple teams in College Football Playoff",
    "link": "https://sports.yahoo.com/articles/big-12-could-multiple-teams-195933138.html",
    "published": "2026-10-22T19:59:33.000Z",
@@ -1202,6 +1211,15 @@
    "blurb": "BYU, Texas Tech, Utah, Houston and Arizona give the Big 12 Conference five College Football Playoff contenders entering Week 8 of 2026 regular season.",
    "source": "YAHOO",
    "league": "CFB"
+  },
+  {
+   "headline": "After igniting Anthony Edwards with trash talk, Heat reserve Myron Gardner advised by coach to 'be better'",
+   "link": "https://www.cbssports.com/nba/news/myron-gardner-anthony-edwards-trash-talk-heat-timberwolves/",
+   "published": "2026-10-22T19:58:32.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F8eb9dbed-2d48-45ac-95f4-1beeaa8eafe4%2Fmyron-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Heat coach Erik Spoelstra loves Gardner's 'spirit,' but would prefer it not be directed toward the opponent's best player",
+   "source": "CBS",
+   "league": "NBA"
   },
   {
    "headline": "Gophers-Creighton exhibition preview: How to watch, TV channel",
@@ -1231,15 +1249,6 @@
    "league": "NCAAB"
   },
   {
-   "headline": "Ada faces critical three-game stretch in playoff chase",
-   "link": "https://sports.yahoo.com/articles/ada-faces-critical-three-game-195100056.html",
-   "published": "2026-10-22T19:51:00.000Z",
-   "image": "",
-   "blurb": "The Ada Cougars still control their own postseason destiny. At least that's the way head coach Wade Boyles sees it heading into the final three weeks of the regular season. Boyles believes the Cougars need to win two of their final three games to put themselves in position to sec",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
    "headline": "Matt Olson wins sixth Fielding Bible Award",
    "link": "https://sports.yahoo.com/articles/matt-olson-wins-sixth-fielding-195046103.html",
    "published": "2026-10-22T19:50:46.000Z",
@@ -1256,6 +1265,15 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1019%2Fr1732920_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Can anyone stop the San Diego Wave? Their fifth straight win keeps them top of ESPN's NWSL Power Rankings after Matchday 25.",
    "league": "NWSL"
+  },
+  {
+   "headline": "Today's top games to watch, best bets, odds: Patriots at Bears, Cavaliers at 76ers, Nuggets at Thunder, more",
+   "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-patriots-at-bears-cavaliers-at-76ers-nuggets-at-thunder-more/",
+   "published": "2026-10-22T19:30:24.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F20%2F771d095c-e609-43e5-a50b-235ea4f690eb%2Fcaleb-williams-chicago-bears.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Find best bets and props for the biggest games in sports on Thursday from the SportsLine Projection Model and top CBS Sports experts",
+   "source": "CBS",
+   "league": "NBA"
   },
   {
    "headline": "Rising UFC light heavyweights booked for December showdown",
@@ -1409,30 +1427,12 @@
    "blurb": "Our annual talent rundown has every big name to know as we ready for the season's start in November",
    "source": "CBS",
    "league": "NCAAB"
-  },
-  {
-   "headline": "Six takeaways from college basketball's NIL arms race: UNC is spending big, what is the 'Duke discount'",
-   "link": "https://www.cbssports.com/college-basketball/news/nil-roster-spending-arms-race-unc-basketbal-duke-alabama/",
-   "published": "2026-10-22T18:25:55.000Z",
-   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F7baca790-46da-41a7-9627-9af8bead85bd%2F10-22-cbb-splice.png&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "CBS Sports contacted more than 100 sources to dive deep into what NIL looks like in college basketball this season",
-   "source": "CBS",
-   "league": "NCAAB"
-  },
-  {
-   "headline": "St. Louis Blues Place Zach Dean On NHL Waivers",
-   "link": "https://sports.yahoo.com/articles/st-louis-blues-place-zach-181608714.html",
-   "published": "2026-10-22T18:16:08.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/05a87eced1761af56697f9d540603f0fe151c97096b9f855d93e8a77002da69b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_st_louis_blues_articles_393%2Fedfafe1c517ce9e115fb8b669de9a3ef.jpg",
-   "blurb": "The St. Louis Blues have placed forward Zach Dean on waivers for the purpose of being assigned to the Springfield Thunderbirds of the AHL.",
-   "source": "YAHOO",
-   "league": "NHL"
   }
  ],
  "source_mix": {
   "ESPN": 57,
-  "YAHOO": 60,
-  "CBS": 38
+  "CBS": 39,
+  "YAHOO": 59
  },
  "degraded_sources": []
 }
