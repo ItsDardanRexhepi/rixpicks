@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-22T03:20:06.352395+00:00",
+ "generated_at": "2026-10-22T03:35:07.165496+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,8 +10,8 @@
      "matchup": "NMSU @ SHSU",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "5:50 - 4th",
-     "score": "NMSU 30 - SHSU 17",
+     "detail": "0:30 - 4th",
+     "score": "NMSU 30 - SHSU 24",
      "away_to": 1,
      "home_to": 0
     }
@@ -33,30 +33,6 @@
   {
    "league": "NBA",
    "games": [
-    {
-     "espn_event_id": "401909091",
-     "matchup": "MIN @ MIA",
-     "commence": "2026-10-21T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "MIN 131 - MIA 106"
-    },
-    {
-     "espn_event_id": "401909836",
-     "matchup": "CHA @ BKN",
-     "commence": "2026-10-21T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "CHA 110 - BKN 103"
-    },
-    {
-     "espn_event_id": "401909837",
-     "matchup": "CHI @ TOR",
-     "commence": "2026-10-21T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "CHI 92 - TOR 135"
-    },
     {
      "espn_event_id": "401909838",
      "matchup": "UTAH @ MEM",
@@ -86,8 +62,8 @@
      "matchup": "GS @ LAL",
      "commence": "2026-10-22T02:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "GS 52 - LAL 66",
+     "detail": "10:46 - 3rd",
+     "score": "GS 54 - LAL 70",
      "away_to": 5,
      "home_to": 5
     },
@@ -96,9 +72,9 @@
      "matchup": "PHX @ POR",
      "commence": "2026-10-22T02:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "PHX 39 - POR 72",
-     "away_to": 4,
+     "detail": "9:20 - 3rd",
+     "score": "PHX 43 - POR 81",
+     "away_to": 3,
      "home_to": 6
     },
     {
@@ -106,31 +82,10 @@
      "matchup": "SAC @ LAC",
      "commence": "2026-10-22T02:30Z",
      "status": "in",
-     "detail": "10:53 - 2nd",
-     "score": "SAC 32 - LAC 47",
-     "away_to": 5,
+     "detail": "4:02 - 2nd",
+     "score": "SAC 47 - LAC 56",
+     "away_to": 4,
      "home_to": 6
-    }
-   ]
-  },
-  {
-   "league": "NHL",
-   "games": [
-    {
-     "espn_event_id": "401892550",
-     "matchup": "PHI @ BUF",
-     "commence": "2026-10-21T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "PHI 3 - BUF 1"
-    },
-    {
-     "espn_event_id": "401892551",
-     "matchup": "FLA @ OTT",
-     "commence": "2026-10-21T23:30Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "FLA 1 - OTT 5"
     }
    ]
   }
