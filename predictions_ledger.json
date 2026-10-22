@@ -4468,5 +4468,18 @@
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-22T05:20:25.182115+00:00"
+ },
+ {
+  "id": "aaf5486a57",
+  "event_id": "761892",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Orlando City SC",
+  "away": "New York City FC",
+  "pick_team": "Orlando City SC",
+  "prediction": "Orlando City SC to beat New York City FC",
+  "kickoff_utc": "2026-10-24T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-22T07:04:30.668177+00:00"
  }
 ]
