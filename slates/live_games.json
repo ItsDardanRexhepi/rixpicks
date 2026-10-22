@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-22T00:20:04.890460+00:00",
+ "generated_at": "2026-10-22T00:35:05.181006+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,7 +10,7 @@
      "matchup": "NMSU @ SHSU",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "8:56 - 1st",
+     "detail": "3:38 - 1st",
      "score": "NMSU 0 - SHSU 7",
      "away_to": 3,
      "home_to": 3
@@ -25,9 +25,9 @@
      "matchup": "GS @ ATL",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "5:14 - 1st",
-     "score": "GS 0 - ATL 6",
-     "away_to": 5,
+     "detail": "56.4 - 1st",
+     "score": "GS 12 - ATL 19",
+     "away_to": 4,
      "home_to": 5
     }
    ]
@@ -40,7 +40,7 @@
      "matchup": "ATL @ ORL",
      "commence": "2026-10-21T23:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "11:57 - 3rd",
      "score": "ATL 72 - ORL 62",
      "away_to": 5,
      "home_to": 5
@@ -50,8 +50,8 @@
      "matchup": "MIL @ WAS",
      "commence": "2026-10-21T23:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "MIL 56 - WAS 51",
+     "detail": "9:27 - 3rd",
+     "score": "MIL 61 - WAS 55",
      "away_to": 6,
      "home_to": 4
     },
@@ -60,58 +60,50 @@
      "matchup": "MIN @ MIA",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "10:19 - 2nd",
-     "score": "MIN 34 - MIA 34",
-     "away_to": 6,
-     "home_to": 5
+     "detail": "3:38 - 2nd",
+     "score": "MIN 55 - MIA 54",
+     "away_to": 5,
+     "home_to": 4
     },
     {
      "espn_event_id": "401909836",
      "matchup": "CHA @ BKN",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "11:57 - 2nd",
-     "score": "CHA 27 - BKN 23",
+     "detail": "6:07 - 2nd",
+     "score": "CHA 41 - BKN 36",
      "away_to": 7,
-     "home_to": 5
+     "home_to": 4
     },
     {
      "espn_event_id": "401909837",
      "matchup": "CHI @ TOR",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "End of 1st",
-     "score": "CHI 23 - TOR 43",
+     "detail": "6:36 - 2nd",
+     "score": "CHI 34 - TOR 54",
      "away_to": 6,
-     "home_to": 6
+     "home_to": 5
     },
     {
      "espn_event_id": "401909838",
      "matchup": "UTAH @ MEM",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "8:38 - 1st",
-     "score": "UTAH 7 - MEM 6",
+     "detail": "2:47 - 1st",
+     "score": "UTAH 22 - MEM 17",
      "away_to": 6,
-     "home_to": 7
+     "home_to": 6
     },
     {
      "espn_event_id": "401909839",
      "matchup": "IND @ NO",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "6:56 - 1st",
-     "score": "IND 19 - NO 14",
-     "away_to": 7,
-     "home_to": 7
-    },
-    {
-     "espn_event_id": "401909840",
-     "matchup": "DAL @ HOU",
-     "commence": "2026-10-22T00:30Z",
-     "status": "pre",
-     "detail": "10/21 - 5:30 PM PT",
-     "score": "DAL 0 - HOU 0"
+     "detail": "2:19 - 1st",
+     "score": "IND 30 - NO 25",
+     "away_to": 6,
+     "home_to": 6
     },
     {
      "espn_event_id": "401909092",
@@ -128,6 +120,14 @@
      "status": "pre",
      "detail": "10/21 - 7:00 PM PT",
      "score": "PHX 0 - POR 0"
+    },
+    {
+     "espn_event_id": "401909842",
+     "matchup": "SAC @ LAC",
+     "commence": "2026-10-22T02:30Z",
+     "status": "pre",
+     "detail": "10/21 - 7:30 PM PT",
+     "score": "SAC 0 - LAC 0"
     }
    ]
   },
@@ -139,7 +139,7 @@
      "matchup": "PHI @ BUF",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "20:00 - 2nd",
      "score": "PHI 2 - BUF 0",
      "away_to": null,
      "home_to": null
@@ -149,7 +149,7 @@
      "matchup": "FLA @ OTT",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "4:28 - 1st",
+     "detail": "End of 1st",
      "score": "FLA 1 - OTT 1",
      "away_to": null,
      "home_to": null
@@ -164,8 +164,8 @@
      "matchup": "DC @ CIN",
      "commence": "2026-10-21T23:00Z",
      "status": "in",
-     "detail": "46'",
-     "score": "DC 1 - CIN 1"
+     "detail": "61'",
+     "score": "DC 1 - CIN 2"
     }
    ]
   }
