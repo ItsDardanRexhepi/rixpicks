@@ -4533,5 +4533,18 @@
   "kickoff_utc": "2026-10-24T19:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-22T11:35:05.359193+00:00"
+ },
+ {
+  "id": "34fa8215ee",
+  "event_id": "761894",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Philadelphia Union",
+  "away": "New England Revolution",
+  "pick_team": "Philadelphia Union",
+  "prediction": "Philadelphia Union to beat New England Revolution",
+  "kickoff_utc": "2026-10-24T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-22T14:31:02.307156+00:00"
  }
 ]
