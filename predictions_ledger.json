@@ -4313,8 +4313,9 @@
   "pick_team": "Milwaukee Bucks",
   "prediction": "Milwaukee Bucks to beat Washington Wizards",
   "kickoff_utc": "2026-10-21T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-21T15:28:26.245829+00:00"
+  "status": "miss",
+  "created_at": "2026-10-21T15:28:26.245829+00:00",
+  "settled_at": "2026-10-22T01:49:48.689264+00:00"
  },
  {
   "id": "5564c13392",
