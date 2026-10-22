@@ -4637,5 +4637,18 @@
   "kickoff_utc": "2026-10-22T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-22T19:53:06.106616+00:00"
+ },
+ {
+  "id": "b0b69ddbc0",
+  "event_id": "401909094",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Oklahoma City Thunder",
+  "away": "Denver Nuggets",
+  "pick_team": "Denver Nuggets",
+  "prediction": "Denver Nuggets to beat Oklahoma City Thunder",
+  "kickoff_utc": "2026-10-23T01:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-22T20:20:40.986512+00:00"
  }
 ]
