@@ -1,34 +1,6 @@
 {
- "generated_at": "2026-10-22T22:35:59.979812+00:00",
+ "generated_at": "2026-10-22T23:05:19.905367+00:00",
  "items": [
-  {
-   "id": "9be576bb54",
-   "league": "NHL",
-   "event": "Nashville Predators @ Boston Bruins",
-   "prediction": "Boston Bruins to beat Nashville Predators",
-   "kickoff_utc": "2026-10-22T23:00:00+00:00"
-  },
-  {
-   "id": "d3f2969aaa",
-   "league": "NHL",
-   "event": "Florida Panthers @ Pittsburgh Penguins",
-   "prediction": "Pittsburgh Penguins to beat Florida Panthers",
-   "kickoff_utc": "2026-10-22T23:00:00+00:00"
-  },
-  {
-   "id": "476470cdfb",
-   "league": "NBA",
-   "event": "Cleveland Cavaliers @ Philadelphia 76ers",
-   "prediction": "Philadelphia 76ers to beat Cleveland Cavaliers",
-   "kickoff_utc": "2026-10-22T23:00:00+00:00"
-  },
-  {
-   "id": "572e24d5f0",
-   "league": "NHL",
-   "event": "San Jose Sharks @ Ottawa Senators",
-   "prediction": "San Jose Sharks to beat Ottawa Senators",
-   "kickoff_utc": "2026-10-22T23:00:00+00:00"
-  },
   {
    "id": "1210f95cba",
    "league": "NHL",
@@ -42,6 +14,34 @@
    "event": "Vegas Golden Knights @ St. Louis Blues",
    "prediction": "St. Louis Blues to beat Vegas Golden Knights",
    "kickoff_utc": "2026-10-23T00:00:00+00:00"
+  },
+  {
+   "id": "f02015875b",
+   "league": "NFL",
+   "event": "New England Patriots @ Chicago Bears",
+   "prediction": "Chicago Bears to beat New England Patriots",
+   "kickoff_utc": "2026-10-23T00:15:00+00:00"
+  },
+  {
+   "id": "19d3b2938d",
+   "league": "NHL",
+   "event": "Carolina Hurricanes @ Edmonton Oilers",
+   "prediction": "Edmonton Oilers to beat Carolina Hurricanes",
+   "kickoff_utc": "2026-10-23T01:00:00+00:00"
+  },
+  {
+   "id": "5063eb1940",
+   "league": "NHL",
+   "event": "Minnesota Wild @ Calgary Flames",
+   "prediction": "Calgary Flames to beat Minnesota Wild",
+   "kickoff_utc": "2026-10-23T01:00:00+00:00"
+  },
+  {
+   "id": "b0b69ddbc0",
+   "league": "NBA",
+   "event": "Denver Nuggets @ Oklahoma City Thunder",
+   "prediction": "Denver Nuggets to beat Oklahoma City Thunder",
+   "kickoff_utc": "2026-10-23T01:30:00+00:00"
   }
  ]
 }
