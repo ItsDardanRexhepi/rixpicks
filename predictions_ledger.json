@@ -4494,5 +4494,18 @@
   "kickoff_utc": "2026-10-25T02:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-22T08:08:27.089405+00:00"
+ },
+ {
+  "id": "efb9f7fd28",
+  "event_id": "761898",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Real Salt Lake",
+  "away": "St. Louis CITY SC",
+  "pick_team": "St. Louis CITY SC",
+  "prediction": "St. Louis CITY SC to beat Real Salt Lake",
+  "kickoff_utc": "2026-10-25T00:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-22T10:07:30.681983+00:00"
  }
 ]
