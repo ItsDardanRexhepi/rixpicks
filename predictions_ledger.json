@@ -4598,5 +4598,18 @@
   "kickoff_utc": "2026-10-24T17:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-22T17:58:21.265004+00:00"
+ },
+ {
+  "id": "fda9fcf303",
+  "event_id": "401892558",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "St. Louis Blues",
+  "away": "Vegas Golden Knights",
+  "pick_team": "St. Louis Blues",
+  "prediction": "St. Louis Blues to beat Vegas Golden Knights",
+  "kickoff_utc": "2026-10-23T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-22T18:29:32.873704+00:00"
  }
 ]
