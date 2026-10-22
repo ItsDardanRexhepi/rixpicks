@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-22T02:50:07.111002+00:00",
+ "generated_at": "2026-10-22T03:05:05.532807+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,7 +10,7 @@
      "matchup": "NMSU @ SHSU",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "0:33 - 3rd",
+     "detail": "12:09 - 4th",
      "score": "NMSU 30 - SHSU 17",
      "away_to": 1,
      "home_to": 0
@@ -33,22 +33,6 @@
   {
    "league": "NBA",
    "games": [
-    {
-     "espn_event_id": "401909834",
-     "matchup": "ATL @ ORL",
-     "commence": "2026-10-21T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "ATL 132 - ORL 125"
-    },
-    {
-     "espn_event_id": "401909835",
-     "matchup": "MIL @ WAS",
-     "commence": "2026-10-21T23:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "MIL 116 - WAS 128"
-    },
     {
      "espn_event_id": "401909091",
      "matchup": "MIN @ MIA",
@@ -93,20 +77,18 @@
      "espn_event_id": "401909840",
      "matchup": "DAL @ HOU",
      "commence": "2026-10-22T00:30Z",
-     "status": "in",
-     "detail": "4:19 - 4th",
-     "score": "DAL 100 - HOU 118",
-     "away_to": 3,
-     "home_to": 3
+     "status": "post",
+     "detail": "Final",
+     "score": "DAL 110 - HOU 128"
     },
     {
      "espn_event_id": "401909092",
      "matchup": "GS @ LAL",
      "commence": "2026-10-22T02:00Z",
      "status": "in",
-     "detail": "10:54 - 2nd",
-     "score": "GS 35 - LAL 36",
-     "away_to": 6,
+     "detail": "2:28 - 2nd",
+     "score": "GS 48 - LAL 53",
+     "away_to": 5,
      "home_to": 6
     },
     {
@@ -114,20 +96,20 @@
      "matchup": "PHX @ POR",
      "commence": "2026-10-22T02:00Z",
      "status": "in",
-     "detail": "9:40 - 2nd",
-     "score": "PHX 19 - POR 45",
-     "away_to": 5,
-     "home_to": 7
+     "detail": "4:19 - 2nd",
+     "score": "PHX 24 - POR 59",
+     "away_to": 4,
+     "home_to": 6
     },
     {
      "espn_event_id": "401909842",
      "matchup": "SAC @ LAC",
      "commence": "2026-10-22T02:30Z",
      "status": "in",
-     "detail": "8:25 - 1st",
-     "score": "SAC 8 - LAC 16",
-     "away_to": 7,
-     "home_to": 7
+     "detail": "2:40 - 1st",
+     "score": "SAC 20 - LAC 33",
+     "away_to": 6,
+     "home_to": 6
     }
    ]
   },
@@ -149,19 +131,6 @@
      "status": "post",
      "detail": "Final",
      "score": "FLA 1 - OTT 5"
-    }
-   ]
-  },
-  {
-   "league": "MLS",
-   "games": [
-    {
-     "espn_event_id": "761773",
-     "matchup": "DC @ CIN",
-     "commence": "2026-10-21T23:00Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "DC 1 - CIN 2"
     }
    ]
   }
