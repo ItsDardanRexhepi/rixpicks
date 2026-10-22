@@ -1,6 +1,20 @@
 {
- "generated_at": "2026-10-22T15:03:00.043858+00:00",
+ "generated_at": "2026-10-22T15:23:44.655907+00:00",
  "items": [
+  {
+   "id": "9be576bb54",
+   "league": "NHL",
+   "event": "Nashville Predators @ Boston Bruins",
+   "prediction": "Boston Bruins to beat Nashville Predators",
+   "kickoff_utc": "2026-10-22T23:00:00+00:00"
+  },
+  {
+   "id": "d3f2969aaa",
+   "league": "NHL",
+   "event": "Florida Panthers @ Pittsburgh Penguins",
+   "prediction": "Pittsburgh Penguins to beat Florida Panthers",
+   "kickoff_utc": "2026-10-22T23:00:00+00:00"
+  },
   {
    "id": "f02015875b",
    "league": "NFL",
@@ -28,20 +42,6 @@
    "event": "Seattle Reign FC @ Utah Royals",
    "prediction": "Seattle Reign FC to beat Utah Royals",
    "kickoff_utc": "2026-10-24T01:30:00+00:00"
-  },
-  {
-   "id": "16b483d386",
-   "league": "NWSL",
-   "event": "North Carolina Courage @ Portland Thorns FC",
-   "prediction": "North Carolina Courage to beat Portland Thorns FC",
-   "kickoff_utc": "2026-10-24T02:00:00+00:00"
-  },
-  {
-   "id": "7c2175a4bb",
-   "league": "CFB",
-   "event": "LSU Tigers @ Auburn Tigers",
-   "prediction": "LSU Tigers to beat Auburn Tigers",
-   "kickoff_utc": "2026-10-24T16:00:00+00:00"
   }
  ]
 }
