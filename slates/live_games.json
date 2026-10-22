@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-22T21:20:01.109021+00:00",
+ "generated_at": "2026-10-22T21:34:51.624197+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -20,6 +20,14 @@
      "status": "pre",
      "detail": "10/22 - 4:00 PM PT",
      "score": "LIB 0 - KENN 0"
+    },
+    {
+     "espn_event_id": "401862807",
+     "matchup": "ECU @ MEM",
+     "commence": "2026-10-22T23:30Z",
+     "status": "pre",
+     "detail": "10/22 - 4:30 PM PT",
+     "score": "ECU 0 - MEM 0"
     }
    ]
   },
@@ -78,6 +86,14 @@
      "status": "pre",
      "detail": "10/22 - 4:00 PM PT",
      "score": "FLA 0 - PIT 0"
+    },
+    {
+     "espn_event_id": "401892557",
+     "matchup": "LA @ NYI",
+     "commence": "2026-10-22T23:30Z",
+     "status": "pre",
+     "detail": "10/22 - 4:30 PM PT",
+     "score": "LA 0 - NYI 0"
     }
    ]
   }
