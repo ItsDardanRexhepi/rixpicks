@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-22T02:35:07.652468+00:00",
+ "generated_at": "2026-10-22T02:50:07.111002+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,8 +10,8 @@
      "matchup": "NMSU @ SHSU",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "6:24 - 3rd",
-     "score": "NMSU 21 - SHSU 17",
+     "detail": "0:33 - 3rd",
+     "score": "NMSU 30 - SHSU 17",
      "away_to": 1,
      "home_to": 0
     }
@@ -77,40 +77,36 @@
      "espn_event_id": "401909838",
      "matchup": "UTAH @ MEM",
      "commence": "2026-10-22T00:00Z",
-     "status": "in",
-     "detail": "1:24 - 4th",
-     "score": "UTAH 101 - MEM 120",
-     "away_to": 2,
-     "home_to": 1
+     "status": "post",
+     "detail": "Final",
+     "score": "UTAH 103 - MEM 123"
     },
     {
      "espn_event_id": "401909839",
      "matchup": "IND @ NO",
      "commence": "2026-10-22T00:00Z",
-     "status": "in",
-     "detail": "6.7 - 4th",
-     "score": "IND 123 - NO 120",
-     "away_to": 2,
-     "home_to": 0
+     "status": "post",
+     "detail": "Final",
+     "score": "IND 123 - NO 120"
     },
     {
      "espn_event_id": "401909840",
      "matchup": "DAL @ HOU",
      "commence": "2026-10-22T00:30Z",
      "status": "in",
-     "detail": "10:32 - 4th",
-     "score": "DAL 80 - HOU 103",
+     "detail": "4:19 - 4th",
+     "score": "DAL 100 - HOU 118",
      "away_to": 3,
-     "home_to": 4
+     "home_to": 3
     },
     {
      "espn_event_id": "401909092",
      "matchup": "GS @ LAL",
      "commence": "2026-10-22T02:00Z",
      "status": "in",
-     "detail": "3:24 - 1st",
-     "score": "GS 27 - LAL 26",
-     "away_to": 7,
+     "detail": "10:54 - 2nd",
+     "score": "GS 35 - LAL 36",
+     "away_to": 6,
      "home_to": 6
     },
     {
@@ -118,9 +114,19 @@
      "matchup": "PHX @ POR",
      "commence": "2026-10-22T02:00Z",
      "status": "in",
-     "detail": "3:31 - 1st",
-     "score": "PHX 6 - POR 30",
-     "away_to": 6,
+     "detail": "9:40 - 2nd",
+     "score": "PHX 19 - POR 45",
+     "away_to": 5,
+     "home_to": 7
+    },
+    {
+     "espn_event_id": "401909842",
+     "matchup": "SAC @ LAC",
+     "commence": "2026-10-22T02:30Z",
+     "status": "in",
+     "detail": "8:25 - 1st",
+     "score": "SAC 8 - LAC 16",
+     "away_to": 7,
      "home_to": 7
     }
    ]
