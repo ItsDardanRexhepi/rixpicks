@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-22T19:09:13.169239+00:00",
+ "generated_at": "2026-10-22T20:06:51.942998+00:00",
  "items": [
   {
    "id": "9be576bb54",
@@ -23,25 +23,25 @@
    "kickoff_utc": "2026-10-22T23:00:00+00:00"
   },
   {
+   "id": "572e24d5f0",
+   "league": "NHL",
+   "event": "San Jose Sharks @ Ottawa Senators",
+   "prediction": "San Jose Sharks to beat Ottawa Senators",
+   "kickoff_utc": "2026-10-22T23:00:00+00:00"
+  },
+  {
+   "id": "1210f95cba",
+   "league": "NHL",
+   "event": "Los Angeles Kings @ New York Islanders",
+   "prediction": "New York Islanders to beat Los Angeles Kings",
+   "kickoff_utc": "2026-10-22T23:30:00+00:00"
+  },
+  {
    "id": "fda9fcf303",
    "league": "NHL",
    "event": "Vegas Golden Knights @ St. Louis Blues",
    "prediction": "St. Louis Blues to beat Vegas Golden Knights",
    "kickoff_utc": "2026-10-23T00:00:00+00:00"
-  },
-  {
-   "id": "f02015875b",
-   "league": "NFL",
-   "event": "New England Patriots @ Chicago Bears",
-   "prediction": "Chicago Bears to beat New England Patriots",
-   "kickoff_utc": "2026-10-23T00:15:00+00:00"
-  },
-  {
-   "id": "74f8ce2caf",
-   "league": "NWSL",
-   "event": "Houston Dash @ Chicago Stars FC",
-   "prediction": "Houston Dash to beat Chicago Stars FC",
-   "kickoff_utc": "2026-10-24T00:00:00+00:00"
   }
  ]
 }
