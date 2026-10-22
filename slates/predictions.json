@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-21T23:52:52.426752+00:00",
+ "generated_at": "2026-10-22T00:28:45.253894+00:00",
  "items": [
-  {
-   "id": "34d650c72c",
-   "league": "WNBA",
-   "event": "Golden State Valkyries @ Atlanta Dream",
-   "prediction": "Golden State Valkyries to beat Atlanta Dream",
-   "kickoff_utc": "2026-10-22T00:00:00+00:00"
-  },
-  {
-   "id": "23e607bdbc",
-   "league": "NBA",
-   "event": "Utah Jazz @ Memphis Grizzlies",
-   "prediction": "Utah Jazz to beat Memphis Grizzlies",
-   "kickoff_utc": "2026-10-22T00:00:00+00:00"
-  },
   {
    "id": "0adcdb06b0",
    "league": "NBA",
@@ -42,6 +28,20 @@
    "event": "New England Patriots @ Chicago Bears",
    "prediction": "Chicago Bears to beat New England Patriots",
    "kickoff_utc": "2026-10-23T00:15:00+00:00"
+  },
+  {
+   "id": "74f8ce2caf",
+   "league": "NWSL",
+   "event": "Houston Dash @ Chicago Stars FC",
+   "prediction": "Houston Dash to beat Chicago Stars FC",
+   "kickoff_utc": "2026-10-24T00:00:00+00:00"
+  },
+  {
+   "id": "6d2cd0c80e",
+   "league": "MLB",
+   "event": "Tampa Bay Rays @ Milwaukee Brewers",
+   "prediction": "Milwaukee Brewers to beat Tampa Bay Rays",
+   "kickoff_utc": "2026-10-24T00:00:00+00:00"
   }
  ]
 }
