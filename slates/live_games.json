@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-22T01:05:03.449487+00:00",
+ "generated_at": "2026-10-22T01:20:09.300538+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,8 +10,8 @@
      "matchup": "NMSU @ SHSU",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "10:07 - 2nd",
-     "score": "NMSU 7 - SHSU 7",
+     "detail": "6:23 - 2nd",
+     "score": "NMSU 7 - SHSU 10",
      "away_to": 3,
      "home_to": 3
     }
@@ -25,8 +25,8 @@
      "matchup": "GS @ ATL",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "59.0 - 2nd",
-     "score": "GS 37 - ATL 43",
+     "detail": "Halftime",
+     "score": "GS 40 - ATL 46",
      "away_to": 4,
      "home_to": 3
     }
@@ -40,8 +40,8 @@
      "matchup": "ATL @ ORL",
      "commence": "2026-10-21T23:00Z",
      "status": "in",
-     "detail": "3:24 - 3rd",
-     "score": "ATL 91 - ORL 89",
+     "detail": "10:23 - 4th",
+     "score": "ATL 101 - ORL 104",
      "away_to": 4,
      "home_to": 4
     },
@@ -50,9 +50,9 @@
      "matchup": "MIL @ WAS",
      "commence": "2026-10-21T23:00Z",
      "status": "in",
-     "detail": "41.6 - 3rd",
-     "score": "MIL 90 - WAS 87",
-     "away_to": 4,
+     "detail": "8:13 - 4th",
+     "score": "MIL 98 - WAS 105",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -60,9 +60,9 @@
      "matchup": "MIN @ MIA",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "9:46 - 3rd",
-     "score": "MIN 78 - MIA 61",
-     "away_to": 5,
+     "detail": "5:53 - 3rd",
+     "score": "MIN 82 - MIA 70",
+     "away_to": 4,
      "home_to": 3
     },
     {
@@ -70,9 +70,9 @@
      "matchup": "CHA @ BKN",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "CHA 54 - BKN 48",
-     "away_to": 6,
+     "detail": "7:12 - 3rd",
+     "score": "CHA 62 - BKN 64",
+     "away_to": 5,
      "home_to": 3
     },
     {
@@ -80,9 +80,9 @@
      "matchup": "CHI @ TOR",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "CHI 44 - TOR 69",
-     "away_to": 5,
+     "detail": "9:14 - 3rd",
+     "score": "CHI 49 - TOR 79",
+     "away_to": 4,
      "home_to": 5
     },
     {
@@ -90,18 +90,18 @@
      "matchup": "UTAH @ MEM",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "4:05 - 2nd",
-     "score": "UTAH 45 - MEM 56",
+     "detail": "Halftime",
+     "score": "UTAH 51 - MEM 64",
      "away_to": 5,
-     "home_to": 6
+     "home_to": 5
     },
     {
      "espn_event_id": "401909839",
      "matchup": "IND @ NO",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "2:46 - 2nd",
-     "score": "IND 50 - NO 55",
+     "detail": "Halftime",
+     "score": "IND 56 - NO 66",
      "away_to": 4,
      "home_to": 6
     },
@@ -110,8 +110,8 @@
      "matchup": "DAL @ HOU",
      "commence": "2026-10-22T00:30Z",
      "status": "in",
-     "detail": "2:47 - 1st",
-     "score": "DAL 18 - HOU 22",
+     "detail": "8:49 - 2nd",
+     "score": "DAL 30 - HOU 40",
      "away_to": 6,
      "home_to": 6
     },
@@ -149,8 +149,8 @@
      "matchup": "PHI @ BUF",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "4:28 - 2nd",
-     "score": "PHI 2 - BUF 0",
+     "detail": "End of 2nd",
+     "score": "PHI 2 - BUF 1",
      "away_to": null,
      "home_to": null
     },
@@ -159,8 +159,8 @@
      "matchup": "FLA @ OTT",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "10:26 - 2nd",
-     "score": "FLA 1 - OTT 2",
+     "detail": "2:27 - 2nd",
+     "score": "FLA 1 - OTT 3",
      "away_to": null,
      "home_to": null
     }
@@ -173,8 +173,8 @@
      "espn_event_id": "761773",
      "matchup": "DC @ CIN",
      "commence": "2026-10-21T23:00Z",
-     "status": "in",
-     "detail": "90'+1'",
+     "status": "post",
+     "detail": "FT",
      "score": "DC 1 - CIN 2"
     }
    ]
