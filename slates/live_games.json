@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-22T03:35:07.165496+00:00",
+ "generated_at": "2026-10-22T03:50:04.812303+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -9,11 +9,9 @@
      "espn_event_id": "401871070",
      "matchup": "NMSU @ SHSU",
      "commence": "2026-10-22T00:00Z",
-     "status": "in",
-     "detail": "0:30 - 4th",
-     "score": "NMSU 30 - SHSU 24",
-     "away_to": 1,
-     "home_to": 0
+     "status": "post",
+     "detail": "Final",
+     "score": "NMSU 30 - SHSU 24"
     }
    ]
   },
@@ -62,28 +60,28 @@
      "matchup": "GS @ LAL",
      "commence": "2026-10-22T02:00Z",
      "status": "in",
-     "detail": "10:46 - 3rd",
-     "score": "GS 54 - LAL 70",
-     "away_to": 5,
-     "home_to": 5
+     "detail": "7:37 - 3rd",
+     "score": "GS 57 - LAL 78",
+     "away_to": 3,
+     "home_to": 4
     },
     {
      "espn_event_id": "401909841",
      "matchup": "PHX @ POR",
      "commence": "2026-10-22T02:00Z",
      "status": "in",
-     "detail": "9:20 - 3rd",
-     "score": "PHX 43 - POR 81",
+     "detail": "3:28 - 3rd",
+     "score": "PHX 59 - POR 96",
      "away_to": 3,
-     "home_to": 6
+     "home_to": 4
     },
     {
      "espn_event_id": "401909842",
      "matchup": "SAC @ LAC",
      "commence": "2026-10-22T02:30Z",
      "status": "in",
-     "detail": "4:02 - 2nd",
-     "score": "SAC 47 - LAC 56",
+     "detail": "Halftime",
+     "score": "SAC 54 - LAC 61",
      "away_to": 4,
      "home_to": 6
     }
