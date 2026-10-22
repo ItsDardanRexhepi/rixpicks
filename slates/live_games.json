@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-22T22:04:52.721091+00:00",
+ "generated_at": "2026-10-22T22:19:48.877103+00:00",
  "leagues": [
+  {
+   "league": "NFL",
+   "games": [
+    {
+     "espn_event_id": "401873010",
+     "matchup": "NE @ CHI",
+     "commence": "2026-10-23T00:15Z",
+     "status": "pre",
+     "detail": "10/22 - 5:15 PM PT",
+     "score": "NE 0 - CHI 0"
+    }
+   ]
+  },
   {
    "league": "CFB",
    "games": [
