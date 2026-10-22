@@ -4572,5 +4572,18 @@
   "kickoff_utc": "2026-10-22T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-22T15:20:44.488823+00:00"
+ },
+ {
+  "id": "476470cdfb",
+  "event_id": "401909093",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Philadelphia 76ers",
+  "away": "Cleveland Cavaliers",
+  "pick_team": "Philadelphia 76ers",
+  "prediction": "Philadelphia 76ers to beat Cleveland Cavaliers",
+  "kickoff_utc": "2026-10-22T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-22T17:04:41.600273+00:00"
  }
 ]
