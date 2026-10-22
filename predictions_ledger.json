@@ -3940,8 +3940,9 @@
   "pick_team": "D.C. United",
   "prediction": "D.C. United to beat FC Cincinnati",
   "kickoff_utc": "2026-10-21T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T18:35:20.489383+00:00"
+  "status": "miss",
+  "created_at": "2026-10-19T18:35:20.489383+00:00",
+  "settled_at": "2026-10-22T01:34:48.891974+00:00"
  },
  {
   "id": "f1e61fdec7",
