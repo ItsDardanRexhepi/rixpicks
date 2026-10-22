@@ -1,33 +1,7 @@
 {
  "version": 1,
- "generated_at": "2026-10-21T23:50:06.384494+00:00",
+ "generated_at": "2026-10-22T00:05:06.505302+00:00",
  "leagues": [
-  {
-   "league": "CFB",
-   "games": [
-    {
-     "espn_event_id": "401871070",
-     "matchup": "NMSU @ SHSU",
-     "commence": "2026-10-22T00:00Z",
-     "status": "pre",
-     "detail": "10/21 - 5:00 PM PT",
-     "score": "NMSU 0 - SHSU 0"
-    }
-   ]
-  },
-  {
-   "league": "WNBA",
-   "games": [
-    {
-     "espn_event_id": "401918307",
-     "matchup": "GS @ ATL",
-     "commence": "2026-10-22T00:00Z",
-     "status": "pre",
-     "detail": "10/21 - 5:00 PM PT",
-     "score": "GS 0 - ATL 0"
-    }
-   ]
-  },
   {
    "league": "NBA",
    "games": [
@@ -36,66 +10,50 @@
      "matchup": "ATL @ ORL",
      "commence": "2026-10-21T23:00Z",
      "status": "in",
-     "detail": "11:14 - 2nd",
-     "score": "ATL 31 - ORL 33",
-     "away_to": 6,
-     "home_to": 6
+     "detail": "6:24 - 2nd",
+     "score": "ATL 48 - ORL 42",
+     "away_to": 5,
+     "home_to": 5
     },
     {
      "espn_event_id": "401909835",
      "matchup": "MIL @ WAS",
      "commence": "2026-10-21T23:00Z",
      "status": "in",
-     "detail": "9:29 - 2nd",
-     "score": "MIL 27 - WAS 27",
+     "detail": "5:33 - 2nd",
+     "score": "MIL 39 - WAS 36",
      "away_to": 6,
-     "home_to": 6
+     "home_to": 4
     },
     {
      "espn_event_id": "401909091",
      "matchup": "MIN @ MIA",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "8:16 - 1st",
-     "score": "MIN 15 - MIA 14",
-     "away_to": 7,
-     "home_to": 7
+     "detail": "3:02 - 1st",
+     "score": "MIN 32 - MIA 24",
+     "away_to": 6,
+     "home_to": 6
     },
     {
      "espn_event_id": "401909836",
      "matchup": "CHA @ BKN",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "8:35 - 1st",
-     "score": "CHA 5 - BKN 11",
+     "detail": "4:30 - 1st",
+     "score": "CHA 16 - BKN 12",
      "away_to": 7,
-     "home_to": 6
+     "home_to": 5
     },
     {
      "espn_event_id": "401909837",
      "matchup": "CHI @ TOR",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "10:41 - 1st",
-     "score": "CHI 0 - TOR 7",
+     "detail": "4:38 - 1st",
+     "score": "CHI 10 - TOR 18",
      "away_to": 6,
-     "home_to": 7
-    },
-    {
-     "espn_event_id": "401909838",
-     "matchup": "UTAH @ MEM",
-     "commence": "2026-10-22T00:00Z",
-     "status": "pre",
-     "detail": "10/21 - 5:00 PM PT",
-     "score": "UTAH 0 - MEM 0"
-    },
-    {
-     "espn_event_id": "401909839",
-     "matchup": "IND @ NO",
-     "commence": "2026-10-22T00:00Z",
-     "status": "pre",
-     "detail": "10/21 - 5:00 PM PT",
-     "score": "IND 0 - NO 0"
+     "home_to": 6
     },
     {
      "espn_event_id": "401909840",
@@ -104,6 +62,22 @@
      "status": "pre",
      "detail": "10/21 - 5:30 PM PT",
      "score": "DAL 0 - HOU 0"
+    },
+    {
+     "espn_event_id": "401909092",
+     "matchup": "GS @ LAL",
+     "commence": "2026-10-22T02:00Z",
+     "status": "pre",
+     "detail": "10/21 - 7:00 PM PT",
+     "score": "GS 0 - LAL 0"
+    },
+    {
+     "espn_event_id": "401909841",
+     "matchup": "PHX @ POR",
+     "commence": "2026-10-22T02:00Z",
+     "status": "pre",
+     "detail": "10/21 - 7:00 PM PT",
+     "score": "PHX 0 - POR 0"
     }
    ]
   },
@@ -115,7 +89,7 @@
      "matchup": "PHI @ BUF",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "12:32 - 1st",
+     "detail": "5:28 - 1st",
      "score": "PHI 0 - BUF 0",
      "away_to": null,
      "home_to": null
@@ -125,7 +99,7 @@
      "matchup": "FLA @ OTT",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "18:19 - 1st",
+     "detail": "10:09 - 1st",
      "score": "FLA 0 - OTT 0",
      "away_to": null,
      "home_to": null
@@ -140,8 +114,8 @@
      "matchup": "DC @ CIN",
      "commence": "2026-10-21T23:00Z",
      "status": "in",
-     "detail": "35'",
-     "score": "DC 0 - CIN 1"
+     "detail": "HT",
+     "score": "DC 1 - CIN 1"
     }
    ]
   }
