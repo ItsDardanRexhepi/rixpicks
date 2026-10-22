@@ -4131,8 +4131,9 @@
   "pick_team": "Golden State Valkyries",
   "prediction": "Golden State Valkyries to beat Atlanta Dream",
   "kickoff_utc": "2026-10-22T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-20T21:05:49.317032+00:00"
+  "status": "miss",
+  "created_at": "2026-10-20T21:05:49.317032+00:00",
+  "settled_at": "2026-10-22T02:34:51.634691+00:00"
  },
  {
   "id": "5a6c8d9b9c",
@@ -4354,8 +4355,9 @@
   "pick_team": "Toronto Raptors",
   "prediction": "Toronto Raptors to beat Chicago Bulls",
   "kickoff_utc": "2026-10-21T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-21T17:23:50.106971+00:00"
+  "status": "hit",
+  "created_at": "2026-10-21T17:23:50.106971+00:00",
+  "settled_at": "2026-10-22T02:34:51.771120+00:00"
  },
  {
   "id": "23e607bdbc",
