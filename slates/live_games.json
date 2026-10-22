@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-22T01:50:03.807258+00:00",
+ "generated_at": "2026-10-22T02:05:03.589479+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -25,10 +25,10 @@
      "matchup": "GS @ ATL",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "End of 3rd",
-     "score": "GS 57 - ATL 71",
+     "detail": "5:51 - 4th",
+     "score": "GS 65 - ATL 80",
      "away_to": 2,
-     "home_to": 3
+     "home_to": 2
     }
    ]
   },
@@ -39,11 +39,9 @@
      "espn_event_id": "401909834",
      "matchup": "ATL @ ORL",
      "commence": "2026-10-21T23:00Z",
-     "status": "in",
-     "detail": "31.5 - 4th",
-     "score": "ATL 128 - ORL 123",
-     "away_to": 1,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "ATL 132 - ORL 125"
     },
     {
      "espn_event_id": "401909835",
@@ -58,29 +56,29 @@
      "matchup": "MIN @ MIA",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "7:36 - 4th",
-     "score": "MIN 107 - MIA 85",
+     "detail": "4:28 - 4th",
+     "score": "MIN 123 - MIA 93",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 1
     },
     {
      "espn_event_id": "401909836",
      "matchup": "CHA @ BKN",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "8:10 - 4th",
-     "score": "CHA 92 - BKN 86",
-     "away_to": 4,
-     "home_to": 2
+     "detail": "3:22 - 4th",
+     "score": "CHA 104 - BKN 97",
+     "away_to": 2,
+     "home_to": 1
     },
     {
      "espn_event_id": "401909837",
      "matchup": "CHI @ TOR",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "11:32 - 4th",
-     "score": "CHI 71 - TOR 103",
-     "away_to": 3,
+     "detail": "6:17 - 4th",
+     "score": "CHI 83 - TOR 123",
+     "away_to": 2,
      "home_to": 4
     },
     {
@@ -88,9 +86,9 @@
      "matchup": "UTAH @ MEM",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "3:35 - 3rd",
-     "score": "UTAH 67 - MEM 89",
-     "away_to": 5,
+     "detail": "11:15 - 4th",
+     "score": "UTAH 79 - MEM 101",
+     "away_to": 4,
      "home_to": 3
     },
     {
@@ -98,36 +96,20 @@
      "matchup": "IND @ NO",
      "commence": "2026-10-22T00:00Z",
      "status": "in",
-     "detail": "1:19 - 3rd",
-     "score": "IND 81 - NO 88",
+     "detail": "9:30 - 4th",
+     "score": "IND 91 - NO 99",
      "away_to": 3,
-     "home_to": 5
+     "home_to": 4
     },
     {
      "espn_event_id": "401909840",
      "matchup": "DAL @ HOU",
      "commence": "2026-10-22T00:30Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "DAL 38 - HOU 70",
+     "detail": "9:34 - 3rd",
+     "score": "DAL 46 - HOU 75",
      "away_to": 5,
      "home_to": 5
-    },
-    {
-     "espn_event_id": "401909092",
-     "matchup": "GS @ LAL",
-     "commence": "2026-10-22T02:00Z",
-     "status": "pre",
-     "detail": "10/21 - 7:00 PM PT",
-     "score": "GS 0 - LAL 0"
-    },
-    {
-     "espn_event_id": "401909841",
-     "matchup": "PHX @ POR",
-     "commence": "2026-10-22T02:00Z",
-     "status": "pre",
-     "detail": "10/21 - 7:00 PM PT",
-     "score": "PHX 0 - POR 0"
     },
     {
      "espn_event_id": "401909842",
@@ -147,7 +129,7 @@
      "matchup": "PHI @ BUF",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "8:20 - 3rd",
+     "detail": "2:48 - 3rd",
      "score": "PHI 3 - BUF 1",
      "away_to": null,
      "home_to": null
@@ -157,8 +139,8 @@
      "matchup": "FLA @ OTT",
      "commence": "2026-10-21T23:30Z",
      "status": "in",
-     "detail": "16:25 - 3rd",
-     "score": "FLA 1 - OTT 3",
+     "detail": "10:36 - 3rd",
+     "score": "FLA 1 - OTT 4",
      "away_to": null,
      "home_to": null
     }
