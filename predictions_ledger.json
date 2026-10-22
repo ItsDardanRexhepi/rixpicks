@@ -4369,8 +4369,9 @@
   "pick_team": "Utah Jazz",
   "prediction": "Utah Jazz to beat Memphis Grizzlies",
   "kickoff_utc": "2026-10-22T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-21T18:10:32.646906+00:00"
+  "status": "miss",
+  "created_at": "2026-10-21T18:10:32.646906+00:00",
+  "settled_at": "2026-10-22T02:49:48.689725+00:00"
  },
  {
   "id": "0a659eefc9",
