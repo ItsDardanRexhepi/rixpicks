@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-23T00:49:53.333828+00:00",
+ "generated_at": "2026-10-23T00:52:49.793123+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -11,7 +11,7 @@
      "commence": "2026-10-23T00:15Z",
      "status": "in",
      "detail": "1:38 - 1st",
-     "score": "NE 0 - CHI 9",
+     "score": "NE 0 - CHI 10",
      "away_to": 3,
      "home_to": 2
     }
@@ -35,7 +35,7 @@
      "matchup": "LIB @ KENN",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "15:00 - 3rd",
+     "detail": "12:59 - 3rd",
      "score": "LIB 14 - KENN 3",
      "away_to": 2,
      "home_to": 1
@@ -45,7 +45,7 @@
      "matchup": "ECU @ MEM",
      "commence": "2026-10-22T23:30Z",
      "status": "in",
-     "detail": "7:29 - 2nd",
+     "detail": "7:19 - 2nd",
      "score": "ECU 10 - MEM 3",
      "away_to": 1,
      "home_to": 1
@@ -60,9 +60,9 @@
      "matchup": "CLE @ PHI",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "6:29 - 3rd",
-     "score": "CLE 80 - PHI 68",
-     "away_to": 3,
+     "detail": "5:18 - 3rd",
+     "score": "CLE 80 - PHI 73",
+     "away_to": 2,
      "home_to": 5
     },
     {
@@ -113,7 +113,7 @@
      "matchup": "ANA @ NJ",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "End of 2nd",
+     "detail": "20:00 - 3rd",
      "score": "ANA 0 - NJ 2",
      "away_to": null,
      "home_to": null
@@ -133,7 +133,7 @@
      "matchup": "LA @ NYI",
      "commence": "2026-10-22T23:30Z",
      "status": "in",
-     "detail": "12:59 - 2nd",
+     "detail": "12:25 - 2nd",
      "score": "LA 2 - NYI 0",
      "away_to": null,
      "home_to": null
