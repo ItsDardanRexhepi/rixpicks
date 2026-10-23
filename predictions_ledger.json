@@ -4726,5 +4726,18 @@
   "kickoff_utc": "2026-10-25T00:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-22T23:03:35.040348+00:00"
+ },
+ {
+  "id": "1fa650d0f9",
+  "event_id": "761895",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "D.C. United",
+  "away": "FC Cincinnati",
+  "pick_team": "FC Cincinnati",
+  "prediction": "FC Cincinnati to beat D.C. United",
+  "kickoff_utc": "2026-10-24T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-23T06:19:38.203088+00:00"
  }
 ]
