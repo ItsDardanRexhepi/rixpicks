@@ -4707,8 +4707,9 @@
   "pick_team": "Calgary Flames",
   "prediction": "Calgary Flames to beat Minnesota Wild",
   "kickoff_utc": "2026-10-23T01:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-22T23:01:09.207825+00:00"
+  "status": "hit",
+  "created_at": "2026-10-22T23:01:09.207825+00:00",
+  "settled_at": "2026-10-23T03:49:37.173854+00:00"
  },
  {
   "id": "cfad841423",
