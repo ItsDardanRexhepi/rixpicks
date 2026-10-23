@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-23T19:35:37.474Z",
+ "generated_at": "2026-10-23T19:40:46.331Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Today's top games to watch, best bets, odds: Brewers vs. Rays World Series Game 1, Knicks at Celtics and more",
+    "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-brewers-vs-rays-world-series-game-1-knicks-at-celtics-and-more/",
+    "published": "2026-10-23T19:30:49.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F08%2F20%2F18a863a5-e179-42fb-bec6-6c0b5b004088%2Fjacob-misiorowski-cbs.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Find best bets and props for the biggest games in sports on Friday from the SportsLine Projection Model and top CBS Sports experts",
+    "source": "CBS",
+    "league": "MLB"
+   },
    {
     "headline": "A Cubs fan guide to the World Series",
     "link": "https://sports.yahoo.com/articles/cubs-fan-guide-world-series-190000079.html",
@@ -42,7 +51,7 @@
     "headline": "Rays opt for Martinez to start World Series over ace Rasmussen",
     "link": "https://www.espn.com/mlb/story/_/id/50252981/rays-opt-nick-martinez-open-world-series-vs-brewers",
     "published": "2026-10-23T17:50:23.000Z",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1008%252Fr1727590_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "image": "",
     "blurb": "In a bit of a curveball, the Rays will start Nick Martinez, not staff ace Drew Rasmussen, in Game 1 of the World Series against the Brewers.",
     "source": "ESPN",
     "league": "MLB"
@@ -82,15 +91,6 @@
     "blurb": "Pat Murphy and Kevin Cash don't have the luxury of building a Frankenstein roster, but we do, so we will",
     "source": "CBS",
     "league": "MLB"
-   },
-   {
-    "headline": "The Moments that Made the 2026 Red Sox: The Dodger sweep allowed us to dream of a Hollywood ending",
-    "link": "https://sports.yahoo.com/articles/moments-made-2026-red-sox-182154417.html",
-    "published": "2026-10-23T18:21:54.000Z",
-    "image": "",
-    "blurb": "Anything seemed possible in this moment.",
-    "source": "YAHOO",
-    "league": "MLB"
    }
   ],
   "football/nfl": [
@@ -104,21 +104,21 @@
     "league": "NFL"
    },
    {
+    "headline": "49ers release DL Ogbo Okoronkwo on Friday",
+    "link": "https://sports.yahoo.com/articles/49ers-release-dl-ogbo-okoronkwo-193025832.html",
+    "published": "2026-10-23T19:30:25.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/56df54c73e7c3bfe6ec099e190ea71a9e50c8ccf760a909b156549baa0495758/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F4b33e4050ec7455e09594bcd03df22bb.jpg",
+    "blurb": "The 49ers released defensive lineman Ogbo Okoronkwo on Friday, the team announced.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Lamar Jackson says he's 'heading in the right direction' for potential return vs. Bengals",
     "link": "https://www.cbssports.com/nfl/news/lamar-jackson-injury-update-ravens-qb-return-bengals/",
     "published": "2026-10-23T19:27:40.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F14%2Fa1b79e15-886c-465e-8699-9ebce238b575%2Flamar-jackson-ravens-13.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Baltimore's offense could be back at full strength soon as Jackson progresses toward a possible return against Cincinnati",
     "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Commanders at the bye: Sonny Styles provides hope for better defense",
-    "link": "https://sports.yahoo.com/articles/commanders-bye-sonny-styles-provides-192621725.html",
-    "published": "2026-10-23T19:26:21.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/eeebe37735ef5dd2b6396061602ed659a05d1fb8557f6a9f9fbea006e901799e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9ef116ca3b9e204bee8c930ff3ca2cc9.jpg",
-    "blurb": "The Commanders have coverage, pass-rush issues on defense that must be better moving forward",
-    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -131,21 +131,21 @@
     "league": "NFL"
    },
    {
+    "headline": "Commanders at the bye: Sonny Styles provides hope for better defense",
+    "link": "https://sports.yahoo.com/articles/commanders-bye-sonny-styles-provides-192621725.html",
+    "published": "2026-10-23T19:26:21.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/eeebe37735ef5dd2b6396061602ed659a05d1fb8557f6a9f9fbea006e901799e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9ef116ca3b9e204bee8c930ff3ca2cc9.jpg",
+    "blurb": "The Commanders have coverage, pass-rush issues on defense that must be better moving forward",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Giants RB Cam Skattebo says he 'got taught a lesson' after surprise benching",
     "link": "https://www.cbssports.com/nfl/news/cam-skattebo-giants-benching-najee-harris-release/",
     "published": "2026-10-23T19:04:47.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F02%2F1a481a31-c61d-4abd-8c02-16537183f8e2%2Fgetty-cam-skattebo-giants.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "After being effectively benched and watching New York release Najee Harris days later, Skattebo acknowledged his situation",
     "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Falcons RB Brian Robinson ruled out vs. 49ers; AJ Terrell questionable",
-    "link": "https://sports.yahoo.com/articles/falcons-rb-brian-robinson-ruled-191656040.html",
-    "published": "2026-10-23T19:16:56.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/048ced10da7ca8866cd2b591c550fefd5f9e050f78f4dc9d4883518e94f14f0b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fa025f1673c09c3c65aac9179b7b96871.jpg",
-    "blurb": "The Falcons\u2019 usual two-man running back depth chart is down to one for Week 7 vs. the 49ers.",
-    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -158,21 +158,21 @@
     "league": "NFL"
    },
    {
+    "headline": "A.J. Brown: I've got to put my best foot forward, try to make plays and keep going",
+    "link": "https://sports.yahoo.com/articles/j-brown-ive-got-put-192040453.html",
+    "published": "2026-10-23T19:20:40.000Z",
+    "image": "",
+    "blurb": "Patriots wide receiver A.J.",
+    "source": "YAHOO",
+    "league": "NFL"
+   },
+   {
     "headline": "Should Seahawks trade for Jonathan Taylor? Pros, cons for reigning champions to add Colts superstar",
     "link": "https://www.cbssports.com/nfl/news/should-seahawks-trade-for-jonathan-taylor-pros-cons/",
     "published": "2026-10-23T18:56:14.000Z",
     "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F23%2Fa7a3b31b-f7ba-456a-b0cd-33ab9f7111c7%2Fjonathan-taylor-colts-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Colts could fetch a pretty penny for Taylor, but is it worth it for Seattle?",
     "source": "CBS",
-    "league": "NFL"
-   },
-   {
-    "headline": "Rashee Rice again ruled out for Week 7",
-    "link": "https://sports.yahoo.com/articles/rashee-rice-again-ruled-week-191610993.html",
-    "published": "2026-10-23T19:16:10.000Z",
-    "image": "",
-    "blurb": "The Chiefs will not have three players for Sunday's matchup against the Seahawks.",
-    "source": "YAHOO",
     "league": "NFL"
    },
    {
@@ -196,11 +196,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Recalling the Luke Fickell rumors from USC\u2019s 2021 coaching search",
-    "link": "https://sports.yahoo.com/articles/recalling-luke-fickell-rumors-usc-192358940.html",
-    "published": "2026-10-23T19:23:58.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/ab1384f6c35f3e7a3e7a3a86faf26fd1f517980c02d2160ac10139ed13d06cda/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ftrojans_wire_usa_today_articles_495%2F986b59d624241df6fb696d98f39ef2d9.jpg",
-    "blurb": "As we all know, the Trojans ultimately hired Lincoln Riley back in 2021, but Wisconsin\u2019s Luke Fickell\u2014then at Cincinnati\u2014was a big name in the search",
+    "headline": "5-star Georgia QB commit visiting Big Ten powerhouse",
+    "link": "https://sports.yahoo.com/articles/5-star-georgia-qb-commit-193034410.html",
+    "published": "2026-10-23T19:30:34.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/b39712af00090b26368ead39fafd5a55a3d41988d6edd196ef23fa59a810e401/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fuga_wire_usa_today_articles_805%2F3b32a13a3a070c617101073cb2f8c414.jpg",
+    "blurb": "The Georgia Bulldogs could be about to lose another five-star quarterback commitment. Longtime UGA commit plans Michigan visit",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -223,11 +223,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Matt Leinart explains why Michigan's offense could thrive with Tommy Carr",
-    "link": "https://sports.yahoo.com/articles/matt-leinart-explains-why-michigans-191601146.html",
-    "published": "2026-10-23T19:16:01.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/d9c139de8e5fac4269575646fbb8c8b49d02cfbfb9ba04afe8b067186576f315/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fwolverines_wire_usa_today_articles_790%2F417e901748c1d618e143417d09514cad.jpg",
-    "blurb": "Fox Sports analyst Matt Leinart believes Michigan can upset Indiana, praising Tommy Carr's potential to revitalize the offense while warning of a tough test ahead.",
+    "headline": "Recalling the Luke Fickell rumors from USC\u2019s 2021 coaching search",
+    "link": "https://sports.yahoo.com/articles/recalling-luke-fickell-rumors-usc-192358940.html",
+    "published": "2026-10-23T19:23:58.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/ab1384f6c35f3e7a3e7a3a86faf26fd1f517980c02d2160ac10139ed13d06cda/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Ftrojans_wire_usa_today_articles_495%2F986b59d624241df6fb696d98f39ef2d9.jpg",
+    "blurb": "As we all know, the Trojans ultimately hired Lincoln Riley back in 2021, but Wisconsin\u2019s Luke Fickell\u2014then at Cincinnati\u2014was a big name in the search",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "The 4 Best Michigan vs Indiana Showdowns, Finishes",
-    "link": "https://sports.yahoo.com/articles/4-best-michigan-vs-indiana-190901580.html",
-    "published": "2026-10-23T19:09:01.000Z",
+    "headline": "Matt Leinart explains why Michigan's offense could thrive with Tommy Carr",
+    "link": "https://sports.yahoo.com/articles/matt-leinart-explains-why-michigans-191601146.html",
+    "published": "2026-10-23T19:16:01.000Z",
     "image": "",
-    "blurb": "Defending football national champions Indiana (5-1) will be invading the Big House at noon Saturday to face Michigan (4-2) in [\u2026]",
+    "blurb": "Fox Sports analyst Matt Leinart believes Michigan can upset Indiana, praising Tommy Carr's potential to revitalize the offense while warning of a tough test ahead.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -678,11 +678,11 @@
   ],
   "golf/pga": [
    {
-    "headline": "LIV Golf tracker: Who's staying, who's leaving? See the latest as deadline approaches",
-    "link": "https://sports.yahoo.com/articles/liv-golf-tracker-whos-staying-185506843.html",
-    "published": "2026-10-23T18:55:06.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/be540a549499248440ecbba2b1d6c6cbc6e354e69af4f3757e198f438c0d4769/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_golfweek_articles_635%2F256d6672b71068aec4fb0025d81041dd.jpg",
-    "blurb": "The deadline is approaching for members of LIV Golf to decide if they are staying or leaving. See the latest news and updates.",
+    "headline": "LIV Golf Hit With Wave of Departures as Crucial Deadline Looms",
+    "link": "https://sports.yahoo.com/articles/liv-golf-hit-wave-departures-191312969.html",
+    "published": "2026-10-23T19:13:12.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/4e996d6cf561cdd11e02d427fd6e15e05d27c22f9e5a51c5acd1e070b6401247/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2F76a28ef0f2025cc1a4fe15a79ac646df.jpg",
+    "blurb": "LIV Golf is running out of time, and its roster is getting smaller by the day. As the struggling league approaches a critical October 25 deadline, Lucas Herbert and Branden Grace have joined the growing wave of players departing the organization. Ian Poulter also announced his ex",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -705,11 +705,11 @@
     "league": "PGA"
    },
    {
-    "headline": "LPGA player poised to win $1 million Aon bonus while on maternity leave",
-    "link": "https://sports.yahoo.com/articles/lpga-player-poised-win-1-181027578.html",
-    "published": "2026-10-23T18:10:27.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/47f2c429197bd12c0b37e43de280e66cc14d172b16b380e5796d2b4ff39f2dd8/lightyear_networkapi/resizefill_w1170_h835%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_golfweek_articles_635%2Fbac40e3b94e2c5b731b7a029d91399e8.jpg",
-    "blurb": "Ryan O'Toole hasn't clinched the $1 million Aon prize yet but she's starting to think about how she might invest the biggest check of her career.",
+    "headline": "LIV Golf tracker: Who's staying, who's leaving? See the latest as deadline approaches",
+    "link": "https://sports.yahoo.com/articles/liv-golf-tracker-whos-staying-185506843.html",
+    "published": "2026-10-23T18:55:06.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/be540a549499248440ecbba2b1d6c6cbc6e354e69af4f3757e198f438c0d4769/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_golfweek_articles_635%2F256d6672b71068aec4fb0025d81041dd.jpg",
+    "blurb": "The deadline is approaching for members of LIV Golf to decide if they are staying or leaving. See the latest news and updates.",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -732,11 +732,11 @@
     "league": "PGA"
    },
    {
-    "headline": "DP World Tour\u2019s Ultimatum Claims Three LIV Golf Pros in One Day as Tensions Escalate",
-    "link": "https://sports.yahoo.com/articles/dp-world-tour-ultimatum-claims-173454016.html",
-    "published": "2026-10-23T17:34:54.000Z",
+    "headline": "LPGA player poised to win $1 million Aon bonus while on maternity leave",
+    "link": "https://sports.yahoo.com/articles/lpga-player-poised-win-1-181027578.html",
+    "published": "2026-10-23T18:10:27.000Z",
     "image": "",
-    "blurb": "The DP World Tour\u2019s hardening stance on LIV Golf is beginning to reshape the landscape ahead of the breakaway league\u2019s proposed 2027 relaunch. On October 23, Branden Grace and Ian Poulter announced their departures from LIV, while Lucas Herbert was reportedly heading to the Europ",
+    "blurb": "Ryan O'Toole hasn't clinched the $1 million Aon prize yet but she's starting to think about how she might invest the biggest check of her career.",
     "source": "YAHOO",
     "league": "PGA"
    },
@@ -759,11 +759,11 @@
     "league": "PGA"
    },
    {
-    "headline": "PGA Tour Pro Withdraws From Butterfield Bermuda Championship Due to Unfortunate Injury",
-    "link": "https://sports.yahoo.com/articles/pga-tour-pro-withdraws-butterfield-171541431.html",
-    "published": "2026-10-23T17:15:41.000Z",
+    "headline": "DP World Tour\u2019s Ultimatum Claims Three LIV Golf Pros in One Day as Tensions Escalate",
+    "link": "https://sports.yahoo.com/articles/dp-world-tour-ultimatum-claims-173454016.html",
+    "published": "2026-10-23T17:34:54.000Z",
     "image": "",
-    "blurb": "Max Greyserman\u2019s search for his first PGA Tour win has hit another setback. A back injury forced him to withdraw from the Butterfield Bermuda Championship during Friday\u2019s second round.",
+    "blurb": "The DP World Tour\u2019s hardening stance on LIV Golf is beginning to reshape the landscape ahead of the breakaway league\u2019s proposed 2027 relaunch. On October 23, Branden Grace and Ian Poulter announced their departures from LIV, while Lucas Herbert was reportedly heading to the Europ",
     "source": "YAHOO",
     "league": "PGA"
    }
@@ -1123,6 +1123,33 @@
    "league": "CFB"
   },
   {
+   "headline": "Today's top games to watch, best bets, odds: Brewers vs. Rays World Series Game 1, Knicks at Celtics and more",
+   "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-brewers-vs-rays-world-series-game-1-knicks-at-celtics-and-more/",
+   "published": "2026-10-23T19:30:49.000Z",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F08%2F20%2F18a863a5-e179-42fb-bec6-6c0b5b004088%2Fjacob-misiorowski-cbs.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Find best bets and props for the biggest games in sports on Friday from the SportsLine Projection Model and top CBS Sports experts",
+   "source": "CBS",
+   "league": "MLB"
+  },
+  {
+   "headline": "5-star Georgia QB commit visiting Big Ten powerhouse",
+   "link": "https://sports.yahoo.com/articles/5-star-georgia-qb-commit-193034410.html",
+   "published": "2026-10-23T19:30:34.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/b39712af00090b26368ead39fafd5a55a3d41988d6edd196ef23fa59a810e401/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fuga_wire_usa_today_articles_805%2F3b32a13a3a070c617101073cb2f8c414.jpg",
+   "blurb": "The Georgia Bulldogs could be about to lose another five-star quarterback commitment. Longtime UGA commit plans Michigan visit",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "49ers release DL Ogbo Okoronkwo on Friday",
+   "link": "https://sports.yahoo.com/articles/49ers-release-dl-ogbo-okoronkwo-193025832.html",
+   "published": "2026-10-23T19:30:25.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/56df54c73e7c3bfe6ec099e190ea71a9e50c8ccf760a909b156549baa0495758/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fprofootballtalk.nbcsports.com%2F4b33e4050ec7455e09594bcd03df22bb.jpg",
+   "blurb": "The 49ers released defensive lineman Ogbo Okoronkwo on Friday, the team announced.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "Devils acquire 3-time Vezina winner Hellebuyck from Jets",
    "link": "https://www.espn.com/nhl/story/_/id/50258395/sources-devils-advanced-talks-acquire-g-hellebuyck-jets",
    "published": "2026-10-23T19:28:08.000Z",
@@ -1186,22 +1213,13 @@
    "league": "CFB"
   },
   {
-   "headline": "Falcons RB Brian Robinson ruled out vs. 49ers; AJ Terrell questionable",
-   "link": "https://sports.yahoo.com/articles/falcons-rb-brian-robinson-ruled-191656040.html",
-   "published": "2026-10-23T19:16:56.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/048ced10da7ca8866cd2b591c550fefd5f9e050f78f4dc9d4883518e94f14f0b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fa025f1673c09c3c65aac9179b7b96871.jpg",
-   "blurb": "The Falcons\u2019 usual two-man running back depth chart is down to one for Week 7 vs. the 49ers.",
+   "headline": "LIV Golf Hit With Wave of Departures as Crucial Deadline Looms",
+   "link": "https://sports.yahoo.com/articles/liv-golf-hit-wave-departures-191312969.html",
+   "published": "2026-10-23T19:13:12.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/4e996d6cf561cdd11e02d427fd6e15e05d27c22f9e5a51c5acd1e070b6401247/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fheavy_214%2F76a28ef0f2025cc1a4fe15a79ac646df.jpg",
+   "blurb": "LIV Golf is running out of time, and its roster is getting smaller by the day. As the struggling league approaches a critical October 25 deadline, Lucas Herbert and Branden Grace have joined the growing wave of players departing the organization. Ian Poulter also announced his ex",
    "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
-   "headline": "Matt Leinart explains why Michigan's offense could thrive with Tommy Carr",
-   "link": "https://sports.yahoo.com/articles/matt-leinart-explains-why-michigans-191601146.html",
-   "published": "2026-10-23T19:16:01.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/d9c139de8e5fac4269575646fbb8c8b49d02cfbfb9ba04afe8b067186576f315/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fwolverines_wire_usa_today_articles_790%2F417e901748c1d618e143417d09514cad.jpg",
-   "blurb": "Fox Sports analyst Matt Leinart believes Michigan can upset Indiana, praising Tommy Carr's potential to revitalize the offense while warning of a tough test ahead.",
-   "source": "YAHOO",
-   "league": "CFB"
+   "league": "PGA"
   },
   {
    "headline": "Giants RB Cam Skattebo says he 'got taught a lesson' after surprise benching",
@@ -1384,15 +1402,6 @@
    "league": "NASCAR"
   },
   {
-   "headline": "LPGA player poised to win $1 million Aon bonus while on maternity leave",
-   "link": "https://sports.yahoo.com/articles/lpga-player-poised-win-1-181027578.html",
-   "published": "2026-10-23T18:10:27.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/47f2c429197bd12c0b37e43de280e66cc14d172b16b380e5796d2b4ff39f2dd8/lightyear_networkapi/resizefill_w1170_h835%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_golfweek_articles_635%2Fbac40e3b94e2c5b731b7a029d91399e8.jpg",
-   "blurb": "Ryan O'Toole hasn't clinched the $1 million Aon prize yet but she's starting to think about how she might invest the biggest check of her career.",
-   "source": "YAHOO",
-   "league": "PGA"
-  },
-  {
    "headline": "NASCAR Truck Series Talladega lineup, TV schedule for Friday's race",
    "link": "https://sports.yahoo.com/articles/nascar-truck-series-talladega-lineup-180657094.html",
    "published": "2026-10-23T18:06:57.000Z",
@@ -1427,21 +1436,12 @@
    "blurb": "Brandon Woodruff, who hasn't pitched in a game since July 4 due to a shoulder injury, took the place of Chad Patrick on the Brewers' World Series roster.",
    "source": "ESPN",
    "league": "MLB"
-  },
-  {
-   "headline": "Rays opt for Martinez to start World Series over ace Rasmussen",
-   "link": "https://www.espn.com/mlb/story/_/id/50252981/rays-opt-nick-martinez-open-world-series-vs-brewers",
-   "published": "2026-10-23T17:50:23.000Z",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1008%252Fr1727590_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "In a bit of a curveball, the Rays will start Nick Martinez, not staff ace Drew Rasmussen, in Game 1 of the World Series against the Brewers.",
-   "source": "ESPN",
-   "league": "MLB"
   }
  ],
  "source_mix": {
-  "ESPN": 53,
-  "CBS": 38,
-  "YAHOO": 65
+  "ESPN": 52,
+  "CBS": 40,
+  "YAHOO": 64
  },
  "degraded_sources": []
 }
