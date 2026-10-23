@@ -4557,8 +4557,9 @@
   "pick_team": "Boston Bruins",
   "prediction": "Boston Bruins to beat Nashville Predators",
   "kickoff_utc": "2026-10-22T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-22T15:19:56.724223+00:00"
+  "status": "hit",
+  "created_at": "2026-10-22T15:19:56.724223+00:00",
+  "settled_at": "2026-10-23T01:49:34.495901+00:00"
  },
  {
   "id": "d3f2969aaa",
@@ -4570,8 +4571,9 @@
   "pick_team": "Pittsburgh Penguins",
   "prediction": "Pittsburgh Penguins to beat Florida Panthers",
   "kickoff_utc": "2026-10-22T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-22T15:20:44.488823+00:00"
+  "status": "hit",
+  "created_at": "2026-10-22T15:20:44.488823+00:00",
+  "settled_at": "2026-10-23T01:49:34.658781+00:00"
  },
  {
   "id": "476470cdfb",
@@ -4622,8 +4624,9 @@
   "pick_team": "San Jose Sharks",
   "prediction": "San Jose Sharks to beat Ottawa Senators",
   "kickoff_utc": "2026-10-22T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-22T19:42:17.845490+00:00"
+  "status": "hit",
+  "created_at": "2026-10-22T19:42:17.845490+00:00",
+  "settled_at": "2026-10-23T01:49:34.861636+00:00"
  },
  {
   "id": "1210f95cba",

@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-23T01:25:09.586562+00:00",
+ "generated_at": "2026-10-23T02:08:09.883146+00:00",
  "items": [
-  {
-   "id": "b0b69ddbc0",
-   "league": "NBA",
-   "event": "Denver Nuggets @ Oklahoma City Thunder",
-   "prediction": "Denver Nuggets to beat Oklahoma City Thunder",
-   "kickoff_utc": "2026-10-23T01:30:00+00:00"
-  },
-  {
-   "id": "d408274d64",
-   "league": "NHL",
-   "event": "Utah Mammoth @ Seattle Kraken",
-   "prediction": "Seattle Kraken to beat Utah Mammoth",
-   "kickoff_utc": "2026-10-23T02:00:00+00:00"
-  },
   {
    "id": "74f8ce2caf",
    "league": "NWSL",
@@ -42,6 +28,20 @@
    "event": "North Carolina Courage @ Portland Thorns FC",
    "prediction": "North Carolina Courage to beat Portland Thorns FC",
    "kickoff_utc": "2026-10-24T02:00:00+00:00"
+  },
+  {
+   "id": "7c2175a4bb",
+   "league": "CFB",
+   "event": "LSU Tigers @ Auburn Tigers",
+   "prediction": "LSU Tigers to beat Auburn Tigers",
+   "kickoff_utc": "2026-10-24T16:00:00+00:00"
+  },
+  {
+   "id": "9dc8ff8423",
+   "league": "CFB",
+   "event": "California Golden Bears @ SMU Mustangs",
+   "prediction": "SMU Mustangs to beat California Golden Bears",
+   "kickoff_utc": "2026-10-24T16:00:00+00:00"
   }
  ]
 }
