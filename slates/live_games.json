@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-23T20:19:45.896633+00:00",
+ "generated_at": "2026-10-23T20:34:51.089924+00:00",
  "leagues": [
   {
    "league": "NBA",
@@ -10,10 +10,10 @@
      "matchup": "CHI @ MIL",
      "commence": "2026-10-23T20:00Z",
      "status": "in",
-     "detail": "8:52 - 1st",
-     "score": "CHI 4 - MIL 9",
-     "away_to": 7,
-     "home_to": 7
+     "detail": "2:53 - 1st",
+     "score": "CHI 11 - MIL 26",
+     "away_to": 6,
+     "home_to": 6
     }
    ]
   }
