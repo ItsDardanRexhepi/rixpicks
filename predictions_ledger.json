@@ -4171,8 +4171,9 @@
   "pick_team": "Chicago Bears",
   "prediction": "Chicago Bears to beat New England Patriots",
   "kickoff_utc": "2026-10-23T00:15:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-21T05:49:59.258107+00:00"
+  "status": "hit",
+  "created_at": "2026-10-21T05:49:59.258107+00:00",
+  "settled_at": "2026-10-23T03:34:33.660442+00:00"
  },
  {
   "id": "ca094ee765",
