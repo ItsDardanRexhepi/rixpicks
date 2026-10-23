@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-23T21:49:53.412431+00:00",
+ "generated_at": "2026-10-23T22:04:55.261515+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401908042",
+     "matchup": "TB @ MIL",
+     "commence": "2026-10-24T00:00Z",
+     "status": "pre",
+     "detail": "10/23 - 5:00 PM PT",
+     "score": "TB 0 - MIL 0"
+    }
+   ]
+  },
   {
    "league": "CFB",
    "games": [
@@ -31,9 +44,9 @@
      "matchup": "CHI @ MIL",
      "commence": "2026-10-23T20:00Z",
      "status": "in",
-     "detail": "3:02 - 3rd",
-     "score": "CHI 92 - MIL 95",
-     "away_to": 5,
+     "detail": "11:12 - 4th",
+     "score": "CHI 102 - MIL 104",
+     "away_to": 4,
      "home_to": 3
     },
     {
@@ -75,6 +88,40 @@
      "status": "pre",
      "detail": "10/23 - 4:00 PM PT",
      "score": "TOR 0 - WAS 0"
+    },
+    {
+     "espn_event_id": "401909847",
+     "matchup": "DET @ MIA",
+     "commence": "2026-10-24T00:00Z",
+     "status": "pre",
+     "detail": "10/23 - 5:00 PM PT",
+     "score": "DET 0 - MIA 0"
+    }
+   ]
+  },
+  {
+   "league": "NHL",
+   "games": [
+    {
+     "espn_event_id": "401892564",
+     "matchup": "MTL @ CHI",
+     "commence": "2026-10-24T00:00Z",
+     "status": "pre",
+     "detail": "10/23 - 5:00 PM PT",
+     "score": "MTL 0 - CHI 0"
+    }
+   ]
+  },
+  {
+   "league": "NWSL",
+   "games": [
+    {
+     "espn_event_id": "401854027",
+     "matchup": "HOU @ CHI",
+     "commence": "2026-10-24T00:00Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "HOU 0 - CHI 0"
     }
    ]
   }
