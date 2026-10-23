@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-23T22:19:52.835369+00:00",
+ "generated_at": "2026-10-23T22:34:48.579763+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -33,6 +33,14 @@
      "status": "pre",
      "detail": "10/23 - 4:00 PM PT",
      "score": "MASS 0 - CONN 0"
+    },
+    {
+     "espn_event_id": "401862808",
+     "matchup": "ARMY @ TLSA",
+     "commence": "2026-10-24T00:30Z",
+     "status": "pre",
+     "detail": "10/23 - 5:30 PM PT",
+     "score": "ARMY 0 - TLSA 0"
     }
    ]
   },
@@ -44,10 +52,10 @@
      "matchup": "CHI @ MIL",
      "commence": "2026-10-23T20:00Z",
      "status": "in",
-     "detail": "4:50 - 4th",
-     "score": "CHI 117 - MIL 113",
-     "away_to": 3,
-     "home_to": 3
+     "detail": "1:16 - 4th",
+     "score": "CHI 124 - MIL 123",
+     "away_to": 2,
+     "home_to": 1
     },
     {
      "espn_event_id": "401909095",
