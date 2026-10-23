@@ -4882,5 +4882,31 @@
   "kickoff_utc": "2026-10-25T02:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-23T20:09:33.544519+00:00"
+ },
+ {
+  "id": "7210fbc29c",
+  "event_id": "401909843",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Charlotte Hornets",
+  "away": "Atlanta Hawks",
+  "pick_team": "Charlotte Hornets",
+  "prediction": "Charlotte Hornets to beat Atlanta Hawks",
+  "kickoff_utc": "2026-10-23T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-23T21:07:24.299803+00:00"
+ },
+ {
+  "id": "cfe59b345c",
+  "event_id": "761900",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "FC Dallas",
+  "away": "San Jose Earthquakes",
+  "pick_team": "FC Dallas",
+  "prediction": "FC Dallas to beat San Jose Earthquakes",
+  "kickoff_utc": "2026-10-25T00:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-23T21:23:52.941035+00:00"
  }
 ]
