@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-23T22:49:46.449967+00:00",
+ "generated_at": "2026-10-23T23:04:52.404304+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -19,20 +19,14 @@
    "league": "CFB",
    "games": [
     {
-     "espn_event_id": "401858271",
-     "matchup": "DUKE @ UVA",
-     "commence": "2026-10-23T23:00Z",
-     "status": "pre",
-     "detail": "10/23 - 4:00 PM PT",
-     "score": "DUKE 0 - UVA 0"
-    },
-    {
      "espn_event_id": "401861965",
      "matchup": "MASS @ CONN",
      "commence": "2026-10-23T23:00Z",
-     "status": "pre",
-     "detail": "10/23 - 4:00 PM PT",
-     "score": "MASS 0 - CONN 0"
+     "status": "in",
+     "detail": "15:00 - 1st",
+     "score": "MASS 0 - CONN 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401862808",
@@ -41,6 +35,14 @@
      "status": "pre",
      "detail": "10/23 - 5:30 PM PT",
      "score": "ARMY 0 - TLSA 0"
+    },
+    {
+     "espn_event_id": "401864525",
+     "matchup": "AFA @ WYO",
+     "commence": "2026-10-24T01:00Z",
+     "status": "pre",
+     "detail": "10/23 - 6:00 PM PT",
+     "score": "AFA 0 - WYO 0"
     }
    ]
   },
@@ -54,46 +56,6 @@
      "status": "post",
      "detail": "Final",
      "score": "CHI 132 - MIL 125"
-    },
-    {
-     "espn_event_id": "401909095",
-     "matchup": "NY @ BOS",
-     "commence": "2026-10-23T23:00Z",
-     "status": "pre",
-     "detail": "10/23 - 4:00 PM PT",
-     "score": "NY 0 - BOS 0"
-    },
-    {
-     "espn_event_id": "401909843",
-     "matchup": "ATL @ CHA",
-     "commence": "2026-10-23T23:00Z",
-     "status": "pre",
-     "detail": "10/23 - 4:00 PM PT",
-     "score": "ATL 0 - CHA 0"
-    },
-    {
-     "espn_event_id": "401909844",
-     "matchup": "DAL @ IND",
-     "commence": "2026-10-23T23:00Z",
-     "status": "pre",
-     "detail": "10/23 - 4:00 PM PT",
-     "score": "DAL 0 - IND 0"
-    },
-    {
-     "espn_event_id": "401909845",
-     "matchup": "MIN @ ORL",
-     "commence": "2026-10-23T23:00Z",
-     "status": "pre",
-     "detail": "10/23 - 4:00 PM PT",
-     "score": "MIN 0 - ORL 0"
-    },
-    {
-     "espn_event_id": "401909846",
-     "matchup": "TOR @ WAS",
-     "commence": "2026-10-23T23:00Z",
-     "status": "pre",
-     "detail": "10/23 - 4:00 PM PT",
-     "score": "TOR 0 - WAS 0"
     },
     {
      "espn_event_id": "401909847",
@@ -115,6 +77,14 @@
      "status": "pre",
      "detail": "10/23 - 5:00 PM PT",
      "score": "MTL 0 - CHI 0"
+    },
+    {
+     "espn_event_id": "401892565",
+     "matchup": "TB @ COL",
+     "commence": "2026-10-24T01:00Z",
+     "status": "pre",
+     "detail": "10/23 - 6:00 PM PT",
+     "score": "TB 0 - COL 0"
     }
    ]
   },
