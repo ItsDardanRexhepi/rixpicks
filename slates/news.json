@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-23T05:50:35.138Z",
+ "generated_at": "2026-10-23T05:55:32.249Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -884,11 +884,11 @@
   ],
   "mma/ufc": [
    {
-    "headline": "UFC 333 video: Petr Yan, Merab Dvalishvili make weight for trilogy bout",
-    "link": "https://sports.yahoo.com/articles/ufc-333-video-petr-yan-054011290.html",
-    "published": "2026-10-23T05:40:11.000Z",
-    "image": "",
-    "blurb": "Petr Yan and Merab Dvalishvili have made weight ahead of their UFC 333 bantamweight title trilogy fight.",
+    "headline": "UFC 333 weigh-in video: Volkanovski vs. Evloev",
+    "link": "https://sports.yahoo.com/articles/ufc-333-weigh-video-volkanovski-020000486.html",
+    "published": "2026-10-23T05:45:24.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/2db38b4ace620dac0be9350a43db487278ea85d445cf05b95b3a1adc1baf13a8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F64b119d0383bd50f8ef6a154f412cc2c.jpg",
+    "blurb": "Alexander Volkanovski, Movsar Evloev, Petr Yan, and Merab Dvalishvili step on the scale",
     "source": "YAHOO",
     "league": "UFC"
    },
@@ -911,11 +911,11 @@
     "league": "UFC"
    },
    {
-    "headline": "UFC 333 weigh-in video: Volkanovski vs. Evloev",
-    "link": "https://sports.yahoo.com/articles/ufc-333-weigh-video-volkanovski-020000486.html",
-    "published": "2026-10-23T05:31:03.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/2db38b4ace620dac0be9350a43db487278ea85d445cf05b95b3a1adc1baf13a8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F64b119d0383bd50f8ef6a154f412cc2c.jpg",
-    "blurb": "Alexander Volkanovski, Movsar Evloev, Petr Yan, and Merab Dvalishvili step on the scale",
+    "headline": "UFC 333 video: Petr Yan, Merab Dvalishvili make weight for trilogy bout",
+    "link": "https://sports.yahoo.com/articles/ufc-333-video-petr-yan-054011290.html",
+    "published": "2026-10-23T05:40:11.000Z",
+    "image": "",
+    "blurb": "Petr Yan and Merab Dvalishvili have made weight ahead of their UFC 333 bantamweight title trilogy fight.",
     "source": "YAHOO",
     "league": "UFC"
    },
@@ -1087,6 +1087,15 @@
    "league": "NBA"
   },
   {
+   "headline": "UFC 333 weigh-in video: Volkanovski vs. Evloev",
+   "link": "https://sports.yahoo.com/articles/ufc-333-weigh-video-volkanovski-020000486.html",
+   "published": "2026-10-23T05:45:24.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/2db38b4ace620dac0be9350a43db487278ea85d445cf05b95b3a1adc1baf13a8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F64b119d0383bd50f8ef6a154f412cc2c.jpg",
+   "blurb": "Alexander Volkanovski, Movsar Evloev, Petr Yan, and Merab Dvalishvili step on the scale",
+   "source": "YAHOO",
+   "league": "UFC"
+  },
+  {
    "headline": "UFC 333 video: Petr Yan, Merab Dvalishvili make weight for trilogy bout",
    "link": "https://sports.yahoo.com/articles/ufc-333-video-petr-yan-054011290.html",
    "published": "2026-10-23T05:40:11.000Z",
@@ -1139,15 +1148,6 @@
    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1023%2F4977d0ac-e30e-4f70-ba0a-b2f120779011%2F4977d0ac-e30e-4f70-ba0a-b2f120779011.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Utah Mammoth vs. Seattle Kraken: Game Highlights",
    "league": "NHL"
-  },
-  {
-   "headline": "UFC 333 weigh-in video: Volkanovski vs. Evloev",
-   "link": "https://sports.yahoo.com/articles/ufc-333-weigh-video-volkanovski-020000486.html",
-   "published": "2026-10-23T05:31:03.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/2db38b4ace620dac0be9350a43db487278ea85d445cf05b95b3a1adc1baf13a8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F64b119d0383bd50f8ef6a154f412cc2c.jpg",
-   "blurb": "Alexander Volkanovski, Movsar Evloev, Petr Yan, and Merab Dvalishvili step on the scale",
-   "source": "YAHOO",
-   "league": "UFC"
   },
   {
    "headline": "Justin Barron's Fit With St. Louis Blues As Good As It Gets. \"I Just Wanted To Come In, Obviously A Little Bit Of A Clean Slate\"",
