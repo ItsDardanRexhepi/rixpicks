@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-23T00:04:59.246938+00:00",
+ "generated_at": "2026-10-23T00:19:47.777537+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -9,9 +9,11 @@
      "espn_event_id": "401873010",
      "matchup": "NE @ CHI",
      "commence": "2026-10-23T00:15Z",
-     "status": "pre",
-     "detail": "10/22 - 5:15 PM PT",
-     "score": "NE 0 - CHI 0"
+     "status": "in",
+     "detail": "13:44 - 1st",
+     "score": "NE 0 - CHI 0",
+     "away_to": 3,
+     "home_to": 3
     }
    ]
   },
@@ -23,8 +25,8 @@
      "matchup": "JMU @ APP",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "10:20 - 2nd",
-     "score": "JMU 7 - APP 3",
+     "detail": "4:48 - 2nd",
+     "score": "JMU 14 - APP 3",
      "away_to": 2,
      "home_to": 3
     },
@@ -33,7 +35,7 @@
      "matchup": "LIB @ KENN",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "8:15 - 2nd",
+     "detail": "1:43 - 2nd",
      "score": "LIB 14 - KENN 0",
      "away_to": 3,
      "home_to": 3
@@ -43,10 +45,10 @@
      "matchup": "ECU @ MEM",
      "commence": "2026-10-22T23:30Z",
      "status": "in",
-     "detail": "7:31 - 1st",
-     "score": "ECU 3 - MEM 0",
-     "away_to": 2,
-     "home_to": 2
+     "detail": "2:01 - 1st",
+     "score": "ECU 10 - MEM 0",
+     "away_to": 1,
+     "home_to": 1
     }
    ]
   },
@@ -58,9 +60,9 @@
      "matchup": "CLE @ PHI",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "4:46 - 2nd",
-     "score": "CLE 56 - PHI 32",
-     "away_to": 5,
+     "detail": "Halftime",
+     "score": "CLE 69 - PHI 45",
+     "away_to": 4,
      "home_to": 5
     },
     {
@@ -81,7 +83,7 @@
      "matchup": "NSH @ BOS",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "20:00 - 2nd",
+     "detail": "10:42 - 2nd",
      "score": "NSH 0 - BOS 2",
      "away_to": null,
      "home_to": null
@@ -91,8 +93,8 @@
      "matchup": "NYR @ TOR",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "20:00 - 2nd",
-     "score": "NYR 1 - TOR 2",
+     "detail": "13:38 - 2nd",
+     "score": "NYR 2 - TOR 2",
      "away_to": null,
      "home_to": null
     },
@@ -101,7 +103,7 @@
      "matchup": "SJ @ OTT",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "13:49 - 2nd",
      "score": "SJ 1 - OTT 1",
      "away_to": null,
      "home_to": null
@@ -111,7 +113,7 @@
      "matchup": "ANA @ NJ",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "16:34 - 2nd",
+     "detail": "9:32 - 2nd",
      "score": "ANA 0 - NJ 2",
      "away_to": null,
      "home_to": null
@@ -121,7 +123,7 @@
      "matchup": "FLA @ PIT",
      "commence": "2026-10-22T23:00Z",
      "status": "in",
-     "detail": "18:24 - 2nd",
+     "detail": "10:01 - 2nd",
      "score": "FLA 0 - PIT 1",
      "away_to": null,
      "home_to": null
@@ -131,8 +133,28 @@
      "matchup": "LA @ NYI",
      "commence": "2026-10-22T23:30Z",
      "status": "in",
-     "detail": "6:34 - 1st",
-     "score": "LA 1 - NYI 0",
+     "detail": "0:21 - 1st",
+     "score": "LA 2 - NYI 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892558",
+     "matchup": "VGK @ STL",
+     "commence": "2026-10-23T00:00Z",
+     "status": "in",
+     "detail": "12:09 - 1st",
+     "score": "VGK 0 - STL 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892559",
+     "matchup": "WPG @ DAL",
+     "commence": "2026-10-23T00:00Z",
+     "status": "in",
+     "detail": "13:38 - 1st",
+     "score": "WPG 0 - DAL 0",
      "away_to": null,
      "home_to": null
     },
