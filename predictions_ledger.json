@@ -4739,5 +4739,18 @@
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-23T06:19:38.203088+00:00"
+ },
+ {
+  "id": "5af98bb1c1",
+  "event_id": "761897",
+  "league": "MLS",
+  "path": "soccer/usa.1",
+  "home": "Colorado Rapids",
+  "away": "Vancouver Whitecaps",
+  "pick_team": "Colorado Rapids",
+  "prediction": "Colorado Rapids to beat Vancouver Whitecaps",
+  "kickoff_utc": "2026-10-25T01:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-23T11:04:46.434366+00:00"
  }
 ]
