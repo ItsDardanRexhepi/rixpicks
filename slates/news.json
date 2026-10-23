@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-23T18:10:41.965Z",
+ "generated_at": "2026-10-23T18:15:37.033Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "A 2026 World Series preview for Royals fans",
+    "link": "https://sports.yahoo.com/articles/2026-world-series-preview-royals-180000060.html",
+    "published": "2026-10-23T18:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/742ce1f5c59a35e81d0b18dace09a63ed5b6f4df9f9a9b2e8f00cde39d55f402/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fddc4221a396c98cf64b4db75461248c5.jpg",
+    "blurb": "Time for the Fall Classic.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
    {
     "headline": "Brewers' Woodruff, out since July, added to World Series roster",
     "link": "https://www.espn.com/mlb/story/_/id/50258616/brewers-add-pitcher-brandon-woodruff-world-series-roster",
@@ -9,15 +18,6 @@
     "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0705%252Fr1684695_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Brandon Woodruff, who hasn't pitched in a game since July 4 due to a shoulder injury, took the place of Chad Patrick on the Brewers' World Series roster.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "Are the Guardians Going to Trade Steven Kwan?",
-    "link": "https://sports.yahoo.com/articles/guardians-going-trade-steven-kwan-172543794.html",
-    "published": "2026-10-23T17:25:43.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/193244089640c8ad3dabbc5e669714aa7c2e98c0a24de573f10aa085faaa3c0a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6ed04978d8150218eb828fba18dd3b40.jpg",
-    "blurb": "Can we keep him?",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Ranking the Rockies, 2026: No.36, John Brebbia",
+    "link": "https://sports.yahoo.com/articles/ranking-rockies-2026-no-36-180000228.html",
+    "published": "2026-10-23T18:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/f74ffdb2d9ddb4ecf682f973d9e2c6dabcfcccb343080a6c99c2834f6955be97/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff2b594ebcbfe204e17836acfbe9cf0cf.jpg",
+    "blurb": "The journeyman reliever was consistently given a very short leash",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Rays opt for Martinez to start World Series over ace Rasmussen",
     "link": "https://www.espn.com/mlb/story/_/id/50252981/rays-opt-nick-martinez-open-world-series-vs-brewers",
     "published": "2026-10-23T17:50:23.000Z",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1008%252Fr1727590_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "In a bit of a curveball, the Rays will start Nick Martinez, not staff ace Drew Rasmussen, in Game 1 of the World Series against the Brewers.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "Who is throwing first pitch for World Series Game 1? Brewers call on franchise icons",
-    "link": "https://sports.yahoo.com/articles/throwing-first-pitch-world-series-172537629.html",
-    "published": "2026-10-23T17:25:37.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/8adf7502d403d7d5c4f7fdf76b43f67e0142fa9ad632093db15f48301ff90d80/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F5b5a951ffddff8903f4c94cebf9bfa79.jpg",
-    "blurb": "Hall of Famer Robin Yount and former Brewers owner Bud Selig highlighted the first pitch ceremony at Game 1 of the 2026 World Series.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Are the Guardians Going to Trade Steven Kwan?",
+    "link": "https://sports.yahoo.com/articles/guardians-going-trade-steven-kwan-172543794.html",
+    "published": "2026-10-23T17:25:43.000Z",
+    "image": "",
+    "blurb": "Can we keep him?",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Vogt shuns Mariners rumors, says he'll manage Guardians in '27",
     "link": "https://www.espn.com/mlb/story/_/id/50252938/stephen-vogt-back-guardians-27-shuns-mariners-rumors",
     "published": "2026-10-23T17:50:23.000Z",
     "image": "",
     "blurb": "Guardians manager Stephen Vogt dispelled speculation about his future, saying he'll return next season to chase an elusive World Series title.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "2026 World Series Preview: Pitching",
-    "link": "https://sports.yahoo.com/articles/2026-world-series-preview-pitching-170000945.html",
-    "published": "2026-10-23T17:00:00.000Z",
-    "image": "",
-    "blurb": "It\u2019s Jacob Misiorowski vs. Drew Rasmussen and Freddy Peralta in this showdown of high octane pitching staffs.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,31 +84,31 @@
     "league": "MLB"
    },
    {
-    "headline": "Hideki Matsui hired as manager of Japan's Yomiuri Giants",
-    "link": "https://www.espn.com/mlb/story/_/id/50256430/hideki-matsui-hired-manager-japan-yomiuri-giants",
-    "published": "2026-10-23T17:50:23.000Z",
+    "headline": "Who is throwing first pitch for World Series Game 1? Brewers call on franchise icons",
+    "link": "https://sports.yahoo.com/articles/throwing-first-pitch-world-series-172537629.html",
+    "published": "2026-10-23T17:25:37.000Z",
     "image": "",
-    "blurb": "Former New York Yankees slugger Hideki Matsui was named Friday as the new manager of the Yomiuri Giants, his club until his departure for the United States.",
-    "source": "ESPN",
+    "blurb": "Hall of Famer Robin Yount and former Brewers owner Bud Selig highlighted the first pitch ceremony at Game 1 of the 2026 World Series.",
+    "source": "YAHOO",
     "league": "MLB"
    }
   ],
   "football/nfl": [
    {
-    "headline": "Bills' Franklin wins appeal; suspension for spitting reduced to fine",
-    "link": "https://www.espn.com/nfl/story/_/id/50258709/bills-franklin-wins-appeal-suspension-spitting-overturned",
-    "published": "2026-10-23T18:52:04.000Z",
-    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1021%252Fr1733893_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Bills safety and special teams captain Sam Franklin Jr., has won his appeal to overturn the one-game suspension for supposedly spitting at an opponent in the win over the Raiders.",
+    "headline": "'Bro, he's different': Why Seattle let Kenneth Walker III leave, and Kansas City couldn't be happier",
+    "link": "https://www.espn.com/nfl/story/_/id/50233140/seattle-seahawks-kansas-city-chiefs-kenneth-walker",
+    "published": "2026-10-23T19:09:52.000Z",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1021%252Fnfl_walker_16x9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "While the Seahawks' run game is struggling, the Super Bowl MVP is on a historic pace for the Chiefs this season.",
     "source": "ESPN",
     "league": "NFL"
    },
    {
-    "headline": "Fantasy Football Rankings: 5 most polarizing players for Week 7",
-    "link": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-5-most-polarizing-players-for-week-7-175026366.html",
-    "published": "2026-10-23T17:50:26.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/f48a8b73c50437f2c19baf065b77390fcc13e498b255b39d67720f7e13965553/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F2374a1c7-8218-4965-81c2-4f9937630790",
-    "blurb": "Hayden Winks goes over the 5 most polarizing players for fantasy football among his rankings for Week 7.",
+    "headline": "The Rams were Super Bowl favorites. Now they're fighting a 30-year curse",
+    "link": "https://sports.yahoo.com/nfl/article/the-rams-were-super-bowl-favorites-now-theyre-fighting-a-30-year-curse-180838386.html",
+    "published": "2026-10-23T18:08:38.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/936eeae423cbf065b79022474573e77d8943eb5fd716d6e416cc3d6f1830685e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F0ac618ce-75cd-40a9-b76f-0648ba027b59",
+    "blurb": "Over the past 30 years, the preseason Super Bowl favorite entered the season with +500 or better odds 20 times. None have gone on to win the title.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -122,20 +122,20 @@
     "league": "NFL"
    },
    {
-    "headline": "Cleared Mayfield won't have WR Egbuka as target vs. Panthers",
-    "link": "https://www.espn.com/nfl/story/_/id/50259196/baker-mayfield-returns-emeka-egbuka-luke-goedeke-out",
-    "published": "2026-10-23T18:52:04.000Z",
-    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0422%252Fr1647623_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Buccaneers quarterback Baker Mayfield will make his return following a three-game absence, but he will be without his top target in wide receiver Emeka Egbuka.",
+    "headline": "Inside the exit of Marvin Harrison Jr. from the Cardinals",
+    "link": "https://www.espn.com/nfl/story/_/id/50249407/marvin-harrison-jr-cardinals-texans",
+    "published": "2026-10-23T19:09:52.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734545_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Harrison never reached his potential in Arizona, but all sides are hoping for a fresh start moving forward.",
     "source": "ESPN",
     "league": "NFL"
    },
    {
-    "headline": "Fantasy Football Rankings: Players Hayden Winks is higher and lower on than consensus for Week 7",
-    "link": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-players-hayden-winks-is-higher-and-lower-on-than-consensus-for-week-7-174815135.html",
-    "published": "2026-10-23T17:48:15.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/2246e832c2fb328385d996b195231123f7ddaa67ab01c4cd5a80ec30205637f7/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F3d0faa4f-6500-4e86-ad0f-6952230db1a8",
-    "blurb": "Fantasy football analyst Hayden Winks highlights players he's ranked higher and lower than the consensus.",
+    "headline": "What happened to Los Angeles Rams\u2019 \u2018Super Team\u2019 ahead of Week 7 Las Vegas Raiders matchup?",
+    "link": "https://sports.yahoo.com/articles/happened-los-angeles-rams-super-180500343.html",
+    "published": "2026-10-23T18:05:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/4a5ca7230fa6b3a29ca1b26ba5e0e0701ebd3ed54b1a8b2a6ef5c10109b47b78/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fce5f57990ed306f7e73e3bceb850567a.jpg",
+    "blurb": "5 questions with Turf Show Times",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -149,20 +149,20 @@
     "league": "NFL"
    },
    {
-    "headline": "Jets WR Mitchell to play, RB Hall questionable vs. Dolphins",
-    "link": "https://www.espn.com/nfl/story/_/id/50258482/jets-wr-mitchell-play-rb-hall-questionable-vs-dolphins",
+    "headline": "Bills' Franklin wins appeal; suspension for spitting reduced to fine",
+    "link": "https://www.espn.com/nfl/story/_/id/50258709/bills-franklin-wins-appeal-suspension-spitting-overturned",
     "published": "2026-10-23T18:52:04.000Z",
     "image": "",
-    "blurb": "Jets WR Adonai Mitchell, sidelined four games with a finger injury that required a surgical procedure, practiced all week and will play against the Dolphins.",
+    "blurb": "Bills safety and special teams captain Sam Franklin Jr., has won his appeal to overturn the one-game suspension for supposedly spitting at an opponent in the win over the Raiders.",
     "source": "ESPN",
     "league": "NFL"
    },
    {
-    "headline": "Final Dan Campbell takeaways before Lions vs. Packers",
-    "link": "https://sports.yahoo.com/articles/final-dan-campbell-takeaways-lions-174804059.html",
-    "published": "2026-10-23T17:48:04.000Z",
+    "headline": "Cowboys point/counterpoint: We ate the cheese again",
+    "link": "https://sports.yahoo.com/articles/cowboys-point-counterpoint-ate-cheese-180000866.html",
+    "published": "2026-10-23T18:00:00.000Z",
     "image": "",
-    "blurb": "Breaking down the biggest takeaways from Dan Campbell\u2019s final press conference before the Packers game.",
+    "blurb": "The Cowboys never seem to live up to expectations.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -176,11 +176,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Colts QB Richardson charged with possession of marijuana",
-    "link": "https://www.espn.com/nfl/story/_/id/50257962/colts-qb-anthony-richardson-sr-charged-marijuana-possession",
+    "headline": "Cleared Mayfield won't have WR Egbuka as target vs. Panthers",
+    "link": "https://www.espn.com/nfl/story/_/id/50259196/baker-mayfield-returns-emeka-egbuka-luke-goedeke-out",
     "published": "2026-10-23T18:52:04.000Z",
     "image": "",
-    "blurb": "Colts quarterback Anthony Richardson Sr. is facing a misdemeanor charge for marijuana possession following a traffic stop earlier this month, court records show.",
+    "blurb": "Buccaneers quarterback Baker Mayfield will make his return following a three-game absence, but he will be without his top target in wide receiver Emeka Egbuka.",
     "source": "ESPN",
     "league": "NFL"
    }
@@ -223,11 +223,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Friday Discussion: Will we see Bryce Underwood on the field at Michigan again?",
-    "link": "https://sports.yahoo.com/articles/friday-discussion-see-bryce-underwood-180000114.html",
-    "published": "2026-10-23T18:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/5524b4ce0489bb9a331df760a609729f11d5e438915390d7e7a7505d392753fa/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc0ed7507efa57ea138af012ebbd0ad43.jpg",
-    "blurb": "Bryce\u2019s benching gave the offense a spark, but will that be the last time we see him at QB in a Michigan uniform?",
+    "headline": "The top 5 college football games to watch in Week 8",
+    "link": "https://sports.yahoo.com/articles/top-5-college-football-games-180045266.html",
+    "published": "2026-10-23T18:00:45.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/41be423d8b88d605eb472d7cfdb728b64d6bd890eaaf46d4e73b5a7acdd3584d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsooners_wire_usa_today_articles_466%2F78e4806edde27e673c1d815a64a4daf2.jpg",
+    "blurb": "The 5 best college football games to watch this week.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Indiana fans still see the Hoosiers as a national contender after the Ohio State loss",
-    "link": "https://sports.yahoo.com/articles/indiana-fans-still-see-hoosiers-180000966.html",
+    "headline": "Friday Discussion: Will we see Bryce Underwood on the field at Michigan again?",
+    "link": "https://sports.yahoo.com/articles/friday-discussion-see-bryce-underwood-180000114.html",
     "published": "2026-10-23T18:00:00.000Z",
     "image": "",
-    "blurb": "A majority of Indiana fans still view the Hoosiers as national title contenders despite the home loss to Ohio State.",
+    "blurb": "Bryce\u2019s benching gave the offense a spark, but will that be the last time we see him at QB in a Michigan uniform?",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -427,7 +427,7 @@
    {
     "headline": "Friday's fantasy basketball adds and bets we like in the NBA",
     "link": "https://www.espn.com/fantasy/basketball/story/_/id/50258585/fantasy-basketball-tips-nba-betting-picks-today",
-    "published": "2026-10-23T18:08:41Z",
+    "published": "2026-10-23T18:10:15Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1023%2Fr1735039_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Andre Snellings breaks down Friday's games, highlighting the fantasy streamers to add and bets to make.",
@@ -490,9 +490,9 @@
     "league": "NHL"
    },
    {
-    "headline": "Stanley Cup odds: Devils odds shorten after blockbuster Hellebuyck trade",
+    "headline": "Stanley Cup odds: Devils' odds shorten after blockbuster Hellebuyck trade",
     "link": "https://www.espn.com/espn/betting/story/_/id/44686270/2026-nhl-stanley-cup-playoffs-championship-odds",
-    "published": "2026-10-23T18:04:24Z",
+    "published": "2026-10-23T18:10:27Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1023%2Fr1735088_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The New Jersey Devils are among the Eastern Conference favorites after trading for Connor Hellebuyck.",
@@ -1078,6 +1078,24 @@
  },
  "latest": [
   {
+   "headline": "'Bro, he's different': Why Seattle let Kenneth Walker III leave, and Kansas City couldn't be happier",
+   "link": "https://www.espn.com/nfl/story/_/id/50233140/seattle-seahawks-kansas-city-chiefs-kenneth-walker",
+   "published": "2026-10-23T19:09:52.000Z",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1021%252Fnfl_walker_16x9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "While the Seahawks' run game is struggling, the Super Bowl MVP is on a historic pace for the Chiefs this season.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
+   "headline": "Inside the exit of Marvin Harrison Jr. from the Cardinals",
+   "link": "https://www.espn.com/nfl/story/_/id/50249407/marvin-harrison-jr-cardinals-texans",
+   "published": "2026-10-23T19:09:52.000Z",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734545_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Harrison never reached his potential in Arizona, but all sides are hoping for a fresh start moving forward.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
    "headline": "Opening week intel: A new trend in contract talks; another pricey decision in OKC",
    "link": "https://www.espn.com/nba/story/_/id/50241622/contract-talks-thunder-payroll-opening-week",
    "published": "2026-10-23T19:03:25.000Z",
@@ -1114,24 +1132,6 @@
    "league": "CFB"
   },
   {
-   "headline": "Bills' Franklin wins appeal; suspension for spitting reduced to fine",
-   "link": "https://www.espn.com/nfl/story/_/id/50258709/bills-franklin-wins-appeal-suspension-spitting-overturned",
-   "published": "2026-10-23T18:52:04.000Z",
-   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1021%252Fr1733893_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Bills safety and special teams captain Sam Franklin Jr., has won his appeal to overturn the one-game suspension for supposedly spitting at an opponent in the win over the Raiders.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Cleared Mayfield won't have WR Egbuka as target vs. Panthers",
-   "link": "https://www.espn.com/nfl/story/_/id/50259196/baker-mayfield-returns-emeka-egbuka-luke-goedeke-out",
-   "published": "2026-10-23T18:52:04.000Z",
-   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0422%252Fr1647623_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Buccaneers quarterback Baker Mayfield will make his return following a three-game absence, but he will be without his top target in wide receiver Emeka Egbuka.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
    "headline": "Devils acquire 3-time Vezina winner Hellebuyck from Jets",
    "link": "https://www.espn.com/nhl/story/_/id/50258395/sources-devils-advanced-talks-acquire-g-hellebuyck-jets",
    "published": "2026-10-23T18:14:49.000Z",
@@ -1139,6 +1139,24 @@
    "blurb": "The Devils made a major move Friday, acquiring goalie and 3-time Vezina Trophy winner Connor Hellebuyck from the Jets in return for several players and draft picks.",
    "source": "ESPN",
    "league": "NHL"
+  },
+  {
+   "headline": "Stanley Cup odds: Devils' odds shorten after blockbuster Hellebuyck trade",
+   "link": "https://www.espn.com/espn/betting/story/_/id/44686270/2026-nhl-stanley-cup-playoffs-championship-odds",
+   "published": "2026-10-23T18:10:27Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1023%2Fr1735088_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The New Jersey Devils are among the Eastern Conference favorites after trading for Connor Hellebuyck.",
+   "league": "NHL"
+  },
+  {
+   "headline": "The Rams were Super Bowl favorites. Now they're fighting a 30-year curse",
+   "link": "https://sports.yahoo.com/nfl/article/the-rams-were-super-bowl-favorites-now-theyre-fighting-a-30-year-curse-180838386.html",
+   "published": "2026-10-23T18:08:38.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/936eeae423cbf065b79022474573e77d8943eb5fd716d6e416cc3d6f1830685e/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F0ac618ce-75cd-40a9-b76f-0648ba027b59",
+   "blurb": "Over the past 30 years, the preseason Super Bowl favorite entered the season with +500 or better odds 20 times. None have gone on to win the title.",
+   "source": "YAHOO",
+   "league": "NFL"
   },
   {
    "headline": "Texas football knows what it expects. Does it know what it needs?",
@@ -1159,31 +1177,40 @@
    "league": "NASCAR"
   },
   {
-   "headline": "Stanley Cup odds: Devils odds shorten after blockbuster Hellebuyck trade",
-   "link": "https://www.espn.com/espn/betting/story/_/id/44686270/2026-nhl-stanley-cup-playoffs-championship-odds",
-   "published": "2026-10-23T18:04:24Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1023%2Fr1735088_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The New Jersey Devils are among the Eastern Conference favorites after trading for Connor Hellebuyck.",
-   "league": "NHL"
+   "headline": "What happened to Los Angeles Rams\u2019 \u2018Super Team\u2019 ahead of Week 7 Las Vegas Raiders matchup?",
+   "link": "https://sports.yahoo.com/articles/happened-los-angeles-rams-super-180500343.html",
+   "published": "2026-10-23T18:05:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/4a5ca7230fa6b3a29ca1b26ba5e0e0701ebd3ed54b1a8b2a6ef5c10109b47b78/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fce5f57990ed306f7e73e3bceb850567a.jpg",
+   "blurb": "5 questions with Turf Show Times",
+   "source": "YAHOO",
+   "league": "NFL"
   },
   {
-   "headline": "Friday Discussion: Will we see Bryce Underwood on the field at Michigan again?",
-   "link": "https://sports.yahoo.com/articles/friday-discussion-see-bryce-underwood-180000114.html",
-   "published": "2026-10-23T18:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/5524b4ce0489bb9a331df760a609729f11d5e438915390d7e7a7505d392753fa/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fc0ed7507efa57ea138af012ebbd0ad43.jpg",
-   "blurb": "Bryce\u2019s benching gave the offense a spark, but will that be the last time we see him at QB in a Michigan uniform?",
+   "headline": "The top 5 college football games to watch in Week 8",
+   "link": "https://sports.yahoo.com/articles/top-5-college-football-games-180045266.html",
+   "published": "2026-10-23T18:00:45.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/41be423d8b88d605eb472d7cfdb728b64d6bd890eaaf46d4e73b5a7acdd3584d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsooners_wire_usa_today_articles_466%2F78e4806edde27e673c1d815a64a4daf2.jpg",
+   "blurb": "The 5 best college football games to watch this week.",
    "source": "YAHOO",
    "league": "CFB"
   },
   {
-   "headline": "Fantasy Football Rankings: 5 most polarizing players for Week 7",
-   "link": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-5-most-polarizing-players-for-week-7-175026366.html",
-   "published": "2026-10-23T17:50:26.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/f48a8b73c50437f2c19baf065b77390fcc13e498b255b39d67720f7e13965553/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F2374a1c7-8218-4965-81c2-4f9937630790",
-   "blurb": "Hayden Winks goes over the 5 most polarizing players for fantasy football among his rankings for Week 7.",
+   "headline": "A 2026 World Series preview for Royals fans",
+   "link": "https://sports.yahoo.com/articles/2026-world-series-preview-royals-180000060.html",
+   "published": "2026-10-23T18:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/742ce1f5c59a35e81d0b18dace09a63ed5b6f4df9f9a9b2e8f00cde39d55f402/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fddc4221a396c98cf64b4db75461248c5.jpg",
+   "blurb": "Time for the Fall Classic.",
    "source": "YAHOO",
-   "league": "NFL"
+   "league": "MLB"
+  },
+  {
+   "headline": "Ranking the Rockies, 2026: No.36, John Brebbia",
+   "link": "https://sports.yahoo.com/articles/ranking-rockies-2026-no-36-180000228.html",
+   "published": "2026-10-23T18:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/f74ffdb2d9ddb4ecf682f973d9e2c6dabcfcccb343080a6c99c2834f6955be97/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ff2b594ebcbfe204e17836acfbe9cf0cf.jpg",
+   "blurb": "The journeyman reliever was consistently given a very short leash",
+   "source": "YAHOO",
+   "league": "MLB"
   },
   {
    "headline": "Brewers' Woodruff, out since July, added to World Series roster",
@@ -1204,15 +1231,6 @@
    "league": "MLB"
   },
   {
-   "headline": "Fantasy Football Rankings: Players Hayden Winks is higher and lower on than consensus for Week 7",
-   "link": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-players-hayden-winks-is-higher-and-lower-on-than-consensus-for-week-7-174815135.html",
-   "published": "2026-10-23T17:48:15.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/2246e832c2fb328385d996b195231123f7ddaa67ab01c4cd5a80ec30205637f7/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F3d0faa4f-6500-4e86-ad0f-6952230db1a8",
-   "blurb": "Fantasy football analyst Hayden Winks highlights players he's ranked higher and lower than the consensus.",
-   "source": "YAHOO",
-   "league": "NFL"
-  },
-  {
    "headline": "The Dream are undefeated when Angel Reese makes a 3-pointer: Inside how she rebuilt her shot 'from scratch'",
    "link": "https://www.cbssports.com/wnba/news/angel-reese-atlanta-dream-rebuilt-3-point-shot-karl-smesko/",
    "published": "2026-10-23T17:30:49.000Z",
@@ -1229,24 +1247,6 @@
    "blurb": "The Duke Wire staff make their predictions for Duke's matchup against Virginia on Friday night in Charlottesville.",
    "source": "YAHOO",
    "league": "NCAAB"
-  },
-  {
-   "headline": "Are the Guardians Going to Trade Steven Kwan?",
-   "link": "https://sports.yahoo.com/articles/guardians-going-trade-steven-kwan-172543794.html",
-   "published": "2026-10-23T17:25:43.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/193244089640c8ad3dabbc5e669714aa7c2e98c0a24de573f10aa085faaa3c0a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6ed04978d8150218eb828fba18dd3b40.jpg",
-   "blurb": "Can we keep him?",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
-   "headline": "Who is throwing first pitch for World Series Game 1? Brewers call on franchise icons",
-   "link": "https://sports.yahoo.com/articles/throwing-first-pitch-world-series-172537629.html",
-   "published": "2026-10-23T17:25:37.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/8adf7502d403d7d5c4f7fdf76b43f67e0142fa9ad632093db15f48301ff90d80/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F5b5a951ffddff8903f4c94cebf9bfa79.jpg",
-   "blurb": "Hall of Famer Robin Yount and former Brewers owner Bud Selig highlighted the first pitch ceremony at Game 1 of the 2026 World Series.",
-   "source": "YAHOO",
-   "league": "MLB"
   },
   {
    "headline": "NWSL dropping 'Rodman rule' restrictions; all players now eligible in wider settlement",
@@ -1439,8 +1439,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 54,
-  "YAHOO": 63,
+  "ESPN": 53,
+  "YAHOO": 64,
   "CBS": 39
  },
  "degraded_sources": []
