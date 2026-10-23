@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-23T21:04:49.768439+00:00",
+ "generated_at": "2026-10-23T21:19:49.841751+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -31,10 +31,10 @@
      "matchup": "CHI @ MIL",
      "commence": "2026-10-23T20:00Z",
      "status": "in",
-     "detail": "4:59 - 2nd",
-     "score": "CHI 45 - MIL 51",
-     "away_to": 4,
-     "home_to": 5
+     "detail": "Halftime",
+     "score": "CHI 61 - MIL 62",
+     "away_to": 5,
+     "home_to": 4
     },
     {
      "espn_event_id": "401909095",
