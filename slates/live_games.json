@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-23T03:34:53.443825+00:00",
+ "generated_at": "2026-10-23T03:49:52.106930+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -16,21 +16,6 @@
    ]
   },
   {
-   "league": "CFB",
-   "games": [
-    {
-     "espn_event_id": "401862807",
-     "matchup": "ECU @ MEM",
-     "commence": "2026-10-22T23:30Z",
-     "status": "in",
-     "detail": "OT",
-     "score": "ECU 34 - MEM 41",
-     "away_to": 0,
-     "home_to": 0
-    }
-   ]
-  },
-  {
    "league": "NBA",
    "games": [
     {
@@ -38,9 +23,9 @@
      "matchup": "DEN @ OKC",
      "commence": "2026-10-23T01:30Z",
      "status": "in",
-     "detail": "1:12 - 3rd",
-     "score": "DEN 62 - OKC 64",
-     "away_to": 4,
+     "detail": "9:07 - 4th",
+     "score": "DEN 66 - OKC 74",
+     "away_to": 3,
      "home_to": 4
     }
    ]
@@ -68,19 +53,17 @@
      "espn_event_id": "401892560",
      "matchup": "MIN @ CGY",
      "commence": "2026-10-23T01:00Z",
-     "status": "in",
-     "detail": "1:24 - 3rd",
-     "score": "MIN 1 - CGY 2",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "MIN 1 - CGY 2"
     },
     {
      "espn_event_id": "401892561",
      "matchup": "CAR @ EDM",
      "commence": "2026-10-23T01:00Z",
      "status": "in",
-     "detail": "1:46 - 3rd",
-     "score": "CAR 5 - EDM 4",
+     "detail": "2:23 - OT",
+     "score": "CAR 5 - EDM 5",
      "away_to": null,
      "home_to": null
     },
@@ -89,7 +72,7 @@
      "matchup": "UTA @ SEA",
      "commence": "2026-10-23T02:00Z",
      "status": "in",
-     "detail": "6:07 - 2nd",
+     "detail": "End of 2nd",
      "score": "UTA 1 - SEA 3",
      "away_to": null,
      "home_to": null
