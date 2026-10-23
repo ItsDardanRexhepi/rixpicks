@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-23T00:01:45.773357+00:00",
+ "generated_at": "2026-10-23T00:23:21.275960+00:00",
  "items": [
-  {
-   "id": "f02015875b",
-   "league": "NFL",
-   "event": "New England Patriots @ Chicago Bears",
-   "prediction": "Chicago Bears to beat New England Patriots",
-   "kickoff_utc": "2026-10-23T00:15:00+00:00"
-  },
   {
    "id": "19d3b2938d",
    "league": "NHL",
@@ -41,6 +34,13 @@
    "league": "NWSL",
    "event": "Houston Dash @ Chicago Stars FC",
    "prediction": "Houston Dash to beat Chicago Stars FC",
+   "kickoff_utc": "2026-10-24T00:00:00+00:00"
+  },
+  {
+   "id": "6d2cd0c80e",
+   "league": "MLB",
+   "event": "Tampa Bay Rays @ Milwaukee Brewers",
+   "prediction": "Milwaukee Brewers to beat Tampa Bay Rays",
    "kickoff_utc": "2026-10-24T00:00:00+00:00"
   }
  ]
