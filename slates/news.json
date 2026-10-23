@@ -1,13 +1,40 @@
 {
- "generated_at": "2026-10-23T12:05:36.092Z",
+ "generated_at": "2026-10-23T12:10:42.103Z",
  "leagues": {
   "baseball/mlb": [
    {
     "headline": "The unbelievable tales and talent of Jacob Misiorowski",
     "link": "https://www.espn.com/mlb/story/_/id/50255002/jacob-misiorowski-miz-brewers-world-series",
     "published": "2026-10-23T12:37:07.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1023%252Fr1734899_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Misiorowski does amazing things with a baseball. It turns out, that's not the only incredible thing about him.",
+    "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "MLB News Outside The Confines: The Fall Classic is here",
+    "link": "https://sports.yahoo.com/articles/mlb-news-outside-confines-fall-120000186.html",
+    "published": "2026-10-23T12:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/19ca1493ce7d98e588df60063ec12498d94348b16d786b080f9e435c17233e6a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9c43e557c69eda2867585ac8cb537965.jpg",
+    "blurb": "Lots and lots about the World Series, the Brewers and the Rays. Some free agent musing and other MLB news.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
+    "headline": "On the biggest stage, Junior Caminero and Jackson Chourio are emerging as national superstars",
+    "link": "https://www.cbssports.com/mlb/news/2026-world-series-junior-caminero-jackson-chourio-superstars-rays-brewers/",
+    "published": "2026-10-22T21:49:02.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2Fcf28a78b-6f0e-435f-a753-58ea1745ca5d%2Fcaminero-chourio-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "In the words of their teammates, two of the best -- and youngest -- players on the Rays and Brewers are ready for the bright lights",
+    "source": "CBS",
+    "league": "MLB"
+   },
+   {
+    "headline": "Just how rare a World Series between teams that have never won really is",
+    "link": "https://www.espn.com/mlb/story/_/id/50237852/world-series-brewers-rays-first-champions",
+    "published": "2026-10-23T12:37:07.000Z",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1021%252Fr1733932_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "At the final out of this Fall Classic, the Brewers or Rays will be celebrating their first title.",
     "source": "ESPN",
     "league": "MLB"
    },
@@ -21,37 +48,10 @@
     "league": "MLB"
    },
    {
-    "headline": "On the biggest stage, Junior Caminero and Jackson Chourio are emerging as national superstars",
-    "link": "https://www.cbssports.com/mlb/news/2026-world-series-junior-caminero-jackson-chourio-superstars-rays-brewers/",
-    "published": "2026-10-22T21:49:02.000Z",
-    "image": "",
-    "blurb": "In the words of their teammates, two of the best -- and youngest -- players on the Rays and Brewers are ready for the bright lights",
-    "source": "CBS",
-    "league": "MLB"
-   },
-   {
-    "headline": "Just how rare a World Series between teams that have never won really is",
-    "link": "https://www.espn.com/mlb/story/_/id/50237852/world-series-brewers-rays-first-champions",
-    "published": "2026-10-23T12:37:07.000Z",
-    "image": "",
-    "blurb": "At the final out of this Fall Classic, the Brewers or Rays will be celebrating their first title.",
-    "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "Chicago Cubs history unpacked \u2014 October 23",
-    "link": "https://sports.yahoo.com/articles/chicago-cubs-history-unpacked-october-110000222.html",
-    "published": "2026-10-23T11:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/e695c8793b505d0f016f42467326583ebc25b74f435d456818aedc4930443db1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F13fdbc6cd2913e1cb8b9d75759ca9682.jpg",
-    "blurb": "On this day in 1984, the Cubs\u2019 Rick Sutcliffe was the unanimous choice for the National League Cy Young Award.",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
     "headline": "2026 World Series odds, prediction: Full Fall Classic preview for Brewers vs. Rays starting Friday, Oct. 23",
     "link": "https://www.cbssports.com/betting/news/2026-world-series-odds-prediction-full-fall-classic-preview-for-brewers-vs-rays-starting-friday-oct-23/",
     "published": "2026-10-22T21:06:50.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F06%2F22%2F1878cf49-ac13-4ea9-a42c-b90968e53258%2Fbrewers.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Milwaukee Brewers face the Tampa Bay Rays in the 2026 World Series. Here's everything bettors need to know",
     "source": "CBS",
     "league": "MLB"
@@ -66,11 +66,11 @@
     "league": "MLB"
    },
    {
-    "headline": "Phillies News: Fan Opinions, Payton Henry, World Series",
-    "link": "https://sports.yahoo.com/articles/phillies-news-fan-opinions-payton-110000461.html",
+    "headline": "Chicago Cubs history unpacked \u2014 October 23",
+    "link": "https://sports.yahoo.com/articles/chicago-cubs-history-unpacked-october-110000222.html",
     "published": "2026-10-23T11:00:00.000Z",
     "image": "",
-    "blurb": "There\u2019s a game on tonight.",
+    "blurb": "On this day in 1984, the Cubs\u2019 Rick Sutcliffe was the unanimous choice for the National League Cy Young Award.",
     "source": "YAHOO",
     "league": "MLB"
    },
@@ -78,7 +78,7 @@
     "headline": "Nick Martinez gets World Series Game 1 start for Rays: Why Tampa Bay went with unexpected starter",
     "link": "https://www.cbssports.com/mlb/news/2026-world-series-rays-game-1-start-nick-martinez/",
     "published": "2026-10-22T20:58:33.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F04ce6f1e-7adb-424f-8932-eac6c06df2f8%2Fmartinez-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Martinez will face off against Brewers ace Jacob Misiorowski on Friday in Milwaukee",
     "source": "CBS",
     "league": "MLB"
@@ -95,11 +95,11 @@
   ],
   "football/nfl": [
    {
-    "headline": "One WR to trade for and one to trade away: Fantasy NFL notes for Week 7",
-    "link": "https://www.espn.com/fantasy/football/story/_/id/50250199/fantasy-football-start-sit-decisions-week-7",
-    "published": "2026-10-23T12:58:19.000Z",
-    "image": "",
-    "blurb": "Faced with some tough start/sit decisions ahead of Week 7? Adam Rank has you covered at every position.",
+    "headline": "Our guide to every NFL Week 7 game: Matchup previews, predictions, picks and nuggets",
+    "link": "https://www.espn.com/nfl/story/_/id/50229521/week-7-picks-predictions-schedule-fantasy-odds-2026",
+    "published": "2026-10-23T13:02:37.000Z",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734277_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Cowboys at Eagles? Bengals at Ravens? The Steelers and Saints in Paris? There are 13 more games in Week 7, and we have picks, predictions and more for all of them.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -116,17 +116,17 @@
     "headline": "Should the Chiefs trade for Garrett Wilson? Why blockbuster deal makes sense, and why it probably won't happen",
     "link": "https://www.cbssports.com/nfl/news/garrett-wilson-trade-chiefs-jets-star-receiver-2026/",
     "published": "2026-10-23T11:44:30.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2Fae1189ba-b381-4a26-b2a7-4a11c0c37240%2Fgarrett.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Pairing the dynamic Jets wideout with Patrick Mahomes could solve Kansas City's receiver concerns, but several obstacles stand in the way",
     "source": "CBS",
     "league": "NFL"
    },
    {
-    "headline": "Aaron Rodgers a top-12 QB? Cam Skattebo bounces back? Don't be surprised!",
-    "link": "https://www.espn.com/fantasy/football/story/_/id/50249570/fantasy-football-start-sit-sleepers-breakouts-week-7",
-    "published": "2026-10-23T12:58:19.000Z",
-    "image": "",
-    "blurb": "Don't be surprised if Aaron Rodgers' strong play continues and Cam Skattebo bounces back in Week 7.",
+    "headline": "What's wrong with Bo Nix? Looking at the Broncos QB's struggles",
+    "link": "https://www.espn.com/nfl/story/_/id/50250196/quarterback-bo-nix-struggles-broncos-long-term-questions",
+    "published": "2026-10-23T13:02:37.000Z",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734591_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Broncos are winning, but Nix is dealing with the roughest stretch of his career.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -143,17 +143,17 @@
     "headline": "Week 7 best bets: Browns keep stacking wins, two big-name running back under props to target",
     "link": "https://www.cbssports.com/nfl/news/week-7-best-bets-browns-running-backs-2026/",
     "published": "2026-10-23T11:30:34.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F8720ee25-e7f1-4ce4-a65c-f53b6272dbd1%2Fharold-fannin-browns.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Cleveland should move to 5-2 with a win in Tennessee",
     "source": "CBS",
     "league": "NFL"
    },
    {
-    "headline": "Steelers' Rodgers backs NFL on holding Paris game despite recent unrest",
-    "link": "https://www.espn.com/nfl/story/_/id/50256507/steelers-rodgers-backs-nfl-paris-game-recent-unrest",
-    "published": "2026-10-23T12:46:58.000Z",
+    "headline": "One WR to trade for and one to trade away: Fantasy NFL notes for Week 7",
+    "link": "https://www.espn.com/fantasy/football/story/_/id/50250199/fantasy-football-start-sit-decisions-week-7",
+    "published": "2026-10-23T12:58:19.000Z",
     "image": "",
-    "blurb": "Steelers quarterback Aaron Rodgers on Friday expressed confidence in the NFL to make security decisions around staging a game in Paris amid recent civil unrest in the city.",
+    "blurb": "Faced with some tough start/sit decisions ahead of Week 7? Adam Rank has you covered at every position.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -170,17 +170,17 @@
     "headline": "Jared Goff vs. Packers' stifling secondary: How this crucial NFC North showdown will be won",
     "link": "https://www.cbssports.com/nfl/news/jared-goff-vs-packers-nfc-north-showdown-breakdown/",
     "published": "2026-10-23T11:24:36.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F21%2F6261e0e0-f7f1-4475-b8d8-55b64f531b61%2Fgettyimages-2248760661.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "How aggressive Goff decides to be against Green Bay's defensive backs with tight window throws will be critical",
     "source": "CBS",
     "league": "NFL"
    },
    {
-    "headline": "Sources: Jags LT Harrison out for season after surgery reveals torn ACL",
-    "link": "https://www.espn.com/nfl/story/_/id/50256842/sources-jaguars-lt-anton-harrison-season-torn-acl",
-    "published": "2026-10-23T12:46:58.000Z",
+    "headline": "Aaron Rodgers a top-12 QB? Cam Skattebo bounces back? Don't be surprised!",
+    "link": "https://www.espn.com/fantasy/football/story/_/id/50249570/fantasy-football-start-sit-sleepers-breakouts-week-7",
+    "published": "2026-10-23T12:58:19.000Z",
     "image": "",
-    "blurb": "Jaguars left tackle Anton Harrison will miss the rest of the season because of a torn ACL in his right knee, league sources told NFL Network's Ian Rapoport.",
+    "blurb": "Don't be surprised if Aaron Rodgers' strong play continues and Cam Skattebo bounces back in Week 7.",
     "source": "ESPN",
     "league": "NFL"
    }
@@ -190,8 +190,35 @@
     "headline": "Faulk, Hall of Famer and Southern coach, reveals Parkinson's diagnosis",
     "link": "https://www.espn.com/nfl/story/_/id/50253673/marshall-faulk-hall-famer-southern-coach-parkinsons",
     "published": "2026-10-23T12:46:58.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1023%252Fr1734807_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Marshall Faulk said that in discussing his illness in a podcast appearance Wednesday, \"I want to help as many people as I can.\"",
+    "source": "ESPN",
+    "league": "CFB"
+   },
+   {
+    "headline": "Big Ten power rankings after college football Week 7 | Buckeyes Wire",
+    "link": "https://sports.yahoo.com/articles/big-ten-power-rankings-college-120410722.html",
+    "published": "2026-10-23T12:04:10.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/2de36087ace4b67aa4802c9439838c562ecb20f0be09d72d902e90e26e7c1105/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbuckeyes_wire_usa_today_articles_592%2Faada68ccb679bd5cb131b3ebd26afa93.jpg",
+    "blurb": "It was another crazy weekend of college football. Here's how it all impacted our Big Ten power rankings after Week 7 of the season.",
+    "source": "YAHOO",
+    "league": "CFB"
+   },
+   {
+    "headline": "East Carolina vs. Memphis odds, picks, betting preview, kickoff time for Thursday Week 8 college football",
+    "link": "https://www.cbssports.com/betting/news/east-carolina-vs-memphis-odds-picks-betting-preview-kickoff-time-for-thursday-week-8-college-football/",
+    "published": "2026-10-22T22:45:42.000Z",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2Ffd281616-d6ff-4c0b-bcf1-1ab5cad99e2c%2Feast-carolina.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Pirates and Tigers meet in an AAC clash on Thursday night",
+    "source": "CBS",
+    "league": "CFB"
+   },
+   {
+    "headline": "Seventeen first-year Power 4 coaches -- here's how they're doing",
+    "link": "https://www.espn.com/college-football/story/_/id/50228018/new-power-4-coach-review",
+    "published": "2026-10-23T12:27:23.000Z",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1020%252Fr1733430_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "After an unprecendented amount of change in 2025, let's take stock of how those new coaches are doing.",
     "source": "ESPN",
     "league": "CFB"
    },
@@ -205,37 +232,10 @@
     "league": "CFB"
    },
    {
-    "headline": "East Carolina vs. Memphis odds, picks, betting preview, kickoff time for Thursday Week 8 college football",
-    "link": "https://www.cbssports.com/betting/news/east-carolina-vs-memphis-odds-picks-betting-preview-kickoff-time-for-thursday-week-8-college-football/",
-    "published": "2026-10-22T22:45:42.000Z",
-    "image": "",
-    "blurb": "The Pirates and Tigers meet in an AAC clash on Thursday night",
-    "source": "CBS",
-    "league": "CFB"
-   },
-   {
-    "headline": "Seventeen first-year Power 4 coaches -- here's how they're doing",
-    "link": "https://www.espn.com/college-football/story/_/id/50228018/new-power-4-coach-review",
-    "published": "2026-10-23T12:27:23.000Z",
-    "image": "",
-    "blurb": "After an unprecendented amount of change in 2025, let's take stock of how those new coaches are doing.",
-    "source": "ESPN",
-    "league": "CFB"
-   },
-   {
-    "headline": "TENNESSEE VOLS FOOTBALL: UT set for roadtrip to South Carolina",
-    "link": "https://sports.yahoo.com/articles/tennessee-vols-football-ut-set-113407607.html",
-    "published": "2026-10-23T11:34:07.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/83f560e11dc8e14af9956b165a0054b67165ebf3fff589f80d3b633172e9bf76/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_tennessee_421%2F68cc6ba60db834ee6c298a5fcd36306a.jpg",
-    "blurb": "Tennessee football is looking to continue its momentum against South Carolina",
-    "source": "YAHOO",
-    "league": "CFB"
-   },
-   {
     "headline": "NFL legend Marshall Faulk diagnosed with Parkinson's disease, says he is 'in a good place'",
     "link": "https://www.cbssports.com/nfl/news/marshall-faulk-parkinsons-diagnosis-nfl/",
     "published": "2026-10-22T22:19:21.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F8cf051c9-3834-42fa-af9e-34715b0046ed%2Ffaulk26.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Hall of Fame running back said he was diagnosed after noticing an issue with his hand and has been managing the condition through treatment",
     "source": "CBS",
     "league": "CFB"
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Texas A&M Brings Back 'Icy Whites' For Alabama Showdown",
-    "link": "https://sports.yahoo.com/articles/texas-m-brings-back-icy-113407457.html",
+    "headline": "TENNESSEE VOLS FOOTBALL: UT set for roadtrip to South Carolina",
+    "link": "https://sports.yahoo.com/articles/tennessee-vols-football-ut-set-113407607.html",
     "published": "2026-10-23T11:34:07.000Z",
     "image": "",
-    "blurb": "Texas A&M brings back its all-white uniforms for Saturday's Alabama showdown, hoping to recreate the magic of last season's dramatic victory over Notre Dame on the road.",
+    "blurb": "Tennessee football is looking to continue its momentum against South Carolina",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -262,7 +262,7 @@
     "headline": "Utah DT Jamal Wallace suspended indefinitely amid arrest for distributing intimate images, rape accusation",
     "link": "https://www.cbssports.com/college-football/news/jamal-wallace-utah-football-arrest-rape-accusation/",
     "published": "2026-10-22T22:13:52.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2Fcf9ab68d-e48b-4a45-b70e-d53905e8c88c%2Fgettyimages-2255697966-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "A probable cause affidavit reveals accusations of distributing intimate videos on Snapchat, though formal charges have not been filed following Wallace's release on bond",
     "source": "CBS",
     "league": "CFB"
@@ -282,7 +282,7 @@
     "headline": "Game 4 feels like a must-win for Valkyries -- but can they generate enough offense?",
     "link": "https://www.espn.com/wnba/story/_/id/50253380/finals-game-4-preview-atlanta-valkyries-win-reese",
     "published": "2026-10-23T12:31:22.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1023%252Fr1734874_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "What changes must Golden State make to counter Angel Reese's determination and dominance in the WNBA Finals?",
     "source": "ESPN",
     "league": "WNBA"
@@ -300,7 +300,7 @@
     "headline": "From stunning Angel Reese trade to expansion ingenuity: How Dream, Valkyries broke the mold to reach Finals",
     "link": "https://www.cbssports.com/wnba/news/dream-valkyries-broke-the-mold-reach-wnba-finals-angel-reese-expansion/",
     "published": "2026-10-15T20:20:42.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2F83cd2762-831e-4a89-8574-de09aa23a3ad%2Funtitled-design-100.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Atlanta and Golden State paved their own paths and now sit four wins away from a WNBA championship",
     "source": "CBS",
     "league": "WNBA"
@@ -309,7 +309,7 @@
     "headline": "'Exactly where I need to be': How two Finals stars came to happier homes from Chicago",
     "link": "https://www.espn.com/wnba/story/_/id/50252031/angel-reese-gabby-williams-chicago-finals",
     "published": "2026-10-23T12:31:22.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734749_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Two of the Finals' biggest stars were first-round picks from the Chicago Sky -- who traded both away.",
     "source": "ESPN",
     "league": "WNBA"
@@ -327,7 +327,7 @@
     "headline": "What's next for Aces? After title defense falls short, Jackie Young's impending free agency looms large",
     "link": "https://www.cbssports.com/wnba/news/whats-next-for-aces-jackie-young-free-agency/",
     "published": "2026-10-10T18:56:03.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F10%2F49e3dcdb-817c-4e42-a111-867021bbbf69%2Fjackie-young-las-vegas-aces.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Las Vegas guard, who had a career year in 2026, has a big decision to make this offseason",
     "source": "CBS",
     "league": "WNBA"
@@ -337,7 +337,7 @@
     "link": "https://www.espn.com/wnba/story/_/id/50253380/finals-game-4-preview-atlanta-valkyries-win-reese",
     "published": "2026-10-23T10:21:45Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1023%2Fr1734874_2_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "What changes must Golden State make to counter Angel Reese's determination and dominance in the WNBA Finals?",
     "league": "WNBA"
    },
@@ -354,7 +354,7 @@
     "headline": "What's next for the Liberty? Why a major shake-up could be in order after inconsistent season",
     "link": "https://www.cbssports.com/wnba/news/new-york-liberty-offseason-outlook-breanna-stewart-sabrina-ionescu-chris-demarco/",
     "published": "2026-10-10T18:01:57.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F10%2F91ad3060-dcb4-4b8f-8e4a-d1940ec34bfc%2Fliberty-lose-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "After getting swept by the Dream in the semis, the Liberty have some big choices to make",
     "source": "CBS",
     "league": "WNBA"
@@ -364,7 +364,7 @@
     "link": "https://www.espn.com/wnba/story/_/id/50252031/angel-reese-gabby-williams-chicago-finals",
     "published": "2026-10-23T10:20:21Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1022%2Fr1734749_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Two of the Finals' biggest stars were first-round picks from the Chicago Sky -- who traded both away.",
     "league": "WNBA"
    }
@@ -374,7 +374,7 @@
     "headline": "What worked -- and what didn't -- in 12 NBA season debuts",
     "link": "https://www.espn.com/nba/story/_/id/50241906/lebron-lamelo-kawhi-newcomer-season-debuts",
     "published": "2026-10-23T12:53:09.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fnba%252Dfirst%252Dnight%252Drecap_16x9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Which stars shined with their new teams? Which might want a do-over? Ben Golliver examines 12 opening week debuts.",
     "source": "ESPN",
     "league": "NBA"
@@ -392,7 +392,7 @@
     "headline": "76ers vs. Cavaliers prediction, odds, betting preview: NBA picks, LeBron James props, best bets on Thursday",
     "link": "https://www.cbssports.com/betting/news/76ers-vs-cavaliers-prediction-odds-betting-preview-nba-picks-lebron-james-props-best-bets-thursday/",
     "published": "2026-10-22T21:45:49.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F19a6cd59-5bf6-41ec-96a5-40ba26e6b016%2Flebron-james.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Best bets and betting preview for Cavaliers vs. 76ers on Thursday",
     "source": "CBS",
     "league": "NBA"
@@ -401,7 +401,7 @@
     "headline": "Opening week intel: A new trend in contract talks; another pricey decision in OKC",
     "link": "https://www.espn.com/nba/story/_/id/50241622/contract-talks-thunder-payroll-opening-week",
     "published": "2026-10-23T12:53:09.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1021%252Fr1733812_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Why star contract negotiations have shifted, why OKC is preparing for more roster changes.",
     "source": "ESPN",
     "league": "NBA"
@@ -419,7 +419,7 @@
     "headline": "NBA refs confirm LaMelo Ball's ridiculous double stepback was indeed a travel: 'He takes four steps'",
     "link": "https://www.cbssports.com/nba/news/nba-confirms-lamelo-ball-traveling-timberwolves-debut/",
     "published": "2026-10-22T20:33:59.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F1ac6bb4e-5487-40c1-9621-b0567a469331%2Flamelo-stepback.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The league made it clear that Ball's rather unique footwork was not a legal move",
     "source": "CBS",
     "league": "NBA"
@@ -446,7 +446,7 @@
     "headline": "After igniting Anthony Edwards with trash talk, Heat reserve Myron Gardner advised by coach to 'be better'",
     "link": "https://www.cbssports.com/nba/news/myron-gardner-anthony-edwards-trash-talk-heat-timberwolves/",
     "published": "2026-10-22T19:58:32.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F8eb9dbed-2d48-45ac-95f4-1beeaa8eafe4%2Fmyron-getty.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Heat coach Erik Spoelstra loves Gardner's 'spirit,' but would prefer it not be directed toward the opponent's best player",
     "source": "CBS",
     "league": "NBA"
@@ -456,7 +456,7 @@
     "link": "https://www.espn.com/nba/story/_/id/50241622/contract-talks-thunder-payroll-opening-week",
     "published": "2026-10-23T11:16:42Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1021%2Fr1733812_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Why star contract negotiations have shifted, why OKC is preparing for more roster changes and more intel from opening week.",
     "league": "NBA"
    }
@@ -466,7 +466,7 @@
     "headline": "NHL Power Rankings: Fantasy hockey pickups for all 32 teams",
     "link": "https://www.espn.com/nhl/story/_/id/50250699/nhl-2026-27-power-rankings-top-teams-players-stats-projections-standings-fantasy-hockey",
     "published": "2026-10-23T12:21:20.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fnhl_power%252Drankings_16x9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Hurricanes hang on to the No. 1 spot, with some major jumbles in the poll thereafter.",
     "source": "ESPN",
     "league": "NHL"
@@ -484,7 +484,7 @@
     "headline": "Today's top games to watch, best bets, odds: Timberwolves vs. Heat, NHL action and more",
     "link": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-timberwolves-vs-heat-nhl-action-and-more/",
     "published": "2026-10-21T21:43:35.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F21%2F41c41519-71a9-4c48-b6c1-87d698e8bef8%2Fgiannis-antetokounmpo-miami-heat-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Find best bets for the biggest games in sports on Wednesday from the SportsLine Projection Model and top CBS Sports experts",
     "source": "CBS",
     "league": "NHL"
@@ -493,7 +493,7 @@
     "headline": "NHL Tonight: Previewing Canadiens-Blackhawks, Lightning-Avalanche",
     "link": "https://www.espn.com/nhl/story/_/id/50250857/nhl-2026-27-tonight-games-schedule-matchups-stats-top-players-betting",
     "published": "2026-10-23T12:21:20.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734659_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "A pair of interconference games on the schedule -- including a legitimate Stanley Cup Final matchup.",
     "source": "ESPN",
     "league": "NHL"
@@ -511,7 +511,7 @@
     "headline": "NHL Power Rankings: Bruins, Jeremy Swayman off to a roaring start in a tough Atlantic Division",
     "link": "https://www.cbssports.com/nhl/news/nhl-power-rankings-2026-bruins-jeremy-swayman/",
     "published": "2026-10-21T14:11:41.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F21%2F40d4d590-0c21-4c24-adb1-fcc95ae43724%2Fbruins-swayman-power-rankings-oct-2026.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Boston continues to be more than the sum of its parts",
     "source": "CBS",
     "league": "NHL"
@@ -521,7 +521,7 @@
     "link": "http://www.espn.com/nhl/preview?gameId=401892577",
     "published": "2026-10-23T08:12:19Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892577.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Minnesota Wild (6-3-2, in the Central Division) vs. Seattle Kraken (7-3-1, in the Pacific Division)",
     "league": "NHL"
    },
@@ -538,7 +538,7 @@
     "headline": "Kings vs. Capitals NHL Tuesday parlay: Alex Ovechkin and Co. looking to keep Los Angeles as only winless team",
     "link": "https://www.cbssports.com/betting/news/kings-vs-capitals-nhl-tuesday-parlay-alex-ovechkin-and-co-looking-to-keep-los-angeles-as-only-winless-team/",
     "published": "2026-10-20T21:30:49.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F19%2Fa4bcede0-c1ca-49f6-a85a-eb1fbb5d639c%2F2025-11-18t015156z-1025393730-mt1usatoday27614518-rtrmadp-3-nhl-los-angeles-kings-at-washington-capitals-jpg.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Kings are the NHL's lone winless club and could stay that way Tuesday at Washington",
     "source": "CBS",
     "league": "NHL"
@@ -548,18 +548,18 @@
     "link": "http://www.espn.com/nhl/preview?gameId=401892567",
     "published": "2026-10-23T08:12:18Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892567.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Los Angeles Kings (2-4-2, in the Pacific Division) vs. New Jersey Devils (6-4, in the Metropolitan Division)",
     "league": "NHL"
    }
   ],
   "basketball/mens-college-basketball": [
    {
-    "headline": "NEC Men\u2019s Basketball Season Preview",
-    "link": "https://sports.yahoo.com/articles/nec-men-basketball-season-preview-113000225.html",
-    "published": "2026-10-23T11:30:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/cb5f86ff71fed1536ae76886c31ff49a6a19490f34d804e79cbb5d09b8048752/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ffe84635105055beddc2958e46c6d4a89.jpg",
-    "blurb": "LIU went \u2018Fins Up,\u2019 but contenders rise in the NEC",
+    "headline": "Wisconsin Badgers Basketball 2026-27 Season Preview",
+    "link": "https://sports.yahoo.com/articles/wisconsin-badgers-basketball-2026-27-120044776.html",
+    "published": "2026-10-23T12:00:44.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/c7ed26dccc20255579175645a1ae1c256a68b3bed803db43b132c0f2c1faeab4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Flast_word_on_sports_293%2F2125e84c90990c464e490fda860d8076.jpg",
+    "blurb": "The Wisconsin Badgers have some work to do to keep their recent run of NCAA Tournament berths going. They have made the last three tournaments primarily because of their work in the transfer portal. They had to use it big time once again, as John Blackwell transferred to Duke in ",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -567,7 +567,7 @@
     "headline": "College basketball's NIL arms race, from $5M to $25M+: Breaking down roster values, spending tiers for 2026-27",
     "link": "https://www.cbssports.com/college-basketball/news/nil-roster-spending-value-tiers-ncaa-hoops-2026-27-season/",
     "published": "2026-10-23T11:29:34.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F20%2F5466326e-e975-4fed-bba5-d331c5c6d320%2Fnorlandercoaches.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "CBS Sports contacted more than 100 sources to discover how much each power-conference hoops program invested this season",
     "source": "CBS",
     "league": "NCAAB"
@@ -582,11 +582,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Nate Oats, Steven Pearl Involved in Heated Verbal Exchange During Postgame Scuffle Seconds After Alabama\u2019s Win vs Auburn",
-    "link": "https://sports.yahoo.com/articles/nate-oats-steven-pearl-involved-103000736.html",
-    "published": "2026-10-23T10:30:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/338658c35c44c251e0aae3d57b727df891d6f38d47172a0e4762efd7000d91c9/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fessentiallysports_articles_591%2F90f832b9902391e8188a7997ac19ecbe.jpg",
-    "blurb": "It was billed as an exhibition, but nothing about Thursday night at Legacy Arena felt like a preseason warm-up. Alabama and Auburn transformed Birmingham into a March Madness postseason battle, turning \u201cThe Feud\u201d into an unapologetic, 40-minute street fight.",
+    "headline": "NEC Men\u2019s Basketball Season Preview",
+    "link": "https://sports.yahoo.com/articles/nec-men-basketball-season-preview-113000225.html",
+    "published": "2026-10-23T11:30:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/cb5f86ff71fed1536ae76886c31ff49a6a19490f34d804e79cbb5d09b8048752/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ffe84635105055beddc2958e46c6d4a89.jpg",
+    "blurb": "LIU went \u2018Fins Up,\u2019 but contenders rise in the NEC",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -594,7 +594,7 @@
     "headline": "Arizona coach Tommy Lloyd has a theory: NCAA is embracing eligibility chaos to leverage federal legislation",
     "link": "https://www.cbssports.com/college-basketball/news/tommy-lloyd-arizona-ncaa-fifth-year-eligibility-cases-theory/",
     "published": "2026-10-23T05:36:15.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F23%2F2ef3049e-cae6-4f2a-8076-da0e06806ebb%2Ftommy-lloyd.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Arizona's coach offers a sharp perspective on why the NCAA is allowing eligibility battles to linger instead of leveling the playing field",
     "source": "CBS",
     "league": "NCAAB"
@@ -604,16 +604,16 @@
     "link": "https://www.espn.com/mens-college-basketball/story/_/id/50252278/jay-wright-others-enter-national-collegiate-hall-fame",
     "published": "2026-10-22T21:11:35Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2022%2F0401%2Fr994177_600x600_1-1.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Jay Wright was among several people inducted into the National Collegiate Hall of Fame on Thursday.",
     "league": "NCAAB"
    },
    {
-    "headline": "Players to watch in Kentucky vs. Texas Tech",
-    "link": "https://sports.yahoo.com/articles/players-watch-kentucky-vs-texas-100100489.html",
-    "published": "2026-10-23T10:01:00.000Z",
+    "headline": "Nate Oats, Steven Pearl Involved in Heated Verbal Exchange During Postgame Scuffle Seconds After Alabama\u2019s Win vs Auburn",
+    "link": "https://sports.yahoo.com/articles/nate-oats-steven-pearl-involved-103000736.html",
+    "published": "2026-10-23T10:30:00.000Z",
     "image": "",
-    "blurb": "Kentucky is set to face a top-25 Texas Tech team inside historic Rupp Arena.",
+    "blurb": "It was billed as an exhibition, but nothing about Thursday night at Legacy Arena felt like a preseason warm-up. Alabama and Auburn transformed Birmingham into a March Madness postseason battle, turning \u201cThe Feud\u201d into an unapologetic, 40-minute street fight.",
     "source": "YAHOO",
     "league": "NCAAB"
    },
@@ -621,7 +621,7 @@
     "headline": "College basketball rankings: Top 100 And 1 players who will define the 2026-27 season",
     "link": "https://www.cbssports.com/college-basketball/news/college-basketball-rankings-top-100-and-1-players-2026-27/",
     "published": "2026-10-22T18:27:57.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F4f827eb4-e677-42db-9d34-30ac3f3c852a%2Ftop101players.png&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Our annual talent rundown has every big name to know as we ready for the season's start in November",
     "source": "CBS",
     "league": "NCAAB"
@@ -636,11 +636,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Twitter Gold: Flory Bidunga\u2019s Return To Kansas Was Memorable, But Probably For The Wrong Reasons",
-    "link": "https://sports.yahoo.com/articles/twitter-gold-flory-bidunga-return-094800590.html",
-    "published": "2026-10-23T09:48:00.000Z",
+    "headline": "Players to watch in Kentucky vs. Texas Tech",
+    "link": "https://sports.yahoo.com/articles/players-watch-kentucky-vs-texas-100100489.html",
+    "published": "2026-10-23T10:01:00.000Z",
     "image": "",
-    "blurb": "Flory Bidunga was treated like a traitor in his return to Kansas",
+    "blurb": "Kentucky is set to face a top-25 Texas Tech team inside historic Rupp Arena.",
     "source": "YAHOO",
     "league": "NCAAB"
    }
@@ -651,7 +651,7 @@
     "link": "https://www.espn.com/soccer/story/_/id/50219511/mls-power-rankings-inter-miami-lionel-messi-nashville-analysis-meg-swanick",
     "published": "2026-10-19T19:37:23Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1019%2Fr1733003_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Nashville are very much still the team to beat, but Inter Miami, St. Louis City SC and Philly are hot on their heels in our latest edition of ESPN's MLS Power Rankings.",
     "league": "MLS"
    }
@@ -662,7 +662,7 @@
     "link": "https://www.espn.com/soccer/story/_/id/50218326/nwsl-power-rankings-san-diego-wave-angel-city-analysis",
     "published": "2026-10-22T19:47:45Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1019%2Fr1732920_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Can anyone stop the San Diego Wave? Their fifth straight win keeps them top of ESPN's NWSL Power Rankings after Matchday 25.",
     "league": "NWSL"
    }
@@ -681,7 +681,7 @@
     "headline": "Blanchet rides pair of eagles to first-round lead in Bermuda Championship",
     "link": "https://www.espn.com/golf/story/_/id/50253028/bermuda-championship-first-round-lead-chandler-blanchet",
     "published": "2026-10-23T00:29:27.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0307%252Fr1624456_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Chandler Blanchet made a pair of eagles to post his best score of the year -- a 9-under 62 -- on Thursday.",
     "source": "ESPN",
     "league": "PGA"
@@ -690,7 +690,7 @@
     "headline": "The Power 18 golf rankings: Matt Fitzpatrick, Tom Kim, Shane Lowry move up following worldwide wins",
     "link": "https://www.cbssports.com/golf/news/golf-rankings-power-18-matt-fitzpatrick-tom-kim-shane-lowry/",
     "published": "2026-10-20T15:55:11.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F20%2F0b1a7e1f-d1af-4deb-a3dc-fe6920df9a60%2Fgraphic-p18kim.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Big names have made their mark on 2026 thanks to wins over the last month",
     "source": "CBS",
     "league": "PGA"
@@ -717,7 +717,7 @@
     "headline": "What's next for Jon Rahm? Examining PGA Tour, DP World Tour options amid two-time major winner's LIV Golf exit",
     "link": "https://www.cbssports.com/golf/news/whats-next-jon-rahm-pga-tour-dp-world-tour-liv-golf/",
     "published": "2026-10-15T18:21:55.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2F1faabc54-6d2c-48ed-b67c-af9243de0507%2Fjon-rahm-smile-pink-g.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Where will Rahm play golf in 2027 and beyond, and what will he need to do in order to participate?",
     "source": "CBS",
     "league": "PGA"
@@ -744,7 +744,7 @@
     "headline": "Jon Rahm exits LIV Golf: Two-time major champion gives up claim for remainder of nine-figure contract",
     "link": "https://www.cbssports.com/golf/news/jon-rahm-exits-liv-golf-nine-figure-contract/",
     "published": "2026-10-15T15:23:52.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F15%2Fcb3163ff-40b5-4edb-b6fb-261d6780a5d9%2Fjon-rahm-liv-golf-exit-g.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Rahm's partnership with LIV Golf has been a roller coaster from the start; his separation agreement comes as the league is seeking to reinvent itself",
     "source": "CBS",
     "league": "PGA"
@@ -765,7 +765,7 @@
     "link": "https://www.espn.com/tennis/story/_/id/50189374/proposed-atp-tour-changes-address-player-welfare-compensation",
     "published": "2026-10-15T17:26:36Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2020%2F0406%2Fr686743_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The ATP Tour is proposing several rule changes in an effort to address player welfare, additional compensation, and enhancing pension and retirement benefits.",
     "league": "ATP"
    }
@@ -776,7 +776,7 @@
     "link": "https://www.espn.com/tennis/story/_/id/50200884/wuhan-open-sonay-kartal-reaches-first-wta-1000-final-straight-sets-win-tennis",
     "published": "2026-10-18T11:31:20Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1017%2Fr1731933_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Sonay Kartal's dream comeback continued as she beat Jelena Ostapenko in straight sets to advance to the biggest final of her career at the Wuhan Open.",
     "league": "WTA"
    },
@@ -785,7 +785,7 @@
     "link": "https://www.espn.com/tennis/story/_/id/50188941/iga-swiatek-advances-quarterfinals-wuhan-open",
     "published": "2026-10-15T15:53:31Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1015%2Fr1731128_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Iga Swiatek kept up her push to qualify for the WTA Finals as she ground out a win over American Ashlyn Krueger to reach the quarterfinals of the Wuhan Open.",
     "league": "WTA"
    }
@@ -897,7 +897,7 @@
     "link": "https://www.espn.com/mma/story/_/id/50238314/ufc-333-preview-picks",
     "published": "2026-10-22T15:23:59Z",
     "source": "ESPN",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1021%2Fr1733959_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Check out the matchups and expert predictions for both championship fights at UFC 333 in Abu Dhabi.",
     "league": "UFC"
    },
@@ -905,7 +905,7 @@
     "headline": "UFC Fight Night odds, lines, predictions, time: Della Maddalena vs. Prates picks from elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-fight-night-odds-lines-australia-fight-card-predictions-start-time-della-maddalena-prates-picks/",
     "published": "2026-08-12T12:54:36.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F05%2F01%2F9b7b6cd1-721f-4c71-a699-796f7e5c9d07%2Fjack-della-maddalena-ufc-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC Fight Night fight card from Perth, Australia, on Paramount+, featuring Jack Della Maddalena vs. Carlos Prates in a welterweight matchup",
     "source": "CBS",
     "league": "UFC"
@@ -932,7 +932,7 @@
     "headline": "UFC 328 odds, lines, predictions, time: Khamzat Chimaev vs. Sean Strickland picks from elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-328-odds-lines-main-fight-card-predictions-time-khamzat-chimaev-sean-strickland-picks-best-bets/",
     "published": "2026-08-12T12:52:02.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F05%2F09%2Fe7ef8bcf-f094-4ad9-99f3-adaa621f20b6%2Fsean-strickland-ufc-mma-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC 328 card from Prudential Center in Newark, N.J., on Paramount+, featuring Khamzat Chimaev vs. Sean Strickland in a middleweight matchup",
     "source": "CBS",
     "league": "UFC"
@@ -959,7 +959,7 @@
     "headline": "UFC Fight Night odds, lines, predictions, time: Arnold Allen vs. Melquizael Costa picks by elite MMA expert",
     "link": "https://www.cbssports.com/mma/news/ufc-fight-night-odds-lines-predictions-fight-card-time-arnold-allen-melquizael-costa-picks-best-bets/",
     "published": "2026-08-12T12:51:01.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F05%2F16%2F846460a3-b743-4ffb-a0f9-df73ece58db1%2Farnold-allen-ufc-mma-imagn-images.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "SportsLine's Kyle Marley reveals his picks for the UFC Fight Night: Allen vs. Costa card from the Meta APEX in Las Vegas on Paramount+, featuring Arnold Allen vs. Melquizael Costa in a featherweight matchup",
     "source": "CBS",
     "league": "UFC"
@@ -979,7 +979,7 @@
     "headline": "Boxing schedule",
     "link": "https://www.espn.com/boxing/story/_/id/12508267/boxing-schedule",
     "published": "2026-10-23T13:00:07.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0914%252Fr1545239_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Want to know what fights are on the horizon? Check out the boxing schedule.",
     "source": "ESPN",
     "league": "Boxing"
@@ -988,7 +988,7 @@
     "headline": "Boxing schedule for 2026: Canelo Alvarez vs. Christian Mbili, Anthony Joshua vs. Tyson Fury on tap",
     "link": "https://www.cbssports.com/boxing/news/boxing-schedule-for-2026-dates-canelo-alvarez-next-fight-tyson-fury-vs-anthony-joshua/",
     "published": "2026-10-20T15:02:57.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F14%2F36da09e1-e022-4e41-8ef9-57847504199f%2Fcanelo-alvarez-anthony-joshua.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The 2026 boxing calendar is hitting the fall with some great fights on the books",
     "source": "CBS",
     "league": "Boxing"
@@ -1015,7 +1015,7 @@
     "headline": "Boxing predictions, start times: Daniel Dubois vs. Fabio Wardley 2, Sebastian Fundora return set this weekend",
     "link": "https://www.cbssports.com/boxing/news/boxing-predictions-start-times-daniel-dubois-fabio-wardley-sebastian-fundora/",
     "published": "2026-10-17T16:00:34.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F16%2Fd840bee5-1d6d-4b44-b39a-ddbadd995418%2Fdaniel-dubois-fabio-wardley.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "A pair of title fights headline this weekend's action in both England and the U.S.",
     "source": "CBS",
     "league": "Boxing"
@@ -1033,7 +1033,7 @@
     "headline": "Zuffa Boxing signs middleweight titleholder Carlos Adames to add to growing 160-pound division",
     "link": "https://www.cbssports.com/boxing/news/zuffa-boxing-signs-carlos-adames/",
     "published": "2026-10-13T18:48:03.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F13%2Fccc23158-d807-4742-9de9-0a05252a8688%2Fcarlos-adames-workout.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Adames is one of the most decorated middleweights in the sport",
     "source": "CBS",
     "league": "Boxing"
@@ -1051,7 +1051,7 @@
     "headline": "Zuffa Boxing 11 start time, fight card, predictions and where to watch Johnny Fisher vs. Michael Pirotton",
     "link": "https://www.cbssports.com/boxing/news/zuffa-boxing-11-johnny-fisher-vs-michael-pirotton-start-time-fight-card-date-predictions/",
     "published": "2026-09-26T13:21:16.000Z",
-    "image": "",
+    "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F09%2F25%2Fca6dc5d0-afc1-471b-8f9a-0ef0ebd90a4a%2Fjohnny-fisher-michael-pirotton-presser.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The rising heavyweight prospect makes his Zuffa Boxing debut in front of his countrymen and women on Saturday",
     "source": "CBS",
     "league": "Boxing"
@@ -1069,37 +1069,37 @@
  },
  "latest": [
   {
+   "headline": "Our guide to every NFL Week 7 game: Matchup previews, predictions, picks and nuggets",
+   "link": "https://www.espn.com/nfl/story/_/id/50229521/week-7-picks-predictions-schedule-fantasy-odds-2026",
+   "published": "2026-10-23T13:02:37.000Z",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734277_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Cowboys at Eagles? Bengals at Ravens? The Steelers and Saints in Paris? There are 13 more games in Week 7, and we have picks, predictions and more for all of them.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
+   "headline": "What's wrong with Bo Nix? Looking at the Broncos QB's struggles",
+   "link": "https://www.espn.com/nfl/story/_/id/50250196/quarterback-bo-nix-struggles-broncos-long-term-questions",
+   "published": "2026-10-23T13:02:37.000Z",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734591_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Broncos are winning, but Nix is dealing with the roughest stretch of his career.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
    "headline": "Boxing schedule",
    "link": "https://www.espn.com/boxing/story/_/id/12508267/boxing-schedule",
    "published": "2026-10-23T13:00:07.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F0914%252Fr1545239_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Want to know what fights are on the horizon? Check out the boxing schedule.",
    "source": "ESPN",
    "league": "Boxing"
   },
   {
-   "headline": "One WR to trade for and one to trade away: Fantasy NFL notes for Week 7",
-   "link": "https://www.espn.com/fantasy/football/story/_/id/50250199/fantasy-football-start-sit-decisions-week-7",
-   "published": "2026-10-23T12:58:19.000Z",
-   "image": "",
-   "blurb": "Faced with some tough start/sit decisions ahead of Week 7? Adam Rank has you covered at every position.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Aaron Rodgers a top-12 QB? Cam Skattebo bounces back? Don't be surprised!",
-   "link": "https://www.espn.com/fantasy/football/story/_/id/50249570/fantasy-football-start-sit-sleepers-breakouts-week-7",
-   "published": "2026-10-23T12:58:19.000Z",
-   "image": "",
-   "blurb": "Don't be surprised if Aaron Rodgers' strong play continues and Cam Skattebo bounces back in Week 7.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
    "headline": "What worked -- and what didn't -- in 12 NBA season debuts",
    "link": "https://www.espn.com/nba/story/_/id/50241906/lebron-lamelo-kawhi-newcomer-season-debuts",
    "published": "2026-10-23T12:53:09.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fnba%252Dfirst%252Dnight%252Drecap_16x9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Which stars shined with their new teams? Which might want a do-over? Ben Golliver examines 12 opening week debuts.",
    "source": "ESPN",
    "league": "NBA"
@@ -1108,7 +1108,7 @@
    "headline": "Opening week intel: A new trend in contract talks; another pricey decision in OKC",
    "link": "https://www.espn.com/nba/story/_/id/50241622/contract-talks-thunder-payroll-opening-week",
    "published": "2026-10-23T12:53:09.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1021%252Fr1733812_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Why star contract negotiations have shifted, why OKC is preparing for more roster changes.",
    "source": "ESPN",
    "league": "NBA"
@@ -1117,7 +1117,7 @@
    "headline": "Faulk, Hall of Famer and Southern coach, reveals Parkinson's diagnosis",
    "link": "https://www.espn.com/nfl/story/_/id/50253673/marshall-faulk-hall-famer-southern-coach-parkinsons",
    "published": "2026-10-23T12:46:58.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a1.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1023%252Fr1734807_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Marshall Faulk said that in discussing his illness in a podcast appearance Wednesday, \"I want to help as many people as I can.\"",
    "source": "ESPN",
    "league": "CFB"
@@ -1126,7 +1126,7 @@
    "headline": "The unbelievable tales and talent of Jacob Misiorowski",
    "link": "https://www.espn.com/mlb/story/_/id/50255002/jacob-misiorowski-miz-brewers-world-series",
    "published": "2026-10-23T12:37:07.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1023%252Fr1734899_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Misiorowski does amazing things with a baseball. It turns out, that's not the only incredible thing about him.",
    "source": "ESPN",
    "league": "MLB"
@@ -1135,7 +1135,7 @@
    "headline": "Just how rare a World Series between teams that have never won really is",
    "link": "https://www.espn.com/mlb/story/_/id/50237852/world-series-brewers-rays-first-champions",
    "published": "2026-10-23T12:37:07.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a2.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1021%252Fr1733932_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "At the final out of this Fall Classic, the Brewers or Rays will be celebrating their first title.",
    "source": "ESPN",
    "league": "MLB"
@@ -1144,7 +1144,7 @@
    "headline": "Game 4 feels like a must-win for Valkyries -- but can they generate enough offense?",
    "link": "https://www.espn.com/wnba/story/_/id/50253380/finals-game-4-preview-atlanta-valkyries-win-reese",
    "published": "2026-10-23T12:31:22.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1023%252Fr1734874_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "What changes must Golden State make to counter Angel Reese's determination and dominance in the WNBA Finals?",
    "source": "ESPN",
    "league": "WNBA"
@@ -1153,7 +1153,7 @@
    "headline": "'Exactly where I need to be': How two Finals stars came to happier homes from Chicago",
    "link": "https://www.espn.com/wnba/story/_/id/50252031/angel-reese-gabby-williams-chicago-finals",
    "published": "2026-10-23T12:31:22.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734749_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Two of the Finals' biggest stars were first-round picks from the Chicago Sky -- who traded both away.",
    "source": "ESPN",
    "league": "WNBA"
@@ -1162,7 +1162,7 @@
    "headline": "Seventeen first-year Power 4 coaches -- here's how they're doing",
    "link": "https://www.espn.com/college-football/story/_/id/50228018/new-power-4-coach-review",
    "published": "2026-10-23T12:27:23.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1020%252Fr1733430_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "After an unprecendented amount of change in 2025, let's take stock of how those new coaches are doing.",
    "source": "ESPN",
    "league": "CFB"
@@ -1171,7 +1171,7 @@
    "headline": "NHL Power Rankings: Fantasy hockey pickups for all 32 teams",
    "link": "https://www.espn.com/nhl/story/_/id/50250699/nhl-2026-27-power-rankings-top-teams-players-stats-projections-standings-fantasy-hockey",
    "published": "2026-10-23T12:21:20.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fnhl_power%252Drankings_16x9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The Hurricanes hang on to the No. 1 spot, with some major jumbles in the poll thereafter.",
    "source": "ESPN",
    "league": "NHL"
@@ -1180,10 +1180,37 @@
    "headline": "NHL Tonight: Previewing Canadiens-Blackhawks, Lightning-Avalanche",
    "link": "https://www.espn.com/nhl/story/_/id/50250857/nhl-2026-27-tonight-games-schedule-matchups-stats-top-players-betting",
    "published": "2026-10-23T12:21:20.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734659_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "A pair of interconference games on the schedule -- including a legitimate Stanley Cup Final matchup.",
    "source": "ESPN",
    "league": "NHL"
+  },
+  {
+   "headline": "Big Ten power rankings after college football Week 7 | Buckeyes Wire",
+   "link": "https://sports.yahoo.com/articles/big-ten-power-rankings-college-120410722.html",
+   "published": "2026-10-23T12:04:10.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/2de36087ace4b67aa4802c9439838c562ecb20f0be09d72d902e90e26e7c1105/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbuckeyes_wire_usa_today_articles_592%2Faada68ccb679bd5cb131b3ebd26afa93.jpg",
+   "blurb": "It was another crazy weekend of college football. Here's how it all impacted our Big Ten power rankings after Week 7 of the season.",
+   "source": "YAHOO",
+   "league": "CFB"
+  },
+  {
+   "headline": "Wisconsin Badgers Basketball 2026-27 Season Preview",
+   "link": "https://sports.yahoo.com/articles/wisconsin-badgers-basketball-2026-27-120044776.html",
+   "published": "2026-10-23T12:00:44.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/c7ed26dccc20255579175645a1ae1c256a68b3bed803db43b132c0f2c1faeab4/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Flast_word_on_sports_293%2F2125e84c90990c464e490fda860d8076.jpg",
+   "blurb": "The Wisconsin Badgers have some work to do to keep their recent run of NCAA Tournament berths going. They have made the last three tournaments primarily because of their work in the transfer portal. They had to use it big time once again, as John Blackwell transferred to Duke in ",
+   "source": "YAHOO",
+   "league": "NCAAB"
+  },
+  {
+   "headline": "MLB News Outside The Confines: The Fall Classic is here",
+   "link": "https://sports.yahoo.com/articles/mlb-news-outside-confines-fall-120000186.html",
+   "published": "2026-10-23T12:00:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/19ca1493ce7d98e588df60063ec12498d94348b16d786b080f9e435c17233e6a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9c43e557c69eda2867585ac8cb537965.jpg",
+   "blurb": "Lots and lots about the World Series, the Brewers and the Rays. Some free agent musing and other MLB news.",
+   "source": "YAHOO",
+   "league": "MLB"
   },
   {
    "headline": "Longhorns Daily News: Texas coach Steve Sarkisian seems cautiously optimistic about likely 24-team CFP expansion",
@@ -1207,7 +1234,7 @@
    "headline": "Should the Chiefs trade for Garrett Wilson? Why blockbuster deal makes sense, and why it probably won't happen",
    "link": "https://www.cbssports.com/nfl/news/garrett-wilson-trade-chiefs-jets-star-receiver-2026/",
    "published": "2026-10-23T11:44:30.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2Fae1189ba-b381-4a26-b2a7-4a11c0c37240%2Fgarrett.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Pairing the dynamic Jets wideout with Patrick Mahomes could solve Kansas City's receiver concerns, but several obstacles stand in the way",
    "source": "CBS",
    "league": "NFL"
@@ -1220,15 +1247,6 @@
    "blurb": "Junior Caminero, Yandy D\u00edaz and Jackson Chourio are among the players in the 2026 World Series with the best game day drip.",
    "source": "YAHOO",
    "league": "MLB"
-  },
-  {
-   "headline": "TENNESSEE VOLS FOOTBALL: UT set for roadtrip to South Carolina",
-   "link": "https://sports.yahoo.com/articles/tennessee-vols-football-ut-set-113407607.html",
-   "published": "2026-10-23T11:34:07.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/83f560e11dc8e14af9956b165a0054b67165ebf3fff589f80d3b633172e9bf76/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_tennessee_421%2F68cc6ba60db834ee6c298a5fcd36306a.jpg",
-   "blurb": "Tennessee football is looking to continue its momentum against South Carolina",
-   "source": "YAHOO",
-   "league": "CFB"
   },
   {
    "headline": "The next two weeks will determine Shane Steichen\u2019s future with the Colts",
@@ -1252,7 +1270,7 @@
    "headline": "Week 7 best bets: Browns keep stacking wins, two big-name running back under props to target",
    "link": "https://www.cbssports.com/nfl/news/week-7-best-bets-browns-running-backs-2026/",
    "published": "2026-10-23T11:30:34.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F22%2F8720ee25-e7f1-4ce4-a65c-f53b6272dbd1%2Fharold-fannin-browns.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Cleveland should move to 5-2 with a win in Tennessee",
    "source": "CBS",
    "league": "NFL"
@@ -1270,7 +1288,7 @@
    "headline": "College basketball's NIL arms race, from $5M to $25M+: Breaking down roster values, spending tiers for 2026-27",
    "link": "https://www.cbssports.com/college-basketball/news/nil-roster-spending-value-tiers-ncaa-hoops-2026-27-season/",
    "published": "2026-10-23T11:29:34.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F20%2F5466326e-e975-4fed-bba5-d331c5c6d320%2Fnorlandercoaches.png&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "CBS Sports contacted more than 100 sources to discover how much each power-conference hoops program invested this season",
    "source": "CBS",
    "league": "NCAAB"
@@ -1312,15 +1330,6 @@
    "league": "NHL"
   },
   {
-   "headline": "Chicago Cubs history unpacked \u2014 October 23",
-   "link": "https://sports.yahoo.com/articles/chicago-cubs-history-unpacked-october-110000222.html",
-   "published": "2026-10-23T11:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/e695c8793b505d0f016f42467326583ebc25b74f435d456818aedc4930443db1/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F13fdbc6cd2913e1cb8b9d75759ca9682.jpg",
-   "blurb": "On this day in 1984, the Cubs\u2019 Rick Sutcliffe was the unanimous choice for the National League Cy Young Award.",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
    "headline": "How the Lakers' Luka Doncic went from 'Wonder Boy' to 'The Man'",
    "link": "https://sports.yahoo.com/articles/lakers-luka-doncic-went-wonder-110000798.html",
    "published": "2026-10-23T11:00:00.000Z",
@@ -1328,15 +1337,6 @@
    "blurb": "The usually reserved Slovenian superstar has always been a vocal leader on the court, but as he's matured he has built chemistry with teammates off it.",
    "source": "YAHOO",
    "league": "NBA"
-  },
-  {
-   "headline": "Nate Oats, Steven Pearl Involved in Heated Verbal Exchange During Postgame Scuffle Seconds After Alabama\u2019s Win vs Auburn",
-   "link": "https://sports.yahoo.com/articles/nate-oats-steven-pearl-involved-103000736.html",
-   "published": "2026-10-23T10:30:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/338658c35c44c251e0aae3d57b727df891d6f38d47172a0e4762efd7000d91c9/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fessentiallysports_articles_591%2F90f832b9902391e8188a7997ac19ecbe.jpg",
-   "blurb": "It was billed as an exhibition, but nothing about Thursday night at Legacy Arena felt like a preseason warm-up. Alabama and Auburn transformed Birmingham into a March Madness postseason battle, turning \u201cThe Feud\u201d into an unapologetic, 40-minute street fight.",
-   "source": "YAHOO",
-   "league": "NCAAB"
   },
   {
    "headline": "The player Butch Harmon called the future of the PGA Tour who only won three times in his career",
@@ -1396,7 +1396,7 @@
    "headline": "Arizona coach Tommy Lloyd has a theory: NCAA is embracing eligibility chaos to leverage federal legislation",
    "link": "https://www.cbssports.com/college-basketball/news/tommy-lloyd-arizona-ncaa-fifth-year-eligibility-cases-theory/",
    "published": "2026-10-23T05:36:15.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=sportshub.cbsistatic.com%2Fi%2F2026%2F10%2F23%2F2ef3049e-cae6-4f2a-8076-da0e06806ebb%2Ftommy-lloyd.png&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Arizona's coach offers a sharp perspective on why the NCAA is allowing eligibility battles to linger instead of leveling the playing field",
    "source": "CBS",
    "league": "NCAAB"
@@ -1414,7 +1414,7 @@
    "headline": "Blanchet rides pair of eagles to first-round lead in Bermuda Championship",
    "link": "https://www.espn.com/golf/story/_/id/50253028/bermuda-championship-first-round-lead-chandler-blanchet",
    "published": "2026-10-23T00:29:27.000Z",
-   "image": "",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0307%252Fr1624456_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Chandler Blanchet made a pair of eagles to post his best score of the year -- a 9-under 62 -- on Thursday.",
    "source": "ESPN",
    "league": "PGA"
