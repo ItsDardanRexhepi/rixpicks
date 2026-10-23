@@ -1,6 +1,20 @@
 {
- "generated_at": "2026-10-23T14:57:27.140429+00:00",
+ "generated_at": "2026-10-23T15:26:21.794385+00:00",
  "items": [
+  {
+   "id": "f5db80e924",
+   "league": "NBA",
+   "event": "New York Knicks @ Boston Celtics",
+   "prediction": "Boston Celtics to beat New York Knicks",
+   "kickoff_utc": "2026-10-23T23:00:00+00:00"
+  },
+  {
+   "id": "5ed69f39f4",
+   "league": "NBA",
+   "event": "Dallas Mavericks @ Indiana Pacers",
+   "prediction": "Indiana Pacers to beat Dallas Mavericks",
+   "kickoff_utc": "2026-10-23T23:00:00+00:00"
+  },
   {
    "id": "74f8ce2caf",
    "league": "NWSL",
@@ -23,25 +37,11 @@
    "kickoff_utc": "2026-10-24T01:30:00+00:00"
   },
   {
-   "id": "16b483d386",
-   "league": "NWSL",
-   "event": "North Carolina Courage @ Portland Thorns FC",
-   "prediction": "North Carolina Courage to beat Portland Thorns FC",
-   "kickoff_utc": "2026-10-24T02:00:00+00:00"
-  },
-  {
-   "id": "7c2175a4bb",
-   "league": "CFB",
-   "event": "LSU Tigers @ Auburn Tigers",
-   "prediction": "LSU Tigers to beat Auburn Tigers",
-   "kickoff_utc": "2026-10-24T16:00:00+00:00"
-  },
-  {
-   "id": "9dc8ff8423",
-   "league": "CFB",
-   "event": "California Golden Bears @ SMU Mustangs",
-   "prediction": "SMU Mustangs to beat California Golden Bears",
-   "kickoff_utc": "2026-10-24T16:00:00+00:00"
+   "id": "d441b7e0d1",
+   "league": "NBA",
+   "event": "Houston Rockets @ San Antonio Spurs",
+   "prediction": "San Antonio Spurs to beat Houston Rockets",
+   "kickoff_utc": "2026-10-24T01:30:00+00:00"
   }
  ]
 }
