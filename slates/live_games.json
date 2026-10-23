@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-23T22:34:48.579763+00:00",
+ "generated_at": "2026-10-23T22:49:46.449967+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -51,11 +51,9 @@
      "espn_event_id": "401909848",
      "matchup": "CHI @ MIL",
      "commence": "2026-10-23T20:00Z",
-     "status": "in",
-     "detail": "1:16 - 4th",
-     "score": "CHI 124 - MIL 123",
-     "away_to": 2,
-     "home_to": 1
+     "status": "post",
+     "detail": "Final",
+     "score": "CHI 132 - MIL 125"
     },
     {
      "espn_event_id": "401909095",
