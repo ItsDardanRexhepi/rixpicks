@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-23T03:19:51.554235+00:00",
+ "generated_at": "2026-10-23T03:34:53.443825+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -9,11 +9,9 @@
      "espn_event_id": "401873010",
      "matchup": "NE @ CHI",
      "commence": "2026-10-23T00:15Z",
-     "status": "in",
-     "detail": "0:43 - 4th",
-     "score": "NE 21 - CHI 30",
-     "away_to": 0,
-     "home_to": 2
+     "status": "post",
+     "detail": "Final",
+     "score": "NE 24 - CHI 30"
     }
    ]
   },
@@ -25,8 +23,8 @@
      "matchup": "ECU @ MEM",
      "commence": "2026-10-22T23:30Z",
      "status": "in",
-     "detail": "1:34 - 4th",
-     "score": "ECU 27 - MEM 34",
+     "detail": "OT",
+     "score": "ECU 34 - MEM 41",
      "away_to": 0,
      "home_to": 0
     }
@@ -40,9 +38,9 @@
      "matchup": "DEN @ OKC",
      "commence": "2026-10-23T01:30Z",
      "status": "in",
-     "detail": "6:47 - 3rd",
-     "score": "DEN 60 - OKC 55",
-     "away_to": 5,
+     "detail": "1:12 - 3rd",
+     "score": "DEN 62 - OKC 64",
+     "away_to": 4,
      "home_to": 4
     }
    ]
@@ -50,14 +48,6 @@
   {
    "league": "NHL",
    "games": [
-    {
-     "espn_event_id": "401892557",
-     "matchup": "LA @ NYI",
-     "commence": "2026-10-22T23:30Z",
-     "status": "post",
-     "detail": "Final/OT",
-     "score": "LA 3 - NYI 2"
-    },
     {
      "espn_event_id": "401892558",
      "matchup": "VGK @ STL",
@@ -79,7 +69,7 @@
      "matchup": "MIN @ CGY",
      "commence": "2026-10-23T01:00Z",
      "status": "in",
-     "detail": "9:59 - 3rd",
+     "detail": "1:24 - 3rd",
      "score": "MIN 1 - CGY 2",
      "away_to": null,
      "home_to": null
@@ -89,8 +79,8 @@
      "matchup": "CAR @ EDM",
      "commence": "2026-10-23T01:00Z",
      "status": "in",
-     "detail": "10:45 - 3rd",
-     "score": "CAR 4 - EDM 4",
+     "detail": "1:46 - 3rd",
+     "score": "CAR 5 - EDM 4",
      "away_to": null,
      "home_to": null
     },
@@ -99,7 +89,7 @@
      "matchup": "UTA @ SEA",
      "commence": "2026-10-23T02:00Z",
      "status": "in",
-     "detail": "13:35 - 2nd",
+     "detail": "6:07 - 2nd",
      "score": "UTA 1 - SEA 3",
      "away_to": null,
      "home_to": null
@@ -109,8 +99,8 @@
      "matchup": "DET @ VAN",
      "commence": "2026-10-23T02:00Z",
      "status": "in",
-     "detail": "9:20 - 2nd",
-     "score": "DET 3 - VAN 1",
+     "detail": "End of 2nd",
+     "score": "DET 4 - VAN 1",
      "away_to": null,
      "home_to": null
     }
