@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-23T19:49:51.715628+00:00",
+ "generated_at": "2026-10-23T20:19:45.896633+00:00",
  "leagues": [
   {
    "league": "NBA",
@@ -9,9 +9,11 @@
      "espn_event_id": "401909848",
      "matchup": "CHI @ MIL",
      "commence": "2026-10-23T20:00Z",
-     "status": "pre",
-     "detail": "10/23 - 1:00 PM PT",
-     "score": "CHI 0 - MIL 0"
+     "status": "in",
+     "detail": "8:52 - 1st",
+     "score": "CHI 4 - MIL 9",
+     "away_to": 7,
+     "home_to": 7
     }
    ]
   }
