@@ -1,34 +1,6 @@
 {
- "generated_at": "2026-10-23T22:50:59.322458+00:00",
+ "generated_at": "2026-10-23T23:06:16.251344+00:00",
  "items": [
-  {
-   "id": "f5db80e924",
-   "league": "NBA",
-   "event": "New York Knicks @ Boston Celtics",
-   "prediction": "Boston Celtics to beat New York Knicks",
-   "kickoff_utc": "2026-10-23T23:00:00+00:00"
-  },
-  {
-   "id": "5ed69f39f4",
-   "league": "NBA",
-   "event": "Dallas Mavericks @ Indiana Pacers",
-   "prediction": "Indiana Pacers to beat Dallas Mavericks",
-   "kickoff_utc": "2026-10-23T23:00:00+00:00"
-  },
-  {
-   "id": "53c0ebf4f1",
-   "league": "NBA",
-   "event": "Toronto Raptors @ Washington Wizards",
-   "prediction": "Toronto Raptors to beat Washington Wizards",
-   "kickoff_utc": "2026-10-23T23:00:00+00:00"
-  },
-  {
-   "id": "7210fbc29c",
-   "league": "NBA",
-   "event": "Atlanta Hawks @ Charlotte Hornets",
-   "prediction": "Charlotte Hornets to beat Atlanta Hawks",
-   "kickoff_utc": "2026-10-23T23:00:00+00:00"
-  },
   {
    "id": "74f8ce2caf",
    "league": "NWSL",
@@ -42,6 +14,34 @@
    "event": "Tampa Bay Rays @ Milwaukee Brewers",
    "prediction": "Milwaukee Brewers to beat Tampa Bay Rays",
    "kickoff_utc": "2026-10-24T00:00:00+00:00"
+  },
+  {
+   "id": "7a668a0c7b",
+   "league": "NBA",
+   "event": "Detroit Pistons @ Miami Heat",
+   "prediction": "Miami Heat to beat Detroit Pistons",
+   "kickoff_utc": "2026-10-24T00:00:00+00:00"
+  },
+  {
+   "id": "c2a50a5952",
+   "league": "NHL",
+   "event": "Tampa Bay Lightning @ Colorado Avalanche",
+   "prediction": "Colorado Avalanche to beat Tampa Bay Lightning",
+   "kickoff_utc": "2026-10-24T01:00:00+00:00"
+  },
+  {
+   "id": "a01a971eb7",
+   "league": "NWSL",
+   "event": "Seattle Reign FC @ Utah Royals",
+   "prediction": "Seattle Reign FC to beat Utah Royals",
+   "kickoff_utc": "2026-10-24T01:30:00+00:00"
+  },
+  {
+   "id": "d441b7e0d1",
+   "league": "NBA",
+   "event": "Houston Rockets @ San Antonio Spurs",
+   "prediction": "San Antonio Spurs to beat Houston Rockets",
+   "kickoff_utc": "2026-10-24T01:30:00+00:00"
   }
  ]
 }

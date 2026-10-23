@@ -4841,8 +4841,9 @@
   "pick_team": "Milwaukee Bucks",
   "prediction": "Milwaukee Bucks to beat Chicago Bulls",
   "kickoff_utc": "2026-10-23T20:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-23T18:21:25.395127+00:00"
+  "status": "miss",
+  "created_at": "2026-10-23T18:21:25.395127+00:00",
+  "settled_at": "2026-10-23T23:04:33.741265+00:00"
  },
  {
   "id": "53c0ebf4f1",
