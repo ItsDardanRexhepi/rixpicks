@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-23T04:10:37.397Z",
+ "generated_at": "2026-10-23T04:15:33.901Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Jacob Misiorowski's velocity intact, strikeouts down so far in playoffs",
+    "link": "https://sports.yahoo.com/articles/jacob-misiorowskis-velocity-intact-strikeouts-040344770.html",
+    "published": "2026-10-23T04:03:44.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/aefb32de098b79f8230aab614bf10e868771bb6a8205ee9a17cd01cd46512376/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F3974288d533f629346e333d814aa45e3.jpg",
+    "blurb": "This season's most overpowering pitcher, Jacob Misiorowski led the majors in ERA, WHIP and strikeouts. But he's been less so in the 2026 postseason.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
    {
     "headline": "Rays opt for Martinez to start World Series over ace Rasmussen",
     "link": "https://www.espn.com/mlb/story/_/id/50252981/rays-opt-nick-martinez-open-world-series-vs-brewers",
@@ -9,15 +18,6 @@
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1008%252Fr1727590_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "In a bit of a curveball, the Rays will start Nick Martinez, not staff ace Drew Rasmussen, in Game 1 of the World Series against the Brewers.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "Purple Row After Dark: What are you hoping for in the World Series?",
-    "link": "https://sports.yahoo.com/articles/purple-row-dark-hoping-world-020000062.html",
-    "published": "2026-10-23T02:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/f89d7421c44b417499663f22b9fc49b447877d8eee9ae84c42bffaebd786d72d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F7b2c83b0a1c5d42ac1de2c11bbee0427.jpg",
-    "blurb": "There\u2019s a lot to look forward to!",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Purple Row After Dark: What are you hoping for in the World Series?",
+    "link": "https://sports.yahoo.com/articles/purple-row-dark-hoping-world-020000062.html",
+    "published": "2026-10-23T02:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/f89d7421c44b417499663f22b9fc49b447877d8eee9ae84c42bffaebd786d72d/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F7b2c83b0a1c5d42ac1de2c11bbee0427.jpg",
+    "blurb": "There\u2019s a lot to look forward to!",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Vogt shuns Mariners rumors, says he'll manage Guardians in '27",
     "link": "https://www.espn.com/mlb/story/_/id/50252938/stephen-vogt-back-guardians-27-shuns-mariners-rumors",
     "published": "2026-10-23T03:26:30.000Z",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2024%252F1119%252Fr1417098_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Guardians manager Stephen Vogt dispelled speculation about his future, saying he'll return next season to chase an elusive World Series title.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "For Milwaukee Brewers, player development success is a huge part of their World Series story",
-    "link": "https://sports.yahoo.com/mlb/article/for-milwaukee-brewers-player-development-success-is-a-huge-part-of-their-world-series-story-011025268.html",
-    "published": "2026-10-23T01:10:25.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/133c0023de9afaff2eb6d136ac3b11d845525bf28d40882dc1806d1b127470d5/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F5d41f3e0-a898-481e-b826-5652db7c93f4",
-    "blurb": "Many players on this team are on their second or third MLB organization. Most of them have continued to improve at the big-league level.",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "For Milwaukee Brewers, player development success is a huge part of their World Series story",
+    "link": "https://sports.yahoo.com/mlb/article/for-milwaukee-brewers-player-development-success-is-a-huge-part-of-their-world-series-story-011025268.html",
+    "published": "2026-10-23T01:10:25.000Z",
+    "image": "",
+    "blurb": "Many players on this team are on their second or third MLB organization. Most of them have continued to improve at the big-league level.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Ohtani won't require surgery; Dodgers 'fully expect him to pitch next year'",
     "link": "https://www.espn.com/mlb/story/_/id/50242196/dodgers-shohei-ohtani-not-require-surgery-expected-pitch-2027",
     "published": "2026-10-23T03:26:30.000Z",
     "image": "",
     "blurb": "Shohei Ohtani will not require surgery to treat any ailment he dealt with this past season, Dodgers president of baseball operations Andrew Friedman said Wednesday. And: \"I fully expect him to pitch next year,\" Friedman added.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "The Veteran Shortstop",
-    "link": "https://sports.yahoo.com/articles/veteran-shortstop-000000657.html",
-    "published": "2026-10-23T00:00:00.000Z",
-    "image": "",
-    "blurb": "Roster Review: Xander Bogaerts",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,12 +84,12 @@
     "league": "MLB"
    },
    {
-    "headline": "Suzuki out as Angels manager; interim GM Mozeliak won't return in 2027",
-    "link": "https://www.espn.com/mlb/story/_/id/50240270/kurt-suzuki-angels-manager-100-loss-season",
-    "published": "2026-10-23T03:26:30.000Z",
+    "headline": "The Veteran Shortstop",
+    "link": "https://sports.yahoo.com/articles/veteran-shortstop-000000657.html",
+    "published": "2026-10-23T00:00:00.000Z",
     "image": "",
-    "blurb": "After just one season, Kurt Suzuki will not be returning as manager of the Angels, while John Mozeliak said he will not serve as full-time GM in 2027.",
-    "source": "ESPN",
+    "blurb": "Roster Review: Xander Bogaerts",
+    "source": "YAHOO",
     "league": "MLB"
    }
   ],
@@ -104,11 +104,11 @@
     "league": "NFL"
    },
    {
-    "headline": "5 moments that defined the Patriots\u2019 loss to the Bears",
-    "link": "https://sports.yahoo.com/articles/5-moments-defined-patriots-loss-035900636.html",
-    "published": "2026-10-23T03:59:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/80068e710c6bee6c75fc9a8e0253dc026c73a9d1f49a1df1d33f3b744d0c34c6/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9f4336396ecceacb30012cb2c32cc45a.jpg",
-    "blurb": "Relive the crucial moments from the Patriots\u2019 loss in Week 7.",
+    "headline": "Cole Kmet exits Week 7 game against New England",
+    "link": "https://sports.yahoo.com/articles/cole-kmet-exits-week-7-040730964.html",
+    "published": "2026-10-23T04:07:30.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/2bcda8e7c240d637ad4955eb3eacddc0ea55a1afc7dd3a318c112e0ca90ed1f8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F95ab15309486f9bcab2c103e4e790132.jpg",
+    "blurb": "Chicago Bears TE Cole Kmet unable to return against Patriots after injuring knee",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -131,11 +131,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Cole Kmet injury updates as Bears TE carted off on 'Thursday Night Football'",
-    "link": "https://sports.yahoo.com/articles/cole-kmet-injury-updates-bears-034620075.html",
-    "published": "2026-10-23T03:46:20.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/b209f2262b6df1a8092b4c4366ee4fff0319f25686a77653a41f3a8f684c290b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F4e782e05550fb60f74c50c65ae248dfe.jpg",
-    "blurb": "Latest updates on Cole Kmet after the Bears' tight end was carted off on \"Thursday night Football\" after suffering an apparent injury.",
+    "headline": "5 moments that defined the Patriots\u2019 loss to the Bears",
+    "link": "https://sports.yahoo.com/articles/5-moments-defined-patriots-loss-035900636.html",
+    "published": "2026-10-23T03:59:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/80068e710c6bee6c75fc9a8e0253dc026c73a9d1f49a1df1d33f3b744d0c34c6/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9f4336396ecceacb30012cb2c32cc45a.jpg",
+    "blurb": "Relive the crucial moments from the Patriots\u2019 loss in Week 7.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -158,11 +158,11 @@
     "league": "NFL"
    },
    {
-    "headline": "Steelers climb AFC playoff standings after Bears defeat Patriots",
-    "link": "https://sports.yahoo.com/articles/steelers-climb-afc-playoff-standings-034208335.html",
-    "published": "2026-10-23T03:42:08.000Z",
+    "headline": "Cole Kmet injury updates as Bears TE carted off on 'Thursday Night Football'",
+    "link": "https://sports.yahoo.com/articles/cole-kmet-injury-updates-bears-034620075.html",
+    "published": "2026-10-23T03:46:20.000Z",
     "image": "",
-    "blurb": "Steelers climb playoff standings after Patriots\u2019 loss to Bears.",
+    "blurb": "Latest updates on Cole Kmet after the Bears' tight end was carted off on \"Thursday night Football\" after suffering an apparent injury.",
     "source": "YAHOO",
     "league": "NFL"
    },
@@ -380,11 +380,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Knicks reportedly turned fake championship ring offers into cybersecurity lesson for employees",
-    "link": "https://sports.yahoo.com/nba/article/knicks-reportedly-turned-fake-championship-ring-offers-into-cybersecurity-lesson-for-employees-032951440.html",
-    "published": "2026-10-23T03:29:51.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/a5548fbc1dbd29f98d21ce9af4bce731d57dce7e09231467cf31eff6589e588a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2Fe08d63ae-2d27-449b-b95d-d8661c87638e",
-    "blurb": "The Knicks' championship rings have produced some awkward stories.",
+    "headline": "LeBron James laughs off President Trump's criticism about national anthem, Sixers coach calls it 'outside noise'",
+    "link": "https://sports.yahoo.com/nba/article/lebron-james-laughs-off-president-trumps-criticism-about-national-anthem-sixers-coach-calls-it-outside-noise-040724437.html",
+    "published": "2026-10-23T04:07:24.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/5d9f4fe381b5c992ff18f31f257a83bd8b5dc0dca6dc1d5acb02825129dd876c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F2bf5bd81-9f2c-4b38-bee9-a518b8dcfc85",
+    "blurb": "This isn't the first time LeBron James and Donald Trump have had a disagreement.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -407,11 +407,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Diving deeper into Cavs opening-night collapse against 76ers",
-    "link": "https://sports.yahoo.com/articles/diving-deeper-cavs-opening-night-030000028.html",
-    "published": "2026-10-23T03:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/c92ffa3311d87eb0278e73d462d1df2564a1e325a80946979c67888c8e97c4e9/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ffdf9067a6fc28bcdb896157419ce6a23.jpg",
-    "blurb": "The Cavs start the season right where they left off.",
+    "headline": "Knicks reportedly turned fake championship ring offers into cybersecurity lesson for employees",
+    "link": "https://sports.yahoo.com/nba/article/knicks-reportedly-turned-fake-championship-ring-offers-into-cybersecurity-lesson-for-employees-032951440.html",
+    "published": "2026-10-23T03:29:51.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/a5548fbc1dbd29f98d21ce9af4bce731d57dce7e09231467cf31eff6589e588a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2Fe08d63ae-2d27-449b-b95d-d8661c87638e",
+    "blurb": "The Knicks' championship rings have produced some awkward stories.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -434,11 +434,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Player Grades: Cavs at Sixers \u2013 A tough debut for Peyton Watson",
-    "link": "https://sports.yahoo.com/articles/player-grades-cavs-sixers-tough-022127347.html",
-    "published": "2026-10-23T02:21:27.000Z",
+    "headline": "Diving deeper into Cavs opening-night collapse against 76ers",
+    "link": "https://sports.yahoo.com/articles/diving-deeper-cavs-opening-night-030000028.html",
+    "published": "2026-10-23T03:00:00.000Z",
     "image": "",
-    "blurb": "Watson had a rough debut.",
+    "blurb": "The Cavs start the season right where they left off.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -1114,6 +1114,33 @@
    "league": "NBA"
   },
   {
+   "headline": "Cole Kmet exits Week 7 game against New England",
+   "link": "https://sports.yahoo.com/articles/cole-kmet-exits-week-7-040730964.html",
+   "published": "2026-10-23T04:07:30.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/2bcda8e7c240d637ad4955eb3eacddc0ea55a1afc7dd3a318c112e0ca90ed1f8/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F95ab15309486f9bcab2c103e4e790132.jpg",
+   "blurb": "Chicago Bears TE Cole Kmet unable to return against Patriots after injuring knee",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
+   "headline": "LeBron James laughs off President Trump's criticism about national anthem, Sixers coach calls it 'outside noise'",
+   "link": "https://sports.yahoo.com/nba/article/lebron-james-laughs-off-president-trumps-criticism-about-national-anthem-sixers-coach-calls-it-outside-noise-040724437.html",
+   "published": "2026-10-23T04:07:24.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/5d9f4fe381b5c992ff18f31f257a83bd8b5dc0dca6dc1d5acb02825129dd876c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F2bf5bd81-9f2c-4b38-bee9-a518b8dcfc85",
+   "blurb": "This isn't the first time LeBron James and Donald Trump have had a disagreement.",
+   "source": "YAHOO",
+   "league": "NBA"
+  },
+  {
+   "headline": "Jacob Misiorowski's velocity intact, strikeouts down so far in playoffs",
+   "link": "https://sports.yahoo.com/articles/jacob-misiorowskis-velocity-intact-strikeouts-040344770.html",
+   "published": "2026-10-23T04:03:44.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/aefb32de098b79f8230aab614bf10e868771bb6a8205ee9a17cd01cd46512376/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F3974288d533f629346e333d814aa45e3.jpg",
+   "blurb": "This season's most overpowering pitcher, Jacob Misiorowski led the majors in ERA, WHIP and strikeouts. But he's been less so in the 2026 postseason.",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
    "headline": "Cooley makes 36 saves in the Flames' 2-1 victory over the Wild",
    "link": "http://www.espn.com/nhl/recap?gameId=401892560",
    "published": "2026-10-23T04:02:09Z",
@@ -1157,15 +1184,6 @@
    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1023%2F95a67114-2c0e-42d7-a9cb-340b8b692a36%2F95a67114-2c0e-42d7-a9cb-340b8b692a36.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "Minnesota Wild vs. Calgary Flames: Game Highlights",
    "league": "NHL"
-  },
-  {
-   "headline": "Cole Kmet injury updates as Bears TE carted off on 'Thursday Night Football'",
-   "link": "https://sports.yahoo.com/articles/cole-kmet-injury-updates-bears-034620075.html",
-   "published": "2026-10-23T03:46:20.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/b209f2262b6df1a8092b4c4366ee4fff0319f25686a77653a41f3a8f684c290b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F4e782e05550fb60f74c50c65ae248dfe.jpg",
-   "blurb": "Latest updates on Cole Kmet after the Bears' tight end was carted off on \"Thursday night Football\" after suffering an apparent injury.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "Virginia Tech football vs. Clemson: Preview, betting odds, how to watch",
@@ -1249,15 +1267,6 @@
    "league": "CFB"
   },
   {
-   "headline": "Diving deeper into Cavs opening-night collapse against 76ers",
-   "link": "https://sports.yahoo.com/articles/diving-deeper-cavs-opening-night-030000028.html",
-   "published": "2026-10-23T03:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/c92ffa3311d87eb0278e73d462d1df2564a1e325a80946979c67888c8e97c4e9/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Ffdf9067a6fc28bcdb896157419ce6a23.jpg",
-   "blurb": "The Cavs start the season right where they left off.",
-   "source": "YAHOO",
-   "league": "NBA"
-  },
-  {
    "headline": "Angel Reese Reveals Conversation With Kim Mulkey Following Viral Sideline Exchange With LSU Coach",
    "link": "https://sports.yahoo.com/articles/angel-reese-reveals-conversation-kim-024805852.html",
    "published": "2026-10-23T02:48:05.000Z",
@@ -1337,15 +1346,6 @@
    "blurb": "Golf umbrellas can be unwieldy: heavy, hard to push open and prone to pulling.",
    "source": "YAHOO",
    "league": "PGA"
-  },
-  {
-   "headline": "For Milwaukee Brewers, player development success is a huge part of their World Series story",
-   "link": "https://sports.yahoo.com/mlb/article/for-milwaukee-brewers-player-development-success-is-a-huge-part-of-their-world-series-story-011025268.html",
-   "published": "2026-10-23T01:10:25.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/133c0023de9afaff2eb6d136ac3b11d845525bf28d40882dc1806d1b127470d5/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F5d41f3e0-a898-481e-b826-5652db7c93f4",
-   "blurb": "Many players on this team are on their second or third MLB organization. Most of them have continued to improve at the big-league level.",
-   "source": "YAHOO",
-   "league": "MLB"
   },
   {
    "headline": "Blanchet rides pair of eagles to first-round lead in Bermuda Championship",
@@ -1430,8 +1430,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 54,
-  "YAHOO": 63,
+  "ESPN": 53,
+  "YAHOO": 64,
   "CBS": 38
  },
  "degraded_sources": []
