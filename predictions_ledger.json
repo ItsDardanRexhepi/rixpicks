@@ -4856,5 +4856,18 @@
   "kickoff_utc": "2026-10-23T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-23T18:27:33.174132+00:00"
+ },
+ {
+  "id": "c2a50a5952",
+  "event_id": "401892565",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Colorado Avalanche",
+  "away": "Tampa Bay Lightning",
+  "pick_team": "Colorado Avalanche",
+  "prediction": "Colorado Avalanche to beat Tampa Bay Lightning",
+  "kickoff_utc": "2026-10-24T01:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-23T19:05:21.718254+00:00"
  }
 ]
