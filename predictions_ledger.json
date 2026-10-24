@@ -3980,8 +3980,9 @@
   "pick_team": "Seattle Reign FC",
   "prediction": "Seattle Reign FC to beat Utah Royals",
   "kickoff_utc": "2026-10-24T01:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-20T06:20:35.916943+00:00"
+  "status": "miss",
+  "created_at": "2026-10-20T06:20:35.916943+00:00",
+  "settled_at": "2026-10-24T04:04:33.755798+00:00"
  },
  {
   "id": "74f8ce2caf",
@@ -4874,8 +4875,9 @@
   "pick_team": "Colorado Avalanche",
   "prediction": "Colorado Avalanche to beat Tampa Bay Lightning",
   "kickoff_utc": "2026-10-24T01:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-23T19:05:21.718254+00:00"
+  "status": "hit",
+  "created_at": "2026-10-23T19:05:21.718254+00:00",
+  "settled_at": "2026-10-24T04:04:34.118315+00:00"
  },
  {
   "id": "8495ebe947",
