@@ -5039,5 +5039,44 @@
   "kickoff_utc": "2026-10-25T01:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-24T18:20:41.531929+00:00"
+ },
+ {
+  "id": "0f5efceb36",
+  "event_id": "401854093",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Denver Summit FC",
+  "away": "Racing Louisville FC",
+  "pick_team": "Racing Louisville FC",
+  "prediction": "Racing Louisville FC to beat Denver Summit FC",
+  "kickoff_utc": "2026-10-24T22:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T18:40:18.416237+00:00"
+ },
+ {
+  "id": "8803cb515e",
+  "event_id": "401892570",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Pittsburgh Penguins",
+  "away": "Nashville Predators",
+  "pick_team": "Pittsburgh Penguins",
+  "prediction": "Pittsburgh Penguins to beat Nashville Predators",
+  "kickoff_utc": "2026-10-24T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T18:40:48.242471+00:00"
+ },
+ {
+  "id": "082747e1fe",
+  "event_id": "401854030",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "Angel City FC",
+  "away": "Bay FC",
+  "pick_team": "Angel City FC",
+  "prediction": "Angel City FC to beat Bay FC",
+  "kickoff_utc": "2026-10-25T00:45:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T18:41:50.018212+00:00"
  }
 ]
