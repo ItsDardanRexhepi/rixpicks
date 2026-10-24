@@ -3731,8 +3731,9 @@
   "pick_team": "Alabama Crimson Tide",
   "prediction": "Alabama Crimson Tide to beat Texas A&M Aggies",
   "kickoff_utc": "2026-10-24T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T05:36:38.776024+00:00"
+  "status": "hit",
+  "created_at": "2026-10-19T05:36:38.776024+00:00",
+  "settled_at": "2026-10-24T23:19:37.739446+00:00"
  },
  {
   "id": "b7bc2fbd4c",
@@ -3770,8 +3771,9 @@
   "pick_team": "Tennessee Volunteers",
   "prediction": "Tennessee Volunteers to beat South Carolina Gamecocks",
   "kickoff_utc": "2026-10-24T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T06:20:53.121736+00:00"
+  "status": "miss",
+  "created_at": "2026-10-19T06:20:53.121736+00:00",
+  "settled_at": "2026-10-24T23:19:37.859500+00:00"
  },
  {
   "id": "51340d0b98",
@@ -3837,8 +3839,9 @@
   "pick_team": "UCLA Bruins",
   "prediction": "UCLA Bruins to beat Michigan State Spartans",
   "kickoff_utc": "2026-10-24T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T12:05:52.028140+00:00"
+  "status": "hit",
+  "created_at": "2026-10-19T12:05:52.028140+00:00",
+  "settled_at": "2026-10-24T23:19:37.949463+00:00"
  },
  {
   "id": "cb675f2561",
@@ -3850,8 +3853,9 @@
   "pick_team": "Minnesota Golden Gophers",
   "prediction": "Minnesota Golden Gophers to beat Iowa Hawkeyes",
   "kickoff_utc": "2026-10-24T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T12:51:42.914031+00:00"
+  "status": "hit",
+  "created_at": "2026-10-19T12:51:42.914031+00:00",
+  "settled_at": "2026-10-24T23:19:37.992204+00:00"
  },
  {
   "id": "9d319716f6",

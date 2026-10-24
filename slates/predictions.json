@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-24T22:54:08.024150+00:00",
+ "generated_at": "2026-10-24T23:22:03.348913+00:00",
  "items": [
   {
-   "id": "c8f57657c4",
-   "league": "NHL",
-   "event": "Buffalo Sabres @ Washington Capitals",
-   "prediction": "Washington Capitals to beat Buffalo Sabres",
-   "kickoff_utc": "2026-10-24T23:00:00+00:00"
+   "id": "e3c45b6906",
+   "league": "CFB",
+   "event": "Ole Miss Rebels @ Texas Longhorns",
+   "prediction": "Texas Longhorns to beat Ole Miss Rebels",
+   "kickoff_utc": "2026-10-24T23:30:00+00:00"
   },
   {
-   "id": "6a0bb59bfe",
-   "league": "NHL",
-   "event": "San Jose Sharks @ Boston Bruins",
-   "prediction": "Boston Bruins to beat San Jose Sharks",
-   "kickoff_utc": "2026-10-24T23:00:00+00:00"
+   "id": "191cf8ea47",
+   "league": "CFB",
+   "event": "Iowa State Cyclones @ Arizona Wildcats",
+   "prediction": "Arizona Wildcats to beat Iowa State Cyclones",
+   "kickoff_utc": "2026-10-24T23:30:00+00:00"
   },
   {
-   "id": "2e48a44466",
-   "league": "NHL",
-   "event": "Carolina Hurricanes @ St. Louis Blues",
-   "prediction": "St. Louis Blues to beat Carolina Hurricanes",
-   "kickoff_utc": "2026-10-24T23:00:00+00:00"
+   "id": "3ebb6bcbb6",
+   "league": "CFB",
+   "event": "USC Trojans @ Wisconsin Badgers",
+   "prediction": "USC Trojans to beat Wisconsin Badgers",
+   "kickoff_utc": "2026-10-24T23:30:00+00:00"
   },
   {
-   "id": "0c69880361",
-   "league": "NHL",
-   "event": "Toronto Maple Leafs @ Edmonton Oilers",
-   "prediction": "Edmonton Oilers to beat Toronto Maple Leafs",
-   "kickoff_utc": "2026-10-24T23:00:00+00:00"
+   "id": "f1e61fdec7",
+   "league": "CFB",
+   "event": "Vanderbilt Commodores @ Kentucky Wildcats",
+   "prediction": "Vanderbilt Commodores to beat Kentucky Wildcats",
+   "kickoff_utc": "2026-10-24T23:30:00+00:00"
   },
   {
-   "id": "8803cb515e",
-   "league": "NHL",
-   "event": "Nashville Predators @ Pittsburgh Penguins",
-   "prediction": "Pittsburgh Penguins to beat Nashville Predators",
-   "kickoff_utc": "2026-10-24T23:00:00+00:00"
+   "id": "0ec5d7231e",
+   "league": "MLS",
+   "event": "Chicago Fire FC @ Atlanta United FC",
+   "prediction": "Atlanta United FC to beat Chicago Fire FC",
+   "kickoff_utc": "2026-10-24T23:30:00+00:00"
   },
   {
-   "id": "9e70e81ff9",
-   "league": "NHL",
-   "event": "New York Rangers @ Ottawa Senators",
-   "prediction": "New York Rangers to beat Ottawa Senators",
-   "kickoff_utc": "2026-10-24T23:00:00+00:00"
+   "id": "aaf5486a57",
+   "league": "MLS",
+   "event": "New York City FC @ Orlando City SC",
+   "prediction": "Orlando City SC to beat New York City FC",
+   "kickoff_utc": "2026-10-24T23:30:00+00:00"
   }
  ]
 }
