@@ -3967,8 +3967,9 @@
   "pick_team": "North Carolina Courage",
   "prediction": "North Carolina Courage to beat Portland Thorns FC",
   "kickoff_utc": "2026-10-24T02:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-20T04:51:55.958250+00:00"
+  "status": "miss",
+  "created_at": "2026-10-20T04:51:55.958250+00:00",
+  "settled_at": "2026-10-24T04:34:38.509920+00:00"
  },
  {
   "id": "a01a971eb7",
@@ -4794,8 +4795,9 @@
   "pick_team": "San Antonio Spurs",
   "prediction": "San Antonio Spurs to beat Houston Rockets",
   "kickoff_utc": "2026-10-24T01:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-23T15:25:06.925937+00:00"
+  "status": "miss",
+  "created_at": "2026-10-23T15:25:06.925937+00:00",
+  "settled_at": "2026-10-24T04:34:38.572239+00:00"
  },
  {
   "id": "23d17284c2",
