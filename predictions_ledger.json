@@ -3993,8 +3993,9 @@
   "pick_team": "Houston Dash",
   "prediction": "Houston Dash to beat Chicago Stars FC",
   "kickoff_utc": "2026-10-24T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-20T06:50:18.903835+00:00"
+  "status": "hit",
+  "created_at": "2026-10-20T06:50:18.903835+00:00",
+  "settled_at": "2026-10-24T02:34:35.359232+00:00"
  },
  {
   "id": "69b0842d55",
