@@ -4948,5 +4948,57 @@
   "kickoff_utc": "2026-10-24T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-24T15:35:46.866024+00:00"
+ },
+ {
+  "id": "6a0bb59bfe",
+  "event_id": "401892568",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Boston Bruins",
+  "away": "San Jose Sharks",
+  "pick_team": "Boston Bruins",
+  "prediction": "Boston Bruins to beat San Jose Sharks",
+  "kickoff_utc": "2026-10-24T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T16:43:10.905178+00:00"
+ },
+ {
+  "id": "2e48a44466",
+  "event_id": "401892573",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "St. Louis Blues",
+  "away": "Carolina Hurricanes",
+  "pick_team": "St. Louis Blues",
+  "prediction": "St. Louis Blues to beat Carolina Hurricanes",
+  "kickoff_utc": "2026-10-24T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T16:44:15.951339+00:00"
+ },
+ {
+  "id": "0c69880361",
+  "event_id": "401892574",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Edmonton Oilers",
+  "away": "Toronto Maple Leafs",
+  "pick_team": "Edmonton Oilers",
+  "prediction": "Edmonton Oilers to beat Toronto Maple Leafs",
+  "kickoff_utc": "2026-10-24T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T16:44:19.990390+00:00"
+ },
+ {
+  "id": "870e6b4bb1",
+  "event_id": "401909855",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Philadelphia 76ers",
+  "away": "Milwaukee Bucks",
+  "pick_team": "Philadelphia 76ers",
+  "prediction": "Philadelphia 76ers to beat Milwaukee Bucks",
+  "kickoff_utc": "2026-10-24T23:30:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T16:45:06.361696+00:00"
  }
 ]
