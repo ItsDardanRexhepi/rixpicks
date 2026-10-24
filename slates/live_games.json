@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T17:49:50.734896+00:00",
+ "generated_at": "2026-10-24T18:01:49.646466+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -40,9 +40,9 @@
      "matchup": "LSU @ AUB",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "0:07 - 2nd",
+     "detail": "Halftime",
      "score": "LSU 31 - AUB 10",
-     "away_to": 1,
+     "away_to": 0,
      "home_to": 1
     },
     {
@@ -60,7 +60,7 @@
      "matchup": "RUTG @ NU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "15:00 - 3rd",
      "score": "RUTG 6 - NU 28",
      "away_to": 0,
      "home_to": 0
@@ -70,8 +70,8 @@
      "matchup": "WVU @ TCU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "WVU 10 - TCU 10",
+     "detail": "10:54 - 3rd",
+     "score": "WVU 10 - TCU 13",
      "away_to": 3,
      "home_to": 1
     },
@@ -100,7 +100,7 @@
      "matchup": "BAY @ KU",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "10:39 - 2nd",
+     "detail": "7:40 - 2nd",
      "score": "BAY 7 - KU 7",
      "away_to": 3,
      "home_to": 2
@@ -110,7 +110,7 @@
      "matchup": "AKR @ KENT",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "12:04 - 2nd",
+     "detail": "9:06 - 2nd",
      "score": "AKR 7 - KENT 0",
      "away_to": 1,
      "home_to": 3
@@ -120,7 +120,7 @@
      "matchup": "M-OH @ CMU",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "12:47 - 2nd",
+     "detail": "8:33 - 2nd",
      "score": "M-OH 7 - CMU 3",
      "away_to": 3,
      "home_to": 3
@@ -228,6 +228,22 @@
      "status": "pre",
      "detail": "10/24 - 12:45 PM PT",
      "score": "KSU 0 - ASU 0"
+    },
+    {
+     "espn_event_id": "401866449",
+     "matchup": "EMU @ OHIO",
+     "commence": "2026-10-24T20:00Z",
+     "status": "pre",
+     "detail": "10/24 - 1:00 PM PT",
+     "score": "EMU 0 - OHIO 0"
+    },
+    {
+     "espn_event_id": "401871094",
+     "matchup": "ULM @ TROY",
+     "commence": "2026-10-24T20:00Z",
+     "status": "pre",
+     "detail": "10/24 - 1:00 PM PT",
+     "score": "ULM 0 - TROY 0"
     }
    ]
   },
@@ -239,10 +255,10 @@
      "matchup": "GS @ ATL",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "6:25 - 2nd",
-     "score": "GS 24 - ATL 18",
+     "detail": "2:43 - 2nd",
+     "score": "GS 33 - ATL 20",
      "away_to": 4,
-     "home_to": 5
+     "home_to": 3
     }
    ]
   },
@@ -277,7 +293,7 @@
      "matchup": "NSH @ MTL",
      "commence": "2026-10-24T17:30Z",
      "status": "in",
-     "detail": "9'",
+     "detail": "21'",
      "score": "NSH 0 - MTL 0"
     },
     {
