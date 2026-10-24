@@ -5078,5 +5078,31 @@
   "kickoff_utc": "2026-10-25T00:45:00+00:00",
   "status": "pending",
   "created_at": "2026-10-24T18:41:50.018212+00:00"
+ },
+ {
+  "id": "9e70e81ff9",
+  "event_id": "401892569",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Ottawa Senators",
+  "away": "New York Rangers",
+  "pick_team": "New York Rangers",
+  "prediction": "New York Rangers to beat Ottawa Senators",
+  "kickoff_utc": "2026-10-24T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T19:18:37.585461+00:00"
+ },
+ {
+  "id": "9fdce44cf2",
+  "event_id": "401892572",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Columbus Blue Jackets",
+  "away": "Vegas Golden Knights",
+  "pick_team": "Columbus Blue Jackets",
+  "prediction": "Columbus Blue Jackets to beat Vegas Golden Knights",
+  "kickoff_utc": "2026-10-24T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T19:18:44.077474+00:00"
  }
 ]
