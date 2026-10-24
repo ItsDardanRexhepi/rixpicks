@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T01:49:49.948779+00:00",
+ "generated_at": "2026-10-24T02:04:48.503422+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -10,7 +10,7 @@
      "matchup": "TB @ MIL",
      "commence": "2026-10-24T00:00Z",
      "status": "in",
-     "detail": "Bot 5th",
+     "detail": "Bot 6th",
      "score": "TB 1 - MIL 2"
     }
    ]
@@ -23,8 +23,8 @@
      "matchup": "DUKE @ UVA",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "8:50 - 4th",
-     "score": "DUKE 13 - UVA 13",
+     "detail": "2:00 - 4th",
+     "score": "DUKE 13 - UVA 16",
      "away_to": 2,
      "home_to": 0
     },
@@ -33,7 +33,7 @@
      "matchup": "MASS @ CONN",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "10:08 - 4th",
+     "detail": "3:09 - 4th",
      "score": "MASS 9 - CONN 28",
      "away_to": 0,
      "home_to": 2
@@ -43,18 +43,18 @@
      "matchup": "ARMY @ TLSA",
      "commence": "2026-10-24T00:30Z",
      "status": "in",
-     "detail": "1:26 - 2nd",
-     "score": "ARMY 17 - TLSA 14",
-     "away_to": 3,
-     "home_to": 3
+     "detail": "End of 2nd",
+     "score": "ARMY 20 - TLSA 14",
+     "away_to": 0,
+     "home_to": 1
     },
     {
      "espn_event_id": "401864525",
      "matchup": "AFA @ WYO",
      "commence": "2026-10-24T01:00Z",
      "status": "in",
-     "detail": "14:21 - 2nd",
-     "score": "AFA 3 - WYO 7",
+     "detail": "8:40 - 2nd",
+     "score": "AFA 3 - WYO 14",
      "away_to": 3,
      "home_to": 2
     },
@@ -116,8 +116,8 @@
      "matchup": "DET @ MIA",
      "commence": "2026-10-24T00:00Z",
      "status": "in",
-     "detail": "3:44 - 3rd",
-     "score": "DET 91 - MIA 78",
+     "detail": "10:16 - 4th",
+     "score": "DET 108 - MIA 88",
      "away_to": 4,
      "home_to": 4
     },
@@ -126,44 +126,20 @@
      "matchup": "HOU @ SA",
      "commence": "2026-10-24T01:30Z",
      "status": "in",
-     "detail": "10:21 - 1st",
-     "score": "HOU 3 - SA 2",
+     "detail": "3:32 - 1st",
+     "score": "HOU 23 - SA 21",
      "away_to": 7,
-     "home_to": 7
+     "home_to": 6
     },
     {
      "espn_event_id": "401909849",
      "matchup": "NO @ UTAH",
      "commence": "2026-10-24T01:30Z",
      "status": "in",
-     "detail": "7:14 - 1st",
-     "score": "NO 8 - UTAH 13",
-     "away_to": 7,
-     "home_to": 7
-    },
-    {
-     "espn_event_id": "401909850",
-     "matchup": "MEM @ GS",
-     "commence": "2026-10-24T02:00Z",
-     "status": "pre",
-     "detail": "10/23 - 7:00 PM PT",
-     "score": "MEM 0 - GS 0"
-    },
-    {
-     "espn_event_id": "401909851",
-     "matchup": "LAC @ LAL",
-     "commence": "2026-10-24T02:00Z",
-     "status": "pre",
-     "detail": "10/23 - 7:00 PM PT",
-     "score": "LAC 0 - LAL 0"
-    },
-    {
-     "espn_event_id": "401909852",
-     "matchup": "POR @ SAC",
-     "commence": "2026-10-24T02:00Z",
-     "status": "pre",
-     "detail": "10/23 - 7:00 PM PT",
-     "score": "POR 0 - SAC 0"
+     "detail": "2:23 - 1st",
+     "score": "NO 19 - UTAH 25",
+     "away_to": 6,
+     "home_to": 6
     }
    ]
   },
@@ -175,8 +151,8 @@
      "matchup": "MTL @ CHI",
      "commence": "2026-10-24T00:00Z",
      "status": "in",
-     "detail": "1:34 - 2nd",
-     "score": "MTL 2 - CHI 1",
+     "detail": "End of 2nd",
+     "score": "MTL 3 - CHI 1",
      "away_to": null,
      "home_to": null
     },
@@ -199,25 +175,17 @@
      "espn_event_id": "401854027",
      "matchup": "HOU @ CHI",
      "commence": "2026-10-24T00:00Z",
-     "status": "in",
-     "detail": "82'",
-     "score": "HOU 2 - CHI 0"
+     "status": "post",
+     "detail": "FT",
+     "score": "HOU 3 - CHI 1"
     },
     {
      "espn_event_id": "401854028",
      "matchup": "SEA @ UTA",
      "commence": "2026-10-24T01:30Z",
      "status": "in",
-     "detail": "11'",
+     "detail": "26'",
      "score": "SEA 0 - UTA 0"
-    },
-    {
-     "espn_event_id": "401854029",
-     "matchup": "NC @ POR",
-     "commence": "2026-10-24T02:00Z",
-     "status": "pre",
-     "detail": "Scheduled",
-     "score": "NC 0 - POR 0"
     }
    ]
   }
