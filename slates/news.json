@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-24T20:35:35.146Z",
+ "generated_at": "2026-10-24T20:40:40.112Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -59,7 +59,7 @@
    {
     "headline": "Lineups, live updates from Rays-Brewers World Series Game 2",
     "link": "https://www.espn.com/mlb/story/_/id/50240898/world-series-game-2-rays-brewers-live-updates-takeaways",
-    "published": "2026-10-24T20:14:14Z",
+    "published": "2026-10-24T20:34:32Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1024%2Fr1735306_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Will Milwaukee go up 2-0, or will Tampa Bay even the series? The Fall Classic continues Saturday night. Here's the latest.",
@@ -667,6 +667,15 @@
   ],
   "soccer/usa.nwsl": [
    {
+    "headline": "NWSL amends high impact player rule after union grievances",
+    "link": "https://www.espn.com/video/clip/_/id/50269325/nwsl-amends-high-impact-player-rule-union-grievances",
+    "published": "2026-10-24T20:22:51Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F1024%2Fdm_261024_NWSL_amends_high_impact_player_rule_after_union_grievances%2Fdm_261024_NWSL_amends_high_impact_player_rule_after_union_grievances.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Jeff Kassouf explains how the NWSL and Players Association reached a settlement that changes eligibility for high impact player contracts",
+    "league": "NWSL"
+   },
+   {
     "headline": "NWSL dropping 'Rodman rule' restrictions; all players now eligible in wider settlement",
     "link": "https://www.espn.com/soccer/story/_/id/50250410/nwsl-remove-restrictions-high-impact-player-rule",
     "published": "2026-10-23T18:05:24Z",
@@ -858,7 +867,7 @@
     "headline": "NASCAR plans to modify Phoenix dogleg to lessen driver loads",
     "link": "https://sports.yahoo.com/articles/nascar-plans-modify-phoenix-dogleg-182339519.html",
     "published": "2026-10-24T18:23:39.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/87dc804ffd98809e6ca1fa70f2f73a47b5290f4314d97c2828df0ddcb74f3603/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2Fb1426fe9855eb6ab327681aeb97215cc.jpg",
+    "image": "",
     "blurb": "The transition off the banking is physically rattling the drivers twice a year",
     "source": "YAHOO",
     "league": "NASCAR"
@@ -1249,6 +1258,15 @@
    "league": "NFL"
   },
   {
+   "headline": "NWSL amends high impact player rule after union grievances",
+   "link": "https://www.espn.com/video/clip/_/id/50269325/nwsl-amends-high-impact-player-rule-union-grievances",
+   "published": "2026-10-24T20:22:51Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2F2026%2F1024%2Fdm_261024_NWSL_amends_high_impact_player_rule_after_union_grievances%2Fdm_261024_NWSL_amends_high_impact_player_rule_after_union_grievances.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Jeff Kassouf explains how the NWSL and Players Association reached a settlement that changes eligibility for high impact player contracts",
+   "league": "NWSL"
+  },
+  {
    "headline": "Ravens vs. Bengals: How to watch AFC North showdown with big playoff implications",
    "link": "https://www.cbssports.com/nfl/news/bengals-vs-ravens-how-to-watch-odds-preview-prediction/",
    "published": "2026-10-24T20:19:56.000Z",
@@ -1436,20 +1454,11 @@
    "blurb": "The 2026 NASCAR Cup Series season continues with the YellaWood 500 at Talladega Superspeedway on Sunday. See the starting lineup here for tomorrow's race.",
    "source": "YAHOO",
    "league": "NASCAR"
-  },
-  {
-   "headline": "NASCAR plans to modify Phoenix dogleg to lessen driver loads",
-   "link": "https://sports.yahoo.com/articles/nascar-plans-modify-phoenix-dogleg-182339519.html",
-   "published": "2026-10-24T18:23:39.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/87dc804ffd98809e6ca1fa70f2f73a47b5290f4314d97c2828df0ddcb74f3603/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fmotorsport_articles_445%2Fb1426fe9855eb6ab327681aeb97215cc.jpg",
-   "blurb": "The transition off the banking is physically rattling the drivers twice a year",
-   "source": "YAHOO",
-   "league": "NASCAR"
   }
  ],
  "source_mix": {
-  "ESPN": 59,
-  "YAHOO": 61,
+  "ESPN": 61,
+  "YAHOO": 60,
   "CBS": 37
  },
  "degraded_sources": []
