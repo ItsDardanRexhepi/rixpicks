@@ -1,7 +1,20 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T00:04:52.136801+00:00",
+ "generated_at": "2026-10-24T00:19:50.467966+00:00",
  "leagues": [
+  {
+   "league": "MLB",
+   "games": [
+    {
+     "espn_event_id": "401908042",
+     "matchup": "TB @ MIL",
+     "commence": "2026-10-24T00:00Z",
+     "status": "in",
+     "detail": "Top 1st",
+     "score": "TB 0 - MIL 0"
+    }
+   ]
+  },
   {
    "league": "CFB",
    "games": [
@@ -10,18 +23,18 @@
      "matchup": "DUKE @ UVA",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "6:59 - 2nd",
+     "detail": "1:53 - 2nd",
      "score": "DUKE 7 - UVA 10",
      "away_to": 3,
-     "home_to": 2
+     "home_to": 1
     },
     {
      "espn_event_id": "401861965",
      "matchup": "MASS @ CONN",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "6:40 - 2nd",
-     "score": "MASS 3 - CONN 7",
+     "detail": "1:31 - 2nd",
+     "score": "MASS 3 - CONN 14",
      "away_to": 2,
      "home_to": 3
     },
@@ -51,9 +64,9 @@
      "matchup": "NY @ BOS",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "3:59 - 2nd",
-     "score": "NY 41 - BOS 41",
-     "away_to": 5,
+     "detail": "Halftime",
+     "score": "NY 49 - BOS 50",
+     "away_to": 3,
      "home_to": 5
     },
     {
@@ -61,18 +74,18 @@
      "matchup": "ATL @ CHA",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "3:45 - 2nd",
-     "score": "ATL 58 - CHA 43",
+     "detail": "Halftime",
+     "score": "ATL 68 - CHA 43",
      "away_to": 5,
-     "home_to": 5
+     "home_to": 4
     },
     {
      "espn_event_id": "401909844",
      "matchup": "DAL @ IND",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "5:16 - 2nd",
-     "score": "DAL 61 - IND 31",
+     "detail": "59.7 - 2nd",
+     "score": "DAL 73 - IND 40",
      "away_to": 5,
      "home_to": 4
     },
@@ -81,8 +94,8 @@
      "matchup": "MIN @ ORL",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "2:07 - 2nd",
-     "score": "MIN 55 - ORL 38",
+     "detail": "Halftime",
+     "score": "MIN 57 - ORL 45",
      "away_to": 6,
      "home_to": 4
     },
@@ -91,10 +104,20 @@
      "matchup": "TOR @ WAS",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "4:37 - 2nd",
-     "score": "TOR 51 - WAS 40",
-     "away_to": 6,
+     "detail": "29.8 - 2nd",
+     "score": "TOR 60 - WAS 52",
+     "away_to": 4,
      "home_to": 4
+    },
+    {
+     "espn_event_id": "401909847",
+     "matchup": "DET @ MIA",
+     "commence": "2026-10-24T00:00Z",
+     "status": "in",
+     "detail": "7:59 - 1st",
+     "score": "DET 19 - MIA 5",
+     "away_to": 7,
+     "home_to": 6
     },
     {
      "espn_event_id": "401909096",
@@ -142,6 +165,16 @@
    "league": "NHL",
    "games": [
     {
+     "espn_event_id": "401892564",
+     "matchup": "MTL @ CHI",
+     "commence": "2026-10-24T00:00Z",
+     "status": "in",
+     "detail": "13:55 - 1st",
+     "score": "MTL 0 - CHI 1",
+     "away_to": null,
+     "home_to": null
+    },
+    {
      "espn_event_id": "401892565",
      "matchup": "TB @ COL",
      "commence": "2026-10-24T01:00Z",
@@ -154,6 +187,14 @@
   {
    "league": "NWSL",
    "games": [
+    {
+     "espn_event_id": "401854027",
+     "matchup": "HOU @ CHI",
+     "commence": "2026-10-24T00:00Z",
+     "status": "in",
+     "detail": "11'",
+     "score": "HOU 1 - CHI 0"
+    },
     {
      "espn_event_id": "401854028",
      "matchup": "SEA @ UTA",
