@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T22:19:48.857043+00:00",
+ "generated_at": "2026-10-24T22:34:49.876026+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -23,8 +23,8 @@
      "matchup": "BYU @ UCF",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "14:13 - 4th",
-     "score": "BYU 21 - UCF 24",
+     "detail": "8:59 - 4th",
+     "score": "BYU 24 - UCF 24",
      "away_to": 0,
      "home_to": 2
     },
@@ -33,7 +33,7 @@
      "matchup": "MSU @ UCLA",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "End of 3rd",
+     "detail": "11:47 - 4th",
      "score": "MSU 7 - UCLA 28",
      "away_to": 2,
      "home_to": 0
@@ -43,8 +43,8 @@
      "matchup": "TENN @ SC",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "12:22 - 4th",
-     "score": "TENN 21 - SC 17",
+     "detail": "8:23 - 4th",
+     "score": "TENN 24 - SC 17",
      "away_to": 0,
      "home_to": 2
     },
@@ -53,8 +53,8 @@
      "matchup": "TA&M @ ALA",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "15:00 - 4th",
-     "score": "TA&M 20 - ALA 17",
+     "detail": "10:01 - 4th",
+     "score": "TA&M 20 - ALA 31",
      "away_to": 1,
      "home_to": 0
     },
@@ -63,7 +63,7 @@
      "matchup": "IOWA @ MINN",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "11:22 - 4th",
+     "detail": "5:44 - 4th",
      "score": "IOWA 3 - MINN 10",
      "away_to": 0,
      "home_to": 2
@@ -73,8 +73,8 @@
      "matchup": "OU @ MSST",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "9:52 - 4th",
-     "score": "OU 20 - MSST 7",
+     "detail": "3:49 - 4th",
+     "score": "OU 23 - MSST 7",
      "away_to": 1,
      "home_to": 3
     },
@@ -83,9 +83,9 @@
      "matchup": "BC @ GT",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "10:58 - 4th",
-     "score": "BC 28 - GT 20",
-     "away_to": 2,
+     "detail": "6:06 - 4th",
+     "score": "BC 42 - GT 20",
+     "away_to": 1,
      "home_to": 1
     },
     {
@@ -93,8 +93,8 @@
      "matchup": "UNT @ NAVY",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "12:58 - 4th",
-     "score": "UNT 42 - NAVY 32",
+     "detail": "9:17 - 4th",
+     "score": "UNT 49 - NAVY 39",
      "away_to": 1,
      "home_to": 1
     },
@@ -103,8 +103,8 @@
      "matchup": "HAW @ NIU",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "6:16 - 4th",
-     "score": "HAW 49 - NIU 21",
+     "detail": "2:00 - 4th",
+     "score": "HAW 56 - NIU 21",
      "away_to": 1,
      "home_to": 2
     },
@@ -113,27 +113,17 @@
      "matchup": "SAC @ BALL",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "9:40 - 4th",
-     "score": "SAC 17 - BALL 27",
+     "detail": "6:23 - 4th",
+     "score": "SAC 17 - BALL 34",
      "away_to": 1,
      "home_to": 2
-    },
-    {
-     "espn_event_id": "401866448",
-     "matchup": "BGSU @ BUFF",
-     "commence": "2026-10-24T19:30Z",
-     "status": "in",
-     "detail": "3:15 - 4th",
-     "score": "BGSU 24 - BUFF 31",
-     "away_to": 2,
-     "home_to": 3
     },
     {
      "espn_event_id": "401856839",
      "matchup": "KSU @ ASU",
      "commence": "2026-10-24T19:45Z",
      "status": "in",
-     "detail": "7:59 - 3rd",
+     "detail": "End of 3rd",
      "score": "KSU 17 - ASU 14",
      "away_to": 2,
      "home_to": 1
@@ -143,8 +133,8 @@
      "matchup": "EMU @ OHIO",
      "commence": "2026-10-24T20:00Z",
      "status": "in",
-     "detail": "3:47 - 3rd",
-     "score": "EMU 13 - OHIO 10",
+     "detail": "15:00 - 4th",
+     "score": "EMU 13 - OHIO 17",
      "away_to": 0,
      "home_to": 3
     },
@@ -153,7 +143,7 @@
      "matchup": "ULM @ TROY",
      "commence": "2026-10-24T20:00Z",
      "status": "in",
-     "detail": "1:42 - 3rd",
+     "detail": "10:52 - 4th",
      "score": "ULM 3 - TROY 7",
      "away_to": 1,
      "home_to": 0
@@ -163,7 +153,7 @@
      "matchup": "SJSU @ NEV",
      "commence": "2026-10-24T21:00Z",
      "status": "in",
-     "detail": "0:07 - 2nd",
+     "detail": "Halftime",
      "score": "SJSU 3 - NEV 7",
      "away_to": 2,
      "home_to": 2
@@ -173,17 +163,17 @@
      "matchup": "UL @ USM",
      "commence": "2026-10-24T21:00Z",
      "status": "in",
-     "detail": "2:00 - 2nd",
-     "score": "UL 14 - USM 14",
-     "away_to": 3,
-     "home_to": 3
+     "detail": "0:31 - 2nd",
+     "score": "UL 21 - USM 21",
+     "away_to": 1,
+     "home_to": 2
     },
     {
      "espn_event_id": "401871093",
      "matchup": "ODU @ LT",
      "commence": "2026-10-24T21:00Z",
      "status": "in",
-     "detail": "15:00 - 3rd",
+     "detail": "Halftime",
      "score": "ODU 0 - LT 17",
      "away_to": 2,
      "home_to": 1
@@ -193,8 +183,8 @@
      "matchup": "BOIS @ WSU",
      "commence": "2026-10-24T22:00Z",
      "status": "in",
-     "detail": "8:59 - 1st",
-     "score": "BOIS 0 - WSU 0",
+     "detail": "3:05 - 1st",
+     "score": "BOIS 7 - WSU 0",
      "away_to": 3,
      "home_to": 3
     },
@@ -207,12 +197,12 @@
      "score": "ORE 10 - ILL 21"
     },
     {
-     "espn_event_id": "401860905",
-     "matchup": "SDSU @ CSU",
-     "commence": "2026-10-24T22:30Z",
-     "status": "pre",
-     "detail": "10/24 - 3:30 PM PT",
-     "score": "SDSU 0 - CSU 0"
+     "espn_event_id": "401866448",
+     "matchup": "BGSU @ BUFF",
+     "commence": "2026-10-24T19:30Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "BGSU 24 - BUFF 31"
     },
     {
      "espn_event_id": "401856836",
@@ -304,10 +294,10 @@
      "matchup": "MIA @ CHA",
      "commence": "2026-10-24T22:00Z",
      "status": "in",
-     "detail": "7:26 - 1st",
-     "score": "MIA 12 - CHA 11",
-     "away_to": 7,
-     "home_to": 7
+     "detail": "2:36 - 1st",
+     "score": "MIA 24 - CHA 24",
+     "away_to": 6,
+     "home_to": 6
     },
     {
      "espn_event_id": "401909854",
@@ -340,6 +330,14 @@
      "status": "pre",
      "detail": "10/24 - 5:00 PM PT",
      "score": "SA 0 - DAL 0"
+    },
+    {
+     "espn_event_id": "401909856",
+     "matchup": "HOU @ ATL",
+     "commence": "2026-10-25T00:30Z",
+     "status": "pre",
+     "detail": "10/24 - 5:30 PM PT",
+     "score": "HOU 0 - ATL 0"
     }
    ]
   },
@@ -428,7 +426,7 @@
      "matchup": "MIA @ RBNY",
      "commence": "2026-10-24T21:30Z",
      "status": "in",
-     "detail": "40'",
+     "detail": "HT",
      "score": "MIA 0 - RBNY 1"
     },
     {
@@ -462,6 +460,30 @@
      "status": "pre",
      "detail": "Scheduled",
      "score": "NE 0 - PHI 0"
+    },
+    {
+     "espn_event_id": "761900",
+     "matchup": "SJ @ DAL",
+     "commence": "2026-10-25T00:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "SJ 0 - DAL 0"
+    },
+    {
+     "espn_event_id": "761896",
+     "matchup": "MIN @ HOU",
+     "commence": "2026-10-25T00:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "MIN 0 - HOU 0"
+    },
+    {
+     "espn_event_id": "761899",
+     "matchup": "ATX @ SKC",
+     "commence": "2026-10-25T00:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "ATX 0 - SKC 0"
     }
    ]
   },
@@ -472,8 +494,8 @@
      "espn_event_id": "401854093",
      "matchup": "LOU @ DEN",
      "commence": "2026-10-24T22:30Z",
-     "status": "pre",
-     "detail": "Scheduled",
+     "status": "in",
+     "detail": "3'",
      "score": "LOU 0 - DEN 0"
     }
    ]
