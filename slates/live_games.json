@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T18:01:49.646466+00:00",
+ "generated_at": "2026-10-24T18:04:49.301351+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -60,7 +60,7 @@
      "matchup": "RUTG @ NU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "15:00 - 3rd",
+     "detail": "12:29 - 3rd",
      "score": "RUTG 6 - NU 28",
      "away_to": 0,
      "home_to": 0
@@ -70,7 +70,7 @@
      "matchup": "WVU @ TCU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "10:54 - 3rd",
+     "detail": "10:00 - 3rd",
      "score": "WVU 10 - TCU 13",
      "away_to": 3,
      "home_to": 1
@@ -80,7 +80,7 @@
      "matchup": "RICE @ FAU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "15:00 - 3rd",
      "score": "RICE 21 - FAU 23",
      "away_to": 2,
      "home_to": 2
@@ -90,8 +90,8 @@
      "matchup": "WMU @ TOL",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "WMU 14 - TOL 31",
+     "detail": "14:47 - 3rd",
+     "score": "WMU 21 - TOL 31",
      "away_to": 2,
      "home_to": 3
     },
@@ -100,7 +100,7 @@
      "matchup": "BAY @ KU",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "7:40 - 2nd",
+     "detail": "6:46 - 2nd",
      "score": "BAY 7 - KU 7",
      "away_to": 3,
      "home_to": 2
@@ -110,7 +110,7 @@
      "matchup": "AKR @ KENT",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "9:06 - 2nd",
+     "detail": "6:22 - 2nd",
      "score": "AKR 7 - KENT 0",
      "away_to": 1,
      "home_to": 3
@@ -120,7 +120,7 @@
      "matchup": "M-OH @ CMU",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "8:33 - 2nd",
+     "detail": "6:25 - 2nd",
      "score": "M-OH 7 - CMU 3",
      "away_to": 3,
      "home_to": 3
@@ -255,8 +255,8 @@
      "matchup": "GS @ ATL",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "2:43 - 2nd",
-     "score": "GS 33 - ATL 20",
+     "detail": "1:57 - 2nd",
+     "score": "GS 35 - ATL 22",
      "away_to": 4,
      "home_to": 3
     }
@@ -293,7 +293,7 @@
      "matchup": "NSH @ MTL",
      "commence": "2026-10-24T17:30Z",
      "status": "in",
-     "detail": "21'",
+     "detail": "24'",
      "score": "NSH 0 - MTL 0"
     },
     {
