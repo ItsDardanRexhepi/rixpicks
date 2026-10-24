@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T21:19:48.756869+00:00",
+ "generated_at": "2026-10-24T21:34:48.526443+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,7 +10,7 @@
      "matchup": "ORE @ ILL",
      "commence": "2026-10-24T19:00Z",
      "status": "in",
-     "detail": "End of 3rd",
+     "detail": "9:41 - 4th",
      "score": "ORE 10 - ILL 14",
      "away_to": 1,
      "home_to": 1
@@ -40,7 +40,7 @@
      "matchup": "TENN @ SC",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "13:47 - 3rd",
      "score": "TENN 21 - SC 17",
      "away_to": 0,
      "home_to": 3
@@ -50,7 +50,7 @@
      "matchup": "TA&M @ ALA",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "0:53 - 2nd",
+     "detail": "Halftime",
      "score": "TA&M 17 - ALA 17",
      "away_to": 1,
      "home_to": 1
@@ -60,7 +60,7 @@
      "matchup": "IOWA @ MINN",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "10:24 - 3rd",
      "score": "IOWA 3 - MINN 3",
      "away_to": 0,
      "home_to": 3
@@ -70,8 +70,8 @@
      "matchup": "OU @ MSST",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "OU 10 - MSST 0",
+     "detail": "8:45 - 3rd",
+     "score": "OU 17 - MSST 0",
      "away_to": 2,
      "home_to": 3
     },
@@ -80,7 +80,7 @@
      "matchup": "BC @ GT",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "14:07 - 3rd",
      "score": "BC 12 - GT 13",
      "away_to": 2,
      "home_to": 1
@@ -90,7 +90,7 @@
      "matchup": "UNT @ NAVY",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "10:19 - 3rd",
      "score": "UNT 28 - NAVY 17",
      "away_to": 2,
      "home_to": 2
@@ -100,7 +100,7 @@
      "matchup": "HAW @ NIU",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "10:27 - 3rd",
      "score": "HAW 35 - NIU 14",
      "away_to": 2,
      "home_to": 2
@@ -110,8 +110,8 @@
      "matchup": "SAC @ BALL",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "SAC 10 - BALL 20",
+     "detail": "12:04 - 3rd",
+     "score": "SAC 10 - BALL 27",
      "away_to": 1,
      "home_to": 2
     },
@@ -120,8 +120,8 @@
      "matchup": "BGSU @ BUFF",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "11:23 - 3rd",
-     "score": "BGSU 14 - BUFF 14",
+     "detail": "8:11 - 3rd",
+     "score": "BGSU 21 - BUFF 21",
      "away_to": 2,
      "home_to": 3
     },
@@ -130,19 +130,19 @@
      "matchup": "KSU @ ASU",
      "commence": "2026-10-24T19:45Z",
      "status": "in",
-     "detail": "4:17 - 2nd",
+     "detail": "Halftime",
      "score": "KSU 10 - ASU 14",
-     "away_to": 3,
-     "home_to": 2
+     "away_to": 2,
+     "home_to": 1
     },
     {
      "espn_event_id": "401866449",
      "matchup": "EMU @ OHIO",
      "commence": "2026-10-24T20:00Z",
      "status": "in",
-     "detail": "4:49 - 2nd",
-     "score": "EMU 10 - OHIO 7",
-     "away_to": 2,
+     "detail": "End of 2nd",
+     "score": "EMU 13 - OHIO 10",
+     "away_to": 0,
      "home_to": 3
     },
     {
@@ -150,18 +150,18 @@
      "matchup": "ULM @ TROY",
      "commence": "2026-10-24T20:00Z",
      "status": "in",
-     "detail": "1:03 - 2nd",
+     "detail": "Halftime",
      "score": "ULM 3 - TROY 7",
-     "away_to": 2,
-     "home_to": 2
+     "away_to": 1,
+     "home_to": 0
     },
     {
      "espn_event_id": "401864528",
      "matchup": "SJSU @ NEV",
      "commence": "2026-10-24T21:00Z",
      "status": "in",
-     "detail": "7:37 - 1st",
-     "score": "SJSU 0 - NEV 0",
+     "detail": "3:44 - 1st",
+     "score": "SJSU 0 - NEV 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -170,8 +170,8 @@
      "matchup": "UL @ USM",
      "commence": "2026-10-24T21:00Z",
      "status": "in",
-     "detail": "6:44 - 1st",
-     "score": "UL 7 - USM 0",
+     "detail": "2:19 - 1st",
+     "score": "UL 7 - USM 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -180,8 +180,8 @@
      "matchup": "ODU @ LT",
      "commence": "2026-10-24T21:00Z",
      "status": "in",
-     "detail": "5:58 - 1st",
-     "score": "ODU 0 - LT 7",
+     "detail": "1:11 - 1st",
+     "score": "ODU 0 - LT 14",
      "away_to": 3,
      "home_to": 3
     },
@@ -224,6 +224,54 @@
      "status": "pre",
      "detail": "10/24 - 4:00 PM PT",
      "score": "GAST 0 - ARST 0"
+    },
+    {
+     "espn_event_id": "401856732",
+     "matchup": "MISS @ TEX",
+     "commence": "2026-10-24T23:30Z",
+     "status": "pre",
+     "detail": "10/24 - 4:30 PM PT",
+     "score": "MISS 0 - TEX 0"
+    },
+    {
+     "espn_event_id": "401856729",
+     "matchup": "VAN @ UK",
+     "commence": "2026-10-24T23:30Z",
+     "status": "pre",
+     "detail": "10/24 - 4:30 PM PT",
+     "score": "VAN 0 - UK 0"
+    },
+    {
+     "espn_event_id": "401858500",
+     "matchup": "USC @ WIS",
+     "commence": "2026-10-24T23:30Z",
+     "status": "pre",
+     "detail": "10/24 - 4:30 PM PT",
+     "score": "USC 0 - WIS 0"
+    },
+    {
+     "espn_event_id": "401856838",
+     "matchup": "ISU @ ARIZ",
+     "commence": "2026-10-24T23:30Z",
+     "status": "pre",
+     "detail": "10/24 - 4:30 PM PT",
+     "score": "ISU 0 - ARIZ 0"
+    },
+    {
+     "espn_event_id": "401858275",
+     "matchup": "SYR @ UNC",
+     "commence": "2026-10-24T23:30Z",
+     "status": "pre",
+     "detail": "10/24 - 4:30 PM PT",
+     "score": "SYR 0 - UNC 0"
+    },
+    {
+     "espn_event_id": "401860906",
+     "matchup": "USU @ TXST",
+     "commence": "2026-10-24T23:30Z",
+     "status": "pre",
+     "detail": "10/24 - 4:30 PM PT",
+     "score": "USU 0 - TXST 0"
     }
    ]
   },
@@ -237,6 +285,22 @@
      "status": "pre",
      "detail": "10/24 - 3:00 PM PT",
      "score": "MIA 0 - CHA 0"
+    },
+    {
+     "espn_event_id": "401909854",
+     "matchup": "BKN @ CLE",
+     "commence": "2026-10-24T23:30Z",
+     "status": "pre",
+     "detail": "10/24 - 4:30 PM PT",
+     "score": "BKN 0 - CLE 0"
+    },
+    {
+     "espn_event_id": "401909855",
+     "matchup": "MIL @ PHI",
+     "commence": "2026-10-24T23:30Z",
+     "status": "pre",
+     "detail": "10/24 - 4:30 PM PT",
+     "score": "MIL 0 - PHI 0"
     }
    ]
   },
@@ -248,8 +312,8 @@
      "matchup": "LA @ NJ",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "18:32 - 3rd",
-     "score": "LA 1 - NJ 1",
+     "detail": "8:39 - 3rd",
+     "score": "LA 1 - NJ 2",
      "away_to": null,
      "home_to": null
     },
@@ -315,28 +379,44 @@
    "league": "MLS",
    "games": [
     {
-     "espn_event_id": "761903",
-     "matchup": "NSH @ MTL",
-     "commence": "2026-10-24T17:30Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "NSH 2 - MTL 0"
-    },
-    {
      "espn_event_id": "761890",
      "matchup": "TOR @ CLB",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "79'",
-     "score": "TOR 1 - CLB 4"
+     "detail": "90'+4'",
+     "score": "TOR 2 - CLB 4"
     },
     {
-     "espn_event_id": "761891",
-     "matchup": "MIA @ RBNY",
-     "commence": "2026-10-24T21:30Z",
+     "espn_event_id": "761893",
+     "matchup": "CHI @ ATL",
+     "commence": "2026-10-24T23:30Z",
      "status": "pre",
      "detail": "Scheduled",
-     "score": "MIA 0 - RBNY 0"
+     "score": "CHI 0 - ATL 0"
+    },
+    {
+     "espn_event_id": "761895",
+     "matchup": "CIN @ DC",
+     "commence": "2026-10-24T23:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "CIN 0 - DC 0"
+    },
+    {
+     "espn_event_id": "761892",
+     "matchup": "NYC @ ORL",
+     "commence": "2026-10-24T23:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "NYC 0 - ORL 0"
+    },
+    {
+     "espn_event_id": "761894",
+     "matchup": "NE @ PHI",
+     "commence": "2026-10-24T23:30Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "NE 0 - PHI 0"
     }
    ]
   },
