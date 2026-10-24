@@ -1,27 +1,6 @@
 {
- "generated_at": "2026-10-24T01:11:27.184306+00:00",
+ "generated_at": "2026-10-24T01:36:14.984767+00:00",
  "items": [
-  {
-   "id": "a01a971eb7",
-   "league": "NWSL",
-   "event": "Seattle Reign FC @ Utah Royals",
-   "prediction": "Seattle Reign FC to beat Utah Royals",
-   "kickoff_utc": "2026-10-24T01:30:00+00:00"
-  },
-  {
-   "id": "d441b7e0d1",
-   "league": "NBA",
-   "event": "Houston Rockets @ San Antonio Spurs",
-   "prediction": "San Antonio Spurs to beat Houston Rockets",
-   "kickoff_utc": "2026-10-24T01:30:00+00:00"
-  },
-  {
-   "id": "23d17284c2",
-   "league": "NBA",
-   "event": "New Orleans Pelicans @ Utah Jazz",
-   "prediction": "Utah Jazz to beat New Orleans Pelicans",
-   "kickoff_utc": "2026-10-24T01:30:00+00:00"
-  },
   {
    "id": "16b483d386",
    "league": "NWSL",
@@ -41,6 +20,27 @@
    "league": "CFB",
    "event": "LSU Tigers @ Auburn Tigers",
    "prediction": "LSU Tigers to beat Auburn Tigers",
+   "kickoff_utc": "2026-10-24T16:00:00+00:00"
+  },
+  {
+   "id": "9dc8ff8423",
+   "league": "CFB",
+   "event": "California Golden Bears @ SMU Mustangs",
+   "prediction": "SMU Mustangs to beat California Golden Bears",
+   "kickoff_utc": "2026-10-24T16:00:00+00:00"
+  },
+  {
+   "id": "7fe4d2e7d5",
+   "league": "CFB",
+   "event": "Texas Tech Red Raiders @ Cincinnati Bearcats",
+   "prediction": "Cincinnati Bearcats to beat Texas Tech Red Raiders",
+   "kickoff_utc": "2026-10-24T16:00:00+00:00"
+  },
+  {
+   "id": "bce8d04b44",
+   "league": "CFB",
+   "event": "Indiana Hoosiers @ Michigan Wolverines",
+   "prediction": "Michigan Wolverines to beat Indiana Hoosiers",
    "kickoff_utc": "2026-10-24T16:00:00+00:00"
   }
  ]
