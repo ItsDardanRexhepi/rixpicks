@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-24T21:20:05.353368+00:00",
+ "generated_at": "2026-10-24T21:38:29.226307+00:00",
  "items": [
-  {
-   "id": "34ea7d316e",
-   "league": "MLS",
-   "event": "Inter Miami CF @ Red Bull New York",
-   "prediction": "Inter Miami CF to beat Red Bull New York",
-   "kickoff_utc": "2026-10-24T21:30:00+00:00"
-  },
   {
    "id": "192e14aa4a",
    "league": "CFB",
@@ -41,6 +34,13 @@
    "league": "NHL",
    "event": "San Jose Sharks @ Boston Bruins",
    "prediction": "Boston Bruins to beat San Jose Sharks",
+   "kickoff_utc": "2026-10-24T23:00:00+00:00"
+  },
+  {
+   "id": "2e48a44466",
+   "league": "NHL",
+   "event": "Carolina Hurricanes @ St. Louis Blues",
+   "prediction": "St. Louis Blues to beat Carolina Hurricanes",
    "kickoff_utc": "2026-10-24T23:00:00+00:00"
   }
  ]
