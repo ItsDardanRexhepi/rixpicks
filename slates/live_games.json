@@ -1,81 +1,39 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T15:49:47.609054+00:00",
+ "generated_at": "2026-10-24T16:04:51.474491+00:00",
  "leagues": [
   {
    "league": "CFB",
    "games": [
     {
-     "espn_event_id": "401858274",
-     "matchup": "PITT @ MIA",
-     "commence": "2026-10-24T16:00Z",
-     "status": "pre",
-     "detail": "10/24 - 9:00 AM PT",
-     "score": "PITT 0 - MIA 0"
-    },
-    {
-     "espn_event_id": "401858496",
-     "matchup": "IU @ MICH",
-     "commence": "2026-10-24T16:00Z",
-     "status": "pre",
-     "detail": "10/24 - 9:00 AM PT",
-     "score": "IU 0 - MICH 0"
-    },
-    {
      "espn_event_id": "401856840",
      "matchup": "TTU @ CIN",
      "commence": "2026-10-24T16:00Z",
-     "status": "pre",
-     "detail": "10/24 - 9:00 AM PT",
-     "score": "TTU 0 - CIN 0"
-    },
-    {
-     "espn_event_id": "401856728",
-     "matchup": "LSU @ AUB",
-     "commence": "2026-10-24T16:00Z",
-     "status": "pre",
-     "detail": "10/24 - 9:00 AM PT",
-     "score": "LSU 0 - AUB 0"
-    },
-    {
-     "espn_event_id": "401858270",
-     "matchup": "CAL @ SMU",
-     "commence": "2026-10-24T16:00Z",
-     "status": "pre",
-     "detail": "10/24 - 9:00 AM PT",
-     "score": "CAL 0 - SMU 0"
-    },
-    {
-     "espn_event_id": "401858498",
-     "matchup": "RUTG @ NU",
-     "commence": "2026-10-24T16:00Z",
-     "status": "pre",
-     "detail": "10/24 - 9:00 AM PT",
-     "score": "RUTG 0 - NU 0"
+     "status": "in",
+     "detail": "14:31 - 1st",
+     "score": "TTU 0 - CIN 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401856841",
      "matchup": "WVU @ TCU",
      "commence": "2026-10-24T16:00Z",
-     "status": "pre",
-     "detail": "10/24 - 9:00 AM PT",
-     "score": "WVU 0 - TCU 0"
-    },
-    {
-     "espn_event_id": "401862809",
-     "matchup": "RICE @ FAU",
-     "commence": "2026-10-24T16:00Z",
-     "status": "pre",
-     "detail": "10/24 - 9:00 AM PT",
-     "score": "RICE 0 - FAU 0"
+     "status": "in",
+     "detail": "14:03 - 1st",
+     "score": "WVU 0 - TCU 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401866450",
      "matchup": "WMU @ TOL",
      "commence": "2026-10-24T16:00Z",
-     "status": "pre",
-     "detail": "10/24 - 9:00 AM PT",
-     "score": "WMU 0 - TOL 0"
+     "status": "in",
+     "detail": "14:26 - 1st",
+     "score": "WMU 0 - TOL 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401856834",
