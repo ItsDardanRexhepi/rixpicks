@@ -3745,8 +3745,9 @@
   "pick_team": "UCF Knights",
   "prediction": "UCF Knights to beat BYU Cougars",
   "kickoff_utc": "2026-10-24T19:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T06:05:56.333114+00:00"
+  "status": "hit",
+  "created_at": "2026-10-19T06:05:56.333114+00:00",
+  "settled_at": "2026-10-24T23:49:31.127802+00:00"
  },
  {
   "id": "9f0ee9a3dd",
