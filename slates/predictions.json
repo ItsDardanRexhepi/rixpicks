@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-24T01:56:46.264494+00:00",
+ "generated_at": "2026-10-24T02:19:34.977796+00:00",
  "items": [
-  {
-   "id": "16b483d386",
-   "league": "NWSL",
-   "event": "North Carolina Courage @ Portland Thorns FC",
-   "prediction": "North Carolina Courage to beat Portland Thorns FC",
-   "kickoff_utc": "2026-10-24T02:00:00+00:00"
-  },
-  {
-   "id": "d2f13c8f01",
-   "league": "NBA",
-   "event": "LA Clippers @ Los Angeles Lakers",
-   "prediction": "Los Angeles Lakers to beat LA Clippers",
-   "kickoff_utc": "2026-10-24T02:00:00+00:00"
-  },
   {
    "id": "7c2175a4bb",
    "league": "CFB",
@@ -41,6 +27,20 @@
    "league": "CFB",
    "event": "Indiana Hoosiers @ Michigan Wolverines",
    "prediction": "Michigan Wolverines to beat Indiana Hoosiers",
+   "kickoff_utc": "2026-10-24T16:00:00+00:00"
+  },
+  {
+   "id": "51340d0b98",
+   "league": "CFB",
+   "event": "Rutgers Scarlet Knights @ Northwestern Wildcats",
+   "prediction": "Northwestern Wildcats to beat Rutgers Scarlet Knights",
+   "kickoff_utc": "2026-10-24T16:00:00+00:00"
+  },
+  {
+   "id": "9a561786cd",
+   "league": "CFB",
+   "event": "Pittsburgh Panthers @ Miami Hurricanes",
+   "prediction": "Miami Hurricanes to beat Pittsburgh Panthers",
    "kickoff_utc": "2026-10-24T16:00:00+00:00"
   }
  ]
