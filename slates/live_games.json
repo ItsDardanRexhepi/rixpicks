@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T20:49:49.077910+00:00",
+ "generated_at": "2026-10-24T20:53:54.738451+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,7 +10,7 @@
      "matchup": "ORE @ ILL",
      "commence": "2026-10-24T19:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "10:52 - 3rd",
      "score": "ORE 10 - ILL 7",
      "away_to": 1,
      "home_to": 1
@@ -20,7 +20,7 @@
      "matchup": "BYU @ UCF",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "3:47 - 2nd",
+     "detail": "2:27 - 2nd",
      "score": "BYU 14 - UCF 10",
      "away_to": 1,
      "home_to": 3
@@ -30,9 +30,9 @@
      "matchup": "MSU @ UCLA",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "6:10 - 2nd",
+     "detail": "3:49 - 2nd",
      "score": "MSU 7 - UCLA 7",
-     "away_to": 3,
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -40,7 +40,7 @@
      "matchup": "TENN @ SC",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "2:21 - 2nd",
+     "detail": "1:59 - 2nd",
      "score": "TENN 14 - SC 14",
      "away_to": 2,
      "home_to": 3
@@ -50,9 +50,9 @@
      "matchup": "TA&M @ ALA",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "6:56 - 2nd",
+     "detail": "6:11 - 2nd",
      "score": "TA&M 14 - ALA 10",
-     "away_to": 3,
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -60,7 +60,7 @@
      "matchup": "IOWA @ MINN",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "4:40 - 2nd",
+     "detail": "2:07 - 2nd",
      "score": "IOWA 3 - MINN 3",
      "away_to": 3,
      "home_to": 3
@@ -70,9 +70,9 @@
      "matchup": "OU @ MSST",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "1:02 - 2nd",
-     "score": "OU 3 - MSST 0",
-     "away_to": 3,
+     "detail": "0:39 - 2nd",
+     "score": "OU 10 - MSST 0",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -80,9 +80,9 @@
      "matchup": "BC @ GT",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "6:07 - 2nd",
+     "detail": "4:32 - 2nd",
      "score": "BC 12 - GT 10",
-     "away_to": 3,
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -90,7 +90,7 @@
      "matchup": "UNT @ NAVY",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "2:00 - 2nd",
+     "detail": "1:16 - 2nd",
      "score": "UNT 28 - NAVY 10",
      "away_to": 3,
      "home_to": 3
@@ -100,7 +100,7 @@
      "matchup": "HAW @ NIU",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "2:08 - 2nd",
+     "detail": "1:53 - 2nd",
      "score": "HAW 28 - NIU 14",
      "away_to": 2,
      "home_to": 2
@@ -110,9 +110,9 @@
      "matchup": "SAC @ BALL",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "3:12 - 2nd",
+     "detail": "1:59 - 2nd",
      "score": "SAC 10 - BALL 13",
-     "away_to": 2,
+     "away_to": 1,
      "home_to": 3
     },
     {
@@ -120,7 +120,7 @@
      "matchup": "BGSU @ BUFF",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "0:29 - 2nd",
+     "detail": "Halftime",
      "score": "BGSU 14 - BUFF 14",
      "away_to": 2,
      "home_to": 3
@@ -141,7 +141,7 @@
      "commence": "2026-10-24T20:00Z",
      "status": "in",
      "detail": "12:57 - 2nd",
-     "score": "EMU 6 - OHIO 7",
+     "score": "EMU 7 - OHIO 7",
      "away_to": 2,
      "home_to": 3
     },
@@ -150,7 +150,7 @@
      "matchup": "ULM @ TROY",
      "commence": "2026-10-24T20:00Z",
      "status": "in",
-     "detail": "10:08 - 2nd",
+     "detail": "9:22 - 2nd",
      "score": "ULM 3 - TROY 7",
      "away_to": 3,
      "home_to": 3
@@ -263,8 +263,8 @@
      "matchup": "LA @ NJ",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "5:13 - 2nd",
-     "score": "LA 0 - NJ 0",
+     "detail": "2:20 - 2nd",
+     "score": "LA 1 - NJ 0",
      "away_to": null,
      "home_to": null
     }
@@ -286,7 +286,7 @@
      "matchup": "TOR @ CLB",
      "commence": "2026-10-24T19:30Z",
      "status": "in",
-     "detail": "49'",
+     "detail": "53'",
      "score": "TOR 0 - CLB 3"
     },
     {
