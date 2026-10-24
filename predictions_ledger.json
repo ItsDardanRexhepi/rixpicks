@@ -5013,5 +5013,31 @@
   "kickoff_utc": "2026-10-25T00:30:00+00:00",
   "status": "pending",
   "created_at": "2026-10-24T18:02:46.486595+00:00"
+ },
+ {
+  "id": "453cc1181a",
+  "event_id": "401909857",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Chicago Bulls",
+  "away": "Washington Wizards",
+  "pick_team": "Chicago Bulls",
+  "prediction": "Chicago Bulls to beat Washington Wizards",
+  "kickoff_utc": "2026-10-25T00:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T18:20:21.807493+00:00"
+ },
+ {
+  "id": "99e263bd02",
+  "event_id": "401909859",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Denver Nuggets",
+  "away": "New Orleans Pelicans",
+  "pick_team": "Denver Nuggets",
+  "prediction": "Denver Nuggets to beat New Orleans Pelicans",
+  "kickoff_utc": "2026-10-25T01:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T18:20:41.531929+00:00"
  }
 ]
