@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T16:34:45.709548+00:00",
+ "generated_at": "2026-10-24T16:58:01.152988+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,8 +10,8 @@
      "matchup": "PITT @ MIA",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "5:43 - 1st",
-     "score": "PITT 0 - MIA 3",
+     "detail": "12:25 - 2nd",
+     "score": "PITT 0 - MIA 17",
      "away_to": 2,
      "home_to": 3
     },
@@ -20,9 +20,9 @@
      "matchup": "IU @ MICH",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "7:43 - 1st",
-     "score": "IU 0 - MICH 0",
-     "away_to": 3,
+     "detail": "14:12 - 2nd",
+     "score": "IU 3 - MICH 0",
+     "away_to": 2,
      "home_to": 3
     },
     {
@@ -30,8 +30,8 @@
      "matchup": "TTU @ CIN",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "4:55 - 1st",
-     "score": "TTU 3 - CIN 3",
+     "detail": "12:54 - 2nd",
+     "score": "TTU 6 - CIN 3",
      "away_to": 2,
      "home_to": 3
     },
@@ -40,8 +40,8 @@
      "matchup": "LSU @ AUB",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "5:19 - 1st",
-     "score": "LSU 3 - AUB 3",
+     "detail": "14:12 - 2nd",
+     "score": "LSU 10 - AUB 3",
      "away_to": 3,
      "home_to": 3
     },
@@ -50,8 +50,8 @@
      "matchup": "CAL @ SMU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "7:33 - 1st",
-     "score": "CAL 7 - SMU 3",
+     "detail": "End of 1st",
+     "score": "CAL 7 - SMU 10",
      "away_to": 3,
      "home_to": 3
     },
@@ -60,8 +60,8 @@
      "matchup": "RUTG @ NU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "4:26 - 1st",
-     "score": "RUTG 3 - NU 7",
+     "detail": "13:01 - 2nd",
+     "score": "RUTG 3 - NU 21",
      "away_to": 3,
      "home_to": 3
     },
@@ -70,8 +70,8 @@
      "matchup": "WVU @ TCU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "0:48 - 1st",
-     "score": "WVU 3 - TCU 7",
+     "detail": "11:03 - 2nd",
+     "score": "WVU 10 - TCU 7",
      "away_to": 3,
      "home_to": 3
     },
@@ -80,8 +80,8 @@
      "matchup": "RICE @ FAU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "4:45 - 1st",
-     "score": "RICE 14 - FAU 0",
+     "detail": "11:03 - 2nd",
+     "score": "RICE 14 - FAU 9",
      "away_to": 3,
      "home_to": 3
     },
@@ -90,8 +90,8 @@
      "matchup": "WMU @ TOL",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "4:38 - 1st",
-     "score": "WMU 0 - TOL 14",
+     "detail": "10:23 - 2nd",
+     "score": "WMU 0 - TOL 17",
      "away_to": 3,
      "home_to": 3
     },
