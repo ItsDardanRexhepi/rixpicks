@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T00:49:27.423517+00:00",
+ "generated_at": "2026-10-24T00:51:32.966018+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -43,7 +43,7 @@
      "matchup": "ARMY @ TLSA",
      "commence": "2026-10-24T00:30Z",
      "status": "in",
-     "detail": "9:00 - 1st",
+     "detail": "7:11 - 1st",
      "score": "ARMY 7 - TLSA 0",
      "away_to": 3,
      "home_to": 3
@@ -84,8 +84,8 @@
      "matchup": "ATL @ CHA",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "2:52 - 3rd",
-     "score": "ATL 89 - CHA 56",
+     "detail": "1:43 - 3rd",
+     "score": "ATL 92 - CHA 60",
      "away_to": 4,
      "home_to": 3
     },
@@ -104,8 +104,8 @@
      "matchup": "MIN @ ORL",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "2:58 - 3rd",
-     "score": "MIN 77 - ORL 57",
+     "detail": "1:16 - 3rd",
+     "score": "MIN 84 - ORL 60",
      "away_to": 4,
      "home_to": 2
     },
@@ -114,10 +114,10 @@
      "matchup": "TOR @ WAS",
      "commence": "2026-10-23T23:00Z",
      "status": "in",
-     "detail": "6:38 - 3rd",
-     "score": "TOR 68 - WAS 64",
+     "detail": "6:01 - 3rd",
+     "score": "TOR 70 - WAS 64",
      "away_to": 3,
-     "home_to": 4
+     "home_to": 3
     },
     {
      "espn_event_id": "401909847",
@@ -179,7 +179,7 @@
      "matchup": "MTL @ CHI",
      "commence": "2026-10-24T00:00Z",
      "status": "in",
-     "detail": "1:49 - 1st",
+     "detail": "0:36 - 1st",
      "score": "MTL 1 - CHI 1",
      "away_to": null,
      "home_to": null
@@ -202,7 +202,7 @@
      "matchup": "HOU @ CHI",
      "commence": "2026-10-24T00:00Z",
      "status": "in",
-     "detail": "41'",
+     "detail": "43'",
      "score": "HOU 1 - CHI 0"
     },
     {
