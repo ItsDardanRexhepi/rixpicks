@@ -3714,8 +3714,9 @@
   "pick_team": "Michigan Wolverines",
   "prediction": "Michigan Wolverines to beat Indiana Hoosiers",
   "kickoff_utc": "2026-10-24T16:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T05:20:50.038972+00:00"
+  "status": "miss",
+  "created_at": "2026-10-19T05:20:50.038972+00:00",
+  "settled_at": "2026-10-24T19:35:05.210610+00:00"
  },
  {
   "id": "19ea234765",
@@ -3779,8 +3780,9 @@
   "pick_team": "Northwestern Wildcats",
   "prediction": "Northwestern Wildcats to beat Rutgers Scarlet Knights",
   "kickoff_utc": "2026-10-24T16:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T07:05:34.656371+00:00"
+  "status": "hit",
+  "created_at": "2026-10-19T07:05:34.656371+00:00",
+  "settled_at": "2026-10-24T19:35:05.263138+00:00"
  },
  {
   "id": "9a561786cd",
@@ -4604,8 +4606,9 @@
   "pick_team": "Atlanta Dream",
   "prediction": "Atlanta Dream to beat Golden State Valkyries",
   "kickoff_utc": "2026-10-24T17:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-22T17:58:21.265004+00:00"
+  "status": "miss",
+  "created_at": "2026-10-22T17:58:21.265004+00:00",
+  "settled_at": "2026-10-24T19:35:05.426682+00:00"
  },
  {
   "id": "fda9fcf303",

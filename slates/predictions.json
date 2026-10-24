@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-24T19:20:58.719455+00:00",
+ "generated_at": "2026-10-24T19:37:53.920444+00:00",
  "items": [
   {
-   "id": "19ea234765",
-   "league": "CFB",
-   "event": "Texas A&M Aggies @ Alabama Crimson Tide",
-   "prediction": "Alabama Crimson Tide to beat Texas A&M Aggies",
-   "kickoff_utc": "2026-10-24T19:30:00+00:00"
-  },
-  {
-   "id": "b7bc2fbd4c",
-   "league": "CFB",
-   "event": "BYU Cougars @ UCF Knights",
-   "prediction": "UCF Knights to beat BYU Cougars",
-   "kickoff_utc": "2026-10-24T19:30:00+00:00"
-  },
-  {
-   "id": "2f92c3d330",
-   "league": "CFB",
-   "event": "Tennessee Volunteers @ South Carolina Gamecocks",
-   "prediction": "Tennessee Volunteers to beat South Carolina Gamecocks",
-   "kickoff_utc": "2026-10-24T19:30:00+00:00"
-  },
-  {
-   "id": "e46f0cc309",
-   "league": "CFB",
-   "event": "Michigan State Spartans @ UCLA Bruins",
-   "prediction": "UCLA Bruins to beat Michigan State Spartans",
-   "kickoff_utc": "2026-10-24T19:30:00+00:00"
-  },
-  {
-   "id": "cb675f2561",
-   "league": "CFB",
-   "event": "Iowa Hawkeyes @ Minnesota Golden Gophers",
-   "prediction": "Minnesota Golden Gophers to beat Iowa Hawkeyes",
-   "kickoff_utc": "2026-10-24T19:30:00+00:00"
-  },
-  {
-   "id": "c2fbdb7655",
+   "id": "34ea7d316e",
    "league": "MLS",
-   "event": "Toronto FC @ Columbus Crew",
-   "prediction": "Columbus Crew to beat Toronto FC",
-   "kickoff_utc": "2026-10-24T19:30:00+00:00"
+   "event": "Inter Miami CF @ Red Bull New York",
+   "prediction": "Inter Miami CF to beat Red Bull New York",
+   "kickoff_utc": "2026-10-24T21:30:00+00:00"
+  },
+  {
+   "id": "192e14aa4a",
+   "league": "CFB",
+   "event": "Boise State Broncos @ Washington State Cougars",
+   "prediction": "Washington State Cougars to beat Boise State Broncos",
+   "kickoff_utc": "2026-10-24T22:00:00+00:00"
+  },
+  {
+   "id": "0cb018fa19",
+   "league": "NBA",
+   "event": "Miami Heat @ Charlotte Hornets",
+   "prediction": "Miami Heat to beat Charlotte Hornets",
+   "kickoff_utc": "2026-10-24T22:00:00+00:00"
+  },
+  {
+   "id": "0f5efceb36",
+   "league": "NWSL",
+   "event": "Racing Louisville FC @ Denver Summit FC",
+   "prediction": "Racing Louisville FC to beat Denver Summit FC",
+   "kickoff_utc": "2026-10-24T22:30:00+00:00"
+  },
+  {
+   "id": "c8f57657c4",
+   "league": "NHL",
+   "event": "Buffalo Sabres @ Washington Capitals",
+   "prediction": "Washington Capitals to beat Buffalo Sabres",
+   "kickoff_utc": "2026-10-24T23:00:00+00:00"
+  },
+  {
+   "id": "6a0bb59bfe",
+   "league": "NHL",
+   "event": "San Jose Sharks @ Boston Bruins",
+   "prediction": "Boston Bruins to beat San Jose Sharks",
+   "kickoff_utc": "2026-10-24T23:00:00+00:00"
   }
  ]
 }
