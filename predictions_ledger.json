@@ -4807,8 +4807,9 @@
   "pick_team": "Utah Jazz",
   "prediction": "Utah Jazz to beat New Orleans Pelicans",
   "kickoff_utc": "2026-10-24T01:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-23T15:25:31.243278+00:00"
+  "status": "hit",
+  "created_at": "2026-10-23T15:25:31.243278+00:00",
+  "settled_at": "2026-10-24T04:19:31.930577+00:00"
  },
  {
   "id": "7a668a0c7b",
