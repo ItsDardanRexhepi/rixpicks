@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-24T21:38:29.226307+00:00",
+ "generated_at": "2026-10-24T22:07:32.403379+00:00",
  "items": [
-  {
-   "id": "192e14aa4a",
-   "league": "CFB",
-   "event": "Boise State Broncos @ Washington State Cougars",
-   "prediction": "Washington State Cougars to beat Boise State Broncos",
-   "kickoff_utc": "2026-10-24T22:00:00+00:00"
-  },
-  {
-   "id": "0cb018fa19",
-   "league": "NBA",
-   "event": "Miami Heat @ Charlotte Hornets",
-   "prediction": "Miami Heat to beat Charlotte Hornets",
-   "kickoff_utc": "2026-10-24T22:00:00+00:00"
-  },
   {
    "id": "0f5efceb36",
    "league": "NWSL",
@@ -41,6 +27,20 @@
    "league": "NHL",
    "event": "Carolina Hurricanes @ St. Louis Blues",
    "prediction": "St. Louis Blues to beat Carolina Hurricanes",
+   "kickoff_utc": "2026-10-24T23:00:00+00:00"
+  },
+  {
+   "id": "0c69880361",
+   "league": "NHL",
+   "event": "Toronto Maple Leafs @ Edmonton Oilers",
+   "prediction": "Edmonton Oilers to beat Toronto Maple Leafs",
+   "kickoff_utc": "2026-10-24T23:00:00+00:00"
+  },
+  {
+   "id": "8803cb515e",
+   "league": "NHL",
+   "event": "Nashville Predators @ Pittsburgh Penguins",
+   "prediction": "Pittsburgh Penguins to beat Nashville Predators",
    "kickoff_utc": "2026-10-24T23:00:00+00:00"
   }
  ]
