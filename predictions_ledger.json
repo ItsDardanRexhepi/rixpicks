@@ -3662,8 +3662,9 @@
   "pick_team": "LSU Tigers",
   "prediction": "LSU Tigers to beat Auburn Tigers",
   "kickoff_utc": "2026-10-24T16:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T04:24:40.062991+00:00"
+  "status": "hit",
+  "created_at": "2026-10-19T04:24:40.062991+00:00",
+  "settled_at": "2026-10-24T20:04:34.602451+00:00"
  },
  {
   "id": "9dc8ff8423",
@@ -3675,8 +3676,9 @@
   "pick_team": "SMU Mustangs",
   "prediction": "SMU Mustangs to beat California Golden Bears",
   "kickoff_utc": "2026-10-24T16:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T04:25:19.697448+00:00"
+  "status": "hit",
+  "created_at": "2026-10-19T04:25:19.697448+00:00",
+  "settled_at": "2026-10-24T20:04:34.649621+00:00"
  },
  {
   "id": "7fe4d2e7d5",
@@ -3688,8 +3690,9 @@
   "pick_team": "Cincinnati Bearcats",
   "prediction": "Cincinnati Bearcats to beat Texas Tech Red Raiders",
   "kickoff_utc": "2026-10-24T16:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T04:52:31.073751+00:00"
+  "status": "hit",
+  "created_at": "2026-10-19T04:52:31.073751+00:00",
+  "settled_at": "2026-10-24T20:04:34.771496+00:00"
  },
  {
   "id": "e3c45b6906",
@@ -3794,8 +3797,9 @@
   "pick_team": "Miami Hurricanes",
   "prediction": "Miami Hurricanes to beat Pittsburgh Panthers",
   "kickoff_utc": "2026-10-24T16:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T07:20:17.514176+00:00"
+  "status": "hit",
+  "created_at": "2026-10-19T07:20:17.514176+00:00",
+  "settled_at": "2026-10-24T20:04:34.976751+00:00"
  },
  {
   "id": "191cf8ea47",
@@ -4525,8 +4529,9 @@
   "pick_team": "CF Montr\u00e9al",
   "prediction": "CF Montr\u00e9al to beat Nashville SC",
   "kickoff_utc": "2026-10-24T17:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-22T11:19:44.523342+00:00"
+  "status": "miss",
+  "created_at": "2026-10-22T11:19:44.523342+00:00",
+  "settled_at": "2026-10-24T20:04:35.054173+00:00"
  },
  {
   "id": "c2fbdb7655",
