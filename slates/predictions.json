@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-24T00:40:44.788560+00:00",
+ "generated_at": "2026-10-24T01:11:27.184306+00:00",
  "items": [
-  {
-   "id": "c2a50a5952",
-   "league": "NHL",
-   "event": "Tampa Bay Lightning @ Colorado Avalanche",
-   "prediction": "Colorado Avalanche to beat Tampa Bay Lightning",
-   "kickoff_utc": "2026-10-24T01:00:00+00:00"
-  },
   {
    "id": "a01a971eb7",
    "league": "NWSL",
@@ -42,6 +35,13 @@
    "event": "LA Clippers @ Los Angeles Lakers",
    "prediction": "Los Angeles Lakers to beat LA Clippers",
    "kickoff_utc": "2026-10-24T02:00:00+00:00"
+  },
+  {
+   "id": "7c2175a4bb",
+   "league": "CFB",
+   "event": "LSU Tigers @ Auburn Tigers",
+   "prediction": "LSU Tigers to beat Auburn Tigers",
+   "kickoff_utc": "2026-10-24T16:00:00+00:00"
   }
  ]
 }
