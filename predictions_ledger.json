@@ -5112,5 +5112,31 @@
   "kickoff_utc": "2026-10-24T23:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-24T19:18:44.077474+00:00"
+ },
+ {
+  "id": "c65663cefc",
+  "event_id": "401892575",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Utah Mammoth",
+  "away": "Tampa Bay Lightning",
+  "pick_team": "Tampa Bay Lightning",
+  "prediction": "Tampa Bay Lightning to beat Utah Mammoth",
+  "kickoff_utc": "2026-10-25T01:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T21:01:33.214441+00:00"
+ },
+ {
+  "id": "4a88ca5beb",
+  "event_id": "401892576",
+  "league": "NHL",
+  "path": "hockey/nhl",
+  "home": "Calgary Flames",
+  "away": "Detroit Red Wings",
+  "pick_team": "Calgary Flames",
+  "prediction": "Calgary Flames to beat Detroit Red Wings",
+  "kickoff_utc": "2026-10-25T02:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T21:03:13.292192+00:00"
  }
 ]
