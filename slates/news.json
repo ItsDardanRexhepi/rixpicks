@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-24T07:15:33.009Z",
+ "generated_at": "2026-10-24T07:20:35.356Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Trevor Megill escapes 9th-inning jam to close out Brewers' Game 1 win",
+    "link": "https://www.espn.com/mlb/story/_/id/50262974/trevor-megill-escapes-9th-inning-jam-close-brewers-g1-win",
+    "published": "2026-10-24T07:17:30Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1024%2Fr1735325_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "The Brewers survived some late drama, including a seemingly game-ending double play being overturned on review, to beat the Rays 3-2 in Game 1 of the World Series.",
+    "league": "MLB"
+   },
    {
     "headline": "World Series 2026: Rays come up short on coin-flip plays and defensive near-misses in Game 1 loss to Brewers",
     "link": "https://sports.yahoo.com/mlb/article/world-series-2026-rays-come-up-short-on-coin-flip-plays-and-defensive-near-misses-in-game-1-loss-to-brewers-070840096.html",
@@ -9,15 +18,6 @@
     "image": "https://s.yimg.com/lo/mysterio/api/ebd13a7dfd2d873f7858e4b4af265c2e68173b264131a022f6896616769f7192/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F1b12e84c-6bed-4407-9bee-ce02c4f74f0c",
     "blurb": "It\u2019s hard not to view Game 1 as a missed opportunity for Tampa Bay, especially given the 3-2 final score.",
     "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
-    "headline": "Trevor Megill escapes 9th-inning jam to close out Brewers' Game 1 win",
-    "link": "https://www.espn.com/mlb/story/_/id/50262974/trevor-megill-escapes-9th-inning-jam-close-brewers-g1-win",
-    "published": "2026-10-24T07:02:33Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1024%2Fr1735325_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Brewers survived some late drama, including a seemingly game-ending double play being overturned on review, to beat the Rays 3-2 in Game 1 of the World Series.",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
-    "headline": "World Series 2026: William Contreras shines with his bat, his arm and his ABS challenges in Brewers' Game 1 victory",
-    "link": "https://sports.yahoo.com/mlb/article/world-series-2026-william-contreras-shines-with-his-bat-his-arm-and-his-abs-challenges-in-brewers-game-1-victory-063454898.html",
-    "published": "2026-10-24T06:34:54.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/5afb69f2af12618801cb4b81a6c6ea1d8892ef70a569f4893df7b4dac8e16b02/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F3b1d1450-d00a-40bd-9f09-50cda89fcabc",
-    "blurb": "\"I'm a player that likes to play with a lot of passion and a lot of energy, and I'm going to do that,\" Contreras said after Milwaukee took a 1-0 series lead.",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
     "headline": "Brewers withstand Rays' late comeback bid for World Series Game 1 win",
     "link": "https://www.espn.com/mlb/story/_/id/50262974/trevor-megill-escapes-9th-inning-jam-close-brewers-g1-win",
     "published": "2026-10-24T06:50:34.000Z",
     "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1024%252Fr1735325_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Brewers survived some late drama, including a seemingly game-ending double play being overturned on review, to beat the Rays 3-2 in Game 1 of the World Series.",
     "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "World Series 2026: William Contreras shines with his bat, his arm and his ABS challenges in Brewers' Game 1 victory",
+    "link": "https://sports.yahoo.com/mlb/article/world-series-2026-william-contreras-shines-with-his-bat-his-arm-and-his-abs-challenges-in-brewers-game-1-victory-063454898.html",
+    "published": "2026-10-24T06:34:54.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/5afb69f2af12618801cb4b81a6c6ea1d8892ef70a569f4893df7b4dac8e16b02/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F3b1d1450-d00a-40bd-9f09-50cda89fcabc",
+    "blurb": "\"I'm a player that likes to play with a lot of passion and a lot of energy, and I'm going to do that,\" Contreras said after Milwaukee took a 1-0 series lead.",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
-    "headline": "World Series 2026: Jacob Misiorowski finds a way, with another assist from the bullpen, to lead Brewers to Game 1 victory",
-    "link": "https://sports.yahoo.com/mlb/article/world-series-2026-jacob-misiorowski-finds-a-way-with-another-assist-from-the-bullpen-to-lead-brewers-to-game-1-victory-061426975.html",
-    "published": "2026-10-24T06:14:26.000Z",
-    "image": "",
-    "blurb": "The Brewers' ace is finding ways to get outs in the postseason, even when he doesn't have his Cy Young-caliber stuff.",
-    "source": "YAHOO",
-    "league": "MLB"
-   },
-   {
     "headline": "Vogt shuns Mariners rumors, says he'll manage Guardians in '27",
     "link": "https://www.espn.com/mlb/story/_/id/50252938/stephen-vogt-back-guardians-27-shuns-mariners-rumors",
     "published": "2026-10-24T06:50:34.000Z",
     "image": "",
     "blurb": "Guardians manager Stephen Vogt dispelled speculation about his future, saying he'll return next season to chase an elusive World Series title.",
     "source": "ESPN",
+    "league": "MLB"
+   },
+   {
+    "headline": "World Series 2026: Jacob Misiorowski finds a way, with another assist from the bullpen, to lead Brewers to Game 1 victory",
+    "link": "https://sports.yahoo.com/mlb/article/world-series-2026-jacob-misiorowski-finds-a-way-with-another-assist-from-the-bullpen-to-lead-brewers-to-game-1-victory-061426975.html",
+    "published": "2026-10-24T06:14:26.000Z",
+    "image": "",
+    "blurb": "The Brewers' ace is finding ways to get outs in the postseason, even when he doesn't have his Cy Young-caliber stuff.",
+    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,12 +84,12 @@
     "league": "MLB"
    },
    {
-    "headline": "Heart-stopping replay complicated Brewers' long-awaited World Series win",
-    "link": "https://sports.yahoo.com/articles/heart-stopping-replay-complicated-brewers-055254646.html",
-    "published": "2026-10-24T05:52:54.000Z",
+    "headline": "Ohtani won't require surgery; Dodgers 'fully expect him to pitch next year'",
+    "link": "https://www.espn.com/mlb/story/_/id/50242196/dodgers-shohei-ohtani-not-require-surgery-expected-pitch-2027",
+    "published": "2026-10-24T06:50:34.000Z",
     "image": "",
-    "blurb": "Brewers somehow gathered themselves to get the final out after the first time didn't stick.",
-    "source": "YAHOO",
+    "blurb": "Shohei Ohtani will not require surgery to treat any ailment he dealt with this past season, Dodgers president of baseball operations Andrew Friedman said Wednesday. And: \"I fully expect him to pitch next year,\" Friedman added.",
+    "source": "ESPN",
     "league": "MLB"
    }
   ],
@@ -434,11 +434,11 @@
     "league": "NBA"
    },
    {
-    "headline": "Open Thread: The strangest free throw shooting forms the NBA has ever seen",
-    "link": "https://sports.yahoo.com/articles/open-thread-strangest-free-throw-050000710.html",
-    "published": "2026-10-24T05:00:00.000Z",
+    "headline": "Jayson Tatum extends olive branch to Jaylen Brown amid rumored rift: \u2018There\u2019s no beef\u2019",
+    "link": "https://sports.yahoo.com/articles/jayson-tatum-extends-olive-branch-051129200.html",
+    "published": "2026-10-24T05:11:29.000Z",
     "image": "",
-    "blurb": "Found footage of some classic NBA players and their strange shots",
+    "blurb": "Tatum cleared the air after Brown\u2019s \u201ccap\u201d comment went viral on Thursday night.",
     "source": "YAHOO",
     "league": "NBA"
    },
@@ -1096,6 +1096,15 @@
    "league": "NBA"
   },
   {
+   "headline": "Trevor Megill escapes 9th-inning jam to close out Brewers' Game 1 win",
+   "link": "https://www.espn.com/mlb/story/_/id/50262974/trevor-megill-escapes-9th-inning-jam-close-brewers-g1-win",
+   "published": "2026-10-24T07:17:30Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1024%2Fr1735325_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Brewers survived some late drama, including a seemingly game-ending double play being overturned on review, to beat the Rays 3-2 in Game 1 of the World Series.",
+   "league": "MLB"
+  },
+  {
    "headline": "Davis Warren's 4 TD passes lead Stanford to a 31-28 win over NC State",
    "link": "http://www.espn.com/ncf/recap?gameId=401858272",
    "published": "2026-10-24T07:09:46Z",
@@ -1111,15 +1120,6 @@
    "image": "https://s.yimg.com/lo/mysterio/api/ebd13a7dfd2d873f7858e4b4af265c2e68173b264131a022f6896616769f7192/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2026-10%2F1b12e84c-6bed-4407-9bee-ce02c4f74f0c",
    "blurb": "It\u2019s hard not to view Game 1 as a missed opportunity for Tampa Bay, especially given the 3-2 final score.",
    "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
-   "headline": "Trevor Megill escapes 9th-inning jam to close out Brewers' Game 1 win",
-   "link": "https://www.espn.com/mlb/story/_/id/50262974/trevor-megill-escapes-9th-inning-jam-close-brewers-g1-win",
-   "published": "2026-10-24T07:02:33Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1024%2Fr1735325_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Brewers survived some late drama, including a seemingly game-ending double play being overturned on review, to beat the Rays 3-2 in Game 1 of the World Series.",
    "league": "MLB"
   },
   {
@@ -1439,8 +1439,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 52,
-  "YAHOO": 68,
+  "ESPN": 53,
+  "YAHOO": 67,
   "CBS": 36
  },
  "degraded_sources": []
