@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T16:58:01.152988+00:00",
+ "generated_at": "2026-10-24T17:04:52.161529+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,7 +10,7 @@
      "matchup": "PITT @ MIA",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "12:25 - 2nd",
+     "detail": "10:05 - 2nd",
      "score": "PITT 0 - MIA 17",
      "away_to": 2,
      "home_to": 3
@@ -20,7 +20,7 @@
      "matchup": "IU @ MICH",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "14:12 - 2nd",
+     "detail": "11:28 - 2nd",
      "score": "IU 3 - MICH 0",
      "away_to": 2,
      "home_to": 3
@@ -30,7 +30,7 @@
      "matchup": "TTU @ CIN",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "12:54 - 2nd",
+     "detail": "9:07 - 2nd",
      "score": "TTU 6 - CIN 3",
      "away_to": 2,
      "home_to": 3
@@ -40,7 +40,7 @@
      "matchup": "LSU @ AUB",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "14:12 - 2nd",
+     "detail": "10:28 - 2nd",
      "score": "LSU 10 - AUB 3",
      "away_to": 3,
      "home_to": 3
@@ -50,7 +50,7 @@
      "matchup": "CAL @ SMU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "11:29 - 2nd",
      "score": "CAL 7 - SMU 10",
      "away_to": 3,
      "home_to": 3
@@ -60,7 +60,7 @@
      "matchup": "RUTG @ NU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "13:01 - 2nd",
+     "detail": "9:49 - 2nd",
      "score": "RUTG 3 - NU 21",
      "away_to": 3,
      "home_to": 3
@@ -70,18 +70,18 @@
      "matchup": "WVU @ TCU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "11:03 - 2nd",
+     "detail": "6:07 - 2nd",
      "score": "WVU 10 - TCU 7",
      "away_to": 3,
-     "home_to": 3
+     "home_to": 2
     },
     {
      "espn_event_id": "401862809",
      "matchup": "RICE @ FAU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "11:03 - 2nd",
-     "score": "RICE 14 - FAU 9",
+     "detail": "9:19 - 2nd",
+     "score": "RICE 14 - FAU 16",
      "away_to": 3,
      "home_to": 3
     },
@@ -90,8 +90,8 @@
      "matchup": "WMU @ TOL",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "10:23 - 2nd",
-     "score": "WMU 0 - TOL 17",
+     "detail": "8:38 - 2nd",
+     "score": "WMU 7 - TOL 17",
      "away_to": 3,
      "home_to": 3
     },
@@ -99,51 +99,39 @@
      "espn_event_id": "401856834",
      "matchup": "BAY @ KU",
      "commence": "2026-10-24T17:00Z",
-     "status": "pre",
-     "detail": "10/24 - 10:00 AM PT",
-     "score": "BAY 0 - KU 0"
+     "status": "in",
+     "detail": "14:03 - 1st",
+     "score": "BAY 0 - KU 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401866446",
      "matchup": "AKR @ KENT",
      "commence": "2026-10-24T17:00Z",
-     "status": "pre",
-     "detail": "10/24 - 10:00 AM PT",
-     "score": "AKR 0 - KENT 0"
+     "status": "in",
+     "detail": "14:51 - 1st",
+     "score": "AKR 0 - KENT 0",
+     "away_to": 3,
+     "home_to": 3
     },
     {
      "espn_event_id": "401866476",
      "matchup": "M-OH @ CMU",
      "commence": "2026-10-24T17:00Z",
-     "status": "pre",
-     "detail": "10/24 - 10:00 AM PT",
-     "score": "M-OH 0 - CMU 0"
-    }
-   ]
-  },
-  {
-   "league": "WNBA",
-   "games": [
+     "status": "in",
+     "detail": "13:41 - 1st",
+     "score": "M-OH 0 - CMU 0",
+     "away_to": 3,
+     "home_to": 3
+    },
     {
-     "espn_event_id": "401918308",
-     "matchup": "GS @ ATL",
-     "commence": "2026-10-24T17:00Z",
+     "espn_event_id": "401858495",
+     "matchup": "ORE @ ILL",
+     "commence": "2026-10-24T19:00Z",
      "status": "pre",
-     "detail": "10/24 - 10:00 AM PT",
-     "score": "GS 0 - ATL 0"
-    }
-   ]
-  },
-  {
-   "league": "NHL",
-   "games": [
-    {
-     "espn_event_id": "401892566",
-     "matchup": "ANA @ PHI",
-     "commence": "2026-10-24T17:00Z",
-     "status": "pre",
-     "detail": "10/24 - 10:00 AM PT",
-     "score": "ANA 0 - PHI 0"
+     "detail": "10/24 - 12:00 PM PT",
+     "score": "ORE 0 - ILL 0"
     }
    ]
   },
