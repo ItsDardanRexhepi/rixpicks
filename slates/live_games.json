@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T14:49:48.526476+00:00",
+ "generated_at": "2026-10-24T15:04:49.393088+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -76,6 +76,56 @@
      "status": "pre",
      "detail": "10/24 - 9:00 AM PT",
      "score": "WMU 0 - TOL 0"
+    },
+    {
+     "espn_event_id": "401856834",
+     "matchup": "BAY @ KU",
+     "commence": "2026-10-24T17:00Z",
+     "status": "pre",
+     "detail": "10/24 - 10:00 AM PT",
+     "score": "BAY 0 - KU 0"
+    },
+    {
+     "espn_event_id": "401866446",
+     "matchup": "AKR @ KENT",
+     "commence": "2026-10-24T17:00Z",
+     "status": "pre",
+     "detail": "10/24 - 10:00 AM PT",
+     "score": "AKR 0 - KENT 0"
+    },
+    {
+     "espn_event_id": "401866476",
+     "matchup": "M-OH @ CMU",
+     "commence": "2026-10-24T17:00Z",
+     "status": "pre",
+     "detail": "10/24 - 10:00 AM PT",
+     "score": "M-OH 0 - CMU 0"
+    }
+   ]
+  },
+  {
+   "league": "WNBA",
+   "games": [
+    {
+     "espn_event_id": "401918308",
+     "matchup": "GS @ ATL",
+     "commence": "2026-10-24T17:00Z",
+     "status": "pre",
+     "detail": "10/24 - 10:00 AM PT",
+     "score": "GS 0 - ATL 0"
+    }
+   ]
+  },
+  {
+   "league": "NHL",
+   "games": [
+    {
+     "espn_event_id": "401892566",
+     "matchup": "ANA @ PHI",
+     "commence": "2026-10-24T17:00Z",
+     "status": "pre",
+     "detail": "10/24 - 10:00 AM PT",
+     "score": "ANA 0 - PHI 0"
     }
    ]
   }
