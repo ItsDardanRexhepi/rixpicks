@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-24T23:22:03.348913+00:00",
+ "generated_at": "2026-10-24T23:35:20.897161+00:00",
  "items": [
   {
-   "id": "e3c45b6906",
-   "league": "CFB",
-   "event": "Ole Miss Rebels @ Texas Longhorns",
-   "prediction": "Texas Longhorns to beat Ole Miss Rebels",
-   "kickoff_utc": "2026-10-24T23:30:00+00:00"
+   "id": "453cc1181a",
+   "league": "NBA",
+   "event": "Washington Wizards @ Chicago Bulls",
+   "prediction": "Chicago Bulls to beat Washington Wizards",
+   "kickoff_utc": "2026-10-25T00:00:00+00:00"
   },
   {
-   "id": "191cf8ea47",
-   "league": "CFB",
-   "event": "Iowa State Cyclones @ Arizona Wildcats",
-   "prediction": "Arizona Wildcats to beat Iowa State Cyclones",
-   "kickoff_utc": "2026-10-24T23:30:00+00:00"
-  },
-  {
-   "id": "3ebb6bcbb6",
-   "league": "CFB",
-   "event": "USC Trojans @ Wisconsin Badgers",
-   "prediction": "USC Trojans to beat Wisconsin Badgers",
-   "kickoff_utc": "2026-10-24T23:30:00+00:00"
-  },
-  {
-   "id": "f1e61fdec7",
-   "league": "CFB",
-   "event": "Vanderbilt Commodores @ Kentucky Wildcats",
-   "prediction": "Vanderbilt Commodores to beat Kentucky Wildcats",
-   "kickoff_utc": "2026-10-24T23:30:00+00:00"
-  },
-  {
-   "id": "0ec5d7231e",
+   "id": "efb9f7fd28",
    "league": "MLS",
-   "event": "Chicago Fire FC @ Atlanta United FC",
-   "prediction": "Atlanta United FC to beat Chicago Fire FC",
-   "kickoff_utc": "2026-10-24T23:30:00+00:00"
+   "event": "St. Louis CITY SC @ Real Salt Lake",
+   "prediction": "St. Louis CITY SC to beat Real Salt Lake",
+   "kickoff_utc": "2026-10-25T00:30:00+00:00"
   },
   {
-   "id": "aaf5486a57",
+   "id": "9fb31d4f6e",
    "league": "MLS",
-   "event": "New York City FC @ Orlando City SC",
-   "prediction": "Orlando City SC to beat New York City FC",
-   "kickoff_utc": "2026-10-24T23:30:00+00:00"
+   "event": "Austin FC @ Sporting Kansas City",
+   "prediction": "Austin FC to beat Sporting Kansas City",
+   "kickoff_utc": "2026-10-25T00:30:00+00:00"
+  },
+  {
+   "id": "cfad841423",
+   "league": "MLS",
+   "event": "Minnesota United FC @ Houston Dynamo FC",
+   "prediction": "Minnesota United FC to beat Houston Dynamo FC",
+   "kickoff_utc": "2026-10-25T00:30:00+00:00"
+  },
+  {
+   "id": "cfe59b345c",
+   "league": "MLS",
+   "event": "San Jose Earthquakes @ FC Dallas",
+   "prediction": "FC Dallas to beat San Jose Earthquakes",
+   "kickoff_utc": "2026-10-25T00:30:00+00:00"
+  },
+  {
+   "id": "8e39ab91db",
+   "league": "NBA",
+   "event": "Houston Rockets @ Atlanta Hawks",
+   "prediction": "Atlanta Hawks to beat Houston Rockets",
+   "kickoff_utc": "2026-10-25T00:30:00+00:00"
   }
  ]
 }
