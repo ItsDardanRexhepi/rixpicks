@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T03:19:52.933224+00:00",
+ "generated_at": "2026-10-24T03:34:52.025601+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,9 +9,9 @@
      "espn_event_id": "401908042",
      "matchup": "TB @ MIL",
      "commence": "2026-10-24T00:00Z",
-     "status": "in",
-     "detail": "Top 9th",
-     "score": "TB 1 - MIL 3"
+     "status": "post",
+     "detail": "Final",
+     "score": "TB 2 - MIL 3"
     }
    ]
   },
@@ -23,7 +23,7 @@
      "matchup": "ARMY @ TLSA",
      "commence": "2026-10-24T00:30Z",
      "status": "in",
-     "detail": "13:25 - 4th",
+     "detail": "8:13 - 4th",
      "score": "ARMY 28 - TLSA 35",
      "away_to": 0,
      "home_to": 1
@@ -33,7 +33,7 @@
      "matchup": "AFA @ WYO",
      "commence": "2026-10-24T01:00Z",
      "status": "in",
-     "detail": "15:00 - 4th",
+     "detail": "9:56 - 4th",
      "score": "AFA 14 - WYO 21",
      "away_to": 3,
      "home_to": 1
@@ -43,7 +43,7 @@
      "matchup": "NCSU @ STAN",
      "commence": "2026-10-24T02:30Z",
      "status": "in",
-     "detail": "14:45 - 2nd",
+     "detail": "10:42 - 2nd",
      "score": "NCSU 7 - STAN 14",
      "away_to": 3,
      "home_to": 3
@@ -66,28 +66,28 @@
      "matchup": "HOU @ SA",
      "commence": "2026-10-24T01:30Z",
      "status": "in",
-     "detail": "5:50 - 3rd",
-     "score": "HOU 75 - SA 68",
+     "detail": "59.7 - 3rd",
+     "score": "HOU 85 - SA 79",
      "away_to": 6,
-     "home_to": 4
+     "home_to": 2
     },
     {
      "espn_event_id": "401909849",
      "matchup": "NO @ UTAH",
      "commence": "2026-10-24T01:30Z",
      "status": "in",
-     "detail": "3:22 - 3rd",
-     "score": "NO 80 - UTAH 80",
+     "detail": "9:42 - 4th",
+     "score": "NO 94 - UTAH 91",
      "away_to": 3,
-     "home_to": 2
+     "home_to": 3
     },
     {
      "espn_event_id": "401909850",
      "matchup": "MEM @ GS",
      "commence": "2026-10-24T02:00Z",
      "status": "in",
-     "detail": "1:35 - 2nd",
-     "score": "MEM 57 - GS 52",
+     "detail": "Halftime",
+     "score": "MEM 60 - GS 56",
      "away_to": 6,
      "home_to": 4
     },
@@ -96,9 +96,9 @@
      "matchup": "LAC @ LAL",
      "commence": "2026-10-24T02:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "LAC 64 - LAL 64",
-     "away_to": 5,
+     "detail": "7:49 - 3rd",
+     "score": "LAC 72 - LAL 77",
+     "away_to": 4,
      "home_to": 5
     },
     {
@@ -106,8 +106,8 @@
      "matchup": "POR @ SAC",
      "commence": "2026-10-24T02:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "POR 59 - SAC 64",
+     "detail": "10:42 - 3rd",
+     "score": "POR 64 - SAC 64",
      "away_to": 5,
      "home_to": 5
     }
@@ -129,8 +129,8 @@
      "matchup": "TB @ COL",
      "commence": "2026-10-24T01:00Z",
      "status": "in",
-     "detail": "19:33 - 3rd",
-     "score": "TB 2 - COL 4",
+     "detail": "12:30 - 3rd",
+     "score": "TB 2 - COL 5",
      "away_to": null,
      "home_to": null
     }
@@ -151,8 +151,8 @@
      "espn_event_id": "401854028",
      "matchup": "SEA @ UTA",
      "commence": "2026-10-24T01:30Z",
-     "status": "in",
-     "detail": "85'",
+     "status": "post",
+     "detail": "FT",
      "score": "SEA 0 - UTA 0"
     },
     {
@@ -160,8 +160,8 @@
      "matchup": "NC @ POR",
      "commence": "2026-10-24T02:00Z",
      "status": "in",
-     "detail": "50'",
-     "score": "NC 0 - POR 0"
+     "detail": "65'",
+     "score": "NC 0 - POR 1"
     }
    ]
   }
