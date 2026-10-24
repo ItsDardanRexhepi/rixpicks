@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-24T18:04:49.301351+00:00",
+ "generated_at": "2026-10-24T18:19:50.514671+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,8 +10,8 @@
      "matchup": "PITT @ MIA",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "PITT 7 - MIA 31",
+     "detail": "10:18 - 3rd",
+     "score": "PITT 14 - MIA 38",
      "away_to": 0,
      "home_to": 1
     },
@@ -20,7 +20,7 @@
      "matchup": "IU @ MICH",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "6:58 - 3rd",
      "score": "IU 6 - MICH 0",
      "away_to": 0,
      "home_to": 0
@@ -30,8 +30,8 @@
      "matchup": "TTU @ CIN",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "TTU 6 - CIN 24",
+     "detail": "8:49 - 3rd",
+     "score": "TTU 9 - CIN 24",
      "away_to": 0,
      "home_to": 0
     },
@@ -40,7 +40,7 @@
      "matchup": "LSU @ AUB",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "Halftime",
+     "detail": "12:52 - 3rd",
      "score": "LSU 31 - AUB 10",
      "away_to": 0,
      "home_to": 1
@@ -50,8 +50,8 @@
      "matchup": "CAL @ SMU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "Halftime",
-     "score": "CAL 17 - SMU 17",
+     "detail": "10:10 - 3rd",
+     "score": "CAL 20 - SMU 24",
      "away_to": 2,
      "home_to": 2
     },
@@ -60,7 +60,7 @@
      "matchup": "RUTG @ NU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "12:29 - 3rd",
+     "detail": "4:49 - 3rd",
      "score": "RUTG 6 - NU 28",
      "away_to": 0,
      "home_to": 0
@@ -70,8 +70,8 @@
      "matchup": "WVU @ TCU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "10:00 - 3rd",
-     "score": "WVU 10 - TCU 13",
+     "detail": "5:33 - 3rd",
+     "score": "WVU 17 - TCU 13",
      "away_to": 3,
      "home_to": 1
     },
@@ -80,8 +80,8 @@
      "matchup": "RICE @ FAU",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "15:00 - 3rd",
-     "score": "RICE 21 - FAU 23",
+     "detail": "11:05 - 3rd",
+     "score": "RICE 28 - FAU 37",
      "away_to": 2,
      "home_to": 2
     },
@@ -90,7 +90,7 @@
      "matchup": "WMU @ TOL",
      "commence": "2026-10-24T16:00Z",
      "status": "in",
-     "detail": "14:47 - 3rd",
+     "detail": "10:33 - 3rd",
      "score": "WMU 21 - TOL 31",
      "away_to": 2,
      "home_to": 3
@@ -100,19 +100,19 @@
      "matchup": "BAY @ KU",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "6:46 - 2nd",
+     "detail": "1:13 - 2nd",
      "score": "BAY 7 - KU 7",
-     "away_to": 3,
-     "home_to": 2
+     "away_to": 1,
+     "home_to": 1
     },
     {
      "espn_event_id": "401866446",
      "matchup": "AKR @ KENT",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "6:22 - 2nd",
+     "detail": "1:53 - 2nd",
      "score": "AKR 7 - KENT 0",
-     "away_to": 1,
+     "away_to": 0,
      "home_to": 3
     },
     {
@@ -120,8 +120,8 @@
      "matchup": "M-OH @ CMU",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "6:25 - 2nd",
-     "score": "M-OH 7 - CMU 3",
+     "detail": "1:01 - 2nd",
+     "score": "M-OH 7 - CMU 10",
      "away_to": 3,
      "home_to": 3
     },
@@ -255,8 +255,8 @@
      "matchup": "GS @ ATL",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "1:57 - 2nd",
-     "score": "GS 35 - ATL 22",
+     "detail": "Halftime",
+     "score": "GS 42 - ATL 26",
      "away_to": 4,
      "home_to": 3
     }
@@ -270,7 +270,7 @@
      "matchup": "ANA @ PHI",
      "commence": "2026-10-24T17:00Z",
      "status": "in",
-     "detail": "End of 1st",
+     "detail": "12:53 - 2nd",
      "score": "ANA 0 - PHI 2",
      "away_to": null,
      "home_to": null
@@ -293,7 +293,7 @@
      "matchup": "NSH @ MTL",
      "commence": "2026-10-24T17:30Z",
      "status": "in",
-     "detail": "24'",
+     "detail": "39'",
      "score": "NSH 0 - MTL 0"
     },
     {
