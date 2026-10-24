@@ -5139,5 +5139,18 @@
   "kickoff_utc": "2026-10-25T02:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-24T21:03:13.292192+00:00"
+ },
+ {
+  "id": "85de92655f",
+  "event_id": "401909860",
+  "league": "NBA",
+  "path": "basketball/nba",
+  "home": "Phoenix Suns",
+  "away": "Golden State Warriors",
+  "pick_team": "Golden State Warriors",
+  "prediction": "Golden State Warriors to beat Phoenix Suns",
+  "kickoff_utc": "2026-10-25T02:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-24T22:20:44.854524+00:00"
  }
 ]
