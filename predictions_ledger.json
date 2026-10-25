@@ -5172,8 +5172,9 @@
   "pick_team": "Calgary Flames",
   "prediction": "Calgary Flames to beat Detroit Red Wings",
   "kickoff_utc": "2026-10-25T02:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T21:03:13.292192+00:00"
+  "status": "hit",
+  "created_at": "2026-10-24T21:03:13.292192+00:00",
+  "settled_at": "2026-10-25T04:49:33.984621+00:00"
  },
  {
   "id": "85de92655f",
