@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-25T14:39:51.843459+00:00",
+ "generated_at": "2026-10-25T14:49:47.607160+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,9 +10,9 @@
      "matchup": "PIT @ NO",
      "commence": "2026-10-25T13:30Z",
      "status": "in",
-     "detail": "2:21 - 2nd",
-     "score": "PIT 10 - NO 3",
-     "away_to": 3,
+     "detail": "1:45 - 2nd",
+     "score": "PIT 10 - NO 10",
+     "away_to": 1,
      "home_to": 2
     }
    ]
