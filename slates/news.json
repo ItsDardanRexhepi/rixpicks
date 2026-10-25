@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-25T02:45:34.072Z",
+ "generated_at": "2026-10-25T02:50:43.014Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "'We have to finish': Texas A&M HC, players discuss Alabama loss",
-    "link": "https://sports.yahoo.com/articles/finish-texas-m-hc-players-021840322.html",
-    "published": "2026-10-25T02:18:40.000Z",
+    "headline": "Clemson\u2019s Dabo Swinney takes accountability for \u2018pitiful\u2019 1st half vs. Virginia Tech",
+    "link": "https://sports.yahoo.com/articles/clemson-dabo-swinney-takes-accountability-022115449.html",
+    "published": "2026-10-25T02:21:15.000Z",
     "image": "",
-    "blurb": "Here is everything Texas A&M head coach Mike Elko, quarterback Marcel Reed and linebacker Daymion Sanford said after the 31-20 loss to Alabama.",
+    "blurb": "Coach Dabo Swinney\u2019s Clemson Tigers, fresh off of a huge recruiting win , welcomed James Franklin\u2019s Virginia Tech Hokies to Clemson, South Carolina for a Week 8 tilt that the Hokies led, 10-3, at halftime. The Tigers have become an afterthought in the ACC title race but got a com",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -499,11 +499,11 @@
     "league": "NHL"
    },
    {
-    "headline": "Penguins/Predators Recap: Pens make comeback, win 3-2 in OT",
-    "link": "https://sports.yahoo.com/articles/penguins-predators-recap-pens-comeback-015820015.html",
-    "published": "2026-10-25T01:58:20.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/2ccfadc0a042cae49278be3bf21fa66261473c839532b5208294be7bb5ceedce/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F009ea372f1ea7a88591ad36ab876dc52.jpg",
-    "blurb": "Pregame Evgeni Malkin\u2019s illness leads to his first missed game of the season, Avery Hayes gets called up from the AHL and hops right into Malkin\u2019s spot in the lineup. Arturs Silovs gets his third game in a row in net. Nashville comes to town with this lineup for the night. First ",
+    "headline": "Golden Knights Drop Third Straight Game with Overtime Loss to Blue Jackets",
+    "link": "https://sports.yahoo.com/articles/golden-knights-drop-third-straight-022006210.html",
+    "published": "2026-10-25T02:20:06.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/e7a3fe45e5d10f48c8436eaf496cd217ece8fcceeda9b709e2458861defb311c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_las_vegas_golden_knights_articles_813%2Fcb580e915d945a4c191bf75e9badb4a3.jpg",
+    "blurb": "On Saturday, the Vegas Golden Knights dropped their third straight game, losing 2-1 in overtime to the Columbus Blue Jackets.",
     "source": "YAHOO",
     "league": "NHL"
    },
@@ -526,11 +526,11 @@
     "league": "NHL"
    },
    {
-    "headline": "Alex Tuch gets winner against former team and Dylan Strome scores twice, as Capitals beat Sabres 4-3",
-    "link": "https://sports.yahoo.com/articles/alex-tuch-gets-winner-against-015257506.html",
-    "published": "2026-10-25T01:52:57.000Z",
+    "headline": "Penguins/Predators Recap: Pens make comeback, win 3-2 in OT",
+    "link": "https://sports.yahoo.com/articles/penguins-predators-recap-pens-comeback-015820015.html",
+    "published": "2026-10-25T01:58:20.000Z",
     "image": "",
-    "blurb": "WASHINGTON (AP) \u2014 Alex Tuch scored two goals, including the winner in overtime, to lead the Washington Capitals to a win over the Buffalo Sabres, 4-3 on Saturday night.Charlie Lindgren made 18 saves for the Capitals.",
+    "blurb": "Pregame Evgeni Malkin\u2019s illness leads to his first missed game of the season, Avery Hayes gets called up from the AHL and hops right into Malkin\u2019s spot in the lineup. Arturs Silovs gets his third game in a row in net. Nashville comes to town with this lineup for the night. First ",
     "source": "YAHOO",
     "league": "NHL"
    },
@@ -1240,6 +1240,15 @@
    "league": "NASCAR"
   },
   {
+   "headline": "Golden Knights Drop Third Straight Game with Overtime Loss to Blue Jackets",
+   "link": "https://sports.yahoo.com/articles/golden-knights-drop-third-straight-022006210.html",
+   "published": "2026-10-25T02:20:06.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/e7a3fe45e5d10f48c8436eaf496cd217ece8fcceeda9b709e2458861defb311c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_las_vegas_golden_knights_articles_813%2Fcb580e915d945a4c191bf75e9badb4a3.jpg",
+   "blurb": "On Saturday, the Vegas Golden Knights dropped their third straight game, losing 2-1 in overtime to the Columbus Blue Jackets.",
+   "source": "YAHOO",
+   "league": "NHL"
+  },
+  {
    "headline": "5 Dayton Flyers score in double figures in exhibition win over Morehead State",
    "link": "https://sports.yahoo.com/articles/5-dayton-flyers-score-double-020626539.html",
    "published": "2026-10-25T02:06:26.000Z",
@@ -1256,15 +1265,6 @@
    "blurb": "Monmouth basketball showed defensive grit and athleticism against Seton Hall with strong play from key guards.",
    "source": "YAHOO",
    "league": "NCAAB"
-  },
-  {
-   "headline": "Penguins/Predators Recap: Pens make comeback, win 3-2 in OT",
-   "link": "https://sports.yahoo.com/articles/penguins-predators-recap-pens-comeback-015820015.html",
-   "published": "2026-10-25T01:58:20.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/2ccfadc0a042cae49278be3bf21fa66261473c839532b5208294be7bb5ceedce/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F009ea372f1ea7a88591ad36ab876dc52.jpg",
-   "blurb": "Pregame Evgeni Malkin\u2019s illness leads to his first missed game of the season, Avery Hayes gets called up from the AHL and hops right into Malkin\u2019s spot in the lineup. Arturs Silovs gets his third game in a row in net. Nashville comes to town with this lineup for the night. First ",
-   "source": "YAHOO",
-   "league": "NHL"
   },
   {
    "headline": "Fourth quarter implosion sends WSU to 1-7 in 31-10 loss to No. 21 Boise State",
