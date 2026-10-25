@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-25T02:19:37.824084+00:00",
+ "generated_at": "2026-10-25T02:34:37.493704+00:00",
  "items": [
-  {
-   "id": "3cc3914cc5",
-   "league": "MLS",
-   "event": "Seattle Sounders FC @ San Diego FC",
-   "prediction": "Seattle Sounders FC to beat San Diego FC",
-   "kickoff_utc": "2026-10-25T02:30:00+00:00"
-  },
-  {
-   "id": "8495ebe947",
-   "league": "MLS",
-   "event": "Charlotte FC @ Portland Timbers",
-   "prediction": "Charlotte FC to beat Portland Timbers",
-   "kickoff_utc": "2026-10-25T02:30:00+00:00"
-  },
   {
    "id": "39928797f3",
    "league": "NFL",
@@ -41,6 +27,20 @@
    "league": "NFL",
    "event": "Tampa Bay Buccaneers @ Carolina Panthers",
    "prediction": "Carolina Panthers to beat Tampa Bay Buccaneers",
+   "kickoff_utc": "2026-10-25T17:00:00+00:00"
+  },
+  {
+   "id": "9cbef6c573",
+   "league": "NFL",
+   "event": "Indianapolis Colts @ Minnesota Vikings",
+   "prediction": "Minnesota Vikings to beat Indianapolis Colts",
+   "kickoff_utc": "2026-10-25T17:00:00+00:00"
+  },
+  {
+   "id": "0ac7adfcdd",
+   "league": "NFL",
+   "event": "New York Giants @ Houston Texans",
+   "prediction": "Houston Texans to beat New York Giants",
    "kickoff_utc": "2026-10-25T17:00:00+00:00"
   }
  ]
