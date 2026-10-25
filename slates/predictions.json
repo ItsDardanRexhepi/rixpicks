@@ -1,47 +1,47 @@
 {
- "generated_at": "2026-10-25T00:20:59.182026+00:00",
+ "generated_at": "2026-10-25T00:36:14.129628+00:00",
  "items": [
-  {
-   "id": "efb9f7fd28",
-   "league": "MLS",
-   "event": "St. Louis CITY SC @ Real Salt Lake",
-   "prediction": "St. Louis CITY SC to beat Real Salt Lake",
-   "kickoff_utc": "2026-10-25T00:30:00+00:00"
-  },
-  {
-   "id": "9fb31d4f6e",
-   "league": "MLS",
-   "event": "Austin FC @ Sporting Kansas City",
-   "prediction": "Austin FC to beat Sporting Kansas City",
-   "kickoff_utc": "2026-10-25T00:30:00+00:00"
-  },
-  {
-   "id": "cfad841423",
-   "league": "MLS",
-   "event": "Minnesota United FC @ Houston Dynamo FC",
-   "prediction": "Minnesota United FC to beat Houston Dynamo FC",
-   "kickoff_utc": "2026-10-25T00:30:00+00:00"
-  },
-  {
-   "id": "cfe59b345c",
-   "league": "MLS",
-   "event": "San Jose Earthquakes @ FC Dallas",
-   "prediction": "FC Dallas to beat San Jose Earthquakes",
-   "kickoff_utc": "2026-10-25T00:30:00+00:00"
-  },
-  {
-   "id": "8e39ab91db",
-   "league": "NBA",
-   "event": "Houston Rockets @ Atlanta Hawks",
-   "prediction": "Atlanta Hawks to beat Houston Rockets",
-   "kickoff_utc": "2026-10-25T00:30:00+00:00"
-  },
   {
    "id": "082747e1fe",
    "league": "NWSL",
    "event": "Bay FC @ Angel City FC",
    "prediction": "Angel City FC to beat Bay FC",
    "kickoff_utc": "2026-10-25T00:45:00+00:00"
+  },
+  {
+   "id": "99e263bd02",
+   "league": "NBA",
+   "event": "New Orleans Pelicans @ Denver Nuggets",
+   "prediction": "Denver Nuggets to beat New Orleans Pelicans",
+   "kickoff_utc": "2026-10-25T01:00:00+00:00"
+  },
+  {
+   "id": "c65663cefc",
+   "league": "NHL",
+   "event": "Tampa Bay Lightning @ Utah Mammoth",
+   "prediction": "Tampa Bay Lightning to beat Utah Mammoth",
+   "kickoff_utc": "2026-10-25T01:00:00+00:00"
+  },
+  {
+   "id": "5af98bb1c1",
+   "league": "MLS",
+   "event": "Vancouver Whitecaps @ Colorado Rapids",
+   "prediction": "Colorado Rapids to beat Vancouver Whitecaps",
+   "kickoff_utc": "2026-10-25T01:30:00+00:00"
+  },
+  {
+   "id": "4a88ca5beb",
+   "league": "NHL",
+   "event": "Detroit Red Wings @ Calgary Flames",
+   "prediction": "Calgary Flames to beat Detroit Red Wings",
+   "kickoff_utc": "2026-10-25T02:00:00+00:00"
+  },
+  {
+   "id": "85de92655f",
+   "league": "NBA",
+   "event": "Golden State Warriors @ Phoenix Suns",
+   "prediction": "Golden State Warriors to beat Phoenix Suns",
+   "kickoff_utc": "2026-10-25T02:00:00+00:00"
   }
  ]
 }
