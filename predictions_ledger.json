@@ -4529,8 +4529,9 @@
   "pick_team": "St. Louis CITY SC",
   "prediction": "St. Louis CITY SC to beat Real Salt Lake",
   "kickoff_utc": "2026-10-25T00:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-22T10:07:30.681983+00:00"
+  "status": "miss",
+  "created_at": "2026-10-22T10:07:30.681983+00:00",
+  "settled_at": "2026-10-25T03:49:36.964119+00:00"
  },
  {
   "id": "4e8e2c59ac",
