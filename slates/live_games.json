@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-25T13:19:54.904013+00:00",
+ "generated_at": "2026-10-25T13:34:52.549940+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -9,9 +9,11 @@
      "espn_event_id": "401873011",
      "matchup": "PIT @ NO",
      "commence": "2026-10-25T13:30Z",
-     "status": "pre",
-     "detail": "10/25 - 6:30 AM PT",
-     "score": "PIT 0 - NO 0"
+     "status": "in",
+     "detail": "14:18 - 1st",
+     "score": "PIT 0 - NO 0",
+     "away_to": 3,
+     "home_to": 3
     }
    ]
   }
