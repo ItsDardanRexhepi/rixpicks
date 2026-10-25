@@ -4963,8 +4963,9 @@
   "pick_team": "Washington Capitals",
   "prediction": "Washington Capitals to beat Buffalo Sabres",
   "kickoff_utc": "2026-10-24T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T15:35:46.866024+00:00"
+  "status": "hit",
+  "created_at": "2026-10-24T15:35:46.866024+00:00",
+  "settled_at": "2026-10-25T01:49:34.446159+00:00"
  },
  {
   "id": "6a0bb59bfe",
@@ -4976,8 +4977,9 @@
   "pick_team": "Boston Bruins",
   "prediction": "Boston Bruins to beat San Jose Sharks",
   "kickoff_utc": "2026-10-24T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T16:43:10.905178+00:00"
+  "status": "hit",
+  "created_at": "2026-10-24T16:43:10.905178+00:00",
+  "settled_at": "2026-10-25T01:49:34.492108+00:00"
  },
  {
   "id": "2e48a44466",
@@ -4989,8 +4991,9 @@
   "pick_team": "St. Louis Blues",
   "prediction": "St. Louis Blues to beat Carolina Hurricanes",
   "kickoff_utc": "2026-10-24T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T16:44:15.951339+00:00"
+  "status": "miss",
+  "created_at": "2026-10-24T16:44:15.951339+00:00",
+  "settled_at": "2026-10-25T01:49:34.549577+00:00"
  },
  {
   "id": "0c69880361",
@@ -5002,8 +5005,9 @@
   "pick_team": "Edmonton Oilers",
   "prediction": "Edmonton Oilers to beat Toronto Maple Leafs",
   "kickoff_utc": "2026-10-24T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T16:44:19.990390+00:00"
+  "status": "miss",
+  "created_at": "2026-10-24T16:44:19.990390+00:00",
+  "settled_at": "2026-10-25T01:49:34.774135+00:00"
  },
  {
   "id": "870e6b4bb1",
@@ -5081,8 +5085,9 @@
   "pick_team": "Pittsburgh Penguins",
   "prediction": "Pittsburgh Penguins to beat Nashville Predators",
   "kickoff_utc": "2026-10-24T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T18:40:48.242471+00:00"
+  "status": "hit",
+  "created_at": "2026-10-24T18:40:48.242471+00:00",
+  "settled_at": "2026-10-25T01:49:34.818873+00:00"
  },
  {
   "id": "082747e1fe",
@@ -5107,8 +5112,9 @@
   "pick_team": "New York Rangers",
   "prediction": "New York Rangers to beat Ottawa Senators",
   "kickoff_utc": "2026-10-24T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T19:18:37.585461+00:00"
+  "status": "miss",
+  "created_at": "2026-10-24T19:18:37.585461+00:00",
+  "settled_at": "2026-10-25T01:49:34.859629+00:00"
  },
  {
   "id": "9fdce44cf2",
@@ -5120,8 +5126,9 @@
   "pick_team": "Columbus Blue Jackets",
   "prediction": "Columbus Blue Jackets to beat Vegas Golden Knights",
   "kickoff_utc": "2026-10-24T23:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T19:18:44.077474+00:00"
+  "status": "hit",
+  "created_at": "2026-10-24T19:18:44.077474+00:00",
+  "settled_at": "2026-10-25T01:49:35.041799+00:00"
  },
  {
   "id": "c65663cefc",
