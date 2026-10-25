@@ -121,24 +121,24 @@ h1 .tick{color:#3BEBF5}
 <div class="wrap">
 <a class="back" href="./">&larr; Today&rsquo;s picks</a>
 <div class="sect" style="margin-top:18px">Team</div>
-<div class="pick" data-espn="hockey/nhl" data-team="Edmonton Oilers" data-abbr="EDM" data-eid="401892574" data-game-day="2026-10-24">
-  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/edm.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Edmonton Oilers</span><span class="odds">8-1</span></div>
-  <div class="sub">Record 8-1 · Streak W3</div>
-  <div class="score" id="rpScore">Today: vs Toronto Maple Leafs · 4:00 PM PT</div>
+<div class="pick" data-espn="hockey/nhl" data-team="Edmonton Oilers" data-abbr="EDM" data-eid="401892584" data-game-day="2026-10-26">
+  <div class="pick-head"><img src="https://a.espncdn.com/i/teamlogos/nhl/500/edm.png" alt="" style="width:26px;height:26px;object-fit:contain;margin-right:8px" onerror="this.remove()"><span class="name">Edmonton Oilers</span><span class="odds">8-2</span></div>
+  <div class="sub">Record 8-2 · Streak L1</div>
+  <div class="score" id="rpScore">Next up: vs Detroit Red Wings · Mon, Oct 26, 6:30 PM PT</div>
 </div>
 
 <div class="sect">Form - last 5</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 6-5 vs CAR · 10-22</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 4-3 vs MIN · 10-20</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 6-2 @ UTA · 10-17</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 2-4 vs UTA · 10-15</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 4-1 @ LA · 10-13</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 2-7 vs TOR · 10-24</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 6-5 vs CAR · 10-22</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 4-3 vs MIN · 10-20</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">W 6-2 @ UTA · 10-17</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">L 2-4 vs UTA · 10-15</div>
 <div class="sect">Scoring - last 10</div>
-<div class="sub" style="padding:7px 0">Scored 4.7 &middot; allowed 3.2 per game over last 10</div>
+<div class="sub" style="padding:7px 0">Scored 4.4 &middot; allowed 3.3 per game over last 10</div>
 <div class="sect">Next up</div>
-<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs TOR · 10-24</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs DET · 10-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs CGY · 10-28</div>
+<div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs DET · 10-26</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">vs CGY · 10-28</div><div class="sub" style="padding:7px 0;border-bottom:1px solid rgba(127,127,127,.15)">@ NYI · 10-31</div>
 <div class="sect">Injuries</div>
 <div class="sub">Injury data unavailable.</div>
 <div class="foot">Stats refresh with each page rebuild; today&rsquo;s score ticks live during the game.</div>
 </div>
 <script>
-const RP_BUILD='1792892103';
+const RP_BUILD='1792893001';
 function rpPTDay(iso){const d=new Date(iso);if(!isFinite(d.getTime()))return '';
  const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
  const y=z.find(x=>x.type==='year'),m=z.find(x=>x.type==='month'),day=z.find(x=>x.type==='day');return y&&m&&day?y.value+'-'+m.value+'-'+day.value:'';}
