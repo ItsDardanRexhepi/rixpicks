@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-10-25T07:30:36.766Z",
+ "generated_at": "2026-10-25T07:35:30.420Z",
  "leagues": {
   "baseball/mlb": [
    {
     "headline": "World Series Game 2 comeback shows Brewers are inevitable",
     "link": "https://www.espn.com/mlb/story/_/id/50273430/world-series-game-2-rays-brewers-comeback-inevitable",
-    "published": "2026-10-25T07:27:35Z",
+    "published": "2026-10-25T07:32:50Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1025%2Fr1735795_2_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The comeback kids have done it again -- and look on their way to a World Series title.",
@@ -32,7 +32,7 @@
    {
     "headline": "Brewers rally vs. Rays in Game 2 to take 2-0 lead in World Series",
     "link": "https://www.espn.com/mlb/story/_/id/50273821/brewers-rally-vs-rays-game-2-take-2-0-world-series-lead",
-    "published": "2026-10-25T07:16:53Z",
+    "published": "2026-10-25T07:30:49Z",
     "source": "ESPN",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1025%2Fr1735783_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The Brewers rallied from a 4-0 deficit in the first inning to beat the Rays 5-4 in Game 2 on Saturday and take a 2-0 lead in the World Series.",
@@ -636,11 +636,11 @@
     "league": "NCAAB"
    },
    {
-    "headline": "Former Gonzaga guard Tyon Grant-Foster selected in first round of NBA G League draft",
-    "link": "https://sports.yahoo.com/articles/former-gonzaga-guard-tyon-grant-024409948.html",
-    "published": "2026-10-25T02:44:09.000Z",
+    "headline": "JJ Andrews Shows His Value Beyond Scoring in Arkansas' Win Over Gonzaga",
+    "link": "https://sports.yahoo.com/articles/jj-andrews-shows-value-beyond-032007155.html",
+    "published": "2026-10-25T03:20:07.000Z",
     "image": "",
-    "blurb": "The path to the NBA for former Gonzaga Bulldogs guard Tyon Grant-Foster will start in Sioux Falls, South Dakota. Grant-Foster, who spent his final season of col",
+    "blurb": "JJ Andrews recorded 10 points and nine rebounds as Arkansas beat Gonzaga 76-72 in a preseason exhibition at Bud Walton Arena.",
     "source": "YAHOO",
     "league": "NCAAB"
    }
@@ -1089,10 +1089,19 @@
   {
    "headline": "World Series Game 2 comeback shows Brewers are inevitable",
    "link": "https://www.espn.com/mlb/story/_/id/50273430/world-series-game-2-rays-brewers-comeback-inevitable",
-   "published": "2026-10-25T07:27:35Z",
+   "published": "2026-10-25T07:32:50Z",
    "source": "ESPN",
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1025%2Fr1735795_2_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The comeback kids have done it again -- and look on their way to a World Series title.",
+   "league": "MLB"
+  },
+  {
+   "headline": "Brewers rally vs. Rays in Game 2 to take 2-0 lead in World Series",
+   "link": "https://www.espn.com/mlb/story/_/id/50273821/brewers-rally-vs-rays-game-2-take-2-0-world-series-lead",
+   "published": "2026-10-25T07:30:49Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1025%2Fr1735783_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "The Brewers rallied from a 4-0 deficit in the first inning to beat the Rays 5-4 in Game 2 on Saturday and take a 2-0 lead in the World Series.",
    "league": "MLB"
   },
   {
@@ -1112,15 +1121,6 @@
    "blurb": "Wanted: a magic wand.",
    "source": "YAHOO",
    "league": "CFB"
-  },
-  {
-   "headline": "Brewers rally vs. Rays in Game 2 to take 2-0 lead in World Series",
-   "link": "https://www.espn.com/mlb/story/_/id/50273821/brewers-rally-vs-rays-game-2-take-2-0-world-series-lead",
-   "published": "2026-10-25T07:16:53Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1025%2Fr1735783_600x400_3-2.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Brewers rallied from a 4-0 deficit in the first inning to beat the Rays 5-4 in Game 2 on Saturday and take a 2-0 lead in the World Series.",
-   "league": "MLB"
   },
   {
    "headline": "Tomorrow's Top 25 Today: Texas vaults back into top 10 as BYU, Texas Tech fall in college football rankings",
