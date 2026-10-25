@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-25T21:09:39.670782+00:00",
+ "generated_at": "2026-10-25T23:19:02.221466+00:00",
  "leagues": [
   {
    "league": "NFL",
@@ -10,19 +10,19 @@
      "matchup": "DEN @ ARI",
      "commence": "2026-10-25T20:05Z",
      "status": "in",
-     "detail": "9:22 - 2nd",
-     "score": "DEN 6 - ARI 3",
+     "detail": "2:25 - 4th",
+     "score": "DEN 30 - ARI 16",
      "away_to": 1,
-     "home_to": 3
+     "home_to": 0
     },
     {
      "espn_event_id": "401873020",
      "matchup": "GB @ DET",
      "commence": "2026-10-25T20:25Z",
      "status": "in",
-     "detail": "12:36 - 2nd",
-     "score": "GB 7 - DET 10",
-     "away_to": 2,
+     "detail": "2:20 - 4th",
+     "score": "GB 17 - DET 17",
+     "away_to": 1,
      "home_to": 3
     },
     {
@@ -30,10 +30,18 @@
      "matchup": "LAR @ LV",
      "commence": "2026-10-25T20:25Z",
      "status": "in",
-     "detail": "13:40 - 2nd",
-     "score": "LAR 7 - LV 3",
+     "detail": "5:27 - 4th",
+     "score": "LAR 35 - LV 18",
      "away_to": 2,
-     "home_to": 3
+     "home_to": 2
+    },
+    {
+     "espn_event_id": "401873022",
+     "matchup": "KC @ SEA",
+     "commence": "2026-10-26T00:20Z",
+     "status": "pre",
+     "detail": "10/25 - 5:20 PM PT",
+     "score": "KC 0 - SEA 0"
     }
    ]
   },
@@ -41,36 +49,70 @@
    "league": "NBA",
    "games": [
     {
+     "espn_event_id": "401909861",
+     "matchup": "LAL @ UTAH",
+     "commence": "2026-10-25T21:00Z",
+     "status": "in",
+     "detail": "6:43 - 4th",
+     "score": "LAL 113 - UTAH 111",
+     "away_to": 3,
+     "home_to": 3
+    },
+    {
      "espn_event_id": "401909862",
      "matchup": "IND @ BKN",
      "commence": "2026-10-25T22:00Z",
-     "status": "pre",
-     "detail": "10/25 - 3:00 PM PT",
-     "score": "IND 0 - BKN 0"
+     "status": "in",
+     "detail": "Halftime",
+     "score": "IND 65 - BKN 56",
+     "away_to": 5,
+     "home_to": 5
     },
     {
      "espn_event_id": "401909863",
      "matchup": "ORL @ NY",
      "commence": "2026-10-25T23:00Z",
-     "status": "pre",
-     "detail": "10/25 - 4:00 PM PT",
-     "score": "ORL 0 - NY 0"
+     "status": "in",
+     "detail": "7:18 - 1st",
+     "score": "ORL 0 - NY 12",
+     "away_to": 6,
+     "home_to": 7
     },
     {
      "espn_event_id": "401909864",
      "matchup": "TOR @ MIN",
      "commence": "2026-10-25T23:00Z",
-     "status": "pre",
-     "detail": "10/25 - 4:00 PM PT",
-     "score": "TOR 0 - MIN 0"
+     "status": "in",
+     "detail": "9:10 - 1st",
+     "score": "TOR 5 - MIN 7",
+     "away_to": 7,
+     "home_to": 7
     },
     {
      "espn_event_id": "401909865",
      "matchup": "LAC @ OKC",
      "commence": "2026-10-25T23:00Z",
+     "status": "in",
+     "detail": "6:58 - 1st",
+     "score": "LAC 12 - OKC 12",
+     "away_to": 7,
+     "home_to": 6
+    },
+    {
+     "espn_event_id": "401909866",
+     "matchup": "DET @ PHI",
+     "commence": "2026-10-25T23:30Z",
      "status": "pre",
-     "detail": "10/25 - 4:00 PM PT",
-     "score": "LAC 0 - OKC 0"
+     "detail": "10/25 - 4:30 PM PT",
+     "score": "DET 0 - PHI 0"
+    },
+    {
+     "espn_event_id": "401909867",
+     "matchup": "MEM @ SAC",
+     "commence": "2026-10-26T01:00Z",
+     "status": "pre",
+     "detail": "10/25 - 6:00 PM PT",
+     "score": "MEM 0 - SAC 0"
     }
    ]
   },
@@ -78,30 +120,45 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401892578",
-     "matchup": "FLA @ CHI",
-     "commence": "2026-10-25T19:00Z",
-     "status": "in",
-     "detail": "End of 2nd",
-     "score": "FLA 2 - CHI 2",
-     "away_to": null,
-     "home_to": null
-    },
-    {
      "espn_event_id": "401892579",
      "matchup": "NYI @ DAL",
      "commence": "2026-10-25T22:00Z",
-     "status": "pre",
-     "detail": "10/25 - 3:00 PM PT",
-     "score": "NYI 0 - DAL 0"
+     "status": "in",
+     "detail": "10:53 - 2nd",
+     "score": "NYI 2 - DAL 2",
+     "away_to": null,
+     "home_to": null
     },
     {
      "espn_event_id": "401891807",
      "matchup": "MTL @ WPG",
      "commence": "2026-10-25T23:00Z",
+     "status": "in",
+     "detail": "20:00 - 1st",
+     "score": "MTL 0 - WPG 0",
+     "away_to": null,
+     "home_to": null
+    },
+    {
+     "espn_event_id": "401892580",
+     "matchup": "COL @ NSH",
+     "commence": "2026-10-26T00:00Z",
      "status": "pre",
-     "detail": "10/25 - 4:00 PM PT",
-     "score": "MTL 0 - WPG 0"
+     "detail": "10/25 - 5:00 PM PT",
+     "score": "COL 0 - NSH 0"
+    }
+   ]
+  },
+  {
+   "league": "MLS",
+   "games": [
+    {
+     "espn_event_id": "761904",
+     "matchup": "LA @ LAFC",
+     "commence": "2026-10-26T01:00Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "LA 0 - LAFC 0"
     }
    ]
   },
@@ -109,27 +166,19 @@
    "league": "NWSL",
    "games": [
     {
-     "espn_event_id": "401854031",
-     "matchup": "GFC @ ORL",
-     "commence": "2026-10-25T19:00Z",
-     "status": "post",
-     "detail": "FT",
-     "score": "GFC 2 - ORL 1"
-    },
-    {
      "espn_event_id": "401854032",
      "matchup": "WAS @ KC",
      "commence": "2026-10-25T21:00Z",
-     "status": "in",
-     "detail": "1'",
-     "score": "WAS 0 - KC 0"
+     "status": "post",
+     "detail": "FT",
+     "score": "WAS 1 - KC 2"
     },
     {
      "espn_event_id": "401854094",
      "matchup": "BOS @ SD",
      "commence": "2026-10-25T23:00Z",
-     "status": "pre",
-     "detail": "Scheduled",
+     "status": "in",
+     "detail": "9'",
      "score": "BOS 0 - SD 0"
     }
    ]
