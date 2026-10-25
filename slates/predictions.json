@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-24T23:50:02.152230+00:00",
+ "generated_at": "2026-10-25T00:04:50.563282+00:00",
  "items": [
-  {
-   "id": "453cc1181a",
-   "league": "NBA",
-   "event": "Washington Wizards @ Chicago Bulls",
-   "prediction": "Chicago Bulls to beat Washington Wizards",
-   "kickoff_utc": "2026-10-25T00:00:00+00:00"
-  },
   {
    "id": "efb9f7fd28",
    "league": "MLS",
@@ -42,6 +35,13 @@
    "event": "Houston Rockets @ Atlanta Hawks",
    "prediction": "Atlanta Hawks to beat Houston Rockets",
    "kickoff_utc": "2026-10-25T00:30:00+00:00"
+  },
+  {
+   "id": "082747e1fe",
+   "league": "NWSL",
+   "event": "Bay FC @ Angel City FC",
+   "prediction": "Angel City FC to beat Bay FC",
+   "kickoff_utc": "2026-10-25T00:45:00+00:00"
   }
  ]
 }
