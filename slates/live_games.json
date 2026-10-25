@@ -1,19 +1,113 @@
 {
  "version": 1,
- "generated_at": "2026-10-25T14:49:47.607160+00:00",
+ "generated_at": "2026-10-25T18:19:52.089949+00:00",
  "leagues": [
   {
    "league": "NFL",
    "games": [
     {
-     "espn_event_id": "401873011",
-     "matchup": "PIT @ NO",
-     "commence": "2026-10-25T13:30Z",
+     "espn_event_id": "401873017",
+     "matchup": "SF @ ATL",
+     "commence": "2026-10-25T17:00Z",
      "status": "in",
-     "detail": "1:45 - 2nd",
-     "score": "PIT 10 - NO 10",
+     "detail": "0:02 - 2nd",
+     "score": "SF 14 - ATL 9",
      "away_to": 1,
-     "home_to": 2
+     "home_to": 0
+    },
+    {
+     "espn_event_id": "401873013",
+     "matchup": "CLE @ TEN",
+     "commence": "2026-10-25T17:00Z",
+     "status": "in",
+     "detail": "2:11 - 2nd",
+     "score": "CLE 14 - TEN 14",
+     "away_to": 2,
+     "home_to": 3
+    },
+    {
+     "espn_event_id": "401873014",
+     "matchup": "IND @ MIN",
+     "commence": "2026-10-25T17:00Z",
+     "status": "in",
+     "detail": "Halftime",
+     "score": "IND 10 - MIN 6",
+     "away_to": 0,
+     "home_to": 1
+    },
+    {
+     "espn_event_id": "401873015",
+     "matchup": "MIA @ NYJ",
+     "commence": "2026-10-25T17:00Z",
+     "status": "in",
+     "detail": "Halftime",
+     "score": "MIA 21 - NYJ 7",
+     "away_to": 3,
+     "home_to": 3
+    },
+    {
+     "espn_event_id": "401873018",
+     "matchup": "TB @ CAR",
+     "commence": "2026-10-25T17:00Z",
+     "status": "in",
+     "detail": "0:16 - 2nd",
+     "score": "TB 26 - CAR 6",
+     "away_to": 1,
+     "home_to": 0
+    },
+    {
+     "espn_event_id": "401873012",
+     "matchup": "CIN @ BAL",
+     "commence": "2026-10-25T17:00Z",
+     "status": "in",
+     "detail": "0:46 - 2nd",
+     "score": "CIN 0 - BAL 13",
+     "away_to": 0,
+     "home_to": 3
+    },
+    {
+     "espn_event_id": "401873016",
+     "matchup": "NYG @ HOU",
+     "commence": "2026-10-25T17:00Z",
+     "status": "in",
+     "detail": "2:23 - 2nd",
+     "score": "NYG 14 - HOU 6",
+     "away_to": 3,
+     "home_to": 3
+    },
+    {
+     "espn_event_id": "401873019",
+     "matchup": "DEN @ ARI",
+     "commence": "2026-10-25T20:05Z",
+     "status": "pre",
+     "detail": "10/25 - 1:05 PM PT",
+     "score": "DEN 0 - ARI 0"
+    }
+   ]
+  },
+  {
+   "league": "NHL",
+   "games": [
+    {
+     "espn_event_id": "401892578",
+     "matchup": "FLA @ CHI",
+     "commence": "2026-10-25T19:00Z",
+     "status": "pre",
+     "detail": "10/25 - 12:00 PM PT",
+     "score": "FLA 0 - CHI 0"
+    }
+   ]
+  },
+  {
+   "league": "NWSL",
+   "games": [
+    {
+     "espn_event_id": "401854031",
+     "matchup": "GFC @ ORL",
+     "commence": "2026-10-25T19:00Z",
+     "status": "pre",
+     "detail": "Scheduled",
+     "score": "GFC 0 - ORL 0"
     }
    ]
   }
