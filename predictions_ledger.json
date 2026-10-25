@@ -4484,8 +4484,9 @@
   "pick_team": "Atlanta United FC",
   "prediction": "Atlanta United FC to beat Chicago Fire FC",
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-22T05:20:25.182115+00:00"
+  "status": "miss",
+  "created_at": "2026-10-22T05:20:25.182115+00:00",
+  "settled_at": "2026-10-25T02:04:36.593910+00:00"
  },
  {
   "id": "aaf5486a57",
@@ -4497,8 +4498,9 @@
   "pick_team": "Orlando City SC",
   "prediction": "Orlando City SC to beat New York City FC",
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-22T07:04:30.668177+00:00"
+  "status": "miss",
+  "created_at": "2026-10-22T07:04:30.668177+00:00",
+  "settled_at": "2026-10-25T02:04:36.797166+00:00"
  },
  {
   "id": "3cc3914cc5",
@@ -4564,8 +4566,9 @@
   "pick_team": "Philadelphia Union",
   "prediction": "Philadelphia Union to beat New England Revolution",
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-22T14:31:02.307156+00:00"
+  "status": "miss",
+  "created_at": "2026-10-22T14:31:02.307156+00:00",
+  "settled_at": "2026-10-25T02:04:36.968159+00:00"
  },
  {
   "id": "9be576bb54",
@@ -4757,8 +4760,9 @@
   "pick_team": "FC Cincinnati",
   "prediction": "FC Cincinnati to beat D.C. United",
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-23T06:19:38.203088+00:00"
+  "status": "hit",
+  "created_at": "2026-10-23T06:19:38.203088+00:00",
+  "settled_at": "2026-10-25T02:04:37.085127+00:00"
  },
  {
   "id": "5af98bb1c1",
@@ -5019,8 +5023,9 @@
   "pick_team": "Philadelphia 76ers",
   "prediction": "Philadelphia 76ers to beat Milwaukee Bucks",
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T16:45:06.361696+00:00"
+  "status": "hit",
+  "created_at": "2026-10-24T16:45:06.361696+00:00",
+  "settled_at": "2026-10-25T02:04:37.304286+00:00"
  },
  {
   "id": "8e39ab91db",

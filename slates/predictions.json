@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-25T01:51:43.739419+00:00",
+ "generated_at": "2026-10-25T02:04:38.854951+00:00",
  "items": [
-  {
-   "id": "4a88ca5beb",
-   "league": "NHL",
-   "event": "Detroit Red Wings @ Calgary Flames",
-   "prediction": "Calgary Flames to beat Detroit Red Wings",
-   "kickoff_utc": "2026-10-25T02:00:00+00:00"
-  },
-  {
-   "id": "85de92655f",
-   "league": "NBA",
-   "event": "Golden State Warriors @ Phoenix Suns",
-   "prediction": "Golden State Warriors to beat Phoenix Suns",
-   "kickoff_utc": "2026-10-25T02:00:00+00:00"
-  },
   {
    "id": "9f0ee9a3dd",
    "league": "CFB",
@@ -42,6 +28,20 @@
    "event": "Pittsburgh Steelers @ New Orleans Saints",
    "prediction": "Pittsburgh Steelers to beat New Orleans Saints",
    "kickoff_utc": "2026-10-25T13:30:00+00:00"
+  },
+  {
+   "id": "5a6c8d9b9c",
+   "league": "NFL",
+   "event": "San Francisco 49ers @ Atlanta Falcons",
+   "prediction": "San Francisco 49ers to beat Atlanta Falcons",
+   "kickoff_utc": "2026-10-25T17:00:00+00:00"
+  },
+  {
+   "id": "ca094ee765",
+   "league": "NFL",
+   "event": "Miami Dolphins @ New York Jets",
+   "prediction": "Miami Dolphins to beat New York Jets",
+   "kickoff_utc": "2026-10-25T17:00:00+00:00"
   }
  ]
 }
