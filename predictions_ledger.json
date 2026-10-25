@@ -3966,8 +3966,9 @@
   "pick_team": "Vanderbilt Commodores",
   "prediction": "Vanderbilt Commodores to beat Kentucky Wildcats",
   "kickoff_utc": "2026-10-24T23:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T18:50:13.843233+00:00"
+  "status": "miss",
+  "created_at": "2026-10-19T18:50:13.843233+00:00",
+  "settled_at": "2026-10-25T02:49:35.574403+00:00"
  },
  {
   "id": "16b483d386",
@@ -5050,8 +5051,9 @@
   "pick_team": "Chicago Bulls",
   "prediction": "Chicago Bulls to beat Washington Wizards",
   "kickoff_utc": "2026-10-25T00:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T18:20:21.807493+00:00"
+  "status": "miss",
+  "created_at": "2026-10-24T18:20:21.807493+00:00",
+  "settled_at": "2026-10-25T02:49:35.664067+00:00"
  },
  {
   "id": "99e263bd02",
