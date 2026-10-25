@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-25T13:35:31.798Z",
+ "generated_at": "2026-10-25T13:40:37.741Z",
  "leagues": {
   "baseball/mlb": [
+   {
+    "headline": "Arizona Fall League update: Week 3",
+    "link": "https://sports.yahoo.com/articles/arizona-fall-league-week-3-133000623.html",
+    "published": "2026-10-25T13:30:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/0722cd61534d0e37a289d74ad9fe70c0e9dfce022fc02c5ecdcaade6c733f728/lightyear_networkapi/resizefill_w300_h168%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9d149c95277b67e51c4e24689df929ba.jpg",
+    "blurb": "Alex McCoy continues to slug.",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
    {
     "headline": "Young superstar face-off: What Jackson Chourio and Junior Caminero bring to this World Series",
     "link": "https://www.espn.com/mlb/story/_/id/50261945/world-series-jackson-chourio-junior-caminero-young-stars",
@@ -9,15 +18,6 @@
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1025%252Fr1735722_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "Two of baseball's brightest stars are shining in the Fall Classic. We go inside their paths to stardom and what they do best.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "Will the Brewers lose again this year?",
-    "link": "https://sports.yahoo.com/articles/brewers-lose-again-130000771.html",
-    "published": "2026-10-25T13:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/67a71d96f6cd0b857fcb0551b951e8515b559c7510252120f70203269a13fc6b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd84058682c402b6aa1a32a8385557897.jpg",
-    "blurb": "Milwaukee is cooking, y\u2019all. After winning 103 regular season games, they blew through the Padres in the Division Series, swept the Dodgers in 4 games in the Championship Series and currently have a 2-0 lead in the World Series. They\u2019re 5-1 in one-run games, so they\u2019re not exactl",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -30,21 +30,21 @@
     "league": "MLB"
    },
    {
+    "headline": "Will the Brewers lose again this year?",
+    "link": "https://sports.yahoo.com/articles/brewers-lose-again-130000771.html",
+    "published": "2026-10-25T13:00:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/67a71d96f6cd0b857fcb0551b951e8515b559c7510252120f70203269a13fc6b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd84058682c402b6aa1a32a8385557897.jpg",
+    "blurb": "Milwaukee is cooking, y\u2019all. After winning 103 regular season games, they blew through the Padres in the Division Series, swept the Dodgers in 4 games in the Championship Series and currently have a 2-0 lead in the World Series. They\u2019re 5-1 in one-run games, so they\u2019re not exactl",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Are the Brewers inevitable? Game 2 comeback latest proof Milwaukee can't be beat",
     "link": "https://www.espn.com/mlb/story/_/id/50273430/world-series-game-2-rays-brewers-comeback-inevitable",
     "published": "2026-10-25T13:13:41.000Z",
     "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1025%252Fr1735795_2_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
     "blurb": "The comeback kids have done it again -- and look on their way to a World Series title.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "What is your favorite Phillies World Series memory?",
-    "link": "https://sports.yahoo.com/articles/favorite-phillies-world-series-memory-130000104.html",
-    "published": "2026-10-25T13:00:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/740e128310c37b74129a486444daae7efb8c482b51f5b9cb0eaf1d39faaf3610/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe4839144e8ad4052ad4a05da8c945005.jpg",
-    "blurb": "We\u2019ve all got a favorite memory",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -57,21 +57,21 @@
     "league": "MLB"
    },
    {
+    "headline": "What is your favorite Phillies World Series memory?",
+    "link": "https://sports.yahoo.com/articles/favorite-phillies-world-series-memory-130000104.html",
+    "published": "2026-10-25T13:00:00.000Z",
+    "image": "",
+    "blurb": "We\u2019ve all got a favorite memory",
+    "source": "YAHOO",
+    "league": "MLB"
+   },
+   {
     "headline": "Kurkjian: The 2026 Brewers harken back to '82 glory days",
     "link": "https://www.espn.com/mlb/story/_/id/50274387/milwaukee-brewers-world-series-tim-kurkjian",
     "published": "2026-10-25T13:13:41.000Z",
     "image": "",
     "blurb": "With a Robin Yount first pitch and the Brewers winning with old-school baseball, the 2026 World Series feels like a throwback.",
     "source": "ESPN",
-    "league": "MLB"
-   },
-   {
-    "headline": "Confidence levels among Cardinals\u2019 lineup locks",
-    "link": "https://sports.yahoo.com/articles/confidence-levels-among-cardinals-lineup-130000186.html",
-    "published": "2026-10-25T13:00:00.000Z",
-    "image": "",
-    "blurb": "The World Series is making its way South with the midwest avian population but my sports focus somehow still centers around the St. Louis Cardinals and football, both fantasy and NFL. Nothing against the Brewers, Rays, or the game of baseball, since I do think this Fall Classic i",
-    "source": "YAHOO",
     "league": "MLB"
    },
    {
@@ -84,22 +84,22 @@
     "league": "MLB"
    },
    {
-    "headline": "2026 World Series odds: Brewers jump to -750 after going up 2-0 on Rays",
-    "link": "https://www.espn.com/espn/betting/story/_/id/46793185/espn-mlb-betting-odds-futures-bets-world-series-american-national-league",
-    "published": "2026-10-25T13:09:54Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1024%2Fr1735471_1296x729_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The World Series schedule, lines and odds to win, including MVP.",
+    "headline": "Confidence levels among Cardinals\u2019 lineup locks",
+    "link": "https://sports.yahoo.com/articles/confidence-levels-among-cardinals-lineup-130000186.html",
+    "published": "2026-10-25T13:00:00.000Z",
+    "image": "",
+    "blurb": "The World Series is making its way South with the midwest avian population but my sports focus somehow still centers around the St. Louis Cardinals and football, both fantasy and NFL. Nothing against the Brewers, Rays, or the game of baseball, since I do think this Fall Classic i",
+    "source": "YAHOO",
     "league": "MLB"
    }
   ],
   "football/nfl": [
    {
-    "headline": "Sources: Simmons told to leave Chiefs team meeting by Reid, Mahomes",
-    "link": "https://www.espn.com/nfl/story/_/id/50268181/sources-josh-simmons-told-leave-chiefs-team-meeting",
-    "published": "2026-10-25T13:32:59.000Z",
-    "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0129%252Fr1607445_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Josh Simmons was kicked out of a team meeting by Chiefs coach Andy Reid and QB Patrick Mahomes, but the OT later apologized, sources told NFL Network.",
+    "headline": "Inactives watch: Baker Mayfield in line to play; Puka Nacua uncertain; Lamar Jackson out",
+    "link": "https://www.espn.com/fantasy/football/story/_/page/FFSundayInactives-50229729/fantasy-football-injuries-nfl-week-7-inactive-active",
+    "published": "2026-10-25T14:26:04.000Z",
+    "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1023%252Fr1734967_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Updated inactives and analysis based on the latest reports and official announcements leading up to kickoff.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -113,20 +113,20 @@
     "league": "NFL"
    },
    {
-    "headline": "Aaron Rodgers, Steelers QBs coordinate suits, flat caps before game in France",
-    "link": "https://sports.yahoo.com/articles/aaron-rodgers-steelers-qbs-coordinate-132255386.html",
-    "published": "2026-10-25T13:22:55.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/97e64d51e6d0c8f5973857c51dfd8cab4cf43d827398c67cadd70639bee6ebf2/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F3b28b973ce9197bc0497dba247443797.jpg",
-    "blurb": "The Steelers are also deploying a new uniform combination for the NFL Week 7 matchup outside of Paris.",
+    "headline": "NFL Week 7 expert picks, score predictions: Packers at Lions",
+    "link": "https://sports.yahoo.com/articles/nfl-week-7-expert-picks-133000463.html",
+    "published": "2026-10-25T13:30:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/89a8230241e21ae03efcf8921475d68ac91a8bbfa33640fe6a2aa9e83675440b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6311b988c8a86e15fe7d9308bb3be2d1.jpg",
+    "blurb": "Green Bay Packers vs. Detroit Lions NFL Week 7 expert picks from the Pride of Detroit staff.",
     "source": "YAHOO",
     "league": "NFL"
    },
    {
-    "headline": "Sources: Colts face big decisions on star players as trade deadline looms",
-    "link": "https://www.espn.com/nfl/story/_/id/50272352/sources-decisions-loom-colts-nfl-trade-deadline",
-    "published": "2026-10-25T13:32:59.000Z",
-    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F1202%252Fr1583590_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "The Colts are expected to field trade inquiries on some of their star players, including Jonathan Taylor, DeForest Buckner and Quenton Nelson.",
+    "headline": "Aaron Rodgers a top-12 QB? Cam Skattebo bounces back? Don't be surprised!",
+    "link": "https://www.espn.com/fantasy/football/story/_/id/50249570/fantasy-football-start-sit-sleepers-breakouts-week-7",
+    "published": "2026-10-25T14:26:04.000Z",
+    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734581_3_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Don't be surprised if Aaron Rodgers' strong play continues and Cam Skattebo bounces back in Week 7.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -140,20 +140,20 @@
     "league": "NFL"
    },
    {
-    "headline": "Steelers vs. Saints: Week 7 game chat",
-    "link": "https://sports.yahoo.com/articles/steelers-vs-saints-week-7-131500156.html",
-    "published": "2026-10-25T13:15:00.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/859a2610746289e9e5779423f980e77c19701083c53b961d7b51f86a7932ab5a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F5074e8518e4b3dc9f9c1edfa9dffde68.jpg",
-    "blurb": "It\u2019s Steelers game day! Come enjoy the game here at Behind the Steel Curtain.",
+    "headline": "Saints vs. Steelers in Paris: Week 7 game chat",
+    "link": "https://sports.yahoo.com/articles/saints-vs-steelers-paris-week-132900916.html",
+    "published": "2026-10-25T13:29:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/88cf28a764f94a29116fba27451c2dc7141d1f0e0ec1e413fa0f83315c603a50/lightyear_networkapi/resizefill_w1080_h1257%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F161b2c1ef30d20c4651621cbf1e9d5d2.jpg",
+    "blurb": "The Saints face the Steelers in this Week 7 matchup. Join us here for the game!",
     "source": "YAHOO",
     "league": "NFL"
    },
    {
-    "headline": "Rams optimistic that star WR Nacua will play vs. Raiders, source says",
-    "link": "https://www.espn.com/nfl/story/_/id/50275162/source-rams-optimistic-puka-nacua-play-vs-raiders",
-    "published": "2026-10-25T13:32:59.000Z",
+    "headline": "Our guide to every game: Matchup previews, predictions, picks and nuggets",
+    "link": "https://www.espn.com/nfl/story/_/id/50229521/week-7-picks-predictions-schedule-fantasy-odds-2026",
+    "published": "2026-10-25T14:25:58.000Z",
     "image": "",
-    "blurb": "The Rams are optimistic that star wide receiver Puka Nacua will play Sunday against the Raiders, a source told ESPN.",
+    "blurb": "The Steelers and Saints in Paris? There are 13 more games in Week 7, and we have predictions for all of them.",
     "source": "ESPN",
     "league": "NFL"
    },
@@ -167,20 +167,20 @@
     "league": "NFL"
    },
    {
-    "headline": "NFL Week 7 Game Discussion and Open Thread",
-    "link": "https://sports.yahoo.com/articles/nfl-week-7-game-discussion-131500107.html",
-    "published": "2026-10-25T13:15:00.000Z",
+    "headline": "Week 7 Early Games Open Thread",
+    "link": "https://sports.yahoo.com/articles/week-7-early-games-open-132500560.html",
+    "published": "2026-10-25T13:25:00.000Z",
     "image": "",
-    "blurb": "Talk about all the Week 7 NFL games with us here!",
+    "blurb": "The only games I\u2019m really keyed in on are the Steelers and Texans both losing to the NFC team and then decided which team between the Bengals and Ravens are the bigger threat to Denver\u2019s future playoff seeding arrangement. Here are the games we have to watch today before the Denv",
     "source": "YAHOO",
     "league": "NFL"
    },
    {
-    "headline": "Sources: Peyton Manning not expected to be candidate for Colts GM job",
-    "link": "https://www.espn.com/nfl/story/_/id/50267058/sources-peyton-manning-not-candidate-colts-gm-job",
-    "published": "2026-10-25T13:32:59.000Z",
+    "headline": "Our Week 7 crystal ball: Five analysts make predictions, from upsets to TD scorers",
+    "link": "https://www.espn.com/nfl/story/_/id/50249972/week-7-predictions-upsets-fantasy-sleepers-stats-2026",
+    "published": "2026-10-25T14:25:58.000Z",
     "image": "",
-    "blurb": "The Colts have not approached Peyton Manning about their vacant GM job nor would the ex-QB be expected to be interested in the position, according to sources.",
+    "blurb": "Cardinals pull another upset? Revenge game for Trey Hendrickson? Let's predict 15 things for Week 7.",
     "source": "ESPN",
     "league": "NFL"
    }
@@ -196,11 +196,11 @@
     "league": "CFB"
    },
    {
-    "headline": "MSU Bobcats overtake Weber State, 38-33",
-    "link": "https://sports.yahoo.com/articles/msu-bobcats-overtake-weber-state-131400687.html",
-    "published": "2026-10-25T13:14:00.000Z",
-    "image": "",
-    "blurb": "BOZEMAN \u2014 With their backs against the wall, the Bobcats leaned heavily on their defense to rally past Weber State for a tough 38-33 Big Sky Conference football win Saturday. The No. 22 Wildcats from Ogden, Utah, came out of a wild first half with a 27-17 lead over the No. 3 Bobc",
+    "headline": "Ranking Ohio State\u2019s remaining games from easiest to hardest",
+    "link": "https://sports.yahoo.com/articles/ranking-ohio-state-remaining-games-133100497.html",
+    "published": "2026-10-25T13:31:00.000Z",
+    "image": "https://s.yimg.com/lo/mysterio/api/369a24d794efad153de483dded336d779563a8fc35fe486a73913219142fdbcf/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F492c035b0a905d2b684829dfc3d68dc4.jpg",
+    "blurb": "With Julian Sayin out indefinitely, Ohio State\u2019s final five games will define their playoff hopes. Here\u2019s how those opponents rank, from easiest to toughest",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -223,11 +223,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Iowa Football Was Never Truly A CFP-Caliber Team. The Loss To Minnesota Proved It",
-    "link": "https://sports.yahoo.com/articles/iowa-football-never-truly-cfp-130036041.html",
-    "published": "2026-10-25T13:00:36.000Z",
-    "image": "https://s.yimg.com/lo/mysterio/api/a0040ba11b106cd74a965da4b87ed981315de85c2f1e8fd5ec1a6a4f7cfabe76/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_iowa_355%2F3532d8097ec1cc9cab61a8cb630543aa.jpg",
-    "blurb": "The Hawkeyes had plenty of momentum after the Washington game, but there's just too much inconsistency right now. Everything fell apart against Minnesota.",
+    "headline": "MSU Bobcats overtake Weber State, 38-33",
+    "link": "https://sports.yahoo.com/articles/msu-bobcats-overtake-weber-state-131400687.html",
+    "published": "2026-10-25T13:14:00.000Z",
+    "image": "",
+    "blurb": "BOZEMAN \u2014 With their backs against the wall, the Bobcats leaned heavily on their defense to rally past Weber State for a tough 38-33 Big Sky Conference football win Saturday. The No. 22 Wildcats from Ogden, Utah, came out of a wild first half with a 27-17 lead over the No. 3 Bobc",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -250,11 +250,11 @@
     "league": "CFB"
    },
    {
-    "headline": "Fans react after Michigan fails to score a touchdown in OT loss to No. 6 Indiana",
-    "link": "https://sports.yahoo.com/articles/fans-react-michigan-fails-score-130000185.html",
-    "published": "2026-10-25T13:00:00.000Z",
+    "headline": "The Big Ten Had a Horrible Day in Week 7 Without Ohio State Playing",
+    "link": "https://sports.yahoo.com/articles/big-ten-had-horrible-day-130036303.html",
+    "published": "2026-10-25T13:00:36.000Z",
     "image": "",
-    "blurb": "Fans are fully behind this Michigan defense, but they\u2019ve got strong opinions on the offense. Here\u2019s what they\u2019re saying after the OT loss to the Hoosiers.",
+    "blurb": "It was an Ohio State bye week, and the Big Ten had a horrible day across the board, reminding everyone of just how good they are.",
     "source": "YAHOO",
     "league": "CFB"
    },
@@ -1087,6 +1087,24 @@
  },
  "latest": [
   {
+   "headline": "Inactives watch: Baker Mayfield in line to play; Puka Nacua uncertain; Lamar Jackson out",
+   "link": "https://www.espn.com/fantasy/football/story/_/page/FFSundayInactives-50229729/fantasy-football-injuries-nfl-week-7-inactive-active",
+   "published": "2026-10-25T14:26:04.000Z",
+   "image": "https://images.weserv.nl/?url=a3.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1023%252Fr1734967_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Updated inactives and analysis based on the latest reports and official announcements leading up to kickoff.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
+   "headline": "Aaron Rodgers a top-12 QB? Cam Skattebo bounces back? Don't be surprised!",
+   "link": "https://www.espn.com/fantasy/football/story/_/id/50249570/fantasy-football-start-sit-sleepers-breakouts-week-7",
+   "published": "2026-10-25T14:26:04.000Z",
+   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F1022%252Fr1734581_3_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Don't be surprised if Aaron Rodgers' strong play continues and Cam Skattebo bounces back in Week 7.",
+   "source": "ESPN",
+   "league": "NFL"
+  },
+  {
    "headline": "CFP top 12 projection: Utah salvages a bad day for Big 12",
    "link": "https://www.espn.com/college-football/story/_/id/50268049/projecting-2026-playoff-top-12-week-8-cfp",
    "published": "2026-10-25T13:50:48.000Z",
@@ -1096,22 +1114,13 @@
    "league": "CFB"
   },
   {
-   "headline": "Sources: Simmons told to leave Chiefs team meeting by Reid, Mahomes",
-   "link": "https://www.espn.com/nfl/story/_/id/50268181/sources-josh-simmons-told-leave-chiefs-team-meeting",
-   "published": "2026-10-25T13:32:59.000Z",
-   "image": "https://images.weserv.nl/?url=a4.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2026%252F0129%252Fr1607445_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Josh Simmons was kicked out of a team meeting by Chiefs coach Andy Reid and QB Patrick Mahomes, but the OT later apologized, sources told NFL Network.",
-   "source": "ESPN",
-   "league": "NFL"
-  },
-  {
-   "headline": "Sources: Colts face big decisions on star players as trade deadline looms",
-   "link": "https://www.espn.com/nfl/story/_/id/50272352/sources-decisions-loom-colts-nfl-trade-deadline",
-   "published": "2026-10-25T13:32:59.000Z",
-   "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fcombiner%2Fi%3Fimg%3D%252Fphoto%252F2025%252F1202%252Fr1583590_1296x729_16%252D9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "The Colts are expected to field trade inquiries on some of their star players, including Jonathan Taylor, DeForest Buckner and Quenton Nelson.",
-   "source": "ESPN",
-   "league": "NFL"
+   "headline": "Ranking Ohio State\u2019s remaining games from easiest to hardest",
+   "link": "https://sports.yahoo.com/articles/ranking-ohio-state-remaining-games-133100497.html",
+   "published": "2026-10-25T13:31:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/369a24d794efad153de483dded336d779563a8fc35fe486a73913219142fdbcf/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F492c035b0a905d2b684829dfc3d68dc4.jpg",
+   "blurb": "With Julian Sayin out indefinitely, Ohio State\u2019s final five games will define their playoff hopes. Here\u2019s how those opponents rank, from easiest to toughest",
+   "source": "YAHOO",
+   "league": "CFB"
   },
   {
    "headline": "Week 7 NFL score predictions, odds, picks, betting advice: Proven model reveals projections for every game",
@@ -1123,6 +1132,33 @@
    "league": "NFL"
   },
   {
+   "headline": "Arizona Fall League update: Week 3",
+   "link": "https://sports.yahoo.com/articles/arizona-fall-league-week-3-133000623.html",
+   "published": "2026-10-25T13:30:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/0722cd61534d0e37a289d74ad9fe70c0e9dfce022fc02c5ecdcaade6c733f728/lightyear_networkapi/resizefill_w300_h168%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F9d149c95277b67e51c4e24689df929ba.jpg",
+   "blurb": "Alex McCoy continues to slug.",
+   "source": "YAHOO",
+   "league": "MLB"
+  },
+  {
+   "headline": "NFL Week 7 expert picks, score predictions: Packers at Lions",
+   "link": "https://sports.yahoo.com/articles/nfl-week-7-expert-picks-133000463.html",
+   "published": "2026-10-25T13:30:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/89a8230241e21ae03efcf8921475d68ac91a8bbfa33640fe6a2aa9e83675440b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F6311b988c8a86e15fe7d9308bb3be2d1.jpg",
+   "blurb": "Green Bay Packers vs. Detroit Lions NFL Week 7 expert picks from the Pride of Detroit staff.",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
+   "headline": "Saints vs. Steelers in Paris: Week 7 game chat",
+   "link": "https://sports.yahoo.com/articles/saints-vs-steelers-paris-week-132900916.html",
+   "published": "2026-10-25T13:29:00.000Z",
+   "image": "https://s.yimg.com/lo/mysterio/api/88cf28a764f94a29116fba27451c2dc7141d1f0e0ec1e413fa0f83315c603a50/lightyear_networkapi/resizefill_w1080_h1257%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F161b2c1ef30d20c4651621cbf1e9d5d2.jpg",
+   "blurb": "The Saints face the Steelers in this Week 7 matchup. Join us here for the game!",
+   "source": "YAHOO",
+   "league": "NFL"
+  },
+  {
    "headline": "2026 college football SP+ rankings for all 138 FBS teams",
    "link": "https://www.espn.com/college-football/story/_/id/49868647/2026-college-football-sp+-rankings-all-138-fbs-teams",
    "published": "2026-10-25T13:26:42Z",
@@ -1130,15 +1166,6 @@
    "image": "https://images.weserv.nl/?url=a.espncdn.com%2Fphoto%2F2026%2F1025%2Fr1735861_608x342_16-9.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
    "blurb": "The updated SP+ rankings, plus strength of schedule and r\u00e9sum\u00e9 SP+, after this weekend's results.",
    "league": "CFB"
-  },
-  {
-   "headline": "Aaron Rodgers, Steelers QBs coordinate suits, flat caps before game in France",
-   "link": "https://sports.yahoo.com/articles/aaron-rodgers-steelers-qbs-coordinate-132255386.html",
-   "published": "2026-10-25T13:22:55.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/97e64d51e6d0c8f5973857c51dfd8cab4cf43d827398c67cadd70639bee6ebf2/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fusa_today_sports_articles_558%2F3b28b973ce9197bc0497dba247443797.jpg",
-   "blurb": "The Steelers are also deploying a new uniform combination for the NFL Week 7 matchup outside of Paris.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "Week 7 NFL betting promos: Get over $3,000 in bonuses from online betting apps, sportsbooks on Sunday",
@@ -1157,15 +1184,6 @@
    "blurb": "Two of baseball's brightest stars are shining in the Fall Classic. We go inside their paths to stardom and what they do best.",
    "source": "ESPN",
    "league": "MLB"
-  },
-  {
-   "headline": "Steelers vs. Saints: Week 7 game chat",
-   "link": "https://sports.yahoo.com/articles/steelers-vs-saints-week-7-131500156.html",
-   "published": "2026-10-25T13:15:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/859a2610746289e9e5779423f980e77c19701083c53b961d7b51f86a7932ab5a/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2F5074e8518e4b3dc9f9c1edfa9dffde68.jpg",
-   "blurb": "It\u2019s Steelers game day! Come enjoy the game here at Behind the Steel Curtain.",
-   "source": "YAHOO",
-   "league": "NFL"
   },
   {
    "headline": "MSU Bobcats overtake Weber State, 38-33",
@@ -1195,29 +1213,11 @@
    "league": "CFB"
   },
   {
-   "headline": "Iowa Football Was Never Truly A CFP-Caliber Team. The Loss To Minnesota Proved It",
-   "link": "https://sports.yahoo.com/articles/iowa-football-never-truly-cfp-130036041.html",
-   "published": "2026-10-25T13:00:36.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/a0040ba11b106cd74a965da4b87ed981315de85c2f1e8fd5ec1a6a4f7cfabe76/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Froundtable_sports_iowa_355%2F3532d8097ec1cc9cab61a8cb630543aa.jpg",
-   "blurb": "The Hawkeyes had plenty of momentum after the Washington game, but there's just too much inconsistency right now. Everything fell apart against Minnesota.",
-   "source": "YAHOO",
-   "league": "CFB"
-  },
-  {
    "headline": "Will the Brewers lose again this year?",
    "link": "https://sports.yahoo.com/articles/brewers-lose-again-130000771.html",
    "published": "2026-10-25T13:00:00.000Z",
    "image": "https://s.yimg.com/lo/mysterio/api/67a71d96f6cd0b857fcb0551b951e8515b559c7510252120f70203269a13fc6b/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fd84058682c402b6aa1a32a8385557897.jpg",
    "blurb": "Milwaukee is cooking, y\u2019all. After winning 103 regular season games, they blew through the Padres in the Division Series, swept the Dodgers in 4 games in the Championship Series and currently have a 2-0 lead in the World Series. They\u2019re 5-1 in one-run games, so they\u2019re not exactl",
-   "source": "YAHOO",
-   "league": "MLB"
-  },
-  {
-   "headline": "What is your favorite Phillies World Series memory?",
-   "link": "https://sports.yahoo.com/articles/favorite-phillies-world-series-memory-130000104.html",
-   "published": "2026-10-25T13:00:00.000Z",
-   "image": "https://s.yimg.com/lo/mysterio/api/740e128310c37b74129a486444daae7efb8c482b51f5b9cb0eaf1d39faaf3610/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fsb_nation_articles_115%2Fe4839144e8ad4052ad4a05da8c945005.jpg",
-   "blurb": "We\u2019ve all got a favorite memory",
    "source": "YAHOO",
    "league": "MLB"
   },
@@ -1448,9 +1448,9 @@
   }
  ],
  "source_mix": {
-  "ESPN": 55,
-  "CBS": 35,
-  "YAHOO": 67
+  "ESPN": 54,
+  "YAHOO": 68,
+  "CBS": 35
  },
  "degraded_sources": []
 }
