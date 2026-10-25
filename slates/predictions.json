@@ -1,13 +1,6 @@
 {
- "generated_at": "2026-10-25T02:04:38.854951+00:00",
+ "generated_at": "2026-10-25T02:19:37.824084+00:00",
  "items": [
-  {
-   "id": "9f0ee9a3dd",
-   "league": "CFB",
-   "event": "Houston Cougars @ Utah Utes",
-   "prediction": "Utah Utes to beat Houston Cougars",
-   "kickoff_utc": "2026-10-25T02:15:00+00:00"
-  },
   {
    "id": "3cc3914cc5",
    "league": "MLS",
@@ -41,6 +34,13 @@
    "league": "NFL",
    "event": "Miami Dolphins @ New York Jets",
    "prediction": "Miami Dolphins to beat New York Jets",
+   "kickoff_utc": "2026-10-25T17:00:00+00:00"
+  },
+  {
+   "id": "13a5ea9d2f",
+   "league": "NFL",
+   "event": "Tampa Bay Buccaneers @ Carolina Panthers",
+   "prediction": "Carolina Panthers to beat Tampa Bay Buccaneers",
    "kickoff_utc": "2026-10-25T17:00:00+00:00"
   }
  ]
