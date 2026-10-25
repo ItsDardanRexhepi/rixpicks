@@ -3910,8 +3910,9 @@
   "pick_team": "Washington State Cougars",
   "prediction": "Washington State Cougars to beat Boise State Broncos",
   "kickoff_utc": "2026-10-24T22:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-19T16:20:38.618917+00:00"
+  "status": "miss",
+  "created_at": "2026-10-19T16:20:38.618917+00:00",
+  "settled_at": "2026-10-25T01:34:33.452322+00:00"
  },
  {
   "id": "fd54ce8b75",
