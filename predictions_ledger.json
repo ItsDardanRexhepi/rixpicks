@@ -4516,8 +4516,9 @@
   "pick_team": "Seattle Sounders FC",
   "prediction": "Seattle Sounders FC to beat San Diego FC",
   "kickoff_utc": "2026-10-25T02:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-22T08:08:27.089405+00:00"
+  "status": "miss",
+  "created_at": "2026-10-22T08:08:27.089405+00:00",
+  "settled_at": "2026-10-25T05:04:35.456011+00:00"
  },
  {
   "id": "efb9f7fd28",
@@ -4921,8 +4922,9 @@
   "pick_team": "Charlotte FC",
   "prediction": "Charlotte FC to beat Portland Timbers",
   "kickoff_utc": "2026-10-25T02:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-23T20:09:33.544519+00:00"
+  "status": "miss",
+  "created_at": "2026-10-23T20:09:33.544519+00:00",
+  "settled_at": "2026-10-25T05:04:35.606735+00:00"
  },
  {
   "id": "7210fbc29c",
