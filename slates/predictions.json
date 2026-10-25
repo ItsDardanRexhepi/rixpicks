@@ -1,20 +1,6 @@
 {
- "generated_at": "2026-10-25T00:50:00.209286+00:00",
+ "generated_at": "2026-10-25T01:04:47.665370+00:00",
  "items": [
-  {
-   "id": "99e263bd02",
-   "league": "NBA",
-   "event": "New Orleans Pelicans @ Denver Nuggets",
-   "prediction": "Denver Nuggets to beat New Orleans Pelicans",
-   "kickoff_utc": "2026-10-25T01:00:00+00:00"
-  },
-  {
-   "id": "c65663cefc",
-   "league": "NHL",
-   "event": "Tampa Bay Lightning @ Utah Mammoth",
-   "prediction": "Tampa Bay Lightning to beat Utah Mammoth",
-   "kickoff_utc": "2026-10-25T01:00:00+00:00"
-  },
   {
    "id": "5af98bb1c1",
    "league": "MLS",
@@ -42,6 +28,20 @@
    "event": "Houston Cougars @ Utah Utes",
    "prediction": "Utah Utes to beat Houston Cougars",
    "kickoff_utc": "2026-10-25T02:15:00+00:00"
+  },
+  {
+   "id": "3cc3914cc5",
+   "league": "MLS",
+   "event": "Seattle Sounders FC @ San Diego FC",
+   "prediction": "Seattle Sounders FC to beat San Diego FC",
+   "kickoff_utc": "2026-10-25T02:30:00+00:00"
+  },
+  {
+   "id": "8495ebe947",
+   "league": "MLS",
+   "event": "Charlotte FC @ Portland Timbers",
+   "prediction": "Charlotte FC to beat Portland Timbers",
+   "kickoff_utc": "2026-10-25T02:30:00+00:00"
   }
  ]
 }
