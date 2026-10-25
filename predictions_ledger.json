@@ -4948,8 +4948,9 @@
   "pick_team": "Miami Heat",
   "prediction": "Miami Heat to beat Charlotte Hornets",
   "kickoff_utc": "2026-10-24T22:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T15:35:01.164749+00:00"
+  "status": "miss",
+  "created_at": "2026-10-24T15:35:01.164749+00:00",
+  "settled_at": "2026-10-25T00:49:31.365327+00:00"
  },
  {
   "id": "c8f57657c4",
