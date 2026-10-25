@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-25T03:34:50.076586+00:00",
+ "generated_at": "2026-10-25T03:49:50.582676+00:00",
  "leagues": [
   {
    "league": "MLB",
@@ -9,8 +9,8 @@
      "espn_event_id": "401908043",
      "matchup": "TB @ MIL",
      "commence": "2026-10-25T00:00Z",
-     "status": "in",
-     "detail": "Bot 8th",
+     "status": "post",
+     "detail": "Final",
      "score": "TB 4 - MIL 5"
     }
    ]
@@ -19,32 +19,32 @@
    "league": "CFB",
    "games": [
     {
-     "espn_event_id": "401862811",
-     "matchup": "UTSA @ TULN",
-     "commence": "2026-10-25T00:00Z",
-     "status": "post",
-     "detail": "Final",
-     "score": "UTSA 42 - TULN 19"
-    },
-    {
      "espn_event_id": "401856837",
      "matchup": "HOU @ UTAH",
      "commence": "2026-10-25T02:15Z",
      "status": "in",
-     "detail": "2:29 - 2nd",
+     "detail": "End of 2nd",
      "score": "HOU 3 - UTAH 0",
      "away_to": 2,
-     "home_to": 3
+     "home_to": 1
     },
     {
      "espn_event_id": "401864527",
      "matchup": "NDSU @ UNM",
      "commence": "2026-10-25T02:20Z",
      "status": "in",
-     "detail": "1:58 - 2nd",
-     "score": "NDSU 3 - UNM 7",
+     "detail": "Halftime",
+     "score": "NDSU 3 - UNM 14",
      "away_to": 3,
-     "home_to": 2
+     "home_to": 0
+    },
+    {
+     "espn_event_id": "401862811",
+     "matchup": "UTSA @ TULN",
+     "commence": "2026-10-25T00:00Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "UTSA 42 - TULN 19"
     }
    ]
   },
@@ -80,19 +80,19 @@
      "matchup": "NO @ DEN",
      "commence": "2026-10-25T01:00Z",
      "status": "in",
-     "detail": "End of 4th",
-     "score": "NO 126 - DEN 126",
-     "away_to": 1,
-     "home_to": 0
+     "detail": "25.0 - OT",
+     "score": "NO 134 - DEN 136",
+     "away_to": 2,
+     "home_to": 1
     },
     {
      "espn_event_id": "401909860",
      "matchup": "GS @ PHX",
      "commence": "2026-10-25T02:00Z",
      "status": "in",
-     "detail": "10:10 - 3rd",
-     "score": "GS 58 - PHX 62",
-     "away_to": 5,
+     "detail": "5:10 - 3rd",
+     "score": "GS 75 - PHX 77",
+     "away_to": 4,
      "home_to": 4
     }
    ]
@@ -105,7 +105,7 @@
      "matchup": "TB @ UTA",
      "commence": "2026-10-25T01:00Z",
      "status": "in",
-     "detail": "8:25 - 3rd",
+     "detail": "2:47 - 3rd",
      "score": "TB 4 - UTA 4",
      "away_to": null,
      "home_to": null
@@ -115,8 +115,8 @@
      "matchup": "DET @ CGY",
      "commence": "2026-10-25T02:00Z",
      "status": "in",
-     "detail": "3:07 - 2nd",
-     "score": "DET 1 - CGY 2",
+     "detail": "End of 2nd",
+     "score": "DET 1 - CGY 4",
      "away_to": null,
      "home_to": null
     },
@@ -125,7 +125,7 @@
      "matchup": "MIN @ SEA",
      "commence": "2026-10-25T02:00Z",
      "status": "in",
-     "detail": "5:19 - 2nd",
+     "detail": "End of 2nd",
      "score": "MIN 4 - SEA 1",
      "away_to": null,
      "home_to": null
@@ -163,16 +163,16 @@
      "espn_event_id": "761897",
      "matchup": "VAN @ COL",
      "commence": "2026-10-25T01:30Z",
-     "status": "in",
-     "detail": "90'+5'",
+     "status": "post",
+     "detail": "FT",
      "score": "VAN 0 - COL 1"
     },
     {
      "espn_event_id": "761898",
      "matchup": "STL @ RSL",
      "commence": "2026-10-25T01:30Z",
-     "status": "in",
-     "detail": "90'+6'",
+     "status": "post",
+     "detail": "FT",
      "score": "STL 0 - RSL 3"
     },
     {
@@ -180,7 +180,7 @@
      "matchup": "CLT @ POR",
      "commence": "2026-10-25T02:30Z",
      "status": "in",
-     "detail": "HT",
+     "detail": "48'",
      "score": "CLT 1 - POR 2"
     },
     {
@@ -188,8 +188,8 @@
      "matchup": "SEA @ SD",
      "commence": "2026-10-25T02:30Z",
      "status": "in",
-     "detail": "HT",
-     "score": "SEA 0 - SD 0"
+     "detail": "53'",
+     "score": "SEA 1 - SD 0"
     }
    ]
   },
