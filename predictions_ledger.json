@@ -5218,5 +5218,18 @@
   "kickoff_utc": "2026-10-26T01:00:00+00:00",
   "status": "pending",
   "created_at": "2026-10-25T08:35:53.681693+00:00"
+ },
+ {
+  "id": "eadfb08411",
+  "event_id": "401854094",
+  "league": "NWSL",
+  "path": "soccer/usa.nwsl",
+  "home": "San Diego Wave FC",
+  "away": "Boston Legacy FC",
+  "pick_team": "San Diego Wave FC",
+  "prediction": "San Diego Wave FC to beat Boston Legacy FC",
+  "kickoff_utc": "2026-10-25T23:00:00+00:00",
+  "status": "pending",
+  "created_at": "2026-10-25T11:49:49.460619+00:00"
  }
 ]
