@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-25T08:10:38.025Z",
+ "generated_at": "2026-10-25T08:15:35.080Z",
  "leagues": {
   "baseball/mlb": [
    {
@@ -463,21 +463,21 @@
   ],
   "hockey/nhl": [
    {
+    "headline": "Toronto visits Calgary after Nylander's 2-goal game",
+    "link": "http://www.espn.com/nhl/preview?gameId=401892583",
+    "published": "2026-10-25T08:11:46Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892583.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Toronto Maple Leafs (7-4-2, in the Atlantic Division) vs. Calgary Flames (4-6, in the Pacific Division)",
+    "league": "NHL"
+   },
+   {
     "headline": "'I Feel Like I'm Sleeping Right Now': Dmitri Simashev Scores First Two NHL Goals to Give Mammoth a 5-4 Overtime Win Over Lightning",
     "link": "https://sports.yahoo.com/articles/feel-im-sleeping-now-dmitri-061016754.html",
     "published": "2026-10-25T06:10:16.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/f1e79c7956400f9576d345d87bac6546142945f20310f115ca558bd8464ec650/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_utah_hockey_club_articles_724%2Fecb0a13b6b7710265690a6a5cea9fac0.jpg",
     "blurb": "Utah Mammoth fans might be feeling the same way Dmitri Simashev felt after scoring the overtime winner on Saturday. Feeling like they were sleeping.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Flames beat the Red Wings 4-1 for their 3rd straight victory",
-    "link": "http://www.espn.com/nhl/recap?gameId=401892576",
-    "published": "2026-10-25T05:12:47Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892576.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 Joel Farabee had a goal and two assists and the surging Calgary Flames made it three straight victories with a 4-1 decision over the Detroit Red Wings on Saturday night.",
     "league": "NHL"
    },
    {
@@ -490,21 +490,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Wild visit the Canucks after Coleman's 2-goal game",
+    "link": "http://www.espn.com/nhl/preview?gameId=401892581",
+    "published": "2026-10-25T08:10:58Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892581.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Minnesota Wild (7-3-2, in the Central Division) vs. Vancouver Canucks (2-9-1, in the Pacific Division)",
+    "league": "NHL"
+   },
+   {
     "headline": "Calgary Flames Take Down Red Wings 4-1 for Third Straight Win",
     "link": "https://sports.yahoo.com/articles/calgary-flames-down-red-wings-044510455.html",
     "published": "2026-10-25T04:45:10.000Z",
     "image": "https://s.yimg.com/lo/mysterio/api/2a69fed60e485f85f46e53e80c862b77dd941c1425116683a8cdcc193ce10b3c/lightyear_networkapi/resizefill_w1200_h675%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_hockey_news_calgary_flames_articles_103%2Fb9c4ca5a27294149ab47c8a6fa19b6cc.jpg",
     "blurb": "The Calgary Flames extended their winning streak to three games with a 4-1 victory over the Detroit Red Wings on Saturday night at the Scotiabank Saddledome.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Minnesota Wild vs. Seattle Kraken: Game Highlights",
-    "link": "https://www.espn.com/video/clip/_/id/50274272/game-highlights",
-    "published": "2026-10-25T05:04:20Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1025%2F4228ce33-24a9-46b0-ac55-6a07f9ae59f3%2F4228ce33-24a9-46b0-ac55-6a07f9ae59f3.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "Minnesota Wild vs. Seattle Kraken: Game Highlights",
     "league": "NHL"
    },
    {
@@ -517,21 +517,21 @@
     "league": "NHL"
    },
    {
+    "headline": "Nashville hosts Colorado in Central Division play",
+    "link": "http://www.espn.com/nhl/preview?gameId=401892580",
+    "published": "2026-10-25T08:10:57Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892580.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Colorado Avalanche (6-4-1, in the Central Division) vs. Nashville Predators (3-3-4, in the Central Division)",
+    "league": "NHL"
+   },
+   {
     "headline": "Red Wings Burned By Flames, Lose 4-1 In Final Appearance At Scotiabank Saddledome",
     "link": "https://sports.yahoo.com/articles/red-wings-burned-flames-lose-044024340.html",
     "published": "2026-10-25T04:40:24.000Z",
     "image": "",
     "blurb": "The Detroit Red Wings were unsuccessful in their final regular season game at Scotiabank Saddledome in Calgary, dropping a 4-1 final score.",
     "source": "YAHOO",
-    "league": "NHL"
-   },
-   {
-    "headline": "Kaprizov scores early as Wild defeat Kraken 5-1",
-    "link": "http://www.espn.com/nhl/recap?gameId=401892577",
-    "published": "2026-10-25T05:03:50Z",
-    "source": "ESPN",
-    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892577.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-    "blurb": "\u2014 Kirill Kaprizov scored 26 seconds into the game and the Minnesota Wild defeated the Seattle Kraken 5-1 on Saturday night.",
     "league": "NHL"
    },
    {
@@ -544,12 +544,12 @@
     "league": "NHL"
    },
    {
-    "headline": "'It Felt So Good': Takeaways From Penguins' Comeback Overtime Win Over Predators",
-    "link": "https://sports.yahoo.com/articles/felt-good-takeaways-penguins-comeback-035814166.html",
-    "published": "2026-10-25T03:58:14.000Z",
-    "image": "",
-    "blurb": "Fueled by a late comeback, the Penguins earned two points in an overtime thriller against the Nashville Predators on Saturday as a follow-up to their best performance of the season.",
-    "source": "YAHOO",
+    "headline": "Rangers try to extend home win streak, face the Kings",
+    "link": "http://www.espn.com/nhl/preview?gameId=401892582",
+    "published": "2026-10-25T08:10:56Z",
+    "source": "ESPN",
+    "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892582.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+    "blurb": "Los Angeles Kings (2-5-2, in the Pacific Division) vs. New York Rangers (7-5-1, in the Metropolitan Division)",
     "league": "NHL"
    }
   ],
@@ -1087,6 +1087,24 @@
  },
  "latest": [
   {
+   "headline": "Toronto visits Calgary after Nylander's 2-goal game",
+   "link": "http://www.espn.com/nhl/preview?gameId=401892583",
+   "published": "2026-10-25T08:11:46Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892583.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Toronto Maple Leafs (7-4-2, in the Atlantic Division) vs. Calgary Flames (4-6, in the Pacific Division)",
+   "league": "NHL"
+  },
+  {
+   "headline": "Wild visit the Canucks after Coleman's 2-goal game",
+   "link": "http://www.espn.com/nhl/preview?gameId=401892581",
+   "published": "2026-10-25T08:10:58Z",
+   "source": "ESPN",
+   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892581.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
+   "blurb": "Minnesota Wild (7-3-2, in the Central Division) vs. Vancouver Canucks (2-9-1, in the Pacific Division)",
+   "league": "NHL"
+  },
+  {
    "headline": "World Series Game 2 comeback shows Brewers are inevitable",
    "link": "https://www.espn.com/mlb/story/_/id/50273430/world-series-game-2-rays-brewers-comeback-inevitable",
    "published": "2026-10-25T08:08:30Z",
@@ -1285,15 +1303,6 @@
    "league": "NBA"
   },
   {
-   "headline": "Flames beat the Red Wings 4-1 for their 3rd straight victory",
-   "link": "http://www.espn.com/nhl/recap?gameId=401892576",
-   "published": "2026-10-25T05:12:47Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=s.espncdn.com%2Fstitcher%2Fsports%2Fhockey%2Fnhl%2Fevents%2F401892576.png%3FtemplateId%3Despn.applewatch.awayhome.1&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "\u2014 Joel Farabee had a goal and two assists and the surging Calgary Flames made it three straight victories with a 4-1 decision over the Detroit Red Wings on Saturday night.",
-   "league": "NHL"
-  },
-  {
    "headline": "Aaron Ashby on the verge of MLB history as Brewers reliever continues dominant postseason run",
    "link": "https://www.cbssports.com/mlb/news/2026-world-series-aaron-ashby-brewers-playoff-scoreless-streak/",
    "published": "2026-10-25T05:11:59.000Z",
@@ -1319,15 +1328,6 @@
    "blurb": "The Warriors' season is not beginning as hoped.",
    "source": "YAHOO",
    "league": "NBA"
-  },
-  {
-   "headline": "Minnesota Wild vs. Seattle Kraken: Game Highlights",
-   "link": "https://www.espn.com/video/clip/_/id/50274272/game-highlights",
-   "published": "2026-10-25T05:04:20Z",
-   "source": "ESPN",
-   "image": "https://images.weserv.nl/?url=espnmedia-cdn.akamaized.net%2Fespn%2Fmedia%2Fcommon%2Fwsc%2F2026%2F1025%2F4228ce33-24a9-46b0-ac55-6a07f9ae59f3%2F4228ce33-24a9-46b0-ac55-6a07f9ae59f3.jpg&w=1200&h=675&fit=cover&q=78&output=webp",
-   "blurb": "Minnesota Wild vs. Seattle Kraken: Game Highlights",
-   "league": "NHL"
   },
   {
    "headline": "Boxing schedule",
@@ -1448,8 +1448,8 @@
   }
  ],
  "source_mix": {
-  "ESPN": 52,
-  "YAHOO": 69,
+  "ESPN": 53,
+  "YAHOO": 68,
   "CBS": 36
  },
  "degraded_sources": []
