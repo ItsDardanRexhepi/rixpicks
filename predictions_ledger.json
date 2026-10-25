@@ -4781,8 +4781,9 @@
   "pick_team": "Colorado Rapids",
   "prediction": "Colorado Rapids to beat Vancouver Whitecaps",
   "kickoff_utc": "2026-10-25T01:30:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-23T11:04:46.434366+00:00"
+  "status": "hit",
+  "created_at": "2026-10-23T11:04:46.434366+00:00",
+  "settled_at": "2026-10-25T04:04:36.645625+00:00"
  },
  {
   "id": "f5db80e924",
@@ -5073,8 +5074,9 @@
   "pick_team": "Denver Nuggets",
   "prediction": "Denver Nuggets to beat New Orleans Pelicans",
   "kickoff_utc": "2026-10-25T01:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T18:20:41.531929+00:00"
+  "status": "hit",
+  "created_at": "2026-10-24T18:20:41.531929+00:00",
+  "settled_at": "2026-10-25T04:04:36.688228+00:00"
  },
  {
   "id": "0f5efceb36",
@@ -5156,8 +5158,9 @@
   "pick_team": "Tampa Bay Lightning",
   "prediction": "Tampa Bay Lightning to beat Utah Mammoth",
   "kickoff_utc": "2026-10-25T01:00:00+00:00",
-  "status": "pending",
-  "created_at": "2026-10-24T21:01:33.214441+00:00"
+  "status": "miss",
+  "created_at": "2026-10-24T21:01:33.214441+00:00",
+  "settled_at": "2026-10-25T04:04:36.750044+00:00"
  },
  {
   "id": "4a88ca5beb",
