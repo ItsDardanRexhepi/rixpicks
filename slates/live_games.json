@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-10-30T23:36:38.084145+00:00",
+ "generated_at": "2026-10-31T02:45:28.293338+00:00",
  "leagues": [
   {
    "league": "CFB",
@@ -10,18 +10,28 @@
      "matchup": "TULN @ CLT",
      "commence": "2026-10-30T23:00Z",
      "status": "in",
-     "detail": "1:56 - 1st",
-     "score": "TULN 7 - CLT 0",
-     "away_to": 3,
-     "home_to": 3
+     "detail": "OT",
+     "score": "TULN 31 - CLT 31",
+     "away_to": 0,
+     "home_to": 0
     },
     {
      "espn_event_id": "401856844",
      "matchup": "BAY @ UCF",
      "commence": "2026-10-30T23:30Z",
      "status": "in",
-     "detail": "14:55 - 1st",
-     "score": "BAY 0 - UCF 0",
+     "detail": "8:50 - 4th",
+     "score": "BAY 41 - UCF 9",
+     "away_to": 2,
+     "home_to": 0
+    },
+    {
+     "espn_event_id": "401866451",
+     "matchup": "KENT @ SAC",
+     "commence": "2026-10-31T02:30Z",
+     "status": "in",
+     "detail": "13:08 - 1st",
+     "score": "KENT 0 - SAC 0",
      "away_to": 3,
      "home_to": 3
     }
@@ -34,35 +44,87 @@
      "espn_event_id": "401909277",
      "matchup": "CHA @ WAS",
      "commence": "2026-10-30T23:00Z",
-     "status": "in",
-     "detail": "17.9 - 1st",
-     "score": "CHA 26 - WAS 22",
-     "away_to": 6,
-     "home_to": 6
+     "status": "post",
+     "detail": "Final",
+     "score": "CHA 79 - WAS 95"
+    },
+    {
+     "espn_event_id": "401909278",
+     "matchup": "CHI @ BOS",
+     "commence": "2026-10-30T23:30Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "CHI 111 - BOS 125"
+    },
+    {
+     "espn_event_id": "401909279",
+     "matchup": "DET @ BKN",
+     "commence": "2026-10-30T23:30Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "DET 110 - BKN 94"
+    },
+    {
+     "espn_event_id": "401909280",
+     "matchup": "NY @ PHI",
+     "commence": "2026-10-30T23:30Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "NY 93 - PHI 98"
+    },
+    {
+     "espn_event_id": "401909281",
+     "matchup": "ORL @ TOR",
+     "commence": "2026-10-30T23:30Z",
+     "status": "post",
+     "detail": "Final",
+     "score": "ORL 121 - TOR 114"
     },
     {
      "espn_event_id": "401909282",
      "matchup": "IND @ MIA",
      "commence": "2026-10-31T00:00Z",
-     "status": "pre",
-     "detail": "10/30 - 5:00 PM PT",
-     "score": "IND 0 - MIA 0"
+     "status": "post",
+     "detail": "Final",
+     "score": "IND 125 - MIA 145"
     },
     {
      "espn_event_id": "401909283",
      "matchup": "HOU @ DAL",
      "commence": "2026-10-31T00:00Z",
-     "status": "pre",
-     "detail": "10/30 - 5:00 PM PT",
-     "score": "HOU 0 - DAL 0"
+     "status": "in",
+     "detail": "0.0 - 4th",
+     "score": "HOU 111 - DAL 116",
+     "away_to": 0,
+     "home_to": 1
     },
     {
      "espn_event_id": "401909284",
      "matchup": "LAC @ MIN",
      "commence": "2026-10-31T00:00Z",
-     "status": "pre",
-     "detail": "10/30 - 5:00 PM PT",
-     "score": "LAC 0 - MIN 0"
+     "status": "post",
+     "detail": "Final",
+     "score": "LAC 101 - MIN 127"
+    },
+    {
+     "espn_event_id": "401909285",
+     "matchup": "LAL @ GS",
+     "commence": "2026-10-31T02:00Z",
+     "status": "in",
+     "detail": "End of 1st",
+     "score": "LAL 38 - GS 15",
+     "away_to": 6,
+     "home_to": 6
+    },
+    {
+     "espn_event_id": "401909286",
+     "matchup": "DEN @ PHX",
+     "commence": "2026-10-31T02:00Z",
+     "status": "in",
+     "detail": "8:09 - 2nd",
+     "score": "DEN 41 - PHX 45",
+     "away_to": 5,
+     "home_to": 6
     }
    ]
   },
@@ -70,32 +132,22 @@
    "league": "NHL",
    "games": [
     {
-     "espn_event_id": "401892611",
-     "matchup": "NJ @ VGK",
-     "commence": "2026-10-30T22:00Z",
-     "status": "in",
-     "detail": "2:55 - 2nd",
-     "score": "NJ 3 - VGK 2",
-     "away_to": null,
-     "home_to": null
-    },
-    {
      "espn_event_id": "401892612",
      "matchup": "WPG @ FLA",
      "commence": "2026-10-30T23:00Z",
-     "status": "in",
-     "detail": "4:20 - 1st",
-     "score": "WPG 0 - FLA 0",
-     "away_to": null,
-     "home_to": null
+     "status": "post",
+     "detail": "Final",
+     "score": "WPG 2 - FLA 5"
     },
     {
      "espn_event_id": "401892613",
      "matchup": "SEA @ CGY",
      "commence": "2026-10-31T00:00Z",
-     "status": "pre",
-     "detail": "10/30 - 5:00 PM PT",
-     "score": "SEA 0 - CGY 0"
+     "status": "in",
+     "detail": "0:37 - 3rd",
+     "score": "SEA 2 - CGY 6",
+     "away_to": null,
+     "home_to": null
     }
    ]
   }
