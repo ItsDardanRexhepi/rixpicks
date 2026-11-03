@@ -1,44 +1,5 @@
 {
   "date": "2026-11-02",
   "generated_at": "2026-11-02T16:38:00-07:00",
-  "cards": [
-    {
-      "id": "nfl-1102-sgp7",
-      "title": "NFL - SAME GAME PARLAY | +1430",
-      "matchup": "CHI @ SEA",
-      "time": "Mon Nov 2, 5:15 PM PT",
-      "legs": [
-        {
-          "player": "Jason Myers",
-          "market": "1+ Field Goals Made"
-        },
-        {
-          "player": "D'Andre Swift",
-          "market": "Anytime TD Scorer"
-        },
-        {
-          "player": "D'Andre Swift",
-          "market": "3+ Receptions"
-        },
-        {
-          "player": "Colston Loveland",
-          "market": "4+ Receptions"
-        },
-        {
-          "player": "Emanuel Wilson",
-          "market": "10+ Rushing Yards"
-        },
-        {
-          "player": "Sam Darnold",
-          "market": "1+ Interceptions Thrown"
-        },
-        {
-          "player": "Cairo Santos",
-          "market": "1+ Field Goals Made"
-        }
-      ],
-      "asof": "Whole-ticket +1430 boosted quote (30% parlay boost, prior +1100 crossed out) as shown on a screenshot shared by Wooder Ice on Nov 2; no per-leg prices are visible. Game time per ESPN.",
-      "assumptions": "Screenshot-sourced pick. The screenshot shows OPEN, which does not confirm he placed it; placement, fill and settlement are not independently verified. Quote is from that screenshot, not a live or executable price; no combined price is offered here."
-    }
-  ]
+  "cards": []
 }
