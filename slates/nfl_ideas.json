@@ -1,58 +1,44 @@
 {
-  "date": "2026-10-05",
-  "generated_at": "2026-10-05T16:41:00-07:00",
+  "date": "2026-11-02",
+  "generated_at": "2026-11-02T16:38:00-07:00",
   "cards": [
     {
-      "id": "nfl-1005-rec",
-      "title": "3-leg receiving yards",
-      "matchup": "ATL at NO",
-      "time": "5:15 PM PT",
+      "id": "nfl-1102-sgp7",
+      "title": "NFL - SAME GAME PARLAY | +1430",
+      "matchup": "CHI @ SEA",
+      "time": "Mon Nov 2, 5:15 PM PT",
       "legs": [
         {
-          "player": "Devaughn Vele",
-          "market": "25+ receiving yards",
-          "links": [
-            {
-              "venue": "KAL",
-              "cents": 75
-            }
-          ],
-          "unlisted": [
-            "DraftKings Predictions"
-          ],
-          "note": "Kalshi: records 25+ receiving yards. DKP lists 20+ and 30+ only; no substitution"
+          "player": "Jason Myers",
+          "market": "1+ Field Goals Made"
         },
         {
-          "player": "Juwan Johnson",
-          "market": "30+ receiving yards",
-          "links": [
-            {
-              "venue": "DKP",
-              "cents": 77
-            }
-          ],
-          "unlisted": [
-            "Kalshi"
-          ],
-          "note": "DKP rules: stated number of receiving yards or more. Kalshi lists 25+ and 40+ only; no substitution"
+          "player": "D'Andre Swift",
+          "market": "Anytime TD Scorer"
         },
         {
-          "player": "Chris Olave",
-          "market": "40+ receiving yards",
-          "links": [
-            {
-              "venue": "DKP",
-              "cents": 94
-            }
-          ],
-          "unlisted": [
-            "Kalshi"
-          ],
-          "note": "DKP rules: stated number of receiving yards or more. Kalshi lists 50+ and up only; no substitution"
+          "player": "D'Andre Swift",
+          "market": "3+ Receptions"
+        },
+        {
+          "player": "Colston Loveland",
+          "market": "4+ Receptions"
+        },
+        {
+          "player": "Emanuel Wilson",
+          "market": "10+ Rushing Yards"
+        },
+        {
+          "player": "Sam Darnold",
+          "market": "1+ Interceptions Thrown"
+        },
+        {
+          "player": "Cairo Santos",
+          "market": "1+ Field Goals Made"
         }
       ],
-      "asof": "Prices as of 4:41 PM, Oct 5 PT. KAL = Kalshi ask (cost of Yes), DKP = DraftKings Predictions price shown (California page); cents converted to American. DKP read 4:39-4:41 PM PT, Kalshi read about 4:41 PM PT. Rules read on each venue page before a price is shown.",
-      "assumptions": "Each leg is priced only where that exact threshold is listed. Not a combined price."
+      "asof": "Whole-ticket +1430 boosted quote (30% parlay boost, prior +1100 crossed out) as shown on a screenshot of Wooder Ice's ticket shared Nov 2; the ticket shows no per-leg prices. Game time per ESPN.",
+      "assumptions": "Screenshot-sourced pick. The screenshot shows OPEN, which does not confirm he placed it; placement, fill and settlement are not independently verified. Quote is from that ticket, not a live or executable price; no combined price is offered here."
     }
   ]
 }
