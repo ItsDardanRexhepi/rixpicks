@@ -72,6 +72,14 @@ function rpStripLearn(s) {
     let vz = '';
     try { vz = execFileSync('node', ['scripts/test_news_verified_zero.js'], { encoding: 'utf8' }); }
     catch (e) { vz = (e.stdout || '') + (e.stderr || ''); }
+    // Ticket data (Nov 2 class: a malformed slates/wooder_tickets.json was briefly live). Strict parse + shape +
+    // append-only archive on the local tree, before any publish. scripts/validate_ticket_data.py; fixture in
+    // scripts/test_validate_ticket_data.py.
+    let tv = '', tvOk = false;
+    try { tv = execFileSync('python3', ['scripts/validate_ticket_data.py'], { encoding: 'utf8' }); tvOk = /TICKET DATA OK/.test(tv); }
+    catch (e) { tv = (e.stdout || '') + (e.stderr || ''); }
+    if (!tvOk) console.log(tv.split('\n').filter(l => /^FAIL/.test(l)).slice(0, 10).join('\n'));
+    check('ticket data files valid (past_tickets, wooder_tickets, combos, dingers, first_td, ultrix_record)', tvOk, 'a malformed or truncated ticket file would blank or break the Wooder Ice / Past Tickets cards');
     check('news verified-zero fixture ALL OK', /ALL OK/.test(vz) && !/FAIL/.test(vz), 'the news bucket skip rule could pass on an unverified read');
     check('yards counter fixture ALL OK', /ALL OK/.test(yx) && !/FAIL/.test(yx), 'NFL futures yards could render an invented number');
     try { const yd = JSON.parse(fs.readFileSync('slates/nfl_rec_yards.json', 'utf8')); check('nfl_rec_yards.json parses with numeric players', Object.values(yd.players || {}).length > 0 && Object.values(yd.players).every(p => typeof p.yards === 'number'), 'yards counters would all show Unavailable'); }
