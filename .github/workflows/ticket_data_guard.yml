@@ -1,0 +1,42 @@
+name: ticket-data-guard
+# Ticket data check on every push that touches the public ticket files (manual browser commits are the
+# normal writer; GitHub Pages serves main directly, so this run is DETECTION right after the push, not
+# prevention - the pre-publish prevention is scripts/health_gate.js (ticket data check) before any
+# publish, and running scripts/validate_ticket_data.py on the edited files BEFORE committing them).
+# Fails red on: malformed/truncated JSON, bad shape, duplicate ids, an archived entry removed
+# (append-only vs the pre-push tip), dollar amounts on active tickets or new archive entries.
+# Bot commits by GITHUB_TOKEN do not trigger push workflows; health_gate.js covers the tree at publish time.
+on:
+  push:
+    paths:
+      - 'slates/past_tickets.json'
+      - 'slates/wooder_tickets.json'
+      - 'slates/wooder_combos.json'
+      - 'slates/wooder_dingers.json'
+      - 'slates/wooder_first_td.json'
+      - 'slates/ultrix_record.json'
+      - 'scripts/validate_ticket_data.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ticket-data-guard
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: validate tip (append-only vs the pre-push tip when there is one)
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          BASE=""
+          if [ -n "$BEFORE" ] && ! echo "$BEFORE" | grep -qE '^0+$' && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then BASE="--base $BEFORE"; fi
+          set +e; python3 scripts/validate_ticket_data.py $BASE | tee /tmp/v.log; rc=${PIPESTATUS[0]}; set -e
+          { echo "## ticket-data-guard rc=$rc sha=$(git rev-parse --short HEAD)"; grep '^FAIL' /tmp/v.log | sed 's/^/- /' || true; } >> "$GITHUB_STEP_SUMMARY"
+          exit $rc
