@@ -1,5 +1,5 @@
 name: pages-gated-deploy
-# HARD DEPLOY LOCK (owner option A, 9/30). Deploys the gate-verified tip to GitHub Pages ONLY when
+# Gated deployment. Deploys the gate-verified tip to GitHub Pages ONLY when
 # the Pages source is "GitHub Actions" AND the marker file .github/PAGES_ACTIVE exists.
 # Without the marker the deploy job is skipped, so this file is inert on a branch-served site.
 #
@@ -10,8 +10,11 @@ name: pages-gated-deploy
 # FAIL or lock = no deploy; the last good version keeps serving.
 on:
   push:
-    paths:
-      - '.github/pages_gate_selftest.trigger'
+    branches: [main]
+  schedule:
+    # carries the [skip ci] / GITHUB_TOKEN bot commits (futures ticks), which fire no push event.
+    # Best effort on GitHub's side; the change-detect step makes an idle tick a no-op deploy-wise.
+    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       force:
@@ -65,13 +68,15 @@ jobs:
       - uses: actions/checkout@v4
       - shell: bash
         run: |
+          python3 scripts/test_validate_ticket_data.py
+          bash scripts/test_push_ticket_guard.sh
           rm -rf /tmp/broken && mkdir /tmp/broken && cp -r . /tmp/broken/ && cd /tmp/broken
           python3 - <<'PY'
-          s=open('index.html').read(); s=s.replace('<script>','<script>var x = (;',1); open('index.html','w').write(s)
+          p='slates/wooder_tickets.json'; s=open(p).read(); open(p,'w').write(s[:1000])
           PY
           if node scripts/health_gate.js > /tmp/g2.log 2>&1; then echo "GATE DID NOT BITE"; exit 1; else echo "gate bit as expected"; grep '^FAIL' /tmp/g2.log | head -3; fi
   package:
-    needs: gate
+    needs: [gate, gate-bites]
     if: ${{ needs.gate.outputs.ok == 'true' && needs.gate.outputs.locked != 'true' && needs.gate.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
     steps:
