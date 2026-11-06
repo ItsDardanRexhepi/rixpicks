@@ -140,6 +140,8 @@ def main(argv):
             fail(p + ': unreadable (' + type(e).__name__ + ')')
             continue
         docs[k] = parse(raw, p)
+        if docs[k] is None and not fails:
+            fail(p + ': JSON null is not a ticket data object')
         if k == 'tickets' and MONEY.search(raw.decode('utf-8', 'replace')):
             fail(p + ': contains a dollar amount (public cards show no money)')
     past = check_list(docs['past'], 'entries', FILES['past'], False) if docs.get('past') is not None else []
