@@ -39,6 +39,8 @@ def neg(name, f, fn, *extra, setup=None):
 neg('truncated wooder_tickets JSON (Nov 2 class)', 'wooder_tickets', lambda b: b[:len(b) // 2])
 neg('trailing comma / bad separator', 'wooder_tickets', lambda b: b.replace(b'}\n  ]', b'},\n  ]', 1) if b'}\n  ]' in b else b.rstrip()[:-1] + b',}')
 neg('empty file', 'past_tickets', lambda b: b'')
+for f in FILES:
+    neg('JSON null in ' + f, f, lambda b: b'null')
 neg('BOM', 'past_tickets', lambda b: b'\xef\xbb\xbf' + b)
 neg('NaN value', 'wooder_tickets', lambda b: b.replace(b'"generated_at"', b'"x": NaN, "generated_at"', 1))
 neg('duplicate key', 'wooder_tickets', lambda b: b.replace(b'"version"', b'"version": 1, "version"', 1))
