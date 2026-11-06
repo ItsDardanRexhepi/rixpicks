@@ -39,6 +39,21 @@ readback() {
 # compare origin vs the run's OWN commit and misfire on every run whose odds actually
 # moved (Sep 30 runs 36747004985 + 36747211413: "race touched ... manifest.json" with no
 # lane push upstream at all). merge-base(HEAD, origin/main) is the true checkout base.
+# Ticket-data validation before ANY push (Nov 2 class: malformed public ticket JSON must never publish).
+# Runs only when this run's own commits touch a ticket data file; fails loud and resets HEAD to origin/main
+# so the on-failure hook cannot publish it. scripts/validate_ticket_data.py, fixture test_push_ticket_guard.sh.
+TICKET_RE='^slates/(past_tickets|wooder_tickets|wooder_combos|wooder_dingers|wooder_first_td|ultrix_record)\.json$'
+ticket_guard() {
+  [ -f scripts/validate_ticket_data.py ] || return 0
+  local B; B=$(git merge-base HEAD origin/main)
+  git diff --name-only "$B" HEAD | grep -qE "$TICKET_RE" || return 0
+  if ! python3 scripts/validate_ticket_data.py --base "$B"; then
+    echo "TICKET DATA GUARD: invalid ticket data in this run's commits - reset to origin/main, fail loud, nothing pushed" >&2
+    git reset --hard origin/main
+    return 1
+  fi
+  return 0
+}
 BASE=$(git merge-base HEAD origin/main)
 # Nothing of our own to publish (run found no changes): there is no content to protect or
 # race. Without this, a no-commit run whose push is rejected because main moved fast-forwards,
@@ -49,6 +64,7 @@ if [ "$(git rev-parse HEAD)" = "$BASE" ]; then
   exit 0
 fi
 for i in 1 2 3 4 5; do
+  ticket_guard || exit 1
   if git push; then readback; exit $?; fi
   # Re-derive the base for THIS attempt. After a first rebase our commits sit on top of the
   # upstream we already pulled; a base frozen at checkout time would count that upstream
