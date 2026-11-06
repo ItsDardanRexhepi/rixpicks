@@ -148,7 +148,16 @@ check('combos module script found in page', !!modMatch);
     check('paint poll cadence is 15s (statsapi sanctioned 10s + margin)', modMatch[0].includes('setInterval(paint,15000)') && !modMatch[0].includes('setInterval(paint,60000)'));
     check('unmatched leg stays empty (fail-closed)', trk1.some(e => e._p === 'Nobody Feedless' && e.innerHTML === ''));
     check('card-level CASHED explainer removed (consolidated into the page note)', !r1.box.innerHTML.includes('CASHED = live stat threshold met'));
-    check('consolidated page note carries CASHED/price/PLACED/hit distinctions', /id="rpWNote"[^>]*>CASHED = live stat threshold met, not a verified payout\. Prices are reference snapshots, not executable quotes, and combined odds are estimates\. PLACED = reported by Wooder Ice/.test(require('fs').readFileSync(__dirname+'/../index.html','utf8')));
+    // Page note wording was changed on purpose (Oct 25 placed-ticket pricing rule: combined quotes are whole-ticket quotes
+    // REPORTED from the ticket, no longer "estimates"). Assert each distinction the note must carry, not the old sentence.
+    { const note = (/id="rpWNote"[^>]*>([\s\S]*?)<\/div>/.exec(require('fs').readFileSync(__dirname+'/../index.html','utf8')) || [])[1] || '';
+      check('consolidated page note carries CASHED/price/PLACED/hit distinctions',
+        /CASHED = live stat threshold met, not a verified payout/.test(note)
+        && /Prices are reference snapshots, not executable quotes/.test(note)
+        && /whole-ticket quotes reported from Wooder Ice's own ticket, not live or executable prices/.test(note)
+        && /PLACED = reported by Wooder Ice; receipt, stake and fill are not independently verified/.test(note)
+        && /A double or home run counts as one hit/.test(note)
+        && !/combined odds are estimates/.test(note)); }
     const s4 = { combos: [{ id: 'idea-mlb-hits-20260930b', type: 'idea', date: '2026-09-30',
       title: 'Hits', matchup: 'PHI@ATL', legs: [{ player: 'Trea Turner', market: '1+ hit', kalshi: '-233' }] }] };
     const r4 = await runSim(s4, feed);
@@ -226,4 +235,3 @@ check('combos module script found in page', !!modMatch);
   if (failures) { console.error(failures + ' FAIL'); process.exit(1); }
   console.log('ALL OK (incl. race sim + badge/tag)');
 })();
-
