@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: validate ticket data before mirror upload
+        run: python3 scripts/validate_ticket_data.py
       - name: deploy to Cloudflare Pages (rix-picks)
         uses: cloudflare/wrangler-action@v3
         with:
