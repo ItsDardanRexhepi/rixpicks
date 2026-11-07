@@ -1,8 +1,12 @@
 // kalshi-quotes lane - Worker port of scripts/kalshi_quotes.py.
 // Reads the card pipeline's nfl_chips.json (input), writes nfl_kalshi_quotes.json.
 // Fail-closed: fetch/parse trouble = no write; last-good object stays in R2.
+// 2026-10-14: reads go authenticated when KALSHI_KEY_ID / KALSHI_PRIVATE_KEY are set
+// (own rate bucket; the shared-IP 429 cooldown class stops biting this lane).
 import { kalshiCoolingDown, tripKalshiCooldown, is429 } from '../lib/cooldown.js';
-const API = 'https://api.elections.kalshi.com/trade-api/v2/markets?tickers=%s&limit=100';
+import { kalshiHeaders } from '../lib/kalshiAuth.js';
+const KPATH = '/trade-api/v2/markets';
+const API = 'https://api.elections.kalshi.com' + KPATH + '?tickers=%s&limit=100';
 
 function isoZ(s) {
   if (typeof s !== 'string') return null;
@@ -43,7 +47,7 @@ export async function runKalshiQuotes(env) {
   if (await kalshiCoolingDown(env)) return { skipped: 'kalshi cooldown (shared-egress 429)' };
   let data;
   try {
-    const r = await fetch(API.replace('%s', tickers.join(',')), { headers: { 'User-Agent': 'rixpicks-quotes/1.0' } });
+    const r = await fetch(API.replace('%s', tickers.join(',')), { headers: await kalshiHeaders(env, 'GET', KPATH) });
     if (!r.ok) throw new Error('http ' + r.status);
     data = await r.json();
   } catch (e) {

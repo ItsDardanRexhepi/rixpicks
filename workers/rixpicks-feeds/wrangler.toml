@@ -18,6 +18,7 @@ service = "rixpicks-gh-dispatcher"
 [vars]
 PROD_BASE = "https://rix-picks.com"
 XFEED_DISPATCH = "on"       # Option A bridge: each news rotation fires x-feed-chain via the DISPATCHER binding. Set "off" to stop dispatch; full rollback = revert the bridge commit.
+ODDS_LANE = "on"            # odds-refresh feed-pull lane (shadow, R2-only). Dormant until the THE_ODDS_API_KEY worker secret lands (cf_feeds_secrets.yml); "off" = hard stop without a deploy rollback.
 
 # odd minutes: futures poll only. 5-minute marks: news + kalshi-quotes + parity (+ futures).
 [triggers]
