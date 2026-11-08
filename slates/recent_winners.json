@@ -1,7 +1,7 @@
 {
  "version": 1,
- "generated_at": "2026-10-19T21:04:49-07:00",
- "read_at_pt": "2026-10-19T21:04:49-07:00",
+ "generated_at": "2026-11-08T14:52:00-08:00",
+ "read_at_pt": "2026-11-08T14:52:00-08:00",
  "sources": {
   "espn_event": "401873008",
   "espn_status": "STATUS_FINAL",
@@ -149,6 +149,74 @@
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLGAME-26OCT19WASSF-SF",
      "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
      "reference": "Rounded screenshot reference KAL approx -345, not a live quote."
+    }
+   ]
+  },
+  {
+   "title": "NBA - MONEYLINE PARLAY",
+   "status": "PLACED - reported by Wooder Ice",
+   "date_label": "Sat Nov 7 - Sun Nov 8",
+   "note": "All 5 legs hit. Finals: ATL 124-121, GS 126-119, SA 125-103, OKC 114-75, PHI 127-121.",
+   "legs": [
+    {
+     "player": "Atlanta Hawks",
+     "market": "Moneyline",
+     "matchup": "BKN @ ATL",
+     "final_label": "ATL 124 - BKN 121 · Final",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNBAGAME-26NOV07BKNATL-ATL",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAGAME-26NOV07BKNATL-ATL",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909939"
+    },
+    {
+     "player": "Golden State Warriors",
+     "market": "Moneyline",
+     "matchup": "ORL @ GS",
+     "final_label": "GS 126 - ORL 119 · Final",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNBAGAME-26NOV07ORLGSW-GSW",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAGAME-26NOV07ORLGSW-GSW",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909942"
+    },
+    {
+     "player": "San Antonio Spurs",
+     "market": "Moneyline",
+     "matchup": "SA @ POR",
+     "final_label": "SA 125 - POR 103 · Final",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNBAGAME-26NOV07SASPOR-SAS",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAGAME-26NOV07SASPOR-SAS",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909944"
+    },
+    {
+     "player": "Oklahoma City Thunder",
+     "market": "Moneyline",
+     "matchup": "WAS @ OKC",
+     "final_label": "OKC 114 - WSH 75 · Final",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNBAGAME-26NOV07WASOKC-OKC",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAGAME-26NOV07WASOKC-OKC",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909941"
+    },
+    {
+     "player": "Philadelphia 76ers",
+     "market": "Moneyline",
+     "matchup": "PHI @ CHI",
+     "final_label": "PHI 127 - CHI 121 · Final",
+     "threshold_met": true,
+     "kalshi_result": "yes",
+     "kalshi_status": "finalized",
+     "kalshi_ticker": "KXNBAGAME-26NOV08PHICHI-PHI",
+     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAGAME-26NOV08PHICHI-PHI",
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909945"
     }
    ]
   }
