@@ -63,8 +63,9 @@ for B in ('build_gh_page_v2.py', '_build_nocanon_v2.py'):
     check(f'{B}: option on shows no bankroll wording', 'bankroll' not in on.lower())
     check(f'{B}: venue and odds kept', all(s in on for s in ('Kalshi app', 'Fanatics +1500', '>Fanatics<', 'DK +120', 'Sum of individual asks 163c')))
     check(f'{B}: combo title keeps matchup', 'Combo - BAL @ DAL' in on)
-    check(f'{B}: BOUGHT stays distinct from SUGGESTED', on.count('hp-tag hp-tag-bought">Legacy bought<') == 3 and on.count('hp-tag">Not placed<') == 2,
-          (on.count('Bought<'), on.count('Not placed<')))
+    # Nov 8: origin-only suggested entries carry no placement record -> Unknown, never a factual Not placed
+    check(f'{B}: BOUGHT stays distinct from SUGGESTED', on.count('hp-tag hp-tag-bought">Legacy bought<') == 3 and on.count('hp-tag">Unknown<') == 2 and on.count('hp-tag">Not placed<') == 0,
+          (on.count('Bought<'), on.count('Unknown<'), on.count('Not placed<')))
     check(f'{B}: other text untouched', 'Combo lost - Mark Andrews leg lost, game final' in on and 'Pick won - game final' in on)
     off = render(src, False, os.path.join(tmp, 'fx.json'))
     check(f'{B}: option off still shows the stored text', all(s in off for s in ('' + D + '0.04, to pay ' + D + '3.00', 'FanCash ' + D + '0.23', 'Bankroll Builder - BAL @ DAL')))
