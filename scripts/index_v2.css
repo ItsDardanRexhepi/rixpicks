@@ -119,12 +119,12 @@ nav.rpnav button.rec:hover b{text-decoration:underline}
 .home-yes{display:block;text-decoration:none;color:var(--mut);font-size:13px;margin:2px 0 10px} /* owner 3:02: above the date; no underline (2:16) */
 .newscar .syncwait{padding:18px 14px;text-align:center;line-height:1.5}
 /* ticker */
-.tickbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(0,0,0,.96);border-top:1px solid var(--line);padding:7px 0 calc(7px + env(safe-area-inset-bottom));backdrop-filter:blur(6px);transform:translateY(100%);transition:transform .55s cubic-bezier(.2,.7,.3,1);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.tickbar{flex:0 0 100%;order:6;overflow:hidden;border-top:1px solid var(--line);padding:7px 0;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* owner 2:55 (iPhone): iOS auto text-inflation blew up ticker text after the first item
    (track is thousands of px wide; Safari inflates per text cluster). 100% pins every item at
    its authored 12px. safe-area padding keeps the bar + page content clear of the home
    indicator zone so the bar never covers card content at scroll end. */
-body.rp-ready .tickbar{transform:translateY(0)}
+/* ticker now lives in-flow directly under the nav inside the sticky header (homepage redesign) */
 .ticktrack{display:inline-flex;align-items:center;white-space:nowrap;will-change:transform}
 @keyframes rpTickX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .tickbar:hover .ticktrack{animation-play-state:paused}
@@ -292,3 +292,213 @@ body.tab-wooder #st-ding{display:block}
 
 /* Daily Dingers have their own date gate, independent of the official card. */
 body.tab-home #st-ding{display:block}
+
+/* ===== homepage redesign (authorized design, Nov 8) ===== */
+main.rp-page{display:block}
+#st-home{padding-top:2px}
+.rp-today-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin:4px 0 18px}
+.rp-today-head h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:2px 0 0}
+.rp-today-head .rpdate{margin:0}
+.rp-stats{display:flex;gap:12px;flex-wrap:wrap}
+/* the nav record cluster, relocated into the stat tiles under the date (same ids, same popover) */
+#rpNavRec{display:flex;gap:12px;background:none;border:0;padding:0;margin:0;font:inherit;cursor:pointer;text-align:left}
+#rpNavRec>span{display:flex;flex-direction:column;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 18px;font-size:12px;color:var(--mut);font-weight:400}
+#rpNavRec b{color:var(--txt);font-size:20px;font-weight:800;white-space:nowrap}
+#rpNavRec:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+#st-home .recpop{position:static;margin-top:10px}
+/* game-day: one card per sport - the existing projected league panels, card-styled (no copied pick markup) */
+body.tab-home main{grid-column:1/-1}
+body.tab-home main{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+body.tab-home main>*{grid-column:1/-1}
+body.tab-home main>.state[data-home-league="1"]{grid-column:auto}
+body.tab-home .state[data-home-league="1"]:not(#st-ding){background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px 20px;align-self:start}
+body.tab-home .state[data-home-league="1"]:not(#st-ding)::before{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--acc);border:1px solid var(--line);border-radius:999px;padding:3px 10px;margin-bottom:10px}
+body.tab-home .state[data-home-league="1"]:not(#st-ding) .pick{box-shadow:none}
+/* off day */
+main[data-day="game"] .rp-offday{display:none}
+.rp-offday{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:6px}
+.rp-off-main{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:22px}
+.rp-off-main h2{font-size:20px;font-weight:800;margin:0 0 6px}
+.rp-off-main p{color:var(--mut);font-size:14px;margin:0}
+.rp-off-facts{display:flex;gap:12px;flex-wrap:wrap}
+.rp-off-facts>div{flex:1;min-width:150px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.rp-off-facts span{display:block;font-size:11px;color:var(--mut);margin-bottom:4px}
+.rp-off-facts strong{font-size:14px}
+.rp-wait{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px 20px;display:flex;flex-direction:column;gap:4px}
+.rp-wait>p{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin:0 0 8px}
+.rp-wait a{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-top:1px solid var(--line);text-decoration:none}
+.rp-wait a strong{color:var(--txt);font-size:14px}
+.rp-wait a span{color:var(--mut);font-size:12px}
+.rp-wait a:hover strong{color:var(--acc)}
+/* home sections below the cards (both day kinds) */
+.rp-hsec{margin-top:26px}
+.rp-hsec-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.rp-hsec-head h2{font-size:18px;font-weight:800;letter-spacing:-.01em;margin:0}
+.rp-hsec-head a{font-size:13px}
+.rp-hgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.rp-hgrid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.rp-winner2{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.rp-winner2-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--mut)}
+.rp-winner2 h3{font-size:16px;font-weight:800;margin:0}
+.rp-winner2 p{color:var(--mut);font-size:13px;margin:0}
+.rp-wbadge{background:rgba(11,110,95,.25);color:#8ff0c8;font-weight:700;font-size:11px;border-radius:999px;padding:3px 10px;white-space:nowrap}
+a.rp-futcard{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px 22px;text-decoration:none;color:var(--txt);margin-top:26px}
+a.rp-futcard .txt{flex:1;display:flex;flex-direction:column;gap:2px}
+a.rp-futcard .txt strong{font-size:15px}
+a.rp-futcard .txt span{color:var(--mut);font-size:12px}
+a.rp-futcard .live{background:rgba(59,235,245,.12);color:var(--acc);font-weight:700;font-size:12px;border-radius:999px;padding:4px 12px;white-space:nowrap}
+a.rp-futcard:hover{border-color:var(--acc)}
+.rp-nextlist{list-style:none;margin:0;padding:0;background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.rp-nextlist li{display:flex;align-items:center;gap:12px;padding:12px 18px;border-top:1px solid var(--line);font-size:13px}
+.rp-nextlist li:first-child{border-top:0}
+.rp-nextlist .lg{flex:0 0 52px;font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--acc)}
+.rp-nextlist .mt{flex:1;color:var(--txt)}
+.rp-nextlist .tm{color:var(--mut);font-size:12px;white-space:nowrap}
+.rp-nextlist .rp-next-empty{color:var(--mut)}
+@media(max-width:900px){
+ body.tab-home main{grid-template-columns:1fr}
+ .rp-hgrid,.rp-hgrid2,.rp-offday{grid-template-columns:1fr}
+ .rp-today-head h1{font-size:24px}
+}
+/* ===== end homepage redesign ===== */
+
+/* ===== History tab redesign (Wooder Ice redesign, Nov 8) - scoped to #st-past ===== */
+#st-past .hp-wrap{max-width:1000px;margin:0 auto;padding:8px 0 56px;display:flex;flex-direction:column;gap:28px}
+#st-past .hp-head h1{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:0 0 10px;color:#f2f5f4}
+#st-past .hp-head p{font-size:16px;color:#a7b4b1;line-height:1.5;max-width:680px;margin:0}
+#st-past .hp-filters{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid #1a2022}
+#st-past .hp-chips{display:flex;gap:8px;flex-wrap:wrap}
+#st-past .hp-chip{font:inherit;font-size:14px;font-weight:600;color:#a7b4b1;background:transparent;border:1px solid #2a3335;border-radius:999px;padding:9px 16px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+#st-past .hp-chip:hover{color:#f2f5f4;border-color:#3d4a4d}
+#st-past .hp-chip[aria-pressed="true"]{color:#07090a;background:#f2f5f4;border-color:#f2f5f4}
+#st-past .hp-chip .hp-n{font-variant-numeric:tabular-nums;opacity:.75}
+#st-past .hp-chip:focus-visible,#st-past .hp-select:focus-visible{outline:2px solid #3bebf5;outline-offset:2px}
+#st-past .hp-selects{display:flex;gap:8px;flex-wrap:wrap}
+#st-past .hp-select{color:#f2f5f4;background:#101415;border:1px solid #2a3335;border-radius:10px;padding:9px 12px;font-size:14px;font-weight:600;font-family:inherit}
+#st-past .hp-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#st-past .hp-list{display:flex;flex-direction:column;gap:12px}
+#st-past .hp-date{font-size:13px;font-weight:600;color:#a7b4b1;padding:20px 0 4px;margin:0}
+#st-past .hp-date:first-child{padding-top:0}
+#st-past .hp-tk{background:#101415;border:1px solid #1d2426;border-radius:16px}
+#st-past .hp-tk[open]{border-color:#2a3335}
+#st-past .hp-tk>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:64px minmax(0,1fr) auto auto 20px;gap:16px;align-items:center;padding:18px 22px}
+#st-past .hp-tk>summary::-webkit-details-marker{display:none}
+#st-past .hp-tk>summary:focus-visible{outline:2px solid #3bebf5;outline-offset:-2px;border-radius:16px}
+#st-past .hp-sport{justify-self:start;font-size:11px;font-weight:800;letter-spacing:.06em;color:#07090a;background:#f2f5f4;border-radius:6px;padding:4px 7px}
+#st-past .hp-main{display:flex;flex-direction:column;gap:3px;min-width:0}
+#st-past .hp-main strong{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#f2f5f4}
+#st-past .hp-main span{font-size:13px;color:#a7b4b1}
+#st-past .hp-tag{font-size:12px;font-weight:600;color:#a7b4b1;border:1px solid #2a3335;border-radius:999px;padding:4px 10px;white-space:nowrap}
+#st-past .hp-tag-bought{color:#8ff0c8;border-color:rgba(11,110,95,.6)}
+#st-past .hp-res{font-size:12px;font-weight:800;letter-spacing:.04em;border-radius:999px;padding:5px 12px;white-space:nowrap;min-width:64px;text-align:center}
+#st-past .hp-res.won{color:#07090a;background:#4ade80}
+#st-past .hp-res.lost{color:#f87171;background:rgba(248,113,113,.12)}
+#st-past .hp-res.void{color:#c9ced6;background:rgba(201,206,214,.12)}
+#st-past .hp-chev{color:#a7b4b1;transition:transform .15s ease}
+#st-past .hp-tk[open]>summary .hp-chev{transform:rotate(180deg)}
+#st-past .hp-body{padding:0 22px 22px 102px;display:flex;flex-direction:column;gap:16px}
+#st-past .hp-legs{border-top:1px solid #1d2426;margin:0;padding:0;list-style:none}
+#st-past .hp-legs li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px solid #1d2426;font-size:15px;color:#f2f5f4}
+#st-past .hp-legs .hp-mk{font-weight:800}
+#st-past .hp-legs li.hit .hp-mk{color:#4ade80}
+#st-past .hp-legs li.miss .hp-mk{color:#f87171}
+#st-past .hp-legs li.open .hp-mk{color:#a7b4b1}
+#st-past .hp-legs .hp-sub{font-size:13px;color:#a7b4b1}
+#st-past .hp-detail{font-size:13px;color:#a7b4b1;margin:0;line-height:1.55}
+#st-past .hp-why{font-size:14px;line-height:1.55;margin:0;color:#f2f5f4}
+#st-past .hp-why b{font-weight:600}
+#st-past .hp-record{background:#0c1011;border:1px solid #1d2426;border-radius:12px}
+#st-past .hp-record>summary{cursor:pointer;list-style:none;padding:12px 16px;font-size:13px;font-weight:600;color:#a7b4b1}
+#st-past .hp-record>summary::-webkit-details-marker{display:none}
+#st-past .hp-record>summary:hover{color:#f2f5f4}
+#st-past .hp-record[open]>summary{color:#f2f5f4}
+#st-past .hp-record>div{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px}
+#st-past .hp-record p{font-size:12.5px;line-height:1.6;color:#a7b4b1;margin:0;overflow-wrap:anywhere}
+#st-past .hp-record a{color:#3bebf5;text-decoration:none}
+#st-past .hp-record a:hover{color:#9ff6fb}
+#st-past .hp-empty{border:1px dashed #2a3335;border-radius:16px;padding:32px;text-align:center;color:#a7b4b1;font-size:15px;margin:0}
+#st-past .hp-more{align-self:center;color:#f2f5f4;background:transparent;border:1px solid #2a3335;border-radius:999px;padding:12px 22px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+#st-past .hp-more:hover{border-color:#3bebf5}
+#st-past .hp-how{background:#101415;border:1px solid #1d2426;border-radius:16px;padding:20px 24px}
+#st-past .hp-how summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:16px;font-weight:600;color:#f2f5f4}
+#st-past .hp-how summary::-webkit-details-marker{display:none}
+#st-past .hp-how summary svg{color:#a7b4b1}
+#st-past .hp-how[open] summary svg{transform:rotate(180deg)}
+#st-past .hp-how ul{margin:16px 0 0;padding-left:20px;list-style:disc;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.55;color:#a7b4b1}
+#st-past .hp-how strong{color:#f2f5f4}
+@media (max-width:720px){
+  #st-past .hp-head h1{font-size:34px}
+  #st-past .hp-tk>summary{grid-template-columns:minmax(0,1fr) auto 20px;gap:6px 12px;padding:16px}
+  #st-past .hp-tk>summary .hp-sport{grid-column:1;grid-row:1}
+  #st-past .hp-tk>summary .hp-main{grid-column:1/-1;grid-row:2}
+  #st-past .hp-tk>summary .hp-main strong{white-space:normal}
+  #st-past .hp-tk>summary .hp-tag{display:none}
+  #st-past .hp-tk>summary .hp-res{grid-column:2;grid-row:1}
+  #st-past .hp-tk>summary .hp-chev{grid-column:3;grid-row:1}
+  #st-past .hp-body{padding:0 16px 16px}
+}
+/* NFL tab redesign (Wooder Ice redesign, Nov 8): weekly slate replaces the upcoming-events sidebar on #nfl */
+body.tab-nfl .layout{grid-template-columns:minmax(0,1fr)}
+body.tab-nfl .layout aside{display:none}
+
+/* ===== NFL tab redesign (Wooder Ice redesign, Nov 8) - scoped to #st-nfl ===== */
+#st-nfl .nx-head{margin:22px 0 0}
+#st-nfl .nx-date{font-size:14px;font-weight:600;color:#a7b4b1;margin:0 0 8px}
+#st-nfl .nx-head h1{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:0 0 10px;color:#f2f5f4}
+#st-nfl .nx-sub{font-size:16px;color:#a7b4b1;margin:0}
+#st-nfl .nx-section{display:flex;flex-direction:column;gap:16px;margin-top:40px}
+#st-nfl .nx-shead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+#st-nfl .nx-shead h2{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0;color:#f2f5f4}
+#st-nfl .nx-shead a{font-size:14px;font-weight:600;color:#3bebf5;text-decoration:none}
+#st-nfl .nx-shead a:hover{color:#9ff6fb}
+#st-nfl .nx-shead>span{font-size:14px;color:#a7b4b1}
+#st-nfl .nx-card{background:#101415;border:1px solid #1d2426;border-radius:20px}
+#st-nfl .nx-offday{padding:32px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+#st-nfl .nx-offday h3{font-size:20px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px;color:#f2f5f4}
+#st-nfl .nx-offday p{font-size:15px;color:#a7b4b1;line-height:1.5;margin:0}
+#st-nfl .nx-next{display:flex;flex-direction:column;gap:2px;text-align:right}
+#st-nfl .nx-next span{font-size:12px;font-weight:600;color:#a7b4b1}
+#st-nfl .nx-next strong{font-size:15px;font-weight:600;color:#f2f5f4}
+#st-nfl .nx-picks[data-day="off"] .nx-gameday{display:none}
+#st-nfl .nx-picks[data-day="game"] .nx-offday{display:none}
+#st-nfl .nx-gameday{display:flex;flex-direction:column;gap:16px}
+#st-nfl .nx-twrap{overflow-x:auto;padding:8px 28px}
+#st-nfl .nx-fut{width:100%;border-collapse:collapse;min-width:760px}
+#st-nfl .nx-fut th{text-align:left;font-size:12px;font-weight:600;color:#a7b4b1;padding:14px 12px 12px 0;border-bottom:1px solid #1d2426}
+#st-nfl .nx-fut td{padding:16px 12px 16px 0;border-bottom:1px solid #1d2426;font-size:15px;vertical-align:middle;color:#f2f5f4}
+#st-nfl .nx-fut tr:last-child td{border-bottom:0}
+#st-nfl .nx-fut .num{text-align:right;font-variant-numeric:tabular-nums}
+#st-nfl .nx-team{display:flex;flex-direction:column;gap:2px}
+#st-nfl .nx-team strong{font-size:16px;font-weight:600}
+#st-nfl .nx-team span{font-size:13px;color:#a7b4b1}
+#st-nfl .nx-livep{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+#st-nfl .nx-livep strong{font-weight:800}
+#st-nfl .nx-livep span{font-size:12px;color:#a7b4b1}
+#st-nfl .nx-move{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;white-space:nowrap}
+#st-nfl .nx-move.up{color:#4ade80}
+#st-nfl .nx-move.down{color:#f87171}
+#st-nfl .nx-mut{color:#a7b4b1}
+#st-nfl .nx-fine{font-size:13px;color:#a7b4b1;line-height:1.5;margin:0}
+#st-nfl .nx-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px;margin-top:40px}
+#st-nfl .nx-grid2 .nx-section{margin-top:0}
+#st-nfl .nx-day{font-size:13px;font-weight:600;color:#a7b4b1;padding:18px 0 8px;margin:0}
+#st-nfl .nx-day:first-child{padding-top:0}
+#st-nfl .nx-list{border-top:1px solid #1d2426;margin:0;padding:0;list-style:none}
+#st-nfl .nx-game{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid #1d2426}
+#st-nfl .nx-game .nx-match{font-size:16px;font-weight:600;flex-grow:1;color:#f2f5f4}
+#st-nfl .nx-game .nx-time{font-size:14px;color:#a7b4b1}
+#st-nfl .nx-idea{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.5fr) 92px;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid #1d2426}
+#st-nfl .nx-idea .nx-name{display:flex;flex-direction:column;gap:2px}
+#st-nfl .nx-idea .nx-name strong{font-size:15px;font-weight:600;color:#f2f5f4}
+#st-nfl .nx-idea .nx-name span{font-size:13px;color:#a7b4b1}
+#st-nfl .nx-bar{height:8px;border-radius:4px;background:#1d2426;overflow:hidden}
+#st-nfl .nx-bar::before{content:"";display:block;height:100%;width:var(--pct,0%);border-radius:4px;background:#3bebf5}
+#st-nfl .nx-bar.close::before{background:#4ade80}
+#st-nfl .nx-idea .nx-prog{font-size:13px;color:#a7b4b1;text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:960px){#st-nfl .nx-grid2{grid-template-columns:minmax(0,1fr);gap:40px}}
+@media (max-width:640px){
+  #st-nfl .nx-head h1{font-size:34px}
+  #st-nfl .nx-offday{padding:24px}
+  #st-nfl .nx-next{text-align:left}
+  #st-nfl .nx-twrap{padding:4px 16px}
+}
