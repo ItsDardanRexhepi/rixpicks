@@ -435,7 +435,7 @@ a.rp-futcard:hover{border-color:var(--acc)}
   #st-past .hp-tk>summary .hp-sport{grid-column:1;grid-row:1}
   #st-past .hp-tk>summary .hp-main{grid-column:1/-1;grid-row:2}
   #st-past .hp-tk>summary .hp-main strong{white-space:normal}
-  #st-past .hp-tk>summary .hp-tag{display:none}
+  #st-past .hp-tk>summary .hp-tag{grid-column:1/-1;grid-row:3;justify-self:start}
   #st-past .hp-tk>summary .hp-res{grid-column:2;grid-row:1}
   #st-past .hp-tk>summary .hp-chev{grid-column:3;grid-row:1}
   #st-past .hp-body{padding:0 16px 16px}
