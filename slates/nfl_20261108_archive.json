@@ -49,7 +49,8 @@
           "time": "Sun Nov 8, 10:00 AM PST",
           "status": "pending"
         }
-      ]
+      ],
+      "placement_note": "Placement unconfirmed. Screenshot quote, not a live or executable quote. Placement unconfirmed.  Original screenshot references: Sam LaPorta: +160; Xavier Worthy: +225; Antonio Williams: +600; Shedeur Sanders: +110"
     },
     {
       "id": "wooder-20261108-td9",
@@ -62,7 +63,7 @@
       "archived_at": "2026-11-08T13:19:00-08:00",
       "removed_label": "Nov 8, 1:19 PM PT",
       "reason": "Rashee Rice had no qualifying touchdown at ESPN official final NYJ12-KC35. Participation verified (5 receptions); all 9 scoring plays and 185 drive plays through END OF GAME account for all 47 points. KC touchdowns: Walker three, Kelce one, Johnson one; no Rice recovery/return touchdown. Whole pick failed. Selection grading only, not placement, fill or settlement.",
-      "detail": "Screenshot decimal references, not current or executable quotes. No combined quote shown. PICK \u00b7 Not reported placed. Decimal prices are screenshot references only. No combined quote supplied. Full non-passing TD scope includes qualifying fumble recovery and special-teams returns; conversions and safeties excluded. Missing full scoring coverage stays unknown.",
+      "detail": "Screenshot decimal references, not current or executable quotes. No combined quote shown. PICK \u00b7 Placement unconfirmed. Decimal prices are screenshot references only. No combined quote supplied. Full non-passing TD scope includes qualifying fumble recovery and special-teams returns; conversions and safeties excluded. Missing full scoring coverage stays unknown.",
       "provenance": "Screenshot-sourced pick; placement unconfirmed. Exact original selections and screenshot quote references retained; no combined quote inferred.",
       "source_urls": [
         "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873045"
@@ -140,7 +141,8 @@
           "time": "Sun Nov 8, 10:00 AM PST",
           "status": "lost"
         }
-      ]
+      ],
+      "placement_note": "Placement unconfirmed. Screenshot decimal references, not current or executable quotes. No combined quote shown. PICK \u00b7 Placement unconfirmed. Decimal prices are screenshot references only. No combined quote supplied. Full non-passing TD scope includes qualifying fumble recovery and special-teams returns; conversions and safeties excluded. Missing full scoring coverage stays unknown. Original screenshot references: Jaxon Smith-Njigba: 1.79x; CeeDee Lamb: 1.83x; Jonathan Taylor: 1.70x; Chuba Hubbard: 1.90x; Jahmyr Gibbs: 1.29x; Woody Marks: 2.05x; Puka Nacua: 1.79x; Saquon Barkley: 2.34x; Rashee Rice: 2.29x"
     },
     {
       "id": "rix-20261108-b",
@@ -201,7 +203,8 @@
         }
       ],
       "archived_at": "2026-11-08T13:19:00-08:00",
-      "removed_label": "Nov 8, 1:19 PM PT"
+      "removed_label": "Nov 8, 1:19 PM PT",
+      "placement_note": "Placement unconfirmed. Screenshot quote, not a live or executable quote. Placement unconfirmed.  Original screenshot references: Isaiah Likely: +193; Puka Nacua: -278; Caleb Douglas: -284; Shedeur Sanders: no individual quote shown [group 2 Pick SGP | +202]; Tyler Shough: no individual quote shown [group 2 Pick SGP | +202]; last two legs share screenshot group quote +202, not individual quotes."
     }
   ]
 }
