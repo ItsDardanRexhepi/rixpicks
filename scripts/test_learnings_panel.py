@@ -210,8 +210,8 @@ for B in TWINS:
         continue
     check(f'{B}: the call reads history.json beside the manifest',
           "_learn_html = '' and _learnings_html(os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), 'history.json'))" in src)
-    check(f'{B}: the section sits right before News in the Home shell',
-          "+fut_entry+'\\n'+_learn_html+'<div class=\"sect home-only\" style=\"margin-top:18px\">News</div>" in src)
+    check(f'{B}: the section sits in the Home shell right after the futures block, before the winners/news zone (Nov 8 home redesign: News moved into the rp-hgrid2 grid)',
+          "+fut_entry+'\\n'+_learn_html+'<div class=\"home-only rp-hsec\" id=\"rpHomeWin\">" in src)
 
     out = learn(P['fix'])
     outs[B] = out
