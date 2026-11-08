@@ -3268,6 +3268,7 @@ if _V2:
     r'<li><strong>Placed</strong> means Wooder Ice reported placing the ticket. Fill and settlement are not independently verified.</li>'
     r'<li><strong>Bought</strong> means the archive records the ticket as bought on the named venue. <strong>Legacy bought</strong> entries carry no surviving placement report. Fill and settlement are not independently verified for either.</li>'
     r'<li><strong>Not placed</strong> tickets were never placed by Wooder Ice. No wager, but the original selection and prices are kept.</li>'
+    r'<li><strong>Unknown</strong> entries carry no surviving placement record either way - no surviving report is not evidence of non-placement.</li>'
     r'<li>Legs are graded against official ESPN finals and, where available, Kalshi settlement. One failed leg ends the whole parlay; other legs may be left ungraded.</li>'
     r'<li>Counts are pick and card results, not wager or payout accounting. Prices are rounded screenshot references, not executable quotes.</li>'
     r'</ul></details></div>'
@@ -3282,7 +3283,7 @@ if _V2:
     r'var SORD=["nfl","nba","ncaaf","ncaab","mlb","nhl","wnba","soc","multi","other"];'
     r'var CHEV="<svg class=\"hp-chev\" aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9l6 6 6-6\"/></svg>";'
     r'function resOf(e){var r=String(e.result||"").toLowerCase();return (r==="won"||r==="lost"||r==="void")?r:"other";}'
-    r'function placedOf(e){var st=String(e.status||"");if(e.origin==="bought"){if(/reported/i.test(st)||e.placement_reported===true)return ["bought","Bought"];return ["bought","Legacy bought"];}if(/^not placed/i.test(st))return ["not-placed","Not placed"];if(/placed/i.test(st))return ["placed","Placed"];if(/reported|placed/i.test(String(e.origin||"")))return ["placed","Placed"];return ["not-placed","Not placed"];}'
+    r'function placedOf(e){var st=String(e.status||"");if(e.origin==="bought"){if(/reported/i.test(st)||e.placement_reported===true)return ["bought","Bought"];return ["bought","Legacy bought"];}if(/^not placed/i.test(st))return ["not-placed","Not placed"];if(/placed/i.test(st))return ["placed","Placed"];if(/reported|placed/i.test(String(e.origin||"")))return ["placed","Placed"];return ["unknown","Unknown"];}'
     r'function lgUrl(u){var m=String(u||"").match(/\/sports\/([a-z]+)\/([a-z0-9.-]+)/i);if(!m)return "";var s=m[1].toLowerCase(),l=m[2].toLowerCase();if(s==="football")return l==="nfl"?"nfl":"ncaaf";if(s==="basketball")return l==="nba"?"nba":(l==="wnba"?"wnba":"ncaab");if(s==="hockey")return "nhl";if(s==="baseball")return "mlb";if(s==="soccer")return "soc";return "";}'
     r'function sportOf(e){var lg={},n=0,k;(e.legs||[]).forEach(function(l){k=String(l.league||"").toLowerCase();if(k==="cfb")k="ncaaf";if(!k)k=lgUrl(l.game_source_url);if(k&&!lg[k]){lg[k]=1;n++;}});if(n>1)return "multi";if(n===1)return Object.keys(lg)[0];(e.source_urls||[]).forEach(function(u){k=lgUrl(u);if(k&&!lg[k]){lg[k]=1;n++;}});if(n>1)return "multi";if(n===1)return Object.keys(lg)[0];var t=String(e.title||"").toLowerCase();if(/^multisport/.test(t))return "multi";var m=t.match(/^(nfl|nba|ncaaf|nhl|mlb|wnba|soccer)\b/);if(m)return m[1]==="soccer"?"soc":m[1];var p=String(e.provenance||"").toLowerCase();if(/dingers|home run|mlb|baseball/.test(p)||/home run/.test(t))return "mlb";if(/wnba/.test(p))return "wnba";if(/nba/.test(p))return "nba";if(/nfl|football/.test(p))return "nfl";if(/nhl|hockey/.test(p))return "nhl";if(/soccer/.test(p))return "soc";if(/touchdown|\btd\b/i.test(t))return "nfl";return "other";}'
     r'function dayOf(e){var d=String(e.date||e.original_date||"");if(!/^\d{4}-\d{2}-\d{2}$/.test(d))d=String(e.archived_at||"").slice(0,10);return /^\d{4}-\d{2}-\d{2}$/.test(d)?d:"";}'
@@ -3564,7 +3565,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
             _panels_html+='<div class="state" id="st-trinity">'+trinity_entry()+'</div>\n'
             continue
         if t['key']=='nfl':
-            _body=(_nfl_head+'<section class="nx-section nx-picks" id="rpNflPicks" data-day="'+('game' if _prows.strip() else 'off')+'" aria-labelledby="nxPicksH"><div class="nx-shead"><h2 id="nxPicksH">Rix&rsquo;s picks</h2></div>'+_nfl_offday+'<div class="nx-gameday">'+_prows+'</div></section>'+_lg_fut_html(t['key'])+_nfl_futmod+'<div class="nx-grid2">'+_nfl_slate+_nfl_wi+'</div>')
+            _body=(_nfl_head+'<section class="nx-section nx-picks" id="rpNflPicks" data-day="'+('game' if _prows.strip() else 'off')+'" aria-labelledby="nxPicksH"><div class="nx-shead"><h2 id="nxPicksH">Rix&rsquo;s picks</h2></div>'+_nfl_offday+'<div class="nx-gameday">'+_prows+'</div></section>'+_nfl_futmod+'<div class="nx-grid2">'+_nfl_slate+_nfl_wi+'</div>')
         else:
             _body=(((nfl_entry+wooder_batch_entry) if t['key']=='wooder' else (past_entry if t['key']=='past' else (_prows if t['key']=='mlb' else ((_prows+wnba_entry) if t['key']=='wnba' else _prows)))))
             _body=_ystr_for(t['key'])+_body+_lg_fut_html(t['key'])
