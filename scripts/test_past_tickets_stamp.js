@@ -1,11 +1,14 @@
 #!/usr/bin/env node
-/* Past Tickets display fixture (Oct 1 sweep, LS-15).
-   Archived Sep 27-28 legs rendered 'WAS @ ATL · Today 4:00 PM PT' on Oct 1, and two entries
-   with no removed_label/archived_at rendered a bare 'Removed ·'. Display rules under test:
-   - an archived leg never wears a relative day word (Today/Tonight/Tomorrow); the clock time stays
-   - no 'Removed' stamp without a removal time; no dangling separator without a reason
+/* Past Tickets display fixture (Oct 1 sweep, LS-15; Nov 8 History redesign).
+   The History tab now renders each archived entry as a collapsed <details class="hp-tk"> card:
+   sport chip, title, placed tag, result badge, legs with outcome classes, a plain-English why line
+   from the stored reason, and a nested "Full record" with the verbatim provenance (placement note,
+   removal stamp, source lines). Display rules under test (unchanged intent):
+   - an archived leg never wears a relative day word (Today/Tonight/Tomorrow)
+   - no 'Removed' stamp without a removal time; a stamp is only the time (the reason lives in the why line)
    - stored entries are only displayed differently, never rewritten
-   Pulls the real Past Tickets script out of scripts/build_gh_page_v2.py (python3 evaluates the
+   - leg outcomes carry hit/miss/open classes; void renders as its own result state
+   Pulls the real History script out of scripts/build_gh_page_v2.py (python3 evaluates the
    past_entry literal) and runs it in a vm sandbox against a stub fetch. No DOM library needed.
    Run: node scripts/test_past_tickets_stamp.js */
 'use strict';
@@ -28,7 +31,7 @@ function check(label, cond, extra) {
   if (!cond) failures++;
   console.log((cond ? 'OK   ' : 'FAIL ') + label + (cond || extra === undefined ? '' : '  [' + extra + ']'));
 }
-check('Past Tickets script found in the builder', script.length > 200, script.length);
+check('History script found in the builder', script.length > 200, script.length);
 
 const ENTRIES = [
   { id: 't10', title: 'WNBA 3-leg idea', origin: 'suggested', result: 'lost', archived_at: '2026-09-28T04:44', removed_label: 'Sep 28, 4:44 AM PT', reason: 'Game final',
@@ -43,20 +46,28 @@ const box = { innerHTML: '' }, bar = { innerHTML: '', querySelectorAll: () => []
 const ctx = vm.createContext({
   document: { getElementById: id => (id === 'rpPastBox' ? box : id === 'rpPastBar' ? bar : null) },
   fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve({ entries: ENTRIES }) }),
-  Date, JSON, String, Array, Object, Promise,
+  Date, JSON, String, Array, Object, Promise, Intl,
 });
 vm.runInContext(script, ctx);
 setTimeout(() => {
   const h = box.innerHTML;
-  const cards = h.split('border-radius:12px;padding:11px 12px').slice(1);
+  // sorted newest first: t13 (Sep 30), t10 (Sep 28), t11 (undated -> "Earlier")
+  const cards = h.split('<details class="hp-tk"').slice(1);
   check('three archived cards render', cards.length === 3, cards.length);
-  check("archived legs drop 'Today'", !/&middot; Today\b/i.test(h) && /WAS @ ATL<\/span> <span style="color:#8a8f98">&middot; 4:00 PM PT</.test(h), (h.match(/WAS @ ATL.{0,60}/) || [''])[0]);
-  check("archived legs drop 'tonight'", !/&middot; tonight\b/i.test(h) && /&middot; 5:20 PM PT/.test(h));
-  check('absolute leg dates stay as written', /&middot; Sep 29, 2:00 PM PT/.test(h));
-  check("no bare 'Removed' stamp on an entry without a removal time", !/Removed\s*(&middot;|<\/div>)/.test(h) && !/Removed \s*&middot;/.test(h));
-  check('entry without removal time shows no Removed line', cards[1] && !/Removed/.test(cards[1]));
-  check('stamp with time and reason reads Removed <time> &middot; <reason>', /Removed Sep 28, 4:44 AM PT &middot; Game final<\/div>/.test(h));
-  check('stamp with time but no reason has no dangling separator', /Removed Sep 30, 1:55 PM PT<\/div>/.test(h));
+  check("archived legs drop 'Today'", !/\bToday\s+\d/.test(h), (h.match(/Today.{0,30}/) || [''])[0]);
+  check("archived legs drop 'tonight'", !/tonight\s+\d/i.test(h));
+  check("no relative day words anywhere in the archive view", !/\b(Today|Tonight|Tomorrow)\b/.test(h));
+  const heads = [...h.matchAll(/hp-date">([^<]+)</g)].map(m => m[1]);
+  check('three date headings, newest first, undated labelled Earlier', heads.length === 3 && /Sep 30/.test(heads[0]) && /Sep 28/.test(heads[1]) && heads[2] === 'Earlier', JSON.stringify(heads));
+  check('void entry carries the void state', /data-result="void"/.test(cards[0] || '') && /hp-res void">VOID</.test(cards[0] || ''));
+  check('stamp with a removal time reads Removed <time>', /Removed Sep 28, 4:44 AM PT</.test(cards[1] || ''), (cards[1] || '').slice(0, 300));
+  check("no bare 'Removed' stamp on an entry without a removal time", !/Removed/.test(cards[2] || ''));
+  check('reason renders as the plain-English why line', /Why it lost:<\/b> Game final</.test(cards[1] || ''));
+  check('leg outcomes carry hit/miss classes', /class="miss"/.test(cards[1] || '') && /class="hit"/.test(cards[1] || ''));
+  check('full record keeps the provenance nested', /hp-record"><summary>Full record</.test(cards[1] || ''));
+  check('placed filter attribute set (suggested = not placed)', /data-placed="not-placed"/.test(h));
+  check('result filter bar carries live counts', /All <span class="hp-n">3</.test(bar.innerHTML) && /Lost <span class="hp-n">2</.test(bar.innerHTML) && /Void <span class="hp-n">1</.test(bar.innerHTML), bar.innerHTML.slice(0, 200));
+  check('original leg times retained in Full record, relative day words stripped', /Kiki Iriafen 16\+ Points - 4:00 PM PT/.test(cards[1] || '') && /Puka Nacua Anytime TD - 5:20 PM PT/.test(cards[1] || ''), (cards[1] || '').match(/Original leg times[^<]*/));
   check('stored entries untouched', JSON.stringify(ENTRIES) === frozen);
   if (failures) { console.error(failures + ' FAILURES'); process.exit(1); }
   console.log('past tickets stamp fixture: ALL PASS');
