@@ -299,6 +299,7 @@ body.tab-home #st-ding{display:block}
 main.rp-page{display:block}
 #st-home{padding-top:113px} /* clear the 95-99px sticky nav+ticker: date + headline + record were colliding under it */
 .rp-today-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin:4px 0 18px}
+.rp-today-head>div{flex:1;min-width:0} /* h1 box spans the row so the My Account button (myprofile fab, absolute right:0 in the first h1) sits at the right edge, not over the headline */
 .rp-today-head h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:2px 0 0}
 .rp-today-head .rpdate{margin:0}
 .rp-stats{display:flex;gap:12px;flex-wrap:wrap}
