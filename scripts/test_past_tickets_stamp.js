@@ -65,7 +65,8 @@ setTimeout(() => {
   check('reason renders as the plain-English why line', /Why it lost:<\/b> Game final</.test(cards[1] || ''));
   check('leg outcomes carry hit/miss classes', /class="miss"/.test(cards[1] || '') && /class="hit"/.test(cards[1] || ''));
   check('full record keeps the provenance nested', /hp-record"><summary>Full record</.test(cards[1] || ''));
-  check('placed filter attribute set (suggested = not placed)', /data-placed="not-placed"/.test(h));
+  // Nov 8: suggested with no surviving placement record is unknown, not a factual not-placed
+  check('placed filter attribute set (suggested without placement record = unknown)', /data-placed="unknown"/.test(h) && !/data-placed="not-placed"/.test(h));
   check('result filter bar carries live counts', /All <span class="hp-n">3</.test(bar.innerHTML) && /Lost <span class="hp-n">2</.test(bar.innerHTML) && /Void <span class="hp-n">1</.test(bar.innerHTML), bar.innerHTML.slice(0, 200));
   check('original leg times retained in Full record, relative day words stripped', /Kiki Iriafen 16\+ Points - 4:00 PM PT/.test(cards[1] || '') && /Puka Nacua Anytime TD - 5:20 PM PT/.test(cards[1] || ''), (cards[1] || '').match(/Original leg times[^<]*/));
   check('stored entries untouched', JSON.stringify(ENTRIES) === frozen);
