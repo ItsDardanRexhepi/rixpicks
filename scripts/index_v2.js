@@ -407,7 +407,9 @@ function rpDateRoll(){
  el.textContent=today;
  window.RP_CARD_STALE=true;
  var st=document.getElementById('st-home');
- if(st)st.innerHTML='<div class="pick rp-empty"><div class="pick-head"><span class="name">Today\u2019s card has not published yet.</span></div></div>';
+ var mp=document.querySelector('main.rp-page'),mpOk=mp&&typeof mp.setAttribute==='function';
+ if(mpOk){mp.setAttribute('data-day','off');var th=document.getElementById('rp-today-h');if(th)th.textContent='Off day';}
+ if(st&&!mpOk)st.innerHTML='<div class="pick rp-empty"><div class="pick-head"><span class="name">Today\u2019s card has not published yet.</span></div></div>';
  /* the stale card's league panels stop projecting onto Home (they kept showing under the new date)
     and say which card they belong to; their "Today's picks" heading becomes "Picks"; its combo
     leaves Home too */
