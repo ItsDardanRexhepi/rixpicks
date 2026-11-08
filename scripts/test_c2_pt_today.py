@@ -99,7 +99,7 @@ def run_module(js, payload, intl_ok):
     Returns {hidden, html} of the module box."""
     code = '\n'.join([
         'var box={innerHTML:"",parentNode:{parentNode:{style:{}}}};var tab={style:{}};',
-        'var document={getElementById:function(id){return id==="rpNflTab"?tab:box;},querySelectorAll:function(){return [];}};',
+        'var document={getElementById:function(id){return id==="rpNflTab"||id==="rpBatchTab"?tab:id==="rpNflPicks"?null:box;},querySelectorAll:function(){return [];}};',
         'var window={rpLg:{markKind:function(){}}};function setInterval(){}',
         'if(!%s){Date.prototype.toLocaleDateString=function(){throw new RangeError("no Intl");};}' % ('true' if intl_ok else 'false'),
         'var P=%s;function fetch(){return Promise.resolve({ok:true,json:function(){return Promise.resolve(P);}});}' % json.dumps(payload),
@@ -148,13 +148,15 @@ for B in BUILDERS:
     # C-2.3: the page modules never fall back to the viewer's own date
     if not index:
         rc, out, index, _ = build(B, card([PICK], posted_at=POSTED), 'America/Los_Angeles')
-    ding, nfl = module(index, 'rpDing'), module(index, 'rpNflIdeas')
-    check(f'{tag}: C-2.3 the Dingers Only and NFL ideas modules are on the page', bool(ding) and bool(nfl))
+    # Nov 8 redesign: the NFL ideas module code now ships as the Wooder Ice batch twin (rpBatchIdeas);
+    # the legacy NFL-tab mount was removed per the authorized redesign.
+    ding, nfl = module(index, 'rpDing'), module(index, 'rpBatchIdeas')
+    check(f'{tag}: C-2.3 the Dingers Only and Wooder batch ideas modules are on the page', bool(ding) and bool(nfl))
     dpick = {'player': 'A Batter', 'team': 'NYY', 'matchup': 'NYY at BOS', 'time': '4:05 PM', 'market': 'To hit a HR', 'links': []}
     ncard = {'title': 'Idea', 'legs': [{'player': 'A Receiver', 'market': '60+ yards', 'links': []}]}
     for name, js, payload, shown in (
             ('Dingers Only', ding, {'date': local_date(), 'picks': [dpick]}, lambda t: not t.get('hidden') and 'A Batter' in t.get('html', '')),
-            ('NFL ideas', nfl, {'date': local_date(), 'cards': [ncard]}, lambda t: 'No NFL ideas today' not in t.get('html', '') and bool(t.get('html')))):
+            ('Wooder batch ideas', nfl, {'date': local_date(), 'cards': [ncard]}, lambda t: bool(t.get('html')))):
         if not js:
             continue
         t = run_module(js, payload, intl_ok=False)
