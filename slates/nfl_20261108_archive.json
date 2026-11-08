@@ -289,7 +289,7 @@
       "origin": "screenshot",
       "result": "lost",
       "archived_at": "2026-11-08T13:51:41-08:00",
-      "removed_label": "Nov 8, 1:51 PM PT",
+      "removed_label": "Nov 8, 1:52 PM PT",
       "reason": "Jonathan Taylor finished with 46 rushing yards, below 100+, at ESPN official final DAL-IND. Whole pick failed. Selection grading only, not placement, fill or settlement.",
       "detail": "Screenshot quote, not a live or executable quote. Placement unconfirmed. +30% parlay boost; prior +2556 (crossed out in screenshot).",
       "provenance": "Screenshot-sourced pick; placement unconfirmed. Exact original selections and screenshot quote references retained; +30% parlay boost and prior +2556 crossed out as shown.",
@@ -299,7 +299,8 @@
         "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873045",
         "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873041"
       ],
-      "placement_note": "Placement unconfirmed. Screenshot quotes, not live or executable prices. Whole-card +3325 with +30% parlay boost; prior +2556 crossed out. Original screenshot references: Jonathan Taylor +264; Tyler Shough +100; Kenyon Sadiq +116; Chuba Hubbard -145."
+      "placement_note": "Placement unconfirmed. Screenshot quotes, not live or executable prices. Whole-card +3325 with +30% parlay boost; prior +2556 crossed out. Original screenshot references: Jonathan Taylor +264; Tyler Shough +100; Kenyon Sadiq +116; Chuba Hubbard -145.",
+      "removed_at": "2026-11-08T13:52:18-08:00"
     }
   ]
 }
