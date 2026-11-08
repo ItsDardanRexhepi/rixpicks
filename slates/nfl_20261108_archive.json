@@ -1,0 +1,207 @@
+{
+  "entries": [
+    {
+      "id": "rix-20261108-c",
+      "date": "2026-11-08",
+      "title": "NFL - 4-LEG PARLAY | +12321",
+      "kind": "pick",
+      "origin": "screenshot",
+      "result": "lost",
+      "status": "PICK - PLACEMENT UNCONFIRMED",
+      "archived_at": "2026-11-08T13:19:00-08:00",
+      "removed_label": "Nov 8, 1:19 PM PT",
+      "reason": "Xavier Worthy finished with 48 receiving yards, below 50+, at ESPN official final NYJ12-KC35. Whole pick failed. Selection grading only, not placement, fill or settlement.",
+      "detail": "Screenshot quote, not a live or executable quote. Placement unconfirmed. ",
+      "provenance": "Screenshot-sourced pick; placement unconfirmed. Exact original selections and screenshot quote references retained; no combined quote inferred.",
+      "source_urls": [
+        "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873045"
+      ],
+      "legs": [
+        {
+          "player": "Sam LaPorta",
+          "market": "Anytime TD Scorer",
+          "odds": "+160",
+          "matchup": "DET @ MIA",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "pending"
+        },
+        {
+          "player": "Xavier Worthy",
+          "market": "50+ Receiving Yards",
+          "odds": "+225",
+          "matchup": "NYJ @ KC",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "lost"
+        },
+        {
+          "player": "Antonio Williams",
+          "market": "100+ Receiving Yards",
+          "odds": "+600",
+          "matchup": "LAR @ WAS",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "pending"
+        },
+        {
+          "player": "Shedeur Sanders",
+          "market": "200+ Passing Yards",
+          "odds": "+110",
+          "matchup": "CLE @ NO",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "wooder-20261108-td9",
+      "date": "2026-11-08",
+      "title": "NFL - 9-LEG ANYTIME TD PARLAY",
+      "kind": "pick",
+      "origin": "screenshot",
+      "result": "lost",
+      "status": "PICK - PLACEMENT UNCONFIRMED",
+      "archived_at": "2026-11-08T13:19:00-08:00",
+      "removed_label": "Nov 8, 1:19 PM PT",
+      "reason": "Rashee Rice had no qualifying touchdown at ESPN official final NYJ12-KC35. Participation verified (5 receptions); all 9 scoring plays and 185 drive plays through END OF GAME account for all 47 points. KC touchdowns: Walker three, Kelce one, Johnson one; no Rice recovery/return touchdown. Whole pick failed. Selection grading only, not placement, fill or settlement.",
+      "detail": "Screenshot decimal references, not current or executable quotes. No combined quote shown. PICK \u00b7 Not reported placed. Decimal prices are screenshot references only. No combined quote supplied. Full non-passing TD scope includes qualifying fumble recovery and special-teams returns; conversions and safeties excluded. Missing full scoring coverage stays unknown.",
+      "provenance": "Screenshot-sourced pick; placement unconfirmed. Exact original selections and screenshot quote references retained; no combined quote inferred.",
+      "source_urls": [
+        "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873045"
+      ],
+      "legs": [
+        {
+          "player": "Jaxon Smith-Njigba",
+          "market": "1+ Touchdowns",
+          "odds": "1.79x",
+          "matchup": "ARI @ SEA",
+          "time": "Sun Nov 8, 1:25 PM PST",
+          "status": "pending"
+        },
+        {
+          "player": "CeeDee Lamb",
+          "market": "1+ Touchdowns",
+          "odds": "1.83x",
+          "matchup": "DAL @ IND",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "pending"
+        },
+        {
+          "player": "Jonathan Taylor",
+          "market": "1+ Touchdowns",
+          "odds": "1.70x",
+          "matchup": "DAL @ IND",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "pending"
+        },
+        {
+          "player": "Chuba Hubbard",
+          "market": "1+ Touchdowns",
+          "odds": "1.90x",
+          "matchup": "DEN @ CAR",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "pending"
+        },
+        {
+          "player": "Jahmyr Gibbs",
+          "market": "1+ Touchdowns",
+          "odds": "1.29x",
+          "matchup": "DET @ MIA",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "pending"
+        },
+        {
+          "player": "Woody Marks",
+          "market": "1+ Touchdowns",
+          "odds": "2.05x",
+          "matchup": "HOU @ LAC",
+          "time": "Sun Nov 8, 1:05 PM PST",
+          "status": "pending"
+        },
+        {
+          "player": "Puka Nacua",
+          "market": "1+ Touchdowns",
+          "odds": "1.79x",
+          "matchup": "LAR @ WAS",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "pending"
+        },
+        {
+          "player": "Saquon Barkley",
+          "market": "1+ Touchdowns",
+          "odds": "2.34x",
+          "matchup": "NYG @ PHI",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "pending"
+        },
+        {
+          "player": "Rashee Rice",
+          "market": "1+ Touchdowns",
+          "odds": "2.29x",
+          "matchup": "NYJ @ KC",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "lost"
+        }
+      ]
+    },
+    {
+      "id": "rix-20261108-b",
+      "date": "2026-11-08",
+      "title": "NFL - 5-LEG PARLAY | +1526",
+      "kind": "pick",
+      "origin": "screenshot",
+      "result": "lost",
+      "status": "PICK - PLACEMENT UNCONFIRMED",
+      "reason": "Isaiah Likely finished with 53 receiving yards, below 60+, at ESPN official final NYG-PHI. Whole pick failed. Selection grading only, not placement, fill or settlement.",
+      "detail": "Screenshot quote, not a live or executable quote. Placement unconfirmed. ",
+      "provenance": "Screenshot-sourced pick; placement unconfirmed. Exact original selections and screenshot quote references retained; no combined quote inferred.",
+      "source_urls": [
+        "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873044"
+      ],
+      "legs": [
+        {
+          "player": "Isaiah Likely",
+          "market": "60+ Receiving Yards",
+          "odds": "+193",
+          "matchup": "NYG @ PHI",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "lost"
+        },
+        {
+          "player": "Puka Nacua",
+          "market": "70+ Receiving Yards",
+          "odds": "-278",
+          "matchup": "LAR @ WAS",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "pending"
+        },
+        {
+          "player": "Caleb Douglas",
+          "market": "25+ Receiving Yards",
+          "odds": "-284",
+          "matchup": "DET @ MIA",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "status": "pending"
+        },
+        {
+          "player": "Shedeur Sanders",
+          "market": "200+ Passing Yards",
+          "odds": null,
+          "matchup": "CLE @ NO",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "group": "2 Pick SGP | +202",
+          "status": "pending"
+        },
+        {
+          "player": "Tyler Shough",
+          "market": "220+ Passing Yards",
+          "odds": null,
+          "matchup": "CLE @ NO",
+          "time": "Sun Nov 8, 10:00 AM PST",
+          "group": "2 Pick SGP | +202",
+          "status": "pending"
+        }
+      ],
+      "archived_at": "2026-11-08T13:19:00-08:00",
+      "removed_label": "Nov 8, 1:19 PM PT"
+    }
+  ]
+}
