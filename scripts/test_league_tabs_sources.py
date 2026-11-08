@@ -220,13 +220,20 @@ for B in BUILDERS:
 
     # 3. the page shows Wooder Ice items on their league tabs: the rules for every league tab are there
     css = (re.search(r'<style id="rpLgShare">([^<]*)</style>', page) or [None, ''])[1]
-    for k in [t for t in tabs if t not in ('home', 'wooder', 'past', 'trinity')]:
-        rules = ['body.tab-%s #st-wooder:has([data-rplg~="%s"]){display:block}' % (k, k),
+    wooder_rules = lambda k: ['body.tab-%s #st-wooder:has([data-rplg~="%s"]){display:block}' % (k, k),
                  'body.tab-%s #st-wooder>:not(.rpsec):not(.rpkeep){display:none!important}' % k,
                  'body.tab-%s #st-wooder .rpsec:not([data-rplg~="%s"]):not(:has([data-rplg~="%s"])){display:none!important}' % (k, k, k),
-                 'body.tab-%s #st-wooder .rpbox>:not([data-rplg~="%s"]){display:none!important}' % (k, k),
-                 'body.tab-%s #st-ding:has([data-rplg~="%s"]){display:block}' % (k, k)]
-        check(f'{tag}: {k} tab shows the Wooder Ice items bound to {k} (rules present)', all(r in css for r in rules), k)
+                 'body.tab-%s #st-wooder .rpbox>:not([data-rplg~="%s"]){display:none!important}' % (k, k)]
+    for k in [t for t in tabs if t not in ('home', 'wooder', 'past', 'trinity')]:
+        ding_rule = 'body.tab-%s #st-ding:has([data-rplg~="%s"]){display:block}' % (k, k)
+        if k == 'nfl':
+            # Nov 8 redesign: the NFL tab keeps its own top-5 list only; the full Wooder module
+            # no longer mounts there. Its source data and the shared Dingers panel are unchanged.
+            check(f'{tag}: nfl tab shows no full Wooder Ice mount (its own top-5 list carries the page), Dingers still bound',
+                  ding_rule in css and not any(r in css for r in wooder_rules(k)), k)
+        else:
+            rules = wooder_rules(k) + [ding_rule]
+            check(f'{tag}: {k} tab shows the Wooder Ice items bound to {k} (rules present)', all(r in css for r in rules), k)
     check(f'{tag}: league futures rows never show on Home', 'body.tab-home .rplgfut{display:none}' in css)
     check(f'{tag}: build note lists the picks that bind to no league',
           'LEAGUE BIND NOTE: wooder_tickets fx-none binds to no league' in log and 'LEAGUE BIND NOTE: wooder_first_td FXFIRSTTDNONE binds to no league' in log, log[-800:])
