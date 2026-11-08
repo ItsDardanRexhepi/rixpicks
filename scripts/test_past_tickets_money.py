@@ -58,12 +58,13 @@ for B in ('build_gh_page_v2.py', '_build_nocanon_v2.py'):
     src = open(os.path.join(ROOT, 'scripts', B)).read()
     check(f'{B}: PAST_HIDE_MONEY option present and on', bool(re.search(r'^\s*PAST_HIDE_MONEY\s*=\s*True\b', src, re.M)))
     on = render(src, True, os.path.join(tmp, 'fx.json'))
-    check(f'{B}: option on renders every fixture entry', on.count('Removed ') == len(FIXTURE['entries']), on[:200])
+    check(f'{B}: option on renders every fixture entry', on.count('class="hp-tk"') == len(FIXTURE['entries']) and on.count('Removed ') == len(FIXTURE['entries']), on[:200])
     check(f'{B}: option on shows no dollar amount', not MONEY.search(on), MONEY.findall(on))
     check(f'{B}: option on shows no bankroll wording', 'bankroll' not in on.lower())
     check(f'{B}: venue and odds kept', all(s in on for s in ('Kalshi app', 'Fanatics +1500', '>Fanatics<', 'DK +120', 'Sum of individual asks 163c')))
     check(f'{B}: combo title keeps matchup', 'Combo - BAL @ DAL' in on)
-    check(f'{B}: BOUGHT stays distinct from SUGGESTED', on.count('BOUGHT TICKET') == 3 and on.count('SUGGESTED') == 2)
+    check(f'{B}: BOUGHT stays distinct from SUGGESTED', on.count('hp-tag hp-tag-bought">Legacy bought<') == 3 and on.count('hp-tag">Not placed<') == 2,
+          (on.count('Bought<'), on.count('Not placed<')))
     check(f'{B}: other text untouched', 'Combo lost - Mark Andrews leg lost, game final' in on and 'Pick won - game final' in on)
     off = render(src, False, os.path.join(tmp, 'fx.json'))
     check(f'{B}: option off still shows the stored text', all(s in off for s in ('' + D + '0.04, to pay ' + D + '3.00', 'FanCash ' + D + '0.23', 'Bankroll Builder - BAL @ DAL')))
@@ -73,7 +74,7 @@ for B in ('build_gh_page_v2.py', '_build_nocanon_v2.py'):
         stamped = sum(1 for e in ents if e.get('removed_label') or e.get('archived_at'))  # LS-15: no stamp without a removal time
         live = render(src, True, LIVE)
         check(f'{B}: live archive ({n} entries) renders with no dollar amount or bankroll wording',
-              live.count('border-radius:12px;padding:11px 12px') == n and live.count('Removed ') == stamped
+              live.count('class="hp-tk"') == n and live.count('Removed ') == stamped
               and not MONEY.search(live) and 'bankroll' not in live.lower(), (MONEY.findall(live)[:4], live.count('Removed '), stamped))
 
 # Active-ticket renderer and UltRix aside: the shared pubm() filter drops money text even if a raw field carries it.
