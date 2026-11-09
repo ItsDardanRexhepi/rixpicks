@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "generated_at": "2026-11-08T14:52:00-08:00",
  "read_at_pt": "2026-11-08T14:52:00-08:00",
  "sources": {
@@ -26,7 +26,15 @@
      "kalshi_ticker": "KXNFLREC-26OCT19WASSF-SFGKITTLE85-5",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-SFGKITTLE85-5",
      "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
-     "reference": "Rounded screenshot reference KAL approx -175, not a live quote."
+     "reference": "Rounded screenshot reference KAL approx -175, not a live quote.",
+     "kal_ref": "−175",
+     "name": "George Kittle",
+     "mkt": "Receptions",
+     "line": "5+",
+     "final": "5",
+     "diff": 0,
+     "line_n": 5,
+     "final_n": 5
     },
     {
      "player": "Rachaad White",
@@ -39,7 +47,15 @@
      "kalshi_ticker": "KXNFLREC-26OCT19WASSF-WASRWHITE1-4",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-WASRWHITE1-4",
      "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
-     "reference": "Rounded screenshot reference KAL approx +228, not a live quote."
+     "reference": "Rounded screenshot reference KAL approx +228, not a live quote.",
+     "kal_ref": "+228",
+     "name": "Rachaad White",
+     "mkt": "Receptions",
+     "line": "4+",
+     "final": "4",
+     "diff": 0,
+     "line_n": 4,
+     "final_n": 4
     },
     {
      "player": "Terry McLaurin",
@@ -52,7 +68,15 @@
      "kalshi_ticker": "KXNFLRECYDS-26OCT19WASSF-WASTMCLAURIN17-25",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLRECYDS-26OCT19WASSF-WASTMCLAURIN17-25",
      "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
-     "reference": "Rounded screenshot reference KAL approx -385, not a live quote."
+     "reference": "Rounded screenshot reference KAL approx -385, not a live quote.",
+     "kal_ref": "−385",
+     "name": "Terry McLaurin",
+     "mkt": "Rec yds",
+     "line": "25+",
+     "final": "27",
+     "diff": 2,
+     "line_n": 25,
+     "final_n": 27
     },
     {
      "player": "Christian McCaffrey",
@@ -65,9 +89,22 @@
      "kalshi_ticker": "KXNFLRSHYDS-26OCT19WASSF-SFCMCCAFFREY23-50",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLRSHYDS-26OCT19WASSF-SFCMCCAFFREY23-50",
      "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
-     "reference": "Rounded screenshot reference KAL approx -200, not a live quote."
+     "reference": "Rounded screenshot reference KAL approx -200, not a live quote.",
+     "kal_ref": "−200",
+     "name": "Christian McCaffrey",
+     "mkt": "Rush yds",
+     "line": "50+",
+     "final": "64",
+     "diff": 14,
+     "line_n": 50,
+     "final_n": 64
     }
-   ]
+   ],
+   "sport": "NFL",
+   "short_title": "Rec / Rec Yds / Rush Yds",
+   "game_date": "Mon Oct 19",
+   "game_label": "WAS @ SF",
+   "final_strip": "SF 23 – WSH 17"
   },
   {
    "title": "NFL - RECEPTIONS / RECEIVING YARDS / MONEYLINE PARLAY",
@@ -85,7 +122,15 @@
      "kalshi_status": "finalized",
      "kalshi_ticker": "KXNFLREC-26OCT19WASSF-SFGKITTLE85-4",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-SFGKITTLE85-4",
-     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008"
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
+     "kal_ref": null,
+     "name": "George Kittle",
+     "mkt": "Receptions",
+     "line": "4+",
+     "final": "5",
+     "diff": 1,
+     "line_n": 4,
+     "final_n": 5
     },
     {
      "player": "Christian McCaffrey",
@@ -97,7 +142,15 @@
      "kalshi_status": "finalized",
      "kalshi_ticker": "KXNFLREC-26OCT19WASSF-SFCMCCAFFREY23-4",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-SFCMCCAFFREY23-4",
-     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008"
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
+     "kal_ref": null,
+     "name": "Christian McCaffrey",
+     "mkt": "Receptions",
+     "line": "4+",
+     "final": "9",
+     "diff": 5,
+     "line_n": 4,
+     "final_n": 9
     },
     {
      "player": "Austin Ekeler",
@@ -110,7 +163,15 @@
      "kalshi_ticker": "KXNFLREC-26OCT19WASSF-WASAEKELER30-2",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-WASAEKELER30-2",
      "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
-     "reference": "Rounded screenshot reference KAL approx +119, not a live quote."
+     "reference": "Rounded screenshot reference KAL approx +119, not a live quote.",
+     "kal_ref": "+119",
+     "name": "Austin Ekeler",
+     "mkt": "Receptions",
+     "line": "2+",
+     "final": "2",
+     "diff": 0,
+     "line_n": 2,
+     "final_n": 2
     },
     {
      "player": "Rachaad White",
@@ -122,7 +183,15 @@
      "kalshi_status": "finalized",
      "kalshi_ticker": "KXNFLREC-26OCT19WASSF-WASRWHITE1-2",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLREC-26OCT19WASSF-WASRWHITE1-2",
-     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008"
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
+     "kal_ref": null,
+     "name": "Rachaad White",
+     "mkt": "Receptions",
+     "line": "2+",
+     "final": "4",
+     "diff": 2,
+     "line_n": 2,
+     "final_n": 4
     },
     {
      "player": "George Kittle",
@@ -135,7 +204,15 @@
      "kalshi_ticker": "KXNFLRECYDS-26OCT19WASSF-SFGKITTLE85-40",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLRECYDS-26OCT19WASSF-SFGKITTLE85-40",
      "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
-     "reference": "Rounded screenshot reference KAL approx -435, not a live quote."
+     "reference": "Rounded screenshot reference KAL approx -435, not a live quote.",
+     "kal_ref": "−435",
+     "name": "George Kittle",
+     "mkt": "Rec yds",
+     "line": "40+",
+     "final": "69",
+     "diff": 29,
+     "line_n": 40,
+     "final_n": 69
     },
     {
      "player": "San Francisco 49ers",
@@ -148,9 +225,22 @@
      "kalshi_ticker": "KXNFLGAME-26OCT19WASSF-SF",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNFLGAME-26OCT19WASSF-SF",
      "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873008",
-     "reference": "Rounded screenshot reference KAL approx -345, not a live quote."
+     "reference": "Rounded screenshot reference KAL approx -345, not a live quote.",
+     "kal_ref": "−345",
+     "name": "49ers",
+     "mkt": "Moneyline",
+     "line": "ML",
+     "final": "W",
+     "diff": 6,
+     "line_n": 0,
+     "final_n": 6
     }
-   ]
+   ],
+   "sport": "NFL",
+   "short_title": "Rec / Rec Yds / Moneyline",
+   "game_date": "Mon Oct 19",
+   "game_label": "WAS @ SF",
+   "final_strip": "SF 23 – WSH 17"
   },
   {
    "title": "NBA - MONEYLINE PARLAY",
@@ -168,7 +258,16 @@
      "kalshi_status": "finalized",
      "kalshi_ticker": "KXNBAGAME-26NOV07BKNATL-ATL",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAGAME-26NOV07BKNATL-ATL",
-     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909939"
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909939",
+     "kal_ref": null,
+     "name": "Hawks",
+     "mkt": "Moneyline",
+     "line": "ML",
+     "final": "W",
+     "diff": 3,
+     "line_n": 0,
+     "final_n": 3,
+     "score": "124–121"
     },
     {
      "player": "Golden State Warriors",
@@ -180,7 +279,16 @@
      "kalshi_status": "finalized",
      "kalshi_ticker": "KXNBAGAME-26NOV07ORLGSW-GSW",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAGAME-26NOV07ORLGSW-GSW",
-     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909942"
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909942",
+     "kal_ref": null,
+     "name": "Warriors",
+     "mkt": "Moneyline",
+     "line": "ML",
+     "final": "W",
+     "diff": 7,
+     "line_n": 0,
+     "final_n": 7,
+     "score": "126–119"
     },
     {
      "player": "San Antonio Spurs",
@@ -192,7 +300,16 @@
      "kalshi_status": "finalized",
      "kalshi_ticker": "KXNBAGAME-26NOV07SASPOR-SAS",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAGAME-26NOV07SASPOR-SAS",
-     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909944"
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909944",
+     "kal_ref": null,
+     "name": "Spurs",
+     "mkt": "Moneyline",
+     "line": "ML",
+     "final": "W",
+     "diff": 22,
+     "line_n": 0,
+     "final_n": 22,
+     "score": "125–103"
     },
     {
      "player": "Oklahoma City Thunder",
@@ -204,7 +321,16 @@
      "kalshi_status": "finalized",
      "kalshi_ticker": "KXNBAGAME-26NOV07WASOKC-OKC",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAGAME-26NOV07WASOKC-OKC",
-     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909941"
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909941",
+     "kal_ref": null,
+     "name": "Thunder",
+     "mkt": "Moneyline",
+     "line": "ML",
+     "final": "W",
+     "diff": 39,
+     "line_n": 0,
+     "final_n": 39,
+     "score": "114–75"
     },
     {
      "player": "Philadelphia 76ers",
@@ -216,9 +342,23 @@
      "kalshi_status": "finalized",
      "kalshi_ticker": "KXNBAGAME-26NOV08PHICHI-PHI",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAGAME-26NOV08PHICHI-PHI",
-     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909945"
+     "espn_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909945",
+     "kal_ref": null,
+     "name": "76ers",
+     "mkt": "Moneyline",
+     "line": "ML",
+     "final": "W",
+     "diff": 6,
+     "line_n": 0,
+     "final_n": 6,
+     "score": "127–121"
     }
-   ]
+   ],
+   "sport": "NBA",
+   "short_title": "Moneyline",
+   "game_date": "Sat Nov 7 – Sun Nov 8",
+   "game_label": "5 games",
+   "final_strip": "5 of 5 games"
   }
  ]
 }
