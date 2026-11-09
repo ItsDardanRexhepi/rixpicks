@@ -76,7 +76,7 @@ function page(o) {
     + 'var c={futures:true};if(c.futures===true){}fetch("slates/wooder_dingers.json");fetch("slates/wooder_tickets.json");'
     + 'var count=null,state="pre";if(count==null&&(state==="in"||state==="post")){}';
   return '<!doctype html><html><head><meta charset="utf-8"><title>RixPicks</title></head><body><div class="layout"><main>\n'
-    + '<div class="card" id="rpWNote">CASHED = live stat threshold met, not a verified payout.</div><div id="rpWRecWrap"></div>\n'
+    + '<div class="card" id="rpWNote">Won / met means the official ESPN final cleared the line. It isn\'t a verified payout.</div><div id="rpWRecWrap"></div>\n'
     + (o.outside || '') + (o.learn || '')
     + '<div class="sect home-only" style="margin-top:18px">News</div>\n<div class="card newscar home-only" id="rpNewsCar"></div>\n'
     + '</main></div>\n<script>' + js + '</script><script src="ticket-feed.js"></script>\n'
@@ -132,7 +132,7 @@ const line = (out, s) => out.split('\n').some(l => l === s);
 const PAGE_CHECKS = ['no literal \\n text leak at page bottom', 'ticket boxes carry no repeated fine print (one note above Rolling Record)',
   'index.html: all 1 script blocks parse', 'index_nocanon.html retired (absent)', 'combos module (Same Game Parlays)', 'rpComboFresh exported global',
   'feed wire (live tracker paint)', 'futures bypass present', 'dingers module fetch', 'tickets module fetch', 'unknown-not-zero guard',
-  'blank-pregame spec (no Game-not-started text)', 'CASHED explainer', 'ticket feed client', 'dingers module mounted exactly once'];
+  'blank-pregame spec (no Game-not-started text)', 'Won/met explainer (How we verify)', 'ticket feed client', 'dingers module mounted exactly once'];
 
 {
   const r = local(CASES.note);

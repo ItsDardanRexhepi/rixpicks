@@ -151,13 +151,12 @@ check('combos module script found in page', !!modMatch);
     // Page note wording was changed on purpose (Oct 25 placed-ticket pricing rule: combined quotes are whole-ticket quotes
     // REPORTED from the ticket, no longer "estimates"). Assert each distinction the note must carry, not the old sentence.
     { const note = (/id="rpWNote"[^>]*>([\s\S]*?)<\/div>/.exec(require('fs').readFileSync(__dirname+'/../index.html','utf8')) || [])[1] || '';
-      check('consolidated page note carries CASHED/price/PLACED/hit distinctions',
-        /CASHED = live stat threshold met, not a verified payout/.test(note)
-        && /Prices are reference snapshots, not executable quotes/.test(note)
-        && /whole-ticket quotes reported from Wooder Ice's own ticket, not live or executable prices/.test(note)
-        && /PLACED = reported by Wooder Ice; receipt, stake and fill are not independently verified/.test(note)
-        && /A double or home run counts as one hit/.test(note)
-        && !/combined odds are estimates/.test(note)); }
+      // Nov 9 Wooder redesign: the four-bullet "How we verify" panel is the single place for disclaimers.
+      check('How we verify panel carries the Placed / Won-met / price / separation distinctions',
+        /Placed<\/strong> means Wooder Ice reported the ticket\. Stake, fill and settlement aren't independently verified/.test(note)
+        && /Won \/ met<\/strong> means the official ESPN final cleared the line and the Kalshi contract settled YES\. It isn't a verified payout/.test(note)
+        && /Prices are reference snapshots converted from Kalshi cents, not live quotes\. Combined parlay odds are left out rather than guessed/.test(note)
+        && /RixPicks places no wagers/.test(note)); }
     const s4 = { combos: [{ id: 'idea-mlb-hits-20260930b', type: 'idea', date: '2026-09-30',
       title: 'Hits', matchup: 'PHI@ATL', legs: [{ player: 'Trea Turner', market: '1+ hit', kalshi: '-233' }] }] };
     const r4 = await runSim(s4, feed);

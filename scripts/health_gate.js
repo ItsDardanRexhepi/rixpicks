@@ -122,7 +122,7 @@ function rpStripLearn(s) {
       ['tickets module fetch', 'slates/wooder_tickets.json', 'anytime-TD/tickets card hidden'],
       ['unknown-not-zero guard', 'if(count==null&&(state==="in"||state==="post"))', 'missing data paints invented zeros'],
       ['blank-pregame spec (no Game-not-started text)', null, 'pregame legs show stale text instead of blank'],
-      ['CASHED explainer', 'CASHED = live stat threshold met', 'threshold/payout distinction lost'],
+      ['Won/met explainer (How we verify)', "It isn't a verified payout", 'threshold/payout distinction lost'],
       ['ticket feed client', 'ticket-feed.js', 'live ticket trackers dead'],
     ];
     for (const [name, needle, impact] of markers) {
