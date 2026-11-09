@@ -2584,6 +2584,7 @@ body.tab-wooder #st-ding .wi-leg .dot{border:0!important;min-width:10px}
 body.tab-wooder :has(>#st-wooder){display:flex!important;flex-direction:column;gap:48px}
 body.tab-wooder #st-wooder,body.tab-wooder #st-ding{display:contents!important}
 body.tab-wooder #st-ding:not(:has(.rpnpick)){display:none!important}
+body.tab-wooder :has(>#st-wooder)>:not(#st-wooder):not(#st-ding){order:99}
 body.tab-wooder #st-wooder>.wi-verify{order:7}
 body.tab-wooder #st-ding>.rpsec{order:6}
 .rpWiHost>[id$="Head"]{padding:0 0 12px}
