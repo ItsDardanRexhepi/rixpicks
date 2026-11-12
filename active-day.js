@@ -47,6 +47,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 
 /* Unified slip system (supplied verbatim blocks + data adapter); this loader is retained across page builds. */
-(function(){var h=document.head,l=document.createElement("link");l.rel="stylesheet";l.href="rp-slip.css?v=20261112-1";h.appendChild(l);function ld(src,cb){var s=document.createElement("script");s.src=src;s.async=false;if(cb)s.onload=cb;h.appendChild(s);}ld("rp-slip-core.js?v=20261112-1",function(){ld("rp-slip-adapter.js?v=20261112-1");});})();
+(function(){var h=document.head,l=document.createElement("link");l.rel="stylesheet";l.href="rp-slip.css?v=20261112-2";h.appendChild(l);function ld(src,cb){var s=document.createElement("script");s.src=src;s.async=false;if(cb)s.onload=cb;h.appendChild(s);}ld("rp-slip-core.js?v=20261112-2",function(){ld("rp-slip-adapter.js?v=20261112-2");});})();
 /* Dated league pick module; this loader is retained across page builds. */
-(function(){var s=document.createElement("script");s.src="nhl-picks.js?v=20261112-1";document.head.appendChild(s);})();
+(function(){var s=document.createElement("script");s.src="nhl-picks.js?v=20261112-2";document.head.appendChild(s);})();
