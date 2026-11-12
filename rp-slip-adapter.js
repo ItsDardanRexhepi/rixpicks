@@ -249,6 +249,8 @@
 
   function keyOf(x) { return x && x.nhlGame ? 'nhl:' + x.nhlGame : (x && x.event ? 'espn:' + x.event : ''); }
 
+  /* A successful fetch is not a fresh clock by itself: providers return no update timestamp in the fields used, so freshness is our own fetch age. A live clock older than 2 minutes is dropped (score stays) until the next successful poll. */
+  function fresh(g) { return g && g.ts && Date.now() - g.ts <= 120000; }
   var kquotes = null;
   function booksOf(spec) {
     if (!spec.kalTicker) return spec.books;
@@ -293,7 +295,7 @@
           if (v == null || tgt == null) {
             o.status = g.state === 'post' ? 'open' : 'live';
             o.when = g.state === 'post' ? 'Final \u00b7 stat unavailable' : 'Stat unavailable';
-            if (g.state === 'in' && g.clk) o.clock = g.clk;
+            if (g.state === 'in' && fresh(g) && g.clk) o.clock = g.clk;
             anyUnavail = true;
           } else {
             if (x.ml || x.spreadTeam) { if (g.state === 'post') o.finalText = v ? 'W' : 'L'; } else o.final = v;
@@ -302,7 +304,7 @@
             else o.status = v >= tgt ? 'miss' : (g.state === 'post' ? 'hit' : 'live');
             o.when = '';
           }
-          if (g.state === 'in' && g.clk && multi) o.clock = g.clk;
+          if (g.state === 'in' && fresh(g) && g.clk && multi) o.clock = g.clk;
           if (multi && g.state === 'post') o.market = (l.market || '') + ' \u00b7 Final';
         } else {
           /* no confirmed state: pregame timer, or honest unavailable after a feed failure past start */
@@ -334,7 +336,7 @@
     if (!spec.status && gk.length === 1 && games[gk[0]] && (games[gk[0]].state === 'in' || games[gk[0]].state === 'post')) {
       var g1 = games[gk[0]];
       t.final = g1.score;
-      if (g1.state === 'in' && g1.clk) t.clock = g1.clk;
+      if (g1.state === 'in' && fresh(g1) && g1.clk) t.clock = g1.clk;
       if (!t.game && spec.legs[0] && spec.legs[0].matchup) t.game = spec.legs[0].matchup;
     } else if (has(spec.final)) t.final = spec.final;
     return t;
@@ -473,6 +475,7 @@
     if (document.hidden) return;
     var age = Date.now() - lastPoll;
     if (age >= 60000 || (age >= 30000 && nearLive())) { lastPoll = Date.now(); poll(); }
+    else if (nearLive()) { var nw = Date.now(); handles.forEach(function (h) { if (!h.spec.status) repaint(h, nw); }); }
   }, 5000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) poll(); });
 
@@ -483,6 +486,10 @@
     s = String(s == null ? '' : s);
     if (MONEY.test(s)) s = s.split(' - ').filter(function (p) { return !MONEY.test(p); }).join(' - ');
     return s.replace(/\bbankroll\s+builder\b/gi, 'Combo').replace(/\s*\bbankroll\b\s*/gi, ' ').replace(/\s{2,}/g, ' ').trim();
+  }
+  /* Generic grading disclaimers live once per page in the verification panel; the slip note keeps only the real reason. The full original text stays in Sources & details. */
+  function stripDisc(s) {
+    return String(s || '').replace(/(?:^|\s)(?:This is ticket )?[Ss]election grading[^.]*\.?/g, ' ').replace(/\s{2,}/g, ' ').replace(/^[\s\-\u2013\u00b7]+|[\s\-\u2013\u00b7]+$/g, '').trim();
   }
   function parseMarket(mk) {
     mk = String(mk || '');
@@ -577,8 +584,9 @@
     if (ms.length === 1) spec.game = ms[0];
     var fs = legs.map(function (l) { return l.final_score; }).filter(has);
     if (ms.length === 1 && fs.length) spec.final = String(fs[0]);
-    var note = pub(e.reason || '');
-    if (!note && !legs.length && !derivedLeg) note = pub(e.detail || '');
+    var noteRaw = pub(e.reason || ''), note = stripDisc(noteRaw);
+    if (!note && !noteRaw && !legs.length && !derivedLeg) { noteRaw = pub(e.detail || ''); note = stripDisc(noteRaw); }
+    if (noteRaw && note !== noteRaw) spec.record.push('Original note: ' + noteRaw);
     if (!note && status === 'void' && res && res !== 'void') note = 'Archived \u00b7 result: ' + String(e.result).toUpperCase();
     if (note) spec.note = note;
     legs.forEach(function (l) {
@@ -662,7 +670,7 @@
   var VERIFY_ITEMS = [
     '<strong>Not placed</strong> means no wager was reported on the ticket. <strong>Placed</strong> means Wooder Ice reported placing it; stake, fill and settlement are not independently verified.',
     'Leg prices are reference snapshots (Kalshi YES asks or screenshot multipliers), not fills or executable quotes. Combined parlay odds are left out unless a native quote exists.',
-    'Leg progress comes from official game feeds (NHL where available, otherwise ESPN). It tracks the selection only; it is not a Kalshi settlement or payout claim.',
+    'Leg progress comes from official game feeds (NHL where available, otherwise ESPN). It tracks the selection only: results grade the selection, not placement, fill, payout or settlement, and are not a Kalshi settlement claim.',
     'Pregame countdowns run to each game\u2019s verified start time. At zero a slip says Starting until the game feed confirms the game is underway; then it shows the feed\u2019s own clock and period. If a feed is unavailable the slip says so and infers nothing.'
   ];
   function verifyPanel(id) {
