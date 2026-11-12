@@ -45,3 +45,6 @@ tick();setInterval(function(){if(!document.hidden)tick();},60000);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
+
+/* Dated league pick module; this loader is retained across page builds. */
+(function(){var s=document.createElement("script");s.src="nhl-picks.js?v=20261112-1";document.head.appendChild(s);})();
