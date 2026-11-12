@@ -752,6 +752,8 @@
       o.line = Number(m[1]); o.lineText = m[1] + '+';
       if (k) x.keys = k;
     }
+    if (String(l.side || '').toLowerCase() === 'no') { o.dir = 'under'; if (has(o.line)) o.lineText = 'U ' + o.line; }
+    if (x.ml) { if (typeof l.ml_display === 'string' && l.ml_display) x.ml = l.ml_display; if (typeof l.ml_abbr === 'string' && l.ml_abbr) x.mlAbbr = l.ml_abbr; }
     o.x = x;
     return o;
   }
@@ -767,6 +769,8 @@
       if (l.kalshi_source_url && !seen[l.kalshi_source_url]) { seen[l.kalshi_source_url] = 1; spec.sources.push({ label: l.player + ' Kalshi market', url: l.kalshi_source_url }); }
       if (l.game_source_url && !seen[l.game_source_url]) { seen[l.game_source_url] = 1; spec.sources.push({ label: (l.matchup || 'Game') + ' ESPN', url: l.game_source_url }); }
     });
+    if (has(t.combo_american)) spec.total = String(t.combo_american);
+    if (t.source_url && !seen[t.source_url]) { seen[t.source_url] = 1; spec.sources.push({ label: 'Kalshi combo market', url: String(t.source_url) }); }
     if (pub(t.placement_note || '')) spec.record.push(pub(t.placement_note));
     legs.forEach(function (l) { if (pub(l.note || '')) spec.record.push(l.player + ' \u00b7 ' + l.market + ': ' + pub(l.note)); });
     if (spec.record.length) spec.details = spec.record.join('\n');
