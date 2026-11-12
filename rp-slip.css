@@ -1,4 +1,4 @@
-  :root {
+:root {
     --rp-bg: #07090a;
     --rp-surface: #0f1516;
     --rp-surface-2: #0a0e0f;
@@ -161,4 +161,7 @@
   @container (max-width: 480px) {
     .rp-col-meter, .rp-col-odds { display: none; }
     .rp-slip-title { font-size: 15px; }
+    .rp-slip-table td.rp-pm.when { white-space: normal; min-width: 72px; line-height: 1.3; font-size: 12px; }
+    .rp-books { width: 100%; flex-wrap: wrap; }
+    .rp-book { flex: 1 1 140px; justify-content: space-between; }
   }
