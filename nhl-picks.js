@@ -7,7 +7,6 @@ function specs(){var d=DATA.date.split('-'),dl=new Date(Date.UTC(+d[0],+d[1]-1,+
 return DATA.cards.map(function(c){var title=String(c.title).replace(/^NHL\s+-\s+/,'').replace(/^\d+-LEG\s+/,'').replace(/\s+PARLAY$/,'');
 var games={};c.legs.forEach(function(l){games[l.matchup]=1;});
 return {sport:'NHL',type:c.legs.length+'-leg parlay',title:title,date:dl,source:'Not placed \u00b7 RixPicks',oddsLabel:'KAL YES ask',
-note:'Combined quote unavailable. No combined odds estimated.',
 sources:c.legs.map(function(l){return {label:l.player+' market',url:l.source_url};}).concat(Object.keys(games).map(function(m){var l=c.legs.filter(function(q){return q.matchup===m;})[0];return {label:m+' ESPN',url:l.espn_source_url};})),
 details:'Kalshi public market API snapshot \u00b7 '+DATA.asof+'\nPer-leg asks are YES asks converted to American odds, not fills or executable quotes.\n'+c.legs.map(function(l){return l.player+' '+l.market+' \u00b7 '+l.matchup+' \u00b7 '+l.time+' \u00b7 '+l.cents+'c YES ask';}).join('\n'),
 legs:c.legs.map(function(l){var pm=l.market.match(/^(\d+)\+\s*(.*)$/);return {player:l.player,market:(pm?pm[2]:l.market)+' \u00b7 '+l.matchup,matchup:l.matchup,line:pm?Number(pm[1]):undefined,lineText:pm?pm[1]+'+':undefined,odds:l.american,timeLabel:l.time,
