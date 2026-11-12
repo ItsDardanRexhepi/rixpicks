@@ -327,10 +327,10 @@
     if (spec.sources && spec.sources.length) t.sources = spec.sources;
     if (has(spec.details)) t.details = spec.details;
     if (spec.game) t.game = spec.game;
-    /* verified start (earliest leg with a valid ISO start). Never invented: omitted when no leg has a verified start. */
+    /* verified start of a single-game slip. Multi-game slips carry each leg's own startsAt instead (own countdown, then own source clock). Never invented: omitted when no verified start exists. */
     var starts = legsOut.map(function (o) { return o.startsAt ? Date.parse(o.startsAt) : NaN; }).filter(isFinite);
     spec.legs.forEach(function (l) { var k = l.x ? keyOf(l.x) : '', gg = k ? games[k] : null, c = l.x && !l.archived && !(gg && (gg.state === 'in' || gg.state === 'post')) ? Date.parse(l.x.commence || '') : NaN; if (isFinite(c)) starts.push(c); });
-    if (starts.length && (t.status === 'open' || t.status === 'live') && !(gk.length === 1 && games[gk[0]] && games[gk[0]].state === 'in')) t.startsAt = isoOf(Math.min.apply(null, starts));
+    if (starts.length && !multi && (t.status === 'open' || t.status === 'live') && !(gk.length === 1 && games[gk[0]] && games[gk[0]].state === 'in')) t.startsAt = isoOf(Math.min.apply(null, starts));
     var note = spec.note || '';
     if (note) t.note = note;
     if (!spec.status && gk.length === 1 && games[gk[0]] && (games[gk[0]].state === 'in' || games[gk[0]].state === 'post')) {
