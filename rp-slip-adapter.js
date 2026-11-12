@@ -1,7 +1,7 @@
 /* RixPicks slip adapter.
    Maps the site's ticket data onto the documented RPSlip ticket schema and renders it ONLY through
    RPSlip.mount (rp-slip-core.js, supplied block, unmodified). No slip HTML is written here.
-   Also owns the shared live layer: pregame countdown, source-confirmed live clock/period, per-leg stats.
+   Also owns the shared live layer: DATA ONLY (verified startsAt ISO, source-confirmed clock fields, per-leg stats). The countdown, its wording and the live-clock wording are rendered by the supplied RPSlip block.
    Fail-closed: a timer reaching zero never asserts a game started; feed failure shows unavailable, never an invented clock/stat. */
 (function () {
   'use strict';
@@ -25,13 +25,7 @@
   function whenLabel(ms) { return isFinite(ms) ? ptFmt(ms, { weekday: 'short', hour: 'numeric', minute: '2-digit' }).replace(',', '') : ''; }
   function pad(n) { return String(n).padStart(2, '0'); }
 
-  /* Exact owner label. Never negative. Zero/overdue is NOT a live assertion. */
-  function countdownText(commenceMs, now) {
-    if (!isFinite(commenceMs)) return 'Start time unavailable';
-    var r = Math.ceil((commenceMs - now) / 1000);
-    if (r <= 0) return 'Start time reached \u00b7 Awaiting live game status';
-    return 'Tip off in ' + pad(Math.floor(r / 3600)) + ':' + pad(Math.floor((r % 3600) / 60)) + ':' + pad(r % 60);
-  }
+  function isoOf(ms) { return isFinite(ms) ? new Date(ms).toISOString() : ''; }
 
   /* ---------- league + phase labels (one grounded feed: ESPN summary status; NHL api-web first for NHL) ---------- */
   function leagueOfUrl(u) {
@@ -171,6 +165,28 @@
     return values[0];
   }
 
+  /* Structured clock for the supplied renderer, only from fields the source actually returned. */
+  function clkOfEspn(lg, st, j) {
+    var ty = st.type || {}, nm = String(ty.name || ''), p = Number(st.period) || 0, dc = st.displayClock == null ? '' : String(st.displayClock);
+    if (/DELAY|SUSPEND|POSTPONE/.test(nm)) return { state: 'delay' };
+    if (lg === 'mlb') {
+      var m = String(ty.shortDetail || ty.detail || '').match(/^(Top|Bot|Mid|End)\s+(?:of\s+the\s+)?(\d+)/i);
+      if (!m) return null;
+      var w = m[1].toLowerCase(), o = {};
+      o.period = Number(m[2]);
+      if (w === 'top' || w === 'bot') { o.half = w; var sit = (j && (j.situation || ((j.header || {}).competitions || [])[0] && ((j.header.competitions[0] || {}).situation))) || null; if (sit && typeof sit.outs === 'number') o.outs = sit.outs; }
+      else { o.state = 'break'; o.half = w === 'mid' ? 'top' : 'bot'; }
+      return o;
+    }
+    if (/HALFTIME/.test(nm)) return { period: p || 2, state: 'break' };
+    if (/END_PERIOD|END_OF/.test(nm)) return p ? { period: p, state: 'break' } : null;
+    if (!p) return null;
+    var o2 = { period: p };
+    if (lg === 'soc') { var mm = dc.match(/^(\d+(?:\+\d+)?)/); if (mm) o2.time = mm[1]; else return null; }
+    else if (dc) o2.time = dc;
+    return o2;
+  }
+
   function gameFromEspn(j, x) {
     var hdr = j.header || {};
     if (String(hdr.id) !== String(x.event)) throw new Error('Wrong event');
@@ -185,7 +201,7 @@
     var score = order.map(function (c) { return ((c.team || {}).abbreviation || '') + ' ' + (c.score == null ? '?' : c.score); }).join(' \u2013 ');
     var lg = x.league || leagueOfUrl(x.espnUrl);
     return {
-      state: state, score: score, phase: state === 'in' ? phaseOf(lg, st) : (state === 'post' ? 'Final' : ''),
+      state: state, score: score, phase: state === 'in' ? phaseOf(lg, st) : (state === 'post' ? 'Final' : ''), clk: state === 'in' ? clkOfEspn(lg, st, j) : null,
       src: 'ESPN', ts: Date.now(),
       stat: function (leg) {
         if (leg.hr) return espnHR(j, leg);
@@ -220,7 +236,7 @@
     var ps = g.playerByGameStats || {}, players = [];
     Object.keys(ps).forEach(function (t) { var team = ps[t] || {}; Object.keys(team).forEach(function (k) { if (Array.isArray(team[k])) players = players.concat(team[k]); }); });
     return {
-      state: state, score: (a.abbrev + ' ' + a.score) + ' \u2013 ' + (h.abbrev + ' ' + h.score), phase: phase, src: 'NHL', ts: Date.now(),
+      state: state, score: (a.abbrev + ' ' + a.score) + ' \u2013 ' + (h.abbrev + ' ' + h.score), phase: phase, clk: state === 'in' && per ? ((g.clock || {}).inIntermission ? { period: per, state: 'break' } : (rem ? { period: per, time: rem } : null)) : null, src: 'NHL', ts: Date.now(),
       stat: function (leg) {
         var p = players.find(function (q) { return String(q.playerId) === String(leg.nhlPlayer); });
         return p && typeof p.goals === 'number' ? p.goals : null;
@@ -269,32 +285,34 @@
         gset[k] = g || 1;
         var past = isFinite(commence) && now >= commence;
         if (g && g.state === 'pre') {
-          o.status = 'open'; o.when = countdownText(commence, now);
+          o.status = 'open'; o.when = whenLabel(commence); if (isFinite(commence)) o.startsAt = isoOf(commence);
         } else if (g && (g.state === 'in' || g.state === 'post')) {
           anyStarted = true; started++; if (g.state === 'in') anyLive = true;
           var v = g.stat ? g.stat(x) : null;
           var tgt = has(l.line) ? Number(l.line) : null;
           if (v == null || tgt == null) {
             o.status = g.state === 'post' ? 'open' : 'live';
-            o.when = g.state === 'post' ? 'Final \u00b7 stat unavailable' : (g.phase || 'Live') + ' \u00b7 stat unavailable';
+            o.when = g.state === 'post' ? 'Final \u00b7 stat unavailable' : 'Stat unavailable';
+            if (g.state === 'in' && g.clk) o.clock = g.clk;
             anyUnavail = true;
           } else {
             if (x.ml || x.spreadTeam) { if (g.state === 'post') o.finalText = v ? 'W' : 'L'; } else o.final = v;
             var under = l.dir === 'under';
             if (!under) o.status = v >= tgt ? 'hit' : (g.state === 'post' ? 'miss' : 'live');
             else o.status = v >= tgt ? 'miss' : (g.state === 'post' ? 'hit' : 'live');
-            o.when = g.phase || '';
+            o.when = '';
           }
-          if (multi) o.market = (l.market || '') + ' \u00b7 ' + (g.state === 'post' ? 'Final' : g.phase || 'Live');
+          if (g.state === 'in' && g.clk && multi) o.clock = g.clk;
+          if (multi && g.state === 'post') o.market = (l.market || '') + ' \u00b7 Final';
         } else {
           /* no confirmed state: pregame timer, or honest unavailable after a feed failure past start */
           if (g && g.state === 'unavail' && past) { o.status = 'open'; o.when = 'Live sources unavailable'; anyUnavail = true; }
-          else if (isFinite(commence)) { o.status = 'open'; o.when = countdownText(commence, now); }
+          else if (isFinite(commence)) { o.status = 'open'; o.when = whenLabel(commence); o.startsAt = isoOf(commence); }
           else { o.status = 'open'; o.when = l.timeLabel || '\u2014'; }
         }
       }
       if (x && x.hr && !keyOf(x) && !l.archived) { o.status = 'open'; o.when = x.unres ? (l.timeLabel ? l.timeLabel + ' \u00b7 ' : '') + 'Live status unavailable' : (l.timeLabel || '\u2014'); }
-      if (x && !keyOf(x) && !l.archived && !x.hr && !x.nflLive && isFinite(Date.parse(x.commence || ''))) { o.status = 'open'; o.when = countdownText(Date.parse(x.commence), now); }
+      if (x && !keyOf(x) && !l.archived && !x.hr && !x.nflLive && isFinite(Date.parse(x.commence || ''))) { o.status = 'open'; o.when = whenLabel(Date.parse(x.commence)); o.startsAt = isoOf(Date.parse(x.commence)); }
       if (x && x.nflLive && !keyOf(x) && !l.archived) { o.status = 'open'; o.when = l.timeLabel || 'Start time unavailable'; }
       legsOut.push(o);
     });
@@ -307,12 +325,16 @@
     if (spec.sources && spec.sources.length) t.sources = spec.sources;
     if (has(spec.details)) t.details = spec.details;
     if (spec.game) t.game = spec.game;
+    /* verified start (earliest leg with a valid ISO start). Never invented: omitted when no leg has a verified start. */
+    var starts = legsOut.map(function (o) { return o.startsAt ? Date.parse(o.startsAt) : NaN; }).filter(isFinite);
+    spec.legs.forEach(function (l) { var k = l.x ? keyOf(l.x) : '', gg = k ? games[k] : null, c = l.x && !l.archived && !(gg && (gg.state === 'in' || gg.state === 'post')) ? Date.parse(l.x.commence || '') : NaN; if (isFinite(c)) starts.push(c); });
+    if (starts.length && (t.status === 'open' || t.status === 'live') && !(gk.length === 1 && games[gk[0]] && games[gk[0]].state === 'in')) t.startsAt = isoOf(Math.min.apply(null, starts));
     var note = spec.note || '';
-    if (anyUnavail && !spec.status) note = (note ? note + ' ' : '') + 'Some live stats are unavailable. No result inferred.';
     if (note) t.note = note;
     if (!spec.status && gk.length === 1 && games[gk[0]] && (games[gk[0]].state === 'in' || games[gk[0]].state === 'post')) {
       var g1 = games[gk[0]];
-      t.final = g1.score + (g1.state === 'in' && g1.phase ? ' \u00b7 ' + g1.phase : '') + (g1.state === 'post' ? ' \u00b7 Final' : '');
+      t.final = g1.score;
+      if (g1.state === 'in' && g1.clk) t.clock = g1.clk;
       if (!t.game && spec.legs[0] && spec.legs[0].matchup) t.game = spec.legs[0].matchup;
     } else if (has(spec.final)) t.final = spec.final;
     return t;
@@ -425,12 +447,22 @@
     }, function () { polling = false; });
   }
   function visible(h) { return h.cell && h.cell.isConnected && h.cell.offsetParent !== null; }
+  /* Fresh source data: remount every 30s while a game is live or within 3 min of its verified start (public ESPN/NHL feeds), otherwise every 60s. */
+  var lastPoll = 0;
+  function nearLive() {
+    var now = Date.now();
+    return handles.some(function (h) {
+      return !h.spec.status && h.spec.legs.some(function (l) {
+        var k = l.x ? keyOf(l.x) : '', g = k ? games[k] : null, c = l.x ? Date.parse(l.x.commence || '') : NaN;
+        return (g && g.state === 'in') || (isFinite(c) && now >= c - 180000 && !(g && g.state === 'post'));
+      });
+    });
+  }
   setInterval(function () {
     if (document.hidden) return;
-    var now = Date.now();
-    handles.forEach(function (h) { if (!h.spec.status && visible(h)) repaint(h, now); });
-  }, 1000);
-  setInterval(function () { if (!document.hidden) poll(); }, 60000);
+    var age = Date.now() - lastPoll;
+    if (age >= 60000 || (age >= 30000 && nearLive())) { lastPoll = Date.now(); poll(); }
+  }, 5000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) poll(); });
 
   /* ---------- mappers ---------- */
@@ -609,7 +641,6 @@
   var css = document.createElement('style');
   css.textContent = '[data-rpx-old]{display:none!important}' +
     '.rpx-cell{min-width:0}' +
-    '@media (max-width:520px){.rp-slip-table td.when{white-space:normal}}' +
     '#st-wooder .wi-future .progress,#st-wooder .wi-future .price{font-variant-numeric:tabular-nums}' +
     '.rpx-verify{margin:16px 0 0;border:1px solid #1d2426;border-radius:14px;background:#0f1516;color:#f2f5f4;font-family:Inter,system-ui,sans-serif}' +
     '.rpx-verify summary{cursor:pointer;padding:14px 18px;font-weight:800;font-size:15px}' +
@@ -621,7 +652,7 @@
     '<strong>Not placed</strong> means no wager was reported on the ticket. <strong>Placed</strong> means Wooder Ice reported placing it; stake, fill and settlement are not independently verified.',
     'Leg prices are reference snapshots (Kalshi YES asks or screenshot multipliers), not fills or executable quotes. Combined parlay odds are left out unless a native quote exists.',
     'Leg progress comes from official game feeds (NHL where available, otherwise ESPN). It tracks the selection only; it is not a Kalshi settlement or payout claim.',
-    'Pregame timers count to each leg\u2019s verified start time. When a timer ends, the slip waits for the source to confirm the game is underway before showing a clock; if the feed is unavailable it says so and infers nothing.'
+    'Pregame countdowns run to each game\u2019s verified start time. At zero a slip says Starting until the game feed confirms the game is underway; then it shows the feed\u2019s own clock and period. If a feed is unavailable the slip says so and infers nothing.'
   ];
   function verifyPanel(id) {
     var d = document.createElement('details');
@@ -1022,7 +1053,7 @@
 
   window.RPApp = {
     mountSpecs: mountSpecs, makeGrid: makeGrid, verifyPanel: verifyPanel, hideOld: hideOld, poll: poll,
-    countdownText: countdownText, whenLabel: whenLabel, phaseOf: phaseOf, leagueOfUrl: leagueOfUrl, ptDay: ptDay,
+    whenLabel: whenLabel, phaseOf: phaseOf, leagueOfUrl: leagueOfUrl, ptDay: ptDay,
     _games: games, _derive: derive, _gameFromEspn: gameFromEspn, _gameFromNhl: gameFromNhl, _mapHistory: mapHistory, _mapWinner: mapWinner, _mapTicket: mapTicket, _mapNfl: mapNfl, _mapNight: mapNight, _mapIdea: mapIdea, _mapOv: mapOv, _mapFtd: mapFtd, _mapBatch: mapBatch, _mapSgp: mapSgp, _mapDinger: mapDinger, _mapCombo: mapCombo,
     register: function (grid, specs) { var hs = mountSpecs(grid, specs); poll(); return hs; }
   };
