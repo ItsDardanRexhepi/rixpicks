@@ -25,9 +25,89 @@
     return '<span class="rp-meter" style="--line:' + l + '%;--act:' + a + '%"></span>';
   }
 
-  function pmCell(leg) {
+  // Countdown wording per sport. Edit this map to change the wording site-wide.
+  var VERB = {
+    NBA: "Tip off in", WNBA: "Tip off in", NCAAB: "Tip off in", CBB: "Tip off in",
+    NFL: "Kickoff in", NCAAF: "Kickoff in", CFB: "Kickoff in",
+    SOCCER: "Kickoff in", MLS: "Kickoff in", EPL: "Kickoff in", UCL: "Kickoff in",
+    MLB: "First pitch in", NHL: "Puck drop in", UFC: "Fight starts in", BOXING: "Fight starts in",
+    PGA: "Tee off in", GOLF: "Tee off in", TENNIS: "First serve in", F1: "Lights out in", NASCAR: "Green flag in"
+  };
+  function verbFor(sport) { return VERB[String(sport || "").toUpperCase()] || "Starts in"; }
+
+  function fmtLeft(ms) {
+    var s = Math.max(0, Math.floor(ms / 1000));
+    var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+    function p(n) { return (n < 10 ? "0" : "") + n; }
+    return (d ? d + "d " : "") + p(h) + ":" + p(m) + ":" + p(sec);
+  }
+
+  function countdown(startsAt, sport) {
+    var ms = new Date(startsAt).getTime();
+    if (isNaN(ms)) return "";
+    return '<span class="rp-cd" data-starts="' + ms + '" data-verb="' + esc(verbFor(sport)) + '">' +
+      esc(verbFor(sport)) + " <strong>" + fmtLeft(ms - Date.now()) + "</strong></span>";
+  }
+
+  // One shared 1-second ticker updates every countdown on the page.
+  function tick() {
+    var now = Date.now();
+    var els = document.querySelectorAll(".rp-cd[data-starts]");
+    for (var i = 0; i < els.length; i++) {
+      var left = Number(els[i].getAttribute("data-starts")) - now;
+      var strong = els[i].querySelector("strong");
+      if (left <= 0) { els[i].classList.add("rp-cd-done"); els[i].innerHTML = "<strong>Starting</strong>"; els[i].removeAttribute("data-starts"); }
+      else if (strong) strong.textContent = fmtLeft(left);
+    }
+  }
+  if (typeof window !== "undefined" && !window.__rpCdTimer) window.__rpCdTimer = setInterval(tick, 1000);
+
+  // ---- Live game clock, worded per sport ----
+  // clock = { period: 3, time: "8:42", half: "top"|"bot" (MLB), outs: 2 (MLB),
+  //           state: "live"|"break"|"delay"|"final", text: "override text" }
+  function ord(n) { var s = ["th","st","nd","rd"], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); }
+  function fmtClock(c, sport) {
+    if (!c) return "";
+    if (has(c.text)) return c.text;
+    var S = String(sport || "").toUpperCase(), p = Number(c.period) || 0, tm = has(c.time) ? " " + c.time : "";
+    if (c.state === "final") return "Final";
+    if (c.state === "delay") return "Delayed";
+    if (S === "MLB") {
+      if (c.state === "break") return (c.half === "top" ? "Mid " : "End ") + ord(p);
+      return (c.half === "bot" ? "Bot " : "Top ") + ord(p) + (has(c.outs) ? " · " + c.outs + " out" : "");
+    }
+    if (S === "NHL") {
+      if (c.state === "break") return p >= 3 ? "End of reg" : "Int " + p;
+      return (p === 4 ? "OT" : p >= 5 ? "SO" : "P" + p) + tm;
+    }
+    if (S === "NCAAB" || S === "CBB") {
+      if (c.state === "break") return p === 1 ? "Halftime" : "End of reg";
+      return (p <= 2 ? "H" + p : (p === 3 ? "OT" : (p - 2) + "OT")) + tm;
+    }
+    if (["SOCCER","MLS","EPL","UCL"].indexOf(S) > -1) {
+      if (c.state === "break") return "HT";
+      return has(c.time) ? c.time + "\u2032" : "Live";
+    }
+    if (["NBA","WNBA","NFL","NCAAF","CFB"].indexOf(S) > -1) {
+      if (c.state === "break") return p === 2 ? "Halftime" : "End Q" + p;
+      return (p <= 4 ? "Q" + p : (p === 5 ? "OT" : (p - 4) + "OT")) + tm;
+    }
+    return (p ? "P" + p : "Live") + tm;
+  }
+  function clockTag(c, sport) {
+    var txt = fmtClock(c, sport);
+    return txt ? '<span class="rp-clock' + (c.state === "break" || c.state === "delay" ? " rp-clock-break" : "") + '">' + esc(txt) + "</span>" : "";
+  }
+
+  function pmCell(leg, t) {
+    if (leg.status === "live" && !has(leg.final) && leg.clock) {
+      return '<td class="rp-pm when">' + clockTag(leg.clock, leg.sport || t.sport) + "</td>";
+    }
     if (leg.status === "open" || (leg.status === "live" && !has(leg.final))) {
-      return '<td class="rp-pm when">' + esc(leg.when || "—") + "</td>";
+      if (has(leg.startsAt) && !(has(t.startsAt) && t.startsAt === leg.startsAt)) {
+        return '<td class="rp-pm when">' + countdown(leg.startsAt, leg.sport || t.sport) + "</td>";
+      }
+      return '<td class="rp-pm when">' + esc(leg.when || (has(t.startsAt) ? "—" : "—")) + "</td>";
     }
     if (leg.status === "void") return '<td class="rp-pm">—</td>';
     var m = legMargin(leg);
@@ -53,7 +133,14 @@
       : hits + "/" + counted + " <span>" + (togo ? "· " + togo + " to go" : "legs") + "</span>";
 
     var gameLeft = [t.date, t.game].filter(has).map(esc).join(" · ");
-    var gameRight = has(t.final) ? (status === "live" ? "Score " : "Final ") + "<strong>" + esc(t.final) + "</strong>" : "";
+    var gameRight;
+    if (status === "live" && t.clock) {
+      gameRight = clockTag(t.clock, t.sport) + (has(t.final) ? " <strong>" + esc(t.final) + "</strong>" : "");
+    } else if (has(t.final)) {
+      gameRight = (status === "live" ? "Score " : "Final ") + "<strong>" + esc(t.final) + "</strong>";
+    } else if ((status === "open" || status === "live") && has(t.startsAt)) {
+      gameRight = countdown(t.startsAt, t.sport);
+    } else gameRight = "";
 
     var rows = legs.map(function (leg) {
       var st = leg.status || "open";
@@ -61,11 +148,12 @@
       var finTxt = has(leg.finalText) ? leg.finalText : (has(leg.final) ? leg.final : "—");
       return '<tr class="rp-' + st + '">' +
         '<td class="rp-leg"><span class="rp-leg-name">' + esc(leg.player) + '</span>' +
-          (has(leg.market) ? '<span class="rp-leg-mkt">' + esc(leg.market) + "</span>" : "") + "</td>" +
+          ((has(leg.market) || (leg.clock && has(leg.final))) ? '<span class="rp-leg-mkt">' + esc(leg.market || "") +
+            (leg.clock && has(leg.final) && st === "live" ? " " + clockTag(leg.clock, leg.sport || t.sport) : "") + "</span>" : "") + "</td>" +
         '<td class="rp-line">' + esc(lineTxt) + "</td>" +
         '<td class="rp-final">' + esc(finTxt) + "</td>" +
         '<td class="rp-col-meter">' + meter(leg) + "</td>" +
-        pmCell(leg) +
+        pmCell(leg, t) +
         '<td class="rp-odds rp-col-odds">' + esc(leg.odds || "—") + "</td>" +
       "</tr>";
     }).join("");
