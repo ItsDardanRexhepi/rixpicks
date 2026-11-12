@@ -547,6 +547,12 @@
       var fv = l.final_stat;
       if (has(fv) && /^\d+(?:\.\d+)?$/.test(String(fv))) o.final = Number(fv);
       else if (pm.lineText === 'ML' && (o.status === 'hit' || o.status === 'miss')) o.finalText = o.status === 'hit' ? 'W' : 'L';
+      if (o.final == null && (o.status === 'hit' || o.status === 'miss')) {
+        /* final stat grounded only in the entry's own pick-level reason naming this exact player */
+        var rs = String(e.reason || ''), pn = String(l.player || ''), m1 = rs.match(/^(.+?) finished with (\d+(?:\.\d+)?) (?:receiving|rushing|passing) yards/), m2 = rs.match(/^(.+?) (?:had no qualifying touchdown|had 0 qualifying touchdowns)/);
+        if (m1 && m1[1] === pn && /yards/i.test(l.market || '')) o.final = Number(m1[2]);
+        else if (m2 && m2[1] === pn && /touchdown|\bTD\b/i.test(l.market || '')) o.final = 0;
+      }
       if (multi && l.matchup) o.market = (o.market || '') + ' \u00b7 ' + l.matchup;
       spec.legs.push(o);
     });
@@ -721,8 +727,7 @@
     var ptd = String(p.time || '');
     return { sport: 'MLB', type: 'Straight', title: 'HOME RUN', date: date ? hDayShort(date) : '', source: 'Not placed \u00b7 Wooder Ice',
       legs: [{ player: p.player, market: 'Home Run \u00b7 ' + p.matchup, matchup: p.matchup, timeLabel: ptd, line: 1, lineText: '1+',
-        x: { league: 'mlb', name: p.player, hr: true, mlbAway: parts[0] || '', mlbHome: parts[1] || '' } }],
-      note: 'No price quote on this card.' };
+        x: { league: 'mlb', name: p.player, hr: true, mlbAway: parts[0] || '', mlbHome: parts[1] || '' } }] };
   }
   function mapCombo(c) {
     var spec = { sport: c.league || String(c.sport || '').toUpperCase(), type: (c.legs || []).length + '-leg idea', title: String(c.title || '').toUpperCase(), date: c.time || '',
@@ -792,7 +797,7 @@
       if (ka && ka.u && ctm && aml(ka.c)) books.push({ name: 'KAL', odds: aml(ka.c) + ' \u00b7 ' + ctm, url: ka.u });
       var kT = kc && kc.ticker ? kc.ticker : null;
       out.push({ sport: 'NFL', type: 'Straight', title: 'ANYTIME TD SCORER', date: dl, source: 'Not placed \u00b7 RixPicks', oddsLabel: px.label + ' ref',
-        books: books, kalTicker: kT, kalCard: ka && ka.u ? { c: ka.c, u: ka.u, ctm: ctm } : null, legs: [nflLeg(s, px)], details: details, note: win ? win + ' slate.' : undefined });
+        books: books, kalTicker: kT, kalCard: ka && ka.u ? { c: ka.c, u: ka.u, ctm: ctm } : null, legs: [nflLeg(s, px)], details: details + (win ? '\n' + win + ' slate' : '') });
     });
     parlays.forEach(function (p) {
       var bad = false, legs = (p.legs || []).map(function (l) { var lp = legPx(l); if (!lp) { bad = true; return null; } return nflLeg(l, lp); });
@@ -813,7 +818,7 @@
       out.push({ sport: 'NFL', type: bb.picks.length + '-leg combo', title: 'COMBO', date: dl, source: 'Not placed \u00b7 RixPicks', oddsLabel: 'KAL ref', game: bb.matchup || undefined,
         legs: bb.picks.map(function (b) { return { player: b.player, market: 'Anytime TD', line: 1, lineText: '1+', odds: aml(b.price_c), x: { league: 'nfl', name: b.player, nflTeam: b.team || '', nflLive: true, anytime: true } }; }),
         books: bb.picks.map(function (b) { return okUrl(b.link) ? { name: 'KAL', odds: aml(b.price_c), url: okUrl(b.link) } : null; }).filter(Boolean),
-        note: bb.est_cost_c ? 'Sum of individual asks ' + bb.est_cost_c + 'c. Not a combined quote.' : undefined, details: details });
+        details: details + (bb.est_cost_c ? '\nSum of individual asks ' + bb.est_cost_c + 'c (not a combined quote).' : '') });
     }
     return out;
   }
@@ -858,7 +863,7 @@
     if (sgp && (sgp.legs || []).length) {
       out.push({ sport: 'NFL', type: sgp.legs.length + '-leg parlay', title: 'SAME GAME PARLAY', date: dl, source: 'Idea only \u00b7 RixPicks', oddsLabel: 'No combined quote', game: mu || undefined,
         legs: sgp.legs.map(function (l) { return { player: l.player, market: 'Anytime TD' + (mu ? ' \u00b7 ' + mu : ''), matchup: mu || undefined, line: 1, lineText: '1+', timeLabel: koL, x: { league: 'nfl', name: l.player, nflTeam: l.team || '', nflLive: true, anytime: true, commence: ko2 } }; }),
-        books: [], note: sgp.note || undefined, details: details });
+        books: [], details: details + (sgp.note ? '\n' + sgp.note : '') });
     }
     return out;
   }
