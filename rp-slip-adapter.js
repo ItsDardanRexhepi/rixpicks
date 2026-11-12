@@ -412,6 +412,17 @@
     } else if (x.espnUrl) {
       p = fetchJson(x.espnUrl).then(function (j) { return gameFromEspn(j, x); });
     } else p = Promise.reject();
+    /* ESPN summary headers carry no period/clock on some games (observed on a final NHL game); for a live game with no clock, the league scoreboard status is the source. Missing there too = no clock shown. */
+    p = p.then(function (rec) {
+      if (rec.state !== 'in' || rec.clk || rec.src !== 'ESPN' || !x.espnUrl || !/\/summary\?event=/.test(x.espnUrl)) return rec;
+      return fetchJson(x.espnUrl.replace(/\/summary\?event=.*$/, '/scoreboard')).then(function (sb) {
+        var ev = (sb.events || []).filter(function (e) { return String(e.id) === String(x.event); })[0];
+        var cmp = ev && (ev.competitions || [])[0];
+        var st = ev && ev.status;
+        if (st) { var lg = x.league || leagueOfUrl(x.espnUrl); rec.clk = clkOfEspn(lg, st, cmp ? { situation: cmp.situation } : null); }
+        return rec;
+      }, function () { return rec; });
+    });
     return p.then(function (rec) { games[k] = rec; }, function () { games[k] = { state: 'unavail', ts: Date.now() }; });
   }
   var MLB_ALIAS = { CWS: 'CHW', CHW: 'CWS' };
