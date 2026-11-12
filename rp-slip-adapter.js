@@ -603,6 +603,7 @@
   var css = document.createElement('style');
   css.textContent = '[data-rpx-old]{display:none!important}' +
     '.rpx-cell{min-width:0}' +
+    '@media (max-width:520px){.rp-slip-table td.when{white-space:normal}}' +
     '#st-wooder .wi-future .progress,#st-wooder .wi-future .price{font-variant-numeric:tabular-nums}' +
     '.rpx-verify{margin:16px 0 0;border:1px solid #1d2426;border-radius:14px;background:#0f1516;color:#f2f5f4;font-family:Inter,system-ui,sans-serif}' +
     '.rpx-verify summary{cursor:pointer;padding:14px 18px;font-weight:800;font-size:15px}' +
