@@ -69,6 +69,19 @@
     font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--rp-muted);
   }
   .rp-slip-game strong { color: var(--rp-text); font-weight: 800; }
+  .rp-cd { white-space: nowrap; }
+  .rp-cd strong { color: var(--rp-accent); font-weight: 800; letter-spacing: .04em; }
+  .rp-pm .rp-cd { white-space: normal; text-transform: uppercase; font-size: 12px; letter-spacing: .04em; }
+  .rp-cd-done strong { color: var(--rp-pending); }
+  .rp-clock {
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+    font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--rp-live);
+  }
+  .rp-clock::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: rp-pulse 1.4s ease-in-out infinite; }
+  .rp-clock-break { color: var(--rp-pending); }
+  .rp-clock-break::before { animation: none; }
+  .rp-leg-mkt .rp-clock { margin-left: 4px; }
+  @media (prefers-reduced-motion: reduce) { .rp-clock::before { animation: none; } }
 
   /* Leg table */
   .rp-slip-table { width: 100%; border-collapse: collapse; }
