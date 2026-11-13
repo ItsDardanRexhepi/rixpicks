@@ -11,7 +11,10 @@ enqueued new mutations - an infinite microtask loop that starved the renderer
 never saw it). The fix makes hidden writes idempotent and disconnects the
 observer while refreshing. This test loads the REAL index.html in headless
 Chrome, clicks every wooder chip (interaction), and fails if mutation traffic
-does not stop growing or the page never reaches idle.
+does not stop growing or the page never reaches idle. The supplied renderer's
+one-second plain-text countdown updates are counted separately: they are normal
+activity, not a visibility/observer loop. Structural writes and countdown writes
+faster than the bounded ticker remain part of the failure detector.
 
 Runs anywhere a Chrome/Chromium binary exists (GitHub ubuntu-latest ships
 google-chrome). With no browser binary it prints SKIP and exits 0 - it is a
@@ -50,8 +53,26 @@ fr.onload = function () {
   var d = fr.contentDocument;
   var root = d.getElementById("st-wooder");
   if (!root) { finish("FAIL no st-wooder in built page"); return; }
-  var n = 0;
-  new MutationObserver(function (rs) { n += rs.length; })
+  var n = 0, countdownUpdates = 0;
+  var lastCountdownWrite = new WeakMap();
+  function normalCountdownText(r) {
+    // The supplied renderer ticks once per second. A page carrying future
+    // tickets cannot have global DOM silence for the 1.25-second idle window.
+    // Exempt only a bounded, plain-text write to its existing countdown node;
+    // structural, visibility and rapid repeated writes still count as churn.
+    var el = r.target, parent = el.parentElement;
+    if (r.type !== "childList" || el.nodeName !== "STRONG" || !parent ||
+        !parent.matches(".rp-cd[data-starts]") || r.addedNodes.length !== 1 ||
+        r.removedNodes.length !== 1 || r.addedNodes[0].nodeType !== 3 ||
+        r.removedNodes[0].nodeType !== 3 ||
+        !/^(?:[0-9]+d )?[0-9]{2}:[0-9]{2}:[0-9]{2}$/.test(r.addedNodes[0].textContent)) return false;
+    var at = performance.now(), previous = lastCountdownWrite.get(el);
+    if (previous !== undefined && at - previous < 900) return false;
+    lastCountdownWrite.set(el, at);
+    countdownUpdates++;
+    return true;
+  }
+  new MutationObserver(function (rs) { rs.forEach(function (r) { if (!normalCountdownText(r)) n++; }); })
     .observe(root, { childList: true, subtree: true, attributes: true });
   function waitIdle(cb) {
     var last = -1, stable = 0;
@@ -81,7 +102,8 @@ fr.onload = function () {
         if (all) all.click();
         waitIdle(function () {
           if (!applied) { finish("FAIL live filter did not apply (live section hidden or nothing else hidden)"); return; }
-          finish("PASS idle-at=" + idleCount + " total=" + n + " chips=" + chips.length);
+          finish("PASS idle-at=" + idleCount + " total=" + n + " chips=" + chips.length +
+                 " countdown-updates=" + countdownUpdates);
         });
       });
     });
