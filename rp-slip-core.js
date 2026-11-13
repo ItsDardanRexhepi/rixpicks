@@ -1,3 +1,4 @@
+
 (function () {
   var STAMP = { open: "Open", live: "Live", won: "Won", lost: "Lost", void: "Void" };
 
@@ -151,7 +152,7 @@
           ((has(leg.market) || (leg.clock && has(leg.final))) ? '<span class="rp-leg-mkt">' + esc(leg.market || "") +
             (leg.clock && has(leg.final) && st === "live" ? " " + clockTag(leg.clock, leg.sport || t.sport) : "") + "</span>" : "") + "</td>" +
         '<td class="rp-line">' + esc(lineTxt) + "</td>" +
-        '<td class="rp-final">' + esc(finTxt) + "</td>" +
+        '<td class="rp-final rp-col-final">' + esc(finTxt) + "</td>" +
         '<td class="rp-col-meter">' + meter(leg) + "</td>" +
         pmCell(leg, t) +
         '<td class="rp-odds rp-col-odds">' + esc(leg.odds || "—") + "</td>" +
@@ -175,8 +176,8 @@
         '<div class="rp-slip-result"><span class="rp-stamp">' + STAMP[status] + '</span><span class="rp-slip-count">' + count + "</span></div>" +
       "</header>" +
       ((gameLeft || gameRight) ? '<div class="rp-slip-game"><span>' + gameLeft + "</span><span>" + gameRight + "</span></div>" : "") +
-      '<table class="rp-slip-table"><thead><tr>' +
-        "<th>Leg</th><th>Line</th><th>" + (status === "live" ? "Now" : "Final") + '</th><th class="rp-col-meter">Margin</th><th>' +
+      '<table class="rp-slip-table' + (legs.length && legs.every(function (l) { return (l.status || "open") === "open"; }) ? " rp-pre" : "") + '"><thead><tr>' +
+        '<th>Leg</th><th>Line</th><th class="rp-col-final">' + (status === "live" ? "Now" : "Final") + '</th><th class="rp-col-meter">Margin</th><th>' +
         (status === "open" ? "Starts" : "+/-") + '</th><th class="rp-col-odds">' + esc(t.oddsLabel || "Odds") + "</th>" +
       "</tr></thead><tbody>" + rows + "</tbody></table>" +
       (has(t.note) ? '<p class="rp-slip-note">' + esc(t.note) + "</p>" : "") +
