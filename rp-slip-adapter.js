@@ -118,6 +118,24 @@
     } catch (e) { return false; }
   }
   function espnStat(j, x) {
+    if (x.requireBasketballParticipation === true) {
+      var rows = [];
+      ((j.boxscore || {}).players || []).forEach(function (t) {
+        if (!x.team || (t.team || {}).abbreviation !== x.team) return;
+        (t.statistics || []).forEach(function (cat) {
+          (cat.athletes || []).forEach(function (a) {
+            if (String((a.athlete || {}).id) !== String(x.athlete)) return;
+            var keys = cat.keys || [], raw = (a.stats || [])[keys.indexOf('minutes')];
+            var played = positiveIceTime(raw) || (/^\d+(?:\.\d+)?$/.test(String(raw)) && Number(raw) > 0);
+            if (a.didNotPlay === true || !played) return;
+            var vals = (x.keys || []).map(function (k) { var v = (a.stats || [])[keys.indexOf(k)]; return /^\d+$/.test(String(v)) ? Number(v) : null; });
+            if (!vals.length || vals.some(function (v) { return v === null; })) return;
+            rows.push(x.doubleDouble ? (vals.filter(function (v) { return v >= 10; }).length >= 2 ? 1 : 0) : vals.reduce(function (a, b) { return a + b; }, 0));
+          });
+        });
+      });
+      return rows.length === 1 ? rows[0] : null;
+    }
     var found = false, value = 0, keys = x.keys || [];
     var single = !x.anytime && keys.length <= 1;
     var sum = {}, ids = {};
@@ -147,14 +165,20 @@
     ks.forEach(function (k) { value += sum[k]; });
     return value;
   }
+  function positiveIceTime(value) {
+    var m = String(value == null ? '' : value).trim().match(/^(\d{1,3}):([0-5]\d)$/);
+    return !!m && (Number(m[1]) * 60 + Number(m[2])) > 0;
+  }
   function espnGoals(j, x) {
     var values = [];
     ((j.boxscore || {}).players || []).forEach(function (t) {
+      if (x.requireParticipation === true && (!x.team || normTeam((t.team || {}).abbreviation) !== normTeam(x.team))) return;
       (t.statistics || []).forEach(function (cat) {
         var ix = (cat.keys || []).indexOf('goals');
         if (ix < 0) return;
         (cat.athletes || []).forEach(function (a) {
           if (String((a.athlete || {}).id) !== String(x.athlete)) return;
+          if (x.requireParticipation === true && (a.didNotPlay === true || !positiveIceTime((a.stats || [])[(cat.keys || []).indexOf('timeOnIce')]))) return;
           var v = (a.stats || [])[ix];
           if (v == null || String(v).trim() === '' || !/^[0-9]+$/.test(String(v))) return;
           values.push(Number(v));
@@ -205,6 +229,11 @@
       src: 'ESPN', ts: Date.now(),
       stat: function (leg) {
         if (leg.hr) return espnHR(j, leg);
+        if (leg.totalPoints === true) {
+          if (state !== 'in' && state !== 'post') return null;
+          if (cs.length !== 2 || cs.some(function (c) { return !/^\d+$/.test(String(c.score)); })) return null;
+          return cs.reduce(function (sum, c) { return sum + Number(c.score); }, 0);
+        }
         if (leg.ml) {
           var me = cs.filter(function (c) { return (c.team || {}).displayName === leg.ml && (!leg.mlAbbr || (c.team || {}).abbreviation === leg.mlAbbr); })[0];
           if (!me) return null;
@@ -223,6 +252,7 @@
   }
   function gameFromNhl(g, x) {
     if (String(g.id) !== String(x.nhlGame)) throw new Error('Wrong game');
+    if (x.requireParticipation === true && (normTeam((g.awayTeam || {}).abbrev) !== normTeam(x.away) || normTeam((g.homeTeam || {}).abbrev) !== normTeam(x.home))) throw new Error('Wrong matchup');
     var s = g.gameState;
     var state;
     if (s === 'FUT' || s === 'PRE') state = 'pre';
@@ -238,6 +268,14 @@
     return {
       state: state, score: (a.abbrev + ' ' + a.score) + ' \u2013 ' + (h.abbrev + ' ' + h.score), phase: phase, clk: state === 'in' && per ? ((g.clock || {}).inIntermission ? { period: per, state: 'break' } : (rem ? { period: per, time: rem } : null)) : null, src: 'NHL', ts: Date.now(),
       stat: function (leg) {
+        if (leg.requireParticipation === true) {
+          var side = leg.team && normTeam(leg.team) === normTeam(a.abbrev) ? 'awayTeam' : (leg.team && normTeam(leg.team) === normTeam(h.abbrev) ? 'homeTeam' : null);
+          if (!side) return null;
+          var exact = [], teamStats = ps[side] || {};
+          Object.keys(teamStats).forEach(function (key) { if (Array.isArray(teamStats[key])) exact = exact.concat(teamStats[key].filter(function (p) { return String(p.playerId) === String(leg.nhlPlayer); })); });
+          if (exact.length !== 1 || !positiveIceTime(exact[0].toi) || !Number.isInteger(exact[0].goals) || exact[0].goals < 0) return null;
+          return exact[0].goals;
+        }
         var p = players.find(function (q) { return String(q.playerId) === String(leg.nhlPlayer); });
         return p && typeof p.goals === 'number' ? p.goals : null;
       }
@@ -360,6 +398,10 @@
     if (sig === h.sig) return;
     h.sig = sig;
     window.RPSlip.mount(h.slipEl, [t]);
+    if (h.spec.totalLabel === 'Derived return') {
+      var total = h.slipEl.querySelector('.rp-total');
+      if (total && total.firstChild && total.firstChild.nodeType === 3) total.firstChild.textContent = 'Derived return ';
+    }
     // Explicitly unplaced selections use selection-result wording. Keep the
     // supplied renderer/CSS and every other card's label unchanged.
     if (h.spec.selectionOnly === true && t.status === 'lost') {
@@ -421,8 +463,14 @@
   }
   function fetchJson(u) {
     var ac = window.AbortController ? new AbortController() : null, to = ac ? setTimeout(function () { ac.abort(); }, 10000) : 0;
-    return fetch(u, ac ? { cache: 'no-store', signal: ac.signal } : { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
-      .then(function (j) { clearTimeout(to); return j; }, function (e) { clearTimeout(to); throw e; });
+    var proof = /(?:^|[?&])nhlProof=1(?:&|$)/.test((window.location || {}).search || '') && /^(?:https:\/\/api-web\.nhle\.com\/v1\/gamecenter\/(?:2026020310|2026020311)\/boxscore|https:\/\/site\.api\.espn\.com\/apis\/site\/v2\/sports\/hockey\/nhl\/summary\?event=(?:401892706|401892707))$/.test(u);
+    var requestedAt = proof ? new Date().toISOString() : null;
+    function record(data) { if (proof && window.console && window.console.info) window.console.info('RIX_NHL_PROOF ' + JSON.stringify(data)); }
+    return fetch(u, ac ? { cache: 'no-store', signal: ac.signal } : { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) { record({url:u,requestedAt:requestedAt,receivedAt:new Date().toISOString(),status:r.status,error:'http'}); throw new Error('http ' + r.status); }
+      return r.json().then(function (j) { record({url:u,requestedAt:requestedAt,receivedAt:new Date().toISOString(),status:r.status,body:j}); return j; });
+    })
+      .then(function (j) { clearTimeout(to); return j; }, function (e) { clearTimeout(to); record({url:u,requestedAt:requestedAt,receivedAt:new Date().toISOString(),error:String(e && e.name || 'Error'),message:String(e && e.message || '').slice(0,200)}); throw e; });
   }
   function pollOne(k, x) {
     var p;
