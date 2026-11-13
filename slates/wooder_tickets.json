@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-12T21:58:00Z",
+ "generated_at": "2026-11-13T02:58:31.406751+00:00",
  "tickets": [
   {
    "author": "Wooder Ice",
@@ -2442,90 +2442,6 @@
      "time": "Thu Nov 12, 4:00 PM PT",
      "kalshi_ticker": "KXNBAREBPROT-26NOV12TORPHI-PHIDWADE45-8",
      "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAREBPROT-26NOV12TORPHI-PHIDWADE45-8",
-     "matchup": "TOR @ PHI",
-     "event_id": "401909976",
-     "game_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909976"
-    }
-   ],
-   "date": "2026-11-12"
-  },
-  {
-   "id": "w1112-c8",
-   "kind": "ticket",
-   "title": "NBA - 5-LEG PARLAY",
-   "author": "Wooder Ice",
-   "bought": true,
-   "status": "PLACED - reported by Wooder Ice",
-   "combo_american": "+537",
-   "source_url": "https://kalshi.com/markets/kxmvecrosscategory/kxmvecrosscategory-s2026v365mfdtlq5zaopg",
-   "placement_note": "Placement and combined fill reported by Wooder Ice; fill and settlement not independently verified. Combined American odds are the actual reported fill, not a board quote. Per-leg fills are omitted and never inferred or repriced from board prices. Live clocks and grading appear only where a verified public source (ESPN) is bound; other legs show their verified start time.",
-   "legs": [
-    {
-     "player": "Anfernee Simons",
-     "market": "2+ Threes",
-     "status": "PENDING",
-     "side": "yes",
-     "league": "nba",
-     "commence": "2026-11-13T00:00:00Z",
-     "time": "Thu Nov 12, 4:00 PM PT",
-     "kalshi_ticker": "KXNBA3PTPROT-26NOV12TORPHI-PHIASIMONS5-2",
-     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBA3PTPROT-26NOV12TORPHI-PHIASIMONS5-2",
-     "matchup": "TOR @ PHI",
-     "event_id": "401909976",
-     "game_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909976"
-    },
-    {
-     "player": "Dean Wade",
-     "market": "2+ Threes",
-     "status": "PENDING",
-     "side": "yes",
-     "league": "nba",
-     "commence": "2026-11-13T00:00:00Z",
-     "time": "Thu Nov 12, 4:00 PM PT",
-     "kalshi_ticker": "KXNBA3PTPROT-26NOV12TORPHI-PHIDWADE45-2",
-     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBA3PTPROT-26NOV12TORPHI-PHIDWADE45-2",
-     "matchup": "TOR @ PHI",
-     "event_id": "401909976",
-     "game_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909976"
-    },
-    {
-     "player": "Tyrese Maxey",
-     "market": "1+ Threes",
-     "status": "PENDING",
-     "side": "yes",
-     "league": "nba",
-     "commence": "2026-11-13T00:00:00Z",
-     "time": "Thu Nov 12, 4:00 PM PT",
-     "kalshi_ticker": "KXNBA3PTPROT-26NOV12TORPHI-PHITMAXEY0-1",
-     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBA3PTPROT-26NOV12TORPHI-PHITMAXEY0-1",
-     "matchup": "TOR @ PHI",
-     "event_id": "401909976",
-     "game_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909976"
-    },
-    {
-     "player": "Immanuel Quickley",
-     "market": "1+ Threes",
-     "status": "PENDING",
-     "side": "yes",
-     "league": "nba",
-     "commence": "2026-11-13T00:00:00Z",
-     "time": "Thu Nov 12, 4:00 PM PT",
-     "kalshi_ticker": "KXNBA3PTPROT-26NOV12TORPHI-TORIQUICKLEY5-1",
-     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBA3PTPROT-26NOV12TORPHI-TORIQUICKLEY5-1",
-     "matchup": "TOR @ PHI",
-     "event_id": "401909976",
-     "game_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909976"
-    },
-    {
-     "player": "RJ Barrett",
-     "market": "15+ Points",
-     "status": "PENDING",
-     "side": "yes",
-     "league": "nba",
-     "commence": "2026-11-13T00:00:00Z",
-     "time": "Thu Nov 12, 4:00 PM PT",
-     "kalshi_ticker": "KXNBAPTSPROT-26NOV12TORPHI-TORRBARRETT9-15",
-     "kalshi_source_url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNBAPTSPROT-26NOV12TORPHI-TORRBARRETT9-15",
      "matchup": "TOR @ PHI",
      "event_id": "401909976",
      "game_source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909976"

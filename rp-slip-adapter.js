@@ -580,6 +580,7 @@
       legs: [], sources: [], record: []
     };
     if (tt.total) spec.total = tt.total;
+    if (has(e.combo_american)) spec.total = String(e.combo_american);
     if (anyKal) spec.oddsLabel = 'KAL ref';
     if (ms.length === 1) spec.game = ms[0];
     var fs = legs.map(function (l) { return l.final_score; }).filter(has);
@@ -630,6 +631,7 @@
     };
     if (w.game_label && !/^\d+ games?$/.test(w.game_label)) spec.game = w.game_label;
     if (w.final_strip) spec.final = w.final_strip;
+    if (has(w.combo_american)) spec.total = String(w.combo_american);
     legs.forEach(function (l) {
       var o = { player: l.name || l.player, market: l.mkt || l.market, archived: true, status: 'hit' };
       if (l.line === 'ML') { o.lineText = 'ML'; o.finalText = l.final; o.margin = l.diff; o.market = (l.mkt || l.market) + ' \u00b7 ' + l.matchup + (l.score ? ' \u00b7 ' + l.score : ''); }
@@ -728,6 +730,16 @@
         hideOld(wooOld);
         mountSpecs(makeGrid(wooOld, 'rpxWooWin'), specs);
         var wrap = document.getElementById('rpWinWrap'); if (wrap) wrap.style.display = '';
+        // Official-final selection wins do not assert venue settlement or payout.
+        if (((j && j.winners) || []).some(function (w) { return w.grade_basis === 'official_final_stats'; })) {
+          var stats = document.getElementById('rpWinStats');
+          if (stats) {
+            hideOld(stats);
+            var summary = document.createElement('div'); summary.id = 'rpxWinStats'; summary.className = stats.className;
+            summary.textContent = specs.length + ' winning slips \u00b7 ' + specs.reduce(function (n, s) { return n + s.legs.length; }, 0) + ' legs hit';
+            stats.insertAdjacentElement('afterend', summary);
+          }
+        }
       }
     }).catch(function () { });
   }
