@@ -948,11 +948,11 @@
   function fetchJ2(u) { return window.fetch(u + '?cb=' + Date.now(), { cache: 'no-store' }).then(function (r) { if (!r.ok) throw 0; return r.json(); }); }
 
   /* ---------- surface: screenshot-sourced NFL cards (slates/nfl_ideas.json) rendered by active-day.js; each .rx-card article is swapped in place ---------- */
-  function mapIdea(c) {
+  function mapIdea(c, omitPlacementLabel) {
     var legs = c.legs || [], tt = hTitle({ title: c.title });
     var placed = /^PLACED/i.test(String(c.status || '')) ? 'Placed' : 'Placement unknown';
     var spec = { sport: String(c.title || '').split(' - ')[0] || 'NFL', type: legs.length > 1 ? legs.length + '-leg parlay' : 'Straight', title: tt.title, date: legs[0] && legs[0].date ? hDayShort(legs[0].date) : '',
-      source: placed + ' \u00b7 ' + (/^rix-/.test(String(c.id)) ? 'RixPicks' : 'Wooder Ice'), oddsLabel: 'Screenshot ref', sources: [], record: [] };
+      source: (omitPlacementLabel ? '' : placed + ' \u00b7 ') + (/^rix-/.test(String(c.id)) ? 'RixPicks' : 'Wooder Ice'), oddsLabel: 'Screenshot ref', sources: [], record: [] };
     if (tt.total) spec.total = tt.total;
     var seen = {}, groups = {};
     spec.legs = legs.map(function (l) {
@@ -979,7 +979,8 @@
           var c = by[a.getAttribute('data-card')]; if (!c) return;
           hideOld(a);
           var g = document.createElement('div'); g.className = 'rp-slip-grid'; a.insertAdjacentElement('afterend', g);
-          mountSpecs(g, [mapIdea(c)]);
+          var omitPlacementLabel = !!a.closest('#st-home') && ['rix-20261112-wasnyg-atd4', 'rix-20261112-wasnyg-atd2', 'rix-20261112-nba14'].indexOf(c.id) >= 0;
+          mountSpecs(g, [mapIdea(c, omitPlacementLabel)]);
         });
         poll();
       }
