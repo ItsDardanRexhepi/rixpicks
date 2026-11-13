@@ -979,7 +979,7 @@
           var c = by[a.getAttribute('data-card')]; if (!c) return;
           hideOld(a);
           var g = document.createElement('div'); g.className = 'rp-slip-grid'; a.insertAdjacentElement('afterend', g);
-          var omitPlacementLabel = !!a.closest('#st-home') && ['rix-20261112-wasnyg-atd4', 'rix-20261112-wasnyg-atd2', 'rix-20261112-nba14'].indexOf(c.id) >= 0;
+          var omitPlacementLabel = !!a.closest('#st-home, #rixNflShots') && ['rix-20261112-wasnyg-atd4', 'rix-20261112-wasnyg-atd2', 'rix-20261112-nba14'].indexOf(c.id) >= 0;
           mountSpecs(g, [mapIdea(c, omitPlacementLabel)]);
         });
         poll();
