@@ -324,6 +324,18 @@
       status: spec.status || live, sport: spec.sport, type: spec.type, title: spec.title,
       date: spec.date, source: spec.source, oddsLabel: spec.oddsLabel, total: spec.total, books: booksOf(spec), legs: legsOut
     };
+    // Opt-in selection tracking: a confirmed final miss ends the pick; a win
+    // requires every exact leg and game to be final. Other card policies stay unchanged.
+    if (!spec.status && spec.resolveFinal === true && legsOut.length) {
+      var finalMiss = false, allFinalHits = true;
+      spec.legs.forEach(function (l, i) {
+        var g = l.x && games[keyOf(l.x)], final = g && g.state === 'post';
+        if (final && legsOut[i].status === 'miss') finalMiss = true;
+        if (!final || legsOut[i].status !== 'hit') allFinalHits = false;
+      });
+      if (finalMiss) t.status = 'lost';
+      else if (allFinalHits) t.status = 'won';
+    }
     if (spec.sources && spec.sources.length) t.sources = spec.sources;
     if (has(spec.details)) t.details = spec.details;
     if (spec.game) t.game = spec.game;
@@ -348,6 +360,12 @@
     if (sig === h.sig) return;
     h.sig = sig;
     window.RPSlip.mount(h.slipEl, [t]);
+    // Explicitly unplaced selections use selection-result wording. Keep the
+    // supplied renderer/CSS and every other card's label unchanged.
+    if (h.spec.selectionOnly === true && t.status === 'lost') {
+      var stamp = h.slipEl.querySelector('.rp-stamp');
+      if (stamp) stamp.textContent = 'Pick failed';
+    }
   }
 
   /* mount one cell per spec inside a .rp-slip-grid. Returns the handles. */
@@ -579,6 +597,7 @@
       title: tt.title, date: hDayShort(d), source: hPlaced(e) + ' \u00b7 ' + (e.author || 'Wooder Ice'),
       legs: [], sources: [], record: []
     };
+    if (e.selection_only === true && hPlaced(e) === 'Not placed') spec.selectionOnly = true;
     if (tt.total) spec.total = tt.total;
     if (has(e.combo_american)) spec.total = String(e.combo_american);
     if (anyKal) spec.oddsLabel = 'KAL ref';
