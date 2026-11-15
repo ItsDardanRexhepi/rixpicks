@@ -9,7 +9,7 @@ const LIM = 20 * 60000;
 function inWindow(ms) { const h = new Date(ms).getUTCHours(); return h >= 16 || h <= 6; }
 function lastWindowClose(ms) { const d = new Date(ms); d.setUTCHours(7, 0, 0, 0); if (d.getTime() > ms) d.setUTCDate(d.getUTCDate() - 1); return d.getTime(); }
 function futuresFresh(nowMs, newestQuoteMs) {
-  if (!isFinite(newestQuoteMs)) return false;
+  if (!Number.isFinite(nowMs) || !Number.isFinite(newestQuoteMs) || newestQuoteMs > nowMs) return false;
   if (inWindow(nowMs)) return (nowMs - newestQuoteMs) < LIM;
   return newestQuoteMs >= lastWindowClose(nowMs) - LIM;
 }

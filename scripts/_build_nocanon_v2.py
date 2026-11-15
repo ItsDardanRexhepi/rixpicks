@@ -3572,7 +3572,7 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     r'<div class="nx-next"><span>First kickoff</span><strong id="rpNflNext">Checking the board&hellip;</strong></div></div>')
     _nfl_futmod=(
     r'<section class="nx-section" aria-labelledby="nxFutH"><div class="nx-shead"><h2 id="nxFutH">Futures</h2><a href="futures.html?v={build_sha}">Full futures tracker</a></div>'
-    r'<div class="nx-card nx-twrap"><table class="nx-fut"><thead><tr><th scope="col">Pick</th><th scope="col" class="num">Units</th><th scope="col" class="num">Entry</th><th scope="col" class="num">Now</th><th scope="col" class="num">Since entry</th></tr></thead><tbody id="rpNflFutBody"></tbody></table></div>'
+    r'<div class="nx-card nx-twrap"><table class="nx-fut"><thead><tr><th scope="col">Pick</th><th scope="col" class="num">Units</th><th scope="col" class="num">Entry</th><th scope="col" class="num">Recorded quote</th><th scope="col" class="num">Since entry</th></tr></thead><tbody id="rpNflFutBody"></tbody></table></div>'
     r'<p class="nx-fine" id="rpNflFutFine"></p></section>'
     r'<script>(function(){'
     r'var tb=document.getElementById("rpNflFutBody"),fine=document.getElementById("rpNflFutFine");if(!tb)return;'
@@ -3580,22 +3580,48 @@ r'fetch("slates/wooder_dingers.json?cb="+Date.now(),{cache:"no-store"}).then(fun
     r'function c2ml(c){c=+c;return c>=50?-Math.round(c/(100-c)*100):Math.round((100-c)/c*100);}'
     r'function fmtML(n){return (n<0?"\u2212":"+")+Math.abs(n);}'
     r'function impAm(s){var m=String(s||"").match(/^([+-])(\d+)$/);if(!m)return null;var o=+m[2];return m[1]==="+"?100/(o+100):o/(o+100);}'
+    r"""
+function recordedQuote(cents, observed, source) {
+  if (typeof cents !== "number" || !(cents > 0 && cents < 100)) return null;
+  if (typeof observed !== "string" || !/(Z|[+-]\d{2}:?\d{2})$/i.test(observed)) return null;
+  var ms = Date.parse(observed);
+  if (!Number.isFinite(ms) || ms > Date.now()) return null;
+  return { cents: cents, observed: new Date(ms), source: source };
+}
+var pacific = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/Los_Angeles", year: "numeric", month: "short", day: "numeric",
+  hour: "numeric", minute: "2-digit", timeZoneName: "short"
+});
+function quoteCell(q) {
+  if (!q) return '<span class="nx-mut">Unavailable</span>';
+  return '<span class="nx-livep"><strong>' + fmtML(c2ml(q.cents)) + '</strong><span>' + q.source +
+    '</span><time datetime="' + q.observed.toISOString() + '">' + pacific.format(q.observed) + '</time></span>';
+}
+function metricCell(label, content) {
+  return '<td class="num"><span class="nx-quote-label" aria-hidden="true">' + label + '</span>' + content + '</td>';
+}
+function movement(entry, quote) {
+  if (entry == null || !quote) return "";
+  var start = (entry * 100).toFixed(1), end = quote.cents.toFixed(1);
+  if (start === end) return '<span class="nx-mut">Unchanged · ' + end + '%</span>';
+  var up = quote.cents > entry * 100;
+  return '<span class="nx-move ' + (up ? 'up' : 'down') + '">' + (up ? '▲' : '▼') + ' ' + start + '% → ' + end + '%</span>';
+}
+"""
     r'fetch("futures.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){'
     r'var fs=(Array.isArray(j)?j:((j&&j.futures)||[])).filter(function(f){return f&&typeof f==="object"&&!f.settlement&&String(f.league||"").toUpperCase()==="NFL";});'
     r'if(!fs.length){tb.innerHTML="<tr><td colspan=\"5\">No open NFL futures.</td></tr>";return;}'
-    r'var latest=0;'
     r'tb.innerHTML=fs.map(function(f){'
-    r'var kq=f.kalshi_quote||{},pm=f.polymarket_com||{};var now="",src="",imp=null,t;'
-    r'if(kq.status==="active"&&typeof kq.ask_c==="number"&&kq.ask_c>0&&kq.ask_c<100){now=fmtML(c2ml(kq.ask_c));src="Kalshi ask";imp=kq.ask_c;t=Date.parse(kq.quoted_at||"");if(t>latest)latest=t;}'
-    r'else if(typeof pm.cents==="number"&&pm.cents>0&&pm.cents<100){now=fmtML(c2ml(pm.cents));src="Polymarket";imp=pm.cents;t=Date.parse(pm.quoted_at||"");if(t>latest)latest=t;}'
-    r'var e=impAm(f.odds);var mv="";'
-    r'if(e!=null&&imp!=null){var up=imp>e*100;mv="<span class=\"nx-move "+(up?"up":"down")+"\">"+(up?"\u25b2":"\u25bc")+" "+(e*100).toFixed(1)+"% \u2192 "+imp.toFixed(1)+"%</span>";}'
+    r'var kq=f.kalshi_quote||{},pm=f.polymarket_com||{};'
+    r'var quote=kq.status==="active"&&recordedQuote(kq.ask_c,kq.quoted_at,"Kalshi ask");'
+    r'if(!quote&&pm.verified===true)quote=recordedQuote(pm.cents,pm.quoted_at,"Polymarket");'
+    r'var mv=movement(impAm(f.odds),quote);'
     r'return "<tr><td><span class=\"nx-team\"><strong>"+esc(f.team)+"</strong><span>"+esc(f.market)+(f.note?" \u00b7 "+esc(f.note):"")+"</span></span></td>"'
-    r'+"<td class=\"num\">"+(f.units!=null?esc(String(f.units))+"u":"")+"</td>"'
-    r'+"<td class=\"num\">"+esc(String(f.odds||""))+"</td>"'
-    r'+"<td class=\"num\">"+(now?("<span class=\"nx-livep\"><strong>"+now+"</strong><span>"+src+"</span></span>"):"<span class=\"nx-mut\">Unavailable</span>")+"</td>"'
-    r'+"<td class=\"num\">"+(mv||"<span class=\"nx-mut\">&mdash;</span>")+"</td></tr>";}).join("");'
-    r'if(fine)fine.textContent="Entry is the price we carded. Now is the current market price from the source shown; percentages are implied probability. Prices are per leg, converted from cents to American"+(latest?(", as of "+new Date(latest).toLocaleString("en-US",{timeZone:"America/Los_Angeles",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})+" PT"):"")+". Not live or executable quotes.";'
+    r'+metricCell("Units",f.units!=null?esc(String(f.units))+"u":"&mdash;")'
+    r'+metricCell("Entry",esc(String(f.odds||""))||"&mdash;")'
+    r'+metricCell("Recorded quote",quoteCell(quote))'
+    r'+metricCell("Since entry",mv||"&mdash;")+"</tr>";}).join("");'
+    r'if(fine)fine.textContent="Entry is the recorded pick price. Each reference quote shows its source and observation time. Since entry compares implied probabilities. Prices are per leg.";'
     r'}).catch(function(){tb.innerHTML="<tr><td colspan=\"5\">Futures unavailable right now.</td></tr>";});'
     r'})();</script>')
     _nfl_slate=(
