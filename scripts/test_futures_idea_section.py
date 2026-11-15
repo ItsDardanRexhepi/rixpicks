@@ -58,15 +58,21 @@ for B in BUILDERS:
     check(f'{tag}: combos module found', bool(mod))
     if not mod: continue
     has_fut_box = 'id="rpCmbFut"' in mod
-    check(f'{tag}: page carries a separate Futures Ideas card, hidden by default',
-          bool(re.search(r'<div id="rpCmbFutWrap"(?=[^>]*\shidden[\s>])[^>]*><div class="rpwhead">Futures Ideas</div><div id="rpCmbFut"[^>]*></div></div>', mod)))
+    section = re.search(r'<section\b[^>]*aria-labelledby="wi-fut-h"[^>]*>(.*?)</section>', mod, re.S)
+    section_html = section.group(1) if section else ''
+    check(f'{tag}: the labelled Futures Ideas section has a separate card, hidden by default',
+          bool(re.search(r'<h2\b[^>]*id="wi-fut-h"[^>]*>\s*Futures ideas\b', section_html, re.I))
+          and bool(re.search(r'<div id="rpCmbFutWrap"(?=[^>]*\shidden[\s>])[^>]*>\s*<div id="rpCmbFut"[^>]*></div>', section_html)))
+    futures_leg = FUT['legs'][0]
+    def has_futures_leg(html):
+        return futures_leg['player'] in html and futures_leg['market'] in html
     script = re.search(r'<script>([\s\S]*)</script>', mod[mod.find('<script>(function(){var box=document.getElementById("rpCmb")'):]).group(1)
     o = run(script, [SGP, FUT], has_fut_box)
-    check(f'{tag}: season-long futures idea is not listed under Same Game Parlays', 'NFL Futures' not in o.get('sgp', 'NFL Futures'))
+    check(f'{tag}: season-long futures idea is not listed under Same Game Parlays', 'sgp' in o and futures_leg['player'] not in o['sgp'])
     check(f'{tag}: same-game idea stays under Same Game Parlays', 'Strikeouts Parlay' in o.get('sgp', '') and o.get('sgpShown') is True)
-    check(f'{tag}: futures idea renders under Futures Ideas and that card shows', 'NFL Futures' in o.get('fut', '') and o.get('futShown') is True)
+    check(f'{tag}: futures idea renders under Futures Ideas and that card shows', has_futures_leg(o.get('fut', '')) and o.get('futShown') is True)
     o = run(script, [FUT], has_fut_box)
-    check(f'{tag}: futures-only day hides the empty Same Game Parlays card', o.get('sgpShown') is False and 'NFL Futures' in o.get('fut', ''))
+    check(f'{tag}: futures-only day hides the empty Same Game Parlays card', o.get('sgpShown') is False and has_futures_leg(o.get('fut', '')))
     o = run(script, [SGP], has_fut_box)
     check(f'{tag}: no futures item keeps the Futures Ideas card hidden', o.get('futShown') is False and 'Strikeouts Parlay' in o.get('sgp', ''))
 

@@ -9,12 +9,14 @@ cd "$(dirname "$0")/.." || exit 2
 # finals_watch reads its private paths and secrets from these (grading host only); fixtures never use them
 unset RPS_KB RIX_REPO RIX_FINALS_CONFIG RIX_RECORD_TOKEN THE_ODDS_API_KEY
 # file -> reason it is not run here (keep each reason true; remove the entry once it is fixed)
-SKIP="
-scripts/test_manifest_chips_class.py|content check of a built page: needs manifest.json + index.html args
+SKIP=""
+if ! node -e "require('jsdom')" >/dev/null 2>&1; then
+  SKIP="
 scripts/test_feed_fallback_dom.js|needs jsdom; runs in x-feed with the pinned install
 scripts/test_location_reshare.js|needs jsdom; runs in x-feed with the pinned install
-scripts/test_state_gate_pm_path.js|needs jsdom; not yet verified green anywhere
+scripts/test_state_gate_pm_path.js|needs jsdom for region-specific chip rendering
 "
+fi
 skip_reason() { printf '%s\n' "$SKIP" | awk -F'|' -v f="$1" '$1==f {print $2}'; }
 PASS=0; FAILED=""; SKIPPED=0
 # RP_FIXTURES_JOBS=N runs N files at a time and reports them in the same order as a serial run (the site-change

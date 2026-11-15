@@ -93,6 +93,8 @@ class Scene:
         self.git(self.work, 'remote', 'add', 'origin', self.origin)
         self.git(self.work, 'push', '-q', '-u', 'origin', 'main')
         self.git(self.dir, 'clone', '-q', self.origin, self.other)
+        # Apple Git may create its toolchain cache in TMPDIR while seeding the fixture.
+        self.initial_tmp_entries = set(os.listdir(self.tmp))
 
     def git(self, cwd, *a):
         return subprocess.run(['git', *a], cwd=cwd, env=self.env, check=True, capture_output=True, text=True).stdout.strip()
@@ -113,12 +115,12 @@ class Scene:
                 'status': self.git(self.work, 'status', '--porcelain'),
                 'worktrees': len(self.git(self.work, 'worktree', 'list').splitlines()),
                 'temp_branches': self.git(self.work, 'branch', '--list', 'record-final-local-*'),
-                'temp_dirs': sorted(os.listdir(self.tmp))}
+                'temp_changes': sorted(set(os.listdir(self.tmp)) ^ self.initial_tmp_entries)}
 
     def close(self):
         shutil.rmtree(self.dir, ignore_errors=True)
 
-TIDY = {'branch': 'main', 'status': '', 'worktrees': 1, 'temp_branches': '', 'temp_dirs': []}
+TIDY = {'branch': 'main', 'status': '', 'worktrees': 1, 'temp_branches': '', 'temp_changes': []}
 FULL = ['gate --hold', 'record_final', 'build_history history.json', 'site RP_REFRESH=1 manifest.json index.html']
 
 def scene_run(label, **env):

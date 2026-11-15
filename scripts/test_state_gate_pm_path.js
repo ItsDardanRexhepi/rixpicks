@@ -3,7 +3,7 @@
    a pick priced by a prediction-market arm must RENDER that chip in CA and in the
    unresolved state - the fail-closed default is the nationwide PM set (KAL/POLY/DKP/FDP),
    not KAL alone. Drives the REAL rpFilter/rpBookLive/RP_LEGAL_STATE in the built page:
-   injects synthetic priced PM-arm chips (builder emission shape) into the first pick,
+   injects synthetic priced chips (builder emission shape) into an isolated test pick,
    runs the gate per state, asserts visibility + tappability.
    Run: node scripts/test_state_gate_pm_path.js */
 'use strict';
@@ -16,7 +16,7 @@ function check(label, ok) { if (!ok) failures++; console.log((ok ? 'OK   ' : 'FA
 
 function visibleBooks(win, st) {
   win.rpFilter(st);
-  const pk = win.document.querySelector('.pick');
+  const pk = win.document.getElementById('fixturePricedPick');
   const chips = [...pk.querySelectorAll('[data-book]')].filter(a => !a.querySelector('[data-book]'));
   const vis = {}, hid = [];
   chips.forEach(a => { if (a.style.display !== 'none') vis[a.dataset.book] = a; else hid.push(a.dataset.book); });
@@ -34,9 +34,15 @@ const dom = new JSDOM(html, {
 setTimeout(() => {
   const w = dom.window, d = w.document;
   if (typeof w.rpFilter !== 'function' || typeof w.rpBookLive !== 'function') { console.error('FAIL: gate functions not exposed by built page'); process.exit(1); }
-  const box = d.querySelector('.pick .chips') || d.querySelector('.pick');
-  if (!box) { console.error('FAIL: no pick in built page'); process.exit(1); }
-  ['POLY', 'DKP', 'FDP'].forEach(b => {
+  const pick = d.createElement('div');
+  pick.id = 'fixturePricedPick';
+  pick.className = 'pick';
+  const box = d.createElement('div');
+  box.className = 'chips';
+  pick.appendChild(box);
+  d.body.appendChild(pick);
+  const SB = ['DK', 'MGM', 'BR', 'HR', 'TSB'];
+  ['POLY', 'DKP', 'FDP', ...SB].forEach(b => {
     const a = d.createElement('a');
     a.className = 'chip'; a.setAttribute('data-book', b);
     a.setAttribute('href', 'https://example.com/' + b.toLowerCase() + '/market/1');
@@ -46,7 +52,6 @@ setTimeout(() => {
     a.textContent = b + ' +100';
     box.appendChild(a);
   });
-  const SB = ['DK', 'MGM', 'BR', 'HR', 'TSB'];
 
   let r = visibleBooks(w, 'CA');
   check('CA: POLY chip renders', !!r.vis.POLY);
