@@ -27,13 +27,15 @@ jobs:
       - name: build worker-pointed artifact
         run: |
           set -e
+          python3 .github/pages-release/build.py "$RUNNER_TEMP/rixpicks-site"
           mkdir -p /tmp/site-worker /tmp/site-prod
-          rsync -a --exclude .git --exclude workers --exclude data ./ /tmp/site-worker/
-          rsync -a --exclude .git --exclude workers --exclude data ./ /tmp/site-prod/
+          rsync -a --exclude workers --exclude data "$RUNNER_TEMP/rixpicks-site/" /tmp/site-worker/
+          rsync -a --exclude workers --exclude data "$RUNNER_TEMP/rixpicks-site/" /tmp/site-prod/
           N=$(grep -c "slates/news.json" /tmp/site-worker/index.html)
           echo "news pointer occurrences: $N"
           test "$N" -ge 2
           sed -i "s#'slates/news.json#'${WORKER_NEWS}#g" /tmp/site-worker/index.html
+          python3 .github/pages-release/build.py --verify /tmp/site-worker
           grep -c "$WORKER_NEWS" /tmp/site-worker/index.html
           curl -sI "$WORKER_NEWS" | tr -d '\r' | grep -i '^access-control-allow-origin: \*'
       - name: FLIP (deploy worker-pointed preview)

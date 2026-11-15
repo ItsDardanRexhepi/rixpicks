@@ -1,0 +1,37 @@
+{
+  "filenames": [
+    "nba-nov13.js"
+  ],
+  "markers": [
+    "rix-20261113-nhl-4goal",
+    "rix-20261113-nhl-nsh-vgk-3goal",
+    "wooderNov13Nba",
+    "rixNov13Nba",
+    "nba-nov13.js"
+  ],
+  "selection_hashes": [
+    "7d7b0030c809780d5b37fe6b3977fa1c1ceb34a139b8fe07a93d4154b3e5a845",
+    "cec3dc045cfa9fef3379ff41373a3df26808410528f84c05f3708016741ef6bc",
+    "275875bde3140043f66c8026c67c9ba4e338082a6e7d5c732617b47639c93a19",
+    "3e8c36f0a28a0fa26235eb1b270f5822bac4563f821d3628c4075b64d2794f50"
+  ],
+  "withdrawn_nfl": {
+    "event_date": "2026-11-15",
+    "market": "1+ TD",
+    "players_by_matchup": {
+      "SF@DAL": [
+        "Christian McCaffrey",
+        "Javonte Williams",
+        "CeeDee Lamb"
+      ],
+      "LAR@ARI": [
+        "Kyren Williams",
+        "Blake Corum"
+      ],
+      "SEA@LV": [
+        "Jaxon Smith-Njigba",
+        "Brock Bowers"
+      ]
+    }
+  }
+}
