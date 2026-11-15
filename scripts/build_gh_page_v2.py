@@ -3597,6 +3597,9 @@ function quoteCell(q) {
   return '<span class="nx-livep"><strong>' + fmtML(c2ml(q.cents)) + '</strong><span>' + q.source +
     '</span><time datetime="' + q.observed.toISOString() + '">' + pacific.format(q.observed) + '</time></span>';
 }
+function metricCell(label, content) {
+  return '<td class="num"><span class="nx-quote-label" aria-hidden="true">' + label + '</span>' + content + '</td>';
+}
 function movement(entry, quote) {
   if (entry == null || !quote) return "";
   var start = (entry * 100).toFixed(1), end = quote.cents.toFixed(1);
@@ -3614,10 +3617,10 @@ function movement(entry, quote) {
     r'if(!quote&&pm.verified===true)quote=recordedQuote(pm.cents,pm.quoted_at,"Polymarket");'
     r'var mv=movement(impAm(f.odds),quote);'
     r'return "<tr><td><span class=\"nx-team\"><strong>"+esc(f.team)+"</strong><span>"+esc(f.market)+(f.note?" \u00b7 "+esc(f.note):"")+"</span></span></td>"'
-    r'+"<td class=\"num\">"+(f.units!=null?esc(String(f.units))+"u":"")+"</td>"'
-    r'+"<td class=\"num\">"+esc(String(f.odds||""))+"</td>"'
-    r'+"<td class=\"num\">"+quoteCell(quote)+"</td>"'
-    r'+"<td class=\"num\">"+(mv||"<span class=\"nx-mut\">&mdash;</span>")+"</td></tr>";}).join("");'
+    r'+metricCell("Units",f.units!=null?esc(String(f.units))+"u":"&mdash;")'
+    r'+metricCell("Entry",esc(String(f.odds||""))||"&mdash;")'
+    r'+metricCell("Recorded quote",quoteCell(quote))'
+    r'+metricCell("Since entry",mv||"&mdash;")+"</tr>";}).join("");'
     r'if(fine)fine.textContent="Entry is the recorded pick price. Each reference quote shows its source and observation time. Since entry compares implied probabilities. Prices are per leg.";'
     r'}).catch(function(){tb.innerHTML="<tr><td colspan=\"5\">Futures unavailable right now.</td></tr>";});'
     r'})();</script>')
