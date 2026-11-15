@@ -1,4 +1,4 @@
-"""Recognize Julian's withdrawn November 15 card from its described selections."""
+"""Recognize the withdrawn November 15 NFL card from its described selections."""
 from datetime import date, datetime
 import re
 import unicodedata
