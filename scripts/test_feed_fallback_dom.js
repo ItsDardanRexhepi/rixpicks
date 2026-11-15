@@ -78,7 +78,7 @@ const ctx = vm.createContext({
   newsBucket: () => stories,
   newsBucketAll: () => stories,
 });
-const NAMES = ['esc','unesc','pubT','ago','newsBlurb','normH','isNewIt','isPublishableNews','isPublishablePost','imgOpt','carKey',
+const NAMES = ['esc','unesc','pubT','ago','newsBlurb','normH','isNewIt','isPublishableNews','isPublishablePost','imgOpt','onNewsImageError','RPimgErr','carKey',
  'rpMapFresh','buildPairs','zeroPairSocial','isSportsPost','carClonify','carCloned','carMove','carNoTrans','carApply','socApply',
  'socMove','carAdv','socAdv','socGo','carStep','socStep','carObserve','feedCacheSave','socSync','socMapRetry','socMatchMore','ingestX','renderNews','renderSocial','socMatchPair'];
 /* real top-level RP_* constants (single-line regex/string decls) + league kw object */
@@ -202,5 +202,14 @@ check('stale map + posts: unavailable message cleared', !!doc.getElementById('rp
 /* settled feeds with zero NEWS inventory: Social unavailable status is independent of the news carousel */
 vm.runInContext(`CAR_LAST=[];PAIRS=[];NEWS_READY=true;XFEED_DONE=true;SOC_MAP_DONE=true;document.getElementById('rpSocial').innerHTML='';renderSocial();`, ctx);
 check('zero news inventory: Social still says unavailable', !!doc.getElementById('rpSocUnavail') && /temporarily unavailable/.test(doc.getElementById('rpSocial').textContent), true);
+// Native image errors do not bubble. The listener installed by renderNews must see them in capture.
+const image = doc.createElement('img');
+image.dataset.rsrc = 'https://example.test/image';
+doc.getElementById('rpNewsCar').appendChild(image);
+const retries = [];
+ctx.setTimeout = (fn, ms) => retries.push(ms);
+image.dispatchEvent(new dom.window.Event('error', { bubbles: false }));
+check('rerendered news binds exactly one retry on a native image error', retries, [1500]);
+check('failed news image retains its retry state', image.dataset.rtry, '1');
 console.log(failures ? ('FAILURES: ' + failures) : 'ALL CHECKS PASS');
 process.exit(failures ? 1 : 0);
