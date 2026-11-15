@@ -14,7 +14,11 @@ check('NFL tab link present exactly once', (html.match(/data-tab="nfl"/g) || [])
 const tabM = html.match(/<a class="tab"[^>]*data-tab="nfl"[^>]*>/);
 if (tabM) check('NFL tab ships visible (full page even on off days)', !/display\s*:\s*none/.test(tabM[0]), tabM[0]);
 check('picks day-state section present', html.includes('id="rpNflPicks"'), 'rpNflPicks');
-check('off-day panel present', html.includes('No NFL card today'), 'offday');
+const picksPanel = (html.match(/<section\b[^>]*\bid="rpNflPicks"[^>]*>[\s\S]*?<\/section>/i) || [''])[0];
+check('NFL picks start in the published-card loading state',
+  /class="[^"]*\bnx-offday\b[^"]*"/.test(picksPanel) &&
+  picksPanel.includes('Checking published NFL cards') && !picksPanel.includes('No NFL card today'),
+  'the tab must wait for published cards before declaring an empty day');
 check('futures table body present', html.includes('id="rpNflFutBody"'), 'rpNflFutBody');
 check('single pricing fine line element present', html.includes('id="rpNflFutFine"'), 'rpNflFutFine');
 check('weekly slate mount present', html.includes('id="rpNflSlate"'), 'rpNflSlate');

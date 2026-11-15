@@ -89,8 +89,9 @@ def rpdate(index):
 
 def module(index, marker):
     """The inline <script> block that hydrates one module (found by its box id)."""
-    for mo in re.finditer(r'<script>(\(function\(\)\{[\s\S]*?\}\)\(\);)</script>', index):
-        if marker in mo.group(1)[:200]:
+    binding = f'(function(){{var box=document.getElementById("{marker}")'
+    for mo in re.finditer(r'<script>(.*?)</script>', index, re.DOTALL):
+        if mo.group(1).lstrip().startswith(binding):
             return mo.group(1)
     return ''
 

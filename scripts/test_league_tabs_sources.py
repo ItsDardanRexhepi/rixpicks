@@ -141,7 +141,7 @@ const timers=[];
 const ctx={console,JSON,Math,Date,Intl,String,Number,Array,Object,Promise,RegExp,isFinite,parseInt,parseFloat,
  document:{readyState:'complete',hidden:false,getElementById:get,querySelector:()=>null,querySelectorAll:()=>[],createElement:()=>El('x'),head:{appendChild(){}},addEventListener(){}},
  localStorage:{getItem:()=>null,setItem(){}},setTimeout:(f)=>{timers.push(f);return 1;},setInterval:()=>1,
- fetch:(u)=>{const m=/slates\/([a-z_]+\.json)/.exec(String(u));const d=m?IN.feeds[m[1]]:undefined;
+ fetch:(u)=>{const m=/^(?:slates\/)?([a-z_]+\.json)(?:\?|$)/.exec(String(u));const d=m?IN.feeds[m[1]]:undefined;
    return Promise.resolve(d===undefined?{ok:false,json:()=>Promise.reject(0)}:{ok:true,json:()=>Promise.resolve(JSON.parse(JSON.stringify(d)))});}};
 ctx.window=ctx;ctx.window.addEventListener=function(){};
 vm.createContext(ctx);
@@ -151,7 +151,7 @@ for(const s of IN.mods){try{vm.runInContext(s,ctx);}catch(e){console.error('modu
 const tick=()=>new Promise(r=>setImmediate(r));
 (async()=>{for(let i=0;i<8;i++){await tick();while(timers.length)timers.shift()();}
  const out={boxes:{},attrs:{},bind:{}};
- for(const id of ['rpTix','rpCmb','rpCmbFut','rpBatchIdeas','rpFtd','rpDing'])out.boxes[id]=(E[id]||{}).innerHTML||'';
+ for(const id of ['rpTix','rpCmb','rpCmbFut','rpBatchIdeas','rpFtd','rpDing','rpNflFutBody'])out.boxes[id]=(E[id]||{}).innerHTML||'';
  out.attrs.dingWrap=(E.rpDing&&E.rpDing.parentNode.parentNode.attrs)||{};
  for(const [k,list] of Object.entries(IN.items))out.bind[k]=list.map(it=>ctx.rpLg.of(it));
  process.stdout.write(JSON.stringify(out));})();
@@ -241,10 +241,10 @@ for B in BUILDERS:
     # 4. run the binder and the modules as shipped
     lg = script_after(page, '<style id="rpLgShare">')
     mods = [script_after(page, 'id="rpTix"'), script_after(page, 'id="rpCmbFut"'), script_after(page, 'id="rpBatchIdeas"'),
-            script_after(page, 'id="rpFtd"'), script_after(page, 'id="rpDing"')]
+            script_after(page, 'id="rpFtd"'), script_after(page, 'id="rpDing"'), script_after(page, 'id="rpNflFutBody"')]
     fresh = js_fn(page, 'rpComboFresh')
     check(f'{tag}: binder and modules found in the page', bool(lg) and all(mods) and bool(fresh))
-    feeds = dict(FEEDS)
+    feeds = dict(FEEDS, **{'futures.json': FUTURES})
     probe = {'tickets': TICKETS['tickets'], 'combos': COMBOS['combos'], 'batch': BATCH['cards'], 'ftd': FIRST_TD['picks']}
     r = subprocess.run(['node', '-e', HARNESS], input=json.dumps({'lg': lg, 'fresh': fresh, 'mods': mods, 'feeds': feeds, 'items': probe}),
                        capture_output=True, text=True, timeout=60)
@@ -259,18 +259,22 @@ for B in BUILDERS:
     check(f'{tag}: every Wooder Ice ticket renders in the one Wooder ticket box (WNBA included)', sorted(tix) == ['fx-multi', 'fx-nfl', 'fx-none', 'fx-wnba'], sorted(tix))
     check(f'{tag}: tickets carry their leagues; a two-league ticket both; an unbindable one none',
           [sorted(lg_of(tix.get(i, {'attrs': {}}))) for i in ('fx-nfl', 'fx-wnba', 'fx-multi', 'fx-none')] == [['nfl'], ['wnba'], ['nfl', 'nhl'], []])
-    check(f'{tag}: the two-league ticket shows whole and says where it shows', 'Fx Back' in tix.get('fx-multi', {}).get('text', '') and 'Fx Wing' in tix.get('fx-multi', {}).get('text', '')
-          and 'Legs in NFL and NHL: the whole ticket shows in each of their tabs.' in tix.get('fx-multi', {}).get('text', ''))
+    check(f'{tag}: the whole two-league ticket names both leagues', 'Fx Back' in tix.get('fx-multi', {}).get('text', '') and 'Fx Wing' in tix.get('fx-multi', {}).get('text', '')
+          and 'NFL · NHL' in tix.get('fx-multi', {}).get('text', ''))
     wn = out['boxes']['rpTix']
     check(f'{tag}: WNBA legs track their own ESPN event (event id, league path, stat, target, intended-only)',
           'class="rpevtrk" data-eid="401918297" data-espn="basketball/wnba" data-p="Fx Forward" data-stat="points" data-target="10" data-intended="0"' in wn
           and 'data-eid="401918298" data-espn="basketball/wnba" data-p="Fx Center" data-stat="points" data-target="20" data-intended="1"' in wn)
-    check(f'{tag}: the placement note shows with its ticket, labelled as reported by Wooder Ice', 'FXPLACEMENTNOTE' in tix.get('fx-wnba', {}).get('text', '')
-          and 'PLACED - reported by Wooder Ice' in tix.get('fx-wnba', {}).get('text', ''))
+    note = re.search(r'<div id="rpWNote"[^>]*>(.*?)</div>', page, re.S)
+    check(f'{tag}: ticket is labelled Placed and its page explains the source and verification limits',
+          'WNBA · Placed' in tix.get('fx-wnba', {}).get('text', '') and bool(note)
+          and 'means Wooder Ice reported the ticket' in note.group(1)
+          and "fill and settlement aren't independently verified" in note.group(1))
     cmb = {k['text'].strip().split(' ')[0]: k for k in items(out['boxes']['rpCmb'])}
-    fut = {k['text'].strip().split(' ')[0]: k for k in items(out['boxes']['rpCmbFut'])}
+    nfl_future = next((card for card in items(out['boxes']['rpCmbFut']) if 'Fx Wideout' in card['text']
+                       and '1000+ receiving yards' in card['text']), {'attrs': {}})
     check(f'{tag}: combos carry their league; a stale one is not shown', sorted(lg_of(cmb.get('FXMLBIDEA', {'attrs': {}}))) == ['mlb']
-          and sorted(lg_of(fut.get('FXNFLFUTURESIDEA', {'attrs': {}}))) == ['nfl'] and 'FXSTALEIDEA' not in out['boxes']['rpCmb'] + out['boxes']['rpCmbFut'], (list(cmb), list(fut)))
+          and sorted(lg_of(nfl_future)) == ['nfl'] and 'FXSTALEIDEA' not in out['boxes']['rpCmb'] + out['boxes']['rpCmbFut'], (list(cmb), nfl_future))
     bat = items(out['boxes']['rpBatchIdeas'])
     check(f'{tag}: a batch card carries its league', len(bat) == 1 and lg_of(bat[0]) == {'ncaaf'} and 'FXNCAAFCARD' in bat[0]['text'])
     ftd = {('FXFIRSTTDNFL' if 'FXFIRSTTDNFL' in k['text'] else 'FXFIRSTTDNONE'): k for k in items(out['boxes']['rpFtd'])}
@@ -281,11 +285,14 @@ for B in BUILDERS:
     # 5. every league tab holds every source's picks for that league
     shared = []  # (marker, leagues) for each Wooder Ice item in the shared panels
     for t in TICKETS['tickets']: shared.append((t['title'], lg_of(tix.get(t['id'], {'attrs': {}}))))
-    shared += [('FXMLBIDEA', lg_of(cmb['FXMLBIDEA'])), ('FXNFLFUTURESIDEA', lg_of(fut['FXNFLFUTURESIDEA'])), ('FXNCAAFCARD', lg_of(bat[0])),
+    shared += [('FXMLBIDEA', lg_of(cmb['FXMLBIDEA'])), ('FXNFLFUTURESIDEA', lg_of(nfl_future)), ('FXNCAAFCARD', lg_of(bat[0])),
                ('FXFIRSTTDNFL', lg_of(ftd['FXFIRSTTDNFL'])), ('FXFIRSTTDNONE', lg_of(ftd['FXFIRSTTDNONE'])), ('FXDINGER', {'mlb'})]
     def holds(key):
         own = re.sub(r'<[^>]+>', ' ', panel(page, key))
         got = {mk for mk in ('White Sox ML', 'Lynx ML', 'Fxville Futures', 'Fxtown Settled') if mk in own}
+        if key == 'nfl':
+            nfl_book = out['boxes']['rpNflFutBody']
+            return got | {entry['team'] for entry in FUTURES if entry['team'] in nfl_book}
         if key == 'wooder':
             return got | {mk for mk, _ in shared}
         if key == 'home':
@@ -295,7 +302,7 @@ for B in BUILDERS:
         'home': {'White Sox ML', 'Lynx ML', 'FXDINGER'},
         'mlb': {'White Sox ML', 'FXMLBIDEA', 'FXDINGER'},
         'wnba': {'Lynx ML', 'FXWNBATICKET'},
-        'nfl': {'FXNFLTICKET', 'FXMULTITICKET', 'FXNFLFUTURESIDEA', 'FXFIRSTTDNFL', 'Fxville Futures'},
+        'nfl': {'Fxville Futures'},
         'ncaaf': {'FXNCAAFCARD'},
         'nhl': {'FXMULTITICKET'},
         'wooder': {'FXNFLTICKET', 'FXWNBATICKET', 'FXMULTITICKET', 'FXNOLEAGUETICKET', 'FXMLBIDEA', 'FXNFLFUTURESIDEA', 'FXNCAAFCARD',
