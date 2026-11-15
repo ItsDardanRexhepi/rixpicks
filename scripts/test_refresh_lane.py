@@ -68,6 +68,12 @@ def rc(var):
 if name == 'odds_prefill.py':
     json.dump([{'away': 'A', 'home': 'B', 'tick': tick}], open(os.path.join(T, 'odds_prefill.json'), 'w'))
     print('americanfootball_nfl: 1 events, credits remaining %s' % os.environ['STUB_REMAINING'], file=sys.stderr)
+    if rc('STUB_PREFILL_RC'):
+        sys.exit(rc('STUB_PREFILL_RC'))
+elif name == 'odds_prefill_st.py' and os.environ.get('STUB_ST_ERROR'):
+    assert os.environ.get('ODDS_CREDITS_LEDGER') and os.environ.get('ODDS_PREFILL_ST_OUT')
+    print(os.environ['STUB_ST_ERROR'], file=sys.stderr)
+    sys.exit(2)
 elif name == 'futures_quotes.py':
     json.dump({'tick': tick}, open('futures.json', 'w'))
 elif name == 'live_games.py':
@@ -225,6 +231,17 @@ try:
     check('A the reading lands in the ops state outside the checkout, with its PT date and month',
           ops_file(L) == {'pt_date': TODAY, 'month': MONTH, 'last_remaining': REM}, ops_file(L))
     check('A this month\'s reading needs no free reading', not any(c.startswith('curl:') for c in calls(L['tmp'])), calls(L['tmp']))
+
+    L = lane({'STUB_ST_ERROR': 'provider credit cap reached'})
+    check('the ST cap message stops later feeds and is reported before any commit',
+          L['rc'] == 1 and 'ST BUDGET BREACH' in L['err'] and 'provider credit cap reached' in L['err']
+          and 'futures_quotes.py' not in calls(L['tmp']) and origin_log(L['origin']) == ['seed'], L['err'][-350:])
+    L = lane({'STUB_ST_ERROR': 'fixture feed temporarily unavailable'})
+    check('ordinary ST failure keeps the previous file and continues the refresh',
+          L['rc'] == 0 and 'keeping last st file' in L['err'] and 'futures_quotes.py' in calls(L['tmp']), L['err'][-350:])
+    L = lane({'STUB_PREFILL_RC': '7'})
+    check('main prefill preserves its failure exit status and diagnostics',
+          L['rc'] == 7 and 'credits remaining' in L['err'] and 'odds_prefill_st.py' not in calls(L['tmp']), L['err'][-350:])
 
     # B. the hard-cap tripwire reads the ops state before any paid pull (a reading stored before the
     #    month was recorded counts in the month of its PT date)
