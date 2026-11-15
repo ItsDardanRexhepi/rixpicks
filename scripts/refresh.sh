@@ -105,9 +105,23 @@ m=json.load(open('manifest.json'))
 reg=json.load(open('config_leagues.json'))['leagues']
 ls=sorted({(reg.get(p.get('league','')) or {}).get('odds_api') or 'baseball_mlb' for p in m['picks']})
 print(' '.join(ls))")
-python3 scripts/odds_prefill.py $SPORTS 2> >(tee "$T/odds_prefill.err" >&2)
+# Read the completed diagnostics before using their provider count or credit-cap signal.
+capture_feed_stderr() {
+  local diagnostics="$1" status=0
+  shift
+  "$@" 2>"$diagnostics" || status=$?
+  cat "$diagnostics" >&2
+  return "$status"
+}
+capture_feed_stderr "$T/odds_prefill.err" python3 scripts/odds_prefill.py $SPORTS
 cp "$T/odds_prefill.json" slates/odds_prefill.json
-ODDS_CREDITS_LEDGER="$T/odds_credits_gha.jsonl" ODDS_PREFILL_ST_OUT=slates/odds_prefill_st.json ODDS_PREFILL_ST_SNAPSHOT=slates/odds_prefill_st_pregame.json python3 scripts/odds_prefill_st.py $SPORTS 2> >(tee "$T/odds_prefill_st.err" >&2) || { if grep -q "credit cap" "$T/odds_prefill_st.err" 2>/dev/null; then echo "ST BUDGET BREACH - hard fail" >&2; exit 1; fi; echo "odds_prefill_st failed - keeping last st file" >&2; }
+ODDS_CREDITS_LEDGER="$T/odds_credits_gha.jsonl" ODDS_PREFILL_ST_OUT=slates/odds_prefill_st.json ODDS_PREFILL_ST_SNAPSHOT=slates/odds_prefill_st_pregame.json capture_feed_stderr "$T/odds_prefill_st.err" python3 scripts/odds_prefill_st.py $SPORTS || {
+  if grep -q "credit cap" "$T/odds_prefill_st.err"; then
+    echo "ST BUDGET BREACH - hard fail" >&2
+    exit 1
+  fi
+  echo "odds_prefill_st failed - keeping last st file" >&2
+}
 # props prefill (paid tier; J-123a gate in-script): in-window NFL/MLB event ids from the st pull
 python3 - <<'PYX' > "$T/props_args.txt"
 import json, datetime
