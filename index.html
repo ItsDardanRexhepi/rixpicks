@@ -3483,12 +3483,17 @@ function imgOpt(u){
  if(u.indexOf('images.weserv.nl/')>=0||u.indexOf('s.yimg.com/')>=0)return u;
  return 'https://images.weserv.nl/?url='+encodeURIComponent(u.slice(8))+'&w=1200&h=675&fit=cover&q=78&output=webp';
 }
+function onNewsImageError(event){
+ var im=event.target;
+ if(im.tagName==='IMG'&&im.hasAttribute('data-rsrc'))RPimgErr(im);
+}
 function RPimgErr(im){
+ if(!im.isConnected)return;
  var u=im.getAttribute('data-rsrc')||im.src,n=+(im.getAttribute('data-rtry')||0);
  /* owner 7:13 kill-at-source: one transient load error never downgrades a card - retry twice
     (1.5s, 4s) with a fresh probe; on recovery the parent background is force-repainted. Only a
     confirmed-dead image reaches the league fallback, and every swap is logged. */
- if(n<2){im.setAttribute('data-rtry',n+1);setTimeout(function(){var t=new Image();t.onload=function(){var p=im.parentNode;if(p){p.style.backgroundImage='none';void p.offsetHeight;p.style.backgroundImage='url("'+u+'")';}im.remove();};t.onerror=function(){RPimgErr(im);};t.src=u;},n?4000:1500);return;}
+ if(n<2){im.setAttribute('data-rtry',n+1);setTimeout(function(){if(!im.isConnected)return;var t=new Image();t.onload=function(){if(!im.isConnected)return;var p=im.parentNode;if(p){p.style.backgroundImage='none';void p.offsetHeight;p.style.backgroundImage='url("'+u+'")';}im.remove();};t.onerror=function(){RPimgErr(im);};t.src=u;},n?4000:1500);return;}
  var p=im.parentNode;if(p){p.style.backgroundImage='none';p.className='carimg carimg-fb';p.setAttribute('data-lg',im.getAttribute('data-lg')||'SPORTS');}
  try{var L=JSON.parse(localStorage.getItem('rp_imgfb_v1')||'[]');L.push({u:u,ts:Date.now()});if(L.length>50)L=L.slice(-50);localStorage.setItem('rp_imgfb_v1',JSON.stringify(L));}catch(e){}
  (window.RP_IMGFB=window.RP_IMGFB||[]).push({u:u,ts:Date.now()});
@@ -3692,6 +3697,8 @@ function feedCacheLoad(){try{var j=JSON.parse(localStorage.getItem('rp_feed_v2')
  return j;}catch(e){return null;}}
 function renderNews(t,arts){
  var box=$('rpNewsCar');if(!box)return;
+ // Capture non-bubbling image failures on this carousel, including its cloned slides.
+ box.addEventListener('error',onNewsImageError,true);
  if(t&&t.key!=='home'){box.innerHTML='';return;}  /* owner 12:54: News renders on Home only - no leaks, no per-tab feeds */
 
  var base=(arts||[]).filter(isPublishableNews);
@@ -3746,7 +3753,7 @@ function renderNews(t,arts){
   var blurb=newsBlurb(a),_age=ago(a.published);
   /* owner 6:59 graphics class kill: a card ALWAYS carries art - the real image, or the
      designed league fallback when the source has none or the URL dies at load time. */
-  var inner=(img?'<span class="carimg" style="background-image:url(\''+esc(img)+'\')"><img src="'+esc(img)+'" data-rsrc="'+esc(img)+'" data-lg="'+esc(lg)+'" alt="" style="display:none" onerror="RPimgErr(this)"></span>':'<span class="carimg carimg-fb" data-lg="'+esc(lg)+'"></span>')
+  var inner=(img?'<span class="carimg" style="background-image:url(\''+esc(img)+'\')"><img src="'+esc(img)+'" data-rsrc="'+esc(img)+'" data-lg="'+esc(lg)+'" alt="" style="display:none"></span>':'<span class="carimg carimg-fb" data-lg="'+esc(lg)+'"></span>')
    +'<span class="carbody"><span class="carhead">'+esc(unesc(a.headline||''))+'</span>'
    +(blurb?'<span class="carblurb">'+esc(unesc(blurb))+'</span>':'')
    +'<span class="carmeta"><span class="src '+esc(src.toLowerCase())+'">'+esc(src)+'</span>'+(_age?' \u00b7 '+esc(_age):'')+(isNewIt(a)?' <span class="carnew">new</span>':'')+'</span></span>';
