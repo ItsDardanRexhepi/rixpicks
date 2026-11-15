@@ -69,6 +69,33 @@ class PagesReleaseTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Withdrawn card reference'):
                 verify(site)
 
+    def test_nfl_semantic_identity_preserves_neighboring_cards(self):
+        players = [('Christian McCaffrey','SF @ DAL'), ('Javonte Williams','SF @ DAL'), ('CeeDee Lamb','SF @ DAL'),
+                   ('Kyren Williams','LAR @ ARI'), ('Blake Corum','LAR @ ARI'),
+                   ('Jaxon Smith-Njigba','SEA @ LV'), ('Brock Bowers','SEA @ LV')]
+        legs = [dict(player=p, matchup=g, market='1+ TD', league='NFL') for p,g in players]
+        card = {'date':'2026-11-15', 'legs':legs}
+        with tempfile.TemporaryDirectory() as tmp:
+            site = Path(tmp)
+            for fmt in ('json', 'js'):
+                with self.subTest(fmt=fmt):
+                    product = site / ('saved.'+fmt)
+                    renamed = {'date':card['date'], 'selections':[*reversed(legs)]}
+                    data = json.dumps({'tickets':[renamed]})
+                    product.write_text(data if fmt=='json' else 'window.cardFeed = '+data+';')
+                    with self.assertRaisesRegex(ValueError, 'seven-player NFL'):
+                        verify(site)
+                    product.unlink()
+            for label, change in [('new-player',{'player':'Other player'}), ('new-market',{'market':'2+ TD'}),
+                                  ('other-match',{'matchup':'SEA @ SF'}), ('different-line',{'line':10})]:
+                with self.subTest(control=label):
+                    candidate = copy.deepcopy(card)
+                    candidate['legs'][0].update(change)
+                    (site/'other.json').write_text(json.dumps(candidate))
+                    verify(site)
+            (site/'other.json').write_text(json.dumps({**card,'date':'2026-11-22'}))
+            verify(site)
+
 
 if __name__ == '__main__':
     unittest.main()

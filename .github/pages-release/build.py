@@ -7,6 +7,7 @@ import re
 import subprocess
 import tarfile
 import tempfile
+from nfl import matches_withdrawn_nfl
 
 
 HERE = Path(__file__).resolve().parent
@@ -34,15 +35,17 @@ def legs_hash(legs):
     return hashlib.sha256(json.dumps(values, separators=(',', ':')).encode()).hexdigest()
 
 
-def check_cards(value, blocked, name):
+def check_cards(value, blocked, nfl, name):
     if isinstance(value, dict):
         if legs_hash(value.get('legs')) in blocked:
             raise ValueError(f'Withdrawn card selections found in {name}')
+        if matches_withdrawn_nfl(value, nfl):
+            raise ValueError(f'Withdrawn November 15 seven-player NFL selection found in {name}')
         for entry in value.values():
-            check_cards(entry, blocked, name)
+            check_cards(entry, blocked, nfl, name)
     elif isinstance(value, list):
         for entry in value:
-            check_cards(entry, blocked, name)
+            check_cards(entry, blocked, nfl, name)
 
 
 def verify(directory):
@@ -61,22 +64,22 @@ def verify(directory):
         lower = raw.lower()
         if any(marker in lower for marker in markers):
             raise ValueError(f'Withdrawn card reference in {name}')
-        if b'"legs"' not in lower:
+        if not any(key in lower for key in (b'"legs"', b'"picks"', b'"selections"')):
             continue
         if file.suffix.lower() in {'.json', '.jsonl'}:
             entries = raw.splitlines() if file.suffix.lower() == '.jsonl' else [raw]
             for entry in entries:
                 if entry.strip():
-                    check_cards(json.loads(entry), blocked, name)
+                    check_cards(json.loads(entry), blocked, rules['withdrawn_nfl'], name)
         elif file.suffix.lower() in {'.js', '.mjs', '.html', '.htm'}:
-            # Existing NBA/NHL loaders assign a JSON data object to DATA.
+            # Card loaders use JavaScript assignments with JSON data.
             source = raw.decode('utf-8', errors='replace')
-            for match in re.finditer(r'\bDATA\s*=\s*(?=[{\[])', source):
+            for match in re.finditer(r'\b[\w$]+\s*=\s*(?=[{\[])', source):
                 try:
                     value, _ = json.JSONDecoder().raw_decode(source, match.end())
                 except ValueError:
                     continue
-                check_cards(value, blocked, name)
+                check_cards(value, blocked, rules['withdrawn_nfl'], name)
 
 
 def build(output):
