@@ -26,12 +26,11 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy . --project-name=rix-picks --branch=main --commit-dirty=true
       - name: verify pages.dev mirror
+        timeout-minutes: 6
         run: |
           for i in $(seq 1 18); do
-            LIVE=$(curl -fsSL "https://rix-picks.pages.dev/?cb=$RANDOM" 2>/dev/null || true)
-            BID=$(grep -oE "RP_BUILD='[0-9]+'" index.html | head -1)
-            if [ -n "$LIVE" ] && [ -n "$BID" ] && echo "$LIVE" | grep -q "$BID"; then echo "CF MIRROR LIVE: $BID"; exit 0; fi
-            echo "attempt $i: mirror not serving $BID yet"
+            if python3 scripts/verify_pages_mirror.py https://rix-picks.pages.dev; then exit 0; fi
+            echo "Attempt $i: waiting for the checked release to reach the mirror"
             sleep 10
           done
           echo "CF MIRROR VERIFY FAILED"; exit 1
