@@ -13,4 +13,6 @@ t('overnight 12:00Z, last quote 06:50: fresh', futuresFresh(Z('2026-10-01T12:00:
 t('overnight 12:00Z, quoter died at 03:00: STALE', futuresFresh(Z('2026-10-01T12:00:00Z'), Z('2026-10-01T03:00:00Z')), false);
 t('16:30Z in window, last quote from yesterday: STALE', futuresFresh(Z('2026-10-01T16:30:00Z'), Z('2026-10-01T06:50:00Z')), false);
 t('no quote: STALE', futuresFresh(Z('2026-10-01T03:00:00Z'), NaN), false);
+t('future-dated quote cannot verify an open window', futuresFresh(Z('2026-10-01T03:00:00Z'), Z('2026-10-02T03:00:00Z')), false);
+t('future-dated quote cannot verify an overnight window', futuresFresh(Z('2026-10-01T12:00:00Z'), Z('2026-10-01T13:00:00Z')), false);
 console.log(f ? 'FAILURES: ' + f : 'ALL CHECKS PASS'); process.exit(f ? 1 : 0);

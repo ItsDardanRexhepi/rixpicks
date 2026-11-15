@@ -38,6 +38,44 @@ def pull_series(series):
         time.sleep(0.3)
     return out
 
+def matching_market(markets, label, keyword):
+    """Match one verified question within the event. Ambiguous matches supply no quote."""
+    questions = [(str(m.get('question') or '').strip().casefold(), m)
+                 for m in markets if isinstance(m, dict)]
+    label = (label or '').strip().casefold()
+    keyword = (keyword or '').strip().casefold()
+    if label:
+        exact = [m for q, m in questions if q == label]
+        if exact:
+            return exact[0] if len(exact) == 1 else None
+        # A complete, verified question must still name this exact market on the provider.
+        if label.endswith('?'):
+            return None
+    term = label or keyword
+    matches = [m for q, m in questions if term and term in q]
+    return matches[0] if len(matches) == 1 else None
+
+
+def yes_price_cents(market):
+    """Read the price paired with the explicit Yes outcome in the provider response."""
+    def values(raw):
+        return json.loads(raw) if isinstance(raw, str) else raw
+
+    try:
+        outcomes = values(market.get('outcomes'))
+        prices = values(market.get('outcomePrices'))
+        if not isinstance(outcomes, list) or not isinstance(prices, list) or len(outcomes) != len(prices):
+            return None
+        indices = [i for i, label in enumerate(outcomes) if str(label).strip().casefold() == 'yes']
+        if len(indices) != 1 or isinstance(prices[indices[0]], bool):
+            return None
+        price = float(prices[indices[0]])
+        cents = round(price * 100) if 0 < price < 1 else 0
+        return cents if 0 < cents < 100 else None
+    except (TypeError, ValueError):
+        return None
+
+
 def main(path, write=False):
     rows = json.load(open(path))
     cache = {}
@@ -79,27 +117,13 @@ def main(path, write=False):
         try:
             ev = get(f"https://gamma-api.polymarket.com/events?slug={slug}")
             mkts = (ev[0].get('markets') if ev else []) or []
-            m = None
-            lbl = (pc.get('market_label') or '').lower()
-            kw = (r.get('poly_kw') or '').lower()
-            for cand in mkts:
-                q = (cand.get('question') or '').lower()
-                if lbl and q == lbl: m = cand; break
-            if m is None and lbl:
-                for cand in mkts:
-                    if lbl in (cand.get('question') or '').lower(): m = cand; break
-            if m is None and kw:
-                for cand in mkts:
-                    if kw in (cand.get('question') or '').lower(): m = cand; break
+            m = matching_market(mkts, pc.get('market_label'), r.get('poly_kw'))
             if m is None:
                 print(f"COM-NOMATCH {slug}", file=sys.stderr); continue
-            outs = json.loads(m.get('outcomes') or '[]')
-            prs = json.loads(m.get('outcomePrices') or '[]')
-            idx = next((i for i,o in enumerate(outs) if str(o).lower()=='yes'), 0)
-            pr = float(prs[idx])
-            if not (0 < pr < 1):
-                print(f"COM-BADPX {slug}: {pr}", file=sys.stderr); continue
-            pc['cents'] = round(pr*100)
+            cents = yes_price_cents(m)
+            if cents is None:
+                print(f"COM-BADPX {slug}: missing or ambiguous Yes price", file=sys.stderr); continue
+            pc['cents'] = cents
             pc['quoted_at'] = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')
             print(f"COM-OK {slug}: {pc['cents']}c")
         except Exception as ex:
